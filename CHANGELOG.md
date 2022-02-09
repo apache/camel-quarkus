@@ -4,16 +4,28 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.7.0...HEAD)
 
+**Implemented enhancements:**
+
+- Camel-xslt-quarkus: add extension functions support [\#3503](https://github.com/apache/camel-quarkus/issues/3503)
+
 **Closed issues:**
 
 - Incorrect version of `quarkus-maven-plugin` may be resolved [\#3520](https://github.com/apache/camel-quarkus/issues/3520)
 - Prevent various plugins from resolving commons-logging:commons-logging [\#3517](https://github.com/apache/camel-quarkus/issues/3517)
 - Expand Cassandra CQL extension test coverage [\#3514](https://github.com/apache/camel-quarkus/issues/3514)
 - Ban javax.servlet:servlet-api in favor of jakarta.servlet:jakarta.servlet-api [\#3496](https://github.com/apache/camel-quarkus/issues/3496)
+- Camel 3.15 - Some dataformats renamed [\#3460](https://github.com/apache/camel-quarkus/issues/3460)
+- \[Camel 3.15\] Fhir tests are failing [\#3416](https://github.com/apache/camel-quarkus/issues/3416)
 - A tool to check/sync dependency versions with camel & quarkus  [\#1684](https://github.com/apache/camel-quarkus/issues/1684)
 
 **Merged pull requests:**
 
+- Exclude json-simple from camel-slack, workaround for CAMEL-17619 [\#3536](https://github.com/apache/camel-quarkus/pull/3536) ([ppalaga](https://github.com/ppalaga))
+- Upgrade to Quarkus 2.7.1 [\#3535](https://github.com/apache/camel-quarkus/pull/3535) ([ppalaga](https://github.com/ppalaga))
+- Remove IPFS and Weka extensions temporarily [\#3533](https://github.com/apache/camel-quarkus/pull/3533) ([ppalaga](https://github.com/ppalaga))
+- Incorrect version of quarkus-maven-plugin may be resolved \#3520 [\#3528](https://github.com/apache/camel-quarkus/pull/3528) ([ppalaga](https://github.com/ppalaga))
+- \#3503 Add xslt.features support [\#3526](https://github.com/apache/camel-quarkus/pull/3526) ([DenisIstomin](https://github.com/DenisIstomin))
+- Upgrade to Camel 3.15.0 [\#3525](https://github.com/apache/camel-quarkus/pull/3525) ([jamesnetherton](https://github.com/jamesnetherton))
 - Clean up usage of `quarkus.test.flat-class-path` [\#3524](https://github.com/apache/camel-quarkus/pull/3524) ([jamesnetherton](https://github.com/jamesnetherton))
 - Build with Maven 3.8.4 [\#3523](https://github.com/apache/camel-quarkus/pull/3523) ([jamesnetherton](https://github.com/jamesnetherton))
 - Expand Cassandra CQL extension test coverage [\#3522](https://github.com/apache/camel-quarkus/pull/3522) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -37,6 +49,7 @@
 - Remove quarkus.camel.main.enabled configuration property [\#3485](https://github.com/apache/camel-quarkus/pull/3485) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump Optaplanner to 8.16.0.Final and enable CI tests [\#3484](https://github.com/apache/camel-quarkus/pull/3484) ([zbendhiba](https://github.com/zbendhiba))
 - 📝 Update Salesforce doc, with more details on setting developer account [\#3482](https://github.com/apache/camel-quarkus/pull/3482) ([zbendhiba](https://github.com/zbendhiba))
+- Fix \#3251 expose REST DSL services to quarkus openapis [\#3481](https://github.com/apache/camel-quarkus/pull/3481) ([zhfeng](https://github.com/zhfeng))
 - camel-website \#701 camel-quarkus RI table setup \(main\) [\#3477](https://github.com/apache/camel-quarkus/pull/3477) ([djencks](https://github.com/djencks))
 - Add NOTE section for smallrye-reactive-messaging usage docs [\#3476](https://github.com/apache/camel-quarkus/pull/3476) ([jamesnetherton](https://github.com/jamesnetherton))
 - Avoid creating `CamelBeanBuildItem` for health checks if they are disabled [\#3475](https://github.com/apache/camel-quarkus/pull/3475) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -943,6 +956,10 @@
 ## [2.7.0](https://github.com/apache/camel-quarkus/tree/2.7.0) (2022-01-28)
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.2.1...2.7.0)
+
+**Implemented enhancements:**
+
+- Camel Rest DSL - Expose Rest DSL services to quarkus openapi [\#3251](https://github.com/apache/camel-quarkus/issues/3251)
 
 **Fixed bugs:**
 
