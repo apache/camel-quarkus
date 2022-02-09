@@ -16,15 +16,10 @@
  */
 package org.apache.camel.quarkus.component.microprofile.it.health;
 
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.path.json.JsonPath;
 import org.apache.camel.ServiceStatus;
-import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.contains;
@@ -161,68 +156,6 @@ class MicroProfileHealthTest {
                             is(ServiceStatus.Stopped.toString()));
         } finally {
             RestAssured.post("/microprofile-health/route/healthyRoute/start")
-                    .then()
-                    .statusCode(204);
-        }
-    }
-
-    @Test
-    public void testFailureThreshold() {
-        try {
-            RestAssured.given()
-                    .queryParam("healthCheckEnabled", "true")
-                    .post("/microprofile-health/failure-threshold")
-                    .then()
-                    .statusCode(204);
-
-            // Configured failure threshold and interval should allow the initial health state be UP
-            RestAssured.when().get("/q/health").then()
-                    .contentType(ContentType.JSON)
-                    .header("Content-Type", containsString("charset=UTF-8"))
-                    .body("status", is("UP"),
-                            "checks.findAll { it.name == 'failure-threshold' }.status.unique()", contains("UP"));
-
-            // Poll the health endpoint until the threshold / interval is exceeded and the health state transitions to DOWN
-            Awaitility.await().atMost(10, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> {
-                JsonPath result = RestAssured.when().get("/q/health").then()
-                        .contentType(ContentType.JSON)
-                        .header("Content-Type", containsString("charset=UTF-8"))
-                        .extract()
-                        .jsonPath();
-
-                String status = result.getString("status");
-                List<String> routeStatus = result.getList("checks.findAll { it.name == 'failure-threshold' }.status.unique()");
-                return status.equals("DOWN") && routeStatus.contains("DOWN");
-            });
-
-            RestAssured.given()
-                    .queryParam("returnStatusUp", true)
-                    .post("/microprofile-health/failure-threshold/return/status")
-                    .then()
-                    .statusCode(204);
-
-            // Try again with a poll delay > the failure interval and wait for the health state to transition to UP
-            Awaitility.await().atMost(10, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> {
-                JsonPath result = RestAssured.when().get("/q/health").then()
-                        .contentType(ContentType.JSON)
-                        .header("Content-Type", containsString("charset=UTF-8"))
-                        .extract()
-                        .jsonPath();
-
-                String status = result.getString("status");
-                List<String> routeStatus = result.getList("checks.findAll { it.name == 'failure-threshold' }.status.unique()");
-                return status.equals("UP") && routeStatus.contains("UP");
-            });
-        } finally {
-            RestAssured.given()
-                    .queryParam("returnStatusUp", false)
-                    .post("/microprofile-health/failure-threshold/return/status")
-                    .then()
-                    .statusCode(204);
-
-            RestAssured.given()
-                    .queryParam("healthCheckEnabled", "false")
-                    .post("/microprofile-health/failure-threshold")
                     .then()
                     .statusCode(204);
         }
