@@ -68,6 +68,11 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-integration-test-support-mock-backend</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-integration-test-support</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <profiles>
