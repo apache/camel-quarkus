@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: ical
 cqCamelPartTitle: iCal
-cqCamelPartDescription: Marshal and unmarshal iCal (.ics) documents to/from model objects provided by the iCal4j library.
+cqCamelPartDescription: Marshal and unmarshal iCal (.ics) documents to/from model objects.
 cqExtensionPageTitle: iCal

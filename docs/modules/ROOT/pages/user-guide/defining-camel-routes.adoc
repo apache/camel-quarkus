@@ -96,10 +96,8 @@ The route XML should be in the simplified version like:
 ----
 <rests xmlns="http://camel.apache.org/schema/spring">
     <rest id="greeting" path="/greeting">
-        <get uri="/hello">
-            <setBody>
-                <constant>Hello World!</constant>
-            </setBody>
+        <get path="/hello">
+            <to uri="direct:greet"/>
         </get>
     </rest>
 </rests>

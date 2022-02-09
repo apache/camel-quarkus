@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>3.15.0</version>
+        <version>3.16.0</version>
     </parent>
 
     <groupId>org.apache.camel.quarkus</groupId>
@@ -39,7 +39,7 @@
     <properties>
 
         <!-- Primary dependencies - maintained manually -->
-        <camel.major.minor>3.15</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
+        <camel.major.minor>3.16</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
         <camel.version>${camel.major.minor}.0</camel.version>
         <camel.docs.components.version>${camel.major.minor}.x</camel.docs.components.version><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.components.xref>${camel.docs.components.version}@components</camel.docs.components.xref><!-- the version in Camel's docs/components/antora.yml -->
@@ -88,7 +88,7 @@
         <fommil.netlib.core.version>1.1.2</fommil.netlib.core.version><!-- Mess in Weka transitive deps -->
         <github-api.version>1.111</github-api.version><!-- Used in a Groovy script bellow -->
         <google-native-image-support.version>0.8.0</google-native-image-support.version>
-        <google-auth-library-credentials.version>1.4.0</google-auth-library-credentials.version><!-- @sync io.grpc:grpc-auth:${grpc.version} dep:com.google.auth:google-auth-library-credentials -->
+        <google-auth-library-credentials.version>${grpc-google-auth-library-version}</google-auth-library-credentials.version>
         <graalvm.version>22.0.0.2</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.nativeimage:svm -->
         <grpc.version>1.45.0</grpc.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.grpc:grpc-core -->
         <guice-servlet.version>4.0</guice-servlet.version><!-- Spark -->
@@ -134,7 +134,7 @@
         <xalan.version>${xalan-version}</xalan.version>
         <xchange.version>${xchange-version}</xchange.version>
         <xerces.version>${xerces-version}</xerces.version>
-        <xmlgraphics-commons.version>2.6</xmlgraphics-commons.version><!-- @sync org.apache.xmlgraphics:fop-parent:${fop-version} prop:xmlgraphics.commons.version -->
+        <xmlgraphics-commons.version>2.7</xmlgraphics-commons.version><!-- @sync org.apache.xmlgraphics:fop-parent:${fop-version} prop:xmlgraphics.commons.version -->
         <xstream.version>${xstream-version}</xstream.version>
         <web3j.version>${web3j-version}</web3j.version>
         <web3j.quorum.version>${web3j-quorum-version}</web3j.quorum.version>

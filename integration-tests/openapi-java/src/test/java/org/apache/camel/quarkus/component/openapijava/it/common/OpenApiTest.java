@@ -200,9 +200,7 @@ public abstract class OpenApiTest {
                 .then()
                 .contentType(ContentType.JSON)
                 .statusCode(200)
-                .body(
-                        containsString("x-camelContextId"),
-                        containsString("x-routeId"));
+                .body(containsString("x-camelContextId"));
     }
 
     @Test

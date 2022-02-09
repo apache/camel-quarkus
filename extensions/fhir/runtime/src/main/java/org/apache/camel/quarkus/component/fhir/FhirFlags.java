@@ -52,7 +52,7 @@ public final class FhirFlags {
         @Override
         public boolean getAsBoolean() {
             return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.fhir.enable-dstu3", Boolean.class)
-                    .orElse(Boolean.TRUE);
+                    .orElse(Boolean.FALSE);
         }
     }
 

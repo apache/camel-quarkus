@@ -44,7 +44,7 @@ public final class FhirConfig {
     /**
      * Enable FHIR DSTU3 Specs in native mode.
      */
-    @ConfigItem(name = "enable-dstu3", defaultValue = "true")
+    @ConfigItem(name = "enable-dstu3", defaultValue = "false")
     public boolean enableDstu3;
 
     /**

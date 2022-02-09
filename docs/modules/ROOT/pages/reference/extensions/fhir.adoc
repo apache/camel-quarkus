@@ -80,7 +80,7 @@ Enable FHIR DSTU2_1 Specs in native mode.
 
 Enable FHIR DSTU3 Specs in native mode.
 | `boolean`
-| `true`
+| `false`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.fhir.enable-r4]]`link:#quarkus.camel.fhir.enable-r4[quarkus.camel.fhir.enable-r4]`
 

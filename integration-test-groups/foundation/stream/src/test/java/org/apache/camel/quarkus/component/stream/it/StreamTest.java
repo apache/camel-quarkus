@@ -33,6 +33,6 @@ class StreamTest {
                 .body("Camel Quarkus Stream")
                 .post("/stream/post")
                 .then().statusCode(200)
-                .body(is("Hello Camel Quarkus Stream"));
+                .body(is("Hello Camel Quarkus Stream" + System.lineSeparator()));
     }
 }

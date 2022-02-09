@@ -30,7 +30,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
-import org.apache.camel.component.file.watch.FileWatchComponent;
+import org.apache.camel.component.file.watch.FileWatchConstants;
 import org.apache.camel.component.file.watch.constants.FileEventEnum;
 
 @Path("/file-watch")
@@ -51,7 +51,7 @@ public class FileWatchResource {
             final Message message = exchange.getMessage();
             final ObjectMapper mapper = new ObjectMapper();
             final ObjectNode node = mapper.createObjectNode();
-            node.put("type", message.getHeader(FileWatchComponent.EVENT_TYPE_HEADER, FileEventEnum.class).toString());
+            node.put("type", message.getHeader(FileWatchConstants.EVENT_TYPE_HEADER, FileEventEnum.class).toString());
             node.put("path", message.getHeader("CamelFileAbsolutePath", String.class));
             return Response
                     .ok()

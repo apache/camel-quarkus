@@ -6,7 +6,7 @@ The following guide outlines how to adapt your code to changes that were made in
 
 In previous releases, the FHIR extension default was to enable support for all FHIR versions.
 
-This has now changed. Only the FHIR versions that the Camel FHIR component and DataFormat use by default are enabled (R4 & DSTU3).  
+This has now changed. Only the FHIR version that the Camel FHIR component and DataFormat use by default are enabled (R4).
 
 To enable or disable support for the various FHIR versions, you can add some configuration properties to `application.properties`. For example.
 

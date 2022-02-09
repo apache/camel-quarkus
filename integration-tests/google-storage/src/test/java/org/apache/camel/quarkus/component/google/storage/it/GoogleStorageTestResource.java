@@ -20,11 +20,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.apache.camel.quarkus.test.AvailablePortFinder;
+import org.testcontainers.containers.FixedHostPortGenericContainer;
 import org.testcontainers.containers.GenericContainer;
 
 public class GoogleStorageTestResource implements QuarkusTestResourceLifecycleManager {
 
-    public static final int PORT = 4443;
+    public static final int PORT = AvailablePortFinder.getNextAvailable();
     public static final String CONTAINER_NAME = "fsouza/fake-gcs-server";
 
     private GenericContainer<?> container;
@@ -35,14 +37,13 @@ public class GoogleStorageTestResource implements QuarkusTestResourceLifecycleMa
         Map<String, String> properties = new HashMap<>();
 
         if (GoogleStorageHelper.usingMockBackend()) {
-
-            container = new GenericContainer<>(CONTAINER_NAME)
-                    .withExposedPorts(PORT)
+            container = new FixedHostPortGenericContainer<>(CONTAINER_NAME)
+                    .withFixedExposedPort(PORT, PORT)
                     .withCreateContainerCmdModifier(
-                            it -> it.withEntrypoint("/bin/fake-gcs-server", "-scheme", "http"));
+                            it -> it.withEntrypoint("/bin/fake-gcs-server", "-scheme", "http", "-port", String.valueOf(PORT)));
             container.start();
 
-            properties.put(GoogleStorageResource.PARAM_PORT, container.getMappedPort(PORT).toString());
+            properties.put(GoogleStorageResource.PARAM_PORT, String.valueOf(PORT));
         }
 
         return properties;
