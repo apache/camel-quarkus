@@ -26,6 +26,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -123,6 +124,7 @@ public abstract class AbstractMessagingTest {
                 .body(is("JMS Transaction Success"));
     }
 
+    @DisabledIfEnvironmentVariable(named = "CI", matches = "true", disabledReason = "https://github.com/apache/camel-quarkus/issues/2957")
     @Test
     public void testResequence() {
         final List<String> messages = Arrays.asList("a", "b", "c", "c", "d");
