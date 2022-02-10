@@ -15,11 +15,17 @@
 - Expand Cassandra CQL extension test coverage [\#3514](https://github.com/apache/camel-quarkus/issues/3514)
 - Ban javax.servlet:servlet-api in favor of jakarta.servlet:jakarta.servlet-api [\#3496](https://github.com/apache/camel-quarkus/issues/3496)
 - Camel 3.15 - Some dataformats renamed [\#3460](https://github.com/apache/camel-quarkus/issues/3460)
+- deadLetterChannel does not work in BaseRouteBuilder configure method [\#3436](https://github.com/apache/camel-quarkus/issues/3436)
 - \[Camel 3.15\] Fhir tests are failing [\#3416](https://github.com/apache/camel-quarkus/issues/3416)
+- Better integration with Quarkus OpenAPI & OpenAPI Swagger UI [\#3346](https://github.com/apache/camel-quarkus/issues/3346)
+- Run integration tests on Windows [\#3342](https://github.com/apache/camel-quarkus/issues/3342)
 - A tool to check/sync dependency versions with camel & quarkus  [\#1684](https://github.com/apache/camel-quarkus/issues/1684)
+- Cannot build project on Windows [\#1429](https://github.com/apache/camel-quarkus/issues/1429)
+- rest-dsl - Integrate with quarkus-openapi [\#383](https://github.com/apache/camel-quarkus/issues/383)
 
 **Merged pull requests:**
 
+- Run integration tests on Windows [\#3537](https://github.com/apache/camel-quarkus/pull/3537) ([jamesnetherton](https://github.com/jamesnetherton))
 - Exclude json-simple from camel-slack, workaround for CAMEL-17619 [\#3536](https://github.com/apache/camel-quarkus/pull/3536) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to Quarkus 2.7.1 [\#3535](https://github.com/apache/camel-quarkus/pull/3535) ([ppalaga](https://github.com/ppalaga))
 - Remove IPFS and Weka extensions temporarily [\#3533](https://github.com/apache/camel-quarkus/pull/3533) ([ppalaga](https://github.com/ppalaga))
@@ -490,6 +496,7 @@
 - Expand REST test coverage [\#2535](https://github.com/apache/camel-quarkus/pull/2535) ([jamesnetherton](https://github.com/jamesnetherton))
 - Document the possibility to use CDI beans with camel bean component [\#2531](https://github.com/apache/camel-quarkus/pull/2531) ([ppalaga](https://github.com/ppalaga))
 - Test class component, test bean language  [\#2530](https://github.com/apache/camel-quarkus/pull/2530) ([ppalaga](https://github.com/ppalaga))
+- Fix \#1384 camel-mybatis native support [\#2525](https://github.com/apache/camel-quarkus/pull/2525) ([zhfeng](https://github.com/zhfeng))
 - fix org.apache.camel.quarkus.component.lra.it.LraTest failed \#2523 [\#2524](https://github.com/apache/camel-quarkus/pull/2524) ([ffang](https://github.com/ffang))
 - Fix asciidoctor warnings at camel-website build [\#2517](https://github.com/apache/camel-quarkus/pull/2517) ([tadayosi](https://github.com/tadayosi))
 - Fix admonitions in adocs [\#2516](https://github.com/apache/camel-quarkus/pull/2516) ([tadayosi](https://github.com/tadayosi))
@@ -1401,6 +1408,7 @@
 - Investigate need of @ApplicationScoped annotation [\#2471](https://github.com/apache/camel-quarkus/issues/2471)
 - HBase testcontainer fails with UnknownHostException: \<myhostname\>.localdomain: Name or service not known [\#2458](https://github.com/apache/camel-quarkus/issues/2458)
 - Issue with Camel FHIR extension when upgrading to 1.13.0.Final [\#2450](https://github.com/apache/camel-quarkus/issues/2450)
+- Mybatis Component native support [\#1384](https://github.com/apache/camel-quarkus/issues/1384)
 - GraalVM 21.1, KafkaSaslSslIT: ClassNotFoundException: org.apache.kafka.common.security.scram.internals.ScramSaslClient$ScramSaslClientFactory [\#2674](https://github.com/apache/camel-quarkus/issues/2674)
 - Eagerly initialized Random in various extensions [\#2664](https://github.com/apache/camel-quarkus/issues/2664)
 - Use `CamelContextCustomizer` from camel-api [\#2637](https://github.com/apache/camel-quarkus/issues/2637)
