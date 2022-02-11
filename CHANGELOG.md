@@ -25,6 +25,8 @@
 
 **Merged pull requests:**
 
+- Disable flaky messaging resequence test on GitHub CI \(\#2957\) [\#3540](https://github.com/apache/camel-quarkus/pull/3540) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade Maven Wrapper to 3.1.0 [\#3539](https://github.com/apache/camel-quarkus/pull/3539) ([jamesnetherton](https://github.com/jamesnetherton))
 - Run integration tests on Windows [\#3537](https://github.com/apache/camel-quarkus/pull/3537) ([jamesnetherton](https://github.com/jamesnetherton))
 - Exclude json-simple from camel-slack, workaround for CAMEL-17619 [\#3536](https://github.com/apache/camel-quarkus/pull/3536) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to Quarkus 2.7.1 [\#3535](https://github.com/apache/camel-quarkus/pull/3535) ([ppalaga](https://github.com/ppalaga))
