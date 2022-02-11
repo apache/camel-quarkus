@@ -229,8 +229,8 @@ public class CqUtils {
         }
     }
 
-    public static boolean isDeprecated(String title, Collection<ArtifactModel<?>> models) {
-        return title.contains("(deprecated)") || models.stream().anyMatch(m -> m.isDeprecated());
+    public static boolean isDeprecated(String title, Collection<ArtifactModel<?>> models, boolean deprecated) {
+        return deprecated || title.contains("(deprecated)") || models.stream().anyMatch(m -> m.isDeprecated());
     }
 
     static Path copyJar(Path localRepository, String groupId, String artifactId, String version) {
