@@ -20,40 +20,104 @@ import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.apache.camel.quarkus.component.optaplanner.it.domain.TimeTable;
+import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.Test;
 
 import static org.awaitility.Awaitility.await;
-import static org.hamcrest.Matchers.notNullValue;
 
 @QuarkusTest
 class OptaplannerTest {
 
     @Test
     public void solveSync() {
+        // Initiate synchronous solving
         RestAssured.given()
-                .get("/optaplanner/solveSync")
+                .post("/optaplanner/solveSync")
                 .then()
-                .statusCode(200)
-                .body("lessonList[0].timeslot", notNullValue(null))
-                .body("lessonList[0].room", notNullValue(null));
+                .statusCode(204);
+
+        // Poll for results
+        await().pollDelay(250, TimeUnit.MILLISECONDS).atMost(1, TimeUnit.MINUTES).until(() -> {
+            JsonPath json = RestAssured.given()
+                    .get("/optaplanner/solution/solveSync")
+                    .then()
+                    .statusCode(200)
+                    .extract()
+                    .body()
+                    .jsonPath();
+
+            return json.getLong("timeslot") > -1 && json.getLong("room") > -1;
+        });
     }
 
     @Test
-    public void solveASyncWithConsumer() {
-        // solve async
+    public void solveAsync() {
+        // Initiate asynchronous solving
         RestAssured.given()
-                .get("/optaplanner/solveAsync")
+                .post("/optaplanner/solveAsync")
                 .then()
-                .statusCode(200)
-                .body("lessonList[0].timeslot", notNullValue(null))
-                .body("lessonList[0].room", notNullValue(null));
+                .statusCode(204);
 
-        await().atMost(10L, TimeUnit.SECONDS).until(() -> {
-            TimeTable result = RestAssured.get("/optaplanner/newBestSolution").then().extract().body().as(TimeTable.class);
-            return result != null && result.getLessonList().get(0).getTimeslot() != null
-                    && result.getLessonList().get(0).getRoom() != null;
+        // Poll for results
+        await().pollDelay(250, TimeUnit.MILLISECONDS).atMost(1, TimeUnit.MINUTES).until(() -> {
+            JsonPath json = RestAssured.given()
+                    .get("/optaplanner/solution/solveAsync")
+                    .then()
+                    .statusCode(200)
+                    .extract()
+                    .body()
+                    .jsonPath();
+
+            return json.getLong("timeslot") > -1 && json.getLong("room") > -1;
         });
+    }
+
+    @Test
+    public void optaplannerConsumerBestSolution() {
+        try {
+            // Start optaplanner consumer
+            RestAssured.given()
+                    .post("/optaplanner/consumer/true")
+                    .then()
+                    .statusCode(204);
+
+            // Initiate asynchronous solving
+            RestAssured.given()
+                    .post("/optaplanner/solveAsync")
+                    .then()
+                    .statusCode(204);
+
+            // Poll for results
+            await().pollDelay(250, TimeUnit.MILLISECONDS).atMost(1, TimeUnit.MINUTES).until(() -> {
+                JsonPath json = RestAssured.given()
+                        .get("/optaplanner/solution/solveAsync")
+                        .then()
+                        .statusCode(200)
+                        .extract()
+                        .body()
+                        .jsonPath();
+
+                return json.getLong("timeslot") > -1 && json.getLong("room") > -1;
+            });
+
+            await().pollDelay(250, TimeUnit.MILLISECONDS).atMost(1, TimeUnit.MINUTES).until(() -> {
+                JsonPath json = RestAssured.given()
+                        .get("/optaplanner/solution/bestSolution")
+                        .then()
+                        .statusCode(200)
+                        .extract()
+                        .body()
+                        .jsonPath();
+
+                return json.getLong("timeslot") > -1 && json.getLong("room") > -1;
+            });
+        } finally {
+            // Stop optaplanner consumer
+            RestAssured.given()
+                    .post("/optaplanner/consumer/false")
+                    .then()
+                    .statusCode(204);
+        }
     }
 
 }
