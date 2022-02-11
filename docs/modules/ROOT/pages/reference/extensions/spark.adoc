@@ -5,14 +5,14 @@
 :cq-artifact-id: camel-quarkus-spark
 :cq-native-supported: false
 :cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-status-deprecation: Preview Deprecated
 :cq-description: Send RDD or DataFrame jobs to Apache Spark clusters.
-:cq-deprecated: false
+:cq-deprecated: true
 :cq-jvm-since: 1.3.0
 :cq-native-since: n/a
 
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.3.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##1.3.0## [.badge-key]##Native##[.badge-unsupported]##unsupported## [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##
 
 Send RDD or DataFrame jobs to Apache Spark clusters.
 
