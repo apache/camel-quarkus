@@ -26,15 +26,20 @@ public class Routes extends RouteBuilder {
     public void configure() throws Exception {
 
         // async producer
-        from("direct:solveAsync").to("optaplanner:anything?useSolverManager=true&async=true&problemId="
-                + OptaplannerResource.SINGLETON_TIME_TABLE_ID);
+        from("direct:solveAsync")
+                .toF("optaplanner:anything?useSolverManager=true&async=true&problemId=%d",
+                        OptaplannerResource.SINGLETON_TIME_TABLE_ID)
+                .to("mock:solveAsync");
 
         // async consumer
-        from("optaplanner:anything?useSolverManager=true&problemId=" + OptaplannerResource.SINGLETON_TIME_TABLE_ID)
-                .to("mock:best-solution");
+        fromF("optaplanner:anything?useSolverManager=true&problemId=%d", OptaplannerResource.SINGLETON_TIME_TABLE_ID)
+                .id("optaplanner-consumer")
+                .autoStartup(false)
+                .to("mock:bestSolution");
 
         // sync producer
         from("direct:solveSync")
-                .to("optaplanner:anything?useSolverManager=true&problemId=" + OptaplannerResource.SINGLETON_TIME_TABLE_ID);
+                .toF("optaplanner:anything?useSolverManager=true&problemId=%d", OptaplannerResource.SINGLETON_TIME_TABLE_ID)
+                .to("mock:solveSync");
     }
 }
