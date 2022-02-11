@@ -75,6 +75,7 @@ public class CamelQuarkusExtension {
                     : ExtensionStatus.valueOf(extensionStatus);
             final boolean unlisted = !nativeSupported
                     || Boolean.parseBoolean(props.getProperty("quarkus.metadata.unlisted", "false"));
+            final boolean deprecated = Boolean.parseBoolean(props.getProperty("quarkus.metadata.deprecated", "false"));
 
             final String rawKind = (String) props.get(CAMEL_QUARKUS_KIND);
             final Kind kind = rawKind == null ? null : Kind.valueOf(rawKind);
@@ -92,6 +93,7 @@ public class CamelQuarkusExtension {
                     nativeSupported,
                     status,
                     unlisted,
+                    deprecated,
                     deps == null ? Collections.emptyList() : Collections.unmodifiableList(deps),
                     kind,
                     props.getProperty("cq.quarkus.aws.client.baseName"),
@@ -114,6 +116,7 @@ public class CamelQuarkusExtension {
     private final List<Dependency> dependencies;
     private final ExtensionStatus status;
     private final boolean unlisted;
+    private final boolean deprecated;
     private final Kind kind;
     private final String quarkusAwsClientBaseName;
     private final String quarkusAwsClientFqClassName;
@@ -131,6 +134,7 @@ public class CamelQuarkusExtension {
             boolean nativeSupported,
             ExtensionStatus status,
             boolean unlisted,
+            boolean deprecated,
             List<Dependency> dependencies,
             Kind kind,
             String quarkusAwsClientBaseName,
@@ -148,6 +152,7 @@ public class CamelQuarkusExtension {
         this.nativeSupported = nativeSupported;
         this.status = status;
         this.unlisted = unlisted;
+        this.deprecated = deprecated;
         this.dependencies = dependencies;
         this.kind = kind;
         this.quarkusAwsClientBaseName = quarkusAwsClientBaseName;
@@ -208,6 +213,10 @@ public class CamelQuarkusExtension {
 
     public boolean isUnlisted() {
         return unlisted;
+    }
+
+    public boolean isDeprecated() {
+        return deprecated;
     }
 
     public Kind getKind() {
