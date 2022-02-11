@@ -113,11 +113,6 @@
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>iam</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>iam</artifactId>
-            <scope>test</scope>
             <exclusions>
                 <exclusion>
                     <groupId>commons-logging</groupId>
