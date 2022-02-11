@@ -45,48 +45,6 @@ The `allowContextMapAll` option is not supported in native mode as it requires r
 
 == Additional Camel Quarkus configuration
 
-== Class path resources
-
-For the FreeMarker templates loaded from class path to work flawlessly in native mode, you need to list all your
-template files using `quarkus.native.resources.includes` and `quarkus.native.resources.excludes`
-options in `application.properties`.
-
-Here is an example: If your application's resources look like this
-
-[source,shell]
-----
-$ tree src/main/resources
-src/main/resources
-└── templates
-    ├── email.ftl
-    ├── page.html
-    └── unwanted-file.txt
-----
-
-and if your configuration is like this
-
-[source,properties]
-----
-quarkus.native.resources.includes = templates/*.ftl,templates/*.html
-quarkus.native.resources.excludes = templates/unwanted*
-----
-
-then, resources `templates/email.ftl` and `templates/page.ftl` will be available in the native image,
-while file `unwanted-file.txt` will not be available.
-
-You can thus use the available templates in a Camel route, e.g.:
-
-[source,java]
-----
-public class MyRoutes extends RouteBuilder {
-    @Override
-    public void configure() {
-        from("direct:example")
-            .to("freemarker:templates/email.ftl")
-    }
-}
-----
-
 == Quarkiverse Freemarker and its configuration
 
 Camel Quarkus Freemarker uses dev/index.html[Quarkiverse Freemarker] under the hood.
