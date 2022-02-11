@@ -4,7 +4,7 @@ cqArtifactId: camel-quarkus-spark
 cqArtifactIdBase: spark
 cqNativeSupported: false
 cqStatus: Preview
-cqDeprecated: false
+cqDeprecated: true
 cqJvmSince: 1.3.0
 cqNativeSince: n/a
 cqCamelPartName: spark
