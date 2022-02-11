@@ -16,9 +16,13 @@
  */
 package org.apache.camel.quarkus.component.microprofile.fault.tolerance.deployment;
 
+import java.nio.file.Paths;
+
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
+import org.apache.camel.component.microprofile.faulttolerance.FaultToleranceProcessorFactory;
+import org.apache.camel.quarkus.core.deployment.spi.CamelServiceBuildItem;
 
 class MicroprofileFaultToleranceProcessor {
 
@@ -35,4 +39,9 @@ class MicroprofileFaultToleranceProcessor {
                 "META-INF/services/org/apache/camel/model/CircuitBreakerDefinition");
     }
 
+    @BuildStep
+    CamelServiceBuildItem camelCronServicePattern() {
+        return new CamelServiceBuildItem(Paths.get("META-INF/services/org/apache/camel/model/CircuitBreakerDefinition"),
+                FaultToleranceProcessorFactory.class.getName());
+    }
 }

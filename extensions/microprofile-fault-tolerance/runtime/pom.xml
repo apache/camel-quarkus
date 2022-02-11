@@ -56,10 +56,12 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-core</artifactId>
         </dependency>
+        <!-- Not compatible with Quarkus 2.7.x
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-microprofile-fault-tolerance</artifactId>
         </dependency>
+        -->
     </dependencies>
 
     <build>

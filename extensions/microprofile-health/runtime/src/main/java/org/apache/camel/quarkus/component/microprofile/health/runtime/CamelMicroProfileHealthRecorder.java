@@ -20,7 +20,6 @@ import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
 import org.apache.camel.health.HealthCheckRegistry;
-import org.apache.camel.microprofile.health.CamelMicroProfileHealthCheckRegistry;
 import org.apache.camel.spi.CamelContextCustomizer;
 
 @Recorder
@@ -31,7 +30,7 @@ public class CamelMicroProfileHealthRecorder {
         return new RuntimeValue<>(new CamelContextCustomizer() {
             @Override
             public void configure(CamelContext camelContext) {
-                HealthCheckRegistry registry = new CamelMicroProfileHealthCheckRegistry(camelContext);
+                HealthCheckRegistry registry = new CamelQuarkusMicroProfileHealthCheckRegistry(camelContext);
                 registry.setId("camel-microprofile-health");
                 registry.setEnabled(true);
 
