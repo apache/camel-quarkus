@@ -19,12 +19,19 @@
 - \[Camel 3.15\] Fhir tests are failing [\#3416](https://github.com/apache/camel-quarkus/issues/3416)
 - Better integration with Quarkus OpenAPI & OpenAPI Swagger UI [\#3346](https://github.com/apache/camel-quarkus/issues/3346)
 - Run integration tests on Windows [\#3342](https://github.com/apache/camel-quarkus/issues/3342)
+- `DebeziumMongodbTest` skipped tests [\#3213](https://github.com/apache/camel-quarkus/issues/3213)
+- spark:hive is does not work [\#1956](https://github.com/apache/camel-quarkus/issues/1956)
+- spark:dataframe does not work on Java 11 [\#1955](https://github.com/apache/camel-quarkus/issues/1955)
+- \[Dependency hell\] Spark native support [\#1701](https://github.com/apache/camel-quarkus/issues/1701)
 - A tool to check/sync dependency versions with camel & quarkus  [\#1684](https://github.com/apache/camel-quarkus/issues/1684)
 - Cannot build project on Windows [\#1429](https://github.com/apache/camel-quarkus/issues/1429)
 - rest-dsl - Integrate with quarkus-openapi [\#383](https://github.com/apache/camel-quarkus/issues/383)
 
 **Merged pull requests:**
 
+- Deprecate camel-quarkus-spark  [\#3544](https://github.com/apache/camel-quarkus/pull/3544) ([ppalaga](https://github.com/ppalaga))
+- Remove duplicate software.amazon.awssdk:iam dependency declaration [\#3543](https://github.com/apache/camel-quarkus/pull/3543) ([jamesnetherton](https://github.com/jamesnetherton))
+- Poll for optaplanner results to avoid timeouts on slow machines [\#3542](https://github.com/apache/camel-quarkus/pull/3542) ([jamesnetherton](https://github.com/jamesnetherton))
 - Disable flaky messaging resequence test on GitHub CI \(\#2957\) [\#3540](https://github.com/apache/camel-quarkus/pull/3540) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Maven Wrapper to 3.1.0 [\#3539](https://github.com/apache/camel-quarkus/pull/3539) ([jamesnetherton](https://github.com/jamesnetherton))
 - Run integration tests on Windows [\#3537](https://github.com/apache/camel-quarkus/pull/3537) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -146,6 +153,7 @@
 - Sql doc update because of the failure with external oracle database \#… [\#3272](https://github.com/apache/camel-quarkus/pull/3272) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - avro: Fix the documentation about avro schema build time parsing \#3270 [\#3271](https://github.com/apache/camel-quarkus/pull/3271) ([aldettinger](https://github.com/aldettinger))
 - Added missing stored procedure test for oracle [\#3269](https://github.com/apache/camel-quarkus/pull/3269) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- DebeziumMongodbTest skipped tests \#3213 [\#3266](https://github.com/apache/camel-quarkus/pull/3266) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Remove not needed anymore BeansWeakCache substitution. Closes \#3226 [\#3264](https://github.com/apache/camel-quarkus/pull/3264) ([vladimirfx](https://github.com/vladimirfx))
 - Fixup 218bef4 Deactivate the virtualDepenencies profile via -DnoVirtu… [\#3263](https://github.com/apache/camel-quarkus/pull/3263) ([ppalaga](https://github.com/ppalaga))
 - Cannot run tests against alternative BOMs  [\#3262](https://github.com/apache/camel-quarkus/pull/3262) ([ppalaga](https://github.com/ppalaga))
