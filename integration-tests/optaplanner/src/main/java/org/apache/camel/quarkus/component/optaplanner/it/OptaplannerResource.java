@@ -63,7 +63,9 @@ public class OptaplannerResource {
     @Path("solveSync")
     public void solveSync() {
         if (SolverStatus.NOT_SOLVING == solverManager.getSolverStatus(SINGLETON_TIME_TABLE_ID)) {
-            producerTemplate.sendBodyAndHeader("direct:solveSync", DataGenerator.timeTable, OptaPlannerConstants.SOLVER_MANAGER,
+            // The message payload is sent asynchronously, but the optaplanner route is configured to solve the problem synchronously
+            producerTemplate.asyncRequestBodyAndHeader("direct:solveSync", DataGenerator.timeTable,
+                    OptaPlannerConstants.SOLVER_MANAGER,
                     solverManager);
         }
     }
@@ -72,7 +74,7 @@ public class OptaplannerResource {
     @Path("solveAsync")
     public void solveAsync() throws ExecutionException, InterruptedException {
         if (SolverStatus.NOT_SOLVING == solverManager.getSolverStatus(SINGLETON_TIME_TABLE_ID)) {
-            producerTemplate.sendBodyAndHeader("direct:solveAsync", DataGenerator.timeTable,
+            producerTemplate.asyncRequestBodyAndHeader("direct:solveAsync", DataGenerator.timeTable,
                     OptaPlannerConstants.SOLVER_MANAGER, solverManager);
         }
     }
