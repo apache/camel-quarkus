@@ -4,7 +4,7 @@ Camel Quarkus Freemarker uses dev/index.html[Quarkiverse Freemarker] under the h
 This means in particular, that the `freemarker.template.Configuration` bean produced by Quarkiverse Freemarker
 is used by Camel Quarkus.
 The bean can be configured via `quarkus.freemarker.*` properties
-- check https://quarkiverse.github.io/quarkiverse-docs/quarkiverse-freemarker/dev/index.html[Freemarker Configuration Reference]
+- check https://quarkiverse.github.io/quarkiverse-docs/quarkus-freemarker/dev/index.html[Freemarker Configuration Reference]
 for more details.
 
 If you wish to use your custom `Configuration` bean instead of the default provided by Quarkiverse Freemarker,
