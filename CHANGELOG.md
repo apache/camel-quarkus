@@ -29,6 +29,9 @@
 
 **Merged pull requests:**
 
+- Fix link to Quarkus Freemarker docs [\#3547](https://github.com/apache/camel-quarkus/pull/3547) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fixup e72113e send optaplanner test messages asynchronously [\#3546](https://github.com/apache/camel-quarkus/pull/3546) ([jamesnetherton](https://github.com/jamesnetherton))
+- Remove freemarker inaccurate documentation [\#3545](https://github.com/apache/camel-quarkus/pull/3545) ([aldettinger](https://github.com/aldettinger))
 - Deprecate camel-quarkus-spark  [\#3544](https://github.com/apache/camel-quarkus/pull/3544) ([ppalaga](https://github.com/ppalaga))
 - Remove duplicate software.amazon.awssdk:iam dependency declaration [\#3543](https://github.com/apache/camel-quarkus/pull/3543) ([jamesnetherton](https://github.com/jamesnetherton))
 - Poll for optaplanner results to avoid timeouts on slow machines [\#3542](https://github.com/apache/camel-quarkus/pull/3542) ([jamesnetherton](https://github.com/jamesnetherton))
