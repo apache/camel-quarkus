@@ -29,6 +29,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
@@ -50,12 +51,14 @@ public class JsonComponentsTest {
                 .queryParam("json-component", jsonComponent)
                 .post("/dataformats-json/out")
                 .then()
-                .body(equalTo("{\"dummy_string\":\"value1\"}"));
+                .body("dummy_string", equalTo("value1"))
+                .body("date", containsString("1970"));
         RestAssured.given()
                 .queryParam("json-component", jsonComponent)
                 .post("/dataformats-json/out")
                 .then()
-                .body(equalTo("{\"dummy_string\":\"value2\"}"));
+                .body("dummy_string", equalTo("value2"))
+                .body("date", containsString("1970"));
     }
 
     @ParameterizedTest
