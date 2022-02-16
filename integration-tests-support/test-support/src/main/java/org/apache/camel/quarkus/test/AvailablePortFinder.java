@@ -23,6 +23,7 @@ import java.net.ServerSocket;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 import org.eclipse.microprofile.config.Config;
@@ -35,9 +36,11 @@ import org.slf4j.LoggerFactory;
  */
 public final class AvailablePortFinder {
     private static final Logger LOGGER = LoggerFactory.getLogger(AvailablePortFinder.class);
+    private static final Map<Integer, String> RESERVED_PORTS = new ConcurrentHashMap<>();
     private static final String[] QUARKUS_PORT_PROPERTIES = new String[] {
             "quarkus.http.test-port",
             "quarkus.http.test-ssl-port",
+            "quarkus.https.test-port",
     };
 
     /**
@@ -54,6 +57,10 @@ public final class AvailablePortFinder {
      * @return                       the available port
      */
     public static int getNextAvailable() {
+        // Using AvailablePortFinder in native applications can be problematic
+        // E.g The reserved port may be allocated at build time and preserved indefinitely at runtime. I.e it never changes on each execution of the native application
+        logWarningIfNativeApplication();
+
         while (true) {
             try (ServerSocket ss = new ServerSocket()) {
                 ss.setReuseAddress(true);
@@ -61,8 +68,12 @@ public final class AvailablePortFinder {
 
                 int port = ss.getLocalPort();
                 if (!isQuarkusReservedPort(port)) {
-                    LOGGER.info("getNextAvailable() -> {}", port);
-                    return port;
+                    String callerClassName = getCallerClassName();
+                    String value = RESERVED_PORTS.putIfAbsent(port, callerClassName);
+                    if (value == null) {
+                        LOGGER.info("{} reserved port {}", callerClassName, port);
+                        return port;
+                    }
                 }
             } catch (IOException e) {
                 throw new IllegalStateException("Cannot find free port", e);
@@ -90,6 +101,16 @@ public final class AvailablePortFinder {
         return reservedPorts;
     }
 
+    public static void releaseReservedPorts() {
+        String callerClassName = getCallerClassName();
+        RESERVED_PORTS.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue().equals(callerClassName))
+                .peek(entry -> LOGGER.info("Releasing port {} reserved by {}", entry.getKey(), entry.getValue()))
+                .map(Map.Entry::getKey)
+                .forEach(RESERVED_PORTS::remove);
+    }
+
     private static boolean isQuarkusReservedPort(int port) {
         Config config = ConfigProvider.getConfig();
         for (String property : QUARKUS_PORT_PROPERTIES) {
@@ -102,5 +123,20 @@ public final class AvailablePortFinder {
             }
         }
         return false;
+    }
+
+    private static String getCallerClassName() {
+        return StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE)
+                .walk(s -> s.map(StackWalker.StackFrame::getClassName)
+                        .filter(className -> !className.equals(AvailablePortFinder.class.getName()))
+                        .findFirst()
+                        .orElseThrow(IllegalStateException::new));
+    }
+
+    private static void logWarningIfNativeApplication() {
+        if (System.getProperty("org.graalvm.nativeimage.kind") != null) {
+            LOGGER.warn("Usage of AvailablePortFinder in the native application is discouraged. "
+                    + "Pass the reserved port to the native application under test with QuarkusTestResource or via an HTTP request");
+        }
     }
 }

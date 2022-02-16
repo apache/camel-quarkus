@@ -104,6 +104,7 @@ public final class MockOaipmhServer {
 
     public void stop() {
         server.stop();
+        AvailablePortFinder.releaseReservedPorts();
     }
 
     public int getHttpPort() {

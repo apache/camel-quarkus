@@ -65,5 +65,6 @@ public class GrpcServerTestResource implements QuarkusTestResourceLifecycleManag
         } catch (Exception e) {
             LOGGER.error("Could not stop gRPC server", e);
         }
+        AvailablePortFinder.releaseReservedPorts();
     }
 }

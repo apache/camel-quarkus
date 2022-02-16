@@ -14,19 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.as2.it;
+package org.apache.camel.quarkus.component.mllp.it;
 
+import java.util.Collections;
 import java.util.Map;
-import java.util.Objects;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
 
-public class As2TestResource implements QuarkusTestResourceLifecycleManager {
+public class MllpTestResource implements QuarkusTestResourceLifecycleManager {
+
     @Override
     public Map<String, String> start() {
-        return AvailablePortFinder.reserveNetworkPorts(Objects::toString, As2Resource.CLIENT_PORT_PARAMETER,
-                As2Resource.SERVER_PORT_PARAMETER);
+        return Collections.singletonMap("mllp.test.port", Integer.toString(AvailablePortFinder.getNextAvailable()));
     }
 
     @Override

@@ -76,5 +76,6 @@ public class LraTestResource implements QuarkusTestResourceLifecycleManager {
         } catch (Exception e) {
             // ignored
         }
+        AvailablePortFinder.releaseReservedPorts();
     }
 }

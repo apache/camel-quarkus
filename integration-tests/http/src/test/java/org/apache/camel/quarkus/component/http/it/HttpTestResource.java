@@ -59,5 +59,6 @@ public class HttpTestResource implements QuarkusTestResourceLifecycleManager {
         if (container != null) {
             container.stop();
         }
+        AvailablePortFinder.releaseReservedPorts();
     }
 }

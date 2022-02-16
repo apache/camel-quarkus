@@ -20,28 +20,29 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mllp.MllpConstants;
 import org.apache.camel.component.mllp.MllpInvalidMessageException;
-import org.apache.camel.quarkus.test.AvailablePortFinder;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 @RegisterForReflection(targets = MllpInvalidMessageException.class, fields = false)
 public class MllpRoutes extends RouteBuilder {
 
     public static final String MLLP_HOST = "localhost";
-    public static final int MLLP_PORT = AvailablePortFinder.getNextAvailable();
 
     @Override
     public void configure() throws Exception {
+        Integer mllpPort = ConfigProvider.getConfig().getValue("mllp.test.port", Integer.class);
+
         onException(MllpInvalidMessageException.class)
                 .to("mock:invalid");
 
-        fromF("mllp://%s:%d?validatePayload=true", MLLP_HOST, MLLP_PORT)
+        fromF("mllp://%s:%d?validatePayload=true", MLLP_HOST, mllpPort)
                 .convertBodyTo(String.class);
 
         from("direct:validMessage")
-                .toF("mllp://%s:%d", MLLP_HOST, MLLP_PORT)
+                .toF("mllp://%s:%d", MLLP_HOST, mllpPort)
                 .setBody(header(MllpConstants.MLLP_ACKNOWLEDGEMENT));
 
         from("direct:invalidMessage")
-                .toF("mllp://%s:%d?exchangePattern=InOnly", MLLP_HOST, MLLP_PORT)
+                .toF("mllp://%s:%d?exchangePattern=InOnly", MLLP_HOST, mllpPort)
                 .setBody(header(MllpConstants.MLLP_ACKNOWLEDGEMENT));
     }
 }

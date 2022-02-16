@@ -32,6 +32,6 @@ public class Hl7TestResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public void stop() {
-        // Noop
+        AvailablePortFinder.releaseReservedPorts();
     }
 }
