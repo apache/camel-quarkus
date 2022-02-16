@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- LinkageError when using camel-quarkus-activemq together with quarkus-agroal [\#3548](https://github.com/apache/camel-quarkus/issues/3548)
 - Incorrect version of `quarkus-maven-plugin` may be resolved [\#3520](https://github.com/apache/camel-quarkus/issues/3520)
 - Prevent various plugins from resolving commons-logging:commons-logging [\#3517](https://github.com/apache/camel-quarkus/issues/3517)
 - Expand Cassandra CQL extension test coverage [\#3514](https://github.com/apache/camel-quarkus/issues/3514)
@@ -29,6 +30,7 @@
 
 **Merged pull requests:**
 
+- Fix \#3548 to exclude geronimo-jta\_1.1\_spec in camel-activemq [\#3550](https://github.com/apache/camel-quarkus/pull/3550) ([zhfeng](https://github.com/zhfeng))
 - Fix link to Quarkus Freemarker docs [\#3547](https://github.com/apache/camel-quarkus/pull/3547) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fixup e72113e send optaplanner test messages asynchronously [\#3546](https://github.com/apache/camel-quarkus/pull/3546) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove freemarker inaccurate documentation [\#3545](https://github.com/apache/camel-quarkus/pull/3545) ([aldettinger](https://github.com/aldettinger))
