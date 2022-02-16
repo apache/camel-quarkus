@@ -31,5 +31,6 @@ public class SapNetweaverTestResource implements QuarkusTestResourceLifecycleMan
 
     @Override
     public void stop() {
+        AvailablePortFinder.releaseReservedPorts();
     }
 }

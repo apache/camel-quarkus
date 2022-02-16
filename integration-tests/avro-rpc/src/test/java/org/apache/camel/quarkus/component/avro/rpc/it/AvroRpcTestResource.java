@@ -106,6 +106,7 @@ public class AvroRpcTestResource implements QuarkusTestResourceLifecycleManager 
         if (specificNettyServer != null) {
             specificNettyServer.close();
         }
+        AvailablePortFinder.releaseReservedPorts();
     }
 
     @Override
