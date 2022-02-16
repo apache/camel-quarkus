@@ -1,0 +1,5 @@
+=== Marshaling/Unmarshaling objects in native mode
+
+When marshaling/unmarshaling objects in native mode, all the serialized classes need to be link:https://quarkus.io/guides/writing-native-applications-tips#registering-for-reflection[registered for reflection].
+As such, when using `GsonDataFormat.setUnmarshalType(...)`, `GsonDataFormat.setUnmarshalTypeName(...)` and even `GsonDataFormat.setUnmarshalGenericType(...)`, the unmarshal type as well as sub field types should be registered for reflection.
+See a working example in this link:https://github.com/apache/camel-quarkus/blob/main/integration-tests/dataformats-json/src/main/java/org/apache/camel/quarkus/component/dataformats/json/model/PojoA.java[integration test].

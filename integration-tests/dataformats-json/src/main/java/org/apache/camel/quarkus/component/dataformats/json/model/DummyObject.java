@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.dataformats.json.model;
 
+import java.util.Date;
+
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
 
@@ -37,6 +39,8 @@ public class DummyObject {
     @JsonbTransient
     private int ignored;
 
+    private Date date = new Date(1645026373);
+
     public DummyObject() {
     }
 
@@ -54,6 +58,14 @@ public class DummyObject {
 
     public void setIgnored(int ignored) {
         this.ignored = ignored;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     @Override

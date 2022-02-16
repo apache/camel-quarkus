@@ -56,7 +56,7 @@ public class JsonDataformatsResource {
 
     @Path("/out")
     @POST
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public String testOrder(@QueryParam("json-component") String jsonComponent) {
         LOG.infof("Invoking testOrder(%s)", jsonComponent);
         return consumerTemplate.receive("vm:" + jsonComponent + "-out").getMessage().getBody().toString();
