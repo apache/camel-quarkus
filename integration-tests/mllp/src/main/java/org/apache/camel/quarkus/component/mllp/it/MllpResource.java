@@ -30,6 +30,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.mllp.MllpComponent;
 import org.apache.camel.component.mllp.MllpConstants;
 import org.apache.camel.component.mock.MockEndpoint;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 @Path("/mllp")
 @ApplicationScoped
@@ -64,7 +65,8 @@ public class MllpResource {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     public String getWithCharsetFromMsh18(String message) {
-        String mllpHostPort = String.format("mllp:%s:%d", MllpRoutes.MLLP_HOST, MllpRoutes.MLLP_PORT);
+        Integer mllpPort = ConfigProvider.getConfig().getValue("mllp.test.port", Integer.class);
+        String mllpHostPort = String.format("mllp:%s:%d", MllpRoutes.MLLP_HOST, mllpPort);
         Exchange exchange = producerTemplate.request(mllpHostPort, e -> e.getMessage().setBody(message));
         String ack = exchange.getMessage().getHeader(MllpConstants.MLLP_ACKNOWLEDGEMENT_STRING, String.class);
         return ack.split("\r")[0];

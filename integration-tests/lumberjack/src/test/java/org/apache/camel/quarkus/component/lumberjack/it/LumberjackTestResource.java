@@ -31,6 +31,6 @@ public class LumberjackTestResource implements QuarkusTestResourceLifecycleManag
 
     @Override
     public void stop() {
-
+        AvailablePortFinder.releaseReservedPorts();
     }
 }

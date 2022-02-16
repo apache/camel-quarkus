@@ -78,6 +78,7 @@ public class NagiosTestResource implements QuarkusTestResourceLifecycleManager {
         if (context != null) {
             context.shutdown();
         }
+        AvailablePortFinder.releaseReservedPorts();
     }
 
     @Override
