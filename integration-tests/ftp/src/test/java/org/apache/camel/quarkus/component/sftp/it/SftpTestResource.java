@@ -97,5 +97,7 @@ public class SftpTestResource implements QuarkusTestResourceLifecycleManager {
         } catch (Exception e) {
             LOGGER.warn("Failed delete sftp home: {}, {}", sftpHome, e);
         }
+
+        AvailablePortFinder.releaseReservedPorts();
     }
 }

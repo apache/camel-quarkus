@@ -136,6 +136,8 @@ public class FtpTestResource implements QuarkusTestResourceLifecycleManager {
         } catch (Exception e) {
             LOGGER.warn("Failed delete usr file: {}, {}", usrFile, e);
         }
+
+        AvailablePortFinder.releaseReservedPorts();
     }
 
     protected ListenerFactory createListenerFactory(int port) {

@@ -30,5 +30,6 @@ public class HystrixTestResource implements QuarkusTestResourceLifecycleManager 
 
     @Override
     public void stop() {
+        AvailablePortFinder.releaseReservedPorts();
     }
 }
