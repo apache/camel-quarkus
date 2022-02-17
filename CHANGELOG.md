@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- How do you configure an InterceptStrategy in Quarkus? [\#3552](https://github.com/apache/camel-quarkus/issues/3552)
 - LinkageError when using camel-quarkus-activemq together with quarkus-agroal [\#3548](https://github.com/apache/camel-quarkus/issues/3548)
 - Incorrect version of `quarkus-maven-plugin` may be resolved [\#3520](https://github.com/apache/camel-quarkus/issues/3520)
 - Prevent various plugins from resolving commons-logging:commons-logging [\#3517](https://github.com/apache/camel-quarkus/issues/3517)
@@ -19,8 +20,10 @@
 - deadLetterChannel does not work in BaseRouteBuilder configure method [\#3436](https://github.com/apache/camel-quarkus/issues/3436)
 - \[Camel 3.15\] Fhir tests are failing [\#3416](https://github.com/apache/camel-quarkus/issues/3416)
 - Better integration with Quarkus OpenAPI & OpenAPI Swagger UI [\#3346](https://github.com/apache/camel-quarkus/issues/3346)
+- Test examples on Windows [\#3343](https://github.com/apache/camel-quarkus/issues/3343)
 - Run integration tests on Windows [\#3342](https://github.com/apache/camel-quarkus/issues/3342)
 - `DebeziumMongodbTest` skipped tests [\#3213](https://github.com/apache/camel-quarkus/issues/3213)
+- Improve available port discovery in tests [\#3199](https://github.com/apache/camel-quarkus/issues/3199)
 - spark:hive is does not work [\#1956](https://github.com/apache/camel-quarkus/issues/1956)
 - spark:dataframe does not work on Java 11 [\#1955](https://github.com/apache/camel-quarkus/issues/1955)
 - \[Dependency hell\] Spark native support [\#1701](https://github.com/apache/camel-quarkus/issues/1701)
@@ -30,6 +33,8 @@
 
 **Merged pull requests:**
 
+- gson: complete doc and test coverage \#3556 [\#3557](https://github.com/apache/camel-quarkus/pull/3557) ([aldettinger](https://github.com/aldettinger))
+- Improve available port discovery in tests [\#3555](https://github.com/apache/camel-quarkus/pull/3555) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3548 to exclude geronimo-jta\_1.1\_spec in camel-activemq [\#3550](https://github.com/apache/camel-quarkus/pull/3550) ([zhfeng](https://github.com/zhfeng))
 - Fix link to Quarkus Freemarker docs [\#3547](https://github.com/apache/camel-quarkus/pull/3547) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fixup e72113e send optaplanner test messages asynchronously [\#3546](https://github.com/apache/camel-quarkus/pull/3546) ([jamesnetherton](https://github.com/jamesnetherton))
