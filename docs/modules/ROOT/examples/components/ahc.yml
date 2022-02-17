@@ -4,7 +4,7 @@ cqArtifactId: camel-quarkus-ahc
 cqArtifactIdBase: ahc
 cqNativeSupported: true
 cqStatus: Stable
-cqDeprecated: false
+cqDeprecated: true
 cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: ahc
