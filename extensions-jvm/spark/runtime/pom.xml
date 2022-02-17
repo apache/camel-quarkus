@@ -92,6 +92,10 @@
                     <groupId>javax.servlet</groupId>
                     <artifactId>javax.servlet-api</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>javax.transaction</groupId>
+                    <artifactId>jta</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -105,6 +109,10 @@
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.transaction</groupId>
+            <artifactId>jakarta.transaction-api</artifactId>
         </dependency>
     </dependencies>
 
