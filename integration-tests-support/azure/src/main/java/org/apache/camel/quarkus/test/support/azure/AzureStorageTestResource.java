@@ -35,7 +35,7 @@ import org.testcontainers.containers.wait.strategy.Wait;
 
 public class AzureStorageTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(AzureStorageTestResource.class);
-    private static final String AZURITE_IMAGE = "mcr.microsoft.com/azure-storage/azurite:3.14.2";
+    private static final String AZURITE_IMAGE = "mcr.microsoft.com/azure-storage/azurite:3.15.0";
 
     public enum Service {
         blob(10000),
