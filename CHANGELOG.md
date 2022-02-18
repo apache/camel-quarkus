@@ -10,7 +10,9 @@
 
 **Closed issues:**
 
+- Gson: Complete doc and test coverage [\#3556](https://github.com/apache/camel-quarkus/issues/3556)
 - How do you configure an InterceptStrategy in Quarkus? [\#3552](https://github.com/apache/camel-quarkus/issues/3552)
+- Ban jboss-transaction-api\*, javax.transaction:\* and geronimo-jta\* in favor of jakarta.transaction:jakarta.transaction-api [\#3551](https://github.com/apache/camel-quarkus/issues/3551)
 - LinkageError when using camel-quarkus-activemq together with quarkus-agroal [\#3548](https://github.com/apache/camel-quarkus/issues/3548)
 - Incorrect version of `quarkus-maven-plugin` may be resolved [\#3520](https://github.com/apache/camel-quarkus/issues/3520)
 - Prevent various plugins from resolving commons-logging:commons-logging [\#3517](https://github.com/apache/camel-quarkus/issues/3517)
@@ -33,6 +35,8 @@
 
 **Merged pull requests:**
 
+- Upgrade Azurite container image to 3.15.0 [\#3563](https://github.com/apache/camel-quarkus/pull/3563) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix \#3551 ban all non-canonical JTA specs artifacts [\#3559](https://github.com/apache/camel-quarkus/pull/3559) ([zhfeng](https://github.com/zhfeng))
 - gson: complete doc and test coverage \#3556 [\#3557](https://github.com/apache/camel-quarkus/pull/3557) ([aldettinger](https://github.com/aldettinger))
 - Improve available port discovery in tests [\#3555](https://github.com/apache/camel-quarkus/pull/3555) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3548 to exclude geronimo-jta\_1.1\_spec in camel-activemq [\#3550](https://github.com/apache/camel-quarkus/pull/3550) ([zhfeng](https://github.com/zhfeng))
