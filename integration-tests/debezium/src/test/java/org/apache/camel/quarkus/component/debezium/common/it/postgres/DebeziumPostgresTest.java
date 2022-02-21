@@ -22,6 +22,7 @@ import java.sql.SQLException;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
 import org.apache.camel.quarkus.component.debezium.common.it.AbstractDebeziumTest;
 import org.apache.camel.quarkus.component.debezium.common.it.Type;
 import org.eclipse.microprofile.config.Config;
@@ -30,7 +31,11 @@ import org.jboss.logging.Logger;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 @QuarkusTestResource(DebeziumPostgresTestResource.class)
@@ -49,6 +54,16 @@ class DebeziumPostgresTest extends AbstractDebeziumTest {
         Config config = ConfigProvider.getConfig();
         final String jdbcUrl = config.getValue(Type.postgres.getPropertyJdbc(), String.class);
         connection = DriverManager.getConnection(jdbcUrl);
+    }
+
+    @Test
+    @Order(4)
+    public void testAdditionalProperty() {
+        //https://github.com/apache/camel-quarkus/issues/3488
+        RestAssured.get(Type.postgres.getComponent() + "/getAdditionalProperties")
+                .then()
+                .statusCode(200)
+                .body("'database.connectionTimeZone'", is("CET"));
     }
 
     @AfterAll
