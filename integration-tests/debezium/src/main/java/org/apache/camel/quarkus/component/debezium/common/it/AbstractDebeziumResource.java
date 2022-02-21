@@ -16,11 +16,20 @@
  */
 package org.apache.camel.quarkus.component.debezium.common.it;
 
-import javax.inject.Inject;
+import java.util.Map;
+import java.util.stream.Collectors;
 
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.debezium.DebeziumConstants;
+import org.apache.camel.component.debezium.DebeziumEndpoint;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -41,8 +50,21 @@ public abstract class AbstractDebeziumResource {
     @Inject
     Config config;
 
+    @Inject
+    CamelContext camelContext;
+
     public AbstractDebeziumResource(Type type) {
         this.type = type;
+    }
+
+    @Path("/getAdditionalProperties")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map<String, String> getAdditionalProperties() {
+        DebeziumEndpoint endpoint = (DebeziumEndpoint) camelContext.getEndpoint(getEndpointUrl()
+                + "&additionalProperties.database.connectionTimeZone=CET");
+        return endpoint.getConfiguration().getAdditionalProperties().entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> (String) e.getValue()));
     }
 
     String getEndpoinUrl(String hostname, String port, String username, String password, String databaseServerName,
@@ -90,6 +112,11 @@ public abstract class AbstractDebeziumResource {
     }
 
     private Exchange receiveAsExchange() {
+        String endpoint = getEndpointUrl();
+        return consumerTemplate.receive(endpoint, TIMEOUT);
+    }
+
+    protected String getEndpointUrl() {
         String endpoint = getEndpoinUrl(
                 config.getValue(type.getPropertyHostname(), String.class),
                 config.getValue(type.getPropertyPort(), String.class),
@@ -97,6 +124,6 @@ public abstract class AbstractDebeziumResource {
                 config.getValue(type.getPropertyPassword(), String.class),
                 "qa",
                 config.getValue(type.getPropertyOffsetFileName(), String.class));
-        return consumerTemplate.receive(endpoint, TIMEOUT);
+        return endpoint;
     }
 }
