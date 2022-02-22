@@ -15,11 +15,12 @@ Prerequisites:
 
 * A https://docs.microsoft.com/en-us/azure/storage/common/storage-account-create?toc=%2Fazure%2Fstorage%2Fblobs%2Ftoc.json&tabs=azure-portal[general-purpose v2 Azure storage account] and
 https://docs.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-portal[create a container]
+* The https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-change-feed?tabs=azure-portal#enable-and-disable-the-change-feed[change feed] is enabled on your storage account
 * View the https://docs.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage?tabs=azure-portal#view-account-access-keys[account keys] and set the following environment variables:
 * An https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-create[Azure Event Hub]
 * An https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-get-connection-string[Event Hubs connection string]
 
-To create all of the above, you can use `azure-resources.sh` script as follows:
+To create all of the above, you can use `azure-resources.sh` script as follows. Ensure that you have installed the https://docs.microsoft.com/en-us/cli/azure/[Azure CLI] beforehand:
 
 [source,shell]
 ----
