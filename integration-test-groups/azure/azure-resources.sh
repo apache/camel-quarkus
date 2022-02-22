@@ -16,6 +16,13 @@
 # limitations under the License.
 #
 
+if ! which az > /dev/null 2>&1; then
+  echo "$(basename $0) requires the Azure CLI."
+  echo
+  echo "https://docs.microsoft.com/en-us/cli/azure/"
+  echo
+  exit 1
+fi
 
 suffix="$(az ad signed-in-user show --query displayName -o tsv | tr '[:upper:]' '[:lower:]' | tr -cd '[:alnum:]' | cut -c-12)"
 suffix="${suffix}4"
@@ -33,6 +40,7 @@ function createResources() {
     az group create --name ${RESOURCE_GROUP} --location ${ZONE}
 
     az storage account create --name ${AZURE_STORAGE_ACCOUNT_NAME} --resource-group ${RESOURCE_GROUP} --location ${ZONE} --sku Standard_LRS --kind StorageV2
+    az storage account blob-service-properties update --enable-change-feed true --delete-retention-days 1 -n ${AZURE_STORAGE_ACCOUNT_NAME} -g ${RESOURCE_GROUP}
 
     SUBSCRIPTION_ID="$(az account list --query '[0].id' -o tsv)"
     USER_ID="$(az ad signed-in-user show --query objectId -o tsv)"
@@ -79,4 +87,3 @@ delete)  echo "Deleting Azure resources"
 *) echo "usage: $0 [create|delete]"
    ;;
 esac
-
