@@ -49,7 +49,7 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-jackson</artifactId>
+            <artifactId>quarkus-resteasy-jsonb</artifactId>
         </dependency>
 
         <!-- test dependencies -->
