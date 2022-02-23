@@ -46,6 +46,9 @@ public class JsonPathTestRoute extends RouteBuilder {
                 .to("mock:setHeader");
 
         from("direct:getAuthorsFromJsonStream").transform().jsonpath("$.store.book[*].title");
+
+        from("direct:splitInputJsonThenWriteAsString").split()
+                .jsonpathWriteAsString("$.testjson.users").to("mock:jsonpathWriteAsString");
     }
 
     @RegisterForReflection
