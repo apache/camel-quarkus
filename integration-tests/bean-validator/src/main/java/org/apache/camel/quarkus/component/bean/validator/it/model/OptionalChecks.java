@@ -14,26 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.bean.validator.it;
+package org.apache.camel.quarkus.component.bean.validator.it.model;
 
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 
-@QuarkusTest
-class BeanValidatorTest {
-
-    @Test
-    public void test() {
-        //forced optional check
-        RestAssured.get("/bean-validator/get/optional/honda/123").then().statusCode(400);
-        //forced optional check
-        RestAssured.get("/bean-validator/get/optional/honda/DD-AB-123").then().statusCode(200);
-        //not-forced optional check
-        RestAssured.get("/bean-validator/get/start/honda/123").then().statusCode(200);
-        //not-forced optional check
-        RestAssured.get("/bean-validator/get/start/honda/DD-AB-12").then().statusCode(200);
-
-    }
-
+@RegisterForReflection
+public interface OptionalChecks {
 }
