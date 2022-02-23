@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.json.path.it;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -46,6 +47,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class JsonPathResource {
 
     private static final Logger LOG = Logger.getLogger(JsonPathResource.class);
+
+    private static final String WRITE_AS_STRING_TEST_DATA = "{\"testjson\":{\"users\":[{\"name\":\"Jan\",\"age\":28},{\"age\":10},{\"name\":\"Tom\",\"age\":50}],\"boolean\":true,\"color\":\"gold\","
+            + "\"null\":null,\"number\":123,\"object\":{\"objectX\":\"myObjectX\",\"objectY\":\"secondbestobject\","
+            + "\"subObject\":{\"obj1\":\"obj1desc\"}},\"string\":\"HelloWorld\"}}";
 
     @Inject
     CamelContext context;
@@ -141,5 +146,21 @@ public class JsonPathResource {
                         HEADER_JSON_ENCODING, encoding, List.class);
             }
         }
+    }
+
+    @Path("/splitInputJsonThenWriteAsStringShouldSucceed")
+    @GET
+    public void splitInputJsonThenWriteAsStringShouldSucceed() throws InterruptedException {
+        LOG.debugf("Split input json and then use jsonpath writeAsString");
+
+        MockEndpoint mockJsonpathWriteAsString = context.getEndpoint("mock:jsonpathWriteAsString", MockEndpoint.class);
+        mockJsonpathWriteAsString.expectedMessageCount(3);
+        List<String> expectedBodies = new ArrayList<>();
+        expectedBodies.add("{\"name\":\"Jan\",\"age\":28}");
+        expectedBodies.add("{\"age\":10}");
+        expectedBodies.add("{\"name\":\"Tom\",\"age\":50}");
+        mockJsonpathWriteAsString.expectedBodiesReceived(expectedBodies);
+        producerTemplate.requestBody("direct:splitInputJsonThenWriteAsString", WRITE_AS_STRING_TEST_DATA, String.class);
+        mockJsonpathWriteAsString.assertIsSatisfied();
     }
 }
