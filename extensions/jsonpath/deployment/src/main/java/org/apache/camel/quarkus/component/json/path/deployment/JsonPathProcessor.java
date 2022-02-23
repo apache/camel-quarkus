@@ -24,6 +24,7 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.jsonpath.JsonPath;
 import org.apache.camel.jsonpath.JsonPathAnnotationExpressionFactory;
+import org.apache.camel.jsonpath.jackson.JacksonJsonAdapter;
 
 class JsonPathProcessor {
 
@@ -39,6 +40,7 @@ class JsonPathProcessor {
         List<ReflectiveClassBuildItem> reflectiveClassBuildItems = new ArrayList<>();
         reflectiveClassBuildItems.add(new ReflectiveClassBuildItem(false, false, JsonPathAnnotationExpressionFactory.class));
         reflectiveClassBuildItems.add(new ReflectiveClassBuildItem(true, false, JsonPath.class));
+        reflectiveClassBuildItems.add(new ReflectiveClassBuildItem(false, false, JacksonJsonAdapter.class));
         return reflectiveClassBuildItems;
     }
 
