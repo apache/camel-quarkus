@@ -25,7 +25,7 @@ public class Car {
     private String manufacturer;
 
     @NotNull
-    @Size(min = 5, max = 14)
+    @Size(min = 5, max = 14, groups = OptionalChecks.class)
     private String licensePlate;
 
     public Car(String manufacturer, String licencePlate) {
@@ -48,5 +48,4 @@ public class Car {
     public void setLicensePlate(String licensePlate) {
         this.licensePlate = licensePlate;
     }
-
 }
