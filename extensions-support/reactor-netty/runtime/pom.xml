@@ -67,6 +67,10 @@
                     <groupId>io.netty</groupId>
                     <artifactId>netty-resolver-dns-native-macos</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>io.projectreactor.netty</groupId>
+                    <artifactId>reactor-netty-http-brave</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
     </dependencies>
