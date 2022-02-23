@@ -26,5 +26,9 @@ public class BeanValidatorRoute extends RouteBuilder {
 
         from("direct:start")
                 .to("bean-validator:car");
+
+        from("direct:optional")
+                .to("bean-validator:xmlCar?group=org.apache.camel.quarkus.component.bean.validator.it.model.OptionalChecks");
     }
+
 }

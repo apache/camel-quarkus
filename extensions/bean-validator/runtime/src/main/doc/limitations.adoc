@@ -1,0 +1,2 @@
+It is not possible to describe your constraints as XML (by providing the file META-INF/validation.xml), only Java annotations are supported.
+This is caused by the limitation of the Quarkus Hibernate Validator extension (see the https://github.com/quarkusio/quarkus/issues/24027[issue]).
