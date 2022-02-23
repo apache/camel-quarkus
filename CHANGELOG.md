@@ -36,6 +36,7 @@
 **Merged pull requests:**
 
 - Upgrade Azurite container image to 3.15.0 [\#3563](https://github.com/apache/camel-quarkus/pull/3563) ([jamesnetherton](https://github.com/jamesnetherton))
+- Deprecate AHC and AHC-WS extensions  [\#3560](https://github.com/apache/camel-quarkus/pull/3560) ([ppalaga](https://github.com/ppalaga))
 - Fix \#3551 ban all non-canonical JTA specs artifacts [\#3559](https://github.com/apache/camel-quarkus/pull/3559) ([zhfeng](https://github.com/zhfeng))
 - gson: complete doc and test coverage \#3556 [\#3557](https://github.com/apache/camel-quarkus/pull/3557) ([aldettinger](https://github.com/aldettinger))
 - Improve available port discovery in tests [\#3555](https://github.com/apache/camel-quarkus/pull/3555) ([jamesnetherton](https://github.com/jamesnetherton))
