@@ -10,6 +10,8 @@
 
 **Closed issues:**
 
+- jsonpath: JSON keys are unquoted when using writeAsString in native mode [\#3571](https://github.com/apache/camel-quarkus/issues/3571)
+- Increase `azure-storage-blob` extension test coverage [\#3561](https://github.com/apache/camel-quarkus/issues/3561)
 - Gson: Complete doc and test coverage [\#3556](https://github.com/apache/camel-quarkus/issues/3556)
 - How do you configure an InterceptStrategy in Quarkus? [\#3552](https://github.com/apache/camel-quarkus/issues/3552)
 - Ban jboss-transaction-api\*, javax.transaction:\* and geronimo-jta\* in favor of jakarta.transaction:jakarta.transaction-api [\#3551](https://github.com/apache/camel-quarkus/issues/3551)
@@ -35,6 +37,10 @@
 
 **Merged pull requests:**
 
+- Fix JSON keys are unquoted when using writeAsString in native mode \#3571 [\#3576](https://github.com/apache/camel-quarkus/pull/3576) ([aldettinger](https://github.com/aldettinger))
+- Exclude optional `reactor-netty-http-brave` [\#3575](https://github.com/apache/camel-quarkus/pull/3575) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade Quarkus to 2.7.2.Final [\#3570](https://github.com/apache/camel-quarkus/pull/3570) ([jamesnetherton](https://github.com/jamesnetherton))
+- Increase azure-storage-blob extension test coverage [\#3568](https://github.com/apache/camel-quarkus/pull/3568) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Azurite container image to 3.15.0 [\#3563](https://github.com/apache/camel-quarkus/pull/3563) ([jamesnetherton](https://github.com/jamesnetherton))
 - Deprecate AHC and AHC-WS extensions  [\#3560](https://github.com/apache/camel-quarkus/pull/3560) ([ppalaga](https://github.com/ppalaga))
 - Fix \#3551 ban all non-canonical JTA specs artifacts [\#3559](https://github.com/apache/camel-quarkus/pull/3559) ([zhfeng](https://github.com/zhfeng))
