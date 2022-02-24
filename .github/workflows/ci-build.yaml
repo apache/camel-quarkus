@@ -427,7 +427,13 @@ jobs:
         run: echo "CQ_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
       - name: clone and verify examples
         run: |
-          git clone --depth 1 --branch camel-quarkus-main https://github.com/apache/camel-quarkus-examples.git \
+          EXAMPLES_BRANCH="camel-quarkus-main"
+
+          if [[ ${GITHUB_REF_NAME} =~ [0-9]+.[0-9]+.x ]]; then
+              EXAMPLES_BRANCH=${GITHUB_REF_NAME}
+          fi
+
+          git clone --depth 1 --branch ${EXAMPLES_BRANCH} https://github.com/apache/camel-quarkus-examples.git \
             && cd camel-quarkus-examples \
             && echo "Current Examples commit:" $(git rev-parse HEAD) \
             && mvn ${MAVEN_ARGS} ${BRANCH_OPTIONS} org.l2x6.cq:cq-maven-plugin:2.10.0:examples-set-platform -Dcq.camel-quarkus.version=${CQ_VERSION} \
