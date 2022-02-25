@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- Build maintence branch PRs against corresponding camel-quarkus-examples maintenance branch [\#3574](https://github.com/apache/camel-quarkus/issues/3574)
 - jsonpath: JSON keys are unquoted when using writeAsString in native mode [\#3571](https://github.com/apache/camel-quarkus/issues/3571)
 - Increase `azure-storage-blob` extension test coverage [\#3561](https://github.com/apache/camel-quarkus/issues/3561)
 - Gson: Complete doc and test coverage [\#3556](https://github.com/apache/camel-quarkus/issues/3556)
@@ -37,6 +38,7 @@
 
 **Merged pull requests:**
 
+- Ensure correct camel-quarkus-examples branch for maintenance branch PRs [\#3578](https://github.com/apache/camel-quarkus/pull/3578) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix JSON keys are unquoted when using writeAsString in native mode \#3571 [\#3576](https://github.com/apache/camel-quarkus/pull/3576) ([aldettinger](https://github.com/aldettinger))
 - Exclude optional `reactor-netty-http-brave` [\#3575](https://github.com/apache/camel-quarkus/pull/3575) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.7.2.Final [\#3570](https://github.com/apache/camel-quarkus/pull/3570) ([jamesnetherton](https://github.com/jamesnetherton))
