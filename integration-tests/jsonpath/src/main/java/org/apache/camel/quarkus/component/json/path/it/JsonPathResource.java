@@ -36,6 +36,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.commons.lang3.StringUtils;
 import org.jboss.logging.Logger;
 
 import static org.apache.camel.jsonpath.JsonPathConstants.HEADER_JSON_ENCODING;
@@ -133,19 +134,21 @@ public class JsonPathResource {
 
     @Path("/getAuthorsFromJsonStream")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
-    public List<?> getAuthorsFromJsonStream(byte[] jsonBytes, @QueryParam("encoding") String encoding) throws IOException {
+    public String getAuthorsFromJsonStream(byte[] jsonBytes, @QueryParam("encoding") String encoding) throws IOException {
         LOG.debugf("Getting authors from JsonStream with encoding '%s' and %d bytes", encoding, jsonBytes.length);
 
+        List<?> bookTitles;
         try (ByteArrayInputStream jsonStream = new ByteArrayInputStream(jsonBytes)) {
             if (encoding == null) {
-                return producerTemplate.requestBody("direct:getAuthorsFromJsonStream", jsonStream, List.class);
+                bookTitles = producerTemplate.requestBody("direct:getAuthorsFromJsonStream", jsonStream, List.class);
             } else {
-                return producerTemplate.requestBodyAndHeader("direct:getAuthorsFromJsonStream", jsonStream,
+                bookTitles = producerTemplate.requestBodyAndHeader("direct:getAuthorsFromJsonStream", jsonStream,
                         HEADER_JSON_ENCODING, encoding, List.class);
             }
         }
+        return StringUtils.join(bookTitles, "-");
     }
 
     @Path("/splitInputJsonThenWriteAsStringShouldSucceed")
