@@ -23,7 +23,7 @@ import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 class JsonPathCharsetsTest {
@@ -31,31 +31,31 @@ class JsonPathCharsetsTest {
     @Test
     public void transformBooksUTF16BEShouldReturnTwoAuthors() throws IOException {
         byte[] body = IOUtils.resourceToByteArray("/booksUTF16BE.json");
-        String[] authors = given().body(body).get("/jsonpath/getAuthorsFromJsonStream").then().statusCode(200).extract()
-                .as(String[].class);
-        assertEquals(2, authors.length);
-        assertEquals("Sayings of the Century", authors[0]);
-        assertEquals("Sword of Honour", authors[1]);
+        given().body(body)
+                .get("/jsonpath/getAuthorsFromJsonStream")
+                .then()
+                .statusCode(200)
+                .body(is("Sayings of the Century-Sword of Honour"));
     }
 
     @Test
     public void transformBooksUTF16LEShouldReturnTwoAuthors() throws IOException {
         byte[] body = IOUtils.resourceToByteArray("/booksUTF16LE.json");
-        String[] authors = given().body(body).get("/jsonpath/getAuthorsFromJsonStream").then().statusCode(200).extract()
-                .as(String[].class);
-        assertEquals(2, authors.length);
-        assertEquals("Sayings of the Century", authors[0]);
-        assertEquals("Sword of Honour", authors[1]);
+        given().body(body)
+                .get("/jsonpath/getAuthorsFromJsonStream")
+                .then().statusCode(200)
+                .body(is("Sayings of the Century-Sword of Honour"));
     }
 
     @Test
     public void transformBooksIso_8859_1_ShouldReturnTwoAuthors() throws IOException {
         byte[] body = IOUtils.resourceToByteArray("/germanbooks-iso-8859-1.json");
-        String[] authors = given().queryParam("encoding", "ISO-8859-1").body(body).get("/jsonpath/getAuthorsFromJsonStream")
-                .then().statusCode(200).extract().as(String[].class);
-        assertEquals(2, authors.length);
-        assertEquals("Joseph und seine Brüder", authors[0]);
-        assertEquals("Götzendämmerung", authors[1]);
+        given().queryParam("encoding", "ISO-8859-1")
+                .body(body)
+                .get("/jsonpath/getAuthorsFromJsonStream")
+                .then()
+                .statusCode(200)
+                .body(is("Joseph und seine Brüder-Götzendämmerung"));
     }
 
 }
