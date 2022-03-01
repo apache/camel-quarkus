@@ -23,6 +23,7 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.camel.component.slack.helper.SlackMessage;
 import org.jboss.jandex.IndexView;
 
 class SlackProcessor {
@@ -55,5 +56,10 @@ class SlackProcessor {
                         || className.startsWith("com.slack.api.methods.response"))
                 .toArray(String[]::new);
         return new ReflectiveClassBuildItem(false, true, slackApiClasses);
+    }
+
+    @BuildStep
+    ReflectiveClassBuildItem registerForReflection() {
+        return new ReflectiveClassBuildItem(false, true, SlackMessage.class);
     }
 }
