@@ -1,0 +1,42 @@
+{
+  "id" : "c86380a0-2c6e-41ec-8183-467013109f96",
+  "name" : "chatpostmessage",
+  "request" : {
+    "url" : "/services/webhook",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalTo" : "{\"text\":\"Hello Camel Quarkus Slack using Webhook URL\",\"channel\":\"test-channel\"}",
+      "caseInsensitive" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"ok\":true,\"channel\":\"test\",\"ts\":\"1615377778.002900\",\"message\":{\"bot_id\":\"test\",\"type\":\"message\",\"text\":\"Hello Camel Quarkus Slack\",\"user\":\"test\",\"ts\":\"1615377778.002900\",\"team\":\"test\",\"bot_profile\":{\"id\":\"test\",\"deleted\":false,\"name\":\"API Test\",\"updated\":1615375056,\"app_id\":\"test\",\"icons\":{\"image_36\":\"https:\\/\\/a.slack-edge.com\\/80588\\/img\\/plugins\\/app\\/bot_36.png\",\"image_48\":\"https:\\/\\/a.slack-edge.com\\/80588\\/img\\/plugins\\/app\\/bot_48.png\",\"image_72\":\"https:\\/\\/a.slack-edge.com\\/80588\\/img\\/plugins\\/app\\/service_72.png\"},\"team_id\":\"test\"}}}",
+    "headers" : {
+      "date" : "Wed, 10 Mar 2021 12:02:58 GMT",
+      "server" : "Apache",
+      "x-xss-protection" : "0",
+      "pragma" : "no-cache",
+      "cache-control" : "private, no-cache, no-store, must-revalidate",
+      "strict-transport-security" : "max-age=31536000; includeSubDomains; preload",
+      "x-slack-req-id" : "f353e4e5fc6450a0ca4a32ed0ad4e203",
+      "x-content-type-options" : "nosniff",
+      "referrer-policy" : "no-referrer",
+      "x-slack-backend" : "r",
+      "x-oauth-scopes" : "incoming-webhook,chat:write,channels:read,groups:read,mpim:read,im:read,channels:history,groups:history,mpim:history,im:history",
+      "x-accepted-oauth-scopes" : "chat:write",
+      "expires" : "Mon, 26 Jul 1997 05:00:00 GMT",
+      "vary" : "Accept-Encoding",
+      "content-type" : "application/json; charset=utf-8",
+      "x-envoy-upstream-service-time" : "61",
+      "x-backend" : "main_normal main_canary_with_overflow main_control_with_overflow",
+      "x-server" : "slack-www-hhvm-main-iad-au28",
+      "x-via" : "envoy-www-iad-yrq3, haproxy-edge-lhr-ubwz",
+      "x-slack-shared-secret-outcome" : "shared-secret",
+      "via" : "envoy-www-iad-yrq3"
+    }
+  },
+  "uuid" : "c86380a0-2c6e-41ec-8183-467013109f96",
+  "persistent" : true,
+  "insertionIndex" : 2
+}
