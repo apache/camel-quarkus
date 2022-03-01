@@ -5,7 +5,7 @@
     "url" : "/api/chat.postMessage",
     "method" : "POST",
     "bodyPatterns" : [ {
-      "equalTo" : "channel=test-channel&text=Hello%20Camel%20Quarkus%20Slack&link_names=0&mrkdwn=1&unfurl_links=0&unfurl_media=0&reply_broadcast=0",
+      "equalTo" : "channel=test-channel&text=Hello%20Camel%20Quarkus%20Slack%20using%20Token&link_names=0&mrkdwn=1&unfurl_links=0&unfurl_media=0&reply_broadcast=0",
       "caseInsensitive" : false
     } ]
   },

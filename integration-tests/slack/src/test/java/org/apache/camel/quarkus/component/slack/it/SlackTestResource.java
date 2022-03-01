@@ -38,7 +38,7 @@ public class SlackTestResource extends WireMockTestResourceLifecycleManager {
         String webhookUrl = wiremockUrl != null ? wiremockUrl + "/services/webhook"
                 : ConfigProvider.getConfig().getValue(SLACK_ENV_WEBHOOK_URL, String.class);
         return CollectionHelper.mergeMaps(properties, CollectionHelper.mapOf(
-                "camel.component.slack.webhook-url", webhookUrl,
+                "slack.webhook.url", webhookUrl,
                 "slack.server-url", serverUrl,
                 "slack.token", envOrDefault(SLACK_ENV_TOKEN, "test-token")));
     }
