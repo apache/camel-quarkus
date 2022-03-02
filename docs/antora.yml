@@ -29,7 +29,7 @@ asciidoc:
     target-maven-version: 3.8.4 # replace ${target-maven-version}
     camel-version: 3.14.1 # replace ${camel.version}
     camel-docs-version: 3.14.x # replace ${camel.docs.components.version}
-    quarkus-version: 2.7.2.Final # replace ${quarkus.version}
+    quarkus-version: 2.7.3.Final # replace ${quarkus.version}
     graalvm-version: 21.3.1 # replace ${graalvm.version}
     graalvm-docs-version: 21.3
     # attributes used in xrefs to other Antora components
