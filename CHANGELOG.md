@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- jsonpath: The behavior change in native-mode when an application depend upon jackson-module-jaxb-annotations [\#3582](https://github.com/apache/camel-quarkus/issues/3582)
 - Build maintence branch PRs against corresponding camel-quarkus-examples maintenance branch [\#3574](https://github.com/apache/camel-quarkus/issues/3574)
 - jsonpath: JSON keys are unquoted when using writeAsString in native mode [\#3571](https://github.com/apache/camel-quarkus/issues/3571)
 - Increase `azure-storage-blob` extension test coverage [\#3561](https://github.com/apache/camel-quarkus/issues/3561)
@@ -38,6 +39,7 @@
 
 **Merged pull requests:**
 
+- jsonpath: fix different number of ObjectMapper modules between JVM an… [\#3583](https://github.com/apache/camel-quarkus/pull/3583) ([aldettinger](https://github.com/aldettinger))
 - Ensure correct camel-quarkus-examples branch for maintenance branch PRs [\#3578](https://github.com/apache/camel-quarkus/pull/3578) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix JSON keys are unquoted when using writeAsString in native mode \#3571 [\#3576](https://github.com/apache/camel-quarkus/pull/3576) ([aldettinger](https://github.com/aldettinger))
 - Exclude optional `reactor-netty-http-brave` [\#3575](https://github.com/apache/camel-quarkus/pull/3575) ([jamesnetherton](https://github.com/jamesnetherton))
