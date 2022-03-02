@@ -115,7 +115,7 @@
         <kotlin.version>1.6.10</kotlin.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.jetbrains.kotlin:kotlin-stdlib -->
         <libthrift.version>${libthrift-version}</libthrift.version> <!-- Spark -->
         <metrics.version>${metrics-version}</metrics.version><!-- Spark -->
-        <mvel2.version>${mvel-version}</mvel2.version>
+        <mvel2.version>2.4.13.Final</mvel2.version><!-- @sync org.apache.camel:camel-dependencies:${camel.version} prop:mvel-version -->
         <okio.version>${squareup-okio-version}</okio.version>
         <protobuf.version>3.19.3</protobuf.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.google.protobuf:protobuf-java -->
         <retrofit.version>2.5.0</retrofit.version>
