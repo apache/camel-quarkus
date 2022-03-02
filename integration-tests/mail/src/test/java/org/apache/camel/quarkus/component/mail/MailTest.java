@@ -16,12 +16,17 @@
  */
 package org.apache.camel.quarkus.component.mail;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -45,6 +50,15 @@ public class MailTest {
             + "Hello attachment!"
             + "${delimiter}--\r\n";
 
+    @AfterEach
+    public void afterEach() {
+        // Clear mock mailbox
+        RestAssured.given()
+                .delete("/mock/clear")
+                .then()
+                .statusCode(204);
+    }
+
     @Test
     public void testSendAsMail() {
         RestAssured.given()
@@ -58,10 +72,12 @@ public class MailTest {
                 .get("/mock/{username}/size", "james@localhost")
                 .then()
                 .body(is("1"));
+
         RestAssured.given()
                 .get("/mock/{username}/{id}/content", "james@localhost", 0)
                 .then()
                 .body(is("Hi how are you"));
+
         RestAssured.given()
                 .get("/mock/{username}/{id}/subject", "james@localhost", 0)
                 .then()
@@ -88,7 +104,48 @@ public class MailTest {
                 .extract().body().asString();
 
         assertMultipart(EXPECTED_TEMPLATE, unmarshalMarshal);
+    }
 
+    @Test
+    public void consumer() throws IOException {
+        String content = "Test mail content";
+        Path attachmentPath = Paths.get(
+                RestAssured.given()
+                        .body(content)
+                        .post("/mock/{username}/create/attachments", "james@localhost")
+                        .then()
+                        .statusCode(200)
+                        .extract()
+                        .body()
+                        .asString());
+
+        try {
+            // Start consumer
+            RestAssured.given()
+                    .post("/mail/consumer/true")
+                    .then()
+                    .statusCode(204);
+
+            RestAssured.given()
+                    .body(content)
+                    .get("/mail/inbox")
+                    .then()
+                    .statusCode(200)
+                    .body(
+                            "subject", is("Test attachment message"),
+                            "content", is(content),
+                            "attachmentFilename", is(attachmentPath.getFileName().toString()),
+                            "attachmentContent", is("Attachment " + content));
+        } finally {
+            // Stop consumer
+            RestAssured.given()
+                    .post("/mail/consumer/false")
+                    .then()
+                    .statusCode(204);
+
+            // Clean up temporary files
+            Files.deleteIfExists(attachmentPath);
+        }
     }
 
     private void assertMultipart(final String expectedPattern, final String actual) {

@@ -16,19 +16,11 @@
  */
 package org.apache.camel.quarkus.component.mail;
 
-import java.util.Properties;
-
-import javax.enterprise.inject.Produces;
-import javax.mail.Session;
-
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.mail.MailComponent;
 
 public class CamelRoute extends RouteBuilder {
     @Override
     public void configure() {
-        bindToRegistry("smtp", smtp());
-
         from("direct:mailtext")
                 .setHeader("Subject", constant("Hello World"))
                 .setHeader("To", constant("james@localhost"))
@@ -37,17 +29,14 @@ public class CamelRoute extends RouteBuilder {
 
         from("direct:mimeMultipartMarshal")
                 .marshal().mimeMultipart();
+
         from("direct:mimeMultipartUnmarshalMarshal")
                 .unmarshal().mimeMultipart()
                 .marshal().mimeMultipart();
 
-    }
-
-    @Produces
-    MailComponent smtp() {
-        MailComponent mail = new MailComponent(getContext());
-        Session session = Session.getInstance(new Properties());
-        mail.getConfiguration().setSession(session);
-        return mail;
+        from("pop3://localhost?initialDelay=100&delay=100")
+                .id("mail-consumer")
+                .autoStartup(false)
+                .to("seda:mail");
     }
 }
