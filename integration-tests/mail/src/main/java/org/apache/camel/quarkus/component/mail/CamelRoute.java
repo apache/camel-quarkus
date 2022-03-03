@@ -16,16 +16,31 @@
  */
 package org.apache.camel.quarkus.component.mail;
 
-import org.apache.camel.builder.RouteBuilder;
+import javax.enterprise.context.ApplicationScoped;
 
+import org.apache.camel.builder.RouteBuilder;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+@ApplicationScoped
 public class CamelRoute extends RouteBuilder {
+
+    static final String EMAIL_ADDRESS = "test@localhost";
+    static final String USERNAME = "test";
+    static final String PASSWORD = "s3cr3t";
+
+    @ConfigProperty(name = "mail.smtp.port")
+    int smtpPort;
+
+    @ConfigProperty(name = "mail.pop3.port")
+    int pop3Port;
+
     @Override
     public void configure() {
-        from("direct:mailtext")
-                .setHeader("Subject", constant("Hello World"))
-                .setHeader("To", constant("james@localhost"))
-                .setHeader("From", constant("claus@localhost"))
-                .to("smtp://localhost?initialDelay=100&delay=100");
+        from("direct:sendMail")
+                .toF("smtp://localhost:%d?username=%s&password=%s", smtpPort, USERNAME, PASSWORD);
+
+        from("direct:sendMailWithAttachment")
+                .toF("smtp://localhost:%d?username=%s&password=%s", smtpPort, USERNAME, PASSWORD);
 
         from("direct:mimeMultipartMarshal")
                 .marshal().mimeMultipart();
@@ -34,9 +49,7 @@ public class CamelRoute extends RouteBuilder {
                 .unmarshal().mimeMultipart()
                 .marshal().mimeMultipart();
 
-        from("pop3://localhost?initialDelay=100&delay=100")
-                .id("mail-consumer")
-                .autoStartup(false)
-                .to("seda:mail");
+        fromF("pop3://localhost:%d?initialDelay=100&delay=500&username=%s&password=%s", pop3Port, USERNAME, PASSWORD)
+                .to("seda:mail-pop3");
     }
 }

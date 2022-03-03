@@ -16,14 +16,18 @@
  */
 package org.apache.camel.quarkus.component.mail;
 
+import java.io.IOException;
 import java.util.Map;
 
 import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.mail.Folder;
 import javax.mail.util.ByteArrayDataSource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -31,11 +35,13 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
+import org.apache.camel.Message;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.attachment.AttachmentMessage;
 import org.apache.camel.attachment.DefaultAttachment;
@@ -54,20 +60,64 @@ public class CamelResource {
     @Inject
     CamelContext context;
 
-    @Path("/route/{route}")
+    @Path("/send")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public void sendMail(
+            @QueryParam("subject") String subject,
+            @QueryParam("from") String from,
+            @QueryParam("to") String to,
+            String body) {
+
+        producerTemplate.send("direct:sendMail", exchange -> {
+            Message message = exchange.getMessage();
+            message.setHeader("Subject", subject);
+            message.setHeader("From", from);
+            message.setHeader("To", to);
+            message.setBody(body);
+        });
+    }
+
+    @Path("/send/attachment/{fileName}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public void sendMailWithAttachment(
+            @PathParam("fileName") String fileName,
+            @QueryParam("subject") String subject,
+            @QueryParam("from") String from,
+            @QueryParam("to") String to,
+            String body) {
+
+        producerTemplate.send("direct:sendMailWithAttachment", exchange -> {
+            AttachmentMessage in = exchange.getMessage(AttachmentMessage.class);
+
+            DefaultAttachment attachment = new DefaultAttachment(new FileDataSource(fileName));
+            in.addAttachmentObject(fileName, attachment);
+
+            Message message = exchange.getMessage();
+            message.setHeader("Subject", subject);
+            message.setHeader("From", from);
+            message.setHeader("To", to);
+            message.setBody(body);
+        });
+    }
+
+    @Path("/mimeMultipartUnmarshalMarshal")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String route(String statement, @PathParam("route") String route) throws Exception {
-        return producerTemplate.requestBody("direct:" + route, statement, String.class);
+    public String mimeMultipartUnmarshalMarshal(String body) {
+        return producerTemplate.requestBody("direct:mimeMultipartUnmarshalMarshal", body, String.class);
     }
 
     @Path("/mimeMultipartMarshal/{fileName}/{fileContent}")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String mimeMultipart(String body, @PathParam("fileName") String fileName,
-            @PathParam("fileContent") String fileContent) throws Exception {
+    public String mimeMultipart(
+            @PathParam("fileName") String fileName,
+            @PathParam("fileContent") String fileContent,
+            String body) {
 
         return producerTemplate.request("direct:mimeMultipartMarshal", e -> {
             AttachmentMessage in = e.getMessage(AttachmentMessage.class);
@@ -83,40 +133,45 @@ public class CamelResource {
         }).getMessage().getBody(String.class);
     }
 
-    @Path("/inbox")
+    @Path("/inbox/{protocol}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonObject getInboxNewMail() throws Exception {
+    public JsonObject getMail(@PathParam("protocol") String protocol) throws Exception {
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        Exchange exchange = consumerTemplate.receive("seda:mail", 5000);
+        Exchange exchange = consumerTemplate.receive("seda:mail-" + protocol, 5000);
+        if (exchange != null) {
+            MailMessage mailMessage = exchange.getMessage(MailMessage.class);
+            AttachmentMessage attachmentMessage = exchange.getMessage(AttachmentMessage.class);
+            Map<String, DataHandler> attachments = attachmentMessage.getAttachments();
+            if (attachments != null) {
+                JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+                attachments.forEach((id, dataHandler) -> {
+                    JsonObjectBuilder attachmentObject = Json.createObjectBuilder();
+                    attachmentObject.add("attachmentFilename", dataHandler.getName());
 
-        MailMessage mailMessage = exchange.getMessage(MailMessage.class);
-        AttachmentMessage attachmentMessage = exchange.getMessage(AttachmentMessage.class);
-        Map<String, DataHandler> attachments = attachmentMessage.getAttachments();
-        if (attachments.size() == 1) {
-            Map.Entry<String, DataHandler> next = attachments.entrySet().iterator().next();
-            DataHandler handler = attachments.get(next.getKey());
-            builder.add("attachmentFilename", handler.getName());
+                    try {
+                        String content = context.getTypeConverter().convertTo(String.class, dataHandler.getInputStream());
+                        attachmentObject.add("attachmentContent", content);
+                    } catch (IOException e) {
+                        throw new IllegalStateException(e);
+                    }
 
-            String content = context.getTypeConverter().convertTo(String.class, handler.getInputStream());
-            builder.add("attachmentContent", content);
-        } else {
-            throw new IllegalStateException("Expected 1 attachment but got " + attachments.size());
+                    arrayBuilder.add(attachmentObject.build());
+                });
+
+                builder.add("attachments", arrayBuilder.build());
+            }
+
+            Folder folder = mailMessage.getOriginalMessage().getFolder();
+            if (!folder.isOpen()) {
+                folder.open(Folder.READ_ONLY);
+            }
+
+            builder.add("subject", mailMessage.getMessage().getSubject());
+            builder.add("content", mailMessage.getBody(String.class).trim());
         }
 
-        builder.add("subject", mailMessage.getMessage().getSubject());
-        builder.add("content", mailMessage.getBody(String.class));
         return builder.build();
-    }
-
-    @POST
-    @Path("consumer/{enable}")
-    public void manageMailConsumer(@PathParam("enable") boolean enable) throws Exception {
-        if (enable) {
-            context.getRouteController().startRoute("mail-consumer");
-        } else {
-            context.getRouteController().stopRoute("mail-consumer");
-        }
     }
 }
