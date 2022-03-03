@@ -13,6 +13,7 @@
 - jsonpath: The behavior change in native-mode when an application depend upon jackson-module-jaxb-annotations [\#3582](https://github.com/apache/camel-quarkus/issues/3582)
 - Build maintence branch PRs against corresponding camel-quarkus-examples maintenance branch [\#3574](https://github.com/apache/camel-quarkus/issues/3574)
 - jsonpath: JSON keys are unquoted when using writeAsString in native mode [\#3571](https://github.com/apache/camel-quarkus/issues/3571)
+- Improve camel-quarkus-bean-validator test coverage [\#3567](https://github.com/apache/camel-quarkus/issues/3567)
 - Increase `azure-storage-blob` extension test coverage [\#3561](https://github.com/apache/camel-quarkus/issues/3561)
 - Gson: Complete doc and test coverage [\#3556](https://github.com/apache/camel-quarkus/issues/3556)
 - How do you configure an InterceptStrategy in Quarkus? [\#3552](https://github.com/apache/camel-quarkus/issues/3552)
@@ -25,6 +26,7 @@
 - Camel 3.15 - Some dataformats renamed [\#3460](https://github.com/apache/camel-quarkus/issues/3460)
 - deadLetterChannel does not work in BaseRouteBuilder configure method [\#3436](https://github.com/apache/camel-quarkus/issues/3436)
 - \[Camel 3.15\] Fhir tests are failing [\#3416](https://github.com/apache/camel-quarkus/issues/3416)
+- Add Extension for Camel Azure Servicebus [\#3386](https://github.com/apache/camel-quarkus/issues/3386)
 - Better integration with Quarkus OpenAPI & OpenAPI Swagger UI [\#3346](https://github.com/apache/camel-quarkus/issues/3346)
 - Test examples on Windows [\#3343](https://github.com/apache/camel-quarkus/issues/3343)
 - Run integration tests on Windows [\#3342](https://github.com/apache/camel-quarkus/issues/3342)
@@ -39,10 +41,13 @@
 
 **Merged pull requests:**
 
+- Add Extension for Camel Azure Servicebus [\#3587](https://github.com/apache/camel-quarkus/pull/3587) ([oscerd](https://github.com/oscerd))
+- Upgrade Quarkus to 2.7.3.Final [\#3586](https://github.com/apache/camel-quarkus/pull/3586) ([jamesnetherton](https://github.com/jamesnetherton))
 - jsonpath: fix different number of ObjectMapper modules between JVM an… [\#3583](https://github.com/apache/camel-quarkus/pull/3583) ([aldettinger](https://github.com/aldettinger))
 - Ensure correct camel-quarkus-examples branch for maintenance branch PRs [\#3578](https://github.com/apache/camel-quarkus/pull/3578) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix JSON keys are unquoted when using writeAsString in native mode \#3571 [\#3576](https://github.com/apache/camel-quarkus/pull/3576) ([aldettinger](https://github.com/aldettinger))
 - Exclude optional `reactor-netty-http-brave` [\#3575](https://github.com/apache/camel-quarkus/pull/3575) ([jamesnetherton](https://github.com/jamesnetherton))
+- Improve camel-quarkus-bean-validator test coverage \#3567 [\#3572](https://github.com/apache/camel-quarkus/pull/3572) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade Quarkus to 2.7.2.Final [\#3570](https://github.com/apache/camel-quarkus/pull/3570) ([jamesnetherton](https://github.com/jamesnetherton))
 - Increase azure-storage-blob extension test coverage [\#3568](https://github.com/apache/camel-quarkus/pull/3568) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Azurite container image to 3.15.0 [\#3563](https://github.com/apache/camel-quarkus/pull/3563) ([jamesnetherton](https://github.com/jamesnetherton))
