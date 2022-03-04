@@ -41,6 +41,7 @@
 
 **Merged pull requests:**
 
+- Manage mvel via cq:sync-versions to allow additional consistency checks [\#3588](https://github.com/apache/camel-quarkus/pull/3588) ([ppalaga](https://github.com/ppalaga))
 - Add Extension for Camel Azure Servicebus [\#3587](https://github.com/apache/camel-quarkus/pull/3587) ([oscerd](https://github.com/oscerd))
 - Upgrade Quarkus to 2.7.3.Final [\#3586](https://github.com/apache/camel-quarkus/pull/3586) ([jamesnetherton](https://github.com/jamesnetherton))
 - jsonpath: fix different number of ObjectMapper modules between JVM an… [\#3583](https://github.com/apache/camel-quarkus/pull/3583) ([aldettinger](https://github.com/aldettinger))
