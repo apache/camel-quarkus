@@ -74,7 +74,7 @@ public class JacksonXmlTest {
                 .statusCode(200)
                 .body(equalTo(listJson));
         await().atMost(10, TimeUnit.SECONDS).until(() -> {
-            List<DummyObject> records = RestAssured.given()
+            List<?> records = RestAssured.given()
                     .contentType("text/xml")
                     .body(json)
                     .post("/dataformats-json/jacksonxml/unmarshal-listsplit")
@@ -84,7 +84,6 @@ public class JacksonXmlTest {
 
             return records.size() == 2;
         });
-
     }
 
     @Test

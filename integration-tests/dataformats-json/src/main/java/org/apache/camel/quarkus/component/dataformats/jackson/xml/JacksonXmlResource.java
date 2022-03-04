@@ -50,7 +50,6 @@ import org.jboss.logging.Logger;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Path("/dataformats-json")
 @ApplicationScoped
@@ -91,7 +90,7 @@ public class JacksonXmlResource {
 
         mock.assertIsSatisfied();
 
-        List list = mock.getReceivedExchanges().get(0).getIn().getBody(List.class);
+        List<?> list = mock.getReceivedExchanges().get(0).getIn().getBody(List.class);
         assertNotNull(list);
         assertEquals(2, list.size());
 
@@ -149,18 +148,18 @@ public class JacksonXmlResource {
         Exchange out = producerTemplate.request("direct:jacksonxml-marshal-ct-yes", exchange -> exchange.getIn().setBody(in));
 
         assertNotNull(out);
-        assertTrue(out.hasOut());
+        assertNotNull(out.getMessage());
         assertEquals("application/xml", out.getMessage().getHeader(Exchange.CONTENT_TYPE));
         out = producerTemplate.request("direct:jacksonxml-marshal-ct-yes2", exchange -> exchange.getIn().setBody(in));
 
         assertNotNull(out);
-        assertTrue(out.hasOut());
+        assertNotNull(out.getMessage());
         assertEquals("application/xml", out.getMessage().getHeader(Exchange.CONTENT_TYPE));
 
         out = producerTemplate.request("direct:jacksonxml-marshal-ct-no", exchange -> exchange.getIn().setBody(in));
 
         assertNotNull(out);
-        assertTrue(out.hasOut());
+        assertNotNull(out.getMessage());
         assertNull(out.getMessage().getHeader(Exchange.CONTENT_TYPE));
     }
 
@@ -259,7 +258,7 @@ public class JacksonXmlResource {
 
         mock.assertIsSatisfied();
 
-        List list = mock.getReceivedExchanges().get(0).getIn().getBody(List.class);
+        List<?> list = mock.getReceivedExchanges().get(0).getIn().getBody(List.class);
         assertNotNull(list);
         assertEquals(2, list.size());
 
@@ -334,7 +333,7 @@ public class JacksonXmlResource {
 
         mock.assertIsSatisfied();
 
-        List list = mock.getReceivedExchanges().get(0).getIn().getBody(List.class);
+        List<?> list = mock.getReceivedExchanges().get(0).getIn().getBody(List.class);
         assertNotNull(list);
         assertEquals(2, list.size());
 
