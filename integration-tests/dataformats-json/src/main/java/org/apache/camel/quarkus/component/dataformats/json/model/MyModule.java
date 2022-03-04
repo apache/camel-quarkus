@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.dataformats.json.model;
 
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.Module;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
 @RegisterForReflection
@@ -36,7 +36,9 @@ public class MyModule extends Module {
 
     @Override
     public void setupModule(SetupContext context) {
-        context.setNamingStrategy(new PropertyNamingStrategy.PropertyNamingStrategyBase() {
+        context.setNamingStrategy(new PropertyNamingStrategies.NamingBase() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             public String translate(String propertyName) {
                 return "my-" + propertyName;
