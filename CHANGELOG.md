@@ -41,6 +41,8 @@
 
 **Merged pull requests:**
 
+- Remove redundant workarounds for Kotlin compilation on JDK 17 [\#3591](https://github.com/apache/camel-quarkus/pull/3591) ([jamesnetherton](https://github.com/jamesnetherton))
+- Bump Hazelcast client to 3.0.0 [\#3590](https://github.com/apache/camel-quarkus/pull/3590) ([zbendhiba](https://github.com/zbendhiba))
 - Manage mvel via cq:sync-versions to allow additional consistency checks [\#3588](https://github.com/apache/camel-quarkus/pull/3588) ([ppalaga](https://github.com/ppalaga))
 - Add Extension for Camel Azure Servicebus [\#3587](https://github.com/apache/camel-quarkus/pull/3587) ([oscerd](https://github.com/oscerd))
 - Upgrade Quarkus to 2.7.3.Final [\#3586](https://github.com/apache/camel-quarkus/pull/3586) ([jamesnetherton](https://github.com/jamesnetherton))
