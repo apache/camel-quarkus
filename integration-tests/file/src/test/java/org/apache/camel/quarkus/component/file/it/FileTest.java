@@ -141,6 +141,12 @@ class FileTest {
                         .extract().asString(),
                 equalTo(FILE_CONTENT_01));
 
+        // clear the mock to assert that FILE_CONTENT_01 will not be received again even if presented a second time to the route
+        RestAssured
+                .get("/file/resetMock/idempotent")
+                .then()
+                .statusCode(204);
+
         // move file back
         Path donePath = Paths.get(fileName01.replaceFirst("target/idempotent", "target/idempotent/done"));
         Path targetPath = Paths.get(fileName01);
