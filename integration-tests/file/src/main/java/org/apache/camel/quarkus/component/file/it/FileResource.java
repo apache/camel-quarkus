@@ -91,15 +91,20 @@ public class FileResource {
 
     @Path("/getFromMock/{mockId}")
     @GET
-    public String getFromMock(@PathParam("mockId") String mockId) throws Exception {
+    public String getFromMock(@PathParam("mockId") String mockId) {
         MockEndpoint mockEndpoint = context.getEndpoint("mock:" + mockId, MockEndpoint.class);
 
         String result = mockEndpoint.getExchanges().stream().map(e -> e.getIn().getBody(String.class))
                 .collect(Collectors.joining(SEPARATOR));
 
-        mockEndpoint.reset();
-
         return result;
+    }
+
+    @Path("/resetMock/{mockId}")
+    @GET
+    public void resetMock(@PathParam("mockId") String mockId) {
+        MockEndpoint mockEndpoint = context.getEndpoint("mock:" + mockId, MockEndpoint.class);
+        mockEndpoint.reset();
     }
 
     @Path("/create/{folder}")
