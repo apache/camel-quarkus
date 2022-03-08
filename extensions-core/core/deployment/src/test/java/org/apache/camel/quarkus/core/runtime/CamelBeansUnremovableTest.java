@@ -25,6 +25,9 @@ import javax.inject.Singleton;
 
 import io.quarkus.test.QuarkusUnitTest;
 import org.apache.camel.CamelContext;
+import org.apache.camel.NamedNode;
+import org.apache.camel.Processor;
+import org.apache.camel.spi.InterceptStrategy;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.annotations.Component;
 import org.apache.camel.spi.annotations.Dataformat;
@@ -76,6 +79,14 @@ public class CamelBeansUnremovableTest {
     }
 
     @Test
+    public void testInterceptStrategyUnremovable() {
+        Registry registry = context.getRegistry();
+        Set<UnremovableInterceptStrategy> unremovableInterceptStrategies = registry
+                .findByType(UnremovableInterceptStrategy.class);
+        Assertions.assertEquals(1, unremovableInterceptStrategies.size());
+    }
+
+    @Test
     public void testNonUnremovableBeansRemoved() {
         Registry registry = context.getRegistry();
         Set<Exception> nonUnremovableBeans = registry.findByType(Exception.class);
@@ -92,6 +103,14 @@ public class CamelBeansUnremovableTest {
     }
 
     static final class UnremovableLanguageBean {
+    }
+
+    static final class UnremovableInterceptStrategy implements InterceptStrategy {
+        @Override
+        public Processor wrapProcessorInInterceptors(CamelContext context, NamedNode definition, Processor target,
+                Processor nextTarget) throws Exception {
+            return target;
+        }
     }
 
     @ApplicationScoped
@@ -119,6 +138,12 @@ public class CamelBeansUnremovableTest {
         @Produces
         public UnremovableLanguageBean unremovableLanguageBean() {
             return new UnremovableLanguageBean();
+        }
+
+        @Singleton
+        @Produces
+        public UnremovableInterceptStrategy unremovableInterceptStrategy() {
+            return new UnremovableInterceptStrategy();
         }
 
         @Singleton
