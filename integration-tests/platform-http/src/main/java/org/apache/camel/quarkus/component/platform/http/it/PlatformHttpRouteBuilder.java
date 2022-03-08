@@ -30,9 +30,11 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.attachment.AttachmentMessage;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.platform.http.PlatformHttpConstants;
 import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpConstants;
 import org.apache.camel.component.webhook.WebhookConfiguration;
 import org.apache.camel.model.rest.RestBindingMode;
+import org.apache.camel.spi.Registry;
 
 public class PlatformHttpRouteBuilder extends RouteBuilder {
     @SuppressWarnings("unchecked")
@@ -54,6 +56,31 @@ public class PlatformHttpRouteBuilder extends RouteBuilder {
                 .route()
                 .setBody(constant("POST: /rest-post"))
                 .endRest();
+
+        from("platform-http:/registry/inspect")
+                .process(e -> {
+                    Registry registry = e.getContext().getRegistry();
+
+                    Object engine = registry.lookupByName(PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME);
+                    Object component = registry.lookupByName(PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME);
+
+                    String engineClassName = "";
+                    String componentClassName = "";
+
+                    if (engine != null) {
+                        engineClassName = engine.getClass().getName();
+                    }
+
+                    if (component != null) {
+                        componentClassName = component.getClass().getName();
+                    }
+
+                    String json = String.format("{\"engine\": \"%s\", \"component\": \"%s\"}", engineClassName,
+                            componentClassName);
+                    Message message = e.getMessage();
+                    message.setHeader(Exchange.CONTENT_TYPE, "application/json");
+                    message.setBody(json);
+                });
 
         from("platform-http:/platform-http/hello?httpMethodRestrict=GET").setBody(simple("Hello ${header.name}"));
         from("platform-http:/platform-http/get-post?httpMethodRestrict=GET,POST").setBody(simple("Hello ${body}"));
