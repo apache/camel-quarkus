@@ -6218,6 +6218,11 @@
                 <version>${zxing.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.mchange</groupId>
+                <artifactId>c3p0</artifactId>
+                <version>${c3p0.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.orbitz.consul</groupId>
                 <artifactId>consul-client</artifactId>
                 <version>${consul-client.version}</version>
