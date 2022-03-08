@@ -30,11 +30,13 @@ import org.apache.camel.quarkus.core.deployment.catalog.BuildTimeCamelCatalog;
 import org.apache.camel.quarkus.core.deployment.catalog.BuildTimeJsonSchemaResolver;
 import org.apache.camel.quarkus.core.deployment.catalog.SchemaResource;
 import org.apache.camel.quarkus.core.deployment.spi.BuildTimeCamelCatalogBuildItem;
+import org.apache.camel.spi.InterceptStrategy;
 import org.apache.camel.spi.annotations.Component;
 import org.apache.camel.spi.annotations.Dataformat;
 import org.apache.camel.spi.annotations.Language;
 import org.apache.camel.tooling.model.BaseOptionModel;
 import org.jboss.jandex.AnnotationInstance;
+import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 import org.slf4j.Logger;
@@ -48,6 +50,10 @@ public class CamelUnremovableBeansProcessor {
             DotName.createSimple(Component.class.getName()),
             DotName.createSimple(Dataformat.class.getName()),
             DotName.createSimple(Language.class.getName())
+    };
+
+    private static final DotName[] OPTIONAL_SERVICE_TYPES = {
+            DotName.createSimple(InterceptStrategy.class.getName())
     };
 
     @BuildStep
@@ -87,6 +93,25 @@ public class CamelUnremovableBeansProcessor {
         if (LOGGER.isDebugEnabled()) {
             unremovableClasses.stream().forEach(
                     unremovableClass -> LOGGER.debug("Registering camel unremovable bean class: {}", unremovableClass));
+        }
+
+        return UnremovableBeanBuildItem.beanTypes(unremovableClasses);
+    }
+
+    @BuildStep
+    UnremovableBeanBuildItem unremovableOptionalServices(CombinedIndexBuildItem combinedIndex) {
+        IndexView index = combinedIndex.getIndex();
+
+        Set<DotName> unremovableClasses = Stream.of(OPTIONAL_SERVICE_TYPES)
+                .map(index::getAllKnownImplementors)
+                .flatMap(Collection::stream)
+                .map(ClassInfo::name)
+                .collect(Collectors.toSet());
+
+        if (LOGGER.isDebugEnabled()) {
+            unremovableClasses.stream().forEach(
+                    unremovableClass -> LOGGER.debug("Registering optional service unremovable bean class: {}",
+                            unremovableClass));
         }
 
         return UnremovableBeanBuildItem.beanTypes(unremovableClasses);
