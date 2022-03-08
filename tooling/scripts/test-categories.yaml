@@ -184,7 +184,6 @@ group-12:
   - opentracing
   - paho-mqtt5
   - platform-http
-  - platform-http-engine
   - reactive-streams
   - rest
   - rest-openapi

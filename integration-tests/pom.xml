@@ -168,7 +168,6 @@
         <module>pg-replication-slot</module>
         <module>pgevent</module>
         <module>platform-http</module>
-        <module>platform-http-engine</module>
         <module>protobuf</module>
         <module>pubnub</module>
         <module>quartz</module>
