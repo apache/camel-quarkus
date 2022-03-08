@@ -18,6 +18,8 @@ package org.apache.camel.quarkus.component.rabbitmq.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.commons.pool2.impl.DefaultEvictionPolicy;
 import org.jboss.logging.Logger;
 
 class RabbitmqProcessor {
@@ -30,4 +32,8 @@ class RabbitmqProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
+    @BuildStep
+    ReflectiveClassBuildItem registerForReflection() {
+        return new ReflectiveClassBuildItem(true, false, false, DefaultEvictionPolicy.class.getName());
+    }
 }
