@@ -18,6 +18,8 @@ package org.apache.camel.quarkus.component.quartz.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -35,5 +37,84 @@ class QuartzTest {
                 .then()
                 .statusCode(200)
                 .body(is("Hello Camel Quarkus " + component));
+    }
+
+    @Test
+    @Disabled("Features unavailable on Camel 3.14.2")
+    public void testProperties() {
+        RestAssured.given()
+                .queryParam("fromEndpoint", "quartz-properties")
+                .queryParam("componentName", "quartzFromProperties")
+                .get("/quartz/getNameAndResult")
+                .then()
+                .statusCode(200)
+                .body("name", is("MyScheduler-"),
+                        "result", is("Hello Camel Quarkus Quartz Properties"));
+    }
+
+    @Test
+    public void testCronTrigger() {
+        RestAssured.given()
+                .queryParam("fromEndpoint", "quartz-cron-trigger")
+                .get("/quartz/get")
+                .then()
+                .statusCode(200)
+                .body(is("Hello Camel Quarkus Quartz From Cron Trigger"));
+
+    }
+
+    @Test
+    public void testHeaders() {
+        RestAssured.given()
+                .queryParam("fromEndpoint", "quartz")
+                .get("/quartz/getHeaders")
+                .then()
+                .statusCode(200)
+                .body("triggerName", is("1 * * * * "));
+    }
+
+    @Test
+    public void testMisfire() {
+        RestAssured.given()
+                .queryParam("fromEndpoint", "quartz-cron-misfire")
+                .get("/quartz/getMisfire")
+                .then()
+                .statusCode(200)
+                .body("timezone", is("Europe/Stockholm"),
+                        "misfire", is("2"));
+    }
+
+    @Test
+    @Disabled("Features unavailable on Camel 3.14.2")
+    public void testClustered() throws InterruptedException {
+        RestAssured.given()
+                .queryParam("fromEndpoint", "quartz-nodeA")
+                .get("/quartz/get")
+                .then()
+                .statusCode(200)
+                .body(is("Hello Camel Quarkus Quartz NodeA"));
+    }
+
+    @Test
+    @Disabled("Features unavailable on Camel 3.14.2")
+    public void testClusteredWithNamedDS() throws InterruptedException {
+        RestAssured.given()
+                .queryParam("fromEndpoint", "quartz-nodeB")
+                .get("/quartz/get")
+                .then()
+                .statusCode(200)
+                .body(is("Hello Camel Quarkus Quartz NodeB"));
+    }
+
+    @Test
+    @Disabled("Features unavailable on Camel 3.14.2")
+    public void testClusteredWithoutDS() throws InterruptedException {
+        //NodeB uses h2 db, which is not initialized therefore no message will be received
+        RestAssured.given()
+                .queryParam("fromEndpoint", "quartz-nodeC")
+                .get("/quartz/get")
+                .then()
+                .statusCode(200)
+                .body(is("Hello Camel Quarkus Quartz NodeC"));
     }
 }
