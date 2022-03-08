@@ -38,6 +38,7 @@
         <module>aws</module>
         <module>aws2</module>
         <module>azure-core</module>
+        <module>azure-core-http-client-vertx</module>
         <module>bouncycastle</module>
         <module>commons-logging</module>
         <module>consul-client</module>
