@@ -22,12 +22,39 @@ public class QuartzRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("quartz:0/1 * * * * ?")
+
+        from("quartz:quartz/1 * * * * ?")
                 .setBody(constant("Hello Camel Quarkus quartz"))
                 .to("seda:quartz-result");
 
         from("cron:tab?schedule=0/1 * * * * ?")
                 .setBody(constant("Hello Camel Quarkus cron"))
                 .to("seda:cron-result");
+
+        from("quartzFromProperties:properties/* 1 * * * ")
+                .setBody(constant("Hello Camel Quarkus Quartz Properties"))
+                .to("seda:quartz-properties-result");
+
+        // cron trigger
+        from("quartz://cronTrigger?cron=0/1+*+*+*+*+?&trigger.timeZone=Europe/Stockholm")
+                .setBody(constant("Hello Camel Quarkus Quartz From Cron Trigger"))
+                .to("seda:quartz-cron-trigger-result");
+
+        from("quartz://misfire?cron=0/1+*+*+*+*+?&trigger.timeZone=Europe/Stockholm&trigger.misfireInstruction=2")
+                .to("seda:quartz-cron-misfire-result");
+
+        // Features unavailable on Camel 3.14.2
+        // from("quartzNodeA:nodeA/1 * * * * ")
+        //         .setBody(constant("Hello Camel Quarkus Quartz NodeA"))
+        //         .to("seda:quartz-nodeA-result");
+        //
+        // from("quartzNodeB:nodeB/1 * * * * ")
+        //         .setBody(constant("Hello Camel Quarkus Quartz NodeB"))
+        //         .to("seda:quartz-nodeB-result");
+        //
+        // from("quartzNodeC:nodeC/1 * * * * ")
+        //         .setBody(constant("Hello Camel Quarkus Quartz NodeC"))
+        //         .to("seda:quartz-nodeC-result");
+
     }
 }
