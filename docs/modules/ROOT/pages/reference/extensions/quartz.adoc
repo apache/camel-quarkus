@@ -38,3 +38,40 @@ Or add the coordinates to your existing project:
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== Usage
+
+=== Clustering
+
+There are two options how to run Quartz in clustered mode:
+
+==== Quarkus based
+
+Follow the https://quarkus.io/guides/quartz[scheduling periodic tasks quartz guide].
+
+- Define database configuration in `application.properties`.
+- Use for example `flyway` to created database tables required for `Quartz`.
+
+===== Quartz based
+
+Follow the http://www.quartz-scheduler.org/documentation/quartz-1.8.6/configuration/ConfigJDBCJobStoreClustering.html#configure-clustering-with-jdbc-jobstore[Configure Clustering with JDBC-JobStore Guide].
+
+- Use `quartz.properties` to configure `JobStore`.
+- JMX capabilities are disabled.
+- You can use for example `flyway` to created database tables required for `Quartz`.
+
+
+
+todo limitations, useProperties is set to trie by default
+
+
+== Camel Quarkus limitations
+
+=== JDBC Job Store
+
+Quartz's property `org.quartz.jobStore.useProperties` is set to `true` and can not bet modified. Value is forced by Quarkus's extension. See the Quartz documentation for more information about `org.quartz.jobStore.useProperties`.
+
+```
+The “use properties” flag instructs JDBCJobStore that all values in JobDataMaps will be Strings, and therefore can be stored as name-value pairs, rather than storing more complex objects in their serialized form in the BLOB column. This is can be handy, as you avoid the class versioning issues that can arise from serializing your non-String classes into a BLOB.
+```
+

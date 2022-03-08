@@ -16,20 +16,59 @@
  */
 package org.apache.camel.quarkus.component.quartz.it;
 
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
+import org.apache.camel.Exchange;
+import org.apache.camel.component.quartz.QuartzComponent;
+import org.apache.camel.util.CollectionHelper;
+import org.quartz.CronTrigger;
 
 @Path("/quartz")
 public class QuartzResource {
 
     @Inject
+    CamelContext camelContext;
+
+    @Inject
     ConsumerTemplate consumerTemplate;
+
+    @javax.enterprise.inject.Produces
+    @Singleton
+    @Named("quartzFromProperties")
+    public QuartzComponent createQuartzFromProperties() {
+        return new QuartzComponent();
+    }
+
+    @javax.enterprise.inject.Produces
+    @Singleton
+    @Named("quartzNodeA")
+    public QuartzComponent createQuartzNodeA() {
+        return new QuartzComponent();
+    }
+
+    @Path("/getNameAndResult")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map<String, String> getSchedulerNameAndResult(@QueryParam("componentName") String componentName,
+            @QueryParam("fromEndpoint") String fromEndpoint) throws Exception {
+
+        QuartzComponent comp = camelContext.getComponent(componentName, QuartzComponent.class);
+
+        return CollectionHelper.mapOf("name", comp.getScheduler().getSchedulerName().replaceFirst(camelContext.getName(), ""),
+                "result", consumerTemplate.receiveBody("seda:" + fromEndpoint + "-result", 5000, String.class));
+    }
 
     @Path("/get")
     @GET
@@ -38,4 +77,25 @@ public class QuartzResource {
         return consumerTemplate.receiveBody("seda:" + fromEndpoint + "-result", 5000, String.class);
     }
 
+    @Path("/getHeaders")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map<String, String> getHeaders(@QueryParam("fromEndpoint") String fromEndpoint) throws Exception {
+        Exchange exchange = consumerTemplate.receive("seda:" + fromEndpoint + "-result", 5000);
+
+        return exchange.getMessage().getHeaders().entrySet().stream().filter(e -> e.getValue() instanceof String)
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().toString()));
+    }
+
+    @Path("/getMisfire")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map<String, String> getMisfire(@QueryParam("fromEndpoint") String fromEndpoint) throws Exception {
+        Exchange exchange = consumerTemplate.receive("seda:" + fromEndpoint + "-result", 5000);
+
+        System.out.println(exchange.getMessage().getHeaders().keySet().stream().collect(Collectors.joining(",")));
+        return CollectionHelper.mapOf("timezone",
+                exchange.getMessage().getHeader("trigger", CronTrigger.class).getTimeZone().getID(),
+                "misfire", exchange.getMessage().getHeader("trigger", CronTrigger.class).getMisfireInstruction() + "");
+    }
 }

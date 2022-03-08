@@ -1,0 +1,8 @@
+=== JDBC Job Store
+
+Quartz's property `org.quartz.jobStore.useProperties` is set to `true` and can not bet modified. Value is forced by Quarkus's extension. See the Quartz documentation for more information about `org.quartz.jobStore.useProperties`.
+
+```
+The “use properties” flag instructs JDBCJobStore that all values in JobDataMaps will be Strings, and therefore can be stored as name-value pairs, rather than storing more complex objects in their serialized form in the BLOB column. This is can be handy, as you avoid the class versioning issues that can arise from serializing your non-String classes into a BLOB.
+```
+

@@ -16,10 +16,17 @@
  */
 package org.apache.camel.quarkus.component.quartz.deployment;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageSystemPropertyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.jboss.jandex.DotName;
+import org.jboss.jandex.IndexView;
+import org.quartz.impl.jdbcjobstore.StdJDBCDelegate;
 
 class QuartzProcessor {
 
@@ -27,8 +34,16 @@ class QuartzProcessor {
     private static final String[] QUARTZ_JOB_CLASSES = new String[] {
             "org.apache.camel.component.quartz.CamelJob",
             "org.apache.camel.component.quartz.StatefulCamelJob",
-            "org.apache.camel.pollconsumer.quartz.QuartzScheduledPollConsumerJob"
+            "org.apache.camel.pollconsumer.quartz.QuartzScheduledPollConsumerJob",
+            "org.quartz.utils.C3p0PoolingConnectionProvider"
     };
+    private static final String[] QUARTZ_JOB_CLASSES_WITH_METHODS = new String[] {
+            "org.quartz.impl.jdbcjobstore.JobStoreTX",
+            "org.quartz.impl.jdbcjobstore.JobStoreSupport",
+            "org.quartz.impl.triggers.SimpleTriggerImpl",
+            "org.quartz.impl.triggers.AbstractTrigger"
+    };
+    private static final DotName SQL_JDBC_DELEGATE = DotName.createSimple(StdJDBCDelegate.class.getName());
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -43,5 +58,37 @@ class QuartzProcessor {
     @BuildStep
     ReflectiveClassBuildItem registerForReflection() {
         return new ReflectiveClassBuildItem(false, false, QUARTZ_JOB_CLASSES);
+    }
+
+    @BuildStep
+    ReflectiveClassBuildItem registerForReflectionWithMethods() {
+        return new ReflectiveClassBuildItem(true, false, QUARTZ_JOB_CLASSES_WITH_METHODS);
+    }
+
+    @BuildStep
+    void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses,
+            CombinedIndexBuildItem combinedIndex) {
+        IndexView index = combinedIndex.getIndex();
+
+        final String[] delegatesImpl = index
+                .getAllKnownSubclasses(SQL_JDBC_DELEGATE)
+                .stream()
+                .map(c -> c.name().toString())
+                .filter(n -> !n.contains("oracle")) //TODO detects unknown type "oracle.sql.BLOB"
+                .toArray(String[]::new);
+        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, true, delegatesImpl));
+
+    }
+
+    @BuildStep
+    void indexSaxonHe(BuildProducer<IndexDependencyBuildItem> deps) {
+        deps.produce(new IndexDependencyBuildItem("org.quartz-scheduler", "quartz"));
+    }
+
+    @BuildStep
+    NativeImageSystemPropertyBuildItem disableJMX() {
+
+        return new NativeImageSystemPropertyBuildItem("com.mchange.v2.c3p0.management.ManagementCoordinator",
+                "com.mchange.v2.c3p0.management.NullManagementCoordinator");
     }
 }
