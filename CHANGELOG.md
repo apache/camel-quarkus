@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- Intermittent failure of `FileTest.idempotent`  [\#3584](https://github.com/apache/camel-quarkus/issues/3584)
 - jsonpath: The behavior change in native-mode when an application depend upon jackson-module-jaxb-annotations [\#3582](https://github.com/apache/camel-quarkus/issues/3582)
 - Build maintence branch PRs against corresponding camel-quarkus-examples maintenance branch [\#3574](https://github.com/apache/camel-quarkus/issues/3574)
 - jsonpath: JSON keys are unquoted when using writeAsString in native mode [\#3571](https://github.com/apache/camel-quarkus/issues/3571)
@@ -41,6 +42,7 @@
 
 **Merged pull requests:**
 
+- file: fix a race condition where an exchange is missed due to a call … [\#3596](https://github.com/apache/camel-quarkus/pull/3596) ([aldettinger](https://github.com/aldettinger))
 - Remove redundant workarounds for Kotlin compilation on JDK 17 [\#3591](https://github.com/apache/camel-quarkus/pull/3591) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump Hazelcast client to 3.0.0 [\#3590](https://github.com/apache/camel-quarkus/pull/3590) ([zbendhiba](https://github.com/zbendhiba))
 - Manage mvel via cq:sync-versions to allow additional consistency checks [\#3588](https://github.com/apache/camel-quarkus/pull/3588) ([ppalaga](https://github.com/ppalaga))
