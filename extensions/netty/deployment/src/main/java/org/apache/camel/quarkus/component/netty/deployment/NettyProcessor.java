@@ -18,7 +18,9 @@ package org.apache.camel.quarkus.component.netty.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelSerializationBuildItem;
+import org.apache.commons.pool2.impl.DefaultEvictionPolicy;
 
 class NettyProcessor {
 
@@ -32,5 +34,10 @@ class NettyProcessor {
     @BuildStep
     CamelSerializationBuildItem serialization() {
         return new CamelSerializationBuildItem();
+    }
+
+    @BuildStep
+    ReflectiveClassBuildItem registerForReflection() {
+        return new ReflectiveClassBuildItem(true, false, false, DefaultEvictionPolicy.class.getName());
     }
 }
