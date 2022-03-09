@@ -10,7 +10,7 @@ xref:manual::release-guide.adoc[Camel Release guide].
 == Pre release tasks
 
 * When releasing after a recent Quarkus release, check for new releases of third party Quarkus extensions we depend on.
-  They are listed in the https://github.com/apache/camel-quarkus/blob/main/pom.xml#L46-L54[Primary dependencies] section of the top level `pom.xml`.
+  They are listed in the https://github.com/apache/camel-quarkus/blob/main/pom.xml#L48-L61[Primary dependencies] section of the top level `pom.xml`.
   If there are new releases, upgrade the versions accordingly and run `mvn cq:sync-versions -N` from the root directory of the source tree.
 * Close the GitHub release https://github.com/apache/camel-quarkus/milestones[milestone] and assign any remaining issues that aren't covered by the release to the next milestone
 
@@ -58,6 +58,15 @@ $ cd target/checkout
 $ mvn deploy -Papache-release -DskipTests -Denforcer.skip -Dquarkus.build.skip -Dformatter.skip -Dimpsort.skip -Dskip.installyarn -Dskip.yarn -rf :camel-quarkus-openapi-java
 ----
 
+== Close the Apache staging repository
+
+* Login to the https://repository.apache.org[Apache staging repository] using your Apache LDAP credentials.
+* Click on `Staging Repositories`
+* Then select `org.apache.camel-quarkus-xxx` in the list of repositories, where `xxx` represents your `username` and `ip`
+* Click `Close` on the toolbar above
+* This will close the repository from future deployments and make it available for others to view
+* After that, a popup window is created, enter the name and version of the artifact being released in the `Description` field and finally click `Close`
+
 == Next version in Camel Quarkus main branch
 
 If there are no substantial commits in the release branch, which need to get merged/cherry-picked to `main`, you can
@@ -78,6 +87,7 @@ $ git reset upstream/main
 $ mvn release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=$NEXT_SNAPSHOT -B
 $ sed -i "s|<camel.quarkus.jvmSince>[^<]*</camel.quarkus.jvmSince>|<camel.quarkus.jvmSince>$NEXT_RELEASE</camel.quarkus.jvmSince>|" tooling/create-extension-templates/runtime-pom.xml
 $ sed -i "s|<camel.quarkus.nativeSince>[^<]*</camel.quarkus.nativeSince>|<camel.quarkus.nativeSince>$NEXT_RELEASE</camel.quarkus.nativeSince>|" tooling/create-extension-templates/runtime-pom.xml
+$ mvn cq:sync-versions -N
 $ (cd extensions/qute && mvn clean install -Dquickly) # to regen the Qute Camel component metadata
 $ git add -A
 $ git commit -m "Next is $NEXT_RELEASE"
