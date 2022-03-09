@@ -2,47 +2,14 @@
 
 ## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.7.0...HEAD)
-
-**Implemented enhancements:**
-
-- Camel-xslt-quarkus: add extension functions support [\#3503](https://github.com/apache/camel-quarkus/issues/3503)
-
-**Closed issues:**
-
-- Intermittent failure of `FileTest.idempotent`  [\#3584](https://github.com/apache/camel-quarkus/issues/3584)
-- jsonpath: The behavior change in native-mode when an application depend upon jackson-module-jaxb-annotations [\#3582](https://github.com/apache/camel-quarkus/issues/3582)
-- Build maintence branch PRs against corresponding camel-quarkus-examples maintenance branch [\#3574](https://github.com/apache/camel-quarkus/issues/3574)
-- jsonpath: JSON keys are unquoted when using writeAsString in native mode [\#3571](https://github.com/apache/camel-quarkus/issues/3571)
-- Improve camel-quarkus-bean-validator test coverage [\#3567](https://github.com/apache/camel-quarkus/issues/3567)
-- Increase `azure-storage-blob` extension test coverage [\#3561](https://github.com/apache/camel-quarkus/issues/3561)
-- Gson: Complete doc and test coverage [\#3556](https://github.com/apache/camel-quarkus/issues/3556)
-- How do you configure an InterceptStrategy in Quarkus? [\#3552](https://github.com/apache/camel-quarkus/issues/3552)
-- Ban jboss-transaction-api\*, javax.transaction:\* and geronimo-jta\* in favor of jakarta.transaction:jakarta.transaction-api [\#3551](https://github.com/apache/camel-quarkus/issues/3551)
-- LinkageError when using camel-quarkus-activemq together with quarkus-agroal [\#3548](https://github.com/apache/camel-quarkus/issues/3548)
-- Incorrect version of `quarkus-maven-plugin` may be resolved [\#3520](https://github.com/apache/camel-quarkus/issues/3520)
-- Prevent various plugins from resolving commons-logging:commons-logging [\#3517](https://github.com/apache/camel-quarkus/issues/3517)
-- Expand Cassandra CQL extension test coverage [\#3514](https://github.com/apache/camel-quarkus/issues/3514)
-- Ban javax.servlet:servlet-api in favor of jakarta.servlet:jakarta.servlet-api [\#3496](https://github.com/apache/camel-quarkus/issues/3496)
-- Camel 3.15 - Some dataformats renamed [\#3460](https://github.com/apache/camel-quarkus/issues/3460)
-- deadLetterChannel does not work in BaseRouteBuilder configure method [\#3436](https://github.com/apache/camel-quarkus/issues/3436)
-- \[Camel 3.15\] Fhir tests are failing [\#3416](https://github.com/apache/camel-quarkus/issues/3416)
-- Add Extension for Camel Azure Servicebus [\#3386](https://github.com/apache/camel-quarkus/issues/3386)
-- Better integration with Quarkus OpenAPI & OpenAPI Swagger UI [\#3346](https://github.com/apache/camel-quarkus/issues/3346)
-- Test examples on Windows [\#3343](https://github.com/apache/camel-quarkus/issues/3343)
-- Run integration tests on Windows [\#3342](https://github.com/apache/camel-quarkus/issues/3342)
-- `DebeziumMongodbTest` skipped tests [\#3213](https://github.com/apache/camel-quarkus/issues/3213)
-- Improve available port discovery in tests [\#3199](https://github.com/apache/camel-quarkus/issues/3199)
-- spark:hive is does not work [\#1956](https://github.com/apache/camel-quarkus/issues/1956)
-- spark:dataframe does not work on Java 11 [\#1955](https://github.com/apache/camel-quarkus/issues/1955)
-- \[Dependency hell\] Spark native support [\#1701](https://github.com/apache/camel-quarkus/issues/1701)
-- A tool to check/sync dependency versions with camel & quarkus  [\#1684](https://github.com/apache/camel-quarkus/issues/1684)
-- Cannot build project on Windows [\#1429](https://github.com/apache/camel-quarkus/issues/1429)
-- rest-dsl - Integrate with quarkus-openapi [\#383](https://github.com/apache/camel-quarkus/issues/383)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.8.0-M1...HEAD)
 
 **Merged pull requests:**
 
+- Upgrade third party Quarkus extensions prior to release [\#3603](https://github.com/apache/camel-quarkus/pull/3603) ([aldettinger](https://github.com/aldettinger))
+- Merge platform-http-engine tests with platform-http [\#3598](https://github.com/apache/camel-quarkus/pull/3598) ([jamesnetherton](https://github.com/jamesnetherton))
 - file: fix a race condition where an exchange is missed due to a call … [\#3596](https://github.com/apache/camel-quarkus/pull/3596) ([aldettinger](https://github.com/aldettinger))
+- Fix \#3553 make beans of InterceptStrategy unremovable [\#3593](https://github.com/apache/camel-quarkus/pull/3593) ([zhfeng](https://github.com/zhfeng))
 - Remove redundant workarounds for Kotlin compilation on JDK 17 [\#3591](https://github.com/apache/camel-quarkus/pull/3591) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump Hazelcast client to 3.0.0 [\#3590](https://github.com/apache/camel-quarkus/pull/3590) ([zbendhiba](https://github.com/zbendhiba))
 - Manage mvel via cq:sync-versions to allow additional consistency checks [\#3588](https://github.com/apache/camel-quarkus/pull/3588) ([ppalaga](https://github.com/ppalaga))
@@ -1005,13 +972,51 @@
 - org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
 
-## [2.7.0](https://github.com/apache/camel-quarkus/tree/2.7.0) (2022-01-28)
+## [2.8.0-M1](https://github.com/apache/camel-quarkus/tree/2.8.0-M1) (2022-03-08)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.2.1...2.7.0)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.7.0...2.8.0-M1)
 
 **Implemented enhancements:**
 
+- Camel-xslt-quarkus: add extension functions support [\#3503](https://github.com/apache/camel-quarkus/issues/3503)
 - Camel Rest DSL - Expose Rest DSL services to quarkus openapi [\#3251](https://github.com/apache/camel-quarkus/issues/3251)
+
+**Closed issues:**
+
+- Improve camel-quarkus-bean-validator test coverage [\#3567](https://github.com/apache/camel-quarkus/issues/3567)
+- Feature request: make beans for configuration of optional services unremovable by default [\#3553](https://github.com/apache/camel-quarkus/issues/3553)
+- How do you configure an InterceptStrategy in Quarkus? [\#3552](https://github.com/apache/camel-quarkus/issues/3552)
+- Ban jboss-transaction-api\*, javax.transaction:\* and geronimo-jta\* in favor of jakarta.transaction:jakarta.transaction-api [\#3551](https://github.com/apache/camel-quarkus/issues/3551)
+- Incorrect version of `quarkus-maven-plugin` may be resolved [\#3520](https://github.com/apache/camel-quarkus/issues/3520)
+- Prevent various plugins from resolving commons-logging:commons-logging [\#3517](https://github.com/apache/camel-quarkus/issues/3517)
+- Ban javax.servlet:servlet-api in favor of jakarta.servlet:jakarta.servlet-api [\#3496](https://github.com/apache/camel-quarkus/issues/3496)
+- Camel 3.15 - Some dataformats renamed [\#3460](https://github.com/apache/camel-quarkus/issues/3460)
+- \[Camel 3.15\] Fhir tests are failing [\#3416](https://github.com/apache/camel-quarkus/issues/3416)
+- Better integration with Quarkus OpenAPI & OpenAPI Swagger UI [\#3346](https://github.com/apache/camel-quarkus/issues/3346)
+- Run integration tests on Windows [\#3342](https://github.com/apache/camel-quarkus/issues/3342)
+- `DebeziumMongodbTest` skipped tests [\#3213](https://github.com/apache/camel-quarkus/issues/3213)
+- spark:hive is does not work [\#1956](https://github.com/apache/camel-quarkus/issues/1956)
+- spark:dataframe does not work on Java 11 [\#1955](https://github.com/apache/camel-quarkus/issues/1955)
+- \[Dependency hell\] Spark native support [\#1701](https://github.com/apache/camel-quarkus/issues/1701)
+- A tool to check/sync dependency versions with camel & quarkus  [\#1684](https://github.com/apache/camel-quarkus/issues/1684)
+- Intermittent failure of `FileTest.idempotent`  [\#3584](https://github.com/apache/camel-quarkus/issues/3584)
+- jsonpath: The behavior change in native-mode when an application depend upon jackson-module-jaxb-annotations [\#3582](https://github.com/apache/camel-quarkus/issues/3582)
+- Build maintence branch PRs against corresponding camel-quarkus-examples maintenance branch [\#3574](https://github.com/apache/camel-quarkus/issues/3574)
+- jsonpath: JSON keys are unquoted when using writeAsString in native mode [\#3571](https://github.com/apache/camel-quarkus/issues/3571)
+- Increase `azure-storage-blob` extension test coverage [\#3561](https://github.com/apache/camel-quarkus/issues/3561)
+- Gson: Complete doc and test coverage [\#3556](https://github.com/apache/camel-quarkus/issues/3556)
+- LinkageError when using camel-quarkus-activemq together with quarkus-agroal [\#3548](https://github.com/apache/camel-quarkus/issues/3548)
+- Expand Cassandra CQL extension test coverage [\#3514](https://github.com/apache/camel-quarkus/issues/3514)
+- deadLetterChannel does not work in BaseRouteBuilder configure method [\#3436](https://github.com/apache/camel-quarkus/issues/3436)
+- Add Extension for Camel Azure Servicebus [\#3386](https://github.com/apache/camel-quarkus/issues/3386)
+- Test examples on Windows [\#3343](https://github.com/apache/camel-quarkus/issues/3343)
+- Improve available port discovery in tests [\#3199](https://github.com/apache/camel-quarkus/issues/3199)
+- Cannot build project on Windows [\#1429](https://github.com/apache/camel-quarkus/issues/1429)
+- rest-dsl - Integrate with quarkus-openapi [\#383](https://github.com/apache/camel-quarkus/issues/383)
+
+## [2.7.0](https://github.com/apache/camel-quarkus/tree/2.7.0) (2022-01-28)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.2.1...2.7.0)
 
 **Fixed bugs:**
 
