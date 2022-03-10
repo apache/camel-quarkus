@@ -23,6 +23,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -55,4 +56,19 @@ class CompressionTest {
         Assertions.assertArrayEquals(UNCOMPRESSED, uncompressed);
     }
 
+    @Test
+    public void zipFileSplitIteratorShouldSucceed() {
+        RestAssured.given()
+                .get("/compression/zipfile/splitIteratorShouldSucceed")
+                .then()
+                .statusCode(204);
+    }
+
+    @Test
+    public void zipFileAggregateShouldSucceed() {
+        RestAssured.given()
+                .get("/compression/zipfile/aggregateShouldSucceed")
+                .then()
+                .statusCode(204);
+    }
 }
