@@ -6,8 +6,10 @@
 
 **Merged pull requests:**
 
+- Complete the release guide [\#3607](https://github.com/apache/camel-quarkus/pull/3607) ([aldettinger](https://github.com/aldettinger))
 - Upgrade third party Quarkus extensions prior to release [\#3603](https://github.com/apache/camel-quarkus/pull/3603) ([aldettinger](https://github.com/aldettinger))
 - Merge platform-http-engine tests with platform-http [\#3598](https://github.com/apache/camel-quarkus/pull/3598) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add Azure Core HTTP Client Vert.x extension [\#3597](https://github.com/apache/camel-quarkus/pull/3597) ([jamesnetherton](https://github.com/jamesnetherton))
 - file: fix a race condition where an exchange is missed due to a call … [\#3596](https://github.com/apache/camel-quarkus/pull/3596) ([aldettinger](https://github.com/aldettinger))
 - Fix \#3553 make beans of InterceptStrategy unremovable [\#3593](https://github.com/apache/camel-quarkus/pull/3593) ([zhfeng](https://github.com/zhfeng))
 - Remove redundant workarounds for Kotlin compilation on JDK 17 [\#3591](https://github.com/apache/camel-quarkus/pull/3591) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -995,6 +997,7 @@
 - Better integration with Quarkus OpenAPI & OpenAPI Swagger UI [\#3346](https://github.com/apache/camel-quarkus/issues/3346)
 - Run integration tests on Windows [\#3342](https://github.com/apache/camel-quarkus/issues/3342)
 - `DebeziumMongodbTest` skipped tests [\#3213](https://github.com/apache/camel-quarkus/issues/3213)
+- Consider implementing a vert.x-web based Azure HttpClient [\#2196](https://github.com/apache/camel-quarkus/issues/2196)
 - spark:hive is does not work [\#1956](https://github.com/apache/camel-quarkus/issues/1956)
 - spark:dataframe does not work on Java 11 [\#1955](https://github.com/apache/camel-quarkus/issues/1955)
 - \[Dependency hell\] Spark native support [\#1701](https://github.com/apache/camel-quarkus/issues/1701)
