@@ -63,4 +63,11 @@ public class KafkaTestResource implements QuarkusTestResourceLifecycleManager {
             }
         }
     }
+
+    @Override
+    public void inject(TestInjector testInjector) {
+        testInjector.injectIntoFields(container,
+                new TestInjector.AnnotatedAndMatchesType(InjectKafka.class, KafkaContainer.class));
+    }
+
 }
