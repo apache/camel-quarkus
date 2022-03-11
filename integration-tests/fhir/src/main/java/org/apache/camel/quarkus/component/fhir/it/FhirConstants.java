@@ -16,35 +16,9 @@
  */
 package org.apache.camel.quarkus.component.fhir.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import ca.uhn.fhir.context.FhirContext;
-import org.apache.camel.quarkus.component.fhir.FhirFlags;
-
-@ApplicationScoped
-public class FhirR4RouteBuilder extends AbstractFhirRouteBuilder {
-
-    private static final Boolean ENABLED = new FhirFlags.R4Enabled().getAsBoolean();
-
-    @Inject
-    @Named("R4")
-    Instance<FhirContext> fhirContextInstance;
-
-    @Override
-    String getFhirVersion() {
-        return "r4";
-    }
-
-    @Override
-    FhirContext getFhirContext() {
-        return fhirContextInstance.get();
-    }
-
-    @Override
-    boolean isEnabled() {
-        return ENABLED;
-    }
+public interface FhirConstants {
+    String PATIENT_ADDRESS = "221b Baker St, Marylebone, London NW1 6XE, UK";
+    String PATIENT_FIRST_NAME = "Sherlock";
+    String PATIENT_GENDER_PATCH = "[ { \"op\":\"add\", \"path\":\"/gender\", \"value\":\"female\" } ]";
+    String PATIENT_LAST_NAME = "Holmes";
 }

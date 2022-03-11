@@ -17,15 +17,19 @@
 package org.apache.camel.quarkus.component.fhir.deployment;
 
 import ca.uhn.fhir.rest.client.apache.ApacheRestfulClientFactory;
+import ca.uhn.fhir.rest.server.exceptions.BaseServerResponseException;
 import ca.uhn.fhir.util.jar.DependencyLogImpl;
 import ca.uhn.fhir.validation.schematron.SchematronBaseValidator;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.AdditionalApplicationArchiveMarkerBuildItem;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.jboss.jandex.DotName;
+import org.jboss.jandex.IndexView;
 
 final class FhirProcessor {
     private static final String FEATURE = "camel-fhir";
@@ -56,7 +60,16 @@ final class FhirProcessor {
     }
 
     @BuildStep()
-    void processFhir(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+    void registerForReflection(
+            CombinedIndexBuildItem combinedIndex,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+
+        IndexView index = combinedIndex.getIndex();
+        index.getAllKnownSubclasses(DotName.createSimple(BaseServerResponseException.class.getName()))
+                .stream()
+                .map(classInfo -> new ReflectiveClassBuildItem(false, false, classInfo.name().toString()))
+                .forEach(reflectiveClass::produce);
+
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, true, SchematronBaseValidator.class));
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, true, DependencyLogImpl.class));
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, true, ApacheRestfulClientFactory.class));
