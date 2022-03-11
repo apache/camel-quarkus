@@ -14,37 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.fhir.it;
+package org.apache.camel.quarkus.component.fhir.it.util;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
-import javax.inject.Named;
+import java.util.function.BooleanSupplier;
 
-import ca.uhn.fhir.context.FhirContext;
-import org.apache.camel.quarkus.component.fhir.FhirFlags;
-
-@ApplicationScoped
-public class FhirR4RouteBuilder extends AbstractFhirRouteBuilder {
-
-    private static final Boolean ENABLED = new FhirFlags.R4Enabled().getAsBoolean();
-
-    @Inject
-    @Named("R4")
-    Instance<FhirContext> fhirContextInstance;
-
+public class Dstu2Enabled implements BooleanSupplier {
     @Override
-    String getFhirVersion() {
-        return "r4";
-    }
-
-    @Override
-    FhirContext getFhirContext() {
-        return fhirContextInstance.get();
-    }
-
-    @Override
-    boolean isEnabled() {
-        return ENABLED;
+    public boolean getAsBoolean() {
+        return FhirTestHelper.isFhirVersionEnabled("DSTU2");
     }
 }

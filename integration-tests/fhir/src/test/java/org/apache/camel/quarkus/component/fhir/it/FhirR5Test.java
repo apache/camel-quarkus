@@ -16,9 +16,16 @@
  */
 package org.apache.camel.quarkus.component.fhir.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.ResourceArg;
+import io.quarkus.test.common.http.TestHTTPEndpoint;
+import io.quarkus.test.junit.QuarkusTest;
+import org.apache.camel.quarkus.component.fhir.it.util.R5Enabled;
+import org.apache.camel.quarkus.test.EnabledIf;
 
-@NativeImageTest
-class FhirClientIT extends FhirClientTest {
-
+@QuarkusTest
+@QuarkusTestResource(value = FhirTestResource.class, initArgs = @ResourceArg(name = "fhirVersion", value = "R5"))
+@TestHTTPEndpoint(FhirR5Resource.class)
+@EnabledIf(R5Enabled.class)
+class FhirR5Test extends AbstractFhirTest {
 }

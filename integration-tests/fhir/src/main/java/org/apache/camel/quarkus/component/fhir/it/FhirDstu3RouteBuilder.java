@@ -22,14 +22,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import ca.uhn.fhir.context.FhirContext;
-import ca.uhn.fhir.parser.StrictErrorHandler;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.fhir.FhirJsonDataFormat;
-import org.apache.camel.component.fhir.FhirXmlDataFormat;
 import org.apache.camel.quarkus.component.fhir.FhirFlags;
 
 @ApplicationScoped
-public class FhirDstu3RouteBuilder extends RouteBuilder {
+public class FhirDstu3RouteBuilder extends AbstractFhirRouteBuilder {
 
     private static final Boolean ENABLED = new FhirFlags.Dstu3Enabled().getAsBoolean();
     @Inject
@@ -37,29 +33,17 @@ public class FhirDstu3RouteBuilder extends RouteBuilder {
     Instance<FhirContext> fhirContextInstance;
 
     @Override
-    public void configure() {
-        if (ENABLED) {
-            FhirContext fhirContext = fhirContextInstance.get();
-            fhirContext.setParserErrorHandler(new StrictErrorHandler());
+    String getFhirVersion() {
+        return "dstu3";
+    }
 
-            FhirJsonDataFormat fhirJsonDataFormat = new FhirJsonDataFormat();
-            fhirJsonDataFormat.setFhirContext(fhirContext);
-            fhirJsonDataFormat.setParserErrorHandler(new StrictErrorHandler());
+    @Override
+    FhirContext getFhirContext() {
+        return fhirContextInstance.get();
+    }
 
-            FhirXmlDataFormat fhirXmlDataFormat = new FhirXmlDataFormat();
-            fhirXmlDataFormat.setFhirContext(fhirContext);
-            fhirXmlDataFormat.setParserErrorHandler(new StrictErrorHandler());
-
-            from("direct:json-to-dstu3")
-                    .unmarshal(fhirJsonDataFormat)
-                    .marshal(fhirJsonDataFormat);
-
-            from("direct:xml-to-dstu3")
-                    .unmarshal(fhirXmlDataFormat)
-                    .marshal(fhirXmlDataFormat);
-
-            from("direct:create-dstu3")
-                    .to("fhir://create/resource?inBody=resourceAsString&fhirContext=#DSTU3");
-        }
+    @Override
+    boolean isEnabled() {
+        return ENABLED;
     }
 }
