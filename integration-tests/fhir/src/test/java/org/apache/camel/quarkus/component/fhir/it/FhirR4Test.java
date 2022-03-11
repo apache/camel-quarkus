@@ -16,35 +16,17 @@
  */
 package org.apache.camel.quarkus.component.fhir.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
-import javax.inject.Named;
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.ResourceArg;
+import io.quarkus.test.common.http.TestHTTPEndpoint;
+import io.quarkus.test.junit.QuarkusTest;
+import org.apache.camel.quarkus.component.fhir.it.util.R4Enabled;
+import org.apache.camel.quarkus.test.EnabledIf;
 
-import ca.uhn.fhir.context.FhirContext;
-import org.apache.camel.quarkus.component.fhir.FhirFlags;
+@QuarkusTest
+@QuarkusTestResource(value = FhirTestResource.class, initArgs = @ResourceArg(name = "fhirVersion", value = "R4"))
+@TestHTTPEndpoint(FhirR4Resource.class)
+@EnabledIf(R4Enabled.class)
+class FhirR4Test extends AbstractFhirTest {
 
-@ApplicationScoped
-public class FhirR4RouteBuilder extends AbstractFhirRouteBuilder {
-
-    private static final Boolean ENABLED = new FhirFlags.R4Enabled().getAsBoolean();
-
-    @Inject
-    @Named("R4")
-    Instance<FhirContext> fhirContextInstance;
-
-    @Override
-    String getFhirVersion() {
-        return "r4";
-    }
-
-    @Override
-    FhirContext getFhirContext() {
-        return fhirContextInstance.get();
-    }
-
-    @Override
-    boolean isEnabled() {
-        return ENABLED;
-    }
 }

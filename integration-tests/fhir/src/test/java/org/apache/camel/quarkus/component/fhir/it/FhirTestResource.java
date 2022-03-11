@@ -17,41 +17,58 @@
 
 package org.apache.camel.quarkus.component.fhir.it;
 
+import java.util.Collections;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.apache.camel.quarkus.component.fhir.it.util.FhirTestHelper;
 import org.apache.camel.util.CollectionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
-import org.testcontainers.utility.TestcontainersConfiguration;
 
 public class FhirTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(FhirTestResource.class);
+    private static final String FHIR_DSTU_CONTAINER_TAG = "v4.2.0";
+    private static final String FHIR_DSTU_CONTEXT_PATH = "/hapi-fhir-jpaserver/fhir";
+    private static final String FHIR_R_CONTAINER_TAG = "v5.7.0";
+    private static final String FHIR_R_CONTEXT_PATH = "/fhir";
     private static final int CONTAINER_PORT = 8080;
-    private static final String CONTAINER_IMAGE = "quay.io/lburgazzoli/hapi-fhir-jpaserver-starter:4.1.0";
 
+    private FhirVersion fhirVersion;
     private GenericContainer container;
 
     @Override
+    public void init(Map<String, String> initArgs) {
+        this.fhirVersion = FhirVersion.valueOf(initArgs.get("fhirVersion"));
+    }
+
+    @Override
     public Map<String, String> start() {
-        LOGGER.info(TestcontainersConfiguration.getInstance().toString());
+        if (this.fhirVersion == null) {
+            return Collections.emptyMap();
+        }
+
+        if (!FhirTestHelper.isFhirVersionEnabled(fhirVersion.name())) {
+            LOGGER.info("FHIR version {} is disabled. No hapi test container will be started for it.",
+                    fhirVersion.simpleVersion());
+            return Collections.emptyMap();
+        }
 
         try {
-            container = new GenericContainer(CONTAINER_IMAGE)
+            LOGGER.info("FHIR version {} is enabled. Starting hapi test container for it.", fhirVersion.simpleVersion());
+            String imageName = fhirVersion.getContainerImageName();
+            container = new GenericContainer(imageName)
                     .withExposedPorts(CONTAINER_PORT)
-                    .withEnv("HAPI_FHIR_VERSION", "DSTU3")
-                    .waitingFor(Wait.forListeningPort());
+                    .withEnv("HAPI_FHIR_VERSION", fhirVersion.name())
+                    .waitingFor(Wait.forHttp(fhirVersion.getHealthEndpointPath()));
 
             container.start();
 
             return CollectionHelper.mapOf(
-                    "camel.fhir.test-url",
-                    String.format(
-                            "http://%s:%d/hapi-fhir-jpaserver/fhir",
-                            container.getContainerIpAddress(),
-                            container.getMappedPort(CONTAINER_PORT)));
+                    String.format("camel.fhir.%s.test-url", fhirVersion.simpleVersion()),
+                    fhirVersion.getServerUrl(container.getContainerIpAddress(), container.getMappedPort(CONTAINER_PORT)));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -65,6 +82,45 @@ public class FhirTestResource implements QuarkusTestResourceLifecycleManager {
             }
         } catch (Exception e) {
             // ignored
+        }
+    }
+
+    enum FhirVersion {
+        DSTU2(FHIR_DSTU_CONTAINER_TAG, FHIR_DSTU_CONTEXT_PATH),
+        DSTU3(FHIR_DSTU_CONTAINER_TAG, FHIR_DSTU_CONTEXT_PATH),
+        R4(FHIR_R_CONTAINER_TAG, FHIR_R_CONTEXT_PATH),
+        R5(FHIR_R_CONTAINER_TAG, FHIR_R_CONTEXT_PATH);
+
+        private final String fhirImageTag;
+        private final String contextPath;
+
+        FhirVersion(String fhirImageTag, String contextPath) {
+            this.fhirImageTag = fhirImageTag;
+            this.contextPath = contextPath;
+        }
+
+        public String simpleVersion() {
+            return this.name().toLowerCase();
+        }
+
+        public String getFhirContainerImageTag() {
+            return fhirImageTag;
+        }
+
+        public String getContextPath() {
+            return contextPath;
+        }
+
+        public String getContainerImageName() {
+            return String.format("hapiproject/hapi:%s", getFhirContainerImageTag());
+        }
+
+        public String getServerUrl(String host, int port) {
+            return String.format("http://%s:%d%s", host, port, getContextPath());
+        }
+
+        public String getHealthEndpointPath() {
+            return String.format("%s/metadata", getContextPath());
         }
     }
 }

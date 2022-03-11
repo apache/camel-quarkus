@@ -14,10 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.fhir.it;
+package org.apache.camel.quarkus.component.fhir.it.util;
 
-import io.quarkus.test.junit.NativeImageTest;
+import java.util.function.BooleanSupplier;
 
-@NativeImageTest
-class FhirDataformatIT extends FhirDataformatTest {
+public class R4Enabled implements BooleanSupplier {
+    @Override
+    public boolean getAsBoolean() {
+        return FhirTestHelper.isFhirVersionEnabled("R4");
+    }
 }
