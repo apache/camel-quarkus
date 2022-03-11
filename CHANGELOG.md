@@ -31,7 +31,7 @@
 **Merged pull requests:**
 
 - Avoid compiling regular expressions in loops [\#3649](https://github.com/apache/camel-quarkus/pull/3649) ([ppalaga](https://github.com/ppalaga))
-- Switch from `NativeImageTest` to `QuarkusIntegrationTest` [\#3648](https://github.com/apache/camel-quarkus/pull/3648) ([jamesnetherton](https://github.com/jamesnetherton))
+- Switch from `QuarkusIntegrationTest` to `QuarkusIntegrationTest` [\#3648](https://github.com/apache/camel-quarkus/pull/3648) ([jamesnetherton](https://github.com/jamesnetherton))
 - file: Ensure FileTest.charset is fixed under Windows \#3530 [\#3647](https://github.com/apache/camel-quarkus/pull/3647) ([aldettinger](https://github.com/aldettinger))
 - Tidy geronimo-jms\_2.0\_spec exclusions [\#3646](https://github.com/apache/camel-quarkus/pull/3646) ([ppalaga](https://github.com/ppalaga))
 - file: Rewrite the charset related test \#3627 [\#3645](https://github.com/apache/camel-quarkus/pull/3645) ([aldettinger](https://github.com/aldettinger))
