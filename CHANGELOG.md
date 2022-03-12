@@ -4,8 +4,15 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.8.0-M1...HEAD)
 
+**Closed issues:**
+
+- zipfile: Complete test coverage [\#3610](https://github.com/apache/camel-quarkus/issues/3610)
+- Use https instead of http to reference xsds [\#3604](https://github.com/apache/camel-quarkus/issues/3604)
+
 **Merged pull requests:**
 
+- Upgrade Quarkus to 2.7.4.Final [\#3613](https://github.com/apache/camel-quarkus/pull/3613) ([zbendhiba](https://github.com/zbendhiba))
+- zipfile: complete test coverage \#3610 [\#3611](https://github.com/apache/camel-quarkus/pull/3611) ([aldettinger](https://github.com/aldettinger))
 - Complete the release guide [\#3607](https://github.com/apache/camel-quarkus/pull/3607) ([aldettinger](https://github.com/aldettinger))
 - Upgrade third party Quarkus extensions prior to release [\#3603](https://github.com/apache/camel-quarkus/pull/3603) ([aldettinger](https://github.com/aldettinger))
 - Merge platform-http-engine tests with platform-http [\#3598](https://github.com/apache/camel-quarkus/pull/3598) ([jamesnetherton](https://github.com/jamesnetherton))
