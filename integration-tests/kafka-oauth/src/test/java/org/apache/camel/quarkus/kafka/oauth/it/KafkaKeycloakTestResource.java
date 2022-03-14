@@ -20,9 +20,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
-import org.apache.camel.quarkus.kafka.oauth.it.container.KafkaContainer;
+import io.strimzi.test.container.StrimziKafkaContainer;
 import org.apache.camel.quarkus.kafka.oauth.it.container.KeycloakContainer;
 import org.jboss.logging.Logger;
+import org.testcontainers.utility.MountableFile;
+
+import static io.strimzi.test.container.StrimziKafkaContainer.KAFKA_PORT;
 
 /**
  * Inspired from https://github.com/quarkusio/quarkus/tree/main/integration-tests/kafka-oauth-keycloak/
@@ -30,12 +33,11 @@ import org.jboss.logging.Logger;
 public class KafkaKeycloakTestResource implements QuarkusTestResourceLifecycleManager {
 
     private static final Logger log = Logger.getLogger(KafkaKeycloakTestResource.class);
-    private KafkaContainer kafka;
+    private StrimziKafkaContainer kafka;
     private KeycloakContainer keycloak;
 
     @Override
     public Map<String, String> start() {
-
         Map<String, String> properties = new HashMap<>();
 
         //Start keycloak container
@@ -45,10 +47,16 @@ public class KafkaKeycloakTestResource implements QuarkusTestResourceLifecycleMa
         keycloak.createHostsFile();
 
         //Start kafka container
-        kafka = new KafkaContainer();
-        kafka.start();
-        log.info(kafka.getLogs());
-        properties.put("kafka.bootstrap.servers", kafka.getBootstrapServers());
+        this.kafka = new StrimziKafkaContainer("quay.io/strimzi/kafka:latest-kafka-3.0.0")
+                .withBrokerId(1)
+                .withKafkaConfigurationMap(Map.of("listener.security.protocol.map", "JWT:SASL_PLAINTEXT,BROKER1:PLAINTEXT"))
+                .withNetworkAliases("kafka")
+                .withServerProperties(MountableFile.forClasspathResource("kafkaServer.properties"))
+                .withBootstrapServers(
+                        c -> String.format("JWT://%s:%s", c.getContainerIpAddress(), c.getMappedPort(KAFKA_PORT)));
+        this.kafka.start();
+        log.info(this.kafka.getLogs());
+        properties.put("kafka.bootstrap.servers", this.kafka.getBootstrapServers());
         properties.put("camel.component.kafka.brokers", kafka.getBootstrapServers());
 
         return properties;
