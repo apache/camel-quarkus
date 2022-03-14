@@ -4,7 +4,32 @@ By default the Slack integration tests use WireMock to stub the API interactions
 
 To run the `camel-quarkus-Slack` integration tests against the real API, you must first create a Slack account and workspace https://slack.com/get-started#/create.
 
-Then configure Slack custom configurations for 'Incoming Webhooks' & the 'Slack API Tester' on your workspace.
+Create a channel named `test-channel`.
+
+You’ll need to create a Slack app and use it on your workspace.
+
+Use the 'User OAuth Token' as token for the producer abd consumer endpoints. Set the corresponding scopes for Bot Token:
+
+* `channels:history`
+* `groups:history`
+* `im:history`
+* `mpim:history`
+* `channels:read`
+* `groups:read`
+* `im:read`
+* `mpim:read`
+* `chat:write`
+
+Install your app for the channel `test-channel`.
+
+Add an `Incoming Webhook` for you app.
+
+Invite the bot in the channel `test-channel`.
+
+[source]
+----
+/invite @BOT_NAME
+----
 
 Next set the following environment variables:
 
