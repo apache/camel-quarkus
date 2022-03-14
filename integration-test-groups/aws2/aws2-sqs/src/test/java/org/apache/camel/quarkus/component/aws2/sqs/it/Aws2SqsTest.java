@@ -167,7 +167,6 @@ class Aws2SqsTest {
             Instant start = Instant.now();
             final String msgSent = sendSingleMessageToQueue(qName);
             awaitMessageWithExpectedContentFromQueue(msgSent, qName);
-            System.out.println(Duration.between(start, Instant.now()).getSeconds());
             Assertions.assertTrue(Duration.between(start, Instant.now()).getSeconds() >= delay);
         } catch (AssertionError e) {
             e.printStackTrace();
