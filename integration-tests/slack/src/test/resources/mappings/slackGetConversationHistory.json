@@ -5,7 +5,7 @@
     "url" : "/api/conversations.history",
     "method" : "POST",
     "bodyPatterns" : [ {
-      "equalTo" : "channel=test&limit=1&inclusive=0",
+      "equalTo" : "channel=test-channel&limit=1&inclusive=0",
       "caseInsensitive" : false
     } ]
   },

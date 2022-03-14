@@ -52,7 +52,7 @@ public class SlackResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getSlackMessages() throws Exception {
-        Message message = consumerTemplate.receiveBody("slack://general?maxResults=1&" + getSlackAuthParams(),
+        Message message = consumerTemplate.receiveBody("slack://test-channel?maxResults=1&" + getSlackAuthParams(),
                 5000L, Message.class);
         return message.getText();
     }
@@ -61,7 +61,7 @@ public class SlackResource {
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     public Response createSlackMessage(String message) throws Exception {
-        producerTemplate.requestBody("slack://general?" + getSlackAuthParams(), message);
+        producerTemplate.requestBody("slack://test-channel?" + getSlackAuthParams(), message);
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .build();
