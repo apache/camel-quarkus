@@ -1,1 +1,2 @@
-The https://hapifhir.io/download.html[hapi-fhir] library, on which camel-fhir depends on, heavily uses reflection which affects performance in Quarkus (memory footprint, build time, CPU resources etc...). The following options are provided to improve on this:
+
+By default, only FHIR versions `R4` & `DSTU3` are enabled in native mode, since they are the default values on the FHIR component and DataFormat.
