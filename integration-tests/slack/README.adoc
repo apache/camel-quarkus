@@ -8,7 +8,7 @@ Create a channel named `test-channel`.
 
 You’ll need to create a Slack app and use it on your workspace.
 
-Use the 'User OAuth Token' as token for the producer abd consumer endpoints. Set the corresponding scopes for Bot Token:
+Use the 'User OAuth Token' as token for the producer and consumer endpoints. Set the corresponding scopes for Bot Token:
 
 * `channels:history`
 * `groups:history`
