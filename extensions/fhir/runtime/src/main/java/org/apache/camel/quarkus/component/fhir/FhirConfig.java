@@ -24,25 +24,25 @@ import io.quarkus.runtime.annotations.ConfigRoot;
 public final class FhirConfig {
 
     /**
-     * Enable FHIR DSTU2 Specs.
+     * Enable FHIR DSTU2 Specs in native mode.
      */
     @ConfigItem(name = "enable-dstu2", defaultValue = "true")
     public boolean enableDstu2;
 
     /**
-     * Enable FHIR DSTU3 Specs.
+     * Enable FHIR DSTU3 Specs in native mode.
      */
     @ConfigItem(name = "enable-dstu3", defaultValue = "true")
     public boolean enableDstu3;
 
     /**
-     * Enable FHIR R4 Specs.
+     * Enable FHIR R4 Specs in native mode.
      */
     @ConfigItem(name = "enable-r4", defaultValue = "true")
     public boolean enableR4;
 
     /**
-     * Enable FHIR R5 Specs.
+     * Enable FHIR R5 Specs in native mode.
      */
     @ConfigItem(name = "enable-r5", defaultValue = "true")
     public boolean enableR5;
