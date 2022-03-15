@@ -49,7 +49,8 @@ https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].
 
 == Additional Camel Quarkus configuration
 
-The https://hapifhir.io/download.html[hapi-fhir] library, on which camel-fhir depends on, heavily uses reflection which affects performance in Quarkus (memory footprint, build time, CPU resources etc...). The following options are provided to improve on this:
+
+By default, only FHIR versions `R4` & `DSTU3` are enabled in native mode, since they are the default values on the FHIR component and DataFormat.
 
 
 [width="100%",cols="80,5,15",options="header"]
@@ -59,25 +60,25 @@ The https://hapifhir.io/download.html[hapi-fhir] library, on which camel-fhir de
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.fhir.enable-dstu2]]`link:#quarkus.camel.fhir.enable-dstu2[quarkus.camel.fhir.enable-dstu2]`
 
-Enable FHIR DSTU2 Specs.
+Enable FHIR DSTU2 Specs in native mode.
 | `boolean`
 | `true`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.fhir.enable-dstu3]]`link:#quarkus.camel.fhir.enable-dstu3[quarkus.camel.fhir.enable-dstu3]`
 
-Enable FHIR DSTU3 Specs.
+Enable FHIR DSTU3 Specs in native mode.
 | `boolean`
 | `true`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.fhir.enable-r4]]`link:#quarkus.camel.fhir.enable-r4[quarkus.camel.fhir.enable-r4]`
 
-Enable FHIR R4 Specs.
+Enable FHIR R4 Specs in native mode.
 | `boolean`
 | `true`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.fhir.enable-r5]]`link:#quarkus.camel.fhir.enable-r5[quarkus.camel.fhir.enable-r5]`
 
-Enable FHIR R5 Specs.
+Enable FHIR R5 Specs in native mode.
 | `boolean`
 | `true`
 |===
