@@ -56,6 +56,7 @@
                             </includes>
                             <excludes>
                                 <exclude>support/**/*</exclude>
+                                <exclude>ipfs/pom.xml</exclude>
                                 <exclude>master/pom.xml</exclude>
                                 <exclude>main-command-mode/pom.xml</exclude>
                                 <exclude>main-unknown-args-fail/pom.xml</exclude>
