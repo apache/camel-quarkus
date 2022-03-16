@@ -61,7 +61,7 @@ public class FhirTestResource implements QuarkusTestResourceLifecycleManager {
             String imageName = fhirVersion.getContainerImageName();
             container = new GenericContainer(imageName)
                     .withExposedPorts(CONTAINER_PORT)
-                    .withEnv("HAPI_FHIR_VERSION", fhirVersion.name())
+                    .withEnv("HAPI_FHIR_VERSION", fhirVersion.getFhirContainerVersionEnvVarValue())
                     .waitingFor(Wait.forHttp(fhirVersion.getHealthEndpointPath()));
 
             container.start();
@@ -87,6 +87,8 @@ public class FhirTestResource implements QuarkusTestResourceLifecycleManager {
 
     enum FhirVersion {
         DSTU2(FHIR_DSTU_CONTAINER_TAG, FHIR_DSTU_CONTEXT_PATH),
+        DSTU2_HL7ORG(FHIR_DSTU_CONTAINER_TAG, FHIR_DSTU_CONTEXT_PATH),
+        DSTU2_1(FHIR_DSTU_CONTAINER_TAG, FHIR_DSTU_CONTEXT_PATH),
         DSTU3(FHIR_DSTU_CONTAINER_TAG, FHIR_DSTU_CONTEXT_PATH),
         R4(FHIR_R_CONTAINER_TAG, FHIR_R_CONTEXT_PATH),
         R5(FHIR_R_CONTAINER_TAG, FHIR_R_CONTEXT_PATH);
@@ -105,6 +107,14 @@ public class FhirTestResource implements QuarkusTestResourceLifecycleManager {
 
         public String getFhirContainerImageTag() {
             return fhirImageTag;
+        }
+
+        public String getFhirContainerVersionEnvVarValue() {
+            // Cannot pass DSTU2_HL7ORG as the version to the mock server. However, it is analogous to DSTU2 anyway
+            if (this == DSTU2_HL7ORG) {
+                return DSTU2.name();
+            }
+            return this.name();
         }
 
         public String getContextPath() {

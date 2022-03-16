@@ -17,7 +17,14 @@
 package org.apache.camel.quarkus.component.fhir.deployment;
 
 import ca.uhn.fhir.rest.client.apache.ApacheRestfulClientFactory;
+import ca.uhn.fhir.rest.client.api.IClientInterceptor;
 import ca.uhn.fhir.rest.server.exceptions.BaseServerResponseException;
+import ca.uhn.fhir.rest.server.interceptor.CaptureResourceSourceFromHeaderInterceptor;
+import ca.uhn.fhir.rest.server.interceptor.ResponseHighlighterInterceptor;
+import ca.uhn.fhir.rest.server.interceptor.ResponseValidatingInterceptor;
+import ca.uhn.fhir.rest.server.interceptor.auth.AuthorizationInterceptor;
+import ca.uhn.fhir.rest.server.interceptor.auth.SearchNarrowingInterceptor;
+import ca.uhn.fhir.rest.server.interceptor.consent.ConsentInterceptor;
 import ca.uhn.fhir.util.jar.DependencyLogImpl;
 import ca.uhn.fhir.validation.schematron.SchematronBaseValidator;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -33,6 +40,15 @@ import org.jboss.jandex.IndexView;
 
 final class FhirProcessor {
     private static final String FEATURE = "camel-fhir";
+    private static final String[] INTERCEPTOR_CLASSES = {
+            ConsentInterceptor.class.getName(),
+            SearchNarrowingInterceptor.class.getName(),
+            AuthorizationInterceptor.class.getName(),
+            ResponseValidatingInterceptor.class.getName(),
+            ResponseHighlighterInterceptor.class.getName(),
+            CaptureResourceSourceFromHeaderInterceptor.class.getName(),
+            IClientInterceptor.class.getName(),
+    };
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -70,6 +86,13 @@ final class FhirProcessor {
                 .map(classInfo -> new ReflectiveClassBuildItem(false, false, classInfo.name().toString()))
                 .forEach(reflectiveClass::produce);
 
+        String[] clientInterceptors = index.getAllKnownImplementors(DotName.createSimple(IClientInterceptor.class.getName()))
+                .stream()
+                .map(classInfo -> classInfo.name().toString())
+                .toArray(String[]::new);
+
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, clientInterceptors));
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, INTERCEPTOR_CLASSES));
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, true, SchematronBaseValidator.class));
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, true, DependencyLogImpl.class));
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, true, ApacheRestfulClientFactory.class));
