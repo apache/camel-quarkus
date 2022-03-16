@@ -16,15 +16,38 @@
  */
 package org.apache.camel.quarkus.component.openapi.java.deployment;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.swagger.v3.oas.models.media.Schema;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.DotName;
+import org.jboss.jandex.IndexView;
 
 class OpenApiJavaProcessor {
 
     private static final String FEATURE = "camel-openapi-java";
+    private static final DotName SCHEMA = DotName.createSimple(Schema.class.getName());
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
+        indexDependency.produce(new IndexDependencyBuildItem("io.swagger.core.v3", "swagger-models"));
+    }
+
+    @BuildStep
+    void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses, CombinedIndexBuildItem combinedIndex) {
+        reflectiveClasses.produce(new ReflectiveClassBuildItem(true, true, SCHEMA.toString()));
+
+        IndexView index = combinedIndex.getIndex();
+        index.getAllKnownSubclasses(SCHEMA).stream().map(ClassInfo::toString).forEach(
+                name -> reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, name)));
     }
 }

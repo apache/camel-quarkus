@@ -60,6 +60,7 @@ public class OpenApiRoutes extends RouteBuilder {
 
         rest("/api")
                 .get("/fruits/list")
+                .type(Fruit.class)
                 .description("Gets a list of fruits")
                 .id("list")
                 .produces(MediaType.APPLICATION_JSON)
@@ -173,8 +174,8 @@ public class OpenApiRoutes extends RouteBuilder {
 
     private Set<Fruit> getFruits() {
         Set<Fruit> fruits = Collections.newSetFromMap(Collections.synchronizedMap(new LinkedHashMap<>()));
-        fruits.add(new Fruit("Apple", "Winter fruit"));
-        fruits.add(new Fruit("Pineapple", "Tropical fruit"));
+        fruits.add(new Fruit("Apple", "Winter fruit", 10));
+        fruits.add(new Fruit("Pineapple", "Tropical fruit", 20));
         return fruits;
     }
 }
