@@ -30,6 +30,18 @@ public final class FhirConfig {
     public boolean enableDstu2;
 
     /**
+     * Enable FHIR DSTU2_HL7ORG Specs in native mode.
+     */
+    @ConfigItem(name = "enable-dstu2_hl7org", defaultValue = "false")
+    public boolean enableDstu2Hl7Org;
+
+    /**
+     * Enable FHIR DSTU2_1 Specs in native mode.
+     */
+    @ConfigItem(name = "enable-dstu2_1", defaultValue = "false")
+    public boolean enableDstu2_1;
+
+    /**
      * Enable FHIR DSTU3 Specs in native mode.
      */
     @ConfigItem(name = "enable-dstu3", defaultValue = "true")
