@@ -36,13 +36,17 @@ import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.Capability;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.smallrye.openapi.deployment.spi.AddToOpenAPIDefinitionBuildItem;
 import io.smallrye.openapi.api.models.OpenAPIImpl;
 import io.smallrye.openapi.api.util.MergeUtil;
 import io.smallrye.openapi.runtime.io.definition.DefinitionReader;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.media.Schema;
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
@@ -62,6 +66,9 @@ import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.openapi.OASFilter;
 import org.eclipse.microprofile.openapi.models.OpenAPI;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.DotName;
+import org.jboss.jandex.IndexView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,10 +78,25 @@ class OpenApiJavaProcessor {
 
     private static final String FEATURE = "camel-openapi-java";
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenApiJavaProcessor.class);
+    private static final DotName SCHEMA = DotName.createSimple(Schema.class.getName());
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
+        indexDependency.produce(new IndexDependencyBuildItem("io.swagger.core.v3", "swagger-models"));
+    }
+
+    @BuildStep
+    void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses, CombinedIndexBuildItem combinedIndex) {
+        reflectiveClasses.produce(new ReflectiveClassBuildItem(true, true, SCHEMA.toString()));
+
+        IndexView index = combinedIndex.getIndex();
+        index.getAllKnownSubclasses(SCHEMA).stream().map(ClassInfo::toString).forEach(
+                name -> reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, name)));
     }
 
     @BuildStep(onlyIf = ExposeOpenApiEnabled.class)
