@@ -62,7 +62,7 @@ By default, only FHIR versions `R4` & `DSTU3` are enabled in native mode, since 
 
 Enable FHIR DSTU2 Specs in native mode.
 | `boolean`
-| `true`
+| `false`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.fhir.enable-dstu3]]`link:#quarkus.camel.fhir.enable-dstu3[quarkus.camel.fhir.enable-dstu3]`
 
@@ -80,7 +80,7 @@ Enable FHIR R4 Specs in native mode.
 
 Enable FHIR R5 Specs in native mode.
 | `boolean`
-| `true`
+| `false`
 |===
 
 [.configuration-legend]

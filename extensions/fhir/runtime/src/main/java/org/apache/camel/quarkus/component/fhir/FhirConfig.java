@@ -26,7 +26,7 @@ public final class FhirConfig {
     /**
      * Enable FHIR DSTU2 Specs in native mode.
      */
-    @ConfigItem(name = "enable-dstu2", defaultValue = "true")
+    @ConfigItem(name = "enable-dstu2", defaultValue = "false")
     public boolean enableDstu2;
 
     /**
@@ -44,6 +44,6 @@ public final class FhirConfig {
     /**
      * Enable FHIR R5 Specs in native mode.
      */
-    @ConfigItem(name = "enable-r5", defaultValue = "true")
+    @ConfigItem(name = "enable-r5", defaultValue = "false")
     public boolean enableR5;
 }
