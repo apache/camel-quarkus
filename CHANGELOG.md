@@ -4,14 +4,24 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.8.0-M1...HEAD)
 
+**Fixed bugs:**
+
+- camel-quarkus-openapi-java marking all properties as type object in native mode [\#3606](https://github.com/apache/camel-quarkus/issues/3606)
+
 **Closed issues:**
 
+- cassandraql: itests failing on quarkus-platform [\#3621](https://github.com/apache/camel-quarkus/issues/3621)
 - zipfile: Complete test coverage [\#3610](https://github.com/apache/camel-quarkus/issues/3610)
 - Use https instead of http to reference xsds [\#3604](https://github.com/apache/camel-quarkus/issues/3604)
 - Increase FHIR extension test coverage [\#3601](https://github.com/apache/camel-quarkus/issues/3601)
 
 **Merged pull requests:**
 
+- Fix \#3606 to add reflection configs for Schema and its subClasses [\#3624](https://github.com/apache/camel-quarkus/pull/3624) ([zhfeng](https://github.com/zhfeng))
+- Fix cassandraql itests failing on quarkus-platform \#3621 [\#3623](https://github.com/apache/camel-quarkus/pull/3623) ([aldettinger](https://github.com/aldettinger))
+- Disable flaky GrpcTest.forwardOnError [\#3622](https://github.com/apache/camel-quarkus/pull/3622) ([jamesnetherton](https://github.com/jamesnetherton))
+- 📝Slack test : update Readme with new Oauth Configuration [\#3620](https://github.com/apache/camel-quarkus/pull/3620) ([zbendhiba](https://github.com/zbendhiba))
+- Remote println from SQS test [\#3616](https://github.com/apache/camel-quarkus/pull/3616) ([mmuzikar](https://github.com/mmuzikar))
 - Increase FHIR extension test coverage [\#3614](https://github.com/apache/camel-quarkus/pull/3614) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.7.4.Final [\#3613](https://github.com/apache/camel-quarkus/pull/3613) ([zbendhiba](https://github.com/zbendhiba))
 - zipfile: complete test coverage \#3610 [\#3611](https://github.com/apache/camel-quarkus/pull/3611) ([aldettinger](https://github.com/aldettinger))
