@@ -64,6 +64,18 @@ Enable FHIR DSTU2 Specs in native mode.
 | `boolean`
 | `false`
 
+|icon:lock[title=Fixed at build time] [[quarkus.camel.fhir.enable-dstu2_hl7org]]`link:#quarkus.camel.fhir.enable-dstu2_hl7org[quarkus.camel.fhir.enable-dstu2_hl7org]`
+
+Enable FHIR DSTU2_HL7ORG Specs in native mode.
+| `boolean`
+| `false`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.fhir.enable-dstu2_1]]`link:#quarkus.camel.fhir.enable-dstu2_1[quarkus.camel.fhir.enable-dstu2_1]`
+
+Enable FHIR DSTU2_1 Specs in native mode.
+| `boolean`
+| `false`
+
 |icon:lock[title=Fixed at build time] [[quarkus.camel.fhir.enable-dstu3]]`link:#quarkus.camel.fhir.enable-dstu3[quarkus.camel.fhir.enable-dstu3]`
 
 Enable FHIR DSTU3 Specs in native mode.

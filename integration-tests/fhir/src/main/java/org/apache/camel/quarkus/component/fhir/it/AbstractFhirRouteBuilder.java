@@ -52,9 +52,10 @@ public abstract class AbstractFhirRouteBuilder extends RouteBuilder {
             configuration.setServerUrl(serverUrl);
             configuration.setCompress(true);
 
+            String sanitizedFhirVersion = fhirVersion.replace('_', '-');
             FhirComponent component = new FhirComponent();
             component.setConfiguration(configuration);
-            getContext().addComponent("fhir-" + fhirVersion, component);
+            getContext().addComponent("fhir-" + sanitizedFhirVersion, component);
 
             fhirContext.setParserErrorHandler(new StrictErrorHandler());
             try {
@@ -73,176 +74,176 @@ public abstract class AbstractFhirRouteBuilder extends RouteBuilder {
             fhirXmlDataFormat.setParserErrorHandler(new StrictErrorHandler());
 
             // Capabilities
-            fromF("direct:capabilities-%s", fhirVersion)
-                    .toF("fhir-%s://capabilities/ofType?inBody=type", fhirVersion);
+            fromF("direct:capabilities-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://capabilities/ofType?inBody=type", sanitizedFhirVersion);
 
             // Create
-            fromF("direct:createResource-%s", fhirVersion)
-                    .toF("fhir-%s://create/resource?inBody=resource", fhirVersion);
+            fromF("direct:createResource-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://create/resource?inBody=resource", sanitizedFhirVersion);
 
-            fromF("direct:createResourceAsString-%s", fhirVersion)
-                    .toF("fhir-%s://create/resource?inBody=resourceAsString", fhirVersion);
+            fromF("direct:createResourceAsString-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://create/resource?inBody=resourceAsString", sanitizedFhirVersion);
 
             // Dataformats
-            fromF("direct:json-to-%s", fhirVersion)
+            fromF("direct:json-to-%s", sanitizedFhirVersion)
                     .unmarshal(fhirJsonDataFormat)
                     .marshal(fhirJsonDataFormat);
 
-            fromF("direct:xml-to-%s", fhirVersion)
+            fromF("direct:xml-to-%s", sanitizedFhirVersion)
                     .unmarshal(fhirXmlDataFormat)
                     .marshal(fhirXmlDataFormat);
 
             // Delete
-            fromF("direct:delete-%s", fhirVersion)
-                    .toF("fhir-%s://delete/resource?inBody=resource", fhirVersion);
+            fromF("direct:delete-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://delete/resource?inBody=resource", sanitizedFhirVersion);
 
-            fromF("direct:deleteById-%s", fhirVersion)
-                    .toF("fhir-%s://delete/resourceById?inBody=id", fhirVersion);
+            fromF("direct:deleteById-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://delete/resourceById?inBody=id", sanitizedFhirVersion);
 
-            fromF("direct:deleteByStringId-%s", fhirVersion)
-                    .toF("fhir-%s://delete/resourceById", fhirVersion);
+            fromF("direct:deleteByStringId-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://delete/resourceById", sanitizedFhirVersion);
 
-            fromF("direct:deleteConditionalByUrl-%s", fhirVersion)
-                    .toF("fhir-%s://delete/resourceConditionalByUrl?inBody=url", fhirVersion);
+            fromF("direct:deleteConditionalByUrl-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://delete/resourceConditionalByUrl?inBody=url", sanitizedFhirVersion);
 
             // History
-            fromF("direct:historyOnInstance-%s", fhirVersion)
-                    .toF("fhir-%s://history/onInstance", fhirVersion);
+            fromF("direct:historyOnInstance-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://history/onInstance", sanitizedFhirVersion);
 
-            fromF("direct:historyOnServer-%s", fhirVersion)
-                    .toF("fhir-%s://history/onServer", fhirVersion);
+            fromF("direct:historyOnServer-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://history/onServer", sanitizedFhirVersion);
 
-            fromF("direct:historyOnType-%s", fhirVersion)
-                    .toF("fhir-%s://history/onType", fhirVersion);
+            fromF("direct:historyOnType-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://history/onType", sanitizedFhirVersion);
 
             // Load page
-            fromF("direct:loadPageByUrl-%s", fhirVersion)
-                    .toF("fhir-%s://load-page/byUrl", fhirVersion);
+            fromF("direct:loadPageByUrl-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://load-page/byUrl", sanitizedFhirVersion);
 
-            fromF("direct:loadPageNext-%s", fhirVersion)
-                    .toF("fhir-%s://load-page/next?inBody=bundle", fhirVersion);
+            fromF("direct:loadPageNext-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://load-page/next?inBody=bundle", sanitizedFhirVersion);
 
-            fromF("direct:loadPagePrevious-%s", fhirVersion)
-                    .toF("fhir-%s://load-page/previous?inBody=bundle", fhirVersion);
+            fromF("direct:loadPagePrevious-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://load-page/previous?inBody=bundle", sanitizedFhirVersion);
 
             // Meta
-            fromF("direct:metaAdd-%s", fhirVersion)
-                    .toF("fhir-%s://meta/add", fhirVersion);
+            fromF("direct:metaAdd-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://meta/add", sanitizedFhirVersion);
 
-            fromF("direct:metaDelete-%s", fhirVersion)
-                    .toF("fhir-%s://meta/delete", fhirVersion);
+            fromF("direct:metaDelete-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://meta/delete", sanitizedFhirVersion);
 
-            fromF("direct:metaGetFromResource-%s", fhirVersion)
-                    .toF("fhir-%s://meta/getFromResource", fhirVersion);
+            fromF("direct:metaGetFromResource-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://meta/getFromResource", sanitizedFhirVersion);
 
-            fromF("direct:metaGetFromServer-%s", fhirVersion)
-                    .toF("fhir-%s://meta/getFromServer?inBody=metaType", fhirVersion);
+            fromF("direct:metaGetFromServer-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://meta/getFromServer?inBody=metaType", sanitizedFhirVersion);
 
-            fromF("direct:metaGetFromType-%s", fhirVersion)
-                    .toF("fhir-%s://meta/getFromType", fhirVersion);
+            fromF("direct:metaGetFromType-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://meta/getFromType", sanitizedFhirVersion);
 
             // Operation
-            fromF("direct:operationOnInstance-%s", fhirVersion)
-                    .toF("fhir-%s://operation/onInstance", fhirVersion);
+            fromF("direct:operationOnInstance-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://operation/onInstance", sanitizedFhirVersion);
 
-            fromF("direct:operationOnInstanceVersion-%s", fhirVersion)
-                    .toF("fhir-%s://operation/onInstanceVersion", fhirVersion);
+            fromF("direct:operationOnInstanceVersion-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://operation/onInstanceVersion", sanitizedFhirVersion);
 
-            fromF("direct:operationOnServer-%s", fhirVersion)
-                    .toF("fhir-%s://operation/onServer", fhirVersion);
+            fromF("direct:operationOnServer-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://operation/onServer", sanitizedFhirVersion);
 
-            fromF("direct:operationOnType-%s", fhirVersion)
-                    .toF("fhir-%s://operation/onType", fhirVersion);
+            fromF("direct:operationOnType-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://operation/onType", sanitizedFhirVersion);
 
-            fromF("direct:operationProcessMessage-%s", fhirVersion)
-                    .toF("fhir-%s://operation/processMessage", fhirVersion);
+            fromF("direct:operationProcessMessage-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://operation/processMessage", sanitizedFhirVersion);
 
             // Patch
-            fromF("direct:patchById-%s", fhirVersion)
-                    .toF("fhir-%s://patch/patchById", fhirVersion);
+            fromF("direct:patchById-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://patch/patchById", sanitizedFhirVersion);
 
-            fromF("direct:patchBySid-%s", fhirVersion)
-                    .toF("fhir-%s://patch/patchById", fhirVersion);
+            fromF("direct:patchBySid-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://patch/patchById", sanitizedFhirVersion);
 
-            fromF("direct:patchByUrl-%s", fhirVersion)
-                    .toF("fhir-%s://patch/patchByUrl", fhirVersion);
+            fromF("direct:patchByUrl-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://patch/patchByUrl", sanitizedFhirVersion);
 
             // Read
-            fromF("direct:readById-%s", fhirVersion)
-                    .toF("fhir-%s://read/resourceById", fhirVersion);
+            fromF("direct:readById-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://read/resourceById", sanitizedFhirVersion);
 
-            fromF("direct:readByLongId-%s", fhirVersion)
-                    .toF("fhir-%s://read/resourceById", fhirVersion);
+            fromF("direct:readByLongId-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://read/resourceById", sanitizedFhirVersion);
 
-            fromF("direct:readByStringId-%s", fhirVersion)
-                    .toF("fhir-%s://read/resourceById", fhirVersion);
+            fromF("direct:readByStringId-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://read/resourceById", sanitizedFhirVersion);
 
-            fromF("direct:readByIdAndStringResource-%s", fhirVersion)
-                    .toF("fhir-%s://read/resourceById", fhirVersion);
+            fromF("direct:readByIdAndStringResource-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://read/resourceById", sanitizedFhirVersion);
 
-            fromF("direct:readByLongIdAndStringResource-%s", fhirVersion)
-                    .toF("fhir-%s://read/resourceById", fhirVersion);
+            fromF("direct:readByLongIdAndStringResource-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://read/resourceById", sanitizedFhirVersion);
 
-            fromF("direct:readByStringIdAndStringResource-%s", fhirVersion)
-                    .toF("fhir-%s://read/resourceById", fhirVersion);
+            fromF("direct:readByStringIdAndStringResource-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://read/resourceById", sanitizedFhirVersion);
 
-            fromF("direct:readByStringIdAndVersion-%s", fhirVersion)
-                    .toF("fhir-%s://read/resourceById", fhirVersion);
+            fromF("direct:readByStringIdAndVersion-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://read/resourceById", sanitizedFhirVersion);
 
-            fromF("direct:readByStringIdAndVersionAndStringResource-%s", fhirVersion)
-                    .toF("fhir-%s://read/resourceById", fhirVersion);
+            fromF("direct:readByStringIdAndVersionAndStringResource-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://read/resourceById", sanitizedFhirVersion);
 
-            fromF("direct:readByIUrl-%s", fhirVersion)
-                    .toF("fhir-%s://read/resourceByUrl", fhirVersion);
+            fromF("direct:readByIUrl-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://read/resourceByUrl", sanitizedFhirVersion);
 
-            fromF("direct:readByUrl-%s", fhirVersion)
-                    .toF("fhir-%s://read/resourceByUrl", fhirVersion);
+            fromF("direct:readByUrl-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://read/resourceByUrl", sanitizedFhirVersion);
 
-            fromF("direct:readByStringUrlAndStringResource-%s", fhirVersion)
-                    .toF("fhir-%s://read/resourceByUrl", fhirVersion);
+            fromF("direct:readByStringUrlAndStringResource-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://read/resourceByUrl", sanitizedFhirVersion);
 
-            fromF("direct:readByUrlAndStringResource-%s", fhirVersion)
-                    .toF("fhir-%s://read/resourceByUrl", fhirVersion);
+            fromF("direct:readByUrlAndStringResource-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://read/resourceByUrl", sanitizedFhirVersion);
 
             // Search
-            fromF("direct:searchByUrl-%s", fhirVersion)
-                    .toF("fhir-%s://search/searchByUrl?inBody=url", fhirVersion);
+            fromF("direct:searchByUrl-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://search/searchByUrl?inBody=url", sanitizedFhirVersion);
 
             // Transaction
-            fromF("direct:transactionWithBundle-%s", fhirVersion)
-                    .toF("fhir-%s://transaction/withBundle?inBody=bundle", fhirVersion);
+            fromF("direct:transactionWithBundle-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://transaction/withBundle?inBody=bundle", sanitizedFhirVersion);
 
-            fromF("direct:transactionWithStringBundle-%s", fhirVersion)
-                    .toF("fhir-%s://transaction/withBundle?inBody=stringBundle", fhirVersion);
+            fromF("direct:transactionWithStringBundle-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://transaction/withBundle?inBody=stringBundle", sanitizedFhirVersion);
 
-            fromF("direct:transactionWithResources-%s", fhirVersion)
-                    .toF("fhir-%s://transaction/withResources?inBody=resources", fhirVersion);
+            fromF("direct:transactionWithResources-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://transaction/withResources?inBody=resources", sanitizedFhirVersion);
 
             // Update
-            fromF("direct:updateResource-%s", fhirVersion)
-                    .toF("fhir-%s://update/resource", fhirVersion);
+            fromF("direct:updateResource-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://update/resource", sanitizedFhirVersion);
 
-            fromF("direct:updateResourceWithStringId-%s", fhirVersion)
-                    .toF("fhir-%s://update/resource", fhirVersion);
+            fromF("direct:updateResourceWithStringId-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://update/resource", sanitizedFhirVersion);
 
-            fromF("direct:updateResourceAsString-%s", fhirVersion)
-                    .toF("fhir-%s://update/resource", fhirVersion);
+            fromF("direct:updateResourceAsString-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://update/resource", sanitizedFhirVersion);
 
-            fromF("direct:updateResourceAsStringWithStringId-%s", fhirVersion)
-                    .toF("fhir-%s://update/resource", fhirVersion);
+            fromF("direct:updateResourceAsStringWithStringId-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://update/resource", sanitizedFhirVersion);
 
-            fromF("direct:updateResourceBySearchUrl-%s", fhirVersion)
-                    .toF("fhir-%s://update/resourceBySearchUrl", fhirVersion);
+            fromF("direct:updateResourceBySearchUrl-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://update/resourceBySearchUrl", sanitizedFhirVersion);
 
-            fromF("direct:updateResourceBySearchUrlAndResourceAsString-%s", fhirVersion)
-                    .toF("fhir-%s://update/resourceBySearchUrl", fhirVersion);
+            fromF("direct:updateResourceBySearchUrlAndResourceAsString-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://update/resourceBySearchUrl", sanitizedFhirVersion);
 
             // Validate
-            fromF("direct:validateResource-%s", fhirVersion)
-                    .toF("fhir-%s://validate/resource?inBody=resource", fhirVersion);
+            fromF("direct:validateResource-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://validate/resource?inBody=resource", sanitizedFhirVersion);
 
-            fromF("direct:validateResourceAsString-%s", fhirVersion)
-                    .toF("fhir-%s://validate/resource?inBody=resourceAsString", fhirVersion);
+            fromF("direct:validateResourceAsString-%s", sanitizedFhirVersion)
+                    .toF("fhir-%s://validate/resource?inBody=resourceAsString", sanitizedFhirVersion);
         }
     }
 }
