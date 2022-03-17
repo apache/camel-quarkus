@@ -318,4 +318,4 @@ In addition to the above, the following is needed:
 
 * https://github.com/apache/camel-quarkus/issues/new[Create a ticket] asking a https://projects.apache.org/committee.html?camel[PMC member] to update the https://reporter.apache.org/addrelease.html?camel[Apache Committee Report Helper]. The ticket title could be as follow.
   Release: The Apache Committee Report Helper should be updated by a PMC member as camel-quarkus-X.Y.Z has been released on YYYY-MM-DD.
-* When writing the release announcement blog post, do not forget to add the release note section in https://github.com/apache/camel-website/tree/main/content/releases/q, and to add the branch for documentation in https://github.com/apache/camel-website/blob/main/antora-playbook.yml[antora-playbook.yml].
+* When writing the release announcement blog post, do not forget to add the release note section in https://github.com/apache/camel-website/tree/main/content/releases/q, and to add the branch for documentation in https://github.com/apache/camel-website/blob/main/antora-playbook-snippets/antora-playbook.yml[antora-playbook.yml].
