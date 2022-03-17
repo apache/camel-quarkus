@@ -17,6 +17,7 @@
 
 **Merged pull requests:**
 
+- Disable FHIR versions not required by default [\#3626](https://github.com/apache/camel-quarkus/pull/3626) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3606 to add reflection configs for Schema and its subClasses [\#3624](https://github.com/apache/camel-quarkus/pull/3624) ([zhfeng](https://github.com/zhfeng))
 - Fix cassandraql itests failing on quarkus-platform \#3621 [\#3623](https://github.com/apache/camel-quarkus/pull/3623) ([aldettinger](https://github.com/aldettinger))
 - Disable flaky GrpcTest.forwardOnError [\#3622](https://github.com/apache/camel-quarkus/pull/3622) ([jamesnetherton](https://github.com/jamesnetherton))
