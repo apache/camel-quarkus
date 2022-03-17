@@ -31,6 +31,13 @@ import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.quarkus.component.fhir.FhirContextRecorder;
 import org.apache.camel.quarkus.component.fhir.FhirFlags;
+import org.hl7.fhir.r4.model.Base;
+import org.hl7.fhir.r4.model.BaseResource;
+import org.hl7.fhir.r4.model.DomainResource;
+import org.hl7.fhir.r4.model.Enumerations;
+import org.hl7.fhir.r4.model.Meta;
+import org.hl7.fhir.r4.model.MetadataResource;
+import org.hl7.fhir.r4.model.Resource;
 
 import static org.apache.camel.quarkus.component.fhir.deployment.FhirUtil.getInnerClasses;
 import static org.apache.camel.quarkus.component.fhir.deployment.FhirUtil.getModelClasses;
@@ -40,36 +47,43 @@ public class FhirR4Processor {
     private static final String FHIR_VERSION_PROPERTIES = "org/hl7/fhir/r4/model/fhirversion.properties";
 
     @BuildStep(onlyIf = FhirFlags.R4Enabled.class)
-    R4PropertiesBuildItem properties(BuildProducer<NativeImageResourceBuildItem> resource) {
-        resource.produce(new NativeImageResourceBuildItem(FHIR_VERSION_PROPERTIES));
+    R4PropertiesBuildItem fhirProperties() {
         return new R4PropertiesBuildItem(FHIR_VERSION_PROPERTIES);
     }
 
     @BuildStep(onlyIf = FhirFlags.R4Enabled.class)
+    NativeImageResourceBuildItem nativeImageResources() {
+        return new NativeImageResourceBuildItem(FHIR_VERSION_PROPERTIES);
+    }
+
+    @BuildStep(onlyIf = FhirFlags.R4Enabled.class)
     @Record(ExecutionTime.STATIC_INIT)
-    SyntheticBeanBuildItem recordContext(FhirContextRecorder fhirContextRecorder,
+    SyntheticBeanBuildItem recordFhirContext(
+            FhirContextRecorder recorder,
             R4PropertiesBuildItem propertiesBuildItem) {
         return SyntheticBeanBuildItem.configure(FhirContext.class)
                 .scope(Singleton.class)
                 .named("R4")
-                .runtimeValue(fhirContextRecorder.createR4FhirContext(
+                .runtimeValue(recorder.createR4FhirContext(
                         getResourceDefinitions(propertiesBuildItem.getProperties())))
                 .done();
     }
 
     @BuildStep(onlyIf = FhirFlags.R4Enabled.class)
-    void enableReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass, R4PropertiesBuildItem buildItem) {
+    void registerForReflection(
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+            R4PropertiesBuildItem propertiesBuildItem) {
         Set<String> classes = new HashSet<>();
-        classes.add(org.hl7.fhir.r4.model.DomainResource.class.getCanonicalName());
-        classes.add(org.hl7.fhir.r4.model.Resource.class.getCanonicalName());
-        classes.add(org.hl7.fhir.r4.model.BaseResource.class.getCanonicalName());
-        classes.add(org.hl7.fhir.r4.model.Base.class.getCanonicalName());
-        classes.addAll(getModelClasses(buildItem.getProperties()));
-        classes.addAll(getInnerClasses(org.hl7.fhir.r4.model.Enumerations.class.getCanonicalName()));
+        classes.add(DomainResource.class.getName());
+        classes.add(Resource.class.getName());
+        classes.add(BaseResource.class.getName());
+        classes.add(Base.class.getName());
+        classes.addAll(getModelClasses(propertiesBuildItem.getProperties()));
+        classes.addAll(getInnerClasses(Enumerations.class.getName()));
         reflectiveClass
-                .produce(new ReflectiveClassBuildItem(true, true, true, org.hl7.fhir.r4.model.Meta.class.getCanonicalName()));
+                .produce(new ReflectiveClassBuildItem(true, true, true, Meta.class.getName()));
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, true,
-                org.hl7.fhir.r4.model.MetadataResource.class.getCanonicalName()));
+                MetadataResource.class.getName()));
         reflectiveClass.produce(new ReflectiveClassBuildItem(false, false, classes.toArray(new String[0])));
     }
 }
