@@ -10,13 +10,22 @@
 
 **Closed issues:**
 
+- Use com.github.java-json-tools:\* instead of com.github.fge:\* [\#3632](https://github.com/apache/camel-quarkus/issues/3632)
 - cassandraql: itests failing on quarkus-platform [\#3621](https://github.com/apache/camel-quarkus/issues/3621)
+- camel-quarkus-test-list should not include ipfs removed extension [\#3618](https://github.com/apache/camel-quarkus/issues/3618)
 - zipfile: Complete test coverage [\#3610](https://github.com/apache/camel-quarkus/issues/3610)
 - Use https instead of http to reference xsds [\#3604](https://github.com/apache/camel-quarkus/issues/3604)
 - Increase FHIR extension test coverage [\#3601](https://github.com/apache/camel-quarkus/issues/3601)
+- Camel 3.15 - Add build step to capture route source location:line-number [\#3432](https://github.com/apache/camel-quarkus/issues/3432)
 
 **Merged pull requests:**
 
+- Use com.github.java-json-tools:\* instead of com.github.fge:\*  [\#3634](https://github.com/apache/camel-quarkus/pull/3634) ([ppalaga](https://github.com/ppalaga))
+- Fix the antora-playbook.yml link [\#3633](https://github.com/apache/camel-quarkus/pull/3633) ([aldettinger](https://github.com/aldettinger))
+- Upgrade Quarkus to 2.7.5.Final [\#3631](https://github.com/apache/camel-quarkus/pull/3631) ([jamesnetherton](https://github.com/jamesnetherton))
+- Support additional FHIR 2.x versions [\#3630](https://github.com/apache/camel-quarkus/pull/3630) ([jamesnetherton](https://github.com/jamesnetherton))
+- Exclude ipfs from camel-quarkus-test-list \#3618 [\#3629](https://github.com/apache/camel-quarkus/pull/3629) ([aldettinger](https://github.com/aldettinger))
+- Fix \#3432 add a build step to support source location [\#3628](https://github.com/apache/camel-quarkus/pull/3628) ([zhfeng](https://github.com/zhfeng))
 - Disable FHIR versions not required by default [\#3626](https://github.com/apache/camel-quarkus/pull/3626) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3606 to add reflection configs for Schema and its subClasses [\#3624](https://github.com/apache/camel-quarkus/pull/3624) ([zhfeng](https://github.com/zhfeng))
 - Fix cassandraql itests failing on quarkus-platform \#3621 [\#3623](https://github.com/apache/camel-quarkus/pull/3623) ([aldettinger](https://github.com/aldettinger))
