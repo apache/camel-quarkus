@@ -125,6 +125,7 @@
         <module>ical</module>
         <module>infinispan</module>
         <module>influxdb</module>
+        <module>ipfs</module>
         <module>jackson</module>
         <module>jackson-avro</module>
         <module>jackson-protobuf</module>
