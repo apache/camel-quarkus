@@ -130,7 +130,7 @@
         <xalan.version>${xalan-version}</xalan.version>
         <xchange.version>${xchange-version}</xchange.version>
         <xerces.version>${xerces-version}</xerces.version>
-        <xmlgraphics-commons.version>2.3</xmlgraphics-commons.version><!-- mess in FOP transitive deps -->
+        <xmlgraphics-commons.version>2.6</xmlgraphics-commons.version><!-- @sync org.apache.xmlgraphics:fop-parent:${fop-version} prop:xmlgraphics.commons.version -->
         <xstream.version>${xstream-version}</xstream.version>
         <web3j.version>${web3j-version}</web3j.version>
         <web3j.quorum.version>${web3j-quorum-version}</web3j.quorum.version>
