@@ -16,54 +16,57 @@
  */
 package org.apache.camel.quarkus.support.spring.deployment;
 
+import io.quarkus.bootstrap.model.ApplicationModel;
 import io.quarkus.deployment.GeneratedClassGizmoAdaptor;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
+import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeBuild;
 import io.quarkus.gizmo.ClassCreator;
 
 public class SpringKotlinProcessor {
 
     @BuildStep(onlyIf = NativeBuild.class)
-    void generateKotlinReflectClasses(BuildProducer<GeneratedClassBuildItem> generatedClass) {
+    void generateKotlinReflectClasses(
+            BuildProducer<GeneratedClassBuildItem> generatedClass,
+            CurateOutcomeBuildItem curateOutcome) {
+
         // TODO: Investigate removing this. See https://github.com/apache/camel-quarkus/issues/534
         // The native image build fails with a NoClassDefFoundError without this. Possibly similar to https://github.com/oracle/graal/issues/656.
 
-        try {
-            Class.forName("kotlin.reflect.KParameter");
-        } catch (ClassNotFoundException e) {
-            ClassCreator.builder()
-                    .className("kotlin.reflect.KParameter")
-                    .classOutput(new GeneratedClassGizmoAdaptor(generatedClass, false))
-                    .setFinal(true)
-                    .superClass(Object.class)
-                    .build()
-                    .close();
+        // If Kotlin is on the application classpath we don't need to do anything.
+        // This check is preferable to trying to discover Kotlin via Class.forname etc,
+        // which is not reliable for Gradle builds as kotlin-stdlib is part of the Gradle distribution.
+        // Thus such classes will be discoverable at build time but not at runtime, which leads to native build issues.
+        ApplicationModel model = curateOutcome.getApplicationModel();
+        if (isKotlinStdlibAvailable(model)) {
+            return;
         }
 
-        try {
-            Class.forName("kotlin.reflect.KCallable");
-        } catch (ClassNotFoundException e) {
-            ClassCreator.builder()
-                    .className("kotlin.reflect.KCallable")
-                    .classOutput(new GeneratedClassGizmoAdaptor(generatedClass, false))
-                    .setFinal(false)
-                    .superClass(Object.class)
-                    .build()
-                    .close();
-        }
+        createClass(generatedClass, "kotlin.reflect.KParameter", Object.class.getName(), true);
+        createClass(generatedClass, "kotlin.reflect.KCallable", Object.class.getName(), false);
+        createClass(generatedClass, "kotlin.reflect.KFunction", "kotlin.reflect.KCallable", false);
+    }
 
-        try {
-            Class.forName("kotlin.reflect.KFunction");
-        } catch (ClassNotFoundException e) {
-            ClassCreator.builder()
-                    .className("kotlin.reflect.KFunction")
-                    .classOutput(new GeneratedClassGizmoAdaptor(generatedClass, false))
-                    .setFinal(false)
-                    .superClass("kotlin.reflect.KCallable")
-                    .build()
-                    .close();
-        }
+    private boolean isKotlinStdlibAvailable(ApplicationModel applicationModel) {
+        return applicationModel
+                .getDependencies()
+                .stream()
+                .anyMatch(dependency -> dependency.getArtifactId().startsWith("kotlin-stdlib"));
+    }
+
+    private void createClass(
+            BuildProducer<GeneratedClassBuildItem> generatedClass,
+            String clasName,
+            String superClassName,
+            boolean isFinal) {
+        ClassCreator.builder()
+                .className(clasName)
+                .classOutput(new GeneratedClassGizmoAdaptor(generatedClass, false))
+                .setFinal(isFinal)
+                .superClass(superClassName)
+                .build()
+                .close();
     }
 }
