@@ -32,6 +32,7 @@ import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.Matchers;
 import org.jboss.logging.Logger;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.localstack.LocalStackContainer.Service;
 import software.amazon.awssdk.core.ResponseInputStream;
@@ -51,6 +52,7 @@ class Aws2KinesisTest {
     @Aws2Client(Service.S3)
     S3Client client;
 
+    @Disabled("https://github.com/apache/camel-quarkus/issues/3638")
     @Test
     public void kinesis() {
         final String msg = "kinesis-" + java.util.UUID.randomUUID().toString().replace("-", "");
