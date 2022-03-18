@@ -111,6 +111,20 @@ public class CamelContextProcessor {
     }
 
     /**
+     * Enable source location if camel.quarkus.source-location-enabled=true
+     *
+     * @param recorder the recorder
+     * @param producer producer of context customizer build item
+     */
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep(onlyIf = SourceLocationEnabled.class)
+    public void enableSourceLocation(
+            CamelContextRecorder recorder,
+            BuildProducer<CamelContextCustomizerBuildItem> producer) {
+        producer.produce(new CamelContextCustomizerBuildItem(recorder.createSourceLocationEnabledCustomizer()));
+    }
+
+    /**
      * Registers Camel CDI event bridges if quarkus.camel.event-bridge.enabled=true and if
      * the relevant events have CDI observers configured for them.
      *
@@ -157,6 +171,13 @@ public class CamelContextProcessor {
         @Override
         public boolean getAsBoolean() {
             return config.eventBridge.enabled;
+        }
+    }
+
+    public static final class SourceLocationEnabled implements BooleanSupplier {
+        @Override
+        public boolean getAsBoolean() {
+            return CamelSupport.getOptionalConfigValue("camel.quarkus.source-location-enabled", Boolean.class, false);
         }
     }
 }

@@ -89,6 +89,10 @@ public class CamelContextRecorder {
         return new RuntimeValue((CamelContextCustomizer) context -> context.setShutdownStrategy(new NoShutdownStrategy()));
     }
 
+    public RuntimeValue<CamelContextCustomizer> createSourceLocationEnabledCustomizer() {
+        return new RuntimeValue((CamelContextCustomizer) context -> context.setSourceLocationEnabled(true));
+    }
+
     public void addRoutes(RuntimeValue<CamelContext> context, List<String> nonCdiRoutesBuilderClassNames) {
         List<RoutesBuilder> allRoutesBuilders = new ArrayList<>();
 
