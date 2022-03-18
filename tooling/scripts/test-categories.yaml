@@ -24,6 +24,7 @@ group-01:
   - hazelcast
   - http
   - infinispan
+  - ipfs
   - jms-artemis-client
   - jsch
   - kafka

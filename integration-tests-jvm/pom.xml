@@ -116,6 +116,7 @@
         <module>stub</module>
         <module>thrift</module>
         <module>web3j</module>
+        <module>weka</module>
         <module>wordpress</module>
         <module>workday</module>
         <module>xj</module>
