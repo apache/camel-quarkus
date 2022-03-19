@@ -13,13 +13,19 @@
 - Use com.github.java-json-tools:\* instead of com.github.fge:\* [\#3632](https://github.com/apache/camel-quarkus/issues/3632)
 - cassandraql: itests failing on quarkus-platform [\#3621](https://github.com/apache/camel-quarkus/issues/3621)
 - camel-quarkus-test-list should not include ipfs removed extension [\#3618](https://github.com/apache/camel-quarkus/issues/3618)
+- Support additional FHIR 2.x versions [\#3615](https://github.com/apache/camel-quarkus/issues/3615)
 - zipfile: Complete test coverage [\#3610](https://github.com/apache/camel-quarkus/issues/3610)
+- \[Camel 3.16\] rest-json example compliation error [\#3608](https://github.com/apache/camel-quarkus/issues/3608)
 - Use https instead of http to reference xsds [\#3604](https://github.com/apache/camel-quarkus/issues/3604)
 - Increase FHIR extension test coverage [\#3601](https://github.com/apache/camel-quarkus/issues/3601)
+- Cannot build camel-quarkus-ipfs because repository.jboss.org is down [\#3532](https://github.com/apache/camel-quarkus/issues/3532)
 - Camel 3.15 - Add build step to capture route source location:line-number [\#3432](https://github.com/apache/camel-quarkus/issues/3432)
 
 **Merged pull requests:**
 
+- Camel quarkus 3532 [\#3639](https://github.com/apache/camel-quarkus/pull/3639) ([aldettinger](https://github.com/aldettinger))
+- Upgrade and sync xmlgraphics-commons [\#3637](https://github.com/apache/camel-quarkus/pull/3637) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade cassandra-quarkus-client to 1.1.2 [\#3636](https://github.com/apache/camel-quarkus/pull/3636) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use com.github.java-json-tools:\* instead of com.github.fge:\*  [\#3634](https://github.com/apache/camel-quarkus/pull/3634) ([ppalaga](https://github.com/ppalaga))
 - Fix the antora-playbook.yml link [\#3633](https://github.com/apache/camel-quarkus/pull/3633) ([aldettinger](https://github.com/aldettinger))
 - Upgrade Quarkus to 2.7.5.Final [\#3631](https://github.com/apache/camel-quarkus/pull/3631) ([jamesnetherton](https://github.com/jamesnetherton))
