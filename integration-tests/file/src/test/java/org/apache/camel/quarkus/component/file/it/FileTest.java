@@ -53,7 +53,6 @@ class FileTest {
     private static final String FILE_CONTENT_01 = "Hello1";
     private static final String FILE_CONTENT_02 = "Hello2";
     private static final String FILE_CONTENT_03 = "Hello3";
-    private static final String FILE_BODY_UTF8 = "Hello World \u4f60\u597d";
 
     private List<Path> pathsToDelete = new LinkedList<>();
 
@@ -85,26 +84,11 @@ class FileTest {
 
     @DisabledOnOs(value = OS.WINDOWS, disabledReason = "https://github.com/apache/camel-quarkus/issues/3530")
     @Test
-    public void charset() throws UnsupportedEncodingException {
-        // Create a new file
-        createFile(FILE_BODY_UTF8, "/file/create/charsetUTF8", "UTF-8", null);
-        createFile(FILE_BODY_UTF8, "/file/create/charsetISO", "UTF-8", null);
-
-        await().atMost(10, TimeUnit.SECONDS).until(
-                () -> RestAssured
-                        .get("/file/getFromMock/charsetUTF8")
-                        .then()
-                        .extract().asString(),
-                equalTo(FILE_BODY_UTF8));
-
-        // File content read as ISO-8859-1 has to have different content (because file contains some unknown
-        // characters)
-        await().atMost(10, TimeUnit.SECONDS).until(
-                () -> RestAssured
-                        .get("/file/getFromMock/charsetISO")
-                        .then()
-                        .extract().asString(),
-                equalTo(new String(FILE_BODY_UTF8.getBytes(), "ISO-8859-1")));
+    public void writeThenReadFileWithCharsetShouldSucceed() {
+        RestAssured
+                .get("/file/writeThenReadFileWithCharsetShouldSucceed")
+                .then()
+                .statusCode(204);
     }
 
     @Test
@@ -273,12 +257,15 @@ class FileTest {
     }
 
     private static String createFile(String content, String path) throws UnsupportedEncodingException {
-        return createFile(content.getBytes("UTF-8"), path, null, null);
+        return createFile(content, path, "UTF-8", null);
     }
 
     static String createFile(String content, String path, String charset, String prefix)
             throws UnsupportedEncodingException {
-        return createFile(content.getBytes(), path, charset, prefix);
+        if (charset == null) {
+            charset = "UTF-8";
+        }
+        return createFile(content.getBytes(charset), path, charset, prefix);
     }
 
     static String createFile(byte[] content, String path, String charset, String fileName) {
