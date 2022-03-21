@@ -55,13 +55,11 @@ public class FileRoutes extends RouteBuilder {
                         .convertBodyTo(String.class)
                         .to("mock:" + CONSUME_BATCH);
 
-        from("file://target/charsetUTF8?initialDelay=0&delay=10&delete=true&charset=UTF-8")
+        from("file://target/charsetIsoRead?initialDelay=0&delay=10&delete=true&charset=ISO-8859-1")
+                .routeId("charsetIsoRead")
+                .autoStartup(false)
                 .convertBodyTo(String.class)
-                .to("mock:charsetUTF8");
-
-        from("file://target/charsetISO?initialDelay=0&delay=10&delete=true&charset=ISO-8859-1")
-                .convertBodyTo(String.class)
-                .to("mock:charsetISO");
+                .to("mock:charsetIsoRead");
 
         from("file://target/idempotent?idempotent=true&move=done/${file:name}&initialDelay=0&delay=10")
                 .convertBodyTo(String.class).to("mock:idempotent");
