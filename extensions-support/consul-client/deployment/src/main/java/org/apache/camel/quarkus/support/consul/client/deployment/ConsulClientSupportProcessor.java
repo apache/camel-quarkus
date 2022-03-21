@@ -68,11 +68,12 @@ class ConsulClientSupportProcessor {
 
     @BuildStep
     void clientProxies(CombinedIndexBuildItem index, BuildProducer<NativeImageProxyDefinitionBuildItem> proxies) {
-        index.getIndex().getAllKnownSubclasses(DotName.createSimple("com.orbitz.consul.BaseClient"))
+        index.getIndex()
+                .getKnownClasses()
                 .stream()
                 .map(ClassInfo::name)
                 .map(DotName::toString)
-                .map(name -> name + "$Api")
+                .filter(className -> className.matches("com\\.orbitz\\.consul\\..*Client\\$Api"))
                 .map(NativeImageProxyDefinitionBuildItem::new)
                 .forEach(proxies::produce);
     }
