@@ -16,9 +16,15 @@
  */
 package org.apache.camel.quarkus.component.file.it;
 
+import java.io.File;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -33,11 +39,13 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.mchange.io.FileUtils;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.mock.MockEndpoint;
+import org.awaitility.Awaitility;
 
 @Path("/file")
 @ApplicationScoped
@@ -136,6 +144,44 @@ public class FileResource {
     @Consumes(MediaType.TEXT_PLAIN)
     public String pollEnrich(String body, @PathParam("route") String route) throws Exception {
         return producerTemplate.requestBody("direct:" + route, body, String.class);
+    }
+
+    @Path("/writeThenReadFileWithCharsetShouldSucceed")
+    @GET
+    public void writeThenReadFileWithCharsetShouldSucceed() throws Exception {
+
+        // Delete any charset encoded files that would reside from a previous run
+        Files.deleteIfExists(Paths.get("target/charsetIsoRead/charsetEncodedFile.txt"));
+        Files.deleteIfExists(Paths.get("target/charsetIsoWrite/charsetEncodedFile.txt"));
+
+        // Using a charset that has few chance to be the default one on the build platform
+        String charsetName = "ISO-8859-1";
+        String unencodedContent = "A string with ð char";
+        byte[] encodedContent = unencodedContent.getBytes(charsetName);
+
+        // Produce in the folder named 'charsetIsoWrite' and check the content is encoded as expected
+        producerTemplate.request("file:target/charsetIsoWrite/?charset=" + charsetName, ex -> {
+            ex.getMessage().setHeader(Exchange.FILE_NAME, "charsetEncodedFile.txt");
+            ex.getMessage().setBody(unencodedContent);
+        });
+        Awaitility.await().atMost(10, TimeUnit.SECONDS).until(() -> {
+            File file = new File("target/charsetIsoWrite/charsetEncodedFile.txt");
+            return Arrays.equals(encodedContent, FileUtils.getBytes(file));
+        });
+
+        // Move the encoded file to the read folder
+        java.nio.file.Path source = Paths.get("target/charsetIsoWrite/charsetEncodedFile.txt");
+        java.nio.file.Path destination = Paths.get("target/charsetIsoRead/charsetEncodedFile.txt");
+        Files.move(source, destination, StandardCopyOption.ATOMIC_MOVE);
+
+        // Start the route to consume the encoded file
+        context.getRouteController().startRoute("charsetIsoRead");
+
+        // Check that the consumed file content has been decoded as expected
+        Awaitility.await().atMost(10, TimeUnit.SECONDS).until(() -> {
+            String decodedContent = getFromMock("charsetIsoRead");
+            return unencodedContent.equals(decodedContent);
+        });
     }
 
 }
