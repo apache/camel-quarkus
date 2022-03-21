@@ -34,7 +34,7 @@
             <groupId>org.amqphub.quarkus</groupId>
             <artifactId>quarkus-qpid-jms-deployment</artifactId>
             <exclusions>
-                <exclusion>
+                <exclusion><!-- Remove this once https://github.com/apache/qpid-jms/pull/46 reaches us -->
                     <groupId>org.apache.geronimo.specs</groupId>
                     <artifactId>geronimo-jms_2.0_spec</artifactId>
                 </exclusion>
