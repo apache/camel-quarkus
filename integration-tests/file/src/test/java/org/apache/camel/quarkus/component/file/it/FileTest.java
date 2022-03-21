@@ -37,8 +37,6 @@ import org.apache.camel.quarkus.core.util.FileUtils;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledOnOs;
-import org.junit.jupiter.api.condition.OS;
 
 import static org.apache.camel.quarkus.component.file.it.FileResource.CONSUME_BATCH;
 import static org.apache.camel.quarkus.component.file.it.FileResource.SEPARATOR;
@@ -82,7 +80,6 @@ class FileTest {
                 .body(equalTo(FILE_BODY));
     }
 
-    @DisabledOnOs(value = OS.WINDOWS, disabledReason = "https://github.com/apache/camel-quarkus/issues/3530")
     @Test
     public void writeThenReadFileWithCharsetShouldSucceed() {
         RestAssured
