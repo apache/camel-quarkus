@@ -23,6 +23,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
+import java.util.regex.Pattern;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -66,8 +67,9 @@ public class SpringSupportTest {
                 throw new IllegalStateException("The sources JAR location does not exist: " + file.getAbsolutePath());
             }
 
+            final Pattern pattern = Pattern.compile("^camel-quarkus-support-spring-" + module + "-.*-sources.jar");
             File[] files = file
-                    .listFiles(f -> f.getName().matches("^camel-quarkus-support-spring-" + module + "-.*-sources.jar"));
+                    .listFiles(f -> pattern.matcher(f.getName()).matches());
 
             if (files.length == 1) {
                 URL url = new URL("jar:file:" + files[0].getAbsolutePath() + "!/");

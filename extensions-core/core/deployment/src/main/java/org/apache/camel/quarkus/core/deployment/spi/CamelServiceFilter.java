@@ -46,15 +46,7 @@ public interface CamelServiceFilter extends Predicate<CamelServiceBuildItem> {
         return serviceInfo -> serviceInfo.name.equals(name);
     }
 
-    static CamelServiceFilter forNameMatching(String regex) {
-        return serviceInfo -> serviceInfo.name.matches(regex);
-    }
-
     static CamelServiceFilter forType(String type) {
         return serviceInfo -> serviceInfo.type.equals(type);
-    }
-
-    static CamelServiceFilter forTypeMathing(String regex) {
-        return serviceInfo -> serviceInfo.type.matches(regex);
     }
 }
