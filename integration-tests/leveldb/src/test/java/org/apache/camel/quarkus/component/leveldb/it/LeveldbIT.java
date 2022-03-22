@@ -16,8 +16,8 @@
  */
 package org.apache.camel.quarkus.component.leveldb.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class LeveldbIT extends LeveldbTest {
 }

@@ -16,8 +16,8 @@
  */
 package org.apache.camel.quarkus.core.component.name.resolver;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class ComponentNameResolverIT extends ComponentNameResolverTest {
 }

@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.as2.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class As2IT extends As2Test {
 
 }

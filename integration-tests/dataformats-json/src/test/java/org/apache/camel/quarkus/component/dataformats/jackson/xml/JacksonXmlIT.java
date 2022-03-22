@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.dataformats.jackson.xml;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class JacksonXmlIT extends JacksonXmlTest {
 
 }
