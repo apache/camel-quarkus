@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.aws2.sns.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class Aws2SqsSnsIT extends Aws2SqsSnsTest {
 
 }

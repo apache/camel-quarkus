@@ -16,14 +16,14 @@
  */
 package org.apache.camel.quarkus.component.google.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 @EnabledIfEnvironmentVariable(named = "GOOGLE_API_APPLICATION_NAME", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "GOOGLE_API_CLIENT_ID", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "GOOGLE_API_CLIENT_SECRET", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "GOOGLE_API_REFRESH_TOKEN", matches = ".+")
-@NativeImageTest
+@QuarkusIntegrationTest
 class GoogleComponentsIT extends GoogleComponentsTest {
 
 }

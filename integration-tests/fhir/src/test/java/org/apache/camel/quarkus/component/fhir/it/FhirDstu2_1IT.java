@@ -16,12 +16,12 @@
  */
 package org.apache.camel.quarkus.component.fhir.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 import org.apache.camel.quarkus.component.fhir.it.util.Dstu2_1Enabled;
 import org.apache.camel.quarkus.test.EnabledIf;
 import org.junit.jupiter.api.Disabled;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 @EnabledIf(Dstu2_1Enabled.class)
 @Disabled("https://github.com/hapifhir/hapi-fhir-jpaserver-starter/issues/335")
 class FhirDstu2_1IT extends FhirDstu2_1Test {

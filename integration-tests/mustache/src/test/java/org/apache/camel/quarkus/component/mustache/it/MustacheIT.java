@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.mustache.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class MustacheIT extends MustacheTest {
 
 }

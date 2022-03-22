@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.aws2.kinesis.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class Aws2KinesisIT extends Aws2KinesisTest {
 
 }

@@ -16,8 +16,8 @@
  */
 package org.apache.camel.quarkus.kafka.ssl;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class KafkaSslIT extends KafkaSslTest {
 }

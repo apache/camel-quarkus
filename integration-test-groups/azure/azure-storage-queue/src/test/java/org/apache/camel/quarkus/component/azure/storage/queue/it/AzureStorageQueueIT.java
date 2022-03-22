@@ -17,10 +17,10 @@
 package org.apache.camel.quarkus.component.azure.storage.queue.it;
 
 import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 import org.apache.camel.quarkus.test.support.azure.AzureStorageTestResource;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 @QuarkusTestResource(AzureStorageTestResource.class)
 class AzureStorageQueueIT extends AzureStorageQueueTest {
 

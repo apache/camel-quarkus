@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.cbor.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class CborIT extends CborTest {
 
 }

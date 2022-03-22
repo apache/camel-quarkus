@@ -16,8 +16,8 @@
  */
 package org.apache.camel.quarkus.main.unknown.args.ignore;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class MainUnknownArgumentIgnoreIT extends MainUnknownArgumentIgnoreTest {
 }

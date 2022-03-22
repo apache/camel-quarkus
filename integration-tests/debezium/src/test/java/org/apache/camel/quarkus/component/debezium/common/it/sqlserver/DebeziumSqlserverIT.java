@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.debezium.common.it.sqlserver;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class DebeziumSqlserverIT extends DebeziumSqlserverTest {
 
 }

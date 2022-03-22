@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.json.validator.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class JsonValidatorIT extends JsonValidatorTest {
 
 }

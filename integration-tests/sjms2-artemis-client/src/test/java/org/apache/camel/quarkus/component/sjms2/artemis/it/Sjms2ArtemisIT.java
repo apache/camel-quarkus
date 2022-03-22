@@ -16,8 +16,8 @@
  */
 package org.apache.camel.quarkus.component.sjms2.artemis.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class Sjms2ArtemisIT extends Sjms2ArtemisTest {
 }

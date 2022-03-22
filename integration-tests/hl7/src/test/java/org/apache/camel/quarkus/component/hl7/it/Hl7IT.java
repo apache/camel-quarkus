@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.hl7.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class Hl7IT extends Hl7Test {
 
 }

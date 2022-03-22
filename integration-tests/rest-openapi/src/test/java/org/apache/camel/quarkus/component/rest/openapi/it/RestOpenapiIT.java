@@ -16,8 +16,8 @@
  */
 package org.apache.camel.quarkus.component.rest.openapi.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class RestOpenapiIT extends RestOpenapiTest {
 }
