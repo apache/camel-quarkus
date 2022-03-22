@@ -16,12 +16,12 @@
  */
 package org.apache.camel.quarkus.component.master.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 // https://github.com/apache/camel-quarkus/issues/2660
 @DisabledIfEnvironmentVariable(named = "CI", matches = "true")
-@NativeImageTest
+@QuarkusIntegrationTest
 class MasterIT extends MasterTest {
 
 }

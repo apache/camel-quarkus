@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.freemarker.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class FreemarkerIT extends FreemarkerTest {
 
 }

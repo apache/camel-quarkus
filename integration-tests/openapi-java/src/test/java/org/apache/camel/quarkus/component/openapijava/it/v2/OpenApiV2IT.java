@@ -16,10 +16,10 @@
  */
 package org.apache.camel.quarkus.component.openapijava.it.v2;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 @EnabledIfSystemProperty(named = "test.profile", matches = "openapi.v2")
 class OpenApiV2IT extends OpenApiV2Test {
 }

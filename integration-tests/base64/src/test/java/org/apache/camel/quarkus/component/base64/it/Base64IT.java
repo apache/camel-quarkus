@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.base64.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class Base64IT extends Base64Test {
 
 }

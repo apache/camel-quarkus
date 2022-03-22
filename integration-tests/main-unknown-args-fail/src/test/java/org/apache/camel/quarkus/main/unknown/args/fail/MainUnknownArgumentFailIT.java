@@ -16,8 +16,8 @@
  */
 package org.apache.camel.quarkus.main.unknown.args.fail;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class MainUnknownArgumentFailIT extends MainUnknownArgumentFailTest {
 }

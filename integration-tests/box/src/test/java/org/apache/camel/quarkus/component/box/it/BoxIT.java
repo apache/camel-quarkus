@@ -16,14 +16,14 @@
  */
 package org.apache.camel.quarkus.component.box.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 @EnabledIfEnvironmentVariable(named = "BOX_USER_NAME", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "BOX_USER_PASSWORD", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "BOX_CLIENT_ID", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "BOX_CLIENT_SECRET", matches = ".+")
-@NativeImageTest
+@QuarkusIntegrationTest
 class BoxIT extends BoxTest {
 
 }

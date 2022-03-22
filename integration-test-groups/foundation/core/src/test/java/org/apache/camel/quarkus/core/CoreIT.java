@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.core;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +24,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class CoreIT extends CoreTest {
 
     @Test

@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.xchange.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class XchangeIT extends XchangeTest {
 
 }

@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.pubnub.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class PubnubIT extends PubnubTest {
 
 }

@@ -16,11 +16,11 @@
  */
 package org.apache.camel.quarkus.component.tika.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 import org.junit.jupiter.api.condition.DisabledOnOs;
 import org.junit.jupiter.api.condition.OS;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 //https://github.com/apache/camel-quarkus/issues/3417
 @DisabledOnOs(OS.MAC)
 class TikaIT extends TikaTest {
