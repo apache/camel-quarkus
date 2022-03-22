@@ -7,22 +7,32 @@
 **Fixed bugs:**
 
 - camel-quarkus-openapi-java marking all properties as type object in native mode [\#3606](https://github.com/apache/camel-quarkus/issues/3606)
+- Consul native integration test failure [\#3509](https://github.com/apache/camel-quarkus/issues/3509)
 
 **Closed issues:**
 
 - Use com.github.java-json-tools:\* instead of com.github.fge:\* [\#3632](https://github.com/apache/camel-quarkus/issues/3632)
+- file: FileTest is flaky [\#3627](https://github.com/apache/camel-quarkus/issues/3627)
 - cassandraql: itests failing on quarkus-platform [\#3621](https://github.com/apache/camel-quarkus/issues/3621)
 - camel-quarkus-test-list should not include ipfs removed extension [\#3618](https://github.com/apache/camel-quarkus/issues/3618)
+- Error building native executable with camel-quarkus-activemq [\#3617](https://github.com/apache/camel-quarkus/issues/3617)
 - Support additional FHIR 2.x versions [\#3615](https://github.com/apache/camel-quarkus/issues/3615)
 - zipfile: Complete test coverage [\#3610](https://github.com/apache/camel-quarkus/issues/3610)
 - \[Camel 3.16\] rest-json example compliation error [\#3608](https://github.com/apache/camel-quarkus/issues/3608)
 - Use https instead of http to reference xsds [\#3604](https://github.com/apache/camel-quarkus/issues/3604)
 - Increase FHIR extension test coverage [\#3601](https://github.com/apache/camel-quarkus/issues/3601)
+- AWS Lambda example tests should use mock event server [\#3554](https://github.com/apache/camel-quarkus/issues/3554)
+- Improve slack test coverage [\#3541](https://github.com/apache/camel-quarkus/issues/3541)
 - Cannot build camel-quarkus-ipfs because repository.jboss.org is down [\#3532](https://github.com/apache/camel-quarkus/issues/3532)
 - Camel 3.15 - Add build step to capture route source location:line-number [\#3432](https://github.com/apache/camel-quarkus/issues/3432)
 
 **Merged pull requests:**
 
+- Tidy geronimo-jms\_2.0\_spec exclusions [\#3646](https://github.com/apache/camel-quarkus/pull/3646) ([ppalaga](https://github.com/ppalaga))
+- file: Rewrite the charset related test \#3627 [\#3645](https://github.com/apache/camel-quarkus/pull/3645) ([aldettinger](https://github.com/aldettinger))
+- Fix registration of consul client API proxy interface [\#3644](https://github.com/apache/camel-quarkus/pull/3644) ([jamesnetherton](https://github.com/jamesnetherton))
+- Slack : fix native support for Webhook URL + add test coverage [\#3643](https://github.com/apache/camel-quarkus/pull/3643) ([zbendhiba](https://github.com/zbendhiba))
+- Fix Gradle native builds for Spring backed extensions [\#3640](https://github.com/apache/camel-quarkus/pull/3640) ([jamesnetherton](https://github.com/jamesnetherton))
 - Camel quarkus 3532 [\#3639](https://github.com/apache/camel-quarkus/pull/3639) ([aldettinger](https://github.com/aldettinger))
 - Upgrade and sync xmlgraphics-commons [\#3637](https://github.com/apache/camel-quarkus/pull/3637) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade cassandra-quarkus-client to 1.1.2 [\#3636](https://github.com/apache/camel-quarkus/pull/3636) ([jamesnetherton](https://github.com/jamesnetherton))
