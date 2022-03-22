@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.minio.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class MinioIT extends MinioTest {
 
 }

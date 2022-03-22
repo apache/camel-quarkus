@@ -16,8 +16,8 @@
  */
 package org.apache.camel.quarkus.component.http.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class HttpIT extends HttpTest {
 }

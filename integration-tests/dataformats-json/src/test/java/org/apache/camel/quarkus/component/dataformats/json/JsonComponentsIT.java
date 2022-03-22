@@ -16,8 +16,8 @@
  */
 package org.apache.camel.quarkus.component.dataformats.json;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class JsonComponentsIT extends JsonComponentsTest {
 }

@@ -16,10 +16,10 @@
  */
 package org.apache.camel.quarkus.component.braintree.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 @EnabledIfEnvironmentVariable(named = "BRAINTREE_MERCHANT_ID", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "BRAINTREE_PUBLIC_KEY", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "BRAINTREE_PRIVATE_KEY", matches = ".+")

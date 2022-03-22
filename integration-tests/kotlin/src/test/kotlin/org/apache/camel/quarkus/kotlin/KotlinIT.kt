@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.kotlin
 
-import io.quarkus.test.junit.NativeImageTest
+import io.quarkus.test.junit.QuarkusIntegrationTest
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class KotlinIT : KotlinTest()

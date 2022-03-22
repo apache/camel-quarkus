@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.netty.udp;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class NettyUdpIT extends NettyUdpTest {
 
 }

@@ -16,10 +16,10 @@
  */
 package org.apache.camel.quarkus.component.hystrix.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 // https://github.com/apache/camel-quarkus/issues/1146
 @DisabledIfEnvironmentVariable(named = "CI", matches = "true")
 class HystrixIT extends HystrixTest {

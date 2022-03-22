@@ -16,12 +16,12 @@
  */
 package org.apache.camel.quarkus.component.dropbox.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 @EnabledIfEnvironmentVariable(named = "DROPBOX_ACCESS_TOKEN", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "DROPBOX_CLIENT_IDENTIFIER", matches = ".+")
-@NativeImageTest
+@QuarkusIntegrationTest
 class DropboxIT extends DropboxTest {
 
 }

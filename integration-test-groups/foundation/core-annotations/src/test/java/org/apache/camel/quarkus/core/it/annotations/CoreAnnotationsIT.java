@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.core.it.annotations;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class CoreAnnotationsIT extends CoreAnnotationsTest {
 
 }

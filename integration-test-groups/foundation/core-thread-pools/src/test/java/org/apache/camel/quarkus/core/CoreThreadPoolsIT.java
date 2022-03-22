@@ -16,8 +16,8 @@
  */
 package org.apache.camel.quarkus.core;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class CoreThreadPoolsIT extends CoreThreadPoolsTest {
 }
