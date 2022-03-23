@@ -24,10 +24,15 @@
 - AWS Lambda example tests should use mock event server [\#3554](https://github.com/apache/camel-quarkus/issues/3554)
 - Improve slack test coverage [\#3541](https://github.com/apache/camel-quarkus/issues/3541)
 - Cannot build camel-quarkus-ipfs because repository.jboss.org is down [\#3532](https://github.com/apache/camel-quarkus/issues/3532)
+- `FileTest.charset` integration test fails on Windows [\#3530](https://github.com/apache/camel-quarkus/issues/3530)
 - Camel 3.15 - Add build step to capture route source location:line-number [\#3432](https://github.com/apache/camel-quarkus/issues/3432)
+- Investigate QuarkusIntegrationTest as a replacement for camel-quarkus-integration-tests-process-executor-support [\#2468](https://github.com/apache/camel-quarkus/issues/2468)
 
 **Merged pull requests:**
 
+- Avoid compiling regular expressions in loops [\#3649](https://github.com/apache/camel-quarkus/pull/3649) ([ppalaga](https://github.com/ppalaga))
+- Switch from `NativeImageTest` to `QuarkusIntegrationTest` [\#3648](https://github.com/apache/camel-quarkus/pull/3648) ([jamesnetherton](https://github.com/jamesnetherton))
+- file: Ensure FileTest.charset is fixed under Windows \#3530 [\#3647](https://github.com/apache/camel-quarkus/pull/3647) ([aldettinger](https://github.com/aldettinger))
 - Tidy geronimo-jms\_2.0\_spec exclusions [\#3646](https://github.com/apache/camel-quarkus/pull/3646) ([ppalaga](https://github.com/ppalaga))
 - file: Rewrite the charset related test \#3627 [\#3645](https://github.com/apache/camel-quarkus/pull/3645) ([aldettinger](https://github.com/aldettinger))
 - Fix registration of consul client API proxy interface [\#3644](https://github.com/apache/camel-quarkus/pull/3644) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1048,7 +1053,6 @@
 - spark:dataframe does not work on Java 11 [\#1955](https://github.com/apache/camel-quarkus/issues/1955)
 - \[Dependency hell\] Spark native support [\#1701](https://github.com/apache/camel-quarkus/issues/1701)
 - A tool to check/sync dependency versions with camel & quarkus  [\#1684](https://github.com/apache/camel-quarkus/issues/1684)
-- Intermittent failure of `FileTest.idempotent`  [\#3584](https://github.com/apache/camel-quarkus/issues/3584)
 - jsonpath: The behavior change in native-mode when an application depend upon jackson-module-jaxb-annotations [\#3582](https://github.com/apache/camel-quarkus/issues/3582)
 - Build maintence branch PRs against corresponding camel-quarkus-examples maintenance branch [\#3574](https://github.com/apache/camel-quarkus/issues/3574)
 - jsonpath: JSON keys are unquoted when using writeAsString in native mode [\#3571](https://github.com/apache/camel-quarkus/issues/3571)
