@@ -307,7 +307,7 @@
             <releases>
                 <enabled>false</enabled>
             </releases>
-        </repository>        
+        </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
