@@ -2,7 +2,7 @@
 
 Implementation of this extension leverages the https://quarkus.io/guides/validation[Quarkus Hibernate Validator extension].
 
-Therefore it is not possible to configure the `ValidatorFactory` by Camel's properties ('constraintValidatorFactory`, `messageInterpolator`, `traversableResolver`, `validationProviderResolver` and `validatorFactory`).
+Therefore it is not possible to configure the `ValidatorFactory` by Camel's properties (`constraintValidatorFactory`, `messageInterpolator`, `traversableResolver`, `validationProviderResolver` and `validatorFactory`).
 
 You can configure the `ValidatorFactory` by the creation of beans which will be injected into the default `ValidatorFactory` (created by Quarkus).
 See the https://quarkus.io/guides/validation#hibernate-validator-extension-and-cdi[Quarkus CDI documentation] for more information.
