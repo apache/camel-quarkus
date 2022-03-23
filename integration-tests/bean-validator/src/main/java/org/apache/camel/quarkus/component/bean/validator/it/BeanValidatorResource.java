@@ -50,6 +50,14 @@ public class BeanValidatorResource {
         return get(new Car(manufactor, plate), endpoint);
     }
 
+    @Path("/get/{optional}/{manufactor}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getNull(@PathParam("optional") String endpoint, @PathParam("manufactor") String manufactor)
+            throws Exception {
+        return get(new Car(manufactor, null), endpoint);
+    }
+
     private Response get(Car car, String endpoint) throws Exception {
         LOG.info("bean-validator: " + car.getManufacturer() + "/" + car.getLicensePlate());
         Exchange out = producerTemplate.request("direct:" + endpoint, e -> e.getMessage().setBody(car));
