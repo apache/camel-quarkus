@@ -6190,7 +6190,7 @@
             </dependency>
             <dependency>
                 <groupId>ca.uhn.hapi.fhir</groupId>
-                <artifactId>hapi-fhir-structures-hl7org-dstu2</artifactId>
+                <artifactId>hapi-fhir-server</artifactId>
                 <version>${hapi-fhir.version}</version>
             </dependency>
             <dependency>
@@ -6200,7 +6200,7 @@
             </dependency>
             <dependency>
                 <groupId>ca.uhn.hapi.fhir</groupId>
-                <artifactId>hapi-fhir-server</artifactId>
+                <artifactId>hapi-fhir-structures-hl7org-dstu2</artifactId>
                 <version>${hapi-fhir.version}</version>
             </dependency>
             <dependency>
