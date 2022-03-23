@@ -40,7 +40,7 @@ function createResources() {
     az group create --name ${RESOURCE_GROUP} --location ${ZONE}
 
     az storage account create --name ${AZURE_STORAGE_ACCOUNT_NAME} --resource-group ${RESOURCE_GROUP} --location ${ZONE} --sku Standard_LRS --kind StorageV2
-    az storage account blob-service-properties update --enable-change-feed true --delete-retention-days 1 -n ${AZURE_STORAGE_ACCOUNT_NAME} -g ${RESOURCE_GROUP}
+    az storage account blob-service-properties update --enable-change-feed true --enable-delete-retention true --delete-retention-days 1 -n ${AZURE_STORAGE_ACCOUNT_NAME} -g ${RESOURCE_GROUP}
 
     SUBSCRIPTION_ID="$(az account list --query '[0].id' -o tsv)"
     USER_ID="$(az ad signed-in-user show --query objectId -o tsv)"
