@@ -16,12 +16,20 @@
  */
 package org.apache.camel.quarkus.component.infinispan;
 
+import java.util.UUID;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
 import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -30,30 +38,489 @@ import static org.hamcrest.Matchers.notNullValue;
 @QuarkusTestResource(InfinispanServerTestResource.class)
 public class InfinispanTest {
 
+    @AfterEach
+    public void afterEach() {
+        for (String componentName : componentNames()) {
+            RestAssured.with()
+                    .queryParam("component", componentName)
+                    .delete("/infinispan/clear")
+                    .then()
+                    .statusCode(204);
+
+            RestAssured.with()
+                    .queryParam("component", componentName)
+                    .get("/infinispan/get")
+                    .then()
+                    .statusCode(204);
+        }
+    }
+
+    @DisabledOnNativeImage("https://github.com/apache/camel-quarkus/issues/3657")
+    @ParameterizedTest
+    @MethodSource("componentNames")
+    public void aggregate(String componentName) {
+        // TODO: https://github.com/apache/camel-quarkus/issues/3657
+        //
+        // Enable testing InfinispanRemoteAggregationRepository with the Quarkus configured client.
+        // Technically it is possible with a custom META-INF/hotrod-client.properties and setting
+        // infinispan.client.hotrod.marshaller=org.infinispan.jboss.marshalling.core.JBossUserMarshaller
+        // However, it potentially impacts some of the Quarkus Infinispan extension functionality that relies on
+        // the default configured ProtoStreamMarshaller, thus we avoid doing it in this test suite
+        Assumptions.assumeTrue(componentName.equals("infinispan"));
+
+        Stream.of(1, 3, 4, 5, 6, 7, 20, 21)
+                .forEach(value -> {
+                    RestAssured.with()
+                            .queryParam("component", componentName)
+                            .body(value)
+                            .post("/infinispan/aggregate")
+                            .then()
+                            .statusCode(204);
+                });
+
+        RestAssured.with()
+                .queryParam("uri", "mock:aggregationResult")
+                .get("/infinispan/mock/aggregation/results")
+                .then()
+                .statusCode(204);
+    }
+
+    @ParameterizedTest
+    @MethodSource("componentNamesWithSynchronicity")
+    public void clear(String componentName, boolean isAsync) {
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .body("Hello " + componentName)
+                .post("/infinispan/put")
+                .then()
+                .statusCode(204);
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .get("/infinispan/get")
+                .then()
+                .statusCode(200)
+                .body(is("Hello " + componentName));
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .delete(computePath("/infinispan/clear", isAsync))
+                .then()
+                .statusCode(204);
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .get("/infinispan/get")
+                .then()
+                .statusCode(204);
+    }
+
+    @ParameterizedTest
+    @MethodSource("componentNamesWithSynchronicity")
+    public void compute(String componentName, boolean isAsync) {
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .body("Initial value")
+                .post("/infinispan/put")
+                .then()
+                .statusCode(204);
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .post(computePath("/infinispan/compute", isAsync))
+                .then()
+                .statusCode(204);
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .get("/infinispan/get")
+                .then()
+                .statusCode(200)
+                .body(is("Initial value-remapped"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("componentNames")
+    public void containsKey(String componentName) {
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .get("/infinispan/containsKey")
+                .then()
+                .statusCode(200)
+                .body(is("false"));
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .body("Hello " + componentName)
+                .post("/infinispan/put")
+                .then()
+                .statusCode(204);
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .get("/infinispan/containsKey")
+                .then()
+                .statusCode(200)
+                .body(is("true"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("componentNames")
+    public void containsValue(String componentName) {
+        String value = "test-value";
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .queryParam("value", value)
+                .get("/infinispan/containsValue")
+                .then()
+                .statusCode(200)
+                .body(is("false"));
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .body(value)
+                .post("/infinispan/put")
+                .then()
+                .statusCode(204);
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .queryParam("value", value)
+                .get("/infinispan/containsValue")
+                .then()
+                .statusCode(200)
+                .body(is("true"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("componentNames")
+    public void customListener(String componentName) {
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .post("/infinispan/consumer/" + componentName + "-custom-listener/true")
+                .then()
+                .statusCode(204);
+
+        try {
+            RestAssured.with()
+                    .queryParam("component", componentName)
+                    .body("Hello " + componentName)
+                    .post("/infinispan/put")
+                    .then()
+                    .statusCode(204);
+
+            RestAssured.with()
+                    .queryParam("uri", "mock:resultCustomListener")
+                    .get("/infinispan/mock/event/results")
+                    .then()
+                    .statusCode(204);
+        } finally {
+            RestAssured.with()
+                    .queryParam("component", componentName)
+                    .post("/infinispan/consumer/" + componentName + "-custom-listener/false")
+                    .then()
+                    .statusCode(204);
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("componentNames")
+    public void events(String componentName) {
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .post("/infinispan/consumer/" + componentName + "-events/true")
+                .then()
+                .statusCode(204);
+
+        try {
+            RestAssured.with()
+                    .queryParam("component", componentName)
+                    .body("Hello " + componentName)
+                    .post("/infinispan/put")
+                    .then()
+                    .statusCode(204);
+
+            RestAssured.with()
+                    .queryParam("uri", "mock:resultCreated")
+                    .get("/infinispan/mock/event/results")
+                    .then()
+                    .statusCode(204);
+        } finally {
+            RestAssured.with()
+                    .queryParam("component", componentName)
+                    .post("/infinispan/consumer/" + componentName + "-events/false")
+                    .then()
+                    .statusCode(204);
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("componentNames")
+    public void getOrDefault(String componentName) {
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .get("/infinispan/getOrDefault")
+                .then()
+                .statusCode(200)
+                .body(is("default-value"));
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .body("Hello " + componentName)
+                .post("/infinispan/put")
+                .then()
+                .statusCode(204);
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .get("/infinispan/getOrDefault")
+                .then()
+                .statusCode(200)
+                .body(is("Hello " + componentName));
+    }
+
+    @ParameterizedTest
+    @MethodSource("componentNames")
+    public void idempotent(String componentName) {
+        String messageId = UUID.randomUUID().toString();
+
+        IntStream.of(1, 10).forEach(value -> {
+            RestAssured.with()
+                    .queryParam("component", componentName)
+                    .queryParam("messageId", messageId)
+                    .body("Message " + value)
+                    .post("/infinispan/putIdempotent")
+                    .then()
+                    .statusCode(204);
+        });
+
+        RestAssured.with()
+                .queryParam("uri", "mock:resultIdempotent")
+                .get("/infinispan/mock/idempotent/results")
+                .then()
+                .statusCode(204);
+    }
+
     @Test
     public void inspect() {
         RestAssured.when()
-                .get("/test/inspect")
+                .get("/infinispan/inspect")
                 .then().body(
                         "hosts", is(notNullValue()),
                         "cache-manager", is("none"));
     }
 
     @ParameterizedTest
-    @ValueSource(strings = { "infinispan", "infinispan-quarkus" })
-    public void testInfinispan(String componentName) {
+    @MethodSource("componentNamesWithSynchronicity")
+    public void put(String componentName, boolean isAsync) {
         RestAssured.with()
                 .queryParam("component", componentName)
                 .body("Hello " + componentName)
-                .post("/test/put")
+                .post(computePath("/infinispan/put", isAsync))
                 .then()
                 .statusCode(204);
 
         RestAssured.with()
                 .queryParam("component", componentName)
-                .get("/test/get")
+                .get("/infinispan/get")
                 .then()
                 .statusCode(200)
                 .body(is("Hello " + componentName));
+    }
+
+    @ParameterizedTest
+    @MethodSource("componentNamesWithSynchronicity")
+    public void putAll(String componentName, boolean isAsync) {
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .post(computePath("/infinispan/putAll", isAsync))
+                .then()
+                .statusCode(204);
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .queryParam("key", "key-1")
+                .get("/infinispan/get")
+                .then()
+                .statusCode(200)
+                .body(is("value-1"));
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .queryParam("key", "key-2")
+                .get("/infinispan/get")
+                .then()
+                .statusCode(200)
+                .body(is("value-2"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("componentNamesWithSynchronicity")
+    public void putIfAbsent(String componentName, boolean isAsync) {
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .body("Hello " + componentName)
+                .post(computePath("/infinispan/putIfAbsent", isAsync))
+                .then()
+                .statusCode(204);
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .get("/infinispan/get")
+                .then()
+                .statusCode(200)
+                .body(is("Hello " + componentName));
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .body("An alternative value")
+                .post(computePath("/infinispan/putIfAbsent", isAsync))
+                .then()
+                .statusCode(204);
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .get("/infinispan/get")
+                .then()
+                .statusCode(200)
+                .body(is("Hello " + componentName));
+    }
+
+    @ParameterizedTest
+    @MethodSource("componentNames")
+    public void query(String componentName) {
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .get("/infinispan/query")
+                .then()
+                .statusCode(200);
+    }
+
+    @ParameterizedTest
+    @MethodSource("componentNamesWithSynchronicity")
+    public void remove(String componentName, boolean isAsync) {
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .body("Hello " + componentName)
+                .post(computePath("/infinispan/put", isAsync))
+                .then()
+                .statusCode(204);
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .delete(computePath("/infinispan/remove", isAsync))
+                .then()
+                .statusCode(204);
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .get("/infinispan/get")
+                .then()
+                .statusCode(204);
+    }
+
+    @ParameterizedTest
+    @MethodSource("componentNamesWithSynchronicity")
+    public void replace(String componentName, boolean isAsync) {
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .body("Hello " + componentName)
+                .post(computePath("/infinispan/put", isAsync))
+                .then()
+                .statusCode(204);
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .get("/infinispan/get")
+                .then()
+                .statusCode(200)
+                .body(is("Hello " + componentName));
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .body("replaced cache value")
+                .patch(computePath("/infinispan/replace", isAsync))
+                .then()
+                .statusCode(204);
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .get("/infinispan/get")
+                .then()
+                .statusCode(200)
+                .body(is("replaced cache value"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("componentNames")
+    public void size(String componentName) {
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .get("/infinispan/size")
+                .then()
+                .statusCode(200)
+                .body(is("0"));
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .body("Hello " + componentName)
+                .post("/infinispan/put")
+                .then()
+                .statusCode(204);
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .get("/infinispan/size")
+                .then()
+                .statusCode(200)
+                .body(is("1"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("componentNames")
+    public void stats(String componentName) {
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .get("/infinispan/stats")
+                .then()
+                .statusCode(200)
+                .body(is("0"));
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .body("Hello " + componentName)
+                .post("/infinispan/put")
+                .then()
+                .statusCode(204);
+
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .get("/infinispan/stats")
+                .then()
+                .statusCode(200)
+                .body(is("1"));
+    }
+
+    private String computePath(String path, boolean isAsync) {
+        if (isAsync) {
+            path += "Async";
+        }
+        return path;
+    }
+
+    public static String[] componentNames() {
+        return new String[] {
+                "infinispan",
+                "infinispan-quarkus"
+        };
+    }
+
+    public static Stream<Arguments> componentNamesWithSynchronicity() {
+        return Stream.of(
+                Arguments.of("infinispan", false),
+                Arguments.of("infinispan-quarkus", false),
+                Arguments.of("infinispan", true),
+                Arguments.of("infinispan-quarkus", true));
     }
 }
