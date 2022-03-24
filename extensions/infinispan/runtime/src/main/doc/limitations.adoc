@@ -1,0 +1,3 @@
+=== InfinispanRemoteAggregationRepository in native mode
+
+At present the `InfinispanRemoteAggregationRepository` is not supported in native mode.
