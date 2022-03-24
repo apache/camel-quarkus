@@ -1467,6 +1467,10 @@
                         <groupId>org.infinispan</groupId>
                         <artifactId>infinispan-core</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>org.infinispan</groupId>
+                        <artifactId>infinispan-marshaller-protostuff</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -6585,6 +6589,11 @@
                 <groupId>org.graalvm.js</groupId>
                 <artifactId>js-scriptengine</artifactId>
                 <version>${graalvm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.infinispan</groupId>
+                <artifactId>infinispan-jboss-marshalling</artifactId>
+                <version>${infinispan.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.influxdb</groupId>
