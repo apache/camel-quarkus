@@ -22,10 +22,12 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.support.activemq.ActiveMQTestResource;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.StringRegularExpression.matchesRegex;
 
 @QuarkusTest
 @QuarkusTestResource(initArgs = {
@@ -52,5 +54,13 @@ class PahoTest {
                 .then()
                 .statusCode(200)
                 .body(is(message));
+    }
+
+    @Test
+    public void mqttExceptionDuringReconnectShouldSucceed() {
+        RestAssured.get("/paho/mqttExceptionDuringReconnectShouldSucceed")
+                .then()
+                .statusCode(200)
+                .body(matchesRegex(".+"));
     }
 }
