@@ -38,3 +38,16 @@ Or add the coordinates to your existing project:
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== Camel Quarkus limitations
+
+=== InfinispanRemoteAggregationRepository in native mode
+
+At present the `InfinispanRemoteAggregationRepository` is not supported in native mode.
+
+
+== Additional Camel Quarkus configuration
+
+You can either configure the Infinispan client via the relevant Camel Infinispan component & endpoint options, or you
+may use the https://quarkus.io/guides/infinispan-client#configuration-reference[Quarkus Infinispan extension configuration properties].
+
