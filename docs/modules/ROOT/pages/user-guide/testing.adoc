@@ -73,6 +73,14 @@ An important consequence of this setup is that all communication between tests a
 must go over network (HTTP/REST, or any other protocol your application speaks)
 or through watching filesystem (log files, etc.) or any other kind of interprocess communication.
 
+`QuarkusIntegrationTest` also provides some additional features that are not available through `@QuarkusTest`.
+
+* In JVM mode it can launch and test the runnable application JAR produced by the Quarkus build.
+* As mentioned above, in native mode it can launch and test the native application produced by the Quarkus build.
+* If a container image was created during the build, then a container is started so that tests can be executed against it.
+
+For more information about `QuarkusIntegrationTest` see the https://quarkus.io/guides/getting-started-testing#quarkus-integration-test[Quarkus testing guide].
+
 == Testing with external services
 
 === Testcontainers
