@@ -43,13 +43,6 @@
 
             <!-- External BOMs -->
             <dependency>
-                <groupId>io.quarkus</groupId>
-                <artifactId>quarkus-bom</artifactId>
-                <version>${quarkus.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy-bom</artifactId>
                 <version>${groovy.version}</version>
