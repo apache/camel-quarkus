@@ -101,7 +101,7 @@
         <jakarta.jms-api.version>2.0.3</jakarta.jms-api.version>
         <jakarta.jws.ws.api.version>2.1.0</jakarta.jws.ws.api.version>
         <jakarta.xml.ws.api.version>2.3.3</jakarta.xml.ws.api.version>
-        <java-json-tools.json-patch.version>1.13</java-json-tools.json-patch.version><!-- A replacement for com.github.fge:json-patch -->
+        <java-json-tools.json-patch.version>${json-patch-version}</java-json-tools.json-patch.version><!-- A replacement for com.github.fge:json-patch -->
         <jcodings.version>1.0.55</jcodings.version><!-- used by hbase -->
         <jodatime.version>2.10.6</jodatime.version><!-- Mess in transitive dependencies of Spark and Splunk -->
         <joni.version>2.1.31</joni.version><!-- used by json-validator -->
