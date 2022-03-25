@@ -24,6 +24,7 @@ import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
@@ -48,7 +49,7 @@ class JpaTest {
         RestAssured.get("/jpa/get")
                 .then()
                 .statusCode(200)
-                .body("name", contains(fruits));
+                .body("name", containsInAnyOrder(fruits));
 
         // Retrieve with entity id as body
         RestAssured.get("/jpa/get/1")

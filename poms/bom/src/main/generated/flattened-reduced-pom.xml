@@ -10077,7 +10077,7 @@
       <dependency>
         <groupId>org.infinispan</groupId>
         <artifactId>infinispan-jboss-marshalling</artifactId>
-        <version>13.0.6.Final</version>
+        <version>13.0.8.Final</version>
       </dependency>
       <dependency>
         <groupId>org.influxdb</groupId>
@@ -10092,17 +10092,17 @@
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-script-util</artifactId>
-        <version>1.6.10</version>
+        <version>1.6.21</version>
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-scripting-jvm</artifactId>
-        <version>1.6.10</version>
+        <version>1.6.21</version>
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-scripting-jvm-host</artifactId>
-        <version>1.6.10</version>
+        <version>1.6.21</version>
       </dependency>
       <dependency>
         <groupId>org.jruby.jcodings</groupId>
