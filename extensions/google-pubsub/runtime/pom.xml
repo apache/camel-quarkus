@@ -36,13 +36,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-bom</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
             <!-- https://github.com/micrometer-metrics/micrometer/issues/2249 -->
             <dependency>
                 <groupId>io.quarkus</groupId>

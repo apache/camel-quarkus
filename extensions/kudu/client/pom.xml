@@ -32,18 +32,6 @@
     <description>org.apache.kudu:kudu-client with netty package relocations reverted and netty classes stripped away
         so that camel-quarkus-kudu can use quarkus-netty as a replacement</description>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-bom</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.kudu</groupId>
