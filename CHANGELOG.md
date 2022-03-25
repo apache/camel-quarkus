@@ -21,6 +21,7 @@
 - \[Camel 3.16\] rest-json example compliation error [\#3608](https://github.com/apache/camel-quarkus/issues/3608)
 - Use https instead of http to reference xsds [\#3604](https://github.com/apache/camel-quarkus/issues/3604)
 - Increase FHIR extension test coverage [\#3601](https://github.com/apache/camel-quarkus/issues/3601)
+- \[Camel 3.16.0\] - camel-kafka uses some reflection for readiness health check [\#3592](https://github.com/apache/camel-quarkus/issues/3592)
 - AWS Lambda example tests should use mock event server [\#3554](https://github.com/apache/camel-quarkus/issues/3554)
 - Improve slack test coverage [\#3541](https://github.com/apache/camel-quarkus/issues/3541)
 - Cannot build camel-quarkus-ipfs because repository.jboss.org is down [\#3532](https://github.com/apache/camel-quarkus/issues/3532)
@@ -30,8 +31,10 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 2.8.0.CR1 + Upgrade Camel to 3.16.0 [\#3653](https://github.com/apache/camel-quarkus/pull/3653) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix typo in docs & Added tests for NotNull validator checks [\#3652](https://github.com/apache/camel-quarkus/pull/3652) ([mmuzikar](https://github.com/mmuzikar))
 - Avoid compiling regular expressions in loops [\#3649](https://github.com/apache/camel-quarkus/pull/3649) ([ppalaga](https://github.com/ppalaga))
-- Switch from `QuarkusIntegrationTest` to `QuarkusIntegrationTest` [\#3648](https://github.com/apache/camel-quarkus/pull/3648) ([jamesnetherton](https://github.com/jamesnetherton))
+- Switch from `NativeImageTest` to `QuarkusIntegrationTest` [\#3648](https://github.com/apache/camel-quarkus/pull/3648) ([jamesnetherton](https://github.com/jamesnetherton))
 - file: Ensure FileTest.charset is fixed under Windows \#3530 [\#3647](https://github.com/apache/camel-quarkus/pull/3647) ([aldettinger](https://github.com/aldettinger))
 - Tidy geronimo-jms\_2.0\_spec exclusions [\#3646](https://github.com/apache/camel-quarkus/pull/3646) ([ppalaga](https://github.com/ppalaga))
 - file: Rewrite the charset related test \#3627 [\#3645](https://github.com/apache/camel-quarkus/pull/3645) ([aldettinger](https://github.com/aldettinger))
