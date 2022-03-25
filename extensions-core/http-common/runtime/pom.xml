@@ -29,18 +29,6 @@
     <artifactId>camel-quarkus-http-common</artifactId>
     <name>Camel Quarkus :: HTTP :: Common :: Runtime</name>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-bom</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>

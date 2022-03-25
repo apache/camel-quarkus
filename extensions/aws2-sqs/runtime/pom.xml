@@ -37,18 +37,6 @@
         <cq.quarkus.aws.client.fqClassName>software.amazon.awssdk.services.sqs.SqsClient</cq.quarkus.aws.client.fqClassName>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-bom</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
