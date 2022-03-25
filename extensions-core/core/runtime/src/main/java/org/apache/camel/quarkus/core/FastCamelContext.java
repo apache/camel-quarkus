@@ -41,6 +41,7 @@ import org.apache.camel.spi.Language;
 import org.apache.camel.spi.ManagementNameStrategy;
 import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.ModelToXMLDumper;
+import org.apache.camel.spi.PackageScanResourceResolver;
 import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.ShutdownStrategy;
@@ -159,6 +160,11 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
     @Override
     protected ModelToXMLDumper createModelToXMLDumper() {
         return modelDumper;
+    }
+
+    @Override
+    protected PackageScanResourceResolver createPackageScanResourceResolver() {
+        return new CamelQuarkusPackageScanResourceResolver();
     }
 
     @Override
