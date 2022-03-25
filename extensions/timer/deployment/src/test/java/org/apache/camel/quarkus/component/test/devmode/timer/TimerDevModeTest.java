@@ -86,6 +86,7 @@ public class TimerDevModeTest {
         Properties props = new Properties();
         props.setProperty("quarkus.log.file.enable", "true");
         props.setProperty("quarkus.log.file.path", LOG_FILE.toString());
+        props.setProperty("quarkus.log.file.rotation.rotate-on-boot", "false");
         try {
             props.store(writer, "");
         } catch (IOException e) {
