@@ -11,6 +11,7 @@
 
 **Closed issues:**
 
+- Improve Infinispan extension test coverage [\#3658](https://github.com/apache/camel-quarkus/issues/3658)
 - Use com.github.java-json-tools:\* instead of com.github.fge:\* [\#3632](https://github.com/apache/camel-quarkus/issues/3632)
 - file: FileTest is flaky [\#3627](https://github.com/apache/camel-quarkus/issues/3627)
 - cassandraql: itests failing on quarkus-platform [\#3621](https://github.com/apache/camel-quarkus/issues/3621)
@@ -22,15 +23,24 @@
 - Use https instead of http to reference xsds [\#3604](https://github.com/apache/camel-quarkus/issues/3604)
 - Increase FHIR extension test coverage [\#3601](https://github.com/apache/camel-quarkus/issues/3601)
 - \[Camel 3.16.0\] - camel-kafka uses some reflection for readiness health check [\#3592](https://github.com/apache/camel-quarkus/issues/3592)
+- Improve quartz test coverage [\#3579](https://github.com/apache/camel-quarkus/issues/3579)
 - AWS Lambda example tests should use mock event server [\#3554](https://github.com/apache/camel-quarkus/issues/3554)
 - Improve slack test coverage [\#3541](https://github.com/apache/camel-quarkus/issues/3541)
 - Cannot build camel-quarkus-ipfs because repository.jboss.org is down [\#3532](https://github.com/apache/camel-quarkus/issues/3532)
 - `FileTest.charset` integration test fails on Windows [\#3530](https://github.com/apache/camel-quarkus/issues/3530)
+- Camel Rest / Quarkus Swagger UI / Url Issue from Quarkus Version 2.6.x [\#3457](https://github.com/apache/camel-quarkus/issues/3457)
 - Camel 3.15 - Add build step to capture route source location:line-number [\#3432](https://github.com/apache/camel-quarkus/issues/3432)
+- camel.main.routes-include-pattern with a "\*" wildcard may end up loading a route builder twice [\#3265](https://github.com/apache/camel-quarkus/issues/3265)
 - Investigate QuarkusIntegrationTest as a replacement for camel-quarkus-integration-tests-process-executor-support [\#2468](https://github.com/apache/camel-quarkus/issues/2468)
 
 **Merged pull requests:**
 
+- Align `com.github.java-json-tools:json-patch` version with Camel [\#3663](https://github.com/apache/camel-quarkus/pull/3663) ([jamesnetherton](https://github.com/jamesnetherton))
+- Stop importing io.quarkus:quarkus-bom into camel-quarkus-bom [\#3662](https://github.com/apache/camel-quarkus/pull/3662) ([ppalaga](https://github.com/ppalaga))
+- Exclude jboss-marshalling-osgi from infinispan-jboss-marshalling [\#3661](https://github.com/apache/camel-quarkus/pull/3661) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix loading of XML routes with routes-include-pattern wildcard [\#3660](https://github.com/apache/camel-quarkus/pull/3660) ([jamesnetherton](https://github.com/jamesnetherton))
+- Improve Infinispan extension test coverage [\#3659](https://github.com/apache/camel-quarkus/pull/3659) ([jamesnetherton](https://github.com/jamesnetherton))
+- Azure integration tests - upgrade the setup script [\#3654](https://github.com/apache/camel-quarkus/pull/3654) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade Quarkus to 2.8.0.CR1 + Upgrade Camel to 3.16.0 [\#3653](https://github.com/apache/camel-quarkus/pull/3653) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix typo in docs & Added tests for NotNull validator checks [\#3652](https://github.com/apache/camel-quarkus/pull/3652) ([mmuzikar](https://github.com/mmuzikar))
 - Avoid compiling regular expressions in loops [\#3649](https://github.com/apache/camel-quarkus/pull/3649) ([ppalaga](https://github.com/ppalaga))
