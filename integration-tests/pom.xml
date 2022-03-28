@@ -99,7 +99,6 @@
         <module>google</module>
         <module>google-bigquery</module>
         <module>google-pubsub</module>
-        <module>google-secret-manager</module>
         <module>google-storage</module>
         <module>graphql</module>
         <module>grok</module>
