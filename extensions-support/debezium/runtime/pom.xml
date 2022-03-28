@@ -50,16 +50,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-debezium-common</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.javassist</groupId>
-                    <artifactId>javassist</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>io.debezium</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.debezium</groupId>
