@@ -844,6 +844,10 @@
                         <groupId>javax.activation</groupId>
                         <artifactId>javax.activation-api</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>javax.xml.bind</groupId>
+                        <artifactId>jaxb-api</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -1559,6 +1563,10 @@
                         <groupId>javax.ws.rs</groupId>
                         <artifactId>jsr311-api</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>javax.xml.bind</groupId>
+                        <artifactId>jaxb-api</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -1899,6 +1907,10 @@
                     <exclusion>
                         <groupId>javax.activation</groupId>
                         <artifactId>javax.activation-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.xml.bind</groupId>
+                        <artifactId>jaxb-api</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -2462,6 +2474,10 @@
                         <groupId>com.google.j2objc</groupId>
                         <artifactId>j2objc-annotations</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>javax.xml.bind</groupId>
+                        <artifactId>jaxb-api</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -2852,6 +2868,10 @@
                     <exclusion>
                         <groupId>commons-logging</groupId>
                         <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.xml.bind</groupId>
+                        <artifactId>jaxb-api</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -6893,6 +6913,10 @@
                     <exclusion>
                         <groupId>javax.activation</groupId>
                         <artifactId>javax.activation-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.xml.bind</groupId>
+                        <artifactId>jaxb-api</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
