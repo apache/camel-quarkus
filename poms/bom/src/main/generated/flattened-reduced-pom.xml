@@ -780,6 +780,10 @@
             <groupId>asm</groupId>
             <artifactId>asm</artifactId>
           </exclusion>
+          <exclusion>
+            <groupId>javax.activation</groupId>
+            <artifactId>javax.activation-api</artifactId>
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -1450,6 +1454,10 @@
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
           </exclusion>
+          <exclusion>
+            <groupId>javax.activation</groupId>
+            <artifactId>javax.activation-api</artifactId>
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -1468,6 +1476,10 @@
           <exclusion>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>javax.activation</groupId>
+            <artifactId>javax.activation-api</artifactId>
           </exclusion>
           <exclusion>
             <groupId>javax.servlet</groupId>
@@ -1803,6 +1815,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-jooq</artifactId>
         <version>3.14.2</version>
+        <exclusions>
+          <exclusion>
+            <groupId>javax.activation</groupId>
+            <artifactId>javax.activation-api</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -2743,6 +2761,10 @@
         <artifactId>camel-twilio</artifactId>
         <version>3.14.2</version>
         <exclusions>
+          <exclusion>
+            <groupId>javax.activation</groupId>
+            <artifactId>javax.activation-api</artifactId>
+          </exclusion>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
@@ -6488,6 +6510,11 @@
         <version>6.1.1</version>
       </dependency>
       <dependency>
+        <groupId>com.github.fommil.netlib</groupId>
+        <artifactId>core</artifactId>
+        <version>1.1.2</version>
+      </dependency>
+      <dependency>
         <groupId>com.github.java-json-tools</groupId>
         <artifactId>json-patch</artifactId>
         <version>1.13</version>
@@ -6765,6 +6792,10 @@
         <artifactId>connect-runtime</artifactId>
         <version>3.1.0</version>
         <exclusions>
+          <exclusion>
+            <groupId>javax.activation</groupId>
+            <artifactId>javax.activation-api</artifactId>
+          </exclusion>
           <exclusion>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
