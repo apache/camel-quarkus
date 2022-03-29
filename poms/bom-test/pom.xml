@@ -214,11 +214,23 @@
                 <groupId>org.apache.sshd</groupId>
                 <artifactId>sshd-sftp</artifactId>
                 <version>${sshd.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>jcl-over-slf4j</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.sshd</groupId>
                 <artifactId>sshd-scp</artifactId>
                 <version>${sshd.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>jcl-over-slf4j</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.knowm.xchange</groupId>
