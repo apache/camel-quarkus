@@ -667,6 +667,7 @@
                                                 <exclude>commons-logging:commons-logging-api</exclude><!-- use org.jboss.logging:commons-logging-jboss-logging instead of commons-logging and commons-logging-api -->
                                                 <exclude>io.netty:netty-all</exclude><!-- Use more fine grained netty artifacts or even io.quarkus:quarkus-netty instead -->
                                                 <exclude>org.glassfish:javax.json</exclude><!-- use jakarta.json:jakarta.json-api instead -->
+                                                <exclude>org.glassfish:javax.el</exclude><!-- use jakarta.el:jakarta.el-api instead -->
                                                 <exclude>javax.activation:activation</exclude><!-- use com.sun.activation:jakarta.activation instead -->
                                                 <exclude>javax.activation:javax.activation-api</exclude><!-- use jakarta.activation:jakarta.activation-api instead -->
                                                 <exclude>javax.enterprise:cdi-api</exclude><!-- use jakarta.enterprise:jakarta.enterprise.cdi-api instead -->
