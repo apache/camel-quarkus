@@ -671,6 +671,7 @@
                                                 <exclude>javax.enterprise:cdi-api</exclude><!-- use jakarta.enterprise:jakarta.enterprise.cdi-api instead -->
                                                 <exclude>javax.inject:javax.inject</exclude><!-- use jakarta.inject:jakarta.inject-api instead -->
                                                 <exclude>javax.json:javax.json-api</exclude><!--  jakarta.json:jakarta.json-api instead -->
+                                                <exclude>javax.json.bind:javax.json.bind-api</exclude><!-- use jakarta.json.bind:jakarta.json.bind-api instead -->
                                                 <exclude>javax.servlet:servlet-api</exclude><!-- use jakarta.servlet:jakarta.servlet-api instead -->
                                                 <exclude>javax.servlet:javax.servlet-api</exclude><!-- use jakarta.servlet:jakarta.servlet-api instead -->
                                                 <exclude>javax.transaction:jta</exclude><!-- use jakarta.transaction:jakarta.transaction-api instead -->
