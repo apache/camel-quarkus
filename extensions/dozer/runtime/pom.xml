@@ -42,20 +42,10 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-dozer</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.el</groupId>
-                    <artifactId>javax.el-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.xml.bind</groupId>
-                    <artifactId>jaxb-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.glassfish</groupId>
-                    <artifactId>javax.el</artifactId>
-                </exclusion>
-            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>commons-logging-jboss-logging</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
