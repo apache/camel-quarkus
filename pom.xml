@@ -676,6 +676,7 @@
                                                 <exclude>javax.annotation:javax.annotation-api</exclude><!-- use jakarta.activation:jakarta.annotation-api instead -->
                                                 <exclude>javax.enterprise:cdi-api</exclude><!-- use jakarta.enterprise:jakarta.enterprise.cdi-api instead -->
                                                 <exclude>javax.inject:javax.inject</exclude><!-- use jakarta.inject:jakarta.inject-api instead -->
+                                                <exclude>javax:javaee-api</exclude><!-- this is an all-in-one jar; use the individual replacements documented around here -->
                                                 <exclude>javax.json:javax.json-api</exclude><!-- use jakarta.json:jakarta.json-api instead -->
                                                 <exclude>javax.json.bind:javax.json.bind-api</exclude><!-- use jakarta.json.bind:jakarta.json.bind-api instead -->
                                                 <exclude>javax.persistence:javax.persistence-api</exclude><!-- use jakarta.persistence:jakarta.persistence-api instead -->
