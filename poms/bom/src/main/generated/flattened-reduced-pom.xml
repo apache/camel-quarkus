@@ -657,6 +657,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-bean-validator</artifactId>
         <version>3.16.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -1051,6 +1057,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dozer</artifactId>
         <version>3.16.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
