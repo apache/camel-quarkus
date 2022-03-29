@@ -660,6 +660,10 @@
                                         </requireMavenVersion>
                                         <bannedDependencies>
                                             <excludes>
+                                                <exclude>ch.qos.logback:logback-classic</exclude><!-- dismiss; the functionality is provided by JBoss Log Manager provided via quarkus-core -->
+                                                <exclude>ch.qos.logback:logback-core</exclude><!-- dismiss; the functionality is provided by JBoss Log Manager provided via quarkus-core -->
+                                                <exclude>ch.qos.logback:logback-access</exclude><!-- dismiss; the functionality is provided by JBoss Log Manager provided via quarkus-core -->
+                                                <exclude>ch.qos.logback:logback</exclude><!-- dismiss; the functionality is provided by JBoss Log Manager provided via quarkus-core -->
                                                 <exclude>com.github.fge:*</exclude><!-- Use com.github.java-json-tools:* instead -->
                                                 <exclude>com.google.code.findbugs:jsr305</exclude>
                                                 <exclude>com.sun.activation:javax.activation</exclude><!-- use com.sun.activation:jakarta.activation instead -->
@@ -715,6 +719,13 @@
                                                 <!-- so that the version of log4j-api prefered by log4j2-jboss-logmanager is used -->
                                                 <exclude>org.apache.logging.log4j:log4j-core</exclude><!-- not needed on Quarkus -->
                                                 <exclude>org.apache.logging.log4j:log4j-slf4j-impl</exclude><!-- not needed on Quarkus -->
+                                                <exclude>org.slf4j:jcl-over-slf4j</exclude><!-- use org.jboss.logging:commons-logging-jboss-logging instead -->
+                                                <exclude>org.jboss.slf4j:slf4j-jboss-logging</exclude><!-- use org.jboss.slf4j:slf4j-jboss-logmanager instead -->
+                                                <exclude>org.slf4j:slf4j-simple</exclude><!-- use org.jboss.slf4j:slf4j-jboss-logmanager instead -->
+                                                <exclude>org.slf4j:slf4j-nop</exclude><!-- use org.jboss.slf4j:slf4j-jboss-logmanager instead -->
+                                                <exclude>org.slf4j:slf4j-jdk14</exclude><!-- use org.jboss.slf4j:slf4j-jboss-logmanager instead -->
+                                                <exclude>org.slf4j:slf4j-log4j12</exclude><!-- use org.jboss.slf4j:slf4j-jboss-logmanager instead -->
+                                                <exclude>org.slf4j:slf4j-log4j13</exclude><!-- use org.jboss.slf4j:slf4j-jboss-logmanager instead -->
                                             </excludes>
                                         </bannedDependencies>
                                     </rules>
