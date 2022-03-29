@@ -11,7 +11,9 @@
 
 **Closed issues:**
 
+- paho: NullPointerException when MqqtException occurs during reconnect attempt in native mode [\#3671](https://github.com/apache/camel-quarkus/issues/3671)
 - Improve Infinispan extension test coverage [\#3658](https://github.com/apache/camel-quarkus/issues/3658)
+- Add more details about `@QuarkusIntegrationTest` in Testing guide [\#3650](https://github.com/apache/camel-quarkus/issues/3650)
 - Use com.github.java-json-tools:\* instead of com.github.fge:\* [\#3632](https://github.com/apache/camel-quarkus/issues/3632)
 - file: FileTest is flaky [\#3627](https://github.com/apache/camel-quarkus/issues/3627)
 - cassandraql: itests failing on quarkus-platform [\#3621](https://github.com/apache/camel-quarkus/issues/3621)
@@ -24,17 +26,25 @@
 - Increase FHIR extension test coverage [\#3601](https://github.com/apache/camel-quarkus/issues/3601)
 - \[Camel 3.16.0\] - camel-kafka uses some reflection for readiness health check [\#3592](https://github.com/apache/camel-quarkus/issues/3592)
 - Improve quartz test coverage [\#3579](https://github.com/apache/camel-quarkus/issues/3579)
+- Update dependency org.reflections:reflections in dependencyManagement of quarkus-camel-bom [\#3569](https://github.com/apache/camel-quarkus/issues/3569)
+- Create Camel Google Secret Manager Extension [\#3566](https://github.com/apache/camel-quarkus/issues/3566)
 - AWS Lambda example tests should use mock event server [\#3554](https://github.com/apache/camel-quarkus/issues/3554)
 - Improve slack test coverage [\#3541](https://github.com/apache/camel-quarkus/issues/3541)
 - Cannot build camel-quarkus-ipfs because repository.jboss.org is down [\#3532](https://github.com/apache/camel-quarkus/issues/3532)
 - `FileTest.charset` integration test fails on Windows [\#3530](https://github.com/apache/camel-quarkus/issues/3530)
 - Camel Rest / Quarkus Swagger UI / Url Issue from Quarkus Version 2.6.x [\#3457](https://github.com/apache/camel-quarkus/issues/3457)
 - Camel 3.15 - Add build step to capture route source location:line-number [\#3432](https://github.com/apache/camel-quarkus/issues/3432)
+- Better control what we manage in our BOM [\#3302](https://github.com/apache/camel-quarkus/issues/3302)
 - camel.main.routes-include-pattern with a "\*" wildcard may end up loading a route builder twice [\#3265](https://github.com/apache/camel-quarkus/issues/3265)
 - Investigate QuarkusIntegrationTest as a replacement for camel-quarkus-integration-tests-process-executor-support [\#2468](https://github.com/apache/camel-quarkus/issues/2468)
 
 **Merged pull requests:**
 
+- paho: fix NullPointerException when MqqtException occurs during recon… [\#3672](https://github.com/apache/camel-quarkus/pull/3672) ([aldettinger](https://github.com/aldettinger))
+- Create Camel Google Secret Manager Extension [\#3668](https://github.com/apache/camel-quarkus/pull/3668) ([oscerd](https://github.com/oscerd))
+- Revert "Add Camel 3.16.0 staging repository" [\#3667](https://github.com/apache/camel-quarkus/pull/3667) ([ppalaga](https://github.com/ppalaga))
+- Better control what we manage in our BOM  [\#3666](https://github.com/apache/camel-quarkus/pull/3666) ([ppalaga](https://github.com/ppalaga))
+- Add more details about `@QuarkusIntegrationTest` to the testing guide [\#3664](https://github.com/apache/camel-quarkus/pull/3664) ([jamesnetherton](https://github.com/jamesnetherton))
 - Align `com.github.java-json-tools:json-patch` version with Camel [\#3663](https://github.com/apache/camel-quarkus/pull/3663) ([jamesnetherton](https://github.com/jamesnetherton))
 - Stop importing io.quarkus:quarkus-bom into camel-quarkus-bom [\#3662](https://github.com/apache/camel-quarkus/pull/3662) ([ppalaga](https://github.com/ppalaga))
 - Exclude jboss-marshalling-osgi from infinispan-jboss-marshalling [\#3661](https://github.com/apache/camel-quarkus/pull/3661) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1146,6 +1156,8 @@
 - Ban log4j-core and log4j-slf4j-impl [\#3377](https://github.com/apache/camel-quarkus/issues/3377)
 - Remove com.amazonaws:aws-java-sdk-swf-libraries from the BOM [\#3375](https://github.com/apache/camel-quarkus/issues/3375)
 - XSLT integration-test fails on Windows 10 [\#3374](https://github.com/apache/camel-quarkus/issues/3374)
+- Ban javax.enterprise:cdi-api in favor of jakarta.enterprise:jakarta.enterprise.cdi-api [\#3364](https://github.com/apache/camel-quarkus/issues/3364)
+- Ban geronimo-jms\_\*\_spec [\#3363](https://github.com/apache/camel-quarkus/issues/3363)
 - Ban com.sun.activation:javax.activation [\#3361](https://github.com/apache/camel-quarkus/issues/3361)
 - `vertx-kafka` extension incompatible with `kafka-clients` 3.0.0 [\#3358](https://github.com/apache/camel-quarkus/issues/3358)
 - aws-lambda: itest failing when run against the real AWS API [\#3356](https://github.com/apache/camel-quarkus/issues/3356)
