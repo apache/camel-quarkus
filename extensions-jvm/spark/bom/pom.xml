@@ -76,6 +76,10 @@
                         <artifactId>jsr311-api</artifactId>
                     </exclusion>
                     <exclusion>
+                        <groupId>javax.xml.bind</groupId>
+                        <artifactId>jaxb-api</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>org.apache.ivy</groupId>
                         <artifactId>ivy</artifactId>
                     </exclusion>
