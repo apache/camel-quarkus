@@ -1686,6 +1686,10 @@
             <artifactId>jsr305</artifactId>
           </exclusion>
           <exclusion>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
           </exclusion>
@@ -1810,6 +1814,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-jolt</artifactId>
         <version>3.14.2</version>
+        <exclusions>
+          <exclusion>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
