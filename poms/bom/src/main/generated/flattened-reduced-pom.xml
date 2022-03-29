@@ -264,6 +264,10 @@
         <version>3.16.0</version>
         <exclusions>
           <exclusion>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
           </exclusion>
@@ -1296,6 +1300,10 @@
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
           </exclusion>
+          <exclusion>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -1360,6 +1368,10 @@
           <exclusion>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -1482,6 +1494,10 @@
           <exclusion>
             <groupId>javax.activation</groupId>
             <artifactId>javax.activation-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -1835,6 +1851,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-jooq</artifactId>
         <version>3.16.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -2070,6 +2092,10 @@
         <version>3.16.0</version>
         <exclusions>
           <exclusion>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>org.eclipse.microprofile.metrics</groupId>
             <artifactId>microprofile-metrics-api</artifactId>
           </exclusion>
@@ -2178,6 +2204,10 @@
         <artifactId>camel-nitrite</artifactId>
         <version>3.16.0</version>
         <exclusions>
+          <exclusion>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+          </exclusion>
           <exclusion>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
@@ -2482,6 +2512,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-salesforce</artifactId>
         <version>3.16.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -2625,6 +2661,10 @@
         <version>3.16.0</version>
         <exclusions>
           <exclusion>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
           </exclusion>
@@ -2730,6 +2770,10 @@
           <exclusion>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -2888,6 +2932,10 @@
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -6759,6 +6807,12 @@
         <groupId>org.apache.avro</groupId>
         <artifactId>avro-ipc-netty</artifactId>
         <version>1.11.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.commons</groupId>
