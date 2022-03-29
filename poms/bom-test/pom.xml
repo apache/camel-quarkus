@@ -224,6 +224,16 @@
                 <groupId>org.knowm.xchange</groupId>
                 <artifactId>xchange-kraken</artifactId>
                 <version>${xchange.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.annotation</groupId>
+                        <artifactId>javax.annotation-api</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.jvnet.mock-javamail</groupId>
