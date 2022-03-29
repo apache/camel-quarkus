@@ -680,6 +680,7 @@
                                                 <exclude>javax.json.bind:javax.json.bind-api</exclude><!-- use jakarta.json.bind:jakarta.json.bind-api instead -->
                                                 <exclude>javax.persistence:javax.persistence-api</exclude><!-- use jakarta.persistence:jakarta.persistence-api instead -->
                                                 <exclude>javax.persistence:persistence-api</exclude><!-- use jakarta.persistence:jakarta.persistence-api instead -->
+                                                <exclude>javax.security.enterprise:javax.security.enterprise-api</exclude><!-- use jakarta.security.enterprise:jakarta.security.enterprise-api instead -->
                                                 <exclude>javax.servlet:servlet-api</exclude><!-- use jakarta.servlet:jakarta.servlet-api instead -->
                                                 <exclude>javax.servlet:javax.servlet-api</exclude><!-- use jakarta.servlet:jakarta.servlet-api instead -->
                                                 <exclude>javax.transaction:jta</exclude><!-- use jakarta.transaction:jakarta.transaction-api instead -->
