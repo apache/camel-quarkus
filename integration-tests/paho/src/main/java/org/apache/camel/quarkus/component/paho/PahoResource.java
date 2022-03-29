@@ -26,6 +26,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -87,4 +88,11 @@ public class PahoResource {
         return mqex.getMessage();
     }
 
+    @Path("/readThenWriteWithFilePersistenceShouldSucceed")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String readThenWriteWithFilePersistenceShouldSucceed(@QueryParam("message") String message) throws Exception {
+        producerTemplate.requestBody("paho:withFilePersistence?retained=true&cleanSession=false&persistence=FILE", message);
+        return consumerTemplate.receiveBody("paho:withFilePersistence?cleanSession=false&persistence=FILE", 5000, String.class);
+    }
 }

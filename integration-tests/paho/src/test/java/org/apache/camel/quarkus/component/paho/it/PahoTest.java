@@ -63,4 +63,15 @@ class PahoTest {
                 .statusCode(200)
                 .body(matchesRegex(".+"));
     }
+
+    @Test
+    public void readThenWriteWithFilePersistenceShouldSucceed() {
+        String message = "readThenWriteWithFilePersistenceShouldSucceed message content: 762e6af1-3ec7-40e0-9271-0c98a1001728";
+        RestAssured.given()
+                .queryParam("message", message)
+                .get("/paho/readThenWriteWithFilePersistenceShouldSucceed")
+                .then()
+                .statusCode(200)
+                .body(is(message));
+    }
 }
