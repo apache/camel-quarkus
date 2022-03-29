@@ -785,6 +785,10 @@
             <groupId>asm</groupId>
             <artifactId>asm</artifactId>
           </exclusion>
+          <exclusion>
+            <groupId>javax.activation</groupId>
+            <artifactId>javax.activation-api</artifactId>
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -1475,6 +1479,10 @@
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
           </exclusion>
+          <exclusion>
+            <groupId>javax.activation</groupId>
+            <artifactId>javax.activation-api</artifactId>
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -1493,6 +1501,10 @@
           <exclusion>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>javax.activation</groupId>
+            <artifactId>javax.activation-api</artifactId>
           </exclusion>
           <exclusion>
             <groupId>javax.servlet</groupId>
@@ -2752,6 +2764,10 @@
         <artifactId>camel-twilio</artifactId>
         <version>3.16.0</version>
         <exclusions>
+          <exclusion>
+            <groupId>javax.activation</groupId>
+            <artifactId>javax.activation-api</artifactId>
+          </exclusion>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
@@ -6779,6 +6795,10 @@
         <artifactId>connect-runtime</artifactId>
         <version>3.1.0</version>
         <exclusions>
+          <exclusion>
+            <groupId>javax.activation</groupId>
+            <artifactId>javax.activation-api</artifactId>
+          </exclusion>
           <exclusion>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
