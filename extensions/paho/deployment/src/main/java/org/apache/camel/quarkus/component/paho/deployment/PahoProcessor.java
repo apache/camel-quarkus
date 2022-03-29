@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.paho.deployment;
 
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
 import java.util.ResourceBundle;
 
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -41,6 +43,9 @@ class PahoProcessor {
         p.produce(new ReflectiveClassBuildItem(false, false, JSR47Logger.class));
         p.produce(new ReflectiveClassBuildItem(false, false, ResourceBundleCatalog.class));
         p.produce(new ReflectiveClassBuildItem(false, false, ResourceBundle.class));
+        p.produce(new ReflectiveClassBuildItem(false, false, FileLock.class));
+        p.produce(new ReflectiveClassBuildItem(true, false, FileChannel.class));
+        p.produce(new ReflectiveClassBuildItem(true, false, "sun.nio.ch.FileLockImpl"));
     }
 
     @BuildStep
