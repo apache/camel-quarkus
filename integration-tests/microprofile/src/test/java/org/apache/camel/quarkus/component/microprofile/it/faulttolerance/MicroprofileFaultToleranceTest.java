@@ -18,46 +18,64 @@ package org.apache.camel.quarkus.component.microprofile.it.faulttolerance;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import static org.apache.camel.quarkus.component.microprofile.it.faulttolerance.MicroProfileFaultToleranceRoutes.EXCEPTION_MESSAGE;
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 class MicroprofileFaultToleranceTest {
 
-    @Test
-    public void testCamelMicroProfileFaultToleranceFallback() {
-
+    @ParameterizedTest
+    @MethodSource("routeUris")
+    public void testCamelMicroProfileFaultTolerance(String route) {
         // First request should trigger the fallback response
-        RestAssured.post("/microprofile-fault-tolerance/route/faultTolerance")
+        RestAssured.post("/microprofile-fault-tolerance/route/" + route)
                 .then()
                 .statusCode(200)
-                .body(Matchers.is(MicroProfileFaultToleranceRoutes.FALLBACK_RESULT));
+                .body(is(MicroProfileFaultToleranceRoutes.FALLBACK_RESULT));
 
         // Next request(s) should trigger the expected response
-        RestAssured.post("/microprofile-fault-tolerance/route/faultTolerance")
+        RestAssured.post("/microprofile-fault-tolerance/route/" + route)
                 .then()
                 .statusCode(200)
-                .body(Matchers.is(MicroProfileFaultToleranceRoutes.RESULT));
+                .body(is(MicroProfileFaultToleranceRoutes.RESULT));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "faultToleranceWithThreshold", "circuitBreakerBean" })
+    public void testCamelMicroProfileFaultToleranceWithThreshold(String route) {
+        // First request should trigger an exception and open the circuit breaker
+        RestAssured.post("/microprofile-fault-tolerance/faultToleranceWithThreshold/" + route)
+                .then()
+                .statusCode(200)
+                .body(is(EXCEPTION_MESSAGE));
+
+        // Next request(s) should close the circuit breaker and trigger the expected response
+        RestAssured.post("/microprofile-fault-tolerance/faultToleranceWithThreshold/" + route)
+                .then()
+                .statusCode(200)
+                .body(is(MicroProfileFaultToleranceRoutes.RESULT));
     }
 
     @Test
-    public void testCamelMicroProfileFaultToleranceFallbackWithTimeout() {
-
-        // First request should trigger the fallback response
-        RestAssured.given()
-                .body("Joe")
-                .post("/microprofile-fault-tolerance/route/faultToleranceWithTimeout")
+    public void testCamelMicroProfileFaultToleranceInheritErrorHandler() {
+        RestAssured.post("/microprofile-fault-tolerance/inheritErrorHandler")
                 .then()
-                .statusCode(200)
-                .body(Matchers.is("Sorry Joe, had to fallback!"));
-
-        // Next request(s) should trigger the expected response
-        RestAssured.given()
-                .body("Mary")
-                .post("/microprofile-fault-tolerance/route/faultToleranceWithTimeout")
-                .then()
-                .statusCode(200)
-                .body(Matchers.is("Regular hi Mary"));
+                .statusCode(204);
     }
 
+    public static String[] routeUris() {
+        return new String[] {
+                "faultToleranceWithFallback",
+                "faultToleranceWithBulkhead",
+                "faultToleranceWithTimeout",
+                // unavailable on Camel 3.14.2 "faultToleranceWithTimeoutCustomExecutor",
+                "fallbackBean",
+                "timeoutBean",
+        };
+    }
 }
