@@ -843,6 +843,10 @@
             <artifactId>jsr305</artifactId>
           </exclusion>
           <exclusion>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>org.apache.activemq</groupId>
             <artifactId>*</artifactId>
           </exclusion>
