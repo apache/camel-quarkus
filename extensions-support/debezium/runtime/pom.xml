@@ -60,6 +60,10 @@
             <artifactId>debezium-embedded</artifactId>
             <exclusions>
                 <exclusion>
+                    <groupId>javax.ws.rs</groupId>
+                    <artifactId>javax.ws.rs-api</artifactId>
+                </exclusion>
+                <exclusion>
                     <groupId>org.apache.kafka</groupId>
                     <artifactId>kafka-log4j-appender</artifactId>
                 </exclusion>

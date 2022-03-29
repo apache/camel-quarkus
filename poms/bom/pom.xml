@@ -2475,6 +2475,10 @@
                         <artifactId>j2objc-annotations</artifactId>
                     </exclusion>
                     <exclusion>
+                        <groupId>javax.ws.rs</groupId>
+                        <artifactId>javax.ws.rs-api</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>javax.xml.bind</groupId>
                         <artifactId>jaxb-api</artifactId>
                     </exclusion>
@@ -6915,6 +6919,10 @@
                         <artifactId>javax.activation-api</artifactId>
                     </exclusion>
                     <exclusion>
+                        <groupId>javax.ws.rs</groupId>
+                        <artifactId>javax.ws.rs-api</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>javax.xml.bind</groupId>
                         <artifactId>jaxb-api</artifactId>
                     </exclusion>
@@ -7204,20 +7212,24 @@
 
                                 <!-- Should go to quarkus-bom actually -->
                                 <addExclusion>
-                                    <gavPattern>org.apache.httpcomponents:*</gavPattern>
-                                    <exclusions>commons-logging:commons-logging</exclusions>
+                                    <gavPattern>com.google.http-client:google-http-client</gavPattern>
+                                    <exclusions>com.google.code.findbugs:jsr305</exclusions>
+                                </addExclusion>
+                                <addExclusion>
+                                    <gavPattern>io.debezium:debezium-embedded</gavPattern>
+                                    <exclusions>javax.ws.rs:javax.ws.rs-api</exclusions>
                                 </addExclusion>
                                 <addExclusion>
                                     <gavPattern>io.grpc:grpc-netty</gavPattern>
                                     <exclusions>com.google.code.findbugs:jsr305</exclusions>
                                 </addExclusion>
                                 <addExclusion>
-                                    <gavPattern>org.apache.kafka:connect-runtime</gavPattern>
-                                    <exclusions>javax.activation:activation,javax.servlet:javax.servlet-api,log4j:log4j</exclusions>
+                                    <gavPattern>org.apache.httpcomponents:*</gavPattern>
+                                    <exclusions>commons-logging:commons-logging</exclusions>
                                 </addExclusion>
                                 <addExclusion>
-                                    <gavPattern>com.google.http-client:google-http-client</gavPattern>
-                                    <exclusions>com.google.code.findbugs:jsr305</exclusions>
+                                    <gavPattern>org.apache.kafka:connect-runtime</gavPattern>
+                                    <exclusions>javax.activation:activation,javax.servlet:javax.servlet-api,log4j:log4j</exclusions>
                                 </addExclusion>
                             </addExclusions>
                         </configuration>
