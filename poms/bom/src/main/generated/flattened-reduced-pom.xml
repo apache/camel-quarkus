@@ -2450,6 +2450,10 @@
             <artifactId>j2objc-annotations</artifactId>
           </exclusion>
           <exclusion>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
           </exclusion>
@@ -6896,6 +6900,10 @@
             <artifactId>javax.activation-api</artifactId>
           </exclusion>
           <exclusion>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
           </exclusion>
@@ -7730,6 +7738,10 @@
             <groupId>org.apache.kafka</groupId>
             <artifactId>connect-file</artifactId>
           </exclusion>
+          <exclusion>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -7792,6 +7804,10 @@
           <exclusion>
             <groupId>org.apache.kafka</groupId>
             <artifactId>connect-file</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
