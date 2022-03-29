@@ -666,11 +666,12 @@
                                                 <exclude>commons-logging:commons-logging</exclude><!-- use org.jboss.logging:commons-logging-jboss-logging instead of commons-logging and commons-logging-api -->
                                                 <exclude>commons-logging:commons-logging-api</exclude><!-- use org.jboss.logging:commons-logging-jboss-logging instead of commons-logging and commons-logging-api -->
                                                 <exclude>io.netty:netty-all</exclude><!-- Use more fine grained netty artifacts or even io.quarkus:quarkus-netty instead -->
+                                                <exclude>org.glassfish:javax.json</exclude><!-- use jakarta.json:jakarta.json-api instead -->
                                                 <exclude>javax.activation:activation</exclude><!-- use com.sun.activation:jakarta.activation instead -->
                                                 <exclude>javax.activation:javax.activation-api</exclude><!-- use jakarta.activation:jakarta.activation-api instead -->
                                                 <exclude>javax.enterprise:cdi-api</exclude><!-- use jakarta.enterprise:jakarta.enterprise.cdi-api instead -->
                                                 <exclude>javax.inject:javax.inject</exclude><!-- use jakarta.inject:jakarta.inject-api instead -->
-                                                <exclude>javax.json:javax.json-api</exclude><!--  jakarta.json:jakarta.json-api instead -->
+                                                <exclude>javax.json:javax.json-api</exclude><!-- use jakarta.json:jakarta.json-api instead -->
                                                 <exclude>javax.json.bind:javax.json.bind-api</exclude><!-- use jakarta.json.bind:jakarta.json.bind-api instead -->
                                                 <exclude>javax.servlet:servlet-api</exclude><!-- use jakarta.servlet:jakarta.servlet-api instead -->
                                                 <exclude>javax.servlet:javax.servlet-api</exclude><!-- use jakarta.servlet:jakarta.servlet-api instead -->
