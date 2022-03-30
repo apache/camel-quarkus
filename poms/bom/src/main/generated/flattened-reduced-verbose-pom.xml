@@ -17,24 +17,24 @@
   </licenses>
   <developers>
     <developer>
-      <name>The Apache Camel Team</name><!-- org.apache.camel.quarkus:camel-quarkus:2.7.1-SNAPSHOT, line 230 -->
-      <email>dev@camel.apache.org</email><!-- org.apache.camel.quarkus:camel-quarkus:2.7.1-SNAPSHOT, line 231 -->
-      <url>http://camel.apache.org</url><!-- org.apache.camel.quarkus:camel-quarkus:2.7.1-SNAPSHOT, line 232 -->
-      <organization>Apache Software Foundation</organization><!-- org.apache.camel.quarkus:camel-quarkus:2.7.1-SNAPSHOT, line 233 -->
-      <organizationUrl>http://apache.org/</organizationUrl><!-- org.apache.camel.quarkus:camel-quarkus:2.7.1-SNAPSHOT, line 234 -->
+      <name>The Apache Camel Team</name><!-- org.apache.camel.quarkus:camel-quarkus:2.7.1-SNAPSHOT, line 229 -->
+      <email>dev@camel.apache.org</email><!-- org.apache.camel.quarkus:camel-quarkus:2.7.1-SNAPSHOT, line 230 -->
+      <url>http://camel.apache.org</url><!-- org.apache.camel.quarkus:camel-quarkus:2.7.1-SNAPSHOT, line 231 -->
+      <organization>Apache Software Foundation</organization><!-- org.apache.camel.quarkus:camel-quarkus:2.7.1-SNAPSHOT, line 232 -->
+      <organizationUrl>http://apache.org/</organizationUrl><!-- org.apache.camel.quarkus:camel-quarkus:2.7.1-SNAPSHOT, line 233 -->
       <properties>
-        <picUrl>http://camel.apache.org/banner.data/apache-camel-7.png</picUrl><!-- org.apache.camel.quarkus:camel-quarkus:2.7.1-SNAPSHOT, line 236 -->
+        <picUrl>http://camel.apache.org/banner.data/apache-camel-7.png</picUrl><!-- org.apache.camel.quarkus:camel-quarkus:2.7.1-SNAPSHOT, line 235 -->
       </properties>
     </developer>
   </developers>
   <scm>
-    <connection>scm:git:http://gitbox.apache.org/repos/asf/camel-quarkus.git/camel-quarkus-poms/camel-quarkus-bom</connection><!-- org.apache.camel.quarkus:camel-quarkus:2.7.1-SNAPSHOT, line 263 -->
-    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/camel-quarkus.git/camel-quarkus-poms/camel-quarkus-bom</developerConnection><!-- org.apache.camel.quarkus:camel-quarkus:2.7.1-SNAPSHOT, line 264 -->
-    <url>https://gitbox.apache.org/repos/asf?p=camel-quarkus.git;a=summary/camel-quarkus-poms/camel-quarkus-bom</url><!-- org.apache.camel.quarkus:camel-quarkus:2.7.1-SNAPSHOT, line 265 -->
+    <connection>scm:git:http://gitbox.apache.org/repos/asf/camel-quarkus.git/camel-quarkus-poms/camel-quarkus-bom</connection><!-- org.apache.camel.quarkus:camel-quarkus:2.7.1-SNAPSHOT, line 262 -->
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/camel-quarkus.git/camel-quarkus-poms/camel-quarkus-bom</developerConnection><!-- org.apache.camel.quarkus:camel-quarkus:2.7.1-SNAPSHOT, line 263 -->
+    <url>https://gitbox.apache.org/repos/asf?p=camel-quarkus.git;a=summary/camel-quarkus-poms/camel-quarkus-bom</url><!-- org.apache.camel.quarkus:camel-quarkus:2.7.1-SNAPSHOT, line 264 -->
   </scm>
   <issueManagement>
-    <system>GitHub</system><!-- org.apache.camel.quarkus:camel-quarkus:2.7.1-SNAPSHOT, line 270 -->
-    <url>https://github.com/apache/camel-quarkus/issues</url><!-- org.apache.camel.quarkus:camel-quarkus:2.7.1-SNAPSHOT, line 271 -->
+    <system>GitHub</system><!-- org.apache.camel.quarkus:camel-quarkus:2.7.1-SNAPSHOT, line 269 -->
+    <url>https://github.com/apache/camel-quarkus/issues</url><!-- org.apache.camel.quarkus:camel-quarkus:2.7.1-SNAPSHOT, line 270 -->
   </issueManagement>
   <distributionManagement>
     <repository>
