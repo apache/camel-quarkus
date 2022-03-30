@@ -23,7 +23,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.mock.MockEndpoint;
 
 @Path("/microprofile-fault-tolerance")
 public class MicroprofileFaultToleranceResource {
@@ -31,10 +33,43 @@ public class MicroprofileFaultToleranceResource {
     @Inject
     ProducerTemplate producerTemplate;
 
+    @Inject
+    CamelContext context;
+
     @Path("/route/{route}")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public String triggerFaultToleranceRoute(String body, @PathParam("route") String route) {
-        return producerTemplate.requestBody("direct:" + route, body, String.class);
+    public String triggerFaultToleranceRoute(@PathParam("route") String route) {
+        return producerTemplate.requestBody("direct:" + route, null, String.class);
+    }
+
+    @Path("/faultToleranceWithThreshold/{route}")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public String faultToleranceWithThreshold(@PathParam("route") String route) {
+        try {
+            return producerTemplate.requestBody("direct:" + route, null, String.class);
+        } catch (Exception e) {
+            return e.getCause().getMessage();
+        }
+    }
+
+    @Path("/inheritErrorHandler")
+    @POST
+    public void inheritErrorHandler() throws Exception {
+        MockEndpoint start = context.getEndpoint("mock:start", MockEndpoint.class);
+        start.expectedMessageCount(4);
+
+        MockEndpoint end = context.getEndpoint("mock:end", MockEndpoint.class);
+        end.expectedMessageCount(0);
+
+        MockEndpoint dead = context.getEndpoint("mock:dead", MockEndpoint.class);
+        dead.expectedMessageCount(1);
+
+        producerTemplate.requestBody("direct:inheritErrorHandler", null, String.class);
+
+        start.assertIsSatisfied(5000);
+        end.assertIsSatisfied(5000);
+        dead.assertIsSatisfied(5000);
     }
 }
