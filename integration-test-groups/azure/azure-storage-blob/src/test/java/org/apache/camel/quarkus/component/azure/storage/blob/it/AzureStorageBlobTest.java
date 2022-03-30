@@ -43,6 +43,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.shaded.org.awaitility.Awaitility;
 
+import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.StringEndsWith.endsWith;
@@ -121,7 +122,7 @@ class AzureStorageBlobTest {
             // Delete
             RestAssured.delete("/azure-storage-blob/blob/delete")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 
@@ -166,7 +167,7 @@ class AzureStorageBlobTest {
             // Delete
             RestAssured.delete("/azure-storage-blob/blob/delete")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 
@@ -224,7 +225,7 @@ class AzureStorageBlobTest {
             // Delete
             RestAssured.delete("/azure-storage-blob/blob/delete")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 
@@ -258,7 +259,7 @@ class AzureStorageBlobTest {
             // Delete
             RestAssured.delete("/azure-storage-blob/blob/delete")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 
@@ -352,13 +353,13 @@ class AzureStorageBlobTest {
             // Delete
             RestAssured.delete("/azure-storage-blob/blob/delete")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 
     @Test
     public void blobContainer() {
-        String alternativeContainerName = "cq-test-" + UUID.randomUUID();
+        String alternativeContainerName = "camel-quarkus-" + UUID.randomUUID();
 
         try {
             // Create
@@ -381,13 +382,13 @@ class AzureStorageBlobTest {
                     .queryParam("containerName", alternativeContainerName)
                     .delete("/azure-storage-blob/blob/container")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 
     @Test
     public void copyBlob() {
-        String alternativeContainerName = "cq-test-" + UUID.randomUUID();
+        String alternativeContainerName = "camel-quarkus-" + UUID.randomUUID();
 
         try {
             // Create container to copy to
@@ -443,7 +444,7 @@ class AzureStorageBlobTest {
 
             RestAssured.delete("/azure-storage-blob/blob/delete")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 
@@ -512,7 +513,7 @@ class AzureStorageBlobTest {
         } finally {
             RestAssured.delete("/azure-storage-blob/blob/delete")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 }
