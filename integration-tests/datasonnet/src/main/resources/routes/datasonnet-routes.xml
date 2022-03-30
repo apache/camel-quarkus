@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes id="datasonnet"
+        xmlns="http://camel.apache.org/schema/spring"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+            http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <route id="basicTransform">
+        <from uri="direct:basicTransform"/>
+
+        <setProperty name="test">
+            <constant>HelloWorld</constant>
+        </setProperty>
+        <setProperty name="count">
+            <simple resultType="java.lang.Integer">1</simple>
+        </setProperty>
+        <setProperty name="isActive">
+            <simple resultType="java.lang.Boolean">true</simple>
+        </setProperty>
+        <setProperty name="1. Full Name">
+            <constant>DataSonnet</constant>
+        </setProperty>
+
+        <transform>
+            <datasonnet bodyMediaType="application/json" outputMediaType="application/json"
+                        resultType="java.lang.String">resource:classpath:simpleMapping.ds</datasonnet>
+        </transform>
+<!--        <to uri="mock:direct:end"/>-->
+    </route>
+
+    <route id="transformXML">
+        <from uri="direct:transformXML"/>
+        <transform>
+            <datasonnet bodyMediaType="application/xml" outputMediaType="application/json"
+                        resultType="java.lang.String">resource:classpath:readXMLExtTest.ds</datasonnet>
+        </transform>
+        <to uri="mock:direct:end"/>
+    </route>
+
+    <route id="transformCSV">
+        <from uri="direct:transformCSV"/>
+        <transform>
+            <datasonnet bodyMediaType="application/csv" outputMediaType="application/json"
+                        resultType="java.lang.String">resource:classpath:readCSVTest.ds</datasonnet>
+        </transform>
+        <to uri="mock:direct:end"/>
+    </route>
+
+    <route id="datasonnetScript">
+        <from uri="direct:datasonnetScript"/>
+
+        <setProperty name="test">
+            <simple>HelloWorld</simple>
+        </setProperty>
+        <setProperty name="count">
+            <simple resultType="java.lang.Integer">1</simple>
+        </setProperty>
+        <setProperty name="isActive">
+            <simple resultType="java.lang.Boolean">true</simple>
+        </setProperty>
+        <setProperty name="1. Full Name">
+            <constant>DataSonnet</constant>
+        </setProperty>
+
+        <transform>
+            <datasonnet bodyMediaType="application/json" outputMediaType="application/json"
+                        resultType="java.lang.String">
+                <![CDATA[
+                {
+                    "uid": payload.userId,
+                    "uname": payload.name,
+                    "testVar": cml.exchangeProperty('test'),
+                    "isActive": cml.exchangeProperty('isActive'),
+                    "count": cml.exchangeProperty('count'),
+                    "fullName": cml.exchangeProperty('1. Full Name')
+                }
+                ]]>
+            </datasonnet>
+        </transform>
+
+        <to uri="mock:direct:end"/>
+    </route>
+
+    <route id="namedImports">
+        <from uri="direct:namedImports"/>
+        <transform>
+            <datasonnet bodyMediaType="application/json" outputMediaType="application/json"
+                        resultType="java.lang.String">resource:classpath:namedImports.ds</datasonnet>
+        </transform>
+        <to uri="mock:direct:end"/>
+    </route>
+
+    <route id="readJava">
+        <from uri="direct:readJava"/>
+        <transform>
+            <datasonnet bodyMediaType="application/x-java-object" outputMediaType="application/json"
+                        resultType="java.lang.String">resource:classpath:readJavaTest.ds</datasonnet>
+        </transform>
+        <to uri="mock:direct:end"/>
+    </route>
+
+    <route id="readJavaDatasonnetHeader">
+        <from uri="direct:readJavaDatasonnetHeader"/>
+        <transform>
+            <datasonnet outputMediaType="application/json" resultType="java.lang.String">resource:classpath:readJavaTest.ds</datasonnet>
+        </transform>
+        <to uri="mock:direct:end"/>
+    </route>
+
+    <route id="writeJava">
+        <from uri="direct:writeJava"/>
+        <transform>
+            <datasonnet bodyMediaType="application/json" outputMediaType="application/x-java-object"
+                        resultType="org.apache.camel.language.datasonnet.Gizmo">resource:classpath:writeJavaTest.ds</datasonnet>
+        </transform>
+        <to uri="mock:direct:end"/>
+    </route>
+
+    <route id="expressionLanguage">
+        <from uri="direct:expressionLanguage"/>
+
+        <setHeader name="HelloHeader">
+            <datasonnet bodyMediaType="application/x-java-object" outputMediaType="text/plain" resultType="java.lang.String">"Hello, " + payload</datasonnet>
+        </setHeader>
+        <setBody>
+            <datasonnet bodyMediaType="application/x-java-object" outputMediaType="application/json" resultType="java.lang.String">
+                <![CDATA[
+                    {
+                        test: cml.header('HelloHeader')
+                    }
+                ]]>
+            </datasonnet>
+        </setBody>
+
+        <to uri="mock:direct:end"/>
+    </route>
+
+    <route id="nullInput">
+        <from uri="direct:nullInput"/>
+        <setBody>
+            <datasonnet outputMediaType="application/json" resultType="java.lang.String">
+                {
+                    test: "Hello, World"
+                }
+            </datasonnet>
+        </setBody>
+
+        <to uri="mock:direct:end"/>
+    </route>
+
+</routes>

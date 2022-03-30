@@ -86,6 +86,7 @@
         <dropwizard-metrics.version>4.1.0</dropwizard-metrics.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:io.dropwizard.metrics:metrics-core -->
         <eddsa.version>${eddsa-version}</eddsa.version>
         <freemarker.version>2.3.31</freemarker.version><!-- @sync io.quarkiverse.freemarker:quarkus-freemarker-parent:${quarkiverse-freemarker.version} prop:freemarker.version -->
+        <geny.version>0.6.2</geny.version>
         <github-api.version>1.111</github-api.version><!-- Used in a Groovy script bellow -->
         <google-native-image-support.version>0.8.0</google-native-image-support.version>
         <google-auth-library-credentials.version>${grpc-google-auth-library-version}</google-auth-library-credentials.version>
@@ -127,6 +128,7 @@
         <retrofit.version>2.5.0</retrofit.version>
         <saaj.impl.version>1.5.3</saaj.impl.version>
         <scala-2.12.version>2.12.15</scala-2.12.version><!-- Spark -->
+        <scala.version>2.13.3</scala.version><!-- Datasonnet -->
         <smallrye.reactive.messaging.camel.version>3.15.0</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
         <spring.version>${spring5-version}</spring.version>
         <snakeyaml.version>${snakeyaml-version}</snakeyaml.version>

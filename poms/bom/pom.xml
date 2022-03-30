@@ -981,6 +981,25 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-datasonnet</artifactId>
+                <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.activation</groupId>
+                        <artifactId>activation</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.lihaoyi</groupId>
+                        <artifactId>geny_2.13</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.scala-lang</groupId>
+                        <artifactId>scala-library</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-debezium-common</artifactId>
                 <version>${camel.version}</version>
                 <exclusions>
@@ -3857,6 +3876,16 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-datasonnet</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-datasonnet-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-debezium-mongodb</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
@@ -6651,6 +6680,11 @@
                 <version>${zxing.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.lihaoyi</groupId>
+                <artifactId>geny_2.13</artifactId>
+                <version>${geny.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.mchange</groupId>
                 <artifactId>c3p0</artifactId>
                 <version>${c3p0.version}</version>
@@ -7071,6 +7105,11 @@
                 <groupId>org.optaplanner</groupId>
                 <artifactId>optaplanner-quarkus-jackson-deployment</artifactId>
                 <version>${optaplanner.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scala-library</artifactId>
+                <version>${scala.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>

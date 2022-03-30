@@ -80,6 +80,7 @@
         <module>csv</module>
         <module>dataformat</module>
         <module>dataformats-json</module>
+        <module>datasonnet</module>
         <module>debezium</module>
         <module>digitalocean</module>
         <module>disruptor</module>
