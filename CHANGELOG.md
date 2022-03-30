@@ -11,6 +11,8 @@
 
 **Closed issues:**
 
+- paho: FilePersistence is not tested [\#3680](https://github.com/apache/camel-quarkus/issues/3680)
+- Improve MicroProfile Fault Tolerance extension test coverage [\#3677](https://github.com/apache/camel-quarkus/issues/3677)
 - paho: NullPointerException when MqqtException occurs during reconnect attempt in native mode [\#3671](https://github.com/apache/camel-quarkus/issues/3671)
 - Improve Infinispan extension test coverage [\#3658](https://github.com/apache/camel-quarkus/issues/3658)
 - Add more details about `@QuarkusIntegrationTest` in Testing guide [\#3650](https://github.com/apache/camel-quarkus/issues/3650)
@@ -32,14 +34,22 @@
 - Improve slack test coverage [\#3541](https://github.com/apache/camel-quarkus/issues/3541)
 - Cannot build camel-quarkus-ipfs because repository.jboss.org is down [\#3532](https://github.com/apache/camel-quarkus/issues/3532)
 - `FileTest.charset` integration test fails on Windows [\#3530](https://github.com/apache/camel-quarkus/issues/3530)
+- Ban javax.validation in favor of jakarta.validation  [\#3504](https://github.com/apache/camel-quarkus/issues/3504)
 - Camel Rest / Quarkus Swagger UI / Url Issue from Quarkus Version 2.6.x [\#3457](https://github.com/apache/camel-quarkus/issues/3457)
 - Camel 3.15 - Add build step to capture route source location:line-number [\#3432](https://github.com/apache/camel-quarkus/issues/3432)
+- Ban junit 4 [\#3354](https://github.com/apache/camel-quarkus/issues/3354)
 - Better control what we manage in our BOM [\#3302](https://github.com/apache/camel-quarkus/issues/3302)
 - camel.main.routes-include-pattern with a "\*" wildcard may end up loading a route builder twice [\#3265](https://github.com/apache/camel-quarkus/issues/3265)
 - Investigate QuarkusIntegrationTest as a replacement for camel-quarkus-integration-tests-process-executor-support [\#2468](https://github.com/apache/camel-quarkus/issues/2468)
 
 **Merged pull requests:**
 
+- paho: Add test coverage for file persistence \#3680 [\#3681](https://github.com/apache/camel-quarkus/pull/3681) ([aldettinger](https://github.com/aldettinger))
+- Improve MicroProfile Fault Tolerance extension test coverage [\#3679](https://github.com/apache/camel-quarkus/pull/3679) ([jamesnetherton](https://github.com/jamesnetherton))
+- More bans [\#3678](https://github.com/apache/camel-quarkus/pull/3678) ([ppalaga](https://github.com/ppalaga))
+- Update antora.yml to point at 3.16.x branches [\#3676](https://github.com/apache/camel-quarkus/pull/3676) ([jamesnetherton](https://github.com/jamesnetherton))
+- Ban javax.activation-api, javax.annotation-api and JBoss spec artifacts [\#3675](https://github.com/apache/camel-quarkus/pull/3675) ([ppalaga](https://github.com/ppalaga))
+- Ban javax.validation and junit 4 [\#3673](https://github.com/apache/camel-quarkus/pull/3673) ([ppalaga](https://github.com/ppalaga))
 - paho: fix NullPointerException when MqqtException occurs during recon… [\#3672](https://github.com/apache/camel-quarkus/pull/3672) ([aldettinger](https://github.com/aldettinger))
 - Create Camel Google Secret Manager Extension [\#3668](https://github.com/apache/camel-quarkus/pull/3668) ([oscerd](https://github.com/oscerd))
 - Revert "Add Camel 3.16.0 staging repository" [\#3667](https://github.com/apache/camel-quarkus/pull/3667) ([ppalaga](https://github.com/ppalaga))
