@@ -16,11 +16,8 @@
  */
 package org.apache.camel.quarkus.component.datasonnet.it;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -161,13 +158,7 @@ class DatasonnetTest {
     }
 
     private String loadResourceAsString(String name) throws Exception {
-        Path path = Paths.get(Thread.currentThread().getContextClassLoader()
-                .getResource(name).toURI());
-
-        Stream<String> lines = Files.lines(path);
-        String data = lines.collect(Collectors.joining("\n"));
-        lines.close();
-
-        return data;
+        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(name);
+        return new String(is.readAllBytes(), StandardCharsets.UTF_8);
     }
 }

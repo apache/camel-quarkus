@@ -18,6 +18,9 @@ package org.apache.camel.quarkus.component.datasonnet.model;
 
 import java.util.Objects;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
 public class Manufacturer {
     private String manufacturerName;
     private String manufacturerCode;

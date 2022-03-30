@@ -16,12 +16,15 @@
  */
 package org.apache.camel.quarkus.component.datasonnet.deployment;
 
+import java.util.stream.Stream;
+
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.*;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 
 class DatasonnetProcessor {
 
@@ -32,17 +35,19 @@ class DatasonnetProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
-    //    @BuildStep
-    //    void capabilities(BuildProducer<CapabilityBuildItem> capabilityProducer) {
-    //        capabilityProducer.produce(new CapabilityBuildItem("com.datasonnet.datasonnet-mapper"));
-    //    }
-
     @BuildStep
     void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
         indexDependency.produce(new IndexDependencyBuildItem("com.datasonnet", "datasonnet-mapper"));
         indexDependency.produce(new IndexDependencyBuildItem("org.scala-lang", "scala-library"));
         indexDependency.produce(new IndexDependencyBuildItem("org.scala-lang.modules", "scala-collection-compat_2.13"));
         indexDependency.produce(new IndexDependencyBuildItem("com.lihaoyi", "geny_2.13"));
+    }
+
+    @BuildStep
+    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
+        Stream.of("scala.util.Random$")
+                .map(RuntimeInitializedClassBuildItem::new)
+                .forEach(runtimeInitializedClass::produce);
     }
 
     @BuildStep

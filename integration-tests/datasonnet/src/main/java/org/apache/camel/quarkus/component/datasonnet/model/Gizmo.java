@@ -20,6 +20,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
 public class Gizmo {
     private String name;
     private int quantity;
