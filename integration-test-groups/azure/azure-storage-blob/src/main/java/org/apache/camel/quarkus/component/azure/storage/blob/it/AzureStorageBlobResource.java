@@ -348,8 +348,10 @@ public class AzureStorageBlobResource {
 
         List<BlobContainerItem> containers = producerTemplate.requestBody("direct:listBlobContainers", null, List.class);
         containers.stream()
-                .map(container -> Json.createObjectBuilder()
-                        .add("name", container.getName())
+                .map(BlobContainerItem::getName)
+                .filter(containerName -> containerName.startsWith("camel-quarkus"))
+                .map(containerName -> Json.createObjectBuilder()
+                        .add("name", containerName)
                         .build())
                 .forEach(arrayBuilder::add);
 
