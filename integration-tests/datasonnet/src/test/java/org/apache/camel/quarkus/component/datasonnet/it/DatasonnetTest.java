@@ -26,6 +26,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 @QuarkusTest
 class DatasonnetTest {
@@ -33,23 +34,133 @@ class DatasonnetTest {
     @Test
     public void testTransform() throws Exception {
         final String msg = loadResourceAsString("simpleMapping_payload.json");
-        RestAssured.given() //
+        final String expected = loadResourceAsString("simpleMapping_result.json");
+        final String response = RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(msg)
-                .post("/datasonnet/basicTransform") //
+                .post("/datasonnet/basicTransform")
                 .then()
-                .statusCode(201);
+                .statusCode(201)
+                .assertThat()
+                .extract().asString();
+        JSONAssert.assertEquals(expected, response, true);
+    }
 
-        //        Assertions.fail("Add some assertions to " + getClass().getName());
-        //
-        //        RestAssured.get("/datasonnet/get")
-        //                .then()
-        //                .statusCode(200);
+    @Test
+    public void testTransformXML() throws Exception {
+        final String msg = loadResourceAsString("payload.xml");
+        final String expected = loadResourceAsString("readXMLExtTest.json");
+        final String response = RestAssured.given()
+                .contentType(ContentType.XML)
+                .body(msg)
+                .post("/datasonnet/transformXML")
+                .then()
+                .statusCode(201)
+                .assertThat()
+                .extract().asString();
+        JSONAssert.assertEquals(expected, response, true);
+    }
+
+    @Test
+    public void testTransformCSV() throws Exception {
+        final String msg = loadResourceAsString("payload.csv");
+        final String expected = "{\"account\":\"123\"}";
+        final String response = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(msg)
+                .post("/datasonnet/transformCSV")
+                .then()
+                .statusCode(201)
+                .assertThat()
+                .extract().asString();
+        JSONAssert.assertEquals(expected, response, true);
+    }
+
+    @Test
+    public void testNamedImports() throws Exception {
+        final String msg = "{}";
+        final String expected = loadResourceAsString("namedImports_result.json");
+        final String response = RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(msg)
+                .post("/datasonnet/namedImports")
+                .then()
+                .statusCode(201)
+                .assertThat()
+                .extract().asString();
+        JSONAssert.assertEquals(expected, response, true);
+    }
+
+    @Test
+    public void testExpressionLanguage() throws Exception {
+        final String msg = "World";
+        final String expected = "{ \"test\":\"Hello, World\"}";
+        final String response = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(msg)
+                .post("/datasonnet/expressionLanguage")
+                .then()
+                .statusCode(201)
+                .assertThat()
+                .extract().asString();
+        JSONAssert.assertEquals(expected, response, true);
+    }
+
+    @Test
+    public void testNullInput() throws Exception {
+        final String msg = "";
+        final String expected = "{ \"test\":\"Hello, World\"}";
+        final String response = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(msg)
+                .post("/datasonnet/nullInput")
+                .then()
+                .statusCode(201)
+                .assertThat()
+                .extract().asString();
+        JSONAssert.assertEquals(expected, response, true);
+
+        final String response2 = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .post("/datasonnet/nullInput")
+                .then()
+                .statusCode(201)
+                .assertThat()
+                .extract().asString();
+        JSONAssert.assertEquals(expected, response2, true);
+    }
+
+    @Test
+    public void testReadJava() throws Exception {
+        final String msg = "fake";
+        final String expected = loadResourceAsString("javaTest.json");
+        final String response = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(msg)
+                .post("/datasonnet/readJava")
+                .then()
+                .statusCode(201)
+                .assertThat()
+                .extract().asString();
+        JSONAssert.assertEquals(expected, response, true);
+    }
+
+    @Test
+    public void testReadJavaDatasonnetHeader() throws Exception {
+        final String msg = "fake";
+        final String expected = loadResourceAsString("javaTest.json");
+        final String response = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(msg)
+                .post("/datasonnet/readJavaDatasonnetHeader")
+                .then()
+                .statusCode(201)
+                .assertThat()
+                .extract().asString();
+        JSONAssert.assertEquals(expected, response, true);
     }
 
     private String loadResourceAsString(String name) throws Exception {
-        //        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(name);
-        //        return IOUtils.toString(is, Charset.defaultCharset());
         Path path = Paths.get(Thread.currentThread().getContextClassLoader()
                 .getResource(name).toURI());
 
@@ -59,5 +170,4 @@ class DatasonnetTest {
 
         return data;
     }
-
 }

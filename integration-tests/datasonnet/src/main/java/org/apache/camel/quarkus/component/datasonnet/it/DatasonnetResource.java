@@ -17,6 +17,9 @@
 package org.apache.camel.quarkus.component.datasonnet.it;
 
 import java.net.URI;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.TimeZone;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -29,6 +32,8 @@ import javax.ws.rs.core.Response;
 
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.quarkus.component.datasonnet.model.Gizmo;
+import org.apache.camel.quarkus.component.datasonnet.model.Manufacturer;
 import org.jboss.logging.Logger;
 
 @Path("/datasonnet")
@@ -43,22 +48,11 @@ public class DatasonnetResource {
     @Inject
     ConsumerTemplate consumerTemplate;
 
-    /*
-    @Path("/get")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String get() throws Exception {
-        final String message = consumerTemplate.receiveBodyNoWait("datasonnet:--fix-me--", String.class);
-        LOG.infof("Received from datasonnet: %s", message);
-        return message;
-    }
-    */
-
-    @Path("/datasonnet/basicTransform")
+    @Path("/basicTransform")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response post(String message) throws Exception {
+    public Response basicTransform(String message) throws Exception {
         LOG.infof("Sending to datasonnet: %s", message);
         final String response = producerTemplate.requestBody("direct:basicTransform", message, String.class);
         LOG.infof("Got response from datasonnet: %s", response);
@@ -67,4 +61,133 @@ public class DatasonnetResource {
                 .entity(response)
                 .build();
     }
+
+    @Path("/transformXML")
+    @POST
+    @Consumes(MediaType.APPLICATION_XML)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response transformXML(String message) throws Exception {
+        LOG.infof("Sending to datasonnet: %s", message);
+        final String response = producerTemplate.requestBody("direct:transformXML", message, String.class);
+        LOG.infof("Got response from datasonnet: %s", response);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(response)
+                .build();
+    }
+
+    @Path("/transformCSV")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response transformCSV(String message) throws Exception {
+        LOG.infof("Sending to datasonnet: %s", message);
+        final String response = producerTemplate.requestBody("direct:transformCSV", message, String.class);
+        LOG.infof("Got response from datasonnet: %s", response);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(response)
+                .build();
+    }
+
+    @Path("/namedImports")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response namedImports(String message) throws Exception {
+        LOG.infof("Sending to datasonnet: %s", message);
+        final String response = producerTemplate.requestBody("direct:namedImports", message, String.class);
+        LOG.infof("Got response from datasonnet: %s", response);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(response)
+                .build();
+    }
+
+    @Path("/expressionLanguage")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response expressionLanguage(String message) throws Exception {
+        LOG.infof("Sending to datasonnet: %s", message);
+        final String response = producerTemplate.requestBody("direct:expressionLanguage", message, String.class);
+        LOG.infof("Got response from datasonnet: %s", response);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(response)
+                .build();
+    }
+
+    @Path("/nullInput")
+    @POST
+    @Consumes(MediaType.WILDCARD)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response nullInput(String message) throws Exception {
+        LOG.infof("Sending to datasonnet: %s", message);
+        final String response = producerTemplate.requestBody("direct:nullInput", message, String.class);
+        LOG.infof("Got response from datasonnet: %s", response);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(response)
+                .build();
+    }
+
+    @Path("/readJava")
+    @POST
+    @Consumes(MediaType.WILDCARD)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response readJava(String message) throws Exception {
+        Gizmo theGizmo = new Gizmo();
+        theGizmo.setName("gizmo");
+        theGizmo.setQuantity(123);
+        theGizmo.setInStock(true);
+        theGizmo.setColors(Arrays.asList("red", "white", "blue"));
+
+        Manufacturer manufacturer = new Manufacturer();
+        manufacturer.setManufacturerName("ACME Corp.");
+        manufacturer.setManufacturerCode("ACME123");
+        theGizmo.setManufacturer(manufacturer);
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        df.setTimeZone(TimeZone.getTimeZone("UTC"));
+        theGizmo.setDate(df.parse("2020-01-06"));
+
+        LOG.infof("Sending to datasonnet: %s", theGizmo);
+        final String response = producerTemplate.requestBody("direct:readJava", theGizmo, String.class);
+        LOG.infof("Got response from datasonnet: %s", response);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(response)
+                .build();
+    }
+
+    @Path("/readJavaDatasonnetHeader")
+    @POST
+    @Consumes(MediaType.WILDCARD)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response readJavaDatasonnetHeader(String message) throws Exception {
+        Gizmo theGizmo = new Gizmo();
+        theGizmo.setName("gizmo");
+        theGizmo.setQuantity(123);
+        theGizmo.setInStock(true);
+        theGizmo.setColors(Arrays.asList("red", "white", "blue"));
+
+        Manufacturer manufacturer = new Manufacturer();
+        manufacturer.setManufacturerName("ACME Corp.");
+        manufacturer.setManufacturerCode("ACME123");
+        theGizmo.setManufacturer(manufacturer);
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        df.setTimeZone(TimeZone.getTimeZone("UTC"));
+        theGizmo.setDate(df.parse("2020-01-06"));
+
+        LOG.infof("Sending to datasonnet: %s", theGizmo);
+        final String response = producerTemplate.requestBody("direct:readJavaDatasonnetHeader", theGizmo, String.class);
+        LOG.infof("Got response from datasonnet: %s", response);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(response)
+                .build();
+    }
+
 }

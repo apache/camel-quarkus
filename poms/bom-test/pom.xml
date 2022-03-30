@@ -251,6 +251,12 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+            <!-- Scala for datasonnet -->
+            <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scala-library</artifactId>
+                <version>${scala-datasonnet-version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.jvnet.mock-javamail</groupId>
                 <artifactId>mock-javamail</artifactId>

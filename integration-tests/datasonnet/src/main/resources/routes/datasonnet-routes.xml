@@ -25,7 +25,6 @@
             <datasonnet bodyMediaType="application/json" outputMediaType="application/json"
                         resultType="java.lang.String">resource:classpath:simpleMapping.ds</datasonnet>
         </transform>
-<!--        <to uri="mock:direct:end"/>-->
     </route>
 
     <route id="transformXML">
@@ -34,7 +33,6 @@
             <datasonnet bodyMediaType="application/xml" outputMediaType="application/json"
                         resultType="java.lang.String">resource:classpath:readXMLExtTest.ds</datasonnet>
         </transform>
-        <to uri="mock:direct:end"/>
     </route>
 
     <route id="transformCSV">
@@ -43,7 +41,6 @@
             <datasonnet bodyMediaType="application/csv" outputMediaType="application/json"
                         resultType="java.lang.String">resource:classpath:readCSVTest.ds</datasonnet>
         </transform>
-        <to uri="mock:direct:end"/>
     </route>
 
     <route id="datasonnetScript">
@@ -77,8 +74,6 @@
                 ]]>
             </datasonnet>
         </transform>
-
-        <to uri="mock:direct:end"/>
     </route>
 
     <route id="namedImports">
@@ -87,7 +82,6 @@
             <datasonnet bodyMediaType="application/json" outputMediaType="application/json"
                         resultType="java.lang.String">resource:classpath:namedImports.ds</datasonnet>
         </transform>
-        <to uri="mock:direct:end"/>
     </route>
 
     <route id="readJava">
@@ -96,7 +90,6 @@
             <datasonnet bodyMediaType="application/x-java-object" outputMediaType="application/json"
                         resultType="java.lang.String">resource:classpath:readJavaTest.ds</datasonnet>
         </transform>
-        <to uri="mock:direct:end"/>
     </route>
 
     <route id="readJavaDatasonnetHeader">
@@ -104,16 +97,14 @@
         <transform>
             <datasonnet outputMediaType="application/json" resultType="java.lang.String">resource:classpath:readJavaTest.ds</datasonnet>
         </transform>
-        <to uri="mock:direct:end"/>
     </route>
 
     <route id="writeJava">
         <from uri="direct:writeJava"/>
         <transform>
             <datasonnet bodyMediaType="application/json" outputMediaType="application/x-java-object"
-                        resultType="org.apache.camel.language.datasonnet.Gizmo">resource:classpath:writeJavaTest.ds</datasonnet>
+                        resultType="org.apache.camel.quarkus.component.datasonnet.model.Gizmo">resource:classpath:writeJavaTest.ds</datasonnet>
         </transform>
-        <to uri="mock:direct:end"/>
     </route>
 
     <route id="expressionLanguage">
@@ -131,8 +122,6 @@
                 ]]>
             </datasonnet>
         </setBody>
-
-        <to uri="mock:direct:end"/>
     </route>
 
     <route id="nullInput">
@@ -144,8 +133,6 @@
                 }
             </datasonnet>
         </setBody>
-
-        <to uri="mock:direct:end"/>
     </route>
 
 </routes>
