@@ -6,6 +6,7 @@
 
 **Fixed bugs:**
 
+- Azure Storage blob - test failure [\#3655](https://github.com/apache/camel-quarkus/issues/3655)
 - camel-quarkus-openapi-java marking all properties as type object in native mode [\#3606](https://github.com/apache/camel-quarkus/issues/3606)
 - Consul native integration test failure [\#3509](https://github.com/apache/camel-quarkus/issues/3509)
 
@@ -33,6 +34,7 @@
 - AWS Lambda example tests should use mock event server [\#3554](https://github.com/apache/camel-quarkus/issues/3554)
 - Improve slack test coverage [\#3541](https://github.com/apache/camel-quarkus/issues/3541)
 - Cannot build camel-quarkus-ipfs because repository.jboss.org is down [\#3532](https://github.com/apache/camel-quarkus/issues/3532)
+- \[Quarkus 2.8.0\] Leverage Strimzi dev services container in kafka-oauth integration tests [\#3531](https://github.com/apache/camel-quarkus/issues/3531)
 - `FileTest.charset` integration test fails on Windows [\#3530](https://github.com/apache/camel-quarkus/issues/3530)
 - Ban javax.validation in favor of jakarta.validation  [\#3504](https://github.com/apache/camel-quarkus/issues/3504)
 - Camel Rest / Quarkus Swagger UI / Url Issue from Quarkus Version 2.6.x [\#3457](https://github.com/apache/camel-quarkus/issues/3457)
@@ -44,6 +46,8 @@
 
 **Merged pull requests:**
 
+- Stop managing Snappy in Spark BOM, as it is now managed in quarkus-bom [\#3684](https://github.com/apache/camel-quarkus/pull/3684) ([ppalaga](https://github.com/ppalaga))
+- Fix potential Azure Blob test failures when testing against the real service [\#3683](https://github.com/apache/camel-quarkus/pull/3683) ([jamesnetherton](https://github.com/jamesnetherton))
 - paho: Add test coverage for file persistence \#3680 [\#3681](https://github.com/apache/camel-quarkus/pull/3681) ([aldettinger](https://github.com/aldettinger))
 - Improve MicroProfile Fault Tolerance extension test coverage [\#3679](https://github.com/apache/camel-quarkus/pull/3679) ([jamesnetherton](https://github.com/jamesnetherton))
 - More bans [\#3678](https://github.com/apache/camel-quarkus/pull/3678) ([ppalaga](https://github.com/ppalaga))
@@ -85,6 +89,7 @@
 - Fix cassandraql itests failing on quarkus-platform \#3621 [\#3623](https://github.com/apache/camel-quarkus/pull/3623) ([aldettinger](https://github.com/aldettinger))
 - Disable flaky GrpcTest.forwardOnError [\#3622](https://github.com/apache/camel-quarkus/pull/3622) ([jamesnetherton](https://github.com/jamesnetherton))
 - 📝Slack test : update Readme with new Oauth Configuration [\#3620](https://github.com/apache/camel-quarkus/pull/3620) ([zbendhiba](https://github.com/zbendhiba))
+- Kafka Oauth test bump Keycloak container version to 16.1.1 & leverage… [\#3619](https://github.com/apache/camel-quarkus/pull/3619) ([zbendhiba](https://github.com/zbendhiba))
 - Remote println from SQS test [\#3616](https://github.com/apache/camel-quarkus/pull/3616) ([mmuzikar](https://github.com/mmuzikar))
 - Increase FHIR extension test coverage [\#3614](https://github.com/apache/camel-quarkus/pull/3614) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.7.4.Final [\#3613](https://github.com/apache/camel-quarkus/pull/3613) ([zbendhiba](https://github.com/zbendhiba))
