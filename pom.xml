@@ -539,6 +539,8 @@
                             <tm>CAMEL_PROPERTIES_STYLE</tm>
                             <kt>SLASHSTAR_STYLE</kt>
                             <wsdl>XML_STYLE</wsdl>
+                            <ds>SLASHSTAR_STYLE</ds>
+                            <libsonnet>SLASHSTAR_STYLE</libsonnet>
                         </mapping>
                         <headerDefinitions>
                             <headerDefinition>license-properties-headerdefinition.xml</headerDefinition>
