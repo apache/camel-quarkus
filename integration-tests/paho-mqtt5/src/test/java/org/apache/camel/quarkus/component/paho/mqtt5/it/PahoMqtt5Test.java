@@ -20,6 +20,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -30,23 +31,53 @@ import static org.hamcrest.core.Is.is;
 class PahoMqtt5Test {
 
     @ParameterizedTest
-    @ValueSource(strings = { "tcp", "ws" })
+    @ValueSource(strings = { "tcp", "ssl", "ws" })
     public void sendReceive(String protocol) {
         String message = "Hello Camel Quarkus " + protocol;
 
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body(message)
-                .post("/paho-mqtt5/tcp/{queueName}", protocol + "-test-queue")
+                .post("/paho-mqtt5/{protocol}/{queueName}", protocol, protocol + "-test-queue")
                 .then()
                 .statusCode(201);
 
         RestAssured.given()
                 .contentType(ContentType.TEXT)
-                .get("/paho-mqtt5/tcp/{queueName}", protocol + "-test-queue")
+                .get("/paho-mqtt5/{protocol}/{queueName}", protocol, protocol + "-test-queue")
                 .then()
                 .statusCode(200)
                 .body(is(message));
     }
 
+    @Test
+    public void overrideTopic() {
+        String message = "Hello Camel Quarkus Override Topic";
+        String queue = "myoverride";
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(message)
+                .post("/paho-mqtt5/override/" + queue)
+                .then()
+                .statusCode(201);
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .get("/paho-mqtt5/tcp/" + queue)
+                .then()
+                .statusCode(200)
+                .body(is(message));
+    }
+
+    @Test
+    public void readThenWriteWithFilePersistenceShouldSucceed() {
+        String message = "readThenWriteWithFilePersistenceShouldSucceed message content: 762e6af1-3ec7-40e0-9271-0c98a1001728";
+        RestAssured.given()
+                .queryParam("message", message)
+                .get("/paho-mqtt5/readThenWriteWithFilePersistenceShouldSucceed")
+                .then()
+                .statusCode(200)
+                .body(is(message));
+    }
 }
