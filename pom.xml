@@ -673,7 +673,7 @@
                                                 <exclude>commons-logging:commons-logging-api</exclude><!-- use org.jboss.logging:commons-logging-jboss-logging instead of commons-logging and commons-logging-api -->
                                                 <exclude>io.netty:netty-all</exclude><!-- Use more fine grained netty artifacts or even io.quarkus:quarkus-netty instead -->
                                                 <exclude>org.glassfish:javax.json</exclude><!-- use jakarta.json:jakarta.json-api instead -->
-                                                <exclude>org.glassfish:javax.el</exclude><!-- use jakarta.el:jakarta.el-api instead -->
+                                                <exclude>org.glassfish:javax.el</exclude><!-- use org.glassfish:jakarta.el instead (same as Quarkus) -->
                                                 <exclude>jakarta.activation:jakarta.activation-api</exclude><!-- use com.sun.activation:jakarta.activation instead -->
                                                 <exclude>jakarta.json:jakarta.json-api</exclude><!-- use org.glassfish:jakarta.json instead (same as Quarkus) -->
                                                 <exclude>jakarta.xml.bind:jakarta.xml.bind-api</exclude><!-- use org.jboss.spec.javax.xml.bind:jboss-jaxb-api_2.3_spec instead (same as Quarkus) -->
@@ -681,6 +681,7 @@
                                                 <exclude>javax.activation:activation</exclude><!-- use com.sun.activation:jakarta.activation instead -->
                                                 <exclude>javax.activation:javax.activation-api</exclude><!-- use com.sun.activation:jakarta.activation instead -->
                                                 <exclude>javax.annotation:javax.annotation-api</exclude><!-- use jakarta.activation:jakarta.annotation-api instead -->
+                                                <exclude>javax.el:el-api</exclude><!-- use jakarta.el:jakarta.el-api instead -->
                                                 <exclude>javax.enterprise:cdi-api</exclude><!-- use jakarta.enterprise:jakarta.enterprise.cdi-api instead -->
                                                 <exclude>javax.inject:javax.inject</exclude><!-- use jakarta.inject:jakarta.inject-api instead -->
                                                 <exclude>javax:javaee-api</exclude><!-- this is an all-in-one jar; use the individual replacements documented around here -->
