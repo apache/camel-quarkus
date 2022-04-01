@@ -94,14 +94,6 @@
         </transform>
     </route>
 
-    <route id="namedImports">
-        <from uri="direct:namedImports"/>
-        <transform>
-            <datasonnet bodyMediaType="application/json" outputMediaType="application/json"
-                        resultType="java.lang.String">resource:classpath:namedImports.ds</datasonnet>
-        </transform>
-    </route>
-
     <route id="readJava">
         <from uri="direct:readJava"/>
         <transform>

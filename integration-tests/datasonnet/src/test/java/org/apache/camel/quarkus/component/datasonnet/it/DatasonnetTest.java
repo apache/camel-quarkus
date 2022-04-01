@@ -74,21 +74,6 @@ class DatasonnetTest {
     }
 
     @Test
-    public void testNamedImports() throws Exception {
-        final String msg = "{}";
-        final String expected = loadResourceAsString("namedImports_result.json");
-        final String response = RestAssured.given()
-                .contentType(ContentType.JSON)
-                .body(msg)
-                .post("/datasonnet/namedImports")
-                .then()
-                .statusCode(201)
-                .assertThat()
-                .extract().asString();
-        JSONAssert.assertEquals(expected, response, true);
-    }
-
-    @Test
     public void testExpressionLanguage() throws Exception {
         final String msg = "World";
         final String expected = "{ \"test\":\"Hello, World\"}";

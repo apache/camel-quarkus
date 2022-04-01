@@ -37,11 +37,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <additionalClasspathElements>
-                        <additionalClasspathElement>${project.basedir}/src/main/resources/dslibs.jar</additionalClasspathElement>
-                    </additionalClasspathElements>
-                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -61,15 +56,6 @@
                 <version>${quarkus.platform.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-
-            <!-- Needed for DataSonnet functionality testing -->
-            <dependency>
-                <groupId>datasonnet.test</groupId>
-                <artifactId>dslibs</artifactId>
-                <version>0.1</version>
-                <systemPath>${project.basedir}/src/main/resources/dslibs.jar</systemPath>
-                <scope>system</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -119,11 +105,6 @@
             <version>1.5.0</version>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>datasonnet.test</groupId>
-            <artifactId>dslibs</artifactId>
-        </dependency>
     </dependencies>
 
     <profiles>
@@ -142,11 +123,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <additionalClasspathElements>
-                                <additionalClasspathElement>${project.basedir}/src/main/resources/dslibs.jar</additionalClasspathElement>
-                            </additionalClasspathElements>
-                        </configuration>
                         <executions>
                             <execution>
                                 <goals>
