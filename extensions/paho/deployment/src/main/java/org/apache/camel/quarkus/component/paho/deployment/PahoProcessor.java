@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.paho.deployment;
 
+import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.util.ResourceBundle;
@@ -45,6 +46,7 @@ class PahoProcessor {
         p.produce(new ReflectiveClassBuildItem(false, false, ResourceBundle.class));
         p.produce(new ReflectiveClassBuildItem(false, false, FileLock.class));
         p.produce(new ReflectiveClassBuildItem(true, false, FileChannel.class));
+        p.produce(new ReflectiveClassBuildItem(true, false, RandomAccessFile.class));
         p.produce(new ReflectiveClassBuildItem(true, false, "sun.nio.ch.FileLockImpl"));
     }
 
