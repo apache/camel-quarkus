@@ -9793,12 +9793,12 @@
       <dependency>
         <groupId>io.quarkiverse.jgit</groupId>
         <artifactId>quarkus-jgit</artifactId>
-        <version>1.1.0</version>
+        <version>1.2.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jgit</groupId>
         <artifactId>quarkus-jgit-deployment</artifactId>
-        <version>1.1.0</version>
+        <version>1.2.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jsch</groupId>
@@ -10067,7 +10067,7 @@
       <dependency>
         <groupId>org.eclipse.jgit</groupId>
         <artifactId>org.eclipse.jgit</artifactId>
-        <version>6.0.0.202111291000-r</version>
+        <version>6.1.0.202203080745-r</version>
       </dependency>
       <dependency>
         <groupId>org.graalvm.js</groupId>

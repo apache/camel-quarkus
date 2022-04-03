@@ -9808,12 +9808,12 @@
       <dependency>
         <groupId>io.quarkiverse.jgit</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9867 -->
         <artifactId>quarkus-jgit</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9868 -->
-        <version>1.1.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9869 -->
+        <version>1.2.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9869 -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jgit</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9872 -->
         <artifactId>quarkus-jgit-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9873 -->
-        <version>1.1.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9874 -->
+        <version>1.2.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9874 -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jsch</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9877 -->
@@ -10087,7 +10087,7 @@
       <dependency>
         <groupId>org.eclipse.jgit</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10128 -->
         <artifactId>org.eclipse.jgit</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10129 -->
-        <version>6.0.0.202111291000-r</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10130 -->
+        <version>6.1.0.202203080745-r</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10130 -->
       </dependency>
       <dependency>
         <groupId>org.graalvm.js</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10133 -->
