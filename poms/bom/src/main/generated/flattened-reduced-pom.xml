@@ -9829,12 +9829,12 @@
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId>
         <artifactId>quarkus-mybatis</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId>
         <artifactId>quarkus-mybatis-deployment</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.tika</groupId>

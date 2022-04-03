@@ -9844,12 +9844,12 @@
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9897 -->
         <artifactId>quarkus-mybatis</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9898 -->
-        <version>1.0.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9899 -->
+        <version>1.0.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9899 -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9902 -->
         <artifactId>quarkus-mybatis-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9903 -->
-        <version>1.0.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9904 -->
+        <version>1.0.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9904 -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.tika</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9907 -->
