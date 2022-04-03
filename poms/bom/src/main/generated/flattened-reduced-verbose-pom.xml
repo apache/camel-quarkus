@@ -10473,14 +10473,14 @@
         <version>2.17.127</version><!-- software.amazon.awssdk:bom:2.17.127, line 1319 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.qpid</groupId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.32.0, line 48 -->
-        <artifactId>qpid-jms-client</artifactId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.32.0, line 49 -->
-        <version>1.5.0</version><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.32.0, line 50 -->
+        <groupId>org.apache.qpid</groupId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.33.0, line 48 -->
+        <artifactId>qpid-jms-client</artifactId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.33.0, line 49 -->
+        <version>1.6.0</version><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.33.0, line 50 -->
       </dependency>
       <dependency>
-        <groupId>org.amqphub.quarkus</groupId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.32.0, line 56 -->
-        <artifactId>quarkus-qpid-jms</artifactId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.32.0, line 57 -->
-        <version>0.32.0</version><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.32.0, line 58 -->
+        <groupId>org.amqphub.quarkus</groupId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.33.0, line 56 -->
+        <artifactId>quarkus-qpid-jms</artifactId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.33.0, line 57 -->
+        <version>0.33.0</version><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.33.0, line 58 -->
         <exclusions>
           <exclusion>
             <groupId>org.apache.geronimo.specs</groupId>
@@ -10489,9 +10489,9 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.amqphub.quarkus</groupId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.32.0, line 62 -->
-        <artifactId>quarkus-qpid-jms-deployment</artifactId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.32.0, line 63 -->
-        <version>0.32.0</version><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.32.0, line 64 -->
+        <groupId>org.amqphub.quarkus</groupId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.33.0, line 62 -->
+        <artifactId>quarkus-qpid-jms-deployment</artifactId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.33.0, line 63 -->
+        <version>0.33.0</version><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.33.0, line 64 -->
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId><!-- org.eclipse.jetty:jetty-bom:9.4.45.v20220203, line 156 -->
@@ -10749,12 +10749,6 @@
             <artifactId>jsr305</artifactId>
           </exclusion>
         </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.lz4</groupId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.1.2, line 64 -->
-        <artifactId>lz4-java</artifactId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.1.2, line 65 -->
-        <version>1.7.1</version><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.1.2, line 66 -->
-        <optional>true</optional><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.1.2, line 67 -->
       </dependency>
       <dependency>
         <groupId>com.datastax.oss.quarkus</groupId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.1.2, line 107 -->
