@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.xchange.deployment;
 
 import java.lang.reflect.Modifier;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import io.quarkus.bootstrap.model.ApplicationModel;
@@ -91,10 +92,11 @@ class XchangeProcessor {
         reflectiveClass.produce(new ReflectiveClassBuildItem(false, false, xchangeClasses));
 
         // DTO classes need to be serialized / deserialized
+        final Pattern pattern = Pattern.compile("^org\\.knowm\\.xchange.*dto.*");
         String[] dtoClasses = index.getKnownClasses()
                 .stream()
                 .map(classInfo -> classInfo.name().toString())
-                .filter(className -> className.matches("^org\\.knowm\\.xchange.*dto.*"))
+                .filter(className -> pattern.matcher(className).matches())
                 .toArray(String[]::new);
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, dtoClasses));
 

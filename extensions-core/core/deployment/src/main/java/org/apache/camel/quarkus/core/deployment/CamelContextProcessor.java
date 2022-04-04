@@ -20,6 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.BooleanSupplier;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
@@ -111,6 +112,20 @@ public class CamelContextProcessor {
     }
 
     /**
+     * Enable source location if camel.quarkus.source-location-enabled=true
+     *
+     * @param recorder the recorder
+     * @param producer producer of context customizer build item
+     */
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep(onlyIf = SourceLocationEnabled.class)
+    public void enableSourceLocation(
+            CamelContextRecorder recorder,
+            BuildProducer<CamelContextCustomizerBuildItem> producer) {
+        producer.produce(new CamelContextCustomizerBuildItem(recorder.createSourceLocationEnabledCustomizer()));
+    }
+
+    /**
      * Registers Camel CDI event bridges if quarkus.camel.event-bridge.enabled=true and if
      * the relevant events have CDI observers configured for them.
      *
@@ -134,10 +149,11 @@ public class CamelContextProcessor {
         // For management events the event class simple name is collected as users can
         // observe events on either the Camel event interface or the concrete event class, and
         // these are located in different packages
+        final Pattern pattern = Pattern.compile("org.apache.camel(?!.quarkus).*Event$");
         Set<String> observedManagementEvents = beanDiscovery.getObservers()
                 .stream()
                 .map(observerInfo -> observerInfo.getObservedType().name().toString())
-                .filter(className -> className.matches("org.apache.camel(?!.quarkus).*Event$"))
+                .filter(className -> pattern.matcher(className).matches())
                 .map(className -> CamelSupport.loadClass(className, Thread.currentThread().getContextClassLoader()))
                 .map(observedEventClass -> observedEventClass.getSimpleName())
                 .collect(Collectors.collectingAndThen(Collectors.toUnmodifiableSet(), HashSet::new));
@@ -157,6 +173,13 @@ public class CamelContextProcessor {
         @Override
         public boolean getAsBoolean() {
             return config.eventBridge.enabled;
+        }
+    }
+
+    public static final class SourceLocationEnabled implements BooleanSupplier {
+        @Override
+        public boolean getAsBoolean() {
+            return CamelSupport.getOptionalConfigValue("camel.quarkus.source-location-enabled", Boolean.class, false);
         }
     }
 }

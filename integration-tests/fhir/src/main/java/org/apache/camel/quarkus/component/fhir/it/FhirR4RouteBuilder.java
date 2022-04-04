@@ -22,14 +22,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import ca.uhn.fhir.context.FhirContext;
-import ca.uhn.fhir.parser.StrictErrorHandler;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.fhir.FhirJsonDataFormat;
-import org.apache.camel.component.fhir.FhirXmlDataFormat;
 import org.apache.camel.quarkus.component.fhir.FhirFlags;
 
 @ApplicationScoped
-public class FhirR4RouteBuilder extends RouteBuilder {
+public class FhirR4RouteBuilder extends AbstractFhirRouteBuilder {
 
     private static final Boolean ENABLED = new FhirFlags.R4Enabled().getAsBoolean();
 
@@ -38,29 +34,17 @@ public class FhirR4RouteBuilder extends RouteBuilder {
     Instance<FhirContext> fhirContextInstance;
 
     @Override
-    public void configure() {
-        if (ENABLED) {
-            FhirContext fhirContext = fhirContextInstance.get();
-            fhirContext.setParserErrorHandler(new StrictErrorHandler());
+    String getFhirVersion() {
+        return "r4";
+    }
 
-            FhirJsonDataFormat fhirJsonDataFormat = new FhirJsonDataFormat();
-            fhirJsonDataFormat.setFhirContext(fhirContext);
-            fhirJsonDataFormat.setParserErrorHandler(new StrictErrorHandler());
+    @Override
+    FhirContext getFhirContext() {
+        return fhirContextInstance.get();
+    }
 
-            FhirXmlDataFormat fhirXmlDataFormat = new FhirXmlDataFormat();
-            fhirXmlDataFormat.setFhirContext(fhirContext);
-            fhirXmlDataFormat.setParserErrorHandler(new StrictErrorHandler());
-
-            from("direct:json-to-r4")
-                    .unmarshal(fhirJsonDataFormat)
-                    .marshal(fhirJsonDataFormat);
-
-            from("direct:xml-to-r4")
-                    .unmarshal(fhirXmlDataFormat)
-                    .marshal(fhirXmlDataFormat);
-
-            from("direct:create-r4")
-                    .to("fhir://create/resource?inBody=resourceAsString&fhirContext=#R4");
-        }
+    @Override
+    boolean isEnabled() {
+        return ENABLED;
     }
 }

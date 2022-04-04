@@ -23,9 +23,11 @@ public class Fruit {
 
     public String name;
     public String description;
+    public Integer num;
 
-    public Fruit(String name, String description) {
+    public Fruit(String name, String description, Integer num) {
         this.name = name;
         this.description = description;
+        this.num = num;
     }
 }

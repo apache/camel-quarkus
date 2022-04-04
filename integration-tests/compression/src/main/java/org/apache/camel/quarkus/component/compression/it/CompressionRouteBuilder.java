@@ -16,7 +16,12 @@
  */
 package org.apache.camel.quarkus.component.compression.it;
 
+import java.util.Iterator;
+
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.dataformat.zipfile.ZipFileDataFormat;
+import org.apache.camel.processor.aggregate.zipfile.ZipAggregationStrategy;
 
 public class CompressionRouteBuilder extends RouteBuilder {
     @Override
@@ -40,5 +45,27 @@ public class CompressionRouteBuilder extends RouteBuilder {
                 .marshal().lzf();
         from("direct:lzf-uncompress")
                 .unmarshal().lzf();
+
+        // Test routes specific to camel-quarkus-zipfile
+        ZipFileDataFormat zipFileDataformat = new ZipFileDataFormat();
+        zipFileDataformat.setUsingIterator(true);
+
+        from("direct:zipfile-splititerator")
+                .unmarshal(zipFileDataformat)
+                .split(bodyAs(Iterator.class))
+                .streaming()
+                .convertBodyTo(String.class)
+                .to("mock:zipfile-splititerator")
+                .end();
+
+        from("direct:zipfile-aggregate")
+                .aggregate(constant(true), new ZipAggregationStrategy())
+                .completionSize(constant(2))
+                .convertBodyTo(byte[].class)
+                .to("mock:zipfile-aggregate");
+    }
+
+    @RegisterForReflection(targets = { Iterator.class })
+    public class MyReflectionConfiguration {
     }
 }

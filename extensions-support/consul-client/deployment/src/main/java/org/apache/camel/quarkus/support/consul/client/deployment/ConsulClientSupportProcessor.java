@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.support.consul.client.deployment;
 
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -39,6 +40,8 @@ class ConsulClientSupportProcessor {
             "com.google.common.collect.ImmutableList");
     private static final DotName DOT_NAME_IMMUTABLE_MAP = DotName.createSimple(
             "com.google.common.collect.ImmutableMap");
+
+    private static final Pattern CLIENT_API_PATTERN = Pattern.compile("com\\.orbitz\\.consul\\..*Client\\$Api");
 
     @BuildStep
     AdditionalApplicationArchiveMarkerBuildItem applicationArchiveMarkers() {
@@ -68,11 +71,12 @@ class ConsulClientSupportProcessor {
 
     @BuildStep
     void clientProxies(CombinedIndexBuildItem index, BuildProducer<NativeImageProxyDefinitionBuildItem> proxies) {
-        index.getIndex().getAllKnownSubclasses(DotName.createSimple("com.orbitz.consul.BaseClient"))
+        index.getIndex()
+                .getKnownClasses()
                 .stream()
                 .map(ClassInfo::name)
                 .map(DotName::toString)
-                .map(name -> name + "$Api")
+                .filter(className -> CLIENT_API_PATTERN.matcher(className).matches())
                 .map(NativeImageProxyDefinitionBuildItem::new)
                 .forEach(proxies::produce);
     }

@@ -1,0 +1,42 @@
+{
+  "id" : "e4c0ada4-54e1-45fa-b15a-d186df310279",
+  "name" : "conversationshistory",
+  "request" : {
+    "url" : "/api/conversations.history",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalTo" : "channel=test-channel&limit=1&oldest=1615377778.002900&inclusive=0",
+      "caseInsensitive" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"ok\":true,\"messages\":[{\"bot_id\":\"test\",\"type\":\"message\",\"text\":\"Hello Camel Quarkus Slack using Webhook URL\",\"user\":\"test\",\"ts\":\"1615377778.002901\",\"team\":\"test\",\"bot_profile\":{\"id\":\"test\",\"deleted\":false,\"name\":\"API Test\",\"updated\":1615375056,\"app_id\":\"test\",\"icons\":{\"image_36\":\"https:\\/\\/a.slack-edge.com\\/80588\\/img\\/plugins\\/app\\/bot_36.png\",\"image_48\":\"https:\\/\\/a.slack-edge.com\\/80588\\/img\\/plugins\\/app\\/bot_48.png\",\"image_72\":\"https:\\/\\/a.slack-edge.com\\/80588\\/img\\/plugins\\/app\\/service_72.png\"},\"team_id\":\"test\"}}],\"has_more\":true,\"pin_count\":0,\"channel_actions_ts\":null,\"channel_actions_count\":0,\"response_metadata\":{\"next_cursor\":\"bmV4dF90czoxNjE1Mzc3Njk4MDAyODAw\"}}",
+    "headers" : {
+      "date" : "Wed, 10 Mar 2021 12:03:00 GMT",
+      "server" : "Apache",
+      "x-xss-protection" : "0",
+      "pragma" : "no-cache",
+      "cache-control" : "private, no-cache, no-store, must-revalidate",
+      "strict-transport-security" : "max-age=31536000; includeSubDomains; preload",
+      "x-slack-req-id" : "259fe0f01847f6464ccf232065351a82",
+      "x-content-type-options" : "nosniff",
+      "referrer-policy" : "no-referrer",
+      "x-slack-backend" : "r",
+      "x-oauth-scopes" : "incoming-webhook,chat:write,channels:read,groups:read,mpim:read,im:read,channels:history,groups:history,mpim:history,im:history",
+      "x-accepted-oauth-scopes" : "channels:history,groups:history,mpim:history,im:history,read",
+      "expires" : "Mon, 26 Jul 1997 05:00:00 GMT",
+      "vary" : "Accept-Encoding",
+      "content-type" : "application/json; charset=utf-8",
+      "x-envoy-upstream-service-time" : "37",
+      "x-backend" : "main_normal main_canary_with_overflow main_control_with_overflow",
+      "x-server" : "slack-www-hhvm-main-iad-8pvg",
+      "x-via" : "envoy-www-iad-ntq9, haproxy-edge-lhr-ubwz",
+      "x-slack-shared-secret-outcome" : "shared-secret",
+      "via" : "envoy-www-iad-ntq9"
+    }
+  },
+  "uuid" : "e4c0ada4-54e1-45fa-b15a-d186df310279",
+  "persistent" : true,
+  "insertionIndex" : 4
+}

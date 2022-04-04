@@ -22,10 +22,12 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.support.activemq.ActiveMQTestResource;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.StringRegularExpression.matchesRegex;
 
 @QuarkusTest
 @QuarkusTestResource(initArgs = {
@@ -49,6 +51,25 @@ class PahoTest {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .get("/paho/{protocol}/{queueName}", protocol, queueName)
+                .then()
+                .statusCode(200)
+                .body(is(message));
+    }
+
+    @Test
+    public void mqttExceptionDuringReconnectShouldSucceed() {
+        RestAssured.get("/paho/mqttExceptionDuringReconnectShouldSucceed")
+                .then()
+                .statusCode(200)
+                .body(matchesRegex(".+"));
+    }
+
+    @Test
+    public void readThenWriteWithFilePersistenceShouldSucceed() {
+        String message = "readThenWriteWithFilePersistenceShouldSucceed message content: 762e6af1-3ec7-40e0-9271-0c98a1001728";
+        RestAssured.given()
+                .queryParam("message", message)
+                .get("/paho/readThenWriteWithFilePersistenceShouldSucceed")
                 .then()
                 .statusCode(200)
                 .body(is(message));

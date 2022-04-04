@@ -43,10 +43,18 @@
             <artifactId>testcontainers</artifactId>
             <exclusions>
                 <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+                <exclusion>
                     <groupId>org.jetbrains</groupId>
                     <artifactId>annotations</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit4-mock</artifactId>
         </dependency>
     </dependencies>
 </project>

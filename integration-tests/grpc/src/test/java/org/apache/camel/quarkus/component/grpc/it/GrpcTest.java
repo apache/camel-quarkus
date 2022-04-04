@@ -38,6 +38,7 @@ import org.apache.camel.quarkus.component.grpc.it.model.PongResponse;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.quarkus.component.grpc.it.GrpcRoute.GRPC_JWT_SECRET;
@@ -116,6 +117,7 @@ class GrpcTest {
         }
     }
 
+    @Disabled("https://github.com/apache/camel-quarkus/issues/3037")
     @Test
     public void forwardOnError() throws InterruptedException {
         Config config = ConfigProvider.getConfig();

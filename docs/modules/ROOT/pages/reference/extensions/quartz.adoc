@@ -38,3 +38,61 @@ Or add the coordinates to your existing project:
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== Usage
+
+=== Clustering
+
+There are two options how to run Quartz in clustered mode:
+
+==== Quarkus based
+
+This is the preferred option. Follow the https://quarkus.io/guides/quartz[scheduling periodic tasks quartz guide].
+
+- Define database configuration in `application.properties`.
+- Use for example `flyway` to create database tables required for `Quartz`.
+
+===== Quartz based with an Agroal datasource
+
+Follow the http://www.quartz-scheduler.org/documentation/quartz-1.8.6/configuration/ConfigJDBCJobStoreClustering.html#configure-clustering-with-jdbc-jobstore[Configure Clustering with JDBC-JobStore Guide] with different DS configuration:
+
+- Use `quartz.properties` to configure `JobStore`.
+- Define datasource via quarkus (see the https://quarkus.io/guides/datasource[Quarkus datasource documentation)] and use `CamelQuarkusQuartzConnectionProvider` as `ConnectionProvider` in `quartz.properties`:
+
+```
+...
+org.quartz.jobStore.dataSource = myDS
+
+# datasource configuration
+org.quartz.dataSource.myDS.connectionProvider.class = org.apache.camel.quarkus.component.quartz.CamelQuarkusQuartzConnectionProvider
+org.quartz.dataSource.myDSB.dataSourceName = ds_name_if_not_set_default_ds_will_be_used
+```
+
+
+- You can use for example `flyway` to create database tables required for `Quartz`.
+
+===== Quartz based
+
+You can follow the http://www.quartz-scheduler.org/documentation/quartz-1.8.6/configuration/ConfigJDBCJobStoreClustering.html#configure-clustering-with-jdbc-jobstore[Configure Clustering with JDBC-JobStore Guide] without any modification:
+
+```
+...
+org.quartz.jobStore.dataSource = myDS
+
+# datasource configuration
+org.quartz.dataSource.myDS.driver = org.postgresql.Driver
+
+# datasource configuration
+org.quartz.dataSource.myDS.URL=jdbc:postgresql://localhost:5432/default
+org.quartz.dataSource.myDS.user = quarkus
+org.quartz.dataSource.myDS.password = quarkus
+```
+
+
+== Camel Quarkus limitations
+
+=== JDBC Job Store
+
+Quartz's property `org.quartz.jobStore.useProperties` is set to `true` and can not be modified. The value is forced by the Quarkus Quartz extension.
+See the Quartz documentation for more information about `org.quartz.jobStore.useProperties`.
+

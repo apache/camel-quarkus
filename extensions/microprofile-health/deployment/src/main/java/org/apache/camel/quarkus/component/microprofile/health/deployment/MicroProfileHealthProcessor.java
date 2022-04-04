@@ -32,7 +32,6 @@ import org.apache.camel.health.HealthCheck;
 import org.apache.camel.health.HealthCheckRegistry;
 import org.apache.camel.health.HealthCheckRepository;
 import org.apache.camel.impl.health.ConsumersHealthCheckRepository;
-import org.apache.camel.impl.health.ContextHealthCheck;
 import org.apache.camel.impl.health.HealthCheckRegistryRepository;
 import org.apache.camel.impl.health.RoutesHealthCheckRepository;
 import org.apache.camel.quarkus.component.microprofile.health.runtime.CamelMicroProfileHealthConfig;
@@ -116,10 +115,6 @@ class MicroProfileHealthProcessor {
             if (className.equals(HealthCheckRegistryRepository.class.getName())) {
                 // HealthCheckRegistryRepository is created internally by Camel
                 return false;
-            }
-
-            if (className.equals(ContextHealthCheck.class.getName())) {
-                return config.getOptionalValue("camel.health.contextEnabled", boolean.class).orElse(true);
             }
 
             if (className.equals(RoutesHealthCheckRepository.class.getName())) {

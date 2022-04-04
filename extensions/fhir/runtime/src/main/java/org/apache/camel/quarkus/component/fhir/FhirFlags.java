@@ -28,7 +28,23 @@ public final class FhirFlags {
         @Override
         public boolean getAsBoolean() {
             return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.fhir.enable-dstu2", Boolean.class)
-                    .orElse(Boolean.TRUE);
+                    .orElse(Boolean.FALSE);
+        }
+    }
+
+    public static final class Dstu2Hl7OrgEnabled implements BooleanSupplier {
+        @Override
+        public boolean getAsBoolean() {
+            return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.fhir.enable-dstu2_hl7org", Boolean.class)
+                    .orElse(Boolean.FALSE);
+        }
+    }
+
+    public static final class Dstu2_1Enabled implements BooleanSupplier {
+        @Override
+        public boolean getAsBoolean() {
+            return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.fhir.enable-dstu2_1", Boolean.class)
+                    .orElse(Boolean.FALSE);
         }
     }
 
@@ -36,7 +52,7 @@ public final class FhirFlags {
         @Override
         public boolean getAsBoolean() {
             return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.fhir.enable-dstu3", Boolean.class)
-                    .orElse(Boolean.TRUE);
+                    .orElse(Boolean.FALSE);
         }
     }
 
@@ -52,7 +68,7 @@ public final class FhirFlags {
         @Override
         public boolean getAsBoolean() {
             return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.fhir.enable-r5", Boolean.class)
-                    .orElse(Boolean.TRUE);
+                    .orElse(Boolean.FALSE);
         }
     }
 }

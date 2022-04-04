@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: jacksonXml
 cqCamelPartTitle: Jackson XML
-cqCamelPartDescription: Unmarshal a XML payloads to POJOs and back using XMLMapper extension of Jackson.
+cqCamelPartDescription: Unmarshal an XML payloads to POJOs and back using XMLMapper extension of Jackson.
 cqExtensionPageTitle: JacksonXML

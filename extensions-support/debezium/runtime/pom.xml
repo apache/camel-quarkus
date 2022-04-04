@@ -34,18 +34,6 @@
         <camel.quarkus.nativeSince>1.0.0</camel.quarkus.nativeSince>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-bom</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -62,16 +50,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-debezium-common</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.javassist</groupId>
-                    <artifactId>javassist</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>io.debezium</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.debezium</groupId>
@@ -81,6 +59,10 @@
             <groupId>io.debezium</groupId>
             <artifactId>debezium-embedded</artifactId>
             <exclusions>
+                <exclusion>
+                    <groupId>javax.ws.rs</groupId>
+                    <artifactId>javax.ws.rs-api</artifactId>
+                </exclusion>
                 <exclusion>
                     <groupId>org.apache.kafka</groupId>
                     <artifactId>kafka-log4j-appender</artifactId>

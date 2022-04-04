@@ -1,0 +1,25 @@
+= Camel Quarkus 2.8.0 Migration Guide
+
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 2.8.0 & Quarkus 2.8.0.Final.
+
+== Change to default values of `quarkus.camel.fhir.enable` configuration
+
+In previous releases, the FHIR extension default was to enable support for all FHIR versions.
+
+This has now changed. Only the FHIR version that the Camel FHIR component and DataFormat use by default are enabled (R4).
+
+To enable or disable support for the various FHIR versions, you can add some configuration properties to `application.properties`. For example.
+
+```
+quarkus.camel.fhir.enable-dstu2=true
+quarkus.camel.fhir.enable-r4=false
+```
+
+For more information, refer to the xref:reference/extensions/fhir.adoc[Camel Quarkus FHIR Extension] documentation.
+
+== Removal of the weka and ipfs extensions
+
+The weka and ipfs extensions have been removed from this release because of issues related to the build infrastructure.
+Volunteers wishing to maintain those projects are welcome.
+
+For more information, refer to the matching https://github.com/apache/camel-quarkus/issues/3532[github issue].

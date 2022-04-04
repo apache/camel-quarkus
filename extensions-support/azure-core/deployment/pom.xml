@@ -35,12 +35,12 @@
             <artifactId>quarkus-core-deployment</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-jackson-dataformat-xml-deployment</artifactId>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-netty-deployment</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-reactor-netty-deployment</artifactId>
+            <artifactId>camel-quarkus-support-jackson-dataformat-xml-deployment</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>

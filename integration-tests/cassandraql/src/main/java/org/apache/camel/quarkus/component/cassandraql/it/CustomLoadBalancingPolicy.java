@@ -24,19 +24,18 @@ import java.util.concurrent.TimeUnit;
 import com.datastax.oss.driver.api.core.context.DriverContext;
 import com.datastax.oss.driver.api.core.metadata.Node;
 import com.datastax.oss.driver.internal.core.loadbalancing.DefaultLoadBalancingPolicy;
-import edu.umd.cs.findbugs.annotations.NonNull;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
 @RegisterForReflection(fields = false, methods = false)
 public class CustomLoadBalancingPolicy extends DefaultLoadBalancingPolicy {
     private static final CountDownLatch latch = new CountDownLatch(1);
 
-    public CustomLoadBalancingPolicy(@NonNull DriverContext context, @NonNull String profileName) {
+    public CustomLoadBalancingPolicy(DriverContext context, String profileName) {
         super(context, profileName);
     }
 
     @Override
-    public void init(@NonNull Map<UUID, Node> nodes, @NonNull DistanceReporter distanceReporter) {
+    public void init(Map<UUID, Node> nodes, DistanceReporter distanceReporter) {
         super.init(nodes, distanceReporter);
         latch.countDown();
     }

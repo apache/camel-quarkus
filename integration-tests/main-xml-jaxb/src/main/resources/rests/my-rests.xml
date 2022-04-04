@@ -19,12 +19,8 @@
 -->
 <rests xmlns="http://camel.apache.org/schema/spring">
     <rest id="greet" path="/greeting">
-        <get uri="/hello">
-            <route id="rest-route">
-                <setBody>
-                    <constant>Hello World!</constant>
-                </setBody>
-            </route>
+        <get path="/hello">
+            <to uri="direct:greet"/>
         </get>
     </rest>
 </rests>

@@ -21,12 +21,12 @@ import java.util.UUID;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.wiremock.MockServer;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Test;
 
+import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 /**
@@ -47,21 +47,62 @@ class SlackTest {
 
     @Test
     public void testSlackProduceConsumeMessages() {
-        final String message = "Hello Camel Quarkus Slack" + (externalSlackEnabled() ? " " + UUID.randomUUID() : "");
-        RestAssured.given()
+        // sending a message using Token
+        String message = "Hello Camel Quarkus Slack using Token" + (externalSlackEnabled() ? " " + UUID.randomUUID() : "");
+        given()
                 .contentType(ContentType.TEXT)
                 .body(message)
-                .post("/slack/message")
+                .post("/slack/message/token")
                 .then()
                 .statusCode(201);
 
-        RestAssured.get("/slack/messages")
+        given()
+                .contentType(ContentType.JSON)
+                .get("/slack/messages")
                 .then()
                 .statusCode(200)
-                .body(equalTo(message));
+                .body(equalTo(getExpectedResponse(message, 0)));
+
+        // sending a message using Webhook URL
+        message = "Hello Camel Quarkus Slack using Webhook URL" + (externalSlackEnabled() ? " " + UUID.randomUUID() : "");
+
+        given()
+                .contentType(ContentType.TEXT)
+                .body(message)
+                .post("/slack/message/webhook")
+                .then()
+                .statusCode(201);
+
+        given()
+                .contentType(ContentType.JSON)
+                .get("/slack/messages")
+                .then()
+                .statusCode(200)
+                .body(equalTo(getExpectedResponse(message, 0)));
+
+        message = "Hello Camel Quarkus Slack using Blocks" + (externalSlackEnabled() ? " " + UUID.randomUUID() : "");
+
+        // sending message with blocks
+        given()
+                .contentType(ContentType.TEXT)
+                .body(message)
+                .post("/slack/message/block")
+                .then()
+                .statusCode(201);
+
+        given()
+                .contentType(ContentType.JSON)
+                .get("/slack/messages")
+                .then()
+                .statusCode(200)
+                .body(equalTo(getExpectedResponse(message, 3)));
     }
 
     boolean externalSlackEnabled() {
         return !ConfigProvider.getConfig().getOptionalValue("wiremock.url", String.class).isPresent();
+    }
+
+    String getExpectedResponse(String message, int nbBlocks) {
+        return String.format("{\"text\":\"%s\",\"nbBlocks\":%s}", message, nbBlocks);
     }
 }

@@ -23,6 +23,7 @@ import org.apache.camel.util.CollectionHelper;
 import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.TestcontainersConfiguration;
@@ -45,6 +46,8 @@ public class InfinispanServerTestResource implements QuarkusTestResourceLifecycl
                     .withExposedPorts(HOTROD_PORT)
                     .withEnv("USER", USER)
                     .withEnv("PASS", PASS)
+                    .withClasspathResourceMapping("infinispan.xml", "/user-config/infinispan.xml", BindMode.READ_ONLY)
+                    .withCommand("-c", "/user-config/infinispan.xml")
                     .waitingFor(Wait.forListeningPort());
 
             container.start();
@@ -58,7 +61,6 @@ public class InfinispanServerTestResource implements QuarkusTestResourceLifecycl
             Map<String, String> result = CollectionHelper.mapOf(
                     // quarkus
                     "quarkus.infinispan-client.server-list", serverList,
-                    "quarkus.infinispan-client.near-cache-max-entries", "3",
                     "quarkus.infinispan-client.auth-username", USER,
                     "quarkus.infinispan-client.auth-password", PASS,
                     "quarkus.infinispan-client.auth-realm", "default",

@@ -10,7 +10,7 @@ xref:manual::release-guide.adoc[Camel Release guide].
 == Pre release tasks
 
 * When releasing after a recent Quarkus release, check for new releases of third party Quarkus extensions we depend on.
-  They are listed in the https://github.com/apache/camel-quarkus/blob/main/pom.xml#L46-L54[Primary dependencies] section of the top level `pom.xml`.
+  They are listed in the https://github.com/apache/camel-quarkus/blob/main/pom.xml#L48-L61[Primary dependencies] section of the top level `pom.xml`.
   If there are new releases, upgrade the versions accordingly and run `mvn cq:sync-versions -N` from the root directory of the source tree.
 * Close the GitHub release https://github.com/apache/camel-quarkus/milestones[milestone] and assign any remaining issues that aren't covered by the release to the next milestone
 
@@ -58,6 +58,15 @@ $ cd target/checkout
 $ mvn deploy -Papache-release -DskipTests -Denforcer.skip -Dquarkus.build.skip -Dformatter.skip -Dimpsort.skip -Dskip.installyarn -Dskip.yarn -rf :camel-quarkus-openapi-java
 ----
 
+== Close the Apache staging repository
+
+* Login to the https://repository.apache.org[Apache staging repository] using your Apache LDAP credentials.
+* Click on `Staging Repositories`
+* Then select `org.apache.camel-quarkus-xxx` in the list of repositories, where `xxx` represents your `username` and `ip`
+* Click `Close` on the toolbar above
+* This will close the repository from future deployments and make it available for others to view
+* After that, a popup window is created, enter the name and version of the artifact being released in the `Description` field and finally click `Close`
+
 == Next version in Camel Quarkus main branch
 
 If there are no substantial commits in the release branch, which need to get merged/cherry-picked to `main`, you can
@@ -78,6 +87,7 @@ $ git reset upstream/main
 $ mvn release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=$NEXT_SNAPSHOT -B
 $ sed -i "s|<camel.quarkus.jvmSince>[^<]*</camel.quarkus.jvmSince>|<camel.quarkus.jvmSince>$NEXT_RELEASE</camel.quarkus.jvmSince>|" tooling/create-extension-templates/runtime-pom.xml
 $ sed -i "s|<camel.quarkus.nativeSince>[^<]*</camel.quarkus.nativeSince>|<camel.quarkus.nativeSince>$NEXT_RELEASE</camel.quarkus.nativeSince>|" tooling/create-extension-templates/runtime-pom.xml
+$ mvn cq:sync-versions -N
 $ (cd extensions/qute && mvn clean install -Dquickly) # to regen the Qute Camel component metadata
 $ git add -A
 $ git commit -m "Next is $NEXT_RELEASE"
@@ -241,7 +251,9 @@ Check the full [release announcement](https://camel.apache.org/blog/2021/06/came
 
 == Upgrade and tag Examples
 
-When: right after the newest Quarkus Platform becomes available on https://repo1.maven.org/maven2/io/quarkus/platform/quarkus-bom/[Maven Central].
+This section needs to be executed only when a Quarkus Platform release has been published.
+It should be the case most of the time.
+In this case, right after the newest Quarkus Platform becomes available on https://repo1.maven.org/maven2/io/quarkus/platform/quarkus-bom/[Maven Central]:
 
 * Make sure all https://github.com/apache/camel-quarkus-examples/pulls[PRs] against `camel-quarkus-main` branch are merged.
 * Since Camel Quarkus 2.3.0, the examples should use Quarkus Platform BOMs in the `main` branch. To set it do the following:
@@ -308,4 +320,4 @@ In addition to the above, the following is needed:
 
 * https://github.com/apache/camel-quarkus/issues/new[Create a ticket] asking a https://projects.apache.org/committee.html?camel[PMC member] to update the https://reporter.apache.org/addrelease.html?camel[Apache Committee Report Helper]. The ticket title could be as follow.
   Release: The Apache Committee Report Helper should be updated by a PMC member as camel-quarkus-X.Y.Z has been released on YYYY-MM-DD.
-* When writing the release announcement blog post, do not forget to add the release note section in https://github.com/apache/camel-website/tree/main/content/releases/q, and to add the branch for documentation in https://github.com/apache/camel-website/blob/main/antora-playbook.yml[antora-playbook.yml].
+* When writing the release announcement blog post, do not forget to add the release note section in https://github.com/apache/camel-website/tree/main/content/releases/q, and to add the branch for documentation in https://github.com/apache/camel-website/blob/main/antora-playbook-snippets/antora-playbook.yml[antora-playbook.yml].

@@ -39,14 +39,14 @@ An example implementation can be found https://github.com/apache/camel-quarkus/b
 As long as all extensions your application depends on are supported in native mode,
 you should definitely test that your application really works in native mode.
 The test logic defined in JVM mode can then be reused in native mode thanks to inheriting from the respective JVM mode class.
-`@NativeImageTest` annotation is there to instruct the Quarkus JUnit extension to compile the application under test to native image
+`@QuarkusIntegrationTest` annotation is there to instruct the Quarkus JUnit extension to compile the application under test to native image
 and start it before running the tests.
 
 [source,java]
 ----
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 class MyIT extends MyTest {
    ...
 }
@@ -55,13 +55,13 @@ class MyIT extends MyTest {
 An implementation of a native test may help to capture more details https://github.com/apache/camel-quarkus/blob/main/integration-tests/bindy/src/test/java/org/apache/camel/quarkus/component/bindy/it/MessageRecordIT.java[here].
 
 [[jvm-vs-native-tests]]
-== `@QuarkusTest` vs. `@NativeImageTest`
+== `@QuarkusTest` vs. `@QuarkusIntegrationTest`
 
 JVM mode tests annotated with `@QuarkusTest` are executed in the same JVM as the application under test.
 Thanks to that, `@Inject`-ing beans from the application into the test code is possible.
 You can also define new beans or even override the beans from the application using `@javax.enterprise.inject.Alternative` and `@javax.annotation.Priority`.
 
-However all these tricks won't work in native mode tests annotated with `@NativeImageTest`
+However all these tricks won't work in native mode tests annotated with `@QuarkusIntegrationTest`
 because those are executed in a JVM hosted in a process separate from the running native application.
 
 If you ask why, the answer is actually in the previous sentence: a native executable does not need a JVM to run;
@@ -72,6 +72,14 @@ On the other hand, there is no point in compiling tests to native code. So they 
 An important consequence of this setup is that all communication between tests and the application
 must go over network (HTTP/REST, or any other protocol your application speaks)
 or through watching filesystem (log files, etc.) or any other kind of interprocess communication.
+
+`QuarkusIntegrationTest` also provides some additional features that are not available through `@QuarkusTest`.
+
+* In JVM mode it can launch and test the runnable application JAR produced by the Quarkus build.
+* As mentioned above, in native mode it can launch and test the native application produced by the Quarkus build.
+* If a container image was created during the build, then a container is started so that tests can be executed against it.
+
+For more information about `QuarkusIntegrationTest` see the https://quarkus.io/guides/getting-started-testing#quarkus-integration-test[Quarkus testing guide].
 
 == Testing with external services
 

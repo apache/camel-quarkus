@@ -16,10 +16,8 @@
  */
 package org.apache.camel.quarkus.component.consul.it;
 
-import io.quarkus.test.junit.NativeImageTest;
-import org.junit.jupiter.api.Disabled;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
-@Disabled("https://github.com/apache/camel-quarkus/issues/3509")
+@QuarkusIntegrationTest
 class ConsulIT extends ConsulTest {
 }

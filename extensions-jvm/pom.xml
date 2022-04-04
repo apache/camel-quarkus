@@ -68,6 +68,7 @@
         <module>flink</module>
         <module>ganglia</module>
         <module>google-functions</module>
+        <module>google-secret-manager</module>
         <module>groovy</module>
         <module>groovy-dsl</module>
         <module>guava-eventbus</module>
@@ -129,6 +130,13 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-bom</artifactId>
+                <version>${quarkus.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-bom</artifactId>

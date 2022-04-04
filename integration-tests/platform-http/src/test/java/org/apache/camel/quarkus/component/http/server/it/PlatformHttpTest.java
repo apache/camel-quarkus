@@ -69,11 +69,11 @@ class PlatformHttpTest {
     @Test
     public void rest() throws Throwable {
         RestAssured.get("/my-context/platform-http/rest-get")
-                .then().body(equalTo("GET: /rest-get"));
+                .then().body(equalTo("GET: /my-context/platform-http/rest-get"));
         RestAssured.given()
                 .contentType("text/plain")
                 .post("/my-context/platform-http/rest-post")
-                .then().body(equalTo("POST: /rest-post"));
+                .then().body(equalTo("POST: /my-context/platform-http/rest-post"));
     }
 
     @Test

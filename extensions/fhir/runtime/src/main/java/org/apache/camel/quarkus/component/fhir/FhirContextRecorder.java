@@ -31,6 +31,18 @@ public class FhirContextRecorder {
         return new RuntimeValue<>(fhirContext);
     }
 
+    public RuntimeValue<FhirContext> createDstu2Hl7OrgFhirContext(Collection<String> resourceDefinitions) {
+        FhirContext fhirContext = FhirContext.forDstu2Hl7Org();
+        initContext(resourceDefinitions, fhirContext);
+        return new RuntimeValue<>(fhirContext);
+    }
+
+    public RuntimeValue<?> createDstu2_1FhirContext(Collection<String> resourceDefinitions) {
+        FhirContext fhirContext = FhirContext.forDstu2_1();
+        initContext(resourceDefinitions, fhirContext);
+        return new RuntimeValue<>(fhirContext);
+    }
+
     public RuntimeValue<FhirContext> createDstu3FhirContext(Collection<String> resourceDefinitions) {
         FhirContext fhirContext = FhirContext.forDstu3();
         initContext(resourceDefinitions, fhirContext);

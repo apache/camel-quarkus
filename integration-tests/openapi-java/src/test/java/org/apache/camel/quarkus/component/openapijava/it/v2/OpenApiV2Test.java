@@ -136,4 +136,20 @@ public class OpenApiV2Test extends OpenApiTest {
                         "basePath", is("/api"),
                         "schemes", contains("http", "https"));
     }
+
+    @ParameterizedTest
+    @EnumSource(OpenApiContentType.class)
+    public void openApiDefinitions(OpenApiContentType contentType) {
+        RestAssured.given()
+                .header("Accept", contentType.getMimeType())
+                .get("/openapi")
+                .then()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .body(
+                        "definitions.Fruit.type", is("object"),
+                        "definitions.Fruit.properties.name.type", is("string"),
+                        "definitions.Fruit.properties.description.type", is("string"),
+                        "definitions.Fruit.properties.num.type", is("integer"));
+    }
 }

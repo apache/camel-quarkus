@@ -26,11 +26,13 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
+import org.eclipse.paho.client.mqttv3.MqttException;
 
 @Path("/paho")
 @ApplicationScoped
@@ -72,5 +74,25 @@ public class PahoResource {
     public Response producePahoWsMessage(@PathParam("queueName") String queueName, String message) throws Exception {
         producerTemplate.sendBody("paho:" + queueName + "?retained=true&brokerUrl={{broker-url.ws}}", message);
         return Response.created(new URI("https://camel.apache.org/")).build();
+    }
+
+    /**
+     * This method simulates the case where an MqqtException is thrown during a reconnection attempt
+     * in the MqttCallbackExtended instance set by the PahoConsumer on endpoint startup.
+     */
+    @Path("/mqttExceptionDuringReconnectShouldSucceed")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String mqttExceptionDuringReconnectShouldSucceed() {
+        MqttException mqex = new MqttException(MqttException.REASON_CODE_BROKER_UNAVAILABLE);
+        return mqex.getMessage();
+    }
+
+    @Path("/readThenWriteWithFilePersistenceShouldSucceed")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String readThenWriteWithFilePersistenceShouldSucceed(@QueryParam("message") String message) throws Exception {
+        producerTemplate.requestBody("paho:withFilePersistence?retained=true&cleanSession=false&persistence=FILE", message);
+        return consumerTemplate.receiveBody("paho:withFilePersistence?cleanSession=false&persistence=FILE", 5000, String.class);
     }
 }

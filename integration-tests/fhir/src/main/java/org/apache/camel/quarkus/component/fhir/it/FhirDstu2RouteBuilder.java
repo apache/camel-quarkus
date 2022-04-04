@@ -22,14 +22,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import ca.uhn.fhir.context.FhirContext;
-import ca.uhn.fhir.parser.StrictErrorHandler;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.fhir.FhirJsonDataFormat;
-import org.apache.camel.component.fhir.FhirXmlDataFormat;
 import org.apache.camel.quarkus.component.fhir.FhirFlags;
 
 @ApplicationScoped
-public class FhirDstu2RouteBuilder extends RouteBuilder {
+public class FhirDstu2RouteBuilder extends AbstractFhirRouteBuilder {
 
     private static final Boolean ENABLED = new FhirFlags.Dstu2Enabled().getAsBoolean();
 
@@ -38,29 +34,17 @@ public class FhirDstu2RouteBuilder extends RouteBuilder {
     Instance<FhirContext> fhirContextInstance;
 
     @Override
-    public void configure() {
-        if (ENABLED) {
-            FhirContext fhirContext = fhirContextInstance.get();
-            fhirContext.setParserErrorHandler(new StrictErrorHandler());
+    String getFhirVersion() {
+        return "dstu2";
+    }
 
-            FhirJsonDataFormat fhirJsonDataFormat = new FhirJsonDataFormat();
-            fhirJsonDataFormat.setFhirContext(fhirContext);
-            fhirJsonDataFormat.setParserErrorHandler(new StrictErrorHandler());
+    @Override
+    FhirContext getFhirContext() {
+        return fhirContextInstance.get();
+    }
 
-            FhirXmlDataFormat fhirXmlDataFormat = new FhirXmlDataFormat();
-            fhirXmlDataFormat.setFhirContext(fhirContext);
-            fhirXmlDataFormat.setParserErrorHandler(new StrictErrorHandler());
-
-            from("direct:json-to-dstu2")
-                    .unmarshal(fhirJsonDataFormat)
-                    .marshal(fhirJsonDataFormat);
-
-            from("direct:xml-to-dstu2")
-                    .unmarshal(fhirXmlDataFormat)
-                    .marshal(fhirXmlDataFormat);
-
-            from("direct:create-dstu2")
-                    .to("fhir://create/resource?inBody=resourceAsString&fhirContext=#DSTU2");
-        }
+    @Override
+    boolean isEnabled() {
+        return ENABLED;
     }
 }

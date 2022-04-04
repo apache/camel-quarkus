@@ -43,41 +43,29 @@ public class RestRoutes extends RouteBuilder {
         rest("/rest")
                 .delete()
                 .produces("text/plain")
-                .route()
-                .setBody(constant("DELETE: /rest"))
-                .endRest()
+                .to("direct:echoMethodPath")
 
                 .get()
                 .produces("text/plain")
-                .route()
-                .setBody(constant("GET: /rest"))
-                .endRest()
+                .to("direct:echoMethodPath")
 
                 .head()
-                .route()
-                .setHeader(Exchange.CONTENT_TYPE).constant("text/plain")
-                .endRest()
+                .to("direct:contentTypeText")
 
                 .patch()
                 .consumes("text/plain")
                 .produces("text/plain")
-                .route()
-                .setBody(simple("${body}: /rest"))
-                .endRest()
+                .to("direct:echoBodyPath")
 
                 .post()
                 .consumes("text/plain")
                 .produces("text/plain")
-                .route()
-                .setBody(simple("${body}: /rest"))
-                .endRest()
+                .to("direct:echoBodyPath")
 
                 .put()
                 .consumes("text/plain")
                 .produces("text/plain")
-                .route()
-                .setBody(simple("${body}: /rest"))
-                .endRest()
+                .to("direct:echoBodyPath")
 
                 .post("/validation")
                 .clientRequestValidation(true)
@@ -85,55 +73,67 @@ public class RestRoutes extends RouteBuilder {
                 .param().name("messageMiddle").type(RestParamType.body).required(true).endParam()
                 .param().name("messageEnd").type(RestParamType.header).required(true).endParam()
                 .param().name("unused").type(RestParamType.formData).required(false).endParam()
-                .route()
-                .setBody(simple("${header.messageStart} ${body} ${header.messageEnd}"))
-                .endRest()
+                .to("direct:greetWithBody")
 
                 .get("/template/{messageStart}/{messageEnd}")
-                .route()
-                .setBody(simple("${header.messageStart} ${header.messageEnd}"))
-                .endRest()
+                .to("direct:greet")
 
                 .post("/pojo/binding/json")
                 .bindingMode(RestBindingMode.json)
                 .type(Person.class)
                 .produces(MediaType.TEXT_PLAIN)
-                .route()
-                .setBody(simple("Name: ${body.firstName} ${body.lastName}, Age: ${body.age}"))
-                .setHeader(Exchange.CONTENT_TYPE, constant("text/plain"))
-                .endRest()
+                .to("direct:personString")
 
                 .get("/binding/json/producer")
-                .route()
-                .setBody(constant(PERSON_JSON))
-                .endRest()
+                .to("direct:personJson")
 
                 .post("/pojo/binding/xml")
                 .bindingMode(RestBindingMode.xml)
                 .type(Person.class)
                 .produces(MediaType.TEXT_PLAIN)
-                .route()
-                .setBody(simple("Name: ${body.firstName} ${body.lastName}, Age: ${body.age}"))
-                .setHeader(Exchange.CONTENT_TYPE, constant("text/plain"))
-                .endRest()
+                .to("direct:personString")
 
                 .get("/binding/xml/producer")
-                .route()
-                .setBody(constant(PERSON_XML))
-                .endRest()
+                .to("direct:personXml")
 
                 .post("/log")
-                .route()
-                .log("Hello ${body}")
-                .endRest()
+                .to("direct:hello")
 
                 .verb("head", "/custom/verb")
-                .route()
-                .setHeader(Exchange.CONTENT_TYPE, constant("text/plain"))
-                .endRest()
+                .to("direct:contentTypeText")
 
                 .post("/multipart/upload")
-                .route()
+                .to("direct:processAttachments");
+
+        from("direct:echoMethodPath")
+                .setBody().simple("${header.CamelHttpMethod}: ${header.CamelHttpPath}");
+
+        from("direct:echoBodyPath")
+                .setBody().simple("${body}: ${header.CamelHttpPath}");
+
+        from("direct:greetWithBody")
+                .setBody(simple("${header.messageStart} ${body} ${header.messageEnd}"));
+
+        from("direct:greet")
+                .setBody(simple("${header.messageStart} ${header.messageEnd}"));
+
+        from("direct:hello")
+                .log("Hello ${body}");
+
+        from("direct:personString")
+                .setHeader(Exchange.CONTENT_TYPE, constant("text/plain"))
+                .setBody().simple("Name: ${body.firstName} ${body.lastName}, Age: ${body.age}");
+
+        from("direct:personJson")
+                .setBody().constant(PERSON_JSON);
+
+        from("direct:personXml")
+                .setBody().constant(PERSON_XML);
+
+        from("direct:contentTypeText")
+                .setHeader(Exchange.CONTENT_TYPE).constant("text/plain");
+
+        from("direct:processAttachments")
                 .process(exchange -> {
                     AttachmentMessage attachmentMessage = exchange.getMessage(AttachmentMessage.class);
                     Map<String, DataHandler> attachments = attachmentMessage.getAttachments();
@@ -143,7 +143,6 @@ public class RestRoutes extends RouteBuilder {
                     } else {
                         exchange.getMessage().setBody("0");
                     }
-                })
-                .endRest();
+                });
     }
 }

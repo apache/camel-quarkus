@@ -61,7 +61,7 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-undertow-websockets</artifactId>
+            <artifactId>quarkus-websockets</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -90,6 +90,18 @@
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit4-mock</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <!-- test dependencies - camel-quarkus -->

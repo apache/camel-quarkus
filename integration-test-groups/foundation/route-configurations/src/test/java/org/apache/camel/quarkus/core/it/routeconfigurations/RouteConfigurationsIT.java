@@ -16,8 +16,8 @@
  */
 package org.apache.camel.quarkus.core.it.routeconfigurations;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class RouteConfigurationsIT extends RouteConfigurationsTest {
 }

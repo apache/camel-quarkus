@@ -92,4 +92,20 @@ public class OpenApiV3Test extends OpenApiTest {
                 .statusCode(200)
                 .body("servers[0].url", is("http://localhost:8080/api"));
     }
+
+    @ParameterizedTest
+    @EnumSource(OpenApiContentType.class)
+    public void openApiComponents(OpenApiContentType contentType) {
+        RestAssured.given()
+                .header("Accept", contentType.getMimeType())
+                .get("/openapi")
+                .then()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .body(
+                        "components.schemas.Fruit.type", is("object"),
+                        "components.schemas.Fruit.properties.name.type", is("string"),
+                        "components.schemas.Fruit.properties.description.type", is("string"),
+                        "components.schemas.Fruit.properties.num.type", is("integer"));
+    }
 }

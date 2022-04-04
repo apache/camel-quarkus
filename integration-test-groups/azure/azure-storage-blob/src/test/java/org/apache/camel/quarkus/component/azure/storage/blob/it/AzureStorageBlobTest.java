@@ -27,13 +27,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import com.azure.core.http.policy.HttpLogDetailLevel;
-import com.azure.core.http.policy.HttpLogOptions;
-import com.azure.storage.blob.BlobContainerClient;
-import com.azure.storage.blob.BlobServiceClient;
-import com.azure.storage.blob.BlobServiceClientBuilder;
 import com.azure.storage.blob.models.BlockListType;
-import com.azure.storage.common.StorageSharedKeyCredential;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -49,6 +43,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.shaded.org.awaitility.Awaitility;
 
+import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.StringEndsWith.endsWith;
@@ -65,31 +60,26 @@ class AzureStorageBlobTest {
 
     @BeforeAll
     static void beforeAll() {
-        getClient().create();
+        final Config config = ConfigProvider.getConfig();
+        String containerName = config.getValue("azure.blob.container.name", String.class);
+        int port = config.getValue("quarkus.http.test-port", int.class);
+        RestAssured.port = port;
+        RestAssured.given()
+                .queryParam("containerName", containerName)
+                .post("/azure-storage-blob/blob/container")
+                .then()
+                .statusCode(201);
     }
 
     @AfterAll
     static void afterAll() {
-        getClient().delete();
-    }
-
-    private static BlobContainerClient getClient() {
         final Config config = ConfigProvider.getConfig();
-        final String azureStorageAccountName = config.getValue("azure.storage.account-name",
-                String.class);
-        final String azureStorageAccountKey = config
-                .getValue("azure.storage.account-key", String.class);
-
-        StorageSharedKeyCredential credentials = new StorageSharedKeyCredential(azureStorageAccountName,
-                azureStorageAccountKey);
-        BlobServiceClient client = new BlobServiceClientBuilder()
-                .endpoint(config.getValue("azure.blob.service.url", String.class))
-                .credential(credentials)
-                .httpLogOptions(new HttpLogOptions().setLogLevel(HttpLogDetailLevel.BODY_AND_HEADERS).setPrettyPrintBody(true))
-                .buildClient();
-
         String containerName = config.getValue("azure.blob.container.name", String.class);
-        return client.getBlobContainerClient(containerName);
+        RestAssured.given()
+                .queryParam("containerName", containerName)
+                .delete("/azure-storage-blob/blob/container")
+                .then()
+                .statusCode(204);
     }
 
     @Test
@@ -132,7 +122,7 @@ class AzureStorageBlobTest {
             // Delete
             RestAssured.delete("/azure-storage-blob/blob/delete")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 
@@ -177,7 +167,7 @@ class AzureStorageBlobTest {
             // Delete
             RestAssured.delete("/azure-storage-blob/blob/delete")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 
@@ -235,7 +225,7 @@ class AzureStorageBlobTest {
             // Delete
             RestAssured.delete("/azure-storage-blob/blob/delete")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 
@@ -269,7 +259,7 @@ class AzureStorageBlobTest {
             // Delete
             RestAssured.delete("/azure-storage-blob/blob/delete")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 
@@ -363,13 +353,13 @@ class AzureStorageBlobTest {
             // Delete
             RestAssured.delete("/azure-storage-blob/blob/delete")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 
     @Test
     public void blobContainer() {
-        String alternativeContainerName = "cq-test-" + UUID.randomUUID();
+        String alternativeContainerName = "camel-quarkus-" + UUID.randomUUID();
 
         try {
             // Create
@@ -392,13 +382,13 @@ class AzureStorageBlobTest {
                     .queryParam("containerName", alternativeContainerName)
                     .delete("/azure-storage-blob/blob/container")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 
     @Test
     public void copyBlob() {
-        String alternativeContainerName = "cq-test-" + UUID.randomUUID();
+        String alternativeContainerName = "camel-quarkus-" + UUID.randomUUID();
 
         try {
             // Create container to copy to
@@ -454,7 +444,7 @@ class AzureStorageBlobTest {
 
             RestAssured.delete("/azure-storage-blob/blob/delete")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 
@@ -523,7 +513,7 @@ class AzureStorageBlobTest {
         } finally {
             RestAssured.delete("/azure-storage-blob/blob/delete")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 }

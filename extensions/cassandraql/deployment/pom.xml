@@ -45,12 +45,6 @@
         <dependency>
             <groupId>com.datastax.oss.quarkus</groupId>
             <artifactId>cassandra-quarkus-client-deployment</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.quarkus</groupId>
-                    <artifactId>quarkus-vertx-core-deployment</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>

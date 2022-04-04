@@ -16,7 +16,9 @@
  */
 package org.apache.camel.quarkus.component.kafka.deployment;
 
+import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.deployment.Capabilities;
@@ -24,19 +26,28 @@ import io.quarkus.deployment.Capability;
 import io.quarkus.deployment.IsNormal;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.DevServicesLauncherConfigResultBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.RunTimeConfigurationDefaultBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.dev.devservices.GlobalDevServicesConfig;
 import io.quarkus.kafka.client.deployment.KafkaBuildTimeConfig;
 import org.apache.camel.quarkus.component.kafka.KafkaClientFactoryProducer;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.DotName;
+import org.jboss.jandex.IndexView;
 
 class KafkaProcessor {
     private static final String FEATURE = "camel-kafka";
     private static final String CAMEL_KAFKA_BROKERS = "camel.component.kafka.brokers";
     private static final String KAFKA_BOOTSTRAP_SERVERS = "kafka.bootstrap.servers";
+    private static final DotName[] KAFKA_CLIENTS_TYPES = {
+            DotName.createSimple("org.apache.kafka.clients.producer.Producer"),
+            DotName.createSimple("org.apache.kafka.clients.consumer.Consumer")
+    };
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -67,5 +78,20 @@ class KafkaProcessor {
                 runTimeConfig.produce(new RunTimeConfigurationDefaultBuildItem(CAMEL_KAFKA_BROKERS, kafkaBootstrapServers));
             }
         }
+    }
+
+    @BuildStep
+    public void reflectiveClasses(CombinedIndexBuildItem combinedIndex,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+        IndexView index = combinedIndex.getIndex();
+
+        Stream.of(KAFKA_CLIENTS_TYPES)
+                .map(index::getAllKnownImplementors)
+                .flatMap(Collection::stream)
+                .map(ClassInfo::toString)
+                .forEach(name -> reflectiveClass.produce(new ReflectiveClassBuildItem(false, true, name)));
+
+        reflectiveClass
+                .produce(new ReflectiveClassBuildItem(false, true, "org.apache.kafka.clients.producer.internals.Sender"));
     }
 }

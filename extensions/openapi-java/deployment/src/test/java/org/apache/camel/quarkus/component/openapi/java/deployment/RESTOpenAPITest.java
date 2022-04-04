@@ -17,7 +17,6 @@
 
 package org.apache.camel.quarkus.component.openapi.java.deployment;
 
-import java.io.File;
 import java.util.Arrays;
 
 import io.quarkus.bootstrap.model.AppArtifact;
@@ -41,7 +40,8 @@ public class RESTOpenAPITest {
             .withConfigurationResource("application.properties")
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addClasses(RestRoutes.class, QuarkusResource.class)
-                    .addAsResource(new File("src/test/resources/routes/my-route.xml"), "routes/my-route.xml"));
+                    .addAsResource("routes/rests.xml", "routes/rests.xml")
+                    .addAsResource("routes/routes.xml", "routes/routes.xml"));
 
     @BeforeAll
     static void setUp() {
