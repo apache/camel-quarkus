@@ -44,7 +44,7 @@ import org.junit.jupiter.api.Test;
 import org.testcontainers.shaded.org.awaitility.Awaitility;
 
 import static org.hamcrest.Matchers.anyOf;
-import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.StringEndsWith.endsWith;
 import static org.hamcrest.text.MatchesPattern.matchesPattern;
@@ -375,7 +375,7 @@ class AzureStorageBlobTest {
                     .then()
                     .statusCode(200)
                     .body("containers.name",
-                            containsInAnyOrder(containerName, alternativeContainerName));
+                            hasItems(containerName, alternativeContainerName));
         } finally {
             // Delete
             RestAssured.given()
@@ -404,7 +404,7 @@ class AzureStorageBlobTest {
                     .then()
                     .statusCode(200)
                     .body("containers.name",
-                            containsInAnyOrder(containerName, alternativeContainerName));
+                            hasItems(containerName, alternativeContainerName));
 
             // Create blob in first container
             RestAssured.given()
