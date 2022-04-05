@@ -10222,54 +10222,64 @@
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10264 -->
-        <artifactId>spring-messaging</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10265 -->
+        <artifactId>spring-jdbc</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10265 -->
         <version>5.3.16</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10266 -->
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10269 -->
-        <artifactId>spring-tx</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10270 -->
+        <artifactId>spring-messaging</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10270 -->
         <version>5.3.16</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10271 -->
       </dependency>
       <dependency>
-        <groupId>org.threeten</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10274 -->
-        <artifactId>threetenbp</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10275 -->
-        <version>1.4.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10276 -->
+        <groupId>org.springframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10274 -->
+        <artifactId>spring-orm</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10275 -->
+        <version>5.3.16</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10276 -->
       </dependency>
       <dependency>
-        <groupId>org.web3j</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10279 -->
-        <artifactId>core</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10280 -->
-        <version>3.6.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10281 -->
+        <groupId>org.springframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10279 -->
+        <artifactId>spring-tx</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10280 -->
+        <version>5.3.16</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10281 -->
       </dependency>
       <dependency>
-        <groupId>org.web3j</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10284 -->
-        <artifactId>geth</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10285 -->
-        <version>3.6.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10286 -->
+        <groupId>org.threeten</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10284 -->
+        <artifactId>threetenbp</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10285 -->
+        <version>1.4.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10286 -->
       </dependency>
       <dependency>
         <groupId>org.web3j</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10289 -->
-        <artifactId>parity</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10290 -->
+        <artifactId>core</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10290 -->
         <version>3.6.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10291 -->
       </dependency>
       <dependency>
         <groupId>org.web3j</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10294 -->
-        <artifactId>quorum</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10295 -->
-        <version>0.8.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10296 -->
+        <artifactId>geth</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10295 -->
+        <version>3.6.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10296 -->
       </dependency>
       <dependency>
-        <groupId>xalan</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10299 -->
-        <artifactId>xalan</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10300 -->
-        <version>2.7.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10301 -->
+        <groupId>org.web3j</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10299 -->
+        <artifactId>parity</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10300 -->
+        <version>3.6.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10301 -->
+      </dependency>
+      <dependency>
+        <groupId>org.web3j</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10304 -->
+        <artifactId>quorum</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10305 -->
+        <version>0.8.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10306 -->
+      </dependency>
+      <dependency>
+        <groupId>xalan</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10309 -->
+        <artifactId>xalan</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10310 -->
+        <version>2.7.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10311 -->
         <exclusions>
           <exclusion>
-            <groupId>xml-apis</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10304 -->
-            <artifactId>xml-apis</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10305 -->
+            <groupId>xml-apis</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10314 -->
+            <artifactId>xml-apis</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10315 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>xerces</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10310 -->
-        <artifactId>xercesImpl</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10311 -->
-        <version>2.12.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10312 -->
+        <groupId>xerces</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10320 -->
+        <artifactId>xercesImpl</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10321 -->
+        <version>2.12.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.7.2-SNAPSHOT, line 10322 -->
       </dependency>
       <dependency>
         <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.8, line 839 -->
