@@ -527,4 +527,32 @@ class AzureStorageBlobTest {
                     .statusCode(anyOf(is(204), is(404)));
         }
     }
+
+    // Can only use the Camel component managed blob client with the real Azure service
+    @EnabledIf({ MockBackendDisabled.class })
+    @Test
+    public void readWithManagedClient() {
+        try {
+            // Create
+            RestAssured.given()
+                    .contentType(ContentType.TEXT)
+                    .body(BLOB_CONTENT)
+                    .post("/azure-storage-blob/blob/create")
+                    .then()
+                    .statusCode(201);
+
+            // Read
+            RestAssured.given()
+                    .queryParam("uri", "direct:readWithManagedClient")
+                    .get("/azure-storage-blob/blob/read")
+                    .then()
+                    .statusCode(200)
+                    .body(is(BLOB_CONTENT));
+        } finally {
+            // Delete
+            RestAssured.delete("/azure-storage-blob/blob/delete")
+                    .then()
+                    .statusCode(anyOf(is(204), is(404)));
+        }
+    }
 }
