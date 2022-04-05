@@ -327,6 +327,12 @@
                 <artifactId>aws-java-sdk-core</artifactId>
                 <version>${aws-java-sdk.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.icegreen</groupId>
+                <artifactId>greenmail</artifactId>
+                <version>${greenmail.version}</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
