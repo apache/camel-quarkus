@@ -113,15 +113,21 @@ public class AzureStorageBlobResource {
     @Path("/blob/read")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String readBlob(@QueryParam("containerName") String containerName) {
+    public String readBlob(
+            @QueryParam("containerName") String containerName,
+            @QueryParam("uri") String uri) {
         if (containerName == null) {
             containerName = azureBlobContainerName;
+        }
+
+        if (uri == null) {
+            uri = "direct:read";
         }
 
         Map<String, Object> headers = new HashMap<>();
         headers.put(Exchange.CHARSET_NAME, StandardCharsets.UTF_8.name());
         headers.put(BlobConstants.BLOB_CONTAINER_NAME, containerName);
-        return producerTemplate.requestBodyAndHeaders("direct:read", null, headers, String.class);
+        return producerTemplate.requestBodyAndHeaders(uri, null, headers, String.class);
     }
 
     @Path("/blob/read/bytes")

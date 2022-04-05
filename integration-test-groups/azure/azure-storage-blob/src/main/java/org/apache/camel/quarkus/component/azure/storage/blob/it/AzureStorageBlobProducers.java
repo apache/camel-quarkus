@@ -23,6 +23,7 @@ import com.azure.core.http.policy.HttpLogOptions;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
 import com.azure.storage.common.StorageSharedKeyCredential;
+import org.apache.camel.component.azure.storage.blob.BlobComponent;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 public class AzureStorageBlobProducers {
@@ -45,5 +46,12 @@ public class AzureStorageBlobProducers {
                 .credential(credentials)
                 .httpLogOptions(new HttpLogOptions().setLogLevel(HttpLogDetailLevel.BODY_AND_HEADERS).setPrettyPrintBody(true))
                 .buildClient();
+    }
+
+    @Named("azure-storage-blob-managed-client")
+    public BlobComponent azureBlobComponentWithManagedClient() {
+        BlobComponent component = new BlobComponent();
+        component.setAutowiredEnabled(false);
+        return component;
     }
 }
