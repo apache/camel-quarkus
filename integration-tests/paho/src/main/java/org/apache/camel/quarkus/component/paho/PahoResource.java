@@ -92,7 +92,7 @@ public class PahoResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String readThenWriteWithFilePersistenceShouldSucceed(@QueryParam("message") String message) throws Exception {
-        producerTemplate.requestBody("paho:withFilePersistence?retained=true&cleanSession=false&persistence=FILE", message);
-        return consumerTemplate.receiveBody("paho:withFilePersistence?cleanSession=false&persistence=FILE", 5000, String.class);
+        producerTemplate.requestBody("paho:withFilePersistence?retained=true&persistence=FILE", message);
+        return consumerTemplate.receiveBody("paho:withFilePersistence?persistence=FILE", 5000, String.class);
     }
 }
