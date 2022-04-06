@@ -47,18 +47,18 @@
         <camel.sb.docs.branch>camel-spring-boot-${camel.major.minor}.x</camel.sb.docs.branch><!-- The stable camel-spring-boot branch on which our Antora docs depends -->
         <cassandra-quarkus.version>1.1.2</cassandra-quarkus.version><!-- https://repo1.maven.org/maven2/com/datastax/oss/quarkus/cassandra-quarkus-bom/ -->
         <debezium.version>1.6.1.Final</debezium.version><!-- May go back to Camel's ${debezium-version} when they are in sync https://repo1.maven.org/maven2/io/debezium/debezium-bom/ -->
-        <optaplanner.version>8.18.0.Final</optaplanner.version><!-- May go back to Camel's ${optaplanner-version} when they are in sync https://repo1.maven.org/maven2/org/optaplanner/optaplanner-quarkus/ -->
+        <optaplanner.version>8.19.0.Final</optaplanner.version><!-- May go back to Camel's ${optaplanner-version} when they are in sync https://repo1.maven.org/maven2/org/optaplanner/optaplanner-quarkus/ -->
         <quarkiverse-amazonservices.version>1.0.5</quarkiverse-amazonservices.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/amazonservices/quarkus-amazon-services-parent/ -->
         <quarkiverse-artemis.version>1.0.4</quarkiverse-artemis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/artemis/quarkus-artemis-parent/ -->
         <quarkiverse-freemarker.version>0.3.0</quarkiverse-freemarker.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/freemarker/quarkus-freemarker-parent/ -->
-        <quarkiverse-jgit.version>1.1.0</quarkiverse-jgit.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jgit/quarkus-jgit-parent/ -->
+        <quarkiverse-jgit.version>1.2.0</quarkiverse-jgit.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jgit/quarkus-jgit-parent/ -->
         <quarkiverse-jsch.version>1.0.0</quarkiverse-jsch.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jsch/quarkus-jsch-parent/ -->
         <quarkiverse-minio.version>2.3.0</quarkiverse-minio.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/minio/quarkus-minio-parent/ -->
-        <quarkiverse-mybatis.version>1.0.1</quarkiverse-mybatis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/mybatis/quarkus-mybatis-parent/ -->
+        <quarkiverse-mybatis.version>1.0.2</quarkiverse-mybatis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/mybatis/quarkus-mybatis-parent/ -->
         <quarkiverse-tika.version>1.0.3</quarkiverse-tika.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/tika/quarkus-tika-parent/ -->
-        <quarkus.version>2.8.0.CR1</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
+        <quarkus.version>2.8.0.Final</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
         <quarkus-hazelcast-client.version>3.0.0</quarkus-hazelcast-client.version><!-- https://repo1.maven.org/maven2/com/hazelcast/quarkus-hazelcast-client-bom/ -->
-        <quarkus-qpid-jms.version>0.32.0</quarkus-qpid-jms.version><!-- https://repo1.maven.org/maven2/org/amqphub/quarkus/quarkus-qpid-jms-bom/ -->
+        <quarkus-qpid-jms.version>0.33.0</quarkus-qpid-jms.version><!-- https://repo1.maven.org/maven2/org/amqphub/quarkus/quarkus-qpid-jms-bom/ -->
 
         <!-- Compile dependency versions (keep sorted alphabetically) -->
         <!-- Items annotated with @sync can be updated by running mvn cq:sync-versions -N -e -->
@@ -113,7 +113,7 @@
         <javassist.version>3.22.0-CR2</javassist.version><!-- debezium -->
         <jersey-sun.version>1.19.4</jersey-sun.version><!-- Spark -->
         <jetty.version>${jetty9-version}</jetty.version>
-        <jgit.version>6.0.0.202111291000-r</jgit.version><!-- @sync io.quarkiverse.jgit:quarkus-jgit-parent:${quarkiverse-jgit.version} prop:jgit.version -->
+        <jgit.version>6.1.0.202203080745-r</jgit.version><!-- @sync io.quarkiverse.jgit:quarkus-jgit-parent:${quarkiverse-jgit.version} prop:jgit.version -->
         <jnr-ffi.version>2.1.2</jnr-ffi.version><!-- Mess in web3j transitive deps -->
         <json-smart.version>2.4.7</json-smart.version>
         <jzlib.version>1.1.3</jzlib.version><!-- @sync io.quarkiverse.jsch:quarkus-jsch-parent:${quarkiverse-jsch.version} prop:jzlib.version -->
@@ -130,7 +130,7 @@
         <scala-2.12.version>2.12.15</scala-2.12.version><!-- Spark -->
         <scala.version>2.13.3</scala.version><!-- Datasonnet -->
         <smallrye.reactive.messaging.camel.version>3.15.0</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
-        <spring.version>${spring5-version}</spring.version>
+        <spring.version>5.3.18</spring.version> <!-- TODO: Reinstate alignment with Camel spring5-version property on next Camel upgrade -->
         <snakeyaml.version>${snakeyaml-version}</snakeyaml.version>
         <threetenbp.version>1.4.0</threetenbp.version>
         <xalan.version>${xalan-version}</xalan.version>
@@ -677,7 +677,7 @@
                                                 <exclude>commons-logging:commons-logging-api</exclude><!-- use org.jboss.logging:commons-logging-jboss-logging instead of commons-logging and commons-logging-api -->
                                                 <exclude>io.netty:netty-all</exclude><!-- Use more fine grained netty artifacts or even io.quarkus:quarkus-netty instead -->
                                                 <exclude>org.glassfish:javax.json</exclude><!-- use jakarta.json:jakarta.json-api instead -->
-                                                <exclude>org.glassfish:javax.el</exclude><!-- use jakarta.el:jakarta.el-api instead -->
+                                                <exclude>org.glassfish:javax.el</exclude><!-- use org.glassfish:jakarta.el instead (same as Quarkus) -->
                                                 <exclude>jakarta.activation:jakarta.activation-api</exclude><!-- use com.sun.activation:jakarta.activation instead -->
                                                 <exclude>jakarta.json:jakarta.json-api</exclude><!-- use org.glassfish:jakarta.json instead (same as Quarkus) -->
                                                 <exclude>jakarta.xml.bind:jakarta.xml.bind-api</exclude><!-- use org.jboss.spec.javax.xml.bind:jboss-jaxb-api_2.3_spec instead (same as Quarkus) -->
@@ -685,6 +685,7 @@
                                                 <exclude>javax.activation:activation</exclude><!-- use com.sun.activation:jakarta.activation instead -->
                                                 <exclude>javax.activation:javax.activation-api</exclude><!-- use com.sun.activation:jakarta.activation instead -->
                                                 <exclude>javax.annotation:javax.annotation-api</exclude><!-- use jakarta.activation:jakarta.annotation-api instead -->
+                                                <exclude>javax.el:el-api</exclude><!-- use jakarta.el:jakarta.el-api instead -->
                                                 <exclude>javax.enterprise:cdi-api</exclude><!-- use jakarta.enterprise:jakarta.enterprise.cdi-api instead -->
                                                 <exclude>javax.inject:javax.inject</exclude><!-- use jakarta.inject:jakarta.inject-api instead -->
                                                 <exclude>javax:javaee-api</exclude><!-- this is an all-in-one jar; use the individual replacements documented around here -->

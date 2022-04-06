@@ -9793,12 +9793,12 @@
       <dependency>
         <groupId>io.quarkiverse.jgit</groupId>
         <artifactId>quarkus-jgit</artifactId>
-        <version>1.1.0</version>
+        <version>1.2.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jgit</groupId>
         <artifactId>quarkus-jgit-deployment</artifactId>
-        <version>1.1.0</version>
+        <version>1.2.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jsch</groupId>
@@ -9829,12 +9829,12 @@
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId>
         <artifactId>quarkus-mybatis</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId>
         <artifactId>quarkus-mybatis-deployment</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.tika</groupId>
@@ -10067,7 +10067,7 @@
       <dependency>
         <groupId>org.eclipse.jgit</groupId>
         <artifactId>org.eclipse.jgit</artifactId>
-        <version>6.0.0.202111291000-r</version>
+        <version>6.1.0.202203080745-r</version>
       </dependency>
       <dependency>
         <groupId>org.graalvm.js</groupId>
@@ -10122,7 +10122,7 @@
       <dependency>
         <groupId>org.optaplanner</groupId>
         <artifactId>optaplanner-quarkus</artifactId>
-        <version>8.18.0.Final</version>
+        <version>8.19.0.Final</version>
         <exclusions>
           <exclusion>
             <groupId>jakarta.activation</groupId>
@@ -10137,7 +10137,7 @@
       <dependency>
         <groupId>org.optaplanner</groupId>
         <artifactId>optaplanner-quarkus-deployment</artifactId>
-        <version>8.18.0.Final</version>
+        <version>8.19.0.Final</version>
         <exclusions>
           <exclusion>
             <groupId>jakarta.activation</groupId>
@@ -10152,7 +10152,7 @@
       <dependency>
         <groupId>org.optaplanner</groupId>
         <artifactId>optaplanner-quarkus-jackson</artifactId>
-        <version>8.18.0.Final</version>
+        <version>8.19.0.Final</version>
         <exclusions>
           <exclusion>
             <groupId>jakarta.activation</groupId>
@@ -10167,7 +10167,7 @@
       <dependency>
         <groupId>org.optaplanner</groupId>
         <artifactId>optaplanner-quarkus-jackson-deployment</artifactId>
-        <version>8.18.0.Final</version>
+        <version>8.19.0.Final</version>
         <exclusions>
           <exclusion>
             <groupId>jakarta.activation</groupId>
@@ -10182,22 +10182,22 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-aop</artifactId>
-        <version>5.3.16</version>
+        <version>5.3.18</version>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-beans</artifactId>
-        <version>5.3.16</version>
+        <version>5.3.18</version>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-context</artifactId>
-        <version>5.3.16</version>
+        <version>5.3.18</version>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-core</artifactId>
-        <version>5.3.16</version>
+        <version>5.3.18</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -10208,17 +10208,27 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-expression</artifactId>
-        <version>5.3.16</version>
+        <version>5.3.18</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>5.3.18</version>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-messaging</artifactId>
-        <version>5.3.16</version>
+        <version>5.3.18</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-orm</artifactId>
+        <version>5.3.18</version>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-tx</artifactId>
-        <version>5.3.16</version>
+        <version>5.3.18</version>
       </dependency>
       <dependency>
         <groupId>org.threeten</groupId>
@@ -10475,12 +10485,12 @@
       <dependency>
         <groupId>org.apache.qpid</groupId>
         <artifactId>qpid-jms-client</artifactId>
-        <version>1.5.0</version>
+        <version>1.6.0</version>
       </dependency>
       <dependency>
         <groupId>org.amqphub.quarkus</groupId>
         <artifactId>quarkus-qpid-jms</artifactId>
-        <version>0.32.0</version>
+        <version>0.33.0</version>
         <exclusions>
           <exclusion>
             <groupId>org.apache.geronimo.specs</groupId>
@@ -10491,7 +10501,7 @@
       <dependency>
         <groupId>org.amqphub.quarkus</groupId>
         <artifactId>quarkus-qpid-jms-deployment</artifactId>
-        <version>0.32.0</version>
+        <version>0.33.0</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
@@ -10749,12 +10759,6 @@
             <artifactId>jsr305</artifactId>
           </exclusion>
         </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.lz4</groupId>
-        <artifactId>lz4-java</artifactId>
-        <version>1.7.1</version>
-        <optional>true</optional>
       </dependency>
       <dependency>
         <groupId>com.datastax.oss.quarkus</groupId>

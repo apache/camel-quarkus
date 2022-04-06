@@ -9793,12 +9793,12 @@
       <dependency>
         <groupId>io.quarkiverse.jgit</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9867 -->
         <artifactId>quarkus-jgit</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9868 -->
-        <version>1.1.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9869 -->
+        <version>1.2.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9869 -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jgit</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9872 -->
         <artifactId>quarkus-jgit-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9873 -->
-        <version>1.1.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9874 -->
+        <version>1.2.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9874 -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jsch</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9877 -->
@@ -9829,12 +9829,12 @@
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9897 -->
         <artifactId>quarkus-mybatis</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9898 -->
-        <version>1.0.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9899 -->
+        <version>1.0.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9899 -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9902 -->
         <artifactId>quarkus-mybatis-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9903 -->
-        <version>1.0.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9904 -->
+        <version>1.0.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9904 -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.tika</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 9907 -->
@@ -10067,7 +10067,7 @@
       <dependency>
         <groupId>org.eclipse.jgit</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10128 -->
         <artifactId>org.eclipse.jgit</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10129 -->
-        <version>6.0.0.202111291000-r</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10130 -->
+        <version>6.1.0.202203080745-r</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10130 -->
       </dependency>
       <dependency>
         <groupId>org.graalvm.js</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10133 -->
@@ -10122,7 +10122,7 @@
       <dependency>
         <groupId>org.optaplanner</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10188 -->
         <artifactId>optaplanner-quarkus</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10189 -->
-        <version>8.18.0.Final</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10190 -->
+        <version>8.19.0.Final</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10190 -->
         <exclusions>
           <exclusion>
             <groupId>jakarta.activation</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10193 -->
@@ -10137,7 +10137,7 @@
       <dependency>
         <groupId>org.optaplanner</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10203 -->
         <artifactId>optaplanner-quarkus-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10204 -->
-        <version>8.18.0.Final</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10205 -->
+        <version>8.19.0.Final</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10205 -->
         <exclusions>
           <exclusion>
             <groupId>jakarta.activation</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10208 -->
@@ -10152,7 +10152,7 @@
       <dependency>
         <groupId>org.optaplanner</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10218 -->
         <artifactId>optaplanner-quarkus-jackson</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10219 -->
-        <version>8.18.0.Final</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10220 -->
+        <version>8.19.0.Final</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10220 -->
         <exclusions>
           <exclusion>
             <groupId>jakarta.activation</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10223 -->
@@ -10167,7 +10167,7 @@
       <dependency>
         <groupId>org.optaplanner</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10233 -->
         <artifactId>optaplanner-quarkus-jackson-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10234 -->
-        <version>8.18.0.Final</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10235 -->
+        <version>8.19.0.Final</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10235 -->
         <exclusions>
           <exclusion>
             <groupId>jakarta.activation</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10238 -->
@@ -10182,22 +10182,22 @@
       <dependency>
         <groupId>org.springframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10248 -->
         <artifactId>spring-aop</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10249 -->
-        <version>5.3.16</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10250 -->
+        <version>5.3.18</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10250 -->
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10253 -->
         <artifactId>spring-beans</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10254 -->
-        <version>5.3.16</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10255 -->
+        <version>5.3.18</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10255 -->
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10258 -->
         <artifactId>spring-context</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10259 -->
-        <version>5.3.16</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10260 -->
+        <version>5.3.18</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10260 -->
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10263 -->
         <artifactId>spring-core</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10264 -->
-        <version>5.3.16</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10265 -->
+        <version>5.3.18</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10265 -->
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10268 -->
@@ -10208,51 +10208,61 @@
       <dependency>
         <groupId>org.springframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10274 -->
         <artifactId>spring-expression</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10275 -->
-        <version>5.3.16</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10276 -->
+        <version>5.3.18</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10276 -->
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10279 -->
-        <artifactId>spring-messaging</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10280 -->
-        <version>5.3.16</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10281 -->
+        <artifactId>spring-jdbc</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10280 -->
+        <version>5.3.18</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10281 -->
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10284 -->
-        <artifactId>spring-tx</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10285 -->
-        <version>5.3.16</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10286 -->
+        <artifactId>spring-messaging</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10285 -->
+        <version>5.3.18</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10286 -->
       </dependency>
       <dependency>
-        <groupId>org.threeten</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10289 -->
-        <artifactId>threetenbp</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10290 -->
-        <version>1.4.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10291 -->
+        <groupId>org.springframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10289 -->
+        <artifactId>spring-orm</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10290 -->
+        <version>5.3.18</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10291 -->
       </dependency>
       <dependency>
-        <groupId>org.web3j</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10294 -->
-        <artifactId>core</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10295 -->
-        <version>3.6.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10296 -->
+        <groupId>org.springframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10294 -->
+        <artifactId>spring-tx</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10295 -->
+        <version>5.3.18</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10296 -->
       </dependency>
       <dependency>
-        <groupId>org.web3j</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10299 -->
-        <artifactId>geth</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10300 -->
-        <version>3.6.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10301 -->
+        <groupId>org.threeten</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10299 -->
+        <artifactId>threetenbp</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10300 -->
+        <version>1.4.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10301 -->
       </dependency>
       <dependency>
         <groupId>org.web3j</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10304 -->
-        <artifactId>parity</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10305 -->
+        <artifactId>core</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10305 -->
         <version>3.6.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10306 -->
       </dependency>
       <dependency>
         <groupId>org.web3j</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10309 -->
-        <artifactId>quorum</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10310 -->
-        <version>0.8.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10311 -->
+        <artifactId>geth</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10310 -->
+        <version>3.6.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10311 -->
       </dependency>
       <dependency>
-        <groupId>xalan</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10314 -->
-        <artifactId>xalan</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10315 -->
-        <version>2.7.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10316 -->
+        <groupId>org.web3j</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10314 -->
+        <artifactId>parity</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10315 -->
+        <version>3.6.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10316 -->
+      </dependency>
+      <dependency>
+        <groupId>org.web3j</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10319 -->
+        <artifactId>quorum</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10320 -->
+        <version>0.8.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10321 -->
+      </dependency>
+      <dependency>
+        <groupId>xalan</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10324 -->
+        <artifactId>xalan</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10325 -->
+        <version>2.7.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10326 -->
         <exclusions>
           <exclusion>
-            <groupId>xml-apis</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10319 -->
-            <artifactId>xml-apis</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10320 -->
+            <groupId>xml-apis</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10329 -->
+            <artifactId>xml-apis</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:2.8.0-SNAPSHOT, line 10330 -->
           </exclusion>
         </exclusions>
       </dependency>
@@ -10473,14 +10483,14 @@
         <version>2.17.127</version><!-- software.amazon.awssdk:bom:2.17.127, line 1319 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.qpid</groupId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.32.0, line 48 -->
-        <artifactId>qpid-jms-client</artifactId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.32.0, line 49 -->
-        <version>1.5.0</version><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.32.0, line 50 -->
+        <groupId>org.apache.qpid</groupId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.33.0, line 48 -->
+        <artifactId>qpid-jms-client</artifactId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.33.0, line 49 -->
+        <version>1.6.0</version><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.33.0, line 50 -->
       </dependency>
       <dependency>
-        <groupId>org.amqphub.quarkus</groupId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.32.0, line 56 -->
-        <artifactId>quarkus-qpid-jms</artifactId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.32.0, line 57 -->
-        <version>0.32.0</version><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.32.0, line 58 -->
+        <groupId>org.amqphub.quarkus</groupId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.33.0, line 56 -->
+        <artifactId>quarkus-qpid-jms</artifactId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.33.0, line 57 -->
+        <version>0.33.0</version><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.33.0, line 58 -->
         <exclusions>
           <exclusion>
             <groupId>org.apache.geronimo.specs</groupId>
@@ -10489,9 +10499,9 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.amqphub.quarkus</groupId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.32.0, line 62 -->
-        <artifactId>quarkus-qpid-jms-deployment</artifactId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.32.0, line 63 -->
-        <version>0.32.0</version><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.32.0, line 64 -->
+        <groupId>org.amqphub.quarkus</groupId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.33.0, line 62 -->
+        <artifactId>quarkus-qpid-jms-deployment</artifactId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.33.0, line 63 -->
+        <version>0.33.0</version><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.33.0, line 64 -->
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId><!-- org.eclipse.jetty:jetty-bom:9.4.45.v20220203, line 156 -->
@@ -10749,12 +10759,6 @@
             <artifactId>jsr305</artifactId>
           </exclusion>
         </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.lz4</groupId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.1.2, line 64 -->
-        <artifactId>lz4-java</artifactId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.1.2, line 65 -->
-        <version>1.7.1</version><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.1.2, line 66 -->
-        <optional>true</optional><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.1.2, line 67 -->
       </dependency>
       <dependency>
         <groupId>com.datastax.oss.quarkus</groupId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.1.2, line 107 -->

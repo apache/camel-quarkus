@@ -2,48 +2,19 @@
 
 ## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.8.0-M1...HEAD)
-
-**Fixed bugs:**
-
-- camel-quarkus-openapi-java marking all properties as type object in native mode [\#3606](https://github.com/apache/camel-quarkus/issues/3606)
-- Consul native integration test failure [\#3509](https://github.com/apache/camel-quarkus/issues/3509)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.8.0...HEAD)
 
 **Closed issues:**
 
-- paho: FilePersistence is not tested [\#3680](https://github.com/apache/camel-quarkus/issues/3680)
-- Improve MicroProfile Fault Tolerance extension test coverage [\#3677](https://github.com/apache/camel-quarkus/issues/3677)
-- paho: NullPointerException when MqqtException occurs during reconnect attempt in native mode [\#3671](https://github.com/apache/camel-quarkus/issues/3671)
-- Improve Infinispan extension test coverage [\#3658](https://github.com/apache/camel-quarkus/issues/3658)
-- Add more details about `@QuarkusIntegrationTest` in Testing guide [\#3650](https://github.com/apache/camel-quarkus/issues/3650)
-- Use com.github.java-json-tools:\* instead of com.github.fge:\* [\#3632](https://github.com/apache/camel-quarkus/issues/3632)
-- file: FileTest is flaky [\#3627](https://github.com/apache/camel-quarkus/issues/3627)
-- cassandraql: itests failing on quarkus-platform [\#3621](https://github.com/apache/camel-quarkus/issues/3621)
-- camel-quarkus-test-list should not include ipfs removed extension [\#3618](https://github.com/apache/camel-quarkus/issues/3618)
-- Error building native executable with camel-quarkus-activemq [\#3617](https://github.com/apache/camel-quarkus/issues/3617)
-- Support additional FHIR 2.x versions [\#3615](https://github.com/apache/camel-quarkus/issues/3615)
-- zipfile: Complete test coverage [\#3610](https://github.com/apache/camel-quarkus/issues/3610)
-- \[Camel 3.16\] rest-json example compliation error [\#3608](https://github.com/apache/camel-quarkus/issues/3608)
-- Use https instead of http to reference xsds [\#3604](https://github.com/apache/camel-quarkus/issues/3604)
-- Increase FHIR extension test coverage [\#3601](https://github.com/apache/camel-quarkus/issues/3601)
-- \[Camel 3.16.0\] - camel-kafka uses some reflection for readiness health check [\#3592](https://github.com/apache/camel-quarkus/issues/3592)
-- Improve quartz test coverage [\#3579](https://github.com/apache/camel-quarkus/issues/3579)
-- Update dependency org.reflections:reflections in dependencyManagement of quarkus-camel-bom [\#3569](https://github.com/apache/camel-quarkus/issues/3569)
-- Create Camel Google Secret Manager Extension [\#3566](https://github.com/apache/camel-quarkus/issues/3566)
-- AWS Lambda example tests should use mock event server [\#3554](https://github.com/apache/camel-quarkus/issues/3554)
-- Improve slack test coverage [\#3541](https://github.com/apache/camel-quarkus/issues/3541)
-- Cannot build camel-quarkus-ipfs because repository.jboss.org is down [\#3532](https://github.com/apache/camel-quarkus/issues/3532)
-- `FileTest.charset` integration test fails on Windows [\#3530](https://github.com/apache/camel-quarkus/issues/3530)
-- Ban javax.validation in favor of jakarta.validation  [\#3504](https://github.com/apache/camel-quarkus/issues/3504)
-- Camel Rest / Quarkus Swagger UI / Url Issue from Quarkus Version 2.6.x [\#3457](https://github.com/apache/camel-quarkus/issues/3457)
-- Camel 3.15 - Add build step to capture route source location:line-number [\#3432](https://github.com/apache/camel-quarkus/issues/3432)
-- Ban junit 4 [\#3354](https://github.com/apache/camel-quarkus/issues/3354)
-- Better control what we manage in our BOM [\#3302](https://github.com/apache/camel-quarkus/issues/3302)
-- camel.main.routes-include-pattern with a "\*" wildcard may end up loading a route builder twice [\#3265](https://github.com/apache/camel-quarkus/issues/3265)
-- Investigate QuarkusIntegrationTest as a replacement for camel-quarkus-integration-tests-process-executor-support [\#2468](https://github.com/apache/camel-quarkus/issues/2468)
+- Test Azure Blob with `autowiredEnabled=false` [\#3694](https://github.com/apache/camel-quarkus/issues/3694)
 
 **Merged pull requests:**
 
+- Test Azure Blob with autowiredEnabled=false [\#3699](https://github.com/apache/camel-quarkus/pull/3699) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade Quarkus to 2.8.0.Final [\#3693](https://github.com/apache/camel-quarkus/pull/3693) ([jamesnetherton](https://github.com/jamesnetherton))
+- camel-quarkus-paho: Add reflection config for RandomAccessFile [\#3691](https://github.com/apache/camel-quarkus/pull/3691) ([zhfeng](https://github.com/zhfeng))
+- Stop managing Snappy in Spark BOM, as it is now managed in quarkus-bom [\#3684](https://github.com/apache/camel-quarkus/pull/3684) ([ppalaga](https://github.com/ppalaga))
+- Fix potential Azure Blob test failures when testing against the real service [\#3683](https://github.com/apache/camel-quarkus/pull/3683) ([jamesnetherton](https://github.com/jamesnetherton))
 - paho: Add test coverage for file persistence \#3680 [\#3681](https://github.com/apache/camel-quarkus/pull/3681) ([aldettinger](https://github.com/aldettinger))
 - Improve MicroProfile Fault Tolerance extension test coverage [\#3679](https://github.com/apache/camel-quarkus/pull/3679) ([jamesnetherton](https://github.com/jamesnetherton))
 - More bans [\#3678](https://github.com/apache/camel-quarkus/pull/3678) ([ppalaga](https://github.com/ppalaga))
@@ -51,7 +22,6 @@
 - Ban javax.activation-api, javax.annotation-api and JBoss spec artifacts [\#3675](https://github.com/apache/camel-quarkus/pull/3675) ([ppalaga](https://github.com/ppalaga))
 - Ban javax.validation and junit 4 [\#3673](https://github.com/apache/camel-quarkus/pull/3673) ([ppalaga](https://github.com/ppalaga))
 - paho: fix NullPointerException when MqqtException occurs during recon… [\#3672](https://github.com/apache/camel-quarkus/pull/3672) ([aldettinger](https://github.com/aldettinger))
-- Create Camel Google Secret Manager Extension [\#3668](https://github.com/apache/camel-quarkus/pull/3668) ([oscerd](https://github.com/oscerd))
 - Revert "Add Camel 3.16.0 staging repository" [\#3667](https://github.com/apache/camel-quarkus/pull/3667) ([ppalaga](https://github.com/ppalaga))
 - Better control what we manage in our BOM  [\#3666](https://github.com/apache/camel-quarkus/pull/3666) ([ppalaga](https://github.com/ppalaga))
 - Add more details about `@QuarkusIntegrationTest` to the testing guide [\#3664](https://github.com/apache/camel-quarkus/pull/3664) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -85,6 +55,7 @@
 - Fix cassandraql itests failing on quarkus-platform \#3621 [\#3623](https://github.com/apache/camel-quarkus/pull/3623) ([aldettinger](https://github.com/aldettinger))
 - Disable flaky GrpcTest.forwardOnError [\#3622](https://github.com/apache/camel-quarkus/pull/3622) ([jamesnetherton](https://github.com/jamesnetherton))
 - 📝Slack test : update Readme with new Oauth Configuration [\#3620](https://github.com/apache/camel-quarkus/pull/3620) ([zbendhiba](https://github.com/zbendhiba))
+- Kafka Oauth test bump Keycloak container version to 16.1.1 & leverage… [\#3619](https://github.com/apache/camel-quarkus/pull/3619) ([zbendhiba](https://github.com/zbendhiba))
 - Remote println from SQS test [\#3616](https://github.com/apache/camel-quarkus/pull/3616) ([mmuzikar](https://github.com/mmuzikar))
 - Increase FHIR extension test coverage [\#3614](https://github.com/apache/camel-quarkus/pull/3614) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.7.4.Final [\#3613](https://github.com/apache/camel-quarkus/pull/3613) ([zbendhiba](https://github.com/zbendhiba))
@@ -1058,6 +1029,62 @@
 - org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
 
+## [2.8.0](https://github.com/apache/camel-quarkus/tree/2.8.0) (2022-04-04)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.7.1...2.8.0)
+
+**Fixed bugs:**
+
+- Azure Storage blob - test failure [\#3655](https://github.com/apache/camel-quarkus/issues/3655)
+- camel-quarkus-openapi-java marking all properties as type object in native mode [\#3606](https://github.com/apache/camel-quarkus/issues/3606)
+- Consul native integration test failure [\#3509](https://github.com/apache/camel-quarkus/issues/3509)
+
+**Closed issues:**
+
+- paho: FilePersistence is not tested [\#3680](https://github.com/apache/camel-quarkus/issues/3680)
+- Improve MicroProfile Fault Tolerance extension test coverage [\#3677](https://github.com/apache/camel-quarkus/issues/3677)
+- paho: NullPointerException when MqqtException occurs during reconnect attempt in native mode [\#3671](https://github.com/apache/camel-quarkus/issues/3671)
+- Improve Infinispan extension test coverage [\#3658](https://github.com/apache/camel-quarkus/issues/3658)
+- Add more details about `@QuarkusIntegrationTest` in Testing guide [\#3650](https://github.com/apache/camel-quarkus/issues/3650)
+- file: FileTest is flaky [\#3627](https://github.com/apache/camel-quarkus/issues/3627)
+- cassandraql: itests failing on quarkus-platform [\#3621](https://github.com/apache/camel-quarkus/issues/3621)
+- camel-quarkus-test-list should not include ipfs removed extension [\#3618](https://github.com/apache/camel-quarkus/issues/3618)
+- Error building native executable with camel-quarkus-activemq [\#3617](https://github.com/apache/camel-quarkus/issues/3617)
+- Support additional FHIR 2.x versions [\#3615](https://github.com/apache/camel-quarkus/issues/3615)
+- zipfile: Complete test coverage [\#3610](https://github.com/apache/camel-quarkus/issues/3610)
+- \[Camel 3.16\] rest-json example compliation error [\#3608](https://github.com/apache/camel-quarkus/issues/3608)
+- Use https instead of http to reference xsds [\#3604](https://github.com/apache/camel-quarkus/issues/3604)
+- Increase FHIR extension test coverage [\#3601](https://github.com/apache/camel-quarkus/issues/3601)
+- Improve quartz test coverage [\#3579](https://github.com/apache/camel-quarkus/issues/3579)
+- Create Camel Google Secret Manager Extension [\#3566](https://github.com/apache/camel-quarkus/issues/3566)
+- AWS Lambda example tests should use mock event server [\#3554](https://github.com/apache/camel-quarkus/issues/3554)
+- Cannot build camel-quarkus-ipfs because repository.jboss.org is down [\#3532](https://github.com/apache/camel-quarkus/issues/3532)
+- \[Quarkus 2.8.0\] Leverage Strimzi dev services container in kafka-oauth integration tests [\#3531](https://github.com/apache/camel-quarkus/issues/3531)
+- `FileTest.charset` integration test fails on Windows [\#3530](https://github.com/apache/camel-quarkus/issues/3530)
+- Camel Rest / Quarkus Swagger UI / Url Issue from Quarkus Version 2.6.x [\#3457](https://github.com/apache/camel-quarkus/issues/3457)
+- Camel 3.15 - Add build step to capture route source location:line-number [\#3432](https://github.com/apache/camel-quarkus/issues/3432)
+- camel.main.routes-include-pattern with a "\*" wildcard may end up loading a route builder twice [\#3265](https://github.com/apache/camel-quarkus/issues/3265)
+- Investigate QuarkusIntegrationTest as a replacement for camel-quarkus-integration-tests-process-executor-support [\#2468](https://github.com/apache/camel-quarkus/issues/2468)
+- Consider implementing a vert.x-web based Azure HttpClient [\#2196](https://github.com/apache/camel-quarkus/issues/2196)
+
+**Merged pull requests:**
+
+- Create Camel Google Secret Manager Extension [\#3668](https://github.com/apache/camel-quarkus/pull/3668) ([oscerd](https://github.com/oscerd))
+
+## [2.7.1](https://github.com/apache/camel-quarkus/tree/2.7.1) (2022-03-31)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.8.0-M1...2.7.1)
+
+**Closed issues:**
+
+- Use com.github.java-json-tools:\* instead of com.github.fge:\* [\#3632](https://github.com/apache/camel-quarkus/issues/3632)
+- \[Camel 3.16.0\] - camel-kafka uses some reflection for readiness health check [\#3592](https://github.com/apache/camel-quarkus/issues/3592)
+- Update dependency org.reflections:reflections in dependencyManagement of quarkus-camel-bom [\#3569](https://github.com/apache/camel-quarkus/issues/3569)
+- Improve slack test coverage [\#3541](https://github.com/apache/camel-quarkus/issues/3541)
+- Ban javax.validation in favor of jakarta.validation  [\#3504](https://github.com/apache/camel-quarkus/issues/3504)
+- Ban junit 4 [\#3354](https://github.com/apache/camel-quarkus/issues/3354)
+- Better control what we manage in our BOM [\#3302](https://github.com/apache/camel-quarkus/issues/3302)
+
 ## [2.8.0-M1](https://github.com/apache/camel-quarkus/tree/2.8.0-M1) (2022-03-08)
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.7.0...2.8.0-M1)
@@ -1081,7 +1108,6 @@
 - Better integration with Quarkus OpenAPI & OpenAPI Swagger UI [\#3346](https://github.com/apache/camel-quarkus/issues/3346)
 - Run integration tests on Windows [\#3342](https://github.com/apache/camel-quarkus/issues/3342)
 - `DebeziumMongodbTest` skipped tests [\#3213](https://github.com/apache/camel-quarkus/issues/3213)
-- Consider implementing a vert.x-web based Azure HttpClient [\#2196](https://github.com/apache/camel-quarkus/issues/2196)
 - spark:hive is does not work [\#1956](https://github.com/apache/camel-quarkus/issues/1956)
 - spark:dataframe does not work on Java 11 [\#1955](https://github.com/apache/camel-quarkus/issues/1955)
 - \[Dependency hell\] Spark native support [\#1701](https://github.com/apache/camel-quarkus/issues/1701)
