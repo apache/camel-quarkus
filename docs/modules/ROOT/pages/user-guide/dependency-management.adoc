@@ -81,15 +81,6 @@ This has the advantage that application developers do not need to care for the c
 that may come from various independent projects.
 Note that not all combinations of artifacts managed by the various BOMs are tested.
 
-== Camel Quarkus BOM
-
-As long as you do not plan to use any dependencies beyond those from Quarkus and Camel Quarkus,
-you may consider switching to `org.apache.camel.quarkus:camel-quarkus-bom`.
-It manages all supported Camel artifacts and imports `io.quarkus:quarkus-bom`.
-
-NOTE: `io.quarkus:quarkus-bom` manages the core Quarkus dependencies,
-such as `io.quarkus:quarkus-arc` (CDI), `io.quarkus:quarkus-hibernate-orm`, `io.quarkus:quarkus-resteasy` (JAX-RS), etc.
-
 == Combining with other BOMs
 
 When combining `camel-quarkus-bom` with any other BOM,
