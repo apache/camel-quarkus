@@ -13,6 +13,7 @@
 - Test Azure Blob with autowiredEnabled=false [\#3699](https://github.com/apache/camel-quarkus/pull/3699) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.8.0.Final [\#3693](https://github.com/apache/camel-quarkus/pull/3693) ([jamesnetherton](https://github.com/jamesnetherton))
 - camel-quarkus-paho: Add reflection config for RandomAccessFile [\#3691](https://github.com/apache/camel-quarkus/pull/3691) ([zhfeng](https://github.com/zhfeng))
+- Ban javax.el:el-api in favor of  jakarta.el:jakarta.el-api [\#3690](https://github.com/apache/camel-quarkus/pull/3690) ([ppalaga](https://github.com/ppalaga))
 - Stop managing Snappy in Spark BOM, as it is now managed in quarkus-bom [\#3684](https://github.com/apache/camel-quarkus/pull/3684) ([ppalaga](https://github.com/ppalaga))
 - Fix potential Azure Blob test failures when testing against the real service [\#3683](https://github.com/apache/camel-quarkus/pull/3683) ([jamesnetherton](https://github.com/jamesnetherton))
 - paho: Add test coverage for file persistence \#3680 [\#3681](https://github.com/apache/camel-quarkus/pull/3681) ([aldettinger](https://github.com/aldettinger))
