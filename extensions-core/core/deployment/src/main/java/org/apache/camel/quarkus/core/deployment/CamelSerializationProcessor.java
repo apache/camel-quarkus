@@ -17,9 +17,6 @@
 package org.apache.camel.quarkus.core.deployment;
 
 import java.math.BigInteger;
-import java.util.AbstractCollection;
-import java.util.AbstractList;
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -42,9 +39,6 @@ public class CamelSerializationProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(CamelSerializationProcessor.class);
     private static final String[] BASE_SERIALIZATION_CLASSES = {
             // JDK classes
-            AbstractCollection.class.getName(),
-            AbstractList.class.getName(),
-            AbstractMap.class.getName(),
             ArrayList.class.getName(),
             BigInteger.class.getName(),
             Boolean.class.getName(),
