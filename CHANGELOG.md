@@ -7,13 +7,17 @@
 **Closed issues:**
 
 - Test Azure Blob with `autowiredEnabled=false` [\#3694](https://github.com/apache/camel-quarkus/issues/3694)
+- Improve mail test coverage [\#3674](https://github.com/apache/camel-quarkus/issues/3674)
 
 **Merged pull requests:**
 
+- Fix documentation [\#3704](https://github.com/apache/camel-quarkus/pull/3704) ([aldettinger](https://github.com/aldettinger))
 - Test Azure Blob with autowiredEnabled=false [\#3699](https://github.com/apache/camel-quarkus/pull/3699) ([jamesnetherton](https://github.com/jamesnetherton))
+- Next is 2.9.0 [\#3696](https://github.com/apache/camel-quarkus/pull/3696) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.8.0.Final [\#3693](https://github.com/apache/camel-quarkus/pull/3693) ([jamesnetherton](https://github.com/jamesnetherton))
 - camel-quarkus-paho: Add reflection config for RandomAccessFile [\#3691](https://github.com/apache/camel-quarkus/pull/3691) ([zhfeng](https://github.com/zhfeng))
 - Ban javax.el:el-api in favor of  jakarta.el:jakarta.el-api [\#3690](https://github.com/apache/camel-quarkus/pull/3690) ([ppalaga](https://github.com/ppalaga))
+- Improve mail test coverage \#3674 [\#3685](https://github.com/apache/camel-quarkus/pull/3685) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Stop managing Snappy in Spark BOM, as it is now managed in quarkus-bom [\#3684](https://github.com/apache/camel-quarkus/pull/3684) ([ppalaga](https://github.com/ppalaga))
 - Fix potential Azure Blob test failures when testing against the real service [\#3683](https://github.com/apache/camel-quarkus/pull/3683) ([jamesnetherton](https://github.com/jamesnetherton))
 - paho: Add test coverage for file persistence \#3680 [\#3681](https://github.com/apache/camel-quarkus/pull/3681) ([aldettinger](https://github.com/aldettinger))
@@ -1048,7 +1052,6 @@
 - Improve Infinispan extension test coverage [\#3658](https://github.com/apache/camel-quarkus/issues/3658)
 - Add more details about `@QuarkusIntegrationTest` in Testing guide [\#3650](https://github.com/apache/camel-quarkus/issues/3650)
 - file: FileTest is flaky [\#3627](https://github.com/apache/camel-quarkus/issues/3627)
-- cassandraql: itests failing on quarkus-platform [\#3621](https://github.com/apache/camel-quarkus/issues/3621)
 - camel-quarkus-test-list should not include ipfs removed extension [\#3618](https://github.com/apache/camel-quarkus/issues/3618)
 - Error building native executable with camel-quarkus-activemq [\#3617](https://github.com/apache/camel-quarkus/issues/3617)
 - Support additional FHIR 2.x versions [\#3615](https://github.com/apache/camel-quarkus/issues/3615)
