@@ -16,6 +16,9 @@
  */
 package org.apache.camel.quarkus.component.azure.storage.queue.it;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -23,7 +26,11 @@ import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.support.azure.AzureStorageTestResource;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.core.Is.is;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @QuarkusTest
 @QuarkusTestResource(AzureStorageTestResource.class)
@@ -31,32 +38,115 @@ class AzureStorageQueueTest {
 
     @Test
     public void crud() {
-        String message = "Hello Camel Quarkus Azure Queue";
+        try {
+            String message = "Hello Camel Quarkus Azure Queue ";
 
-        // Create
-        RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .post("/azure-storage-queue/queue/create")
-                .then()
-                .statusCode(201);
+            // Create
+            given()
+                    .contentType(ContentType.TEXT)
+                    .post("/azure-storage-queue/queue/create")
+                    .then()
+                    .statusCode(201);
 
-        RestAssured.given()
+            // create 2 messages
+            for (int i = 1; i < 2; i++) {
+                addMessage(message + i);
+            }
+
+            // peek one message
+            RestAssured.get("/azure-storage-queue/queue/peek")
+                    .then()
+                    .statusCode(200)
+                    .body(is(message + "1"));
+
+            // Read 2 messages
+            List<LinkedHashMap<String, String>> response = null;
+            for (int i = 1; i < 2; i++) {
+                response = readMessage();
+                assertNotNull(response);
+                assertEquals(1, response.size());
+                assertNotNull(response.get(0));
+                assertEquals(message + i, response.get(0).get("body"));
+            }
+
+            // updating message
+            // get needed informations from last message
+            var id = response.get(0).get("id");
+            var popReceipt = response.get(0).get("popReceipt");
+
+            message = "Update Camel Quarkus example message";
+            given()
+                    .contentType(ContentType.TEXT)
+                    .body(message)
+                    .post(String.format("/azure-storage-queue/queue/update/%s/%s", id, popReceipt))
+                    .then()
+                    .statusCode(201);
+
+            // reading update message
+            response = readMessage();
+            assertNotNull(response);
+            assertNotNull(response.get(0));
+            assertEquals(message, response.get(0).get("body"));
+
+            // list queues
+            RestAssured.given()
+                    .contentType(ContentType.TEXT)
+                    .get("/azure-storage-queue/queue/list")
+                    .then()
+                    .statusCode(200)
+                    .body(containsString("camel-quarkus"));
+
+            // adding another message to the queue
+            addMessage(message);
+
+            // clear queue
+            given()
+                    .get("/azure-storage-queue/queue/clear")
+                    .then()
+                    .statusCode(204);
+
+            // Read and make sure the queue was cleared
+            response = readMessage();
+            assertNotNull(response);
+            assertEquals(0, response.size());
+
+            // adding new message
+            addMessage(message);
+
+            // peek latest message
+            response = readMessage();
+            id = response.get(0).get("id");
+            popReceipt = response.get(0).get("popReceipt");
+
+            // delete message by id
+            RestAssured.delete("/azure-storage-queue/queue/delete/" + id + "/" + popReceipt)
+                    .then()
+                    .statusCode(204);
+
+        } finally {
+            // Delete
+            RestAssured.delete("/azure-storage-queue/queue/delete")
+                    .then()
+                    .statusCode(204);
+        }
+    }
+
+    private void addMessage(String message) {
+        given()
                 .contentType(ContentType.TEXT)
                 .body(message)
                 .post("/azure-storage-queue/queue/message")
                 .then()
                 .statusCode(201);
+    }
 
-        // Read
-        RestAssured.get("/azure-storage-queue/queue/read")
-                .then()
-                .statusCode(200)
-                .body(is(message));
-
-        // Delete
-        RestAssured.delete("/azure-storage-queue/queue/delete")
-                .then()
-                .statusCode(204);
+    @SuppressWarnings("unchecked")
+    private List<LinkedHashMap<String, String>> readMessage() {
+        return (List<LinkedHashMap<String, String>>) given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get("/azure-storage-queue/queue/read")
+                .as(List.class);
     }
 
 }
