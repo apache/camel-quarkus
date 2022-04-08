@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.aws2.kinesis.it;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.net.URI;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -32,7 +34,6 @@ import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.aws2.kinesis.Kinesis2Constants;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import software.amazon.awssdk.services.kinesis.model.Record;
 
 @Path("/aws2-kinesis")
 @ApplicationScoped
@@ -66,13 +67,14 @@ public class Aws2KinesisResource {
 
     @Path("/receive")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String receive() {
-        Record record = consumerTemplate.receiveBody(componentUri(), 10000, Record.class);
-        if (record == null) {
-            return null;
+    @Produces(MediaType.TEXT_PLAIN)
+    public String receive() throws IOException {
+        try (ByteArrayInputStream result = consumerTemplate.receiveBody(componentUri(), 10000, ByteArrayInputStream.class)) {
+            if (result == null) {
+                return null;
+            }
+            return new String(result.readAllBytes());
         }
-        return record.data().asUtf8String();
     }
 
     private String componentUri() {
