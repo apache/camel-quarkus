@@ -5,8 +5,8 @@ cqArtifactIdBase: datasonnet
 cqNativeSupported: true
 cqStatus: Stable
 cqDeprecated: false
-cqJvmSince: 2.8.0
-cqNativeSince: 2.8.0
+cqJvmSince: 2.9.0
+cqNativeSince: 2.9.0
 cqCamelPartName: datasonnet
 cqCamelPartTitle: DataSonnet
 cqCamelPartDescription: To use DataSonnet scripts for message transformations.

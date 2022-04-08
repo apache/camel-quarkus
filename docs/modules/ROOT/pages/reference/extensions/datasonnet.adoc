@@ -8,11 +8,11 @@
 :cq-status-deprecation: Stable
 :cq-description: To use DataSonnet scripts for message transformations.
 :cq-deprecated: false
-:cq-jvm-since: 2.8.0
-:cq-native-since: 2.8.0
+:cq-jvm-since: 2.9.0
+:cq-native-since: 2.9.0
 
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##2.8.0## [.badge-key]##Native since##[.badge-supported]##2.8.0##
+[.badge-key]##JVM since##[.badge-supported]##2.9.0## [.badge-key]##Native since##[.badge-supported]##2.9.0##
 
 To use DataSonnet scripts for message transformations.
 
