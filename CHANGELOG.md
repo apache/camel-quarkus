@@ -8,9 +8,13 @@
 
 - Test Azure Blob with `autowiredEnabled=false` [\#3694](https://github.com/apache/camel-quarkus/issues/3694)
 - Improve mail test coverage [\#3674](https://github.com/apache/camel-quarkus/issues/3674)
+- `Aws2KinesisTest.kinesis` failure [\#3638](https://github.com/apache/camel-quarkus/issues/3638)
 
 **Merged pull requests:**
 
+- Fix `Aws2KinesisTest.kinesis` test [\#3715](https://github.com/apache/camel-quarkus/pull/3715) ([jamesnetherton](https://github.com/jamesnetherton))
+- Avoid creating serialization config for non-serializable classes [\#3714](https://github.com/apache/camel-quarkus/pull/3714) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add missing build dependency link on Mail Integration tests [\#3710](https://github.com/apache/camel-quarkus/pull/3710) ([zbendhiba](https://github.com/zbendhiba))
 - Fix documentation [\#3704](https://github.com/apache/camel-quarkus/pull/3704) ([aldettinger](https://github.com/aldettinger))
 - Test Azure Blob with autowiredEnabled=false [\#3699](https://github.com/apache/camel-quarkus/pull/3699) ([jamesnetherton](https://github.com/jamesnetherton))
 - Next is 2.9.0 [\#3696](https://github.com/apache/camel-quarkus/pull/3696) ([jamesnetherton](https://github.com/jamesnetherton))
