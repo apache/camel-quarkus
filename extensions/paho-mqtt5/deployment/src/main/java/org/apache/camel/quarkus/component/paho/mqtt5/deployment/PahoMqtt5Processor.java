@@ -16,11 +16,18 @@
  */
 package org.apache.camel.quarkus.component.paho.mqtt5.deployment;
 
+import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
+import java.util.ResourceBundle;
+
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
+import org.eclipse.paho.mqttv5.client.internal.ResourceBundleCatalog;
 import org.eclipse.paho.mqttv5.client.internal.SSLNetworkModuleFactory;
 import org.eclipse.paho.mqttv5.client.internal.TCPNetworkModuleFactory;
 import org.eclipse.paho.mqttv5.client.logging.JSR47Logger;
@@ -38,8 +45,14 @@ class PahoMqtt5Processor {
     }
 
     @BuildStep
-    ReflectiveClassBuildItem registerReflectiveClasses() {
-        return new ReflectiveClassBuildItem(false, false, JSR47Logger.class);
+    void registerReflectiveClasses(BuildProducer<ReflectiveClassBuildItem> p) {
+        p.produce(new ReflectiveClassBuildItem(false, false, JSR47Logger.class));
+        p.produce(new ReflectiveClassBuildItem(false, false, ResourceBundleCatalog.class));
+        p.produce(new ReflectiveClassBuildItem(false, false, ResourceBundle.class));
+        p.produce(new ReflectiveClassBuildItem(false, false, FileLock.class));
+        p.produce(new ReflectiveClassBuildItem(true, false, FileChannel.class));
+        p.produce(new ReflectiveClassBuildItem(true, false, RandomAccessFile.class));
+        p.produce(new ReflectiveClassBuildItem(true, false, "sun.nio.ch.FileLockImpl"));
     }
 
     @BuildStep
@@ -53,8 +66,9 @@ class PahoMqtt5Processor {
     }
 
     @BuildStep()
-    NativeImageResourceBundleBuildItem hapiMessages() {
-        return new NativeImageResourceBundleBuildItem("org.eclipse.paho.mqttv5.client.internal.nls.logcat");
+    void registerResourceBundle(BuildProducer<NativeImageResourceBundleBuildItem> p) {
+        p.produce(new NativeImageResourceBundleBuildItem("org.eclipse.paho.mqttv5.client.internal.nls.logcat"));
+        p.produce(new NativeImageResourceBundleBuildItem("org.eclipse.paho.mqttv5.common.nls.messages"));
     }
 
 }
