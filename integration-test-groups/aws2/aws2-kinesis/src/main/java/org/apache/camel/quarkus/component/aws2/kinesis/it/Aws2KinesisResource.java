@@ -16,12 +16,13 @@
  */
 package org.apache.camel.quarkus.component.aws2.kinesis.it;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URI;
+import java.util.Queue;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -30,14 +31,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.aws2.kinesis.Kinesis2Constants;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.jboss.logging.Logger;
 
 @Path("/aws2-kinesis")
 @ApplicationScoped
 public class Aws2KinesisResource {
+
+    private static final Logger log = Logger.getLogger(Aws2KinesisResource.class);
 
     @ConfigProperty(name = "aws-kinesis.stream-name")
     String streamName;
@@ -46,7 +49,8 @@ public class Aws2KinesisResource {
     ProducerTemplate producerTemplate;
 
     @Inject
-    ConsumerTemplate consumerTemplate;
+    @Named("aws2KinesisMessages")
+    Queue<String> aws2KinesisMessages;
 
     @Path("/send")
     @POST
@@ -69,12 +73,7 @@ public class Aws2KinesisResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String receive() throws IOException {
-        try (ByteArrayInputStream result = consumerTemplate.receiveBody(componentUri(), 10000, ByteArrayInputStream.class)) {
-            if (result == null) {
-                return null;
-            }
-            return new String(result.readAllBytes());
-        }
+        return aws2KinesisMessages.poll();
     }
 
     private String componentUri() {
