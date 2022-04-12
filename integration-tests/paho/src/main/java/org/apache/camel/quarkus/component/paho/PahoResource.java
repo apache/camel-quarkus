@@ -16,7 +16,10 @@
  */
 package org.apache.camel.quarkus.component.paho;
 
+import java.io.InputStream;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -32,11 +35,16 @@ import javax.ws.rs.core.Response;
 
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.paho.PahoConstants;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.paho.client.mqttv3.MqttException;
+import org.jboss.logging.Logger;
 
 @Path("/paho")
 @ApplicationScoped
 public class PahoResource {
+
+    private static final Logger LOG = Logger.getLogger(PahoResource.class);
 
     @Inject
     ProducerTemplate producerTemplate;
@@ -44,41 +52,60 @@ public class PahoResource {
     @Inject
     ConsumerTemplate consumerTemplate;
 
-    @Path("/paho/{queueName}")
+    private static final String KEYSTORE_FILE = "clientkeystore.jks";
+    private static final String KEYSTORE_PASSWORD = "quarkus";
+
+    @Path("/{protocol}/{queueName}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String consumePahoMessage(@PathParam("queueName") String queueName) {
-        return consumerTemplate.receiveBody("paho:" + queueName, 5000,
-                String.class);
+    public String consumePahoMessage(@PathParam("protocol") String protocol, @PathParam("queueName") String queueName) {
+        java.nio.file.Path keyStore = null;
+        if ("ssl".equals(protocol)) {
+            keyStore = copyKeyStore();
+        }
+        try {
+            return consumerTemplate.receiveBody(
+                    "paho:" + queueName + "?brokerUrl=" + brokerUrl(protocol) + sslOptions(keyStore), 5000, String.class);
+        } finally {
+            if ("ssl".equals(protocol)) {
+                removeKeyStore(keyStore);
+            }
+        }
     }
 
-    @Path("/paho/{queueName}")
+    @Path("/{protocol}/{queueName}")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
-    public Response producePahoMessage(@PathParam("queueName") String queueName, String message) throws Exception {
-        producerTemplate.sendBody("paho:" + queueName + "?retained=true", message);
+    public Response producePahoMessage(@PathParam("protocol") String protocol, @PathParam("queueName") String queueName,
+            String message) throws Exception {
+        java.nio.file.Path keyStore = null;
+        if ("ssl".equals(protocol)) {
+            keyStore = copyKeyStore();
+        }
+        try {
+            producerTemplate.sendBody(
+                    "paho:" + queueName + "?retained=true&brokerUrl=" + brokerUrl(protocol) + sslOptions(keyStore), message);
+        } finally {
+            if ("ssl".equals(protocol)) {
+                removeKeyStore(keyStore);
+            }
+        }
         return Response.created(new URI("https://camel.apache.org/")).build();
     }
 
-    @Path("/paho-ws/{queueName}")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String consumePahoWsMessage(@PathParam("queueName") String queueName) {
-        return consumerTemplate.receiveBody("paho:" + queueName + "?brokerUrl={{broker-url.ws}}", 5000,
-                String.class);
-    }
-
-    @Path("/paho-ws/{queueName}")
+    @Path("/override/{queueName}")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
-    public Response producePahoWsMessage(@PathParam("queueName") String queueName, String message) throws Exception {
-        producerTemplate.sendBody("paho:" + queueName + "?retained=true&brokerUrl={{broker-url.ws}}", message);
+    public Response overrideQueueName(@PathParam("queueName") String queueName, String message) throws Exception {
+        producerTemplate.sendBodyAndHeader("paho:test?retained=true&brokerUrl=" + brokerUrl("tcp"), message,
+                PahoConstants.CAMEL_PAHO_OVERRIDE_TOPIC, queueName);
         return Response.created(new URI("https://camel.apache.org/")).build();
     }
 
     /**
-     * This method simulates the case where an MqqtException is thrown during a reconnection attempt
-     * in the MqttCallbackExtended instance set by the PahoConsumer on endpoint startup.
+     * This method simulates the case where an MqqtException is thrown during a
+     * reconnection attempt in the MqttCallbackExtended instance set by the
+     * PahoConsumer on endpoint startup.
      */
     @Path("/mqttExceptionDuringReconnectShouldSucceed")
     @GET
@@ -92,7 +119,41 @@ public class PahoResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String readThenWriteWithFilePersistenceShouldSucceed(@QueryParam("message") String message) throws Exception {
-        producerTemplate.requestBody("paho:withFilePersistence?retained=true&persistence=FILE", message);
-        return consumerTemplate.receiveBody("paho:withFilePersistence?persistence=FILE", 5000, String.class);
+        producerTemplate.requestBody("paho:withFilePersistence?retained=true&persistence=FILE&brokerUrl=" + brokerUrl("tcp"),
+                message);
+        return consumerTemplate.receiveBody("paho:withFilePersistence?persistence=FILE&brokerUrl=" + brokerUrl("tcp"), 5000,
+                String.class);
+    }
+
+    private String brokerUrl(String protocol) {
+        return ConfigProvider.getConfig().getValue("paho.broker." + protocol + ".url", String.class);
+    }
+
+    private String sslOptions(java.nio.file.Path keyStore) {
+        return keyStore == null
+                ? ""
+                : "&sslClientProps.com.ibm.ssl.keyStore=" + keyStore +
+                        "&sslClientProps.com.ibm.ssl.keyStorePassword=" + KEYSTORE_PASSWORD +
+                        "&sslClientProps.com.ibm.ssl.trustStore=" + keyStore +
+                        "&sslClientProps.com.ibm.ssl.trustStorePassword=" + KEYSTORE_PASSWORD;
+    }
+
+    private java.nio.file.Path copyKeyStore() {
+        java.nio.file.Path tmpKeystore = null;
+        try (InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(KEYSTORE_FILE);) {
+            tmpKeystore = Files.createTempFile("keystore-", ".jks");
+            Files.copy(in, tmpKeystore, StandardCopyOption.REPLACE_EXISTING);
+            return tmpKeystore;
+        } catch (Exception e) {
+            throw new RuntimeException("Could not copy " + KEYSTORE_FILE + " from the classpath to " + tmpKeystore, e);
+        }
+    }
+
+    private void removeKeyStore(java.nio.file.Path keystore) {
+        try {
+            Files.delete(keystore);
+        } catch (Exception e) {
+            throw new RuntimeException("Could not delete " + keystore, e);
+        }
     }
 }

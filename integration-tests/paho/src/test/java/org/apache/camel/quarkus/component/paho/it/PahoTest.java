@@ -17,11 +17,9 @@
 package org.apache.camel.quarkus.component.paho.it;
 
 import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.common.ResourceArg;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.apache.camel.quarkus.test.support.activemq.ActiveMQTestResource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -30,27 +28,44 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.StringRegularExpression.matchesRegex;
 
 @QuarkusTest
-@QuarkusTestResource(initArgs = {
-        @ResourceArg(name = "modules", value = "camel.component.paho,broker-url.ws")
-}, value = ActiveMQTestResource.class)
+@QuarkusTestResource(PahoTestResource.class)
 class PahoTest {
 
     @ParameterizedTest
-    @ValueSource(strings = { "paho", "paho-ws" })
+    @ValueSource(strings = { "tcp", "ssl", "ws" })
     public void sendReceive(String protocol) {
         String message = "Hello Camel Quarkus " + protocol;
-        String queueName = protocol + "-test-queue";
 
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body(message)
-                .post("/paho/{protocol}/{queueName}", protocol, queueName)
+                .post("/paho/{protocol}/{queueName}", protocol, protocol + "-test-queue")
                 .then()
                 .statusCode(201);
 
         RestAssured.given()
                 .contentType(ContentType.TEXT)
-                .get("/paho/{protocol}/{queueName}", protocol, queueName)
+                .get("/paho/{protocol}/{queueName}", protocol, protocol + "-test-queue")
+                .then()
+                .statusCode(200)
+                .body(is(message));
+    }
+
+    @Test
+    public void overrideTopic() {
+        String message = "Hello Camel Quarkus Override Topic";
+        String queue = "myoverride";
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(message)
+                .post("/paho/override/" + queue)
+                .then()
+                .statusCode(201);
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .get("/paho/tcp/" + queue)
                 .then()
                 .statusCode(200)
                 .body(is(message));
