@@ -8,13 +8,16 @@
 
 - Test Azure Blob with `autowiredEnabled=false` [\#3694](https://github.com/apache/camel-quarkus/issues/3694)
 - Improve mail test coverage [\#3674](https://github.com/apache/camel-quarkus/issues/3674)
+- Improve camel-quarkus-paho-mqtt5 test coverage [\#3656](https://github.com/apache/camel-quarkus/issues/3656)
 - `Aws2KinesisTest.kinesis` failure [\#3638](https://github.com/apache/camel-quarkus/issues/3638)
 
 **Merged pull requests:**
 
+- Reduce the noise in verbose flattened BOMs \#3702 [\#3717](https://github.com/apache/camel-quarkus/pull/3717) ([ppalaga](https://github.com/ppalaga))
 - Fix `Aws2KinesisTest.kinesis` test [\#3715](https://github.com/apache/camel-quarkus/pull/3715) ([jamesnetherton](https://github.com/jamesnetherton))
 - Avoid creating serialization config for non-serializable classes [\#3714](https://github.com/apache/camel-quarkus/pull/3714) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add missing build dependency link on Mail Integration tests [\#3710](https://github.com/apache/camel-quarkus/pull/3710) ([zbendhiba](https://github.com/zbendhiba))
+- Fix \#3656 Improve camel-quarkus-paho-mqtt5 test coverage [\#3709](https://github.com/apache/camel-quarkus/pull/3709) ([zhfeng](https://github.com/zhfeng))
 - Fix documentation [\#3704](https://github.com/apache/camel-quarkus/pull/3704) ([aldettinger](https://github.com/aldettinger))
 - Test Azure Blob with autowiredEnabled=false [\#3699](https://github.com/apache/camel-quarkus/pull/3699) ([jamesnetherton](https://github.com/jamesnetherton))
 - Next is 2.9.0 [\#3696](https://github.com/apache/camel-quarkus/pull/3696) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1047,6 +1050,7 @@
 - Azure Storage blob - test failure [\#3655](https://github.com/apache/camel-quarkus/issues/3655)
 - camel-quarkus-openapi-java marking all properties as type object in native mode [\#3606](https://github.com/apache/camel-quarkus/issues/3606)
 - Consul native integration test failure [\#3509](https://github.com/apache/camel-quarkus/issues/3509)
+- Transacted routing in combination with Split EIP fails [\#3471](https://github.com/apache/camel-quarkus/issues/3471)
 
 **Closed issues:**
 
