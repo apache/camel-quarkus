@@ -74,6 +74,7 @@ public class AzureEventhubsResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<String> receiveEvents() throws Exception {
+
         final MockEndpoint mockEndpoint = context.getEndpoint("mock:azure-consumed", MockEndpoint.class);
         return mockEndpoint.getReceivedExchanges().stream()
                 .map(Exchange::getMessage)
