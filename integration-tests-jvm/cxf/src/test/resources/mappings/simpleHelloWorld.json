@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/hello",
+    "headers": {
+      "Content-Type": {
+        "equalTo": "text/xml; charset=UTF-8"
+      },
+      "SOAPAction": {
+        "equalTo": "\"https://www.helloworld.com/Service/Hello\""
+      }
+    },
+    "bodyPatterns": [
+      {
+        "equalToXml": "<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><HelloRequest xmlns=\"http://www.helloworld.com/Service/\">CamelQuarkusCXF</HelloRequest></soap:Body></soap:Envelope>",
+        "exemptedComparisons": ["NAMESPACE_URI", "NAMESPACE_PREFIX"]
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "simpleHelloWorldResponse.xml"
+  }
+}

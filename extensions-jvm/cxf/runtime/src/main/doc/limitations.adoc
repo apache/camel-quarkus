@@ -1,0 +1,3 @@
+== CXF-RS component
+
+The https://camel.apache.org/components/latest/cxfrs-component.html[CXF-RS] component is not supported.
