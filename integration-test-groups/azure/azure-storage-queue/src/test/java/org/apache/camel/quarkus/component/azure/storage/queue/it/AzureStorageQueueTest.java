@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.azure.storage.queue.it;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
@@ -25,6 +26,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.support.azure.AzureStorageTestResource;
 import org.junit.jupiter.api.Test;
+import org.testcontainers.shaded.org.awaitility.Awaitility;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsString;
@@ -120,6 +122,32 @@ class AzureStorageQueueTest {
 
             // delete message by id
             RestAssured.delete("/azure-storage-queue/queue/delete/" + id + "/" + popReceipt)
+                    .then()
+                    .statusCode(204);
+
+            // consumer test
+
+            // start consumer Route
+            given()
+                    .post("/azure-storage-queue/queue/consumer/start")
+                    .then()
+                    .statusCode(204);
+
+            // add message
+            addMessage("Testing consumer");
+
+            // verify message is consumed
+            Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(10, TimeUnit.SECONDS).until(() -> {
+                final String body = RestAssured.given()
+                        .get("/azure-storage-queue/queue/consumer")
+                        .then()
+                        .extract().body().asString();
+                return body != null && body.contains("Testing consumer");
+            });
+
+            // stop consumer Route
+            given()
+                    .post("/azure-storage-queue/queue/consumer/stop")
                     .then()
                     .statusCode(204);
 
