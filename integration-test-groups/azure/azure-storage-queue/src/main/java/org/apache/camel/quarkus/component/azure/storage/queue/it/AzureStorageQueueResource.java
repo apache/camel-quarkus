@@ -45,20 +45,27 @@ import com.azure.storage.queue.models.PeekedMessageItem;
 import com.azure.storage.queue.models.QueueItem;
 import com.azure.storage.queue.models.QueueMessageItem;
 import com.azure.storage.queue.models.QueuesSegmentOptions;
+import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.azure.storage.queue.QueueConstants;
 import org.apache.camel.component.azure.storage.queue.QueueOperationDefinition;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.quarkus.component.azure.storage.queue.it.model.ExampleMessage;
+import org.apache.camel.spi.RouteController;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @Path("/azure-storage-queue")
 @ApplicationScoped
 public class AzureStorageQueueResource {
 
-    private static final String QUEUE_NAME = "camel-quarkus-" + UUID.randomUUID().toString();
+    protected static final String QUEUE_NAME = "camel-quarkus-" + UUID.randomUUID().toString();
 
     @Inject
     ProducerTemplate producerTemplate;
+
+    @Inject
+    CamelContext context;
 
     @ConfigProperty(name = "azure.storage.account-name")
     String azureStorageAccountName;
@@ -188,6 +195,31 @@ public class AzureStorageQueueResource {
                 componentUri(QueueOperationDefinition.clearQueue),
                 null);
         return Response.noContent().build();
+    }
+
+    @Path("/queue/consumer/{action}")
+    @POST
+    public Response modifyConsumerRouteState(@PathParam("action") String action) throws Exception {
+        RouteController controller = context.getRouteController();
+        if (action.equals("start")) {
+            controller.startRoute("queueRoute");
+        } else if (action.equals("stop")) {
+            controller.stopRoute("queueRoute");
+        } else {
+            throw new IllegalArgumentException("Unknown action: " + action);
+        }
+        return Response.noContent().build();
+    }
+
+    @Path("/queue/consumer")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String receiveMessages() throws Exception {
+        final MockEndpoint mockEndpoint = context.getEndpoint("mock:result", MockEndpoint.class);
+        return mockEndpoint.getReceivedExchanges().stream()
+                .map(Exchange::getMessage)
+                .map(m -> m.getBody(String.class))
+                .collect(Collectors.joining("\n"));
     }
 
     private String componentUri(final QueueOperationDefinition operation) {
