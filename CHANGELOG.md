@@ -11,9 +11,11 @@
 - Improve camel-quarkus-paho-mqtt5 test coverage [\#3656](https://github.com/apache/camel-quarkus/issues/3656)
 - `Aws2KinesisTest.kinesis` failure [\#3638](https://github.com/apache/camel-quarkus/issues/3638)
 - Azure storage queue : increase Producer test coverage [\#3577](https://github.com/apache/camel-quarkus/issues/3577)
+- camel-quarkus-atlasmap including xercesImpl problem [\#3282](https://github.com/apache/camel-quarkus/issues/3282)
 
 **Merged pull requests:**
 
+- fixup 501833 Fix Aws2KinesisTest.kinesis test  [\#3723](https://github.com/apache/camel-quarkus/pull/3723) ([ppalaga](https://github.com/ppalaga))
 - Azure Storage Queue : increase Producer test coverage [\#3719](https://github.com/apache/camel-quarkus/pull/3719) ([zbendhiba](https://github.com/zbendhiba))
 - Reduce the noise in verbose flattened BOMs \#3702 [\#3717](https://github.com/apache/camel-quarkus/pull/3717) ([ppalaga](https://github.com/ppalaga))
 - Fix `Aws2KinesisTest.kinesis` test [\#3715](https://github.com/apache/camel-quarkus/pull/3715) ([jamesnetherton](https://github.com/jamesnetherton))
