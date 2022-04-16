@@ -6,7 +6,9 @@
 
 **Closed issues:**
 
+- Improve paho-mqtt5 SSL test [\#3730](https://github.com/apache/camel-quarkus/issues/3730)
 - AWS S3 integration test should remove all objects in finally block [\#3728](https://github.com/apache/camel-quarkus/issues/3728)
+- Azure Storage Queue - add consumer integration test  [\#3718](https://github.com/apache/camel-quarkus/issues/3718)
 - Test Azure Blob with `autowiredEnabled=false` [\#3694](https://github.com/apache/camel-quarkus/issues/3694)
 - Improve mail test coverage [\#3674](https://github.com/apache/camel-quarkus/issues/3674)
 - Improve camel-quarkus-paho-mqtt5 test coverage [\#3656](https://github.com/apache/camel-quarkus/issues/3656)
@@ -16,7 +18,9 @@
 
 **Merged pull requests:**
 
+- Fix \#3730 improve paho-mqtt5 ssl tests [\#3731](https://github.com/apache/camel-quarkus/pull/3731) ([zhfeng](https://github.com/zhfeng))
 - Fix \#3728 AWS S3 integration test should remove all objects in finall… [\#3729](https://github.com/apache/camel-quarkus/pull/3729) ([zhfeng](https://github.com/zhfeng))
+- Azure Storage Queue : add consumer integration tests [\#3726](https://github.com/apache/camel-quarkus/pull/3726) ([zbendhiba](https://github.com/zbendhiba))
 - Import quarkus-bom in Catalog [\#3725](https://github.com/apache/camel-quarkus/pull/3725) ([ppalaga](https://github.com/ppalaga))
 - fixup 501833 Fix Aws2KinesisTest.kinesis test  [\#3723](https://github.com/apache/camel-quarkus/pull/3723) ([ppalaga](https://github.com/ppalaga))
 - Azure Storage Queue : increase Producer test coverage [\#3719](https://github.com/apache/camel-quarkus/pull/3719) ([zbendhiba](https://github.com/zbendhiba))
