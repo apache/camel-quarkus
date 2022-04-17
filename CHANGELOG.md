@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Unexpected attribute '{http://camel.apache.org/schema/spring}uri' when using Rest XML with Quarkus 2.8.0.Final [\#3732](https://github.com/apache/camel-quarkus/issues/3732)
 - Improve paho-mqtt5 SSL test [\#3730](https://github.com/apache/camel-quarkus/issues/3730)
 - AWS S3 integration test should remove all objects in finally block [\#3728](https://github.com/apache/camel-quarkus/issues/3728)
 - Azure Storage Queue - add consumer integration test  [\#3718](https://github.com/apache/camel-quarkus/issues/3718)
