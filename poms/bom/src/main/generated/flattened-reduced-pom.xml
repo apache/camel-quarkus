@@ -10077,7 +10077,7 @@
       <dependency>
         <groupId>org.infinispan</groupId>
         <artifactId>infinispan-jboss-marshalling</artifactId>
-        <version>13.0.6.Final</version>
+        <version>13.0.8.Final</version>
       </dependency>
       <dependency>
         <groupId>org.influxdb</groupId>

@@ -56,7 +56,7 @@
         <quarkiverse-minio.version>2.3.0</quarkiverse-minio.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/minio/quarkus-minio-parent/ -->
         <quarkiverse-mybatis.version>1.0.2</quarkiverse-mybatis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/mybatis/quarkus-mybatis-parent/ -->
         <quarkiverse-tika.version>1.0.3</quarkiverse-tika.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/tika/quarkus-tika-parent/ -->
-        <quarkus.version>2.8.0.Final</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
+        <quarkus.version>2.8.1.Final</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
         <quarkus-hazelcast-client.version>3.0.0</quarkus-hazelcast-client.version><!-- https://repo1.maven.org/maven2/com/hazelcast/quarkus-hazelcast-client-bom/ -->
         <quarkus-qpid-jms.version>0.33.0</quarkus-qpid-jms.version><!-- https://repo1.maven.org/maven2/org/amqphub/quarkus/quarkus-qpid-jms-bom/ -->
 
@@ -97,7 +97,7 @@
         <hapi-fhir.version>${hapi-fhir-version}</hapi-fhir.version>
         <hbase.version>${hbase-version}</hbase.version>
         <htrace.version>4.2.0-incubating</htrace.version><!-- Mess in hbase transitive deps -->
-        <infinispan.version>13.0.6.Final</infinispan.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.infinispan:infinispan-core -->
+        <infinispan.version>13.0.8.Final</infinispan.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.infinispan:infinispan-core -->
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
         <jackson1.version>1.9.13</jackson1.version><!-- Mess in the transitive dependencies of spark and hbase-testing-util -->
         <jackson-asl.version>${jackson1.version}</jackson-asl.version><!-- Can be different from jackson1.version on some occasions -->
