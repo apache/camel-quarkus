@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.openapijava.it.model;
 
+import java.util.List;
+
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
 @RegisterForReflection
@@ -24,10 +26,23 @@ public class Fruit {
     public String name;
     public String description;
     public Integer num;
+    private List<Element> elements;
 
     public Fruit(String name, String description, Integer num) {
         this.name = name;
         this.description = description;
         this.num = num;
     }
+
+    public List<Element> getElements() {
+        return elements;
+    }
+
+    public void setElements(List<Element> elements) {
+        this.elements = elements;
+    }
+}
+
+@RegisterForReflection
+class Element {
 }
