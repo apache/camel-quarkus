@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.aws2.s3.it;
 
+import java.net.URI;
 import java.util.Locale;
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -292,12 +293,33 @@ class Aws2S3Test {
             // Create
             createObject(oid, blobContent);
 
-            // Download link
-            RestAssured.given()
+            // Get the download link
+            final String downloadLink = RestAssured.given()
                     .contentType(ContentType.TEXT)
                     .get("/aws2/s3/downloadlink/" + oid)
                     .then()
-                    .statusCode(200);
+                    .statusCode(200)
+                    .extract().body().asString();
+
+            final URI downloadUri = new URI(downloadLink);
+
+            // Make sure that the download link works
+            // Note that localstack produces a real AWS link so when testing against localstack,
+            // the link won't work
+            final String realKey = System.getenv("AWS_ACCESS_KEY");
+            final String realSecret = System.getenv("AWS_SECRET_KEY");
+            final String realRegion = System.getenv("AWS_REGION");
+            final boolean realCredentialsProvided = realKey != null && realSecret != null && realRegion != null;
+            if (realCredentialsProvided) {
+                RestAssured.given()
+                        .log().all()
+                        .contentType(ContentType.TEXT)
+                        .port(downloadUri.getPort())
+                        .get(downloadLink)
+                        .then()
+                        .statusCode(200)
+                        .body(is(blobContent));
+            }
 
         } finally {
             // Delete
