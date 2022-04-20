@@ -96,7 +96,7 @@ class OpenApiJavaProcessor {
 
         IndexView index = combinedIndex.getIndex();
         index.getAllKnownSubclasses(SCHEMA).stream().map(ClassInfo::toString).forEach(
-                name -> reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, name)));
+                name -> reflectiveClasses.produce(new ReflectiveClassBuildItem(true, false, name)));
     }
 
     @BuildStep(onlyIf = ExposeOpenApiEnabled.class)
