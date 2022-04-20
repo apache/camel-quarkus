@@ -20,6 +20,8 @@
 
 **Merged pull requests:**
 
+- Telegram integration test : test sending message with customized keyb… [\#3735](https://github.com/apache/camel-quarkus/pull/3735) ([zbendhiba](https://github.com/zbendhiba))
+- Ensure the S3 download link really works [\#3734](https://github.com/apache/camel-quarkus/pull/3734) ([ppalaga](https://github.com/ppalaga))
 - paho: expand test coverage \#3720 [\#3733](https://github.com/apache/camel-quarkus/pull/3733) ([ppalaga](https://github.com/ppalaga))
 - Fix \#3730 improve paho-mqtt5 ssl tests [\#3731](https://github.com/apache/camel-quarkus/pull/3731) ([zhfeng](https://github.com/zhfeng))
 - Fix \#3728 AWS S3 integration test should remove all objects in finall… [\#3729](https://github.com/apache/camel-quarkus/pull/3729) ([zhfeng](https://github.com/zhfeng))
