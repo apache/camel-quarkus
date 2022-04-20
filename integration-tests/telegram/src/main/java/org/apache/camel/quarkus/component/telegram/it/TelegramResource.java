@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.telegram.it;
 
 import java.net.URI;
+import java.util.Arrays;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -34,6 +35,9 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.telegram.TelegramConstants;
 import org.apache.camel.component.telegram.TelegramMediaType;
 import org.apache.camel.component.telegram.model.EditMessageLiveLocationMessage;
+import org.apache.camel.component.telegram.model.InlineKeyboardButton;
+import org.apache.camel.component.telegram.model.OutgoingTextMessage;
+import org.apache.camel.component.telegram.model.ReplyKeyboardMarkup;
 import org.apache.camel.component.telegram.model.SendLocationMessage;
 import org.apache.camel.component.telegram.model.SendVenueMessage;
 import org.apache.camel.component.telegram.model.StopMessageLiveLocationMessage;
@@ -68,9 +72,32 @@ public class TelegramResource {
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response postMessage(String message) throws Exception {
+    public Response postMessage(String msg) throws Exception {
+        OutgoingTextMessage message = new OutgoingTextMessage();
+        message.setText(msg);
+
+        // customize keyboard
+        InlineKeyboardButton buttonOptionOneI = InlineKeyboardButton.builder()
+                .text("Option One - I").build();
+
+        InlineKeyboardButton buttonOptionOneII = InlineKeyboardButton.builder()
+                .text("Option One - II").build();
+
+        InlineKeyboardButton buttonOptionTwoI = InlineKeyboardButton.builder()
+                .text("Option Two - I").build();
+
+        ReplyKeyboardMarkup replyMarkup = ReplyKeyboardMarkup.builder()
+                .keyboard()
+                .addRow(Arrays.asList(buttonOptionOneI, buttonOptionOneII))
+                .addRow(Arrays.asList(buttonOptionTwoI))
+                .close()
+                .oneTimeKeyboard(true)
+                .build();
+
+        message.setReplyMarkup(replyMarkup);
+
         producerTemplate.requestBody(String.format("telegram://bots?chatId=%s", chatId), message);
-        log.infof("Sent a message to telegram %s", message);
+        log.infof("Sent a message to telegram %s", msg);
         return Response
                 .created(new URI(String.format("https://telegram.org/")))
                 .build();
