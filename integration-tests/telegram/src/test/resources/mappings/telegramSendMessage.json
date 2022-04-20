@@ -5,7 +5,7 @@
     "url" : "/botfake-token/sendMessage",
     "method" : "POST",
     "bodyPatterns" : [ {
-      "equalToJson" : "{\"text\":\"A message from camel-quarkus-telegram\",\"chat_id\":\"1426416050\"}",
+      "equalToJson" : "{ \"text\": \"A message from camel-quarkus-telegram\", \"chat_id\": \"1426416050\", \"reply_markup\": { \"keyboard\": [  [ {  \"text\": \"Option One - I\" }, {\"text\": \"Option One - II\"}],[{\"text\": \"Option Two - I\"}]],\"one_time_keyboard\": true}}",
       "ignoreArrayOrder" : true,
       "ignoreExtraElements" : true
     } ]
