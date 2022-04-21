@@ -96,6 +96,7 @@ jobs:
       - name: Fail if there are uncommitted changes
         shell: bash
         run: |
+          git --no-pager diff
           [[ -z $(git status --porcelain | grep -v antora.yml) ]] || { echo 'There are uncommitted changes'; git status; exit 1; }
       - name: Tar Maven Repo
         shell: bash
