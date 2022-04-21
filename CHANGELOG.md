@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- camel-quarkus-openapi-java ArraySchema not registered for reflection [\#3737](https://github.com/apache/camel-quarkus/issues/3737)
 - Unexpected attribute '{http://camel.apache.org/schema/spring}uri' when using Rest XML with Quarkus 2.8.0.Final [\#3732](https://github.com/apache/camel-quarkus/issues/3732)
 - Improve paho-mqtt5 SSL test [\#3730](https://github.com/apache/camel-quarkus/issues/3730)
 - AWS S3 integration test should remove all objects in finally block [\#3728](https://github.com/apache/camel-quarkus/issues/3728)
@@ -20,6 +21,7 @@
 
 **Merged pull requests:**
 
+- Fix \#3737 to register reflection methods of OpenAPI Schema [\#3738](https://github.com/apache/camel-quarkus/pull/3738) ([zhfeng](https://github.com/zhfeng))
 - Telegram integration test : test sending message with customized keyb… [\#3735](https://github.com/apache/camel-quarkus/pull/3735) ([zbendhiba](https://github.com/zbendhiba))
 - Ensure the S3 download link really works [\#3734](https://github.com/apache/camel-quarkus/pull/3734) ([ppalaga](https://github.com/ppalaga))
 - paho: expand test coverage \#3720 [\#3733](https://github.com/apache/camel-quarkus/pull/3733) ([ppalaga](https://github.com/ppalaga))
