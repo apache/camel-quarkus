@@ -71,6 +71,6 @@ public class VertxHttpClientProvider implements HttpClientProvider {
 
         Bean<?> bean = beanManager.resolve(beans);
         Object reference = beanManager.getReference(bean, Vertx.class, beanManager.createCreationalContext(bean));
-        return Vertx.class.cast(reference);
+        return (Vertx) reference;
     }
 }
