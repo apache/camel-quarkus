@@ -20,10 +20,12 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
 import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 
 @QuarkusTest
 class DatasonnetTest {
@@ -31,115 +33,100 @@ class DatasonnetTest {
     @Test
     public void testTransform() throws Exception {
         final String msg = loadResourceAsString("simpleMapping_payload.json");
-        final String expected = loadResourceAsString("simpleMapping_result.json");
-        final String response = RestAssured.given()
+        final JsonPath expectedJson = new JsonPath(loadResourceAsString("simpleMapping_result.json"));
+
+        given()
                 .contentType(ContentType.JSON)
                 .body(msg)
                 .post("/datasonnet/basicTransform")
                 .then()
                 .statusCode(201)
-                .assertThat()
-                .extract().asString();
-        JSONAssert.assertEquals(expected, response, true);
+                .body("", equalTo(expectedJson.getMap("")));
     }
 
     @Test
     public void testTransformXML() throws Exception {
         final String msg = loadResourceAsString("payload.xml");
-        final String expected = loadResourceAsString("readXMLExtTest.json");
-        final String response = RestAssured.given()
+        final JsonPath expectedJson = new JsonPath(loadResourceAsString("readXMLExtTest.json"));
+        given()
                 .contentType(ContentType.XML)
                 .body(msg)
                 .post("/datasonnet/transformXML")
                 .then()
                 .statusCode(201)
-                .assertThat()
-                .extract().asString();
-        JSONAssert.assertEquals(expected, response, true);
+                .body("", equalTo(expectedJson.getMap("")));
     }
 
     @Test
     public void testTransformCSV() throws Exception {
         final String msg = loadResourceAsString("payload.csv");
-        final String expected = "{\"account\":\"123\"}";
-        final String response = RestAssured.given()
+        final JsonPath expectedJson = new JsonPath("{\"account\":\"123\"}");
+        given()
                 .contentType(ContentType.TEXT)
                 .body(msg)
                 .post("/datasonnet/transformCSV")
                 .then()
                 .statusCode(201)
-                .assertThat()
-                .extract().asString();
-        JSONAssert.assertEquals(expected, response, true);
+                .body("", equalTo(expectedJson.getMap("")));
     }
 
     @Test
     public void testExpressionLanguage() throws Exception {
         final String msg = "World";
-        final String expected = "{ \"test\":\"Hello, World\"}";
-        final String response = RestAssured.given()
+        final JsonPath expectedJson = new JsonPath("{ \"test\":\"Hello, World\"}");
+        given()
                 .contentType(ContentType.TEXT)
                 .body(msg)
                 .post("/datasonnet/expressionLanguage")
                 .then()
                 .statusCode(201)
-                .assertThat()
-                .extract().asString();
-        JSONAssert.assertEquals(expected, response, true);
+                .body("", equalTo(expectedJson.getMap("")));
     }
 
     @Test
     public void testNullInput() throws Exception {
         final String msg = "";
-        final String expected = "{ \"test\":\"Hello, World\"}";
-        final String response = RestAssured.given()
+        final JsonPath expectedJson = new JsonPath("{ \"test\":\"Hello, World\"}");
+        given()
                 .contentType(ContentType.TEXT)
                 .body(msg)
                 .post("/datasonnet/nullInput")
                 .then()
                 .statusCode(201)
-                .assertThat()
-                .extract().asString();
-        JSONAssert.assertEquals(expected, response, true);
+                .body("", equalTo(expectedJson.getMap("")));
 
-        final String response2 = RestAssured.given()
+        given()
                 .contentType(ContentType.TEXT)
                 .post("/datasonnet/nullInput")
                 .then()
                 .statusCode(201)
-                .assertThat()
-                .extract().asString();
-        JSONAssert.assertEquals(expected, response2, true);
+                .body("", equalTo(expectedJson.getMap("")));
     }
 
     @Test
     public void testReadJava() throws Exception {
         final String msg = "fake";
-        final String expected = loadResourceAsString("javaTest.json");
-        final String response = RestAssured.given()
+        final JsonPath expectedJson = new JsonPath(loadResourceAsString("javaTest.json"));
+        given()
                 .contentType(ContentType.TEXT)
                 .body(msg)
                 .post("/datasonnet/readJava")
                 .then()
                 .statusCode(201)
-                .assertThat()
-                .extract().asString();
-        JSONAssert.assertEquals(expected, response, true);
+                .body("", equalTo(expectedJson.getMap("")));
     }
 
     @Test
     public void testReadJavaDatasonnetHeader() throws Exception {
         final String msg = "fake";
-        final String expected = loadResourceAsString("javaTest.json");
-        final String response = RestAssured.given()
+        final JsonPath expectedJson = new JsonPath(loadResourceAsString("javaTest.json"));
+        given()
                 .contentType(ContentType.TEXT)
                 .body(msg)
                 .post("/datasonnet/readJavaDatasonnetHeader")
                 .then()
                 .statusCode(201)
-                .assertThat()
-                .extract().asString();
-        JSONAssert.assertEquals(expected, response, true);
+                .body("", equalTo(expectedJson.getMap("")));
     }
 
     private String loadResourceAsString(String name) throws Exception {
