@@ -24,9 +24,9 @@ import io.vertx.ext.web.client.HttpResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public class VertxHttpAsyncResponse extends VertxHttpResponse {
+class VertxHttpAsyncResponse extends VertxHttpResponse {
 
-    VertxHttpAsyncResponse(HttpRequest request, HttpResponse response) {
+    VertxHttpAsyncResponse(HttpRequest request, HttpResponse<Buffer> response) {
         super(request, response);
     }
 

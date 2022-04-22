@@ -112,10 +112,10 @@ public class VertxHttpClientBuilderTests {
                     .assertNext(response -> assertEquals(200, response.getStatusCode()))
                     .verifyComplete();
 
-            assertEquals(options.getConnectTimeout(), 10000);
-            assertEquals(options.getIdleTimeout(), 60);
-            assertEquals(options.getReadIdleTimeout(), 60);
-            assertEquals(options.getWriteIdleTimeout(), 60);
+            assertEquals(10000, options.getConnectTimeout());
+            assertEquals(60, options.getIdleTimeout());
+            assertEquals(60, options.getReadIdleTimeout());
+            assertEquals(60, options.getWriteIdleTimeout());
         } finally {
             ((VertxHttpClient) client).close();
         }
@@ -138,10 +138,10 @@ public class VertxHttpClientBuilderTests {
                     .assertNext(response -> assertEquals(200, response.getStatusCode()))
                     .verifyComplete();
 
-            assertEquals(options.getConnectTimeout(), 10000);
-            assertEquals(options.getIdleTimeout(), 20);
-            assertEquals(options.getReadIdleTimeout(), 30);
-            assertEquals(options.getWriteIdleTimeout(), 40);
+            assertEquals(10000, options.getConnectTimeout());
+            assertEquals(20, options.getIdleTimeout());
+            assertEquals(30, options.getReadIdleTimeout());
+            assertEquals(40, options.getWriteIdleTimeout());
         } finally {
             ((VertxHttpClient) client).close();
         }
@@ -163,11 +163,11 @@ public class VertxHttpClientBuilderTests {
 
         try {
             io.vertx.core.net.ProxyOptions vertxProxyOptions = options.getProxyOptions();
-            assertEquals(vertxProxyOptions.getHost(), address.getHostName());
-            assertEquals(vertxProxyOptions.getPort(), address.getPort());
-            assertEquals(vertxProxyOptions.getType().name(), type.name());
-            assertEquals(vertxProxyOptions.getUsername(), PROXY_USER);
-            assertEquals(vertxProxyOptions.getPassword(), PROXY_PASSWORD);
+            assertEquals(address.getHostName(), vertxProxyOptions.getHost());
+            assertEquals(address.getPort(), vertxProxyOptions.getPort());
+            assertEquals(type.name(), vertxProxyOptions.getType().name());
+            assertEquals(PROXY_USER, vertxProxyOptions.getUsername());
+            assertEquals(PROXY_PASSWORD, vertxProxyOptions.getPassword());
 
             List<String> proxyHosts = new ArrayList<>();
             proxyHosts.add("foo*");

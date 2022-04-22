@@ -23,14 +23,15 @@ import com.azure.core.http.HttpRequest;
 import com.azure.core.http.HttpResponse;
 import com.azure.core.util.CoreUtils;
 import io.vertx.core.MultiMap;
+import io.vertx.core.buffer.Buffer;
 import reactor.core.publisher.Mono;
 
 abstract class VertxHttpResponse extends HttpResponse {
 
-    private final io.vertx.ext.web.client.HttpResponse response;
+    private final io.vertx.ext.web.client.HttpResponse<Buffer> response;
     private final HttpHeaders headers;
 
-    VertxHttpResponse(HttpRequest request, io.vertx.ext.web.client.HttpResponse response) {
+    VertxHttpResponse(HttpRequest request, io.vertx.ext.web.client.HttpResponse<Buffer> response) {
         super(request);
         this.response = response;
         this.headers = fromVertxHttpHeaders(response.headers());
@@ -42,7 +43,7 @@ abstract class VertxHttpResponse extends HttpResponse {
         return azureHeaders;
     }
 
-    protected io.vertx.ext.web.client.HttpResponse getVertxHttpResponse() {
+    protected io.vertx.ext.web.client.HttpResponse<Buffer> getVertxHttpResponse() {
         return this.response;
     }
 

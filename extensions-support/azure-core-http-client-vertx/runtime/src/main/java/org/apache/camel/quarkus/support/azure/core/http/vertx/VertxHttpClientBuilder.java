@@ -229,11 +229,10 @@ public class VertxHttpClientBuilder {
                 }
             }
 
-            String nonProxyHostsString = proxyOptions.getNonProxyHosts();
+            String nonProxyHostsString = buildProxyOptions.getNonProxyHosts();
             if (nonProxyHostsString != null) {
                 //  Undo Azure ProxyOptions string sanitization since Vert.x has its own logic
-                List<String> nonProxyHosts = Arrays.asList(nonProxyHostsString.split("\\|"))
-                        .stream()
+                List<String> nonProxyHosts = Arrays.stream(nonProxyHostsString.split("\\|"))
                         .map(host -> host.replaceAll("\\\\E", "")
                                 .replaceAll("\\\\Q", "")
                                 .replaceAll("\\.\\.", ""))

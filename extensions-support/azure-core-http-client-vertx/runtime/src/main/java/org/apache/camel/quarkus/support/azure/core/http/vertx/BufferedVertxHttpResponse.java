@@ -26,11 +26,11 @@ import io.vertx.core.buffer.Buffer;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public final class BufferedVertxHttpResponse extends VertxHttpAsyncResponse {
+final class BufferedVertxHttpResponse extends VertxHttpAsyncResponse {
 
     private final Buffer body;
 
-    BufferedVertxHttpResponse(HttpRequest request, io.vertx.ext.web.client.HttpResponse response, Buffer body) {
+    BufferedVertxHttpResponse(HttpRequest request, io.vertx.ext.web.client.HttpResponse<Buffer> response, Buffer body) {
         super(request, response);
         this.body = body;
     }
