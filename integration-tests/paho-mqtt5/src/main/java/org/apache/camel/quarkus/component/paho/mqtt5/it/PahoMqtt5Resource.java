@@ -16,10 +16,12 @@
  */
 package org.apache.camel.quarkus.component.paho.mqtt5.it;
 
+import java.io.File;
 import java.io.InputStream;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.concurrent.TimeUnit;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -68,13 +70,25 @@ public class PahoMqtt5Resource {
     public String consumePahoMessage(
             @PathParam("protocol") String protocol,
             @PathParam("queueName") String queueName) {
-        if ("ssl".equals(protocol)) {
-            setKeyStore(keystore, password);
-        }
-        String result = consumerTemplate.receiveBody("paho-mqtt5:" + queueName + "?brokerUrl=" + brokerUrl(protocol), 5000,
-                String.class);
-        if ("ssl".equals(protocol)) {
-            removeKeyStore(keystore);
+        String tmpKeystore = null;
+        String sslClientProps = "";
+        String result;
+
+        try {
+            if ("ssl".equals(protocol)) {
+                tmpKeystore = setKeyStore(keystore);
+                sslClientProps = "&sslClientProps.com.ibm.ssl.keyStore=" + tmpKeystore +
+                        "&sslClientProps.com.ibm.ssl.keyStorePassword=" + password +
+                        "&sslClientProps.com.ibm.ssl.trustStore=" + tmpKeystore +
+                        "&sslClientProps.com.ibm.ssl.trustStorePassword=" + password;
+            }
+            result = consumerTemplate.receiveBody(
+                    "paho-mqtt5:" + queueName + "?brokerUrl=" + brokerUrl(protocol) + sslClientProps, 5000,
+                    String.class);
+        } finally {
+            if ("ssl".equals(protocol) && tmpKeystore != null) {
+                removeKeyStore(tmpKeystore);
+            }
         }
         return result;
     }
@@ -86,14 +100,22 @@ public class PahoMqtt5Resource {
             @PathParam("protocol") String protocol,
             @PathParam("queueName") String queueName,
             String message) throws Exception {
-        if ("ssl".equals(protocol)) {
-            setKeyStore(keystore, password);
-        }
+        String tmpKeystore = null;
+        String sslClientProps = "";
+
         try {
-            producerTemplate.sendBody("paho-mqtt5:" + queueName + "?retained=true&brokerUrl=" + brokerUrl(protocol), message);
-        } finally {
             if ("ssl".equals(protocol)) {
-                removeKeyStore(keystore);
+                tmpKeystore = setKeyStore(keystore);
+                sslClientProps = "&sslClientProps.com.ibm.ssl.keyStore=" + tmpKeystore +
+                        "&sslClientProps.com.ibm.ssl.keyStorePassword=" + password +
+                        "&sslClientProps.com.ibm.ssl.trustStore=" + tmpKeystore +
+                        "&sslClientProps.com.ibm.ssl.trustStorePassword=" + password;
+            }
+            producerTemplate.sendBody(
+                    "paho-mqtt5:" + queueName + "?retained=true&brokerUrl=" + brokerUrl(protocol) + sslClientProps, message);
+        } finally {
+            if ("ssl".equals(protocol) && tmpKeystore != null) {
+                removeKeyStore(tmpKeystore);
             }
         }
         return Response.created(new URI("https://camel.apache.org/")).build();
@@ -159,29 +181,24 @@ public class PahoMqtt5Resource {
         return ConfigProvider.getConfig().getValue("paho5.broker." + protocol + ".url", String.class);
     }
 
-    private void setKeyStore(String keystore, String password) {
-        InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(keystore);
+    private String setKeyStore(String keystore) {
+        String tmpKeystore = null;
 
-        try {
-            Files.copy(in, Paths.get(keystore));
+        try (InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(keystore);) {
+            tmpKeystore = File.createTempFile("keystore-", ".jks").getPath();
+            Files.copy(in, Paths.get(tmpKeystore), StandardCopyOption.REPLACE_EXISTING);
         } catch (Exception e) {
+            throw new RuntimeException("Could not copy " + keystore + " from the classpath to " + tmpKeystore, e);
+        } finally {
+            return tmpKeystore;
         }
-
-        System.setProperty("javax.net.ssl.keyStore", keystore);
-        System.setProperty("javax.net.ssl.keyStorePassword", password);
-        System.setProperty("javax.net.ssl.trustStore", keystore);
-        System.setProperty("javax.net.ssl.trustStorePassword", password);
     }
 
     private void removeKeyStore(String keystore) {
         try {
             Files.delete(Paths.get(keystore));
         } catch (Exception e) {
+            throw new RuntimeException("Could not delete " + keystore, e);
         }
-
-        System.clearProperty("javax.net.ssl.keyStore");
-        System.clearProperty("javax.net.ssl.keyStorePassword");
-        System.clearProperty("javax.net.ssl.trustStore");
-        System.clearProperty("javax.net.ssl.trustStorePassword");
     }
 }

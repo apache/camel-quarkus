@@ -6,14 +6,30 @@
 
 **Closed issues:**
 
+- camel-quarkus-openapi-java ArraySchema not registered for reflection [\#3737](https://github.com/apache/camel-quarkus/issues/3737)
+- Unexpected attribute '{http://camel.apache.org/schema/spring}uri' when using Rest XML with Quarkus 2.8.0.Final [\#3732](https://github.com/apache/camel-quarkus/issues/3732)
+- Improve paho-mqtt5 SSL test [\#3730](https://github.com/apache/camel-quarkus/issues/3730)
+- AWS S3 integration test should remove all objects in finally block [\#3728](https://github.com/apache/camel-quarkus/issues/3728)
+- paho: expand test coverage [\#3720](https://github.com/apache/camel-quarkus/issues/3720)
+- Azure Storage Queue - add consumer integration test  [\#3718](https://github.com/apache/camel-quarkus/issues/3718)
 - Test Azure Blob with `autowiredEnabled=false` [\#3694](https://github.com/apache/camel-quarkus/issues/3694)
 - Improve mail test coverage [\#3674](https://github.com/apache/camel-quarkus/issues/3674)
 - Improve camel-quarkus-paho-mqtt5 test coverage [\#3656](https://github.com/apache/camel-quarkus/issues/3656)
 - `Aws2KinesisTest.kinesis` failure [\#3638](https://github.com/apache/camel-quarkus/issues/3638)
 - Azure storage queue : increase Producer test coverage [\#3577](https://github.com/apache/camel-quarkus/issues/3577)
+- camel-quarkus-atlasmap including xercesImpl problem [\#3282](https://github.com/apache/camel-quarkus/issues/3282)
 
 **Merged pull requests:**
 
+- Fix \#3737 to register reflection methods of OpenAPI Schema [\#3738](https://github.com/apache/camel-quarkus/pull/3738) ([zhfeng](https://github.com/zhfeng))
+- Telegram integration test : test sending message with customized keyb… [\#3735](https://github.com/apache/camel-quarkus/pull/3735) ([zbendhiba](https://github.com/zbendhiba))
+- Ensure the S3 download link really works [\#3734](https://github.com/apache/camel-quarkus/pull/3734) ([ppalaga](https://github.com/ppalaga))
+- paho: expand test coverage \#3720 [\#3733](https://github.com/apache/camel-quarkus/pull/3733) ([ppalaga](https://github.com/ppalaga))
+- Fix \#3730 improve paho-mqtt5 ssl tests [\#3731](https://github.com/apache/camel-quarkus/pull/3731) ([zhfeng](https://github.com/zhfeng))
+- Fix \#3728 AWS S3 integration test should remove all objects in finall… [\#3729](https://github.com/apache/camel-quarkus/pull/3729) ([zhfeng](https://github.com/zhfeng))
+- Azure Storage Queue : add consumer integration tests [\#3726](https://github.com/apache/camel-quarkus/pull/3726) ([zbendhiba](https://github.com/zbendhiba))
+- Import quarkus-bom in Catalog [\#3725](https://github.com/apache/camel-quarkus/pull/3725) ([ppalaga](https://github.com/ppalaga))
+- fixup 501833 Fix Aws2KinesisTest.kinesis test  [\#3723](https://github.com/apache/camel-quarkus/pull/3723) ([ppalaga](https://github.com/ppalaga))
 - Azure Storage Queue : increase Producer test coverage [\#3719](https://github.com/apache/camel-quarkus/pull/3719) ([zbendhiba](https://github.com/zbendhiba))
 - Reduce the noise in verbose flattened BOMs \#3702 [\#3717](https://github.com/apache/camel-quarkus/pull/3717) ([ppalaga](https://github.com/ppalaga))
 - Fix `Aws2KinesisTest.kinesis` test [\#3715](https://github.com/apache/camel-quarkus/pull/3715) ([jamesnetherton](https://github.com/jamesnetherton))
