@@ -21,6 +21,8 @@
 
 **Merged pull requests:**
 
+- Fix compilation warnings in Azure Vert.x HTTP Client [\#3744](https://github.com/apache/camel-quarkus/pull/3744) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add missing service include pattern for properties-function [\#3740](https://github.com/apache/camel-quarkus/pull/3740) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3737 to register reflection methods of OpenAPI Schema [\#3738](https://github.com/apache/camel-quarkus/pull/3738) ([zhfeng](https://github.com/zhfeng))
 - Telegram integration test : test sending message with customized keyb… [\#3735](https://github.com/apache/camel-quarkus/pull/3735) ([zbendhiba](https://github.com/zbendhiba))
 - Ensure the S3 download link really works [\#3734](https://github.com/apache/camel-quarkus/pull/3734) ([ppalaga](https://github.com/ppalaga))
