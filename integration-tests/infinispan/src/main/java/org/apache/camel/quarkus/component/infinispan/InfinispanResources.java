@@ -20,10 +20,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -82,13 +85,25 @@ public class InfinispanResources {
     }
 
     @Path("/aggregate")
-    @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    public void aggregate(@QueryParam("component") String component, String content) {
-        String uri = component.equals("infinispan") ? "direct:camelAggregation" : "direct:quarkusAggregation";
-        Map<String, Object> headers = getCommonHeaders(component);
-        headers.put(CORRELATOR_HEADER, CORRELATOR_HEADER);
-        template.sendBodyAndHeaders(uri, content, headers);
+    @GET
+    public void aggregate(@QueryParam("component") String component) throws InterruptedException {
+        String mockEndpointUri = component.equals("infinispan") ? "mock:camelAggregationResult"
+                : "mock:quarkusAggregationResult";
+        MockEndpoint mockEndpoint = camelContext.getEndpoint(mockEndpointUri, MockEndpoint.class);
+        mockEndpoint.expectedMessageCount(2);
+        mockEndpoint.expectedBodiesReceived(1 + 3 + 4 + 5, 6 + 7 + 20 + 21);
+
+        try {
+            String uri = component.equals("infinispan") ? "direct:camelAggregation" : "direct:quarkusAggregation";
+            Map<String, Object> headers = getCommonHeaders(component);
+            headers.put(CORRELATOR_HEADER, CORRELATOR_HEADER);
+
+            Stream.of(1, 3, 4, 5, 6, 7, 20, 21).forEach(value -> template.sendBodyAndHeaders(uri, value, headers));
+
+            mockEndpoint.assertIsSatisfied(15000);
+        } finally {
+            mockEndpoint.reset();
+        }
     }
 
     @Path("/clear")
@@ -139,6 +154,27 @@ public class InfinispanResources {
     public Boolean containsValue(@QueryParam("component") String component, @QueryParam("value") String value) {
         Map<String, Object> headers = getCommonHeaders(component);
         return template.requestBodyAndHeaders("direct:containsValue", value, headers, Boolean.class);
+    }
+
+    @Path("/event/verify")
+    @GET
+    public void listener(
+            @QueryParam("component") String component,
+            @QueryParam("mockEndpointUri") String mockEndpointUri,
+            String content) throws InterruptedException {
+        MockEndpoint mockEndpoint = camelContext.getEndpoint(mockEndpointUri, MockEndpoint.class);
+        mockEndpoint.expectedMessageCount(1);
+        mockEndpoint.message(0).header(InfinispanConstants.EVENT_TYPE).isEqualTo("CLIENT_CACHE_ENTRY_CREATED");
+        mockEndpoint.message(0).header(InfinispanConstants.CACHE_NAME).isNotNull();
+        mockEndpoint.message(0).header(InfinispanConstants.KEY).isEqualTo("the-key");
+
+        try {
+            Map<String, Object> headers = getCommonHeaders(component);
+            template.sendBodyAndHeaders("direct:put", content, headers);
+            mockEndpoint.assertIsSatisfied(5000);
+        } finally {
+            mockEndpoint.reset();
+        }
     }
 
     @Path("/get")
@@ -198,16 +234,25 @@ public class InfinispanResources {
     }
 
     @Path("/putIdempotent")
-    @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    public void putIdempotent(
-            @QueryParam("component") String component,
-            @QueryParam("messageId") String messageId,
-            String content) {
+    @GET
+    public void putIdempotent(@QueryParam("component") String component) throws InterruptedException {
+        String mockEndpointUri = component.equals("infinispan") ? "mock:camelResultIdempotent" : "mock:quarkusResultIdempotent";
+        MockEndpoint mockEndpoint = camelContext.getEndpoint(mockEndpointUri, MockEndpoint.class);
+        mockEndpoint.expectedMessageCount(1);
+
+        String messageId = UUID.randomUUID().toString();
         String uri = component.equals("infinispan") ? "direct:camelIdempotent" : "direct:quarkusIdempotent";
-        Map<String, Object> headers = getCommonHeaders(component);
-        headers.put("MessageId", messageId);
-        template.sendBodyAndHeaders(uri, content, headers);
+        try {
+            IntStream.of(1, 10).forEach(value -> {
+                Map<String, Object> headers = getCommonHeaders(component);
+                headers.put("MessageId", messageId);
+                template.sendBodyAndHeaders(uri, "Message " + value, headers);
+            });
+
+            mockEndpoint.assertIsSatisfied(5000);
+        } finally {
+            mockEndpoint.reset();
+        }
     }
 
     @Path("/putIfAbsent")
@@ -303,48 +348,6 @@ public class InfinispanResources {
         Map<String, Object> headers = getCommonHeaders(component);
         ServerStatistics statistics = template.requestBodyAndHeaders("direct:stats", null, headers, ServerStatistics.class);
         return statistics.getIntStatistic(ServerStatistics.CURRENT_NR_OF_ENTRIES);
-    }
-
-    @Path("/mock/aggregation/results")
-    @GET
-    public void assertMockEndpointAggregationResults(@QueryParam("uri") String uri) throws InterruptedException {
-        MockEndpoint mockEndpoint = camelContext.getEndpoint(uri, MockEndpoint.class);
-        mockEndpoint.expectedMessageCount(2);
-        mockEndpoint.expectedBodiesReceived(1 + 3 + 4 + 5, 6 + 7 + 20 + 21);
-
-        try {
-            mockEndpoint.assertIsSatisfied(5000);
-        } finally {
-            mockEndpoint.reset();
-        }
-    }
-
-    @Path("/mock/event/results")
-    @GET
-    public void assertMockEndpointEventResults(@QueryParam("uri") String uri) throws InterruptedException {
-        MockEndpoint mockEndpoint = camelContext.getEndpoint(uri, MockEndpoint.class);
-        mockEndpoint.expectedMessageCount(1);
-        mockEndpoint.message(0).header(InfinispanConstants.EVENT_TYPE).isEqualTo("CLIENT_CACHE_ENTRY_CREATED");
-        mockEndpoint.message(0).header(InfinispanConstants.CACHE_NAME).isNotNull();
-        mockEndpoint.message(0).header(InfinispanConstants.KEY).isEqualTo("test-key");
-
-        try {
-            mockEndpoint.assertIsSatisfied(5000);
-        } finally {
-            mockEndpoint.reset();
-        }
-    }
-
-    @Path("/mock/idempotent/results")
-    @GET
-    public void assertMockEndpointIdempotentResults(@QueryParam("uri") String uri) throws InterruptedException {
-        MockEndpoint mockEndpoint = camelContext.getEndpoint(uri, MockEndpoint.class);
-        mockEndpoint.expectedMessageCount(1);
-        try {
-            mockEndpoint.assertIsSatisfied(5000);
-        } finally {
-            mockEndpoint.reset();
-        }
     }
 
     @POST
