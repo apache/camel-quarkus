@@ -164,7 +164,7 @@ public class InfinispanRoutes extends RouteBuilder {
         from("infinispan:camel?eventTypes=CLIENT_CACHE_ENTRY_CREATED")
                 .id("infinispan-events")
                 .autoStartup(false)
-                .to("mock:resultCreated");
+                .to("mock:camelResultCreated");
 
         // Only start aggregation repository routes in JVM mode
         if (!"executable".equals(System.getProperty("org.graalvm.nativeimage.kind"))) {
@@ -173,38 +173,38 @@ public class InfinispanRoutes extends RouteBuilder {
                     .aggregationRepository(createAggregationRepository("infinispan"))
                     .aggregationStrategy(createAggregationStrategy())
                     .completionSize(COMPLETION_SIZE)
-                    .to("mock:aggregationResult");
+                    .to("mock:camelAggregationResult");
 
             from("direct:quarkusAggregation")
                     .aggregate(header(CORRELATOR_HEADER))
                     .aggregationRepository(createAggregationRepository("infinispan-quarkus"))
                     .aggregationStrategy(createAggregationStrategy())
                     .completionSize(COMPLETION_SIZE)
-                    .to("mock:aggregationResult");
+                    .to("mock:quarkusAggregationResult");
         }
 
         from("direct:camelIdempotent")
                 .idempotentConsumer(header("MessageID"), createIdempotentRepository("infinispan"))
-                .to("mock:resultIdempotent");
+                .to("mock:camelResultIdempotent");
 
         from("direct:quarkusIdempotent")
                 .idempotentConsumer(header("MessageID"), createIdempotentRepository("infinispan-quarkus"))
-                .to("mock:resultIdempotent");
+                .to("mock:quarkusResultIdempotent");
 
         from("infinispan-quarkus:quarkus?eventTypes=CLIENT_CACHE_ENTRY_CREATED")
                 .id("infinispan-quarkus-events")
                 .autoStartup(false)
-                .to("mock:resultCreated");
+                .to("mock:quarkusResultCreated");
 
         from("infinispan:camel?customListener=#customListener")
                 .id("infinispan-custom-listener")
                 .autoStartup(false)
-                .to("mock:resultCustomListener");
+                .to("mock:camelResultCustomListener");
 
         from("infinispan-quarkus:quarkus?customListener=#customListener")
                 .id("infinispan-quarkus-custom-listener")
                 .autoStartup(false)
-                .to("mock:resultCustomListener");
+                .to("mock:quarkusResultCustomListener");
     }
 
     @Named("infinispan-quarkus")

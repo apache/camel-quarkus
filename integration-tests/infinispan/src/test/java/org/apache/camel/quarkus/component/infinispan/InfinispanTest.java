@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.component.infinispan;
 
-import java.util.UUID;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import io.quarkus.test.common.QuarkusTestResource;
@@ -68,19 +66,9 @@ public class InfinispanTest {
         // the default configured ProtoStreamMarshaller, thus we avoid doing it in this test suite
         Assumptions.assumeTrue(componentName.equals("infinispan"));
 
-        Stream.of(1, 3, 4, 5, 6, 7, 20, 21)
-                .forEach(value -> {
-                    RestAssured.with()
-                            .queryParam("component", componentName)
-                            .body(value)
-                            .post("/infinispan/aggregate")
-                            .then()
-                            .statusCode(204);
-                });
-
         RestAssured.with()
-                .queryParam("uri", "mock:aggregationResult")
-                .get("/infinispan/mock/aggregation/results")
+                .queryParam("component", componentName)
+                .get("/infinispan/aggregate")
                 .then()
                 .statusCode(204);
     }
@@ -203,16 +191,13 @@ public class InfinispanTest {
                 .statusCode(204);
 
         try {
+            String mockEndpointUri = componentName.equals("infinispan") ? "mock:camelResultCustomListener"
+                    : "mock:quarkusResultCustomListener";
             RestAssured.with()
                     .queryParam("component", componentName)
+                    .queryParam("mockEndpointUri", mockEndpointUri)
                     .body("Hello " + componentName)
-                    .post("/infinispan/put")
-                    .then()
-                    .statusCode(204);
-
-            RestAssured.with()
-                    .queryParam("uri", "mock:resultCustomListener")
-                    .get("/infinispan/mock/event/results")
+                    .get("/infinispan/event/verify")
                     .then()
                     .statusCode(204);
         } finally {
@@ -234,16 +219,13 @@ public class InfinispanTest {
                 .statusCode(204);
 
         try {
+            String mockEndpointUri = componentName.equals("infinispan") ? "mock:camelResultCreated"
+                    : "mock:quarkusResultCreated";
             RestAssured.with()
                     .queryParam("component", componentName)
+                    .queryParam("mockEndpointUri", mockEndpointUri)
                     .body("Hello " + componentName)
-                    .post("/infinispan/put")
-                    .then()
-                    .statusCode(204);
-
-            RestAssured.with()
-                    .queryParam("uri", "mock:resultCreated")
-                    .get("/infinispan/mock/event/results")
+                    .get("/infinispan/event/verify")
                     .then()
                     .statusCode(204);
         } finally {
@@ -283,21 +265,9 @@ public class InfinispanTest {
     @ParameterizedTest
     @MethodSource("componentNames")
     public void idempotent(String componentName) {
-        String messageId = UUID.randomUUID().toString();
-
-        IntStream.of(1, 10).forEach(value -> {
-            RestAssured.with()
-                    .queryParam("component", componentName)
-                    .queryParam("messageId", messageId)
-                    .body("Message " + value)
-                    .post("/infinispan/putIdempotent")
-                    .then()
-                    .statusCode(204);
-        });
-
         RestAssured.with()
-                .queryParam("uri", "mock:resultIdempotent")
-                .get("/infinispan/mock/idempotent/results")
+                .queryParam("component", componentName)
+                .get("/infinispan/putIdempotent")
                 .then()
                 .statusCode(204);
     }
