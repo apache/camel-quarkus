@@ -39,7 +39,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.mchange.io.FileUtils;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
@@ -166,7 +165,7 @@ public class FileResource {
         });
         Awaitility.await().atMost(10, TimeUnit.SECONDS).until(() -> {
             File file = new File("target/charsetIsoWrite/charsetEncodedFile.txt");
-            return Arrays.equals(encodedContent, FileUtils.getBytes(file));
+            return Arrays.equals(encodedContent, Files.readAllBytes(file.toPath()));
         });
 
         // Move the encoded file to the read folder
