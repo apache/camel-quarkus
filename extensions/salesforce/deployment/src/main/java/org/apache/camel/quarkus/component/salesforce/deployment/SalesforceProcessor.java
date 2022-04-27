@@ -23,6 +23,7 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.component.salesforce.api.dto.AbstractDTOBase;
+import org.apache.camel.support.jsse.KeyStoreParameters;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 
@@ -68,5 +69,8 @@ class SalesforceProcessor {
                 .toArray(String[]::new);
 
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, userDtoClasses));
+        
+        // Register KeyStoreParameters for reflection
+        new ReflectiveClassBuildItem(true, true, KeyStoreParameters.class);
     }
 }
