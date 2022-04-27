@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Remove `c3p0` from Quartz extension [\#3749](https://github.com/apache/camel-quarkus/issues/3749)
 - camel-quarkus-openapi-java ArraySchema not registered for reflection [\#3737](https://github.com/apache/camel-quarkus/issues/3737)
 - Unexpected attribute '{http://camel.apache.org/schema/spring}uri' when using Rest XML with Quarkus 2.8.0.Final [\#3732](https://github.com/apache/camel-quarkus/issues/3732)
 - Improve paho-mqtt5 SSL test [\#3730](https://github.com/apache/camel-quarkus/issues/3730)
@@ -21,6 +22,8 @@
 
 **Merged pull requests:**
 
+- Remove c3p0 from Quartz extension [\#3751](https://github.com/apache/camel-quarkus/pull/3751) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix MockEndpoint usage in Infinispan tests [\#3747](https://github.com/apache/camel-quarkus/pull/3747) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix compilation warnings in Azure Vert.x HTTP Client [\#3744](https://github.com/apache/camel-quarkus/pull/3744) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add missing service include pattern for properties-function [\#3740](https://github.com/apache/camel-quarkus/pull/3740) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3737 to register reflection methods of OpenAPI Schema [\#3738](https://github.com/apache/camel-quarkus/pull/3738) ([zhfeng](https://github.com/zhfeng))
