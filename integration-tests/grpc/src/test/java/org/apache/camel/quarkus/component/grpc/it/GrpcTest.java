@@ -28,6 +28,7 @@ import io.grpc.stub.StreamObserver;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
 import org.apache.camel.component.grpc.auth.jwt.JwtAlgorithm;
 import org.apache.camel.component.grpc.auth.jwt.JwtCallCredentials;
 import org.apache.camel.component.grpc.auth.jwt.JwtHelper;
@@ -35,12 +36,18 @@ import org.apache.camel.quarkus.component.grpc.it.model.PingPongGrpc;
 import org.apache.camel.quarkus.component.grpc.it.model.PingPongGrpc.PingPongBlockingStub;
 import org.apache.camel.quarkus.component.grpc.it.model.PingRequest;
 import org.apache.camel.quarkus.component.grpc.it.model.PongResponse;
+import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import static org.apache.camel.component.grpc.GrpcConstants.GRPC_EVENT_TYPE_HEADER;
+import static org.apache.camel.component.grpc.GrpcConstants.GRPC_EVENT_TYPE_ON_COMPLETED;
+import static org.apache.camel.component.grpc.GrpcConstants.GRPC_EVENT_TYPE_ON_ERROR;
+import static org.apache.camel.component.grpc.GrpcConstants.GRPC_EVENT_TYPE_ON_NEXT;
+import static org.apache.camel.component.grpc.GrpcConstants.GRPC_METHOD_NAME_HEADER;
 import static org.apache.camel.quarkus.component.grpc.it.GrpcRoute.GRPC_JWT_SECRET;
 import static org.apache.camel.quarkus.component.grpc.it.PingPongImpl.GRPC_TEST_PONG_VALUE;
 import static org.hamcrest.Matchers.equalTo;
@@ -109,9 +116,22 @@ class GrpcTest {
 
             latch.await(5, TimeUnit.SECONDS);
 
-            RestAssured.get("/grpc/forwardOnCompleted")
-                    .then()
-                    .statusCode(204);
+            Awaitility.await().atMost(5, TimeUnit.SECONDS).until(() -> {
+                JsonPath json = RestAssured.get("/grpc/forwardOnCompleted")
+                        .then()
+                        .statusCode(200)
+                        .extract()
+                        .body()
+                        .jsonPath();
+
+                String eventType = json.getString(GRPC_EVENT_TYPE_HEADER);
+                String methodName = json.getString(GRPC_METHOD_NAME_HEADER);
+
+                return eventType != null
+                        && eventType.equals(GRPC_EVENT_TYPE_ON_COMPLETED)
+                        && methodName != null
+                        && methodName.equals("pingAsyncAsync");
+            });
         } finally {
             channel.shutdownNow();
         }
@@ -133,10 +153,25 @@ class GrpcTest {
 
             latch.await(5, TimeUnit.SECONDS);
 
-            RestAssured.get("/grpc/forwardOnError")
-                    .then()
-                    .statusCode(200)
-                    .body(is(StatusRuntimeException.class.getName()));
+            Awaitility.await().atMost(5, TimeUnit.SECONDS).until(() -> {
+                JsonPath json = RestAssured.get("/grpc/forwardOnError")
+                        .then()
+                        .statusCode(200)
+                        .extract()
+                        .body()
+                        .jsonPath();
+
+                String eventType = json.getString(GRPC_EVENT_TYPE_HEADER);
+                String methodName = json.getString(GRPC_METHOD_NAME_HEADER);
+                String error = json.getString("error");
+
+                return error != null
+                        && error.equals(StatusRuntimeException.class.getName())
+                        && eventType != null
+                        && eventType.equals(GRPC_EVENT_TYPE_ON_ERROR)
+                        && methodName != null
+                        && methodName.equals("pingAsyncAsync");
+            });
         } finally {
             channel.shutdownNow();
         }
@@ -205,9 +240,22 @@ class GrpcTest {
             requestObserver.onNext(pingRequest);
             latch.await(5, TimeUnit.SECONDS);
 
-            RestAssured.get("/grpc/tls")
-                    .then()
-                    .statusCode(204);
+            Awaitility.await().atMost(5, TimeUnit.SECONDS).until(() -> {
+                JsonPath json = RestAssured.get("/grpc/tls")
+                        .then()
+                        .statusCode(200)
+                        .extract()
+                        .body()
+                        .jsonPath();
+
+                String eventType = json.getString(GRPC_EVENT_TYPE_HEADER);
+                String methodName = json.getString(GRPC_METHOD_NAME_HEADER);
+
+                return eventType != null
+                        && eventType.equals(GRPC_EVENT_TYPE_ON_NEXT)
+                        && methodName != null
+                        && methodName.equals("pingAsyncSync");
+            });
 
             PongResponse pongResponse = responseObserver.getPongResponse();
             assertNotNull(pongResponse);
@@ -222,7 +270,7 @@ class GrpcTest {
 
     @Test
     public void tlsProducer() {
-        String message = GRPC_TEST_PING_VALUE + " TLS";
+        String message = GRPC_TEST_PING_VALUE + " TLS producer";
         RestAssured.given()
                 .body(message)
                 .post("/grpc/tls")
@@ -255,9 +303,22 @@ class GrpcTest {
             requestObserver.onNext(pingRequest);
             latch.await(5, TimeUnit.SECONDS);
 
-            RestAssured.get("/grpc/jwt")
-                    .then()
-                    .statusCode(204);
+            Awaitility.await().atMost(5, TimeUnit.SECONDS).until(() -> {
+                JsonPath json = RestAssured.get("/grpc/jwt")
+                        .then()
+                        .statusCode(200)
+                        .extract()
+                        .body()
+                        .jsonPath();
+
+                String eventType = json.getString(GRPC_EVENT_TYPE_HEADER);
+                String methodName = json.getString(GRPC_METHOD_NAME_HEADER);
+
+                return eventType != null
+                        && eventType.equals(GRPC_EVENT_TYPE_ON_NEXT)
+                        && methodName != null
+                        && methodName.equals("pingAsyncSync");
+            });
 
             PongResponse pongResponse = responseObserver.getPongResponse();
             assertNotNull(pongResponse);
@@ -272,7 +333,7 @@ class GrpcTest {
 
     @Test
     public void jwtProducer() {
-        String message = GRPC_TEST_PING_VALUE + " JWT";
+        String message = GRPC_TEST_PING_VALUE + " JWT producer";
         RestAssured.given()
                 .body(message)
                 .post("/grpc/jwt")
