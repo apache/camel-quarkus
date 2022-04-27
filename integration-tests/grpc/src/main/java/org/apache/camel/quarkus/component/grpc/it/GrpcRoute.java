@@ -79,8 +79,14 @@ public class GrpcRoute extends RouteBuilder {
                 + "/%s?consumerStrategy=PROPAGATION&"
                 + "negotiationType=TLS&keyCertChainResource=certs/server.pem&"
                 + "keyResource=certs/server.key&trustCertCollectionResource=certs/ca.pem", PING_PONG_SERVICE)
+                        .process("messageOriginProcessor")
+                        .choice()
+                        .when(simple("${header.origin} == 'producer'"))
+                        .bean(new GrpcMessageBuilder(), "buildAsyncPongResponse")
+                        .endChoice()
+                        .otherwise()
                         .to("mock:tls")
-                        .bean(new GrpcMessageBuilder(), "buildAsyncPongResponse");
+                        .bean(new GrpcMessageBuilder(), "buildAsyncPongResponse").endChoice();
 
         from("direct:sendTls")
                 .toF("grpc://localhost:{{camel.grpc.test.tls.server.port}}"
@@ -91,8 +97,14 @@ public class GrpcRoute extends RouteBuilder {
         fromF("grpc://localhost:{{camel.grpc.test.jwt.server.port}}"
                 + "/%s?consumerStrategy=PROPAGATION&"
                 + "authenticationType=JWT&jwtSecret=%s", PING_PONG_SERVICE, GRPC_JWT_SECRET)
+                        .process("messageOriginProcessor")
+                        .choice()
+                        .when(simple("${header.origin} == 'producer'"))
+                        .bean(new GrpcMessageBuilder(), "buildAsyncPongResponse")
+                        .endChoice()
+                        .otherwise()
                         .to("mock:jwt")
-                        .bean(new GrpcMessageBuilder(), "buildAsyncPongResponse");
+                        .bean(new GrpcMessageBuilder(), "buildAsyncPongResponse").endChoice();
 
         from("direct:sendJwt")
                 .toF("grpc://localhost:{{camel.grpc.test.jwt.server.port}}"
