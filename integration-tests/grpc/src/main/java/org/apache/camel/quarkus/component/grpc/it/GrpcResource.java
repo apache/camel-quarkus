@@ -16,7 +16,9 @@
  */
 package org.apache.camel.quarkus.component.grpc.it;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -35,11 +37,6 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.quarkus.component.grpc.it.model.PingRequest;
 import org.apache.camel.quarkus.component.grpc.it.model.PongResponse;
 
-import static org.apache.camel.component.grpc.GrpcConstants.GRPC_EVENT_TYPE_HEADER;
-import static org.apache.camel.component.grpc.GrpcConstants.GRPC_EVENT_TYPE_ON_COMPLETED;
-import static org.apache.camel.component.grpc.GrpcConstants.GRPC_EVENT_TYPE_ON_ERROR;
-import static org.apache.camel.component.grpc.GrpcConstants.GRPC_EVENT_TYPE_ON_NEXT;
-import static org.apache.camel.component.grpc.GrpcConstants.GRPC_METHOD_NAME_HEADER;
 import static org.apache.camel.quarkus.component.grpc.it.GrpcRoute.PING_PONG_SERVICE;
 
 @Path("/grpc")
@@ -69,96 +66,107 @@ public class GrpcResource {
 
     @Path("/forwardOnCompleted")
     @GET
-    public void forwardOnCompleted() throws InterruptedException {
-        MockEndpoint endpoint = context.getEndpoint("mock:forwardOnCompleted", MockEndpoint.class);
-        endpoint.expectedMessageCount(1);
-        endpoint.expectedHeaderValuesReceivedInAnyOrder(GRPC_EVENT_TYPE_HEADER, GRPC_EVENT_TYPE_ON_COMPLETED);
-        endpoint.expectedHeaderValuesReceivedInAnyOrder(GRPC_METHOD_NAME_HEADER, "pingAsyncAsync");
-        endpoint.assertIsSatisfied(5000L);
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map<String, Object> forwardOnCompleted() throws InterruptedException {
+        MockEndpoint mockEndpoint = context.getEndpoint("mock:forwardOnCompleted", MockEndpoint.class);
+        List<Exchange> exchanges = mockEndpoint.getExchanges();
+        if (!exchanges.isEmpty()) {
+            Exchange exchange = exchanges.get(0);
+            return exchange.getMessage().getHeaders();
+        }
+        return Collections.emptyMap();
     }
 
     @Path("/forwardOnError")
     @GET
-    public String forwardOnError() throws InterruptedException {
-        MockEndpoint endpoint = context.getEndpoint("mock:forwardOnError", MockEndpoint.class);
-        endpoint.expectedMessageCount(1);
-        endpoint.expectedHeaderValuesReceivedInAnyOrder(GRPC_EVENT_TYPE_HEADER, GRPC_EVENT_TYPE_ON_ERROR);
-        endpoint.expectedHeaderValuesReceivedInAnyOrder(GRPC_METHOD_NAME_HEADER, "pingAsyncAsync");
-        endpoint.assertIsSatisfied(5000L);
-
-        List<Exchange> exchanges = endpoint.getExchanges();
-        Exchange exchange = exchanges.get(0);
-        Throwable throwable = exchange.getMessage().getBody(Throwable.class);
-        return throwable.getClass().getName();
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map<String, Object> forwardOnError() throws InterruptedException {
+        MockEndpoint mockEndpoint = context.getEndpoint("mock:forwardOnError", MockEndpoint.class);
+        List<Exchange> exchanges = mockEndpoint.getExchanges();
+        if (!exchanges.isEmpty()) {
+            Exchange exchange = exchanges.get(0);
+            Throwable throwable = exchange.getMessage().getBody(Throwable.class);
+            Map<String, Object> results = exchange.getMessage().getHeaders();
+            results.put("error", throwable.getClass().getName());
+            return results;
+        }
+        return Collections.emptyMap();
     }
 
     @Path("/grpcStreamReplies")
     @GET
     public void grpcStreamReplies() throws InterruptedException {
         int messageCount = 10;
+        MockEndpoint endpoint = context.getEndpoint("mock:grpcStreamReplies", MockEndpoint.class);
+        endpoint.expectedMessageCount(messageCount);
+
         for (int i = 1; i <= messageCount; i++) {
             PingRequest request = PingRequest.newBuilder().setPingName(String.valueOf(i)).build();
             producerTemplate.sendBody("direct:grpcStream", request);
         }
 
-        MockEndpoint endpoint = context.getEndpoint("mock:grpcStreamReplies", MockEndpoint.class);
-        endpoint.expectedMessageCount(messageCount);
         endpoint.assertIsSatisfied();
     }
 
     @Path("/tls")
     @GET
-    public void tlsConsumer() throws InterruptedException {
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map<String, Object> tlsConsumer() throws InterruptedException {
         MockEndpoint mockEndpoint = context.getEndpoint("mock:tls", MockEndpoint.class);
-        mockEndpoint.expectedMessageCount(1);
-        mockEndpoint.expectedHeaderValuesReceivedInAnyOrder(GRPC_EVENT_TYPE_HEADER, GRPC_EVENT_TYPE_ON_NEXT);
-        mockEndpoint.expectedHeaderValuesReceivedInAnyOrder(GRPC_METHOD_NAME_HEADER, "pingAsyncSync");
-        mockEndpoint.assertIsSatisfied();
+        List<Exchange> exchanges = mockEndpoint.getExchanges();
+        if (!exchanges.isEmpty()) {
+            Exchange exchange = exchanges.get(0);
+            return exchange.getMessage().getHeaders();
+        }
+        return Collections.emptyMap();
     }
 
     @Path("/tls")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     public String tlsProducer(String message) {
-        MockEndpoint mockEndpoint = context.getEndpoint("mock:tls", MockEndpoint.class);
-        try {
-            PingRequest pingRequest = PingRequest.newBuilder()
-                    .setPingName(message)
-                    .setPingId(12345)
-                    .build();
+        PingRequest pingRequest = PingRequest.newBuilder()
+                .setPingName(message)
+                .setPingId(12345)
+                .build();
 
-            PongResponse response = producerTemplate.requestBody("direct:sendTls", pingRequest, PongResponse.class);
-            return response.getPongName();
-        } finally {
-            mockEndpoint.reset();
-        }
+        PongResponse response = producerTemplate.requestBodyAndHeader(
+                "direct:sendTls",
+                pingRequest,
+                "origin",
+                "producer",
+                PongResponse.class);
+        return response.getPongName();
     }
 
     @Path("/jwt")
     @GET
-    public void jwtConsumer() throws InterruptedException {
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map<String, Object> jwtConsumer() throws InterruptedException {
         MockEndpoint mockEndpoint = context.getEndpoint("mock:jwt", MockEndpoint.class);
-        mockEndpoint.expectedMessageCount(1);
-        mockEndpoint.expectedHeaderValuesReceivedInAnyOrder(GRPC_EVENT_TYPE_HEADER, GRPC_EVENT_TYPE_ON_NEXT);
-        mockEndpoint.expectedHeaderValuesReceivedInAnyOrder(GRPC_METHOD_NAME_HEADER, "pingAsyncSync");
-        mockEndpoint.assertIsSatisfied();
+        List<Exchange> exchanges = mockEndpoint.getExchanges();
+        if (!exchanges.isEmpty()) {
+            Exchange exchange = exchanges.get(0);
+            return exchange.getMessage().getHeaders();
+        }
+        return Collections.emptyMap();
     }
 
     @Path("/jwt")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     public String jwtProducer(String message) {
-        MockEndpoint mockEndpoint = context.getEndpoint("mock:jwt", MockEndpoint.class);
-        try {
-            PingRequest pingRequest = PingRequest.newBuilder()
-                    .setPingName(message)
-                    .setPingId(12345)
-                    .build();
+        PingRequest pingRequest = PingRequest.newBuilder()
+                .setPingName(message)
+                .setPingId(12345)
+                .build();
 
-            PongResponse response = producerTemplate.requestBody("direct:sendJwt", pingRequest, PongResponse.class);
-            return response.getPongName();
-        } finally {
-            mockEndpoint.reset();
-        }
+        PongResponse response = producerTemplate.requestBodyAndHeader(
+                "direct:sendJwt",
+                pingRequest,
+                "origin",
+                "producer",
+                PongResponse.class);
+        return response.getPongName();
     }
 }
