@@ -40,4 +40,4 @@ nb-configuration.xml
 *.swp
 
 # Quarkus
-quarkus.log
+quarkus.log*
