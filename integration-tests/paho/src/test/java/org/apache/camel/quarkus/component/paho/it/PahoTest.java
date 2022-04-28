@@ -89,4 +89,15 @@ class PahoTest {
                 .statusCode(200)
                 .body(is(message));
     }
+
+    @Test
+    public void sendReceiveWithRfc3986AuthorityShouldSucceed() {
+        String message = "sendReceiveWithRfc3986AuthorityShouldSucceed message content: 3bfe3754-cea4-488c-9534-f70d2a1a7c23";
+        RestAssured.given()
+                .queryParam("message", message)
+                .get("/paho/sendReceiveWithRfc3986AuthorityShouldSucceed")
+                .then()
+                .statusCode(200)
+                .body(is(message));
+    }
 }
