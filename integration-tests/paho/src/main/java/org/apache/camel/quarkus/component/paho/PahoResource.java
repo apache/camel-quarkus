@@ -125,6 +125,21 @@ public class PahoResource {
                 String.class);
     }
 
+    @Path("/sendReceiveWithRfc3986AuthorityShouldSucceed")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String sendReceiveWithRfc3986AuthorityShouldSucceed(@QueryParam("message") String message) {
+
+        // Change the brokerUrl to an RFC3986 form
+        String tcpUrl = ConfigProvider.getConfig().getValue("paho.broker.tcp.url", String.class);
+        tcpUrl = tcpUrl.replaceAll("tcp://([^:]*):(.*)", "tcp://user:password@$1:$2");
+
+        producerTemplate.requestBody("paho:rfc3986?retained=true&brokerUrl=" + tcpUrl,
+                message);
+        return consumerTemplate.receiveBody("paho:rfc3986?brokerUrl=" + tcpUrl, 5000,
+                String.class);
+    }
+
     private String brokerUrl(String protocol) {
         return ConfigProvider.getConfig().getValue("paho.broker." + protocol + ".url", String.class);
     }
