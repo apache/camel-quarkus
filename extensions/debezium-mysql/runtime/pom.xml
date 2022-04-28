@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-debezium-mysql-parent</artifactId>
-        <version>2.8.0-SNAPSHOT</version>
+        <version>2.9.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -47,12 +47,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-debezium-mysql</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.maven</groupId>
-                    <artifactId>maven-artifact</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>

@@ -28,7 +28,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.util.CollectionHelper;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.anyOf;
@@ -53,13 +53,13 @@ class SplunkTest {
                 .statusCode(200)
                 .extract().as(List.class);
 
-        Assert.assertEquals(3, result.size());
-        Assert.assertEquals("Irma_normal", result.get(0).get("name"));
-        Assert.assertEquals("Earth\"", result.get(0).get("from"));
-        Assert.assertEquals("Leonard_normal", result.get(1).get("name"));
-        Assert.assertEquals("Earth 2.0\"", result.get(1).get("from"));
-        Assert.assertEquals("Sheldon_normal", result.get(2).get("name"));
-        Assert.assertEquals("Alpha Centauri\"", result.get(2).get("from"));
+        Assertions.assertEquals(3, result.size());
+        Assertions.assertEquals("Irma_normal", result.get(0).get("name"));
+        Assertions.assertEquals("Earth\"", result.get(0).get("from"));
+        Assertions.assertEquals("Leonard_normal", result.get(1).get("name"));
+        Assertions.assertEquals("Earth 2.0\"", result.get(1).get("from"));
+        Assertions.assertEquals("Sheldon_normal", result.get(2).get("name"));
+        Assertions.assertEquals("Alpha Centauri\"", result.get(2).get("from"));
     }
 
     @Test

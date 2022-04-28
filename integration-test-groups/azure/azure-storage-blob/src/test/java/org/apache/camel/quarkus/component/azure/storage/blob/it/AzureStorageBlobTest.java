@@ -43,7 +43,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.shaded.org.awaitility.Awaitility;
 
-import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.anyOf;
+import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.StringEndsWith.endsWith;
 import static org.hamcrest.text.MatchesPattern.matchesPattern;
@@ -121,7 +122,7 @@ class AzureStorageBlobTest {
             // Delete
             RestAssured.delete("/azure-storage-blob/blob/delete")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 
@@ -166,7 +167,7 @@ class AzureStorageBlobTest {
             // Delete
             RestAssured.delete("/azure-storage-blob/blob/delete")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 
@@ -224,7 +225,7 @@ class AzureStorageBlobTest {
             // Delete
             RestAssured.delete("/azure-storage-blob/blob/delete")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 
@@ -258,7 +259,7 @@ class AzureStorageBlobTest {
             // Delete
             RestAssured.delete("/azure-storage-blob/blob/delete")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 
@@ -352,13 +353,13 @@ class AzureStorageBlobTest {
             // Delete
             RestAssured.delete("/azure-storage-blob/blob/delete")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 
     @Test
     public void blobContainer() {
-        String alternativeContainerName = "cq-test-" + UUID.randomUUID();
+        String alternativeContainerName = "camel-quarkus-" + UUID.randomUUID();
 
         try {
             // Create
@@ -374,20 +375,20 @@ class AzureStorageBlobTest {
                     .then()
                     .statusCode(200)
                     .body("containers.name",
-                            containsInAnyOrder(containerName, alternativeContainerName));
+                            hasItems(containerName, alternativeContainerName));
         } finally {
             // Delete
             RestAssured.given()
                     .queryParam("containerName", alternativeContainerName)
                     .delete("/azure-storage-blob/blob/container")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 
     @Test
     public void copyBlob() {
-        String alternativeContainerName = "cq-test-" + UUID.randomUUID();
+        String alternativeContainerName = "camel-quarkus-" + UUID.randomUUID();
 
         try {
             // Create container to copy to
@@ -403,7 +404,7 @@ class AzureStorageBlobTest {
                     .then()
                     .statusCode(200)
                     .body("containers.name",
-                            containsInAnyOrder(containerName, alternativeContainerName));
+                            hasItems(containerName, alternativeContainerName));
 
             // Create blob in first container
             RestAssured.given()
@@ -443,7 +444,7 @@ class AzureStorageBlobTest {
 
             RestAssured.delete("/azure-storage-blob/blob/delete")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 
@@ -512,7 +513,35 @@ class AzureStorageBlobTest {
         } finally {
             RestAssured.delete("/azure-storage-blob/blob/delete")
                     .then()
-                    .statusCode(204);
+                    .statusCode(anyOf(is(204), is(404)));
+        }
+    }
+
+    // Can only use the Camel component managed blob client with the real Azure service
+    @EnabledIf({ MockBackendDisabled.class })
+    @Test
+    public void readWithManagedClient() {
+        try {
+            // Create
+            RestAssured.given()
+                    .contentType(ContentType.TEXT)
+                    .body(BLOB_CONTENT)
+                    .post("/azure-storage-blob/blob/create")
+                    .then()
+                    .statusCode(201);
+
+            // Read
+            RestAssured.given()
+                    .queryParam("uri", "direct:readWithManagedClient")
+                    .get("/azure-storage-blob/blob/read")
+                    .then()
+                    .statusCode(200)
+                    .body(is(BLOB_CONTENT));
+        } finally {
+            // Delete
+            RestAssured.delete("/azure-storage-blob/blob/delete")
+                    .then()
+                    .statusCode(anyOf(is(204), is(404)));
         }
     }
 }

@@ -30,9 +30,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.hamcrest.Matchers;
 import org.jboss.logging.Logger;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.localstack.LocalStackContainer.Service;
 import software.amazon.awssdk.core.ResponseInputStream;
@@ -52,7 +50,6 @@ class Aws2KinesisTest {
     @Aws2Client(Service.S3)
     S3Client client;
 
-    @Disabled("https://github.com/apache/camel-quarkus/issues/3638")
     @Test
     public void kinesis() {
         final String msg = "kinesis-" + java.util.UUID.randomUUID().toString().replace("-", "");
@@ -63,10 +60,14 @@ class Aws2KinesisTest {
                 .then()
                 .statusCode(201);
 
-        RestAssured.get("/aws2-kinesis/receive")
-                .then()
-                .statusCode(200)
-                .body(Matchers.is(msg));
+        Awaitility.await().atMost(10, TimeUnit.SECONDS).until(
+                () -> RestAssured.get("/aws2-kinesis/receive").then().extract(),
+                response -> {
+                    final int status = response.statusCode();
+                    final String body = status == 200 ? response.body().asString() : null;
+                    LOG.info("Got " + status + " " + body);
+                    return response.statusCode() == 200 && msg.equals(body);
+                });
     }
 
     @Test

@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.aws2.s3.it;
 
+import java.net.URI;
 import java.util.Locale;
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -33,7 +34,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
@@ -164,22 +165,24 @@ class Aws2S3Test {
         final String oid = UUID.randomUUID().toString();
         final String blobContent = "Hello KMS " + oid;
 
-        // Create
-        RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .body(blobContent)
-                .post("/aws2/s3/object/" + oid + "?useKms=true")
-                .then()
-                .statusCode(201);
+        try {
+            // Create
+            RestAssured.given()
+                    .contentType(ContentType.TEXT)
+                    .body(blobContent)
+                    .post("/aws2/s3/object/" + oid + "?useKms=true")
+                    .then()
+                    .statusCode(201);
 
-        // Read
-        RestAssured.get("/aws2/s3/object/" + oid + "?useKms=true")
-                .then()
-                .statusCode(200)
-                .body(is(blobContent));
-
-        // Delete
-        deleteObject(oid);
+            // Read
+            RestAssured.get("/aws2/s3/object/" + oid + "?useKms=true")
+                    .then()
+                    .statusCode(200)
+                    .body(is(blobContent));
+        } finally {
+            // Delete
+            deleteObject(oid);
+        }
     }
 
     @Test
@@ -187,24 +190,26 @@ class Aws2S3Test {
         final String oid = UUID.randomUUID().toString();
         final String content = RandomStringUtils.randomAlphabetic(8 * 1024 * 1024);
 
-        RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .body(content)
-                .post("/aws2/s3/upload/" + oid)
-                .then()
-                .statusCode(200);
+        try {
+            RestAssured.given()
+                    .contentType(ContentType.TEXT)
+                    .body(content)
+                    .post("/aws2/s3/upload/" + oid)
+                    .then()
+                    .statusCode(200);
 
-        String result = RestAssured.get("/aws2/s3/object/" + oid)
-                .then()
-                .statusCode(200)
-                .extract().asString();
+            String result = RestAssured.get("/aws2/s3/object/" + oid)
+                    .then()
+                    .statusCode(200)
+                    .extract().asString();
 
-        // Delete
-        deleteObject(oid);
-
-        // strip the chuck-signature
-        result = result.replaceAll("\\s*[0-9]+;chunk-signature=\\w{64}\\s*", "");
-        assertEquals(content, result);
+            // strip the chuck-signature
+            result = result.replaceAll("\\s*[0-9]+;chunk-signature=\\w{64}\\s*", "");
+            assertEquals(content, result);
+        } finally {
+            // Delete
+            deleteObject(oid);
+        }
     }
 
     @Test
@@ -284,18 +289,42 @@ class Aws2S3Test {
         final String oid = UUID.randomUUID().toString();
         final String blobContent = "Hello " + oid;
 
-        // Create
-        createObject(oid, blobContent);
+        try {
+            // Create
+            createObject(oid, blobContent);
 
-        // Download link
-        RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .get("/aws2/s3/downloadlink/" + oid)
-                .then()
-                .statusCode(200);
+            // Get the download link
+            final String downloadLink = RestAssured.given()
+                    .contentType(ContentType.TEXT)
+                    .get("/aws2/s3/downloadlink/" + oid)
+                    .then()
+                    .statusCode(200)
+                    .extract().body().asString();
 
-        // Delete
-        deleteObject(oid);
+            final URI downloadUri = new URI(downloadLink);
+
+            // Make sure that the download link works
+            // Note that localstack produces a real AWS link so when testing against localstack,
+            // the link won't work
+            final String realKey = System.getenv("AWS_ACCESS_KEY");
+            final String realSecret = System.getenv("AWS_SECRET_KEY");
+            final String realRegion = System.getenv("AWS_REGION");
+            final boolean realCredentialsProvided = realKey != null && realSecret != null && realRegion != null;
+            if (realCredentialsProvided) {
+                RestAssured.given()
+                        .log().all()
+                        .contentType(ContentType.TEXT)
+                        .port(downloadUri.getPort())
+                        .get(downloadLink)
+                        .then()
+                        .statusCode(200)
+                        .body(is(blobContent));
+            }
+
+        } finally {
+            // Delete
+            deleteObject(oid);
+        }
     }
 
     @Test
@@ -303,20 +332,22 @@ class Aws2S3Test {
         final String oid = UUID.randomUUID().toString();
         final String blobContent = "Hello " + oid;
 
-        // Create
-        createObject(oid, blobContent);
+        try {
+            // Create
+            createObject(oid, blobContent);
 
-        // Object range
-        RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .param("start", "0").param("end", "4")
-                .get("/aws2/s3/object/range/" + oid)
-                .then()
-                .statusCode(200)
-                .body(is("Hello"));
-
-        // Delete
-        deleteObject(oid);
+            // Object range
+            RestAssured.given()
+                    .contentType(ContentType.TEXT)
+                    .param("start", "0").param("end", "4")
+                    .get("/aws2/s3/object/range/" + oid)
+                    .then()
+                    .statusCode(200)
+                    .body(is("Hello"));
+        } finally {
+            // Delete
+            deleteObject(oid);
+        }
     }
 
     private void createObject(String oid, String blobContent) {

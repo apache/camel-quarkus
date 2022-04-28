@@ -23,6 +23,7 @@ import org.apache.camel.component.kafka.DefaultKafkaClientFactory;
 import org.apache.camel.component.kafka.KafkaConfiguration;
 import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.consumer.Consumer;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.Producer;
 
 /**
@@ -63,6 +64,11 @@ public class QuarkusKafkaClientFactory extends DefaultKafkaClientFactory {
     public void mergeConfiguration(Properties camelKafkaProperties) {
         if (quarkusKafkaConfiguration != null) {
             for (Map.Entry<String, Object> entry : quarkusKafkaConfiguration.entrySet()) {
+                // Don't overwrite the group id if it has been set
+                if (entry.getKey().equals(ConsumerConfig.GROUP_ID_CONFIG)
+                        && camelKafkaProperties.containsKey(ConsumerConfig.GROUP_ID_CONFIG)) {
+                    continue;
+                }
                 camelKafkaProperties.put(entry.getKey(), entry.getValue());
             }
         }

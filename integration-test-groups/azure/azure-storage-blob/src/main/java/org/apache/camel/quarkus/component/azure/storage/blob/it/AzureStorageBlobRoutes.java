@@ -50,6 +50,10 @@ public class AzureStorageBlobRoutes extends RouteBuilder {
         from("direct:read")
                 .to(componentUri(BlobOperationsDefinition.getBlob));
 
+        from("direct:readWithManagedClient")
+                .to(componentUri("azure-storage-blob-managed-client", BlobOperationsDefinition.getBlob)
+                        + "&autowiredEnabled=false&accessKey=RAW(" + azureStorageAccountKey + ")");
+
         from("direct:update")
                 .to(componentUri(BlobOperationsDefinition.uploadBlockBlob));
 
@@ -117,7 +121,12 @@ public class AzureStorageBlobRoutes extends RouteBuilder {
     }
 
     private String componentUri(final BlobOperationsDefinition operation) {
-        return String.format("azure-storage-blob://%s/%s?operation=%s&blobName=%s",
+        return componentUri("azure-storage-blob", operation);
+    }
+
+    private String componentUri(final String componentName, final BlobOperationsDefinition operation) {
+        return String.format("%s://%s/%s?operation=%s&blobName=%s",
+                componentName,
                 azureStorageAccountName,
                 azureBlobContainerName,
                 operation.name(), BLOB_NAME);

@@ -235,7 +235,7 @@ public class Aws2S3Resource {
         }
 
         String link = producerTemplate.requestBodyAndHeader(
-                componentUri(bucket, AWS2S3Operations.createDownloadLink) + "&accessKey=xxx&secretKey=yyy&region=eu-west-1",
+                componentUri(bucket, AWS2S3Operations.createDownloadLink),
                 null,
                 AWS2S3Constants.KEY,
                 key,

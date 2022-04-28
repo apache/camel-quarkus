@@ -136,6 +136,7 @@
 *** xref:reference/extensions/google-drive.adoc[Google Drive]
 *** xref:reference/extensions/google-mail.adoc[Google Mail]
 *** xref:reference/extensions/google-pubsub.adoc[Google Pubsub]
+*** xref:reference/extensions/google-secret-manager.adoc[Google Secret Manager]
 *** xref:reference/extensions/google-sheets.adoc[Google Sheets]
 *** xref:reference/extensions/google-storage.adoc[Google Storage]
 *** xref:reference/extensions/google-functions.adoc[GoogleCloudFunctions]

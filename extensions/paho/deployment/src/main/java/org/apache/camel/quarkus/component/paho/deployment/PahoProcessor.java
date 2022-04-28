@@ -16,11 +16,18 @@
  */
 package org.apache.camel.quarkus.component.paho.deployment;
 
+import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
+import java.util.ResourceBundle;
+
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
+import org.eclipse.paho.client.mqttv3.internal.ResourceBundleCatalog;
 import org.eclipse.paho.client.mqttv3.logging.JSR47Logger;
 import org.eclipse.paho.client.mqttv3.spi.NetworkModuleFactory;
 
@@ -33,8 +40,14 @@ class PahoProcessor {
     }
 
     @BuildStep
-    ReflectiveClassBuildItem registerReflectiveClasses() {
-        return new ReflectiveClassBuildItem(false, false, JSR47Logger.class);
+    void registerReflectiveClasses(BuildProducer<ReflectiveClassBuildItem> p) {
+        p.produce(new ReflectiveClassBuildItem(false, false, JSR47Logger.class));
+        p.produce(new ReflectiveClassBuildItem(false, false, ResourceBundleCatalog.class));
+        p.produce(new ReflectiveClassBuildItem(false, false, ResourceBundle.class));
+        p.produce(new ReflectiveClassBuildItem(false, false, FileLock.class));
+        p.produce(new ReflectiveClassBuildItem(true, false, FileChannel.class));
+        p.produce(new ReflectiveClassBuildItem(true, false, RandomAccessFile.class));
+        p.produce(new ReflectiveClassBuildItem(true, false, "sun.nio.ch.FileLockImpl"));
     }
 
     @BuildStep
@@ -48,7 +61,8 @@ class PahoProcessor {
     }
 
     @BuildStep
-    NativeImageResourceBundleBuildItem registerResourceBundle() {
-        return new NativeImageResourceBundleBuildItem("org.eclipse.paho.client.mqttv3.internal.nls.logcat");
+    void registerResourceBundle(BuildProducer<NativeImageResourceBundleBuildItem> p) {
+        p.produce(new NativeImageResourceBundleBuildItem("org.eclipse.paho.client.mqttv3.internal.nls.logcat"));
+        p.produce(new NativeImageResourceBundleBuildItem("org.eclipse.paho.client.mqttv3.internal.nls.messages"));
     }
 }
