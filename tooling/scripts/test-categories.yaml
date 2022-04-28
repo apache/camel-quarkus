@@ -84,6 +84,7 @@ group-05:
   - cbor
   - csv
   - dataformat
+  - datasonnet
   - hl7
   - jaxb
   - ssh

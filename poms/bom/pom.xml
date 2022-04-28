@@ -892,6 +892,21 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-datasonnet</artifactId>
+                <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.lihaoyi</groupId>
+                        <artifactId>geny_2.13</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.activation</groupId>
+                        <artifactId>activation</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-debezium-common</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -3536,6 +3551,16 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-dataformat-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-datasonnet</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-datasonnet-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
@@ -6246,6 +6271,11 @@
                 <groupId>com.google.zxing</groupId>
                 <artifactId>core</artifactId>
                 <version>${zxing.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lihaoyi</groupId>
+                <artifactId>geny_2.13</artifactId>
+                <version>${geny.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.mchange</groupId>
