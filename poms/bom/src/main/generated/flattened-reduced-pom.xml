@@ -9627,6 +9627,11 @@
         <version>1.0.2</version>
       </dependency>
       <dependency>
+        <groupId>io.perfmark</groupId>
+        <artifactId>perfmark-api</artifactId>
+        <version>0.25.0</version>
+      </dependency>
+      <dependency>
         <groupId>io.quarkiverse.freemarker</groupId>
         <artifactId>quarkus-freemarker</artifactId>
         <version>0.3.0</version>
@@ -9695,7 +9700,7 @@
       <dependency>
         <groupId>io.smallrye.reactive</groupId>
         <artifactId>smallrye-reactive-messaging-camel</artifactId>
-        <version>3.15.0</version>
+        <version>3.17.0</version>
         <exclusions>
           <exclusion>
             <groupId>jakarta.activation</groupId>
@@ -9923,7 +9928,7 @@
       <dependency>
         <groupId>org.graalvm.js</groupId>
         <artifactId>js</artifactId>
-        <version>22.0.0.2</version>
+        <version>22.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.influxdb</groupId>
@@ -10079,7 +10084,7 @@
       <dependency>
         <groupId>org.threeten</groupId>
         <artifactId>threetenbp</artifactId>
-        <version>1.4.0</version>
+        <version>1.6.0</version>
       </dependency>
       <dependency>
         <groupId>org.web3j</groupId>

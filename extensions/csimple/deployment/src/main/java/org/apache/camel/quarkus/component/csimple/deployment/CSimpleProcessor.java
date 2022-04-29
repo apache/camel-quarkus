@@ -312,7 +312,7 @@ class CSimpleProcessor {
                 projectDir.resolve("src/main/java").toFile(),
                 csimpleClassesDir.toFile(),
                 StandardCharsets.UTF_8.name(),
-                Collections.emptyList(),
+                Collections.emptyMap(),
                 null,
                 "11",
                 "11",

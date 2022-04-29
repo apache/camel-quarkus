@@ -9685,6 +9685,11 @@
                 <version>${projectreactor-netty.version}</version>
             </dependency>
             <dependency>
+                <groupId>io.perfmark</groupId>
+                <artifactId>perfmark-api</artifactId>
+                <version>${perfmark-api.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.quarkiverse.freemarker</groupId>
                 <artifactId>quarkus-freemarker</artifactId>
                 <version>${quarkiverse-freemarker.version}</version>
