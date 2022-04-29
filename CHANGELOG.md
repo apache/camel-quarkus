@@ -23,6 +23,8 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 2.9.0.CR1 [\#3753](https://github.com/apache/camel-quarkus/pull/3753) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix MockEndpoint usage in gRPC tests [\#3752](https://github.com/apache/camel-quarkus/pull/3752) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove c3p0 from Quartz extension [\#3751](https://github.com/apache/camel-quarkus/pull/3751) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix MockEndpoint usage in Infinispan tests [\#3747](https://github.com/apache/camel-quarkus/pull/3747) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix compilation warnings in Azure Vert.x HTTP Client [\#3744](https://github.com/apache/camel-quarkus/pull/3744) ([jamesnetherton](https://github.com/jamesnetherton))
