@@ -10798,22 +10798,27 @@
       <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>connect-api</artifactId>
-        <version>2.7.0</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>connect-json</artifactId>
-        <version>2.7.0</version>
+        <version>3.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.kafka</groupId>
+        <artifactId>connect-file</artifactId>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>connect-transforms</artifactId>
-        <version>2.7.0</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>com.zendesk</groupId>
         <artifactId>mysql-binlog-connector-java</artifactId>
-        <version>0.25.1</version>
+        <version>0.25.6</version>
       </dependency>
       <dependency>
         <groupId>com.google.api.grpc</groupId>
@@ -10833,42 +10838,18 @@
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-api</artifactId>
-        <version>1.6.1.Final</version>
+        <version>1.9.2.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-core</artifactId>
-        <version>1.6.1.Final</version>
+        <version>1.9.2.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-embedded</artifactId>
-        <version>1.6.1.Final</version>
+        <version>1.9.2.Final</version>
         <exclusions>
-          <exclusion>
-            <groupId>javax.activation</groupId>
-            <artifactId>activation</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka-log4j-appender</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.kafka</groupId>
-            <artifactId>connect-runtime</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.kafka</groupId>
-            <artifactId>connect-file</artifactId>
-          </exclusion>
           <exclusion>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
@@ -10878,64 +10859,40 @@
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-postgres</artifactId>
-        <version>1.6.1.Final</version>
+        <version>1.9.2.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-mysql</artifactId>
-        <version>1.6.1.Final</version>
+        <version>1.9.2.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-ddl-parser</artifactId>
-        <version>1.6.1.Final</version>
+        <version>1.9.2.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-mongodb</artifactId>
-        <version>1.6.1.Final</version>
+        <version>1.9.2.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-sqlserver</artifactId>
-        <version>1.6.1.Final</version>
+        <version>1.9.2.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-core</artifactId>
-        <version>1.6.1.Final</version>
+        <version>1.9.2.Final</version>
         <type>test-jar</type>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-embedded</artifactId>
-        <version>1.6.1.Final</version>
+        <version>1.9.2.Final</version>
         <type>test-jar</type>
         <exclusions>
-          <exclusion>
-            <groupId>javax.activation</groupId>
-            <artifactId>activation</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka-log4j-appender</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.kafka</groupId>
-            <artifactId>connect-runtime</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.kafka</groupId>
-            <artifactId>connect-file</artifactId>
-          </exclusion>
           <exclusion>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
@@ -10945,7 +10902,7 @@
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-mysql</artifactId>
-        <version>1.6.1.Final</version>
+        <version>1.9.2.Final</version>
         <type>test-jar</type>
       </dependency>
       <dependency>
