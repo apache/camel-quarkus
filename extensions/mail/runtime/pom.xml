@@ -51,6 +51,10 @@
                     <groupId>com.sun.activation</groupId>
                     <artifactId>javax.activation</artifactId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>jakarta.mail</artifactId>
+                    <groupId>com.sun.mail</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>

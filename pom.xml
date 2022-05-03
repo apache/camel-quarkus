@@ -110,6 +110,7 @@
         <joni.version>2.1.31</joni.version><!-- used by json-validator -->
         <jaxen.version>1.2.0</jaxen.version>
         <javassist.version>3.22.0-CR2</javassist.version><!-- debezium -->
+        <jakarta-mail.version>1.6.7</jakarta-mail.version>
         <jersey-sun.version>1.19.4</jersey-sun.version><!-- Spark -->
         <jetty.version>${jetty9-version}</jetty.version>
         <jgit.version>6.1.0.202203080745-r</jgit.version><!-- @sync io.quarkiverse.jgit:quarkus-jgit-parent:${quarkiverse-jgit.version} prop:jgit.version -->

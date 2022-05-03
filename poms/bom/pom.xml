@@ -9789,7 +9789,7 @@
             <dependency>
                 <groupId>com.sun.mail</groupId>
                 <artifactId>jakarta.mail</artifactId>
-                <version>${jakarta.mail.version}</version>
+                <version>${jakarta-mail.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>com.sun.activation</groupId>
