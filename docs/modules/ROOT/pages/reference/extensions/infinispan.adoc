@@ -41,9 +41,9 @@ Check the xref:user-guide/index.adoc[User guide] for more information about writ
 
 == Camel Quarkus limitations
 
-=== InfinispanRemoteAggregationRepository in native mode
+=== InfinispanRemoteAggregationRepository is unsupported
 
-At present the `InfinispanRemoteAggregationRepository` is not supported in native mode.
+At present the `InfinispanRemoteAggregationRepository` is not supported. The are some planned https://github.com/apache/camel-quarkus/issues/3657[future enhancements] to make this possible.
 
 
 == Additional Camel Quarkus configuration

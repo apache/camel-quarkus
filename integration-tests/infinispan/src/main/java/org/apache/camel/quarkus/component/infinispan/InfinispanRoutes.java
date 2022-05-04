@@ -166,22 +166,20 @@ public class InfinispanRoutes extends RouteBuilder {
                 .autoStartup(false)
                 .to("mock:camelResultCreated");
 
-        // Only start aggregation repository routes in JVM mode
-        if (!"executable".equals(System.getProperty("org.graalvm.nativeimage.kind"))) {
-            from("direct:camelAggregation")
-                    .aggregate(header(CORRELATOR_HEADER))
-                    .aggregationRepository(createAggregationRepository("infinispan"))
-                    .aggregationStrategy(createAggregationStrategy())
-                    .completionSize(COMPLETION_SIZE)
-                    .to("mock:camelAggregationResult");
+        // TODO: Reinstate aggregationRepository routes this https://github.com/apache/camel-quarkus/issues/3657
+        //from("direct:camelAggregation")
+        //        .aggregate(header(CORRELATOR_HEADER))
+        //        .aggregationRepository(createAggregationRepository("infinispan"))
+        //        .aggregationStrategy(createAggregationStrategy())
+        //        .completionSize(COMPLETION_SIZE)
+        //        .to("mock:camelAggregationResult");
 
-            from("direct:quarkusAggregation")
-                    .aggregate(header(CORRELATOR_HEADER))
-                    .aggregationRepository(createAggregationRepository("infinispan-quarkus"))
-                    .aggregationStrategy(createAggregationStrategy())
-                    .completionSize(COMPLETION_SIZE)
-                    .to("mock:quarkusAggregationResult");
-        }
+        //from("direct:quarkusAggregation")
+        //        .aggregate(header(CORRELATOR_HEADER))
+        //        .aggregationRepository(createAggregationRepository("infinispan-quarkus"))
+        //        .aggregationStrategy(createAggregationStrategy())
+        //        .completionSize(COMPLETION_SIZE)
+        //        .to("mock:quarkusAggregationResult");
 
         from("direct:camelIdempotent")
                 .idempotentConsumer(header("MessageID"), createIdempotentRepository("infinispan"))
