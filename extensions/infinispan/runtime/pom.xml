@@ -48,28 +48,14 @@
         </dependency>
 
         <dependency>
-            <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-core</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.jboss.spec.javax.transaction</groupId>
-                    <artifactId>jboss-transaction-api_1.2_spec</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-infinispan</artifactId>
-            <exclusions>
-               <exclusion>
-                  <groupId>org.infinispan</groupId>
-                  <artifactId>infinispan-core</artifactId>
-               </exclusion>
-               <exclusion>
-                  <groupId>org.jgroups</groupId>
-                  <artifactId>jgroups</artifactId>
-               </exclusion>
-            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.graalvm.nativeimage</groupId>
+            <artifactId>svm</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
