@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.freemarker.it;
 
-import io.quarkus.test.junit.DisabledOnNativeImage;
+import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -28,7 +28,7 @@ import static org.hamcrest.Matchers.equalTo;
 class FreemarkerTest {
 
     @Test
-    @DisabledOnNativeImage // requires allowContextMapAll=true which is unsupported in native mode
+    @DisabledOnIntegrationTest // requires allowContextMapAll=true which is unsupported in native mode
     public void freemarkerLetter() {
         RestAssured.given()
                 .contentType(ContentType.JSON)
@@ -51,7 +51,7 @@ class FreemarkerTest {
     }
 
     @Test
-    @DisabledOnNativeImage // requires allowContextMapAll=true which is unsupported in native mode
+    @DisabledOnIntegrationTest // requires allowContextMapAll=true which is unsupported in native mode
     public void valuesInProperties() {
         RestAssured.given()
                 .contentType(ContentType.JSON)
