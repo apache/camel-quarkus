@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.xmlsecurity.it;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import io.quarkus.test.junit.DisabledOnNativeImage;
+import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -194,7 +194,7 @@ class XmlsecurityTest {
         assertFalse(verifiedXml.contains("ds:SignatureValue"));
     }
 
-    @DisabledOnNativeImage("https://github.com/apache/camel-quarkus/issues/2185")
+    @DisabledOnIntegrationTest("https://github.com/apache/camel-quarkus/issues/2185")
     @Test
     public void signVerifyTransformsXsltXPath() throws Exception {
         String signedXml = RestAssured.given()
