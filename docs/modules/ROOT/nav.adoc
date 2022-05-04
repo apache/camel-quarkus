@@ -101,6 +101,7 @@
 *** xref:reference/extensions/crypto.adoc[Crypto (JCE)]
 *** xref:reference/extensions/dns.adoc[DNS]
 *** xref:reference/extensions/dataformat.adoc[Data Format]
+*** xref:reference/extensions/datasonnet.adoc[DataSonnet]
 *** xref:reference/extensions/debezium-mongodb.adoc[Debezium MongoDB Connector]
 *** xref:reference/extensions/debezium-mysql.adoc[Debezium MySQL Connector]
 *** xref:reference/extensions/debezium-postgres.adoc[Debezium PostgresSQL Connector]
