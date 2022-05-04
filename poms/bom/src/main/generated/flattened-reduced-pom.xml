@@ -2916,7 +2916,15 @@
           </exclusion>
           <exclusion>
             <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-jboss-marshalling</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.infinispan</groupId>
             <artifactId>infinispan-marshaller-protostuff</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.jgroups</groupId>
+            <artifactId>jgroups</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -2924,6 +2932,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-infinispan-common</artifactId>
         <version>3.14.2</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-core</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -10053,11 +10067,6 @@
         <groupId>org.graalvm.js</groupId>
         <artifactId>js</artifactId>
         <version>21.3.1</version>
-      </dependency>
-      <dependency>
-        <groupId>org.infinispan</groupId>
-        <artifactId>infinispan-jboss-marshalling</artifactId>
-        <version>13.0.6.Final</version>
       </dependency>
       <dependency>
         <groupId>org.influxdb</groupId>

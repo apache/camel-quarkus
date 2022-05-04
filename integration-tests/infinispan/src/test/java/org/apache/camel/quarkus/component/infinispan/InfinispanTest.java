@@ -19,11 +19,10 @@ package org.apache.camel.quarkus.component.infinispan;
 import java.util.stream.Stream;
 
 import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -53,19 +52,10 @@ public class InfinispanTest {
         }
     }
 
-    @DisabledOnNativeImage("https://github.com/apache/camel-quarkus/issues/3657")
+    @Disabled("https://github.com/apache/camel-quarkus/issues/3657")
     @ParameterizedTest
     @MethodSource("componentNames")
     public void aggregate(String componentName) {
-        // TODO: https://github.com/apache/camel-quarkus/issues/3657
-        //
-        // Enable testing InfinispanRemoteAggregationRepository with the Quarkus configured client.
-        // Technically it is possible with a custom META-INF/hotrod-client.properties and setting
-        // infinispan.client.hotrod.marshaller=org.infinispan.jboss.marshalling.core.JBossUserMarshaller
-        // However, it potentially impacts some of the Quarkus Infinispan extension functionality that relies on
-        // the default configured ProtoStreamMarshaller, thus we avoid doing it in this test suite
-        Assumptions.assumeTrue(componentName.equals("infinispan"));
-
         RestAssured.with()
                 .queryParam("component", componentName)
                 .get("/infinispan/aggregate")
