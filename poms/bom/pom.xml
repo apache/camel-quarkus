@@ -3017,7 +3017,15 @@
                     </exclusion>
                     <exclusion>
                         <groupId>org.infinispan</groupId>
+                        <artifactId>infinispan-jboss-marshalling</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.infinispan</groupId>
                         <artifactId>infinispan-marshaller-protostuff</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.jgroups</groupId>
+                        <artifactId>jgroups</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -3025,6 +3033,12 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-infinispan-common</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.infinispan</groupId>
+                        <artifactId>infinispan-core</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
