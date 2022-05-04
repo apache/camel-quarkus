@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.atlasmap.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-//@DisabledOnNativeImage("https://github.com/apache/camel-quarkus/issues/3189")
 @QuarkusIntegrationTest
 class AtlasmapIT extends AtlasmapTest {
 
