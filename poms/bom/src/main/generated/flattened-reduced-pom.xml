@@ -9740,7 +9740,7 @@
       <dependency>
         <groupId>com.sun.mail</groupId>
         <artifactId>jakarta.mail</artifactId>
-        <version>1.6.6</version>
+        <version>1.6.7</version>
         <exclusions>
           <exclusion>
             <groupId>com.sun.activation</groupId>
