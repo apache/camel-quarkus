@@ -23,6 +23,9 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 2.9.0.Final [\#3767](https://github.com/apache/camel-quarkus/pull/3767) ([jamesnetherton](https://github.com/jamesnetherton))
+- Remove infinispan-core dependency for unsupported InfinispanRemoteAggregationRepository [\#3766](https://github.com/apache/camel-quarkus/pull/3766) ([jamesnetherton](https://github.com/jamesnetherton))
+- ⬆️ Upgrade Optaplanner to 8.20.0.Final [\#3760](https://github.com/apache/camel-quarkus/pull/3760) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade Quarkus to 2.9.0.CR1 [\#3753](https://github.com/apache/camel-quarkus/pull/3753) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix MockEndpoint usage in gRPC tests [\#3752](https://github.com/apache/camel-quarkus/pull/3752) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove c3p0 from Quartz extension [\#3751](https://github.com/apache/camel-quarkus/pull/3751) ([jamesnetherton](https://github.com/jamesnetherton))
