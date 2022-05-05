@@ -30,6 +30,16 @@
     <name>Camel Quarkus :: Integration Tests :: Cassandra CQL</name>
     <description>Integration tests for Camel Quarkus Cassandra CQL extension</description>
 
+    <dependencyManagement>
+        <dependencies>
+            <!--  Handle temporary version of cassandra-driver-core see https://github.com/apache/camel-quarkus/issues/3773 -->
+            <dependency>
+                <groupId>com.datastax.cassandra</groupId>
+                <artifactId>cassandra-driver-core</artifactId>
+                <version>${cassandra-driver-test.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -80,7 +90,18 @@
                     <groupId>com.github.jnr</groupId>
                     <artifactId>jnr-posix</artifactId>
                 </exclusion>
+                <!--  Handle temporary version of cassandra-driver-core see https://github.com/apache/camel-quarkus/issues/3773 -->
+                <exclusion>
+                    <groupId>com.datastax.cassandra</groupId>
+                    <artifactId>cassandra-driver-core</artifactId>
+                </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.datastax.cassandra</groupId>
+            <artifactId>cassandra-driver-core</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
