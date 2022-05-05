@@ -10494,7 +10494,7 @@
       <dependency>
         <groupId>org.amqphub.quarkus</groupId>
         <artifactId>quarkus-qpid-jms</artifactId>
-        <version>0.33.0</version>
+        <version>0.34.0</version>
         <exclusions>
           <exclusion>
             <groupId>org.apache.geronimo.specs</groupId>
@@ -10505,7 +10505,7 @@
       <dependency>
         <groupId>org.amqphub.quarkus</groupId>
         <artifactId>quarkus-qpid-jms-deployment</artifactId>
-        <version>0.33.0</version>
+        <version>0.34.0</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
