@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Update jakarta.mail from 1.6.6 to 1.6.7 [\#3764](https://github.com/apache/camel-quarkus/issues/3764)
 - Remove `c3p0` from Quartz extension [\#3749](https://github.com/apache/camel-quarkus/issues/3749)
 - Native image build failing using SES and url http client [\#3745](https://github.com/apache/camel-quarkus/issues/3745)
 - camel-quarkus-openapi-java ArraySchema not registered for reflection [\#3737](https://github.com/apache/camel-quarkus/issues/3737)
@@ -23,9 +24,14 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus Qpid JMS to 0.34.0 [\#3772](https://github.com/apache/camel-quarkus/pull/3772) ([jamesnetherton](https://github.com/jamesnetherton))
+- Update of jakarta.mail to 1.6.7 [\#3770](https://github.com/apache/camel-quarkus/pull/3770) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade Quarkus to 2.9.0.Final [\#3767](https://github.com/apache/camel-quarkus/pull/3767) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove infinispan-core dependency for unsupported InfinispanRemoteAggregationRepository [\#3766](https://github.com/apache/camel-quarkus/pull/3766) ([jamesnetherton](https://github.com/jamesnetherton))
+- ⬆️  Upgrade Debezium to 1.9.2.Final [\#3762](https://github.com/apache/camel-quarkus/pull/3762) ([zbendhiba](https://github.com/zbendhiba))
+- ⬆️  Upgrade Amazon Services to 1.1.1 [\#3761](https://github.com/apache/camel-quarkus/pull/3761) ([zbendhiba](https://github.com/zbendhiba))
 - ⬆️ Upgrade Optaplanner to 8.20.0.Final [\#3760](https://github.com/apache/camel-quarkus/pull/3760) ([zbendhiba](https://github.com/zbendhiba))
+- paho: add test case for RFC3986 style urls \#3758 [\#3759](https://github.com/apache/camel-quarkus/pull/3759) ([aldettinger](https://github.com/aldettinger))
 - Upgrade Quarkus to 2.9.0.CR1 [\#3753](https://github.com/apache/camel-quarkus/pull/3753) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix MockEndpoint usage in gRPC tests [\#3752](https://github.com/apache/camel-quarkus/pull/3752) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove c3p0 from Quartz extension [\#3751](https://github.com/apache/camel-quarkus/pull/3751) ([jamesnetherton](https://github.com/jamesnetherton))
