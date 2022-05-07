@@ -2,28 +2,12 @@
 
 ## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.8.0...HEAD)
-
-**Closed issues:**
-
-- Update jakarta.mail from 1.6.6 to 1.6.7 [\#3764](https://github.com/apache/camel-quarkus/issues/3764)
-- Remove `c3p0` from Quartz extension [\#3749](https://github.com/apache/camel-quarkus/issues/3749)
-- Native image build failing using SES and url http client [\#3745](https://github.com/apache/camel-quarkus/issues/3745)
-- camel-quarkus-openapi-java ArraySchema not registered for reflection [\#3737](https://github.com/apache/camel-quarkus/issues/3737)
-- Unexpected attribute '{http://camel.apache.org/schema/spring}uri' when using Rest XML with Quarkus 2.8.0.Final [\#3732](https://github.com/apache/camel-quarkus/issues/3732)
-- Improve paho-mqtt5 SSL test [\#3730](https://github.com/apache/camel-quarkus/issues/3730)
-- AWS S3 integration test should remove all objects in finally block [\#3728](https://github.com/apache/camel-quarkus/issues/3728)
-- paho: expand test coverage [\#3720](https://github.com/apache/camel-quarkus/issues/3720)
-- Azure Storage Queue - add consumer integration test  [\#3718](https://github.com/apache/camel-quarkus/issues/3718)
-- Test Azure Blob with `autowiredEnabled=false` [\#3694](https://github.com/apache/camel-quarkus/issues/3694)
-- Improve mail test coverage [\#3674](https://github.com/apache/camel-quarkus/issues/3674)
-- Improve camel-quarkus-paho-mqtt5 test coverage [\#3656](https://github.com/apache/camel-quarkus/issues/3656)
-- `Aws2KinesisTest.kinesis` failure [\#3638](https://github.com/apache/camel-quarkus/issues/3638)
-- Azure storage queue : increase Producer test coverage [\#3577](https://github.com/apache/camel-quarkus/issues/3577)
-- camel-quarkus-atlasmap including xercesImpl problem [\#3282](https://github.com/apache/camel-quarkus/issues/3282)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.9.0...HEAD)
 
 **Merged pull requests:**
 
+- Fix verification of AWS S3 download links [\#3777](https://github.com/apache/camel-quarkus/pull/3777) ([jamesnetherton](https://github.com/jamesnetherton))
+- Next is 2.10.0 [\#3776](https://github.com/apache/camel-quarkus/pull/3776) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus Qpid JMS to 0.34.0 [\#3772](https://github.com/apache/camel-quarkus/pull/3772) ([jamesnetherton](https://github.com/jamesnetherton))
 - Update of jakarta.mail to 1.6.7 [\#3770](https://github.com/apache/camel-quarkus/pull/3770) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade Quarkus to 2.9.0.Final [\#3767](https://github.com/apache/camel-quarkus/pull/3767) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1075,6 +1059,29 @@
 - Fix \#1428 to add the usage.adoc [\#1457](https://github.com/apache/camel-quarkus/pull/1457) ([zhfeng](https://github.com/zhfeng))
 - org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
+
+## [2.9.0](https://github.com/apache/camel-quarkus/tree/2.9.0) (2022-05-06)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.8.0...2.9.0)
+
+**Closed issues:**
+
+- Update jakarta.mail from 1.6.6 to 1.6.7 [\#3764](https://github.com/apache/camel-quarkus/issues/3764)
+- Native image build failing using SES and url http client [\#3745](https://github.com/apache/camel-quarkus/issues/3745)
+- Unexpected attribute '{http://camel.apache.org/schema/spring}uri' when using Rest XML with Quarkus 2.8.0.Final [\#3732](https://github.com/apache/camel-quarkus/issues/3732)
+- Improve mail test coverage [\#3674](https://github.com/apache/camel-quarkus/issues/3674)
+- `Aws2KinesisTest.kinesis` failure [\#3638](https://github.com/apache/camel-quarkus/issues/3638)
+- camel-quarkus-atlasmap including xercesImpl problem [\#3282](https://github.com/apache/camel-quarkus/issues/3282)
+- paho: add test case for RFC3986 style urls [\#3758](https://github.com/apache/camel-quarkus/issues/3758)
+- Remove `c3p0` from Quartz extension [\#3749](https://github.com/apache/camel-quarkus/issues/3749)
+- camel-quarkus-openapi-java ArraySchema not registered for reflection [\#3737](https://github.com/apache/camel-quarkus/issues/3737)
+- Improve paho-mqtt5 SSL test [\#3730](https://github.com/apache/camel-quarkus/issues/3730)
+- AWS S3 integration test should remove all objects in finally block [\#3728](https://github.com/apache/camel-quarkus/issues/3728)
+- paho: expand test coverage [\#3720](https://github.com/apache/camel-quarkus/issues/3720)
+- Azure Storage Queue - add consumer integration test  [\#3718](https://github.com/apache/camel-quarkus/issues/3718)
+- Test Azure Blob with `autowiredEnabled=false` [\#3694](https://github.com/apache/camel-quarkus/issues/3694)
+- Improve camel-quarkus-paho-mqtt5 test coverage [\#3656](https://github.com/apache/camel-quarkus/issues/3656)
+- Azure storage queue : increase Producer test coverage [\#3577](https://github.com/apache/camel-quarkus/issues/3577)
 
 ## [2.8.0](https://github.com/apache/camel-quarkus/tree/2.8.0) (2022-04-04)
 
