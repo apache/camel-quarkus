@@ -4,6 +4,10 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.9.0...HEAD)
 
+**Closed issues:**
+
+- URL to the Kafka brokers must be configured with the brokers option in native mode \(continued\) [\#3742](https://github.com/apache/camel-quarkus/issues/3742)
+
 **Merged pull requests:**
 
 - Fix verification of AWS S3 download links [\#3777](https://github.com/apache/camel-quarkus/pull/3777) ([jamesnetherton](https://github.com/jamesnetherton))
