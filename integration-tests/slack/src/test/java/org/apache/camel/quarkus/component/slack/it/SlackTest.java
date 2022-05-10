@@ -18,11 +18,9 @@ package org.apache.camel.quarkus.component.slack.it;
 
 import java.util.UUID;
 
-import com.github.tomakehurst.wiremock.WireMockServer;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
-import org.apache.camel.quarkus.test.wiremock.MockServer;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Test;
 
@@ -42,9 +40,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 @QuarkusTestResource(SlackTestResource.class)
 class SlackTest {
 
-    @MockServer
-    WireMockServer server;
-
     @Test
     public void testSlackProduceConsumeMessages() {
         // sending a message using Token
@@ -61,11 +56,10 @@ class SlackTest {
                 .get("/slack/messages")
                 .then()
                 .statusCode(200)
-                .body(equalTo(getExpectedResponse(message, 0)));
+                .body("text", equalTo(message));
 
         // sending a message using Webhook URL
         message = "Hello Camel Quarkus Slack using Webhook URL" + (externalSlackEnabled() ? " " + UUID.randomUUID() : "");
-
         given()
                 .contentType(ContentType.TEXT)
                 .body(message)
@@ -78,7 +72,7 @@ class SlackTest {
                 .get("/slack/messages")
                 .then()
                 .statusCode(200)
-                .body(equalTo(getExpectedResponse(message, 0)));
+                .body("text", equalTo(message));
 
         message = "Hello Camel Quarkus Slack using Blocks" + (externalSlackEnabled() ? " " + UUID.randomUUID() : "");
 
@@ -95,14 +89,10 @@ class SlackTest {
                 .get("/slack/messages")
                 .then()
                 .statusCode(200)
-                .body(equalTo(getExpectedResponse(message, 3)));
+                .body("text", equalTo(message), "nbBlocks", equalTo(3));
     }
 
-    boolean externalSlackEnabled() {
+    private boolean externalSlackEnabled() {
         return !ConfigProvider.getConfig().getOptionalValue("wiremock.url", String.class).isPresent();
-    }
-
-    String getExpectedResponse(String message, int nbBlocks) {
-        return String.format("{\"text\":\"%s\",\"nbBlocks\":%s}", message, nbBlocks);
     }
 }
