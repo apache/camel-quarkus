@@ -7,6 +7,7 @@
 **Closed issues:**
 
 - URL to the Kafka brokers must be configured with the brokers option in native mode \(continued\) [\#3742](https://github.com/apache/camel-quarkus/issues/3742)
+- DataSonnet language support [\#2078](https://github.com/apache/camel-quarkus/issues/2078)
 
 **Merged pull requests:**
 
@@ -14,6 +15,7 @@
 - Next is 2.10.0 [\#3776](https://github.com/apache/camel-quarkus/pull/3776) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus Qpid JMS to 0.34.0 [\#3772](https://github.com/apache/camel-quarkus/pull/3772) ([jamesnetherton](https://github.com/jamesnetherton))
 - Update of jakarta.mail to 1.6.7 [\#3770](https://github.com/apache/camel-quarkus/pull/3770) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Camel Datasonnet Extension [\#3769](https://github.com/apache/camel-quarkus/pull/3769) ([javaduke](https://github.com/javaduke))
 - Upgrade Quarkus to 2.9.0.Final [\#3767](https://github.com/apache/camel-quarkus/pull/3767) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove infinispan-core dependency for unsupported InfinispanRemoteAggregationRepository [\#3766](https://github.com/apache/camel-quarkus/pull/3766) ([jamesnetherton](https://github.com/jamesnetherton))
 - ⬆️  Upgrade Debezium to 1.9.2.Final [\#3762](https://github.com/apache/camel-quarkus/pull/3762) ([zbendhiba](https://github.com/zbendhiba))
