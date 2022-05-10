@@ -62,6 +62,7 @@ import org.jboss.jandex.AnnotationTarget.Kind;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.FieldInfo;
+import org.jboss.jandex.IndexView;
 import org.jboss.jandex.MethodInfo;
 import org.jboss.jandex.Type;
 import org.jboss.logging.Logger;
@@ -230,7 +231,7 @@ public class InjectionPointsProcessor {
             switch (target.kind()) {
             case FIELD: {
                 final FieldInfo field = target.asField();
-                endpointInjectBeans(recorder, syntheticBeans, annot, field.type().name());
+                endpointInjectBeans(recorder, syntheticBeans, index.getIndex(), annot, field.type().name());
                 break;
             }
             case METHOD: {
@@ -250,8 +251,8 @@ public class InjectionPointsProcessor {
             switch (target.kind()) {
             case FIELD: {
                 final FieldInfo field = target.asField();
-                produceBeans(recorder, capabilities, syntheticBeans, proxyDefinitions, beanCapabilityAvailable, annot,
-                        field.type().name(), field.name(), field.declaringClass().name());
+                produceBeans(recorder, capabilities, syntheticBeans, proxyDefinitions, beanCapabilityAvailable,
+                        index.getIndex(), annot, field.type().name(), field.name(), field.declaringClass().name());
                 break;
             }
             case METHOD: {
@@ -269,6 +270,7 @@ public class InjectionPointsProcessor {
             BuildProducer<SyntheticBeanBuildItem> syntheticBeans,
             BuildProducer<NativeImageProxyDefinitionBuildItem> proxyDefinitions,
             AtomicReference<Boolean> beanCapabilityAvailable,
+            IndexView index,
             AnnotationInstance annot, final DotName fieldType, String annotationTarget, DotName declaringClass) {
         try {
             Class<?> clazz = Class.forName(fieldType.toString(), false,
@@ -279,7 +281,7 @@ public class InjectionPointsProcessor {
                                 .configure(fieldType)
                                 .setRuntimeInit().scope(Singleton.class)
                                 .supplier(
-                                        recorder.createProducerTemplate(annot.value().asString()))
+                                        recorder.createProducerTemplate(annot.valueWithDefault(index).asString()))
                                 .addQualifier(annot)
                                 .done());
                 /*
@@ -292,7 +294,7 @@ public class InjectionPointsProcessor {
                                 .configure(fieldType)
                                 .setRuntimeInit().scope(Singleton.class)
                                 .supplier(
-                                        recorder.createFluentProducerTemplate(annot.value().asString()))
+                                        recorder.createFluentProducerTemplate(annot.valueWithDefault(index).asString()))
                                 .addQualifier(annot)
                                 .done());
                 /*
@@ -320,7 +322,7 @@ public class InjectionPointsProcessor {
                                 .configure(fieldType)
                                 .setRuntimeInit().scope(Singleton.class)
                                 .supplier(
-                                        recorder.produceProxy(clazz, annot.value().asString()))
+                                        recorder.produceProxy(clazz, annot.valueWithDefault(index).asString()))
                                 .addQualifier(annot)
                                 .done());
             }
@@ -330,7 +332,7 @@ public class InjectionPointsProcessor {
     }
 
     private void endpointInjectBeans(CamelRecorder recorder, BuildProducer<SyntheticBeanBuildItem> syntheticBeans,
-            AnnotationInstance annot, final DotName fieldType) {
+            IndexView index, AnnotationInstance annot, final DotName fieldType) {
         try {
             Class<?> clazz = Class.forName(fieldType.toString());
             if (Endpoint.class.isAssignableFrom(clazz)) {
@@ -339,7 +341,7 @@ public class InjectionPointsProcessor {
                                 .configure(fieldType)
                                 .setRuntimeInit().scope(Singleton.class)
                                 .supplier(
-                                        recorder.createEndpoint(annot.value().asString(),
+                                        recorder.createEndpoint(annot.valueWithDefault(index).asString(),
                                                 (Class<? extends Endpoint>) clazz))
                                 .addQualifier(annot)
                                 .done());
@@ -349,7 +351,7 @@ public class InjectionPointsProcessor {
                                 .configure(fieldType)
                                 .setRuntimeInit().scope(Singleton.class)
                                 .supplier(
-                                        recorder.createProducerTemplate(annot.value().asString()))
+                                        recorder.createProducerTemplate(annot.valueWithDefault(index).asString()))
                                 .addQualifier(annot)
                                 .done());
                 /*
@@ -362,7 +364,7 @@ public class InjectionPointsProcessor {
                                 .configure(fieldType)
                                 .setRuntimeInit().scope(Singleton.class)
                                 .supplier(
-                                        recorder.createFluentProducerTemplate(annot.value().asString()))
+                                        recorder.createFluentProducerTemplate(annot.valueWithDefault(index).asString()))
                                 .addQualifier(annot)
                                 .done());
                 /*
