@@ -4,13 +4,21 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.9.0...HEAD)
 
+**Fixed bugs:**
+
+- Slack integration tests fail with the real Slack service [\#3781](https://github.com/apache/camel-quarkus/issues/3781)
+
 **Closed issues:**
 
 - URL to the Kafka brokers must be configured with the brokers option in native mode \(continued\) [\#3742](https://github.com/apache/camel-quarkus/issues/3742)
+- Gracefully handle `AnnotationInstance` being null in `InjectionPointsProcessor.syntheticBeans` [\#3703](https://github.com/apache/camel-quarkus/issues/3703)
 - DataSonnet language support [\#2078](https://github.com/apache/camel-quarkus/issues/2078)
 
 **Merged pull requests:**
 
+- Fix failing Slack integration tests with the real Slack service [\#3782](https://github.com/apache/camel-quarkus/pull/3782) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix \#3703 to use valueWithDefault during processing @Producer and @En… [\#3780](https://github.com/apache/camel-quarkus/pull/3780) ([zhfeng](https://github.com/zhfeng))
+- Upgrade Google Cloud Native Image Support to 0.14.0 [\#3779](https://github.com/apache/camel-quarkus/pull/3779) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix verification of AWS S3 download links [\#3777](https://github.com/apache/camel-quarkus/pull/3777) ([jamesnetherton](https://github.com/jamesnetherton))
 - Next is 2.10.0 [\#3776](https://github.com/apache/camel-quarkus/pull/3776) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus Qpid JMS to 0.34.0 [\#3772](https://github.com/apache/camel-quarkus/pull/3772) ([jamesnetherton](https://github.com/jamesnetherton))
