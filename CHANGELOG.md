@@ -12,6 +12,7 @@
 
 - URL to the Kafka brokers must be configured with the brokers option in native mode \(continued\) [\#3742](https://github.com/apache/camel-quarkus/issues/3742)
 - Gracefully handle `AnnotationInstance` being null in `InjectionPointsProcessor.syntheticBeans` [\#3703](https://github.com/apache/camel-quarkus/issues/3703)
+- Docs module fails to build [\#3307](https://github.com/apache/camel-quarkus/issues/3307)
 - DataSonnet language support [\#2078](https://github.com/apache/camel-quarkus/issues/2078)
 
 **Merged pull requests:**
@@ -1088,6 +1089,7 @@
 - camel-quarkus-atlasmap including xercesImpl problem [\#3282](https://github.com/apache/camel-quarkus/issues/3282)
 - paho: add test case for RFC3986 style urls [\#3758](https://github.com/apache/camel-quarkus/issues/3758)
 - Remove `c3p0` from Quartz extension [\#3749](https://github.com/apache/camel-quarkus/issues/3749)
+- Debezium Postgresql integration test fails with Quarkus 2.8.1.Final [\#3748](https://github.com/apache/camel-quarkus/issues/3748)
 - camel-quarkus-openapi-java ArraySchema not registered for reflection [\#3737](https://github.com/apache/camel-quarkus/issues/3737)
 - Improve paho-mqtt5 SSL test [\#3730](https://github.com/apache/camel-quarkus/issues/3730)
 - AWS S3 integration test should remove all objects in finally block [\#3728](https://github.com/apache/camel-quarkus/issues/3728)
