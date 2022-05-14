@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- Switch from OpenTracing to OpenTelemetry in observability example [\#3784](https://github.com/apache/camel-quarkus/issues/3784)
 - URL to the Kafka brokers must be configured with the brokers option in native mode \(continued\) [\#3742](https://github.com/apache/camel-quarkus/issues/3742)
 - Gracefully handle `AnnotationInstance` being null in `InjectionPointsProcessor.syntheticBeans` [\#3703](https://github.com/apache/camel-quarkus/issues/3703)
 - Docs module fails to build [\#3307](https://github.com/apache/camel-quarkus/issues/3307)
@@ -17,6 +18,8 @@
 
 **Merged pull requests:**
 
+- file: Add some extra logs to attempt catching info about flakiness \#3584 [\#3787](https://github.com/apache/camel-quarkus/pull/3787) ([aldettinger](https://github.com/aldettinger))
+- Remove redundant infinispan-jboss-marshalling from the BOM [\#3785](https://github.com/apache/camel-quarkus/pull/3785) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix failing Slack integration tests with the real Slack service [\#3782](https://github.com/apache/camel-quarkus/pull/3782) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3703 to use valueWithDefault during processing @Producer and @En… [\#3780](https://github.com/apache/camel-quarkus/pull/3780) ([zhfeng](https://github.com/zhfeng))
 - Upgrade Google Cloud Native Image Support to 0.14.0 [\#3779](https://github.com/apache/camel-quarkus/pull/3779) ([jamesnetherton](https://github.com/jamesnetherton))
