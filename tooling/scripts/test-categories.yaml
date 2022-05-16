@@ -163,7 +163,7 @@ group-10:
   - nagios
   - nsq
 group-11:
-  - compression
+  - compression-grouped
   - disruptor
   - flatpack
   - grok

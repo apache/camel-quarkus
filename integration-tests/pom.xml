@@ -72,7 +72,7 @@
         <module>caffeine</module>
         <module>cassandraql</module>
         <module>cbor</module>
-        <module>compression</module>
+        <module>compression-grouped</module>
         <module>consul</module>
         <module>couchdb</module>
         <module>crypto</module>
