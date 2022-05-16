@@ -45,6 +45,7 @@ public abstract class AbstractFhirRouteBuilder extends RouteBuilder {
             String serverUrl = config.getValue("camel.fhir." + fhirVersion + ".test-url", String.class);
 
             FhirContext fhirContext = getFhirContext();
+            fhirContext.getRestfulClientFactory().setSocketTimeout(60000);
 
             FhirConfiguration configuration = new FhirConfiguration();
             configuration.setLog(false);
