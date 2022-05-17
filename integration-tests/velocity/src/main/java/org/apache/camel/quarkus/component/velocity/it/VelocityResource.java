@@ -32,8 +32,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.velocity.VelocityConstants;
+import org.apache.camel.util.CollectionHelper;
+import org.apache.velocity.VelocityContext;
 import org.jboss.logging.Logger;
 
 @Path("/velocity")
@@ -112,6 +115,34 @@ public class VelocityResource {
                 .build();
     }
 
+    @Path("/velocityContext")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response velocityContext(String msg, @QueryParam("name") String name, @QueryParam("name2") String name2,
+            @QueryParam("item") String item) throws Exception {
+
+        final Exchange ex = producerTemplate.request(
+                "velocity://template/velocityContext.vm?allowTemplateFromHeader=true&allowContextMapAll=true",
+                (Processor) exchange -> {
+                    exchange.getIn().setBody("");
+                    exchange.getIn().setHeader("name", name2);
+                    Map<String, Object> variableMap = new HashMap<>();
+                    variableMap.put("headers", CollectionHelper.mapOf("name", name));
+                    variableMap.put("body", "Monday");
+                    variableMap.put("properties", exchange.getProperties());
+                    VelocityContext velocityContext1 = new VelocityContext(variableMap);
+                    exchange.getIn().setHeader(VelocityConstants.VELOCITY_CONTEXT, velocityContext1);
+                    exchange.setProperty("item", item);
+                });
+
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(CollectionHelper.mapOf("headers.name", ex.getMessage().getHeader("name"),
+                        "result", ex.getMessage().getBody(String.class)))
+                .build();
+    }
+
     @Path("/templateViaHeader")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
@@ -130,6 +161,28 @@ public class VelocityResource {
                 headers,
                 String.class);
         LOG.infof("Got response from velocity: %s", response);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(response)
+                .build();
+    }
+
+    @Path("/dynamicTemplate")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response dynamicTemplate(String template, @QueryParam("body") String body, @QueryParam("item") String item,
+            @QueryParam("name") String name) throws Exception {
+        Map<String, Object> headers = new HashMap() {
+            {
+                put("item", item);
+                put("name", name);
+                put(VelocityConstants.VELOCITY_RESOURCE_URI, template);
+            }
+        };
+        final String response = producerTemplate.requestBodyAndHeaders("velocity::dummy?allowTemplateFromHeader=true", body,
+                headers,
+                String.class);
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .entity(response)

@@ -38,6 +38,22 @@ Or add the coordinates to your existing project:
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 
+== Usage
+
+=== Custom body as domain object in the native mode
+
+When using a custom object as message body and referencing its properties in the template in the native mode, all the classes need to be registered for reflection (see the https://quarkus.io/guides/writing-native-applications-tips#register-reflection[documentation]).
+
+
+Example:
+[source,java]
+----
+@RegisterForReflection
+public interface CustomBody {
+}
+----
+
+
 == allowContextMapAll option in native mode
 
 The `allowContextMapAll` option is not supported in native mode as it requires reflective access to security sensitive camel core classes such as
