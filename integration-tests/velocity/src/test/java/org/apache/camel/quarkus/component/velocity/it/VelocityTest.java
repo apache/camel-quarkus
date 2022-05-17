@@ -139,6 +139,40 @@ class VelocityTest {
     }
 
     @Test
+    public void testVelocityContext() {
+        Map result = RestAssured.given()
+                .queryParam("name", "Sheldon")
+                .queryParam("name2", "Leonard")
+                .queryParam("item", "Earth 1")
+                .contentType(ContentType.JSON)
+                .body("Hello!")
+                .post("/velocity/velocityContext")
+                .then()
+                .statusCode(201)
+                .extract().as(Map.class);
+
+        assertTrue(result.containsKey("headers.name"));
+        assertEquals("Leonard", result.get("headers.name"));
+        assertTrue(result.containsKey("result"));
+        assertEquals("\nDear Sheldon. You ordered item Earth 1 on Monday.", result.get("result"));
+    }
+
+    @Test
+    public void testDynamicTemplates() {
+        RestAssured.given()
+                .queryParam("body", "Monaday")
+                .queryParam("name", "Sheldon")
+                .queryParam("item", "Camel in Action")
+                .contentType(ContentType.TEXT)
+                .body("template/dynamicTemplate.vm")
+                .post("/velocity/dynamicTemplate")
+                .then()
+                .statusCode(201)
+                .body(equalTo("\n" +
+                        "Dear Sheldon. You ordered item Camel in Action on Monaday."));
+    }
+
+    @Test
     public void testContentCacheFalse() throws Exception {
         testContentCache(false);
     }
