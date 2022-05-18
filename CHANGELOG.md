@@ -18,6 +18,7 @@
 
 **Merged pull requests:**
 
+- Exclude unwanted Apache Commons dependencies from hapi-fhir-structures-dstu2.1 [\#3794](https://github.com/apache/camel-quarkus/pull/3794) ([jamesnetherton](https://github.com/jamesnetherton))
 - Increase FHIR client socket timeout [\#3789](https://github.com/apache/camel-quarkus/pull/3789) ([jamesnetherton](https://github.com/jamesnetherton))
 - file: Add some extra logs to attempt catching info about flakiness \#3584 [\#3787](https://github.com/apache/camel-quarkus/pull/3787) ([aldettinger](https://github.com/aldettinger))
 - Remove redundant infinispan-jboss-marshalling from the BOM [\#3785](https://github.com/apache/camel-quarkus/pull/3785) ([jamesnetherton](https://github.com/jamesnetherton))
