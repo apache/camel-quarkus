@@ -22,10 +22,7 @@ import javax.inject.Inject;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.apache.camel.builder.ErrorHandlerBuilder;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.jta.JtaTransactionErrorHandlerBuilder;
-import org.apache.camel.processor.errorhandler.RedeliveryPolicy;
 import org.apache.camel.quarkus.component.messaging.it.util.scheme.ComponentScheme;
 
 @ApplicationScoped
@@ -56,7 +53,8 @@ public class MessagingCommonRoutes extends RouteBuilder {
                 .toF("%s:queue:selectorB", componentScheme);
 
         // JMS transaction tests
-        fromF("%s:queue:txTest?transacted=true", componentScheme).errorHandler(setUpJtaErrorHandler())
+        fromF("%s:queue:txTest?transacted=true", componentScheme)
+                .errorHandler(jtaTransactionErrorHandler().maximumRedeliveries(4))
                 .transacted()
                 .process(new Processor() {
                     private int count;
@@ -100,14 +98,6 @@ public class MessagingCommonRoutes extends RouteBuilder {
         fromF("%s:queue:replyQueueB?disableReplyTo=true", componentScheme)
                 .to("mock:replyToEnd");
 
-    }
-
-    private ErrorHandlerBuilder setUpJtaErrorHandler() {
-        JtaTransactionErrorHandlerBuilder builder = new JtaTransactionErrorHandlerBuilder();
-        RedeliveryPolicy policy = new RedeliveryPolicy();
-        policy.setMaximumRedeliveries(4);
-        builder.setRedeliveryPolicy(policy);
-        return builder;
     }
 
     private boolean isDisableStreaming() {

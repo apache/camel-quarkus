@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.component.salesforce.generated;
 
-import java.util.List;
-
 import javax.annotation.Generated;
 
 import org.apache.camel.component.salesforce.api.dto.AbstractQueryRecordsBase;
@@ -26,15 +24,5 @@ import org.apache.camel.component.salesforce.api.dto.AbstractQueryRecordsBase;
  * Salesforce QueryRecords DTO for type Account
  */
 @Generated("org.apache.camel.maven.CamelSalesforceMojo")
-public class QueryRecordsAccount extends AbstractQueryRecordsBase {
-
-    private List<Account> records;
-
-    public List<Account> getRecords() {
-        return records;
-    }
-
-    public void setRecords(List<Account> records) {
-        this.records = records;
-    }
+public class QueryRecordsAccount extends AbstractQueryRecordsBase<Account> {
 }

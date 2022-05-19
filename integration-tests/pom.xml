@@ -108,7 +108,6 @@
         <module>headersmap</module>
         <module>hl7</module>
         <module>http</module>
-        <module>hystrix</module>
         <module>infinispan</module>
         <module>influxdb</module>
         <module>jackson-avro</module>
@@ -116,7 +115,6 @@
         <module>jaxb</module>
         <module>jdbc</module>
         <module>jfr</module>
-        <module>jing</module>
         <module>jira</module>
         <module>jms-artemis-client</module>
         <module>jms-qpid-amqp-client</module>
@@ -149,14 +147,11 @@
         <module>minio</module>
         <module>mllp</module>
         <module>mongodb-grouped</module>
-        <module>msv</module>
         <module>mustache</module>
         <module>mybatis</module>
-        <module>nagios</module>
         <module>nats</module>
         <module>netty</module>
         <module>nitrite</module>
-        <module>nsq</module>
         <module>oaipmh</module>
         <module>olingo4</module>
         <module>openapi-java</module>

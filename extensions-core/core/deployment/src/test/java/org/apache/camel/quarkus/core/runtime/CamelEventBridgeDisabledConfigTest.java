@@ -61,7 +61,12 @@ public class CamelEventBridgeDisabledConfigTest {
         assertFalse(context.getLifecycleStrategies()
                 .stream()
                 .anyMatch(lifecycleStrategy -> lifecycleStrategy.getClass().equals(CamelLifecycleEventBridge.class)));
-        assertTrue(context.getManagementStrategy().getEventNotifiers().isEmpty());
+        assertTrue(context.getManagementStrategy()
+                .getEventNotifiers()
+                .stream()
+                .filter(eventNotifier -> !eventNotifier.getClass().getName().contains("BaseMainSupport"))
+                .findAny()
+                .isEmpty());
         assertTrue(handler.getServices().isEmpty());
         assertTrue(handler.getRoutesAdded().isEmpty());
         assertTrue(handler.getRoutesRemoved().isEmpty());

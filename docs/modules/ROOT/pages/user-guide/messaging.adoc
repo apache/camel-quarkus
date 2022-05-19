@@ -59,9 +59,6 @@ Camel Quarkus provides support for various messaging platforms, brokers and prot
 |NATS
 |xref:reference/extensions/nats.adoc[`camel-quarkus-nats`]
 
-|NSQ
-|xref:reference/extensions/nsq.adoc[`camel-quarkus-nsq`]
-
 |RabbitMQ
 |xref:reference/extensions/rabbitmq.adoc[`camel-quarkus-rabbitmq`]
 

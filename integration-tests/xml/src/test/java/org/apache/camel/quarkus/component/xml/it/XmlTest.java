@@ -29,20 +29,6 @@ import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 class XmlTest {
-    @Test
-    public void htmlParse() throws Exception {
-        String html = IOUtils.toString(getClass().getResourceAsStream("/test.html"), Charset.forName("UTF-8"));
-
-        RestAssured.given() //
-                .contentType(ContentType.HTML)
-                .accept(ContentType.TEXT)
-                .body(html)
-                .post("/xml/html-parse")
-                .then()
-                .statusCode(200)
-                .body(is("Paragraph Contents"));
-    }
-
     private static final String BODY = "<mail><subject>Hey</subject><body>Hello world!</body></mail>";
 
     @Test

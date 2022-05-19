@@ -39,7 +39,7 @@ import static org.hamcrest.Matchers.not;
 @QuarkusTestResource(HttpTestResource.class)
 class HttpTest {
 
-    private static final String[] HTTP_COMPONENTS = new String[] { "ahc", "http", "netty-http", "vertx-http" };
+    private static final String[] HTTP_COMPONENTS = new String[] { "http", "netty-http", "vertx-http" };
 
     @ParameterizedTest
     @MethodSource("getHttpComponentNames")
@@ -183,18 +183,6 @@ class HttpTest {
                 .then()
                 .statusCode(200)
                 .body(is("Netty Hello World"));
-    }
-
-    @Test
-    public void testAhcWsProducerConsumer() {
-        String body = "Camel Quarkus AHC-WS";
-        RestAssured
-                .given()
-                .queryParam("test-port", RestAssured.port)
-                .body(body)
-                .post("/test/client/ahc-ws/post")
-                .then()
-                .body(is("Hello " + body));
     }
 
     @Test

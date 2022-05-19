@@ -35,8 +35,6 @@
     <modules>
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>activemq</module>
-        <module>ahc</module>
-        <module>ahc-ws</module>
         <module>amqp</module>
         <module>arangodb</module>
         <module>as2</module>
@@ -122,7 +120,6 @@
         <module>headersmap</module>
         <module>hl7</module>
         <module>http</module>
-        <module>hystrix</module>
         <module>ical</module>
         <module>infinispan</module>
         <module>influxdb</module>
@@ -133,7 +130,6 @@
         <module>jaxb</module>
         <module>jdbc</module>
         <module>jfr</module>
-        <module>jing</module>
         <module>jira</module>
         <module>jms</module>
         <module>johnzon</module>
@@ -169,15 +165,12 @@
         <module>mock</module>
         <module>mongodb</module>
         <module>mongodb-gridfs</module>
-        <module>msv</module>
         <module>mustache</module>
         <module>mybatis</module>
-        <module>nagios</module>
         <module>nats</module>
         <module>netty</module>
         <module>netty-http</module>
         <module>nitrite</module>
-        <module>nsq</module>
         <module>oaipmh</module>
         <module>olingo4</module>
         <module>openapi-java</module>
@@ -225,7 +218,6 @@
         <module>stream</module>
         <module>stringtemplate</module>
         <module>syslog</module>
-        <module>tagsoup</module>
         <module>tarfile</module>
         <module>telegram</module>
         <module>tika</module>

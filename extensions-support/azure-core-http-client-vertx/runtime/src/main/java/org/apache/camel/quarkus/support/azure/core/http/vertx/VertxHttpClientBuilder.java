@@ -18,14 +18,13 @@ package org.apache.camel.quarkus.support.azure.core.http.vertx;
 
 import java.net.InetSocketAddress;
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.regex.Pattern;
 
 import com.azure.core.http.HttpClient;
 import com.azure.core.http.ProxyOptions;
 import com.azure.core.util.Configuration;
+import com.azure.core.util.CoreUtils;
 import com.azure.core.util.logging.ClientLogger;
 import io.vertx.core.Vertx;
 import io.vertx.core.net.ProxyType;
@@ -41,7 +40,9 @@ import static com.azure.core.util.CoreUtils.getDefaultTimeoutFromEnvironment;
  * Builds a {@link VertxHttpClient}.
  */
 public class VertxHttpClientBuilder {
-
+    private static final Pattern NON_PROXY_HOSTS_SPLIT = Pattern.compile("(?<!\\\\)\\|");
+    private static final Pattern NON_PROXY_HOST_DESANITIZE = Pattern.compile("(\\?|\\\\|\\(|\\)|\\\\E|\\\\Q|\\.\\.)");
+    private static final Pattern NON_PROXY_HOST_DOT_STAR = Pattern.compile("(\\.\\*)");
     private static final long DEFAULT_CONNECT_TIMEOUT;
     private static final long DEFAULT_WRITE_TIMEOUT;
     private static final long DEFAULT_READ_TIMEOUT;
@@ -229,15 +230,11 @@ public class VertxHttpClientBuilder {
                 }
             }
 
-            String nonProxyHostsString = buildProxyOptions.getNonProxyHosts();
-            if (nonProxyHostsString != null) {
-                //  Undo Azure ProxyOptions string sanitization since Vert.x has its own logic
-                List<String> nonProxyHosts = Arrays.stream(nonProxyHostsString.split("\\|"))
-                        .map(host -> host.replaceAll("\\\\E", "")
-                                .replaceAll("\\\\Q", "")
-                                .replaceAll("\\.\\.", ""))
-                        .collect(Collectors.toList());
-                webClientOptions.setNonProxyHosts(nonProxyHosts);
+            String nonProxyHosts = buildProxyOptions.getNonProxyHosts();
+            if (!CoreUtils.isNullOrEmpty(nonProxyHosts)) {
+                for (String nonProxyHost : desanitizedNonProxyHosts(nonProxyHosts)) {
+                    this.webClientOptions.addNonProxyHost(nonProxyHost);
+                }
             }
 
             webClientOptions.setProxyOptions(vertxProxyOptions);
@@ -245,5 +242,23 @@ public class VertxHttpClientBuilder {
 
         WebClient client = WebClient.create(this.vertx, this.webClientOptions);
         return new VertxHttpClient(client, this.webClientOptions);
+    }
+
+    /**
+     * Reverses non proxy host string sanitization applied by {@link ProxyOptions}.
+     *
+     * This is necessary as Vert.x will apply its own sanitization logic.
+     *
+     * @param  nonProxyHosts The list of non proxy hosts
+     * @return               String array of desanitized proxy host strings
+     */
+    private String[] desanitizedNonProxyHosts(String nonProxyHosts) {
+        String desanitzedNonProxyHosts = NON_PROXY_HOST_DESANITIZE.matcher(nonProxyHosts)
+                .replaceAll("");
+
+        desanitzedNonProxyHosts = NON_PROXY_HOST_DOT_STAR.matcher(desanitzedNonProxyHosts)
+                .replaceAll("*");
+
+        return NON_PROXY_HOSTS_SPLIT.split(desanitzedNonProxyHosts);
     }
 }

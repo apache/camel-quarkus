@@ -111,10 +111,8 @@ group-07:
   - dataformats-json
   - dropbox
   - geocoder
-  - jing
   - jslt
   - lumberjack
-  - msv
   - olingo4
   - optaplanner
   - pg-replication-slot
@@ -160,8 +158,6 @@ group-10:
   - mail
   - main-unknown-args-fail
   - main-unknown-args-ignore
-  - nagios
-  - nsq
 group-11:
   - compression-grouped
   - disruptor

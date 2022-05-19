@@ -16,11 +16,11 @@
  */
 package org.apache.camel.quarkus.component.as2.it.transport;
 
+import java.nio.charset.StandardCharsets;
 import java.security.cert.Certificate;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.camel.component.as2.api.AS2Charset;
 import org.apache.camel.component.as2.api.AS2EncryptionAlgorithm;
 import org.apache.camel.component.as2.api.AS2MediaType;
 import org.apache.camel.component.as2.api.AS2MessageStructure;
@@ -116,7 +116,7 @@ public class Request {
             retVal.put(getMessageStructureKey(), getMessageStructure());
         }
         retVal.put("CamelAS2.ediMessageContentType",
-                org.apache.http.entity.ContentType.create(AS2MediaType.APPLICATION_EDIFACT, AS2Charset.US_ASCII));
+                org.apache.http.entity.ContentType.create(AS2MediaType.APPLICATION_EDIFACT, StandardCharsets.US_ASCII.name()));
         if (getEncryptionAlgorithm() != null) {
             retVal.put("CamelAS2.encryptingCertificateChain", As2CertificateHelper.getCertList());
             retVal.put("CamelAS2.encryptingAlgorithm", getEncryptionAlgorithm());

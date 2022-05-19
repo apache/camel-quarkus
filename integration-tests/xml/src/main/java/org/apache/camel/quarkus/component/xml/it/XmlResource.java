@@ -42,18 +42,6 @@ public class XmlResource {
     @Inject
     ConsumerTemplate consumerTemplate;
 
-    @Path("/html-parse")
-    @POST
-    @Consumes(MediaType.TEXT_HTML)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String htmlParse(String html) {
-        LOG.debugf("Parsing HTML %s", html);
-        return producerTemplate.requestBody(
-                XmlRouteBuilder.DIRECT_HTML_TO_DOM,
-                html,
-                String.class);
-    }
-
     @Path("/xslt")
     @POST
     @Produces(MediaType.TEXT_PLAIN)

@@ -1,3 +1,0 @@
-* `spark:dataframe` does not work on Java 9+ because Spark 2.x does not support Java 9+. This will be solved when
-  Spark is upgraded to 3.x in Camel, see https://github.com/apache/camel-quarkus/issues/1955[issue #1955].
-* `spark:hive` is does not work, see https://github.com/apache/camel-quarkus/issues/1956[issue #1956].

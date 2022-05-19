@@ -487,6 +487,42 @@ public class Account extends AbstractDescribedSObjectBase {
         this.Site = Site;
     }
 
+    private AbstractDescribedSObjectBase Owner;
+
+    @JsonProperty("Owner")
+    public AbstractDescribedSObjectBase getOwner() {
+        return this.Owner;
+    }
+
+    @JsonProperty("Owner")
+    public void setOwner(AbstractDescribedSObjectBase Owner) {
+        this.Owner = Owner;
+    }
+
+    private AbstractDescribedSObjectBase CreatedBy;
+
+    @JsonProperty("CreatedBy")
+    public AbstractDescribedSObjectBase getCreatedBy() {
+        return this.CreatedBy;
+    }
+
+    @JsonProperty("CreatedBy")
+    public void setCreatedBy(AbstractDescribedSObjectBase CreatedBy) {
+        this.CreatedBy = CreatedBy;
+    }
+
+    private AbstractDescribedSObjectBase LastModifiedBy;
+
+    @JsonProperty("LastModifiedBy")
+    public AbstractDescribedSObjectBase getLastModifiedBy() {
+        return this.LastModifiedBy;
+    }
+
+    @JsonProperty("LastModifiedBy")
+    public void setLastModifiedBy(AbstractDescribedSObjectBase LastModifiedBy) {
+        this.LastModifiedBy = LastModifiedBy;
+    }
+
     private String Jigsaw;
 
     @JsonProperty("Jigsaw")
@@ -617,6 +653,18 @@ public class Account extends AbstractDescribedSObjectBase {
     @JsonProperty("DandbCompanyId")
     public void setDandbCompanyId(String DandbCompanyId) {
         this.DandbCompanyId = DandbCompanyId;
+    }
+
+    private AbstractDescribedSObjectBase DandbCompany;
+
+    @JsonProperty("DandbCompany")
+    public AbstractDescribedSObjectBase getDandbCompany() {
+        return this.DandbCompany;
+    }
+
+    @JsonProperty("DandbCompany")
+    public void setDandbCompany(AbstractDescribedSObjectBase DandbCompany) {
+        this.DandbCompany = DandbCompany;
     }
 
     private Account_CustomerPriorityEnum CustomerPriority__c;
@@ -944,17 +992,17 @@ public class Account extends AbstractDescribedSObjectBase {
         description.setName("Account");
 
         final SObjectDescriptionUrls sObjectDescriptionUrls1 = new SObjectDescriptionUrls();
-        sObjectDescriptionUrls1.setApprovalLayouts("/services/data/v50.0/sobjects/Account/describe/approvalLayouts");
-        sObjectDescriptionUrls1.setCompactLayouts("/services/data/v50.0/sobjects/Account/describe/compactLayouts");
-        sObjectDescriptionUrls1.setDescribe("/services/data/v50.0/sobjects/Account/describe");
-        sObjectDescriptionUrls1.setLayouts("/services/data/v50.0/sobjects/Account/describe/layouts");
-        sObjectDescriptionUrls1.setListviews("/services/data/v50.0/sobjects/Account/listviews");
-        sObjectDescriptionUrls1.setQuickActions("/services/data/v50.0/sobjects/Account/quickActions");
-        sObjectDescriptionUrls1.setRowTemplate("/services/data/v50.0/sobjects/Account/{ID}");
-        sObjectDescriptionUrls1.setSobject("/services/data/v50.0/sobjects/Account");
-        sObjectDescriptionUrls1.setUiDetailTemplate("https://eu37.salesforce.com/{ID}");
-        sObjectDescriptionUrls1.setUiEditTemplate("https://eu37.salesforce.com/{ID}/e");
-        sObjectDescriptionUrls1.setUiNewRecord("https://eu37.salesforce.com/001/e");
+        sObjectDescriptionUrls1.setApprovalLayouts("/services/data/v53.0/sobjects/Account/describe/approvalLayouts");
+        sObjectDescriptionUrls1.setCompactLayouts("/services/data/v53.0/sobjects/Account/describe/compactLayouts");
+        sObjectDescriptionUrls1.setDescribe("/services/data/v53.0/sobjects/Account/describe");
+        sObjectDescriptionUrls1.setLayouts("/services/data/v53.0/sobjects/Account/describe/layouts");
+        sObjectDescriptionUrls1.setListviews("/services/data/v53.0/sobjects/Account/listviews");
+        sObjectDescriptionUrls1.setQuickActions("/services/data/v53.0/sobjects/Account/quickActions");
+        sObjectDescriptionUrls1.setRowTemplate("/services/data/v53.0/sobjects/Account/{ID}");
+        sObjectDescriptionUrls1.setSobject("/services/data/v53.0/sobjects/Account");
+        sObjectDescriptionUrls1.setUiDetailTemplate("https://d24000000cqlxeai-dev-ed.my.salesforce.com/{ID}");
+        sObjectDescriptionUrls1.setUiEditTemplate("https://d24000000cqlxeai-dev-ed.my.salesforce.com/{ID}/e");
+        sObjectDescriptionUrls1.setUiNewRecord("https://d24000000cqlxeai-dev-ed.my.salesforce.com/001/e");
         description.setUrls(sObjectDescriptionUrls1);
 
         return description;
