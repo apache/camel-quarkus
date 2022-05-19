@@ -13,12 +13,14 @@
 - Switch from OpenTracing to OpenTelemetry in observability example [\#3784](https://github.com/apache/camel-quarkus/issues/3784)
 - URL to the Kafka brokers must be configured with the brokers option in native mode \(continued\) [\#3742](https://github.com/apache/camel-quarkus/issues/3742)
 - Gracefully handle `AnnotationInstance` being null in `InjectionPointsProcessor.syntheticBeans` [\#3703](https://github.com/apache/camel-quarkus/issues/3703)
+- Split camel-quarkus-integration-test-compression into separate zipfile, lzf and zip-deflater tests [\#3689](https://github.com/apache/camel-quarkus/issues/3689)
 - Docs module fails to build [\#3307](https://github.com/apache/camel-quarkus/issues/3307)
 - DataSonnet language support [\#2078](https://github.com/apache/camel-quarkus/issues/2078)
 
 **Merged pull requests:**
 
 - Exclude unwanted Apache Commons dependencies from hapi-fhir-structures-dstu2.1 [\#3794](https://github.com/apache/camel-quarkus/pull/3794) ([jamesnetherton](https://github.com/jamesnetherton))
+- Split compression related tests into a test group \#3689 [\#3791](https://github.com/apache/camel-quarkus/pull/3791) ([aldettinger](https://github.com/aldettinger))
 - Increase FHIR client socket timeout [\#3789](https://github.com/apache/camel-quarkus/pull/3789) ([jamesnetherton](https://github.com/jamesnetherton))
 - file: Add some extra logs to attempt catching info about flakiness \#3584 [\#3787](https://github.com/apache/camel-quarkus/pull/3787) ([aldettinger](https://github.com/aldettinger))
 - Remove redundant infinispan-jboss-marshalling from the BOM [\#3785](https://github.com/apache/camel-quarkus/pull/3785) ([jamesnetherton](https://github.com/jamesnetherton))
