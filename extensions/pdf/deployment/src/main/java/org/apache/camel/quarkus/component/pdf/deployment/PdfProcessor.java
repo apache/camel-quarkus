@@ -56,6 +56,8 @@ class PdfProcessor {
             "org.apache.camel.component.pdf.PdfConfiguration",
             "org.apache.camel.component.pdf.Standard14Fonts",
             "org.apache.pdfbox.pdmodel.PDDocument",
+            "org.apache.pdfbox.pdmodel.graphics.color.PDDeviceRGB",
+            "org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray"
     };
 
     @BuildStep

@@ -16,10 +16,10 @@
  */
 package org.apache.camel.quarkus.component.as2.it;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.camel.component.as2.api.AS2Charset;
 import org.apache.camel.component.as2.api.AS2EncryptionAlgorithm;
 import org.apache.camel.component.as2.api.AS2MediaType;
 import org.apache.camel.component.as2.api.AS2MessageStructure;
@@ -112,7 +112,7 @@ public class As2Helper {
         headers.put("CamelAS2.as2MessageStructure", plain);
         // parameter type is org.apache.http.entity.ContentType
         headers.put("CamelAS2.ediMessageContentType",
-                ContentType.create(AS2MediaType.APPLICATION_EDIFACT, AS2Charset.US_ASCII));
+                ContentType.create(AS2MediaType.APPLICATION_EDIFACT, StandardCharsets.US_ASCII.name()));
         // parameter type is String
         headers.put("CamelAS2.ediMessageTransferEncoding", EDI_MESSAGE_CONTENT_TRANSFER_ENCODING);
         // parameter type is String

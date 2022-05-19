@@ -20,8 +20,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
 import java.util.zip.GZIPInputStream;
 
 import javax.annotation.security.RolesAllowed;
@@ -63,127 +61,6 @@ public class HttpResource {
 
     @Inject
     ConsumerTemplate consumerTemplate;
-
-    // *****************************
-    //
-    // camel-ahc
-    //
-    // *****************************
-
-    @Path("/ahc/get")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String get(@QueryParam("test-port") int port) {
-        return producerTemplate
-                .toF("ahc:http://localhost:%d/service/get?bridgeEndpoint=true", port)
-                .withHeader(Exchange.HTTP_METHOD, "GET")
-                .request(String.class);
-    }
-
-    @Path("/ahc/get-https")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getHttps(@QueryParam("test-port") int port) {
-        return producerTemplate
-                .toF("ahc:https://localhost:%d/countries/cz?bridgeEndpoint=true&sslContextParameters=#sslContextParameters",
-                        port)
-                .withHeader(Exchange.HTTP_METHOD, "GET")
-                .request(String.class);
-    }
-
-    @Path("/ahc/post")
-    @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String post(@QueryParam("test-port") int port, String message) {
-        return producerTemplate
-                .toF("ahc://http://localhost:%d/service/toUpper?bridgeEndpoint=true", port)
-                .withBody(message)
-                .withHeader(Exchange.CONTENT_TYPE, MediaType.TEXT_PLAIN)
-                .withHeader(Exchange.HTTP_METHOD, "POST")
-                .request(String.class);
-    }
-
-    @Path("/ahc/auth/basic")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response ahcBasicAuth(
-            @QueryParam("test-port") int port,
-            @QueryParam("username") String username,
-            @QueryParam("password") String password) {
-
-        Exchange result = producerTemplate
-                .withHeader(Exchange.HTTP_QUERY, "component=ahc")
-                .toF("ahc://http://localhost:%d/test/client/auth/basic?throwExceptionOnFailure=false"
-                        + "&clientConfig.realm.scheme=BASIC"
-                        + "&clientConfig.realm.principal=%s"
-                        + "&clientConfig.realm.password=%s", port, username, password)
-                .send();
-
-        Integer status = result.getMessage().getHeader(Exchange.HTTP_RESPONSE_CODE, Integer.class);
-        String body = result.getMessage().getBody(String.class);
-        return Response.status(status).entity(body).build();
-    }
-
-    @Path("/ahc/proxy")
-    @GET
-    @Produces(MediaType.APPLICATION_XML)
-    public String ahcProxyServer(@QueryParam("test-port") int port) {
-        return producerTemplate
-                .toF("ahc://%s?client=#asyncHttpClientWithProxy", String.format(PROXIED_URL, "ahc"))
-                .request(String.class);
-    }
-
-    @Path("/ahc/compression")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String ahcCompression(@QueryParam("test-port") int port) {
-        return producerTemplate
-                .toF("ahc://http:localhost:%d/compressed", port)
-                .withHeader("Accept-Encoding", "gzip, deflate")
-                .request(String.class);
-    }
-
-    @Path("/ahc/serialized/exception")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String ahcSerializedException(@QueryParam("test-port") int port) {
-        Exchange exchange = producerTemplate
-                .toF("ahc:http://localhost:%d/test/server/serialized/exception?bridgeEndpoint=true&transferException=true",
-                        port)
-                .withHeader(Exchange.HTTP_METHOD, "GET")
-                .send();
-        return exchange.getException().getClass().getName();
-    }
-
-    // *****************************
-    //
-    // camel-ahc-ws
-    //
-    // *****************************
-    @Path("/ahc-ws/post")
-    @POST
-    @Produces(MediaType.TEXT_PLAIN)
-    public String triggerAhcWsProducerConsumer(@QueryParam("test-port") int port, String message) throws Exception {
-        String uri = String.format("ahc-ws:localhost:%d/ahc-ws/greeting", port);
-
-        // Start consumer
-        CompletableFuture<String> future = CompletableFuture
-                .supplyAsync(() -> consumerTemplate.receiveBody(uri, 10000, String.class));
-
-        // Wait for consumer connect
-        int attempts = 0;
-        while (!GreetingServerEndpoint.connected && attempts < 25) {
-            Thread.sleep(250);
-            attempts++;
-        }
-
-        // Send WS payload
-        producerTemplate.to(uri).withBody(message).send();
-
-        // Get result from the consumer
-        return future.get(5, TimeUnit.SECONDS);
-    }
 
     // *****************************
     //

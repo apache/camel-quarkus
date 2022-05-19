@@ -36,15 +36,12 @@
         <module>asn1</module>
         <module>asterisk</module>
         <module>atmos</module>
-        <module>atomix</module>
         <module>aws-secrets-manager</module>
         <module>aws-xray</module>
         <module>azure-cosmosdb</module>
         <module>azure-servicebus</module>
         <module>azure-storage-datalake</module>
         <module>barcode</module>
-        <module>beanio</module>
-        <module>beanstalk</module>
         <module>bonita</module>
         <module>chatscript</module>
         <module>chunk</module>
@@ -58,13 +55,10 @@
         <module>dns</module>
         <module>drill</module>
         <module>ehcache</module>
-        <module>elsql</module>
-        <module>etcd</module>
         <module>etcd3</module>
         <module>facebook</module>
         <module>fastjson</module>
         <module>flink</module>
-        <module>ganglia</module>
         <module>google-functions</module>
         <module>google-secret-manager</module>
         <module>groovy</module>
@@ -102,14 +96,10 @@
         <module>pulsar</module>
         <module>quickfix</module>
         <module>redis</module>
-        <module>ribbon</module>
         <module>robotframework</module>
         <module>schematron</module>
-        <module>sip</module>
         <module>smpp</module>
         <module>snmp</module>
-        <module>soroush</module>
-        <module>spark</module>
         <module>splunk-hec</module>
         <module>stitch</module>
         <module>stomp</module>
@@ -121,7 +111,6 @@
         <module>xj</module>
         <module>xmpp</module>
         <module>xslt-saxon</module>
-        <module>yammer</module>
         <module>zookeeper</module>
         <module>zookeeper-master</module>
     </modules>

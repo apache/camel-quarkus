@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.microprofile.metrics.deployment;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -55,7 +56,11 @@ public class MicroProfileMetricsConfigDefaultsTest {
         assertNotNull(messageHistoryFactory);
         assertTrue(messageHistoryFactory instanceof DefaultMessageHistoryFactory);
 
-        List<EventNotifier> eventNotifiers = context.getManagementStrategy().getEventNotifiers();
+        List<EventNotifier> eventNotifiers = context.getManagementStrategy()
+                .getEventNotifiers()
+                .stream()
+                .filter(eventNotifier -> !eventNotifier.getClass().getName().contains("BaseMainSupport"))
+                .collect(Collectors.toList());
         assertEquals(3, eventNotifiers.size());
     }
 }

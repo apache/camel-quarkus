@@ -45,7 +45,7 @@ spec:
         default: false
   dependencies:
     - "camel:log"
-  flow:
+  template:
     from:
       uri: "kamelet:source"
       steps:

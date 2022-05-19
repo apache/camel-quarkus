@@ -171,7 +171,7 @@ public class VertxHttpClientBuilderTests {
 
             List<String> proxyHosts = new ArrayList<>();
             proxyHosts.add("foo*");
-            proxyHosts.add(".*bar.com");
+            proxyHosts.add("*bar.com");
             proxyHosts.add("microsoft.com");
             assertEquals(proxyHosts, options.getNonProxyHosts());
         } finally {

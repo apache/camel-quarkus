@@ -17,8 +17,8 @@
 package org.apache.camel.quarkus.component.as2.it;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
-import org.apache.camel.component.as2.api.AS2Charset;
 import org.apache.camel.component.as2.api.AS2ClientConnection;
 import org.apache.camel.component.as2.api.AS2ClientManager;
 import org.apache.camel.component.as2.api.AS2MediaType;
@@ -43,7 +43,7 @@ public class As2Sender {
         return ediMessage -> clientManager.send(ediMessage, As2Helper.REQUEST_URI, As2Helper.SUBJECT, As2Helper.FROM,
                 As2Helper.AS2_NAME,
                 As2Helper.AS2_NAME, AS2MessageStructure.PLAIN,
-                ContentType.create(AS2MediaType.APPLICATION_EDIFACT, AS2Charset.US_ASCII), null, null, null, null,
+                ContentType.create(AS2MediaType.APPLICATION_EDIFACT, StandardCharsets.US_ASCII.name()), null, null, null, null,
                 null, As2Helper.DISPOSITION_NOTIFICATION_TO, As2Helper.SIGNED_RECEIPT_MIC_ALGORITHMS, null, null, null);
     }
 

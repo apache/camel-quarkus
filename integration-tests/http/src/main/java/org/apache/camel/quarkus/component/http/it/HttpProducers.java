@@ -28,13 +28,6 @@ import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.client.BasicAuthCache;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.protocol.HttpContext;
-import org.asynchttpclient.AsyncHttpClient;
-import org.asynchttpclient.AsyncHttpClientConfig;
-import org.asynchttpclient.DefaultAsyncHttpClient;
-import org.asynchttpclient.DefaultAsyncHttpClientConfig;
-import org.asynchttpclient.Realm;
-import org.asynchttpclient.proxy.ProxyServer;
-import org.asynchttpclient.proxy.ProxyType;
 import org.eclipse.microprofile.config.ConfigProvider;
 
 import static org.apache.camel.quarkus.component.http.it.HttpResource.USER_ADMIN;
@@ -45,27 +38,6 @@ public class HttpProducers {
     @Named
     public ClientInitializerFactory proxyCapableClientInitializerFactory() {
         return new ProxyCapableClientInitializerFactory();
-    }
-
-    @Named
-    public AsyncHttpClient asyncHttpClientWithProxy() {
-        Integer proxyPort = ConfigProvider.getConfig().getValue("tiny.proxy.port", Integer.class);
-
-        Realm realm = new Realm.Builder(USER_ADMIN, USER_ADMIN_PASSWORD)
-                .setScheme(Realm.AuthScheme.BASIC)
-                .build();
-
-        ProxyServer proxyServer = new ProxyServer.Builder("localhost", proxyPort)
-                .setProxyType(ProxyType.HTTP)
-                .setRealm(realm)
-                .build();
-
-        AsyncHttpClientConfig config = new DefaultAsyncHttpClientConfig.Builder()
-                .setRealm(realm)
-                .setProxyServer(proxyServer)
-                .build();
-
-        return new DefaultAsyncHttpClient(config);
     }
 
     @Named

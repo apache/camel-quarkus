@@ -36,7 +36,7 @@ import com.mongodb.client.MongoClient;
 import io.quarkus.mongodb.MongoClientName;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.component.mongodb.gridfs.GridFsEndpoint;
+import org.apache.camel.component.mongodb.gridfs.GridFsConstants;
 
 @Path("/mongodb-gridfs")
 public class MongodbGridfsResource {
@@ -69,7 +69,7 @@ public class MongodbGridfsResource {
 
         return Response
                 .created(new URI("https://camel.apache.org/"))
-                .entity(result.getMessage().getHeader(GridFsEndpoint.GRIDFS_OBJECT_ID))
+                .entity(result.getMessage().getHeader(GridFsConstants.GRIDFS_OBJECT_ID))
                 .build();
     }
 

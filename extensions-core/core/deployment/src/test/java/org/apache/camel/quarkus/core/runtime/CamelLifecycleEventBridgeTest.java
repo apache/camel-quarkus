@@ -54,7 +54,12 @@ public class CamelLifecycleEventBridgeTest {
     @Test
     public void testObservers() {
         // We're only observing lifecycle events so the management strategy should not be configured
-        assertTrue(context.getManagementStrategy().getEventNotifiers().isEmpty());
+        assertTrue(context.getManagementStrategy()
+                .getEventNotifiers()
+                .stream()
+                .filter(eventNotifier -> !eventNotifier.getClass().getName().contains("BaseMainSupport"))
+                .findAny()
+                .isEmpty());
 
         await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> {
             assertThat(handler.components())

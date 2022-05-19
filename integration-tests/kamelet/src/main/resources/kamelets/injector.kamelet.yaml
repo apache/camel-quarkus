@@ -39,7 +39,7 @@ spec:
       mediaType: application/json
   dependencies:
     - "camel:timer"
-  flow:
+  template:
     from:
       uri: timer
       parameters:
