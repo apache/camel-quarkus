@@ -16,23 +16,19 @@
  */
 package org.apache.camel.quarkus.core.events;
 
-import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
+import org.apache.camel.impl.event.AbstractContextEvent;
 import org.apache.camel.spi.CamelEvent;
 
 /**
  * Base {@link CamelEvent} for {@link Component} related events.
  */
-public class ComponentEvent implements CamelEvent.CamelContextEvent {
+public class ComponentEvent extends AbstractContextEvent {
     private final Component component;
 
     public ComponentEvent(Component component) {
+        super(component.getCamelContext());
         this.component = component;
-    }
-
-    @Override
-    public CamelContext getContext() {
-        return this.component.getCamelContext();
     }
 
     public Component getComponent() {

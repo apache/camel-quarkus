@@ -992,14 +992,14 @@ public class Account extends AbstractDescribedSObjectBase {
         description.setName("Account");
 
         final SObjectDescriptionUrls sObjectDescriptionUrls1 = new SObjectDescriptionUrls();
-        sObjectDescriptionUrls1.setApprovalLayouts("/services/data/v53.0/sobjects/Account/describe/approvalLayouts");
-        sObjectDescriptionUrls1.setCompactLayouts("/services/data/v53.0/sobjects/Account/describe/compactLayouts");
-        sObjectDescriptionUrls1.setDescribe("/services/data/v53.0/sobjects/Account/describe");
-        sObjectDescriptionUrls1.setLayouts("/services/data/v53.0/sobjects/Account/describe/layouts");
-        sObjectDescriptionUrls1.setListviews("/services/data/v53.0/sobjects/Account/listviews");
-        sObjectDescriptionUrls1.setQuickActions("/services/data/v53.0/sobjects/Account/quickActions");
-        sObjectDescriptionUrls1.setRowTemplate("/services/data/v53.0/sobjects/Account/{ID}");
-        sObjectDescriptionUrls1.setSobject("/services/data/v53.0/sobjects/Account");
+        sObjectDescriptionUrls1.setApprovalLayouts("/services/data/v54.0/sobjects/Account/describe/approvalLayouts");
+        sObjectDescriptionUrls1.setCompactLayouts("/services/data/v54.0/sobjects/Account/describe/compactLayouts");
+        sObjectDescriptionUrls1.setDescribe("/services/data/v54.0/sobjects/Account/describe");
+        sObjectDescriptionUrls1.setLayouts("/services/data/v54.0/sobjects/Account/describe/layouts");
+        sObjectDescriptionUrls1.setListviews("/services/data/v54.0/sobjects/Account/listviews");
+        sObjectDescriptionUrls1.setQuickActions("/services/data/v54.0/sobjects/Account/quickActions");
+        sObjectDescriptionUrls1.setRowTemplate("/services/data/v54.0/sobjects/Account/{ID}");
+        sObjectDescriptionUrls1.setSobject("/services/data/v54.0/sobjects/Account");
         sObjectDescriptionUrls1.setUiDetailTemplate("https://d24000000cqlxeai-dev-ed.my.salesforce.com/{ID}");
         sObjectDescriptionUrls1.setUiEditTemplate("https://d24000000cqlxeai-dev-ed.my.salesforce.com/{ID}/e");
         sObjectDescriptionUrls1.setUiNewRecord("https://d24000000cqlxeai-dev-ed.my.salesforce.com/001/e");

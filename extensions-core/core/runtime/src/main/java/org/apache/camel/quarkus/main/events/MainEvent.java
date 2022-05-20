@@ -26,6 +26,7 @@ import org.apache.camel.spi.HasCamelContext;
  */
 public class MainEvent implements CamelEvent, HasCamelContext {
     private final BaseMainSupport main;
+    private long timestamp;
 
     public MainEvent(BaseMainSupport main) {
         this.main = main;
@@ -52,5 +53,15 @@ public class MainEvent implements CamelEvent, HasCamelContext {
     @Override
     public Object getSource() {
         return getMain();
+    }
+
+    @Override
+    public long getTimestamp() {
+        return this.timestamp;
+    }
+
+    @Override
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }
