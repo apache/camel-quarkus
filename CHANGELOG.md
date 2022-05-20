@@ -10,16 +10,37 @@
 
 **Closed issues:**
 
+- Improve camel-quarkus-velocity test coverage [\#3790](https://github.com/apache/camel-quarkus/issues/3790)
 - Switch from OpenTracing to OpenTelemetry in observability example [\#3784](https://github.com/apache/camel-quarkus/issues/3784)
+- \[Camel 3.17.0\] Restore `jakarta-mail-version` placeholder in `jakarta.mail.version` property [\#3771](https://github.com/apache/camel-quarkus/issues/3771)
 - URL to the Kafka brokers must be configured with the brokers option in native mode \(continued\) [\#3742](https://github.com/apache/camel-quarkus/issues/3742)
+- \[Camel 3.17.0\] Property placeholder resolution is broken [\#3739](https://github.com/apache/camel-quarkus/issues/3739)
+- \[Camel 3.17.0\] Switch FTP / JSCH extensions to `com.github.mwiede:jsch` [\#3711](https://github.com/apache/camel-quarkus/issues/3711)
 - Gracefully handle `AnnotationInstance` being null in `InjectionPointsProcessor.syntheticBeans` [\#3703](https://github.com/apache/camel-quarkus/issues/3703)
+- Remove deprecated extensions [\#3698](https://github.com/apache/camel-quarkus/issues/3698)
 - Split camel-quarkus-integration-test-compression into separate zipfile, lzf and zip-deflater tests [\#3689](https://github.com/apache/camel-quarkus/issues/3689)
+- \[Camel 3.17.0\] Bean introspection is broken [\#3682](https://github.com/apache/camel-quarkus/issues/3682)
+- Remove AHC and AHC-WS extensions [\#3558](https://github.com/apache/camel-quarkus/issues/3558)
+- Remove camel-quarkus-spark [\#3466](https://github.com/apache/camel-quarkus/issues/3466)
 - Docs module fails to build [\#3307](https://github.com/apache/camel-quarkus/issues/3307)
 - DataSonnet language support [\#2078](https://github.com/apache/camel-quarkus/issues/2078)
+- Remove deprecated Ribbon extension [\#1845](https://github.com/apache/camel-quarkus/issues/1845)
+- Remove deprecated BeanIO extension [\#1753](https://github.com/apache/camel-quarkus/issues/1753)
+- Remove deprecated SIP extension [\#1707](https://github.com/apache/camel-quarkus/issues/1707)
+- Remove deprecated Soroush extension [\#1702](https://github.com/apache/camel-quarkus/issues/1702)
+- Remove deprecated Ganglia extension [\#1644](https://github.com/apache/camel-quarkus/issues/1644)
+- Remove deprecated ElSQL extension [\#1639](https://github.com/apache/camel-quarkus/issues/1639)
+- Remove deprecated Yammer extension [\#1614](https://github.com/apache/camel-quarkus/issues/1614)
+- Remove deprecated etcd extension [\#1592](https://github.com/apache/camel-quarkus/issues/1592)
+- Remove deprecated Beanstalk extension [\#1581](https://github.com/apache/camel-quarkus/issues/1581)
+- Remove deprecated Atomix extension [\#1570](https://github.com/apache/camel-quarkus/issues/1570)
 
 **Merged pull requests:**
 
+- Upgrade Google Cloud Native Image Support to 0.14.1 [\#3796](https://github.com/apache/camel-quarkus/pull/3796) ([jamesnetherton](https://github.com/jamesnetherton))
 - Exclude unwanted Apache Commons dependencies from hapi-fhir-structures-dstu2.1 [\#3794](https://github.com/apache/camel-quarkus/pull/3794) ([jamesnetherton](https://github.com/jamesnetherton))
+- Improve camel-quarkus-velocity test coverage \#3790 [\#3793](https://github.com/apache/camel-quarkus/pull/3793) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Upgrade Camel to 3.17.0 [\#3792](https://github.com/apache/camel-quarkus/pull/3792) ([jamesnetherton](https://github.com/jamesnetherton))
 - Split compression related tests into a test group \#3689 [\#3791](https://github.com/apache/camel-quarkus/pull/3791) ([aldettinger](https://github.com/aldettinger))
 - Increase FHIR client socket timeout [\#3789](https://github.com/apache/camel-quarkus/pull/3789) ([jamesnetherton](https://github.com/jamesnetherton))
 - file: Add some extra logs to attempt catching info about flakiness \#3584 [\#3787](https://github.com/apache/camel-quarkus/pull/3787) ([aldettinger](https://github.com/aldettinger))
