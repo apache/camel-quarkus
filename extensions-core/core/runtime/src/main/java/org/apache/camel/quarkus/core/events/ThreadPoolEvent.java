@@ -19,23 +19,18 @@ package org.apache.camel.quarkus.core.events;
 import java.util.concurrent.ThreadPoolExecutor;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.impl.event.AbstractContextEvent;
 import org.apache.camel.spi.CamelEvent;
 
 /**
  * Base {@link CamelEvent} for {@link ThreadPoolExecutor} related events.
  */
-public class ThreadPoolEvent implements CamelEvent.CamelContextEvent {
-    private final CamelContext camelContext;
+public class ThreadPoolEvent extends AbstractContextEvent {
     private final ThreadPoolExecutor threadPool;
 
     public ThreadPoolEvent(CamelContext camelContext, ThreadPoolExecutor threadPool) {
-        this.camelContext = camelContext;
+        super(camelContext);
         this.threadPool = threadPool;
-    }
-
-    @Override
-    public CamelContext getContext() {
-        return this.camelContext;
     }
 
     public ThreadPoolExecutor getThreadPool() {

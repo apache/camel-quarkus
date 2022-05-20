@@ -21,25 +21,20 @@ import java.util.Optional;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Route;
 import org.apache.camel.Service;
+import org.apache.camel.impl.event.AbstractContextEvent;
 import org.apache.camel.spi.CamelEvent;
 
 /**
  * Base {@link CamelEvent} for {@link Service} related events.
  */
-public class ServiceEvent implements CamelEvent.CamelContextEvent {
-    private final CamelContext camelContext;
+public class ServiceEvent extends AbstractContextEvent {
     private final Service service;
     private final Route route;
 
     public ServiceEvent(CamelContext camelContext, Service service, Route route) {
-        this.camelContext = camelContext;
+        super(camelContext);
         this.service = service;
         this.route = route;
-    }
-
-    @Override
-    public CamelContext getContext() {
-        return this.camelContext;
     }
 
     public Service getService() {

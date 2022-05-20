@@ -19,25 +19,20 @@ package org.apache.camel.quarkus.core.events;
 import org.apache.camel.ErrorHandlerFactory;
 import org.apache.camel.Processor;
 import org.apache.camel.Route;
+import org.apache.camel.impl.event.AbstractRouteEvent;
 import org.apache.camel.spi.CamelEvent;
 
 /**
  * Base {@link CamelEvent} for {@link ErrorHandlerFactory} related events.
  */
-public class ErrorHandlerEvent implements CamelEvent.RouteEvent {
-    private final Route route;
+public class ErrorHandlerEvent extends AbstractRouteEvent {
     private final Processor errorHandler;
     private final ErrorHandlerFactory errorHandlerFactory;
 
     public ErrorHandlerEvent(Route route, Processor errorHandler, ErrorHandlerFactory errorHandlerFactory) {
-        this.route = route;
+        super(route);
         this.errorHandler = errorHandler;
         this.errorHandlerFactory = errorHandlerFactory;
-    }
-
-    @Override
-    public Route getRoute() {
-        return this.route;
     }
 
     public Processor getErrorHandler() {

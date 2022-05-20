@@ -16,23 +16,19 @@
  */
 package org.apache.camel.quarkus.core.events;
 
-import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
+import org.apache.camel.impl.event.AbstractContextEvent;
 import org.apache.camel.spi.CamelEvent;
 
 /**
  * Base {@link CamelEvent} for {@link Endpoint} related events.
  */
-public class EndpointEvent implements CamelEvent.CamelContextEvent {
+public class EndpointEvent extends AbstractContextEvent {
     private final Endpoint endpoint;
 
     public EndpointEvent(Endpoint endpoint) {
+        super(endpoint.getCamelContext());
         this.endpoint = endpoint;
-    }
-
-    @Override
-    public CamelContext getContext() {
-        return this.endpoint.getCamelContext();
     }
 
     public Endpoint getEndpoint() {

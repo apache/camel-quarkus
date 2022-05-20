@@ -16,8 +16,11 @@
  */
 package org.apache.camel.quarkus.component.google.bigquery.deployment;
 
+import java.util.List;
+
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 
 class GoogleBigqueryProcessor {
     private static final String FEATURE = "camel-google-bigquery";
@@ -25,5 +28,13 @@ class GoogleBigqueryProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    public List<RuntimeInitializedClassBuildItem> runtimeInitializedClass() {
+        return List.of(
+                new RuntimeInitializedClassBuildItem("org.apache.arrow.memory.BaseAllocator"),
+                new RuntimeInitializedClassBuildItem("org.apache.arrow.memory.DefaultAllocationManagerFactory"),
+                new RuntimeInitializedClassBuildItem("org.apache.arrow.memory.NettyAllocationManager"));
     }
 }
