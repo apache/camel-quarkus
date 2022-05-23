@@ -81,10 +81,8 @@ public class Aws2SqsResource {
     @DELETE
     @Produces(MediaType.TEXT_PLAIN)
     public Response purgeQueue(@PathParam("queueName") String queueName) throws Exception {
-        producerTemplate.sendBodyAndHeader(componentUri(queueName) + "?operation=purgeQueue",
-                null,
-                Sqs2Constants.SQS_QUEUE_PREFIX,
-                queueName);
+        producerTemplate.sendBody(componentUri(queueName) + "?operation=purgeQueue",
+                null);
         return Response.ok().build();
     }
 
@@ -148,10 +146,8 @@ public class Aws2SqsResource {
     @DELETE
     @Produces(MediaType.TEXT_PLAIN)
     public Response deleteQueue(@PathParam("queueName") String queueName) throws Exception {
-        producerTemplate.sendBodyAndHeader(componentUri(queueName) + "?operation=deleteQueue",
-                null,
-                Sqs2Constants.SQS_QUEUE_PREFIX,
-                queueName);
+        producerTemplate.sendBody(componentUri(queueName) + "?operation=deleteQueue",
+                null);
         return Response.ok().build();
     }
 
