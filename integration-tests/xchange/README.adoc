@@ -1,0 +1,18 @@
+== Camel Quarkus XChange Integration Tests
+
+By default the XChange integration tests use WireMock to stub the API interactions.
+
+To run the `camel-quarkus-xchange` integration tests against the real APIs, you can set the following environment variable:
+
+[source,shell]
+----
+export CAMEL_QUARKUS_START_MOCK_BACKEND=false
+----
+
+If the WireMock stub recordings need updating, then remove the existing files from `src/test/resources/mappings` and run tests with either:
+
+System property `-Dwiremock.record=true`
+
+Or
+
+Set environment variable `WIREMOCK_RECORD=true`

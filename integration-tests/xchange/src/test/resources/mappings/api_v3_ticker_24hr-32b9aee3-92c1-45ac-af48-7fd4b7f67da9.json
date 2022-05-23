@@ -1,0 +1,38 @@
+{
+  "id" : "32b9aee3-92c1-45ac-af48-7fd4b7f67da9",
+  "name" : "api_v3_ticker_24hr",
+  "request" : {
+    "url" : "/api/v3/ticker/24hr?symbol=BTCUSDT",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"symbol\":\"BTCUSDT\",\"priceChange\":\"263.37000000\",\"priceChangePercent\":\"0.873\",\"weightedAvgPrice\":\"30178.56459959\",\"prevClosePrice\":\"30177.32000000\",\"lastPrice\":\"30440.70000000\",\"lastQty\":\"0.00536000\",\"bidPrice\":\"30440.69000000\",\"bidQty\":\"6.00464000\",\"askPrice\":\"30440.70000000\",\"askQty\":\"0.00004000\",\"openPrice\":\"30177.33000000\",\"highPrice\":\"30670.51000000\",\"lowPrice\":\"29668.51000000\",\"volume\":\"41775.05738000\",\"quoteVolume\":\"1260711267.79386740\",\"openTime\":1653213643032,\"closeTime\":1653300043032,\"firstId\":1377341560,\"lastId\":1378316046,\"count\":974487}",
+    "headers" : {
+      "Content-Type" : "application/json;charset=UTF-8",
+      "Date" : "Mon, 23 May 2022 10:00:43 GMT",
+      "Server" : "nginx",
+      "Vary" : "Accept-Encoding",
+      "x-mbx-uuid" : "cd2079da-d451-4253-bebb-d549b3ae623e",
+      "x-mbx-used-weight" : "11",
+      "x-mbx-used-weight-1m" : "11",
+      "Strict-Transport-Security" : "max-age=31536000; includeSubdomains",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "X-Xss-Protection" : "1; mode=block",
+      "X-Content-Type-Options" : "nosniff",
+      "Content-Security-Policy" : "default-src 'self'",
+      "X-Content-Security-Policy" : "default-src 'self'",
+      "X-WebKit-CSP" : "default-src 'self'",
+      "Cache-Control" : "no-cache, no-store, must-revalidate",
+      "Pragma" : "no-cache",
+      "Expires" : "0",
+      "X-Cache" : "Miss from cloudfront",
+      "Via" : "1.1 dcf307cd37f9d94bc0225628c89153d8.cloudfront.net (CloudFront)",
+      "X-Amz-Cf-Pop" : "LHR61-P4",
+      "X-Amz-Cf-Id" : "rkdJI-EMurvz1Duuki0lRXs0n3QIFw_C9U0cK-BC-4AHgOEw67T2Kw=="
+    }
+  },
+  "uuid" : "32b9aee3-92c1-45ac-af48-7fd4b7f67da9",
+  "persistent" : true,
+  "insertionIndex" : 2
+}

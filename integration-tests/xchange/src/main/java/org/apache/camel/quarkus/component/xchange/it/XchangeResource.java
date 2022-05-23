@@ -16,7 +16,9 @@
  */
 package org.apache.camel.quarkus.component.xchange.it;
 
+import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -33,17 +35,26 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.xchange.XChangeComponent;
+import org.apache.camel.spi.annotations.Component;
+import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.ConfigProvider;
+import org.knowm.xchange.Exchange;
+import org.knowm.xchange.ExchangeFactory;
+import org.knowm.xchange.ExchangeSpecification;
+import org.knowm.xchange.binance.BinanceExchange;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.dto.meta.CurrencyMetaData;
 import org.knowm.xchange.dto.meta.CurrencyPairMetaData;
+import org.knowm.xchange.kraken.KrakenExchange;
 
 @Path("/xchange")
 @ApplicationScoped
 public class XchangeResource {
 
     public static final String DEFAULT_CRYPTO_EXCHANGE = "binance";
+    public static final String ALTERNATIVE_CRYPTO_EXCHANGE = "kraken";
 
     @Inject
     ProducerTemplate producerTemplate;
@@ -55,10 +66,8 @@ public class XchangeResource {
             @PathParam("exchange") String cryptoExchange,
             @QueryParam("currencyPair") String currencyPair) {
 
-        String component = cryptoExchange.equals(DEFAULT_CRYPTO_EXCHANGE) ? "xchange" : "xchange-" + cryptoExchange;
-
         Ticker ticker = producerTemplate.requestBody(
-                component + ":" + cryptoExchange + "?service=marketdata&method=ticker&currencyPair=" + currencyPair, null,
+                "xchange:" + cryptoExchange + "?service=marketdata&method=ticker&currencyPair=" + currencyPair, null,
                 Ticker.class);
         return Json.createObjectBuilder()
                 .add("last", ticker.getLast().longValue())
@@ -114,10 +123,38 @@ public class XchangeResource {
         return metaData.getTradingFee().toPlainString();
     }
 
-    @Named("xchange-kraken")
+    @Named("xchange")
     public XChangeComponent xChangeComponent() {
-        // We are forced to create a dedicated component instance to work with multiple crypto exchanges
-        // https://issues.apache.org/jira/browse/CAMEL-16978
+        Config config = ConfigProvider.getConfig();
+        Optional<String> wireMockUrl = config.getOptionalValue("wiremock.url", String.class);
+        if (wireMockUrl.isPresent()) {
+            return new WireMockedXChangeComponent();
+        }
         return new XChangeComponent();
+    }
+
+    @Component("xchange")
+    static final class WireMockedXChangeComponent extends XChangeComponent {
+        @Override
+        protected Exchange createExchange(Class<? extends Exchange> exchangeClass) {
+            String wireMockUrlProperty;
+            if (exchangeClass.equals(BinanceExchange.class)) {
+                wireMockUrlProperty = "wiremock.binance.url";
+            } else if (exchangeClass.equals(KrakenExchange.class)) {
+                wireMockUrlProperty = "wiremock.kraken.url";
+            } else {
+                throw new IllegalStateException("Unsupported WireMocked exchange " + exchangeClass.getSimpleName());
+            }
+
+            Config config = ConfigProvider.getConfig();
+            String wireMockUrl = config.getValue(wireMockUrlProperty, String.class);
+            URI uri = URI.create(wireMockUrl);
+
+            ExchangeSpecification specification = new ExchangeSpecification(exchangeClass);
+            specification.setHost("localhost");
+            specification.setPort(uri.getPort());
+            specification.setSslUri(wireMockUrl);
+            return ExchangeFactory.INSTANCE.createExchange(specification);
+        }
     }
 }

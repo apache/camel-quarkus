@@ -1,0 +1,29 @@
+{
+  "id" : "23a47848-dae8-4bdb-9ac7-851012c5b102",
+  "name" : "0_public_assets",
+  "request" : {
+    "url" : "/0/public/Assets",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "0_public_assets-23a47848-dae8-4bdb-9ac7-851012c5b102.json",
+    "headers" : {
+      "Date" : "Mon, 23 May 2022 10:00:43 GMT",
+      "Content-Type" : "application/json",
+      "cache-control" : "public, max-age=1, s-maxage=1",
+      "strict-transport-security" : "max-age=15768000",
+      "referrer-policy" : "strict-origin-when-cross-origin",
+      "Last-Modified" : "Mon, 23 May 2022 10:00:41 GMT",
+      "CF-Cache-Status" : "HIT",
+      "Age" : "0",
+      "Expect-CT" : "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"",
+      "Set-Cookie" : "__cf_bm=iapj4pvCgI5gecM1t0ur_QSguz813VAzrypZYB4pBag-1653300043-0-AY4IaU2BEtA5otAnha2qtjyHYbyCjFGUegriH+w5U1tkjVkv20xwO/dkWgZBAVf5KPaFbKKiIV3ihPMxAadPaHE=; path=/; expires=Mon, 23-May-22 10:30:43 GMT; domain=.kraken.com; HttpOnly; Secure; SameSite=None",
+      "Server" : "cloudflare",
+      "CF-RAY" : "70fcf2391a9474a1-LHR"
+    }
+  },
+  "uuid" : "23a47848-dae8-4bdb-9ac7-851012c5b102",
+  "persistent" : true,
+  "insertionIndex" : 2
+}
