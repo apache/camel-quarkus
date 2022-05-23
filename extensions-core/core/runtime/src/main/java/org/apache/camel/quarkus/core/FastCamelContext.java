@@ -147,7 +147,7 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
     @Override
     protected PropertiesComponent createPropertiesComponent() {
         org.apache.camel.component.properties.PropertiesComponent pc = new org.apache.camel.component.properties.PropertiesComponent();
-        pc.setAutoDiscoverPropertiesSources(false);
+        pc.setAutoDiscoverPropertiesSources(true);
         pc.addPropertiesSource(new CamelMicroProfilePropertiesSource());
         return pc;
     }

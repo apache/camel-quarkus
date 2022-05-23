@@ -60,6 +60,7 @@
 *** xref:reference/extensions/avro-rpc.adoc[Avro RPC]
 *** xref:reference/extensions/azure-cosmosdb.adoc[Azure CosmosDB]
 *** xref:reference/extensions/azure-eventhubs.adoc[Azure Event Hubs]
+*** xref:reference/extensions/azure-key-vault.adoc[Azure Key Vault]
 *** xref:reference/extensions/azure-servicebus.adoc[Azure ServiceBus]
 *** xref:reference/extensions/azure-storage-blob.adoc[Azure Storage Blob Service]
 *** xref:reference/extensions/azure-storage-queue.adoc[Azure Storage Queue Service]
