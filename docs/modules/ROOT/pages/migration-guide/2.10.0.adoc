@@ -1,0 +1,28 @@
+= Camel Quarkus 2.10.0 Migration Guide
+
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 2.10.0 & Quarkus 2.10.0.Final.
+
+== Removal of deprecated extensions
+
+The following deprecated extensions were removed in this release.
+
+* camel-ahc
+* camel-ahc-ws
+* camel-atomix
+* camel-beanstalk
+* camel-beanio
+* camel-etcd
+* camel-elsql
+* camel-ganglia
+* camel-nsq
+* camel-hystrix
+* camel-jing
+* camel-msv
+* camel-nagios
+* camel-nsq
+* camel-ribbon
+* camel-sip
+* camel-soroush
+* camel-spark
+* camel-tagsoup
+* camel-yammer
