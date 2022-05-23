@@ -16,12 +16,14 @@
  */
 package org.apache.camel.quarkus.component.xchange.it;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static org.apache.camel.quarkus.component.xchange.it.XchangeResource.ALTERNATIVE_CRYPTO_EXCHANGE;
 import static org.apache.camel.quarkus.component.xchange.it.XchangeResource.DEFAULT_CRYPTO_EXCHANGE;
 import static org.hamcrest.Matchers.emptyOrNullString;
 import static org.hamcrest.Matchers.greaterThan;
@@ -29,10 +31,12 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.not;
 
 @QuarkusTest
+@QuarkusTestResource(XchangeBinanceTestResource.class)
+@QuarkusTestResource(XchangeKrakenTestResource.class)
 class XchangeTest {
 
     @ParameterizedTest
-    @ValueSource(strings = { DEFAULT_CRYPTO_EXCHANGE, "kraken" })
+    @ValueSource(strings = { DEFAULT_CRYPTO_EXCHANGE, ALTERNATIVE_CRYPTO_EXCHANGE })
     public void currencyTicker(String cryptoExchange) {
         RestAssured.given()
                 .queryParam("currencyPair", "BTC/USDT")

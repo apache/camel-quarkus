@@ -1,0 +1,29 @@
+{
+  "id" : "9b4fb7b4-081c-4965-beae-7a5d5c9869e9",
+  "name" : "0_public_ticker",
+  "request" : {
+    "url" : "/0/public/Ticker?pair=XBTUSDT",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"error\":[],\"result\":{\"XBTUSDT\":{\"a\":[\"30443.10000\",\"1\",\"1.000\"],\"b\":[\"30436.80000\",\"1\",\"1.000\"],\"c\":[\"30441.60000\",\"0.01527161\"],\"v\":[\"129.93859286\",\"366.00353540\"],\"p\":[\"30294.71427\",\"30159.21029\"],\"t\":[933,2587],\"l\":[\"30086.60000\",\"29666.00000\"],\"h\":[\"30647.30000\",\"30647.30000\"],\"o\":\"30295.80000\"}}}",
+    "headers" : {
+      "Date" : "Mon, 23 May 2022 10:00:43 GMT",
+      "Content-Type" : "application/json; charset=utf-8",
+      "cache-control" : "public,max-age=1,smaxage=1",
+      "strict-transport-security" : "max-age=15768000",
+      "vary" : "Accept-Encoding",
+      "referrer-policy" : "strict-origin-when-cross-origin",
+      "Last-Modified" : "Mon, 23 May 2022 10:00:43 GMT",
+      "CF-Cache-Status" : "HIT",
+      "Expect-CT" : "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"",
+      "Set-Cookie" : "__cf_bm=gLPf8Sa5HYkWhYf2CfUzvT_3e6mvdich03g9uw5OfKU-1653300043-0-AX8lXDNJ1hqkGEC8pKIAZURGxJJEtc12pP+QNJ7yO4WIaZNAgXZ3zax7K4M9jdnIkIWBOwIIKJlB/Unne5Yvbqo=; path=/; expires=Mon, 23-May-22 10:30:43 GMT; domain=.kraken.com; HttpOnly; Secure; SameSite=None",
+      "Server" : "cloudflare",
+      "CF-RAY" : "70fcf2398b1274a1-LHR"
+    }
+  },
+  "uuid" : "9b4fb7b4-081c-4965-beae-7a5d5c9869e9",
+  "persistent" : true,
+  "insertionIndex" : 3
+}

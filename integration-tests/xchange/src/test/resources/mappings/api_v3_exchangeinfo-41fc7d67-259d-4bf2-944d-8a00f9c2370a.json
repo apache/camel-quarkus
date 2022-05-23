@@ -1,0 +1,38 @@
+{
+  "id" : "41fc7d67-259d-4bf2-944d-8a00f9c2370a",
+  "name" : "api_v3_exchangeinfo",
+  "request" : {
+    "url" : "/api/v3/exchangeInfo",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "api_v3_exchangeinfo-41fc7d67-259d-4bf2-944d-8a00f9c2370a.json",
+    "headers" : {
+      "Content-Type" : "application/json;charset=UTF-8",
+      "Date" : "Mon, 23 May 2022 10:00:40 GMT",
+      "Server" : "nginx",
+      "Vary" : "Accept-Encoding",
+      "x-mbx-uuid" : "820c2377-8d1c-4f8b-aa84-4d952fb43379",
+      "x-mbx-used-weight" : "10",
+      "x-mbx-used-weight-1m" : "10",
+      "Strict-Transport-Security" : "max-age=31536000; includeSubdomains",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "X-Xss-Protection" : "1; mode=block",
+      "X-Content-Type-Options" : "nosniff",
+      "Content-Security-Policy" : "default-src 'self'",
+      "X-Content-Security-Policy" : "default-src 'self'",
+      "X-WebKit-CSP" : "default-src 'self'",
+      "Cache-Control" : "no-cache, no-store, must-revalidate",
+      "Pragma" : "no-cache",
+      "Expires" : "0",
+      "X-Cache" : "Miss from cloudfront",
+      "Via" : "1.1 dcf307cd37f9d94bc0225628c89153d8.cloudfront.net (CloudFront)",
+      "X-Amz-Cf-Pop" : "LHR61-P4",
+      "X-Amz-Cf-Id" : "1jMJrXKrUkmHDYVgnmxAvRnAgZeE9ChlUE71MD5j19znjm9ahuwHBw=="
+    }
+  },
+  "uuid" : "41fc7d67-259d-4bf2-944d-8a00f9c2370a",
+  "persistent" : true,
+  "insertionIndex" : 1
+}
