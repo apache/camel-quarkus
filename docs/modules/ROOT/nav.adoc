@@ -101,6 +101,7 @@
 *** xref:reference/extensions/debezium-mysql.adoc[Debezium MySQL Connector]
 *** xref:reference/extensions/debezium-postgres.adoc[Debezium PostgresSQL Connector]
 *** xref:reference/extensions/debezium-sqlserver.adoc[Debezium SQL Server Connector]
+*** xref:reference/extensions/debug.adoc[Debug]
 *** xref:reference/extensions/djl.adoc[Deep Java Library]
 *** xref:reference/extensions/digitalocean.adoc[DigitalOcean]
 *** xref:reference/extensions/direct.adoc[Direct]
