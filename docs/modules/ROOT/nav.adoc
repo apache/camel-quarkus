@@ -78,6 +78,7 @@
 *** xref:reference/extensions/cmis.adoc[CMIS]
 *** xref:reference/extensions/csv.adoc[CSV]
 *** xref:reference/extensions/csimple.adoc[CSimple]
+*** xref:reference/extensions/cxf.adoc[CXF]
 *** xref:reference/extensions/caffeine.adoc[Caffeine Cache]
 *** xref:reference/extensions/caffeine-lrucache.adoc[Caffeine LRUCache]
 *** xref:reference/extensions/cassandraql.adoc[Cassandra CQL]
