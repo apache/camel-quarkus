@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- Changes in health endpoint with camel from Quarkus version 2.7.5 to version \>=2.8.0 [\#3799](https://github.com/apache/camel-quarkus/issues/3799)
 - Improve camel-quarkus-velocity test coverage [\#3790](https://github.com/apache/camel-quarkus/issues/3790)
 - Switch from OpenTracing to OpenTelemetry in observability example [\#3784](https://github.com/apache/camel-quarkus/issues/3784)
 - \[Camel 3.17.0\] Restore `jakarta-mail-version` placeholder in `jakarta.mail.version` property [\#3771](https://github.com/apache/camel-quarkus/issues/3771)
