@@ -98,11 +98,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>com.jcraft</groupId>
-                <artifactId>jzlib</artifactId>
-                <version>${jzlib.version}</version>
-            </dependency>
 
             <!-- Dependencies a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
 
@@ -2252,6 +2247,7 @@
                 <artifactId>camel-ftp</artifactId>
                 <version>${camel.version}</version>
                 <exclusions>
+                    <!-- TODO: Remove this https://github.com/apache/camel-quarkus/issues/3711 -->
                     <exclusion>
                         <groupId>jakarta.activation</groupId>
                         <artifactId>jakarta.activation-api</artifactId>
@@ -9968,6 +9964,11 @@
                         <artifactId>asm-util</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.github.mwiede</groupId>
+                <artifactId>jsch</artifactId>
+                <version>${jsch.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.auth</groupId>
