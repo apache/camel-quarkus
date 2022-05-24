@@ -13,9 +13,11 @@
 - Changes in health endpoint with camel from Quarkus version 2.7.5 to version \>=2.8.0 [\#3799](https://github.com/apache/camel-quarkus/issues/3799)
 - Improve camel-quarkus-velocity test coverage [\#3790](https://github.com/apache/camel-quarkus/issues/3790)
 - Switch from OpenTracing to OpenTelemetry in observability example [\#3784](https://github.com/apache/camel-quarkus/issues/3784)
+- Support camel-debug component [\#3775](https://github.com/apache/camel-quarkus/issues/3775)
 - \[Camel 3.17.0\] Restore `jakarta-mail-version` placeholder in `jakarta.mail.version` property [\#3771](https://github.com/apache/camel-quarkus/issues/3771)
 - URL to the Kafka brokers must be configured with the brokers option in native mode \(continued\) [\#3742](https://github.com/apache/camel-quarkus/issues/3742)
 - \[Camel 3.17.0\] Property placeholder resolution is broken [\#3739](https://github.com/apache/camel-quarkus/issues/3739)
+- Use WireMock for xchange tests [\#3724](https://github.com/apache/camel-quarkus/issues/3724)
 - \[Camel 3.17.0\] Switch FTP / JSCH extensions to `com.github.mwiede:jsch` [\#3711](https://github.com/apache/camel-quarkus/issues/3711)
 - Gracefully handle `AnnotationInstance` being null in `InjectionPointsProcessor.syntheticBeans` [\#3703](https://github.com/apache/camel-quarkus/issues/3703)
 - Remove deprecated extensions [\#3698](https://github.com/apache/camel-quarkus/issues/3698)
@@ -38,6 +40,9 @@
 
 **Merged pull requests:**
 
+- Use WireMock for xchange tests [\#3802](https://github.com/apache/camel-quarkus/pull/3802) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add migration guide for the 2.10.0 release [\#3801](https://github.com/apache/camel-quarkus/pull/3801) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add debug JVM only extension [\#3800](https://github.com/apache/camel-quarkus/pull/3800) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Google Cloud Native Image Support to 0.14.1 [\#3796](https://github.com/apache/camel-quarkus/pull/3796) ([jamesnetherton](https://github.com/jamesnetherton))
 - Exclude unwanted Apache Commons dependencies from hapi-fhir-structures-dstu2.1 [\#3794](https://github.com/apache/camel-quarkus/pull/3794) ([jamesnetherton](https://github.com/jamesnetherton))
 - Improve camel-quarkus-velocity test coverage \#3790 [\#3793](https://github.com/apache/camel-quarkus/pull/3793) ([JiriOndrusek](https://github.com/JiriOndrusek))
