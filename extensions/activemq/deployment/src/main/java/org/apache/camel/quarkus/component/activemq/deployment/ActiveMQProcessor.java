@@ -26,6 +26,8 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
+import org.apache.activemq.util.IdGenerator;
 
 class ActiveMQProcessor {
 
@@ -86,6 +88,11 @@ class ActiveMQProcessor {
         }
 
         nativeImage.produce(new NativeImageResourceBuildItem(servicePaths));
+    }
+
+    @BuildStep
+    void runtimeReinitializedClasses(BuildProducer<RuntimeReinitializedClassBuildItem> runtimeReInitializedClass) {
+        runtimeReInitializedClass.produce(new RuntimeReinitializedClassBuildItem(IdGenerator.class.getName()));
     }
 
     private String getServiceClass(String servicePath) {
