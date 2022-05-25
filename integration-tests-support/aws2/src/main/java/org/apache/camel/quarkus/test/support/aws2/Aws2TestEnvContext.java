@@ -116,6 +116,14 @@ public class Aws2TestEnvContext {
         }
     }
 
+    public void removeOverrideEndpoint(Service[] services) {
+        for (Service service : services) {
+            String s = camelServiceAcronym(service);
+            properties.remove("camel.component.aws2-" + s + ".override-endpoint");
+            properties.remove("camel.component.aws2-" + s + ".uri-endpoint-override");
+        }
+    }
+
     /**
      * Add an {@link AutoCloseable} to be closed after running AWS 2 tests
      *
@@ -217,6 +225,8 @@ public class Aws2TestEnvContext {
             return "kinesis-firehose";
         case CLOUDWATCH:
             return "cw";
+        case SECRETSMANAGER:
+            return "secrets-manager";
         default:
             return service.name().toLowerCase(Locale.ROOT);
         }
