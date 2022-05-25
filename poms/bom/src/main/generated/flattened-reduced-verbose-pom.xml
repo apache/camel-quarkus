@@ -10461,6 +10461,11 @@
         <version>1.1.1</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:3.0.0 -->
       </dependency>
       <dependency>
+        <groupId>net.openhft</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:3.0.0 -->
+        <artifactId>affinity</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:3.0.0 -->
+        <version>3.20.0</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:3.0.0 -->
+      </dependency>
+      <dependency>
         <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:3.0.0 -->
         <artifactId>quarkus-hazelcast-client</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:3.0.0 -->
         <version>3.0.0</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:3.0.0 -->
