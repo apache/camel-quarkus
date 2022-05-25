@@ -33,8 +33,6 @@ public class ReactorNettySupportProcessor {
                  * to quarkus via https://github.com/quarkusio/quarkus/pull/14994
                  * Keeping them here for now */
                 io.netty.util.NetUtil.class.getName(),
-                io.netty.channel.socket.InternetProtocolFamily.class.getName(),
-                "io.netty.channel.socket.InternetProtocolFamily$1",
                 "io.netty.channel.socket.nio.ProtocolFamilyConverter$1",
                 io.netty.handler.ssl.OpenSsl.class.getName(),
                 "io.netty.internal.tcnative.SSL",
