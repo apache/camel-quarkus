@@ -6,6 +6,7 @@
 
 **Fixed bugs:**
 
+- Duplicate JMSMessageIDs in camel-quarkus-activemq [\#3807](https://github.com/apache/camel-quarkus/issues/3807)
 - Slack integration tests fail with the real Slack service [\#3781](https://github.com/apache/camel-quarkus/issues/3781)
 
 **Closed issues:**
@@ -22,6 +23,7 @@
 - Gracefully handle `AnnotationInstance` being null in `InjectionPointsProcessor.syntheticBeans` [\#3703](https://github.com/apache/camel-quarkus/issues/3703)
 - Remove deprecated extensions [\#3698](https://github.com/apache/camel-quarkus/issues/3698)
 - Split camel-quarkus-integration-test-compression into separate zipfile, lzf and zip-deflater tests [\#3689](https://github.com/apache/camel-quarkus/issues/3689)
+- Create an Azure Key Vault Extension [\#3688](https://github.com/apache/camel-quarkus/issues/3688)
 - \[Camel 3.17.0\] Bean introspection is broken [\#3682](https://github.com/apache/camel-quarkus/issues/3682)
 - Remove AHC and AHC-WS extensions [\#3558](https://github.com/apache/camel-quarkus/issues/3558)
 - Remove camel-quarkus-spark [\#3466](https://github.com/apache/camel-quarkus/issues/3466)
@@ -40,6 +42,8 @@
 
 **Merged pull requests:**
 
+- Reinitialize ActiveMQ IdGenerator at runtime to ensure generated id uniqueness [\#3808](https://github.com/apache/camel-quarkus/pull/3808) ([jamesnetherton](https://github.com/jamesnetherton))
+- Create an Azure Key Vault Extension [\#3806](https://github.com/apache/camel-quarkus/pull/3806) ([oscerd](https://github.com/oscerd))
 - Use WireMock for xchange tests [\#3802](https://github.com/apache/camel-quarkus/pull/3802) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add migration guide for the 2.10.0 release [\#3801](https://github.com/apache/camel-quarkus/pull/3801) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add debug JVM only extension [\#3800](https://github.com/apache/camel-quarkus/pull/3800) ([jamesnetherton](https://github.com/jamesnetherton))
