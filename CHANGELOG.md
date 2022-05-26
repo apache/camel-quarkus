@@ -42,6 +42,7 @@
 
 **Merged pull requests:**
 
+- Remove some superfluous runtime initialized classes from camel-quarkus-support-reactor-netty [\#3811](https://github.com/apache/camel-quarkus/pull/3811) ([jamesnetherton](https://github.com/jamesnetherton))
 - Reinitialize ActiveMQ IdGenerator at runtime to ensure generated id uniqueness [\#3808](https://github.com/apache/camel-quarkus/pull/3808) ([jamesnetherton](https://github.com/jamesnetherton))
 - Create an Azure Key Vault Extension [\#3806](https://github.com/apache/camel-quarkus/pull/3806) ([oscerd](https://github.com/oscerd))
 - Use WireMock for xchange tests [\#3802](https://github.com/apache/camel-quarkus/pull/3802) ([jamesnetherton](https://github.com/jamesnetherton))
