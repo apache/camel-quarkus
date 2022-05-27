@@ -16,6 +16,7 @@
 - Switch from OpenTracing to OpenTelemetry in observability example [\#3784](https://github.com/apache/camel-quarkus/issues/3784)
 - Support camel-debug component [\#3775](https://github.com/apache/camel-quarkus/issues/3775)
 - \[Camel 3.17.0\] Restore `jakarta-mail-version` placeholder in `jakarta.mail.version` property [\#3771](https://github.com/apache/camel-quarkus/issues/3771)
+- Intermittent failure of FHIR integration tests `SocketTimeoutException` [\#3746](https://github.com/apache/camel-quarkus/issues/3746)
 - URL to the Kafka brokers must be configured with the brokers option in native mode \(continued\) [\#3742](https://github.com/apache/camel-quarkus/issues/3742)
 - \[Camel 3.17.0\] Property placeholder resolution is broken [\#3739](https://github.com/apache/camel-quarkus/issues/3739)
 - Use WireMock for xchange tests [\#3724](https://github.com/apache/camel-quarkus/issues/3724)
@@ -42,6 +43,7 @@
 
 **Merged pull requests:**
 
+- Add zhfeng key [\#3814](https://github.com/apache/camel-quarkus/pull/3814) ([zhfeng](https://github.com/zhfeng))
 - Remove some superfluous runtime initialized classes from camel-quarkus-support-reactor-netty [\#3811](https://github.com/apache/camel-quarkus/pull/3811) ([jamesnetherton](https://github.com/jamesnetherton))
 - Reinitialize ActiveMQ IdGenerator at runtime to ensure generated id uniqueness [\#3808](https://github.com/apache/camel-quarkus/pull/3808) ([jamesnetherton](https://github.com/jamesnetherton))
 - Create an Azure Key Vault Extension [\#3806](https://github.com/apache/camel-quarkus/pull/3806) ([oscerd](https://github.com/oscerd))
