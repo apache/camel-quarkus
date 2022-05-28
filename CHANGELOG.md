@@ -13,6 +13,7 @@
 
 - Changes in health endpoint with camel from Quarkus version 2.7.5 to version \>=2.8.0 [\#3799](https://github.com/apache/camel-quarkus/issues/3799)
 - Improve camel-quarkus-velocity test coverage [\#3790](https://github.com/apache/camel-quarkus/issues/3790)
+- net.openhft:affinity included in flattened BOM only on Mac [\#3788](https://github.com/apache/camel-quarkus/issues/3788)
 - Switch from OpenTracing to OpenTelemetry in observability example [\#3784](https://github.com/apache/camel-quarkus/issues/3784)
 - Support camel-debug component [\#3775](https://github.com/apache/camel-quarkus/issues/3775)
 - \[Camel 3.17.0\] Restore `jakarta-mail-version` placeholder in `jakarta.mail.version` property [\#3771](https://github.com/apache/camel-quarkus/issues/3771)
@@ -44,6 +45,7 @@
 **Merged pull requests:**
 
 - Add zhfeng key [\#3814](https://github.com/apache/camel-quarkus/pull/3814) ([zhfeng](https://github.com/zhfeng))
+- net.openhft:affinity included in flattened BOM only on Mac  [\#3813](https://github.com/apache/camel-quarkus/pull/3813) ([ppalaga](https://github.com/ppalaga))
 - Remove some superfluous runtime initialized classes from camel-quarkus-support-reactor-netty [\#3811](https://github.com/apache/camel-quarkus/pull/3811) ([jamesnetherton](https://github.com/jamesnetherton))
 - Reinitialize ActiveMQ IdGenerator at runtime to ensure generated id uniqueness [\#3808](https://github.com/apache/camel-quarkus/pull/3808) ([jamesnetherton](https://github.com/jamesnetherton))
 - Create an Azure Key Vault Extension [\#3806](https://github.com/apache/camel-quarkus/pull/3806) ([oscerd](https://github.com/oscerd))
