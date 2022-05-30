@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.enterprise.inject.AmbiguousResolutionException;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 
@@ -32,6 +33,19 @@ import io.quarkus.arc.ArcContainer;
 import org.apache.camel.spi.BeanRepository;
 
 public final class RuntimeBeanRepository implements BeanRepository {
+
+    private static <T> Set<Bean<? extends T>> resolveAmbiguity(BeanManager manager, Set<Bean<? extends T>> beans) {
+        if (beans.size() > 1) {
+            try {
+                return Collections.singleton(manager.resolve(beans));
+            } catch (AmbiguousResolutionException are) {
+                //in case of AmbiguousResolutionException, original collection is returned
+            }
+        }
+
+        return beans;
+    }
+
     private static <T> Map<String, T> getReferencesByTypeWithName(Class<T> type, Annotation... qualifiers) {
         return getBeanManager()
                 .map(manager -> getReferencesByTypeWithName(manager, type, qualifiers))
@@ -41,7 +55,7 @@ public final class RuntimeBeanRepository implements BeanRepository {
     private static <T> Set<T> getReferencesByType(BeanManager manager, Class<T> type, Annotation... qualifiers) {
         Set<T> answer = new HashSet<>();
 
-        for (Bean<?> bean : manager.getBeans(type, qualifiers)) {
+        for (Bean<?> bean : resolveAmbiguity(manager, manager.getBeans(type, qualifiers))) {
             T ref = getReference(manager, type, bean);
             if (ref != null) {
                 answer.add(ref);
@@ -64,6 +78,7 @@ public final class RuntimeBeanRepository implements BeanRepository {
         Map<String, T> answer = new HashMap<>();
 
         for (Bean<?> bean : manager.getBeans(type, qualifiers)) {
+
             T ref = getReference(manager, type, bean);
             if (ref != null) {
                 answer.put(bean.getName(), ref);
