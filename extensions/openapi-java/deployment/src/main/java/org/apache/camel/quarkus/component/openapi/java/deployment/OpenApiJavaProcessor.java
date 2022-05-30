@@ -46,6 +46,7 @@ import io.smallrye.openapi.api.util.MergeUtil;
 import io.smallrye.openapi.runtime.io.definition.DefinitionReader;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.media.Discriminator;
 import io.swagger.v3.oas.models.media.Schema;
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
@@ -97,6 +98,8 @@ class OpenApiJavaProcessor {
         IndexView index = combinedIndex.getIndex();
         index.getAllKnownSubclasses(SCHEMA).stream().map(ClassInfo::toString).forEach(
                 name -> reflectiveClasses.produce(new ReflectiveClassBuildItem(true, false, name)));
+
+        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, Discriminator.class));
     }
 
     @BuildStep(onlyIf = ExposeOpenApiEnabled.class)
