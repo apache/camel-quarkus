@@ -18,6 +18,8 @@ package org.apache.camel.quarkus.component.bean;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -30,9 +32,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.quarkus.component.bean.cdi.Producers;
 import org.apache.camel.quarkus.component.bean.model.Employee;
 
 @Path("/bean")
@@ -46,6 +50,9 @@ public class BeanResource {
 
     @Inject
     EagerAppScopedRouteBuilder routeBuilder;
+
+    @Inject
+    CamelContext camelContext;
 
     public interface ProduceInterface {
         String sayHello(String name);
@@ -162,6 +169,38 @@ public class BeanResource {
             }
         } while (list.isEmpty() && System.currentTimeMillis() < timeout);
         return list.get(0);
+    }
+
+    @Path("/withDefaultBeanCount")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Set<String> withDefaultBean() {
+        return camelContext.getRegistry().findByType(Producers.WithDefaultBeanInstance.class).stream()
+                .map(b -> b.getName()).collect(Collectors.toSet());
+    }
+
+    @Path("/withAlternativeBeanCount")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Set<String> withAlternativeBean() {
+        return camelContext.getRegistry().findByType(Producers.WithAlternateBeanInstance.class).stream()
+                .map(b -> b.getName()).collect(Collectors.toSet());
+    }
+
+    @Path("/withoutDefaultBeans")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Set<String> withoutDefaultBeans() {
+        return camelContext.getRegistry().findByType(Producers.WithoutDefaultBeanInstance.class).stream()
+                .map(b -> b.getName()).collect(Collectors.toSet());
+    }
+
+    @Path("/allBeanInstances")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Set<String> withAllBeanInstances() {
+        return camelContext.getRegistry().findByType(Producers.BeanInstance.class).stream()
+                .map(b -> b.getName()).collect(Collectors.toSet());
     }
 
 }

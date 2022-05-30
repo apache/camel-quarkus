@@ -22,7 +22,10 @@ import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.bean.model.Employee;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 public class BeanTest {
@@ -211,6 +214,50 @@ public class BeanTest {
                 .post("/bean/produceInterface")
                 .then()
                 .body(equalTo("produceInterface xyz1234"));
+    }
+
+    @Test
+    public void resolveBeanWithDefaultBean() {
+        RestAssured.given()
+                .get("/bean/withDefaultBeanCount")
+                .then()
+                .body("size()", is(1))
+                .body(containsString("overridingBean"));
+    }
+
+    @Test
+    public void resolveBeanWithAlternativeBean() {
+        RestAssured.given()
+                .get("/bean/withAlternativeBeanCount")
+                .then()
+                .body("size()", is(1))
+                .body(containsString("alternatingBean"));
+        ;
+    }
+
+    @Test
+    public void resolveBeanWithoutDefaultBean() {
+        RestAssured.given()
+                .get("/bean/withoutDefaultBeans")
+                .then()
+                .body("size()", is(2))
+                .body(allOf(
+                        containsString("bean1"),
+                        containsString("bean2")));
+    }
+
+    @Test
+    public void notReducedTest() {
+        RestAssured.given()
+                .get("/bean/allBeanInstances")
+                .then()
+                .body("size()", is(5))
+                .body(allOf(
+                        containsString("defaultBean"),
+                        containsString("overridingBean"),
+                        containsString("bean1"),
+                        containsString("bean2"),
+                        containsString("alternatingBean")));
     }
 
 }
