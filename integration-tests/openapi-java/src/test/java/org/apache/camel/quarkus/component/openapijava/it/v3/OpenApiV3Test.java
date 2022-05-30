@@ -29,7 +29,7 @@ import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.is;
 
 /**
- * Tests specific to to OpenAPI 3.x
+ * Tests specific to OpenAPI 3.x
  */
 @QuarkusTest
 @TestProfile(OpenApiV3TestProfile.class)
@@ -107,5 +107,70 @@ public class OpenApiV3Test extends OpenApiTest {
                         "components.schemas.Fruit.properties.name.type", is("string"),
                         "components.schemas.Fruit.properties.description.type", is("string"),
                         "components.schemas.Fruit.properties.num.type", is("integer"));
+    }
+
+    @ParameterizedTest
+    @EnumSource(OpenApiContentType.class)
+    public void openApiOneOf(OpenApiContentType contentType) {
+        RestAssured.given()
+                .header("Accept", contentType.getMimeType())
+                .get("/openapi")
+                .then()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .body(
+                        "components.schemas.XOfFormA.type", is("object"),
+                        "components.schemas.XOfFormA.properties.code.type", is("string"),
+                        "components.schemas.XOfFormA.properties.a.type", is("string"),
+                        "components.schemas.XOfFormA.properties.b.type", is("integer"),
+                        "components.schemas.XOfFormA.properties.b.format", is("int32"),
+
+                        "components.schemas.XOfFormB.type", is("object"),
+                        "components.schemas.XOfFormB.properties.code.type", is("string"),
+                        "components.schemas.XOfFormB.properties.x.type", is("integer"),
+                        "components.schemas.XOfFormB.properties.x.format", is("int32"),
+                        "components.schemas.XOfFormB.properties.y.type", is("string"),
+
+                        "components.schemas.OneOfForm.oneOf[0].$ref", is("#/components/schemas/XOfFormA"),
+                        "components.schemas.OneOfForm.oneOf[1].$ref", is("#/components/schemas/XOfFormB"),
+
+                        "components.schemas.OneOfFormWrapper.type", is("object"),
+                        "components.schemas.OneOfFormWrapper.properties.formType.type", is("string"),
+                        "components.schemas.OneOfFormWrapper.properties.form.$ref", is("#/components/schemas/OneOfForm"));
+    }
+
+    @ParameterizedTest
+    @EnumSource(OpenApiContentType.class)
+    public void openApiAllOf(OpenApiContentType contentType) {
+        RestAssured.given()
+                .header("Accept", contentType.getMimeType())
+                .get("/openapi")
+                .then()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .body(
+                        "components.schemas.AllOfForm.allOf[0].$ref", is("#/components/schemas/XOfFormA"),
+                        "components.schemas.AllOfForm.allOf[1].$ref", is("#/components/schemas/XOfFormB"),
+
+                        "components.schemas.AllOfFormWrapper.type", is("object"),
+                        "components.schemas.AllOfFormWrapper.properties.fullForm.$ref", is("#/components/schemas/AllOfForm"));
+    }
+
+    @ParameterizedTest
+    @EnumSource(OpenApiContentType.class)
+    public void openApiAnyOf(OpenApiContentType contentType) {
+        RestAssured.given()
+                .header("Accept", contentType.getMimeType())
+                .get("/openapi")
+                .then()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .body(
+                        "components.schemas.AnyOfForm.anyOf[0].$ref", is("#/components/schemas/XOfFormA"),
+                        "components.schemas.AnyOfForm.anyOf[1].$ref", is("#/components/schemas/XOfFormB"),
+
+                        "components.schemas.AnyOfFormWrapper.type", is("object"),
+                        "components.schemas.AnyOfFormWrapper.properties.formElements.$ref",
+                        is("#/components/schemas/AnyOfForm"));
     }
 }

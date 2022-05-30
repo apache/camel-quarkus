@@ -25,8 +25,12 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.CollectionFormat;
+import org.apache.camel.model.rest.RestBindingMode;
 import org.apache.camel.model.rest.RestParamType;
+import org.apache.camel.quarkus.component.openapijava.it.model.AllOfFormWrapper;
+import org.apache.camel.quarkus.component.openapijava.it.model.AnyOfFormWrapper;
 import org.apache.camel.quarkus.component.openapijava.it.model.Fruit;
+import org.apache.camel.quarkus.component.openapijava.it.model.OneOfFormWrapper;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
@@ -150,6 +154,52 @@ public class OpenApiRoutes extends RouteBuilder {
                     .securityDefinitions()
                     .openIdConnect("openId", "https://secure.apache.org/fake/openid-configuration")
                     .end();
+
+            rest("/form")
+                    .post("/oneOf")
+                    .tag("OneOf")
+                    .bindingMode(RestBindingMode.json)
+                    .description("OneOf rest service")
+
+                    .consumes("application/json")
+                    .produces("application/json")
+                    .type(OneOfFormWrapper.class)
+                    .responseMessage()
+                    .code(200).message("Ok")
+                    .endResponseMessage()
+
+                    .to("direct:res");
+
+            rest("/form")
+                    .post("/allOf")
+                    .tag("AllOf")
+                    .bindingMode(RestBindingMode.json)
+                    .description("AllOf rest service")
+
+                    .consumes("application/json")
+                    .produces("application/json")
+                    .type(AllOfFormWrapper.class)
+                    .responseMessage()
+                    .code(200).message("Ok")
+                    .endResponseMessage()
+
+                    .to("direct:res");
+
+            rest("/form")
+                    .post("/anyOf")
+                    .tag("AnyOf")
+                    .bindingMode(RestBindingMode.json)
+                    .description("AnyOf rest service")
+
+                    .consumes("application/json")
+                    .produces("application/json")
+                    .type(AnyOfFormWrapper.class)
+                    .responseMessage()
+                    .code(200).message("Ok")
+                    .endResponseMessage()
+
+                    .to("direct:res");
+
         }
 
         from("direct:fruits")
@@ -158,6 +208,9 @@ public class OpenApiRoutes extends RouteBuilder {
 
         from("direct:echoMethodPath")
                 .setBody().simple("${header.CamelHttpMethod}: ${header.CamelHttpPath}");
+
+        from("direct:res")
+                .setBody(constant("{\"result\": \"Ok\"}"));
     }
 
     private Set<Fruit> getFruits() {

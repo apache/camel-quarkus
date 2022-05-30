@@ -30,7 +30,7 @@ import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.is;
 
 /**
- * Tests specific to to OpenAPI 2.x
+ * Tests specific to OpenAPI 2.x
  */
 @QuarkusTest
 @TestProfile(OpenApiV2TestProfile.class)
