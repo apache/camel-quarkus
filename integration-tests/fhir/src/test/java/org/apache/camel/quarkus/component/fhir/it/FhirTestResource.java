@@ -17,6 +17,7 @@
 
 package org.apache.camel.quarkus.component.fhir.it;
 
+import java.time.Duration;
 import java.util.Collections;
 import java.util.Map;
 
@@ -62,7 +63,7 @@ public class FhirTestResource implements QuarkusTestResourceLifecycleManager {
             container = new GenericContainer(imageName)
                     .withExposedPorts(CONTAINER_PORT)
                     .withEnv("HAPI_FHIR_VERSION", fhirVersion.getFhirContainerVersionEnvVarValue())
-                    .waitingFor(Wait.forHttp(fhirVersion.getHealthEndpointPath()));
+                    .waitingFor(Wait.forHttp(fhirVersion.getHealthEndpointPath()).withStartupTimeout(Duration.ofMinutes(5)));
 
             container.start();
 
