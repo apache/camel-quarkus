@@ -11,11 +11,13 @@
 
 **Closed issues:**
 
+- foundation-grouped tests seems to be flaky since upgrade to camel 3.17.0 [\#3819](https://github.com/apache/camel-quarkus/issues/3819)
 - Changes in health endpoint with camel from Quarkus version 2.7.5 to version \>=2.8.0 [\#3799](https://github.com/apache/camel-quarkus/issues/3799)
 - Improve camel-quarkus-velocity test coverage [\#3790](https://github.com/apache/camel-quarkus/issues/3790)
 - net.openhft:affinity included in flattened BOM only on Mac [\#3788](https://github.com/apache/camel-quarkus/issues/3788)
 - Switch from OpenTracing to OpenTelemetry in observability example [\#3784](https://github.com/apache/camel-quarkus/issues/3784)
 - Support camel-debug component [\#3775](https://github.com/apache/camel-quarkus/issues/3775)
+- \[Camel 3.17.0\] openApi oneOf, allOf and anyOf with annotation @Schema [\#3774](https://github.com/apache/camel-quarkus/issues/3774)
 - \[Camel 3.17.0\] Restore `jakarta-mail-version` placeholder in `jakarta.mail.version` property [\#3771](https://github.com/apache/camel-quarkus/issues/3771)
 - Intermittent failure of FHIR integration tests `SocketTimeoutException` [\#3746](https://github.com/apache/camel-quarkus/issues/3746)
 - URL to the Kafka brokers must be configured with the brokers option in native mode \(continued\) [\#3742](https://github.com/apache/camel-quarkus/issues/3742)
@@ -44,6 +46,7 @@
 
 **Merged pull requests:**
 
+- Fix \#3774 to add tests for openApi oneOf, allOf and anyOf with annota… [\#3818](https://github.com/apache/camel-quarkus/pull/3818) ([zhfeng](https://github.com/zhfeng))
 - Add zhfeng key [\#3814](https://github.com/apache/camel-quarkus/pull/3814) ([zhfeng](https://github.com/zhfeng))
 - net.openhft:affinity included in flattened BOM only on Mac  [\#3813](https://github.com/apache/camel-quarkus/pull/3813) ([ppalaga](https://github.com/ppalaga))
 - Remove some superfluous runtime initialized classes from camel-quarkus-support-reactor-netty [\#3811](https://github.com/apache/camel-quarkus/pull/3811) ([jamesnetherton](https://github.com/jamesnetherton))
