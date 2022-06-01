@@ -46,6 +46,7 @@
 
 **Merged pull requests:**
 
+- Increase FHIR container startup timeout to 5 minutes [\#3824](https://github.com/apache/camel-quarkus/pull/3824) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3774 to add tests for openApi oneOf, allOf and anyOf with annota… [\#3818](https://github.com/apache/camel-quarkus/pull/3818) ([zhfeng](https://github.com/zhfeng))
 - Add zhfeng key [\#3814](https://github.com/apache/camel-quarkus/pull/3814) ([zhfeng](https://github.com/zhfeng))
 - net.openhft:affinity included in flattened BOM only on Mac  [\#3813](https://github.com/apache/camel-quarkus/pull/3813) ([ppalaga](https://github.com/ppalaga))
