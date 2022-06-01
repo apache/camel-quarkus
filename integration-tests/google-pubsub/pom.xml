@@ -68,8 +68,8 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <profiles>
+        <!-- TODO: https://github.com/apache/camel-quarkus/issues/3832
         <profile>
             <id>native</id>
             <activation>
@@ -97,6 +97,7 @@
                 </plugins>
             </build>
         </profile>
+        -->
         <profile>
             <id>virtualDependencies</id>
             <activation>
