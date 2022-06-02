@@ -11,6 +11,7 @@
 
 **Closed issues:**
 
+- aws2-s3 downloadLink test does not work with the real AWS account [\#3829](https://github.com/apache/camel-quarkus/issues/3829)
 - foundation-grouped tests seems to be flaky since upgrade to camel 3.17.0 [\#3819](https://github.com/apache/camel-quarkus/issues/3819)
 - Changes in health endpoint with camel from Quarkus version 2.7.5 to version \>=2.8.0 [\#3799](https://github.com/apache/camel-quarkus/issues/3799)
 - Improve camel-quarkus-velocity test coverage [\#3790](https://github.com/apache/camel-quarkus/issues/3790)
@@ -46,6 +47,9 @@
 
 **Merged pull requests:**
 
+- Fix invalid links in the contributor guide doc [\#3833](https://github.com/apache/camel-quarkus/pull/3833) ([aldettinger](https://github.com/aldettinger))
+- Fix \#3829 disable checksum validation when testing with quarkus-aws2-… [\#3830](https://github.com/apache/camel-quarkus/pull/3830) ([zhfeng](https://github.com/zhfeng))
+- Better manage FHIR dependencies [\#3827](https://github.com/apache/camel-quarkus/pull/3827) ([ppalaga](https://github.com/ppalaga))
 - Increase FHIR container startup timeout to 5 minutes [\#3824](https://github.com/apache/camel-quarkus/pull/3824) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3774 to add tests for openApi oneOf, allOf and anyOf with annota… [\#3818](https://github.com/apache/camel-quarkus/pull/3818) ([zhfeng](https://github.com/zhfeng))
 - Add zhfeng key [\#3814](https://github.com/apache/camel-quarkus/pull/3814) ([zhfeng](https://github.com/zhfeng))
