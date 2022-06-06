@@ -56,6 +56,15 @@ This is the preferred option. Follow the https://quarkus.io/guides/quartz[schedu
 
 Follow the http://www.quartz-scheduler.org/documentation/quartz-1.8.6/configuration/ConfigJDBCJobStoreClustering.html#configure-clustering-with-jdbc-jobstore[Configure Clustering with JDBC-JobStore Guide] with different DS configuration:
 
+- Declare to use `io.quarkus:quarkus-agroal` in `pom.xml` explicitly.
+
+```
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-agroal</artifactId>
+</dependency>
+```
+
 - Use `quartz.properties` to configure the `JobStore`.
 - Define a datasource via quarkus (see the https://quarkus.io/guides/datasource[Quarkus datasource documentation)] and use `CamelQuarkusQuartzConnectionProvider` as the `ConnectionProvider` in `quartz.properties`:
 

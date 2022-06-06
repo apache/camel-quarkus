@@ -48,10 +48,6 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-quartz</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-agroal-deployment</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
