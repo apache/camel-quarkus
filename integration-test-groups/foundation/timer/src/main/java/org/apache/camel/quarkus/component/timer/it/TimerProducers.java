@@ -43,7 +43,7 @@ public class TimerProducers {
 
     @javax.enterprise.inject.Produces
     public LambdaRouteBuilder lambdaRoute() {
-        return rb -> rb.from("timer:bar").routeId("bar")
+        return rb -> rb.from("timer:bar?repeatCount=1").routeId("bar")
                 .process(e -> LOG.info(LOG_MESSAGE + getEffectivePort()));
     }
 

@@ -25,7 +25,7 @@ public class TimerRoutes extends RouteBuilder {
 
     @Override
     public void configure() {
-        from("timer:keep-alive")
+        from("timer:keep-alive?repeatCount=1")
                 .routeId("timer")
                 .setBody().constant("I'm alive !")
                 .process(e -> LOG.infof("keep-alive: %s", e.getMessage().getBody(String.class)));
