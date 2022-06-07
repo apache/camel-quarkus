@@ -27,7 +27,7 @@ import org.testcontainers.containers.GenericContainer;
 public class GoogleStorageTestResource implements QuarkusTestResourceLifecycleManager {
 
     public static final int PORT = AvailablePortFinder.getNextAvailable();
-    public static final String CONTAINER_NAME = "fsouza/fake-gcs-server";
+    public static final String CONTAINER_NAME = "fsouza/fake-gcs-server:1.37";
 
     private GenericContainer<?> container;
 
