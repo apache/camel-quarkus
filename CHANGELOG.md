@@ -12,7 +12,9 @@
 **Closed issues:**
 
 - aws2-s3 downloadLink test does not work with the real AWS account [\#3829](https://github.com/apache/camel-quarkus/issues/3829)
+- Unable to find a JDBC driver corresponding to the database kind 'postgresql', when camel-quarkus-quartz dependency added [\#3823](https://github.com/apache/camel-quarkus/issues/3823)
 - foundation-grouped tests seems to be flaky since upgrade to camel 3.17.0 [\#3819](https://github.com/apache/camel-quarkus/issues/3819)
+- Create platform-http-security with Keycloak example [\#3805](https://github.com/apache/camel-quarkus/issues/3805)
 - Changes in health endpoint with camel from Quarkus version 2.7.5 to version \>=2.8.0 [\#3799](https://github.com/apache/camel-quarkus/issues/3799)
 - Improve camel-quarkus-velocity test coverage [\#3790](https://github.com/apache/camel-quarkus/issues/3790)
 - net.openhft:affinity included in flattened BOM only on Mac [\#3788](https://github.com/apache/camel-quarkus/issues/3788)
@@ -47,6 +49,7 @@
 
 **Merged pull requests:**
 
+- Fix \#3823 make quarkus-agroal an optional dependency in camel-quarkus… [\#3836](https://github.com/apache/camel-quarkus/pull/3836) ([zhfeng](https://github.com/zhfeng))
 - Fix invalid links in the contributor guide doc [\#3833](https://github.com/apache/camel-quarkus/pull/3833) ([aldettinger](https://github.com/aldettinger))
 - Fix \#3829 disable checksum validation when testing with quarkus-aws2-… [\#3830](https://github.com/apache/camel-quarkus/pull/3830) ([zhfeng](https://github.com/zhfeng))
 - Better manage FHIR dependencies [\#3827](https://github.com/apache/camel-quarkus/pull/3827) ([ppalaga](https://github.com/ppalaga))
