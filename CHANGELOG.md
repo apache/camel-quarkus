@@ -7,6 +7,7 @@
 **Fixed bugs:**
 
 - Duplicate JMSMessageIDs in camel-quarkus-activemq [\#3807](https://github.com/apache/camel-quarkus/issues/3807)
+- Registry lookup for overridden `DefaultBean` types does not work [\#3797](https://github.com/apache/camel-quarkus/issues/3797)
 - Slack integration tests fail with the real Slack service [\#3781](https://github.com/apache/camel-quarkus/issues/3781)
 
 **Closed issues:**
@@ -49,11 +50,14 @@
 
 **Merged pull requests:**
 
+- Use timer repeatCount of 1 in foundation timer tests [\#3840](https://github.com/apache/camel-quarkus/pull/3840) ([jamesnetherton](https://github.com/jamesnetherton))
+- Pin fake-gcs-server container image to 1.37 tag [\#3839](https://github.com/apache/camel-quarkus/pull/3839) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3823 make quarkus-agroal an optional dependency in camel-quarkus… [\#3836](https://github.com/apache/camel-quarkus/pull/3836) ([zhfeng](https://github.com/zhfeng))
 - Fix invalid links in the contributor guide doc [\#3833](https://github.com/apache/camel-quarkus/pull/3833) ([aldettinger](https://github.com/aldettinger))
 - Fix \#3829 disable checksum validation when testing with quarkus-aws2-… [\#3830](https://github.com/apache/camel-quarkus/pull/3830) ([zhfeng](https://github.com/zhfeng))
 - Better manage FHIR dependencies [\#3827](https://github.com/apache/camel-quarkus/pull/3827) ([ppalaga](https://github.com/ppalaga))
 - Increase FHIR container startup timeout to 5 minutes [\#3824](https://github.com/apache/camel-quarkus/pull/3824) ([jamesnetherton](https://github.com/jamesnetherton))
+- Registry lookup for overridden DefaultBean types does not work [\#3821](https://github.com/apache/camel-quarkus/pull/3821) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix \#3774 to add tests for openApi oneOf, allOf and anyOf with annota… [\#3818](https://github.com/apache/camel-quarkus/pull/3818) ([zhfeng](https://github.com/zhfeng))
 - Add zhfeng key [\#3814](https://github.com/apache/camel-quarkus/pull/3814) ([zhfeng](https://github.com/zhfeng))
 - net.openhft:affinity included in flattened BOM only on Mac  [\#3813](https://github.com/apache/camel-quarkus/pull/3813) ([ppalaga](https://github.com/ppalaga))
