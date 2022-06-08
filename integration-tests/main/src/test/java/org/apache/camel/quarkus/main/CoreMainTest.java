@@ -91,7 +91,7 @@ public class CoreMainTest {
                 .contains(CamelRoute.class.getName())
                 .doesNotContain(CamelRouteFiltered.class.getName());
         assertThat(p.getList("routes", String.class))
-                .contains("keep-alive", "configure", "beforeStart", "produced", "endpointdsl")
+                .contains("keep-alive", "configure", "beforeStart", "produced", "endpointdsl", "lambdaEndpointRoute")
                 .doesNotContain("filtered");
 
         assertThat(p.getString("lru-cache-factory")).isEqualTo(DefaultLRUCacheFactory.class.getName());

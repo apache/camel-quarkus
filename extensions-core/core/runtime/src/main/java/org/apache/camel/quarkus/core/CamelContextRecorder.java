@@ -28,6 +28,8 @@ import org.apache.camel.RouteConfigurationsBuilder;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.LambdaRouteBuilder;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
+import org.apache.camel.builder.endpoint.LambdaEndpointRouteBuilder;
 import org.apache.camel.catalog.RuntimeCamelCatalog;
 import org.apache.camel.spi.CamelContextCustomizer;
 import org.apache.camel.spi.ComponentNameResolver;
@@ -105,6 +107,16 @@ public class CamelContextRecorder {
 
             for (LambdaRouteBuilder builder : context.getValue().getRegistry().findByType(LambdaRouteBuilder.class)) {
                 allRoutesBuilders.add(new RouteBuilder() {
+                    @Override
+                    public void configure() throws Exception {
+                        builder.accept(this);
+                    }
+                });
+            }
+
+            for (LambdaEndpointRouteBuilder builder : context.getValue().getRegistry()
+                    .findByType(LambdaEndpointRouteBuilder.class)) {
+                allRoutesBuilders.add(new EndpointRouteBuilder() {
                     @Override
                     public void configure() throws Exception {
                         builder.accept(this);
