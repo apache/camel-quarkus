@@ -122,7 +122,7 @@
                             <properties>
                                 <copy-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2/aws2-s3</copy-tests.source.dir>
                                 <copy-tests.dest.module.dir>${project.basedir}</copy-tests.dest.module.dir>
-                                <copy-tests.excludes>**/*TestEnvCustomizer,**/*application.properties,**/*AwsS3PresignerProducer.java</copy-tests.excludes>
+                                <copy-tests.excludes>**/*TestEnvCustomizer,**/*application.properties</copy-tests.excludes>
                             </properties>
                         </configuration>
                     </execution>
