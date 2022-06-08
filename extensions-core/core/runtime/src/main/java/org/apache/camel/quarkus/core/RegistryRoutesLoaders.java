@@ -26,6 +26,8 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.LambdaRouteBuilder;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
+import org.apache.camel.builder.endpoint.LambdaEndpointRouteBuilder;
 import org.apache.camel.util.AntPathMatcher;
 import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
@@ -64,6 +66,17 @@ public final class RegistryRoutesLoaders {
                     @Override
                     public void configure() throws Exception {
                         lrb.accept(this);
+                    }
+                };
+                routes.add(rb);
+            }
+
+            Set<LambdaEndpointRouteBuilder> lerbs = camelContext.getRegistry().findByType(LambdaEndpointRouteBuilder.class);
+            for (LambdaEndpointRouteBuilder lerb : lerbs) {
+                EndpointRouteBuilder rb = new EndpointRouteBuilder() {
+                    @Override
+                    public void configure() throws Exception {
+                        lerb.accept(this);
                     }
                 };
                 routes.add(rb);
