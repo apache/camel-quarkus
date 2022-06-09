@@ -4,8 +4,13 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.9.0...HEAD)
 
+**Implemented enhancements:**
+
+- Auto discover routes created as LambdaEndpointRouteBuilder [\#3837](https://github.com/apache/camel-quarkus/issues/3837)
+
 **Fixed bugs:**
 
+- \[Quarkus 2.10.0\] Unable to build native image with XML JAXB extension [\#3838](https://github.com/apache/camel-quarkus/issues/3838)
 - Duplicate JMSMessageIDs in camel-quarkus-activemq [\#3807](https://github.com/apache/camel-quarkus/issues/3807)
 - Registry lookup for overridden `DefaultBean` types does not work [\#3797](https://github.com/apache/camel-quarkus/issues/3797)
 - Slack integration tests fail with the real Slack service [\#3781](https://github.com/apache/camel-quarkus/issues/3781)
@@ -33,10 +38,22 @@
 - Split camel-quarkus-integration-test-compression into separate zipfile, lzf and zip-deflater tests [\#3689](https://github.com/apache/camel-quarkus/issues/3689)
 - Create an Azure Key Vault Extension [\#3688](https://github.com/apache/camel-quarkus/issues/3688)
 - \[Camel 3.17.0\] Bean introspection is broken [\#3682](https://github.com/apache/camel-quarkus/issues/3682)
+- cassandraql: itests failing on quarkus-platform [\#3621](https://github.com/apache/camel-quarkus/issues/3621)
+- camel-quarkus-openapi-java not marking required boolean properties if variable prefixed with is [\#3605](https://github.com/apache/camel-quarkus/issues/3605)
 - Remove AHC and AHC-WS extensions [\#3558](https://github.com/apache/camel-quarkus/issues/3558)
 - Remove camel-quarkus-spark [\#3466](https://github.com/apache/camel-quarkus/issues/3466)
+- camel-quarkus-opentelemetry component logs unresolved toD uri [\#3461](https://github.com/apache/camel-quarkus/issues/3461)
+- camel-quarkus-integration-test-js-dsl is failing on Quarkus 2.2.4 [\#3390](https://github.com/apache/camel-quarkus/issues/3390)
+- \[Quarkus 2.5.1.Final\] Camel exception when using jsonpath after unmarshalling in quarkus native [\#3369](https://github.com/apache/camel-quarkus/issues/3369)
+- Update Release Guide [\#3350](https://github.com/apache/camel-quarkus/issues/3350)
 - Docs module fails to build [\#3307](https://github.com/apache/camel-quarkus/issues/3307)
+- CI build should test example projects with camel-quarkus SNAPSHOT [\#3160](https://github.com/apache/camel-quarkus/issues/3160)
+- Create a SQL / JDBC example project [\#3056](https://github.com/apache/camel-quarkus/issues/3056)
+- Hazelcast native build is failing on GitHub CI [\#2880](https://github.com/apache/camel-quarkus/issues/2880)
+- Intermittent failures in OpenstackGlanceTest [\#2862](https://github.com/apache/camel-quarkus/issues/2862)
+- camel-zookeeper-master - Avoid osgi lookup [\#2221](https://github.com/apache/camel-quarkus/issues/2221)
 - DataSonnet language support [\#2078](https://github.com/apache/camel-quarkus/issues/2078)
+- Properties Bean configure not working with AMQP and Infinispan [\#1935](https://github.com/apache/camel-quarkus/issues/1935)
 - Remove deprecated Ribbon extension [\#1845](https://github.com/apache/camel-quarkus/issues/1845)
 - Remove deprecated BeanIO extension [\#1753](https://github.com/apache/camel-quarkus/issues/1753)
 - Remove deprecated SIP extension [\#1707](https://github.com/apache/camel-quarkus/issues/1707)
@@ -50,6 +67,8 @@
 
 **Merged pull requests:**
 
+- Modify Cassandra & AWS S3 tests to pick up Camel 3.17.0 fixes [\#3843](https://github.com/apache/camel-quarkus/pull/3843) ([jamesnetherton](https://github.com/jamesnetherton))
+- Auto discover routes created as LambdaEndpointRouteBuilder [\#3842](https://github.com/apache/camel-quarkus/pull/3842) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use timer repeatCount of 1 in foundation timer tests [\#3840](https://github.com/apache/camel-quarkus/pull/3840) ([jamesnetherton](https://github.com/jamesnetherton))
 - Pin fake-gcs-server container image to 1.37 tag [\#3839](https://github.com/apache/camel-quarkus/pull/3839) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3823 make quarkus-agroal an optional dependency in camel-quarkus… [\#3836](https://github.com/apache/camel-quarkus/pull/3836) ([zhfeng](https://github.com/zhfeng))
