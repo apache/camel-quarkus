@@ -35,14 +35,14 @@ public class ElasticSearchTestResource implements QuarkusTestResourceLifecycleMa
     private static final String ELASTICSEARCH_PASSWORD = "changeme";
     private static final int ELASTICSEARCH_PORT = 9200;
 
-    private GenericContainer container;
+    private GenericContainer<?> container;
 
     @Override
     public Map<String, String> start() {
         LOGGER.info(TestcontainersConfiguration.getInstance().toString());
 
         try {
-            container = new GenericContainer(ELASTICSEARCH_IMAGE)
+            container = new GenericContainer<>(ELASTICSEARCH_IMAGE)
                     .withExposedPorts(ELASTICSEARCH_PORT)
                     .withLogConsumer(new Slf4jLogConsumer(LOGGER))
                     .withEnv("discovery.type", "single-node")
