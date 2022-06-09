@@ -9280,7 +9280,7 @@
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
-        <artifactId>hapi-fhir-structures-hl7org-dstu2</artifactId>
+        <artifactId>hapi-fhir-structures-dstu3</artifactId>
         <version>4.2.0</version>
         <exclusions>
           <exclusion>
@@ -9303,7 +9303,7 @@
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
-        <artifactId>hapi-fhir-structures-dstu3</artifactId>
+        <artifactId>hapi-fhir-structures-hl7org-dstu2</artifactId>
         <version>4.2.0</version>
         <exclusions>
           <exclusion>
@@ -9391,7 +9391,7 @@
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
-        <artifactId>org.hl7.fhir.dstu3</artifactId>
+        <artifactId>org.hl7.fhir.dstu2016may</artifactId>
         <version>4.2.0</version>
         <exclusions>
           <exclusion>
@@ -9410,7 +9410,7 @@
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
-        <artifactId>org.hl7.fhir.dstu2016may</artifactId>
+        <artifactId>org.hl7.fhir.dstu3</artifactId>
         <version>4.2.0</version>
         <exclusions>
           <exclusion>
@@ -9632,14 +9632,14 @@
         <version>2.6</version>
       </dependency>
       <dependency>
-        <groupId>io.projectreactor.netty</groupId>
-        <artifactId>reactor-netty</artifactId>
-        <version>1.0.2</version>
-      </dependency>
-      <dependency>
         <groupId>io.perfmark</groupId>
         <artifactId>perfmark-api</artifactId>
         <version>0.25.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.projectreactor.netty</groupId>
+        <artifactId>reactor-netty</artifactId>
+        <version>1.0.2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.freemarker</groupId>
