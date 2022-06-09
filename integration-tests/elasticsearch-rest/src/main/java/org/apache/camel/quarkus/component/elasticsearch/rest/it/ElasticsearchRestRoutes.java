@@ -36,7 +36,7 @@ public class ElasticsearchRestRoutes extends RouteBuilder {
                 .toD("${header.component}://elasticsearch?operation=Delete");
 
         from("direct:deleteIndex")
-                .to("elasticsearch-rest://elasticsearch?operation=DeleteIndex");
+                .toD("${header.component}://elasticsearch?operation=DeleteIndex");
 
         from("direct:exists")
                 .toD("${header.component}://elasticsearch?operation=Exists");
