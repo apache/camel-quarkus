@@ -1474,6 +1474,10 @@
                         <artifactId>jboss-logmanager</artifactId>
                     </exclusion>
                     <exclusion>
+                        <groupId>org.liquibase</groupId>
+                        <artifactId>liquibase-core</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>org.slf4j</groupId>
                         <artifactId>jcl-over-slf4j</artifactId>
                     </exclusion>
