@@ -35,6 +35,7 @@ import org.apache.fop.render.pdf.PDFDocumentHandlerMaker;
 import org.apache.fop.render.pdf.extensions.PDFExtensionHandlerFactory;
 import org.apache.fop.util.ColorUtil;
 import org.apache.xmlgraphics.image.loader.spi.ImageImplRegistry;
+import org.apache.xmlgraphics.java2d.color.ICCColorSpaceWithIntent;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 
@@ -98,5 +99,6 @@ class FopProcessor {
 
         runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(ImageImplRegistry.class.getName()));
         runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(ColorUtil.class.getName()));
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(ICCColorSpaceWithIntent.class.getName()));
     }
 }

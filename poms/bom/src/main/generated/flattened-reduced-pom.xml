@@ -1420,6 +1420,10 @@
             <artifactId>jboss-logmanager</artifactId>
           </exclusion>
           <exclusion>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
           </exclusion>
@@ -9760,7 +9764,7 @@
       <dependency>
         <groupId>io.smallrye.reactive</groupId>
         <artifactId>smallrye-reactive-messaging-camel</artifactId>
-        <version>3.17.0</version>
+        <version>3.18.0</version>
         <exclusions>
           <exclusion>
             <groupId>jakarta.activation</groupId>
