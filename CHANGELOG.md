@@ -11,6 +11,7 @@
 **Fixed bugs:**
 
 - \[Quarkus 2.10.0\] Unable to build native image with XML JAXB extension [\#3838](https://github.com/apache/camel-quarkus/issues/3838)
+- \[Quarkus 2.10.0\] `ElasticsearchRestTest.testElasticsearchDeleteIndex` test failue [\#3831](https://github.com/apache/camel-quarkus/issues/3831)
 - Duplicate JMSMessageIDs in camel-quarkus-activemq [\#3807](https://github.com/apache/camel-quarkus/issues/3807)
 - Registry lookup for overridden `DefaultBean` types does not work [\#3797](https://github.com/apache/camel-quarkus/issues/3797)
 - Slack integration tests fail with the real Slack service [\#3781](https://github.com/apache/camel-quarkus/issues/3781)
@@ -67,6 +68,7 @@
 
 **Merged pull requests:**
 
+- Ensure ElasticSearch REST delete index route uses the correct URI scheme [\#3845](https://github.com/apache/camel-quarkus/pull/3845) ([jamesnetherton](https://github.com/jamesnetherton))
 - Modify Cassandra & AWS S3 tests to pick up Camel 3.17.0 fixes [\#3843](https://github.com/apache/camel-quarkus/pull/3843) ([jamesnetherton](https://github.com/jamesnetherton))
 - Auto discover routes created as LambdaEndpointRouteBuilder [\#3842](https://github.com/apache/camel-quarkus/pull/3842) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use timer repeatCount of 1 in foundation timer tests [\#3840](https://github.com/apache/camel-quarkus/pull/3840) ([jamesnetherton](https://github.com/jamesnetherton))
