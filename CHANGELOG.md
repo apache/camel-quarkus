@@ -23,6 +23,7 @@
 - foundation-grouped tests seems to be flaky since upgrade to camel 3.17.0 [\#3819](https://github.com/apache/camel-quarkus/issues/3819)
 - Create platform-http-security with Keycloak example [\#3805](https://github.com/apache/camel-quarkus/issues/3805)
 - Changes in health endpoint with camel from Quarkus version 2.7.5 to version \>=2.8.0 [\#3799](https://github.com/apache/camel-quarkus/issues/3799)
+- Intermittent failure of `ConverterTest.testConverterGetStatistics` [\#3798](https://github.com/apache/camel-quarkus/issues/3798)
 - Improve camel-quarkus-velocity test coverage [\#3790](https://github.com/apache/camel-quarkus/issues/3790)
 - net.openhft:affinity included in flattened BOM only on Mac [\#3788](https://github.com/apache/camel-quarkus/issues/3788)
 - Switch from OpenTracing to OpenTelemetry in observability example [\#3784](https://github.com/apache/camel-quarkus/issues/3784)
@@ -68,6 +69,7 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 2.10.0.CR1 [\#3846](https://github.com/apache/camel-quarkus/pull/3846) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ensure ElasticSearch REST delete index route uses the correct URI scheme [\#3845](https://github.com/apache/camel-quarkus/pull/3845) ([jamesnetherton](https://github.com/jamesnetherton))
 - Modify Cassandra & AWS S3 tests to pick up Camel 3.17.0 fixes [\#3843](https://github.com/apache/camel-quarkus/pull/3843) ([jamesnetherton](https://github.com/jamesnetherton))
 - Auto discover routes created as LambdaEndpointRouteBuilder [\#3842](https://github.com/apache/camel-quarkus/pull/3842) ([jamesnetherton](https://github.com/jamesnetherton))
