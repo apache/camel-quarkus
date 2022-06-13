@@ -226,3 +226,45 @@ class MyTest {
 ----
 
 More examples of WireMock usage can be found in the Camel Quarkus integration test source tree such as https://github.com/apache/camel-quarkus/tree/main/integration-tests/geocoder[Geocoder].
+
+== `CamelTestSupport` style of testing
+
+If you used plain Camel before, you may know https://camel.apache.org/components/latest/others/test-junit5.html[CamelTestSupport] already.
+Unfortunately the Camel variant won't work on Quarkus and so we prepared a replacement called `CamelQuarkusTestSupport`, which can be used in JVM mode.
+
+Please add following dependency into your module (preferably in the `test` scope), to use `CamelQuarkusTestSupport`.
+
+```
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+```
+
+There are several limitations:
+
+* Methods `afterAll`, `afterEach`, `afterTestExecution`, `beforeAll` and `beforeEach` are not executed anymore.
+You should use `doAfterAll`, `doAfterConstruct`, `doAfterEach`, `doBeforeEach` instead of them.
+Be aware that execution of method `doAfterConstruct` differs from the execution of the method `beforeAll` if `@TestInstance(TestInstance.Lifecycle.PER_METHOD)` is used in which case callback is called
+ before each test.
+* The test class has to be annotated with `@io.quarkus.test.junit.QuarkusTest` and has to extend `org.apache.camel.quarkus.test.CamelQuarkusTestSupport`.
+* Camel Quarkus does not support stopping and re-starting the same `CamelContext` instance within the life cycle of a single application. You will be able to call `CamelContext.stop()`, but `CamelContext.start()` won't work.
+* Starting and stopping `CamelContext` in Camel Quarkus is generally bound to starting and stopping the application and this holds also when testing.
+* Starting and stopping the application under test (and thus also `CamelContext`) is under full control of Quarkus JUnit Extension. It prefers keeping the application up and running unless it is told to do otherwise.
+* Hence normally the application under test is started only once for all test classes of the given Maven/Gradle module.
+* To force Quarkus JUnit Extension to restart the application (and thus also `CamelContext`) for a given test class, you need to assign a unique `@io.quarkus.test.junit.TestProfile` to that class. Check the https://quarkus.io/guides/getting-started-testing#testing_different_profiles[Quarkus documentation] how you can do that. (Note that `https://quarkus.io/guides/getting-started-testing#quarkus-test-resource[@io.quarkus.test.common.QuarkusTestResource]` has a similar effect.)
+*  Camel Quarkus executes the production of beans during the build phase. Because all the tests are
+build together,  exclusion behavior is implemented into `CamelQuarkusTestSupport`. If a producer of the specific type and name is used in one tests, the instance will be the same for the rest of the tests.
+* JUnit Jupiter callbacks (`BeforeEachCallback`, `AfterEachCallback`, `AfterAllCallback`, `BeforeAllCallback`, `BeforeTestExecutionCallback` and `AfterTestExecutionCallback`) might not work correctly. See the https://quarkus.io/guides/getting-started-testing#enrichment-via-quarkustestcallback[documentation].
+
+
+[source,java]
+----
+@QuarkusTest
+@TestProfile(SimpleTest.class) //necessary only if "newly created" context is required for the test (worse performance)
+public class SimpleTest extends CamelQuarkusTestSupport {
+    ...
+}
+----
+

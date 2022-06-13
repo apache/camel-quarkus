@@ -237,6 +237,12 @@ jobs:
           ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip -Dcamel-quarkus.update-extension-doc-page.skip \
             test
+      - name: cd test-framework && mvn test
+        run: |
+          cd test-framework
+          ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
+            -Dformatter.skip -Dimpsort.skip -Denforcer.skip -Dcamel-quarkus.update-extension-doc-page.skip \
+            test
       - name: cd docs && mvn verify
         if: github.ref != 'refs/heads/camel-main' && github.base_ref != 'camel-main'
         run: |
