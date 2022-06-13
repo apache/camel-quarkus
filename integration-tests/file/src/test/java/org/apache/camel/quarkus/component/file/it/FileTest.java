@@ -112,7 +112,6 @@ class FileTest {
 
     @Test
     public void idempotent() throws IOException {
-        System.out.println("CAMEL-QUARKUS-3584 => FileTest.idempotent().thread.id => " + Thread.currentThread().getId());
         // Create a new file
         String fileName01 = createFile(FILE_CONTENT_01, "/file/create/idempotent");
 
@@ -150,7 +149,6 @@ class FileTest {
 
     @Test
     public void filter() throws IOException {
-        System.out.println("CAMEL-QUARKUS-3584 => FileTest.filter().thread.id => " + Thread.currentThread().getId());
         String fileName = createFile(FILE_CONTENT_01, "/file/create/filter", null, "skip_" + UUID.randomUUID().toString());
         createFile(FILE_CONTENT_02, "/file/create/filter");
 
@@ -166,7 +164,6 @@ class FileTest {
 
     @Test
     public void sortBy() throws IOException, InterruptedException {
-        System.out.println("CAMEL-QUARKUS-3584 => FileTest.sortBy().thread.id => " + Thread.currentThread().getId());
         createFile(FILE_CONTENT_03, "/file/create/" + SORT_BY, null, "c_" + UUID.randomUUID().toString());
         createFile(FILE_CONTENT_01, "/file/create/" + SORT_BY, null, "a_" + UUID.randomUUID().toString());
         createFile(FILE_CONTENT_02, "/file/create/" + SORT_BY, null, "b_" + UUID.randomUUID().toString());

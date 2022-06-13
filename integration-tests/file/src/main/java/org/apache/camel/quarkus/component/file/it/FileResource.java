@@ -99,16 +99,10 @@ public class FileResource {
     @Path("/getFromMock/{mockId}")
     @GET
     public String getFromMock(@PathParam("mockId") String mockId) {
-        System.out.println("CAMEL-QUARKUS-3584 => FileResource.getFromMock(" + mockId + ").thread.id => "
-                + Thread.currentThread().getId());
         MockEndpoint mockEndpoint = context.getEndpoint("mock:" + mockId, MockEndpoint.class);
-        System.out.println("CAMEL-QUARKUS-3584 => FileResource.getFromMock(" + mockId + ").mockEndpoint => 0x"
-                + System.identityHashCode(mockEndpoint));
 
         String result = mockEndpoint.getExchanges().stream().map(e -> e.getIn().getBody(String.class))
                 .collect(Collectors.joining(SEPARATOR));
-
-        System.out.println("CAMEL-QUARKUS-3584 => FileResource.getFromMock(" + mockId + ") returns => " + result);
 
         return result;
     }
@@ -116,10 +110,7 @@ public class FileResource {
     @Path("/resetMock/{mockId}")
     @GET
     public void resetMock(@PathParam("mockId") String mockId) {
-        System.out.println("CAMEL-QUARKUS-3584 => FileResource.resetMock().thread.id => " + Thread.currentThread().getId());
         MockEndpoint mockEndpoint = context.getEndpoint("mock:" + mockId, MockEndpoint.class);
-        System.out.println(
-                "CAMEL-QUARKUS-3584 => FileResource.resetMock.mockEndpoint => 0x" + System.identityHashCode(mockEndpoint));
         mockEndpoint.reset();
     }
 
@@ -130,7 +121,6 @@ public class FileResource {
     public Response createFile(@PathParam("folder") String folder, byte[] content, @QueryParam("charset") String charset,
             @QueryParam("fileName") String fileName)
             throws Exception {
-        System.out.println("CAMEL-QUARKUS-3584 => FileResource.createFile().thread.id => " + Thread.currentThread().getId());
         StringBuilder url = new StringBuilder("file:target/" + folder + "?initialDelay=10");
         if (charset != null && !charset.equals("")) {
             url.append("&charset=").append(charset);
