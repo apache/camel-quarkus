@@ -226,6 +226,7 @@
         <module>integration-test-groups</module>
         <module>docs</module>
         <module>integration-tests-jvm</module>
+        <module>test-framework</module>
     </modules>
 
     <developers>
@@ -593,6 +594,10 @@
                         <extensionDir>
                             <path>integration-tests-support</path>
                             <artifactIdPrefix>camel-quarkus-integration-test-support-</artifactIdPrefix>
+                        </extensionDir>
+                        <extensionDir>
+                            <path>test-framework</path>
+                            <artifactIdPrefix>camel-quarkus-test-framework</artifactIdPrefix>
                         </extensionDir>
                     </extensionDirs>
                 </configuration>
