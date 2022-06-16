@@ -69,7 +69,6 @@ class SalesforceProcessor {
                 .toArray(String[]::new);
 
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, userDtoClasses));
-        
         // Register KeyStoreParameters for reflection
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, KeyStoreParameters.class));
     }
