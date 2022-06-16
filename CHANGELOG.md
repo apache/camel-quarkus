@@ -69,6 +69,7 @@
 
 **Merged pull requests:**
 
+- Upgrade OptaPlanner to 8.22.1.Final [\#3849](https://github.com/apache/camel-quarkus/pull/3849) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.10.0.CR1 [\#3846](https://github.com/apache/camel-quarkus/pull/3846) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ensure ElasticSearch REST delete index route uses the correct URI scheme [\#3845](https://github.com/apache/camel-quarkus/pull/3845) ([jamesnetherton](https://github.com/jamesnetherton))
 - Modify Cassandra & AWS S3 tests to pick up Camel 3.17.0 fixes [\#3843](https://github.com/apache/camel-quarkus/pull/3843) ([jamesnetherton](https://github.com/jamesnetherton))
