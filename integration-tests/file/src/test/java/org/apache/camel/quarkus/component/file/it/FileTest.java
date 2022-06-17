@@ -22,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -131,7 +132,7 @@ class FileTest {
         // move file back
         Path donePath = Paths.get(fileName01.replaceFirst("target/idempotent", "target/idempotent/done"));
         Path targetPath = Paths.get(fileName01);
-        Files.move(donePath, targetPath);
+        Files.move(donePath, targetPath, StandardCopyOption.ATOMIC_MOVE);
         // register file for deletion after tests
         pathsToDelete.add(targetPath);
 
