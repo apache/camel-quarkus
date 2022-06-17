@@ -15,6 +15,7 @@
 - Duplicate JMSMessageIDs in camel-quarkus-activemq [\#3807](https://github.com/apache/camel-quarkus/issues/3807)
 - Registry lookup for overridden `DefaultBean` types does not work [\#3797](https://github.com/apache/camel-quarkus/issues/3797)
 - Slack integration tests fail with the real Slack service [\#3781](https://github.com/apache/camel-quarkus/issues/3781)
+- KeyStoreParameters is not in reflection list on Salesforce component. [\#3754](https://github.com/apache/camel-quarkus/issues/3754)
 
 **Closed issues:**
 
@@ -69,6 +70,7 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 2.10.0.Final [\#3851](https://github.com/apache/camel-quarkus/pull/3851) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade OptaPlanner to 8.22.1.Final [\#3849](https://github.com/apache/camel-quarkus/pull/3849) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.10.0.CR1 [\#3846](https://github.com/apache/camel-quarkus/pull/3846) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ensure ElasticSearch REST delete index route uses the correct URI scheme [\#3845](https://github.com/apache/camel-quarkus/pull/3845) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -113,6 +115,7 @@
 - ⬆️  Upgrade Amazon Services to 1.1.1 [\#3761](https://github.com/apache/camel-quarkus/pull/3761) ([zbendhiba](https://github.com/zbendhiba))
 - ⬆️ Upgrade Optaplanner to 8.20.0.Final [\#3760](https://github.com/apache/camel-quarkus/pull/3760) ([zbendhiba](https://github.com/zbendhiba))
 - paho: add test case for RFC3986 style urls \#3758 [\#3759](https://github.com/apache/camel-quarkus/pull/3759) ([aldettinger](https://github.com/aldettinger))
+- Add KeyStoreParameters for reflection [\#3755](https://github.com/apache/camel-quarkus/pull/3755) ([ismailbaskin](https://github.com/ismailbaskin))
 - Upgrade Quarkus to 2.9.0.CR1 [\#3753](https://github.com/apache/camel-quarkus/pull/3753) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix MockEndpoint usage in gRPC tests [\#3752](https://github.com/apache/camel-quarkus/pull/3752) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove c3p0 from Quartz extension [\#3751](https://github.com/apache/camel-quarkus/pull/3751) ([jamesnetherton](https://github.com/jamesnetherton))
