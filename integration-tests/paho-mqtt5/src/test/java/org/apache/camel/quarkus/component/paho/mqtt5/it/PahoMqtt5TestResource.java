@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.paho.mqtt5.it;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.github.dockerjava.api.model.Ulimit;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
 import org.apache.camel.util.CollectionHelper;
@@ -89,8 +90,9 @@ public class PahoMqtt5TestResource implements QuarkusTestResourceLifecycleManage
             }
 
             container.withLogConsumer(new Slf4jLogConsumer(LOGGER))
-                    .waitingFor(Wait.forLogMessage(".* mosquitto version .* running", 1))
-                    .waitingFor(Wait.forListeningPort());
+                    .waitingFor(Wait.forLogMessage(".* mosquitto version .* running.*", 1))
+                    .withCreateContainerCmdModifier(
+                            cmd -> cmd.getHostConfig().withUlimits(new Ulimit[] { new Ulimit("nofile", 512L, 512L) }));
 
             if (startContainer) {
                 container.start();
