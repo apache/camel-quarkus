@@ -4,6 +4,10 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.10.0...HEAD)
 
+**Closed issues:**
+
+- Camel TypeConverterLoader in native mode [\#3857](https://github.com/apache/camel-quarkus/issues/3857)
+
 **Merged pull requests:**
 
 - update openapi-java usage.adoc [\#3853](https://github.com/apache/camel-quarkus/pull/3853) ([zhfeng](https://github.com/zhfeng))
