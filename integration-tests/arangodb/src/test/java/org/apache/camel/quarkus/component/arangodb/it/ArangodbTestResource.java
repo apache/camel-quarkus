@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.arangodb.it;
 
 import java.util.Map;
 
+import com.github.dockerjava.api.model.Ulimit;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
 import org.slf4j.Logger;
@@ -29,7 +30,7 @@ import org.testcontainers.utility.TestcontainersConfiguration;
 public class ArangodbTestResource implements QuarkusTestResourceLifecycleManager {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ArangodbTestResource.class);
-    private GenericContainer container;
+    private GenericContainer<?> container;
     private static final String CONTAINER_NAME = "arango";
     private static final String ARANGO_IMAGE = "arangodb:latest";
     private static final String ARANGO_NO_AUTH = "ARANGO_NO_AUTH";
@@ -40,11 +41,13 @@ public class ArangodbTestResource implements QuarkusTestResourceLifecycleManager
         LOGGER.info(TestcontainersConfiguration.getInstance().toString());
 
         try {
-            container = new GenericContainer(ARANGO_IMAGE)
+            container = new GenericContainer<>(ARANGO_IMAGE)
                     .withExposedPorts(PORT_DEFAULT)
                     .withEnv(ARANGO_NO_AUTH, "1")
                     .withNetworkAliases(CONTAINER_NAME)
-                    .waitingFor(Wait.forLogMessage(".*ArangoDB [(]version .*[)] is ready for business. Have fun!.*", 1));
+                    .waitingFor(Wait.forLogMessage(".*ArangoDB [(]version .*[)] is ready for business. Have fun!.*", 1))
+                    .withCreateContainerCmdModifier(
+                            cmd -> cmd.getHostConfig().withUlimits(new Ulimit[] { new Ulimit("nofile", 65535L, 65535L) }));
 
             container.start();
 
