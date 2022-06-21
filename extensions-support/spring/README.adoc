@@ -10,13 +10,13 @@ This extension provides common support for Camel components that depend on `org.
 
 The Quarkus Spring extensions offers a limited set of supported packages for the Spring framework. This is achieved by shading the desired packages into a new quarkus-spring-*-api dependency. These can be found at the https://github.com/quarkusio/quarkus-spring-api[quarkus-spring-api] project.
 
-A side effect of this is that the Quarkus Spring extensions enforce the exclusion of the original Spring artifacts from the build via the `quarkus-bootstrap-maven-plugin`. For example:
+A side effect of this is that the Quarkus Spring extensions enforce the exclusion of the original Spring artifacts from the build via the `quarkus-extension-maven-plugin`. For example:
 
 [source,xml]
 ----
 <plugin>
     <groupId>io.quarkus</groupId>
-    <artifactId>quarkus-bootstrap-maven-plugin</artifactId>
+    <artifactId>quarkus-extension-maven-plugin</artifactId>
     <configuration>
         <excludedArtifacts>
             <excludedArtifact>org.springframework:spring-core</excludedArtifact>
