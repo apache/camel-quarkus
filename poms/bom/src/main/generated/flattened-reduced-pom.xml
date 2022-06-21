@@ -2019,6 +2019,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-dsl-modeline</artifactId>
+        <version>3.19.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-dsl-support</artifactId>
         <version>3.19.0</version>
       </dependency>
@@ -6951,6 +6956,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-dropbox-deployment</artifactId>
+        <version>2.14.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-dsl-modeline</artifactId>
+        <version>2.14.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-dsl-modeline-deployment</artifactId>
         <version>2.14.0-SNAPSHOT</version>
       </dependency>
       <dependency>

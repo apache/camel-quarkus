@@ -58,6 +58,7 @@
         <module>djl</module>
         <module>dns</module>
         <module>drill</module>
+        <module>dsl-modeline</module>
         <module>ehcache</module>
         <module>etcd3</module>
         <module>facebook</module>
