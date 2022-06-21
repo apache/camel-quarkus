@@ -6,10 +6,15 @@
 
 **Closed issues:**
 
+- paho-mqtt5 test failing with `Error: Unable to create websockets listener on port 9001` [\#3860](https://github.com/apache/camel-quarkus/issues/3860)
 - Camel TypeConverterLoader in native mode [\#3857](https://github.com/apache/camel-quarkus/issues/3857)
 
 **Merged pull requests:**
 
+- paho-mqtt5 test failing with Error: Unable to create websockets liste… [\#3861](https://github.com/apache/camel-quarkus/pull/3861) ([ppalaga](https://github.com/ppalaga))
+- Use JUnit fail static method import instead of JSoup [\#3859](https://github.com/apache/camel-quarkus/pull/3859) ([jamesnetherton](https://github.com/jamesnetherton))
+- Next is 2.11.0 [\#3855](https://github.com/apache/camel-quarkus/pull/3855) ([zhfeng](https://github.com/zhfeng))
+- file: attempt atomic move to fix flakiness \#3584 [\#3854](https://github.com/apache/camel-quarkus/pull/3854) ([aldettinger](https://github.com/aldettinger))
 - update openapi-java usage.adoc [\#3853](https://github.com/apache/camel-quarkus/pull/3853) ([zhfeng](https://github.com/zhfeng))
 - Fix \#3828 to update openapi-java document [\#3852](https://github.com/apache/camel-quarkus/pull/3852) ([zhfeng](https://github.com/zhfeng))
 - Upgrade Quarkus to 2.10.0.Final [\#3851](https://github.com/apache/camel-quarkus/pull/3851) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1114,21 +1119,14 @@
 
 - \[Quarkus 2.10.0\] Unable to build native image with XML JAXB extension [\#3838](https://github.com/apache/camel-quarkus/issues/3838)
 - \[Quarkus 2.10.0\] `ElasticsearchRestTest.testElasticsearchDeleteIndex` test failue [\#3831](https://github.com/apache/camel-quarkus/issues/3831)
-- KeyStoreParameters is not in reflection list on Salesforce component. [\#3754](https://github.com/apache/camel-quarkus/issues/3754)
 - Duplicate JMSMessageIDs in camel-quarkus-activemq [\#3807](https://github.com/apache/camel-quarkus/issues/3807)
 - Registry lookup for overridden `DefaultBean` types does not work [\#3797](https://github.com/apache/camel-quarkus/issues/3797)
 - Slack integration tests fail with the real Slack service [\#3781](https://github.com/apache/camel-quarkus/issues/3781)
+- KeyStoreParameters is not in reflection list on Salesforce component. [\#3754](https://github.com/apache/camel-quarkus/issues/3754)
 
 **Closed issues:**
 
-- aws2-s3 downloadLink test does not work with the real AWS account [\#3829](https://github.com/apache/camel-quarkus/issues/3829)
-- Improve openapi-java component documentation [\#3828](https://github.com/apache/camel-quarkus/issues/3828)
-- Unable to find a JDBC driver corresponding to the database kind 'postgresql', when camel-quarkus-quartz dependency added [\#3823](https://github.com/apache/camel-quarkus/issues/3823)
 - Changes in health endpoint with camel from Quarkus version 2.7.5 to version \>=2.8.0 [\#3799](https://github.com/apache/camel-quarkus/issues/3799)
-- Improve camel-quarkus-velocity test coverage [\#3790](https://github.com/apache/camel-quarkus/issues/3790)
-- net.openhft:affinity included in flattened BOM only on Mac [\#3788](https://github.com/apache/camel-quarkus/issues/3788)
-- \[Camel 3.17.0\] openApi oneOf, allOf and anyOf with annotation @Schema [\#3774](https://github.com/apache/camel-quarkus/issues/3774)
-- \[Camel 3.17.0\] Restore `jakarta-mail-version` placeholder in `jakarta.mail.version` property [\#3771](https://github.com/apache/camel-quarkus/issues/3771)
 - URL to the Kafka brokers must be configured with the brokers option in native mode \(continued\) [\#3742](https://github.com/apache/camel-quarkus/issues/3742)
 - \[Camel 3.17.0\] Property placeholder resolution is broken [\#3739](https://github.com/apache/camel-quarkus/issues/3739)
 - Create an Azure Key Vault Extension [\#3688](https://github.com/apache/camel-quarkus/issues/3688)
@@ -1144,11 +1142,18 @@
 - Intermittent failures in OpenstackGlanceTest [\#2862](https://github.com/apache/camel-quarkus/issues/2862)
 - camel-zookeeper-master - Avoid osgi lookup [\#2221](https://github.com/apache/camel-quarkus/issues/2221)
 - Properties Bean configure not working with AMQP and Infinispan [\#1935](https://github.com/apache/camel-quarkus/issues/1935)
+- aws2-s3 downloadLink test does not work with the real AWS account [\#3829](https://github.com/apache/camel-quarkus/issues/3829)
+- Improve openapi-java component documentation [\#3828](https://github.com/apache/camel-quarkus/issues/3828)
+- Unable to find a JDBC driver corresponding to the database kind 'postgresql', when camel-quarkus-quartz dependency added [\#3823](https://github.com/apache/camel-quarkus/issues/3823)
 - foundation-grouped tests seems to be flaky since upgrade to camel 3.17.0 [\#3819](https://github.com/apache/camel-quarkus/issues/3819)
 - Create platform-http-security with Keycloak example [\#3805](https://github.com/apache/camel-quarkus/issues/3805)
 - Intermittent failure of `ConverterTest.testConverterGetStatistics` [\#3798](https://github.com/apache/camel-quarkus/issues/3798)
+- Improve camel-quarkus-velocity test coverage [\#3790](https://github.com/apache/camel-quarkus/issues/3790)
+- net.openhft:affinity included in flattened BOM only on Mac [\#3788](https://github.com/apache/camel-quarkus/issues/3788)
 - Switch from OpenTracing to OpenTelemetry in observability example [\#3784](https://github.com/apache/camel-quarkus/issues/3784)
 - Support camel-debug component [\#3775](https://github.com/apache/camel-quarkus/issues/3775)
+- \[Camel 3.17.0\] openApi oneOf, allOf and anyOf with annotation @Schema [\#3774](https://github.com/apache/camel-quarkus/issues/3774)
+- \[Camel 3.17.0\] Restore `jakarta-mail-version` placeholder in `jakarta.mail.version` property [\#3771](https://github.com/apache/camel-quarkus/issues/3771)
 - Intermittent failure of FHIR integration tests `SocketTimeoutException` [\#3746](https://github.com/apache/camel-quarkus/issues/3746)
 - Use WireMock for xchange tests [\#3724](https://github.com/apache/camel-quarkus/issues/3724)
 - \[Camel 3.17.0\] Switch FTP / JSCH extensions to `com.github.mwiede:jsch` [\#3711](https://github.com/apache/camel-quarkus/issues/3711)
