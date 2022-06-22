@@ -6,11 +6,16 @@
 
 **Closed issues:**
 
+- arangodb integration tests failing with can not start container [\#3864](https://github.com/apache/camel-quarkus/issues/3864)
+- quarkus-bootstrap-maven-plugin is deprecated [\#3863](https://github.com/apache/camel-quarkus/issues/3863)
 - paho-mqtt5 test failing with `Error: Unable to create websockets listener on port 9001` [\#3860](https://github.com/apache/camel-quarkus/issues/3860)
 - Camel TypeConverterLoader in native mode [\#3857](https://github.com/apache/camel-quarkus/issues/3857)
 
 **Merged pull requests:**
 
+- Upgrade Optaplanner to 8.23.0.Final [\#3868](https://github.com/apache/camel-quarkus/pull/3868) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix \#3863 to use quarkus-extension-maven-plugin [\#3866](https://github.com/apache/camel-quarkus/pull/3866) ([zhfeng](https://github.com/zhfeng))
+- Fix \#3864 to add nofile ulimit in ArangodbTestResource [\#3865](https://github.com/apache/camel-quarkus/pull/3865) ([zhfeng](https://github.com/zhfeng))
 - paho-mqtt5 test failing with Error: Unable to create websockets liste… [\#3861](https://github.com/apache/camel-quarkus/pull/3861) ([ppalaga](https://github.com/ppalaga))
 - Use JUnit fail static method import instead of JSoup [\#3859](https://github.com/apache/camel-quarkus/pull/3859) ([jamesnetherton](https://github.com/jamesnetherton))
 - Next is 2.11.0 [\#3855](https://github.com/apache/camel-quarkus/pull/3855) ([zhfeng](https://github.com/zhfeng))
