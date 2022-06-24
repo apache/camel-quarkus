@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- 2.10.0 not able to boot NoClassDefFoundError: org/apache/camel/builder/ErrorHandlerBuilder [\#3870](https://github.com/apache/camel-quarkus/issues/3870)
 - arangodb integration tests failing with can not start container [\#3864](https://github.com/apache/camel-quarkus/issues/3864)
 - quarkus-bootstrap-maven-plugin is deprecated [\#3863](https://github.com/apache/camel-quarkus/issues/3863)
 - paho-mqtt5 test failing with `Error: Unable to create websockets listener on port 9001` [\#3860](https://github.com/apache/camel-quarkus/issues/3860)
