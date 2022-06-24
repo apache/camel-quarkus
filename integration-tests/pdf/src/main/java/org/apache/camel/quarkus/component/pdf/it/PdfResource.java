@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.pdf.it;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.net.URI;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -26,12 +28,16 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.pdf.PdfHeaderConstants;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
+import org.apache.pdfbox.pdmodel.encryption.StandardDecryptionMaterial;
+import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
 import org.jboss.logging.Logger;
 
 @Path("/pdf")
@@ -77,5 +83,44 @@ public class PdfResource {
     public String get() throws Exception {
         LOG.info("Extracting text from the PDDocument");
         return producerTemplate.requestBody("pdf:extractText", PDDocument.load(document), String.class);
+    }
+
+    @Path("/encrypt/standard")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response encryptStandard(
+            @QueryParam("ownerPassword") String ownerPassword,
+            @QueryParam("userPassword") String userPassword,
+            String message) throws Exception {
+
+        AccessPermission permission = AccessPermission.getOwnerAccessPermission();
+        StandardProtectionPolicy policy = new StandardProtectionPolicy(ownerPassword, userPassword, permission);
+
+        byte[] document = producerTemplate.requestBodyAndHeader(
+                "pdf:create?fontSize=6&pageSize=PAGE_SIZE_A5&font=Courier",
+                message,
+                PdfHeaderConstants.PROTECTION_POLICY_HEADER_NAME,
+                policy,
+                byte[].class);
+
+        return Response.created(new URI("pdf/extractText")).entity(document).build();
+    }
+
+    @Path("/decrypt/standard")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response decryptStandard(@QueryParam("password") String password, byte[] rawDocument) throws IOException {
+        StandardDecryptionMaterial material = new StandardDecryptionMaterial(password);
+
+        PDDocument document = PDDocument.load(new ByteArrayInputStream(rawDocument), password);
+
+        String result = producerTemplate.requestBodyAndHeader(
+                "pdf:extractText",
+                document,
+                PdfHeaderConstants.DECRYPTION_MATERIAL_HEADER_NAME,
+                material,
+                String.class);
+
+        return Response.ok().entity(result).build();
     }
 }
