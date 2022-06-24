@@ -20,7 +20,9 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import org.apache.pdfbox.pdmodel.encryption.StandardSecurityHandler;
 
 class PdfProcessor {
 
@@ -75,5 +77,10 @@ class PdfProcessor {
         for (String className : RUNTIME_INITIALIZED_CLASSES) {
             runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(className));
         }
+    }
+
+    @BuildStep
+    ReflectiveClassBuildItem registerForReflection() {
+        return new ReflectiveClassBuildItem(true, false, false, StandardSecurityHandler.class);
     }
 }
