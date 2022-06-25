@@ -4,6 +4,10 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.10.0...HEAD)
 
+**Fixed bugs:**
+
+- PDF extension encryption does not work in native mode [\#3871](https://github.com/apache/camel-quarkus/issues/3871)
+
 **Closed issues:**
 
 - 2.10.0 not able to boot NoClassDefFoundError: org/apache/camel/builder/ErrorHandlerBuilder [\#3870](https://github.com/apache/camel-quarkus/issues/3870)
@@ -14,6 +18,9 @@
 
 **Merged pull requests:**
 
+- Ensure new extensions are generated to reference quarkus-extension-maven-plugin [\#3874](https://github.com/apache/camel-quarkus/pull/3874) ([jamesnetherton](https://github.com/jamesnetherton))
+- Remove redundant BOM imports from integration tests [\#3873](https://github.com/apache/camel-quarkus/pull/3873) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix PDF encryption in native mode [\#3872](https://github.com/apache/camel-quarkus/pull/3872) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Optaplanner to 8.23.0.Final [\#3868](https://github.com/apache/camel-quarkus/pull/3868) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3863 to use quarkus-extension-maven-plugin [\#3866](https://github.com/apache/camel-quarkus/pull/3866) ([zhfeng](https://github.com/zhfeng))
 - Fix \#3864 to add nofile ulimit in ArangodbTestResource [\#3865](https://github.com/apache/camel-quarkus/pull/3865) ([zhfeng](https://github.com/zhfeng))
