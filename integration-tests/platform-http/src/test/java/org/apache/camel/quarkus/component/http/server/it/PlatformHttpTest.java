@@ -24,13 +24,13 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.http.Method;
 import org.apache.camel.component.platform.http.PlatformHttpComponent;
-import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpEngine;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import static org.hamcrest.CoreMatchers.endsWith;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -357,7 +357,7 @@ class PlatformHttpTest {
                 .then()
                 .statusCode(200)
                 .body(
-                        "engine", is(VertxPlatformHttpEngine.class.getName()),
+                        "engine", endsWith("CamelQuarkusVertxPlatformHttpEngine"),
                         "component", is(PlatformHttpComponent.class.getName()));
     }
 
