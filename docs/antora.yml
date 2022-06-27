@@ -27,7 +27,7 @@ asciidoc:
 
     min-maven-version: 3.8.2 # replace ${min-maven-version}
     target-maven-version: 3.8.4 # replace ${target-maven-version}
-    camel-version: 3.14.3 # replace ${camel.version}
+    camel-version: 3.14.4 # replace ${camel.version}
     camel-docs-version: 3.14.x # replace ${camel.docs.components.version}
     quarkus-version: 2.7.6.Final # replace ${quarkus.version}
     graalvm-version: 21.3.2 # replace ${graalvm.version}
