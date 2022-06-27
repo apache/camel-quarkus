@@ -272,6 +272,28 @@
 
     <repositories>
         <repository>
+            <id>central</id>
+            <name>Maven Central Repo</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>apache.staging.camel</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1441/</url>
+            <name>Apache Camel 3.14.4 Staging Repo</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
             <name>Apache Snapshot Repo</name>
@@ -281,9 +303,31 @@
             <releases>
                 <enabled>false</enabled>
             </releases>
-        </repository>
+        </repository>        
     </repositories>
     <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <name>Maven Central Repo</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
+        <pluginRepository>
+            <id>apache.staging.camel</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1441/</url>
+            <name>Apache Camel 3.14.4 Staging Repo</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
         <pluginRepository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
