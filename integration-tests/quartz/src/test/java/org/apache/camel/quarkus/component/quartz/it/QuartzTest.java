@@ -81,35 +81,4 @@ class QuartzTest {
                 .body("timezone", is("Europe/Stockholm"),
                         "misfire", is("2"));
     }
-
-    @Test
-    public void testClustered() throws InterruptedException {
-        RestAssured.given()
-                .queryParam("fromEndpoint", "quartz-nodeA")
-                .get("/quartz/get")
-                .then()
-                .statusCode(200)
-                .body(is("Hello Camel Quarkus Quartz NodeA"));
-    }
-
-    @Test
-    public void testClusteredWithNamedDS() throws InterruptedException {
-        RestAssured.given()
-                .queryParam("fromEndpoint", "quartz-nodeB")
-                .get("/quartz/get")
-                .then()
-                .statusCode(200)
-                .body(is("Hello Camel Quarkus Quartz NodeB"));
-    }
-
-    @Test
-    public void testClusteredWithoutDS() throws InterruptedException {
-        //NodeB uses h2 db, which is not initialized therefore no message will be received
-        RestAssured.given()
-                .queryParam("fromEndpoint", "quartz-nodeC")
-                .get("/quartz/get")
-                .then()
-                .statusCode(200)
-                .body(is("Hello Camel Quarkus Quartz NodeC"));
-    }
 }

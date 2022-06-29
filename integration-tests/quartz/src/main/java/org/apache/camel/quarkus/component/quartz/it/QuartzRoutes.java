@@ -42,18 +42,5 @@ public class QuartzRoutes extends RouteBuilder {
 
         from("quartz://misfire?cron=0/1+*+*+*+*+?&trigger.timeZone=Europe/Stockholm&trigger.misfireInstruction=2")
                 .to("seda:quartz-cron-misfire-result");
-
-        from("quartzNodeA:nodeA/1 * * * * ")
-                .setBody(constant("Hello Camel Quarkus Quartz NodeA"))
-                .to("seda:quartz-nodeA-result");
-
-        from("quartzNodeB:nodeB/1 * * * * ")
-                .setBody(constant("Hello Camel Quarkus Quartz NodeB"))
-                .to("seda:quartz-nodeB-result");
-
-        from("quartzNodeC:nodeC/1 * * * * ")
-                .setBody(constant("Hello Camel Quarkus Quartz NodeC"))
-                .to("seda:quartz-nodeC-result");
-
     }
 }

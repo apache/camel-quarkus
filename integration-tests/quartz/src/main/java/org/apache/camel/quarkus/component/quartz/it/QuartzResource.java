@@ -51,27 +51,6 @@ public class QuartzResource {
         return new QuartzComponent();
     }
 
-    @javax.enterprise.inject.Produces
-    @Singleton
-    @Named("quartzNodeA")
-    public QuartzComponent createQuartzNodeA() {
-        return new QuartzComponent();
-    }
-
-    @javax.enterprise.inject.Produces
-    @Singleton
-    @Named("quartzNodeB")
-    public QuartzComponent createQuartzNodeB() {
-        return new QuartzComponent();
-    }
-
-    @javax.enterprise.inject.Produces
-    @Singleton
-    @Named("quartzNodeC")
-    public QuartzComponent createQuartzNodeC() {
-        return new QuartzComponent();
-    }
-
     @Path("/getNameAndResult")
     @GET
     @Produces(MediaType.APPLICATION_JSON)

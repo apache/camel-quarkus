@@ -1,0 +1,9 @@
+= Camel Quarkus 2.11.0 Migration Guide
+
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 2.11.0 & Quarkus 2.11.0.Final.
+
+== Changes to Quartz clustering support
+
+In previous releases the Camel Quarkus Quartz documention listed various means of configuring Quartz for clustering. This has now been simplified 
+to a single set of instructions that leverages Quarkus Quartz. If you are using one of the previous methods of clustering, it is advised to update your 
+application to the new method documented in the xref:reference/extensions/quartz.adoc[Quartz extension guide].

@@ -44,7 +44,6 @@ class QuartzProcessor {
             "org.quartz.impl.jdbcjobstore.JobStoreSupport",
             "org.quartz.impl.triggers.SimpleTriggerImpl",
             "org.quartz.impl.triggers.AbstractTrigger",
-            "org.apache.camel.quarkus.component.quartz.CamelQuarkusQuartzConnectionProvider"
     };
     private static final DotName SQL_JDBC_DELEGATE = DotName.createSimple(StdJDBCDelegate.class.getName());
 
@@ -85,17 +84,15 @@ class QuartzProcessor {
                 .toArray(String[]::new);
 
         reflectiveClasses.produce(new ReflectiveClassBuildItem(false, true, delegatesImpl));
-
     }
 
     @BuildStep
-    void indexSaxonHe(BuildProducer<IndexDependencyBuildItem> deps) {
-        deps.produce(new IndexDependencyBuildItem("org.quartz-scheduler", "quartz"));
+    void indexDependencies(BuildProducer<IndexDependencyBuildItem> indexedDependency) {
+        indexedDependency.produce(new IndexDependencyBuildItem("org.quartz-scheduler", "quartz"));
     }
 
     @BuildStep
     NativeImageSystemPropertyBuildItem disableJMX() {
-
         return new NativeImageSystemPropertyBuildItem("com.mchange.v2.c3p0.management.ManagementCoordinator",
                 "com.mchange.v2.c3p0.management.NullManagementCoordinator");
     }

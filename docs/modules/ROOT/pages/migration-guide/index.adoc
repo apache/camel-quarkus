@@ -4,6 +4,7 @@ We do frequent releases, a release almost every month, and even though we strive
 
 Listed here are guides on how to migrate between major versions and anything of significance to watch for when upgrading from minor versions.
 
+* xref:migration-guide/2.11.0.adoc[Camel Quarkus 2.10.0 to Camel Quarkus 2.11.0 migration guide]
 * xref:migration-guide/2.10.0.adoc[Camel Quarkus 2.9.0 to Camel Quarkus 2.10.0 migration guide]
 * xref:migration-guide/2.8.0.adoc[Camel Quarkus 2.7.0 to Camel Quarkus 2.8.0 migration guide]
 * xref:migration-guide/2.7.0.adoc[Camel Quarkus 2.6.0 to Camel Quarkus 2.7.0 migration guide]
