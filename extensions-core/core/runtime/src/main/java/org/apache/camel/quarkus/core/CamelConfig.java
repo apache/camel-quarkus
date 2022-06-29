@@ -72,6 +72,12 @@ public class CamelConfig {
     @ConfigItem
     public EventBridgeConfig eventBridge;
 
+    /**
+     * Build time configuration options for enable/disable camel source location
+     */
+    @ConfigItem(defaultValue = "false")
+    public boolean sourceLocationEnabled;
+
     @ConfigGroup
     public static class BootstrapConfig {
         /**

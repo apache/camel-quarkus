@@ -254,6 +254,12 @@ Whether to enable the bridging of Camel events to CDI events.
 | `boolean`
 | `true`
 
+|icon:lock[title=Fixed at build time] [[quarkus.camel.source-location-enabled]]`link:#quarkus.camel.source-location-enabled[quarkus.camel.source-location-enabled]`
+
+Build time configuration options for enable/disable camel source location
+| `boolean`
+| `false`
+
 |icon:lock[title=Fixed at build time] [[quarkus.camel.main.shutdown.timeout]]`link:#quarkus.camel.main.shutdown.timeout[quarkus.camel.main.shutdown.timeout]`
 
 A timeout (with millisecond precision) to wait for `CamelMain++#++stop()` to finish

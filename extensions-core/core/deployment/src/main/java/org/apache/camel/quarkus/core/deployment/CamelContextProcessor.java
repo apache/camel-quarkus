@@ -112,7 +112,7 @@ public class CamelContextProcessor {
     }
 
     /**
-     * Enable source location if camel.quarkus.source-location-enabled=true
+     * Enable source location if quarkus.camel.source-location-enabled=true
      *
      * @param recorder the recorder
      * @param producer producer of context customizer build item
@@ -177,9 +177,11 @@ public class CamelContextProcessor {
     }
 
     public static final class SourceLocationEnabled implements BooleanSupplier {
+        CamelConfig config;
+
         @Override
         public boolean getAsBoolean() {
-            return CamelSupport.getOptionalConfigValue("camel.quarkus.source-location-enabled", Boolean.class, false);
+            return config.sourceLocationEnabled;
         }
     }
 }

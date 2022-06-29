@@ -49,7 +49,7 @@ public class CamelSourceLocationTest {
         Writer writer = new StringWriter();
 
         Properties props = new Properties();
-        props.setProperty("camel.quarkus.source-location-enabled", "true");
+        props.setProperty("quarkus.camel.source-location-enabled", "true");
 
         try {
             props.store(writer, "");
