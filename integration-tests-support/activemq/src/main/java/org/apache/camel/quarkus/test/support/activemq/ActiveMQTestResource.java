@@ -28,7 +28,7 @@ import org.testcontainers.utility.DockerImageName;
 public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager {
 
     private static final String ACTIVEMQ_IMAGE_NAME = System.getProperty("activemq.container.image",
-            "quay.io/artemiscloud/activemq-artemis-broker:0.1.4");
+            "quay.io/artemiscloud/activemq-artemis-broker:1.0.5");
     private static final String ACTIVEMQ_USERNAME = "artemis";
     private static final String ACTIVEMQ_PASSWORD = "simetraehcapa";
     private static final int ACTIVEMQ_PORT = 61616;
@@ -58,10 +58,11 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
         container.start();
 
         int containerPort = container.getMappedPort(ACTIVEMQ_PORT);
+        String containerHost = container.getHost();
 
-        String brokerUrlTcp = String.format("tcp://127.0.0.1:%d", containerPort);
-        String brokerUrlWs = String.format("ws://127.0.0.1:%d", containerPort);
-        String brokerUrlAmqp = String.format("amqp://127.0.0.1:%d", containerPort);
+        String brokerUrlTcp = String.format("tcp://%s:%d", containerHost, containerPort);
+        String brokerUrlWs = String.format("ws://%s:%d", containerHost, containerPort);
+        String brokerUrlAmqp = String.format("amqp://%s:%d", containerHost, containerPort);
 
         Map<String, String> result = new LinkedHashMap<>();
 
