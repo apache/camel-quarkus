@@ -24,12 +24,10 @@ import java.sql.Statement;
 import java.util.UUID;
 
 import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.common.ResourceArg;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.apache.camel.quarkus.test.support.activemq.ActiveMQTestResource;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -40,9 +38,6 @@ import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 @QuarkusTestResource(H2DatabaseTestResource.class)
-@QuarkusTestResource(initArgs = {
-        @ResourceArg(name = "modules", value = "quarkus.artemis")
-}, value = ActiveMQTestResource.class)
 class JtaTest {
 
     @Test
