@@ -22,16 +22,26 @@ import java.util.Properties;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
+import org.apache.activemq.transport.Transport;
+import org.apache.activemq.transport.discovery.DiscoveryAgent;
 import org.apache.activemq.util.IdGenerator;
+import org.apache.activemq.wireformat.WireFormatFactory;
+import org.jboss.jandex.DotName;
+import org.jboss.jandex.IndexView;
 
 class ActiveMQProcessor {
 
     private static final String ACTIVEMQ_SERVICE_BASE = "META-INF/services/org/apache/activemq/";
+    private static final DotName TRANSPORT = DotName.createSimple(Transport.class.getName());
+    private static final DotName WIRE_FORMAT_FACTORY = DotName.createSimple(WireFormatFactory.class.getName());
+    private static final DotName DISCOVERY_AGENT = DotName.createSimple(DiscoveryAgent.class.getName());
     private static final String FEATURE = "camel-activemq";
 
     @BuildStep
@@ -47,6 +57,9 @@ class ActiveMQProcessor {
     @BuildStep
     ReflectiveClassBuildItem registerForReflection() {
         return new ReflectiveClassBuildItem(true, false,
+                "java.net.Socket",
+                "sun.security.ssl.SSLSocketImpl",
+                "org.apache.activemq.command.ConsumerInfo",
                 "org.apache.activemq.pool.PooledConnectionFactory",
                 "org.apache.commons.pool2.impl.DefaultEvictionPolicy",
                 "org.apache.activemq.openwire.v2.MarshallerFactory",
@@ -60,6 +73,26 @@ class ActiveMQProcessor {
                 "org.apache.activemq.openwire.v10.MarshallerFactory",
                 "org.apache.activemq.openwire.v11.MarshallerFactory",
                 "org.apache.activemq.openwire.v12.MarshallerFactory");
+    }
+
+    @BuildStep
+    void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
+        indexDependency.produce(new IndexDependencyBuildItem("org.apache.activemq", "activemq-client"));
+    }
+
+    @BuildStep
+    ReflectiveClassBuildItem registerTransports(CombinedIndexBuildItem combinedIndex) {
+        return new ReflectiveClassBuildItem(true, false, getReflectiveClass(combinedIndex, TRANSPORT));
+    }
+
+    @BuildStep
+    ReflectiveClassBuildItem registerWireFormatFactory(CombinedIndexBuildItem combinedIndex) {
+        return new ReflectiveClassBuildItem(true, false, getReflectiveClass(combinedIndex, WIRE_FORMAT_FACTORY));
+    }
+
+    @BuildStep
+    ReflectiveClassBuildItem registerDiscoveryAgent(CombinedIndexBuildItem combinedIndex) {
+        return new ReflectiveClassBuildItem(true, false, getReflectiveClass(combinedIndex, DISCOVERY_AGENT));
     }
 
     @BuildStep
@@ -103,5 +136,13 @@ class ActiveMQProcessor {
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
+    }
+
+    private String[] getReflectiveClass(CombinedIndexBuildItem combinedIndex, DotName ifName) {
+        IndexView index = combinedIndex.getIndex();
+        return index.getAllKnownImplementors(ifName)
+                .stream()
+                .map(classInfo -> classInfo.name().toString())
+                .toArray(String[]::new);
     }
 }
