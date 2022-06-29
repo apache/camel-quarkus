@@ -168,6 +168,7 @@
         <module>protobuf</module>
         <module>pubnub</module>
         <module>quartz</module>
+        <module>quartz-clustered</module>
         <module>qute</module>
         <module>rabbitmq</module>
         <module>reactive-streams</module>

@@ -177,6 +177,7 @@ group-11:
 group-12:
   - aws2-grouped
   - csimple
+  - quartz-clustered
   - microprofile
   - openapi-java
   - opentracing
