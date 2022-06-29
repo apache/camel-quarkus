@@ -15,6 +15,7 @@
 - quarkus-bootstrap-maven-plugin is deprecated [\#3863](https://github.com/apache/camel-quarkus/issues/3863)
 - paho-mqtt5 test failing with `Error: Unable to create websockets listener on port 9001` [\#3860](https://github.com/apache/camel-quarkus/issues/3860)
 - Camel TypeConverterLoader in native mode [\#3857](https://github.com/apache/camel-quarkus/issues/3857)
+- Reduce the number of `timer-log` example projects [\#3708](https://github.com/apache/camel-quarkus/issues/3708)
 
 **Merged pull requests:**
 
