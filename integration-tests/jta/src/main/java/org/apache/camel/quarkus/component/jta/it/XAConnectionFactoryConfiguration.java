@@ -23,8 +23,6 @@ import javax.jms.ConnectionFactory;
 import javax.jms.XAConnectionFactory;
 import javax.transaction.TransactionManager;
 
-import io.quarkus.artemis.core.runtime.ArtemisRuntimeConfig;
-import org.apache.activemq.artemis.jms.client.ActiveMQXAConnectionFactory;
 import org.jboss.narayana.jta.jms.ConnectionFactoryProxy;
 import org.jboss.narayana.jta.jms.TransactionHelperImpl;
 
@@ -35,10 +33,8 @@ public class XAConnectionFactoryConfiguration {
     // And the ConnectionFactory could be integrated with TransactionManager
     @Produces
     @Named("xaConnectionFactory")
-    public ConnectionFactory getXAConnectionFactory(TransactionManager tm, ArtemisRuntimeConfig config) {
-        XAConnectionFactory cf = new ActiveMQXAConnectionFactory(
-                config.url, config.username.orElse(null), config.password.orElse(null));
-        return new ConnectionFactoryProxy(cf, new TransactionHelperImpl(tm));
+    public ConnectionFactory getXAConnectionFactory(TransactionManager tm, XAConnectionFactory xacf) {
+        return new ConnectionFactoryProxy(xacf, new TransactionHelperImpl(tm));
 
     }
 }
