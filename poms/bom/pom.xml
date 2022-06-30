@@ -9721,7 +9721,7 @@
             </dependency>
             <dependency>
                 <groupId>ca.uhn.hapi.fhir</groupId>
-                <artifactId>hapi-fhir-structures-hl7org-dstu2</artifactId>
+                <artifactId>hapi-fhir-structures-dstu3</artifactId>
                 <version>${hapi-fhir.version}</version>
                 <exclusions>
                     <exclusion>
@@ -9744,7 +9744,7 @@
             </dependency>
             <dependency>
                 <groupId>ca.uhn.hapi.fhir</groupId>
-                <artifactId>hapi-fhir-structures-dstu3</artifactId>
+                <artifactId>hapi-fhir-structures-hl7org-dstu2</artifactId>
                 <version>${hapi-fhir.version}</version>
                 <exclusions>
                     <exclusion>
@@ -9832,7 +9832,7 @@
             </dependency>
             <dependency>
                 <groupId>ca.uhn.hapi.fhir</groupId>
-                <artifactId>org.hl7.fhir.dstu3</artifactId>
+                <artifactId>org.hl7.fhir.dstu2016may</artifactId>
                 <version>${hapi-fhir.version}</version>
                 <exclusions>
                     <exclusion>
@@ -9851,7 +9851,7 @@
             </dependency>
             <dependency>
                 <groupId>ca.uhn.hapi.fhir</groupId>
-                <artifactId>org.hl7.fhir.dstu2016may</artifactId>
+                <artifactId>org.hl7.fhir.dstu3</artifactId>
                 <version>${hapi-fhir.version}</version>
                 <exclusions>
                     <exclusion>
