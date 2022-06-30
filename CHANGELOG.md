@@ -2,23 +2,22 @@
 
 ## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.10.0...HEAD)
-
-**Fixed bugs:**
-
-- PDF extension encryption does not work in native mode [\#3871](https://github.com/apache/camel-quarkus/issues/3871)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.7.2...HEAD)
 
 **Closed issues:**
 
-- 2.10.0 not able to boot NoClassDefFoundError: org/apache/camel/builder/ErrorHandlerBuilder [\#3870](https://github.com/apache/camel-quarkus/issues/3870)
-- arangodb integration tests failing with can not start container [\#3864](https://github.com/apache/camel-quarkus/issues/3864)
-- quarkus-bootstrap-maven-plugin is deprecated [\#3863](https://github.com/apache/camel-quarkus/issues/3863)
-- paho-mqtt5 test failing with `Error: Unable to create websockets listener on port 9001` [\#3860](https://github.com/apache/camel-quarkus/issues/3860)
-- Camel TypeConverterLoader in native mode [\#3857](https://github.com/apache/camel-quarkus/issues/3857)
-- Reduce the number of `timer-log` example projects [\#3708](https://github.com/apache/camel-quarkus/issues/3708)
+- Upgrade quarkus-artemis to 1.2.0 [\#3884](https://github.com/apache/camel-quarkus/issues/3884)
+- Consider removing configuration for `camel.main.source-location-enabled` [\#3858](https://github.com/apache/camel-quarkus/issues/3858)
+- Clarify usage of Quarkus Quartz clustering support [\#3850](https://github.com/apache/camel-quarkus/issues/3850)
 
 **Merged pull requests:**
 
+- Fix \#3858 rename to quarkus.camel.source-location-enabled [\#3886](https://github.com/apache/camel-quarkus/pull/3886) ([zhfeng](https://github.com/zhfeng))
+- Fix \#3884 upgrade quarkus-artemis to 1.2.0 [\#3885](https://github.com/apache/camel-quarkus/pull/3885) ([zhfeng](https://github.com/zhfeng))
+- Remove redundant Spring dependencies from JDBC extension [\#3883](https://github.com/apache/camel-quarkus/pull/3883) ([jamesnetherton](https://github.com/jamesnetherton))
+- Simplify support for Quartz clustering [\#3882](https://github.com/apache/camel-quarkus/pull/3882) ([jamesnetherton](https://github.com/jamesnetherton))
+- Parametrize infinispan image [\#3881](https://github.com/apache/camel-quarkus/pull/3881) ([llowinge](https://github.com/llowinge))
+- Upgrade artemiscloud/activemq-artemis-broker to 1.0.5 [\#3880](https://github.com/apache/camel-quarkus/pull/3880) ([zhfeng](https://github.com/zhfeng))
 - Ensure new extensions are generated to reference quarkus-extension-maven-plugin [\#3874](https://github.com/apache/camel-quarkus/pull/3874) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove redundant BOM imports from integration tests [\#3873](https://github.com/apache/camel-quarkus/pull/3873) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix PDF encryption in native mode [\#3872](https://github.com/apache/camel-quarkus/pull/3872) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1120,6 +1119,23 @@
 - Fix \#1428 to add the usage.adoc [\#1457](https://github.com/apache/camel-quarkus/pull/1457) ([zhfeng](https://github.com/zhfeng))
 - org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
+
+## [2.7.2](https://github.com/apache/camel-quarkus/tree/2.7.2) (2022-06-29)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.10.0...2.7.2)
+
+**Fixed bugs:**
+
+- PDF extension encryption does not work in native mode [\#3871](https://github.com/apache/camel-quarkus/issues/3871)
+
+**Closed issues:**
+
+- 2.10.0 not able to boot NoClassDefFoundError: org/apache/camel/builder/ErrorHandlerBuilder [\#3870](https://github.com/apache/camel-quarkus/issues/3870)
+- arangodb integration tests failing with can not start container [\#3864](https://github.com/apache/camel-quarkus/issues/3864)
+- quarkus-bootstrap-maven-plugin is deprecated [\#3863](https://github.com/apache/camel-quarkus/issues/3863)
+- paho-mqtt5 test failing with `Error: Unable to create websockets listener on port 9001` [\#3860](https://github.com/apache/camel-quarkus/issues/3860)
+- Camel TypeConverterLoader in native mode [\#3857](https://github.com/apache/camel-quarkus/issues/3857)
+- Reduce the number of `timer-log` example projects [\#3708](https://github.com/apache/camel-quarkus/issues/3708)
 
 ## [2.10.0](https://github.com/apache/camel-quarkus/tree/2.10.0) (2022-06-17)
 
