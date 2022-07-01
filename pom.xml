@@ -80,6 +80,7 @@
         <derby.version>10.15.2.0</derby.version><!-- Spark -->
         <dropwizard-metrics.version>4.1.0</dropwizard-metrics.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:io.dropwizard.metrics:metrics-core -->
         <eddsa.version>${eddsa-version}</eddsa.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <freemarker.version>2.3.31</freemarker.version><!-- @sync io.quarkiverse.freemarker:quarkus-freemarker-parent:${quarkiverse-freemarker.version} prop:freemarker.version -->
         <fommil.netlib.core.version>1.1.2</fommil.netlib.core.version><!-- Mess in Weka transitive deps -->
         <github-api.version>1.111</github-api.version><!-- Used in a Groovy script bellow -->
