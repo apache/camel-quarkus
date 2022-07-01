@@ -4,14 +4,22 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.7.2...HEAD)
 
+**Fixed bugs:**
+
+- Configuration of ActiveMQ broker URL properties may require reflective access [\#3809](https://github.com/apache/camel-quarkus/issues/3809)
+
 **Closed issues:**
 
+- flattened-full-pom.xml contains some artifacts from quarkus 2.9.0.Final [\#3887](https://github.com/apache/camel-quarkus/issues/3887)
 - Upgrade quarkus-artemis to 1.2.0 [\#3884](https://github.com/apache/camel-quarkus/issues/3884)
 - Consider removing configuration for `camel.main.source-location-enabled` [\#3858](https://github.com/apache/camel-quarkus/issues/3858)
 - Clarify usage of Quarkus Quartz clustering support [\#3850](https://github.com/apache/camel-quarkus/issues/3850)
+- Reduce the noise in verbose flattened BOMs [\#3702](https://github.com/apache/camel-quarkus/issues/3702)
+- Apache Drill Unable to start [\#3315](https://github.com/apache/camel-quarkus/issues/3315)
 
 **Merged pull requests:**
 
+- Fix \#3809 add reflections for all transports [\#3892](https://github.com/apache/camel-quarkus/pull/3892) ([zhfeng](https://github.com/zhfeng))
 - Fix \#3858 rename to quarkus.camel.source-location-enabled [\#3886](https://github.com/apache/camel-quarkus/pull/3886) ([zhfeng](https://github.com/zhfeng))
 - Fix \#3884 upgrade quarkus-artemis to 1.2.0 [\#3885](https://github.com/apache/camel-quarkus/pull/3885) ([zhfeng](https://github.com/zhfeng))
 - Remove redundant Spring dependencies from JDBC extension [\#3883](https://github.com/apache/camel-quarkus/pull/3883) ([jamesnetherton](https://github.com/jamesnetherton))
