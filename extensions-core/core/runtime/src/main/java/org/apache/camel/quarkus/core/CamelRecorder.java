@@ -68,7 +68,7 @@ public class CamelRecorder {
         }
     }
 
-    public void loadAnnotatedConverters(RuntimeValue<TypeConverterRegistry> registry, Set<Class> classes) {
+    public void loadAnnotatedConverters(RuntimeValue<TypeConverterRegistry> registry, Set<Class<?>> classes) {
         StaticAnnotationTypeConverterLoader.getInstance().load(registry.getValue(), classes);
     }
 
@@ -96,7 +96,7 @@ public class CamelRecorder {
             Class<?> type) {
 
         try {
-            runtime.getValue().bind(name, type, type.newInstance());
+            runtime.getValue().bind(name, type, type.getDeclaredConstructor().newInstance());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

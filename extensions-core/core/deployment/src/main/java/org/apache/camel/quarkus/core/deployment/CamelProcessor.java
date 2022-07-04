@@ -243,7 +243,7 @@ class CamelProcessor {
         final ClassLoader TCCL = Thread.currentThread().getContextClassLoader();
 
         for (ApplicationArchive archive : applicationArchives.getAllApplicationArchives()) {
-            for (Path root : archive.getRootDirs()) {
+            for (Path root : archive.getRootDirectories()) {
                 Path path = root.resolve(BaseTypeConverterRegistry.META_INF_SERVICES_TYPE_CONVERTER_LOADER);
                 if (!Files.isRegularFile(path)) {
                     continue;
@@ -275,7 +275,7 @@ class CamelProcessor {
             }
         }
 
-        Set<Class> convertersClasses = index
+        Set<Class<?>> convertersClasses = index
                 .getAnnotations(DotName.createSimple(Converter.class.getName()))
                 .stream().filter(a -> a.target().kind() == AnnotationTarget.Kind.CLASS &&
                         (a.value("generateBulkLoader") == null || !a.value("generateBulkLoader").asBoolean()) &&
