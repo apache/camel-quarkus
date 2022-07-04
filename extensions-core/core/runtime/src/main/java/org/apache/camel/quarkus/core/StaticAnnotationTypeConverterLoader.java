@@ -34,8 +34,8 @@ public class StaticAnnotationTypeConverterLoader extends AnnotationTypeConverter
         super(null);
     }
 
-    public void load(TypeConverterRegistry registry, Set<Class> converterClasses) {
-        for (Class clazz : converterClasses) {
+    public void load(TypeConverterRegistry registry, Set<Class<?>> converterClasses) {
+        for (Class<?> clazz : converterClasses) {
             loadConverterMethods(registry, clazz);
         }
     }
