@@ -62,7 +62,7 @@ from("platform-http:/hello?httpMethodRestrict=GET").setBody(simple("Hello ${head
 
 === Using `platform-http` via Camel REST DSL
 
-To be able to use Camel REST DSL with the `platform-http` component, add `camel-quarkus-rest` in addition to `camel-quarkus-platform-http` to your `pom.xml`:
+To be able to use Camel REST DSL with the `platform-http` component, add `camel-quarkus-rest` to your `pom.xml`:
 
 [source,xml]
 ----
@@ -78,15 +78,11 @@ Then you can use the Camel REST DSL:
 ----
 rest()
     .get("/my-get-endpoint")
-        .route()
-        .setBody(constant("Hello from /my-get-endpoint"))
-        .endRest()
-    .post("/my-post-endpoint")
-        .route()
-        .setBody(constant("Hello from /my-post-endpoint"))
-        .endRest();
-----
+        .to("direct:handleGetRequest");
 
+    .post("/my-post-endpoint")
+        .to("direct:handlePostRequest");
+----
 
 === Handling `multipart/form-data` file uploads
 
