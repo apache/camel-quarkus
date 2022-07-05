@@ -36,5 +36,6 @@ public class CamelDozerConfig {
      * Sets whether to configure the DozerTypeConverter for the CamelContext
      */
     @ConfigItem(defaultValue = "false")
+    @Deprecated(forRemoval = true, since = "2.11.0")
     public boolean typeConverterEnabled;
 }

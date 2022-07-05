@@ -76,12 +76,6 @@ quarkus.camel.dozer.type-converter-enabled = true
 A comma separated list of Dozer XML mapping configuration file URIs.
 | `string`
 | 
-
-|icon:lock[title=Fixed at build time] [[quarkus.camel.dozer.type-converter-enabled]]`link:#quarkus.camel.dozer.type-converter-enabled[quarkus.camel.dozer.type-converter-enabled]`
-
-Sets whether to configure the DozerTypeConverter for the CamelContext
-| `boolean`
-| `false`
 |===
 
 [.configuration-legend]
