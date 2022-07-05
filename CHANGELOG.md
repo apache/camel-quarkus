@@ -6,6 +6,7 @@
 
 **Fixed bugs:**
 
+- Cannot compile native image for Google PubSub integration tests [\#3832](https://github.com/apache/camel-quarkus/issues/3832)
 - Configuration of ActiveMQ broker URL properties may require reflective access [\#3809](https://github.com/apache/camel-quarkus/issues/3809)
 
 **Closed issues:**
@@ -14,11 +15,15 @@
 - Upgrade quarkus-artemis to 1.2.0 [\#3884](https://github.com/apache/camel-quarkus/issues/3884)
 - Consider removing configuration for `camel.main.source-location-enabled` [\#3858](https://github.com/apache/camel-quarkus/issues/3858)
 - Clarify usage of Quarkus Quartz clustering support [\#3850](https://github.com/apache/camel-quarkus/issues/3850)
+- Create an example for JTA+JPA integration [\#3817](https://github.com/apache/camel-quarkus/issues/3817)
 - Reduce the noise in verbose flattened BOMs [\#3702](https://github.com/apache/camel-quarkus/issues/3702)
 - Apache Drill Unable to start [\#3315](https://github.com/apache/camel-quarkus/issues/3315)
 
 **Merged pull requests:**
 
+- core: Fix some warnings [\#3898](https://github.com/apache/camel-quarkus/pull/3898) ([aldettinger](https://github.com/aldettinger))
+- Remove inline routes from platform-http REST DSL docs [\#3895](https://github.com/apache/camel-quarkus/pull/3895) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade Quarkus to 2.10.1.Final [\#3894](https://github.com/apache/camel-quarkus/pull/3894) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3809 add reflections for all transports [\#3892](https://github.com/apache/camel-quarkus/pull/3892) ([zhfeng](https://github.com/zhfeng))
 - Fix \#3858 rename to quarkus.camel.source-location-enabled [\#3886](https://github.com/apache/camel-quarkus/pull/3886) ([zhfeng](https://github.com/zhfeng))
 - Fix \#3884 upgrade quarkus-artemis to 1.2.0 [\#3885](https://github.com/apache/camel-quarkus/pull/3885) ([zhfeng](https://github.com/zhfeng))
