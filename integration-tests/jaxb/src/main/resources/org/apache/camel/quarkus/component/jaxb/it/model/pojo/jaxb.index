@@ -1,4 +1,3 @@
-
 ## ---------------------------------------------------------------------------
 ## Licensed to the Apache Software Foundation (ASF) under one or more
 ## contributor license agreements.  See the NOTICE file distributed with
@@ -15,8 +14,4 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
-
-# Note: jaxb.index for the 'pojo' package is added manually since PojoPerson is a slight edge case test
-# where it does not have any JAXB annotations. Thus quarkus-jaxb cannot auto create
-# the jaxb.index for the native image
-quarkus.native.resources.includes = person.xsd,org/apache/camel/quarkus/component/jaxb/it/model/pojo/jaxb.index
+PojoPerson

@@ -14,18 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jaxb.it.model;
+package org.apache.camel.quarkus.component.jaxb.it.model.namespaced;
 
-public interface Person {
-    String getFirstName();
+import javax.xml.bind.annotation.XmlRegistry;
 
-    void setFirstName(String value);
+@XmlRegistry
+public class ObjectFactory {
 
-    String getLastName();
+    public ObjectFactory() {
+    }
 
-    void setLastName(String value);
-
-    Integer getAge();
-
-    void setAge(Integer value);
+    public NamespacedPerson createNamespacedPerson() {
+        return new NamespacedPerson();
+    }
 }

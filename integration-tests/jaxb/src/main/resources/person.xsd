@@ -17,12 +17,7 @@
     limitations under the License.
 
 -->
-<xs:schema attributeFormDefault="unqualified"
-           elementFormDefault="qualified"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:a="address.jaxb.converter.camel.apache.org"
-           targetNamespace="person.jaxb.converter.camel.apache.org">
-
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <xs:element name="person">
         <xs:complexType>
             <xs:sequence>

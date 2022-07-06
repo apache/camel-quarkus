@@ -525,6 +525,7 @@
                             <ds>SLASHSTAR_STYLE</ds>
                             <groovy>SLASHSTAR_STYLE</groovy>
                             <java>SLASHSTAR_STYLE</java>
+                            <jaxb.index>CAMEL_PROPERTIES_STYLE</jaxb.index>
                             <Jenkinsfile>SLASHSTAR_STYLE</Jenkinsfile>
                             <Jenkinsfile.quarkus>SLASHSTAR_STYLE</Jenkinsfile.quarkus>
                             <properties>CAMEL_PROPERTIES_STYLE</properties>

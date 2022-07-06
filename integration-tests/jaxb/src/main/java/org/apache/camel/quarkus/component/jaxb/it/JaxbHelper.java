@@ -14,18 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jaxb.it.model;
+package org.apache.camel.quarkus.component.jaxb.it;
 
-public interface Person {
-    String getFirstName();
+import javax.json.Json;
+import javax.json.JsonObject;
 
-    void setFirstName(String value);
+import org.apache.camel.quarkus.component.jaxb.it.model.Person;
 
-    String getLastName();
+public final class JaxbHelper {
 
-    void setLastName(String value);
+    private JaxbHelper() {
+        // Utility class
+    }
 
-    Integer getAge();
-
-    void setAge(Integer value);
+    public static JsonObject personToJson(Person person) {
+        return Json.createObjectBuilder()
+                .add("firstName", person.getFirstName())
+                .add("lastName", person.getLastName())
+                .add("age", person.getAge())
+                .build();
+    }
 }
