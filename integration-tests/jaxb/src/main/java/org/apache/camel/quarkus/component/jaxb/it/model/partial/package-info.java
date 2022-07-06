@@ -14,18 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jaxb.it.model;
+@XmlSchema(xmlns = {
+        @XmlNs(prefix = "person", namespaceURI = PartClassPerson.NAMESPACE)
+})
+package org.apache.camel.quarkus.component.jaxb.it.model.partial;
 
-public interface Person {
-    String getFirstName();
-
-    void setFirstName(String value);
-
-    String getLastName();
-
-    void setLastName(String value);
-
-    Integer getAge();
-
-    void setAge(Integer value);
-}
+import javax.xml.bind.annotation.XmlNs;
+import javax.xml.bind.annotation.XmlSchema;

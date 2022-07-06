@@ -16,38 +16,121 @@
  */
 package org.apache.camel.quarkus.component.jaxb.it;
 
-import java.util.Map;
-
-import javax.xml.bind.JAXBContext;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.converter.jaxb.JaxbConstants;
 import org.apache.camel.converter.jaxb.JaxbDataFormat;
-import org.apache.camel.quarkus.component.jaxb.it.model.Person;
+import org.apache.camel.quarkus.component.jaxb.it.model.factory.FactoryInstantiatedPerson;
+import org.apache.camel.quarkus.component.jaxb.it.model.partial.PartClassPerson;
+import org.apache.camel.quarkus.component.jaxb.it.model.simple.SimplePerson;
 
+@ApplicationScoped
 public class JaxbRoute extends RouteBuilder {
 
+    @Inject
+    @Named("jaxbDefault")
+    JaxbDataFormat defaultJaxbDataFormat;
+
+    @Inject
+    @Named("jaxbWithNamespacePrefix")
+    JaxbDataFormat jaxbDataFormatWithNamespacePrefix;
+
+    @Inject
+    @Named("jaxbWithEncoding")
+    JaxbDataFormat jaxbDataFormatWithEncoding;
+
+    @Inject
+    @Named("jaxbWithMustBeJAXBElementFalse")
+    JaxbDataFormat jaxbDataFormatWithMustBeJAXBElementFalse;
+
+    @Inject
+    @Named("jaxbWithPartClass")
+    JaxbDataFormat jaxbDataFormatWithPartClass;
+
+    @Inject
+    @Named("jaxbWithIgnoreElement")
+    JaxbDataFormat jaxbDataFormatIgnoreElement;
+
+    @Inject
+    @Named("jaxbWithCustomProperties")
+    JaxbDataFormat jaxbDataFormatCustomProperties;
+
+    @Inject
+    @Named("jaxbWithCustomStreamWriter")
+    JaxbDataFormat jaxbDataFormatCustomStreamWriter;
+
+    @Inject
+    @Named("jaxbWithoutObjectFactory")
+    JaxbDataFormat jaxbDataFormatWithoutObjectFactory;
+
+    @Inject
+    @Named("jaxbWithNoNamespaceSchemaLocation")
+    JaxbDataFormat jaxbDataFormatNoNamespaceSchemaLocation;
+
     @Override
-    public void configure() throws Exception {
-
-        JaxbDataFormat xml = new JaxbDataFormat();
-        JAXBContext context = JAXBContext.newInstance(Person.class);
-        xml.setContext(context);
-        xml.setNamespacePrefix(Map.of("http://example.com/a", "test"));
-
-        JaxbDataFormat jaxbFromScheme = new JaxbDataFormat();
-        jaxbFromScheme.setSchema("classpath:person.xsd");
+    public void configure() {
+        from("direct:marshal")
+                .marshal(defaultJaxbDataFormat);
 
         from("direct:unmarshal")
-                .unmarshal().jaxb("org.apache.camel.quarkus.component.jaxb.it.model");
+                .unmarshal(defaultJaxbDataFormat);
 
-        from("direct:unmarshal-2")
-                .unmarshal(xml);
+        from("direct:marshalJaxbDsl")
+                .marshal().jaxb(SimplePerson.class.getPackageName());
 
-        from("direct:marshal")
-                .marshal(jaxbFromScheme);
+        from("direct:unmarshalJaxbDsl")
+                .unmarshal().jaxb(SimplePerson.class.getPackageName());
 
-        from("direct:marshal-2")
-                .marshal(xml);
+        from("direct:marshalNamespacePrefix")
+                .marshal(jaxbDataFormatWithNamespacePrefix);
 
+        from("direct:unmarshalNamespacePrefix")
+                .unmarshal(jaxbDataFormatWithNamespacePrefix);
+
+        from("direct:marshalEncoding")
+                .marshal(jaxbDataFormatWithEncoding);
+
+        from("direct:unmarshalEncoding")
+                .unmarshal(jaxbDataFormatWithEncoding);
+
+        from("direct:marshalWithMustBeJAXBElementFalse")
+                .marshal(jaxbDataFormatWithMustBeJAXBElementFalse);
+
+        from("direct:marshalPartClass")
+                .marshal(jaxbDataFormatWithPartClass);
+
+        from("direct:marshalPartClassFromHeader")
+                .setHeader(JaxbConstants.JAXB_PART_CLASS, constant(PartClassPerson.class.getName()))
+                .setHeader(JaxbConstants.JAXB_PART_NAMESPACE, constant(String.format("{%s}person", PartClassPerson.NAMESPACE)))
+                .marshal().jaxb(PartClassPerson.class.getPackageName());
+
+        from("direct:unmarshalPartClass")
+                .unmarshal(jaxbDataFormatWithPartClass);
+
+        from("direct:unmarshalPartClassFromHeader")
+                .setHeader(JaxbConstants.JAXB_PART_CLASS, constant(PartClassPerson.class.getName()))
+                .setHeader(JaxbConstants.JAXB_PART_NAMESPACE, constant(String.format("{%s}person", PartClassPerson.NAMESPACE)))
+                .unmarshal().jaxb(PartClassPerson.class.getPackageName());
+
+        from("direct:unmarshalIgnoreJaxbElement")
+                .unmarshal(jaxbDataFormatIgnoreElement);
+
+        from("direct:marshalCustomProperties")
+                .marshal(jaxbDataFormatCustomProperties);
+
+        from("direct:marshalCustomStreamWriter")
+                .marshal(jaxbDataFormatCustomStreamWriter);
+
+        from("direct:marshalWithoutObjectFactory")
+                .marshal(jaxbDataFormatWithoutObjectFactory);
+
+        from("direct:marshalNoNamespaceSchemaLocation")
+                .marshal(jaxbDataFormatNoNamespaceSchemaLocation);
+
+        from("direct:marshalWithObjectFactory")
+                .marshal().jaxb(FactoryInstantiatedPerson.class.getPackageName());
     }
 }

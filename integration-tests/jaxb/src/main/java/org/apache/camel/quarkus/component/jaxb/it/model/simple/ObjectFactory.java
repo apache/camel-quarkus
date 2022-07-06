@@ -14,18 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jaxb.it.model;
+package org.apache.camel.quarkus.component.jaxb.it.model.simple;
 
-public interface Person {
-    String getFirstName();
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlElementDecl;
+import javax.xml.bind.annotation.XmlRegistry;
+import javax.xml.namespace.QName;
 
-    void setFirstName(String value);
+@XmlRegistry
+public class ObjectFactory {
+    public ObjectFactory() {
+    }
 
-    String getLastName();
+    public SimplePerson createSimplePerson() {
+        return new SimplePerson();
+    }
 
-    void setLastName(String value);
-
-    Integer getAge();
-
-    void setAge(Integer value);
+    @XmlElementDecl(namespace = "", name = "Person")
+    public JAXBElement<SimplePerson> createPerson(SimplePerson value) {
+        return new JAXBElement<>(new QName(SimplePerson.NAMESPACE, "person"), SimplePerson.class, null, value);
+    }
 }
