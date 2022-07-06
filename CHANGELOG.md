@@ -11,6 +11,7 @@
 
 **Closed issues:**
 
+- dozer: deprecate typeConverterEnabled config [\#3900](https://github.com/apache/camel-quarkus/issues/3900)
 - flattened-full-pom.xml contains some artifacts from quarkus 2.9.0.Final [\#3887](https://github.com/apache/camel-quarkus/issues/3887)
 - Upgrade quarkus-artemis to 1.2.0 [\#3884](https://github.com/apache/camel-quarkus/issues/3884)
 - Consider removing configuration for `camel.main.source-location-enabled` [\#3858](https://github.com/apache/camel-quarkus/issues/3858)
@@ -18,9 +19,11 @@
 - Create an example for JTA+JPA integration [\#3817](https://github.com/apache/camel-quarkus/issues/3817)
 - Reduce the noise in verbose flattened BOMs [\#3702](https://github.com/apache/camel-quarkus/issues/3702)
 - Apache Drill Unable to start [\#3315](https://github.com/apache/camel-quarkus/issues/3315)
+- XA JMS Transaction fails [\#2815](https://github.com/apache/camel-quarkus/issues/2815)
 
 **Merged pull requests:**
 
+- dozer: Deprecate the typeConverterEnabled config \#3900 [\#3901](https://github.com/apache/camel-quarkus/pull/3901) ([aldettinger](https://github.com/aldettinger))
 - core: Fix some warnings [\#3898](https://github.com/apache/camel-quarkus/pull/3898) ([aldettinger](https://github.com/aldettinger))
 - Remove inline routes from platform-http REST DSL docs [\#3895](https://github.com/apache/camel-quarkus/pull/3895) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.10.1.Final [\#3894](https://github.com/apache/camel-quarkus/pull/3894) ([jamesnetherton](https://github.com/jamesnetherton))
