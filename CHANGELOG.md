@@ -12,6 +12,7 @@
 **Closed issues:**
 
 - dozer: deprecate typeConverterEnabled config [\#3900](https://github.com/apache/camel-quarkus/issues/3900)
+- Increase JAXB extension test coverage [\#3896](https://github.com/apache/camel-quarkus/issues/3896)
 - flattened-full-pom.xml contains some artifacts from quarkus 2.9.0.Final [\#3887](https://github.com/apache/camel-quarkus/issues/3887)
 - Upgrade quarkus-artemis to 1.2.0 [\#3884](https://github.com/apache/camel-quarkus/issues/3884)
 - Consider removing configuration for `camel.main.source-location-enabled` [\#3858](https://github.com/apache/camel-quarkus/issues/3858)
@@ -23,6 +24,7 @@
 
 **Merged pull requests:**
 
+- Increase JAXB extension test coverage [\#3902](https://github.com/apache/camel-quarkus/pull/3902) ([jamesnetherton](https://github.com/jamesnetherton))
 - dozer: Deprecate the typeConverterEnabled config \#3900 [\#3901](https://github.com/apache/camel-quarkus/pull/3901) ([aldettinger](https://github.com/aldettinger))
 - core: Fix some warnings [\#3898](https://github.com/apache/camel-quarkus/pull/3898) ([aldettinger](https://github.com/aldettinger))
 - Remove inline routes from platform-http REST DSL docs [\#3895](https://github.com/apache/camel-quarkus/pull/3895) ([jamesnetherton](https://github.com/jamesnetherton))
