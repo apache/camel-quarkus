@@ -124,6 +124,7 @@ group-08:
   - azure-grouped
   - crypto
   - dozer
+  - jq
   - master
   - pdf
   - saxon

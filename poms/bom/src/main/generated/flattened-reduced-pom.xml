@@ -3389,6 +3389,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-jq</artifactId>
+        <version>3.18.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-js-dsl</artifactId>
         <version>3.18.0</version>
         <exclusions>
@@ -7446,6 +7451,16 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-jq</artifactId>
+        <version>2.11.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-jq-deployment</artifactId>
+        <version>2.11.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-js-dsl</artifactId>
         <version>2.11.0-SNAPSHOT</version>
       </dependency>
@@ -9675,6 +9690,16 @@
         <groupId>io.quarkiverse.freemarker</groupId>
         <artifactId>quarkus-freemarker-deployment</artifactId>
         <version>0.3.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.jackson-jq</groupId>
+        <artifactId>quarkus-jackson-jq</artifactId>
+        <version>1.0.1</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.jackson-jq</groupId>
+        <artifactId>quarkus-jackson-jq-deployment</artifactId>
+        <version>1.0.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jgit</groupId>

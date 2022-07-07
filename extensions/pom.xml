@@ -135,6 +135,7 @@
         <module>johnzon</module>
         <module>jolt</module>
         <module>jpa</module>
+        <module>jq</module>
         <module>js-dsl</module>
         <module>jsch</module>
         <module>jslt</module>

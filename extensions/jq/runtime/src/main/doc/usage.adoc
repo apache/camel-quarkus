@@ -1,0 +1,28 @@
+=== JQ transformations to custom result types in native mode
+
+If you choose to perform JQ transformations that specify the result class as some custom type in native mode,
+then you must register that type for reflection.
+
+E.g via the `@RegisterForReflection`
+annotation or configuration property `quarkus.camel.native.reflection.include-patterns`. For example:
+
+[source,java]
+----
+@RegisterForReflection
+public class Book {
+    ...
+}
+----
+
+[source,java]
+----
+public class MyJQRoutes extends RouteBuilder {
+    @Override
+    public void configure() {
+        from("direct:jq")
+            .transform().jq(".book", Book.class);
+    }
+}
+----
+
+Refer to the xref:user-guide/native-mode.adoc#reflection[Native mode] user guide for more information.
