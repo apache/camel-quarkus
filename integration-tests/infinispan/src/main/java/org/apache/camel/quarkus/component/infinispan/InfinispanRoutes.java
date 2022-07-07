@@ -166,20 +166,19 @@ public class InfinispanRoutes extends RouteBuilder {
                 .autoStartup(false)
                 .to("mock:camelResultCreated");
 
-        // TODO: Reinstate aggregationRepository routes this https://github.com/apache/camel-quarkus/issues/3657
-        //from("direct:camelAggregation")
-        //        .aggregate(header(CORRELATOR_HEADER))
-        //        .aggregationRepository(createAggregationRepository("infinispan"))
-        //        .aggregationStrategy(createAggregationStrategy())
-        //        .completionSize(COMPLETION_SIZE)
-        //        .to("mock:camelAggregationResult");
+        from("direct:camelAggregation")
+                .aggregate(header(CORRELATOR_HEADER))
+                .aggregationRepository(createAggregationRepository("infinispan"))
+                .aggregationStrategy(createAggregationStrategy())
+                .completionSize(COMPLETION_SIZE)
+                .to("mock:camelAggregationResult");
 
-        //from("direct:quarkusAggregation")
-        //        .aggregate(header(CORRELATOR_HEADER))
-        //        .aggregationRepository(createAggregationRepository("infinispan-quarkus"))
-        //        .aggregationStrategy(createAggregationStrategy())
-        //        .completionSize(COMPLETION_SIZE)
-        //        .to("mock:quarkusAggregationResult");
+        from("direct:quarkusAggregation")
+                .aggregate(header(CORRELATOR_HEADER))
+                .aggregationRepository(createAggregationRepository("infinispan-quarkus"))
+                .aggregationStrategy(createAggregationStrategy())
+                .completionSize(COMPLETION_SIZE)
+                .to("mock:quarkusAggregationResult");
 
         from("direct:camelIdempotent")
                 .idempotentConsumer(header("MessageID"), createIdempotentRepository("infinispan"))
@@ -247,11 +246,9 @@ public class InfinispanRoutes extends RouteBuilder {
         InfinispanRemoteComponent component = camelContext.getComponent(componentName, InfinispanRemoteComponent.class);
         InfinispanRemoteConfiguration configuration = component.getConfiguration().clone();
         configuration.setCacheContainerConfiguration(getConfigurationBuilder());
-        if (componentName.equals("infinispan-quarkus")) {
-            Set<RemoteCacheManager> beans = camelContext.getRegistry().findByType(RemoteCacheManager.class);
-            RemoteCacheManager cacheManager = beans.iterator().next();
-            configuration.setCacheContainer(cacheManager);
-        }
+        Set<RemoteCacheManager> beans = camelContext.getRegistry().findByType(RemoteCacheManager.class);
+        RemoteCacheManager cacheManager = beans.iterator().next();
+        configuration.setCacheContainer(cacheManager);
         return configuration;
     }
 

@@ -1,3 +1,0 @@
-=== InfinispanRemoteAggregationRepository is unsupported
-
-At present the `InfinispanRemoteAggregationRepository` is not supported. The are some planned https://github.com/apache/camel-quarkus/issues/3657[future enhancements] to make this possible.
