@@ -9908,6 +9908,11 @@
                 <version>${projectreactor-netty.version}</version>
             </dependency>
             <dependency>
+                <artifactId>reactor-core</artifactId>
+                <groupId>io.projectreactor</groupId>
+                <version>${projectreactor-reactor-core.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.quarkiverse.freemarker</groupId>
                 <artifactId>quarkus-freemarker</artifactId>
                 <version>${quarkiverse-freemarker.version}</version>

@@ -34,11 +34,13 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.apache.camel.quarkus.support.azure.core.http.vertx.VertxHttpClientTestResource.PROXY_PASSWORD;
 import static org.apache.camel.quarkus.support.azure.core.http.vertx.VertxHttpClientTestResource.PROXY_USER;
 
+@Disabled //https://github.com/apache/camel-quarkus/issues/4090
 @QuarkusTestResource(VertxHttpClientTestResource.class)
 public class VertxHttpClientRestProxyWithHttpProxyTests extends RestProxyTests {
     private static WireMockServer server;

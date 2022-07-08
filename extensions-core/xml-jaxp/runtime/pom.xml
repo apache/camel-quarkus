@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-xml-jaxp</artifactId>
     <name>Camel Quarkus :: XML JAXP :: Runtime</name>
+    <description>Camel XML JAXP</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

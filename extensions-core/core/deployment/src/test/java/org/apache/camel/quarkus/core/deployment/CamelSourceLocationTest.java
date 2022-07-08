@@ -77,7 +77,7 @@ public class CamelSourceLocationTest {
                     }
                 });
         Object out = producer.requestBody("direct:start", "Hello World");
-        Assertions.assertEquals("org.apache.camel.quarkus.core.deployment.CamelSourceLocationTest$1:76", out);
+        Assertions.assertEquals("CamelSourceLocationTest.java:76", out);
     }
 
     private static class MyProcessor implements Processor, LineNumberAware {

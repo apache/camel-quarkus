@@ -45,7 +45,8 @@ public class AzureCoreSupportProcessor {
     void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
         reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false,
                 com.azure.core.util.DateTimeRfc1123.class,
-                com.azure.core.http.rest.StreamResponse.class));
+                com.azure.core.http.rest.StreamResponse.class,
+                com.azure.core.http.rest.ResponseBase.class));
 
         reflectiveClasses.produce(new ReflectiveClassBuildItem(false, true,
                 "com.microsoft.aad.msal4j.AadInstanceDiscoveryResponse",
