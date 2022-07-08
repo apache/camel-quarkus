@@ -34,6 +34,7 @@ import io.vertx.core.Vertx;
 import io.vertx.ext.web.client.WebClientOptions;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -46,6 +47,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Tests {@link VertxHttpClientBuilder}.
  */
+@Disabled //https://github.com/apache/camel-quarkus/issues/4090
 public class VertxHttpClientBuilderTests {
     private static final String COOKIE_VALIDATOR_PATH = "/cookieValidator";
     private static final String DEFAULT_PATH = "/default";

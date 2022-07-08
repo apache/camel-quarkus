@@ -28,8 +28,10 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+@Disabled //https://github.com/apache/camel-quarkus/issues/4090
 public class VertxHttpClientRestProxyTests extends RestProxyTests {
     private final static WireMockServer server = RestProxyTestsWireMockServer.getRestProxyTestsServer();
 

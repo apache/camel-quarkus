@@ -49,6 +49,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import reactor.core.publisher.Flux;
@@ -60,6 +61,7 @@ import reactor.test.StepVerifierOptions;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Disabled //https://github.com/apache/camel-quarkus/issues/4090
 public class VertxHttpClientTests {
     static final String RETURN_HEADERS_AS_IS_PATH = "/returnHeadersAsIs";
 

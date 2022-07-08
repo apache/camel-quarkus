@@ -6,15 +6,15 @@
 :cq-artifact-id: camel-quarkus-cmis
 :cq-native-supported: false
 :cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-status-deprecation: Preview Deprecated
 :cq-description: Read and write data from to/from a CMIS compliant content repositories.
-:cq-deprecated: false
+:cq-deprecated: true
 :cq-jvm-since: 1.1.0
 :cq-native-since: n/a
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native##[.badge-unsupported]##unsupported## [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##
 endif::[]
 
 Read and write data from to/from a CMIS compliant content repositories.
