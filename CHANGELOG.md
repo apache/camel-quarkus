@@ -19,14 +19,17 @@
 - Clarify usage of Quarkus Quartz clustering support [\#3850](https://github.com/apache/camel-quarkus/issues/3850)
 - Create an example for JTA+JPA integration [\#3817](https://github.com/apache/camel-quarkus/issues/3817)
 - Reduce the noise in verbose flattened BOMs [\#3702](https://github.com/apache/camel-quarkus/issues/3702)
+- Improve support for `InfinispanRemoteAggregationRepository` [\#3657](https://github.com/apache/camel-quarkus/issues/3657)
 - Apache Drill Unable to start [\#3315](https://github.com/apache/camel-quarkus/issues/3315)
 - XA JMS Transaction fails [\#2815](https://github.com/apache/camel-quarkus/issues/2815)
 
 **Merged pull requests:**
 
+- Add support for InfinispanRemoteAggregationRepository [\#3906](https://github.com/apache/camel-quarkus/pull/3906) ([jamesnetherton](https://github.com/jamesnetherton))
 - Increase JAXB extension test coverage [\#3902](https://github.com/apache/camel-quarkus/pull/3902) ([jamesnetherton](https://github.com/jamesnetherton))
 - dozer: Deprecate the typeConverterEnabled config \#3900 [\#3901](https://github.com/apache/camel-quarkus/pull/3901) ([aldettinger](https://github.com/aldettinger))
 - core: Fix some warnings [\#3898](https://github.com/apache/camel-quarkus/pull/3898) ([aldettinger](https://github.com/aldettinger))
+- Upgrade Camel to 3.18.0 [\#3897](https://github.com/apache/camel-quarkus/pull/3897) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove inline routes from platform-http REST DSL docs [\#3895](https://github.com/apache/camel-quarkus/pull/3895) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.10.1.Final [\#3894](https://github.com/apache/camel-quarkus/pull/3894) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3809 add reflections for all transports [\#3892](https://github.com/apache/camel-quarkus/pull/3892) ([zhfeng](https://github.com/zhfeng))
