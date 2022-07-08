@@ -18,12 +18,14 @@ package org.apache.camel.quarkus.main;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -37,14 +39,11 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledOnOs;
-import org.junit.jupiter.api.condition.OS;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
-@DisabledOnOs(value = OS.WINDOWS, disabledReason = "https://github.com/apache/camel-quarkus/issues/3529")
 public class CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest {
     static Path BASE;
 
@@ -58,7 +57,7 @@ public class CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest {
     public static void setUp() {
         try {
             BASE = Files.createTempDirectory("camel-devmode-");
-            copy("routes.1", "routes.xml");
+            move("routes.1", "routes.xml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -77,7 +76,7 @@ public class CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest {
 
         Properties props = new Properties();
         props.setProperty("quarkus.banner.enabled", "false");
-        props.setProperty("camel.main.routes-include-pattern", "file:" + BASE.toAbsolutePath().toString() + "/routes.xml");
+        props.setProperty("camel.main.routes-include-pattern", "file:" + BASE.toAbsolutePath() + "/routes.xml");
 
         try {
             props.store(writer, "");
@@ -88,11 +87,19 @@ public class CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest {
         return new StringAsset(writer.toString());
     }
 
-    public static void copy(String source, String target) throws IOException {
-        Files.copy(
-                CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest.class.getResourceAsStream("/" + source),
-                BASE.resolve(target),
-                StandardCopyOption.REPLACE_EXISTING);
+    public static void move(String source, String target) throws IOException {
+        Path tmpRoutes = Files.createTempFile("routes", ".xml");
+        try (InputStream stream = CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest.class
+                .getResourceAsStream("/" + source)) {
+            byte[] bytes = Objects.requireNonNull(stream).readAllBytes();
+            Files.write(tmpRoutes, bytes);
+            Files.move(
+                    tmpRoutes,
+                    BASE.resolve(target),
+                    StandardCopyOption.ATOMIC_MOVE);
+        } finally {
+            Files.deleteIfExists(tmpRoutes);
+        }
     }
 
     @Test
@@ -104,7 +111,7 @@ public class CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest {
             assertThat(res.body().jsonPath().getList("routes", String.class)).containsOnly("r1");
         });
 
-        copy("routes.2", "routes.xml");
+        move("routes.2", "routes.xml");
 
         await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> {
             Response res = RestAssured.when().get("/test/describe").thenReturn();
