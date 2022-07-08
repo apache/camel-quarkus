@@ -24,11 +24,12 @@ import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
 import io.methvin.watcher.DirectoryWatcher.Builder;
+import io.methvin.watcher.visitor.FileTreeVisitor;
 
 @TargetClass(Builder.class)
 public final class SubstituteDirectoryWatcherBuilder {
     @Substitute
-    private Builder osDefaultWatchService() throws IOException {
+    private Builder osDefaultWatchService(FileTreeVisitor fileTreeVisitor) throws IOException {
         /* Never call MacOSXListeningWatchService */
         return watchService(FileSystems.getDefault().newWatchService());
     }
