@@ -25,7 +25,9 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import io.vertx.core.Vertx;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 
+@Disabled //https://github.com/apache/camel-quarkus/issues/4090
 public class VertxHttpClientHttpClientTests extends HttpClientTests {
     private static final WireMockServer server = HttpClientTestsWireMockServer.getHttpClientTestsServer();
     private static final Vertx vertx = Vertx.vertx();

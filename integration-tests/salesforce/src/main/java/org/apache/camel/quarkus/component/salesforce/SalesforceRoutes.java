@@ -53,6 +53,7 @@ public class SalesforceRoutes extends RouteBuilder {
         salesforceComponent.setClientSecret(clientSecret);
         salesforceComponent.setUserName(username);
         salesforceComponent.setPassword(password);
+        salesforceComponent.setPackages("org.apache.camel.quarkus.component.salesforce.generated");
 
         // Set URL depending if mock is enabled
         if (wireMockUrl.isPresent()) {

@@ -67,6 +67,11 @@
             <artifactId>svm</artifactId>
             <scope>provided</scope>
         </dependency>
+<!--        quick fix - see https://github.com/apache/camel-quarkus/issues/4091 -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-tcnative-boringssl-static</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

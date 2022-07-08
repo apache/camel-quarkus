@@ -26,6 +26,7 @@ import io.quarkus.test.QuarkusUnitTest;
 import io.vertx.ext.web.client.WebClientOptions;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -36,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 /**
  * Tests {@link VertxHttpClientProvider}.
  */
-
+@Disabled //https://github.com/apache/camel-quarkus/issues/4090
 public class VertxHttpClientProviderTests {
 
     @RegisterExtension

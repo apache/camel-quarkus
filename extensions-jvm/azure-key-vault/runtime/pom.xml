@@ -42,6 +42,18 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-azure-key-vault</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>reactor-core</artifactId>
+                    <groupId>io.projectreactor</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- has to be impoprted as the version from the azure-core to avoid conflicts -->
+        <dependency>
+            <artifactId>reactor-core</artifactId>
+            <groupId>io.projectreactor</groupId>
         </dependency>
     </dependencies>
 

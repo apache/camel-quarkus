@@ -23,8 +23,9 @@ Process XML payloads by a SAX ContentHandler.
 == What's inside
 
 * xref:{cq-camel-components}::stax-component.adoc[StAX component], URI syntax: `stax:contentHandlerClass`
+* xref:{cq-camel-components}:languages:xtokenize-language.adoc[XML Tokenize language]
 
-Please refer to the above link for usage and configuration details.
+Please refer to the above links for usage and configuration details.
 
 [id="extensions-stax-maven-coordinates"]
 == Maven coordinates

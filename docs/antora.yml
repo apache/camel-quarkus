@@ -28,8 +28,8 @@ asciidoc:
     requires: "'util=camel-website-util,quarkus=xref:js/quarkus.js'"
 
     # Project versions
-    camel-version: 3.18.2 # replace ${camel.version}
-    camel-docs-version: 3.18.x # replace ${camel.docs.components.version}
+    camel-version: 3.19.0 # replace ${camel.version}
+    camel-docs-version: 3.19.x # replace ${camel.docs.components.version}
     quarkus-version: 2.13.0.Final # replace ${quarkus.version}
     graalvm-version: 22.2.0 # replace ${graalvm.version}
     graalvm-docs-version: 22.2
@@ -37,7 +37,7 @@ asciidoc:
     target-maven-version: 3.8.6 # replace ${target-maven-version}
 
     # Attributes used in xrefs to other Antora components
-    cq-camel-components: 3.18.x@components # replace ${camel.docs.components.xref}
+    cq-camel-components: 3.19.x@components # replace ${camel.docs.components.xref}
     doc-link-icon-lock: "icon:lock"
     quarkus-examples-version: latest
 

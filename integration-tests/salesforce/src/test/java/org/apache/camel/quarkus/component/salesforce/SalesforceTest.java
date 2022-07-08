@@ -27,6 +27,7 @@ import io.restassured.path.json.JsonPath;
 import org.apache.camel.component.salesforce.api.dto.RecentItem;
 import org.apache.camel.component.salesforce.api.dto.SObjectBasicInfo;
 import org.apache.camel.component.salesforce.api.dto.Versions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
@@ -52,6 +53,7 @@ class SalesforceTest {
     }
 
     @Test
+    @Disabled // https://github.com/apache/camel-quarkus/issues/4112
     public void testGetAccountDTO() {
         String accountId = null;
         String accountName = "Camel Quarkus Account Test: " + UUID.randomUUID();
@@ -184,6 +186,7 @@ class SalesforceTest {
     }
 
     @Test
+    @Disabled // https://github.com/apache/camel-quarkus/issues/4112
     void testAccountWithBasicInfo() {
         String accountId = null;
         String accountName = "Camel Quarkus Account Test: " + UUID.randomUUID();

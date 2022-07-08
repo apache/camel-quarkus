@@ -146,6 +146,7 @@
             </build>
         </profile>
 
+        <!-- TODO: https://github.com/apache/camel-quarkus/issues/4095
         <profile>
             <id>native</id>
             <activation>
@@ -175,7 +176,7 @@
                                 <quarkus.runner>${quarkus.runner}</quarkus.runner>
                             </systemProperties>
                             <environmentVariables>
-                                <!-- Fake KubernetesClusterService so it assumes being run from a pod named leader  -->
+                                Fake KubernetesClusterService so it assumes being run from a pod named leader  >
                                 <HOSTNAME>leader</HOSTNAME>
                             </environmentVariables>
                         </configuration>
@@ -183,6 +184,7 @@
                 </plugins>
             </build>
         </profile>
+        -->
         <profile>
             <id>virtualDependencies</id>
             <activation>

@@ -299,8 +299,8 @@ class AzureStorageBlobTest {
                     .get("/azure-storage-blob/page/blob")
                     .then()
                     .statusCode(200)
-                    .body("ranges[0].start", is(0),
-                            "ranges[0].end", is(511));
+                    .body("ranges[0].offset", is(0),
+                            "ranges[0].length", is(512));
 
             // Resize
             RestAssured.given()
