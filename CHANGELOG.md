@@ -6,6 +6,8 @@
 
 **Fixed bugs:**
 
+- Camel Quarkus 2.10.0 attempts to resolve properties for prod profile when running tests or in dev mode [\#3879](https://github.com/apache/camel-quarkus/issues/3879)
+- Bean introspection on `@Singleton` scoped beans does not work  [\#3856](https://github.com/apache/camel-quarkus/issues/3856)
 - Cannot compile native image for Google PubSub integration tests [\#3832](https://github.com/apache/camel-quarkus/issues/3832)
 - Configuration of ActiveMQ broker URL properties may require reflective access [\#3809](https://github.com/apache/camel-quarkus/issues/3809)
 
@@ -15,9 +17,12 @@
 - Increase JAXB extension test coverage [\#3896](https://github.com/apache/camel-quarkus/issues/3896)
 - flattened-full-pom.xml contains some artifacts from quarkus 2.9.0.Final [\#3887](https://github.com/apache/camel-quarkus/issues/3887)
 - Upgrade quarkus-artemis to 1.2.0 [\#3884](https://github.com/apache/camel-quarkus/issues/3884)
+- \[Quarkus 2.11.0\] Vert.x 4.3.1 not compatible with Camel 3.17.x [\#3877](https://github.com/apache/camel-quarkus/issues/3877)
 - Consider removing configuration for `camel.main.source-location-enabled` [\#3858](https://github.com/apache/camel-quarkus/issues/3858)
 - Clarify usage of Quarkus Quartz clustering support [\#3850](https://github.com/apache/camel-quarkus/issues/3850)
+- \[Camel 3.18.0\] Create camel-jq extension [\#3835](https://github.com/apache/camel-quarkus/issues/3835)
 - Create an example for JTA+JPA integration [\#3817](https://github.com/apache/camel-quarkus/issues/3817)
+- Aws SQS: Remove unnecessary headers from the test because of CAMEL-18123 [\#3803](https://github.com/apache/camel-quarkus/issues/3803)
 - Reduce the noise in verbose flattened BOMs [\#3702](https://github.com/apache/camel-quarkus/issues/3702)
 - Improve support for `InfinispanRemoteAggregationRepository` [\#3657](https://github.com/apache/camel-quarkus/issues/3657)
 - Apache Drill Unable to start [\#3315](https://github.com/apache/camel-quarkus/issues/3315)
@@ -25,6 +30,8 @@
 
 **Merged pull requests:**
 
+- Add some tests for issues fixed in Camel 3.18.0 [\#3908](https://github.com/apache/camel-quarkus/pull/3908) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add JQ extension [\#3907](https://github.com/apache/camel-quarkus/pull/3907) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add support for InfinispanRemoteAggregationRepository [\#3906](https://github.com/apache/camel-quarkus/pull/3906) ([jamesnetherton](https://github.com/jamesnetherton))
 - Increase JAXB extension test coverage [\#3902](https://github.com/apache/camel-quarkus/pull/3902) ([jamesnetherton](https://github.com/jamesnetherton))
 - dozer: Deprecate the typeConverterEnabled config \#3900 [\#3901](https://github.com/apache/camel-quarkus/pull/3901) ([aldettinger](https://github.com/aldettinger))
