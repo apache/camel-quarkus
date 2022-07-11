@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.geocoder.it;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -37,13 +38,18 @@ public class GeocoderProducers {
      * We need to implement some conditional configuration of the {@link GeoCoderComponent} thus we create it
      * programmatically and publish via CDI.
      *
-     * @return a configured {@link GeoCoderComponent}
+     * @return                           a configured {@link GeoCoderComponent}
+     * @throws SecurityException
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     * @throws IllegalArgumentException
      */
     @Produces
     @ApplicationScoped
     @Named("geocoder")
     GeoCoderComponent geocoderComponent(CamelContext camelContext, MockApiService mockApiService)
-            throws IllegalAccessException, NoSuchFieldException, InstantiationException {
+            throws IllegalAccessException, NoSuchFieldException, InstantiationException, IllegalArgumentException,
+            InvocationTargetException, NoSuchMethodException, SecurityException {
         final Optional<String> wireMockUrl = ConfigProvider.getConfig().getOptionalValue("wiremock.url", String.class);
         final GeoCoderComponent result = new GeoCoderComponent();
         result.setCamelContext(camelContext);

@@ -47,7 +47,7 @@ public class GeocoderGoogleResource {
         final GeocodingResult[] response = producerTemplate.requestBody(
                 String.format("geocoder:address:current?apiKey=%s", googleApiKey),
                 null, GeocodingResult[].class);
-        LOG.infof("Response : %s", response);
+        LOG.infof("Response : %s", (Object[]) response);
         return response;
     }
 
@@ -58,7 +58,7 @@ public class GeocoderGoogleResource {
         final GeocodingResult[] response = producerTemplate.requestBody(
                 String.format("geocoder:address:%s?apiKey=%s", address, googleApiKey),
                 null, GeocodingResult[].class);
-        LOG.infof("Response: %s", response);
+        LOG.infof("Response: %s", (Object[]) response);
         return response;
     }
 
@@ -69,7 +69,7 @@ public class GeocoderGoogleResource {
         final GeocodingResult[] response = producerTemplate.requestBody(
                 String.format("geocoder:latlng:%s,%s?apiKey=%s", latitude, longitude, googleApiKey),
                 null, GeocodingResult[].class);
-        LOG.infof("Response : %s", response);
+        LOG.infof("Response : %s", (Object[]) response);
         return response;
     }
 }
