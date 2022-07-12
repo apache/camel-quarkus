@@ -81,16 +81,16 @@ public class KuduTestResource implements QuarkusTestResourceLifecycleManager {
             tabletContainer.start();
 
             // Print interesting Kudu servers connectivity information
-            final String masterRpcAuthority = masterContainer.getContainerIpAddress() + ":"
+            final String masterRpcAuthority = masterContainer.getHost() + ":"
                     + masterContainer.getMappedPort(KUDU_MASTER_RPC_PORT);
             LOG.info("Kudu master RPC accessible at " + masterRpcAuthority);
-            final String masterHttpAuthority = masterContainer.getContainerIpAddress() + ":"
+            final String masterHttpAuthority = masterContainer.getHost() + ":"
                     + masterContainer.getMappedPort(KUDU_MASTER_HTTP_PORT);
             LOG.info("Kudu master HTTP accessible at " + masterHttpAuthority);
-            final String tServerRpcAuthority = tabletContainer.getContainerIpAddress() + ":"
+            final String tServerRpcAuthority = tabletContainer.getHost() + ":"
                     + tabletContainer.getMappedPort(KUDU_TABLET_RPC_PORT);
             LOG.info("Kudu tablet server RPC accessible at " + tServerRpcAuthority);
-            final String tServerHttpAuthority = tabletContainer.getContainerIpAddress() + ":"
+            final String tServerHttpAuthority = tabletContainer.getHost() + ":"
                     + tabletContainer.getMappedPort(KUDU_TABLET_HTTP_PORT);
             LOG.info("Kudu tablet server HTTP accessible at " + tServerHttpAuthority);
 
