@@ -60,7 +60,7 @@ public class ArangodbResource {
     @Produces(MediaType.TEXT_PLAIN)
     public Response put(String message) throws Exception {
         LOG.infof("Saving to arangodb: %s", message);
-        final DocumentCreateEntity response = producerTemplate.requestBody(
+        final DocumentCreateEntity<?> response = producerTemplate.requestBody(
                 "arangodb:test?host={{camel.arangodb.host}}&port={{camel.arangodb.port}}&documentCollection=camel&operation=SAVE_DOCUMENT",
                 message, DocumentCreateEntity.class);
         LOG.infof("Got response from arangodb: %s", response);
@@ -131,7 +131,7 @@ public class ArangodbResource {
         headers.put(AQL_QUERY_OPTIONS, null);
         headers.put(RESULT_CLASS_TYPE, String.class);
 
-        final Collection<String> responseList = producerTemplate.requestBodyAndHeaders(
+        final Collection<?> responseList = producerTemplate.requestBodyAndHeaders(
                 "arangodb:test?host={{camel.arangodb.host}}&port={{camel.arangodb.port}}&operation=AQL_QUERY",
                 fooName, headers, Collection.class);
 

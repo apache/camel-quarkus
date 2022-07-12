@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.arangodb.it;
 import com.arangodb.ArangoCollection;
 import com.arangodb.ArangoDB;
 import com.arangodb.ArangoDatabase;
+import com.arangodb.DbName;
 import com.arangodb.entity.BaseDocument;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
@@ -139,8 +140,8 @@ class ArangodbTest {
         String host = ConfigProvider.getConfig().getValue("camel.arangodb.host", String.class);
         Integer port = ConfigProvider.getConfig().getValue("camel.arangodb.port", Integer.class);
         arangoDb = new ArangoDB.Builder().host(host, port).build();
-        arangoDb.createDatabase(DATABASE_NAME);
-        ArangoDatabase arangoDatabase = arangoDb.db(DATABASE_NAME);
+        arangoDb.createDatabase(DbName.of(DATABASE_NAME));
+        ArangoDatabase arangoDatabase = arangoDb.db(DbName.of(DATABASE_NAME));
         arangoDatabase.createCollection(COLLECTION_NAME);
         collection = arangoDatabase.collection(COLLECTION_NAME);
     }
