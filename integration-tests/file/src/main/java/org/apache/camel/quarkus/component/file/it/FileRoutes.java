@@ -62,12 +62,10 @@ public class FileRoutes extends RouteBuilder {
                 .to("mock:charsetIsoRead");
 
         from("file://target/idempotent?idempotent=true&move=done/${file:name}&initialDelay=0&delay=10")
-                .log("CAMEL-QUARKUS-3584 =>  from(\"file://target/idempotent?idempotent=true&move=done/${file:name}&initialDelay=0&delay=10\")... consumed message ${body}")
                 .convertBodyTo(String.class).to("mock:idempotent");
 
         bindToRegistry("myFilter", new MyFileFilter<>());
         from(("file://target/filter?initialDelay=0&delay=10&filter=#myFilter"))
-                .log("CAMEL-QUARKUS-3584 =>  from(\"file://target/filter?initialDelay=0&delay=10&filter=#myFilter\")... consumed message ${body}")
                 .convertBodyTo(String.class).to("mock:filter");
 
         from(("file://target/sortBy?initialDelay=0&delay=10&sortBy=reverse:file:name"))
