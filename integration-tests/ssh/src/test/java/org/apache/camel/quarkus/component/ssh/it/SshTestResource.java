@@ -49,12 +49,12 @@ public class SshTestResource implements QuarkusTestResourceLifecycleManager {
 
             container.start();
 
-            LOGGER.info("Started SSH container to {}:{}", container.getContainerIpAddress(),
+            LOGGER.info("Started SSH container to {}:{}", container.getHost(),
                     container.getMappedPort(SSH_PORT).toString());
 
             return CollectionHelper.mapOf(
                     "quarkus.ssh.host",
-                    container.getContainerIpAddress(),
+                    container.getHost(),
                     "quarkus.ssh.port",
                     container.getMappedPort(SSH_PORT).toString());
         } catch (Exception e) {
