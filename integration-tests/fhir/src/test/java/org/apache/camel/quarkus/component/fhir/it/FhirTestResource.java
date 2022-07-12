@@ -69,7 +69,7 @@ public class FhirTestResource implements QuarkusTestResourceLifecycleManager {
 
             return CollectionHelper.mapOf(
                     String.format("camel.fhir.%s.test-url", fhirVersion.simpleVersion()),
-                    fhirVersion.getServerUrl(container.getContainerIpAddress(), container.getMappedPort(CONTAINER_PORT)));
+                    fhirVersion.getServerUrl(container.getHost(), container.getMappedPort(CONTAINER_PORT)));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
