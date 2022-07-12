@@ -97,7 +97,7 @@ public class NatsTestResource implements QuarkusTestResourceLifecycleManager {
 
         container.start();
 
-        String basicAuthIp = container.getContainerIpAddress();
+        String basicAuthIp = container.getHost();
         Integer basicAuthPort = container.getMappedPort(NATS_SERVER_PORT);
         String basicAuthAuthority = BASIC_AUTH_USERNAME + ":" + BASIC_AUTH_PASSWORD;
         String basicAuthBrokerUrl = String.format("%s@%s:%d", basicAuthAuthority, basicAuthIp, basicAuthPort);
@@ -118,7 +118,7 @@ public class NatsTestResource implements QuarkusTestResourceLifecycleManager {
 
         container.start();
 
-        String noAuthIp = container.getContainerIpAddress();
+        String noAuthIp = container.getHost();
         Integer noAuthPort = container.getMappedPort(NATS_SERVER_PORT);
         String noAuthBrokerUrl = String.format("%s:%s", noAuthIp, noAuthPort);
 
@@ -155,7 +155,7 @@ public class NatsTestResource implements QuarkusTestResourceLifecycleManager {
 
         container.start();
 
-        String tlsAuthIp = container.getContainerIpAddress();
+        String tlsAuthIp = container.getHost();
         Integer tlsAuthPort = container.getMappedPort(NATS_SERVER_PORT);
         String tlsAuthBrokerUrl = String.format("%s:%d", tlsAuthIp, tlsAuthPort);
 
@@ -176,7 +176,7 @@ public class NatsTestResource implements QuarkusTestResourceLifecycleManager {
 
         container.start();
 
-        String tokenAuthIp = container.getContainerIpAddress();
+        String tokenAuthIp = container.getHost();
         Integer tokenAuthPort = container.getMappedPort(NATS_SERVER_PORT);
         String tokenAuthBrokerUrl = String.format("%s@%s:%d", TOKEN_AUTH_TOKEN, tokenAuthIp, tokenAuthPort);
 
