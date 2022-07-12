@@ -45,7 +45,7 @@ public class JschTestResource implements QuarkusTestResourceLifecycleManager {
             container.start();
 
             return CollectionHelper.mapOf(
-                    "jsch.host", container.getContainerIpAddress(),
+                    "jsch.host", container.getHost(),
                     "jsch.port", container.getMappedPort(JSCH_PORT).toString(),
                     "jsch.username", USERNAME,
                     "jsch.password", PASSWORD);
