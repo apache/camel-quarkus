@@ -42,7 +42,7 @@ public class RedisTestResource implements QuarkusTestResourceLifecycleManager {
             container = new GenericContainer(REDIS_IMAGE).withExposedPorts(REDIS_PORT).waitingFor(Wait.forListeningPort());
             container.start();
 
-            final String authority = container.getContainerIpAddress() + ":" + container.getMappedPort(REDIS_PORT).toString();
+            final String authority = container.getHost() + ":" + container.getMappedPort(REDIS_PORT).toString();
             return CollectionHelper.mapOf("camel.redis.test.server.authority", authority);
         } catch (Exception e) {
             throw new RuntimeException(e);
