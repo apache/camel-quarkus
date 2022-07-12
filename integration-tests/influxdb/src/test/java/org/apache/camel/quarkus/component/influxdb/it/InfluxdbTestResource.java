@@ -48,7 +48,7 @@ public class InfluxdbTestResource implements QuarkusTestResourceLifecycleManager
 
             return CollectionHelper.mapOf(
                     InfluxdbResource.INFLUXDB_CONNECTION_PROPERTY,
-                    "http://" + String.format("%s:%s", container.getContainerIpAddress(),
+                    "http://" + String.format("%s:%s", container.getHost(),
                             container.getMappedPort(INFLUXDB_PORT)));
         } catch (Exception e) {
             throw new RuntimeException(e);
