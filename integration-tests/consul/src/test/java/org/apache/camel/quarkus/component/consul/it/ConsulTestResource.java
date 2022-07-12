@@ -49,7 +49,7 @@ public class ConsulTestResource implements QuarkusTestResourceLifecycleManager {
             return CollectionHelper.mapOf(
                     "camel.consul.test-url",
                     String.format("http://%s:%d",
-                            container.getContainerIpAddress(),
+                            container.getHost(),
                             container.getMappedPort(CONTAINER_PORT)));
         } catch (Exception e) {
             throw new RuntimeException(e);
