@@ -52,7 +52,7 @@ public class InfinispanServerTestResource implements QuarkusTestResourceLifecycl
 
             container.start();
 
-            String serverList = String.format("%s:%s", container.getContainerIpAddress(),
+            String serverList = String.format("%s:%s", container.getHost(),
                     container.getMappedPort(HOTROD_PORT));
 
             // Create 2 sets of configuration to test scenarios:
