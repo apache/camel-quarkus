@@ -55,7 +55,7 @@ public class ArangodbTestResource implements QuarkusTestResourceLifecycleManager
                     "camel.arangodb.port",
                     container.getMappedPort(PORT_DEFAULT).toString(),
                     "camel.arangodb.host",
-                    container.getContainerIpAddress());
+                    container.getHost());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
