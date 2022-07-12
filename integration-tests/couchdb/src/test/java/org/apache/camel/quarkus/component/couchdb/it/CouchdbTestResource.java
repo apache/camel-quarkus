@@ -42,7 +42,7 @@ public class CouchdbTestResource implements QuarkusTestResourceLifecycleManager 
             container = new GenericContainer(COUCHDB_IMAGE).withExposedPorts(COUCHDB_PORT).waitingFor(Wait.forListeningPort());
             container.start();
 
-            final String authority = container.getContainerIpAddress() + ":" + container.getMappedPort(COUCHDB_PORT).toString();
+            final String authority = container.getHost() + ":" + container.getMappedPort(COUCHDB_PORT).toString();
             return CollectionHelper.mapOf("camel.couchdb.test.server.authority", authority);
         } catch (Exception e) {
             throw new RuntimeException(e);
