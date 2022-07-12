@@ -103,7 +103,7 @@ public class AzureStorageTestResource implements QuarkusTestResourceLifecycleMan
                         .forEach(s -> {
                             result.put(
                                     "azure." + s.name() + ".service.url",
-                                    "http://" + container.getContainerIpAddress() + ":"
+                                    "http://" + container.getHost() + ":"
                                             + (s.azuritePort >= 0 ? container.getMappedPort(s.azuritePort) : s.azuritePort)
                                             + "/"
                                             + azureStorageAccountName);
