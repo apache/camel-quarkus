@@ -347,7 +347,7 @@ public class InfinispanResources {
     public Integer stats(@QueryParam("component") String component) {
         Map<String, Object> headers = getCommonHeaders(component);
         ServerStatistics statistics = template.requestBodyAndHeaders("direct:stats", null, headers, ServerStatistics.class);
-        return statistics.getIntStatistic(ServerStatistics.CURRENT_NR_OF_ENTRIES);
+        return statistics.getIntStatistic(ServerStatistics.APPROXIMATE_ENTRIES);
     }
 
     @POST
