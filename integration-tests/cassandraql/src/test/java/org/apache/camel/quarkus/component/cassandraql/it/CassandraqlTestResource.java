@@ -51,7 +51,7 @@ public class CassandraqlTestResource implements QuarkusTestResourceLifecycleMana
 
             initDB(container);
 
-            String cassandraUrl = container.getContainerIpAddress() + ":" + container.getMappedPort(PORT);
+            String cassandraUrl = container.getHost() + ":" + container.getMappedPort(PORT);
             return CollectionHelper.mapOf(
                     // Note: The cassandra component does not depend on any of these being set.
                     // They're added to test the component with the (optional) QuarkusCqlSession
