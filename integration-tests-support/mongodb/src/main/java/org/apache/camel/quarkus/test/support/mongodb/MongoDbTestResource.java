@@ -62,7 +62,7 @@ public class MongoDbTestResource implements QuarkusTestResourceLifecycleManager 
 
             setUpDb();
 
-            String host = container.getContainerIpAddress() + ":" + container.getMappedPort(MONGODB_PORT).toString();
+            String host = container.getHost() + ":" + container.getMappedPort(MONGODB_PORT).toString();
 
             Map<String, String> config = new HashMap<>();
             config.put("quarkus.mongodb.hosts", host);
@@ -75,7 +75,7 @@ public class MongoDbTestResource implements QuarkusTestResourceLifecycleManager 
     }
 
     void setUpDb() {
-        final String mongoUrl = "mongodb://" + container.getContainerIpAddress() + ":"
+        final String mongoUrl = "mongodb://" + container.getHost() + ":"
                 + container.getMappedPort(MONGODB_PORT).toString();
 
         MongoClient mongoClient = null;
