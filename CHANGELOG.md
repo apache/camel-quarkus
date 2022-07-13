@@ -25,11 +25,14 @@
 - Aws SQS: Remove unnecessary headers from the test because of CAMEL-18123 [\#3803](https://github.com/apache/camel-quarkus/issues/3803)
 - Reduce the noise in verbose flattened BOMs [\#3702](https://github.com/apache/camel-quarkus/issues/3702)
 - Improve support for `InfinispanRemoteAggregationRepository` [\#3657](https://github.com/apache/camel-quarkus/issues/3657)
+- Intermittent failure of FileTests [\#3584](https://github.com/apache/camel-quarkus/issues/3584)
 - Apache Drill Unable to start [\#3315](https://github.com/apache/camel-quarkus/issues/3315)
 - XA JMS Transaction fails [\#2815](https://github.com/apache/camel-quarkus/issues/2815)
 
 **Merged pull requests:**
 
+- Fix some cq warnings [\#3913](https://github.com/apache/camel-quarkus/pull/3913) ([aldettinger](https://github.com/aldettinger))
+- Remove last logs to ensure flakiness is now corrected \#3584 [\#3912](https://github.com/apache/camel-quarkus/pull/3912) ([aldettinger](https://github.com/aldettinger))
 - Add some tests for issues fixed in Camel 3.18.0 [\#3908](https://github.com/apache/camel-quarkus/pull/3908) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add JQ extension [\#3907](https://github.com/apache/camel-quarkus/pull/3907) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add support for InfinispanRemoteAggregationRepository [\#3906](https://github.com/apache/camel-quarkus/pull/3906) ([jamesnetherton](https://github.com/jamesnetherton))
