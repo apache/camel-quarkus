@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.jpa;
 import javax.transaction.TransactionManager;
 import javax.transaction.UserTransaction;
 
+import io.quarkus.arc.Arc;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.component.jpa.JpaComponent;
@@ -28,8 +29,8 @@ import org.springframework.transaction.jta.JtaTransactionManager;
 public class CamelJpaRecorder {
 
     public RuntimeValue<JpaComponent> createJpaComponent() {
-        TransactionManager transactionManager = com.arjuna.ats.jta.TransactionManager.transactionManager();
-        UserTransaction userTransaction = com.arjuna.ats.jta.UserTransaction.userTransaction();
+        TransactionManager transactionManager = Arc.container().instance(TransactionManager.class).get();
+        UserTransaction userTransaction = Arc.container().instance(UserTransaction.class).get();
 
         JpaComponent component = new JpaComponent();
         component.setTransactionManager(new JtaTransactionManager(userTransaction, transactionManager));
