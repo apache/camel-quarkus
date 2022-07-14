@@ -13,6 +13,7 @@
 
 **Closed issues:**
 
+- Get TransationManager and UserTransaction from quarkus container in camel-quarkus-jpa [\#3914](https://github.com/apache/camel-quarkus/issues/3914)
 - dozer: deprecate typeConverterEnabled config [\#3900](https://github.com/apache/camel-quarkus/issues/3900)
 - Increase JAXB extension test coverage [\#3896](https://github.com/apache/camel-quarkus/issues/3896)
 - flattened-full-pom.xml contains some artifacts from quarkus 2.9.0.Final [\#3887](https://github.com/apache/camel-quarkus/issues/3887)
@@ -31,6 +32,7 @@
 
 **Merged pull requests:**
 
+- Fix \#3914 to get TransactionManager and UserTransaction from Arc container [\#3915](https://github.com/apache/camel-quarkus/pull/3915) ([zhfeng](https://github.com/zhfeng))
 - Fix some cq warnings [\#3913](https://github.com/apache/camel-quarkus/pull/3913) ([aldettinger](https://github.com/aldettinger))
 - Remove last logs to ensure flakiness is now corrected \#3584 [\#3912](https://github.com/apache/camel-quarkus/pull/3912) ([aldettinger](https://github.com/aldettinger))
 - Add some tests for issues fixed in Camel 3.18.0 [\#3908](https://github.com/apache/camel-quarkus/pull/3908) ([jamesnetherton](https://github.com/jamesnetherton))
