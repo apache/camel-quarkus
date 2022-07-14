@@ -112,6 +112,12 @@
                 <artifactId>camel-quarkus-integration-tests-process-executor-support</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-integration-tests-support-google</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-integration-test-support</artifactId>
