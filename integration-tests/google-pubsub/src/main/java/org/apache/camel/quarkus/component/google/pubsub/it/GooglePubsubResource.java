@@ -17,17 +17,24 @@
 package org.apache.camel.quarkus.component.google.pubsub.it;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
+import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.mock.MockEndpoint;
 
 @Path("/google-pubsub")
 public class GooglePubsubResource {
@@ -38,16 +45,22 @@ public class GooglePubsubResource {
     @Inject
     ConsumerTemplate consumerTemplate;
 
+    @Inject
+    CamelContext context;
+
+    @Inject
+    GooglePubSubRoutes.AcKFailing acKFailing;
+
     @POST
     public Response sendStringToTopic(String message) {
-        producerTemplate.sendBody("google-pubsub:{{project.id}}:{{topic.name}}", message);
+        producerTemplate.sendBody("google-pubsub:{{project.id}}:{{google-pubsub.topic-name}}", message);
         return Response.created(URI.create("https://camel.apache.org")).build();
     }
 
     @GET
     public Response consumeStringFromTopic() {
         Object response = consumerTemplate
-                .receiveBody("google-pubsub:{{project.id}}:{{subscription.name}}?synchronousPull=true", 5000L);
+                .receiveBody("google-pubsub:{{project.id}}:{{google-pubsub.subscription-name}}?synchronousPull=true", 5000L);
         return Response.ok(response).build();
     }
 
@@ -55,7 +68,7 @@ public class GooglePubsubResource {
     @POST
     public Response sendPojoToTopic(String fruitName) {
         Fruit fruit = new Fruit(fruitName);
-        producerTemplate.sendBody("google-pubsub:{{project.id}}:{{topic.name}}", fruit);
+        producerTemplate.sendBody("google-pubsub:{{project.id}}:{{google-pubsub.topic-name}}", fruit);
         return Response.created(URI.create("https://camel.apache.org")).build();
     }
 
@@ -64,7 +77,88 @@ public class GooglePubsubResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response consumePojoFromTopic() {
         Object response = consumerTemplate
-                .receiveBody("google-pubsub:{{project.id}}:{{subscription.name}}?synchronousPull=true", 5000L);
+                .receiveBody("google-pubsub:{{project.id}}:{{google-pubsub.subscription-name}}?synchronousPull=true", 5000L);
         return Response.ok(response).build();
+    }
+
+    @Path("/sendToEndpoint")
+    @POST
+    public Response sentToEndpoint(String message,
+            @QueryParam("toEndpoint") String toEndpoint)
+            throws Exception {
+        producerTemplate.sendBody(toEndpoint, message);
+        return Response.created(URI.create("https://camel.apache.org")).build();
+    }
+
+    @Path("/getFromEndpoint")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getFromEndpoint(@QueryParam("fromEndpoint") String fromEndpoint) throws Exception {
+        return consumerTemplate.receiveBody(fromEndpoint, 5000, String.class);
+    }
+
+    @Path("receive/subscription/{subscriptionName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String receiveFromSubscription(@PathParam("subscriptionName") String subscriptionName) throws Exception {
+        return consumeEndpoint(subscriptionName, null);
+    }
+
+    @Path("receive/subscriptionOrdering/{subscriptionName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String receiveFromSubscriptionOrdered(@PathParam("subscriptionName") String subscriptionName) throws Exception {
+
+        return consumeEndpoint(subscriptionName,
+                "&messageOrderingEnabled=true&pubsubEndpoint=pubsub.googleapis.com:443");
+    }
+
+    private String consumeEndpoint(String subscriptionName, String parameters) {
+        String url = "google-pubsub:{{project.id}}:{{" + subscriptionName + "}}?synchronousPull=true";
+        if (parameters != null && !"".equals(parameters)) {
+            url = url + parameters;
+        }
+        Exchange ex = consumerTemplate.receive(url, 5000);
+
+        if (ex != null) {
+            return ex.getIn().getBody(String.class);
+        }
+
+        return null;
+    }
+
+    @Path("receive/mock/{mockName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String mockReceive(@PathParam("mockName") String mockName)
+            throws Exception {
+        MockEndpoint mock = context.getEndpoint(mockName, MockEndpoint.class);
+
+        List<String> results = mock.getExchanges().stream().map(e -> e.getIn().getBody(String.class))
+                .collect(Collectors.toList());
+        String s = results.stream().collect(Collectors.joining(","));
+        return s;
+    }
+
+    @Path("setFail/")
+    @POST
+    public Response setFail(boolean fail)
+            throws Exception {
+        acKFailing.setFail(fail);
+        return Response.created(URI.create("https://camel.apache.org")).build();
+    }
+
+    @Path("/stopConsumer")
+    @GET
+    public void stopConsumer() throws Exception {
+        consumerTemplate.stop();
+    }
+
+    @Path("/resetMock/{mockName}")
+    @GET
+    public Response resetMock(@PathParam("mockName") String mockName) {
+        MockEndpoint mock = context.getEndpoint(mockName, MockEndpoint.class);
+        mock.reset();
+        return Response.created(URI.create("https://camel.apache.org")).build();
     }
 }
