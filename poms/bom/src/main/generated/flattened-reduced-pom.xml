@@ -9561,16 +9561,6 @@
         <version>1.7.0</version>
       </dependency>
       <dependency>
-        <groupId>io.opencensus</groupId>
-        <artifactId>opencensus-api</artifactId>
-        <version>0.31.0</version>
-      </dependency>
-      <dependency>
-        <groupId>io.opencensus</groupId>
-        <artifactId>opencensus-contrib-http-util</artifactId>
-        <version>0.31.0</version>
-      </dependency>
-      <dependency>
         <groupId>com.google.zxing</groupId>
         <artifactId>core</artifactId>
         <version>3.3.3</version>
@@ -9674,6 +9664,16 @@
         <groupId>commons-lang</groupId>
         <artifactId>commons-lang</artifactId>
         <version>2.6</version>
+      </dependency>
+      <dependency>
+        <groupId>io.opencensus</groupId>
+        <artifactId>opencensus-api</artifactId>
+        <version>0.31.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.opencensus</groupId>
+        <artifactId>opencensus-contrib-http-util</artifactId>
+        <version>0.31.0</version>
       </dependency>
       <dependency>
         <groupId>io.perfmark</groupId>
@@ -9946,17 +9946,17 @@
       </dependency>
       <dependency>
         <groupId>org.bouncycastle</groupId>
+        <artifactId>bcmail-jdk15on</artifactId>
+        <version>1.70</version>
+      </dependency>
+      <dependency>
+        <groupId>org.bouncycastle</groupId>
         <artifactId>bcpg-jdk15on</artifactId>
         <version>1.70</version>
       </dependency>
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcutil-jdk15on</artifactId>
-        <version>1.70</version>
-      </dependency>
-      <dependency>
-        <groupId>org.bouncycastle</groupId>
-        <artifactId>bcmail-jdk15on</artifactId>
         <version>1.70</version>
       </dependency>
       <dependency>
