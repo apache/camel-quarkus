@@ -22,19 +22,15 @@ import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
-import org.apache.camel.Consumer;
-import org.apache.camel.Processor;
 import org.apache.camel.component.platform.http.PlatformHttpComponent;
-import org.apache.camel.component.platform.http.PlatformHttpEndpoint;
 import org.apache.camel.component.platform.http.spi.PlatformHttpEngine;
-import org.apache.camel.component.platform.http.vertx.CamelQuarkusVertxPlatformHttpConsumer;
 import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpEngine;
 import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpRouter;
 
 @Recorder
 public class PlatformHttpRecorder {
     public RuntimeValue<PlatformHttpEngine> createEngine() {
-        return new RuntimeValue<>(new CamelQuarkusVertxPlatformHttpEngine());
+        return new RuntimeValue<>(new VertxPlatformHttpEngine());
     }
 
     public RuntimeValue<PlatformHttpComponent> createComponent(RuntimeValue<PlatformHttpEngine> engine) {
@@ -53,13 +49,5 @@ public class PlatformHttpRecorder {
             }
         };
         return new RuntimeValue<>(vertxPlatformHttpRouter);
-    }
-
-    // TODO: Remove when Camel / Quarkus Vert.x version is in sync https://github.com/apache/camel-quarkus/issues/3877
-    static final class CamelQuarkusVertxPlatformHttpEngine extends VertxPlatformHttpEngine {
-        @Override
-        public Consumer createConsumer(PlatformHttpEndpoint endpoint, Processor processor) {
-            return new CamelQuarkusVertxPlatformHttpConsumer(endpoint, processor, getHandlers());
-        }
     }
 }
