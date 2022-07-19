@@ -6,6 +6,7 @@
 
 **Fixed bugs:**
 
+- \[Quarkus 2.11.0\] OptaPlanner native image build fails [\#3899](https://github.com/apache/camel-quarkus/issues/3899)
 - Camel Quarkus 2.10.0 attempts to resolve properties for prod profile when running tests or in dev mode [\#3879](https://github.com/apache/camel-quarkus/issues/3879)
 - Bean introspection on `@Singleton` scoped beans does not work  [\#3856](https://github.com/apache/camel-quarkus/issues/3856)
 - Cannot compile native image for Google PubSub integration tests [\#3832](https://github.com/apache/camel-quarkus/issues/3832)
@@ -32,6 +33,7 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 2.11.0.CR1 [\#3917](https://github.com/apache/camel-quarkus/pull/3917) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3914 to get TransactionManager and UserTransaction from Arc container [\#3915](https://github.com/apache/camel-quarkus/pull/3915) ([zhfeng](https://github.com/zhfeng))
 - Fix some cq warnings [\#3913](https://github.com/apache/camel-quarkus/pull/3913) ([aldettinger](https://github.com/aldettinger))
 - Remove last logs to ensure flakiness is now corrected \#3584 [\#3912](https://github.com/apache/camel-quarkus/pull/3912) ([aldettinger](https://github.com/aldettinger))
