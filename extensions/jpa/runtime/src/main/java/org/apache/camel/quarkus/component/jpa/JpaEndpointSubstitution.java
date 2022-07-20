@@ -14,28 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.camel.quarkus.component.jpa;
 
-import io.quarkus.narayana.jta.QuarkusTransaction;
-import io.quarkus.narayana.jta.RunOptions;
-import io.quarkus.runtime.RuntimeValue;
-import io.quarkus.runtime.annotations.Recorder;
-import org.apache.camel.component.jpa.JpaComponent;
-import org.apache.camel.component.jpa.TransactionStrategy;
+import javax.persistence.EntityManagerFactory;
 
-import static io.quarkus.narayana.jta.QuarkusTransaction.runOptions;
+import com.oracle.svm.core.annotate.Substitute;
+import com.oracle.svm.core.annotate.TargetClass;
+import org.apache.camel.component.jpa.JpaEndpoint;
+import org.springframework.transaction.support.TransactionTemplate;
 
-@Recorder
-public class CamelJpaRecorder {
+@TargetClass(JpaEndpoint.class)
+final public class JpaEndpointSubstitution {
+    @Substitute
+    protected EntityManagerFactory createEntityManagerFactory() {
+        throw new UnsupportedOperationException("createEntityManagerFactory is not supported");
+    }
 
-    public RuntimeValue<JpaComponent> createJpaComponent() {
-        JpaComponent component = new JpaComponent();
-        component.setTransactionStrategy(new TransactionStrategy() {
-            @Override
-            public void executeInTransaction(Runnable runnable) {
-                QuarkusTransaction.run(runOptions().semantic(RunOptions.Semantic.JOIN_EXISTING), runnable);
-            }
-        });
-        return new RuntimeValue<>(component);
+    @Substitute
+    protected TransactionTemplate createTransactionTemplate() {
+        throw new UnsupportedOperationException("createTransactionTemplate is not supported");
     }
 }
