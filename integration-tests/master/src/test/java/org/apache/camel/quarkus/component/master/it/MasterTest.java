@@ -27,6 +27,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.test.support.process.QuarkusProcessExecutor;
 import org.awaitility.Awaitility;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.zeroturnaround.exec.StartedProcess;
 
@@ -45,8 +46,11 @@ class MasterTest {
         try {
             // Verify that this process is the cluster leader
             Awaitility.await().atMost(10, TimeUnit.SECONDS).with().until(() -> {
-                return readLeaderFile().equals("leader");
+                return readLeaderFile("leader").equals("leader");
             });
+
+            // Verify the follower hasn't took leader role
+            Assertions.assertTrue(readLeaderFile("follower").isEmpty());
 
             // Stop camel to trigger failover
             RestAssured.given()
@@ -56,7 +60,7 @@ class MasterTest {
 
             // Verify that the secondary application has been elected as the cluster leader
             Awaitility.await().atMost(10, TimeUnit.SECONDS).until(() -> {
-                return readLeaderFile().equals("follower");
+                return readLeaderFile("follower").equals("leader");
             });
         } finally {
             if (process != null && process.getProcess().isAlive()) {
@@ -85,8 +89,8 @@ class MasterTest {
         }
     }
 
-    private String readLeaderFile() throws IOException {
-        Path path = Paths.get("target/cluster/leader.txt");
+    private String readLeaderFile(String fileName) throws IOException {
+        Path path = Paths.get(String.format("target/cluster/%s.txt", fileName));
         if (path.toFile().exists()) {
             byte[] bytes = Files.readAllBytes(path);
             return new String(bytes, StandardCharsets.UTF_8);

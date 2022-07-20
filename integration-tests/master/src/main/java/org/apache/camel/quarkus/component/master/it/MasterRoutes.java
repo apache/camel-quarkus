@@ -41,8 +41,9 @@ public class MasterRoutes extends RouteBuilder {
 
         // Output the id of the application into a file
         from("master:ns:timer:test?period=100").id("leader")
-                .setBody(constant(applicationId))
-                .setHeader(Exchange.FILE_NAME, constant("leader.txt"))
+                .setBody(constant("leader"))
+                .setHeader(Exchange.FILE_NAME, constant(String.format("%s.txt", applicationId)))
+                .log(String.format("Application %s is writing into file", applicationId))
                 .to("file:target/cluster/");
     }
 }
