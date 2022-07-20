@@ -1599,6 +1599,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-dataset</artifactId>
+        <version>3.18.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-datasonnet</artifactId>
         <version>3.18.0</version>
         <exclusions>
@@ -6611,6 +6616,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-dataformat-deployment</artifactId>
+        <version>2.11.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-dataset</artifactId>
+        <version>2.11.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-dataset-deployment</artifactId>
         <version>2.11.0-SNAPSHOT</version>
       </dependency>
       <dependency>

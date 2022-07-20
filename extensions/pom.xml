@@ -83,6 +83,7 @@
         <module>csimple</module>
         <module>csv</module>
         <module>dataformat</module>
+        <module>dataset</module>
         <module>datasonnet</module>
         <module>debezium-mongodb</module>
         <module>debezium-mysql</module>
