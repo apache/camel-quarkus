@@ -21,6 +21,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.http.client.config.RequestConfig;
 
 class HttpProcessor {
     public static final String FEATURE = "camel-http";
@@ -38,5 +39,7 @@ class HttpProcessor {
     @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
         reflectiveClasses.produce(new ReflectiveClassBuildItem(true, false, "org.apache.camel.component.http.HttpMethods"));
+        reflectiveClasses.produce(new ReflectiveClassBuildItem(true, false, "org.apache.http.impl.client.HttpClientBuilder"));
+        reflectiveClasses.produce(new ReflectiveClassBuildItem(true, false, RequestConfig.Builder.class.getName()));
     }
 }

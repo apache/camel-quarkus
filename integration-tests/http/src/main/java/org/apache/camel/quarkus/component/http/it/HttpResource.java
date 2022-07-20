@@ -73,7 +73,7 @@ public class HttpResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String httpGet(@QueryParam("test-port") int port) {
         return producerTemplate
-                .toF("http://localhost:%d/service/get?bridgeEndpoint=true", port)
+                .toF("http://localhost:%d/service/get?bridgeEndpoint=true&connectTimeout=2000", port)
                 .withHeader(Exchange.HTTP_METHOD, "GET")
                 .request(String.class);
     }
