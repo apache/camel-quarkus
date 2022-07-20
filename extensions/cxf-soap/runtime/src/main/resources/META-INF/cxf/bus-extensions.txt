@@ -1,0 +1,1 @@
+io.quarkiverse.cxf.transport.VertxDestinationFactory::true

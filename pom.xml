@@ -50,6 +50,7 @@
         <optaplanner.version>8.24.1.Final</optaplanner.version><!-- May go back to Camel's ${optaplanner-version} when they are in sync https://repo1.maven.org/maven2/org/optaplanner/optaplanner-quarkus/ -->
         <quarkiverse-amazonservices.version>1.1.2</quarkiverse-amazonservices.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/amazonservices/quarkus-amazon-services-parent/ -->
         <quarkiverse-artemis.version>1.2.0</quarkiverse-artemis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/artemis/quarkus-artemis-parent/ -->
+        <quarkiverse-cxf.version>1.4.0</quarkiverse-cxf.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/cxf/quarkus-cxf-parent/ -->
         <quarkiverse-freemarker.version>0.3.0</quarkiverse-freemarker.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/freemarker/quarkus-freemarker-parent/ -->
         <quarkiverse-jackson-jq.version>1.1.0</quarkiverse-jackson-jq.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jackson-jq/quarkus-jackson-jq-parent/ -->
         <quarkiverse-jgit.version>2.1.0</quarkiverse-jgit.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jgit/quarkus-jgit-parent/ -->
@@ -117,6 +118,7 @@
         <libthrift.version>${libthrift-version}</libthrift.version> <!-- Spark -->
         <msal4j.version>1.12.0</msal4j.version><!-- @sync com.azure:azure-identity:${azure-identity-version} dep:com.microsoft.azure:msal4j -->
         <mvel2.version>2.4.14.Final</mvel2.version><!-- @sync org.apache.camel:camel-dependencies:${camel.version} prop:mvel-version -->
+        <neethi.version>3.2.0</neethi.version>
         <okio.version>${squareup-okio-version}</okio.version>
         <opencensus.version>0.31.0</opencensus.version><!-- Mess in Google cloud. Keep in sync with version used in com.google.http-client:google-http-client -->
         <perfmark-api.version>0.25.0</perfmark-api.version><!-- @sync io.grpc:grpc-netty-shaded:${grpc.version} dep:io.perfmark:perfmark-api -->
@@ -132,6 +134,7 @@
         <xchange.version>${xchange-version}</xchange.version>
         <xerces.version>${xerces-version}</xerces.version>
         <xmlgraphics-commons.version>2.7</xmlgraphics-commons.version><!-- @sync org.apache.xmlgraphics:fop-parent:${fop-version} prop:xmlgraphics.commons.version -->
+        <xmlsec.version>2.3.0</xmlsec.version>
         <xstream.version>${xstream-version}</xstream.version>
         <web3j.version>${web3j-version}</web3j.version>
         <web3j.quorum.version>${web3j-quorum-version}</web3j.quorum.version>
@@ -520,6 +523,7 @@
                             <exclude>**/.idea/**</exclude>
                             <exclude>**/k8s-sb/**</exclude>
                             <exclude>.gitattributes</exclude>
+                            <exclude>**/src/test/resources/__files/*.xml</exclude>
                         </excludes>
                         <mapping>
                             <cli>CAMEL_PROPERTIES_STYLE</cli>

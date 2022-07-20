@@ -141,4 +141,12 @@ public class XmlsecurityProducers {
         keyGenerator.generateKey();
         return keyGenerator.generateKey();
     }
+
+    @Produces
+    @Named("cryptoContextProperties")
+    public Map<String, Object> cryptoContextProperties() {
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("org.apache.jcp.xml.dsig.secureValidation", Boolean.FALSE);
+        return properties;
+    }
 }

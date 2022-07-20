@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/hello",
+    "headers": {
+      "Content-Type": {
+        "equalTo": "text/xml; charset=UTF-8"
+      },
+      "SOAPAction": {
+        "equalTo": "\"https://www.helloworld.com/Service/Person\""
+      }
+    },
+    "bodyPatterns": [
+      {
+        "matchesXPath": "//ns2:PersonRequest",
+        "xPathNamespaces": {
+          "ns2": "http://www.helloworld.com/Service/"
+        }
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "soapObjectResponse.xml",
+    "headers": {
+      "Content-Type": "text/xml; charset=UTF-8"
+    }
+  }
+}

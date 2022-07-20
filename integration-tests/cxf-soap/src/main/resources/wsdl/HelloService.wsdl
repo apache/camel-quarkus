@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="http://www.helloworld.com/Service/" xmlns="http://www.w3.org/2001/XMLSchema"
+                  targetNamespace="http://www.helloworld.com/Service/">
+
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                    targetNamespace="http://www.helloworld.com/Service/">
+            <xsd:element name="HelloRequest" type="xsd:string"/>
+            <xsd:element name="HelloResponse" type="xsd:string"/>
+
+            <xsd:complexType name="PersonRequestType">
+                <xsd:sequence>
+                    <xsd:element name="firstName" type="xsd:string"/>
+                    <xsd:element name="lastName" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="PersonResponseType">
+                <xsd:complexContent>
+                    <extension base="tns:PersonRequestType">
+                        <xsd:sequence>
+                            <xsd:element name="greeting" type="xsd:string"/>
+                        </xsd:sequence>
+                    </extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+
+            <xsd:element name="PersonRequest" type="tns:PersonRequestType"/>
+            <xsd:element name="PersonResponse" type="tns:PersonResponseType"/>
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="helloInputMessage">
+        <wsdl:part name="helloInputPart" element="tns:HelloRequest"/>
+    </wsdl:message>
+    <wsdl:message name="helloOutputMessage">
+        <wsdl:part name="helloOutputPart" element="tns:HelloResponse"/>
+    </wsdl:message>
+
+    <wsdl:message name="personInputMessage">
+        <wsdl:part name="personInputPart" element="tns:PersonRequest"/>
+    </wsdl:message>
+    <wsdl:message name="personOutputMessage">
+        <wsdl:part name="personOutputPart" element="tns:PersonResponse"/>
+    </wsdl:message>
+
+    <wsdl:portType name="HelloPortType">
+        <wsdl:operation name="Hello">
+            <wsdl:input name="helloInput"
+                        message="tns:helloInputMessage"/>
+            <wsdl:output name="helloOutput"
+                         message="tns:helloOutputMessage"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="Person">
+            <wsdl:input name="personInput"
+                        message="tns:personInputMessage"/>
+            <wsdl:output name="personOutput"
+                         message="tns:personOutputMessage"/>
+        </wsdl:operation>
+
+    </wsdl:portType>
+
+    <wsdl:binding name="HelloBinding" type="tns:HelloPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Hello">
+            <soap:operation
+                    soapAction="https://www.helloworld.com/Service/Hello"/>
+            <wsdl:input name="helloInput">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="helloOutput">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Person">
+            <soap:operation
+                    soapAction="https://www.helloworld.com/Service/Person"/>
+            <wsdl:input name="personInput">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="personOutput">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="HelloService">
+        <wsdl:port name="HelloPort" binding="tns:HelloBinding">
+            <soap:address location="http://localhost:7878/hello"/>
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>

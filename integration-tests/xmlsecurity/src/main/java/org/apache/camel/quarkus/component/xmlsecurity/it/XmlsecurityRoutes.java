@@ -77,10 +77,10 @@ public class XmlsecurityRoutes extends RouteBuilder {
                 .to("xmlsecurity-verify:transformsXPath?keySelector=#selector");
 
         from("direct:transformsXsltXPath-sign")
-                .to("xmlsecurity-sign:transformsXsltXPath?keyAccessor=#accessor&transformMethods=#transformsXsltXPath");
+                .to("xmlsecurity-sign:transformsXsltXPath?keyAccessor=#accessor&transformMethods=#transformsXsltXPath&cryptoContextProperties=#cryptoContextProperties");
 
         from("direct:transformsXsltXPath-verify")
-                .to("xmlsecurity-verify:transformsXsltXPath?keySelector=#selector&secureValidation=false");
+                .to("xmlsecurity-verify:transformsXsltXPath?keySelector=#selector&secureValidation=false&cryptoContextProperties=#cryptoContextProperties");
 
         from("direct:marshal")
                 .marshal().xmlSecurity(key.getEncoded());
