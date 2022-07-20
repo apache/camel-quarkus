@@ -33,6 +33,7 @@
 
 **Merged pull requests:**
 
+- Remove platform-http-vertx workarounds now that Quarkus & Camel Vert.x is in sync [\#3920](https://github.com/apache/camel-quarkus/pull/3920) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.11.0.CR1 [\#3917](https://github.com/apache/camel-quarkus/pull/3917) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3914 to get TransactionManager and UserTransaction from Arc container [\#3915](https://github.com/apache/camel-quarkus/pull/3915) ([zhfeng](https://github.com/zhfeng))
 - Fix some cq warnings [\#3913](https://github.com/apache/camel-quarkus/pull/3913) ([aldettinger](https://github.com/aldettinger))
