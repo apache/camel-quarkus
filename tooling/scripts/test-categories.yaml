@@ -83,6 +83,7 @@ group-05:
   - bindy
   - cbor
   - csv
+  - cxf-soap
   - dataformat
   - datasonnet
   - hl7
