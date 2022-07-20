@@ -43,6 +43,7 @@
         <module>core-languages</module>
         <module>core-thread-pools</module>
         <module>customized-log-component</module>
+        <module>dataset</module>
         <module>direct</module>
         <module>eip</module>
         <module>language</module>
