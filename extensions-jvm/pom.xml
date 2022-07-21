@@ -68,6 +68,7 @@
         <module>groovy</module>
         <module>groovy-dsl</module>
         <module>guava-eventbus</module>
+        <module>hashicorp-vault</module>
         <module>hbase</module>
         <module>hdfs</module>
         <module>huaweicloud-smn</module>
