@@ -29,6 +29,7 @@ import org.apache.camel.component.jackson.ListJacksonDataFormat;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.quarkus.component.dataformats.json.model.DummyObject;
 import org.apache.camel.quarkus.component.dataformats.json.model.MyModule;
+import org.apache.camel.quarkus.component.dataformats.json.model.Person;
 import org.apache.camel.quarkus.component.dataformats.json.model.Pojo;
 import org.apache.camel.quarkus.component.dataformats.json.model.TestJAXBPojo;
 import org.apache.camel.quarkus.component.dataformats.json.model.TestPojo;
@@ -78,8 +79,7 @@ public class JacksonJsonRoute extends RouteBuilder {
         from("direct:jackson-marshal-inPojo").marshal(formatPojo);
         from("direct:jackson-marshal-backPojo").unmarshal(formatPojo).to("mock:jackson-marshal-reversePojo");
 
-        this.getContext().getRegistry().bind("myMapper", new ObjectMapper());
-        JacksonDataFormat objectMapperFormat = new JacksonDataFormat();
+        JacksonDataFormat objectMapperFormat = new JacksonDataFormat(Person.class);
         objectMapperFormat.setAutoDiscoverObjectMapper(true);
         from("direct:jackson-objectmapper-in").marshal(objectMapperFormat);
         from("direct:jackson-objectmapper-back").unmarshal(objectMapperFormat).to("mock:jackson-objectmapper-reverse");
