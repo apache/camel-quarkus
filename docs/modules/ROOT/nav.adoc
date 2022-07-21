@@ -146,6 +146,7 @@
 *** xref:reference/extensions/hdfs.adoc[HDFS]
 *** xref:reference/extensions/hl7.adoc[HL7]
 *** xref:reference/extensions/http.adoc[HTTP]
+*** xref:reference/extensions/hashicorp-vault.adoc[Hashicorp Vault]
 *** xref:reference/extensions/hazelcast.adoc[Hazelcast Atomic Number]
 *** xref:reference/extensions/headersmap.adoc[Headersmap]
 *** xref:reference/extensions/iec60870.adoc[IEC 60870 Client]
