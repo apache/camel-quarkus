@@ -27,6 +27,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.AdditionalApplicationArchiveMarkerBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 
@@ -45,13 +46,14 @@ public class XStreamSupportProcessor {
     }
 
     @BuildStep
-    void process(CombinedIndexBuildItem indexBuildItem,
-            BuildProducer<ReflectiveClassBuildItem> reflectiveClassBuildItemBuildProducer) {
+    void process(
+            CombinedIndexBuildItem indexBuildItem,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClassBuildItemBuildProducer,
+            BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
 
         for (String className : INTERFACES_TO_REGISTER) {
-            for (ClassInfo i : indexBuildItem.getIndex().getAllKnownImplementors(DotName.createSimple(className))) {
-                String name = i.name().toString();
-
+            for (ClassInfo classInfo : indexBuildItem.getIndex().getAllKnownImplementors(DotName.createSimple(className))) {
+                String name = classInfo.name().toString();
                 if (!EXCLUDED_CLASSES.contains(name)) {
                     reflectiveClassBuildItemBuildProducer.produce(new ReflectiveClassBuildItem(false, false, name));
                 }
@@ -240,5 +242,8 @@ public class XStreamSupportProcessor {
 
         reflectiveClassBuildItemBuildProducer.produce(new ReflectiveClassBuildItem(true, false,
                 "com.thoughtworks.xstream.io.xml.XmlFriendlyNameCoder"));
+
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(
+                "com.thoughtworks.xstream.converters.extended.DynamicProxyConverter$Reflections"));
     }
 }

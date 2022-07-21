@@ -24,23 +24,20 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.jboss.jandex.IndexView;
 
 class InfluxdbProcessor {
-
     private static String INFLUXDB_DTO_PACKAGE = "org.influxdb.dto";
-
     private static final String FEATURE = "camel-influxdb";
 
     @BuildStep
     FeatureBuildItem feature() {
-
         return new FeatureBuildItem(FEATURE);
     }
 
     @BuildStep
     void sslSupport(BuildProducer<ExtensionSslNativeSupportBuildItem> extensionSslNativeSupport) {
-
         // Indicates that this extension would like the SSL support to be enabled
         extensionSslNativeSupport.produce(new ExtensionSslNativeSupportBuildItem(FEATURE));
     }
@@ -68,4 +65,8 @@ class InfluxdbProcessor {
         return new IndexDependencyBuildItem("org.influxdb", "influxdb-java");
     }
 
+    @BuildStep
+    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem("org.msgpack.core.buffer.DirectBufferAccess"));
+    }
 }

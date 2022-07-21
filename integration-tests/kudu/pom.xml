@@ -32,7 +32,9 @@
 
     <properties>
         <!-- This is to allow the "deep reflection" we do in KuduInfrastructureTestHelper -->
-        <argLine>--add-opens java.base/java.net=ALL-UNNAMED</argLine>
+        <opens>java.base/java.net=ALL-UNNAMED</opens>
+        <argLine>--add-opens ${opens}</argLine>
+        <quarkus.native.additional-build-args>-J--add-opens=${opens}</quarkus.native.additional-build-args>
     </properties>
 
     <dependencies>
