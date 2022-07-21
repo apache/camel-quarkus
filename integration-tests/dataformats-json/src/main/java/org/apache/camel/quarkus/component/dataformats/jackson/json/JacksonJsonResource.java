@@ -43,6 +43,7 @@ import org.apache.camel.component.jackson.JacksonConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.quarkus.component.dataformats.json.model.DummyObject;
 import org.apache.camel.quarkus.component.dataformats.json.model.Order;
+import org.apache.camel.quarkus.component.dataformats.json.model.Person;
 import org.apache.camel.quarkus.component.dataformats.json.model.Pojo;
 import org.apache.camel.quarkus.component.dataformats.json.model.TestJAXBPojo;
 import org.apache.camel.quarkus.component.dataformats.json.model.TestOtherPojo;
@@ -249,17 +250,16 @@ public class JacksonJsonResource {
     @Path("jackson/object-mapper")
     @GET
     public void jacksonObjectMapper() throws Exception {
-        Map<String, Object> in = new HashMap<>();
-        in.put("name", "Camel");
+        Person person = new Person("John", "Doe", 44);
 
         MockEndpoint mock = context.getEndpoint("mock:jackson-objectmapper-reverse", MockEndpoint.class);
         mock.expectedMessageCount(1);
-        mock.message(0).body().isInstanceOf(Map.class);
-        mock.message(0).body().isEqualTo(in);
+        mock.message(0).body().isInstanceOf(Person.class);
+        mock.message(0).body().isEqualTo(person);
 
-        Object marshalled = producerTemplate.requestBody("direct:jackson-objectmapper-in", in);
+        Object marshalled = producerTemplate.requestBody("direct:jackson-objectmapper-in", person);
         String marshalledAsString = context.getTypeConverter().convertTo(String.class, marshalled);
-        assertEquals("{\"name\":\"Camel\"}", marshalledAsString);
+        assertEquals("{\"first_name\":\"John\",\"last_name\":\"Doe\",\"age\":44}", marshalledAsString);
 
         producerTemplate.sendBody("direct:jackson-objectmapper-back", marshalled);
 
@@ -495,7 +495,7 @@ public class JacksonJsonResource {
             order.setPartName("Camel");
 
             String json = (String) producerTemplate.requestBody("direct:jackson-conversion-pojo-test", order);
-            assertEquals("{\"id\":0,\"partName\":\"Camel\",\"amount\":1,\"customer_name\":\"Acme\"}", json);
+            assertEquals("{\"id\":0,\"part_name\":\"Camel\",\"amount\":1,\"customer_name\":\"Acme\"}", json);
         }
 
     }
