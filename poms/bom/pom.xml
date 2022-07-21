@@ -3458,6 +3458,12 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-jq</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>net.thisptr</groupId>
+                        <artifactId>jackson-jq</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
