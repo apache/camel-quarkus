@@ -10428,14 +10428,14 @@
         <version>2.17.220</version><!-- software.amazon.awssdk:bom:2.17.220 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.qpid</groupId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.34.0 -->
-        <artifactId>qpid-jms-client</artifactId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.34.0 -->
-        <version>1.6.0</version><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.34.0 -->
+        <groupId>org.apache.qpid</groupId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.36.0 -->
+        <artifactId>qpid-jms-client</artifactId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.36.0 -->
+        <version>1.6.0</version><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.36.0 -->
       </dependency>
       <dependency>
-        <groupId>org.amqphub.quarkus</groupId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.34.0 -->
-        <artifactId>quarkus-qpid-jms</artifactId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.34.0 -->
-        <version>0.34.0</version><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.34.0 -->
+        <groupId>org.amqphub.quarkus</groupId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.36.0 -->
+        <artifactId>quarkus-qpid-jms</artifactId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.36.0 -->
+        <version>0.36.0</version><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.36.0 -->
         <exclusions>
           <exclusion>
             <groupId>org.apache.geronimo.specs</groupId>
@@ -10444,9 +10444,9 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.amqphub.quarkus</groupId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.34.0 -->
-        <artifactId>quarkus-qpid-jms-deployment</artifactId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.34.0 -->
-        <version>0.34.0</version><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.34.0 -->
+        <groupId>org.amqphub.quarkus</groupId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.36.0 -->
+        <artifactId>quarkus-qpid-jms-deployment</artifactId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.36.0 -->
+        <version>0.36.0</version><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:0.36.0 -->
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId><!-- org.eclipse.jetty:jetty-bom:9.4.48.v20220622 -->
@@ -10687,11 +10687,6 @@
         <groupId>com.zendesk</groupId><!-- io.debezium:debezium-bom:1.9.2.Final -->
         <artifactId>mysql-binlog-connector-java</artifactId><!-- io.debezium:debezium-bom:1.9.2.Final -->
         <version>0.25.6</version><!-- io.debezium:debezium-bom:1.9.2.Final -->
-      </dependency>
-      <dependency>
-        <groupId>com.google.api.grpc</groupId><!-- io.debezium:debezium-bom:1.9.2.Final -->
-        <artifactId>proto-google-common-protos</artifactId><!-- io.debezium:debezium-bom:1.9.2.Final -->
-        <version>1.17.0</version><!-- io.debezium:debezium-bom:1.9.2.Final -->
       </dependency>
       <dependency>
         <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:1.9.2.Final -->
