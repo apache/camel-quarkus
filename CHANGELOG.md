@@ -6,6 +6,7 @@
 
 **Fixed bugs:**
 
+- Http Timeout Parameter Fails when compiled Natively  [\#3924](https://github.com/apache/camel-quarkus/issues/3924)
 - \[Quarkus 2.11.0\] OptaPlanner native image build fails [\#3899](https://github.com/apache/camel-quarkus/issues/3899)
 - Camel Quarkus 2.10.0 attempts to resolve properties for prod profile when running tests or in dev mode [\#3879](https://github.com/apache/camel-quarkus/issues/3879)
 - Bean introspection on `@Singleton` scoped beans does not work  [\#3856](https://github.com/apache/camel-quarkus/issues/3856)
@@ -14,6 +15,8 @@
 
 **Closed issues:**
 
+- Improve camel-quarkus-master integration test [\#3927](https://github.com/apache/camel-quarkus/issues/3927)
+- Add DataSet extension [\#3926](https://github.com/apache/camel-quarkus/issues/3926)
 - Get TransationManager and UserTransaction from quarkus container in camel-quarkus-jpa [\#3914](https://github.com/apache/camel-quarkus/issues/3914)
 - dozer: deprecate typeConverterEnabled config [\#3900](https://github.com/apache/camel-quarkus/issues/3900)
 - Increase JAXB extension test coverage [\#3896](https://github.com/apache/camel-quarkus/issues/3896)
@@ -33,6 +36,10 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 2.11.0.Final [\#3930](https://github.com/apache/camel-quarkus/pull/3930) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add DataSet extension [\#3929](https://github.com/apache/camel-quarkus/pull/3929) ([jamesnetherton](https://github.com/jamesnetherton))
+- \[closes \#3927\] Improve camel quarkus master integration test [\#3928](https://github.com/apache/camel-quarkus/pull/3928) ([llowinge](https://github.com/llowinge))
+- Fix \#3924 make sure the http client options working in native mode [\#3925](https://github.com/apache/camel-quarkus/pull/3925) ([zhfeng](https://github.com/zhfeng))
 - Remove platform-http-vertx workarounds now that Quarkus & Camel Vert.x is in sync [\#3920](https://github.com/apache/camel-quarkus/pull/3920) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.11.0.CR1 [\#3917](https://github.com/apache/camel-quarkus/pull/3917) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3914 to get TransactionManager and UserTransaction from Arc container [\#3915](https://github.com/apache/camel-quarkus/pull/3915) ([zhfeng](https://github.com/zhfeng))
