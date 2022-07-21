@@ -54,6 +54,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 @QuarkusTestResource(GrpcServerTestResource.class)
@@ -238,7 +239,8 @@ class GrpcTest {
             PongResponseStreamObserver responseObserver = new PongResponseStreamObserver(latch);
             StreamObserver<PingRequest> requestObserver = pingPongStub.pingAsyncSync(responseObserver);
             requestObserver.onNext(pingRequest);
-            latch.await(5, TimeUnit.SECONDS);
+            requestObserver.onCompleted();
+            assertTrue(latch.await(5, TimeUnit.SECONDS));
 
             Awaitility.await().atMost(5, TimeUnit.SECONDS).until(() -> {
                 JsonPath json = RestAssured.get("/grpc/tls")
@@ -301,7 +303,8 @@ class GrpcTest {
             PongResponseStreamObserver responseObserver = new PongResponseStreamObserver(latch);
             StreamObserver<PingRequest> requestObserver = pingPongStub.pingAsyncSync(responseObserver);
             requestObserver.onNext(pingRequest);
-            latch.await(5, TimeUnit.SECONDS);
+            requestObserver.onCompleted();
+            assertTrue(latch.await(5, TimeUnit.SECONDS));
 
             Awaitility.await().atMost(5, TimeUnit.SECONDS).until(() -> {
                 JsonPath json = RestAssured.get("/grpc/jwt")

@@ -84,7 +84,6 @@
             </activation>
             <properties>
                 <quarkus.package.type>native</quarkus.package.type>
-                <quarkus.native.additional-build-args>--language:js</quarkus.native.additional-build-args>
             </properties>
             <build>
                 <plugins>
