@@ -17,14 +17,11 @@
 
 name: camel-quarkus
 title: Camel Quarkus
-version: next
-prerelease: true
-display-version: Next (Pre-release)
+version: 2.11.x
 nav:
 - modules/ROOT/nav.adoc
 asciidoc:
   attributes:
-    prerelease: true
     requires: "'util=camel-website-util,quarkus=xref:js/quarkus.js'"
 
     min-maven-version: 3.8.2 # replace ${min-maven-version}
