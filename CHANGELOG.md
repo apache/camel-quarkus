@@ -17,7 +17,10 @@
 
 - Improve camel-quarkus-master integration test [\#3927](https://github.com/apache/camel-quarkus/issues/3927)
 - Add DataSet extension [\#3926](https://github.com/apache/camel-quarkus/issues/3926)
+- Test Quarkus Jackson `ObjectMapper` with `JacksonDataFormat` [\#3922](https://github.com/apache/camel-quarkus/issues/3922)
+- Document ways of customizing `ObjectMapper` for `JacksonDataFormat` [\#3921](https://github.com/apache/camel-quarkus/issues/3921)
 - Get TransationManager and UserTransaction from quarkus container in camel-quarkus-jpa [\#3914](https://github.com/apache/camel-quarkus/issues/3914)
+- Create a Camel Hashicorp Vault Extension [\#3911](https://github.com/apache/camel-quarkus/issues/3911)
 - dozer: deprecate typeConverterEnabled config [\#3900](https://github.com/apache/camel-quarkus/issues/3900)
 - Increase JAXB extension test coverage [\#3896](https://github.com/apache/camel-quarkus/issues/3896)
 - flattened-full-pom.xml contains some artifacts from quarkus 2.9.0.Final [\#3887](https://github.com/apache/camel-quarkus/issues/3887)
@@ -36,6 +39,12 @@
 
 **Merged pull requests:**
 
+- Upgrade to Debezium 1.9.5.Final [\#3938](https://github.com/apache/camel-quarkus/pull/3938) ([zbendhiba](https://github.com/zbendhiba))
+- Test Quarkus Jackson `ObjectMapper` with `JacksonDataFormat` + Docs [\#3937](https://github.com/apache/camel-quarkus/pull/3937) ([jamesnetherton](https://github.com/jamesnetherton))
+- Hashicorp vault [\#3935](https://github.com/apache/camel-quarkus/pull/3935) ([oscerd](https://github.com/oscerd))
+- Upgrade third party Quarkus extension dependencies [\#3934](https://github.com/apache/camel-quarkus/pull/3934) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix Google Big Query grpc-netty-shaded exclusions [\#3933](https://github.com/apache/camel-quarkus/pull/3933) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add native support for Azure Identity service principal authentication [\#3932](https://github.com/apache/camel-quarkus/pull/3932) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.11.0.Final [\#3930](https://github.com/apache/camel-quarkus/pull/3930) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add DataSet extension [\#3929](https://github.com/apache/camel-quarkus/pull/3929) ([jamesnetherton](https://github.com/jamesnetherton))
 - \[closes \#3927\] Improve camel quarkus master integration test [\#3928](https://github.com/apache/camel-quarkus/pull/3928) ([llowinge](https://github.com/llowinge))
