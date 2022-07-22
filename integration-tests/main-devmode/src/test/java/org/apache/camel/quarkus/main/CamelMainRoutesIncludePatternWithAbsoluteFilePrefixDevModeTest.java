@@ -30,6 +30,7 @@ import java.util.concurrent.TimeUnit;
 import io.quarkus.test.QuarkusDevModeTest;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.apache.camel.quarkus.core.util.FileUtils;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -37,14 +38,11 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledOnOs;
-import org.junit.jupiter.api.condition.OS;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
-@DisabledOnOs(value = OS.WINDOWS, disabledReason = "https://github.com/apache/camel-quarkus/issues/3529")
 public class CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest {
     static Path BASE;
 
@@ -73,11 +71,13 @@ public class CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest {
     }
 
     public static Asset applicationProperties() {
+        String routeXmlPath = FileUtils.nixifyPath(BASE.toAbsolutePath() + "/routes.xml");
+
         Writer writer = new StringWriter();
 
         Properties props = new Properties();
         props.setProperty("quarkus.banner.enabled", "false");
-        props.setProperty("camel.main.routes-include-pattern", "file:" + BASE.toAbsolutePath().toString() + "/routes.xml");
+        props.setProperty("camel.main.routes-include-pattern", "file:" + routeXmlPath);
 
         try {
             props.store(writer, "");
