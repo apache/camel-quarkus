@@ -2,43 +2,16 @@
 
 ## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.7.2...HEAD)
-
-**Fixed bugs:**
-
-- Http Timeout Parameter Fails when compiled Natively  [\#3924](https://github.com/apache/camel-quarkus/issues/3924)
-- \[Quarkus 2.11.0\] OptaPlanner native image build fails [\#3899](https://github.com/apache/camel-quarkus/issues/3899)
-- Camel Quarkus 2.10.0 attempts to resolve properties for prod profile when running tests or in dev mode [\#3879](https://github.com/apache/camel-quarkus/issues/3879)
-- Bean introspection on `@Singleton` scoped beans does not work  [\#3856](https://github.com/apache/camel-quarkus/issues/3856)
-- Cannot compile native image for Google PubSub integration tests [\#3832](https://github.com/apache/camel-quarkus/issues/3832)
-- Configuration of ActiveMQ broker URL properties may require reflective access [\#3809](https://github.com/apache/camel-quarkus/issues/3809)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.11.0...HEAD)
 
 **Closed issues:**
 
-- Improve camel-quarkus-master integration test [\#3927](https://github.com/apache/camel-quarkus/issues/3927)
-- Add DataSet extension [\#3926](https://github.com/apache/camel-quarkus/issues/3926)
-- Test Quarkus Jackson `ObjectMapper` with `JacksonDataFormat` [\#3922](https://github.com/apache/camel-quarkus/issues/3922)
-- Document ways of customizing `ObjectMapper` for `JacksonDataFormat` [\#3921](https://github.com/apache/camel-quarkus/issues/3921)
-- Get TransationManager and UserTransaction from quarkus container in camel-quarkus-jpa [\#3914](https://github.com/apache/camel-quarkus/issues/3914)
-- Create a Camel Hashicorp Vault Extension [\#3911](https://github.com/apache/camel-quarkus/issues/3911)
-- dozer: deprecate typeConverterEnabled config [\#3900](https://github.com/apache/camel-quarkus/issues/3900)
-- Increase JAXB extension test coverage [\#3896](https://github.com/apache/camel-quarkus/issues/3896)
-- flattened-full-pom.xml contains some artifacts from quarkus 2.9.0.Final [\#3887](https://github.com/apache/camel-quarkus/issues/3887)
-- Upgrade quarkus-artemis to 1.2.0 [\#3884](https://github.com/apache/camel-quarkus/issues/3884)
-- \[Quarkus 2.11.0\] Vert.x 4.3.1 not compatible with Camel 3.17.x [\#3877](https://github.com/apache/camel-quarkus/issues/3877)
-- Consider removing configuration for `camel.main.source-location-enabled` [\#3858](https://github.com/apache/camel-quarkus/issues/3858)
-- Clarify usage of Quarkus Quartz clustering support [\#3850](https://github.com/apache/camel-quarkus/issues/3850)
-- \[Camel 3.18.0\] Create camel-jq extension [\#3835](https://github.com/apache/camel-quarkus/issues/3835)
-- Create an example for JTA+JPA integration [\#3817](https://github.com/apache/camel-quarkus/issues/3817)
-- Aws SQS: Remove unnecessary headers from the test because of CAMEL-18123 [\#3803](https://github.com/apache/camel-quarkus/issues/3803)
-- Reduce the noise in verbose flattened BOMs [\#3702](https://github.com/apache/camel-quarkus/issues/3702)
-- Improve support for `InfinispanRemoteAggregationRepository` [\#3657](https://github.com/apache/camel-quarkus/issues/3657)
-- Intermittent failure of FileTests [\#3584](https://github.com/apache/camel-quarkus/issues/3584)
-- Apache Drill Unable to start [\#3315](https://github.com/apache/camel-quarkus/issues/3315)
-- XA JMS Transaction fails [\#2815](https://github.com/apache/camel-quarkus/issues/2815)
+- Unable to compile native image for Azure Storage Blob extension [\#3820](https://github.com/apache/camel-quarkus/issues/3820)
+- `CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest` fails on Windows [\#3529](https://github.com/apache/camel-quarkus/issues/3529)
 
 **Merged pull requests:**
 
+- Fix CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest on Windows [\#3939](https://github.com/apache/camel-quarkus/pull/3939) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Debezium 1.9.5.Final [\#3938](https://github.com/apache/camel-quarkus/pull/3938) ([zbendhiba](https://github.com/zbendhiba))
 - Test Quarkus Jackson `ObjectMapper` with `JacksonDataFormat` + Docs [\#3937](https://github.com/apache/camel-quarkus/pull/3937) ([jamesnetherton](https://github.com/jamesnetherton))
 - Hashicorp vault [\#3935](https://github.com/apache/camel-quarkus/pull/3935) ([oscerd](https://github.com/oscerd))
@@ -1172,22 +1145,56 @@
 - org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
 
+## [2.11.0](https://github.com/apache/camel-quarkus/tree/2.11.0) (2022-07-22)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.7.2...2.11.0)
+
+**Fixed bugs:**
+
+- \[Quarkus 2.11.0\] OptaPlanner native image build fails [\#3899](https://github.com/apache/camel-quarkus/issues/3899)
+- Http Timeout Parameter Fails when compiled Natively  [\#3924](https://github.com/apache/camel-quarkus/issues/3924)
+- Camel Quarkus 2.10.0 attempts to resolve properties for prod profile when running tests or in dev mode [\#3879](https://github.com/apache/camel-quarkus/issues/3879)
+- PDF extension encryption does not work in native mode [\#3871](https://github.com/apache/camel-quarkus/issues/3871)
+- Bean introspection on `@Singleton` scoped beans does not work  [\#3856](https://github.com/apache/camel-quarkus/issues/3856)
+- Cannot compile native image for Google PubSub integration tests [\#3832](https://github.com/apache/camel-quarkus/issues/3832)
+- Configuration of ActiveMQ broker URL properties may require reflective access [\#3809](https://github.com/apache/camel-quarkus/issues/3809)
+
+**Closed issues:**
+
+- flattened-full-pom.xml contains some artifacts from quarkus 2.9.0.Final [\#3887](https://github.com/apache/camel-quarkus/issues/3887)
+- \[Quarkus 2.11.0\] Vert.x 4.3.1 not compatible with Camel 3.17.x [\#3877](https://github.com/apache/camel-quarkus/issues/3877)
+- Reduce the noise in verbose flattened BOMs [\#3702](https://github.com/apache/camel-quarkus/issues/3702)
+- Improve support for `InfinispanRemoteAggregationRepository` [\#3657](https://github.com/apache/camel-quarkus/issues/3657)
+- Apache Drill Unable to start [\#3315](https://github.com/apache/camel-quarkus/issues/3315)
+- XA JMS Transaction fails [\#2815](https://github.com/apache/camel-quarkus/issues/2815)
+- Improve camel-quarkus-master integration test [\#3927](https://github.com/apache/camel-quarkus/issues/3927)
+- Add DataSet extension [\#3926](https://github.com/apache/camel-quarkus/issues/3926)
+- Test Quarkus Jackson `ObjectMapper` with `JacksonDataFormat` [\#3922](https://github.com/apache/camel-quarkus/issues/3922)
+- Document ways of customizing `ObjectMapper` for `JacksonDataFormat` [\#3921](https://github.com/apache/camel-quarkus/issues/3921)
+- Get TransationManager and UserTransaction from quarkus container in camel-quarkus-jpa [\#3914](https://github.com/apache/camel-quarkus/issues/3914)
+- Create a Camel Hashicorp Vault Extension [\#3911](https://github.com/apache/camel-quarkus/issues/3911)
+- dozer: deprecate typeConverterEnabled config [\#3900](https://github.com/apache/camel-quarkus/issues/3900)
+- Increase JAXB extension test coverage [\#3896](https://github.com/apache/camel-quarkus/issues/3896)
+- Upgrade quarkus-artemis to 1.2.0 [\#3884](https://github.com/apache/camel-quarkus/issues/3884)
+- arangodb integration tests failing with can not start container [\#3864](https://github.com/apache/camel-quarkus/issues/3864)
+- quarkus-bootstrap-maven-plugin is deprecated [\#3863](https://github.com/apache/camel-quarkus/issues/3863)
+- paho-mqtt5 test failing with `Error: Unable to create websockets listener on port 9001` [\#3860](https://github.com/apache/camel-quarkus/issues/3860)
+- Consider removing configuration for `camel.main.source-location-enabled` [\#3858](https://github.com/apache/camel-quarkus/issues/3858)
+- Clarify usage of Quarkus Quartz clustering support [\#3850](https://github.com/apache/camel-quarkus/issues/3850)
+- \[Camel 3.18.0\] Create camel-jq extension [\#3835](https://github.com/apache/camel-quarkus/issues/3835)
+- Create an example for JTA+JPA integration [\#3817](https://github.com/apache/camel-quarkus/issues/3817)
+- Aws SQS: Remove unnecessary headers from the test because of CAMEL-18123 [\#3803](https://github.com/apache/camel-quarkus/issues/3803)
+- Reduce the number of `timer-log` example projects [\#3708](https://github.com/apache/camel-quarkus/issues/3708)
+- Intermittent failure of FileTests [\#3584](https://github.com/apache/camel-quarkus/issues/3584)
+
 ## [2.7.2](https://github.com/apache/camel-quarkus/tree/2.7.2) (2022-06-29)
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.10.0...2.7.2)
 
-**Fixed bugs:**
-
-- PDF extension encryption does not work in native mode [\#3871](https://github.com/apache/camel-quarkus/issues/3871)
-
 **Closed issues:**
 
 - 2.10.0 not able to boot NoClassDefFoundError: org/apache/camel/builder/ErrorHandlerBuilder [\#3870](https://github.com/apache/camel-quarkus/issues/3870)
-- arangodb integration tests failing with can not start container [\#3864](https://github.com/apache/camel-quarkus/issues/3864)
-- quarkus-bootstrap-maven-plugin is deprecated [\#3863](https://github.com/apache/camel-quarkus/issues/3863)
-- paho-mqtt5 test failing with `Error: Unable to create websockets listener on port 9001` [\#3860](https://github.com/apache/camel-quarkus/issues/3860)
 - Camel TypeConverterLoader in native mode [\#3857](https://github.com/apache/camel-quarkus/issues/3857)
-- Reduce the number of `timer-log` example projects [\#3708](https://github.com/apache/camel-quarkus/issues/3708)
 
 ## [2.10.0](https://github.com/apache/camel-quarkus/tree/2.10.0) (2022-06-17)
 
