@@ -26,11 +26,13 @@ import java.nio.file.StandardCopyOption;
 import java.util.Comparator;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 import io.quarkus.test.QuarkusDevModeTest;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.apache.camel.quarkus.core.util.FileUtils;
+import org.apache.camel.util.FileUtil;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -64,10 +66,16 @@ public class CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest {
 
     @AfterAll
     public static void cleanUp() throws IOException {
+        Consumer<? super File> deleteFile = File::delete;
+        if (FileUtil.isWindows()) {
+            // File may be locked by the Quarkus process, so clean up on VM exit
+            deleteFile = File::deleteOnExit;
+        }
+
         Files.walk(BASE)
                 .sorted(Comparator.reverseOrder())
                 .map(Path::toFile)
-                .forEach(File::delete);
+                .forEach(deleteFile);
     }
 
     public static Asset applicationProperties() {
