@@ -33,9 +33,9 @@
     <description>[=description]</description>
 
     <properties>
-        <camel.quarkus.jvmSince>2.11.0</camel.quarkus.jvmSince>
+        <camel.quarkus.jvmSince>2.12.0</camel.quarkus.jvmSince>
 [#if nativeSupported ]
-        <camel.quarkus.nativeSince>2.11.0</camel.quarkus.nativeSince>
+        <camel.quarkus.nativeSince>2.12.0</camel.quarkus.nativeSince>
 [/#if]
     </properties>
 
