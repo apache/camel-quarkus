@@ -11,6 +11,8 @@
 
 **Merged pull requests:**
 
+- Next is 2.12.0 [\#3941](https://github.com/apache/camel-quarkus/pull/3941) ([jamesnetherton](https://github.com/jamesnetherton))
+- Delete potentially locked file on VM exit for Windows dev mode test [\#3940](https://github.com/apache/camel-quarkus/pull/3940) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest on Windows [\#3939](https://github.com/apache/camel-quarkus/pull/3939) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Debezium 1.9.5.Final [\#3938](https://github.com/apache/camel-quarkus/pull/3938) ([zbendhiba](https://github.com/zbendhiba))
 - Test Quarkus Jackson `ObjectMapper` with `JacksonDataFormat` + Docs [\#3937](https://github.com/apache/camel-quarkus/pull/3937) ([jamesnetherton](https://github.com/jamesnetherton))
