@@ -11,6 +11,7 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 2.11.1.Final [\#3943](https://github.com/apache/camel-quarkus/pull/3943) ([jamesnetherton](https://github.com/jamesnetherton))
 - Next is 2.12.0 [\#3941](https://github.com/apache/camel-quarkus/pull/3941) ([jamesnetherton](https://github.com/jamesnetherton))
 - Delete potentially locked file on VM exit for Windows dev mode test [\#3940](https://github.com/apache/camel-quarkus/pull/3940) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest on Windows [\#3939](https://github.com/apache/camel-quarkus/pull/3939) ([jamesnetherton](https://github.com/jamesnetherton))
