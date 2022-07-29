@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- \[Camel 3.19.0\] Dependency covergence check failure in HDFS extension [\#3942](https://github.com/apache/camel-quarkus/issues/3942)
 - Unable to compile native image for Azure Storage Blob extension [\#3820](https://github.com/apache/camel-quarkus/issues/3820)
 - `CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest` fails on Windows [\#3529](https://github.com/apache/camel-quarkus/issues/3529)
 
