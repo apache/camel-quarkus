@@ -33,6 +33,8 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
+import org.apache.camel.quarkus.component.azure.storage.blob.it.AzureStorageHelper.ClientCertificateAuthEnabled;
+import org.apache.camel.quarkus.component.azure.storage.blob.it.AzureStorageHelper.ClientSecretAuthEnabled;
 import org.apache.camel.quarkus.test.EnabledIf;
 import org.apache.camel.quarkus.test.mock.backend.MockBackendDisabled;
 import org.apache.camel.quarkus.test.support.azure.AzureStorageTestResource;
@@ -45,9 +47,9 @@ import org.testcontainers.shaded.org.awaitility.Awaitility;
 
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.matchesPattern;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.StringEndsWith.endsWith;
-import static org.hamcrest.text.MatchesPattern.matchesPattern;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -533,6 +535,62 @@ class AzureStorageBlobTest {
             // Read
             RestAssured.given()
                     .queryParam("uri", "direct:readWithManagedClient")
+                    .get("/azure-storage-blob/blob/read")
+                    .then()
+                    .statusCode(200)
+                    .body(is(BLOB_CONTENT));
+        } finally {
+            // Delete
+            RestAssured.delete("/azure-storage-blob/blob/delete")
+                    .then()
+                    .statusCode(anyOf(is(204), is(404)));
+        }
+    }
+
+    // Authentication with client secrets is not possible with Azurite
+    @EnabledIf({ ClientSecretAuthEnabled.class })
+    @Test
+    public void readWithClientSecretAuth() {
+        try {
+            // Create
+            RestAssured.given()
+                    .contentType(ContentType.TEXT)
+                    .body(BLOB_CONTENT)
+                    .post("/azure-storage-blob/blob/create")
+                    .then()
+                    .statusCode(201);
+
+            // Read
+            RestAssured.given()
+                    .queryParam("uri", "direct:readWithClientSecret")
+                    .get("/azure-storage-blob/blob/read")
+                    .then()
+                    .statusCode(200)
+                    .body(is(BLOB_CONTENT));
+        } finally {
+            // Delete
+            RestAssured.delete("/azure-storage-blob/blob/delete")
+                    .then()
+                    .statusCode(anyOf(is(204), is(404)));
+        }
+    }
+
+    // Authentication with client certificates is not possible with Azurite
+    @EnabledIf({ ClientCertificateAuthEnabled.class })
+    @Test
+    public void readWithClientCertificateAuth() {
+        try {
+            // Create
+            RestAssured.given()
+                    .contentType(ContentType.TEXT)
+                    .body(BLOB_CONTENT)
+                    .post("/azure-storage-blob/blob/create")
+                    .then()
+                    .statusCode(201);
+
+            // Read
+            RestAssured.given()
+                    .queryParam("uri", "direct:readWithClientCertificate")
                     .get("/azure-storage-blob/blob/read")
                     .then()
                     .statusCode(200)
