@@ -54,6 +54,18 @@ public class AzureStorageBlobRoutes extends RouteBuilder {
                 .to(componentUri("azure-storage-blob-managed-client", BlobOperationsDefinition.getBlob)
                         + "&autowiredEnabled=false");
 
+        if (AzureStorageHelper.isClientSecretAuthEnabled()) {
+            from("direct:readWithClientSecret")
+                    .to(componentUri("azure-storage-blob-client-secret-auth", BlobOperationsDefinition.getBlob)
+                            + "&autowiredEnabled=false");
+        }
+
+        if (AzureStorageHelper.isClientCertificateAuthEnabled()) {
+            from("direct:readWithClientCertificate")
+                    .to(componentUri("azure-storage-blob-client-certificate-auth", BlobOperationsDefinition.getBlob)
+                            + "&autowiredEnabled=false");
+        }
+
         from("direct:update")
                 .to(componentUri(BlobOperationsDefinition.uploadBlockBlob));
 

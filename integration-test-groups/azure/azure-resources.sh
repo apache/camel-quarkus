@@ -28,6 +28,8 @@ suffix="$(az ad signed-in-user show --query displayName -o tsv | tr '[:upper:]' 
 suffix="${suffix}4"
 export AZURE_STORAGE_ACCOUNT_NAME=cqacc${suffix}
 export AZURE_BLOB_CONTAINER_NAME=cq-container-${suffix}
+export AZURE_APP_NAME=cq-app-${suffix}
+export AZURE_APP_CERT_PATH=${PWD}/certs/azure-cert.pem
 
 export RESOURCE_GROUP=cq-res-group-${suffix}
 export ZONE=westeurope
@@ -42,11 +44,30 @@ function createResources() {
     az storage account create --name ${AZURE_STORAGE_ACCOUNT_NAME} --resource-group ${RESOURCE_GROUP} --location ${ZONE} --sku Standard_LRS --kind StorageV2
     az storage account blob-service-properties update --enable-change-feed true --enable-delete-retention true --delete-retention-days 1 -n ${AZURE_STORAGE_ACCOUNT_NAME} -g ${RESOURCE_GROUP}
 
+    AZURE_APP_CREDENTIALS=/tmp/app-credentials.json
+    AZURE_CLIENT_ID=$(az ad app create --display-name ${AZURE_APP_NAME} --query 'appId' -o tsv)
+    az ad app credential reset --id ${AZURE_CLIENT_ID} > ${AZURE_APP_CREDENTIALS}
+    if [[ ! -f ${AZURE_APP_CREDENTIALS} ]]; then
+      echo "Credentials generation for application ${AZURE_APP_NAME} failed"
+      exit 1
+    fi
+
+    export AZURE_CLIENT_SECRET=$(grep password ${AZURE_APP_CREDENTIALS} | cut -f4 -d\" )
+    export AZURE_TENANT_ID=$(grep tenant  ${AZURE_APP_CREDENTIALS} | cut -f4 -d\" )
+    rm -f ${AZURE_APP_CREDENTIALS}
+
+    az ad app credential reset --id ${AZURE_CLIENT_ID} --cert "@${AZURE_APP_CERT_PATH}" --append
+
     SUBSCRIPTION_ID="$(az account list --query '[0].id' -o tsv)"
     USER_ID="$(az ad signed-in-user show --query objectId -o tsv)"
-    az role assignment create --role "Storage Blob Data Contributor"  --assignee ${USER_ID} --scope "/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${RESOURCE_GROUP}/providers/Microsoft.Storage/storageAccounts/${AZURE_STORAGE_ACCOUNT_NAME}"
+    az role assignment create --role "Storage Blob Data Contributor" --assignee ${USER_ID} --scope "/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${RESOURCE_GROUP}/providers/Microsoft.Storage/storageAccounts/${AZURE_STORAGE_ACCOUNT_NAME}"
 
+    az ad sp create --id ${AZURE_CLIENT_ID}
+    az role assignment create --role "Storage Blob Data Contributor" --assignee ${AZURE_CLIENT_ID} --scope "/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${RESOURCE_GROUP}/providers/Microsoft.Storage/storageAccounts/${AZURE_STORAGE_ACCOUNT_NAME}"
+
+    echo "Waiting for Azure resources to become available..."
     sleep 30
+    echo
 
     az storage container create --account-name ${AZURE_STORAGE_ACCOUNT_NAME} --name ${AZURE_BLOB_CONTAINER_NAME} --auth-mode login
 
@@ -64,6 +85,13 @@ function createResources() {
     echo 'export AZURE_STORAGE_ACCOUNT_KEY="'${AZURE_STORAGE_ACCOUNT_KEY}'"'
     echo 'export AZURE_EVENT_HUBS_BLOB_CONTAINER_NAME="'${AZURE_BLOB_CONTAINER_NAME}'"'
     echo 'export AZURE_EVENT_HUBS_CONNECTION_STRING="'$AZURE_EVENT_HUBS_CONNECTION_STRING';EntityPath='${EH_NAME}'"'
+    echo
+    echo
+    echo "Optionally set the following to test alternate authentication mechanisms:"
+    echo 'export AZURE_CLIENT_ID="'${AZURE_CLIENT_ID}'"'
+    echo 'export AZURE_CLIENT_SECRET="'${AZURE_CLIENT_SECRET}'"'
+    echo 'export AZURE_TENANT_ID="'${AZURE_TENANT_ID}'"'
+    echo 'export AZURE_CLIENT_CERTIFICATE_PATH="'${AZURE_APP_CERT_PATH}'"'
 }
 
 
@@ -75,6 +103,7 @@ function deleteResources() {
     az storage container delete --account-name ${AZURE_STORAGE_ACCOUNT_NAME} --name ${AZURE_BLOB_CONTAINER_NAME}
     az storage account delete --name ${AZURE_STORAGE_ACCOUNT_NAME} --resource-group ${RESOURCE_GROUP} --yes
     az group delete --name ${RESOURCE_GROUP} --yes
+    az ad app delete --id $(az ad app list --display-name ${AZURE_APP_NAME} --query '[0].appId' -o tsv)
 }
 
 case "$1" in

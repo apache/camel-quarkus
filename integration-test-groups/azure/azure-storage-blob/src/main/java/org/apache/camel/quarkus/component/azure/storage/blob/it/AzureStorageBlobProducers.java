@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.azure.storage.blob.it;
 
+import java.io.IOException;
+
 import javax.inject.Named;
 
 import com.azure.core.http.policy.HttpLogDetailLevel;
@@ -24,6 +26,8 @@ import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
 import com.azure.storage.common.StorageSharedKeyCredential;
 import org.apache.camel.component.azure.storage.blob.BlobComponent;
+import org.apache.camel.component.azure.storage.blob.BlobConfiguration;
+import org.apache.camel.component.azure.storage.blob.CredentialType;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 public class AzureStorageBlobProducers {
@@ -37,21 +41,61 @@ public class AzureStorageBlobProducers {
     @ConfigProperty(name = "azure.blob.service.url")
     String azureBlobServiceUrl;
 
+    @Named("azureStorageSharedKeyCredential")
+    public StorageSharedKeyCredential azureStorageSharedKeyCredential() {
+        return new StorageSharedKeyCredential(azureStorageAccountName, azureStorageAccountKey);
+    }
+
     @Named("azureBlobServiceClient")
-    public BlobServiceClient createBlobClient() throws Exception {
-        StorageSharedKeyCredential credentials = new StorageSharedKeyCredential(azureStorageAccountName,
-                azureStorageAccountKey);
-        return new BlobServiceClientBuilder()
-                .endpoint(azureBlobServiceUrl)
-                .credential(credentials)
-                .httpLogOptions(new HttpLogOptions().setLogLevel(HttpLogDetailLevel.BODY_AND_HEADERS).setPrettyPrintBody(true))
+    public BlobServiceClient createBlobClient(StorageSharedKeyCredential credential) {
+        return getBlobClientBuilder()
+                .credential(credential)
                 .buildClient();
     }
 
     @Named("azure-storage-blob-managed-client")
     public BlobComponent azureBlobComponentWithManagedClient() {
+        BlobConfiguration configuration = new BlobConfiguration();
+        configuration.setCredentialType(CredentialType.SHARED_KEY_CREDENTIAL);
+
         BlobComponent component = new BlobComponent();
         component.setAutowiredEnabled(false);
+        component.setConfiguration(configuration);
         return component;
+    }
+
+    @Named("azure-storage-blob-client-secret-auth")
+    public BlobComponent azureStorageBlobClientSecretAuth() {
+        if (AzureStorageHelper.isClientSecretAuthEnabled()) {
+            BlobConfiguration configuration = new BlobConfiguration();
+            configuration.setCredentialType(CredentialType.AZURE_IDENTITY);
+
+            BlobComponent component = new BlobComponent();
+            component.setAutowiredEnabled(false);
+            component.setConfiguration(configuration);
+            return component;
+        }
+        return null;
+    }
+
+    @Named("azure-storage-blob-client-certificate-auth")
+    public BlobComponent azureStorageBlobClientCertificateAuth() throws IOException {
+        if (AzureStorageHelper.isClientCertificateAuthEnabled()) {
+            BlobConfiguration configuration = new BlobConfiguration();
+            configuration.setCredentialType(CredentialType.AZURE_IDENTITY);
+
+            BlobComponent component = new BlobComponent();
+            component.setAutowiredEnabled(false);
+            component.setConfiguration(configuration);
+            return component;
+        }
+        return null;
+    }
+
+    private BlobServiceClientBuilder getBlobClientBuilder() {
+        return new BlobServiceClientBuilder().endpoint(azureBlobServiceUrl)
+                .httpLogOptions(new HttpLogOptions()
+                        .setLogLevel(HttpLogDetailLevel.BODY_AND_HEADERS)
+                        .setPrettyPrintBody(true));
     }
 }

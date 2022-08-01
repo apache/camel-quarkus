@@ -27,8 +27,7 @@ To create all of the above, you can use `azure-resources.sh` script as follows. 
 $ ./azure-resources.sh create
 ----
 
-The script outputs a set of export commands that you may want to paste to your shell,
-or to your `.bashrc`.
+The script outputs a set of export commands that you may want to paste to your shell.
 
 Here are the environment variables you need to set:
 
@@ -36,6 +35,13 @@ Here are the environment variables you need to set:
 ----
 export AZURE_STORAGE_ACCOUNT_NAME=<your-azure-storage-account-name>
 export AZURE_STORAGE_ACCOUNT_KEY=<your-azure-storage-account-key>
+
+# optional to test alternate authentication methods
+export AZURE_CLIENT_ID=<your-azure-app-client-id>
+export AZURE_CLIENT_SECRET=<your-azure-app-client-secret>
+export AZURE_TENANT_ID=<your-azure-app-tenant-id>
+export AZURE_CLIENT_CERTIFICATE_PATH=<your-azure-app-certificate-pem-file>
+
 # the container has to exist before you run the test
 export AZURE_EVENT_HUBS_BLOB_CONTAINER_NAME=<your-container-name>
 export AZURE_EVENT_HUBS_CONNECTION_STRING="Endpoint=sb://<your-namespace>.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=<your-key>;EntityPath=<your-hub-name>"
@@ -50,4 +56,12 @@ $ ./azure-resources.sh delete
 
 You may want to `export CAMEL_QUARKUS_START_MOCK_BACKEND=false` to avoid starting the local Azurite container and make sure that you test against the real remote Azure API.
 
+==== Regenerating client certificates
 
+For convenience, a certificate is stored in this project to be used for client certificate authentication. It can be regenerated as follows.
+
+[source,shell]
+----
+openssl req -nodes -new -x509 -sha256 -days 1825 -out /tmp/azure-cert.pem -keyout /tmp/azure-cert-key.pem
+cat /tmp/azure-cert.pem /tmp/azure-cert-key.pem > ${PWD}/certs/azure-cert.pem
+----
