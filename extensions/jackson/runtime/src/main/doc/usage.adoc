@@ -13,9 +13,19 @@ You can pass a custom `ObjectMapper` instance to `JacksonDataFormat` as follows.
 
 [source,java]
 ----
-ObjectMapper mapper = new ObjectMapper();
-JacksonDataFormat dataFormat = new JacksonDataFormat();
-dataFormat.setObjectMapper(mapper);
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.jackson.JacksonDataFormat;
+
+public class Routes extends RouteBuilder {
+    public void configure() {
+        ObjectMapper mapper = new ObjectMapper();
+        JacksonDataFormat dataFormat = new JacksonDataFormat();
+        dataFormat.setObjectMapper(mapper);
+        // Use the dataFormat instance in a route definition
+        from("direct:my-direct").marshal(dataFormat)
+    }
+}
 ----
 
 ==== Using the Quarkus Jackson `ObjectMapper` with `JacksonDataFormat`
@@ -24,18 +34,28 @@ The Quarkus Jackson extension exposes an `ObjectMapper` CDI bean which can be di
 
 [source,java]
 ----
-ObjectMapper mapper = new ObjectMapper();
-JacksonDataFormat dataFormat = new JacksonDataFormat();
-// Make JacksonDataFormat discover the Quarkus Jackson `ObjectMapper` from the Camel registry
-dataFormat.setAutoDiscoverObjectMapper(true);
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.jackson.JacksonDataFormat;
+
+public class Routes extends RouteBuilder {
+    public void configure() {
+        JacksonDataFormat dataFormat = new JacksonDataFormat();
+        // Make JacksonDataFormat discover the Quarkus Jackson `ObjectMapper` from the Camel registry
+        dataFormat.setAutoDiscoverObjectMapper(true);
+        // Use the dataFormat instance in a route definition
+        from("direct:my-direct").marshal(dataFormat)
+    }
+}
 ----
 
 If you are using the JSON binding mode in the Camel REST DSL and want to use the Quarkus Jackson `ObjectMapper`, it can be achieved as follows.
 
 [source,java]
 ----
+import org.apache.camel.builder.RouteBuilder;
+
 @ApplicationScoped
-public class Routes extends RouteBuilder() {
+public class Routes extends RouteBuilder {
     public void configure() {
         restConfiguration().dataFormatProperty("autoDiscoverObjectMapper", "true");
         // REST definition follows...
@@ -47,6 +67,9 @@ You can perform customizations on the Quarkus `ObjectMapper` with a `ObjectMappe
 
 [source,java]
 ----
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.quarkus.jackson.ObjectMapperCustomizer;
+
 @Singleton
 public class RegisterCustomModuleCustomizer implements ObjectMapperCustomizer {
     public void customize(ObjectMapper mapper) {
@@ -59,15 +82,20 @@ It's also possible to `@Inject` the Quarkus `ObjectMapper` and pass it to the `J
 
 [source,java]
 ----
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.jackson.JacksonDataFormat;
+
 @ApplicationScoped
-public class Routes extends RouteBuilder() {
+public class Routes extends RouteBuilder {
     @Inject
     ObjectMapper mapper;
 
     public void configure() {
         JacksonDataFormat dataFormat = new JacksonDataFormat();
         dataFormat.setObjectMapper(mapper);
-        // Routes definition follows...
+        // Use the dataFormat instance in a route definition
+        from("direct:my-direct").marshal(dataFormat)
     }
 }
 ----
