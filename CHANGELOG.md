@@ -9,11 +9,13 @@
 - camel-quarkus-servicenow - 2.11.0 release - java.lang.ClassNotFoundException: javax.ws.rs.client.ClientRequestFilter [\#3946](https://github.com/apache/camel-quarkus/issues/3946)
 - \[Camel 3.19.0\] Dependency covergence check failure in HDFS extension [\#3942](https://github.com/apache/camel-quarkus/issues/3942)
 - Add camel-quarkus-master example [\#3923](https://github.com/apache/camel-quarkus/issues/3923)
+- Test Azure Storage Blob with `credentialType` `AZURE_IDENTITY` [\#3822](https://github.com/apache/camel-quarkus/issues/3822)
 - Unable to compile native image for Azure Storage Blob extension [\#3820](https://github.com/apache/camel-quarkus/issues/3820)
 - `CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest` fails on Windows [\#3529](https://github.com/apache/camel-quarkus/issues/3529)
 
 **Merged pull requests:**
 
+- Test Azure Storage Blob with credentialType AZURE\_IDENTITY [\#3950](https://github.com/apache/camel-quarkus/pull/3950) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add missing jboss-jaxrs-api\_2.1\_spec dependency to ServiceNow extension [\#3948](https://github.com/apache/camel-quarkus/pull/3948) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.11.1.Final [\#3943](https://github.com/apache/camel-quarkus/pull/3943) ([jamesnetherton](https://github.com/jamesnetherton))
 - Next is 2.12.0 [\#3941](https://github.com/apache/camel-quarkus/pull/3941) ([jamesnetherton](https://github.com/jamesnetherton))
