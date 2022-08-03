@@ -10227,9 +10227,9 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId>
+        <groupId>org.apache.groovy</groupId>
         <artifactId>groovy</artifactId>
-        <version>3.0.8</version>
+        <version>4.0.4</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>

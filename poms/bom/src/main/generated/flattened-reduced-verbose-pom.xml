@@ -10227,9 +10227,9 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.8 -->
-        <artifactId>groovy</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.8 -->
-        <version>3.0.8</version><!-- org.codehaus.groovy:groovy-bom:3.0.8 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.4 -->
+        <artifactId>groovy</artifactId><!-- org.apache.groovy:groovy-bom:4.0.4 -->
+        <version>4.0.4</version><!-- org.apache.groovy:groovy-bom:4.0.4 -->
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.17.220 -->
