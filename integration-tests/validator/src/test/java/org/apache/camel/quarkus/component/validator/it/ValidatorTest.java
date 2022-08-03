@@ -25,26 +25,75 @@ import org.junit.jupiter.api.Test;
 class ValidatorTest {
 
     @Test
-    public void validXML() {
+    public void validXMLFromClassPath() {
 
         RestAssured.given()
                 .contentType(ContentType.XML)
                 .body("<message><firstName>MyFirstname</firstName><lastName>MyLastname</lastName></message>")
-                .post("/validator/xml")
+                .post("/validator/classpath")
                 .then()
                 .statusCode(200);
 
     }
 
     @Test
-    public void invalidXML() {
+    public void invalidXMLFromClassPath() {
 
         RestAssured.given()
                 .contentType(ContentType.XML)
                 .body("<message><firstName>MyFirstname</firstName></message>")
-                .post("/validator/xml")
+                .post("/validator/classpath")
                 .then()
                 .statusCode(500);
 
     }
+
+    @Test
+    public void validXMLFromFileSystem() {
+
+        RestAssured.given()
+                .contentType(ContentType.XML)
+                .body("<message><firstName>MyFirstname</firstName><lastName>MyLastname</lastName></message>")
+                .post("/validator/filesystem")
+                .then()
+                .statusCode(200);
+
+    }
+
+    @Test
+    public void invalidXMLFromFileSystem() {
+
+        RestAssured.given()
+                .contentType(ContentType.XML)
+                .body("<message><firstName>MyFirstname</firstName></message>")
+                .post("/validator/filesystem")
+                .then()
+                .statusCode(500);
+
+    }
+
+    @Test
+    public void validXMLFromHTTPEndPoint() {
+
+        RestAssured.given()
+                .contentType(ContentType.XML)
+                .body("<message><firstName>MyFirstname</firstName><lastName>MyLastname</lastName></message>")
+                .post("/validator/http")
+                .then()
+                .statusCode(200);
+
+    }
+
+    @Test
+    public void invalidXMLFromHTTPEndPoint() {
+
+        RestAssured.given()
+                .contentType(ContentType.XML)
+                .body("<message><firstName>MyFirstname</firstName></message>")
+                .post("/validator/http")
+                .then()
+                .statusCode(500);
+
+    }
+
 }

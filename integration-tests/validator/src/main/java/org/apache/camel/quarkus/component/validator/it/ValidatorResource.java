@@ -32,11 +32,28 @@ public class ValidatorResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/xml")
+    @Path("/classpath")
     @POST
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.TEXT_PLAIN)
-    public String processOrder(String statement) {
-        return producerTemplate.requestBody("direct:start", statement, String.class);
+    public String processOrderInXmlFromClassPath(String statement) {
+        return producerTemplate.requestBody("direct:classpath", statement, String.class);
     }
+
+    @Path("/filesystem")
+    @POST
+    @Consumes(MediaType.APPLICATION_XML)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String processOrderInXmlFromFileSystem(String statement) {
+        return producerTemplate.requestBody("direct:filesystem", statement, String.class);
+    }
+
+    @Path("/http")
+    @POST
+    @Consumes(MediaType.APPLICATION_XML)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String processOrderInXmlFromHTTP(String statement) {
+        return producerTemplate.requestBody("direct:http", statement, String.class);
+    }
+
 }
