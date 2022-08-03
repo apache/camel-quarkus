@@ -21,7 +21,14 @@ import org.apache.camel.builder.RouteBuilder;
 public class ValidatorRouteBuilder extends RouteBuilder {
     @Override
     public void configure() {
-        from("direct:start")
+        from("direct:classpath")
                 .to("validator:message.xsd");
+
+        from("direct:filesystem")
+                .to("validator:file:src/main/resources/message.xsd");
+
+        from("direct:http")
+                .toD("validator:https://raw.githubusercontent.com/apache/camel-quarkus/main/integration-tests/validator/src/main/resources/message.xsd");
+
     }
 }
