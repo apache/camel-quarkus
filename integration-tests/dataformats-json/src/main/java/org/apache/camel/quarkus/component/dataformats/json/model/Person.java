@@ -21,7 +21,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
-@RegisterForReflection(fields = false)
+@RegisterForReflection
 public class Person {
 
     @JsonProperty
