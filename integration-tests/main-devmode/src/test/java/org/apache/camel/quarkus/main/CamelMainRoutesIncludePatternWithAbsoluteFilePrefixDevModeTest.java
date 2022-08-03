@@ -27,6 +27,7 @@ import java.util.Comparator;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 import io.quarkus.test.QuarkusDevModeTest;
 import io.restassured.RestAssured;
@@ -75,10 +76,12 @@ public class CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest {
             deleteFile = File::deleteOnExit;
         }
 
-        Files.walk(BASE)
-                .sorted(Comparator.reverseOrder())
-                .map(Path::toFile)
-                .forEach(deleteFile);
+        try (Stream<Path> files = Files.walk(BASE)) {
+            files
+                    .sorted(Comparator.reverseOrder())
+                    .map(Path::toFile)
+                    .forEach(deleteFile);
+        }
     }
 
     public static Asset applicationProperties() {

@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.core.deployment;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -197,14 +198,18 @@ public class CamelNativeImageProcessor {
                         continue;
                     }
 
-                    List<String> items = CamelSupport.safeWalk(resourcePath)
-                            .filter(Files::isRegularFile)
-                            .map(root::relativize)
-                            .map(Path::toString)
-                            .collect(Collectors.toList());
+                    try (Stream<Path> files = Files.walk(resourcePath)) {
+                        List<String> items = files
+                                .filter(Files::isRegularFile)
+                                .map(root::relativize)
+                                .map(Path::toString)
+                                .collect(Collectors.toList());
+                        LOGGER.debug("Register catalog json: {}", items);
+                        resources.add(new NativeImageResourceBuildItem(items));
+                    } catch (IOException e) {
+                        throw new RuntimeException("Could not walk " + resourcePath, e);
+                    }
 
-                    LOGGER.debug("Register catalog json: {}", items);
-                    resources.add(new NativeImageResourceBuildItem(items));
                 }
             }
         }
