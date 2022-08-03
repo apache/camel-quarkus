@@ -23,6 +23,7 @@ import java.nio.file.Path;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
@@ -89,10 +90,12 @@ public class SftpTestResource implements QuarkusTestResourceLifecycleManager {
 
         try {
             if (sftpHome != null) {
-                Files.walk(sftpHome)
-                        .sorted(Comparator.reverseOrder())
-                        .map(Path::toFile)
-                        .forEach(File::delete);
+                try (Stream<Path> files = Files.walk(sftpHome)) {
+                    files
+                            .sorted(Comparator.reverseOrder())
+                            .map(Path::toFile)
+                            .forEach(File::delete);
+                }
             }
         } catch (Exception e) {
             LOGGER.warn("Failed delete sftp home: {}, {}", sftpHome, e);

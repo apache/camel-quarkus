@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
@@ -120,10 +121,12 @@ public class FtpTestResource implements QuarkusTestResourceLifecycleManager {
 
         try {
             if (ftpRoot != null) {
-                Files.walk(ftpRoot)
-                        .sorted(Comparator.reverseOrder())
-                        .map(Path::toFile)
-                        .forEach(File::delete);
+                try (Stream<Path> files = Files.walk(ftpRoot)) {
+                    files
+                            .sorted(Comparator.reverseOrder())
+                            .map(Path::toFile)
+                            .forEach(File::delete);
+                }
             }
         } catch (Exception e) {
             LOGGER.warn("Failed delete ftp root: {}, {}", ftpRoot, e);

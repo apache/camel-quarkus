@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.core.deployment.util;
 
-import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Modifier;
@@ -52,14 +51,6 @@ public final class CamelSupport {
         return (ci.flags() & Modifier.PUBLIC) != 0;
     }
 
-    public static Stream<Path> safeWalk(Path p) {
-        try {
-            return Files.walk(p);
-        } catch (IOException e) {
-            throw new IOError(e);
-        }
-    }
-
     public static Stream<CamelServiceBuildItem> services(ApplicationArchivesBuildItem archives, PathFilter pathFilter) {
         final Set<CamelServiceBuildItem> answer = new HashSet<>();
         final Predicate<Path> filter = pathFilter.asPathPredicate();
@@ -72,19 +63,23 @@ public final class CamelSupport {
                     continue;
                 }
 
-                safeWalk(resourcePath).filter(Files::isRegularFile).forEach(file -> {
-                    // the root archive may point to a jar file or the absolute path of
-                    // a project's build output so we need to relativize to make the
-                    // FastFactoryFinder work as expected
-                    Path key = root.relativize(file);
+                try (Stream<Path> files = Files.walk(resourcePath)) {
+                    files.filter(Files::isRegularFile).forEach(file -> {
+                        // the root archive may point to a jar file or the absolute path of
+                        // a project's build output so we need to relativize to make the
+                        // FastFactoryFinder work as expected
+                        Path key = root.relativize(file);
 
-                    if (filter.test(key)) {
-                        String clazz = readProperties(file).getProperty("class");
-                        if (clazz != null) {
-                            answer.add(new CamelServiceBuildItem(key, clazz));
+                        if (filter.test(key)) {
+                            String clazz = readProperties(file).getProperty("class");
+                            if (clazz != null) {
+                                answer.add(new CamelServiceBuildItem(key, clazz));
+                            }
                         }
-                    }
-                });
+                    });
+                } catch (IOException e) {
+                    throw new RuntimeException("Could not walk " + resourcePath, e);
+                }
             }
         }
 

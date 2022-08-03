@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.core.deployment.util;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -93,8 +94,13 @@ public class PathFilter {
 
     public String[] scanClassNames(Stream<Path> archiveRootDirs) {
         final Set<String> selectedPaths = new TreeSet<>();
-        archiveRootDirs.forEach(rootDir -> scanClassNames(rootDir, CamelSupport.safeWalk(rootDir),
-                Files::isRegularFile, selectedPaths::add));
+        archiveRootDirs.forEach(rootDir -> {
+            try (Stream<Path> files = Files.walk(rootDir)) {
+                scanClassNames(rootDir, files, Files::isRegularFile, selectedPaths::add);
+            } catch (IOException e) {
+                throw new RuntimeException("Could not walk " + rootDir, e);
+            }
+        });
         /* Let's add the paths without wildcards even if they did not match any Jandex class
          * A workaround for https://github.com/apache/camel-quarkus/issues/2969 */
         addNonPatternPaths(selectedPaths);
