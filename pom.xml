@@ -511,7 +511,8 @@
                             <exclude>doap.rdf</exclude>
                             <exclude>ide-config/**</exclude>
                             <exclude>id_file</exclude>
-                            <exclude>mvnw*</exclude>
+                            <exclude>**/mvnw*</exclude>
+                            <exclude>**/*.net</exclude>
                             <exclude>node/**</exclude>
                             <exclude>**/resources/routes.1</exclude>
                             <exclude>**/resources/routes.2</exclude>

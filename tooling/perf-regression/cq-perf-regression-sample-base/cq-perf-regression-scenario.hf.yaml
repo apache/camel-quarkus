@@ -1,0 +1,39 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# A camel-quarkus performance scenario to detect possible regressions
+name: cq-perf-regression-scenario
+http:
+  host: http://localhost:8080
+phases:
+- operator:
+    # Running a fixed number of users during a fixed period of time
+    always:
+      users: 100
+      # With  5 minutes duration we end up with roughly 8.4% variation across successive runs
+      # With 10 minutes duration we end up with roughly 3.5% variation across successive runs
+      # With 60 minutes duration we end up with roughly 1.8% variation across successive runs
+      # The GUID below will be replaced by a duration during the instantiation process
+      duration: 372f6453-7527-43b1-850b-3824fc3d1187
+      scenario:
+      - hello:
+        - randomUUID:
+            toVar: my-random-uuid
+        - httpRequest:
+            POST: /hello
+            body:
+              pattern: '{"id":"${my-random-uuid}"}'
