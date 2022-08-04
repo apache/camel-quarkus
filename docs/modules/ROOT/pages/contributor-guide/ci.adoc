@@ -60,3 +60,11 @@ https://ci-builds.apache.org/job/Camel/job/Camel%20Quarkus%20SNAPSHOT%20Deploy/
 SNAPSHOTs are built and published on push for each branch to:
 
 https://repository.apache.org/snapshots/
+
+== Sonarcloud
+
+https://ci-builds.apache.org/job/Camel/job/Camel%20Quarkus%20Sonarcloud%20Deploy/
+
+Analysis results:
+
+https://sonarcloud.io/project/overview?id=apache_camel_quarkus
