@@ -529,6 +529,7 @@
                             <jaxb.index>CAMEL_PROPERTIES_STYLE</jaxb.index>
                             <Jenkinsfile>SLASHSTAR_STYLE</Jenkinsfile>
                             <Jenkinsfile.quarkus>SLASHSTAR_STYLE</Jenkinsfile.quarkus>
+                            <Jenkinsfile.sonarcloud>SLASHSTAR_STYLE</Jenkinsfile.sonarcloud>
                             <properties>CAMEL_PROPERTIES_STYLE</properties>
                             <rnc>SCRIPT_STYLE</rnc>
                             <ini>SCRIPT_STYLE</ini>
