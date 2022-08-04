@@ -27,6 +27,7 @@ on:
     paths-ignore:
       - '**.adoc'
       - 'Jenkinsfile'
+      - 'Jenkinsfile.*'
       - 'KEYS'
       - 'LICENSE.txt'
       - 'NOTICE.txt'
@@ -39,6 +40,7 @@ on:
     paths-ignore:
       - '**.adoc'
       - 'Jenkinsfile'
+      - 'Jenkinsfile.*'
       - 'KEYS'
       - 'LICENSE.txt'
       - 'NOTICE.txt'
