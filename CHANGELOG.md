@@ -15,6 +15,10 @@
 
 **Merged pull requests:**
 
+- Fix intermittent native mode failures of JacksonJsonTest [\#3955](https://github.com/apache/camel-quarkus/pull/3955) ([jamesnetherton](https://github.com/jamesnetherton))
+- Close the streams returned by Files.walk properly [\#3954](https://github.com/apache/camel-quarkus/pull/3954) ([ppalaga](https://github.com/ppalaga))
+- Increase test coverage \(file/http\) for camel-quarkus-validator extens… [\#3953](https://github.com/apache/camel-quarkus/pull/3953) ([svkcemk](https://github.com/svkcemk))
+- Add more details to the Jackson ObjectMapper usage section [\#3952](https://github.com/apache/camel-quarkus/pull/3952) ([ppalaga](https://github.com/ppalaga))
 - Test Azure Storage Blob with credentialType AZURE\_IDENTITY [\#3950](https://github.com/apache/camel-quarkus/pull/3950) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add missing jboss-jaxrs-api\_2.1\_spec dependency to ServiceNow extension [\#3948](https://github.com/apache/camel-quarkus/pull/3948) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.11.1.Final [\#3943](https://github.com/apache/camel-quarkus/pull/3943) ([jamesnetherton](https://github.com/jamesnetherton))
