@@ -15,6 +15,7 @@
 
 **Merged pull requests:**
 
+- Add docs for Sonarcloud build and analysis results [\#3958](https://github.com/apache/camel-quarkus/pull/3958) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix intermittent native mode failures of JacksonJsonTest [\#3955](https://github.com/apache/camel-quarkus/pull/3955) ([jamesnetherton](https://github.com/jamesnetherton))
 - Close the streams returned by Files.walk properly [\#3954](https://github.com/apache/camel-quarkus/pull/3954) ([ppalaga](https://github.com/ppalaga))
 - Increase test coverage \(file/http\) for camel-quarkus-validator extens… [\#3953](https://github.com/apache/camel-quarkus/pull/3953) ([svkcemk](https://github.com/svkcemk))
