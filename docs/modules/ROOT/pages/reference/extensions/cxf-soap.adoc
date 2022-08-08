@@ -8,11 +8,11 @@
 :cq-status-deprecation: Stable
 :cq-description: Expose SOAP WebServices using Apache CXF or connect to external WebServices using CXF WS client.
 :cq-deprecated: false
-:cq-jvm-since: 2.11.0
-:cq-native-since: 2.11.0
+:cq-jvm-since: 2.12.0
+:cq-native-since: 2.12.0
 
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##2.11.0## [.badge-key]##Native since##[.badge-supported]##2.11.0##
+[.badge-key]##JVM since##[.badge-supported]##2.12.0## [.badge-key]##Native since##[.badge-supported]##2.12.0##
 
 Expose SOAP WebServices using Apache CXF or connect to external WebServices using CXF WS client.
 

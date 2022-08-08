@@ -16,38 +16,41 @@
  */
 package org.apache.camel.quarkus.component.cxf.soap.it;
 
+import javax.xml.ws.BindingProvider;
+
+import com.helloworld.service.HelloPortType;
+import com.helloworld.service.HelloService;
+import io.quarkus.runtime.LaunchMode;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.assertj.core.api.Assertions;
+import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 class CxfSoapServiceTest {
 
     @Test
-    public void testSimpleSoapService() {
-        final String response = RestAssured.given()
-                .contentType(ContentType.XML)
-                .body("<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ser=\"http://www.helloworld.com/Service/\">\n"
-                        +
-                        "   <soapenv:Header/>\n" +
-                        "   <soapenv:Body>\n" +
-                        "      <ser:HelloRequest>HelloWorld</ser:HelloRequest>\n" +
-                        "   </soapenv:Body>\n" +
-                        "</soapenv:Envelope>")
-                .post("/soapservice/hello")
-                .then()
-                .statusCode(200)
-                .assertThat()
-                .extract().asString();
+    public void simpleSoapService() {
+        final HelloService service = new HelloService();
+        final HelloPortType helloPort = service.getHelloPort();
+        String endpointURL = getServerUrl() + "/soapservice/hello";
+        ((BindingProvider) helloPort).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
+        Assertions.assertThat(helloPort.hello("World")).isEqualTo("Hello World from CXF service");
+    }
 
-        assertTrue(response.contains("Hello CamelQuarkusCXF"));
+    private static String getServerUrl() {
+        Config config = ConfigProvider.getConfig();
+        final int port = LaunchMode.current().equals(LaunchMode.TEST) ? config.getValue("quarkus.http.test-port", Integer.class)
+                : config.getValue("quarkus.http.port", Integer.class);
+        return String.format("http://localhost:%d", port);
     }
 
     @Test
     public void testCodeFirstSoapService() {
+
         final String response = RestAssured.given()
                 .contentType(ContentType.XML)
                 .body("<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ser=\"http://www.helloworld.com/CodeFirstService/\">\n"
@@ -63,7 +66,7 @@ class CxfSoapServiceTest {
                 .assertThat()
                 .extract().asString();
 
-        assertTrue(response.contains("Hello CamelQuarkusCXF"));
+        org.junit.jupiter.api.Assertions.assertTrue(response.contains("Hello CamelQuarkusCXF"));
     }
 
 }
