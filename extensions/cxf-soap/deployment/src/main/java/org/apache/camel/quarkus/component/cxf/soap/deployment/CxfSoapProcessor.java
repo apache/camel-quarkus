@@ -22,6 +22,7 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.jboss.jandex.DotName;
@@ -45,15 +46,28 @@ class CxfSoapProcessor {
     }
 
     @BuildStep
+    void indexDependencies(BuildProducer<IndexDependencyBuildItem> indexDependencies) {
+        Stream.of(
+                "jakarta.xml.ws:jakarta.xml.ws-api",
+                "org.apache.cxf:cxf-core",
+                "org.apache.cxf:cxf-rt-frontend-jaxws",
+                "org.apache.cxf:cxf-rt-transports-http",
+                "org.apache.cxf:cxf-rt-features-logging",
+                "org.apache.cxf:cxf-rt-bindings-soap")
+                .forEach(ga -> {
+                    String[] coords = ga.split(":");
+                    indexDependencies.produce(new IndexDependencyBuildItem(coords[0], coords[1]));
+                });
+    }
+
+    @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass, CombinedIndexBuildItem combinedIndex) {
+
         IndexView index = combinedIndex.getIndex();
 
         Stream.of(
-                "org.apache.cxf.feature.AbstractFeature",
-                "org.apache.wss4j.dom.handler.WSHandler",
-                "org.apache.cxf.phase.AbstractPhaseInterceptor",
-                "org.apache.cxf.binding.soap.interceptor.AbstractSOAPInterceptor",
-                "org.apache.cxf.phase.PhaseInterceptor")
+                org.apache.cxf.ext.logging.LoggingFeature.class.getName(),
+                "org.apache.wss4j.dom.handler.WSHandler")
                 .map(DotName::createSimple)
                 .flatMap(dotName -> index.getAllKnownSubclasses(dotName).stream())
                 .map(classInfo -> classInfo.name().toString())
@@ -61,7 +75,6 @@ class CxfSoapProcessor {
                 .forEach(reflectiveClass::produce);
 
         Stream.of(
-                "org.apache.cxf.feature.Feature",
                 "org.apache.cxf.interceptor.Interceptor",
                 "org.apache.cxf.binding.soap.interceptor.SoapInterceptor",
                 "org.apache.cxf.phase.PhaseInterceptor")
@@ -70,5 +83,14 @@ class CxfSoapProcessor {
                 .map(classInfo -> classInfo.name().toString())
                 .map(className -> new ReflectiveClassBuildItem(false, false, className))
                 .forEach(reflectiveClass::produce);
+
+        Stream.of(
+                "org.apache.cxf.feature.Feature")
+                .map(DotName::createSimple)
+                .flatMap(dotName -> index.getAllKnownImplementors(dotName).stream())
+                .map(classInfo -> classInfo.name().toString())
+                .map(className -> new ReflectiveClassBuildItem(true, false, className))
+                .forEach(reflectiveClass::produce);
+
     }
 }

@@ -5,8 +5,8 @@ cqArtifactIdBase: cxf-soap
 cqNativeSupported: true
 cqStatus: Stable
 cqDeprecated: false
-cqJvmSince: 2.11.0
-cqNativeSince: 2.11.0
+cqJvmSince: 2.12.0
+cqNativeSince: 2.12.0
 cqCamelPartName: cxf
 cqCamelPartTitle: CXF
 cqCamelPartDescription: Expose SOAP WebServices using Apache CXF or connect to external WebServices using CXF WS client.

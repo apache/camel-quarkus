@@ -25,6 +25,7 @@ import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.UnsupportedCallbackException;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import org.apache.wss4j.common.ext.WSPasswordCallback;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @RegisterForReflection
@@ -42,17 +43,8 @@ public class PasswordCallback implements CallbackHandler {
     @Override
     public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
         for (Callback callback : callbacks) {
-            try {
-                String id = (String) callback.getClass().getMethod("getIdentifier").invoke(callback);
-                String pass = getPassword();
-                if (pass != null) {
-                    callback.getClass().getMethod("setPassword", String.class).invoke(callback, pass);
-                    return;
-                }
-            } catch (Exception ex) {
-                UnsupportedCallbackException e = new UnsupportedCallbackException(callback);
-                e.initCause(ex);
-                throw e;
+            if (callback instanceof WSPasswordCallback) {
+                ((WSPasswordCallback) callback).setPassword(password);
             }
         }
     }
