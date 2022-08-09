@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.cxf.it;
+package org.apache.camel.quarkus.component.cxf.soap.it;
 
 import java.io.IOException;
 
@@ -33,9 +33,9 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @Named("passwordCallback")
 public class PasswordCallback implements CallbackHandler {
     @ConfigProperty(name = "password-callback.username")
-    private String username;
+    String username;
     @ConfigProperty(name = "password-callback.password")
-    private String password;
+    String password;
 
     /**
      * Here, we attempt to get the password from the private alias/passwords map.
