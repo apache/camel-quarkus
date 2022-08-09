@@ -21,8 +21,10 @@ import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.apache.camel.ProducerTemplate;
 
@@ -32,28 +34,15 @@ public class ValidatorResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/classpath")
+    @Path("/validate/{scheme}")
     @POST
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.TEXT_PLAIN)
-    public String processOrderInXmlFromClassPath(String statement) {
-        return producerTemplate.requestBody("direct:classpath", statement, String.class);
+    public Response processOrderInXml(String statement, @PathParam("scheme") String scheme) {
+        try {
+            return Response.ok().entity(producerTemplate.requestBody("direct:" + scheme, statement, String.class)).build();
+        } catch (Exception e) {
+            return Response.serverError().entity(e.getMessage()).build();
+        }
     }
-
-    @Path("/filesystem")
-    @POST
-    @Consumes(MediaType.APPLICATION_XML)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String processOrderInXmlFromFileSystem(String statement) {
-        return producerTemplate.requestBody("direct:filesystem", statement, String.class);
-    }
-
-    @Path("/http")
-    @POST
-    @Consumes(MediaType.APPLICATION_XML)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String processOrderInXmlFromHTTP(String statement) {
-        return producerTemplate.requestBody("direct:http", statement, String.class);
-    }
-
 }

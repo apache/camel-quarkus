@@ -16,84 +16,53 @@
  */
 package org.apache.camel.quarkus.component.validator.it;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import static org.hamcrest.Matchers.containsString;
 
 @QuarkusTest
+@QuarkusTestResource(ValidatorTestResource.class)
 class ValidatorTest {
 
-    @Test
-    public void validXMLFromClassPath() {
+    @ParameterizedTest
+    @ValueSource(strings = { "classpath", "filesystem", "http" })
+    public void validXML(String scheme) {
+
+        String requestBody = "<message><firstName>MyFirstname</firstName><lastName>MyLastname</lastName></message>";
 
         RestAssured.given()
                 .contentType(ContentType.XML)
-                .body("<message><firstName>MyFirstname</firstName><lastName>MyLastname</lastName></message>")
-                .post("/validator/classpath")
+                .body(requestBody)
+                .post("/validator/validate/" + scheme)
                 .then()
-                .statusCode(200);
+                .statusCode(200)
+                .assertThat()
+                .body(containsString("MyFirstname"))
+                .and()
+                .body(containsString("MyLastname"));
 
     }
 
-    @Test
-    public void invalidXMLFromClassPath() {
+    @ParameterizedTest
+    @ValueSource(strings = { "classpath", "filesystem", "http" })
+    public void inValidXML(String scheme) {
+
+        String requestBody = "<message><firstName>MyFirstname</firstName></message>";
+        String errorResponse = "Exception occurred during execution on the exchange";
 
         RestAssured.given()
                 .contentType(ContentType.XML)
-                .body("<message><firstName>MyFirstname</firstName></message>")
-                .post("/validator/classpath")
+                .body(requestBody)
+                .post("/validator/validate/" + scheme)
                 .then()
-                .statusCode(500);
+                .statusCode(500)
+                .assertThat()
+                .body(containsString(errorResponse));
 
     }
-
-    @Test
-    public void validXMLFromFileSystem() {
-
-        RestAssured.given()
-                .contentType(ContentType.XML)
-                .body("<message><firstName>MyFirstname</firstName><lastName>MyLastname</lastName></message>")
-                .post("/validator/filesystem")
-                .then()
-                .statusCode(200);
-
-    }
-
-    @Test
-    public void invalidXMLFromFileSystem() {
-
-        RestAssured.given()
-                .contentType(ContentType.XML)
-                .body("<message><firstName>MyFirstname</firstName></message>")
-                .post("/validator/filesystem")
-                .then()
-                .statusCode(500);
-
-    }
-
-    @Test
-    public void validXMLFromHTTPEndPoint() {
-
-        RestAssured.given()
-                .contentType(ContentType.XML)
-                .body("<message><firstName>MyFirstname</firstName><lastName>MyLastname</lastName></message>")
-                .post("/validator/http")
-                .then()
-                .statusCode(200);
-
-    }
-
-    @Test
-    public void invalidXMLFromHTTPEndPoint() {
-
-        RestAssured.given()
-                .contentType(ContentType.XML)
-                .body("<message><firstName>MyFirstname</firstName></message>")
-                .post("/validator/http")
-                .then()
-                .statusCode(500);
-
-    }
-
 }
