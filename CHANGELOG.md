@@ -4,17 +4,23 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.11.0...HEAD)
 
+**Fixed bugs:**
+
+- \[Quarkus 2.12.0\] Secure gRPC consumer tests are failing [\#3947](https://github.com/apache/camel-quarkus/issues/3947)
+
 **Closed issues:**
 
 - camel-quarkus-servicenow - 2.11.0 release - java.lang.ClassNotFoundException: javax.ws.rs.client.ClientRequestFilter [\#3946](https://github.com/apache/camel-quarkus/issues/3946)
 - \[Camel 3.19.0\] Dependency covergence check failure in HDFS extension [\#3942](https://github.com/apache/camel-quarkus/issues/3942)
 - Add camel-quarkus-master example [\#3923](https://github.com/apache/camel-quarkus/issues/3923)
+- Merge the performance regression prototype in camel-quarkus main [\#3905](https://github.com/apache/camel-quarkus/issues/3905)
 - Test Azure Storage Blob with `credentialType` `AZURE_IDENTITY` [\#3822](https://github.com/apache/camel-quarkus/issues/3822)
 - Unable to compile native image for Azure Storage Blob extension [\#3820](https://github.com/apache/camel-quarkus/issues/3820)
 - `CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest` fails on Windows [\#3529](https://github.com/apache/camel-quarkus/issues/3529)
 
 **Merged pull requests:**
 
+- Merge the performance regression detection prototype \#3905 [\#3959](https://github.com/apache/camel-quarkus/pull/3959) ([aldettinger](https://github.com/aldettinger))
 - Add docs for Sonarcloud build and analysis results [\#3958](https://github.com/apache/camel-quarkus/pull/3958) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix intermittent native mode failures of JacksonJsonTest [\#3955](https://github.com/apache/camel-quarkus/pull/3955) ([jamesnetherton](https://github.com/jamesnetherton))
 - Close the streams returned by Files.walk properly [\#3954](https://github.com/apache/camel-quarkus/pull/3954) ([ppalaga](https://github.com/ppalaga))
@@ -32,6 +38,7 @@
 - Upgrade third party Quarkus extension dependencies [\#3934](https://github.com/apache/camel-quarkus/pull/3934) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix Google Big Query grpc-netty-shaded exclusions [\#3933](https://github.com/apache/camel-quarkus/pull/3933) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add native support for Azure Identity service principal authentication [\#3932](https://github.com/apache/camel-quarkus/pull/3932) ([jamesnetherton](https://github.com/jamesnetherton))
+- Camel Quarkus CXF Extension [\#3931](https://github.com/apache/camel-quarkus/pull/3931) ([javaduke](https://github.com/javaduke))
 - Upgrade Quarkus to 2.11.0.Final [\#3930](https://github.com/apache/camel-quarkus/pull/3930) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add DataSet extension [\#3929](https://github.com/apache/camel-quarkus/pull/3929) ([jamesnetherton](https://github.com/jamesnetherton))
 - \[closes \#3927\] Improve camel quarkus master integration test [\#3928](https://github.com/apache/camel-quarkus/pull/3928) ([llowinge](https://github.com/llowinge))
