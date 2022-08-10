@@ -157,7 +157,7 @@
             <plugin>
                 <groupId>io.hyperfoil</groupId>
                 <artifactId>hyperfoil-maven-plugin</artifactId>
-                <version>0.19</version>
+                <version>0.21</version>
                 <!-- Bound to integration-test phase by default -->
                 <configuration>
                     <yaml>cq-perf-regression-scenario.hf.yaml</yaml>
