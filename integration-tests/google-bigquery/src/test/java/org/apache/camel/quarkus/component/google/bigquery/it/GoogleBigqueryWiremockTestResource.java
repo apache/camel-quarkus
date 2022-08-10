@@ -16,9 +16,20 @@
  */
 package org.apache.camel.quarkus.component.google.bigquery.it;
 
-import io.quarkus.test.junit.QuarkusIntegrationTest;
+import org.apache.camel.quarkus.test.support.google.GoogleCloudTestResource;
+import org.apache.camel.quarkus.test.wiremock.WireMockTestResourceLifecycleManager;
 
-@QuarkusIntegrationTest
-class GoogleBigqueryIT extends GoogleBigqueryTest {
+public class GoogleBigqueryWiremockTestResource extends WireMockTestResourceLifecycleManager {
 
+    private static final String GOOGLE_API_BASE_URL = "https://bigquery.googleapis.com";
+
+    @Override
+    protected String getRecordTargetBaseUrl() {
+        return GOOGLE_API_BASE_URL;
+    }
+
+    @Override
+    protected boolean isMockingEnabled() {
+        return GoogleCloudTestResource.isUsingMockBackend();
+    }
 }

@@ -1,0 +1,32 @@
+{
+  "id" : "1234e4a0-ec75-4aa7-a72c-163b29c8648e",
+  "name" : "bigquery_v2_projects_test-project_jobs",
+  "request" : {
+    "url" : "/bigquery/v2/projects/test-project/jobs?prettyPrint=false",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"configuration\":{\"query\":{\"query\":\"SELECT * FROM `test-project.google_bigquery_test_dataset.google_bigquery_table_for_sql_crud`\",\"useLegacySql\":false}},\"jobReference\":{\"jobId\":\"job03\",\"projectId\":\"test-project\"}}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"kind\":\"bigquery#job\",\"etag\":\"kxNcuPBuQQF/FHEpF19sNw==\",\"id\":\"test-project:US.job03\",\"selfLink\":\"https://bigquery.googleapis.com/bigquery/v2/projects/test-project/jobs/job03?location=US\",\"user_email\":\"fuse-qe-ceq-pubsub-service-acc@test-project.iam.gserviceaccount.com\",\"configuration\":{\"query\":{\"query\":\"SELECT * FROM `test-project.google_bigquery_test_dataset.google_bigquery_table_for_sql_crud`\",\"destinationTable\":{\"projectId\":\"test-project\",\"datasetId\":\"_cd8b40856acd1b6890f170712a53c7133d5b133e\",\"tableId\":\"anondfb1a020ae5675902d3fdea6bf50c621f3724395\"},\"writeDisposition\":\"WRITE_TRUNCATE\",\"priority\":\"INTERACTIVE\",\"useLegacySql\":false},\"jobType\":\"QUERY\"},\"jobReference\":{\"projectId\":\"test-project\",\"jobId\":\"job03\",\"location\":\"US\"},\"statistics\":{\"creationTime\":\"1661152755075\",\"startTime\":\"1661152755111\",\"endTime\":\"1661152755338\",\"totalBytesProcessed\":\"18\",\"query\":{\"queryPlan\":[{\"name\":\"S00: Output\",\"id\":\"0\",\"startMs\":\"1661152755255\",\"endMs\":\"1661152755271\",\"waitRatioAvg\":1,\"waitMsAvg\":\"10\",\"waitRatioMax\":1,\"waitMsMax\":\"10\",\"readRatioAvg\":0.6,\"readMsAvg\":\"6\",\"readRatioMax\":0.8,\"readMsMax\":\"8\",\"computeRatioAvg\":0.6,\"computeMsAvg\":\"6\",\"computeRatioMax\":0.6,\"computeMsMax\":\"6\",\"writeRatioAvg\":0.5,\"writeMsAvg\":\"5\",\"writeRatioMax\":0.5,\"writeMsMax\":\"5\",\"shuffleOutputBytes\":\"32\",\"shuffleOutputBytesSpilled\":\"0\",\"recordsRead\":\"2\",\"recordsWritten\":\"2\",\"parallelInputs\":\"2\",\"completedParallelInputs\":\"2\",\"status\":\"COMPLETE\",\"steps\":[{\"kind\":\"READ\",\"substeps\":[\"$1:id, $2:col1, $3:col2\",\"FROM test-project.google_bigquery_test_dataset.google_bigquery_table_for_sql_crud\"]},{\"kind\":\"WRITE\",\"substeps\":[\"$1, $2, $3\",\"TO __stage00_output\"]}],\"slotMs\":\"43\"}],\"estimatedBytesProcessed\":\"18\",\"timeline\":[{\"elapsedMs\":\"190\",\"totalSlotMs\":\"43\",\"pendingUnits\":\"0\",\"completedUnits\":\"2\",\"estimatedRunnableUnits\":\"0\"}],\"totalPartitionsProcessed\":\"0\",\"totalBytesProcessed\":\"18\",\"totalBytesBilled\":\"10485760\",\"billingTier\":1,\"totalSlotMs\":\"43\",\"cacheHit\":false,\"referencedTables\":[{\"projectId\":\"test-project\",\"datasetId\":\"google_bigquery_test_dataset\",\"tableId\":\"google_bigquery_table_for_sql_crud\"}],\"statementType\":\"SELECT\"},\"totalSlotMs\":\"43\"},\"status\":{\"state\":\"DONE\"}}",
+    "headers" : {
+      "ETag" : "kxNcuPBuQQF/FHEpF19sNw==",
+      "Content-Type" : "application/json; charset=UTF-8",
+      "Vary" : [ "Origin", "X-Origin", "Referer" ],
+      "Date" : "Mon, 22 Aug 2022 07:19:15 GMT",
+      "Server" : "ESF",
+      "Cache-Control" : "private",
+      "X-XSS-Protection" : "0",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "X-Content-Type-Options" : "nosniff",
+      "Alt-Svc" : "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
+    }
+  },
+  "uuid" : "1234e4a0-ec75-4aa7-a72c-163b29c8648e",
+  "persistent" : true,
+  "insertionIndex" : 76
+}

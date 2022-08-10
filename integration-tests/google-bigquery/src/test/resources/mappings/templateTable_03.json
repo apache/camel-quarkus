@@ -1,0 +1,30 @@
+{
+  "id" : "5a068055-ab0f-458d-b573-df97b4a242b6",
+  "name" : "bigquery_v2_projects_test-project_datasets_google_bigquery_test_dataset_tables_google_bigquery_table_for_template",
+  "request" : {
+    "url" : "/bigquery/v2/projects/test-project/datasets/google_bigquery_test_dataset/tables/google_bigquery_table_for_template/insertAll?prettyPrint=false",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"rows\":[{\"json\":{\"id\":\"2\",\"col2\":\"4\",\"col1\":\"3\"}}]}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"kind\":\"bigquery#tableDataInsertAllResponse\"}",
+    "headers" : {
+      "Content-Type" : "application/json; charset=UTF-8",
+      "Vary" : [ "Origin", "X-Origin", "Referer" ],
+      "Date" : "Tue, 16 Aug 2022 13:47:12 GMT",
+      "Server" : "ESF",
+      "Cache-Control" : "private",
+      "X-XSS-Protection" : "0",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "Alt-Svc" : "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
+    }
+  },
+  "uuid" : "5a068055-ab0f-458d-b573-df97b4a242b6",
+  "persistent" : true,
+  "insertionIndex" : 14
+}

@@ -16,87 +16,166 @@
  */
 package org.apache.camel.quarkus.component.google.bigquery.it;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.auth.oauth2.ServiceAccountCredentials;
+import com.google.cloud.NoCredentials;
+import com.google.cloud.bigquery.BigQuery;
+import com.google.cloud.bigquery.BigQueryOptions;
+import com.google.cloud.bigquery.JobId;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.google.bigquery.GoogleBigQueryConnectionFactory;
+import org.apache.camel.component.google.bigquery.GoogleBigQueryConstants;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @Path("/google-bigquery")
 public class GoogleBigqueryResource {
 
-    public static final String DATASET_ID = "cq_testing";
-    public static final String TABLE_NAME = "camel_quarkus_basic";
-
     @Inject
     ProducerTemplate producerTemplate;
 
     @Inject
-    @ConfigProperty(name = "google.project.id", defaultValue = "test")
+    @ConfigProperty(name = "project.id")
     String projectId;
 
-    String tableId = DATASET_ID + "." + TABLE_NAME;
+    @Inject
+    @ConfigProperty(name = "google-bigquery.test_dataset")
+    String datasetName;
 
-    @Path("/table")
+    @Path("/insertMap")
     @POST
-    public Response createTable() {
-        String sql = "CREATE TABLE `" + tableId + "` (id NUMERIC, col1 STRING, col2 STRING)";
-        producerTemplate.requestBody("google-bigquery-sql:" + projectId + ":" + sql, null,
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response insertMap(
+            @QueryParam("headerKey") String headerKey,
+            @QueryParam("headerValue") String headerValue,
+            @QueryParam("tableName") String tableName,
+            Map<String, String> tableData) {
+
+        return insert(tableName, tableData, headerKey, headerValue);
+    }
+
+    @Path("/insertList")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response insertList(
+            @QueryParam("headerKey") String headerKey,
+            @QueryParam("headerValue") String headerValue,
+            @QueryParam("tableName") String tableName,
+            List tableData) {
+
+        return insert(tableName, tableData, headerKey, headerValue);
+    }
+
+    private Response insert(String tableName, Object tableData, String headerKey, Object headerValue) {
+        if (headerKey == null) {
+            producerTemplate.requestBody("google-bigquery:" + projectId + ":" + datasetName + ":" + tableName
+                    + "?connectionFactory=#connectionFactory", tableData);
+        } else {
+            producerTemplate.requestBodyAndHeaders("google-bigquery:" + projectId + ":" + datasetName + ":" + tableName,
+                    tableData, Collections.singletonMap(headerKey, headerValue));
+        }
+        return Response.created(URI.create("https://camel.apache.org")).build();
+    }
+
+    @Path("/executeSql")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Long executeSql(Map<String, String> headers, @QueryParam("sql") String sql, @QueryParam("file") boolean file,
+            @QueryParam("body") String body)
+            throws IOException {
+        String uri = "google-bigquery-sql://" + projectId + ":";
+        Map<String, Object> typedHeaders = headers == null ? Collections.emptyMap()
+                : headers.entrySet().stream().collect(Collectors.toMap(
+                        e -> e.getKey(),
+                        e -> {
+                            if (GoogleBigQueryConstants.JOB_ID.equals(e.getKey())) {
+                                return JobId.newBuilder().setJob(e.getValue()).setProject(projectId).build();
+                            }
+                            try {
+                                //pass integer values as Integer types
+                                return Integer.valueOf(e.getValue());
+                            } catch (NumberFormatException ex) {
+                                //fallback to the String type
+                                return e.getValue();
+                            }
+                        }));
+
+        if (file) {
+            java.nio.file.Path path = Files.createTempDirectory("bigquery");
+            java.nio.file.Path sqlFile = Files.createTempFile(path, "bigquery", ".sql");
+            Files.write(sqlFile, sql.getBytes(StandardCharsets.UTF_8));
+
+            uri = uri + "file:" + sqlFile.toAbsolutePath();
+        } else {
+            uri = uri + sql;
+        }
+
+        Map<String, Object> bodyMap = new HashMap<>();
+        if (body != null) {
+            bodyMap.put(body, headers.get(body));
+            headers.remove(body);
+        }
+
+        return producerTemplate.requestBodyAndHeaders(uri, bodyMap, typedHeaders,
                 Long.class);
-        return Response.created(URI.create("https://camel.apache.org")).build();
     }
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response insertRow(Map<String, String> tableData) {
-        producerTemplate.requestBody("google-bigquery:" + projectId + ":" + DATASET_ID + ":" + TABLE_NAME, tableData);
-        return Response.created(URI.create("https://camel.apache.org")).build();
-    }
+    @Produces
+    @Singleton
+    @Named("connectionFactory")
+    GoogleBigQueryConnectionFactory createConnectionFactory() {
 
-    @GET
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getRow() {
-        String sql = "SELECT * FROM `" + tableId + "`";
-        Long rowCount = producerTemplate.requestBody("google-bigquery-sql:" + projectId + ":" + sql, null, Long.class);
-        return Response.ok(rowCount).build();
-    }
+        return new GoogleBigQueryConnectionFactory() {
+            @Override
+            public synchronized BigQuery getDefaultClient() throws Exception {
+                final String host = ConfigProvider.getConfig().getOptionalValue("wiremock.url", String.class)
+                        .orElse(null);
+                final String credentialsPath = ConfigProvider.getConfig()
+                        .getOptionalValue("google.credentialsPath", String.class)
+                        .orElse(null);
 
-    @Path("/file")
-    @GET
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getRowUsingQueryResource() throws IOException {
-        String sql = "SELECT * FROM `" + tableId + "`";
-        java.nio.file.Path path = Files.createTempDirectory("bigquery");
-        java.nio.file.Path sqlFile = Files.createTempFile(path, "bigquery", ".sql");
-        Files.write(sqlFile, sql.getBytes(StandardCharsets.UTF_8));
+                BigQueryOptions.Builder builder = BigQueryOptions.newBuilder().setProjectId(projectId);
 
-        Long rowCount = producerTemplate.requestBody(
-                "google-bigquery-sql:" + projectId + ":file:" + sqlFile.toAbsolutePath().toString(),
-                null, Long.class);
-        return Response.ok(rowCount).build();
-    }
+                if (host != null) {
+                    builder.setHost(host)
+                            .setLocation(host);
+                }
 
-    @Path("/table")
-    @DELETE
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response dropTable() {
-        String sql = "DROP TABLE `" + tableId + "`";
-        producerTemplate.requestBody("google-bigquery-sql:" + projectId + ":" + sql, null, Long.class);
-        return Response.ok().build();
+                if (credentialsPath == null) {
+                    builder.setCredentials(NoCredentials.getInstance());
+                } else {
+                    GoogleCredentials credentials;
+                    try (FileInputStream serviceAccountStream = new FileInputStream(credentialsPath)) {
+                        credentials = ServiceAccountCredentials.fromStream(serviceAccountStream);
+                    }
+                    builder.setCredentials(credentials);
+                }
+
+                return builder.build()
+                        .getService();
+            }
+        };
     }
 }
