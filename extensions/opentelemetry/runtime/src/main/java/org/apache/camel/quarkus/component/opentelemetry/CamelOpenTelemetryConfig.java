@@ -27,7 +27,9 @@ import io.quarkus.runtime.annotations.ConfigRoot;
 public final class CamelOpenTelemetryConfig {
 
     /**
-     * Sets whether header keys need to be encoded
+     * Sets whether header names need to be encoded. Can be useful in situations where OpenTelemetry propagators
+     * potentially set header name values in formats that are not compatible with the target system. E.g for JMS where the
+     * specification mandates header names are valid Java identifiers.
      */
     @ConfigItem(defaultValue = "false")
     public boolean encoding;
