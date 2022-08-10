@@ -30,9 +30,9 @@ Metrics are available on the standard Quarkus metrics endpoint:
 
 == Tracing
 
-xref:reference/extensions/opentracing.adoc[Camel Quarkus OpenTracing extension] integrates with the
-https://quarkus.io/guides/opentracing[Quarkus OpenTracing extension]. All you need to do is set up the required
-https://quarkus.io/guides/opentracing#create-the-configuration[configuration] properties and an `OpenTracingTracer`
+xref:reference/extensions/opentelemetry.adoc[Camel Quarkus OpenTelemetry extension] integrates with the
+https://quarkus.io/guides/opentelemetry[Quarkus OpenTelemetry extension]. All you need to do is set up the required
+https://quarkus.io/guides/opentelemetry#create-the-configuration[configuration] properties and an `OpenTelemetryTracer`
 will get automatically added to the registry for Camel to use.
 
 There's an example project demonstrating the above features here:
