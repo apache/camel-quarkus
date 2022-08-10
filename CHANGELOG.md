@@ -20,6 +20,7 @@
 
 **Merged pull requests:**
 
+- Improve the CXF extension and its tests: [\#3968](https://github.com/apache/camel-quarkus/pull/3968) ([ppalaga](https://github.com/ppalaga))
 - Merge the performance regression detection prototype \#3905 [\#3959](https://github.com/apache/camel-quarkus/pull/3959) ([aldettinger](https://github.com/aldettinger))
 - Add docs for Sonarcloud build and analysis results [\#3958](https://github.com/apache/camel-quarkus/pull/3958) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix intermittent native mode failures of JacksonJsonTest [\#3955](https://github.com/apache/camel-quarkus/pull/3955) ([jamesnetherton](https://github.com/jamesnetherton))
