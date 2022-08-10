@@ -36,4 +36,4 @@ phases:
         - httpRequest:
             POST: /hello
             body:
-              pattern: '{"id":"${my-random-uuid}"}'
+              pattern: '${my-random-uuid}'
