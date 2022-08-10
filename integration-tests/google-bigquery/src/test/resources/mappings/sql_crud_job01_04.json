@@ -1,0 +1,29 @@
+{
+  "id" : "8e891636-023e-4f1d-b8be-da5fc2897362",
+  "name" : "bigquery_v2_projects_test-project_queries_job01",
+  "request" : {
+    "url" : "/bigquery/v2/projects/test-project/queries/job01?location=US&maxResults=0&prettyPrint=false",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"kind\":\"bigquery#getQueryResultsResponse\",\"etag\":\"WXsrmb8BQDTKs0iq7TRL4Q==\",\"schema\":{\"fields\":[{\"name\":\"id\",\"type\":\"STRING\"},{\"name\":\"col1\",\"type\":\"STRING\"},{\"name\":\"col2\",\"type\":\"STRING\"}]},\"jobReference\":{\"projectId\":\"test-project\",\"jobId\":\"job01\",\"location\":\"US\"},\"totalBytesProcessed\":\"0\",\"jobComplete\":true,\"cacheHit\":false,\"numDmlAffectedRows\":\"1\"}",
+    "headers" : {
+      "ETag" : "WXsrmb8BQDTKs0iq7TRL4Q==",
+      "Content-Type" : "application/json; charset=UTF-8",
+      "Vary" : [ "Origin", "X-Origin", "Referer" ],
+      "Date" : "Mon, 22 Aug 2022 07:19:11 GMT",
+      "Server" : "ESF",
+      "Cache-Control" : "private",
+      "X-XSS-Protection" : "0",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "X-Content-Type-Options" : "nosniff",
+      "Alt-Svc" : "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
+    }
+  },
+  "uuid" : "8e891636-023e-4f1d-b8be-da5fc2897362",
+  "persistent" : true,
+  "scenarioName" : "scenario-1-bigquery-v2-projects-test-project-queries-job01",
+  "requiredScenarioState" : "scenario-1-bigquery-v2-projects-test-project-queries-job01-2",
+  "insertionIndex" : 71
+}

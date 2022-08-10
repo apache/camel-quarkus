@@ -1,0 +1,30 @@
+{
+  "id" : "8ed1def0-2c3f-412d-8bb0-2305a855cfa6",
+  "name" : "bigquery_v2_projects_test-project_datasets_google_bigquery_test_dataset_tables_google_bigquery_table_for_list",
+  "request" : {
+    "url" : "/bigquery/v2/projects/test-project/datasets/google_bigquery_test_dataset/tables/google_bigquery_table_for_list/insertAll?prettyPrint=false",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"rows\":[{\"json\":{\"id\":\"1\",\"col2\":\"3\",\"col1\":\"2\"}},{\"json\":{\"id\":\"2\",\"col2\":\"4\",\"col1\":\"3\"}},{\"json\":{\"id\":\"3\",\"col2\":\"5\",\"col1\":\"4\"}}]}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"kind\":\"bigquery#tableDataInsertAllResponse\"}",
+    "headers" : {
+      "Content-Type" : "application/json; charset=UTF-8",
+      "Vary" : [ "Origin", "X-Origin", "Referer" ],
+      "Date" : "Tue, 16 Aug 2022 13:40:33 GMT",
+      "Server" : "ESF",
+      "Cache-Control" : "private",
+      "X-XSS-Protection" : "0",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "Alt-Svc" : "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
+    }
+  },
+  "uuid" : "8ed1def0-2c3f-412d-8bb0-2305a855cfa6",
+  "persistent" : true,
+  "insertionIndex" : 11
+}

@@ -30,18 +30,41 @@ import org.testcontainers.containers.GenericContainer;
 
 public class GoogleCloudTestResource implements QuarkusTestResourceLifecycleManager {
     public static final String GOOGLE_EMULATOR_IMAGE = "gcr.io/google.com/cloudsdktool/cloud-sdk:390.0.0-emulators";
+    public static final String PARAM_PROJECT_ID = "google.project.id";
+    public static final String PARAM_CREDENTIALS_PATH = "google.credentialsPath";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GoogleCloudTestResource.class);
 
     private final GoogleCloudContext envContext = new GoogleCloudContext();
 
+    /**
+     * Method usable by dependant modules.
+     *
+     * @return True if mock backend should be started.
+     */
+    public static boolean isUsingMockBackend() {
+        return isUsingMockBackend(getGoogleProjectId(), getGoogleApplicationCredentials());
+    }
+
+    private static boolean isUsingMockBackend(String realProjectId, String realCredentials) {
+        final boolean realCredentialsProvided = realCredentials != null && realProjectId != null;
+        return MockBackendUtils.startMockBackend(false) && !realCredentialsProvided;
+    }
+
+    private static String getGoogleProjectId() {
+        return System.getenv("GOOGLE_PROJECT_ID");
+    }
+
+    private static String getGoogleApplicationCredentials() {
+        return System.getenv("GOOGLE_APPLICATION_CREDENTIALS");
+    }
+
     @Override
     public Map<String, String> start() {
-        final String realCredentials = System.getenv("GOOGLE_APPLICATION_CREDENTIALS");
-        final String realProjectId = System.getenv("GOOGLE_PROJECT_ID");
+        final String realCredentials = getGoogleApplicationCredentials();
+        final String realProjectId = getGoogleProjectId();
         final boolean realCredentialsProvided = realCredentials != null && realProjectId != null;
-        final boolean startMockBackend = MockBackendUtils.startMockBackend(false);
-        final boolean usingMockBackend = startMockBackend && !realCredentialsProvided;
+        final boolean usingMockBackend = isUsingMockBackend(realProjectId, realCredentials);
         envContext.setUsingMockBackend(usingMockBackend);
 
         ServiceLoader<GoogleTestEnvCustomizer> loader = ServiceLoader.load(GoogleTestEnvCustomizer.class);
@@ -52,20 +75,23 @@ public class GoogleCloudTestResource implements QuarkusTestResourceLifecycleMana
         }
 
         if (!usingMockBackend) {
-            if (!startMockBackend && !realCredentialsProvided) {
+            if (!MockBackendUtils.startMockBackend(false) && !realCredentialsProvided) {
                 throw new IllegalStateException(
                         "Set GOOGLE_APPLICATION_CREDENTIALS and GOOGLE_PROJECT_ID env vars if you set CAMEL_QUARKUS_START_MOCK_BACKEND=false");
             }
 
-            envContext.property("google.real-project.id", realProjectId);
+            envContext.property(PARAM_PROJECT_ID, realProjectId);
+            envContext.property(PARAM_CREDENTIALS_PATH, realCredentials);
 
         } else {
+
             for (GoogleTestEnvCustomizer customizer : customizers) {
                 GenericContainer container = customizer.createContainer();
-                container.start();
-                envContext.closeable(container);
+                if (container != null) {
+                    container.start();
+                    envContext.closeable(container);
+                }
             }
-
         }
 
         for (GoogleTestEnvCustomizer customizer : customizers) {
@@ -73,6 +99,16 @@ public class GoogleCloudTestResource implements QuarkusTestResourceLifecycleMana
         }
 
         return envContext.getProperties();
+    }
+
+    @Override
+    public void inject(TestInjector testInjector) {
+        for (Map.Entry<String, String> entry : envContext.getProperties().entrySet()) {
+            testInjector.injectIntoFields(entry.getValue(), f -> {
+                GoogleProperty gp = f.getAnnotation(GoogleProperty.class);
+                return gp != null && entry.getKey().equals(gp.name());
+            });
+        }
     }
 
     public void stop() {

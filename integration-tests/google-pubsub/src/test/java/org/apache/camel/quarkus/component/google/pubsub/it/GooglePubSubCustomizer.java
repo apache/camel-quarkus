@@ -62,10 +62,8 @@ public class GooglePubSubCustomizer implements GoogleTestEnvCustomizer {
             SubscriptionAdminClient subscriptionClient = createSubscriptionAdminClient(envContext);
             TopicAdminClient topicClient = createTopicAdminClient(envContext);
 
-            String projectId = envContext.getProperties().get("google.real-project.id");
-            if (projectId == null || "".equals(projectId)) {
-                projectId = TEST_PROJECT_ID;
-            }
+            String projectId = envContext.getProperties().getOrDefault(GoogleCloudTestResource.PARAM_PROJECT_ID,
+                    TEST_PROJECT_ID);
 
             envContext.property("project.id", projectId);
             if (container != null) {

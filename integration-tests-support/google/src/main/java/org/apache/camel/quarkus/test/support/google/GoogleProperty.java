@@ -14,11 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.google.bigquery.it;
+package org.apache.camel.quarkus.test.support.google;
 
-import io.quarkus.test.junit.QuarkusIntegrationTest;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-@QuarkusIntegrationTest
-class GoogleBigqueryIT extends GoogleBigqueryTest {
+/**
+ * If annotated field's name is equal to any property from the
+ * {@link org.apache.camel.quarkus.test.support.google.GoogleCloudContext},
+ * field is injected by the property value (uses
+ * {@link io.quarkus.test.common.QuarkusTestResourceLifecycleManager.TestInjector}}.
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface GoogleProperty {
 
+    /**
+     * @return Name of the property to inject its value into the field.
+     */
+    String name();
 }
