@@ -22,7 +22,7 @@ public class PerfRegressionSampleRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("platform-http:/hello").to("atlasmap:request.adm");
+        from("platform-http:/hello").transform(simple("Hello ${body}"));
     }
 
 }
