@@ -8812,6 +8812,16 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-support-cxf-wss</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-support-cxf-wss-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-support-debezium</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
@@ -10109,10 +10119,10 @@
                 <artifactId>curator-x-discovery</artifactId>
                 <version>${curator.version}</version>
             </dependency>
-            <dependency><!-- Resolves dependency convergence error between CXF and CMIS -->
+            <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-core</artifactId>
-                <version>${cxf-version}</version>
+                <version>${cxf.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.apache.geronimo.specs</groupId>
@@ -10120,10 +10130,10 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <dependency><!-- Resolves dependency convergence error between CXF and CMIS -->
+            <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-bindings-soap</artifactId>
-                <version>${cxf-version}</version>
+                <version>${cxf.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.apache.geronimo.specs</groupId>
@@ -10131,10 +10141,10 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <dependency><!-- Resolves dependency convergence error between Camel CXF and Quarkus CXF -->
+            <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-frontend-jaxws</artifactId>
-                <version>${cxf-version}</version>
+                <version>${cxf.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.apache.geronimo.specs</groupId>
@@ -10145,7 +10155,7 @@
             <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-ws-addr</artifactId>
-                <version>${cxf-version}</version>
+                <version>${cxf.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>jakarta.activation</groupId>
@@ -10164,7 +10174,7 @@
             <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-ws-policy</artifactId>
-                <version>${cxf-version}</version>
+                <version>${cxf.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.apache.geronimo.specs</groupId>
@@ -10183,7 +10193,7 @@
             <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-ws-rm</artifactId>
-                <version>${cxf-version}</version>
+                <version>${cxf.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>jakarta.activation</groupId>
@@ -10199,14 +10209,37 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <dependency><!-- Resolves dependency convergence error between CXF and CMIS -->
+            <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-wsdl</artifactId>
-                <version>${cxf-version}</version>
+                <version>${cxf.version}</version>
                 <exclusions>
+                    <exclusion>
+                        <groupId>jakarta.activation</groupId>
+                        <artifactId>jakarta.activation-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jakarta.xml.bind</groupId>
+                        <artifactId>jakarta.xml.bind-api</artifactId>
+                    </exclusion>
                     <exclusion>
                         <groupId>org.apache.geronimo.specs</groupId>
                         <artifactId>geronimo-jta_1.1_spec</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf.xjc-utils</groupId>
+                <artifactId>cxf-xjc-runtime</artifactId>
+                <version>${cxf.xjc-utils.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>jakarta.activation</groupId>
+                        <artifactId>jakarta.activation-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jakarta.xml.bind</groupId>
+                        <artifactId>jakarta.xml.bind-api</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -10258,7 +10291,7 @@
             <dependency>
                 <groupId>org.apache.santuario</groupId>
                 <artifactId>xmlsec</artifactId>
-                <version>${xmlsec-version}</version>
+                <version>${xmlsec.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>jakarta.activation</groupId>
@@ -10269,11 +10302,6 @@
                         <artifactId>jakarta.xml.bind-api</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
-            <dependency><!-- Resolves Quarkus CXF convergence error -->
-                <groupId>org.apache.santuario</groupId>
-                <artifactId>xmlsec</artifactId>
-                <version>${xmlsec.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.xmlgraphics</groupId>
@@ -10346,6 +10374,11 @@
                 <version>${jgit.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.ehcache</groupId>
+                <artifactId>ehcache</artifactId>
+                <version>${ehcache.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.graalvm.js</groupId>
                 <artifactId>js</artifactId>
                 <version>${graalvm.version}</version>
@@ -10394,6 +10427,11 @@
                 <groupId>org.mvel</groupId>
                 <artifactId>mvel2</artifactId>
                 <version>${mvel2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.neethi</groupId>
+                <artifactId>neethi</artifactId>
+                <version>${neethi.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.optaplanner</groupId>
@@ -10576,6 +10614,7 @@
                                 <resolutionEntryPointInclude>org.apache.camel.quarkus:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>ca.uhn.hapi:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>net.openhft:affinity</resolutionEntryPointInclude><!-- https://github.com/apache/camel-quarkus/issues/3788 -->
+                                <resolutionEntryPointInclude>org.apache.cxf.xjc-utils:cxf-xjc-runtime</resolutionEntryPointInclude><!-- https://github.com/apache/camel-quarkus/issues/3788 -->
                             </resolutionEntryPointIncludes>
                             <addExclusions>
                                 <addExclusion>

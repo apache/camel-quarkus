@@ -353,67 +353,6 @@
                 <version>${greenmail.version}</version>
                 <scope>test</scope>
             </dependency>
-
-            <dependency>
-                <groupId>org.apache.cxf.xjc-utils</groupId>
-                <artifactId>cxf-xjc-runtime</artifactId>
-                <version>${cxf-xjc-utils-version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>jakarta.activation</groupId>
-                        <artifactId>jakarta.activation-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>jakarta.xml.bind</groupId>
-                        <artifactId>jakarta.xml.bind-api</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency><!-- Resolves Quarkus CXF convergence error -->
-                <groupId>org.ehcache</groupId>
-                <artifactId>ehcache</artifactId>
-                <version>${ehcache3-version}</version>
-            </dependency>
-            <dependency><!-- Resolves Quarkus CXF convergence error -->
-                <groupId>org.apache.neethi</groupId>
-                <artifactId>neethi</artifactId>
-                <version>${neethi.version}</version>
-            </dependency>
-            <dependency><!-- Resolves Quarkus CXF convergence error -->
-                <groupId>org.apache.santuario</groupId>
-                <artifactId>xmlsec</artifactId>
-                <version>${xmlsec.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>jakarta.activation</groupId>
-                        <artifactId>jakarta.activation-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>jakarta.xml.bind</groupId>
-                        <artifactId>jakarta.xml.bind-api</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.cxf</groupId>
-                <artifactId>quarkus-cxf-rt-ws-security</artifactId>
-                <version>${quarkiverse-cxf.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>jakarta.activation</groupId>
-                        <artifactId>jakarta.activation-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>jakarta.xml.bind</groupId>
-                        <artifactId>jakarta.xml.bind-api</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.cxf</groupId>
-                <artifactId>quarkus-cxf-rt-ws-security-deployment</artifactId>
-                <version>${quarkiverse-cxf.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 

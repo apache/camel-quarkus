@@ -37,7 +37,7 @@
             <plugin>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-codegen-plugin</artifactId>
-                <version>${cxf-version}</version>
+                <version>${cxf.version}</version>
                 <executions>
                     <execution>
                         <id>generate-sources</id>
@@ -62,7 +62,7 @@
                     <dependency>
                         <groupId>org.apache.cxf.xjcplugins</groupId>
                         <artifactId>cxf-xjc-ts</artifactId>
-                        <version>${cxf-xjc-plugin-version}</version>
+                        <version>${cxf.xjc-utils.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -94,8 +94,8 @@
         </dependency>
 
         <dependency>
-            <groupId>io.quarkiverse.cxf</groupId>
-            <artifactId>quarkus-cxf-rt-ws-security</artifactId>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-cxf-wss</artifactId>
         </dependency>
 
         <!-- test dependencies -->
