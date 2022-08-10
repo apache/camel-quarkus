@@ -17,8 +17,6 @@
 package org.apache.camel.quarkus.component.cxf.soap.it;
 
 import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.junit.DisabledOnIntegrationTest;
-import io.quarkus.test.junit.DisabledOnIntegrationTest.ArtifactType;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
@@ -41,7 +39,6 @@ class CxfSoapClientTest {
     }
 
     @Test
-    @DisabledOnIntegrationTest(forArtifactTypes = ArtifactType.NATIVE_BINARY, value = "https://github.com/apache/camel-quarkus/issues/3966")
     public void wsSecurityClient() {
         RestAssured.given()
                 .body("CamelQuarkusCXF")

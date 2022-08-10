@@ -83,7 +83,10 @@
         <commons-lang.version>2.6</commons-lang.version><!-- used by hbase, should be pretty stable as commons-lang is not developed actively anymore -->
         <commons-math3.version>3.6.1</commons-math3.version><!-- Mess in the transitive dependencies of Spark and hbase-testing-util -->
         <curator.version>4.3.0</curator.version><!-- Mess in the transitive dependencies of Spark, Zookeeper and other hadoop related components -->
+        <cxf.version>3.5.3</cxf.version><!-- @sync io.quarkiverse.cxf:quarkus-cxf-parent:${quarkiverse-cxf.version} prop:cxf.version -->
+        <cxf.xjc-utils.version>3.3.2</cxf.xjc-utils.version><!-- @sync org.apache.cxf:cxf:${cxf.version} prop:cxf.xjc-utils.version -->
         <eddsa.version>${eddsa-version}</eddsa.version>
+        <ehcache.version>${ehcache3-version}</ehcache.version><!-- Remove once we import quarkus-cxf-bom https://github.com/apache/camel-quarkus/issues/3983 -->
         <freemarker.version>2.3.31</freemarker.version><!-- @sync io.quarkiverse.freemarker:quarkus-freemarker-parent:${quarkiverse-freemarker.version} prop:freemarker.version -->
         <geny.version>0.6.2</geny.version>
         <github-api.version>1.111</github-api.version><!-- Used in a Groovy script bellow -->

@@ -8769,6 +8769,16 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-support-cxf-wss</artifactId>
+        <version>2.12.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-support-cxf-wss-deployment</artifactId>
+        <version>2.12.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-debezium</artifactId>
         <version>2.12.0-SNAPSHOT</version>
       </dependency>
@@ -9864,6 +9874,26 @@
         <version>1.4.0</version>
       </dependency>
       <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-ws-security</artifactId>
+        <version>1.4.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-ws-security-deployment</artifactId>
+        <version>1.4.0</version>
+      </dependency>
+      <dependency>
         <groupId>io.quarkiverse.freemarker</groupId>
         <artifactId>quarkus-freemarker</artifactId>
         <version>0.3.0</version>
@@ -10122,8 +10152,31 @@
         <version>3.5.3</version>
         <exclusions>
           <exclusion>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-jta_1.1_spec</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf.xjc-utils</groupId>
+        <artifactId>cxf-xjc-runtime</artifactId>
+        <version>3.3.2</version>
+        <exclusions>
+          <exclusion>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -10188,6 +10241,16 @@
         <groupId>org.apache.santuario</groupId>
         <artifactId>xmlsec</artifactId>
         <version>2.3.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.xmlgraphics</groupId>
@@ -10260,6 +10323,11 @@
         <version>6.2.0.202206071550-r</version>
       </dependency>
       <dependency>
+        <groupId>org.ehcache</groupId>
+        <artifactId>ehcache</artifactId>
+        <version>3.9.6</version>
+      </dependency>
+      <dependency>
         <groupId>org.graalvm.js</groupId>
         <artifactId>js</artifactId>
         <version>22.1.0</version>
@@ -10303,6 +10371,11 @@
         <groupId>org.mvel</groupId>
         <artifactId>mvel2</artifactId>
         <version>2.4.14.Final</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.neethi</groupId>
+        <artifactId>neethi</artifactId>
+        <version>3.2.0</version>
       </dependency>
       <dependency>
         <groupId>org.optaplanner</groupId>

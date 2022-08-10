@@ -29,7 +29,7 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageSecurityProviderBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
 import org.apache.jcp.xml.dsig.internal.dom.XMLDSigRI;
 import org.apache.xml.security.c14n.CanonicalizerSpi;
 import org.apache.xml.security.stax.ext.XMLSecurityConstants;
@@ -74,10 +74,12 @@ class XmlsecurityProcessor {
     }
 
     @BuildStep
-    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClasses) {
-        Stream.of(XMLSecurityConstants.class.getName())
-                .map(RuntimeInitializedClassBuildItem::new)
-                .forEach(runtimeInitializedClasses::produce);
+    void runtimeReinitializedClasses(BuildProducer<RuntimeReinitializedClassBuildItem> runtimeReinitializedClasses) {
+        Stream.of(
+                /* XMLSecurityConstants has a SecureRandom field initialized in a static initializer */
+                XMLSecurityConstants.class.getName())
+                .map(RuntimeReinitializedClassBuildItem::new)
+                .forEach(runtimeReinitializedClasses::produce);
     }
 
     @BuildStep
