@@ -19,6 +19,8 @@ package org.apache.camel.quarkus.core;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Enumeration;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.apache.camel.spi.ClassResolver;
 import org.apache.camel.util.CastUtils;
@@ -26,6 +28,7 @@ import org.apache.camel.util.ObjectHelper;
 
 public class CamelQuarkusClassResolver implements ClassResolver {
 
+    private Set<ClassLoader> classLoaders;
     private final ClassLoader applicationContextClassLoader;
 
     public CamelQuarkusClassResolver(ClassLoader applicationContextClassLoader) {
@@ -33,8 +36,30 @@ public class CamelQuarkusClassResolver implements ClassResolver {
     }
 
     @Override
+    public void addClassLoader(ClassLoader classLoader) {
+        if (classLoaders == null) {
+            classLoaders = new LinkedHashSet<>();
+        }
+        classLoaders.add(classLoader);
+    }
+
+    @Override
     public Class<?> resolveClass(String name) {
-        return loadClass(name, applicationContextClassLoader);
+        Class<?> result = loadClass(name, applicationContextClassLoader);
+        if (result != null) {
+            return result;
+        }
+
+        if (ObjectHelper.isNotEmpty(classLoaders)) {
+            for (ClassLoader loader : classLoaders) {
+                result = loadClass(name, loader);
+                if (result != null) {
+                    return result;
+                }
+            }
+        }
+
+        return null;
     }
 
     @Override
