@@ -33,7 +33,8 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 public class FileEditionHelper {
 
     // We merely set the duration in the hyperfoil benchmark template
-    public static void instantiateHyperfoilBenchmark(Path cqVersionUnderTestFolder, String singleScenarioDuration) throws IOException {
+    public static void instantiateHyperfoilBenchmark(Path cqVersionUnderTestFolder, String singleScenarioDuration)
+            throws IOException {
         File benchmarkFile = cqVersionUnderTestFolder.resolve("cq-perf-regression-scenario.hf.yaml").toFile();
         String benchmarkFileContent = FileUtils.readFileToString(benchmarkFile, StandardCharsets.UTF_8);
         benchmarkFileContent = benchmarkFileContent.replaceAll("372f6453-7527-43b1-850b-3824fc3d1187", singleScenarioDuration);
@@ -41,8 +42,9 @@ public class FileEditionHelper {
     }
 
     // We set the parent version and add staging repositories if needed
-    public static void instantiatePomFile(Path cqVersionUnderTestFolder, String cqVersion, String cqStagingRepositoryUrl, String camelStagingRepositoryUrl)
-        throws IOException, XmlPullParserException {
+    public static void instantiatePomFile(Path cqVersionUnderTestFolder, String cqVersion, String cqStagingRepositoryUrl,
+            String camelStagingRepositoryUrl)
+            throws IOException, XmlPullParserException {
         File pomFile = cqVersionUnderTestFolder.resolve("pom.xml").toFile();
 
         try (FileReader fileReader = new FileReader(pomFile, StandardCharsets.UTF_8)) {

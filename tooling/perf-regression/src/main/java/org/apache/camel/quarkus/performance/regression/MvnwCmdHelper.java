@@ -45,11 +45,15 @@ public class MvnwCmdHelper {
             File logFile = cqVersionUnderTestFolder.resolve("logs.txt").toFile();
             stdoutFileStream = new FileOutputStream(logFile, true);
 
-            stdoutFileStream.write("\n\n**********************************************************************\n".getBytes(StandardCharsets.UTF_8));
-            stdoutFileStream.write("**********************************************************************\n".getBytes(StandardCharsets.UTF_8));
-            stdoutFileStream.write(("** "+cmd+"\n").getBytes(StandardCharsets.UTF_8));
-            stdoutFileStream.write("**********************************************************************\n".getBytes(StandardCharsets.UTF_8));
-            stdoutFileStream.write("**********************************************************************\n".getBytes(StandardCharsets.UTF_8));
+            stdoutFileStream.write("\n\n**********************************************************************\n"
+                    .getBytes(StandardCharsets.UTF_8));
+            stdoutFileStream.write("**********************************************************************\n"
+                    .getBytes(StandardCharsets.UTF_8));
+            stdoutFileStream.write(("** " + cmd + "\n").getBytes(StandardCharsets.UTF_8));
+            stdoutFileStream.write("**********************************************************************\n"
+                    .getBytes(StandardCharsets.UTF_8));
+            stdoutFileStream.write("**********************************************************************\n"
+                    .getBytes(StandardCharsets.UTF_8));
 
             teeOutputStream = new TeeOutputStream(stdoutAndStderrMemoryStream, stdoutFileStream);
             DefaultExecutor executor = new DefaultExecutor();
@@ -60,12 +64,14 @@ public class MvnwCmdHelper {
             int exitValue = executor.execute(cmd);
             String outAndErr = stdoutAndStderrMemoryStream.toString(StandardCharsets.UTF_8);
             if (exitValue != 0) {
-                throw new RuntimeException("The command '" + cmd + "' has returned exitValue " + exitValue + ", process logs below:\n" + outAndErr);
+                throw new RuntimeException("The command '" + cmd + "' has returned exitValue " + exitValue
+                        + ", process logs below:\n" + outAndErr);
             }
 
             return outAndErr;
         } catch (IOException ex) {
-            throw new RuntimeException("An issue occurred while attempting to execute 'mvnw " + args + "', more logs may be found in " + cqVersionUnderTestFolder + "/logs.txt if exists", ex);
+            throw new RuntimeException("An issue occurred while attempting to execute 'mvnw " + args
+                    + "', more logs may be found in " + cqVersionUnderTestFolder + "/logs.txt if exists", ex);
         } finally {
             IOUtils.closeQuietly(stdoutAndStderrMemoryStream);
             IOUtils.closeQuietly(stdoutFileStream);

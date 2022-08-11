@@ -21,14 +21,13 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.maven.artifact.versioning.ComparableVersion;
-
 import tech.tablesaw.api.StringColumn;
 import tech.tablesaw.api.Table;
 
 /**
  * Provide a human readable performance regression report ready to be printed to
  * the console. For each camel-quarkus version, the report will print:
- * + The throughput for each measure in a category (JVM, Native) in a new column 
+ * + The throughput for each measure in a category (JVM, Native) in a new column
  * + The percent increase throughput compared to the previous row in the same column
  */
 public class PerformanceRegressionReport {
@@ -62,7 +61,8 @@ public class PerformanceRegressionReport {
             boolean regressionDetected = false;
 
             double jvmMeasure = measurePerVersion.getValue().get("JVM");
-            double percentIncreaseJvm = (previousJvmMeasure == Double.POSITIVE_INFINITY) ? 0.0 : ((jvmMeasure / previousJvmMeasure) - 1.0) * 100.0;
+            double percentIncreaseJvm = (previousJvmMeasure == Double.POSITIVE_INFINITY) ? 0.0
+                    : ((jvmMeasure / previousJvmMeasure) - 1.0) * 100.0;
             jvmMeasuresColumn.append(String.format("%.2f req/s [%+.2f%%]", jvmMeasure, percentIncreaseJvm));
             previousJvmMeasure = jvmMeasure;
             if (percentIncreaseJvm <= -5.00) {
@@ -71,7 +71,8 @@ public class PerformanceRegressionReport {
 
             if (measurePerVersion.getValue().containsKey("Native")) {
                 double nativeMeasure = measurePerVersion.getValue().get("Native");
-                double percentIncreaseNative = (previousNativeMeasure == Double.POSITIVE_INFINITY) ? 0.0 : ((nativeMeasure / previousNativeMeasure) - 1.0) * 100.0;
+                double percentIncreaseNative = (previousNativeMeasure == Double.POSITIVE_INFINITY) ? 0.0
+                        : ((nativeMeasure / previousNativeMeasure) - 1.0) * 100.0;
                 nativeMeasuresColumn.append(String.format("%.2f req/s [%+.2f%%]", nativeMeasure, percentIncreaseNative));
                 previousNativeMeasure = nativeMeasure;
                 if (percentIncreaseNative <= -5.00) {
