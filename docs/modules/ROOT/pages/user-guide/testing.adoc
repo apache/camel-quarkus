@@ -254,9 +254,9 @@ Be aware that execution of method `doAfterConstruct` differs from the execution 
 * Starting and stopping `CamelContext` in Camel Quarkus is generally bound to starting and stopping the application and this holds also when testing.
 * Starting and stopping the application under test (and thus also `CamelContext`) is under full control of Quarkus JUnit Extension. It prefers keeping the application up and running unless it is told to do otherwise.
 * Hence normally the application under test is started only once for all test classes of the given Maven/Gradle module.
-* To force Quarkus JUnit Extension to restart the application (and thus also `CamelContext`) for a given test class, you need to assign a unique `@io.quarkus.test.junit.TestProfile` to that class. Check the https://quarkus.io/guides/getting-started-testing#testing_different_profiles[Quarkus documentation] how you can do that. (Note that `https://quarkus.io/guides/getting-started-testing#quarkus-test-resource[@io.quarkus.test.common.QuarkusTestResource]` has a similar effect.)
-*  Camel Quarkus executes the production of beans during the build phase. Because all the tests are
-build together,  exclusion behavior is implemented into `CamelQuarkusTestSupport`. If a producer of the specific type and name is used in one tests, the instance will be the same for the rest of the tests.
+* To force Quarkus JUnit Extension to restart the application (and thus also `CamelContext`) for a given test class, you need to assign a unique `@io.quarkus.test.junit.TestProfile` to that class. Check the https://quarkus.io/guides/getting-started-testing#testing_different_profiles[Quarkus documentation] for how you can do that. (Note that `https://quarkus.io/guides/getting-started-testing#quarkus-test-resource[@io.quarkus.test.common.QuarkusTestResource]` has a similar effect.)
+* Camel Quarkus executes the production of beans during the build phase. Because all the tests are
+build together, exclusion behavior is implemented into `CamelQuarkusTestSupport`. If a producer of the specific type and name is used in one tests, the instance will be the same for the rest of the tests.
 * JUnit Jupiter callbacks (`BeforeEachCallback`, `AfterEachCallback`, `AfterAllCallback`, `BeforeAllCallback`, `BeforeTestExecutionCallback` and `AfterTestExecutionCallback`) might not work correctly. See the https://quarkus.io/guides/getting-started-testing#enrichment-via-quarkustestcallback[documentation].
 
 

@@ -27,7 +27,7 @@ public class JupiterCallbackCorrectTest extends AbstractSimpleMockTest {
     }
 
     @BeforeEach
-    public void beforeEach() throws Exception {
+    public void beforeEach() {
         setMsgToSend("hi");
     }
 }

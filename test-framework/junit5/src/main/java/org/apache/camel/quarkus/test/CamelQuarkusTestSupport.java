@@ -35,39 +35,40 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 
 /**
  * The {@link CamelTestSupport} class does not work on Quarkus. This class provides a replacement, which can be used in
- * JVM mode.
- * <p>
- * There are several differences between {@link CamelTestSupport} and this class:
+ * JVM mode. There are several differences between {@link CamelTestSupport} and this class.
  * <ul>
- * <li>Starting and stopping `CamelContext` in Camel Quarkus is generally bound to starting and stopping the application
+ * <li>Starting and stopping {@link CamelContext} in Camel Quarkus is generally bound to starting and stopping the
+ * application
  * and this holds also when testing.</li>
- * <li>Starting and stopping the application under test (and thus also `CamelContext`) is under full control of Quarkus
+ * <li>Starting and stopping the application under test (and thus also {@link CamelContext} is under full control of
+ * Quarkus
  * JUnit Extension. It prefers keeping the application up and running unless it is told to do otherwise.</li>
  * <li>Hence normally the application under test is started only once for all test classes of the given Maven/Gradle
  * module.</li>
  * <li>To force Quarkus JUnit Extension to restart the application (and thus also `CamelContext`) for a given test
- * class, you need to assign a unique `@io.quarkus.test.junit.TestProfile` to that class. Check the
- * https://quarkus.io/guides/getting-started-testing#testing_different_profiles[Quarkus documentation] how you can do
+ * class, you need to assign a unique {@code @io.quarkus.test.junit.TestProfile} to that class. Check the
+ * <a href="https://quarkus.io/guides/getting-started-testing#testing_different_profiles">Quarkus documentation</a> for
+ * how you can do
  * that. (Note that
- * `https://quarkus.io/guides/getting-started-testing#quarkus-test-resource[@io.quarkus.test.common.QuarkusTestResource]`
+ * <a href="https://quarkus.io/guides/getting-started-testing#quarkus-test-resource">QuarkusTestResource</a>
  * has a similar effect.)</li>
  * <li>Camel Quarkus executes the production of beans during the build phase. Because all the tests are
- * build together, exclusion behavior is implemented into `CamelQuarkusTestSupport`. If a producer of the specific type
+ * build together, exclusion behavior is implemented into {@link CamelQuarkusTestSupport}. If a producer of the specific
+ * type
  * and name is used in one tests, the instance will be the same for the rest of the tests.</li>
- * <li>Unit Jupiter callbacks (`BeforeEachCallback`, `AfterEachCallback`, `AfterAllCallback`, `BeforeAllCallback`,
- * `BeforeTestExecutionCallback` and `AfterTestExecutionCallback`) might not work correctly. See the
+ * <li>JUnit Jupiter callbacks {@code BeforeEachCallback}, {@code AfterEachCallback}, {@code AfterAllCallback},
+ * {@code BeforeAllCallback},
+ * {@code BeforeTestExecutionCallback} and {@code AfterTestExecutionCallback}) might not work correctly. See the
  * <a href="https://quarkus.io/guides/getting-started-testing#enrichment-via-quarkustestcallback">documentation</a>.
- * Methods `afterAll`, `afterEach`, `afterTestExecution`, `beforeAll` and `beforeEach` are not executed anymore.
- * You should use `doAfterAll`, `doAfterConstruct`, `doAfterEach`, `doBeforeEach` and `doBeforeAll` instead of
+ * Methods {@code afterAll}, {@code afterEach}, {@code afterTestExecution}, {@code beforeAll} and {@code beforeEach} are
+ * not executed anymore.
+ * You should use {@code doAfterAll}, {@code doAfterConstruct}, {@code doAfterEach}, {@code doBeforeEach} and
+ * {@code doBeforeAll} instead of
  * them.</li>
  * </ul>
- * </p>
  */
 public class CamelQuarkusTestSupport extends CamelTestSupport
         implements QuarkusTestProfile {
-
-    //Flag, whether routes was created by test's route builder and therefore should be stopped and removed based on lifecycle
-    private boolean wasUsedRouteBuilder;
 
     @Inject
     protected CamelContext context;
@@ -149,16 +150,18 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
      * This method is not called on Camel Quarkus because the `CamelRegistry` is created and owned by Quarkus CDI container.
      * If you need to customize the registry upon creation, you may want to override {@link #createCamelContext()}
      * in the following way:
-     *
-     * @Override
-     *           protected CamelContext createCamelContext() throws Exception {
-     *           CamelContext ctx = super.createCamelContext();
-     *           Registry registry = ctx.getRegistry();
-     *           // do something with the registry...
-     *           return ctx;
-     *           }
-     *
-     * @return   Never returns any result. UnsupportedOperationException is thrown instead.
+     * 
+     * <pre>
+     * &#64;Override
+     * protected CamelContext createCamelContext() throws Exception {
+     *     CamelContext ctx = super.createCamelContext();
+     *     Registry registry = ctx.getRegistry();
+     *     // do something with the registry...
+     *     return ctx;
+     * }
+     * </pre>
+     * 
+     * @return Never returns any result. UnsupportedOperationException is thrown instead.
      */
     @Override
     protected final Registry createCamelRegistry() {
