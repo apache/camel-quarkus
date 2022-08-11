@@ -31,9 +31,6 @@
     <packaging>pom</packaging>
 
     <name>Camel Quarkus :: Test Framework :: Parent</name>
-    <description>Ancillary modules required by some tests. Hosted outside the integration-tests directory
-        so that we can keep a flat hierarchy in the integration-tests directory.
-    </description>
 
     <modules>
         <module>junit5</module>
