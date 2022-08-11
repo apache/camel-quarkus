@@ -243,6 +243,12 @@ jobs:
           ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip -Dcamel-quarkus.update-extension-doc-page.skip \
             test
+      - name: cd tooling/perf-regression && mvn verify
+        run: |
+          cd tooling/perf-regression
+          ../../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
+            -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
+            verify
 
   extensions-jvm-tests:
     runs-on: ubuntu-latest

@@ -17,7 +17,10 @@
     limitations under the License.
 
 -->
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"  xmlns="http://maven.apache.org/POM/4.0.0"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
@@ -28,12 +31,22 @@
 
     <artifactId>perf-regression</artifactId>
 
+    <name>Camel Quarkus :: Performance Regression Detection Tool</name>
+    <description>Camel Quarkus :: Performance Regression Detection Tool</description>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-bom</artifactId>
                 <version>${quarkus.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-bom</artifactId>
+                <version>${project.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -46,6 +59,12 @@
                 <groupId>tech.tablesaw</groupId>
                 <artifactId>tablesaw-core</artifactId>
                 <version>${tablesaw.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.zeroturnaround</groupId>
+                <artifactId>zt-exec</artifactId>
+                <version>${zt-exec.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -78,6 +97,22 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.zeroturnaround</groupId>
+            <artifactId>zt-exec</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit5-internal</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <!-- Let the reactor know that camel-quarkus-platform-http-deployment should be built before integration-tests -->
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-platform-http-deployment</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -91,11 +126,15 @@
                             <target>
                                 <copy file="${basedir}/../../mvnw"
                                     todir="${basedir}/cq-perf-regression-sample-base/" />
-                                <copy file="${basedir}/../../mvnw.cmd"
+                                <copy
+                                    file="${basedir}/../../mvnw.cmd"
                                     todir="${basedir}/cq-perf-regression-sample-base/" />
-                                <copy file="${basedir}/../../.mvn/wrapper/maven-wrapper.properties"
+                                <copy
+                                    file="${basedir}/../../.mvn/wrapper/maven-wrapper.properties"
                                     todir="${basedir}/cq-perf-regression-sample-base/.mvn/wrapper/" />
-                                <chmod file="${basedir}/cq-perf-regression-sample-base/mvnw" perm="775"/>
+                                <chmod
+                                    file="${basedir}/cq-perf-regression-sample-base/mvnw"
+                                    perm="775" />
                             </target>
                         </configuration>
                         <goals>
@@ -115,6 +154,23 @@
                             <goal>build</goal>
                             <goal>generate-code</goal>
                             <goal>generate-code-tests</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <configuration>
+                    <systemPropertyVariables>
+                        <camel.quarkus.version>${project.version}</camel.quarkus.version>
+                    </systemPropertyVariables>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
                         </goals>
                     </execution>
                 </executions>
