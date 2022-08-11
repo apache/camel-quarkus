@@ -10,6 +10,8 @@
 
 **Closed issues:**
 
+- perf-regression: Use pure Camel transformation [\#3974](https://github.com/apache/camel-quarkus/issues/3974)
+- perf-regression: Align to the root mvnw [\#3960](https://github.com/apache/camel-quarkus/issues/3960)
 - camel-quarkus-servicenow - 2.11.0 release - java.lang.ClassNotFoundException: javax.ws.rs.client.ClientRequestFilter [\#3946](https://github.com/apache/camel-quarkus/issues/3946)
 - \[Camel 3.19.0\] Dependency covergence check failure in HDFS extension [\#3942](https://github.com/apache/camel-quarkus/issues/3942)
 - Add camel-quarkus-master example [\#3923](https://github.com/apache/camel-quarkus/issues/3923)
@@ -20,6 +22,10 @@
 
 **Merged pull requests:**
 
+- Add more clarity around the purpose of tracing extensions encoding config property [\#3976](https://github.com/apache/camel-quarkus/pull/3976) ([jamesnetherton](https://github.com/jamesnetherton))
+- perf-regression: use pure Camel transformation \#3974 [\#3975](https://github.com/apache/camel-quarkus/pull/3975) ([aldettinger](https://github.com/aldettinger))
+- Update observability guide to reference OpenTelemetry instead of OpenTracing [\#3973](https://github.com/apache/camel-quarkus/pull/3973) ([jamesnetherton](https://github.com/jamesnetherton))
+- perf-regression: Align to the root mvnw \#3960 [\#3969](https://github.com/apache/camel-quarkus/pull/3969) ([aldettinger](https://github.com/aldettinger))
 - Improve the CXF extension and its tests: [\#3968](https://github.com/apache/camel-quarkus/pull/3968) ([ppalaga](https://github.com/ppalaga))
 - Merge the performance regression detection prototype \#3905 [\#3959](https://github.com/apache/camel-quarkus/pull/3959) ([aldettinger](https://github.com/aldettinger))
 - Add docs for Sonarcloud build and analysis results [\#3958](https://github.com/apache/camel-quarkus/pull/3958) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1207,7 +1213,6 @@
 - Create an example for JTA+JPA integration [\#3817](https://github.com/apache/camel-quarkus/issues/3817)
 - Aws SQS: Remove unnecessary headers from the test because of CAMEL-18123 [\#3803](https://github.com/apache/camel-quarkus/issues/3803)
 - Reduce the number of `timer-log` example projects [\#3708](https://github.com/apache/camel-quarkus/issues/3708)
-- Intermittent failure of FileTests [\#3584](https://github.com/apache/camel-quarkus/issues/3584)
 
 ## [2.7.2](https://github.com/apache/camel-quarkus/tree/2.7.2) (2022-06-29)
 
