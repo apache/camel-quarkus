@@ -79,6 +79,7 @@
         <commons-beanutils.version>${commons-beanutils-version}</commons-beanutils.version>
         <commons-cli.version>1.4</commons-cli.version><!-- keep in sync with Quarkus, via quarkus-bootstrap-core -->
         <commons-collections.version>3.2.2</commons-collections.version><!-- used by hbase, should be pretty stable as commons-collections are not developed actively anymore -->
+        <commons-exec.version>${commons-exec-version}</commons-exec.version>
         <commons-lang.version>2.6</commons-lang.version><!-- used by hbase, should be pretty stable as commons-lang is not developed actively anymore -->
         <commons-math3.version>3.6.1</commons-math3.version><!-- Mess in the transitive dependencies of Spark and hbase-testing-util -->
         <curator.version>4.3.0</curator.version><!-- Mess in the transitive dependencies of Spark, Zookeeper and other hadoop related components -->
@@ -129,6 +130,7 @@
         <smallrye.reactive.messaging.camel.version>3.18.0</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
         <spring.version>${spring5-version}</spring.version>
         <snakeyaml.version>${snakeyaml-version}</snakeyaml.version>
+        <tablesaw.version>0.43.1</tablesaw.version>
         <threetenbp.version>1.6.0</threetenbp.version>
         <xalan.version>${xalan-version}</xalan.version>
         <xchange.version>${xchange-version}</xchange.version>
