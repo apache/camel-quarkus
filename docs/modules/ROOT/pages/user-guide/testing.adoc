@@ -229,18 +229,19 @@ More examples of WireMock usage can be found in the Camel Quarkus integration te
 
 == `CamelTestSupport` style of testing
 
-If you used plain Camel before, you may know xref:components:others:test-junit5.adoc[CamelTestSupport] already.
-Unfortunately the Camel variant won't work on Quarkus and so we prepared a replacement called `CamelQuarkusTestSupport`, which can be used in JVM mode.
+If you used plain Camel before, you may know `CamelTestSupport` already.
+Unfortunately the Camel variant won't work on Quarkus, so we prepared a replacement called `CamelQuarkusTestSupport`, which can be used in JVM mode.
 
 Please add following dependency into your module (preferably in the `test` scope), to use `CamelQuarkusTestSupport`.
 
-```
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-junit5</artifactId>
-            <scope>test</scope>
-        </dependency>
-```
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-junit5</artifactId>
+    <scope>test</scope>
+</dependency>
+----
 
 There are several limitations:
 
