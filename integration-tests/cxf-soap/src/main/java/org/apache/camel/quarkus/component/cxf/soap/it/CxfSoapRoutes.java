@@ -30,6 +30,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.component.cxf.jaxws.CxfEndpoint;
 import org.apache.cxf.ext.logging.LoggingFeature;
+import org.apache.cxf.ws.addressing.WSAddressingFeature;
 import org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor;
 import org.apache.wss4j.common.ConfigurationConstants;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -44,6 +45,10 @@ public class CxfSoapRoutes extends RouteBuilder {
     @Inject
     @Named("loggingFeature")
     LoggingFeature loggingFeature;
+
+    @Inject
+    @Named("wsAddressingFeature")
+    WSAddressingFeature wsAddressingFeature;
 
     @Inject
     @Named("wssInterceptor")
@@ -100,12 +105,21 @@ public class CxfSoapRoutes extends RouteBuilder {
     @Produces
     @ApplicationScoped
     @Named
+    public WSAddressingFeature wsAddressingFeature() {
+        final WSAddressingFeature result = new WSAddressingFeature();
+        return result;
+    }
+
+    @Produces
+    @ApplicationScoped
+    @Named
     CxfEndpoint secureEndpoint() {
         final CxfEndpoint result = new CxfEndpoint();
         result.setServiceClass(HelloPortType.class);
         result.setAddress(serviceBaseUri + "/hellowss");
         result.setWsdlURL("wsdl/HelloService.wsdl");
         result.getFeatures().add(loggingFeature);
+        result.getFeatures().add(wsAddressingFeature);
         result.getOutInterceptors().add(wssInterceptor);
         return result;
     }
