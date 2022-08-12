@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- `perf-regression` module should not import `io.quarkus.platform:quarkus-bom` [\#3979](https://github.com/apache/camel-quarkus/issues/3979)
 - perf-regression: Use pure Camel transformation [\#3974](https://github.com/apache/camel-quarkus/issues/3974)
 - perf-regression: Align to the root mvnw [\#3960](https://github.com/apache/camel-quarkus/issues/3960)
 - camel-quarkus-servicenow - 2.11.0 release - java.lang.ClassNotFoundException: javax.ws.rs.client.ClientRequestFilter [\#3946](https://github.com/apache/camel-quarkus/issues/3946)
@@ -19,9 +20,14 @@
 - Test Azure Storage Blob with `credentialType` `AZURE_IDENTITY` [\#3822](https://github.com/apache/camel-quarkus/issues/3822)
 - Unable to compile native image for Azure Storage Blob extension [\#3820](https://github.com/apache/camel-quarkus/issues/3820)
 - `CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest` fails on Windows [\#3529](https://github.com/apache/camel-quarkus/issues/3529)
+- CamelTestSupport style of testing  [\#3511](https://github.com/apache/camel-quarkus/issues/3511)
 
 **Merged pull requests:**
 
+- Minor tidying of test-framework modules and docs [\#3990](https://github.com/apache/camel-quarkus/pull/3990) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix doc reference to JUnit 5 component [\#3986](https://github.com/apache/camel-quarkus/pull/3986) ([gzurowski](https://github.com/gzurowski))
+- Upgrade Camel to 3.18.1 [\#3984](https://github.com/apache/camel-quarkus/pull/3984) ([jamesnetherton](https://github.com/jamesnetherton))
+- Avoid io.quarkus.platform:quarkus-bom usage in perf-regression module [\#3981](https://github.com/apache/camel-quarkus/pull/3981) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add more clarity around the purpose of tracing extensions encoding config property [\#3976](https://github.com/apache/camel-quarkus/pull/3976) ([jamesnetherton](https://github.com/jamesnetherton))
 - perf-regression: use pure Camel transformation \#3974 [\#3975](https://github.com/apache/camel-quarkus/pull/3975) ([aldettinger](https://github.com/aldettinger))
 - Update observability guide to reference OpenTelemetry instead of OpenTracing [\#3973](https://github.com/apache/camel-quarkus/pull/3973) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -85,6 +91,7 @@
 - Fix \#3828 to update openapi-java document [\#3852](https://github.com/apache/camel-quarkus/pull/3852) ([zhfeng](https://github.com/zhfeng))
 - Upgrade Quarkus to 2.10.0.Final [\#3851](https://github.com/apache/camel-quarkus/pull/3851) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade OptaPlanner to 8.22.1.Final [\#3849](https://github.com/apache/camel-quarkus/pull/3849) ([jamesnetherton](https://github.com/jamesnetherton))
+- CamelTestSupport style of testing \#3511 [\#3847](https://github.com/apache/camel-quarkus/pull/3847) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade Quarkus to 2.10.0.CR1 [\#3846](https://github.com/apache/camel-quarkus/pull/3846) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ensure ElasticSearch REST delete index route uses the correct URI scheme [\#3845](https://github.com/apache/camel-quarkus/pull/3845) ([jamesnetherton](https://github.com/jamesnetherton))
 - Modify Cassandra & AWS S3 tests to pick up Camel 3.17.0 fixes [\#3843](https://github.com/apache/camel-quarkus/pull/3843) ([jamesnetherton](https://github.com/jamesnetherton))
