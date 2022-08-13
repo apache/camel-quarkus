@@ -12,6 +12,7 @@
 
 - `perf-regression` module should not import `io.quarkus.platform:quarkus-bom` [\#3979](https://github.com/apache/camel-quarkus/issues/3979)
 - perf-regression: Use pure Camel transformation [\#3974](https://github.com/apache/camel-quarkus/issues/3974)
+- CxfSoapClientIT.wsSecurityClient fails in native mode: wsse:Nonce not present in the request [\#3966](https://github.com/apache/camel-quarkus/issues/3966)
 - perf-regression: Align to the root mvnw [\#3960](https://github.com/apache/camel-quarkus/issues/3960)
 - camel-quarkus-servicenow - 2.11.0 release - java.lang.ClassNotFoundException: javax.ws.rs.client.ClientRequestFilter [\#3946](https://github.com/apache/camel-quarkus/issues/3946)
 - \[Camel 3.19.0\] Dependency covergence check failure in HDFS extension [\#3942](https://github.com/apache/camel-quarkus/issues/3942)
@@ -26,6 +27,7 @@
 
 - Minor tidying of test-framework modules and docs [\#3990](https://github.com/apache/camel-quarkus/pull/3990) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix doc reference to JUnit 5 component [\#3986](https://github.com/apache/camel-quarkus/pull/3986) ([gzurowski](https://github.com/gzurowski))
+- CxfSoapClientIT.wsSecurityClient fails in native mode: wsse:Nonce not present in the request  [\#3985](https://github.com/apache/camel-quarkus/pull/3985) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Camel to 3.18.1 [\#3984](https://github.com/apache/camel-quarkus/pull/3984) ([jamesnetherton](https://github.com/jamesnetherton))
 - Avoid io.quarkus.platform:quarkus-bom usage in perf-regression module [\#3981](https://github.com/apache/camel-quarkus/pull/3981) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add more clarity around the purpose of tracing extensions encoding config property [\#3976](https://github.com/apache/camel-quarkus/pull/3976) ([jamesnetherton](https://github.com/jamesnetherton))
