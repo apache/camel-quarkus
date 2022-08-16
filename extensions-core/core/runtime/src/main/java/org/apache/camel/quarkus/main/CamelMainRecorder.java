@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.main;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import io.quarkus.arc.runtime.BeanContainer;
@@ -69,8 +70,12 @@ public class CamelMainRecorder {
         main.getValue().addMainListener(listener.getValue());
     }
 
-    public RuntimeValue<RoutesCollector> newRoutesCollector(RuntimeValue<RegistryRoutesLoader> registryRoutesLoader) {
-        return new RuntimeValue<>(new CamelMainRoutesCollector(registryRoutesLoader.getValue()));
+    public RuntimeValue<RoutesCollector> newRoutesCollector(
+            RuntimeValue<RegistryRoutesLoader> registryRoutesLoader,
+            Optional<List<String>> excludePatterns,
+            Optional<List<String>> includePatterns) {
+        return new RuntimeValue<>(
+                new CamelMainRoutesCollector(registryRoutesLoader.getValue(), excludePatterns, includePatterns));
     }
 
     public void customizeContext(RuntimeValue<CamelMain> main, List<RuntimeValue<CamelContextCustomizer>> contextCustomizers) {
