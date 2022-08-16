@@ -72,7 +72,7 @@ jobs:
           git rev-parse origin/main > ~/build-data/main-sha.txt
       - name: Build Camel Quarkus
         run: |
-          ./mvnw ${MAVEN_ARGS} clean install -Papache-snapshots -pl '!docs' --fail-at-end
+          ./mvnw ${MAVEN_ARGS} clean install -Papache-snapshots --fail-at-end
       - name: Tar Maven Repo
         shell: bash
         run: tar -czf maven-repo.tgz -C ~ build-data .m2/repository
