@@ -19,13 +19,15 @@ package org.apache.camel.quarkus.core.deployment.main;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.List;
 import java.util.Properties;
 
 import javax.inject.Inject;
 
 import io.quarkus.test.QuarkusUnitTest;
+import org.apache.camel.CamelContext;
+import org.apache.camel.Route;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.quarkus.main.CamelMain;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -33,16 +35,17 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class CamelMainRoutesFilterTest {
+public class CamelMainRoutesIncludeFilterCombinedPropertyTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addAsResource(applicationProperties(), "application.properties"));
 
     @Inject
-    CamelMain main;
+    CamelContext context;
 
     public static Asset applicationProperties() {
         Writer writer = new StringWriter();
@@ -50,7 +53,8 @@ public class CamelMainRoutesFilterTest {
         Properties props = new Properties();
         props.setProperty("quarkus.banner.enabled", "false");
         props.setProperty("quarkus.camel.routes-discovery.enabled", "true");
-        props.setProperty("quarkus.camel.routes-discovery.exclude-patterns", "**/*Filtered");
+        props.setProperty("quarkus.camel.routes-discovery.include-patterns", "**/*FilteredA");
+        props.setProperty("camel.main.javaRoutesIncludePattern", "**/*FilteredB");
 
         try {
             props.store(writer, "");
@@ -63,13 +67,10 @@ public class CamelMainRoutesFilterTest {
 
     @Test
     public void testRoutesFilter() {
-        assertThat(main.configure().getRoutesBuilders())
-                .hasSize(1)
-                .first().isInstanceOf(MyRoute.class);
-
-        assertThat(main.getCamelContext().getRoutes())
-                .hasSize(1)
-                .first().hasFieldOrPropertyWithValue("id", "my-route");
+        List<Route> routes = context.getRoutes();
+        assertEquals(2, routes.size());
+        assertNotNull(context.getRoute("my-route-filtered-a"));
+        assertNotNull(context.getRoute("my-route-filtered-b"));
     }
 
     public static class MyRoute extends RouteBuilder {
@@ -79,10 +80,17 @@ public class CamelMainRoutesFilterTest {
         }
     }
 
-    public static class MyRouteFiltered extends RouteBuilder {
+    public static class MyRouteFilteredA extends RouteBuilder {
         @Override
         public void configure() throws Exception {
-            from("direct:filtered").routeId("my-route-filtered").to("log:filtered");
+            from("direct:filtered-a").routeId("my-route-filtered-a").to("log:filtered-a");
+        }
+    }
+
+    public static class MyRouteFilteredB extends RouteBuilder {
+        @Override
+        public void configure() throws Exception {
+            from("direct:filtered-b").routeId("my-route-filtered-b").to("log:filtered-b");
         }
     }
 }

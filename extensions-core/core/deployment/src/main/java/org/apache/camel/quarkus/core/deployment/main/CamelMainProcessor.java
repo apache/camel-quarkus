@@ -36,6 +36,7 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.QuarkusMain;
 import org.apache.camel.CamelContext;
+import org.apache.camel.main.RoutesCollector;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelRecorder;
 import org.apache.camel.quarkus.core.CamelRuntime;
@@ -78,9 +79,12 @@ public class CamelMainProcessor {
     @Record(value = ExecutionTime.STATIC_INIT, optional = true)
     public CamelRoutesCollectorBuildItem routesCollector(
             CamelMainRecorder recorder,
-            CamelRoutesLoaderBuildItems.Registry registryRoutesLoader) {
+            CamelRoutesLoaderBuildItems.Registry registryRoutesLoader,
+            CamelConfig config) {
 
-        return new CamelRoutesCollectorBuildItem(recorder.newRoutesCollector(registryRoutesLoader.getLoader()));
+        RuntimeValue<RoutesCollector> routesCollector = recorder.newRoutesCollector(registryRoutesLoader.getLoader(),
+                config.routesDiscovery.excludePatterns, config.routesDiscovery.includePatterns);
+        return new CamelRoutesCollectorBuildItem(routesCollector);
     }
 
     /**
