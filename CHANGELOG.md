@@ -11,6 +11,7 @@
 **Closed issues:**
 
 - `perf-regression` module should not import `io.quarkus.platform:quarkus-bom` [\#3979](https://github.com/apache/camel-quarkus/issues/3979)
+- Duplicate BOM dependency declaration `org.apache.santuario:xmlsec` [\#3978](https://github.com/apache/camel-quarkus/issues/3978)
 - perf-regression: Use pure Camel transformation [\#3974](https://github.com/apache/camel-quarkus/issues/3974)
 - CxfSoapClientIT.wsSecurityClient fails in native mode: wsse:Nonce not present in the request [\#3966](https://github.com/apache/camel-quarkus/issues/3966)
 - perf-regression: Align to the root mvnw [\#3960](https://github.com/apache/camel-quarkus/issues/3960)
@@ -33,6 +34,7 @@
 - Add more clarity around the purpose of tracing extensions encoding config property [\#3976](https://github.com/apache/camel-quarkus/pull/3976) ([jamesnetherton](https://github.com/jamesnetherton))
 - perf-regression: use pure Camel transformation \#3974 [\#3975](https://github.com/apache/camel-quarkus/pull/3975) ([aldettinger](https://github.com/aldettinger))
 - Update observability guide to reference OpenTelemetry instead of OpenTracing [\#3973](https://github.com/apache/camel-quarkus/pull/3973) ([jamesnetherton](https://github.com/jamesnetherton))
+- Improve/clean-up camel-quarkus-validator extension tests. [\#3972](https://github.com/apache/camel-quarkus/pull/3972) ([svkcemk](https://github.com/svkcemk))
 - perf-regression: Align to the root mvnw \#3960 [\#3969](https://github.com/apache/camel-quarkus/pull/3969) ([aldettinger](https://github.com/aldettinger))
 - Improve the CXF extension and its tests: [\#3968](https://github.com/apache/camel-quarkus/pull/3968) ([ppalaga](https://github.com/ppalaga))
 - Merge the performance regression detection prototype \#3905 [\#3959](https://github.com/apache/camel-quarkus/pull/3959) ([aldettinger](https://github.com/aldettinger))
