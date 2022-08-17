@@ -1,4 +1,4 @@
-= Local/partial build of docs
+= Building the documentation
 
 See https://camel.apache.org/manual/improving-the-documentation.html for initial setup instructions and more details.
 
