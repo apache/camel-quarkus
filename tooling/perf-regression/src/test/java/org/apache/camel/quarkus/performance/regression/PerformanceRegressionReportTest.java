@@ -27,18 +27,34 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PerformanceRegressionReportTest {
 
     @Test
-    public void printAllShouldSucceed() throws IOException {
+    public void printAllJvmAndNativeShouldSucceed() throws IOException {
         PerformanceRegressionReport sut = new PerformanceRegressionReport("10m");
-        sut.setCategoryMeasureForVersion("2.10.0", "JVM", 360.0);
-        sut.setCategoryMeasureForVersion("2.8.0", "JVM", 380.0);
-        sut.setCategoryMeasureForVersion("2.9.0", "JVM", 390.0);
+        sut.setCategoryMeasureForVersion("2.10.0", "JVM", 333.45);
+        sut.setCategoryMeasureForVersion("2.6.0", "JVM", 380.0);
+        sut.setCategoryMeasureForVersion("2.8.75", "JVM", 370.5);
+        sut.setCategoryMeasureForVersion("2.7.0", "JVM", 390.0);
+        sut.setCategoryMeasureForVersion("2.9.0", "JVM", 370.5);
 
-        sut.setCategoryMeasureForVersion("2.10.0", "Native", 1000.0);
-        sut.setCategoryMeasureForVersion("2.8.0", "Native", 1080.0);
-        sut.setCategoryMeasureForVersion("2.9.0", "Native", 1090.0);
+        sut.setCategoryMeasureForVersion("2.10.0", "Native", 225.0);
+        sut.setCategoryMeasureForVersion("2.6.0", "Native", 1080.0);
+        sut.setCategoryMeasureForVersion("2.8.75", "Native", 1134.0);
+        sut.setCategoryMeasureForVersion("2.7.0", "Native", 1134.0);
+        sut.setCategoryMeasureForVersion("2.9.0", "Native", 250.0);
 
-        String expected = IOUtils.resourceToString("/perf-regression-expecteds/nominal.txt", StandardCharsets.UTF_8);
+        String expected = IOUtils.resourceToString("/expecteds/jvm-and-native.txt", StandardCharsets.UTF_8);
+        expected = expected.replaceAll("\\n", System.lineSeparator());
         assertEquals(expected, sut.printAll());
     }
 
+    @Test
+    public void printAllJvmShouldSucceed() throws IOException {
+        PerformanceRegressionReport sut = new PerformanceRegressionReport("1h");
+        sut.setCategoryMeasureForVersion("2.10.0", "JVM", 900.00);
+        sut.setCategoryMeasureForVersion("2.6.0", "JVM", 300.0);
+        sut.setCategoryMeasureForVersion("3.61.15", "JVM", 300.0);
+
+        String expected = IOUtils.resourceToString("/expecteds/jvm-only.txt", StandardCharsets.UTF_8);
+        expected = expected.replaceAll("\\n", System.lineSeparator());
+        assertEquals(expected, sut.printAll());
+    }
 }
