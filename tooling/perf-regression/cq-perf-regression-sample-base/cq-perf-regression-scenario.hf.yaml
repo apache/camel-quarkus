@@ -18,7 +18,8 @@
 # A camel-quarkus performance scenario to detect possible regressions
 name: cq-perf-regression-scenario
 http:
-  host: http://localhost:8080
+  # A free port will be reserved and added to this configuration by maven later on
+  host: http://localhost:
 phases:
 - operator:
     # Running a fixed number of users during a fixed period of time
