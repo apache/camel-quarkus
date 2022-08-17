@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- CEQ 2.11 - rest component .route\(\) method not available but present in docs [\#3995](https://github.com/apache/camel-quarkus/issues/3995)
 - `perf-regression` module should not import `io.quarkus.platform:quarkus-bom` [\#3979](https://github.com/apache/camel-quarkus/issues/3979)
 - Duplicate BOM dependency declaration `org.apache.santuario:xmlsec` [\#3978](https://github.com/apache/camel-quarkus/issues/3978)
 - perf-regression: Use pure Camel transformation [\#3974](https://github.com/apache/camel-quarkus/issues/3974)
@@ -26,6 +27,7 @@
 
 **Merged pull requests:**
 
+- Remove documentation references to REST DSL inline routes [\#3997](https://github.com/apache/camel-quarkus/pull/3997) ([jamesnetherton](https://github.com/jamesnetherton))
 - Minor tidying of test-framework modules and docs [\#3990](https://github.com/apache/camel-quarkus/pull/3990) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix doc reference to JUnit 5 component [\#3986](https://github.com/apache/camel-quarkus/pull/3986) ([gzurowski](https://github.com/gzurowski))
 - CxfSoapClientIT.wsSecurityClient fails in native mode: wsse:Nonce not present in the request  [\#3985](https://github.com/apache/camel-quarkus/pull/3985) ([ppalaga](https://github.com/ppalaga))
