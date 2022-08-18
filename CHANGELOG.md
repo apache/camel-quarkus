@@ -6,11 +6,15 @@
 
 **Fixed bugs:**
 
+- `quarkus.camel.routes-discovery.exclude-patterns` does not work when the `RouteBuilder` is a CDI bean [\#3993](https://github.com/apache/camel-quarkus/issues/3993)
 - \[Quarkus 2.12.0\] Secure gRPC consumer tests are failing [\#3947](https://github.com/apache/camel-quarkus/issues/3947)
 
 **Closed issues:**
 
+- perf-regression: complete unit test coverage [\#4001](https://github.com/apache/camel-quarkus/issues/4001)
+- apache-camel-mock Routes are not getting cleaned up after test completes [\#4000](https://github.com/apache/camel-quarkus/issues/4000)
 - CEQ 2.11 - rest component .route\(\) method not available but present in docs [\#3995](https://github.com/apache/camel-quarkus/issues/3995)
+- perf-regression: add integration-tests [\#3982](https://github.com/apache/camel-quarkus/issues/3982)
 - `perf-regression` module should not import `io.quarkus.platform:quarkus-bom` [\#3979](https://github.com/apache/camel-quarkus/issues/3979)
 - Duplicate BOM dependency declaration `org.apache.santuario:xmlsec` [\#3978](https://github.com/apache/camel-quarkus/issues/3978)
 - perf-regression: Use pure Camel transformation [\#3974](https://github.com/apache/camel-quarkus/issues/3974)
@@ -27,8 +31,12 @@
 
 **Merged pull requests:**
 
+- perf-regression: add unit test \#4001 [\#4002](https://github.com/apache/camel-quarkus/pull/4002) ([aldettinger](https://github.com/aldettinger))
+- Docs module cleanups [\#3999](https://github.com/apache/camel-quarkus/pull/3999) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove documentation references to REST DSL inline routes [\#3997](https://github.com/apache/camel-quarkus/pull/3997) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix route inclusion / exclusion filtering [\#3996](https://github.com/apache/camel-quarkus/pull/3996) ([jamesnetherton](https://github.com/jamesnetherton))
 - Minor tidying of test-framework modules and docs [\#3990](https://github.com/apache/camel-quarkus/pull/3990) ([jamesnetherton](https://github.com/jamesnetherton))
+- perf-regression: add integration tests \#3982 [\#3988](https://github.com/apache/camel-quarkus/pull/3988) ([aldettinger](https://github.com/aldettinger))
 - Fix doc reference to JUnit 5 component [\#3986](https://github.com/apache/camel-quarkus/pull/3986) ([gzurowski](https://github.com/gzurowski))
 - CxfSoapClientIT.wsSecurityClient fails in native mode: wsse:Nonce not present in the request  [\#3985](https://github.com/apache/camel-quarkus/pull/3985) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Camel to 3.18.1 [\#3984](https://github.com/apache/camel-quarkus/pull/3984) ([jamesnetherton](https://github.com/jamesnetherton))
