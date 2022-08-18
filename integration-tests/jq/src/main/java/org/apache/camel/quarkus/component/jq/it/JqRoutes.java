@@ -16,12 +16,20 @@
  */
 package org.apache.camel.quarkus.component.jq.it;
 
+import java.util.Map;
+
 import org.apache.camel.builder.RouteBuilder;
 
 public class JqRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
+        // TODO: Revert back to using config properties
+        // https://github.com/apache/camel-quarkus/issues/4011
+        Map<String, String> globalOptions = getContext().getGlobalOptions();
+        globalOptions.put("CamelJacksonEnableTypeConverter", "true");
+        globalOptions.put("CamelJacksonTypeConverterToPojo", "true");
+
         from("direct:expression")
                 .transform().jq(".foo")
                 .to("mock:expression");
