@@ -70,21 +70,24 @@
             <artifactId>assertj-core</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
-
     <profiles>
-        <!-- https://github.com/apache/camel-quarkus/issues/3961
         <profile>
             <id>native</id>
             <activation>
                 <property>
                     <name>native</name>
                 </property>
+                <file>
+                    <exists>${env.GRAALVM_HOME}/bin/js</exists>
+                </file>
             </activation>
             <properties>
                 <quarkus.package.type>native</quarkus.package.type>
+                <!-- Force host only native builds since the docker builder image does not have GraalVM JS installed -->
+                <quarkus.native.container-build>false</quarkus.native.container-build>
+                <quarkus.native.additional-build-args>--language:js</quarkus.native.additional-build-args>
             </properties>
             <build>
                 <plugins>
@@ -103,7 +106,6 @@
                 </plugins>
             </build>
         </profile>
-        -->
         <profile>
             <id>virtualDependencies</id>
             <activation>

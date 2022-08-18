@@ -1,0 +1,10 @@
+== Camel Quarkus JS Integration Tests
+
+To run the native JS integration tests, you must ensure that you have GraalVM installed locally, together with JS component.
+
+You can install GraalVM JS as follows.
+
+[source,shell]
+----
+${GRAALVM_HOME}/bin/gu install js
+----
