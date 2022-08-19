@@ -11,6 +11,8 @@
 
 **Closed issues:**
 
+- Provide a ready to use master component for kubernetes [\#4006](https://github.com/apache/camel-quarkus/issues/4006)
+- perf-regression: avoid using fixed port [\#4004](https://github.com/apache/camel-quarkus/issues/4004)
 - perf-regression: complete unit test coverage [\#4001](https://github.com/apache/camel-quarkus/issues/4001)
 - apache-camel-mock Routes are not getting cleaned up after test completes [\#4000](https://github.com/apache/camel-quarkus/issues/4000)
 - CEQ 2.11 - rest component .route\(\) method not available but present in docs [\#3995](https://github.com/apache/camel-quarkus/issues/3995)
@@ -18,6 +20,7 @@
 - `perf-regression` module should not import `io.quarkus.platform:quarkus-bom` [\#3979](https://github.com/apache/camel-quarkus/issues/3979)
 - Duplicate BOM dependency declaration `org.apache.santuario:xmlsec` [\#3978](https://github.com/apache/camel-quarkus/issues/3978)
 - perf-regression: Use pure Camel transformation [\#3974](https://github.com/apache/camel-quarkus/issues/3974)
+- perf-regression: introduce the performance regression in the release process [\#3967](https://github.com/apache/camel-quarkus/issues/3967)
 - CxfSoapClientIT.wsSecurityClient fails in native mode: wsse:Nonce not present in the request [\#3966](https://github.com/apache/camel-quarkus/issues/3966)
 - perf-regression: Align to the root mvnw [\#3960](https://github.com/apache/camel-quarkus/issues/3960)
 - camel-quarkus-servicenow - 2.11.0 release - java.lang.ClassNotFoundException: javax.ws.rs.client.ClientRequestFilter [\#3946](https://github.com/apache/camel-quarkus/issues/3946)
@@ -31,6 +34,9 @@
 
 **Merged pull requests:**
 
+- perf-regression: collect reports during releases \#3967 [\#4013](https://github.com/apache/camel-quarkus/pull/4013) ([aldettinger](https://github.com/aldettinger))
+- perf-regression: avoid using fixed port \#4004 [\#4005](https://github.com/apache/camel-quarkus/pull/4005) ([aldettinger](https://github.com/aldettinger))
+- Upgrade Quarkus to 2.12.0.CR1 [\#4003](https://github.com/apache/camel-quarkus/pull/4003) ([jamesnetherton](https://github.com/jamesnetherton))
 - perf-regression: add unit test \#4001 [\#4002](https://github.com/apache/camel-quarkus/pull/4002) ([aldettinger](https://github.com/aldettinger))
 - Docs module cleanups [\#3999](https://github.com/apache/camel-quarkus/pull/3999) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove documentation references to REST DSL inline routes [\#3997](https://github.com/apache/camel-quarkus/pull/3997) ([jamesnetherton](https://github.com/jamesnetherton))
