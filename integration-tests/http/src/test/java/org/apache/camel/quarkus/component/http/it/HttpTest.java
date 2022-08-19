@@ -67,8 +67,7 @@ class HttpTest {
     @ParameterizedTest
     @MethodSource("getHttpComponentNames")
     public void httpsProducer(String component) {
-        final int port = ConfigProvider.getConfig().getValue("camel.netty-http.https-test-port", Integer.class);
-
+        final int port = getPort("camel.netty-http.https-test-port");
         RestAssured
                 .given()
                 .queryParam("test-port", port)
@@ -147,7 +146,7 @@ class HttpTest {
     @ParameterizedTest
     @MethodSource("getHttpComponentNames")
     public void compression(String component) {
-        final int port = ConfigProvider.getConfig().getValue("camel.netty-http.compression-test-port", Integer.class);
+        final int port = getPort("camel.netty-http.compression-test-port");
         RestAssured
                 .given()
                 .queryParam("test-port", port)
@@ -161,10 +160,9 @@ class HttpTest {
     @ParameterizedTest
     @MethodSource("getHttpComponentNames")
     public void transferException(String component) {
-        final int port = ConfigProvider.getConfig().getValue("camel.netty-http.test-port", Integer.class);
         RestAssured
                 .given()
-                .queryParam("test-port", port)
+                .queryParam("test-port", getPort())
                 .when()
                 .get("/test/client/{component}/serialized/exception", component)
                 .then()
@@ -174,10 +172,9 @@ class HttpTest {
 
     @Test
     public void basicNettyHttpServer() {
-        final int port = ConfigProvider.getConfig().getValue("camel.netty-http.test-port", Integer.class);
         RestAssured
                 .given()
-                .port(port)
+                .port(getPort())
                 .when()
                 .get("/test/server/hello")
                 .then()
@@ -202,15 +199,33 @@ class HttpTest {
 
     @Test
     public void serviceCall() {
-        final int port = ConfigProvider.getConfig().getValue("camel.netty-http.test-port", Integer.class);
         RestAssured
                 .given()
-                .port(port)
+                .port(getPort())
                 .when()
                 .get("/test/server/serviceCall")
                 .then()
                 .statusCode(200)
                 .body(Matchers.is("Hello from myService"));
+    }
+
+    @Test
+    public void httpOperationFailedException() {
+        RestAssured
+                .given()
+                .when()
+                .get("/test/client/http/operation/failed/exception")
+                .then()
+                .statusCode(200)
+                .body(is("Handled HttpOperationFailedException"));
+    }
+
+    private Integer getPort() {
+        return getPort("camel.netty-http.test-port");
+    }
+
+    private Integer getPort(String configKey) {
+        return ConfigProvider.getConfig().getValue(configKey, Integer.class);
     }
 
     private static String[] getHttpComponentNames() {
