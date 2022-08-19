@@ -64,11 +64,6 @@
             <groupId>org.apache.avro</groupId>
             <artifactId>avro-ipc-netty</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.graalvm.nativeimage</groupId>
-            <artifactId>svm</artifactId>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 
     <build>
