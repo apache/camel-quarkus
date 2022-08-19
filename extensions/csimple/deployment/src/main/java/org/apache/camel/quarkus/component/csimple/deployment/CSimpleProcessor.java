@@ -308,6 +308,7 @@ class CSimpleProcessor {
         return new CompilationProvider.Context(
                 "csimple-project",
                 classPathElements,
+                classPathElements,
                 projectDir.toFile(),
                 projectDir.resolve("src/main/java").toFile(),
                 csimpleClassesDir.toFile(),
