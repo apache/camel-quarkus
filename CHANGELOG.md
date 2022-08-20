@@ -20,8 +20,11 @@
 - `perf-regression` module should not import `io.quarkus.platform:quarkus-bom` [\#3979](https://github.com/apache/camel-quarkus/issues/3979)
 - Duplicate BOM dependency declaration `org.apache.santuario:xmlsec` [\#3978](https://github.com/apache/camel-quarkus/issues/3978)
 - perf-regression: Use pure Camel transformation [\#3974](https://github.com/apache/camel-quarkus/issues/3974)
+- Register `HttpOperationFailedException` for reflection [\#3971](https://github.com/apache/camel-quarkus/issues/3971)
 - perf-regression: introduce the performance regression in the release process [\#3967](https://github.com/apache/camel-quarkus/issues/3967)
 - CxfSoapClientIT.wsSecurityClient fails in native mode: wsse:Nonce not present in the request [\#3966](https://github.com/apache/camel-quarkus/issues/3966)
+- \[Quarkus 2.12.0\] Azure Storage Blob native integration test failure [\#3964](https://github.com/apache/camel-quarkus/issues/3964)
+- \[Quarkus 2.12.0\] Figure out how to test `js-dsl` in native mode [\#3961](https://github.com/apache/camel-quarkus/issues/3961)
 - perf-regression: Align to the root mvnw [\#3960](https://github.com/apache/camel-quarkus/issues/3960)
 - camel-quarkus-servicenow - 2.11.0 release - java.lang.ClassNotFoundException: javax.ws.rs.client.ClientRequestFilter [\#3946](https://github.com/apache/camel-quarkus/issues/3946)
 - \[Camel 3.19.0\] Dependency covergence check failure in HDFS extension [\#3942](https://github.com/apache/camel-quarkus/issues/3942)
@@ -34,6 +37,9 @@
 
 **Merged pull requests:**
 
+- Fix \#3389: geocoder test returned wrong city [\#4020](https://github.com/apache/camel-quarkus/pull/4020) ([djcoleman](https://github.com/djcoleman))
+- Register HttpOperationFailedException for reflection [\#4019](https://github.com/apache/camel-quarkus/pull/4019) ([jamesnetherton](https://github.com/jamesnetherton))
+- Restore ability to run js-dsl native tests [\#4017](https://github.com/apache/camel-quarkus/pull/4017) ([jamesnetherton](https://github.com/jamesnetherton))
 - perf-regression: collect reports during releases \#3967 [\#4013](https://github.com/apache/camel-quarkus/pull/4013) ([aldettinger](https://github.com/aldettinger))
 - perf-regression: avoid using fixed port \#4004 [\#4005](https://github.com/apache/camel-quarkus/pull/4005) ([aldettinger](https://github.com/aldettinger))
 - Upgrade Quarkus to 2.12.0.CR1 [\#4003](https://github.com/apache/camel-quarkus/pull/4003) ([jamesnetherton](https://github.com/jamesnetherton))
