@@ -21,15 +21,20 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.Map;
 
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.PumpStreamHandler;
+import org.apache.commons.exec.environment.EnvironmentUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.commons.io.output.TeeOutputStream;
+import org.jboss.logging.Logger;
 
 public class MvnwCmdHelper {
+
+    private static final Logger LOGGER = Logger.getLogger(MvnwCmdHelper.class);
 
     public static String execute(Path cqVersionUnderTestFolder, String args) {
 
@@ -61,7 +66,18 @@ public class MvnwCmdHelper {
             executor.setStreamHandler(psh);
             executor.setWorkingDirectory(cqVersionUnderTestFolder.toFile());
 
-            int exitValue = executor.execute(cmd);
+            Map<String, String> environment = EnvironmentUtils.getProcEnvironment();
+
+            String newMavenOpts = "MAVEN_OPTS=--add-opens java.base/java.lang=ALL-UNNAMED";
+            if (environment.containsKey("MAVEN_OPTS")) {
+                String currentMavenOpts = environment.get("MAVEN_OPTS");
+                LOGGER.debugf("MAVEN_OPTS is already set up in the main process with value: %s", currentMavenOpts);
+                newMavenOpts = "MAVEN_OPTS=" + currentMavenOpts + " --add-opens java.base/java.lang=ALL-UNNAMED";
+            }
+            LOGGER.debugf("Setting MAVEN_OPTS in child process with value: %s", newMavenOpts);
+            EnvironmentUtils.addVariableToEnvironment(environment, newMavenOpts);
+
+            int exitValue = executor.execute(cmd, environment);
             String outAndErr = stdoutAndStderrMemoryStream.toString(StandardCharsets.UTF_8);
             if (exitValue != 0) {
                 throw new RuntimeException("The command '" + cmd + "' has returned exitValue " + exitValue
