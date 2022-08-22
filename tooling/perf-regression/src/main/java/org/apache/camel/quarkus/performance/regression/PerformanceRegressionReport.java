@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.performance.regression;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -63,7 +64,7 @@ public class PerformanceRegressionReport {
             double jvmMeasure = measurePerVersion.getValue().get("JVM");
             double percentIncreaseJvm = (previousJvmMeasure == Double.POSITIVE_INFINITY) ? 0.0
                     : ((jvmMeasure / previousJvmMeasure) - 1.0) * 100.0;
-            jvmMeasuresColumn.append(String.format("%.2f req/s [%+.2f%%]", jvmMeasure, percentIncreaseJvm));
+            jvmMeasuresColumn.append(String.format(Locale.US, "%.2f req/s [%+.2f%%]", jvmMeasure, percentIncreaseJvm));
             previousJvmMeasure = jvmMeasure;
             if (percentIncreaseJvm <= -5.00) {
                 regressionDetected = true;
@@ -73,7 +74,8 @@ public class PerformanceRegressionReport {
                 double nativeMeasure = measurePerVersion.getValue().get("Native");
                 double percentIncreaseNative = (previousNativeMeasure == Double.POSITIVE_INFINITY) ? 0.0
                         : ((nativeMeasure / previousNativeMeasure) - 1.0) * 100.0;
-                nativeMeasuresColumn.append(String.format("%.2f req/s [%+.2f%%]", nativeMeasure, percentIncreaseNative));
+                nativeMeasuresColumn
+                        .append(String.format(Locale.US, "%.2f req/s [%+.2f%%]", nativeMeasure, percentIncreaseNative));
                 previousNativeMeasure = nativeMeasure;
                 if (percentIncreaseNative <= -5.00) {
                     regressionDetected = true;

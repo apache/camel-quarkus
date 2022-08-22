@@ -68,14 +68,14 @@ public class MvnwCmdHelper {
 
             Map<String, String> environment = EnvironmentUtils.getProcEnvironment();
 
-            String newMavenOpts = "MAVEN_OPTS=--add-opens java.base/java.lang=ALL-UNNAMED";
+            String newMavenOpts = "-Duser.language=en -Duser.country=US --add-opens java.base/java.lang=ALL-UNNAMED";
             if (environment.containsKey("MAVEN_OPTS")) {
                 String currentMavenOpts = environment.get("MAVEN_OPTS");
                 LOGGER.debugf("MAVEN_OPTS is already set up in the main process with value: %s", currentMavenOpts);
-                newMavenOpts = "MAVEN_OPTS=" + currentMavenOpts + " --add-opens java.base/java.lang=ALL-UNNAMED";
+                newMavenOpts = currentMavenOpts + " " + newMavenOpts;
             }
             LOGGER.debugf("Setting MAVEN_OPTS in child process with value: %s", newMavenOpts);
-            EnvironmentUtils.addVariableToEnvironment(environment, newMavenOpts);
+            EnvironmentUtils.addVariableToEnvironment(environment, "MAVEN_OPTS=" + newMavenOpts);
 
             int exitValue = executor.execute(cmd, environment);
             String outAndErr = stdoutAndStderrMemoryStream.toString(StandardCharsets.UTF_8);
