@@ -18,9 +18,14 @@ package org.apache.camel.quarkus.performance.regression.it;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.zeroturnaround.exec.InvalidExitValueException;
 import org.zeroturnaround.exec.ProcessExecutor;
 
@@ -52,14 +57,27 @@ public class PerfRegressionIT {
         }
     }
 
-    @Test
-    void nominalShouldPrintReport() throws IOException, InterruptedException, TimeoutException {
+    private static Stream<String> getSelectLocales() {
+        return Stream.of("fr_FR", "de_DE", "it_IT", "cs_CZ", "zh_CN", "ja_JP", "ar_JO");
+    }
 
+    @Disabled("This long test is meant to be run when diagnosing locale issues only")
+    @ParameterizedTest
+    @MethodSource("getSelectLocales")
+    void nominalTestShouldBehaveTheSameAgainstSelectLocales(String locale)
+            throws IOException, InterruptedException, TimeoutException {
+        nominalShouldPrintReport(locale);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "en_US" })
+    void nominalShouldPrintReport(String locale) throws IOException, InterruptedException, TimeoutException {
         try {
             String cqVersion = System.getProperty("camel.quarkus.version");
 
             String processOutput = new ProcessExecutor()
                     .command("java", "-jar", "target/quarkus-app/quarkus-run.jar", "-d", "1s", cqVersion)
+                    .environment("LANG", locale + ".UTF-8")
                     .readOutput(true)
                     .exitValue(0)
                     .execute()
