@@ -32,7 +32,8 @@ import org.testcontainers.utility.TestcontainersConfiguration;
  * Abstract parent for debezium test resources.
  * Parent starts using abstract method.
  */
-public abstract class AbstractDebeziumTestResource<T extends GenericContainer> implements QuarkusTestResourceLifecycleManager {
+public abstract class AbstractDebeziumTestResource<T extends GenericContainer<?>>
+        implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractDebeziumTestResource.class);
 
     protected T container;
@@ -64,7 +65,7 @@ public abstract class AbstractDebeziumTestResource<T extends GenericContainer> i
             startContainer();
 
             Map<String, String> map = CollectionHelper.mapOf(
-                    type.getPropertyHostname(), container.getContainerIpAddress(),
+                    type.getPropertyHostname(), container.getHost(),
                     type.getPropertyPort(), container.getMappedPort(getPort()) + "",
                     type.getPropertyOffsetFileName(), storeFile.toString(),
                     type.getPropertyJdbc(), getJdbcUrl());

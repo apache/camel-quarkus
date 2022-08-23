@@ -65,9 +65,9 @@ public class DebeziumSqlserverResource extends AbstractDebeziumResource {
     }
 
     @Override
-    String getEndpoinUrl(String hostname, String port, String username, String password, String databaseServerName,
+    String getEndpointUrl(String hostname, String port, String username, String password, String databaseServerName,
             String offsetStorageFileName) {
-        return super.getEndpoinUrl(hostname, port, username, password, databaseServerName, offsetStorageFileName)
+        return super.getEndpointUrl(hostname, port, username, password, databaseServerName, offsetStorageFileName)
                 + "&databaseDbname=" + DB_NAME
                 + "&databaseHistoryFileFilename=" + config.getValue(PROPERTY_DB_HISTORY_FILE, String.class)
                 + "&additionalProperties.database.encrypt=" + encryptConnection;
