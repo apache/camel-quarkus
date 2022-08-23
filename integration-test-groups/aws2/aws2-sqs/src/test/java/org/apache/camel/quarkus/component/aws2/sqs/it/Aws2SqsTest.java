@@ -37,6 +37,7 @@ import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.jboss.logging.Logger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -47,6 +48,8 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
 class Aws2SqsTest {
+
+    private static final Logger LOG = Logger.getLogger(Aws2SqsTest.class);
 
     @Aws2LocalStack
     private boolean localStack;
@@ -61,6 +64,15 @@ class Aws2SqsTest {
 
     private String getPredefinedDeadletterQueueName() {
         return ConfigProvider.getConfig().getValue("aws-sqs.deadletter-name", String.class);
+    }
+
+    private Integer getPollIntervalSendToDelayQueueInSecs() {
+        return ConfigProvider.getConfig().getOptionalValue("aws-sqs.delayed-queue.poll-interval-secs", Integer.class)
+                .orElse(10);
+    }
+
+    private Integer getTimeoutSendToDelayQueueInMins() {
+        return ConfigProvider.getConfig().getOptionalValue("aws-sqs.delayed-queue.timeout-mins", Integer.class).orElse(5);
     }
 
     @AfterEach
@@ -165,8 +177,20 @@ class Aws2SqsTest {
         try {
             createDelayQueueAndVerifyExistence(qName, delay);
             Instant start = Instant.now();
-            final String msgSent = sendSingleMessageToQueue(qName);
-            awaitMessageWithExpectedContentFromQueue(msgSent, qName);
+            final String[] msgSent = new String[1];
+            // verifying existence is not enough, as the queue can be in not Ready state, so we just keep trying to send messages
+            Awaitility.await().pollInterval(getPollIntervalSendToDelayQueueInSecs(), TimeUnit.SECONDS)
+                    .atMost(getTimeoutSendToDelayQueueInMins(), TimeUnit.MINUTES)
+                    .until(() -> {
+                        try {
+                            msgSent[0] = sendSingleMessageToQueue(qName);
+                        } catch (Throwable e) {
+                            LOG.debug("Expected exception", e);
+                            return false;
+                        }
+                        return true;
+                    });
+            awaitMessageWithExpectedContentFromQueue(msgSent[0], qName);
             Assertions.assertTrue(Duration.between(start, Instant.now()).getSeconds() >= delay);
         } catch (AssertionError e) {
             e.printStackTrace();
