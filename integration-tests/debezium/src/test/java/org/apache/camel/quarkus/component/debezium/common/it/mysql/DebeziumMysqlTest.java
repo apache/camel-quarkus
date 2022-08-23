@@ -27,7 +27,6 @@ import org.apache.camel.quarkus.component.debezium.common.it.AbstractDebeziumTes
 import org.apache.camel.quarkus.component.debezium.common.it.Type;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.jboss.logging.Logger;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
@@ -40,8 +39,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 @QuarkusTestResource(DebeziumMysqlTestResource.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class DebeziumMysqlTest extends AbstractDebeziumTest {
-    private static final Logger LOG = Logger.getLogger(DebeziumMysqlTest.class);
-
     private static Connection connection;
 
     public DebeziumMysqlTest() {

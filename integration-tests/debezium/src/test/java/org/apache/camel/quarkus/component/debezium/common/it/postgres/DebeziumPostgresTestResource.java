@@ -23,7 +23,7 @@ import org.apache.camel.quarkus.component.debezium.common.it.Type;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
-public class DebeziumPostgresTestResource extends AbstractDebeziumTestResource<PostgreSQLContainer> {
+public class DebeziumPostgresTestResource extends AbstractDebeziumTestResource<PostgreSQLContainer<?>> {
 
     public static final String DB_USERNAME = "postgres";
     public static final String DB_PASSWORD = "changeit";
@@ -35,7 +35,7 @@ public class DebeziumPostgresTestResource extends AbstractDebeziumTestResource<P
     }
 
     @Override
-    protected PostgreSQLContainer createContainer() {
+    protected PostgreSQLContainer<?> createContainer() {
         DockerImageName imageName = DockerImageName.parse(POSTGRES_IMAGE)
                 .asCompatibleSubstituteFor("postgres");
         return new PostgreSQLContainer<>(imageName)
@@ -47,11 +47,9 @@ public class DebeziumPostgresTestResource extends AbstractDebeziumTestResource<P
 
     @Override
     protected String getJdbcUrl() {
-        final String jdbcUrl = "jdbc:postgresql://" + container.getContainerIpAddress() + ":"
+        return "jdbc:postgresql://" + container.getHost() + ":"
                 + container.getMappedPort(DB_PORT) + "/" + DebeziumPostgresResource.DB_NAME + "?user="
                 + DB_USERNAME + "&password=" + DB_PASSWORD;
-
-        return jdbcUrl;
     }
 
     @Override

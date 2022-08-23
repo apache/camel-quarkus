@@ -29,7 +29,7 @@ import org.apache.camel.quarkus.component.debezium.common.it.Type;
 import org.jboss.logging.Logger;
 import org.testcontainers.containers.MySQLContainer;
 
-public class DebeziumMysqlTestResource extends AbstractDebeziumTestResource<MySQLContainer> {
+public class DebeziumMysqlTestResource extends AbstractDebeziumTestResource<MySQLContainer<?>> {
     private static final Logger LOG = Logger.getLogger(DebeziumMysqlTestResource.class);
 
     public static final String DB_NAME = "test";
