@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.kafka.oauth.it;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +43,7 @@ public class KafkaKeycloakTestResource implements QuarkusTestResourceLifecycleMa
 
         //Start keycloak container
         keycloak = new KeycloakContainer();
+        keycloak.withStartupTimeout(Duration.ofMinutes(5));
         keycloak.start();
         log.info(keycloak.getLogs());
         keycloak.createHostsFile();
