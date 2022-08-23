@@ -42,7 +42,6 @@
         <module>bouncycastle</module>
         <module>commons-logging</module>
         <module>consul-client</module>
-        <module>cxf-wss</module>
         <module>debezium</module>
         <module>google-cloud</module>
         <module>google-http-client</module>

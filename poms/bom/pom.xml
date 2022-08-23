@@ -43,6 +43,13 @@
 
             <!-- External BOMs -->
             <dependency>
+                <groupId>io.quarkiverse.cxf</groupId>
+                <artifactId>quarkus-cxf-bom</artifactId>
+                <version>${quarkiverse-cxf.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy-bom</artifactId>
                 <version>${groovy.version}</version>
@@ -8825,16 +8832,6 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-support-cxf-wss</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-support-cxf-wss-deployment</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-support-debezium</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
@@ -9908,50 +9905,6 @@
                 <version>${projectreactor-netty.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.quarkiverse.cxf</groupId>
-                <artifactId>quarkus-cxf</artifactId>
-                <version>${quarkiverse-cxf.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>jakarta.activation</groupId>
-                        <artifactId>jakarta.activation-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.cxf</groupId>
-                        <artifactId>cxf-rt-transports-http</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.cxf</groupId>
-                        <artifactId>cxf-rt-frontend-jaxws</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.cxf</groupId>
-                <artifactId>quarkus-cxf-deployment</artifactId>
-                <version>${quarkiverse-cxf.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.cxf</groupId>
-                <artifactId>quarkus-cxf-rt-ws-security</artifactId>
-                <version>${quarkiverse-cxf.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>jakarta.activation</groupId>
-                        <artifactId>jakarta.activation-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>jakarta.xml.bind</groupId>
-                        <artifactId>jakarta.xml.bind-api</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.cxf</groupId>
-                <artifactId>quarkus-cxf-rt-ws-security-deployment</artifactId>
-                <version>${quarkiverse-cxf.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>io.quarkiverse.freemarker</groupId>
                 <artifactId>quarkus-freemarker</artifactId>
                 <version>${quarkiverse-freemarker.version}</version>
@@ -10626,6 +10579,7 @@
                                 <!-- whose dependencies we want to cover in the flattened BOM -->
                                 <resolutionEntryPointInclude>org.apache.camel.quarkus:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>ca.uhn.hapi:*</resolutionEntryPointInclude>
+                                <resolutionEntryPointInclude>io.quarkiverse.cxf:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>net.openhft:affinity</resolutionEntryPointInclude><!-- https://github.com/apache/camel-quarkus/issues/3788 -->
                                 <resolutionEntryPointInclude>org.apache.cxf.xjc-utils:cxf-xjc-runtime</resolutionEntryPointInclude><!-- https://github.com/apache/camel-quarkus/issues/3788 -->
                             </resolutionEntryPointIncludes>
