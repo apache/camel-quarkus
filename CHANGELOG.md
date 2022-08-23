@@ -34,6 +34,7 @@
 - Unable to compile native image for Azure Storage Blob extension [\#3820](https://github.com/apache/camel-quarkus/issues/3820)
 - `CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest` fails on Windows [\#3529](https://github.com/apache/camel-quarkus/issues/3529)
 - CamelTestSupport style of testing  [\#3511](https://github.com/apache/camel-quarkus/issues/3511)
+- Geocoder started returning "New York City" instead of "New York" [\#3389](https://github.com/apache/camel-quarkus/issues/3389)
 
 **Merged pull requests:**
 
