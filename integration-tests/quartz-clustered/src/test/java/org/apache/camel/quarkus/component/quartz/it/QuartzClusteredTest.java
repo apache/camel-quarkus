@@ -57,7 +57,7 @@ class QuartzClusteredTest {
 
         // Start secondary application process
         QuarkusProcessExecutor quarkusProcessExecutor = new QuarkusProcessExecutor(
-                "-Dnode.name=NodeB",
+                "-Dquartz.node.name=NodeB",
                 "-Dnode.autostart=true",
                 "-Dquarkus.log.file.path=" + QUARKUS_LOG,
                 "-Dquarkus.datasource.jdbc.url=" + jdbcUrl,

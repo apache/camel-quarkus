@@ -49,7 +49,7 @@ public class QuartzClusteredResource {
             @Override
             public void configure() {
                 from("quartz:camel-quarkus/1 * * * *")
-                        .log("Hello from {{node.name}}");
+                        .log("Hello from {{quartz.node.name}}");
             }
         });
     }

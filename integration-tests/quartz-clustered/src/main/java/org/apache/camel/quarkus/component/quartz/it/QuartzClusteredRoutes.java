@@ -23,14 +23,14 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
 public class QuartzClusteredRoutes extends RouteBuilder {
-    @ConfigProperty(name = "node.name")
+    @ConfigProperty(name = "quartz.node.name")
     String nodeName;
 
     @Override
     public void configure() {
         if (nodeName.equals("NodeB")) {
             from("quartz:camel-quarkus/1 * * * *").routeId("clustered")
-                    .log("Hello from {{node.name}}");
+                    .log("Hello from {{quartz.node.name}}");
         }
     }
 }
