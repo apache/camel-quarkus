@@ -400,9 +400,16 @@ public class AzureStorageBlobResource {
 
         List<BlobChangefeedEvent> events = producerTemplate.requestBodyAndHeaders("direct:getChangeFeed", null, headers,
                 List.class);
+
+        if (events == null) {
+            return false;
+        }
+
         return events.stream()
-                .filter(event -> event.getEventType().equals(BlobChangefeedEventType.BLOB_CREATED))
-                .anyMatch(event -> event.getData().getETag().equals(eTag));
+                .filter(event -> event.getEventType() != null
+                        && event.getEventType().equals(BlobChangefeedEventType.BLOB_CREATED))
+                .anyMatch(event -> event.getData() != null && event.getData().getETag() != null
+                        && event.getData().getETag().equals(eTag));
     }
 
     @Path("/consumed/blobs")
