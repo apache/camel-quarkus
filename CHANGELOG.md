@@ -11,6 +11,11 @@
 
 **Closed issues:**
 
+- AWS SQS test sqsAutoCreateDelayedQueue fails [\#4028](https://github.com/apache/camel-quarkus/issues/4028)
+- Debezium test DebeziumSqlserverTest fails  [\#4027](https://github.com/apache/camel-quarkus/issues/4027)
+- perf-regression: JDK 17 support [\#4016](https://github.com/apache/camel-quarkus/issues/4016)
+- perf-regression: disable itests when -D quickly is passed [\#4015](https://github.com/apache/camel-quarkus/issues/4015)
+- perf-regression: java.lang.NumberFormatException: For input string: "782,36" [\#4014](https://github.com/apache/camel-quarkus/issues/4014)
 - Provide a ready to use master component for kubernetes [\#4006](https://github.com/apache/camel-quarkus/issues/4006)
 - perf-regression: avoid using fixed port [\#4004](https://github.com/apache/camel-quarkus/issues/4004)
 - perf-regression: complete unit test coverage [\#4001](https://github.com/apache/camel-quarkus/issues/4001)
@@ -26,9 +31,11 @@
 - \[Quarkus 2.12.0\] Azure Storage Blob native integration test failure [\#3964](https://github.com/apache/camel-quarkus/issues/3964)
 - \[Quarkus 2.12.0\] Figure out how to test `js-dsl` in native mode [\#3961](https://github.com/apache/camel-quarkus/issues/3961)
 - perf-regression: Align to the root mvnw [\#3960](https://github.com/apache/camel-quarkus/issues/3960)
+- Google-pubsub remove @TestMethodOrder from the tests and investigate closing error  [\#3957](https://github.com/apache/camel-quarkus/issues/3957)
 - camel-quarkus-servicenow - 2.11.0 release - java.lang.ClassNotFoundException: javax.ws.rs.client.ClientRequestFilter [\#3946](https://github.com/apache/camel-quarkus/issues/3946)
 - \[Camel 3.19.0\] Dependency covergence check failure in HDFS extension [\#3942](https://github.com/apache/camel-quarkus/issues/3942)
 - Add camel-quarkus-master example [\#3923](https://github.com/apache/camel-quarkus/issues/3923)
+- Improve google-pubsub test coverage [\#3910](https://github.com/apache/camel-quarkus/issues/3910)
 - Merge the performance regression prototype in camel-quarkus main [\#3905](https://github.com/apache/camel-quarkus/issues/3905)
 - Test Azure Storage Blob with `credentialType` `AZURE_IDENTITY` [\#3822](https://github.com/apache/camel-quarkus/issues/3822)
 - Unable to compile native image for Azure Storage Blob extension [\#3820](https://github.com/apache/camel-quarkus/issues/3820)
@@ -38,6 +45,13 @@
 
 **Merged pull requests:**
 
+- \[closes \#4028\] Fix sqsAutoCreateDelayedQueue test [\#4036](https://github.com/apache/camel-quarkus/pull/4036) ([llowinge](https://github.com/llowinge))
+- Enlarge timeout for Keycloak startup [\#4034](https://github.com/apache/camel-quarkus/pull/4034) ([llowinge](https://github.com/llowinge))
+- Fix conflict in property name with OS env variable [\#4032](https://github.com/apache/camel-quarkus/pull/4032) ([llowinge](https://github.com/llowinge))
+- Pass encrypt property to Debezium MS SQL Server JDBC URL [\#4030](https://github.com/apache/camel-quarkus/pull/4030) ([jamesnetherton](https://github.com/jamesnetherton))
+- perf-regression: workaround hyperfoil-maven-plugin issue with JDK 17 … [\#4026](https://github.com/apache/camel-quarkus/pull/4026) ([aldettinger](https://github.com/aldettinger))
+- perf-regresssion: fix number format exception when java and mvnw don'… [\#4024](https://github.com/apache/camel-quarkus/pull/4024) ([aldettinger](https://github.com/aldettinger))
+- perf-regression: disable itests when building with -Dquickly [\#4022](https://github.com/apache/camel-quarkus/pull/4022) ([aldettinger](https://github.com/aldettinger))
 - Fix \#3389: geocoder test returned wrong city [\#4020](https://github.com/apache/camel-quarkus/pull/4020) ([djcoleman](https://github.com/djcoleman))
 - Register HttpOperationFailedException for reflection [\#4019](https://github.com/apache/camel-quarkus/pull/4019) ([jamesnetherton](https://github.com/jamesnetherton))
 - Restore ability to run js-dsl native tests [\#4017](https://github.com/apache/camel-quarkus/pull/4017) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -84,6 +98,7 @@
 - \[closes \#3927\] Improve camel quarkus master integration test [\#3928](https://github.com/apache/camel-quarkus/pull/3928) ([llowinge](https://github.com/llowinge))
 - Fix \#3924 make sure the http client options working in native mode [\#3925](https://github.com/apache/camel-quarkus/pull/3925) ([zhfeng](https://github.com/zhfeng))
 - Remove platform-http-vertx workarounds now that Quarkus & Camel Vert.x is in sync [\#3920](https://github.com/apache/camel-quarkus/pull/3920) ([jamesnetherton](https://github.com/jamesnetherton))
+- Improve google-pubsub test coverage \#3910 [\#3919](https://github.com/apache/camel-quarkus/pull/3919) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade Quarkus to 2.11.0.CR1 [\#3917](https://github.com/apache/camel-quarkus/pull/3917) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3914 to get TransactionManager and UserTransaction from Arc container [\#3915](https://github.com/apache/camel-quarkus/pull/3915) ([zhfeng](https://github.com/zhfeng))
 - Fix some cq warnings [\#3913](https://github.com/apache/camel-quarkus/pull/3913) ([aldettinger](https://github.com/aldettinger))
