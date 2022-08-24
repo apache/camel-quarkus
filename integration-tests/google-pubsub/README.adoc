@@ -11,7 +11,7 @@ Tests are executed with local container, unless both `GOOGLE_APPLICATION_CREDENT
 To run the Google Pubsub client library, you must first set up authentication by creating a service account key.
 You can find more info in the https://cloud.google.com/pubsub/docs/reference/libraries#setting_up_authentication[documentation].
 Required permissions are to create/read/write the topics and subscriptions.
-There are several roles which contain all required permission (for example `Pub/sub editor`).
+There are several roles which contain all required permissions (for example `Pub/sub editor`).
 
 When you have the **service account key** you can provide authentication credentials and project id by setting both environment variables:
 
