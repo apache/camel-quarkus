@@ -179,6 +179,7 @@ class SalesforceTest {
                 .values()
                 .stream()
                 .map(Object::toString)
+                .filter(path -> path.startsWith("/services"))
                 .forEach(value -> assertTrue(value.matches("/services/data/.*/.*")));
     }
 
