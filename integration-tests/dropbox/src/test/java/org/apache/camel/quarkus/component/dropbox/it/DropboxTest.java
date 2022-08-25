@@ -25,7 +25,11 @@ import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import static org.hamcrest.Matchers.is;
 
 @EnabledIfEnvironmentVariable(named = "DROPBOX_ACCESS_TOKEN", matches = ".+")
+@EnabledIfEnvironmentVariable(named = "DROPBOX_ACCESS_TOKEN_EXPIRES_IN", matches = ".+")
+@EnabledIfEnvironmentVariable(named = "DROPBOX_API_KEY", matches = ".+")
+@EnabledIfEnvironmentVariable(named = "DROPBOX_API_SECRET", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "DROPBOX_CLIENT_IDENTIFIER", matches = ".+")
+@EnabledIfEnvironmentVariable(named = "DROPBOX_REFRESH_TOKEN", matches = ".+")
 @QuarkusTest
 class DropboxTest {
 
