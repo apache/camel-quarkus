@@ -22,12 +22,14 @@ import java.nio.charset.StandardCharsets;
 import org.apache.camel.quarkus.component.debezium.common.it.AbstractDebeziumTestResource;
 import org.apache.camel.quarkus.component.debezium.common.it.Type;
 import org.apache.commons.io.IOUtils;
+import org.jboss.logging.Logger;
 import org.testcontainers.containers.Container;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.Network;
 import org.testcontainers.containers.wait.strategy.Wait;
 
 public class DebeziumMongodbTestResource extends AbstractDebeziumTestResource<GenericContainer<?>> {
+    private static final Logger LOG = Logger.getLogger(AbstractDebeziumTestResource.class);
     private static final String PRIVATE_HOST = "mongodb_private";
     private static final String DB_USERNAME = "debezium";
     private static final String DB_PASSWORD = "dbz";
@@ -41,7 +43,7 @@ public class DebeziumMongodbTestResource extends AbstractDebeziumTestResource<Ge
 
     @Override
     protected GenericContainer<?> createContainer() {
-        return new GenericContainer("mongo")
+        return new GenericContainer("mongo:4.4")
                 .withExposedPorts(DB_PORT)
                 .withCommand("--replSet", "my-mongo-set")
                 .withNetwork(net)
@@ -64,7 +66,7 @@ public class DebeziumMongodbTestResource extends AbstractDebeziumTestResource<Ge
         for (String cmd : cmds) {
             Container.ExecResult er = container.execInContainer("mongo", "--eval", cmd);
             if (er.getExitCode() != 0) {
-                throw new RuntimeException("Error executing MongoDB command: " + cmd);
+                LOG.errorf("Error executing MongoDB command: %s", cmd);
             }
         }
     }
