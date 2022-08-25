@@ -45,6 +45,10 @@
 
 **Merged pull requests:**
 
+- Fix potential NPE in change feed result checking [\#4042](https://github.com/apache/camel-quarkus/pull/4042) ([jamesnetherton](https://github.com/jamesnetherton))
+- file: experiment disabling filter test \#3584 [\#4041](https://github.com/apache/camel-quarkus/pull/4041) ([aldettinger](https://github.com/aldettinger))
+- Make nightly branch sync workflows report failures if the build was cancelled [\#4038](https://github.com/apache/camel-quarkus/pull/4038) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade to Quarkiverse CXF 1.5.0.CR1 [\#4037](https://github.com/apache/camel-quarkus/pull/4037) ([ppalaga](https://github.com/ppalaga))
 - \[closes \#4028\] Fix sqsAutoCreateDelayedQueue test [\#4036](https://github.com/apache/camel-quarkus/pull/4036) ([llowinge](https://github.com/llowinge))
 - Enlarge timeout for Keycloak startup [\#4034](https://github.com/apache/camel-quarkus/pull/4034) ([llowinge](https://github.com/llowinge))
 - Fix conflict in property name with OS env variable [\#4032](https://github.com/apache/camel-quarkus/pull/4032) ([llowinge](https://github.com/llowinge))
