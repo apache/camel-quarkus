@@ -53,16 +53,10 @@ public class DropboxResource {
     @Produces(MediaType.TEXT_PLAIN)
     public Response createFile() throws Exception {
         java.nio.file.Path path = Files.write(Paths.get("target", FILE_NAME), FILE_CONTENT.getBytes(StandardCharsets.UTF_8));
-        String result = producerTemplate.requestBodyAndHeader(
-                "dropbox://put?uploadMode=add&accessToken={{DROPBOX_ACCESS_TOKEN}}&clientIdentifier={{DROPBOX_CLIENT_IDENTIFIER}}&localPath="
-                        + path.toString()
-                        + "&remotePath=" + REMOTE_PATH,
-                null,
-                HEADER_PUT_FILE_NAME, FILE_NAME, String.class);
-        return Response
-                .created(new URI("https://camel.apache.org/"))
-                .entity(result)
-                .build();
+        String result = producerTemplate.requestBodyAndHeader("dropbox://put?" + getCredentialsUriOptions()
+                + "&uploadMode=add&localPath=" + path + "&remotePath=" + REMOTE_PATH, null, HEADER_PUT_FILE_NAME, FILE_NAME,
+                String.class);
+        return Response.created(new URI("https://camel.apache.org/")).entity(result).build();
     }
 
     @Path("/read")
@@ -71,10 +65,7 @@ public class DropboxResource {
     public Response readFile() {
         try {
             String content = producerTemplate.requestBody(
-                    "dropbox://get?accessToken={{DROPBOX_ACCESS_TOKEN}}&clientIdentifier={{DROPBOX_CLIENT_IDENTIFIER}}&remotePath="
-                            + REMOTE_PATH
-                            + FILE_NAME,
-                    null,
+                    "dropbox://get?" + getCredentialsUriOptions() + "&remotePath=" + REMOTE_PATH + FILE_NAME, null,
                     String.class);
             if (content != null) {
                 return Response.ok(content).build();
@@ -93,11 +84,17 @@ public class DropboxResource {
     @Path("/delete")
     @DELETE
     public Response deleteFile() {
-        producerTemplate
-                .requestBody(
-                        "dropbox://del?accessToken={{DROPBOX_ACCESS_TOKEN}}&clientIdentifier={{DROPBOX_CLIENT_IDENTIFIER}}&remotePath="
-                                + REMOTE_PATH + FILE_NAME,
-                        (Object) null);
+        producerTemplate.requestBody("dropbox://del?" + getCredentialsUriOptions() + "&remotePath=" + REMOTE_PATH + FILE_NAME,
+                (Object) null);
         return Response.status(Response.Status.NO_CONTENT).build();
+    }
+
+    private String getCredentialsUriOptions() {
+        return "accessToken={{DROPBOX_ACCESS_TOKEN}}" +
+                "&clientIdentifier={{DROPBOX_CLIENT_IDENTIFIER}}" +
+                "&refreshToken={{DROPBOX_REFRESH_TOKEN}}" +
+                "&apiKey={{DROPBOX_API_KEY}}" +
+                "&apiSecret={{DROPBOX_API_SECRET}}" +
+                "&expireIn={{DROPBOX_ACCESS_TOKEN_EXPIRES_IN}}";
     }
 }

@@ -3,10 +3,19 @@
 To run the Dropbox integration tests, you need a valid Dropbox https://www.dropbox.com/developers[developer account]. Then from
 the developer console, create a new app and make a note of the access token.
 
+You will also require a refresh token for authentication. If you're planning on repeatedly performing tests, then it's a good idea to
+generate a long-lived token. Some instructions for how to do that are here:
+
+https://dropbox.tech/developers/migrating-app-permissions-and-access-tokens#implement-refresh-tokens
+
 Then set the following environment variables. Note that `DROPBOX_CLIENT_IDENTIFIER` should be set to the name of your Dropbox app:
 
 [source,shell]
 ----
 export DROPBOX_ACCESS_TOKEN=your-access-token
+export DROPBOX_ACCESS_TOKEN_EXPIRES_IN=your-access-token-expiry
+export DROPBOX_API_KEY=your-app-api-key
+export DROPBOX_API_SECRET=your-app-api-secret
 export DROPBOX_CLIENT_IDENTIFIER=your-client-identifier
+export DROPBOX_REFRESH_TOKEN=your-refresh-token
 ----
