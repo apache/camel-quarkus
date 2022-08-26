@@ -1,0 +1,44 @@
+== JPA integration tests
+
+=== Default database type
+
+When the tests are executed without any special configuration, dev-service `H2` database is used (more details will follow).
+
+=== Dev-service databases
+
+As is described  in the https://quarkus.io/guides/datasource#dev-services[documentation], several database types could be started in dev-service mode.
+Running the tests against a database in dev-service mode could be achieved by addition of build property `cq.sqlJdbcKind`. Example of usage:
+
+`mvn clean test -f integration-tests/jpa/ -Dcq.sqlJdbcKind=postgresql`
+
+Following databases could be started in the dev-service mode:
+
+- Postgresql (container) - add `-Dcq.sqlJdbcKind=postgresql`
+- MySQL (container) - add `-Dcq.sqlJdbcKind=mysql`
+- MariaDB (container) - add `-Dcq.sqlJdbcKind=mariadb`
+- H2 (in-process) used by default
+- Apache Derby (in-process) - add `-Dcq.sqlJdbcKind=derby`
+- DB2 (container) (requires license acceptance) - add `-Dcq.sqlJdbcKind=db2`
+- MSSQL (container) (requires license acceptance) - add `-Dcq.sqlJdbcKind=mssql`
+- Oracle (container) - add `-Dcq.sqlJdbcKind=oracle`
+
+For more information about dev-service mode, see https://quarkus.io/guides/datasource#dev-services[documentation].
+
+=== External databases
+
+To execute the tests against external database, configure database type by providing a build property in the same way as with dev-service mode (see previous chapter).
+Provide the rest of database's connection information by setting environment variables
+
+```
+export QUARKUS_DATASOURCE_JDBC_URL=#jdbc_url
+export QUARKUS_DATASOURCE_USERNAME=#username
+export QUARKUS_DATASOURCE_PASSWORD=#password
+```
+
+or for windows:
+
+```
+$Env:QUARKUS_DATASOURCE_JDBC_URL="#jdbc_url"
+$Env:QUARKUS_DATASOURCE_USERNAME="#username"
+$Env:QUARKUS_DATASOURCE_PASSWORD="#password"
+```

@@ -16,63 +16,153 @@
  */
 package org.apache.camel.quarkus.component.jpa.it;
 
-import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.h2.H2DatabaseTestResource;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.apache.camel.quarkus.component.jpa.it.model.Fruit;
+import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.ConfigProvider;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 @QuarkusTest
-@QuarkusTestResource(H2DatabaseTestResource.class)
 class JpaTest {
 
-    @Test
-    public void testJpaComponent() {
-        String[] fruits = new String[] { "Orange", "Lemon", "Plum" };
+    static final String[] FRUITS = new String[] { "Orange", "Lemon", "Plum" };
 
-        // Create Fruit entities
-        for (String fruit : fruits) {
+    @BeforeAll
+    public static void storeFruits() {
+        final Config config = ConfigProvider.getConfig();
+        int port = config.getValue("quarkus.http.test-port", int.class);
+        RestAssured.port = port;
+        for (String fruit : FRUITS) {
             RestAssured.given()
-                    .contentType(ContentType.TEXT)
-                    .body(fruit)
-                    .post("/jpa/post")
+                    .contentType(ContentType.JSON)
+                    .body(new Fruit(fruit))
+                    .post("/jpa/fruit")
                     .then()
                     .statusCode(201);
         }
+    }
 
-        // Retrieve Fruit entities
-        RestAssured.get("/jpa/get")
+    @Test
+    public void testProducerQuery() {
+        RestAssured.get("/jpa/fruit")
                 .then()
                 .statusCode(200)
-                .body("name", containsInAnyOrder(fruits));
+                .body("name", containsInAnyOrder(FRUITS));
+    }
 
-        // Retrieve with entity id as body
-        RestAssured.get("/jpa/get/1")
+    @Test
+    public void testProducerNamedQuery() {
+        RestAssured.get("/jpa/fruit/named/" + FRUITS[0])
                 .then()
                 .statusCode(200)
-                .body("name", is("Orange"));
+                .body("name", contains(FRUITS[0]));
+    }
 
-        // Retrieve with JPA query
-        RestAssured.get("/jpa/get/query/1")
+    @Test
+    public void testProducerNativeQuery() {
+        RestAssured.get("/jpa/fruit/native/2")
                 .then()
                 .statusCode(200)
-                .body("name", contains("Orange"));
+                .body("name", contains(FRUITS[1]));
+    }
 
-        // Retrieve with named JPA query
-        RestAssured.get("/jpa/get/query/named/1")
+    @Test
+    public void testConsumer() {
+        IntStream.range(1, 3).parallel().forEach((id) -> {
+            await().atMost(10L, TimeUnit.SECONDS).until(() -> findFruit(id).getProcessed());
+        });
+
+        RestAssured.get("/jpa/mock/processed")
                 .then()
                 .statusCode(200)
-                .body("name", contains("Orange"));
+                .body("size()", greaterThanOrEqualTo(3));
+    }
 
-        // Retrieve with native query
-        RestAssured.get("/jpa/get/query/native/1")
+    @Test
+    public void testTransaction() {
+        Fruit accepted = new Fruit("Grapes");
+        Fruit rejected = new Fruit("Potato");
+
+        accepted = RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(accepted)
+                .post("/jpa/direct/transaction")
                 .then()
                 .statusCode(200)
-                .body(is("Orange"));
+                .body("id", notNullValue())
+                .body("name", is("Grapes"))
+                .extract().body().as(Fruit.class);
+
+        try {
+            RestAssured.given()
+                    .contentType(ContentType.JSON)
+                    .body(rejected)
+                    .header("rollback", true)
+                    .post("/jpa/direct/transaction")
+                    .then()
+                    .statusCode(500);
+
+            RestAssured.get("/jpa/fruit/named/" + accepted.getName())
+                    .then()
+                    .statusCode(200)
+                    .body("name", contains(accepted.getName()));
+
+            RestAssured.get("/jpa/fruit/named/" + rejected.getName())
+                    .then()
+                    .statusCode(200)
+                    .body("$.size()", is(0));
+        } finally {
+            RestAssured.delete("/jpa/fruit/" + accepted.getId())
+                    .then()
+                    .statusCode(200);
+        }
+    }
+
+    @Test
+    public void testJpaMessageIdRepository() {
+        IntStream.of(1, 2, 1, 3, 2).forEach((id) -> {
+            RestAssured.given()
+                    .contentType(ContentType.JSON)
+                    .body(new Fruit(Integer.toString(id)))
+                    .header("messageId", id)
+                    .post("/jpa/direct/idempotent")
+                    .then()
+                    .statusCode(200);
+        });
+
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .post("/jpa/direct/idempotentLog")
+                .then()
+                .statusCode(200)
+                .body("$.size()", is(3))
+                .body("messageId", containsInAnyOrder("1", "2", "3"))
+                .body("processorName", hasItems("idempotentProcessor"));
+
+        RestAssured.get("/jpa/mock/idempotent")
+                .then()
+                .statusCode(200)
+                .body("size()", is(3));
+    }
+
+    public Fruit findFruit(int id) {
+        return RestAssured.get("/jpa/fruit/" + id)
+                .then()
+                .statusCode(200)
+                .extract().body().as(Fruit.class);
     }
 }
