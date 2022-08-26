@@ -13,6 +13,7 @@
 
 - AWS SQS test sqsAutoCreateDelayedQueue fails [\#4028](https://github.com/apache/camel-quarkus/issues/4028)
 - Debezium test DebeziumSqlserverTest fails  [\#4027](https://github.com/apache/camel-quarkus/issues/4027)
+- Dropbox integration test authentication failure [\#4021](https://github.com/apache/camel-quarkus/issues/4021)
 - perf-regression: JDK 17 support [\#4016](https://github.com/apache/camel-quarkus/issues/4016)
 - perf-regression: disable itests when -D quickly is passed [\#4015](https://github.com/apache/camel-quarkus/issues/4015)
 - perf-regression: java.lang.NumberFormatException: For input string: "782,36" [\#4014](https://github.com/apache/camel-quarkus/issues/4014)
@@ -45,6 +46,10 @@
 
 **Merged pull requests:**
 
+- Adapt Dropbox tests to new authentication mechanism [\#4048](https://github.com/apache/camel-quarkus/pull/4048) ([jamesnetherton](https://github.com/jamesnetherton))
+- Filter out non-service endpoints in Salesforce testGetRestResources [\#4046](https://github.com/apache/camel-quarkus/pull/4046) ([jamesnetherton](https://github.com/jamesnetherton))
+- Log warning instead of throw exception for Debezium MongoDB container script execution failure [\#4045](https://github.com/apache/camel-quarkus/pull/4045) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade Quarkus to 2.12.0.Final [\#4044](https://github.com/apache/camel-quarkus/pull/4044) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix potential NPE in change feed result checking [\#4042](https://github.com/apache/camel-quarkus/pull/4042) ([jamesnetherton](https://github.com/jamesnetherton))
 - file: experiment disabling filter test \#3584 [\#4041](https://github.com/apache/camel-quarkus/pull/4041) ([aldettinger](https://github.com/aldettinger))
 - Make nightly branch sync workflows report failures if the build was cancelled [\#4038](https://github.com/apache/camel-quarkus/pull/4038) ([jamesnetherton](https://github.com/jamesnetherton))
