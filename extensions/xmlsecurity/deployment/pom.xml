@@ -35,6 +35,10 @@
             <artifactId>quarkus-jaxp-deployment</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.quarkiverse.cxf</groupId>
+            <artifactId>quarkus-cxf-santuario-deployment</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-core-deployment</artifactId>
         </dependency>
