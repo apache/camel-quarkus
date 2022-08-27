@@ -2,50 +2,11 @@
 
 ## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.11.0...HEAD)
-
-**Fixed bugs:**
-
-- `quarkus.camel.routes-discovery.exclude-patterns` does not work when the `RouteBuilder` is a CDI bean [\#3993](https://github.com/apache/camel-quarkus/issues/3993)
-- \[Quarkus 2.12.0\] Secure gRPC consumer tests are failing [\#3947](https://github.com/apache/camel-quarkus/issues/3947)
-
-**Closed issues:**
-
-- AWS SQS test sqsAutoCreateDelayedQueue fails [\#4028](https://github.com/apache/camel-quarkus/issues/4028)
-- Debezium test DebeziumSqlserverTest fails  [\#4027](https://github.com/apache/camel-quarkus/issues/4027)
-- Dropbox integration test authentication failure [\#4021](https://github.com/apache/camel-quarkus/issues/4021)
-- perf-regression: JDK 17 support [\#4016](https://github.com/apache/camel-quarkus/issues/4016)
-- perf-regression: disable itests when -D quickly is passed [\#4015](https://github.com/apache/camel-quarkus/issues/4015)
-- perf-regression: java.lang.NumberFormatException: For input string: "782,36" [\#4014](https://github.com/apache/camel-quarkus/issues/4014)
-- Provide a ready to use master component for kubernetes [\#4006](https://github.com/apache/camel-quarkus/issues/4006)
-- perf-regression: avoid using fixed port [\#4004](https://github.com/apache/camel-quarkus/issues/4004)
-- perf-regression: complete unit test coverage [\#4001](https://github.com/apache/camel-quarkus/issues/4001)
-- apache-camel-mock Routes are not getting cleaned up after test completes [\#4000](https://github.com/apache/camel-quarkus/issues/4000)
-- CEQ 2.11 - rest component .route\(\) method not available but present in docs [\#3995](https://github.com/apache/camel-quarkus/issues/3995)
-- perf-regression: add integration-tests [\#3982](https://github.com/apache/camel-quarkus/issues/3982)
-- `perf-regression` module should not import `io.quarkus.platform:quarkus-bom` [\#3979](https://github.com/apache/camel-quarkus/issues/3979)
-- Duplicate BOM dependency declaration `org.apache.santuario:xmlsec` [\#3978](https://github.com/apache/camel-quarkus/issues/3978)
-- perf-regression: Use pure Camel transformation [\#3974](https://github.com/apache/camel-quarkus/issues/3974)
-- Register `HttpOperationFailedException` for reflection [\#3971](https://github.com/apache/camel-quarkus/issues/3971)
-- perf-regression: introduce the performance regression in the release process [\#3967](https://github.com/apache/camel-quarkus/issues/3967)
-- CxfSoapClientIT.wsSecurityClient fails in native mode: wsse:Nonce not present in the request [\#3966](https://github.com/apache/camel-quarkus/issues/3966)
-- \[Quarkus 2.12.0\] Azure Storage Blob native integration test failure [\#3964](https://github.com/apache/camel-quarkus/issues/3964)
-- \[Quarkus 2.12.0\] Figure out how to test `js-dsl` in native mode [\#3961](https://github.com/apache/camel-quarkus/issues/3961)
-- perf-regression: Align to the root mvnw [\#3960](https://github.com/apache/camel-quarkus/issues/3960)
-- Google-pubsub remove @TestMethodOrder from the tests and investigate closing error  [\#3957](https://github.com/apache/camel-quarkus/issues/3957)
-- camel-quarkus-servicenow - 2.11.0 release - java.lang.ClassNotFoundException: javax.ws.rs.client.ClientRequestFilter [\#3946](https://github.com/apache/camel-quarkus/issues/3946)
-- \[Camel 3.19.0\] Dependency covergence check failure in HDFS extension [\#3942](https://github.com/apache/camel-quarkus/issues/3942)
-- Add camel-quarkus-master example [\#3923](https://github.com/apache/camel-quarkus/issues/3923)
-- Improve google-pubsub test coverage [\#3910](https://github.com/apache/camel-quarkus/issues/3910)
-- Merge the performance regression prototype in camel-quarkus main [\#3905](https://github.com/apache/camel-quarkus/issues/3905)
-- Test Azure Storage Blob with `credentialType` `AZURE_IDENTITY` [\#3822](https://github.com/apache/camel-quarkus/issues/3822)
-- Unable to compile native image for Azure Storage Blob extension [\#3820](https://github.com/apache/camel-quarkus/issues/3820)
-- `CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest` fails on Windows [\#3529](https://github.com/apache/camel-quarkus/issues/3529)
-- CamelTestSupport style of testing  [\#3511](https://github.com/apache/camel-quarkus/issues/3511)
-- Geocoder started returning "New York City" instead of "New York" [\#3389](https://github.com/apache/camel-quarkus/issues/3389)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.12.0...HEAD)
 
 **Merged pull requests:**
 
+- Upgrade to Quarkiverse CXF 1.5.0, the Santuario related stuff moved t… [\#4052](https://github.com/apache/camel-quarkus/pull/4052) ([ppalaga](https://github.com/ppalaga))
 - Adapt Dropbox tests to new authentication mechanism [\#4048](https://github.com/apache/camel-quarkus/pull/4048) ([jamesnetherton](https://github.com/jamesnetherton))
 - Filter out non-service endpoints in Salesforce testGetRestResources [\#4046](https://github.com/apache/camel-quarkus/pull/4046) ([jamesnetherton](https://github.com/jamesnetherton))
 - Log warning instead of throw exception for Debezium MongoDB container script execution failure [\#4045](https://github.com/apache/camel-quarkus/pull/4045) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1230,6 +1191,50 @@
 - Fix \#1428 to add the usage.adoc [\#1457](https://github.com/apache/camel-quarkus/pull/1457) ([zhfeng](https://github.com/zhfeng))
 - org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
+
+## [2.12.0](https://github.com/apache/camel-quarkus/tree/2.12.0) (2022-08-26)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.11.0...2.12.0)
+
+**Fixed bugs:**
+
+- `quarkus.camel.routes-discovery.exclude-patterns` does not work when the `RouteBuilder` is a CDI bean [\#3993](https://github.com/apache/camel-quarkus/issues/3993)
+- \[Quarkus 2.12.0\] Secure gRPC consumer tests are failing [\#3947](https://github.com/apache/camel-quarkus/issues/3947)
+
+**Closed issues:**
+
+- AWS SQS test sqsAutoCreateDelayedQueue fails [\#4028](https://github.com/apache/camel-quarkus/issues/4028)
+- Debezium test DebeziumSqlserverTest fails  [\#4027](https://github.com/apache/camel-quarkus/issues/4027)
+- Dropbox integration test authentication failure [\#4021](https://github.com/apache/camel-quarkus/issues/4021)
+- perf-regression: JDK 17 support [\#4016](https://github.com/apache/camel-quarkus/issues/4016)
+- perf-regression: disable itests when -D quickly is passed [\#4015](https://github.com/apache/camel-quarkus/issues/4015)
+- perf-regression: java.lang.NumberFormatException: For input string: "782,36" [\#4014](https://github.com/apache/camel-quarkus/issues/4014)
+- Provide a ready to use master component for kubernetes [\#4006](https://github.com/apache/camel-quarkus/issues/4006)
+- perf-regression: avoid using fixed port [\#4004](https://github.com/apache/camel-quarkus/issues/4004)
+- perf-regression: complete unit test coverage [\#4001](https://github.com/apache/camel-quarkus/issues/4001)
+- apache-camel-mock Routes are not getting cleaned up after test completes [\#4000](https://github.com/apache/camel-quarkus/issues/4000)
+- CEQ 2.11 - rest component .route\(\) method not available but present in docs [\#3995](https://github.com/apache/camel-quarkus/issues/3995)
+- perf-regression: add integration-tests [\#3982](https://github.com/apache/camel-quarkus/issues/3982)
+- `perf-regression` module should not import `io.quarkus.platform:quarkus-bom` [\#3979](https://github.com/apache/camel-quarkus/issues/3979)
+- Duplicate BOM dependency declaration `org.apache.santuario:xmlsec` [\#3978](https://github.com/apache/camel-quarkus/issues/3978)
+- perf-regression: Use pure Camel transformation [\#3974](https://github.com/apache/camel-quarkus/issues/3974)
+- Register `HttpOperationFailedException` for reflection [\#3971](https://github.com/apache/camel-quarkus/issues/3971)
+- perf-regression: introduce the performance regression in the release process [\#3967](https://github.com/apache/camel-quarkus/issues/3967)
+- CxfSoapClientIT.wsSecurityClient fails in native mode: wsse:Nonce not present in the request [\#3966](https://github.com/apache/camel-quarkus/issues/3966)
+- \[Quarkus 2.12.0\] Azure Storage Blob native integration test failure [\#3964](https://github.com/apache/camel-quarkus/issues/3964)
+- \[Quarkus 2.12.0\] Figure out how to test `js-dsl` in native mode [\#3961](https://github.com/apache/camel-quarkus/issues/3961)
+- perf-regression: Align to the root mvnw [\#3960](https://github.com/apache/camel-quarkus/issues/3960)
+- Google-pubsub remove @TestMethodOrder from the tests and investigate closing error  [\#3957](https://github.com/apache/camel-quarkus/issues/3957)
+- camel-quarkus-servicenow - 2.11.0 release - java.lang.ClassNotFoundException: javax.ws.rs.client.ClientRequestFilter [\#3946](https://github.com/apache/camel-quarkus/issues/3946)
+- \[Camel 3.19.0\] Dependency covergence check failure in HDFS extension [\#3942](https://github.com/apache/camel-quarkus/issues/3942)
+- Add camel-quarkus-master example [\#3923](https://github.com/apache/camel-quarkus/issues/3923)
+- Improve google-pubsub test coverage [\#3910](https://github.com/apache/camel-quarkus/issues/3910)
+- Merge the performance regression prototype in camel-quarkus main [\#3905](https://github.com/apache/camel-quarkus/issues/3905)
+- Test Azure Storage Blob with `credentialType` `AZURE_IDENTITY` [\#3822](https://github.com/apache/camel-quarkus/issues/3822)
+- Unable to compile native image for Azure Storage Blob extension [\#3820](https://github.com/apache/camel-quarkus/issues/3820)
+- `CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest` fails on Windows [\#3529](https://github.com/apache/camel-quarkus/issues/3529)
+- CamelTestSupport style of testing  [\#3511](https://github.com/apache/camel-quarkus/issues/3511)
+- Geocoder started returning "New York City" instead of "New York" [\#3389](https://github.com/apache/camel-quarkus/issues/3389)
 
 ## [2.11.0](https://github.com/apache/camel-quarkus/tree/2.11.0) (2022-07-22)
 
