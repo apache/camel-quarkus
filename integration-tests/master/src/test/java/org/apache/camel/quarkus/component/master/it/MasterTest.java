@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.master.it;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
@@ -26,13 +25,22 @@ import java.util.concurrent.TimeUnit;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.test.support.process.QuarkusProcessExecutor;
+import org.apache.commons.io.FileUtils;
 import org.awaitility.Awaitility;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.zeroturnaround.exec.StartedProcess;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.emptyString;
+
 @QuarkusTest
 class MasterTest {
+
+    @BeforeAll
+    public static void deleteClusterFiles() throws IOException {
+        FileUtils.deleteDirectory(Paths.get("target/cluster/").toFile());
+    }
 
     @Test
     public void testFailover() throws IOException {
@@ -50,7 +58,7 @@ class MasterTest {
             });
 
             // Verify the follower hasn't took leader role
-            Assertions.assertTrue(readLeaderFile("follower").isEmpty());
+            assertThat(readLeaderFile("follower"), emptyString());
 
             // Stop camel to trigger failover
             RestAssured.given()
@@ -92,8 +100,7 @@ class MasterTest {
     private String readLeaderFile(String fileName) throws IOException {
         Path path = Paths.get(String.format("target/cluster/%s.txt", fileName));
         if (path.toFile().exists()) {
-            byte[] bytes = Files.readAllBytes(path);
-            return new String(bytes, StandardCharsets.UTF_8);
+            return FileUtils.readFileToString(path.toFile(), StandardCharsets.UTF_8);
         }
         return "";
     }
