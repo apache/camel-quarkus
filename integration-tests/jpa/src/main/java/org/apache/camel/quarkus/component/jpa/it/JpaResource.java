@@ -17,13 +17,18 @@
 package org.apache.camel.quarkus.component.jpa.it;
 
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -32,8 +37,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.ConsumerTemplate;
+import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.jpa.JpaConstants;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.quarkus.component.jpa.it.model.Fruit;
 
 @Path("/jpa")
@@ -43,69 +50,89 @@ public class JpaResource {
     ProducerTemplate producerTemplate;
 
     @Inject
-    ConsumerTemplate consumerTemplate;
-
-    @Inject
     CamelContext context;
 
-    @Path("/get")
+    @Path("/fruit")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @SuppressWarnings("unchecked")
     public List<Fruit> getFruits() {
-        return consumerTemplate.receiveBodyNoWait("jpa:" + Fruit.class.getName(), List.class);
+        return producerTemplate.requestBody("direct:findAll", null, List.class);
     }
 
-    @Path("/get/{id}")
+    @Path("/fruit")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createFruit(Fruit fruit) throws URISyntaxException {
+        producerTemplate.sendBody("direct:store", fruit);
+        return Response.created(new URI("https://camel.apache.org/")).build();
+    }
+
+    @Path("/fruit/{id}")
+    @DELETE
+    public Response deleteFruit(@PathParam("id") int id) {
+        Fruit fruit = new Fruit();
+        fruit.setId(id);
+        producerTemplate.sendBody("direct:remove", fruit);
+        return Response.ok().build();
+    }
+
+    @Path("/fruit/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Fruit getFruit(@PathParam("id") int id) {
-        return producerTemplate.requestBody("jpa:" + Fruit.class.getName() + "?findEntity=true", id, Fruit.class);
+        return producerTemplate.requestBody("direct:findById", id, Fruit.class);
     }
 
-    @Path("/get/query/{id}")
+    @Path("/fruit/named/{name}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @SuppressWarnings("unchecked")
-    public List<Fruit> getFruitByQuery(@PathParam("id") int id) {
-        return producerTemplate.requestBody("jpa:" + Fruit.class.getName() + "?query="
-                + "select f from " + Fruit.class.getName() + " f where f.id = " + id,
-                null, List.class);
+    public List<Fruit> getFruitByQuery(@PathParam("name") String name) {
+        return producerTemplate.requestBody("direct:namedQuery", name, List.class);
     }
 
-    @Path("/get/query/named/{id}")
+    @Path("/fruit/native/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @SuppressWarnings("unchecked")
-    public List<Fruit> getFruitByNamedQuery(@PathParam("id") int id) {
-        Map<String, Object> queryParams = new HashMap<>();
-        queryParams.put("fruitId", id);
-        context.getRegistry().bind("parameters", queryParams);
-        return producerTemplate.requestBody("jpa:" + Fruit.class.getName() + "?namedQuery=findWithId&parameters=#parameters",
-                null, List.class);
+    public List<Fruit> getFruitByNativeQuery(@PathParam("id") int id) {
+        Map<String, Object> params = Collections.singletonMap("id", id);
+        return producerTemplate.requestBodyAndHeader("direct:nativeQuery", null, JpaConstants.JPA_PARAMETERS_HEADER, params,
+                List.class);
     }
 
-    @Path("/get/query/native/{id}")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @SuppressWarnings("unchecked")
-    public String getFruitByNativeQuery(@PathParam("id") int id) {
-        List<Object[]> results = producerTemplate.requestBody(
-                "jpa:" + Fruit.class.getName() + "?nativeQuery=SELECT * FROM fruit WHERE id = " + id, null, List.class);
-
-        if (results.isEmpty()) {
-            throw new IllegalStateException("Expected at least 1 fruit to be retrieved but query returned no results");
-        }
-
-        Object[] result = results.get(0);
-        return (String) result[1];
-    }
-
-    @Path("/post")
+    @Path("/direct/{name}")
     @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    public Response createFruit(String name) throws Exception {
-        producerTemplate.sendBody("jpa:" + Fruit.class.getName(), new Fruit(name));
-        return Response.created(new URI("https://camel.apache.org/")).build();
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response triggerDirectEndpoint(
+            @PathParam("name") String name, @HeaderParam("rollback") Boolean rollback,
+            @HeaderParam("messageId") String messageId, Fruit fruit) {
+        Map<String, Object> headers = new HashMap<>();
+        headers.put("rollback", rollback);
+        headers.put("messageId", messageId);
+        Object response = producerTemplate.requestBodyAndHeaders("direct:" + name, fruit, headers);
+        return Response.ok(response).build();
+    }
+
+    @Path("/mock/{name}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List getMockContent(@PathParam("name") String name) {
+        MockEndpoint mock = context.getEndpoint("mock:" + name, MockEndpoint.class);
+        return mock.getReceivedExchanges().stream()
+                .map(Exchange::getMessage)
+                .map(m -> m.getBody(String.class))
+                .collect(Collectors.toList());
+    }
+
+    @Path("/mock/{name}")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response resetMock(@PathParam("name") String name) {
+        MockEndpoint mock = context.getEndpoint("mock:" + name, MockEndpoint.class);
+        mock.reset();
+        return Response.ok().build();
     }
 }
