@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.file.it;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -36,6 +37,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.ValidatableResponse;
 import org.apache.camel.quarkus.core.util.FileUtils;
 import org.hamcrest.Matchers;
+import org.jboss.logging.Logger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -48,6 +50,8 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 @QuarkusTest
 class FileTest {
+
+    private static final Logger LOG = Logger.getLogger(FileTest.class);
 
     private static final String FILE_BODY = "Hello Camel Quarkus";
     private static final String FILE_CONTENT_01 = "Hello1";
@@ -113,9 +117,15 @@ class FileTest {
     }
 
     @Test
-    public void idempotent() throws IOException {
+    public void idempotent() throws Exception {
+        LOG.warn(">>>>>>>>>>>>> before FILE creation:");
+        listDirectory("idempotent");
+
         // Create a new file
         String fileName01 = createFile(FILE_CONTENT_01, "/file/create/idempotent");
+
+        LOG.warn(">>>>>>>>>>>>> FILE created:");
+        listDirectory("idempotent");
 
         await().atMost(10, TimeUnit.SECONDS).until(
                 () -> RestAssured
@@ -123,6 +133,9 @@ class FileTest {
                         .then()
                         .extract().asString(),
                 equalTo(FILE_CONTENT_01));
+
+        LOG.warn(">>>>>>>>>>>>> after assertion:");
+        listDirectory("idempotent");
 
         // clear the mock to assert that FILE_CONTENT_01 will not be received again even if presented a second time to the route
         RestAssured
@@ -139,6 +152,9 @@ class FileTest {
 
         // create another file, to receive only this one in the next check
         createFile(FILE_CONTENT_02, "/file/create/idempotent");
+
+        LOG.warn(">>>>>>>>>>>>> second FILE created:");
+        listDirectory("idempotent");
 
         // there should be no file in mock
         await().atMost(10, TimeUnit.SECONDS).until(
@@ -340,6 +356,26 @@ class FileTest {
                 .then()
                 .statusCode(200)
                 .body(Matchers.is(body));
+    }
+
+    private void listDirectory(String dir) throws URISyntaxException, IOException {
+        ClassLoader classLoader = getClass().getClassLoader();
+        showDir(1, Paths.get(classLoader.getResource("").toURI()).getParent().resolve(dir));
+    }
+
+    private void showDir(int depth, Path dir) {
+        if (Files.isDirectory(dir)) {
+            try {
+                Files.list(dir).forEach(f -> {
+                    LOG.warnf("%s %s", ".".repeat(depth * 2), f.getFileName());
+                    showDir(depth + 1, f);
+
+                });
+            } catch (IOException e) {
+                LOG.warn("Failed to list " + dir);
+
+            }
+        }
     }
 
 }

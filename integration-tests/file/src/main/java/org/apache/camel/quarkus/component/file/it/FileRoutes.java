@@ -62,6 +62,7 @@ public class FileRoutes extends RouteBuilder {
                 .to("mock:charsetIsoRead");
 
         from("file://target/idempotent?idempotent=true&move=done/${file:name}&initialDelay=0&delay=10")
+                .log(">>> processing file: ${body}")
                 .convertBodyTo(String.class).to("mock:idempotent");
 
         bindToRegistry("myFilter", new MyFileFilter<>());
