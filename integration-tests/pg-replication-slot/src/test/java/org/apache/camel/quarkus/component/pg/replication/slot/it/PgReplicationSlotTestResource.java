@@ -55,7 +55,7 @@ public class PgReplicationSlotTestResource implements QuarkusTestResourceLifecyc
         pgContainer.start();
 
         // Print Postgres server connectivity information
-        String pgAuthority = pgContainer.getContainerIpAddress() + ":" + pgContainer.getMappedPort(POSTGRES_PORT);
+        String pgAuthority = pgContainer.getHost() + ":" + pgContainer.getMappedPort(POSTGRES_PORT);
         LOG.debug("Postgres database available at " + pgAuthority);
 
         return mapOf(PG_AUTHORITY_CFG_KEY, pgAuthority, PG_DBNAME_CFG_KEY, POSTGRES_DB_NAME, PG_USER_CFG_KEY, POSTGRES_USER,
