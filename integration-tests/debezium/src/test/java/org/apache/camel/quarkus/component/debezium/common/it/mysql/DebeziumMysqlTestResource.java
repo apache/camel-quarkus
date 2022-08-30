@@ -91,7 +91,7 @@ public class DebeziumMysqlTestResource extends AbstractDebeziumTestResource<MySQ
 
     @Override
     protected String getJdbcUrl() {
-        return "jdbc:mysql://" + container.getContainerIpAddress() + ":" + container.getMappedPort(DB_PORT) + "/"
+        return "jdbc:mysql://" + container.getHost() + ":" + container.getMappedPort(DB_PORT) + "/"
                 + DebeziumMysqlTestResource.DB_NAME + "?user=" + DB_USERNAME
                 + "&password=" + DB_PASSWORD;
     }
