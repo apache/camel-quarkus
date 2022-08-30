@@ -58,7 +58,7 @@ public class LraTestResource implements QuarkusTestResourceLifecycleManager {
 
             return CollectionHelper.mapOf(
                     "camel.lra.coordinator-url",
-                    String.format("http://%s:%d", container.getContainerIpAddress(), lraPort),
+                    String.format("http://%s:%d", container.getHost(), lraPort),
                     "camel.lra.local-participant-url",
                     String.format("http://%s:%s", hostname,
                             System.getProperty("quarkus.http.test-port", "8081")));
