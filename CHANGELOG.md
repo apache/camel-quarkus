@@ -4,8 +4,15 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.12.0...HEAD)
 
+**Closed issues:**
+
+- master: fix itests harness in native mode [\#4050](https://github.com/apache/camel-quarkus/issues/4050)
+- Increase JPA extension test coverage [\#4007](https://github.com/apache/camel-quarkus/issues/4007)
+
 **Merged pull requests:**
 
+- master: fix itests harness in native mode [\#4055](https://github.com/apache/camel-quarkus/pull/4055) ([aldettinger](https://github.com/aldettinger))
+- Fix \#4007 increase JPA extension test coverage [\#4053](https://github.com/apache/camel-quarkus/pull/4053) ([osmman](https://github.com/osmman))
 - Upgrade to Quarkiverse CXF 1.5.0, the Santuario related stuff moved t… [\#4052](https://github.com/apache/camel-quarkus/pull/4052) ([ppalaga](https://github.com/ppalaga))
 - Adapt Dropbox tests to new authentication mechanism [\#4048](https://github.com/apache/camel-quarkus/pull/4048) ([jamesnetherton](https://github.com/jamesnetherton))
 - Filter out non-service endpoints in Salesforce testGetRestResources [\#4046](https://github.com/apache/camel-quarkus/pull/4046) ([jamesnetherton](https://github.com/jamesnetherton))
