@@ -41,12 +41,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-test-junit5</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>camel-directvm</artifactId>
-                    <groupId>org.apache.camel</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
