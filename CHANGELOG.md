@@ -11,6 +11,8 @@
 
 **Merged pull requests:**
 
+- Fix deprecated methods [\#4057](https://github.com/apache/camel-quarkus/pull/4057) ([aldettinger](https://github.com/aldettinger))
+- pg-replication-slot: fix usage of deprecated method [\#4056](https://github.com/apache/camel-quarkus/pull/4056) ([aldettinger](https://github.com/aldettinger))
 - master: fix itests harness in native mode [\#4055](https://github.com/apache/camel-quarkus/pull/4055) ([aldettinger](https://github.com/aldettinger))
 - Fix \#4007 increase JPA extension test coverage [\#4053](https://github.com/apache/camel-quarkus/pull/4053) ([osmman](https://github.com/osmman))
 - Upgrade to Quarkiverse CXF 1.5.0, the Santuario related stuff moved t… [\#4052](https://github.com/apache/camel-quarkus/pull/4052) ([ppalaga](https://github.com/ppalaga))
