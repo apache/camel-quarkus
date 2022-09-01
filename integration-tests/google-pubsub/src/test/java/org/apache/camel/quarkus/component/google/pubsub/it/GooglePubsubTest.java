@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.apache.camel.component.google.pubsub.GooglePubsubConstants;
 import org.apache.camel.quarkus.test.support.google.GoogleCloudTestResource;
 import org.hamcrest.Matchers;
 import org.jboss.logging.Logger;
@@ -50,7 +51,10 @@ class GooglePubsubTest {
         RestAssured.get("/google-pubsub")
                 .then()
                 .statusCode(200)
-                .body(Matchers.is(message));
+                .body("body", Matchers.is(message))
+                .body(GooglePubsubConstants.MESSAGE_ID.replaceFirst("\\.", "_"), Matchers.notNullValue())
+                .body(GooglePubsubConstants.PUBLISH_TIME.replaceFirst("\\.", "_"), Matchers.notNullValue())
+                .body(GooglePubsubConstants.ACK_ID.replaceFirst("\\.", "_"), Matchers.notNullValue());
     }
 
     @Test
@@ -242,7 +246,7 @@ class GooglePubsubTest {
                 .statusCode(201);
         LOG.info("Message \"2\" was sent and should be Nacked.");
         //wait to be sure that the nacked message was not delivered
-        Thread.sleep(1000);
+        Thread.sleep(5000);
 
         RestAssured.given()
                 .get("/google-pubsub/receive/mock/" + GooglePubSubRoutes.ACK_MOCK_RESULT)
