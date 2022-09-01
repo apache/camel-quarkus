@@ -6,11 +6,13 @@
 
 **Closed issues:**
 
+- Ban camel-directvm [\#4059](https://github.com/apache/camel-quarkus/issues/4059)
 - master: fix itests harness in native mode [\#4050](https://github.com/apache/camel-quarkus/issues/4050)
 - Increase JPA extension test coverage [\#4007](https://github.com/apache/camel-quarkus/issues/4007)
 
 **Merged pull requests:**
 
+- Ban camel-directvm  [\#4060](https://github.com/apache/camel-quarkus/pull/4060) ([ppalaga](https://github.com/ppalaga))
 - Fix deprecated methods [\#4057](https://github.com/apache/camel-quarkus/pull/4057) ([aldettinger](https://github.com/aldettinger))
 - pg-replication-slot: fix usage of deprecated method [\#4056](https://github.com/apache/camel-quarkus/pull/4056) ([aldettinger](https://github.com/aldettinger))
 - master: fix itests harness in native mode [\#4055](https://github.com/apache/camel-quarkus/pull/4055) ([aldettinger](https://github.com/aldettinger))
