@@ -17,7 +17,9 @@
 package org.apache.camel.quarkus.component.google.pubsub.it;
 
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -30,10 +32,12 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.google.protobuf.Timestamp;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.google.pubsub.GooglePubsubConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 
 @Path("/google-pubsub")
@@ -58,10 +62,22 @@ public class GooglePubsubResource {
     }
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public Response consumeStringFromTopic() {
-        Object response = consumerTemplate
-                .receiveBody("google-pubsub:{{project.id}}:{{google-pubsub.subscription-name}}?synchronousPull=true", 5000L);
-        return Response.ok(response).build();
+        Exchange exchange = consumerTemplate
+                .receive("google-pubsub:{{project.id}}:{{google-pubsub.subscription-name}}?synchronousPull=true", 5000L);
+        //convert timestamp to long to avoid serializiong problems
+        Map<String, Object> retVal = new HashMap<>();
+        retVal.put("body", exchange.getIn().getBody(String.class));
+        retVal.putAll(exchange.getIn().getHeaders().entrySet().stream().collect(Collectors.toMap(
+                e -> e.getKey().replaceFirst("\\.", "_"),
+                e -> {
+                    if (GooglePubsubConstants.PUBLISH_TIME.equals(e.getKey()) && e.getValue() instanceof Timestamp) {
+                        return ((Timestamp) e.getValue()).getSeconds() * 1000;
+                    }
+                    return e.getValue();
+                })));
+        return Response.ok(retVal).build();
     }
 
     @Path("/pojo")
