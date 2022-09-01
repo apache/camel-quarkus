@@ -10584,63 +10584,63 @@
                                 <resolutionEntryPointInclude>net.openhft:affinity</resolutionEntryPointInclude><!-- https://github.com/apache/camel-quarkus/issues/3788 -->
                                 <resolutionEntryPointInclude>org.apache.cxf.xjc-utils:cxf-xjc-runtime</resolutionEntryPointInclude><!-- https://github.com/apache/camel-quarkus/issues/3788 -->
                             </resolutionEntryPointIncludes>
-                            <addExclusions>
-                                <addExclusion>
+                            <bomEntryTransformations>
+                                <bomEntryTransformation>
                                     <gavPattern>org.amqphub.quarkus:quarkus-qpid-jms</gavPattern>
-                                    <exclusions>org.apache.geronimo.specs:geronimo-jms_2.0_spec</exclusions>
-                                </addExclusion>
-                                <addExclusion>
+                                    <addExclusions>org.apache.geronimo.specs:geronimo-jms_2.0_spec</addExclusions>
+                                </bomEntryTransformation>
+                                <bomEntryTransformation>
                                     <gavPattern>com.datastax.oss:java-driver-core</gavPattern>
-                                    <exclusions>com.google.code.findbugs:jsr305</exclusions>
-                                </addExclusion>
-                                <addExclusion>
+                                    <addExclusions>com.google.code.findbugs:jsr305</addExclusions>
+                                </bomEntryTransformation>
+                                <bomEntryTransformation>
                                     <gavPattern>com.datastax.oss:java-driver-query-builder</gavPattern>
-                                    <exclusions>com.google.code.findbugs:jsr305</exclusions>
-                                </addExclusion>
-                                <addExclusion>
+                                    <addExclusions>com.google.code.findbugs:jsr305</addExclusions>
+                                </bomEntryTransformation>
+                                <bomEntryTransformation>
                                     <gavPattern>io.quarkiverse.minio:quarkus-minio</gavPattern>
-                                    <exclusions>com.google.code.findbugs:jsr305</exclusions>
-                                </addExclusion>
-                                <addExclusion>
+                                    <addExclusions>com.google.code.findbugs:jsr305</addExclusions>
+                                </bomEntryTransformation>
+                                <bomEntryTransformation>
                                     <gavPattern>software.amazon.awssdk:apache-client</gavPattern>
-                                    <exclusions>commons-logging:commons-logging</exclusions>
-                                </addExclusion>
-                                <addExclusion>
+                                    <addExclusions>commons-logging:commons-logging</addExclusions>
+                                </bomEntryTransformation>
+                                <bomEntryTransformation>
                                     <gavPattern>io.debezium:debezium-embedded:1.6.1.Final:jar</gavPattern>
-                                    <exclusions>javax.activation:activation,javax.servlet:javax.servlet-api,log4j:log4j,org.apache.kafka:kafka-log4j-appender,org.apache.kafka:connect-runtime,org.apache.kafka:connect-file</exclusions>
-                                </addExclusion>
-                                <addExclusion>
+                                    <addExclusions>javax.activation:activation,javax.servlet:javax.servlet-api,log4j:log4j,org.apache.kafka:kafka-log4j-appender,org.apache.kafka:connect-runtime,org.apache.kafka:connect-file</addExclusions>
+                                </bomEntryTransformation>
+                                <bomEntryTransformation>
                                     <gavPattern>org.glassfish.jaxb:jaxb-runtime</gavPattern>
-                                    <exclusions>jakarta.xml.bind:jakarta.xml.bind-api</exclusions>
-                                </addExclusion>
+                                    <addExclusions>jakarta.xml.bind:jakarta.xml.bind-api</addExclusions>
+                                </bomEntryTransformation>
+                                <bomEntryTransformation>
+                                    <gavPattern>org.apache.kafka:connect-runtime</gavPattern>
+                                    <addExclusions>javax.activation:activation,javax.servlet:javax.servlet-api,log4j:log4j</addExclusions>
+                                </bomEntryTransformation>
+                                <bomEntryTransformation>
+                                    <gavPattern>io.debezium:debezium-embedded</gavPattern>
+                                    <addExclusions>javax.ws.rs:javax.ws.rs-api</addExclusions>
+                                </bomEntryTransformation>
 
                                 <!-- Should go to quarkus-bom actually -->
-                                <addExclusion>
+                                <bomEntryTransformation>
                                     <gavPattern>com.google.http-client:google-http-client</gavPattern>
-                                    <exclusions>com.google.code.findbugs:jsr305</exclusions>
-                                </addExclusion>
-                                <addExclusion>
-                                    <gavPattern>io.debezium:debezium-embedded</gavPattern>
-                                    <exclusions>javax.ws.rs:javax.ws.rs-api</exclusions>
-                                </addExclusion>
-                                <addExclusion>
+                                    <addExclusions>com.google.code.findbugs:jsr305</addExclusions>
+                                </bomEntryTransformation>
+                                <bomEntryTransformation>
                                     <gavPattern>io.grpc:grpc-netty</gavPattern>
-                                    <exclusions>com.google.code.findbugs:jsr305</exclusions>
-                                </addExclusion>
-                                <addExclusion>
+                                    <addExclusions>com.google.code.findbugs:jsr305</addExclusions>
+                                </bomEntryTransformation>
+                                <bomEntryTransformation>
                                     <gavPattern>org.apache.httpcomponents:*</gavPattern>
-                                    <exclusions>commons-logging:commons-logging</exclusions>
-                                </addExclusion>
-                                <addExclusion>
-                                    <gavPattern>org.apache.kafka:connect-runtime</gavPattern>
-                                    <exclusions>javax.activation:activation,javax.servlet:javax.servlet-api,log4j:log4j</exclusions>
-                                </addExclusion>
-                                <addExclusion>
+                                    <addExclusions>commons-logging:commons-logging</addExclusions>
+                                </bomEntryTransformation>
+                                <bomEntryTransformation>
                                     <gavPattern>com.fasterxml.jackson.module:jackson-module-jaxb-annotations</gavPattern>
-                                    <exclusions>jakarta.activation:jakarta.activation-api,jakarta.xml.bind:jakarta.xml.bind-api</exclusions>
-                                </addExclusion>
+                                    <addExclusions>jakarta.activation:jakarta.activation-api,jakarta.xml.bind:jakarta.xml.bind-api</addExclusions>
+                                </bomEntryTransformation>
 
-                            </addExclusions>
+                            </bomEntryTransformations>
                         </configuration>
                     </execution>
                 </executions>
