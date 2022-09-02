@@ -41,14 +41,14 @@ public class PgReplicationSlotTestResource implements QuarkusTestResourceLifecyc
     private static final String POSTGRES_PASSWORD = "postgres-password";
     private static final String POSTGRES_USER = "postgres-user";
 
-    private GenericContainer pgContainer;
+    private GenericContainer<?> pgContainer;
 
     @Override
     public Map<String, String> start() {
         LOG.info(TestcontainersConfiguration.getInstance().toString());
 
         // Setup the Postgres container with replication enabled
-        pgContainer = new GenericContainer(POSTGRES_IMAGE).withCommand("postgres -c wal_level=logical")
+        pgContainer = new GenericContainer<>(POSTGRES_IMAGE).withCommand("postgres -c wal_level=logical")
                 .withExposedPorts(POSTGRES_PORT).withEnv("POSTGRES_USER", POSTGRES_USER)
                 .withEnv("POSTGRES_PASSWORD", POSTGRES_PASSWORD).withEnv("POSTGRES_DB", POSTGRES_DB_NAME)
                 .withLogConsumer(new Slf4jLogConsumer(LOG)).waitingFor(Wait.forListeningPort());
