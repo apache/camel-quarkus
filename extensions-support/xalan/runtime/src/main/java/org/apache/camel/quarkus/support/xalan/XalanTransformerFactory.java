@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * A {@link TransformerFactory} delegating to a {@link TransformerFactory} created via
- * {@code TransformerFactory.newInstance("org.apache.xalan.xsltc.trax.TransformerFactoryImpl", Thread.currentThread().getContextClassLoader())}
+ * {@code TransformerFactory.newInstance("com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl", Thread.currentThread().getContextClassLoader())}
  */
 public final class XalanTransformerFactory extends SAXTransformerFactory {
     private static final Logger LOGGER = LoggerFactory.getLogger(XalanTransformerFactory.class);
@@ -44,7 +44,7 @@ public final class XalanTransformerFactory extends SAXTransformerFactory {
 
     public XalanTransformerFactory() {
         final SAXTransformerFactory factory = (SAXTransformerFactory) TransformerFactory.newInstance(
-                "org.apache.xalan.xsltc.trax.TransformerFactoryImpl",
+                "com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl",
                 Thread.currentThread().getContextClassLoader());
         try {
             factory.setFeature(javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING, true);
