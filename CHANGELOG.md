@@ -9,9 +9,15 @@
 - Ban camel-directvm [\#4059](https://github.com/apache/camel-quarkus/issues/4059)
 - master: fix itests harness in native mode [\#4050](https://github.com/apache/camel-quarkus/issues/4050)
 - Increase JPA extension test coverage [\#4007](https://github.com/apache/camel-quarkus/issues/4007)
+- \[JDK17\]spring integration tests failed in native mode [\#3333](https://github.com/apache/camel-quarkus/issues/3333)
+- \[JDK17\]Optaplanner integration test failed in native mode  [\#3332](https://github.com/apache/camel-quarkus/issues/3332)
+- \[JDK17\]integration test failed in native mode caused by unresolved type during parsing: sun.security.krb5.Credentials [\#3326](https://github.com/apache/camel-quarkus/issues/3326)
+- \[JDK17\]integration tests failed in native mode which uses JMX [\#3325](https://github.com/apache/camel-quarkus/issues/3325)
+- \[JDK17\]integration test failed in native mode on Mac which depends on quarkus-awt feature [\#3323](https://github.com/apache/camel-quarkus/issues/3323)
 
 **Merged pull requests:**
 
+- Migrate to the new config format of the flattener mojo [\#4061](https://github.com/apache/camel-quarkus/pull/4061) ([ppalaga](https://github.com/ppalaga))
 - Ban camel-directvm  [\#4060](https://github.com/apache/camel-quarkus/pull/4060) ([ppalaga](https://github.com/ppalaga))
 - Fix deprecated methods [\#4057](https://github.com/apache/camel-quarkus/pull/4057) ([aldettinger](https://github.com/aldettinger))
 - pg-replication-slot: fix usage of deprecated method [\#4056](https://github.com/apache/camel-quarkus/pull/4056) ([aldettinger](https://github.com/aldettinger))
