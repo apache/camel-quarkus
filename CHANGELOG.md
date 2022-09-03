@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Google-pubsub: Improve google-pubsub test coverage with GooglePubsubConstants.MESSAGE\_ID [\#4062](https://github.com/apache/camel-quarkus/issues/4062)
 - Ban camel-directvm [\#4059](https://github.com/apache/camel-quarkus/issues/4059)
 - master: fix itests harness in native mode [\#4050](https://github.com/apache/camel-quarkus/issues/4050)
 - Increase JPA extension test coverage [\#4007](https://github.com/apache/camel-quarkus/issues/4007)
@@ -14,9 +15,11 @@
 - \[JDK17\]integration test failed in native mode caused by unresolved type during parsing: sun.security.krb5.Credentials [\#3326](https://github.com/apache/camel-quarkus/issues/3326)
 - \[JDK17\]integration tests failed in native mode which uses JMX [\#3325](https://github.com/apache/camel-quarkus/issues/3325)
 - \[JDK17\]integration test failed in native mode on Mac which depends on quarkus-awt feature [\#3323](https://github.com/apache/camel-quarkus/issues/3323)
+- CXF JAX-WS support [\#764](https://github.com/apache/camel-quarkus/issues/764)
 
 **Merged pull requests:**
 
+- Google-pubsub: Improve google-pubsub test coverage with MESSAGE\_ID \#4062 [\#4064](https://github.com/apache/camel-quarkus/pull/4064) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Migrate to the new config format of the flattener mojo [\#4061](https://github.com/apache/camel-quarkus/pull/4061) ([ppalaga](https://github.com/ppalaga))
 - Ban camel-directvm  [\#4060](https://github.com/apache/camel-quarkus/pull/4060) ([ppalaga](https://github.com/ppalaga))
 - Fix deprecated methods [\#4057](https://github.com/apache/camel-quarkus/pull/4057) ([aldettinger](https://github.com/aldettinger))
@@ -1252,6 +1255,7 @@
 - `CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest` fails on Windows [\#3529](https://github.com/apache/camel-quarkus/issues/3529)
 - CamelTestSupport style of testing  [\#3511](https://github.com/apache/camel-quarkus/issues/3511)
 - Geocoder started returning "New York City" instead of "New York" [\#3389](https://github.com/apache/camel-quarkus/issues/3389)
+- CXF JAX-WS support [\#764](https://github.com/apache/camel-quarkus/issues/764)
 
 ## [2.11.0](https://github.com/apache/camel-quarkus/tree/2.11.0) (2022-07-22)
 
