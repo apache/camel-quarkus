@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.camel.quarkus</groupId>
   <artifactId>camel-quarkus-bom</artifactId>
-  <version>2.12.0-SNAPSHOT</version>
+  <version>2.13.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Camel Quarkus :: BOM</name>
   <description>Apache Camel extensions for Quarkus</description>
@@ -1875,11 +1875,6 @@
             <artifactId>jakarta.xml.bind-api</artifactId>
           </exclusion>
         </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
-        <artifactId>camel-directvm</artifactId>
-        <version>3.18.1</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -5380,6 +5375,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-test-junit5</artifactId>
         <version>3.18.1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-directvm</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -6020,3297 +6021,3287 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-activemq</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-activemq-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-amqp</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-amqp-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-arangodb</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-arangodb-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-as2</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-as2-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-asn1</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-asn1-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-asterisk</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-asterisk-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-atlasmap</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-atlasmap-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-atmos</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-atmos-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-atom</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-atom-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-attachments</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-attachments-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-avro</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-avro-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-avro-rpc</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-avro-rpc-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws-secrets-manager</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws-secrets-manager-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws-xray</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws-xray-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-athena</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-athena-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-cw</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-cw-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-ddb</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-ddb-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-ec2</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-ec2-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-ecs</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-ecs-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-eks</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-eks-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-eventbridge</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-eventbridge-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-iam</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-iam-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-kinesis</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-kinesis-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-kms</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-kms-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-lambda</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-lambda-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-mq</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-mq-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-msk</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-msk-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-s3</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-s3-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-ses</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-ses-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-sns</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-sns-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-sqs</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-sqs-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-sts</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-sts-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-translate</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-aws2-translate-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-azure-cosmosdb</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-azure-cosmosdb-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-azure-eventhubs</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-azure-eventhubs-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-azure-key-vault</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-azure-key-vault-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-azure-servicebus</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-azure-servicebus-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-azure-storage-blob</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-azure-storage-blob-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-azure-storage-datalake</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-azure-storage-datalake-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-azure-storage-queue</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-azure-storage-queue-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-barcode</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-barcode-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-base64</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-base64-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-bean</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-bean-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-bean-validator</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-bean-validator-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-bindy</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-bindy-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-bonita</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-bonita-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-box</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-box-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-braintree</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-braintree-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-browse</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-browse-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-caffeine</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-caffeine-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-caffeine-lrucache</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-caffeine-lrucache-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-cassandraql</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-cassandraql-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-catalog</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-cbor</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-cbor-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-chatscript</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-chatscript-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-chunk</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-chunk-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-cm-sms</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-cm-sms-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-cmis</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-cmis-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-coap</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-coap-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-cometd</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-cometd-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-consul</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-consul-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-controlbus</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-controlbus-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-corda</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-corda-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-core</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-core-cloud</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-core-cloud-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-core-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-couchbase</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-couchbase-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-couchdb</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-couchdb-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-cron</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-cron-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-crypto</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-crypto-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-csimple</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-csimple-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-csv</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-csv-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-cxf-soap</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-cxf-soap-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-dataformat</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-dataformat-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-dataset</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-dataset-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-datasonnet</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-datasonnet-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-debezium-mongodb</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-debezium-mongodb-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-debezium-mysql</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-debezium-mysql-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-debezium-postgres</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-debezium-postgres-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-debezium-sqlserver</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-debezium-sqlserver-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-debug</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-debug-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-digitalocean</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-digitalocean-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-direct</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-direct-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-disruptor</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-disruptor-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-djl</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-djl-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-dns</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-dns-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-dozer</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-dozer-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-drill</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-drill-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-dropbox</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-dropbox-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-ehcache</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-ehcache-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-elasticsearch-rest</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-elasticsearch-rest-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-etcd3</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-etcd3-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-exec</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-exec-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-facebook</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-facebook-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-fastjson</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-fastjson-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-fhir</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-fhir-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-file</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-file-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-file-watch</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-file-watch-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-flatpack</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-flatpack-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-flink</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-flink-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-fop</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-fop-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-freemarker</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-freemarker-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-ftp</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-ftp-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-geocoder</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-geocoder-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-git</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-git-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-github</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-github-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-google-bigquery</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-google-bigquery-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-google-calendar</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-google-calendar-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-google-drive</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-google-drive-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-google-functions</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-google-functions-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-google-mail</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-google-mail-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-google-pubsub</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-google-pubsub-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-google-secret-manager</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-google-secret-manager-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-google-sheets</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-google-sheets-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-google-storage</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-google-storage-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-graphql</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-graphql-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-grok</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-grok-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-groovy</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-groovy-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-groovy-dsl</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-groovy-dsl-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-grpc</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-grpc-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-gson</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-gson-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-guava-eventbus</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-guava-eventbus-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-hashicorp-vault</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-hashicorp-vault-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-hazelcast</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-hazelcast-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-hbase</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-hbase-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-hdfs</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-hdfs-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-headersmap</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-headersmap-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-hl7</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-hl7-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-http</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-http-common</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-http-common-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-http-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-huaweicloud-smn</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-huaweicloud-smn-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-ical</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-ical-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-iec60870</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-iec60870-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-ignite</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-ignite-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-infinispan</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-infinispan-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-influxdb</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-influxdb-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-iota</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-iota-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-irc</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-irc-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jackson</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jackson-avro</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jackson-avro-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jackson-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jackson-protobuf</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jackson-protobuf-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jacksonxml</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jacksonxml-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jasypt</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jasypt-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-java-joor-dsl</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-java-joor-dsl-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jaxb</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jaxb-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jbpm</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jbpm-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jcache</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jcache-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jclouds</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jclouds-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jcr</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jcr-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jdbc</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jdbc-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jfr</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jfr-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jgroups</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jgroups-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jgroups-raft</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jgroups-raft-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jira</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jira-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jms</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jms-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-johnzon</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-johnzon-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jolt</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jolt-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jooq</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jooq-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-joor</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-joor-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jpa</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jpa-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jq</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jq-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-js-dsl</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-js-dsl-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jsch</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jsch-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jslt</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jslt-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-json-patch</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-json-patch-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-json-validator</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-json-validator-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jsonapi</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jsonapi-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jsonata</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jsonata-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jsonb</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jsonb-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jsonpath</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jsonpath-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jt400</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jt400-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jta</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-jta-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-junit5</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-kafka</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-kafka-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-kamelet</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-kamelet-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-kotlin</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-kotlin-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-kotlin-dsl</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-kotlin-dsl-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-kubernetes</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-kubernetes-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-kudu</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-kudu-client</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-kudu-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-language</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-language-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-ldap</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-ldap-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-ldif</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-ldif-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-leveldb</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-leveldb-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-log</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-log-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-lra</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-lra-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-lucene</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-lucene-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-lumberjack</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-lumberjack-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-lzf</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-lzf-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-mail</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-mail-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-management</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-management-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-master</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-master-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-micrometer</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-micrometer-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-microprofile-fault-tolerance</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-microprofile-fault-tolerance-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-microprofile-health</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-microprofile-health-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-microprofile-metrics</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-microprofile-metrics-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-milo</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-milo-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-minio</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-minio-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-mllp</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-mllp-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-mock</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-mock-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-mongodb</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-mongodb-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-mongodb-gridfs</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-mongodb-gridfs-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-mustache</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-mustache-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-mvel</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-mvel-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-mybatis</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-mybatis-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-nats</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-nats-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-netty</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-netty-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-netty-http</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-netty-http-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-nitrite</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-nitrite-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-oaipmh</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-oaipmh-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-ognl</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-ognl-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-olingo4</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-olingo4-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-openapi-java</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-openapi-java-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-openstack</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-openstack-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-opentelemetry</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-opentelemetry-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-opentracing</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-opentracing-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-optaplanner</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-optaplanner-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-paho</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-paho-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-paho-mqtt5</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-paho-mqtt5-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-pdf</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-pdf-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-pg-replication-slot</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-pg-replication-slot-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-pgevent</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-pgevent-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-platform-http</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-platform-http-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-printer</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-printer-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-protobuf</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-protobuf-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-pubnub</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-pubnub-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-pulsar</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-pulsar-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-quartz</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-quartz-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-quickfix</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-quickfix-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-qute</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-qute-component</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-qute-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-rabbitmq</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-rabbitmq-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-reactive-executor</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-reactive-executor-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-reactive-streams</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-reactive-streams-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-redis</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-redis-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-ref</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-ref-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-rest</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-rest-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-rest-openapi</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-rest-openapi-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-robotframework</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-robotframework-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-rss</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-rss-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-saga</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-saga-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-salesforce</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-salesforce-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-sap-netweaver</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-sap-netweaver-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-saxon</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-saxon-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-scheduler</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-scheduler-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-schematron</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-schematron-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-seda</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-seda-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-servicenow</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-servicenow-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-servlet</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-servlet-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-shiro</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-shiro-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-sjms</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-sjms-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-sjms2</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-sjms2-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-slack</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-slack-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-smallrye-reactive-messaging</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-smallrye-reactive-messaging-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-smpp</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-smpp-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-snakeyaml</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-snakeyaml-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-snmp</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-snmp-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-soap</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-soap-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-solr</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-solr-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-splunk</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-splunk-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-splunk-hec</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-splunk-hec-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-spring-rabbitmq</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-spring-rabbitmq-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-sql</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-sql-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-ssh</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-ssh-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-stax</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-stax-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-stitch</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-stitch-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-stomp</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-stomp-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-stream</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-stream-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-stringtemplate</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-stringtemplate-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-stub</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-stub-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-ahc</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-ahc-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-aws</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-aws-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-aws2</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-aws2-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-azure-core</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-azure-core-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-azure-core-http-client-vertx</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-azure-core-http-client-vertx-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-bouncycastle</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-bouncycastle-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-commons-logging</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-commons-logging-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-consul-client</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-consul-client-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-support-cxf-wss</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-support-cxf-wss-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-debezium</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-debezium-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-google-cloud</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-google-cloud-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-google-http-client</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-google-http-client-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-httpclient</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-httpclient-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-jackson-dataformat-xml</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-jackson-dataformat-xml-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-jetty</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-jetty-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-mail</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-mail-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-mongodb</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-mongodb-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-reactor-netty</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-reactor-netty-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-retrofit</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-retrofit-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-spring</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-spring-beans</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-spring-context</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-spring-core</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-spring-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-stax</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-stax-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-webhook</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-webhook-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-xalan</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-xalan-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-xstream</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-xstream-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-syslog</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-syslog-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-tarfile</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-tarfile-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-telegram</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-telegram-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-threadpoolfactory-vertx</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-threadpoolfactory-vertx-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-thrift</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-thrift-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-tika</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-tika-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-timer</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-timer-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-twilio</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-twilio-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-twitter</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-twitter-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-univocity-parsers</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-univocity-parsers-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-validator</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-validator-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-velocity</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-velocity-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-vertx</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-vertx-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-vertx-http</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-vertx-http-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-vertx-websocket</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-vertx-websocket-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-vm</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-vm-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-weather</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-weather-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-web3j</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-web3j-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-wordpress</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-wordpress-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-workday</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-workday-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-xchange</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-xchange-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-xj</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-xj-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-xml-io-dsl</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-xml-io-dsl-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-xml-jaxb</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-xml-jaxb-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-xml-jaxp</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-xml-jaxp-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-xmlsecurity</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-xmlsecurity-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-xmpp</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-xmpp-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-xpath</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-xpath-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-xslt</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-xslt-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-xslt-saxon</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-xslt-saxon-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-xstream</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-xstream-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-yaml-dsl</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-yaml-dsl-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-zendesk</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-zendesk-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-zip-deflater</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-zip-deflater-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-zipfile</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-zipfile-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-zookeeper</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-zookeeper-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-zookeeper-master</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-zookeeper-master-deployment</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi</groupId>
@@ -9850,50 +9841,6 @@
         <version>1.0.2</version>
       </dependency>
       <dependency>
-        <groupId>io.quarkiverse.cxf</groupId>
-        <artifactId>quarkus-cxf</artifactId>
-        <version>1.4.0</version>
-        <exclusions>
-          <exclusion>
-            <groupId>jakarta.activation</groupId>
-            <artifactId>jakarta.activation-api</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-transports-http</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-frontend-jaxws</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.cxf</groupId>
-        <artifactId>quarkus-cxf-deployment</artifactId>
-        <version>1.4.0</version>
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.cxf</groupId>
-        <artifactId>quarkus-cxf-rt-ws-security</artifactId>
-        <version>1.4.0</version>
-        <exclusions>
-          <exclusion>
-            <groupId>jakarta.activation</groupId>
-            <artifactId>jakarta.activation-api</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>jakarta.xml.bind</groupId>
-            <artifactId>jakarta.xml.bind-api</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.cxf</groupId>
-        <artifactId>quarkus-cxf-rt-ws-security-deployment</artifactId>
-        <version>1.4.0</version>
-      </dependency>
-      <dependency>
         <groupId>io.quarkiverse.freemarker</groupId>
         <artifactId>quarkus-freemarker</artifactId>
         <version>0.3.0</version>
@@ -10188,7 +10135,7 @@
       <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>connect-runtime</artifactId>
-        <version>3.1.0</version>
+        <version>3.2.1</version>
         <exclusions>
           <exclusion>
             <groupId>jakarta.activation</groupId>
@@ -10325,12 +10272,12 @@
       <dependency>
         <groupId>org.ehcache</groupId>
         <artifactId>ehcache</artifactId>
-        <version>3.9.6</version>
+        <version>3.10.1</version>
       </dependency>
       <dependency>
         <groupId>org.graalvm.js</groupId>
         <artifactId>js</artifactId>
-        <version>22.1.0</version>
+        <version>22.2.0</version>
       </dependency>
       <dependency>
         <groupId>org.influxdb</groupId>
@@ -10345,17 +10292,17 @@
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-script-util</artifactId>
-        <version>1.6.21</version>
+        <version>1.7.10</version>
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-scripting-jvm</artifactId>
-        <version>1.6.21</version>
+        <version>1.7.10</version>
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-scripting-jvm-host</artifactId>
-        <version>1.6.21</version>
+        <version>1.7.10</version>
       </dependency>
       <dependency>
         <groupId>org.jruby.jcodings</groupId>
@@ -10523,6 +10470,232 @@
             <artifactId>xml-apis</artifactId>
           </exclusion>
         </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-features-logging</artifactId>
+        <version>3.5.3</version>
+        <exclusions>
+          <exclusion>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jta_1.1_spec</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-features-metrics</artifactId>
+        <version>3.5.3</version>
+        <exclusions>
+          <exclusion>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jta_1.1_spec</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-transports-http</artifactId>
+        <version>3.5.3</version>
+        <exclusions>
+          <exclusion>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jta_1.1_spec</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-transports-http-hc5</artifactId>
+        <version>3.5.3</version>
+        <exclusions>
+          <exclusion>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jta_1.1_spec</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-ws-mex</artifactId>
+        <version>3.5.3</version>
+        <exclusions>
+          <exclusion>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jta_1.1_spec</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-ws-security</artifactId>
+        <version>3.5.3</version>
+        <exclusions>
+          <exclusion>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jta_1.1_spec</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf</artifactId>
+        <version>1.5.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-deployment</artifactId>
+        <version>1.5.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-features-logging</artifactId>
+        <version>1.5.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-features-logging-deployment</artifactId>
+        <version>1.5.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-features-metrics</artifactId>
+        <version>1.5.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-features-metrics-deployment</artifactId>
+        <version>1.5.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-transports-http-hc5</artifactId>
+        <version>1.5.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-transports-http-hc5-deployment</artifactId>
+        <version>1.5.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-ws-security</artifactId>
+        <version>1.5.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-ws-security-deployment</artifactId>
+        <version>1.5.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-santuario</artifactId>
+        <version>1.5.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-santuario-deployment</artifactId>
+        <version>1.5.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-woodstox</artifactId>
+        <version>1.5.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-woodstox-deployment</artifactId>
+        <version>1.5.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jvnet.mimepull</groupId>
+        <artifactId>mimepull</artifactId>
+        <version>1.9.14</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-bindings-xml</artifactId>
+        <version>3.5.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-databinding-jaxb</artifactId>
+        <version>3.5.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-frontend-simple</artifactId>
+        <version>3.5.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-security-saml</artifactId>
+        <version>3.5.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-security</artifactId>
+        <version>3.5.3</version>
       </dependency>
       <dependency>
         <groupId>org.codehaus.groovy</groupId>

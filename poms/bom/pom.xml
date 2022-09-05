@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-poms</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -35,13 +35,20 @@
     <properties>
         <!-- This property is kept in sync with project.version by the release plugin -->
         <!-- Do not change to project.version because otherwise the end user apps having our BOM as parent (rather than importing it) will stop working -->
-        <camel-quarkus.version>2.12.0-SNAPSHOT</camel-quarkus.version>
+        <camel-quarkus.version>2.13.0-SNAPSHOT</camel-quarkus.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
 
             <!-- External BOMs -->
+            <dependency>
+                <groupId>io.quarkiverse.cxf</groupId>
+                <artifactId>quarkus-cxf-bom</artifactId>
+                <version>${quarkiverse-cxf.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy-bom</artifactId>
@@ -1929,11 +1936,6 @@
                         <artifactId>jakarta.xml.bind-api</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-directvm</artifactId>
-                <version>${camel.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -5434,6 +5436,12 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-test-junit5</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-directvm</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -8825,16 +8833,6 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-support-cxf-wss</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-support-cxf-wss-deployment</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-support-debezium</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
@@ -9908,50 +9906,6 @@
                 <version>${projectreactor-netty.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.quarkiverse.cxf</groupId>
-                <artifactId>quarkus-cxf</artifactId>
-                <version>${quarkiverse-cxf.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>jakarta.activation</groupId>
-                        <artifactId>jakarta.activation-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.cxf</groupId>
-                        <artifactId>cxf-rt-transports-http</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.cxf</groupId>
-                        <artifactId>cxf-rt-frontend-jaxws</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.cxf</groupId>
-                <artifactId>quarkus-cxf-deployment</artifactId>
-                <version>${quarkiverse-cxf.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.cxf</groupId>
-                <artifactId>quarkus-cxf-rt-ws-security</artifactId>
-                <version>${quarkiverse-cxf.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>jakarta.activation</groupId>
-                        <artifactId>jakarta.activation-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>jakarta.xml.bind</groupId>
-                        <artifactId>jakarta.xml.bind-api</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.cxf</groupId>
-                <artifactId>quarkus-cxf-rt-ws-security-deployment</artifactId>
-                <version>${quarkiverse-cxf.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>io.quarkiverse.freemarker</groupId>
                 <artifactId>quarkus-freemarker</artifactId>
                 <version>${quarkiverse-freemarker.version}</version>
@@ -10626,66 +10580,67 @@
                                 <!-- whose dependencies we want to cover in the flattened BOM -->
                                 <resolutionEntryPointInclude>org.apache.camel.quarkus:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>ca.uhn.hapi:*</resolutionEntryPointInclude>
+                                <resolutionEntryPointInclude>io.quarkiverse.cxf:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>net.openhft:affinity</resolutionEntryPointInclude><!-- https://github.com/apache/camel-quarkus/issues/3788 -->
                                 <resolutionEntryPointInclude>org.apache.cxf.xjc-utils:cxf-xjc-runtime</resolutionEntryPointInclude><!-- https://github.com/apache/camel-quarkus/issues/3788 -->
                             </resolutionEntryPointIncludes>
-                            <addExclusions>
-                                <addExclusion>
+                            <bomEntryTransformations>
+                                <bomEntryTransformation>
                                     <gavPattern>org.amqphub.quarkus:quarkus-qpid-jms</gavPattern>
-                                    <exclusions>org.apache.geronimo.specs:geronimo-jms_2.0_spec</exclusions>
-                                </addExclusion>
-                                <addExclusion>
+                                    <addExclusions>org.apache.geronimo.specs:geronimo-jms_2.0_spec</addExclusions>
+                                </bomEntryTransformation>
+                                <bomEntryTransformation>
                                     <gavPattern>com.datastax.oss:java-driver-core</gavPattern>
-                                    <exclusions>com.google.code.findbugs:jsr305</exclusions>
-                                </addExclusion>
-                                <addExclusion>
+                                    <addExclusions>com.google.code.findbugs:jsr305</addExclusions>
+                                </bomEntryTransformation>
+                                <bomEntryTransformation>
                                     <gavPattern>com.datastax.oss:java-driver-query-builder</gavPattern>
-                                    <exclusions>com.google.code.findbugs:jsr305</exclusions>
-                                </addExclusion>
-                                <addExclusion>
+                                    <addExclusions>com.google.code.findbugs:jsr305</addExclusions>
+                                </bomEntryTransformation>
+                                <bomEntryTransformation>
                                     <gavPattern>io.quarkiverse.minio:quarkus-minio</gavPattern>
-                                    <exclusions>com.google.code.findbugs:jsr305</exclusions>
-                                </addExclusion>
-                                <addExclusion>
+                                    <addExclusions>com.google.code.findbugs:jsr305</addExclusions>
+                                </bomEntryTransformation>
+                                <bomEntryTransformation>
                                     <gavPattern>software.amazon.awssdk:apache-client</gavPattern>
-                                    <exclusions>commons-logging:commons-logging</exclusions>
-                                </addExclusion>
-                                <addExclusion>
+                                    <addExclusions>commons-logging:commons-logging</addExclusions>
+                                </bomEntryTransformation>
+                                <bomEntryTransformation>
                                     <gavPattern>io.debezium:debezium-embedded:1.6.1.Final:jar</gavPattern>
-                                    <exclusions>javax.activation:activation,javax.servlet:javax.servlet-api,log4j:log4j,org.apache.kafka:kafka-log4j-appender,org.apache.kafka:connect-runtime,org.apache.kafka:connect-file</exclusions>
-                                </addExclusion>
-                                <addExclusion>
+                                    <addExclusions>javax.activation:activation,javax.servlet:javax.servlet-api,log4j:log4j,org.apache.kafka:kafka-log4j-appender,org.apache.kafka:connect-runtime,org.apache.kafka:connect-file</addExclusions>
+                                </bomEntryTransformation>
+                                <bomEntryTransformation>
                                     <gavPattern>org.glassfish.jaxb:jaxb-runtime</gavPattern>
-                                    <exclusions>jakarta.xml.bind:jakarta.xml.bind-api</exclusions>
-                                </addExclusion>
+                                    <addExclusions>jakarta.xml.bind:jakarta.xml.bind-api</addExclusions>
+                                </bomEntryTransformation>
+                                <bomEntryTransformation>
+                                    <gavPattern>org.apache.kafka:connect-runtime</gavPattern>
+                                    <addExclusions>javax.activation:activation,javax.servlet:javax.servlet-api,log4j:log4j</addExclusions>
+                                </bomEntryTransformation>
+                                <bomEntryTransformation>
+                                    <gavPattern>io.debezium:debezium-embedded</gavPattern>
+                                    <addExclusions>javax.ws.rs:javax.ws.rs-api</addExclusions>
+                                </bomEntryTransformation>
 
                                 <!-- Should go to quarkus-bom actually -->
-                                <addExclusion>
+                                <bomEntryTransformation>
                                     <gavPattern>com.google.http-client:google-http-client</gavPattern>
-                                    <exclusions>com.google.code.findbugs:jsr305</exclusions>
-                                </addExclusion>
-                                <addExclusion>
-                                    <gavPattern>io.debezium:debezium-embedded</gavPattern>
-                                    <exclusions>javax.ws.rs:javax.ws.rs-api</exclusions>
-                                </addExclusion>
-                                <addExclusion>
+                                    <addExclusions>com.google.code.findbugs:jsr305</addExclusions>
+                                </bomEntryTransformation>
+                                <bomEntryTransformation>
                                     <gavPattern>io.grpc:grpc-netty</gavPattern>
-                                    <exclusions>com.google.code.findbugs:jsr305</exclusions>
-                                </addExclusion>
-                                <addExclusion>
+                                    <addExclusions>com.google.code.findbugs:jsr305</addExclusions>
+                                </bomEntryTransformation>
+                                <bomEntryTransformation>
                                     <gavPattern>org.apache.httpcomponents:*</gavPattern>
-                                    <exclusions>commons-logging:commons-logging</exclusions>
-                                </addExclusion>
-                                <addExclusion>
-                                    <gavPattern>org.apache.kafka:connect-runtime</gavPattern>
-                                    <exclusions>javax.activation:activation,javax.servlet:javax.servlet-api,log4j:log4j</exclusions>
-                                </addExclusion>
-                                <addExclusion>
+                                    <addExclusions>commons-logging:commons-logging</addExclusions>
+                                </bomEntryTransformation>
+                                <bomEntryTransformation>
                                     <gavPattern>com.fasterxml.jackson.module:jackson-module-jaxb-annotations</gavPattern>
-                                    <exclusions>jakarta.activation:jakarta.activation-api,jakarta.xml.bind:jakarta.xml.bind-api</exclusions>
-                                </addExclusion>
+                                    <addExclusions>jakarta.activation:jakarta.activation-api,jakarta.xml.bind:jakarta.xml.bind-api</addExclusions>
+                                </bomEntryTransformation>
 
-                            </addExclusions>
+                            </bomEntryTransformations>
                         </configuration>
                     </execution>
                 </executions>

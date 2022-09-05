@@ -28,23 +28,22 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.Network;
 import org.testcontainers.containers.wait.strategy.Wait;
 
-public class DebeziumMongodbTestResource extends AbstractDebeziumTestResource<GenericContainer> {
-    private static final Logger LOG = Logger.getLogger(DebeziumMongodbTestResource.class);
-
+public class DebeziumMongodbTestResource extends AbstractDebeziumTestResource<GenericContainer<?>> {
+    private static final Logger LOG = Logger.getLogger(AbstractDebeziumTestResource.class);
     private static final String PRIVATE_HOST = "mongodb_private";
     private static final String DB_USERNAME = "debezium";
     private static final String DB_PASSWORD = "dbz";
-    private static int DB_PORT = 27017;
+    private static final int DB_PORT = 27017;
 
     public DebeziumMongodbTestResource() {
         super(Type.mongodb);
     }
 
-    private Network net = Network.newNetwork();;
+    private final Network net = Network.newNetwork();;
 
     @Override
-    protected GenericContainer createContainer() {
-        return new GenericContainer("mongo")
+    protected GenericContainer<?> createContainer() {
+        return new GenericContainer("mongo:4.4")
                 .withExposedPorts(DB_PORT)
                 .withCommand("--replSet", "my-mongo-set")
                 .withNetwork(net)
@@ -61,21 +60,21 @@ public class DebeziumMongodbTestResource extends AbstractDebeziumTestResource<Ge
         execScriptInContainer("initMongodb.txt");
     }
 
-    private void execScriptInContainer(String script) throws Exception {
-        String cmd = IOUtils.toString(getClass().getResource("/" + script), StandardCharsets.UTF_8);
-        String[] cmds = cmd.split("\\n\\n");
-
-        for (int i = 0; i < cmds.length; i++) {
-            Container.ExecResult er = container.execInContainer(new String[] { "mongo", "--eval", cmds[i] });
+    private void execScriptInContainer(String scriptFileName) throws Exception {
+        String script = IOUtils.toString(getClass().getResource("/" + scriptFileName), StandardCharsets.UTF_8);
+        String[] cmds = script.split("\\n\\n");
+        for (String cmd : cmds) {
+            Container.ExecResult er = container.execInContainer("mongo", "--eval", cmd);
+            if (er.getExitCode() != 0) {
+                LOG.errorf("Error executing MongoDB command: %s", cmd);
+            }
         }
     }
 
     @Override
     protected String getJdbcUrl() {
-        final String jdbcUrl = String.format("mongodb://%s:%s@%s:%d", DB_USERNAME, DB_PASSWORD, container.getHost(),
+        return String.format("mongodb://%s:%s@%s:%d", DB_USERNAME, DB_PASSWORD, container.getHost(),
                 container.getMappedPort(DB_PORT));
-
-        return jdbcUrl;
     }
 
     @Override

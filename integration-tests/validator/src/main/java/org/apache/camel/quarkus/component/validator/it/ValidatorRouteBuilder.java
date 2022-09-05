@@ -16,19 +16,53 @@
  */
 package org.apache.camel.quarkus.component.validator.it;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+
 import org.apache.camel.builder.RouteBuilder;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 public class ValidatorRouteBuilder extends RouteBuilder {
+
     @Override
     public void configure() {
+        // validator from the classpath resource
         from("direct:classpath")
                 .to("validator:message.xsd");
 
+        // validator from the filesytem
+        String xsdLocation = createTempXsd("message.xsd");
+
         from("direct:filesystem")
-                .to("validator:file:src/main/resources/message.xsd");
+                .to("validator:file:" + xsdLocation);
+        // validator from a http endpoint.
+        String serverURL = ConfigProvider.getConfig()
+                .getConfigValue("xsd.server-url")
+                .getRawValue();
 
         from("direct:http")
-                .toD("validator:https://raw.githubusercontent.com/apache/camel-quarkus/main/integration-tests/validator/src/main/resources/message.xsd");
+                .toD("validator:" + serverURL + "/xsd");
+
+    }
+
+    public String createTempXsd(String sourceXsd) {
+        Path tempXsd = null;
+        try (InputStream resourceAsStream = Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream(sourceXsd)) {
+            tempXsd = Files.createTempFile("temp", ".xsd");
+            Files.copy(resourceAsStream, tempXsd, StandardCopyOption.REPLACE_EXISTING);
+            return tempXsd.toAbsolutePath().toString();
+        } catch (IOException e) {
+            if (tempXsd != null) {
+                throw new RuntimeException("Could not read " + sourceXsd + " from classpath or copy it to " + tempXsd,
+                        e);
+            } else {
+                throw new RuntimeException("Failed to create a temp xsd file" + e);
+            }
+        }
 
     }
 }

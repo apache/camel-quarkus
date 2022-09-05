@@ -78,7 +78,7 @@ jobs:
             && ./mvnw ${MAVEN_ARGS} clean install -Dquickly
       - name: Build Camel Quarkus
         run: |
-          ./mvnw ${MAVEN_ARGS} clean install -Dquarkus.version=999-SNAPSHOT -pl '!docs' --fail-at-end
+          ./mvnw ${MAVEN_ARGS} clean install -Dquarkus.version=999-SNAPSHOT --fail-at-end
       - name: Tar Maven Repo
         shell: bash
         run: |
@@ -97,7 +97,7 @@ jobs:
           CATEGORIES=$(yq -M -N -I 0 -o=json e 'keys' tooling/scripts/test-categories.yaml | tr '"' "'")
           echo "::set-output name=matrix::{'category': ${CATEGORIES}}"
       - name: Report Build Failure
-        if: failure()
+        if: failure() || cancelled()
         run: |
           # Abort rebase in case something went wrong as we may have broken pom.xml files
           if [[ -e ".git/rebase" || -e ".git/rebase-apply" || -e ".git/rebase-merge" ]]; then
@@ -175,7 +175,7 @@ jobs:
               -pl "${NATIVE_MODULES[*]}"
           fi
       - name: Report Build Failure
-        if: failure()
+        if: failure() || cancelled()
         run: |
           ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=quarkus-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
 

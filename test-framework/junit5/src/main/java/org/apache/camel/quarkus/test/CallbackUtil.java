@@ -25,6 +25,7 @@ import java.util.function.Function;
 
 import org.apache.camel.component.mock.MockEndpoint;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.extension.ExecutableInvoker;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestInstances;
 import org.junit.jupiter.api.parallel.ExecutionMode;
@@ -160,6 +161,11 @@ public class CallbackUtil {
 
         @Override
         public ExecutionMode getExecutionMode() {
+            return null;
+        }
+
+        @Override
+        public ExecutableInvoker getExecutableInvoker() {
             return null;
         }
     }

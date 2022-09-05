@@ -70,7 +70,7 @@ jobs:
       - name: Setup apache-snapshots profile
         if: github.ref == 'refs/heads/camel-main' || github.base_ref == 'camel-main'
         run: |
-          echo "BRANCH_OPTIONS=-Papache-snapshots -pl '!docs'" >> $GITHUB_ENV
+          echo "BRANCH_OPTIONS=-Papache-snapshots" >> $GITHUB_ENV
       - name: Setup oss-snapshots profile
         if: github.ref == 'refs/heads/quarkus-main' || github.base_ref == 'quarkus-main'
         run: |
@@ -91,7 +91,7 @@ jobs:
         uses: actions/checkout@v2
       - name: mvn clean install -DskipTests
         run: |
-          eval ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} clean install -DskipTests -Dquarkus.build.skip -Dskip.installyarn -Dskip.yarn
+          eval ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} clean install -DskipTests -Dquarkus.build.skip
       - name: Sync Maven properties
         run: |
           ./mvnw cq:sync-versions ${MAVEN_ARGS} -N
@@ -193,7 +193,7 @@ jobs:
         run: |
           [[ -z $(git status --porcelain) ]] || { echo 'There are uncommitted changes'; git status; exit 1; }
 
-  functional-extension-tests-and-docs:
+  functional-extension-tests:
     runs-on: ubuntu-latest
     needs: initial-mvn-install
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.labels.*.name, 'JVM')
@@ -243,11 +243,10 @@ jobs:
           ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip -Dcamel-quarkus.update-extension-doc-page.skip \
             test
-      - name: cd docs && mvn verify
-        if: github.ref != 'refs/heads/camel-main' && github.base_ref != 'camel-main'
+      - name: cd tooling/perf-regression && mvn verify
         run: |
-          cd docs
-          ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
+          cd tooling/perf-regression
+          ../../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
             verify
 

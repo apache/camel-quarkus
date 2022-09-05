@@ -167,6 +167,14 @@ public class HttpResource {
                 .request(String.class);
     }
 
+    @Path("/http/operation/failed/exception")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String httpOperationFailedException() {
+        producerTemplate.to("direct:httpOperationFailedException").send();
+        return consumerTemplate.receiveBody("seda:dlq", 5000, String.class);
+    }
+
     @Path("/http/serialized/exception")
     @GET
     @Produces(MediaType.TEXT_PLAIN)

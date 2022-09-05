@@ -63,7 +63,7 @@ public class DebeziumMongodbResource extends AbstractDebeziumResource {
     }
 
     @Override
-    String getEndpoinUrl(String hostname, String port, String username, String password, String databaseServerName,
+    String getEndpointUrl(String hostname, String port, String username, String password, String databaseServerName,
             String offsetStorageFileName) {
         return Type.mongodb.getComponent() + ":localhost?"
                 + "offsetStorageFileName=" + offsetStorageFileName

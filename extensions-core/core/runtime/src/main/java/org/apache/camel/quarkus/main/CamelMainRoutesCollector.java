@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.main;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
@@ -25,9 +26,16 @@ import org.apache.camel.quarkus.core.RegistryRoutesLoader;
 
 public class CamelMainRoutesCollector extends DefaultRoutesCollector {
     private final RegistryRoutesLoader registryRoutesLoader;
+    private final Optional<List<String>> excludePatterns;
+    private final Optional<List<String>> includePatterns;
 
-    public CamelMainRoutesCollector(RegistryRoutesLoader registryRoutesLoader) {
+    public CamelMainRoutesCollector(
+            RegistryRoutesLoader registryRoutesLoader,
+            Optional<List<String>> excludePatterns,
+            Optional<List<String>> includePatterns) {
         this.registryRoutesLoader = registryRoutesLoader;
+        this.excludePatterns = excludePatterns;
+        this.includePatterns = includePatterns;
     }
 
     public RegistryRoutesLoader getRegistryRoutesLoader() {
@@ -40,6 +48,21 @@ public class CamelMainRoutesCollector extends DefaultRoutesCollector {
             String excludePattern,
             String includePattern) {
 
-        return registryRoutesLoader.collectRoutesFromRegistry(camelContext, excludePattern, includePattern);
+        /**
+         * The incoming excludePattern & includePattern are ignored since they are provided from camel-main via:
+         *
+         * camel.main.javaRoutesExcludePattern
+         * camel.main.javaRoutesIncludePattern
+         *
+         * The values for those properties are combined with the quarkus.camel.routes-discovery equivalents at build time.
+         */
+        return registryRoutesLoader.collectRoutesFromRegistry(
+                camelContext,
+                getPatternString(excludePatterns),
+                getPatternString(includePatterns));
+    }
+
+    private String getPatternString(Optional<List<String>> camelQuarkusPatterns) {
+        return camelQuarkusPatterns.map(patterns -> String.join(",", patterns)).orElse(null);
     }
 }

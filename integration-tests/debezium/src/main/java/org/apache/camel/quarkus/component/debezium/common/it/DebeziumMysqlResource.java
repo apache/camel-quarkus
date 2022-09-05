@@ -58,10 +58,10 @@ public class DebeziumMysqlResource extends AbstractDebeziumResource {
     }
 
     @Override
-    String getEndpoinUrl(String hostname, String port, String username, String password, String databaseServerName,
+    String getEndpointUrl(String hostname, String port, String username, String password, String databaseServerName,
             String offsetStorageFileName) {
         //use root user to get all required privileges
-        return super.getEndpoinUrl(hostname, port, DB_ROOT_USERNAME, password, databaseServerName, offsetStorageFileName)
+        return super.getEndpointUrl(hostname, port, DB_ROOT_USERNAME, password, databaseServerName, offsetStorageFileName)
                 //and add specific parameters
                 + "&databaseServerId=223344"
                 + "&databaseHistoryFileFilename=" + config.getValue(PROPERTY_DB_HISTORY_FILE, String.class);

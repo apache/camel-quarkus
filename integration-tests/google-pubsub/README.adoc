@@ -1,0 +1,21 @@
+== Google Pubsub integration tests
+
+=== Local container
+
+Google emulator differs a little bit from the real account.  For example there is a test which passes on local emulator but fails on real account (see an https://issues.apache.org/jira/browse/CAMEL-18277[issue] in Camel project).
+
+Tests are executed with local container, unless both `GOOGLE_APPLICATION_CREDENTIALS` and `GOOGLE_PROJECT_ID` properties are set.
+
+=== Real Google Pubsub
+
+To run the Google Pubsub client library, you must first set up authentication by creating a service account key.
+You can find more info in the https://cloud.google.com/pubsub/docs/reference/libraries#setting_up_authentication[documentation].
+Required permissions are to create/read/write the topics and subscriptions.
+There are several roles which contain all required permissions (for example `Pub/sub editor`).
+
+When you have the **service account key** you can provide authentication credentials and project id by setting both environment variables:
+
+```
+export GOOGLE_APPLICATION_CREDENTIALS="/home/user/Downloads/my-key.json"
+export GOOGLE_PROJECT_ID="#your_project"
+```

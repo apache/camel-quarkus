@@ -1,0 +1,8 @@
+                            Camel Quarkus Throughput Performance Increase Compared to Previous Version                             
+ Camel Quarkus version  |  Duration  |  JVM req/s [%increase]   |  Native req/s [%increase]  |               Status               |
+-----------------------------------------------------------------------------------------------------------------------------------
+                 2.6.0  |       10m  |   380.00 req/s [+0.00%]  |    1080.00 req/s [+0.00%]  |                                OK  |
+                 2.7.0  |       10m  |   390.00 req/s [+2.63%]  |    1134.00 req/s [+5.00%]  |                                OK  |
+                2.8.75  |       10m  |   370.50 req/s [-5.00%]  |    1134.00 req/s [+0.00%]  |  Potential performance regression  |
+                 2.9.0  |       10m  |   370.50 req/s [+0.00%]  |    250.00 req/s [-77.95%]  |  Potential performance regression  |
+                2.10.0  |       10m  |  333.45 req/s [-10.00%]  |    225.00 req/s [-10.00%]  |  Potential performance regression  |

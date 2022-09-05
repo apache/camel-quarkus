@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-build-parent-it</artifactId>
-        <version>2.12.0-SNAPSHOT</version>
+        <version>2.13.0-SNAPSHOT</version>
         <relativePath>../../poms/build-parent-it/pom.xml</relativePath>
     </parent>
 
@@ -70,9 +70,7 @@
             <artifactId>assertj-core</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
-
 
     <profiles>
         <profile>
@@ -81,9 +79,14 @@
                 <property>
                     <name>native</name>
                 </property>
+                <file>
+                    <exists>${env.GRAALVM_HOME}/bin/js</exists>
+                </file>
             </activation>
             <properties>
                 <quarkus.package.type>native</quarkus.package.type>
+                <!-- Force host only native builds since the docker builder image does not have GraalVM JS installed -->
+                <quarkus.native.container-build>false</quarkus.native.container-build>
                 <quarkus.native.additional-build-args>--language:js</quarkus.native.additional-build-args>
             </properties>
             <build>

@@ -62,15 +62,14 @@ public class CamelRoute extends RouteBuilder {
         rest("/api")
             // Dash '-' is not allowed by default
             .get("/dashed/param/{my-param}")
-            .route()
-                .setBody(constant("Hello World"))
-            .endRest()
+            .to("direct:greet")
 
             // The non-dashed path parameter works by default
             .get("/undashed/param/{myParam}")
-            .route()
-                .setBody(constant("Hello World"))
-            .endRest();
+            .to("direct:greet");
+
+            from("direct:greet")
+                .setBody(constant("Hello World"));
     }
 }
 ----

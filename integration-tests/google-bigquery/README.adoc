@@ -1,7 +1,8 @@
 == Camel Quarkus Google BigQuery Integration Tests
 
-To run Camel Google BigQuery integration tests, you need a valid https://cloud.google.com/[Google Cloud Platform] (GCP) account. Note that the GCP free tier & sandbox
-mode does not provide the required capabilities (streaming inserts & queries) that enable the tests to run successfully.
+=== Real service
+
+Note that the GCP free tier & sandbox mode does not provide the required capabilities (streaming inserts & queries) that enable the tests to run successfully.
 
 The simplest means of setting up authentication is via a https://cloud.google.com/docs/authentication/getting-started[service account]. Use the GCP UI to export
 a JSON representation of your credentials.
@@ -13,3 +14,38 @@ You should now set the following environment variables:
 export GOOGLE_APPLICATION_CREDENTIALS=/path/to/credentials.json
 export GOOGLE_PROJECT_ID=your-gcloud-project-id
 ----
+
+=== Wiremock
+
+Wiremocked backend is used for the tests if nor `GOOGLE_APPLICATION_CREDENTIALS` neither `GOOGLE_PROJECT_ID` is provided.
+
+Interaction with Google Cloud API was https://wiremock.org/docs/record-playback/[recorded] and saved into the folder`src/test/resources/mappings`.
+
+In case that a new test is created (or existing one upated) you can use special settings to help you capture a communication between the tests and Google Cloud API. Recoding is described in the https://wiremock.org/docs/record-playback/[Wiremock guide].
+
+
+==== Recording
+
+More details can be found in the `wiremock-support` extension.
+
+Quick guide:
+
+* Export both authentication properties required for the real account.
+
+[source,shell]
+----
+export GOOGLE_APPLICATION_CREDENTIALS=/path/to/credentials.json
+export GOOGLE_PROJECT_ID=your-gcloud-project-id
+----
+* Turn recording on by
+
+System property `-Dwiremock.record=true`
+
+Or
+
+Environment variable `WIREMOCK_RECORD=true`
+
+
+* Run the tests.
+* If the real project differs from `test-project`, please replace all text occurrences in the mapping files to the test one.
+* If you are recording the sql component, you have to manually replace all occurrences of the `jobId` to the jobId forced by the test.

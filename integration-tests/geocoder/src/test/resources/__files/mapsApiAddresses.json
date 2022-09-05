@@ -1,39 +1,39 @@
 {
    "plus_code" : {
-      "compound_code" : "P27Q+MC New York, NY, USA",
-      "global_code" : "87G8P27Q+MC"
+      "compound_code" : "RH2J+RGR Russian Hill, San Francisco, CA, USA",
+      "global_code" : "849VRH2J+RGR"
    },
    "results" : [
       {
          "address_components" : [
             {
-               "long_name" : "277",
-               "short_name" : "277",
+               "long_name" : "1037",
+               "short_name" : "1037",
                "types" : [ "street_number" ]
             },
             {
-               "long_name" : "Bedford Avenue",
-               "short_name" : "Bedford Ave",
+               "long_name" : "Lombard Street",
+               "short_name" : "Lombard St",
                "types" : [ "route" ]
             },
             {
-               "long_name" : "Williamsburg",
-               "short_name" : "Williamsburg",
+               "long_name" : "Russian Hill",
+               "short_name" : "Russian Hill",
                "types" : [ "neighborhood", "political" ]
             },
             {
-               "long_name" : "Brooklyn",
-               "short_name" : "Brooklyn",
-               "types" : [ "political", "sublocality", "sublocality_level_1" ]
+               "long_name" : "San Francisco",
+               "short_name" : "SF",
+               "types" : [ "locality", "political" ]
             },
             {
-               "long_name" : "Kings County",
-               "short_name" : "Kings County",
+               "long_name" : "San Francisco County",
+               "short_name" : "San Francisco County",
                "types" : [ "administrative_area_level_2", "political" ]
             },
             {
-               "long_name" : "New York",
-               "short_name" : "NY",
+               "long_name" : "California",
+               "short_name" : "CA",
                "types" : [ "administrative_area_level_1", "political" ]
             },
             {
@@ -42,66 +42,71 @@
                "types" : [ "country", "political" ]
             },
             {
-               "long_name" : "11211",
-               "short_name" : "11211",
+               "long_name" : "94109",
+               "short_name" : "94109",
                "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "1514",
+               "short_name" : "1514",
+               "types" : [ "postal_code_suffix" ]
             }
          ],
-         "formatted_address" : "277 Bedford Ave, Brooklyn, NY 11211, USA",
+         "formatted_address" : "1037 Lombard St, San Francisco, CA 94109, USA",
          "geometry" : {
             "location" : {
-               "lat" : 40.7142205,
-               "lng" : -73.9612903
+               "lat" : 37.8020935,
+               "lng" : -122.4187088
             },
             "location_type" : "ROOFTOP",
             "viewport" : {
                "northeast" : {
-                  "lat" : 40.71556948029149,
-                  "lng" : -73.95994131970849
+                  "lat" : 37.80344248029149,
+                  "lng" : -122.4173598197085
                },
                "southwest" : {
-                  "lat" : 40.7128715197085,
-                  "lng" : -73.9626392802915
+                  "lat" : 37.8007445197085,
+                  "lng" : -122.4200577802915
                }
             }
          },
-         "place_id" : "ChIJd8BlQ2BZwokRAFUEcm_qrcA",
+         "place_id" : "ChIJIdVMC-aAhYAR3-qzr2F0oxE",
          "plus_code" : {
-            "compound_code" : "P27Q+MF New York, NY, USA",
-            "global_code" : "87G8P27Q+MF"
+            "compound_code" : "RH2J+RG Russian Hill, San Francisco, CA, USA",
+            "global_code" : "849VRH2J+RG"
          },
          "types" : [ "street_address" ]
       },
       {
          "address_components" : [
             {
-               "long_name" : "279",
-               "short_name" : "279",
+               "long_name" : "1033",
+               "short_name" : "1033",
                "types" : [ "street_number" ]
             },
             {
-               "long_name" : "Bedford Avenue",
-               "short_name" : "Bedford Ave",
+               "long_name" : "Lombard Street",
+               "short_name" : "Lombard St",
                "types" : [ "route" ]
             },
             {
-               "long_name" : "Williamsburg",
-               "short_name" : "Williamsburg",
+               "long_name" : "Russian Hill",
+               "short_name" : "Russian Hill",
                "types" : [ "neighborhood", "political" ]
             },
             {
-               "long_name" : "Brooklyn",
-               "short_name" : "Brooklyn",
-               "types" : [ "political", "sublocality", "sublocality_level_1" ]
+               "long_name" : "San Francisco",
+               "short_name" : "SF",
+               "types" : [ "locality", "political" ]
             },
             {
-               "long_name" : "Kings County",
-               "short_name" : "Kings County",
+               "long_name" : "San Francisco County",
+               "short_name" : "San Francisco County",
                "types" : [ "administrative_area_level_2", "political" ]
             },
             {
-               "long_name" : "New York",
-               "short_name" : "NY",
+               "long_name" : "California",
+               "short_name" : "CA",
                "types" : [ "administrative_area_level_1", "political" ]
             },
             {
@@ -110,77 +115,77 @@
                "types" : [ "country", "political" ]
             },
             {
-               "long_name" : "11211",
-               "short_name" : "11211",
+               "long_name" : "94109",
+               "short_name" : "94109",
                "types" : [ "postal_code" ]
             },
             {
-               "long_name" : "4203",
-               "short_name" : "4203",
+               "long_name" : "1514",
+               "short_name" : "1514",
                "types" : [ "postal_code_suffix" ]
             }
          ],
-         "formatted_address" : "279 Bedford Ave, Brooklyn, NY 11211, USA",
+         "formatted_address" : "1033 Lombard St, San Francisco, CA 94109, USA",
          "geometry" : {
             "bounds" : {
                "northeast" : {
-                  "lat" : 40.7142628,
-                  "lng" : -73.96121309999999
+                  "lat" : 37.8020539,
+                  "lng" : -122.4185389
                },
                "southwest" : {
-                  "lat" : 40.7141534,
-                  "lng" : -73.9613792
+                  "lat" : 37.801908,
+                  "lng" : -122.4186779
                }
             },
             "location" : {
-               "lat" : 40.7142015,
-               "lng" : -73.96130769999999
+               "lat" : 37.801994,
+               "lng" : -122.4186099
             },
             "location_type" : "ROOFTOP",
             "viewport" : {
                "northeast" : {
-                  "lat" : 40.7155570802915,
-                  "lng" : -73.95994716970849
+                  "lat" : 37.8033299302915,
+                  "lng" : -122.4172594197085
                },
                "southwest" : {
-                  "lat" : 40.7128591197085,
-                  "lng" : -73.96264513029149
+                  "lat" : 37.8006319697085,
+                  "lng" : -122.4199573802915
                }
             }
          },
-         "place_id" : "ChIJRYYERGBZwokRAM4n1GlcYX4",
+         "place_id" : "ChIJvdcNC-aAhYARk3y6CuDhTmI",
          "types" : [ "premise" ]
       },
       {
          "address_components" : [
             {
-               "long_name" : "279",
-               "short_name" : "279",
+               "long_name" : "1065-1037",
+               "short_name" : "1065-1037",
                "types" : [ "street_number" ]
             },
             {
-               "long_name" : "Bedford Avenue",
-               "short_name" : "Bedford Ave",
+               "long_name" : "Lombard Street",
+               "short_name" : "Lombard St",
                "types" : [ "route" ]
             },
             {
-               "long_name" : "Williamsburg",
-               "short_name" : "Williamsburg",
+               "long_name" : "Russian Hill",
+               "short_name" : "Russian Hill",
                "types" : [ "neighborhood", "political" ]
             },
             {
-               "long_name" : "Brooklyn",
-               "short_name" : "Brooklyn",
-               "types" : [ "political", "sublocality", "sublocality_level_1" ]
+               "long_name" : "San Francisco",
+               "short_name" : "SF",
+               "types" : [ "locality", "political" ]
             },
             {
-               "long_name" : "Kings County",
-               "short_name" : "Kings County",
+               "long_name" : "San Francisco County",
+               "short_name" : "San Francisco County",
                "types" : [ "administrative_area_level_2", "political" ]
             },
             {
-               "long_name" : "New York",
-               "short_name" : "NY",
+               "long_name" : "California",
+               "short_name" : "CA",
                "types" : [ "administrative_area_level_1", "political" ]
             },
             {
@@ -189,137 +194,72 @@
                "types" : [ "country", "political" ]
             },
             {
-               "long_name" : "11211",
-               "short_name" : "11211",
+               "long_name" : "94109",
+               "short_name" : "94109",
                "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "1514",
+               "short_name" : "1514",
+               "types" : [ "postal_code_suffix" ]
             }
          ],
-         "formatted_address" : "279 Bedford Ave, Brooklyn, NY 11211, USA",
-         "geometry" : {
-            "location" : {
-               "lat" : 40.7142077,
-               "lng" : -73.96131149999999
-            },
-            "location_type" : "ROOFTOP",
-            "viewport" : {
-               "northeast" : {
-                  "lat" : 40.7155566802915,
-                  "lng" : -73.9599625197085
-               },
-               "southwest" : {
-                  "lat" : 40.7128587197085,
-                  "lng" : -73.9626604802915
-               }
-            }
-         },
-         "place_id" : "ChIJT2x8Q2BZwokRpBu2jUzX3dE",
-         "plus_code" : {
-            "compound_code" : "P27Q+MF New York, NY, USA",
-            "global_code" : "87G8P27Q+MF"
-         },
-         "types" : [
-            "bakery",
-            "cafe",
-            "establishment",
-            "food",
-            "point_of_interest",
-            "store"
-         ]
-      },
-      {
-         "address_components" : [
-            {
-               "long_name" : "291-275",
-               "short_name" : "291-275",
-               "types" : [ "street_number" ]
-            },
-            {
-               "long_name" : "Bedford Avenue",
-               "short_name" : "Bedford Ave",
-               "types" : [ "route" ]
-            },
-            {
-               "long_name" : "Williamsburg",
-               "short_name" : "Williamsburg",
-               "types" : [ "neighborhood", "political" ]
-            },
-            {
-               "long_name" : "Brooklyn",
-               "short_name" : "Brooklyn",
-               "types" : [ "political", "sublocality", "sublocality_level_1" ]
-            },
-            {
-               "long_name" : "Kings County",
-               "short_name" : "Kings County",
-               "types" : [ "administrative_area_level_2", "political" ]
-            },
-            {
-               "long_name" : "New York",
-               "short_name" : "NY",
-               "types" : [ "administrative_area_level_1", "political" ]
-            },
-            {
-               "long_name" : "United States",
-               "short_name" : "US",
-               "types" : [ "country", "political" ]
-            },
-            {
-               "long_name" : "11211",
-               "short_name" : "11211",
-               "types" : [ "postal_code" ]
-            }
-         ],
-         "formatted_address" : "291-275 Bedford Ave, Brooklyn, NY 11211, USA",
+         "formatted_address" : "1065-1037 Lombard St, San Francisco, CA 94109, USA",
          "geometry" : {
             "bounds" : {
                "northeast" : {
-                  "lat" : 40.7145065,
-                  "lng" : -73.9612923
+                  "lat" : 37.8021879,
+                  "lng" : -122.4187179
                },
                "southwest" : {
-                  "lat" : 40.7139055,
-                  "lng" : -73.96168349999999
+                  "lat" : 37.80204440000001,
+                  "lng" : -122.4188674
                }
             },
             "location" : {
-               "lat" : 40.7142045,
-               "lng" : -73.9614845
+               "lat" : 37.8021185,
+               "lng" : -122.4187926
             },
             "location_type" : "GEOMETRIC_CENTER",
             "viewport" : {
                "northeast" : {
-                  "lat" : 40.7155549802915,
-                  "lng" : -73.96013891970848
+                  "lat" : 37.80346513029151,
+                  "lng" : -122.4174436697085
                },
                "southwest" : {
-                  "lat" : 40.7128570197085,
-                  "lng" : -73.96283688029149
+                  "lat" : 37.80076716970851,
+                  "lng" : -122.4201416302915
                }
             }
          },
-         "place_id" : "ChIJ8ThWRGBZwokR3E1zUisk3LU",
+         "place_id" : "ChIJ_XFbc-aAhYARZES_43dJ1mk",
          "types" : [ "route" ]
       },
       {
          "address_components" : [
             {
-               "long_name" : "South Williamsburg",
-               "short_name" : "South Williamsburg",
+               "long_name" : "RH2J+RG",
+               "short_name" : "RH2J+RG",
+               "types" : [ "plus_code" ]
+            },
+            {
+               "long_name" : "Russian Hill",
+               "short_name" : "Russian Hill",
                "types" : [ "neighborhood", "political" ]
             },
             {
-               "long_name" : "Brooklyn",
-               "short_name" : "Brooklyn",
-               "types" : [ "political", "sublocality", "sublocality_level_1" ]
+               "long_name" : "San Francisco",
+               "short_name" : "SF",
+               "types" : [ "locality", "political" ]
             },
             {
-               "long_name" : "Kings County",
-               "short_name" : "Kings County",
+               "long_name" : "San Francisco County",
+               "short_name" : "San Francisco County",
                "types" : [ "administrative_area_level_2", "political" ]
             },
             {
-               "long_name" : "New York",
-               "short_name" : "NY",
+               "long_name" : "California",
+               "short_name" : "CA",
                "types" : [ "administrative_area_level_1", "political" ]
             },
             {
@@ -328,57 +268,120 @@
                "types" : [ "country", "political" ]
             }
          ],
-         "formatted_address" : "South Williamsburg, Brooklyn, NY, USA",
+         "formatted_address" : "RH2J+RG Russian Hill, San Francisco, CA, USA",
          "geometry" : {
             "bounds" : {
                "northeast" : {
-                  "lat" : 40.7167119,
-                  "lng" : -73.9420904
+                  "lat" : 37.802125,
+                  "lng" : -122.418625
                },
                "southwest" : {
-                  "lat" : 40.6984866,
-                  "lng" : -73.9699432
+                  "lat" : 37.802,
+                  "lng" : -122.41875
                }
             },
             "location" : {
-               "lat" : 40.7043921,
-               "lng" : -73.9565551
+               "lat" : 37.8021028,
+               "lng" : -122.41875
+            },
+            "location_type" : "GEOMETRIC_CENTER",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 37.80341148029149,
+                  "lng" : -122.4173385197085
+               },
+               "southwest" : {
+                  "lat" : 37.80071351970849,
+                  "lng" : -122.4200364802915
+               }
+            }
+         },
+         "place_id" : "GhIJ2AP3TavmQkARzMzMzMyaXsA",
+         "plus_code" : {
+            "compound_code" : "RH2J+RG Russian Hill, San Francisco, CA, USA",
+            "global_code" : "849VRH2J+RG"
+         },
+         "types" : [ "plus_code" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Russian Hill",
+               "short_name" : "Russian Hill",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "San Francisco",
+               "short_name" : "SF",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "San Francisco County",
+               "short_name" : "San Francisco County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "California",
+               "short_name" : "CA",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Russian Hill, San Francisco, CA, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 37.8051696,
+                  "lng" : -122.4100758
+               },
+               "southwest" : {
+                  "lat" : 37.7956699,
+                  "lng" : -122.4251094
+               }
+            },
+            "location" : {
+               "lat" : 37.8001413,
+               "lng" : -122.4192681
             },
             "location_type" : "APPROXIMATE",
             "viewport" : {
                "northeast" : {
-                  "lat" : 40.7167119,
-                  "lng" : -73.9420904
+                  "lat" : 37.8051696,
+                  "lng" : -122.4100758
                },
                "southwest" : {
-                  "lat" : 40.6984866,
-                  "lng" : -73.9699432
+                  "lat" : 37.7956699,
+                  "lng" : -122.4251094
                }
             }
          },
-         "place_id" : "ChIJR3_ODdlbwokRYtN19kNtcuk",
+         "place_id" : "ChIJdZaCGuaAhYARxWlcNTgaA-c",
          "types" : [ "neighborhood", "political" ]
       },
       {
          "address_components" : [
             {
-               "long_name" : "11211",
-               "short_name" : "11211",
+               "long_name" : "94109",
+               "short_name" : "94109",
                "types" : [ "postal_code" ]
             },
             {
-               "long_name" : "Brooklyn",
-               "short_name" : "Brooklyn",
-               "types" : [ "political", "sublocality", "sublocality_level_1" ]
-            },
-            {
-               "long_name" : "New York",
-               "short_name" : "New York",
+               "long_name" : "San Francisco",
+               "short_name" : "SF",
                "types" : [ "locality", "political" ]
             },
             {
-               "long_name" : "New York",
-               "short_name" : "NY",
+               "long_name" : "San Francisco County",
+               "short_name" : "San Francisco County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "California",
+               "short_name" : "CA",
                "types" : [ "administrative_area_level_1", "political" ]
             },
             {
@@ -387,214 +390,52 @@
                "types" : [ "country", "political" ]
             }
          ],
-         "formatted_address" : "Brooklyn, NY 11211, USA",
+         "formatted_address" : "San Francisco, CA 94109, USA",
          "geometry" : {
             "bounds" : {
                "northeast" : {
-                  "lat" : 40.7280089,
-                  "lng" : -73.9207299
+                  "lat" : 37.8128889,
+                  "lng" : -122.411699
                },
                "southwest" : {
-                  "lat" : 40.7008331,
-                  "lng" : -73.9644697
+                  "lat" : 37.7811169,
+                  "lng" : -122.4326081
                }
             },
             "location" : {
-               "lat" : 40.7093358,
-               "lng" : -73.9565551
+               "lat" : 37.7929789,
+               "lng" : -122.4212424
             },
             "location_type" : "APPROXIMATE",
             "viewport" : {
                "northeast" : {
-                  "lat" : 40.7280089,
-                  "lng" : -73.9207299
+                  "lat" : 37.8128889,
+                  "lng" : -122.411699
                },
                "southwest" : {
-                  "lat" : 40.7008331,
-                  "lng" : -73.9644697
+                  "lat" : 37.7811169,
+                  "lng" : -122.4326081
                }
             }
          },
-         "place_id" : "ChIJvbEjlVdZwokR4KapM3WCFRw",
+         "place_id" : "ChIJy0ilcOmAhYARCLOo6oZQNxk",
          "types" : [ "postal_code" ]
       },
       {
          "address_components" : [
             {
-               "long_name" : "Williamsburg",
-               "short_name" : "Williamsburg",
-               "types" : [ "neighborhood", "political" ]
-            },
-            {
-               "long_name" : "Brooklyn",
-               "short_name" : "Brooklyn",
-               "types" : [ "political", "sublocality", "sublocality_level_1" ]
-            },
-            {
-               "long_name" : "Kings County",
-               "short_name" : "Kings County",
-               "types" : [ "administrative_area_level_2", "political" ]
-            },
-            {
-               "long_name" : "New York",
-               "short_name" : "NY",
-               "types" : [ "administrative_area_level_1", "political" ]
-            },
-            {
-               "long_name" : "United States",
-               "short_name" : "US",
-               "types" : [ "country", "political" ]
-            }
-         ],
-         "formatted_address" : "Williamsburg, Brooklyn, NY, USA",
-         "geometry" : {
-            "bounds" : {
-               "northeast" : {
-                  "lat" : 40.7251773,
-                  "lng" : -73.936498
-               },
-               "southwest" : {
-                  "lat" : 40.6979329,
-                  "lng" : -73.96984499999999
-               }
-            },
-            "location" : {
-               "lat" : 40.7081156,
-               "lng" : -73.9570696
-            },
-            "location_type" : "APPROXIMATE",
-            "viewport" : {
-               "northeast" : {
-                  "lat" : 40.7251773,
-                  "lng" : -73.936498
-               },
-               "southwest" : {
-                  "lat" : 40.6979329,
-                  "lng" : -73.96984499999999
-               }
-            }
-         },
-         "place_id" : "ChIJQSrBBv1bwokRbNfFHCnyeYI",
-         "types" : [ "neighborhood", "political" ]
-      },
-      {
-         "address_components" : [
-            {
-               "long_name" : "Brooklyn",
-               "short_name" : "Brooklyn",
-               "types" : [ "political", "sublocality", "sublocality_level_1" ]
-            },
-            {
-               "long_name" : "Kings County",
-               "short_name" : "Kings County",
-               "types" : [ "administrative_area_level_2", "political" ]
-            },
-            {
-               "long_name" : "New York",
-               "short_name" : "NY",
-               "types" : [ "administrative_area_level_1", "political" ]
-            },
-            {
-               "long_name" : "United States",
-               "short_name" : "US",
-               "types" : [ "country", "political" ]
-            }
-         ],
-         "formatted_address" : "Brooklyn, NY, USA",
-         "geometry" : {
-            "bounds" : {
-               "northeast" : {
-                  "lat" : 40.739446,
-                  "lng" : -73.83336509999999
-               },
-               "southwest" : {
-                  "lat" : 40.551042,
-                  "lng" : -74.05663
-               }
-            },
-            "location" : {
-               "lat" : 40.6781784,
-               "lng" : -73.94415789999999
-            },
-            "location_type" : "APPROXIMATE",
-            "viewport" : {
-               "northeast" : {
-                  "lat" : 40.739446,
-                  "lng" : -73.83336509999999
-               },
-               "southwest" : {
-                  "lat" : 40.551042,
-                  "lng" : -74.05663
-               }
-            }
-         },
-         "place_id" : "ChIJCSF8lBZEwokRhngABHRcdoI",
-         "types" : [ "political", "sublocality", "sublocality_level_1" ]
-      },
-      {
-         "address_components" : [
-            {
-               "long_name" : "Kings County",
-               "short_name" : "Kings County",
-               "types" : [ "administrative_area_level_2", "political" ]
-            },
-            {
-               "long_name" : "Brooklyn",
-               "short_name" : "Brooklyn",
-               "types" : [ "political", "sublocality", "sublocality_level_1" ]
-            },
-            {
-               "long_name" : "New York",
-               "short_name" : "NY",
-               "types" : [ "administrative_area_level_1", "political" ]
-            },
-            {
-               "long_name" : "United States",
-               "short_name" : "US",
-               "types" : [ "country", "political" ]
-            }
-         ],
-         "formatted_address" : "Kings County, Brooklyn, NY, USA",
-         "geometry" : {
-            "bounds" : {
-               "northeast" : {
-                  "lat" : 40.739446,
-                  "lng" : -73.83336509999999
-               },
-               "southwest" : {
-                  "lat" : 40.551042,
-                  "lng" : -74.05663
-               }
-            },
-            "location" : {
-               "lat" : 40.6528762,
-               "lng" : -73.95949399999999
-            },
-            "location_type" : "APPROXIMATE",
-            "viewport" : {
-               "northeast" : {
-                  "lat" : 40.739446,
-                  "lng" : -73.83336509999999
-               },
-               "southwest" : {
-                  "lat" : 40.551042,
-                  "lng" : -74.05663
-               }
-            }
-         },
-         "place_id" : "ChIJOwE7_GTtwokRs75rhW4_I6M",
-         "types" : [ "administrative_area_level_2", "political" ]
-      },
-      {
-         "address_components" : [
-            {
-               "long_name" : "New York",
-               "short_name" : "New York",
+               "long_name" : "San Francisco",
+               "short_name" : "SF",
                "types" : [ "locality", "political" ]
             },
             {
-               "long_name" : "New York",
-               "short_name" : "NY",
+               "long_name" : "San Francisco County",
+               "short_name" : "San Francisco County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "California",
+               "short_name" : "CA",
                "types" : [ "administrative_area_level_1", "political" ]
             },
             {
@@ -603,47 +444,47 @@
                "types" : [ "country", "political" ]
             }
          ],
-         "formatted_address" : "New York, NY, USA",
+         "formatted_address" : "San Francisco, CA, USA",
          "geometry" : {
             "bounds" : {
                "northeast" : {
-                  "lat" : 40.9175771,
-                  "lng" : -73.70027209999999
+                  "lat" : 37.9298239,
+                  "lng" : -122.28178
                },
                "southwest" : {
-                  "lat" : 40.4773991,
-                  "lng" : -74.25908989999999
+                  "lat" : 37.6398299,
+                  "lng" : -123.173825
                }
             },
             "location" : {
-               "lat" : 40.7127753,
-               "lng" : -74.0059728
+               "lat" : 37.7749295,
+               "lng" : -122.4194155
             },
             "location_type" : "APPROXIMATE",
             "viewport" : {
                "northeast" : {
-                  "lat" : 40.9175771,
-                  "lng" : -73.70027209999999
+                  "lat" : 37.9298239,
+                  "lng" : -122.28178
                },
                "southwest" : {
-                  "lat" : 40.4773991,
-                  "lng" : -74.25908989999999
+                  "lat" : 37.6398299,
+                  "lng" : -123.173825
                }
             }
          },
-         "place_id" : "ChIJOwg_06VPwokRYv534QaPC8g",
+         "place_id" : "ChIJIQBpAG2ahYAR_6128GcTUEo",
          "types" : [ "locality", "political" ]
       },
       {
          "address_components" : [
             {
-               "long_name" : "Long Island",
-               "short_name" : "Long Island",
-               "types" : [ "establishment", "natural_feature" ]
+               "long_name" : "San Francisco County",
+               "short_name" : "San Francisco County",
+               "types" : [ "administrative_area_level_2", "political" ]
             },
             {
-               "long_name" : "New York",
-               "short_name" : "NY",
+               "long_name" : "California",
+               "short_name" : "CA",
                "types" : [ "administrative_area_level_1", "political" ]
             },
             {
@@ -652,42 +493,42 @@
                "types" : [ "country", "political" ]
             }
          ],
-         "formatted_address" : "Long Island, New York, USA",
+         "formatted_address" : "San Francisco County, CA, USA",
          "geometry" : {
             "bounds" : {
                "northeast" : {
-                  "lat" : 41.1612401,
-                  "lng" : -71.85620109999999
+                  "lat" : 37.9298239,
+                  "lng" : -122.28178
                },
                "southwest" : {
-                  "lat" : 40.5429789,
-                  "lng" : -74.0419497
+                  "lat" : 37.6398299,
+                  "lng" : -123.173825
                }
             },
             "location" : {
-               "lat" : 40.789142,
-               "lng" : -73.13496099999999
+               "lat" : 37.7749073,
+               "lng" : -122.4193878
             },
             "location_type" : "APPROXIMATE",
             "viewport" : {
                "northeast" : {
-                  "lat" : 41.1612401,
-                  "lng" : -71.85620109999999
+                  "lat" : 37.9298239,
+                  "lng" : -122.28178
                },
                "southwest" : {
-                  "lat" : 40.5429789,
-                  "lng" : -74.0419497
+                  "lat" : 37.6398299,
+                  "lng" : -123.173825
                }
             }
          },
-         "place_id" : "ChIJy6Xu4VRE6IkRGA2UhmH59x0",
-         "types" : [ "establishment", "natural_feature" ]
+         "place_id" : "ChIJIQBpAG2ahYARUksNqd0_1h8",
+         "types" : [ "administrative_area_level_2", "political" ]
       },
       {
          "address_components" : [
             {
-               "long_name" : "New York",
-               "short_name" : "NY",
+               "long_name" : "California",
+               "short_name" : "CA",
                "types" : [ "administrative_area_level_1", "political" ]
             },
             {
@@ -696,35 +537,35 @@
                "types" : [ "country", "political" ]
             }
          ],
-         "formatted_address" : "New York, USA",
+         "formatted_address" : "California, USA",
          "geometry" : {
             "bounds" : {
                "northeast" : {
-                  "lat" : 45.015861,
-                  "lng" : -71.777491
+                  "lat" : 42.0095169,
+                  "lng" : -114.131211
                },
                "southwest" : {
-                  "lat" : 40.4773991,
-                  "lng" : -79.7625901
+                  "lat" : 32.528832,
+                  "lng" : -124.482003
                }
             },
             "location" : {
-               "lat" : 43.2994285,
-               "lng" : -74.21793260000001
+               "lat" : 36.778261,
+               "lng" : -119.4179324
             },
             "location_type" : "APPROXIMATE",
             "viewport" : {
                "northeast" : {
-                  "lat" : 45.015861,
-                  "lng" : -71.777491
+                  "lat" : 42.0095169,
+                  "lng" : -114.131211
                },
                "southwest" : {
-                  "lat" : 40.4773991,
-                  "lng" : -79.7625901
+                  "lat" : 32.528832,
+                  "lng" : -124.482003
                }
             }
          },
-         "place_id" : "ChIJqaUj8fBLzEwRZ5UY3sHGz90",
+         "place_id" : "ChIJPV4oX_65j4ARVW8IJ6IJUYs",
          "types" : [ "administrative_area_level_1", "political" ]
       },
       {

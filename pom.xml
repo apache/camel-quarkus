@@ -28,7 +28,7 @@
 
     <groupId>org.apache.camel.quarkus</groupId>
     <artifactId>camel-quarkus</artifactId>
-    <version>2.12.0-SNAPSHOT</version>
+    <version>2.13.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Camel Quarkus</name>
@@ -50,7 +50,7 @@
         <optaplanner.version>8.24.1.Final</optaplanner.version><!-- May go back to Camel's ${optaplanner-version} when they are in sync https://repo1.maven.org/maven2/org/optaplanner/optaplanner-quarkus/ -->
         <quarkiverse-amazonservices.version>1.1.2</quarkiverse-amazonservices.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/amazonservices/quarkus-amazon-services-parent/ -->
         <quarkiverse-artemis.version>1.2.0</quarkiverse-artemis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/artemis/quarkus-artemis-parent/ -->
-        <quarkiverse-cxf.version>1.4.0</quarkiverse-cxf.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/cxf/quarkus-cxf-parent/ -->
+        <quarkiverse-cxf.version>1.5.0</quarkiverse-cxf.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/cxf/quarkus-cxf-parent/ -->
         <quarkiverse-freemarker.version>0.3.0</quarkiverse-freemarker.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/freemarker/quarkus-freemarker-parent/ -->
         <quarkiverse-jackson-jq.version>1.1.0</quarkiverse-jackson-jq.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jackson-jq/quarkus-jackson-jq-parent/ -->
         <quarkiverse-jgit.version>2.1.0</quarkiverse-jgit.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jgit/quarkus-jgit-parent/ -->
@@ -58,7 +58,7 @@
         <quarkiverse-minio.version>2.9.1</quarkiverse-minio.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/minio/quarkus-minio-parent/ -->
         <quarkiverse-mybatis.version>1.0.4</quarkiverse-mybatis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/mybatis/quarkus-mybatis-parent/ -->
         <quarkiverse-tika.version>1.0.3</quarkiverse-tika.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/tika/quarkus-tika-parent/ -->
-        <quarkus.version>2.11.1.Final</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
+        <quarkus.version>2.12.0.Final</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
         <quarkus-hazelcast-client.version>3.0.0</quarkus-hazelcast-client.version><!-- https://repo1.maven.org/maven2/com/hazelcast/quarkus-hazelcast-client-bom/ -->
         <quarkus-qpid-jms.version>0.36.0</quarkus-qpid-jms.version><!-- https://repo1.maven.org/maven2/org/amqphub/quarkus/quarkus-qpid-jms-bom/ -->
 
@@ -86,13 +86,13 @@
         <cxf.version>3.5.3</cxf.version><!-- @sync io.quarkiverse.cxf:quarkus-cxf-parent:${quarkiverse-cxf.version} prop:cxf.version -->
         <cxf.xjc-utils.version>3.3.2</cxf.xjc-utils.version><!-- @sync org.apache.cxf:cxf:${cxf.version} prop:cxf.xjc-utils.version -->
         <eddsa.version>${eddsa-version}</eddsa.version>
-        <ehcache.version>${ehcache3-version}</ehcache.version><!-- Remove once we import quarkus-cxf-bom https://github.com/apache/camel-quarkus/issues/3983 -->
+        <ehcache.version>3.10.1</ehcache.version><!-- @sync io.quarkiverse.cxf:quarkus-cxf-parent:${quarkiverse-cxf.version} prop:ehcache.version -->
         <freemarker.version>2.3.31</freemarker.version><!-- @sync io.quarkiverse.freemarker:quarkus-freemarker-parent:${quarkiverse-freemarker.version} prop:freemarker.version -->
         <geny.version>0.6.2</geny.version>
         <github-api.version>1.111</github-api.version><!-- Used in a Groovy script bellow -->
         <google-auth-library-credentials.version>1.7.0</google-auth-library-credentials.version><!-- TODO: Revert back to using Camel's version when gRPC versions are in sync -->
-        <graalvm.version>22.1.0</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.sdk:graal-sdk -->
-        <grpc.version>1.47.0</grpc.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.grpc:grpc-core -->
+        <graalvm.version>22.2.0</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.sdk:graal-sdk -->
+        <grpc.version>1.48.1</grpc.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.grpc:grpc-core -->
         <hapi.version>${hapi-version}</hapi.version>
         <hapi-fhir.version>${hapi-fhir-version}</hapi-fhir.version>
         <hbase.version>${hbase-version}</hbase.version>
@@ -115,9 +115,9 @@
         <jna-platform.version>5.6.0</jna-platform.version><!-- @sync com.azure:azure-identity:${azure-identity-version} dep:net.java.dev.jna:jna-platform -->
         <jnr-ffi.version>2.1.2</jnr-ffi.version><!-- Mess in web3j transitive deps -->
         <json-smart.version>2.4.7</json-smart.version>
-        <kafka.version>3.1.0</kafka.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.kafka:kafka-clients -->
+        <kafka.version>3.2.1</kafka.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.kafka:kafka-clients -->
         <kudu.version>${kudu-version}</kudu.version>
-        <kotlin.version>1.6.21</kotlin.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.jetbrains.kotlin:kotlin-stdlib -->
+        <kotlin.version>1.7.10</kotlin.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.jetbrains.kotlin:kotlin-stdlib -->
         <kryo.version>2.24.0</kryo.version><!-- @sync org.apache.flink:flink-core:${flink-version} dep:com.esotericsoftware.kryo:kryo -->
         <libthrift.version>${libthrift-version}</libthrift.version> <!-- Spark -->
         <msal4j.version>1.12.0</msal4j.version><!-- @sync com.azure:azure-identity:${azure-identity-version} dep:com.microsoft.azure:msal4j -->
@@ -161,7 +161,7 @@
         <sshd.version>${sshd-version}</sshd.version>
         <stax2.version>4.2</stax2.version>
         <wiremock.version>2.27.2</wiremock.version>
-        <zt-exec.version>1.11</zt-exec.version>
+        <zt-exec.version>1.12</zt-exec.version>
 
         <!-- Tooling dependency versions (keep sorted alphabetically) -->
         <maven-utils.version>0.1.0</maven-utils.version>
@@ -735,6 +735,7 @@
                                                 <exclude>org.apache.geronimo.specs:geronimo-jta_1.1_spec</exclude><!-- use jakarta.transaction:jakarta.transaction-api instead -->
                                                 <exclude>org.apache.geronimo.specs:geronimo-jta_1.2_spec</exclude><!-- use jakarta.transaction:jakarta.transaction-api instead -->
                                                 <exclude>org.glassfish.main.transaction:javax.transaction</exclude><!-- use jakarta.transaction:jakarta.transaction-api instead -->
+                                                <exclude>org.apache.camel:camel-directvm</exclude><!-- dismiss; the functionality is provided by JBoss Log Manager provided via quarkus-core -->
                                                 <!-- Note that log4j-api should be always excluded and org.jboss.logmanager:log4j2-jboss-logmanager added instead -->
                                                 <!-- so that the version of log4j-api prefered by log4j2-jboss-logmanager is used -->
                                                 <exclude>org.apache.logging.log4j:log4j-core</exclude><!-- not needed on Quarkus -->

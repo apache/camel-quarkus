@@ -26,7 +26,7 @@
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus</artifactId>
         <!-- The parent version will be set programmatically -->
-        <version/>
+        <version />
     </parent>
     <artifactId>cq-perf-regression-sample</artifactId>
     <properties>
@@ -39,8 +39,8 @@
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
     </properties>
     <!-- The repositories will be set programmatically, if needed -->
-    <pluginRepositories/>
-    <repositories/>
+    <pluginRepositories />
+    <repositories />
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -112,6 +112,63 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>${build-helper-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>reserve-network-port</id>
+                        <goals>
+                            <goal>reserve-network-port</goal>
+                        </goals>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <portNames>
+                                <portName>quarkus.http.port</portName>
+                            </portNames>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>set-http-host-and-port-in-hyperfoil-benchmark</id>
+                        <phase>pre-integration-test</phase>
+                        <configuration>
+                            <target>
+                                <replaceregexp
+                                    file="cq-perf-regression-scenario.hf.yaml"
+                                    match="^([ ]*host: http://localhost:)[0-9]*$"
+                                    replace="\1${quarkus.http.port}"
+                                    flags="m" />
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>wait-for-quarkus-app-to-listen-on-reserved-port</id>
+                        <phase>integration-test</phase>
+                        <configuration>
+                            <target>
+                                <waitfor maxwait="10"
+                                    maxwaitunit="second">
+                                    <socket server="localhost"
+                                        port="${quarkus.http.port}" />
+                                </waitfor>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <!-- Start the quarkus app under test async, will be killed when maven stops-->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -126,29 +183,6 @@
                 <configuration>
                     <async>true</async>
                 </configuration>
-            </plugin>
-            <plugin>
-                <!-- Wait the quarkus app under test to be listening on port 8080 -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>wait-for-quarkus-app-to-listen-on-port</id>
-                        <phase>integration-test</phase>
-                        <configuration>
-                            <target>
-                                <waitfor maxwait="10"
-                                    maxwaitunit="second">
-                                    <socket server="localhost"
-                                        port="8080" />
-                                </waitfor>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>io.hyperfoil</groupId>
@@ -203,6 +237,9 @@
                         <artifactId>exec-maven-plugin</artifactId>
                         <configuration>
                             <executable>target/cq-perf-regression-sample-${project.version}-runner</executable>
+                            <arguments>
+                                <argument>-Dquarkus.http.port=${quarkus.http.port}</argument>
+                            </arguments>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -226,6 +263,7 @@
                         <configuration>
                             <executable>java</executable>
                             <arguments>
+                                <argument>-Dquarkus.http.port=${quarkus.http.port}</argument>
                                 <argument>-jar</argument>
                                 <argument>target/quarkus-app/quarkus-run.jar</argument>
                             </arguments>

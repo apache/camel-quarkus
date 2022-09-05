@@ -22,8 +22,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
+import org.apache.camel.Exchange;
+import org.apache.camel.component.jpa.Consumed;
+import org.apache.camel.component.jpa.PreConsumed;
+
 @Entity
-@NamedQuery(name = "findWithId", query = "SELECT f FROM Fruit f WHERE f.id = :fruitId")
+@NamedQuery(name = "findByName", query = "SELECT f FROM Fruit f WHERE f.name = :fruitName")
+@NamedQuery(name = "unprocessed", query = "SELECT f FROM Fruit f WHERE f.processed = false")
 public class Fruit {
 
     @Id
@@ -32,6 +37,8 @@ public class Fruit {
 
     @Column(length = 50, unique = true)
     private String name;
+
+    private Boolean processed = false;
 
     public Fruit() {
     }
@@ -56,4 +63,24 @@ public class Fruit {
         this.name = name;
     }
 
+    public Boolean getProcessed() {
+        return processed;
+    }
+
+    public void setProcessed(Boolean processed) {
+        this.processed = processed;
+    }
+
+    @PreConsumed
+    public void preConsumed(Exchange exchange) {
+        exchange.getMessage().setHeader("preConsumed", true);
+    }
+
+    @Consumed
+    public void consumed(Exchange exchange) {
+        if (processed) {
+            throw new AssertionError("The entity has already been processed!");
+        }
+        setProcessed(true);
+    }
 }

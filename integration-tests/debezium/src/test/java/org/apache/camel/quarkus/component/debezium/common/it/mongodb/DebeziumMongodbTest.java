@@ -32,7 +32,6 @@ import org.apache.camel.quarkus.component.debezium.common.it.Type;
 import org.bson.Document;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.jboss.logging.Logger;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -52,11 +51,9 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 @QuarkusTestResource(DebeziumMongodbTestResource.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class DebeziumMongodbTest extends AbstractDebeziumTest {
-    private static final Logger LOG = Logger.getLogger(DebeziumMongodbTest.class);
-
     private static MongoClient mongoClient;
 
-    private static MongoCollection companies;
+    private static MongoCollection<Document> companies;
 
     public DebeziumMongodbTest() {
         super(Type.mongodb);

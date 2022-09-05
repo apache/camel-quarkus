@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.component.http.it;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 
 import javax.inject.Named;
@@ -26,6 +24,7 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.http.base.HttpOperationFailedException;
 import org.apache.camel.support.jsse.KeyManagersParameters;
 import org.apache.camel.support.jsse.KeyStoreParameters;
 import org.apache.camel.support.jsse.SSLContextParameters;
@@ -43,6 +42,18 @@ public class HttpRoute extends RouteBuilder {
 
         from("netty-http:http://0.0.0.0:{{camel.netty-http.compression-test-port}}/compressed?compression=true")
                 .transform().constant("Netty Hello World Compressed");
+
+        from("direct:httpOperationFailedException")
+                .onException(HttpOperationFailedException.class)
+                .handled(true)
+                .setBody().constant("Handled HttpOperationFailedException")
+                .to("seda:dlq")
+                .end()
+                .to("http://localhost:{{camel.netty-http.test-port}}/test/server/error");
+
+        from("netty-http:http://0.0.0.0:{{camel.netty-http.test-port}}/test/server/error")
+                .removeHeaders("CamelHttp*")
+                .setHeader(Exchange.HTTP_RESPONSE_CODE).constant(500);
 
         from("netty-http:http://0.0.0.0:{{camel.netty-http.https-test-port}}/countries/cz?ssl=true&sslContextParameters=#sslContextParameters")
                 .process(new Processor() {
@@ -62,6 +73,7 @@ public class HttpRoute extends RouteBuilder {
                 .staticServiceDiscovery()
                 .servers("myService@localhost:{{camel.netty-http.test-port}}")
                 .end();
+
         from("netty-http:http://0.0.0.0:{{camel.netty-http.test-port}}/test/server/myService")
                 .transform().constant("Hello from myService");
 
@@ -89,26 +101,4 @@ public class HttpRoute extends RouteBuilder {
 
         return sslContextParameters;
     }
-
-    private static byte[] readStore(String path) throws IOException {
-        byte[] data = null;
-        final InputStream resource = HttpRoute.class.getResourceAsStream(path);
-        if (resource != null) {
-            try (InputStream is = resource) {
-                data = inputStreamToBytes(is);
-            }
-        }
-        return data;
-    }
-
-    private static byte[] inputStreamToBytes(InputStream is) throws IOException {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        byte[] buf = new byte[1024];
-        int r;
-        while ((r = is.read(buf)) > 0) {
-            out.write(buf, 0, r);
-        }
-        return out.toByteArray();
-    }
-
 }

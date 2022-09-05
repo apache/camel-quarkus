@@ -67,6 +67,49 @@ $ mvn deploy -Papache-release -DskipTests -Denforcer.skip -Dquarkus.build.skip -
 * This will close the repository from future deployments and make it available for others to view
 * After that, a popup window is created, enter the name and version of the artifact being released in the `Description` field and finally click `Close`
 
+== Collect the performance regression report
+
+Once the staging repository has been closed, run the `perf-regression` tool in order to compare the current staging against the previous released version.
+
+It's important that the machine running the `perf-regression` tool be equally loaded during the run.
+The simplest way would be to take a 1 hour slot at the end of the day, launch the tool on your main station and then lock the screen.
+
+For instance, running the tool to compare the `2.10.0` staging release against the `2.9.0` previous release would look as below:
+
+[source,shell]
+----
+$ cd tooling/perf-regression
+$ java -jar target/quarkus-app/quarkus-run.jar -an 2.9.0 2.10.0
+----
+
+After approximatively 1 hour, it should generate a report like below:
+
+[source,shell]
+----
+ Camel Quarkus version  |  Duration  |   JVM req/s [%increase]   |  Native req/s [%increase]  |  Status  |
+ ---------------------------------------------------------------------------------------------------------
+                 2.9.0  |       10m  |  16127.95 req/s [+0.00%]  |    9421.92 req/s [+0.00%]  |      OK  |
+                2.10.0  |       10m  |  15334.57 req/s [-4.92%]  |    9044.55 req/s [-4.01%]  |      OK  |
+----
+
+Copy/paste the generated report into issue https://github.com/apache/camel-quarkus/issues/4012[CAMEL-QUARKUS-4012].
+
+The `perf-regression` tool has some options that could come in handy if one needs to:
+
+* Specify the camel-quarkus staging repository url, e.g. when doing the release from a machine and checking regression from another
+* Specify the camel staging repository url, e.g. when the camel release is still under vote
+* Perform regression tests in JVM mode only, e.g. on machine where `quarkus.native.container-build` could not be used
+* Run longer tests, e.g. to confirm that a potential regression detected with 10 minutes long scenarios remains with 1h long scenarios
+* Run shorter tests, e.g. to have quick feedback when trying to tune the `perf-regression` tool options
+
+For more details about options, please run:
+
+[source,shell]
+----
+$ cd tooling/perf-regression
+$ java -jar target/quarkus-app/quarkus-run.jar --help
+----
+
 == Next version in Camel Quarkus main branch
 
 If there are no substantial commits in the release branch, which need to get merged/cherry-picked to `main`, you can

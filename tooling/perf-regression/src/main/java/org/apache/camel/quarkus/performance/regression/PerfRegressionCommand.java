@@ -20,6 +20,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RegExUtils;
@@ -29,6 +32,8 @@ import picocli.CommandLine.Parameters;
 
 @picocli.CommandLine.Command(description = "Run a performance test against a list of Camel Quarkus versions and print a report")
 public class PerfRegressionCommand implements Runnable {
+
+    private static NumberFormat US_NUMBER_FORMAT = NumberFormat.getInstance(Locale.US);
 
     private static Path PERF_SAMPLE_TEMPLATE_FOLDER = Paths.get("cq-perf-regression-sample-base");
 
@@ -113,8 +118,14 @@ public class PerfRegressionCommand implements Runnable {
         String stdout = MvnwCmdHelper.execute(cqVersionUnderTestFolder, args);
 
         // Extract the throughput from a log line like "15:26:23,110 INFO  (main) [i.h.m.RunMojo] Requests/sec: 1153.56"
-        String throughput = RegExUtils.replacePattern(stdout, ".*RunMojo] Requests/sec: ([0-9.,]+).*", "$1");
-        return Double.parseDouble(throughput);
+        String throughput = RegExUtils.replacePattern(stdout, ".*RunMojo] Requests/sec: ([0-9.]+).*", "$1");
+
+        try {
+            return US_NUMBER_FORMAT.parse(throughput).doubleValue();
+        } catch (ParseException pex) {
+            throw new RuntimeException(
+                    "An issue occured while parsing the mean throughput measured by the hyperfoil-maven-plugin", pex);
+        }
     }
 
 }

@@ -21,3 +21,21 @@ System property `-Dwiremock.record=true`
 Or
 
 Set environment variable `WIREMOCK_RECORD=true`
+
+Be sure to replace the occurrences of the Google API key in the mappings files with the fake API key "AIzaFakeKey".
+
+The Nominatim tests do not use Wiremock, so the `*.json` files in `src/main/resources` will have to be updated by calling the Nominatim API directly.
+
+If the address look-up has changed, the `nominatimSearch.json` file needs to be updated:
+[source,shell]
+----
+$ curl "https://nominatim.openstreetmap.org/search?q=calle+marie+curie,+sevilla,+sevilla&format=jsonv2&addressdetails=1&limit=1" \
+  | jq > src/main/resources/nominatimSearch.json
+----
+
+If the lat/lon coordinates have changed, the `nominatimReverse.json` file needs to be updated. For example:
+[source,shell]
+----
+$ curl "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=37.8021028&lon=-122.41875" \
+  | jq > src/main/resources/nominatimReverse.json
+----

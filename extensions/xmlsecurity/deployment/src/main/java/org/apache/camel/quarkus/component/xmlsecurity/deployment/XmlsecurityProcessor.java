@@ -16,26 +16,9 @@
  */
 package org.apache.camel.quarkus.component.xmlsecurity.deployment;
 
-import java.util.stream.Stream;
-
-import javax.crypto.spec.GCMParameterSpec;
-import javax.xml.crypto.dsig.spec.XPathType;
-
-import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageSecurityProviderBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
-import org.apache.jcp.xml.dsig.internal.dom.XMLDSigRI;
-import org.apache.xml.security.c14n.CanonicalizerSpi;
-import org.apache.xml.security.stax.ext.XMLSecurityConstants;
-import org.apache.xml.security.transforms.TransformSpi;
-import org.jboss.jandex.DotName;
-import org.jboss.jandex.IndexView;
 
 class XmlsecurityProcessor {
 
@@ -51,39 +34,4 @@ class XmlsecurityProcessor {
         return new ExtensionSslNativeSupportBuildItem(FEATURE);
     }
 
-    @BuildStep
-    IndexDependencyBuildItem indexDependencies() {
-        return new IndexDependencyBuildItem("org.apache.santuario", "xmlsec");
-    }
-
-    @BuildStep
-    void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass, CombinedIndexBuildItem combinedIndex) {
-        IndexView index = combinedIndex.getIndex();
-
-        Stream.of(CanonicalizerSpi.class, TransformSpi.class)
-                .map(aClass -> aClass.getName())
-                .map(DotName::createSimple)
-                .flatMap(dotName -> index.getAllKnownSubclasses(dotName).stream())
-                .map(classInfo -> classInfo.name().toString())
-                .map(className -> new ReflectiveClassBuildItem(false, false, className))
-                .forEach(reflectiveClass::produce);
-
-        Stream.of(GCMParameterSpec.class.getName(), XPathType[].class.getName())
-                .map(className -> new ReflectiveClassBuildItem(false, false, className))
-                .forEach(reflectiveClass::produce);
-    }
-
-    @BuildStep
-    void runtimeReinitializedClasses(BuildProducer<RuntimeReinitializedClassBuildItem> runtimeReinitializedClasses) {
-        Stream.of(
-                /* XMLSecurityConstants has a SecureRandom field initialized in a static initializer */
-                XMLSecurityConstants.class.getName())
-                .map(RuntimeReinitializedClassBuildItem::new)
-                .forEach(runtimeReinitializedClasses::produce);
-    }
-
-    @BuildStep
-    NativeImageSecurityProviderBuildItem saslSecurityProvider() {
-        return new NativeImageSecurityProviderBuildItem(XMLDSigRI.class.getName());
-    }
 }

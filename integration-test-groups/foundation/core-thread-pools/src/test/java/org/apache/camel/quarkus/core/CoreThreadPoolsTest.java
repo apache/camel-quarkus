@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.core;
 
+import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 
@@ -30,6 +31,7 @@ public class CoreThreadPoolsTest {
         get("/core/thread-pools/default").then().body(is("default|true|5|10|20|DiscardOldest"));
     }
 
+    @DisabledOnIntegrationTest("https://github.com/apache/camel-quarkus/issues/4011")
     @Test
     public void testCustomThreadPoolsConfiguredByProperties() {
         get("/core/thread-pools/customPool").then().body(is("customPool|false|1|10|20|Abort"));

@@ -24,6 +24,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @Path("/debezium-sqlserver")
 @ApplicationScoped
@@ -33,6 +34,9 @@ public class DebeziumSqlserverResource extends AbstractDebeziumResource {
             + "_databaseHistoryFileFilename";
 
     public static final String DB_NAME = "testDB";
+
+    @ConfigProperty(name = "sqlserver.encrypt", defaultValue = "false")
+    Boolean encryptConnection;
 
     @Inject
     Config config;
@@ -61,10 +65,11 @@ public class DebeziumSqlserverResource extends AbstractDebeziumResource {
     }
 
     @Override
-    String getEndpoinUrl(String hostname, String port, String username, String password, String databaseServerName,
+    String getEndpointUrl(String hostname, String port, String username, String password, String databaseServerName,
             String offsetStorageFileName) {
-        return super.getEndpoinUrl(hostname, port, username, password, databaseServerName, offsetStorageFileName)
+        return super.getEndpointUrl(hostname, port, username, password, databaseServerName, offsetStorageFileName)
                 + "&databaseDbname=" + DB_NAME
-                + "&databaseHistoryFileFilename=" + config.getValue(PROPERTY_DB_HISTORY_FILE, String.class);
+                + "&databaseHistoryFileFilename=" + config.getValue(PROPERTY_DB_HISTORY_FILE, String.class)
+                + "&additionalProperties.database.encrypt=" + encryptConnection;
     }
 }

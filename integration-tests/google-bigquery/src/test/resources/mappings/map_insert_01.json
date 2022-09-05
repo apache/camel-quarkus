@@ -1,0 +1,30 @@
+{
+  "id" : "01299c6f-f01f-4468-946a-bbeb05a2eca3",
+  "name" : "bigquery_v2_projects_test-project_datasets_google_bigquery_test_dataset_tables_google_bigquery_table_for_map",
+  "request" : {
+    "url" : "/bigquery/v2/projects/test-project/datasets/google_bigquery_test_dataset/tables/google_bigquery_table_for_map/insertAll?prettyPrint=false",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"rows\":[{\"json\":{\"id\":\"1\",\"col2\":\"3\",\"col1\":\"2\"}}]}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"kind\":\"bigquery#tableDataInsertAllResponse\"}",
+    "headers" : {
+      "Content-Type" : "application/json; charset=UTF-8",
+      "Vary" : [ "Origin", "X-Origin", "Referer" ],
+      "Date" : "Tue, 16 Aug 2022 11:08:47 GMT",
+      "Server" : "ESF",
+      "Cache-Control" : "private",
+      "X-XSS-Protection" : "0",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "Alt-Svc" : "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
+    }
+  },
+  "uuid" : "01299c6f-f01f-4468-946a-bbeb05a2eca3",
+  "persistent" : true,
+  "insertionIndex" : 1
+}

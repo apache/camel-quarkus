@@ -69,7 +69,7 @@ class GeocoderGoogleTest {
 
     @Test
     public void loadLatLong() {
-        RestAssured.get("/lat/40.714224/lon/-73.961452")
+        RestAssured.get("/lat/37.8021028/lon/-122.41875")
                 .then()
                 .statusCode(200)
                 .body("[0]", hasKey("addressComponents"));

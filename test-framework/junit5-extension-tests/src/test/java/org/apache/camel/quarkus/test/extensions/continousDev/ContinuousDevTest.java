@@ -27,6 +27,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -53,6 +54,7 @@ public class ContinuousDevTest {
             });
 
     @Test
+    @Disabled //live reload makes tests on `camel-main` hanging. See https://github.com/apache/camel-quarkus/issues/4069
     public void checkTests() throws InterruptedException {
         ContinuousTestingTestUtils utils = new ContinuousTestingTestUtils();
         ContinuousTestingTestUtils.TestStatus ts = utils.waitForNextCompletion();
