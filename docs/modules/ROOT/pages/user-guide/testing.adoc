@@ -6,7 +6,8 @@ Before going deeper in the subject, it is strongly advised to read xref:user-gui
 
 When it comes to testing a route in the context of Quarkus, the paved road is to write local integration tests.
 This has the advantage of covering both JVM and native mode.
-The flip side is that the standard Camel testing approach with `camel-test` and `CamelTestSupport` is not supported.
+
+The xref:#_cameltestsupport_style_of_testing[`CamelTestSupport` approach] can be used since Camel Quarkus 2.12.0. Note that it can only work in JVM mode.
 
 Let's enumerate some points of interest below.
 
