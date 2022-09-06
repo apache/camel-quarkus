@@ -1,5 +1,9 @@
 === Generating Salesforce DTOs with the `salesforce-maven-plugin`
 
+ifeval::[{doc-show-extra-content} == true]
+include::maven-plugin-unsupported.adoc[]
+endif::[]
+
 To generate Salesforce DTOs for your project, use the `salesforce-maven-plugin`. The example code snippet below creates a single DTO for the `Account` object.
 
 [source,xml,subs="attributes+"]

@@ -15,9 +15,9 @@ This guide outlines various ways to create a new Camel Quarkus application.
 * If you are on Linux, `docker` is sufficient for the native mode too. Use `-Pnative,docker` instead of `-Pnative`
   if you choose this option.
 
-== code.quarkus.io
+== {link-quarkus-code-generator}
 
-Projects can be generated at https://code.quarkus.io[code.quarkus.io].
+Projects can be generated at https://{link-quarkus-code-generator}[{link-quarkus-code-generator}].
 All of the Camel Quarkus extensions can be found under the 'Integration' category.
 Use the 'search' field to help with finding extensions that you are interested in.
 

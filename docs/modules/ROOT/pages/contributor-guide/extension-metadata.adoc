@@ -3,7 +3,7 @@
 
 == `quarkus-extension.yaml`
 
-This file contains metadata used by Quarkus project generator https://code.quarkus.io/[https://code.quarkus.io/].
+This file contains metadata used by Quarkus project generator https://{link-quarkus-code-generator}/[https://{link-quarkus-code-generator}/].
 It is located in the `src/main/resources/META-INF` directory of the runtime module.
 Here is an https://github.com/apache/camel-quarkus/blob/main/extensions/activemq/runtime/src/main/resources/META-INF/quarkus-extension.yaml[example from the ActiveMQ extension]:
 

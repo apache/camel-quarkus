@@ -27,13 +27,25 @@ asciidoc:
     prerelease: true
     requires: "'util=camel-website-util,quarkus=xref:js/quarkus.js'"
 
-    min-maven-version: 3.8.2 # replace ${min-maven-version}
-    target-maven-version: 3.8.6 # replace ${target-maven-version}
+    # Project versions
     camel-version: 3.18.1 # replace ${camel.version}
     camel-docs-version: 3.18.x # replace ${camel.docs.components.version}
     quarkus-version: 2.12.0.Final # replace ${quarkus.version}
     graalvm-version: 22.2.0 # replace ${graalvm.version}
     graalvm-docs-version: 22.2
-    # attributes used in xrefs to other Antora components
+    min-maven-version: 3.8.2 # replace ${min-maven-version}
+    target-maven-version: 3.8.6 # replace ${target-maven-version}
+
+    # Attributes used in xrefs to other Antora components
     cq-camel-components: 3.18.x@components # replace ${camel.docs.components.xref}
+    doc-link-icon-lock: "icon:lock"
     quarkus-examples-version: latest
+
+    # Toggle whether some page elements are rendered
+    doc-show-badges: true # Whether JVM / Native badges are rendered
+    doc-show-advanced-features: true # Whether documentation relating to advanced features is rendered
+    doc-show-user-guide-link: true # Whether the user guide link is rendered in component extensions
+    doc-show-extra-content: false # Whether additional content hosted in external AsciiDoc files should be loaded via an include:: directive
+
+    # External URLs
+    link-quarkus-code-generator: code.quarkus.io
