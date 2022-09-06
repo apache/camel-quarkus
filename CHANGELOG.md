@@ -6,10 +6,12 @@
 
 **Closed issues:**
 
+- Testing guide confusing about CamelTestSupport [\#4068](https://github.com/apache/camel-quarkus/issues/4068)
 - Google-pubsub: Improve google-pubsub test coverage with GooglePubsubConstants.MESSAGE\_ID [\#4062](https://github.com/apache/camel-quarkus/issues/4062)
 - Ban camel-directvm [\#4059](https://github.com/apache/camel-quarkus/issues/4059)
 - master: fix itests harness in native mode [\#4050](https://github.com/apache/camel-quarkus/issues/4050)
 - Increase JPA extension test coverage [\#4007](https://github.com/apache/camel-quarkus/issues/4007)
+- Improve google-bigquery test coverage [\#3949](https://github.com/apache/camel-quarkus/issues/3949)
 - \[JDK17\]spring integration tests failed in native mode [\#3333](https://github.com/apache/camel-quarkus/issues/3333)
 - \[JDK17\]Optaplanner integration test failed in native mode  [\#3332](https://github.com/apache/camel-quarkus/issues/3332)
 - \[JDK17\]integration test failed in native mode caused by unresolved type during parsing: sun.security.krb5.Credentials [\#3326](https://github.com/apache/camel-quarkus/issues/3326)
@@ -19,6 +21,9 @@
 
 **Merged pull requests:**
 
+- Testing guide confusing about CamelTestSupport [\#4072](https://github.com/apache/camel-quarkus/pull/4072) ([ppalaga](https://github.com/ppalaga))
+- Disabling ContinuousDevTest [\#4070](https://github.com/apache/camel-quarkus/pull/4070) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- pg-replication-slot: fix warning [\#4067](https://github.com/apache/camel-quarkus/pull/4067) ([aldettinger](https://github.com/aldettinger))
 - Google-pubsub: Improve google-pubsub test coverage with MESSAGE\_ID \#4062 [\#4064](https://github.com/apache/camel-quarkus/pull/4064) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Migrate to the new config format of the flattener mojo [\#4061](https://github.com/apache/camel-quarkus/pull/4061) ([ppalaga](https://github.com/ppalaga))
 - Ban camel-directvm  [\#4060](https://github.com/apache/camel-quarkus/pull/4060) ([ppalaga](https://github.com/ppalaga))
@@ -36,6 +41,7 @@
 - Make nightly branch sync workflows report failures if the build was cancelled [\#4038](https://github.com/apache/camel-quarkus/pull/4038) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Quarkiverse CXF 1.5.0.CR1 [\#4037](https://github.com/apache/camel-quarkus/pull/4037) ([ppalaga](https://github.com/ppalaga))
 - \[closes \#4028\] Fix sqsAutoCreateDelayedQueue test [\#4036](https://github.com/apache/camel-quarkus/pull/4036) ([llowinge](https://github.com/llowinge))
+- Improve google-bigquery test coverage \#3949 [\#4035](https://github.com/apache/camel-quarkus/pull/4035) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Enlarge timeout for Keycloak startup [\#4034](https://github.com/apache/camel-quarkus/pull/4034) ([llowinge](https://github.com/llowinge))
 - Fix conflict in property name with OS env variable [\#4032](https://github.com/apache/camel-quarkus/pull/4032) ([llowinge](https://github.com/llowinge))
 - Pass encrypt property to Debezium MS SQL Server JDBC URL [\#4030](https://github.com/apache/camel-quarkus/pull/4030) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1251,7 +1257,6 @@
 - Improve google-pubsub test coverage [\#3910](https://github.com/apache/camel-quarkus/issues/3910)
 - Merge the performance regression prototype in camel-quarkus main [\#3905](https://github.com/apache/camel-quarkus/issues/3905)
 - Test Azure Storage Blob with `credentialType` `AZURE_IDENTITY` [\#3822](https://github.com/apache/camel-quarkus/issues/3822)
-- Unable to compile native image for Azure Storage Blob extension [\#3820](https://github.com/apache/camel-quarkus/issues/3820)
 - `CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest` fails on Windows [\#3529](https://github.com/apache/camel-quarkus/issues/3529)
 - CamelTestSupport style of testing  [\#3511](https://github.com/apache/camel-quarkus/issues/3511)
 - Geocoder started returning "New York City" instead of "New York" [\#3389](https://github.com/apache/camel-quarkus/issues/3389)
@@ -1263,8 +1268,8 @@
 
 **Fixed bugs:**
 
-- \[Quarkus 2.11.0\] OptaPlanner native image build fails [\#3899](https://github.com/apache/camel-quarkus/issues/3899)
 - Http Timeout Parameter Fails when compiled Natively  [\#3924](https://github.com/apache/camel-quarkus/issues/3924)
+- \[Quarkus 2.11.0\] OptaPlanner native image build fails [\#3899](https://github.com/apache/camel-quarkus/issues/3899)
 - Camel Quarkus 2.10.0 attempts to resolve properties for prod profile when running tests or in dev mode [\#3879](https://github.com/apache/camel-quarkus/issues/3879)
 - PDF extension encryption does not work in native mode [\#3871](https://github.com/apache/camel-quarkus/issues/3871)
 - Bean introspection on `@Singleton` scoped beans does not work  [\#3856](https://github.com/apache/camel-quarkus/issues/3856)
@@ -1274,7 +1279,6 @@
 **Closed issues:**
 
 - flattened-full-pom.xml contains some artifacts from quarkus 2.9.0.Final [\#3887](https://github.com/apache/camel-quarkus/issues/3887)
-- \[Quarkus 2.11.0\] Vert.x 4.3.1 not compatible with Camel 3.17.x [\#3877](https://github.com/apache/camel-quarkus/issues/3877)
 - Reduce the noise in verbose flattened BOMs [\#3702](https://github.com/apache/camel-quarkus/issues/3702)
 - Improve support for `InfinispanRemoteAggregationRepository` [\#3657](https://github.com/apache/camel-quarkus/issues/3657)
 - Apache Drill Unable to start [\#3315](https://github.com/apache/camel-quarkus/issues/3315)
@@ -1288,12 +1292,14 @@
 - dozer: deprecate typeConverterEnabled config [\#3900](https://github.com/apache/camel-quarkus/issues/3900)
 - Increase JAXB extension test coverage [\#3896](https://github.com/apache/camel-quarkus/issues/3896)
 - Upgrade quarkus-artemis to 1.2.0 [\#3884](https://github.com/apache/camel-quarkus/issues/3884)
+- \[Quarkus 2.11.0\] Vert.x 4.3.1 not compatible with Camel 3.17.x [\#3877](https://github.com/apache/camel-quarkus/issues/3877)
 - arangodb integration tests failing with can not start container [\#3864](https://github.com/apache/camel-quarkus/issues/3864)
 - quarkus-bootstrap-maven-plugin is deprecated [\#3863](https://github.com/apache/camel-quarkus/issues/3863)
 - paho-mqtt5 test failing with `Error: Unable to create websockets listener on port 9001` [\#3860](https://github.com/apache/camel-quarkus/issues/3860)
 - Consider removing configuration for `camel.main.source-location-enabled` [\#3858](https://github.com/apache/camel-quarkus/issues/3858)
 - Clarify usage of Quarkus Quartz clustering support [\#3850](https://github.com/apache/camel-quarkus/issues/3850)
 - \[Camel 3.18.0\] Create camel-jq extension [\#3835](https://github.com/apache/camel-quarkus/issues/3835)
+- Unable to compile native image for Azure Storage Blob extension [\#3820](https://github.com/apache/camel-quarkus/issues/3820)
 - Create an example for JTA+JPA integration [\#3817](https://github.com/apache/camel-quarkus/issues/3817)
 - Aws SQS: Remove unnecessary headers from the test because of CAMEL-18123 [\#3803](https://github.com/apache/camel-quarkus/issues/3803)
 - Reduce the number of `timer-log` example projects [\#3708](https://github.com/apache/camel-quarkus/issues/3708)
