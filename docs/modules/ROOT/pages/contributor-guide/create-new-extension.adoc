@@ -52,7 +52,7 @@ https://issues.apache.org/jira/secure/CreateIssue!default.jspa[file a new Camel 
 for the given Camel component.
 +
 If there is some important keyword missing in both the `name` and `description` through which your new extension
-should definitely be findable on https://code.quarkus.io[code.quarkus.io], consider setting
+should definitely be findable on https://{link-quarkus-code-generator}[{link-quarkus-code-generator}], consider setting
 `<quarkus.metadata.keywords>` property in your runtime `pom.xml`.
 +
 Run `mvn -N cq:update-quarkus-metadata` from the source tree's root directory to re-generate the

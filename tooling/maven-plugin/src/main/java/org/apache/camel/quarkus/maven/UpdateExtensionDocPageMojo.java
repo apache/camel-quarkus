@@ -48,6 +48,10 @@ import io.quarkus.annotation.processor.generate_doc.ConfigDocKey;
 import io.quarkus.annotation.processor.generate_doc.DocGeneratorUtil;
 import io.quarkus.annotation.processor.generate_doc.FsMap;
 import org.apache.camel.catalog.Kind;
+import org.apache.camel.quarkus.maven.processor.AppendNewLinePostProcessor;
+import org.apache.camel.quarkus.maven.processor.AsciiDocFile;
+import org.apache.camel.quarkus.maven.processor.DocumentationPostProcessor;
+import org.apache.camel.quarkus.maven.processor.SectionIdPostProcessor;
 import org.apache.camel.tooling.model.ArtifactModel;
 import org.apache.camel.tooling.model.BaseModel;
 import org.apache.camel.tooling.model.ComponentModel;
@@ -61,6 +65,10 @@ import org.apache.maven.plugins.annotations.Parameter;
 public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
 
     private static final Map<String, Boolean> nativeSslActivators = new ConcurrentHashMap<>();
+    private static final DocumentationPostProcessor[] documentationPostProcessors = {
+            new AppendNewLinePostProcessor(),
+            new SectionIdPostProcessor()
+    };
 
     @Parameter(defaultValue = "false", property = "camel-quarkus.update-extension-doc-page.skip")
     boolean skip = false;
@@ -129,6 +137,7 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         model.put("intro", loadSection(basePath, "intro.adoc", charset, description));
         model.put("models", models);
         model.put("usage", loadSection(basePath, "usage.adoc", charset, null));
+        model.put("usageAdvanced", loadSection(basePath, "usage-advanced.adoc", charset, null));
         model.put("configuration", loadSection(basePath, "configuration.adoc", charset, null));
         model.put("limitations", loadSection(basePath, "limitations.adoc", charset, null));
         model.put("activatesNativeSsl", ext.isNativeSupported() && detectNativeSsl(multiModuleProjectDirectory.toPath(),
@@ -333,11 +342,11 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         if (Files.isRegularFile(quarkusClientTestPath)) {
             if (!quarkusAwsClientBaseName.isPresent()) {
                 throw new IllegalStateException(quarkusClientTestPath
-                        + " exists but cq.quarkus.aws.client.baseName propertly is not defined in " + runtimePomPath);
+                        + " exists but cq.quarkus.aws.client.baseName property is not defined in " + runtimePomPath);
             }
             if (!quarkusAwsClientFqClassName.isPresent()) {
                 throw new IllegalStateException(quarkusClientTestPath
-                        + " exists but cq.quarkus.aws.client.fqClassName propertly is not defined in " + runtimePomPath);
+                        + " exists but cq.quarkus.aws.client.fqClassName property is not defined in " + runtimePomPath);
             }
         }
         return null;
@@ -392,15 +401,11 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
     private static String loadSection(Path basePath, String fileName, Charset charset, String default_) {
         Path p = basePath.resolve("src/main/doc/" + fileName);
         if (Files.exists(p)) {
-            try {
-                final String result = Files.readString(p, charset);
-                if (!result.endsWith("\n")) {
-                    return result + "\n";
-                }
-                return result;
-            } catch (IOException e) {
-                throw new RuntimeException("Could not read " + p, e);
+            AsciiDocFile file = new AsciiDocFile(p, charset);
+            for (DocumentationPostProcessor processor : documentationPostProcessors) {
+                processor.process(file);
             }
+            return file.getContent();
         } else {
             return default_;
         }

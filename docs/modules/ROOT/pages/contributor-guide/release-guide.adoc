@@ -220,7 +220,7 @@ As long as there are unavailable artifacts, the requests are re-tried with a (co
 ====
 
 NOTE: https://github.com/quarkusio/quarkus-platform[Quarkus Platform] hosts the metadata and Maven BOMs necessary for
-https://code.quarkus.io/[code.quarkus.io] as well as for https://quarkus.io/guides/tooling[Quarkus tools].
+https://{link-quarkus-code-generator}/[{link-quarkus-code-generator}] as well as for https://quarkus.io/guides/tooling[Quarkus tools].
 
 * Clone Quarkus Platform unless you have done it in the past
 +

@@ -6,7 +6,7 @@ A specific Camel Quarkus release is supposed to work only with a specific Quarku
 
 The easiest and most straightforward way to get the dependency versions right in a new project is to use one of the Quarkus tools:
 
-* https://code.quarkus.io/[code.quarkus.io] - an online project generator,
+* https://{link-quarkus-code-generator}/[{link-quarkus-code-generator}] - an online project generator,
 * https://quarkus.io/guides/cli-tooling[Quarkus CLI tool]
 * https://quarkus.io/guides/maven-tooling[Quarkus Maven plugin]
 * Some of the https://quarkus.io/guides/ide-tooling[Quarkus IDE plugins]
