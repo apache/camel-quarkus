@@ -1,3 +1,4 @@
+[id="extensions-[=artifactIdBase]"]
 = [=name]
 [#if pageAliases?? ]:page-aliases: [=pageAliases]
 [/#if]
@@ -11,12 +12,15 @@
 :cq-jvm-since: [=jvmSince]
 :cq-native-since: [=nativeSince]
 
+ifeval::[{doc-show-badges} == true]
 [.badges]
 [.badge-key]##JVM since##[.badge-supported]##[=jvmSince]## [.badge-key]##Native[=nativeSupported?then(' since', '')]##[.badge-[=nativeSupported?then('', 'un')]supported]##[=nativeSupported?then(nativeSince, 'unsupported')]##[#if deprecated ] [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##[/#if]
+endif::[]
 
 [=intro]
 [#if models?size > 0]
 
+[id="extensions-[=artifactIdBase]-whats-inside"]
 == What's inside
 
 [#list models as model]
@@ -26,9 +30,10 @@
 Please refer to the above link[#if models?size != 1]s[/#if] for usage and configuration details.
 [/#if]
 
+[id="extensions-[=artifactIdBase]-maven-coordinates"]
 == Maven coordinates
 
-[#if !unlisted]https://code.quarkus.io/?extension-search=camel-quarkus-[=artifactIdBase][Create a new project with this extension on code.quarkus.io, window="_blank"]
+[#if !unlisted]https://{link-quarkus-code-generator}/?extension-search=camel-quarkus-[=artifactIdBase][Create a new project with this extension on {link-quarkus-code-generator}, window="_blank"]
 
 Or add the coordinates to your existing project:
 
@@ -39,22 +44,32 @@ Or add the coordinates to your existing project:
     <artifactId>camel-quarkus-[=artifactIdBase]</artifactId>
 </dependency>
 ----
-
+ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
-[#if usage?? ]
+endif::[]
+[#if usage?? || usageAdvanced?? ]
 
+[id="extensions-[=artifactIdBase]-usage"]
 == Usage
-
+[#if usage?? ]
 [=usage]
+[/#if]
+[#if usageAdvanced?? ]
+ifeval::[{doc-show-advanced-features} == true]
+[=usageAdvanced]
+endif::[]
+[/#if]
 [/#if]
 [#if limitations?? ]
 
+[id="extensions-[=artifactIdBase]-camel-quarkus-limitations"]
 == Camel Quarkus limitations
 
 [=limitations]
 [/#if]
 [#if activatesNativeSsl ]
 
+[id="extensions-[=artifactIdBase]-ssl-in-native-mode"]
 == SSL in native mode
 
 This extension auto-enables SSL support in native mode. Hence you do not need to add
@@ -63,6 +78,7 @@ https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].
 [/#if]
 [#if activatesContextMapAll ]
 
+[id="extensions-[=artifactIdBase]-allowcontextmapall-option-in-native-mode"]
 == allowContextMapAll option in native mode
 
 The `allowContextMapAll` option is not supported in native mode as it requires reflective access to security sensitive camel core classes such as
@@ -70,6 +86,7 @@ The `allowContextMapAll` option is not supported in native mode as it requires r
 [/#if]
 [#if activatesTransferException ]
 
+[id="extensions-[=artifactIdBase]-transferexception-option-in-native-mode"]
 == transferException option in native mode
 
 To use the `transferException` option in native mode, you must enable support for object serialization. Refer to the xref:user-guide/native-mode.adoc#serialization[native mode user guide]
@@ -83,6 +100,7 @@ You will also need to enable serialization for the exception classes that you in
 [/#if]
 [#if configuration?? || quarkusAwsClient?? || configOptions?size != 0 ]
 
+[id="extensions-[=artifactIdBase]-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 [#if configuration??]
 
@@ -90,6 +108,7 @@ You will also need to enable serialization for the exception classes that you in
 [/#if]
 [#if quarkusAwsClient??]
 
+[id="extensions-[=artifactIdBase]-optional-integration-with-[=quarkusAwsClient.extensionName]"]
 === Optional integration with [=quarkusAwsClient.extensionName]
 
 If desired, it is possible to use the [=quarkusAwsClient.extensionName] extension in conjunction with Camel Quarkus [=name].
@@ -137,7 +156,7 @@ class Unremovable[=quarkusAwsClient.clientClassSimpleName] {
 |===
 
 [.configuration-legend]
-icon:lock[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
+{doc-link-icon-lock}[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
 
 [/#if]
 [/#if]
