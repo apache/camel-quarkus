@@ -10185,6 +10185,11 @@
         <version>1.15.0</version>
       </dependency>
       <dependency>
+        <groupId>org.apache.neethi</groupId>
+        <artifactId>neethi</artifactId>
+        <version>3.2.0</version>
+      </dependency>
+      <dependency>
         <groupId>org.apache.santuario</groupId>
         <artifactId>xmlsec</artifactId>
         <version>2.3.0</version>
@@ -10318,11 +10323,6 @@
         <groupId>org.mvel</groupId>
         <artifactId>mvel2</artifactId>
         <version>2.4.14.Final</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.neethi</groupId>
-        <artifactId>neethi</artifactId>
-        <version>3.2.0</version>
       </dependency>
       <dependency>
         <groupId>org.optaplanner</groupId>
