@@ -127,6 +127,7 @@ group-08:
   - dozer
   - jq
   - master
+  - master-openshift
   - pdf
   - saxon
   - syndication
