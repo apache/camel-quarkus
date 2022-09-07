@@ -45,6 +45,7 @@
                             <wsdlOptions>
                                 <wsdlOption>
                                     <wsdl>${basedir}/src/main/resources/wsdl/HelloService.wsdl</wsdl>
+                                    <wsdlLocation>classpath:wsdl/HelloService.wsdl</wsdlLocation>
                                     <extraargs>
                                         <extraarg>-xjc-Xts</extraarg>
                                     </extraargs>
