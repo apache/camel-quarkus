@@ -6,9 +6,11 @@
 
 **Closed issues:**
 
+- master: add an itest with openshift [\#4077](https://github.com/apache/camel-quarkus/issues/4077)
 - Testing guide confusing about CamelTestSupport [\#4068](https://github.com/apache/camel-quarkus/issues/4068)
 - Google-pubsub: Improve google-pubsub test coverage with GooglePubsubConstants.MESSAGE\_ID [\#4062](https://github.com/apache/camel-quarkus/issues/4062)
 - Ban camel-directvm [\#4059](https://github.com/apache/camel-quarkus/issues/4059)
+- CXF test fails in Quarkus Platform because of hard-coded absolute local wsdlLocation [\#4058](https://github.com/apache/camel-quarkus/issues/4058)
 - master: fix itests harness in native mode [\#4050](https://github.com/apache/camel-quarkus/issues/4050)
 - Increase JPA extension test coverage [\#4007](https://github.com/apache/camel-quarkus/issues/4007)
 - Improve google-bigquery test coverage [\#3949](https://github.com/apache/camel-quarkus/issues/3949)
@@ -17,10 +19,12 @@
 - \[JDK17\]integration test failed in native mode caused by unresolved type during parsing: sun.security.krb5.Credentials [\#3326](https://github.com/apache/camel-quarkus/issues/3326)
 - \[JDK17\]integration tests failed in native mode which uses JMX [\#3325](https://github.com/apache/camel-quarkus/issues/3325)
 - \[JDK17\]integration test failed in native mode on Mac which depends on quarkus-awt feature [\#3323](https://github.com/apache/camel-quarkus/issues/3323)
-- CXF JAX-WS support [\#764](https://github.com/apache/camel-quarkus/issues/764)
 
 **Merged pull requests:**
 
+- master: add test with openshift \#4077 [\#4078](https://github.com/apache/camel-quarkus/pull/4078) ([aldettinger](https://github.com/aldettinger))
+- CXF test fails in Quarkus Platform because of hard-coded absolute loc… [\#4074](https://github.com/apache/camel-quarkus/pull/4074) ([ppalaga](https://github.com/ppalaga))
+- Use AsciiDoc attributes to conditionally include content [\#4073](https://github.com/apache/camel-quarkus/pull/4073) ([jamesnetherton](https://github.com/jamesnetherton))
 - Testing guide confusing about CamelTestSupport [\#4072](https://github.com/apache/camel-quarkus/pull/4072) ([ppalaga](https://github.com/ppalaga))
 - Disabling ContinuousDevTest [\#4070](https://github.com/apache/camel-quarkus/pull/4070) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - pg-replication-slot: fix warning [\#4067](https://github.com/apache/camel-quarkus/pull/4067) ([aldettinger](https://github.com/aldettinger))
@@ -1229,16 +1233,16 @@
 
 **Closed issues:**
 
+- Provide a ready to use master component for kubernetes [\#4006](https://github.com/apache/camel-quarkus/issues/4006)
+- apache-camel-mock Routes are not getting cleaned up after test completes [\#4000](https://github.com/apache/camel-quarkus/issues/4000)
 - AWS SQS test sqsAutoCreateDelayedQueue fails [\#4028](https://github.com/apache/camel-quarkus/issues/4028)
 - Debezium test DebeziumSqlserverTest fails  [\#4027](https://github.com/apache/camel-quarkus/issues/4027)
 - Dropbox integration test authentication failure [\#4021](https://github.com/apache/camel-quarkus/issues/4021)
 - perf-regression: JDK 17 support [\#4016](https://github.com/apache/camel-quarkus/issues/4016)
 - perf-regression: disable itests when -D quickly is passed [\#4015](https://github.com/apache/camel-quarkus/issues/4015)
 - perf-regression: java.lang.NumberFormatException: For input string: "782,36" [\#4014](https://github.com/apache/camel-quarkus/issues/4014)
-- Provide a ready to use master component for kubernetes [\#4006](https://github.com/apache/camel-quarkus/issues/4006)
 - perf-regression: avoid using fixed port [\#4004](https://github.com/apache/camel-quarkus/issues/4004)
 - perf-regression: complete unit test coverage [\#4001](https://github.com/apache/camel-quarkus/issues/4001)
-- apache-camel-mock Routes are not getting cleaned up after test completes [\#4000](https://github.com/apache/camel-quarkus/issues/4000)
 - CEQ 2.11 - rest component .route\(\) method not available but present in docs [\#3995](https://github.com/apache/camel-quarkus/issues/3995)
 - perf-regression: add integration-tests [\#3982](https://github.com/apache/camel-quarkus/issues/3982)
 - `perf-regression` module should not import `io.quarkus.platform:quarkus-bom` [\#3979](https://github.com/apache/camel-quarkus/issues/3979)
