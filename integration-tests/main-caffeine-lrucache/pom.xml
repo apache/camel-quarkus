@@ -26,7 +26,7 @@
         <relativePath>../../poms/build-parent-it/pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-integration-test-main-caffein-lrucache</artifactId>
+    <artifactId>camel-quarkus-integration-test-main-caffeine-lrucache</artifactId>
     <name>Camel Quarkus :: Integration Tests :: Main Caffeine LRUCache :: Tests</name>
     <description>The camel integration tests</description>
 
