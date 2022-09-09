@@ -27,7 +27,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static io.restassured.RestAssured.given;
 import static org.apache.commons.io.IOUtils.resourceToString;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.startsWith;
+import static org.hamcrest.Matchers.matchesRegex;
 
 @QuarkusTest
 class JsltTest {
@@ -43,7 +43,7 @@ class JsltTest {
     @Test
     public void transformInvalidBodyShouldIssueValidationErrorMessage() {
         given().when().get("/jslt/transformInvalidBody").then().statusCode(200)
-                .body(startsWith("Allowed body types are String or InputStream."));
+                .body(matchesRegex("Allowed body types are.*"));
     }
 
     @Test
