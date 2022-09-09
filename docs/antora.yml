@@ -28,7 +28,7 @@ asciidoc:
     requires: "'util=camel-website-util,quarkus=xref:js/quarkus.js'"
 
     # Project versions
-    camel-version: 3.18.1 # replace ${camel.version}
+    camel-version: 3.18.2 # replace ${camel.version}
     camel-docs-version: 3.18.x # replace ${camel.docs.components.version}
     quarkus-version: 2.12.0.Final # replace ${quarkus.version}
     graalvm-version: 22.2.0 # replace ${graalvm.version}
