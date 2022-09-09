@@ -22,6 +22,7 @@
 
 **Merged pull requests:**
 
+- update virtual profiles [\#4079](https://github.com/apache/camel-quarkus/pull/4079) ([aldettinger](https://github.com/aldettinger))
 - master: add test with openshift \#4077 [\#4078](https://github.com/apache/camel-quarkus/pull/4078) ([aldettinger](https://github.com/aldettinger))
 - CXF test fails in Quarkus Platform because of hard-coded absolute loc… [\#4074](https://github.com/apache/camel-quarkus/pull/4074) ([ppalaga](https://github.com/ppalaga))
 - Use AsciiDoc attributes to conditionally include content [\#4073](https://github.com/apache/camel-quarkus/pull/4073) ([jamesnetherton](https://github.com/jamesnetherton))
