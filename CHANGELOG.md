@@ -22,6 +22,8 @@
 
 **Merged pull requests:**
 
+- Fix name of artifact id [\#4082](https://github.com/apache/camel-quarkus/pull/4082) ([llowinge](https://github.com/llowinge))
+- Upgrade Camel to 3.18.2 [\#4081](https://github.com/apache/camel-quarkus/pull/4081) ([jamesnetherton](https://github.com/jamesnetherton))
 - update virtual profiles [\#4079](https://github.com/apache/camel-quarkus/pull/4079) ([aldettinger](https://github.com/aldettinger))
 - master: add test with openshift \#4077 [\#4078](https://github.com/apache/camel-quarkus/pull/4078) ([aldettinger](https://github.com/aldettinger))
 - CXF test fails in Quarkus Platform because of hard-coded absolute loc… [\#4074](https://github.com/apache/camel-quarkus/pull/4074) ([ppalaga](https://github.com/ppalaga))
