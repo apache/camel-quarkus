@@ -29,6 +29,7 @@ group-01:
   - kafka
   - kafka-sasl
   - mllp
+  - jcache
 group-02:
   - aws2
   - elasticsearch-rest
