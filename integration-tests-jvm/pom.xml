@@ -77,7 +77,6 @@
         <module>jasypt</module>
         <module>java-joor-dsl</module>
         <module>jbpm</module>
-        <module>jcache</module>
         <module>jclouds</module>
         <module>jcr</module>
         <module>jgroups</module>
