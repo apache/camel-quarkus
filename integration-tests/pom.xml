@@ -114,6 +114,7 @@
         <module>jackson-avro</module>
         <module>jackson-protobuf</module>
         <module>jaxb</module>
+        <module>jcache</module>
         <module>jdbc</module>
         <module>jfr</module>
         <module>jira</module>

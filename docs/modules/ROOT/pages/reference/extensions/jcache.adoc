@@ -4,17 +4,17 @@
 = JCache
 :linkattrs:
 :cq-artifact-id: camel-quarkus-jcache
-:cq-native-supported: false
-:cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-native-supported: true
+:cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Perform caching operations against JSR107/JCache.
 :cq-deprecated: false
 :cq-jvm-since: 1.2.0
-:cq-native-since: n/a
+:cq-native-since: 2.13.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.2.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##1.2.0## [.badge-key]##Native since##[.badge-supported]##2.13.0##
 endif::[]
 
 Perform caching operations against JSR107/JCache.
@@ -28,6 +28,10 @@ Please refer to the above link for usage and configuration details.
 
 [id="extensions-jcache-maven-coordinates"]
 == Maven coordinates
+
+https://{link-quarkus-code-generator}/?extension-search=camel-quarkus-jcache[Create a new project with this extension on {link-quarkus-code-generator}, window="_blank"]
+
+Or add the coordinates to your existing project:
 
 [source,xml]
 ----

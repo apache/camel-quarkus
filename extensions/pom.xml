@@ -130,6 +130,7 @@
         <module>jackson-protobuf</module>
         <module>jacksonxml</module>
         <module>jaxb</module>
+        <module>jcache</module>
         <module>jdbc</module>
         <module>jfr</module>
         <module>jira</module>
