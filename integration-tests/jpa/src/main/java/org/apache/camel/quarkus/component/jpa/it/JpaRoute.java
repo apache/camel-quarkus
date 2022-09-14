@@ -22,20 +22,19 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManagerFactory;
 
-import io.quarkus.narayana.jta.QuarkusTransaction;
-import io.quarkus.narayana.jta.RunOptions;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jpa.TransactionStrategy;
 import org.apache.camel.processor.idempotent.jpa.JpaMessageIdRepository;
 import org.apache.camel.quarkus.component.jpa.it.model.Fruit;
-
-import static io.quarkus.narayana.jta.QuarkusTransaction.runOptions;
 
 @ApplicationScoped
 public class JpaRoute extends RouteBuilder {
 
     @Inject
     EntityManagerFactory entityManagerFactory;
+
+    @Inject
+    TransactionStrategy transactionStrategy;
 
     @Override
     public void configure() throws Exception {
@@ -77,12 +76,7 @@ public class JpaRoute extends RouteBuilder {
         from("direct:idempotent")
                 .idempotentConsumer(
                         header("messageId"),
-                        new JpaMessageIdRepository(entityManagerFactory, new TransactionStrategy() {
-                            @Override
-                            public void executeInTransaction(Runnable runnable) {
-                                QuarkusTransaction.run(runOptions().semantic(RunOptions.Semantic.JOIN_EXISTING), runnable);
-                            }
-                        }, "idempotentProcessor"))
+                        new JpaMessageIdRepository(entityManagerFactory, transactionStrategy, "idempotentProcessor"))
                 .log("Consumes messageId: ${header.messageId}")
                 .to("mock:idempotent");
 
