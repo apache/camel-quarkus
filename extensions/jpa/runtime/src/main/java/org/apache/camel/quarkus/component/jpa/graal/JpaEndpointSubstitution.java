@@ -15,35 +15,41 @@
  * limitations under the License.
  */
 
-package org.apache.camel.quarkus.component.jpa;
+package org.apache.camel.quarkus.component.jpa.graal;
 
 import javax.persistence.EntityManagerFactory;
 
+import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
-import org.apache.camel.component.jpa.DefaultTransactionStrategy;
+import org.apache.camel.component.jpa.JpaEndpoint;
+import org.apache.camel.component.jpa.TransactionStrategy;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
-@TargetClass(DefaultTransactionStrategy.class)
-final public class DefaultTransactionStrategySubstitution {
-    @Substitute
-    public void executeInTransaction(Runnable runnable) {
-        throw new UnsupportedOperationException("DefaultTransactionStrategy is not supported");
-    }
+@TargetClass(JpaEndpoint.class)
+final public class JpaEndpointSubstitution {
+    @Alias
+    private TransactionStrategy transactionStrategy;
 
     @Substitute
-    public PlatformTransactionManager getTransactionManager() {
-        throw new UnsupportedOperationException("DefaultTransactionStrategy is not supported");
-    }
-
-    @Substitute
-    protected PlatformTransactionManager createTransactionManager(EntityManagerFactory entityManagerFactory) {
-        throw new UnsupportedOperationException("DefaultTransactionStrategy is not supported");
+    protected EntityManagerFactory createEntityManagerFactory() {
+        throw new UnsupportedOperationException("createEntityManagerFactory is not supported");
     }
 
     @Substitute
     protected TransactionTemplate createTransactionTemplate() {
-        throw new UnsupportedOperationException("DefaultTransactionStrategy is not supported");
+        throw new UnsupportedOperationException("createTransactionTemplate is not supported");
     }
+
+    @Substitute
+    public PlatformTransactionManager getTransactionManager() {
+        throw new UnsupportedOperationException("getTransactionManager is not supported");
+    }
+
+    @Substitute
+    public TransactionStrategy getTransactionStrategy() {
+        return transactionStrategy;
+    }
+
 }

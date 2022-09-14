@@ -15,24 +15,13 @@
  * limitations under the License.
  */
 
-package org.apache.camel.quarkus.component.jpa;
+package org.apache.camel.quarkus.component.jpa.graal;
 
-import javax.persistence.EntityManagerFactory;
-
-import com.oracle.svm.core.annotate.Substitute;
+import com.oracle.svm.core.annotate.Delete;
 import com.oracle.svm.core.annotate.TargetClass;
-import org.apache.camel.component.jpa.JpaEndpoint;
-import org.springframework.transaction.support.TransactionTemplate;
+import org.apache.camel.component.jpa.DefaultTransactionStrategy;
 
-@TargetClass(JpaEndpoint.class)
-final public class JpaEndpointSubstitution {
-    @Substitute
-    protected EntityManagerFactory createEntityManagerFactory() {
-        throw new UnsupportedOperationException("createEntityManagerFactory is not supported");
-    }
-
-    @Substitute
-    protected TransactionTemplate createTransactionTemplate() {
-        throw new UnsupportedOperationException("createTransactionTemplate is not supported");
-    }
+@TargetClass(DefaultTransactionStrategy.class)
+@Delete
+final public class DefaultTransactionStrategySubstitution {
 }
