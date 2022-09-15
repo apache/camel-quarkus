@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- \[Quarkus 2.13.0\] Quarkus Kubernetes not compatible with Camel 3.18.x [\#4083](https://github.com/apache/camel-quarkus/issues/4083)
 - master: add an itest with openshift [\#4077](https://github.com/apache/camel-quarkus/issues/4077)
 - Testing guide confusing about CamelTestSupport [\#4068](https://github.com/apache/camel-quarkus/issues/4068)
 - Google-pubsub: Improve google-pubsub test coverage with GooglePubsubConstants.MESSAGE\_ID [\#4062](https://github.com/apache/camel-quarkus/issues/4062)
@@ -22,6 +23,7 @@
 
 **Merged pull requests:**
 
+- JCache native mode [\#4088](https://github.com/apache/camel-quarkus/pull/4088) ([javaduke](https://github.com/javaduke))
 - Fix name of artifact id [\#4082](https://github.com/apache/camel-quarkus/pull/4082) ([llowinge](https://github.com/llowinge))
 - Upgrade Camel to 3.18.2 [\#4081](https://github.com/apache/camel-quarkus/pull/4081) ([jamesnetherton](https://github.com/jamesnetherton))
 - update virtual profiles [\#4079](https://github.com/apache/camel-quarkus/pull/4079) ([aldettinger](https://github.com/aldettinger))
