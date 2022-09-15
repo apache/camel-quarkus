@@ -50,8 +50,31 @@ endif::[]
 
 The extension leverages https://quarkus.io/guides/hibernate-orm[Quarkus Hibernate ORM] to provide the JPA implementation via Hibernate.
 
-Refer to the https://quarkus.io/guides/hibernate-orm[Quarkus Hibernate ORM] documentation to see how to configure Hibernate and your datasource,
+Refer to the https://quarkus.io/guides/hibernate-orm[Quarkus Hibernate ORM] documentation to see how to configure Hibernate and your datasource.
+
+Also, it leverages https://quarkus.io/guides/transaction#programmatic-approach[Quarkus TX API] to provide `TransactionStrategy` implementation.
 
 When a single persistence unit is used, the Camel Quarkus JPA extension will automatically configure the JPA component with a
-`EntityManagerFactory` and `TransactionManager`.
+`EntityManagerFactory` and `TransactionStrategy`.
+
+=== Configuring JpaMessageIdRepository
+It needs to use `EntityManagerFactory` and `TransactionStrategy` from the CDI container to configure the `JpaMessageIdRepository`:
+[source, java]
+----
+@Inject
+EntityManagerFactory entityManagerFactory;
+
+@Inject
+TransactionStrategy transactionStrategy;
+
+from("direct:idempotent")
+    .idempotentConsumer(
+        header("messageId"),
+        new JpaMessageIdRepository(entityManagerFactory, transactionStrategy, "idempotentProcessor"));
+----
+
+[NOTE]
+====
+Since it excludes the `spring-orm` dependency, some options such as `sharedEntityManager`, `transactionManager`  are not supported.
+====
 
