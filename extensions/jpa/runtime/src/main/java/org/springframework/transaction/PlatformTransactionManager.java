@@ -14,18 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jpa;
+package org.springframework.transaction;
 
-import io.quarkus.runtime.RuntimeValue;
-import io.quarkus.runtime.annotations.Recorder;
-import org.apache.camel.component.jpa.JpaComponent;
-
-@Recorder
-public class CamelJpaRecorder {
-
-    public RuntimeValue<JpaComponent> createJpaComponent() {
-        JpaComponent component = new JpaComponent();
-        component.setTransactionStrategy(new QuarkusTransactionStrategy());
-        return new RuntimeValue<>(component);
-    }
+public interface PlatformTransactionManager {
 }

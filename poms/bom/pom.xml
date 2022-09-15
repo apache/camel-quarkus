@@ -3543,15 +3543,7 @@
                     </exclusion>
                     <exclusion>
                         <groupId>org.springframework</groupId>
-                        <artifactId>spring-beans</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-context</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-core</artifactId>
+                        <artifactId>spring-orm</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>

@@ -14,18 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.camel.quarkus.component.jpa;
 
-import io.quarkus.runtime.RuntimeValue;
-import io.quarkus.runtime.annotations.Recorder;
-import org.apache.camel.component.jpa.JpaComponent;
+import io.quarkus.narayana.jta.QuarkusTransaction;
+import io.quarkus.narayana.jta.RunOptions;
+import org.apache.camel.component.jpa.TransactionStrategy;
 
-@Recorder
-public class CamelJpaRecorder {
+import static io.quarkus.narayana.jta.QuarkusTransaction.runOptions;
 
-    public RuntimeValue<JpaComponent> createJpaComponent() {
-        JpaComponent component = new JpaComponent();
-        component.setTransactionStrategy(new QuarkusTransactionStrategy());
-        return new RuntimeValue<>(component);
+public class QuarkusTransactionStrategy implements TransactionStrategy {
+    @Override
+    public void executeInTransaction(Runnable runnable) {
+        QuarkusTransaction.run(runOptions().semantic(RunOptions.Semantic.JOIN_EXISTING), runnable);
     }
 }

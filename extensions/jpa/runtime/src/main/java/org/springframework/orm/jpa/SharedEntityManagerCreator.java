@@ -14,18 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jpa;
 
-import io.quarkus.runtime.RuntimeValue;
-import io.quarkus.runtime.annotations.Recorder;
-import org.apache.camel.component.jpa.JpaComponent;
+package org.springframework.orm.jpa;
 
-@Recorder
-public class CamelJpaRecorder {
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
-    public RuntimeValue<JpaComponent> createJpaComponent() {
-        JpaComponent component = new JpaComponent();
-        component.setTransactionStrategy(new QuarkusTransactionStrategy());
-        return new RuntimeValue<>(component);
+public abstract class SharedEntityManagerCreator {
+    public static EntityManager createSharedEntityManager(EntityManagerFactory emf) {
+        throw new UnsupportedOperationException("createSharedEntityManager is not supported");
     }
 }
