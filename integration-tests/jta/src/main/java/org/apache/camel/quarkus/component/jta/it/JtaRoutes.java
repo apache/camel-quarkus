@@ -86,7 +86,9 @@ public class JtaRoutes extends RouteBuilder {
                 .transacted()
                 .setHeader("message", body())
                 .to("jms:queue:sqltx?connectionFactory=#xaConnectionFactory&disableReplyTo=true")
-                .to("sql:insert into example(message, origin) values (:#message, 'sqltx')")
+                // TODO: Remove the explicit dataSource option
+                // https://github.com/apache/camel-quarkus/issues/4063
+                .to("sql:insert into example(message, origin) values (:#message, 'sqltx')?dataSource=#camel-ds")
                 .choice()
                 .when(header("message").startsWith("rollback"))
                 .log("Failing forever with exception")
@@ -103,7 +105,9 @@ public class JtaRoutes extends RouteBuilder {
                 .transacted()
                 .setHeader("message", body())
                 .to("jms:queue:sqltxRollback?connectionFactory=#xaConnectionFactory&disableReplyTo=true")
-                .to("sql:insert into example(message, origin) values (:#message, 'sqltxRollback')")
+                // TODO: Remove the explicit dataSource option
+                // https://github.com/apache/camel-quarkus/issues/4063
+                .to("sql:insert into example(message, origin) values (:#message, 'sqltxRollback')?dataSource=#camel-ds")
                 .choice()
                 .when(header("message").startsWith("rollback"))
                 .log("Rolling back after rollback message")
