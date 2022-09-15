@@ -124,7 +124,7 @@ public class InjectionPointsProcessor {
 
             if (injectionPoint.getTarget().kind() == AnnotationTarget.Kind.METHOD) {
                 final MethodInfo target = injectionPoint.getTarget().asMethod();
-                final List<Type> types = target.parameters();
+                final List<Type> types = target.parameterTypes();
 
                 for (int i = 0; i < types.size(); i++) {
                     Type type = types.get(0);
