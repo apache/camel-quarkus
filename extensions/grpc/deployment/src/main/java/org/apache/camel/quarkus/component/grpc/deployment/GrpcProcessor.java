@@ -48,6 +48,7 @@ import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 import org.jboss.jandex.MethodInfo;
+import org.jboss.jandex.MethodParameterInfo;
 import org.jboss.jandex.Type;
 
 class GrpcProcessor {
@@ -157,7 +158,9 @@ class GrpcProcessor {
                     if (isCandidateServiceMethod(method)) {
                         String[] params = method.parameters()
                                 .stream()
-                                .map(type -> type.name().toString())
+                                .map(MethodParameterInfo::type)
+                                .map(Type::name)
+                                .map(DotName::toString)
                                 .toArray(String[]::new);
 
                         ClassInfo classInfo = index
@@ -188,11 +191,11 @@ class GrpcProcessor {
     }
 
     private boolean isCandidateServiceMethod(MethodInfo method) {
-        List<Type> parameters = method.parameters();
+        List<MethodParameterInfo> parameters = method.parameters();
         if (parameters.size() == 1) {
-            return parameters.get(0).name().toString().equals(StreamObserver.class.getName());
+            return parameters.get(0).type().name().toString().equals(StreamObserver.class.getName());
         } else if (parameters.size() == 2) {
-            return parameters.get(1).name().toString().equals(StreamObserver.class.getName());
+            return parameters.get(1).type().name().toString().equals(StreamObserver.class.getName());
         }
         return false;
     }

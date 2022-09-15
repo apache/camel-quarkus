@@ -101,7 +101,7 @@ public class ConsumeProcessor {
                     /* If there is @Consume on a method, make the declaring class a named injectable bean */
                     String beanName = namedValue(classInfo);
                     final Transformation transform = ctx.transform();
-                    if (!classInfo.annotations().keySet().stream().anyMatch(BEAN_DEFINING_ANNOTATIONS::contains)) {
+                    if (!classInfo.annotationsMap().keySet().stream().anyMatch(BEAN_DEFINING_ANNOTATIONS::contains)) {
                         /* Only add @Singleton if there is no other bean defining annotation yet */
                         transform.add(Singleton.class);
                     }
