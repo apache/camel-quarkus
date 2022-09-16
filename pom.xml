@@ -133,7 +133,7 @@
         <saaj.impl.version>1.5.3</saaj.impl.version>
         <smallrye.reactive.messaging.camel.version>3.18.0</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
         <spring.version>${spring5-version}</spring.version>
-        <snakeyaml.version>${snakeyaml-version}</snakeyaml.version>
+        <snakeyaml.version>1.32</snakeyaml.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.yaml:snakeyaml -->
         <tablesaw.version>0.43.1</tablesaw.version>
         <threetenbp.version>1.6.0</threetenbp.version>
         <xalan.version>${xalan-version}</xalan.version>
