@@ -16,20 +16,11 @@
  */
 package org.apache.camel.quarkus.core;
 
-import java.util.Map;
+import java.lang.annotation.Annotation;
 
-import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.support.DefaultRegistry;
-
-public class RuntimeRegistry extends DefaultRegistry {
-    public RuntimeRegistry(Map<String, CamelBeanQualifierResolver> beanQualifierResolvers) {
-        super(new RuntimeBeanRepository(beanQualifierResolvers));
-    }
-
-    @Override
-    public Object unwrap(Object value) {
-        return (value instanceof RuntimeValue)
-                ? ((RuntimeValue<?>) value).getValue()
-                : value;
-    }
+/**
+ * Abstraction for resolving bean annotation qualifiers
+ */
+public interface CamelBeanQualifierResolver {
+    Annotation[] resolveQualifiers();
 }

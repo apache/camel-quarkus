@@ -14,22 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core;
+package org.apache.camel.quarkus.support.jdbc;
 
-import java.util.Map;
+import java.lang.annotation.Annotation;
 
+import io.quarkus.agroal.DataSource;
 import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.support.DefaultRegistry;
+import io.quarkus.runtime.annotations.Recorder;
+import org.apache.camel.quarkus.core.CamelBeanQualifierResolver;
 
-public class RuntimeRegistry extends DefaultRegistry {
-    public RuntimeRegistry(Map<String, CamelBeanQualifierResolver> beanQualifierResolvers) {
-        super(new RuntimeBeanRepository(beanQualifierResolvers));
-    }
+@Recorder
+public class JdbcRecorder {
+    public RuntimeValue<CamelBeanQualifierResolver> createDataSourceQualifierResolver(String dataSourceName) {
+        return new RuntimeValue<>(new CamelBeanQualifierResolver() {
+            final DataSource.DataSourceLiteral datasourceLiteral = new DataSource.DataSourceLiteral(dataSourceName);
 
-    @Override
-    public Object unwrap(Object value) {
-        return (value instanceof RuntimeValue)
-                ? ((RuntimeValue<?>) value).getValue()
-                : value;
+            @Override
+            public Annotation[] resolveQualifiers() {
+                return new Annotation[] { datasourceLiteral };
+            }
+        });
     }
 }

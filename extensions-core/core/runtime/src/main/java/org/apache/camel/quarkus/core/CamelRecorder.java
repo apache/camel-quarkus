@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.core;
 
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -47,8 +48,20 @@ import org.apache.camel.support.startup.DefaultStartupStepRecorder;
 
 @Recorder
 public class CamelRecorder {
-    public RuntimeValue<Registry> createRegistry() {
-        return new RuntimeValue<>(new RuntimeRegistry());
+    public void registerCamelBeanQualifierResolver(
+            String className,
+            RuntimeValue<CamelBeanQualifierResolver> runtimeValue,
+            Map<String, CamelBeanQualifierResolver> beanQualifiers) {
+
+        if (beanQualifiers.containsKey(className)) {
+            throw new RuntimeException("Duplicate CamelBeanQualifierResolver detected for class: " + className);
+        }
+
+        beanQualifiers.put(className, runtimeValue.getValue());
+    }
+
+    public RuntimeValue<Registry> createRegistry(Map<String, CamelBeanQualifierResolver> beanQualifierResolvers) {
+        return new RuntimeValue<>(new RuntimeRegistry(beanQualifierResolvers));
     }
 
     public RuntimeValue<TypeConverterRegistry> createTypeConverterRegistry() {

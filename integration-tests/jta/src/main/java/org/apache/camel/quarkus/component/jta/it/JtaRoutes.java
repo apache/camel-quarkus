@@ -71,7 +71,7 @@ public class JtaRoutes extends RouteBuilder {
                 .setHeader("message", body())
                 .to("jms:queue:jdbcRollback?connectionFactory=#xaConnectionFactory&disableReplyTo=true")
                 .transform().simple("insert into example(message, origin) values ('${body}', 'jdbcRollback')")
-                .to("jdbc:camel-ds?resetAutoCommit=false")
+                .to("jdbc:default?resetAutoCommit=false")
                 .choice()
                 .when(header("message").startsWith("rollback"))
                 .log("Rolling back after rollback message")
@@ -86,9 +86,7 @@ public class JtaRoutes extends RouteBuilder {
                 .transacted()
                 .setHeader("message", body())
                 .to("jms:queue:sqltx?connectionFactory=#xaConnectionFactory&disableReplyTo=true")
-                // TODO: Remove the explicit dataSource option
-                // https://github.com/apache/camel-quarkus/issues/4063
-                .to("sql:insert into example(message, origin) values (:#message, 'sqltx')?dataSource=#camel-ds")
+                .to("sql:insert into example(message, origin) values (:#message, 'sqltx')")
                 .choice()
                 .when(header("message").startsWith("rollback"))
                 .log("Failing forever with exception")
@@ -105,9 +103,7 @@ public class JtaRoutes extends RouteBuilder {
                 .transacted()
                 .setHeader("message", body())
                 .to("jms:queue:sqltxRollback?connectionFactory=#xaConnectionFactory&disableReplyTo=true")
-                // TODO: Remove the explicit dataSource option
-                // https://github.com/apache/camel-quarkus/issues/4063
-                .to("sql:insert into example(message, origin) values (:#message, 'sqltxRollback')?dataSource=#camel-ds")
+                .to("sql:insert into example(message, origin) values (:#message, 'sqltxRollback')")
                 .choice()
                 .when(header("message").startsWith("rollback"))
                 .log("Rolling back after rollback message")

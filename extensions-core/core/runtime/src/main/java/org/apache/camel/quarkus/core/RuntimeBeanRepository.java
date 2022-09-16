@@ -34,6 +34,12 @@ import org.apache.camel.spi.BeanRepository;
 
 public final class RuntimeBeanRepository implements BeanRepository {
 
+    private final Map<String, CamelBeanQualifierResolver> beanQualifierResolvers;
+
+    public RuntimeBeanRepository(Map<String, CamelBeanQualifierResolver> beanQualifierResolvers) {
+        this.beanQualifierResolvers = beanQualifierResolvers;
+    }
+
     private static <T> Set<Bean<? extends T>> resolveAmbiguity(BeanManager manager, Set<Bean<? extends T>> beans) {
         if (beans.size() > 1) {
             try {
@@ -111,13 +117,31 @@ public final class RuntimeBeanRepository implements BeanRepository {
 
     @Override
     public <T> Map<String, T> findByTypeWithName(Class<T> type) {
+        Optional<Annotation[]> qualifiers = resolveQualifiersForType(type);
+        if (qualifiers.isPresent()) {
+            return getReferencesByTypeWithName(type, qualifiers.get());
+        }
         return getReferencesByTypeWithName(type);
     }
 
     @Override
     public <T> Set<T> findByType(Class<T> type) {
+        Optional<Annotation[]> qualifiers = resolveQualifiersForType(type);
+        if (qualifiers.isPresent()) {
+            return getBeanManager()
+                    .map(manager -> getReferencesByType(manager, type, qualifiers.get()))
+                    .orElseGet(Collections::emptySet);
+        }
         return getBeanManager()
                 .map(manager -> getReferencesByType(manager, type))
                 .orElseGet(Collections::emptySet);
+    }
+
+    private Optional<Annotation[]> resolveQualifiersForType(Class<?> type) {
+        CamelBeanQualifierResolver resolver = beanQualifierResolvers.get(type.getName());
+        if (resolver != null) {
+            return Optional.ofNullable(resolver.resolveQualifiers());
+        }
+        return Optional.empty();
     }
 }

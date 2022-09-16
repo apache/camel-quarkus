@@ -47,6 +47,7 @@
         <module>google-http-client</module>
         <module>httpclient</module>
         <module>jackson-dataformat-xml</module>
+        <module>jdbc</module>
         <module>jetty</module>
         <module>mail</module>
         <module>mongodb</module>
