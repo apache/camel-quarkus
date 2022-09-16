@@ -4,8 +4,14 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.12.0...HEAD)
 
+**Fixed bugs:**
+
+- Map style config property resolution does not work in native mode [\#4011](https://github.com/apache/camel-quarkus/issues/4011)
+
 **Closed issues:**
 
+- Sync {snakeyaml.version} with quarkus-bom [\#4096](https://github.com/apache/camel-quarkus/issues/4096)
+- Springless JPA extension [\#4084](https://github.com/apache/camel-quarkus/issues/4084)
 - \[Quarkus 2.13.0\] Quarkus Kubernetes not compatible with Camel 3.18.x [\#4083](https://github.com/apache/camel-quarkus/issues/4083)
 - master: add an itest with openshift [\#4077](https://github.com/apache/camel-quarkus/issues/4077)
 - Testing guide confusing about CamelTestSupport [\#4068](https://github.com/apache/camel-quarkus/issues/4068)
@@ -20,9 +26,13 @@
 - \[JDK17\]integration test failed in native mode caused by unresolved type during parsing: sun.security.krb5.Credentials [\#3326](https://github.com/apache/camel-quarkus/issues/3326)
 - \[JDK17\]integration tests failed in native mode which uses JMX [\#3325](https://github.com/apache/camel-quarkus/issues/3325)
 - \[JDK17\]integration test failed in native mode on Mac which depends on quarkus-awt feature [\#3323](https://github.com/apache/camel-quarkus/issues/3323)
+- Investigate the new TX API in Quarkus Transaction [\#3267](https://github.com/apache/camel-quarkus/issues/3267)
+- JCache native support [\#1846](https://github.com/apache/camel-quarkus/issues/1846)
 
 **Merged pull requests:**
 
+- Fix \#4096 to sync snakeyaml with quarkus-bom [\#4098](https://github.com/apache/camel-quarkus/pull/4098) ([zhfeng](https://github.com/zhfeng))
+- Upgrade Quarkus to 2.13.0.CR1 [\#4094](https://github.com/apache/camel-quarkus/pull/4094) ([jamesnetherton](https://github.com/jamesnetherton))
 - JCache native mode [\#4088](https://github.com/apache/camel-quarkus/pull/4088) ([javaduke](https://github.com/javaduke))
 - Fix name of artifact id [\#4082](https://github.com/apache/camel-quarkus/pull/4082) ([llowinge](https://github.com/llowinge))
 - Upgrade Camel to 3.18.2 [\#4081](https://github.com/apache/camel-quarkus/pull/4081) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -41,6 +51,7 @@
 - master: fix itests harness in native mode [\#4055](https://github.com/apache/camel-quarkus/pull/4055) ([aldettinger](https://github.com/aldettinger))
 - Fix \#4007 increase JPA extension test coverage [\#4053](https://github.com/apache/camel-quarkus/pull/4053) ([osmman](https://github.com/osmman))
 - Upgrade to Quarkiverse CXF 1.5.0, the Santuario related stuff moved t… [\#4052](https://github.com/apache/camel-quarkus/pull/4052) ([ppalaga](https://github.com/ppalaga))
+- Springless JPA extension [\#4049](https://github.com/apache/camel-quarkus/pull/4049) ([zhfeng](https://github.com/zhfeng))
 - Adapt Dropbox tests to new authentication mechanism [\#4048](https://github.com/apache/camel-quarkus/pull/4048) ([jamesnetherton](https://github.com/jamesnetherton))
 - Filter out non-service endpoints in Salesforce testGetRestResources [\#4046](https://github.com/apache/camel-quarkus/pull/4046) ([jamesnetherton](https://github.com/jamesnetherton))
 - Log warning instead of throw exception for Debezium MongoDB container script execution failure [\#4045](https://github.com/apache/camel-quarkus/pull/4045) ([jamesnetherton](https://github.com/jamesnetherton))
