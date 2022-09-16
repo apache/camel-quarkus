@@ -8812,6 +8812,16 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-support-jdbc</artifactId>
+        <version>2.13.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-support-jdbc-deployment</artifactId>
+        <version>2.13.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-jetty</artifactId>
         <version>2.13.0-SNAPSHOT</version>
       </dependency>

@@ -16,15 +16,19 @@
  */
 package org.apache.camel.quarkus.core.deployment;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
+import org.apache.camel.quarkus.core.CamelBeanQualifierResolver;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelBeanQualifierResolverBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRegistryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
@@ -43,8 +47,17 @@ public class CamelRegistryProcessor {
 
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
-    CamelRegistryBuildItem registry(CamelRecorder recorder) {
-        return new CamelRegistryBuildItem(recorder.createRegistry());
+    CamelRegistryBuildItem registry(
+            List<CamelBeanQualifierResolverBuildItem> camelBeanQualifierResolvers,
+            CamelRecorder recorder) {
+
+        Map<String, CamelBeanQualifierResolver> beanQualifierResolvers = new HashMap<>();
+        for (CamelBeanQualifierResolverBuildItem resolver : camelBeanQualifierResolvers) {
+            recorder.registerCamelBeanQualifierResolver(resolver.getBeanTypeName(), resolver.getRuntimeValue(),
+                    beanQualifierResolvers);
+        }
+
+        return new CamelRegistryBuildItem(recorder.createRegistry(beanQualifierResolvers));
     }
 
     @Record(ExecutionTime.STATIC_INIT)
