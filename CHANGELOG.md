@@ -6,6 +6,7 @@
 
 **Fixed bugs:**
 
+- \[Quarkus 2.13.0\] JTA integration test fails due to undiscoverable `DataSource` [\#4063](https://github.com/apache/camel-quarkus/issues/4063)
 - Map style config property resolution does not work in native mode [\#4011](https://github.com/apache/camel-quarkus/issues/4011)
 
 **Closed issues:**
@@ -31,6 +32,7 @@
 
 **Merged pull requests:**
 
+- Restore named DataSource autowiring for JDBC and SQL extensions [\#4101](https://github.com/apache/camel-quarkus/pull/4101) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#4096 to sync snakeyaml with quarkus-bom [\#4098](https://github.com/apache/camel-quarkus/pull/4098) ([zhfeng](https://github.com/zhfeng))
 - Upgrade Quarkus to 2.13.0.CR1 [\#4094](https://github.com/apache/camel-quarkus/pull/4094) ([jamesnetherton](https://github.com/jamesnetherton))
 - JCache native mode [\#4088](https://github.com/apache/camel-quarkus/pull/4088) ([javaduke](https://github.com/javaduke))
