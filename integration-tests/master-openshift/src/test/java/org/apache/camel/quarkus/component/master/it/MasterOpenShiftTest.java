@@ -23,6 +23,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 import io.fabric8.openshift.client.server.mock.OpenShiftServer;
 import io.quarkus.test.common.QuarkusTestResource;
@@ -38,6 +39,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledOnOs;
 import org.junit.jupiter.api.condition.OS;
+import org.zeroturnaround.exec.ProcessExecutor;
 import org.zeroturnaround.exec.StartedProcess;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -72,8 +74,9 @@ class MasterOpenShiftTest {
                 "-Dkubernetes.auth.tryServiceAccount=" + config.getValue("kubernetes.auth.tryServiceAccount", String.class));
         jvmArgs.add("-Dhttp2.disable=" + config.getValue("http2.disable", String.class));
 
-        // Start secondary application process
-        QuarkusProcessExecutor quarkusProcessExecutor = new QuarkusProcessExecutor(jvmArgs.toArray(String[]::new));
+        // Start secondary application process faking KubernetesClusterService so it assumes being run from a pod named follower
+        Consumer<ProcessExecutor> customizer = pe -> pe.environment("HOSTNAME", "follower");
+        QuarkusProcessExecutor quarkusProcessExecutor = new QuarkusProcessExecutor(customizer, jvmArgs.toArray(String[]::new));
         StartedProcess process = quarkusProcessExecutor.start();
 
         // Wait until the process is fully initialized
