@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
+import java.util.function.Consumer;
 
 import org.apache.camel.quarkus.test.AvailablePortFinder;
 import org.jboss.logging.Logger;
@@ -40,10 +41,14 @@ public class QuarkusProcessExecutor {
     private final int httpsPort = AvailablePortFinder.getNextAvailable();
 
     public QuarkusProcessExecutor(String... jvmArgs) {
-        this(jvmArgs, null);
+        this(jvmArgs, (String[]) null);
     }
 
     public QuarkusProcessExecutor(String[] jvmArgs, String... applicationArgs) {
+        this(null, jvmArgs, applicationArgs);
+    }
+
+    public QuarkusProcessExecutor(Consumer<ProcessExecutor> customizer, String[] jvmArgs, String... applicationArgs) {
         List<String> command = command(jvmArgs);
         if (applicationArgs != null) {
             command.addAll(Arrays.asList(applicationArgs));
@@ -54,6 +59,10 @@ public class QuarkusProcessExecutor {
                 .command(command)
                 .redirectOutput(System.out)
                 .readOutput(true);
+
+        if (customizer != null) {
+            customizer.accept(executor);
+        }
     }
 
     public ProcessResult execute() throws InterruptedException, TimeoutException, IOException {
