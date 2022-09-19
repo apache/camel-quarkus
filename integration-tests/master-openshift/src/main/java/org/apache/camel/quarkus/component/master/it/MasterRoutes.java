@@ -20,7 +20,6 @@ import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.kubernetes.cluster.KubernetesClusterService;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
@@ -31,10 +30,6 @@ public class MasterRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        KubernetesClusterService clusterService = new KubernetesClusterService();
-        clusterService.setPodName(applicationId);
-        getContext().addService(clusterService);
-
         // Output the id of the application into a file
         from("master:ns:timer:test?period=100")
                 .id("leader")
