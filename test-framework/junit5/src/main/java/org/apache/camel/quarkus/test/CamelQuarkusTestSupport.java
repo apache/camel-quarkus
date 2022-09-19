@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,6 +25,7 @@ import io.quarkus.test.junit.QuarkusTestProfile;
 import io.quarkus.test.junit.callback.QuarkusTestContext;
 import io.quarkus.test.junit.callback.QuarkusTestMethodContext;
 import org.apache.camel.CamelContext;
+import org.apache.camel.Route;
 import org.apache.camel.Service;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.RouteDefinition;
@@ -306,4 +308,31 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
     protected final void startCamelContext() {
         //context has already started
     }
+
+    /**
+     * Override when using <a href="http://camel.apache.org/advicewith.html">advice with</a> and return <tt>true</tt>.
+     * This helps knowing advice with is to be used.
+     * <p/>
+     * <b>Important:</b> Its important to execute method {@link #startRouteDefinitions()}} manually from the unit test
+     * after you are done doing all the advice with.
+     *
+     * @return <tt>true</tt> if you use advice with in your unit tests.
+     */
+    @Override
+    public boolean isUseAdviceWith() {
+        return false;
+    }
+
+    /**
+     * Helper method to start routeDefinitions (to be used with `adviceWith`).
+     */
+    protected void startRouteDefinitions() throws Exception {
+        List<RouteDefinition> definitions = new ArrayList<>(context.adapt(ModelCamelContext.class).getRouteDefinitions());
+        for (Route r : context.getRoutes()) {
+            //existing route does not need to be started
+            definitions.remove(r.getRoute());
+        }
+        context.adapt(ModelCamelContext.class).startRouteDefinitions(definitions);
+    }
+
 }
