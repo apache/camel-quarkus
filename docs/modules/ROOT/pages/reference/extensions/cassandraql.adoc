@@ -48,7 +48,7 @@ endif::[]
 [id="extensions-cassandraql-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 
-[id="extensions-configuration-cassandra-aggregation-repository-in-native-mode"]
+[id="extensions-cassandraql-configuration-cassandra-aggregation-repository-in-native-mode"]
 === Cassandra aggregation repository in native mode
 
 In order to use Cassandra aggregation repositories like `CassandraAggregationRepository` in native mode, you must xref:extensions/core.adoc#quarkus.camel.native.reflection.serialization-enabled[enable native serialization support].

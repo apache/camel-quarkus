@@ -50,7 +50,7 @@ endif::[]
 
 [id="extensions-platform-http-usage"]
 == Usage
-[id="extensions-usage-basic-usage"]
+[id="extensions-platform-http-usage-basic-usage"]
 === Basic Usage
 
 Serve all HTTP methods on the `/hello` endpoint:
@@ -67,6 +67,7 @@ Serve only GET requests on the `/hello` endpoint:
 from("platform-http:/hello?httpMethodRestrict=GET").setBody(simple("Hello ${header.name}"));
 ----
 
+[id="extensions-platform-http-usage-using-platform-http-via-camel-rest-dsl"]
 === Using `platform-http` via Camel REST DSL
 
 To be able to use Camel REST DSL with the `platform-http` component, add `camel-quarkus-rest` to your `pom.xml`:
@@ -91,6 +92,7 @@ rest()
         .to("direct:handlePostRequest");
 ----
 
+[id="extensions-platform-http-usage-handling-multipart-form-data-file-uploads"]
 === Handling `multipart/form-data` file uploads
 
 You can restrict the uploads to certain file extensions by white listing them:
@@ -113,6 +115,7 @@ from("platform-http:/upload/multipart?fileNameExtWhitelist=adoc,txt&httpMethodRe
     });
 ----
 
+[id="extensions-platform-http-usage-securing-platform-http-endpoints"]
 === Securing `platform-http` endpoints
 
 Quarkus provides a variety of security and authentication mechanisms which can be used to secure `platform-http` endpoints. Refer to the https://quarkus.io/guides/security[Quarkus Security documentation] for further details.
@@ -137,7 +140,7 @@ https://quarkus.io/guides/all-config#quarkus-vertx-http_quarkus-vertx-http-eclip
 [id="extensions-platform-http-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 
-[id="extensions-configuration-platform-http-server-configuration"]
+[id="extensions-platform-http-configuration-platform-http-server-configuration"]
 === Platform HTTP server configuration
 
 Configuration of the platform HTTP server is managed by Quarkus. Refer to the https://quarkus.io/guides/all-config#quarkus-vertx-http_quarkus-vertx-http-eclipse-vert.x-http[Quarkus HTTP configuration guide]
@@ -146,6 +149,7 @@ for the full list of configuration options.
 To configure SSL for the Platform HTTP server, follow the https://quarkus.io/guides/http-reference#ssl[secure connections with SSL guide].
 Note that configuring the server for SSL with `SSLContextParameters` is not currently supported.
 
+[id="extensions-platform-http-configuration-character-encodings"]
 === Character encodings
 
 Check the xref:user-guide/native-mode.adoc#charsets[Character encodings section] of the Native mode guide if you expect

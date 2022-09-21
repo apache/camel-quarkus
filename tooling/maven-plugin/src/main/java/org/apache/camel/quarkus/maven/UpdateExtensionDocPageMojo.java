@@ -134,12 +134,12 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         if (lowerEqual_1_0_0(jvmSince)) {
             model.put("pageAliases", "extensions/" + ext.getRuntimeArtifactIdBase() + ".adoc");
         }
-        model.put("intro", loadSection(basePath, "intro.adoc", charset, description));
+        model.put("intro", loadSection(basePath, "intro.adoc", charset, description, ext));
         model.put("models", models);
-        model.put("usage", loadSection(basePath, "usage.adoc", charset, null));
-        model.put("usageAdvanced", loadSection(basePath, "usage-advanced.adoc", charset, null));
-        model.put("configuration", loadSection(basePath, "configuration.adoc", charset, null));
-        model.put("limitations", loadSection(basePath, "limitations.adoc", charset, null));
+        model.put("usage", loadSection(basePath, "usage.adoc", charset, null, ext));
+        model.put("usageAdvanced", loadSection(basePath, "usage-advanced.adoc", charset, null, ext));
+        model.put("configuration", loadSection(basePath, "configuration.adoc", charset, null, ext));
+        model.put("limitations", loadSection(basePath, "limitations.adoc", charset, null, ext));
         model.put("activatesNativeSsl", ext.isNativeSupported() && detectNativeSsl(multiModuleProjectDirectory.toPath(),
                 basePath, ext.getRuntimeArtifactId(), ext.getDependencies(), nativeSslActivators));
         model.put("activatesContextMapAll",
@@ -398,10 +398,15 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                 });
     }
 
-    private static String loadSection(Path basePath, String fileName, Charset charset, String default_) {
+    private static String loadSection(
+            Path basePath,
+            String fileName,
+            Charset charset,
+            String default_,
+            CamelQuarkusExtension extension) {
         Path p = basePath.resolve("src/main/doc/" + fileName);
         if (Files.exists(p)) {
-            AsciiDocFile file = new AsciiDocFile(p, charset);
+            AsciiDocFile file = new AsciiDocFile(p, extension.getRuntimeArtifactIdBase(), charset);
             for (DocumentationPostProcessor processor : documentationPostProcessors) {
                 processor.process(file);
             }

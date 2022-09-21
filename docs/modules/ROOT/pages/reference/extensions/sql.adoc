@@ -58,7 +58,7 @@ xref:{cq-camel-components}::sql-component.adoc#_using_the_jdbc_based_aggregation
 [id="extensions-sql-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 
-[id="extensions-configuration-configuring-a-datasource"]
+[id="extensions-sql-configuration-configuring-a-datasource"]
 === Configuring a DataSource
 
 This extension leverages https://quarkus.io/guides/datasource[Quarkus Agroal] for `DataSource` support. Setting up a `DataSource` can be achieved via configuration properties.
@@ -75,10 +75,12 @@ quarkus.datasource.jdbc.max-size=16
 The Camel SQL component will automatically resolve the `DataSource` bean from the registry. When configuring multiple datasources, you can specify which one is to be used on an SQL endpoint via
 the URI options `datasource` or `dataSourceRef`. Refer to the SQL component documentation for more details.
 
+[id="extensions-sql-configuration-zero-configuration-with-quarkus-dev-services"]
 ==== Zero configuration with Quarkus Dev Services
 
 In dev and test mode you can take advantage of https://quarkus.io/guides/datasource#dev-services-configuration-free-databases[Configuration Free Databases]. The Camel SQL component will be automatically configured to use a `DataSource` that points to a local containerized instance of the database matching the JDBC driver type that you have selected.
 
+[id="extensions-sql-configuration-sql-scripts"]
 === SQL scripts
 
 When configuring `sql` or `sql-stored` endpoints to reference script files from the classpath, set the following configuration property to ensure that they are available in native mode.
@@ -88,6 +90,7 @@ When configuring `sql` or `sql-stored` endpoints to reference script files from 
 quarkus.native.resources.includes = queries.sql, sql/*.sql
 ----
 
+[id="extensions-sql-configuration-sql-aggregation-repository-in-native-mode"]
 === SQL aggregation repository in native mode
 
 In order to use SQL aggregation repositories like `JdbcAggregationRepository` in native mode, you must xref:extensions/core.adoc#quarkus.camel.native.reflection.serialization-enabled[enable native serialization support].

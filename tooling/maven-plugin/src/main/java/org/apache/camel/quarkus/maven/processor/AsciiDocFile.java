@@ -27,11 +27,13 @@ import java.nio.file.Path;
 public class AsciiDocFile {
 
     private final Path path;
+    private final String cqExtension;
     private final Charset charset;
     private String content;
 
-    public AsciiDocFile(Path path, Charset charset) {
+    public AsciiDocFile(Path path, String cqExtension, Charset charset) {
         this.path = path;
+        this.cqExtension = cqExtension;
         this.charset = charset;
         this.content = load();
     }
@@ -42,6 +44,10 @@ public class AsciiDocFile {
 
     public Path getPath() {
         return path;
+    }
+
+    public String getCqExtension() {
+        return cqExtension;
     }
 
     public void append(String contentToAppend) {

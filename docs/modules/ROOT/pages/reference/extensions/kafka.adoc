@@ -47,7 +47,7 @@ endif::[]
 
 [id="extensions-kafka-usage"]
 == Usage
-[id="extensions-usage-quarkus-kafka-dev-services"]
+[id="extensions-kafka-usage-quarkus-kafka-dev-services"]
 === Quarkus Kafka Dev Services
 
 Camel Quarkus Kafka can take advantage of https://quarkus.io/guides/kafka-dev-services[Quarkus Kafka Dev services] to simplify development and testing with a local containerized Kafka broker.

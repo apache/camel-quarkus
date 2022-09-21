@@ -48,12 +48,13 @@ endif::[]
 [id="extensions-infinispan-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 
-[id="extensions-configuration-infinispan-client-configuration"]
+[id="extensions-infinispan-configuration-infinispan-client-configuration"]
 === Infinispan Client Configuration
 
 You can either configure the Infinispan client via the relevant Camel Infinispan component & endpoint options, or you
 may use the https://quarkus.io/guides/infinispan-client#configuration-reference[Quarkus Infinispan extension configuration properties].
 
+[id="extensions-infinispan-configuration-camel-infinispan-infinispanremoteaggregationrepository-in-native-mode"]
 === Camel Infinispan `InfinispanRemoteAggregationRepository` in native mode
 
 If you chose to use the `InfinispanRemoteAggregationRepository` in native mode, then you must xref:extensions/core.adoc#quarkus.camel.native.reflection.serialization-enabled[enable native serialization support].

@@ -49,7 +49,7 @@ endif::[]
 
 [id="extensions-vertx-websocket-usage"]
 == Usage
-[id="extensions-usage-vert-x-websocket-consumers"]
+[id="extensions-vertx-websocket-usage-vert-x-websocket-consumers"]
 === Vert.x WebSocket consumers
 
 When you create a Vert.x WebSocket consumer (E.g with `from("vertx-websocket")`), the host and port configuration in the URI are redundant since the WebSocket will always be hosted on 
@@ -68,7 +68,7 @@ from("vertx-websocket://my-websocket-path")
 [id="extensions-vertx-websocket-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 
-[id="extensions-configuration-vert-x-websocket-server-configuration"]
+[id="extensions-vertx-websocket-configuration-vert-x-websocket-server-configuration"]
 === Vert.x WebSocket server configuration
 
 Configuration of the Vert.x WebSocket server is managed by Quarkus. Refer to the https://quarkus.io/guides/all-config#quarkus-vertx-http_quarkus-vertx-http-eclipse-vert.x-http[Quarkus HTTP configuration guide]
@@ -77,6 +77,7 @@ for the full list of configuration options.
 To configure SSL for the Vert.x WebSocket server, follow the https://quarkus.io/guides/http-reference#ssl[secure connections with SSL guide].
 Note that configuring the server for SSL with `SSLContextParameters` is not currently supported.
 
+[id="extensions-vertx-websocket-configuration-character-encodings"]
 === Character encodings
 
 Check the xref:user-guide/native-mode.adoc#charsets[Character encodings section] of the Native mode guide if you expect

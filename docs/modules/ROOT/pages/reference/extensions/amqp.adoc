@@ -47,12 +47,13 @@ endif::[]
 
 [id="extensions-amqp-usage"]
 == Usage
-[id="extensions-usage-message-mapping-with-org-w3c-dom-node"]
+[id="extensions-amqp-usage-message-mapping-with-org-w3c-dom-node"]
 === Message mapping with `org.w3c.dom.Node`
 
 The Camel AMQP component supports message mapping between `javax.jms.Message` and `org.apache.camel.Message`. When wanting to convert a Camel message body type of `org.w3c.dom.Node`,
 you must ensure that the `camel-quarkus-jaxp` extension is present on the classpath.
 
+[id="extensions-amqp-usage-native-mode-support-for-javax-jms-objectmessage"]
 === Native mode support for javax.jms.ObjectMessage
 
 When sending JMS message payloads as `javax.jms.ObjectMessage`, you must annotate the relevant classes to be registered for serialization with `@RegisterForReflection(serialization = true)`. 

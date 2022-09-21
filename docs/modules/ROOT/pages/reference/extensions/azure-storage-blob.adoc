@@ -46,7 +46,7 @@ endif::[]
 
 [id="extensions-azure-storage-blob-usage"]
 == Usage
-[id="extensions-usage-micrometer-metrics-support"]
+[id="extensions-azure-storage-blob-usage-micrometer-metrics-support"]
 === Micrometer metrics support
 
 If you wish to enable the collection of Micrometer metrics for the Reactor Netty transports, then you should declare a dependency on `quarkus-micrometer` to ensure

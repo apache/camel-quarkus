@@ -46,11 +46,12 @@ endif::[]
 
 [id="extensions-kamelet-usage"]
 == Usage
-[id="extensions-usage-pre-load-kamelets-at-build-time"]
+[id="extensions-kamelet-usage-pre-load-kamelets-at-build-time"]
 === Pre-load Kamelets at build-time
 
 This extension allows to pre-load a set of Kamelets at build time using the `quarkus.camel.kamelet.identifiers` property.
 
+[id="extensions-kamelet-usage-using-the-kamelet-catalog"]
 === Using the Kamelet Catalog
 
 A set of pre-made Kamelets can be found on the /camel-kamelets/latest[Kamelet Catalog].

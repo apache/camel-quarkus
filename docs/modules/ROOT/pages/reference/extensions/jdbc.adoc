@@ -48,7 +48,7 @@ endif::[]
 [id="extensions-jdbc-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 
-[id="extensions-configuration-configuring-a-datasource"]
+[id="extensions-jdbc-configuration-configuring-a-datasource"]
 === Configuring a DataSource
 
 This extension leverages https://quarkus.io/guides/datasource[Quarkus Agroal] for `DataSource` support. Setting up a `DataSource` can be achieved via configuration properties.
@@ -65,6 +65,7 @@ quarkus.datasource.camel.jdbc.max-size=16
 
 If you choose to not name the datasource, you can resolve the default `DataSource` by defining your endpoint like `to("jdbc:default")`.
 
+[id="extensions-jdbc-configuration-zero-configuration-with-quarkus-dev-services"]
 ==== Zero configuration with Quarkus Dev Services
 
 In dev and test mode you can take advantage of https://quarkus.io/guides/datasource#dev-services-configuration-free-databases[Configuration Free Databases]. All you need to do is reference the default database in your routes. E.g `to("jdbc:default")`.
