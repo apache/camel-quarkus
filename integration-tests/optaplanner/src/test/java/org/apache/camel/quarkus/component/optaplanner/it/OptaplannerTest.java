@@ -21,10 +21,12 @@ import java.util.concurrent.TimeUnit;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.awaitility.Awaitility.await;
 
+@Disabled("https://github.com/apache/camel-quarkus/issues/4116")
 @QuarkusTest
 class OptaplannerTest {
 

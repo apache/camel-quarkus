@@ -70,7 +70,24 @@
         </dependency>
     </dependencies>
 
+    <!-- TODO: Remove this: https://github.com/apache/camel-quarkus/issues/4116 -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>quarkus-maven-plugin-disabled</id>
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
     <profiles>
+        <!-- TODO: https://github.com/apache/camel-quarkus/issues/4116
         <profile>
             <id>native</id>
             <activation>
@@ -98,6 +115,7 @@
                 </plugins>
             </build>
         </profile>
+        -->
         <profile>
             <id>virtualDependencies</id>
             <activation>

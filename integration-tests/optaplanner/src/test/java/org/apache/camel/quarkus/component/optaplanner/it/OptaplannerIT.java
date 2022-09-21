@@ -17,7 +17,9 @@
 package org.apache.camel.quarkus.component.optaplanner.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
+import org.junit.jupiter.api.Disabled;
 
+@Disabled("https://github.com/apache/camel-quarkus/issues/4116")
 @QuarkusIntegrationTest
 class OptaplannerIT extends OptaplannerTest {
 
