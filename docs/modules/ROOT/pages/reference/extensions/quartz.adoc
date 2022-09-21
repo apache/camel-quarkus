@@ -48,6 +48,12 @@ endif::[]
 [id="extensions-quartz-usage"]
 == Usage
 ifeval::[{doc-show-advanced-features} == true]
+[id="extensions-quartz-usage-advanced-quarkus-start-mode"]
+=== Quarkus start mode
+
+Camel Quarkus Quartz extension leverages Quarkus Quartz.
+The default value for start mode (see the https://quarkus.io/guides/quartz#quarkus-quartz_quarkus.quartz.start-mode[documentation]) is set to `forced` (to allow programatic approach of scheduling throuh Camel component)
+
 [id="extensions-quartz-usage-advanced-clustering"]
 === Clustering
 

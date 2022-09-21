@@ -22,6 +22,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
+import io.quarkus.deployment.builditem.RunTimeConfigurationDefaultBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageSystemPropertyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
@@ -95,6 +96,11 @@ class QuartzProcessor {
     NativeImageSystemPropertyBuildItem disableJMX() {
         return new NativeImageSystemPropertyBuildItem("com.mchange.v2.c3p0.management.ManagementCoordinator",
                 "com.mchange.v2.c3p0.management.NullManagementCoordinator");
+    }
+
+    @BuildStep
+    RunTimeConfigurationDefaultBuildItem createSchedulerInForcedMode() {
+        return new RunTimeConfigurationDefaultBuildItem("quarkus.quartz.start-mode", "forced");
     }
 
 }
