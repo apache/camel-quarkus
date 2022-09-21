@@ -48,7 +48,7 @@ endif::[]
 [id="extensions-gson-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 
-[id="extensions-configuration-marshaling-unmarshaling-objects-in-native-mode"]
+[id="extensions-gson-configuration-marshaling-unmarshaling-objects-in-native-mode"]
 === Marshaling/Unmarshaling objects in native mode
 
 When marshaling/unmarshaling objects in native mode, all the serialized classes need to be link:https://quarkus.io/guides/writing-native-applications-tips#registering-for-reflection[registered for reflection].

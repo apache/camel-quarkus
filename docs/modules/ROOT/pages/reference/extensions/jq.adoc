@@ -46,7 +46,7 @@ endif::[]
 
 [id="extensions-jq-usage"]
 == Usage
-[id="extensions-usage-jq-transformations-to-custom-result-types-in-native-mode"]
+[id="extensions-jq-usage-jq-transformations-to-custom-result-types-in-native-mode"]
 === JQ transformations to custom result types in native mode
 
 If you choose to perform JQ transformations that specify the result class as some custom type in native mode,

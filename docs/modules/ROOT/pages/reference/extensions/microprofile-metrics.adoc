@@ -49,6 +49,7 @@ endif::[]
 == Usage
 The xref:{cq-camel-components}::microprofile-metrics-component.adoc[microprofile-metrics] component automatically exposes a set of Camel application metrics. Some of these include:
 
+[id="extensions-microprofile-metrics-usage-camel-context-metrics"]
 === Camel Context metrics
 
 [cols="80,.^20]
@@ -105,6 +106,7 @@ The total number of all failures handled
 
 |===
 
+[id="extensions-microprofile-metrics-usage-camel-route-metrics"]
 === Camel Route metrics
 
 [cols="80,.^20]

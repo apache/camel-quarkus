@@ -47,7 +47,7 @@ endif::[]
 
 [id="extensions-jaxb-usage"]
 == Usage
-[id="extensions-usage-native-mode-objectfactory-instantiation-of-non-jaxb-annotated-classes"]
+[id="extensions-jaxb-usage-native-mode-objectfactory-instantiation-of-non-jaxb-annotated-classes"]
 === Native mode `ObjectFactory` instantiation of non-JAXB annotated classes
 
 When performing JAXB marshal operations with a custom `ObjectFactory` to instantiate POJO classes that do not have JAXB annotations,

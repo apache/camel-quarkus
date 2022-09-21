@@ -48,7 +48,7 @@ endif::[]
 [id="extensions-quartz-usage"]
 == Usage
 ifeval::[{doc-show-advanced-features} == true]
-[id="extensions-usage-advanced-clustering"]
+[id="extensions-quartz-usage-advanced-clustering"]
 === Clustering
 
 Support for Quartz clustering is provided by the Quarkus Quartz extension. The following steps outline how to configure Quarkus Quartz for use with Camel.

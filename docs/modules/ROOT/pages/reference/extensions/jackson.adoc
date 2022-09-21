@@ -47,16 +47,18 @@ endif::[]
 
 [id="extensions-jackson-usage"]
 == Usage
-[id="extensions-usage-configuring-the-jackson-objectmapper"]
+[id="extensions-jackson-usage-configuring-the-jackson-objectmapper"]
 === Configuring the Jackson `ObjectMapper`
 
 There are a few ways of configuring the `ObjectMapper` that the `JacksonDataFormat` uses. These are outlined below.
 
+[id="extensions-jackson-usage-objectmapper-created-internally-by-jacksondataformat"]
 ==== `ObjectMapper` created internally by `JacksonDataFormat`
 
 By default, `JacksonDataFormat` will create its own `ObjectMapper` and use the various configuration options on the `DataFormat`
 to configure additional Jackson modules, pretty printing and other features.
 
+[id="extensions-jackson-usage-custom-objectmapper-for-jacksondataformat"]
 ==== Custom `ObjectMapper` for `JacksonDataFormat`
 
 You can pass a custom `ObjectMapper` instance to `JacksonDataFormat` as follows.
@@ -78,6 +80,7 @@ public class Routes extends RouteBuilder {
 }
 ----
 
+[id="extensions-jackson-usage-using-the-quarkus-jackson-objectmapper-with-jacksondataformat"]
 ==== Using the Quarkus Jackson `ObjectMapper` with `JacksonDataFormat`
 
 The Quarkus Jackson extension exposes an `ObjectMapper` CDI bean which can be discovered by the `JacksonDataFormat`.

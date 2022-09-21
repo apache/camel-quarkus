@@ -58,14 +58,17 @@ You can also provide custom `HealthCheckRepository` implementations and these ar
 
 Refer to the https://quarkus.io/guides/health-guide[Quarkus health guide] for further information.
 
+[id="extensions-microprofile-health-usage-provided-health-checks"]
 === Provided health checks
 
 Some checks are automatically registered for your application.
 
+[id="extensions-microprofile-health-usage-camel-context-health"]
 ==== Camel Context Health
 
 Inspects the Camel Context status and causes the health check status to be `DOWN` if the status is anything other than 'Started'.
 
+[id="extensions-microprofile-health-usage-camel-route-health"]
 ==== Camel Route Health
 
 Inspects the status of each route and causes the health check status to be `DOWN` if any route status is not 'Started'.

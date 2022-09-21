@@ -47,7 +47,7 @@ endif::[]
 
 [id="extensions-salesforce-usage"]
 == Usage
-[id="extensions-usage-generating-salesforce-dtos-with-the-salesforce-maven-plugin"]
+[id="extensions-salesforce-usage-generating-salesforce-dtos-with-the-salesforce-maven-plugin"]
 === Generating Salesforce DTOs with the `salesforce-maven-plugin`
 
 ifeval::[{doc-show-extra-content} == true]

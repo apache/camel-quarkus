@@ -48,7 +48,7 @@ endif::[]
 [id="extensions-protobuf-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 
-[id="extensions-configuration-generate-classes-from-protobuf-proto-files"]
+[id="extensions-protobuf-configuration-generate-classes-from-protobuf-proto-files"]
 === Generate classes from protobuf `.proto` files
 Use the `generate-code` goal of `quarkus-maven-plugin` to generate Java classes from your `*.proto`
 service and message definitions stored in the `src/main/proto` directory:
@@ -75,6 +75,7 @@ service and message definitions stored in the `src/main/proto` directory:
 
 The https://github.com/apache/camel-quarkus/tree/main/integration-tests/protobuf[camel-quarkus-protobuf integration test] is a good way to learn more.
 
+[id="extensions-protobuf-configuration-serialize-deserialize-java-beans-using-json-fields-representation"]
 === Serialize/Deserialize Java beans using JSON fields representation
 Please note that some additional configurations might be needed when using `contentTypeFormat=json`.
 Indeed, in such a case, the generated `Builder` class needs to be registered for reflection.

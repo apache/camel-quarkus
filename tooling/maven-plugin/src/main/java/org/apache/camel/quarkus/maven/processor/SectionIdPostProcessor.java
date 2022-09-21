@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.maven.processor;
 
-import java.nio.file.Path;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,30 +23,29 @@ import java.util.regex.Pattern;
  * {@link DocumentationPostProcessor} transform AsciiDoc headings to add ID blocks.
  */
 public class SectionIdPostProcessor implements DocumentationPostProcessor {
-    private static final Pattern PATTERN_ASCIIDOC_HEADING = Pattern.compile("^=+\\s(.*)");
+    private static final Pattern PATTERN_ASCIIDOC_HEADING = Pattern.compile("^=+ (.*)", Pattern.MULTILINE);
     private static final Pattern PATTERN_NON_ALPHA_NUMERIC = Pattern.compile("[^A-Za-z\\d-]");
     private static final Pattern PATTERN_MULTIPLE_HYPHEN = Pattern.compile("-+");
-    private static final Pattern PATTERN_END_OF_LINE_HYPHEN = Pattern.compile("-$");
+    private static final Pattern PATTERN_TRIM_HYPHEN = Pattern.compile("^-|-$");
 
     @Override
     public void process(AsciiDocFile file) {
-        Path path = file.getPath();
-        String fileName = path.getFileName().toString();
-        String cqExtension = fileName.substring(0, fileName.lastIndexOf('.'));
-
         Matcher matcher = PATTERN_ASCIIDOC_HEADING.matcher(file.getContent());
         while (matcher.find()) {
             String headingMarkup = matcher.group(0);
             String heading = matcher.group(1);
-            String id = generateAsciiDocIdentifier(cqExtension, heading.toLowerCase().trim());
+            String fileName = file.getPath().getFileName().toString();
+            String docType = fileName.substring(0, fileName.lastIndexOf('.'));
+            String id = generateAsciiDocIdentifier(file.getCqExtension(), docType, heading.toLowerCase().trim());
             file.replace(headingMarkup, id + headingMarkup);
         }
     }
 
-    private String generateAsciiDocIdentifier(String extension, String heading) {
-        String sanitizedHeading = PATTERN_NON_ALPHA_NUMERIC.matcher(heading).replaceAll("-");
+    private String generateAsciiDocIdentifier(String extension, String docType, String heading) {
+        String sanitizedHeading = String.format("extensions-%s-%s-%s", extension, docType, heading);
+        sanitizedHeading = PATTERN_NON_ALPHA_NUMERIC.matcher(sanitizedHeading).replaceAll("-");
         sanitizedHeading = PATTERN_MULTIPLE_HYPHEN.matcher(sanitizedHeading).replaceAll("-");
-        sanitizedHeading = PATTERN_END_OF_LINE_HYPHEN.matcher(sanitizedHeading).replaceAll("");
-        return String.format("[id=\"extensions-%s-%s\"]\n", extension, sanitizedHeading);
+        sanitizedHeading = PATTERN_TRIM_HYPHEN.matcher(sanitizedHeading).replaceAll("");
+        return String.format("[id=\"%s\"]\n", sanitizedHeading).toLowerCase();
     }
 }

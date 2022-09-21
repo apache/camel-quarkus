@@ -46,7 +46,7 @@ endif::[]
 
 [id="extensions-velocity-usage"]
 == Usage
-[id="extensions-usage-custom-body-as-domain-object-in-the-native-mode"]
+[id="extensions-velocity-usage-custom-body-as-domain-object-in-the-native-mode"]
 === Custom body as domain object in the native mode
 
 When using a custom object as message body and referencing its properties in the template in the native mode, all the classes need to be registered for reflection (see the https://quarkus.io/guides/writing-native-applications-tips#register-reflection[documentation]).

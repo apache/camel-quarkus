@@ -57,6 +57,7 @@ Also, it leverages https://quarkus.io/guides/transaction#programmatic-approach[Q
 When a single persistence unit is used, the Camel Quarkus JPA extension will automatically configure the JPA component with a
 `EntityManagerFactory` and `TransactionStrategy`.
 
+[id="extensions-jpa-configuration-configuring-jpamessageidrepository"]
 === Configuring JpaMessageIdRepository
 It needs to use `EntityManagerFactory` and `TransactionStrategy` from the CDI container to configure the `JpaMessageIdRepository`:
 [source, java]

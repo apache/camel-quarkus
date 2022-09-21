@@ -53,7 +53,7 @@ The `allowContextMapAll` option is not supported in native mode as it requires r
 [id="extensions-freemarker-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 
-[id="extensions-configuration-quarkiverse-freemarker-and-its-configuration"]
+[id="extensions-freemarker-configuration-quarkiverse-freemarker-and-its-configuration"]
 == Quarkiverse Freemarker and its configuration
 
 Camel Quarkus Freemarker uses dev/index.html[Quarkiverse Freemarker] under the hood.
