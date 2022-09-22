@@ -112,12 +112,12 @@ Sets whether header names need to be encoded. Can be useful in situations where 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.opentelemetry.exclude-patterns]]`link:#quarkus.camel.opentelemetry.exclude-patterns[quarkus.camel.opentelemetry.exclude-patterns]`
 
 Sets whether to disable tracing for endpoint URIs that match the given patterns. The pattern can take the following forms: 
- 
- 1. An exact match on the endpoint URI. E.g platform-http:/some/path 
- 
- 2. A wildcard match. E.g platform-http:++*++ 
- 
- 3. A regular expression matching the endpoint URI. E.g platform-http:/prefix/.++*++
+
+1. An exact match on the endpoint URI. E.g platform-http:/some/path 
+
+2. A wildcard match. E.g platform-http:++*++ 
+
+3. A regular expression matching the endpoint URI. E.g platform-http:/prefix/.++*++
 | `string`
 | 
 |===

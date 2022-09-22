@@ -79,7 +79,7 @@ This artifact add all the kamelets available in the catalog to your Camel Quarku
 |icon:lock[title=Fixed at build time] [[quarkus.camel.kamelet.identifiers]]`link:#quarkus.camel.kamelet.identifiers[quarkus.camel.kamelet.identifiers]`
 
 List of kamelets identifiers to pre-load at build time. 
- Each individual identifier is used to set the related `org.apache.camel.model.RouteTemplateDefinition` id.
+Each individual identifier is used to set the related `org.apache.camel.model.RouteTemplateDefinition` id.
 | `string`
 | 
 |===

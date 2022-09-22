@@ -138,60 +138,60 @@ When set to true, the `CamelRuntime` will be started automatically.
 |icon:lock[title=Fixed at build time] [[quarkus.camel.service.discovery.exclude-patterns]]`link:#quarkus.camel.service.discovery.exclude-patterns[quarkus.camel.service.discovery.exclude-patterns]`
 
 A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath. The services defined in the matching files will not be discoverable via the `org.apache.camel.spi.FactoryFinder` mechanism. 
- The excludes have higher precedence than includes. The excludes defined here can also be used to veto the discoverability of services included by Camel Quarkus extensions. 
- Example values: `META-INF/services/org/apache/camel/foo/++*++,META-INF/services/org/apache/camel/foo/++**++/bar`
+The excludes have higher precedence than includes. The excludes defined here can also be used to veto the discoverability of services included by Camel Quarkus extensions. 
+Example values: `META-INF/services/org/apache/camel/foo/++*++,META-INF/services/org/apache/camel/foo/++**++/bar`
 | `string`
 | 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.service.discovery.include-patterns]]`link:#quarkus.camel.service.discovery.include-patterns[quarkus.camel.service.discovery.include-patterns]`
 
 A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath. The services defined in the matching files will be discoverable via the `org.apache.camel.spi.FactoryFinder` mechanism unless the given file is excluded via `exclude-patterns`. 
- Note that Camel Quarkus extensions may include some services by default. The services selected here added to those services and the exclusions defined in `exclude-patterns` are applied to the union set. 
- Example values: `META-INF/services/org/apache/camel/foo/++*++,META-INF/services/org/apache/camel/foo/++**++/bar`
+Note that Camel Quarkus extensions may include some services by default. The services selected here added to those services and the exclusions defined in `exclude-patterns` are applied to the union set. 
+Example values: `META-INF/services/org/apache/camel/foo/++*++,META-INF/services/org/apache/camel/foo/++**++/bar`
 | `string`
 | 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.service.registry.exclude-patterns]]`link:#quarkus.camel.service.registry.exclude-patterns[quarkus.camel.service.registry.exclude-patterns]`
 
 A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath. The services defined in the matching files will not be added to Camel registry during application's static initialization. 
- The excludes have higher precedence than includes. The excludes defined here can also be used to veto the registration of services included by Camel Quarkus extensions. 
- Example values: `META-INF/services/org/apache/camel/foo/++*++,META-INF/services/org/apache/camel/foo/++**++/bar`
+The excludes have higher precedence than includes. The excludes defined here can also be used to veto the registration of services included by Camel Quarkus extensions. 
+Example values: `META-INF/services/org/apache/camel/foo/++*++,META-INF/services/org/apache/camel/foo/++**++/bar`
 | `string`
 | 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.service.registry.include-patterns]]`link:#quarkus.camel.service.registry.include-patterns[quarkus.camel.service.registry.include-patterns]`
 
 A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath. The services defined in the matching files will be added to Camel registry during application's static initialization unless the given file is excluded via `exclude-patterns`. 
- Note that Camel Quarkus extensions may include some services by default. The services selected here added to those services and the exclusions defined in `exclude-patterns` are applied to the union set. 
- Example values: `META-INF/services/org/apache/camel/foo/++*++,META-INF/services/org/apache/camel/foo/++**++/bar`
+Note that Camel Quarkus extensions may include some services by default. The services selected here added to those services and the exclusions defined in `exclude-patterns` are applied to the union set. 
+Example values: `META-INF/services/org/apache/camel/foo/++*++,META-INF/services/org/apache/camel/foo/++**++/bar`
 | `string`
 | 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.runtime-catalog.components]]`link:#quarkus.camel.runtime-catalog.components[quarkus.camel.runtime-catalog.components]`
 
 If `true` the Runtime Camel Catalog embedded in the application will contain JSON schemas of Camel components available in the application; otherwise component JSON schemas will not be available in the Runtime Camel Catalog and any attempt to access those will result in a RuntimeException. 
- Setting this to `false` helps to reduce the size of the native image. In JVM mode, there is no real benefit of setting this flag to `false` except for making the behavior consistent with native mode.
+Setting this to `false` helps to reduce the size of the native image. In JVM mode, there is no real benefit of setting this flag to `false` except for making the behavior consistent with native mode.
 | `boolean`
 | `true`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.runtime-catalog.languages]]`link:#quarkus.camel.runtime-catalog.languages[quarkus.camel.runtime-catalog.languages]`
 
 If `true` the Runtime Camel Catalog embedded in the application will contain JSON schemas of Camel languages available in the application; otherwise language JSON schemas will not be available in the Runtime Camel Catalog and any attempt to access those will result in a RuntimeException. 
- Setting this to `false` helps to reduce the size of the native image. In JVM mode, there is no real benefit of setting this flag to `false` except for making the behavior consistent with native mode.
+Setting this to `false` helps to reduce the size of the native image. In JVM mode, there is no real benefit of setting this flag to `false` except for making the behavior consistent with native mode.
 | `boolean`
 | `true`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.runtime-catalog.dataformats]]`link:#quarkus.camel.runtime-catalog.dataformats[quarkus.camel.runtime-catalog.dataformats]`
 
 If `true` the Runtime Camel Catalog embedded in the application will contain JSON schemas of Camel data formats available in the application; otherwise data format JSON schemas will not be available in the Runtime Camel Catalog and any attempt to access those will result in a RuntimeException. 
- Setting this to `false` helps to reduce the size of the native image. In JVM mode, there is no real benefit of setting this flag to `false` except for making the behavior consistent with native mode.
+Setting this to `false` helps to reduce the size of the native image. In JVM mode, there is no real benefit of setting this flag to `false` except for making the behavior consistent with native mode.
 | `boolean`
 | `true`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.runtime-catalog.models]]`link:#quarkus.camel.runtime-catalog.models[quarkus.camel.runtime-catalog.models]`
 
 If `true` the Runtime Camel Catalog embedded in the application will contain JSON schemas of Camel EIP models available in the application; otherwise EIP model JSON schemas will not be available in the Runtime Camel Catalog and any attempt to access those will result in a RuntimeException. 
- Setting this to `false` helps to reduce the size of the native image. In JVM mode, there is no real benefit of setting this flag to `false` except for making the behavior consistent with native mode.
+Setting this to `false` helps to reduce the size of the native image. In JVM mode, there is no real benefit of setting this flag to `false` except for making the behavior consistent with native mode.
 | `boolean`
 | `true`
 
@@ -228,18 +228,18 @@ Replaced by `quarkus.native.resources.includes` in Camel Quarkus 2.0.0. Using th
 |icon:lock[title=Fixed at build time] [[quarkus.camel.native.reflection.exclude-patterns]]`link:#quarkus.camel.native.reflection.exclude-patterns[quarkus.camel.native.reflection.exclude-patterns]`
 
 A comma separated list of Ant-path style patterns to match class names that should be excluded from registering for reflection. Use the class name format as returned by the `java.lang.Class.getName()` method: package segments delimited by period `.` and inner classes by dollar sign `$`. 
- This option narrows down the set selected by `include-patterns`. By default, no classes are excluded. 
- This option cannot be used to unregister classes which have been registered internally by Quarkus extensions.
+This option narrows down the set selected by `include-patterns`. By default, no classes are excluded. 
+This option cannot be used to unregister classes which have been registered internally by Quarkus extensions.
 | `string`
 | 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.native.reflection.include-patterns]]`link:#quarkus.camel.native.reflection.include-patterns[quarkus.camel.native.reflection.include-patterns]`
 
 A comma separated list of Ant-path style patterns to match class names that should be registered for reflection. Use the class name format as returned by the `java.lang.Class.getName()` method: package segments delimited by period `.` and inner classes by dollar sign `$`. 
- By default, no classes are included. The set selected by this option can be narrowed down by `exclude-patterns`. 
- Note that Quarkus extensions typically register the required classes for reflection by themselves. This option is useful in situations when the built in functionality is not sufficient. 
- Note that this option enables the full reflective access for constructors, fields and methods. If you need a finer grained control, consider using `io.quarkus.runtime.annotations.RegisterForReflection` annotation in your Java code. 
- For this option to work properly, at least one of the following conditions must be satisfied:  
+By default, no classes are included. The set selected by this option can be narrowed down by `exclude-patterns`. 
+Note that Quarkus extensions typically register the required classes for reflection by themselves. This option is useful in situations when the built in functionality is not sufficient. 
+Note that this option enables the full reflective access for constructors, fields and methods. If you need a finer grained control, consider using `io.quarkus.runtime.annotations.RegisterForReflection` annotation in your Java code. 
+For this option to work properly, at least one of the following conditions must be satisfied:  
  - There are no wildcards (`++*++` or `/`) in the patterns 
  - The artifacts containing the selected classes contain a Jandex index (`META-INF/jandex.idx`) 
  - The artifacts containing the selected classes are registered for indexing using the `quarkus.index-dependency.++*++` family of options in `application.properties` - e.g. quarkus.index-dependency.my-dep.group-id = org.my-group quarkus.index-dependency.my-dep.artifact-id = my-artifact  where `my-dep` is a label of your choice to tell Quarkus that `org.my-group` and with `my-artifact` belong together.
@@ -261,8 +261,8 @@ What to do if it is not possible to extract CSimple expressions from a route def
 |icon:lock[title=Fixed at build time] [[quarkus.camel.event-bridge.enabled]]`link:#quarkus.camel.event-bridge.enabled[quarkus.camel.event-bridge.enabled]`
 
 Whether to enable the bridging of Camel events to CDI events. 
- This allows CDI observers to be configured for Camel events. E.g. those belonging to the `org.apache.camel.quarkus.core.events`, `org.apache.camel.quarkus.main.events` & `org.apache.camel.impl.event` packages. 
- Note that this configuration item only has any effect when observers configured for Camel events are present in the application.
+This allows CDI observers to be configured for Camel events. E.g. those belonging to the `org.apache.camel.quarkus.core.events`, `org.apache.camel.quarkus.main.events` & `org.apache.camel.impl.event` packages. 
+Note that this configuration item only has any effect when observers configured for Camel events are present in the application.
 | `boolean`
 | `true`
 
