@@ -55,7 +55,7 @@ endif::[]
 |icon:lock[title=Fixed at build time] [[quarkus.camel.yaml.flow-mode]]`link:#quarkus.camel.yaml.flow-mode[quarkus.camel.yaml.flow-mode]`
 
 If `true` the YAML DSL support flow-mode which allow to write more concise routes as for EIPs that have their own output like filter, aggregate, split, etc. the `steps` element can be omitted an in that case, the next processing step is automatically wired to the EIP's outputs. 
- As example, a YAML DSL to process only the timer events from 5 to 10 would look like: `- from:
+As example, a YAML DSL to process only the timer events from 5 to 10 would look like: `- from:
     uri: "timer:tick"
     steps:
       - filter:
