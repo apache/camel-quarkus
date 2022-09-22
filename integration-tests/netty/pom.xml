@@ -147,6 +147,45 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>fips</id>
+            <activation>
+                <property>
+                    <name>fips</name>
+                </property>
+            </activation>
+            <properties>
+                <quarkus.profile>fips</quarkus.profile>
+                <quarkus.test.profile>fips</quarkus.test.profile>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-security</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bctls-fips</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bc-fips</artifactId>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <quarkus.test.profile>fips</quarkus.test.profile>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
 </project>

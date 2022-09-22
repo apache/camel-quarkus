@@ -2,3 +2,15 @@
 
     cd src/main/resources/ssl
     keytool -genkeypair -keystore keystore.p12 -storetype PKCS12 -storepass changeit -alias localhost -keyalg RSA -keysize 2048 -validity 99999 -dname "CN=localhost"
+
+== Run tests on FIPS enabled system
+
+To execute the tests on FIPS enabled system add `-Dfips` property so that tests will use BCFKS keystore. Example of usage:
+
+`mvn clean test -f integration-tests/netty/ -Dfips`
+
+
+=== Generate Bouncy Castle FIPS Keystore (BCFKS)
+
+    cd src/main/resources/ssl
+    keytool -genkey -alias localhost -keyalg RSA -keystore fips-keystore.bcfks -keysize 2048 -validity 99999 -dname "CN=localhost" -keypass changeit -provider org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider -providerpath bc-fips.jar -storetype BCFKS
