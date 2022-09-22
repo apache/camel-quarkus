@@ -44,3 +44,33 @@ Or add the coordinates to your existing project:
 ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
+
+[id="extensions-rest-openapi-usage"]
+== Usage
+[id="extensions-rest-openapi-usage-required-dependencies"]
+=== Required Dependencies
+
+A `RestProducerFactory` implementation must be available when using the rest-openapi extension. The currently known extensions are:
+
+* camel-quarkus-http
+* camel-quarkus-netty-http
+
+Maven users will need to add one of these dependencies to their `pom.xml`, for example:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-http</artifactId>
+</dependency>
+----
+
+Depending on which mechanism is used to load the OpenApi specification, additional dependencies may be required. When using the `file` resource locator, the `org.apache.camel.quarkus:camel-quarkus-file` extension must be added as a project dependency. When using `ref` or `bean` to load the specification, not only must the `org.apache.camel.quarkus:camel-quarkus-bean` dependency be added, but the bean itself must be annotated with `@RegisterForReflection`.
+
+When using the `classpath` resource locator with native code, the path to the OpenAPI specification must be specified in the `quarkus.native.resources.includes` property of the `application.properties` file. For example:
+
+[source]
+----
+quarkus.native.resources.includes=openapi.json
+----
+
