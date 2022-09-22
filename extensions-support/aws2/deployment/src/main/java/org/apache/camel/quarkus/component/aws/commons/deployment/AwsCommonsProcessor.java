@@ -67,6 +67,8 @@ class AwsCommonsProcessor {
     void runtimeInitialize(BuildProducer<RuntimeInitializedClassBuildItem> producer) {
         producer.produce(
                 new RuntimeInitializedClassBuildItem("software.amazon.awssdk.core.retry.backoff.FullJitterBackoffStrategy"));
+        producer.produce(
+                new RuntimeInitializedClassBuildItem("software.amazon.awssdk.utils.cache.CachedSupplier"));
     }
 
 }
