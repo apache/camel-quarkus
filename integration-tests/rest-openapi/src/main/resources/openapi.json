@@ -1,0 +1,100 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "title" : "camel-quarkus-integration-test-rest-openapi API",
+    "version" : "2.13.0-SNAPSHOT"
+  },
+  "paths" : {
+    "/fruits" : {
+      "get" : {
+        "tags" : [ "Fruit Resource" ],
+        "operationId" : "list",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "uniqueItems" : true,
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Fruit"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rest-openapi/fruits/list" : {
+      "get" : {
+        "tags" : [ "Rest Openapi Resource" ],
+        "parameters" : [ {
+          "name" : "port",
+          "in" : "query",
+          "schema" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/rest-openapi/fruits/list/file" : {
+      "get" : {
+        "tags" : [ "Rest Openapi Resource" ],
+        "parameters" : [ {
+          "name" : "port",
+          "in" : "query",
+          "schema" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/rest-openapi/fruits/list/yaml" : {
+      "get" : {
+        "tags" : [ "Rest Openapi Resource" ],
+        "parameters" : [ {
+          "name" : "port",
+          "in" : "query",
+          "schema" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Fruit" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}

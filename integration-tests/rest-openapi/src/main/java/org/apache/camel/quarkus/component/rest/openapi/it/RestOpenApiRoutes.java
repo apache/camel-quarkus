@@ -22,7 +22,20 @@ public class RestOpenApiRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("direct:start")
+
+        from("direct:start-web-json")
                 .toD("rest-openapi:#list?specificationUri=RAW(http://localhost:${header.test-port}/q/openapi?format=JSON)");
+
+        from("direct:start-web-yaml")
+                .toD("rest-openapi:#list?specificationUri=RAW(http://localhost:${header.test-port}/q/openapi?format=YAML)");
+
+        from("direct:start-file")
+                .toD("rest-openapi:#list?specificationUri=file:target/openapi.json&host=RAW(http://localhost:${header.test-port})");
+
+        from("direct:start-bean")
+                .toD("rest-openapi:#list?specificationUri=bean:openapi.getOpenApiJson&host=RAW(http://localhost:${header.test-port})");
+
+        from("direct:start-classpath")
+                .toD("rest-openapi:#list?specificationUri=classpath:openapi.json&host=RAW(http://localhost:${header.test-port})");
     }
 }
