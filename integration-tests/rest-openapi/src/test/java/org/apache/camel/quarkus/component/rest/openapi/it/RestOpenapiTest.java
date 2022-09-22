@@ -16,9 +16,16 @@
  */
 package org.apache.camel.quarkus.component.rest.openapi.it;
 
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -26,11 +33,52 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 @QuarkusTest
 class RestOpenapiTest {
 
+    private static final String OUTPUT_DIRECTORY = "target";
+    private static final String OPENAPI_FILE = "openapi.json";
+
+    @BeforeAll
+    public static void createOpenApiJsonFile() throws Exception {
+        RestOpenApiBean bean = new RestOpenApiBean();
+        String openApiContents = bean.getOpenApiJson();
+        Files.createDirectories(Paths.get(OUTPUT_DIRECTORY));
+        Files.writeString(Paths.get(OUTPUT_DIRECTORY, OPENAPI_FILE), openApiContents, StandardCharsets.UTF_8);
+    }
+
+    @AfterAll
+    public static void deleteOpenApiJsonFile() {
+        File openApiFile = new File(OUTPUT_DIRECTORY, OPENAPI_FILE);
+        openApiFile.delete();
+    }
+
     @Test
     public void testInvokeApiEndpoint() {
+        invokeApiEndpoint("/rest-openapi/fruits/list/json");
+    }
+
+    @Test
+    public void testInvokeYamlApiEndpoint() {
+        invokeApiEndpoint("/rest-openapi/fruits/list/yaml");
+    }
+
+    @Test
+    public void testInvokeFileApiEndpoint() {
+        invokeApiEndpoint("/rest-openapi/fruits/list/file");
+    }
+
+    @Test
+    public void testInvokeBeanApiEndpoint() {
+        invokeApiEndpoint("/rest-openapi/fruits/list/bean");
+    }
+
+    @Test
+    public void testInvokeClasspathApiEndpoint() {
+        invokeApiEndpoint("/rest-openapi/fruits/list/classpath");
+    }
+
+    private void invokeApiEndpoint(String path) {
         RestAssured.given()
                 .queryParam("port", RestAssured.port)
-                .get("/rest-openapi/fruits/list")
+                .get(path)
                 .then()
                 .contentType(ContentType.JSON)
                 .statusCode(200)

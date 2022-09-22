@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.rest.openapi.it;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -27,15 +28,50 @@ import javax.ws.rs.core.Response;
 import org.apache.camel.ProducerTemplate;
 
 @Path("/rest-openapi")
+@ApplicationScoped
 public class RestOpenapiResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/fruits/list")
+    @Path("/fruits/list/json")
     @Produces(MediaType.APPLICATION_JSON)
     @GET
     public Response invokeListFruitsOperation(@QueryParam("port") int port) {
-        String response = producerTemplate.requestBodyAndHeader("direct:start", null, "test-port", port, String.class);
+        return invokeListFruitsOperation("start-web-json", port);
+    }
+
+    @Path("/fruits/list/yaml")
+    @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    public Response invokeListFruitsOperationYaml(@QueryParam("port") int port) {
+        return invokeListFruitsOperation("start-web-yaml", port);
+    }
+
+    @Path("/fruits/list/file")
+    @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    public Response invokeListFruitsOperationFile(@QueryParam("port") int port) {
+        return invokeListFruitsOperation("start-file", port);
+    }
+
+    @Path("/fruits/list/bean")
+    @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    public Response invokeListFruitsOperationBean(@QueryParam("port") int port) {
+        return invokeListFruitsOperation("start-bean", port);
+    }
+
+    @Path("/fruits/list/classpath")
+    @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    public Response invokeListFruitsOperationClasspath(@QueryParam("port") int port) {
+        return invokeListFruitsOperation("start-classpath", port);
+    }
+
+    private Response invokeListFruitsOperation(String endpointName, int port) {
+        String response = producerTemplate.requestBodyAndHeader("direct:" + endpointName, null, "test-port", port,
+                String.class);
         return Response.ok().entity(response).build();
     }
+
 }
