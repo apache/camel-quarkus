@@ -29,14 +29,12 @@ import io.restassured.http.ContentType;
 import org.apache.camel.util.CollectionHelper;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 
-@Disabled //https://github.com/apache/camel-quarkus/issues/4085
 @QuarkusTest
 @QuarkusTestResource(SplunkTestResource.class)
 class SplunkTest {
