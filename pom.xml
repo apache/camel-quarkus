@@ -477,6 +477,7 @@
                             <exclude>**/*.adm</exclude>
                             <exclude>**/*.avsc</exclude>
                             <exclude>**/*.avpr</exclude>
+                            <exclude>**/*.bcfks</exclude>
                             <exclude>**/*.bin</exclude>
                             <exclude>**/*.cnf</exclude>
                             <exclude>**/*.conf</exclude>
