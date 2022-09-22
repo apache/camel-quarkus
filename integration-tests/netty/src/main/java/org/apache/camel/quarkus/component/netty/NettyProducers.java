@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.netty;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -65,6 +66,7 @@ import org.apache.camel.support.jsse.KeyManagersParameters;
 import org.apache.camel.support.jsse.KeyStoreParameters;
 import org.apache.camel.support.jsse.SSLContextParameters;
 import org.apache.camel.support.jsse.TrustManagersParameters;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 public class NettyProducers {
 
@@ -121,13 +123,23 @@ public class NettyProducers {
 
     @Singleton
     @Named
-    public SSLContextParameters sslContextParameters() {
+    public SSLContextParameters sslContextParameters(
+            @ConfigProperty(name = "truststore.file") String truststore,
+            @ConfigProperty(name = "truststore.type") Optional<String> truststoreType,
+            @ConfigProperty(name = "truststore.provider") Optional<String> truststoreProvider,
+            @ConfigProperty(name = "keystore.file") String keystore,
+            @ConfigProperty(name = "keystore.type") Optional<String> keystoreType,
+            @ConfigProperty(name = "keystore.provider") Optional<String> keystoreProvider) {
         KeyStoreParameters keystoreParameters = new KeyStoreParameters();
-        keystoreParameters.setResource("/ssl/keystore.p12");
+        keystoreParameters.setResource(keystore);
+        keystoreType.ifPresent((it) -> keystoreParameters.setType(it));
+        keystoreProvider.ifPresent((it) -> keystoreParameters.setProvider(it));
         keystoreParameters.setPassword("changeit");
 
         KeyStoreParameters truststoreParameters = new KeyStoreParameters();
-        truststoreParameters.setResource("/ssl/truststore.jks");
+        truststoreType.ifPresent((it) -> truststoreParameters.setType(it));
+        truststoreProvider.ifPresent((it) -> truststoreParameters.setProvider(it));
+        truststoreParameters.setResource(truststore);
         truststoreParameters.setPassword("changeit");
 
         TrustManagersParameters trustManagersParameters = new TrustManagersParameters();
