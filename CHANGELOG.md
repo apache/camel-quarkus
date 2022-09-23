@@ -6,11 +6,15 @@
 
 **Fixed bugs:**
 
+- Tika integration test native build failure  [\#4109](https://github.com/apache/camel-quarkus/issues/4109)
 - \[Quarkus 2.13.0\] JTA integration test fails due to undiscoverable `DataSource` [\#4063](https://github.com/apache/camel-quarkus/issues/4063)
 - Map style config property resolution does not work in native mode [\#4011](https://github.com/apache/camel-quarkus/issues/4011)
 
 **Closed issues:**
 
+- \[Quarkus Main\] Compatibility with Jandex 3 [\#4108](https://github.com/apache/camel-quarkus/issues/4108)
+- CamelQuarkusTestSupport: Alow to use AdiceWith with another route [\#4104](https://github.com/apache/camel-quarkus/issues/4104)
+- Add crash recovery test in jta-jpa example [\#4100](https://github.com/apache/camel-quarkus/issues/4100)
 - Sync {snakeyaml.version} with quarkus-bom [\#4096](https://github.com/apache/camel-quarkus/issues/4096)
 - Springless JPA extension [\#4084](https://github.com/apache/camel-quarkus/issues/4084)
 - \[Quarkus 2.13.0\] Quarkus Kubernetes not compatible with Camel 3.18.x [\#4083](https://github.com/apache/camel-quarkus/issues/4083)
@@ -21,6 +25,7 @@
 - CXF test fails in Quarkus Platform because of hard-coded absolute local wsdlLocation [\#4058](https://github.com/apache/camel-quarkus/issues/4058)
 - master: fix itests harness in native mode [\#4050](https://github.com/apache/camel-quarkus/issues/4050)
 - Increase JPA extension test coverage [\#4007](https://github.com/apache/camel-quarkus/issues/4007)
+- Upgrade to quarkus-cxf 1.5.0 and clean up duplicate code and config [\#3983](https://github.com/apache/camel-quarkus/issues/3983)
 - Improve google-bigquery test coverage [\#3949](https://github.com/apache/camel-quarkus/issues/3949)
 - \[JDK17\]spring integration tests failed in native mode [\#3333](https://github.com/apache/camel-quarkus/issues/3333)
 - \[JDK17\]Optaplanner integration test failed in native mode  [\#3332](https://github.com/apache/camel-quarkus/issues/3332)
@@ -32,6 +37,12 @@
 
 **Merged pull requests:**
 
+- Upgrade dependencies versions [\#4129](https://github.com/apache/camel-quarkus/pull/4129) ([zbendhiba](https://github.com/zbendhiba))
+- Upgrade Quarkus to 2.13.0.Final [\#4121](https://github.com/apache/camel-quarkus/pull/4121) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade OptaPlanner to 8.27.0.Final [\#4118](https://github.com/apache/camel-quarkus/pull/4118) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix generated AsciiDoc id headings [\#4113](https://github.com/apache/camel-quarkus/pull/4113) ([jamesnetherton](https://github.com/jamesnetherton))
+- Register LegacyPDFStreamEngine for runtime initialization [\#4110](https://github.com/apache/camel-quarkus/pull/4110) ([jamesnetherton](https://github.com/jamesnetherton))
+- CamelQuarkusTestSupport: Alow to use AdiceWith with another route \#4104 [\#4105](https://github.com/apache/camel-quarkus/pull/4105) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Restore named DataSource autowiring for JDBC and SQL extensions [\#4101](https://github.com/apache/camel-quarkus/pull/4101) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#4096 to sync snakeyaml with quarkus-bom [\#4098](https://github.com/apache/camel-quarkus/pull/4098) ([zhfeng](https://github.com/zhfeng))
 - Upgrade Quarkus to 2.13.0.CR1 [\#4094](https://github.com/apache/camel-quarkus/pull/4094) ([jamesnetherton](https://github.com/jamesnetherton))
