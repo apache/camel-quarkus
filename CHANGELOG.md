@@ -2,38 +2,7 @@
 
 ## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.12.0...HEAD)
-
-**Fixed bugs:**
-
-- Tika integration test native build failure  [\#4109](https://github.com/apache/camel-quarkus/issues/4109)
-- \[Quarkus 2.13.0\] JTA integration test fails due to undiscoverable `DataSource` [\#4063](https://github.com/apache/camel-quarkus/issues/4063)
-- Map style config property resolution does not work in native mode [\#4011](https://github.com/apache/camel-quarkus/issues/4011)
-
-**Closed issues:**
-
-- \[Quarkus Main\] Compatibility with Jandex 3 [\#4108](https://github.com/apache/camel-quarkus/issues/4108)
-- CamelQuarkusTestSupport: Alow to use AdiceWith with another route [\#4104](https://github.com/apache/camel-quarkus/issues/4104)
-- Add crash recovery test in jta-jpa example [\#4100](https://github.com/apache/camel-quarkus/issues/4100)
-- Sync {snakeyaml.version} with quarkus-bom [\#4096](https://github.com/apache/camel-quarkus/issues/4096)
-- Springless JPA extension [\#4084](https://github.com/apache/camel-quarkus/issues/4084)
-- \[Quarkus 2.13.0\] Quarkus Kubernetes not compatible with Camel 3.18.x [\#4083](https://github.com/apache/camel-quarkus/issues/4083)
-- master: add an itest with openshift [\#4077](https://github.com/apache/camel-quarkus/issues/4077)
-- Testing guide confusing about CamelTestSupport [\#4068](https://github.com/apache/camel-quarkus/issues/4068)
-- Google-pubsub: Improve google-pubsub test coverage with GooglePubsubConstants.MESSAGE\_ID [\#4062](https://github.com/apache/camel-quarkus/issues/4062)
-- Ban camel-directvm [\#4059](https://github.com/apache/camel-quarkus/issues/4059)
-- CXF test fails in Quarkus Platform because of hard-coded absolute local wsdlLocation [\#4058](https://github.com/apache/camel-quarkus/issues/4058)
-- master: fix itests harness in native mode [\#4050](https://github.com/apache/camel-quarkus/issues/4050)
-- Increase JPA extension test coverage [\#4007](https://github.com/apache/camel-quarkus/issues/4007)
-- Upgrade to quarkus-cxf 1.5.0 and clean up duplicate code and config [\#3983](https://github.com/apache/camel-quarkus/issues/3983)
-- Improve google-bigquery test coverage [\#3949](https://github.com/apache/camel-quarkus/issues/3949)
-- \[JDK17\]spring integration tests failed in native mode [\#3333](https://github.com/apache/camel-quarkus/issues/3333)
-- \[JDK17\]Optaplanner integration test failed in native mode  [\#3332](https://github.com/apache/camel-quarkus/issues/3332)
-- \[JDK17\]integration test failed in native mode caused by unresolved type during parsing: sun.security.krb5.Credentials [\#3326](https://github.com/apache/camel-quarkus/issues/3326)
-- \[JDK17\]integration tests failed in native mode which uses JMX [\#3325](https://github.com/apache/camel-quarkus/issues/3325)
-- \[JDK17\]integration test failed in native mode on Mac which depends on quarkus-awt feature [\#3323](https://github.com/apache/camel-quarkus/issues/3323)
-- Investigate the new TX API in Quarkus Transaction [\#3267](https://github.com/apache/camel-quarkus/issues/3267)
-- JCache native support [\#1846](https://github.com/apache/camel-quarkus/issues/1846)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.13.0...HEAD)
 
 **Merged pull requests:**
 
@@ -1250,6 +1219,42 @@
 - Fix \#1428 to add the usage.adoc [\#1457](https://github.com/apache/camel-quarkus/pull/1457) ([zhfeng](https://github.com/zhfeng))
 - org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
+
+## [2.13.0](https://github.com/apache/camel-quarkus/tree/2.13.0) (2022-09-23)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.12.0...2.13.0)
+
+**Fixed bugs:**
+
+- JTA-JPA example project test failure [\#4126](https://github.com/apache/camel-quarkus/issues/4126)
+- Tika integration test native build failure  [\#4109](https://github.com/apache/camel-quarkus/issues/4109)
+- \[Quarkus 2.13.0\] JTA integration test fails due to undiscoverable `DataSource` [\#4063](https://github.com/apache/camel-quarkus/issues/4063)
+- Map style config property resolution does not work in native mode [\#4011](https://github.com/apache/camel-quarkus/issues/4011)
+
+**Closed issues:**
+
+- \[Quarkus Main\] Compatibility with Jandex 3 [\#4108](https://github.com/apache/camel-quarkus/issues/4108)
+- CamelQuarkusTestSupport: Alow to use AdiceWith with another route [\#4104](https://github.com/apache/camel-quarkus/issues/4104)
+- \[Quarkus 2.13.0\] Quarkus Kubernetes not compatible with Camel 3.18.x [\#4083](https://github.com/apache/camel-quarkus/issues/4083)
+- Upgrade to quarkus-cxf 1.5.0 and clean up duplicate code and config [\#3983](https://github.com/apache/camel-quarkus/issues/3983)
+- Improve google-bigquery test coverage [\#3949](https://github.com/apache/camel-quarkus/issues/3949)
+- \[JDK17\]spring integration tests failed in native mode [\#3333](https://github.com/apache/camel-quarkus/issues/3333)
+- \[JDK17\]Optaplanner integration test failed in native mode  [\#3332](https://github.com/apache/camel-quarkus/issues/3332)
+- \[JDK17\]integration test failed in native mode caused by unresolved type during parsing: sun.security.krb5.Credentials [\#3326](https://github.com/apache/camel-quarkus/issues/3326)
+- \[JDK17\]integration tests failed in native mode which uses JMX [\#3325](https://github.com/apache/camel-quarkus/issues/3325)
+- \[JDK17\]integration test failed in native mode on Mac which depends on quarkus-awt feature [\#3323](https://github.com/apache/camel-quarkus/issues/3323)
+- Investigate the new TX API in Quarkus Transaction [\#3267](https://github.com/apache/camel-quarkus/issues/3267)
+- Add crash recovery test in jta-jpa example [\#4100](https://github.com/apache/camel-quarkus/issues/4100)
+- Sync {snakeyaml.version} with quarkus-bom [\#4096](https://github.com/apache/camel-quarkus/issues/4096)
+- Springless JPA extension [\#4084](https://github.com/apache/camel-quarkus/issues/4084)
+- master: add an itest with openshift [\#4077](https://github.com/apache/camel-quarkus/issues/4077)
+- Testing guide confusing about CamelTestSupport [\#4068](https://github.com/apache/camel-quarkus/issues/4068)
+- Google-pubsub: Improve google-pubsub test coverage with GooglePubsubConstants.MESSAGE\_ID [\#4062](https://github.com/apache/camel-quarkus/issues/4062)
+- Ban camel-directvm [\#4059](https://github.com/apache/camel-quarkus/issues/4059)
+- CXF test fails in Quarkus Platform because of hard-coded absolute local wsdlLocation [\#4058](https://github.com/apache/camel-quarkus/issues/4058)
+- master: fix itests harness in native mode [\#4050](https://github.com/apache/camel-quarkus/issues/4050)
+- Increase JPA extension test coverage [\#4007](https://github.com/apache/camel-quarkus/issues/4007)
+- JCache native support [\#1846](https://github.com/apache/camel-quarkus/issues/1846)
 
 ## [2.12.0](https://github.com/apache/camel-quarkus/tree/2.12.0) (2022-08-26)
 
