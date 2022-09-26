@@ -28,11 +28,47 @@ import static org.awaitility.Awaitility.await;
 class SchedulerTest {
 
     @Test
-    public void test() throws Exception {
-        // wait until the scheduler has run and return a counter that is > 0
+    public void testInitialDelay() throws Exception {
         await().atMost(5, TimeUnit.SECONDS).until(() -> {
             String body = RestAssured.get("/scheduler/get").then().statusCode(200).extract().body().asString();
             return !body.equals("0");
+        });
+    }
+
+    @Test
+    public void testDelay() throws Exception {
+        await().atMost(2, TimeUnit.SECONDS).until(() -> {
+            String body = RestAssured.get("/scheduler/get-delay-count").then().statusCode(200).extract().body()
+                    .asString();
+            return Integer.parseInt(body) > 2;
+        });
+
+    }
+
+    @Test
+    public void testFixedDelay() throws Exception {
+        await().atMost(2, TimeUnit.SECONDS).until(() -> {
+            String body = RestAssured.get("/scheduler/get-fixed-delay-count").then().statusCode(200).extract().body()
+                    .asString();
+            return Integer.parseInt(body) > 2;
+        });
+    }
+
+    @Test
+    public void testDelayWithRepeat() throws Exception {
+        await().atMost(4, TimeUnit.SECONDS).until(() -> {
+            String body = RestAssured.get("/scheduler/get-repeat-count").then().statusCode(200).extract().body()
+                    .asString();
+            return Integer.parseInt(body) >= 4;
+        });
+    }
+
+    @Test
+    public void testGreedyScheduler() throws Exception {
+        await().atMost(1, TimeUnit.SECONDS).until(() -> {
+            String body = RestAssured.get("/scheduler/get-greedy-count").then().statusCode(200).extract().body()
+                    .asString();
+            return Integer.parseInt(body) > 10;
         });
     }
 
