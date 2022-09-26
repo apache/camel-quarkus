@@ -26,14 +26,24 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.camel.ProducerTemplate;
-
 @Path("/scheduler")
 @ApplicationScoped
 public class SchedulerResource {
 
     @Inject
-    ProducerTemplate producerTemplate;
+    @Named("withDelayCounter")
+    AtomicInteger withDelayCounter;
+
+    @Inject
+    @Named("useFixedDelayCounter")
+    AtomicInteger useFixedDelayCounter;
+
+    @Named("withDelayRepeatCounter")
+    AtomicInteger withDelayRepeatCounter;
+
+    @Inject
+    @Named("greedyCounter")
+    AtomicInteger greedyCounter;
 
     @Inject
     @Named("schedulerCounter")
@@ -46,10 +56,66 @@ public class SchedulerResource {
         return schedulerCounter.get();
     }
 
+    @Path("/get-delay-count")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public int getCountDelay() {
+        return withDelayCounter.get();
+    }
+
+    @Path("/get-fixed-delay-count")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public int getCountFixedDelay() {
+        return useFixedDelayCounter.get();
+    }
+
+    @Path("/get-repeat-count")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public int getRepeatCount() {
+        return withDelayRepeatCounter.get();
+    }
+
+    @Path("/get-greedy-count")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public int getGreedyCount() {
+        return greedyCounter.get();
+    }
+
     @javax.enterprise.inject.Produces
     @ApplicationScoped
     @Named("schedulerCounter")
     AtomicInteger schedulerCounter() {
+        return new AtomicInteger();
+    }
+
+    @javax.enterprise.inject.Produces
+    @ApplicationScoped
+    @Named("withDelayRepeatCounter")
+    AtomicInteger withDelayRepeatCounter() {
+        return new AtomicInteger();
+    }
+
+    @javax.enterprise.inject.Produces
+    @ApplicationScoped
+    @Named("withDelayCounter")
+    AtomicInteger withDelayCounter() {
+        return new AtomicInteger();
+    }
+
+    @javax.enterprise.inject.Produces
+    @ApplicationScoped
+    @Named("useFixedDelayCounter")
+    AtomicInteger useFixedDelayCounter() {
+        return new AtomicInteger();
+    }
+
+    @javax.enterprise.inject.Produces
+    @ApplicationScoped
+    @Named("greedyCounter")
+    AtomicInteger greedyCounter() {
         return new AtomicInteger();
     }
 
