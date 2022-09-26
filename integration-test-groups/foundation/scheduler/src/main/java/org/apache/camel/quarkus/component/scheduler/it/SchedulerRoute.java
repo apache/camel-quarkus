@@ -31,10 +31,37 @@ public class SchedulerRoute extends RouteBuilder {
     @Named("schedulerCounter")
     AtomicInteger schedulerCounter;
 
+    @Inject
+    @Named("withDelayCounter")
+    AtomicInteger withDelayCounter;
+
+    @Inject
+    @Named("useFixedDelayCounter")
+    AtomicInteger useFixedDelayCounter;
+
+    @Inject
+    @Named("withDelayRepeatCounter")
+    AtomicInteger withDelayRepeatCounter;
+
+    @Inject
+    @Named("greedyCounter")
+    AtomicInteger greedyCounter;
+
     @Override
     public void configure() throws Exception {
-        from("scheduler:start?initialDelay=1")
+        from("scheduler:withInitialDelay?initialDelay=1")
                 .process(e -> schedulerCounter.incrementAndGet());
 
+        from("scheduler:withDelay?delay=100")
+                .process(e -> withDelayCounter.incrementAndGet());
+
+        from("scheduler:useFixedDelay?initialDelay=200&useFixedDelay=true")
+                .process(e -> useFixedDelayCounter.incrementAndGet());
+
+        from("scheduler:withDelayRepeat?delay=1&repeatCount=5")
+                .process(e -> withDelayRepeatCounter.incrementAndGet());
+
+        from("scheduler:greedy?delay=100&greedy=true")
+                .process(e -> greedyCounter.incrementAndGet());
     }
 }
