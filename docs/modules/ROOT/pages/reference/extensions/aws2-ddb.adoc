@@ -56,7 +56,7 @@ https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].
 [id="extensions-aws2-ddb-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 
-[id="extensions-aws2-ddb-optional-integration-with-Quarkus Amazon DynamoDB"]
+[id="extensions-aws2-ddb-optional-integration-with-quarkus-amazon-dynamodb"]
 === Optional integration with Quarkus Amazon DynamoDB
 
 If desired, it is possible to use the Quarkus Amazon DynamoDB extension in conjunction with Camel Quarkus AWS 2 DynamoDB.

@@ -108,7 +108,7 @@ You will also need to enable serialization for the exception classes that you in
 [/#if]
 [#if quarkusAwsClient??]
 
-[id="extensions-[=artifactIdBase]-optional-integration-with-[=quarkusAwsClient.extensionName]"]
+[id="extensions-[=artifactIdBase]-optional-integration-with-[=quarkusAwsClient.extensionNameIdHeading]"]
 === Optional integration with [=quarkusAwsClient.extensionName]
 
 If desired, it is possible to use the [=quarkusAwsClient.extensionName] extension in conjunction with Camel Quarkus [=name].

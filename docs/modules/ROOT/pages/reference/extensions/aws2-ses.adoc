@@ -55,7 +55,7 @@ https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].
 [id="extensions-aws2-ses-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 
-[id="extensions-aws2-ses-optional-integration-with-Quarkus Amazon SES"]
+[id="extensions-aws2-ses-optional-integration-with-quarkus-amazon-ses"]
 === Optional integration with Quarkus Amazon SES
 
 If desired, it is possible to use the Quarkus Amazon SES extension in conjunction with Camel Quarkus AWS 2 Simple Email Service (SES).

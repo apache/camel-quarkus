@@ -55,7 +55,7 @@ https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].
 [id="extensions-aws2-s3-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 
-[id="extensions-aws2-s3-optional-integration-with-Quarkus Amazon S3"]
+[id="extensions-aws2-s3-optional-integration-with-quarkus-amazon-s3"]
 === Optional integration with Quarkus Amazon S3
 
 If desired, it is possible to use the Quarkus Amazon S3 extension in conjunction with Camel Quarkus AWS 2 S3 Storage Service.

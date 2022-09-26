@@ -55,7 +55,7 @@ https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].
 [id="extensions-aws2-sqs-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 
-[id="extensions-aws2-sqs-optional-integration-with-Quarkus Amazon SQS"]
+[id="extensions-aws2-sqs-optional-integration-with-quarkus-amazon-sqs"]
 === Optional integration with Quarkus Amazon SQS
 
 If desired, it is possible to use the Quarkus Amazon SQS extension in conjunction with Camel Quarkus AWS 2 Simple Queue Service (SQS).
