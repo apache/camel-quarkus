@@ -328,7 +328,7 @@ public class InjectionPointsProcessor {
                                 .configure(fieldType)
                                 .setRuntimeInit().scope(Singleton.class)
                                 .supplier(
-                                        recorder.createProducerTemplate(annot.valueWithDefault(index).asString()))
+                                        recorder.createProducerTemplate(resolveAnnotValue(index, annot)))
                                 .addQualifier(annot)
                                 .done());
                 /*
@@ -341,7 +341,7 @@ public class InjectionPointsProcessor {
                                 .configure(fieldType)
                                 .setRuntimeInit().scope(Singleton.class)
                                 .supplier(
-                                        recorder.createFluentProducerTemplate(annot.valueWithDefault(index).asString()))
+                                        recorder.createFluentProducerTemplate(resolveAnnotValue(index, annot)))
                                 .addQualifier(annot)
                                 .done());
                 /*
@@ -369,7 +369,7 @@ public class InjectionPointsProcessor {
                                 .configure(fieldType)
                                 .setRuntimeInit().scope(Singleton.class)
                                 .supplier(
-                                        recorder.produceProxy(clazz, annot.valueWithDefault(index).asString()))
+                                        recorder.produceProxy(clazz, resolveAnnotValue(index, annot)))
                                 .addQualifier(annot)
                                 .done());
             }
@@ -388,7 +388,7 @@ public class InjectionPointsProcessor {
                                 .configure(fieldType)
                                 .setRuntimeInit().scope(Singleton.class)
                                 .supplier(
-                                        recorder.createEndpoint(annot.valueWithDefault(index).asString(),
+                                        recorder.createEndpoint(resolveAnnotValue(index, annot),
                                                 (Class<? extends Endpoint>) clazz))
                                 .addQualifier(annot)
                                 .done());
@@ -398,7 +398,7 @@ public class InjectionPointsProcessor {
                                 .configure(fieldType)
                                 .setRuntimeInit().scope(Singleton.class)
                                 .supplier(
-                                        recorder.createProducerTemplate(annot.valueWithDefault(index).asString()))
+                                        recorder.createProducerTemplate(resolveAnnotValue(index, annot)))
                                 .addQualifier(annot)
                                 .done());
                 /*
@@ -411,7 +411,7 @@ public class InjectionPointsProcessor {
                                 .configure(fieldType)
                                 .setRuntimeInit().scope(Singleton.class)
                                 .supplier(
-                                        recorder.createFluentProducerTemplate(annot.valueWithDefault(index).asString()))
+                                        recorder.createFluentProducerTemplate(resolveAnnotValue(index, annot)))
                                 .addQualifier(annot)
                                 .done());
                 /*
@@ -422,6 +422,19 @@ public class InjectionPointsProcessor {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private String resolveAnnotValue(IndexView index, AnnotationInstance annot) {
+        //consider also parameter 'uri', which is deprecated but can be still supported
+        String uri = annot.valueWithDefault(index).asString();
+
+        String deprecatedUri = annot.valueWithDefault(index, "uri").asString();
+        if (uri.isEmpty() && !deprecatedUri.isEmpty()) {
+            throw new IllegalArgumentException(String.format("@%s(uri = \"%s\") is not supported on Camel" +
+                    " Quarkus. Please replace it with just @%s(\"%s\").", annot.name().toString(), deprecatedUri,
+                    annot.name().toString(), deprecatedUri));
+        }
+        return uri;
     }
 
 }
