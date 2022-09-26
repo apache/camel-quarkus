@@ -478,6 +478,10 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
             return "Quarkus Amazon " + nameBase;
         }
 
+        public String getExtensionNameIdHeading() {
+            return getExtensionName().toLowerCase().replace(" ", "-");
+        }
+
         public String getConfigurationUrl() {
             String lowerCaseName = nameBase.toLowerCase(Locale.ROOT);
             return "https://quarkus.io/guides/amazon-" + lowerCaseName + "#configuring-" + lowerCaseName + "-clients";
