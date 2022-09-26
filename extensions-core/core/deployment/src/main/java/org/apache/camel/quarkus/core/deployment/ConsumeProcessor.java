@@ -173,6 +173,9 @@ public class ConsumeProcessor {
                         uri = annot.value().asString();
                     } else if (annot.value("uri") != null) {
                         uri = annot.value("uri").asString();
+                        throw new IllegalArgumentException(String.format("@%s(uri = \"%s\") is not supported on Camel" +
+                                " Quarkus. Please replace it with just @%s(\"%s\").", annot.name().toString(), uri,
+                                annot.name().toString(), uri));
                     } else if (annot.value("property") != null) {
                         runtimeUriOrEndpoint = recorder.getEndpointUri(
                                 camelContext.getCamelContext(),
