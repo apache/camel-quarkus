@@ -9893,9 +9893,14 @@
                 <version>${perfmark-api.version}</version>
             </dependency>
             <dependency>
+                <groupId>io.projectreactor</groupId>
+                <artifactId>reactor-core</artifactId>
+                <version>${reactor-core.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.projectreactor.netty</groupId>
                 <artifactId>reactor-netty</artifactId>
-                <version>${projectreactor-netty.version}</version>
+                <version>${reactor-netty.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.quarkiverse.freemarker</groupId>

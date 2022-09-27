@@ -126,7 +126,8 @@
         <opencensus.version>0.31.0</opencensus.version><!-- Mess in Google cloud. Keep in sync with version used in com.google.http-client:google-http-client -->
         <perfmark-api.version>0.25.0</perfmark-api.version><!-- @sync io.grpc:grpc-netty-shaded:${grpc.version} dep:io.perfmark:perfmark-api -->
         <protobuf.version>3.19.3</protobuf.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.google.protobuf:protobuf-java -->
-        <projectreactor-netty.version>${reactor-netty-version}</projectreactor-netty.version>
+        <reactor-core.version>3.4.14</reactor-core.version><!-- @sync com.azure:azure-core:${azure-core.version} dep:io.projectreactor:reactor-core -->
+        <reactor-netty.version>${reactor-netty-version}</reactor-netty.version>
         <retrofit.version>2.5.0</retrofit.version>
         <smallrye.reactive.messaging.camel.version>3.18.0</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
         <spring.version>${spring5-version}</spring.version>
