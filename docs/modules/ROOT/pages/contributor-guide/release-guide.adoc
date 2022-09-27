@@ -131,7 +131,8 @@ $ mvn release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=
 $ sed -i "s|<camel.quarkus.jvmSince>[^<]*</camel.quarkus.jvmSince>|<camel.quarkus.jvmSince>$NEXT_RELEASE</camel.quarkus.jvmSince>|" tooling/create-extension-templates/runtime-pom.xml
 $ sed -i "s|<camel.quarkus.nativeSince>[^<]*</camel.quarkus.nativeSince>|<camel.quarkus.nativeSince>$NEXT_RELEASE</camel.quarkus.nativeSince>|" tooling/create-extension-templates/runtime-pom.xml
 $ mvn cq:sync-versions -N
-$ (cd extensions/qute && mvn clean install -Dquickly) # to regen the Qute Camel component metadata
+$ (cd extensions/qute && mvn clean install -Dquickly) # to regen the # Qute Camel component metadata
+$ mvn clean install -DskipTests -Dquarkus.build.skip # regenerate flattened boms
 $ git add -A
 $ git commit -m "Next is $NEXT_RELEASE"
 # Send a pull request
@@ -174,7 +175,7 @@ $ wget -O "apache-camel-quarkus-$VERSION-src.zip" "$URL/$VERSION/camel-quarkus-$
 $ wget -O "apache-camel-quarkus-$VERSION-src.zip.asc" "$URL/$VERSION/camel-quarkus-$VERSION-src.zip.asc"
 $ sha512sum "apache-camel-quarkus-$VERSION-src.zip" > "apache-camel-quarkus-$VERSION-src.zip.sha512"
 ----
-Ensure that only the latest release from each maintained branches is present.
+Ensure that only the latest release from each maintained branches is present (including active LTS versions).
 Typically, when releasing e.g. 1.4.0, you may need to delete e.g. 1.3.0:
 
 [source,shell]
