@@ -6,6 +6,8 @@
 
 **Merged pull requests:**
 
+- Fix malformed id headings for AWS extensions [\#4132](https://github.com/apache/camel-quarkus/pull/4132) ([jamesnetherton](https://github.com/jamesnetherton))
+- Next is 2.14.0 [\#4131](https://github.com/apache/camel-quarkus/pull/4131) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade dependencies versions [\#4129](https://github.com/apache/camel-quarkus/pull/4129) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade Quarkus to 2.13.0.Final [\#4121](https://github.com/apache/camel-quarkus/pull/4121) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade OptaPlanner to 8.27.0.Final [\#4118](https://github.com/apache/camel-quarkus/pull/4118) ([jamesnetherton](https://github.com/jamesnetherton))
