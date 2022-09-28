@@ -21,12 +21,15 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
 import org.apache.camel.Expression;
@@ -43,19 +46,49 @@ public class RefResource {
     @Inject
     ProducerTemplate producerTemplate;
 
+    @Inject
+    ConsumerTemplate consumerTemplate;
+
     @Path("/post")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
+    public void produceMessage(@QueryParam("uri") String uri, String message) {
+        producerTemplate.sendBody(uri, message);
+    }
+
+    @Path("/get")
+    @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String post(String message) {
-        return producerTemplate.requestBody("my-endpoint", message, String.class);
+    public String consumeMessage(@QueryParam("uri") String uri) {
+        return consumerTemplate.receiveBody(uri, 5000L, String.class);
     }
 
     @Singleton
-    @Named("my-endpoint")
+    @Named("direct-start-a")
     @javax.enterprise.inject.Produces
-    public Endpoint myEndpoint() {
-        return camelContext.getEndpoint("direct:start");
+    public Endpoint directStartA() {
+        return camelContext.getEndpoint("direct:startA");
+    }
+
+    @Singleton
+    @Named("direct-start-b")
+    @javax.enterprise.inject.Produces
+    public Endpoint directStartB() {
+        return camelContext.getEndpoint("direct:startB");
+    }
+
+    @Singleton
+    @Named("seda-end-a")
+    @javax.enterprise.inject.Produces
+    public Endpoint sedaEndA() {
+        return camelContext.getEndpoint("seda:endA");
+    }
+
+    @Singleton
+    @Named("seda-end-b")
+    @javax.enterprise.inject.Produces
+    public Endpoint sedaEndB() {
+        return camelContext.getEndpoint("seda:endB");
     }
 
     @Singleton
@@ -77,8 +110,13 @@ public class RefResource {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("my-endpoint")
-                        .transform().ref("my-expression");
+                from("direct-start-a")
+                        .transform().ref("my-expression")
+                        .to("seda-end-a");
+
+                from("ref:direct-start-b")
+                        .transform().ref("my-expression")
+                        .to("ref:seda-end-b");
             }
         };
     }
