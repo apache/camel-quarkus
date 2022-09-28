@@ -4,8 +4,14 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.13.0...HEAD)
 
+**Closed issues:**
+
+- Manage `io.projectreactor:reactor-core` [\#4138](https://github.com/apache/camel-quarkus/issues/4138)
+
 **Merged pull requests:**
 
+- Manage `reactor-core` & `google-oauth-client` [\#4140](https://github.com/apache/camel-quarkus/pull/4140) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade Quarkus CXF to 1.5.2 [\#4136](https://github.com/apache/camel-quarkus/pull/4136) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix malformed id headings for AWS extensions [\#4132](https://github.com/apache/camel-quarkus/pull/4132) ([jamesnetherton](https://github.com/jamesnetherton))
 - Next is 2.14.0 [\#4131](https://github.com/apache/camel-quarkus/pull/4131) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade dependencies versions [\#4129](https://github.com/apache/camel-quarkus/pull/4129) ([zbendhiba](https://github.com/zbendhiba))
@@ -17,6 +23,7 @@
 - Restore named DataSource autowiring for JDBC and SQL extensions [\#4101](https://github.com/apache/camel-quarkus/pull/4101) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#4096 to sync snakeyaml with quarkus-bom [\#4098](https://github.com/apache/camel-quarkus/pull/4098) ([zhfeng](https://github.com/zhfeng))
 - Upgrade Quarkus to 2.13.0.CR1 [\#4094](https://github.com/apache/camel-quarkus/pull/4094) ([jamesnetherton](https://github.com/jamesnetherton))
+- kubernetes: auto-configure Kubernetes Cluster Service \#4086 [\#4093](https://github.com/apache/camel-quarkus/pull/4093) ([aldettinger](https://github.com/aldettinger))
 - JCache native mode [\#4088](https://github.com/apache/camel-quarkus/pull/4088) ([javaduke](https://github.com/javaduke))
 - Fix name of artifact id [\#4082](https://github.com/apache/camel-quarkus/pull/4082) ([llowinge](https://github.com/llowinge))
 - Upgrade Camel to 3.18.2 [\#4081](https://github.com/apache/camel-quarkus/pull/4081) ([jamesnetherton](https://github.com/jamesnetherton))
