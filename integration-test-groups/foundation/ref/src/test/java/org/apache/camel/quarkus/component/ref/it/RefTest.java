@@ -19,19 +19,29 @@ package org.apache.camel.quarkus.component.ref.it;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 class RefTest {
-    @Test
-    public void componentAndLanguage() {
-        final String msg = "hello";
+    @ParameterizedTest
+    @ValueSource(strings = { "a", "b" })
+    public void componentAndLanguage(String uriSuffix) {
+        final String msg = "hello " + uriSuffix;
 
         RestAssured.given()
                 .contentType(ContentType.TEXT)
-                .body(msg).post("/ref/post")
+                .queryParam("uri", "direct-start-" + uriSuffix)
+                .body(msg)
+                .post("/ref/post")
+                .then()
+                .statusCode(204);
+
+        RestAssured.given()
+                .queryParam("uri", "seda-end-" + uriSuffix)
+                .get("/ref/get")
                 .then()
                 .statusCode(200)
                 .body(is(msg.toUpperCase()));
