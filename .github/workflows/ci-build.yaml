@@ -249,6 +249,12 @@ jobs:
           ../../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
             verify
+      - name: cd catalog && mvn test
+        run: |
+          cd catalog
+          ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
+            -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
+            test
 
   extensions-jvm-tests:
     runs-on: ubuntu-latest
