@@ -19,6 +19,8 @@ package org.apache.camel.quarkus.component.quartz.deployment;
 import io.quarkus.bootstrap.model.ApplicationModel;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
@@ -26,6 +28,9 @@ import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageSystemPropertyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
+import org.apache.camel.component.quartz.QuartzComponent;
+import org.apache.camel.quarkus.component.quartz.CamelQuartzRecorder;
+import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 import org.quartz.impl.jdbcjobstore.StdJDBCDelegate;
@@ -95,6 +100,15 @@ class QuartzProcessor {
     NativeImageSystemPropertyBuildItem disableJMX() {
         return new NativeImageSystemPropertyBuildItem("com.mchange.v2.c3p0.management.ManagementCoordinator",
                 "com.mchange.v2.c3p0.management.NullManagementCoordinator");
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    CamelBeanBuildItem quartzComponent(CamelQuartzRecorder recorder) {
+        return new CamelBeanBuildItem(
+                "quartz",
+                QuartzComponent.class.getName(),
+                recorder.createQuartzComponent());
     }
 
 }
