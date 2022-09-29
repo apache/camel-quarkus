@@ -65,10 +65,7 @@ public class QuarkusRuntimeProviderTest {
         assertTrue(names.contains("direct"));
         assertTrue(names.contains("imap"));
         assertTrue(names.contains("imaps"));
-        assertTrue(names.contains("jdbc"));
         assertTrue(names.contains("log"));
-        assertTrue(names.contains("servlet"));
-        assertTrue(names.contains("twitter-search"));
         // camel-pax-logging does not work in quarkus
         assertFalse(names.contains("paxlogging"));
     }
@@ -80,7 +77,7 @@ public class QuarkusRuntimeProviderTest {
         assertNotNull(names);
         assertFalse(names.isEmpty());
 
-        assertTrue(names.contains("csv"));
+        assertTrue(names.contains("jaxb"));
         assertTrue(names.contains("mimeMultipart"));
         assertTrue(names.contains("zipFile"));
     }
@@ -111,7 +108,7 @@ public class QuarkusRuntimeProviderTest {
         assertFalse(names.isEmpty());
 
         assertTrue(names.contains("core-cloud"));
-        assertTrue(names.contains("reactive-executor-vertx"));
+        assertTrue(names.contains("attachments"));
 
         assertFalse(names.contains("blueprint"));
     }
@@ -126,10 +123,10 @@ public class QuarkusRuntimeProviderTest {
 
     @Test
     public void testDataFormatArtifactId() throws Exception {
-        String json = catalog.dataFormatJSonSchema("csv");
+        String json = catalog.dataFormatJSonSchema("jaxb");
 
         assertNotNull(json);
-        assertTrue(json.contains("camel-quarkus-csv"));
+        assertTrue(json.contains("camel-quarkus-jaxb"));
     }
 
     @Test
@@ -142,10 +139,10 @@ public class QuarkusRuntimeProviderTest {
 
     @Test
     public void testOtherArtifactId() throws Exception {
-        String json = catalog.otherJSonSchema("reactive-executor-vertx");
+        String json = catalog.otherJSonSchema("attachments");
 
         assertNotNull(json);
-        assertTrue(json.contains("camel-quarkus-reactive-executor"));
+        assertTrue(json.contains("camel-quarkus-attachments"));
     }
 
 }
