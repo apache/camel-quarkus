@@ -65,6 +65,13 @@ endif::[]
 [id="extensions-kubernetes-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 
+ifeval::[{doc-show-extra-content} == true]
+include::extra-content.adoc[]
+endif::[]
+
+[id="extensions-kubernetes-configuration-automatic-registration-of-a-kubernetes-client-instance"]
+=== Automatic registration of a Kubernetes Client instance
+
 The extension automatically registers a Kubernetes Client bean named `kubernetesClient`. You can reference the bean in your routes like this:
 
     from("direct:pods")
@@ -79,6 +86,30 @@ quarkus.kubernetes-client.namespace=my-namespace
 ----
 
 The full set of configuration options are documented in the https://quarkus.io/guides/kubernetes-client#quarkus-kubernetes-client_configuration[Quarkus Kubernetes Client guide].
+
+[id="extensions-kubernetes-configuration-having-only-a-single-consumer-in-a-cluster-consuming-from-a-given-endpoint"]
+=== Having only a single consumer in a cluster consuming from a given endpoint
+
+When the same route is deployed on multiple pods, it could be interesting to use this extension in conjunction with the xref:reference/extensions/master.adoc[Master one].
+In such a setup, a single consumer will be active at a time across the whole camel master namespace.
+
+For instance, having the route below deployed on multiple pods:
+
+```
+from("master:ns:timer:test?period=100").log("Timer invoked on a single pod at a time");
+```
+
+It's possible to enable the kubernetes cluster service with a property like below:
+
+```
+quarkus.camel.cluster.kubernetes.enabled = true
+```
+
+As a result, a single consumer will be active across the `ns` camel master namespace.
+It means that, at a given time, only a single timer will generate exchanges across the whole cluster.
+In other words, messages will be logged every 100ms on a single pod at a time.
+
+The kubernetes cluster service could further be tuned by tweaking `quarkus.camel.cluster.kubernetes.*` properties.
 
 
 [width="100%",cols="80,5,15",options="header"]
