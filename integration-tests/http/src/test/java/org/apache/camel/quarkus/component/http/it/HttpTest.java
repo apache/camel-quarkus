@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.http.it;
 
 import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -157,6 +158,7 @@ class HttpTest {
                 .body(is("Netty Hello World Compressed"));
     }
 
+    @DisabledOnIntegrationTest("https://github.com/apache/camel-quarkus/issues/4148")
     @ParameterizedTest
     @MethodSource("getHttpComponentNames")
     public void transferException(String component) {
