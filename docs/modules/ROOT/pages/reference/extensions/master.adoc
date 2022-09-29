@@ -44,3 +44,11 @@ Or add the coordinates to your existing project:
 ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
+
+[id="extensions-master-additional-camel-quarkus-configuration"]
+== Additional Camel Quarkus configuration
+
+This extension can be used in conjunction with extensions below:
+
+* xref:reference/extensions/kubernetes.adoc[Camel Quarkus Kubernetes]
+
