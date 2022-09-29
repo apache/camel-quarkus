@@ -4,17 +4,25 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.13.0...HEAD)
 
+**Fixed bugs:**
+
+- \[Quarkus 2.14.0\] PgeventTest application fails to start [\#4114](https://github.com/apache/camel-quarkus/issues/4114)
+
 **Closed issues:**
 
 - Manage `io.projectreactor:reactor-core` [\#4138](https://github.com/apache/camel-quarkus/issues/4138)
+- Increase test coverage of ref extension [\#4010](https://github.com/apache/camel-quarkus/issues/4010)
 
 **Merged pull requests:**
 
+- Increase test coverage of ref extension [\#4144](https://github.com/apache/camel-quarkus/pull/4144) ([jamesnetherton](https://github.com/jamesnetherton))
 - Manage `reactor-core` & `google-oauth-client` [\#4140](https://github.com/apache/camel-quarkus/pull/4140) ([jamesnetherton](https://github.com/jamesnetherton))
+- Update release guide [\#4137](https://github.com/apache/camel-quarkus/pull/4137) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade Quarkus CXF to 1.5.2 [\#4136](https://github.com/apache/camel-quarkus/pull/4136) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix malformed id headings for AWS extensions [\#4132](https://github.com/apache/camel-quarkus/pull/4132) ([jamesnetherton](https://github.com/jamesnetherton))
 - Next is 2.14.0 [\#4131](https://github.com/apache/camel-quarkus/pull/4131) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade dependencies versions [\#4129](https://github.com/apache/camel-quarkus/pull/4129) ([zbendhiba](https://github.com/zbendhiba))
+- Add tests for rest-openapi extension \(apache\#4117\) [\#4125](https://github.com/apache/camel-quarkus/pull/4125) ([djcoleman](https://github.com/djcoleman))
 - Upgrade Quarkus to 2.13.0.Final [\#4121](https://github.com/apache/camel-quarkus/pull/4121) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade OptaPlanner to 8.27.0.Final [\#4118](https://github.com/apache/camel-quarkus/pull/4118) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix generated AsciiDoc id headings [\#4113](https://github.com/apache/camel-quarkus/pull/4113) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1242,6 +1250,7 @@
 
 **Closed issues:**
 
+- rest-openapi: Add test cases for more specificationUri formats [\#4117](https://github.com/apache/camel-quarkus/issues/4117)
 - \[Quarkus Main\] Compatibility with Jandex 3 [\#4108](https://github.com/apache/camel-quarkus/issues/4108)
 - CamelQuarkusTestSupport: Alow to use AdiceWith with another route [\#4104](https://github.com/apache/camel-quarkus/issues/4104)
 - \[Quarkus 2.13.0\] Quarkus Kubernetes not compatible with Camel 3.18.x [\#4083](https://github.com/apache/camel-quarkus/issues/4083)
