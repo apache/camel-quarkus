@@ -1,0 +1,3 @@
+This extension can be used in conjunction with extensions below:
+
+* xref:reference/extensions/kubernetes.adoc[Camel Quarkus Kubernetes]
