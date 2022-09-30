@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.github.dockerjava.api.model.Ulimit;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
@@ -53,7 +54,9 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
                 .withLogConsumer(frame -> System.out.print(frame.getUtf8String()))
                 .withEnv("AMQ_USER", ACTIVEMQ_USERNAME)
                 .withEnv("AMQ_PASSWORD", ACTIVEMQ_PASSWORD)
-                .waitingFor(Wait.forLogMessage(".*AMQ241001.*", 1));
+                .waitingFor(Wait.forLogMessage(".*AMQ241001.*", 1))
+                .withCreateContainerCmdModifier(
+                        cmd -> cmd.getHostConfig().withUlimits(new Ulimit[] { new Ulimit("nofile", 2048L, 2048L) }));
 
         container.start();
 
