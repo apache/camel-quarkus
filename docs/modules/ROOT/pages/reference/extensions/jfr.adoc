@@ -46,7 +46,8 @@ endif::[]
 
 [id="extensions-jfr-usage"]
 == Usage
-### Starting flight recording
+[id="extensions-jfr-usage-starting-flight-recording"]
+=== Starting flight recording
 
 To enable Java Flight Recorder to start a recording and automatically dump the recording to disk after Camel startup is complete, use the following configuration in `application.properties`.
 
@@ -71,7 +72,8 @@ In native mode, the native executable can be executed as follows.
 $ ./my-application-runner -XX:+FlightRecorder -XX:StartFlightRecording=filename=recording.jfr
 ----
 
-### Flight recording in native mode
+[id="extensions-jfr-usage-flight-recording-in-native-mode"]
+=== Flight recording in native mode
 
 To build a native image with Java Flight Recorder support, it is mandatory to enable VM inspection via the following configuration property in `application.properties`.
 
