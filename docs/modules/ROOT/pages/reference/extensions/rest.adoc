@@ -52,7 +52,8 @@ endif::[]
 This extension depends on the xref:reference/extensions/platform-http.adoc[Platform HTTP] extension
 and configures it as the component that provides the REST transport.
 
-### Path parameters containing special characters with platform-http
+[id="extensions-rest-configuration-path-parameters-containing-special-characters-with-platform-http"]
+=== Path parameters containing special characters with platform-http
 
 When using the `platform-http` REST transport, some characters are not allowed within path parameter names. This includes the '-' and '$' characters.
 
@@ -83,7 +84,8 @@ public class CamelRoute extends RouteBuilder {
 
 There is some more background to this in the https://vertx.io/docs/vertx-web/java/#_capturing_path_parameters[Vert.x Web documentation].
 
-### Configuring alternate REST transport providers
+[id="extensions-rest-configuration-configuring-alternate-rest-transport-providers"]
+=== Configuring alternate REST transport providers
 
 To use another REST transport provider, such as `netty-http` or `servlet`, you need to add the respective
 extension as a dependency to your project and set the provider in your `RouteBuilder`. E.g. for `servlet`, you'd
