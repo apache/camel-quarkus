@@ -7,14 +7,18 @@
 **Fixed bugs:**
 
 - \[Quarkus 2.14.0\] PgeventTest application fails to start [\#4114](https://github.com/apache/camel-quarkus/issues/4114)
+- kamelet-chucknorris example project tests are failing [\#4111](https://github.com/apache/camel-quarkus/issues/4111)
 
 **Closed issues:**
 
 - Manage `io.projectreactor:reactor-core` [\#4138](https://github.com/apache/camel-quarkus/issues/4138)
+- Automatic configuration of kubernetes cluster service [\#4086](https://github.com/apache/camel-quarkus/issues/4086)
 - Increase test coverage of ref extension [\#4010](https://github.com/apache/camel-quarkus/issues/4010)
 
 **Merged pull requests:**
 
+- kubernetes: add documentation related to cluster service \#4086 [\#4146](https://github.com/apache/camel-quarkus/pull/4146) ([aldettinger](https://github.com/aldettinger))
+- Adjust the set of components to search in catalog tests [\#4145](https://github.com/apache/camel-quarkus/pull/4145) ([jamesnetherton](https://github.com/jamesnetherton))
 - Increase test coverage of ref extension [\#4144](https://github.com/apache/camel-quarkus/pull/4144) ([jamesnetherton](https://github.com/jamesnetherton))
 - Manage `reactor-core` & `google-oauth-client` [\#4140](https://github.com/apache/camel-quarkus/pull/4140) ([jamesnetherton](https://github.com/jamesnetherton))
 - Update release guide [\#4137](https://github.com/apache/camel-quarkus/pull/4137) ([zbendhiba](https://github.com/zbendhiba))
