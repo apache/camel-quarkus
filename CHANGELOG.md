@@ -17,6 +17,9 @@
 
 **Merged pull requests:**
 
+- Convert germanbooks-iso-8859-1.json to \*nix line endings [\#4154](https://github.com/apache/camel-quarkus/pull/4154) ([jamesnetherton](https://github.com/jamesnetherton))
+- Set explicit nofile ulimit for activemq-artemis-broker image to make … [\#4152](https://github.com/apache/camel-quarkus/pull/4152) ([ppalaga](https://github.com/ppalaga))
+- doc: switch to === syntax to match doc tooling [\#4150](https://github.com/apache/camel-quarkus/pull/4150) ([aldettinger](https://github.com/aldettinger))
 - kubernetes: add documentation related to cluster service \#4086 [\#4146](https://github.com/apache/camel-quarkus/pull/4146) ([aldettinger](https://github.com/aldettinger))
 - Adjust the set of components to search in catalog tests [\#4145](https://github.com/apache/camel-quarkus/pull/4145) ([jamesnetherton](https://github.com/jamesnetherton))
 - Increase test coverage of ref extension [\#4144](https://github.com/apache/camel-quarkus/pull/4144) ([jamesnetherton](https://github.com/jamesnetherton))
