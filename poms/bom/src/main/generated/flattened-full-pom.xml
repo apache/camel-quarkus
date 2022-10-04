@@ -23527,167 +23527,167 @@
         <version>25.1-jre-graal-sub-1</version><!-- com.datastax.oss:java-driver-bom:4.14.0 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>connect-api</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>3.2.0</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>connect-api</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>3.2.0</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>connect-json</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>3.2.0</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>connect-json</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>3.2.0</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>connect-file</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>3.2.0</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>connect-file</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>3.2.0</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>connect-transforms</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>3.2.0</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>connect-transforms</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>3.2.0</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>kafka_2.13</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>3.2.0</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <classifier>test</classifier><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>kafka_2.13</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>3.2.0</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <classifier>test</classifier><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.confluent</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>kafka-connect-avro-converter</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>7.0.1</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.confluent</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>kafka-connect-avro-converter</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>7.0.1</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.confluent</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>kafka-connect-protobuf-converter</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>7.0.1</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.confluent</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>kafka-connect-protobuf-converter</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>7.0.1</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.apicurio</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>apicurio-registry-utils-converter</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>2.1.5.Final</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.apicurio</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>apicurio-registry-utils-converter</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>2.1.5.Final</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>com.zendesk</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>mysql-binlog-connector-java</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>0.25.6</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>com.zendesk</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>mysql-binlog-connector-java</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>0.27.2</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>mil.nga</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>wkb</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.0.2</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>mil.nga</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>wkb</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.0.2</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>com.oracle.instantclient</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>xstreams</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>21.1.0.0</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>com.oracle.instantclient</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>xstreams</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>21.1.0.0</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>ch.qos.logback</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>logback-classic</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.2.10</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>ch.qos.logback</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>logback-classic</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.2.10</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.vitess</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>vitess-grpc-client</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>12.0.0</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.vitess</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>vitess-grpc-client</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>12.0.0</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>org.apache.cassandra</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>cassandra-all</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>3.11.12</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>org.apache.cassandra</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>cassandra-all</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>3.11.12</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>com.datastax.cassandra</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>cassandra-driver-core</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>4.14.0</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>com.datastax.cassandra</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>cassandra-driver-core</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>4.14.0</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>metrics-core</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>4.0.1</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>metrics-core</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>4.0.1</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>metrics-jmx</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>4.0.1</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>metrics-jmx</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>4.0.1</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>metrics-healthchecks</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>4.0.1</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>metrics-healthchecks</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>4.0.1</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>metrics-servlets</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>4.0.1</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>metrics-servlets</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>4.0.1</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>javax.xml.bind</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>jaxb-api</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>2.3.1</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>javax.xml.bind</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>jaxb-api</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>2.3.1</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>junit</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>junit</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>4.13.1</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>junit</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>junit</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>4.13.1</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>org.easytesting</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>fest-assert</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.4</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>org.easytesting</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>fest-assert</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.4</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>org.openjdk.jmh</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>jmh-core</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.21</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>org.openjdk.jmh</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>jmh-core</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.21</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>org.openjdk.jmh</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>jmh-generator-annprocess</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.21</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>org.openjdk.jmh</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>jmh-generator-annprocess</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.21</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>com.jayway.jsonpath</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>json-path</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>2.4.0</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>com.jayway.jsonpath</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>json-path</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>2.4.0</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>org.skyscreamer</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>jsonassert</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.5.0</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <scope>test</scope><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>org.skyscreamer</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>jsonassert</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.5.0</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <scope>test</scope><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>org.reflections</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>reflections</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>0.9.12</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>org.reflections</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>reflections</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>0.9.12</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>org.cassandraunit</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>cassandra-unit</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>3.5.0.1</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <scope>test</scope><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>org.cassandraunit</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>cassandra-unit</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>3.5.0.1</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <scope>test</scope><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>debezium-api</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.9.5.Final</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>debezium-api</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.9.6.Final</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>debezium-core</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.9.5.Final</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>debezium-core</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.9.6.Final</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>debezium-scripting</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.9.5.Final</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>debezium-scripting</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.9.6.Final</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>debezium-embedded</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.9.5.Final</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>debezium-embedded</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.9.6.Final</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
         <exclusions>
           <exclusion>
             <groupId>javax.ws.rs</groupId>
@@ -23696,91 +23696,91 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>debezium-connector-jdbc</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.9.5.Final</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>debezium-connector-jdbc</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.9.6.Final</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>debezium-connector-postgres</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.9.5.Final</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>debezium-connector-postgres</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.9.6.Final</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>debezium-connector-postgres-test</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.9.5.Final</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>debezium-connector-postgres-test</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.9.6.Final</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>debezium-connector-mysql</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.9.5.Final</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>debezium-connector-mysql</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.9.6.Final</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>debezium-ddl-parser</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.9.5.Final</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>debezium-ddl-parser</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.9.6.Final</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>debezium-connector-mongodb</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.9.5.Final</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>debezium-connector-mongodb</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.9.6.Final</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>debezium-connector-sqlserver</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.9.5.Final</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>debezium-connector-sqlserver</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.9.6.Final</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>debezium-connector-oracle</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.9.5.Final</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>debezium-connector-oracle</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.9.6.Final</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>debezium-connector-db2</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.9.5.Final</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>debezium-connector-db2</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.9.6.Final</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>debezium-connector-vitess</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.9.5.Final</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>debezium-connector-vitess</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.9.6.Final</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>debezium-connector-cassandra</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.9.5.Final</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>debezium-connector-cassandra</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.9.6.Final</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>debezium-testing-testcontainers</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.9.5.Final</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>debezium-testing-testcontainers</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.9.6.Final</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>debezium-schema-generator</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.9.5.Final</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>debezium-schema-generator</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.9.6.Final</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>debezium-quarkus-outbox</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.9.5.Final</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>debezium-quarkus-outbox</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.9.6.Final</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>debezium-quarkus-outbox-deployment</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.9.5.Final</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>debezium-quarkus-outbox-deployment</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.9.6.Final</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>debezium-core</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.9.5.Final</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <type>test-jar</type><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>debezium-core</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.9.6.Final</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <type>test-jar</type><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>debezium-embedded</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.9.5.Final</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <type>test-jar</type><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>debezium-embedded</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.9.6.Final</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <type>test-jar</type><!-- io.debezium:debezium-bom:1.9.6.Final -->
         <exclusions>
           <exclusion>
             <groupId>javax.ws.rs</groupId>
@@ -23789,10 +23789,10 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <artifactId>debezium-connector-mysql</artifactId><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <version>1.9.5.Final</version><!-- io.debezium:debezium-bom:1.9.5.Final -->
-        <type>test-jar</type><!-- io.debezium:debezium-bom:1.9.5.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <artifactId>debezium-connector-mysql</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <version>1.9.6.Final</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
+        <type>test-jar</type><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
         <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:3.0.0 -->
