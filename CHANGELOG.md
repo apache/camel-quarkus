@@ -17,6 +17,7 @@
 
 **Merged pull requests:**
 
+- Update Debezium to 1.9.6.Final [\#4156](https://github.com/apache/camel-quarkus/pull/4156) ([zbendhiba](https://github.com/zbendhiba))
 - Convert germanbooks-iso-8859-1.json to \*nix line endings [\#4154](https://github.com/apache/camel-quarkus/pull/4154) ([jamesnetherton](https://github.com/jamesnetherton))
 - Set explicit nofile ulimit for activemq-artemis-broker image to make … [\#4152](https://github.com/apache/camel-quarkus/pull/4152) ([ppalaga](https://github.com/ppalaga))
 - doc: switch to === syntax to match doc tooling [\#4150](https://github.com/apache/camel-quarkus/pull/4150) ([aldettinger](https://github.com/aldettinger))
