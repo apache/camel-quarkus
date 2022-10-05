@@ -58,7 +58,7 @@
         <quarkiverse-minio.version>2.9.2</quarkiverse-minio.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/minio/quarkus-minio-parent/ -->
         <quarkiverse-mybatis.version>1.0.4</quarkiverse-mybatis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/mybatis/quarkus-mybatis-parent/ -->
         <quarkiverse-tika.version>1.0.3</quarkiverse-tika.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/tika/quarkus-tika-parent/ -->
-        <quarkus.version>2.13.0.Final</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
+        <quarkus.version>2.13.1.Final</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
         <quarkus-hazelcast-client.version>3.0.0</quarkus-hazelcast-client.version><!-- https://repo1.maven.org/maven2/com/hazelcast/quarkus-hazelcast-client-bom/ -->
         <quarkus-qpid-jms.version>0.38.0</quarkus-qpid-jms.version><!-- https://repo1.maven.org/maven2/org/amqphub/quarkus/quarkus-qpid-jms-bom/ -->
 
@@ -99,7 +99,7 @@
         <hapi-fhir.version>${hapi-fhir-version}</hapi-fhir.version>
         <hbase.version>${hbase-version}</hbase.version>
         <htrace.version>4.2.0-incubating</htrace.version><!-- Mess in hbase transitive deps -->
-        <infinispan.version>13.0.10.Final</infinispan.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.infinispan:infinispan-core -->
+        <infinispan.version>13.0.11.Final</infinispan.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.infinispan:infinispan-core -->
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
         <jackson1.version>1.9.13</jackson1.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <jackson-asl.version>${jackson1.version}</jackson-asl.version><!-- Can be different from jackson1.version on some occasions -->
@@ -117,9 +117,9 @@
         <jna-platform.version>5.6.0</jna-platform.version><!-- @sync com.azure:azure-identity:${azure-identity.version} dep:net.java.dev.jna:jna-platform -->
         <jnr-ffi.version>2.1.2</jnr-ffi.version><!-- Mess in web3j transitive deps -->
         <json-smart.version>2.4.7</json-smart.version>
-        <kafka.version>3.2.1</kafka.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.kafka:kafka-clients -->
+        <kafka.version>3.2.3</kafka.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.kafka:kafka-clients -->
         <kudu.version>${kudu-version}</kudu.version>
-        <kotlin.version>1.7.10</kotlin.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.jetbrains.kotlin:kotlin-stdlib -->
+        <kotlin.version>1.7.20</kotlin.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.jetbrains.kotlin:kotlin-stdlib -->
         <kryo.version>2.24.0</kryo.version><!-- @sync org.apache.flink:flink-core:${flink-version} dep:com.esotericsoftware.kryo:kryo -->
         <libthrift.version>${libthrift-version}</libthrift.version> <!-- Spark -->
         <msal4j.version>1.13.1</msal4j.version><!-- @sync com.azure:azure-identity:${azure-identity.version} dep:com.microsoft.azure:msal4j -->
@@ -131,9 +131,9 @@
         <reactor-core.version>3.4.22</reactor-core.version><!-- @sync com.azure:azure-core:${azure-core.version} dep:io.projectreactor:reactor-core -->
         <reactor-netty.version>${reactor-netty-version}</reactor-netty.version>
         <retrofit.version>2.5.0</retrofit.version>
-        <smallrye.reactive.messaging.camel.version>3.18.0</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
+        <smallrye.reactive.messaging.camel.version>3.20.0</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
         <spring.version>${spring5-version}</spring.version>
-        <snakeyaml.version>1.32</snakeyaml.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.yaml:snakeyaml -->
+        <snakeyaml.version>1.33</snakeyaml.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.yaml:snakeyaml -->
         <tablesaw.version>0.43.1</tablesaw.version>
         <threetenbp.version>1.6.0</threetenbp.version>
         <xalan.version>2.7.2</xalan.version><!-- Xalan should be removed as is in Camel, but it is not possible. https://github.com/apache/camel-quarkus/issues/4065-->
