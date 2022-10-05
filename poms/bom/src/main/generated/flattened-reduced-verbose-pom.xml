@@ -9927,7 +9927,7 @@
       <dependency>
         <groupId>io.smallrye.reactive</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>smallrye-reactive-messaging-camel</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.18.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.20.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>jakarta.activation</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -10072,7 +10072,7 @@
       <dependency>
         <groupId>org.apache.kafka</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>connect-runtime</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.2.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.2.3</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>jakarta.activation</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -10209,17 +10209,17 @@
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>kotlin-script-util</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.7.10</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.7.20</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>kotlin-scripting-jvm</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.7.10</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.7.20</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>kotlin-scripting-jvm-host</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.7.10</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.7.20</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>org.jruby.jcodings</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
