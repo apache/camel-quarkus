@@ -47,6 +47,12 @@
         <dependency>
             <groupId>io.quarkiverse.mybatis</groupId>
             <artifactId>quarkus-mybatis</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>mybatis</artifactId>
+                    <groupId>org.mybatis</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

@@ -20,6 +20,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.quarkus.test.CamelQuarkusTestSupport;
 import org.jboss.logging.Logger;
@@ -64,7 +65,7 @@ public class DebugTest extends CamelQuarkusTestSupport {
         template.sendBody("direct:start", "World");
 
         // assert mocks
-        assertMockEndpointsSatisfied();
+        MockEndpoint.assertIsSatisfied(context);
     }
 
     @Test
@@ -79,7 +80,7 @@ public class DebugTest extends CamelQuarkusTestSupport {
         template.sendBody("direct:start", "Camel");
 
         // assert mocks
-        assertMockEndpointsSatisfied();
+        MockEndpoint.assertIsSatisfied(context);
     }
 
     // START SNIPPET: e2
