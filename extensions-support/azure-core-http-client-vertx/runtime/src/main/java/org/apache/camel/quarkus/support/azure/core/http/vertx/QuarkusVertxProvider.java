@@ -22,42 +22,11 @@ import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.CDI;
 
-import com.azure.core.http.HttpClient;
-import com.azure.core.http.HttpClientProvider;
-import com.azure.core.util.HttpClientOptions;
 import io.vertx.core.Vertx;
-import io.vertx.ext.web.client.WebClient;
 
-/**
- * {@link HttpClientProvider} backed by the Vert.x {@link WebClient}
- */
-public class VertxHttpClientProvider implements HttpClientProvider {
-
+public class QuarkusVertxProvider implements VertxProvider {
     @Override
-    public HttpClient createInstance() {
-        return createInstance(null);
-    }
-
-    @Override
-    public HttpClient createInstance(HttpClientOptions clientOptions) {
-        VertxHttpClientBuilder builder = new VertxHttpClientBuilder(getVertx());
-        if (clientOptions != null) {
-            builder = builder.proxy(clientOptions.getProxyOptions())
-                    .configuration(clientOptions.getConfiguration())
-                    .connectTimeout(clientOptions.getConnectTimeout())
-                    .idleTimeout(clientOptions.getConnectionIdleTimeout())
-                    .writeIdleTimeout(clientOptions.getWriteTimeout())
-                    .readIdleTimeout(clientOptions.getReadTimeout());
-        }
-        return builder.build();
-    }
-
-    /**
-     * Obtains a reference to the Quarkus managed {@link Vertx} instance
-     * 
-     * @return The Quarkus managed {@link Vertx} instance
-     */
-    private static final Vertx getVertx() {
+    public Vertx createVertx() {
         BeanManager beanManager = CDI.current().getBeanManager();
         Set<Bean<?>> beans = beanManager.getBeans(Vertx.class);
         if (beans.isEmpty()) {

@@ -1,1 +1,1 @@
-org.apache.camel.quarkus.support.azure.core.http.vertx.VertxHttpClientProvider
+org.apache.camel.quarkus.support.azure.core.http.vertx.VertxAsyncHttpClientProvider
