@@ -16,41 +16,46 @@
  */
 package org.apache.camel.quarkus.support.azure.core.http.vertx;
 
-import javax.inject.Inject;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import com.azure.core.http.HttpClient;
-import com.azure.core.test.RestProxyTestsWireMockServer;
-import com.azure.core.test.implementation.RestProxyTests;
+import com.azure.core.test.HttpClientTestsWireMockServer;
+import com.azure.core.test.http.HttpClientTests;
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.quarkus.test.QuarkusUnitTest;
+import io.vertx.core.AsyncResult;
+import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.extension.RegisterExtension;
 
-@Disabled //https://github.com/apache/camel-quarkus/issues/4090
-public class VertxHttpClientRestProxyTests extends RestProxyTests {
-    private final static WireMockServer server = RestProxyTestsWireMockServer.getRestProxyTestsServer();
-
-    @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addAsResource("upload.txt", "upload.txt"));
-
-    @Inject
-    Vertx vertx;
+public class VertxAsyncHttpClientAsyncHttpClientTests extends HttpClientTests {
+    private static WireMockServer server;
+    private static Vertx vertx;
 
     @BeforeAll
-    public static void getWireMockServer() {
+    public static void beforeAll() {
+        server = HttpClientTestsWireMockServer.getHttpClientTestsServer();
         server.start();
+        vertx = Vertx.vertx();
     }
 
     @AfterAll
-    public static void shutdownWireMockServer() {
-        server.shutdown();
+    public static void afterAll() throws Exception {
+        if (server != null) {
+            server.shutdown();
+        }
+
+        if (vertx != null) {
+            CountDownLatch latch = new CountDownLatch(1);
+            vertx.close(new Handler<AsyncResult<Void>>() {
+                @Override
+                public void handle(AsyncResult<Void> event) {
+                    latch.countDown();
+                }
+            });
+            latch.await(5, TimeUnit.SECONDS);
+        }
     }
 
     @Override
@@ -60,6 +65,6 @@ public class VertxHttpClientRestProxyTests extends RestProxyTests {
 
     @Override
     protected HttpClient createHttpClient() {
-        return new VertxHttpClientBuilder(vertx).build();
+        return new VertxAsyncHttpClientBuilder().vertx(vertx).build();
     }
 }

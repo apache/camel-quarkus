@@ -16,22 +16,19 @@
  */
 package org.apache.camel.quarkus.support.azure.core.http.vertx;
 
-import io.vertx.core.buffer.Buffer;
-import io.vertx.ext.web.client.HttpRequest;
+import io.vertx.core.Vertx;
 
 /**
- * Holds a Vert.x {@link HttpRequest} together with a body payload.
+ * Service provider interface providing platforms and applications the means to have their own managed
+ * {@link Vertx} be resolved by the {@link VertxAsyncHttpClientBuilder}.
  */
-class VertxHttpRequest {
-    private final Buffer body;
-    private final HttpRequest<Buffer> delegate;
+public interface VertxProvider {
 
-    public VertxHttpRequest(HttpRequest<Buffer> delegate, Buffer body) {
-        this.delegate = delegate;
-        this.body = body;
-    }
-
-    public void send(VertxHttpResponseHandler handler) {
-        delegate.sendBuffer(body, handler);
-    }
+    /**
+     * Creates a {@link Vertx}. Could either be the result of returning {@code Vertx.vertx()},
+     * or returning a {@link Vertx} that was resolved from a dependency injection framework like Spring or CDI.
+     *
+     * @return The created {@link Vertx}.
+     */
+    Vertx createVertx();
 }

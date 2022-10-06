@@ -14,54 +14,48 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.support.azure.core.http.vertx;
+package org.apache.camel.quarkus.support.azure.core.http.vertx.implementation;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 import com.azure.core.http.HttpRequest;
 import com.azure.core.http.HttpResponse;
+import com.azure.core.util.BinaryData;
 import io.vertx.core.buffer.Buffer;
+import io.vertx.core.http.HttpClientResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-final class BufferedVertxHttpResponse extends VertxHttpAsyncResponse {
-
+public final class BufferedVertxHttpResponse extends VertxHttpAsyncResponse {
     private final Buffer body;
 
-    BufferedVertxHttpResponse(HttpRequest request, io.vertx.ext.web.client.HttpResponse<Buffer> response, Buffer body) {
-        super(request, response);
+    public BufferedVertxHttpResponse(HttpRequest azureHttpRequest, HttpClientResponse vertxHttpResponse, Buffer body) {
+        super(azureHttpRequest, vertxHttpResponse);
         this.body = body;
+    }
+
+    @Override
+    public BinaryData getBodyAsBinaryData() {
+        return BinaryData.fromBytes(body.getBytes());
     }
 
     @Override
     public Flux<ByteBuffer> getBody() {
         return Flux.defer(() -> {
-            if (this.body == null || this.body.length() == 0) {
+            if (this.body.length() == 0) {
                 return Flux.empty();
             }
-            return Flux.just(this.body.getByteBuf().nioBuffer());
+            return Flux.just(ByteBuffer.wrap(this.body.getBytes()));
         });
     }
 
     @Override
     public Mono<byte[]> getBodyAsByteArray() {
         return Mono.defer(() -> {
-            if (this.body == null || this.body.length() == 0) {
+            if (this.body.length() == 0) {
                 return Mono.empty();
             }
             return Mono.just(this.body.getBytes());
-        });
-    }
-
-    @Override
-    public Mono<InputStream> getBodyAsInputStream() {
-        return Mono.defer(() -> {
-            if (this.body == null || this.body.length() == 0) {
-                return Mono.empty();
-            }
-            return Mono.just(new ByteArrayInputStream(this.body.getBytes()));
         });
     }
 

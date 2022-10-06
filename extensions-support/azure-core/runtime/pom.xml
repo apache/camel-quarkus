@@ -57,6 +57,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- TODO: Investigate whether this can be removed https://github.com/apache/camel-quarkus/issues/4091 -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-tcnative-boringssl-static</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.microsoft.azure</groupId>
             <artifactId>msal4j</artifactId>
@@ -66,11 +71,6 @@
             <groupId>org.graalvm.nativeimage</groupId>
             <artifactId>svm</artifactId>
             <scope>provided</scope>
-        </dependency>
-<!--        quick fix - see https://github.com/apache/camel-quarkus/issues/4091 -->
-        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-tcnative-boringssl-static</artifactId>
         </dependency>
     </dependencies>
 

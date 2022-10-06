@@ -23,31 +23,32 @@ import com.azure.core.http.HttpMethod;
 import com.azure.core.http.HttpRequest;
 import com.azure.core.util.FluxUtil;
 import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import io.quarkus.test.QuarkusUnitTest;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-@Disabled //https://github.com/apache/camel-quarkus/issues/4090
-public class DeadlockTests {
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-    @RegisterExtension
-    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class));
+public class DeadlockTests {
 
     private static final String GET_ENDPOINT = "/get";
 
     private WireMockServer server;
     private byte[] expectedGetBytes;
+
+    @RegisterExtension
+    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class));
 
     @BeforeEach
     public void configureWireMockServer() {
@@ -59,7 +60,7 @@ public class DeadlockTests {
                 .disableRequestJournal()
                 .gzipDisabled(true));
 
-        server.stubFor(WireMock.get(GET_ENDPOINT).willReturn(WireMock.aResponse().withBody(expectedGetBytes)));
+        server.stubFor(get(GET_ENDPOINT).willReturn(aResponse().withBody(expectedGetBytes)));
 
         server.start();
     }
@@ -73,7 +74,7 @@ public class DeadlockTests {
 
     @Test
     public void attemptToDeadlock() {
-        HttpClient httpClient = new VertxHttpClientProvider().createInstance();
+        HttpClient httpClient = new VertxAsyncHttpClientProvider().createInstance();
 
         String endpoint = server.baseUrl() + GET_ENDPOINT;
 
@@ -82,8 +83,8 @@ public class DeadlockTests {
                     .flatMap(response -> FluxUtil.collectBytesInByteBufferStream(response.getBody())
                             .zipWith(Mono.just(response.getStatusCode()))))
                     .assertNext(responseTuple -> {
-                        Assertions.assertEquals(200, responseTuple.getT2());
-                        Assertions.assertArrayEquals(expectedGetBytes, responseTuple.getT1());
+                        assertEquals(200, responseTuple.getT2());
+                        assertArrayEquals(expectedGetBytes, responseTuple.getT1());
                     })
                     .verifyComplete();
         }

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.support.azure.core.http.vertx;
+package org.apache.camel.quarkus.support.azure.core.http.vertx.implementation;
 
 import java.nio.charset.Charset;
 
@@ -23,18 +23,18 @@ import com.azure.core.http.HttpRequest;
 import com.azure.core.http.HttpResponse;
 import com.azure.core.util.CoreUtils;
 import io.vertx.core.MultiMap;
-import io.vertx.core.buffer.Buffer;
+import io.vertx.core.http.HttpClientResponse;
 import reactor.core.publisher.Mono;
 
-abstract class VertxHttpResponse extends HttpResponse {
+abstract class VertxHttpResponseBase extends HttpResponse {
 
-    private final io.vertx.ext.web.client.HttpResponse<Buffer> response;
+    private final HttpClientResponse vertxHttpResponse;
     private final HttpHeaders headers;
 
-    VertxHttpResponse(HttpRequest request, io.vertx.ext.web.client.HttpResponse<Buffer> response) {
-        super(request);
-        this.response = response;
-        this.headers = fromVertxHttpHeaders(response.headers());
+    VertxHttpResponseBase(HttpRequest azureHttpRequest, HttpClientResponse vertxHttpResponse) {
+        super(azureHttpRequest);
+        this.vertxHttpResponse = vertxHttpResponse;
+        this.headers = fromVertxHttpHeaders(vertxHttpResponse.headers());
     }
 
     private HttpHeaders fromVertxHttpHeaders(MultiMap headers) {
@@ -43,13 +43,13 @@ abstract class VertxHttpResponse extends HttpResponse {
         return azureHeaders;
     }
 
-    protected io.vertx.ext.web.client.HttpResponse<Buffer> getVertxHttpResponse() {
-        return this.response;
+    protected HttpClientResponse getVertxHttpResponse() {
+        return this.vertxHttpResponse;
     }
 
     @Override
     public int getStatusCode() {
-        return response.statusCode();
+        return this.vertxHttpResponse.statusCode();
     }
 
     @Override
@@ -69,6 +69,6 @@ abstract class VertxHttpResponse extends HttpResponse {
 
     @Override
     public final Mono<String> getBodyAsString(Charset charset) {
-        return Mono.fromCallable(() -> this.response.bodyAsString(charset.toString()));
+        return getBodyAsByteArray().map(bytes -> CoreUtils.bomAwareToString(bytes, charset.toString()));
     }
 }
