@@ -175,6 +175,8 @@
         <module>pg-replication-slot</module>
         <module>pgevent</module>
         <module>platform-http</module>
+        <module>platform-http-proxy</module>
+        <module>platform-http-proxy-ssl</module>
         <module>protobuf</module>
         <module>pubnub</module>
         <module>quartz</module>

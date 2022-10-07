@@ -136,6 +136,21 @@ from("platform-http:/secure")
 Also check the `quarkus.http.body.*` configuration options in
 https://quarkus.io/guides/all-config#quarkus-vertx-http_quarkus-vertx-http-eclipse-vert.x-http[Quarkus documentation], esp. `quarkus.http.body.handle-file-uploads`, `quarkus.http.body.uploads-directory` and `quarkus.http.body.delete-uploaded-files-on-end`.
 
+[id="extensions-platform-http-usage-implementing-a-reverse-proxy"]
+=== Implementing a reverse proxy
+
+Platform HTTP component can act as a reverse proxy, in that case `Exchange.HTTP_URI`, `Exchange.HTTP_HOST` headers are populated from the absolute URL received on the request line of the HTTP request.
+
+Here's an example of a HTTP proxy that simply redirects the Exchange to the origin server.
+
+[source,java]
+------------------------------------------------------------------------------------------
+from("platform-http:proxy")
+    .toD("http://"
+        + "${headers." + Exchange.HTTP_HOST + "}");
+
+-------------------------------------------------------------------------------------
+
 
 [id="extensions-platform-http-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
