@@ -163,6 +163,8 @@ group-10:
   - mail
   - main-unknown-args-fail
   - main-unknown-args-ignore
+  - platform-http-proxy
+  - platform-http-proxy-ssl
 group-11:
   - compression-grouped
   - disruptor
