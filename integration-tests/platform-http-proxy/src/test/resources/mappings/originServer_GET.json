@@ -1,0 +1,18 @@
+{
+  "id": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "name": "platform-http-proxy_api",
+  "request": {
+    "url": "/",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "body": "{\"message\": \"Hello World!\"}",
+    "headers": {
+      "Content-Type": "application/json; charset=UTF-8"
+    }
+  },
+  "uuid": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "persistent": true,
+  "insertionIndex": 2
+}
