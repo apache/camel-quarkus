@@ -64,7 +64,7 @@
 
         <!-- Compile dependency versions (keep sorted alphabetically) -->
         <!-- Items annotated with @sync can be updated by running mvn cq:sync-versions -N -e -->
-        <ahc.version>2.12.3</ahc.version>
+        <ahc.version>2.12.3</ahc.version><!-- @sync com.cloudbees.thirdparty:zendesk-java-client:${zendesk-client-version} dep:org.asynchttpclient:async-http-client -->
         <animal-sniffer.version>1.18</animal-sniffer.version>
         <antlr3.version>3.5.2</antlr3.version><!-- Spark, Stringtemplate and probably others -->
         <avro.version>1.11.1</avro.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.avro:avro -->
