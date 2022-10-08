@@ -10181,21 +10181,6 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <dependency><!-- remove with quarkiverse-cxf 1.5.1+1 -->
-                <groupId>org.apache.cxf.xjc-utils</groupId>
-                <artifactId>cxf-xjc-runtime</artifactId>
-                <version>${cxf.xjc-utils.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>jakarta.activation</groupId>
-                        <artifactId>jakarta.activation-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>jakarta.xml.bind</groupId>
-                        <artifactId>jakarta.xml.bind-api</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
             <dependency>
                 <groupId>org.apache.htrace</groupId>
                 <artifactId>htrace-core4</artifactId>
@@ -10543,7 +10528,7 @@
                                 <resolutionEntryPointInclude>ca.uhn.hapi:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>io.quarkiverse.cxf:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>net.openhft:affinity</resolutionEntryPointInclude><!-- https://github.com/apache/camel-quarkus/issues/3788 -->
-                                <resolutionEntryPointInclude>org.apache.cxf.xjc-utils:cxf-xjc-runtime</resolutionEntryPointInclude><!-- https://github.com/apache/camel-quarkus/issues/4123 -->
+                                <resolutionEntryPointInclude>org.apache.cxf.xjc-utils:cxf-xjc-runtime</resolutionEntryPointInclude>
                             </resolutionEntryPointIncludes>
                             <bomEntryTransformations>
                                 <bomEntryTransformation>

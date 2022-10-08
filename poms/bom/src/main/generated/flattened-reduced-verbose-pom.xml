@@ -10118,21 +10118,6 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.apache.cxf.xjc-utils</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>cxf-xjc-runtime</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.3.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <exclusions>
-          <exclusion>
-            <groupId>jakarta.activation</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>jakarta.activation-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
-          <exclusion>
-            <groupId>jakarta.xml.bind</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>jakarta.xml.bind-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
         <groupId>org.apache.htrace</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>htrace-core4</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>4.2.0-incubating</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -10611,6 +10596,21 @@
           <exclusion>
             <groupId>org.ow2.asm</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.2 -->
             <artifactId>asm</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.2 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf.xjc-utils</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.2 -->
+        <artifactId>cxf-xjc-runtime</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.2 -->
+        <version>${cxf.xjc-utils.version}</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.2 -->
+        <exclusions>
+          <exclusion>
+            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.2 -->
+            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.2 -->
+          </exclusion>
+          <exclusion>
+            <groupId>jakarta.xml.bind</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.2 -->
+            <artifactId>jakarta.xml.bind-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.2 -->
           </exclusion>
         </exclusions>
       </dependency>
