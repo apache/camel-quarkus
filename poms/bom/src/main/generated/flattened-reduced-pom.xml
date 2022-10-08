@@ -10080,21 +10080,6 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.apache.cxf.xjc-utils</groupId>
-        <artifactId>cxf-xjc-runtime</artifactId>
-        <version>3.3.2</version>
-        <exclusions>
-          <exclusion>
-            <groupId>jakarta.activation</groupId>
-            <artifactId>jakarta.activation-api</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>jakarta.xml.bind</groupId>
-            <artifactId>jakarta.xml.bind-api</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
         <groupId>org.apache.htrace</groupId>
         <artifactId>htrace-core4</artifactId>
         <version>4.2.0-incubating</version>
@@ -10573,6 +10558,21 @@
           <exclusion>
             <groupId>org.ow2.asm</groupId>
             <artifactId>asm</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf.xjc-utils</groupId>
+        <artifactId>cxf-xjc-runtime</artifactId>
+        <version>${cxf.xjc-utils.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
