@@ -10615,74 +10615,140 @@
         </exclusions>
       </dependency>
       <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-ws-rm</artifactId>
+        <version>3.5.3</version>
+        <exclusions>
+          <exclusion>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jta_1.1_spec</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf.services.sts</groupId>
+        <artifactId>cxf-services-sts-core</artifactId>
+        <version>3.5.3</version>
+        <exclusions>
+          <exclusion>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jta_1.1_spec</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>*</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf</artifactId>
-        <version>1.5.2</version>
+        <version>1.5.3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-deployment</artifactId>
-        <version>1.5.2</version>
+        <version>1.5.3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-logging</artifactId>
-        <version>1.5.2</version>
+        <version>1.5.3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-logging-deployment</artifactId>
-        <version>1.5.2</version>
+        <version>1.5.3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-metrics</artifactId>
-        <version>1.5.2</version>
+        <version>1.5.3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-metrics-deployment</artifactId>
-        <version>1.5.2</version>
+        <version>1.5.3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-transports-http-hc5</artifactId>
-        <version>1.5.2</version>
+        <version>1.5.3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-transports-http-hc5-deployment</artifactId>
-        <version>1.5.2</version>
+        <version>1.5.3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-security</artifactId>
-        <version>1.5.2</version>
+        <version>1.5.3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-security-deployment</artifactId>
-        <version>1.5.2</version>
+        <version>1.5.3</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-ws-rm</artifactId>
+        <version>1.5.3</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-ws-rm-deployment</artifactId>
+        <version>1.5.3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-saaj</artifactId>
-        <version>1.5.2</version>
+        <version>1.5.3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-saaj-deployment</artifactId>
-        <version>1.5.2</version>
+        <version>1.5.3</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-services-sts</artifactId>
+        <version>1.5.3</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-services-sts-deployment</artifactId>
+        <version>1.5.3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-woodstox</artifactId>
-        <version>1.5.2</version>
+        <version>1.5.3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-woodstox-deployment</artifactId>
-        <version>1.5.2</version>
+        <version>1.5.3</version>
       </dependency>
       <dependency>
         <groupId>com.fasterxml.woodstox</groupId>
@@ -10702,7 +10768,7 @@
       <dependency>
         <groupId>org.ehcache</groupId>
         <artifactId>ehcache</artifactId>
-        <version>3.10.1</version>
+        <version>3.10.2</version>
         <exclusions>
           <exclusion>
             <groupId>org.glassfish.jaxb</groupId>
@@ -10758,6 +10824,21 @@
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-frontend-simple</artifactId>
+        <version>3.5.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-management</artifactId>
+        <version>3.5.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-rs-json-basic</artifactId>
+        <version>3.5.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-rs-security-jose</artifactId>
         <version>3.5.3</version>
       </dependency>
       <dependency>
