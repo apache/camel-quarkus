@@ -12,11 +12,18 @@
 **Closed issues:**
 
 - Manage `io.projectreactor:reactor-core` [\#4138](https://github.com/apache/camel-quarkus/issues/4138)
+- Deprecated parameters in several annotations are ignored - inconsistent with other annotations. [\#4097](https://github.com/apache/camel-quarkus/issues/4097)
+- \[Camel 3.19.0\] azure-core-http-client-vertx: Deployment tests are failing on java heap space [\#4090](https://github.com/apache/camel-quarkus/issues/4090)
 - Automatic configuration of kubernetes cluster service [\#4086](https://github.com/apache/camel-quarkus/issues/4086)
 - Increase test coverage of ref extension [\#4010](https://github.com/apache/camel-quarkus/issues/4010)
+- Extensions for camel-knative and camel-cloudevents [\#3459](https://github.com/apache/camel-quarkus/issues/3459)
+- Reference Camel `azure-sdk-bom-version` property in `azure-sdk-bom.version` [\#3229](https://github.com/apache/camel-quarkus/issues/3229)
 
 **Merged pull requests:**
 
+- Add sync tag for ahc.version property [\#4164](https://github.com/apache/camel-quarkus/pull/4164) ([jamesnetherton](https://github.com/jamesnetherton))
+- Align Azure SDK BOM version with Camel  [\#4163](https://github.com/apache/camel-quarkus/pull/4163) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade Quarkus to 2.13.1.Final [\#4160](https://github.com/apache/camel-quarkus/pull/4160) ([jamesnetherton](https://github.com/jamesnetherton))
 - Update Debezium to 1.9.6.Final [\#4156](https://github.com/apache/camel-quarkus/pull/4156) ([zbendhiba](https://github.com/zbendhiba))
 - Convert germanbooks-iso-8859-1.json to \*nix line endings [\#4154](https://github.com/apache/camel-quarkus/pull/4154) ([jamesnetherton](https://github.com/jamesnetherton))
 - Set explicit nofile ulimit for activemq-artemis-broker image to make … [\#4152](https://github.com/apache/camel-quarkus/pull/4152) ([ppalaga](https://github.com/ppalaga))
@@ -30,6 +37,7 @@
 - Upgrade Quarkus CXF to 1.5.2 [\#4136](https://github.com/apache/camel-quarkus/pull/4136) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix malformed id headings for AWS extensions [\#4132](https://github.com/apache/camel-quarkus/pull/4132) ([jamesnetherton](https://github.com/jamesnetherton))
 - Next is 2.14.0 [\#4131](https://github.com/apache/camel-quarkus/pull/4131) ([zbendhiba](https://github.com/zbendhiba))
+- Fix Netty integration tests on FIPS system [\#4130](https://github.com/apache/camel-quarkus/pull/4130) ([osmman](https://github.com/osmman))
 - Upgrade dependencies versions [\#4129](https://github.com/apache/camel-quarkus/pull/4129) ([zbendhiba](https://github.com/zbendhiba))
 - Add tests for rest-openapi extension \(apache\#4117\) [\#4125](https://github.com/apache/camel-quarkus/pull/4125) ([djcoleman](https://github.com/djcoleman))
 - Upgrade Quarkus to 2.13.0.Final [\#4121](https://github.com/apache/camel-quarkus/pull/4121) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -38,6 +46,7 @@
 - Register LegacyPDFStreamEngine for runtime initialization [\#4110](https://github.com/apache/camel-quarkus/pull/4110) ([jamesnetherton](https://github.com/jamesnetherton))
 - CamelQuarkusTestSupport: Alow to use AdiceWith with another route \#4104 [\#4105](https://github.com/apache/camel-quarkus/pull/4105) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Restore named DataSource autowiring for JDBC and SQL extensions [\#4101](https://github.com/apache/camel-quarkus/pull/4101) ([jamesnetherton](https://github.com/jamesnetherton))
+- Deprecated parameters in several annotations are ignored - inconsisten [\#4099](https://github.com/apache/camel-quarkus/pull/4099) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix \#4096 to sync snakeyaml with quarkus-bom [\#4098](https://github.com/apache/camel-quarkus/pull/4098) ([zhfeng](https://github.com/zhfeng))
 - Upgrade Quarkus to 2.13.0.CR1 [\#4094](https://github.com/apache/camel-quarkus/pull/4094) ([jamesnetherton](https://github.com/jamesnetherton))
 - kubernetes: auto-configure Kubernetes Cluster Service \#4086 [\#4093](https://github.com/apache/camel-quarkus/pull/4093) ([aldettinger](https://github.com/aldettinger))
@@ -223,6 +232,7 @@
 - Avoid creating serialization config for non-serializable classes [\#3714](https://github.com/apache/camel-quarkus/pull/3714) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add missing build dependency link on Mail Integration tests [\#3710](https://github.com/apache/camel-quarkus/pull/3710) ([zbendhiba](https://github.com/zbendhiba))
 - Fix \#3656 Improve camel-quarkus-paho-mqtt5 test coverage [\#3709](https://github.com/apache/camel-quarkus/pull/3709) ([zhfeng](https://github.com/zhfeng))
+- Add cloudEvents and knative extensions [\#3705](https://github.com/apache/camel-quarkus/pull/3705) ([zbendhiba](https://github.com/zbendhiba))
 - Fix documentation [\#3704](https://github.com/apache/camel-quarkus/pull/3704) ([aldettinger](https://github.com/aldettinger))
 - Test Azure Blob with autowiredEnabled=false [\#3699](https://github.com/apache/camel-quarkus/pull/3699) ([jamesnetherton](https://github.com/jamesnetherton))
 - Next is 2.9.0 [\#3696](https://github.com/apache/camel-quarkus/pull/3696) ([jamesnetherton](https://github.com/jamesnetherton))
