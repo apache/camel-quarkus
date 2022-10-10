@@ -290,7 +290,7 @@ public class SalesforceResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getPlatformEvent() {
-        return consumerTemplate.receiveBody("salesforce:event/TestEvent__e?rawPayload=true", 10000, String.class);
+        return consumerTemplate.receiveBody("salesforce:subscribe:event/TestEvent__e?rawPayload=true", 10000, String.class);
     }
 
     private JsonObject accountToJsonObject(Account account) {

@@ -73,17 +73,17 @@ public class SalesforceRoutes extends RouteBuilder {
         if (!wireMockUrl.isPresent()) {
 
             // Change Data Capture
-            from("salesforce:/data/AccountChangeEvent?replayId=-1").routeId("cdc").autoStartup(false)
+            from("salesforce:subscribe:/data/AccountChangeEvent?replayId=-1").routeId("cdc").autoStartup(false)
                     .to("seda:events");
 
             // Streaming API : topic consumer - getting Account object
-            from("salesforce:CamelTestTopic?notifyForFields=ALL&"
+            from("salesforce:subscribe:CamelTestTopic?notifyForFields=ALL&"
                     + "notifyForOperationCreate=true&notifyForOperationDelete=true&notifyForOperationUpdate=true&"
                     + "sObjectClass=" + Account.class.getName() + "&updateTopic=true&sObjectQuery=SELECT Id, Name FROM Account")
                             .to("seda:CamelTestTopic");
 
             // Streaming API : topic consumer with RAW Payload - getting json as String
-            from("salesforce:CamelTestTopic?rawPayload=true&notifyForFields=ALL&"
+            from("salesforce:subscribe:CamelTestTopic?rawPayload=true&notifyForFields=ALL&"
                     + "notifyForOperationCreate=true&notifyForOperationDelete=true&notifyForOperationUpdate=true&"
                     + "updateTopic=true&sObjectQuery=SELECT Id, Name FROM Account")
                             .to("seda:RawPayloadCamelTestTopic");
