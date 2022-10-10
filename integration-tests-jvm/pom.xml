@@ -50,6 +50,7 @@
         <module>cmis</module>
         <module>coap</module>
         <module>cometd</module>
+        <module>controlbus-statistics</module>
         <module>corda</module>
         <module>couchbase</module>
         <module>debug</module>
