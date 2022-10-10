@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.component.controlbus.it;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.jboss.logging.Logger;
@@ -27,36 +26,17 @@ public class ControlbusRoute extends RouteBuilder {
 
     private static final Logger LOG = Logger.getLogger(ControlbusResource.class);
 
-    @Inject
-    RestartRoutePolicy routePolicy;
-
     @Override
     public void configure() throws Exception {
         from("direct:control")
                 .routeId("control")
-                .routePolicy(routePolicy)
-                .log("control: ${body}");
+                .process(e -> LOG.info("control:" + e.getMessage().getBody(String.class)));
 
         from("direct:status")
                 .transform()
                 .exchange(e -> e.getContext().getRouteController().getRouteStatus("control").name());
 
-        from("direct:stopRoute")
-                .to("controlbus:route?routeId=control&action=stop");
-
-        from("direct:startRoute")
-                .to("controlbus:route?routeId=control&action=start");
-
-        from("direct:suspendRoute")
-                .to("controlbus:route?routeId=control&action=suspend");
-
-        from("direct:resumeRoute")
-                .to("controlbus:route?routeId=control&action=resume");
-
-        from("direct:failRoute")
-                .to("controlbus:route?routeId=control&action=fail");
-
-        from("direct:restartRoute")
-                .to("controlbus:route?routeId=control&action=restart");
+        from("direct:statsRoute")
+                .to("controlbus:route?routeId=control&action=stats");
     }
 }

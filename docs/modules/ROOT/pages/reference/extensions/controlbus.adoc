@@ -44,3 +44,28 @@ Or add the coordinates to your existing project:
 ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
+
+[id="extensions-controlbus-usage"]
+== Usage
+[id="extensions-controlbus-usage-statistics"]
+=== Statistics
+
+When using the `stats` command endpoint, the `camel-quarkus-management` extension must be added as a project dependency to enable JMX. Maven users will have to add the following to their `pom.xml`:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-management</artifactId>
+</dependency>
+----
+
+
+[id="extensions-controlbus-camel-quarkus-limitations"]
+== Camel Quarkus limitations
+
+[id="extensions-controlbus-limitations-statistics"]
+=== Statistics
+
+The `stats` action is not available in native mode as JMX is not supported in the Graal VM.  Therefore, attempting to build a native image with the `camel-quarkus-management` extension on the classpath will result in a build failure.
+
