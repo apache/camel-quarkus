@@ -35,62 +35,20 @@ public class ControlbusResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Inject
-    RestartRoutePolicy restartRoutePolicy;
-
     @Path("/status")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String status() throws Exception {
-        return this.process("status");
+        final String message = producerTemplate.requestBody("direct:status", "", String.class);
+        LOG.infof("Received from controlbus: %s", message);
+        return message;
     }
 
-    @Path("/start")
+    @Path("/stats")
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String start() throws Exception {
-        return this.process("startRoute");
-    }
-
-    @Path("/stop")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String stop() throws Exception {
-        return this.process("stopRoute");
-    }
-
-    @Path("/suspend")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String suspend() throws Exception {
-        return this.process("suspendRoute");
-    }
-
-    @Path("/resume")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String resume() throws Exception {
-        return this.process("resumeRoute");
-    }
-
-    @Path("/fail")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String fail() throws Exception {
-        return this.process("failRoute");
-    }
-
-    @Path("/restart")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public RouteStats restart() throws Exception {
-        restartRoutePolicy.reset();
-        this.process("restartRoute");
-        return new RouteStats(restartRoutePolicy.getStart(), restartRoutePolicy.getStop());
-    }
-
-    private String process(String endpointName) throws Exception {
-        final String message = producerTemplate.requestBody("direct:" + endpointName, "", String.class);
+    @Produces(MediaType.APPLICATION_XML)
+    public String stats() throws Exception {
+        final String message = producerTemplate.requestBody("direct:statsRoute", "", String.class);
         LOG.infof("Received from controlbus: %s", message);
         return message;
     }

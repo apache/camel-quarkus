@@ -1,0 +1,11 @@
+=== Statistics
+
+When using the `stats` command endpoint, the `camel-quarkus-management` extension must be added as a project dependency to enable JMX. Maven users will have to add the following to their `pom.xml`:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-management</artifactId>
+</dependency>
+----
