@@ -3,7 +3,9 @@
 A `RestProducerFactory` implementation must be available when using the rest-openapi extension. The currently known extensions are:
 
 * camel-quarkus-http
+ifeval::[{doc-show-advanced-features} == true]
 * camel-quarkus-netty-http
+endif::[]
 
 Maven users will need to add one of these dependencies to their `pom.xml`, for example:
 
