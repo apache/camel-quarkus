@@ -6,6 +6,7 @@
 
 **Fixed bugs:**
 
+- SalesforceIntegrationTest.testCDCAndStreamingEvents fails [\#4161](https://github.com/apache/camel-quarkus/issues/4161)
 - \[Quarkus 2.14.0\] PgeventTest application fails to start [\#4114](https://github.com/apache/camel-quarkus/issues/4114)
 - kamelet-chucknorris example project tests are failing [\#4111](https://github.com/apache/camel-quarkus/issues/4111)
 
@@ -21,6 +22,8 @@
 
 **Merged pull requests:**
 
+- rest-openapi: Minor update to usage doc \(\#4117\) [\#4168](https://github.com/apache/camel-quarkus/pull/4168) ([djcoleman](https://github.com/djcoleman))
+- Fix Salesforce endpoint URIs for CDC eventing [\#4166](https://github.com/apache/camel-quarkus/pull/4166) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add sync tag for ahc.version property [\#4164](https://github.com/apache/camel-quarkus/pull/4164) ([jamesnetherton](https://github.com/jamesnetherton))
 - Align Azure SDK BOM version with Camel  [\#4163](https://github.com/apache/camel-quarkus/pull/4163) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.13.1.Final [\#4160](https://github.com/apache/camel-quarkus/pull/4160) ([jamesnetherton](https://github.com/jamesnetherton))
