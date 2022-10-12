@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.xstream.it;
 
 import javax.json.bind.JsonbBuilder;
 
-import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -30,7 +29,6 @@ import static org.hamcrest.Matchers.equalTo;
 @QuarkusTest
 class XstreamTest {
 
-    @DisabledOnIntegrationTest("https://github.com/apache/camel-quarkus/issues/4149")
     @Test
     void xstream() {
         final String xml = "<org.apache.camel.quarkus.component.xstream.it.PojoA><name>Joe</name></org.apache.camel.quarkus.component.xstream.it.PojoA>";
