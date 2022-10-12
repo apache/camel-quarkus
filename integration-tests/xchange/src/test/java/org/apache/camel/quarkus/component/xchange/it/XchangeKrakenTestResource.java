@@ -16,30 +16,30 @@
  */
 package org.apache.camel.quarkus.component.xchange.it;
 
-import java.util.Map;
-
-import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
-import org.apache.camel.quarkus.test.wiremock.WireMockTestResourceLifecycleManager;
-
-public class XchangeKrakenTestResource extends WireMockTestResourceLifecycleManager {
+public class XchangeKrakenTestResource extends XchangeTestResourceBase {
 
     @Override
-    public Map<String, String> start() {
-        Map<String, String> options = super.start();
-        String wireMockUrl = options.get("wiremock.url");
-        if (wireMockUrl != null) {
-            options.put("wiremock.kraken.url", wireMockUrl);
-        }
-        return options;
+    String getCryptoExchangeName() {
+        return "kraken";
+    }
+
+    @Override
+    String getHealthStatusField() {
+        return "result.status";
+    }
+
+    @Override
+    String getExpectedHealthStatus() {
+        return "online";
+    }
+
+    @Override
+    String getHealthEndpointUrl() {
+        return getRecordTargetBaseUrl() + "0/public/SystemStatus";
     }
 
     @Override
     protected String getRecordTargetBaseUrl() {
         return "https://api.kraken.com/";
-    }
-
-    @Override
-    protected boolean isMockingEnabled() {
-        return MockBackendUtils.startMockBackend(false);
     }
 }
