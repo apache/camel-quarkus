@@ -35,6 +35,6 @@ public class CamelContextDefaultStrategyTest {
 
     @Test
     public void testRestConfiguration() {
-        assertThat(camelContext.getShutdownStrategy() instanceof DefaultShutdownStrategy);
+        assertThat(camelContext.getShutdownStrategy() instanceof DefaultShutdownStrategy).isTrue();
     }
 }
