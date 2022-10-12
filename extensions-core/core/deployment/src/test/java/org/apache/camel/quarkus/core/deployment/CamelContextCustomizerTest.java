@@ -69,6 +69,6 @@ public class CamelContextCustomizerTest {
 
     @Test
     public void testRestConfiguration() {
-        assertThat(camelContext.getRestConfiguration().getApiContextPath().equals("/example"));
+        assertThat(camelContext.getRestConfiguration().getApiContextPath()).isEqualTo("/example");
     }
 }
