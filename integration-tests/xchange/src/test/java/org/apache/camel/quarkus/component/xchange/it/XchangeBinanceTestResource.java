@@ -16,30 +16,30 @@
  */
 package org.apache.camel.quarkus.component.xchange.it;
 
-import java.util.Map;
-
-import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
-import org.apache.camel.quarkus.test.wiremock.WireMockTestResourceLifecycleManager;
-
-public class XchangeBinanceTestResource extends WireMockTestResourceLifecycleManager {
+public class XchangeBinanceTestResource extends XchangeTestResourceBase {
 
     @Override
-    public Map<String, String> start() {
-        Map<String, String> options = super.start();
-        String wireMockUrl = options.get("wiremock.url");
-        if (wireMockUrl != null) {
-            options.put("wiremock.binance.url", wireMockUrl);
-        }
-        return options;
+    String getCryptoExchangeName() {
+        return "binance";
+    }
+
+    @Override
+    String getHealthStatusField() {
+        return "msg";
+    }
+
+    @Override
+    String getExpectedHealthStatus() {
+        return "normal";
+    }
+
+    @Override
+    String getHealthEndpointUrl() {
+        return getRecordTargetBaseUrl() + "sapi/v1/system/status";
     }
 
     @Override
     protected String getRecordTargetBaseUrl() {
         return "https://api.binance.com/";
-    }
-
-    @Override
-    protected boolean isMockingEnabled() {
-        return MockBackendUtils.startMockBackend(false);
     }
 }
