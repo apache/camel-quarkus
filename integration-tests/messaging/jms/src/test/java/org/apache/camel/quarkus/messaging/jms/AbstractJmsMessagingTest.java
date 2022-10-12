@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.messaging.jms;
 
 import java.util.UUID;
 
-import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.messaging.it.AbstractMessagingTest;
@@ -40,7 +39,6 @@ public class AbstractJmsMessagingTest extends AbstractMessagingTest {
                 .body(is(message));
     }
 
-    @DisabledOnIntegrationTest("https://github.com/apache/camel-quarkus/issues/4148")
     @Test
     public void testJmsTransferException() {
         RestAssured.given()
