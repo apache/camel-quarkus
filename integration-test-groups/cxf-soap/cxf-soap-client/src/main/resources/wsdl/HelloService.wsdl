@@ -1,0 +1,88 @@
+<?xml version="1.0" ?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.helloworld.com/Service/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="HelloService" targetNamespace="http://www.helloworld.com/Service/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.helloworld.com/Service/" targetNamespace="http://www.helloworld.com/Service/" version="1.0">
+
+  <xs:element name="HelloRequest" type="xs:string"></xs:element>
+
+  <xs:element name="HelloResponse" type="xs:string"></xs:element>
+
+  <xs:element name="PersonRequest" type="tns:PersonRequestType"></xs:element>
+
+  <xs:element name="PersonResponse" type="tns:PersonResponseType"></xs:element>
+
+  <xs:complexType name="PersonRequestType">
+    <xs:sequence>
+      <xs:element name="firstName" type="xs:string"></xs:element>
+      <xs:element name="lastName" type="xs:string"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PersonResponseType">
+    <xs:complexContent>
+      <xs:extension base="tns:PersonRequestType">
+        <xs:sequence>
+          <xs:element name="greeting" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="HelloResponse">
+    <wsdl:part element="tns:HelloResponse" name="helloOutputPart">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Hello">
+    <wsdl:part element="tns:HelloRequest" name="helloInputPart">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PersonResponse">
+    <wsdl:part element="tns:PersonResponse" name="personOutputPart">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Person">
+    <wsdl:part element="tns:PersonRequest" name="personInputPart">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="HelloPortType">
+    <wsdl:operation name="Hello">
+      <wsdl:input message="tns:Hello" name="Hello">
+    </wsdl:input>
+      <wsdl:output message="tns:HelloResponse" name="HelloResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Person">
+      <wsdl:input message="tns:Person" name="Person">
+    </wsdl:input>
+      <wsdl:output message="tns:PersonResponse" name="PersonResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="HelloServiceSoapBinding" type="tns:HelloPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+    <wsdl:operation name="Hello">
+      <soap:operation soapAction="https://www.helloworld.com/Service/Hello" style="document"></soap:operation>
+      <wsdl:input name="Hello">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="HelloResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Person">
+      <soap:operation soapAction="https://www.helloworld.com/Service/Person" style="document"></soap:operation>
+      <wsdl:input name="Person">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="PersonResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="HelloService">
+    <wsdl:port binding="tns:HelloServiceSoapBinding" name="HelloPort">
+      <soap:address location="http://172.17.0.3:8080/hello-ws/HelloService"></soap:address>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

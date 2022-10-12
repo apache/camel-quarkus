@@ -78,7 +78,6 @@
         <module>crypto</module>
         <module>csimple</module>
         <module>csv</module>
-        <module>cxf-soap</module>
         <module>dataformat</module>
         <module>dataformats-json</module>
         <module>datasonnet</module>
