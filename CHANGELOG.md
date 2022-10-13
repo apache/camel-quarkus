@@ -12,6 +12,7 @@
 
 **Closed issues:**
 
+- Fallback to mocked back end for XChange tests if crypto API endpoints are not available [\#4169](https://github.com/apache/camel-quarkus/issues/4169)
 - Manage `io.projectreactor:reactor-core` [\#4138](https://github.com/apache/camel-quarkus/issues/4138)
 - Deprecated parameters in several annotations are ignored - inconsistent with other annotations. [\#4097](https://github.com/apache/camel-quarkus/issues/4097)
 - \[Camel 3.19.0\] azure-core-http-client-vertx: Deployment tests are failing on java heap space [\#4090](https://github.com/apache/camel-quarkus/issues/4090)
@@ -22,6 +23,7 @@
 
 **Merged pull requests:**
 
+- Fallback to mocked responses if XChange APIs are not available [\#4170](https://github.com/apache/camel-quarkus/pull/4170) ([jamesnetherton](https://github.com/jamesnetherton))
 - rest-openapi: Minor update to usage doc \(\#4117\) [\#4168](https://github.com/apache/camel-quarkus/pull/4168) ([djcoleman](https://github.com/djcoleman))
 - Fix Salesforce endpoint URIs for CDC eventing [\#4166](https://github.com/apache/camel-quarkus/pull/4166) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add sync tag for ahc.version property [\#4164](https://github.com/apache/camel-quarkus/pull/4164) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -38,6 +40,7 @@
 - Manage `reactor-core` & `google-oauth-client` [\#4140](https://github.com/apache/camel-quarkus/pull/4140) ([jamesnetherton](https://github.com/jamesnetherton))
 - Update release guide [\#4137](https://github.com/apache/camel-quarkus/pull/4137) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade Quarkus CXF to 1.5.2 [\#4136](https://github.com/apache/camel-quarkus/pull/4136) ([jamesnetherton](https://github.com/jamesnetherton))
+- Improve test coverage for scheduler component. [\#4133](https://github.com/apache/camel-quarkus/pull/4133) ([svkcemk](https://github.com/svkcemk))
 - Fix malformed id headings for AWS extensions [\#4132](https://github.com/apache/camel-quarkus/pull/4132) ([jamesnetherton](https://github.com/jamesnetherton))
 - Next is 2.14.0 [\#4131](https://github.com/apache/camel-quarkus/pull/4131) ([zbendhiba](https://github.com/zbendhiba))
 - Fix Netty integration tests on FIPS system [\#4130](https://github.com/apache/camel-quarkus/pull/4130) ([osmman](https://github.com/osmman))
