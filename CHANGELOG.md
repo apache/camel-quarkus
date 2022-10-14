@@ -7,6 +7,8 @@
 **Fixed bugs:**
 
 - SalesforceIntegrationTest.testCDCAndStreamingEvents fails [\#4161](https://github.com/apache/camel-quarkus/issues/4161)
+- XStream native integration test failure [\#4149](https://github.com/apache/camel-quarkus/issues/4149)
+- Native mode tests for serialization are failing [\#4148](https://github.com/apache/camel-quarkus/issues/4148)
 - \[Quarkus 2.14.0\] PgeventTest application fails to start [\#4114](https://github.com/apache/camel-quarkus/issues/4114)
 - kamelet-chucknorris example project tests are failing [\#4111](https://github.com/apache/camel-quarkus/issues/4111)
 
@@ -23,12 +25,15 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 2.13.2.Final [\#4174](https://github.com/apache/camel-quarkus/pull/4174) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix assertion invocation in core extension tests [\#4173](https://github.com/apache/camel-quarkus/pull/4173) ([osmman](https://github.com/osmman))
 - Fallback to mocked responses if XChange APIs are not available [\#4170](https://github.com/apache/camel-quarkus/pull/4170) ([jamesnetherton](https://github.com/jamesnetherton))
 - rest-openapi: Minor update to usage doc \(\#4117\) [\#4168](https://github.com/apache/camel-quarkus/pull/4168) ([djcoleman](https://github.com/djcoleman))
 - Fix Salesforce endpoint URIs for CDC eventing [\#4166](https://github.com/apache/camel-quarkus/pull/4166) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add sync tag for ahc.version property [\#4164](https://github.com/apache/camel-quarkus/pull/4164) ([jamesnetherton](https://github.com/jamesnetherton))
 - Align Azure SDK BOM version with Camel  [\#4163](https://github.com/apache/camel-quarkus/pull/4163) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.13.1.Final [\#4160](https://github.com/apache/camel-quarkus/pull/4160) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade Quarkus Amazon services to 1.3.0 [\#4157](https://github.com/apache/camel-quarkus/pull/4157) ([zbendhiba](https://github.com/zbendhiba))
 - Update Debezium to 1.9.6.Final [\#4156](https://github.com/apache/camel-quarkus/pull/4156) ([zbendhiba](https://github.com/zbendhiba))
 - Convert germanbooks-iso-8859-1.json to \*nix line endings [\#4154](https://github.com/apache/camel-quarkus/pull/4154) ([jamesnetherton](https://github.com/jamesnetherton))
 - Set explicit nofile ulimit for activemq-artemis-broker image to make … [\#4152](https://github.com/apache/camel-quarkus/pull/4152) ([ppalaga](https://github.com/ppalaga))
