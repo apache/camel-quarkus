@@ -60,6 +60,7 @@ public class CamelContextProcessor {
      * @param  factoryFinderResolver    a list of known {@link org.apache.camel.spi.FactoryFinderResolver}.
      * @param  customizers              a list of {@link org.apache.camel.spi.CamelContextCustomizer} used to
      *                                  customize the {@link CamelContext} at {@link ExecutionTime#STATIC_INIT}.
+     * @param  componentNameResolver    a reference to a {@link org.apache.camel.spi.ComponentNameResolver}
      * @param  packageScanClassResolver a reference to a {@link org.apache.camel.spi.PackageScanClassResolver}
      * @return                          a build item holding an instance of a {@link CamelContext}
      */
