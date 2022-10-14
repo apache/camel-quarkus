@@ -40,6 +40,7 @@ import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildI
 import org.apache.camel.quarkus.core.deployment.spi.CamelFactoryFinderResolverBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelJAXBContextFactoryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelToXMLDumperBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelPackageScanClassResolverBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRegistryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelTypeConverterRegistryBuildItem;
 import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
@@ -50,16 +51,17 @@ public class CamelContextProcessor {
     /**
      * This build step is responsible to assemble a {@link CamelContext} instance.
      *
-     * @param  beanContainer           a reference to a fully initialized CDI bean container
-     * @param  recorder                the recorder.
-     * @param  registry                a reference to a {@link org.apache.camel.spi.Registry}.
-     * @param  typeConverterRegistry   a reference to a {@link TypeConverterRegistry}.
-     * @param  modelJAXBContextFactory a list of known {@link ModelJAXBContextFactory}.
-     * @param  modelDumper             a list of known {@link CamelModelToXMLDumperBuildItem}.
-     * @param  factoryFinderResolver   a list of known {@link org.apache.camel.spi.FactoryFinderResolver}.
-     * @param  customizers             a list of {@link org.apache.camel.spi.CamelContextCustomizer} used to
-     *                                 customize the {@link CamelContext} at {@link ExecutionTime#STATIC_INIT}.
-     * @return                         a build item holding an instance of a {@link CamelContext}
+     * @param  beanContainer            a reference to a fully initialized CDI bean container
+     * @param  recorder                 the recorder.
+     * @param  registry                 a reference to a {@link org.apache.camel.spi.Registry}.
+     * @param  typeConverterRegistry    a reference to a {@link TypeConverterRegistry}.
+     * @param  modelJAXBContextFactory  a list of known {@link ModelJAXBContextFactory}.
+     * @param  modelDumper              a list of known {@link CamelModelToXMLDumperBuildItem}.
+     * @param  factoryFinderResolver    a list of known {@link org.apache.camel.spi.FactoryFinderResolver}.
+     * @param  customizers              a list of {@link org.apache.camel.spi.CamelContextCustomizer} used to
+     *                                  customize the {@link CamelContext} at {@link ExecutionTime#STATIC_INIT}.
+     * @param  packageScanClassResolver a reference to a {@link org.apache.camel.spi.PackageScanClassResolver}
+     * @return                          a build item holding an instance of a {@link CamelContext}
      */
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
@@ -73,6 +75,7 @@ public class CamelContextProcessor {
             CamelFactoryFinderResolverBuildItem factoryFinderResolver,
             List<CamelContextCustomizerBuildItem> customizers,
             CamelComponentNameResolverBuildItem componentNameResolver,
+            CamelPackageScanClassResolverBuildItem packageScanClassResolver,
             CamelConfig config) {
 
         RuntimeValue<CamelContext> context = recorder.createContext(
@@ -82,6 +85,7 @@ public class CamelContextProcessor {
                 modelDumper.getValue(),
                 factoryFinderResolver.getFactoryFinderResolver(),
                 componentNameResolver.getComponentNameResolver(),
+                packageScanClassResolver.getPackageScanClassResolver(),
                 beanContainer.getValue(),
                 CamelSupport.getCamelVersion(),
                 config);

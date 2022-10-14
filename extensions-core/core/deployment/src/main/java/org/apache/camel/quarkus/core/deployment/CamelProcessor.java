@@ -62,6 +62,8 @@ import org.apache.camel.quarkus.core.deployment.spi.CamelComponentNameResolverBu
 import org.apache.camel.quarkus.core.deployment.spi.CamelFactoryFinderResolverBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelJAXBContextFactoryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelToXMLDumperBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelPackageScanClassBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelPackageScanClassResolverBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesBuilderClassBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
@@ -421,6 +423,21 @@ class CamelProcessor {
                 .map(SchemaResource::getName)
                 .collect(Collectors.collectingAndThen(Collectors.toUnmodifiableSet(), TreeSet::new));
         return new CamelComponentNameResolverBuildItem(recorder.createComponentNameResolver(componentNames));
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    CamelPackageScanClassResolverBuildItem packageScanClassResolver(
+            List<CamelPackageScanClassBuildItem> camelPackageScanClassBuildItems,
+            CamelRecorder recorder) {
+        Set<? extends Class<?>> packageScanClassCache = camelPackageScanClassBuildItems.stream()
+                .map(CamelPackageScanClassBuildItem::getClassNames)
+                .flatMap(Set::stream)
+                .map(className -> CamelSupport.loadClass(className, Thread.currentThread().getContextClassLoader()))
+                .collect(Collectors.toUnmodifiableSet());
+
+        return new CamelPackageScanClassResolverBuildItem(recorder.createPackageScanClassResolver(packageScanClassCache));
+
     }
 
     @BuildStep

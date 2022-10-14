@@ -23,6 +23,7 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.component.salesforce.api.dto.AbstractDTOBase;
+import org.apache.camel.quarkus.core.deployment.spi.CamelPackageScanClassBuildItem;
 import org.apache.camel.support.jsse.KeyStoreParameters;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
@@ -44,7 +45,11 @@ class SalesforceProcessor {
     }
 
     @BuildStep
-    void registerForReflection(CombinedIndexBuildItem combinedIndex, BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+    void registerForReflection(
+            CombinedIndexBuildItem combinedIndex,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+            BuildProducer<CamelPackageScanClassBuildItem> packageScanClass) {
+
         IndexView index = combinedIndex.getIndex();
 
         // NOTE: DTO classes are registered for reflection with fields and methods due to:
@@ -69,7 +74,9 @@ class SalesforceProcessor {
                 .toArray(String[]::new);
 
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, userDtoClasses));
-        // Register KeyStoreParameters for reflection
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, KeyStoreParameters.class));
+
+        // Ensure package scanning for user DTO classes can work in native mode
+        packageScanClass.produce(new CamelPackageScanClassBuildItem(userDtoClasses));
     }
 }

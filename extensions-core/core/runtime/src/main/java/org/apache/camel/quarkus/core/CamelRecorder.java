@@ -39,6 +39,7 @@ import org.apache.camel.spi.ComponentNameResolver;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.ModelToXMLDumper;
+import org.apache.camel.spi.PackageScanClassResolver;
 import org.apache.camel.spi.ReactiveExecutor;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.StartupStepRecorder;
@@ -201,5 +202,10 @@ public class CamelRecorder {
 
     public RuntimeValue<ComponentNameResolver> createComponentNameResolver(Set<String> componentNames) {
         return new RuntimeValue<>(new FastComponentNameResolver(componentNames));
+    }
+
+    public RuntimeValue<PackageScanClassResolver> createPackageScanClassResolver(
+            Set<? extends Class<?>> packageScanClassCache) {
+        return new RuntimeValue<>(new CamelQuarkusPackageScanClassResolver(packageScanClassCache));
     }
 }

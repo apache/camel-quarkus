@@ -36,6 +36,7 @@ import org.apache.camel.spi.ComponentNameResolver;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.ModelToXMLDumper;
+import org.apache.camel.spi.PackageScanClassResolver;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.TypeConverterRegistry;
 
@@ -48,6 +49,7 @@ public class CamelContextRecorder {
             RuntimeValue<ModelToXMLDumper> xmlModelDumper,
             RuntimeValue<FactoryFinderResolver> factoryFinderResolver,
             RuntimeValue<ComponentNameResolver> componentNameResolver,
+            RuntimeValue<PackageScanClassResolver> packageScanClassResolver,
             BeanContainer beanContainer,
             String version,
             CamelConfig config) {
@@ -65,6 +67,7 @@ public class CamelContextRecorder {
         context.setTypeConverterRegistry(typeConverterRegistry.getValue());
         context.setLoadTypeConverters(false);
         context.setModelJAXBContextFactory(contextFactory.getValue());
+        context.setPackageScanClassResolver(packageScanClassResolver.getValue());
         context.build();
         context.setComponentNameResolver(componentNameResolver.getValue());
 
