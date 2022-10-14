@@ -16,14 +16,11 @@
  */
 package org.apache.camel.quarkus;
 
-import io.quarkus.arc.runtime.ClientProxyUnwrapper;
+import io.quarkus.arc.ClientProxy;
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.engine.DefaultCamelBeanPostProcessor;
 
 public class CamelQuarkusBeanPostProcessor extends DefaultCamelBeanPostProcessor {
-
-    private final ClientProxyUnwrapper proxyUnwrapper = new ClientProxyUnwrapper();
-
     public CamelQuarkusBeanPostProcessor(CamelContext camelContext) {
         super(camelContext);
     }
@@ -31,6 +28,6 @@ public class CamelQuarkusBeanPostProcessor extends DefaultCamelBeanPostProcessor
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws Exception {
         // If the bean is a CDI proxy, unwrap it before processing
-        return super.postProcessBeforeInitialization(proxyUnwrapper.apply(bean), beanName);
+        return super.postProcessBeforeInitialization(ClientProxy.unwrap(bean), beanName);
     }
 }
