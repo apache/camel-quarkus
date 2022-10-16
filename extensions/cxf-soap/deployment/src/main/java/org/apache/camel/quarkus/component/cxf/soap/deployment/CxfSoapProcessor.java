@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.cxf.soap.deployment;
 
 import java.util.stream.Stream;
 
+import io.quarkiverse.cxf.deployment.CxfRouteRegistrationRequestorBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
@@ -48,5 +49,10 @@ class CxfSoapProcessor {
                 .map(className -> new ReflectiveClassBuildItem(false, false, className))
                 .forEach(reflectiveClass::produce);
 
+    }
+
+    @BuildStep
+    CxfRouteRegistrationRequestorBuildItem requestCxfRouteRegistration() {
+        return new CxfRouteRegistrationRequestorBuildItem(FEATURE);
     }
 }
