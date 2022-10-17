@@ -1,0 +1,41 @@
+CDI producer methods can be harnessed to bind endpoints to the Camel registry, so that they can be resolved
+using the `ref` URI scheme in Camel routes.
+
+For example, to produce endpoint beans:
+
+[source,java]
+----
+@ApplicationScoped
+public class MyEndpointProducers {
+    @Inject
+    CamelContext context;
+
+    @Singleton
+    @Produces
+    @Named("endpoint1")
+    public Endpoint directStart() {
+        return context.getEndpoint("direct:start");
+    }
+
+    @Singleton
+    @Produces
+    @Named("endpoint2")
+    public Endpoint logEnd() {
+        return context.getEndpoint("log:end");
+    }
+}
+----
+
+Use `ref:` to refer to the names of the CDI beans that were bound to the Camel registry:
+
+[source,java]
+----
+public class MyRefRoutes extends RouteBuilder {
+    @Override
+    public void configure() {
+        // direct:start -> log:end
+        from("ref:endpoint1")
+            .to("ref:endpoint2");
+    }
+}
+----
