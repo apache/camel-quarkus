@@ -22,29 +22,24 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus</artifactId>
+        <artifactId>camel-quarkus-integration-test-groups</artifactId>
         <version>2.14.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-integration-test-groups</artifactId>
+    <artifactId>camel-quarkus-integration-tests-cxf-soap</artifactId>
     <packaging>pom</packaging>
 
-    <name>Camel Quarkus :: Integration Test Groups</name>
+    <name>Camel Quarkus :: Cxf Soap Integration Tests</name>
 
     <properties>
         <quarkus.banner.enabled>false</quarkus.banner.enabled>
     </properties>
 
     <modules>
-        <!-- test groups a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
-        <module>aws2</module>
-        <module>aws2-quarkus-client</module>
-        <module>azure</module>
-        <module>compression</module>
-        <module>cxf-soap</module>
-        <module>foundation</module>
-        <module>mongodb</module>
+        <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
+        <module>cxf-soap-client</module>
+        <module>cxf-soap-server</module>
+        <module>cxf-soap-ws-security</module>
     </modules>
 
 </project>
