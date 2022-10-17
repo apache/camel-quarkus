@@ -23,6 +23,7 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.SystemPropertyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
@@ -34,6 +35,11 @@ class CxfSoapProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    SystemPropertyBuildItem ehcacheAgentSizeOfBypass() {
+        return new SystemPropertyBuildItem("org.ehcache.sizeof.AgentSizeOf.bypass", "true");
     }
 
     @BuildStep

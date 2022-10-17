@@ -1,0 +1,28 @@
+= Quarkus CXF ws-security tests
+
+These are pure client tests - i.e. there are intentionally no services implemented in the test application.
+All clients access services running in containers.
+
+== Maintenenance notes
+
+=== `CalculatorService.wsdl`
+
+`src/main/resources/wsdl/WssCalculatorService.wsdl` is a static copy of the WSDL served by the testing container.
+It would be too complicated to start the container before running the plugin, so we rather keep the static copy.
+
+There is `org.apache.camel.quarkus.component.cxf.soap.it.CxfSoapClientTest.wsdlUpToDate()` to ensure that it is up to date.
+
+To update `WssCalculatorService.wsdl` manually, first start the container
+
+[shource,shell]
+----
+$ docker pull quay.io/l2x6/calculator-ws:1.0
+$ docker run -p 8080:8080 quay.io/l2x6/calculator-ws:1.0
+----
+
+And then overwrite the existing file with the new content from the container:
+
+[shource,shell]
+----
+curl "http://localhost:8080/calculator-ws/WssCalculatorService?wsdl" --output src/main/resources/wsdl/WssCalculatorService.wsdl
+----
