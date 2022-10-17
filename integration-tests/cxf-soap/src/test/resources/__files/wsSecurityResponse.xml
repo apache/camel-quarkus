@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                  xmlns:hello="http://www.helloworld.com/Service/">
-    <soapenv:Header/>
-    <soapenv:Body>
-        <hello:HelloResponse>Hello WSSecurity CamelQuarkusCXF</hello:HelloResponse>
-    </soapenv:Body>
-</soapenv:Envelope>
