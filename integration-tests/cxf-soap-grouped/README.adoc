@@ -1,0 +1,4 @@
+== Cxf Soap grouped integration tests
+
+This module allows executing all tests from `integration-test-groups/cxf-soap/*` grouped together.
+See the https://camel.apache.org/camel-quarkus/latest/contributor-guide/extension-testing.html#_grouping[Grouping section] of the Contributor guide for more details.
