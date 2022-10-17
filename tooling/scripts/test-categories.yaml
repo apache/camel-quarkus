@@ -84,7 +84,7 @@ group-05:
   - bindy
   - cbor
   - csv
-  - cxf-soap
+  - cxf-soap-grouped
   - dataformat
   - datasonnet
   - hl7

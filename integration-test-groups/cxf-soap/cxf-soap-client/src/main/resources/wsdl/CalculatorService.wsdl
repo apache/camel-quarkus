@@ -1,0 +1,248 @@
+<?xml version="1.0" ?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.jboss.org/eap/quickstarts/wscalculator/Calculator" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="CalculatorService" targetNamespace="http://www.jboss.org/eap/quickstarts/wscalculator/Calculator">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.jboss.org/eap/quickstarts/wscalculator/Calculator" elementFormDefault="unqualified" targetNamespace="http://www.jboss.org/eap/quickstarts/wscalculator/Calculator" version="1.0">
+
+  <xs:element name="add" type="tns:add"></xs:element>
+
+  <xs:element name="addOperands" type="tns:addOperands"></xs:element>
+
+  <xs:element name="addOperandsResponse" type="tns:addOperandsResponse"></xs:element>
+
+  <xs:element name="addResponse" type="tns:addResponse"></xs:element>
+
+  <xs:element name="divide" type="tns:divide"></xs:element>
+
+  <xs:element name="divideResponse" type="tns:divideResponse"></xs:element>
+
+  <xs:element name="multiply" type="tns:multiply"></xs:element>
+
+  <xs:element name="multiplyResponse" type="tns:multiplyResponse"></xs:element>
+
+  <xs:element name="subtract" type="tns:subtract"></xs:element>
+
+  <xs:element name="subtractResponse" type="tns:subtractResponse"></xs:element>
+
+  <xs:complexType name="divide">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int"></xs:element>
+      <xs:element name="arg1" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="divideResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="add">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int"></xs:element>
+      <xs:element name="arg1" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="subtract">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int"></xs:element>
+      <xs:element name="arg1" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="subtractResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addOperands">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:operands"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="operands">
+    <xs:sequence>
+      <xs:element name="a" type="xs:int"></xs:element>
+      <xs:element name="b" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addOperandsResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:result"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="operands" type="tns:operands"></xs:element>
+      <xs:element name="result" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="multiply">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int"></xs:element>
+      <xs:element name="arg1" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="multiplyResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="add">
+    <wsdl:part element="tns:add" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="subtract">
+    <wsdl:part element="tns:subtract" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="subtractResponse">
+    <wsdl:part element="tns:subtractResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addResponse">
+    <wsdl:part element="tns:addResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="multiplyResponse">
+    <wsdl:part element="tns:multiplyResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="divideResponse">
+    <wsdl:part element="tns:divideResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="divide">
+    <wsdl:part element="tns:divide" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addOperandsResponse">
+    <wsdl:part element="tns:addOperandsResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addOperands">
+    <wsdl:part element="tns:addOperands" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="multiply">
+    <wsdl:part element="tns:multiply" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="CalculatorService">
+    <wsdl:operation name="divide">
+      <wsdl:input message="tns:divide" name="divide">
+    </wsdl:input>
+      <wsdl:output message="tns:divideResponse" name="divideResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="add">
+      <wsdl:input message="tns:add" name="add">
+    </wsdl:input>
+      <wsdl:output message="tns:addResponse" name="addResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="subtract">
+      <wsdl:input message="tns:subtract" name="subtract">
+    </wsdl:input>
+      <wsdl:output message="tns:subtractResponse" name="subtractResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addOperands">
+      <wsdl:input message="tns:addOperands" name="addOperands">
+    </wsdl:input>
+      <wsdl:output message="tns:addOperandsResponse" name="addOperandsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="multiply">
+      <wsdl:input message="tns:multiply" name="multiply">
+    </wsdl:input>
+      <wsdl:output message="tns:multiplyResponse" name="multiplyResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CalculatorServiceSoapBinding" type="tns:CalculatorService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+    <wsdl:operation name="divide">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="divide">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="divideResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="add">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="add">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="addResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="subtract">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="subtract">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="subtractResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addOperands">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="addOperands">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="addOperandsResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="multiply">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="multiply">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="multiplyResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CalculatorService">
+    <wsdl:port binding="tns:CalculatorServiceSoapBinding" name="Calculator">
+      <soap:address location="http://172.17.0.4:8080/calculator-ws/CalculatorService"></soap:address>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
