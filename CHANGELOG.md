@@ -10,6 +10,7 @@
 - XStream native integration test failure [\#4149](https://github.com/apache/camel-quarkus/issues/4149)
 - Native mode tests for serialization are failing [\#4148](https://github.com/apache/camel-quarkus/issues/4148)
 - \[Quarkus 2.14.0\] PgeventTest application fails to start [\#4114](https://github.com/apache/camel-quarkus/issues/4114)
+- DefaultPackageScanClassResolver does not work in native mode [\#4112](https://github.com/apache/camel-quarkus/issues/4112)
 - kamelet-chucknorris example project tests are failing [\#4111](https://github.com/apache/camel-quarkus/issues/4111)
 
 **Closed issues:**
@@ -20,11 +21,18 @@
 - \[Camel 3.19.0\] azure-core-http-client-vertx: Deployment tests are failing on java heap space [\#4090](https://github.com/apache/camel-quarkus/issues/4090)
 - Automatic configuration of kubernetes cluster service [\#4086](https://github.com/apache/camel-quarkus/issues/4086)
 - Increase test coverage of ref extension [\#4010](https://github.com/apache/camel-quarkus/issues/4010)
+- Add extension for camel-dsl-modeline [\#3834](https://github.com/apache/camel-quarkus/issues/3834)
 - Extensions for camel-knative and camel-cloudevents [\#3459](https://github.com/apache/camel-quarkus/issues/3459)
 - Reference Camel `azure-sdk-bom-version` property in `azure-sdk-bom.version` [\#3229](https://github.com/apache/camel-quarkus/issues/3229)
 
 **Merged pull requests:**
 
+- Add usage section to ref documentation for CDI integration [\#4186](https://github.com/apache/camel-quarkus/pull/4186) ([jamesnetherton](https://github.com/jamesnetherton))
+- Convert pull\_request\_template.md to \*nix line endings [\#4185](https://github.com/apache/camel-quarkus/pull/4185) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade to quarkus-cxf 1.5.4 [\#4184](https://github.com/apache/camel-quarkus/pull/4184) ([ppalaga](https://github.com/ppalaga))
+- Exclude com.github.stephenc.jcip:jcip-annotations from Azure extensions [\#4183](https://github.com/apache/camel-quarkus/pull/4183) ([jamesnetherton](https://github.com/jamesnetherton))
+- Avoid usage of deprecated ClientProxyUnwrapper [\#4179](https://github.com/apache/camel-quarkus/pull/4179) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add a PackageScanClassResolver implementation that works in native mode [\#4178](https://github.com/apache/camel-quarkus/pull/4178) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.13.2.Final [\#4174](https://github.com/apache/camel-quarkus/pull/4174) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix assertion invocation in core extension tests [\#4173](https://github.com/apache/camel-quarkus/pull/4173) ([osmman](https://github.com/osmman))
 - Fallback to mocked responses if XChange APIs are not available [\#4170](https://github.com/apache/camel-quarkus/pull/4170) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -167,6 +175,7 @@
 - Remove redundant BOM imports from integration tests [\#3873](https://github.com/apache/camel-quarkus/pull/3873) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix PDF encryption in native mode [\#3872](https://github.com/apache/camel-quarkus/pull/3872) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Optaplanner to 8.23.0.Final [\#3868](https://github.com/apache/camel-quarkus/pull/3868) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add extension DSL modeline [\#3867](https://github.com/apache/camel-quarkus/pull/3867) ([zbendhiba](https://github.com/zbendhiba))
 - Fix \#3863 to use quarkus-extension-maven-plugin [\#3866](https://github.com/apache/camel-quarkus/pull/3866) ([zhfeng](https://github.com/zhfeng))
 - Fix \#3864 to add nofile ulimit in ArangodbTestResource [\#3865](https://github.com/apache/camel-quarkus/pull/3865) ([zhfeng](https://github.com/zhfeng))
 - paho-mqtt5 test failing with Error: Unable to create websockets liste… [\#3861](https://github.com/apache/camel-quarkus/pull/3861) ([ppalaga](https://github.com/ppalaga))
