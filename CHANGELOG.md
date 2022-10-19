@@ -27,6 +27,8 @@
 
 **Merged pull requests:**
 
+- Upgrade Optaplanner to 8.29.0.Final [\#4190](https://github.com/apache/camel-quarkus/pull/4190) ([zbendhiba](https://github.com/zbendhiba))
+- Upgrade cq-maven-plugin to 3.2.2 [\#4189](https://github.com/apache/camel-quarkus/pull/4189) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add usage section to ref documentation for CDI integration [\#4186](https://github.com/apache/camel-quarkus/pull/4186) ([jamesnetherton](https://github.com/jamesnetherton))
 - Convert pull\_request\_template.md to \*nix line endings [\#4185](https://github.com/apache/camel-quarkus/pull/4185) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to quarkus-cxf 1.5.4 [\#4184](https://github.com/apache/camel-quarkus/pull/4184) ([ppalaga](https://github.com/ppalaga))
