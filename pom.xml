@@ -84,6 +84,7 @@
         <commons-exec.version>${commons-exec-version}</commons-exec.version>
         <commons-lang.version>2.6</commons-lang.version><!-- used by hbase, should be pretty stable as commons-lang is not developed actively anymore -->
         <commons-math3.version>3.6.1</commons-math3.version><!-- Mess in the transitive dependencies of Spark and hbase-testing-util -->
+        <commons-text.version>1.10.0</commons-text.version><!-- Required by fhir -->
         <curator.version>4.3.0</curator.version><!-- Mess in the transitive dependencies of Spark, Zookeeper and other hadoop related components -->
         <cxf.version>3.5.3</cxf.version><!-- @sync io.quarkiverse.cxf:quarkus-cxf-parent:${quarkiverse-cxf.version} prop:cxf.version -->
         <cxf.xjc-utils.version>3.3.2</cxf.xjc-utils.version><!-- @sync io.quarkiverse.cxf:quarkus-cxf-parent:${quarkiverse-cxf.version} prop:cxf.xjc-utils.version -->
