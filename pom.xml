@@ -75,7 +75,7 @@
         <commons-lang.version>2.6</commons-lang.version><!-- used by hbase, should be pretty stable as commons-lang is not developed actively anymore -->
         <commons-math3.version>3.6.1</commons-math3.version><!-- Mess in the transitive dependencies of Spark and hbase-testing-util -->
         <commons-net.version>${commons-net-version}</commons-net.version> <!-- Spark -->
-        <commons-text.version>${commons-text-version}</commons-text.version> <!-- Spark -->
+        <commons-text.version>1.10.0</commons-text.version>
         <curator.version>4.3.0</curator.version><!-- Mess in the transitive dependencies of Spark, Zookeeper and other hadoop related components -->
         <derby.version>10.15.2.0</derby.version><!-- Spark -->
         <dropwizard-metrics.version>4.1.0</dropwizard-metrics.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:io.dropwizard.metrics:metrics-core -->
