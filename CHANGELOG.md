@@ -15,6 +15,8 @@
 
 **Closed issues:**
 
+- Can't authenticate using quarkus elasticsearch-rest [\#4194](https://github.com/apache/camel-quarkus/issues/4194)
+- Cxf-soap tests: Refactor and split [\#4171](https://github.com/apache/camel-quarkus/issues/4171)
 - Fallback to mocked back end for XChange tests if crypto API endpoints are not available [\#4169](https://github.com/apache/camel-quarkus/issues/4169)
 - Manage `io.projectreactor:reactor-core` [\#4138](https://github.com/apache/camel-quarkus/issues/4138)
 - Deprecated parameters in several annotations are ignored - inconsistent with other annotations. [\#4097](https://github.com/apache/camel-quarkus/issues/4097)
@@ -27,6 +29,8 @@
 
 **Merged pull requests:**
 
+- Cxf-soap tests: Refactor and split [\#4195](https://github.com/apache/camel-quarkus/pull/4195) ([ppalaga](https://github.com/ppalaga))
+- Upgrade Quarkus Amazon services to 1.3.1 [\#4191](https://github.com/apache/camel-quarkus/pull/4191) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade Optaplanner to 8.29.0.Final [\#4190](https://github.com/apache/camel-quarkus/pull/4190) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade cq-maven-plugin to 3.2.2 [\#4189](https://github.com/apache/camel-quarkus/pull/4189) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add usage section to ref documentation for CDI integration [\#4186](https://github.com/apache/camel-quarkus/pull/4186) ([jamesnetherton](https://github.com/jamesnetherton))
