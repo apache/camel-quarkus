@@ -48,6 +48,10 @@
             <artifactId>azure-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-core-http-vertx</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-support-azure-core</artifactId>
         </dependency>

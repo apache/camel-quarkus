@@ -9794,6 +9794,11 @@
         </exclusions>
       </dependency>
       <dependency>
+        <groupId>com.azure</groupId>
+        <artifactId>azure-core-http-vertx</artifactId>
+        <version>1.0.0-beta.1</version>
+      </dependency>
+      <dependency>
         <groupId>com.esotericsoftware.kryo</groupId>
         <artifactId>kryo</artifactId>
         <version>2.24.0</version>
