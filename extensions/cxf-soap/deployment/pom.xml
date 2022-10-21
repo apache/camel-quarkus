@@ -42,6 +42,10 @@
             <groupId>io.quarkiverse.cxf</groupId>
             <artifactId>quarkus-cxf-deployment</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.quarkiverse.cxf</groupId>
+            <artifactId>quarkus-cxf-rt-features-logging-deployment</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
