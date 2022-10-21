@@ -24,7 +24,7 @@ on:
 
 env:
   LANG: en_US.UTF-8
-  MAVEN_OPTS: -Xmx3000m
+  MAVEN_OPTS: -Xmx4000m
   MAVEN_ARGS: -V -ntp -Dhttp.keepAlive=false -e
   TESTCONTAINERS_RYUK_DISABLED: true
   ISSUE_ID: 2926
