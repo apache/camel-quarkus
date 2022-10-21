@@ -29,6 +29,7 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 2.13.3.Final [\#4199](https://github.com/apache/camel-quarkus/pull/4199) ([jamesnetherton](https://github.com/jamesnetherton))
 - Cxf-soap tests: Refactor and split [\#4195](https://github.com/apache/camel-quarkus/pull/4195) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Quarkus Amazon services to 1.3.1 [\#4191](https://github.com/apache/camel-quarkus/pull/4191) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade Optaplanner to 8.29.0.Final [\#4190](https://github.com/apache/camel-quarkus/pull/4190) ([zbendhiba](https://github.com/zbendhiba))
