@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.cxf.soap.client.it;
+package org.apache.camel.quarkus.component.cxf.soap.wss.client.it;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -32,30 +32,18 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@QuarkusTestResource(CxfClientTestResource.class)
-class CxfSoapClientTest {
+@QuarkusTestResource(CxfWssClientTestResource.class)
+class CxfSoapWssClientTest {
 
     @Test
-    public void simpleSoapClient() {
-        //first operation is "divide"
+    public void wsSecurityClient() {
         RestAssured.given()
-                .queryParam("a", "9")
-                .queryParam("b", "3")
-                .post("/cxf-soap/client/simple")
+                .queryParam("a", "12")
+                .queryParam("b", "8")
+                .post("/cxf-soap/wss/client/modulo")
                 .then()
                 .statusCode(201)
-                .body(equalTo("3"));
-    }
-
-    @Test
-    public void complexSoapClient() {
-        RestAssured.given()
-                .queryParam("a", "3")
-                .queryParam("b", "4")
-                .post("/cxf-soap/client/operandsAdd")
-                .then()
-                .statusCode(201)
-                .body(equalTo("7"));
+                .body(equalTo("4"));
     }
 
     /**
@@ -66,11 +54,11 @@ class CxfSoapClientTest {
     @Test
     void wsdlUpToDate() throws IOException {
         final String wsdlUrl = ConfigProvider.getConfig()
-                .getValue("camel-quarkus.it.calculator.baseUri", String.class);
+                .getValue("camel-quarkus.it.wss.client.baseUri", String.class);
 
-        final String staticCopyPath = "target/classes/wsdl/CalculatorService.wsdl";
+        final String staticCopyPath = "target/classes/wsdl/WssCalculatorService.wsdl";
         /* The changing Docker IP address in the WSDL should not matter */
-        final String sanitizerRegex = "<soap:address location=\"http://[^/]*/calculator-ws/CalculatorService\"></soap:address>";
+        final String sanitizerRegex = "<soap:address location=\"http://[^/]*/calculator-ws/WssCalculatorService\"></soap:address>";
         final String staticCopyContent = Files
                 .readString(Paths.get(staticCopyPath), StandardCharsets.UTF_8)
                 .replaceAll(sanitizerRegex, "")
@@ -80,13 +68,15 @@ class CxfSoapClientTest {
                 .replaceAll("\\s", "");
 
         final String expected = RestAssured.given()
-                .get(wsdlUrl + "/calculator-ws/CalculatorService?wsdl")
+                .get(wsdlUrl + "/calculator-ws/WssCalculatorService?wsdl")
                 .then()
                 .statusCode(200)
                 .extract().body().asString();
 
+        final String expectedContent = expected.replaceAll(sanitizerRegex, "");
+
         if (!expected.replaceAll(sanitizerRegex, "").replaceAll("\\s", "").equals(staticCopyContent)) {
-            Files.writeString(Paths.get(staticCopyPath), expected, StandardCharsets.UTF_8);
+            Files.writeString(Paths.get(staticCopyPath), expectedContent, StandardCharsets.UTF_8);
             Assertions.fail("The static WSDL copy in " + staticCopyPath
                     + " went out of sync with the WSDL served by the container. The content was updated by the test, you just need to review and commit the changes.");
         }
