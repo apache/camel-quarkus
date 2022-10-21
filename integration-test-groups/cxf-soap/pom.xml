@@ -39,7 +39,7 @@
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>cxf-soap-client</module>
         <module>cxf-soap-server</module>
-        <module>cxf-soap-ws-security</module>
+        <module>cxf-soap-ws-security-client</module>
     </modules>
 
 </project>
