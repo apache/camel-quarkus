@@ -22,6 +22,7 @@ import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.CDI;
 
+import com.azure.core.http.vertx.VertxProvider;
 import io.vertx.core.Vertx;
 
 public class QuarkusVertxProvider implements VertxProvider {

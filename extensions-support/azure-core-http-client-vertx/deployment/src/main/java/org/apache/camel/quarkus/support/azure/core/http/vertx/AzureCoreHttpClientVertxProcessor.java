@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.support.azure.core.http.vertx;
 
-import com.azure.core.http.HttpClientProvider;
+import com.azure.core.http.vertx.VertxProvider;
 import io.netty.handler.ssl.OpenSsl;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -30,12 +30,13 @@ public class AzureCoreHttpClientVertxProcessor {
         runtimeInitializedClasses.produce(new RuntimeInitializedClassBuildItem(OpenSsl.class.getName()));
         runtimeInitializedClasses.produce(new RuntimeInitializedClassBuildItem("io.netty.internal.tcnative.SSL"));
         runtimeInitializedClasses.produce(new RuntimeInitializedClassBuildItem(
-                "org.apache.camel.quarkus.support.azure.core.http.vertx.VertxAsyncHttpClientProvider$GlobalVertxHttpClient"));
+                "com.azure.core.http.vertx.VertxAsyncHttpClientProvider$GlobalVertxHttpClient"));
+        runtimeInitializedClasses.produce(
+                new RuntimeInitializedClassBuildItem("com.azure.core.http.vertx.VertxAsyncHttpClientBuilder$DefaultVertx"));
     }
 
     @BuildStep
     void registerServiceProviders(BuildProducer<ServiceProviderBuildItem> serviceProvider) {
-        serviceProvider.produce(ServiceProviderBuildItem.allProvidersFromClassPath(HttpClientProvider.class.getName()));
         serviceProvider.produce(ServiceProviderBuildItem.allProvidersFromClassPath(VertxProvider.class.getName()));
     }
 }
