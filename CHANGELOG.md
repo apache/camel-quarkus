@@ -16,6 +16,7 @@
 **Closed issues:**
 
 - Can't authenticate using quarkus elasticsearch-rest [\#4194](https://github.com/apache/camel-quarkus/issues/4194)
+- Use official `com.azure:azure-core-http-vertx:1.0.0-beta.1` in Azure extensions [\#4180](https://github.com/apache/camel-quarkus/issues/4180)
 - Cxf-soap tests: Refactor and split [\#4171](https://github.com/apache/camel-quarkus/issues/4171)
 - Fallback to mocked back end for XChange tests if crypto API endpoints are not available [\#4169](https://github.com/apache/camel-quarkus/issues/4169)
 - Manage `io.projectreactor:reactor-core` [\#4138](https://github.com/apache/camel-quarkus/issues/4138)
@@ -23,12 +24,15 @@
 - \[Camel 3.19.0\] azure-core-http-client-vertx: Deployment tests are failing on java heap space [\#4090](https://github.com/apache/camel-quarkus/issues/4090)
 - Automatic configuration of kubernetes cluster service [\#4086](https://github.com/apache/camel-quarkus/issues/4086)
 - Increase test coverage of ref extension [\#4010](https://github.com/apache/camel-quarkus/issues/4010)
+- Increase test coverage in controlbus extension with more actions [\#4009](https://github.com/apache/camel-quarkus/issues/4009)
 - Add extension for camel-dsl-modeline [\#3834](https://github.com/apache/camel-quarkus/issues/3834)
 - Extensions for camel-knative and camel-cloudevents [\#3459](https://github.com/apache/camel-quarkus/issues/3459)
 - Reference Camel `azure-sdk-bom-version` property in `azure-sdk-bom.version` [\#3229](https://github.com/apache/camel-quarkus/issues/3229)
 
 **Merged pull requests:**
 
+- Increased workflow memory limit to avoid java heap space errors [\#4201](https://github.com/apache/camel-quarkus/pull/4201) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- controlbus: Added action option tests \(fixes \#4009\) [\#4200](https://github.com/apache/camel-quarkus/pull/4200) ([djcoleman](https://github.com/djcoleman))
 - Upgrade Quarkus to 2.13.3.Final [\#4199](https://github.com/apache/camel-quarkus/pull/4199) ([jamesnetherton](https://github.com/jamesnetherton))
 - Cxf-soap tests: Refactor and split [\#4195](https://github.com/apache/camel-quarkus/pull/4195) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Quarkus Amazon services to 1.3.1 [\#4191](https://github.com/apache/camel-quarkus/pull/4191) ([zbendhiba](https://github.com/zbendhiba))
@@ -38,6 +42,7 @@
 - Convert pull\_request\_template.md to \*nix line endings [\#4185](https://github.com/apache/camel-quarkus/pull/4185) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to quarkus-cxf 1.5.4 [\#4184](https://github.com/apache/camel-quarkus/pull/4184) ([ppalaga](https://github.com/ppalaga))
 - Exclude com.github.stephenc.jcip:jcip-annotations from Azure extensions [\#4183](https://github.com/apache/camel-quarkus/pull/4183) ([jamesnetherton](https://github.com/jamesnetherton))
+- Use official azure-core-http-vertx client in Azure extensions [\#4182](https://github.com/apache/camel-quarkus/pull/4182) ([jamesnetherton](https://github.com/jamesnetherton))
 - Avoid usage of deprecated ClientProxyUnwrapper [\#4179](https://github.com/apache/camel-quarkus/pull/4179) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add a PackageScanClassResolver implementation that works in native mode [\#4178](https://github.com/apache/camel-quarkus/pull/4178) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.13.2.Final [\#4174](https://github.com/apache/camel-quarkus/pull/4174) ([jamesnetherton](https://github.com/jamesnetherton))
