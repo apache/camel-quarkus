@@ -41,6 +41,7 @@
         <module>cxf-soap-mtom</module>
         <module>cxf-soap-server</module>
         <module>cxf-soap-ws-security-client</module>
+        <module>cxf-soap-ws-security-server</module>
     </modules>
 
 </project>
