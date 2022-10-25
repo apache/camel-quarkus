@@ -25,12 +25,15 @@
 - Automatic configuration of kubernetes cluster service [\#4086](https://github.com/apache/camel-quarkus/issues/4086)
 - Increase test coverage of ref extension [\#4010](https://github.com/apache/camel-quarkus/issues/4010)
 - Increase test coverage in controlbus extension with more actions [\#4009](https://github.com/apache/camel-quarkus/issues/4009)
+- Increase XSLT extension test coverage [\#3904](https://github.com/apache/camel-quarkus/issues/3904)
 - Add extension for camel-dsl-modeline [\#3834](https://github.com/apache/camel-quarkus/issues/3834)
+- Sync `camel-main` / `quarkus-main` nightly CI workflows with the main workflow [\#3716](https://github.com/apache/camel-quarkus/issues/3716)
 - Extensions for camel-knative and camel-cloudevents [\#3459](https://github.com/apache/camel-quarkus/issues/3459)
 - Reference Camel `azure-sdk-bom-version` property in `azure-sdk-bom.version` [\#3229](https://github.com/apache/camel-quarkus/issues/3229)
 
 **Merged pull requests:**
 
+- Sync camel-main / quarkus-main nightly CI workflows with the main workflow [\#4205](https://github.com/apache/camel-quarkus/pull/4205) ([jamesnetherton](https://github.com/jamesnetherton))
 - Increased workflow memory limit to avoid java heap space errors [\#4201](https://github.com/apache/camel-quarkus/pull/4201) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - controlbus: Added action option tests \(fixes \#4009\) [\#4200](https://github.com/apache/camel-quarkus/pull/4200) ([djcoleman](https://github.com/djcoleman))
 - Upgrade Quarkus to 2.13.3.Final [\#4199](https://github.com/apache/camel-quarkus/pull/4199) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -118,6 +121,7 @@
 - perf-regression: disable itests when building with -Dquickly [\#4022](https://github.com/apache/camel-quarkus/pull/4022) ([aldettinger](https://github.com/aldettinger))
 - Fix \#3389: geocoder test returned wrong city [\#4020](https://github.com/apache/camel-quarkus/pull/4020) ([djcoleman](https://github.com/djcoleman))
 - Register HttpOperationFailedException for reflection [\#4019](https://github.com/apache/camel-quarkus/pull/4019) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix \#3904 increase xslt extension test coverage [\#4018](https://github.com/apache/camel-quarkus/pull/4018) ([zhfeng](https://github.com/zhfeng))
 - Restore ability to run js-dsl native tests [\#4017](https://github.com/apache/camel-quarkus/pull/4017) ([jamesnetherton](https://github.com/jamesnetherton))
 - perf-regression: collect reports during releases \#3967 [\#4013](https://github.com/apache/camel-quarkus/pull/4013) ([aldettinger](https://github.com/aldettinger))
 - perf-regression: avoid using fixed port \#4004 [\#4005](https://github.com/apache/camel-quarkus/pull/4005) ([aldettinger](https://github.com/aldettinger))
