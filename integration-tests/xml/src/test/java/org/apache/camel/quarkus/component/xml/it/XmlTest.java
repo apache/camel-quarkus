@@ -17,32 +17,53 @@
 package org.apache.camel.quarkus.component.xml.it;
 
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
+@QuarkusTestResource(XmlTestResource.class)
 class XmlTest {
     private static final String BODY = "<mail><subject>Hey</subject><body>Hello world!</body></mail>";
 
-    @Test
-    public void xslt() {
+    @ParameterizedTest
+    @ValueSource(strings = { "string", "bytes", "dom", "file" })
+    public void xslt(String output) throws Exception {
         final String actual = RestAssured.given()
                 .body(BODY)
-                .post("/xml/xslt")
+                .post("/xml/xslt?output=" + output)
                 .then()
                 .statusCode(200)
                 .extract().body().asString().trim().replaceAll(">\\s+<", "><");
 
-        Assertions.assertEquals(
-                "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><classpath-xsl subject=\"Hey\"><cheese><mail><subject>Hey</subject><body>Hello world!</body></mail></cheese></classpath-xsl>",
-                actual);
+        if (output.equals("dom")) {
+            Assertions.assertEquals(
+                    "<classpath-xsl subject=\"Hey\"><cheese><mail><subject>Hey</subject><body>Hello world!</body></mail></cheese></classpath-xsl>",
+                    actual);
+        } else {
+            Assertions.assertEquals(
+                    "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><classpath-xsl subject=\"Hey\"><cheese><mail><subject>Hey</subject><body>Hello world!</body></mail></cheese></classpath-xsl>",
+                    actual);
+        }
+
+        if (output.equals("file")) {
+            Assertions.assertEquals(
+                    "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><classpath-xsl subject=\"Hey\"><cheese><mail><subject>Hey</subject><body>Hello world!</body></mail></cheese></classpath-xsl>",
+                    Files.readString(Path.of("target/xsltme.xml"), Charset.forName("ISO-8859-1")).replaceAll(">\\s+<", "><")
+                            .replaceAll("[\\n\\r]", ""));
+        }
     }
 
     @Test
@@ -57,6 +78,75 @@ class XmlTest {
         Assertions.assertEquals(
                 "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><extension-function-xsl>Hey-Hello world!</extension-function-xsl>",
                 actual);
+    }
+
+    @Test
+    public void xsltCustomURIResolver() {
+        final String actual = RestAssured.given()
+                .body(BODY)
+                .post("/xml/xslt-custom-uri-resolver")
+                .then()
+                .statusCode(200)
+                .extract().body().asString().trim().replaceAll(">\\s+<", "><");
+
+        Assertions.assertEquals(
+                "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" + XsltProducers.EXPECTED_XML_CONSTANT,
+                actual);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "ref", "bean", "http", "file" })
+    @DisabledOnIntegrationTest("Generating xslt templates dynamically does not be supported in native mode")
+    public void xsltSchemas(String schema) {
+        final String actual = RestAssured.given()
+                .body(BODY)
+                .post("/xml/xslt-{schema}", schema)
+                .then()
+                .statusCode(200)
+                .extract().body().asString().trim().replaceAll(">\\s+<", "><");
+
+        Assertions.assertEquals(
+                "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><classpath-xsl subject=\"Hey\"><cheese><mail><subject>Hey</subject><body>Hello world!</body></mail></cheese></classpath-xsl>",
+                actual);
+    }
+
+    @Test
+    @DisabledOnIntegrationTest("Generating xslt templates dynamically does not be supported in native mode")
+    public void aggregate() {
+        final String actual = RestAssured.given()
+                .accept(ContentType.TEXT)
+                .get("/xml/aggregate")
+                .then()
+                .statusCode(200)
+                .extract().body().asString().trim().replaceAll(">\\s+<", "><");
+
+        Assertions.assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?><item>ABC</item>", actual);
+    }
+
+    @Test
+    @DisabledOnIntegrationTest("Generating xslt templates dynamically does not be supported in native mode")
+    public void xsltInclude() {
+        final String actual = RestAssured.given()
+                .body(BODY)
+                .post("/xml/xslt_include")
+                .then()
+                .statusCode(200)
+                .extract().body().asString().trim().replaceAll(">\\s+<", "><");
+
+        Assertions.assertEquals(
+                "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><classpath-xsl subject=\"Hey\"><cheese><mail><subject>Hey</subject><body>Hello world!</body></mail></cheese></classpath-xsl>",
+                actual);
+    }
+
+    @Test
+    @DisabledOnIntegrationTest("forwarding xslt error and warn messages does not be supported in native mode")
+    public void xsltTerminate() {
+        RestAssured.given()
+                .body("<staff><programmer><name>Daisy Duck</name><dob></dob></programmer></staff>")
+                .post("/xml/xslt_terminate")
+                .then()
+                .statusCode(200)
+                .body(is("Error: DOB is an empty string!"));
     }
 
     @Test

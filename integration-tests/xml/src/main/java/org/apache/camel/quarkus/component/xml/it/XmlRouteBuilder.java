@@ -18,9 +18,18 @@ package org.apache.camel.quarkus.component.xml.it;
 
 import org.w3c.dom.Document;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.xslt.saxon.XsltSaxonAggregationStrategy;
 import org.apache.camel.support.builder.Namespaces;
 
+// These reflections registrations should be removed with fixing https://github.com/apache/camel-quarkus/issues/1615
+@RegisterForReflection(classNames = {
+        "net.sf.saxon.Configuration",
+        "net.sf.saxon.functions.String_1",
+        "net.sf.saxon.functions.Tokenize_1",
+        "net.sf.saxon.functions.StringJoin",
+        "org.apache.camel.component.xslt.saxon.XsltSaxonBuilder" })
 public class XmlRouteBuilder extends RouteBuilder {
     public static final String DIRECT_HTML_TRANSFORM = "direct:html-transform";
     public static final String DIRECT_HTML_TO_TEXT = "direct:html-to-text";
@@ -48,5 +57,13 @@ public class XmlRouteBuilder extends RouteBuilder {
                 .split()
                 .xtokenize("//C:child", new Namespaces("C", "urn:c"))
                 .to("seda:xtokenize-result");
+
+        from("file:src/test/resources?noop=true&sortBy=file:name&antInclude=*.xml")
+                .routeId("aggregate").noAutoStartup()
+                .aggregate(new XsltSaxonAggregationStrategy("xslt/aggregate.xsl"))
+                .constant(true)
+                .completionFromBatchConsumer()
+                .log("after aggregate body: ${body}")
+                .to("mock:transformed");
     }
 }
