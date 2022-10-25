@@ -22,7 +22,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -34,7 +33,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 @QuarkusTest
 class CxfSoapMtomAwtTest {
 
-    @DisabledOnIntegrationTest("https://github.com/apache/camel-quarkus/issues/4208")
     @ParameterizedTest
     @ValueSource(booleans = { true, false })
     public void uploadDownloadMtom(boolean mtomEnabled) throws IOException {
@@ -42,18 +40,15 @@ class CxfSoapMtomAwtTest {
         String imageName = "linux-image-name";
         RestAssured.given()
                 .contentType(ContentType.BINARY)
-                .queryParam("imageName", imageName)
                 .queryParam("mtomEnabled", mtomEnabled)
                 .body(imageBytes)
-                .post("/cxf-soap/mtom-awt/upload")
+                .post("/cxf-soap/mtom-awt/image/" + imageName)
                 .then()
                 .statusCode(201)
                 .body(CoreMatchers.equalTo(ImageService.MSG_SUCCESS));
         byte[] downloadedImageBytes = RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .queryParam("imageName", imageName)
                 .queryParam("mtomEnabled", mtomEnabled)
-                .post("/cxf-soap/mtom-awt/download")
+                .get("/cxf-soap/mtom-awt/image/" + imageName)
                 .then()
                 .statusCode(201)
                 .extract().asByteArray();

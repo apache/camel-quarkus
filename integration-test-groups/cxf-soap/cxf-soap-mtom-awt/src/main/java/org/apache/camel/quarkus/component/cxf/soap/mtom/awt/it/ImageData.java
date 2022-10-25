@@ -16,16 +16,38 @@
  */
 package org.apache.camel.quarkus.component.cxf.soap.mtom.awt.it;
 
-import javax.jws.WebMethod;
-import javax.jws.WebService;
+import java.awt.Image;
 
-@WebService
-public interface IImageService {
+import javax.xml.bind.annotation.XmlType;
 
-    @WebMethod
-    ImageData downloadImage(String name);
+@XmlType(name = "imageData", namespace = "http://org.jboss.ws/xop/doclit")
+public class ImageData {
 
-    @WebMethod
-    String uploadImage(ImageData image);
+    private Image data;
+    private String name;
 
+    public ImageData() {
+    }
+
+    public ImageData(Image data, String name) {
+        super();
+        this.data = data;
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Image getData() {
+        return data;
+    }
+
+    public void setData(Image data) {
+        this.data = data;
+    }
 }
