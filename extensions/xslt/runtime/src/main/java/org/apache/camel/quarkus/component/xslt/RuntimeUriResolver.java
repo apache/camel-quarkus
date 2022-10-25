@@ -57,14 +57,11 @@ public class RuntimeUriResolver implements URIResolver {
 
     /**
      * @param  uri the URI whose translet is seeked
-     * @return     the unqualified translet name associated with the given {@code uri}
+     * @return     the unqualified translet name associated with the given {@code uri} or
+     *             {@code null} if the given XSLT resource was not compiled to a translet at build time.
      */
     public String getTransletClassName(String uri) {
-        final String transletClassName = uriToTransletName.get(uri);
-        if (transletClassName == null) {
-            throw new RuntimeException("Could not resolve " + uri);
-        }
-        return transletClassName;
+        return uriToTransletName.get(uri);
     }
 
     /**
