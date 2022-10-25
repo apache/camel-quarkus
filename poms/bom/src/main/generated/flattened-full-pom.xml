@@ -9847,6 +9847,11 @@
         <version>3.3.3</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
+        <groupId>com.jayway.jsonpath</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>json-path</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>2.7.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
         <groupId>com.lihaoyi</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>geny_2.13</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>0.6.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -23900,11 +23905,6 @@
         <groupId>org.openjdk.jmh</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
         <artifactId>jmh-generator-annprocess</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
         <version>1.21</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
-      </dependency>
-      <dependency>
-        <groupId>com.jayway.jsonpath</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
-        <artifactId>json-path</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
-        <version>2.4.0</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
       </dependency>
       <dependency>
         <groupId>org.skyscreamer</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
