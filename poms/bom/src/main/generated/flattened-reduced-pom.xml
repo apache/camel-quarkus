@@ -9847,6 +9847,11 @@
         <version>3.3.3</version>
       </dependency>
       <dependency>
+        <groupId>com.jayway.jsonpath</groupId>
+        <artifactId>json-path</artifactId>
+        <version>2.7.0</version>
+      </dependency>
+      <dependency>
         <groupId>com.lihaoyi</groupId>
         <artifactId>geny_2.13</artifactId>
         <version>0.6.2</version>
@@ -11397,11 +11402,6 @@
         <groupId>io.dropwizard.metrics</groupId>
         <artifactId>metrics-core</artifactId>
         <version>4.0.1</version>
-      </dependency>
-      <dependency>
-        <groupId>com.jayway.jsonpath</groupId>
-        <artifactId>json-path</artifactId>
-        <version>2.4.0</version>
       </dependency>
       <dependency>
         <groupId>org.reflections</groupId>
