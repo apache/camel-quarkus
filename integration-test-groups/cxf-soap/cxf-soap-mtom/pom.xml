@@ -32,10 +32,6 @@
     <description>Integration tests for Camel Quarkus CXF extension Mtom</description>
 
     <dependencies>
-        <dependency><!-- for java.awt.Image -->
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-awt</artifactId>
-        </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>

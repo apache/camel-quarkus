@@ -22,7 +22,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -34,7 +33,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 @QuarkusTest
 class CxfSoapMtomTest {
 
-    @DisabledOnIntegrationTest("https://github.com/apache/camel-quarkus/issues/4208")
     @ParameterizedTest
     @ValueSource(booleans = { true, false })
     public void uploadDownloadMtom(boolean mtomEnabled) throws IOException {
