@@ -398,6 +398,7 @@ jobs:
             clean verify
       - name: Report Build Failure
         if: failure() || cancelled()
+        shell: bash
         run: |
           ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
 

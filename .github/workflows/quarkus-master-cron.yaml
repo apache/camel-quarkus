@@ -64,6 +64,7 @@ jobs:
           git rev-parse origin/main > ~/build-data/main-sha.txt
       - name: Build Quarkus
         run: |
+          cd ../
           git clone --depth 1 --branch main https://github.com/quarkusio/quarkus.git \
             && cd quarkus \
             && echo "Current Quarkus commit:" $(git rev-parse HEAD) \
@@ -403,6 +404,7 @@ jobs:
             clean verify
       - name: Report Build Failure
         if: failure() || cancelled()
+        shell: bash
         run: |
           ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=quarkus-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
 
