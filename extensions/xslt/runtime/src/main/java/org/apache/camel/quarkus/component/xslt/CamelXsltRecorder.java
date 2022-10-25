@@ -20,9 +20,12 @@ import java.util.Map;
 
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.URIResolver;
 
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
+import org.apache.camel.CamelContext;
+import org.apache.camel.component.xslt.DefaultXsltUriResolverFactory;
 import org.apache.camel.component.xslt.TransformerFactoryConfigurationStrategy;
 import org.apache.camel.component.xslt.XsltComponent;
 import org.apache.camel.component.xslt.XsltEndpoint;
@@ -37,7 +40,7 @@ public class CamelXsltRecorder {
         final QuarkusTransformerFactoryConfigurationStrategy strategy = new QuarkusTransformerFactoryConfigurationStrategy(
                 config.packageName, config.features, uriResolver);
         final XsltComponent component = new XsltComponent();
-        component.setUriResolver(uriResolver);
+        component.setUriResolverFactory(new QuarkusXsltUriResolverFactory(uriResolver));
         component.setTransformerFactoryConfigurationStrategy(strategy);
         component.setTransformerFactoryClass(XalanTransformerFactory.class.getName());
         return new RuntimeValue<>(component);
@@ -50,6 +53,27 @@ public class CamelXsltRecorder {
     public void addRuntimeUriResolverEntry(RuntimeValue<RuntimeUriResolver.Builder> builder, String templateUri,
             String transletClassName) {
         builder.getValue().entry(templateUri, transletClassName);
+    }
+
+    static class QuarkusXsltUriResolverFactory extends DefaultXsltUriResolverFactory {
+        private final RuntimeUriResolver uriResolver;
+
+        public QuarkusXsltUriResolverFactory(RuntimeUriResolver uriResolver) {
+            this.uriResolver = uriResolver;
+        }
+
+        @Override
+        public URIResolver createUriResolver(CamelContext camelContext, String resourceUri) {
+            // It is supposed to catch cases where we compile the translet at build time which is for classpath: XSLT
+            // resources in both JVM and native mode.
+            // Otherwise, all other cases will be handled by the default XsltUriResolver which is able to load a resource
+            // at runtime. So it is only supported in JVM mode.
+            if (uriResolver.getTransletClassName(resourceUri) != null) {
+                return uriResolver;
+            } else {
+                return super.createUriResolver(camelContext, resourceUri);
+            }
+        }
     }
 
     static class QuarkusTransformerFactoryConfigurationStrategy implements TransformerFactoryConfigurationStrategy {
@@ -68,23 +92,23 @@ public class CamelXsltRecorder {
         @Override
         public void configure(TransformerFactory tf, XsltEndpoint endpoint) {
             final String className = uriResolver.getTransletClassName(endpoint.getResourceUri());
-
-            for (Map.Entry<String, Boolean> entry : features.entrySet()) {
-                try {
-                    tf.setFeature(entry.getKey(), entry.getValue());
-                } catch (TransformerException e) {
-                    throw new RuntimeException("Could not set TransformerFactory feature '"
-                            + entry.getKey() + "' = " + entry.getValue(), e);
+            if (className != null) {
+                for (Map.Entry<String, Boolean> entry : features.entrySet()) {
+                    try {
+                        tf.setFeature(entry.getKey(), entry.getValue());
+                    } catch (TransformerException e) {
+                        throw new RuntimeException("Could not set TransformerFactory feature '"
+                                + entry.getKey() + "' = " + entry.getValue(), e);
+                    }
                 }
+
+                tf.setAttribute("use-classpath", true);
+                tf.setAttribute("translet-name", className);
+                tf.setAttribute("package-name", packageName);
+                tf.setErrorListener(new CamelXsltErrorListener());
+
+                endpoint.setTransformerFactory(tf);
             }
-
-            tf.setAttribute("use-classpath", true);
-            tf.setAttribute("translet-name", className);
-            tf.setAttribute("package-name", packageName);
-            tf.setErrorListener(new CamelXsltErrorListener());
-
-            endpoint.setTransformerFactory(tf);
         }
-
     }
 }

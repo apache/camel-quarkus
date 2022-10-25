@@ -59,7 +59,22 @@ quarkus.camel.xslt.sources = transform.xsl, classpath:path/to/my/file.xsl
 
 Scheme-less URIs are interpreted as `classpath:` URIs.
 
-Only `classpath:` URIs are supported on Quarkus. `file:`, `http:` and other kinds of URIs do not work by design.
+Only `classpath:` URIs are supported on Quarkus native mode. `file:`, `http:` and other kinds of URIs can be used on JVM mode only.
+
+`<xsl:include>` and `<xsl:messaging>` XSLT elements are also supported in JVM mode only right now.
+
+If `aggregate` DSL is used, `XsltSaxonAggregationStrategy` has to be used such as
+[source,java]
+----
+from("file:src/test/resources?noop=true&sortBy=file:name&antInclude=*.xml")
+   .routeId("aggregate").noAutoStartup()
+   .aggregate(new XsltSaxonAggregationStrategy("xslt/aggregate.xsl"))
+   .constant(true)
+   .completionFromBatchConsumer()
+   .log("after aggregate body: ${body}")
+   .to("mock:transformed");
+----
+Also, it's only supported on JVM mode.
 
 [id="extensions-xslt-configuration-configuration"]
 === Configuration
@@ -87,11 +102,6 @@ public class FunctionsConfiguration {
 ====
 The content of the XSLT source URIs is parsed and compiled into Java classes at build time. These Java classes are the
 only source of XSLT information at runtime. The XSLT source files may not be included in the application archive at all.
-====
-
-[WARNING]
-====
-the extension does not yet support Java 11.
 ====
 
 
