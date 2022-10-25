@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.cxf.soap.mtom.it;
 
-import java.awt.*;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -33,15 +32,15 @@ public class ImageService implements IImageService {
     public static final String MSG_SUCCESS = "Upload Successful";
     private static final Logger log = LoggerFactory.getLogger(ImageService.class);
 
-    private final Map<String, Image> imageRepository;
+    private final Map<String, ImageFile> imageRepository;
 
     public ImageService() {
         imageRepository = new ConcurrentHashMap<>();
     }
 
     @Override
-    public Image downloadImage(String name) {
-        final Image image = imageRepository.get(name);
+    public ImageFile downloadImage(String name) {
+        final ImageFile image = imageRepository.get(name);
         if (image == null) {
             throw new IllegalStateException("Image with name " + name + " does not exist.");
         }
@@ -49,7 +48,7 @@ public class ImageService implements IImageService {
     }
 
     @Override
-    public String uploadImage(Image image, String name) {
+    public String uploadImage(ImageFile image, String name) {
 
         log.info("Upload image: " + image + " with name: " + name);
 
