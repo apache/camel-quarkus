@@ -1,0 +1,4 @@
+= Camel Quarkus CXF SOAP MTOM AWT tests
+
+Tests are not using any external SOAP services (eg. via testcontainers). They purely test if Camel Quarkus is able to send and consume messages with attachments (AWT Image) with both MTOM enabled/disabled.
+
