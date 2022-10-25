@@ -142,7 +142,7 @@
                                 <configuration>
                                     <rerunFailingTestsCount>${rerun.failing.test.count}</rerunFailingTestsCount>
                                     <systemPropertyVariables>
-                                        <quarkus.test.arg-line>-Djdk.net.hosts.file=${basedir}/target/hosts</quarkus.test.arg-line>
+                                        <quarkus.test.arg-line>-Djdk.net.hosts.file=target/hosts</quarkus.test.arg-line>
                                     </systemPropertyVariables>
                                 </configuration>
                             </execution>
