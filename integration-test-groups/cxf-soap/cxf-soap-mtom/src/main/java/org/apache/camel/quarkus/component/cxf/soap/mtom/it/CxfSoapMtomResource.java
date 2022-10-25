@@ -16,14 +16,9 @@
  */
 package org.apache.camel.quarkus.component.cxf.soap.mtom.it;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.net.URI;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -49,16 +44,14 @@ public class CxfSoapMtomResource {
     @Produces(MediaType.TEXT_PLAIN)
     public Response upload(@QueryParam("imageName") String imageName, @QueryParam("mtomEnabled") boolean mtomEnabled,
             byte[] image) throws Exception {
-        try (ByteArrayInputStream bais = new ByteArrayInputStream(image)) {
-            final String response = producerTemplate.requestBodyAndHeader(
-                    "direct:" + mtomEndpoint(mtomEnabled),
-                    new Object[] { ImageIO.read(bais), imageName },
-                    OPERATION_NAME, "uploadImage", String.class);
-            return Response
-                    .created(new URI("https://camel.apache.org/"))
-                    .entity(response)
-                    .build();
-        }
+        final String response = producerTemplate.requestBodyAndHeader(
+                "direct:" + mtomEndpoint(mtomEnabled),
+                new Object[] { new ImageFile(image), imageName },
+                OPERATION_NAME, "uploadImage", String.class);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(response)
+                .build();
     }
 
     @Path("/download")
@@ -66,19 +59,15 @@ public class CxfSoapMtomResource {
     @Consumes(MediaType.TEXT_PLAIN)
     public Response download(@QueryParam("imageName") String imageName, @QueryParam("mtomEnabled") boolean mtomEnabled)
             throws Exception {
-        final BufferedImage response = (BufferedImage) producerTemplate.requestBodyAndHeader(
+        final ImageFile response = (ImageFile) producerTemplate.requestBodyAndHeader(
                 "direct:" + mtomEndpoint(mtomEnabled),
                 imageName,
                 OPERATION_NAME,
-                "downloadImage", Image.class);
-        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-            ImageIO.write(response, "png", baos);
-            byte[] bytes = baos.toByteArray();
-            return Response
-                    .created(new URI("https://camel.apache.org/"))
-                    .entity(bytes)
-                    .build();
-        }
+                "downloadImage", ImageFile.class);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(response.getContent())
+                .build();
     }
 
     private String mtomEndpoint(boolean mtomEnabled) {
