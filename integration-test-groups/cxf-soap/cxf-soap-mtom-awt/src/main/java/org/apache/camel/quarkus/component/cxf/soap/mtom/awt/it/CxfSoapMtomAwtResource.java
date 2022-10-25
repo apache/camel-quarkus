@@ -26,8 +26,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -44,15 +46,16 @@ public class CxfSoapMtomAwtResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/upload")
+    @Path("/image/{imageName}")
     @POST
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response upload(@QueryParam("imageName") String imageName, @QueryParam("mtomEnabled") boolean mtomEnabled,
+    public Response upload(@PathParam("imageName") String imageName, @QueryParam("mtomEnabled") boolean mtomEnabled,
             byte[] image) throws Exception {
         try (ByteArrayInputStream bais = new ByteArrayInputStream(image)) {
             final String response = producerTemplate.requestBodyAndHeader(
                     "direct:" + mtomEndpoint(mtomEnabled),
-                    new Object[] { ImageIO.read(bais), imageName },
+                    new ImageData(ImageIO.read(bais), imageName),
                     OPERATION_NAME, "uploadImage", String.class);
             return Response
                     .created(new URI("https://camel.apache.org/"))
@@ -61,18 +64,17 @@ public class CxfSoapMtomAwtResource {
         }
     }
 
-    @Path("/download")
-    @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    public Response download(@QueryParam("imageName") String imageName, @QueryParam("mtomEnabled") boolean mtomEnabled)
+    @Path("/image/{imageName}")
+    @GET
+    public Response download(@PathParam("imageName") String imageName, @QueryParam("mtomEnabled") boolean mtomEnabled)
             throws Exception {
-        final BufferedImage response = (BufferedImage) producerTemplate.requestBodyAndHeader(
+        final ImageData image = (ImageData) producerTemplate.requestBodyAndHeader(
                 "direct:" + mtomEndpoint(mtomEnabled),
                 imageName,
                 OPERATION_NAME,
-                "downloadImage", Image.class);
+                "downloadImage", ImageData.class);
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-            ImageIO.write(response, "png", baos);
+            ImageIO.write((BufferedImage) image.getData(), "png", baos);
             byte[] bytes = baos.toByteArray();
             return Response
                     .created(new URI("https://camel.apache.org/"))

@@ -23,25 +23,20 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jboss.logging.Logger;
 
 @ApplicationScoped
 @Named("imageAwtService")
 public class ImageService implements IImageService {
 
     public static final String MSG_SUCCESS = "Upload Successful";
-    private static final Logger log = LoggerFactory.getLogger(ImageService.class);
+    private static final Logger log = Logger.getLogger(ImageService.class);
 
-    private final Map<String, Image> imageRepository;
-
-    public ImageService() {
-        imageRepository = new ConcurrentHashMap<>();
-    }
+    private final Map<String, ImageData> imageRepository = new ConcurrentHashMap<>();
 
     @Override
-    public Image downloadImage(String name) {
-        final Image image = imageRepository.get(name);
+    public ImageData downloadImage(String name) {
+        final ImageData image = imageRepository.get(name);
         if (image == null) {
             throw new IllegalStateException("Image with name " + name + " does not exist.");
         }
@@ -49,12 +44,12 @@ public class ImageService implements IImageService {
     }
 
     @Override
-    public String uploadImage(Image image, String name) {
+    public String uploadImage(ImageData image) {
 
-        log.info("Upload image: " + image + " with name: " + name);
+        log.infof("Upload image: %s", image.getName());
 
-        if (image != null && name != null && !"".equals(name)) {
-            imageRepository.put(name, image);
+        if (image.getData() != null && image.getName() != null) {
+            imageRepository.put(image.getName(), image);
             return MSG_SUCCESS;
         }
         throw new IllegalStateException("Illegal Data Format.");
