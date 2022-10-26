@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.cxf.soap.mtom.it;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.stream.Stream;
 
 import javax.imageio.ImageIO;
 
@@ -28,20 +29,30 @@ import io.restassured.http.ContentType;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 @QuarkusTest
 class CxfSoapMtomTest {
 
+    private static Stream<Arguments> matrix() {
+        return Stream.of(
+                Arguments.of(true, "POJO"),
+                Arguments.of(false, "POJO"),
+                Arguments.of(true, "PAYLOAD"),
+                Arguments.of(false, "PAYLOAD"));
+    }
+
     @ParameterizedTest
-    @ValueSource(booleans = { true, false })
-    public void uploadDownloadMtom(boolean mtomEnabled) throws IOException {
+    @MethodSource("matrix")
+    public void uploadDownloadMtom(boolean mtomEnabled, String endpointDataFormat) throws IOException {
         byte[] imageBytes = CxfSoapMtomTest.class.getClassLoader().getResourceAsStream("linux-image.png").readAllBytes();
-        String imageName = "linux-image-name";
+        String imageName = String.format("linux-image-name-mtom-%s-%s-mode", mtomEnabled, endpointDataFormat);
         RestAssured.given()
                 .contentType(ContentType.BINARY)
                 .queryParam("imageName", imageName)
                 .queryParam("mtomEnabled", mtomEnabled)
+                .queryParam("endpointDataFormat", endpointDataFormat)
                 .body(imageBytes)
                 .post("/cxf-soap/mtom/upload")
                 .then()
@@ -51,6 +62,7 @@ class CxfSoapMtomTest {
                 .contentType(ContentType.TEXT)
                 .queryParam("imageName", imageName)
                 .queryParam("mtomEnabled", mtomEnabled)
+                .queryParam("endpointDataFormat", endpointDataFormat)
                 .post("/cxf-soap/mtom/download")
                 .then()
                 .statusCode(201)
