@@ -16,7 +16,10 @@
  */
 package org.apache.camel.quarkus.component.cxf.soap.mtom.it;
 
+import java.io.ByteArrayInputStream;
 import java.net.URI;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -28,9 +31,13 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.camel.Exchange;
+import org.apache.camel.ExchangePattern;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.attachment.AttachmentMessage;
 
 import static org.apache.camel.component.cxf.common.message.CxfConstants.OPERATION_NAME;
+import static org.apache.camel.quarkus.component.cxf.soap.mtom.it.CxfSoapMtomRoutes.ROUTE_PAYLOAD_MODE_RESULT_HEADER_KEY_NAME;
 
 @Path("/cxf-soap/mtom")
 @ApplicationScoped
@@ -41,13 +48,25 @@ public class CxfSoapMtomResource {
 
     @Path("/upload")
     @POST
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     @Produces(MediaType.TEXT_PLAIN)
     public Response upload(@QueryParam("imageName") String imageName, @QueryParam("mtomEnabled") boolean mtomEnabled,
-            byte[] image) throws Exception {
-        final String response = producerTemplate.requestBodyAndHeader(
-                "direct:" + mtomEndpoint(mtomEnabled),
-                new Object[] { new ImageFile(image), imageName },
-                OPERATION_NAME, "uploadImage", String.class);
+            @QueryParam("endpointDataFormat") String endpointDataFormat, byte[] image) throws Exception {
+        Map<String, Object> headers = new LinkedHashMap<>();
+        headers.put(OPERATION_NAME, "uploadImage");
+        headers.put("endpointDataFormat", endpointDataFormat);
+        headers.put("mtomEnabled", mtomEnabled);
+        Object body = new Object[] { new ImageFile(image), imageName };
+        Exchange result = producerTemplate.request("direct:invoker", exchange -> {
+            exchange.getIn().setBody(body);
+            exchange.getIn().setHeaders(headers);
+        });
+        Object response = null;
+        if ("PAYLOAD".equals(endpointDataFormat)) {
+            response = result.getMessage().getHeader(ROUTE_PAYLOAD_MODE_RESULT_HEADER_KEY_NAME);
+        } else {
+            response = result.getMessage().getBody(String.class);
+        }
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .entity(response)
@@ -56,22 +75,31 @@ public class CxfSoapMtomResource {
 
     @Path("/download")
     @POST
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
     @Consumes(MediaType.TEXT_PLAIN)
-    public Response download(@QueryParam("imageName") String imageName, @QueryParam("mtomEnabled") boolean mtomEnabled)
+    public Response download(@QueryParam("imageName") String imageName, @QueryParam("mtomEnabled") boolean mtomEnabled,
+            @QueryParam("endpointDataFormat") String endpointDataFormat)
             throws Exception {
-        final ImageFile response = (ImageFile) producerTemplate.requestBodyAndHeader(
-                "direct:" + mtomEndpoint(mtomEnabled),
-                imageName,
-                OPERATION_NAME,
-                "downloadImage", ImageFile.class);
+        Map<String, Object> headers = new LinkedHashMap<>();
+        headers.put(OPERATION_NAME, "downloadImage");
+        headers.put("endpointDataFormat", endpointDataFormat);
+        headers.put("mtomEnabled", mtomEnabled);
+        Exchange result = producerTemplate.request("direct:invoker", exchange -> {
+            exchange.setPattern(ExchangePattern.InOut);
+            exchange.getIn().setBody(imageName);
+            exchange.getIn().setHeaders(headers);
+        });
+        byte[] response = null;
+        if ("PAYLOAD".equals(endpointDataFormat)) {
+            response = ((ByteArrayInputStream) result.getMessage(AttachmentMessage.class).getAttachment(imageName).getContent())
+                    .readAllBytes();
+        } else {
+            response = result.getMessage().getBody(ImageFile.class).getContent();
+        }
         return Response
                 .created(new URI("https://camel.apache.org/"))
-                .entity(response.getContent())
+                .entity(response)
                 .build();
-    }
-
-    private String mtomEndpoint(boolean mtomEnabled) {
-        return mtomEnabled ? "mtomEnabledInvoker" : "mtomDisabledInvoker";
     }
 
 }
