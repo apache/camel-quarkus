@@ -15,6 +15,7 @@
 
 **Closed issues:**
 
+- Create test coverage for CXF SOAP MTOM [\#4203](https://github.com/apache/camel-quarkus/issues/4203)
 - Can't authenticate using quarkus elasticsearch-rest [\#4194](https://github.com/apache/camel-quarkus/issues/4194)
 - Use official `com.azure:azure-core-http-vertx:1.0.0-beta.1` in Azure extensions [\#4180](https://github.com/apache/camel-quarkus/issues/4180)
 - Cxf-soap tests: Refactor and split [\#4171](https://github.com/apache/camel-quarkus/issues/4171)
@@ -33,6 +34,9 @@
 
 **Merged pull requests:**
 
+- Split mtom tests [\#4210](https://github.com/apache/camel-quarkus/pull/4210) ([llowinge](https://github.com/llowinge))
+- Move all Debezium itest deployment dependencies to virtualDependencies profile [\#4209](https://github.com/apache/camel-quarkus/pull/4209) ([jamesnetherton](https://github.com/jamesnetherton))
+- More CXF tests and cleanup [\#4207](https://github.com/apache/camel-quarkus/pull/4207) ([ppalaga](https://github.com/ppalaga))
 - Sync camel-main / quarkus-main nightly CI workflows with the main workflow [\#4205](https://github.com/apache/camel-quarkus/pull/4205) ([jamesnetherton](https://github.com/jamesnetherton))
 - Increased workflow memory limit to avoid java heap space errors [\#4201](https://github.com/apache/camel-quarkus/pull/4201) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - controlbus: Added action option tests \(fixes \#4009\) [\#4200](https://github.com/apache/camel-quarkus/pull/4200) ([djcoleman](https://github.com/djcoleman))
