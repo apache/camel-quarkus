@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<definitions targetNamespace="https://quarkiverse.github.io/quarkiverse-docs/quarkus-cxf/test/ws-trust" name="TrustHelloService"
+        xmlns:tns="https://quarkiverse.github.io/quarkiverse-docs/quarkus-cxf/test/ws-trust"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+        xmlns="http://schemas.xmlsoap.org/wsdl/"
+        xmlns:wsp="http://www.w3.org/ns/ws-policy"
+        xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+        xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+        xmlns:wsaws="http://www.w3.org/2005/08/addressing"
+        xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+        xmlns:t="http://docs.oasis-open.org/ws-sx/ws-trust/200512">
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="https://quarkiverse.github.io/quarkiverse-docs/quarkus-cxf/test/ws-trust" schemaLocation="TrustHelloService_schema1.xsd"/>
+    </xsd:schema>
+  </types>
+  <message name="sayHello">
+    <part name="parameters" element="tns:sayHello"/>
+  </message>
+  <message name="sayHelloResponse">
+    <part name="parameters" element="tns:sayHelloResponse"/>
+  </message>
+  <portType name="TrustHelloService">
+    <operation name="sayHello">
+      <input message="tns:sayHello"/>
+      <output message="tns:sayHelloResponse"/>
+    </operation>
+  </portType>
+  <binding name="TrustHelloServicePortBinding" type="tns:TrustHelloService">
+    <wsp:PolicyReference URI="#AsymmetricSAML2Policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="sayHello">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+        <wsp:PolicyReference URI="#Input_Policy" />
+      </input>
+      <output>
+        <soap:body use="literal"/>
+        <wsp:PolicyReference URI="#Output_Policy" />
+      </output>
+    </operation>
+  </binding>
+  <service name="TrustHelloService">
+    <port name="TrustHelloServicePort" binding="tns:TrustHelloServicePortBinding">
+      <soap:address location="http://@jboss.bind.address@:@add_int(port-offset.cxf-tests.jboss,8080)@/jaxws-samples-wsse-policy-trust/TrustHelloService"/>
+    </port>
+  </service>
+
+  <wsp:Policy wsu:Id="AsymmetricSAML2Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <wsam:Addressing wsp:Optional="false">
+                    <wsp:Policy />
+                </wsam:Addressing>
+                <sp:AsymmetricBinding>
+                    <wsp:Policy>
+                        <sp:InitiatorToken>
+                            <wsp:Policy>
+                                <sp:IssuedToken
+                                    sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                                    <sp:RequestSecurityTokenTemplate>
+                                        <t:TokenType>http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV2.0</t:TokenType>
+                                        <t:KeyType>http://docs.oasis-open.org/ws-sx/ws-trust/200512/PublicKey</t:KeyType>
+                                    </sp:RequestSecurityTokenTemplate>
+                                    <wsp:Policy>
+                                        <sp:RequireInternalReference />
+                                    </wsp:Policy>
+                                    <sp:Issuer>
+                                        <wsaws:Address>http://localhost:8081/jaxws-samples-wsse-policy-trust-sts/SecurityTokenService</wsaws:Address>
+                                        <wsaws:Metadata xmlns:wsdli="http://www.w3.org/2006/01/wsdl-instance"
+                                                        wsdli:wsdlLocation="http://localhost:8081/jaxws-samples-wsse-policy-trust-sts/SecurityTokenService?wsdl">
+                                            <wsaw:ServiceName xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+                                                            xmlns:stsns="http://docs.oasis-open.org/ws-sx/ws-trust/200512/"
+                                                            EndpointName="UT_Port">stsns:SecurityTokenService</wsaw:ServiceName>
+                                        </wsaws:Metadata>
+                                    </sp:Issuer>
+                                </sp:IssuedToken>
+                            </wsp:Policy>
+                        </sp:InitiatorToken>
+                        <sp:RecipientToken>
+                            <wsp:Policy>
+                                <sp:X509Token
+                                    sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/Never">
+                                    <wsp:Policy>
+                                        <sp:WssX509V3Token10 />
+                                        <sp:RequireIssuerSerialReference />
+                                    </wsp:Policy>
+                                </sp:X509Token>
+                            </wsp:Policy>
+                        </sp:RecipientToken>
+                        <sp:Layout>
+                            <wsp:Policy>
+                                <sp:Lax />
+                            </wsp:Policy>
+                        </sp:Layout>
+                        <sp:IncludeTimestamp />
+                        <sp:OnlySignEntireHeadersAndBody />
+                        <sp:AlgorithmSuite>
+                            <wsp:Policy>
+                                <sp:Basic256 />
+                            </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                    </wsp:Policy>
+                </sp:AsymmetricBinding>
+                <sp:Wss11>
+                    <wsp:Policy>
+                        <sp:MustSupportRefIssuerSerial />
+                        <sp:MustSupportRefThumbprint />
+                        <sp:MustSupportRefEncryptedKey />
+                    </wsp:Policy>
+                </sp:Wss11>
+                <sp:Trust13>
+                    <wsp:Policy>
+                        <sp:MustSupportIssuedTokens />
+                        <sp:RequireClientEntropy />
+                        <sp:RequireServerEntropy />
+                    </wsp:Policy>
+                </sp:Trust13>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+
+    <wsp:Policy wsu:Id="Input_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:EncryptedParts>
+                    <sp:Body />
+                </sp:EncryptedParts>
+                <sp:SignedParts>
+                    <sp:Body />
+                    <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+                    <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+                    <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+                    <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+                    <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+                    <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+                    <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+                </sp:SignedParts>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+
+    <wsp:Policy wsu:Id="Output_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:EncryptedParts>
+                    <sp:Body />
+                </sp:EncryptedParts>
+                <sp:SignedParts>
+                    <sp:Body />
+                    <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+                    <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+                    <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+                    <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+                    <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+                    <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+                    <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+                </sp:SignedParts>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</definitions>
