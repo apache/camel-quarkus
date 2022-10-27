@@ -29,6 +29,7 @@ import org.apache.camel.support.builder.Namespaces;
         "net.sf.saxon.functions.String_1",
         "net.sf.saxon.functions.Tokenize_1",
         "net.sf.saxon.functions.StringJoin",
+        "org.xmlresolver.loaders.XmlLoader",
         "org.apache.camel.component.xslt.saxon.XsltSaxonBuilder" })
 public class XmlRouteBuilder extends RouteBuilder {
     public static final String DIRECT_HTML_TRANSFORM = "direct:html-transform";
