@@ -24,6 +24,7 @@ import java.util.concurrent.TimeoutException;
 import org.apache.camel.quarkus.test.support.process.QuarkusProcessExecutor;
 import org.apache.camel.util.StringHelper;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.zeroturnaround.exec.InvalidExitValueException;
 import org.zeroturnaround.exec.ProcessResult;
@@ -31,6 +32,7 @@ import org.zeroturnaround.exec.StartedProcess;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Disabled("https://github.com/apache/camel-quarkus/issues/4218")
 public class CommandModeTest {
 
     @Test
