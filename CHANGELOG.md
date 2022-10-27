@@ -15,6 +15,8 @@
 
 **Closed issues:**
 
+- Manage dependency `com.jayway.jsonpath:json-path` [\#4211](https://github.com/apache/camel-quarkus/issues/4211)
+- CxfSoapMtomIT fails in native mode [\#4208](https://github.com/apache/camel-quarkus/issues/4208)
 - Create test coverage for CXF SOAP MTOM [\#4203](https://github.com/apache/camel-quarkus/issues/4203)
 - Can't authenticate using quarkus elasticsearch-rest [\#4194](https://github.com/apache/camel-quarkus/issues/4194)
 - Use official `com.azure:azure-core-http-vertx:1.0.0-beta.1` in Azure extensions [\#4180](https://github.com/apache/camel-quarkus/issues/4180)
@@ -34,6 +36,9 @@
 
 **Merged pull requests:**
 
+- CxfSoapMtomIT fails in native mode  [\#4214](https://github.com/apache/camel-quarkus/pull/4214) ([ppalaga](https://github.com/ppalaga))
+- Remove unecessary basedir in Kafka Oauth tests [\#4213](https://github.com/apache/camel-quarkus/pull/4213) ([zbendhiba](https://github.com/zbendhiba))
+- Manage dependency com.jayway.jsonpath:json-path [\#4212](https://github.com/apache/camel-quarkus/pull/4212) ([jamesnetherton](https://github.com/jamesnetherton))
 - Split mtom tests [\#4210](https://github.com/apache/camel-quarkus/pull/4210) ([llowinge](https://github.com/llowinge))
 - Move all Debezium itest deployment dependencies to virtualDependencies profile [\#4209](https://github.com/apache/camel-quarkus/pull/4209) ([jamesnetherton](https://github.com/jamesnetherton))
 - More CXF tests and cleanup [\#4207](https://github.com/apache/camel-quarkus/pull/4207) ([ppalaga](https://github.com/ppalaga))
