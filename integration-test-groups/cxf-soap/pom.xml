@@ -43,6 +43,7 @@
         <module>cxf-soap-server</module>
         <module>cxf-soap-ws-security-client</module>
         <module>cxf-soap-ws-security-server</module>
+        <module>cxf-soap-ws-trust</module>
     </modules>
 
 </project>
