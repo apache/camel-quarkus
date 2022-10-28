@@ -10069,7 +10069,7 @@
       <dependency>
         <groupId>io.smallrye.reactive</groupId>
         <artifactId>smallrye-reactive-messaging-camel</artifactId>
-        <version>3.21.0</version>
+        <version>3.22.0</version>
         <exclusions>
           <exclusion>
             <groupId>jakarta.activation</groupId>
@@ -10321,7 +10321,7 @@
       <dependency>
         <groupId>org.graalvm.js</groupId>
         <artifactId>js</artifactId>
-        <version>22.2.0</version>
+        <version>22.3.0</version>
       </dependency>
       <dependency>
         <groupId>org.influxdb</groupId>
@@ -10336,17 +10336,17 @@
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-script-util</artifactId>
-        <version>1.7.20</version>
+        <version>1.7.21</version>
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-scripting-jvm</artifactId>
-        <version>1.7.20</version>
+        <version>1.7.21</version>
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-scripting-jvm-host</artifactId>
-        <version>1.7.20</version>
+        <version>1.7.21</version>
       </dependency>
       <dependency>
         <groupId>org.jruby.jcodings</groupId>
