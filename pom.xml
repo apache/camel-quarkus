@@ -181,6 +181,7 @@
         <groovy.version>3.0.8</groovy.version>
         <impsort-maven-plugin.version>1.7.0</impsort-maven-plugin.version>
         <jandex-maven-plugin.version>1.0.8</jandex-maven-plugin.version>
+        <keytool-maven-plugin.version>1.6</keytool-maven-plugin.version>
         <mycila-license.version>3.0</mycila-license.version>
         <maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>

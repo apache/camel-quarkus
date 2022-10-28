@@ -107,6 +107,11 @@
                     <artifactId>camel-servicenow-maven-plugin</artifactId>
                     <version>${camel.version}</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>keytool-maven-plugin</artifactId>
+                    <version>${keytool-maven-plugin.version}</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
