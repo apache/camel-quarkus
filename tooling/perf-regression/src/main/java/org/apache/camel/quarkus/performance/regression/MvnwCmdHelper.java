@@ -68,7 +68,7 @@ public class MvnwCmdHelper {
 
             Map<String, String> environment = EnvironmentUtils.getProcEnvironment();
 
-            String newMavenOpts = "-Duser.language=en -Duser.country=US --add-opens java.base/java.lang=ALL-UNNAMED";
+            String newMavenOpts = "-Duser.language=en -Duser.country=US";
             if (environment.containsKey("MAVEN_OPTS")) {
                 String currentMavenOpts = environment.get("MAVEN_OPTS");
                 LOGGER.debugf("MAVEN_OPTS is already set up in the main process with value: %s", currentMavenOpts);
