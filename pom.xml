@@ -59,7 +59,7 @@
         <quarkiverse-mybatis.version>1.0.4</quarkiverse-mybatis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/mybatis/quarkus-mybatis-parent/ -->
         <quarkiverse-pooled-jms.version>1.0.6</quarkiverse-pooled-jms.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/messaginghub/quarkus-pooled-jms-parent/ -->
         <quarkiverse-tika.version>1.0.3</quarkiverse-tika.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/tika/quarkus-tika-parent/ -->
-        <quarkus.version>2.14.0.Final</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
+        <quarkus.version>2.15.0.CR1</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
         <quarkus-hazelcast-client.version>3.0.0</quarkus-hazelcast-client.version><!-- https://repo1.maven.org/maven2/com/hazelcast/quarkus-hazelcast-client-bom/ -->
         <quarkus-qpid-jms.version>0.39.0</quarkus-qpid-jms.version><!-- https://repo1.maven.org/maven2/org/amqphub/quarkus/quarkus-qpid-jms-bom/ -->
 
@@ -95,15 +95,15 @@
         <github-api.version>1.111</github-api.version><!-- Used in a Groovy script bellow -->
         <google-auth-library-credentials.version>1.7.0</google-auth-library-credentials.version><!-- TODO: Revert back to using Camel's version when gRPC versions are in sync -->
         <google-oauth-client.version>${google-oauth-client-version}</google-oauth-client.version><!-- TODO: Fix this in Camel https://github.com/apache/camel-quarkus/issues/4139 -->
-        <graalvm.version>22.2.0</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.sdk:graal-sdk -->
-        <grpc.version>1.50.2</grpc.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.grpc:grpc-core -->
+        <graalvm.version>22.3.0</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.sdk:graal-sdk -->
+        <grpc.version>1.51.0</grpc.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.grpc:grpc-core -->
         <hapi.version>${hapi-version}</hapi.version>
         <hapi-base.version>${hapi-base-version}</hapi-base.version>
         <hapi-fhir.version>${hapi-fhir-version}</hapi-fhir.version>
         <hapi-fhir-core.version>4.2.0</hapi-fhir-core.version><!-- @sync ca.uhn.hapi.fhir:hapi-fhir:${hapi-fhir.version} prop:fhir_core_version -->
         <hbase.version>${hbase-version}</hbase.version>
         <htrace.version>4.2.0-incubating</htrace.version><!-- Mess in hbase transitive deps -->
-        <infinispan.version>14.0.1.Final</infinispan.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.infinispan:infinispan-core -->
+        <infinispan.version>14.0.2.Final</infinispan.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.infinispan:infinispan-core -->
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
         <jackson1.version>1.9.13</jackson1.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <jackson-asl.version>${jackson1.version}</jackson-asl.version><!-- Can be different from jackson1.version on some occasions -->
@@ -124,7 +124,7 @@
         <json-smart.version>2.4.7</json-smart.version><!-- @sync com.jayway.jsonpath:json-path:${json-path.version} dep:net.minidev:json-smart -->
         <kafka.version>3.3.1</kafka.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.kafka:kafka-clients -->
         <kudu.version>${kudu-version}</kudu.version>
-        <kotlin.version>1.7.20</kotlin.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.jetbrains.kotlin:kotlin-stdlib -->
+        <kotlin.version>1.7.21</kotlin.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.jetbrains.kotlin:kotlin-stdlib -->
         <kryo.version>2.24.0</kryo.version><!-- @sync org.apache.flink:flink-core:${flink-version} dep:com.esotericsoftware.kryo:kryo -->
         <libthrift.version>${libthrift-version}</libthrift.version> <!-- Spark -->
         <msal4j.version>1.13.1</msal4j.version><!-- @sync com.azure:azure-identity:${azure-identity.version} dep:com.microsoft.azure:msal4j -->
@@ -132,11 +132,11 @@
         <okio.version>${squareup-okio-version}</okio.version>
         <opencensus.version>0.31.0</opencensus.version><!-- Mess in Google cloud. Keep in sync with version used in com.google.http-client:google-http-client -->
         <perfmark-api.version>0.25.0</perfmark-api.version><!-- @sync io.grpc:grpc-netty-shaded:${grpc.version} dep:io.perfmark:perfmark-api -->
-        <protobuf.version>3.19.6</protobuf.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.google.protobuf:protobuf-java -->
+        <protobuf.version>3.21.9</protobuf.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.google.protobuf:protobuf-java -->
         <reactor-core.version>3.4.22</reactor-core.version><!-- @sync com.azure:azure-core:${azure-core.version} dep:io.projectreactor:reactor-core -->
         <reactor-netty.version>${reactor-netty-version}</reactor-netty.version>
         <retrofit.version>2.5.0</retrofit.version>
-        <smallrye.reactive.messaging.camel.version>3.21.0</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
+        <smallrye.reactive.messaging.camel.version>3.22.0</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
         <spring.version>${spring5-version}</spring.version>
         <snakeyaml.version>1.33</snakeyaml.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.yaml:snakeyaml -->
         <tablesaw.version>0.43.1</tablesaw.version>
