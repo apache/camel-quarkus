@@ -1,3 +1,7 @@
 * text=auto eol=lf
 *.cmd text eol=crlf
-
+*.jar binary
+*.jks binary
+*.png binary
+*.ttf binary
+*.zip binary
