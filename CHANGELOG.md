@@ -26,6 +26,7 @@
 - Deprecated parameters in several annotations are ignored - inconsistent with other annotations. [\#4097](https://github.com/apache/camel-quarkus/issues/4097)
 - \[Camel 3.19.0\] azure-core-http-client-vertx: Deployment tests are failing on java heap space [\#4090](https://github.com/apache/camel-quarkus/issues/4090)
 - Automatic configuration of kubernetes cluster service [\#4086](https://github.com/apache/camel-quarkus/issues/4086)
+- \[Camel 3.19.0\] Quartz: solve autowired scheduler properly and remove quick workaround [\#4076](https://github.com/apache/camel-quarkus/issues/4076)
 - Increase test coverage of ref extension [\#4010](https://github.com/apache/camel-quarkus/issues/4010)
 - Increase test coverage in controlbus extension with more actions [\#4009](https://github.com/apache/camel-quarkus/issues/4009)
 - Increase XSLT extension test coverage [\#3904](https://github.com/apache/camel-quarkus/issues/3904)
@@ -36,6 +37,7 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 2.14.0.CR1 [\#4215](https://github.com/apache/camel-quarkus/pull/4215) ([jamesnetherton](https://github.com/jamesnetherton))
 - CxfSoapMtomIT fails in native mode  [\#4214](https://github.com/apache/camel-quarkus/pull/4214) ([ppalaga](https://github.com/ppalaga))
 - Remove unecessary basedir in Kafka Oauth tests [\#4213](https://github.com/apache/camel-quarkus/pull/4213) ([zbendhiba](https://github.com/zbendhiba))
 - Manage dependency com.jayway.jsonpath:json-path [\#4212](https://github.com/apache/camel-quarkus/pull/4212) ([jamesnetherton](https://github.com/jamesnetherton))
