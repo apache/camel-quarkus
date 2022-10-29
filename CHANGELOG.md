@@ -27,6 +27,7 @@
 - \[Camel 3.19.0\] azure-core-http-client-vertx: Deployment tests are failing on java heap space [\#4090](https://github.com/apache/camel-quarkus/issues/4090)
 - Automatic configuration of kubernetes cluster service [\#4086](https://github.com/apache/camel-quarkus/issues/4086)
 - \[Camel 3.19.0\] Quartz: solve autowired scheduler properly and remove quick workaround [\#4076](https://github.com/apache/camel-quarkus/issues/4076)
+- perf-regression: adopt hyperfoil-maven-plugin 0.22 when released [\#4031](https://github.com/apache/camel-quarkus/issues/4031)
 - Increase test coverage of ref extension [\#4010](https://github.com/apache/camel-quarkus/issues/4010)
 - Increase test coverage in controlbus extension with more actions [\#4009](https://github.com/apache/camel-quarkus/issues/4009)
 - Increase XSLT extension test coverage [\#3904](https://github.com/apache/camel-quarkus/issues/3904)
@@ -37,6 +38,8 @@
 
 **Merged pull requests:**
 
+- perf-regression: remove workaround and final fix Java 17 issue \#4031 [\#4222](https://github.com/apache/camel-quarkus/pull/4222) ([aldettinger](https://github.com/aldettinger))
+- fix line ending [\#4221](https://github.com/apache/camel-quarkus/pull/4221) ([aldettinger](https://github.com/aldettinger))
 - Upgrade Quarkus to 2.14.0.CR1 [\#4215](https://github.com/apache/camel-quarkus/pull/4215) ([jamesnetherton](https://github.com/jamesnetherton))
 - CxfSoapMtomIT fails in native mode  [\#4214](https://github.com/apache/camel-quarkus/pull/4214) ([ppalaga](https://github.com/ppalaga))
 - Remove unecessary basedir in Kafka Oauth tests [\#4213](https://github.com/apache/camel-quarkus/pull/4213) ([zbendhiba](https://github.com/zbendhiba))
