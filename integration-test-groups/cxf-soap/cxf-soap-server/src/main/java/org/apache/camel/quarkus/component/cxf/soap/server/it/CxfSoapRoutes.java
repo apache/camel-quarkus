@@ -42,6 +42,13 @@ public class CxfSoapRoutes extends RouteBuilder {
 
         from("cxf:bean:codeFirstServiceEndpoint")
                 .setBody().constant("Hello CamelQuarkusCXF");
+
+        from("cxf:bean:echoServiceResponseFromRoute")
+                .setBody(exchange -> exchange.getMessage().getBody(String.class) + " from Camel route");
+
+        from("cxf:bean:echoServiceResponseFromImpl")// no body set here; the response comes from EchoServiceImpl
+                .log("${body}");
+
     }
 
     @Produces
@@ -75,4 +82,27 @@ public class CxfSoapRoutes extends RouteBuilder {
         result.getFeatures().add(loggingFeature);
         return result;
     }
+
+    @Produces
+    @ApplicationScoped
+    @Named
+    CxfEndpoint echoServiceResponseFromRoute() {
+        final CxfEndpoint result = new CxfEndpoint();
+        result.setServiceClass(EchoServiceImpl.class);
+        result.setAddress("/echo-route");
+        result.getFeatures().add(loggingFeature);
+        return result;
+    }
+
+    @Produces
+    @ApplicationScoped
+    @Named
+    CxfEndpoint echoServiceResponseFromImpl() {
+        final CxfEndpoint result = new CxfEndpoint();
+        result.setServiceClass(EchoServiceImpl.class);
+        result.setAddress("/echo-impl");
+        result.getFeatures().add(loggingFeature);
+        return result;
+    }
+
 }
