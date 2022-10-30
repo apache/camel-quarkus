@@ -20,6 +20,7 @@ import javax.xml.ws.BindingProvider;
 
 import com.helloworld.service.HelloPortType;
 import com.helloworld.service.HelloService;
+import io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil;
 import io.quarkus.runtime.LaunchMode;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -67,6 +68,22 @@ class CxfSoapServiceTest {
                 .extract().asString();
 
         org.junit.jupiter.api.Assertions.assertTrue(response.contains("Hello CamelQuarkusCXF"));
+    }
+
+    @Test
+    public void echoServiceResponseFromRoute() {
+        /* We setServiceClass(EchoServiceImpl.class) in org.apache.camel.quarkus.component.cxf.soap.server.it.CxfSoapRoutes.echoServiceResponseFromRoute()
+         * and at the same time we set the body in the associated Camel route definition. What we do in the route should have a higher prio */
+        final EchoService echo = QuarkusCxfClientTestUtil.getClient(EchoService.class, "/soapservice/echo-route");
+        Assertions.assertEquals("Hello there! from Camel route", echo.echo("Hello there!"));
+    }
+
+    @Test
+    public void echoServiceResponseFromImpl() {
+        /* We setServiceClass(EchoServiceImpl.class) in org.apache.camel.quarkus.component.cxf.soap.server.it.CxfSoapRoutes.echoServiceResponseFromImpl()
+         * but we do not set the body in the associated Camel route definition. Hence the response should come from EchoServiceImpl */
+        final EchoService echo = QuarkusCxfClientTestUtil.getClient(EchoService.class, "/soapservice/echo-impl");
+        Assertions.assertEquals("Hello there!", echo.echo("Hello there!"));
     }
 
 }
