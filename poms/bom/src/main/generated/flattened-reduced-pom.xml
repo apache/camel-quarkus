@@ -10644,97 +10644,97 @@
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf</artifactId>
-        <version>1.5.4</version>
+        <version>1.5.5</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-deployment</artifactId>
-        <version>1.5.4</version>
+        <version>1.5.5</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-logging</artifactId>
-        <version>1.5.4</version>
+        <version>1.5.5</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-logging-deployment</artifactId>
-        <version>1.5.4</version>
+        <version>1.5.5</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-metrics</artifactId>
-        <version>1.5.4</version>
+        <version>1.5.5</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-metrics-deployment</artifactId>
-        <version>1.5.4</version>
+        <version>1.5.5</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-transports-http-hc5</artifactId>
-        <version>1.5.4</version>
+        <version>1.5.5</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-transports-http-hc5-deployment</artifactId>
-        <version>1.5.4</version>
+        <version>1.5.5</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-security</artifactId>
-        <version>1.5.4</version>
+        <version>1.5.5</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-security-deployment</artifactId>
-        <version>1.5.4</version>
+        <version>1.5.5</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-rm</artifactId>
-        <version>1.5.4</version>
+        <version>1.5.5</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-rm-deployment</artifactId>
-        <version>1.5.4</version>
+        <version>1.5.5</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-saaj</artifactId>
-        <version>1.5.4</version>
+        <version>1.5.5</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-saaj-deployment</artifactId>
-        <version>1.5.4</version>
+        <version>1.5.5</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-services-sts</artifactId>
-        <version>1.5.4</version>
+        <version>1.5.5</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-services-sts-deployment</artifactId>
-        <version>1.5.4</version>
+        <version>1.5.5</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-woodstox</artifactId>
-        <version>1.5.4</version>
+        <version>1.5.5</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-woodstox-deployment</artifactId>
-        <version>1.5.4</version>
+        <version>1.5.5</version>
       </dependency>
       <dependency>
         <groupId>com.fasterxml.woodstox</groupId>
         <artifactId>woodstox-core</artifactId>
-        <version>6.3.1</version>
+        <version>6.4.0</version>
       </dependency>
       <dependency>
         <groupId>com.sun.xml.messaging.saaj</groupId>
