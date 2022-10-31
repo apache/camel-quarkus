@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -48,6 +49,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.azure.core.http.rest.PagedIterable;
 import com.azure.storage.blob.changefeed.models.BlobChangefeedEvent;
 import com.azure.storage.blob.changefeed.models.BlobChangefeedEventType;
 import com.azure.storage.blob.models.BlobContainerItem;
@@ -56,8 +58,8 @@ import com.azure.storage.blob.models.BlobStorageException;
 import com.azure.storage.blob.models.Block;
 import com.azure.storage.blob.models.BlockList;
 import com.azure.storage.blob.models.BlockListType;
-import com.azure.storage.blob.models.PageList;
 import com.azure.storage.blob.models.PageRange;
+import com.azure.storage.blob.models.PageRangeItem;
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ConsumerTemplate;
@@ -319,18 +321,18 @@ public class AzureStorageBlobResource {
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject getPageBlobRanges(@QueryParam("pageStart") int start, @QueryParam("pageEnd") int end) {
         PageRange pageRange = new PageRange().setStart(start).setEnd(end);
-        PageList pageList = producerTemplate.requestBodyAndHeader("direct:getPageBlobRanges", null,
-                BlobConstants.PAGE_BLOB_RANGE, pageRange, PageList.class);
+        PagedIterable pageIterable = producerTemplate.requestBodyAndHeader("direct:getPageBlobRanges", null,
+                BlobConstants.PAGE_BLOB_RANGE, pageRange, PagedIterable.class);
 
         JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-        pageList.getPageRange()
-                .stream()
-                .map(pr -> Json.createObjectBuilder()
-                        .add("start", pr.getStart())
-                        .add("end", pr.getEnd())
-                        .build())
-                .forEach(arrayBuilder::add);
+        ((Stream<PageRangeItem>) pageIterable
+                .stream())
+                        .map(pr -> Json.createObjectBuilder()
+                                .add("offset", pr.getRange().getOffset())
+                                .add("length", pr.getRange().getLength())
+                                .build())
+                        .forEach(arrayBuilder::add);
 
         objectBuilder.add("ranges", arrayBuilder.build());
         return objectBuilder.build();

@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>3.18.2</version>
+        <version>3.18.3</version>
     </parent>
 
     <groupId>org.apache.camel.quarkus</groupId>
@@ -40,7 +40,7 @@
 
         <!-- Primary dependencies - maintained manually -->
         <camel.major.minor>3.18</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
-        <camel.version>${camel.major.minor}.2</camel.version>
+        <camel.version>${camel.major.minor}.3</camel.version>
         <camel.docs.components.version>${camel.major.minor}.x</camel.docs.components.version><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.components.xref>${camel.docs.components.version}@components</camel.docs.components.xref><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.branch>camel-${camel.major.minor}.x</camel.docs.branch><!-- The stable camel branch on which our Antora docs depends -->
@@ -79,6 +79,7 @@
         <cassandra-driver-test.version>3.7.1</cassandra-driver-test.version><!-- Keep in sync with testcontainers instead of Debezium bom -->
         <bouncycastle.version>1.70</bouncycastle.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.bouncycastle:bcprov-jdk15on -->
         <caffeine.version>2.9.3</caffeine.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.github.ben-manes.caffeine:caffeine -->
+        <californium-scandium.version>${californium-scandium-version}</californium-scandium.version> <!-- TODO: https://github.com/apache/camel-quarkus/issues/4226 -->
         <commons-beanutils.version>${commons-beanutils-version}</commons-beanutils.version>
         <commons-cli.version>1.4</commons-cli.version><!-- keep in sync with Quarkus, via quarkus-bootstrap-core -->
         <commons-collections.version>3.2.2</commons-collections.version><!-- used by hbase, should be pretty stable as commons-collections are not developed actively anymore -->
@@ -124,7 +125,7 @@
         <kotlin.version>1.7.20</kotlin.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.jetbrains.kotlin:kotlin-stdlib -->
         <kryo.version>2.24.0</kryo.version><!-- @sync org.apache.flink:flink-core:${flink-version} dep:com.esotericsoftware.kryo:kryo -->
         <libthrift.version>${libthrift-version}</libthrift.version> <!-- Spark -->
-        <msal4j.version>1.12.0</msal4j.version><!-- @sync com.azure:azure-identity:${azure-identity-version} dep:com.microsoft.azure:msal4j -->
+        <msal4j.version>1.13.1</msal4j.version><!-- @sync com.azure:azure-identity:${azure-identity-version} dep:com.microsoft.azure:msal4j -->
         <mvel2.version>2.4.14.Final</mvel2.version><!-- @sync org.apache.camel:camel-dependencies:${camel.version} prop:mvel-version -->
         <okio.version>${squareup-okio-version}</okio.version>
         <opencensus.version>0.31.0</opencensus.version><!-- Mess in Google cloud. Keep in sync with version used in com.google.http-client:google-http-client -->
@@ -138,7 +139,7 @@
         <snakeyaml.version>1.33</snakeyaml.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.yaml:snakeyaml -->
         <tablesaw.version>0.43.1</tablesaw.version>
         <threetenbp.version>1.6.0</threetenbp.version>
-        <xalan.version>${xalan-version}</xalan.version>
+        <xalan.version>2.7.2</xalan.version><!-- Xalan should be removed as is in Camel, but it is not possible. https://github.com/apache/camel-quarkus/issues/4065-->
         <xchange.version>${xchange-version}</xchange.version>
         <xerces.version>${xerces-version}</xerces.version>
         <xmlgraphics-commons.version>2.7</xmlgraphics-commons.version><!-- @sync org.apache.xmlgraphics:fop-parent:${fop-version} prop:xmlgraphics.commons.version -->
