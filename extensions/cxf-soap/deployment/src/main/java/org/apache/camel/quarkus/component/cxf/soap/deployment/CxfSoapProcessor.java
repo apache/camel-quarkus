@@ -26,7 +26,6 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.SystemPropertyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveMethodBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 
@@ -62,16 +61,6 @@ class CxfSoapProcessor {
 
         reflectiveMethods.produce(new ReflectiveMethodBuildItem("org.apache.cxf.frontend.AbstractWSDLBasedEndpointFactory",
                 "getServiceFactory", new String[0]));
-
-    }
-
-    @BuildStep
-    void registerForReflection(
-            BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClasses) {
-
-        // TODO: Move to quarkus-cxf
-        runtimeInitializedClasses
-                .produce(new RuntimeInitializedClassBuildItem("com.sun.xml.messaging.saaj.soap.StringDataContentHandler"));
 
     }
 
