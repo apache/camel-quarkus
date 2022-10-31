@@ -51,7 +51,7 @@ endif::[]
 === Message mapping with `org.w3c.dom.Node`
 
 The Camel SJMS2 component supports message mapping between `javax.jms.Message` and `org.apache.camel.Message`. When wanting to convert a Camel message body type of `org.w3c.dom.Node`,
-you must ensure that the `camel-quarkus-jaxp` extension is present on the classpath.
+you must ensure that the `camel-quarkus-xml-jaxp` extension is present on the classpath.
 
 [id="extensions-sjms2-usage-native-mode-support-for-javax-jms-objectmessage"]
 === Native mode support for javax.jms.ObjectMessage
