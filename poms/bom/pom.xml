@@ -1398,6 +1398,10 @@
                         <groupId>jakarta.xml.bind</groupId>
                         <artifactId>jakarta.xml.bind-api</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <artifactId>californium-legal</artifactId>
+                        <groupId>org.eclipse.californium</groupId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -10263,6 +10267,12 @@
                 <groupId>org.codehaus.woodstox</groupId>
                 <artifactId>stax2-api</artifactId>
                 <version>${stax2.version}</version>
+            </dependency>
+            <!-- TODO: https://github.com/apache/camel-quarkus/issues/4226 -->
+            <dependency>
+                <groupId>org.eclipse.californium</groupId>
+                <artifactId>element-connector</artifactId>
+                <version>${californium-scandium.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.jgit</groupId>
