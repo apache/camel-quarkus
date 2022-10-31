@@ -34,13 +34,17 @@ import groovy.ant.AntBuilder
 final Path sourceDir = Paths.get(properties['group-tests.source.dir'])
 final String[] concatRelPaths = properties['group-tests.concat.rel.paths'].split('[\\s,]+')
 final Path destinationModuleDir = Paths.get(properties['group-tests.dest.module.dir'])
+final String excludes = properties['group-tests.files.excludes'] ?: ""
+final List<String> fileExcludes = excludes.split('[\\s,]+') as List
 /* Property names whose values originating from distinct application.properties files can be concatenated using comma as a separator */
-final Set<String> commaConcatenatePropertyNames = ["quarkus.native.resources.includes", "quarkus.native.resources.excludes"] as Set;
+final Set<String> commaConcatenatePropertyNames = ["quarkus.native.resources.includes", "quarkus.native.resources.excludes"] as Set
 
 final Map<String, ResourceConcatenator> mergedFiles = new HashMap<>()
 concatRelPaths.each {relPath -> mergedFiles.put(relPath, new ResourceConcatenator(commaConcatenatePropertyNames)) }
 
 Files.list(sourceDir)
+    .filter(p -> !fileExcludes.contains(p.getFileName().toString()))
+    .peek(p -> System.out.println(p.getFileName().toString()))
     .filter { p -> Files.exists(p.resolve('pom.xml')) }
     .sorted()
     .forEach { p ->

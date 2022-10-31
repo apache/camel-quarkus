@@ -96,10 +96,12 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-log</artifactId>
         </dependency>
+        <!-- https://github.com/apache/camel-quarkus/issues/4225
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-microprofile-fault-tolerance</artifactId>
         </dependency>
+        -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-mock</artifactId>
@@ -210,7 +212,9 @@
                             <properties>
                                 <group-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/foundation</group-tests.source.dir>
                                 <group-tests.dest.module.dir>${project.basedir}</group-tests.dest.module.dir>
-                                <group-tests.concat.rel.paths>src/main/resources/application.properties</group-tests.concat.rel.paths>
+				<group-tests.concat.rel.paths>src/main/resources/application.properties</group-tests.concat.rel.paths>
+				<!-- TODO: https://github.com/apache/camel-quarkus/issues/4225 -->
+				<group-tests.files.excludes>core-fault-tolerance</group-tests.files.excludes>
                             </properties>
                         </configuration>
                     </execution>
