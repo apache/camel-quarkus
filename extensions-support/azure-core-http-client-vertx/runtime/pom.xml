@@ -44,12 +44,12 @@
             <artifactId>quarkus-vertx</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-web-client</artifactId>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-core</artifactId>
         </dependency>
         <dependency>
             <groupId>com.azure</groupId>
-            <artifactId>azure-core</artifactId>
+            <artifactId>azure-core-http-vertx</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
