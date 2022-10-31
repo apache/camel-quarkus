@@ -17,14 +17,12 @@
 package org.apache.camel.quarkus.component.microprofile.it.faulttolerance;
 
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.eclipse.microprofile.faulttolerance.exceptions.TimeoutException;
 
 @ApplicationScoped
 public class MicroProfileFaultToleranceRoutes extends RouteBuilder {
@@ -38,6 +36,7 @@ public class MicroProfileFaultToleranceRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
+        /* TODO: https://github.com/apache/camel-quarkus/issues/4225
         from("direct:faultToleranceWithBulkhead")
                 .circuitBreaker()
                 .faultToleranceConfiguration().bulkheadEnabled(true).end()
@@ -51,7 +50,7 @@ public class MicroProfileFaultToleranceRoutes extends RouteBuilder {
                 .onFallback()
                 .setBody().constant(FALLBACK_RESULT)
                 .end();
-
+        
         from("direct:faultToleranceWithFallback")
                 .circuitBreaker()
                 .process(exchange -> {
@@ -64,7 +63,7 @@ public class MicroProfileFaultToleranceRoutes extends RouteBuilder {
                 .onFallback()
                 .setBody().constant(FALLBACK_RESULT)
                 .end();
-
+        
         from("direct:faultToleranceWithThreshold")
                 .circuitBreaker()
                 .faultToleranceConfiguration().failureRatio(100).successThreshold(1).requestVolumeThreshold(1).delay(0).end()
@@ -77,7 +76,7 @@ public class MicroProfileFaultToleranceRoutes extends RouteBuilder {
                 })
                 .end()
                 .setBody().simple(RESULT);
-
+        
         from("direct:faultToleranceWithTimeout")
                 .circuitBreaker()
                 .faultToleranceConfiguration().timeoutEnabled(true).timeoutDuration(500).end()
@@ -91,7 +90,7 @@ public class MicroProfileFaultToleranceRoutes extends RouteBuilder {
                 .onFallback()
                 .setBody().simple(FALLBACK_RESULT)
                 .end();
-
+        
         from("direct:faultToleranceWithTimeoutCustomExecutor")
                 .circuitBreaker()
                 .faultToleranceConfiguration().timeoutEnabled(true).timeoutScheduledExecutorService("myThreadPool")
@@ -106,26 +105,27 @@ public class MicroProfileFaultToleranceRoutes extends RouteBuilder {
                 .onFallback()
                 .setBody().simple(FALLBACK_RESULT)
                 .end();
-
+        
         from("direct:inheritErrorHandler")
                 .errorHandler(deadLetterChannel("mock:dead").maximumRedeliveries(3).redeliveryDelay(0))
                 .circuitBreaker().inheritErrorHandler(true)
                 .to("mock:start")
                 .throwException(new IllegalArgumentException(EXCEPTION_MESSAGE)).end()
                 .to("mock:end");
-
+        
         from("direct:circuitBreakerBean")
                 .bean(greetingBean, "greetWithCircuitBreaker");
-
+        
         from("direct:fallbackBean")
                 .bean(greetingBean, "greetWithFallback");
-
+        
         from("direct:timeoutBean")
                 .doTry()
                 .bean(greetingBean, "greetWithDelay")
                 .doCatch(TimeoutException.class)
                 .setBody().constant(FALLBACK_RESULT)
                 .end();
+         */
     }
 
     @Named("myThreadPool")
