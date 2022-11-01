@@ -15,6 +15,7 @@
 
 **Closed issues:**
 
+- Quarkus Maven Plugin unable to handle maven exclusions [\#4230](https://github.com/apache/camel-quarkus/issues/4230)
 - Manage dependency `com.jayway.jsonpath:json-path` [\#4211](https://github.com/apache/camel-quarkus/issues/4211)
 - CxfSoapMtomIT fails in native mode [\#4208](https://github.com/apache/camel-quarkus/issues/4208)
 - Create test coverage for CXF SOAP MTOM [\#4203](https://github.com/apache/camel-quarkus/issues/4203)
@@ -38,6 +39,8 @@
 
 **Merged pull requests:**
 
+- replace doc occurence of camel-quarkus-jaxp with camel-quarkus-xml-jaxp [\#4229](https://github.com/apache/camel-quarkus/pull/4229) ([aldettinger](https://github.com/aldettinger))
+- Test CXF service having an Implementation class in the application [\#4223](https://github.com/apache/camel-quarkus/pull/4223) ([ppalaga](https://github.com/ppalaga))
 - perf-regression: remove workaround and final fix Java 17 issue \#4031 [\#4222](https://github.com/apache/camel-quarkus/pull/4222) ([aldettinger](https://github.com/aldettinger))
 - fix line ending [\#4221](https://github.com/apache/camel-quarkus/pull/4221) ([aldettinger](https://github.com/aldettinger))
 - Upgrade Quarkus to 2.14.0.CR1 [\#4215](https://github.com/apache/camel-quarkus/pull/4215) ([jamesnetherton](https://github.com/jamesnetherton))
