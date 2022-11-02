@@ -65,6 +65,11 @@
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.quarkiverse.artemis</groupId>
+            <artifactId>quarkus-test-artemis</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <!-- Inherit base messaging tests -->
         <dependency>
