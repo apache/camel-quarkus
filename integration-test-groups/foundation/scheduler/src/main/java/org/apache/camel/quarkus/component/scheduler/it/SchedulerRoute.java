@@ -49,19 +49,19 @@ public class SchedulerRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("scheduler:withInitialDelay?initialDelay=1")
+        from("scheduler:withInitialDelay?initialDelay=1").routeId("withInitialDelay").noAutoStartup()
                 .process(e -> schedulerCounter.incrementAndGet());
 
-        from("scheduler:withDelay?delay=100")
+        from("scheduler:withDelay?delay=100").routeId("withDelay").noAutoStartup()
                 .process(e -> withDelayCounter.incrementAndGet());
 
-        from("scheduler:useFixedDelay?initialDelay=200&useFixedDelay=true")
+        from("scheduler:useFixedDelay?initialDelay=200&useFixedDelay=true").routeId("useFixedDelay").noAutoStartup()
                 .process(e -> useFixedDelayCounter.incrementAndGet());
 
-        from("scheduler:withDelayRepeat?delay=1&repeatCount=5")
+        from("scheduler:withDelayRepeat?delay=1&repeatCount=5").routeId("withDelayRepeat").noAutoStartup()
                 .process(e -> withDelayRepeatCounter.incrementAndGet());
 
-        from("scheduler:greedy?delay=100&greedy=true")
+        from("scheduler:greedy?delay=100&greedy=true").routeId("greedy").noAutoStartup()
                 .process(e -> greedyCounter.incrementAndGet());
     }
 }
