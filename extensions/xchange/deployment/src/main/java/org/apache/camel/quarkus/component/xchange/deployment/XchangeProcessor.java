@@ -137,7 +137,7 @@ class XchangeProcessor {
 
     @BuildStep
     void registerResourceBundles(BuildProducer<NativeImageResourceBundleBuildItem> producer) {
-        producer.produce(new NativeImageResourceBundleBuildItem("sun.util.resources.CurrencyNames"));
+        producer.produce(new NativeImageResourceBundleBuildItem("sun.util.resources.CurrencyNames", "java.base"));
     }
 
 }
