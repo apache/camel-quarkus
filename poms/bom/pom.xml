@@ -9999,6 +9999,17 @@
                 <version>${quarkiverse-jsch.version}</version>
             </dependency>
             <dependency>
+                <groupId>io.quarkiverse.messaginghub</groupId>
+                <artifactId>quarkus-pooled-jms</artifactId>
+                <version>${quarkiverse-pooled-jms.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>jakarta.jms</groupId>
+                        <artifactId>jakarta.jms-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
                 <groupId>io.quarkiverse.minio</groupId>
                 <artifactId>quarkus-minio</artifactId>
                 <version>${quarkiverse-minio.version}</version>
@@ -10510,6 +10521,7 @@
                                 <resolutionEntryPointInclude>org.apache.camel.quarkus:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>ca.uhn.hapi:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>io.quarkiverse.cxf:*</resolutionEntryPointInclude>
+                                <resolutionEntryPointInclude>io.quarkiverse.messaginghub:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>net.openhft:affinity</resolutionEntryPointInclude><!-- https://github.com/apache/camel-quarkus/issues/3788 -->
                                 <resolutionEntryPointInclude>org.apache.cxf.xjc-utils:cxf-xjc-runtime</resolutionEntryPointInclude>
                             </resolutionEntryPointIncludes>

@@ -9933,6 +9933,17 @@
         <version>2.0.1</version>
       </dependency>
       <dependency>
+        <groupId>io.quarkiverse.messaginghub</groupId>
+        <artifactId>quarkus-pooled-jms</artifactId>
+        <version>1.0.5</version>
+        <exclusions>
+          <exclusion>
+            <groupId>jakarta.jms</groupId>
+            <artifactId>jakarta.jms-api</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
         <groupId>io.quarkiverse.minio</groupId>
         <artifactId>quarkus-minio</artifactId>
         <version>2.9.2</version>
