@@ -22,13 +22,20 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+import org.apache.camel.CamelContext;
 
 @Path("/scheduler")
 @ApplicationScoped
 public class SchedulerResource {
+
+    @Inject
+    CamelContext context;
 
     @Inject
     @Named("withDelayCounter")
@@ -117,6 +124,16 @@ public class SchedulerResource {
     @Named("greedyCounter")
     AtomicInteger greedyCounter() {
         return new AtomicInteger();
+    }
+
+    @POST
+    @Path("route/{route}/{enable}")
+    public void mangeRoutes(@PathParam("route") String route, @PathParam("enable") boolean enable) throws Exception {
+        if (enable) {
+            context.getRouteController().startRoute(route);
+        } else {
+            context.getRouteController().stopRoute(route);
+        }
     }
 
 }
