@@ -49,6 +49,12 @@
             <artifactId>quarkus-artemis-jms</artifactId>
         </dependency>
 
+        <!-- Messaging Pooled JMS -->
+        <dependency>
+            <groupId>io.quarkiverse.messaginghub</groupId>
+            <artifactId>quarkus-pooled-jms</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>jakarta.jms</groupId>
             <artifactId>jakarta.jms-api</artifactId>
@@ -69,6 +75,12 @@
             <groupId>io.quarkiverse.artemis</groupId>
             <artifactId>quarkus-test-artemis</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>commons-pool2</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Inherit base messaging tests -->
