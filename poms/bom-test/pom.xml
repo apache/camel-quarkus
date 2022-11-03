@@ -70,11 +70,6 @@
             </dependency>
 
             <dependency>
-                <groupId>io.quarkiverse.messaginghub</groupId>
-                <artifactId>quarkus-pooled-jms</artifactId>
-                <version>${quarkiverse-pooled-jms.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-integration-test-support-custom-dataformat</artifactId>
                 <version>${camel-quarkus.version}</version>
