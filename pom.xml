@@ -98,6 +98,7 @@
         <graalvm.version>22.2.0</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.sdk:graal-sdk -->
         <grpc.version>1.49.0</grpc.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.grpc:grpc-core -->
         <hapi.version>${hapi-version}</hapi.version>
+        <hapi-base.version>${hapi-base-version}</hapi-base.version>
         <hapi-fhir.version>${hapi-fhir-version}</hapi-fhir.version>
         <hbase.version>${hbase-version}</hbase.version>
         <htrace.version>4.2.0-incubating</htrace.version><!-- Mess in hbase transitive deps -->
