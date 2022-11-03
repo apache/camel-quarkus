@@ -10239,7 +10239,7 @@
       <dependency>
         <groupId>org.graalvm.js</groupId>
         <artifactId>js</artifactId>
-        <version>22.2.0</version>
+        <version>22.3.0</version>
       </dependency>
       <dependency>
         <groupId>org.influxdb</groupId>

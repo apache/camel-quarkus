@@ -96,7 +96,7 @@
         <github-api.version>1.111</github-api.version><!-- Used in a Groovy script bellow -->
         <google-auth-library-credentials.version>1.7.0</google-auth-library-credentials.version><!-- TODO: Revert back to using Camel's version when gRPC versions are in sync -->
         <google-oauth-client.version>${google-oauth-client-version}</google-oauth-client.version><!-- TODO: Fix this in Camel https://github.com/apache/camel-quarkus/issues/4139 -->
-        <graalvm.version>22.2.0</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.sdk:graal-sdk -->
+        <graalvm.version>22.3.0</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.sdk:graal-sdk -->
         <grpc.version>1.49.0</grpc.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.grpc:grpc-core -->
         <hapi.version>${hapi-version}</hapi.version>
         <hapi-base.version>${hapi-base-version}</hapi-base.version>
