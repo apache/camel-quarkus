@@ -36,11 +36,14 @@
 - Sync `camel-main` / `quarkus-main` nightly CI workflows with the main workflow [\#3716](https://github.com/apache/camel-quarkus/issues/3716)
 - Extensions for camel-knative and camel-cloudevents [\#3459](https://github.com/apache/camel-quarkus/issues/3459)
 - Reference Camel `azure-sdk-bom-version` property in `azure-sdk-bom.version` [\#3229](https://github.com/apache/camel-quarkus/issues/3229)
+- Make `quarkus.artemis.url` optional [\#2857](https://github.com/apache/camel-quarkus/issues/2857)
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 2.14.0.Final [\#4236](https://github.com/apache/camel-quarkus/pull/4236) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to quarkus-cxf 1.5.5 [\#4232](https://github.com/apache/camel-quarkus/pull/4232) ([ppalaga](https://github.com/ppalaga))
 - replace doc occurence of camel-quarkus-jaxp with camel-quarkus-xml-jaxp [\#4229](https://github.com/apache/camel-quarkus/pull/4229) ([aldettinger](https://github.com/aldettinger))
+- Adding a test for custom ConnectionFactory without quarkus.artemis.url [\#4228](https://github.com/apache/camel-quarkus/pull/4228) ([zhfeng](https://github.com/zhfeng))
 - Test CXF service having an Implementation class in the application [\#4223](https://github.com/apache/camel-quarkus/pull/4223) ([ppalaga](https://github.com/ppalaga))
 - perf-regression: remove workaround and final fix Java 17 issue \#4031 [\#4222](https://github.com/apache/camel-quarkus/pull/4222) ([aldettinger](https://github.com/aldettinger))
 - fix line ending [\#4221](https://github.com/apache/camel-quarkus/pull/4221) ([aldettinger](https://github.com/aldettinger))
