@@ -31,6 +31,7 @@
 - perf-regression: adopt hyperfoil-maven-plugin 0.22 when released [\#4031](https://github.com/apache/camel-quarkus/issues/4031)
 - Increase test coverage of ref extension [\#4010](https://github.com/apache/camel-quarkus/issues/4010)
 - Increase test coverage in controlbus extension with more actions [\#4009](https://github.com/apache/camel-quarkus/issues/4009)
+- Add a test in camel-quarkus-integration-test-jms-artemis-client with quarkus-pooled-jms [\#3951](https://github.com/apache/camel-quarkus/issues/3951)
 - Increase XSLT extension test coverage [\#3904](https://github.com/apache/camel-quarkus/issues/3904)
 - Add extension for camel-dsl-modeline [\#3834](https://github.com/apache/camel-quarkus/issues/3834)
 - Sync `camel-main` / `quarkus-main` nightly CI workflows with the main workflow [\#3716](https://github.com/apache/camel-quarkus/issues/3716)
@@ -40,6 +41,9 @@
 
 **Merged pull requests:**
 
+- Fix : flakiness of Scheduler integration-tests. [\#4240](https://github.com/apache/camel-quarkus/pull/4240) ([svkcemk](https://github.com/svkcemk))
+- Use Camel hapi-base-version property for hapi-base [\#4239](https://github.com/apache/camel-quarkus/pull/4239) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix \#3951 to add a test with quarkus-pooled-jms [\#4237](https://github.com/apache/camel-quarkus/pull/4237) ([zhfeng](https://github.com/zhfeng))
 - Upgrade Quarkus to 2.14.0.Final [\#4236](https://github.com/apache/camel-quarkus/pull/4236) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to quarkus-cxf 1.5.5 [\#4232](https://github.com/apache/camel-quarkus/pull/4232) ([ppalaga](https://github.com/ppalaga))
 - replace doc occurence of camel-quarkus-jaxp with camel-quarkus-xml-jaxp [\#4229](https://github.com/apache/camel-quarkus/pull/4229) ([aldettinger](https://github.com/aldettinger))
