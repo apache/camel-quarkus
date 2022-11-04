@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-integration-test-groups</artifactId>
-        <version>2.13.1-SNAPSHOT</version>
+        <version>2.13.1</version>
     </parent>
 
     <artifactId>camel-quarkus-integration-tests-aws2</artifactId>
