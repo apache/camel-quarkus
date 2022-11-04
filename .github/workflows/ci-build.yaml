@@ -115,7 +115,7 @@ jobs:
         id: set-native-matrix
         run: |
           CATEGORIES=$(yq -M -N -I 0 -o=json e 'keys' tooling/scripts/test-categories.yaml | tr '"' "'")
-          echo "::set-output name=matrix::{'category': ${CATEGORIES}}"
+          echo "matrix={'category': ${CATEGORIES}}" >> $GITHUB_OUTPUT
 
   native-tests:
     name: Native Tests - ${{matrix.category}}

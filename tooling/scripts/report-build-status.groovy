@@ -95,7 +95,7 @@ if (STATUS == "failure") {
 if (STATUS == "verify") {
     if (Utils.workflowHasPreviousFailures(issue, BUILD_ID)) {
         println("Overall build status is: failure")
-        println "::set-output name=overall_build_status::failure"
+        new File(System.getenv("GITHUB_OUTPUT")).append("overall_build_status=failure")
         return
     } else {
         if (issue.getState() == GHIssueState.OPEN) {
@@ -109,5 +109,6 @@ if (STATUS == "verify") {
             println("Comment added on issue ${issue.getHtmlUrl()} - ${comment.getHtmlUrl()}, the issue has also been closed")
         }
     }
-    println "::set-output name=overall_build_status::success"
+
+    new File(System.getenv("GITHUB_OUTPUT")).append("overall_build_status=success")
 }
