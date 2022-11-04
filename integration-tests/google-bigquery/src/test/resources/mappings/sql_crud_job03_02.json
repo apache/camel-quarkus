@@ -1,23 +1,18 @@
 {
-  "id" : "1234e4a0-ec75-4aa7-a72c-163b29c8648e",
-  "name" : "bigquery_v2_projects_test-project_jobs",
+  "id" : "ec613dcc-1c45-4223-afaa-479570987a79",
+  "name" : "bigquery_v2_projects_test-project_jobs_job03",
   "request" : {
-    "url" : "/bigquery/v2/projects/test-project/jobs?prettyPrint=false",
-    "method" : "POST",
-    "bodyPatterns" : [ {
-      "equalToJson" : "{\"configuration\":{\"query\":{\"query\":\"SELECT * FROM `test-project.google_bigquery_test_dataset.google_bigquery_table_for_sql_crud`\",\"useLegacySql\":false}},\"jobReference\":{\"jobId\":\"job03\",\"projectId\":\"test-project\"}}",
-      "ignoreArrayOrder" : true,
-      "ignoreExtraElements" : true
-    } ]
+    "url" : "/bigquery/v2/projects/test-project/jobs/job03?location=US&prettyPrint=false",
+    "method" : "GET"
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"kind\":\"bigquery#job\",\"etag\":\"kxNcuPBuQQF/FHEpF19sNw==\",\"id\":\"test-project:US.job03\",\"selfLink\":\"https://bigquery.googleapis.com/bigquery/v2/projects/test-project/jobs/job03?location=US\",\"user_email\":\"fuse-qe-ceq-pubsub-service-acc@test-project.iam.gserviceaccount.com\",\"configuration\":{\"query\":{\"query\":\"SELECT * FROM `test-project.google_bigquery_test_dataset.google_bigquery_table_for_sql_crud`\",\"destinationTable\":{\"projectId\":\"test-project\",\"datasetId\":\"_cd8b40856acd1b6890f170712a53c7133d5b133e\",\"tableId\":\"anondfb1a020ae5675902d3fdea6bf50c621f3724395\"},\"writeDisposition\":\"WRITE_TRUNCATE\",\"priority\":\"INTERACTIVE\",\"useLegacySql\":false},\"jobType\":\"QUERY\"},\"jobReference\":{\"projectId\":\"test-project\",\"jobId\":\"job03\",\"location\":\"US\"},\"statistics\":{\"creationTime\":\"1661152755075\",\"startTime\":\"1661152755111\",\"endTime\":\"1661152755338\",\"totalBytesProcessed\":\"18\",\"query\":{\"queryPlan\":[{\"name\":\"S00: Output\",\"id\":\"0\",\"startMs\":\"1661152755255\",\"endMs\":\"1661152755271\",\"waitRatioAvg\":1,\"waitMsAvg\":\"10\",\"waitRatioMax\":1,\"waitMsMax\":\"10\",\"readRatioAvg\":0.6,\"readMsAvg\":\"6\",\"readRatioMax\":0.8,\"readMsMax\":\"8\",\"computeRatioAvg\":0.6,\"computeMsAvg\":\"6\",\"computeRatioMax\":0.6,\"computeMsMax\":\"6\",\"writeRatioAvg\":0.5,\"writeMsAvg\":\"5\",\"writeRatioMax\":0.5,\"writeMsMax\":\"5\",\"shuffleOutputBytes\":\"32\",\"shuffleOutputBytesSpilled\":\"0\",\"recordsRead\":\"2\",\"recordsWritten\":\"2\",\"parallelInputs\":\"2\",\"completedParallelInputs\":\"2\",\"status\":\"COMPLETE\",\"steps\":[{\"kind\":\"READ\",\"substeps\":[\"$1:id, $2:col1, $3:col2\",\"FROM test-project.google_bigquery_test_dataset.google_bigquery_table_for_sql_crud\"]},{\"kind\":\"WRITE\",\"substeps\":[\"$1, $2, $3\",\"TO __stage00_output\"]}],\"slotMs\":\"43\"}],\"estimatedBytesProcessed\":\"18\",\"timeline\":[{\"elapsedMs\":\"190\",\"totalSlotMs\":\"43\",\"pendingUnits\":\"0\",\"completedUnits\":\"2\",\"estimatedRunnableUnits\":\"0\"}],\"totalPartitionsProcessed\":\"0\",\"totalBytesProcessed\":\"18\",\"totalBytesBilled\":\"10485760\",\"billingTier\":1,\"totalSlotMs\":\"43\",\"cacheHit\":false,\"referencedTables\":[{\"projectId\":\"test-project\",\"datasetId\":\"google_bigquery_test_dataset\",\"tableId\":\"google_bigquery_table_for_sql_crud\"}],\"statementType\":\"SELECT\"},\"totalSlotMs\":\"43\"},\"status\":{\"state\":\"DONE\"}}",
+    "body" : "{\"kind\":\"bigquery#job\",\"etag\":\"u1huzXHMqRMg1ODsav2rUA==\",\"id\":\"test-project:US.job03\",\"selfLink\":\"https://bigquery.googleapis.com/bigquery/v2/projects/test-project/jobs/job03?location=US\",\"user_email\":\"fuse-qe-ceq-pubsub-service-acc@test-project.iam.gserviceaccount.com\",\"configuration\":{\"query\":{\"query\":\"SELECT * FROM `test-project.google_bigquery_test_dataset.google_bigquery_table_for_sql_crud`\",\"destinationTable\":{\"projectId\":\"test-project\",\"datasetId\":\"_cd8b40856acd1b6890f170712a53c7133d5b133e\",\"tableId\":\"anonc52b02d9c585e335ca4ef4a791fd546226a7f7282acb8c091fdf569527091089\"},\"writeDisposition\":\"WRITE_TRUNCATE\",\"priority\":\"INTERACTIVE\",\"useLegacySql\":false},\"jobType\":\"QUERY\"},\"jobReference\":{\"projectId\":\"test-project\",\"jobId\":\"job03\",\"location\":\"US\"},\"statistics\":{\"creationTime\":\"1667565249814\",\"startTime\":\"1667565249891\",\"endTime\":\"1667565250234\",\"totalBytesProcessed\":\"96\",\"query\":{\"queryPlan\":[{\"name\":\"S00: Output\",\"id\":\"0\",\"startMs\":\"1667565250127\",\"endMs\":\"1667565250141\",\"waitRatioAvg\":0.16666666666666666,\"waitMsAvg\":\"1\",\"waitRatioMax\":0.33333333333333331,\"waitMsMax\":\"2\",\"readRatioAvg\":0.66666666666666663,\"readMsAvg\":\"4\",\"readRatioMax\":1,\"readMsMax\":\"6\",\"computeRatioAvg\":0.83333333333333337,\"computeMsAvg\":\"5\",\"computeRatioMax\":0.83333333333333337,\"computeMsMax\":\"5\",\"writeRatioAvg\":0.66666666666666663,\"writeMsAvg\":\"4\",\"writeRatioMax\":0.83333333333333337,\"writeMsMax\":\"5\",\"shuffleOutputBytes\":\"98\",\"shuffleOutputBytesSpilled\":\"0\",\"recordsRead\":\"2\",\"recordsWritten\":\"2\",\"parallelInputs\":\"2\",\"completedParallelInputs\":\"2\",\"status\":\"COMPLETE\",\"steps\":[{\"kind\":\"READ\",\"substeps\":[\"$1:id, $2:col1, $3:col2\",\"FROM test-project.google_bigquery_test_dataset.google_bigquery_table_for_sql_crud\"]},{\"kind\":\"WRITE\",\"substeps\":[\"$1, $2, $3\",\"TO __stage00_output\"]}],\"slotMs\":\"38\"}],\"estimatedBytesProcessed\":\"96\",\"timeline\":[{\"elapsedMs\":\"291\",\"totalSlotMs\":\"38\",\"pendingUnits\":\"0\",\"completedUnits\":\"2\",\"estimatedRunnableUnits\":\"0\"}],\"totalPartitionsProcessed\":\"0\",\"totalBytesProcessed\":\"96\",\"totalBytesBilled\":\"10485760\",\"billingTier\":1,\"totalSlotMs\":\"38\",\"cacheHit\":false,\"referencedTables\":[{\"projectId\":\"test-project\",\"datasetId\":\"google_bigquery_test_dataset\",\"tableId\":\"google_bigquery_table_for_sql_crud\"}],\"statementType\":\"SELECT\",\"performanceInsights\":{\"avgPreviousExecutionMs\":\"27\"},\"transferredBytes\":\"0\"},\"totalSlotMs\":\"38\",\"finalExecutionDurationMs\":\"25\"},\"status\":{\"state\":\"DONE\"},\"principal_subject\":\"serviceAccount:fuse-qe-ceq-pubsub-service-acc@test-project.iam.gserviceaccount.com\"}",
     "headers" : {
-      "ETag" : "kxNcuPBuQQF/FHEpF19sNw==",
+      "ETag" : "u1huzXHMqRMg1ODsav2rUA==",
       "Content-Type" : "application/json; charset=UTF-8",
       "Vary" : [ "Origin", "X-Origin", "Referer" ],
-      "Date" : "Mon, 22 Aug 2022 07:19:15 GMT",
+      "Date" : "Fri, 04 Nov 2022 12:34:11 GMT",
       "Server" : "ESF",
       "Cache-Control" : "private",
       "X-XSS-Protection" : "0",
@@ -26,7 +21,7 @@
       "Alt-Svc" : "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
     }
   },
-  "uuid" : "1234e4a0-ec75-4aa7-a72c-163b29c8648e",
+  "uuid" : "ec613dcc-1c45-4223-afaa-479570987a79",
   "persistent" : true,
-  "insertionIndex" : 76
+  "insertionIndex" : 32
 }

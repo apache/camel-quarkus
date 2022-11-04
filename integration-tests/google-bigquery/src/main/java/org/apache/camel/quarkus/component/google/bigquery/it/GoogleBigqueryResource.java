@@ -134,8 +134,8 @@ public class GoogleBigqueryResource {
 
         Map<String, Object> bodyMap = new HashMap<>();
         if (body != null) {
-            bodyMap.put(body, headers.get(body));
-            headers.remove(body);
+            bodyMap.put(body, typedHeaders.get(body));
+            typedHeaders.remove(body);
         }
 
         return producerTemplate.requestBodyAndHeaders(uri, bodyMap, typedHeaders,
