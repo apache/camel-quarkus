@@ -25,8 +25,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.CamelExecutionException;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.mock.MockEndpoint;
 
 @ApplicationScoped
 @Path("/messaging/jms/artemis")
@@ -37,6 +40,12 @@ public class JmsArtemisResource {
 
     @Produce("jms:queue:pojoProduce")
     ProducerTemplate pojoProducer;
+
+    @Inject
+    CamelContext context;
+
+    @Inject
+    ProducerTemplate producerTemplate;
 
     @GET
     @Path("/connection/factory")
@@ -49,5 +58,35 @@ public class JmsArtemisResource {
     @Path("/pojo/producer")
     public void pojoProducer(String message) {
         pojoProducer.sendBody(message);
+    }
+
+    @POST
+    @Path("/xa")
+    public String testXA(String message) throws Exception {
+        MockEndpoint mockEndpoint = context.getEndpoint("mock:xaResult", MockEndpoint.class);
+
+        mockEndpoint.reset();
+        if (isValid(message)) {
+            mockEndpoint.expectedMessageCount(1);
+        } else {
+            mockEndpoint.expectedMessageCount(0);
+        }
+
+        try {
+            producerTemplate.sendBody("direct:xa", message);
+        } catch (CamelExecutionException e) {
+            // ignore the exception and we will check the mock:xaResult
+        }
+        mockEndpoint.assertIsSatisfied(5000);
+
+        if (isValid(message)) {
+            return mockEndpoint.getExchanges().get(0).getIn().getBody(String.class);
+        } else {
+            return "rollback";
+        }
+    }
+
+    private boolean isValid(String message) {
+        return !message.startsWith("fail");
     }
 }
