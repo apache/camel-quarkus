@@ -1,5 +1,5 @@
 {
-  "id" : "7ebc9403-fb2e-4e32-9ca0-0b581da71fb4",
+  "id" : "724130fe-905f-48f0-8156-a5d3f902c0c8",
   "name" : "bigquery_v2_projects_test-project_queries_job05",
   "request" : {
     "url" : "/bigquery/v2/projects/test-project/queries/job05?location=US&maxResults=0&prettyPrint=false",
@@ -7,12 +7,12 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"kind\":\"bigquery#getQueryResultsResponse\",\"etag\":\"doeBwWpe1eaj9fZgCDm9jQ==\",\"schema\":{\"fields\":[{\"name\":\"id\",\"type\":\"STRING\"},{\"name\":\"col1\",\"type\":\"STRING\"},{\"name\":\"col2\",\"type\":\"STRING\"}]},\"jobReference\":{\"projectId\":\"test-project\",\"jobId\":\"job05\",\"location\":\"US\"},\"totalBytesProcessed\":\"19\",\"jobComplete\":true,\"cacheHit\":false,\"numDmlAffectedRows\":\"1\"}",
+    "body" : "{\"kind\":\"bigquery#getQueryResultsResponse\",\"etag\":\"ENhE3lnXNfPXy3mafLnyXw==\",\"schema\":{\"fields\":[{\"name\":\"id\",\"type\":\"NUMERIC\"},{\"name\":\"col1\",\"type\":\"NUMERIC\"},{\"name\":\"col2\",\"type\":\"NUMERIC\"}]},\"jobReference\":{\"projectId\":\"test-project\",\"jobId\":\"job05\",\"location\":\"US\"},\"totalBytesProcessed\":\"96\",\"jobComplete\":true,\"cacheHit\":false,\"numDmlAffectedRows\":\"1\"}",
     "headers" : {
-      "ETag" : "doeBwWpe1eaj9fZgCDm9jQ==",
+      "ETag" : "ENhE3lnXNfPXy3mafLnyXw==",
       "Content-Type" : "application/json; charset=UTF-8",
       "Vary" : [ "Origin", "X-Origin", "Referer" ],
-      "Date" : "Mon, 22 Aug 2022 07:19:27 GMT",
+      "Date" : "Fri, 04 Nov 2022 12:46:56 GMT",
       "Server" : "ESF",
       "Cache-Control" : "private",
       "X-XSS-Protection" : "0",
@@ -21,9 +21,9 @@
       "Alt-Svc" : "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
     }
   },
-  "uuid" : "7ebc9403-fb2e-4e32-9ca0-0b581da71fb4",
+  "uuid" : "724130fe-905f-48f0-8156-a5d3f902c0c8",
   "persistent" : true,
   "scenarioName" : "scenario-5-bigquery-v2-projects-test-project-queries-job05",
   "requiredScenarioState" : "scenario-5-bigquery-v2-projects-test-project-queries-job05-2",
-  "insertionIndex" : 88
+  "insertionIndex" : 51
 }

@@ -1,0 +1,26 @@
+{
+  "id" : "75be96c4-8857-4ba8-8cc5-7ba3055ff6c6",
+  "name" : "bigquery_v2_projects_test-project_datasets__cd8b40856acd1b6890f170712a53c7133d5b133e_tables_anonc52b02d9c585e335ca4ef4a791fd546226a7f7282acb8c091fdf569527091089_data",
+  "request" : {
+    "url" : "/bigquery/v2/projects/test-project/datasets/_cd8b40856acd1b6890f170712a53c7133d5b133e/tables/anonc52b02d9c585e335ca4ef4a791fd546226a7f7282acb8c091fdf569527091089/data?prettyPrint=false",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"kind\":\"bigquery#tableDataList\",\"etag\":\"WmB1ZZ+K63O8/0BaMWyyWQ==\",\"totalRows\":\"2\",\"rows\":[{\"f\":[{\"v\":\"2\"},{\"v\":\"3\"},{\"v\":\"4\"}]},{\"f\":[{\"v\":\"1\"},{\"v\":\"2\"},{\"v\":\"3\"}]}]}",
+    "headers" : {
+      "ETag" : "WmB1ZZ+K63O8/0BaMWyyWQ==",
+      "Content-Type" : "application/json; charset=UTF-8",
+      "Vary" : [ "Origin", "X-Origin", "Referer" ],
+      "Date" : "Fri, 04 Nov 2022 12:34:11 GMT",
+      "Server" : "ESF",
+      "Cache-Control" : "private",
+      "X-XSS-Protection" : "0",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "Alt-Svc" : "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
+    }
+  },
+  "uuid" : "75be96c4-8857-4ba8-8cc5-7ba3055ff6c6",
+  "persistent" : true,
+  "insertionIndex" : 34
+}

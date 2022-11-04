@@ -43,7 +43,6 @@ import org.apache.camel.quarkus.test.support.google.GoogleCloudTestResource;
 import org.apache.camel.quarkus.test.support.google.GoogleProperty;
 import org.apache.camel.util.CollectionHelper;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.util.CollectionHelper.mapOf;
@@ -281,7 +280,6 @@ class GoogleBigqueryTest {
         return retVal;
     }
 
-    @Disabled // because of https://github.com/apache/camel-quarkus/issues/4029
     @Test
     public void sqlCrudOperations() throws Exception {
         // create
@@ -296,6 +294,7 @@ class GoogleBigqueryTest {
                 .then()
                 .statusCode(200)
                 .body(is("1"));
+
         RestAssured.given()
                 .contentType(ContentType.JSON)
                 //once test is disabled, make sure that the types of the columns are aligned to the schema
@@ -342,7 +341,7 @@ class GoogleBigqueryTest {
         RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(mapWithJobId("job05", Collections.emptyMap()))
-                .queryParam("sql", String.format("DELETE FROM `%s.%s.%s` WHERE id='1'",
+                .queryParam("sql", String.format("DELETE FROM `%s.%s.%s` WHERE id=1",
                         projectId, dataset, tableNameForSqlCrud))
                 .post("executeSql")
                 .then()
@@ -357,7 +356,7 @@ class GoogleBigqueryTest {
         TableResult tr = getTableData(dataset + "." + tableNameForSqlCrud);
         Assertions.assertEquals(1, tr.getTotalRows());
         List<List<Object>> results = parseResult(tr);
-        Assertions.assertEquals("s3", results.get(0).get(1));
+        Assertions.assertEquals("3", results.get(0).get(1));
 
     }
 
