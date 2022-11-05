@@ -2,45 +2,17 @@
 
 ## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.13.0...HEAD)
-
-**Fixed bugs:**
-
-- SalesforceIntegrationTest.testCDCAndStreamingEvents fails [\#4161](https://github.com/apache/camel-quarkus/issues/4161)
-- XStream native integration test failure [\#4149](https://github.com/apache/camel-quarkus/issues/4149)
-- Native mode tests for serialization are failing [\#4148](https://github.com/apache/camel-quarkus/issues/4148)
-- \[Quarkus 2.14.0\] PgeventTest application fails to start [\#4114](https://github.com/apache/camel-quarkus/issues/4114)
-- DefaultPackageScanClassResolver does not work in native mode [\#4112](https://github.com/apache/camel-quarkus/issues/4112)
-- kamelet-chucknorris example project tests are failing [\#4111](https://github.com/apache/camel-quarkus/issues/4111)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.14.0...HEAD)
 
 **Closed issues:**
 
-- Quarkus Maven Plugin unable to handle maven exclusions [\#4230](https://github.com/apache/camel-quarkus/issues/4230)
-- Manage dependency `com.jayway.jsonpath:json-path` [\#4211](https://github.com/apache/camel-quarkus/issues/4211)
-- CxfSoapMtomIT fails in native mode [\#4208](https://github.com/apache/camel-quarkus/issues/4208)
-- Create test coverage for CXF SOAP MTOM [\#4203](https://github.com/apache/camel-quarkus/issues/4203)
-- Can't authenticate using quarkus elasticsearch-rest [\#4194](https://github.com/apache/camel-quarkus/issues/4194)
-- Use official `com.azure:azure-core-http-vertx:1.0.0-beta.1` in Azure extensions [\#4180](https://github.com/apache/camel-quarkus/issues/4180)
-- Cxf-soap tests: Refactor and split [\#4171](https://github.com/apache/camel-quarkus/issues/4171)
-- Fallback to mocked back end for XChange tests if crypto API endpoints are not available [\#4169](https://github.com/apache/camel-quarkus/issues/4169)
-- Manage `io.projectreactor:reactor-core` [\#4138](https://github.com/apache/camel-quarkus/issues/4138)
-- Deprecated parameters in several annotations are ignored - inconsistent with other annotations. [\#4097](https://github.com/apache/camel-quarkus/issues/4097)
-- \[Camel 3.19.0\] azure-core-http-client-vertx: Deployment tests are failing on java heap space [\#4090](https://github.com/apache/camel-quarkus/issues/4090)
-- Automatic configuration of kubernetes cluster service [\#4086](https://github.com/apache/camel-quarkus/issues/4086)
-- \[Camel 3.19.0\] Quartz: solve autowired scheduler properly and remove quick workaround [\#4076](https://github.com/apache/camel-quarkus/issues/4076)
-- perf-regression: adopt hyperfoil-maven-plugin 0.22 when released [\#4031](https://github.com/apache/camel-quarkus/issues/4031)
-- Increase test coverage of ref extension [\#4010](https://github.com/apache/camel-quarkus/issues/4010)
-- Increase test coverage in controlbus extension with more actions [\#4009](https://github.com/apache/camel-quarkus/issues/4009)
-- Add a test in camel-quarkus-integration-test-jms-artemis-client with quarkus-pooled-jms [\#3951](https://github.com/apache/camel-quarkus/issues/3951)
-- Increase XSLT extension test coverage [\#3904](https://github.com/apache/camel-quarkus/issues/3904)
-- Add extension for camel-dsl-modeline [\#3834](https://github.com/apache/camel-quarkus/issues/3834)
-- Sync `camel-main` / `quarkus-main` nightly CI workflows with the main workflow [\#3716](https://github.com/apache/camel-quarkus/issues/3716)
-- Extensions for camel-knative and camel-cloudevents [\#3459](https://github.com/apache/camel-quarkus/issues/3459)
-- Reference Camel `azure-sdk-bom-version` property in `azure-sdk-bom.version` [\#3229](https://github.com/apache/camel-quarkus/issues/3229)
-- Make `quarkus.artemis.url` optional [\#2857](https://github.com/apache/camel-quarkus/issues/2857)
+- Improve jms-artemis-client integration tests with XA support by quarkus-pooled-jms [\#4250](https://github.com/apache/camel-quarkus/issues/4250)
 
 **Merged pull requests:**
 
+- Fix \#4250 to add JmsArtemisXATest [\#4251](https://github.com/apache/camel-quarkus/pull/4251) ([zhfeng](https://github.com/zhfeng))
+- Upgrade Qpid JMS to 0.39.0 [\#4245](https://github.com/apache/camel-quarkus/pull/4245) ([zbendhiba](https://github.com/zbendhiba))
+- camel-quarkus-xchange: MissingResourceException: Can't find bundle fo… [\#4244](https://github.com/apache/camel-quarkus/pull/4244) ([ppalaga](https://github.com/ppalaga))
 - Fix : flakiness of Scheduler integration-tests. [\#4240](https://github.com/apache/camel-quarkus/pull/4240) ([svkcemk](https://github.com/svkcemk))
 - Use Camel hapi-base-version property for hapi-base [\#4239](https://github.com/apache/camel-quarkus/pull/4239) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3951 to add a test with quarkus-pooled-jms [\#4237](https://github.com/apache/camel-quarkus/pull/4237) ([zhfeng](https://github.com/zhfeng))
@@ -1317,6 +1289,55 @@
 - org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
 
+## [2.14.0](https://github.com/apache/camel-quarkus/tree/2.14.0) (2022-11-04)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.13.1...2.14.0)
+
+**Fixed bugs:**
+
+- camel-quarkus-xchange: MissingResourceException: Can't find bundle for base name sun.util.resources.CurrencyNames, locale en\_US [\#4242](https://github.com/apache/camel-quarkus/issues/4242)
+- SalesforceIntegrationTest.testCDCAndStreamingEvents fails [\#4161](https://github.com/apache/camel-quarkus/issues/4161)
+- XStream native integration test failure [\#4149](https://github.com/apache/camel-quarkus/issues/4149)
+- Native mode tests for serialization are failing [\#4148](https://github.com/apache/camel-quarkus/issues/4148)
+- \[Quarkus 2.14.0\] PgeventTest application fails to start [\#4114](https://github.com/apache/camel-quarkus/issues/4114)
+- DefaultPackageScanClassResolver does not work in native mode [\#4112](https://github.com/apache/camel-quarkus/issues/4112)
+- kamelet-chucknorris example project tests are failing [\#4111](https://github.com/apache/camel-quarkus/issues/4111)
+
+**Closed issues:**
+
+- Manage dependency `com.jayway.jsonpath:json-path` [\#4211](https://github.com/apache/camel-quarkus/issues/4211)
+- CxfSoapMtomIT fails in native mode [\#4208](https://github.com/apache/camel-quarkus/issues/4208)
+- Create test coverage for CXF SOAP MTOM [\#4203](https://github.com/apache/camel-quarkus/issues/4203)
+- Use official `com.azure:azure-core-http-vertx:1.0.0-beta.1` in Azure extensions [\#4180](https://github.com/apache/camel-quarkus/issues/4180)
+- Cxf-soap tests: Refactor and split [\#4171](https://github.com/apache/camel-quarkus/issues/4171)
+- Fallback to mocked back end for XChange tests if crypto API endpoints are not available [\#4169](https://github.com/apache/camel-quarkus/issues/4169)
+- Manage `io.projectreactor:reactor-core` [\#4138](https://github.com/apache/camel-quarkus/issues/4138)
+- rest-openapi: Add test cases for more specificationUri formats [\#4117](https://github.com/apache/camel-quarkus/issues/4117)
+- \[Quarkus Main\] Compatibility with Jandex 3 [\#4108](https://github.com/apache/camel-quarkus/issues/4108)
+- \[Camel 3.19.0\] azure-core-http-client-vertx: Deployment tests are failing on java heap space [\#4090](https://github.com/apache/camel-quarkus/issues/4090)
+- Automatic configuration of kubernetes cluster service [\#4086](https://github.com/apache/camel-quarkus/issues/4086)
+- perf-regression: adopt hyperfoil-maven-plugin 0.22 when released [\#4031](https://github.com/apache/camel-quarkus/issues/4031)
+- Increase test coverage of ref extension [\#4010](https://github.com/apache/camel-quarkus/issues/4010)
+- Add a test in camel-quarkus-integration-test-jms-artemis-client with quarkus-pooled-jms [\#3951](https://github.com/apache/camel-quarkus/issues/3951)
+- Increase XSLT extension test coverage [\#3904](https://github.com/apache/camel-quarkus/issues/3904)
+- Reference Camel `azure-sdk-bom-version` property in `azure-sdk-bom.version` [\#3229](https://github.com/apache/camel-quarkus/issues/3229)
+- Make `quarkus.artemis.url` optional [\#2857](https://github.com/apache/camel-quarkus/issues/2857)
+
+## [2.13.1](https://github.com/apache/camel-quarkus/tree/2.13.1) (2022-11-04)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.13.0...2.13.1)
+
+**Closed issues:**
+
+- Quarkus Maven Plugin unable to handle maven exclusions [\#4230](https://github.com/apache/camel-quarkus/issues/4230)
+- Can't authenticate using quarkus elasticsearch-rest [\#4194](https://github.com/apache/camel-quarkus/issues/4194)
+- Deprecated parameters in several annotations are ignored - inconsistent with other annotations. [\#4097](https://github.com/apache/camel-quarkus/issues/4097)
+- \[Camel 3.19.0\] Quartz: solve autowired scheduler properly and remove quick workaround [\#4076](https://github.com/apache/camel-quarkus/issues/4076)
+- Increase test coverage in controlbus extension with more actions [\#4009](https://github.com/apache/camel-quarkus/issues/4009)
+- Add extension for camel-dsl-modeline [\#3834](https://github.com/apache/camel-quarkus/issues/3834)
+- Sync `camel-main` / `quarkus-main` nightly CI workflows with the main workflow [\#3716](https://github.com/apache/camel-quarkus/issues/3716)
+- Extensions for camel-knative and camel-cloudevents [\#3459](https://github.com/apache/camel-quarkus/issues/3459)
+
 ## [2.13.0](https://github.com/apache/camel-quarkus/tree/2.13.0) (2022-09-23)
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.12.0...2.13.0)
@@ -1330,9 +1351,6 @@
 
 **Closed issues:**
 
-- rest-openapi: Add test cases for more specificationUri formats [\#4117](https://github.com/apache/camel-quarkus/issues/4117)
-- \[Quarkus Main\] Compatibility with Jandex 3 [\#4108](https://github.com/apache/camel-quarkus/issues/4108)
-- CamelQuarkusTestSupport: Alow to use AdiceWith with another route [\#4104](https://github.com/apache/camel-quarkus/issues/4104)
 - \[Quarkus 2.13.0\] Quarkus Kubernetes not compatible with Camel 3.18.x [\#4083](https://github.com/apache/camel-quarkus/issues/4083)
 - Upgrade to quarkus-cxf 1.5.0 and clean up duplicate code and config [\#3983](https://github.com/apache/camel-quarkus/issues/3983)
 - Improve google-bigquery test coverage [\#3949](https://github.com/apache/camel-quarkus/issues/3949)
@@ -1342,6 +1360,7 @@
 - \[JDK17\]integration tests failed in native mode which uses JMX [\#3325](https://github.com/apache/camel-quarkus/issues/3325)
 - \[JDK17\]integration test failed in native mode on Mac which depends on quarkus-awt feature [\#3323](https://github.com/apache/camel-quarkus/issues/3323)
 - Investigate the new TX API in Quarkus Transaction [\#3267](https://github.com/apache/camel-quarkus/issues/3267)
+- CamelQuarkusTestSupport: Alow to use AdiceWith with another route [\#4104](https://github.com/apache/camel-quarkus/issues/4104)
 - Add crash recovery test in jta-jpa example [\#4100](https://github.com/apache/camel-quarkus/issues/4100)
 - Sync {snakeyaml.version} with quarkus-bom [\#4096](https://github.com/apache/camel-quarkus/issues/4096)
 - Springless JPA extension [\#4084](https://github.com/apache/camel-quarkus/issues/4084)
