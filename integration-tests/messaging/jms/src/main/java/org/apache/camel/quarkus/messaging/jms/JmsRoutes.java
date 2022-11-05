@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.messaging.jms;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.TransactionManager;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.quarkus.component.messaging.it.util.scheme.ComponentScheme;
@@ -27,6 +28,9 @@ public class JmsRoutes extends RouteBuilder {
 
     @Inject
     ComponentScheme componentScheme;
+
+    @Inject
+    TransactionManager transactionManager;
 
     @Override
     public void configure() throws Exception {
@@ -40,5 +44,25 @@ public class JmsRoutes extends RouteBuilder {
         from("direct:computedDestination")
                 .bean("destinationHeaderSetter")
                 .toF("%s:queue:override", componentScheme);
+
+        fromF("%s:queue:xa", componentScheme)
+                .log("Received message ${body}")
+                .to("mock:xaResult");
+
+        from("direct:xa")
+                .transacted()
+                .process(x -> {
+                    transactionManager.getTransaction().enlistResource(new DummyXAResource());
+                })
+                .toF("%s:queue:xa?disableReplyTo=true", componentScheme)
+                .choice()
+                .when(body().startsWith("fail"))
+                .log("Forced to rollback")
+                .process(x -> {
+                    transactionManager.setRollbackOnly();
+                })
+                .otherwise()
+                .log("Message added: ${body}")
+                .endChoice();
     }
 }
