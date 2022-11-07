@@ -55,33 +55,8 @@ In order to send the captured traces to a tracing system, you need to configure 
 # Identifier for the origin of spans created by the application
 quarkus.application.name=my-camel-application
 
-# For OTLP
+# OTLP exporter endpoint
 quarkus.opentelemetry.tracer.exporter.otlp.endpoint=http://localhost:55680
-
-# For Jaeger
-quarkus.opentelemetry.tracer.exporter.jaeger.endpoint=http://localhost:14268/api/traces
-----
-
-Note that you must add a dependency to the OpenTelemetry exporter that you want to work with. At present, Quarkus has support for
-Jaeger and the OpenTelemetry Protocol Specification (OTLP).
-
-For Jaeger:
-
-[source,xml]
-----
-<dependency>
-    <groupId>io.quarkus</groupId>
-    <artifactId>quarkus-opentelemetry-exporter-jaeger</artifactId>
-</dependency>
-----
-
-For OTLP:
-[source,xml]
-----
-<dependency>
-    <groupId>io.quarkus</groupId>
-    <artifactId>quarkus-opentelemetry-exporter-otlp</artifactId>
-</dependency>
 ----
 
 Refer to the https://github.com/quarkusio/quarkus/blob/{quarkus-version}/docs/src/main/asciidoc/opentelemetry.adoc[Quarkus OpenTelemetry guide] for a full list of configuration options.
@@ -93,6 +68,11 @@ Route endpoints can be excluded from tracing by configuring a property named `qu
 # Exclude all direct & netty-http endpoints from tracing
 quarkus.camel.opentelemetry.exclude-patterns=direct:*,netty-http:*
 ----
+
+### Exporters
+
+Quarkus OpenTelemetry defaults to the standard OTLP exporter defined in OpenTelemetry.
+Additional exporters will be available in the Quarkiverse https://github.com/quarkiverse/quarkus-opentelemetry-exporter/blob/main/README.md[quarkus-opentelemetry-exporter] project.
 
 
 [id="extensions-opentelemetry-additional-camel-quarkus-configuration"]
