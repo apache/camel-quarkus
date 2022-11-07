@@ -9935,7 +9935,7 @@
       <dependency>
         <groupId>io.quarkiverse.messaginghub</groupId>
         <artifactId>quarkus-pooled-jms</artifactId>
-        <version>1.0.5</version>
+        <version>1.0.6</version>
         <exclusions>
           <exclusion>
             <groupId>jakarta.jms</groupId>
