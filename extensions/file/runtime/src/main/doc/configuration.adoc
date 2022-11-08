@@ -1,0 +1,23 @@
+
+=== Having only a single consumer in a cluster consuming from a given endpoint
+
+When the same route is deployed on multiple JVMs, it could be interesting to use this extension in conjunction with the xref:reference/extensions/master.adoc[Master one].
+In such a setup, a single consumer will be active at a time across the whole camel master namespace.
+
+For instance, having the route below deployed on multiple JVMs:
+
+```
+from("master:ns:timer:test?period=100").log("Timer invoked on a single JVM at a time");
+```
+
+It's possible to enable the file cluster service with a property like below:
+
+```
+quarkus.camel.cluster.file.enabled = true
+```
+
+As a result, a single consumer will be active across the `ns` camel master namespace.
+It means that, at a given time, only a single timer will generate exchanges across all JVMs.
+In other words, messages will be logged every 100ms on a single JVM at a time.
+
+The file cluster service could further be tuned by tweaking `quarkus.camel.cluster.file.*` properties.
