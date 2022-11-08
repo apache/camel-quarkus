@@ -50,5 +50,6 @@ endif::[]
 
 This extension can be used in conjunction with extensions below:
 
+* xref:reference/extensions/file.adoc[Camel Quarkus File]
 * xref:reference/extensions/kubernetes.adoc[Camel Quarkus Kubernetes]
 

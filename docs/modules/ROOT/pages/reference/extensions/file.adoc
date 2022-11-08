@@ -44,3 +44,84 @@ Or add the coordinates to your existing project:
 ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
+
+[id="extensions-file-additional-camel-quarkus-configuration"]
+== Additional Camel Quarkus configuration
+
+
+[id="extensions-file-configuration-having-only-a-single-consumer-in-a-cluster-consuming-from-a-given-endpoint"]
+=== Having only a single consumer in a cluster consuming from a given endpoint
+
+When the same route is deployed on multiple JVMs, it could be interesting to use this extension in conjunction with the xref:reference/extensions/master.adoc[Master one].
+In such a setup, a single consumer will be active at a time across the whole camel master namespace.
+
+For instance, having the route below deployed on multiple JVMs:
+
+```
+from("master:ns:timer:test?period=100").log("Timer invoked on a single JVM at a time");
+```
+
+It's possible to enable the file cluster service with a property like below:
+
+```
+quarkus.camel.cluster.file.enabled = true
+```
+
+As a result, a single consumer will be active across the `ns` camel master namespace.
+It means that, at a given time, only a single timer will generate exchanges across all JVMs.
+In other words, messages will be logged every 100ms on a single JVM at a time.
+
+The file cluster service could further be tuned by tweaking `quarkus.camel.cluster.file.*` properties.
+
+
+[width="100%",cols="80,5,15",options="header"]
+|===
+| Configuration property | Type | Default
+
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.cluster.file.enabled]]`link:#quarkus.camel.cluster.file.enabled[quarkus.camel.cluster.file.enabled]`
+
+Whether a File Lock Cluster Service should be automatically configured according to 'quarkus.camel.cluster.file.++*++' configurations.
+| `boolean`
+| `false`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.cluster.file.id]]`link:#quarkus.camel.cluster.file.id[quarkus.camel.cluster.file.id]`
+
+The cluster service ID (defaults to null).
+| `string`
+| 
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.cluster.file.root]]`link:#quarkus.camel.cluster.file.root[quarkus.camel.cluster.file.root]`
+
+The root path (defaults to null).
+| `string`
+| 
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.cluster.file.order]]`link:#quarkus.camel.cluster.file.order[quarkus.camel.cluster.file.order]`
+
+The service lookup order/priority (defaults to 2147482647).
+| `java.lang.Integer`
+| 
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.cluster.file.acquire-lock-delay]]`link:#quarkus.camel.cluster.file.acquire-lock-delay[quarkus.camel.cluster.file.acquire-lock-delay]`
+
+The time to wait before starting to try to acquire lock (defaults to 1000ms).
+| `string`
+| 
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.cluster.file.acquire-lock-interval]]`link:#quarkus.camel.cluster.file.acquire-lock-interval[quarkus.camel.cluster.file.acquire-lock-interval]`
+
+The time to wait between attempts to try to acquire lock (defaults to 10000ms).
+| `string`
+| 
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.cluster.file.attributes]]`link:#quarkus.camel.cluster.file.attributes[quarkus.camel.cluster.file.attributes]`
+
+The custom attributes associated to the service (defaults to empty map).
+| ``Map<String,String>``
+| 
+|===
+
+[.configuration-legend]
+{doc-link-icon-lock}[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
+
