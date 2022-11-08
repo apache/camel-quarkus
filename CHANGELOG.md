@@ -10,8 +10,10 @@
 
 **Merged pull requests:**
 
+- Update OpenTelemetry exporter documentation in line with changes in Quarkus 2.14.0.Final [\#4256](https://github.com/apache/camel-quarkus/pull/4256) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgarde quarkus-artemis to 2.0.1 and quarkus-pooled-jms to 1.0.6 [\#4253](https://github.com/apache/camel-quarkus/pull/4253) ([zhfeng](https://github.com/zhfeng))
 - Fix \#4250 to add JmsArtemisXATest [\#4251](https://github.com/apache/camel-quarkus/pull/4251) ([zhfeng](https://github.com/zhfeng))
+- Fix GitHub actions deprecation warnings [\#4249](https://github.com/apache/camel-quarkus/pull/4249) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Qpid JMS to 0.39.0 [\#4245](https://github.com/apache/camel-quarkus/pull/4245) ([zbendhiba](https://github.com/zbendhiba))
 - camel-quarkus-xchange: MissingResourceException: Can't find bundle fo… [\#4244](https://github.com/apache/camel-quarkus/pull/4244) ([ppalaga](https://github.com/ppalaga))
 - Fix : flakiness of Scheduler integration-tests. [\#4240](https://github.com/apache/camel-quarkus/pull/4240) ([svkcemk](https://github.com/svkcemk))
