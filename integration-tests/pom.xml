@@ -144,6 +144,7 @@
         <module>lumberjack</module>
         <module>mail</module>
         <module>master</module>
+        <module>master-file</module>
         <module>master-openshift</module>
         <module>messaging</module>
         <module>micrometer</module>

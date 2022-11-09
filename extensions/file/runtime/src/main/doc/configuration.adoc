@@ -14,6 +14,7 @@ It's possible to enable the file cluster service with a property like below:
 
 ```
 quarkus.camel.cluster.file.enabled = true
+quarkus.camel.cluster.file.root = target/cluster-folder-where-lock-file-will-be-held
 ```
 
 As a result, a single consumer will be active across the `ns` camel master namespace.
