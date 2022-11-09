@@ -29,15 +29,18 @@ import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 @QuarkusTest
 class CxfSoapServiceTest {
 
-    @Test
-    public void simpleSoapService() {
+    @ParameterizedTest
+    @ValueSource(strings = { "uri-bean", "uri-address" })
+    public void simpleSoapService(String uriEndpoint) {
         final HelloService service = new HelloService();
         final HelloPortType helloPort = service.getHelloPort();
-        String endpointURL = getServerUrl() + "/soapservice/hello";
+        String endpointURL = getServerUrl() + "/soapservice/hello-" + uriEndpoint;
         ((BindingProvider) helloPort).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
         Assertions.assertEquals(helloPort.hello("World"), "Hello World from CXF service");
     }

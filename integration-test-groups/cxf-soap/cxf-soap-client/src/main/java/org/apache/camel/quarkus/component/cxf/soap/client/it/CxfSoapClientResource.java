@@ -44,8 +44,9 @@ public class CxfSoapClientResource {
     @Consumes(MediaType.WILDCARD)
     @Produces(MediaType.TEXT_PLAIN)
     public Response sendSimpleRequest(@QueryParam("a") int a,
-            @QueryParam("b") int b) throws Exception {
-        final String response = producerTemplate.requestBody("direct:simple", new int[] { a, b }, String.class);
+            @QueryParam("b") int b, @QueryParam("endpointUri") String endpointUri) throws Exception {
+        final String response = producerTemplate.requestBody(String.format("direct:%s", endpointUri), new int[] { a, b },
+                String.class);
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .entity(response)
