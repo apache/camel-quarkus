@@ -40,6 +40,10 @@ public class CxfSoapRoutes extends RouteBuilder {
         from("cxf:bean:soapServiceEndpoint")
                 .setBody().simple("Hello ${body} from CXF service");
 
+        from(String.format("cxf:///hello-uri-address?wsdlURL=wsdl/HelloService.wsdl&serviceClass=%s",
+                HelloPortType.class.getName()))
+                        .setBody().simple("Hello ${body} from CXF service");
+
         from("cxf:bean:codeFirstServiceEndpoint")
                 .setBody().constant("Hello CamelQuarkusCXF");
 
@@ -66,7 +70,7 @@ public class CxfSoapRoutes extends RouteBuilder {
     CxfEndpoint soapServiceEndpoint() {
         final CxfEndpoint result = new CxfEndpoint();
         result.setServiceClass(HelloPortType.class);
-        result.setAddress("/hello");
+        result.setAddress("/hello-uri-bean");
         result.setWsdlURL("wsdl/HelloService.wsdl");
         result.getFeatures().add(loggingFeature);
         return result;
