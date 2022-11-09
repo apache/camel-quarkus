@@ -169,12 +169,15 @@
                             <wsdlOptions>
                                 <wsdlOption>
                                     <wsdl>${basedir}/target/classes/wsdl/CalculatorService.wsdl</wsdl>
+                                    <wsdlLocation>classpath:wsdl/CalculatorService.wsdl</wsdlLocation>
                                 </wsdlOption>
                                 <wsdlOption>
                                     <wsdl>${basedir}/target/classes/wsdl/HelloService.wsdl</wsdl>
+                                    <wsdlLocation>classpath:wsdl/HelloService.wsdl</wsdlLocation>
                                 </wsdlOption>
                                 <wsdlOption>
                                     <wsdl>${basedir}/target/classes/wsdl/WssCalculatorService.wsdl</wsdl>
+                                    <wsdlLocation>classpath:wsdl/WssCalculatorService.wsdl</wsdlLocation>
                                 </wsdlOption>
                             </wsdlOptions>
                         </configuration>

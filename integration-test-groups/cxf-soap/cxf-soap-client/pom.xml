@@ -44,6 +44,7 @@
                             <wsdlOptions>
                                 <wsdlOption>
                                     <wsdl>${basedir}/src/main/resources/wsdl/CalculatorService.wsdl</wsdl>
+                                    <wsdlLocation>classpath:wsdl/CalculatorService.wsdl</wsdlLocation>
                                 </wsdlOption>
                             </wsdlOptions>
                         </configuration>
