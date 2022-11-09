@@ -10,8 +10,10 @@
 
 **Merged pull requests:**
 
+- automatic configuration of FileLockClusterService \#4262 [\#4265](https://github.com/apache/camel-quarkus/pull/4265) ([aldettinger](https://github.com/aldettinger))
 - Update OpenTelemetry exporter documentation in line with changes in Quarkus 2.14.0.Final [\#4256](https://github.com/apache/camel-quarkus/pull/4256) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgarde quarkus-artemis to 2.0.1 and quarkus-pooled-jms to 1.0.6 [\#4253](https://github.com/apache/camel-quarkus/pull/4253) ([zhfeng](https://github.com/zhfeng))
+- Google-bigquery: Enable sqlCrudOperations test once Camel version is 3.18.3 [\#4252](https://github.com/apache/camel-quarkus/pull/4252) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix \#4250 to add JmsArtemisXATest [\#4251](https://github.com/apache/camel-quarkus/pull/4251) ([zhfeng](https://github.com/zhfeng))
 - Fix GitHub actions deprecation warnings [\#4249](https://github.com/apache/camel-quarkus/pull/4249) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Qpid JMS to 0.39.0 [\#4245](https://github.com/apache/camel-quarkus/pull/4245) ([zbendhiba](https://github.com/zbendhiba))
