@@ -41,8 +41,12 @@ public class CxfSoapClientRoutes extends RouteBuilder {
     @Override
     public void configure() {
 
-        from("direct:simple")
+        from("direct:simpleUriBean")
                 .to("cxf:bean:soapClientEndpoint?dataFormat=PAYLOAD");
+
+        from("direct:simpleUriAddress")
+                .to(String.format("cxf://%s?wsdlURL=%s&dataFormat=POJO&serviceClass=%s", calculatorServiceAddress(),
+                        calculatorServiceWsdlUrl(), CalculatorService.class.getName()));
 
         from("direct:operandsAdd")
                 .setHeader(CxfConstants.OPERATION_NAME).constant("addOperands")
@@ -64,10 +68,18 @@ public class CxfSoapClientRoutes extends RouteBuilder {
     CxfEndpoint soapClientEndpoint() {
         final CxfEndpoint result = new CxfEndpoint();
         result.setServiceClass(CalculatorService.class);
-        result.setAddress(serviceBaseUri + "/calculator-ws/CalculatorService");
-        result.setWsdlURL("wsdl/CalculatorService.wsdl");
+        result.setAddress(calculatorServiceAddress());
+        result.setWsdlURL(calculatorServiceWsdlUrl());
         result.getFeatures().add(loggingFeature);
         return result;
+    }
+
+    private String calculatorServiceAddress() {
+        return serviceBaseUri + "/calculator-ws/CalculatorService";
+    }
+
+    private String calculatorServiceWsdlUrl() {
+        return "wsdl/CalculatorService.wsdl";
     }
 
 }

@@ -27,20 +27,23 @@ import io.restassured.RestAssured;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 @QuarkusTestResource(CxfClientTestResource.class)
 class CxfSoapClientTest {
 
-    @Test
-    public void simpleSoapClient() {
+    @ParameterizedTest
+    @ValueSource(strings = { "simpleUriBean", "simpleUriAddress" })
+    public void simpleSoapClient(String endpointUri) {
         //first operation is "divide"
         RestAssured.given()
                 .queryParam("a", "9")
                 .queryParam("b", "3")
+                .queryParam("endpointUri", endpointUri)
                 .post("/cxf-soap/client/simple")
                 .then()
                 .statusCode(201)
