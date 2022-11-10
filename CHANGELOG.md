@@ -10,7 +10,10 @@
 
 **Merged pull requests:**
 
+- add file cluster service automatic configuration itest \#4262 [\#4267](https://github.com/apache/camel-quarkus/pull/4267) ([aldettinger](https://github.com/aldettinger))
 - automatic configuration of FileLockClusterService \#4262 [\#4265](https://github.com/apache/camel-quarkus/pull/4265) ([aldettinger](https://github.com/aldettinger))
+- Enhance test covarege of MTOM with PAYLOAD data format [\#4264](https://github.com/apache/camel-quarkus/pull/4264) ([llowinge](https://github.com/llowinge))
+- Next is 2.15.0 [\#4257](https://github.com/apache/camel-quarkus/pull/4257) ([zbendhiba](https://github.com/zbendhiba))
 - Update OpenTelemetry exporter documentation in line with changes in Quarkus 2.14.0.Final [\#4256](https://github.com/apache/camel-quarkus/pull/4256) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgarde quarkus-artemis to 2.0.1 and quarkus-pooled-jms to 1.0.6 [\#4253](https://github.com/apache/camel-quarkus/pull/4253) ([zhfeng](https://github.com/zhfeng))
 - Google-bigquery: Enable sqlCrudOperations test once Camel version is 3.18.3 [\#4252](https://github.com/apache/camel-quarkus/pull/4252) ([JiriOndrusek](https://github.com/JiriOndrusek))
