@@ -6,11 +6,16 @@
 
 **Closed issues:**
 
+- CxfSoapClientTest.wsdlUpToDate\(\) and CxfSoapWssClientTest.wsdlUpToDate\(\) fail on the platform [\#4254](https://github.com/apache/camel-quarkus/issues/4254)
 - Improve jms-artemis-client integration tests with XA support by quarkus-pooled-jms [\#4250](https://github.com/apache/camel-quarkus/issues/4250)
+- \[Camel 3.19.0\] Kubernetes: tests + native has to be disabled until Quarkus 2.14 [\#4095](https://github.com/apache/camel-quarkus/issues/4095)
+- Increase test coverage in controlbus extension with languages [\#4008](https://github.com/apache/camel-quarkus/issues/4008)
 
 **Merged pull requests:**
 
+- CxfSoapClientTest.wsdlUpToDate\(\) and CxfSoapWssClientTest.wsdlUpToDat… [\#4268](https://github.com/apache/camel-quarkus/pull/4268) ([ppalaga](https://github.com/ppalaga))
 - add file cluster service automatic configuration itest \#4262 [\#4267](https://github.com/apache/camel-quarkus/pull/4267) ([aldettinger](https://github.com/aldettinger))
+- controlbus: Added language tests \(fixes \#4008\) [\#4266](https://github.com/apache/camel-quarkus/pull/4266) ([djcoleman](https://github.com/djcoleman))
 - automatic configuration of FileLockClusterService \#4262 [\#4265](https://github.com/apache/camel-quarkus/pull/4265) ([aldettinger](https://github.com/aldettinger))
 - Enhance test covarege of MTOM with PAYLOAD data format [\#4264](https://github.com/apache/camel-quarkus/pull/4264) ([llowinge](https://github.com/llowinge))
 - Next is 2.15.0 [\#4257](https://github.com/apache/camel-quarkus/pull/4257) ([zbendhiba](https://github.com/zbendhiba))
