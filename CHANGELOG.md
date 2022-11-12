@@ -13,6 +13,7 @@
 
 **Merged pull requests:**
 
+- Cover endpoint URI based CXF definitions [\#4270](https://github.com/apache/camel-quarkus/pull/4270) ([llowinge](https://github.com/llowinge))
 - CxfSoapClientTest.wsdlUpToDate\(\) and CxfSoapWssClientTest.wsdlUpToDat… [\#4268](https://github.com/apache/camel-quarkus/pull/4268) ([ppalaga](https://github.com/ppalaga))
 - add file cluster service automatic configuration itest \#4262 [\#4267](https://github.com/apache/camel-quarkus/pull/4267) ([aldettinger](https://github.com/aldettinger))
 - controlbus: Added language tests \(fixes \#4008\) [\#4266](https://github.com/apache/camel-quarkus/pull/4266) ([djcoleman](https://github.com/djcoleman))
