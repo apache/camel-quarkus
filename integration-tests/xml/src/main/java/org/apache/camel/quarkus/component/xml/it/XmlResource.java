@@ -16,6 +16,10 @@
  */
 package org.apache.camel.quarkus.component.xml.it;
 
+import java.io.File;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.StringJoiner;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -111,8 +115,12 @@ public class XmlResource {
     @Path("/xslt-file")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public String xsltFile(String body) {
-        return producerTemplate.requestBody("xslt:file:src/main/resources/xslt/classpath-transform.xsl", body, String.class);
+    public String xsltFile(String body) throws Exception {
+        try (InputStream in = getClass().getClassLoader().getResourceAsStream("xslt/classpath-transform.xsl")) {
+            File file = File.createTempFile("xslt", ".xsl");
+            Files.copy(in, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            return producerTemplate.requestBody("xslt:file:" + file, body, String.class);
+        }
     }
 
     @Path("/xslt-http")
@@ -131,7 +139,10 @@ public class XmlResource {
     public String aggregate() throws Exception {
         MockEndpoint mock = camelContext.getEndpoint("mock:transformed", MockEndpoint.class);
         mock.expectedMessageCount(1);
-        camelContext.getRouteController().startRoute("aggregate");
+
+        producerTemplate.sendBody("direct:aggregate", "<item>A</item>");
+        producerTemplate.sendBody("direct:aggregate", "<item>B</item>");
+        producerTemplate.sendBody("direct:aggregate", "<item>C</item>");
 
         mock.assertIsSatisfied();
         return mock.getExchanges().get(0).getIn().getBody(String.class);
