@@ -58,11 +58,10 @@ public class XmlRouteBuilder extends RouteBuilder {
                 .xtokenize("//C:child", new Namespaces("C", "urn:c"))
                 .to("seda:xtokenize-result");
 
-        from("file:src/test/resources?noop=true&sortBy=file:name&antInclude=*.xml")
-                .routeId("aggregate").noAutoStartup()
+        from("direct:aggregate")
                 .aggregate(new XsltSaxonAggregationStrategy("xslt/aggregate.xsl"))
                 .constant(true)
-                .completionFromBatchConsumer()
+                .completionSize(3)
                 .log("after aggregate body: ${body}")
                 .to("mock:transformed");
     }
