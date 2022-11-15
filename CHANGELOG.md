@@ -6,6 +6,8 @@
 
 **Closed issues:**
 
+- \[Quarkus 2.14\] XML intergration tests are failing in Quarkus platform [\#4258](https://github.com/apache/camel-quarkus/issues/4258)
+- XmlTest.aggregate\(\) test fails on the platform [\#4255](https://github.com/apache/camel-quarkus/issues/4255)
 - CxfSoapClientTest.wsdlUpToDate\(\) and CxfSoapWssClientTest.wsdlUpToDate\(\) fail on the platform [\#4254](https://github.com/apache/camel-quarkus/issues/4254)
 - Improve jms-artemis-client integration tests with XA support by quarkus-pooled-jms [\#4250](https://github.com/apache/camel-quarkus/issues/4250)
 - \[Camel 3.19.0\] Kubernetes: tests + native has to be disabled until Quarkus 2.14 [\#4095](https://github.com/apache/camel-quarkus/issues/4095)
@@ -13,6 +15,7 @@
 
 **Merged pull requests:**
 
+- Fix \#4258 make xml integration tests working in Quarkus Platform [\#4275](https://github.com/apache/camel-quarkus/pull/4275) ([zhfeng](https://github.com/zhfeng))
 - Cover endpoint URI based CXF definitions [\#4270](https://github.com/apache/camel-quarkus/pull/4270) ([llowinge](https://github.com/llowinge))
 - CxfSoapClientTest.wsdlUpToDate\(\) and CxfSoapWssClientTest.wsdlUpToDat… [\#4268](https://github.com/apache/camel-quarkus/pull/4268) ([ppalaga](https://github.com/ppalaga))
 - add file cluster service automatic configuration itest \#4262 [\#4267](https://github.com/apache/camel-quarkus/pull/4267) ([aldettinger](https://github.com/aldettinger))
