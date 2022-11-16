@@ -15,6 +15,7 @@
 
 **Merged pull requests:**
 
+- Remove camel-quarkus-support-xstream from salesforce extension issue … [\#4276](https://github.com/apache/camel-quarkus/pull/4276) ([svkcemk](https://github.com/svkcemk))
 - Fix \#4258 make xml integration tests working in Quarkus Platform [\#4275](https://github.com/apache/camel-quarkus/pull/4275) ([zhfeng](https://github.com/zhfeng))
 - Cover endpoint URI based CXF definitions [\#4270](https://github.com/apache/camel-quarkus/pull/4270) ([llowinge](https://github.com/llowinge))
 - CxfSoapClientTest.wsdlUpToDate\(\) and CxfSoapWssClientTest.wsdlUpToDat… [\#4268](https://github.com/apache/camel-quarkus/pull/4268) ([ppalaga](https://github.com/ppalaga))
