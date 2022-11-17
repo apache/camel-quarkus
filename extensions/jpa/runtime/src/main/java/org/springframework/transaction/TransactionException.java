@@ -14,12 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.transaction;
 
-public interface PlatformTransactionManager {
-    TransactionStatus getTransaction(TransactionDefinition definition) throws TransactionException;
+public abstract class TransactionException extends RuntimeException {
+    public TransactionException(String msg) {
+        super(msg);
+    }
 
-    void commit(TransactionStatus status) throws TransactionException;
-
-    void rollback(TransactionStatus status) throws TransactionException;
+    public TransactionException(String msg, Throwable cause) {
+        super(msg, cause);
+    }
 }

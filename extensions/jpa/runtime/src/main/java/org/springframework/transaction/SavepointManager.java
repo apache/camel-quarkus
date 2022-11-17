@@ -14,12 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.transaction;
 
-public interface PlatformTransactionManager {
-    TransactionStatus getTransaction(TransactionDefinition definition) throws TransactionException;
+public interface SavepointManager {
+    Object createSavepoint() throws TransactionException;
 
-    void commit(TransactionStatus status) throws TransactionException;
+    void rollbackToSavepoint(Object savepoint) throws TransactionException;
 
-    void rollback(TransactionStatus status) throws TransactionException;
+    void releaseSavepoint(Object savepoint) throws TransactionException;
 }

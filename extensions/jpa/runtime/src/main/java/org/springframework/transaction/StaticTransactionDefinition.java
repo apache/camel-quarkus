@@ -14,12 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.transaction;
 
-public interface PlatformTransactionManager {
-    TransactionStatus getTransaction(TransactionDefinition definition) throws TransactionException;
+final class StaticTransactionDefinition implements TransactionDefinition {
+    static final StaticTransactionDefinition INSTANCE = new StaticTransactionDefinition();
 
-    void commit(TransactionStatus status) throws TransactionException;
-
-    void rollback(TransactionStatus status) throws TransactionException;
+    private StaticTransactionDefinition() {
+    }
 }

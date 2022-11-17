@@ -14,12 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.transaction;
 
-public interface PlatformTransactionManager {
-    TransactionStatus getTransaction(TransactionDefinition definition) throws TransactionException;
+public interface TransactionExecution {
+    boolean isNewTransaction();
 
-    void commit(TransactionStatus status) throws TransactionException;
+    void setRollbackOnly();
 
-    void rollback(TransactionStatus status) throws TransactionException;
+    boolean isRollbackOnly();
+
+    boolean isCompleted();
 }
