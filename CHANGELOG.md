@@ -6,10 +6,13 @@
 
 **Closed issues:**
 
+- The used Quarkus version in camel-quarkus 2.13.1 [\#4278](https://github.com/apache/camel-quarkus/issues/4278)
+- Remove `camel-quarkus-support-xstream` dependency from Salesforce extension [\#4272](https://github.com/apache/camel-quarkus/issues/4272)
 - \[Quarkus 2.14\] XML intergration tests are failing in Quarkus platform [\#4258](https://github.com/apache/camel-quarkus/issues/4258)
 - XmlTest.aggregate\(\) test fails on the platform [\#4255](https://github.com/apache/camel-quarkus/issues/4255)
 - CxfSoapClientTest.wsdlUpToDate\(\) and CxfSoapWssClientTest.wsdlUpToDate\(\) fail on the platform [\#4254](https://github.com/apache/camel-quarkus/issues/4254)
 - Improve jms-artemis-client integration tests with XA support by quarkus-pooled-jms [\#4250](https://github.com/apache/camel-quarkus/issues/4250)
+- \[Quarkus 2.15.0\] Remove `not-quarkus-snapshots` profile from Observability example project [\#4231](https://github.com/apache/camel-quarkus/issues/4231)
 - \[Camel 3.19.0\] Kubernetes: tests + native has to be disabled until Quarkus 2.14 [\#4095](https://github.com/apache/camel-quarkus/issues/4095)
 - Increase test coverage in controlbus extension with languages [\#4008](https://github.com/apache/camel-quarkus/issues/4008)
 
