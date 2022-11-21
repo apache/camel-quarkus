@@ -17,6 +17,8 @@
 package org.apache.camel.quarkus.component.cxf.soap.client.it;
 
 import java.net.URI;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -46,6 +48,24 @@ public class CxfSoapClientResource {
     public Response sendSimpleRequest(@QueryParam("a") int a,
             @QueryParam("b") int b, @QueryParam("endpointUri") String endpointUri) throws Exception {
         final String response = producerTemplate.requestBody(String.format("direct:%s", endpointUri), new int[] { a, b },
+                String.class);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(response)
+                .build();
+    }
+
+    @Path("/simpleAddDataFormat")
+    @POST
+    @Consumes(MediaType.WILDCARD)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response sendSimpleAddRequestDataFormat(@QueryParam("a") int a,
+            @QueryParam("b") int b, @QueryParam("endpointDataFormat") String endpointDataFormat) throws Exception {
+        Map<String, Object> headers = new LinkedHashMap<>();
+        headers.put("endpointDataFormat", endpointDataFormat);
+
+        final String response = producerTemplate.requestBodyAndHeaders("direct:simpleAddDataFormat", new int[] { a, b },
+                headers,
                 String.class);
         return Response
                 .created(new URI("https://camel.apache.org/"))
