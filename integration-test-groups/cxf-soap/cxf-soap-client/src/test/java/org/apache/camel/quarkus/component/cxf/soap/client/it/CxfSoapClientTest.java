@@ -27,6 +27,8 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -50,6 +52,21 @@ class CxfSoapClientTest {
                 .then()
                 .statusCode(201)
                 .body(equalTo("3"));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "RAW", "CXF_MESSAGE" })
+    public void simpleSoapClientDataFormats(String endpointDataformat) {
+        RestAssured.given()
+                .queryParam("a", "9")
+                .queryParam("b", "3")
+                .queryParam("endpointDataFormat", endpointDataformat)
+                .post("/cxf-soap/client/simpleAddDataFormat")
+                .then()
+                .statusCode(201)
+                .body(Matchers.hasXPath(
+                        "/*[local-name() = 'Envelope']/*[local-name() = 'Body']/*[local-name() = 'addResponse']/*[local-name() = 'return']/text()",
+                        CoreMatchers.is("12")));
     }
 
     @Test

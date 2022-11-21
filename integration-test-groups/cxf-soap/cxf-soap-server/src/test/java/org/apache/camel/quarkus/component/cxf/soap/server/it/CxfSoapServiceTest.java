@@ -73,6 +73,14 @@ class CxfSoapServiceTest {
         org.junit.jupiter.api.Assertions.assertTrue(response.contains("Hello CamelQuarkusCXF"));
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = { "raw", "cxf-message" })
+    public void testCodeFirstSoapServiceDataFormats(String dataFormat) {
+        final EchoService echo = QuarkusCxfClientTestUtil.getClient(EchoService.class,
+                String.format("/soapservice/echo-route-%s-data-format", dataFormat));
+        Assertions.assertEquals("Hello there! from Camel route", echo.echo("Hello there!"));
+    }
+
     @Test
     public void echoServiceResponseFromRoute() {
         /* We setServiceClass(EchoServiceImpl.class) in org.apache.camel.quarkus.component.cxf.soap.server.it.CxfSoapRoutes.echoServiceResponseFromRoute()
