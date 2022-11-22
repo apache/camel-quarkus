@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.cxf.soap.it.ws.trust;
+package org.apache.camel.quarkus.component.cxf.soap.it.ws.trust.cxf.way;
 
 import java.net.URL;
 import java.util.Map;
@@ -27,7 +27,8 @@ import io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.config.RestAssuredConfig;
-import org.apache.camel.quarkus.component.cxf.soap.it.ws.trust.server.TrustHelloService;
+import org.apache.camel.quarkus.component.cxf.soap.it.ws.trust.ClientCallbackHandler;
+import org.apache.camel.quarkus.component.cxf.soap.it.ws.trust.server.cxf.way.TrustHelloServiceCxfWay;
 import org.apache.cxf.Bus;
 import org.apache.cxf.BusFactory;
 import org.apache.cxf.ws.security.SecurityConstants;
@@ -35,14 +36,13 @@ import org.apache.cxf.ws.security.trust.STSClient;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil.anyNs;
 import static io.restassured.RestAssured.given;
 
 @QuarkusTest
-public class CxfWsTrustTest {
+public class CxfWsTrustCxfWayTest {
 
     /**
      * Make sure the ws-trust-1.4-service.wsdl file is served
@@ -69,7 +69,7 @@ public class CxfWsTrustTest {
         config.getXmlConfig().namespaceAware(false);
         given()
                 .config(config)
-                .when().get("/soapservice/jaxws-samples-wsse-policy-trust?wsdl")
+                .when().get("/soapservice/jaxws-samples-wsse-policy-trust-cxf-way?wsdl")
                 .then()
                 .statusCode(200)
                 .body(
@@ -90,18 +90,17 @@ public class CxfWsTrustTest {
     }
 
     @Test
-    @Disabled("https://github.com/apache/camel-quarkus/issues/4291")
     public void programmaticSts() throws Exception {
         Bus bus = BusFactory.newInstance().createBus();
         try {
             BusFactory.setThreadDefaultBus(bus);
 
             final QName serviceName = new QName("https://quarkiverse.github.io/quarkiverse-docs/quarkus-cxf/test/ws-trust",
-                    "TrustHelloService");
+                    "TrustHelloServiceCxfWay");
             final URL wsdlURL = new URL(io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil.getServerUrl()
-                    + "/soapservice/jaxws-samples-wsse-policy-trust/TrustHelloService?wsdl");
+                    + "/soapservice/jaxws-samples-wsse-policy-trust-cxf-way/TrustHelloServiceCxfWay?wsdl");
             Service service = Service.create(wsdlURL, serviceName);
-            TrustHelloService proxy = (TrustHelloService) service.getPort(TrustHelloService.class);
+            TrustHelloServiceCxfWay proxy = service.getPort(TrustHelloServiceCxfWay.class);
 
             final QName stsServiceName = new QName("http://docs.oasis-open.org/ws-sx/ws-trust/200512/", "SecurityTokenService");
             final QName stsPortName = new QName("http://docs.oasis-open.org/ws-sx/ws-trust/200512/", "UT_Port");
@@ -110,14 +109,14 @@ public class CxfWsTrustTest {
                     + "/soapservice/jaxws-samples-wsse-policy-trust-sts/SecurityTokenService?wsdl";
             setupWsseAndSTSClient(proxy, bus, stsURL, stsServiceName, stsPortName);
 
-            Assertions.assertThat(proxy.sayHello()).isEqualTo("WS-Trust Hello World!");
+            Assertions.assertThat(proxy.sayHello()).isEqualTo("WS-Trust Hello World, CXF way!");
         } finally {
             bus.shutdown(true);
         }
 
     }
 
-    public static void setupWsseAndSTSClient(TrustHelloService proxy, Bus bus, String stsWsdlLocation, QName stsService,
+    public static void setupWsseAndSTSClient(TrustHelloServiceCxfWay proxy, Bus bus, String stsWsdlLocation, QName stsService,
             QName stsPort) {
         Map<String, Object> ctx = ((BindingProvider) proxy).getRequestContext();
         setServiceContextAttributes(ctx);
