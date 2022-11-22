@@ -43,7 +43,6 @@ import org.apache.camel.quarkus.test.support.google.GoogleCloudTestResource;
 import org.apache.camel.quarkus.test.support.google.GoogleProperty;
 import org.apache.camel.util.CollectionHelper;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.util.CollectionHelper.mapOf;
@@ -281,7 +280,6 @@ class GoogleBigqueryTest {
         return retVal;
     }
 
-    @Disabled("https://github.com/apache/camel-quarkus/issues/4029")
     @Test
     public void sqlCrudOperations() throws Exception {
         // create
