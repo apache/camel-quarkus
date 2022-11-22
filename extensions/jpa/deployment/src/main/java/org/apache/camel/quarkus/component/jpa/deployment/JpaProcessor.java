@@ -16,14 +16,12 @@
  */
 package org.apache.camel.quarkus.component.jpa.deployment;
 
-import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import org.apache.camel.component.jpa.JpaComponent;
-import org.apache.camel.quarkus.component.jpa.CamelJpaProducer;
 import org.apache.camel.quarkus.component.jpa.CamelJpaRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 
@@ -39,10 +37,8 @@ class JpaProcessor {
     @Record(ExecutionTime.RUNTIME_INIT)
     @BuildStep
     void configureJpaComponentBean(
-            BuildProducer<AdditionalBeanBuildItem> additionalBeans,
             BuildProducer<CamelRuntimeBeanBuildItem> camelRuntimeBean,
             CamelJpaRecorder recorder) {
-        additionalBeans.produce(new AdditionalBeanBuildItem(CamelJpaProducer.class));
 
         camelRuntimeBean.produce(
                 new CamelRuntimeBeanBuildItem(
