@@ -3530,7 +3530,15 @@
           </exclusion>
           <exclusion>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
+            <artifactId>spring-beans</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -10454,6 +10462,11 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-messaging</artifactId>
+        <version>5.3.23</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-orm</artifactId>
         <version>5.3.23</version>
       </dependency>
       <dependency>
