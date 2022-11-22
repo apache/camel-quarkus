@@ -63,6 +63,7 @@ public class SampleSTS extends SecurityTokenServiceProvider {
                 : config.getValue("quarkus.http.port", Integer.class);
         service.setEndpoints(Arrays.asList(
                 "http://localhost:" + port + "/soapservice/jaxws-samples-wsse-policy-trust/TrustHelloService",
+                "http://localhost:" + port + "/soapservice/jaxws-samples-wsse-policy-trust-cxf-way/TrustHelloServiceCxfWay",
                 "http://localhost:" + port + "/soapservice/jaxws-samples-wsse-policy-trust-actas/ActAsService",
                 "http://localhost:" + port + "/soapservice/jaxws-samples-wsse-policy-trust-onbehalfof/OnBehalfOfService"));
         services.add(service);
