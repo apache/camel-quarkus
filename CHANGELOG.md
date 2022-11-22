@@ -13,6 +13,7 @@
 - CxfSoapClientTest.wsdlUpToDate\(\) and CxfSoapWssClientTest.wsdlUpToDate\(\) fail on the platform [\#4254](https://github.com/apache/camel-quarkus/issues/4254)
 - Improve jms-artemis-client integration tests with XA support by quarkus-pooled-jms [\#4250](https://github.com/apache/camel-quarkus/issues/4250)
 - \[Quarkus 2.15.0\] Remove `not-quarkus-snapshots` profile from Observability example project [\#4231](https://github.com/apache/camel-quarkus/issues/4231)
+- Camel quarkus xslt processor runtime uriresolver not able to dynamically load resource from classpath [\#4142](https://github.com/apache/camel-quarkus/issues/4142)
 - \[Camel 3.19.0\] Kubernetes: tests + native has to be disabled until Quarkus 2.14 [\#4095](https://github.com/apache/camel-quarkus/issues/4095)
 - Increase test coverage in controlbus extension with languages [\#4008](https://github.com/apache/camel-quarkus/issues/4008)
 
@@ -1384,7 +1385,6 @@
 - CamelQuarkusTestSupport: Alow to use AdiceWith with another route [\#4104](https://github.com/apache/camel-quarkus/issues/4104)
 - Add crash recovery test in jta-jpa example [\#4100](https://github.com/apache/camel-quarkus/issues/4100)
 - Sync {snakeyaml.version} with quarkus-bom [\#4096](https://github.com/apache/camel-quarkus/issues/4096)
-- Springless JPA extension [\#4084](https://github.com/apache/camel-quarkus/issues/4084)
 - master: add an itest with openshift [\#4077](https://github.com/apache/camel-quarkus/issues/4077)
 - Testing guide confusing about CamelTestSupport [\#4068](https://github.com/apache/camel-quarkus/issues/4068)
 - Google-pubsub: Improve google-pubsub test coverage with GooglePubsubConstants.MESSAGE\_ID [\#4062](https://github.com/apache/camel-quarkus/issues/4062)
