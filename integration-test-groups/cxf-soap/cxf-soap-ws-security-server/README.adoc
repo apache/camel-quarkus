@@ -1,0 +1,19 @@
+
+= WS-Security and WS-SecurityPolicy tests
+
+== WS-SecurityPolicy
+
+We test in two ways how the SOAP service endpoints are deployed: the Camel way and the Quariverse CXF way.
+
+=== The Camel way
+
+* I.e. there is a Camel route with `from("cxf:...")`
+* See `WsSecurityPolicyServerRoutes` and `WssSecurityPolicyHelloServiceImpl`
+
+=== The Quariverse CXF way
+
+* I.e. they are mapped to an URI path via Quariverse CXF settings in `application.properties`
+* The service method then forwards to a Camel route defined in `WsSecurityPolicyServerRoutesCxfWay`
+* See also `WssSecurityPolicyHelloServiceCxfWayImpl`
+* This way may come in handy in situations when the Camel way does not work properly,
+  such as https://github.com/apache/camel-quarkus/issues/4291
