@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.cxf.soap.securitypolicy.server.it;
+package org.apache.camel.quarkus.component.cxf.soap.securitypolicy.server.cxf.way.it;
 
 import java.io.IOException;
 import java.util.Map;
@@ -25,23 +25,22 @@ import io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.config.RestAssuredConfig;
+import org.apache.camel.quarkus.component.cxf.soap.securitypolicy.server.it.PasswordCallbackHandler;
 import org.apache.cxf.ws.security.SecurityConstants;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil.anyNs;
 import static io.restassured.RestAssured.given;
 
 @QuarkusTest
-public class CxfWssSecurityPolicyServerTest {
+public class CxfWssSecurityPolicyServerCxfWayTest {
 
     @Test
-    @Disabled("https://github.com/apache/camel-quarkus/issues/4291")
     void encrypetdSigned() throws IOException {
-        WssSecurityPolicyHelloService client = getPlainClient();
+        WssSecurityPolicyHelloServiceCxfWay client = getPlainClient();
 
         Map<String, Object> ctx = ((BindingProvider) client).getRequestContext();
         ctx.put(SecurityConstants.CALLBACK_HANDLER, new PasswordCallbackHandler());
@@ -52,12 +51,12 @@ public class CxfWssSecurityPolicyServerTest {
         ctx.put(SecurityConstants.ENCRYPT_PROPERTIES,
                 Thread.currentThread().getContextClassLoader().getResource("alice.properties"));
 
-        Assertions.assertThat(client.sayHello("foo")).isEqualTo("Secure Hello foo!");
+        Assertions.assertThat(client.sayHello("foo")).isEqualTo("SecurityPolicy hello foo CXF way");
     }
 
     @Test
     void noSecurityConfig() throws IOException {
-        WssSecurityPolicyHelloService client = getPlainClient();
+        WssSecurityPolicyHelloServiceCxfWay client = getPlainClient();
         /* Make sure that it fails properly when called without a password */
         Assertions.assertThatExceptionOfType(javax.xml.ws.soap.SOAPFaultException.class)
                 .isThrownBy(() -> client.sayHello("bar"))
@@ -207,10 +206,10 @@ public class CxfWssSecurityPolicyServerTest {
                                 CoreMatchers.is("SecurityServiceEncryptThenSignPolicy")));
     }
 
-    WssSecurityPolicyHelloService getPlainClient() {
+    WssSecurityPolicyHelloServiceCxfWay getPlainClient() {
         return QuarkusCxfClientTestUtil.getClient(
                 "https://quarkiverse.github.io/quarkiverse-docs/quarkus-cxf/ws-securitypolicy",
-                WssSecurityPolicyHelloService.class,
-                "/soapservice/security-policy-hello");
+                WssSecurityPolicyHelloServiceCxfWay.class,
+                "/soapservice/security-policy-hello-cxf-way");
     }
 }
