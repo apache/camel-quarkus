@@ -4,10 +4,15 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.14.0...HEAD)
 
+**Fixed bugs:**
+
+- JMS consumer in a XA router can not work with JPA [\#4279](https://github.com/apache/camel-quarkus/issues/4279)
+
 **Closed issues:**
 
 - The used Quarkus version in camel-quarkus 2.13.1 [\#4278](https://github.com/apache/camel-quarkus/issues/4278)
 - Remove `camel-quarkus-support-xstream` dependency from Salesforce extension [\#4272](https://github.com/apache/camel-quarkus/issues/4272)
+- Automatic configuration of FileLockClusterService [\#4262](https://github.com/apache/camel-quarkus/issues/4262)
 - \[Quarkus 2.14\] XML intergration tests are failing in Quarkus platform [\#4258](https://github.com/apache/camel-quarkus/issues/4258)
 - XmlTest.aggregate\(\) test fails on the platform [\#4255](https://github.com/apache/camel-quarkus/issues/4255)
 - CxfSoapClientTest.wsdlUpToDate\(\) and CxfSoapWssClientTest.wsdlUpToDate\(\) fail on the platform [\#4254](https://github.com/apache/camel-quarkus/issues/4254)
@@ -16,9 +21,13 @@
 - Camel quarkus xslt processor runtime uriresolver not able to dynamically load resource from classpath [\#4142](https://github.com/apache/camel-quarkus/issues/4142)
 - \[Camel 3.19.0\] Kubernetes: tests + native has to be disabled until Quarkus 2.14 [\#4095](https://github.com/apache/camel-quarkus/issues/4095)
 - Increase test coverage in controlbus extension with languages [\#4008](https://github.com/apache/camel-quarkus/issues/4008)
+- Native build fails when using both camel-quarkus-activemq and quarkus-jdbc-oracle [\#3980](https://github.com/apache/camel-quarkus/issues/3980)
 
 **Merged pull requests:**
 
+- Add a separate version property for FHIR core dependencies [\#4292](https://github.com/apache/camel-quarkus/pull/4292) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix \#3980 to disable JMX in commons-pool2 during native building [\#4287](https://github.com/apache/camel-quarkus/pull/4287) ([zhfeng](https://github.com/zhfeng))
+- Revert "Springless JPA extension \(\#4049\)" [\#4286](https://github.com/apache/camel-quarkus/pull/4286) ([zhfeng](https://github.com/zhfeng))
 - Remove camel-quarkus-support-xstream from salesforce extension issue … [\#4276](https://github.com/apache/camel-quarkus/pull/4276) ([svkcemk](https://github.com/svkcemk))
 - Fix \#4258 make xml integration tests working in Quarkus Platform [\#4275](https://github.com/apache/camel-quarkus/pull/4275) ([zhfeng](https://github.com/zhfeng))
 - Cover endpoint URI based CXF definitions [\#4270](https://github.com/apache/camel-quarkus/pull/4270) ([llowinge](https://github.com/llowinge))
