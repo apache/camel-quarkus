@@ -135,7 +135,7 @@ When set to true, the `CamelRuntime` will be started automatically.
 | `boolean`
 | `true`
 
-|icon:lock[title=Fixed at build time] [[quarkus.camel.service.discovery.exclude-patterns]]`link:#quarkus.camel.service.discovery.exclude-patterns[quarkus.camel.service.discovery.exclude-patterns]`
+|icon:lock[title=Fixed at build time] [[quarkus.camel.service-discovery.exclude-patterns]]`link:#quarkus.camel.service-discovery.exclude-patterns[quarkus.camel.service-discovery.exclude-patterns]`
 
 A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath. The services defined in the matching files will not be discoverable via the `org.apache.camel.spi.FactoryFinder` mechanism. 
 The excludes have higher precedence than includes. The excludes defined here can also be used to veto the discoverability of services included by Camel Quarkus extensions. 
@@ -143,7 +143,7 @@ Example values: `META-INF/services/org/apache/camel/foo/++*++,META-INF/services/
 | `string`
 | 
 
-|icon:lock[title=Fixed at build time] [[quarkus.camel.service.discovery.include-patterns]]`link:#quarkus.camel.service.discovery.include-patterns[quarkus.camel.service.discovery.include-patterns]`
+|icon:lock[title=Fixed at build time] [[quarkus.camel.service-discovery.include-patterns]]`link:#quarkus.camel.service-discovery.include-patterns[quarkus.camel.service-discovery.include-patterns]`
 
 A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath. The services defined in the matching files will be discoverable via the `org.apache.camel.spi.FactoryFinder` mechanism unless the given file is excluded via `exclude-patterns`. 
 Note that Camel Quarkus extensions may include some services by default. The services selected here added to those services and the exclusions defined in `exclude-patterns` are applied to the union set. 
@@ -151,7 +151,7 @@ Example values: `META-INF/services/org/apache/camel/foo/++*++,META-INF/services/
 | `string`
 | 
 
-|icon:lock[title=Fixed at build time] [[quarkus.camel.service.registry.exclude-patterns]]`link:#quarkus.camel.service.registry.exclude-patterns[quarkus.camel.service.registry.exclude-patterns]`
+|icon:lock[title=Fixed at build time] [[quarkus.camel.service-registry.exclude-patterns]]`link:#quarkus.camel.service-registry.exclude-patterns[quarkus.camel.service-registry.exclude-patterns]`
 
 A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath. The services defined in the matching files will not be added to Camel registry during application's static initialization. 
 The excludes have higher precedence than includes. The excludes defined here can also be used to veto the registration of services included by Camel Quarkus extensions. 
@@ -159,7 +159,7 @@ Example values: `META-INF/services/org/apache/camel/foo/++*++,META-INF/services/
 | `string`
 | 
 
-|icon:lock[title=Fixed at build time] [[quarkus.camel.service.registry.include-patterns]]`link:#quarkus.camel.service.registry.include-patterns[quarkus.camel.service.registry.include-patterns]`
+|icon:lock[title=Fixed at build time] [[quarkus.camel.service-registry.include-patterns]]`link:#quarkus.camel.service-registry.include-patterns[quarkus.camel.service-registry.include-patterns]`
 
 A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath. The services defined in the matching files will be added to Camel registry during application's static initialization unless the given file is excluded via `exclude-patterns`. 
 Note that Camel Quarkus extensions may include some services by default. The services selected here added to those services and the exclusions defined in `exclude-patterns` are applied to the union set. 
