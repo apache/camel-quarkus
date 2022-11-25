@@ -120,6 +120,7 @@
         <jgit.version>6.3.0.202209071007-r</jgit.version><!-- @sync io.quarkiverse.jgit:quarkus-jgit-parent:${quarkiverse-jgit.version} prop:jgit.version -->
         <jna-platform.version>5.6.0</jna-platform.version><!-- @sync com.azure:azure-identity:${azure-identity.version} dep:net.java.dev.jna:jna-platform -->
         <jnr-ffi.version>2.1.2</jnr-ffi.version><!-- Mess in web3j transitive deps -->
+        <jsonata4java.version>2.2.4</jsonata4java.version><!-- TODO: Remove this after upgrade to Camel >= 3.20 -->
         <json-path.version>${json-path-version}</json-path.version>
         <json-smart.version>2.4.7</json-smart.version><!-- @sync com.jayway.jsonpath:json-path:${json-path.version} dep:net.minidev:json-smart -->
         <kafka.version>3.3.1</kafka.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.kafka:kafka-clients -->
