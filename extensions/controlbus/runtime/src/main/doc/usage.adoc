@@ -1,5 +1,5 @@
 === Actions
-
+ifeval::[{doc-show-advanced-features} == true]
 ==== Statistics
 
 When using the `stats` command endpoint, the `camel-quarkus-management` extension must be added as a project dependency to enable JMX. Maven users will have to add the following to their `pom.xml`:
@@ -11,13 +11,13 @@ When using the `stats` command endpoint, the `camel-quarkus-management` extensio
     <artifactId>camel-quarkus-management</artifactId>
 </dependency>
 ----
-
+endif::[]
 
 === Languages
 
 ==== Bean
 
-The Bean language can be used to invoke a method on a Bean to control the state of routes. The `org.apache.camel.quarkus:camel-quarkus-bean` extension must be added to the classpath. Maven users must add the following dependency to the POM:
+The Bean language can be used to invoke a method on a bean to control the state of routes. The `org.apache.camel.quarkus:camel-quarkus-bean` extension must be added to the classpath. Maven users must add the following dependency to the POM:
 
 [source,xml]
 ----
@@ -27,7 +27,7 @@ The Bean language can be used to invoke a method on a Bean to control the state 
 </dependency>
 ----
 
-In native mode, the Bean class must be annotated with `@RegisterForReflection`.
+In native mode, the bean class must be annotated with `@RegisterForReflection`.
 
 ==== Simple
 
