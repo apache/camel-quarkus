@@ -49,7 +49,7 @@ endif::[]
 == Usage
 [id="extensions-controlbus-usage-actions"]
 === Actions
-
+ifeval::[{doc-show-advanced-features} == true]
 [id="extensions-controlbus-usage-statistics"]
 ==== Statistics
 
@@ -62,7 +62,7 @@ When using the `stats` command endpoint, the `camel-quarkus-management` extensio
     <artifactId>camel-quarkus-management</artifactId>
 </dependency>
 ----
-
+endif::[]
 
 [id="extensions-controlbus-usage-languages"]
 === Languages
@@ -70,7 +70,7 @@ When using the `stats` command endpoint, the `camel-quarkus-management` extensio
 [id="extensions-controlbus-usage-bean"]
 ==== Bean
 
-The Bean language can be used to invoke a method on a Bean to control the state of routes. The `org.apache.camel.quarkus:camel-quarkus-bean` extension must be added to the classpath. Maven users must add the following dependency to the POM:
+The Bean language can be used to invoke a method on a bean to control the state of routes. The `org.apache.camel.quarkus:camel-quarkus-bean` extension must be added to the classpath. Maven users must add the following dependency to the POM:
 
 [source,xml]
 ----
@@ -80,7 +80,7 @@ The Bean language can be used to invoke a method on a Bean to control the state 
 </dependency>
 ----
 
-In native mode, the Bean class must be annotated with `@RegisterForReflection`.
+In native mode, the bean class must be annotated with `@RegisterForReflection`.
 
 [id="extensions-controlbus-usage-simple"]
 ==== Simple
@@ -113,5 +113,11 @@ quarkus.camel.native.reflection.include-patterns = org.apache.camel.spi.RouteCon
 [id="extensions-controlbus-limitations-statistics"]
 === Statistics
 
-The `stats` action is not available in native mode as JMX is not supported in the Graal VM.  Therefore, attempting to build a native image with the `camel-quarkus-management` extension on the classpath will result in a build failure.
+ifeval::[{doc-show-advanced-features} == true]
+The `stats` action is not available in native mode as JMX is not supported on GraalVM. Therefore, attempting to build a native image with the `camel-quarkus-management` extension on the classpath will result in a build failure.
+endif::[]
+
+ifeval::[{doc-show-extra-content} == true]
+include::controlbus-statistics-unsupported.adoc[]
+endif::[]
 
