@@ -25,6 +25,8 @@
 
 **Merged pull requests:**
 
+- Minor tidy up of controlbus extension documentation [\#4296](https://github.com/apache/camel-quarkus/pull/4296) ([jamesnetherton](https://github.com/jamesnetherton))
+- Extend tests with RAW and CXF\_MESSAGE dataFormats [\#4293](https://github.com/apache/camel-quarkus/pull/4293) ([llowinge](https://github.com/llowinge))
 - Add a separate version property for FHIR core dependencies [\#4292](https://github.com/apache/camel-quarkus/pull/4292) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3980 to disable JMX in commons-pool2 during native building [\#4287](https://github.com/apache/camel-quarkus/pull/4287) ([zhfeng](https://github.com/zhfeng))
 - Revert "Springless JPA extension \(\#4049\)" [\#4286](https://github.com/apache/camel-quarkus/pull/4286) ([zhfeng](https://github.com/zhfeng))
