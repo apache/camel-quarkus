@@ -49,6 +49,8 @@ import org.apache.maven.plugins.annotations.Parameter;
 public class PrepareCatalogQuarkusMojo extends AbstractExtensionListMojo {
 
     public static final String CAMEL_ARTIFACT = "camelArtifact";
+    public static final String CAMEL_VERSION = "camelVersion";
+    public static final String QUARKUS_VERSION = "quarkusVersion";
     /**
      * The output directory where the catalog files should be written.
      */
@@ -64,6 +66,14 @@ public class PrepareCatalogQuarkusMojo extends AbstractExtensionListMojo {
      */
     @Parameter(property = "cq.extendClassPathCatalog", defaultValue = "false")
     boolean extendClassPathCatalog;
+
+    /**
+     * Quarkus (core) version the current source tree depends on.
+     *
+     * @since 2.15.0
+     */
+    @Parameter(property = "quarkus.version", required = true)
+    String quarkusVersion;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -135,12 +145,12 @@ public class PrepareCatalogQuarkusMojo extends AbstractExtensionListMojo {
                                 "description is missing in " + ext.getRuntimePomXmlPath())));
                         model.setDeprecated(CqUtils.isDeprecated(title, models, ext.isDeprecated()));
                         model.setLabel(ext.getLabel().orElse("quarkus"));
-                        update(model, ext, nativeSupported);
+                        update(model, ext, nativeSupported, quarkusVersion);
                         CqCatalog.serialize(catalogPath, model);
                         schemesByKind.get(model.getKind()).add(model.getName());
                     } else {
                         for (ArtifactModel<?> model : models) {
-                            update(model, ext, nativeSupported);
+                            update(model, ext, nativeSupported, quarkusVersion);
                             CqCatalog.serialize(catalogPath, model);
                             schemesByKind.get(model.getKind()).add(model.getName());
                         }
@@ -161,12 +171,16 @@ public class PrepareCatalogQuarkusMojo extends AbstractExtensionListMojo {
 
     }
 
-    private static void update(ArtifactModel<?> model, CamelQuarkusExtension ext, boolean nativeSupported) {
+    private static void update(ArtifactModel<?> model, CamelQuarkusExtension ext, boolean nativeSupported,
+            String quarkusVersion) {
         final String firstVersion = ext.getJvmSince()
                 .orElseThrow(() -> new RuntimeException(
                         "firstVersion property is missing in " + ext.getRuntimePomXmlPath()));
+        final Map<String, Object> metadata = model.getMetadata();
+        metadata.put(QUARKUS_VERSION, quarkusVersion);
         if (model.getArtifactId() != null && model.getGroupId() != null) {
-            model.getMetadata().put(CAMEL_ARTIFACT, model.getGroupId() + ":" + model.getArtifactId());
+            metadata.put(CAMEL_ARTIFACT, model.getGroupId() + ":" + model.getArtifactId());
+            metadata.put(CAMEL_VERSION, model.getVersion());
         }
         // lets use the camel-quarkus version as first version instead of Apache Camel
         // version
