@@ -53,6 +53,7 @@
 - Upgrade to quarkus-cxf 1.5.5 [\#4232](https://github.com/apache/camel-quarkus/pull/4232) ([ppalaga](https://github.com/ppalaga))
 - replace doc occurence of camel-quarkus-jaxp with camel-quarkus-xml-jaxp [\#4229](https://github.com/apache/camel-quarkus/pull/4229) ([aldettinger](https://github.com/aldettinger))
 - Adding a test for custom ConnectionFactory without quarkus.artemis.url [\#4228](https://github.com/apache/camel-quarkus/pull/4228) ([zhfeng](https://github.com/zhfeng))
+- Add CXF WS-SecurityPolicy test [\#4224](https://github.com/apache/camel-quarkus/pull/4224) ([ppalaga](https://github.com/ppalaga))
 - Test CXF service having an Implementation class in the application [\#4223](https://github.com/apache/camel-quarkus/pull/4223) ([ppalaga](https://github.com/ppalaga))
 - perf-regression: remove workaround and final fix Java 17 issue \#4031 [\#4222](https://github.com/apache/camel-quarkus/pull/4222) ([aldettinger](https://github.com/aldettinger))
 - fix line ending [\#4221](https://github.com/apache/camel-quarkus/pull/4221) ([aldettinger](https://github.com/aldettinger))
