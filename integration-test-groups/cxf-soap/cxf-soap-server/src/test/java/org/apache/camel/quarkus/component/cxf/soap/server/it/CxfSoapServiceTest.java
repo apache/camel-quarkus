@@ -24,13 +24,17 @@ import io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil;
 import io.quarkus.runtime.LaunchMode;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
+import io.restassured.config.RestAssuredConfig;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import static io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil.anyNs;
 
 @QuarkusTest
 class CxfSoapServiceTest {
@@ -53,24 +57,33 @@ class CxfSoapServiceTest {
     }
 
     @Test
-    public void testCodeFirstSoapService() {
+    public void codeFirstWsdl() {
 
-        final String response = RestAssured.given()
-                .contentType(ContentType.XML)
-                .body("<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ser=\"http://www.helloworld.com/CodeFirstService/\">\n"
-                        +
-                        "   <soapenv:Header/>\n" +
-                        "   <soapenv:Body>\n" +
-                        "      <ser:HelloRequest>HelloWorld</ser:HelloRequest>\n" +
-                        "   </soapenv:Body>\n" +
-                        "</soapenv:Envelope>")
-                .post("/soapservice/codefirst")
+        RestAssuredConfig config = RestAssured.config();
+        config.getXmlConfig().namespaceAware(false);
+        RestAssured.given()
+                .config(config)
+                .when().get("/soapservice/codefirst?wsdl")
                 .then()
                 .statusCode(200)
-                .assertThat()
-                .extract().asString();
+                .body(
+                        /* Make sure that the two operations are available in the generated WSDL */
+                        Matchers.hasXPath(
+                                anyNs("definitions", "binding", "operation")
+                                        + "[1]/@*[local-name() = 'name']",
+                                CoreMatchers.is("GoodBye")),
+                        Matchers.hasXPath(
+                                anyNs("definitions", "binding", "operation")
+                                        + "[2]/@*[local-name() = 'name']",
+                                CoreMatchers.is("Hello")));
+    }
 
-        org.junit.jupiter.api.Assertions.assertTrue(response.contains("Hello CamelQuarkusCXF"));
+    @Test
+    public void codeFirstSoapService() {
+        final CodeFirstService client = QuarkusCxfClientTestUtil.getClient(CodeFirstService.TARGET_NS, CodeFirstService.class,
+                "/soapservice/codefirst");
+        Assertions.assertEquals("Hello Joe code first", client.hello("Joe"));
+        Assertions.assertEquals("Good bye Laszlo code first", client.goodBye("Laszlo"));
     }
 
     @ParameterizedTest
