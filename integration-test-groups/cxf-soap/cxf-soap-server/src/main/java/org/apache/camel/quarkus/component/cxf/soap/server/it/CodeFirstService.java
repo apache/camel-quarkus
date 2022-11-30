@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helloworld.service;
+package org.apache.camel.quarkus.component.cxf.soap.server.it;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -23,11 +23,18 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.ParameterStyle;
 
-@WebService(targetNamespace = "http://www.helloworld.com/CodeFirstService/", name = "CodeFirstService")
+@WebService(targetNamespace = CodeFirstService.TARGET_NS, name = "CodeFirstService", serviceName = "CodeFirstService")
 @SOAPBinding(parameterStyle = ParameterStyle.BARE)
 public interface CodeFirstService {
+    public static final String TARGET_NS = "http://www.helloworld.com/CodeFirstService/";
+
     @WebMethod(operationName = "Hello", action = "https://www.helloworld.com/CodeFirstService/Hello")
-    @WebResult(name = "HelloResponse", targetNamespace = "http://www.helloworld.com/CodeFirstService/")
+    @WebResult(name = "HelloResponse", targetNamespace = TARGET_NS)
     String hello(
-            @WebParam(name = "HelloRequest", targetNamespace = "http://www.helloworld.com/CodeFirstService/") String var1);
+            @WebParam(name = "HelloRequest", targetNamespace = TARGET_NS) String var1);
+
+    @WebMethod(operationName = "GoodBye", action = "https://www.helloworld.com/CodeFirstService/GoodBye")
+    @WebResult(name = "GoodByeResponse", targetNamespace = TARGET_NS)
+    String goodBye(
+            @WebParam(name = "GoodByeRequest", targetNamespace = TARGET_NS) String var1);
 }

@@ -30,7 +30,6 @@ import javax.xml.xpath.XPathConstants;
 
 import org.w3c.dom.Element;
 
-import com.helloworld.service.CodeFirstService;
 import com.helloworld.service.HelloPortType;
 import com.sun.xml.messaging.saaj.soap.ver1_1.Message1_1Impl;
 import org.apache.camel.builder.RouteBuilder;
@@ -67,7 +66,17 @@ public class CxfSoapRoutes extends RouteBuilder {
                         .setBody().simple("Hello ${body} from CXF service");
 
         from("cxf:bean:codeFirstServiceEndpoint")
-                .setBody().constant("Hello CamelQuarkusCXF");
+                .choice()
+                .when(simple("${header.operationName} == 'Hello'"))
+                .setBody().simple("Hello ${body} code first")
+                .endChoice()
+                .when(simple("${header.operationName} == 'GoodBye'"))
+                .setBody().simple("Good bye ${body} code first")
+                .endChoice()
+                .otherwise()
+                .process(e -> {
+                    throw new IllegalStateException("Unexpected operation " + e.getMessage().getHeader("operationName"));
+                });
 
         from("cxf:bean:echoServiceResponseFromRouteCxfMessageDataFormat")
                 .process(exchange -> {
