@@ -300,7 +300,7 @@ class GoogleBigqueryTest {
                 //once test is disabled, make sure that the types of the columns are aligned to the schema
                 //see https://issues.apache.org/jira/browse/CAMEL-18437 for more details
                 .body(mapWithJobId("job02", mapOf("id", 2, "col1", 3, "col2", 4)))
-                .queryParam("sql", String.format("INSERT INTO `%s.%s.%s` VALUES(@id, ${col1}, ${col2})",
+                .queryParam("sql", String.format("INSERT INTO `%s.%s.%s` VALUES(@id, '${col1}', '${col2}')",
                         projectId, dataset, tableNameForSqlCrud))
                 .post("executeSql")
                 .then()
@@ -341,7 +341,7 @@ class GoogleBigqueryTest {
         RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(mapWithJobId("job05", Collections.emptyMap()))
-                .queryParam("sql", String.format("DELETE FROM `%s.%s.%s` WHERE id=1",
+                .queryParam("sql", String.format("DELETE FROM `%s.%s.%s` WHERE id='1'",
                         projectId, dataset, tableNameForSqlCrud))
                 .post("executeSql")
                 .then()
