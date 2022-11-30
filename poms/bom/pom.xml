@@ -10018,6 +10018,11 @@
                 </exclusions>
             </dependency>
             <dependency>
+                <groupId>io.quarkiverse.messaginghub</groupId>
+                <artifactId>quarkus-pooled-jms-deployment</artifactId>
+                <version>${quarkiverse-pooled-jms.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.quarkiverse.minio</groupId>
                 <artifactId>quarkus-minio</artifactId>
                 <version>${quarkiverse-minio.version}</version>
