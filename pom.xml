@@ -163,7 +163,7 @@
         <mock-javamail.version>${mock-javamail-version}</mock-javamail.version>
         <pdfbox.version>${pdfbox-version}</pdfbox.version>
         <slf4j-log4j12.version>1.7.30</slf4j-log4j12.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
-        <sshd.version>${sshd-version}</sshd.version>
+        <sshd.version>2.9.2</sshd.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.sshd:sshd-common -->
         <stax2.version>4.2</stax2.version>
         <wiremock.version>2.27.2</wiremock.version>
         <zt-exec.version>1.12</zt-exec.version>
