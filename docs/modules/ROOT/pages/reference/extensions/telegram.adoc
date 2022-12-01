@@ -45,6 +45,25 @@ ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
 
+[id="extensions-telegram-usage"]
+== Usage
+[id="extensions-telegram-usage-webhook-mode"]
+== Webhook Mode
+
+The Telegram extension supports usage in the webhook mode.
+
+In order to enable webhook mode, users need first to add a REST implementation to their application.
+Maven users, for example, can add *camel-quarkus-rest* extension to their `pom.xml` file:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-rest</artifactId>
+</dependency>
+----
+
+
 [id="extensions-telegram-ssl-in-native-mode"]
 == SSL in native mode
 
