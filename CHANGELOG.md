@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- Test Java first CXF server endpoint with multiple SEI methods [\#4306](https://github.com/apache/camel-quarkus/issues/4306)
 - camel-quarkus-catalog - Make it possible to get the camel version [\#4301](https://github.com/apache/camel-quarkus/issues/4301)
 - camel-quarkus-http - ClassNotFoundException - javax.servlet.http.HttpServletRequest [\#4300](https://github.com/apache/camel-quarkus/issues/4300)
 - The used Quarkus version in camel-quarkus 2.13.1 [\#4278](https://github.com/apache/camel-quarkus/issues/4278)
@@ -27,6 +28,8 @@
 
 **Merged pull requests:**
 
+- Add quarkus-pooled-jms-deployment to camel-quarkus-bom [\#4309](https://github.com/apache/camel-quarkus/pull/4309) ([jamesnetherton](https://github.com/jamesnetherton))
+- Test Java first CXF server endpoint with multiple SEI methods  [\#4307](https://github.com/apache/camel-quarkus/pull/4307) ([ppalaga](https://github.com/ppalaga))
 - camel-quarkus-catalog - Make it possible to get the camel version  [\#4302](https://github.com/apache/camel-quarkus/pull/4302) ([ppalaga](https://github.com/ppalaga))
 - Minor tidy up of controlbus extension documentation [\#4296](https://github.com/apache/camel-quarkus/pull/4296) ([jamesnetherton](https://github.com/jamesnetherton))
 - Extend tests with RAW and CXF\_MESSAGE dataFormats [\#4293](https://github.com/apache/camel-quarkus/pull/4293) ([llowinge](https://github.com/llowinge))
