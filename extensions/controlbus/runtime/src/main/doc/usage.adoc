@@ -1,6 +1,5 @@
-=== Actions
 ifeval::[{doc-show-advanced-features} == true]
-==== Statistics
+=== Statistics
 
 When using the `stats` command endpoint, the `camel-quarkus-management` extension must be added as a project dependency to enable JMX. Maven users will have to add the following to their `pom.xml`:
 
