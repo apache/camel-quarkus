@@ -1,0 +1,21 @@
+{
+  "id" : "70c0a770-2a98-4f46-ba01-8ba3a71d8e3d",
+  "name": "botfake-webhook",
+  "request": {
+    "url": "/botfake-token/setWebhook?url=http://localhost:8080/my-test",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "body": "{\"ok\":true,\"result\":true,\"description\":\"Webhook was set\"}",
+    "headers": {
+      "Server": "nginx/1.16.1",
+      "Date": "Tue, 03 Nov 2020 12:26:06 GMT",
+      "Content-Type": "application/json",
+      "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
+    }
+  },
+  "uuid": "f47c81d1-def8-4246-b14f-2a0555829f7d",
+  "persistent": true,
+  "insertionIndex": 8
+}
