@@ -10157,6 +10157,11 @@
                 <version>${jakarta.jms-api.version}</version>
             </dependency>
             <dependency>
+                <groupId>jakarta.xml.soap</groupId>
+                <artifactId>jakarta.xml.soap-api</artifactId>
+                <version>${jakarta.xml.soap-api.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>jakarta.xml.ws</groupId>
                 <artifactId>jakarta.xml.ws-api</artifactId>
                 <version>${jakarta.xml.ws.api.version}</version>
