@@ -108,8 +108,9 @@
         <jackson1.version>1.9.13</jackson1.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <jackson-asl.version>${jackson1.version}</jackson-asl.version><!-- Can be different from jackson1.version on some occasions -->
         <jakarta.jms-api.version>2.0.3</jakarta.jms-api.version>
-        <jakarta.jws.ws.api.version>2.1.0</jakarta.jws.ws.api.version>
-        <jakarta.xml.ws.api.version>2.3.3</jakarta.xml.ws.api.version>
+        <jakarta.jws.ws.api.version>2.1.0</jakarta.jws.ws.api.version><!-- @sync org.apache.cxf:cxf-parent:${cxf.version} prop:cxf.jakarta.jwsapi.version -->
+        <jakarta.xml.soap-api.version>1.4.2</jakarta.xml.soap-api.version><!-- @sync org.apache.cxf:cxf-parent:${cxf.version} prop:cxf.jakarta.soapapi.version -->
+        <jakarta.xml.ws.api.version>2.3.3</jakarta.xml.ws.api.version><!-- @sync org.apache.cxf:cxf-parent:${cxf.version} prop:cxf.jakarta.wsapi.version -->
         <java-json-tools.json-patch.version>${json-patch-version}</java-json-tools.json-patch.version><!-- A replacement for com.github.fge:json-patch -->
         <jcodings.version>1.0.55</jcodings.version><!-- used by hbase -->
         <jodatime.version>2.10.6</jodatime.version><!-- Mess in transitive dependencies of Spark and Splunk -->
