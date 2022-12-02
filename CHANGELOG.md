@@ -28,8 +28,11 @@
 
 **Merged pull requests:**
 
+- Remove superfluous actions heading from controlbus docs [\#4311](https://github.com/apache/camel-quarkus/pull/4311) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add quarkus-pooled-jms-deployment to camel-quarkus-bom [\#4309](https://github.com/apache/camel-quarkus/pull/4309) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade Quarkus to 2.15.0.CR1 [\#4308](https://github.com/apache/camel-quarkus/pull/4308) ([jamesnetherton](https://github.com/jamesnetherton))
 - Test Java first CXF server endpoint with multiple SEI methods  [\#4307](https://github.com/apache/camel-quarkus/pull/4307) ([ppalaga](https://github.com/ppalaga))
+- Bump Optaplanner to 8.31.0.Final [\#4303](https://github.com/apache/camel-quarkus/pull/4303) ([zbendhiba](https://github.com/zbendhiba))
 - camel-quarkus-catalog - Make it possible to get the camel version  [\#4302](https://github.com/apache/camel-quarkus/pull/4302) ([ppalaga](https://github.com/ppalaga))
 - Minor tidy up of controlbus extension documentation [\#4296](https://github.com/apache/camel-quarkus/pull/4296) ([jamesnetherton](https://github.com/jamesnetherton))
 - Extend tests with RAW and CXF\_MESSAGE dataFormats [\#4293](https://github.com/apache/camel-quarkus/pull/4293) ([llowinge](https://github.com/llowinge))
