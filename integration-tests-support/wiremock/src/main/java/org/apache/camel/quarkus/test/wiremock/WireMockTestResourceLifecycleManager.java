@@ -33,6 +33,7 @@ import com.github.tomakehurst.wiremock.recording.RecordingStatus;
 import com.github.tomakehurst.wiremock.recording.SnapshotRecordResult;
 import com.github.tomakehurst.wiremock.stubbing.StubMapping;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.apache.camel.quarkus.test.AvailablePortFinder;
 import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
@@ -111,6 +112,7 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
                 }
             }
             server.stop();
+            AvailablePortFinder.releaseReservedPorts();
         }
     }
 
@@ -215,7 +217,7 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
         LOG.info("Starting WireMockServer");
 
         MockBackendUtils.startMockBackend(true);
-        WireMockConfiguration configuration = options().dynamicPort();
+        WireMockConfiguration configuration = options().port(AvailablePortFinder.getNextAvailable());
         customizeWiremockConfiguration(configuration);
 
         if (!isRecordingEnabled()) {

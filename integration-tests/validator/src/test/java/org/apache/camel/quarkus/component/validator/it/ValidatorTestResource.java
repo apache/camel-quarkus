@@ -20,8 +20,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.apache.camel.quarkus.test.AvailablePortFinder;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
@@ -46,7 +46,7 @@ public class ValidatorTestResource implements QuarkusTestResourceLifecycleManage
                 + "</xs:element>"
                 + "</xs:schema>";
 
-        server = new WireMockServer(WireMockConfiguration.DYNAMIC_PORT);
+        server = new WireMockServer(AvailablePortFinder.getNextAvailable());
         server.start();
         server.stubFor(
                 get(urlEqualTo("/xsd"))
@@ -62,6 +62,7 @@ public class ValidatorTestResource implements QuarkusTestResourceLifecycleManage
     public void stop() {
         if (server != null) {
             server.stop();
+            AvailablePortFinder.releaseReservedPorts();
         }
     }
 
