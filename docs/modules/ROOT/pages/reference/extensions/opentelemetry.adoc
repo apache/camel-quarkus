@@ -56,7 +56,7 @@ In order to send the captured traces to a tracing system, you need to configure 
 quarkus.application.name=my-camel-application
 
 # OTLP exporter endpoint
-quarkus.opentelemetry.tracer.exporter.otlp.endpoint=http://localhost:55680
+quarkus.opentelemetry.tracer.exporter.otlp.endpoint=http://localhost:4317
 ----
 
 Refer to the https://github.com/quarkusio/quarkus/blob/{quarkus-version}/docs/src/main/asciidoc/opentelemetry.adoc[Quarkus OpenTelemetry guide] for a full list of configuration options.
