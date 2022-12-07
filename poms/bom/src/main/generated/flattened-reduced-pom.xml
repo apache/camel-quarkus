@@ -10027,7 +10027,7 @@
       <dependency>
         <groupId>io.quarkiverse.messaginghub</groupId>
         <artifactId>quarkus-pooled-jms</artifactId>
-        <version>1.0.6</version>
+        <version>1.0.7</version>
         <exclusions>
           <exclusion>
             <groupId>jakarta.jms</groupId>
@@ -10038,7 +10038,7 @@
       <dependency>
         <groupId>io.quarkiverse.messaginghub</groupId>
         <artifactId>quarkus-pooled-jms-deployment</artifactId>
-        <version>1.0.6</version>
+        <version>1.0.7</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.minio</groupId>
