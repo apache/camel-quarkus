@@ -13,6 +13,7 @@
 - Test Java first CXF server endpoint with multiple SEI methods [\#4306](https://github.com/apache/camel-quarkus/issues/4306)
 - camel-quarkus-catalog - Make it possible to get the camel version [\#4301](https://github.com/apache/camel-quarkus/issues/4301)
 - camel-quarkus-http - ClassNotFoundException - javax.servlet.http.HttpServletRequest [\#4300](https://github.com/apache/camel-quarkus/issues/4300)
+- CXF endpoint configured via URI options doesn't work with PAYLOAD mode [\#4282](https://github.com/apache/camel-quarkus/issues/4282)
 - The used Quarkus version in camel-quarkus 2.13.1 [\#4278](https://github.com/apache/camel-quarkus/issues/4278)
 - Remove `camel-quarkus-support-xstream` dependency from Salesforce extension [\#4272](https://github.com/apache/camel-quarkus/issues/4272)
 - Automatic configuration of FileLockClusterService [\#4262](https://github.com/apache/camel-quarkus/issues/4262)
@@ -29,6 +30,7 @@
 **Merged pull requests:**
 
 - Avoid port clashes with WireMock dynamically allocated port [\#4314](https://github.com/apache/camel-quarkus/pull/4314) ([jamesnetherton](https://github.com/jamesnetherton))
+- Manage jakarta.xml.soap-api and sync jakarta.ws properties with CXF [\#4312](https://github.com/apache/camel-quarkus/pull/4312) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove superfluous actions heading from controlbus docs [\#4311](https://github.com/apache/camel-quarkus/pull/4311) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add quarkus-pooled-jms-deployment to camel-quarkus-bom [\#4309](https://github.com/apache/camel-quarkus/pull/4309) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.15.0.CR1 [\#4308](https://github.com/apache/camel-quarkus/pull/4308) ([jamesnetherton](https://github.com/jamesnetherton))
