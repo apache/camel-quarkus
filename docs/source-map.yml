@@ -21,5 +21,5 @@
         - url: 'https://github.com/apache/camel-quarkus.git'
           mapped-url: './../camel-quarkus'
           branches:
-            - branch: main
+            - branch: 2.15.x
               mapped-branch: HEAD
