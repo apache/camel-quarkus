@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- Update camel-quarkus-jms doc to add pooling and XA integrate support [\#4317](https://github.com/apache/camel-quarkus/issues/4317)
 - Test Java first CXF server endpoint with multiple SEI methods [\#4306](https://github.com/apache/camel-quarkus/issues/4306)
 - camel-quarkus-catalog - Make it possible to get the camel version [\#4301](https://github.com/apache/camel-quarkus/issues/4301)
 - camel-quarkus-http - ClassNotFoundException - javax.servlet.http.HttpServletRequest [\#4300](https://github.com/apache/camel-quarkus/issues/4300)
@@ -29,6 +30,8 @@
 
 **Merged pull requests:**
 
+- Fix \#4317 to update jms documentation for pooling and XA support [\#4323](https://github.com/apache/camel-quarkus/pull/4323) ([zhfeng](https://github.com/zhfeng))
+- Fix Opentelemetry port number in the documentation [\#4320](https://github.com/apache/camel-quarkus/pull/4320) ([zbendhiba](https://github.com/zbendhiba))
 - Avoid port clashes with WireMock dynamically allocated port [\#4314](https://github.com/apache/camel-quarkus/pull/4314) ([jamesnetherton](https://github.com/jamesnetherton))
 - Manage jakarta.xml.soap-api and sync jakarta.ws properties with CXF [\#4312](https://github.com/apache/camel-quarkus/pull/4312) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove superfluous actions heading from controlbus docs [\#4311](https://github.com/apache/camel-quarkus/pull/4311) ([jamesnetherton](https://github.com/jamesnetherton))
