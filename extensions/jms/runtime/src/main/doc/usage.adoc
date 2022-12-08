@@ -8,9 +8,10 @@ you must ensure that the `camel-quarkus-xml-jaxp` extension is present on the cl
 When sending JMS message payloads as `javax.jms.ObjectMessage`, you must annotate the relevant classes to be registered for serialization with `@RegisterForReflection(serialization = true)`. 
 Note that this extension automatically sets `quarkus.camel.native.reflection.serialization-enabled = true` for you. Refer to the xref:user-guide/native-mode.adoc#serialization[native mode user guide] for more information.
 
-=== Pooling and XA integrate support
+=== Support for Connection pooling and X/Open XA distributed transactions
 
-You can use the `quarkus-pooled-jms` extension to get pooling and XA integrate support for JMS connections. Refer to the https://quarkiverse.github.io/quarkiverse-docs/quarkus-pooled-jms/dev/index.html[quarkus-pooled-jms] extension documentation for more information. Currently, it only works with `quarkus-artemis-jms` extension. Just add these two dependencies to your `pom.xml`:
+You can use the `quarkus-pooled-jms` extension to get pooling and XA support for JMS connections. Refer to the https://quarkiverse.github.io/quarkiverse-docs/quarkus-pooled-jms/dev/index.html[quarkus-pooled-jms] extension documentation for more information.
+Currently, it only works with `quarkus-artemis-jms` extension. Just add these two dependencies to your `pom.xml`:
 [source,xml]
 ----
 <dependency>
@@ -23,7 +24,9 @@ You can use the `quarkus-pooled-jms` extension to get pooling and XA integrate s
 </dependency>
 ----
 
-Pooling is default enabled and for XA integrate support, you need to add the following configuration to your `application.properties`:
+Note that pooling is enabled by default.
+
+To enable XA, you need to add the following configuration to your `application.properties`:
 [source,properties]
 ----
 quarkus.pooled-jms.xa.enabled=true
