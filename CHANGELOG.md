@@ -2,35 +2,15 @@
 
 ## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.14.0...HEAD)
-
-**Fixed bugs:**
-
-- JMS consumer in a XA router can not work with JPA [\#4279](https://github.com/apache/camel-quarkus/issues/4279)
-
-**Closed issues:**
-
-- Update camel-quarkus-jms doc to add pooling and XA integrate support [\#4317](https://github.com/apache/camel-quarkus/issues/4317)
-- Test Java first CXF server endpoint with multiple SEI methods [\#4306](https://github.com/apache/camel-quarkus/issues/4306)
-- camel-quarkus-catalog - Make it possible to get the camel version [\#4301](https://github.com/apache/camel-quarkus/issues/4301)
-- camel-quarkus-http - ClassNotFoundException - javax.servlet.http.HttpServletRequest [\#4300](https://github.com/apache/camel-quarkus/issues/4300)
-- CXF endpoint configured via URI options doesn't work with PAYLOAD mode [\#4282](https://github.com/apache/camel-quarkus/issues/4282)
-- The used Quarkus version in camel-quarkus 2.13.1 [\#4278](https://github.com/apache/camel-quarkus/issues/4278)
-- Remove `camel-quarkus-support-xstream` dependency from Salesforce extension [\#4272](https://github.com/apache/camel-quarkus/issues/4272)
-- Automatic configuration of FileLockClusterService [\#4262](https://github.com/apache/camel-quarkus/issues/4262)
-- \[Quarkus 2.14\] XML intergration tests are failing in Quarkus platform [\#4258](https://github.com/apache/camel-quarkus/issues/4258)
-- XmlTest.aggregate\(\) test fails on the platform [\#4255](https://github.com/apache/camel-quarkus/issues/4255)
-- CxfSoapClientTest.wsdlUpToDate\(\) and CxfSoapWssClientTest.wsdlUpToDate\(\) fail on the platform [\#4254](https://github.com/apache/camel-quarkus/issues/4254)
-- Improve jms-artemis-client integration tests with XA support by quarkus-pooled-jms [\#4250](https://github.com/apache/camel-quarkus/issues/4250)
-- \[Quarkus 2.15.0\] Remove `not-quarkus-snapshots` profile from Observability example project [\#4231](https://github.com/apache/camel-quarkus/issues/4231)
-- Camel quarkus xslt processor runtime uriresolver not able to dynamically load resource from classpath [\#4142](https://github.com/apache/camel-quarkus/issues/4142)
-- \[Camel 3.19.0\] Kubernetes: tests + native has to be disabled until Quarkus 2.14 [\#4095](https://github.com/apache/camel-quarkus/issues/4095)
-- Increase test coverage in controlbus extension with languages [\#4008](https://github.com/apache/camel-quarkus/issues/4008)
-- Native build fails when using both camel-quarkus-activemq and quarkus-jdbc-oracle [\#3980](https://github.com/apache/camel-quarkus/issues/3980)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.15.0...HEAD)
 
 **Merged pull requests:**
 
+- Upgrade to quarkus-cxf 1.7.1 [\#4331](https://github.com/apache/camel-quarkus/pull/4331) ([ppalaga](https://github.com/ppalaga))
+- Updating librairies [\#4329](https://github.com/apache/camel-quarkus/pull/4329) ([zbendhiba](https://github.com/zbendhiba))
+- tidy up of jms extension documentation [\#4327](https://github.com/apache/camel-quarkus/pull/4327) ([zhfeng](https://github.com/zhfeng))
 - Fix \#4317 to update jms documentation for pooling and XA support [\#4323](https://github.com/apache/camel-quarkus/pull/4323) ([zhfeng](https://github.com/zhfeng))
+- Upgrade to Quarkus 2.15.0.Final and Quarkiverse CXF 1.7.0 [\#4322](https://github.com/apache/camel-quarkus/pull/4322) ([ppalaga](https://github.com/ppalaga))
 - Fix Opentelemetry port number in the documentation [\#4320](https://github.com/apache/camel-quarkus/pull/4320) ([zbendhiba](https://github.com/zbendhiba))
 - Avoid port clashes with WireMock dynamically allocated port [\#4314](https://github.com/apache/camel-quarkus/pull/4314) ([jamesnetherton](https://github.com/jamesnetherton))
 - Manage jakarta.xml.soap-api and sync jakarta.ws properties with CXF [\#4312](https://github.com/apache/camel-quarkus/pull/4312) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1337,6 +1317,36 @@
 - Fix \#1428 to add the usage.adoc [\#1457](https://github.com/apache/camel-quarkus/pull/1457) ([zhfeng](https://github.com/zhfeng))
 - org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
+
+## [2.15.0](https://github.com/apache/camel-quarkus/tree/2.15.0) (2022-12-08)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.14.0...2.15.0)
+
+**Fixed bugs:**
+
+- JMS consumer in a XA router can not work with JPA [\#4279](https://github.com/apache/camel-quarkus/issues/4279)
+
+**Closed issues:**
+
+- camel-quarkus-http - ClassNotFoundException - javax.servlet.http.HttpServletRequest [\#4300](https://github.com/apache/camel-quarkus/issues/4300)
+- CXF endpoint configured via URI options doesn't work with PAYLOAD mode [\#4282](https://github.com/apache/camel-quarkus/issues/4282)
+- The used Quarkus version in camel-quarkus 2.13.1 [\#4278](https://github.com/apache/camel-quarkus/issues/4278)
+- \[Camel 3.19.0\] Kubernetes: tests + native has to be disabled until Quarkus 2.14 [\#4095](https://github.com/apache/camel-quarkus/issues/4095)
+- Increase test coverage in controlbus extension with languages [\#4008](https://github.com/apache/camel-quarkus/issues/4008)
+- \[2.15.0\] Rely on jakarta.jws-api, jakarta.xml.soap-api and jakarta.xml.ws-api managed in Quarkiverse CXF [\#4321](https://github.com/apache/camel-quarkus/issues/4321)
+- \[2.15.0\] Upgrade to Quarkiverse CXF 1.7.0 [\#4319](https://github.com/apache/camel-quarkus/issues/4319)
+- Update camel-quarkus-jms doc to add pooling and XA integrate support [\#4317](https://github.com/apache/camel-quarkus/issues/4317)
+- Test Java first CXF server endpoint with multiple SEI methods [\#4306](https://github.com/apache/camel-quarkus/issues/4306)
+- camel-quarkus-catalog - Make it possible to get the camel version [\#4301](https://github.com/apache/camel-quarkus/issues/4301)
+- Remove `camel-quarkus-support-xstream` dependency from Salesforce extension [\#4272](https://github.com/apache/camel-quarkus/issues/4272)
+- Automatic configuration of FileLockClusterService [\#4262](https://github.com/apache/camel-quarkus/issues/4262)
+- \[Quarkus 2.14\] XML intergration tests are failing in Quarkus platform [\#4258](https://github.com/apache/camel-quarkus/issues/4258)
+- XmlTest.aggregate\(\) test fails on the platform [\#4255](https://github.com/apache/camel-quarkus/issues/4255)
+- CxfSoapClientTest.wsdlUpToDate\(\) and CxfSoapWssClientTest.wsdlUpToDate\(\) fail on the platform [\#4254](https://github.com/apache/camel-quarkus/issues/4254)
+- Improve jms-artemis-client integration tests with XA support by quarkus-pooled-jms [\#4250](https://github.com/apache/camel-quarkus/issues/4250)
+- \[Quarkus 2.15.0\] Remove `not-quarkus-snapshots` profile from Observability example project [\#4231](https://github.com/apache/camel-quarkus/issues/4231)
+- Camel quarkus xslt processor runtime uriresolver not able to dynamically load resource from classpath [\#4142](https://github.com/apache/camel-quarkus/issues/4142)
+- Native build fails when using both camel-quarkus-activemq and quarkus-jdbc-oracle [\#3980](https://github.com/apache/camel-quarkus/issues/3980)
 
 ## [2.14.0](https://github.com/apache/camel-quarkus/tree/2.14.0) (2022-11-04)
 
