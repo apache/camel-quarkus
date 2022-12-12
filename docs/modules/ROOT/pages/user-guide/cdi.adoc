@@ -170,10 +170,10 @@ public class CamelRoute extends RouteBuilder {
     @Override
     public void configure() {
         from("direct:named")
-                .bean("namedBean", "hello");
+                .bean("myNamedBean", "hello");
         /* ... which is an equivalent of the following: */
         from("direct:named")
-                .to("bean:namedBean?method=hello");
+                .to("bean:myNamedBean?method=hello");
     }
 }
 ----
