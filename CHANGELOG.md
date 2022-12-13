@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Next is 2.16.0 [\#4333](https://github.com/apache/camel-quarkus/pull/4333) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade to quarkus-cxf 1.7.1 [\#4331](https://github.com/apache/camel-quarkus/pull/4331) ([ppalaga](https://github.com/ppalaga))
 - Updating librairies [\#4329](https://github.com/apache/camel-quarkus/pull/4329) ([zbendhiba](https://github.com/zbendhiba))
 - tidy up of jms extension documentation [\#4327](https://github.com/apache/camel-quarkus/pull/4327) ([zhfeng](https://github.com/zhfeng))
