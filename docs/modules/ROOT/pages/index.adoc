@@ -18,8 +18,8 @@ This project aims to bring the awesome integration capabilities of xref:manual::
 and its vast xref:{cq-camel-components}::index.adoc[component library] to the
 https://quarkus.io/[Quarkus runtime].
 
-This enables users to take advantage of the performance benefits, https://quarkus.io/vision/developer-joy[developer joy]
-and the https://quarkus.io/vision/container-first[container first ethos] that Quarkus provides.
+This enables users to take advantage of the performance benefits, https://quarkus.io/developer-joy[developer joy]
+and the https://quarkus.io/container-first[container first ethos] that Quarkus provides.
 
 Camel Quarkus provides xref:reference/index.adoc[Quarkus extensions] for many of the Camel components.
 
