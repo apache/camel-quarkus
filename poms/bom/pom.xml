@@ -10117,6 +10117,16 @@
                 <version>${quarkiverse-minio.version}</version>
             </dependency>
             <dependency>
+                <groupId>io.quarkiverse.minio</groupId>
+                <artifactId>quarkus-minio-native</artifactId>
+                <version>${quarkiverse-minio.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.minio</groupId>
+                <artifactId>quarkus-minio-native-deployment</artifactId>
+                <version>${quarkiverse-minio.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.quarkiverse.mybatis</groupId>
                 <artifactId>quarkus-mybatis</artifactId>
                 <version>${quarkiverse-mybatis.version}</version>
@@ -10597,6 +10607,7 @@
                                 <resolutionEntryPointInclude>org.apache.camel.quarkus:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>ca.uhn.hapi:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>io.quarkiverse.cxf:*</resolutionEntryPointInclude>
+                                <resolutionEntryPointInclude>io.quarkiverse.minio:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>io.quarkiverse.messaginghub:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>net.openhft:affinity</resolutionEntryPointInclude><!-- https://github.com/apache/camel-quarkus/issues/3788 -->
                                 <resolutionEntryPointInclude>org.apache.cxf.xjc-utils:cxf-xjc-runtime</resolutionEntryPointInclude>
@@ -10612,10 +10623,6 @@
                                 </bomEntryTransformation>
                                 <bomEntryTransformation>
                                     <gavPattern>com.datastax.oss:java-driver-query-builder</gavPattern>
-                                    <addExclusions>com.google.code.findbugs:jsr305</addExclusions>
-                                </bomEntryTransformation>
-                                <bomEntryTransformation>
-                                    <gavPattern>io.quarkiverse.minio:quarkus-minio</gavPattern>
                                     <addExclusions>com.google.code.findbugs:jsr305</addExclusions>
                                 </bomEntryTransformation>
                                 <bomEntryTransformation>

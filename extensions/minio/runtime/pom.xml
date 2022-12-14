@@ -46,7 +46,7 @@
         </dependency>
         <dependency>
             <groupId>io.quarkiverse.minio</groupId>
-            <artifactId>quarkus-minio</artifactId>
+            <artifactId>quarkus-minio-native</artifactId>
             <exclusions>
                 <exclusion>
                     <groupId>com.google.code.findbugs</groupId>
