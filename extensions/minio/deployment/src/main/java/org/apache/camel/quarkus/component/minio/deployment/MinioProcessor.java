@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.minio.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.RunTimeConfigurationDefaultBuildItem;
 
 class MinioProcessor {
 
@@ -27,10 +26,5 @@ class MinioProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    RunTimeConfigurationDefaultBuildItem allowEmptyMinioClient() {
-        return new RunTimeConfigurationDefaultBuildItem("quarkus.minio.allow-empty", "true");
     }
 }
