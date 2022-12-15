@@ -22,7 +22,7 @@ Aggregation repository using EtcD as datastore
 [id="extensions-etcd3-whats-inside"]
 == What's inside
 
-* xref:{cq-camel-components}:others:etcd3.adoc[Etcd3]
+* xref:{cq-camel-components}::etcd3-component.adoc[Etcd v3 component], URI syntax: `etcd3:path`
 
 Please refer to the above link for usage and configuration details.
 

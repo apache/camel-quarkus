@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.test.junit5.patterns;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.quarkus.test.CamelQuarkusTestSupport;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -40,7 +41,7 @@ public class FilterCreateCamelContextPerClassTest extends CamelQuarkusTestSuppor
 
         template.sendBodyAndHeader("direct:start", expectedBody, "foo", "bar");
 
-        assertMockEndpointsSatisfied();
+        MockEndpoint.assertIsSatisfied(context);
     }
 
     @Test
@@ -49,7 +50,7 @@ public class FilterCreateCamelContextPerClassTest extends CamelQuarkusTestSuppor
 
         template.sendBodyAndHeader("direct:start", "<notMatched/>", "foo", "notMatchedHeaderValue");
 
-        assertMockEndpointsSatisfied();
+        MockEndpoint.assertIsSatisfied(context);
     }
 
     @Override

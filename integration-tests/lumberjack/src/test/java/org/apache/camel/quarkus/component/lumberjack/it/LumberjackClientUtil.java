@@ -35,9 +35,11 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.ssl.SslHandler;
+import org.apache.camel.CamelContext;
 import org.apache.camel.support.jsse.KeyStoreParameters;
 import org.apache.camel.support.jsse.SSLContextParameters;
 import org.apache.camel.support.jsse.TrustManagersParameters;
+import org.mockito.Mockito;
 
 import static io.netty.buffer.Unpooled.wrappedBuffer;
 
@@ -65,7 +67,10 @@ public class LumberjackClientUtil {
                 protected void initChannel(Channel ch) throws Exception {
                     ChannelPipeline pipeline = ch.pipeline();
                     if (sslContextParameters != null) {
-                        SSLEngine sslEngine = sslContextParameters.createSSLContext(null).createSSLEngine();
+                        CamelContext mockContext = Mockito.mock(CamelContext.class);
+                        Mockito.when(mockContext.resolvePropertyPlaceholders(Mockito.anyString()))
+                                .thenAnswer(i -> i.getArguments()[0]);
+                        SSLEngine sslEngine = sslContextParameters.createSSLContext(mockContext).createSSLEngine();
                         sslEngine.setUseClientMode(true);
                         pipeline.addLast(new SslHandler(sslEngine));
                     }
@@ -138,12 +143,20 @@ public class LumberjackClientUtil {
         SSLContextParameters sslContextParameters = new SSLContextParameters();
 
         TrustManagersParameters trustManagersParameters = new TrustManagersParameters();
-        KeyStoreParameters trustStore = new KeyStoreParameters();
+        KeyStoreParameters trustStore = new CustomKeyStoreParameters();
         trustStore.setPassword("changeit");
         trustStore.setResource("ssl/keystore.jks");
         trustManagersParameters.setKeyStore(trustStore);
         sslContextParameters.setTrustManagers(trustManagersParameters);
 
         return sslContextParameters;
+    }
+
+    private static class CustomKeyStoreParameters extends KeyStoreParameters {
+
+        @Override
+        protected InputStream resolveResource(String resource) throws IOException {
+            return this.getClass().getClassLoader().getResourceAsStream(resource);
+        }
     }
 }

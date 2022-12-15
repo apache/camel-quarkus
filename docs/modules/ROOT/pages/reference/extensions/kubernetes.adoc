@@ -26,6 +26,7 @@ Perform operations against Kubernetes API
 * xref:{cq-camel-components}::kubernetes-config-maps-component.adoc[Kubernetes ConfigMap component], URI syntax: `kubernetes-config-maps:masterUrl`
 * xref:{cq-camel-components}::kubernetes-custom-resources-component.adoc[Kubernetes Custom Resources component], URI syntax: `kubernetes-custom-resources:masterUrl`
 * xref:{cq-camel-components}::kubernetes-deployments-component.adoc[Kubernetes Deployments component], URI syntax: `kubernetes-deployments:masterUrl`
+* xref:{cq-camel-components}::kubernetes-events-component.adoc[Kubernetes Event component], URI syntax: `kubernetes-events:masterUrl`
 * xref:{cq-camel-components}::kubernetes-hpa-component.adoc[Kubernetes HPA component], URI syntax: `kubernetes-hpa:masterUrl`
 * xref:{cq-camel-components}::kubernetes-job-component.adoc[Kubernetes Job component], URI syntax: `kubernetes-job:masterUrl`
 * xref:{cq-camel-components}::kubernetes-namespaces-component.adoc[Kubernetes Namespaces component], URI syntax: `kubernetes-namespaces:masterUrl`

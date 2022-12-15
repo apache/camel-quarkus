@@ -34,6 +34,8 @@ import org.apache.camel.util.CollectionHelper;
 import org.hamcrest.Matcher;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.apache.camel.quarkus.component.google.storage.it.GoogleStorageResource.DEST_BUCKET;
 import static org.apache.camel.quarkus.component.google.storage.it.GoogleStorageResource.TEST_BUCKET1;
@@ -47,6 +49,7 @@ import static org.hamcrest.Matchers.startsWith;
 @QuarkusTest
 @QuarkusTestResource(GoogleStorageTestResource.class)
 class GoogleStorageTest {
+    private static final Logger log = LoggerFactory.getLogger(GoogleStorageTest.class);
 
     private static final String FILE_NAME_007 = "file007";
     private static final String FILE_NAME_006 = "file006";
@@ -64,6 +67,7 @@ class GoogleStorageTest {
 
     @Test
     public void testConsumer() throws InterruptedException {
+        log.info("testConsumer started");
         try {
             //producer - putObject
             putObject("Sheldon", TEST_BUCKET3, FILE_NAME_007);
@@ -93,6 +97,7 @@ class GoogleStorageTest {
 
     @Test
     public void testProducer() {
+        log.info("testProducer started");
         //delete existing buckets t - only on real account - Deleting buckets is not (yet) supported by fsouza/fake-gcs-server.
         if (!MockBackendUtils.startMockBackend()) {
             String buckets = executeOperation(GoogleCloudStorageOperations.listBuckets, Collections.emptyMap(),

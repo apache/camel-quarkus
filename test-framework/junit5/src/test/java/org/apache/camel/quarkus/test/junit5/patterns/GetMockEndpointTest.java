@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.test.junit5.patterns;
 import io.quarkus.test.junit.QuarkusTest;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.quarkus.test.CamelQuarkusTestSupport;
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +32,7 @@ public class GetMockEndpointTest extends CamelQuarkusTestSupport {
 
         template.sendBody("direct:start", "Hello World");
 
-        assertMockEndpointsSatisfied();
+        MockEndpoint.assertIsSatisfied(context);
     }
 
     @Override
