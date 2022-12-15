@@ -1,0 +1,10 @@
+[
+    {
+        "name": "sjsonnet.Expr$Member$Field[]",
+        "unsafeAllocated": true
+    },
+    {
+        "name": "sjsonnet.Expr[]",
+        "unsafeAllocated": true
+    }
+]
