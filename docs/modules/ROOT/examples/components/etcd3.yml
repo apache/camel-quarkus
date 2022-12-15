@@ -8,6 +8,6 @@ cqDeprecated: false
 cqJvmSince: 2.0.0
 cqNativeSince: n/a
 cqCamelPartName: etcd3
-cqCamelPartTitle: Etcd3
-cqCamelPartDescription: Aggregation repository using EtcD as datastore
+cqCamelPartTitle: Etcd v3
+cqCamelPartDescription: Get, set, delete or watch keys in etcd key-value store.
 cqExtensionPageTitle: Etcd3

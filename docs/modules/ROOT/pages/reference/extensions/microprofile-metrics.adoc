@@ -7,15 +7,15 @@
 :cq-artifact-id: camel-quarkus-microprofile-metrics
 :cq-native-supported: true
 :cq-status: Stable
-:cq-status-deprecation: Stable
+:cq-status-deprecation: Stable Deprecated
 :cq-description: Expose metrics from Camel routes.
-:cq-deprecated: false
+:cq-deprecated: true
 :cq-jvm-since: 0.2.0
 :cq-native-since: 0.2.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##0.2.0## [.badge-key]##Native since##[.badge-supported]##0.2.0##
+[.badge-key]##JVM since##[.badge-supported]##0.2.0## [.badge-key]##Native since##[.badge-supported]##0.2.0## [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##
 endif::[]
 
 Expose metrics from Camel routes.

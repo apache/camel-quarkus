@@ -26,12 +26,14 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import net.sf.saxon.Configuration;
 import net.sf.saxon.functions.SystemFunction;
 import net.sf.saxon.xpath.XPathFactoryImpl;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.logging.Logger;
+import org.xmlresolver.loaders.XmlLoader;
 
 class SaxonProcessor {
 
@@ -49,6 +51,7 @@ class SaxonProcessor {
 
         // Needed to register default object models when initializing the net.sf.saxon.java.JavaPlatform
         reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, Document.class));
+        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, XmlLoader.class));
 
         // Register saxon functions as reflective
         Collection<ClassInfo> cis = index.getIndex()
@@ -68,5 +71,10 @@ class SaxonProcessor {
     @BuildStep
     void indexSaxonHe(BuildProducer<IndexDependencyBuildItem> deps) {
         deps.produce(new IndexDependencyBuildItem("net.sf.saxon", "Saxon-HE"));
+    }
+
+    @BuildStep
+    void runtimeInit(BuildProducer<RuntimeInitializedClassBuildItem> deps) {
+        deps.produce(new RuntimeInitializedClassBuildItem("org.apache.hc.client5.http.impl.auth.NTLMEngineImpl"));
     }
 }

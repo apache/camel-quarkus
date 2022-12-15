@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.test.extensions.continousDev;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -76,4 +77,15 @@ public class HelloET extends CamelQuarkusTestSupport {
                 .body(is("Hello Leonard"));
     }
 
+    private String fileUri() {
+        return "file:" + testDirectory();
+    }
+
+    private Path testFile(String dir) {
+        return testDirectory().resolve(dir);
+    }
+
+    private Path testDirectory() {
+        return Paths.get("target", "data", getClass().getSimpleName());
+    }
 }
