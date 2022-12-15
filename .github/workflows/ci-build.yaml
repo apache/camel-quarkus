@@ -81,9 +81,9 @@ jobs:
           distribution: 'temurin'
           java-version: '11'
       - name: Build Quarkus
-        if: github.ref == 'refs/heads/quarkus-main' || github.base_ref == 'quarkus-main'
+        #if: github.ref == 'refs/heads/quarkus-main' || github.base_ref == 'quarkus-main'
         run: |
-          git clone --depth 1 --branch main https://github.com/quarkusio/quarkus.git \
+          git clone --depth 1 --branch 2.13.6-backports-2 https://github.com/gsmet/quarkus.git \
             && cd quarkus \
             && echo "Current Quarkus commit:" $(git rev-parse HEAD) \
             && ./mvnw ${MAVEN_ARGS} clean install -Dquickly
