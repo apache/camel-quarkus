@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Update index.adoc [\#4341](https://github.com/apache/camel-quarkus/pull/4341) ([y-luis-rojo](https://github.com/y-luis-rojo))
 - Fix name of bean in the CDI documentation [\#4335](https://github.com/apache/camel-quarkus/pull/4335) ([zbendhiba](https://github.com/zbendhiba))
 - Next is 2.16.0 [\#4333](https://github.com/apache/camel-quarkus/pull/4333) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade to quarkus-cxf 1.7.1 [\#4331](https://github.com/apache/camel-quarkus/pull/4331) ([ppalaga](https://github.com/ppalaga))
