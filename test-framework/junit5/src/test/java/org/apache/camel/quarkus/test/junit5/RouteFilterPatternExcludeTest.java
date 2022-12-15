@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.test.junit5;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.Model;
 import org.apache.camel.quarkus.test.CamelQuarkusTestSupport;
 import org.junit.jupiter.api.Test;
@@ -44,7 +45,7 @@ public class RouteFilterPatternExcludeTest extends CamelQuarkusTestSupport {
 
         template.sendBody("direct:foo", "Hello World");
 
-        assertMockEndpointsSatisfied();
+        MockEndpoint.assertIsSatisfied(context);
     }
 
     @Override

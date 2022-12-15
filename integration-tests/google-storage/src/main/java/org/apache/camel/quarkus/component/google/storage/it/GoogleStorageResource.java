@@ -100,11 +100,11 @@ public class GoogleStorageResource {
             @QueryParam(QUERY_OPERATION) String operation,
             @QueryParam(QUERY_BUCKET) String bucketName) throws Exception {
         GoogleCloudStorageOperations op = GoogleCloudStorageOperations.valueOf(operation);
-        String url = getBaseUrl(bucketName, "operation=" + op.toString());
-        final Object response = producerTemplate.requestBodyAndHeaders(url, null, parameters, Object.class);
-        if (response instanceof Blob) {
-            return new String(((Blob) response).getContent());
+        String url = getBaseUrl(bucketName, "operation=" + op);
+        if ((GoogleCloudStorageOperations.getObject.equals(op))) {
+            return producerTemplate.requestBodyAndHeaders(url, null, parameters, String.class);
         }
+        final Object response = producerTemplate.requestBodyAndHeaders(url, null, parameters, Object.class);
         if (response instanceof CopyWriter) {
             return new String(((CopyWriter) response).getResult().getContent());
         }

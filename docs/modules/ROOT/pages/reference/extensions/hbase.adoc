@@ -6,15 +6,15 @@
 :cq-artifact-id: camel-quarkus-hbase
 :cq-native-supported: false
 :cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-status-deprecation: Preview Deprecated
 :cq-description: Reading and write from/to an HBase store (Hadoop database).
-:cq-deprecated: false
+:cq-deprecated: true
 :cq-jvm-since: 1.2.0
 :cq-native-since: n/a
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.2.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##1.2.0## [.badge-key]##Native##[.badge-unsupported]##unsupported## [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##
 endif::[]
 
 Reading and write from/to an HBase store (Hadoop database).

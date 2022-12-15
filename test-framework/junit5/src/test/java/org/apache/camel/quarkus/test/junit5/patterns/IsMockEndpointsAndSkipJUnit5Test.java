@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.test.junit5.patterns;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.component.seda.SedaEndpoint;
 import org.apache.camel.quarkus.test.CamelQuarkusTestSupport;
 import org.junit.jupiter.api.Test;
@@ -48,7 +49,7 @@ public class IsMockEndpointsAndSkipJUnit5Test extends CamelQuarkusTestSupport {
 
         template.sendBody("direct:start", "Hello World");
 
-        assertMockEndpointsSatisfied();
+        MockEndpoint.assertIsSatisfied(context);
 
         // the message was not send to the direct:foo route and thus not sent to
         // the seda endpoint

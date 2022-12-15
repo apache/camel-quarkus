@@ -34,6 +34,7 @@ import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.quarkus.test.CamelQuarkusTestSupport;
 import org.apache.camel.quarkus.test.junit5.patterns.DebugJUnit5Test;
 import org.apache.camel.util.StopWatch;
@@ -107,21 +108,21 @@ public abstract class AbstractCallbacksTest extends CamelQuarkusTestSupport {
     public void testMock() throws Exception {
         getMockEndpoint("mock:result").expectedBodiesReceived("Hello World");
         template.sendBody("direct:start", "Hello World");
-        assertMockEndpointsSatisfied();
+        MockEndpoint.assertIsSatisfied(context);
     }
 
     @Test
     public void testMock2() throws Exception {
         getMockEndpoint("mock:result").expectedBodiesReceived("Hello World 2");
         template.sendBody("direct:start", "Hello World 2");
-        assertMockEndpointsSatisfied();
+        MockEndpoint.assertIsSatisfied(context);
     }
 
     @Test
     public void testMock3() throws Exception {
         getMockEndpoint("mock:result").expectedBodiesReceived("Hello World 2");
         template.sendBody("direct:start", "Hello World 2");
-        assertMockEndpointsSatisfied();
+        MockEndpoint.assertIsSatisfied(context);
     }
 
     @Override

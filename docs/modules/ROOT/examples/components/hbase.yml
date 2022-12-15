@@ -4,7 +4,7 @@ cqArtifactId: camel-quarkus-hbase
 cqArtifactIdBase: hbase
 cqNativeSupported: false
 cqStatus: Preview
-cqDeprecated: false
+cqDeprecated: true
 cqJvmSince: 1.2.0
 cqNativeSince: n/a
 cqCamelPartName: hbase
