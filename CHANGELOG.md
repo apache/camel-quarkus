@@ -4,6 +4,10 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.15.0...HEAD)
 
+**Fixed bugs:**
+
+- Enabling supervised route controller prevents registration of route & consumer health checks [\#3989](https://github.com/apache/camel-quarkus/issues/3989)
+
 **Merged pull requests:**
 
 - Update index.adoc [\#4341](https://github.com/apache/camel-quarkus/pull/4341) ([y-luis-rojo](https://github.com/y-luis-rojo))
