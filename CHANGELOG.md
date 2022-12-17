@@ -2,14 +2,11 @@
 
 ## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.15.0...HEAD)
-
-**Fixed bugs:**
-
-- Enabling supervised route controller prevents registration of route & consumer health checks [\#3989](https://github.com/apache/camel-quarkus/issues/3989)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.13.2...HEAD)
 
 **Merged pull requests:**
 
+- Workaround Datasonnet integration tests fail in native mode on … [\#4343](https://github.com/apache/camel-quarkus/pull/4343) ([ppalaga](https://github.com/ppalaga))
 - Update index.adoc [\#4341](https://github.com/apache/camel-quarkus/pull/4341) ([y-luis-rojo](https://github.com/y-luis-rojo))
 - Fix name of bean in the CDI documentation [\#4335](https://github.com/apache/camel-quarkus/pull/4335) ([zbendhiba](https://github.com/zbendhiba))
 - Next is 2.16.0 [\#4333](https://github.com/apache/camel-quarkus/pull/4333) ([zbendhiba](https://github.com/zbendhiba))
@@ -1324,6 +1321,14 @@
 - Fix \#1428 to add the usage.adoc [\#1457](https://github.com/apache/camel-quarkus/pull/1457) ([zhfeng](https://github.com/zhfeng))
 - org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
+
+## [2.13.2](https://github.com/apache/camel-quarkus/tree/2.13.2) (2022-12-16)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.15.0...2.13.2)
+
+**Fixed bugs:**
+
+- Enabling supervised route controller prevents registration of route & consumer health checks [\#3989](https://github.com/apache/camel-quarkus/issues/3989)
 
 ## [2.15.0](https://github.com/apache/camel-quarkus/tree/2.15.0) (2022-12-08)
 
