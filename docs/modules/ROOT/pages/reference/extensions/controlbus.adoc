@@ -64,6 +64,9 @@ endif::[]
 
 [id="extensions-controlbus-usage-languages"]
 === Languages
+ifeval::[{doc-show-extra-content} == true]
+include::controlbus-supported-languages.adoc[]
+endif::[]
 
 [id="extensions-controlbus-usage-bean"]
 ==== Bean
