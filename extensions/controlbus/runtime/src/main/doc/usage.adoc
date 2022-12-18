@@ -13,6 +13,9 @@ When using the `stats` command endpoint, the `camel-quarkus-management` extensio
 endif::[]
 
 === Languages
+ifeval::[{doc-show-extra-content} == true]
+include::controlbus-supported-languages.adoc[]
+endif::[]
 
 ==== Bean
 
