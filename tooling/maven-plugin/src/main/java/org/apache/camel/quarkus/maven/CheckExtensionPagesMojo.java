@@ -71,6 +71,16 @@ public class CheckExtensionPagesMojo extends AbstractDocGeneratorMojo {
     String camelVersion;
 
     /**
+     * If {@code true} only extension Maven modules are considered to exist which are reachable through a chain of
+     * {@code <module>} elements from the root Maven module; otherwise it is enough for an extension to be considered
+     * existent if its {@code runtime/pom.xml} exists although it is not reachable through {@code <module>} elements.
+     *
+     * @since 2.16.0
+     */
+    @Parameter(property = "camel-quarkus.extension.finder.strict", defaultValue = "true")
+    boolean strict;
+
+    /**
      * The path to the navigation document.
      */
     @Parameter(defaultValue = "${maven.multiModuleProjectDirectory}/docs/modules/ROOT/nav.adoc")
@@ -145,7 +155,7 @@ public class CheckExtensionPagesMojo extends AbstractDocGeneratorMojo {
 
         final Set<String> artifactIdBases = new HashSet<>();
         final Set<CamelQuarkusExtension> extensions = new TreeSet<>(Comparator.comparing(e -> e.getName().get()));
-        findExtensions()
+        findExtensions(strict)
                 .forEach(ext -> {
                     final String artifactIdBase = ext.getArtifactIdBase();
                     artifactIdBases.add(artifactIdBase);

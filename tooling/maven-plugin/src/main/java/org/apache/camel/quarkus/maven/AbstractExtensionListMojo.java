@@ -17,13 +17,25 @@
 package org.apache.camel.quarkus.maven;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.Reader;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.maven.model.Model;
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.l2x6.maven.utils.MavenSourceTree;
 
 public abstract class AbstractExtensionListMojo extends AbstractMojo {
@@ -73,11 +85,61 @@ public abstract class AbstractExtensionListMojo extends AbstractMojo {
     }
 
     Stream<ExtensionModule> findExtensions() {
+        return findExtensions(true);
+    }
+
+    /**
+     * @param  strict if {@code true} only Maven modules are considered that are reachable over a {@code <module>}
+     *                element from the root module; otherwise also unreachable modules will be returned.
+     * @return
+     */
+    Stream<ExtensionModule> findExtensions(boolean strict) {
         getSkipArtifactIdBases();
-        return CqUtils.findExtensions(
+        final Stream<ExtensionModule> strictModulesStream = CqUtils.findExtensions(
                 getRootModuleDirectory(),
                 getTree().getModulesByGa().values(),
                 artifactIdBase -> !skipArtifactIdBasePatterns.matchesAny(artifactIdBase));
+        if (strict) {
+            return strictModulesStream;
+        } else {
+            final Collection<ExtensionModule> strictModules = strictModulesStream
+                    .collect(Collectors.toCollection(LinkedHashSet::new));
+            final Set<ExtensionModule> result = new TreeSet<>();
+            strictModules.stream()
+                    .map(module -> module.getExtensionDir().getParent())
+                    .distinct()
+                    .forEach(extensionDir -> {
+
+                        try (Stream<Path> files = Files.list(extensionDir)) {
+                            files
+                                    .filter(Files::isDirectory)
+                                    .map(extensionDirectory -> extensionDirectory.resolve("runtime/pom.xml"))
+                                    .filter(Files::isRegularFile)
+                                    .forEach(runtimePomXmlPath -> {
+                                        String artifactId = null;
+                                        try (Reader r = Files.newBufferedReader(runtimePomXmlPath, StandardCharsets.UTF_8)) {
+                                            final MavenXpp3Reader rxppReader = new MavenXpp3Reader();
+                                            final Model model = rxppReader.read(r);
+                                            artifactId = model.getArtifactId();
+                                        } catch (IOException | XmlPullParserException e) {
+                                            throw new RuntimeException("Could not read " + runtimePomXmlPath);
+                                        }
+                                        if (!artifactId.startsWith("camel-quarkus-")) {
+                                            throw new IllegalStateException(
+                                                    "Should start with 'camel-quarkus-': " + artifactId);
+                                        }
+                                        final String artifactIdBase = artifactId.substring("camel-quarkus-".length());
+                                        if (!skipArtifactIdBasePatterns.matchesAny(artifactIdBase)) {
+                                            result.add(new ExtensionModule(runtimePomXmlPath.getParent().getParent(),
+                                                    artifactIdBase));
+                                        }
+                                    });
+                        } catch (IOException e) {
+                            throw new RuntimeException("Could not list " + extensionDir, e);
+                        }
+                    });
+            return result.stream();
+        }
     }
 
     PatternSet getSkipArtifactIdBases() {

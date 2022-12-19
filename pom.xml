@@ -220,6 +220,9 @@
 
         <!-- maven-release-plugin -->
         <tagNameFormat>@{project.version}</tagNameFormat>
+
+        <!-- camel-quarkus-maven-plugin -->
+        <camel-quarkus.extension.finder.strict>true</camel-quarkus.extension.finder.strict>
     </properties>
 
     <modules>
