@@ -4,10 +4,17 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.13.2...HEAD)
 
+**Closed issues:**
+
+- Depend on quarkus-minio-native instead of quarkus-minio to be able to create Minio clients programmatically [\#4328](https://github.com/apache/camel-quarkus/issues/4328)
+
 **Merged pull requests:**
 
+- Check extension pages with strict option [\#4351](https://github.com/apache/camel-quarkus/pull/4351) ([ppalaga](https://github.com/ppalaga))
+- Exclude io.fabric8:zjsonpatch from test artifacts to avoid version misconvergence [\#4348](https://github.com/apache/camel-quarkus/pull/4348) ([ppalaga](https://github.com/ppalaga))
 - Workaround Datasonnet integration tests fail in native mode on … [\#4343](https://github.com/apache/camel-quarkus/pull/4343) ([ppalaga](https://github.com/ppalaga))
 - Update index.adoc [\#4341](https://github.com/apache/camel-quarkus/pull/4341) ([y-luis-rojo](https://github.com/y-luis-rojo))
+- Depend on quarkus-minio-native instead of quarkus-minio to be able to… [\#4340](https://github.com/apache/camel-quarkus/pull/4340) ([ppalaga](https://github.com/ppalaga))
 - Fix name of bean in the CDI documentation [\#4335](https://github.com/apache/camel-quarkus/pull/4335) ([zbendhiba](https://github.com/zbendhiba))
 - Next is 2.16.0 [\#4333](https://github.com/apache/camel-quarkus/pull/4333) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade to quarkus-cxf 1.7.1 [\#4331](https://github.com/apache/camel-quarkus/pull/4331) ([ppalaga](https://github.com/ppalaga))
