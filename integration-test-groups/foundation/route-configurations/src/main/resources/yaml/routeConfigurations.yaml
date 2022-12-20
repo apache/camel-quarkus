@@ -16,13 +16,14 @@
 #
 
 - route-configuration:
-    - id: "yamlRouteConfiguration"
-    - on-exception:
-        handled:
-          constant: "true"
-        exception:
-          - "org.apache.camel.quarkus.core.it.routeconfigurations.RouteConfigurationsException"
-        steps:
-          - set-body:
-              constant:
+    id: "yamlRouteConfiguration"
+    on-exception:
+      - on-exception:
+          handled:
+            constant: "true"
+          exception:
+            - "org.apache.camel.quarkus.core.it.routeconfigurations.RouteConfigurationsException"
+          steps:
+            - set-body:
+                constant:
                   expression: "onException has been triggered in yamlRouteConfiguration"

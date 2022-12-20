@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>3.20.0-SNAPSHOT</version>
+        <version>3.20.0</version>
     </parent>
 
     <groupId>org.apache.camel.quarkus</groupId>
@@ -40,7 +40,7 @@
 
         <!-- Primary dependencies - maintained manually -->
         <camel.major.minor>3.20</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
-        <camel.version>${camel.major.minor}.0-SNAPSHOT</camel.version>
+        <camel.version>${camel.major.minor}.0</camel.version>
         <camel.docs.components.version>${camel.major.minor}.x</camel.docs.components.version><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.components.xref>${camel.docs.components.version}@components</camel.docs.components.xref><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.branch>camel-${camel.major.minor}.x</camel.docs.branch><!-- The stable camel branch on which our Antora docs depends -->
@@ -126,7 +126,7 @@
         <kotlin.version>1.7.21</kotlin.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.jetbrains.kotlin:kotlin-stdlib -->
         <kryo.version>2.24.0</kryo.version><!-- @sync org.apache.flink:flink-core:${flink-version} dep:com.esotericsoftware.kryo:kryo -->
         <libthrift.version>${libthrift-version}</libthrift.version> <!-- Spark -->
-        <msal4j.version>1.13.1</msal4j.version><!-- @sync com.azure:azure-identity:${azure-identity.version} dep:com.microsoft.azure:msal4j -->
+        <msal4j.version>1.13.3</msal4j.version><!-- @sync com.azure:azure-identity:${azure-identity.version} dep:com.microsoft.azure:msal4j -->
         <mvel2.version>2.4.14.Final</mvel2.version><!-- @sync org.apache.camel:camel-dependencies:${camel.version} prop:mvel-version -->
         <okio.version>${squareup-okio-version}</okio.version>
         <opencensus.version>0.31.0</opencensus.version><!-- Mess in Google cloud. Keep in sync with version used in com.google.http-client:google-http-client -->
