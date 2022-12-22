@@ -24,6 +24,7 @@ import java.util.Map;
 
 import javax.activation.DataHandler;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -254,42 +255,42 @@ public class CxfSoapMtomRoutes extends RouteBuilder {
     }
 
     @Produces
-    @ApplicationScoped
+    @SessionScoped
     @Named
     CxfEndpoint soapClientMtomEnabledEndpoint() {
         return commonCxfEndpoint(true, "");
     }
 
     @Produces
-    @ApplicationScoped
+    @SessionScoped
     @Named
     CxfEndpoint soapClientMtomDisabledEndpoint() {
         return commonCxfEndpoint(false, "");
     }
 
     @Produces
-    @ApplicationScoped
+    @SessionScoped
     @Named
     CxfEndpoint soapMtomDisabledServerPayloadModeEndpoint() {
         return commonCxfEndpoint(false, "/mtom-disabled-payload-mode-image-service");
     }
 
     @Produces
-    @ApplicationScoped
+    @SessionScoped
     @Named
     CxfEndpoint soapMtomEnabledServerPayloadModeEndpoint() {
         return commonCxfEndpoint(true, "/mtom-enabled-payload-mode-image-service");
     }
 
     @Produces
-    @ApplicationScoped
+    @SessionScoped
     @Named
     CxfEndpoint soapMtomEnabledServerPojoModeEndpoint() {
         return commonCxfEndpoint(true, "/mtom-enabled-pojo-mode-image-service");
     }
 
     @Produces
-    @ApplicationScoped
+    @SessionScoped
     @Named
     CxfEndpoint soapMtomDisabledServerPojoModeEndpoint() {
         return commonCxfEndpoint(false, "/mtom-disabled-pojo-mode-image-service");
