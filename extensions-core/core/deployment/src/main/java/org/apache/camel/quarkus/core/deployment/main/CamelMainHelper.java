@@ -16,9 +16,15 @@
  */
 package org.apache.camel.quarkus.core.deployment.main;
 
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.impl.engine.DefaultPackageScanResourceResolver;
 import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
+import org.apache.camel.spi.Resource;
+import org.apache.camel.util.AntPathMatcher;
 
 public final class CamelMainHelper {
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
@@ -46,5 +52,25 @@ public final class CamelMainHelper {
         return i1.length == 0 && i2.length == 0
                 ? Stream.empty()
                 : Stream.concat(Stream.of(i1), Stream.of(i2)).filter(location -> !"false".equals(location));
+    }
+
+    /**
+     * Execute a task for each resource that matches with the "include" and "exclude" patterns.
+     * 
+     * @param resourceConsumer the task to execute for each matching resource.
+     */
+    public static void forEachMatchingResource(Consumer<Resource> resourceConsumer) throws Exception {
+        try (DefaultPackageScanResourceResolver resolver = new DefaultPackageScanResourceResolver()) {
+            resolver.setCamelContext(new DefaultCamelContext());
+            String[] excludes = routesExcludePattern().toArray(String[]::new);
+            for (String include : routesIncludePattern().collect(Collectors.toList())) {
+                for (Resource resource : resolver.findResources(include)) {
+                    if (AntPathMatcher.INSTANCE.anyMatch(excludes, resource.getLocation())) {
+                        return;
+                    }
+                    resourceConsumer.accept(resource);
+                }
+            }
+        }
     }
 }

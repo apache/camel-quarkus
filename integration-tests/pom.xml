@@ -113,6 +113,7 @@
         <module>influxdb</module>
         <module>jackson-avro</module>
         <module>jackson-protobuf</module>
+        <module>java-joor-dsl</module>
         <module>jaxb</module>
         <module>jcache</module>
         <module>jdbc</module>

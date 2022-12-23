@@ -18,19 +18,14 @@ package org.apache.camel.quarkus.component.csimple.deployment;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.stream.Stream;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.impl.engine.DefaultPackageScanResourceResolver;
 import org.apache.camel.quarkus.core.deployment.LanguageExpressionContentHandler;
-import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
-import org.apache.camel.spi.Resource;
-import org.apache.camel.util.AntPathMatcher;
+import org.apache.camel.quarkus.core.deployment.main.CamelMainHelper;
 import org.jboss.logging.Logger;
 
 public class CSimpleXmlProcessor {
@@ -38,36 +33,12 @@ public class CSimpleXmlProcessor {
 
     @BuildStep
     void collectCSimpleExpresions(BuildProducer<CSimpleExpressionSourceBuildItem> csimpleExpressions) throws Exception {
+        final SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+        saxParserFactory.setNamespaceAware(true);
+        final SAXParser saxParser = saxParserFactory.newSAXParser();
 
-        final String[] includes = Stream.of(
-                "camel.main.routesIncludePattern",
-                "camel.main.routes-include-pattern")
-                .map(prop -> CamelSupport.getOptionalConfigValue(prop, String[].class, new String[0]))
-                .flatMap(Stream::of)
-                .filter(path -> !path.equals("false"))
-                .toArray(String[]::new);
-
-        final String[] excludes = Stream.of(
-                "camel.main.routesExcludePattern",
-                "camel.main.routes-exclude-pattern")
-                .map(prop -> CamelSupport.getOptionalConfigValue(prop, String[].class, new String[0]))
-                .flatMap(Stream::of)
-                .filter(path -> !path.equals("false"))
-                .toArray(String[]::new);
-
-        try (DefaultPackageScanResourceResolver resolver = new DefaultPackageScanResourceResolver()) {
-            resolver.setCamelContext(new DefaultCamelContext());
-
-            final SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-            saxParserFactory.setNamespaceAware(true);
-            final SAXParser saxParser = saxParserFactory.newSAXParser();
-
-            for (String include : includes) {
-                for (Resource resource : resolver.findResources(include)) {
-                    if (AntPathMatcher.INSTANCE.anyMatch(excludes, resource.getLocation())) {
-                        continue;
-                    }
-
+        CamelMainHelper.forEachMatchingResource(
+                resource -> {
                     try (InputStream is = resource.getInputStream()) {
                         saxParser.parse(
                                 is,
@@ -83,8 +54,6 @@ public class CSimpleXmlProcessor {
                     } catch (Exception e) {
                         throw new RuntimeException("Could not analyze CSimple expressions in " + resource.getLocation(), e);
                     }
-                }
-            }
-        }
+                });
     }
 }
