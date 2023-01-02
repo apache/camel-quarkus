@@ -10,6 +10,8 @@
 
 **Merged pull requests:**
 
+- Upgrade to Quarkiverse CXF 1.7.2 [\#4360](https://github.com/apache/camel-quarkus/pull/4360) ([ppalaga](https://github.com/ppalaga))
+- Make at least the quick profile compatible with mvnd 1.0.0-m1 [\#4355](https://github.com/apache/camel-quarkus/pull/4355) ([ppalaga](https://github.com/ppalaga))
 - Added extra content to the Control Bus extension for supported languages. [\#4354](https://github.com/apache/camel-quarkus/pull/4354) ([Gerry-Forde](https://github.com/Gerry-Forde))
 - Check extension pages with strict option [\#4351](https://github.com/apache/camel-quarkus/pull/4351) ([ppalaga](https://github.com/ppalaga))
 - Exclude io.fabric8:zjsonpatch from test artifacts to avoid version misconvergence [\#4348](https://github.com/apache/camel-quarkus/pull/4348) ([ppalaga](https://github.com/ppalaga))
