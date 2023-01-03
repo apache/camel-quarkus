@@ -22,7 +22,6 @@ import org.apache.camel.NoSuchEndpointException;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.quarkus.test.CamelQuarkusTestSupport;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -33,7 +32,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class CamelTestSupportTest extends CamelQuarkusTestSupport {
 
     @Override
-    @BeforeEach
     public void setUp() throws Exception {
         replaceRouteFromWith("routeId", "direct:start");
         super.setUp();
