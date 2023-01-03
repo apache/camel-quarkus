@@ -27,8 +27,8 @@ public class AfterAllCallback implements QuarkusTestAfterAllCallback {
             CamelQuarkusTestSupport testInstance = (CamelQuarkusTestSupport) context.getTestInstance();
 
             if (CallbackUtil.isPerClass(testInstance)) {
-                CallbackUtil.resetContext(testInstance);
                 testInstance.internalAfterAll(context);
+                CallbackUtil.resetContext(testInstance);
             }
 
             try {

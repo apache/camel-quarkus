@@ -26,15 +26,15 @@ public class AfterEachCallback implements QuarkusTestAfterEachCallback {
         if (context.getTestInstance() instanceof CamelQuarkusTestSupport) {
             CamelQuarkusTestSupport testInstance = (CamelQuarkusTestSupport) context.getTestInstance();
 
-            if (!CallbackUtil.isPerClass(testInstance)) {
-                CallbackUtil.resetContext(testInstance);
-            }
-
             try {
+                testInstance.tearDown();
                 testInstance.doAfterEach(context);
             } catch (Exception e) {
                 throw new RuntimeException(e);
+            }
 
+            if (!CallbackUtil.isPerClass(testInstance)) {
+                CallbackUtil.resetContext(testInstance);
             }
         }
     }
