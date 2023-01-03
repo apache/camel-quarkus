@@ -220,6 +220,25 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
     }
 
     /**
+     * Method {@link CamelTestSupport#setUp()} is triggered via annotation {@link org.junit.jupiter.api.BeforeEach}.
+     * Its execution is disabled (by using overriding method without any annotation) and is executed from {@link BeforeEachCallback}
+     */
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+    }
+
+    /**
+     * Method {@link CamelTestSupport#tearDown()} is triggered via annotation
+     * {@link org.junit.jupiter.api.AfterEach}.
+     * Its execution is disabled (by using overriding method without any annotation) and is executed from {@link AfterEachCallback}
+     */
+    @Override
+    public void tearDown() throws Exception {
+        super.tearDown();
+    }
+
+    /**
      * This method stops the Camel context. Be aware that on of the limitation that Quarkus brings is that context
      * can not be started (lifecycle f the context is bound to the application) .
      *
