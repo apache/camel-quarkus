@@ -30,7 +30,7 @@ asciidoc:
     # Project versions
     camel-version: 3.20.0 # replace ${camel.version}
     camel-docs-version: 3.20.x # replace ${camel.docs.components.version}
-    quarkus-version: 2.15.0.CR1 # replace ${quarkus.version}
+    quarkus-version: 2.15.0.Final # replace ${quarkus.version}
     graalvm-version: 22.3.0 # replace ${graalvm.version}
     graalvm-docs-version: 22.3
     min-maven-version: 3.8.2 # replace ${min-maven-version}
