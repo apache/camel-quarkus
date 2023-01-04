@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.azure.storage.blob.deployment;
 
 import com.azure.identity.implementation.IdentityClient;
+import com.azure.identity.implementation.IdentityClientBase;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
@@ -80,5 +81,7 @@ class AzureStorageBlobProcessor {
                 new RuntimeInitializedClassBuildItem("com.microsoft.aad.msal4jextensions.persistence.linux.ISecurityLibrary"));
         runtimeInitializedClass.produce(
                 new RuntimeInitializedClassBuildItem("com.microsoft.aad.msal4jextensions.persistence.mac.ISecurityLibrary"));
+        // TODO: Remove this - https://github.com/apache/camel-quarkus/issues/4356
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(IdentityClientBase.class.getName()));
     }
 }
