@@ -32,6 +32,7 @@
 
     <properties>
         <camel.quarkus.jvmSince>1.2.0</camel.quarkus.jvmSince>
+        <quarkus.metadata.deprecated>true</quarkus.metadata.deprecated>
     </properties>
 
     <dependencies>
