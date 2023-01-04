@@ -210,9 +210,7 @@
                             <properties>
                                 <group-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/foundation</group-tests.source.dir>
                                 <group-tests.dest.module.dir>${project.basedir}</group-tests.dest.module.dir>
-				<group-tests.concat.rel.paths>src/main/resources/application.properties</group-tests.concat.rel.paths>
-				<!-- TODO: https://github.com/apache/camel-quarkus/issues/4225 -->
-				<group-tests.files.excludes>core-fault-tolerance</group-tests.files.excludes>
+                                <group-tests.concat.rel.paths>src/main/resources/application.properties</group-tests.concat.rel.paths>
                             </properties>
                         </configuration>
                     </execution>
