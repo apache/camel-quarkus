@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.microprofile.it.faulttolerance;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -27,7 +26,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.apache.camel.quarkus.component.microprofile.it.faulttolerance.MicroProfileFaultToleranceRoutes.EXCEPTION_MESSAGE;
 import static org.hamcrest.Matchers.is;
 
-@Disabled("https://github.com/apache/camel-quarkus/issues/4225")
 @QuarkusTest
 class MicroprofileFaultToleranceTest {
 
