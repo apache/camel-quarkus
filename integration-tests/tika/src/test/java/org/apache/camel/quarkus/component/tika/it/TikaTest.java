@@ -23,7 +23,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsStringIgnoringCase;
@@ -51,7 +50,6 @@ class TikaTest {
     }
 
     @Test
-    @Disabled("https://github.com/quarkusio/quarkus/issues/8375")
     public void testImagePng() throws Exception {
         testParse("black.png", "image/png", null);
     }
