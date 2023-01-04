@@ -45,7 +45,7 @@ public class CamelTestSupportTest extends CamelQuarkusTestSupport {
 
         template.sendBody("direct:start", "Hello World");
 
-        assertMockEndpointsSatisfied();
+        MockEndpoint.assertIsSatisfied(context);
     }
 
     @Test

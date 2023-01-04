@@ -30,7 +30,6 @@
     <packaging>pom</packaging>
 
     <name>Camel Quarkus :: Documentation</name>
-    <!--
     <build>
         <plugins>
             <plugin>
@@ -67,5 +66,4 @@
             </plugin>
         </plugins>
     </build>
-    -->
 </project>

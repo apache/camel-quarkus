@@ -177,7 +177,8 @@ class CamelProcessor {
                 "META-INF/services/org/apache/camel/dataformat/*",
                 "META-INF/services/org/apache/camel/send-dynamic/*",
                 "META-INF/services/org/apache/camel/urifactory/*",
-                "META-INF/services/org/apache/camel/properties-function/*"));
+                "META-INF/services/org/apache/camel/properties-function/*",
+                "META-INF/services/org/apache/camel/health-check/*"));
     }
 
     @BuildStep

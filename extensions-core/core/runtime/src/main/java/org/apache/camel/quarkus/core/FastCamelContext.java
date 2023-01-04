@@ -24,11 +24,13 @@ import org.apache.camel.CatalogCamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.component.microprofile.config.CamelMicroProfilePropertiesSource;
+import org.apache.camel.health.HealthCheckRegistry;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.engine.DefaultComponentResolver;
 import org.apache.camel.impl.engine.DefaultDataFormatResolver;
 import org.apache.camel.impl.engine.DefaultLanguageResolver;
 import org.apache.camel.impl.engine.DefaultShutdownStrategy;
+import org.apache.camel.impl.health.DefaultHealthCheckRegistry;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.quarkus.CamelQuarkusBeanPostProcessor;
 import org.apache.camel.spi.CamelBeanPostProcessor;
@@ -157,6 +159,11 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
     @Override
     protected XMLRoutesDefinitionLoader createXMLRoutesDefinitionLoader() {
         return new DisabledXMLRoutesDefinitionLoader();
+    }
+
+    @Override
+    protected HealthCheckRegistry createHealthCheckRegistry() {
+        return new DefaultHealthCheckRegistry();
     }
 
     @Override

@@ -36,6 +36,7 @@ import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledOnOs;
 import org.junit.jupiter.api.condition.OS;
@@ -47,6 +48,7 @@ import static org.hamcrest.Matchers.emptyString;
 
 @QuarkusTestResource(MasterOpenShiftTestResource.class)
 @QuarkusTest
+@Disabled //https://github.com/apache/camel-quarkus/issues/4095
 class MasterOpenShiftTest {
 
     @OpenShiftTestServer

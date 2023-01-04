@@ -58,9 +58,9 @@ public final class SimpleExtension extends ExtensionFunctionDefinition {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public Sequence<?> call(XPathContext xPathContext, Sequence[] sequences) throws XPathException {
+            public Sequence call(XPathContext xPathContext, Sequence[] sequences) throws XPathException {
                 // get value of first arg passed to the function
-                Item<?> arg1 = sequences[0].head();
+                Item arg1 = sequences[0].head();
                 String arg1Val = arg1.getStringValue();
 
                 // return a altered version of the first arg
