@@ -10,6 +10,7 @@
 
 **Merged pull requests:**
 
+- fix qute package declaration [\#4364](https://github.com/apache/camel-quarkus/pull/4364) ([claudio4j](https://github.com/claudio4j))
 - Upgrade to Quarkiverse CXF 1.7.2 [\#4360](https://github.com/apache/camel-quarkus/pull/4360) ([ppalaga](https://github.com/ppalaga))
 - Make at least the quick profile compatible with mvnd 1.0.0-m1 [\#4355](https://github.com/apache/camel-quarkus/pull/4355) ([ppalaga](https://github.com/ppalaga))
 - Added extra content to the Control Bus extension for supported languages. [\#4354](https://github.com/apache/camel-quarkus/pull/4354) ([Gerry-Forde](https://github.com/Gerry-Forde))
