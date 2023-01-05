@@ -204,6 +204,7 @@ group-13:
   - fhir
   - github
   - google
+  - groovy-dsl
   - jira
   - java-joor-dsl
   - js-dsl
