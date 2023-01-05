@@ -18,7 +18,8 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##0.4.0## [.badge-key]##Native since##[.badge-supported]##0.4.0##
 endif::[]
 
-Use a Camel Data Format as a regular Camel Component.
+Use a Camel Data Format as a regular Camel Component. For more details of the supported data formats in {project-name}, see xref:reference/dataformats.adoc[Supported Data Formats].
+
 
 [id="extensions-dataformat-whats-inside"]
 == What's inside
