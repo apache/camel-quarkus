@@ -4,17 +4,17 @@
 = Groovy DSL
 :linkattrs:
 :cq-artifact-id: camel-quarkus-groovy-dsl
-:cq-native-supported: false
-:cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-native-supported: true
+:cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Support for parsing Groovy route definitions at runtime
 :cq-deprecated: false
 :cq-jvm-since: 1.8.0
-:cq-native-since: n/a
+:cq-native-since: 2.16.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.8.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##1.8.0## [.badge-key]##Native since##[.badge-supported]##2.16.0##
 endif::[]
 
 Support for parsing Groovy route definitions at runtime
@@ -29,6 +29,10 @@ Please refer to the above link for usage and configuration details.
 [id="extensions-groovy-dsl-maven-coordinates"]
 == Maven coordinates
 
+https://{link-quarkus-code-generator}/?extension-search=camel-quarkus-groovy-dsl[Create a new project with this extension on {link-quarkus-code-generator}, window="_blank"]
+
+Or add the coordinates to your existing project:
+
 [source,xml]
 ----
 <dependency>
@@ -39,3 +43,26 @@ Please refer to the above link for usage and configuration details.
 ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
+
+[id="extensions-groovy-dsl-camel-quarkus-limitations"]
+== Camel Quarkus limitations
+
+The Groovy extensions are not supported which means that the extensions defined in the Camel project are ignored, more details in https://github.com/apache/camel-quarkus/issues/4384[Groovy DSL - Add support of Groovy extensions issue #4384].
+
+In case of native compilation, for some specific use cases like the following one, it could be needed to add the flag `--report-unsupported-elements-at-runtime` to prevent compilation error of type `DeletedElementException: Unsupported method java.lang.Class.registerNatives() is reachable`.
+
+[source,groovy]
+----
+import org.apache.camel.component.seda.SedaComponent
+
+camel {
+    components {
+        mySeda(SedaComponent) { // <1>
+            // rest of the closure here
+        }
+    }
+}
+// rest of the Groovy script
+----
+<1> Requires the flag `--report-unsupported-elements-at-runtime` to be added to the build command for native compilation.
+

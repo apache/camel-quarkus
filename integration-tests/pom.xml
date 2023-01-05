@@ -104,6 +104,7 @@
         <module>google-storage</module>
         <module>graphql</module>
         <module>grok</module>
+        <module>groovy-dsl</module>
         <module>grpc</module>
         <module>hazelcast</module>
         <module>headersmap</module>
