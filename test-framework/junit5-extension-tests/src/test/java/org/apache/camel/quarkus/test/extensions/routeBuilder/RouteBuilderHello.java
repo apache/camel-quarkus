@@ -21,7 +21,7 @@ import javax.enterprise.context.ApplicationScoped;
 import org.apache.camel.builder.RouteBuilder;
 
 @ApplicationScoped
-public class HelloRouteBuilder extends RouteBuilder {
+public class RouteBuilderHello extends RouteBuilder {
 
     @Override
     public void configure() {
