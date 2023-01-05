@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
-public class RouteBuilderTrueET extends CamelQuarkusTestSupport {
+public class RouteBuilderWarningET extends CamelQuarkusTestSupport {
 
     @Override
     public boolean isUseRouteBuilder() {
@@ -46,11 +46,6 @@ public class RouteBuilderTrueET extends CamelQuarkusTestSupport {
                 .then()
                 .statusCode(200)
                 .body(is("Hello (from routeBuilder) Sheldon"));
-    }
-
-    @Test
-    public void hello2Test() throws Exception {
-        helloTest();
     }
 
     @Override

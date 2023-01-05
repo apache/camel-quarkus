@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
-public class RouteBuilderFalseET extends CamelQuarkusTestSupport {
+public class RouteBuilderFailureET extends CamelQuarkusTestSupport {
 
     @Override
     public boolean isUseRouteBuilder() {
@@ -40,16 +40,10 @@ public class RouteBuilderFalseET extends CamelQuarkusTestSupport {
                 .statusCode(204);
 
         RestAssured.given()
-                .body("file:target/data/RouteBuilderET?fileName=hello_false.txt")
+                .body("file:target/data/RouteBuilderET?fileName=hello_true.txt")
                 .post("/hello/message")
                 .then()
                 .statusCode(200)
                 .body(is("Hello (from routeBuilder) Sheldon"));
     }
-
-    @Test
-    public void hello2Test() throws Exception {
-        helloTest();
-    }
-
 }
