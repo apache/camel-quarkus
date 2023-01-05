@@ -4,17 +4,36 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.13.2...HEAD)
 
+**Implemented enhancements:**
+
+- Create serialization/deserialization helper instead of json mediatype [\#4353](https://github.com/apache/camel-quarkus/issues/4353)
+
+**Fixed bugs:**
+
+- Multiple test methods do not work in a class extending CamelQuarkusTestSupport  [\#4362](https://github.com/apache/camel-quarkus/issues/4362)
+
 **Closed issues:**
 
+- Tika: Enable test testImagePng [\#4371](https://github.com/apache/camel-quarkus/issues/4371)
 - Depend on quarkus-minio-native instead of quarkus-minio to be able to create Minio clients programmatically [\#4328](https://github.com/apache/camel-quarkus/issues/4328)
+- \[Camel 3.20.0\] Remove JSONata dependency override [\#4294](https://github.com/apache/camel-quarkus/issues/4294)
+- \[Quarkus 2.15.0\] SmallRye Fault Tolerance 5.6.0 not compattible with Camel 3.19.0 [\#4225](https://github.com/apache/camel-quarkus/issues/4225)
+- \[Camel 3.20\] xml integration tests is failing on native build [\#4216](https://github.com/apache/camel-quarkus/issues/4216)
 
 **Merged pull requests:**
 
+- Deprecate hdfs and hbase component \#3763 [\#4375](https://github.com/apache/camel-quarkus/pull/4375) ([aldettinger](https://github.com/aldettinger))
+- Register azure-identity IdentityClientBase for runtime initialization [\#4373](https://github.com/apache/camel-quarkus/pull/4373) ([jamesnetherton](https://github.com/jamesnetherton))
+- Tika: Enable test testImagePng \#4371 [\#4372](https://github.com/apache/camel-quarkus/pull/4372) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- DoBeforeEach does not work with Advice \#4362 [\#4370](https://github.com/apache/camel-quarkus/pull/4370) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Post camel 3.20.0 upgrade cleanup [\#4369](https://github.com/apache/camel-quarkus/pull/4369) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade cassandra-quarkus-client to 1.1.3 [\#4368](https://github.com/apache/camel-quarkus/pull/4368) ([jamesnetherton](https://github.com/jamesnetherton))
 - fix qute package declaration [\#4364](https://github.com/apache/camel-quarkus/pull/4364) ([claudio4j](https://github.com/claudio4j))
 - Upgrade to Quarkiverse CXF 1.7.2 [\#4360](https://github.com/apache/camel-quarkus/pull/4360) ([ppalaga](https://github.com/ppalaga))
 - Make at least the quick profile compatible with mvnd 1.0.0-m1 [\#4355](https://github.com/apache/camel-quarkus/pull/4355) ([ppalaga](https://github.com/ppalaga))
 - Added extra content to the Control Bus extension for supported languages. [\#4354](https://github.com/apache/camel-quarkus/pull/4354) ([Gerry-Forde](https://github.com/Gerry-Forde))
 - Check extension pages with strict option [\#4351](https://github.com/apache/camel-quarkus/pull/4351) ([ppalaga](https://github.com/ppalaga))
+- Upgrade to 3.20 [\#4350](https://github.com/apache/camel-quarkus/pull/4350) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Exclude io.fabric8:zjsonpatch from test artifacts to avoid version misconvergence [\#4348](https://github.com/apache/camel-quarkus/pull/4348) ([ppalaga](https://github.com/ppalaga))
 - Workaround Datasonnet integration tests fail in native mode on … [\#4343](https://github.com/apache/camel-quarkus/pull/4343) ([ppalaga](https://github.com/ppalaga))
 - Update index.adoc [\#4341](https://github.com/apache/camel-quarkus/pull/4341) ([y-luis-rojo](https://github.com/y-luis-rojo))
