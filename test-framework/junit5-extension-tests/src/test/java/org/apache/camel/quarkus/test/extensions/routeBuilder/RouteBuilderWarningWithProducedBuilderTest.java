@@ -16,46 +16,36 @@
  */
 package org.apache.camel.quarkus.test.extensions.routeBuilder;
 
-import java.util.function.Supplier;
+import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.ContinuousTestingTestUtils;
 import io.quarkus.test.QuarkusDevModeTest;
 import org.apache.camel.quarkus.test.extensions.continousDev.HelloResource;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.StringAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-public class RouteBuilderTest {
+/**
+ * Scenario when useRouteBuilder is TRUE and RouteBuilder is created via HelloRouteBuilder -> should succeed with
+ * warning.
+ */
+public class RouteBuilderWarningWithProducedBuilderTest {
 
     @RegisterExtension
-    static final QuarkusDevModeTest TEST = new QuarkusDevModeTest()
-            .setArchiveProducer(new Supplier<>() {
-                @Override
-                public JavaArchive get() {
-                    return ShrinkWrap.create(JavaArchive.class)
-                            .addClasses(RouteBuilderResource.class, HelloRouteBuilder.class, HelloResource.class)
-                            .add(new StringAsset(
-                                    ContinuousTestingTestUtils.appProperties("camel-quarkus.junit5.message=Sheldon")),
-                                    "application.properties");
-                }
-            })
-            .setTestArchiveProducer(new Supplier<>() {
-                @Override
-                public JavaArchive get() {
-                    return ShrinkWrap.create(JavaArchive.class).addClasses(RouteBuilderFalseET.class, RouteBuilderTrueET.class);
-                }
-            });
+    static final QuarkusDevModeTest TEST = RouteBuilderUtil.createTestModule(RouteBuilderWarningET.class,
+            RouteBuilderWarningResource.class, HelloResource.class, RouteBuilderHello.class);
 
     @Test
-    public void checkTests() throws InterruptedException {
+    public void checkTests() {
         ContinuousTestingTestUtils utils = new ContinuousTestingTestUtils();
         ContinuousTestingTestUtils.TestStatus ts = utils.waitForNextCompletion();
 
         Assertions.assertEquals(0L, ts.getTestsFailed());
-        Assertions.assertEquals(4L, ts.getTestsPassed());
+        Assertions.assertEquals(1L, ts.getTestsPassed());
         Assertions.assertEquals(0L, ts.getTestsSkipped());
+
+        Awaitility.await().atMost(10, TimeUnit.SECONDS).until(() -> TEST.getLogRecords().stream()
+                .anyMatch(logRecord -> logRecord.getMessage().contains("`RouteBuilder` detected")));
     }
 }

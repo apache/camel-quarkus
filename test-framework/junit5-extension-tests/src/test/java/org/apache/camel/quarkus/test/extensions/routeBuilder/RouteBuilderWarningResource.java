@@ -27,7 +27,7 @@ import org.apache.camel.ProducerTemplate;
 
 @Path("/routeBuilder")
 @ApplicationScoped
-public class RouteBuilderResource {
+public class RouteBuilderWarningResource {
 
     @Inject
     ProducerTemplate producerTemplate;
