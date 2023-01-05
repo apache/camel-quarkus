@@ -27,6 +27,7 @@ import io.quarkus.test.junit.callback.QuarkusTestMethodContext;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Route;
 import org.apache.camel.Service;
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.quarkus.core.FastCamelContext;
@@ -34,6 +35,8 @@ import org.apache.camel.spi.Registry;
 import org.apache.camel.test.junit5.CamelTestSupport;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtensionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The {@link CamelTestSupport} class does not work on Quarkus. This class provides a replacement, which can be used in
@@ -71,6 +74,8 @@ import org.junit.jupiter.api.extension.ExtensionContext;
  */
 public class CamelQuarkusTestSupport extends CamelTestSupport
         implements QuarkusTestProfile {
+
+    private static final Logger LOG = LoggerFactory.getLogger(CamelQuarkusTestSupport.class);
 
     @Inject
     protected CamelContext context;
@@ -258,6 +263,16 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
     @Override
     protected final void doQuarkusCheck() {
         //can run on Quarkus
+
+        //log warning in case that at least one RouteBuilder in the registry, it might mean, that unintentionally
+        // RouteBuilders are shared across or that RouteBuilder is created with @Produces
+        if (isUseRouteBuilder() && !context.getRegistry().findByType(RouteBuilder.class).isEmpty()) {
+            LOG.warn(
+                    "Test with `true` in `isUserRouteBuilder' and `RouteBuilder` detected in the context registry. " +
+                            "All tests will share this routeBuilder from the registry. This is usually not intended. " +
+                            "If `@Produces` is used to create such a RouteBuilder, please refactor the code " +
+                            "by overriding the method `createRouteBuilder()` instead.");
+        }
     }
 
     void internalAfterAll(QuarkusTestContext context) {
