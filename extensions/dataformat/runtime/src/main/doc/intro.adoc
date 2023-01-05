@@ -1,0 +1,1 @@
+Use a Camel Data Format as a regular Camel Component. For more details of the supported data formats in {project-name}, see xref:reference/dataformats.adoc[Supported Data Formats].

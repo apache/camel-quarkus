@@ -49,3 +49,6 @@ asciidoc:
 
     # External URLs
     link-quarkus-code-generator: code.quarkus.io
+
+    # Project name
+    project-name: "Camel Quarkus"
