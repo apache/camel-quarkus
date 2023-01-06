@@ -184,12 +184,19 @@ public class TelegramTest {
         final StopMessageLiveLocationMessage stop = new StopMessageLiveLocationMessage();
         stop.setChatId(result.getMessage().getChat().getId());
         stop.setMessageId(result.getMessage().getMessageId());
-        RestAssured.given()
-                .contentType(ContentType.JSON)
-                .body(stop)
-                .post("/telegram/stop-location")
-                .then()
-                .statusCode(201);
+        // Poll until success as there's some potential for HTTP 400 responses to sometimes be returned
+        Awaitility.await()
+                .pollDelay(500, TimeUnit.MILLISECONDS)
+                .pollInterval(100, TimeUnit.MILLISECONDS)
+                .atMost(10, TimeUnit.SECONDS).until(() -> {
+                    final int code = RestAssured.given()
+                            .contentType(ContentType.JSON)
+                            .body(stop)
+                            .post("/telegram/stop-location")
+                            .then()
+                            .extract().statusCode();
+                    return code == 201;
+                });
     }
 
     @Test
