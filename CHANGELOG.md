@@ -11,17 +11,25 @@
 **Fixed bugs:**
 
 - Multiple test methods do not work in a class extending CamelQuarkusTestSupport  [\#4362](https://github.com/apache/camel-quarkus/issues/4362)
+- \[Quarkus 2.14.0\] OptaPlanner tests fail to start [\#4116](https://github.com/apache/camel-quarkus/issues/4116)
 
 **Closed issues:**
 
 - Tika: Enable test testImagePng [\#4371](https://github.com/apache/camel-quarkus/issues/4371)
+- Split package warning [\#4330](https://github.com/apache/camel-quarkus/issues/4330)
 - Depend on quarkus-minio-native instead of quarkus-minio to be able to create Minio clients programmatically [\#4328](https://github.com/apache/camel-quarkus/issues/4328)
 - \[Camel 3.20.0\] Remove JSONata dependency override [\#4294](https://github.com/apache/camel-quarkus/issues/4294)
+- Platform-http : add integration tests for reverse proxy feature  \(Camel 3.18.3\) [\#4246](https://github.com/apache/camel-quarkus/issues/4246)
 - \[Quarkus 2.15.0\] SmallRye Fault Tolerance 5.6.0 not compattible with Camel 3.19.0 [\#4225](https://github.com/apache/camel-quarkus/issues/4225)
 - \[Camel 3.20\] xml integration tests is failing on native build [\#4216](https://github.com/apache/camel-quarkus/issues/4216)
+- Improve test coverage for scheduler component [\#4175](https://github.com/apache/camel-quarkus/issues/4175)
+- CVE-2022-26612: Apache Hadoop: Arbitrary file write in FileUtil\#unpackEntries on Windows [\#3763](https://github.com/apache/camel-quarkus/issues/3763)
 
 **Merged pull requests:**
 
+- Fix unterminated listing block breaking the website build [\#4380](https://github.com/apache/camel-quarkus/pull/4380) ([orpiske](https://github.com/orpiske))
+- Add link to supported data formats in dataformat extension docs introduction [\#4378](https://github.com/apache/camel-quarkus/pull/4378) ([jamesnetherton](https://github.com/jamesnetherton))
+- Remove dependency on camel-health from camel-quarkus-core [\#4376](https://github.com/apache/camel-quarkus/pull/4376) ([jamesnetherton](https://github.com/jamesnetherton))
 - Deprecate hdfs and hbase component \#3763 [\#4375](https://github.com/apache/camel-quarkus/pull/4375) ([aldettinger](https://github.com/aldettinger))
 - Register azure-identity IdentityClientBase for runtime initialization [\#4373](https://github.com/apache/camel-quarkus/pull/4373) ([jamesnetherton](https://github.com/jamesnetherton))
 - Tika: Enable test testImagePng \#4371 [\#4372](https://github.com/apache/camel-quarkus/pull/4372) ([JiriOndrusek](https://github.com/JiriOndrusek))
