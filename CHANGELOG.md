@@ -16,8 +16,10 @@
 **Closed issues:**
 
 - Tika: Enable test testImagePng [\#4371](https://github.com/apache/camel-quarkus/issues/4371)
+- Java jOOR DSL native support [\#4358](https://github.com/apache/camel-quarkus/issues/4358)
 - Split package warning [\#4330](https://github.com/apache/camel-quarkus/issues/4330)
 - Depend on quarkus-minio-native instead of quarkus-minio to be able to create Minio clients programmatically [\#4328](https://github.com/apache/camel-quarkus/issues/4328)
+- Google-bigquery test sqlCrudOperations fails with real account on branch 2.13.x [\#4304](https://github.com/apache/camel-quarkus/issues/4304)
 - \[Camel 3.20.0\] Remove JSONata dependency override [\#4294](https://github.com/apache/camel-quarkus/issues/4294)
 - Platform-http : add integration tests for reverse proxy feature  \(Camel 3.18.3\) [\#4246](https://github.com/apache/camel-quarkus/issues/4246)
 - \[Quarkus 2.15.0\] SmallRye Fault Tolerance 5.6.0 not compattible with Camel 3.19.0 [\#4225](https://github.com/apache/camel-quarkus/issues/4225)
@@ -27,6 +29,7 @@
 
 **Merged pull requests:**
 
+- Poll telegram stop-location endpoint to avoid sporadic failures [\#4383](https://github.com/apache/camel-quarkus/pull/4383) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix unterminated listing block breaking the website build [\#4380](https://github.com/apache/camel-quarkus/pull/4380) ([orpiske](https://github.com/orpiske))
 - Add link to supported data formats in dataformat extension docs introduction [\#4378](https://github.com/apache/camel-quarkus/pull/4378) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove dependency on camel-health from camel-quarkus-core [\#4376](https://github.com/apache/camel-quarkus/pull/4376) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -38,6 +41,7 @@
 - Upgrade cassandra-quarkus-client to 1.1.3 [\#4368](https://github.com/apache/camel-quarkus/pull/4368) ([jamesnetherton](https://github.com/jamesnetherton))
 - fix qute package declaration [\#4364](https://github.com/apache/camel-quarkus/pull/4364) ([claudio4j](https://github.com/claudio4j))
 - Upgrade to Quarkiverse CXF 1.7.2 [\#4360](https://github.com/apache/camel-quarkus/pull/4360) ([ppalaga](https://github.com/ppalaga))
+- Ref \#4358: Java jOOR DSL native support [\#4359](https://github.com/apache/camel-quarkus/pull/4359) ([essobedo](https://github.com/essobedo))
 - Make at least the quick profile compatible with mvnd 1.0.0-m1 [\#4355](https://github.com/apache/camel-quarkus/pull/4355) ([ppalaga](https://github.com/ppalaga))
 - Added extra content to the Control Bus extension for supported languages. [\#4354](https://github.com/apache/camel-quarkus/pull/4354) ([Gerry-Forde](https://github.com/Gerry-Forde))
 - Check extension pages with strict option [\#4351](https://github.com/apache/camel-quarkus/pull/4351) ([ppalaga](https://github.com/ppalaga))
