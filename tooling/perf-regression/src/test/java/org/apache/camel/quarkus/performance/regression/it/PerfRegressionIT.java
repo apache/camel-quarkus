@@ -17,6 +17,9 @@
 package org.apache.camel.quarkus.performance.regression.it;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Stream;
 
@@ -75,8 +78,17 @@ public class PerfRegressionIT {
         try {
             String cqVersion = System.getProperty("camel.quarkus.version");
 
+            String javaCommand = "java";
+            String javaHome = System.getProperty("java.home");
+            if (javaHome != null) {
+                Path javaExecutablePath = Paths.get(javaHome, "bin", "java");
+                if (Files.exists(javaExecutablePath)) {
+                    javaCommand = javaExecutablePath.toString();
+                }
+            }
+
             String processOutput = new ProcessExecutor()
-                    .command("java", "-jar", "target/quarkus-app/quarkus-run.jar", "-d", "1s", cqVersion)
+                    .command(javaCommand, "-jar", "target/quarkus-app/quarkus-run.jar", "-d", "1s", cqVersion)
                     .environment("LANG", locale + ".UTF-8")
                     .readOutput(true)
                     .exitValue(0)
