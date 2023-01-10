@@ -16,12 +16,17 @@
  */
 package org.apache.camel.quarkus.performance.regression;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import org.apache.commons.io.FileUtils;
@@ -69,7 +74,18 @@ public class PerfRegressionCommand implements Runnable {
                 runPerfRegressionForCqVersion(cqVersionsUnderTestFolder.resolve(cqVersion), cqVersion, report);
             }
 
-            System.out.println(report.printAll());
+            String reportString = report.printAll();
+            System.out.println(reportString);
+
+            try {
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH'h'mm'm'ss's'");
+                String date = dateFormat.format(new Date());
+                File reportFile = Paths.get("perf-regression-report@" + date + ".txt").toFile();
+                FileUtils.writeStringToFile(reportFile, reportString, StandardCharsets.UTF_8);
+            } catch (IOException ioex) {
+                throw new RuntimeException(
+                        "An issue has been caught while trying to write the performance regression report to a file.", ioex);
+            }
         } catch (IOException | XmlPullParserException e) {
             throw new RuntimeException("An issue has been caught while trying to setup performance regression tests.", e);
         }
