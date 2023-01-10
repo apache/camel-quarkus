@@ -41,3 +41,6 @@ nb-configuration.xml
 
 # Quarkus
 quarkus.log*
+
+# Camel Quarkus Performance Regression Reports
+perf-regression-report@*.txt
