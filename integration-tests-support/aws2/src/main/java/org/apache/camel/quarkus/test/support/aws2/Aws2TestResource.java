@@ -45,9 +45,15 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
         final String realKey = System.getenv("AWS_ACCESS_KEY");
         final String realSecret = System.getenv("AWS_SECRET_KEY");
         final String realRegion = System.getenv("AWS_REGION");
+        final String defaultCredentialsProviderValue = System.getenv("AWS_USE_DEFAULT_CREDENTIALS_PROVIDER");
+
         final boolean realCredentialsProvided = realKey != null && realSecret != null && realRegion != null;
         final boolean startMockBackend = MockBackendUtils.startMockBackend(false);
-        final boolean usingMockBackend = startMockBackend && !realCredentialsProvided;
+        final boolean useDefaultCredentialsProvider = defaultCredentialsProviderValue != null &&
+                !defaultCredentialsProviderValue.isEmpty() &&
+                Boolean.parseBoolean(defaultCredentialsProviderValue);
+        //todo do we need to have non empty region
+        final boolean usingMockBackend = startMockBackend && !realCredentialsProvided && !useDefaultCredentialsProvider;
 
         ServiceLoader<Aws2TestEnvCustomizer> loader = ServiceLoader.load(Aws2TestEnvCustomizer.class);
         List<Aws2TestEnvCustomizer> customizers = new ArrayList<>();
@@ -78,20 +84,25 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
             localstack.start();
 
             envContext = new Aws2TestEnvContext(localstack.getAccessKey(), localstack.getSecretKey(), localstack.getRegion(),
-                    Optional.of(localstack), exportCredentialsServices);
+                    useDefaultCredentialsProvider, Optional.of(localstack), exportCredentialsServices);
 
         } else {
-            if (!startMockBackend && !realCredentialsProvided) {
+            if (!startMockBackend && !realCredentialsProvided && !useDefaultCredentialsProvider) {
                 throw new IllegalStateException(
-                        "Set AWS_ACCESS_KEY, AWS_SECRET_KEY and AWS_REGION env vars if you set CAMEL_QUARKUS_START_MOCK_BACKEND=false");
+                        "Set AWS_ACCESS_KEY, AWS_SECRET_KEY and AWS_REGION env vars or AWS_USE_DEFAULT-CREDENTIALS-PROVIDER to true if you set CAMEL_QUARKUS_START_MOCK_BACKEND=false");
+            }
+            if (realCredentialsProvided && useDefaultCredentialsProvider) {
+                throw new IllegalStateException(
+                        "Real account (AWS_ACCESS_KEY and AWS_SECRET_KEY) can not be used together with default credentials provider (AWS_USE_DEFAULT_CREDENTIALS_PROVIDER = true)");
             }
             MockBackendUtils.logRealBackendUsed();
-            envContext = new Aws2TestEnvContext(realKey, realSecret, realRegion, Optional.empty(), new Service[0]);
+            envContext = new Aws2TestEnvContext(realKey, realSecret, realRegion, useDefaultCredentialsProvider,
+                    Optional.empty(), new Service[0]);
         }
 
         customizers.forEach(customizer -> customizer.customize(envContext));
 
-        return envContext.getProperies();
+        return envContext.getProperties();
     }
 
     @Override

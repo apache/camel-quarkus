@@ -27,6 +27,23 @@ export AWS_REGION=eu-central-1
 export MAILSLURP_API_KEY=<your-mailslurp-api-key>
 ----
 
+or
+
+* Set default credentials and Region for your environment (https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html#setup-credentialsx[documentation])
+* Export our preferred
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions[AWS region].
+* Export a flag forcing clients to use default credentials.
+* For SES, you additionally need a https://app.mailslurp.com/[MailSlurp account] and API key
+(the free dev account should be enough)
+
+[source,shell]
+----
+export AWS_USE_DEFAULT_CREDENTIALS_PROVIDER=true
+export AWS_REGION=eu-central-1
+# for SES
+export MAILSLURP_API_KEY=<your-mailslurp-api-key>
+----
+
 You may want to `export CAMEL_QUARKUS_START_MOCK_BACKEND=false` to force testing against
 the real AWS API.
 

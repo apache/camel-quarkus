@@ -87,12 +87,17 @@ public class Aws2DdbQuarkusClientTestEnvCustomizer implements Aws2TestEnvCustomi
             }
         }
 
-        Map<String, String> envContextProperties = envContext.getProperies();
+        Map<String, String> envContextProperties = envContext.getProperties();
 
-        envContext.property("quarkus.dynamodb.aws.credentials.static-provider.access-key-id", envContext.getAccessKey());
-        envContext.property("quarkus.dynamodb.aws.credentials.static-provider.secret-access-key", envContext.getSecretKey());
+        if (envContext.isUseDefaultCredentialsProvider()) {
+            envContext.property("quarkus.dynamodb.aws.credentials.type", "default");
+        } else {
+            envContext.property("quarkus.dynamodb.aws.credentials.static-provider.access-key-id", envContext.getAccessKey());
+            envContext.property("quarkus.dynamodb.aws.credentials.static-provider.secret-access-key",
+                    envContext.getSecretKey());
+            envContext.property("quarkus.dynamodb.aws.credentials.type", "static");
+        }
         envContext.property("quarkus.dynamodb.aws.region", envContext.getRegion());
-        envContext.property("quarkus.dynamodb.aws.credentials.type", "static");
 
         // Propagate localstack environment config to Quarkus AWS if required
         Optional<String> overrideEndpoint = envContextProperties
