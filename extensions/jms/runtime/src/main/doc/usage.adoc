@@ -13,7 +13,7 @@ ifeval::[{doc-show-extra-content} == true]
 
 [NOTE]
 ====
-Connection pooling is a Technical Preview feature in this release of {ProductName}.
+Connection pooling is a Technical Preview feature in this release of {project-name}.
 
 To use connection pooling in the `camel-quarkus-jms` components, you must add `io.quarkiverse.artemis:quarkus-artemis` and `io.quarkiverse.messaginghub:quarkus-pooled-jms` to your pom.xml and set the following configuration:
 ----
