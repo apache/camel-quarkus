@@ -37,12 +37,16 @@ public class Aws2SesQuarkusClientTestEnvCustomizer extends Aws2SesTestEnvCustomi
         //remove camel properties for client creation to ensure that client is not created by camel component
         envContext.removeClient(localstackServices());
 
-        Map<String, String> envContextProperties = envContext.getProperies();
+        Map<String, String> envContextProperties = envContext.getProperties();
 
-        envContext.property("quarkus.ses.aws.credentials.static-provider.access-key-id", envContext.getAccessKey());
-        envContext.property("quarkus.ses.aws.credentials.static-provider.secret-access-key", envContext.getSecretKey());
+        if (envContext.isUseDefaultCredentialsProvider()) {
+            envContext.property("quarkus.ses.aws.credentials.type", "default");
+        } else {
+            envContext.property("quarkus.ses.aws.credentials.static-provider.access-key-id", envContext.getAccessKey());
+            envContext.property("quarkus.ses.aws.credentials.static-provider.secret-access-key", envContext.getSecretKey());
+            envContext.property("quarkus.ses.aws.credentials.type", "static");
+        }
         envContext.property("quarkus.ses.aws.region", envContext.getRegion());
-        envContext.property("quarkus.ses.aws.credentials.type", "static");
 
         // Propagate localstack environment config to Quarkus AWS if required
         Optional<String> overrideEndpoint = envContextProperties

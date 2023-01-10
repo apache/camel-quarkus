@@ -33,6 +33,7 @@ import org.jboss.logging.Logger;
 import org.testcontainers.containers.localstack.LocalStackContainer;
 import org.testcontainers.containers.localstack.LocalStackContainer.Service;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.awscore.client.builder.AwsClientBuilder;
 import software.amazon.awssdk.core.SdkClient;
@@ -42,6 +43,11 @@ import software.amazon.awssdk.regions.Region;
  * A context passed to {@link Aws2TestEnvCustomizer#customize(Aws2TestEnvContext)}.
  */
 public class Aws2TestEnvContext {
+
+    private enum CredentialsProvider {
+        defaultProvider, staticProvider
+    }
+
     private static final Logger LOG = Logger.getLogger(Aws2TestEnvContext.class);
     private final ArrayList<AutoCloseable> closeables = new ArrayList<>();
     private final Map<Service, ? extends SdkClient> clients = new EnumMap<>(Service.class);
@@ -50,20 +56,29 @@ public class Aws2TestEnvContext {
     private final String secretKey;
     private final String region;
     private final Optional<LocalStackContainer> localstack;
+    private final CredentialsProvider credentialsProvider;
 
-    public Aws2TestEnvContext(String accessKey, String secretKey, String region, Optional<LocalStackContainer> localstack,
+    public Aws2TestEnvContext(String accessKey, String secretKey, String region, boolean useDefaultCredentialsProvider,
+            Optional<LocalStackContainer> localstack,
             Service[] exportCredentialsServices) {
         this.accessKey = accessKey;
         this.secretKey = secretKey;
         this.region = region;
         this.localstack = localstack;
+        this.credentialsProvider = useDefaultCredentialsProvider ? CredentialsProvider.defaultProvider
+                : CredentialsProvider.staticProvider;
 
         localstack.ifPresent(ls -> {
             for (Service service : exportCredentialsServices) {
                 String s = camelServiceAcronym(service);
                 if (s != null) {
-                    properties.put("camel.component.aws2-" + s + ".access-key", accessKey);
-                    properties.put("camel.component.aws2-" + s + ".secret-key", secretKey);
+                    if (credentialsProvider == CredentialsProvider.staticProvider) {
+                        properties.put("camel.component.aws2-" + s + ".access-key", accessKey);
+                        properties.put("camel.component.aws2-" + s + ".secret-key", secretKey);
+                    } else {
+                        properties.put("camel.component.aws2-" + s + ".useDefaultCredentialsProvider", "true");
+                    }
+                    //todo is ot really needed for default provider?
                     properties.put("camel.component.aws2-" + s + ".region", region);
 
                     properties.put("camel.component.aws2-" + s + ".override-endpoint", "true");
@@ -97,6 +112,7 @@ public class Aws2TestEnvContext {
             properties.remove("camel.component.aws2-" + s + ".access-key");
             properties.remove("camel.component.aws2-" + s + ".secret-key");
             properties.remove("camel.component.aws2-" + s + ".region");
+            properties.remove("camel.component.aws2-" + s + ".defaultCredentialsProvider");
         }
     }
 
@@ -114,7 +130,7 @@ public class Aws2TestEnvContext {
     /**
      * @return a read-only view of {@link #properties}
      */
-    public Map<String, String> getProperies() {
+    public Map<String, String> getProperties() {
         return Collections.unmodifiableMap(properties);
     }
 
@@ -154,8 +170,10 @@ public class Aws2TestEnvContext {
             Service service,
             Supplier<B> builderSupplier) {
         B builder = builderSupplier.get()
-                .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create(
-                        accessKey, secretKey)));
+                .credentialsProvider(
+                        credentialsProvider == CredentialsProvider.defaultProvider ? DefaultCredentialsProvider.create()
+                                : StaticCredentialsProvider.create(AwsBasicCredentials.create(accessKey, secretKey)));
+        //todo in default provider might it be null?
         builder.region(Region.of(region));
 
         if (localstack.isPresent()) {
@@ -218,6 +236,10 @@ public class Aws2TestEnvContext {
 
     public boolean isLocalStack() {
         return localstack.isPresent();
+    }
+
+    public boolean isUseDefaultCredentialsProvider() {
+        return credentialsProvider == CredentialsProvider.defaultProvider;
     }
 
 }
