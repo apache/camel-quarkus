@@ -15,6 +15,7 @@
 
 **Closed issues:**
 
+- Groovy DSL native support [\#4379](https://github.com/apache/camel-quarkus/issues/4379)
 - Tika: Enable test testImagePng [\#4371](https://github.com/apache/camel-quarkus/issues/4371)
 - Java jOOR DSL native support [\#4358](https://github.com/apache/camel-quarkus/issues/4358)
 - Split package warning [\#4330](https://github.com/apache/camel-quarkus/issues/4330)
@@ -27,10 +28,16 @@
 - \[Quarkus 2.15.0\] SmallRye Fault Tolerance 5.6.0 not compattible with Camel 3.19.0 [\#4225](https://github.com/apache/camel-quarkus/issues/4225)
 - \[Camel 3.20\] xml integration tests is failing on native build [\#4216](https://github.com/apache/camel-quarkus/issues/4216)
 - Improve test coverage for scheduler component [\#4175](https://github.com/apache/camel-quarkus/issues/4175)
+- perf-regression: PerfRegressionIT should use `java.home` system property for the java executable location [\#4023](https://github.com/apache/camel-quarkus/issues/4023)
 - CVE-2022-26612: Apache Hadoop: Arbitrary file write in FileUtil\#unpackEntries on Windows [\#3763](https://github.com/apache/camel-quarkus/issues/3763)
 
 **Merged pull requests:**
 
+- Add extra support content for JMS pooling usage. [\#4396](https://github.com/apache/camel-quarkus/pull/4396) ([Gerry-Forde](https://github.com/Gerry-Forde))
+- perf-regression: try resolving 'java.home' system property first in itest \#4023 [\#4390](https://github.com/apache/camel-quarkus/pull/4390) ([aldettinger](https://github.com/aldettinger))
+- Reenable Olingo4 native integration tests [\#4388](https://github.com/apache/camel-quarkus/pull/4388) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade Camel to 3.20.1 [\#4386](https://github.com/apache/camel-quarkus/pull/4386) ([jamesnetherton](https://github.com/jamesnetherton))
+- Ref \#4379: Groovy DSL native support [\#4385](https://github.com/apache/camel-quarkus/pull/4385) ([essobedo](https://github.com/essobedo))
 - Poll telegram stop-location endpoint to avoid sporadic failures [\#4383](https://github.com/apache/camel-quarkus/pull/4383) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix unterminated listing block breaking the website build [\#4380](https://github.com/apache/camel-quarkus/pull/4380) ([orpiske](https://github.com/orpiske))
 - Add link to supported data formats in dataformat extension docs introduction [\#4378](https://github.com/apache/camel-quarkus/pull/4378) ([jamesnetherton](https://github.com/jamesnetherton))
