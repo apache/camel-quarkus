@@ -33,6 +33,20 @@ ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
 
+[id="extensions-management-usage"]
+== Usage
+For information on using Managed Beans in Camel, consult the xref:manual::jmx.adoc[JMX section of the Camel Manual].
+
+[id="extensions-management-usage-enabling-and-disabling-jmx"]
+=== Enabling and Disabling JMX
+
+JMX can be enabled or disabled in Camel-Quarkus by any of the following methods:
+
+. Adding or removing the `camel-quarkus-management` extension.
+. Setting the `camel.main.jmxEnabled` configuration property to a boolean value.
+. Setting the system property `-Dorg.apache.camel.jmx.disabled` to a boolean value.
+
+
 [id="extensions-management-camel-quarkus-limitations"]
 == Camel Quarkus limitations
 

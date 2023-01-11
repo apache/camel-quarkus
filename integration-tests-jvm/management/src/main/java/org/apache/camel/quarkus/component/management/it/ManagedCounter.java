@@ -16,19 +16,21 @@
  */
 package org.apache.camel.quarkus.component.management.it;
 
-import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.api.management.ManagedAttribute;
+import org.apache.camel.api.management.ManagedOperation;
+import org.apache.camel.api.management.ManagedResource;
 
-public class Routes extends RouteBuilder {
-    @Override
-    public void configure() throws Exception {
-        from("direct:start").routeId("hello").setBody().constant("Hello World");
+@ManagedResource
+public class ManagedCounter {
+    private int count = 0;
 
-        from("direct:count").routeId("count")
-                .bean(ManagedCounter.class, "increment").id("counter");
+    @ManagedAttribute(description = "The count value")
+    public int getCount() {
+        return count;
+    }
 
-        // This route ensures that a dataformat is available in the context.
-        from("direct:dataformat").routeId("dataformat")
-                .setBody(constant("Hello"))
-                .marshal().json();
+    @ManagedOperation(description = "Increment the counter")
+    public void increment() {
+        this.count++;
     }
 }
