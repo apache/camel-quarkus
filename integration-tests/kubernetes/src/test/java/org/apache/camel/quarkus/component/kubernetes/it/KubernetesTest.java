@@ -25,7 +25,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.kubernetes.client.KubernetesServerTestResource;
 import io.quarkus.test.kubernetes.client.KubernetesTestServer;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
@@ -37,7 +36,6 @@ public class KubernetesTest {
     @KubernetesTestServer
     private KubernetesServer mockServer;
 
-    @Disabled //https://github.com/apache/camel-quarkus/issues/4095
     @Test
     public void testKubernetesComponent() {
         Container container = new Container();
