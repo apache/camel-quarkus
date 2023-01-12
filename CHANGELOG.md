@@ -15,14 +15,17 @@
 
 **Closed issues:**
 
+- Test framework - problem when global RouteBuilder is used [\#4381](https://github.com/apache/camel-quarkus/issues/4381)
 - Groovy DSL native support [\#4379](https://github.com/apache/camel-quarkus/issues/4379)
 - Tika: Enable test testImagePng [\#4371](https://github.com/apache/camel-quarkus/issues/4371)
 - Java jOOR DSL native support [\#4358](https://github.com/apache/camel-quarkus/issues/4358)
+- Aws2: Allow testing of useDefaultCredentialsProvider [\#4346](https://github.com/apache/camel-quarkus/issues/4346)
 - Split package warning [\#4330](https://github.com/apache/camel-quarkus/issues/4330)
 - Depend on quarkus-minio-native instead of quarkus-minio to be able to create Minio clients programmatically [\#4328](https://github.com/apache/camel-quarkus/issues/4328)
 - Google-bigquery test sqlCrudOperations fails with real account on branch 2.13.x [\#4304](https://github.com/apache/camel-quarkus/issues/4304)
 - \[Camel 3.20.0\] SmallRye Fault Tolerance 5.6.0 not compattible with Camel 3.20.0 [\#4298](https://github.com/apache/camel-quarkus/issues/4298)
 - \[Camel 3.20.0\] Remove JSONata dependency override [\#4294](https://github.com/apache/camel-quarkus/issues/4294)
+- perf-regression: write the report to disk [\#4263](https://github.com/apache/camel-quarkus/issues/4263)
 - \[Camel 3.20\] CamelContext must be specified on: KeyStoreParameters [\#4248](https://github.com/apache/camel-quarkus/issues/4248)
 - Platform-http : add integration tests for reverse proxy feature  \(Camel 3.18.3\) [\#4246](https://github.com/apache/camel-quarkus/issues/4246)
 - \[Quarkus 2.15.0\] SmallRye Fault Tolerance 5.6.0 not compattible with Camel 3.19.0 [\#4225](https://github.com/apache/camel-quarkus/issues/4225)
@@ -33,12 +36,16 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 2.16.0.CR1 [\#4402](https://github.com/apache/camel-quarkus/pull/4402) ([jamesnetherton](https://github.com/jamesnetherton))
+- perf-regression: write the report to disk \#4263 [\#4399](https://github.com/apache/camel-quarkus/pull/4399) ([aldettinger](https://github.com/aldettinger))
 - Add extra support content for JMS pooling usage. [\#4396](https://github.com/apache/camel-quarkus/pull/4396) ([Gerry-Forde](https://github.com/Gerry-Forde))
+- Aws2: Allow testing of useDefaultCredentialsProvider \#4346 [\#4395](https://github.com/apache/camel-quarkus/pull/4395) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - perf-regression: try resolving 'java.home' system property first in itest \#4023 [\#4390](https://github.com/apache/camel-quarkus/pull/4390) ([aldettinger](https://github.com/aldettinger))
 - Reenable Olingo4 native integration tests [\#4388](https://github.com/apache/camel-quarkus/pull/4388) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Camel to 3.20.1 [\#4386](https://github.com/apache/camel-quarkus/pull/4386) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ref \#4379: Groovy DSL native support [\#4385](https://github.com/apache/camel-quarkus/pull/4385) ([essobedo](https://github.com/essobedo))
 - Poll telegram stop-location endpoint to avoid sporadic failures [\#4383](https://github.com/apache/camel-quarkus/pull/4383) ([jamesnetherton](https://github.com/jamesnetherton))
+- Test framework - warn if global RouteBuilder may be wrong [\#4382](https://github.com/apache/camel-quarkus/pull/4382) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix unterminated listing block breaking the website build [\#4380](https://github.com/apache/camel-quarkus/pull/4380) ([orpiske](https://github.com/orpiske))
 - Add link to supported data formats in dataformat extension docs introduction [\#4378](https://github.com/apache/camel-quarkus/pull/4378) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove dependency on camel-health from camel-quarkus-core [\#4376](https://github.com/apache/camel-quarkus/pull/4376) ([jamesnetherton](https://github.com/jamesnetherton))
