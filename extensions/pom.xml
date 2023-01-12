@@ -156,6 +156,7 @@
         <module>knative-consumer</module>
         <module>knative-producer</module>
         <module>kotlin</module>
+        <module>kotlin-dsl</module>
         <module>kubernetes</module>
         <module>kudu</module>
         <module>language</module>
