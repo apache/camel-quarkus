@@ -37,6 +37,7 @@ import io.quarkus.scheduler.Scheduled;
 import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.aws2.cw.Cw2Constants;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 @Path("/aws2-cw")
 @ApplicationScoped
@@ -75,12 +76,18 @@ public class Aws2CwResource {
     @Produces(MediaType.TEXT_PLAIN)
     public Response postMap(
             @PathParam("namespace") String namespace,
+            @HeaderParam("defaultCredentialsProvider") boolean defaultCredentialsProvider,
+            @HeaderParam("setCredentials") boolean setCredentials,
+            @HeaderParam("returnExceptionMessage") boolean returnExceptionMessage,
             @HeaderParam("customClientName") String customClientName,
             MultivaluedMap<String, String> formParams) throws Exception {
 
         String uri = "aws2-cw://" + namespace;
-        uri = customClientName != null && !customClientName.isEmpty()
-                ? uri + "?autowiredEnabled=false&amazonCwClient=#" + customClientName : uri;
+        if (customClientName != null && !customClientName.isEmpty()) {
+            uri = uri + "?autowiredEnabled=false&amazonCwClient=#" + customClientName;
+        } else if (defaultCredentialsProvider) {
+            uri = uri + "?useDefaultCredentialsProvider=true";
+        }
 
         Map<String, Object> typedHeaders = formParams.entrySet().stream().collect(Collectors.toMap(
                 e -> e.getKey(),
@@ -97,18 +104,30 @@ public class Aws2CwResource {
                     return val;
                 }));
         try {
+            if (defaultCredentialsProvider && setCredentials) {
+                System.setProperty("aws.accessKeyId",
+                        ConfigProvider.getConfig().getValue("camel.component.aws2-cw.access-key", String.class));
+                System.setProperty("aws.secretAccessKey",
+                        ConfigProvider.getConfig().getValue("camel.component.aws2-cw.secret-key", String.class));
+            }
             producerTemplate.requestBodyAndHeaders(uri, null, typedHeaders, String.class);
         } catch (Exception e) {
-            if (e instanceof CamelExecutionException && e.getCause() != null) {
+            if (returnExceptionMessage && e instanceof CamelExecutionException && e.getCause() != null) {
                 return Response
                         .ok(e.getCause().getMessage())
                         .build();
             }
             throw e;
+        } finally {
+            if (defaultCredentialsProvider && setCredentials) {
+                System.clearProperty("aws.accessKeyId");
+                System.clearProperty("aws.secretAccessKey");
+            }
         }
 
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .build();
     }
+
 }
