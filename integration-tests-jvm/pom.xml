@@ -86,7 +86,6 @@
         <module>json-patch</module>
         <module>jsonapi</module>
         <module>jt400</module>
-        <module>kotlin-dsl</module>
         <module>ldap</module>
         <module>ldif</module>
         <module>lucene</module>

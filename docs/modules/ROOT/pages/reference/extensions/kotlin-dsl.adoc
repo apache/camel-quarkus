@@ -4,17 +4,17 @@
 = Kotlin DSL
 :linkattrs:
 :cq-artifact-id: camel-quarkus-kotlin-dsl
-:cq-native-supported: false
-:cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-native-supported: true
+:cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Support for parsing Kotlin route definitions at runtime
 :cq-deprecated: false
 :cq-jvm-since: 1.8.0
-:cq-native-since: n/a
+:cq-native-since: 2.16.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.8.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##1.8.0## [.badge-key]##Native since##[.badge-supported]##2.16.0##
 endif::[]
 
 Support for parsing Kotlin route definitions at runtime
@@ -28,6 +28,10 @@ Please refer to the above link for usage and configuration details.
 
 [id="extensions-kotlin-dsl-maven-coordinates"]
 == Maven coordinates
+
+https://{link-quarkus-code-generator}/?extension-search=camel-quarkus-kotlin-dsl[Create a new project with this extension on {link-quarkus-code-generator}, window="_blank"]
+
+Or add the coordinates to your existing project:
 
 [source,xml]
 ----

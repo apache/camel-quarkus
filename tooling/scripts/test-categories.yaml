@@ -208,6 +208,7 @@ group-13:
   - jira
   - java-joor-dsl
   - js-dsl
+  - kotlin-dsl
   - kubernetes
   - salesforce
   - sap-netweaver
