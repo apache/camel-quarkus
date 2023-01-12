@@ -52,7 +52,6 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
         final boolean useDefaultCredentialsProvider = defaultCredentialsProviderValue != null &&
                 !defaultCredentialsProviderValue.isEmpty() &&
                 Boolean.parseBoolean(defaultCredentialsProviderValue);
-        //todo do we need to have non empty region
         final boolean usingMockBackend = startMockBackend && !realCredentialsProvided && !useDefaultCredentialsProvider;
 
         ServiceLoader<Aws2TestEnvCustomizer> loader = ServiceLoader.load(Aws2TestEnvCustomizer.class);
