@@ -48,7 +48,7 @@ import static org.hamcrest.Matchers.emptyString;
 
 @QuarkusTestResource(MasterOpenShiftTestResource.class)
 @QuarkusTest
-@Disabled //https://github.com/apache/camel-quarkus/issues/4095
+@Disabled("https://github.com/apache/camel-quarkus/issues/4387")
 class MasterOpenShiftTest {
 
     @OpenShiftTestServer
