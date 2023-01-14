@@ -32,6 +32,7 @@
 - \[Camel 3.20\] xml integration tests is failing on native build [\#4216](https://github.com/apache/camel-quarkus/issues/4216)
 - Expand AWS CW test coverage [\#4196](https://github.com/apache/camel-quarkus/issues/4196)
 - Improve test coverage for scheduler component [\#4175](https://github.com/apache/camel-quarkus/issues/4175)
+- Splunk: tests are failing after the upgrade of Splunk in Camel [\#4085](https://github.com/apache/camel-quarkus/issues/4085)
 - perf-regression: PerfRegressionIT should use `java.home` system property for the java executable location [\#4023](https://github.com/apache/camel-quarkus/issues/4023)
 - CVE-2022-26612: Apache Hadoop: Arbitrary file write in FileUtil\#unpackEntries on Windows [\#3763](https://github.com/apache/camel-quarkus/issues/3763)
 
@@ -164,6 +165,7 @@
 - Fix Netty integration tests on FIPS system [\#4130](https://github.com/apache/camel-quarkus/pull/4130) ([osmman](https://github.com/osmman))
 - Upgrade dependencies versions [\#4129](https://github.com/apache/camel-quarkus/pull/4129) ([zbendhiba](https://github.com/zbendhiba))
 - Add tests for rest-openapi extension \(apache\#4117\) [\#4125](https://github.com/apache/camel-quarkus/pull/4125) ([djcoleman](https://github.com/djcoleman))
+- Splunk: tests are failing after the upgrade of Splunk in Camel \#4085 [\#4124](https://github.com/apache/camel-quarkus/pull/4124) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade Quarkus to 2.13.0.Final [\#4121](https://github.com/apache/camel-quarkus/pull/4121) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade OptaPlanner to 8.27.0.Final [\#4118](https://github.com/apache/camel-quarkus/pull/4118) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix generated AsciiDoc id headings [\#4113](https://github.com/apache/camel-quarkus/pull/4113) ([jamesnetherton](https://github.com/jamesnetherton))
