@@ -52,6 +52,7 @@
         <module>cmis</module>
         <module>coap</module>
         <module>cometd</module>
+        <module>console</module>
         <module>corda</module>
         <module>couchbase</module>
         <module>debug</module>

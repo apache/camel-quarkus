@@ -89,6 +89,7 @@
 *** xref:reference/extensions/cloudevents.adoc[Cloudevents]
 *** xref:reference/extensions/coap.adoc[CoAP]
 *** xref:reference/extensions/cometd.adoc[CometD]
+*** xref:reference/extensions/console.adoc[Console]
 *** xref:reference/extensions/consul.adoc[Consul]
 *** xref:reference/extensions/controlbus.adoc[Control Bus]
 *** xref:reference/extensions/corda.adoc[Corda]
