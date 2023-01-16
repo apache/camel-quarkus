@@ -14,7 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+const consumer = Java.type("org.apache.camel.quarkus.dsl.js.runtime.JavaScriptDslConsumer");
+const c = new consumer("msg", `msg.setBody('From consumer')`);
+const processor = Java.type("org.apache.camel.quarkus.dsl.js.runtime.JavaScriptDslProcessor");
+const p = new processor(`exchange.getMessage().setBody('From processor')`);
 
-from('direct:jsHello')
-    .id('my-js-route')
-    .setBody().simple('Hello ${body} from JavaScript!')
+from('direct:routes-with-processors-consumer')
+    .id("routes-with-processors-consumer")
+    .process().message(c)
+    .filter().simple("${body} == 'From consumer'")
+    .setBody().constant("true");
+
+from('direct:routes-with-processors-processor')
+    .id("routes-with-processors-processor")
+    .process(p)
+    .filter().simple("${body} == 'From processor'")
+    .setBody().constant("true");

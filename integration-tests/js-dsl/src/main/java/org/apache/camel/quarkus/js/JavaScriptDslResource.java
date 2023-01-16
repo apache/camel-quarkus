@@ -16,45 +16,86 @@
  */
 package org.apache.camel.quarkus.js;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.ExtendedCamelContext;
+import org.apache.camel.ProducerTemplate;
+import org.apache.camel.Route;
+import org.apache.camel.component.direct.DirectEndpoint;
 import org.apache.camel.dsl.js.JavaScriptRoutesBuilderLoader;
 import org.apache.camel.quarkus.main.CamelMain;
 import org.apache.camel.spi.RoutesBuilderLoader;
 
-@Path("/test")
+@Path("/js-dsl")
 @ApplicationScoped
 public class JavaScriptDslResource {
     @Inject
     CamelMain main;
 
-    @Path("/main/describe")
+    @Inject
+    ProducerTemplate producerTemplate;
+
+    @Path("/main/jsRoutesBuilderLoader")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public JsonObject describeMain() {
+    @Produces(MediaType.TEXT_PLAIN)
+    public String jsRoutesBuilder() {
         final ExtendedCamelContext camelContext = main.getCamelContext().adapt(ExtendedCamelContext.class);
+        return camelContext.getBootstrapFactoryFinder(RoutesBuilderLoader.FACTORY_PATH)
+                .findClass(JavaScriptRoutesBuilderLoader.EXTENSION).get().getName();
+    }
 
-        JsonArrayBuilder routeBuilders = Json.createArrayBuilder();
-        main.configure().getRoutesBuilders().forEach(builder -> routeBuilders.add(builder.getClass().getName()));
+    @Path("/main/routeBuilders")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String routeBuilders() {
+        return main.configure().getRoutesBuilders().stream()
+                .map(rb -> rb.getClass().getSimpleName())
+                .sorted()
+                .collect(Collectors.joining(","));
+    }
 
-        JsonArrayBuilder routes = Json.createArrayBuilder();
-        main.getCamelContext().getRoutes().forEach(route -> routes.add(route.getId()));
+    @Path("/main/routes")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String routes() {
+        return main.getCamelContext().getRoutes().stream()
+                .map(Route::getId)
+                .sorted()
+                .collect(Collectors.joining(","));
+    }
 
-        return Json.createObjectBuilder()
-                .add("routes-builder-loader",
-                        camelContext.getBootstrapFactoryFinder(RoutesBuilderLoader.FACTORY_PATH)
-                                .findClass(JavaScriptRoutesBuilderLoader.EXTENSION).get().getName())
-                .add("routeBuilders", routeBuilders)
-                .add("routes", routes)
-                .build();
+    @GET
+    @Path("/main/successful/routes")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public int successfulRoutes() {
+        Set<String> excluded = Set.of("my-js-route", "routes-with-rest-dsl-hello", "routes-with-rest-configuration-goodbye");
+        int successful = 0;
+        for (Route route : main.getCamelContext().getRoutes()) {
+            String name = route.getRouteId();
+            if (route.getEndpoint() instanceof DirectEndpoint && !excluded.contains(name)
+                    && producerTemplate.requestBody(route.getEndpoint(), "", Boolean.class) == Boolean.TRUE) {
+                successful++;
+            }
+        }
+        return successful;
+    }
+
+    @POST
+    @Path("/hello")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello(String message) {
+        return producerTemplate.requestBody("direct:jsHello", message, String.class);
     }
 }

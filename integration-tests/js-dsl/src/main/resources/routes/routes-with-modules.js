@@ -14,7 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { greeting } from "src/main/resources/module.mjs";
 
-from('direct:jsHello')
-    .id('my-js-route')
-    .setBody().simple('Hello ${body} from JavaScript!')
+from('direct:routes-with-modules')
+    .id("routes-with-modules")
+    .setBody().simple(greeting)
+    .filter().simple("${body} == 'Hello World!'")
+    .setBody().constant("true");

@@ -16,34 +16,64 @@
  */
 package org.apache.camel.quarkus.js;
 
-import javax.ws.rs.core.MediaType;
-
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import io.restassured.path.json.JsonPath;
 import org.apache.camel.dsl.js.JavaScriptRoutesBuilderLoader;
+import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 @QuarkusTest
-public class JavaScriptDslTest {
+class JavaScriptDslTest {
+
     @Test
-    public void testJavaScriptRoutes() {
-        JsonPath p = RestAssured.given()
-                .accept(MediaType.APPLICATION_JSON)
-                .get("/test/main/describe")
+    void jsHello() {
+        RestAssured.given()
+                .body("David Smith")
+                .post("/js-dsl/hello")
                 .then()
                 .statusCode(200)
-                .extract()
-                .body()
-                .jsonPath();
+                .body(CoreMatchers.is("Hello David Smith from JavaScript!"));
+    }
 
-        assertThat(p.getString("routes-builder-loader"))
-                .isEqualTo(JavaScriptRoutesBuilderLoader.class.getName());
-        assertThat(p.getList("routeBuilders", String.class))
-                .isEmpty();
-        assertThat(p.getList("routes", String.class))
-                .contains("my-js-route");
+    @Test
+    void testMainInstanceWithJavaRoutes() {
+        RestAssured.given()
+                .get("/js-dsl/main/jsRoutesBuilderLoader")
+                .then()
+                .statusCode(200)
+                .body(CoreMatchers.is(JavaScriptRoutesBuilderLoader.class.getName()));
+
+        RestAssured.given()
+                .get("/js-dsl/main/routeBuilders")
+                .then()
+                .statusCode(200)
+                .body(CoreMatchers.is(""));
+
+        RestAssured.given()
+                .get("/js-dsl/main/routes")
+                .then()
+                .statusCode(200)
+                .body(CoreMatchers.is(
+                        "my-js-route,routes-with-component-configuration,routes-with-context-configuration,routes-with-endpoint-dsl,routes-with-modules,routes-with-processors-consumer,routes-with-processors-processor,routes-with-rest-configuration,routes-with-rest-configuration-goodbye,routes-with-rest-dsl,routes-with-rest-dsl-hello"));
+
+        RestAssured.given()
+                .get("/js-dsl/main/successful/routes")
+                .then()
+                .statusCode(200)
+                .body(CoreMatchers.is("6"));
+    }
+
+    @Test
+    void testRestEndpoints() {
+        RestAssured.given()
+                .get("/say/hello")
+                .then()
+                .statusCode(200)
+                .body(CoreMatchers.is("Hello World"));
+        RestAssured.given()
+                .get("/say/goodbye")
+                .then()
+                .statusCode(200)
+                .body(CoreMatchers.is("Bye World"));
     }
 }

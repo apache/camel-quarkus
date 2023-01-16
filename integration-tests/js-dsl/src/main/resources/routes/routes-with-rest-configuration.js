@@ -15,6 +15,16 @@
  * limitations under the License.
  */
 
-from('direct:jsHello')
-    .id('my-js-route')
-    .setBody().simple('Hello ${body} from JavaScript!')
+const c = restConfiguration()
+c.setComponent('platform-http')
+c.setPort('1234')
+
+rest('/')
+    .produces("text/plain")
+    .get('/say/goodbye')
+    .id('routes-with-rest-configuration')
+    .to('direct:goodbye');
+
+from('direct:goodbye')
+    .id('routes-with-rest-configuration-goodbye')
+    .transform().constant("Bye World");

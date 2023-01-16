@@ -15,6 +15,10 @@
  * limitations under the License.
  */
 
-from('direct:jsHello')
-    .id('my-js-route')
-    .setBody().simple('Hello ${body} from JavaScript!')
+const f = direct("routes-with-endpoint-dsl").advanced().synchronous(true)
+const t = log("info");
+
+from(f)
+    .id("routes-with-endpoint-dsl")
+    .setBody().constant("true")
+    .to(t);

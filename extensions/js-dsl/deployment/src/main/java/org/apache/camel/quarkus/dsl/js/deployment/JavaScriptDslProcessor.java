@@ -17,6 +17,7 @@
 
 package org.apache.camel.quarkus.dsl.js.deployment;
 
+import java.lang.reflect.Method;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.Temporal;
@@ -31,13 +32,21 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import io.quarkus.arc.Components;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveMethodBuildItem;
+import io.quarkus.deployment.pkg.steps.NativeBuild;
+import org.apache.camel.CamelContext;
+import org.apache.camel.Component;
+import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
+import org.apache.camel.ExchangePattern;
+import org.apache.camel.Message;
 import org.apache.camel.NamedNode;
 import org.apache.camel.builder.DataFormatClause;
 import org.apache.camel.builder.ExpressionClause;
@@ -55,6 +64,13 @@ import org.apache.camel.model.language.ExpressionDefinition;
 import org.apache.camel.model.rest.RestSecurityDefinition;
 import org.apache.camel.model.transformer.TransformerDefinition;
 import org.apache.camel.model.validator.ValidatorDefinition;
+import org.apache.camel.quarkus.dsl.js.runtime.JavaScriptDslBiConsumer;
+import org.apache.camel.quarkus.dsl.js.runtime.JavaScriptDslBiFunction;
+import org.apache.camel.quarkus.dsl.js.runtime.JavaScriptDslBiPredicate;
+import org.apache.camel.quarkus.dsl.js.runtime.JavaScriptDslConsumer;
+import org.apache.camel.quarkus.dsl.js.runtime.JavaScriptDslFunction;
+import org.apache.camel.quarkus.dsl.js.runtime.JavaScriptDslPredicate;
+import org.apache.camel.quarkus.dsl.js.runtime.JavaScriptDslSupplier;
 import org.apache.camel.spi.ExchangeFormatter;
 import org.apache.camel.spi.NamespaceAware;
 import org.jboss.jandex.ClassInfo;
@@ -93,6 +109,10 @@ public class JavaScriptDslProcessor {
             ExpressionDefinition.class,
             ExpressionClause.class,
             Exchange.class,
+            Message.class,
+            ExchangePattern.class,
+            Endpoint.class,
+            CamelContext.class,
             JsonLibrary.class,
             NamedNode.class,
             OptionalIdentifiedDefinition.class,
@@ -102,10 +122,12 @@ public class JavaScriptDslProcessor {
             ValidatorDefinition.class,
             TransformerDefinition.class,
             NoOutputDefinition.class);
+    public static final String BUILDER_CLASS_SUFFIX = "Builders";
 
-    @BuildStep
+    @BuildStep(onlyIf = NativeBuild.class)
     void registerReflectiveClasses(
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+            BuildProducer<ReflectiveMethodBuildItem> reflectiveMethods,
             CombinedIndexBuildItem combinedIndexBuildItem) {
 
         IndexView view = combinedIndexBuildItem.getIndex();
@@ -131,7 +153,63 @@ public class JavaScriptDslProcessor {
         }
 
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, Components.class));
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, JavaScriptDSL.class));
+        reflectiveClass.produce(new ReflectiveClassBuildItem(false, true, JavaScriptDSL.class));
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, "org.apache.camel.converter.jaxp.XmlConverter"));
+
+        Set<String> existingComponents = view.getAllKnownImplementors(Component.class)
+                .stream()
+                .map(JavaScriptDslProcessor::extractName)
+                .collect(Collectors.toSet());
+
+        Set<Class<?>> types = new HashSet<>();
+        // Register all public methods of JavaScriptDSL for reflection to be accessible in native mode from a JavaScript resource
+        for (Method method : JavaScriptDSL.class.getMethods()) {
+            Class<?> declaringClass = method.getDeclaringClass();
+            if (!declaringClass.equals(Object.class)) {
+                String declaringClassName = declaringClass.getSimpleName();
+                // Keep only the methods that are not from builder classes or that are from builder classes of included
+                // components
+                if (!declaringClassName.endsWith(BUILDER_CLASS_SUFFIX) || existingComponents.contains(
+                        declaringClassName.substring(0, declaringClassName.length() - BUILDER_CLASS_SUFFIX.length()))) {
+                    Class<?> returnType = method.getReturnType();
+                    types.add(returnType);
+                    reflectiveMethods.produce(new ReflectiveMethodBuildItem(method));
+                    if (declaringClassName.endsWith(BUILDER_CLASS_SUFFIX)) {
+                        // Add the return type of the advanced method if any
+                        Arrays.stream(returnType.getMethods())
+                                .filter(m -> m.getName().equals("advanced") && m.getParameterTypes().length == 0)
+                                .findAny()
+                                .ifPresent(m -> types.add(m.getReturnType()));
+                    }
+                }
+            }
+        }
+        // Register all the Camel return types of public methods of the camel reflective classes for reflection to
+        // be accessible in native mode from a JavaScript resource
+        for (Class<?> c : CAMEL_REFLECTIVE_CLASSES) {
+            for (Method method : c.getMethods()) {
+                if (!method.getDeclaringClass().equals(Object.class)) {
+                    Class<?> returnType = method.getReturnType();
+                    if (returnType.getPackageName().startsWith("org.apache.camel.")
+                            && !CAMEL_REFLECTIVE_CLASSES.contains(returnType)) {
+                        types.add(returnType);
+                    }
+                }
+            }
+        }
+        // Allow access to methods by reflection to be accessible in native mode from a JavaScript resource
+        reflectiveClass.produce(new ReflectiveClassBuildItem(false, true, false, types.toArray(new Class<?>[0])));
+        // Register for reflection the runtime implementation of the main functional interfaces.
+        reflectiveClass.produce(
+                new ReflectiveClassBuildItem(false, false, JavaScriptDslBiConsumer.class, JavaScriptDslBiFunction.class,
+                        JavaScriptDslBiPredicate.class, JavaScriptDslConsumer.class, JavaScriptDslFunction.class,
+                        JavaScriptDslPredicate.class, org.apache.camel.quarkus.dsl.js.runtime.JavaScriptDslProcessor.class,
+                        JavaScriptDslSupplier.class));
+    }
+
+    private static String extractName(ClassInfo classInfo) {
+        String className = classInfo.simpleName();
+        int index = className.lastIndexOf('.');
+        return className.substring(index + 1).replace("Component", "");
     }
 }
