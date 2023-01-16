@@ -147,6 +147,17 @@ public class PlatformHttpRouteBuilder extends RouteBuilder {
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(200))
                 .setBody().constant("");
 
+        from("platform-http:/empty/header")
+                .process(exchange -> {
+                    Message message = exchange.getMessage();
+                    String header = message.getHeader("my-header", String.class);
+                    if (header != null) {
+                        message.setBody("Header length was " + header.length());
+                    } else {
+                        message.setBody("Header was not present");
+                    }
+                });
+
         // Path parameters
         rest()
                 .get("/platform-http/hello-by-name/{name}")

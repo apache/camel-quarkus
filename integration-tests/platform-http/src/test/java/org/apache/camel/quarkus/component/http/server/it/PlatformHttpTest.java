@@ -361,6 +361,24 @@ class PlatformHttpTest {
                         "component", is(PlatformHttpComponent.class.getName()));
     }
 
+    @Test
+    public void emptyHeader() {
+        RestAssured.given()
+                .header("my-header", "")
+                .get("/empty/header")
+                .then()
+                .statusCode(200)
+                .body(equalTo("Header length was 0"));
+
+        // Verify that if the expected header is not found that we get the expected response
+        RestAssured.given()
+                .header("my-other-header", "")
+                .get("/empty/header")
+                .then()
+                .statusCode(200)
+                .body(equalTo("Header was not present"));
+    }
+
     private static Method[] httpMethods() {
         return Method.values();
     }
