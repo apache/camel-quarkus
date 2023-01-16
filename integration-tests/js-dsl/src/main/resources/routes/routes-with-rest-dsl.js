@@ -15,6 +15,12 @@
  * limitations under the License.
  */
 
-from('direct:jsHello')
-    .id('my-js-route')
-    .setBody().simple('Hello ${body} from JavaScript!')
+rest('/')
+    .produces("text/plain")
+    .get('/say/hello')
+    .id('routes-with-rest-dsl')
+    .to('direct:hello');
+
+from('direct:hello')
+    .id('routes-with-rest-dsl-hello')
+    .transform().constant("Hello World");

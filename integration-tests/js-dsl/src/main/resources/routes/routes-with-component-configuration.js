@@ -15,6 +15,11 @@
  * limitations under the License.
  */
 
-from('direct:jsHello')
-    .id('my-js-route')
-    .setBody().simple('Hello ${body} from JavaScript!')
+const DirectType = Java.type("org.apache.camel.component.direct.DirectComponent");
+
+const d = context.getComponent('direct', DirectType)
+d.setTimeout(1234)
+
+from("direct:routes-with-component-configuration")
+    .id("routes-with-component-configuration")
+    .setBody().constant("true")

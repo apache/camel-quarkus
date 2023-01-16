@@ -15,6 +15,9 @@
  * limitations under the License.
  */
 
-from('direct:jsHello')
-    .id('my-js-route')
-    .setBody().simple('Hello ${body} from JavaScript!')
+context.setTypeConverterStatisticsEnabled(true)
+
+from("direct:routes-with-context-configuration")
+    .id("routes-with-context-configuration")
+    .setBody().constant("true")
+
