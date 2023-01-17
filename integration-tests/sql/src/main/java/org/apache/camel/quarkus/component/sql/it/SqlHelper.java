@@ -20,6 +20,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.microprofile.config.ConfigProvider;
+
 public class SqlHelper {
 
     private static Set<String> BOOLEAN_AS_NUMBER = new HashSet<>(Arrays.asList("db2", "mssql", "oracle"));
@@ -39,4 +41,12 @@ public class SqlHelper {
     static String getSelectProjectsScriptName(String dbKind) {
         return BOOLEAN_AS_NUMBER.contains(dbKind) ? "selectProjectsAsNumber.sql" : "selectProjectsAsBoolean.sql";
     }
+
+    public static boolean useDocker() {
+        return Boolean.parseBoolean(System.getenv("SQL_USE_DERBY_DOCKER")) &&
+                "derby".equals(ConfigProvider.getConfig().getOptionalValue("quarkus.datasource.db-kind", String.class)
+                        .orElse(System.getProperty("cq.sqlJdbcKind")))
+                && System.getenv("SQL_JDBC_URL") == null;
+    }
+
 }

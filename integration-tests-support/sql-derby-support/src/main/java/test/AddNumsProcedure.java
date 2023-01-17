@@ -14,19 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.sql.it.storedproc;
+package test;
 
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
-public class DerbyNumberAddStoredProcedure {
+public class AddNumsProcedure {
 
-    public static void testProc(int a, int b, String fileName) throws Exception {
-        Path path = Paths.get("target", fileName);
-        byte[] strToBytes = String.valueOf(a + b).getBytes(StandardCharsets.UTF_8);
+    public static void testProc(int a, int b) throws SQLException {
+        String sql = "insert into ADD_NUMS_RESULTS (id, value) VALUES (1, " + (a + b) + ")";
 
-        Files.write(path, strToBytes);
+        try (Connection con = DriverManager.getConnection("jdbc:default:connection");
+                PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.execute();
+        }
     }
 }
