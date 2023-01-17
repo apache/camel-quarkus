@@ -24,14 +24,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
@@ -39,14 +35,11 @@ import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeBuild;
 import io.quarkus.maven.dependency.ResolvedDependency;
 import io.quarkus.paths.PathCollection;
-import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.CamelContext;
 import org.apache.camel.quarkus.core.deployment.main.CamelMainHelper;
-import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 import org.apache.camel.quarkus.dsl.groovy.runtime.Configurer;
-import org.apache.camel.quarkus.dsl.groovy.runtime.GroovyDslRecorder;
+import org.apache.camel.quarkus.support.dsl.deployment.DslGeneratedClassBuildItem;
+import org.apache.camel.quarkus.support.dsl.deployment.DslSupportProcessor;
 import org.apache.camel.spi.Resource;
-import org.apache.camel.util.FileUtil;
 import org.apache.camel.util.IOHelper;
 import org.codehaus.groovy.control.CompilationUnit;
 import org.codehaus.groovy.control.CompilerConfiguration;
@@ -55,11 +48,13 @@ import org.codehaus.groovy.tools.GroovyClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.apache.camel.quarkus.support.dsl.deployment.DslSupportProcessor.determineName;
+import static org.apache.camel.quarkus.support.dsl.deployment.DslSupportProcessor.extractImports;
+
 public class GroovyDslProcessor {
 
     private static final Logger LOG = LoggerFactory.getLogger(GroovyDslProcessor.class);
     private static final String PACKAGE_NAME = "org.apache.camel.quarkus.dsl.groovy.generated";
-    private static final Pattern IMPORT_PATTERN = Pattern.compile("import .*");
     private static final String FILE_FORMAT = "package %s\n" +
             "%s\n" +
             "@groovy.transform.InheritConstructors \n" +
@@ -78,7 +73,7 @@ public class GroovyDslProcessor {
     @BuildStep(onlyIf = NativeBuild.class)
     void compileScriptsAOT(BuildProducer<GeneratedClassBuildItem> generatedClass,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
-            BuildProducer<GroovyGeneratedClassBuildItem> generatedGroovyClass,
+            BuildProducer<DslGeneratedClassBuildItem> generatedGroovyClass,
             CurateOutcomeBuildItem curateOutcomeBuildItem) throws Exception {
         LOG.debug("Loading .groovy resources");
         Map<String, Resource> nameToResource = new HashMap<>();
@@ -115,19 +110,8 @@ public class GroovyDslProcessor {
             if (nameToResource.containsKey(className)) {
                 reflectiveClass.produce(new ReflectiveClassBuildItem(false, false, className));
                 generatedGroovyClass
-                        .produce(new GroovyGeneratedClassBuildItem(className, nameToResource.get(className).getLocation()));
+                        .produce(new DslGeneratedClassBuildItem(className, nameToResource.get(className).getLocation()));
             }
-        }
-    }
-
-    @BuildStep(onlyIf = NativeBuild.class)
-    @Record(value = ExecutionTime.STATIC_INIT)
-    void registerRoutesBuilder(List<GroovyGeneratedClassBuildItem> classes,
-            CamelContextBuildItem context,
-            GroovyDslRecorder recorder) throws Exception {
-        RuntimeValue<CamelContext> camelContext = context.getCamelContext();
-        for (GroovyGeneratedClassBuildItem clazz : classes) {
-            recorder.registerRoutesBuilder(camelContext, clazz.getName(), clazz.getLocation());
         }
     }
 
@@ -137,20 +121,6 @@ public class GroovyDslProcessor {
     //        serviceProvider
     //                .produce(ServiceProviderBuildItem.allProvidersFromClassPath("org.codehaus.groovy.runtime.ExtensionModule"));
     //    }
-
-    private static String determineName(Resource resource) {
-        String str = FileUtil.onlyName(resource.getLocation(), true);
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0, length = str.length(); i < length; i++) {
-            char c = str.charAt(i);
-            if ((i == 0 && Character.isJavaIdentifierStart(c)) || (i > 0 && Character.isJavaIdentifierPart(c))) {
-                sb.append(c);
-            } else {
-                sb.append((int) c);
-            }
-        }
-        return sb.toString();
-    }
 
     /**
      * Convert a Groovy script into a Groovy class to be able to compile it.
@@ -163,16 +133,10 @@ public class GroovyDslProcessor {
         List<String> imports = new ArrayList<>();
         imports.add("import org.apache.camel.*");
         imports.add("import org.apache.camel.spi.*");
-        Matcher m = IMPORT_PATTERN.matcher(contentResource);
-        int beginIndex = 0;
-        while (m.find()) {
-            imports.add(m.group());
-            beginIndex = m.end();
-        }
-        if (beginIndex > 0) {
-            contentResource = contentResource.substring(beginIndex);
-        }
+        DslSupportProcessor.ExtractImportResult extractImportResult = extractImports(contentResource);
+        imports.addAll(extractImportResult.getImports());
         return String.format(
-                FILE_FORMAT, PACKAGE_NAME, String.join("\n", imports), name, Configurer.class.getName(), contentResource);
+                FILE_FORMAT, PACKAGE_NAME, String.join("\n", imports), name, Configurer.class.getName(),
+                extractImportResult.getContent());
     }
 }

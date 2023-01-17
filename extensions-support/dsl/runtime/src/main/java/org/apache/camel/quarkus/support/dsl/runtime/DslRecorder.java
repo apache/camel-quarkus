@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.dsl.kotlin.runtime;
+package org.apache.camel.quarkus.support.dsl.runtime;
 
 import java.lang.reflect.Constructor;
 
@@ -26,21 +26,30 @@ import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 import org.apache.camel.support.ResourceHelper;
 
 @Recorder
-public class KotlinDslRecorder {
+public class DslRecorder {
 
-    public void registerRoutesBuilder(RuntimeValue<CamelContext> camelContext, String className, String location)
+    @SuppressWarnings("unchecked")
+    public void registerRoutesBuilder(RuntimeValue<CamelContext> camelContext, String className, String location,
+            boolean instantiateWithCamelContext)
             throws Exception {
-        Constructor<? extends Configurer> constructor = (Constructor<? extends Configurer>) Class.forName(className)
-                .getDeclaredConstructor(EndpointRouteBuilder.class);
-        camelContext.getValue().addRoutes(
+        Class<?> clazz = Class.forName(className);
+        Class<?>[] constructorParameterTypes = instantiateWithCamelContext
+                ? new Class<?>[] { EndpointRouteBuilder.class, CamelContext.class }
+                : new Class<?>[] { EndpointRouteBuilder.class };
+        Constructor<? extends RoutesBuilderConfigurer> constructor = (Constructor<? extends RoutesBuilderConfigurer>) clazz
+                .getDeclaredConstructor(constructorParameterTypes);
+        CamelContext context = camelContext.getValue();
+        context.addRoutes(
                 new EndpointRouteBuilder() {
 
                     @Override
-                    public void configure() throws Exception {
-                        setCamelContext(camelContext.getValue());
+                    public void configure() {
+                        setCamelContext(context);
                         setResource(ResourceHelper.fromString(location, ""));
                         try {
-                            constructor.newInstance(this).configure();
+                            RoutesBuilderConfigurer configurer = instantiateWithCamelContext
+                                    ? constructor.newInstance(this, context) : constructor.newInstance(this);
+                            configurer.configure();
                         } catch (Exception e) {
                             throw new RuntimeCamelException("Cannot create instance of class: " + className, e);
                         }

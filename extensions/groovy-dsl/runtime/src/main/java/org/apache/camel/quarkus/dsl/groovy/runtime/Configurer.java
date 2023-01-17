@@ -18,13 +18,13 @@ package org.apache.camel.quarkus.dsl.groovy.runtime;
 
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 import org.apache.camel.dsl.groovy.common.GroovyDSL;
+import org.apache.camel.quarkus.support.dsl.runtime.RoutesBuilderConfigurer;
 
-public abstract class Configurer extends GroovyDSL {
+public abstract class Configurer extends GroovyDSL implements RoutesBuilderConfigurer {
 
     // The constructor needs to remain public to be accessible from a Groovy Script
     public Configurer(EndpointRouteBuilder builder) {
         super(builder);
     }
 
-    public abstract void configure();
 }

@@ -18,13 +18,13 @@ package org.apache.camel.quarkus.dsl.kotlin.runtime;
 
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 import org.apache.camel.dsl.kotlin.KotlinDSL;
+import org.apache.camel.quarkus.support.dsl.runtime.RoutesBuilderConfigurer;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class Configurer extends KotlinDSL {
+public abstract class Configurer extends KotlinDSL implements RoutesBuilderConfigurer {
 
     protected Configurer(@NotNull EndpointRouteBuilder builder) {
         super(builder);
     }
 
-    public abstract void configure();
 }
