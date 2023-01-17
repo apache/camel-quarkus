@@ -35,9 +35,13 @@
 - Splunk: tests are failing after the upgrade of Splunk in Camel [\#4085](https://github.com/apache/camel-quarkus/issues/4085)
 - perf-regression: PerfRegressionIT should use `java.home` system property for the java executable location [\#4023](https://github.com/apache/camel-quarkus/issues/4023)
 - CVE-2022-26612: Apache Hadoop: Arbitrary file write in FileUtil\#unpackEntries on Windows [\#3763](https://github.com/apache/camel-quarkus/issues/3763)
+- Increase telegram test coverage [\#3562](https://github.com/apache/camel-quarkus/issues/3562)
 
 **Merged pull requests:**
 
+- Telegram: Testing subscribing and unsubscribing to Webhook [\#4410](https://github.com/apache/camel-quarkus/pull/4410) ([zbendhiba](https://github.com/zbendhiba))
+- Add platform-http test for retrieving an HTTP header with no value [\#4406](https://github.com/apache/camel-quarkus/pull/4406) ([jamesnetherton](https://github.com/jamesnetherton))
+- Disable MasterOpenShiftIT due to \#4387 [\#4405](https://github.com/apache/camel-quarkus/pull/4405) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.16.0.CR1 [\#4402](https://github.com/apache/camel-quarkus/pull/4402) ([jamesnetherton](https://github.com/jamesnetherton))
 - perf-regression: write the report to disk \#4263 [\#4399](https://github.com/apache/camel-quarkus/pull/4399) ([aldettinger](https://github.com/aldettinger))
 - Add extra support content for JMS pooling usage. [\#4396](https://github.com/apache/camel-quarkus/pull/4396) ([Gerry-Forde](https://github.com/Gerry-Forde))
