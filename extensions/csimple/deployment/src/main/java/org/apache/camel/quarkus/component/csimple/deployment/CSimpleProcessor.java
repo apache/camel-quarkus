@@ -57,6 +57,7 @@ import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
 import io.quarkus.deployment.dev.CompilationProvider;
 import io.quarkus.deployment.dev.CompilationProvider.Context;
 import io.quarkus.deployment.dev.JavaCompilationProvider;
+import io.quarkus.deployment.pkg.builditem.BuildSystemTargetBuildItem;
 import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
@@ -167,6 +168,7 @@ class CSimpleProcessor {
 
     @BuildStep
     void compileCSimpleExpressions(
+            BuildSystemTargetBuildItem buildSystemTargetBuildItem,
             List<CSimpleExpressionSourceBuildItem> expressionSources,
             BuildProducer<CompiledCSimpleExpressionBuildItem> compiledCSimpleExpression,
             BuildProducer<GeneratedClassBuildItem> generatedClasses) throws IOException {
@@ -186,7 +188,8 @@ class CSimpleProcessor {
             generator.setImports(imports);
 
             final Path projectDir = Paths.get(".").toAbsolutePath().normalize();
-            final Path csimpleGeneratedSourceDir = projectDir.resolve("target/generated/csimple");
+            final Path outputDirectory = buildSystemTargetBuildItem.getOutputDirectory();
+            final Path csimpleGeneratedSourceDir = outputDirectory.resolve("generated/csimple");
             Files.createDirectories(csimpleGeneratedSourceDir);
 
             final Set<File> filesToCompile = new LinkedHashSet<>();
@@ -217,7 +220,7 @@ class CSimpleProcessor {
                 }
             }
 
-            final Path csimpleClassesDir = projectDir.resolve("target/csimple-classes");
+            final Path csimpleClassesDir = outputDirectory.resolve("csimple-classes");
             Files.createDirectories(csimpleClassesDir);
 
             /* Compile the generated sources */
