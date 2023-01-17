@@ -64,9 +64,11 @@ public class SqlRoutes extends RouteBuilder {
     SqlDbInitializer sqlDbInitializer;
 
     @Override
-    public void configure() throws IOException, SQLException {
+    public void configure() throws SQLException, IOException {
         //db has to be initialized before routes are started
         sqlDbInitializer.initDb();
+
+        String dbKind = System.getProperty("cq.sqlJdbcKind");
 
         String representationOfTrue = SqlHelper.convertBooleanToSqlDialect(dbKind, true);
         String representationOfFalse = SqlHelper.convertBooleanToSqlDialect(dbKind, false);

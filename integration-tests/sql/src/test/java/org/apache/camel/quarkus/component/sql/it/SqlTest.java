@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -31,13 +32,13 @@ import org.hamcrest.Matcher;
 import org.hamcrest.collection.IsMapContaining;
 import org.hamcrest.text.IsEqualIgnoringCase;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIf;
 
 import static io.restassured.RestAssured.given;
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.*;
 
 @QuarkusTest
+@QuarkusTestResource(DerbyTestResource.class)
 class SqlTest {
 
     @Test
@@ -70,13 +71,9 @@ class SqlTest {
                 .body(is("Dromedarius 1"));
     }
 
-    public boolean storedProcedureDisabled() {
-        return "derby".equals(System.getProperty("cq.sqlJdbcKind")) && System.getenv().containsKey("SQL_JDBC_URL");
-    }
-
     @Test
-    @DisabledIf("storedProcedureDisabled")
     public void testSqlStoredComponent() {
+
         // Invoke ADD_NUMS stored procedure
         RestAssured.given()
                 .queryParam("numA", 10)

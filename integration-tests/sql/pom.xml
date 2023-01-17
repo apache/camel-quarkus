@@ -75,6 +75,32 @@
             <artifactId>awaitility</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-integration-tests-support-sql-derby</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit4-mock</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-integration-test-support</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 
@@ -164,14 +190,32 @@
                     <value>derby</value>
                 </property>
             </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>process-sources</phase>
+                                <goals>
+                                    <goal>copy-dependencies</goal>
+                                </goals>
+                                <configuration>
+                                    <includeArtifactIds>camel-quarkus-integration-tests-support-sql-derby</includeArtifactIds>
+                                    <outputDirectory>target/test-classes/derby/</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
             <dependencies>
                 <dependency>
-                    <groupId>org.apache.derby</groupId>
-                    <artifactId>derbynet</artifactId>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-test-derby</artifactId>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
-
         </profile>
     </profiles>
 </project>

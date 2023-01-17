@@ -43,3 +43,28 @@ $Env:SQL_JDBC_PASSWORD="#password"
 ```
 
 Oracle database could be used as external db. In that case use parameter `-Dcq.sqlJdbcKind=oracle`.
+
+=== External Derby database
+
+To execute tests against external Derby database, stored procedure has to be uploaded into the database classpath.
+Jar with stored procedure for the derby database is creaed by module `sql-derby`.
+Jar could be uploaded via following commands through `ij`:
+```
+CALL sqlj.install_jar('/PATH_TO_JAR/camel-quarkus-integration-test-sql-derby-stored-procedure-*.jar', 'AddNumsProcedure' , 0)
+
+CALL syscs_util.syscs_set_database_property('derby.database.classpath', 'APP.ADDNUMSPROCEDURE')
+```
+
+=== External Derby database via Docker
+
+To avoid manual upload of the jar, test can automatically use external derby database created via docker.
+To execute the tests against external derby database, set the environment variable `SQL_USE_DERBY_DOCKER` to value `true`:
+
+```
+export SQL_USE_DERBY_DOCKER=true
+```
+
+or for windows:
+
+```
+$Env:SQL_USE_DERBY_DOCKER = "true"

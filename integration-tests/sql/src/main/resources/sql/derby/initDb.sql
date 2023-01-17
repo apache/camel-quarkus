@@ -36,4 +36,8 @@ CREATE TABLE aggregation (id VARCHAR(255) NOT NULL, exchange BLOB NOT NULL, vers
 DROP TABLE aggregation_completed
 CREATE TABLE aggregation_completed (id VARCHAR(255) NOT NULL, exchange BLOB NOT NULL, version BIGINT NOT NULL, constraint aggregation_completed_pk PRIMARY KEY (id))
 
-CREATE PROCEDURE ADD_NUMS(IN a INTEGER, IN b INTEGER, IN fileName VARCHAR(50)) PARAMETER STYLE JAVA READS SQL DATA LANGUAGE JAVA EXTERNAL NAME 'org.apache.camel.quarkus.component.sql.it.storedproc.DerbyNumberAddStoredProcedure.testProc'
+-- stored procedure
+DROP TABLE ADD_NUMS_RESULTS
+CREATE TABLE ADD_NUMS_RESULTS (id INT PRIMARY KEY, value INT NOT NULL)
+
+CREATE PROCEDURE ADD_NUMS(IN a INTEGER, IN b INTEGER) PARAMETER STYLE JAVA LANGUAGE JAVA EXTERNAL NAME 'test.AddNumsProcedure.testProc'
