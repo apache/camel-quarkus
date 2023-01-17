@@ -185,6 +185,7 @@
 *** xref:reference/extensions/jasypt.adoc[Jasypt]
 *** xref:reference/extensions/java-joor-dsl.adoc[Java jOOR DSL]
 *** xref:reference/extensions/js-dsl.adoc[JavaScript DSL]
+*** xref:reference/extensions/jsh-dsl.adoc[JavaShell DSL]
 *** xref:reference/extensions/jfr.adoc[Jfr]
 *** xref:reference/extensions/jira.adoc[Jira]
 *** xref:reference/extensions/johnzon.adoc[Johnzon]

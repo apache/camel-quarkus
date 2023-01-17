@@ -144,6 +144,7 @@
         <module>jq</module>
         <module>js-dsl</module>
         <module>jsch</module>
+        <module>jsh-dsl</module>
         <module>jslt</module>
         <module>json-validator</module>
         <module>jsonata</module>

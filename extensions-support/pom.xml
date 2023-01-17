@@ -43,6 +43,7 @@
         <module>commons-logging</module>
         <module>consul-client</module>
         <module>debezium</module>
+        <module>dsl</module>
         <module>google-cloud</module>
         <module>google-http-client</module>
         <module>httpclient</module>

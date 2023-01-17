@@ -554,6 +554,7 @@
                             <Jenkinsfile>SLASHSTAR_STYLE</Jenkinsfile>
                             <Jenkinsfile.quarkus>SLASHSTAR_STYLE</Jenkinsfile.quarkus>
                             <Jenkinsfile.sonarcloud>SLASHSTAR_STYLE</Jenkinsfile.sonarcloud>
+                            <jsh>SLASHSTAR_STYLE</jsh>
                             <mjs>SLASHSTAR_STYLE</mjs>
                             <properties>CAMEL_PROPERTIES_STYLE</properties>
                             <rnc>SCRIPT_STYLE</rnc>

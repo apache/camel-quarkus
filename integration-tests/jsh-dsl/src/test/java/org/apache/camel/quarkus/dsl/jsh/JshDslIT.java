@@ -14,25 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.dsl.groovy.deployment;
+package org.apache.camel.quarkus.dsl.jsh;
 
-import io.quarkus.builder.item.MultiBuildItem;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-public final class GroovyGeneratedClassBuildItem extends MultiBuildItem {
+@QuarkusIntegrationTest
+class JshDslIT extends JshDslTest {
 
-    final String name;
-    final String location;
-
-    public GroovyGeneratedClassBuildItem(String name, String location) {
-        this.name = name;
-        this.location = location;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public String getLocation() {
-        return location;
-    }
 }

@@ -14,25 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.dsl.kotlin.deployment;
+package org.apache.camel.quarkus.dsl.jsh.runtime.graal;
 
-import io.quarkus.builder.item.MultiBuildItem;
+import com.oracle.svm.core.annotate.Substitute;
+import com.oracle.svm.core.annotate.TargetClass;
+import org.apache.camel.RoutesBuilder;
+import org.apache.camel.dsl.jsh.JshRoutesBuilderLoader;
+import org.apache.camel.spi.Resource;
 
-public final class KotlinGeneratedClassBuildItem extends MultiBuildItem {
+@TargetClass(JshRoutesBuilderLoader.class)
+final class SubstituteJshRoutesBuilderLoader {
 
-    final String name;
-    final String location;
-
-    public KotlinGeneratedClassBuildItem(String name, String location) {
-        this.name = name;
-        this.location = location;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public String getLocation() {
-        return location;
+    @Substitute
+    public RoutesBuilder loadRoutesBuilder(Resource resource) {
+        // Do nothing
+        return null;
     }
 }

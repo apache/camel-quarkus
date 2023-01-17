@@ -30,15 +30,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
 import io.quarkus.deployment.builditem.GeneratedResourceBuildItem;
@@ -50,24 +46,24 @@ import io.quarkus.deployment.pkg.steps.NativeBuild;
 import io.quarkus.kotlin.deployment.KotlinCompilationProvider;
 import io.quarkus.maven.dependency.ResolvedDependency;
 import io.quarkus.paths.PathCollection;
-import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.CamelContext;
 import org.apache.camel.dsl.kotlin.KotlinConstantsKt;
 import org.apache.camel.quarkus.core.deployment.main.CamelMainHelper;
-import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 import org.apache.camel.quarkus.dsl.kotlin.runtime.Configurer;
-import org.apache.camel.quarkus.dsl.kotlin.runtime.KotlinDslRecorder;
+import org.apache.camel.quarkus.support.dsl.deployment.DslGeneratedClassBuildItem;
+import org.apache.camel.quarkus.support.dsl.deployment.DslSupportProcessor;
 import org.apache.camel.spi.Resource;
-import org.apache.camel.util.FileUtil;
 import org.apache.camel.util.IOHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static org.apache.camel.quarkus.support.dsl.deployment.DslSupportProcessor.CLASS_EXT;
+import static org.apache.camel.quarkus.support.dsl.deployment.DslSupportProcessor.determineName;
+import static org.apache.camel.quarkus.support.dsl.deployment.DslSupportProcessor.extractImports;
 
 class KotlinDslProcessor {
 
     private static final Logger LOG = LoggerFactory.getLogger(KotlinDslProcessor.class);
     private static final String PACKAGE_NAME = "org.apache.camel.quarkus.dsl.kotlin.generated";
-    private static final Pattern IMPORT_PATTERN = Pattern.compile("import .*");
     private static final String FILE_FORMAT = "package %s\n" +
             "%s\n" +
             "class %s(builder: org.apache.camel.builder.endpoint.EndpointRouteBuilder) :\n" +
@@ -77,7 +73,6 @@ class KotlinDslProcessor {
             "  }\n" +
             "}";
     private static final String FEATURE = "camel-kotlin-dsl";
-    public static final String CLASS_EXT = ".class";
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -88,7 +83,7 @@ class KotlinDslProcessor {
     void compileScriptsAOT(BuildProducer<GeneratedClassBuildItem> generatedClass,
             BuildProducer<GeneratedResourceBuildItem> generatedResource,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
-            BuildProducer<KotlinGeneratedClassBuildItem> generatedKotlinClass,
+            BuildProducer<DslGeneratedClassBuildItem> generatedKotlinClass,
             BuildSystemTargetBuildItem buildSystemTargetBuildItem,
             CurateOutcomeBuildItem curateOutcomeBuildItem) throws Exception {
         LOG.debug("Loading .kts resources");
@@ -160,7 +155,7 @@ class KotlinDslProcessor {
                                 if (nameToResource.containsKey(className)) {
                                     reflectiveClass.produce(new ReflectiveClassBuildItem(false, false, className));
                                     generatedKotlinClass
-                                            .produce(new KotlinGeneratedClassBuildItem(className,
+                                            .produce(new DslGeneratedClassBuildItem(className,
                                                     nameToResource.get(className).getLocation()));
                                 }
                             } else {
@@ -175,31 +170,6 @@ class KotlinDslProcessor {
         }
     }
 
-    @BuildStep(onlyIf = NativeBuild.class)
-    @Record(value = ExecutionTime.STATIC_INIT)
-    void registerRoutesBuilder(List<KotlinGeneratedClassBuildItem> classes,
-            CamelContextBuildItem context,
-            KotlinDslRecorder recorder) throws Exception {
-        RuntimeValue<CamelContext> camelContext = context.getCamelContext();
-        for (KotlinGeneratedClassBuildItem clazz : classes) {
-            recorder.registerRoutesBuilder(camelContext, clazz.getName(), clazz.getLocation());
-        }
-    }
-
-    private static String determineName(Resource resource) {
-        String str = FileUtil.onlyName(resource.getLocation(), true);
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0, length = str.length(); i < length; i++) {
-            char c = str.charAt(i);
-            if ((i == 0 && Character.isJavaIdentifierStart(c)) || (i > 0 && Character.isJavaIdentifierPart(c))) {
-                sb.append(c);
-            } else {
-                sb.append((int) c);
-            }
-        }
-        return sb.toString();
-    }
-
     /**
      * Convert a Kotlin script into a Kotlin class to be able to compile it.
      *
@@ -211,17 +181,10 @@ class KotlinDslProcessor {
         List<String> imports = new ArrayList<>();
         imports.add("import org.apache.camel.*");
         imports.add("import org.apache.camel.spi.*");
-        Matcher m = IMPORT_PATTERN.matcher(contentResource);
-        int beginIndex = 0;
-        while (m.find()) {
-            imports.add(m.group());
-            beginIndex = m.end();
-        }
-        if (beginIndex > 0) {
-            contentResource = contentResource.substring(beginIndex);
-        }
+        DslSupportProcessor.ExtractImportResult extractImportResult = extractImports(contentResource);
+        imports.addAll(extractImportResult.getImports());
         return String.format(
                 FILE_FORMAT, PACKAGE_NAME, String.join("\n", imports), name,
-                Configurer.class.getName(), contentResource);
+                Configurer.class.getName(), extractImportResult.getContent());
     }
 }
