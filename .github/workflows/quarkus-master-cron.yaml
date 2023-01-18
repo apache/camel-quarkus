@@ -36,7 +36,7 @@ jobs:
     outputs:
       matrix: ${{ steps.set-native-matrix.outputs.matrix }}
     env:
-      MAVEN_OPTS: -Xmx4000m
+      MAVEN_OPTS: -Xmx4400m
     steps:
       - name: Check free space on disk
         run: |
