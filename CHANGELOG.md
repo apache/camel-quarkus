@@ -15,6 +15,7 @@
 
 **Closed issues:**
 
+- Kotlin DSL native support [\#4392](https://github.com/apache/camel-quarkus/issues/4392)
 - Test framework - problem when global RouteBuilder is used [\#4381](https://github.com/apache/camel-quarkus/issues/4381)
 - Groovy DSL native support [\#4379](https://github.com/apache/camel-quarkus/issues/4379)
 - Tika: Enable test testImagePng [\#4371](https://github.com/apache/camel-quarkus/issues/4371)
@@ -42,6 +43,7 @@
 - Telegram: Testing subscribing and unsubscribing to Webhook [\#4410](https://github.com/apache/camel-quarkus/pull/4410) ([zbendhiba](https://github.com/zbendhiba))
 - Add platform-http test for retrieving an HTTP header with no value [\#4406](https://github.com/apache/camel-quarkus/pull/4406) ([jamesnetherton](https://github.com/jamesnetherton))
 - Disable MasterOpenShiftIT due to \#4387 [\#4405](https://github.com/apache/camel-quarkus/pull/4405) ([jamesnetherton](https://github.com/jamesnetherton))
+- Ref \#4392: Kotlin DSL native support [\#4403](https://github.com/apache/camel-quarkus/pull/4403) ([essobedo](https://github.com/essobedo))
 - Upgrade Quarkus to 2.16.0.CR1 [\#4402](https://github.com/apache/camel-quarkus/pull/4402) ([jamesnetherton](https://github.com/jamesnetherton))
 - perf-regression: write the report to disk \#4263 [\#4399](https://github.com/apache/camel-quarkus/pull/4399) ([aldettinger](https://github.com/aldettinger))
 - Add extra support content for JMS pooling usage. [\#4396](https://github.com/apache/camel-quarkus/pull/4396) ([Gerry-Forde](https://github.com/Gerry-Forde))
