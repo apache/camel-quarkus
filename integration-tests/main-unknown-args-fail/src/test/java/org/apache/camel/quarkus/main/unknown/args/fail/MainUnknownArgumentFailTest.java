@@ -21,14 +21,14 @@ import java.util.concurrent.TimeoutException;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.apache.camel.quarkus.test.support.process.QuarkusProcessExecutor;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 import org.zeroturnaround.exec.ProcessResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@DisabledIfSystemProperty(named = "quarkus.runner", matches = ".*runner.jar", disabledReason = "https://github.com/apache/camel-quarkus/issues/4218")
 @QuarkusTest
-@Disabled("https://github.com/apache/camel-quarkus/issues/4218")
 public class MainUnknownArgumentFailTest {
 
     @Test
