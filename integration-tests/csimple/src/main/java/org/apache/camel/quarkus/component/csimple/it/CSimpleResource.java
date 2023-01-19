@@ -48,4 +48,12 @@ public class CSimpleResource {
     public String csimpleXmlDsl(String body) {
         return producerTemplate.requestBody("direct:csimple-xml-dsl", body, String.class);
     }
+
+    @Path("/csimple-yaml-dsl")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String csimpleYamlDsl(String body) {
+        return producerTemplate.requestBody("direct:csimple-yaml-dsl", body, String.class);
+    }
 }

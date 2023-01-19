@@ -20,7 +20,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -34,16 +33,11 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Marshaller.Listener;
 
 import io.quarkus.bootstrap.classloading.ClassPathElement;
 import io.quarkus.bootstrap.classloading.QuarkusClassLoader;
@@ -58,35 +52,30 @@ import io.quarkus.deployment.dev.CompilationProvider;
 import io.quarkus.deployment.dev.CompilationProvider.Context;
 import io.quarkus.deployment.dev.JavaCompilationProvider;
 import io.quarkus.deployment.pkg.builditem.BuildSystemTargetBuildItem;
+import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
 import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
-import org.apache.camel.NamedNode;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.language.csimple.CSimpleCodeGenerator;
 import org.apache.camel.language.csimple.CSimpleGeneratedCode;
 import org.apache.camel.language.csimple.CSimpleHelper;
 import org.apache.camel.language.csimple.CSimpleLanguage;
 import org.apache.camel.language.csimple.CSimpleLanguage.Builder;
-import org.apache.camel.model.Constants;
-import org.apache.camel.model.ExpressionNode;
 import org.apache.camel.quarkus.component.csimple.CSimpleLanguageRecorder;
-import org.apache.camel.quarkus.core.CamelConfig;
-import org.apache.camel.quarkus.core.CamelConfig.FailureRemedy;
-import org.apache.camel.quarkus.core.deployment.LanguageExpressionContentHandler;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesBuilderClassBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CompiledCSimpleExpressionBuildItem;
 import org.apache.camel.quarkus.core.util.FileUtils;
+import org.apache.camel.quarkus.support.language.deployment.ExpressionBuildItem;
+import org.apache.camel.quarkus.support.language.deployment.ExpressionExtractionResultBuildItem;
 import org.apache.camel.util.PropertiesHelper;
 import org.jboss.logging.Logger;
 
 class CSimpleProcessor {
 
     private static final Logger LOG = Logger.getLogger(CSimpleProcessor.class);
+    private static final String CLASS_NAME = "CompiledExpression";
+    private static final String PACKAGE_NAME = "org.apache.camel.quarkus.component.csimple.generated";
     static final String CLASS_EXT = ".class";
     private static final String FEATURE = "camel-csimple";
 
@@ -97,70 +86,19 @@ class CSimpleProcessor {
 
     @BuildStep
     void collectCSimpleExpressions(
-            CamelConfig config,
-            List<CamelRoutesBuilderClassBuildItem> routesBuilderClasses,
-            BuildProducer<CSimpleExpressionSourceBuildItem> csimpleExpressions)
-            throws ClassNotFoundException {
+            ExpressionExtractionResultBuildItem result,
+            List<ExpressionBuildItem> expressions,
+            BuildProducer<CSimpleExpressionSourceBuildItem> csimpleExpressions) {
 
-        if (!routesBuilderClasses.isEmpty()) {
-            final ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            if (!(loader instanceof QuarkusClassLoader)) {
-                throw new IllegalStateException(
-                        QuarkusClassLoader.class.getSimpleName() + " expected as the context class loader");
-            }
-
-            final ExpressionCollector collector = new ExpressionCollector(loader);
-
-            final CamelContext ctx = new DefaultCamelContext();
-            for (CamelRoutesBuilderClassBuildItem routesBuilderClass : routesBuilderClasses) {
-                final String className = routesBuilderClass.getDotName().toString();
-                final Class<?> cl = loader.loadClass(className);
-
-                if (!RouteBuilder.class.isAssignableFrom(cl)) {
-                    LOG.warnf("CSimple language expressions occurring in %s won't be compiled at build time", cl);
-                } else {
-                    try {
-                        final RouteBuilder rb = (RouteBuilder) cl.getDeclaredConstructor().newInstance();
-                        rb.setCamelContext(ctx);
-                        try {
-                            rb.configure();
-                            collector.collect(
-                                    "csimple",
-                                    (script, isPredicate) -> csimpleExpressions.produce(
-                                            new CSimpleExpressionSourceBuildItem(
-                                                    script,
-                                                    isPredicate,
-                                                    className)),
-                                    rb.getRouteCollection(),
-                                    rb.getRestCollection());
-
-                        } catch (Exception e) {
-                            switch (config.csimple.onBuildTimeAnalysisFailure) {
-                            case fail:
-                                throw new RuntimeException(
-                                        "Could not extract CSimple expressions from " + className
-                                                + ". You may want to set quarkus.camel.csimple.on-build-time-analysis-failure to warn or ignore if you do not use CSimple language in your routes",
-                                        e);
-                            case warn:
-                                LOG.warnf(e,
-                                        "Could not extract CSimple language expressions from the route definition %s in class %s.",
-                                        rb, cl);
-                                break;
-                            case ignore:
-                                LOG.debugf(e,
-                                        "Could not extract CSimple language expressions from the route definition %s in class %s",
-                                        rb, cl);
-                                break;
-                            default:
-                                throw new IllegalStateException("Unexpected " + FailureRemedy.class.getSimpleName() + ": "
-                                        + config.csimple.onBuildTimeAnalysisFailure);
-                            }
-                        }
-
-                    } catch (InstantiationException | IllegalAccessException | NoSuchMethodException
-                            | InvocationTargetException e) {
-                        throw new RuntimeException("Could not instantiate " + className, e);
-                    }
+        if (result.isSuccess()) {
+            int counter = 0;
+            for (ExpressionBuildItem expression : expressions) {
+                if ("csimple".equals(expression.getLanguage())) {
+                    csimpleExpressions.produce(
+                            new CSimpleExpressionSourceBuildItem(
+                                    expression.getExpression(),
+                                    expression.isPredicate(),
+                                    String.format("%s.%s_%d", PACKAGE_NAME, CLASS_NAME, ++counter)));
                 }
             }
         }
@@ -257,15 +195,24 @@ class CSimpleProcessor {
     CamelBeanBuildItem configureCSimpleLanguage(
             RecorderContext recorderContext,
             CSimpleLanguageRecorder recorder,
+            ExpressionExtractionResultBuildItem result,
+            CurateOutcomeBuildItem curateOutcomeBuildItem,
             List<CompiledCSimpleExpressionBuildItem> compiledCSimpleExpressions) {
 
-        final RuntimeValue<Builder> builder = recorder.csimpleLanguageBuilder();
-        for (CompiledCSimpleExpressionBuildItem expr : compiledCSimpleExpressions) {
-            recorder.addExpression(builder, recorderContext.newInstance(expr.getClassName()));
-        }
+        if (result.isSuccess()) {
+            final RuntimeValue<Builder> builder = recorder.csimpleLanguageBuilder();
+            for (CompiledCSimpleExpressionBuildItem expr : compiledCSimpleExpressions) {
+                recorder.addExpression(builder, recorderContext.newInstance(expr.getClassName()));
+            }
 
-        final RuntimeValue<?> csimpleLanguage = recorder.buildCSimpleLanguage(builder);
-        return new CamelBeanBuildItem("csimple", CSimpleLanguage.class.getName(), csimpleLanguage);
+            final RuntimeValue<?> csimpleLanguage = recorder.buildCSimpleLanguage(builder);
+            return new CamelBeanBuildItem("csimple", CSimpleLanguage.class.getName(), csimpleLanguage);
+        } else if (curateOutcomeBuildItem.getApplicationModel().getDependencies().stream().noneMatch(
+                x -> x.getGroupId().equals("org.apache.camel") && x.getArtifactId().equals("camel-csimple-joor"))) {
+            LOG.warn(
+                    "The expression extraction process has been disabled or failed, please add camel-csimple-joor to your classpath to compile the expressions at runtime");
+        }
+        return null;
     }
 
     static void readConfig(Set<String> imports, Map<String, String> aliases, ClassLoader cl) throws IOException {
@@ -303,8 +250,8 @@ class CSimpleProcessor {
         Set<File> classPathElements = Stream.of(CSimpleHelper.class, Exchange.class, PropertiesHelper.class)
                 .map(clazz -> clazz.getName().replace('.', '/') + CLASS_EXT)
                 .flatMap(className -> (Stream<ClassPathElement>) quarkusClassLoader.getElementsWithResource(className).stream())
-                .map(cpe -> cpe.getRoot())
-                .filter(p -> p != null)
+                .map(ClassPathElement::getRoot)
+                .filter(Objects::nonNull)
                 .map(Path::toFile)
                 .collect(Collectors.toSet());
 
@@ -322,48 +269,6 @@ class CSimpleProcessor {
                 "11",
                 Collections.emptyList(),
                 Collections.emptyList());
-    }
-
-    /**
-     * Collects expressions of a given language.
-     */
-    static class ExpressionCollector {
-        private final JAXBContext jaxbContext;
-        private final Marshaller marshaller;
-
-        ExpressionCollector(ClassLoader loader) {
-            try {
-                jaxbContext = JAXBContext.newInstance(Constants.JAXB_CONTEXT_PACKAGES, loader);
-                Marshaller m = jaxbContext.createMarshaller();
-                m.setListener(new RouteDefinitionNormalizer());
-                marshaller = m;
-            } catch (JAXBException e) {
-                throw new RuntimeException("Could not creat a JAXB marshaler", e);
-            }
-        }
-
-        public void collect(String languageName, BiConsumer<String, Boolean> expressionConsumer, NamedNode... nodes) {
-            final LanguageExpressionContentHandler handler = new LanguageExpressionContentHandler(languageName,
-                    expressionConsumer);
-            for (NamedNode node : nodes) {
-                try {
-                    marshaller.marshal(node, handler);
-                } catch (JAXBException e) {
-                    throw new RuntimeException("Could not collect '" + languageName + "' expressions from node " + node, e);
-                }
-            }
-        }
-
-        /**
-         * Inlines all fancy expression builders so that JAXB can serialize the model properly.
-         */
-        private static class RouteDefinitionNormalizer extends Listener {
-            public void beforeMarshal(Object source) {
-                if (source instanceof ExpressionNode) {
-                    ((ExpressionNode) source).preCreateProcessor();
-                }
-            }
-        }
     }
 
 }

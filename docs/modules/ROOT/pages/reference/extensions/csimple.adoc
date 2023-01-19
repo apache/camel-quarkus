@@ -47,23 +47,36 @@ endif::[]
 [id="extensions-csimple-camel-quarkus-limitations"]
 == Camel Quarkus limitations
 
-CSimple language is supported only in
+CSimple language is supported in all existing DSLs, but be aware that to extract the expressions from the existing route definitions, a dry run is done during the startup in JVM mode or during the build in Native mode which adds some log entries of the following type that you can simply ignore.
 
-* XML DSL
-* Java DSL when implemented in a class extending `org.apache.camel.builder.RouteBuilder`
+[source,text]
+----
+2023-01-19 16:36:31,779 INFO  [org.apa.cam.mai.MainSupport] (build-10) Expression Extractor 3.20.1 is starting
+2023-01-19 16:36:32,214 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (build-10) Apache Camel 3.20.1 (Expression Extractor) is starting
+2023-01-19 16:36:32,216 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (build-10) Routes startup (started:0)
+2023-01-19 16:36:32,217 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (build-10) Apache Camel 3.20.1 (Expression Extractor) started in 128ms (build:22ms init:104ms start:2ms)
+2023-01-19 16:36:32,218 INFO  [org.apa.cam.mai.MainSupport] (build-10) Waiting until complete: Duration max 1 seconds
+2023-01-19 16:36:33,223 INFO  [org.apa.cam.mai.MainSupport] (build-10) Duration max seconds triggering shutdown of the JVM
+2023-01-19 16:36:33,223 INFO  [org.apa.cam.mai.MainSupport] (build-10) Expression Extractor 3.20.1 shutdown
+----
 
-The compilation of CSimple scripts happens at build time. To be able to discover the scripts in the route definitions,
+The compilation of CSimple scripts happens at build time by default. To be able to discover the scripts in the route definitions,
 those definitions need to get assembled at build time. When extending
 `org.apache.camel.builder.RouteBuilder`, this basically means instantiating your `RouteBuilder`, setting
 a fake `CamelContext` instance on it and calling its `configure()` method. It may fail if your `configure()`
 method attempts to access some resource that is only available at runtime.
 
-You can use the `quarkus.camel.csimple.on-build-time-analysis-failure` configuration parameter to decide
+You can use the `quarkus.camel.expression.on-build-time-analysis-failure` configuration parameter to decide
 what should happen in such cases. Possible values are `warn` (default), `fail` or `ignore`.
+
+You can also simply disable the expression extraction process by setting the configuration parameter `quarkus.camel.expression.extraction-enabled` to `false`.
+
+If the expression extraction process is disabled or fails, the expressions are then compiled at runtime which also means that it
+can only work in JVM mode moreover the artifact `org.apache.camel:camel-csimple-joor` has to be added to the classpath.
 
 [WARNING]
 ====
-CSimple language will not work on Camel Quarkus if used in a `org.apache.camel.builder.LambdaRouteBuilder`
+CSimple language will not work on Camel Quarkus if used in a `org.apache.camel.builder.LambdaRouteBuilder` or if a `RouteBuilder` depends on dependency injection.
 ====
 
 

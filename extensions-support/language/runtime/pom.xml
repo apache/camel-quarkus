@@ -21,31 +21,32 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-csimple-parent</artifactId>
+        <artifactId>camel-quarkus-support-language-parent</artifactId>
         <version>2.17.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-csimple-deployment</artifactId>
-    <name>Camel Quarkus :: CSimple :: Deployment</name>
+    <artifactId>camel-quarkus-support-language</artifactId>
+    <name>Camel Quarkus :: Support :: Language :: Runtime</name>
+
+    <properties>
+        <camel.quarkus.jvmSince>2.17.0</camel.quarkus.jvmSince>
+        <camel.quarkus.nativeSince>2.17.0</camel.quarkus.nativeSince>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-core-deployment</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-language-deployment</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-csimple</artifactId>
+            <artifactId>camel-quarkus-core</artifactId>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-extension-maven-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -61,5 +62,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

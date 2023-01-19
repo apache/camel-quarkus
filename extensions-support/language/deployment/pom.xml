@@ -21,13 +21,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-csimple-parent</artifactId>
+        <artifactId>camel-quarkus-support-language-parent</artifactId>
         <version>2.17.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-csimple-deployment</artifactId>
-    <name>Camel Quarkus :: CSimple :: Deployment</name>
+    <artifactId>camel-quarkus-support-language-deployment</artifactId>
+    <name>Camel Quarkus :: Support :: Language :: Deployment</name>
 
     <dependencies>
         <dependency>
@@ -36,11 +36,11 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-language-deployment</artifactId>
+            <artifactId>camel-quarkus-support-language</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-csimple</artifactId>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-main</artifactId>
         </dependency>
     </dependencies>
 
