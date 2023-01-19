@@ -131,10 +131,8 @@ $ mvn release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=
 $ sed -i "s|<camel.quarkus.jvmSince>[^<]*</camel.quarkus.jvmSince>|<camel.quarkus.jvmSince>$NEXT_RELEASE</camel.quarkus.jvmSince>|" tooling/create-extension-templates/runtime-pom.xml
 $ sed -i "s|<camel.quarkus.nativeSince>[^<]*</camel.quarkus.nativeSince>|<camel.quarkus.nativeSince>$NEXT_RELEASE</camel.quarkus.nativeSince>|" tooling/create-extension-templates/runtime-pom.xml
 $ mvn cq:sync-versions -N
-$ (cd extensions/qute && mvn clean install -Dquickly) # to regen the # Qute Camel component metadata
-$ mvn clean install -DskipTests -Dquarkus.build.skip # regenerate flattened boms
-$ git add -A
-$ git commit -m "Next is $NEXT_RELEASE"
+$ mvn clean install -Dquickly # to regen the Qute Camel component metadata + flattened boms
+$ git commit -am "Next is $NEXT_SNAPSHOT"
 # Send a pull request
 ----
 
