@@ -187,11 +187,15 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                 model = CqCatalog.toCamelDocsModel(model);
                 final String kind = model.getKind();
                 String name = model.getName();
+                String xrefPrefix = "xref:{cq-camel-components}:" + (!"component".equals(kind) ? kind + "s:" : ":");
                 if (name.equals("xml-io-dsl")) {
                     name = "java-xml-io-dsl";
                 }
-                return "xref:{cq-camel-components}:" + (!"component".equals(kind) ? kind + "s:" : ":")
-                        + name + (!"other".equals(kind) ? "-" + kind : "") + ".adoc";
+                if (name.equals("console")) {
+                    xrefPrefix = "xref:manual::";
+                    name = "camel-console";
+                }
+                return xrefPrefix + name + (!"other".equals(kind) ? "-" + kind : "") + ".adoc";
             }
         });
         model.put("toAnchor", new TemplateMethodModelEx() {
