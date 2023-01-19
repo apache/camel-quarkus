@@ -63,8 +63,15 @@ public class CamelConfig {
     /**
      * Build time configuration options for the Camel CSimple language.
      */
+    @Deprecated(forRemoval = true)
     @ConfigItem
     public CSimpleConfig csimple;
+
+    /**
+     * Build time configuration options for the extraction of Camel expressions.
+     */
+    @ConfigItem
+    public ExpressionConfig expression;
 
     /**
      * Build time configuration options for the Camel CDI event bridge.
@@ -358,12 +365,31 @@ public class CamelConfig {
         public boolean models;
     }
 
+    /**
+     * @deprecated use {@link ExpressionConfig} instead
+     */
+    @Deprecated(forRemoval = true)
     @ConfigGroup
     public static class CSimpleConfig {
 
         /** What to do if it is not possible to extract CSimple expressions from a route definition at build time. */
         @ConfigItem(defaultValue = "warn")
         public FailureRemedy onBuildTimeAnalysisFailure;
+    }
+
+    @ConfigGroup
+    public static class ExpressionConfig {
+
+        /** What to do if it is not possible to extract expressions from a route definition at build time. */
+        @ConfigItem(defaultValue = "warn")
+        public FailureRemedy onBuildTimeAnalysisFailure;
+
+        /**
+         * Indicates whether the expression extraction from the route definitions at build time must be done. If
+         * disabled, the expressions are compiled at runtime.
+         */
+        @ConfigItem(defaultValue = "true")
+        public boolean extractionEnabled;
     }
 
     @ConfigGroup

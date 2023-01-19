@@ -27,7 +27,7 @@ import static org.hamcrest.Matchers.is;
 class CSimpleTest {
 
     @Test
-    public void csimpleHello() {
+    void csimpleHello() {
         RestAssured.given()
                 .body("Joe")
                 .contentType(ContentType.TEXT)
@@ -37,13 +37,23 @@ class CSimpleTest {
     }
 
     @Test
-    public void csimpleXml() {
+    void csimpleXml() {
         RestAssured.given()
                 .body("Joe")
                 .contentType(ContentType.TEXT)
                 .post("/csimple/csimple-xml-dsl")
                 .then()
                 .body(is("Hi Joe"));
+    }
+
+    @Test
+    void csimpleYaml() {
+        RestAssured.given()
+                .body("John")
+                .contentType(ContentType.TEXT)
+                .post("/csimple/csimple-yaml-dsl")
+                .then()
+                .body(is("Bonjour John"));
     }
 
 }

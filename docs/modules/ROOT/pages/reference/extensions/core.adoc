@@ -252,11 +252,17 @@ If `true`, basic classes are registered for serialization; otherwise basic class
 | `boolean`
 | `false`
 
-|icon:lock[title=Fixed at build time] [[quarkus.camel.csimple.on-build-time-analysis-failure]]`link:#quarkus.camel.csimple.on-build-time-analysis-failure[quarkus.camel.csimple.on-build-time-analysis-failure]`
+|icon:lock[title=Fixed at build time] [[quarkus.camel.expression.on-build-time-analysis-failure]]`link:#quarkus.camel.expression.on-build-time-analysis-failure[quarkus.camel.expression.on-build-time-analysis-failure]`
 
-What to do if it is not possible to extract CSimple expressions from a route definition at build time.
+What to do if it is not possible to extract expressions from a route definition at build time.
 | `org.apache.camel.quarkus.core.CamelConfig.FailureRemedy`
 | `warn`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.expression.extraction-enabled]]`link:#quarkus.camel.expression.extraction-enabled[quarkus.camel.expression.extraction-enabled]`
+
+Indicates whether the expression extraction from the route definitions at build time must be done. If disabled, the expressions are compiled at runtime.
+| `boolean`
+| `true`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.event-bridge.enabled]]`link:#quarkus.camel.event-bridge.enabled[quarkus.camel.event-bridge.enabled]`
 

@@ -50,6 +50,7 @@
         <module>jackson-dataformat-xml</module>
         <module>jdbc</module>
         <module>jetty</module>
+        <module>language</module>
         <module>mail</module>
         <module>mongodb</module>
         <module>reactor-netty</module>
