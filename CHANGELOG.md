@@ -15,6 +15,9 @@
 
 **Closed issues:**
 
+- Make the csimple extension agnostic to build systems [\#4416](https://github.com/apache/camel-quarkus/issues/4416)
+- JavaShell DSL support [\#4413](https://github.com/apache/camel-quarkus/issues/4413)
+- js-dsl - Improve the interoperability with Java code [\#4407](https://github.com/apache/camel-quarkus/issues/4407)
 - Kotlin DSL native support [\#4392](https://github.com/apache/camel-quarkus/issues/4392)
 - Test framework - problem when global RouteBuilder is used [\#4381](https://github.com/apache/camel-quarkus/issues/4381)
 - Groovy DSL native support [\#4379](https://github.com/apache/camel-quarkus/issues/4379)
@@ -40,7 +43,11 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 2.16.0.Final [\#4419](https://github.com/apache/camel-quarkus/pull/4419) ([jamesnetherton](https://github.com/jamesnetherton))
+- Ref \#4416: Make the csimple extension agnostic to build systems [\#4417](https://github.com/apache/camel-quarkus/pull/4417) ([essobedo](https://github.com/essobedo))
+- Ref \#4413: JavaShell DSL support [\#4414](https://github.com/apache/camel-quarkus/pull/4414) ([essobedo](https://github.com/essobedo))
 - Telegram: Testing subscribing and unsubscribing to Webhook [\#4410](https://github.com/apache/camel-quarkus/pull/4410) ([zbendhiba](https://github.com/zbendhiba))
+- Ref \#4407: js-dsl - Improve the interoperability with Java code [\#4409](https://github.com/apache/camel-quarkus/pull/4409) ([essobedo](https://github.com/essobedo))
 - Add platform-http test for retrieving an HTTP header with no value [\#4406](https://github.com/apache/camel-quarkus/pull/4406) ([jamesnetherton](https://github.com/jamesnetherton))
 - Disable MasterOpenShiftIT due to \#4387 [\#4405](https://github.com/apache/camel-quarkus/pull/4405) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ref \#4392: Kotlin DSL native support [\#4403](https://github.com/apache/camel-quarkus/pull/4403) ([essobedo](https://github.com/essobedo))
