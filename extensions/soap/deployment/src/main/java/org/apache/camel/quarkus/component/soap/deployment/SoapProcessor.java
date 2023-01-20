@@ -24,7 +24,6 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 
@@ -40,32 +39,6 @@ class SoapProcessor {
     @BuildStep
     NativeImageResourceBuildItem nativeImageResources() {
         return new NativeImageResourceBuildItem("soap.xsd", "soap12.xsd", "xml.xsd");
-    }
-
-    @BuildStep
-    void serviceProviders(BuildProducer<ServiceProviderBuildItem> serviceProvider) {
-        String[] soapVersions = new String[] { "1_1", "1_2" };
-        for (String version : soapVersions) {
-            serviceProvider.produce(
-                    new ServiceProviderBuildItem(
-                            "javax.xml.soap.MessageFactory",
-                            "com.sun.xml.messaging.saaj.soap.ver" + version + ".SOAPMessageFactory" + version + "Impl"));
-
-            serviceProvider.produce(
-                    new ServiceProviderBuildItem(
-                            "javax.xml.soap.SOAPFactory",
-                            "com.sun.xml.messaging.saaj.soap.ver" + version + ".SOAPFactory" + version + "Impl"));
-        }
-
-        serviceProvider.produce(
-                new ServiceProviderBuildItem(
-                        "javax.xml.soap.SOAPConnectionFactory",
-                        "com.sun.xml.messaging.saaj.client.p2p.HttpSOAPConnectionFactory"));
-
-        serviceProvider.produce(
-                new ServiceProviderBuildItem(
-                        "javax.xml.soap.SAAJMetaFactory",
-                        "com.sun.xml.messaging.saaj.soap.SAAJMetaFactoryImpl"));
     }
 
     @BuildStep
