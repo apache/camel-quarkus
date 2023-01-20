@@ -699,6 +699,7 @@
                                                 <exclude>ch.qos.logback:logback-access</exclude><!-- dismiss; the functionality is provided by JBoss Log Manager provided via quarkus-core -->
                                                 <exclude>ch.qos.logback:logback</exclude><!-- dismiss; the functionality is provided by JBoss Log Manager provided via quarkus-core -->
                                                 <exclude>com.github.fge:*</exclude><!-- Use com.github.java-json-tools:* instead -->
+                                                <exclude>com.github.stephenc.jcip:jcip-annotations</exclude>
                                                 <exclude>com.google.code.findbugs:jsr305</exclude>
                                                 <exclude>com.sun.activation:javax.activation</exclude><!-- use com.sun.activation:jakarta.activation instead -->
                                                 <exclude>commons-logging:commons-logging</exclude><!-- use org.jboss.logging:commons-logging-jboss-logging instead of commons-logging and commons-logging-api -->

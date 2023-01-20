@@ -1253,6 +1253,10 @@
                         <groupId>jakarta.xml.bind</groupId>
                         <artifactId>jakarta.xml.bind-api</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>com.github.stephenc.jcip</groupId>
+                        <artifactId>jcip-annotations</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -2827,6 +2831,10 @@
                         <artifactId>reload4j</artifactId>
                     </exclusion>
                     <exclusion>
+                        <groupId>com.github.stephenc.jcip</groupId>
+                        <artifactId>jcip-annotations</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>com.google.code.findbugs</groupId>
                         <artifactId>jsr305</artifactId>
                     </exclusion>
@@ -2860,6 +2868,10 @@
                     <exclusion>
                         <groupId>ch.qos.reload4j</groupId>
                         <artifactId>reload4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.github.stephenc.jcip</groupId>
+                        <artifactId>jcip-annotations</artifactId>
                     </exclusion>
                     <exclusion>
                         <groupId>com.google.code.findbugs</groupId>
@@ -9969,6 +9981,12 @@
                 <groupId>com.microsoft.azure</groupId>
                 <artifactId>msal4j</artifactId>
                 <version>${msal4j.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.github.stephenc.jcip</groupId>
+                        <artifactId>jcip-annotations</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.orbitz.consul</groupId>
@@ -10650,10 +10668,12 @@
                                 <bomEntryTransformation>
                                     <gavPattern>com.datastax.oss:java-driver-core</gavPattern>
                                     <addExclusions>com.google.code.findbugs:jsr305</addExclusions>
+                                    <addExclusions>com.github.stephenc.jcip:jcip-annotations</addExclusions>
                                 </bomEntryTransformation>
                                 <bomEntryTransformation>
                                     <gavPattern>com.datastax.oss:java-driver-query-builder</gavPattern>
                                     <addExclusions>com.google.code.findbugs:jsr305</addExclusions>
+                                    <addExclusions>com.github.stephenc.jcip:jcip-annotations</addExclusions>
                                 </bomEntryTransformation>
                                 <bomEntryTransformation>
                                     <gavPattern>software.amazon.awssdk:apache-client</gavPattern>
