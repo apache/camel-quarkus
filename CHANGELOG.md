@@ -2,50 +2,20 @@
 
 ## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.13.2...HEAD)
-
-**Implemented enhancements:**
-
-- Create serialization/deserialization helper instead of json mediatype [\#4353](https://github.com/apache/camel-quarkus/issues/4353)
-
-**Fixed bugs:**
-
-- Multiple test methods do not work in a class extending CamelQuarkusTestSupport  [\#4362](https://github.com/apache/camel-quarkus/issues/4362)
-- \[Quarkus 2.14.0\] OptaPlanner tests fail to start [\#4116](https://github.com/apache/camel-quarkus/issues/4116)
-
-**Closed issues:**
-
-- Make the csimple extension agnostic to build systems [\#4416](https://github.com/apache/camel-quarkus/issues/4416)
-- JavaShell DSL support [\#4413](https://github.com/apache/camel-quarkus/issues/4413)
-- js-dsl - Improve the interoperability with Java code [\#4407](https://github.com/apache/camel-quarkus/issues/4407)
-- Kotlin DSL native support [\#4392](https://github.com/apache/camel-quarkus/issues/4392)
-- Test framework - problem when global RouteBuilder is used [\#4381](https://github.com/apache/camel-quarkus/issues/4381)
-- Groovy DSL native support [\#4379](https://github.com/apache/camel-quarkus/issues/4379)
-- Tika: Enable test testImagePng [\#4371](https://github.com/apache/camel-quarkus/issues/4371)
-- Java jOOR DSL native support [\#4358](https://github.com/apache/camel-quarkus/issues/4358)
-- Aws2: Allow testing of useDefaultCredentialsProvider [\#4346](https://github.com/apache/camel-quarkus/issues/4346)
-- Split package warning [\#4330](https://github.com/apache/camel-quarkus/issues/4330)
-- Depend on quarkus-minio-native instead of quarkus-minio to be able to create Minio clients programmatically [\#4328](https://github.com/apache/camel-quarkus/issues/4328)
-- Google-bigquery test sqlCrudOperations fails with real account on branch 2.13.x [\#4304](https://github.com/apache/camel-quarkus/issues/4304)
-- \[Camel 3.20.0\] SmallRye Fault Tolerance 5.6.0 not compattible with Camel 3.20.0 [\#4298](https://github.com/apache/camel-quarkus/issues/4298)
-- \[Camel 3.20.0\] Remove JSONata dependency override [\#4294](https://github.com/apache/camel-quarkus/issues/4294)
-- perf-regression: write the report to disk [\#4263](https://github.com/apache/camel-quarkus/issues/4263)
-- \[Camel 3.20\] CamelContext must be specified on: KeyStoreParameters [\#4248](https://github.com/apache/camel-quarkus/issues/4248)
-- Platform-http : add integration tests for reverse proxy feature  \(Camel 3.18.3\) [\#4246](https://github.com/apache/camel-quarkus/issues/4246)
-- \[Quarkus 2.15.0\] SmallRye Fault Tolerance 5.6.0 not compattible with Camel 3.19.0 [\#4225](https://github.com/apache/camel-quarkus/issues/4225)
-- \[Camel 3.20\] xml integration tests is failing on native build [\#4216](https://github.com/apache/camel-quarkus/issues/4216)
-- Expand AWS CW test coverage [\#4196](https://github.com/apache/camel-quarkus/issues/4196)
-- Improve test coverage for scheduler component [\#4175](https://github.com/apache/camel-quarkus/issues/4175)
-- Splunk: tests are failing after the upgrade of Splunk in Camel [\#4085](https://github.com/apache/camel-quarkus/issues/4085)
-- perf-regression: PerfRegressionIT should use `java.home` system property for the java executable location [\#4023](https://github.com/apache/camel-quarkus/issues/4023)
-- CVE-2022-26612: Apache Hadoop: Arbitrary file write in FileUtil\#unpackEntries on Windows [\#3763](https://github.com/apache/camel-quarkus/issues/3763)
-- Increase telegram test coverage [\#3562](https://github.com/apache/camel-quarkus/issues/3562)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.16.0...HEAD)
 
 **Merged pull requests:**
 
+- fix the release doc [\#4430](https://github.com/apache/camel-quarkus/pull/4430) ([aldettinger](https://github.com/aldettinger))
+- Next is 2.17.0-SNAPSHOT [\#4429](https://github.com/apache/camel-quarkus/pull/4429) ([aldettinger](https://github.com/aldettinger))
+- Restore ability to test command mode runners [\#4427](https://github.com/apache/camel-quarkus/pull/4427) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix camel-console documentation xref [\#4425](https://github.com/apache/camel-quarkus/pull/4425) ([jamesnetherton](https://github.com/jamesnetherton))
+- Restore azure-grouped native testing [\#4422](https://github.com/apache/camel-quarkus/pull/4422) ([jamesnetherton](https://github.com/jamesnetherton))
+- Camel Quarkus 2.16.0 pre-release tasks [\#4421](https://github.com/apache/camel-quarkus/pull/4421) ([aldettinger](https://github.com/aldettinger))
 - Upgrade Quarkus to 2.16.0.Final [\#4419](https://github.com/apache/camel-quarkus/pull/4419) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ref \#4416: Make the csimple extension agnostic to build systems [\#4417](https://github.com/apache/camel-quarkus/pull/4417) ([essobedo](https://github.com/essobedo))
 - Ref \#4413: JavaShell DSL support [\#4414](https://github.com/apache/camel-quarkus/pull/4414) ([essobedo](https://github.com/essobedo))
+- Add camel-console extension [\#4411](https://github.com/apache/camel-quarkus/pull/4411) ([zbendhiba](https://github.com/zbendhiba))
 - Telegram: Testing subscribing and unsubscribing to Webhook [\#4410](https://github.com/apache/camel-quarkus/pull/4410) ([zbendhiba](https://github.com/zbendhiba))
 - Ref \#4407: js-dsl - Improve the interoperability with Java code [\#4409](https://github.com/apache/camel-quarkus/pull/4409) ([essobedo](https://github.com/essobedo))
 - Add platform-http test for retrieving an HTTP header with no value [\#4406](https://github.com/apache/camel-quarkus/pull/4406) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1397,13 +1367,52 @@
 - org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
 
-## [2.13.2](https://github.com/apache/camel-quarkus/tree/2.13.2) (2022-12-16)
+## [2.16.0](https://github.com/apache/camel-quarkus/tree/2.16.0) (2023-01-19)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.15.0...2.13.2)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.13.2...2.16.0)
+
+**Implemented enhancements:**
+
+- Create serialization/deserialization helper instead of json mediatype [\#4353](https://github.com/apache/camel-quarkus/issues/4353)
 
 **Fixed bugs:**
 
+- \[Quarkus 2.14.0\] OptaPlanner tests fail to start [\#4116](https://github.com/apache/camel-quarkus/issues/4116)
+- Multiple test methods do not work in a class extending CamelQuarkusTestSupport  [\#4362](https://github.com/apache/camel-quarkus/issues/4362)
 - Enabling supervised route controller prevents registration of route & consumer health checks [\#3989](https://github.com/apache/camel-quarkus/issues/3989)
+
+**Closed issues:**
+
+- Test framework - problem when global RouteBuilder is used [\#4381](https://github.com/apache/camel-quarkus/issues/4381)
+- Aws2: Allow testing of useDefaultCredentialsProvider [\#4346](https://github.com/apache/camel-quarkus/issues/4346)
+- Depend on quarkus-minio-native instead of quarkus-minio to be able to create Minio clients programmatically [\#4328](https://github.com/apache/camel-quarkus/issues/4328)
+- Google-bigquery test sqlCrudOperations fails with real account on branch 2.13.x [\#4304](https://github.com/apache/camel-quarkus/issues/4304)
+- Camel 3.20 - Add camel-console as an extension [\#4274](https://github.com/apache/camel-quarkus/issues/4274)
+- \[Camel 3.20\] CamelContext must be specified on: KeyStoreParameters [\#4248](https://github.com/apache/camel-quarkus/issues/4248)
+- Platform-http : add integration tests for reverse proxy feature  \(Camel 3.18.3\) [\#4246](https://github.com/apache/camel-quarkus/issues/4246)
+- Expand AWS CW test coverage [\#4196](https://github.com/apache/camel-quarkus/issues/4196)
+- Improve test coverage for scheduler component [\#4175](https://github.com/apache/camel-quarkus/issues/4175)
+- Increase telegram test coverage [\#3562](https://github.com/apache/camel-quarkus/issues/3562)
+- Make the csimple extension agnostic to build systems [\#4416](https://github.com/apache/camel-quarkus/issues/4416)
+- JavaShell DSL support [\#4413](https://github.com/apache/camel-quarkus/issues/4413)
+- js-dsl - Improve the interoperability with Java code [\#4407](https://github.com/apache/camel-quarkus/issues/4407)
+- Kotlin DSL native support [\#4392](https://github.com/apache/camel-quarkus/issues/4392)
+- Groovy DSL native support [\#4379](https://github.com/apache/camel-quarkus/issues/4379)
+- Tika: Enable test testImagePng [\#4371](https://github.com/apache/camel-quarkus/issues/4371)
+- Java jOOR DSL native support [\#4358](https://github.com/apache/camel-quarkus/issues/4358)
+- Split package warning [\#4330](https://github.com/apache/camel-quarkus/issues/4330)
+- \[Camel 3.20.0\] SmallRye Fault Tolerance 5.6.0 not compattible with Camel 3.20.0 [\#4298](https://github.com/apache/camel-quarkus/issues/4298)
+- \[Camel 3.20.0\] Remove JSONata dependency override [\#4294](https://github.com/apache/camel-quarkus/issues/4294)
+- perf-regression: write the report to disk [\#4263](https://github.com/apache/camel-quarkus/issues/4263)
+- \[Quarkus 2.15.0\] SmallRye Fault Tolerance 5.6.0 not compattible with Camel 3.19.0 [\#4225](https://github.com/apache/camel-quarkus/issues/4225)
+- \[Camel 3.20\] xml integration tests is failing on native build [\#4216](https://github.com/apache/camel-quarkus/issues/4216)
+- Splunk: tests are failing after the upgrade of Splunk in Camel [\#4085](https://github.com/apache/camel-quarkus/issues/4085)
+- perf-regression: PerfRegressionIT should use `java.home` system property for the java executable location [\#4023](https://github.com/apache/camel-quarkus/issues/4023)
+- CVE-2022-26612: Apache Hadoop: Arbitrary file write in FileUtil\#unpackEntries on Windows [\#3763](https://github.com/apache/camel-quarkus/issues/3763)
+
+## [2.13.2](https://github.com/apache/camel-quarkus/tree/2.13.2) (2022-12-16)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.15.0...2.13.2)
 
 ## [2.15.0](https://github.com/apache/camel-quarkus/tree/2.15.0) (2022-12-08)
 
@@ -1458,6 +1467,7 @@
 - Cxf-soap tests: Refactor and split [\#4171](https://github.com/apache/camel-quarkus/issues/4171)
 - Fallback to mocked back end for XChange tests if crypto API endpoints are not available [\#4169](https://github.com/apache/camel-quarkus/issues/4169)
 - Manage `io.projectreactor:reactor-core` [\#4138](https://github.com/apache/camel-quarkus/issues/4138)
+- Move org.apache.cxf.xjc-utils:cxf-xjc-runtime BOM entry to quarkus-cxf-bom [\#4123](https://github.com/apache/camel-quarkus/issues/4123)
 - rest-openapi: Add test cases for more specificationUri formats [\#4117](https://github.com/apache/camel-quarkus/issues/4117)
 - \[Quarkus Main\] Compatibility with Jandex 3 [\#4108](https://github.com/apache/camel-quarkus/issues/4108)
 - \[Camel 3.19.0\] azure-core-http-client-vertx: Deployment tests are failing on java heap space [\#4090](https://github.com/apache/camel-quarkus/issues/4090)
