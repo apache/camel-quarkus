@@ -4,6 +4,11 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.16.0...HEAD)
 
+**Closed issues:**
+
+- Test `aws-secrets-manager` extension with Localstack [\#3741](https://github.com/apache/camel-quarkus/issues/3741)
+- Sql derby - test exernal db if possible, remove workaround because of quarkus issue \#21639 [\#3327](https://github.com/apache/camel-quarkus/issues/3327)
+
 **Merged pull requests:**
 
 - fix the release doc [\#4430](https://github.com/apache/camel-quarkus/pull/4430) ([aldettinger](https://github.com/aldettinger))
@@ -291,6 +296,7 @@
 - Increase FHIR container startup timeout to 5 minutes [\#3824](https://github.com/apache/camel-quarkus/pull/3824) ([jamesnetherton](https://github.com/jamesnetherton))
 - Registry lookup for overridden DefaultBean types does not work [\#3821](https://github.com/apache/camel-quarkus/pull/3821) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix \#3774 to add tests for openApi oneOf, allOf and anyOf with annota… [\#3818](https://github.com/apache/camel-quarkus/pull/3818) ([zhfeng](https://github.com/zhfeng))
+- Test aws-secrets-manager extension with Localstack \#3741 [\#3815](https://github.com/apache/camel-quarkus/pull/3815) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Add zhfeng key [\#3814](https://github.com/apache/camel-quarkus/pull/3814) ([zhfeng](https://github.com/zhfeng))
 - net.openhft:affinity included in flattened BOM only on Mac  [\#3813](https://github.com/apache/camel-quarkus/pull/3813) ([ppalaga](https://github.com/ppalaga))
 - Remove some superfluous runtime initialized classes from camel-quarkus-support-reactor-netty [\#3811](https://github.com/apache/camel-quarkus/pull/3811) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -505,6 +511,7 @@
 - Remove com.amazonaws:aws-java-sdk-swf-libraries from the BOM  [\#3376](https://github.com/apache/camel-quarkus/pull/3376) ([ppalaga](https://github.com/ppalaga))
 - Exclude maven-artifact from camel-quarkus-debezium-mongodb  [\#3373](https://github.com/apache/camel-quarkus/pull/3373) ([ppalaga](https://github.com/ppalaga))
 - Ensure consistent version of `software.amazon.awssdk` dependencies [\#3371](https://github.com/apache/camel-quarkus/pull/3371) ([jamesnetherton](https://github.com/jamesnetherton))
+- Sql test using derby doesn't start dev service and shows class loadin… [\#3370](https://github.com/apache/camel-quarkus/pull/3370) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Use yq installed on the GitHub actions VM instead of downloading and installing it [\#3368](https://github.com/apache/camel-quarkus/pull/3368) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.6.0.CR1 [\#3367](https://github.com/apache/camel-quarkus/pull/3367) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ban com.sun.activation:javax.activation  [\#3362](https://github.com/apache/camel-quarkus/pull/3362) ([ppalaga](https://github.com/ppalaga))
