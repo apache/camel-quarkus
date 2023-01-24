@@ -6,13 +6,17 @@
 
 **Closed issues:**
 
+- Support CSimple expressions with all DSLs [\#4426](https://github.com/apache/camel-quarkus/issues/4426)
+- Have separate saaj extension in Quarkiverse CXF [\#4122](https://github.com/apache/camel-quarkus/issues/4122)
 - Test `aws-secrets-manager` extension with Localstack [\#3741](https://github.com/apache/camel-quarkus/issues/3741)
 - Sql derby - test exernal db if possible, remove workaround because of quarkus issue \#21639 [\#3327](https://github.com/apache/camel-quarkus/issues/3327)
 
 **Merged pull requests:**
 
+- Fix \#4122 to use io.quarkiverse.cxf:quarkus-cxf-saaj [\#4431](https://github.com/apache/camel-quarkus/pull/4431) ([zhfeng](https://github.com/zhfeng))
 - fix the release doc [\#4430](https://github.com/apache/camel-quarkus/pull/4430) ([aldettinger](https://github.com/aldettinger))
 - Next is 2.17.0-SNAPSHOT [\#4429](https://github.com/apache/camel-quarkus/pull/4429) ([aldettinger](https://github.com/aldettinger))
+- Ref \#4426: Support CSimple expressions with all DSLs [\#4428](https://github.com/apache/camel-quarkus/pull/4428) ([essobedo](https://github.com/essobedo))
 - Restore ability to test command mode runners [\#4427](https://github.com/apache/camel-quarkus/pull/4427) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix camel-console documentation xref [\#4425](https://github.com/apache/camel-quarkus/pull/4425) ([jamesnetherton](https://github.com/jamesnetherton))
 - Restore azure-grouped native testing [\#4422](https://github.com/apache/camel-quarkus/pull/4422) ([jamesnetherton](https://github.com/jamesnetherton))
