@@ -25,23 +25,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
-import javax.jms.BytesMessage;
-import javax.jms.MapMessage;
-import javax.jms.TextMessage;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import jakarta.inject.Inject;
+import jakarta.jms.BytesMessage;
+import jakarta.jms.MapMessage;
+import jakarta.jms.TextMessage;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
@@ -126,15 +126,15 @@ public class MessagingCommonResource {
         mockEndpoint.assertIsSatisfied(5000);
 
         Exchange exchange = mockEndpoint.getReceivedExchanges().get(0);
-        javax.jms.Message message = messageResolver.resolve(exchange);
+        jakarta.jms.Message message = messageResolver.resolve(exchange);
 
         Object result;
         if (type.equals("string") || type.equals("node")) {
-            assert message instanceof javax.jms.TextMessage;
+            assert message instanceof jakarta.jms.TextMessage;
             TextMessage textMessage = (TextMessage) message;
             result = textMessage.getText();
         } else {
-            assert message instanceof javax.jms.BytesMessage;
+            assert message instanceof jakarta.jms.BytesMessage;
             BytesMessage byteMessage = (BytesMessage) message;
             byteMessage.reset();
             byte[] byteData;

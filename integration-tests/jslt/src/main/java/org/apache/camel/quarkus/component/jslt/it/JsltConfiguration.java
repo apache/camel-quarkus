@@ -18,14 +18,13 @@ package org.apache.camel.quarkus.component.jslt.it;
 
 import java.lang.reflect.Method;
 
-import javax.inject.Named;
-
 import com.schibsted.spt.data.jslt.Expression;
 import com.schibsted.spt.data.jslt.Function;
 import com.schibsted.spt.data.jslt.JsltException;
 import com.schibsted.spt.data.jslt.Parser;
 import com.schibsted.spt.data.jslt.filters.JsltJsonFilter;
 import com.schibsted.spt.data.jslt.impl.FunctionWrapper;
+import jakarta.inject.Named;
 import org.apache.camel.component.jslt.JsltComponent;
 
 import static java.util.Collections.singleton;

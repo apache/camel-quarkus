@@ -21,9 +21,8 @@ import java.util.Set;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.function.Supplier;
 
-import javax.enterprise.inject.spi.BeanManager;
-
 import io.quarkus.arc.Arc;
+import jakarta.enterprise.inject.spi.BeanManager;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.Endpoint;

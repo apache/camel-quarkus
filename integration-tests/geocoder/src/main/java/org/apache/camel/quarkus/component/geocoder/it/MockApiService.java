@@ -19,10 +19,9 @@ package org.apache.camel.quarkus.component.geocoder.it;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
-import javax.enterprise.context.ApplicationScoped;
-
 import com.google.maps.GeoApiContext;
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 @RegisterForReflection(targets = GeoApiContext.Builder.class)

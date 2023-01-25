@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.smallrye.reactive.messaging.it;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;

@@ -16,10 +16,9 @@
  */
 package org.apache.camel.quarkus.component.opentelemetry.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-
 import io.opentelemetry.extension.annotations.WithSpan;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 
 @ApplicationScoped
 @Named("greetingsBean")

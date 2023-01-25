@@ -18,11 +18,10 @@ package org.apache.camel.quarkus.component.dsl.modeline.it;
 
 import java.util.List;
 
-import javax.ws.rs.core.Response;
-
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import jakarta.ws.rs.core.Response;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;

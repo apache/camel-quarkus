@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.component.reactive.streams.deployment;
 
-import javax.inject.Singleton;
-
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -26,6 +24,7 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Overridable;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import jakarta.inject.Singleton;
 import org.apache.camel.component.reactive.streams.api.CamelReactiveStreamsServiceFactory;
 import org.apache.camel.quarkus.component.reactive.streams.ReactiveStreamsProducers;
 import org.apache.camel.quarkus.component.reactive.streams.ReactiveStreamsRecorder;

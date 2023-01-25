@@ -19,11 +19,10 @@ package org.apache.camel.quarkus.component.jta;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.transaction.TransactionManager;
-
 import io.quarkus.test.QuarkusUnitTest;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.transaction.TransactionManager;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.AfterEach;

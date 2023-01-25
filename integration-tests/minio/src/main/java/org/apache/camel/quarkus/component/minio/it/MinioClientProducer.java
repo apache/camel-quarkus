@@ -16,11 +16,10 @@
  */
 package org.apache.camel.quarkus.component.minio.it;
 
-import javax.enterprise.inject.Produces;
-import javax.inject.Named;
-import javax.inject.Singleton;
-
 import io.minio.MinioClient;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 import org.eclipse.microprofile.config.ConfigProvider;
 
 public class MinioClientProducer {

@@ -16,9 +16,8 @@
  */
 package org.apache.camel.quarkus.core.deployment;
 
-import javax.inject.Inject;
-
 import io.quarkus.test.QuarkusUnitTest;
+import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.engine.DefaultShutdownStrategy;
 import org.junit.jupiter.api.Test;

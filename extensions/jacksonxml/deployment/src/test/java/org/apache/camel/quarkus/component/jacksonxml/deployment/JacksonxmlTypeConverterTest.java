@@ -19,9 +19,8 @@ package org.apache.camel.quarkus.component.jacksonxml.deployment;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import io.quarkus.test.QuarkusUnitTest;
+import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;

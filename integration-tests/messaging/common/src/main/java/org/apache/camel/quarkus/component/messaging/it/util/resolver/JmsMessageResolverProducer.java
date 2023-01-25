@@ -16,9 +16,8 @@
  */
 package org.apache.camel.quarkus.component.messaging.it.util.resolver;
 
-import javax.inject.Singleton;
-
 import io.quarkus.arc.DefaultBean;
+import jakarta.inject.Singleton;
 
 public class JmsMessageResolverProducer {
 
@@ -28,7 +27,7 @@ public class JmsMessageResolverProducer {
         // Default implementation to be overridden
         return exchange -> {
             throw new IllegalStateException(
-                    "A valid implementation of JmsMessageResolver must be provided resolve javax.jms.Message from an exchange.");
+                    "A valid implementation of JmsMessageResolver must be provided resolve jakarta.jms.Message from an exchange.");
         };
     }
 }

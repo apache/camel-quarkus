@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.opentracing.deployment;
 
 import java.util.Set;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import io.quarkus.test.QuarkusUnitTest;
 import org.apache.camel.CamelContext;

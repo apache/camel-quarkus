@@ -20,7 +20,7 @@ import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import javax.ws.rs.core.MediaType
+import jakarta.ws.rs.core.MediaType
 
 @QuarkusTest
 open class KotlinTest {

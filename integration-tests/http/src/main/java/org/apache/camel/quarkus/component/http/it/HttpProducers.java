@@ -16,8 +16,7 @@
  */
 package org.apache.camel.quarkus.component.http.it;
 
-import javax.inject.Named;
-
+import jakarta.inject.Named;
 import org.apache.camel.component.netty.ClientInitializerFactory;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;

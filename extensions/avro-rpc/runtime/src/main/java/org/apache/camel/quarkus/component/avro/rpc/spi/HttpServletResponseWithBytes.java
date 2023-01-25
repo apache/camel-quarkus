@@ -22,13 +22,13 @@ import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Locale;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.WriteListener;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.WriteListener;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * Empty implementation of {@link javax.servlet.http.HttpServletResponse}.
+ * Empty implementation of {@link jakarta.servlet.http.HttpServletResponse}.
  * Serves as a wrapper to be used for {@link org.apache.avro.ipc.ResponderServlet}.
  */
 public class HttpServletResponseWithBytes implements HttpServletResponse {

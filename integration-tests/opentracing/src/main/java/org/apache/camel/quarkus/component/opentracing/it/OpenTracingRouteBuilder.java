@@ -16,8 +16,8 @@
  */
 package org.apache.camel.quarkus.component.opentracing.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 import io.opentracing.Span;
 import org.apache.camel.Exchange;

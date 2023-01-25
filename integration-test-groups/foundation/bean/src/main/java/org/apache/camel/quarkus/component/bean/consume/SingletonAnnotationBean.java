@@ -16,8 +16,7 @@
  */
 package org.apache.camel.quarkus.component.bean.consume;
 
-import javax.inject.Singleton;
-
+import jakarta.inject.Singleton;
 import org.apache.camel.Consume;
 
 /**

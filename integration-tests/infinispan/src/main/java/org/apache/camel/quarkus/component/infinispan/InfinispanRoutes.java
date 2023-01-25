@@ -20,8 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Set;
 import java.util.function.BiFunction;
 
-import javax.inject.Named;
-
+import jakarta.inject.Named;
 import org.apache.camel.AggregationStrategy;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;

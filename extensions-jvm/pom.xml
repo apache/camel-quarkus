@@ -37,7 +37,6 @@
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>asn1</module>
         <module>asterisk</module>
-        <module>atmos</module>
         <module>aws-secrets-manager</module>
         <module>aws-xray</module>
         <module>azure-cosmosdb</module>
@@ -49,7 +48,6 @@
         <module>chatscript</module>
         <module>chunk</module>
         <module>cm-sms</module>
-        <module>cmis</module>
         <module>coap</module>
         <module>cometd</module>
         <module>console</module>
@@ -70,16 +68,12 @@
         <module>groovy</module>
         <module>guava-eventbus</module>
         <module>hashicorp-vault</module>
-        <module>hbase</module>
         <module>hdfs</module>
         <module>huaweicloud-smn</module>
         <module>iec60870</module>
         <module>ignite</module>
-        <module>iota</module>
         <module>irc</module>
         <module>jasypt</module>
-        <module>jbpm</module>
-        <module>jclouds</module>
         <module>jcr</module>
         <module>jgroups</module>
         <module>jgroups-raft</module>
@@ -91,7 +85,6 @@
         <module>ldif</module>
         <module>lucene</module>
         <module>management</module>
-        <module>milo</module>
         <module>mvel</module>
         <module>printer</module>
         <module>pulsar</module>

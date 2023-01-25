@@ -18,12 +18,12 @@ package org.apache.camel.quarkus.component.stax.it;
 
 import java.io.InputStream;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
@@ -76,7 +76,7 @@ public class StaxResource {
         }
     }
 
-    @javax.enterprise.inject.Produces
+    @jakarta.enterprise.inject.Produces
     @Named("countingHandler")
     public TagCountHandler countingHandler() {
         return new TagCountHandler();

@@ -18,13 +18,12 @@ package org.apache.camel.quarkus.component.azure.storage.blob.it;
 
 import java.io.IOException;
 
-import javax.inject.Named;
-
 import com.azure.core.http.policy.HttpLogDetailLevel;
 import com.azure.core.http.policy.HttpLogOptions;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
 import com.azure.storage.common.StorageSharedKeyCredential;
+import jakarta.inject.Named;
 import org.apache.camel.component.azure.storage.blob.BlobComponent;
 import org.apache.camel.component.azure.storage.blob.BlobConfiguration;
 import org.apache.camel.component.azure.storage.blob.CredentialType;

@@ -20,7 +20,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
+import jakarta.imageio.ImageIO;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;

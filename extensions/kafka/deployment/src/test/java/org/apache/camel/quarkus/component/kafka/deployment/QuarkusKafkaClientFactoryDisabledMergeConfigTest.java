@@ -19,11 +19,10 @@ package org.apache.camel.quarkus.component.kafka.deployment;
 import java.util.Arrays;
 import java.util.Set;
 
-import javax.inject.Inject;
-
 import io.quarkus.bootstrap.model.AppArtifact;
 import io.quarkus.builder.Version;
 import io.quarkus.test.QuarkusUnitTest;
+import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.kafka.KafkaClientFactory;
 import org.jboss.shrinkwrap.api.ShrinkWrap;

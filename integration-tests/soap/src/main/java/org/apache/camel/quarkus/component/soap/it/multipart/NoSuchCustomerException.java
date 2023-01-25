@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.soap.it.multipart;
 
-import javax.xml.ws.WebFault;
+import jakarta.xml.ws.WebFault;
 
 @WebFault(name = "NoSuchCustomer", targetNamespace = "http://multipart.it.soap.component.quarkus.camel.apache.org/")
 public class NoSuchCustomerException extends Exception {

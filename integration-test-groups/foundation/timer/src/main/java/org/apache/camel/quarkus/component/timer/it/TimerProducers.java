@@ -18,8 +18,7 @@ package org.apache.camel.quarkus.component.timer.it;
 
 import java.util.Optional;
 
-import javax.enterprise.context.ApplicationScoped;
-
+import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.builder.LambdaRouteBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
@@ -41,7 +40,7 @@ public class TimerProducers {
         return portSource.isPresent() ? portSource.get().intValue() : 0;
     }
 
-    @javax.enterprise.inject.Produces
+    @jakarta.enterprise.inject.Produces
     public LambdaRouteBuilder lambdaRoute() {
         return rb -> rb.from("timer:bar?repeatCount=1").routeId("bar")
                 .process(e -> LOG.info(LOG_MESSAGE + getEffectivePort()));

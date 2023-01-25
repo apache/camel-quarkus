@@ -18,12 +18,11 @@ package org.apache.camel.quarkus.support.azure.core.http.vertx;
 
 import java.util.Set;
 
-import javax.enterprise.inject.spi.Bean;
-import javax.enterprise.inject.spi.BeanManager;
-import javax.enterprise.inject.spi.CDI;
-
 import com.azure.core.http.vertx.VertxProvider;
 import io.vertx.core.Vertx;
+import jakarta.enterprise.inject.spi.Bean;
+import jakarta.enterprise.inject.spi.BeanManager;
+import jakarta.enterprise.inject.spi.CDI;
 
 public class QuarkusVertxProvider implements VertxProvider {
     @Override

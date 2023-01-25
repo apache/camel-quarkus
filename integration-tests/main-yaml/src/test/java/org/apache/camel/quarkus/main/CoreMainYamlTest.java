@@ -16,11 +16,10 @@
  */
 package org.apache.camel.quarkus.main;
 
-import javax.ws.rs.core.MediaType;
-
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
+import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.dsl.yaml.YamlRoutesBuilderLoader;
 import org.apache.camel.dsl.yaml.common.YamlDeserializationMode;
 import org.hamcrest.Matcher;

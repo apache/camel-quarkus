@@ -18,9 +18,8 @@ package org.apache.camel.quarkus.component.rest.it;
 
 import java.util.Map;
 
-import javax.activation.DataHandler;
-import javax.ws.rs.core.MediaType;
-
+import jakarta.activation.DataHandler;
+import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.Exchange;
 import org.apache.camel.attachment.AttachmentMessage;
 import org.apache.camel.builder.RouteBuilder;

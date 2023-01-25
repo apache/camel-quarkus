@@ -18,12 +18,11 @@ package org.apache.camel.quarkus.component.knative.producer.it;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.ws.rs.core.MediaType;
-
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.path.json.JsonPath;
+import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.component.knative.http.KnativeHttpProducerFactory;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
