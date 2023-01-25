@@ -24,11 +24,11 @@ import javax.cache.Caching;
 import javax.cache.configuration.MutableConfiguration;
 import javax.cache.expiry.CreatedExpiryPolicy;
 import javax.cache.expiry.Duration;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-import javax.inject.Named;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jcache.policy.JCachePolicy;
 

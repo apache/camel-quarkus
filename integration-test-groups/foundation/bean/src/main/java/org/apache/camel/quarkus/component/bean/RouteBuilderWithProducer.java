@@ -16,9 +16,8 @@
  */
 package org.apache.camel.quarkus.component.bean;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
 import org.apache.camel.builder.RouteBuilder;
 
 /**

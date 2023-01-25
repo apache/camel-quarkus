@@ -16,8 +16,8 @@
  */
 package org.apache.camel.quarkus.main;
 
-import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Singleton;
 
 @Singleton
 public class CamelMainProducers {

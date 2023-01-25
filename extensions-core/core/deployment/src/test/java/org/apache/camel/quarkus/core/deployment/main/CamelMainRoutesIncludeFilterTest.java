@@ -22,11 +22,10 @@ import java.io.Writer;
 import java.util.List;
 import java.util.Properties;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-
 import io.quarkus.test.QuarkusUnitTest;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Route;
 import org.apache.camel.builder.RouteBuilder;

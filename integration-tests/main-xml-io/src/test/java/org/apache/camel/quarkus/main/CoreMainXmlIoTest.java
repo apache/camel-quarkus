@@ -18,12 +18,11 @@ package org.apache.camel.quarkus.main;
 
 import java.util.List;
 
-import javax.ws.rs.core.MediaType;
-
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
+import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.dsl.xml.io.XmlRoutesBuilderLoader;
 import org.apache.camel.quarkus.core.DisabledModelJAXBContextFactory;
 import org.apache.camel.quarkus.core.DisabledModelToXMLDumper;

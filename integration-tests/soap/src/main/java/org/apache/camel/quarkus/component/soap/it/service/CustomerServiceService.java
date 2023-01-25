@@ -19,10 +19,10 @@ package org.apache.camel.quarkus.component.soap.it.service;
 import java.net.URL;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-import javax.xml.ws.WebEndpoint;
-import javax.xml.ws.WebServiceClient;
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.WebEndpoint;
+import jakarta.xml.ws.WebServiceClient;
+import jakarta.xml.ws.WebServiceFeature;
 
 @WebServiceClient(name = "CustomerServiceService", targetNamespace = "http://service.it.soap.component.quarkus.camel.apache.org/")
 public class CustomerServiceService extends Service {

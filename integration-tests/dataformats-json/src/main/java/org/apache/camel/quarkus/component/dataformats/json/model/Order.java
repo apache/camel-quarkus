@@ -16,12 +16,11 @@
  */
 package org.apache.camel.quarkus.component.dataformats.json.model;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "order")
 @XmlAccessorType(XmlAccessType.FIELD)

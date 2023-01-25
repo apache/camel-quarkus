@@ -239,10 +239,10 @@ public class XStreamSupportProcessor {
                 "java.util.concurrent.atomic.AtomicReference",
                 "java.util.concurrent.ConcurrentHashMap",
                 "java.util.regex.Pattern",
-                "javax.activation.ActivationDataFlavor",
-                "javax.security.auth.Subject",
-                "javax.swing.LookAndFeel",
-                "javax.xml.datatype.Duration"));
+                "jakarta.activation.ActivationDataFlavor",
+                "jakarta.security.auth.Subject",
+                "jakarta.swing.LookAndFeel",
+                "jakarta.xml.datatype.Duration"));
 
         reflectiveClassBuildItemBuildProducer.produce(new ReflectiveClassBuildItem(true, false,
                 "com.thoughtworks.xstream.io.xml.XmlFriendlyNameCoder"));

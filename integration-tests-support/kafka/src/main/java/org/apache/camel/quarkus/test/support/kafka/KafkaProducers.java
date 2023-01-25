@@ -18,9 +18,8 @@ package org.apache.camel.quarkus.test.support.kafka;
 
 import java.util.Properties;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;

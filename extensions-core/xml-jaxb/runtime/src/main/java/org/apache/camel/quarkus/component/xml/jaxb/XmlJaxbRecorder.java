@@ -16,10 +16,9 @@
  */
 package org.apache.camel.quarkus.component.xml.jaxb;
 
-import javax.xml.bind.JAXBException;
-
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
+import jakarta.xml.bind.JAXBException;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.ModelToXMLDumper;

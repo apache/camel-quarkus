@@ -16,12 +16,11 @@
  */
 package org.apache.camel.quarkus.core.converter.it;
 
-import javax.ws.rs.core.MediaType;
-
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
+import jakarta.ws.rs.core.MediaType;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.*;

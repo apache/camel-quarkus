@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.smallrye.reactive.messaging.it;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 
 @Singleton
 public class ResultsBean {

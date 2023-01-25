@@ -18,11 +18,10 @@ package org.apache.camel.quarkus.core.languages.it;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
-
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 import org.apache.camel.builder.RouteBuilder;
 
 @Singleton

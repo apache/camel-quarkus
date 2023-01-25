@@ -18,10 +18,9 @@ package org.apache.camel.quarkus.component.jpa.it;
 
 import java.util.Collections;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityManagerFactory;
-
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManagerFactory;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.quarkus.component.jpa.it.model.Fruit;
 

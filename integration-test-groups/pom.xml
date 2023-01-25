@@ -42,7 +42,7 @@
         <module>aws2-quarkus-client</module>
         <module>azure</module>
         <module>compression</module>
-        <module>cxf-soap</module>
+        <!--<module>cxf-soap</module>-->
         <module>foundation</module>
         <module>mongodb</module>
     </modules>

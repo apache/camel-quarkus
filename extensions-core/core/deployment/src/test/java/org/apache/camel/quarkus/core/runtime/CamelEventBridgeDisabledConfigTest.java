@@ -23,11 +23,10 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-
 import io.quarkus.test.QuarkusUnitTest;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.event.RouteAddedEvent;
 import org.apache.camel.quarkus.core.CamelLifecycleEventBridge;

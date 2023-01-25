@@ -29,7 +29,26 @@ final Path jobDefPath = treeRootDir.resolve(testCategoriesDefRelPath)
 final Set<String> executedBaseNames = [] as Set
 
 // Add any ignored itest modules here. Or prefix the module name with '#' to disable it
-final List<String> excludedModules = ['messaging', 'nats' ] as List
+final List<String> excludedModules = [
+    'messaging',
+    'nats',
+    'activemq',
+    'avro-rpc',
+    'cxf-soap-grouped',
+    'datasonnet',
+    'dozer',
+    'elasticsearch-rest',
+    'main-caffeine-lrucache',
+    'opentracing',
+    'optaplanner',
+    'rabbitmq',
+    'smallrye-reactive-messaging',
+    'soap',
+    'stax',
+    'tika',
+    'xmlsecurity',
+    'xstream'
+] as List
 
 final Yaml parser = new Yaml()
 def testCategoryConfig = parser.load((jobDefPath.toFile()).text)

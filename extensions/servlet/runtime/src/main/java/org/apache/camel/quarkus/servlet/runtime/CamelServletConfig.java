@@ -59,7 +59,7 @@ public final class CamelServletConfig {
 
         /**
          * A servletName as it would be defined in a `web.xml` file or in the
-         * {@link javax.servlet.annotation.WebServlet#name()} annotation.
+         * {@link jakarta.servlet.annotation.WebServlet#name()} annotation.
          */
         @ConfigItem(defaultValue = DEFAULT_SERVLET_NAME)
         public String servletName;

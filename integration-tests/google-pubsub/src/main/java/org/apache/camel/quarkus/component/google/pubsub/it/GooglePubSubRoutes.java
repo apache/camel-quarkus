@@ -16,10 +16,9 @@
  */
 package org.apache.camel.quarkus.component.google.pubsub.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import javax.inject.Named;
-
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Named;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.processor.aggregate.GroupedExchangeAggregationStrategy;
 

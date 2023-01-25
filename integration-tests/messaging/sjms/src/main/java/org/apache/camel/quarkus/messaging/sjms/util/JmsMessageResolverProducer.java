@@ -16,8 +16,7 @@
  */
 package org.apache.camel.quarkus.messaging.sjms.util;
 
-import javax.inject.Singleton;
-
+import jakarta.inject.Singleton;
 import org.apache.camel.component.sjms.SjmsMessage;
 import org.apache.camel.quarkus.component.messaging.it.util.resolver.JmsMessageResolver;
 

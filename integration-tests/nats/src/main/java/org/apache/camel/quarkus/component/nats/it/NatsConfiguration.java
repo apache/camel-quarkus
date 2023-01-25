@@ -16,9 +16,8 @@
  */
 package org.apache.camel.quarkus.component.nats.it;
 
-import javax.inject.Named;
-
 import io.quarkus.arc.properties.IfBuildProperty;
+import jakarta.inject.Named;
 import org.apache.camel.component.nats.NatsComponent;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.config.inject.ConfigProperty;

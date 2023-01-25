@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.bean;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class Counter {

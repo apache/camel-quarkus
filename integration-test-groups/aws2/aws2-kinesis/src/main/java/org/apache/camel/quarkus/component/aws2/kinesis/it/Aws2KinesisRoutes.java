@@ -19,11 +19,10 @@ package org.apache.camel.quarkus.component.aws2.kinesis.it;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
-
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 import org.apache.camel.builder.RouteBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -49,7 +48,7 @@ public class Aws2KinesisRoutes extends RouteBuilder {
 
     static class Producers {
         @Singleton
-        @javax.enterprise.inject.Produces
+        @jakarta.enterprise.inject.Produces
         @Named("aws2KinesisMessages")
         Queue<String> aws2KinesisMessages() {
             return new ConcurrentLinkedDeque<>();

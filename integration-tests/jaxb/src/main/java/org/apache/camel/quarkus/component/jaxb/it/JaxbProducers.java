@@ -18,11 +18,11 @@ package org.apache.camel.quarkus.component.jaxb.it;
 
 import java.util.Map;
 
-import javax.inject.Named;
-import javax.inject.Singleton;
-import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
 
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
+import jakarta.xml.bind.Marshaller;
 import org.apache.camel.converter.jaxb.JaxbDataFormat;
 import org.apache.camel.quarkus.component.jaxb.it.model.namespaced.NamespacedPerson;
 import org.apache.camel.quarkus.component.jaxb.it.model.partial.PartClassPerson;

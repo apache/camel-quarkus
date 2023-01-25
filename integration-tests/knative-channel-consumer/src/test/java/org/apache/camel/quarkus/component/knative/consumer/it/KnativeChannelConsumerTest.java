@@ -19,9 +19,8 @@ package org.apache.camel.quarkus.component.knative.consumer.it;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import javax.ws.rs.core.MediaType;
-
 import io.quarkus.test.junit.QuarkusTest;
+import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.component.cloudevents.CloudEvents;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;

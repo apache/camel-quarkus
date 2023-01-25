@@ -18,9 +18,8 @@ package org.apache.camel.quarkus.component.azure.eventhubs.it;
 
 import java.util.Optional;
 
-import javax.enterprise.context.ApplicationScoped;
-
 import com.azure.core.amqp.AmqpTransportType;
+import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.builder.RouteBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 

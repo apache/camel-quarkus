@@ -21,12 +21,11 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Properties;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import io.quarkus.test.QuarkusUnitTest;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.log.LogComponent;
 import org.apache.camel.quarkus.main.CamelMain;

@@ -16,12 +16,11 @@
  */
 package org.apache.camel.quarkus.component.knative.it;
 
-import javax.ws.rs.core.MediaType;
-
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
+import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.component.knative.http.KnativeHttpConsumerFactory;
 import org.apache.camel.component.knative.http.KnativeHttpProducerFactory;
 import org.junit.jupiter.api.Test;

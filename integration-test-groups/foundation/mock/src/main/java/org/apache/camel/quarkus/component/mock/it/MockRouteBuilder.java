@@ -16,9 +16,8 @@
  */
 package org.apache.camel.quarkus.component.mock.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockComponent;
 import org.jboss.logging.Logger;

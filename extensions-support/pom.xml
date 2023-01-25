@@ -56,9 +56,9 @@
         <module>reactor-netty</module>
         <module>retrofit</module>
         <module>spring</module>
-        <module>stax</module>
+        <!--<module>stax</module> https://github.com/apache/camel-quarkus/issues/4478 -->
         <module>webhook</module>
-        <module>xstream</module>
+        <!--<module>xstream</module> https://github.com/apache/camel-quarkus/issues/4477 -->
         <module>xalan</module>
     </modules>
 

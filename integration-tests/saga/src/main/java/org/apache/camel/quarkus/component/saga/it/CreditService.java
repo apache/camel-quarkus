@@ -19,9 +19,8 @@ package org.apache.camel.quarkus.component.saga.it;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.enterprise.context.ApplicationScoped;
-
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.Header;
 
 @ApplicationScoped

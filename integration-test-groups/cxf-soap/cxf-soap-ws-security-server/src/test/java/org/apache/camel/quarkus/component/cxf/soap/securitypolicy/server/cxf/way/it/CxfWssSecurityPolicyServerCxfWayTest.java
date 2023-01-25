@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.cxf.soap.securitypolicy.server.cxf.wa
 import java.io.IOException;
 import java.util.Map;
 
-import javax.xml.ws.BindingProvider;
+import jakarta.xml.ws.BindingProvider;
 
 import io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil;
 import io.quarkus.test.junit.QuarkusTest;
@@ -58,7 +58,7 @@ public class CxfWssSecurityPolicyServerCxfWayTest {
     void noSecurityConfig() throws IOException {
         WssSecurityPolicyHelloServiceCxfWay client = getPlainClient();
         /* Make sure that it fails properly when called without a password */
-        Assertions.assertThatExceptionOfType(javax.xml.ws.soap.SOAPFaultException.class)
+        Assertions.assertThatExceptionOfType(jakarta.xml.ws.soap.SOAPFaultException.class)
                 .isThrownBy(() -> client.sayHello("bar"))
                 .withMessage(
                         "A encryption username needs to be declared.");

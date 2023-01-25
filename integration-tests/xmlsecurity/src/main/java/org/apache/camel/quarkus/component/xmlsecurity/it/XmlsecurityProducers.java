@@ -27,18 +27,18 @@ import java.util.Map;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import javax.inject.Named;
-import javax.inject.Singleton;
-import javax.xml.crypto.AlgorithmMethod;
-import javax.xml.crypto.KeySelector;
-import javax.xml.crypto.KeySelectorResult;
-import javax.xml.crypto.XMLCryptoContext;
-import javax.xml.crypto.dsig.CanonicalizationMethod;
-import javax.xml.crypto.dsig.keyinfo.KeyInfo;
-import javax.xml.crypto.dsig.keyinfo.KeyInfoFactory;
-import javax.xml.crypto.dsig.spec.XPathType;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
+import jakarta.xml.crypto.AlgorithmMethod;
+import jakarta.xml.crypto.KeySelector;
+import jakarta.xml.crypto.KeySelectorResult;
+import jakarta.xml.crypto.XMLCryptoContext;
+import jakarta.xml.crypto.dsig.CanonicalizationMethod;
+import jakarta.xml.crypto.dsig.keyinfo.KeyInfo;
+import jakarta.xml.crypto.dsig.keyinfo.KeyInfoFactory;
+import jakarta.xml.crypto.dsig.spec.XPathType;
 
 import org.w3c.dom.Node;
 

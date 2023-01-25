@@ -18,10 +18,10 @@ package org.apache.camel.quarkus.component.bean.validator.it;
 
 import java.util.Locale;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
-import javax.validation.MessageInterpolator;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Singleton;
+import jakarta.validation.MessageInterpolator;
 
 @ApplicationScoped
 public class ValidatorFactoryCustomizer {

@@ -21,15 +21,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
-
 import io.quarkus.runtime.StartupEvent;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.core.Response;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.solr.SolrConstants;
 import org.apache.camel.quarkus.component.solr.it.bean.Item;

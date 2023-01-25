@@ -16,9 +16,8 @@
  */
 package org.apache.camel.quarkus.test.extensions.producedRouteBuilder;
 
-import javax.enterprise.inject.Produces;
-
 import io.quarkus.test.junit.QuarkusTest;
+import jakarta.enterprise.inject.Produces;
 import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.builder.RouteBuilder;

@@ -30,6 +30,10 @@
     <name>Camel Quarkus :: Integration Tests :: Corda</name>
     <description>Integration tests for Camel Quarkus Corda extension</description>
 
+    <properties>
+        <enforcer.skip>true</enforcer.skip><!-- It does not make much sense to spend time on deps convergence all deps given Corda is JVM only -->
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>

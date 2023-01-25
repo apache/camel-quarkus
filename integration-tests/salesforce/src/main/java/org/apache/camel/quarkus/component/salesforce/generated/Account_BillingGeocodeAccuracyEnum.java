@@ -16,10 +16,9 @@
  */
 package org.apache.camel.quarkus.component.salesforce.generated;
 
-import javax.annotation.Generated;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import jakarta.annotation.Generated;
 
 /**
  * Salesforce Enumeration DTO for picklist BillingGeocodeAccuracy

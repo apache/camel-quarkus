@@ -17,8 +17,7 @@
 
 package org.apache.camel.quarkus.component.spring.rabbitmq.it;
 
-import javax.enterprise.context.ApplicationScoped;
-
+import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.springrabbit.SpringRabbitMQConstants;
 

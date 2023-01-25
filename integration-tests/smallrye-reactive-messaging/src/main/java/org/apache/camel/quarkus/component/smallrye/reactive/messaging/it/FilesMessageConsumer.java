@@ -21,8 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletionStage;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.file.GenericFile;

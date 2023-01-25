@@ -21,17 +21,16 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.syslog.SyslogMessage;
@@ -86,13 +85,13 @@ public class SyslogResource {
         return consumerTemplate.receiveBody("seda:syslog-marshalled", 10000, String.class);
     }
 
-    @javax.enterprise.inject.Produces
+    @jakarta.enterprise.inject.Produces
     @Named
     public Rfc5425Encoder rfc5425Encoder() {
         return new Rfc5425Encoder();
     }
 
-    @javax.enterprise.inject.Produces
+    @jakarta.enterprise.inject.Produces
     @Named
     public Rfc5425FrameDecoder rfc5425FrameDecoder() {
         return new Rfc5425FrameDecoder();

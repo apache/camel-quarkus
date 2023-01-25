@@ -20,11 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import javax.json.bind.JsonbBuilder;
-
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import jakarta.json.bind.JsonbBuilder;
 import org.apache.camel.quarkus.component.dataformats.json.model.DummyObject;
 import org.apache.camel.quarkus.component.dataformats.json.model.PojoA;
 import org.apache.camel.quarkus.component.dataformats.json.model.TestPojo;

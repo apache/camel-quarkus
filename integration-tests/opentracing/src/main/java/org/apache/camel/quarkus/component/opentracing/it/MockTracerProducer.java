@@ -16,13 +16,13 @@
  */
 package org.apache.camel.quarkus.component.opentracing.it;
 
-import javax.annotation.Priority;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Alternative;
-import javax.enterprise.inject.Default;
-import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
-import javax.interceptor.Interceptor;
+import jakarta.annotation.Priority;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Alternative;
+import jakarta.enterprise.inject.Default;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Singleton;
+import jakarta.interceptor.Interceptor;
 
 import io.opentracing.Tracer;
 import io.opentracing.mock.MockTracer;

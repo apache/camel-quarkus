@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.cxf.soap.it.ws.trust.server.cxf.way;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import org.apache.camel.builder.RouteBuilder;
 

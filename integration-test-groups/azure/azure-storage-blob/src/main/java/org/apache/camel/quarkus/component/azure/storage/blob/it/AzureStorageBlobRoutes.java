@@ -16,8 +16,7 @@
  */
 package org.apache.camel.quarkus.component.azure.storage.blob.it;
 
-import javax.enterprise.context.ApplicationScoped;
-
+import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.azure.storage.blob.BlobConstants;
 import org.apache.camel.component.azure.storage.blob.BlobOperationsDefinition;

@@ -16,17 +16,17 @@
  */
 package org.apache.camel.quarkus.component.lra.it.service;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 
 public class ServiceProducers {
 
-    @javax.enterprise.inject.Produces
+    @jakarta.enterprise.inject.Produces
     @Singleton
     public CreditService creditService() {
         return new CreditService(100);
     }
 
-    @javax.enterprise.inject.Produces
+    @jakarta.enterprise.inject.Produces
     @Singleton
     public OrderManagerService orderManagerService() {
         return new OrderManagerService();

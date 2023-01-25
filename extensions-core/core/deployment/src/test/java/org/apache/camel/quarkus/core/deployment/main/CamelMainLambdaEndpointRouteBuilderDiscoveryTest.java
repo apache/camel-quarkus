@@ -21,10 +21,9 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Properties;
 
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-
 import io.quarkus.test.QuarkusUnitTest;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Inject;
 import org.apache.camel.builder.endpoint.LambdaEndpointRouteBuilder;
 import org.apache.camel.quarkus.main.CamelMain;
 import org.jboss.shrinkwrap.api.ShrinkWrap;

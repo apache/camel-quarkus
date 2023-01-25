@@ -24,13 +24,12 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.enterprise.inject.AmbiguousResolutionException;
-import javax.enterprise.inject.spi.Bean;
-import javax.enterprise.inject.spi.BeanManager;
-
 import io.quarkus.arc.Arc;
 import io.quarkus.arc.ArcContainer;
 import io.smallrye.common.annotation.Identifier;
+import jakarta.enterprise.inject.AmbiguousResolutionException;
+import jakarta.enterprise.inject.spi.Bean;
+import jakarta.enterprise.inject.spi.BeanManager;
 import org.apache.camel.spi.BeanRepository;
 
 public final class RuntimeBeanRepository implements BeanRepository {

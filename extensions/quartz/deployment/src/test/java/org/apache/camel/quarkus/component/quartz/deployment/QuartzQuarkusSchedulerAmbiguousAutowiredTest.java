@@ -16,10 +16,9 @@
  */
 package org.apache.camel.quarkus.component.quartz.deployment;
 
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-
 import io.quarkus.test.QuarkusUnitTest;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.quartz.QuartzComponent;
 import org.jboss.shrinkwrap.api.ShrinkWrap;

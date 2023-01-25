@@ -19,11 +19,10 @@ package org.apache.camel.quarkus.component.openstack.it;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.openstack.common.OpenstackConstants;
 import org.apache.camel.component.openstack.keystone.KeystoneConstants;

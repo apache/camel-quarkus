@@ -41,7 +41,7 @@
             <artifactId>camel-xml-jaxb</artifactId>
             <exclusions>
                 <!-- We prefer using -->
-                <!-- the spec jar org.jboss.spec.javax.xml.bind:jboss-jaxb-api_2.3_spec-parent -->
+                <!-- the spec jar jakarta.xml.bind:jakarta.xml.bind-api-parent -->
                 <!-- and the implementation jar org.glassfish.jaxb:jaxb-runtime -->
                 <!-- pulled via io.quarkus:quarkus-jaxb -->
                 <exclusion>

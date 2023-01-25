@@ -16,11 +16,10 @@
  */
 package org.apache.camel.quarkus.core.languages.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import javax.inject.Named;
-import javax.inject.Singleton;
-
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 import org.apache.camel.Exchange;
 import org.apache.camel.Expression;
 import org.apache.camel.builder.RouteBuilder;

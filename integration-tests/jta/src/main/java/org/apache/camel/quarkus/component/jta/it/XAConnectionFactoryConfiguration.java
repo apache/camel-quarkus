@@ -16,13 +16,12 @@
  */
 package org.apache.camel.quarkus.component.jta.it;
 
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Produces;
-import javax.inject.Named;
-import javax.jms.ConnectionFactory;
-import javax.jms.XAConnectionFactory;
-import javax.transaction.TransactionManager;
-
+import jakarta.enterprise.context.Dependent;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Named;
+import jakarta.jms.ConnectionFactory;
+import jakarta.jms.XAConnectionFactory;
+import jakarta.transaction.TransactionManager;
 import org.jboss.narayana.jta.jms.ConnectionFactoryProxy;
 import org.jboss.narayana.jta.jms.TransactionHelperImpl;
 

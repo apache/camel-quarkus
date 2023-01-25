@@ -16,9 +16,8 @@
  */
 package org.apache.camel.quarkus.component.platform.http.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 import org.apache.camel.component.platform.http.PlatformHttpHeaderFilterStrategy;
 
 @ApplicationScoped

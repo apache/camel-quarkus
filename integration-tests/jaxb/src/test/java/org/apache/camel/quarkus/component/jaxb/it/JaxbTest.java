@@ -18,13 +18,12 @@ package org.apache.camel.quarkus.component.jaxb.it;
 
 import java.io.StringWriter;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
 import org.apache.camel.quarkus.component.jaxb.it.model.Person;
 import org.apache.camel.quarkus.component.jaxb.it.model.namespaced.NamespacedPerson;
 import org.apache.camel.quarkus.component.jaxb.it.model.simple.SimplePerson;

@@ -16,12 +16,11 @@
  */
 package org.apache.camel.quarkus.component.jpa;
 
-import javax.transaction.TransactionManager;
-import javax.transaction.UserTransaction;
-
 import io.quarkus.arc.Arc;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
+import jakarta.transaction.TransactionManager;
+import jakarta.transaction.UserTransaction;
 import org.apache.camel.component.jpa.JpaComponent;
 import org.springframework.transaction.jta.JtaTransactionManager;
 

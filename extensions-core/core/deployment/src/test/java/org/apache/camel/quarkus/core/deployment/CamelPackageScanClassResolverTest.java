@@ -19,13 +19,12 @@ package org.apache.camel.quarkus.core.deployment;
 import java.util.Set;
 import java.util.function.Consumer;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import io.quarkus.builder.BuildChainBuilder;
 import io.quarkus.builder.BuildContext;
 import io.quarkus.builder.BuildStep;
 import io.quarkus.test.QuarkusUnitTest;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.quarkus.core.deployment.spi.CamelPackageScanClassBuildItem;

@@ -16,9 +16,8 @@
  */
 package org.apache.camel.quarkus.component.jackson;
 
-import javax.inject.Inject;
-
 import io.quarkus.test.QuarkusUnitTest;
+import jakarta.inject.Inject;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jackson.JacksonConstants;

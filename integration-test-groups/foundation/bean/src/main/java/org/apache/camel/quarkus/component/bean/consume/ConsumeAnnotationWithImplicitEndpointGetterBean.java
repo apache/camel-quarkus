@@ -16,8 +16,7 @@
  */
 package org.apache.camel.quarkus.component.bean.consume;
 
-import javax.enterprise.context.ApplicationScoped;
-
+import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.Consume;
 import org.apache.camel.Endpoint;
 import org.apache.camel.EndpointInject;

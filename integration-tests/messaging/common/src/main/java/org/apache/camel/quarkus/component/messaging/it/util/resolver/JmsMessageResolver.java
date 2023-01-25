@@ -16,8 +16,7 @@
  */
 package org.apache.camel.quarkus.component.messaging.it.util.resolver;
 
-import javax.jms.Message;
-
+import jakarta.jms.Message;
 import org.apache.camel.Exchange;
 
 public interface JmsMessageResolver {

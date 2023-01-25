@@ -19,9 +19,9 @@ package org.apache.camel.quarkus.component.activemq.it;
 import java.util.Arrays;
 import java.util.Collections;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Singleton;
-import javax.jms.ConnectionFactory;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Singleton;
+import jakarta.jms.ConnectionFactory;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.camel.quarkus.component.messaging.it.Person;
@@ -35,7 +35,7 @@ public class ActiveMQConnectionFactoryProducer {
     String brokerUrl;
 
     @Singleton
-    @javax.enterprise.inject.Produces
+    @jakarta.enterprise.inject.Produces
     public ConnectionFactory connectionFactory() {
         ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory(brokerUrl);
         factory.setTrustedPackages(Arrays.asList(

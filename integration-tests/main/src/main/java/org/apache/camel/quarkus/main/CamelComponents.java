@@ -16,10 +16,9 @@
  */
 package org.apache.camel.quarkus.main;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-import javax.inject.Singleton;
-
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 import org.apache.camel.builder.component.ComponentsBuilderFactory;
 import org.apache.camel.component.direct.DirectComponent;
 

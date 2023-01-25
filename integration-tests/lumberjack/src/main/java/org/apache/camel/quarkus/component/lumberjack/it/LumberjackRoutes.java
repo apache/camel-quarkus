@@ -16,8 +16,7 @@
  */
 package org.apache.camel.quarkus.component.lumberjack.it;
 
-import javax.inject.Named;
-
+import jakarta.inject.Named;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.lumberjack.LumberjackComponent;
 import org.apache.camel.support.jsse.KeyManagersParameters;

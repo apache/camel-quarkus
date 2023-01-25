@@ -19,12 +19,11 @@ package org.apache.camel.quarkus.component.kafka;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import io.quarkus.arc.DefaultBean;
 import io.smallrye.common.annotation.Identifier;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import org.apache.camel.component.kafka.KafkaClientFactory;
 import org.eclipse.microprofile.config.Config;
 

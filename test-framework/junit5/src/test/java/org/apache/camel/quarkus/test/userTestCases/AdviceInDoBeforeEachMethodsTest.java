@@ -16,11 +16,10 @@
  */
 package org.apache.camel.quarkus.test.userTestCases;
 
-import javax.inject.Inject;
-
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import io.quarkus.test.junit.callback.QuarkusTestMethodContext;
+import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;

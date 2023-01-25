@@ -21,11 +21,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
-
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 import org.apache.camel.builder.RouteBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import software.amazon.awssdk.services.dynamodb.model.Record;
@@ -65,7 +64,7 @@ public class Aws2DdbStreamRoutes extends RouteBuilder {
 
     static class Producers {
         @Singleton
-        @javax.enterprise.inject.Produces
+        @jakarta.enterprise.inject.Produces
         @Named("aws2DdbStreamReceivedEvents")
         List<Map<String, String>> aws2DdbStreamReceivedEvents() {
             return new CopyOnWriteArrayList<>();

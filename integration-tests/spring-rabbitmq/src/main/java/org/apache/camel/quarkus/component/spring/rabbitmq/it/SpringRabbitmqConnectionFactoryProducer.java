@@ -16,8 +16,7 @@
  */
 package org.apache.camel.quarkus.component.spring.rabbitmq.it;
 
-import javax.inject.Named;
-
+import jakarta.inject.Named;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;

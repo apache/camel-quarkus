@@ -16,8 +16,7 @@
  */
 package org.apache.camel.quarkus.component.platform.http.proxy.it;
 
-import javax.enterprise.context.ApplicationScoped;
-
+import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 

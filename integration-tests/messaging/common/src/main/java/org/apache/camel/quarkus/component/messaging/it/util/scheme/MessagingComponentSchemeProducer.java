@@ -20,12 +20,11 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.stream.JsonParser;
-
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Singleton;
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+import jakarta.json.stream.JsonParser;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.catalog.RuntimeCamelCatalog;

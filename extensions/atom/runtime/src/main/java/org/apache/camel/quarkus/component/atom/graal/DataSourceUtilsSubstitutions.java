@@ -16,18 +16,17 @@
  */
 package org.apache.camel.quarkus.component.atom.graal;
 
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
+import jakarta.activation.DataSource;
+import jakarta.activation.FileDataSource;
 import org.apache.axiom.ext.activation.SizeAwareDataSource;
 import org.apache.axiom.util.activation.DataSourceUtils;
 
 @TargetClass(DataSourceUtils.class)
 final class DataSourceUtilsSubstitutions {
 
-    // Remove unwanted references to javax.mail.util.ByteArrayDataSource
+    // Remove unwanted references to jakarta.mail.util.ByteArrayDataSource
     @Substitute
     public static long getSize(DataSource ds) {
         if (ds instanceof SizeAwareDataSource) {

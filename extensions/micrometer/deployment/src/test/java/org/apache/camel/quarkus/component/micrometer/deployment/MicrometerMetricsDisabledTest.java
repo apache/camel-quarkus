@@ -22,9 +22,8 @@ import java.io.Writer;
 import java.util.List;
 import java.util.Properties;
 
-import javax.inject.Inject;
-
 import io.quarkus.test.QuarkusUnitTest;
+import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.engine.DefaultMessageHistoryFactory;
 import org.apache.camel.spi.MessageHistoryFactory;

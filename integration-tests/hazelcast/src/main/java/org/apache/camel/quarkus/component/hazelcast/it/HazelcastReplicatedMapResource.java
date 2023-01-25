@@ -16,14 +16,13 @@
  */
 package org.apache.camel.quarkus.component.hazelcast.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
 import io.quarkus.runtime.StartupEvent;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 
 import static org.apache.camel.quarkus.component.hazelcast.it.HazelcastRoutes.MOCK_REPLICATED_ADDED;
 import static org.apache.camel.quarkus.component.hazelcast.it.HazelcastRoutes.MOCK_REPLICATED_DELETED;

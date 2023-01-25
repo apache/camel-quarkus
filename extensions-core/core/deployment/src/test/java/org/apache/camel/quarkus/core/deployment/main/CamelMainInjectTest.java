@@ -21,10 +21,9 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Properties;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
 import io.quarkus.test.QuarkusUnitTest;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.apache.camel.BeanInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
