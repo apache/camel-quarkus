@@ -16,14 +16,24 @@
  */
 package org.apache.camel.quarkus.support.language.deployment.dm;
 
+import java.util.Set;
+
 import org.apache.camel.Component;
 import org.apache.camel.spi.Injector;
 
 /**
- * {@code DryModeInjector} is used to replace instantiations of any component with an instantiation of
- * {@link DryModeComponent} for a dry run.
+ * {@code DryModeInjector} is used to replace instantiations of non-accepted components with an instantiation of
+ * {@link DryModeComponent} for a dry run. The accepted components are safe to start and stop for a dry run and cannot
+ * be replaced with a {@link DryModeComponent}.
  */
 class DryModeInjector implements Injector {
+
+    /**
+     * Name of components for which a mock component is not needed for the dry run.
+     */
+    private static final Set<String> ACCEPTED_NAMES = Set.of("org.apache.camel.component.bean.BeanComponent",
+            "org.apache.camel.component.beanclass.ClassComponent",
+            "org.apache.camel.component.kamelet.KameletComponent");
 
     private final Injector delegate;
 
@@ -34,7 +44,7 @@ class DryModeInjector implements Injector {
     @SuppressWarnings("unchecked")
     @Override
     public <T> T newInstance(Class<T> type) {
-        if (Component.class.isAssignableFrom(type)) {
+        if (mustBeReplaced(type)) {
             return (T) delegate.newInstance(DryModeComponent.class);
         }
         return delegate.newInstance(type);
@@ -43,7 +53,7 @@ class DryModeInjector implements Injector {
     @SuppressWarnings("unchecked")
     @Override
     public <T> T newInstance(Class<T> type, String factoryMethod) {
-        if (Component.class.isAssignableFrom(type)) {
+        if (mustBeReplaced(type)) {
             return (T) delegate.newInstance(DryModeComponent.class);
         }
         return delegate.newInstance(type, factoryMethod);
@@ -52,7 +62,7 @@ class DryModeInjector implements Injector {
     @SuppressWarnings("unchecked")
     @Override
     public <T> T newInstance(Class<T> type, boolean postProcessBean) {
-        if (Component.class.isAssignableFrom(type)) {
+        if (mustBeReplaced(type)) {
             return (T) delegate.newInstance(DryModeComponent.class);
         }
         return delegate.newInstance(type, postProcessBean);
@@ -61,5 +71,16 @@ class DryModeInjector implements Injector {
     @Override
     public boolean supportsAutoWiring() {
         return delegate.supportsAutoWiring();
+    }
+
+    /**
+     * Indicates whether the given type must be replaced by a mock component.
+     * 
+     * @param  type the type to check.
+     * @return      {@code true} if it should be replaced, {@code false} otherwise.
+     * @param  <T>  the type of the class to check.
+     */
+    private static <T> boolean mustBeReplaced(Class<T> type) {
+        return Component.class.isAssignableFrom(type) && !ACCEPTED_NAMES.contains(type.getName());
     }
 }

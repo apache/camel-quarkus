@@ -16,17 +16,30 @@
  */
 package org.apache.camel.quarkus.support.language.deployment.dm;
 
+import java.util.Set;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
-import org.apache.camel.spi.ComponentResolver;
+import org.apache.camel.impl.engine.DefaultComponentResolver;
 
 /**
- * {@code DryModeComponentResolver} is used to resolve all components with {@link DryModeComponent} for a dry run.
+ * {@code DryModeComponentResolver} is used to resolve all non-accepted components with {@link DryModeComponent} for a
+ * dry run.
+ * The accepted components are safe to start and stop for a dry run and cannot be replaced with a
+ * {@link DryModeComponent}.
  */
-class DryModeComponentResolver implements ComponentResolver {
+class DryModeComponentResolver extends DefaultComponentResolver {
+
+    /**
+     * Name of components for which a mock component is not needed for the dry run.
+     */
+    private static final Set<String> ACCEPTED_NAMES = Set.of("bean", "class", "kamelet");
 
     @Override
     public Component resolveComponent(String name, CamelContext context) {
+        if (ACCEPTED_NAMES.contains(name)) {
+            return super.resolveComponent(name, context);
+        }
         return new DryModeComponent();
     }
 }

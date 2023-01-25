@@ -16,14 +16,30 @@
  */
 package org.apache.camel.quarkus.component.csimple.it;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.builder.RouteBuilder;
 
+@RegisterForReflection(targets = String.class)
 public class CSimpleRoute extends RouteBuilder {
 
     @Override
-    public void configure() throws Exception {
+    public void configure() {
+        routeTemplate("whereTo")
+                .templateParameter("bar")
+                .templateBean("myBar", String.class, "csimple", "Hi")
+                .from("kamelet:source")
+                .to("bean:{{myBar}}?method=toString")
+                .setBody().csimple("${body} {{bar}}");
+        from("direct:csimple-hi")
+                .kamelet("whereTo?bar=Bill");
         from("direct:csimple-hello")
                 .setBody().csimple("Hello ${body}");
+        from("direct:predicate")
+                .choice()
+                .when().csimple("${body} > 10")
+                .setBody().constant("High").endChoice()
+                .otherwise()
+                .setBody().constant("Low").endChoice();
     }
 
 }

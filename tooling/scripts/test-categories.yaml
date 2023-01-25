@@ -159,6 +159,7 @@ group-10:
   - consul
   - digitalocean
   - fop
+  - joor
   - kotlin
   - mail
   - main-unknown-args-fail

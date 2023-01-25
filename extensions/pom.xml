@@ -140,6 +140,7 @@
         <module>jms</module>
         <module>johnzon</module>
         <module>jolt</module>
+        <module>joor</module>
         <module>jpa</module>
         <module>jq</module>
         <module>js-dsl</module>

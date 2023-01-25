@@ -4,17 +4,17 @@
 = jOOR
 :linkattrs:
 :cq-artifact-id: camel-quarkus-joor
-:cq-native-supported: false
-:cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-native-supported: true
+:cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Evaluate a jOOR (Java compiled once at runtime) expression language.
 :cq-deprecated: false
 :cq-jvm-since: 2.0.0
-:cq-native-since: n/a
+:cq-native-since: 2.17.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##2.0.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##2.0.0## [.badge-key]##Native since##[.badge-supported]##2.17.0##
 endif::[]
 
 Evaluate a jOOR (Java compiled once at runtime) expression language.
@@ -29,6 +29,10 @@ Please refer to the above link for usage and configuration details.
 [id="extensions-joor-maven-coordinates"]
 == Maven coordinates
 
+https://{link-quarkus-code-generator}/?extension-search=camel-quarkus-joor[Create a new project with this extension on {link-quarkus-code-generator}, window="_blank"]
+
+Or add the coordinates to your existing project:
+
 [source,xml]
 ----
 <dependency>
@@ -39,3 +43,39 @@ Please refer to the above link for usage and configuration details.
 ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
+
+[id="extensions-joor-additional-camel-quarkus-configuration"]
+== Additional Camel Quarkus configuration
+
+The expressions and scripts written using the jOOR language are extracted and compiled at build time, to do so the
+language needs to be instantiated and configured at build time in order to be able to generate the exact same source code as
+the one generated at runtime. For this purpose, the next configuration properties have been added:
+
+
+[width="100%",cols="80,5,15",options="header"]
+|===
+| Configuration property | Type | Default
+
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.joor.single-quotes]]`link:#quarkus.camel.joor.single-quotes[quarkus.camel.joor.single-quotes]`
+
+Indicates whether a jOOR expression can use single quotes instead of double quotes.
+| `boolean`
+| `true`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.joor.config-resource]]`link:#quarkus.camel.joor.config-resource[quarkus.camel.joor.config-resource]`
+
+The specific location of the configuration of the jOOR language.
+| `string`
+| 
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.joor.result-type]]`link:#quarkus.camel.joor.result-type[quarkus.camel.joor.result-type]`
+
+The specific default result type of an expression expressed in jOOR language.
+| `string`
+| 
+|===
+
+[.configuration-legend]
+{doc-link-icon-lock}[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
+

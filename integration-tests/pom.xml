@@ -123,6 +123,7 @@
         <module>jms-artemis-client</module>
         <module>jms-qpid-amqp-client</module>
         <module>jolt</module>
+        <module>joor</module>
         <module>jpa</module>
         <module>jq</module>
         <module>js-dsl</module>

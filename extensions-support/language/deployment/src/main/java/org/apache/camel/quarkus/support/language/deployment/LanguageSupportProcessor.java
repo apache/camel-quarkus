@@ -27,6 +27,8 @@ import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesBuilderClassBuildItem;
 import org.apache.camel.quarkus.support.language.deployment.dm.DryModeLanguage;
 import org.apache.camel.quarkus.support.language.deployment.dm.DryModeMain;
+import org.apache.camel.quarkus.support.language.deployment.dm.ExpressionHolder;
+import org.apache.camel.quarkus.support.language.deployment.dm.ScriptHolder;
 import org.jboss.logging.Logger;
 
 class LanguageSupportProcessor {
@@ -36,7 +38,8 @@ class LanguageSupportProcessor {
     @BuildStep
     ExpressionExtractionResultBuildItem extractExpressions(CamelConfig config,
             List<CamelRoutesBuilderClassBuildItem> routesBuilderClasses,
-            BuildProducer<ExpressionBuildItem> producer) throws Exception {
+            BuildProducer<ExpressionBuildItem> expressions,
+            BuildProducer<ScriptBuildItem> scripts) throws Exception {
         if (config.expression.extractionEnabled) {
             final ClassLoader loader = Thread.currentThread().getContextClassLoader();
             if (!(loader instanceof QuarkusClassLoader)) {
@@ -60,11 +63,14 @@ class LanguageSupportProcessor {
                 main.run();
                 for (DryModeLanguage language : main.getLanguages()) {
                     final String name = language.getName();
-                    for (String exp : language.getPredicates()) {
-                        producer.produce(new ExpressionBuildItem(name, exp, true));
+                    for (ExpressionHolder holder : language.getPredicates()) {
+                        expressions.produce(new ExpressionBuildItem(name, holder.getContent(), holder.getProperties(), true));
                     }
-                    for (String exp : language.getExpressions()) {
-                        producer.produce(new ExpressionBuildItem(name, exp, false));
+                    for (ExpressionHolder holder : language.getExpressions()) {
+                        expressions.produce(new ExpressionBuildItem(name, holder.getContent(), holder.getProperties(), false));
+                    }
+                    for (ScriptHolder script : language.getScripts()) {
+                        scripts.produce(new ScriptBuildItem(name, script.getContent(), script.getBindings()));
                     }
                 }
                 return new ExpressionExtractionResultBuildItem(true);
