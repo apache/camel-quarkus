@@ -16,11 +16,10 @@
  */
 package org.apache.camel.quarkus.component.opentelemetry.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
-
 import io.opentelemetry.sdk.testing.exporter.InMemorySpanExporter;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Singleton;
 
 @ApplicationScoped
 public class SpanExporterProducer {

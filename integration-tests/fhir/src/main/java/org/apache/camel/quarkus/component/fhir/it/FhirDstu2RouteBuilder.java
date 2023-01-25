@@ -16,12 +16,11 @@
  */
 package org.apache.camel.quarkus.component.fhir.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import ca.uhn.fhir.context.FhirContext;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Instance;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.apache.camel.quarkus.component.fhir.FhirFlags;
 
 @ApplicationScoped

@@ -21,9 +21,8 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Properties;
 
-import javax.inject.Inject;
-
 import io.quarkus.test.QuarkusUnitTest;
+import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.LineNumberAware;
@@ -77,7 +76,7 @@ public class CamelSourceLocationTest {
                     }
                 });
         Object out = producer.requestBody("direct:start", "Hello World");
-        Assertions.assertEquals("CamelSourceLocationTest.java:76", out);
+        Assertions.assertEquals("CamelSourceLocationTest.java:75", out);
     }
 
     private static class MyProcessor implements Processor, LineNumberAware {

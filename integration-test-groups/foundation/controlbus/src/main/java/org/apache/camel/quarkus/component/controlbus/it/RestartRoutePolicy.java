@@ -16,8 +16,7 @@
  */
 package org.apache.camel.quarkus.component.controlbus.it;
 
-import javax.inject.Singleton;
-
+import jakarta.inject.Singleton;
 import org.apache.camel.Route;
 import org.apache.camel.support.RoutePolicySupport;
 

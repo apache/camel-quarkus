@@ -16,9 +16,8 @@
  */
 package org.apache.camel.quarkus.component.aws2.cw.it;
 
-import javax.enterprise.inject.Produces;
-import javax.inject.Named;
-
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Named;
 import org.apache.camel.component.aws2.cw.CloudWatchClientMock;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 

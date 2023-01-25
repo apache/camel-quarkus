@@ -16,10 +16,9 @@
  */
 package org.apache.camel.quarkus.component.grok.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import javax.inject.Named;
-
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Named;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.grok.GrokDataFormat;
 import org.apache.camel.component.grok.GrokPattern;

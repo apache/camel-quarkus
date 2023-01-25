@@ -14,5 +14,5 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://multipart.it.soap.component.quarkus.camel.apache.org/")
+@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://multipart.it.soap.component.quarkus.camel.apache.org/")
 package org.apache.camel.quarkus.component.soap.it.multipart;

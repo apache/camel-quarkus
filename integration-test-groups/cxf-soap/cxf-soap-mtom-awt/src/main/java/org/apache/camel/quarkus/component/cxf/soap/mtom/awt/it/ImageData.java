@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.cxf.soap.mtom.awt.it;
 
 import java.awt.Image;
 
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlType;
 
 @XmlType(name = "imageData", namespace = "http://org.jboss.ws/xop/doclit")
 public class ImageData {

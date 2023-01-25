@@ -16,10 +16,9 @@
  */
 package org.apache.camel.quarkus.component.dataformats.json.model;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 @RegisterForReflection
 @XmlRootElement(name = "XMLPojo")

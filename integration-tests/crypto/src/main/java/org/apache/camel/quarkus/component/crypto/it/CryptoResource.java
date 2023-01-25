@@ -23,15 +23,14 @@ import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.security.cert.Certificate;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
@@ -109,7 +108,7 @@ public class CryptoResource {
         return producerTemplate.requestBody("direct:unmarshalPgp", payload, String.class);
     }
 
-    @javax.enterprise.inject.Produces
+    @jakarta.enterprise.inject.Produces
     public KeyStore keyStore() throws Exception {
         KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
         try (InputStream in = getClass().getResourceAsStream("/" + KEYSTORE)) {
@@ -118,20 +117,20 @@ public class CryptoResource {
         return keystore;
     }
 
-    @javax.enterprise.inject.Produces
+    @jakarta.enterprise.inject.Produces
     @Named
     public PrivateKey myPrivateKey(KeyStore keyStore) throws Exception {
         return (PrivateKey) keyStore.getKey(ALIAS, KEYSTORE_PASSWORD.toCharArray());
     }
 
-    @javax.enterprise.inject.Produces
+    @jakarta.enterprise.inject.Produces
     @Named
     public PublicKey myPublicKey(KeyStore keyStore) throws Exception {
         Certificate cert = keyStore.getCertificate(ALIAS);
         return cert.getPublicKey();
     }
 
-    @javax.enterprise.inject.Produces
+    @jakarta.enterprise.inject.Produces
     @Named
     public SecureRandom customSecureRandom() {
         return new SecureRandom();

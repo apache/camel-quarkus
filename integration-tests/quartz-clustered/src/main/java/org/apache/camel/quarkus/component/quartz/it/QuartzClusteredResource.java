@@ -16,12 +16,11 @@
  */
 package org.apache.camel.quarkus.component.quartz.it;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.quartz.QuartzComponent;
@@ -33,7 +32,7 @@ public class QuartzClusteredResource {
     @Inject
     CamelContext camelContext;
 
-    @javax.enterprise.inject.Produces
+    @jakarta.enterprise.inject.Produces
     @Singleton
     @Named("quartz")
     public QuartzComponent quartzComponent(Scheduler scheduler) {

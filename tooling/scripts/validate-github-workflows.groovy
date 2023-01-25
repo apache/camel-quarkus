@@ -21,6 +21,9 @@
 import java.nio.file.Path
 import java.nio.file.Files
 import org.yaml.snakeyaml.Yaml
+import org.apache.maven.model.Model
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader
+import org.codehaus.plexus.util.xml.pull.XmlPullParserException
 
 final Path treeRootDir = project.getBasedir().toPath()
 
@@ -29,10 +32,21 @@ final Path jobDefPath = treeRootDir.resolve(testCategoriesDefRelPath)
 final Set<String> executedBaseNames = [] as Set
 
 // Add any ignored itest modules here. Or prefix the module name with '#' to disable it
-final List<String> excludedModules = ['messaging', 'nats' ] as List
+final List<String> excludedModules = [
+    'messaging',
+    'nats'
+] as List
 
 final Yaml parser = new Yaml()
 def testCategoryConfig = parser.load((jobDefPath.toFile()).text)
+
+Set<String> itestModules
+try (Reader r = Files.newBufferedReader(treeRootDir.resolve('integration-tests/pom.xml'), java.nio.charset.StandardCharsets.UTF_8)) {
+    itestModules = new HashSet<>(new MavenXpp3Reader().read(r).getModules());
+} catch (XmlPullParserException | IOException e) {
+    throw new RuntimeException("Could not parse " + path, e);
+}
+
 
 def modules = []
 testCategoryConfig.each { k, v ->
@@ -43,9 +57,7 @@ testCategoryConfig.each { k, v ->
 modules.each { executedBaseNames.addAll(it.trim().split(' ')) }
 
 final Set<String> missingBaseNames = [] as TreeSet
-final Set<String> itestBaseNames = Files.list(treeRootDir.resolve('integration-tests'))
-        .filter{ path -> Files.exists(path.resolve('pom.xml')) }
-        .map{ path -> path.getFileName().toString() }
+final Set<String> itestBaseNames = itestModules.stream()
         .filter{ dirName -> !excludedModules.contains(dirName) }
         .filter{ dirName -> !executedBaseNames.contains('#' + dirName) }
         .filter{ dirName -> !executedBaseNames.contains(dirName) }

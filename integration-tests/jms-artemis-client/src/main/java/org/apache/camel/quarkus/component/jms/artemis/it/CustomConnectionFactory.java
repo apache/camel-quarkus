@@ -16,11 +16,10 @@
  */
 package org.apache.camel.quarkus.component.jms.artemis.it;
 
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Produces;
-import javax.jms.ConnectionFactory;
-
 import io.quarkus.arc.properties.UnlessBuildProperty;
+import jakarta.enterprise.context.Dependent;
+import jakarta.enterprise.inject.Produces;
+import jakarta.jms.ConnectionFactory;
 import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 import org.eclipse.microprofile.config.ConfigProvider;
 

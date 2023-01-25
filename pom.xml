@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>3.20.1</version>
+        <version>4.0.0-M1</version>
     </parent>
 
     <groupId>org.apache.camel.quarkus</groupId>
@@ -39,8 +39,8 @@
     <properties>
 
         <!-- Primary dependencies - maintained manually -->
-        <camel.major.minor>3.20</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
-        <camel.version>${camel.major.minor}.1</camel.version>
+        <camel.major.minor>4.0</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
+        <camel.version>${camel.major.minor}.0-M1</camel.version>
         <camel.docs.components.version>${camel.major.minor}.x</camel.docs.components.version><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.components.xref>${camel.docs.components.version}@components</camel.docs.components.xref><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.branch>camel-${camel.major.minor}.x</camel.docs.branch><!-- The stable camel branch on which our Antora docs depends -->
@@ -49,33 +49,35 @@
         <debezium.version>1.9.6.Final</debezium.version><!-- May go back to Camel's ${debezium-version} when they are in sync https://repo1.maven.org/maven2/io/debezium/debezium-bom/ -->
         <optaplanner.version>8.31.0.Final</optaplanner.version><!-- May go back to Camel's ${optaplanner-version} when they are in sync https://repo1.maven.org/maven2/org/optaplanner/optaplanner-quarkus/ -->
         <quarkiverse-amazonservices.version>1.3.1</quarkiverse-amazonservices.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/amazonservices/quarkus-amazon-services-parent/ -->
-        <quarkiverse-artemis.version>2.0.4</quarkiverse-artemis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/artemis/quarkus-artemis-parent/ -->
+        <quarkiverse-artemis.version>3.0.0.Alpha3</quarkiverse-artemis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/artemis/quarkus-artemis-parent/ -->
         <quarkiverse-cxf.version>1.7.3</quarkiverse-cxf.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/cxf/quarkus-cxf-parent/ -->
         <quarkiverse-freemarker.version>0.3.0</quarkiverse-freemarker.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/freemarker/quarkus-freemarker-parent/ -->
         <quarkiverse-jackson-jq.version>1.1.0</quarkiverse-jackson-jq.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jackson-jq/quarkus-jackson-jq-parent/ -->
         <quarkiverse-jgit.version>2.3.1</quarkiverse-jgit.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jgit/quarkus-jgit-parent/ -->
         <quarkiverse-jsch.version>2.0.3</quarkiverse-jsch.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jsch/quarkus-jsch-parent/ -->
         <quarkiverse-minio.version>2.10.3</quarkiverse-minio.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/minio/quarkus-minio-parent/ -->
-        <quarkiverse-mybatis.version>1.0.5</quarkiverse-mybatis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/mybatis/quarkus-mybatis-parent/ -->
+        <quarkiverse-mybatis.version>2.0.0.CR1</quarkiverse-mybatis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/mybatis/quarkus-mybatis-parent/ -->
         <quarkiverse-pooled-jms.version>1.0.7</quarkiverse-pooled-jms.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/messaginghub/quarkus-pooled-jms-parent/ -->
         <quarkiverse-tika.version>1.0.3</quarkiverse-tika.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/tika/quarkus-tika-parent/ -->
-        <quarkus.version>2.16.0.Final</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
+        <quarkus.version>3.0.0.Alpha3</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
         <quarkus-hazelcast-client.version>3.0.0</quarkus-hazelcast-client.version><!-- https://repo1.maven.org/maven2/com/hazelcast/quarkus-hazelcast-client-bom/ -->
-        <quarkus-qpid-jms.version>0.41.0</quarkus-qpid-jms.version><!-- https://repo1.maven.org/maven2/org/amqphub/quarkus/quarkus-qpid-jms-bom/ -->
+        <quarkus-qpid-jms.version>2.0.0.Alpha2</quarkus-qpid-jms.version><!-- https://repo1.maven.org/maven2/org/amqphub/quarkus/quarkus-qpid-jms-bom/ -->
 
         <!-- Compile dependency versions (keep sorted alphabetically) -->
         <!-- Items annotated with @sync can be updated by running mvn cq:sync-versions -N -e -->
         <ahc.version>2.12.3</ahc.version><!-- @sync com.cloudbees.thirdparty:zendesk-java-client:${zendesk-client-version} dep:org.asynchttpclient:async-http-client -->
+        <angus-mail.version>${angus-mail-version}</angus-mail.version>
         <animal-sniffer.version>1.18</animal-sniffer.version>
         <antlr3.version>3.5.2</antlr3.version><!-- Spark, Stringtemplate and probably others -->
         <avro.version>1.11.1</avro.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.avro:avro -->
-        <awssdk.version>2.17.291</awssdk.version><!-- @sync io.quarkiverse.amazonservices:quarkus-amazon-services-parent:${quarkiverse-amazonservices.version} prop:awssdk.version -->
-        <assertj.version>3.23.1</assertj.version><!-- @sync io.quarkus:quarkus-build-parent:${quarkus.version} prop:assertj.version -->
+        <awssdk.version>2.19.31</awssdk.version><!-- @sync io.quarkiverse.amazonservices:quarkus-amazon-services-parent:${quarkiverse-amazonservices.version} prop:awssdk.version -->
+        <awscrt.version>0.21.4</awscrt.version><!-- @sync software.amazon.awssdk:aws-sdk-java-pom:${awssdk.version} prop:awscrt.version -->
+        <assertj.version>3.24.1</assertj.version><!-- @sync io.quarkus:quarkus-build-parent:${quarkus.version} prop:assertj.version -->
         <aws-java-sdk.version>1.11.714</aws-java-sdk.version>
         <azure-sdk-bom.version>${azure-sdk-bom-version}</azure-sdk-bom.version>
-        <azure-core.version>1.34.0</azure-core.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-core -->
+        <azure-core.version>1.35.0</azure-core.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-core -->
         <azure-core-test.version>1.11.0</azure-core-test.version>
-        <azure-identity.version>1.7.0</azure-identity.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-identity -->
+        <azure-identity.version>1.7.3</azure-identity.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-identity -->
         <azure-core-http-vertx.version>1.0.0-beta.1</azure-core-http-vertx.version> <!-- TODO: https://github.com/apache/camel-quarkus/issues/4181 -->
         <cassandra-driver-test.version>3.7.1</cassandra-driver-test.version><!-- Keep in sync with testcontainers instead of Debezium bom -->
         <bouncycastle.version>1.70</bouncycastle.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.bouncycastle:bcprov-jdk15on -->
@@ -83,6 +85,7 @@
         <commons-beanutils.version>${commons-beanutils-version}</commons-beanutils.version>
         <commons-cli.version>1.4</commons-cli.version><!-- keep in sync with Quarkus, via quarkus-bootstrap-core -->
         <commons-collections.version>3.2.2</commons-collections.version><!-- used by hbase, should be pretty stable as commons-collections are not developed actively anymore -->
+        <commons-collections4.version>4.4</commons-collections4.version><!-- used by corda -->
         <commons-exec.version>${commons-exec-version}</commons-exec.version>
         <commons-lang.version>2.6</commons-lang.version><!-- used by hbase, should be pretty stable as commons-lang is not developed actively anymore -->
         <commons-math3.version>3.6.1</commons-math3.version><!-- Mess in the transitive dependencies of Spark and hbase-testing-util -->
@@ -96,27 +99,28 @@
         <google-auth-library-credentials.version>1.7.0</google-auth-library-credentials.version><!-- TODO: Revert back to using Camel's version when gRPC versions are in sync -->
         <google-oauth-client.version>${google-oauth-client-version}</google-oauth-client.version><!-- TODO: Fix this in Camel https://github.com/apache/camel-quarkus/issues/4139 -->
         <graalvm.version>22.3.0</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.sdk:graal-sdk -->
-        <grpc.version>1.51.1</grpc.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.grpc:grpc-core -->
+        <grpc.version>1.52.1</grpc.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.grpc:grpc-core -->
         <hapi.version>${hapi-version}</hapi.version>
         <hapi-base.version>${hapi-base-version}</hapi-base.version>
         <hapi-fhir.version>${hapi-fhir-version}</hapi-fhir.version>
-        <hapi-fhir-core.version>4.2.0</hapi-fhir-core.version><!-- @sync ca.uhn.hapi.fhir:hapi-fhir:${hapi-fhir.version} prop:fhir_core_version -->
-        <hbase.version>${hbase-version}</hbase.version>
+        <hapi-fhir-core.version>5.6.68</hapi-fhir-core.version><!-- @sync ca.uhn.hapi.fhir:hapi-fhir:${hapi-fhir.version} prop:fhir_core_version -->
         <htrace.version>4.2.0-incubating</htrace.version><!-- Mess in hbase transitive deps -->
+        <httpclient5.version>5.2.1</httpclient5.version><!-- Saxon and Wiremock -->
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
         <jackson1.version>1.9.13</jackson1.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <jackson-asl.version>${jackson1.version}</jackson-asl.version><!-- Can be different from jackson1.version on some occasions -->
-        <jakarta.jms-api.version>2.0.3</jakarta.jms-api.version>
+        <jakarta.jms-api.version>3.1.0</jakarta.jms-api.version>
         <java-json-tools.json-patch.version>${json-patch-version}</java-json-tools.json-patch.version><!-- A replacement for com.github.fge:json-patch -->
         <jcodings.version>1.0.55</jcodings.version><!-- used by hbase -->
         <jodatime.version>2.10.6</jodatime.version><!-- Mess in transitive dependencies of Spark and Splunk -->
         <joni.version>2.1.31</joni.version><!-- used by json-validator -->
         <jaxen.version>1.2.0</jaxen.version>
         <javassist.version>3.22.0-CR2</javassist.version><!-- debezium -->
-        <jetty.version>${jetty9-version}</jetty.version>
+        <jetty.version>${jetty-version}</jetty.version>
         <jgit.version>6.4.0.202211300538-r</jgit.version><!-- @sync io.quarkiverse.jgit:quarkus-jgit-parent:${quarkiverse-jgit.version} prop:jgit.version -->
         <jna-platform.version>5.6.0</jna-platform.version><!-- @sync com.azure:azure-identity:${azure-identity.version} dep:net.java.dev.jna:jna-platform -->
         <jnr-ffi.version>2.1.2</jnr-ffi.version><!-- Mess in web3j transitive deps -->
+        <jsch.version>0.2.6</jsch.version><!-- @sync io.quarkiverse.jsch:quarkus-jsch-parent:${quarkiverse-jsch.version} prop:jsch.version -->
         <json-path.version>${json-path-version}</json-path.version>
         <json-smart.version>2.4.7</json-smart.version><!-- @sync com.jayway.jsonpath:json-path:${json-path.version} dep:net.minidev:json-smart -->
         <kafka.version>3.3.1</kafka.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.kafka:kafka-clients -->
@@ -129,38 +133,38 @@
         <opencensus.version>0.31.0</opencensus.version><!-- Mess in Google cloud. Keep in sync with version used in com.google.http-client:google-http-client -->
         <perfmark-api.version>0.25.0</perfmark-api.version><!-- @sync io.grpc:grpc-netty-shaded:${grpc.version} dep:io.perfmark:perfmark-api -->
         <protobuf.version>3.21.9</protobuf.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.google.protobuf:protobuf-java -->
-        <reactor-core.version>3.4.23</reactor-core.version><!-- @sync com.azure:azure-core:${azure-core.version} dep:io.projectreactor:reactor-core -->
+        <reactor-core.version>3.4.26</reactor-core.version><!-- @sync com.azure:azure-core:${azure-core.version} dep:io.projectreactor:reactor-core -->
         <reactor-netty.version>${reactor-netty-version}</reactor-netty.version>
         <retrofit.version>2.5.0</retrofit.version>
-        <smallrye.reactive.messaging.camel.version>3.22.1</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
-        <spring.version>${spring5-version}</spring.version>
+        <smallrye.reactive.messaging.camel.version>4.1.1.RC1</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
+        <spring.version>${spring-version}</spring.version>
         <snakeyaml.version>1.33</snakeyaml.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.yaml:snakeyaml -->
         <tablesaw.version>0.43.1</tablesaw.version>
         <threetenbp.version>1.6.0</threetenbp.version>
         <xalan.version>2.7.2</xalan.version><!-- Xalan should be removed as is in Camel, but it is not possible. https://github.com/apache/camel-quarkus/issues/4065-->
         <xchange.version>${xchange-version}</xchange.version>
         <xerces.version>${xerces-version}</xerces.version>
-        <xmlgraphics-commons.version>2.7</xmlgraphics-commons.version><!-- @sync org.apache.xmlgraphics:fop-parent:${fop-version} prop:xmlgraphics.commons.version -->
-        <xstream.version>${xstream-version}</xstream.version>
+        <xml-apis.version>1.4.01</xml-apis.version><!-- Mess in transitive dependencies of Saxon and Xalan -->
+        <xmlgraphics-commons.version>2.8</xmlgraphics-commons.version><!-- @sync org.apache.xmlgraphics:fop-parent:${fop-version} prop:xmlgraphics.commons.version -->
+        <!--<xstream.version>${xstream-version}</xstream.version>-->
         <web3j.version>${web3j-version}</web3j.version>
         <web3j.quorum.version>${web3j-quorum-version}</web3j.quorum.version>
         <zookeeper.version>${solr-zookeeper-version}</zookeeper.version><!-- ${solr-zookeeper-version} is newer than ${zookeeper-version} -->
-        <zxing.version>3.3.3</zxing.version><!-- Mess in IOTA transitive deps -->
 
         <!-- Test dependency versions (keep sorted alphabetically) -->
         <commons-logging.version>1.2</commons-logging.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <consul-client.version>${consul-client-version}</consul-client.version>
         <ftpserver.version>1.1.1</ftpserver.version>
         <greenmail.version>1.6.7</greenmail.version>
+        <hamcrest.version>2.2</hamcrest.version><!-- Awaitility and Wiremock -->
         <istack-commons-runtime.version>3.0.10</istack-commons-runtime.version>
-        <jakarta.mail.version>${jakarta-mail-version}</jakarta.mail.version>
         <htmlunit-driver.version>2.47.1</htmlunit-driver.version>
         <mock-javamail.version>${mock-javamail-version}</mock-javamail.version>
         <pdfbox.version>${pdfbox-version}</pdfbox.version>
         <slf4j-log4j12.version>1.7.30</slf4j-log4j12.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <sshd.version>2.9.2</sshd.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.sshd:sshd-common -->
         <stax2.version>4.2</stax2.version>
-        <wiremock.version>2.27.2</wiremock.version>
+        <wiremock.version>3.0.0-beta-2</wiremock.version>
         <zt-exec.version>1.12</zt-exec.version>
 
         <!-- Tooling dependency versions (keep sorted alphabetically) -->
@@ -175,7 +179,7 @@
         <formatter-maven-plugin.version>2.17.1</formatter-maven-plugin.version>
         <frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
         <groovy-maven-plugin.version>2.1.1</groovy-maven-plugin.version>
-        <groovy.version>3.0.8</groovy.version>
+        <groovy.version>3.0.14</groovy.version>
         <impsort-maven-plugin.version>1.7.0</impsort-maven-plugin.version>
         <jandex-maven-plugin.version>1.0.8</jandex-maven-plugin.version>
         <keytool-maven-plugin.version>1.6</keytool-maven-plugin.version>
@@ -214,7 +218,7 @@
 
         <!-- maven-enforcer-plugin -->
         <min-maven-version>3.8.2</min-maven-version>
-        <target-maven-version>3.8.6</target-maven-version><!-- @sync io.quarkus:quarkus-build-parent:${quarkus.version} prop:proposed-maven-version -->
+        <target-maven-version>3.8.7</target-maven-version><!-- @sync io.quarkus:quarkus-build-parent:${quarkus.version} prop:proposed-maven-version -->
         <supported-maven-versions>[${min-maven-version},)</supported-maven-versions>
 
         <!-- maven-release-plugin -->
@@ -685,7 +689,6 @@
                                 <artifactId>quarkus-enforcer-rules</artifactId>
                                 <version>${quarkus.version}</version>
                             </dependency>
-                            <!-- This dependency can be removed when MENFORCER-422 is available -->
                             <dependency>
                                 <groupId>org.l2x6.cq</groupId>
                                 <artifactId>cq-filtered-external-enforcer-rules</artifactId>
@@ -713,6 +716,9 @@
                                         </filteredExternalRules>
                                         <filteredExternalRules>
                                             <location>${maven.multiModuleProjectDirectory}/tooling/enforcer-rules/camel-quarkus-banned-dependencies.xml</location>
+                                        </filteredExternalRules>
+                                        <filteredExternalRules>
+                                            <location>${maven.multiModuleProjectDirectory}/tooling/enforcer-rules/camel-quarkus-banned-dependencies-spring.xml</location>
                                         </filteredExternalRules>
                                     </rules>
                                 </configuration>
@@ -754,6 +760,11 @@
                                 <groupId>org.yaml</groupId>
                                 <artifactId>snakeyaml</artifactId>
                                 <version>${snakeyaml.version}</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.apache.maven</groupId>
+                                <artifactId>maven-model</artifactId>
+                                <version>${target-maven-version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>
@@ -1254,8 +1265,7 @@
                 </plugins>
             </build>
         </profile>
-        
-        
+
         <profile>
             <id>sbom</id>
             <build>

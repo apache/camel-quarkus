@@ -26,6 +26,7 @@ import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.security.cert.X509Certificate;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,6 +52,10 @@ public class As2CertificateHelper {
     private static final String AS2_VERSION = "1.1";
     private static final String USER_AGENT = "Camel AS2 Endpoint";
     private static final String CLIENT_FQDN = "example.org";
+    private static final Duration HTTP_SOCKET_TIMEOUT = Duration.ofSeconds(5);
+    private static final Duration HTTP_CONNECTION_TIMEOUT = Duration.ofSeconds(5);
+    private static final Integer HTTP_CONNECTION_POOL_SIZE = 5;
+    private static final Duration HTTP_CONNECTION_POOL_TTL = Duration.ofMinutes(15);
 
     private static KeyPair signingKP;
     private static X509Certificate signingCert;
@@ -126,8 +131,22 @@ public class As2CertificateHelper {
     }
 
     public static AS2ClientManager createClient(int port) throws IOException {
-        AS2ClientConnection clientConnection = new AS2ClientConnection(AS2_VERSION, USER_AGENT, CLIENT_FQDN, TARGET_HOST, port);
+        AS2ClientConnection clientConnection = createClientConnection(port);
         return new AS2ClientManager(clientConnection);
+    }
+
+    public static AS2ClientConnection createClientConnection(int port) throws IOException {
+        AS2ClientConnection clientConnection = new AS2ClientConnection(
+                AS2_VERSION,
+                USER_AGENT,
+                CLIENT_FQDN,
+                TARGET_HOST,
+                port,
+                HTTP_SOCKET_TIMEOUT,
+                HTTP_CONNECTION_TIMEOUT,
+                HTTP_CONNECTION_POOL_SIZE,
+                HTTP_CONNECTION_POOL_TTL);
+        return clientConnection;
     }
 
     public static List<X509Certificate> getCertList() {

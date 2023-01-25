@@ -52,6 +52,11 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-jpa</artifactId>
         </dependency>
+
+        <dependency><!-- https://github.com/apache/camel-quarkus/issues/4084 -->
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

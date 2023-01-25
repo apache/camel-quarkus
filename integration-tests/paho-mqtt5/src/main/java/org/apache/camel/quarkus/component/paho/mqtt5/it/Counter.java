@@ -20,7 +20,7 @@ package org.apache.camel.quarkus.component.paho.mqtt5.it;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class Counter {

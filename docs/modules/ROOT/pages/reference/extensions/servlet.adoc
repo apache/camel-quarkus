@@ -79,7 +79,7 @@ A fully qualified name of a servlet class to serve paths that match `url-pattern
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.servlet-name]]`link:#quarkus.camel.servlet.servlet-name[quarkus.camel.servlet.servlet-name]`
 
-A servletName as it would be defined in a `web.xml` file or in the `javax.servlet.annotation.WebServlet++#++name()` annotation.
+A servletName as it would be defined in a `web.xml` file or in the `jakarta.servlet.annotation.WebServlet++#++name()` annotation.
 | `string`
 | `CamelServlet`
 
@@ -97,7 +97,7 @@ A fully qualified name of a servlet class to serve paths that match `url-pattern
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.-named-servlets-.servlet-name]]`link:#quarkus.camel.servlet.-named-servlets-.servlet-name[quarkus.camel.servlet."named-servlets".servlet-name]`
 
-A servletName as it would be defined in a `web.xml` file or in the `javax.servlet.annotation.WebServlet++#++name()` annotation.
+A servletName as it would be defined in a `web.xml` file or in the `jakarta.servlet.annotation.WebServlet++#++name()` annotation.
 | `string`
 | `CamelServlet`
 |===

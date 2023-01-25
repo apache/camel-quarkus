@@ -16,9 +16,8 @@
  */
 package org.apache.camel.quarkus.core.deployment.main;
 
-import javax.inject.Inject;
-
 import io.quarkus.test.QuarkusUnitTest;
+import jakarta.inject.Inject;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.quarkus.main.CamelMain;
 import org.apache.camel.quarkus.main.CamelMainEventBridge;

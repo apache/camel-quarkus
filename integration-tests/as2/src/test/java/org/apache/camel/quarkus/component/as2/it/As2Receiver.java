@@ -54,10 +54,15 @@ import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 public class As2Receiver {
     private static final String SERVER_FQDN = "server.example.com";
     private static final String ORIGIN_SERVER_NAME = "AS2ClientManagerIntegrationTest Server";
+    private static final String MDN_MESSAGE_TEMPLATE = "TBD";
     private static AS2ServerConnection serverConnection;
     private static KeyPair serverSigningKP;
     private static List<X509Certificate> serverCertList;
     private static RequestHandler receiverHandler;
+
+    private static KeyPair clientKeyPair;
+    private static X509Certificate clientCert;
+
     // certificate serial number seed.
     private static int serialNo = 1;
 
@@ -67,6 +72,7 @@ public class As2Receiver {
     public static RequestHandler startReceiver(int port) throws Exception {
         if (receiverHandler == null) {
             setupServerKeysAndCertificates();
+            setupClientKeysAndCertificates();
             receiverHandler = receiveTestMessages(port);
         }
         return receiverHandler;
@@ -101,10 +107,33 @@ public class As2Receiver {
         serverCertList.add(issueCert);
     }
 
+    private static void setupClientKeysAndCertificates() throws Exception {
+        //
+        // set up our certificates
+        //
+        KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA", "BC");
+
+        kpg.initialize(1024, new SecureRandom());
+
+        String issueDN = "O=Punkhorn Software, C=US";
+        KeyPair issueKP = kpg.generateKeyPair();
+        X509Certificate issueCert = Utils.makeCertificate(
+                issueKP, issueDN, issueKP, issueDN);
+
+        //
+        // certificate we sign against
+        //
+        String signingDN = "CN=William J. Collins, E=punkhornsw@gmail.com, O=Punkhorn Software, C=US";
+        clientKeyPair = kpg.generateKeyPair();
+        clientCert = Utils.makeCertificate(clientKeyPair, signingDN, issueKP, issueDN);
+    }
+
     private static RequestHandler receiveTestMessages(int port) throws IOException {
         serverConnection = new AS2ServerConnection(As2Helper.AS2_VERSION, ORIGIN_SERVER_NAME,
                 SERVER_FQDN, port, AS2SignatureAlgorithm.SHA256WITHRSA,
-                serverCertList.toArray(new Certificate[0]), serverSigningKP.getPrivate(), serverSigningKP.getPrivate(), null);
+                serverCertList.toArray(new Certificate[0]), serverSigningKP.getPrivate(), serverSigningKP.getPrivate(),
+                MDN_MESSAGE_TEMPLATE,
+                new Certificate[] { clientCert });
 
         RequestHandler handler = new RequestHandler();
         serverConnection.listen("/", handler);

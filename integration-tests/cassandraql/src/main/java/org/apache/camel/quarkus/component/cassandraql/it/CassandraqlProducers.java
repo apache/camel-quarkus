@@ -20,10 +20,9 @@ import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Named;
-
 import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.CqlSessionBuilder;
+import jakarta.inject.Named;
 import org.apache.camel.component.cassandra.ResultSetConversionStrategy;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 

@@ -16,10 +16,9 @@
  */
 package org.apache.camel.quarkus.component.bean;
 
-import javax.enterprise.context.ApplicationScoped;
-
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import io.smallrye.common.annotation.Identifier;
+import jakarta.enterprise.context.ApplicationScoped;
 
 /**
  * A bean referenced from a route (and from nowhere else) by its identifier.

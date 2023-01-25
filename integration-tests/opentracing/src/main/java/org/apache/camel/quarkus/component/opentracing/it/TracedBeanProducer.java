@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.opentracing.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Singleton;
 
 import io.opentracing.Tracer;
 import io.opentracing.mock.MockTracer;

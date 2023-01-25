@@ -28,16 +28,11 @@ import org.apache.http.entity.ContentType;
 
 public class As2Sender {
 
-    private static final String TARGET_HOST = "localhost";
-    private static final String USER_AGENT = "Camel AS2 Endpoint";
-    private static final String CLIENT_FQDN = "example.org";
-
     private As2Sender() {
     }
 
     public static As2SenderClient createClient(int port) throws IOException {
-        AS2ClientConnection clientConnection = new AS2ClientConnection(As2Helper.AS2_VERSION, USER_AGENT, CLIENT_FQDN,
-                TARGET_HOST, port);
+        AS2ClientConnection clientConnection = As2CertificateHelper.createClientConnection(port);
         AS2ClientManager clientManager = new AS2ClientManager(clientConnection);
 
         return ediMessage -> clientManager.send(ediMessage, As2Helper.REQUEST_URI, As2Helper.SUBJECT, As2Helper.FROM,

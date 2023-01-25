@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.soap.it;
 
-import javax.inject.Named;
+import jakarta.inject.Named;
 import javax.xml.namespace.QName;
 
 import org.apache.camel.Processor;

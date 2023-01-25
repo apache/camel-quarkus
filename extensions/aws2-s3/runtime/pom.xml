@@ -54,6 +54,11 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jaxp</artifactId>
         </dependency>
+        <dependency>
+            <!-- An optional dep of s3. If we do not have it here, GraalVM complains about missing classes from aws-crt -->
+            <groupId>software.amazon.awssdk.crt</groupId>
+            <artifactId>aws-crt</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

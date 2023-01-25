@@ -16,10 +16,9 @@
  */
 package org.apache.camel.quarkus.component.ignite.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import javax.inject.Named;
-
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Named;
 import org.apache.camel.Component;
 import org.apache.camel.component.ignite.AbstractIgniteComponent.IgniteLifecycleMode;
 import org.apache.camel.component.ignite.cache.IgniteCacheComponent;

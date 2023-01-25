@@ -18,8 +18,7 @@ package org.apache.camel.quarkus.component.master.it;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.enterprise.context.ApplicationScoped;
-
+import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.file.cluster.FileLockClusterService;

@@ -16,11 +16,10 @@
  */
 package org.apache.camel.quarkus.core.runtime;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
 import io.quarkus.test.QuarkusUnitTest;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.log.LogComponent;
 import org.apache.camel.spi.ExchangeFormatter;

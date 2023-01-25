@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.xstream.it;
 
-import javax.json.bind.JsonbBuilder;
+import jakarta.json.bind.JsonbBuilder;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;

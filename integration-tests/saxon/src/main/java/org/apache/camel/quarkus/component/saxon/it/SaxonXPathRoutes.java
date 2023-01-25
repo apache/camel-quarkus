@@ -16,8 +16,7 @@
  */
 package org.apache.camel.quarkus.component.saxon.it;
 
-import javax.enterprise.context.ApplicationScoped;
-
+import jakarta.enterprise.context.ApplicationScoped;
 import net.sf.saxon.xpath.XPathFactoryImpl;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.language.xpath.XPathBuilder;

@@ -19,8 +19,6 @@ package org.apache.camel.quarkus.component.fhir.deployment.dstu2;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.inject.Singleton;
-
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.dstu2.resource.BaseResource;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
@@ -31,6 +29,7 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import jakarta.inject.Singleton;
 import org.apache.camel.quarkus.component.fhir.FhirContextRecorder;
 import org.apache.camel.quarkus.component.fhir.FhirFlags;
 

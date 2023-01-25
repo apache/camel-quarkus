@@ -18,12 +18,11 @@ package org.apache.camel.quarkus.component.opentelemetry;
 
 import java.util.LinkedHashSet;
 
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import io.opentelemetry.api.trace.Tracer;
 import io.quarkus.arc.DefaultBean;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import org.apache.camel.opentelemetry.CamelQuarkusOpenTelemetryTracer;
 import org.apache.camel.opentelemetry.OpenTelemetryTracer;
 

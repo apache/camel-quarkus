@@ -18,18 +18,17 @@ package org.apache.camel.quarkus.messaging.jms;
 
 import java.util.Set;
 
-import javax.inject.Named;
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
-import javax.jms.Destination;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.Session;
-import javax.jms.TextMessage;
-import javax.transaction.TransactionManager;
-import javax.transaction.UserTransaction;
-
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.inject.Named;
+import jakarta.jms.Connection;
+import jakarta.jms.ConnectionFactory;
+import jakarta.jms.Destination;
+import jakarta.jms.JMSException;
+import jakarta.jms.Message;
+import jakarta.jms.Session;
+import jakarta.jms.TextMessage;
+import jakarta.transaction.TransactionManager;
+import jakarta.transaction.UserTransaction;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.jms.JmsConstants;

@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.cxf.soap.server.it;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 
 @WebService(targetNamespace = EchoService.TARGET_NS, name = "EchoService")
 public interface EchoService {

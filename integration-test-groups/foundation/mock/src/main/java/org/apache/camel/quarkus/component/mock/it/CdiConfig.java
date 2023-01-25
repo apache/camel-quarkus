@@ -18,9 +18,8 @@ package org.apache.camel.quarkus.component.mock.it;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
 import org.apache.camel.component.mock.MockComponent;
 import org.apache.camel.quarkus.core.events.ComponentAddEvent;
 import org.apache.camel.spi.CamelEvent.CamelContextStartedEvent;

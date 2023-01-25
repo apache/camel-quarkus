@@ -16,11 +16,10 @@
  */
 package org.apache.camel.quarkus.component.dataformats.json;
 
-import javax.inject.Singleton;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import io.quarkus.jackson.ObjectMapperCustomizer;
+import jakarta.inject.Singleton;
 
 @Singleton
 public class RegisterSnakeCaseCustomizer implements ObjectMapperCustomizer {

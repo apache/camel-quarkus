@@ -16,8 +16,7 @@
  */
 package org.apache.camel.quarkus.core.languages.it;
 
-import javax.inject.Singleton;
-
+import jakarta.inject.Singleton;
 import org.apache.camel.builder.RouteBuilder;
 
 @Singleton

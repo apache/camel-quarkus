@@ -16,13 +16,12 @@
  */
 package org.apache.camel.quarkus.component.jta;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Alternative;
-import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
-import javax.transaction.TransactionManager;
-
 import io.quarkus.arc.Priority;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Alternative;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Singleton;
+import jakarta.transaction.TransactionManager;
 import org.mockito.Mockito;
 
 @ApplicationScoped

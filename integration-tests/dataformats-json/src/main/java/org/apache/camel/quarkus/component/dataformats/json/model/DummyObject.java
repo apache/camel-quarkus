@@ -18,22 +18,17 @@ package org.apache.camel.quarkus.component.dataformats.json.model;
 
 import java.util.Date;
 
-import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbTransient;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.runtime.annotations.RegisterForReflection;
-import org.apache.johnzon.mapper.JohnzonIgnore;
-import org.apache.johnzon.mapper.JohnzonProperty;
+import jakarta.json.bind.annotation.JsonbProperty;
+import jakarta.json.bind.annotation.JsonbTransient;
 
 @RegisterForReflection
 public class DummyObject {
 
-    @JohnzonProperty("dummy_string")
     @JsonbProperty("dummy_string")
     private String dummyString;
 
-    @JohnzonIgnore
     @JsonIgnore
     @ExcludeField
     @JsonbTransient

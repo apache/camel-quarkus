@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.soap.deployment;
 
-import javax.xml.ws.WebFault;
+import jakarta.xml.ws.WebFault;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;

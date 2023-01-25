@@ -16,8 +16,8 @@
  */
 package org.apache.camel.quarkus.component.jta;
 
-import javax.inject.Named;
-import javax.transaction.Transaction;
+import jakarta.inject.Named;
+import jakarta.transaction.Transaction;
 
 @Named("PROPAGATION_REQUIRES_NEW")
 public final class RequiresNewJtaTransactionPolicy extends TransactionalJtaTransactionPolicy {

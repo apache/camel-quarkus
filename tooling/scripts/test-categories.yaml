@@ -17,7 +17,6 @@
 
 # Association of test categories and integration test modules. Used by GitHub workflows. Keep sorted alphabetically.
 group-01:
-  - avro-rpc
   - caffeine
   - git
   - google-storage
@@ -32,7 +31,6 @@ group-01:
   - mllp
 group-02:
   - aws2
-  - elasticsearch-rest
   - google-bigquery
   - google-pubsub
   - grpc
@@ -43,7 +41,6 @@ group-02:
   - oaipmh
   - pubnub
   - protobuf
-  - smallrye-reactive-messaging
   - solr
   - sql
 group-03:
@@ -53,7 +50,6 @@ group-03:
   - freemarker
   - json-validator
   - main
-  - main-caffeine-lrucache
   - main-collector
   - main-command-mode
   - main-devmode
@@ -84,16 +80,11 @@ group-05:
   - bindy
   - cbor
   - csv
-  - cxf-soap-grouped
   - dataformat
-  - datasonnet
   - hl7
   - jaxb
   - ssh
-  - soap
   - syslog
-  - xmlsecurity
-  - xstream
 group-06:
   - exec
   - file
@@ -106,7 +97,6 @@ group-06:
   - openstack
   - opentelemetry
   - quartz
-  - rabbitmq
   - saga
   - sjms-qpid-amqp-client
 group-07:
@@ -117,16 +107,13 @@ group-07:
   - lumberjack
   - ognl
   - olingo4
-  - optaplanner
   - pg-replication-slot
   - sjms2-artemis-client
   - sjms2-qpid-amqp-client
-  - stax
   - weather
 group-08:
   - azure-grouped
   - crypto
-  - dozer
   - jq
   - master
   - master-file
@@ -135,12 +122,10 @@ group-08:
   - saxon
   - syndication
   - telegram
-  - tika
   - twitter
   - vertx
   - zendesk
 group-09:
-  - activemq
   - amqp
   - ftp
   - graphql
@@ -194,7 +179,6 @@ group-12:
   - knative-producer
   - microprofile
   - openapi-java
-  - opentracing
   - paho-mqtt5
   - platform-http
   - reactive-streams

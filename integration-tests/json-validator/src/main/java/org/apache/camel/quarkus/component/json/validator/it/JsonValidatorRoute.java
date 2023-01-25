@@ -16,8 +16,7 @@
  */
 package org.apache.camel.quarkus.component.json.validator.it;
 
-import javax.enterprise.context.ApplicationScoped;
-
+import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.ValidationException;
 import org.apache.camel.builder.RouteBuilder;
 

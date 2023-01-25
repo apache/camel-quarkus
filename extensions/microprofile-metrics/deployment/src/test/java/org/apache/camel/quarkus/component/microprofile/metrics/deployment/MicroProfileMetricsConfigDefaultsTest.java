@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.microprofile.metrics.deployment;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import io.quarkus.test.QuarkusUnitTest;
 import org.apache.camel.CamelContext;

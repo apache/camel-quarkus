@@ -21,10 +21,9 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Properties;
 
-import javax.inject.Inject;
-
 import io.quarkus.arc.Arc;
 import io.quarkus.test.QuarkusUnitTest;
+import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.direct.DirectComponent;
 import org.apache.camel.quarkus.main.CamelMain;

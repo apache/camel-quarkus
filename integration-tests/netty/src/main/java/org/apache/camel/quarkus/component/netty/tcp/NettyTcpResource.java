@@ -18,11 +18,10 @@ package org.apache.camel.quarkus.component.netty.tcp;
 
 import java.nio.charset.StandardCharsets;
 
-import javax.inject.Inject;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-
 import io.netty.buffer.ByteBuf;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
