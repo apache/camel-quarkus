@@ -56,9 +56,11 @@ class RestTest {
                 .body(body)
                 .request(method, "/rest")
                 .then()
+                .header("Access-Control-Allow-Credentials", equalTo("true"))
                 .header("Access-Control-Allow-Headers", matchesPattern(".*Access-Control.*"))
-                .header("Access-Control-Allow-Methods", matchesPattern("GET, POST"))
-                .header("Access-Control-Allow-Credentials", equalTo("true"));
+                .header("Access-Control-Allow-Methods", equalTo("GET, POST"))
+                .header("Access-Control-Allow-Origin", equalTo("*"))
+                .header("Access-Control-Max-Age", equalTo("3600"));
 
         if (method.equals("HEAD")) {
             // Response body is ignored for HEAD so verify response headers
@@ -245,5 +247,18 @@ class RestTest {
             Files.deleteIfExists(txtFile);
             Files.deleteIfExists(csvFile);
         }
+    }
+
+    @Test
+    public void corsOptionsRequest() {
+        RestAssured.given()
+                .options("/rest")
+                .then()
+                .header("Access-Control-Allow-Credentials", equalTo("true"))
+                .header("Access-Control-Allow-Headers", matchesPattern(".*Access-Control.*"))
+                .header("Access-Control-Allow-Methods", equalTo("GET, POST"))
+                .header("Access-Control-Allow-Origin", equalTo("*"))
+                .header("Access-Control-Max-Age", equalTo("3600"))
+                .statusCode(204);
     }
 }
