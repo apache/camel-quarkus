@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.cxf.soap.server.it;
 
-import javax.xml.ws.BindingProvider;
+import jakarta.xml.ws.BindingProvider;
 
 import com.helloworld.service.HelloPortType;
 import com.helloworld.service.HelloService;

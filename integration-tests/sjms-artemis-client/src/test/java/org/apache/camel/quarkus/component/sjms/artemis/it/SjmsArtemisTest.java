@@ -31,6 +31,6 @@ class SjmsArtemisTest extends AbstractSjmsMessagingTest {
         RestAssured.get("/messaging/sjms/artemis/connection/factory")
                 .then()
                 .statusCode(200)
-                .body(startsWith("javax.jms.ConnectionFactory"));
+                .body(startsWith("jakarta.jms.ConnectionFactory"));
     }
 }

@@ -21,9 +21,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
-import javax.inject.Named;
-import javax.inject.Singleton;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 import io.netty.buffer.Unpooled;
@@ -43,6 +40,8 @@ import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.util.CharsetUtil;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.netty.ChannelHandlerFactories;
 import org.apache.camel.component.netty.ChannelHandlerFactory;

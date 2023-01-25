@@ -16,10 +16,9 @@
  */
 package org.apache.camel.quarkus.component.master.it;
 
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-
+import jakarta.inject.Inject;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
 import org.apache.camel.CamelContext;
 
 @Path("/master")

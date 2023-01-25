@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.cxf.soap.mtom.it;
 
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlType;
 
 @XmlType(name = "imageFile")
 public class ImageFile {

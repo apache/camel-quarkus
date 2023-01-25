@@ -23,11 +23,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import io.quarkus.test.QuarkusUnitTest;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.quarkus.main.CamelMain;

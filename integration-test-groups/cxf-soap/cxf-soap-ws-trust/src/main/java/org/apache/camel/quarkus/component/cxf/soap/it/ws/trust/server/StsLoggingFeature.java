@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.cxf.soap.it.ws.trust.server;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import io.quarkus.arc.Unremovable;
 import org.apache.cxf.ext.logging.LoggingFeature;

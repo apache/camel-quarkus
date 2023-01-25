@@ -19,15 +19,14 @@ package org.apache.camel.quarkus.component.quartz.it;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
-
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
@@ -44,7 +43,7 @@ public class QuartzResource {
     @Inject
     ConsumerTemplate consumerTemplate;
 
-    @javax.enterprise.inject.Produces
+    @jakarta.enterprise.inject.Produces
     @Singleton
     @Named("quartzFromProperties")
     public QuartzComponent createQuartzFromProperties() {

@@ -16,9 +16,8 @@
  */
 package org.apache.camel.quarkus.component.saxon.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 import net.sf.saxon.Configuration;
 import org.apache.camel.builder.RouteBuilder;
 

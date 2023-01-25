@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.elasticsearch.rest.it;
 
-import javax.inject.Named;
+import jakarta.inject.Named;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.elasticsearch.ElasticsearchComponent;

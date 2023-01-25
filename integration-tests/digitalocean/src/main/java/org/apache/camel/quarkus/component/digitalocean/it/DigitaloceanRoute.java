@@ -18,10 +18,9 @@ package org.apache.camel.quarkus.component.digitalocean.it;
 
 import java.util.Optional;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-
 import com.myjeeva.digitalocean.impl.DigitalOceanClient;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 import org.apache.camel.builder.RouteBuilder;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.config.inject.ConfigProperty;

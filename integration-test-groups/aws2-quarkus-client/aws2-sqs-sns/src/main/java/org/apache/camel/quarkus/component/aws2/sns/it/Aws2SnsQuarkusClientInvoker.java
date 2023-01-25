@@ -16,9 +16,8 @@
  */
 package org.apache.camel.quarkus.component.aws2.sns.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sqs.SqsClient;
 

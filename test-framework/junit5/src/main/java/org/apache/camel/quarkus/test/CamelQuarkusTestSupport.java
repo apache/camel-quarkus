@@ -19,11 +19,10 @@ package org.apache.camel.quarkus.test;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import io.quarkus.test.junit.QuarkusTestProfile;
 import io.quarkus.test.junit.callback.QuarkusTestContext;
 import io.quarkus.test.junit.callback.QuarkusTestMethodContext;
+import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Route;
 import org.apache.camel.Service;

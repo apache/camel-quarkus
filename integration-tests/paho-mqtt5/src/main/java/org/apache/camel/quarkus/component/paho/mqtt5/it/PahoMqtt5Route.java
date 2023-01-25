@@ -17,9 +17,8 @@
 
 package org.apache.camel.quarkus.component.paho.mqtt5.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.apache.camel.Route;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.spi.SupervisingRouteController;

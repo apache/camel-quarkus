@@ -16,12 +16,11 @@
  */
 package org.apache.camel.quarkus.grpc.runtime;
 
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
-
 import io.grpc.BindableService;
+import jakarta.enterprise.inject.Instance;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.grpc.GrpcConsumer;
 import org.apache.camel.component.grpc.GrpcEndpoint;

@@ -19,8 +19,6 @@ package org.apache.camel.quarkus.component.quartz;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
 
-import javax.enterprise.inject.AmbiguousResolutionException;
-
 import io.quarkus.arc.Arc;
 import io.quarkus.arc.InjectableInstance;
 import io.quarkus.arc.InstanceHandle;
@@ -28,6 +26,7 @@ import io.quarkus.quartz.QuartzScheduler;
 import io.quarkus.quartz.runtime.QuartzSchedulerImpl;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
+import jakarta.enterprise.inject.AmbiguousResolutionException;
 import org.apache.camel.component.quartz.QuartzComponent;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;

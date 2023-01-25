@@ -16,10 +16,9 @@
  */
 package org.apache.camel.quarkus.component.saxon.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 import org.apache.camel.component.xquery.XQuery;
 import org.jboss.logging.Logger;
 

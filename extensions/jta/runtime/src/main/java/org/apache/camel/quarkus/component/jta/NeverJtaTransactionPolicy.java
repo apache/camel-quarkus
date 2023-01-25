@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.jta;
 
-import javax.inject.Named;
+import jakarta.inject.Named;
 
 @Named("PROPAGATION_NEVER")
 public final class NeverJtaTransactionPolicy extends TransactionalJtaTransactionPolicy {

@@ -16,12 +16,12 @@
  */
 package org.apache.camel.quarkus.component.soap.it.multipart;
 
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebResult;
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
-import javax.xml.bind.annotation.XmlSeeAlso;
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebParam;
+import jakarta.jws.WebResult;
+import jakarta.jws.WebService;
+import jakarta.jws.soap.SOAPBinding;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
 
 @WebService(targetNamespace = "http://multipart.it.soap.component.quarkus.camel.apache.org/", name = "MultiPartCustomerService")
 @XmlSeeAlso({ ObjectFactory.class })
@@ -33,14 +33,14 @@ public interface MultiPartCustomerService {
 
             @WebParam(partName = "parameters", name = "saveCustomerToo", targetNamespace = "http://multipart.it.soap.component.quarkus.camel.apache.org/") SaveCustomer parameters,
             @WebParam(partName = "product", name = "product", targetNamespace = "http://multipart.it.soap.component.quarkus.camel.apache.org/", header = true) Product product,
-            @WebParam(partName = "company", mode = WebParam.Mode.INOUT, name = "company", targetNamespace = "http://multipart.it.soap.component.quarkus.camel.apache.org/", header = true) javax.xml.ws.Holder<Company> company);
+            @WebParam(partName = "company", mode = WebParam.Mode.INOUT, name = "company", targetNamespace = "http://multipart.it.soap.component.quarkus.camel.apache.org/", header = true) jakarta.xml.ws.Holder<Company> company);
 
     @WebMethod(action = "http://multipart.it.soap.component.quarkus.camel.apache.org/saveCustomer")
     public void saveCustomer(
 
             @WebParam(partName = "parameters", name = "saveCustomer", targetNamespace = "http://multipart.it.soap.component.quarkus.camel.apache.org/") SaveCustomer parameters,
             @WebParam(partName = "product", name = "product", targetNamespace = "http://multipart.it.soap.component.quarkus.camel.apache.org/", header = true) Product product,
-            @WebParam(partName = "company", mode = WebParam.Mode.INOUT, name = "company", targetNamespace = "http://multipart.it.soap.component.quarkus.camel.apache.org/", header = true) javax.xml.ws.Holder<Company> company);
+            @WebParam(partName = "company", mode = WebParam.Mode.INOUT, name = "company", targetNamespace = "http://multipart.it.soap.component.quarkus.camel.apache.org/", header = true) jakarta.xml.ws.Holder<Company> company);
 
     @WebMethod(action = "http://multipart.it.soap.component.quarkus.camel.apache.org/getCustomersByName")
     @WebResult(name = "getCustomersByNameResponse", targetNamespace = "http://multipart.it.soap.component.quarkus.camel.apache.org/", partName = "parameters")
@@ -53,6 +53,6 @@ public interface MultiPartCustomerService {
     @WebMethod(action = "http://multipart.it.soap.component.quarkus.camel.apache.org/getAllCustomers")
     public void getAllCustomers(
 
-            @WebParam(partName = "parameters", mode = WebParam.Mode.OUT, name = "getAllCustomersResponse", targetNamespace = "http://multipart.it.soap.component.quarkus.camel.apache.org/") javax.xml.ws.Holder<GetAllCustomersResponse> parameters,
-            @WebParam(partName = "companyType", mode = WebParam.Mode.OUT, name = "companyType", targetNamespace = "http://multipart.it.soap.component.quarkus.camel.apache.org/") javax.xml.ws.Holder<CompanyType> companyType);
+            @WebParam(partName = "parameters", mode = WebParam.Mode.OUT, name = "getAllCustomersResponse", targetNamespace = "http://multipart.it.soap.component.quarkus.camel.apache.org/") jakarta.xml.ws.Holder<GetAllCustomersResponse> parameters,
+            @WebParam(partName = "companyType", mode = WebParam.Mode.OUT, name = "companyType", targetNamespace = "http://multipart.it.soap.component.quarkus.camel.apache.org/") jakarta.xml.ws.Holder<CompanyType> companyType);
 }

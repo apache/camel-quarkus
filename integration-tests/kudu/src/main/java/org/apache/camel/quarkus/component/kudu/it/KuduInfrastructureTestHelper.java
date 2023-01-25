@@ -21,10 +21,9 @@ import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-
 import io.quarkus.runtime.StartupEvent;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
 import org.jboss.logging.Logger;
 
 /**

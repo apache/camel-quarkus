@@ -16,9 +16,8 @@
  */
 package org.apache.camel.quarkus.component.digitalocean.it;
 
-import javax.enterprise.context.ApplicationScoped;
-
 import com.myjeeva.digitalocean.impl.DigitalOceanClient;
+import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class MockApiService {

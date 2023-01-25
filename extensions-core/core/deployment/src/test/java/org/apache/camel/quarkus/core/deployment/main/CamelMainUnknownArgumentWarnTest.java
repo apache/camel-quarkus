@@ -23,9 +23,8 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Properties;
 
-import javax.inject.Inject;
-
 import io.quarkus.test.QuarkusUnitTest;
+import jakarta.inject.Inject;
 import org.apache.camel.quarkus.main.CamelMain;
 import org.apache.camel.util.StringHelper;
 import org.jboss.shrinkwrap.api.ShrinkWrap;

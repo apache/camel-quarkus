@@ -59,6 +59,10 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jsonb</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-grpc</artifactId>
+        </dependency>
 
         <!-- test dependencies -->
         <dependency>
@@ -112,55 +116,7 @@
                             <source>
                                 String platformUnsupported = project.properties['os.detected.classifier'].matches('^.*?(linux|windows|osx)-x86.*$') ? 'false' : 'true'
                                 project.properties['skipTests'] = platformUnsupported
-                                project.properties['cq.skip.protobuf'] = platformUnsupported || project.properties.containsKey('quickly')
                             </source>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.xolstice.maven.plugins</groupId>
-                <artifactId>protobuf-maven-plugin</artifactId>
-                <extensions>true</extensions>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>compile-custom</goal>
-                        </goals>
-                        <phase>generate-sources</phase>
-                        <configuration>
-                            <protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
-                            <pluginId>grpc-java</pluginId>
-                            <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
-                            <checkStaleness>true</checkStaleness>
-                            <skip>${cq.skip.protobuf}</skip>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>default-compile</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <skipMain>${cq.skip.protobuf}</skipMain>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>default-testCompile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>testCompile</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${cq.skip.protobuf}</skip>
                         </configuration>
                     </execution>
                 </executions>

@@ -1,0 +1,94 @@
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<enforcer>
+    <rules>
+        <!-- Camel Quarkus specific dependency bans -->
+        <bannedDependencies>
+            <excludes>
+                <exclude>org.springframework:*</exclude>
+                <exclude>org.springframework.amqp:*</exclude>
+                <exclude>org.springframework.analytics:*</exclude>
+                <exclude>org.springframework.android:*</exclude>
+                <exclude>org.springframework.aws:*</exclude>
+                <exclude>org.springframework.batch:*</exclude>
+                <exclude>org.springframework.beandoc:*</exclude>
+                <exclude>org.springframework.boot:*</exclude>
+                <exclude>org.springframework.build:*</exclude>
+                <exclude>org.springframework.cloud:*</exclude>
+                <exclude>org.springframework.commons:*</exclude>
+                <exclude>org.springframework.credhub:*</exclude>
+                <exclude>org.springframework.data:*</exclude>
+                <exclude>org.springframework.experimental:*</exclude>
+                <exclude>org.springframework.flex:*</exclude>
+                <exclude>org.springframework.framework-docs:*</exclude>
+                <exclude>org.springframework.geode:*</exclude>
+                <exclude>org.springframework.graphql:*</exclude>
+                <exclude>org.springframework.guice:*</exclude>
+                <exclude>org.springframework.hateoas:*</exclude>
+                <exclude>org.springframework.integration:*</exclude>
+                <exclude>org.springframework.javaconfig:*</exclude>
+                <exclude>org.springframework.kafka:*</exclude>
+                <exclude>org.springframework.ldap:*</exclude>
+                <exclude>org.springframework.maven:*</exclude>
+                <exclude>org.springframework.metrics:*</exclude>
+                <exclude>org.springframework.mobile:*</exclude>
+                <exclude>org.springframework.osgi:*</exclude>
+                <exclude>org.springframework.plugin:*</exclude>
+                <exclude>org.springframework.pulsar:*</exclude>
+                <exclude>org.springframework.restdocs:*</exclude>
+                <exclude>org.springframework.retry:*</exclude>
+                <exclude>org.springframework.roo:*</exclude>
+                <exclude>org.springframework.security:*</exclude>
+                <exclude>org.springframework.session:*</exclude>
+                <exclude>org.springframework.shell:*</exclude>
+                <exclude>org.springframework.social:*</exclude>
+                <exclude>org.springframework.spring:*</exclude>
+                <exclude>org.springframework.springloaded:*</exclude>
+                <exclude>org.springframework.statemachine:*</exclude>
+                <exclude>org.springframework.various:*</exclude>
+                <exclude>org.springframework.vault:*</exclude>
+                <exclude>org.springframework.webflow:*</exclude>
+                <exclude>org.springframework.ws:*</exclude>
+                <exclude>org.springframework.xd:*</exclude>
+            </excludes>
+            <includes><!-- These and no other spring dependecies are allowed -->
+                <include>org.springframework:spring-aop</include>
+                <include>org.springframework:spring-expression</include><!-- required by rabbitmq-spring -->
+                <include>org.springframework:spring-jdbc</include>
+                <include>org.springframework:spring-jms</include>
+                <include>org.springframework:spring-messaging</include>
+                <include>org.springframework:spring-orm</include><!-- required by camel-jpa -->
+                <include>org.springframework:spring-tx</include>
+                <include>org.springframework.amqp:spring-amqp</include>
+                <include>org.springframework.amqp:spring-rabbit</include>
+                <include>org.springframework.retry:spring-retry</include>
+                <include>org.springframework.vault:spring-vault-core</include><!-- required by camel-hashicorp-vault -->
+                <!-- Also note that the following Spring artifacts are available (shaded)
+                     via camel-quarkus-support-spring so they should be kept banned
+                     and camel-quarkus-support-spring should be used instead:
+                        org.springframework:spring-beans
+                        org.springframework:spring-context
+                        org.springframework:spring-core
+                        org.springframework:spring-expression
+                        org.springframework:spring-jcl
+                 -->
+            </includes>
+        </bannedDependencies>
+    </rules>
+</enforcer>

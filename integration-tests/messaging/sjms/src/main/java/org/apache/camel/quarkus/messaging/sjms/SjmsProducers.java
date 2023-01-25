@@ -16,9 +16,8 @@
  */
 package org.apache.camel.quarkus.messaging.sjms;
 
-import javax.inject.Named;
-
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.inject.Named;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.sjms.SjmsConstants;
 

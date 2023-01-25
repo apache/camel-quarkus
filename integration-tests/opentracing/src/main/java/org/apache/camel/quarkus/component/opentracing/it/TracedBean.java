@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.opentracing.it;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import io.opentracing.Span;
 import org.eclipse.microprofile.opentracing.Traced;

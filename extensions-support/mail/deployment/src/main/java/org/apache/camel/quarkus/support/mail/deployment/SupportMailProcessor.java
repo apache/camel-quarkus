@@ -31,8 +31,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-import javax.mail.Provider;
-
 import com.sun.mail.handlers.handler_base;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -41,6 +39,7 @@ import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import jakarta.mail.Provider;
 import org.jboss.jandex.DotName;
 
 class SupportMailProcessor {
@@ -48,7 +47,7 @@ class SupportMailProcessor {
     @BuildStep
     void process(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
             BuildProducer<NativeImageResourceBuildItem> resource) {
-        List<String> providers = resources("META-INF/services/javax.mail.Provider")
+        List<String> providers = resources("META-INF/services/jakarta.mail.Provider")
                 .flatMap(this::lines)
                 .filter(s -> !s.startsWith("#"))
                 .collect(Collectors.toList());
@@ -85,7 +84,7 @@ class SupportMailProcessor {
                         .toArray(String[]::new)));
 
         resource.produce(new NativeImageResourceBuildItem(
-                "META-INF/services/javax.mail.Provider",
+                "META-INF/services/jakarta.mail.Provider",
                 "META-INF/javamail.charset.map",
                 "META-INF/javamail.default.address.map",
                 "META-INF/javamail.default.providers",
@@ -96,7 +95,7 @@ class SupportMailProcessor {
 
     @BuildStep
     IndexDependencyBuildItem indexDependencies() {
-        return new IndexDependencyBuildItem("com.sun.mail", "jakarta.mail");
+        return new IndexDependencyBuildItem("org.eclipse.angus", "angus-mail");
     }
 
     @BuildStep

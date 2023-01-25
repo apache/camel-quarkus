@@ -18,13 +18,12 @@ package org.apache.camel.quarkus.component.caffeine.it;
 
 import java.util.Locale;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.CacheLoader;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 
 @ApplicationScoped
 public class CaffeineCaches {

@@ -49,13 +49,8 @@
             <artifactId>camel-atom</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.graalvm.nativeimage</groupId>
-            <artifactId>svm</artifactId>
-            <scope>provided</scope>
+            <groupId>org.eclipse.angus</groupId>
+            <artifactId>angus-activation</artifactId>
         </dependency>
     </dependencies>
 

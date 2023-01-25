@@ -18,9 +18,8 @@ package org.apache.camel.quarkus.component.http.it;
 
 import java.io.InputStream;
 
-import javax.inject.Named;
-
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.inject.Named;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;

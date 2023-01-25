@@ -22,14 +22,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
-
 import com.hazelcast.collection.ItemEvent;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.topic.impl.DataAwareMessage;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
@@ -314,7 +313,7 @@ public class HazelcastRoutes extends RouteBuilder {
     }
 
     static class Producers {
-        @javax.enterprise.inject.Produces
+        @jakarta.enterprise.inject.Produces
         @Singleton
         @Named("hazelcastResults")
         Map<String, List<String>> hazelcastResults() {

@@ -16,8 +16,7 @@
  */
 package org.apache.camel.quarkus.component.bean.consume;
 
-import javax.inject.Named;
-
+import jakarta.inject.Named;
 import org.apache.camel.Consume;
 
 /**

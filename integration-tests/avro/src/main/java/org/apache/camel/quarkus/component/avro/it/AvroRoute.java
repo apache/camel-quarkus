@@ -16,9 +16,8 @@
  */
 package org.apache.camel.quarkus.component.avro.it;
 
-import javax.enterprise.context.ApplicationScoped;
-
 import example.avro.Admin;
+import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.dataformat.avro.AvroDataFormat;
 

@@ -24,10 +24,9 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
-import javax.inject.Named;
-import javax.inject.Singleton;
-
 import io.quarkus.test.QuarkusDevModeTest;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 import org.apache.camel.builder.RouteBuilder;
 import org.awaitility.Awaitility;
 import org.jboss.shrinkwrap.api.ShrinkWrap;

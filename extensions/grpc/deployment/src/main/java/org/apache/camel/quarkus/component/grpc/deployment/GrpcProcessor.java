@@ -20,8 +20,6 @@ import java.lang.reflect.Modifier;
 import java.util.Collection;
 import java.util.List;
 
-import javax.enterprise.context.Dependent;
-
 import io.grpc.BindableService;
 import io.grpc.stub.AbstractAsyncStub;
 import io.grpc.stub.AbstractBlockingStub;
@@ -41,6 +39,7 @@ import io.quarkus.gizmo.FieldCreator;
 import io.quarkus.gizmo.MethodCreator;
 import io.quarkus.gizmo.MethodDescriptor;
 import io.quarkus.gizmo.ResultHandle;
+import jakarta.enterprise.context.Dependent;
 import org.apache.camel.component.grpc.server.GrpcMethodHandler;
 import org.apache.camel.quarkus.grpc.runtime.CamelQuarkusBindableService;
 import org.apache.camel.quarkus.grpc.runtime.QuarkusBindableServiceFactory;

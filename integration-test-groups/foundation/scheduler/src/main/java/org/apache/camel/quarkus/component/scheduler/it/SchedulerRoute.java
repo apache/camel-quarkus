@@ -18,10 +18,9 @@ package org.apache.camel.quarkus.component.scheduler.it;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.apache.camel.builder.RouteBuilder;
 
 @ApplicationScoped

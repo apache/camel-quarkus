@@ -22,10 +22,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.activation.DataHandler;
-
 import io.quarkus.security.identity.SecurityIdentity;
 import io.quarkus.vertx.http.runtime.security.QuarkusHttpUser;
+import jakarta.activation.DataHandler;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.attachment.AttachmentMessage;

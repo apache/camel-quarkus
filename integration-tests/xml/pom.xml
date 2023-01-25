@@ -45,8 +45,12 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-stax</artifactId>
+            <artifactId>camel-quarkus-language</artifactId>
         </dependency>
+        <!--<dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-stax</artifactId>
+        </dependency>-->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-bean</artifactId>
@@ -63,10 +67,10 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-seda</artifactId>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-support-stax</artifactId>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-integration-tests-support-xslt</artifactId>
@@ -174,32 +178,6 @@
                 <dependency>
                     <groupId>org.apache.camel.quarkus</groupId>
                     <artifactId>camel-quarkus-seda-deployment</artifactId>
-                    <version>${project.version}</version>
-                    <type>pom</type>
-                    <scope>test</scope>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>*</groupId>
-                            <artifactId>*</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.camel.quarkus</groupId>
-                    <artifactId>camel-quarkus-stax-deployment</artifactId>
-                    <version>${project.version}</version>
-                    <type>pom</type>
-                    <scope>test</scope>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>*</groupId>
-                            <artifactId>*</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.camel.quarkus</groupId>
-                    <artifactId>camel-quarkus-support-stax-deployment</artifactId>
                     <version>${project.version}</version>
                     <type>pom</type>
                     <scope>test</scope>

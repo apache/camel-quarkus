@@ -16,9 +16,8 @@
  */
 package org.apache.camel.quarkus.component.controlbus.it;
 
-import javax.enterprise.context.ApplicationScoped;
-
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.spi.RouteController;
 

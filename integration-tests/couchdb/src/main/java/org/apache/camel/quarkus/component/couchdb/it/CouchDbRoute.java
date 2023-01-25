@@ -16,10 +16,9 @@
  */
 package org.apache.camel.quarkus.component.couchdb.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
 import com.google.gson.JsonObject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.apache.camel.builder.RouteBuilder;
 
 import static org.apache.camel.quarkus.component.couchdb.it.CouchdbTestDocument.fromJsonObject;

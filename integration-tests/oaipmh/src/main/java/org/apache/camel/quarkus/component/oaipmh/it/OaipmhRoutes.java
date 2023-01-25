@@ -16,8 +16,7 @@
  */
 package org.apache.camel.quarkus.component.oaipmh.it;
 
-import javax.enterprise.context.ApplicationScoped;
-
+import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.support.builder.Namespaces;
 import org.eclipse.microprofile.config.inject.ConfigProperty;

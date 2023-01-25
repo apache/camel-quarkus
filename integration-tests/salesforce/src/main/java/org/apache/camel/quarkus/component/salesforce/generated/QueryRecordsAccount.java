@@ -16,8 +16,7 @@
  */
 package org.apache.camel.quarkus.component.salesforce.generated;
 
-import javax.annotation.Generated;
-
+import jakarta.annotation.Generated;
 import org.apache.camel.component.salesforce.api.dto.AbstractQueryRecordsBase;
 
 /**

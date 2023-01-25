@@ -22,12 +22,6 @@ import java.lang.annotation.Target;
 import java.util.Set;
 import java.util.function.Consumer;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import javax.enterprise.util.AnnotationLiteral;
-import javax.inject.Inject;
-import javax.inject.Qualifier;
-
 import io.quarkus.arc.Unremovable;
 import io.quarkus.builder.BuildChainBuilder;
 import io.quarkus.builder.BuildContext;
@@ -36,6 +30,11 @@ import io.quarkus.deployment.builditem.StaticBytecodeRecorderBuildItem;
 import io.quarkus.deployment.recording.BytecodeRecorderImpl;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.test.QuarkusUnitTest;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.enterprise.util.AnnotationLiteral;
+import jakarta.inject.Inject;
+import jakarta.inject.Qualifier;
 import org.apache.camel.CamelContext;
 import org.apache.camel.quarkus.core.CamelBeanQualifierResolver;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanQualifierResolverBuildItem;

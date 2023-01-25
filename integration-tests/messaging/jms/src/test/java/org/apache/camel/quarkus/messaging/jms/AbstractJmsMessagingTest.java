@@ -98,7 +98,7 @@ public class AbstractJmsMessagingTest extends AbstractMessagingTest {
                 .then()
                 .statusCode(201);
 
-        // Send a message with javax.jms.Destination destination header
+        // Send a message with jakarta.jms.Destination destination header
         String destinationB = "queue-" + UUID.randomUUID().toString().split("-")[0];
         RestAssured.given()
                 .queryParam("isStringDestination", "false")

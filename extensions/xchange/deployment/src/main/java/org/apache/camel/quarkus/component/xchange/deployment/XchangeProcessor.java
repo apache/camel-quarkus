@@ -78,7 +78,7 @@ class XchangeProcessor {
             }
         }
 
-        indexedDependency.produce(new IndexDependencyBuildItem("org.jboss.spec.javax.ws.rs", "jboss-jaxrs-api_2.1_spec"));
+        indexedDependency.produce(new IndexDependencyBuildItem("jakarta.ws.rs", "jakarta.ws.rs-api"));
     }
 
     @BuildStep
@@ -106,7 +106,7 @@ class XchangeProcessor {
                 .filter(ClassInfo::isAnnotation)
                 .filter(classInfo -> classInfo.firstMethod("value") != null)
                 .map(classInfo -> classInfo.name().toString())
-                .filter(className -> className.startsWith("javax.ws.rs"))
+                .filter(className -> className.startsWith("jakarta.ws.rs"))
                 .toArray(String[]::new);
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, jaxrsAnnotations));
     }
@@ -116,7 +116,7 @@ class XchangeProcessor {
             CombinedIndexBuildItem combinedIndexBuildItem) {
         // Some xchange libraries use JAX-RS proxies to interact with the exchange APIs so we need to register them
         IndexView index = combinedIndexBuildItem.getIndex();
-        index.getAnnotations(DotName.createSimple("javax.ws.rs.Path"))
+        index.getAnnotations(DotName.createSimple("jakarta.ws.rs.Path"))
                 .stream()
                 .map(AnnotationInstance::target)
                 .filter(target -> target.kind().equals(AnnotationTarget.Kind.CLASS))

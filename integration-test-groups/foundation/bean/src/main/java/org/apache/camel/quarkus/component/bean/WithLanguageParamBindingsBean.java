@@ -16,10 +16,9 @@
  */
 package org.apache.camel.quarkus.component.bean;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 import org.apache.camel.language.bean.Bean;
 import org.apache.camel.language.simple.Simple;
 

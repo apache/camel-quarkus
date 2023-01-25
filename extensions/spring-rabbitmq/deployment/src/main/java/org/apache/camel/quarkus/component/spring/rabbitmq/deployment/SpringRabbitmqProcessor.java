@@ -23,7 +23,6 @@ import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBui
 import org.springframework.amqp.rabbit.connection.ChannelProxy;
 import org.springframework.aop.SpringProxy;
 import org.springframework.aop.framework.Advised;
-import org.springframework.core.DecoratingProxy;
 
 class SpringRabbitmqProcessor {
 
@@ -40,6 +39,9 @@ class SpringRabbitmqProcessor {
         proxies.produce(new NativeImageProxyDefinitionBuildItem(
                 "org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer$ContainerDelegate",
                 SpringProxy.class.getCanonicalName(), Advised.class.getCanonicalName(),
-                DecoratingProxy.class.getCanonicalName()));
+                /* Quarkus build time container cannot load DecoratingProxy via DecoratingProxy.class
+                 * although it is present in camel-quarkus-support-spring-core that we depend on here.
+                 * It works well with string though */
+                "org.springframework.core.DecoratingProxy"));
     }
 }

@@ -46,20 +46,20 @@
         <module>main-xml-jaxb</module>
         <module>main-xml-io</module>
         <module>main-collector</module>
-        <module>main-caffeine-lrucache</module>
+        <!--<module>main-caffeine-lrucache</module>-->
         <module>main-command-mode</module>
         <module>main-unknown-args-fail</module>
         <module>main-unknown-args-ignore</module>
         <module>main-yaml</module>
 
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
-        <module>activemq</module>
+        <!--<module>activemq</module>-->
         <module>amqp</module>
         <module>arangodb</module>
         <module>as2</module>
         <module>atlasmap</module>
         <module>avro</module>
-        <module>avro-rpc</module>
+        <!--<module>avro-rpc</module>-->
         <module>aws2</module>
         <module>aws2-grouped</module>
         <module>aws2-quarkus-client-grouped</module>
@@ -78,16 +78,16 @@
         <module>crypto</module>
         <module>csimple</module>
         <module>csv</module>
-        <module>cxf-soap-grouped</module>
+        <!--<module>cxf-soap-grouped</module>-->
         <module>dataformat</module>
         <module>dataformats-json</module>
-        <module>datasonnet</module>
+        <!--<module>datasonnet</module>-->
         <module>debezium</module>
         <module>digitalocean</module>
         <module>disruptor</module>
-        <module>dozer</module>
+        <!--<module>dozer</module>-->
         <module>dropbox</module>
-        <module>elasticsearch-rest</module>
+        <!--<module>elasticsearch-rest</module>-->
         <module>exec</module>
         <module>fhir</module>
         <module>file</module>
@@ -173,8 +173,8 @@
         <module>openapi-java</module>
         <module>openstack</module>
         <module>opentelemetry</module>
-        <module>opentracing</module>
-        <module>optaplanner</module>
+        <!--<module>opentracing</module>-->
+        <!--<module>optaplanner</module>-->
         <module>paho</module>
         <module>paho-mqtt5</module>
         <module>pdf</module>
@@ -188,7 +188,7 @@
         <module>quartz</module>
         <module>quartz-clustered</module>
         <module>qute</module>
-        <module>rabbitmq</module>
+        <!--<module>rabbitmq</module>-->
         <module>reactive-streams</module>
         <module>rest</module>
         <module>rest-openapi</module>
@@ -204,20 +204,20 @@
         <module>sjms2-artemis-client</module>
         <module>sjms2-qpid-amqp-client</module>
         <module>slack</module>
-        <module>smallrye-reactive-messaging</module>
-        <module>soap</module>
+        <!--<module>smallrye-reactive-messaging</module>-->
+        <!--<module>soap</module>-->
         <module>solr</module>
         <module>splunk</module>
         <module>spring-rabbitmq</module>
         <module>sql</module>
         <module>ssh</module>
-        <module>stax</module>
+        <!--<module>stax</module>-->
         <module>stringtemplate</module>
         <module>syndication</module>
         <module>syslog</module>
         <module>tarfile</module>
         <module>telegram</module>
-        <module>tika</module>
+        <!--<module>tika</module>-->
         <module>twilio</module>
         <module>twitter</module>
         <module>univocity-parsers</module>
@@ -228,9 +228,9 @@
         <module>weather</module>
         <module>xchange</module>
         <module>xml</module>
-        <module>xmlsecurity</module>
+        <!--<module>xmlsecurity</module>-->
         <module>xpath</module>
-        <module>xstream</module>
+        <!--<module>xstream</module>-->
         <module>zendesk</module>
     </modules>
 

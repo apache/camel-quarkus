@@ -21,8 +21,7 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 
-import javax.json.Json;
-
+import jakarta.json.Json;
 import org.apache.camel.Converter;
 import org.apache.camel.quarkus.component.jaxb.it.model.pojo.PojoPerson;
 

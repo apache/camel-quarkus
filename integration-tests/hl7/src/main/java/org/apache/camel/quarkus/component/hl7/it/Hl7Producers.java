@@ -16,9 +16,6 @@
  */
 package org.apache.camel.quarkus.component.hl7.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-
 import ca.uhn.hl7v2.DefaultHapiContext;
 import ca.uhn.hl7v2.HapiContext;
 import ca.uhn.hl7v2.Version;
@@ -27,6 +24,8 @@ import ca.uhn.hl7v2.parser.Parser;
 import ca.uhn.hl7v2.validation.ValidationContext;
 import ca.uhn.hl7v2.validation.builder.ValidationRuleBuilder;
 import ca.uhn.hl7v2.validation.impl.ValidationContextFactory;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 import org.apache.camel.component.hl7.HL7DataFormat;
 import org.apache.camel.component.hl7.HL7MLLPNettyDecoderFactory;
 import org.apache.camel.component.hl7.HL7MLLPNettyEncoderFactory;

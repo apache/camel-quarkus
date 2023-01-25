@@ -19,9 +19,8 @@ package org.apache.camel.quarkus.main;
 import java.util.Set;
 import java.util.function.Supplier;
 
-import javax.enterprise.inject.spi.BeanManager;
-
 import io.quarkus.arc.Arc;
+import jakarta.enterprise.inject.spi.BeanManager;
 import org.apache.camel.CamelContext;
 import org.apache.camel.main.BaseMainSupport;
 import org.apache.camel.main.MainListener;

@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.component.aws.commons.deployment;
 
-import javax.enterprise.inject.spi.DeploymentException;
-
 import io.quarkus.arc.deployment.BeanRegistrationPhaseBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -25,6 +23,7 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
+import jakarta.enterprise.inject.spi.DeploymentException;
 import software.amazon.awssdk.http.SdkHttpService;
 
 class AwsCommonsProcessor {

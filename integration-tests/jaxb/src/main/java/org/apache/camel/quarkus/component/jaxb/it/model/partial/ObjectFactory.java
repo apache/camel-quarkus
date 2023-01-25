@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.jaxb.it.model.partial;
 
-import javax.xml.bind.annotation.XmlRegistry;
+import jakarta.xml.bind.annotation.XmlRegistry;
 
 @XmlRegistry
 public class ObjectFactory {

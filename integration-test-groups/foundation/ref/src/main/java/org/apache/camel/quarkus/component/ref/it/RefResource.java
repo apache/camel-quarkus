@@ -16,18 +16,17 @@
  */
 package org.apache.camel.quarkus.component.ref.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
-
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Endpoint;
@@ -65,35 +64,35 @@ public class RefResource {
 
     @Singleton
     @Named("direct-start-a")
-    @javax.enterprise.inject.Produces
+    @jakarta.enterprise.inject.Produces
     public Endpoint directStartA() {
         return camelContext.getEndpoint("direct:startA");
     }
 
     @Singleton
     @Named("direct-start-b")
-    @javax.enterprise.inject.Produces
+    @jakarta.enterprise.inject.Produces
     public Endpoint directStartB() {
         return camelContext.getEndpoint("direct:startB");
     }
 
     @Singleton
     @Named("seda-end-a")
-    @javax.enterprise.inject.Produces
+    @jakarta.enterprise.inject.Produces
     public Endpoint sedaEndA() {
         return camelContext.getEndpoint("seda:endA");
     }
 
     @Singleton
     @Named("seda-end-b")
-    @javax.enterprise.inject.Produces
+    @jakarta.enterprise.inject.Produces
     public Endpoint sedaEndB() {
         return camelContext.getEndpoint("seda:endB");
     }
 
     @Singleton
     @Named("my-expression")
-    @javax.enterprise.inject.Produces
+    @jakarta.enterprise.inject.Produces
     public Expression myExpression() {
         return new ExpressionAdapter() {
             @Override
@@ -105,7 +104,7 @@ public class RefResource {
 
     @Singleton
     @Named("my-route")
-    @javax.enterprise.inject.Produces
+    @jakarta.enterprise.inject.Produces
     public RoutesBuilder myRoute() {
         return new RouteBuilder() {
             @Override

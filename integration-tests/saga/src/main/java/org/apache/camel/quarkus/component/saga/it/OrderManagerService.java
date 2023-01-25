@@ -20,9 +20,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.enterprise.context.ApplicationScoped;
-
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 @RegisterForReflection

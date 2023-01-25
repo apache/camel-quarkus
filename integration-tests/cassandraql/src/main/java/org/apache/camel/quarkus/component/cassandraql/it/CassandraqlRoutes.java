@@ -16,10 +16,9 @@
  */
 package org.apache.camel.quarkus.component.cassandraql.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
 import com.datastax.oss.quarkus.runtime.api.session.QuarkusCqlSession;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.apache.camel.AggregationStrategy;
 import org.apache.camel.BindToRegistry;
 import org.apache.camel.builder.RouteBuilder;

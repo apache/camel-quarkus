@@ -19,9 +19,9 @@ package org.apache.camel.quarkus.component.cxf.soap.it.ws.trust.server;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import javax.inject.Named;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Named;
 import javax.xml.namespace.QName;
 
 import org.apache.camel.builder.RouteBuilder;

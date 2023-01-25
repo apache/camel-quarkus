@@ -16,10 +16,9 @@
  */
 package org.apache.camel.quarkus.language.xpath;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 import org.apache.camel.language.xpath.XPath;
 
 @Named("priceBean")

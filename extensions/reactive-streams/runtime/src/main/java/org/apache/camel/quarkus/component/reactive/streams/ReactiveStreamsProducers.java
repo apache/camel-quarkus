@@ -16,9 +16,8 @@
  */
 package org.apache.camel.quarkus.component.reactive.streams;
 
-import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
-
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Singleton;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.reactive.streams.api.CamelReactiveStreams;
 import org.apache.camel.component.reactive.streams.api.CamelReactiveStreamsService;

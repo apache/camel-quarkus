@@ -16,12 +16,11 @@
  */
 package org.apache.camel.quarkus.component.hl7.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
 import ca.uhn.hl7v2.AcknowledgmentCode;
 import ca.uhn.hl7v2.model.v22.message.ADT_A01;
 import ca.uhn.hl7v2.parser.Parser;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.apache.camel.builder.RouteBuilder;
 
 import static org.apache.camel.component.hl7.HL7.ack;

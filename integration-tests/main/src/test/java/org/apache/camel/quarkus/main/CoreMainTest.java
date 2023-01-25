@@ -19,13 +19,12 @@ package org.apache.camel.quarkus.main;
 import java.net.HttpURLConnection;
 import java.util.Map;
 
-import javax.ws.rs.core.MediaType;
-
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.quarkus.core.DisabledModelToXMLDumper;
 import org.apache.camel.quarkus.core.DisabledXMLRoutesDefinitionLoader;
 import org.apache.camel.quarkus.core.RegistryRoutesLoaders;

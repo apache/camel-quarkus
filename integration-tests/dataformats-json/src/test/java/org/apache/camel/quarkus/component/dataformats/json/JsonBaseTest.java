@@ -16,10 +16,9 @@
  */
 package org.apache.camel.quarkus.component.dataformats.json;
 
-import javax.json.bind.JsonbBuilder;
-
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import jakarta.json.bind.JsonbBuilder;
 import org.apache.camel.quarkus.component.dataformats.json.model.AnotherObject;
 
 import static org.hamcrest.Matchers.*;

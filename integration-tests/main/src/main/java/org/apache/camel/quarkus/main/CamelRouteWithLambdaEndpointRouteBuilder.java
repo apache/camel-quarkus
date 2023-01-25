@@ -16,8 +16,7 @@
  */
 package org.apache.camel.quarkus.main;
 
-import javax.enterprise.inject.Produces;
-
+import jakarta.enterprise.inject.Produces;
 import org.apache.camel.builder.endpoint.LambdaEndpointRouteBuilder;
 
 public class CamelRouteWithLambdaEndpointRouteBuilder {

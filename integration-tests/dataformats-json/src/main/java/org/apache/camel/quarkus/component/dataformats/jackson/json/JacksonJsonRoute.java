@@ -21,7 +21,7 @@ import java.util.TimeZone;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
+import com.fasterxml.jackson.module.jakarta.xmlbind.JakartaXmlBindAnnotationModule;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jackson.JacksonConstants;
 import org.apache.camel.component.jackson.JacksonDataFormat;
@@ -134,7 +134,7 @@ public class JacksonJsonRoute extends RouteBuilder {
         this.getContext().getGlobalOptions().put(JacksonConstants.ENABLE_TYPE_CONVERTER, "true");
         this.getContext().getGlobalOptions().put(JacksonConstants.TYPE_CONVERTER_TO_POJO, "true");
         this.getContext().getGlobalOptions().put(JacksonConstants.TYPE_CONVERTER_MODULE_CLASS_NAMES,
-                JaxbAnnotationModule.class.getName());
+                JakartaXmlBindAnnotationModule.class.getName());
 
         from("direct:jackson-conversion-pojo-test").convertBodyTo(String.class);
 
@@ -145,7 +145,7 @@ public class JacksonJsonRoute extends RouteBuilder {
         from("direct:jackson-jaxb-annotation-back").unmarshal(jacksonJaxbAnnotationFormat)
                 .to("mock:jackson-jaxb-annotation-reverse");
         JacksonDataFormat jacksonJaxbAnnotationFormatPojo = new JacksonDataFormat(TestJAXBPojo.class);
-        jacksonJaxbAnnotationFormatPojo.setModuleClassNames(JaxbAnnotationModule.class.getName());
+        jacksonJaxbAnnotationFormatPojo.setModuleClassNames(JakartaXmlBindAnnotationModule.class.getName());
         from("direct:jackson-jaxb-annotation-inPojo").marshal(jacksonJaxbAnnotationFormatPojo);
         from("direct:jackson-jaxb-annotation-backPojo").unmarshal(jacksonJaxbAnnotationFormatPojo)
                 .to("mock:jackson-jaxb-annotation-reversePojo");

@@ -16,9 +16,8 @@
  */
 package org.apache.camel.quarkus.component.kamelet.it;
 
-import javax.enterprise.context.ApplicationScoped;
-
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;

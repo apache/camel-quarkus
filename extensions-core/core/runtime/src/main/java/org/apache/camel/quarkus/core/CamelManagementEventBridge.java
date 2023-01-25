@@ -18,9 +18,8 @@ package org.apache.camel.quarkus.core;
 
 import java.util.Set;
 
-import javax.enterprise.inject.spi.BeanManager;
-
 import io.quarkus.arc.Arc;
+import jakarta.enterprise.inject.spi.BeanManager;
 import org.apache.camel.spi.CamelEvent;
 import org.apache.camel.spi.EventNotifier;
 import org.apache.camel.support.EventNotifierSupport;

@@ -18,9 +18,8 @@ package org.apache.camel.quarkus.component.opentelemetry.deployment;
 
 import java.util.Set;
 
-import javax.inject.Inject;
-
 import io.quarkus.test.QuarkusUnitTest;
+import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.opentelemetry.CamelQuarkusOpenTelemetryTracer;
 import org.apache.camel.opentelemetry.OpenTelemetryTracer;

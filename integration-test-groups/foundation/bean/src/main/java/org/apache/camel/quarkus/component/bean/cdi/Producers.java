@@ -16,12 +16,11 @@
  */
 package org.apache.camel.quarkus.component.bean.cdi;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Alternative;
-import javax.enterprise.inject.Produces;
-
 import io.quarkus.arc.DefaultBean;
 import io.quarkus.arc.Unremovable;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Alternative;
+import jakarta.enterprise.inject.Produces;
 
 public class Producers {
 
