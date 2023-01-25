@@ -56,6 +56,12 @@
                 <groupId>tech.tablesaw</groupId>
                 <artifactId>tablesaw-core</artifactId>
                 <version>${tablesaw.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.checkerframework</groupId>
+                        <artifactId>checker-qual</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.zeroturnaround</groupId>
