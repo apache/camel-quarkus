@@ -1,0 +1,3 @@
+The expressions and scripts written using the jOOR language are extracted and compiled at build time, to do so the
+language needs to be instantiated and configured at build time in order to be able to generate the exact same source code as
+the one generated at runtime. For this purpose, the next configuration properties have been added:

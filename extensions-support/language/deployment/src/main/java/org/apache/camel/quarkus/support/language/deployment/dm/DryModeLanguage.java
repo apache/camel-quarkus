@@ -35,7 +35,7 @@ public class DryModeLanguage implements Language {
     private final String name;
     private final Predicate defaultPredicate = new DryModePredicate();
     private final Expression defaultExpression = new DryModeExpression();
-    private final Map<Boolean, Set<String>> expressions = new ConcurrentHashMap<>();
+    private final Map<Boolean, Set<ExpressionHolder>> expressions = new ConcurrentHashMap<>();
 
     public DryModeLanguage(String name) {
         this.name = name;
@@ -45,23 +45,41 @@ public class DryModeLanguage implements Language {
         return name;
     }
 
-    public Set<String> getPredicates() {
+    public Set<ExpressionHolder> getPredicates() {
         return expressions.getOrDefault(Boolean.TRUE, Set.of());
     }
 
-    public Set<String> getExpressions() {
+    public Set<ExpressionHolder> getExpressions() {
         return expressions.getOrDefault(Boolean.FALSE, Set.of());
+    }
+
+    public Set<ScriptHolder> getScripts() {
+        return Set.of();
     }
 
     @Override
     public Predicate createPredicate(String expression) {
-        expressions.computeIfAbsent(Boolean.TRUE, mode -> ConcurrentHashMap.newKeySet()).add(expression);
+        expressions.computeIfAbsent(Boolean.TRUE, mode -> ConcurrentHashMap.newKeySet()).add(new ExpressionHolder(expression));
         return defaultPredicate;
     }
 
     @Override
     public Expression createExpression(String expression) {
-        expressions.computeIfAbsent(Boolean.FALSE, mode -> ConcurrentHashMap.newKeySet()).add(expression);
+        expressions.computeIfAbsent(Boolean.FALSE, mode -> ConcurrentHashMap.newKeySet()).add(new ExpressionHolder(expression));
+        return defaultExpression;
+    }
+
+    @Override
+    public Predicate createPredicate(String expression, Object[] properties) {
+        expressions.computeIfAbsent(Boolean.TRUE, mode -> ConcurrentHashMap.newKeySet())
+                .add(new ExpressionHolder(expression, properties));
+        return defaultPredicate;
+    }
+
+    @Override
+    public Expression createExpression(String expression, Object[] properties) {
+        expressions.computeIfAbsent(Boolean.FALSE, mode -> ConcurrentHashMap.newKeySet())
+                .add(new ExpressionHolder(expression, properties));
         return defaultExpression;
     }
 
@@ -85,9 +103,11 @@ public class DryModeLanguage implements Language {
 
     private static class DryModeExpression implements Expression {
 
+        @SuppressWarnings("unchecked")
         @Override
         public <T> T evaluate(Exchange exchange, Class<T> type) {
-            return null;
+            // A non-null value must be returned and the returned type is not really important for the dry mode
+            return (T) new Object();
         }
 
         @Override

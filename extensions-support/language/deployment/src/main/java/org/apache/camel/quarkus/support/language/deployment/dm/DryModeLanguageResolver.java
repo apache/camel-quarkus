@@ -22,18 +22,24 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.NoSuchLanguageException;
+import org.apache.camel.impl.engine.DefaultLanguageResolver;
 import org.apache.camel.spi.Language;
-import org.apache.camel.spi.LanguageResolver;
+import org.apache.camel.spi.ScriptingLanguage;
 
 /**
- * {@code DryModeLanguageResolver} is used to resolve all languages with {@link DryModeLanguage} for a dry run.
+ * {@code DryModeLanguageResolver} is used to resolve all languages with {@link DryModeLanguage} and scripting languages
+ * with {@link DryModeScriptingLanguage} for a dry run.
  */
-class DryModeLanguageResolver implements LanguageResolver {
+class DryModeLanguageResolver extends DefaultLanguageResolver {
 
     private final Map<String, DryModeLanguage> languages = new ConcurrentHashMap<>();
 
     @Override
     public Language resolveLanguage(String name, CamelContext context) throws NoSuchLanguageException {
+        final Language language = super.resolveLanguage(name, context);
+        if (language instanceof ScriptingLanguage) {
+            return languages.computeIfAbsent(name, DryModeScriptingLanguage::new);
+        }
         return languages.computeIfAbsent(name, DryModeLanguage::new);
     }
 

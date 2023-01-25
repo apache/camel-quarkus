@@ -27,10 +27,12 @@ public final class ExpressionBuildItem extends MultiBuildItem {
     final String language;
     final String expression;
     final boolean predicate;
+    final Object[] properties;
 
-    public ExpressionBuildItem(String language, String expression, boolean predicate) {
+    public ExpressionBuildItem(String language, String expression, Object[] properties, boolean predicate) {
         this.language = language;
         this.expression = expression;
+        this.properties = properties;
         this.predicate = predicate;
     }
 
@@ -44,5 +46,9 @@ public final class ExpressionBuildItem extends MultiBuildItem {
 
     public boolean isPredicate() {
         return predicate;
+    }
+
+    public Object[] getProperties() {
+        return properties;
     }
 }
