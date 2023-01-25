@@ -6,13 +6,16 @@
 
 **Closed issues:**
 
+- js-dsl: JavaScriptDslTest is failing on quarkus-platform [\#4434](https://github.com/apache/camel-quarkus/issues/4434)
 - Support CSimple expressions with all DSLs [\#4426](https://github.com/apache/camel-quarkus/issues/4426)
+- Dependabot to upgrade quarkiverse versions [\#4128](https://github.com/apache/camel-quarkus/issues/4128)
 - Have separate saaj extension in Quarkiverse CXF [\#4122](https://github.com/apache/camel-quarkus/issues/4122)
 - Test `aws-secrets-manager` extension with Localstack [\#3741](https://github.com/apache/camel-quarkus/issues/3741)
 - Sql derby - test exernal db if possible, remove workaround because of quarkus issue \#21639 [\#3327](https://github.com/apache/camel-quarkus/issues/3327)
 
 **Merged pull requests:**
 
+- Fix \#4128 add a dependabot to upgrade quarkiverse versions [\#4433](https://github.com/apache/camel-quarkus/pull/4433) ([zhfeng](https://github.com/zhfeng))
 - Fix \#4122 to use io.quarkiverse.cxf:quarkus-cxf-saaj [\#4431](https://github.com/apache/camel-quarkus/pull/4431) ([zhfeng](https://github.com/zhfeng))
 - fix the release doc [\#4430](https://github.com/apache/camel-quarkus/pull/4430) ([aldettinger](https://github.com/aldettinger))
 - Next is 2.17.0-SNAPSHOT [\#4429](https://github.com/apache/camel-quarkus/pull/4429) ([aldettinger](https://github.com/aldettinger))
