@@ -15,6 +15,8 @@
 
 **Merged pull requests:**
 
+- Clean up redundant properties from root pom.xml [\#4439](https://github.com/apache/camel-quarkus/pull/4439) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add test for REST DSL returning CORS headers for OPTIONS request [\#4438](https://github.com/apache/camel-quarkus/pull/4438) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#4128 add a dependabot to upgrade quarkiverse versions [\#4433](https://github.com/apache/camel-quarkus/pull/4433) ([zhfeng](https://github.com/zhfeng))
 - Fix \#4122 to use io.quarkiverse.cxf:quarkus-cxf-saaj [\#4431](https://github.com/apache/camel-quarkus/pull/4431) ([zhfeng](https://github.com/zhfeng))
 - fix the release doc [\#4430](https://github.com/apache/camel-quarkus/pull/4430) ([aldettinger](https://github.com/aldettinger))
