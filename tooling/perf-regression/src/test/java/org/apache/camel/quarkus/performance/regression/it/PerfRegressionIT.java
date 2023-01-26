@@ -55,6 +55,7 @@ public class PerfRegressionIT {
             assertThat(processOutput, containsString("-cqs, --camel-quarkus-staging-repository=<cqStagingRepository>"));
             assertThat(processOutput, containsString("-cs, --camel-staging-repository=<camelStagingRepository>"));
             assertThat(processOutput, containsString("-d, --duration=<singleScenarioDuration>"));
+            assertThat(processOutput, containsString("-umnb, --use-mandrel-native-builder"));
         } catch (InvalidExitValueException ievex) {
             fail("The perf-regression process has finished with an unexpected exit value", ievex);
         }
