@@ -93,7 +93,6 @@
         <module>management</module>
         <module>milo</module>
         <module>mvel</module>
-        <module>ognl</module>
         <module>printer</module>
         <module>pulsar</module>
         <module>quickfix</module>

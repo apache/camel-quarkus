@@ -168,6 +168,7 @@
         <module>netty</module>
         <module>nitrite</module>
         <module>oaipmh</module>
+        <module>ognl</module>
         <module>olingo4</module>
         <module>openapi-java</module>
         <module>openstack</module>
