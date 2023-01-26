@@ -61,6 +61,10 @@ public class PerfRegressionCommand implements Runnable {
             "--also-run-native-mode" }, description = "Tells whether the throughput test should also be run in native mode. By default, run in JVM mode only.")
     private boolean alsoRunNativeMode;
 
+    @Option(names = { "-umnb",
+            "--use-mandrel-native-builder" }, description = "Tells whether mandrel should be used to build native images. Can be used with camel-quarkus >= 2.8.0 only.")
+    private boolean useMandrelNativeBuilder;
+
     @Override
     public void run() {
         PerformanceRegressionReport report = new PerformanceRegressionReport(singleScenarioDuration);
@@ -100,8 +104,9 @@ public class PerfRegressionCommand implements Runnable {
         FileEditionHelper.instantiatePomFile(cqVersionUnderTestFolder, cqVersion, cqStagingRepository, camelStagingRepository);
 
         // Locally sets the right maven version in the maven wrapper
-        // camel-quarkus >= 2.6.0.CR1 => maven 3.8.4
-        // camel-quarkus >= 2.1.0     => maven 3.8.1
+        // camel-quarkus >= 2.11.0.CR1 => maven 3.8.6
+        // camel-quarkus >= 2.6.0.CR1  => maven 3.8.4
+        // camel-quarkus >= 2.1.0      => maven 3.8.1
         String targetMavenVersion = getTargetMavenVersion(cqVersionUnderTestFolder);
         setMvnwMavenVersion(cqVersionUnderTestFolder, targetMavenVersion);
 
@@ -111,8 +116,12 @@ public class PerfRegressionCommand implements Runnable {
 
         // Run performance regression test in native mode
         if (alsoRunNativeMode) {
-            double nativeThroughput = runPerfRegression(cqVersionUnderTestFolder,
-                    "integration-test -Dnative -Dquarkus.native.container-build=true");
+            String nativeCommandArgs = "integration-test -Dnative -Dquarkus.native.container-build=true";
+            if (useMandrelNativeBuilder) {
+                nativeCommandArgs += " -Dquarkus.native.builder-image=mandrel";
+            }
+            double nativeThroughput = runPerfRegression(cqVersionUnderTestFolder, nativeCommandArgs);
+
             report.setCategoryMeasureForVersion(cqVersion, "Native", nativeThroughput);
         }
     }
