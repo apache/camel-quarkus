@@ -76,7 +76,7 @@ public final class RuntimeBeanRepository implements BeanRepository {
     }
 
     private static <T> T getReference(BeanManager manager, Class<T> type, Bean<?> bean) {
-        return type.cast(manager.getReference(bean, type, manager.createCreationalContext(bean)));
+        return type.cast(manager.getReference(bean, Object.class, manager.createCreationalContext(bean)));
     }
 
     private static <T> Map<String, T> getReferencesByTypeWithName(BeanManager manager, Class<T> type,
