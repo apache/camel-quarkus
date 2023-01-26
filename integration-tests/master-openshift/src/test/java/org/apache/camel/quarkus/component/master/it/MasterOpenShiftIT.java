@@ -17,10 +17,8 @@
 package org.apache.camel.quarkus.component.master.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
-import org.junit.jupiter.api.Disabled;
 
 @QuarkusIntegrationTest
-@Disabled("https://github.com/apache/camel-quarkus/issues/4387")
 class MasterOpenShiftIT extends MasterOpenShiftTest {
 
 }
