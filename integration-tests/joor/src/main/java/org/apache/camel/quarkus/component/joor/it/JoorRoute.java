@@ -24,7 +24,7 @@ public class JoorRoute extends RouteBuilder {
     public void configure() {
         routeTemplate("whereTo")
                 .templateParameter("bar")
-                .templateBean("myBar", "joor", "resource:classpath:bean.joor")
+                .templateBean("myBar", "joor", "resource:classpath:bean.txt")
                 .from("kamelet:source")
                 .to("bean:{{myBar}}");
 
