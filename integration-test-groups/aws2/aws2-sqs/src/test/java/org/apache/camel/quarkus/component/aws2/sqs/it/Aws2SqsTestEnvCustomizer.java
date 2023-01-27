@@ -25,6 +25,8 @@ import org.testcontainers.containers.localstack.LocalStackContainer.Service;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
 import software.amazon.awssdk.services.sqs.model.DeleteQueueRequest;
+import software.amazon.awssdk.services.sqs.model.GetQueueUrlRequest;
+import software.amazon.awssdk.services.sqs.model.QueueDoesNotExistException;
 
 public class Aws2SqsTestEnvCustomizer implements Aws2TestEnvCustomizer {
 
@@ -38,10 +40,15 @@ public class Aws2SqsTestEnvCustomizer implements Aws2TestEnvCustomizer {
         /* SQS */
         final String queueName = "camel-quarkus-" + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
         envContext.property("aws-sqs.queue-name", queueName);
-        final String failingQueueName = "camel-quarkus-" + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+        final String failingQueueName = "camel-quarkus-failing-"
+                + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
         envContext.property("aws-sqs.failing-name", failingQueueName);
-        final String deadletterQueueName = "camel-quarkus-" + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+        final String deadletterQueueName = "camel-quarkus-dead-letter-"
+                + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
         envContext.property("aws-sqs.deadletter-name", deadletterQueueName);
+        final String delayedQueueName = "camel-quarkus-delayed-"
+                + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+        envContext.property("aws-sqs.delayed-name", delayedQueueName);
 
         final SqsClient sqsClient = envContext.client(Service.SQS, SqsClient::builder);
         {
@@ -67,6 +74,14 @@ public class Aws2SqsTestEnvCustomizer implements Aws2TestEnvCustomizer {
                 sqsClient.deleteQueue(DeleteQueueRequest.builder().queueUrl(queueUrl).build());
                 sqsClient.deleteQueue(DeleteQueueRequest.builder().queueUrl(failingUrl).build());
                 sqsClient.deleteQueue(DeleteQueueRequest.builder().queueUrl(deadletterUrl).build());
+
+                try {
+                    String url = sqsClient.getQueueUrl(GetQueueUrlRequest.builder().queueName(delayedQueueName).build())
+                            .queueUrl();
+                    sqsClient.deleteQueue(DeleteQueueRequest.builder().queueUrl(url).build());
+                } catch (QueueDoesNotExistException e) {
+                    //no need to do anything, the queue does not exist
+                }
             });
 
         }

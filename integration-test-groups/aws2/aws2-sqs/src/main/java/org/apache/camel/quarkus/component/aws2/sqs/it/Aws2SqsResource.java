@@ -151,20 +151,18 @@ public class Aws2SqsResource {
         return Response.ok().build();
     }
 
-    @Path("queue/autocreate/delayed/{queueName}/{delay}")
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<String> autoCreateDelayedQueue(@PathParam("queueName") String queueName, @PathParam("delay") String delay)
-            throws Exception {
-        // queue creation without any operation resulted in 405 status code
-        String uri = String.format("aws2-sqs://%s?autoCreateQueue=true&delayQueue=true&delaySeconds=%s&operation=listQueues",
+    @Path("queue/autocreate/delayed/{queueName}/{delay}/{msg}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String autoCreateDelayedQueue(@PathParam("queueName") String queueName, @PathParam("delay") String delay,
+            @PathParam("msg") String msg) {
+        String uri = String.format("aws2-sqs://%s?autoCreateQueue=true&delayQueue=true&delaySeconds=%s",
                 queueName, delay);
         return producerTemplate
                 .requestBody(
                         uri,
-                        null,
-                        ListQueuesResponse.class)
-                .queueUrls();
+                        msg,
+                        String.class);
     }
 
     private String componentUri() {
