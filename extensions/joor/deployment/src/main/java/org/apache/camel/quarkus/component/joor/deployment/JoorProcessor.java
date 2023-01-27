@@ -21,6 +21,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.BooleanSupplier;
 import java.util.stream.Collectors;
 
 import io.quarkus.bootstrap.model.ApplicationModel;
@@ -31,6 +32,7 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
+import io.quarkus.deployment.pkg.PackageConfig;
 import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
 import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.maven.dependency.ResolvedDependency;
@@ -70,7 +72,7 @@ class JoorProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
-    @BuildStep
+    @BuildStep(onlyIf = CompileAtBuildTime.class)
     void collectExpressions(JoorExpressionConfig config,
             ExpressionExtractionResultBuildItem result,
             List<ExpressionBuildItem> expressions,
@@ -121,7 +123,7 @@ class JoorProcessor {
         }
     }
 
-    @BuildStep
+    @BuildStep(onlyIf = CompileAtBuildTime.class)
     void compileExpressions(CurateOutcomeBuildItem curateOutcomeBuildItem,
             List<JoorExpressionSourceBuildItem> sources,
             BuildProducer<GeneratedClassBuildItem> generatedClass) {
@@ -159,7 +161,7 @@ class JoorProcessor {
     }
 
     @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep
+    @BuildStep(onlyIf = CompileAtBuildTime.class)
     @Consume(CamelContextBuildItem.class)
     CamelBeanBuildItem configureLanguage(
             JoorExpressionConfig config,
@@ -206,6 +208,19 @@ class JoorProcessor {
             return (String) m.invoke(compiler, camelContext, fqn, script, singleQuotes);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             throw new RuntimeException("Cannot extract the generated code from the compiler", e);
+        }
+    }
+
+    /**
+     * Indicates whether the jOOR expressions should be compiled at build time.
+     */
+    public static final class CompileAtBuildTime implements BooleanSupplier {
+        JoorExpressionConfig config;
+        PackageConfig packageConfig;
+
+        @Override
+        public boolean getAsBoolean() {
+            return config.compileAtBuildTime || packageConfig.type.equalsIgnoreCase(PackageConfig.NATIVE);
         }
     }
 }

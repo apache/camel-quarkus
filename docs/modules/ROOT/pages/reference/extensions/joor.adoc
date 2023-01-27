@@ -74,6 +74,12 @@ The specific location of the configuration of the jOOR language.
 The specific default result type of an expression expressed in jOOR language.
 | `string`
 | 
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.joor.compile-at-build-time]]`link:#quarkus.camel.joor.compile-at-build-time[quarkus.camel.joor.compile-at-build-time]`
+
+In JVM mode, indicates whether the expressions must be compiled at build time.
+| `boolean`
+| `false`
 |===
 
 [.configuration-legend]

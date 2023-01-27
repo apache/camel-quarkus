@@ -39,4 +39,8 @@ public class JoorExpressionConfig {
     /** The specific default result type of an expression expressed in jOOR language. */
     @ConfigItem
     public Optional<String> resultType;
+
+    /** In JVM mode, indicates whether the expressions must be compiled at build time. */
+    @ConfigItem(defaultValue = "false")
+    public boolean compileAtBuildTime;
 }
