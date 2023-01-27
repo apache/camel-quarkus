@@ -74,6 +74,9 @@ public class BeanRoutes extends RouteBuilder {
         from("direct:named")
                 .to("bean:namedBean?method=hello");
 
+        from("direct:identified")
+                .to("bean:identifiedBean?method=hello");
+
         from("direct:method")
                 .bean(MyBean.class, "sayHello");
 
