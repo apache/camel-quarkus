@@ -46,6 +46,7 @@ import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.maven.dependency.ArtifactKey;
 import io.quarkus.runtime.RuntimeValue;
+import io.smallrye.common.annotation.Identifier;
 import org.apache.camel.Converter;
 import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
 import org.apache.camel.quarkus.core.CamelCapabilities;
@@ -347,14 +348,15 @@ class CamelProcessor {
     }
 
     @BuildStep
-    UnremovableBeanBuildItem unremovableRoutesBuilders() {
-        return new UnremovableBeanBuildItem(
-                b -> b.getTypes().stream().map(Type::name).anyMatch(UNREMOVABLE_BEANS_TYPES::contains));
-    }
+    void unremovableBeans(
+            BuildProducer<AdditionalBeanBuildItem> beanProducer,
+            BuildProducer<UnremovableBeanBuildItem> unremovableBeans) {
 
-    @BuildStep
-    void unremovableBeans(BuildProducer<AdditionalBeanBuildItem> beanProducer) {
         beanProducer.produce(AdditionalBeanBuildItem.unremovableOf(CamelProducers.class));
+
+        unremovableBeans.produce(UnremovableBeanBuildItem.targetWithAnnotation(DotName.createSimple(Identifier.class)));
+        unremovableBeans.produce(new UnremovableBeanBuildItem(
+                b -> b.getTypes().stream().map(Type::name).anyMatch(UNREMOVABLE_BEANS_TYPES::contains)));
     }
 
     @BuildStep(onlyIf = { CamelConfigFlags.RoutesDiscoveryEnabled.class })

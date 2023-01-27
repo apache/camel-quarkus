@@ -178,6 +178,39 @@ public class CamelRoute extends RouteBuilder {
 }
 ----
 
+As an alternative to `@Named`, you may also use `io.smallrye.common.annotation.Identifier` to name and identify a bean.
+
+[source,java]
+----
+import javax.enterprise.context.ApplicationScoped;
+import io.quarkus.runtime.annotations.RegisterForReflection;
+import io.smallrye.common.annotation.Identifier;
+
+@ApplicationScoped
+@Identifier("myBeanIdentifier")
+@RegisterForReflection
+public class MyBean {
+    public String hello(String name) {
+        return "Hello " + name + " from MyBean";
+    }
+}
+----
+
+Then refer to the identifier value within the Camel route:
+
+[source,java]
+----
+import org.apache.camel.builder.RouteBuilder;
+public class CamelRoute extends RouteBuilder {
+    @Override
+    public void configure() {
+        from("direct:start")
+                .bean("myBeanIdentifier", "Camel");
+    }
+}
+----
+
+
 NOTE: We aim at supporting all use cases listed in xref:manual::bean-binding.adoc[Bean binding] section of Camel documentation.
 Do not hesitate to https://github.com/apache/camel-quarkus/issues[file an issue] if some bean binding scenario does not work for you.
 
