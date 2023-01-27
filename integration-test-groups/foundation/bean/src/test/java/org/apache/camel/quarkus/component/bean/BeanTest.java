@@ -20,7 +20,10 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.bean.model.Employee;
+import org.apache.camel.util.StringHelper;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.containsString;
@@ -45,14 +48,16 @@ public class BeanTest {
                 .body(equalTo("1"));
     }
 
-    @Test
-    public void named() {
+    @ParameterizedTest
+    @ValueSource(strings = { "named", "identified" })
+    public void named(String routeName) {
+        String beanName = StringHelper.capitalize(routeName) + "Bean";
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body("Kermit")
-                .post("/bean/route/named")
+                .post("/bean/route/" + routeName)
                 .then()
-                .body(equalTo("Hello Kermit from the NamedBean"));
+                .body(equalTo("Hello Kermit from the " + beanName));
     }
 
     @Test

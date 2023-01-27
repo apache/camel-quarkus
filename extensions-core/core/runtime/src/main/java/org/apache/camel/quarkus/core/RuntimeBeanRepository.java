@@ -30,6 +30,7 @@ import javax.enterprise.inject.spi.BeanManager;
 
 import io.quarkus.arc.Arc;
 import io.quarkus.arc.ArcContainer;
+import io.smallrye.common.annotation.Identifier;
 import org.apache.camel.spi.BeanRepository;
 
 public final class RuntimeBeanRepository implements BeanRepository {
@@ -72,7 +73,12 @@ public final class RuntimeBeanRepository implements BeanRepository {
     }
 
     private static <T> Optional<T> getReferenceByName(BeanManager manager, String name, Class<T> type) {
-        return Optional.ofNullable(manager.resolve(manager.getBeans(name))).map(bean -> getReference(manager, type, bean));
+        Set<Bean<?>> beans = manager.getBeans(name);
+        if (beans.isEmpty()) {
+            // Fallback to SmallRye @Identifier
+            beans = manager.getBeans(type, Identifier.Literal.of(name));
+        }
+        return Optional.ofNullable(manager.resolve(beans)).map(bean -> getReference(manager, type, bean));
     }
 
     private static <T> T getReference(BeanManager manager, Class<T> type, Bean<?> bean) {
