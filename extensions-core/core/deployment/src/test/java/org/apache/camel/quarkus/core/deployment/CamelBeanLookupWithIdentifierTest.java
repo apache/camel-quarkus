@@ -24,7 +24,6 @@ import java.util.Properties;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
-import io.quarkus.arc.Unremovable;
 import io.quarkus.test.QuarkusUnitTest;
 import io.smallrye.common.annotation.Identifier;
 import org.apache.camel.CamelContext;
@@ -78,7 +77,6 @@ public class CamelBeanLookupWithIdentifierTest {
     }
 
     @Produces
-    @Unremovable
     @Identifier("my-identifier")
     public MyIdentifiedBean createIdentifiedBean() {
         return new MyIdentifiedBean();

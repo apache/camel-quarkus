@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.bean;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import io.quarkus.arc.Unremovable;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import io.smallrye.common.annotation.Identifier;
 
@@ -27,7 +26,6 @@ import io.smallrye.common.annotation.Identifier;
  */
 @ApplicationScoped
 @Identifier("identifiedBean")
-@Unremovable
 @RegisterForReflection
 public class IdentifiedBean {
 
