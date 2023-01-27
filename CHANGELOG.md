@@ -8,13 +8,19 @@
 
 - js-dsl: JavaScriptDslTest is failing on quarkus-platform [\#4434](https://github.com/apache/camel-quarkus/issues/4434)
 - Support CSimple expressions with all DSLs [\#4426](https://github.com/apache/camel-quarkus/issues/4426)
+- Aws2: investigate possibilty of testing defaultXCredentialProvider with local stack [\#4401](https://github.com/apache/camel-quarkus/issues/4401)
+- Intermittent failure of MasterOpenShiftTest [\#4387](https://github.com/apache/camel-quarkus/issues/4387)
 - Dependabot to upgrade quarkiverse versions [\#4128](https://github.com/apache/camel-quarkus/issues/4128)
 - Have separate saaj extension in Quarkiverse CXF [\#4122](https://github.com/apache/camel-quarkus/issues/4122)
 - Test `aws-secrets-manager` extension with Localstack [\#3741](https://github.com/apache/camel-quarkus/issues/3741)
 - Sql derby - test exernal db if possible, remove workaround because of quarkus issue \#21639 [\#3327](https://github.com/apache/camel-quarkus/issues/3327)
+- jOOR language native support [\#2083](https://github.com/apache/camel-quarkus/issues/2083)
 
 **Merged pull requests:**
 
+- Pass Object class type to BeanManager.getReferece to avoid bean resolution issues \#4444 [\#4446](https://github.com/apache/camel-quarkus/pull/4446) ([jamesnetherton](https://github.com/jamesnetherton))
+- fix the master-openshift itest flakiness \#4387 [\#4445](https://github.com/apache/camel-quarkus/pull/4445) ([aldettinger](https://github.com/aldettinger))
+- Ref \#2083: jOOR language native support [\#4440](https://github.com/apache/camel-quarkus/pull/4440) ([essobedo](https://github.com/essobedo))
 - Clean up redundant properties from root pom.xml [\#4439](https://github.com/apache/camel-quarkus/pull/4439) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add test for REST DSL returning CORS headers for OPTIONS request [\#4438](https://github.com/apache/camel-quarkus/pull/4438) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#4128 add a dependabot to upgrade quarkiverse versions [\#4433](https://github.com/apache/camel-quarkus/pull/4433) ([zhfeng](https://github.com/zhfeng))
@@ -34,6 +40,7 @@
 - Ref \#4407: js-dsl - Improve the interoperability with Java code [\#4409](https://github.com/apache/camel-quarkus/pull/4409) ([essobedo](https://github.com/essobedo))
 - Add platform-http test for retrieving an HTTP header with no value [\#4406](https://github.com/apache/camel-quarkus/pull/4406) ([jamesnetherton](https://github.com/jamesnetherton))
 - Disable MasterOpenShiftIT due to \#4387 [\#4405](https://github.com/apache/camel-quarkus/pull/4405) ([jamesnetherton](https://github.com/jamesnetherton))
+- testing defaultCredentialProvider with local stack \#440 [\#4404](https://github.com/apache/camel-quarkus/pull/4404) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Ref \#4392: Kotlin DSL native support [\#4403](https://github.com/apache/camel-quarkus/pull/4403) ([essobedo](https://github.com/essobedo))
 - Upgrade Quarkus to 2.16.0.CR1 [\#4402](https://github.com/apache/camel-quarkus/pull/4402) ([jamesnetherton](https://github.com/jamesnetherton))
 - perf-regression: write the report to disk \#4263 [\#4399](https://github.com/apache/camel-quarkus/pull/4399) ([aldettinger](https://github.com/aldettinger))
