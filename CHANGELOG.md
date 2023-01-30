@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- camel-quarkus-activemq can not set jms some properties in native mode [\#4454](https://github.com/apache/camel-quarkus/issues/4454)
 - perf-regression: introduce version specific build options [\#4436](https://github.com/apache/camel-quarkus/issues/4436)
 - js-dsl: JavaScriptDslTest is failing on quarkus-platform [\#4434](https://github.com/apache/camel-quarkus/issues/4434)
 - Support CSimple expressions with all DSLs [\#4426](https://github.com/apache/camel-quarkus/issues/4426)
@@ -23,6 +24,7 @@
 
 **Merged pull requests:**
 
+- Fix \#4454 to set jms properties with ActiveMQ connections in native b… [\#4455](https://github.com/apache/camel-quarkus/pull/4455) ([zhfeng](https://github.com/zhfeng))
 - perf-regression: add --use-mandrel-native-builder option \#4436 [\#4448](https://github.com/apache/camel-quarkus/pull/4448) ([aldettinger](https://github.com/aldettinger))
 - Pass Object class type to BeanManager.getReferece to avoid bean resolution issues \#4444 [\#4446](https://github.com/apache/camel-quarkus/pull/4446) ([jamesnetherton](https://github.com/jamesnetherton))
 - fix the master-openshift itest flakiness \#4387 [\#4445](https://github.com/apache/camel-quarkus/pull/4445) ([aldettinger](https://github.com/aldettinger))
