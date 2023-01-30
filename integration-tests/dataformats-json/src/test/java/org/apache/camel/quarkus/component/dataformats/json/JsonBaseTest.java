@@ -16,33 +16,16 @@
  */
 package org.apache.camel.quarkus.component.dataformats.json;
 
-import java.util.stream.Stream;
-
 import javax.json.bind.JsonbBuilder;
 
-import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.dataformats.json.model.AnotherObject;
-import org.apache.camel.quarkus.component.dataformats.json.model.PojoA;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
-@QuarkusTest
-public class JsonComponentsTest {
-
-    private static Stream<String> listJsonDataFormatsToBeTested() {
-        return Stream.of("Jackson", "Johnzon", "Gson", "Jsonb");
-    }
-
-    @ParameterizedTest
-    @MethodSource("listJsonDataFormatsToBeTested")
-    public void testRoutes(String jsonComponent) {
+public class JsonBaseTest {
+    public void testMarshallAndUnmarshall(String jsonComponent) {
         RestAssured.given().contentType(ContentType.TEXT)
                 .queryParam("json-component", jsonComponent)
                 .body("[{\"dummy_string\": \"value1\"}, {\"dummy_string\": \"value2\"}]")
@@ -61,8 +44,6 @@ public class JsonComponentsTest {
                 .body("date", containsString("1970"));
     }
 
-    @ParameterizedTest
-    @MethodSource("listJsonDataFormatsToBeTested")
     public void testUnmarshallingDifferentPojos(String jsonComponent) {
         String bodyA = "{\"name\":\"name A\"}";
         String bodyB = "{\"value\":1.0}";
@@ -87,12 +68,6 @@ public class JsonComponentsTest {
                 .body(equalTo(bodyB));
     }
 
-    private static Stream<String> listDirectUrisFromXmlRoutesToBeTested() {
-        return listJsonDataFormatsToBeTested().flatMap(s -> Stream.of(s + "-type-as-attribute", s + "-type-as-header"));
-    }
-
-    @ParameterizedTest
-    @MethodSource("listDirectUrisFromXmlRoutesToBeTested")
     public void testUnmarshal(String directId) {
         AnotherObject object = new AnotherObject();
         object.setDummyString("95f669ce-d287-4519-b212-4450bc791867");
@@ -104,27 +79,4 @@ public class JsonComponentsTest {
                 .then()
                 .body("dummyString", is(object.getDummyString()));
     }
-
-    @Test
-    void jacksonXml() {
-        final String xml = "<PojoA><name>Joe</name></PojoA>";
-        final String json = JsonbBuilder.create().toJson(new PojoA("Joe"));
-        RestAssured.given()
-                .contentType(ContentType.JSON)
-                .body(json)
-                .post("/dataformats-json/jacksonxml/marshal")
-                .then()
-                .statusCode(200)
-                .body("PojoA.name", equalTo("Joe"));
-
-        RestAssured.given()
-                .contentType("text/xml")
-                .body(xml)
-                .post("/dataformats-json/jacksonxml/unmarshal")
-                .then()
-                .statusCode(200)
-                .body(equalTo(json));
-
-    }
-
 }
