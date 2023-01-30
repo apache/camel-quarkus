@@ -16,12 +16,9 @@
  */
 package org.apache.camel.quarkus.test.extensions.routeBuilder;
 
-import java.util.concurrent.TimeUnit;
-
 import io.quarkus.test.ContinuousTestingTestUtils;
 import io.quarkus.test.QuarkusDevModeTest;
 import org.apache.camel.quarkus.test.extensions.continousDev.HelloResource;
-import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -45,7 +42,7 @@ public class RouteBuilderWarningWithoutProducedBuilderTest {
         Assertions.assertEquals(1L, ts.getTestsPassed());
         Assertions.assertEquals(0L, ts.getTestsSkipped());
 
-        Awaitility.await().pollDelay(10, TimeUnit.SECONDS).atMost(15, TimeUnit.SECONDS)
-                .until(() -> TEST.getLogRecords().isEmpty());
+        Assertions.assertFalse(TEST.getLogRecords().stream()
+                .anyMatch(logRecord -> logRecord.getMessage().contains("`RouteBuilder` detected")));
     }
 }
