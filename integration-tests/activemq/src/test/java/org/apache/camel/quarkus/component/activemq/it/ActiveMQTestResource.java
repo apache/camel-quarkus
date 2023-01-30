@@ -51,7 +51,9 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
             return Collections.singletonMap(
                     "camel.component.activemq.broker-url",
                     String.format(
-                            "tcp://%s:%d?connectionTimeout=5000&tcpNoDelay=false&socket.OOBInline=false",
+                            "tcp://%s:%d?connectionTimeout=5000&tcpNoDelay=false&socket.OOBInline=false" +
+                                    "&jms.checkForDuplicates=false&jms.redeliveryPolicy.redeliveryDelay=1000" +
+                                    "&jms.prefetchPolicy.queuePrefetch=1000&jms.blobTransferPolicy.bufferSize=102400",
                             container.getHost(),
                             container.getMappedPort(TCP_PORT)));
         } catch (Exception e) {
