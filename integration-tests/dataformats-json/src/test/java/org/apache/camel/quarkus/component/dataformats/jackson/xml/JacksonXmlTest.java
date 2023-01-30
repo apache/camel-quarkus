@@ -24,7 +24,9 @@ import javax.json.bind.JsonbBuilder;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.dataformats.json.model.DummyObject;
+import org.apache.camel.quarkus.component.dataformats.json.model.PojoA;
 import org.apache.camel.quarkus.component.dataformats.json.model.TestPojo;
 import org.junit.jupiter.api.Test;
 
@@ -33,6 +35,28 @@ import static org.hamcrest.Matchers.equalTo;
 
 @QuarkusTest
 public class JacksonXmlTest {
+
+    @Test
+    void jacksonXmlMarshalAndUnmarshal() {
+        final String xml = "<PojoA><name>Joe</name></PojoA>";
+        final String json = JsonbBuilder.create().toJson(new PojoA("Joe"));
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(json)
+                .post("/dataformats-json/jacksonxml/marshal")
+                .then()
+                .statusCode(200)
+                .body("PojoA.name", equalTo("Joe"));
+
+        RestAssured.given()
+                .contentType("text/xml")
+                .body(xml)
+                .post("/dataformats-json/jacksonxml/unmarshal")
+                .then()
+                .statusCode(200)
+                .body(equalTo(json));
+    }
+
     @Test
     void jacksonXmlUnmarshalTypeHeader() {
         final String testPojoXml = "<pojo name=\"Camel\"/>";

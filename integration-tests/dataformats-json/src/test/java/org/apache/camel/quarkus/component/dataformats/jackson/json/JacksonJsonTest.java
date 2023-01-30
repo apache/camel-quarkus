@@ -18,17 +18,28 @@ package org.apache.camel.quarkus.component.dataformats.jackson.json;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.apache.camel.quarkus.component.dataformats.json.JsonBaseTest;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
 
 @QuarkusTest
-public class JacksonJsonTest {
+public class JacksonJsonTest extends JsonBaseTest {
     @Test
     void jacksonUnmarshalTypeHeader() {
         RestAssured.get("/dataformats-json/jackson/unmarshal-typeheader")
                 .then()
                 .statusCode(204);
+    }
+
+    @Test
+    public void jacksonUnmarshallTypeAttribute() {
+        testUnmarshal("Jackson-type-as-attribute");
+    }
+
+    @Test
+    public void jacksonUnmarshallingDifferentPojos() {
+        testUnmarshallingDifferentPojos("Jackson");
     }
 
     @Test

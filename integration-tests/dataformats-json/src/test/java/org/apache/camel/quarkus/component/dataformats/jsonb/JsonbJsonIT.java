@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.dataformats.json;
+package org.apache.camel.quarkus.component.dataformats.jsonb;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
 @QuarkusIntegrationTest
-public class JsonComponentsIT extends JsonComponentsTest {
+public class JsonbJsonIT extends JsonbJsonTest {
 }
