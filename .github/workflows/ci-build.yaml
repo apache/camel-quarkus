@@ -31,6 +31,7 @@ on:
       - 'KEYS'
       - 'LICENSE.txt'
       - 'NOTICE.txt'
+      - 'camel-quarkus-sbom.*'
   pull_request:
     branches:
       - main
