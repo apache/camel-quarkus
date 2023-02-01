@@ -37,7 +37,6 @@ import io.restassured.response.ValidatableResponse;
 import org.apache.camel.quarkus.core.util.FileUtils;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.quarkus.component.file.it.FileResource.CONSUME_BATCH;
@@ -149,7 +148,6 @@ class FileTest {
                 equalTo(FILE_CONTENT_02));
     }
 
-    @Disabled("Disabling as an experiment in the context of CAMEL-QUARKUS-3584. Let's check whether filter and idempotent are sort of polluting each other.")
     @Test
     public void filter() throws IOException {
         String fileName = createFile(FILE_CONTENT_01, "/file/create/filter", null, "skip_" + UUID.randomUUID().toString());
