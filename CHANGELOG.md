@@ -30,6 +30,7 @@
 **Merged pull requests:**
 
 - Fixup SQL extension documentation and native testing with alternate JDBC drivers [\#4460](https://github.com/apache/camel-quarkus/pull/4460) ([jamesnetherton](https://github.com/jamesnetherton))
+- Ref \#3088: Split JSON dataformats test [\#4457](https://github.com/apache/camel-quarkus/pull/4457) ([ldrozdo](https://github.com/ldrozdo))
 - Verify that the specific log message we're interested in is not present for RouteBuilderWarningWithoutProducedBuilderTest [\#4456](https://github.com/apache/camel-quarkus/pull/4456) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#4454 to set jms properties with ActiveMQ connections in native b… [\#4455](https://github.com/apache/camel-quarkus/pull/4455) ([zhfeng](https://github.com/zhfeng))
 - Ref \#4452: Allow to disable build time compilation of jOOR expressions [\#4453](https://github.com/apache/camel-quarkus/pull/4453) ([essobedo](https://github.com/essobedo))
