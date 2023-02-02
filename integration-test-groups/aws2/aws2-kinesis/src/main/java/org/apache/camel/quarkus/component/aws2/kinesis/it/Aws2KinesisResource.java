@@ -32,12 +32,13 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.aws2.kinesis.Kinesis2Constants;
+import org.apache.camel.quarkus.test.support.aws2.BaseAws2Resource;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
 
 @Path("/aws2-kinesis")
 @ApplicationScoped
-public class Aws2KinesisResource {
+public class Aws2KinesisResource extends BaseAws2Resource {
 
     private static final Logger log = Logger.getLogger(Aws2KinesisResource.class);
 
@@ -50,6 +51,10 @@ public class Aws2KinesisResource {
     @Inject
     @Named("aws2KinesisMessages")
     Queue<String> aws2KinesisMessages;
+
+    public Aws2KinesisResource() {
+        super("kinesis");
+    }
 
     @Path("/send")
     @POST
@@ -76,7 +81,7 @@ public class Aws2KinesisResource {
     }
 
     private String componentUri() {
-        return "aws2-kinesis://" + streamName;
+        return "aws2-kinesis://" + streamName + "?useDefaultCredentialsProvider=" + isUseDefaultCredentials();
     }
 
 }

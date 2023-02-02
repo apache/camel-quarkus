@@ -49,6 +49,7 @@ import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.aws2.s3.AWS2S3Constants;
 import org.apache.camel.component.aws2.s3.AWS2S3Operations;
+import org.apache.camel.quarkus.test.support.aws2.BaseAws2Resource;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.services.s3.model.Bucket;
@@ -56,9 +57,9 @@ import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.NoSuchBucketException;
 import software.amazon.awssdk.services.s3.model.S3Object;
 
-@Path("/aws2")
+@Path("/aws2-s3")
 @ApplicationScoped
-public class Aws2S3Resource {
+public class Aws2S3Resource extends BaseAws2Resource {
 
     @Inject
     ProducerTemplate producerTemplate;
@@ -72,20 +73,24 @@ public class Aws2S3Resource {
     @ConfigProperty(name = "aws-s3.kms-key-id")
     Optional<String> kmsKeyId;
 
-    @Path("s3/object/{key}")
+    public Aws2S3Resource() {
+        super("s3");
+    }
+
+    @Path("object/{key}")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     public Response post(String message, @PathParam("key") String key,
             @QueryParam("useKms") @DefaultValue("false") boolean useKms) throws Exception {
         producerTemplate.sendBodyAndHeader(
-                componentUri() + (useKms && kmsKeyId.isPresent() ? "?useAwsKMS=true&awsKMSKeyId=" + kmsKeyId : ""),
+                componentUri() + (useKms && kmsKeyId.isPresent() ? "&useAwsKMS=true&awsKMSKeyId=" + kmsKeyId : ""),
                 message,
                 AWS2S3Constants.KEY,
                 key);
         return Response.created(new URI("https://camel.apache.org/")).build();
     }
 
-    @Path("s3/object/{key}")
+    @Path("object/{key}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String get(@PathParam("key") String key, @QueryParam("bucket") String bucket,
@@ -103,14 +108,14 @@ public class Aws2S3Resource {
                 String.class);
     }
 
-    @Path("s3/poll-object/{key}")
+    @Path("poll-object/{key}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String pollObject(@PathParam("key") String key) throws Exception {
-        return consumerTemplate.receiveBody(componentUri() + "?fileName=" + key, 10000, String.class);
+        return consumerTemplate.receiveBody(componentUri() + "&fileName=" + key, 10000, String.class);
     }
 
-    @Path("s3/object/{key}")
+    @Path("object/{key}")
     @DELETE
     @Produces(MediaType.TEXT_PLAIN)
     public Response read(@PathParam("key") String key) throws Exception {
@@ -122,7 +127,7 @@ public class Aws2S3Resource {
         return Response.noContent().build();
     }
 
-    @Path("s3/bucket/{bucketName}/object/{key}")
+    @Path("bucket/{bucketName}/object/{key}")
     @DELETE
     @Produces(MediaType.TEXT_PLAIN)
     public Response read(@PathParam("bucketName") String bucketName, @PathParam("key") String key) throws Exception {
@@ -134,7 +139,7 @@ public class Aws2S3Resource {
         return Response.noContent().build();
     }
 
-    @Path("s3/object-keys")
+    @Path("object-keys")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<String> objectKey() throws Exception {
@@ -151,7 +156,7 @@ public class Aws2S3Resource {
      * @param  newBucketName
      * @return
      */
-    @Path("s3/autoCreateBucket/{newBucketName}")
+    @Path("autoCreateBucket/{newBucketName}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response autoCreateBucket(@PathParam("newBucketName") String newBucketName) {
@@ -161,7 +166,7 @@ public class Aws2S3Resource {
         return Response.noContent().build();
     }
 
-    @Path("s3/upload/{key}")
+    @Path("upload/{key}")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
@@ -171,7 +176,7 @@ public class Aws2S3Resource {
         int partSize = 5 * 1024 * 1024;
 
         producerTemplate.sendBodyAndHeader(
-                componentUri() + "?multiPartUpload=true&partSize=" + partSize + "&autoCreateBucket=true",
+                componentUri() + "&multiPartUpload=true&partSize=" + partSize + "&autoCreateBucket=true",
                 file,
                 AWS2S3Constants.KEY,
                 key);
@@ -179,7 +184,7 @@ public class Aws2S3Resource {
         return key;
     }
 
-    @Path("s3/copy/{key}")
+    @Path("copy/{key}")
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
@@ -197,7 +202,7 @@ public class Aws2S3Resource {
         return Response.noContent().build();
     }
 
-    @Path("s3/bucket")
+    @Path("bucket")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<String> listBuckets() throws Exception {
@@ -208,7 +213,7 @@ public class Aws2S3Resource {
         return buckets.stream().map(Bucket::name).collect(Collectors.toList());
     }
 
-    @Path("s3/bucket/{name}")
+    @Path("bucket/{name}")
     @DELETE
     @Produces(MediaType.TEXT_PLAIN)
     public Response deleteBucket(@PathParam("name") String bucketName) {
@@ -225,7 +230,7 @@ public class Aws2S3Resource {
         return Response.noContent().build();
     }
 
-    @Path("s3/downloadlink/{key}")
+    @Path("downloadlink/{key}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String downloadLink(@PathParam("key") String key, @QueryParam("bucket") String bucket) {
@@ -243,7 +248,7 @@ public class Aws2S3Resource {
         return link;
     }
 
-    @Path("s3/object/range/{key}")
+    @Path("object/range/{key}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String objectRange(@PathParam("key") String key,
@@ -273,7 +278,8 @@ public class Aws2S3Resource {
     }
 
     private String componentUri(String bucketName, final AWS2S3Operations operation) {
-        return String.format("aws2-s3://%s?operation=%s", bucketName, operation);
+        return String.format("aws2-s3://%s?operation=%s&useDefaultCredentialsProvider=%s", bucketName, operation,
+                isUseDefaultCredentials());
     }
 
     private String componentUri(final AWS2S3Operations operation) {
@@ -281,7 +287,7 @@ public class Aws2S3Resource {
     }
 
     private String componentUri() {
-        return String.format("aws2-s3://%s", bucketName);
+        return String.format("aws2-s3://%s?useDefaultCredentialsProvider=%s", bucketName, isUseDefaultCredentials());
     }
 
 }

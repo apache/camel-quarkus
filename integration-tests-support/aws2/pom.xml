@@ -29,18 +29,59 @@
     <artifactId>camel-quarkus-integration-tests-support-aws2</artifactId>
     <name>Camel Quarkus :: Integration Tests :: Support :: AWS 2</name>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>aws-core</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>sdk-core</artifactId>
+                    <groupId>software.amazon.awssdk</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>sdk-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>auth</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-integration-test-support</artifactId>
+            <!-- Dependency should be excluded when this module us used a compile dependency and a test-jar dependency os also present.-->
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-integration-test-support-mock-backend</artifactId>
+            <!-- Dependency should be excluded when this module us used a compile dependency and a test-jar dependency os also present.-->
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>localstack</artifactId>
+            <!-- Dependency should be excluded when this module us used a compile dependency and a test-jar dependency os also present.-->
             <exclusions>
                 <exclusion>
                     <groupId>junit</groupId>
@@ -51,22 +92,17 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit4-mock</artifactId>
+            <!-- Dependency should be excluded when this module us used a compile dependency and a test-jar dependency os also present.-->
         </dependency>
         <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>auth</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>aws-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>sdk-core</artifactId>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <!-- Dependency should be excluded when this module us used a compile dependency and a test-jar dependency os also present.-->
         </dependency>
         <dependency><!-- Workaround for https://github.com/testcontainers/testcontainers-java/issues/1442 -->
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-core</artifactId>
+            <!-- Dependency should be excluded when this module us used a compile dependency and a test-jar dependency os also present.-->
             <exclusions>
                 <exclusion>
                     <groupId>*</groupId>
@@ -74,5 +110,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
     </dependencies>
 </project>

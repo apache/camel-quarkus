@@ -26,16 +26,14 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.response.ValidatableResponse;
 import org.apache.camel.component.aws2.cw.Cw2Constants;
 import org.apache.camel.quarkus.test.support.aws2.Aws2Client;
-import org.apache.camel.quarkus.test.support.aws2.Aws2DefaultCredentialsProviderAvailabilityCondition;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
+import org.apache.camel.quarkus.test.support.aws2.BaseAWs2TestSupport;
 import org.apache.camel.util.CollectionHelper;
 import org.awaitility.Awaitility;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.testcontainers.containers.localstack.LocalStackContainer.Service;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.Datapoint;
@@ -44,15 +42,39 @@ import software.amazon.awssdk.services.cloudwatch.model.GetMetricStatisticsReque
 import software.amazon.awssdk.services.cloudwatch.model.Statistic;
 
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.startsWith;
 
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
-class Aws2CwTest {
+class Aws2CwTest extends BaseAWs2TestSupport {
     private static final Logger LOG = Logger.getLogger(Aws2CwTest.class);
 
     @Aws2Client(Service.CLOUDWATCH)
     CloudWatchClient client;
+
+    public Aws2CwTest() {
+        super("/aws2-cw");
+    }
+
+    @Override
+    public void testMethodForDefaultCredentialsProvider() {
+        final String namespace = "cq-metrics-" + java.util.UUID.randomUUID().toString().replace("-", "");
+        final String metricName = "metricName" + java.util.UUID.randomUUID().toString().replace("-", "");
+
+        Map<String, String> item = CollectionHelper.mapOf(
+                Cw2Constants.METRIC_NAMESPACE, namespace,
+                Cw2Constants.METRIC_NAME, metricName,
+                Cw2Constants.METRIC_VALUE, 0,
+                Cw2Constants.METRIC_UNIT, "Count",
+                Cw2Constants.METRIC_DIMENSION_NAME, "type",
+                Cw2Constants.METRIC_DIMENSION_VALUE, "even");
+
+        RestAssured.given()
+                .contentType("application/x-www-form-urlencoded; charset=utf-8")
+                .formParams(item)
+                .post("/aws2-cw/send-metric-map/" + namespace)
+                .then()
+                .statusCode(201);
+    }
 
     @Test
     public void metric() {
@@ -243,45 +265,6 @@ class Aws2CwTest {
                 .then()
                 .statusCode(200)
                 .body(is("CloudWatchClientMock"));
-    }
-
-    //test can be executed only if mock backend is used and no defaultCredentialsprovider is defined in the system
-    @ExtendWith(Aws2DefaultCredentialsProviderAvailabilityCondition.class)
-    @Test
-    public void defaultCredentialsProviderOnLocalstackTest() {
-        testDefaultCredentialsProvider(false, true).statusCode(200)
-                .body(startsWith(Aws2DefaultCredentialsProviderAvailabilityCondition.UNABLE_TO_LOAD_CREDENTIALS_MSG));
-        ;
-
-        testDefaultCredentialsProvider(true, false).statusCode(201);
-    }
-
-    //called twice from the defaultCredentialsProviderOnLocalstackTest
-    private ValidatableResponse testDefaultCredentialsProvider(boolean setCredenbtials, boolean returnErrorMessage) {
-        final Instant startTime = Instant.ofEpochMilli(System.currentTimeMillis() - 10000);
-
-        final String namespace = "cq-metrics-" + java.util.UUID.randomUUID().toString().replace("-", "");
-        final String metricName = "metricName" + java.util.UUID.randomUUID().toString().replace("-", "");
-
-        List<Map<String, String>> data = new LinkedList<>();
-
-        Map<String, String> item = CollectionHelper.mapOf(
-                Cw2Constants.METRIC_NAMESPACE, namespace,
-                Cw2Constants.METRIC_NAME, metricName,
-                Cw2Constants.METRIC_VALUE, 0,
-                Cw2Constants.METRIC_UNIT, "Count",
-                Cw2Constants.METRIC_DIMENSION_NAME, "type",
-                Cw2Constants.METRIC_DIMENSION_VALUE, "even");
-
-        return RestAssured.given()
-                .contentType("application/x-www-form-urlencoded; charset=utf-8")
-                .formParams(item)
-                .header("defaultCredentialsProvider", true)
-                .header("returnExceptionMessage", returnErrorMessage)
-                .header("setCredentials", setCredenbtials)
-                .post("/aws2-cw/send-metric-map/" + namespace)
-                .then();
-
     }
 
 }

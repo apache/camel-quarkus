@@ -33,8 +33,8 @@ import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.apache.camel.quarkus.test.support.aws2.Aws2Client;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
+import org.apache.camel.quarkus.test.support.aws2.BaseAWs2TestSupport;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.assertj.core.api.Assertions;
 import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -49,19 +49,26 @@ import software.amazon.awssdk.services.ses.SesClient;
 import software.amazon.awssdk.services.ses.model.DeleteVerifiedEmailAddressRequest;
 import software.amazon.awssdk.services.ses.model.VerifyEmailAddressRequest;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
+
 /* Disabled on Localstack because Localstack does not send e-mails which we do assume in our tests
  * See https://github.com/localstack/localstack/issues/339#issuecomment-341727758 */
 @EnabledIfEnvironmentVariable(named = "AWS_ACCESS_KEY", matches = "[a-zA-Z0-9]+")
 @EnabledIfEnvironmentVariable(named = "MAILSLURP_API_KEY", matches = "[a-zA-Z0-9]+")
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
-class Aws2SesTest {
+class Aws2SesTest extends BaseAWs2TestSupport {
     private static final Logger LOG = Logger.getLogger(Aws2SesTest.class);
 
     private static final Pattern VERIFCATION_LINK_PATTERN = Pattern.compile("https://email-verification[^\\s]+");
 
     @Aws2Client(Service.SES)
     SesClient sesClient;
+
+    public Aws2SesTest() {
+        super("/aws2-ses");
+    }
 
     @Test
     public void test() throws InterruptedException, ExecutionException, TimeoutException {
@@ -137,12 +144,12 @@ class Aws2SesTest {
                     WebDriver driver = new HtmlUnitDriver();
                     driver.get(link);
                     String source = driver.getPageSource();
-                    Assertions.assertThat(source).contains("You have successfully verified an email address");
+                    assertThat(source).contains("You have successfully verified an email address");
                     verified = true;
                     break;
                 }
             }
-            Assertions.assertThat(verified).isTrue();
+            assertThat(verified).isTrue();
 
             /* All prerequisites should be set up now, so we can send the message via SES */
             final String randomId = RandomStringUtils.randomAlphanumeric(16).toLowerCase(Locale.ROOT);
@@ -194,4 +201,12 @@ class Aws2SesTest {
         }
     }
 
+    @Override
+    public void testMethodForDefaultCredentialsProvider() {
+        try {
+            test();
+        } catch (Exception e) {
+            fail(e);
+        }
+    }
 }

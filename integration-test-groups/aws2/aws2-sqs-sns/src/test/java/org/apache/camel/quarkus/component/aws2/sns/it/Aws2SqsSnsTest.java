@@ -25,6 +25,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.support.aws2.Aws2LocalStack;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
+import org.apache.camel.quarkus.test.support.aws2.BaseAWs2TestSupport;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -35,7 +36,11 @@ import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
-class Aws2SqsSnsTest {
+class Aws2SqsSnsTest extends BaseAWs2TestSupport {
+
+    public Aws2SqsSnsTest() {
+        super("/aws2-sqs-sns");
+    }
 
     private String getPredefinedQueueName() {
         return ConfigProvider.getConfig().getValue("aws-sqs.queue-name", String.class);
@@ -111,4 +116,8 @@ class Aws2SqsSnsTest {
                 .body("Message", is(snsMsg));
     }
 
+    @Override
+    public void testMethodForDefaultCredentialsProvider() {
+        sns();
+    }
 }

@@ -35,6 +35,7 @@ import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.apache.camel.quarkus.test.support.aws2.Aws2LocalStack;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
+import org.apache.camel.quarkus.test.support.aws2.BaseAWs2TestSupport;
 import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
@@ -48,12 +49,16 @@ import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
-class Aws2SqsTest {
+class Aws2SqsTest extends BaseAWs2TestSupport {
 
     private static final Logger LOG = Logger.getLogger(Aws2SqsTest.class);
 
     @Aws2LocalStack
     private boolean localStack;
+
+    public Aws2SqsTest() {
+        super("/aws2-sqs");
+    }
 
     private String getPredefinedQueueName() {
         return ConfigProvider.getConfig().getValue("aws-sqs.queue-name", String.class);
@@ -255,4 +260,8 @@ class Aws2SqsTest {
                 .asString());
     }
 
+    @Override
+    public void testMethodForDefaultCredentialsProvider() {
+        listQueues();
+    }
 }

@@ -137,7 +137,6 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
             }
             c = c.getSuperclass();
         }
-
     }
 
 }

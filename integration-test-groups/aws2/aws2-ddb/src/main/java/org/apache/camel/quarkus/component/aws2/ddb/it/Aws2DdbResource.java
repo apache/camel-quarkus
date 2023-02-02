@@ -43,6 +43,7 @@ import org.apache.camel.Message;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.aws2.ddb.Ddb2Constants;
 import org.apache.camel.component.aws2.ddb.Ddb2Operations;
+import org.apache.camel.quarkus.test.support.aws2.BaseAws2Resource;
 import org.apache.camel.util.CollectionHelper;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import software.amazon.awssdk.services.dynamodb.model.AttributeAction;
@@ -55,7 +56,11 @@ import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughputDescr
 
 @Path("/aws2-ddb")
 @ApplicationScoped
-public class Aws2DdbResource {
+public class Aws2DdbResource extends BaseAws2Resource {
+
+    public Aws2DdbResource() {
+        super("ddb");
+    }
 
     public enum Table {
         basic, operations, stream
@@ -298,6 +303,6 @@ public class Aws2DdbResource {
         default:
             tableName = this.tableName;
         }
-        return "aws2-ddb://" + tableName + "?operation=" + op;
+        return "aws2-ddb://" + tableName + "?operation=" + op + "&useDefaultCredentialsProvider=" + isUseDefaultCredentials();
     }
 }
