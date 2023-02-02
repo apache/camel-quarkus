@@ -6,7 +6,7 @@ Camel Quarkus supports several domain specific languages (DSLs) to define Camel 
 
 Extending `org.apache.camel.builder.RouteBuilder` and using the fluent builder methods available there
 is the most common way of defining Camel Routes.
-Here is an example from the https://github.com/apache/camel-quarkus-examples/tree/main/timer-log[timer-log] quicksstart:
+Here is an example from the https://github.com/apache/camel-quarkus-examples/tree/main/timer-log[timer-log] quickstart:
 
 [source,java]
 ----

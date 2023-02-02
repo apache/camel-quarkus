@@ -2,13 +2,13 @@ In native mode the extension uses a port of LevelDB written in Java (https://git
 which is within 10% of the performance of the C++ original. Please upvote https://github.com/apache/camel-quarkus/issues/1911[this issue]
 if you do not like the present state.
 
-Serialization is https://github.com/oracle/graal/issues/460[not supported] on GraalVM. Extension has to use serializationization based
+Serialization is https://github.com/oracle/graal/issues/460[not supported] on GraalVM. Extension has to use serialization based
 on Jackson. Aggregation repository in native has to be constructed in one of the following ways:
 
 * Use class `QuarkusLevelDBAggregationRepository` instead of `LevelDBAggregationRepository`.
 * Configure jackson serializer on `LevelDBAggregationRepository` by calling `repo.setSerializer(new JacksonLevelDBSerializer());`
 
 Jackson serializer has limitation towards binary content. If payload object contains binary data (does not concern payloads which are completely binary), Jackson serialization and deserialization won't work correctly.
-To avoid this, define your own jackson serializer/deserealizer via `Module` and provide it to the aggragation repository
+To avoid this, define your own jackson serializer/deserializer via `Module` and provide it to the aggregation repository
 (you can use for example the constructor of `QuarkusLevelDBAggregationRepository`).
 
