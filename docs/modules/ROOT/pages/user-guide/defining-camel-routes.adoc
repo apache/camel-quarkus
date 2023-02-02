@@ -122,14 +122,11 @@ The route XML should be in the simplified version like:
 
 == Other route DSLs
 
-Since Camel Quarkus 1.8.0, you can also use
-xref:reference/extensions/java-joor-dsl.adoc[Java jOOR],
-xref:reference/extensions/groovy-dsl.adoc[Groovy],
-xref:reference/extensions/yaml-dsl.adoc[YAML],
-xref:reference/extensions/kotlin-dsl.adoc[Kotlin] or
-xref:reference/extensions/js-dsl.adoc[JavaScript] for defining Camel routes.
-
-Except for YAML, these DSLs are supported only in JVM mode, because they load and compile the routes at runtime.
+* xref:reference/extensions/java-joor-dsl.adoc[Java jOOR]
+* xref:reference/extensions/groovy-dsl.adoc[Groovy]
+* xref:reference/extensions/yaml-dsl.adoc[YAML]
+* xref:reference/extensions/kotlin-dsl.adoc[Kotlin]
+* xref:reference/extensions/js-dsl.adoc[JavaScript]
 
 == What's next?
 
