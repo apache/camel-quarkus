@@ -82,7 +82,7 @@ $ cd tooling/perf-regression
 $ java -jar target/quarkus-app/quarkus-run.jar -an 2.9.0 2.10.0
 ----
 
-After approximatively 1 hour, it should generate a report like below:
+After approximately 1 hour, it should generate a report like below:
 
 [source,shell]
 ----
