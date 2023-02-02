@@ -22,7 +22,7 @@ See also https://quarkus.io/guides/all-config#quarkus-core_quarkus.native.add-al
 == Locale
 
 By default, only the building JVM default locale is included in the native image.
-Quarkus provides a way to set the locale via `application.properties`, so that you do not need to rely on `LANG` and `LC_*` environement variables:
+Quarkus provides a way to set the locale via `application.properties`, so that you do not need to rely on `LANG` and `LC_*` environment variables:
 
 [source,properties]
 ----
