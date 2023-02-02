@@ -99,7 +99,7 @@ class FileTest {
         startRouteAndWait(CONSUME_BATCH);
 
         await().atMost(10, TimeUnit.SECONDS).until(() -> {
-            Map<String, Object> records = RestAssured
+            Map<?, ?> records = RestAssured
                     .get("/file/getBatch/")
                     .then()
                     .statusCode(200)
