@@ -14,17 +14,52 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-<<<<<<<< HEAD:integration-tests/main-yaml/src/main/java/org/apache/camel/quarkus/main/ErrorBean.java
-package org.apache.camel.quarkus.main;
-========
-package org.apache.camel.quarkus.component.dataformat.json.johnzon;
->>>>>>>> de57a77464 (Split json dataformats to different modules):integration-test-groups/dataformats-json/json-johnzon/src/test/java/org/apache/camel/quarkus/component/dataformat/json/johnzon/JohnzonJsonIT.java
+package org.apache.camel.quarkus.component.dataformat.json.gson.model;
+
+import java.util.Date;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
 @RegisterForReflection
-public class ErrorBean {
-    public void throwException() throws CustomException {
-        throw new CustomException();
+public class DummyObject {
+
+    private String dummyString;
+
+    @ExcludeField
+    private int ignored;
+
+    private Date date = new Date(1645026373);
+
+    public DummyObject() {
     }
+
+    public String getDummyString() {
+        return dummyString;
+    }
+
+    public void setDummyString(String dummy) {
+        this.dummyString = dummy;
+    }
+
+    public int getIgnored() {
+        return ignored;
+    }
+
+    public void setIgnored(int ignored) {
+        this.ignored = ignored;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "DummyObject [dummyString=" + dummyString + ", ignored=" + ignored + "]";
+    }
+
 }

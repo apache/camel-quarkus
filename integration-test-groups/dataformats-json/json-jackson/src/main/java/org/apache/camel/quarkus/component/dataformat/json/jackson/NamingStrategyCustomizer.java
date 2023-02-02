@@ -14,17 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-<<<<<<<< HEAD:integration-tests/main-yaml/src/main/java/org/apache/camel/quarkus/main/ErrorBean.java
-package org.apache.camel.quarkus.main;
-========
-package org.apache.camel.quarkus.component.dataformat.json.johnzon;
->>>>>>>> de57a77464 (Split json dataformats to different modules):integration-test-groups/dataformats-json/json-johnzon/src/test/java/org/apache/camel/quarkus/component/dataformat/json/johnzon/JohnzonJsonIT.java
+package org.apache.camel.quarkus.component.dataformat.json.jackson;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import io.quarkus.jackson.ObjectMapperCustomizer;
+import jakarta.inject.Singleton;
 
-@RegisterForReflection
-public class ErrorBean {
-    public void throwException() throws CustomException {
-        throw new CustomException();
+@Singleton
+public class NamingStrategyCustomizer implements ObjectMapperCustomizer {
+    public void customize(ObjectMapper mapper) {
+        // Use snake case property names, so that we can verify the Quarkus ObjectMapper really is being used
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
     }
 }

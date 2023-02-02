@@ -14,17 +14,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-<<<<<<<< HEAD:integration-tests/main-yaml/src/main/java/org/apache/camel/quarkus/main/ErrorBean.java
-package org.apache.camel.quarkus.main;
-========
-package org.apache.camel.quarkus.component.dataformat.json.johnzon;
->>>>>>>> de57a77464 (Split json dataformats to different modules):integration-test-groups/dataformats-json/json-johnzon/src/test/java/org/apache/camel/quarkus/component/dataformat/json/johnzon/JohnzonJsonIT.java
+package org.apache.camel.quarkus.component.dataformat.json.jackson.model;
 
+import com.fasterxml.jackson.core.Version;
+import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
 @RegisterForReflection
-public class ErrorBean {
-    public void throwException() throws CustomException {
-        throw new CustomException();
+public class MyModule extends Module {
+
+    @Override
+    public String getModuleName() {
+        return "MyModule";
     }
+
+    @Override
+    public Version version() {
+        return Version.unknownVersion();
+    }
+
+    @Override
+    public void setupModule(SetupContext context) {
+        context.setNamingStrategy(new PropertyNamingStrategies.NamingBase() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public String translate(String propertyName) {
+                return "my-" + propertyName;
+            }
+        });
+    }
+
 }

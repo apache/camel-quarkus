@@ -14,17 +14,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-<<<<<<<< HEAD:integration-tests/main-yaml/src/main/java/org/apache/camel/quarkus/main/ErrorBean.java
-package org.apache.camel.quarkus.main;
-========
-package org.apache.camel.quarkus.component.dataformat.json.johnzon;
->>>>>>>> de57a77464 (Split json dataformats to different modules):integration-test-groups/dataformats-json/json-johnzon/src/test/java/org/apache/camel/quarkus/component/dataformat/json/johnzon/JohnzonJsonIT.java
+package org.apache.camel.quarkus.component.dataformat.json.jsonb.model;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
 @RegisterForReflection
-public class ErrorBean {
-    public void throwException() throws CustomException {
-        throw new CustomException();
+public class PojoA {
+
+    private String name;
+
+    public PojoA() {
     }
+
+    public PojoA(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "PojoA [name=" + name + "]";
+    }
+
 }

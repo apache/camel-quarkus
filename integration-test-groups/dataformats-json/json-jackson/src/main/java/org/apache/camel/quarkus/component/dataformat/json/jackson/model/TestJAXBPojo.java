@@ -14,30 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-<<<<<<<< HEAD:integration-tests/main-yaml/src/main/java/org/apache/camel/quarkus/main/GreetingBean.java
-package org.apache.camel.quarkus.main;
-========
 package org.apache.camel.quarkus.component.dataformat.json.jackson.model;
->>>>>>>> de57a77464 (Split json dataformats to different modules):integration-test-groups/dataformats-json/json-jackson/src/main/java/org/apache/camel/quarkus/component/dataformat/json/jackson/model/TestOtherPojo.java
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 @RegisterForReflection
-<<<<<<<< HEAD:integration-tests/main-yaml/src/main/java/org/apache/camel/quarkus/main/GreetingBean.java
-public class GreetingBean {
-    String greeting;
+@XmlRootElement(name = "XMLPojo")
+public class TestJAXBPojo {
 
-    public void setGreeting(String greeting) {
-        this.greeting = greeting;
-    }
-
-    public String greet() {
-        return greeting;
-========
-public class TestOtherPojo {
-
+    @XmlElement(name = "PojoName")
     private String name;
-    private String country;
 
     public String getName() {
         return this.name;
@@ -47,13 +35,18 @@ public class TestOtherPojo {
         this.name = name;
     }
 
-    public String getCountry() {
-        return country;
+    @Override
+    public boolean equals(Object obj) {
+        return this.name.equals(((TestJAXBPojo) obj).getName());
     }
 
-    public void setCountry(String country) {
-        this.country = country;
->>>>>>>> de57a77464 (Split json dataformats to different modules):integration-test-groups/dataformats-json/json-jackson/src/main/java/org/apache/camel/quarkus/component/dataformat/json/jackson/model/TestOtherPojo.java
+    @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
     }
 
+    @Override
+    public String toString() {
+        return "TestJAXBPojo[" + name + "]";
+    }
 }
