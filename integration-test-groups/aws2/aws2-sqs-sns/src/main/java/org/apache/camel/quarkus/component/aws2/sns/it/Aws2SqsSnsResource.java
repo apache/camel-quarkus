@@ -34,11 +34,12 @@ import jakarta.ws.rs.core.Response;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.aws2.sqs.Sqs2Constants;
+import org.apache.camel.quarkus.test.support.aws2.BaseAws2Resource;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @Path("/aws2-sqs-sns")
 @ApplicationScoped
-public class Aws2SqsSnsResource {
+public class Aws2SqsSnsResource extends BaseAws2Resource {
 
     @ConfigProperty(name = "aws-sqs.queue-name")
     String queueName;
@@ -67,11 +68,15 @@ public class Aws2SqsSnsResource {
     @Inject
     ConsumerTemplate consumerTemplate;
 
+    public Aws2SqsSnsResource() {
+        super("sns");
+    }
+
     @Path("/sqs/purge/queue/{queueName}")
     @DELETE
     @Produces(MediaType.TEXT_PLAIN)
     public Response purgeQueue(@PathParam("queueName") String queueName) throws Exception {
-        producerTemplate.sendBodyAndHeader(componentUri(queueName) + "?operation=purgeQueue",
+        producerTemplate.sendBodyAndHeader(componentUri(queueName) + "&operation=purgeQueue",
                 null,
                 Sqs2Constants.SQS_QUEUE_PREFIX,
                 queueName);
@@ -86,10 +91,13 @@ public class Aws2SqsSnsResource {
             @QueryParam("queueUrl") String queueUrl,
             @DefaultValue("false") @QueryParam("fifo") boolean fifo) throws Exception {
 
+        String endpointUri = String.format(
+                "aws2-sns://%s?useDefaultCredentialsProvider=%s&subscribeSNStoSQS=true&queueUrl=RAW(%s)%s",
+                fifo ? fifoTopicName : topicName, isUseDefaultCredentials(),
+                fifo ? snsFifoReceiverQueueArn : snsReceiverQueueArn,
+                fifo ? "&messageGroupIdStrategy=useExchangeId" : "");
         final String response = producerTemplate.requestBody(
-                String.format("aws2-sns://%s?subscribeSNStoSQS=true&queueUrl=RAW(%s)%s",
-                        fifo ? fifoTopicName : topicName, fifo ? snsFifoReceiverQueueArn : snsReceiverQueueArn,
-                        fifo ? "&messageGroupIdStrategy=useExchangeId" : ""),
+                endpointUri,
                 message,
                 String.class);
         return Response
@@ -104,7 +112,7 @@ public class Aws2SqsSnsResource {
     public String sqsReceive(@PathParam("queueName") String queueName, @PathParam("deleteMessage") String deleteMessage)
             throws Exception {
         return consumerTemplate.receiveBody(componentUri(queueName)
-                + "?deleteAfterRead=" + deleteMessage + "&deleteIfFiltered=" + deleteMessage + "&defaultVisibilityTimeout=0",
+                + "&?deleteAfterRead=" + deleteMessage + "&deleteIfFiltered=" + deleteMessage + "&defaultVisibilityTimeout=0",
                 10000,
                 String.class);
     }
@@ -113,17 +121,17 @@ public class Aws2SqsSnsResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String sqsReceiveViaSqs() throws Exception {
-        return consumerTemplate.receiveBody("aws2-sqs://" + snsReceiverQueueName, 10000, String.class);
+        return consumerTemplate.receiveBody(componentUri(snsReceiverQueueName), 10000, String.class);
     }
 
     @Path("/snsFifo/receiveViaSqs")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String fifoSqsReceiveViaSqs() throws Exception {
-        return consumerTemplate.receiveBody("aws2-sqs://" + snsFifoReceiverQueueName, 10000, String.class);
+        return consumerTemplate.receiveBody(componentUri(snsFifoReceiverQueueName), 10000, String.class);
     }
 
     private String componentUri(String queueName) {
-        return "aws2-sqs://" + queueName;
+        return "aws2-sqs://" + queueName + "?useDefaultCredentialsProvider=" + isUseDefaultCredentials();
     }
 }

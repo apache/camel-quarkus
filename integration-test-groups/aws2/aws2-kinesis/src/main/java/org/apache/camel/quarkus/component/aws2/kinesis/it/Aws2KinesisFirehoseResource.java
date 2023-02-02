@@ -28,17 +28,22 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.aws2.kinesis.Kinesis2Constants;
+import org.apache.camel.quarkus.test.support.aws2.BaseAws2Resource;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @Path("/aws2-kinesis-firehose")
 @ApplicationScoped
-public class Aws2KinesisFirehoseResource {
+public class Aws2KinesisFirehoseResource extends BaseAws2Resource {
 
     @ConfigProperty(name = "aws-kinesis-firehose.delivery-stream-name")
     String deliveryStreamName;
 
     @Inject
     ProducerTemplate producerTemplate;
+
+    public Aws2KinesisFirehoseResource() {
+        super("kinesis-firehose");
+    }
 
     @Path("/send")
     @POST
@@ -58,7 +63,7 @@ public class Aws2KinesisFirehoseResource {
     }
 
     private String componentUri() {
-        return "aws2-kinesis-firehose://" + deliveryStreamName;
+        return "aws2-kinesis-firehose://" + deliveryStreamName + "?useDefaultCredentialsProvider=" + isUseDefaultCredentials();
     }
 
 }

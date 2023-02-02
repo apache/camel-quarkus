@@ -83,6 +83,38 @@
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-integration-tests-support-aws2</artifactId>
                 <version>${camel-quarkus.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>camel-quarkus-integration-test-support</artifactId>
+                        <groupId>org.apache.camel.quarkus</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>camel-quarkus-integration-test-support-mock-backend</artifactId>
+                        <groupId>org.apache.camel.quarkus</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>localstack</artifactId>
+                        <groupId>org.testcontainers</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>quarkus-junit4-mock</artifactId>
+                        <groupId>io.quarkus</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>rest-assured</artifactId>
+                        <groupId>io.rest-assured</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>aws-java-sdk-core</artifactId>
+                        <groupId>com.amazonaws</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-integration-tests-support-aws2</artifactId>
+                <version>${camel-quarkus.version}</version>
+                <type>test-jar</type>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>

@@ -36,16 +36,20 @@ import jakarta.ws.rs.core.Response;
 import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.aws2.cw.Cw2Constants;
-import org.eclipse.microprofile.config.ConfigProvider;
+import org.apache.camel.quarkus.test.support.aws2.BaseAws2Resource;
 
 @Path("/aws2-cw")
 @ApplicationScoped
-public class Aws2CwResource {
+public class Aws2CwResource extends BaseAws2Resource {
 
     @Inject
     ProducerTemplate producerTemplate;
 
     private volatile String endpointUri;
+
+    public Aws2CwResource() {
+        super("cw");
+    }
 
     @Scheduled(every = "1s")
     void schedule() {
@@ -75,17 +79,14 @@ public class Aws2CwResource {
     @Produces(MediaType.TEXT_PLAIN)
     public Response postMap(
             @PathParam("namespace") String namespace,
-            @HeaderParam("defaultCredentialsProvider") boolean defaultCredentialsProvider,
-            @HeaderParam("setCredentials") boolean setCredentials,
             @HeaderParam("returnExceptionMessage") boolean returnExceptionMessage,
             @HeaderParam("customClientName") String customClientName,
             MultivaluedMap<String, String> formParams) throws Exception {
 
-        String uri = "aws2-cw://" + namespace;
+        String uri = "aws2-cw://" + namespace + "?useDefaultCredentialsProvider="
+                + isUseDefaultCredentials();
         if (customClientName != null && !customClientName.isEmpty()) {
-            uri = uri + "?autowiredEnabled=false&amazonCwClient=#" + customClientName;
-        } else if (defaultCredentialsProvider) {
-            uri = uri + "?useDefaultCredentialsProvider=true";
+            uri = uri + "&autowiredEnabled=false&amazonCwClient=#" + customClientName;
         }
 
         Map<String, Object> typedHeaders = formParams.entrySet().stream().collect(Collectors.toMap(
@@ -103,12 +104,6 @@ public class Aws2CwResource {
                     return val;
                 }));
         try {
-            if (defaultCredentialsProvider && setCredentials) {
-                System.setProperty("aws.accessKeyId",
-                        ConfigProvider.getConfig().getValue("camel.component.aws2-cw.access-key", String.class));
-                System.setProperty("aws.secretAccessKey",
-                        ConfigProvider.getConfig().getValue("camel.component.aws2-cw.secret-key", String.class));
-            }
             producerTemplate.requestBodyAndHeaders(uri, null, typedHeaders, String.class);
         } catch (Exception e) {
             if (returnExceptionMessage && e instanceof CamelExecutionException && e.getCause() != null) {
@@ -117,11 +112,6 @@ public class Aws2CwResource {
                         .build();
             }
             throw e;
-        } finally {
-            if (defaultCredentialsProvider && setCredentials) {
-                System.clearProperty("aws.accessKeyId");
-                System.clearProperty("aws.secretAccessKey");
-            }
         }
 
         return Response

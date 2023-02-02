@@ -30,6 +30,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ExtractableResponse;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
+import org.apache.camel.quarkus.test.support.aws2.BaseAWs2TestSupport;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
 
@@ -42,8 +43,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
-class Aws2LambdaTest {
+class Aws2LambdaTest extends BaseAWs2TestSupport {
     private static final Logger LOG = Logger.getLogger(Aws2LambdaTest.class);
+
+    public Aws2LambdaTest() {
+        super("/aws2-lambda");
+    }
 
     @Test
     public void performingOperationsOnLambdaFunctionShouldSucceed() {
@@ -92,6 +97,14 @@ class Aws2LambdaTest {
                 .delete("/aws2-lambda/function/delete/" + functionName)
                 .then()
                 .statusCode(204);
+    }
+
+    @Override
+    public void testMethodForDefaultCredentialsProvider() {
+        RestAssured.given()
+                .get("/aws2-lambda/function/list/")
+                .then()
+                .statusCode(200);
     }
 
     public void getUpdateListAndInvokeFunctionShouldSucceed(String functionName) {
