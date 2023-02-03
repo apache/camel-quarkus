@@ -15,30 +15,24 @@
 # limitations under the License.
 #
 
-- rest:
-    get:
-      - path: "/rest"
-        to: "direct:echoMethodPath"
-    post:
-      - path: "/rest"
-        to: "direct:echoMethodPath"
-    patch:
-      - path: "/rest"
-        to: "direct:echoMethodPath"
-    put:
-      - path: "/rest"
-        to: "direct:echoMethodPath"
-    delete:
-      - path: "/rest"
-        to: "direct:echoMethodPath"
-    head:
-      - path: "/rest"
-        to: "direct:echoMethodPath"
-
-- route:
-    id: "rest-route"
+- route-template:
+    id: "myTemplate"
+    parameters:
+      - name: "path"
+      - name: "method"
+      - name: "greeting"
     from:
-      uri: "direct:echoMethodPath"
+      uri: "platform-http:{{path}}?httpMethodRestrict={{method}}"
       steps:
         - set-body:
-            simple: "${header.CamelHttpMethod}: ${header.CamelHttpPath}"
+            constant: "{{greeting}}"
+
+- templated-route:
+    route-template-ref: "myTemplate"
+    parameters:
+      - name: "path"
+        value: "/templated/greeting"
+      - name: "method"
+        value: "GET"
+      - name: "greeting"
+        value: "Hello World!"

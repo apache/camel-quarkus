@@ -24,11 +24,11 @@ import io.quarkus.runtime.annotations.ConfigRoot;
 @ConfigRoot(name = "camel.yaml", phase = ConfigPhase.BUILD_TIME)
 public class YamlDslConfiguration {
     /**
-     * If {@code true} the YAML DSL support flow-mode which allow to write more concise routes as for EIPs that have
-     * their own output like filter, aggregate, split, etc. the {@code steps} element can be omitted an in that case,
-     * the next processing step is automatically wired to the EIP's outputs.
+     * If {@code true} the YAML DSL supports flow-mode. This allows you to write more concise routes for EIPs that have
+     * their own output like filter, aggregate, split, etc. the {@code steps} element can be omitted and in that case,
+     * the next processing step is automatically wired to the EIPs outputs.
      * <p/>
-     * As example, a YAML DSL to process only the timer events from 5 to 10 would look like:
+     * For example, a YAML route to process only the timer events from 5 to 10 would look like:
      *
      * <pre>
      * {@code
