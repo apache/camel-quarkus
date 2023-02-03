@@ -44,6 +44,124 @@ ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
 
+[id="extensions-yaml-dsl-usage"]
+== Usage
+[id="extensions-yaml-dsl-usage-native-mode"]
+=== Native mode
+
+The following constructs when defined within Camel YAML DSL markup, require you to register classes for reflection. Refer to the xref:user-guide/native-mode.adoc#reflection[Native mode] guide for details.
+
+[id="extensions-yaml-dsl-usage-bean-definitions"]
+==== Bean definitions
+
+The YAML DSL provides the capability to define beans as follows.
+
+[source,yaml]
+----
+- beans:
+    - name: "greetingBean"
+      type: "org.acme.GreetingBean"
+      properties:
+        greeting: "Hello World!"
+- route:
+    id: "my-yaml-route"
+    from:
+      uri: "timer:from-yaml?period=1000"
+      steps:
+        - to: "bean:greetingBean"
+----
+
+In this example, the `GreetingBean` class needs to be registered for reflection. This applies to any types that you refer to under the `beans` key in your YAML routes.
+
+[source,java]
+----
+@RegisterForReflection
+public class GreetingBean {
+}
+----
+
+[id="extensions-yaml-dsl-usage-exception-handling"]
+==== Exception handling
+
+Camel provides various methods of handling exceptions. Some of these require that any exception classes referenced in their DSL definitions are registered for reflection.
+
+`*on-exception*`
+
+[source,yaml]
+----
+- on-exception:
+    handled:
+      constant: "true"
+    exception:
+      - "org.acme.MyHandledException"
+    steps:
+      - transform:
+          constant: "Sorry something went wrong"
+----
+
+[source,java]
+----
+@RegisterForReflection
+public class MyHandledException {
+}
+----
+
+`*throw-exception*`
+
+[source,yaml]
+----
+- route:
+    id: "my-yaml-route"
+    from:
+      uri: "direct:start"
+      steps:
+        - choice:
+            when:
+              - simple: "${body} == 'bad value'"
+                steps:
+                  - throw-exception:
+                      exception-type: "org.acme.ForcedException"
+                      message: "Forced exception"
+            otherwise:
+              steps:
+                - to: "log:end"
+----
+
+[source,java]
+----
+@RegisterForReflection
+public class ForcedException {
+}
+----
+
+`*do-catch*`
+
+[source,yaml]
+----
+- route:
+    id: "my-yaml-route2"
+    from:
+      uri: "direct:tryCatch"
+      steps:
+        - do-try:
+            steps:
+              - to: "direct:readFile"
+            do-catch:
+              - exception:
+                  - "java.io.FileNotFoundException"
+                steps:
+                  - transform:
+                      constant: "do-catch caught an exception"
+----
+
+[source,java]
+----
+@RegisterForReflection(targets = FileNotFoundException.class)
+public class MyClass {
+}
+----
+
+
 [id="extensions-yaml-dsl-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 
@@ -54,8 +172,8 @@ endif::[]
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.yaml.flow-mode]]`link:#quarkus.camel.yaml.flow-mode[quarkus.camel.yaml.flow-mode]`
 
-If `true` the YAML DSL support flow-mode which allow to write more concise routes as for EIPs that have their own output like filter, aggregate, split, etc. the `steps` element can be omitted an in that case, the next processing step is automatically wired to the EIP's outputs. 
-As example, a YAML DSL to process only the timer events from 5 to 10 would look like: `- from:
+If `true` the YAML DSL supports flow-mode. This allows you to write more concise routes for EIPs that have their own output like filter, aggregate, split, etc. the `steps` element can be omitted and in that case, the next processing step is automatically wired to the EIPs outputs. 
+For example, a YAML route to process only the timer events from 5 to 10 would look like: `- from:
     uri: "timer:tick"
     steps:
       - filter:

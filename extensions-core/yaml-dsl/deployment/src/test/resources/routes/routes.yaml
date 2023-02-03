@@ -15,30 +15,12 @@
 # limitations under the License.
 #
 
-- rest:
-    get:
-      - path: "/rest"
-        to: "direct:echoMethodPath"
-    post:
-      - path: "/rest"
-        to: "direct:echoMethodPath"
-    patch:
-      - path: "/rest"
-        to: "direct:echoMethodPath"
-    put:
-      - path: "/rest"
-        to: "direct:echoMethodPath"
-    delete:
-      - path: "/rest"
-        to: "direct:echoMethodPath"
-    head:
-      - path: "/rest"
-        to: "direct:echoMethodPath"
-
 - route:
-    id: "rest-route"
+    id: "my-yaml-route"
     from:
-      uri: "direct:echoMethodPath"
-      steps:
-        - set-body:
-            simple: "${header.CamelHttpMethod}: ${header.CamelHttpPath}"
+        uri: "direct:classicMode"
+        steps:
+          - split:
+              tokenize: ","
+              steps:
+                - to: "mock:split"
