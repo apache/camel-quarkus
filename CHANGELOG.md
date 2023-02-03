@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- io.quarkus:quarkus-bom's entries should exclude banned artifacts [\#4475](https://github.com/apache/camel-quarkus/issues/4475)
 - camel-quarkus-activemq can not set jms some properties in native mode [\#4454](https://github.com/apache/camel-quarkus/issues/4454)
 - Allow to disable build time compilation of jOOR expressions [\#4452](https://github.com/apache/camel-quarkus/issues/4452)
 - perf-regression: introduce version specific build options [\#4436](https://github.com/apache/camel-quarkus/issues/4436)
@@ -29,6 +30,7 @@
 
 **Merged pull requests:**
 
+- file: fix warning [\#4476](https://github.com/apache/camel-quarkus/pull/4476) ([aldettinger](https://github.com/aldettinger))
 - Re-enable filter test \#3584 [\#4471](https://github.com/apache/camel-quarkus/pull/4471) ([aldettinger](https://github.com/aldettinger))
 - Fixup SQL extension documentation and native testing with alternate JDBC drivers [\#4460](https://github.com/apache/camel-quarkus/pull/4460) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ref \#3088: Split JSON dataformats test [\#4457](https://github.com/apache/camel-quarkus/pull/4457) ([ldrozdo](https://github.com/ldrozdo))
