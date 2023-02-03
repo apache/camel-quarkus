@@ -23,3 +23,4 @@ updates:
       interval: "daily"
     allow:
       - dependency-name: "io.quarkiverse:*"
+      - dependency-name: "org.amqphub.quarkus:quarkus-qpid-jms"
