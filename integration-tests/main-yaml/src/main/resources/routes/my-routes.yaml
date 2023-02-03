@@ -15,11 +15,51 @@
 # limitations under the License.
 #
 
+- beans:
+    - name: "greetingBean"
+      type: "org.apache.camel.quarkus.main.GreetingBean"
+      properties:
+        greeting: "Hello World!"
+- beans:
+    - name: "errorBean"
+      type: "org.apache.camel.quarkus.main.ErrorBean"
+
+- on-exception:
+    handled:
+      constant: "true"
+    exception:
+      - "org.apache.camel.quarkus.main.CustomException"
+    steps:
+      - transform:
+          constant: "Sorry something went wrong"
+
 - route:
     id: "my-yaml-route"
     from:
-      uri: "timer:from-xml?period=3000"
+      uri: "direct:start"
       steps:
-        - set-body:
-            constant: "Hello World!!!"
-        - to: "log:from-yaml"
+        - choice:
+            when:
+              - simple: "${header.forceFailure} == 'true'"
+                steps:
+                  - throw-exception:
+                      exception-type: "org.apache.camel.quarkus.main.CustomException"
+                      message: "Forced custom exception"
+            otherwise:
+              steps:
+                - to: "bean:greetingBean?method=greet"
+
+- route:
+    id: "my-yaml-route2"
+    from:
+      uri: "direct:tryCatch"
+      steps:
+        - do-try:
+            steps:
+              - to: "bean:errorBean"
+            do-catch:
+              - exception:
+                  - "org.apache.camel.quarkus.main.CustomException"
+                steps:
+                  - transform:
+                      constant: "do-catch caught an exception"
