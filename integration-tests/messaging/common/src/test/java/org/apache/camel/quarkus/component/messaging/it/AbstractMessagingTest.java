@@ -24,6 +24,7 @@ import java.util.Map;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import jakarta.json.bind.JsonbBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
@@ -78,7 +79,7 @@ public abstract class AbstractMessagingTest {
 
         RestAssured.given()
                 .contentType(ContentType.JSON)
-                .body(message)
+                .body(JsonbBuilder.create().toJson(message))
                 .post("/messaging/map")
                 .then()
                 .statusCode(200)
