@@ -22,6 +22,7 @@ import java.util.stream.IntStream;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import jakarta.json.bind.JsonbBuilder;
 import org.apache.camel.quarkus.component.jpa.it.model.Fruit;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -49,7 +50,7 @@ class JpaTest {
         for (String fruit : FRUITS) {
             RestAssured.given()
                     .contentType(ContentType.JSON)
-                    .body(new Fruit(fruit))
+                    .body(JsonbBuilder.create().toJson(new Fruit(fruit)))
                     .post("/jpa/fruit")
                     .then()
                     .statusCode(201);
@@ -94,39 +95,38 @@ class JpaTest {
 
     @Test
     public void testTransaction() {
-        Fruit accepted = new Fruit("Grapes");
-        Fruit rejected = new Fruit("Potato");
+        final Fruit rejected = new Fruit("Potato");
 
-        accepted = RestAssured.given()
+        final int acceptedId = RestAssured.given()
                 .contentType(ContentType.JSON)
-                .body(accepted)
+                .body(JsonbBuilder.create().toJson(new Fruit("Grapes")))
                 .post("/jpa/direct/transaction")
                 .then()
                 .statusCode(200)
                 .body("id", notNullValue())
                 .body("name", is("Grapes"))
-                .extract().body().as(Fruit.class);
+                .extract().jsonPath().getInt("id");
 
         try {
             RestAssured.given()
                     .contentType(ContentType.JSON)
-                    .body(rejected)
+                    .body(JsonbBuilder.create().toJson(rejected))
                     .header("rollback", true)
                     .post("/jpa/direct/transaction")
                     .then()
                     .statusCode(500);
 
-            RestAssured.get("/jpa/fruit/named/" + accepted.getName())
+            RestAssured.get("/jpa/fruit/named/Grapes")
                     .then()
                     .statusCode(200)
-                    .body("name", contains(accepted.getName()));
+                    .body("name", contains("Grapes"));
 
             RestAssured.get("/jpa/fruit/named/" + rejected.getName())
                     .then()
                     .statusCode(200)
                     .body("$.size()", is(0));
         } finally {
-            RestAssured.delete("/jpa/fruit/" + accepted.getId())
+            RestAssured.delete("/jpa/fruit/" + acceptedId)
                     .then()
                     .statusCode(200);
         }
@@ -137,7 +137,7 @@ class JpaTest {
         IntStream.of(1, 2, 1, 3, 2).forEach((id) -> {
             RestAssured.given()
                     .contentType(ContentType.JSON)
-                    .body(new Fruit(Integer.toString(id)))
+                    .body(JsonbBuilder.create().toJson(new Fruit(Integer.toString(id))))
                     .header("messageId", id)
                     .post("/jpa/direct/idempotent")
                     .then()
@@ -160,9 +160,11 @@ class JpaTest {
     }
 
     public Fruit findFruit(int id) {
-        return RestAssured.get("/jpa/fruit/" + id)
-                .then()
-                .statusCode(200)
-                .extract().body().as(Fruit.class);
+        return JsonbBuilder.create().fromJson(
+                RestAssured.get("/jpa/fruit/" + id)
+                        .then()
+                        .statusCode(200)
+                        .extract().body().asString(),
+                Fruit.class);
     }
 }

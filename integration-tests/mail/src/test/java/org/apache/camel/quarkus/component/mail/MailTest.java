@@ -34,6 +34,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import jakarta.json.bind.JsonbBuilder;
 import org.apache.camel.ExchangePropertyKey;
 import org.apache.camel.ServiceStatus;
 import org.eclipse.microprofile.config.Config;
@@ -136,10 +137,10 @@ public class MailTest {
 
         Awaitility.await().atMost(5, TimeUnit.SECONDS).until(() -> {
             //receive
-            return (List<Map<String, Object>>) RestAssured.get("/mail/getReceived/")
+            return (List<Map<String, Object>>) JsonbBuilder.create().fromJson(RestAssured.get("/mail/getReceived/")
                     .then()
                     .statusCode(200)
-                    .extract().as(List.class);
+                    .extract().body().asString(), List.class);
         }, list -> list.size() == 1
                 && "Hi how are you".equals(list.get(0).get("content"))
                 && "Hello World".equals(list.get(0).get("subject")));
@@ -208,10 +209,10 @@ public class MailTest {
                     .statusCode(204);
 
             Awaitility.await().atMost(20, TimeUnit.SECONDS).until(() -> {
-                return (List<Map<String, Object>>) RestAssured.get("/mail/getReceived/")
+                return (List<Map<String, Object>>) JsonbBuilder.create().fromJson(RestAssured.get("/mail/getReceived/")
                         .then()
                         .statusCode(200)
-                        .extract().as(List.class);
+                        .extract().body().asString(), List.class);
             },
                     list -> {
                         if (list.size() == 2) {
@@ -261,10 +262,10 @@ public class MailTest {
 
         Awaitility.await().atMost(20, TimeUnit.SECONDS).until(() -> {
             //receive
-            return (List<Map<String, Object>>) RestAssured.get("/mail/getReceived/")
+            return (List<Map<String, Object>>) JsonbBuilder.create().fromJson(RestAssured.get("/mail/getReceived/")
                     .then()
                     .statusCode(200)
-                    .extract().as(List.class);
+                    .extract().body().asString(), List.class);
         }, list -> list.size() == 4
 
                 && "message 1".equals(list.get(0).get("content"))
@@ -306,10 +307,12 @@ public class MailTest {
 
         Awaitility.await().atMost(20, TimeUnit.SECONDS).until(() -> {
             //receive
-            return (List<Map<String, Object>>) RestAssured.get("/mail/getReceivedAsString/")
-                    .then()
-                    .statusCode(200)
-                    .extract().as(List.class);
+            return (List<Map<String, Object>>) JsonbBuilder.create().fromJson(
+                    RestAssured.get("/mail/getReceivedAsString/")
+                            .then()
+                            .statusCode(200)
+                            .extract().body().asString(),
+                    List.class);
         }, list -> list.size() == 1
                 && ((String) list.get(0).get("body")).matches("Hello World\\s*"));
     }
@@ -320,13 +323,13 @@ public class MailTest {
         //messages will be sent in reverse order
         Collections.reverse(msgs);
 
-        List<String> sorted = RestAssured.given()
+        List<String> sorted = JsonbBuilder.create().fromJson(RestAssured.given()
                 .contentType(ContentType.JSON)
-                .body(msgs)
+                .body(JsonbBuilder.create().toJson(msgs))
                 .post("/mail/sort")
                 .then()
                 .statusCode(200)
-                .extract().as(List.class);
+                .extract().body().asString(), List.class);
 
         Assertions.assertEquals(4, sorted.size());
         Assertions.assertTrue(sorted.get(0).contains("message 1"));
