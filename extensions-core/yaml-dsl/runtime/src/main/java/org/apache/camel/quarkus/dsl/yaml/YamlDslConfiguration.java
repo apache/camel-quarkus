@@ -57,6 +57,7 @@ public class YamlDslConfiguration {
      *
      *
      */
+    @Deprecated(forRemoval = true)
     @ConfigItem(defaultValue = "true")
     public boolean flowMode;
 }
