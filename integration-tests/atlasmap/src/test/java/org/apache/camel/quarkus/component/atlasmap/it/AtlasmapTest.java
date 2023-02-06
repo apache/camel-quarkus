@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.atlasmap.it;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
@@ -36,7 +38,7 @@ class AtlasmapTest {
         Person person = new Person("foo", "bar", 35);
         given()
                 .contentType(ContentType.JSON)
-                .body(person)
+                .body(toJson(person))
                 .when()
                 .get("/json/java2json")
                 .then()
@@ -104,11 +106,19 @@ class AtlasmapTest {
         String expectedResponse = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><tns:Person xmlns:tns=\"http://hl7.org/fhir\"><tns:firstName value=\"foo\"/><tns:lastName value=\"bar\"/><tns:age value=\"35\"/></tns:Person>";
         given()
                 .contentType(ContentType.JSON)
-                .body(request)
+                .body(toJson(request))
                 .when()
                 .get("/json/java2xml")
                 .then()
                 .body(equalTo(expectedResponse));
+    }
+
+    static String toJson(Object request) {
+        try {
+            return new ObjectMapper().writeValueAsString(request);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Could not serialize " + request.getClass().getName() + " " + request, e);
+        }
     }
 
     @Test
@@ -268,7 +278,7 @@ class AtlasmapTest {
         Account person = new Account("1", "user");
         given()
                 .contentType(ContentType.JSON)
-                .body(person)
+                .body(toJson(person))
                 .when()
                 .post("/json/java2csv")
                 .then()
