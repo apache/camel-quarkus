@@ -20,11 +20,18 @@ import java.io.ByteArrayOutputStream;
 import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Properties;
 import java.util.function.BooleanSupplier;
 
+import com.oracle.svm.core.annotate.Alias;
+import com.oracle.svm.core.annotate.Delete;
+import com.oracle.svm.core.annotate.KeepOriginal;
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
+import org.quartz.impl.StdSchedulerFactory;
 import org.quartz.impl.jdbcjobstore.CUBRIDDelegate;
+import org.quartz.utils.C3p0PoolingConnectionProvider;
+import org.quartz.utils.PoolingConnectionProvider;
 
 public final class QuartzSubstitutions {
 }
@@ -47,6 +54,40 @@ final class SubstituteCUBRIDDelegate {
         blob.setBytes(1, byteArray);
         ps.setBlob(index, blob);
     }
+}
+
+// Cuts out unwanted references to C3P0ProxyConnection if c3p0 not on the classpath
+@TargetClass(value = StdSchedulerFactory.class, onlyWith = C3p0IsAbsent.class)
+@KeepOriginal
+final class SubstituteStdSchedulerFactory {
+
+    @Alias
+    private void setBeanProps(Object obj, Properties props) {
+    }
+
+    @Substitute
+    private void populateProviderWithExtraProps(PoolingConnectionProvider cp, Properties props) throws Exception {
+        Properties copyProps = new Properties();
+        copyProps.putAll(props);
+
+        // Remove all the default properties first (they don't always match to setter name, and they are already
+        // been set!)
+        copyProps.remove(PoolingConnectionProvider.DB_DRIVER);
+        copyProps.remove(PoolingConnectionProvider.DB_URL);
+        copyProps.remove(PoolingConnectionProvider.DB_USER);
+        copyProps.remove(PoolingConnectionProvider.DB_PASSWORD);
+        copyProps.remove(PoolingConnectionProvider.DB_MAX_CONNECTIONS);
+        copyProps.remove(PoolingConnectionProvider.DB_VALIDATION_QUERY);
+        copyProps.remove(PoolingConnectionProvider.POOLING_PROVIDER);
+
+        setBeanProps(cp.getDataSource(), copyProps);
+    }
+}
+
+// Delete unwanted class C3p0PoolingConnectionProvider if c3p0 not on the classpath
+@TargetClass(value = C3p0PoolingConnectionProvider.class, onlyWith = C3p0IsAbsent.class)
+@Delete
+final class SubstituteC3p0PoolingConnectionProvider {
 }
 
 final class C3p0IsAbsent implements BooleanSupplier {
