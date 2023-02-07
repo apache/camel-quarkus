@@ -56,7 +56,7 @@
         <!--<module>activemq</module>-->
         <module>amqp</module>
         <module>arangodb</module>
-        <module>as2</module>
+        <!--<module>as2</module> https://github.com/apache/camel-quarkus/issues/4492 -->
         <module>atlasmap</module>
         <module>avro</module>
         <!--<module>avro-rpc</module>-->
