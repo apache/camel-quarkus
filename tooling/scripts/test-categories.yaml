@@ -54,7 +54,6 @@ group-03:
 group-04:
   - arangodb
   - debezium
-  - cassandraql
   - couchdb
   - influxdb
   - jdbc
