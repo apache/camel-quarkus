@@ -195,7 +195,7 @@
         <module>saga</module>
         <module>salesforce</module>
         <module>sap-netweaver</module>
-        <module>saxon</module>
+        <!--<module>saxon</module> https://github.com/apache/camel-quarkus/issues/4512 -->
         <module>servicenow</module>
         <module>servlet</module>
         <module>shiro</module>
