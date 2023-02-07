@@ -20,7 +20,6 @@ group-01:
   - caffeine
   - git
   - google-storage
-  - hazelcast
   - http
   - infinispan
   - jcache
