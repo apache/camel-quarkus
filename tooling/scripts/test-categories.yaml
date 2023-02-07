@@ -28,8 +28,6 @@ group-01:
   - mllp
 group-02:
   - aws2
-  - google-bigquery
-  - google-pubsub
   - grpc
   - jackson-avro
   - jackson-protobuf
