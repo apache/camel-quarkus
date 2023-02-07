@@ -1,0 +1,12 @@
+Out of the box docker greenmail does not work with SSL/TLS.
+Certificate has to be created - the guide can be seen in the issue https://github.com/greenmail-mail-test/greenmail/issues/448[#448].
+
+Following steps were used for certificate creation.
+
+```
+openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes \
+ -keyout greenmail.key -out greenmail.crt -subj "/CN=localhost" \
+ -addext "subjectAltName=DNS:localhost,IP:127.0.0.1"
+
+openssl pkcs12 -export -out greenmail.p12 -inkey greenmail.key -in greenmail.crt
+```

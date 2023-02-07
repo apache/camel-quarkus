@@ -22,21 +22,23 @@ import java.util.Map;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.HttpWaitStrategy;
-import org.testcontainers.utility.DockerImageName;
+import org.testcontainers.images.builder.ImageFromDockerfile;
 
 public class MailTestResource implements QuarkusTestResourceLifecycleManager {
 
-    private static final String GREENMAIL_IMAGE_NAME = "greenmail/standalone:1.6.7";
     private GenericContainer<?> container;
 
     @Override
     public Map<String, String> start() {
-        container = new GenericContainer<>(DockerImageName.parse(GREENMAIL_IMAGE_NAME))
-                .withExposedPorts(MailProtocol.allPorts())
-                .waitingFor(new HttpWaitStrategy()
-                        .forPort(MailProtocol.API.getPort())
-                        .forPath("/api/service/readiness")
-                        .forStatusCode(200));
+        //Dockerfile with ImageFromDockerfile is used, because ownership of the certificate has to be changed
+        container = new GenericContainer<>(new ImageFromDockerfile()
+                .withFileFromClasspath("Dockerfile", "Dockerfile")
+                .withFileFromClasspath("greenmail.p12", "greenmail.p12"))
+                        .withExposedPorts(MailProtocol.allPorts())
+                        .waitingFor(new HttpWaitStrategy()
+                                .forPort(MailProtocol.API.getPort())
+                                .forPath("/api/service/readiness")
+                                .forStatusCode(200));
 
         container.start();
 
