@@ -10,6 +10,7 @@
 ** xref:user-guide/command-mode.adoc[Command mode]
 ** xref:user-guide/testing.adoc[Testing]
 ** xref:user-guide/examples.adoc[Examples]
+** xref:user-guide/kubernetes.adoc[Kubernetes]
 * xref:migration-guide/index.adoc[Migration guide]
 ** xref:migration-guide/2.0.0.adoc[Camel Quarkus 2.0.0 migration guide]
 * xref:contributor-guide/index.adoc[Contributor guide]

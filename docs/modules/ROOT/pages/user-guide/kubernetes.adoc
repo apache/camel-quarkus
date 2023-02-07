@@ -1,0 +1,26 @@
+= Kubernetes
+:page-aliases: kubernetes.adoc
+
+This guide describes different ways to configure and deploy a Camel Quarkus application on kubernetes. It also describes some specific use cases for Knative and Service Binding.
+== Kubernetes
+Quarkus supports generating resources for vanilla Kubernetes, OpenShift and Knative. Furthermore, Quarkus can deploy the application to a target Kubernetes cluster by applying the generated manifests to the target cluster’s API Server.
+More information in the https://quarkus.io/guides/deploying-to-kubernetes[`Quarkus Kubernetes guide`].
+
+== Knative
+The Camel Quarkus extensions whose consumers support Knative deployment are:
+
+- xref:reference/extensions/cxf-soap.adoc[`camel-quarkus-cxf-soap`]
+- xref:reference/extensions/grpc.adoc[`camel-quarkus-grpc`]
+- xref:reference/extensions/knative.adoc[`camel-quarkus-knative`]
+- xref:reference/extensions/platform-http.adoc[`camel-quarkus-platform-http`]
+- xref:reference/extensions/rest.adoc[`camel-quarkus-rest`]
+- xref:reference/extensions/servlet.adoc[`camel-quarkus-servlet`]
+- xref:reference/extensions/telegram.adoc[`camel-quarkus-telegram with webhook`]
+- xref:reference/extensions/vertx-websocket.adoc[`camel-quarkus-vertx-websocket`]
+
+== Service binding
+Quarkus also supports the https://quarkus.io/guides/deploying-to-kubernetes#service_binding[Service Binding Specification for Kubernetes] to bind services to applications.
+
+The following Camel Quarkus extensions can be used with Service Binding:
+
+- xref:reference/extensions/kafka.adoc[`camel-quarkus-kafka`]
