@@ -109,7 +109,6 @@ group-08:
   - telegram
   - twitter
   - vertx
-  - zendesk
 group-09:
   - amqp
   - ftp
