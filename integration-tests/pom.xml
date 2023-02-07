@@ -62,7 +62,7 @@
         <!--<module>avro-rpc</module>-->
         <!--<module>aws2</module> https://github.com/apache/camel-quarkus/issues/4501 -->
         <module>aws2-grouped</module>
-        <!--<module>aws2-quarkus-client-grouped</module> https://github.com/apache/camel-quarkus/issues/4496 -->
+        <module>aws2-quarkus-client-grouped</module>
         <!--<module>azure-grouped</module> https://github.com/apache/camel-quarkus/issues/4507 -->
         <module>base64</module>
         <module>bean-validator</module>
