@@ -30,6 +30,10 @@
     <name>Camel Quarkus :: Integration Tests :: XML</name>
     <description>Integration tests for various XML related extensions</description>
 
+    <properties>
+        <ci.native.tests.skip>true</ci.native.tests.skip><!-- https://github.com/apache/camel-quarkus/issues/4494 -->
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
