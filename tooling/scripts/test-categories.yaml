@@ -179,5 +179,4 @@ group-13:
   - servicenow
   - slack
   - twilio
-  - nitrite
   - pgevent
