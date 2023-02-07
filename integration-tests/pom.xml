@@ -120,7 +120,7 @@
         <module>jdbc</module>
         <module>jfr</module>
         <module>jira</module>
-        <module>jms-artemis-client</module>
+        <!--<module>jms-artemis-client</module> https://github.com/apache/camel-quarkus/issues/4500 -->
         <module>jms-qpid-amqp-client</module>
         <module>jolt</module>
         <module>joor</module>
