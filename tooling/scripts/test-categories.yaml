@@ -21,7 +21,6 @@ group-01:
   - git
   - google-storage
   - http
-  - infinispan
   - jcache
   - jsch
   - kafka

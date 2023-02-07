@@ -110,7 +110,7 @@
         <module>headersmap</module>
         <module>hl7</module>
         <module>http</module>
-        <module>infinispan</module>
+        <!--<module>infinispan</module> https://github.com/apache/camel-quarkus/issues/4499 -->
         <module>influxdb</module>
         <module>jackson-avro</module>
         <module>jackson-protobuf</module>
