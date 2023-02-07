@@ -49,7 +49,6 @@ group-03:
   - main-devmode
   - main-discovery-disabled
   - main-xml-io
-  - main-xml-jaxb
   - main-yaml
   - shiro
   - validator
