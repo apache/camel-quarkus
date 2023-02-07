@@ -41,7 +41,6 @@ group-03:
   - bean-validator
   - foundation-grouped
   - core-discovery-disabled
-  - freemarker
   - json-validator
   - main
   - main-collector
