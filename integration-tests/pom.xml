@@ -224,7 +224,7 @@
         <module>validator</module>
         <module>velocity</module>
         <module>vertx</module>
-        <module>vertx-websocket</module>
+        <!--<module>vertx-websocket</module> https://github.com/apache/camel-quarkus/issues/4518 -->
         <module>weather</module>
         <!--<module>xchange</module> https://github.com/apache/camel-quarkus/issues/4516 -->
         <module>xml</module>
