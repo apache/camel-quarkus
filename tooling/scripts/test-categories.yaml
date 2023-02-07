@@ -86,7 +86,6 @@ group-06:
   - lra
   - micrometer
   - openstack
-  - opentelemetry
   - quartz
   - saga
   - sjms-qpid-amqp-client
