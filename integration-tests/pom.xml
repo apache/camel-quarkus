@@ -166,7 +166,7 @@
         <module>mybatis</module>
         <module>nats</module>
         <module>netty</module>
-        <module>nitrite</module>
+        <!--<module>nitrite</module> https://github.com/apache/camel-quarkus/issues/4525 -->
         <module>oaipmh</module>
         <module>ognl</module>
         <module>olingo4</module>
