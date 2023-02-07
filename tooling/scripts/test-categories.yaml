@@ -118,7 +118,6 @@ group-09:
   - nats
   - splunk
   - spring-rabbitmq
-  - xchange
   - xpath
 group-10:
   - as2
