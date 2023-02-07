@@ -30,6 +30,10 @@
     <name>Camel Quarkus :: Integration Tests :: Mail</name>
     <description>Integration tests for Camel Mail extension</description>
 
+    <properties>
+        <ci.native.tests.skip>true</ci.native.tests.skip><!-- https://github.com/apache/camel-quarkus/issues/4493 -->
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
