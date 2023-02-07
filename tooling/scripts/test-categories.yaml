@@ -166,7 +166,6 @@ group-12:
   - rest-openapi
 group-13:
   - box
-  - fhir
   - github
   - google
   - groovy-dsl
