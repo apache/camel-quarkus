@@ -218,7 +218,7 @@
         <module>tarfile</module>
         <module>telegram</module>
         <!--<module>tika</module>-->
-        <module>twilio</module>
+        <!--<module>twilio</module> https://github.com/apache/camel-quarkus/issues/4527 -->
         <module>twitter</module>
         <module>univocity-parsers</module>
         <module>validator</module>
