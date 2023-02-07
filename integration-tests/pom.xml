@@ -193,7 +193,7 @@
         <module>rest</module>
         <module>rest-openapi</module>
         <module>saga</module>
-        <module>salesforce</module>
+        <!--<module>salesforce</module> https://github.com/apache/camel-quarkus/issues/4526 -->
         <module>sap-netweaver</module>
         <!--<module>saxon</module> https://github.com/apache/camel-quarkus/issues/4512 -->
         <module>servicenow</module>
