@@ -16,8 +16,10 @@
  */
 package org.apache.camel.quarkus.component.mail.deployment;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 
 class MailProcessor {
 
@@ -27,4 +29,29 @@ class MailProcessor {
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
     }
+
+    @BuildStep
+    void registerOkhttpServiceProvider(BuildProducer<ServiceProviderBuildItem> services) {
+        services.produce(
+                new ServiceProviderBuildItem("jakarta.mail.util.StreamProvider", "com.sun.mail.util.MailStreamProvider"));
+        services.produce(
+                new ServiceProviderBuildItem("jakarta.mail.Provider", "com.sun.mail.imap.IMAPProvider"));
+        services.produce(
+                new ServiceProviderBuildItem("jakarta.mail.Provider", "com.sun.mail.imap.IMAPSSLProvider"));
+        services.produce(
+                new ServiceProviderBuildItem("jakarta.mail.Provider", "com.sun.mail.smtp.SMTPSSLProvider"));
+        services.produce(
+                new ServiceProviderBuildItem("jakarta.mail.Provider", "com.sun.mail.smtp.SMTPProvider"));
+        services.produce(
+                new ServiceProviderBuildItem("jakarta.mail.Provider", "com.sun.mail.pop3.POP3Provider"));
+        services.produce(
+                new ServiceProviderBuildItem("jakarta.mail.Provider", "com.sun.mail.pop3.POP3SSLProvider"));
+        services.produce(
+                new ServiceProviderBuildItem("jakarta.activation.spi.MimeTypeRegistryProvider",
+                        "com.sun.activation.registries.MimeTypeRegistryProviderImpl"));
+        services.produce(
+                new ServiceProviderBuildItem("jakarta.activation.spi.MailcapRegistryProvider",
+                        "com.sun.activation.registries.MailcapRegistryProviderImpl"));
+    }
+
 }
