@@ -75,7 +75,7 @@
         <module>compression-grouped</module>
         <module>consul</module>
         <module>couchdb</module>
-        <module>crypto</module>
+        <!--<module>crypto</module> https://github.com/apache/camel-quarkus/issues/4510 -->
         <module>csimple</module>
         <module>csv</module>
         <!--<module>cxf-soap-grouped</module>-->

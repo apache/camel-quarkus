@@ -101,7 +101,6 @@ group-07:
   - sjms2-qpid-amqp-client
   - weather
 group-08:
-  - crypto
   - jq
   - master
   - master-file
