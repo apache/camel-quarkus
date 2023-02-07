@@ -27,7 +27,6 @@ group-01:
   - kafka-sasl
   - mllp
 group-02:
-  - aws2
   - grpc
   - jackson-avro
   - jackson-protobuf
