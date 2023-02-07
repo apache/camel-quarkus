@@ -90,7 +90,6 @@ group-06:
   - saga
   - sjms-qpid-amqp-client
 group-07:
-  - dataformats-json
   - dropbox
   - geocoder
   - jslt
