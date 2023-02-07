@@ -43,7 +43,7 @@
         <module>main</module>
         <module>main-devmode</module>
         <module>main-discovery-disabled</module>
-        <module>main-xml-jaxb</module>
+        <!--<module>main-xml-jaxb</module> https://github.com/apache/camel-quarkus/issues/4507 -->
         <module>main-xml-io</module>
         <module>main-collector</module>
         <!--<module>main-caffeine-lrucache</module>-->
