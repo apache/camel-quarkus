@@ -39,15 +39,22 @@ import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import jakarta.mail.Provider;
 import org.jboss.jandex.DotName;
 
 class SupportMailProcessor {
 
     @BuildStep
-    void process(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
-            BuildProducer<NativeImageResourceBuildItem> resource) {
+    void process(CombinedIndexBuildItem combinedIndex, BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+            BuildProducer<NativeImageResourceBuildItem> resource,
+            BuildProducer<ServiceProviderBuildItem> services) {
         List<String> providers = resources("META-INF/services/jakarta.mail.Provider")
+                .flatMap(this::lines)
+                .filter(s -> !s.startsWith("#"))
+                .collect(Collectors.toList());
+
+        List<String> streamProviders = resources("META-INF/services/jakarta.mail.util.StreamProvider")
                 .flatMap(this::lines)
                 .filter(s -> !s.startsWith("#"))
                 .collect(Collectors.toList());
@@ -79,23 +86,38 @@ class SupportMailProcessor {
                 .collect(Collectors.toList());
 
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, false,
-                Stream.concat(providers.stream(), Stream.concat(imp1.stream(), Stream.concat(imp2.stream(), imp3.stream())))
+                Stream.concat(providers.stream(),
+                        Stream.concat(streamProviders.stream(),
+                                Stream.concat(imp1.stream(), Stream.concat(imp2.stream(), imp3.stream()))))
                         .distinct()
                         .toArray(String[]::new)));
 
         resource.produce(new NativeImageResourceBuildItem(
                 "META-INF/services/jakarta.mail.Provider",
+                "META-INF/services/jakarta.mail.util.StreamProvider",
                 "META-INF/javamail.charset.map",
                 "META-INF/javamail.default.address.map",
                 "META-INF/javamail.default.providers",
                 "META-INF/javamail.address.map",
                 "META-INF/javamail.providers",
                 "META-INF/mailcap"));
+
+        //jakarta activation spi
+        combinedIndex.getIndex().getKnownClasses()
+                .stream()
+                .map(classInfo -> classInfo.name().toString())
+                .filter(name -> name.startsWith("jakarta.activation.spi."))
+                .forEach(name -> combinedIndex.getIndex().getKnownDirectImplementors(DotName.createSimple(name))
+                        .stream()
+                        .forEach(service -> services.produce(
+                                new ServiceProviderBuildItem(name, service.name().toString()))));
     }
 
     @BuildStep
-    IndexDependencyBuildItem indexDependencies() {
-        return new IndexDependencyBuildItem("org.eclipse.angus", "angus-mail");
+    void registerDependencyForIndex(BuildProducer<IndexDependencyBuildItem> items) {
+        items.produce(new IndexDependencyBuildItem("jakarta.activation", "jakarta.activation-api"));
+        items.produce(new IndexDependencyBuildItem("org.eclipse.angus", "angus-activation"));
+        items.produce(new IndexDependencyBuildItem("org.eclipse.angus", "angus-mail"));
     }
 
     @BuildStep
