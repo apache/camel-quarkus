@@ -24,7 +24,6 @@ group-01:
   - http
   - infinispan
   - jcache
-  - jms-artemis-client
   - jsch
   - kafka
   - kafka-sasl
