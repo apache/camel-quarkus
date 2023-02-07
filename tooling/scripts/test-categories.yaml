@@ -174,7 +174,6 @@ group-13:
   - jsh-dsl
   - kotlin-dsl
   - kubernetes
-  - salesforce
   - sap-netweaver
   - servicenow
   - slack
