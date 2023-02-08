@@ -10,6 +10,8 @@
 
 **Closed issues:**
 
+- MailTest.receiveSecured fails on Camel 4/Quarkus 3: Can't verify identity of server: localhost [\#4493](https://github.com/apache/camel-quarkus/issues/4493)
+- Improve yaml-dsl documentation [\#4487](https://github.com/apache/camel-quarkus/issues/4487)
 - io.quarkus:quarkus-bom's entries should exclude banned artifacts [\#4475](https://github.com/apache/camel-quarkus/issues/4475)
 - Provide SBOM for Camel-Quarkus project [\#4459](https://github.com/apache/camel-quarkus/issues/4459)
 - camel-quarkus-activemq can not set jms some properties in native mode [\#4454](https://github.com/apache/camel-quarkus/issues/4454)
@@ -31,6 +33,7 @@
 
 **Merged pull requests:**
 
+- Improve yaml-dsl documentation and add simple test scenarios [\#4489](https://github.com/apache/camel-quarkus/pull/4489) ([jamesnetherton](https://github.com/jamesnetherton))
 - Update dependabot [\#4483](https://github.com/apache/camel-quarkus/pull/4483) ([zhfeng](https://github.com/zhfeng))
 - Add quarkus-qpid-jms for dependency version checking [\#4480](https://github.com/apache/camel-quarkus/pull/4480) ([zhfeng](https://github.com/zhfeng))
 - file: fix warning [\#4476](https://github.com/apache/camel-quarkus/pull/4476) ([aldettinger](https://github.com/aldettinger))
