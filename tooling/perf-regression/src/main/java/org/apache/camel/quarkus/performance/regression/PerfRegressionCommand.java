@@ -111,12 +111,12 @@ public class PerfRegressionCommand implements Runnable {
         setMvnwMavenVersion(cqVersionUnderTestFolder, targetMavenVersion);
 
         // Run performance regression test in JVM mode
-        double jvmThroughput = runPerfRegression(cqVersionUnderTestFolder, "integration-test");
+        double jvmThroughput = runPerfRegression(cqVersionUnderTestFolder, "integration-test -Denforcer.skip=true");
         report.setCategoryMeasureForVersion(cqVersion, "JVM", jvmThroughput);
 
         // Run performance regression test in native mode
         if (alsoRunNativeMode) {
-            String nativeCommandArgs = "integration-test -Dnative -Dquarkus.native.container-build=true";
+            String nativeCommandArgs = "integration-test -Dnative -Dquarkus.native.container-build=true -Denforcer.skip=true";
             if (useMandrelNativeBuilder) {
                 nativeCommandArgs += " -Dquarkus.native.builder-image=mandrel";
             }
