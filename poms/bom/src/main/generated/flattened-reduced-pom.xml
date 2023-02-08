@@ -6052,22 +6052,22 @@
       <dependency>
         <groupId>io.quarkiverse.minio</groupId>
         <artifactId>quarkus-minio</artifactId>
-        <version>2.10.3</version>
+        <version>3.0.0.Alpha3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.minio</groupId>
         <artifactId>quarkus-minio-deployment</artifactId>
-        <version>2.10.3</version>
+        <version>3.0.0.Alpha3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.minio</groupId>
         <artifactId>quarkus-minio-native</artifactId>
-        <version>2.10.3</version>
+        <version>3.0.0.Alpha3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.minio</groupId>
         <artifactId>quarkus-minio-native-deployment</artifactId>
-        <version>2.10.3</version>
+        <version>3.0.0.Alpha3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId>
@@ -6078,6 +6078,11 @@
         <groupId>io.quarkiverse.mybatis</groupId>
         <artifactId>quarkus-mybatis-deployment</artifactId>
         <version>2.0.0.CR1</version>
+      </dependency>
+      <dependency>
+        <groupId>io.minio</groupId>
+        <artifactId>minio</artifactId>
+        <version>8.2.2</version>
       </dependency>
       <dependency>
         <groupId>jakarta.jms</groupId>
