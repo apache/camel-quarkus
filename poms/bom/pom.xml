@@ -6288,6 +6288,11 @@
                 <artifactId>quarkus-tika-deployment</artifactId>
                 <version>${quarkiverse-tika.version}</version>
             </dependency>
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
+            </dependency>
             <!--<dependency>
                 <groupId>io.smallrye.reactive</groupId>
                 <artifactId>smallrye-reactive-messaging-camel</artifactId>
