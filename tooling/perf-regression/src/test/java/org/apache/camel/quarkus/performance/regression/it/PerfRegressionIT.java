@@ -38,6 +38,7 @@ import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
+@Disabled("https://github.com/apache/camel-quarkus/issues/4528")
 public class PerfRegressionIT {
 
     @Test
