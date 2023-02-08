@@ -93,7 +93,7 @@
         <module>file</module>
         <module>flatpack</module>
         <module>fop</module>
-        <!--<module>freemarker</module> https://github.com/apache/camel-quarkus/issues/4508 -->
+        <module>freemarker</module>
         <module>ftp</module>
         <module>geocoder</module>
         <module>git</module>
