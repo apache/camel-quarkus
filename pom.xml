@@ -81,6 +81,7 @@
         <azure-core-http-vertx.version>1.0.0-beta.3</azure-core-http-vertx.version> <!-- TODO: https://github.com/apache/camel-quarkus/issues/4181 -->
         <cassandra-driver-test.version>3.7.1</cassandra-driver-test.version><!-- Keep in sync with testcontainers instead of Debezium bom -->
         <bouncycastle.version>1.70</bouncycastle.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.bouncycastle:bcprov-jdk15on -->
+        <brotli.version>0.1.2</brotli.version>
         <caffeine.version>3.1.1</caffeine.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.github.ben-manes.caffeine:caffeine -->
         <commons-beanutils.version>${commons-beanutils-version}</commons-beanutils.version>
         <commons-cli.version>1.4</commons-cli.version><!-- keep in sync with Quarkus, via quarkus-bootstrap-core -->
