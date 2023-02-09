@@ -49,6 +49,7 @@ group-03:
   - main-devmode
   - main-discovery-disabled
   - main-xml-io
+  - main-xml-jaxb
   - main-yaml
   - shiro
   - validator
@@ -91,6 +92,7 @@ group-06:
   - saga
   - sjms-qpid-amqp-client
 group-07:
+  - dataformats-json
   - dropbox
   - geocoder
   - jslt
@@ -176,6 +178,7 @@ group-13:
   - jsh-dsl
   - kotlin-dsl
   - kubernetes
+  - salesforce
   - sap-netweaver
   - servicenow
   - slack

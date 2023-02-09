@@ -43,7 +43,7 @@
         <module>main</module>
         <module>main-devmode</module>
         <module>main-discovery-disabled</module>
-        <!--<module>main-xml-jaxb</module> https://github.com/apache/camel-quarkus/issues/4507 -->
+        <module>main-xml-jaxb</module>
         <module>main-xml-io</module>
         <module>main-collector</module>
         <!--<module>main-caffeine-lrucache</module>-->
@@ -80,7 +80,7 @@
         <module>csv</module>
         <!--<module>cxf-soap-grouped</module>-->
         <module>dataformat</module>
-        <!--<module>dataformats-json</module> https://github.com/apache/camel-quarkus/issues/4507 -->
+        <module>dataformats-json</module>
         <!--<module>datasonnet</module>-->
         <module>debezium</module>
         <module>digitalocean</module>
@@ -193,7 +193,7 @@
         <module>rest</module>
         <module>rest-openapi</module>
         <module>saga</module>
-        <!--<module>salesforce</module> https://github.com/apache/camel-quarkus/issues/4526 -->
+        <module>salesforce</module>
         <module>sap-netweaver</module>
         <!--<module>saxon</module> https://github.com/apache/camel-quarkus/issues/4512 -->
         <module>servicenow</module>
