@@ -10,7 +10,14 @@
 
 **Closed issues:**
 
+- PerfRegressionIT failing with Camel 4 and Quarkus 3 [\#4528](https://github.com/apache/camel-quarkus/issues/4528)
+- Improve documentation for Kubernetes [\#4520](https://github.com/apache/camel-quarkus/issues/4520)
+- mail test fails in native mode [\#4519](https://github.com/apache/camel-quarkus/issues/4519)
+- Upgrade to Quarkiverse Freemarker 1.0.0.Alpha1 to become compatible with Quarkus 3 [\#4508](https://github.com/apache/camel-quarkus/issues/4508)
+- quarkus-pooled-jms incompatible with Quarkus 3 and Jakarta 9/10 [\#4500](https://github.com/apache/camel-quarkus/issues/4500)
+- Upgrade to Quarkiverse Amazon Services 2.x [\#4496](https://github.com/apache/camel-quarkus/issues/4496)
 - MailTest.receiveSecured fails on Camel 4/Quarkus 3: Can't verify identity of server: localhost [\#4493](https://github.com/apache/camel-quarkus/issues/4493)
+- Quarkiverse MyBatis 1.x not ready for Quarkus 3/Jakarta 9/10 [\#4491](https://github.com/apache/camel-quarkus/issues/4491)
 - Improve yaml-dsl documentation [\#4487](https://github.com/apache/camel-quarkus/issues/4487)
 - io.quarkus:quarkus-bom's entries should exclude banned artifacts [\#4475](https://github.com/apache/camel-quarkus/issues/4475)
 - Provide SBOM for Camel-Quarkus project [\#4459](https://github.com/apache/camel-quarkus/issues/4459)
@@ -19,6 +26,7 @@
 - perf-regression: introduce version specific build options [\#4436](https://github.com/apache/camel-quarkus/issues/4436)
 - js-dsl: JavaScriptDslTest is failing on quarkus-platform [\#4434](https://github.com/apache/camel-quarkus/issues/4434)
 - Support CSimple expressions with all DSLs [\#4426](https://github.com/apache/camel-quarkus/issues/4426)
+- Switch to Jakarta 9/10 [\#4415](https://github.com/apache/camel-quarkus/issues/4415)
 - Aws2: investigate possibilty of testing defaultXCredentialProvider with local stack [\#4401](https://github.com/apache/camel-quarkus/issues/4401)
 - Aws2-sqs: Test with real account fails. [\#4389](https://github.com/apache/camel-quarkus/issues/4389)
 - Intermittent failure of MasterOpenShiftTest [\#4387](https://github.com/apache/camel-quarkus/issues/4387)
@@ -33,6 +41,12 @@
 
 **Merged pull requests:**
 
+- Upgrade to Quarkus Minio 3.0.0.Alpha3 and quarkus-qpid-jms-bom 2.0.0.Alpha3 [\#4536](https://github.com/apache/camel-quarkus/pull/4536) ([ppalaga](https://github.com/ppalaga))
+- perf-regression: restore PerfRegressionIT to test against 3.0.0-SNAPS… [\#4535](https://github.com/apache/camel-quarkus/pull/4535) ([aldettinger](https://github.com/aldettinger))
+- Upgrade quarkus-pooled-jms to 2.0.0.CR1 and re-enable jms-artemis-tests [\#4533](https://github.com/apache/camel-quarkus/pull/4533) ([zhfeng](https://github.com/zhfeng))
+- Mail test fails in native mode \#4519 [\#4530](https://github.com/apache/camel-quarkus/pull/4530) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Improve documentation, add Kubernetes section [\#4521](https://github.com/apache/camel-quarkus/pull/4521) ([zbendhiba](https://github.com/zbendhiba))
+- Upgrade to Camel 4.0.0 and Quarkus 3.0.0.Alpha3 [\#4504](https://github.com/apache/camel-quarkus/pull/4504) ([ppalaga](https://github.com/ppalaga))
 - Improve yaml-dsl documentation and add simple test scenarios [\#4489](https://github.com/apache/camel-quarkus/pull/4489) ([jamesnetherton](https://github.com/jamesnetherton))
 - Update dependabot [\#4483](https://github.com/apache/camel-quarkus/pull/4483) ([zhfeng](https://github.com/zhfeng))
 - Add quarkus-qpid-jms for dependency version checking [\#4480](https://github.com/apache/camel-quarkus/pull/4480) ([zhfeng](https://github.com/zhfeng))
