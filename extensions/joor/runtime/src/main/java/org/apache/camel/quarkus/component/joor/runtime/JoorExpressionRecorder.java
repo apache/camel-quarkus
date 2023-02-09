@@ -19,20 +19,24 @@ package org.apache.camel.quarkus.component.joor.runtime;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
+import org.apache.camel.language.joor.JoorLanguage;
 import org.apache.camel.language.joor.JoorMethod;
 import org.apache.camel.language.joor.JoorScriptingMethod;
 
 @Recorder
 public class JoorExpressionRecorder {
 
-    public RuntimeValue<JoorExpressionLanguage> languageNewInstance(JoorExpressionConfig config) {
-        RuntimeValue<JoorExpressionLanguage> language = new RuntimeValue<>(new JoorExpressionLanguage());
+    public RuntimeValue<JoorLanguage> languageNewInstance(JoorExpressionConfig config,
+            RuntimeValue<JoorExpressionCompiler.Builder> compilerBuilder,
+            RuntimeValue<JoorExpressionScriptingCompiler.Builder> scriptingCompilerBuilder) {
+        RuntimeValue<JoorLanguage> language = new RuntimeValue<>(
+                new JoorLanguage(compilerBuilder.getValue().build(), scriptingCompilerBuilder.getValue().build()));
         language.getValue().setSingleQuotes(config.singleQuotes);
         config.configResource.ifPresent(language.getValue()::setConfigResource);
         return language;
     }
 
-    public void setResultType(RuntimeValue<JoorExpressionLanguage> language, Class<?> resultType) {
+    public void setResultType(RuntimeValue<JoorLanguage> language, Class<?> resultType) {
         language.getValue().setResultType(resultType);
     }
 
@@ -63,15 +67,5 @@ public class JoorExpressionRecorder {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void setJoorCompiler(RuntimeValue<JoorExpressionLanguage> language,
-            RuntimeValue<JoorExpressionCompiler.Builder> builder) {
-        language.getValue().setJoorCompiler(builder.getValue().build());
-    }
-
-    public void setJoorScriptingCompiler(RuntimeValue<JoorExpressionLanguage> language,
-            RuntimeValue<JoorExpressionScriptingCompiler.Builder> builder) {
-        language.getValue().setJoorScriptingCompiler(builder.getValue().build());
     }
 }

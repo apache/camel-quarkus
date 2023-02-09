@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.component.joor.deployment;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -44,10 +42,10 @@ import org.apache.camel.dsl.java.joor.MultiCompile;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.language.joor.JoorCompiler;
 import org.apache.camel.language.joor.JoorExpression;
+import org.apache.camel.language.joor.JoorLanguage;
 import org.apache.camel.language.joor.JoorScriptingCompiler;
 import org.apache.camel.quarkus.component.joor.runtime.JoorExpressionCompiler;
 import org.apache.camel.quarkus.component.joor.runtime.JoorExpressionConfig;
-import org.apache.camel.quarkus.component.joor.runtime.JoorExpressionLanguage;
 import org.apache.camel.quarkus.component.joor.runtime.JoorExpressionRecorder;
 import org.apache.camel.quarkus.component.joor.runtime.JoorExpressionScriptingCompiler;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
@@ -60,11 +58,10 @@ import org.apache.camel.quarkus.support.language.runtime.ScriptUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.apache.camel.quarkus.component.joor.runtime.JoorExpressionLanguage.PACKAGE_NAME;
-
 class JoorProcessor {
 
     private static final Logger LOG = LoggerFactory.getLogger(JoorProcessor.class);
+    private static final String PACKAGE_NAME = "org.apache.camel.quarkus.component.joor.generated";
     private static final String FEATURE = "camel-joor";
 
     @BuildStep
@@ -90,25 +87,25 @@ class JoorProcessor {
             }
             // Don't close it as it won't be started and some log entries are added on close/stop
             CamelContext ctx = new DefaultCamelContext();
-            try (JoorExpressionLanguage language = new JoorExpressionLanguage()) {
+            try (JoorLanguage language = new JoorLanguage()) {
                 language.setCamelContext(ctx);
                 language.setSingleQuotes(config.singleQuotes);
                 config.configResource.ifPresent(language::setConfigResource);
                 language.setPreCompile(false);
                 language.init();
-                JoorCompiler compiler = language.getJoorCompiler();
+                JoorCompiler compiler = language.getCompiler();
                 for (ExpressionBuildItem expression : joorExpressions) {
                     JoorExpression exp = (JoorExpression) language.createExpression(expression.getExpression(),
                             expression.getProperties());
                     ExpressionUID id = new ExpressionUID(expression.getExpression(), exp.isSingleQuotes());
                     String name = String.format("%s.%s", PACKAGE_NAME, id);
-                    String content = evalCode(compiler, ctx, name, expression.getExpression(), exp.isSingleQuotes());
+                    String content = compiler.evalCode(ctx, name, expression.getExpression(), exp.isSingleQuotes());
                     if (LOG.isDebugEnabled()) {
                         LOG.debug("Compiling expression:\n\n{}\n", content);
                     }
                     producer.produce(new JoorExpressionSourceBuildItem(id, name, content));
                 }
-                JoorScriptingCompiler scriptingCompiler = language.getJoorScriptingCompiler();
+                JoorScriptingCompiler scriptingCompiler = language.getScriptingCompiler();
                 for (ScriptBuildItem script : joorScripts) {
                     ScriptUID id = new ScriptUID(script.getContent(), script.getBindings(), language.isSingleQuotes());
                     String name = String.format("%s.%s", PACKAGE_NAME, id);
@@ -134,29 +131,23 @@ class JoorProcessor {
         for (JoorExpressionSourceBuildItem source : sources) {
             unit.addClass(source.getClassName(), source.getSourceCode());
         }
-        // Temporary workaround until being able to provide the classpath somehow to the method MultiCompile.compileUnit
-        // https://issues.apache.org/jira/browse/CAMEL-18860
-        String previousCP = System.getProperty("java.class.path");
-        try {
-            ApplicationModel model = curateOutcomeBuildItem.getApplicationModel();
-            List<ResolvedDependency> dependencies = new ArrayList<>(model.getDependencies());
-            dependencies.add(model.getAppArtifact());
-            String cp = dependencies.stream()
-                    .map(ResolvedDependency::getResolvedPaths)
-                    .flatMap(PathCollection::stream)
-                    .map(Objects::toString)
-                    .collect(Collectors.joining(System.getProperty("path.separator")));
-            System.setProperty("java.class.path", cp);
-            LOG.debug("Compiling unit: {}", unit);
-            CompilationUnit.Result compilationResult = MultiCompile.compileUnit(unit);
-            for (String className : compilationResult.getClassNames()) {
-                generatedClass
-                        .produce(
-                                new GeneratedClassBuildItem(true, className, compilationResult.getByteCode(className)));
-            }
-        } finally {
-            // Restore the CP
-            System.setProperty("java.class.path", previousCP);
+        ApplicationModel model = curateOutcomeBuildItem.getApplicationModel();
+        List<ResolvedDependency> dependencies = new ArrayList<>(model.getDependencies());
+        dependencies.add(model.getAppArtifact());
+        LOG.debug("Compiling unit: {}", unit);
+        CompilationUnit.Result compilationResult = MultiCompile.compileUnit(
+                unit,
+                List.of(
+                        "-classpath",
+                        dependencies.stream()
+                                .map(ResolvedDependency::getResolvedPaths)
+                                .flatMap(PathCollection::stream)
+                                .map(Objects::toString)
+                                .collect(Collectors.joining(System.getProperty("path.separator")))));
+        for (String className : compilationResult.getClassNames()) {
+            generatedClass
+                    .produce(
+                            new GeneratedClassBuildItem(true, className, compilationResult.getByteCode(className)));
         }
     }
 
@@ -186,29 +177,12 @@ class JoorProcessor {
                             recorderContext.classProxy(source.getClassName()));
                 }
             }
-            final RuntimeValue<JoorExpressionLanguage> language = recorder.languageNewInstance(config);
+            final RuntimeValue<JoorLanguage> language = recorder.languageNewInstance(config, expressionCompilerBuilder,
+                    expressionScriptingCompilerBuilder);
             config.resultType.ifPresent(c -> recorder.setResultType(language, recorderContext.classProxy(c)));
-            recorder.setJoorCompiler(language, expressionCompilerBuilder);
-            recorder.setJoorScriptingCompiler(language, expressionScriptingCompilerBuilder);
-            return new CamelBeanBuildItem("joor", JoorExpressionLanguage.class.getName(), language);
+            return new CamelBeanBuildItem("joor", JoorLanguage.class.getName(), language);
         }
         return null;
-    }
-
-    /**
-     * @return the code generated by the {@link JoorCompiler} to compile.
-     */
-    private String evalCode(JoorCompiler compiler, CamelContext camelContext, String fqn, String script, boolean singleQuotes) {
-        // Use reflection as temporary workaround since it is not yet possible
-        // Will be fixed by https://issues.apache.org/jira/browse/CAMEL-18977
-        try {
-            Method m = JoorCompiler.class.getDeclaredMethod("evalCode", CamelContext.class, String.class, String.class,
-                    boolean.class);
-            m.setAccessible(true);
-            return (String) m.invoke(compiler, camelContext, fqn, script, singleQuotes);
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-            throw new RuntimeException("Cannot extract the generated code from the compiler", e);
-        }
     }
 
     /**
