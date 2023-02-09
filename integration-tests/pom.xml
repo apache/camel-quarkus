@@ -172,7 +172,7 @@
         <module>olingo4</module>
         <module>openapi-java</module>
         <module>openstack</module>
-        <!--<module>opentelemetry</module> https://github.com/apache/camel-quarkus/issues/4509 -->
+        <module>opentelemetry</module>
         <!--<module>opentracing</module>-->
         <!--<module>optaplanner</module>-->
         <module>paho</module>
