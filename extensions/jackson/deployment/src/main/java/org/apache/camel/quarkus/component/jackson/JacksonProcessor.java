@@ -36,7 +36,8 @@ public class JacksonProcessor {
     @BuildStep
     List<ReflectiveClassBuildItem> registerReflectiveClasses() {
         List<ReflectiveClassBuildItem> items = new ArrayList<>();
-        items.add(new ReflectiveClassBuildItem(false, true, "com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule"));
+        items.add(new ReflectiveClassBuildItem(false, true,
+                "com.fasterxml.jackson.module.jakarta.xmlbind.JakartaXmlBindAnnotationModule"));
         items.add(new ReflectiveClassBuildItem(false, false, JsonNode.class));
         return items;
     }
