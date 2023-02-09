@@ -1,0 +1,21 @@
+=== Integration with Quarkus gRPC is not supported
+
+At present there is no support for integrating Camel Quarkus gRPC with Quarkus gRPC. If you have both the `camel-quarkus-grpc` and `quarkus-grpc` extension dependency on the classpath, you are likely to encounter problems at build time when compiling your application.
+
+=== Protobuf generated code
+
+You can https://github.com/grpc/grpc-java#generated-code[generate] gRPC service stubs with protobuf. A limitation of this is that generated code is annotated with the non Jakarta EE 10 friendly `@javax.annotation.Generated`.
+
+To avoid compilation issues, the `grpc-java` project recommendation is to add a `provided` scoped dependency like this:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.tomcat</groupId>
+    <artifactId>annotations-api</artifactId>
+    <version>6.0.53</version>
+    <scope>provided</scope>
+</dependency>
+----
+
+Alternatively, you can use Maven or Gradle plugins to iterate over the generated code (found at `target/generated-sources` for Maven) and replace all instances of `@javax.annotation.Generated` with `@jakarta.annotation.Generated`.
