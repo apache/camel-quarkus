@@ -2,12 +2,12 @@
   "id": "09aa79df-8a19-41df-8655-e414d390d6ed",
   "name": "salesforce_api_json",
   "request": {
-    "url": "/services/data/v54.0/sobjects/Account/describe/",
+    "url": "/services/data/v56.0/sobjects/Account/describe/",
     "method": "GET"
   },
   "response": {
     "status": 200,
-    "body": "{\"name\":\"Account\",\"fields\":[{\"length\":18,\"name\":\"Id\",\"type\":\"id\",\"updateable\":false,\"label\":\"Account ID\"}],\"updateable\":true,\"label\":\"Account\",\"keyPrefix\":\"001\",\"custom\":false,\"urls\":{\"uiEditTemplate\":\"https:\/\/yourInstance.salesforce.com\/{ID}\/e\",\"sobject\":\"\/services\/data\/v54.0\/sobjects\/Account\",\"uiDetailTemplate\":\"https:\/\/yourInstance.salesforce.com\/{ID}\"},\"childRelationships\":[{\"field\":\"ParentId\",\"deprecatedAndHidden\":false}],\"createable\":true,\"customSetting\":false}",
+    "body": "{\"name\":\"Account\",\"fields\":[{\"length\":18,\"name\":\"Id\",\"type\":\"id\",\"updateable\":false,\"label\":\"Account ID\"}],\"updateable\":true,\"label\":\"Account\",\"keyPrefix\":\"001\",\"custom\":false,\"urls\":{\"uiEditTemplate\":\"https:\/\/yourInstance.salesforce.com\/{ID}\/e\",\"sobject\":\"\/services\/data\/v56.0\/sobjects\/Account\",\"uiDetailTemplate\":\"https:\/\/yourInstance.salesforce.com\/{ID}\"},\"childRelationships\":[{\"field\":\"ParentId\",\"deprecatedAndHidden\":false}],\"createable\":true,\"customSetting\":false}",
     "headers": {
       "Content-Type": "application/json; charset=UTF-8"
     }

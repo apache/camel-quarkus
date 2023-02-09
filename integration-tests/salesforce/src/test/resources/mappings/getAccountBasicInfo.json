@@ -2,12 +2,12 @@
   "id": "09aa79df-8a19-41df-8655-e414d390d6ed",
   "name": "salesforce_api_json",
   "request": {
-    "url": "/services/data/v54.0/sobjects/Account/",
+    "url": "/services/data/v56.0/sobjects/Account/",
     "method": "GET"
   },
   "response": {
     "status": 200,
-    "body" : "{\"objectDescribe\":{\"name\":\"Account\",\"updateable\":true,\"label\":\"Account\",\"keyPrefix\":\"001\",\"replicateable\":true,\"retrieveable\":true,\"undeletable\":true,\"triggerable\":true},\"recentItems\":[{\"attributes\":{\"type\":\"Account\",\"url\":\"\/services\/data\/v54.0\/sobjects\/Account\/001D000000IqhSLIAZ\"},\"Id\":\"001D000000IqhSLIAZ\",\"Name\":\"asdasdasd\"}]}",
+    "body" : "{\"objectDescribe\":{\"name\":\"Account\",\"updateable\":true,\"label\":\"Account\",\"keyPrefix\":\"001\",\"replicateable\":true,\"retrieveable\":true,\"undeletable\":true,\"triggerable\":true},\"recentItems\":[{\"attributes\":{\"type\":\"Account\",\"url\":\"\/services\/data\/v56.0\/sobjects\/Account\/001D000000IqhSLIAZ\"},\"Id\":\"001D000000IqhSLIAZ\",\"Name\":\"asdasdasd\"}]}",
     "headers": {
       "Content-Type": "application/json; charset=UTF-8"
     }
