@@ -45,11 +45,11 @@ public class JavaJoorDslRecorder {
             // create a new instance of the class
             try {
                 Object obj = context.getValue().getInjector().newInstance(clazz);
-                if (obj instanceof RoutesBuilder) {
+                if (obj instanceof RoutesBuilder builder) {
                     // inject context and resource
                     CamelContextAware.trySetCamelContext(obj, context.getValue());
                     ResourceAware.trySetResource(obj, ResourceHelper.fromString(location, ""));
-                    context.getValue().addRoutes((RoutesBuilder) obj);
+                    context.getValue().addRoutes(builder);
                 } else {
                     LOG.warn("Ignoring the class {} as it is not of type RoutesBuilder", className);
                 }
