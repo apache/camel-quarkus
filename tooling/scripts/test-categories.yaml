@@ -29,6 +29,7 @@ group-01:
   - mllp
 group-02:
   - aws2
+  - grpc
   - jackson-avro
   - jackson-protobuf
   - jfr

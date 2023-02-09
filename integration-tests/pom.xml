@@ -105,7 +105,7 @@
         <module>graphql</module>
         <module>grok</module>
         <module>groovy-dsl</module>
-        <!--<module>grpc</module> https://github.com/apache/camel-quarkus/issues/4503 -->
+        <module>grpc</module>
         <!--<module>hazelcast</module> https://github.com/apache/camel-quarkus/issues/4498 -->
         <module>headersmap</module>
         <module>hl7</module>
