@@ -11,9 +11,6 @@ Camel Quarkus provides support for various messaging platforms, brokers and prot
 |AMQP
 |xref:reference/extensions/amqp.adoc[`camel-quarkus-amqp`]
 
-|Apache ActiveMQ 5.x
-|xref:reference/extensions/activemq.adoc[`camel-quarkus-activemq`]
-
 |Apache ActiveMQ Artemis
 |https://quarkus.io/guides/jms#artemis-jms[`quarkus-artemis`] in conjunction with either xref:reference/extensions/jms.adoc[`camel-quarkus-jms`] or xref:reference/extensions/sjms2.adoc[`camel-quarkus-sjms2`]
 
@@ -60,9 +57,7 @@ Camel Quarkus provides support for various messaging platforms, brokers and prot
 |xref:reference/extensions/nats.adoc[`camel-quarkus-nats`]
 
 |RabbitMQ
-|xref:reference/extensions/rabbitmq.adoc[`camel-quarkus-rabbitmq`]
-
-xref:reference/extensions/spring-rabbitmq.adoc[`camel-quarkus-spring-rabbitmq`]
+|xref:reference/extensions/spring-rabbitmq.adoc[`camel-quarkus-spring-rabbitmq`]
 
 |===
 

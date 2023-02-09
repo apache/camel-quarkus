@@ -3,13 +3,13 @@
 
 This guide describes different ways to configure and deploy a Camel Quarkus application on kubernetes. It also describes some specific use cases for Knative and Service Binding.
 == Kubernetes
-Quarkus supports generating resources for vanilla Kubernetes, OpenShift and Knative. Furthermore, Quarkus can deploy the application to a target Kubernetes cluster by applying the generated manifests to the target cluster’s API Server.
+Quarkus supports generating resources for vanilla Kubernetes, OpenShift and Knative. Furthermore, Quarkus can deploy the application to a target Kubernetes cluster by applying the generated manifests to the target cluster's API Server.
 More information in the https://quarkus.io/guides/deploying-to-kubernetes[`Quarkus Kubernetes guide`].
 
 == Knative
 The Camel Quarkus extensions whose consumers support Knative deployment are:
 
-- xref:reference/extensions/cxf-soap.adoc[`camel-quarkus-cxf-soap`]
+// - xref:reference/extensions/cxf-soap.adoc[`camel-quarkus-cxf-soap`]
 - xref:reference/extensions/grpc.adoc[`camel-quarkus-grpc`]
 - xref:reference/extensions/knative.adoc[`camel-quarkus-knative`]
 - xref:reference/extensions/platform-http.adoc[`camel-quarkus-platform-http`]
