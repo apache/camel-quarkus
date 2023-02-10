@@ -10,10 +10,16 @@
 
 **Closed issues:**
 
+- Azure native integration tests fail at runtime [\#4541](https://github.com/apache/camel-quarkus/issues/4541)
 - PerfRegressionIT failing with Camel 4 and Quarkus 3 [\#4528](https://github.com/apache/camel-quarkus/issues/4528)
+- Salesforce test fails Camel 4 and Quarkus 3 [\#4526](https://github.com/apache/camel-quarkus/issues/4526)
+- java-joor-dsl fails in native mode with Camel 4 and Quarkus 3 [\#4523](https://github.com/apache/camel-quarkus/issues/4523)
 - Improve documentation for Kubernetes [\#4520](https://github.com/apache/camel-quarkus/issues/4520)
 - mail test fails in native mode [\#4519](https://github.com/apache/camel-quarkus/issues/4519)
+- saxon test cannot be compiled to native with Camel 4 and Quarkus 3 [\#4512](https://github.com/apache/camel-quarkus/issues/4512)
+- opentelemetry test fails to compile to native with Camel 4 and Quarkus 3 [\#4509](https://github.com/apache/camel-quarkus/issues/4509)
 - Upgrade to Quarkiverse Freemarker 1.0.0.Alpha1 to become compatible with Quarkus 3 [\#4508](https://github.com/apache/camel-quarkus/issues/4508)
+- main-xml-jaxb, dataformats-json and azure tests cannot be compiled to native with Camel 4 and Quarkus 3 [\#4507](https://github.com/apache/camel-quarkus/issues/4507)
 - quarkus-pooled-jms incompatible with Quarkus 3 and Jakarta 9/10 [\#4500](https://github.com/apache/camel-quarkus/issues/4500)
 - Upgrade to Quarkiverse Amazon Services 2.x [\#4496](https://github.com/apache/camel-quarkus/issues/4496)
 - MailTest.receiveSecured fails on Camel 4/Quarkus 3: Can't verify identity of server: localhost [\#4493](https://github.com/apache/camel-quarkus/issues/4493)
@@ -23,6 +29,7 @@
 - Provide SBOM for Camel-Quarkus project [\#4459](https://github.com/apache/camel-quarkus/issues/4459)
 - camel-quarkus-activemq can not set jms some properties in native mode [\#4454](https://github.com/apache/camel-quarkus/issues/4454)
 - Allow to disable build time compilation of jOOR expressions [\#4452](https://github.com/apache/camel-quarkus/issues/4452)
+- Get rid of jOOR workarounds used for native mode [\#4443](https://github.com/apache/camel-quarkus/issues/4443)
 - perf-regression: introduce version specific build options [\#4436](https://github.com/apache/camel-quarkus/issues/4436)
 - js-dsl: JavaScriptDslTest is failing on quarkus-platform [\#4434](https://github.com/apache/camel-quarkus/issues/4434)
 - Support CSimple expressions with all DSLs [\#4426](https://github.com/apache/camel-quarkus/issues/4426)
@@ -41,6 +48,12 @@
 
 **Merged pull requests:**
 
+- Fix references to removed extensions and reference Camel latest docs [\#4549](https://github.com/apache/camel-quarkus/pull/4549) ([jamesnetherton](https://github.com/jamesnetherton))
+- Re-enable saxon tests [\#4547](https://github.com/apache/camel-quarkus/pull/4547) ([zhfeng](https://github.com/zhfeng))
+- Remove unwanted references to grpc-netty-shaded from OpenTelemetry extension [\#4545](https://github.com/apache/camel-quarkus/pull/4545) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix NPE instantiating Azure HttpHeaderName [\#4543](https://github.com/apache/camel-quarkus/pull/4543) ([jamesnetherton](https://github.com/jamesnetherton))
+- Ref \#4523/\#4443: Get rid of jOOR workarounds used for native mode [\#4542](https://github.com/apache/camel-quarkus/pull/4542) ([essobedo](https://github.com/essobedo))
+- Fix JAXB and Salesforce native compilation issues [\#4539](https://github.com/apache/camel-quarkus/pull/4539) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Quarkus Minio 3.0.0.Alpha3 and quarkus-qpid-jms-bom 2.0.0.Alpha3 [\#4536](https://github.com/apache/camel-quarkus/pull/4536) ([ppalaga](https://github.com/ppalaga))
 - perf-regression: restore PerfRegressionIT to test against 3.0.0-SNAPS… [\#4535](https://github.com/apache/camel-quarkus/pull/4535) ([aldettinger](https://github.com/aldettinger))
 - Upgrade quarkus-pooled-jms to 2.0.0.CR1 and re-enable jms-artemis-tests [\#4533](https://github.com/apache/camel-quarkus/pull/4533) ([zhfeng](https://github.com/zhfeng))
