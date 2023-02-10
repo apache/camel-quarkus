@@ -47,13 +47,7 @@ jobs:
           java-version: ${{ matrix.java }}
           cache: 'maven'
       - name: mvn build and sbom generation
-        run: mvn -l build.log -Dmvnd.threads=2 -V -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 --no-transfer-progress -e -Psbom -Dquickly -DskipTests verify
-      - name: archive logs
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: build.log
-          path: build.log
+        run: mvn -V -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 --no-transfer-progress -e -Psbom -Dquickly -DskipTests verify
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
