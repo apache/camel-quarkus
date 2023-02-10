@@ -55,14 +55,21 @@ endif::[]
 When you create a Vert.x WebSocket consumer (E.g with `from("vertx-websocket")`), the host and port configuration in the URI are redundant since the WebSocket will always be hosted on 
 the Quarkus HTTP server.
 
-The configuration of the consumer can be simplified to only include the resource path of the WebSocket. For example.
+The configuration of the consumer can be simplified to only include the resource path of the WebSocket (prefixed with two forward slashes `//`). For example.
 
 [source,java]
 ----
-from("vertx-websocket://my-websocket-path")
+from("vertx-websocket:///my-websocket-path")
     .setBody().constant("Hello World");
 ----
 
+Or alternatively, you can refer to the full host & port configuration for the Quarkus HTTP server.
+
+[source,java]
+----
+from("vertx-websocket:localhost:{{quarkus.http.port}}/my-websocket-path")
+    .setBody().constant("Hello World");
+----
 
 
 [id="extensions-vertx-websocket-additional-camel-quarkus-configuration"]

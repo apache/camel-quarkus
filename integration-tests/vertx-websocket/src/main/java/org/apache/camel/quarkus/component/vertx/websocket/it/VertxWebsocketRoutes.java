@@ -22,8 +22,8 @@ public class VertxWebsocketRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("vertx-websocket://greeting")
+        from("vertx-websocket:///greeting")
                 .setBody(simple("Hello ${body}"))
-                .to("vertx-websocket://greeting");
+                .to("vertx-websocket:///greeting");
     }
 }

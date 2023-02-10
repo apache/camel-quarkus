@@ -171,6 +171,7 @@ group-12:
   - reactive-streams
   - rest
   - rest-openapi
+  - vertx-websocket
 group-13:
   - box
   - github
