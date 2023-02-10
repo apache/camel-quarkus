@@ -60,7 +60,7 @@
         <module>atlasmap</module>
         <module>avro</module>
         <!--<module>avro-rpc</module>-->
-        <!--<module>aws2</module> https://github.com/apache/camel-quarkus/issues/4501 -->
+        <module>aws2</module>
         <module>aws2-grouped</module>
         <module>aws2-quarkus-client-grouped</module>
         <module>azure-grouped</module>
