@@ -2046,8 +2046,8 @@
                 <version>${camel.version}</version>
                 <exclusions>
                     <exclusion>
-                        <groupId>junit</groupId>
-                        <artifactId>junit</artifactId>
+                        <groupId>org.testcontainers</groupId>
+                        <artifactId>postgresql</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
