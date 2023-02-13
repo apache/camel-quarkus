@@ -53,6 +53,8 @@
 
 **Merged pull requests:**
 
+- Generated sources regen for SBOM [\#4561](https://github.com/apache/camel-quarkus/pull/4561) ([github-actions[bot]](https://github.com/apps/github-actions))
+- bump quarkus-artemis-bom from 3.0.0.Alpha3 to 3.0.0.Alpha6 [\#4559](https://github.com/apache/camel-quarkus/pull/4559) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Generated sources regen for SBOM [\#4558](https://github.com/apache/camel-quarkus/pull/4558) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Fix vertx-websocket URIs in tests [\#4556](https://github.com/apache/camel-quarkus/pull/4556) ([jamesnetherton](https://github.com/jamesnetherton))
 - Provide a Github action for generating SBOM [\#4554](https://github.com/apache/camel-quarkus/pull/4554) ([oscerd](https://github.com/oscerd))
