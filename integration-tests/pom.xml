@@ -89,7 +89,7 @@
         <module>dropbox</module>
         <!--<module>elasticsearch-rest</module>-->
         <module>exec</module>
-        <!--<module>fhir</module> https://github.com/apache/camel-quarkus/issues/4497 -->
+        <module>fhir</module>
         <module>file</module>
         <module>flatpack</module>
         <module>fop</module>

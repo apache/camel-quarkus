@@ -61,7 +61,6 @@ import org.apache.camel.component.fhir.internal.FhirHelper;
 import org.apache.camel.util.ObjectHelper;
 import org.hl7.fhir.instance.model.api.IBaseBundle;
 import org.hl7.fhir.instance.model.api.IBaseMetaType;
-import org.hl7.fhir.instance.model.api.IBaseOperationOutcome;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r4.model.Bundle;
 import org.hl7.fhir.r4.model.Bundle.BundleEntryComponent;
@@ -233,17 +232,17 @@ public class FhirR4Resource {
         patient.addName().addGiven(PATIENT_FIRST_NAME).setFamily(PATIENT_LAST_NAME);
         patient.setId(id);
 
-        IBaseOperationOutcome result = producerTemplate.requestBody("direct:delete-r4", patient, IBaseOperationOutcome.class);
-        return result.getIdElement().getIdPart();
+        MethodOutcome result = producerTemplate.requestBody("direct:delete-r4", patient, MethodOutcome.class);
+        return result.getId().getIdPart();
     }
 
     @Path("/deletePatient/byId")
     @DELETE
     @Produces(MediaType.TEXT_PLAIN)
     public String deletePatientById(@QueryParam("id") String id) {
-        IBaseOperationOutcome result = producerTemplate.requestBody("direct:deleteById-r4", new IdType(id),
-                IBaseOperationOutcome.class);
-        return result.getIdElement().getIdPart();
+        MethodOutcome result = producerTemplate.requestBody("direct:deleteById-r4", new IdType(id),
+                MethodOutcome.class);
+        return result.getId().getIdPart();
     }
 
     @Path("/deletePatient/byIdPart")
@@ -253,9 +252,9 @@ public class FhirR4Resource {
         Map<String, Object> headers = new HashMap<>();
         headers.put("CamelFhir.type", "Patient");
         headers.put("CamelFhir.stringId", id);
-        IBaseOperationOutcome result = producerTemplate.requestBodyAndHeaders("direct:deleteByStringId-r4", null, headers,
-                IBaseOperationOutcome.class);
-        return result.getIdElement().getIdPart();
+        MethodOutcome result = producerTemplate.requestBodyAndHeaders("direct:deleteByStringId-r4", null, headers,
+                MethodOutcome.class);
+        return result.getId().getIdPart();
     }
 
     @Path("/deletePatient/byUrl")
@@ -268,9 +267,10 @@ public class FhirR4Resource {
         }
 
         String body = String.format("Patient?given=%s&family=%s", PATIENT_FIRST_NAME, PATIENT_LAST_NAME);
-        IBaseOperationOutcome result = producerTemplate.requestBodyAndHeaders("direct:deleteConditionalByUrl-r4", body, headers,
-                IBaseOperationOutcome.class);
-        return result.getIdElement().getIdPart();
+        MethodOutcome result = producerTemplate.requestBodyAndHeaders("direct:deleteConditionalByUrl-r4", body, headers,
+                MethodOutcome.class);
+        OperationOutcome operationOutcome = (OperationOutcome) result.getOperationOutcome();
+        return operationOutcome.getIssue().get(0).getId();
     }
 
     /////////////////////

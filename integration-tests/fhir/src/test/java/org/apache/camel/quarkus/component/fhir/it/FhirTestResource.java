@@ -33,12 +33,12 @@ public class FhirTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(FhirTestResource.class);
     private static final String FHIR_DSTU_CONTAINER_TAG = "v4.2.0";
     private static final String FHIR_DSTU_CONTEXT_PATH = "/hapi-fhir-jpaserver/fhir";
-    private static final String FHIR_R_CONTAINER_TAG = "v5.7.0";
+    private static final String FHIR_R_CONTAINER_TAG = "v6.2.2";
     private static final String FHIR_R_CONTEXT_PATH = "/fhir";
     private static final int CONTAINER_PORT = 8080;
 
     private FhirVersion fhirVersion;
-    private GenericContainer container;
+    private GenericContainer<?> container;
 
     @Override
     public void init(Map<String, String> initArgs) {
@@ -60,9 +60,11 @@ public class FhirTestResource implements QuarkusTestResourceLifecycleManager {
         try {
             LOGGER.info("FHIR version {} is enabled. Starting hapi test container for it.", fhirVersion.simpleVersion());
             String imageName = fhirVersion.getContainerImageName();
-            container = new GenericContainer(imageName)
+            container = new GenericContainer<>(imageName)
                     .withExposedPorts(CONTAINER_PORT)
-                    .withEnv("HAPI_FHIR_VERSION", fhirVersion.getFhirContainerVersionEnvVarValue())
+                    .withEnv(fhirVersion.getFhirContainerVersionEnvVarName(), fhirVersion.getFhirContainerVersionEnvVarValue())
+                    .withEnv("hapi.fhir.allow_multiple_delete", "true")
+                    .withEnv("hapi.fhir.reuse_cached_search_results_millis", "-1")
                     .waitingFor(Wait.forHttp(fhirVersion.getHealthEndpointPath()).withStartupTimeout(Duration.ofMinutes(5)));
 
             container.start();
@@ -108,6 +110,13 @@ public class FhirTestResource implements QuarkusTestResourceLifecycleManager {
 
         public String getFhirContainerImageTag() {
             return fhirImageTag;
+        }
+
+        public String getFhirContainerVersionEnvVarName() {
+            if (contextPath.equals(FHIR_DSTU_CONTEXT_PATH)) {
+                return "HAPI_FHIR_VERSION";
+            }
+            return "hapi.fhir.fhir_version";
         }
 
         public String getFhirContainerVersionEnvVarValue() {

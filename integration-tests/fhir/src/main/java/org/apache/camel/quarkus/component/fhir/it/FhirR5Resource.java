@@ -61,7 +61,6 @@ import org.apache.camel.component.fhir.internal.FhirHelper;
 import org.apache.camel.util.ObjectHelper;
 import org.hl7.fhir.instance.model.api.IBaseBundle;
 import org.hl7.fhir.instance.model.api.IBaseMetaType;
-import org.hl7.fhir.instance.model.api.IBaseOperationOutcome;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r5.model.Bundle;
 import org.hl7.fhir.r5.model.CapabilityStatement;
@@ -231,17 +230,17 @@ public class FhirR5Resource {
         patient.addName().addGiven(PATIENT_FIRST_NAME).setFamily(PATIENT_LAST_NAME);
         patient.setId(id);
 
-        IBaseOperationOutcome result = producerTemplate.requestBody("direct:delete-r5", patient, IBaseOperationOutcome.class);
-        return result.getIdElement().getIdPart();
+        MethodOutcome result = producerTemplate.requestBody("direct:delete-r5", patient, MethodOutcome.class);
+        return result.getId().getIdPart();
     }
 
     @Path("/deletePatient/byId")
     @DELETE
     @Produces(MediaType.TEXT_PLAIN)
     public String deletePatientById(@QueryParam("id") String id) {
-        IBaseOperationOutcome result = producerTemplate.requestBody("direct:deleteById-r5", new IdType(id),
-                IBaseOperationOutcome.class);
-        return result.getIdElement().getIdPart();
+        MethodOutcome result = producerTemplate.requestBody("direct:deleteById-r5", new IdType(id),
+                MethodOutcome.class);
+        return result.getId().getIdPart();
     }
 
     @Path("/deletePatient/byIdPart")
@@ -251,9 +250,9 @@ public class FhirR5Resource {
         Map<String, Object> headers = new HashMap<>();
         headers.put("CamelFhir.type", "Patient");
         headers.put("CamelFhir.stringId", id);
-        IBaseOperationOutcome result = producerTemplate.requestBodyAndHeaders("direct:deleteByStringId-r5", null, headers,
-                IBaseOperationOutcome.class);
-        return result.getIdElement().getIdPart();
+        MethodOutcome result = producerTemplate.requestBodyAndHeaders("direct:deleteByStringId-r5", null, headers,
+                MethodOutcome.class);
+        return result.getId().getIdPart();
     }
 
     @Path("/deletePatient/byUrl")
@@ -266,9 +265,10 @@ public class FhirR5Resource {
         }
 
         String body = String.format("Patient?given=%s&family=%s", PATIENT_FIRST_NAME, PATIENT_LAST_NAME);
-        IBaseOperationOutcome result = producerTemplate.requestBodyAndHeaders("direct:deleteConditionalByUrl-r5", body, headers,
-                IBaseOperationOutcome.class);
-        return result.getIdElement().getIdPart();
+        MethodOutcome result = producerTemplate.requestBodyAndHeaders("direct:deleteConditionalByUrl-r5", body, headers,
+                MethodOutcome.class);
+        OperationOutcome operationOutcome = (OperationOutcome) result.getOperationOutcome();
+        return operationOutcome.getIssue().get(0).getId();
     }
 
     /////////////////////
@@ -328,7 +328,7 @@ public class FhirR5Resource {
                 .returnBundle(Bundle.class)
                 .execute();
 
-        String nextPageLink = bundle.getLink("next").getUrl();
+        String nextPageLink = getNextLink(bundle).getUrl();
 
         Map<String, Object> headers = new HashMap<>();
         headers.put("CamelFhir.url", nextPageLink);
@@ -364,7 +364,10 @@ public class FhirR5Resource {
                 .returnBundle(Bundle.class)
                 .execute();
 
-        String nextPageLink = bundle.getLink("next").getUrl();
+        // TODO: Work around bug in R5 link retrieval in hapi-fhir-core. Remove when upgraded to hapi-fhir-core >= 5.6.84
+        // String nextPageLink = bundle.getLink("next").getUrl();
+        String nextPageLink = getNextLink(bundle).getUrl();
+
         bundle = getFhirClient()
                 .loadPage()
                 .byUrl(nextPageLink)
@@ -1194,5 +1197,20 @@ public class FhirR5Resource {
     private IGenericClient getFhirClient() {
         FhirComponent component = context.getComponent("fhir-r5", FhirComponent.class);
         return FhirHelper.createClient(component.getConfiguration(), context);
+    }
+
+    // TODO: Remove this. Work around bug in R5 link retrieval in hapi-fhir-core. Remove when upgraded to hapi-fhir-core >= 5.6.84
+    private static Bundle.BundleLinkComponent getNextLink(Bundle bundle) {
+        Bundle.BundleLinkComponent nextPageLink = null;
+        for (Bundle.BundleLinkComponent next : bundle.getLink()) {
+            if ("next".equals(next.getRelation().toCode())) {
+                nextPageLink = next;
+            }
+        }
+
+        if (nextPageLink == null) {
+            throw new IllegalStateException("Next page link cannot be null");
+        }
+        return nextPageLink;
     }
 }
