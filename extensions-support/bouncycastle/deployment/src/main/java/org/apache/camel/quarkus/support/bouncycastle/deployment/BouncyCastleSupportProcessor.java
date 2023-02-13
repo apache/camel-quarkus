@@ -56,7 +56,7 @@ public class BouncyCastleSupportProcessor {
 
     @BuildStep
     IndexDependencyBuildItem registerBCDependencyForIndex() {
-        return new IndexDependencyBuildItem("org.bouncycastle", "bcprov-jdk15on");
+        return new IndexDependencyBuildItem("org.bouncycastle", "bcprov-jdk18on");
     }
 
     @BuildStep

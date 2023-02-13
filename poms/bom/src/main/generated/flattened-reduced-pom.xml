@@ -1660,6 +1660,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-kubernetes</artifactId>
         <version>4.0.0-M1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>io.fabric8</groupId>
+            <artifactId>kubernetes-httpclient-okhttp</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -5876,6 +5882,17 @@
         <version>2.24.0</version>
       </dependency>
       <dependency>
+        <groupId>com.fasterxml.woodstox</groupId>
+        <artifactId>woodstox-core</artifactId>
+        <version>6.5.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>javax.xml.stream</groupId>
+            <artifactId>stax-api</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
         <groupId>com.github.java-json-tools</groupId>
         <artifactId>json-patch</artifactId>
         <version>1.13</version>
@@ -6166,7 +6183,7 @@
       <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>connect-runtime</artifactId>
-        <version>3.3.1</version>
+        <version>3.4.0</version>
         <exclusions>
           <exclusion>
             <groupId>javax.activation</groupId>
@@ -6219,18 +6236,18 @@
       </dependency>
       <dependency>
         <groupId>org.bouncycastle</groupId>
-        <artifactId>bcmail-jdk15on</artifactId>
-        <version>1.70</version>
+        <artifactId>bcmail-jdk18on</artifactId>
+        <version>1.72</version>
       </dependency>
       <dependency>
         <groupId>org.bouncycastle</groupId>
-        <artifactId>bcpg-jdk15on</artifactId>
-        <version>1.70</version>
+        <artifactId>bcpg-jdk18on</artifactId>
+        <version>1.72</version>
       </dependency>
       <dependency>
         <groupId>org.bouncycastle</groupId>
-        <artifactId>bcutil-jdk15on</artifactId>
-        <version>1.70</version>
+        <artifactId>bcutil-jdk18on</artifactId>
+        <version>1.72</version>
       </dependency>
       <dependency>
         <groupId>org.codehaus.jackson</groupId>
@@ -6290,17 +6307,17 @@
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-script-util</artifactId>
-        <version>1.7.22</version>
+        <version>1.8.10</version>
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-scripting-jvm</artifactId>
-        <version>1.7.22</version>
+        <version>1.8.10</version>
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-scripting-jvm-host</artifactId>
-        <version>1.7.22</version>
+        <version>1.8.10</version>
       </dependency>
       <dependency>
         <groupId>org.jruby.jcodings</groupId>
