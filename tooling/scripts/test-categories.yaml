@@ -175,6 +175,7 @@ group-12:
   - vertx-websocket
 group-13:
   - box
+  - fhir
   - github
   - google
   - groovy-dsl

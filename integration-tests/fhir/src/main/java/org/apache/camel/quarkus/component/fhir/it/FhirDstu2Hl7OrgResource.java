@@ -234,19 +234,19 @@ public class FhirDstu2Hl7OrgResource {
         patient.addName().addGiven(PATIENT_FIRST_NAME).addFamily(PATIENT_LAST_NAME);
         patient.setId(id);
 
-        IBaseOperationOutcome result = producerTemplate.requestBody("direct:delete-dstu2-hl7org", patient,
-                IBaseOperationOutcome.class);
-        return result.getIdElement().getIdPart();
+        MethodOutcome result = producerTemplate.requestBody("direct:delete-dstu2-hl7org", patient,
+                MethodOutcome.class);
+        return result.getId().getIdPart();
     }
 
     @Path("/deletePatient/byId")
     @DELETE
     @Produces(MediaType.TEXT_PLAIN)
     public String deletePatientById(@QueryParam("id") String id) {
-        IBaseOperationOutcome result = producerTemplate.requestBody("direct:deleteById-dstu2-hl7org",
+        MethodOutcome result = producerTemplate.requestBody("direct:deleteById-dstu2-hl7org",
                 new IdType(id),
-                IBaseOperationOutcome.class);
-        return result.getIdElement().getIdPart();
+                MethodOutcome.class);
+        return result.getId().getIdPart();
     }
 
     @Path("/deletePatient/byIdPart")
@@ -256,10 +256,10 @@ public class FhirDstu2Hl7OrgResource {
         Map<String, Object> headers = new HashMap<>();
         headers.put("CamelFhir.type", "Patient");
         headers.put("CamelFhir.stringId", id);
-        IBaseOperationOutcome result = producerTemplate.requestBodyAndHeaders("direct:deleteByStringId-dstu2-hl7org", null,
+        MethodOutcome result = producerTemplate.requestBodyAndHeaders("direct:deleteByStringId-dstu2-hl7org", null,
                 headers,
-                IBaseOperationOutcome.class);
-        return result.getIdElement().getIdPart();
+                MethodOutcome.class);
+        return result.getId().getIdPart();
     }
 
     @Path("/deletePatient/byUrl")
@@ -272,11 +272,12 @@ public class FhirDstu2Hl7OrgResource {
         }
 
         String body = String.format("Patient?given=%s&family=%s", PATIENT_FIRST_NAME, PATIENT_LAST_NAME);
-        IBaseOperationOutcome result = producerTemplate.requestBodyAndHeaders("direct:deleteConditionalByUrl-dstu2-hl7org",
+        MethodOutcome result = producerTemplate.requestBodyAndHeaders("direct:deleteConditionalByUrl-dstu2-hl7org",
                 body,
                 headers,
-                IBaseOperationOutcome.class);
-        return result.getIdElement().getIdPart();
+                MethodOutcome.class);
+        IBaseOperationOutcome operationOutcome = result.getOperationOutcome();
+        return operationOutcome.getIdElement().getIdPart();
     }
 
     /////////////////////

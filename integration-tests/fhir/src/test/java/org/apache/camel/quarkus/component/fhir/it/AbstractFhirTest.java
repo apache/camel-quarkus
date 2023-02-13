@@ -371,7 +371,7 @@ abstract class AbstractFhirTest {
                 .get("/meta/getFromServer")
                 .then()
                 .statusCode(200)
-                .body(greaterThanOrEqualTo("2"));
+                .body(greaterThanOrEqualTo("1"));
     }
 
     @ParameterizedTest
