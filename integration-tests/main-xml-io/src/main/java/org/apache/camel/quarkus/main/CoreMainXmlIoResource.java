@@ -38,7 +38,6 @@ import javax.ws.rs.core.UriInfo;
 
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.TemplatedRouteBuilder;
 import org.apache.camel.dsl.xml.io.XmlRoutesBuilderLoader;
 import org.apache.camel.spi.RoutesBuilderLoader;
 
@@ -62,12 +61,6 @@ public class CoreMainXmlIoResource {
 
         JsonArrayBuilder routeBuilders = Json.createArrayBuilder();
         main.configure().getRoutesBuilders().forEach(builder -> routeBuilders.add(builder.getClass().getName()));
-
-        TemplatedRouteBuilder.builder(main.getCamelContext(), "myTemplate")
-                .parameter("name", "Camel Quarkus")
-                .parameter("greeting", "Hello")
-                .routeId("templated-route")
-                .add();
 
         JsonArrayBuilder routes = Json.createArrayBuilder();
         main.getCamelContext().getRoutes().forEach(route -> routes.add(route.getId()));
