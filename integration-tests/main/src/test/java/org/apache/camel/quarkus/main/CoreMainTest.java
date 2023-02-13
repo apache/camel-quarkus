@@ -26,7 +26,6 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.quarkus.core.DisabledModelToXMLDumper;
-import org.apache.camel.quarkus.core.DisabledXMLRoutesDefinitionLoader;
 import org.apache.camel.quarkus.core.RegistryRoutesLoaders;
 import org.apache.camel.quarkus.it.support.mainlistener.CustomMainListener;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
@@ -77,12 +76,10 @@ public class CoreMainTest {
                 .body()
                 .jsonPath();
 
-        assertThat(p.getString("xml-loader")).isEqualTo(DisabledXMLRoutesDefinitionLoader.class.getName());
         assertThat(p.getString("xml-model-dumper")).isEqualTo(DisabledModelToXMLDumper.class.getName());
 
         assertThat(p.getString("routes-collector.type")).isEqualTo(CamelMainRoutesCollector.class.getName());
         assertThat(p.getString("routes-collector.type-registry")).isEqualTo(RegistryRoutesLoaders.Default.class.getName());
-        assertThat(p.getString("routes-collector.type-xml")).isEqualTo(DisabledXMLRoutesDefinitionLoader.class.getName());
 
         assertThat(p.getList("listeners", String.class))
                 .containsAnyOf(CamelMainEventBridge.class.getName(), CustomMainListener.class.getName());

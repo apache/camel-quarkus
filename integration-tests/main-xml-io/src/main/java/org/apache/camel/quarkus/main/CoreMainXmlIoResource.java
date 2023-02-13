@@ -72,7 +72,7 @@ public class CoreMainXmlIoResource {
         main.getCamelContext().getRoutes().forEach(route -> routes.add(route.getId()));
 
         return Json.createObjectBuilder()
-                .add("xml-routes-definitions-loader", camelContext.getXMLRoutesDefinitionLoader().getClass().getName())
+                .add("xml-routes-definitions-loader", camelContext.getRoutesLoader().getClass().getName())
                 .add("xml-routes-builder-loader",
                         camelContext.getBootstrapFactoryFinder(RoutesBuilderLoader.FACTORY_PATH)
                                 .findClass(XmlRoutesBuilderLoader.EXTENSION).get().getName())

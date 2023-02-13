@@ -46,7 +46,6 @@ import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.ShutdownStrategy;
 import org.apache.camel.spi.TypeConverterRegistry;
-import org.apache.camel.spi.XMLRoutesDefinitionLoader;
 import org.apache.camel.util.IOHelper;
 
 public class FastCamelContext extends DefaultCamelContext implements CatalogCamelContext, ModelCamelContext {
@@ -152,11 +151,6 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
         pc.setAutoDiscoverPropertiesSources(true);
         pc.addPropertiesSource(new CamelMicroProfilePropertiesSource());
         return pc;
-    }
-
-    @Override
-    protected XMLRoutesDefinitionLoader createXMLRoutesDefinitionLoader() {
-        return new DisabledXMLRoutesDefinitionLoader();
     }
 
     @Override

@@ -113,7 +113,6 @@ public class CoreMainResource {
         if (main.getRoutesCollector() instanceof CamelMainRoutesCollector) {
             CamelMainRoutesCollector crc = (CamelMainRoutesCollector) main.getRoutesCollector();
             collector.add("type-registry", crc.getRegistryRoutesLoader().getClass().getName());
-            collector.add("type-xml", camelContext.getXMLRoutesDefinitionLoader().getClass().getName());
         }
 
         JsonObjectBuilder dataformatsInRegistry = Json.createObjectBuilder();
@@ -137,7 +136,6 @@ public class CoreMainResource {
         }
 
         return Json.createObjectBuilder()
-                .add("xml-loader", camelContext.getXMLRoutesDefinitionLoader().getClass().getName())
                 .add("xml-model-dumper", camelContext.getModelToXMLDumper().getClass().getName())
                 .add("routes-collector", collector)
                 .add("listeners", listeners)
