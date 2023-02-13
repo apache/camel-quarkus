@@ -27,7 +27,6 @@ import io.restassured.path.json.JsonPath;
 import org.apache.camel.dsl.xml.io.XmlRoutesBuilderLoader;
 import org.apache.camel.quarkus.core.DisabledModelJAXBContextFactory;
 import org.apache.camel.quarkus.core.DisabledModelToXMLDumper;
-import org.apache.camel.quarkus.core.DisabledXMLRoutesDefinitionLoader;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
@@ -50,8 +49,6 @@ public class CoreMainXmlIoTest {
         assertThat(p.getString("xml-model-dumper")).isEqualTo(DisabledModelToXMLDumper.class.getName());
         assertThat(p.getString("xml-model-factory")).isEqualTo(DisabledModelJAXBContextFactory.class.getName());
 
-        assertThat(p.getString("xml-routes-definitions-loader"))
-                .isEqualTo(DisabledXMLRoutesDefinitionLoader.class.getName());
         assertThat(p.getString("xml-routes-builder-loader"))
                 .isEqualTo(XmlRoutesBuilderLoader.class.getName());
 
