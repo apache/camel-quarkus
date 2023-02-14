@@ -43,3 +43,13 @@ Or add the coordinates to your existing project:
 ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
+
+[id="extensions-xml-io-dsl-additional-camel-quarkus-configuration"]
+== Additional Camel Quarkus configuration
+
+[id="extensions-xml-io-dsl-configuration-xml-file-encodings"]
+=== XML file encodings
+
+By default, some XML file encodings may not work out of the box in native mode.
+Please, check the xref:user-guide/native-mode.adoc#charsets[Character encodings section] to learn how to fix.
+

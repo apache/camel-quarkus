@@ -1,0 +1,4 @@
+=== XML file encodings
+
+By default, some XML file encodings may not work out of the box in native mode.
+Please, check the xref:user-guide/native-mode.adoc#charsets[Character encodings section] to learn how to fix.
