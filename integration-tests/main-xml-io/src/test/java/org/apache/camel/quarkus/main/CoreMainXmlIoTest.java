@@ -97,4 +97,15 @@ public class CoreMainXmlIoTest {
 
     }
 
+    @Test
+    public void routeEncodedInIso8859_15_ShouldSucceed() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("in")
+                .post("/xml-io/route/iso_8859_15-encoded")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("Hello World from ISO-8859-15 encoded route containing € symbol !"));
+    }
+
 }
