@@ -16,15 +16,17 @@
  */
 package org.apache.camel.quarkus.test.extensions.routeBuilder;
 
-import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.builder.RouteBuilder;
 
-@ApplicationScoped
-public class RouteBuilderHello extends RouteBuilder {
+public class RouteProducer {
 
-    @Override
-    public void configure() {
-        from("direct:in").routeId("directRoute").to("file:target/data/RouteBuilderET?filename=hello_false.txt");
+    @jakarta.enterprise.inject.Produces
+    public RouteBuilder routes() {
+        return new RouteBuilder() {
+            @Override
+            public void configure() {
+                from("direct:in1").to("direct:in2");
+            }
+        };
     }
-
 }

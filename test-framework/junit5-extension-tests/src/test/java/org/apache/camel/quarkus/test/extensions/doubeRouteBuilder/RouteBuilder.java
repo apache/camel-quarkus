@@ -14,28 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.test.extensions.routeBuilder;
+package org.apache.camel.quarkus.test.extensions.doubeRouteBuilder;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
-import org.apache.camel.ProducerTemplate;
+public class RouteBuilder extends org.apache.camel.builder.RouteBuilder {
+    @Override
+    public void configure() throws Exception {
+        from("direct:start").setBody(constant("Some Value")).log("The body is: ${body}");
 
-@Path("/routeBuilder")
-@ApplicationScoped
-public class RouteBuilderWarningResource {
-
-    @Inject
-    ProducerTemplate producerTemplate;
-
-    @Path("/in")
-    @POST
-    @Produces(MediaType.TEXT_PLAIN)
-    public void in(String body) {
-        producerTemplate.sendBody("direct:in", body);
+        from("timer:timeToAct?period=5000").routeId("TimerRoute").log("Calling direct:start").to("direct:start");
     }
-
 }
