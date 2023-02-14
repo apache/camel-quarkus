@@ -16,9 +16,14 @@
  */
 package org.apache.camel.quarkus.test.extensions.routeBuilder;
 
+import java.util.logging.Level;
+
 import io.quarkus.test.ContinuousTestingTestUtils;
 import io.quarkus.test.QuarkusDevModeTest;
 import org.apache.camel.quarkus.test.extensions.continousDev.HelloResource;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -29,8 +34,17 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 public class RouteBuilderFailureTest {
 
     @RegisterExtension
-    static final QuarkusDevModeTest TEST = RouteBuilderUtil.createTestModule(RouteBuilderFailureET.class,
-            RouteBuilderWarningResource.class, HelloResource.class);
+    static final QuarkusDevModeTest TEST = new QuarkusDevModeTest()
+            .setArchiveProducer(() -> {
+                JavaArchive ja = ShrinkWrap.create(JavaArchive.class)
+                        .addClasses(RouteBuilderFailureET.class, HelloResource.class)
+                        .add(new StringAsset(
+                                ContinuousTestingTestUtils.appProperties("camel-quarkus.junit5.message=Sheldon")),
+                                "application.properties");
+                return ja;
+            })
+            .setTestArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class).addClasses(RouteBuilderFailureET.class))
+            .setLogRecordPredicate(record -> record.getLevel().equals(Level.WARNING));
 
     @Test
     public void checkTests() {
