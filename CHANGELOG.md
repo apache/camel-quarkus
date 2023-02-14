@@ -6,10 +6,14 @@
 
 **Fixed bugs:**
 
+- \[Mandrel 22.3.1\] pgevent native image compilation failure [\#4469](https://github.com/apache/camel-quarkus/issues/4469)
+- \[Mandrel 22.3.1\] Quartz clustered native image compilation failure [\#4468](https://github.com/apache/camel-quarkus/issues/4468)
+- \[Mandrel 22.3.1\] Qpid JMS client native image compilation failure [\#4466](https://github.com/apache/camel-quarkus/issues/4466)
 - Type interface is not a bean type of PRODUCER\_METHOD [\#4444](https://github.com/apache/camel-quarkus/issues/4444)
 
 **Closed issues:**
 
+- xml-io: Remove the use of XMLRoutesDefinitionLoader deprecated class [\#4564](https://github.com/apache/camel-quarkus/issues/4564)
 - Azure native integration tests fail at runtime [\#4541](https://github.com/apache/camel-quarkus/issues/4541)
 - Migrate example projects to Camel 4 and Quarkus 3 [\#4540](https://github.com/apache/camel-quarkus/issues/4540)
 - PerfRegressionIT failing with Camel 4 and Quarkus 3 [\#4528](https://github.com/apache/camel-quarkus/issues/4528)
@@ -23,6 +27,7 @@
 - opentelemetry test fails to compile to native with Camel 4 and Quarkus 3 [\#4509](https://github.com/apache/camel-quarkus/issues/4509)
 - Upgrade to Quarkiverse Freemarker 1.0.0.Alpha1 to become compatible with Quarkus 3 [\#4508](https://github.com/apache/camel-quarkus/issues/4508)
 - main-xml-jaxb, dataformats-json and azure tests cannot be compiled to native with Camel 4 and Quarkus 3 [\#4507](https://github.com/apache/camel-quarkus/issues/4507)
+- GRPC test fails on Quarkus 3 [\#4503](https://github.com/apache/camel-quarkus/issues/4503)
 - camel-quarkus-integration-test-aws2 fail to compile to native with Camel 4 [\#4501](https://github.com/apache/camel-quarkus/issues/4501)
 - quarkus-pooled-jms incompatible with Quarkus 3 and Jakarta 9/10 [\#4500](https://github.com/apache/camel-quarkus/issues/4500)
 - Upgrade to Quarkiverse Amazon Services 2.x [\#4496](https://github.com/apache/camel-quarkus/issues/4496)
@@ -53,6 +58,8 @@
 
 **Merged pull requests:**
 
+- xml-io: Remove the use of XMLRoutesDefinitionLoader deprecated class … [\#4565](https://github.com/apache/camel-quarkus/pull/4565) ([aldettinger](https://github.com/aldettinger))
+- Upgrade Quarkus to 3.0.0.Alpha4 [\#4563](https://github.com/apache/camel-quarkus/pull/4563) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#4561](https://github.com/apache/camel-quarkus/pull/4561) ([github-actions[bot]](https://github.com/apps/github-actions))
 - bump quarkus-artemis-bom from 3.0.0.Alpha3 to 3.0.0.Alpha6 [\#4559](https://github.com/apache/camel-quarkus/pull/4559) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Generated sources regen for SBOM [\#4558](https://github.com/apache/camel-quarkus/pull/4558) ([github-actions[bot]](https://github.com/apps/github-actions))
@@ -61,6 +68,7 @@
 - camel-quarkus-integration-test-aws2 fail to compile \(native\) with Camel4 [\#4552](https://github.com/apache/camel-quarkus/pull/4552) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix camel-nitrite native tests [\#4551](https://github.com/apache/camel-quarkus/pull/4551) ([zhfeng](https://github.com/zhfeng))
 - Fix references to removed extensions and reference Camel latest docs [\#4549](https://github.com/apache/camel-quarkus/pull/4549) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix compilation of gRPC service stubs [\#4548](https://github.com/apache/camel-quarkus/pull/4548) ([jamesnetherton](https://github.com/jamesnetherton))
 - Re-enable saxon tests [\#4547](https://github.com/apache/camel-quarkus/pull/4547) ([zhfeng](https://github.com/zhfeng))
 - Remove unwanted references to grpc-netty-shaded from OpenTelemetry extension [\#4545](https://github.com/apache/camel-quarkus/pull/4545) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove redundant CI workflow steps [\#4544](https://github.com/apache/camel-quarkus/pull/4544) ([jamesnetherton](https://github.com/jamesnetherton))
