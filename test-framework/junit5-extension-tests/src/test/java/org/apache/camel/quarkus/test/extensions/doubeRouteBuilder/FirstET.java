@@ -14,44 +14,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.test.junit5.patterns;
+package org.apache.camel.quarkus.test.extensions.doubeRouteBuilder;
 
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit.TestProfile;
 import org.apache.camel.RoutesBuilder;
-import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.quarkus.test.CamelQuarkusTestSupport;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
-@TestProfile(AdviceWithLambdaTest.class)
-public class AdviceWithLambdaTest extends CamelQuarkusTestSupport {
+public class FirstET extends CamelQuarkusTestSupport {
 
     @Override
-    public boolean isUseAdviceWith() {
-        return true;
+    protected RoutesBuilder createRouteBuilder() throws Exception {
+        return new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:startTest").to("direct:start").to("mock:result");
+            }
+        };
     }
 
     @Test
-    public void testAdviceWith() throws Exception {
-        getMockEndpoint("mock:result").expectedMessageCount(1);
+    public void someTestA() throws InterruptedException {
+        MockEndpoint mockEndpoint = getMockEndpoint("mock:result");
+        mockEndpoint.expectedBodiesReceived("Some Value");
 
-        // advice the route in one line
-        AdviceWith.adviceWith(context, "foo", a -> a.weaveAddLast().to("mock:result"));
+        template.sendBody("direct:startTest", null);
 
-        template.sendBody("direct:start", "Bye World");
-
-        assertMockEndpointsSatisfied();
+        mockEndpoint.assertIsSatisfied();
     }
 
-    @Override
-    protected RoutesBuilder createRouteBuilder() {
-        return new RouteBuilder() {
-            @Override
-            public void configure() {
-                from("direct:start").routeId("foo").to("log:foo");
-            }
-        };
+    @Test
+    public void someTestB() throws InterruptedException {
+        MockEndpoint mockEndpoint = getMockEndpoint("mock:result");
+        mockEndpoint.expectedBodiesReceived("Some Value");
+
+        template.sendBody("direct:startTest", null);
+
+        mockEndpoint.assertIsSatisfied();
     }
 }

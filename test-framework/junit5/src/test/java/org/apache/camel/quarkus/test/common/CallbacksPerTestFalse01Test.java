@@ -19,14 +19,12 @@ package org.apache.camel.quarkus.test.common;
 import java.util.function.BiConsumer;
 
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit.TestProfile;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.TestInstance;
 
 // replaces CreateCamelContextPerTestTrueTest
 @QuarkusTest
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
-@TestProfile(CallbacksPerTestFalse01Test.class)
 public class CallbacksPerTestFalse01Test extends AbstractCallbacksTest {
 
     public CallbacksPerTestFalse01Test() {

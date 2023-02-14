@@ -14,18 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.test.extensions.routeBuilder;
+package org.apache.camel.quarkus.test.extensions.doubeRouteBuilder;
 
-import javax.enterprise.context.ApplicationScoped;
-
-import org.apache.camel.builder.RouteBuilder;
-
-@ApplicationScoped
-public class RouteBuilderHello extends RouteBuilder {
-
+public class RouteBuilder extends org.apache.camel.builder.RouteBuilder {
     @Override
-    public void configure() {
-        from("direct:in").routeId("directRoute").to("file:target/data/RouteBuilderET?filename=hello_false.txt");
-    }
+    public void configure() throws Exception {
+        from("direct:start").setBody(constant("Some Value")).log("The body is: ${body}");
 
+        from("timer:timeToAct?period=5000").routeId("TimerRoute").log("Calling direct:start").to("direct:start");
+    }
 }

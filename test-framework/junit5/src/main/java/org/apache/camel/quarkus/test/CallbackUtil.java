@@ -48,13 +48,15 @@ public class CallbackUtil {
 
     static void resetContext(CamelQuarkusTestSupport testInstance) {
 
-        //if routeBuilder (from the test) was used, all routes has to be stopped and removed
+        //if routeBuilder (from the test) was used, all routes from that builder has to be stopped and removed
         //because routes will be created again (in case of TestInstance.Lifecycle.PER_CLASS, this method is not executed)
-        if (testInstance.isUseRouteBuilder()) {
-            try {
-                testInstance.context().getRouteController().stopAllRoutes();
-                testInstance.context().getRouteController().removeAllRoutes();
+        if (testInstance.isUseRouteBuilder() && testInstance.createdRoutes != null) {
 
+            try {
+                for (String r : testInstance.createdRoutes) {
+                    testInstance.context().getRouteController().stopRoute(r);
+                    testInstance.context().removeRoute(r);
+                }
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
