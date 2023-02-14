@@ -108,6 +108,7 @@ group-07:
   - weather
 group-08:
   - azure-grouped
+  - crypto
   - master
   - master-file
   - master-openshift
