@@ -55,7 +55,7 @@ public class ProducedRouteBuilderTest {
         ContinuousTestingTestUtils utils = new ContinuousTestingTestUtils();
         ContinuousTestingTestUtils.TestStatus ts = utils.waitForNextCompletion();
 
-        Assertions.assertEquals(1L, ts.getTestsFailed());
-        Assertions.assertEquals(1L, ts.getTestsPassed());
+        Assertions.assertEquals(0L, ts.getTestsFailed());
+        Assertions.assertEquals(2L, ts.getTestsPassed());
     }
 }

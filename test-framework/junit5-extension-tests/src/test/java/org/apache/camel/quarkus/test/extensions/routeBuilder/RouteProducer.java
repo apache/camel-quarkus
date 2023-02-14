@@ -16,27 +16,17 @@
  */
 package org.apache.camel.quarkus.test.extensions.routeBuilder;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import org.apache.camel.builder.RouteBuilder;
 
-import org.apache.camel.ProducerTemplate;
+public class RouteProducer {
 
-@Path("/routeBuilder")
-@ApplicationScoped
-public class RouteBuilderWarningResource {
-
-    @Inject
-    ProducerTemplate producerTemplate;
-
-    @Path("/in")
-    @POST
-    @Produces(MediaType.TEXT_PLAIN)
-    public void in(String body) {
-        producerTemplate.sendBody("direct:in", body);
+    @javax.enterprise.inject.Produces
+    public RouteBuilder routes() {
+        return new RouteBuilder() {
+            @Override
+            public void configure() {
+                from("direct:in1").to("direct:in2");
+            }
+        };
     }
-
 }

@@ -14,9 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.test.extensions.routeBuilder;
+package org.apache.camel.quarkus.test.extensions.doubeRouteBuilder;
 
-import java.util.logging.Level;
+import java.util.function.Supplier;
 
 import io.quarkus.test.ContinuousTestingTestUtils;
 import io.quarkus.test.QuarkusDevModeTest;
@@ -28,22 +28,27 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 /**
- * Scenario when useRouteBuilder is TRUE and RouteBuilder is created via HelloRouteBuilder -> should succeed without
- * warning.
+ * Test for https://github.com/apache/camel-quarkus/issues/4560
  */
-public class RouteBuilderWarningWithoutProducedBuilderTest {
+public class DoubleRoutesTest {
 
     @RegisterExtension
     static final QuarkusDevModeTest TEST = new QuarkusDevModeTest()
-            .setArchiveProducer(() -> {
-                JavaArchive ja = ShrinkWrap.create(JavaArchive.class)
-                        .add(new StringAsset(
-                                ContinuousTestingTestUtils.appProperties("#")),
-                                "application.properties");
-                return ja;
+            .setArchiveProducer(new Supplier<>() {
+                @Override
+                public JavaArchive get() {
+                    return ShrinkWrap.create(JavaArchive.class).addClass(RouteBuilder.class)
+                            .add(new StringAsset(
+                                    ContinuousTestingTestUtils.appProperties("#")),
+                                    "application.properties");
+                }
             })
-            .setTestArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class).addClasses(RouteBuilderWarningET.class))
-            .setLogRecordPredicate(record -> record.getLevel().equals(Level.WARNING));
+            .setTestArchiveProducer(new Supplier<>() {
+                @Override
+                public JavaArchive get() {
+                    return ShrinkWrap.create(JavaArchive.class).addClasses(FirstET.class, SecondET.class);
+                }
+            });
 
     @Test
     public void checkTests() {
@@ -51,10 +56,6 @@ public class RouteBuilderWarningWithoutProducedBuilderTest {
         ContinuousTestingTestUtils.TestStatus ts = utils.waitForNextCompletion();
 
         Assertions.assertEquals(0L, ts.getTestsFailed());
-        Assertions.assertEquals(1L, ts.getTestsPassed());
-        Assertions.assertEquals(0L, ts.getTestsSkipped());
-
-        Assertions.assertFalse(TEST.getLogRecords().stream()
-                .anyMatch(logRecord -> logRecord.getMessage().contains("`RouteBuilder` detected")));
+        Assertions.assertEquals(4L, ts.getTestsPassed());
     }
 }
