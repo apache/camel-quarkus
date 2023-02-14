@@ -18,6 +18,8 @@ package org.apache.camel.quarkus.test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import io.quarkus.test.junit.QuarkusTestProfile;
 import io.quarkus.test.junit.callback.QuarkusTestContext;
@@ -78,6 +80,11 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
 
     @Inject
     protected CamelContext context;
+
+    /*
+     * Set of routes, which were created by routeBuilder. This set is used by some callbacks.
+     */
+    Set<String> createdRoutes;
 
     //------------------------ quarkus callbacks ---------------
 
@@ -303,6 +310,12 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
         if (isUseAdviceWith() || isUseDebugger()) {
             ((FastCamelContext) context).suspend();
         }
+
+        if (isUseRouteBuilder()) {
+            //save the routeIds of routes existing before setup
+            createdRoutes = context.getRoutes().stream().map(r -> r.getRouteId()).collect(Collectors.toSet());
+        }
+
         super.doPreSetup();
     }
 
@@ -324,6 +337,15 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
                 // routes have to be added now
                 mcc.addRouteDefinitions(rdfs);
             }
+        }
+
+        if (isUseRouteBuilder()) {
+            //remove from the routes all routes which existed before setup
+            var allRoutes = context.getRoutes().stream().map(r -> r.getRouteId()).collect(Collectors.toSet());
+            if (createdRoutes != null) {
+                allRoutes.removeAll(createdRoutes);
+            }
+            createdRoutes = allRoutes;
         }
         super.doPostSetup();
     }

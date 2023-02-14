@@ -19,17 +19,16 @@ package org.apache.camel.quarkus.test.common;
 import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit.TestProfile;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Test;
 
 import static org.awaitility.Awaitility.await;
 
 // replaces CreateCamelContextPerTestTrueTest
 @QuarkusTest
-@TestProfile(CallbacksPerTestFalse01Test.class)
 public class CallbacksPerTestFalse02Test {
 
-    //    @Test
+    @Test
     public void testAfter01Class() {
 
         await().atMost(5, TimeUnit.SECONDS).until(() -> AbstractCallbacksTest.testFromAnotherClass(
