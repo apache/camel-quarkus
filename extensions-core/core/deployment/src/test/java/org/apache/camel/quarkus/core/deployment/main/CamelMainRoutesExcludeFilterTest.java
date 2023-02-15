@@ -55,7 +55,8 @@ public class CamelMainRoutesExcludeFilterTest {
         Properties props = new Properties();
         props.setProperty("quarkus.banner.enabled", "false");
         props.setProperty("quarkus.camel.routes-discovery.enabled", "true");
-        props.setProperty("quarkus.camel.routes-discovery.exclude-patterns", "**/*Filtered,**/*Bean,**/*Producer");
+        props.setProperty("quarkus.camel.routes-discovery.exclude-patterns", "**/*Filtered");
+        props.setProperty("camel.main.javaRoutesExcludePattern", "**/*Bean,**/*Producer");
 
         try {
             props.store(writer, "");
