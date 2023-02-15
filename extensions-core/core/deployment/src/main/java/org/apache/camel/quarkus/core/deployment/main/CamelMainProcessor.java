@@ -79,11 +79,8 @@ public class CamelMainProcessor {
     @Record(value = ExecutionTime.STATIC_INIT, optional = true)
     public CamelRoutesCollectorBuildItem routesCollector(
             CamelMainRecorder recorder,
-            CamelRoutesLoaderBuildItems.Registry registryRoutesLoader,
-            CamelConfig config) {
-
-        RuntimeValue<RoutesCollector> routesCollector = recorder.newRoutesCollector(registryRoutesLoader.getLoader(),
-                config.routesDiscovery.excludePatterns, config.routesDiscovery.includePatterns);
+            CamelRoutesLoaderBuildItems.Registry registryRoutesLoader) {
+        RuntimeValue<RoutesCollector> routesCollector = recorder.newRoutesCollector(registryRoutesLoader.getLoader());
         return new CamelRoutesCollectorBuildItem(routesCollector);
     }
 
