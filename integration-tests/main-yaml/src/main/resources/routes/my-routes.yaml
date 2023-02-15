@@ -63,3 +63,11 @@
                 steps:
                   - transform:
                       constant: "do-catch caught an exception"
+
+- route:
+    id: "my-yaml-route3"
+    from:
+      uri: "direct:greetFromJavaBean"
+      steps:
+        - to: "bean:myGreetingBean?method=greet"
+

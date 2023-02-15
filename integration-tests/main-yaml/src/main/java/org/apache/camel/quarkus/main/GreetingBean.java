@@ -16,8 +16,13 @@
  */
 package org.apache.camel.quarkus.main;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
+@ApplicationScoped
+@Named("myGreetingBean")
 @RegisterForReflection
 public class GreetingBean {
     String greeting;
