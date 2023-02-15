@@ -13,6 +13,7 @@
 
 **Closed issues:**
 
+- xml-io: document the possibility to add all charsets in native mode [\#4572](https://github.com/apache/camel-quarkus/issues/4572)
 - xml-io: Remove the use of XMLRoutesDefinitionLoader deprecated class [\#4564](https://github.com/apache/camel-quarkus/issues/4564)
 - Azure native integration tests fail at runtime [\#4541](https://github.com/apache/camel-quarkus/issues/4541)
 - Migrate example projects to Camel 4 and Quarkus 3 [\#4540](https://github.com/apache/camel-quarkus/issues/4540)
@@ -24,12 +25,14 @@
 - mail test fails in native mode [\#4519](https://github.com/apache/camel-quarkus/issues/4519)
 - VertxWebsocketTest fails with "Path must start with /" on Camel 4 and Quarkus 3 [\#4518](https://github.com/apache/camel-quarkus/issues/4518)
 - saxon test cannot be compiled to native with Camel 4 and Quarkus 3 [\#4512](https://github.com/apache/camel-quarkus/issues/4512)
+- crypto test cannot be compiled to native with Camel 4 and Quarkus 3 [\#4510](https://github.com/apache/camel-quarkus/issues/4510)
 - opentelemetry test fails to compile to native with Camel 4 and Quarkus 3 [\#4509](https://github.com/apache/camel-quarkus/issues/4509)
 - Upgrade to Quarkiverse Freemarker 1.0.0.Alpha1 to become compatible with Quarkus 3 [\#4508](https://github.com/apache/camel-quarkus/issues/4508)
 - main-xml-jaxb, dataformats-json and azure tests cannot be compiled to native with Camel 4 and Quarkus 3 [\#4507](https://github.com/apache/camel-quarkus/issues/4507)
 - GRPC test fails on Quarkus 3 [\#4503](https://github.com/apache/camel-quarkus/issues/4503)
 - camel-quarkus-integration-test-aws2 fail to compile to native with Camel 4 [\#4501](https://github.com/apache/camel-quarkus/issues/4501)
 - quarkus-pooled-jms incompatible with Quarkus 3 and Jakarta 9/10 [\#4500](https://github.com/apache/camel-quarkus/issues/4500)
+- FhirDstu2Hl7OrgTest fails on Camel 4 [\#4497](https://github.com/apache/camel-quarkus/issues/4497)
 - Upgrade to Quarkiverse Amazon Services 2.x [\#4496](https://github.com/apache/camel-quarkus/issues/4496)
 - MailTest.receiveSecured fails on Camel 4/Quarkus 3: Can't verify identity of server: localhost [\#4493](https://github.com/apache/camel-quarkus/issues/4493)
 - Quarkiverse MyBatis 1.x not ready for Quarkus 3/Jakarta 9/10 [\#4491](https://github.com/apache/camel-quarkus/issues/4491)
@@ -40,6 +43,7 @@
 - camel-quarkus-activemq can not set jms some properties in native mode [\#4454](https://github.com/apache/camel-quarkus/issues/4454)
 - Allow to disable build time compilation of jOOR expressions [\#4452](https://github.com/apache/camel-quarkus/issues/4452)
 - Get rid of jOOR workarounds used for native mode [\#4443](https://github.com/apache/camel-quarkus/issues/4443)
+- Aws2: Add testing of defaultCredentialProvider to each extension [\#4442](https://github.com/apache/camel-quarkus/issues/4442)
 - perf-regression: introduce version specific build options [\#4436](https://github.com/apache/camel-quarkus/issues/4436)
 - js-dsl: JavaScriptDslTest is failing on quarkus-platform [\#4434](https://github.com/apache/camel-quarkus/issues/4434)
 - Support CSimple expressions with all DSLs [\#4426](https://github.com/apache/camel-quarkus/issues/4426)
@@ -58,8 +62,12 @@
 
 **Merged pull requests:**
 
+- xml-io: document the possibility to add all charsets in native mode \#… [\#4573](https://github.com/apache/camel-quarkus/pull/4573) ([aldettinger](https://github.com/aldettinger))
+- Revert "Disable crypto test temporarily \#4510" [\#4571](https://github.com/apache/camel-quarkus/pull/4571) ([jamesnetherton](https://github.com/jamesnetherton))
+- Use XML DSL to define templated route in integration test [\#4567](https://github.com/apache/camel-quarkus/pull/4567) ([osmman](https://github.com/osmman))
 - xml-io: Remove the use of XMLRoutesDefinitionLoader deprecated class … [\#4565](https://github.com/apache/camel-quarkus/pull/4565) ([aldettinger](https://github.com/aldettinger))
 - Upgrade Quarkus to 3.0.0.Alpha4 [\#4563](https://github.com/apache/camel-quarkus/pull/4563) ([jamesnetherton](https://github.com/jamesnetherton))
+- Adapt FHIR tests after upgrade to 6.x [\#4562](https://github.com/apache/camel-quarkus/pull/4562) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#4561](https://github.com/apache/camel-quarkus/pull/4561) ([github-actions[bot]](https://github.com/apps/github-actions))
 - bump quarkus-artemis-bom from 3.0.0.Alpha3 to 3.0.0.Alpha6 [\#4559](https://github.com/apache/camel-quarkus/pull/4559) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Generated sources regen for SBOM [\#4558](https://github.com/apache/camel-quarkus/pull/4558) ([github-actions[bot]](https://github.com/apps/github-actions))
@@ -85,6 +93,7 @@
 - Update dependabot [\#4483](https://github.com/apache/camel-quarkus/pull/4483) ([zhfeng](https://github.com/zhfeng))
 - Add quarkus-qpid-jms for dependency version checking [\#4480](https://github.com/apache/camel-quarkus/pull/4480) ([zhfeng](https://github.com/zhfeng))
 - file: fix warning [\#4476](https://github.com/apache/camel-quarkus/pull/4476) ([aldettinger](https://github.com/aldettinger))
+- Aws2: Add testing of defaultCredentialProvider to each extension \#4442 [\#4474](https://github.com/apache/camel-quarkus/pull/4474) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Re-enable filter test \#3584 [\#4471](https://github.com/apache/camel-quarkus/pull/4471) ([aldettinger](https://github.com/aldettinger))
 - Provide SBOM for Camel-Quarkus project [\#4461](https://github.com/apache/camel-quarkus/pull/4461) ([oscerd](https://github.com/oscerd))
 - Fixup SQL extension documentation and native testing with alternate JDBC drivers [\#4460](https://github.com/apache/camel-quarkus/pull/4460) ([jamesnetherton](https://github.com/jamesnetherton))
