@@ -282,10 +282,15 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
         }
     }
 
-    void internalAfterAll(QuarkusTestContext context) {
+    void internalAfterAll(QuarkusTestContext context, ExtensionContext extensionContext) {
         try {
-            doPostTearDown();
+            if (isCreateCamelContextPerClass()) {
+                super.afterAll(extensionContext);
+            } else {
+                doPostTearDown();
+            }
             cleanupResources();
+
         } catch (Exception e) {
             // ignore
         }
