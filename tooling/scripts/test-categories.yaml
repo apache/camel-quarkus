@@ -162,6 +162,7 @@ group-12:
   - aws2-grouped
   - csimple
   - quartz-clustered
+  - dataformats-json-grouped
   - knative
   - knative-channel-consumer
   - knative-endpoint-consumer

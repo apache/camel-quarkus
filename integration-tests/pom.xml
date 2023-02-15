@@ -80,7 +80,7 @@
         <module>csv</module>
         <!--<module>cxf-soap-grouped</module>-->
         <module>dataformat</module>
-        <module>dataformats-json</module>
+        <module>dataformats-json-grouped</module>
         <!--<module>datasonnet</module>-->
         <module>debezium</module>
         <module>digitalocean</module>
