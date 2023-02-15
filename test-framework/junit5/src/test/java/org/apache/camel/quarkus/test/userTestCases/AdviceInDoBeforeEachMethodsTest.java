@@ -52,7 +52,7 @@ public class AdviceInDoBeforeEachMethodsTest extends CamelQuarkusTestSupport {
             public void configure() {
                 from("direct:start")
                         .routeId("sampleRoute")
-                        .to("file:samples/");
+                        .to("file:target/samples/");
             }
         };
     }
