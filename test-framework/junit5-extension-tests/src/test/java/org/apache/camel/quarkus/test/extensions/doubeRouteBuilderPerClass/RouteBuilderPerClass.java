@@ -14,27 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.test.common;
+package org.apache.camel.quarkus.test.extensions.doubeRouteBuilderPerClass;
 
-import java.util.concurrent.TimeUnit;
+public class RouteBuilderPerClass extends org.apache.camel.builder.RouteBuilder {
+    @Override
+    public void configure() throws Exception {
+        from("direct:start").setBody(constant("Some Value")).log("The body is: ${body}");
 
-import io.quarkus.test.junit.QuarkusTest;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
-
-import static org.awaitility.Awaitility.await;
-
-// requires CallbacksPerTestTrue01Test to be run before
-@QuarkusTest
-public class CallbacksPerTestTrue02Test {
-
-    @Test
-    public void testAfter01Class() {
-
-        await().atMost(5, TimeUnit.SECONDS).until(() -> AbstractCallbacksTest.testFromAnotherClass(
-                CallbacksPerTestTrue02Test.class.getSimpleName(),
-                CallbacksPerTestTrue01Test.createAssertionConsumer()),
-                Matchers.is(AbstractCallbacksTest.Callback.values().length));
-
+        from("timer:timeToAct?period=5000").routeId("TimerRoute").log("Calling direct:start").to("direct:start");
     }
 }
