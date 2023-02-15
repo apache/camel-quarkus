@@ -45,6 +45,7 @@
         <module>main-discovery-disabled</module>
         <module>main-xml-jaxb</module>
         <module>main-xml-io</module>
+        <module>main-xml-io-with-beans</module>
         <module>main-collector</module>
         <module>main-caffeine-lrucache</module>
         <module>main-command-mode</module>
