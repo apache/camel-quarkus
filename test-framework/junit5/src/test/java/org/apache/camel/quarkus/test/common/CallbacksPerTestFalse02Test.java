@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.awaitility.Awaitility.await;
 
-// replaces CreateCamelContextPerTestTrueTest
+// requires CallbacksPerTestFalse01Test to be run before
 @QuarkusTest
 public class CallbacksPerTestFalse02Test {
 
