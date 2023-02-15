@@ -42,6 +42,9 @@ public class CoreMainYamlResource {
     @Inject
     ProducerTemplate producerTemplate;
 
+    @Inject
+    GreetingBean myGreetingBean;
+
     @Path("/describe")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -80,5 +83,13 @@ public class CoreMainYamlResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String tryCatch() {
         return producerTemplate.requestBody("direct:tryCatch", null, String.class);
+    }
+
+    @Path("/greet/from/java/bean")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String greetFromBeanDeclaredInJava() {
+        myGreetingBean.setGreeting("Hello from bean declared in java!");
+        return producerTemplate.requestBody("direct:greetFromJavaBean", null, String.class);
     }
 }
