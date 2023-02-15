@@ -70,6 +70,14 @@ public class CoreMainYamlTest {
     }
 
     @Test
+    public void beanDeclaredInJavaYamlRoute() {
+        RestAssured.get("/main/yaml/greet/from/java/bean")
+                .then()
+                .statusCode(200)
+                .body(is("Hello from bean declared in java!"));
+    }
+
+    @Test
     public void tryCatchYamlRoute() {
         RestAssured.given()
                 .get("/main/yaml/try/catch")
