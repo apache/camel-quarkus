@@ -2348,11 +2348,11 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <!--<dependency>
+            <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-stax</artifactId>
                 <version>${camel.version}</version>
-            </dependency>-->
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-stitch</artifactId>
@@ -5205,7 +5205,7 @@
                 <artifactId>camel-quarkus-ssh-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
-            <!--<dependency>
+            <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-stax</artifactId>
                 <version>${camel-quarkus.version}</version>
@@ -5214,7 +5214,7 @@
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-stax-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
-            </dependency>-->
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-stitch</artifactId>
@@ -5500,7 +5500,7 @@
                 <artifactId>camel-quarkus-support-spring-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
-            <!--<dependency>
+            <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-support-stax</artifactId>
                 <version>${camel-quarkus.version}</version>
@@ -5509,7 +5509,7 @@
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-support-stax-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
-            </dependency>-->
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-support-webhook</artifactId>

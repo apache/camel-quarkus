@@ -265,6 +265,7 @@
 *** xref:reference/extensions/splunk.adoc[Splunk]
 *** xref:reference/extensions/splunk-hec.adoc[Splunk HEC]
 *** xref:reference/extensions/spring-rabbitmq.adoc[Spring RabbitMQ]
+*** xref:reference/extensions/stax.adoc[StAX]
 *** xref:reference/extensions/stitch.adoc[Stitch]
 *** xref:reference/extensions/stomp.adoc[Stomp]
 *** xref:reference/extensions/stream.adoc[Stream]

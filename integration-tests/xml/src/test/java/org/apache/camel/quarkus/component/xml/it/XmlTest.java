@@ -27,7 +27,6 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -209,7 +208,6 @@ class XmlTest {
     }
 
     @Test
-    @Disabled("https://github.com/apache/camel-quarkus/issues/4494")
     public void xtokenizeLanguage() {
         String expectedResult = "<c:child some_attr='a' anotherAttr='a' xmlns:c=\"urn:c\"></c:child>,<c:child some_attr='b' anotherAttr='b' xmlns:c=\"urn:c\"></c:child>";
         String xml = "<?xml version='1.0' encoding='UTF-8'?>"
