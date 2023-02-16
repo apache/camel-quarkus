@@ -11,7 +11,7 @@
   documentation.
 * If your are on Linux, `docker` is sufficient for the native mode too. Use `-Pnative,docker` instead of `-Pnative`
   if you choose this option.
-* Java 11
+* Java 11 for Camel Quarkus < 3.0.0 and then Java 17 for Camel Quarkus >= 3.0.0
 * Maven {min-maven-version}+ (unless you use the Maven Wrapper, a.k.a. `mvnw` available in the source tree).
 
 [[how-to-build]]
