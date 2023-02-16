@@ -42,6 +42,49 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-google-secret-manager</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>google-cloud-pubsub</artifactId>
+                    <groupId>com.google.cloud</groupId>
+                </exclusion>
+                <!-- following dependencies are brought by google-cloud-pubsub -->
+                <exclusion>
+                    <artifactId>api-common</artifactId>
+                    <groupId>com.google.api</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>auto-value-annotations</artifactId>
+                    <groupId>com.google.auto.value</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>conscrypt-openjdk-uber</artifactId>
+                    <groupId>org.conscrypt</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>gax</artifactId>
+                    <groupId>com.google.api</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>gax-grpc</artifactId>
+                    <groupId>com.google.api</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>google-auth-library-oauth2-http</artifactId>
+                    <groupId>com.google.auth</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>proto-google-iam-v1</artifactId>
+                    <groupId>com.google.api.grpc</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>re2j</artifactId>
+                    <groupId>com.google.re2j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <artifactId>google-cloud-pubsub</artifactId>
+            <groupId>com.google.cloud</groupId>
         </dependency>
     </dependencies>
 

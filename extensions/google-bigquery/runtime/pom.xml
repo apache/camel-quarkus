@@ -58,6 +58,15 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-google-bigquery</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.logmanager</groupId>
+            <artifactId>log4j2-jboss-logmanager</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.logmanager</groupId>
+            <artifactId>log4j-jboss-logmanager</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
