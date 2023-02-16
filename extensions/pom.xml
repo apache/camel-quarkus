@@ -228,7 +228,7 @@
         <module>spring-rabbitmq</module>
         <module>sql</module>
         <module>ssh</module>
-        <!--<module>stax</module>-->
+        <module>stax</module>
         <module>stream</module>
         <module>stringtemplate</module>
         <module>syslog</module>

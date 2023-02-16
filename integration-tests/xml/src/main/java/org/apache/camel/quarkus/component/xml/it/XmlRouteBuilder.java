@@ -21,6 +21,7 @@ import org.w3c.dom.Document;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.xslt.saxon.XsltSaxonAggregationStrategy;
+import org.apache.camel.support.builder.Namespaces;
 
 // These reflections registrations should be removed with fixing https://github.com/apache/camel-quarkus/issues/1615
 @RegisterForReflection(classNames = {
@@ -53,12 +54,10 @@ public class XmlRouteBuilder extends RouteBuilder {
                 .otherwise()
                 .setBody(constant("Invalid country code"));
 
-        /* https://github.com/apache/camel-quarkus/issues/4494
         from(DIRECT_XTOKENIZE)
                 .split()
                 .xtokenize("//C:child", new Namespaces("C", "urn:c"))
                 .to("seda:xtokenize-result");
-                */
 
         from("direct:aggregate")
                 .aggregate(new XsltSaxonAggregationStrategy("xslt/aggregate.xsl"))
