@@ -6,6 +6,7 @@
 
 **Fixed bugs:**
 
+- `camel.main.javaRoutesIncludePattern` not overridable at runtime [\#4574](https://github.com/apache/camel-quarkus/issues/4574)
 - \[Mandrel 22.3.1\] pgevent native image compilation failure [\#4469](https://github.com/apache/camel-quarkus/issues/4469)
 - \[Mandrel 22.3.1\] Quartz clustered native image compilation failure [\#4468](https://github.com/apache/camel-quarkus/issues/4468)
 - \[Mandrel 22.3.1\] Qpid JMS client native image compilation failure [\#4466](https://github.com/apache/camel-quarkus/issues/4466)
@@ -62,6 +63,7 @@
 
 **Merged pull requests:**
 
+- Restore ability for camel.main.javaRoutesIncludePattern to be overridable at runtime [\#4575](https://github.com/apache/camel-quarkus/pull/4575) ([jamesnetherton](https://github.com/jamesnetherton))
 - xml-io: document the possibility to add all charsets in native mode \#… [\#4573](https://github.com/apache/camel-quarkus/pull/4573) ([aldettinger](https://github.com/aldettinger))
 - Revert "Disable crypto test temporarily \#4510" [\#4571](https://github.com/apache/camel-quarkus/pull/4571) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use XML DSL to define templated route in integration test [\#4567](https://github.com/apache/camel-quarkus/pull/4567) ([osmman](https://github.com/osmman))
