@@ -96,7 +96,7 @@ group-06:
   - saga
   - sjms-qpid-amqp-client
 group-07:
-  - dataformats-json
+  - dataformats-json-grouped
   - dropbox
   - geocoder
   - jslt
@@ -163,7 +163,6 @@ group-12:
   - aws2-grouped
   - csimple
   - quartz-clustered
-  - dataformats-json-grouped
   - knative
   - knative-channel-consumer
   - knative-endpoint-consumer
