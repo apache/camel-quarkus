@@ -14,8 +14,11 @@
 
 **Closed issues:**
 
+- xml-io-with-beans: create itest project for xml-io + bean [\#4579](https://github.com/apache/camel-quarkus/issues/4579)
 - xml-io: document the possibility to add all charsets in native mode [\#4572](https://github.com/apache/camel-quarkus/issues/4572)
+- CamelQuarkusTestSupport: Lifecycle.PER\_CLASS may cause following tests to fail [\#4569](https://github.com/apache/camel-quarkus/issues/4569)
 - xml-io: Remove the use of XMLRoutesDefinitionLoader deprecated class [\#4564](https://github.com/apache/camel-quarkus/issues/4564)
+- Multiple test methods do not work when extending CamelQuarkusTestSupport [\#4560](https://github.com/apache/camel-quarkus/issues/4560)
 - Azure native integration tests fail at runtime [\#4541](https://github.com/apache/camel-quarkus/issues/4541)
 - Migrate example projects to Camel 4 and Quarkus 3 [\#4540](https://github.com/apache/camel-quarkus/issues/4540)
 - PerfRegressionIT failing with Camel 4 and Quarkus 3 [\#4528](https://github.com/apache/camel-quarkus/issues/4528)
@@ -35,6 +38,7 @@
 - quarkus-pooled-jms incompatible with Quarkus 3 and Jakarta 9/10 [\#4500](https://github.com/apache/camel-quarkus/issues/4500)
 - FhirDstu2Hl7OrgTest fails on Camel 4 [\#4497](https://github.com/apache/camel-quarkus/issues/4497)
 - Upgrade to Quarkiverse Amazon Services 2.x [\#4496](https://github.com/apache/camel-quarkus/issues/4496)
+- XmlTest fails with NoSuchLanguageException: No language could be found for: xtokenize on Camel 4.0.0-M1 [\#4494](https://github.com/apache/camel-quarkus/issues/4494)
 - MailTest.receiveSecured fails on Camel 4/Quarkus 3: Can't verify identity of server: localhost [\#4493](https://github.com/apache/camel-quarkus/issues/4493)
 - Quarkiverse MyBatis 1.x not ready for Quarkus 3/Jakarta 9/10 [\#4491](https://github.com/apache/camel-quarkus/issues/4491)
 - Improve yaml-dsl documentation [\#4487](https://github.com/apache/camel-quarkus/issues/4487)
@@ -63,9 +67,16 @@
 
 **Merged pull requests:**
 
+- Restore camel-quarkus-stax testing [\#4584](https://github.com/apache/camel-quarkus/pull/4584) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix contributor guide [\#4583](https://github.com/apache/camel-quarkus/pull/4583) ([aldettinger](https://github.com/aldettinger))
+- Update qute.json to 3.0.0-SNAPSHOT [\#4581](https://github.com/apache/camel-quarkus/pull/4581) ([zhfeng](https://github.com/zhfeng))
+- create itest project for xml-io + bean \#4579 [\#4580](https://github.com/apache/camel-quarkus/pull/4580) ([aldettinger](https://github.com/aldettinger))
+- Split json dataformats to different modules [\#4578](https://github.com/apache/camel-quarkus/pull/4578) ([ldrozdo](https://github.com/ldrozdo))
+- \[backport to main\] test - Define routes in YAML DSL using beans declared in Java  [\#4577](https://github.com/apache/camel-quarkus/pull/4577) ([AnetaCadova](https://github.com/AnetaCadova))
 - Restore ability for camel.main.javaRoutesIncludePattern to be overridable at runtime [\#4575](https://github.com/apache/camel-quarkus/pull/4575) ([jamesnetherton](https://github.com/jamesnetherton))
 - xml-io: document the possibility to add all charsets in native mode \#… [\#4573](https://github.com/apache/camel-quarkus/pull/4573) ([aldettinger](https://github.com/aldettinger))
 - Revert "Disable crypto test temporarily \#4510" [\#4571](https://github.com/apache/camel-quarkus/pull/4571) ([jamesnetherton](https://github.com/jamesnetherton))
+- Multiple test methods do not work when extending CamelQuarkusTestSupport [\#4568](https://github.com/apache/camel-quarkus/pull/4568) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Use XML DSL to define templated route in integration test [\#4567](https://github.com/apache/camel-quarkus/pull/4567) ([osmman](https://github.com/osmman))
 - xml-io: Remove the use of XMLRoutesDefinitionLoader deprecated class … [\#4565](https://github.com/apache/camel-quarkus/pull/4565) ([aldettinger](https://github.com/aldettinger))
 - Upgrade Quarkus to 3.0.0.Alpha4 [\#4563](https://github.com/apache/camel-quarkus/pull/4563) ([jamesnetherton](https://github.com/jamesnetherton))
