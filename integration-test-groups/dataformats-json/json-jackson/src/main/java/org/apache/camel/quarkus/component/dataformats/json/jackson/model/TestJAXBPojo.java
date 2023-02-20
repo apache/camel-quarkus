@@ -17,11 +17,14 @@
 package org.apache.camel.quarkus.component.dataformats.json.jackson.model;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 @RegisterForReflection
 @XmlRootElement(name = "XMLPojo")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class TestJAXBPojo {
 
     @XmlElement(name = "PojoName")
