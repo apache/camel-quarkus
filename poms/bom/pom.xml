@@ -1197,8 +1197,16 @@
                 <version>${camel.version}</version>
                 <exclusions>
                     <exclusion>
+                        <groupId>com.google.android</groupId>
+                        <artifactId>annotations</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>org.checkerframework</groupId>
                         <artifactId>checker-qual</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>animal-sniffer-annotations</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -6308,6 +6316,11 @@
                 <groupId>io.minio</groupId>
                 <artifactId>minio</artifactId>
                 <version>${minio.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.netty.incubator</groupId>
+                <artifactId>netty-incubator-transport-classes-io_uring</artifactId>
+                <version>${io-netty-iouring.version}</version>
             </dependency>
             <!--<dependency>
                 <groupId>io.smallrye.reactive</groupId>

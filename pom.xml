@@ -65,7 +65,7 @@
 
         <!-- Compile dependency versions (keep sorted alphabetically) -->
         <!-- Items annotated with @sync can be updated by running mvn cq:sync-versions -N -e -->
-        <ahc.version>2.12.3</ahc.version><!-- @sync com.cloudbees.thirdparty:zendesk-java-client:${zendesk-client-version} dep:org.asynchttpclient:async-http-client -->
+        <ahc.version>3.0.0.Beta1</ahc.version><!-- todo update client once available, see https://github.com/apache/camel-quarkus/issues/4591 @sync com.cloudbees.thirdparty:zendesk-java-client:${zendesk-client-version} dep:org.asynchttpclient:async-http-client -->
         <angus-mail.version>${angus-mail-version}</angus-mail.version>
         <animal-sniffer.version>1.18</animal-sniffer.version>
         <antlr3.version>3.5.2</antlr3.version><!-- Spark, Stringtemplate and probably others -->
@@ -108,6 +108,7 @@
         <htrace.version>4.2.0-incubating</htrace.version><!-- Mess in hbase transitive deps -->
         <httpclient5.version>5.2.1</httpclient5.version><!-- Saxon and Wiremock -->
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
+        <io-netty-iouring.version>0.0.16.Final</io-netty-iouring.version><!-- @sync org.asynchttpclient:async-http-client-project:${ahc.version} prop:netty.iouring -->
         <jackson.version>2.14.2</jackson.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.fasterxml.jackson.core:jackson-core -->
         <jackson1.version>1.9.13</jackson1.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <jackson-asl.version>${jackson1.version}</jackson-asl.version><!-- Can be different from jackson1.version on some occasions -->

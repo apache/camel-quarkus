@@ -1121,8 +1121,16 @@
         <version>4.0.0-M1</version>
         <exclusions>
           <exclusion>
+            <groupId>com.google.android</groupId>
+            <artifactId>annotations</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>org.checkerframework</groupId>
             <artifactId>checker-qual</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>animal-sniffer-annotations</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -6126,6 +6134,11 @@
         <version>8.2.2</version>
       </dependency>
       <dependency>
+        <groupId>io.netty.incubator</groupId>
+        <artifactId>netty-incubator-transport-classes-io_uring</artifactId>
+        <version>0.0.16.Final</version>
+      </dependency>
+      <dependency>
         <groupId>jakarta.jms</groupId>
         <artifactId>jakarta.jms-api</artifactId>
         <version>3.1.0</version>
@@ -6251,7 +6264,7 @@
       <dependency>
         <groupId>org.asynchttpclient</groupId>
         <artifactId>async-http-client</artifactId>
-        <version>2.12.3</version>
+        <version>3.0.0.Beta1</version>
         <exclusions>
           <exclusion>
             <groupId>com.sun.activation</groupId>

@@ -1121,8 +1121,16 @@
         <version>4.0.0-M1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
+            <groupId>com.google.android</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
             <groupId>org.checkerframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>checker-qual</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.codehaus.mojo</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>animal-sniffer-annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
         </exclusions>
       </dependency>
@@ -6141,6 +6149,11 @@
         <version>8.2.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
+        <groupId>io.netty.incubator</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>netty-incubator-transport-classes-io_uring</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>0.0.16.Final</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
         <groupId>jakarta.jms</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>jakarta.jms-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.1.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -6286,7 +6299,7 @@
       <dependency>
         <groupId>org.asynchttpclient</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>async-http-client</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>2.12.3</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.0.0.Beta1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>com.sun.activation</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
