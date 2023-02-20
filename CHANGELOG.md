@@ -69,6 +69,7 @@
 
 **Merged pull requests:**
 
+- Generated sources regen for SBOM [\#4587](https://github.com/apache/camel-quarkus/pull/4587) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Restore camel-quarkus-stax testing [\#4584](https://github.com/apache/camel-quarkus/pull/4584) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix contributor guide [\#4583](https://github.com/apache/camel-quarkus/pull/4583) ([aldettinger](https://github.com/aldettinger))
 - Update qute.json to 3.0.0-SNAPSHOT [\#4581](https://github.com/apache/camel-quarkus/pull/4581) ([zhfeng](https://github.com/zhfeng))
