@@ -14,9 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-def f = timer('tick').period('1s')
+def f = direct("routes-with-endpoint-dsl").advanced().synchronous(true)
 def t = log('info')
 
 from(f)
     .id('routes-with-endpoint-dsl')
+    .setBody().constant("true")
     .to(t)

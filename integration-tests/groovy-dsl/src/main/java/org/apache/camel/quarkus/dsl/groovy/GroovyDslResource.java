@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.dsl.groovy;
 
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -29,6 +30,7 @@ import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.Route;
+import org.apache.camel.component.direct.DirectEndpoint;
 import org.apache.camel.dsl.groovy.GroovyRoutesBuilderLoader;
 import org.apache.camel.quarkus.main.CamelMain;
 import org.apache.camel.spi.RoutesBuilderLoader;
@@ -69,6 +71,23 @@ public class GroovyDslResource {
                 .map(Route::getId)
                 .sorted()
                 .collect(Collectors.joining(","));
+    }
+
+    @GET
+    @Path("/main/successful/routes")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public int successfulRoutes() {
+        int successful = 0;
+        Set<String> excluded = Set.of("my-groovy-route", "routes-with-rest-dsl-get", "routes-with-rest-dsl-post");
+        for (Route route : main.getCamelContext().getRoutes()) {
+            String name = route.getRouteId();
+            if (route.getEndpoint() instanceof DirectEndpoint && !excluded.contains(name)
+                    && producerTemplate.requestBody(route.getEndpoint(), "", Boolean.class) == Boolean.TRUE) {
+                successful++;
+            }
+        }
+        return successful;
     }
 
     @POST

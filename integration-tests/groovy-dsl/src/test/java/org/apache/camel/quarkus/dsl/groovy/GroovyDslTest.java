@@ -54,6 +54,26 @@ class GroovyDslTest {
                 .then()
                 .statusCode(200)
                 .body(CoreMatchers.is(
-                        "my-groovy-route,routes-with-components-configuration,routes-with-dataformats-configuration,routes-with-endpoint-dsl,routes-with-error-handler,routes-with-languages-configuration"));
+                        "my-groovy-route,routes-with-components-configuration,routes-with-dataformats-configuration,routes-with-endpoint-dsl,routes-with-error-handler,routes-with-languages-configuration,routes-with-rest,routes-with-rest-dsl-get,routes-with-rest-dsl-post,routes-with-rest-get,routes-with-rest-post"));
+        RestAssured.given()
+                .get("/groovy-dsl/main/successful/routes")
+                .then()
+                .statusCode(200)
+                .body(CoreMatchers.is("5"));
+    }
+
+    @Test
+    void testRestEndpoints() {
+        RestAssured.given()
+                .get("/root/my/path/get")
+                .then()
+                .statusCode(200)
+                .body(CoreMatchers.is("Hello World"));
+        RestAssured.given()
+                .body("Will")
+                .post("/root/post")
+                .then()
+                .statusCode(200)
+                .body(CoreMatchers.is("Hello Will"));
     }
 }

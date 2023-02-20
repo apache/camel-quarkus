@@ -31,6 +31,6 @@ camel {
 }
 
 
-from('timer:tick')
+from('direct:routes-with-dataformats-configuration')
     .id('routes-with-dataformats-configuration')
-    .to('log:info')
+    .setBody(simple('${ref:my-jackson} != null', Boolean.class))
