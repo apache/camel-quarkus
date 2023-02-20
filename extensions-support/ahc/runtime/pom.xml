@@ -47,6 +47,23 @@
             <groupId>org.asynchttpclient</groupId>
             <artifactId>async-http-client</artifactId>
         </dependency>
+        <dependency>
+            <artifactId>netty-transport-classes-epoll</artifactId>
+            <groupId>io.netty</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>netty-transport-classes-kqueue</artifactId>
+            <groupId>io.netty</groupId>
+        </dependency>
+        <dependency>
+            <groupId>io.netty.incubator</groupId>
+            <artifactId>netty-incubator-transport-classes-io_uring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.graalvm.sdk</groupId>
+            <artifactId>graal-sdk</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
