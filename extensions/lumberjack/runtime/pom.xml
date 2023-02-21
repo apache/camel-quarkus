@@ -43,12 +43,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-lumberjack</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                    <artifactId>jackson-databind</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
