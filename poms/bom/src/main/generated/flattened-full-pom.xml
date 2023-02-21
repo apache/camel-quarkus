@@ -512,6 +512,12 @@
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-cassandraql</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>4.0.0-M1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.github.stephenc.jcip</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>jcip-annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -679,6 +685,21 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-cxf-common</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>4.0.0-M1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-cxf-soap</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>4.0.0-M1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-cxf-transport</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>4.0.0-M1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-dataformat</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>4.0.0-M1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
@@ -691,6 +712,12 @@
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-debezium-common</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>4.0.0-M1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <exclusions>
+          <exclusion>
+            <groupId>javax.ws.rs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>javax.ws.rs-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -1219,6 +1246,10 @@
           <exclusion>
             <groupId>ch.qos.logback</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>logback-classic</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>ch.qos.logback</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>logback-core</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
         </exclusions>
       </dependency>
@@ -1850,8 +1881,20 @@
         <version>4.0.0-M1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
+            <groupId>com.google.android</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
             <groupId>io.grpc</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>grpc-netty-shaded</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.checkerframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>checker-qual</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.codehaus.mojo</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>animal-sniffer-annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
         </exclusions>
       </dependency>
@@ -1886,6 +1929,10 @@
         <artifactId>camel-pgevent</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>4.0.0-M1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
+          <exclusion>
+            <groupId>junit</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>junit</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
           <exclusion>
             <groupId>org.testcontainers</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>postgresql</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -2098,6 +2145,11 @@
       <dependency>
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-snmp</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>4.0.0-M1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-soap</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>4.0.0-M1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
@@ -3169,6 +3221,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-quarkus-csv-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.0.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-quarkus-cxf-soap</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.0.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-quarkus-cxf-soap-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.0.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
@@ -4908,6 +4970,16 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-quarkus-soap</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.0.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-quarkus-soap-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.0.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-quarkus-solr</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.0.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
@@ -5751,6 +5823,10 @@
             <groupId>com.sun.activation</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>jakarta.activation</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
+          <exclusion>
+            <groupId>com.sun.mail</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>jakarta.mail</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -6216,6 +6292,10 @@
             <artifactId>javax.activation-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
           <exclusion>
+            <groupId>javax.ws.rs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>javax.ws.rs-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
             <groupId>javax.xml.bind</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>jaxb-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
@@ -6568,6 +6648,415 @@
         <groupId>org.apache.maven.plugin-tools</groupId><!-- org.apache:apache:25 -->
         <artifactId>maven-plugin-annotations</artifactId><!-- org.apache:apache:25 -->
         <version>3.6.4</version><!-- org.apache:apache:25 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>cxf-core</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>cxf-rt-features-logging</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>cxf-rt-features-metrics</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>cxf-rt-frontend-jaxws</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <exclusions>
+          <exclusion>
+            <groupId>org.ow2.asm</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>asm</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>cxf-rt-transports-http</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>cxf-rt-transports-http-hc5</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <exclusions>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>cxf-rt-ws-mex</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>cxf-rt-ws-security</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>cxf-rt-ws-rm</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>cxf-rt-wsdl</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <exclusions>
+          <exclusion>
+            <groupId>org.ow2.asm</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>asm</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf.services.sts</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>cxf-services-sts-core</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf.xjc-utils</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>cxf-xjc-runtime</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>jakarta.activation</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>quarkus-cxf</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.0.0.Alpha1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>jakarta.activation</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>quarkus-cxf-axiom-api-stub</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.0.0.Alpha1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>quarkus-cxf-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.0.0.Alpha1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>jakarta.activation</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>quarkus-cxf-rt-features-logging</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.0.0.Alpha1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>jakarta.activation</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>quarkus-cxf-rt-features-logging-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.0.0.Alpha1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>jakarta.activation</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>quarkus-cxf-rt-features-metrics</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.0.0.Alpha1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>quarkus-cxf-rt-features-metrics-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.0.0.Alpha1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>quarkus-cxf-rt-transports-http-hc5</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.0.0.Alpha1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>quarkus-cxf-rt-transports-http-hc5-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.0.0.Alpha1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>quarkus-cxf-rt-ws-security</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.0.0.Alpha1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>jakarta.activation</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+          <exclusion>
+            <groupId>com.sun.mail</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>jakarta.mail</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>quarkus-cxf-rt-ws-security-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.0.0.Alpha1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>jakarta.activation</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+          <exclusion>
+            <groupId>com.sun.mail</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>jakarta.mail</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>quarkus-cxf-rt-ws-rm</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.0.0.Alpha1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>jakarta.activation</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+          <exclusion>
+            <groupId>com.sun.mail</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>jakarta.mail</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>quarkus-cxf-rt-ws-rm-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.0.0.Alpha1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>jakarta.activation</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+          <exclusion>
+            <groupId>com.sun.mail</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>jakarta.mail</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>quarkus-cxf-saaj</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.0.0.Alpha1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>jakarta.activation</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>quarkus-cxf-saaj-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.0.0.Alpha1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>jakarta.activation</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>quarkus-cxf-services-sts</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.0.0.Alpha1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>jakarta.activation</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+          <exclusion>
+            <groupId>com.sun.mail</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>jakarta.mail</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>quarkus-cxf-services-sts-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.0.0.Alpha1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>jakarta.activation</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+          <exclusion>
+            <groupId>com.sun.mail</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>jakarta.mail</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>quarkus-cxf-woodstox</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.0.0.Alpha1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>quarkus-cxf-woodstox-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.0.0.Alpha1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>com.sun.xml.messaging.saaj</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>saaj-impl</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.0.1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>jakarta.activation</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.neethi</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>neethi</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>3.2.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.ehcache</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>ehcache</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>3.10.8</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <classifier>jakarta</classifier><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.glassfish.jaxb</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>jaxb-runtime</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.jvnet.mimepull</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>mimepull</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>1.9.14</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>jakarta.jws</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>jakarta.jws-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>3.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>jakarta.mail</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>jakarta.mail-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.1.1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>jakarta.xml.soap</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>jakarta.xml.soap-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.0.1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>jakarta.activation</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.xml.ws</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>jakarta.xml.ws-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>3.0.1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+            <artifactId>jakarta.activation</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.santuario</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>xmlsec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>3.0.1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.xmlsec</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>quarkus-xmlsec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.0.0.Alpha3</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.xmlsec</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>quarkus-xmlsec-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>2.0.0.Alpha3</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>cxf-rt-bindings-soap</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>cxf-rt-bindings-xml</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>cxf-rt-databinding-jaxb</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>cxf-rt-frontend-simple</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>cxf-rt-management</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>cxf-rt-rs-json-basic</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>cxf-rt-rs-security-jose</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>cxf-rt-security-saml</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>cxf-rt-ws-addr</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>cxf-rt-ws-policy</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <artifactId>cxf-rt-security</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
+        <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.0.0.Alpha1 -->
       </dependency>
       <dependency>
         <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
@@ -17336,11 +17825,6 @@
         <version>5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Alpha3 -->
       </dependency>
       <dependency>
-        <groupId>org.glassfish.jaxb</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Alpha3 -->
-        <artifactId>jaxb-runtime</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Alpha3 -->
-        <version>4.0.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Alpha3 -->
-      </dependency>
-      <dependency>
         <groupId>org.graalvm.nativeimage</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Alpha3 -->
         <artifactId>svm</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Alpha3 -->
         <version>22.3.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Alpha3 -->
@@ -19888,12 +20372,6 @@
         <groupId>javax.xml.bind</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->
         <artifactId>jaxb-api</artifactId><!-- io.debezium:debezium-bom:1.9.6.Final -->
         <version>2.3.1</version><!-- io.debezium:debezium-bom:1.9.6.Final -->
-        <exclusions>
-          <exclusion>
-            <groupId>javax.activation</groupId>
-            <artifactId>javax.activation-api</artifactId>
-          </exclusion>
-        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.infinispan</groupId><!-- io.debezium:debezium-bom:1.9.6.Final -->

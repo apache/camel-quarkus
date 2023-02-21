@@ -19,11 +19,11 @@ package org.apache.camel.quarkus.component.cxf.soap.it.ws.trust.server;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.namespace.QName;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Named;
-import javax.xml.namespace.QName;
-
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.cxf.jaxws.CxfEndpoint;
 import org.apache.cxf.ext.logging.LoggingFeature;

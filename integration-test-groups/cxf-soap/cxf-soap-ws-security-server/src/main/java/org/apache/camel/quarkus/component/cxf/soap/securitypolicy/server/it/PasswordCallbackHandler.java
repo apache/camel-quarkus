@@ -19,9 +19,9 @@ package org.apache.camel.quarkus.component.cxf.soap.securitypolicy.server.it;
 import java.io.IOException;
 import java.util.Map;
 
-import jakarta.security.auth.callback.Callback;
-import jakarta.security.auth.callback.CallbackHandler;
-import jakarta.security.auth.callback.UnsupportedCallbackException;
+import javax.security.auth.callback.Callback;
+import javax.security.auth.callback.CallbackHandler;
+import javax.security.auth.callback.UnsupportedCallbackException;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.wss4j.common.ext.WSPasswordCallback;

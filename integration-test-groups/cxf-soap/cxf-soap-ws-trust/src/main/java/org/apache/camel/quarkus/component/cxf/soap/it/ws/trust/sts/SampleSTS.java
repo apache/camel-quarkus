@@ -20,9 +20,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import jakarta.xml.ws.WebServiceProvider;
-
 import io.quarkus.runtime.LaunchMode;
+import jakarta.xml.ws.WebServiceProvider;
 import org.apache.cxf.annotations.EndpointProperties;
 import org.apache.cxf.annotations.EndpointProperty;
 import org.apache.cxf.sts.StaticSTSProperties;

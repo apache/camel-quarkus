@@ -28,7 +28,6 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.xml.ws.soap.SOAPFaultException;
-
 import org.apache.camel.CamelExecutionException;
 import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.ProducerTemplate;

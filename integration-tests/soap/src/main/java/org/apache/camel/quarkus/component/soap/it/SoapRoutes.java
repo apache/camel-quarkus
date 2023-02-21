@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.soap.it;
 
-import jakarta.inject.Named;
 import javax.xml.namespace.QName;
 
+import jakarta.inject.Named;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.dataformat.soap.SoapDataFormat;

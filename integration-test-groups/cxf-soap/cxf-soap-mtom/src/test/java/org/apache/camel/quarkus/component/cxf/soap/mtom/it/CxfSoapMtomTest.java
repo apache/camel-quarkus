@@ -21,7 +21,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.stream.Stream;
 
-import jakarta.imageio.ImageIO;
+import javax.imageio.ImageIO;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;

@@ -24,7 +24,11 @@
                 <exclude>com.github.fge:*</exclude><!-- Use com.github.java-json-tools:* instead -->
                 <exclude>com.github.stephenc.jcip:jcip-annotations</exclude><!-- Should not be needed for compilation nor at runtime -->
                 <exclude>com.google.code.findbugs:jsr305</exclude>
-                <exclude>com.sun.activation:javax.activation</exclude><!-- use com.sun.activation:jakarta.activation instead -->
+                <exclude>com.sun.activation:javax.activation</exclude><!-- use jakarta.activation:jakarta.activation-api and angus-activation instead -->
+                <exclude>com.sun.activation:jakarta.activation</exclude><!-- use jakarta.activation:jakarta.activation-api and angus-activation instead -->
+                <exclude>com.sun.mail:javax.mail</exclude><!-- use angus-mail and jakarta.mail:jakarta.mail-api instead -->
+                <exclude>com.sun.mail:jakarta.mail</exclude><!-- use angus-mail and jakarta.mail:jakarta.mail-api instead -->
+                <exclude>org.eclipse.angus:jakarta.mail</exclude><!-- org.eclipse.angus:jakarta.mail aggregates classes from angus-mail and jakarta.mail:jakarta.mail-api which we prefer to use instead -->
                 <exclude>javax.el:el-api</exclude><!-- use jakarta.el:jakarta.el-api instead -->
                 <exclude>javax.xml.bind:jaxb-api</exclude><!-- Use jakarta.xml.bind:jakarta.xml.bind-api instead -->
                 <!--<exclude>javax.annotation:javax.annotation-api</exclude> has to be allowed because of Maven deps pulled through various quarkus-test-* deps -->
