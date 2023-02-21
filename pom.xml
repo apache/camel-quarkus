@@ -96,7 +96,7 @@
         <eddsa.version>${eddsa-version}</eddsa.version>
         <freemarker.version>2.3.31</freemarker.version><!-- @sync io.quarkiverse.freemarker:quarkus-freemarker-parent:${quarkiverse-freemarker.version} prop:freemarker.version -->
         <geny.version>0.6.2</geny.version>
-        <github-api.version>1.111</github-api.version><!-- Used in a Groovy script bellow -->
+        <github-api.version>1.313</github-api.version><!-- Used in a Groovy script bellow -->
         <google-auth-library-credentials.version>1.7.0</google-auth-library-credentials.version><!-- TODO: Revert back to using Camel's version when gRPC versions are in sync -->
         <google-oauth-client.version>${google-oauth-client-version}</google-oauth-client.version><!-- TODO: Fix this in Camel https://github.com/apache/camel-quarkus/issues/4139 -->
         <graalvm.version>22.3.0</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.sdk:graal-sdk -->
