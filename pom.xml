@@ -175,7 +175,7 @@
 
         <!-- Maven plugin versions (keep sorted alphabetically) -->
         <antrun-maven-plugin-version>3.1.0</antrun-maven-plugin-version>
-        <cq-plugin.version>3.4.0</cq-plugin.version>
+        <cq-plugin.version>3.5.0</cq-plugin.version>
         <cyclonedx-maven-plugin-version>2.7.4</cyclonedx-maven-plugin-version>
         <build-helper-maven-plugin.version>3.1.0</build-helper-maven-plugin.version>
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>

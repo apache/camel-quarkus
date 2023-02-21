@@ -26,6 +26,7 @@
                 <exclude>com.google.code.findbugs:jsr305</exclude>
                 <exclude>com.sun.activation:javax.activation</exclude><!-- use com.sun.activation:jakarta.activation instead -->
                 <exclude>javax.el:el-api</exclude><!-- use jakarta.el:jakarta.el-api instead -->
+                <exclude>javax.xml.bind:jaxb-api</exclude><!-- Use jakarta.xml.bind:jakarta.xml.bind-api instead -->
                 <!--<exclude>javax.annotation:javax.annotation-api</exclude> has to be allowed because of Maven deps pulled through various quarkus-test-* deps -->
                 <!--<exclude>javax.inject:javax.inject</exclude> has to be allowed because of Maven deps pulled through various quarkus-test-* deps -->
                 <exclude>junit:junit</exclude><!-- should not be needed at all. In the worst case, use io.quarkus:quarkus-junit4-mock instead -->
