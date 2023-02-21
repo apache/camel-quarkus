@@ -49,20 +49,3 @@ endif::[]
 
 The Groovy extensions are not supported which means that the extensions defined in the Camel project are ignored, more details in https://github.com/apache/camel-quarkus/issues/4384[Groovy DSL - Add support of Groovy extensions issue #4384].
 
-In case of native compilation, for some specific use cases like the following one, it could be needed to add the flag `--report-unsupported-elements-at-runtime` to prevent compilation error of type `DeletedElementException: Unsupported method java.lang.Class.registerNatives() is reachable`.
-
-[source,groovy]
-----
-import org.apache.camel.component.seda.SedaComponent
-
-camel {
-    components {
-        mySeda(SedaComponent) { // <1>
-            // rest of the closure here
-        }
-    }
-}
-// rest of the Groovy script
-----
-<1> Requires the flag `--report-unsupported-elements-at-runtime` to be added to the build command for native compilation.
-

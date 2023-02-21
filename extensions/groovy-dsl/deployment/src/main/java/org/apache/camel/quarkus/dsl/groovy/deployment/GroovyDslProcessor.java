@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -55,14 +54,17 @@ public class GroovyDslProcessor {
 
     private static final Logger LOG = LoggerFactory.getLogger(GroovyDslProcessor.class);
     private static final String PACKAGE_NAME = "org.apache.camel.quarkus.dsl.groovy.generated";
-    private static final String FILE_FORMAT = "package %s\n" +
-            "%s\n" +
-            "@groovy.transform.InheritConstructors \n" +
-            "class %s extends %s {\n" +
-            "  void configure(){ \n" +
-            "    %s\n" +
-            "  }\n" +
-            "}";
+    private static final String FILE_FORMAT = """
+            package %s
+            %s
+            @groovy.transform.InheritConstructors
+            class %s extends %s {
+              void configure() {
+                %s
+              }
+            }
+            """;
+
     private static final String FEATURE = "camel-groovy-dsl";
 
     @BuildStep
@@ -101,7 +103,7 @@ public class GroovyDslProcessor {
                         .map(ResolvedDependency::getResolvedPaths)
                         .flatMap(PathCollection::stream)
                         .map(Objects::toString)
-                        .collect(Collectors.toList()));
+                        .toList());
         unit.configure(cc);
         unit.compile(Phases.CLASS_GENERATION);
         for (GroovyClass clazz : unit.getClasses()) {

@@ -14,21 +14,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import org.apache.camel.language.bean.BeanLanguage
+rest {
+    configuration {
+        contextPath = "/root"
+    }
 
-camel {
-    languages {
-        bean {
-            beanType = String.class
-            method = "toUpperCase"
+    path("/my/path") {
+        get("/get") {
+            id("routes-with-rest-get")
+            produces("text/plain")
+            to("direct:get")
         }
-        myBean(BeanLanguage) {
-            beanType = String.class
-            method = "toLowerCase"
-        }
+    }
+
+    post {
+        id("routes-with-rest-post")
+        path("/post")
+        consumes("text/plain")
+        produces("text/plain")
+        to("direct:post")
     }
 }
 
-from('direct:routes-with-languages-configuration')
-    .id('routes-with-languages-configuration')
-    .setBody(simple('${ref:my-bean} != null', Boolean.class))
+from('direct:get')
+    .id("routes-with-rest-dsl-get")
+    .transform().constant("Hello World")
+from('direct:post')
+    .id("routes-with-rest-dsl-post")
+    .setBody().simple('Hello ${body}')
+
+from("direct:routes-with-rest")
+    .id("routes-with-rest")
+    .setHeader("AnotherHeader", constant("AnotherHeaderValue"))
+    .filter().simple('${header.AnotherHeader} == "AnotherHeaderValue"')
+    .setBody().constant("true")

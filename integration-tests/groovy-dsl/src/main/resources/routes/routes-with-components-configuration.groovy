@@ -14,20 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import org.apache.camel.component.direct.DirectComponent
 
 camel {
     components {
-        seda {
+        direct {
             // set value as method
-            queueSize 1234
-
-            // set value as property
-            concurrentConsumers = 12
+            timeout 1234
+        }
+        myDirect(DirectComponent) {
+            // set value as method
+            timeout = 4321
         }
     }
 }
 
 
-from('timer:tick')
+
+from('direct:routes-with-components-configuration')
     .id('routes-with-components-configuration')
-    .to('log:info')
+    .setBody(simple('${camelContext.getComponent("myDirect")} != null', Boolean.class))
