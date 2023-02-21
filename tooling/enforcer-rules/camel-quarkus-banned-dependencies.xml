@@ -30,7 +30,9 @@
                 <exclude>jakarta.xml.bind:jakarta.xml.bind-api</exclude><!-- use org.jboss.spec.javax.xml.bind:jboss-jaxb-api_2.3_spec instead (same as Quarkus) -->
                 <exclude>javax.annotation:javax.annotation-api</exclude><!-- use jakarta.activation:jakarta.annotation-api instead -->
                 <exclude>javax.el:el-api</exclude><!-- use jakarta.el:jakarta.el-api instead -->
-                <exclude>javax.inject:javax.inject</exclude><!-- use jakarta.inject:jakarta.inject-api instead -->
+                <exclude>javax.xml.bind:jaxb-api</exclude><!-- Use jakarta.xml.bind:jakarta.xml.bind-api instead -->
+                <!--<exclude>javax.annotation:javax.annotation-api</exclude> has to be allowed because of Maven deps pulled through various quarkus-test-* deps -->
+                <!--<exclude>javax.inject:javax.inject</exclude> has to be allowed because of Maven deps pulled through various quarkus-test-* deps -->
                 <exclude>junit:junit</exclude><!-- should not be needed at all. In the worst case, use io.quarkus:quarkus-junit4-mock instead -->
                 <exclude>org.apache.camel:camel-directvm</exclude><!-- dismiss; the functionality is provided by JBoss Log Manager provided via quarkus-core -->
                 <exclude>org.apache.geronimo.javamail:geronimo-javamail_1.4_mail</exclude><!-- use com.sun.mail:jakarta.mail instead -->

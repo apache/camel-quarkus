@@ -127,8 +127,10 @@
         <kudu.version>${kudu-version}</kudu.version>
         <kotlin.version>1.7.20</kotlin.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.jetbrains.kotlin:kotlin-stdlib -->
         <kryo.version>2.24.0</kryo.version><!-- @sync org.apache.flink:flink-core:${flink-version} dep:com.esotericsoftware.kryo:kryo -->
+        <minio.version>8.2.2</minio.version><!-- @sync io.quarkiverse.minio:quarkus-minio-parent:${quarkiverse-minio.version} prop:minio.version -->
         <msal4j.version>1.13.1</msal4j.version><!-- @sync com.azure:azure-identity:${azure-identity-version} dep:com.microsoft.azure:msal4j -->
         <mvel2.version>2.4.14.Final</mvel2.version><!-- @sync org.apache.camel:camel-dependencies:${camel.version} prop:mvel-version -->
+        <mybatis.version>3.5.11</mybatis.version><!-- @sync io.quarkiverse.mybatis:quarkus-parent:${quarkiverse-mybatis.version} prop:mybatis.version -->
         <okio.version>${squareup-okio-version}</okio.version>
         <opencensus.version>0.31.0</opencensus.version><!-- Mess in Google cloud. Keep in sync with version used in com.google.http-client:google-http-client -->
         <perfmark-api.version>0.25.0</perfmark-api.version><!-- @sync io.grpc:grpc-netty-shaded:${grpc.version} dep:io.perfmark:perfmark-api -->
@@ -148,6 +150,7 @@
         <xstream.version>${xstream-version}</xstream.version>
         <web3j.version>${web3j-version}</web3j.version>
         <web3j.quorum.version>${web3j-quorum-version}</web3j.quorum.version>
+        <woodstox-core.version>6.5.0</woodstox-core.version><!-- @sync com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${jackson.version} dep:com.fasterxml.woodstox:woodstox-core -->
         <zookeeper.version>${solr-zookeeper-version}</zookeeper.version><!-- ${solr-zookeeper-version} is newer than ${zookeeper-version} -->
         <zxing.version>3.3.3</zxing.version><!-- Mess in IOTA transitive deps -->
 
@@ -171,7 +174,7 @@
         <maven-utils.version>0.1.0</maven-utils.version>
 
         <!-- Maven plugin versions (keep sorted alphabetically) -->
-        <cq-plugin.version>3.4.0</cq-plugin.version>
+        <cq-plugin.version>3.5.0</cq-plugin.version>
         <build-helper-maven-plugin.version>3.1.0</build-helper-maven-plugin.version>
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
         <formatter-maven-plugin.version>2.17.1</formatter-maven-plugin.version>
