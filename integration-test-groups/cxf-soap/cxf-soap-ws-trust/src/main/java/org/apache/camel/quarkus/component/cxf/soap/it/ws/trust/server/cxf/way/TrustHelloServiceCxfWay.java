@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.cxf.soap.it.ws.trust.server.cxf.way;
 
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
-
 import org.apache.cxf.annotations.Policies;
 import org.apache.cxf.annotations.Policy;
 

@@ -83,7 +83,7 @@
         <module>crypto</module>
         <module>csimple</module>
         <module>csv</module>
-        <!--<module>cxf-soap</module> https://github.com/apache/camel-quarkus/issues/4478 -->
+        <module>cxf-soap</module>
         <module>dataformat</module>
         <module>dataset</module>
         <!--<module>datasonnet</module> this one may come back in Camel 4 https://github.com/apache/camel-quarkus/issues/4477 -->
@@ -222,7 +222,7 @@
         <module>slack</module>
         <!--<module>smallrye-reactive-messaging</module> https://github.com/apache/camel-quarkus/issues/4464 -->
         <module>snakeyaml</module>
-        <!--<module>soap</module> https://github.com/apache/camel-quarkus/issues/4478 -->
+        <module>soap</module>
         <module>solr</module>
         <module>splunk</module>
         <module>spring-rabbitmq</module>

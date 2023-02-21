@@ -18,13 +18,13 @@ package org.apache.camel.quarkus.component.cxf.soap.wss.client.it;
 
 import java.io.IOException;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Named;
-import jakarta.security.auth.callback.Callback;
-import jakarta.security.auth.callback.CallbackHandler;
-import jakarta.security.auth.callback.UnsupportedCallbackException;
+import javax.security.auth.callback.Callback;
+import javax.security.auth.callback.CallbackHandler;
+import javax.security.auth.callback.UnsupportedCallbackException;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 import org.apache.wss4j.common.ext.WSPasswordCallback;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 

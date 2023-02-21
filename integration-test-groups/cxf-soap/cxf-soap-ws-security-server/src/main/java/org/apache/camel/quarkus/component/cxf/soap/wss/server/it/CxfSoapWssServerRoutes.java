@@ -20,13 +20,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.security.auth.callback.Callback;
+import javax.security.auth.callback.CallbackHandler;
+import javax.security.auth.callback.UnsupportedCallbackException;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Named;
-import jakarta.security.auth.callback.Callback;
-import jakarta.security.auth.callback.CallbackHandler;
-import jakarta.security.auth.callback.UnsupportedCallbackException;
-
 import org.apache.camel.Message;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.cxf.jaxws.CxfEndpoint;

@@ -61,13 +61,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!--<dependency>
+            <dependency>
                 <groupId>io.quarkiverse.cxf</groupId>
                 <artifactId>quarkus-cxf-bom-test</artifactId>
                 <version>${quarkiverse-cxf.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>-->
+            </dependency>
 
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>

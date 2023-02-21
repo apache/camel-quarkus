@@ -19,12 +19,11 @@ package org.apache.camel.quarkus.component.cxf.soap.securitypolicy.server.it;
 import java.io.IOException;
 import java.util.Map;
 
-import jakarta.xml.ws.BindingProvider;
-
 import io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.config.RestAssuredConfig;
+import jakarta.xml.ws.BindingProvider;
 import org.apache.cxf.ws.security.SecurityConstants;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.CoreMatchers;

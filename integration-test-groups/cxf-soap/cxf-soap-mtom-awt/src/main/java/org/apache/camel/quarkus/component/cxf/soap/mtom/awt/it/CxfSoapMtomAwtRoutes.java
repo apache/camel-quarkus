@@ -19,13 +19,12 @@ package org.apache.camel.quarkus.component.cxf.soap.mtom.awt.it;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.quarkus.runtime.LaunchMode;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.xml.ws.handler.Handler;
-
-import io.quarkus.runtime.LaunchMode;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.cxf.jaxws.CxfEndpoint;
 import org.apache.cxf.ext.logging.LoggingFeature;

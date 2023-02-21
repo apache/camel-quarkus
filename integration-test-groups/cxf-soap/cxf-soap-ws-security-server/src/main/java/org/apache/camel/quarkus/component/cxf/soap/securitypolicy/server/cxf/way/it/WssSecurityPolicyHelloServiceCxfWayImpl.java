@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.cxf.soap.securitypolicy.server.cxf.wa
 
 import jakarta.inject.Inject;
 import jakarta.jws.WebService;
-
 import org.apache.camel.ProducerTemplate;
 import org.apache.cxf.annotations.EndpointProperties;
 import org.apache.cxf.annotations.EndpointProperty;

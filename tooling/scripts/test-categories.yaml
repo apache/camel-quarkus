@@ -76,10 +76,12 @@ group-05:
   - bindy
   - cbor
   - csv
+  - cxf-soap-grouped
   - dataformat
   - hl7
   - jaxb
   - ssh
+  - soap
   - syslog
 group-06:
   - exec

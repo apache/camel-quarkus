@@ -22,7 +22,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
-
 import org.jboss.logging.Logger;
 
 @ApplicationScoped

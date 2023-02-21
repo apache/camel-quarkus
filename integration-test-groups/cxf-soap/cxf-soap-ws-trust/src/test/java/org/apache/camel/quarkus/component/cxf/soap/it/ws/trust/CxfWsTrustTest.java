@@ -20,13 +20,13 @@ import java.net.URL;
 import java.util.Map;
 
 import javax.xml.namespace.QName;
-import jakarta.xml.ws.BindingProvider;
-import jakarta.xml.ws.Service;
 
 import io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.config.RestAssuredConfig;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.Service;
 import org.apache.camel.quarkus.component.cxf.soap.it.ws.trust.server.TrustHelloService;
 import org.apache.cxf.Bus;
 import org.apache.cxf.BusFactory;

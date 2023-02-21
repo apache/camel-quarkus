@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.component.cxf.soap.server.it;
 
-import jakarta.xml.ws.BindingProvider;
-
 import com.helloworld.service.HelloPortType;
 import com.helloworld.service.HelloService;
 import io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil;
@@ -25,6 +23,7 @@ import io.quarkus.runtime.LaunchMode;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.config.RestAssuredConfig;
+import jakarta.xml.ws.BindingProvider;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.CoreMatchers;

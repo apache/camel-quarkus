@@ -512,6 +512,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-cassandraql</artifactId>
         <version>4.0.0-M1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.github.stephenc.jcip</groupId>
+            <artifactId>jcip-annotations</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -679,6 +685,21 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-cxf-common</artifactId>
+        <version>4.0.0-M1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-cxf-soap</artifactId>
+        <version>4.0.0-M1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-cxf-transport</artifactId>
+        <version>4.0.0-M1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-dataformat</artifactId>
         <version>4.0.0-M1</version>
       </dependency>
@@ -691,6 +712,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-debezium-common</artifactId>
         <version>4.0.0-M1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -1219,6 +1246,10 @@
           <exclusion>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -1850,8 +1881,20 @@
         <version>4.0.0-M1</version>
         <exclusions>
           <exclusion>
+            <groupId>com.google.android</groupId>
+            <artifactId>annotations</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-netty-shaded</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>checker-qual</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>animal-sniffer-annotations</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -1886,6 +1929,10 @@
         <artifactId>camel-pgevent</artifactId>
         <version>4.0.0-M1</version>
         <exclusions>
+          <exclusion>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+          </exclusion>
           <exclusion>
             <groupId>org.testcontainers</groupId>
             <artifactId>postgresql</artifactId>
@@ -2098,6 +2145,11 @@
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-snmp</artifactId>
+        <version>4.0.0-M1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-soap</artifactId>
         <version>4.0.0-M1</version>
       </dependency>
       <dependency>
@@ -3169,6 +3221,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-csv-deployment</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-cxf-soap</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-cxf-soap-deployment</artifactId>
         <version>3.0.0-SNAPSHOT</version>
       </dependency>
       <dependency>
@@ -4908,6 +4970,16 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-soap</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-soap-deployment</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-solr</artifactId>
         <version>3.0.0-SNAPSHOT</version>
       </dependency>
@@ -5751,6 +5823,10 @@
             <groupId>com.sun.activation</groupId>
             <artifactId>jakarta.activation</artifactId>
           </exclusion>
+          <exclusion>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>jakarta.mail</artifactId>
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -6169,6 +6245,10 @@
             <artifactId>javax.activation-api</artifactId>
           </exclusion>
           <exclusion>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
           </exclusion>
@@ -6495,6 +6575,415 @@
             <artifactId>xml-apis</artifactId>
           </exclusion>
         </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-core</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-features-logging</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-features-metrics</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-frontend-jaxws</artifactId>
+        <version>4.0.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-transports-http</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-transports-http-hc5</artifactId>
+        <version>4.0.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-ws-mex</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-ws-security</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-ws-rm</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-wsdl</artifactId>
+        <version>4.0.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf.services.sts</groupId>
+        <artifactId>cxf-services-sts-core</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf.xjc-utils</groupId>
+        <artifactId>cxf-xjc-runtime</artifactId>
+        <version>4.0.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf</artifactId>
+        <version>2.0.0.Alpha1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-axiom-api-stub</artifactId>
+        <version>2.0.0.Alpha1</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-deployment</artifactId>
+        <version>2.0.0.Alpha1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-features-logging</artifactId>
+        <version>2.0.0.Alpha1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-features-logging-deployment</artifactId>
+        <version>2.0.0.Alpha1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-features-metrics</artifactId>
+        <version>2.0.0.Alpha1</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-features-metrics-deployment</artifactId>
+        <version>2.0.0.Alpha1</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-transports-http-hc5</artifactId>
+        <version>2.0.0.Alpha1</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-transports-http-hc5-deployment</artifactId>
+        <version>2.0.0.Alpha1</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-ws-security</artifactId>
+        <version>2.0.0.Alpha1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>jakarta.mail</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-ws-security-deployment</artifactId>
+        <version>2.0.0.Alpha1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>jakarta.mail</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-ws-rm</artifactId>
+        <version>2.0.0.Alpha1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>jakarta.mail</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-rt-ws-rm-deployment</artifactId>
+        <version>2.0.0.Alpha1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>jakarta.mail</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-saaj</artifactId>
+        <version>2.0.0.Alpha1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-saaj-deployment</artifactId>
+        <version>2.0.0.Alpha1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-services-sts</artifactId>
+        <version>2.0.0.Alpha1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>jakarta.mail</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-services-sts-deployment</artifactId>
+        <version>2.0.0.Alpha1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>jakarta.mail</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-woodstox</artifactId>
+        <version>2.0.0.Alpha1</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-woodstox-deployment</artifactId>
+        <version>2.0.0.Alpha1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.sun.xml.messaging.saaj</groupId>
+        <artifactId>saaj-impl</artifactId>
+        <version>2.0.1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.neethi</groupId>
+        <artifactId>neethi</artifactId>
+        <version>3.2.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.ehcache</groupId>
+        <artifactId>ehcache</artifactId>
+        <version>3.10.8</version>
+        <classifier>jakarta</classifier>
+      </dependency>
+      <dependency>
+        <groupId>org.glassfish.jaxb</groupId>
+        <artifactId>jaxb-runtime</artifactId>
+        <version>4.0.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jvnet.mimepull</groupId>
+        <artifactId>mimepull</artifactId>
+        <version>1.9.14</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.jws</groupId>
+        <artifactId>jakarta.jws-api</artifactId>
+        <version>3.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.mail</groupId>
+        <artifactId>jakarta.mail-api</artifactId>
+        <version>2.1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.xml.soap</groupId>
+        <artifactId>jakarta.xml.soap-api</artifactId>
+        <version>2.0.1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>jakarta.xml.ws</groupId>
+        <artifactId>jakarta.xml.ws-api</artifactId>
+        <version>3.0.1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.santuario</groupId>
+        <artifactId>xmlsec</artifactId>
+        <version>3.0.1</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.xmlsec</groupId>
+        <artifactId>quarkus-xmlsec</artifactId>
+        <version>2.0.0.Alpha3</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.xmlsec</groupId>
+        <artifactId>quarkus-xmlsec-deployment</artifactId>
+        <version>2.0.0.Alpha3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-bindings-soap</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-bindings-xml</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-databinding-jaxb</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-frontend-simple</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-management</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-rs-json-basic</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-rs-security-jose</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-security-saml</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-ws-addr</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-ws-policy</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-security</artifactId>
+        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>org.codehaus.groovy</groupId>

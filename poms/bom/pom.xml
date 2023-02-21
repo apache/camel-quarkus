@@ -36,13 +36,13 @@
     <dependencyManagement>
         <dependencies>
             <!-- External BOMs -->
-            <!--<dependency>
+            <dependency>
                 <groupId>io.quarkiverse.cxf</groupId>
                 <artifactId>quarkus-cxf-bom</artifactId>
                 <version>${quarkiverse-cxf.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>-->
+            </dependency>
             <dependency>
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy-bom</artifactId>
@@ -573,6 +573,12 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-cassandraql</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.github.stephenc.jcip</groupId>
+                        <artifactId>jcip-annotations</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -738,7 +744,7 @@
                 <artifactId>camel-csv</artifactId>
                 <version>${camel.version}</version>
             </dependency>
-            <!--<dependency>
+            <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-cxf-common</artifactId>
                 <version>${camel.version}</version>
@@ -752,7 +758,7 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-cxf-transport</artifactId>
                 <version>${camel.version}</version>
-            </dependency>-->
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-dataformat</artifactId>
@@ -767,6 +773,12 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-debezium-common</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.ws.rs</groupId>
+                        <artifactId>javax.ws.rs-api</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -1295,6 +1307,10 @@
                     <exclusion>
                         <groupId>ch.qos.logback</groupId>
                         <artifactId>logback-classic</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>ch.qos.logback</groupId>
+                        <artifactId>logback-core</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -1926,8 +1942,20 @@
                 <version>${camel.version}</version>
                 <exclusions>
                     <exclusion>
+                        <groupId>com.google.android</groupId>
+                        <artifactId>annotations</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>io.grpc</groupId>
                         <artifactId>grpc-netty-shaded</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.checkerframework</groupId>
+                        <artifactId>checker-qual</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>animal-sniffer-annotations</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -1967,6 +1995,10 @@
                 <artifactId>camel-pgevent</artifactId>
                 <version>${camel.version}</version>
                 <exclusions>
+                    <exclusion>
+                        <groupId>junit</groupId>
+                        <artifactId>junit</artifactId>
+                    </exclusion>
                     <exclusion>
                         <groupId>org.testcontainers</groupId>
                         <artifactId>postgresql</artifactId>
@@ -2181,11 +2213,11 @@
                 <artifactId>camel-snmp</artifactId>
                 <version>${camel.version}</version>
             </dependency>
-            <!--<dependency>
+            <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-soap</artifactId>
                 <version>${camel.version}</version>
-            </dependency>-->
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-solr</artifactId>
@@ -3278,7 +3310,7 @@
                 <artifactId>camel-quarkus-csv-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
-            <!--<dependency>
+            <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-cxf-soap</artifactId>
                 <version>${camel-quarkus.version}</version>
@@ -3287,7 +3319,7 @@
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-cxf-soap-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
-            </dependency>-->
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-dataformat</artifactId>
@@ -5043,7 +5075,7 @@
                 <artifactId>camel-quarkus-snmp-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
-            <!--<dependency>
+            <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-soap</artifactId>
                 <version>${camel-quarkus.version}</version>
@@ -5052,7 +5084,7 @@
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-soap-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
-            </dependency>-->
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-solr</artifactId>
@@ -5919,6 +5951,10 @@
                         <groupId>com.sun.activation</groupId>
                         <artifactId>jakarta.activation</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>com.sun.mail</groupId>
+                        <artifactId>jakarta.mail</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -6390,6 +6426,10 @@
                         <artifactId>javax.activation-api</artifactId>
                     </exclusion>
                     <exclusion>
+                        <groupId>javax.ws.rs</groupId>
+                        <artifactId>javax.ws.rs-api</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>javax.xml.bind</groupId>
                         <artifactId>jaxb-api</artifactId>
                     </exclusion>
@@ -6795,11 +6835,11 @@
                                 <!-- whose dependencies we want to cover in the flattened BOM -->
                                 <resolutionEntryPointInclude>org.apache.camel.quarkus:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>ca.uhn.hapi:*</resolutionEntryPointInclude>
-                                <!--<resolutionEntryPointInclude>io.quarkiverse.cxf:*</resolutionEntryPointInclude>-->
+                                <resolutionEntryPointInclude>io.quarkiverse.cxf:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>io.quarkiverse.minio:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>io.quarkiverse.messaginghub:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>net.openhft:affinity</resolutionEntryPointInclude> <!-- https://github.com/apache/camel-quarkus/issues/3788 -->
-                                <!--<resolutionEntryPointInclude>org.apache.cxf.xjc-utils:cxf-xjc-runtime</resolutionEntryPointInclude>-->
+                                <resolutionEntryPointInclude>org.apache.cxf.xjc-utils:cxf-xjc-runtime</resolutionEntryPointInclude>
                             </resolutionEntryPointIncludes>
                             <bannedDependencyResources>
                                 <bannedDependencyResource>
@@ -6843,16 +6883,16 @@
                                     <addExclusions>org.testcontainers:postgresql</addExclusions>
                                 </bomEntryTransformation>
                                 <bomEntryTransformation>
+                                    <gavPattern>org.apache.cxf:cxf-rt-transports-http-hc5</gavPattern>
+                                    <addExclusions>org.slf4j:jcl-over-slf4j</addExclusions>
+                                </bomEntryTransformation>
+                                <bomEntryTransformation>
                                     <gavPattern>org.apache.kafka:connect-api</gavPattern>
                                     <addExclusions>javax.ws.rs:javax.ws.rs-api</addExclusions>
                                 </bomEntryTransformation>
                                 <bomEntryTransformation>
                                     <gavPattern>software.amazon.awssdk:apache-client</gavPattern>
                                     <addExclusions>commons-logging:commons-logging</addExclusions>
-                                </bomEntryTransformation>
-                                <bomEntryTransformation>
-                                    <gavPattern>javax.xml.bind:jaxb-api</gavPattern>
-                                    <addExclusions>javax.activation:javax.activation-api</addExclusions>
                                 </bomEntryTransformation>
                             </bomEntryTransformations>
                         </configuration>

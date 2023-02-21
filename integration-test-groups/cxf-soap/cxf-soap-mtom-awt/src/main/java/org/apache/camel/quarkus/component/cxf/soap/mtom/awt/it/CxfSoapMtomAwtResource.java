@@ -16,14 +16,14 @@
  */
 package org.apache.camel.quarkus.component.cxf.soap.mtom.awt.it;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.net.URI;
 
+import javax.imageio.ImageIO;
+
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.imageio.ImageIO;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -34,7 +34,6 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-
 import org.apache.camel.ProducerTemplate;
 
 import static org.apache.camel.component.cxf.common.message.CxfConstants.OPERATION_NAME;

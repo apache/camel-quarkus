@@ -20,18 +20,18 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.inject.Produces;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
-import jakarta.xml.soap.MessageFactory;
-import jakarta.xml.soap.SOAPMessage;
 import javax.xml.xpath.XPathConstants;
 
 import org.w3c.dom.Element;
 
 import com.helloworld.service.HelloPortType;
 import com.sun.xml.messaging.saaj.soap.ver1_1.Message1_1Impl;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.xml.soap.MessageFactory;
+import jakarta.xml.soap.SOAPMessage;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.cxf.common.DataFormat;
 import org.apache.camel.component.cxf.jaxws.CxfEndpoint;
