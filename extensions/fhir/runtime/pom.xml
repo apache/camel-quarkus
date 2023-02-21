@@ -67,20 +67,6 @@
         <dependency>
             <groupId>ca.uhn.hapi.fhir</groupId>
             <artifactId>hapi-fhir-server</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>ca.uhn.hapi.fhir</groupId>
-                    <artifactId>org.hl7.fhir.utilities</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.httpcomponents</groupId>
-                    <artifactId>httpcore</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.commons</groupId>
-                    <artifactId>commons-collections4</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>ca.uhn.hapi.fhir</groupId>

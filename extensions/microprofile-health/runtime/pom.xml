@@ -48,16 +48,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-microprofile-health</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.enterprise</groupId>
-                    <artifactId>cdi-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.enterprise</groupId>
-            <artifactId>jakarta.enterprise.cdi-api</artifactId>
         </dependency>
     </dependencies>
 

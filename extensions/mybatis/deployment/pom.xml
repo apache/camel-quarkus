@@ -37,12 +37,6 @@
         <dependency>
             <groupId>io.quarkiverse.mybatis</groupId>
             <artifactId>quarkus-mybatis-deployment</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>mybatis</artifactId>
-                    <groupId>org.mybatis</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>

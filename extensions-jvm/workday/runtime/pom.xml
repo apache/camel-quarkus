@@ -42,12 +42,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-workday</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>jakarta.xml.bind</groupId>
-                    <artifactId>jakarta.xml.bind-api</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.jboss.logging</groupId>

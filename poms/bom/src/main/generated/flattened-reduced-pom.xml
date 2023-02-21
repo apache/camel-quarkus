@@ -364,36 +364,78 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-azure-cosmosdb</artifactId>
         <version>4.0.0-M1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-core-http-netty</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-azure-eventhubs</artifactId>
         <version>4.0.0-M1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-core-http-netty</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-azure-key-vault</artifactId>
         <version>4.0.0-M1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-core-http-netty</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-azure-servicebus</artifactId>
         <version>4.0.0-M1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-core-http-netty</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-azure-storage-blob</artifactId>
         <version>4.0.0-M1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-core-http-netty</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-azure-storage-datalake</artifactId>
         <version>4.0.0-M1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-core-http-netty</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-azure-storage-queue</artifactId>
         <version>4.0.0-M1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-core-http-netty</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -833,6 +875,10 @@
           <exclusion>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -1981,6 +2027,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-saxon</artifactId>
         <version>4.0.0-M1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -1991,6 +2043,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-schematron</artifactId>
         <version>4.0.0-M1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -2379,6 +2437,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-xslt-saxon</artifactId>
         <version>4.0.0-M1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -6258,6 +6322,11 @@
         <version>2.4.14.Final</version>
       </dependency>
       <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis</artifactId>
+        <version>3.5.10</version>
+      </dependency>
+      <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-aop</artifactId>
         <version>6.0.4</version>
@@ -6420,11 +6489,12 @@
         <groupId>xalan</groupId>
         <artifactId>xalan</artifactId>
         <version>2.7.2</version>
-      </dependency>
-      <dependency>
-        <groupId>xml-apis</groupId>
-        <artifactId>xml-apis</artifactId>
-        <version>1.4.01</version>
+        <exclusions>
+          <exclusion>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.codehaus.groovy</groupId>
@@ -6756,11 +6826,6 @@
         <groupId>com.azure</groupId>
         <artifactId>azure-core-amqp</artifactId>
         <version>2.8.1</version>
-      </dependency>
-      <dependency>
-        <groupId>com.azure</groupId>
-        <artifactId>azure-core-http-netty</artifactId>
-        <version>1.12.8</version>
       </dependency>
       <dependency>
         <groupId>com.azure</groupId>
