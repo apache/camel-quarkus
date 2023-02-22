@@ -42,6 +42,9 @@ public class MicrometerResource {
     @Inject
     MeterRegistry meterRegistry;
 
+    @Inject
+    TestMetric counter;
+
     @Path("/metric/{type}/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     @GET
@@ -62,20 +65,25 @@ public class MicrometerResource {
             return Response.status(404).build();
         }
 
-        Response.ResponseBuilder response = Response.ok();
-        if (type.equals("counter")) {
-            response.entity(search.counter().count());
-        } else if (type.equals("gauge")) {
-            response.entity(search.gauge().value());
-        } else if (type.equals("summary")) {
-            response.entity(search.summary().max());
-        } else if (type.equals("timer")) {
-            response.entity(search.timer().totalTime(TimeUnit.MILLISECONDS));
-        } else {
-            throw new IllegalArgumentException("Unknown metric type: " + type);
-        }
+        try {
+            Response.ResponseBuilder response = Response.ok();
+            if (type.equals("counter")) {
+                response.entity(search.counter().count());
+            } else if (type.equals("gauge")) {
+                response.entity(search.gauge().value());
+            } else if (type.equals("summary")) {
+                response.entity(search.summary().max());
+            } else if (type.equals("timer")) {
+                response.entity(search.timer().totalTime(TimeUnit.MILLISECONDS));
+            } else {
+                throw new IllegalArgumentException("Unknown metric type: " + type);
+            }
 
-        return response.build();
+            return response.build();
+        } catch (NullPointerException e) {
+            //metric does not exist
+            return Response.status(500).entity("Metric does not exist").build();
+        }
     }
 
     @Path("/counter")
@@ -103,6 +111,13 @@ public class MicrometerResource {
     @GET
     public Response logMessage() {
         producerTemplate.requestBody("direct:log", (Object) null);
+        return Response.ok().build();
+    }
+
+    @Path("/annotations/call/{number}")
+    @GET
+    public Response annotationsCall(@PathParam("number") int number) {
+        producerTemplate.requestBodyAndHeader("direct:annotatedBean", (Object) null, "number", number);
         return Response.ok().build();
     }
 }
