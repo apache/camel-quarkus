@@ -39,5 +39,12 @@ public class MicrometerRoutes extends RouteBuilder {
 
         from("direct:log").routeId("log")
                 .log("Camel Quarkus Micrometer");
+
+        from("direct:annotatedBean")
+                .choice()
+                .when(simple("${header.number} == 1")).bean("testMetric", "call1")
+                .otherwise().bean("testMetric", "call2")
+                .end();
+
     }
 }

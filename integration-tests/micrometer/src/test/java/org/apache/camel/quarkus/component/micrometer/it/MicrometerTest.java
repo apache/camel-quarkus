@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.micrometer.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.response.ResponseBodyExtractionOptions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -83,20 +84,52 @@ class MicrometerTest {
         assertTrue(getMetricValue(Double.class, "timer", "CamelExchangeEventNotifier", tags) >= 0.0);
     }
 
+    @Test
+    public void testAnnotations() {
+        RestAssured.get("/micrometer/annotations/call/1")
+                .then()
+                .statusCode(200);
+        RestAssured.get("/micrometer/annotations/call/1")
+                .then()
+                .statusCode(200);
+
+        assertEquals(2, getMetricValue(Double.class, "counter", "TestMetric.counted1", ""));
+        assertTrue(getMetricValue(Double.class, "timer", "TestMetric.timed1", "") >= 2000);
+    }
+
+    @Test
+    public void testQuarkusMetricsApi() {
+        RestAssured.get("/micrometer/annotations/call/2")
+                .then()
+                .statusCode(200);
+
+        assertEquals("Metric does not exist", getMetricValue(String.class, "counter", "TestMetric_wrong.counted", "", 500));
+        assertEquals(1, getMetricValue(Double.class, "counter", "TestMetric.counted2", ""));
+    }
+
     private <T> T getMetricValue(Class<T> as, String type, String name) {
         return getMetricValue(as, type, name, null);
     }
 
     private <T> T getMetricValue(Class<T> as, String type, String name, String tags) {
-        return RestAssured.given()
+        return getMetricValue(as, type, name, tags, 200);
+    }
+
+    private <T> T getMetricValue(Class<T> as, String type, String name, String tags, int statusCode) {
+        ResponseBodyExtractionOptions resp = RestAssured.given()
                 .queryParam("tags", tags)
                 .when()
                 .get("/micrometer/metric/" + type + "/" + name)
                 .then()
-                .statusCode(200)
+                .statusCode(statusCode)
                 .extract()
-                .body()
-                .as(as);
+                .body();
+
+        if (as.equals(String.class)) {
+            return (T) resp.asString();
+        }
+
+        return resp.as(as);
     }
 
     /**
