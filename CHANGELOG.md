@@ -54,6 +54,7 @@
 - Support CSimple expressions with all DSLs [\#4426](https://github.com/apache/camel-quarkus/issues/4426)
 - Switch to Jakarta 9/10 [\#4415](https://github.com/apache/camel-quarkus/issues/4415)
 - Aws2: investigate possibilty of testing defaultXCredentialProvider with local stack [\#4401](https://github.com/apache/camel-quarkus/issues/4401)
+- Get rid of `--report-unsupported-elements-at-runtime` for Groovy DSL [\#4393](https://github.com/apache/camel-quarkus/issues/4393)
 - Aws2-sqs: Test with real account fails. [\#4389](https://github.com/apache/camel-quarkus/issues/4389)
 - Intermittent failure of MasterOpenShiftTest [\#4387](https://github.com/apache/camel-quarkus/issues/4387)
 - Remove deprecated components: cmis and dozer [\#4377](https://github.com/apache/camel-quarkus/issues/4377)
@@ -69,6 +70,8 @@
 
 **Merged pull requests:**
 
+- Upgrade github-api to 1.313 [\#4590](https://github.com/apache/camel-quarkus/pull/4590) ([jamesnetherton](https://github.com/jamesnetherton))
+- Ref \#4393: Groovy DSL - Get rid of --report-unsupported-elements-at-runtime [\#4589](https://github.com/apache/camel-quarkus/pull/4589) ([essobedo](https://github.com/essobedo))
 - Generated sources regen for SBOM [\#4587](https://github.com/apache/camel-quarkus/pull/4587) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Restore camel-quarkus-stax testing [\#4584](https://github.com/apache/camel-quarkus/pull/4584) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix contributor guide [\#4583](https://github.com/apache/camel-quarkus/pull/4583) ([aldettinger](https://github.com/aldettinger))
