@@ -112,6 +112,7 @@ group-07:
 group-08:
   - azure-grouped
   - crypto
+  - jq
   - master
   - master-file
   - master-openshift

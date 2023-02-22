@@ -126,7 +126,7 @@
         <module>jolt</module>
         <module>joor</module>
         <module>jpa</module>
-        <!--<module>jq</module> https://github.com/apache/camel-quarkus/issues/4511 -->
+        <module>jq</module>
         <module>js-dsl</module>
         <module>jsch</module>
         <module>jsh-dsl</module>
