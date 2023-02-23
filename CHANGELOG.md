@@ -29,6 +29,7 @@
 - mail test fails in native mode [\#4519](https://github.com/apache/camel-quarkus/issues/4519)
 - VertxWebsocketTest fails with "Path must start with /" on Camel 4 and Quarkus 3 [\#4518](https://github.com/apache/camel-quarkus/issues/4518)
 - saxon test cannot be compiled to native with Camel 4 and Quarkus 3 [\#4512](https://github.com/apache/camel-quarkus/issues/4512)
+- quarkus-jackson-jq not ready for Quarkus 3 [\#4511](https://github.com/apache/camel-quarkus/issues/4511)
 - crypto test cannot be compiled to native with Camel 4 and Quarkus 3 [\#4510](https://github.com/apache/camel-quarkus/issues/4510)
 - opentelemetry test fails to compile to native with Camel 4 and Quarkus 3 [\#4509](https://github.com/apache/camel-quarkus/issues/4509)
 - Upgrade to Quarkiverse Freemarker 1.0.0.Alpha1 to become compatible with Quarkus 3 [\#4508](https://github.com/apache/camel-quarkus/issues/4508)
@@ -43,6 +44,7 @@
 - Quarkiverse MyBatis 1.x not ready for Quarkus 3/Jakarta 9/10 [\#4491](https://github.com/apache/camel-quarkus/issues/4491)
 - Improve yaml-dsl documentation [\#4487](https://github.com/apache/camel-quarkus/issues/4487)
 - Provide a Github action for generating SBOM [\#4481](https://github.com/apache/camel-quarkus/issues/4481)
+- Upgrade to Quarkiverse CXF 2.0.0 [\#4478](https://github.com/apache/camel-quarkus/issues/4478)
 - io.quarkus:quarkus-bom's entries should exclude banned artifacts [\#4475](https://github.com/apache/camel-quarkus/issues/4475)
 - Provide SBOM for Camel-Quarkus project [\#4459](https://github.com/apache/camel-quarkus/issues/4459)
 - camel-quarkus-activemq can not set jms some properties in native mode [\#4454](https://github.com/apache/camel-quarkus/issues/4454)
@@ -60,6 +62,7 @@
 - Remove deprecated components: cmis and dozer [\#4377](https://github.com/apache/camel-quarkus/issues/4377)
 - Integrate beans with qualifier io.smallrye.common.annotation.Identifier [\#4374](https://github.com/apache/camel-quarkus/issues/4374)
 - \[Quarkus 2.16\]  Camel-kubernetes does not work in native \(needs quarkus update\)  [\#4357](https://github.com/apache/camel-quarkus/issues/4357)
+- Upgrade io.github.crac:org-crac because of missing license [\#4260](https://github.com/apache/camel-quarkus/issues/4260)
 - Dependabot to upgrade quarkiverse versions [\#4128](https://github.com/apache/camel-quarkus/issues/4128)
 - Have separate saaj extension in Quarkiverse CXF [\#4122](https://github.com/apache/camel-quarkus/issues/4122)
 - Test `aws-secrets-manager` extension with Localstack [\#3741](https://github.com/apache/camel-quarkus/issues/3741)
@@ -70,6 +73,10 @@
 
 **Merged pull requests:**
 
+- Upgrade quarkus-jackson-jq to 2.0.0.Alpha [\#4599](https://github.com/apache/camel-quarkus/pull/4599) ([jamesnetherton](https://github.com/jamesnetherton))
+- Move Qute component camel-package-maven-plugin execution phase to process-classes [\#4595](https://github.com/apache/camel-quarkus/pull/4595) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade to Quarkiverse CXF 2.0.0  [\#4594](https://github.com/apache/camel-quarkus/pull/4594) ([ppalaga](https://github.com/ppalaga))
+- Minimize exclusions in the BOM, remove superfluous exclusions in extensions [\#4593](https://github.com/apache/camel-quarkus/pull/4593) ([ppalaga](https://github.com/ppalaga))
 - Upgrade github-api to 1.313 [\#4590](https://github.com/apache/camel-quarkus/pull/4590) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ref \#4393: Groovy DSL - Get rid of --report-unsupported-elements-at-runtime [\#4589](https://github.com/apache/camel-quarkus/pull/4589) ([essobedo](https://github.com/essobedo))
 - Generated sources regen for SBOM [\#4587](https://github.com/apache/camel-quarkus/pull/4587) ([github-actions[bot]](https://github.com/apps/github-actions))
