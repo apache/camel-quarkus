@@ -90,8 +90,6 @@
                                 <systemProperties>
                                     <quarkus.http.test-port>${test.http.port.native}</quarkus.http.test-port>
                                     <quarkus.http.test-ssl-port>${test.https.port.native}</quarkus.http.test-ssl-port>
-                                    <!-- https://github.com/quarkusio/quarkus/issues/20228  -->
-                                    <quarkus.https.test-port>${test.https.port.native}</quarkus.https.test-port>
                                 </systemProperties>
                             </configuration>
                         </execution>
@@ -186,8 +184,6 @@
                                     <systemProperties>
                                         <quarkus.http.test-port>${test.http.port.jvm}</quarkus.http.test-port>
                                         <quarkus.http.test-ssl-port>${test.https.port.jvm}</quarkus.http.test-ssl-port>
-                                        <!-- https://github.com/quarkusio/quarkus/issues/20228  -->
-                                        <quarkus.https.test-port>${test.https.port.jvm}</quarkus.https.test-port>
                                     </systemProperties>
                                 </configuration>
                             </execution>
