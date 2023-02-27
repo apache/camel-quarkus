@@ -73,6 +73,7 @@
 
 **Merged pull requests:**
 
+- Generated sources regen for SBOM [\#4601](https://github.com/apache/camel-quarkus/pull/4601) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Upgrade quarkus-jackson-jq to 2.0.0.Alpha [\#4599](https://github.com/apache/camel-quarkus/pull/4599) ([jamesnetherton](https://github.com/jamesnetherton))
 - Move Qute component camel-package-maven-plugin execution phase to process-classes [\#4595](https://github.com/apache/camel-quarkus/pull/4595) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Quarkiverse CXF 2.0.0  [\#4594](https://github.com/apache/camel-quarkus/pull/4594) ([ppalaga](https://github.com/ppalaga))
