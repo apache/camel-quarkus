@@ -2,7 +2,7 @@
   "id" : "70c0a770-2a98-4f46-ba01-8ba3a71d8e3d",
   "name": "botfake-webhook",
   "request": {
-    "url": "/botfake-token/setWebhook?url=http://localhost:8080/my-test",
+    "url": "/botfake-token/setWebhook?url=https://my-external-link/my-test",
     "method": "GET"
   },
   "response": {

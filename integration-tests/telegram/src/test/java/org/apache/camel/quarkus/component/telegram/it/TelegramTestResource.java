@@ -25,6 +25,9 @@ public class TelegramTestResource extends WireMockTestResourceLifecycleManager {
 
     private static final String TELEGRAM_API_BASE_URL = "https://api.telegram.org";
     private static final String TELEGRAM_ENV_AUTHORIZATION_TOKEN = "TELEGRAM_AUTHORIZATION_TOKEN";
+    private static final String TELEGRAM_ENV_CHAT_ID = "TELEGRAM_CHAT_ID";
+    private static final String TELEGRAM_ENV_WEBHOOK_EXTERNAL_URL = "TELEGRAM_WEBHOOK_EXTERNAL_URL";
+    private static final String TELEGRAM_ENV_WEBHOOK_AUTHORIZATION_TOKEN = "TELEGRAM_WEBHOOK_AUTHORIZATION_TOKEN";
 
     @Override
     public Map<String, String> start() {
@@ -42,6 +45,7 @@ public class TelegramTestResource extends WireMockTestResourceLifecycleManager {
 
     @Override
     protected boolean isMockingEnabled() {
-        return !envVarsPresent(TELEGRAM_ENV_AUTHORIZATION_TOKEN);
+        return !envVarsPresent(TELEGRAM_ENV_AUTHORIZATION_TOKEN, TELEGRAM_ENV_CHAT_ID, TELEGRAM_ENV_WEBHOOK_EXTERNAL_URL,
+                TELEGRAM_ENV_WEBHOOK_AUTHORIZATION_TOKEN);
     }
 }

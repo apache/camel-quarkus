@@ -12,6 +12,8 @@ Then set the following environment variables:
 ----
 export TELEGRAM_AUTHORIZATION_TOKEN=my-authorization-token
 export TELEGRAM_CHAT_ID=my-chatId
+export TELEGRAM_WEBHOOK_EXTERNAL_URL=https://your-webhook-url
+export TELEGRAM_WEBHOOK_AUTHORIZATION_TOKEN=my-webhook_authorization-token
 ----
 
 If the WireMock stub recordings need updating, then remove the existing files from `src/test/resources/mappings` and run tests with either:
@@ -21,3 +23,5 @@ System property `-Dwiremock.record=true`
 Or
 
 Set environment variable `WIREMOCK_RECORD=true`
+
+Note that you'll need 2 differents bots, one dedicated to the webhook consumer only.
