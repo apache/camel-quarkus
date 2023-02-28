@@ -33,7 +33,6 @@ import org.apache.camel.component.telegram.model.SendVenueMessage;
 import org.apache.camel.component.telegram.model.StopMessageLiveLocationMessage;
 import org.apache.camel.quarkus.test.TrustStoreResource;
 import org.apache.camel.quarkus.test.wiremock.MockServer;
-import org.awaitility.Awaitility;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
@@ -42,6 +41,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.request;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathMatching;
+import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.both;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.is;
@@ -171,7 +171,7 @@ public class TelegramTest {
         edit.setChatId(result.getMessage().getChat().getId());
         edit.setMessageId(result.getMessage().getMessageId());
         /* The edit fails with various 400 errors unless we wait a bit */
-        Awaitility.await()
+        await()
                 .pollDelay(500, TimeUnit.MILLISECONDS)
                 .pollInterval(100, TimeUnit.MILLISECONDS)
                 .atMost(10, TimeUnit.SECONDS).until(() -> {
@@ -189,7 +189,7 @@ public class TelegramTest {
         stop.setChatId(result.getMessage().getChat().getId());
         stop.setMessageId(result.getMessage().getMessageId());
         // Poll until success as there's some potential for HTTP 400 responses to sometimes be returned
-        Awaitility.await()
+        await()
                 .pollDelay(500, TimeUnit.MILLISECONDS)
                 .pollInterval(100, TimeUnit.MILLISECONDS)
                 .atMost(10, TimeUnit.SECONDS).until(() -> {
@@ -213,6 +213,55 @@ public class TelegramTest {
                 .post("/telegram/venue")
                 .then()
                 .statusCode(201);
+    }
+
+    @Test
+    void testWebhookEndpoint() {
+        //simulate POST messages from Telegram
+        final var message = "{\n" +
+                "   \"update_id\":123456789,\n" +
+                "   \"message\":{\n" +
+                "      \"message_id\":123,\n" +
+                "      \"from\":{\n" +
+                "         \"id\":123456789,\n" +
+                "         \"is_bot\":false,\n" +
+                "         \"first_name\":\"Apache\",\n" +
+                "\t\t \"last_name\":\"Camel\"\n" +
+                "      },\n" +
+                "      \"date\":1517384207,\n" +
+                "      \"chat\":{\n" +
+                "         \"id\":123456789,\n" +
+                "         \"type\":\"private\",\n" +
+                "         \"first_name\":\"Apache\",\n" +
+                "         \"all_members_are_administrators\":false\n" +
+                "      },\n" +
+                "      \"forward_from_message_id\":0,\n" +
+                "      \"text\":\"Hello World\",\n" +
+                "      \"delete_chat_photo\":false,\n" +
+                "      \"group_chat_created\":false,\n" +
+                "      \"supergroup_chat_created\":false,\n" +
+                "      \"channel_chat_created\":false,\n" +
+                "      \"migrate_to_chat_id\":0,\n" +
+                "      \"migrate_from_chat_id\":0\n" +
+                "   }\n" +
+                "}";
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(message)
+                .post("/my-test")
+                .then()
+                .statusCode(204);
+
+        //make sure the telegram webhook message is consumed
+        await().atMost(5, TimeUnit.SECONDS).until(() -> {
+            return RestAssured.get("/telegram/webhook")
+                    .then()
+                    .statusCode(200)
+                    .extract()
+                    .body()
+                    .asString().equals("Hello World");
+        });
+
     }
 
 }
