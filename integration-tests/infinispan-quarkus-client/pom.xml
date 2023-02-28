@@ -26,8 +26,8 @@
         <relativePath>../../poms/build-parent-it/pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-integration-test-infinispan</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Infinispan</name>
+    <artifactId>camel-quarkus-integration-test-infinispan-quarkus-client</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: Infinispan Quarkus Client</name>
     <description>Integration tests for Camel Infinispan component</description>
 
     <dependencies>
@@ -35,7 +35,6 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-integration-test-infinispan-common</artifactId>
         </dependency>
-
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
@@ -130,22 +129,6 @@
             <properties>
                 <skipTests>true</skipTests>
             </properties>
-        </profile>
-        <profile>
-            <id>jdk17-build</id>
-            <activation>
-                <jdk>[17,)</jdk>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <argLine>--add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.util.concurrent=ALL-UNNAMED</argLine>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
     </profiles>
 
