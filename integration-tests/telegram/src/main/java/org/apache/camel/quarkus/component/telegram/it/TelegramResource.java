@@ -29,8 +29,11 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
+import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.component.telegram.TelegramConstants;
 import org.apache.camel.component.telegram.TelegramMediaType;
 import org.apache.camel.component.telegram.model.EditMessageLiveLocationMessage;
@@ -54,6 +57,9 @@ public class TelegramResource {
 
     @Inject
     ConsumerTemplate consumerTemplate;
+
+    @Inject
+    CamelContext context;
 
     @ConfigProperty(name = "telegram.chatId")
     String chatId;
@@ -178,6 +184,17 @@ public class TelegramResource {
                 .created(new URI(String.format("https://telegram.org/")))
                 .entity(result)
                 .build();
+    }
+
+    @Path("/webhook")
+    @Produces(MediaType.TEXT_PLAIN)
+    @GET
+    public String webhookMessages() {
+        final MockEndpoint mockEndpoint = context.getEndpoint("mock:webhook", MockEndpoint.class);
+        return mockEndpoint.getReceivedExchanges().stream()
+                .map(Exchange::getMessage)
+                .map(m -> m.getBody(String.class))
+                .findFirst().orElse("");
     }
 
 }
