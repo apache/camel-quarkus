@@ -111,7 +111,9 @@
         <module>headersmap</module>
         <module>hl7</module>
         <module>http</module>
-        <module>infinispan</module>
+	<module>infinispan</module>
+        <module>infinispan-common</module>
+        <module>infinispan-quarkus-client</module>
         <module>influxdb</module>
         <module>jackson-avro</module>
         <module>jackson-protobuf</module>

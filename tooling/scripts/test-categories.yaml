@@ -22,6 +22,7 @@ group-01:
   - google-storage
   - http
   - infinispan
+  - infinispan-quarkus-client
   - jcache
   - jms-artemis-client
   - jsch
