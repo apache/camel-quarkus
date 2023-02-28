@@ -28,6 +28,7 @@
 - Improve documentation for Kubernetes [\#4520](https://github.com/apache/camel-quarkus/issues/4520)
 - mail test fails in native mode [\#4519](https://github.com/apache/camel-quarkus/issues/4519)
 - VertxWebsocketTest fails with "Path must start with /" on Camel 4 and Quarkus 3 [\#4518](https://github.com/apache/camel-quarkus/issues/4518)
+- zendesk test cannot be compiled to native with Camel 4 and Quarkus 3 [\#4514](https://github.com/apache/camel-quarkus/issues/4514)
 - saxon test cannot be compiled to native with Camel 4 and Quarkus 3 [\#4512](https://github.com/apache/camel-quarkus/issues/4512)
 - quarkus-jackson-jq not ready for Quarkus 3 [\#4511](https://github.com/apache/camel-quarkus/issues/4511)
 - crypto test cannot be compiled to native with Camel 4 and Quarkus 3 [\#4510](https://github.com/apache/camel-quarkus/issues/4510)
@@ -73,11 +74,13 @@
 
 **Merged pull requests:**
 
+- Remove workaround for quarkus.http.test-ssl-port being ignored by REST Assured [\#4604](https://github.com/apache/camel-quarkus/pull/4604) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#4601](https://github.com/apache/camel-quarkus/pull/4601) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Upgrade quarkus-jackson-jq to 2.0.0.Alpha [\#4599](https://github.com/apache/camel-quarkus/pull/4599) ([jamesnetherton](https://github.com/jamesnetherton))
 - Move Qute component camel-package-maven-plugin execution phase to process-classes [\#4595](https://github.com/apache/camel-quarkus/pull/4595) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Quarkiverse CXF 2.0.0  [\#4594](https://github.com/apache/camel-quarkus/pull/4594) ([ppalaga](https://github.com/ppalaga))
 - Minimize exclusions in the BOM, remove superfluous exclusions in extensions [\#4593](https://github.com/apache/camel-quarkus/pull/4593) ([ppalaga](https://github.com/ppalaga))
+- Zendesk test cannot be compiled to native with Camel 4 and Quarkus 3  [\#4592](https://github.com/apache/camel-quarkus/pull/4592) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade github-api to 1.313 [\#4590](https://github.com/apache/camel-quarkus/pull/4590) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ref \#4393: Groovy DSL - Get rid of --report-unsupported-elements-at-runtime [\#4589](https://github.com/apache/camel-quarkus/pull/4589) ([essobedo](https://github.com/essobedo))
 - Generated sources regen for SBOM [\#4587](https://github.com/apache/camel-quarkus/pull/4587) ([github-actions[bot]](https://github.com/apps/github-actions))
