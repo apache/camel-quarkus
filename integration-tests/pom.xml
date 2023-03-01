@@ -71,7 +71,7 @@
         <module>box</module>
         <module>braintree</module>
         <module>caffeine</module>
-        <!--<module>cassandraql</module> https://github.com/apache/camel-quarkus/issues/4488 -->
+        <module>cassandraql</module>
         <module>cbor</module>
         <module>compression-grouped</module>
         <module>consul</module>
