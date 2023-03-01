@@ -1163,16 +1163,8 @@
                 <version>${camel.version}</version>
                 <exclusions>
                     <exclusion>
-                        <groupId>com.google.android</groupId>
-                        <artifactId>annotations</artifactId>
-                    </exclusion>
-                    <exclusion>
                         <groupId>org.checkerframework</groupId>
                         <artifactId>checker-qual</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>animal-sniffer-annotations</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -1259,10 +1251,6 @@
                     </exclusion>
                     <exclusion>
                         <groupId>org.springframework</groupId>
-                        <artifactId>spring-jcl</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
                         <artifactId>spring-web</artifactId>
                     </exclusion>
                 </exclusions>
@@ -1290,10 +1278,6 @@
                         <artifactId>netty-all</artifactId>
                     </exclusion>
                     <exclusion>
-                        <groupId>javax.activation</groupId>
-                        <artifactId>javax.activation-api</artifactId>
-                    </exclusion>
-                    <exclusion>
                         <groupId>javax.servlet</groupId>
                         <artifactId>javax.servlet-api</artifactId>
                     </exclusion>
@@ -1315,10 +1299,6 @@
                     <exclusion>
                         <groupId>ch.qos.logback</groupId>
                         <artifactId>logback-classic</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>ch.qos.logback</groupId>
-                        <artifactId>logback-core</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -1498,14 +1478,6 @@
                         <groupId>org.springframework</groupId>
                         <artifactId>spring-beans</artifactId>
                     </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-jcl</artifactId>
-                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -1525,14 +1497,6 @@
                         <groupId>org.springframework</groupId>
                         <artifactId>spring-context</artifactId>
                     </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-jcl</artifactId>
-                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -1547,19 +1511,7 @@
                 <exclusions>
                     <exclusion>
                         <groupId>org.springframework</groupId>
-                        <artifactId>spring-beans</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
                         <artifactId>spring-context</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-jcl</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -1576,22 +1528,6 @@
                     <exclusion>
                         <groupId>org.apache.camel</groupId>
                         <artifactId>camel-spring</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-beans</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-context</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-jcl</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -1924,19 +1860,7 @@
                 <exclusions>
                     <exclusion>
                         <groupId>com.github.fge</groupId>
-                        <artifactId>btf</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.github.fge</groupId>
-                        <artifactId>jackson-coreutils</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.github.fge</groupId>
                         <artifactId>json-patch</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.github.fge</groupId>
-                        <artifactId>msg-simple</artifactId>
                     </exclusion>
                     <exclusion>
                         <groupId>org.checkerframework</groupId>
@@ -1950,20 +1874,8 @@
                 <version>${camel.version}</version>
                 <exclusions>
                     <exclusion>
-                        <groupId>com.google.android</groupId>
-                        <artifactId>annotations</artifactId>
-                    </exclusion>
-                    <exclusion>
                         <groupId>io.grpc</groupId>
                         <artifactId>grpc-netty-shaded</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.checkerframework</groupId>
-                        <artifactId>checker-qual</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>animal-sniffer-annotations</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -2003,10 +1915,6 @@
                 <artifactId>camel-pgevent</artifactId>
                 <version>${camel.version}</version>
                 <exclusions>
-                    <exclusion>
-                        <groupId>junit</groupId>
-                        <artifactId>junit</artifactId>
-                    </exclusion>
                     <exclusion>
                         <groupId>org.testcontainers</groupId>
                         <artifactId>postgresql</artifactId>
@@ -2264,19 +2172,11 @@
                 <exclusions>
                     <exclusion>
                         <groupId>org.springframework</groupId>
-                        <artifactId>spring-beans</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
                         <artifactId>spring-context</artifactId>
                     </exclusion>
                     <exclusion>
                         <groupId>org.springframework</groupId>
                         <artifactId>spring-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-jcl</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -2395,10 +2295,6 @@
                     <exclusion>
                         <groupId>commons-logging</groupId>
                         <artifactId>commons-logging</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>javax.activation</groupId>
-                        <artifactId>javax.activation-api</artifactId>
                     </exclusion>
                     <exclusion>
                         <groupId>javax.xml.bind</groupId>
@@ -5432,58 +5328,16 @@
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-support-spring-beans</artifactId>
                 <version>${camel-quarkus.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-beans</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-jcl</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-support-spring-context</artifactId>
                 <version>${camel-quarkus.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-beans</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-context</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-jcl</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-support-spring-core</artifactId>
                 <version>${camel-quarkus.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-jcl</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
@@ -5984,23 +5838,11 @@
                 <groupId>ca.uhn.hapi.fhir</groupId>
                 <artifactId>hapi-fhir-structures-r4</artifactId>
                 <version>${hapi-fhir.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.google.code.findbugs</groupId>
-                        <artifactId>jsr305</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>ca.uhn.hapi.fhir</groupId>
                 <artifactId>hapi-fhir-structures-r5</artifactId>
                 <version>${hapi-fhir.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.google.code.findbugs</groupId>
-                        <artifactId>jsr305</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>ca.uhn.hapi.fhir</groupId>
@@ -6074,10 +5916,6 @@
                 <artifactId>google-oauth-client</artifactId>
                 <version>${google-oauth-client.version}</version>
                 <exclusions>
-                    <exclusion>
-                        <groupId>com.google.code.findbugs</groupId>
-                        <artifactId>jsr305</artifactId>
-                    </exclusion>
                     <exclusion>
                         <groupId>commons-logging</groupId>
                         <artifactId>commons-logging</artifactId>
@@ -6280,12 +6118,6 @@
                 <groupId>io.quarkiverse.tika</groupId>
                 <artifactId>quarkus-tika</artifactId>
                 <version>${quarkiverse-tika.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.jboss.spec.javax.xml.bind</groupId>
-                        <artifactId>jboss-jaxb-api_2.3_spec</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>io.quarkiverse.tika</groupId>
@@ -6377,12 +6209,6 @@
                 <groupId>org.apache.curator</groupId>
                 <artifactId>curator-client</artifactId>
                 <version>${curator.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.checkerframework</groupId>
-                        <artifactId>checker-qual</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.curator</groupId>
@@ -6398,12 +6224,6 @@
                 <groupId>org.apache.curator</groupId>
                 <artifactId>curator-test</artifactId>
                 <version>${curator.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.checkerframework</groupId>
-                        <artifactId>checker-qual</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.curator</groupId>
@@ -6435,10 +6255,6 @@
                         <artifactId>activation</artifactId>
                     </exclusion>
                     <exclusion>
-                        <groupId>javax.activation</groupId>
-                        <artifactId>javax.activation-api</artifactId>
-                    </exclusion>
-                    <exclusion>
                         <groupId>javax.ws.rs</groupId>
                         <artifactId>javax.ws.rs-api</artifactId>
                     </exclusion>
@@ -6468,16 +6284,6 @@
                 <groupId>org.apache.zookeeper</groupId>
                 <artifactId>zookeeper</artifactId>
                 <version>${zookeeper.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-log4j12</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.zookeeper</groupId>
@@ -6638,10 +6444,6 @@
                         <groupId>org.springframework</groupId>
                         <artifactId>spring-core</artifactId>
                     </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-jcl</artifactId>
-                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -6652,10 +6454,6 @@
                     <exclusion>
                         <groupId>org.springframework</groupId>
                         <artifactId>spring-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-jcl</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -6672,10 +6470,6 @@
                         <groupId>org.springframework</groupId>
                         <artifactId>spring-core</artifactId>
                     </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-jcl</artifactId>
-                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -6690,10 +6484,6 @@
                     <exclusion>
                         <groupId>org.springframework</groupId>
                         <artifactId>spring-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-jcl</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -6710,10 +6500,6 @@
                         <groupId>org.springframework</groupId>
                         <artifactId>spring-core</artifactId>
                     </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-jcl</artifactId>
-                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -6729,10 +6515,6 @@
                         <groupId>org.springframework</groupId>
                         <artifactId>spring-core</artifactId>
                     </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-jcl</artifactId>
-                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -6747,10 +6529,6 @@
                     <exclusion>
                         <groupId>org.springframework</groupId>
                         <artifactId>spring-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-jcl</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -6806,11 +6584,6 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <dependency>
-                <groupId>xml-apis</groupId>
-                <artifactId>xml-apis</artifactId>
-                <version>${xml-apis.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
@@ -6853,6 +6626,7 @@
                                 <resolutionEntryPointInclude>io.quarkiverse.messaginghub:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>net.openhft:affinity</resolutionEntryPointInclude> <!-- https://github.com/apache/camel-quarkus/issues/3788 -->
                                 <resolutionEntryPointInclude>org.apache.cxf.xjc-utils:cxf-xjc-runtime</resolutionEntryPointInclude>
+                                <resolutionEntryPointInclude>xerces:xercesImpl</resolutionEntryPointInclude>
                             </resolutionEntryPointIncludes>
                             <bannedDependencyResources>
                                 <bannedDependencyResource>
@@ -6867,18 +6641,6 @@
                                 </bannedDependencyResource>
                             </bannedDependencyResources>
                             <bomEntryTransformations>
-                                <bomEntryTransformation>
-                                    <gavPattern>ch.qos.logback:logback-classic</gavPattern>
-                                    <addExclusions>ch.qos.logback:logback-core</addExclusions>
-                                </bomEntryTransformation>
-                                <bomEntryTransformation>
-                                    <gavPattern>com.datastax.oss:java-driver-core</gavPattern>
-                                    <addExclusions>com.github.stephenc.jcip:jcip-annotations,com.google.code.findbugs:jsr305</addExclusions>
-                                </bomEntryTransformation>
-                                <bomEntryTransformation>
-                                    <gavPattern>com.datastax.oss:java-driver-query-builder</gavPattern>
-                                    <addExclusions>com.github.stephenc.jcip:jcip-annotations,com.google.code.findbugs:jsr305</addExclusions>
-                                </bomEntryTransformation>
                                 <bomEntryTransformation>
                                     <gavPattern>org.apache.camel:camel-opentelemetry</gavPattern>
                                     <addExclusions>io.grpc:grpc-netty-shaded</addExclusions>
@@ -6895,19 +6657,29 @@
                                     <gavPattern>org.apache.camel:camel-pgevent</gavPattern>
                                     <addExclusions>org.testcontainers:postgresql</addExclusions>
                                 </bomEntryTransformation>
-                                <bomEntryTransformation>
+                            </bomEntryTransformations>
+                            <autogeneratedBomEntryTransformations>
+                                <autogeneratedBomEntryTransformation>
+                                    <gavPattern>com.datastax.oss:java-driver-core</gavPattern>
+                                    <addExclusions>com.github.stephenc.jcip:jcip-annotations,com.google.code.findbugs:jsr305</addExclusions>
+                                </autogeneratedBomEntryTransformation>
+                                <autogeneratedBomEntryTransformation>
+                                    <gavPattern>com.datastax.oss:java-driver-query-builder</gavPattern>
+                                    <addExclusions>com.github.stephenc.jcip:jcip-annotations,com.google.code.findbugs:jsr305</addExclusions>
+                                </autogeneratedBomEntryTransformation>
+                                <autogeneratedBomEntryTransformation>
                                     <gavPattern>org.apache.cxf:cxf-rt-transports-http-hc5</gavPattern>
                                     <addExclusions>org.slf4j:jcl-over-slf4j</addExclusions>
-                                </bomEntryTransformation>
-                                <bomEntryTransformation>
+                                </autogeneratedBomEntryTransformation>
+                                <autogeneratedBomEntryTransformation>
                                     <gavPattern>org.apache.kafka:connect-api</gavPattern>
                                     <addExclusions>javax.ws.rs:javax.ws.rs-api</addExclusions>
-                                </bomEntryTransformation>
-                                <bomEntryTransformation>
+                                </autogeneratedBomEntryTransformation>
+                                <autogeneratedBomEntryTransformation>
                                     <gavPattern>software.amazon.awssdk:apache-client</gavPattern>
                                     <addExclusions>commons-logging:commons-logging</addExclusions>
-                                </bomEntryTransformation>
-                            </bomEntryTransformations>
+                                </autogeneratedBomEntryTransformation>
+                            </autogeneratedBomEntryTransformations>
                         </configuration>
                     </execution>
                 </executions>
