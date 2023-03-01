@@ -14,6 +14,8 @@
 
 **Closed issues:**
 
+- Micrometer test coverage - possible issue with @Counted annotation and metrics mandatory [\#4598](https://github.com/apache/camel-quarkus/issues/4598)
+- Expand JDBC test coverage - XA [\#4597](https://github.com/apache/camel-quarkus/issues/4597)
 - xml-io-with-beans: create itest project for xml-io + bean [\#4579](https://github.com/apache/camel-quarkus/issues/4579)
 - xml-io: document the possibility to add all charsets in native mode [\#4572](https://github.com/apache/camel-quarkus/issues/4572)
 - CamelQuarkusTestSupport: Lifecycle.PER\_CLASS may cause following tests to fail [\#4569](https://github.com/apache/camel-quarkus/issues/4569)
@@ -76,6 +78,7 @@
 
 - Remove workaround for quarkus.http.test-ssl-port being ignored by REST Assured [\#4604](https://github.com/apache/camel-quarkus/pull/4604) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#4601](https://github.com/apache/camel-quarkus/pull/4601) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Micrometer test coverage - @Counted [\#4600](https://github.com/apache/camel-quarkus/pull/4600) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade quarkus-jackson-jq to 2.0.0.Alpha [\#4599](https://github.com/apache/camel-quarkus/pull/4599) ([jamesnetherton](https://github.com/jamesnetherton))
 - Move Qute component camel-package-maven-plugin execution phase to process-classes [\#4595](https://github.com/apache/camel-quarkus/pull/4595) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Quarkiverse CXF 2.0.0  [\#4594](https://github.com/apache/camel-quarkus/pull/4594) ([ppalaga](https://github.com/ppalaga))
