@@ -48,10 +48,6 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-support-aws2</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jaxp</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
