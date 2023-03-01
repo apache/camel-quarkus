@@ -176,7 +176,7 @@
         <maven-utils.version>0.1.0</maven-utils.version>
 
         <!-- Maven plugin versions (keep sorted alphabetically) -->
-        <cq-plugin.version>3.5.3</cq-plugin.version>
+        <cq-plugin.version>3.5.4</cq-plugin.version>
         <cyclonedx-maven-plugin-version>2.7.5</cyclonedx-maven-plugin-version>
         <build-helper-maven-plugin.version>3.1.0</build-helper-maven-plugin.version>
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
@@ -1281,7 +1281,7 @@
                    <inherited>false</inherited>
                    <configuration>
                         <outputName>camel-quarkus-sbom</outputName>
-                        <outputDirectory>${project.basedir}/camel-quarkus-sbom/</outputDirectory>                        
+                        <outputDirectory>${project.basedir}/camel-quarkus-sbom/</outputDirectory>
                    </configuration>
                    <executions>
                        <execution>
