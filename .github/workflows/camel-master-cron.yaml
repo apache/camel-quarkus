@@ -25,7 +25,7 @@ on:
 env:
   LANG: en_US.UTF-8
   MAVEN_OPTS: -Xmx3000m
-  MAVEN_ARGS: -V -ntp -Dhttp.keepAlive=false -e
+  CQ_MAVEN_ARGS: -V -ntp -Dhttp.keepAlive=false -e
   BRANCH_OPTIONS: -Papache-snapshots
   TESTCONTAINERS_RYUK_DISABLED: true
   ISSUE_ID: 2927
@@ -65,10 +65,10 @@ jobs:
           git rev-parse origin/main > ~/build-data/main-sha.txt
       - name: mvn clean install -DskipTests
         run: |
-          eval ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} clean install -DskipTests -Dquarkus.build.skip
+          eval ./mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} clean install -DskipTests -Dquarkus.build.skip
       - name: Sync Maven properties
         run: |
-          ./mvnw cq:sync-versions ${MAVEN_ARGS} -N
+          ./mvnw cq:sync-versions ${CQ_MAVEN_ARGS} -N
       - name: Fail if there are uncommitted changes
         shell: bash
         run: |
@@ -98,7 +98,7 @@ jobs:
             git rebase --abort
           fi
 
-          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
+          ./mvnw ${CQ_MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
 
   native-tests:
     name: Native Tests - ${{matrix.category}}
@@ -144,7 +144,7 @@ jobs:
 
             MODULE="integration-tests/$(echo ${MODULE} | sed 's/^[ \t]*//;s/[ \t]*$//')"
 
-            if [[ "x$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=ci.native.tests.skip -DforceStdout -q -f ${MODULE})" == "xtrue" ]]; then
+            if [[ "x$(./mvnw org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=ci.native.tests.skip -DforceStdout -q -f ${MODULE})" == "xtrue" ]]; then
               JVM_MODULES+=("${MODULE}")
             else
               NATIVE_MODULES+=("${MODULE}")
@@ -158,14 +158,14 @@ jobs:
 
           IFS=,
           if [[ ${JVM_MODULES[@]} ]]; then
-            eval ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} clean test \
+            eval ./mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} clean test \
               -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
               -Pdocker,ci \
               -pl "${JVM_MODULES[*]}"
           fi
 
           if [[ ${NATIVE_MODULES[@]} ]]; then
-            eval ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} clean verify \
+            eval ./mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} clean verify \
               -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
               -Pnative,docker,ci \
               --fail-at-end \
@@ -178,7 +178,7 @@ jobs:
       - name: Report Build Failure
         if: failure() || cancelled()
         run: |
-          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
+          ./mvnw ${CQ_MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
 
   functional-extension-tests:
     runs-on: ubuntu-latest
@@ -216,37 +216,37 @@ jobs:
       - name: cd extensions-core && mvn test
         run: |
           cd extensions-core
-          ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
+          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip -Dcamel-quarkus.update-extension-doc-page.skip \
             test
       - name: cd extensions && mvn test
         run: |
           cd extensions
-          ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
+          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip -Dcamel-quarkus.update-extension-doc-page.skip \
             test
       - name: cd test-framework && mvn test
         run: |
           cd test-framework
-          ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
+          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip -Dcamel-quarkus.update-extension-doc-page.skip \
             test
       - name: cd tooling/perf-regression && mvn verify
         run: |
           cd tooling/perf-regression
-          ../../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
+          ../../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
             verify
       - name: cd catalog && mvn test
         run: |
           cd catalog
-          ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
+          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
             test
       - name: Report Build Failure
         if: failure() || cancelled()
         run: |
-          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
+          ./mvnw ${CQ_MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
 
   extensions-jvm-tests:
     runs-on: ubuntu-latest
@@ -295,14 +295,14 @@ jobs:
       - name: cd integration-tests-jvm && mvn clean test
         run: |
           cd integration-tests-jvm
-          ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
+          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
             --fail-at-end \
             clean test
       - name: Report Build Failure
         if: failure() || cancelled()
         run: |
-          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
+          ./mvnw ${CQ_MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
 
   integration-tests-alternative-platform:
     runs-on: ${{ matrix.os }}
@@ -343,7 +343,7 @@ jobs:
         shell: bash
         run: |
           cd integration-tests
-          ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
+          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dskip-testcontainers-tests -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
             --fail-at-end \
             clean verify
@@ -351,7 +351,7 @@ jobs:
         if: failure() || cancelled()
         shell: bash
         run: |
-          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
+          ./mvnw ${CQ_MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
 
   examples-tests:
     needs: initial-mvn-install
@@ -385,7 +385,7 @@ jobs:
           git fetch origin main
           git rebase $(cat ~/build-data/main-sha.txt)
       - name: set CQ_VERSION
-        run: echo "CQ_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+        run: echo "CQ_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout -N)" >> $GITHUB_ENV
       - name: clone and verify examples
         run: |
           EXAMPLES_BRANCH="camel-quarkus-main"
@@ -397,12 +397,12 @@ jobs:
           git clone --depth 1 --branch ${EXAMPLES_BRANCH} https://github.com/apache/camel-quarkus-examples.git \
             && cd camel-quarkus-examples \
             && echo "Current Examples commit:" $(git rev-parse HEAD) \
-            && mvn ${MAVEN_ARGS} ${BRANCH_OPTIONS} org.l2x6.cq:cq-maven-plugin:2.10.0:examples-set-platform -Dcq.camel-quarkus.version=${CQ_VERSION} \
-            && ./mvnw-for-each.sh ${MAVEN_ARGS} ${BRANCH_OPTIONS} -Pnative,docker clean verify
+            && ./mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} org.l2x6.cq:cq-maven-plugin:2.10.0:examples-set-platform -Dcq.camel-quarkus.version=${CQ_VERSION} \
+            && ./mvnw-for-each.sh ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} -Pnative,docker clean verify
       - name: Report Build Failure
         if: failure() || cancelled()
         run: |
-          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
+          ./mvnw ${CQ_MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
 
   handle-build-status:
     needs: native-tests
@@ -438,7 +438,7 @@ jobs:
       - name: Report build status
         id: report
         run: |
-          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=verify -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
+          ./mvnw ${CQ_MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=verify -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
       - name: Sync branch main to camel-main
         if: steps.report.outputs.overall_build_status == 'success'
         run: |
