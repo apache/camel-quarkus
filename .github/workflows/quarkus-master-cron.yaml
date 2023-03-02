@@ -25,7 +25,7 @@ on:
 env:
   LANG: en_US.UTF-8
   MAVEN_OPTS: -Xmx3000m
-  MAVEN_ARGS: -V -ntp -Dhttp.keepAlive=false -e
+  CQ_MAVEN_ARGS: -V -ntp -Dhttp.keepAlive=false -e
   TESTCONTAINERS_RYUK_DISABLED: true
   ISSUE_ID: 2926
 
@@ -75,10 +75,10 @@ jobs:
           git clone --depth 1 --branch main https://github.com/quarkusio/quarkus.git \
             && cd quarkus \
             && echo "Current Quarkus commit:" $(git rev-parse HEAD) \
-            && ./mvnw ${MAVEN_ARGS} clean install -Dquickly
+            && ./mvnw ${CQ_MAVEN_ARGS} clean install -Dquickly
       - name: Build Camel Quarkus
         run: |
-          ./mvnw ${MAVEN_ARGS} clean install -Dquarkus.version=999-SNAPSHOT --fail-at-end
+          ./mvnw ${CQ_MAVEN_ARGS} clean install -Dquarkus.version=999-SNAPSHOT --fail-at-end
       - name: Tar Maven Repo
         shell: bash
         run: |
@@ -104,7 +104,7 @@ jobs:
             git rebase --abort
           fi
 
-          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=quarkus-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
+          ./mvnw ${CQ_MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=quarkus-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
 
   native-tests:
     name: Native Tests - ${{matrix.category}}
@@ -147,7 +147,7 @@ jobs:
 
             MODULE="integration-tests/$(echo ${MODULE} | sed 's/^[ \t]*//;s/[ \t]*$//')"
 
-            if [[ "x$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=ci.native.tests.skip -DforceStdout -q -f ${MODULE})" == "xtrue" ]]; then
+            if [[ "x$(./mvnw org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=ci.native.tests.skip -DforceStdout -q -f ${MODULE})" == "xtrue" ]]; then
               JVM_MODULES+=("${MODULE}")
             else
               NATIVE_MODULES+=("${MODULE}")
@@ -161,14 +161,14 @@ jobs:
 
           IFS=,
           if [[ ${JVM_MODULES[@]} ]]; then
-            eval ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} clean test \
+            eval ./mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} clean test \
               -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
               -Pdocker,ci \
               -pl "${JVM_MODULES[*]}"
           fi
 
           if [[ ${NATIVE_MODULES[@]} ]]; then
-            eval ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} clean verify \
+            eval ./mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} clean verify \
               -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
               -Pnative,docker,ci \
               --fail-at-end \
@@ -177,7 +177,7 @@ jobs:
       - name: Report Build Failure
         if: failure() || cancelled()
         run: |
-          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=quarkus-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
+          ./mvnw ${CQ_MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=quarkus-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
 
   handle-build-status:
     needs: native-tests
@@ -210,7 +210,7 @@ jobs:
       - name: Report build status
         id: report
         run: |
-          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=verify -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=quarkus-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
+          ./mvnw ${CQ_MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=verify -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=quarkus-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
       - name: Sync branch main to quarkus-main
         if: steps.report.outputs.overall_build_status == 'success'
         run: |
