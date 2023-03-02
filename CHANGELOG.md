@@ -18,6 +18,7 @@
 - Expand JDBC test coverage - XA [\#4597](https://github.com/apache/camel-quarkus/issues/4597)
 - xml-io-with-beans: create itest project for xml-io + bean [\#4579](https://github.com/apache/camel-quarkus/issues/4579)
 - xml-io: document the possibility to add all charsets in native mode [\#4572](https://github.com/apache/camel-quarkus/issues/4572)
+- Split infinispan testing into separate modules for the quarkus and camel managed clients [\#4570](https://github.com/apache/camel-quarkus/issues/4570)
 - CamelQuarkusTestSupport: Lifecycle.PER\_CLASS may cause following tests to fail [\#4569](https://github.com/apache/camel-quarkus/issues/4569)
 - xml-io: Remove the use of XMLRoutesDefinitionLoader deprecated class [\#4564](https://github.com/apache/camel-quarkus/issues/4564)
 - Multiple test methods do not work when extending CamelQuarkusTestSupport [\#4560](https://github.com/apache/camel-quarkus/issues/4560)
@@ -40,6 +41,7 @@
 - GRPC test fails on Quarkus 3 [\#4503](https://github.com/apache/camel-quarkus/issues/4503)
 - camel-quarkus-integration-test-aws2 fail to compile to native with Camel 4 [\#4501](https://github.com/apache/camel-quarkus/issues/4501)
 - quarkus-pooled-jms incompatible with Quarkus 3 and Jakarta 9/10 [\#4500](https://github.com/apache/camel-quarkus/issues/4500)
+- Infinispan query test fails due to no marshaller registered for Protobuf type person.Person [\#4499](https://github.com/apache/camel-quarkus/issues/4499)
 - FhirDstu2Hl7OrgTest fails on Camel 4 [\#4497](https://github.com/apache/camel-quarkus/issues/4497)
 - Upgrade to Quarkiverse Amazon Services 2.x [\#4496](https://github.com/apache/camel-quarkus/issues/4496)
 - XmlTest fails with NoSuchLanguageException: No language could be found for: xtokenize on Camel 4.0.0-M1 [\#4494](https://github.com/apache/camel-quarkus/issues/4494)
@@ -76,6 +78,10 @@
 
 **Merged pull requests:**
 
+- Upgrade to cq-maven-plugin 3.5.3: flatten faster, sync-versions in [\#4611](https://github.com/apache/camel-quarkus/pull/4611) ([ppalaga](https://github.com/ppalaga))
+- Exclude banned xml-apis from org.seleniumhq.selenium:htmlunit-driver [\#4610](https://github.com/apache/camel-quarkus/pull/4610) ([jamesnetherton](https://github.com/jamesnetherton))
+- Improve Telegram integration tests [\#4608](https://github.com/apache/camel-quarkus/pull/4608) ([zbendhiba](https://github.com/zbendhiba))
+- Split infinispan testing into separate modules for the quarkus and camel managed clients [\#4607](https://github.com/apache/camel-quarkus/pull/4607) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove workaround for quarkus.http.test-ssl-port being ignored by REST Assured [\#4604](https://github.com/apache/camel-quarkus/pull/4604) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#4601](https://github.com/apache/camel-quarkus/pull/4601) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Micrometer test coverage - @Counted [\#4600](https://github.com/apache/camel-quarkus/pull/4600) ([JiriOndrusek](https://github.com/JiriOndrusek))
