@@ -14,6 +14,7 @@
 
 **Closed issues:**
 
+- Aws2-cw: dependency io.quarkus:quarkus-jaxp is not needed for the native run [\#4614](https://github.com/apache/camel-quarkus/issues/4614)
 - Micrometer test coverage - possible issue with @Counted annotation and metrics mandatory [\#4598](https://github.com/apache/camel-quarkus/issues/4598)
 - Expand JDBC test coverage - XA [\#4597](https://github.com/apache/camel-quarkus/issues/4597)
 - xml-io-with-beans: create itest project for xml-io + bean [\#4579](https://github.com/apache/camel-quarkus/issues/4579)
@@ -78,6 +79,7 @@
 
 **Merged pull requests:**
 
+- Aws2-cw: remove  io.quarkus:quarkus-jaxp from aws2-cw \#4614 [\#4615](https://github.com/apache/camel-quarkus/pull/4615) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade to cq-maven-plugin 3.5.3: flatten faster, sync-versions in [\#4611](https://github.com/apache/camel-quarkus/pull/4611) ([ppalaga](https://github.com/ppalaga))
 - Exclude banned xml-apis from org.seleniumhq.selenium:htmlunit-driver [\#4610](https://github.com/apache/camel-quarkus/pull/4610) ([jamesnetherton](https://github.com/jamesnetherton))
 - Improve Telegram integration tests [\#4608](https://github.com/apache/camel-quarkus/pull/4608) ([zbendhiba](https://github.com/zbendhiba))
