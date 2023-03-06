@@ -81,6 +81,7 @@
 
 **Merged pull requests:**
 
+- Generated sources regen for SBOM [\#4623](https://github.com/apache/camel-quarkus/pull/4623) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump to CycloneDX Maven Plugin 2.7.5 [\#4618](https://github.com/apache/camel-quarkus/pull/4618) ([oscerd](https://github.com/oscerd))
 - Aws2-cw: remove  io.quarkus:quarkus-jaxp from aws2-cw \#4614 [\#4615](https://github.com/apache/camel-quarkus/pull/4615) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade to cq-maven-plugin 3.5.4 [\#4613](https://github.com/apache/camel-quarkus/pull/4613) ([ppalaga](https://github.com/ppalaga))
