@@ -4939,7 +4939,7 @@
                 <artifactId>camel-quarkus-slack-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
-            <!--<dependency>
+            <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-smallrye-reactive-messaging</artifactId>
                 <version>${camel-quarkus.version}</version>
@@ -4948,7 +4948,7 @@
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-smallrye-reactive-messaging-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
-            </dependency>-->
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-smpp</artifactId>
@@ -6140,11 +6140,11 @@
                 <artifactId>netty-incubator-transport-classes-io_uring</artifactId>
                 <version>${io-netty-iouring.version}</version>
             </dependency>
-            <!--<dependency>
+            <dependency>
                 <groupId>io.smallrye.reactive</groupId>
                 <artifactId>smallrye-reactive-messaging-camel</artifactId>
                 <version>${smallrye.reactive.messaging.camel.version}</version>
-            </dependency>-->
+            </dependency>
             <dependency>
                 <groupId>jakarta.jms</groupId>
                 <artifactId>jakarta.jms-api</artifactId>

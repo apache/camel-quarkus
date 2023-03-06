@@ -220,7 +220,7 @@
         <module>sjms</module>
         <module>sjms2</module>
         <module>slack</module>
-        <!--<module>smallrye-reactive-messaging</module> https://github.com/apache/camel-quarkus/issues/4464 -->
+        <module>smallrye-reactive-messaging</module>
         <module>snakeyaml</module>
         <module>soap</module>
         <module>solr</module>
