@@ -23,7 +23,9 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
+import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 
 @Path("/language")
@@ -31,13 +33,43 @@ import org.apache.camel.ProducerTemplate;
 public class LanguageResource {
 
     @Inject
-    ProducerTemplate template;
+    ProducerTemplate producerTemplate;
+
+    @Inject
+    ConsumerTemplate consumerTemplate;
 
     @Path("/route/{route}")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String route(String body, @PathParam("route") String route) {
-        return template.requestBody("direct:" + route, body, String.class);
+        return producerTemplate.requestBody("direct:" + route, body, String.class);
+    }
+
+    @Path("/route/languageFileScript")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String routeFileScript(String body) {
+        return consumerTemplate.receiveBody("direct:languageFileOutput", 5000, String.class);
+    }
+
+    @Path("/route/languageSimpleHttp")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String routeSimpleHttp(String body, @QueryParam("baseUrl") String baseUrl) {
+        return producerTemplate.requestBody("language:simple:resource:" + baseUrl + "/simple", body, String.class);
+    }
+
+    @Path("/route/languageSimpleContentCache")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String routeSimpleContentCache(String body, @QueryParam("baseUrl") String baseUrl,
+            @QueryParam("contentCache") String contentCache) {
+        String option = "?contentCache=" + contentCache;
+        String url = "language:simple:resource:" + baseUrl + "/simpleContentCache" + option;
+        return producerTemplate.requestBody(url, body, String.class);
     }
 }
