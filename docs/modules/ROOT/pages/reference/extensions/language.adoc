@@ -44,6 +44,34 @@ ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
 
+[id="extensions-language-usage"]
+== Usage
+[id="extensions-language-usage-required-dependencies"]
+=== Required Dependencies
+
+The Language extension only handles the passing of an Exchange to a script for execution. The extension implementing the language must be added as a dependency. The following list of languages are implemented in xref:reference/extensions/core.adoc[Core]:
+
+* Constant
+* ExchangeProperty
+* File
+* Header
+* Ref
+* Simple
+* Tokenize
+
+To use any other language, you must add the corresponding dependency. Consult the xref:reference/languages.adoc[Languages Guide] for details.
+
+[id="extensions-language-usage-native-mode"]
+=== Native Mode
+
+When loading scripts from the classpath in native mode, the path to the script file must be specified in the `quarkus.native.resources.includes` property of the `application.properties` file. For example:
+
+[source]
+----
+quarkus.native.resources.includes=script.txt
+----
+
+
 [id="extensions-language-allowcontextmapall-option-in-native-mode"]
 == allowContextMapAll option in native mode
 

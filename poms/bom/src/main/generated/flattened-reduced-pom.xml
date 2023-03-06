@@ -51,33 +51,6 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-pubsub</artifactId>
-        <version>1.121.0</version>
-        <exclusions>
-          <exclusion>
-            <groupId>com.google.android</groupId>
-            <artifactId>annotations</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.checkerframework</groupId>
-            <artifactId>checker-qual</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>animal-sniffer-annotations</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-amqp</artifactId>
         <version>4.0.0-M2</version>
@@ -5825,9 +5798,41 @@
         <version>2.1.2</version>
       </dependency>
       <dependency>
+        <groupId>com.github.mwiede</groupId>
+        <artifactId>jsch</artifactId>
+        <version>0.2.6</version>
+      </dependency>
+      <dependency>
         <groupId>com.google.auth</groupId>
         <artifactId>google-auth-library-credentials</artifactId>
         <version>1.7.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-pubsub</artifactId>
+        <version>1.121.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.google.android</groupId>
+            <artifactId>annotations</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>checker-qual</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>animal-sniffer-annotations</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>com.google.oauth-client</groupId>
@@ -5915,6 +5920,22 @@
         <groupId>commons-lang</groupId>
         <artifactId>commons-lang</artifactId>
         <version>2.6</version>
+      </dependency>
+      <dependency>
+        <groupId>io.minio</groupId>
+        <artifactId>minio</artifactId>
+        <version>8.2.2</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>checker-qual</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.netty.incubator</groupId>
+        <artifactId>netty-incubator-transport-classes-io_uring</artifactId>
+        <version>0.0.16.Final</version>
       </dependency>
       <dependency>
         <groupId>io.opencensus</groupId>
@@ -6034,22 +6055,6 @@
         <version>2.0.0.CR1</version>
       </dependency>
       <dependency>
-        <groupId>io.minio</groupId>
-        <artifactId>minio</artifactId>
-        <version>8.2.2</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.checkerframework</groupId>
-            <artifactId>checker-qual</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>io.netty.incubator</groupId>
-        <artifactId>netty-incubator-transport-classes-io_uring</artifactId>
-        <version>0.0.16.Final</version>
-      </dependency>
-      <dependency>
         <groupId>jakarta.jms</groupId>
         <artifactId>jakarta.jms-api</artifactId>
         <version>3.1.0</version>
@@ -6083,11 +6088,6 @@
         <groupId>org.antlr</groupId>
         <artifactId>antlr-runtime</artifactId>
         <version>3.5.2</version>
-      </dependency>
-      <dependency>
-        <groupId>org.brotli</groupId>
-        <artifactId>dec</artifactId>
-        <version>0.1.2</version>
       </dependency>
       <dependency>
         <groupId>org.apache.commons</groupId>
@@ -6206,6 +6206,11 @@
         <version>1.72</version>
       </dependency>
       <dependency>
+        <groupId>org.brotli</groupId>
+        <artifactId>dec</artifactId>
+        <version>0.1.2</version>
+      </dependency>
+      <dependency>
         <groupId>org.codehaus.jackson</groupId>
         <artifactId>jackson-core-asl</artifactId>
         <version>1.9.13</version>
@@ -6239,11 +6244,6 @@
         <groupId>org.eclipse.jgit</groupId>
         <artifactId>org.eclipse.jgit</artifactId>
         <version>6.4.0.202211300538-r</version>
-      </dependency>
-      <dependency>
-        <groupId>com.github.mwiede</groupId>
-        <artifactId>jsch</artifactId>
-        <version>0.2.6</version>
       </dependency>
       <dependency>
         <groupId>org.graalvm.js</groupId>
