@@ -19,14 +19,19 @@ package org.apache.camel.quarkus.dsl.groovy.deployment;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
@@ -34,6 +39,10 @@ import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeBuild;
 import io.quarkus.maven.dependency.ResolvedDependency;
 import io.quarkus.paths.PathCollection;
+import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
+import org.apache.camel.ExchangePattern;
+import org.apache.camel.Message;
 import org.apache.camel.quarkus.core.deployment.main.CamelMainHelper;
 import org.apache.camel.quarkus.dsl.groovy.runtime.Configurer;
 import org.apache.camel.quarkus.support.dsl.deployment.DslGeneratedClassBuildItem;
@@ -44,6 +53,9 @@ import org.codehaus.groovy.control.CompilationUnit;
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.control.Phases;
 import org.codehaus.groovy.tools.GroovyClass;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.DotName;
+import org.jboss.jandex.IndexView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,6 +65,11 @@ import static org.apache.camel.quarkus.support.dsl.deployment.DslSupportProcesso
 public class GroovyDslProcessor {
 
     private static final Logger LOG = LoggerFactory.getLogger(GroovyDslProcessor.class);
+    private static final List<Class<?>> CAMEL_REFLECTIVE_CLASSES = Arrays.asList(
+            Exchange.class,
+            Message.class,
+            ExchangePattern.class,
+            CamelContext.class);
     private static final String PACKAGE_NAME = "org.apache.camel.quarkus.dsl.groovy.generated";
     private static final String FILE_FORMAT = """
             package %s
@@ -117,12 +134,48 @@ public class GroovyDslProcessor {
         }
     }
 
-    // To put it back once the Groovy extensions will be supported (https://github.com/apache/camel-quarkus/issues/4384)
-    //    @BuildStep
-    //    void registerNativeImageResources(BuildProducer<ServiceProviderBuildItem> serviceProvider) {
-    //        serviceProvider
-    //                .produce(ServiceProviderBuildItem.allProvidersFromClassPath("org.codehaus.groovy.runtime.ExtensionModule"));
-    //    }
+    @BuildStep(onlyIf = NativeBuild.class)
+    void registerReflectiveClasses(
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+            CombinedIndexBuildItem combinedIndexBuildItem) {
+
+        IndexView view = combinedIndexBuildItem.getIndex();
+
+        for (Class<?> type : CAMEL_REFLECTIVE_CLASSES) {
+            DotName name = DotName.createSimple(type.getName());
+
+            if (type.isInterface()) {
+                for (ClassInfo info : view.getAllKnownImplementors(name)) {
+                    reflectiveClass.produce(ReflectiveClassBuildItem.builder(info.name().toString()).methods().build());
+                }
+            } else {
+                for (ClassInfo info : view.getAllKnownSubclasses(name)) {
+                    reflectiveClass.produce(ReflectiveClassBuildItem.builder(info.name().toString()).methods().build());
+                }
+            }
+
+            reflectiveClass.produce(ReflectiveClassBuildItem.builder(type).methods().fields(type.isEnum()).build());
+        }
+
+        Set<Class<?>> types = new HashSet<>();
+        // Register all the Camel return types of public methods of the camel reflective classes for reflection to
+        // be accessible in native mode from a Groovy resource
+        for (Class<?> c : CAMEL_REFLECTIVE_CLASSES) {
+            for (Method method : c.getMethods()) {
+                if (!method.getDeclaringClass().equals(Object.class)) {
+                    Class<?> returnType = method.getReturnType();
+                    if (returnType.getPackageName().startsWith("org.apache.camel.")
+                            && !CAMEL_REFLECTIVE_CLASSES.contains(returnType)) {
+                        types.add(returnType);
+                    }
+                }
+            }
+        }
+        // Allow access to methods by reflection to be accessible in native mode from a Groovy resource
+        reflectiveClass.produce(
+                ReflectiveClassBuildItem.builder(types.toArray(new Class<?>[0])).constructors(false).methods().build());
+
+    }
 
     /**
      * Convert a Groovy script into a Groovy class to be able to compile it.
