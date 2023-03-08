@@ -23,7 +23,6 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
-import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.startup.jfr.FlightRecorderStartupStepRecorder;
 
 @Path("/jfr")
@@ -37,6 +36,6 @@ public class JfrResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public boolean startupStepRecorder() {
-        return context.adapt(ExtendedCamelContext.class).getStartupStepRecorder() instanceof FlightRecorderStartupStepRecorder;
+        return context.getCamelContextExtension().getStartupStepRecorder() instanceof FlightRecorderStartupStepRecorder;
     }
 }

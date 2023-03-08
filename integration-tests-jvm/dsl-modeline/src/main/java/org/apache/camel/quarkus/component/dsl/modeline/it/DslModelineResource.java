@@ -30,7 +30,6 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
-import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.impl.event.CamelContextStartedEvent;
 import org.apache.camel.spi.DependencyStrategy;
 import org.apache.camel.spi.ModelineFactory;
@@ -49,7 +48,7 @@ public class DslModelineResource {
         context = event.getContext();
         deps = new ArrayList<>();
         context.getRegistry().bind("myDep", (DependencyStrategy) dependency -> deps.add(dependency));
-        factory = context.adapt(ExtendedCamelContext.class).getModelineFactory();
+        factory = context.getCamelContextExtension().getModelineFactory();
     }
 
     @POST

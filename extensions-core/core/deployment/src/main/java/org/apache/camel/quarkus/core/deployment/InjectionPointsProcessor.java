@@ -424,16 +424,6 @@ public class InjectionPointsProcessor {
     }
 
     private String resolveAnnotValue(IndexView index, AnnotationInstance annot) {
-        //consider also parameter 'uri', which is deprecated but can be still supported
-        String uri = annot.valueWithDefault(index).asString();
-
-        String deprecatedUri = annot.valueWithDefault(index, "uri").asString();
-        if (uri.isEmpty() && !deprecatedUri.isEmpty()) {
-            throw new IllegalArgumentException(String.format("@%s(uri = \"%s\") is not supported on Camel" +
-                    " Quarkus. Please replace it with just @%s(\"%s\").", annot.name().toString(), deprecatedUri,
-                    annot.name().toString(), deprecatedUri));
-        }
-        return uri;
+        return annot.valueWithDefault(index).asString();
     }
-
 }

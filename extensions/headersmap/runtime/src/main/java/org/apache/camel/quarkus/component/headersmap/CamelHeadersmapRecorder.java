@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.headersmap;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
-import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.component.headersmap.FastHeadersMapFactory;
 import org.apache.camel.spi.CamelContextCustomizer;
 
@@ -30,7 +29,7 @@ public class CamelHeadersmapRecorder {
         return new RuntimeValue<>(new CamelContextCustomizer() {
             @Override
             public void configure(CamelContext context) {
-                context.adapt(ExtendedCamelContext.class).setHeadersMapFactory(new FastHeadersMapFactory());
+                context.getCamelContextExtension().setHeadersMapFactory(new FastHeadersMapFactory());
             }
         });
     }

@@ -73,8 +73,8 @@ public abstract class AbstractDebeziumResource {
                 + "&databasePort=" + port
                 + "&databaseUser=" + username
                 + "&databasePassword=" + password
-                + "&databaseServerName=" + databaseServerName
-                + "&offsetStorageFileName=" + offsetStorageFileName;
+                + "&offsetStorageFileName=" + offsetStorageFileName
+                + "&topicPrefix=cq-testing";
     }
 
     public String receive() {

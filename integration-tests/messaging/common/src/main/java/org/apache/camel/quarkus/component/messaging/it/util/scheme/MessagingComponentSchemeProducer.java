@@ -35,12 +35,12 @@ public class MessagingComponentSchemeProducer {
     @Produces
     @Singleton
     public ComponentScheme getMessagingComponentScheme(CamelContext camelContext) {
-        ExtendedCamelContext context = camelContext.getExtension(ExtendedCamelContext.class);
+        ExtendedCamelContext context = camelContext.getCamelContextExtension();
         RuntimeCamelCatalog catalog = context.getRuntimeCamelCatalog();
         ComponentNameResolver resolver = context.getComponentNameResolver();
         List<JsonObject> schemas = new ArrayList<>();
 
-        for (String name : resolver.resolveNames(context)) {
+        for (String name : resolver.resolveNames(camelContext)) {
             // Catalog is hard coded to return the JSON schema for the JMS component so just assume activemq is the component to work with
             if (name.equals("activemq")) {
                 return new ComponentScheme("activemq");

@@ -22,6 +22,7 @@ import java.util.Objects;
 
 import org.apache.camel.CatalogCamelContext;
 import org.apache.camel.Component;
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.component.microprofile.config.CamelMicroProfilePropertiesSource;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -58,7 +59,8 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
         this.version = version;
         this.modelDumper = modelDumper;
 
-        setFactoryFinderResolver(factoryFinderResolver);
+        ExtendedCamelContext extendedCamelContext = getCamelContextExtension();
+        extendedCamelContext.setFactoryFinderResolver(factoryFinderResolver);
         setTracing(Boolean.FALSE);
         setDebugging(Boolean.FALSE);
         setMessageHistory(Boolean.FALSE);

@@ -49,7 +49,7 @@ public class AdviceWithAnotherRouteTest extends CamelQuarkusTestSupport {
                 interceptSendToEndpoint("file:*").skipSendToOriginalEndpoint().to("mock:file");
             }
         };
-        AdviceWith.adviceWith(this.context.adapt(ModelCamelContext.class).getRouteDefinition("myRoute"), this.context, mocker);
+        AdviceWith.adviceWith(((ModelCamelContext) this.context).getRouteDefinition("myRoute"), this.context, mocker);
 
         startRouteDefinitions();
     }

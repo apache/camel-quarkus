@@ -37,4 +37,9 @@ public class LivenessCheck extends AbstractHealthCheck {
     public boolean isReadiness() {
         return false;
     }
+
+    @Override
+    public boolean isLiveness() {
+        return true;
+    }
 }

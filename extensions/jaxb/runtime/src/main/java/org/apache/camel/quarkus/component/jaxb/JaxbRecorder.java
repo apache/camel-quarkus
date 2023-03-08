@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.jaxb;
 
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
-import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.converter.jaxb.JaxbRestBindingJaxbDataFormatFactory;
 import org.apache.camel.spi.CamelContextCustomizer;
 
@@ -27,7 +26,7 @@ public class JaxbRecorder {
     public RuntimeValue<CamelContextCustomizer> newRestBindingJaxbDataFormatFactoryContextCustomizer() {
         JaxbRestBindingJaxbDataFormatFactory factory = new JaxbRestBindingJaxbDataFormatFactory();
         return new RuntimeValue<>(
-                context -> context.adapt(ExtendedCamelContext.class).setRestBindingJaxbDataFormatFactory(factory));
+                context -> context.getCamelContextExtension().setRestBindingJaxbDataFormatFactory(factory));
     }
 
 }

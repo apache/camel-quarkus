@@ -51,7 +51,7 @@ public class MockResource {
 
         // advice the first route using the inlined AdviceWith route builder
         // which has extended capabilities than the regular route builder
-        AdviceWith.adviceWith(context.adapt(ModelCamelContext.class).getRouteDefinition("forMocking"), context,
+        AdviceWith.adviceWith(((ModelCamelContext) context).getRouteDefinition("forMocking"), context,
                 new AdviceWithRouteBuilder() {
                     @Override
                     public void configure() throws Exception {

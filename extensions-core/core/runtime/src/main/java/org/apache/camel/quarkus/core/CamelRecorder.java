@@ -25,7 +25,6 @@ import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
-import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.impl.engine.DefaultReactiveExecutor;
@@ -189,7 +188,7 @@ public class CamelRecorder {
     public Supplier<?> produceProxy(Class<?> clazz, String uri) {
         return () -> {
             final CamelContext camelContext = Arc.container().instance(CamelContext.class).get();
-            final BeanProxyFactory factory = camelContext.adapt(ExtendedCamelContext.class).getBeanProxyFactory();
+            final BeanProxyFactory factory = camelContext.getCamelContextExtension().getBeanProxyFactory();
             final Endpoint endpoint = camelContext.getEndpoint(uri);
             try {
                 return factory.createProxy(endpoint, true, clazz);

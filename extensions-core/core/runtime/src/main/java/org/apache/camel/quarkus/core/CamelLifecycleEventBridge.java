@@ -133,16 +133,6 @@ public class CamelLifecycleEventBridge implements LifecycleStrategy {
     }
 
     @Override
-    public void onContextStart(CamelContext context) throws VetoCamelContextStartException {
-        // superseded by management events
-    }
-
-    @Override
-    public void onContextStop(CamelContext context) {
-        // superseded by management events
-    }
-
-    @Override
     public void onRoutesAdd(Collection<Route> routes) {
         // superseded by management events
     }

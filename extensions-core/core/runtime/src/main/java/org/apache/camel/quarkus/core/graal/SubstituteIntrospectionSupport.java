@@ -25,10 +25,7 @@ import com.oracle.svm.core.annotate.TargetElement;
 import org.apache.camel.spi.BeanIntrospection;
 import org.apache.camel.support.LRUCacheFactory;
 
-//
-// Don't use class here to avoid warning triggered by IntrospectionSupport deprecation
-//
-@TargetClass(className = "org.apache.camel.support.IntrospectionSupport")
+@TargetClass(className = "org.apache.camel.impl.engine.IntrospectionSupport")
 final class SubstituteIntrospectionSupport {
     @Alias
     @TargetElement(name = "CACHE")

@@ -24,6 +24,7 @@ import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.RouteConfigurationsBuilder;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.LambdaRouteBuilder;
@@ -61,15 +62,16 @@ public class CamelContextRecorder {
 
         final ClassLoader tccl = Thread.currentThread().getContextClassLoader();
         // Set ClassLoader first as some actions depend on it being available
+        ExtendedCamelContext extendedCamelContext = context.getCamelContextExtension();
         context.setApplicationContextClassLoader(tccl);
         context.setDefaultExtension(RuntimeCamelCatalog.class, () -> new CamelRuntimeCatalog(config.runtimeCatalog));
-        context.setRegistry(registry.getValue());
+        extendedCamelContext.setRegistry(registry.getValue());
         context.setTypeConverterRegistry(typeConverterRegistry.getValue());
         context.setLoadTypeConverters(false);
-        context.setModelJAXBContextFactory(contextFactory.getValue());
-        context.setPackageScanClassResolver(packageScanClassResolver.getValue());
+        extendedCamelContext.setModelJAXBContextFactory(contextFactory.getValue());
+        extendedCamelContext.setPackageScanClassResolver(packageScanClassResolver.getValue());
         context.build();
-        context.setComponentNameResolver(componentNameResolver.getValue());
+        extendedCamelContext.setComponentNameResolver(componentNameResolver.getValue());
 
         // register to the container
         beanContainer.instance(CamelProducers.class).setContext(context);

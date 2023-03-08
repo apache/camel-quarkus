@@ -48,7 +48,7 @@ public class KotlinDslResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String kotlinRoutesBuilder() {
-        final ExtendedCamelContext camelContext = main.getCamelContext().adapt(ExtendedCamelContext.class);
+        final ExtendedCamelContext camelContext = main.getCamelContext().getCamelContextExtension();
         return camelContext.getBootstrapFactoryFinder(RoutesBuilderLoader.FACTORY_PATH)
                 .findClass(KotlinConstantsKt.EXTENSION).get().getName();
     }

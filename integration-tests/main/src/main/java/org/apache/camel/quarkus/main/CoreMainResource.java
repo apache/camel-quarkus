@@ -32,8 +32,8 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
-import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.component.log.LogComponent;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.quarkus.core.FastFactoryFinderResolver;
@@ -89,7 +89,7 @@ public class CoreMainResource {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     public String setCamelContextName(String name) {
-        main.getCamelContext().adapt(ExtendedCamelContext.class).setName(name);
+        main.getCamelContext().getCamelContextExtension().setName(name);
         return main.getCamelContext().getName();
     }
 
@@ -97,8 +97,7 @@ public class CoreMainResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject describeMain() {
-        final ExtendedCamelContext camelContext = main.getCamelContext().adapt(ExtendedCamelContext.class);
-
+        CamelContext camelContext = main.getCamelContext();
         JsonArrayBuilder listeners = Json.createArrayBuilder();
         main.getMainListeners().forEach(listener -> listeners.add(listener.getClass().getName()));
 
@@ -128,7 +127,7 @@ public class CoreMainResource {
                 .forEach((name, value) -> componentsInRegistry.add(name, value.getClass().getName()));
 
         JsonObjectBuilder factoryClassMap = Json.createObjectBuilder();
-        FactoryFinderResolver factoryFinderResolver = camelContext.getFactoryFinderResolver();
+        FactoryFinderResolver factoryFinderResolver = camelContext.getCamelContextExtension().getFactoryFinderResolver();
         if (factoryFinderResolver instanceof FastFactoryFinderResolver) {
             ((FastFactoryFinderResolver) factoryFinderResolver).getClassMap().forEach((k, v) -> {
                 factoryClassMap.add(k, v.getName());
@@ -136,7 +135,7 @@ public class CoreMainResource {
         }
 
         return Json.createObjectBuilder()
-                .add("xml-model-dumper", camelContext.getModelToXMLDumper().getClass().getName())
+                .add("xml-model-dumper", camelContext.getCamelContextExtension().getModelToXMLDumper().getClass().getName())
                 .add("routes-collector", collector)
                 .add("listeners", listeners)
                 .add("routeBuilders", routeBuilders)
@@ -147,7 +146,7 @@ public class CoreMainResource {
                         .add("rest-port",
                                 camelContext.getRestConfiguration().getPort())
                         .add("resilience4j-sliding-window-size",
-                                camelContext.adapt(ModelCamelContext.class)
+                                ((ModelCamelContext) camelContext)
                                         .getResilience4jConfiguration(null)
                                         .getSlidingWindowSize()))
                 .add("registry", Json.createObjectBuilder()
@@ -156,7 +155,8 @@ public class CoreMainResource {
                         .add("languages", languagesInRegistry))
                 .add("factory-finder", Json.createObjectBuilder()
                         .add("class-map", factoryClassMap))
-                .add("bean-introspection-invocations", camelContext.getBeanIntrospection().getInvokedCounter())
+                .add("bean-introspection-invocations",
+                        camelContext.getCamelContextExtension().getBeanIntrospection().getInvokedCounter())
                 .build();
     }
 
@@ -164,7 +164,7 @@ public class CoreMainResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public JsonObject reactiveExecutor() {
-        ReactiveExecutor executor = main.getCamelContext().adapt(ExtendedCamelContext.class).getReactiveExecutor();
+        ReactiveExecutor executor = main.getCamelContext().getCamelContextExtension().getReactiveExecutor();
 
         JsonObjectBuilder builder = Json.createObjectBuilder();
         builder.add("class", executor.getClass().getName());
@@ -181,8 +181,7 @@ public class CoreMainResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public JsonObject threadPoolFactory() {
-        ThreadPoolFactory threadPoolFactory = main.getCamelContext().adapt(ExtendedCamelContext.class)
-                .getExecutorServiceManager().getThreadPoolFactory();
+        ThreadPoolFactory threadPoolFactory = main.getCamelContext().getExecutorServiceManager().getThreadPoolFactory();
 
         JsonObjectBuilder builder = Json.createObjectBuilder();
         builder.add("class", threadPoolFactory.getClass().getName());
@@ -232,7 +231,7 @@ public class CoreMainResource {
         }
 
         if (component != null) {
-            main.getCamelContext().adapt(ExtendedCamelContext.class).getBeanIntrospection().getProperties(component, properties,
+            main.getCamelContext().getCamelContextExtension().getBeanIntrospection().getProperties(component, properties,
                     null);
             properties.forEach((k, v) -> {
                 if (v != null) {
