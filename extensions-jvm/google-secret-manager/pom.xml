@@ -34,4 +34,17 @@
         <module>deployment</module>
         <module>runtime</module>
     </modules>
+
+    <!-- TODO: Remove this https://github.com/apache/camel-quarkus/issues/4625 -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
