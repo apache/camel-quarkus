@@ -1,1 +1,0 @@
-The Groovy extensions are not supported which means that the extensions defined in the Camel project are ignored, more details in https://github.com/apache/camel-quarkus/issues/4384[Groovy DSL - Add support of Groovy extensions issue #4384].
