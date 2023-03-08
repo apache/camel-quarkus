@@ -44,6 +44,12 @@ public class GroovyDslResource {
     @Inject
     ProducerTemplate producerTemplate;
 
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String ready() {
+        return "OK";
+    }
+
     @Path("/main/groovyRoutesBuilderLoader")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
