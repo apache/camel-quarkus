@@ -16,68 +16,134 @@
  */
 package org.apache.camel.quarkus.dsl.groovy.runtime.graal;
 
-import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MutableCallSite;
-import java.lang.reflect.Constructor;
+import java.util.function.BiFunction;
 
-import com.oracle.svm.core.annotate.Delete;
+import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
-import org.codehaus.groovy.control.ParserPluginFactory;
+import org.codehaus.groovy.control.SourceUnit;
+import org.codehaus.groovy.runtime.memoize.MemoizeCache;
+import org.codehaus.groovy.vmplugin.v8.CacheableCallSite;
+import org.codehaus.groovy.vmplugin.v8.IndyInterface;
 
 final class GroovySubstitutions {
 }
 
-@TargetClass(className = "org.codehaus.groovy.vmplugin.v8.IndyInterface")
+@TargetClass(className = "org.codehaus.groovy.vmplugin.v8.MethodHandleWrapper")
+final class SubstituteMethodHandleWrapper {
+
+    @Alias
+    public boolean isCanSetTarget() {
+        return false;
+    }
+
+    @Alias
+    public MethodHandle getCachedMethodHandle() {
+        return null;
+    }
+}
+
+@TargetClass(className = "org.codehaus.groovy.vmplugin.v8.IndyInterface$FallbackSupplier")
+final class SubstituteIndyFallbackSupplier {
+
+    @Alias
+    SubstituteIndyFallbackSupplier(MutableCallSite callSite, Class<?> sender, String methodName, int callID,
+            Boolean safeNavigation, Boolean thisCall, Boolean spreadCall, Object dummyReceiver, Object[] arguments) {
+
+    }
+
+    @Alias
+    SubstituteMethodHandleWrapper get() {
+        return null;
+    }
+}
+
+@TargetClass(CacheableCallSite.class)
+final class SubstituteCacheableCallSite {
+
+    @Alias
+    public SubstituteMethodHandleWrapper getAndPut(String className,
+            MemoizeCache.ValueProvider<? super String, ? extends SubstituteMethodHandleWrapper> valueProvider) {
+        return null;
+    }
+}
+
+@TargetClass(IndyInterface.class)
 final class SubstituteIndyInterface {
+
+    @Alias
+    private static SubstituteMethodHandleWrapper NULL_METHOD_HANDLE_WRAPPER;
 
     @Substitute
     protected static void invalidateSwitchPoints() {
         throw new UnsupportedOperationException("invalidateSwitchPoints is not supported");
     }
 
+    @Alias
+    private static boolean bypassCache(Boolean spreadCall, Object[] arguments) {
+        return false;
+    }
+
+    @Alias
+    private static <T> T doWithCallSite(MutableCallSite callSite, Object[] arguments,
+            BiFunction<? super SubstituteCacheableCallSite, ? super Object, ? extends T> f) {
+        return null;
+    }
+
+    @Substitute
+    public static Object selectMethod(MutableCallSite callSite, Class<?> sender, String methodName, int callID,
+            Boolean safeNavigation, Boolean thisCall, Boolean spreadCall, Object dummyReceiver, Object[] arguments)
+            throws Throwable {
+        throw new UnsupportedOperationException("selectMethod is not supported");
+    }
+
     @Substitute
     public static Object fromCache(MutableCallSite callSite, Class<?> sender, String methodName, int callID,
-            Boolean safeNavigation, Boolean thisCall, Boolean spreadCall, Object dummyReceiver, Object[] arguments) {
-        throw new UnsupportedOperationException("fromCache is not supported");
+            Boolean safeNavigation, Boolean thisCall, Boolean spreadCall, Object dummyReceiver, Object[] arguments)
+            throws Throwable {
+        SubstituteIndyFallbackSupplier fallbackSupplier = new SubstituteIndyFallbackSupplier(callSite, sender, methodName,
+                callID, safeNavigation, thisCall, spreadCall, dummyReceiver, arguments);
+
+        SubstituteMethodHandleWrapper mhw = bypassCache(spreadCall, arguments)
+                ? NULL_METHOD_HANDLE_WRAPPER
+                : doWithCallSite(
+                        callSite, arguments,
+                        new FromCacheBiFunction(fallbackSupplier));
+
+        if (NULL_METHOD_HANDLE_WRAPPER == mhw) {
+            mhw = fallbackSupplier.get();
+        }
+
+        return mhw.getCachedMethodHandle().invokeExact(arguments);
+    }
+
+    static class FromCacheBiFunction implements BiFunction<SubstituteCacheableCallSite, Object, SubstituteMethodHandleWrapper> {
+
+        private final SubstituteIndyFallbackSupplier fallbackSupplier;
+
+        FromCacheBiFunction(SubstituteIndyFallbackSupplier fallbackSupplier) {
+            this.fallbackSupplier = fallbackSupplier;
+        }
+
+        @Override
+        public SubstituteMethodHandleWrapper apply(SubstituteCacheableCallSite cs, Object receiver) {
+            return cs.getAndPut(
+                    receiver.getClass().getName(),
+                    c -> {
+                        SubstituteMethodHandleWrapper fbMhw = fallbackSupplier.get();
+                        return fbMhw.isCanSetTarget() ? fbMhw : NULL_METHOD_HANDLE_WRAPPER;
+                    });
+        }
     }
 }
 
-@TargetClass(className = "org.codehaus.groovy.control.SourceUnit")
+@TargetClass(SourceUnit.class)
 final class SubstituteSourceUnit {
 
     @Substitute
     public void convert() {
         throw new UnsupportedOperationException("convert is not supported");
-    }
-}
-
-@TargetClass(className = "org.codehaus.groovy.vmplugin.v8.Java8")
-final class SubstituteJava8 {
-
-    @Substitute
-    private static Constructor<MethodHandles.Lookup> getLookupConstructor() {
-        throw new UnsupportedOperationException("getLookupConstructor is not supported");
-    }
-}
-
-@TargetClass(className = "org.codehaus.groovy.antlr.AntlrParserPlugin")
-@Delete
-final class SubstituteAntlrParserPlugin {
-
-}
-
-@TargetClass(className = "org.codehaus.groovy.antlr.AntlrParserPluginFactory")
-@Delete
-final class SubstituteAntlrParserPluginFactory {
-
-}
-
-@TargetClass(className = "org.codehaus.groovy.control.ParserPluginFactory")
-final class SubstituteParserPluginFactory {
-
-    @Substitute
-    public static ParserPluginFactory antlr2() {
-        throw new UnsupportedOperationException("antlr2 is not supported");
     }
 }
