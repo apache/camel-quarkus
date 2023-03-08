@@ -26,7 +26,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.quarkus.runtime.Quarkus;
 import org.apache.camel.CamelContext;
-import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.main.MainCommandLineSupport;
 import org.apache.camel.main.MainConfigurationProperties;
@@ -61,7 +60,7 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
             configurer.setRoutesCollector(routesCollector);
         }
 
-        configurer.setBeanPostProcessor(camelContext.adapt(ExtendedCamelContext.class).getBeanPostProcessor());
+        configurer.setBeanPostProcessor(camelContext.getCamelContextExtension().getBeanPostProcessor());
         configurer.setRoutesBuilders(mainConfigurationProperties.getRoutesBuilders());
         configurer.setRoutesExcludePattern(mainConfigurationProperties.getRoutesExcludePattern());
         configurer.setRoutesIncludePattern(mainConfigurationProperties.getRoutesIncludePattern());

@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.jfr;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
-import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.spi.CamelContextCustomizer;
 import org.apache.camel.startup.jfr.FlightRecorderStartupStepRecorder;
 
@@ -52,7 +51,7 @@ public class CamelJfrRecorder {
                     flightRecorder.setRecordingDir(config.startupRecorderDir.get());
                 }
 
-                camelContext.getExtension(ExtendedCamelContext.class).setStartupStepRecorder(flightRecorder);
+                camelContext.getCamelContextExtension().setStartupStepRecorder(flightRecorder);
                 flightRecorder.setEnabled(true);
                 flightRecorder.start();
             }

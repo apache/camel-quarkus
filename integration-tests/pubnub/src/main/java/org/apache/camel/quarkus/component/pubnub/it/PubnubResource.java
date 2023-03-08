@@ -24,6 +24,8 @@ import java.util.Optional;
 
 import com.pubnub.api.PNConfiguration;
 import com.pubnub.api.PubNub;
+import com.pubnub.api.PubNubException;
+import com.pubnub.api.UserId;
 import com.pubnub.api.enums.PNReconnectionPolicy;
 import com.pubnub.api.models.consumer.history.PNHistoryItemResult;
 import com.pubnub.api.models.consumer.presence.PNGetStateResult;
@@ -157,8 +159,8 @@ public class PubnubResource {
     @jakarta.enterprise.inject.Produces
     @Singleton
     @Named
-    public PubNub pubNub() {
-        PNConfiguration configuration = new PNConfiguration();
+    public PubNub pubNub() throws PubNubException {
+        PNConfiguration configuration = new PNConfiguration(new UserId("camel-quarkus-integration-tests"));
         configuration.setPublishKey(publishKey);
         configuration.setSubscribeKey(subscribeKey);
         configuration.setSecretKey(secretKey);

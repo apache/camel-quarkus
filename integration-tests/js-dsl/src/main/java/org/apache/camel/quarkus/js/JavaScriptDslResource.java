@@ -48,7 +48,7 @@ public class JavaScriptDslResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String jsRoutesBuilder() {
-        final ExtendedCamelContext camelContext = main.getCamelContext().adapt(ExtendedCamelContext.class);
+        final ExtendedCamelContext camelContext = main.getCamelContext().getCamelContextExtension();
         return camelContext.getBootstrapFactoryFinder(RoutesBuilderLoader.FACTORY_PATH)
                 .findClass(JavaScriptRoutesBuilderLoader.EXTENSION).get().getName();
     }

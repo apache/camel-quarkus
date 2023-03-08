@@ -24,7 +24,6 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
-import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.spi.ComponentNameResolver;
 
 @Path("/component-name-resolver")
@@ -37,7 +36,7 @@ public class ComponentNameResolverResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String configuredComponentNameResolverClass() {
-        ComponentNameResolver resolver = context.getExtension(ExtendedCamelContext.class).getComponentNameResolver();
+        ComponentNameResolver resolver = context.getCamelContextExtension().getComponentNameResolver();
         return resolver.getClass().getName();
     }
 
@@ -45,7 +44,7 @@ public class ComponentNameResolverResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String fastResolveComponentNames() {
-        ComponentNameResolver resolver = context.getExtension(ExtendedCamelContext.class).getComponentNameResolver();
+        ComponentNameResolver resolver = context.getCamelContextExtension().getComponentNameResolver();
         return resolver.resolveNames(context)
                 .stream()
                 .collect(Collectors.joining(","));

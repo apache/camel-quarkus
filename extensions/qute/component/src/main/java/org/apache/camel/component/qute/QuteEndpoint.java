@@ -31,6 +31,7 @@ import io.quarkus.qute.TemplateException;
 import io.quarkus.qute.TemplateInstance;
 import io.quarkus.qute.TemplateLocator.TemplateLocation;
 import io.quarkus.qute.Variant;
+import org.apache.camel.Category;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.ResourceEndpoint;
 import org.apache.camel.spi.UriEndpoint;
@@ -41,7 +42,7 @@ import org.apache.camel.util.ObjectHelper;
 /**
  * Transforms the message using a Quarkus Qute template.
  */
-@UriEndpoint(firstVersion = "3.2.0", scheme = "qute", title = "Qute", syntax = "qute:resourceUri", producerOnly = true, label = "transformation")
+@UriEndpoint(firstVersion = "3.2.0", scheme = "qute", title = "Qute", syntax = "qute:resourceUri", producerOnly = true, category = Category.TRANSFORMATION)
 public class QuteEndpoint extends ResourceEndpoint {
     private Engine quteEngine;
 

@@ -26,7 +26,6 @@ import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.kubernetes.cluster.KubernetesClusterService;
 import org.apache.camel.component.kubernetes.cluster.LeaseResourceType;
-import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -79,11 +78,10 @@ public class KubernetesClusterServiceConfigEnabledWithoutDefaultsTest {
 
     @Test
     public void enabledConfigWithoutDefaultsShouldAutoConfigure() {
-
-        DefaultCamelContext dcc = camelContext.adapt(DefaultCamelContext.class);
-        assertNotNull(dcc);
-
-        KubernetesClusterService[] kcss = dcc.getServices().stream().filter(s -> s instanceof KubernetesClusterService)
+        KubernetesClusterService[] kcss = camelContext.getCamelContextExtension()
+                .getServices()
+                .stream()
+                .filter(s -> s instanceof KubernetesClusterService)
                 .toArray(KubernetesClusterService[]::new);
         assertEquals(1, kcss.length);
 

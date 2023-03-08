@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.support.language.deployment.dm;
 import java.util.Collection;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.main.MainSupport;
@@ -49,9 +50,11 @@ public class DryModeMain extends MainSupport {
     protected CamelContext createCamelContext() {
         DefaultCamelContext ctx = new DefaultCamelContext(false);
         ctx.setName(getAppName());
-        ctx.setLanguageResolver(languageResolver);
-        ctx.setComponentResolver(new DryModeComponentResolver());
         ctx.setInjector(new DryModeInjector(ctx.getInjector()));
+
+        ExtendedCamelContext extendedCamelContext = ctx.getCamelContextExtension();
+        extendedCamelContext.setLanguageResolver(languageResolver);
+        extendedCamelContext.setComponentResolver(new DryModeComponentResolver());
         return ctx;
     }
 

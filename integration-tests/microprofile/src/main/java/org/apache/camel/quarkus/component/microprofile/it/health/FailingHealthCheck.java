@@ -32,4 +32,9 @@ public class FailingHealthCheck extends AbstractHealthCheck {
     protected void doCall(HealthCheckResultBuilder builder, Map<String, Object> options) {
         builder.down();
     }
+
+    @Override
+    public boolean isLiveness() {
+        return true;
+    }
 }

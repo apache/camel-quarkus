@@ -21,7 +21,6 @@ import java.util.function.Supplier;
 
 import io.quarkus.arc.Arc;
 import jakarta.enterprise.inject.spi.BeanManager;
-import org.apache.camel.CamelContext;
 import org.apache.camel.main.BaseMainSupport;
 import org.apache.camel.main.MainListener;
 import org.apache.camel.main.MainSupport;
@@ -66,11 +65,6 @@ public class CamelMainEventBridge implements MainListener {
         if (observedMainEvents.contains(AfterConfigure.class.getName())) {
             fireEvent(new AfterConfigure(main));
         }
-    }
-
-    @Override
-    public void configure(CamelContext context) {
-        // deprecated, replaced by afterConfigure()
     }
 
     @Override

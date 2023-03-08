@@ -21,7 +21,6 @@ import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.dsl.yaml.YamlRoutesBuilderLoader;
-import org.apache.camel.dsl.yaml.common.YamlDeserializationMode;
 import org.hamcrest.Matcher;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -50,8 +49,6 @@ public class CoreMainYamlTest {
                 .isEmpty();
         assertThat(p.getList("routes", String.class))
                 .contains("my-yaml-route", "rest-route");
-        assertThat(p.getMap("global-options", String.class, String.class))
-                .containsEntry(YamlRoutesBuilderLoader.DESERIALIZATION_MODE, YamlDeserializationMode.FLOW.name());
     }
 
     @Test

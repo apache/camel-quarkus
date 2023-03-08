@@ -20,7 +20,6 @@ import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import io.vertx.core.Vertx;
 import org.apache.camel.CamelContext;
-import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
 import org.apache.camel.spi.CamelContextCustomizer;
 
@@ -33,7 +32,7 @@ public class ReactiveExecutorRecorder {
                 VertXReactiveExecutor executor = new VertXReactiveExecutor();
                 executor.setVertx(vertx.getValue());
 
-                context.adapt(ExtendedCamelContext.class).setReactiveExecutor(executor);
+                context.getCamelContextExtension().setReactiveExecutor(executor);
             }
         });
     }

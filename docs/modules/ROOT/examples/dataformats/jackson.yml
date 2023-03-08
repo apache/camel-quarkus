@@ -9,5 +9,5 @@ cqJvmSince: 0.3.0
 cqNativeSince: 0.3.0
 cqCamelPartName: jackson
 cqCamelPartTitle: JSON Jackson
-cqCamelPartDescription: Marshal POJOs to JSON and back using Jackson
+cqCamelPartDescription: Marshal POJOs to JSON and back using Jackson.
 cqExtensionPageTitle: Jackson

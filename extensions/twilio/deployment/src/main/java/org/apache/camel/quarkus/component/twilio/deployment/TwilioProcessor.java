@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.component.twilio.deployment;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Stream;
 
 import com.twilio.base.Creator;
@@ -32,11 +30,9 @@ import io.quarkus.deployment.builditem.AdditionalApplicationArchiveMarkerBuildIt
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
-import org.joda.time.DateTimeZone;
 
 class TwilioProcessor {
 
@@ -78,18 +74,5 @@ class TwilioProcessor {
                 .toArray(String[]::new);
 
         reflectiveClass.produce(new ReflectiveClassBuildItem(false, false, endpointImplementors));
-    }
-
-    @BuildStep
-    NativeImageResourceBuildItem nativeImageResources() {
-        // Add Joda timezone resources into the native image as it is required by com.twilio.converter.DateConverter
-        List<String> timezones = new ArrayList<>();
-        for (String timezone : DateTimeZone.getAvailableIDs()) {
-            String[] zoneParts = timezone.split("/");
-            if (zoneParts.length == 2) {
-                timezones.add(String.format("org/joda/time/tz/data/%s/%s", zoneParts[0], zoneParts[1]));
-            }
-        }
-        return new NativeImageResourceBuildItem(timezones);
     }
 }

@@ -40,7 +40,7 @@ public class CoreMainXmlJaxbResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject describeMain() {
-        final ExtendedCamelContext camelContext = main.getCamelContext().adapt(ExtendedCamelContext.class);
+        final ExtendedCamelContext camelContext = main.getCamelContext().getCamelContextExtension();
 
         JsonArrayBuilder listeners = Json.createArrayBuilder();
         main.getMainListeners().forEach(listener -> listeners.add(listener.getClass().getName()));

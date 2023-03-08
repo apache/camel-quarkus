@@ -24,7 +24,6 @@ import java.util.Properties;
 import io.quarkus.test.QuarkusUnitTest;
 import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
-import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.cluster.RebalancingCamelClusterService;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -34,7 +33,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class KubernetesClusterServiceConfigEnabledWithRebalancingtTest {
     @RegisterExtension
@@ -62,11 +60,9 @@ public class KubernetesClusterServiceConfigEnabledWithRebalancingtTest {
 
     @Test
     public void enabledConfigWithRebalancingShouldAutoConfigure() {
-
-        DefaultCamelContext dcc = camelContext.adapt(DefaultCamelContext.class);
-        assertNotNull(dcc);
-
-        RebalancingCamelClusterService[] rcss = dcc.getServices().stream()
+        RebalancingCamelClusterService[] rcss = camelContext.getCamelContextExtension()
+                .getServices()
+                .stream()
                 .filter(s -> s instanceof RebalancingCamelClusterService)
                 .toArray(RebalancingCamelClusterService[]::new);
         assertEquals(1, rcss.length);

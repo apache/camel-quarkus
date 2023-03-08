@@ -27,7 +27,7 @@ public class CoreThreadPoolsTest {
 
     @Test
     public void testDefaultThreadPoolConfiguredByProperties() {
-        get("/core/thread-pools/default").then().body(is("default|true|5|10|20|DiscardOldest"));
+        get("/core/thread-pools/default").then().body(is("default|true|5|10|20|CallerRuns"));
     }
 
     @Test

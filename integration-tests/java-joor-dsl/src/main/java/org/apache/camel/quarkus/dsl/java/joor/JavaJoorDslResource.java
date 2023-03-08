@@ -46,7 +46,7 @@ public class JavaJoorDslResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String javaRoutesBuilder() {
-        final ExtendedCamelContext camelContext = main.getCamelContext().adapt(ExtendedCamelContext.class);
+        final ExtendedCamelContext camelContext = main.getCamelContext().getCamelContextExtension();
         return camelContext.getBootstrapFactoryFinder(RoutesBuilderLoader.FACTORY_PATH)
                 .findClass(JavaRoutesBuilderLoader.EXTENSION).get().getName();
     }

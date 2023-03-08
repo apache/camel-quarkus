@@ -53,7 +53,7 @@ class KameletProcessor {
         return new KameletResolverBuildItem(new KameletResolver() {
             @Override
             public Optional<Resource> resolve(String id, CamelContext context) throws Exception {
-                ExtendedCamelContext ecc = context.adapt(ExtendedCamelContext.class);
+                ExtendedCamelContext ecc = context.getCamelContextExtension();
                 return Optional.ofNullable(
                         ecc.getResourceLoader().resolveResource("/kamelets/" + id + ".kamelet.yaml"));
             }
@@ -74,11 +74,11 @@ class KameletProcessor {
                 .collect(Collectors.toList());
 
         CamelContext context = new DefaultCamelContext();
-        ExtendedCamelContext ecc = context.adapt(ExtendedCamelContext.class);
+        ExtendedCamelContext ecc = context.getCamelContextExtension();
 
         for (String id : configuration.identifiers.orElse(Collections.emptyList())) {
             for (KameletResolver resolver : kameletResolvers) {
-                final Optional<Resource> resource = resolver.resolve(id, ecc);
+                final Optional<Resource> resource = resolver.resolve(id, context);
                 if (!resource.isPresent()) {
                     continue;
                 }

@@ -29,7 +29,6 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
-import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.ProducerTemplate;
 
 @Path("/rest")
@@ -54,7 +53,7 @@ public class RestResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public boolean lightweight() {
-        return camelContext.adapt(ExtendedCamelContext.class).isLightweight();
+        return camelContext.getCamelContextExtension().isLightweight();
     }
 
     @Path("/invoke/route")

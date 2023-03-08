@@ -336,7 +336,7 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
         if (isUseAdviceWith() || isUseDebugger()) {
             ((FastCamelContext) context).resume();
             if (isUseDebugger()) {
-                ModelCamelContext mcc = context.adapt(ModelCamelContext.class);
+                ModelCamelContext mcc = (ModelCamelContext) context;
                 List<RouteDefinition> rdfs = mcc.getRouteDefinitions();
                 //if context was suspended routes was not added, because it would trigger start of the context
                 // routes have to be added now
@@ -389,12 +389,13 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
      * Helper method to start routeDefinitions (to be used with `adviceWith`).
      */
     protected void startRouteDefinitions() throws Exception {
-        List<RouteDefinition> definitions = new ArrayList<>(context.adapt(ModelCamelContext.class).getRouteDefinitions());
+        ModelCamelContext modelCamelContext = (ModelCamelContext) context;
+        List<RouteDefinition> definitions = new ArrayList<>(modelCamelContext.getRouteDefinitions());
         for (Route r : context.getRoutes()) {
             //existing route does not need to be started
             definitions.remove(r.getRoute());
         }
-        context.adapt(ModelCamelContext.class).startRouteDefinitions(definitions);
+        modelCamelContext.startRouteDefinitions(definitions);
     }
 
 }

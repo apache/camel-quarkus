@@ -25,7 +25,6 @@ import io.quarkus.test.QuarkusUnitTest;
 import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.file.cluster.FileLockClusterService;
-import org.apache.camel.impl.DefaultCamelContext;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -34,7 +33,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class FileLockClusterServiceConfigDefaultTest {
 
@@ -62,11 +60,10 @@ public class FileLockClusterServiceConfigDefaultTest {
 
     @Test
     public void defaultConfigShouldNotAutoConfigure() {
-
-        DefaultCamelContext dcc = camelContext.adapt(DefaultCamelContext.class);
-        assertNotNull(dcc);
-
-        FileLockClusterService[] flcs = dcc.getServices().stream().filter(s -> s instanceof FileLockClusterService)
+        FileLockClusterService[] flcs = camelContext.getCamelContextExtension()
+                .getServices()
+                .stream()
+                .filter(s -> s instanceof FileLockClusterService)
                 .toArray(FileLockClusterService[]::new);
         assertEquals(0, flcs.length);
     }

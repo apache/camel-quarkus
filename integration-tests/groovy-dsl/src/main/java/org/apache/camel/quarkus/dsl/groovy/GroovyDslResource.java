@@ -48,7 +48,7 @@ public class GroovyDslResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String groovyRoutesBuilder() {
-        final ExtendedCamelContext camelContext = main.getCamelContext().adapt(ExtendedCamelContext.class);
+        final ExtendedCamelContext camelContext = main.getCamelContext().getCamelContextExtension();
         return camelContext.getBootstrapFactoryFinder(RoutesBuilderLoader.FACTORY_PATH)
                 .findClass(GroovyRoutesBuilderLoader.EXTENSION).get().getName();
     }

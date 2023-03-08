@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.it.support.mainlistener;
 
-import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.main.BaseMainSupport;
 import org.apache.camel.main.MainListener;
@@ -40,10 +39,6 @@ public class CustomMainListener implements MainListener {
 
     @Override
     public void afterConfigure(BaseMainSupport main) {
-    }
-
-    @Override
-    public void configure(CamelContext context) {
     }
 
     @Override
