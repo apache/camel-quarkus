@@ -54,6 +54,7 @@
 - Provide a Github action for generating SBOM [\#4481](https://github.com/apache/camel-quarkus/issues/4481)
 - Upgrade to Quarkiverse CXF 2.0.0 [\#4478](https://github.com/apache/camel-quarkus/issues/4478)
 - io.quarkus:quarkus-bom's entries should exclude banned artifacts [\#4475](https://github.com/apache/camel-quarkus/issues/4475)
+- smallrye-reactive-messaging-camel missing in smallrye-reactive-messaging 4.x [\#4464](https://github.com/apache/camel-quarkus/issues/4464)
 - Provide SBOM for Camel-Quarkus project [\#4459](https://github.com/apache/camel-quarkus/issues/4459)
 - camel-quarkus-activemq can not set jms some properties in native mode [\#4454](https://github.com/apache/camel-quarkus/issues/4454)
 - Allow to disable build time compilation of jOOR expressions [\#4452](https://github.com/apache/camel-quarkus/issues/4452)
@@ -81,6 +82,7 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 3.0.0.Alpha5 [\#4627](https://github.com/apache/camel-quarkus/pull/4627) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#4623](https://github.com/apache/camel-quarkus/pull/4623) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump to CycloneDX Maven Plugin 2.7.5 [\#4618](https://github.com/apache/camel-quarkus/pull/4618) ([oscerd](https://github.com/oscerd))
 - Aws2-cw: remove  io.quarkus:quarkus-jaxp from aws2-cw \#4614 [\#4615](https://github.com/apache/camel-quarkus/pull/4615) ([JiriOndrusek](https://github.com/JiriOndrusek))
