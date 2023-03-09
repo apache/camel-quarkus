@@ -47,12 +47,15 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-freemarker</artifactId>
+            <!-- TODO: https://github.com/apache/camel-quarkus/issues/4634
+            We prefer the version pulled via quarkus-freemarker
             <exclusions>
-                <exclusion><!-- We prefer the version pulled via quarkus-freemarker -->
+                <exclusion>
                     <groupId>org.freemarker</groupId>
                     <artifactId>freemarker</artifactId>
                 </exclusion>
             </exclusions>
+            -->
         </dependency>
     </dependencies>
 

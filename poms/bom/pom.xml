@@ -6054,10 +6054,17 @@
                 <artifactId>reactor-netty</artifactId>
                 <version>${reactor-netty.version}</version>
             </dependency>
+            <!-- TODO: https://github.com/apache/camel-quarkus/issues/4634 -->
             <dependency>
                 <groupId>io.quarkiverse.freemarker</groupId>
                 <artifactId>quarkus-freemarker</artifactId>
                 <version>${quarkiverse-freemarker.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.freemarker</groupId>
+                        <artifactId>freemarker</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>io.quarkiverse.freemarker</groupId>
