@@ -4891,16 +4891,6 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-smallrye-reactive-messaging</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-smallrye-reactive-messaging-deployment</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-smpp</artifactId>
         <version>3.0.0-SNAPSHOT</version>
       </dependency>
@@ -6058,11 +6048,6 @@
         <groupId>io.netty.incubator</groupId>
         <artifactId>netty-incubator-transport-classes-io_uring</artifactId>
         <version>0.0.16.Final</version>
-      </dependency>
-      <dependency>
-        <groupId>io.smallrye.reactive</groupId>
-        <artifactId>smallrye-reactive-messaging-camel</artifactId>
-        <version>4.4.0</version>
       </dependency>
       <dependency>
         <groupId>jakarta.jms</groupId>

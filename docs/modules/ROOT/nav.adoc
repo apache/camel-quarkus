@@ -262,7 +262,6 @@
 *** xref:reference/extensions/sjms2.adoc[Simple JMS2]
 *** xref:reference/extensions/huaweicloud-smn.adoc[SimpleNotification]
 *** xref:reference/extensions/slack.adoc[Slack]
-*** xref:reference/extensions/smallrye-reactive-messaging.adoc[SmallRye Reactive Messaging]
 *** xref:reference/extensions/snakeyaml.adoc[SnakeYAML]
 *** xref:reference/extensions/solr.adoc[Solr]
 *** xref:reference/extensions/splunk.adoc[Splunk]

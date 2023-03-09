@@ -23,6 +23,7 @@ import java.util.concurrent.CompletionStage;
 
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.file.GenericFile;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
