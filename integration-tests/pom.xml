@@ -79,7 +79,7 @@
         <module>crypto</module>
         <module>csimple</module>
         <module>csv</module>
-        <!--<module>cxf-soap-grouped</module> https://github.com/apache/camel-quarkus/issues/4603 -->
+        <module>cxf-soap-grouped</module>
         <module>dataformat</module>
         <module>dataformats-json-grouped</module>
         <!--<module>datasonnet</module>-->
