@@ -27,7 +27,7 @@ public class JmsArtemisXAEnabled implements QuarkusTestProfile {
     public Map<String, String> getConfigOverrides() {
         Map<String, String> props = new HashMap<>();
         props.put("quarkus.pooled-jms.pooling.enabled", "true");
-        props.put("quarkus.pooled-jms.xa.enabled", "true");
+        props.put("quarkus.pooled-jms.transaction", "xa");
         props.put("quarkus.transaction-manager.enable-recovery", "true");
         props.put("quarkus.pooled-jms.max-connections", "8");
         return props;
