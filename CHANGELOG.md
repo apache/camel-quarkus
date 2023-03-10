@@ -14,6 +14,7 @@
 
 **Closed issues:**
 
+- AtlasMap - NullPointerException in native mode [\#4633](https://github.com/apache/camel-quarkus/issues/4633)
 - Bump to CycloneDX Maven Plugin 2.7.5 [\#4617](https://github.com/apache/camel-quarkus/issues/4617)
 - Aws2-cw: dependency io.quarkus:quarkus-jaxp is not needed for the native run [\#4614](https://github.com/apache/camel-quarkus/issues/4614)
 - `cq-maven-plugin` `ClassNotFoundException` on `sort-poms` execution [\#4606](https://github.com/apache/camel-quarkus/issues/4606)
@@ -82,6 +83,7 @@
 
 **Merged pull requests:**
 
+- Bump quarkus-artemis to 3.0.0.Alpha7 and quarkus-pooled-jms to 2.0.0.CR2 [\#4636](https://github.com/apache/camel-quarkus/pull/4636) ([zhfeng](https://github.com/zhfeng))
 - Upgrade Quarkus to 3.0.0.Alpha5 [\#4627](https://github.com/apache/camel-quarkus/pull/4627) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#4623](https://github.com/apache/camel-quarkus/pull/4623) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump to CycloneDX Maven Plugin 2.7.5 [\#4618](https://github.com/apache/camel-quarkus/pull/4618) ([oscerd](https://github.com/oscerd))
