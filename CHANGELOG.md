@@ -14,7 +14,6 @@
 
 **Closed issues:**
 
-- AtlasMap - NullPointerException in native mode [\#4633](https://github.com/apache/camel-quarkus/issues/4633)
 - Bump to CycloneDX Maven Plugin 2.7.5 [\#4617](https://github.com/apache/camel-quarkus/issues/4617)
 - Aws2-cw: dependency io.quarkus:quarkus-jaxp is not needed for the native run [\#4614](https://github.com/apache/camel-quarkus/issues/4614)
 - `cq-maven-plugin` `ClassNotFoundException` on `sort-poms` execution [\#4606](https://github.com/apache/camel-quarkus/issues/4606)
