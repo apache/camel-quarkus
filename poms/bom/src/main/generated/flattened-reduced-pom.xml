@@ -6522,206 +6522,144 @@
         <version>4.0.0</version>
       </dependency>
       <dependency>
+        <groupId>org.apache.cxf.xjcplugins</groupId>
+        <artifactId>cxf-xjc-boolean</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf.xjcplugins</groupId>
+        <artifactId>cxf-xjc-dv</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf.xjcplugins</groupId>
+        <artifactId>cxf-xjc-javadoc</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf.xjcplugins</groupId>
+        <artifactId>cxf-xjc-pl</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf.xjcplugins</groupId>
+        <artifactId>cxf-xjc-ts</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf.xjcplugins</groupId>
+        <artifactId>cxf-xjc-wsdlextension</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
         <groupId>org.apache.cxf.xjc-utils</groupId>
         <artifactId>cxf-xjc-runtime</artifactId>
         <version>4.0.0</version>
-        <exclusions>
-          <exclusion>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
-          </exclusion>
-        </exclusions>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf</artifactId>
-        <version>2.0.0.Alpha1</version>
-        <exclusions>
-          <exclusion>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
-          </exclusion>
-        </exclusions>
+        <version>2.0.0.Alpha4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-axiom-api-stub</artifactId>
-        <version>2.0.0.Alpha1</version>
+        <version>2.0.0.Alpha4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-deployment</artifactId>
-        <version>2.0.0.Alpha1</version>
-        <exclusions>
-          <exclusion>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
-          </exclusion>
-        </exclusions>
+        <version>2.0.0.Alpha4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-logging</artifactId>
-        <version>2.0.0.Alpha1</version>
-        <exclusions>
-          <exclusion>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
-          </exclusion>
-        </exclusions>
+        <version>2.0.0.Alpha4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-logging-deployment</artifactId>
-        <version>2.0.0.Alpha1</version>
-        <exclusions>
-          <exclusion>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
-          </exclusion>
-        </exclusions>
+        <version>2.0.0.Alpha4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-metrics</artifactId>
-        <version>2.0.0.Alpha1</version>
+        <version>2.0.0.Alpha4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-features-metrics-deployment</artifactId>
-        <version>2.0.0.Alpha1</version>
+        <version>2.0.0.Alpha4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-transports-http-hc5</artifactId>
-        <version>2.0.0.Alpha1</version>
+        <version>2.0.0.Alpha4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-transports-http-hc5-deployment</artifactId>
-        <version>2.0.0.Alpha1</version>
+        <version>2.0.0.Alpha4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-security</artifactId>
-        <version>2.0.0.Alpha1</version>
-        <exclusions>
-          <exclusion>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>jakarta.mail</artifactId>
-          </exclusion>
-        </exclusions>
+        <version>2.0.0.Alpha4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-security-deployment</artifactId>
-        <version>2.0.0.Alpha1</version>
-        <exclusions>
-          <exclusion>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>jakarta.mail</artifactId>
-          </exclusion>
-        </exclusions>
+        <version>2.0.0.Alpha4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-rm</artifactId>
-        <version>2.0.0.Alpha1</version>
-        <exclusions>
-          <exclusion>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>jakarta.mail</artifactId>
-          </exclusion>
-        </exclusions>
+        <version>2.0.0.Alpha4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-rt-ws-rm-deployment</artifactId>
-        <version>2.0.0.Alpha1</version>
-        <exclusions>
-          <exclusion>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>jakarta.mail</artifactId>
-          </exclusion>
-        </exclusions>
+        <version>2.0.0.Alpha4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-saaj</artifactId>
-        <version>2.0.0.Alpha1</version>
-        <exclusions>
-          <exclusion>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
-          </exclusion>
-        </exclusions>
+        <version>2.0.0.Alpha4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-saaj-deployment</artifactId>
-        <version>2.0.0.Alpha1</version>
-        <exclusions>
-          <exclusion>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
-          </exclusion>
-        </exclusions>
+        <version>2.0.0.Alpha4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-services-sts</artifactId>
-        <version>2.0.0.Alpha1</version>
-        <exclusions>
-          <exclusion>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>jakarta.mail</artifactId>
-          </exclusion>
-        </exclusions>
+        <version>2.0.0.Alpha4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-services-sts-deployment</artifactId>
-        <version>2.0.0.Alpha1</version>
-        <exclusions>
-          <exclusion>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>jakarta.mail</artifactId>
-          </exclusion>
-        </exclusions>
+        <version>2.0.0.Alpha4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-woodstox</artifactId>
-        <version>2.0.0.Alpha1</version>
+        <version>2.0.0.Alpha4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.cxf</groupId>
         <artifactId>quarkus-cxf-woodstox-deployment</artifactId>
-        <version>2.0.0.Alpha1</version>
+        <version>2.0.0.Alpha4</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-xjc-plugins</artifactId>
+        <version>2.0.0.Alpha4</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId>
+        <artifactId>quarkus-cxf-xjc-plugins-deployment</artifactId>
+        <version>2.0.0.Alpha4</version>
       </dependency>
       <dependency>
         <groupId>com.sun.xml.messaging.saaj</groupId>
@@ -6748,12 +6686,17 @@
       <dependency>
         <groupId>org.glassfish.jaxb</groupId>
         <artifactId>jaxb-runtime</artifactId>
-        <version>4.0.1</version>
+        <version>4.0.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.glassfish.jaxb</groupId>
+        <artifactId>jaxb-xjc</artifactId>
+        <version>4.0.2</version>
       </dependency>
       <dependency>
         <groupId>org.jvnet.mimepull</groupId>
         <artifactId>mimepull</artifactId>
-        <version>1.9.14</version>
+        <version>1.10.0</version>
       </dependency>
       <dependency>
         <groupId>jakarta.jws</groupId>
@@ -6780,12 +6723,6 @@
         <groupId>jakarta.xml.ws</groupId>
         <artifactId>jakarta.xml.ws-api</artifactId>
         <version>3.0.1</version>
-        <exclusions>
-          <exclusion>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
-          </exclusion>
-        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.santuario</groupId>
@@ -6801,6 +6738,12 @@
         <groupId>io.quarkiverse.xmlsec</groupId>
         <artifactId>quarkus-xmlsec-deployment</artifactId>
         <version>2.0.0.Alpha3</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
@@ -6855,6 +6798,31 @@
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-security</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-tools-common</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-tools-validator</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-tools-wsdlto-core</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-tools-wsdlto-databinding-jaxb</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-tools-wsdlto-frontend-jaxws</artifactId>
         <version>4.0.0</version>
       </dependency>
       <dependency>

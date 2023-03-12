@@ -50,15 +50,23 @@ Files.list(sourceDir)
         mergedFiles.each { relPath, cat ->
             cat.append(p.resolve(relPath))
         }
-        copyResources(p.resolve('src/main/java'), destinationModuleDir.resolve('target/src/main/java'))
-        copyResources(p.resolve('src/test/java'), destinationModuleDir.resolve('target/src/test/java'))
-        copyResources(p.resolve('src/main/resources'), destinationModuleDir.resolve('target/classes'))
-        copyResources(p.resolve('src/test/resources'), destinationModuleDir.resolve('target/test-classes'))
+        copyResources(p.resolve('src/main/java'), destinationModuleDir.resolve('src/main/java'))
+        copyResources(p.resolve('src/test/java'), destinationModuleDir.resolve('src/test/java'))
+        copyResources(p.resolve('src/main/resources'), destinationModuleDir.resolve('src/main/resources'))
+        copyResources(p.resolve('src/test/resources'), destinationModuleDir.resolve('src/test/resources'))
     }
 
+Path gitignorePath = destinationModuleDir.resolve('.gitignore')
+String gitignoreContent = ''
+if (Files.isRegularFile(gitignorePath)) {
+    gitignoreContent = gitignorePath.getText('UTF-8')
+}
+if (!gitignoreContent.startsWith('/src/\n') && !gitignoreContent.contains('\n/src/\n')) {
+    Files.write(gitignorePath, (gitignoreContent + '\n# src/main and src/test are copied from the underlying isolated modules by group-tests.groovy\n/src/\n').getBytes('UTF-8'))
+}
+
 mergedFiles.each { relPath, cat ->
-    String destRelPath = relPath.replace('src/main/resources/', 'target/classes/').replace('src/test/resources/', 'target/test-classes/')
-    Path destPath = destinationModuleDir.resolve(destRelPath)
+    Path destPath = destinationModuleDir.resolve(relPath)
     cat.store(destPath)
 }
 
