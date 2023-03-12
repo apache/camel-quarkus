@@ -166,7 +166,6 @@
                             <execution>
                                 <id>quarkus-build</id>
                                 <goals>
-                                    <goal>generate-code</goal>
                                     <goal>build</goal>
                                 </goals>
                             </execution>
