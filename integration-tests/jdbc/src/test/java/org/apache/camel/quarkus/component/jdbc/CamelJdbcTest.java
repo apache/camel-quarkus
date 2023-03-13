@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.jdbc;
 
+import java.util.List;
+
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
@@ -23,7 +25,10 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 @QuarkusTestResource(H2DatabaseTestResource.class)
@@ -52,5 +57,65 @@ public class CamelJdbcTest {
                 .contentType(ContentType.TEXT).body("select id from camels order by id desc")
                 .post("/test/execute")
                 .then().body(is("[{ID=3}, {ID=2}, {ID=1}]"));
+    }
+
+    @Test
+    void testCamelRetrieveGeneratedKeysHeader() {
+        List generatedIDs = RestAssured.given()
+                .get("test/generated-keys/rows")
+                .then().extract().body()
+                .jsonPath().getList("ID");
+
+        String selectResult = RestAssured.given()
+                .contentType(ContentType.TEXT).body("select id from camelsGenerated")
+                .post("/test/execute")
+                .then().extract().body().asString();
+
+        generatedIDs.forEach(generatedID -> assertTrue(selectResult.contains(generatedID.toString())));
+    }
+
+    @Test
+    void testHeadersFromInsertOrUpdateQuery() {
+        RestAssured.given()
+                .get("test/headers/insert")
+                .then()
+                .body(containsString("CamelGeneratedKeysRowCount=2"))
+                .and()
+                .body(containsString("CamelJdbcUpdateCount=2"))
+                .and()
+                .body(containsString("CamelRetrieveGeneratedKeys=true"))
+                .and()
+                .body(not(containsString("CamelJdbcRowCount")))
+                .and()
+                .body(not(containsString("CamelJdbcColumnNames")))
+                .and()
+                .body(not(containsString("CamelJdbcParameters")))
+                .and()
+                .body(not(containsString("CamelGeneratedColumns")));
+    }
+
+    @Test
+    void testHeadersFromSelectQuery() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("insert into camelsGenerated (species) values ('Camelus status'), ('Camelus linus')")
+                .post("/test/execute");
+
+        RestAssured.given()
+                .get("test/headers/select")
+                .then()
+                .body(not(containsString("CamelGeneratedKeysRowCount")))
+                .and()
+                .body(not(containsString("CamelJdbcUpdateCount")))
+                .and()
+                .body(not(containsString("CamelRetrieveGeneratedKeys")))
+                .and()
+                .body(not(containsString("CamelJdbcParameters")))
+                .and()
+                .body(not(containsString("CamelGeneratedColumns")))
+                .and()
+                .body(containsString("CamelJdbcRowCount=2"))
+                .and()
+                .body(containsString("CamelJdbcColumnNames=[ID, SPECIES]"));
     }
 }

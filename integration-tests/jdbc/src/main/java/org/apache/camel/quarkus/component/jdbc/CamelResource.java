@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.jdbc;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -54,9 +55,11 @@ public class CamelResource {
             try (Statement statement = con.createStatement()) {
                 try {
                     statement.execute("drop table camels");
+                    statement.execute("drop table camelsGenerated");
                 } catch (Exception ignored) {
                 }
                 statement.execute("create table camels (id int primary key, species varchar(255))");
+                statement.execute("create table camelsGenerated (id int primary key auto_increment, species varchar(255))");
                 statement.execute("insert into camels (id, species) values (1, 'Camelus dromedarius')");
                 statement.execute("insert into camels (id, species) values (2, 'Camelus bactrianus')");
                 statement.execute("insert into camels (id, species) values (3, 'Camelus ferus')");
@@ -109,5 +112,30 @@ public class CamelResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String executeStatement(String statement) throws Exception {
         return template.requestBody("jdbc:camel-ds", statement, String.class);
+    }
+
+    @Path("/generated-keys/rows")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List generatedKeysRows() throws Exception {
+        return template.requestBodyAndHeader("direct://get-generated-keys",
+                "insert into camelsGenerated (species) values ('Camelus testus'), ('Camelus legendarius')",
+                "CamelRetrieveGeneratedKeys", "true", ArrayList.class);
+    }
+
+    @Path("/headers/insert")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String headersFromInsertOrUpdate() throws Exception {
+        return template.requestBodyAndHeader("direct://get-headers",
+                "insert into camelsGenerated (species) values ('Camelus status'), ('Camelus linus')",
+                "CamelRetrieveGeneratedKeys", "true", String.class);
+    }
+
+    @Path("/headers/select")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String headersFromSelect() throws Exception {
+        return template.requestBody("direct://get-headers", "select * from camelsGenerated", String.class);
     }
 }
