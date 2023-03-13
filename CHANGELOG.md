@@ -82,6 +82,7 @@
 
 **Merged pull requests:**
 
+- Generated sources regen for SBOM [\#4643](https://github.com/apache/camel-quarkus/pull/4643) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump quarkus-artemis to 3.0.0.Alpha7 and quarkus-pooled-jms to 2.0.0.CR2 [\#4636](https://github.com/apache/camel-quarkus/pull/4636) ([zhfeng](https://github.com/zhfeng))
 - Upgrade Quarkus to 3.0.0.Alpha5 [\#4627](https://github.com/apache/camel-quarkus/pull/4627) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#4623](https://github.com/apache/camel-quarkus/pull/4623) ([github-actions[bot]](https://github.com/apps/github-actions))
