@@ -149,52 +149,54 @@
                 </plugins>
             </build>
         </profile>
-        <profile>
-            <id>native</id>
-            <activation>
-                <property>
-                    <name>native</name>
-                </property>
-            </activation>
-            <properties>
-                <quarkus.package.type>native</quarkus.package.type>
-                <quarkus.runner>${project.build.directory}/${project.artifactId}-${project.version}-runner</quarkus.runner>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <systemProperties>
-                                <quarkus.runner>${quarkus.runner}</quarkus.runner>
-                            </systemProperties>
-                            <environmentVariables>
-                                Fake KubernetesClusterService so it assumes being run from a pod named leader  &gt;
-                                <HOSTNAME>leader</HOSTNAME>
-                            </environmentVariables>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>virtualDependencies</id>
-            <activation>
-                <property>
-                    <name>!noVirtualDependencies</name>
-                </property>
-            </activation>
-            <dependencies>
-                <!-- The following dependencies guarantee that this module is built after them. You can update them by running `mvn process-resources -Pformat -N` from the source tree root directory -->
+         <!-- TODO: https://github.com/apache/camel-quarkus/issues/4651
+         <profile>
+             <id>native</id>
+             <activation>
+                 <property>
+                     <name>native</name>
+                 </property>
+             </activation>
+             <properties>
+                 <quarkus.package.type>native</quarkus.package.type>
+                 <quarkus.runner>${project.build.directory}/${project.artifactId}-${project.version}-runner</quarkus.runner>
+             </properties>
+             <build>
+                 <plugins>
+                     <plugin>
+                         <groupId>org.apache.maven.plugins</groupId>
+                         <artifactId>maven-failsafe-plugin</artifactId>
+                         <executions>
+                             <execution>
+                                 <goals>
+                                     <goal>integration-test</goal>
+                                     <goal>verify</goal>
+                                 </goals>
+                             </execution>
+                         </executions>
+                         <configuration>
+                             <systemProperties>
+                                 <quarkus.runner>${quarkus.runner}</quarkus.runner>
+                             </systemProperties>
+                             <environmentVariables>
+                                 Fake KubernetesClusterService so it assumes being run from a pod named leader  &gt;
+                                 <HOSTNAME>leader</HOSTNAME>
+                             </environmentVariables>
+                         </configuration>
+                     </plugin>
+                 </plugins>
+             </build>
+         </profile>
+         -->
+         <profile>
+             <id>virtualDependencies</id>
+             <activation>
+                 <property>
+                     <name>!noVirtualDependencies</name>
+                 </property>
+             </activation>
+             <dependencies>
+                 <!-- The following dependencies guarantee that this module is built after them. You can update them by running `mvn process-resources -Pformat -N` from the source tree root directory -->
                 <dependency>
                     <groupId>org.apache.camel.quarkus</groupId>
                     <artifactId>camel-quarkus-file-deployment</artifactId>
