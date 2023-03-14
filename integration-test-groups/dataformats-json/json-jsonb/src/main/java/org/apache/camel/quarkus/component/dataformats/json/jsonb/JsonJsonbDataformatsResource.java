@@ -52,7 +52,7 @@ public class JsonJsonbDataformatsResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String testOrder() {
         LOG.infof("Invoking testOrder Jsonb");
-        return consumerTemplate.receive("vm:Jsonb-out").getMessage().getBody().toString();
+        return consumerTemplate.receive("seda:Jsonb-out").getMessage().getBody().toString();
     }
 
     @Path("/in-a")
@@ -78,7 +78,7 @@ public class JsonJsonbDataformatsResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String testPojoA() {
         LOG.infof("Invoking testPojoA Jsonb");
-        return consumerTemplate.receive("vm:Jsonb-out-a").getMessage().getBody().toString();
+        return consumerTemplate.receive("seda:Jsonb-out-a").getMessage().getBody().toString();
     }
 
     @Path("/out-b")
@@ -86,7 +86,7 @@ public class JsonJsonbDataformatsResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String testPojoB() {
         LOG.infof("Invoking testPojoB Jsonb");
-        return consumerTemplate.receive("vm:Jsonb-out-b").getMessage().getBody().toString();
+        return consumerTemplate.receive("seda:Jsonb-out-b").getMessage().getBody().toString();
     }
 
     @Path("/unmarshal/{direct-id}")

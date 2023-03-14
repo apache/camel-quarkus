@@ -281,7 +281,6 @@
 *** xref:reference/extensions/timer.adoc[Timer]
 *** xref:reference/extensions/twilio.adoc[Twilio]
 *** xref:reference/extensions/twitter.adoc[Twitter]
-*** xref:reference/extensions/vm.adoc[VM]
 *** xref:reference/extensions/validator.adoc[Validator]
 *** xref:reference/extensions/velocity.adoc[Velocity]
 *** xref:reference/extensions/vertx.adoc[Vert.x]
