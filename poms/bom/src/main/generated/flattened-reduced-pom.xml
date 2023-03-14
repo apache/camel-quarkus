@@ -541,6 +541,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-cli-connector</artifactId>
+        <version>4.0.0-M2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-cloud</artifactId>
         <version>4.0.0-M2</version>
       </dependency>
@@ -3042,6 +3047,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-chunk-deployment</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-cli-connector</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-cli-connector-deployment</artifactId>
         <version>3.0.0-SNAPSHOT</version>
       </dependency>
       <dependency>

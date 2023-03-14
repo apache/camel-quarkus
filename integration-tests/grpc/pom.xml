@@ -136,7 +136,7 @@
                         <configuration>
                             <source>
                             def buildDir = project.build.directory
-                            new File("${buildDir}/generated-sources").eachFileRecurse { file -&gt;
+                            new File("${buildDir}/generated-sources").eachFileRecurse { file ->
                                 if (file.name.endsWith(".java") &amp;&amp; file.text.contains("javax.annotation.Generated")) {
                                     def modifiedContent = file.text.replace("javax", "jakarta")
                                     file.write(modifiedContent)
