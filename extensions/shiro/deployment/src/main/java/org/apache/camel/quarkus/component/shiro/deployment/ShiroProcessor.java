@@ -95,7 +95,8 @@ class ShiroProcessor {
         reflectiveClasses.add(URL.class.getName());
         reflectiveClasses.add(URL[].class.getName());
 
-        return new ReflectiveClassBuildItem(false, false, reflectiveClasses.toArray(new String[reflectiveClasses.size()]));
+        return ReflectiveClassBuildItem.builder(reflectiveClasses.toArray(new String[reflectiveClasses.size()])).methods(false)
+                .fields(false).build();
     }
 
     @BuildStep

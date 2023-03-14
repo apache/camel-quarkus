@@ -46,13 +46,10 @@ class DisruptorProcessor {
     @BuildStep
     ReflectiveClassBuildItem reflectiveClasses(CombinedIndexBuildItem index) {
         // Note: this should be kept in sink with org.apache.camel.component.disruptor.DisruptorWaitStrategy
-        return new ReflectiveClassBuildItem(
-                true,
-                false,
-                BlockingWaitStrategy.class,
+        return ReflectiveClassBuildItem.builder(BlockingWaitStrategy.class,
                 SleepingWaitStrategy.class,
                 BusySpinWaitStrategy.class,
-                YieldingWaitStrategy.class);
+                YieldingWaitStrategy.class).methods(true).fields(false).build();
     }
 
     @BuildStep

@@ -53,7 +53,7 @@ class PubnubProcessor {
                 .filter(name -> name.startsWith("com.pubnub.api.models"))
                 .toArray(String[]::new);
 
-        return new ReflectiveClassBuildItem(false, true, reflectiveClasses);
+        return ReflectiveClassBuildItem.builder(reflectiveClasses).methods(false).fields(true).build();
     }
 
     @BuildStep

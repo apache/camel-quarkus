@@ -42,7 +42,8 @@ class SqlProcessor {
 
     @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-        reflectiveClass.produce(new ReflectiveClassBuildItem(false, true, Types.class, DefaultExchangeHolder.class));
+        reflectiveClass.produce(
+                ReflectiveClassBuildItem.builder(Types.class, DefaultExchangeHolder.class).methods(false).fields(true).build());
         reflectiveClass.produce(ReflectiveClassBuildItem.serializationClass(LinkedHashMap.class.getName()));
     }
 }

@@ -55,7 +55,7 @@ class AzureStorageQueueProcessor {
                         || n.startsWith("com.azure.storage.queue.models."))
                 .sorted()
                 .toArray(String[]::new);
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, true, modelClasses));
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(modelClasses).methods(false).fields(true).build());
 
     }
 

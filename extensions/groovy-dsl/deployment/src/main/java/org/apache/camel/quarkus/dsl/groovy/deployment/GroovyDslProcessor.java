@@ -110,7 +110,7 @@ public class GroovyDslProcessor {
             String className = clazz.getName();
             generatedClass.produce(new GeneratedClassBuildItem(true, className, clazz.getBytes()));
             if (nameToResource.containsKey(className)) {
-                reflectiveClass.produce(new ReflectiveClassBuildItem(false, false, className));
+                reflectiveClass.produce(ReflectiveClassBuildItem.builder(className).methods(false).fields(false).build());
                 generatedGroovyClass
                         .produce(new DslGeneratedClassBuildItem(className, nameToResource.get(className).getLocation()));
             }

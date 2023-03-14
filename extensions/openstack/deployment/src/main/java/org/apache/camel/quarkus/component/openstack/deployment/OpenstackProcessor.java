@@ -71,18 +71,23 @@ class OpenstackProcessor {
                 .filter(CamelSupport::isConcrete).forEach(ci -> {
                     String className = ci.asClass().name().toString();
                     LOG.debugf("Registered openstack4j model class %s as reflective", className);
-                    reflectiveClasses.produce(new ReflectiveClassBuildItem(true, true, className));
+                    reflectiveClasses.produce(ReflectiveClassBuildItem.builder(className).methods(true).fields(true).build());
                 });
 
         // Some ModelEntity sub-interfaces embed nested interfaces that are not themselves ModelEntity, so registering manually
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(true, true, KeystoneAuth.AuthIdentity.class));
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(true, true, KeystoneAuth.AuthIdentity.AuthPassword.class));
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(true, true, KeystoneAuth.AuthIdentity.AuthToken.class));
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(true, true, KeystoneAuth.AuthScope.class));
+        reflectiveClasses
+                .produce(ReflectiveClassBuildItem.builder(KeystoneAuth.AuthIdentity.class).methods(true).fields(true).build());
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(KeystoneAuth.AuthIdentity.AuthPassword.class).methods(true)
+                .fields(true).build());
+        reflectiveClasses.produce(
+                ReflectiveClassBuildItem.builder(KeystoneAuth.AuthIdentity.AuthToken.class).methods(true).fields(true).build());
+        reflectiveClasses
+                .produce(ReflectiveClassBuildItem.builder(KeystoneAuth.AuthScope.class).methods(true).fields(true).build());
 
         // Register open stack services for reflection
         BuildTimeDefaultAPIProvider prov = new BuildTimeDefaultAPIProvider();
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, prov.getReflectiveClasses()));
+        reflectiveClasses
+                .produce(ReflectiveClassBuildItem.builder(prov.getReflectiveClasses()).methods(false).fields(false).build());
     }
 
     @BuildStep

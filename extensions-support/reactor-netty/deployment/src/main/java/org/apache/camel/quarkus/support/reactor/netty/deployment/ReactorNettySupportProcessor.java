@@ -54,11 +54,11 @@ public class ReactorNettySupportProcessor {
     @BuildStep
     void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
 
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(true, false,
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(
                 "reactor.netty.channel.BootstrapHandlers$BootstrapInitializerHandler",
                 "reactor.netty.channel.ChannelOperationsHandler",
                 "reactor.netty.resources.PooledConnectionProvider$PooledConnectionAllocator$PooledConnectionInitializer",
-                "reactor.netty.tcp.SslProvider$SslReadHandler"));
+                "reactor.netty.tcp.SslProvider$SslReadHandler").methods(true).fields(false).build());
 
     }
 

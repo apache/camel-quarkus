@@ -46,8 +46,8 @@ class As2Processor {
 
     @BuildStep
     ReflectiveClassBuildItem registerAs2ConfigurationForReflection() {
-        return new ReflectiveClassBuildItem(true, true,
-                java.security.AlgorithmParameterGeneratorSpi.class.getCanonicalName());
+        return ReflectiveClassBuildItem.builder(java.security.AlgorithmParameterGeneratorSpi.class.getCanonicalName())
+                .methods(true).fields(true).build();
     }
 
     @BuildStep
@@ -60,7 +60,7 @@ class As2Processor {
                 .sorted()
                 .toArray(String[]::new);
 
-        return new ReflectiveClassBuildItem(false, false, dtos);
+        return ReflectiveClassBuildItem.builder(dtos).methods(false).fields(false).build();
     }
 
     @BuildStep

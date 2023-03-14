@@ -36,7 +36,7 @@ class AvroProcessor {
     @BuildStep
     List<ReflectiveClassBuildItem> reflectiveClasses() {
         List<ReflectiveClassBuildItem> items = new ArrayList<ReflectiveClassBuildItem>();
-        items.add(new ReflectiveClassBuildItem(false, false, GenericContainer.class));
+        items.add(ReflectiveClassBuildItem.builder(GenericContainer.class).methods(false).fields(false).build());
         return items;
     }
 

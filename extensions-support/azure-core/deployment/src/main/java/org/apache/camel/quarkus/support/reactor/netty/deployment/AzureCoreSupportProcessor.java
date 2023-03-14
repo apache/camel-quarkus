@@ -43,15 +43,13 @@ public class AzureCoreSupportProcessor {
 
     @BuildStep
     void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false,
-                com.azure.core.util.DateTimeRfc1123.class,
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(com.azure.core.util.DateTimeRfc1123.class,
                 com.azure.core.http.HttpHeaderName.class,
                 com.azure.core.http.rest.StreamResponse.class,
-                com.azure.core.http.rest.ResponseBase.class));
+                com.azure.core.http.rest.ResponseBase.class).methods(false).fields(false).build());
 
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, true,
-                "com.microsoft.aad.msal4j.AadInstanceDiscoveryResponse",
-                "com.microsoft.aad.msal4j.InstanceDiscoveryMetadataEntry"));
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder("com.microsoft.aad.msal4j.AadInstanceDiscoveryResponse",
+                "com.microsoft.aad.msal4j.InstanceDiscoveryMetadataEntry").methods(false).fields(true).build());
 
     }
 

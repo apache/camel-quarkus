@@ -39,15 +39,14 @@ class BraintreeProcessor {
 
     @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass, CombinedIndexBuildItem combinedIndex) {
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false,
-                "com.braintreegateway.Address",
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder("com.braintreegateway.Address",
                 "com.braintreegateway.BraintreeGateway",
                 "com.braintreegateway.Customer",
                 "com.braintreegateway.DisputeEvidence",
                 "com.braintreegateway.DocumentUpload",
                 "com.braintreegateway.MerchantAccount",
                 "com.braintreegateway.PaymentMethod",
-                "com.braintreegateway.Transaction"));
+                "com.braintreegateway.Transaction").methods(true).fields(false).build());
     }
 
     @BuildStep

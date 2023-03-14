@@ -81,7 +81,7 @@ class XPathProcessor {
     void registerCoreXPathFunctionsAsReflective(BuildProducer<ReflectiveClassBuildItem> producer) {
         for (String coreXPathFunctionClass : CORE_XPATH_FUNCTION_CLASSES) {
             LOG.debugf("Registerering core XPath function class '%s' as reflective", coreXPathFunctionClass);
-            producer.produce(new ReflectiveClassBuildItem(false, false, coreXPathFunctionClass));
+            producer.produce(ReflectiveClassBuildItem.builder(coreXPathFunctionClass).methods(false).fields(false).build());
         }
     }
 }

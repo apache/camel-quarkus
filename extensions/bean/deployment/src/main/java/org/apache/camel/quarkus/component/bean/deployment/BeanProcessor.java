@@ -50,16 +50,19 @@ class BeanProcessor {
             LOGGER.debug("Found language @interface {} annotated with @LanguageAnnotation", languageClassInfo.name());
             if (!view.getAnnotations(languageClassInfo.name()).isEmpty()) {
                 LOGGER.debug("Registered {} as reflective class", languageClassInfo.name());
-                producer.produce(new ReflectiveClassBuildItem(true, false, languageClassInfo.name().toString()));
+                producer.produce(ReflectiveClassBuildItem.builder(languageClassInfo.name().toString()).methods(true)
+                        .fields(false).build());
 
                 AnnotationValue languageAnnotationExpressionFactory = languageAnnotationInstance.value("factory");
                 if (languageAnnotationExpressionFactory == null) {
                     LOGGER.debug("Registered {} as reflective class", DefaultAnnotationExpressionFactory.class.getName());
-                    producer.produce(new ReflectiveClassBuildItem(false, false, DefaultAnnotationExpressionFactory.class));
+                    producer.produce(ReflectiveClassBuildItem.builder(DefaultAnnotationExpressionFactory.class).methods(false)
+                            .fields(false).build());
                 } else {
                     LOGGER.debug("Registered {} as reflective class", languageAnnotationExpressionFactory.asString());
                     producer.produce(
-                            new ReflectiveClassBuildItem(false, false, languageAnnotationExpressionFactory.asString()));
+                            ReflectiveClassBuildItem.builder(languageAnnotationExpressionFactory.asString()).methods(false)
+                                    .fields(false).build());
                 }
             }
         }

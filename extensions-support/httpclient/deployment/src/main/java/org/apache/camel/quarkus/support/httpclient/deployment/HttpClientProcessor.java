@@ -44,7 +44,8 @@ class HttpClientProcessor {
         IndexView view = index.getIndex();
 
         for (ClassInfo info : view.getAllKnownSubclasses(HTTP_REQUEST_BASE_NAME)) {
-            reflectiveClasses.produce(new ReflectiveClassBuildItem(true, false, info.name().toString()));
+            reflectiveClasses
+                    .produce(ReflectiveClassBuildItem.builder(info.name().toString()).methods(true).fields(false).build());
         }
     }
 

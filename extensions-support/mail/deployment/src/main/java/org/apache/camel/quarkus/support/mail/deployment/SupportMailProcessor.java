@@ -85,12 +85,11 @@ class SupportMailProcessor {
                 .map(s -> s.substring("x-java-content-handler=".length()))
                 .collect(Collectors.toList());
 
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, false,
-                Stream.concat(providers.stream(),
-                        Stream.concat(streamProviders.stream(),
-                                Stream.concat(imp1.stream(), Stream.concat(imp2.stream(), imp3.stream()))))
-                        .distinct()
-                        .toArray(String[]::new)));
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(Stream.concat(providers.stream(),
+                Stream.concat(streamProviders.stream(),
+                        Stream.concat(imp1.stream(), Stream.concat(imp2.stream(), imp3.stream()))))
+                .distinct()
+                .toArray(String[]::new)).constructors(true).methods(false).fields(false).build());
 
         resource.produce(new NativeImageResourceBuildItem(
                 "META-INF/services/jakarta.mail.Provider",

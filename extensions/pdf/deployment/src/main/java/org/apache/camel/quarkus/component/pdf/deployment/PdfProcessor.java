@@ -81,6 +81,7 @@ class PdfProcessor {
 
     @BuildStep
     ReflectiveClassBuildItem registerForReflection() {
-        return new ReflectiveClassBuildItem(true, false, false, StandardSecurityHandler.class);
+        return ReflectiveClassBuildItem.builder(StandardSecurityHandler.class).constructors(true).methods(false).fields(false)
+                .build();
     }
 }

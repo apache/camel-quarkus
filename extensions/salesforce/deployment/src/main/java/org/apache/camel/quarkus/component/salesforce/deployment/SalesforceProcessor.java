@@ -63,7 +63,7 @@ class SalesforceProcessor {
                         || className.startsWith(SALESFORCE_INTERNAL_DTO_PACKAGE))
                 .toArray(String[]::new);
 
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, camelSalesforceDtoClasses));
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(camelSalesforceDtoClasses).methods(true).fields(true).build());
 
         // Register user generated DTOs for reflection
         DotName dtoBaseName = DotName.createSimple(AbstractDTOBase.class.getName());
@@ -73,8 +73,8 @@ class SalesforceProcessor {
                 .filter(className -> !className.startsWith("org.apache.camel.component.salesforce"))
                 .toArray(String[]::new);
 
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, userDtoClasses));
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, KeyStoreParameters.class));
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(userDtoClasses).methods(true).fields(true).build());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(KeyStoreParameters.class).methods(true).fields(false).build());
 
         // Ensure package scanning for user DTO classes can work in native mode
         packageScanClass.produce(new CamelPackageScanClassBuildItem(userDtoClasses));

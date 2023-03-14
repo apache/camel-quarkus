@@ -80,9 +80,11 @@ public class FhirR5Processor {
         classes.addAll(getModelClasses(propertiesBuildItem.getProperties()));
         classes.addAll(getInnerClasses(Enumerations.class.getName()));
         reflectiveClass
-                .produce(new ReflectiveClassBuildItem(true, true, true, Meta.class.getName()));
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, true,
-                MetadataResource.class.getName()));
-        reflectiveClass.produce(new ReflectiveClassBuildItem(false, false, classes.toArray(new String[0])));
+                .produce(ReflectiveClassBuildItem.builder(Meta.class.getName()).constructors(true).methods(true).fields(true)
+                        .build());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(MetadataResource.class.getName()).constructors(true)
+                .methods(true).fields(true).build());
+        reflectiveClass
+                .produce(ReflectiveClassBuildItem.builder(classes.toArray(new String[0])).methods(false).fields(false).build());
     }
 }

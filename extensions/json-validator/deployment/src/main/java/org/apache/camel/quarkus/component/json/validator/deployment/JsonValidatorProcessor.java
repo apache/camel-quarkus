@@ -47,6 +47,7 @@ class JsonValidatorProcessor {
     void registerReflectiveClasses(CombinedIndexBuildItem combinedIndex,
             BuildProducer<ReflectiveClassBuildItem> reflectiveProducer) {
         combinedIndex.getIndex().getAllKnownImplementors(VALIDATOR_INTERFACE).stream()
-                .forEach(c -> reflectiveProducer.produce(new ReflectiveClassBuildItem(false, false, c.name().toString())));
+                .forEach(c -> reflectiveProducer
+                        .produce(ReflectiveClassBuildItem.builder(c.name().toString()).methods(false).fields(false).build()));
     }
 }

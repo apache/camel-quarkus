@@ -50,22 +50,23 @@ class SaxonProcessor {
             CombinedIndexBuildItem index) {
 
         // Needed to register default object models when initializing the net.sf.saxon.java.JavaPlatform
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, Document.class));
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, XmlLoader.class));
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(Document.class).methods(false).fields(false).build());
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(XmlLoader.class).methods(false).fields(false).build());
 
         // Register saxon functions as reflective
         Collection<ClassInfo> cis = index.getIndex()
                 .getAllKnownSubclasses(DotName.createSimple(SystemFunction.class.getName()));
         cis.stream().forEach(ci -> {
             String clazzName = ci.asClass().name().toString();
-            ReflectiveClassBuildItem clazz = new ReflectiveClassBuildItem(false, false, clazzName);
+            ReflectiveClassBuildItem clazz = ReflectiveClassBuildItem.builder(clazzName).methods(false).fields(false).build();
             LOG.debugf("Registering saxon function '%s' as reflective", clazzName);
             reflectiveClasses.produce(clazz);
         });
 
         // Needed for xpath expression with saxon
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, Configuration.class));
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, XPathFactoryImpl.class));
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(Configuration.class).methods(false).fields(false).build());
+        reflectiveClasses
+                .produce(ReflectiveClassBuildItem.builder(XPathFactoryImpl.class).methods(false).fields(false).build());
     }
 
     @BuildStep
