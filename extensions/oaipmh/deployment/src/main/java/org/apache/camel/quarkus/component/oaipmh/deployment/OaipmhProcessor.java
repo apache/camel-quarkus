@@ -39,5 +39,4 @@ class OaipmhProcessor {
     NativeImageResourceDirectoryBuildItem registerNativeResources() {
         return new NativeImageResourceDirectoryBuildItem("org/joda/time/tz/data");
     }
-
 }
