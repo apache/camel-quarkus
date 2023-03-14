@@ -39,9 +39,13 @@ class HttpProcessor {
 
     @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(true, false, "org.apache.camel.component.http.HttpMethods"));
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(true, false, "org.apache.http.impl.client.HttpClientBuilder"));
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(true, false, RequestConfig.Builder.class.getName()));
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, HttpOperationFailedException.class));
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder("org.apache.camel.component.http.HttpMethods").methods(true)
+                .fields(false).build());
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder("org.apache.http.impl.client.HttpClientBuilder")
+                .methods(true).fields(false).build());
+        reflectiveClasses.produce(
+                ReflectiveClassBuildItem.builder(RequestConfig.Builder.class.getName()).methods(true).fields(false).build());
+        reflectiveClasses.produce(
+                ReflectiveClassBuildItem.builder(HttpOperationFailedException.class).methods(false).fields(false).build());
     }
 }

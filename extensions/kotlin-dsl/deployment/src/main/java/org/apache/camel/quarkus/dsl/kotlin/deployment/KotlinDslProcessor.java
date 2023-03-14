@@ -153,7 +153,8 @@ class KotlinDslProcessor {
                                         relativePath.length() - CLASS_EXT.length());
                                 generatedClass.produce(new GeneratedClassBuildItem(true, className, Files.readAllBytes(p)));
                                 if (nameToResource.containsKey(className)) {
-                                    reflectiveClass.produce(new ReflectiveClassBuildItem(false, false, className));
+                                    reflectiveClass.produce(
+                                            ReflectiveClassBuildItem.builder(className).methods(false).fields(false).build());
                                     generatedKotlinClass
                                             .produce(new DslGeneratedClassBuildItem(className,
                                                     nameToResource.get(className).getLocation()));

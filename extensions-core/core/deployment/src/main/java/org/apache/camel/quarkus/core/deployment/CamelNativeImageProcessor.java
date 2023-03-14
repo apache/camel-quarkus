@@ -100,7 +100,8 @@ public class CamelNativeImageProcessor {
                 .map(view::getAllKnownImplementors)
                 .flatMap(Collection::stream)
                 .filter(CamelSupport::isPublic)
-                .forEach(v -> reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, v.name().toString())));
+                .forEach(v -> reflectiveClass
+                        .produce(ReflectiveClassBuildItem.builder(v.name().toString()).methods(true).fields(false).build()));
 
         DotName converter = DotName.createSimple(Converter.class.getName());
         List<ClassInfo> converterClasses = view.getAnnotations(converter)
@@ -128,7 +129,8 @@ public class CamelNativeImageProcessor {
 
         LOGGER.debug("Converter classes: " + converterClasses);
         converterClasses
-                .forEach(ci -> reflectiveClass.produce(new ReflectiveClassBuildItem(false, false, ci.name().toString())));
+                .forEach(ci -> reflectiveClass
+                        .produce(ReflectiveClassBuildItem.builder(ci.name().toString()).methods(false).fields(false).build()));
 
         view.getAnnotations(converter)
                 .stream()
@@ -145,7 +147,7 @@ public class CamelNativeImageProcessor {
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
 
         camelServices.forEach(service -> {
-            reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, service.type));
+            reflectiveClass.produce(ReflectiveClassBuildItem.builder(service.type).methods(true).fields(false).build());
         });
 
     }
@@ -260,7 +262,7 @@ public class CamelNativeImageProcessor {
                 .flatMap(archive -> archive.getRootDirectories().stream());
         String[] selectedClassNames = pathFilter.scanClassNames(archiveRootDirs);
         if (selectedClassNames.length > 0) {
-            reflectiveClasses.produce(new ReflectiveClassBuildItem(true, true, selectedClassNames));
+            reflectiveClasses.produce(ReflectiveClassBuildItem.builder(selectedClassNames).methods(true).fields(true).build());
         }
 
     }
@@ -276,7 +278,8 @@ public class CamelNativeImageProcessor {
             reflectiveClass.produce(
                     // Register fields and methods as they may be used by the bean post processor to
                     // properly support @BindToRegistry
-                    new ReflectiveClassBuildItem(true, true, camelRoutesBuilderClassBuildItem.getDotName().toString()));
+                    ReflectiveClassBuildItem.builder(camelRoutesBuilderClassBuildItem.getDotName().toString()).methods(true)
+                            .fields(true).build());
         });
     }
 

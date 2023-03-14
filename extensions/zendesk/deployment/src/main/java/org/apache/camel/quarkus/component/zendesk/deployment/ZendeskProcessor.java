@@ -49,6 +49,6 @@ class ZendeskProcessor {
                 .filter(className -> className.startsWith("org.zendesk.client.v2.model"))
                 .toArray(String[]::new);
 
-        return new ReflectiveClassBuildItem(true, false, zendeskModelClasses);
+        return ReflectiveClassBuildItem.builder(zendeskModelClasses).methods(true).fields(false).build();
     }
 }

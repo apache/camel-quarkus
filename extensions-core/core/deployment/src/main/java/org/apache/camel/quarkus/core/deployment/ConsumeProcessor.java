@@ -255,12 +255,9 @@ public class ConsumeProcessor {
             unremovables.produce(UnremovableBeanBuildItem.beanTypes(declaringClasses));
 
             reflectiveClasses.produce(
-                    new ReflectiveClassBuildItem(
-                            true,
-                            false,
-                            declaringClasses.stream()
-                                    .map(DotName::toString)
-                                    .toArray(String[]::new)));
+                    ReflectiveClassBuildItem.builder(declaringClasses.stream()
+                            .map(DotName::toString)
+                            .toArray(String[]::new)).methods(true).fields(false).build());
         }
     }
 

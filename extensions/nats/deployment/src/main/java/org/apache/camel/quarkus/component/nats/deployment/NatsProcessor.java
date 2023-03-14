@@ -35,7 +35,7 @@ class NatsProcessor {
 
     @BuildStep
     void registerReflectiveClasses(BuildProducer<ReflectiveClassBuildItem> producer) {
-        producer.produce(new ReflectiveClassBuildItem(false, false, Options.DEFAULT_DATA_PORT_TYPE));
+        producer.produce(ReflectiveClassBuildItem.builder(Options.DEFAULT_DATA_PORT_TYPE).methods(false).fields(false).build());
     }
 
     @BuildStep

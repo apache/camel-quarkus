@@ -137,11 +137,13 @@ public class JavaScriptDslProcessor {
 
             if (type.isInterface()) {
                 for (ClassInfo info : view.getAllKnownImplementors(name)) {
-                    reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, info.name().toString()));
+                    reflectiveClass.produce(
+                            ReflectiveClassBuildItem.builder(info.name().toString()).methods(true).fields(false).build());
                 }
             } else {
                 for (ClassInfo info : view.getAllKnownSubclasses(name)) {
-                    reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, info.name().toString()));
+                    reflectiveClass.produce(
+                            ReflectiveClassBuildItem.builder(info.name().toString()).methods(true).fields(false).build());
                 }
             }
 
@@ -149,12 +151,13 @@ public class JavaScriptDslProcessor {
         }
 
         for (Class<?> type : JAVA_CLASSES) {
-            reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, type));
+            reflectiveClass.produce(ReflectiveClassBuildItem.builder(type).methods(true).fields(false).build());
         }
 
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, Components.class));
-        reflectiveClass.produce(new ReflectiveClassBuildItem(false, true, JavaScriptDSL.class));
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, "org.apache.camel.converter.jaxp.XmlConverter"));
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(Components.class).methods(true).fields(false).build());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(JavaScriptDSL.class).methods(false).fields(true).build());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder("org.apache.camel.converter.jaxp.XmlConverter").methods(true)
+                .fields(false).build());
 
         Set<String> existingComponents = view.getAllKnownImplementors(Component.class)
                 .stream()
@@ -198,13 +201,14 @@ public class JavaScriptDslProcessor {
             }
         }
         // Allow access to methods by reflection to be accessible in native mode from a JavaScript resource
-        reflectiveClass.produce(new ReflectiveClassBuildItem(false, true, false, types.toArray(new Class<?>[0])));
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(types.toArray(new Class<?>[0])).constructors(false)
+                .methods(true).fields(false).build());
         // Register for reflection the runtime implementation of the main functional interfaces.
         reflectiveClass.produce(
-                new ReflectiveClassBuildItem(false, false, JavaScriptDslBiConsumer.class, JavaScriptDslBiFunction.class,
+                ReflectiveClassBuildItem.builder(JavaScriptDslBiConsumer.class, JavaScriptDslBiFunction.class,
                         JavaScriptDslBiPredicate.class, JavaScriptDslConsumer.class, JavaScriptDslFunction.class,
                         JavaScriptDslPredicate.class, org.apache.camel.quarkus.dsl.js.runtime.JavaScriptDslProcessor.class,
-                        JavaScriptDslSupplier.class));
+                        JavaScriptDslSupplier.class).methods(false).fields(false).build());
     }
 
     private static String extractName(ClassInfo classInfo) {

@@ -62,14 +62,14 @@ class SplunkProcessor {
         dtos.addAll(index.getAllKnownSubclasses(DotName.createSimple("com.splunk.Input")).stream()
                 .map(c -> c.name().toString()).collect(Collectors.toList()));
 
-        return new ReflectiveClassBuildItem(false, false, dtos.toArray(new String[dtos.size()]));
+        return ReflectiveClassBuildItem.builder(dtos.toArray(new String[dtos.size()])).methods(false).fields(false).build();
     }
 
     @BuildStep
     List<ReflectiveClassBuildItem> reflectiveClasses() {
-        return Arrays.asList(new ReflectiveClassBuildItem(false, false, "com.splunk.Index"),
-                new ReflectiveClassBuildItem(false, false, "com.splunk.SavedSearch"),
-                new ReflectiveClassBuildItem(false, false, "com.splunk.Service"));
+        return Arrays.asList(ReflectiveClassBuildItem.builder("com.splunk.Index").methods(false).fields(false).build(),
+                ReflectiveClassBuildItem.builder("com.splunk.SavedSearch").methods(false).fields(false).build(),
+                ReflectiveClassBuildItem.builder("com.splunk.Service").methods(false).fields(false).build());
     }
 
     @BuildStep

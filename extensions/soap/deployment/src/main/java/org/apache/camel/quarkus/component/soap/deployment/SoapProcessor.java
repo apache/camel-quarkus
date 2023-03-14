@@ -48,10 +48,11 @@ class SoapProcessor {
         index.getAnnotations(DotName.createSimple(WebFault.class.getName()))
                 .stream()
                 .map(annotationInstance -> annotationInstance.target().asClass())
-                .map(classInfo -> new ReflectiveClassBuildItem(true, false, classInfo.name().toString()))
+                .map(classInfo -> ReflectiveClassBuildItem.builder(classInfo.name().toString()).methods(true).fields(false)
+                        .build())
                 .forEach(reflectiveClass::produce);
 
-        reflectiveClass.produce(new ReflectiveClassBuildItem(false, false, Exception.class));
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(Exception.class).methods(false).fields(false).build());
     }
 
 }

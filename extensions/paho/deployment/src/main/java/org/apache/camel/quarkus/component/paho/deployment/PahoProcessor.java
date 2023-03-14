@@ -41,13 +41,13 @@ class PahoProcessor {
 
     @BuildStep
     void registerReflectiveClasses(BuildProducer<ReflectiveClassBuildItem> p) {
-        p.produce(new ReflectiveClassBuildItem(false, false, JSR47Logger.class));
-        p.produce(new ReflectiveClassBuildItem(false, false, ResourceBundleCatalog.class));
-        p.produce(new ReflectiveClassBuildItem(false, false, ResourceBundle.class));
-        p.produce(new ReflectiveClassBuildItem(false, false, FileLock.class));
-        p.produce(new ReflectiveClassBuildItem(true, false, FileChannel.class));
-        p.produce(new ReflectiveClassBuildItem(true, false, RandomAccessFile.class));
-        p.produce(new ReflectiveClassBuildItem(true, false, "sun.nio.ch.FileLockImpl"));
+        p.produce(ReflectiveClassBuildItem.builder(JSR47Logger.class).methods(false).fields(false).build());
+        p.produce(ReflectiveClassBuildItem.builder(ResourceBundleCatalog.class).methods(false).fields(false).build());
+        p.produce(ReflectiveClassBuildItem.builder(ResourceBundle.class).methods(false).fields(false).build());
+        p.produce(ReflectiveClassBuildItem.builder(FileLock.class).methods(false).fields(false).build());
+        p.produce(ReflectiveClassBuildItem.builder(FileChannel.class).methods(true).fields(false).build());
+        p.produce(ReflectiveClassBuildItem.builder(RandomAccessFile.class).methods(true).fields(false).build());
+        p.produce(ReflectiveClassBuildItem.builder("sun.nio.ch.FileLockImpl").methods(true).fields(false).build());
     }
 
     @BuildStep

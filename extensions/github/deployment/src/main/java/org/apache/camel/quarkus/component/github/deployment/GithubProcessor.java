@@ -53,7 +53,8 @@ class GithubProcessor {
         index.getKnownDirectImplementors(DotName.createSimple(Serializable.class.getName()))
                 .stream()
                 .filter(classInfo -> classInfo.name().prefix().toString().equals("org.eclipse.egit.github.core"))
-                .map(className -> new ReflectiveClassBuildItem(false, true, className.name().toString()))
+                .map(className -> ReflectiveClassBuildItem.builder(className.name().toString()).methods(false).fields(true)
+                        .build())
                 .forEach(reflectiveClass::produce);
     }
 }

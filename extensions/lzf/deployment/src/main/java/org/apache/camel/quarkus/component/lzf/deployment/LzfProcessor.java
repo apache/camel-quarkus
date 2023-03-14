@@ -33,7 +33,8 @@ class LzfProcessor {
 
     @BuildStep
     void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, UnsafeChunkDecoder.class));
+        reflectiveClasses
+                .produce(ReflectiveClassBuildItem.builder(UnsafeChunkDecoder.class).methods(false).fields(false).build());
     }
 
 }

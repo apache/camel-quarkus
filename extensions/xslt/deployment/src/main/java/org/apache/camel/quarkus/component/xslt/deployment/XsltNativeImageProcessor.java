@@ -34,14 +34,15 @@ class XsltNativeImageProcessor {
 
     @BuildStep
     ReflectiveClassBuildItem reflectiveClasses() {
-        return new ReflectiveClassBuildItem(true, false, "org.apache.camel.component.xslt.XsltBuilder");
+        return ReflectiveClassBuildItem.builder("org.apache.camel.component.xslt.XsltBuilder").methods(true).fields(false)
+                .build();
     }
 
     @BuildStep
     List<ReflectiveClassBuildItem> generatedReflectiveClasses(List<XsltGeneratedClassBuildItem> generatedClasses) {
         return generatedClasses.stream()
                 .map(XsltGeneratedClassBuildItem::getClassName)
-                .map(className -> new ReflectiveClassBuildItem(true, false, className))
+                .map(className -> ReflectiveClassBuildItem.builder(className).methods(true).fields(false).build())
                 .collect(Collectors.toList());
     }
 

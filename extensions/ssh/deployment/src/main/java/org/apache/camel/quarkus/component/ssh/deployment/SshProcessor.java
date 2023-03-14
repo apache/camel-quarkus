@@ -47,19 +47,13 @@ class SshProcessor {
     @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
         reflectiveClasses.produce(
-                new ReflectiveClassBuildItem(
-                        true,
-                        false,
-                        KeyPairGenerator.class,
+                ReflectiveClassBuildItem.builder(KeyPairGenerator.class,
                         KeyAgreement.class,
                         KeyFactory.class,
                         Signature.class,
-                        Mac.class));
+                        Mac.class).methods(true).fields(false).build());
         reflectiveClasses.produce(
-                new ReflectiveClassBuildItem(
-                        false,
-                        false,
-                        Nio2ServiceFactoryFactory.class));
+                ReflectiveClassBuildItem.builder(Nio2ServiceFactoryFactory.class).methods(false).fields(false).build());
     }
 
     @BuildStep

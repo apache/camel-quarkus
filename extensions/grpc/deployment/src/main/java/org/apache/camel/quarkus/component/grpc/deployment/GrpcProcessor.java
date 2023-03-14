@@ -73,10 +73,12 @@ class GrpcProcessor {
         for (DotName dotName : STUB_CLASS_DOT_NAMES) {
             index.getAllKnownSubclasses(dotName)
                     .stream()
-                    .map(classInfo -> new ReflectiveClassBuildItem(true, false, classInfo.name().toString()))
+                    .map(classInfo -> ReflectiveClassBuildItem.builder(classInfo.name().toString()).methods(true).fields(false)
+                            .build())
                     .forEach(reflectiveClass::produce);
         }
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, AbstractStub.class.getName()));
+        reflectiveClass
+                .produce(ReflectiveClassBuildItem.builder(AbstractStub.class.getName()).methods(true).fields(false).build());
     }
 
     @BuildStep
@@ -112,9 +114,11 @@ class GrpcProcessor {
             String generatedClassName = superClassName + "QuarkusMethodHandler";
 
             // Register the service classes for reflection
-            reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, service.name().toString()));
-            reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, service.enclosingClass().toString()));
-            reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, generatedClassName));
+            reflectiveClass
+                    .produce(ReflectiveClassBuildItem.builder(service.name().toString()).methods(true).fields(false).build());
+            reflectiveClass.produce(
+                    ReflectiveClassBuildItem.builder(service.enclosingClass().toString()).methods(true).fields(false).build());
+            reflectiveClass.produce(ReflectiveClassBuildItem.builder(generatedClassName).methods(true).fields(false).build());
 
             try (ClassCreator classCreator = ClassCreator.builder()
                     .classOutput(new GeneratedBeanGizmoAdaptor(generatedBean))

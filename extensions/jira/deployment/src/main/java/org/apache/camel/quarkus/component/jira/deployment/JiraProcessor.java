@@ -57,6 +57,6 @@ class JiraProcessor {
     @BuildStep
     ReflectiveClassBuildItem registerForReflection() {
         // Required by org.apache.camel.component.jira.consumer.WatchUpdatesConsumer
-        return new ReflectiveClassBuildItem(true, false, Issue.class.getName());
+        return ReflectiveClassBuildItem.builder(Issue.class.getName()).methods(true).fields(false).build();
     }
 }

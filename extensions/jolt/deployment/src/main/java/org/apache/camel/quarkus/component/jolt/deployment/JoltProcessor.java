@@ -35,7 +35,7 @@ class JoltProcessor {
     @BuildStep
     void registerReflectiveClasses(BuildProducer<ReflectiveClassBuildItem> producer) {
         ChainrEntry.STOCK_TRANSFORMS.values().stream().forEach(c -> {
-            producer.produce(new ReflectiveClassBuildItem(false, false, c));
+            producer.produce(ReflectiveClassBuildItem.builder(c).methods(false).fields(false).build());
         });
     }
 

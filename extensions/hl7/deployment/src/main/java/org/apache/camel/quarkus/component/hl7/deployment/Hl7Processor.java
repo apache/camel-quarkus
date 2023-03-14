@@ -72,8 +72,8 @@ class Hl7Processor {
                 .map(classInfo -> classInfo.name().toString())
                 .toArray(String[]::new);
 
-        reflectiveClass.produce(new ReflectiveClassBuildItem(false, true, hapiStructureClasses));
-        reflectiveClass.produce(new ReflectiveClassBuildItem(false, true, hapiTypeClasses));
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(hapiStructureClasses).methods(false).fields(true).build());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(hapiTypeClasses).methods(false).fields(true).build());
 
         // Beans that have the Hl7Terser annotation require reflective access
         String[] terserBeans = index.getAnnotations(DotName.createSimple(Hl7Terser.class.getName()))
@@ -93,6 +93,6 @@ class Hl7Processor {
                 .map(classInfo -> classInfo.name().toString())
                 .toArray(String[]::new);
 
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, terserBeans));
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(terserBeans).methods(true).fields(false).build());
     }
 }

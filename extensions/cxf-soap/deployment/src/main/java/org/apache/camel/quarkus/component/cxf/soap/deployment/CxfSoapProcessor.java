@@ -56,7 +56,7 @@ class CxfSoapProcessor {
                 .map(DotName::createSimple)
                 .flatMap(dotName -> index.getAllKnownSubclasses(dotName).stream())
                 .map(classInfo -> classInfo.name().toString())
-                .map(className -> new ReflectiveClassBuildItem(false, false, className))
+                .map(className -> ReflectiveClassBuildItem.builder(className).methods(false).fields(false).build())
                 .forEach(reflectiveClass::produce);
 
         reflectiveMethods.produce(new ReflectiveMethodBuildItem("org.apache.cxf.frontend.AbstractWSDLBasedEndpointFactory",

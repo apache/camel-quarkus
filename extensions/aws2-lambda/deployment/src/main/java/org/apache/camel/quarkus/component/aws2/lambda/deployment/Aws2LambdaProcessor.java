@@ -58,11 +58,12 @@ class Aws2LambdaProcessor {
                 .stream()
                 .map(c -> c.name().toString()).collect(Collectors.toList());
 
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false,
-                knownInterceptorImpls.toArray(new String[knownInterceptorImpls.size()])));
+        reflectiveClasses.produce(
+                ReflectiveClassBuildItem.builder(knownInterceptorImpls.toArray(new String[knownInterceptorImpls.size()]))
+                        .methods(false).fields(false).build());
 
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(true, false,
-                String.class.getCanonicalName()));
+        reflectiveClasses
+                .produce(ReflectiveClassBuildItem.builder(String.class.getCanonicalName()).methods(true).fields(false).build());
     }
 
     @BuildStep

@@ -49,7 +49,8 @@ class ProtobufProcessor {
         for (DotName dotName : MESSAGE_CLASS_DOT_NAMES) {
             index.getAllKnownSubclasses(dotName)
                     .stream()
-                    .map(classInfo -> new ReflectiveClassBuildItem(true, false, classInfo.name().toString()))
+                    .map(classInfo -> ReflectiveClassBuildItem.builder(classInfo.name().toString()).methods(true).fields(false)
+                            .build())
                     .forEach(reflectiveClasses::produce);
         }
     }

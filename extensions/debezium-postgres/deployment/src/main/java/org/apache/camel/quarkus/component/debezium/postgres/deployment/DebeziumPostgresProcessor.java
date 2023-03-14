@@ -33,9 +33,8 @@ class DebeziumPostgresProcessor {
 
     @BuildStep
     ReflectiveClassBuildItem reflectiveClasses() {
-        return new ReflectiveClassBuildItem(false, false,
-                new String[] { "io.debezium.connector.postgresql.PostgresConnector",
-                        "io.debezium.connector.postgresql.PostgresConnectorTask" });
+        return ReflectiveClassBuildItem.builder(new String[] { "io.debezium.connector.postgresql.PostgresConnector",
+                "io.debezium.connector.postgresql.PostgresConnectorTask" }).methods(false).fields(false).build();
     }
 
     @BuildStep

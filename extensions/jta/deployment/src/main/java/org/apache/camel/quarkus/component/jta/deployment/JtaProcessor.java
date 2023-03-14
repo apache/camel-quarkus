@@ -55,8 +55,8 @@ class JtaProcessor {
 
             additionalBeans.produce(builder.build());
 
-            reflectiveClass.produce(new ReflectiveClassBuildItem(false, false,
-                    IllegalStateException.class.getName()));
+            reflectiveClass.produce(ReflectiveClassBuildItem.builder(IllegalStateException.class.getName()).methods(false)
+                    .fields(false).build());
         }
     }
 }

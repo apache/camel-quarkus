@@ -83,7 +83,8 @@ final class FhirProcessor {
         IndexView index = combinedIndex.getIndex();
         index.getAllKnownSubclasses(DotName.createSimple(BaseServerResponseException.class.getName()))
                 .stream()
-                .map(classInfo -> new ReflectiveClassBuildItem(false, false, classInfo.name().toString()))
+                .map(classInfo -> ReflectiveClassBuildItem.builder(classInfo.name().toString()).methods(false).fields(false)
+                        .build())
                 .forEach(reflectiveClass::produce);
 
         String[] clientInterceptors = index.getAllKnownImplementors(DotName.createSimple(IClientInterceptor.class.getName()))
@@ -91,11 +92,14 @@ final class FhirProcessor {
                 .map(classInfo -> classInfo.name().toString())
                 .toArray(String[]::new);
 
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, clientInterceptors));
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, INTERCEPTOR_CLASSES));
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, true, SchematronBaseValidator.class));
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, true, DependencyLogImpl.class));
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, true, ApacheRestfulClientFactory.class));
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(clientInterceptors).methods(true).fields(false).build());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(INTERCEPTOR_CLASSES).methods(true).fields(false).build());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(SchematronBaseValidator.class).constructors(true)
+                .methods(false).fields(true).build());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(DependencyLogImpl.class).constructors(true).methods(false)
+                .fields(true).build());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(ApacheRestfulClientFactory.class).constructors(true)
+                .methods(true).fields(true).build());
     }
 
 }

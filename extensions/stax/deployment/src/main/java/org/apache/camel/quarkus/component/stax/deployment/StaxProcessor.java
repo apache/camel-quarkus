@@ -51,6 +51,6 @@ class StaxProcessor {
                 .map(ClassInfo::name)
                 .map(DotName::toString)
                 .toArray(String[]::new);
-        return new ReflectiveClassBuildItem(false, false, contentHandlers);
+        return ReflectiveClassBuildItem.builder(contentHandlers).methods(false).fields(false).build();
     }
 }

@@ -33,6 +33,6 @@ class AtomProcessor {
 
     @BuildStep
     ReflectiveClassBuildItem registerForReflection() {
-        return new ReflectiveClassBuildItem(false, false, FOMParser.class, FOMFactory.class);
+        return ReflectiveClassBuildItem.builder(FOMParser.class, FOMFactory.class).methods(false).fields(false).build();
     }
 }

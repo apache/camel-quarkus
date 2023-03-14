@@ -89,7 +89,7 @@ class XchangeProcessor {
                 .stream()
                 .map(classInfo -> classInfo.name().toString())
                 .toArray(String[]::new);
-        reflectiveClass.produce(new ReflectiveClassBuildItem(false, false, xchangeClasses));
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(xchangeClasses).methods(false).fields(false).build());
 
         // DTO classes need to be serialized / deserialized
         final Pattern pattern = Pattern.compile("^org\\.knowm\\.xchange.*dto.*");
@@ -98,7 +98,7 @@ class XchangeProcessor {
                 .map(classInfo -> classInfo.name().toString())
                 .filter(className -> pattern.matcher(className).matches())
                 .toArray(String[]::new);
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, dtoClasses));
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(dtoClasses).methods(true).fields(true).build());
 
         // rescu REST framework needs reflective access to the value method on some JAX-RS annotations
         String[] jaxrsAnnotations = index.getKnownClasses()
@@ -108,7 +108,7 @@ class XchangeProcessor {
                 .map(classInfo -> classInfo.name().toString())
                 .filter(className -> className.startsWith("jakarta.ws.rs"))
                 .toArray(String[]::new);
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, jaxrsAnnotations));
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(jaxrsAnnotations).methods(true).fields(false).build());
     }
 
     @BuildStep
