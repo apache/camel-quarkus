@@ -73,8 +73,9 @@ class AtlasmapProcessor {
     }
 
     @BuildStep
-    NativeImageResourceBuildItem resource() {
-        return new NativeImageResourceBuildItem("META-INF/services/atlas/module/atlas.module");
+    void nativeImageResources(BuildProducer<NativeImageResourceBuildItem> nativeImageResource) {
+        nativeImageResource.produce(new NativeImageResourceBuildItem("META-INF/services/atlas/module/atlas.module"));
+        nativeImageResource.produce(new NativeImageResourceBuildItem("atlasmap.properties"));
     }
 
     @BuildStep
