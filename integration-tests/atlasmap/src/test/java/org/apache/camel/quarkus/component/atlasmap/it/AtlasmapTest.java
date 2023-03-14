@@ -16,6 +16,10 @@
  */
 package org.apache.camel.quarkus.component.atlasmap.it;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
@@ -25,6 +29,7 @@ import org.apache.camel.quarkus.component.atlasmap.it.model.Account;
 import org.apache.camel.quarkus.component.atlasmap.it.model.Person;
 import org.junit.jupiter.api.Test;
 
+import static io.atlasmap.api.AtlasContextFactory.PROPERTY_ATLASMAP_CORE_VERSION;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -285,4 +290,16 @@ class AtlasmapTest {
                 .body(equalTo(expectedResult));
     }
 
+    @Test
+    void testGetAtlasMapVersion() throws IOException {
+        try (InputStream stream = getClass().getResourceAsStream("/atlasmap.properties")) {
+            Properties properties = new Properties();
+            properties.load(stream);
+            String version = properties.getProperty(PROPERTY_ATLASMAP_CORE_VERSION);
+
+            given().get("/version")
+                    .then()
+                    .body(equalTo(version));
+        }
+    }
 }
