@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.atlasmap.it;
 
+import java.util.Map;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -24,8 +26,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import io.atlasmap.core.DefaultAtlasContextFactory;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.quarkus.component.atlasmap.it.model.Person;
+
+import static io.atlasmap.api.AtlasContextFactory.PROPERTY_ATLASMAP_CORE_VERSION;
 
 @Path("/atlasmap")
 @ApplicationScoped
@@ -132,4 +137,12 @@ public class AtlasmapResource {
         return producerTemplate.requestBody("atlasmap:mapping/json/atlasmapping-xml-to-csv.json", xml, String.class);
     }
 
+    @GET
+    @Path("version")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String version() {
+        DefaultAtlasContextFactory factory = DefaultAtlasContextFactory.getInstance();
+        Map<String, String> properties = factory.getProperties();
+        return properties.get(PROPERTY_ATLASMAP_CORE_VERSION);
+    }
 }
