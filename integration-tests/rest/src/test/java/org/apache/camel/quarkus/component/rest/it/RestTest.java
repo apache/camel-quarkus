@@ -193,15 +193,6 @@ class RestTest {
     }
 
     @Test
-    public void lightweight() {
-        RestAssured.when()
-                .get("/rest/inspect/camel-context/lightweight")
-                .then()
-                .statusCode(200)
-                .body(is("true"));
-    }
-
-    @Test
     public void restLog() {
         String message = "Camel Quarkus Platform HTTP";
         RestAssured.given()

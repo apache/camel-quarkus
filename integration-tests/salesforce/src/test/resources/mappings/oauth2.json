@@ -7,7 +7,7 @@
   },
   "response": {
     "status": 200,
-    "body": "{\"instance_url\":\"{{request.baseUrl}}\",\"access_token\":\"token\"}",
+    "body": "{\"instance_url\":\"{{request.baseUrl}}\",\"access_token\":\"token\",\"id\":\"id/00D123123123123123\"}",
     "transformers": ["response-template"],
     "headers": {
       "Content-Type": "application/json; charset=UTF-8"

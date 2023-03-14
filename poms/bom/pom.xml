@@ -1603,6 +1603,16 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-jq</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>net.thisptr</groupId>
+                        <artifactId>jackson-jq</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>net.thisptr</groupId>
+                        <artifactId>jackson-jq-extra</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -2119,6 +2129,24 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-salesforce</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.android</groupId>
+                        <artifactId>annotations</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.checkerframework</groupId>
+                        <artifactId>checker-qual</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>animal-sniffer-annotations</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -2206,21 +2234,6 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-soap</artifactId>
                 <version>${camel.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-solr</artifactId>
-                <version>${camel.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>commons-logging</groupId>
-                        <artifactId>commons-logging</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>jcl-over-slf4j</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -2427,11 +2440,6 @@
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-vertx-websocket</artifactId>
-                <version>${camel.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-vm</artifactId>
                 <version>${camel.version}</version>
             </dependency>
             <dependency>
@@ -5105,16 +5113,6 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-solr</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-solr-deployment</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-splunk</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
@@ -5626,16 +5624,6 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-vertx-websocket-deployment</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-vm</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-vm-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
@@ -6188,6 +6176,11 @@
                 <version>${quarkiverse-jackson-jq.version}</version>
             </dependency>
             <dependency>
+                <groupId>io.quarkiverse.jackson-jq</groupId>
+                <artifactId>quarkus-jackson-jq-extra</artifactId>
+                <version>${quarkiverse-jackson-jq.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.quarkiverse.jgit</groupId>
                 <artifactId>quarkus-jgit</artifactId>
                 <version>${quarkiverse-jgit.version}</version>
@@ -6395,6 +6388,18 @@
                 <groupId>org.apache.kudu</groupId>
                 <artifactId>kudu-client</artifactId>
                 <version>${kudu.version}</version>
+            </dependency>
+            <!-- TODO: Remove this: https://github.com/apache/camel-quarkus/issues/4786 -->
+            <dependency>
+                <groupId>org.apache.pdfbox</groupId>
+                <artifactId>pdfbox</artifactId>
+                <version>${pdfbox.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.xmlgraphics</groupId>

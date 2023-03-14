@@ -144,7 +144,13 @@ class CxfSoapClientTest {
         if (!expected.replaceAll(sanitizerRegex, "").replaceAll("\\s", "").equals(staticCopyContent)) {
             Files.writeString(staticCopyPath, expected, StandardCharsets.UTF_8);
             Assertions.fail("The static WSDL copy in " + staticCopyPath
-                    + " went out of sync with the WSDL served by the container. The content was updated by the test, you just need to review and commit the changes.");
+                    + " went out of sync with the WSDL served by the container. The content was updated by the test, you just need to review and commit the changes.\n"
+                    + "From the container:\n"
+                    + expected.replaceAll(sanitizerRegex, "").replaceAll("\\s", "")
+                    + "\n"
+                    + "In the sources: \n"
+                    + staticCopyContent);
+
         }
 
     }

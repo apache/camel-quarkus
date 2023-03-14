@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>4.0.0-M2</version>
+        <version>4.0.0-M3</version>
     </parent>
 
     <groupId>org.apache.camel.quarkus</groupId>
@@ -40,7 +40,7 @@
 
         <!-- Primary dependencies - maintained manually -->
         <camel.major.minor>4.0</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
-        <camel.version>${camel.major.minor}.0-M2</camel.version>
+        <camel.version>${camel.major.minor}.0-M3</camel.version>
         <camel.docs.components.version>${camel.major.minor}.x</camel.docs.components.version><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.components.xref>${camel.docs.components.version}@components</camel.docs.components.xref><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.branch>camel-${camel.major.minor}.x</camel.docs.branch><!-- The stable camel branch on which our Antora docs depends -->
@@ -75,9 +75,9 @@
         <assertj.version>3.24.2</assertj.version><!-- @sync io.quarkus:quarkus-build-parent:${quarkus.version} prop:assertj.version -->
         <aws-java-sdk.version>1.11.714</aws-java-sdk.version>
         <azure-sdk-bom.version>${azure-sdk-bom-version}</azure-sdk-bom.version>
-        <azure-core.version>1.35.0</azure-core.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-core -->
+        <azure-core.version>1.37.0</azure-core.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-core -->
         <azure-core-test.version>1.11.0</azure-core-test.version>
-        <azure-identity.version>1.7.3</azure-identity.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-identity -->
+        <azure-identity.version>1.8.1</azure-identity.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-identity -->
         <azure-core-http-vertx.version>1.0.0-beta.3</azure-core-http-vertx.version> <!-- TODO: https://github.com/apache/camel-quarkus/issues/4181 -->
         <cassandra-driver-test.version>3.7.1</cassandra-driver-test.version><!-- Keep in sync with testcontainers instead of Debezium bom -->
         <bouncycastle.version>1.72</bouncycastle.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.bouncycastle:bcprov-jdk18on -->
@@ -106,7 +106,7 @@
         <hapi.version>${hapi-version}</hapi.version>
         <hapi-base.version>${hapi-base-version}</hapi-base.version>
         <hapi-fhir.version>${hapi-fhir-version}</hapi-fhir.version>
-        <hapi-fhir-core.version>5.6.68</hapi-fhir-core.version><!-- @sync ca.uhn.hapi.fhir:hapi-fhir:${hapi-fhir.version} prop:fhir_core_version -->
+        <hapi-fhir-core.version>5.6.971</hapi-fhir-core.version><!-- @sync ca.uhn.hapi.fhir:hapi-fhir:${hapi-fhir.version} prop:fhir_core_version -->
         <htrace.version>4.2.0-incubating</htrace.version><!-- Mess in hbase transitive deps -->
         <httpclient5.version>5.2.1</httpclient5.version><!-- Saxon and Wiremock -->
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
@@ -126,14 +126,14 @@
         <jnr-ffi.version>2.1.2</jnr-ffi.version><!-- Mess in web3j transitive deps -->
         <jsch.version>0.2.8</jsch.version><!-- @sync io.quarkiverse.jsch:quarkus-jsch-parent:${quarkiverse-jsch.version} prop:jsch.version -->
         <json-path.version>${json-path-version}</json-path.version>
-        <json-smart.version>2.4.7</json-smart.version><!-- @sync com.jayway.jsonpath:json-path:${json-path.version} dep:net.minidev:json-smart -->
+        <json-smart.version>2.4.10</json-smart.version><!-- @sync com.jayway.jsonpath:json-path:${json-path.version} dep:net.minidev:json-smart -->
         <kafka.version>3.4.0</kafka.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.kafka:kafka-clients -->
         <kudu.version>${kudu-version}</kudu.version>
         <kotlin.version>1.8.10</kotlin.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.jetbrains.kotlin:kotlin-stdlib -->
         <kryo.version>2.24.0</kryo.version><!-- @sync org.apache.flink:flink-core:${flink-version} dep:com.esotericsoftware.kryo:kryo -->
         <mapstruct.version>${mapstruct-version}</mapstruct.version>
         <minio.version>8.2.2</minio.version><!-- @sync io.quarkiverse.minio:quarkus-minio-parent:${quarkiverse-minio.version} prop:minio.version -->
-        <msal4j.version>1.13.3</msal4j.version><!-- @sync com.azure:azure-identity:${azure-identity.version} dep:com.microsoft.azure:msal4j -->
+        <msal4j.version>1.13.5</msal4j.version><!-- @sync com.azure:azure-identity:${azure-identity.version} dep:com.microsoft.azure:msal4j -->
         <mvel2.version>2.4.14.Final</mvel2.version><!-- @sync org.apache.camel:camel-dependencies:${camel.version} prop:mvel-version -->
         <mybatis.version>3.5.11</mybatis.version><!-- @sync io.quarkiverse.mybatis:quarkus-parent:${quarkiverse-mybatis.version} prop:mybatis.version -->
         <oak-jackrabbit-api.version>1.48.0</oak-jackrabbit-api.version><!-- @sync org.apache.jackrabbit:jackrabbit-parent:${jackrabbit-version} prop:oak-jackrabbit-api.version.implemented -->
@@ -141,7 +141,7 @@
         <opencensus.version>0.31.0</opencensus.version><!-- Mess in Google cloud. Keep in sync with version used in com.google.http-client:google-http-client -->
         <perfmark-api.version>0.25.0</perfmark-api.version><!-- @sync io.grpc:grpc-netty-shaded:${grpc.version} dep:io.perfmark:perfmark-api -->
         <protobuf.version>3.22.0</protobuf.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.google.protobuf:protobuf-java -->
-        <reactor-core.version>3.4.26</reactor-core.version><!-- @sync com.azure:azure-core:${azure-core.version} dep:io.projectreactor:reactor-core -->
+        <reactor-core.version>3.4.27</reactor-core.version><!-- @sync com.azure:azure-core:${azure-core.version} dep:io.projectreactor:reactor-core -->
         <reactor-netty.version>${reactor-netty-version}</reactor-netty.version>
         <retrofit.version>2.5.0</retrofit.version>
         <smallrye.reactive.messaging.camel.version>4.4.0</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
@@ -169,7 +169,7 @@
         <pdfbox.version>${pdfbox-version}</pdfbox.version>
         <slf4j-log4j12.version>1.7.30</slf4j-log4j12.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <sshd.version>2.9.2</sshd.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.sshd:sshd-common -->
-	<unboundid-ldapsdk.version>6.0.8</unboundid-ldapsdk.version>
+        <unboundid-ldapsdk.version>6.0.8</unboundid-ldapsdk.version>
         <wiremock.version>3.0.0-beta-4</wiremock.version>
         <zt-exec.version>1.12</zt-exec.version>
 

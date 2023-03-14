@@ -72,7 +72,8 @@ public class ConsumeRecorder {
         try {
             final RoutesDefinition routes = routesDefinition.getValue();
             routes.setCamelContext(camelContext.getValue());
-            camelContext.getValue().getExtension(Model.class).addRouteDefinitions(routes.getRoutes());
+            camelContext.getValue().getCamelContextExtension().getContextPlugin(Model.class)
+                    .addRouteDefinitions(routes.getRoutes());
         } catch (Exception e) {
             throw new RuntimeException("Could not add routes to context", e);
         }

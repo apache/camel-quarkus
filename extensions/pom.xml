@@ -217,7 +217,6 @@
         <!--<module>smallrye-reactive-messaging</module> https://github.com/apache/camel-quarkus/issues/4464 -->
         <module>snakeyaml</module>
         <module>soap</module>
-        <module>solr</module>
         <module>splunk</module>
         <module>spring-rabbitmq</module>
         <module>sql</module>
@@ -238,7 +237,6 @@
         <module>vertx</module>
         <module>vertx-http</module>
         <module>vertx-websocket</module>
-        <module>vm</module>
         <module>weather</module>
         <module>xchange</module>
         <module>xmlsecurity</module>

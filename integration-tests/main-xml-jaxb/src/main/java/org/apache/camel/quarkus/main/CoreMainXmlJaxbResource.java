@@ -29,6 +29,7 @@ import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.builder.TemplatedRouteBuilder;
 import org.apache.camel.dsl.xml.io.XmlRoutesBuilderLoader;
 import org.apache.camel.spi.RoutesBuilderLoader;
+import org.apache.camel.support.PluginHelper;
 
 @Path("/test")
 @ApplicationScoped
@@ -61,8 +62,8 @@ public class CoreMainXmlJaxbResource {
                 .add("xml-routes-builder-loader",
                         camelContext.getBootstrapFactoryFinder(RoutesBuilderLoader.FACTORY_PATH)
                                 .findClass(XmlRoutesBuilderLoader.EXTENSION).get().getName())
-                .add("xml-model-dumper", camelContext.getModelToXMLDumper().getClass().getName())
-                .add("xml-model-factory", camelContext.getModelJAXBContextFactory().getClass().getName())
+                .add("xml-model-dumper", PluginHelper.getModelToXMLDumper(camelContext).getClass().getName())
+                .add("xml-model-factory", PluginHelper.getModelJAXBContextFactory(camelContext).getClass().getName())
                 .add("routeBuilders", routeBuilders)
                 .add("routes", routes)
                 .build();

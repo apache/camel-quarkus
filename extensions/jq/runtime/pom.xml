@@ -41,6 +41,10 @@
             <artifactId>quarkus-jackson-jq</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.quarkiverse.jackson-jq</groupId>
+            <artifactId>quarkus-jackson-jq-extra</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-core</artifactId>
         </dependency>

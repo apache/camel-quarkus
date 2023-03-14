@@ -29,6 +29,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.catalog.RuntimeCamelCatalog;
 import org.apache.camel.spi.ComponentNameResolver;
+import org.apache.camel.support.PluginHelper;
 
 public class MessagingComponentSchemeProducer {
 
@@ -37,7 +38,7 @@ public class MessagingComponentSchemeProducer {
     public ComponentScheme getMessagingComponentScheme(CamelContext camelContext) {
         ExtendedCamelContext context = camelContext.getCamelContextExtension();
         RuntimeCamelCatalog catalog = context.getRuntimeCamelCatalog();
-        ComponentNameResolver resolver = context.getComponentNameResolver();
+        ComponentNameResolver resolver = PluginHelper.getComponentNameResolver(context);
         List<JsonObject> schemas = new ArrayList<>();
 
         for (String name : resolver.resolveNames(camelContext)) {

@@ -87,7 +87,7 @@ public class KameletResource {
     public JsonArray list() {
         JsonArrayBuilder builder = Json.createArrayBuilder();
 
-        camelContext.getExtension(Model.class)
+        camelContext.getCamelContextExtension().getContextPlugin(Model.class)
                 .getRouteTemplateDefinitions()
                 .stream()
                 .map(OptionalIdentifiedDefinition::getId)

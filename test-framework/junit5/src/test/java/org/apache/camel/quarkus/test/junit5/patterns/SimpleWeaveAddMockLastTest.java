@@ -37,7 +37,8 @@ public class SimpleWeaveAddMockLastTest extends CamelQuarkusTestSupport {
 
     @Test
     public void testWeaveAddMockLast() throws Exception {
-        AdviceWith.adviceWith(context.getExtension(Model.class).getRouteDefinitions().get(0), context,
+        AdviceWith.adviceWith(context.getCamelContextExtension().getContextPlugin(Model.class).getRouteDefinitions().get(0),
+                context,
                 new AdviceWithRouteBuilder() {
                     @Override
                     public void configure() {

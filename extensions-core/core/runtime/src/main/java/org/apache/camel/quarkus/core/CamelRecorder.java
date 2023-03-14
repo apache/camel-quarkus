@@ -44,6 +44,7 @@ import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.StartupStepRecorder;
 import org.apache.camel.spi.TypeConverterLoader;
 import org.apache.camel.spi.TypeConverterRegistry;
+import org.apache.camel.support.PluginHelper;
 import org.apache.camel.support.startup.DefaultStartupStepRecorder;
 
 @Recorder
@@ -188,7 +189,7 @@ public class CamelRecorder {
     public Supplier<?> produceProxy(Class<?> clazz, String uri) {
         return () -> {
             final CamelContext camelContext = Arc.container().instance(CamelContext.class).get();
-            final BeanProxyFactory factory = camelContext.getCamelContextExtension().getBeanProxyFactory();
+            final BeanProxyFactory factory = PluginHelper.getBeanProxyFactory(camelContext);
             final Endpoint endpoint = camelContext.getEndpoint(uri);
             try {
                 return factory.createProxy(endpoint, true, clazz);

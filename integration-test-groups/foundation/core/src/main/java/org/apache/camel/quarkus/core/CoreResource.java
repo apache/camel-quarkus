@@ -137,7 +137,8 @@ public class CoreResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public Response catalog(@PathParam("type") String type, @PathParam("name") String name) throws IOException {
-        final CamelRuntimeCatalog catalog = (CamelRuntimeCatalog) context.getExtension(RuntimeCamelCatalog.class);
+        final CamelRuntimeCatalog catalog = (CamelRuntimeCatalog) context.getCamelContextExtension()
+                .getContextPlugin(RuntimeCamelCatalog.class);
 
         try {
             final String schema;
