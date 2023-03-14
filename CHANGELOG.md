@@ -14,11 +14,13 @@
 
 **Closed issues:**
 
+- camel-quarkus-language: Improve test coverage of languages and options [\#4640](https://github.com/apache/camel-quarkus/issues/4640)
 - Bump to CycloneDX Maven Plugin 2.7.5 [\#4617](https://github.com/apache/camel-quarkus/issues/4617)
 - Aws2-cw: dependency io.quarkus:quarkus-jaxp is not needed for the native run [\#4614](https://github.com/apache/camel-quarkus/issues/4614)
 - `cq-maven-plugin` `ClassNotFoundException` on `sort-poms` execution [\#4606](https://github.com/apache/camel-quarkus/issues/4606)
 - Micrometer test coverage - possible issue with @Counted annotation and metrics mandatory [\#4598](https://github.com/apache/camel-quarkus/issues/4598)
 - Expand JDBC test coverage - XA [\#4597](https://github.com/apache/camel-quarkus/issues/4597)
+- Expand JDBC test coverage [\#4596](https://github.com/apache/camel-quarkus/issues/4596)
 - xml-io-with-beans: create itest project for xml-io + bean [\#4579](https://github.com/apache/camel-quarkus/issues/4579)
 - xml-io: document the possibility to add all charsets in native mode [\#4572](https://github.com/apache/camel-quarkus/issues/4572)
 - Split infinispan testing into separate modules for the quarkus and camel managed clients [\#4570](https://github.com/apache/camel-quarkus/issues/4570)
@@ -82,7 +84,10 @@
 
 **Merged pull requests:**
 
+- Ref \#4596: Create jdbc tests for generated keys and other headers [\#4646](https://github.com/apache/camel-quarkus/pull/4646) ([ldrozdo](https://github.com/ldrozdo))
+- Upgrade to Quarkiverse CXF 2.0.0.Alpha4 [\#4644](https://github.com/apache/camel-quarkus/pull/4644) ([ppalaga](https://github.com/ppalaga))
 - Generated sources regen for SBOM [\#4643](https://github.com/apache/camel-quarkus/pull/4643) ([github-actions[bot]](https://github.com/apps/github-actions))
+- camel-quarkus-language: Added language, resource and options tests [\#4641](https://github.com/apache/camel-quarkus/pull/4641) ([djcoleman](https://github.com/djcoleman))
 - Bump quarkus-artemis to 3.0.0.Alpha7 and quarkus-pooled-jms to 2.0.0.CR2 [\#4636](https://github.com/apache/camel-quarkus/pull/4636) ([zhfeng](https://github.com/zhfeng))
 - Upgrade Quarkus to 3.0.0.Alpha5 [\#4627](https://github.com/apache/camel-quarkus/pull/4627) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#4623](https://github.com/apache/camel-quarkus/pull/4623) ([github-actions[bot]](https://github.com/apps/github-actions))
