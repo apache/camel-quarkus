@@ -22,6 +22,7 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.http.base.HttpOperationFailedException;
+import org.apache.hc.client5.http.impl.auth.BasicScheme;
 import org.apache.http.client.config.RequestConfig;
 
 class HttpProcessor {
@@ -45,6 +46,8 @@ class HttpProcessor {
                 .methods().build());
         reflectiveClasses.produce(
                 ReflectiveClassBuildItem.builder(RequestConfig.Builder.class.getName()).methods().build());
+        reflectiveClasses.produce(
+                ReflectiveClassBuildItem.builder(BasicScheme.class).methods(false).fields(false).serialization().build());
         reflectiveClasses.produce(
                 ReflectiveClassBuildItem.builder(HttpOperationFailedException.class).build());
     }
