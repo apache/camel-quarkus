@@ -51,7 +51,7 @@ public class JsonJsonbDataformatsRoute extends RouteBuilder {
                 .split(body())
                 .marshal(dummyObjectDataFormat)
                 .convertBodyTo(String.class)
-                .toF("vm:%s-out", library);
+                .toF("seda:%s-out", library);
 
         fromF("direct:%s-in-a", library)
                 .wireTap("direct:" + library + "-tap-a")
@@ -62,7 +62,7 @@ public class JsonJsonbDataformatsRoute extends RouteBuilder {
                 .toF("log:%s-out", library)
                 .marshal(pojoADataFormat)
                 .convertBodyTo(String.class)
-                .toF("vm:%s-out-a", library);
+                .toF("seda:%s-out-a", library);
 
         fromF("direct:%s-in-b", library)
                 .wireTap("direct:" + library + "-tap-b")
@@ -73,7 +73,7 @@ public class JsonJsonbDataformatsRoute extends RouteBuilder {
                 .toF("log:%s-out", library)
                 .marshal(pojoBDataFormat)
                 .convertBodyTo(String.class)
-                .toF("vm:%s-out-b", library);
+                .toF("seda:%s-out-b", library);
 
         from("direct:Jsonb-type-as-attribute")
                 .unmarshal().json(library, AnotherObject.class);

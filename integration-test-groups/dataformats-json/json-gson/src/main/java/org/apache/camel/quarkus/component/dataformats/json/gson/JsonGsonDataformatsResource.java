@@ -52,7 +52,7 @@ public class JsonGsonDataformatsResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String testOrder() {
         LOG.infof("Invoking testOrder Gson");
-        return consumerTemplate.receive("vm:Gson-out").getMessage().getBody().toString();
+        return consumerTemplate.receive("seda:Gson-out").getMessage().getBody().toString();
     }
 
     @Path("/in-a")
@@ -78,7 +78,7 @@ public class JsonGsonDataformatsResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String testPojoA() {
         LOG.infof("Invoking testPojoA Gson");
-        return consumerTemplate.receive("vm:Gson-out-a").getMessage().getBody().toString();
+        return consumerTemplate.receive("seda:Gson-out-a").getMessage().getBody().toString();
     }
 
     @Path("/out-b")
@@ -86,7 +86,7 @@ public class JsonGsonDataformatsResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String testPojoB() {
         LOG.infof("Invoking testPojoB Gson");
-        return consumerTemplate.receive("vm:Gson-out-b").getMessage().getBody().toString();
+        return consumerTemplate.receive("seda:Gson-out-b").getMessage().getBody().toString();
     }
 
     @Path("/unmarshal/{direct-id}")

@@ -57,6 +57,13 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- required for the native compilation.
+             Similar case as https://github.com/apache/camel-quarkus/issues/4512#issuecomment-1424006102
+             Might be not necessary when https://github.com/oracle/graal/issues/4652 is fixed -->
+        <dependency>
+            <groupId>org.brotli</groupId>
+            <artifactId>dec</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.graalvm.nativeimage</groupId>
             <artifactId>svm</artifactId>

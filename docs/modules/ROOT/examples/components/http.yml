@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: http
 cqCamelPartTitle: HTTP
-cqCamelPartDescription: Send requests to external HTTP servers using Apache HTTP Client 4.x.
+cqCamelPartDescription: Send requests to external HTTP servers using Apache HTTP Client 5.x.
 cqExtensionPageTitle: HTTP
