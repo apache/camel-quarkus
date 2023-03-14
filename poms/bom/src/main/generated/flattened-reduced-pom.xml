@@ -5971,18 +5971,12 @@
       <dependency>
         <groupId>io.quarkiverse.freemarker</groupId>
         <artifactId>quarkus-freemarker</artifactId>
-        <version>1.0.0.Alpha1</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.freemarker</groupId>
-            <artifactId>freemarker</artifactId>
-          </exclusion>
-        </exclusions>
+        <version>1.0.0.Alpha2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.freemarker</groupId>
         <artifactId>quarkus-freemarker-deployment</artifactId>
-        <version>1.0.0.Alpha1</version>
+        <version>1.0.0.Alpha2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jackson-jq</groupId>
