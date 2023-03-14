@@ -47,6 +47,7 @@
         <module>bonita</module>
         <module>chatscript</module>
         <module>chunk</module>
+        <module>cli-connector</module>
         <module>cm-sms</module>
         <module>coap</module>
         <module>cometd</module>
