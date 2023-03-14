@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-build-parent-it</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
+        <version>3.0.0-M1</version>
         <relativePath>../../poms/build-parent-it/pom.xml</relativePath>
     </parent>
 
@@ -136,7 +136,7 @@
                         <configuration>
                             <source>
                             def buildDir = project.build.directory
-                            new File("${buildDir}/generated-sources").eachFileRecurse { file ->
+                            new File("${buildDir}/generated-sources").eachFileRecurse { file -&gt;
                                 if (file.name.endsWith(".java") &amp;&amp; file.text.contains("javax.annotation.Generated")) {
                                     def modifiedContent = file.text.replace("javax", "jakarta")
                                     file.write(modifiedContent)
