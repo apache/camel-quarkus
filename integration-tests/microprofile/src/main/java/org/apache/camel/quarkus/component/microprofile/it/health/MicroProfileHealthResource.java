@@ -48,7 +48,7 @@ public class MicroProfileHealthResource {
     @POST
     public void healthCheckEnabled(@PathParam("healthCheckId") String healthCheckId,
             @QueryParam("healthCheckEnabled") boolean isHealthCheckEnabled) {
-        HealthCheckRegistry registry = camelContext.getExtension(HealthCheckRegistry.class);
+        HealthCheckRegistry registry = camelContext.getCamelContextExtension().getContextPlugin(HealthCheckRegistry.class);
         registry.getCheck(healthCheckId).ifPresent(healthCheck -> {
             healthCheck.setEnabled(isHealthCheckEnabled);
             if (isHealthCheckEnabled) {

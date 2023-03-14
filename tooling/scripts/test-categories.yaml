@@ -41,7 +41,6 @@ group-02:
   - oaipmh
   - pubnub
   - protobuf
-  - solr
   - sql
 group-03:
   - bean-validator

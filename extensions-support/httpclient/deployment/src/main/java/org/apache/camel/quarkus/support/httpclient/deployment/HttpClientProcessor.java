@@ -30,6 +30,8 @@ import org.jboss.jandex.IndexView;
 class HttpClientProcessor {
     private static final DotName HTTP_REQUEST_BASE_NAME = DotName.createSimple(
             "org.apache.http.client.methods.HttpRequestBase");
+    private static final String NTLM_ENGINE_5x_VERSION = "org.apache.hc.client5.http.impl.auth.NTLMEngineImpl";
+    private static final String NTLM_ENGINE_4x_VERSION = "org.apache.http.impl.auth.NTLMEngineImpl";
 
     @BuildStep
     AdditionalApplicationArchiveMarkerBuildItem markers() {
@@ -56,7 +58,23 @@ class HttpClientProcessor {
     }
 
     @BuildStep
-    RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
-        return new RuntimeInitializedClassBuildItem("org.apache.http.impl.auth.NTLMEngineImpl");
+    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClasses) {
+
+        if (checkClasspath(NTLM_ENGINE_5x_VERSION)) {
+            runtimeInitializedClasses.produce(new RuntimeInitializedClassBuildItem(NTLM_ENGINE_5x_VERSION));
+        }
+
+        if (checkClasspath(NTLM_ENGINE_4x_VERSION)) {
+            runtimeInitializedClasses.produce(new RuntimeInitializedClassBuildItem(NTLM_ENGINE_4x_VERSION));
+        }
+    }
+
+    private boolean checkClasspath(String className) {
+        try {
+            Class.forName(className, true, Thread.currentThread().getContextClassLoader());
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
     }
 }

@@ -8,7 +8,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Send requests to external HTTP servers using Apache HTTP Client 4.x.
+:cq-description: Send requests to external HTTP servers using Apache HTTP Client 5.x.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
@@ -18,7 +18,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.0.0##
 endif::[]
 
-Send requests to external HTTP servers using Apache HTTP Client 4.x.
+Send requests to external HTTP servers using Apache HTTP Client 5.x.
 
 [id="extensions-http-whats-inside"]
 == What's inside

@@ -1,6 +1,0 @@
-== Purpose and content of the individual files in this directory
-
-* `solr-ssl.keystore.jks` the keystore containing the server certificate and private key to use when starting
-  Solr container with SSL enbled. The password for both the store and the private key is `secret`.
-* `solr-ssl.der` the same server certificate as in `solr-ssl.keystore.jks`, stored separately so that it is
-  easier to add it to the JVM's trust store via `ExtendDefaultTrustStore.main()`

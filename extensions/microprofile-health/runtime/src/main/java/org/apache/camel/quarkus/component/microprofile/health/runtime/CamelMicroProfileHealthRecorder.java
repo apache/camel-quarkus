@@ -35,7 +35,7 @@ public class CamelMicroProfileHealthRecorder {
                 registry.setId("camel-microprofile-health");
                 registry.setEnabled(true);
 
-                camelContext.setExtension(HealthCheckRegistry.class, registry);
+                camelContext.getCamelContextExtension().addContextPlugin(HealthCheckRegistry.class, registry);
             }
         });
     }

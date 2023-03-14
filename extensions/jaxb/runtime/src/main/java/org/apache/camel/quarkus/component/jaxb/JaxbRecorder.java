@@ -26,7 +26,8 @@ public class JaxbRecorder {
     public RuntimeValue<CamelContextCustomizer> newRestBindingJaxbDataFormatFactoryContextCustomizer() {
         JaxbRestBindingJaxbDataFormatFactory factory = new JaxbRestBindingJaxbDataFormatFactory();
         return new RuntimeValue<>(
-                context -> context.getCamelContextExtension().setRestBindingJaxbDataFormatFactory(factory));
+                context -> context.getCamelContextExtension().addContextPlugin(JaxbRestBindingJaxbDataFormatFactory.class,
+                        factory));
     }
 
 }

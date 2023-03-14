@@ -61,7 +61,8 @@ public class DirectResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response catalog(@PathParam("type") String type, @PathParam("name") String name) throws IOException {
-        final CamelRuntimeCatalog catalog = (CamelRuntimeCatalog) context.getExtension(RuntimeCamelCatalog.class);
+        final CamelRuntimeCatalog catalog = (CamelRuntimeCatalog) context.getCamelContextExtension()
+                .getContextPlugin(RuntimeCamelCatalog.class);
 
         try {
             final String schema;

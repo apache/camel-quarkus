@@ -204,7 +204,6 @@
         <module>slack</module>
         <!--<module>smallrye-reactive-messaging</module>-->
         <module>soap</module>
-        <module>solr</module>
         <module>splunk</module>
         <module>spring-rabbitmq</module>
         <module>sql</module>
