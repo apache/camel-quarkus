@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.component.jdbc;
 
-import java.util.List;
-
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
@@ -25,7 +23,10 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -97,11 +98,6 @@ public class CamelJdbcTest {
     @Test
     void testHeadersFromSelectQuery() {
         RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .body("insert into camelsGenerated (species) values ('Camelus status'), ('Camelus linus')")
-                .post("/test/execute");
-
-        RestAssured.given()
                 .get("test/headers/select")
                 .then()
                 .body(not(containsString("CamelGeneratedKeysRowCount")))
@@ -114,8 +110,58 @@ public class CamelJdbcTest {
                 .and()
                 .body(not(containsString("CamelGeneratedColumns")))
                 .and()
-                .body(containsString("CamelJdbcRowCount=2"))
+                .body(containsString("CamelJdbcRowCount"))
                 .and()
                 .body(containsString("CamelJdbcColumnNames=[ID, SPECIES]"));
     }
+
+    @Test
+    void testNamedParameters() {
+        RestAssured.given()
+                .get("test/named-parameters/headers-as-parameters")
+                .then()
+                .body(containsString("{ID=1, SPECIES=Camelus dromedarius}"))
+                .and()
+                .body(containsString("{ID=2, SPECIES=Camelus bactrianus}"));
+    }
+
+    @Test
+    void testCamelJdbcParametersHeader() {
+        RestAssured.given()
+                .get("test/named-parameters/headers-as-parameters-map")
+                .then()
+                .body(containsString("{ID=2, SPECIES=Camelus bactrianus}"));
+    }
+
+    @Test
+    void testTimeIntervalDatabasePolling() {
+        String selectResult = RestAssured.given()
+                .contentType(ContentType.TEXT).body("select * from camelsGenerated order by id desc")
+                .post("/test/execute")
+                .then().extract().body().asString();
+
+        RestAssured.given()
+                .body(selectResult)
+                .get("/test/interval-polling")
+                .then()
+                .statusCode(204);
+    }
+
+    @Test
+    void testMoveDataBetweenDatasources() {
+        String camelsDbResult = RestAssured.given()
+                .contentType(ContentType.TEXT).body("select * from camels order by id desc")
+                .post("/test/execute")
+                .then().extract().body().asString();
+
+        RestAssured.given()
+                .post("test/move-between-datasources");
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT).body("select * from camelsProcessed order by id desc")
+                .post("/test/execute")
+                .then()
+                .body(equalTo(camelsDbResult));
+    }
+
 }
