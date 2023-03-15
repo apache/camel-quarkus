@@ -17,7 +17,9 @@
 package org.apache.camel.quarkus.component.dataformat.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
+import org.junit.jupiter.api.Disabled;
 
+@Disabled("https://github.com/apache/camel-quarkus/issues/4662")
 @QuarkusIntegrationTest
 class DataformatIT extends DataformatTest {
 
