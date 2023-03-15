@@ -34,6 +34,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.cxf.common.CxfPayload;
 import org.apache.camel.component.cxf.jaxws.CxfEndpoint;
 import org.apache.camel.wsdl_first.types.GetPerson;
+import org.apache.camel.wsdl_first.types.GetPersonResponse;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.ext.logging.LoggingFeature;
 import org.apache.cxf.staxutils.StaxUtils;
@@ -48,12 +49,6 @@ public class CxfSoapConverterRoutes extends RouteBuilder {
             "xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">" +
             "<personId>%s</personId>" +
             "</GetPerson>";
-
-    public static final String GET_PERSON_RESP_MSG = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<GetPersonResponse xmlns=\"http://camel.apache.org/wsdl-first/types\" " +
-            "xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">" +
-            "<personId>%s</personId>" +
-            "</GetPersonResponse>";
 
     @Inject
     @Named("loggingFeatureConverter")
@@ -83,7 +78,9 @@ public class CxfSoapConverterRoutes extends RouteBuilder {
                     // to use
                     GetPerson request = exchange.getIn().getBody(GetPerson.class);
 
-                    exchange.getMessage().setBody(String.format(GET_PERSON_RESP_MSG, request.getPersonId() + "2"));
+                    GetPersonResponse reply = new GetPersonResponse();
+                    reply.setPersonId(request.getPersonId() + "2");
+                    exchange.getMessage().setBody(reply);
                 });
 
     }
