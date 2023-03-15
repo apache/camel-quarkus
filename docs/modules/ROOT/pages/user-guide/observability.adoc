@@ -19,7 +19,7 @@ Note that the `/q` path prefix was added in Camel Quarkus 2.0.0. Refer to the xr
 
 == Metrics
 
-We provide two choices for exposing metrics. The xref:reference/extensions/micrometer.adoc[Micrometer] extension (preferred) which integrates with https://quarkus.io/guides/micrometer[Quarkus Micrometer].
+Metrics are provided by the xref:reference/extensions/micrometer.adoc[Micrometer] extension which integrates with https://quarkus.io/guides/micrometer[Quarkus Micrometer].
 
 Some basic Camel metrics are provided for you out of the box, and these can be supplemented by configuring additional metrics in your routes.
 
