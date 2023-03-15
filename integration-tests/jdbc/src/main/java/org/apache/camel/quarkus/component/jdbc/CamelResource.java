@@ -16,13 +16,6 @@
  */
 package org.apache.camel.quarkus.component.jdbc;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import io.agroal.api.AgroalDataSource;
 import io.quarkus.agroal.DataSource;
 import jakarta.annotation.PostConstruct;
@@ -35,8 +28,19 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import org.apache.camel.CamelContext;
+import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.quarkus.component.jdbc.model.Camel;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @Path("/test")
 @ApplicationScoped
@@ -47,6 +51,12 @@ public class CamelResource {
 
     @Inject
     ProducerTemplate template;
+
+    @Inject
+    ConsumerTemplate consumerTemplate;
+
+    @Inject
+    CamelContext context;
 
     @PostConstruct
     void postConstruct() throws SQLException {
@@ -59,6 +69,8 @@ public class CamelResource {
                 }
                 statement.execute("create table camels (id int primary key, species varchar(255))");
                 statement.execute("create table camelsGenerated (id int primary key auto_increment, species varchar(255))");
+                statement.execute("create table camelsProcessed (id int primary key auto_increment, species varchar(255))");
+                statement.execute("insert into camelsGenerated (species) values ('Camelus status'), ('Camelus linus')");
                 statement.execute("insert into camels (id, species) values (1, 'Camelus dromedarius')");
                 statement.execute("insert into camels (id, species) values (2, 'Camelus bactrianus')");
                 statement.execute("insert into camels (id, species) values (3, 'Camelus ferus')");
@@ -137,4 +149,41 @@ public class CamelResource {
     public String headersFromSelect() throws Exception {
         return template.requestBody("direct://get-headers", "select * from camelsGenerated", String.class);
     }
+
+    @Path("/named-parameters/headers-as-parameters")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String headersAsParameters() throws Exception {
+        return template.requestBodyAndHeader("direct://headers-as-parameters",
+                "select * from camels where id < :?idmax order by id",
+                "idmax", "3", String.class);
+    }
+
+    @Path("/named-parameters/headers-as-parameters-map")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String headersAsParametersMap() throws Exception {
+        Map<String, String> headersMap = Map.of("idmax", "3", "specs", "Camelus bactrianus");
+        return template.requestBodyAndHeader("direct://headers-as-parameters",
+                "select * from camels where id < :?idmax and species = :?specs order by id",
+                "CamelJdbcParameters", headersMap, String.class);
+    }
+
+    @Path("/interval-polling")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public void intervalPolling(String selectResult) throws Exception {
+        MockEndpoint mockEndpoint = context.getEndpoint("mock:interval-polling", MockEndpoint.class);
+        mockEndpoint.expectedBodiesReceived(selectResult);
+
+        mockEndpoint.assertIsSatisfied();
+    }
+
+    @Path("/move-between-datasources")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public String moveBetweenDatasources() throws Exception {
+        return template.requestBody("direct://move-between-datasources", null, String.class);
+    }
+
 }

@@ -20,9 +20,12 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.jboss.logging.Logger;
 
 @ApplicationScoped
 public class JdbcRoutes extends RouteBuilder {
+    private static final Logger LOG = Logger.getLogger(JdbcRoutes.class);
+
     @Override
     public void configure() {
         from("direct://get-generated-keys")
@@ -44,5 +47,20 @@ public class JdbcRoutes extends RouteBuilder {
                         exchange.getIn().setBody(in);
                     }
                 });
+
+        from("direct://headers-as-parameters")
+                .to("jdbc:camel-ds?useHeadersAsParameters=true");
+
+        from("timer://interval-polling?delay=2000&repeatCount=1")
+                .setBody(constant("select * from camelsGenerated order by id desc"))
+                .to("jdbc:camel-ds")
+                .to("mock:interval-polling");
+
+        from("direct://move-between-datasources")
+                .setBody(constant("select * from camels"))
+                .to("jdbc:camel-ds")
+                .split(body())
+                .setBody(simple("insert into camelsProcessed values('${body[ID]}','${body[SPECIES]}')"))
+                .to("jdbc:camel-ds");
     }
 }
