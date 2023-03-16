@@ -220,6 +220,20 @@ class HttpTest {
                 .body(is("Handled HttpOperationFailedException"));
     }
 
+    @Test
+    public void vertxHttpMultipartFormParamsShouldSucceed() {
+        RestAssured
+                .given()
+                .queryParam("test-port", RestAssured.port)
+                .queryParam("organization", "Apache")
+                .queryParam("project", "Camel")
+                .when()
+                .get("/test/client/vertx-http/multipart-form-params")
+                .then()
+                .statusCode(200)
+                .body(is("multipartFormParams(Apache, Camel)"));
+    }
+
     private Integer getPort() {
         return getPort("camel.netty-http.test-port");
     }

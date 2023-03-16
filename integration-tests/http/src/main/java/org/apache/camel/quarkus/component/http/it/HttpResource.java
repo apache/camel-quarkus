@@ -45,6 +45,8 @@ import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 import org.apache.camel.util.IOHelper;
 import org.eclipse.microprofile.config.ConfigProvider;
 
+import static org.apache.camel.component.vertx.http.VertxHttpConstants.CONTENT_TYPE_FORM_URLENCODED;
+
 @Path("/test/client")
 @ApplicationScoped
 public class HttpResource {
@@ -376,6 +378,18 @@ public class HttpResource {
                 .withHeader(Exchange.HTTP_METHOD, "GET")
                 .send();
         return exchange.getException().getClass().getName();
+    }
+
+    @Path("/vertx-http/multipart-form-params")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String vertxHttpFormParams(@QueryParam("test-port") int port, @QueryParam("organization") String organization,
+            @QueryParam("project") String project) {
+        return producerTemplate
+                .toF("vertx-http:http://localhost:%d/service/multipart-form-params", port)
+                .withBody("organization=" + organization + "&project=" + project)
+                .withHeader(Exchange.CONTENT_TYPE, CONTENT_TYPE_FORM_URLENCODED)
+                .request(String.class);
     }
 
     // *****************************

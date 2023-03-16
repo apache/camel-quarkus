@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.http.it;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -40,5 +41,13 @@ public class HttpService {
     @Produces(MediaType.TEXT_PLAIN)
     public String toUpper(String message) {
         return message.toUpperCase();
+    }
+
+    @POST
+    @Path("/multipart-form-params")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String multipartFormParams(@FormParam("organization") String organization, @FormParam("project") String project) {
+        return String.format("multipartFormParams(%s, %s)", organization, project);
     }
 }
