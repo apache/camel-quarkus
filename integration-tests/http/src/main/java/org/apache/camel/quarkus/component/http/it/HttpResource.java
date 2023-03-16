@@ -22,6 +22,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.zip.GZIPInputStream;
 
+import io.vertx.core.buffer.Buffer;
+import io.vertx.ext.web.multipart.MultipartForm;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -383,12 +385,30 @@ public class HttpResource {
     @Path("/vertx-http/multipart-form-params")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String vertxHttpFormParams(@QueryParam("test-port") int port, @QueryParam("organization") String organization,
+    public String vertxHttpMultipartFormParams(@QueryParam("test-port") int port,
+            @QueryParam("organization") String organization,
             @QueryParam("project") String project) {
         return producerTemplate
                 .toF("vertx-http:http://localhost:%d/service/multipart-form-params", port)
                 .withBody("organization=" + organization + "&project=" + project)
                 .withHeader(Exchange.CONTENT_TYPE, CONTENT_TYPE_FORM_URLENCODED)
+                .request(String.class);
+    }
+
+    @Path("/vertx-http/multipart-form-data")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String vertxHttpMultipartFormData(@QueryParam("test-port") int port) {
+
+        MultipartForm form = MultipartForm.create();
+        form.binaryFileUpload("part-1", "test1.txt", Buffer.buffer("part1=content1".getBytes(StandardCharsets.UTF_8)),
+                "text/plain");
+        form.binaryFileUpload("part-2", "test2.xml",
+                Buffer.buffer("<part2 value=\"content2\"/>".getBytes(StandardCharsets.UTF_8)), "text/xml");
+
+        return producerTemplate
+                .toF("vertx-http:http://localhost:%d/service/multipart-form-data", port)
+                .withBody(form)
                 .request(String.class);
     }
 

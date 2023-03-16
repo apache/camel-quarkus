@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.http.it;
 
+import java.util.Map;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.FormParam;
@@ -49,5 +51,17 @@ public class HttpService {
     @Produces(MediaType.TEXT_PLAIN)
     public String multipartFormParams(@FormParam("organization") String organization, @FormParam("project") String project) {
         return String.format("multipartFormParams(%s, %s)", organization, project);
+    }
+
+    @POST
+    @Path("/multipart-form-data")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String multipartFormData(Map<String, String> parts) {
+        if (parts.size() != 2 || !parts.keySet().contains("part-1") || !parts.keySet().contains("part-2")) {
+            throw new IllegalArgumentException(
+                    "There should be exactly 2 parts named \"part-1\" and \"parts-2\" in the multipart upload");
+        }
+        return String.format("multipartFormData(%s, %s)", parts.get("part-1"), parts.get("part-2"));
     }
 }

@@ -99,6 +99,10 @@
             <artifactId>quarkus-junit4-mock</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-multipart-provider</artifactId>
+        </dependency>
 
         <!-- test dependencies - camel-quarkus -->
         <dependency>
