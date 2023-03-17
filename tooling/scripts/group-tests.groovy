@@ -56,6 +56,12 @@ Files.list(sourceDir)
         copyResources(p.resolve('src/test/resources'), destinationModuleDir.resolve('target/test-classes'))
     }
 
+String scriptDir = new File(getClass().protectionDomain.codeSource.location.path).parent
+File sourceFile = new File("${scriptDir}/group-test-utils.groovy")
+Class groovyClass = new GroovyClassLoader(getClass().getClassLoader()).parseClass(sourceFile)
+GroovyObject utils = (GroovyObject) groovyClass.getDeclaredConstructor().newInstance()
+utils.makeTestClassNamesUnique(destinationModuleDir.resolve('target/src/test/java').toFile(), classNamePrefix)
+
 mergedFiles.each { relPath, cat ->
     String destRelPath = relPath.replace('src/main/resources/', 'target/classes/').replace('src/test/resources/', 'target/test-classes/')
     Path destPath = destinationModuleDir.resolve(destRelPath)
