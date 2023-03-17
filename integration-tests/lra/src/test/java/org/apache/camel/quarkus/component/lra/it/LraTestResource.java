@@ -28,7 +28,7 @@ import org.testcontainers.containers.wait.strategy.Wait;
 public class LraTestResource implements QuarkusTestResourceLifecycleManager {
 
     private static final Integer LRA_PORT = AvailablePortFinder.getNextAvailable();
-    private static final String LRA_IMAGE = "jbosstm/lra-coordinator:5.12.0.Final";
+    private static final String LRA_IMAGE = "quay.io/jbosstm/lra-coordinator:5.13.1.Final-2.16.4.Final";
 
     private GenericContainer container;
     private String hostname;
@@ -41,7 +41,7 @@ public class LraTestResource implements QuarkusTestResourceLifecycleManager {
                 hostname = "localhost";
                 container = new GenericContainer(LRA_IMAGE)
                         .withNetworkMode("host")
-                        .withEnv("JAVA_OPTS", "-Dquarkus.http.port=" + LRA_PORT)
+                        .withEnv("quarkus.http.port", String.valueOf(LRA_PORT))
                         .waitingFor(Wait.forLogMessage(".*lra-coordinator-quarkus.*", 1));
                 container.start();
                 lraPort = LRA_PORT;
@@ -50,7 +50,7 @@ public class LraTestResource implements QuarkusTestResourceLifecycleManager {
                 container = new GenericContainer(LRA_IMAGE)
                         .withNetworkMode("bridge")
                         .withExposedPorts(LRA_PORT)
-                        .withEnv("JAVA_OPTS", "-Dquarkus.http.port=" + LRA_PORT)
+                        .withEnv("quarkus.http.port", String.valueOf(LRA_PORT))
                         .waitingFor(Wait.forLogMessage(".*lra-coordinator-quarkus.*", 1));
                 container.start();
                 lraPort = container.getMappedPort(LRA_PORT);
