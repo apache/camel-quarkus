@@ -11,6 +11,7 @@
 **Merged pull requests:**
 
 - Fix metrics introduction in observability doc [\#4660](https://github.com/apache/camel-quarkus/pull/4660) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade Quarkus to 3.0.0.Alpha6 [\#4659](https://github.com/apache/camel-quarkus/pull/4659) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkiverse Freemarker to 1.0.0.Alpha2 [\#4650](https://github.com/apache/camel-quarkus/pull/4650) ([jamesnetherton](https://github.com/jamesnetherton))
 - Register atlasmap.properties as a native image resource [\#4649](https://github.com/apache/camel-quarkus/pull/4649) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#4635 replace with ReflectiveClassBuildItem.builder\(\) [\#4648](https://github.com/apache/camel-quarkus/pull/4648) ([zhfeng](https://github.com/zhfeng))
