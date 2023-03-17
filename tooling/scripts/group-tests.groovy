@@ -34,6 +34,7 @@ import groovy.ant.AntBuilder
 final Path sourceDir = Paths.get(properties['group-tests.source.dir'])
 final String[] concatRelPaths = properties['group-tests.concat.rel.paths'].split('[\\s,]+')
 final Path destinationModuleDir = Paths.get(properties['group-tests.dest.module.dir'])
+final String classNamePrefix = properties['group-tests.class.name.prefix'] ?: ""
 /* Property names whose values originating from distinct application.properties files can be concatenated using comma as a separator */
 final Set<String> commaConcatenatePropertyNames = ["quarkus.native.resources.includes", "quarkus.native.resources.excludes"] as Set;
 
@@ -52,6 +53,12 @@ Files.list(sourceDir)
         copyResources(p.resolve('src/main/resources'), destinationModuleDir.resolve('target/classes'))
         copyResources(p.resolve('src/test/resources'), destinationModuleDir.resolve('target/test-classes'))
     }
+
+String scriptDir = new File(getClass().protectionDomain.codeSource.location.path).parent
+File sourceFile = new File("${scriptDir}/group-test-utils.groovy")
+Class groovyClass = new GroovyClassLoader(getClass().getClassLoader()).parseClass(sourceFile)
+GroovyObject utils = (GroovyObject) groovyClass.getDeclaredConstructor().newInstance()
+utils.makeTestClassNamesUnique(destinationModuleDir.resolve('target/src/test/java').toFile(), classNamePrefix)
 
 mergedFiles.each { relPath, cat ->
     String destRelPath = relPath.replace('src/main/resources/', 'target/classes/').replace('src/test/resources/', 'target/test-classes/')
