@@ -30,6 +30,10 @@
     <name>Camel Quarkus :: Integration Tests :: AWS2 Quarkus Client Grouped</name>
     <description>AWS 2 tests from ../integration-test-groups/aws2-quarkus-client merged together</description>
 
+    <properties>
+        <test.class.name.prefix>GroupedQuarkusClient</test.class.name.prefix>
+    </properties>
+
     <!-- Regenerate the dependencies via `mvn process-resources -Pformat -N` from the source tree root directory -->
     <dependencies>
         <dependency>
@@ -159,6 +163,7 @@
                                 <group-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2-quarkus-client</group-tests.source.dir>
                                 <group-tests.dest.module.dir>${project.basedir}</group-tests.dest.module.dir>
                                 <group-tests.concat.rel.paths>src/main/resources/application.properties,src/test/resources/META-INF/services/org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvCustomizer</group-tests.concat.rel.paths>
+                                <group-tests.class.name.prefix>${test.class.name.prefix}</group-tests.class.name.prefix>
                             </properties>
                         </configuration>
                     </execution>
@@ -174,6 +179,7 @@
                                 <copy-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2/aws2-ses</copy-tests.source.dir>
                                 <copy-tests.dest.module.dir>${project.basedir}</copy-tests.dest.module.dir>
                                 <copy-tests.excludes>**/*TestEnvCustomizer,**/*application.properties</copy-tests.excludes>
+                                <group-tests.class.name.prefix>${test.class.name.prefix}</group-tests.class.name.prefix>
                             </properties>
                         </configuration>
                     </execution>
@@ -189,6 +195,7 @@
                                 <copy-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2/aws2-ddb</copy-tests.source.dir>
                                 <copy-tests.dest.module.dir>${project.basedir}</copy-tests.dest.module.dir>
                                 <copy-tests.excludes>**/*TestEnvCustomizer,**/*application.properties,**/*Stream*</copy-tests.excludes>
+                                <group-tests.class.name.prefix>${test.class.name.prefix}</group-tests.class.name.prefix>
                             </properties>
                         </configuration>
                     </execution>
@@ -204,6 +211,7 @@
                                 <copy-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2/aws2-s3</copy-tests.source.dir>
                                 <copy-tests.dest.module.dir>${project.basedir}</copy-tests.dest.module.dir>
                                 <copy-tests.excludes>**/*TestEnvCustomizer,**/*application.properties</copy-tests.excludes>
+                                <group-tests.class.name.prefix>${test.class.name.prefix}</group-tests.class.name.prefix>
                             </properties>
                         </configuration>
                     </execution>
@@ -219,6 +227,7 @@
                                 <copy-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2/aws2-sqs</copy-tests.source.dir>
                                 <copy-tests.dest.module.dir>${project.basedir}</copy-tests.dest.module.dir>
                                 <copy-tests.excludes>**/*TestEnvCustomizer,**/*application.properties</copy-tests.excludes>
+                                <group-tests.class.name.prefix>${test.class.name.prefix}</group-tests.class.name.prefix>
                             </properties>
                         </configuration>
                     </execution>
@@ -234,6 +243,7 @@
                                 <copy-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2/aws2-sqs-sns</copy-tests.source.dir>
                                 <copy-tests.dest.module.dir>${project.basedir}</copy-tests.dest.module.dir>
                                 <copy-tests.excludes>**/*TestEnvCustomizer,**/*application.properties</copy-tests.excludes>
+                                <group-tests.class.name.prefix>${test.class.name.prefix}</group-tests.class.name.prefix>
                             </properties>
                         </configuration>
                     </execution>
