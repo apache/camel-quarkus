@@ -35,6 +35,7 @@ final Path sourceDir = Paths.get(properties['group-tests.source.dir'])
 final String[] concatRelPaths = properties['group-tests.concat.rel.paths'].split('[\\s,]+')
 final Path destinationModuleDir = Paths.get(properties['group-tests.dest.module.dir'])
 final String excludes = properties['group-tests.files.excludes'] ?: ""
+final String classNamePrefix = properties['group-tests.class.name.prefix'] ?: ""
 final List<String> fileExcludes = excludes.split('[\\s,]+') as List
 /* Property names whose values originating from distinct application.properties files can be concatenated using comma as a separator */
 final Set<String> commaConcatenatePropertyNames = ["quarkus.native.resources.includes", "quarkus.native.resources.excludes"] as Set
@@ -55,6 +56,12 @@ Files.list(sourceDir)
         copyResources(p.resolve('src/main/resources'), destinationModuleDir.resolve('src/main/resources'))
         copyResources(p.resolve('src/test/resources'), destinationModuleDir.resolve('src/test/resources'))
     }
+
+String scriptDir = new File(getClass().protectionDomain.codeSource.location.path).parent
+File sourceFile = new File("${scriptDir}/group-test-utils.groovy")
+Class groovyClass = new GroovyClassLoader(getClass().getClassLoader()).parseClass(sourceFile)
+GroovyObject utils = (GroovyObject) groovyClass.getDeclaredConstructor().newInstance()
+utils.makeTestClassNamesUnique(destinationModuleDir.resolve('src/test/java').toFile(), classNamePrefix)
 
 Path gitignorePath = destinationModuleDir.resolve('.gitignore')
 String gitignoreContent = ''

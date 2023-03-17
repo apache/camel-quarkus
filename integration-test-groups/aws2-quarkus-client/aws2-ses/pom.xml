@@ -30,6 +30,10 @@
     <name>Camel Quarkus :: Integration Tests :: Simple Email Service (SES) Quarkus Client</name>
     <description>Integration tests for Camel Quarkus AWS Simple Email Service (SES) extension with the Quarkus AWS SES client</description>
 
+    <properties>
+        <test.class.name.prefix>QuarkusClient</test.class.name.prefix>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -129,6 +133,7 @@
                                 <copy-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2/aws2-ses</copy-tests.source.dir>
                                 <copy-tests.dest.module.dir>${project.basedir}</copy-tests.dest.module.dir>
                                 <copy-tests.excludes>**/*TestEnvCustomizer,**/*application.properties</copy-tests.excludes>
+                                <group-tests.class.name.prefix>${test.class.name.prefix}</group-tests.class.name.prefix>
                             </properties>
                         </configuration>
                     </execution>
