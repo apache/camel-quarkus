@@ -6,10 +6,19 @@
 
 **Closed issues:**
 
+- Add prefix to copied test classes \(in integration-test-groups\) in integration tests [\#4664](https://github.com/apache/camel-quarkus/issues/4664)
+- camel-quarkus-management: Improve test coverage [\#4661](https://github.com/apache/camel-quarkus/issues/4661)
 - Add Direct VM extension [\#4657](https://github.com/apache/camel-quarkus/issues/4657)
+- \[Camel 4.0-M3\] Upgrade to Groovy 4.x [\#4624](https://github.com/apache/camel-quarkus/issues/4624)
+- Remove `quarkus.camel.yaml.flow-mode` [\#4482](https://github.com/apache/camel-quarkus/issues/4482)
+- Groovy DSL - Add support of Groovy extension modules [\#4384](https://github.com/apache/camel-quarkus/issues/4384)
+- Remove azure-identity `IdentityClientBase` runtime initialization native configuration [\#4356](https://github.com/apache/camel-quarkus/issues/4356)
 
 **Merged pull requests:**
 
+- Remove redundant Azure IdentityClientBase runtime initialized class config [\#4666](https://github.com/apache/camel-quarkus/pull/4666) ([jamesnetherton](https://github.com/jamesnetherton))
+- Make AWS test class names in grouped testing unique [\#4665](https://github.com/apache/camel-quarkus/pull/4665) ([jamesnetherton](https://github.com/jamesnetherton))
+- camel-quarkus-management: Added tests for managed beans [\#4663](https://github.com/apache/camel-quarkus/pull/4663) ([djcoleman](https://github.com/djcoleman))
 - Fix metrics introduction in observability doc [\#4660](https://github.com/apache/camel-quarkus/pull/4660) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 3.0.0.Alpha6 [\#4659](https://github.com/apache/camel-quarkus/pull/4659) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkiverse Freemarker to 1.0.0.Alpha2 [\#4650](https://github.com/apache/camel-quarkus/pull/4650) ([jamesnetherton](https://github.com/jamesnetherton))
