@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- jbosstm/lra-coordinator is not available [\#4667](https://github.com/apache/camel-quarkus/issues/4667)
 - Add prefix to copied test classes \(in integration-test-groups\) in integration tests [\#4664](https://github.com/apache/camel-quarkus/issues/4664)
 - camel-quarkus-management: Improve test coverage [\#4661](https://github.com/apache/camel-quarkus/issues/4661)
 - Add Direct VM extension [\#4657](https://github.com/apache/camel-quarkus/issues/4657)
@@ -13,9 +14,11 @@
 - Remove `quarkus.camel.yaml.flow-mode` [\#4482](https://github.com/apache/camel-quarkus/issues/4482)
 - Groovy DSL - Add support of Groovy extension modules [\#4384](https://github.com/apache/camel-quarkus/issues/4384)
 - Remove azure-identity `IdentityClientBase` runtime initialization native configuration [\#4356](https://github.com/apache/camel-quarkus/issues/4356)
+- Platform HTTP component under load won't serve health endpoints anymore [\#2974](https://github.com/apache/camel-quarkus/issues/2974)
 
 **Merged pull requests:**
 
+- Fix \#4667 to use quay.io/jbosstm/lra-coordinator [\#4668](https://github.com/apache/camel-quarkus/pull/4668) ([zhfeng](https://github.com/zhfeng))
 - Remove redundant Azure IdentityClientBase runtime initialized class config [\#4666](https://github.com/apache/camel-quarkus/pull/4666) ([jamesnetherton](https://github.com/jamesnetherton))
 - Make AWS test class names in grouped testing unique [\#4665](https://github.com/apache/camel-quarkus/pull/4665) ([jamesnetherton](https://github.com/jamesnetherton))
 - camel-quarkus-management: Added tests for managed beans [\#4663](https://github.com/apache/camel-quarkus/pull/4663) ([djcoleman](https://github.com/djcoleman))
