@@ -13,6 +13,8 @@ export JIRA_URL=http://localhost:8080/
 export JIRA_USERNAME=my-jira-username
 export JIRA_PASSWORD=my-jira-password
 
+NOTE: You can create a personal `API Token` instead, so you don't have to share the user's password.
+
 # If your Jira server requires OAuth authentication
 export JIRA_OAUTH_ACCESS_TOKEN=your-access-token
 export JIRA_OAUTH_CONSUMER_KEY=your-consumer-key
