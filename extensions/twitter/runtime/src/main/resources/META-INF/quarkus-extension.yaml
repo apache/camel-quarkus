@@ -23,6 +23,7 @@
 ---
 name: "Camel Twitter"
 description: "Send tweets and receive tweets, direct messages and access Twitter Search"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/twitter.html"
   categories:

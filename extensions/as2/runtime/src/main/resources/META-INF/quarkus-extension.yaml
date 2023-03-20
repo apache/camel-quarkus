@@ -23,6 +23,7 @@
 ---
 name: "Camel AS2"
 description: "Transfer data securely and reliably using the AS2 protocol (RFC4130)"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/as2.html"
   categories:

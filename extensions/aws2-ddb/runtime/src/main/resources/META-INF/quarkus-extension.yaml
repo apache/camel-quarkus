@@ -23,6 +23,7 @@
 ---
 name: "Camel AWS 2 DynamoDB"
 description: "Store and retrieve data from AWS DynamoDB service or receive messages from AWS DynamoDB Stream using AWS SDK version 2.x"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   keywords:
   - "Amazon"

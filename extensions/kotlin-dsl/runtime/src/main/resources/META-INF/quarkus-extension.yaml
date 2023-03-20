@@ -23,6 +23,7 @@
 ---
 name: "Camel Kotlin DSL"
 description: "Support for parsing Kotlin route definitions at runtime"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/kotlin-dsl.html"
   categories:

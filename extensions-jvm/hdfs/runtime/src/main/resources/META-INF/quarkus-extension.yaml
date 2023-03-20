@@ -23,6 +23,7 @@
 ---
 name: "Camel HDFS"
 description: "Read and write from/to an HDFS filesystem using Hadoop 3.x"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/hdfs.html"

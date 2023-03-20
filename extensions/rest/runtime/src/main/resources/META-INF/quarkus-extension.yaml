@@ -23,6 +23,7 @@
 ---
 name: "Camel Rest"
 description: "Expose REST services and their OpenAPI Specification or call external REST services"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/rest.html"
   categories:

@@ -23,6 +23,7 @@
 ---
 name: "Camel OpenAPI Java"
 description: "Expose OpenAPI resources defined in Camel REST DSL"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/openapi-java.html"
   categories:

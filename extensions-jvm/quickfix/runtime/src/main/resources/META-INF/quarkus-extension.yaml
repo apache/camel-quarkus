@@ -23,6 +23,7 @@
 ---
 name: "Camel QuickFix"
 description: "Open a Financial Interchange (FIX) session using an embedded QuickFix/J engine"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/quickfix.html"

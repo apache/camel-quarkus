@@ -23,6 +23,7 @@
 ---
 name: "Camel ServiceNow"
 description: "Interact with ServiceNow via its REST API"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/servicenow.html"
   categories:

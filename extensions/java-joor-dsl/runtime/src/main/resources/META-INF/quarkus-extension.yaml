@@ -23,6 +23,7 @@
 ---
 name: "Camel Java jOOR DSL"
 description: "Support for parsing Java route definitions at runtime"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/java-joor-dsl.html"
   categories:

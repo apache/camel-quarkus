@@ -23,6 +23,7 @@
 ---
 name: "Camel File Watch"
 description: "Get notified about file events in a directory using java.nio.file.WatchService"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/file-watch.html"
   categories:

@@ -23,6 +23,7 @@
 ---
 name: "Camel JAXB"
 description: "Unmarshal XML payloads to POJOs and back using JAXB2 XML marshalling standard"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/jaxb.html"
   categories:

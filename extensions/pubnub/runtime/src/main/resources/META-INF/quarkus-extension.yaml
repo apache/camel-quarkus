@@ -23,6 +23,7 @@
 ---
 name: "Camel PubNub"
 description: "Send and receive messages to/from PubNub data stream network for connected devices"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/pubnub.html"
   categories:

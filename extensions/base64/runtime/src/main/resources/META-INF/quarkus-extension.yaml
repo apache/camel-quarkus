@@ -23,6 +23,7 @@
 ---
 name: "Camel Base64"
 description: "Encode and decode data using Base64"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/base64.html"
   categories:

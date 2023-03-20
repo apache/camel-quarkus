@@ -23,6 +23,7 @@
 ---
 name: "Camel iCal"
 description: "Marshal and unmarshal iCal (.ics) documents to/from model objects"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/ical.html"
   categories:

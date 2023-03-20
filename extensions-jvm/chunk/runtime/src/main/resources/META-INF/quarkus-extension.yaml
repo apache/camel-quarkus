@@ -23,6 +23,7 @@
 ---
 name: "Camel Chunk"
 description: "Transform messages using Chunk templating engine"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/chunk.html"

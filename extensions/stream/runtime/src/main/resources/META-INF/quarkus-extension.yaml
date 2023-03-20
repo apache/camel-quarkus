@@ -23,6 +23,7 @@
 ---
 name: "Camel Stream"
 description: "Read from system-in and write to system-out and system-err streams"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/stream.html"
   categories:

@@ -23,6 +23,7 @@
 ---
 name: "Camel Schematron"
 description: "Validate XML payload using the Schematron Library"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/schematron.html"

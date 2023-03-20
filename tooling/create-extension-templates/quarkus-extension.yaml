@@ -23,6 +23,7 @@
 ---
 name: "Camel [=nameBase]"
 description: "[=description]"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
 [#if unlisted ]  unlisted: true
 [/#if]

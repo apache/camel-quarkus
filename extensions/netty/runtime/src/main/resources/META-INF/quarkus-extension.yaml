@@ -23,6 +23,7 @@
 ---
 name: "Camel Netty"
 description: "Socket level networking using TCP or UDP with Netty 4.x"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/netty.html"
   categories:

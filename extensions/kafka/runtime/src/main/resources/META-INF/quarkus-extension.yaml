@@ -23,6 +23,7 @@
 ---
 name: "Camel Kafka"
 description: "Sent and receive messages to/from an Apache Kafka broker"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/kafka.html"
   categories:
