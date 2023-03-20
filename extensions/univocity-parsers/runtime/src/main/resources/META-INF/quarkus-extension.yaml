@@ -23,6 +23,7 @@
 ---
 name: "Camel uniVocity CSV"
 description: "Marshal and unmarshal Java objects from and to CSV (Comma Separated Values) using UniVocity Parsers"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/univocity-parsers.html"
   categories:

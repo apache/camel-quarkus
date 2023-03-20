@@ -23,6 +23,7 @@
 ---
 name: "Camel Cloudevents"
 description: "Camel support for the CloudEvents specification"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/cloudevents.html"
   categories:

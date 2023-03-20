@@ -23,6 +23,7 @@
 ---
 name: "Camel SAP NetWeaver"
 description: "Send requests to SAP NetWeaver Gateway using HTTP"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/sap-netweaver.html"
   categories:

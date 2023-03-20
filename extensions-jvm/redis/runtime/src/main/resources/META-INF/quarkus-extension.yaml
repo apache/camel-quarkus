@@ -23,6 +23,7 @@
 ---
 name: "Camel Redis"
 description: "Aggregation repository using Redis as datastore"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/redis.html"

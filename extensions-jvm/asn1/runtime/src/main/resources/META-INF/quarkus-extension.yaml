@@ -23,6 +23,7 @@
 ---
 name: "Camel ASN.1 File"
 description: "Encode and decode data structures using Abstract Syntax Notation One (ASN.1)"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/asn1.html"

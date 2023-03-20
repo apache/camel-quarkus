@@ -23,6 +23,7 @@
 ---
 name: "Camel Google BigQuery"
 description: "Access Google Cloud BigQuery service using SQL queries or Google Client Services API"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/google-bigquery.html"
   categories:

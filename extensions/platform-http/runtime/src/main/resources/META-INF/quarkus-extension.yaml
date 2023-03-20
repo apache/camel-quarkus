@@ -23,6 +23,7 @@
 ---
 name: "Camel Platform HTTP"
 description: "Expose HTTP endpoints using the HTTP server available in the current platform"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/platform-http.html"
   categories:

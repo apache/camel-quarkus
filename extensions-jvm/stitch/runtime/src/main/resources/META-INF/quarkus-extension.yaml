@@ -23,6 +23,7 @@
 ---
 name: "Camel Stitch"
 description: "Stitch is a cloud ETL service that integrates various data sources into a central data warehouse through various integrations"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/stitch.html"

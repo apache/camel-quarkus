@@ -23,6 +23,7 @@
 ---
 name: "Camel Attachments"
 description: "Support for attachments on Camel messages"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/attachments.html"
   categories:

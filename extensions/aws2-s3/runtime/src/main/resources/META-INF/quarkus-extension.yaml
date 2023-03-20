@@ -23,6 +23,7 @@
 ---
 name: "Camel AWS 2 S3 Storage Service"
 description: "Store and retrieve objects from AWS S3 Storage Service using AWS SDK version 2.x"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   keywords:
   - "Amazon"

@@ -23,6 +23,7 @@
 ---
 name: "Camel JMS"
 description: "Sent and receive messages to/from a JMS Queue or Topic"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/jms.html"
   categories:

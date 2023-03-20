@@ -23,6 +23,7 @@
 ---
 name: "Camel Azure Storage Queue Service"
 description: "The azure-storage-queue component is used for storing and retrieving the messages to/from Azure Storage Queue using Azure SDK v12"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/azure-storage-queue.html"
   categories:

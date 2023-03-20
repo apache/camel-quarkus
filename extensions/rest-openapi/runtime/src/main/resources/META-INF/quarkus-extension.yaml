@@ -23,6 +23,7 @@
 ---
 name: "Camel REST OpenApi"
 description: "Configure REST producers based on an OpenAPI specification document delegating to a component implementing the RestProducerFactory interface"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/rest-openapi.html"
   categories:

@@ -23,6 +23,7 @@
 ---
 name: "Camel Google Calendar"
 description: "Perform various operations on a Google Calendar"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/google-calendar.html"
   categories:

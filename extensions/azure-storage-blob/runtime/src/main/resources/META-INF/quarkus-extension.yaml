@@ -23,6 +23,7 @@
 ---
 name: "Camel Azure Storage Blob Service"
 description: "Store and retrieve blobs from Azure Storage Blob Service using SDK v12"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/azure-storage-blob.html"
   categories:

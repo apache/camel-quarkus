@@ -23,6 +23,7 @@
 ---
 name: "Camel AWS 2 CloudWatch"
 description: "Sending metrics to AWS CloudWatch using AWS SDK version 2.x"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   keywords:
   - "Amazon"

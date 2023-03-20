@@ -23,6 +23,7 @@
 ---
 name: "Camel Ignite Cache"
 description: "Perform cache operations on an Ignite cache or consume changes from a continuous query"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/ignite.html"

@@ -23,6 +23,7 @@
 ---
 name: "Camel Grok"
 description: "Unmarshal unstructured data to objects using Logstash based Grok patterns"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/grok.html"
   categories:

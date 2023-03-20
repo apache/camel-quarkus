@@ -23,6 +23,7 @@
 ---
 name: "Camel JSON Schema Validator"
 description: "Validate JSON payloads using NetworkNT JSON Schema"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/json-validator.html"
   categories:

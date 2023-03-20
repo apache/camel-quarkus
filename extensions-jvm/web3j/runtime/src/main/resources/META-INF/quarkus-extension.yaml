@@ -23,6 +23,7 @@
 ---
 name: "Camel Web3j Ethereum Blockchain"
 description: "Interact with Ethereum nodes using web3j client API"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/web3j.html"

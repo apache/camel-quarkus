@@ -23,6 +23,7 @@
 ---
 name: "Camel Splunk HEC"
 description: "The splunk component allows to publish events in Splunk using the HTTP Event Collector"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/splunk-hec.html"

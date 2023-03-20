@@ -23,6 +23,7 @@
 ---
 name: "Camel Azure Key Vault"
 description: "Manage secrets and keys in Azure Key Vault Service"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/azure-key-vault.html"

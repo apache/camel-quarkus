@@ -23,6 +23,7 @@
 ---
 name: "Camel YAML DSL"
 description: "An YAML stack for parsing YAML route definitions"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/yaml-dsl.html"
   categories:

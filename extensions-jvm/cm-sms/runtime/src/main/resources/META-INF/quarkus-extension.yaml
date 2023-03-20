@@ -23,6 +23,7 @@
 ---
 name: "Camel CM SMS Gateway"
 description: "Send SMS messages via CM SMS Gateway"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/cm-sms.html"

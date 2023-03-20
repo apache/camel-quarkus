@@ -23,6 +23,7 @@
 ---
 name: "Camel Hazelcast Atomic Number"
 description: "Increment, decrement, set, etc. Hazelcast atomic number (a grid wide number)"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/hazelcast.html"
   categories:

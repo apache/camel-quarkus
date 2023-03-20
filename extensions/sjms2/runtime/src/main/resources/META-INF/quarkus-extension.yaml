@@ -23,6 +23,7 @@
 ---
 name: "Camel Simple JMS2"
 description: "Send and receive messages to/from a JMS Queue or Topic using plain JMS 2.x API"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/sjms2.html"
   categories:

@@ -23,6 +23,7 @@
 ---
 name: "Camel Azure storage datalake service"
 description: "Camel Azure Datalake Gen2 Component"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/azure-storage-datalake.html"

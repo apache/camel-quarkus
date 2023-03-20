@@ -23,6 +23,7 @@
 ---
 name: "Camel Kotlin"
 description: "Write Camel integration routes in Kotlin"
+icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/kotlin.html"
   categories:
