@@ -18,6 +18,7 @@
 
 **Merged pull requests:**
 
+- Generated sources regen for SBOM [\#4669](https://github.com/apache/camel-quarkus/pull/4669) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Fix \#4667 to use quay.io/jbosstm/lra-coordinator [\#4668](https://github.com/apache/camel-quarkus/pull/4668) ([zhfeng](https://github.com/zhfeng))
 - Remove redundant Azure IdentityClientBase runtime initialized class config [\#4666](https://github.com/apache/camel-quarkus/pull/4666) ([jamesnetherton](https://github.com/jamesnetherton))
 - Make AWS test class names in grouped testing unique [\#4665](https://github.com/apache/camel-quarkus/pull/4665) ([jamesnetherton](https://github.com/jamesnetherton))
