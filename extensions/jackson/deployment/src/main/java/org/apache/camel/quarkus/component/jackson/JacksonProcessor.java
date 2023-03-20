@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.jackson;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import io.quarkus.bootstrap.classloading.QuarkusClassLoader;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
@@ -37,7 +37,11 @@ public class JacksonProcessor {
     List<ReflectiveClassBuildItem> registerReflectiveClasses() {
         List<ReflectiveClassBuildItem> items = new ArrayList<>();
         items.add(new ReflectiveClassBuildItem(false, true, "com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule"));
-        items.add(new ReflectiveClassBuildItem(false, false, JsonNode.class));
+        items.add(new ReflectiveClassBuildItem(false, false, "com.fasterxml.jackson.databind.JsonNode"));
+        if (QuarkusClassLoader.isClassPresentAtRuntime("com.fasterxml.jackson.datatype.joda.JodaModule")) {
+            items.add(new ReflectiveClassBuildItem(true, true, "com.fasterxml.jackson.datatype.joda.JodaModule"));
+            items.add(new ReflectiveClassBuildItem(true, true, "org.joda.time.DateTime"));
+        }
         return items;
     }
 }
