@@ -1,0 +1,32 @@
+= Camel Quarkus 3.0.0 Migration Guide
+
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 3.0.0.
+
+== Changes in Quarkus
+
+Please refer to xref:https://github.com/quarkusio/quarkus/wiki/Migration-Guide-3.0[Quarkus 3.0.0 Migration Guide].
+
+== Changes in Camel
+
+Please refer to xref:https://camel.apache.org/manual/camel-4-migration-guide.html[Apache Camel 3.x to 4.0 Migration guide].
+
+== Removed extensions
+
+The following extensions have been removed.
+
+[options="header"]
+|===
+| Extension | Alternative extension(s)
+| camel-quarkus-activemq               | camel-quarkus-jms, camel-quarkus-sjms, camel-quarkus-amqp
+| camel-quarkus-caffeine-lrucache      | camel-quarkus-ignite, camel-quarkus-infinispan
+| camel-quarkus-elasticsearch-rest     | TODO Coming camel-quarkus-elasticsearch
+| camel-quarkus-johnzon                | camel-quarkus-jackson, camel-quarkus-fastjson, camel-quarkus-gson
+| camel-quarkus-microprofile-metrics   | camel-quarkus-micrometer, camel-quarkus-opentelemtry
+| camel-quarkus-opentracing            | camel-quarkus-micrometer, camel-quarkus-opentelemtry
+| camel-quarkus-optaplanner            | none
+| camel-quarkus-rabbitmq               | none
+| camel-quarkus-vm                     | camel-quarkus-seda
+| camel-quarkus-xstream                | camel-quarkus-jacksonxml
+|===
+
+
