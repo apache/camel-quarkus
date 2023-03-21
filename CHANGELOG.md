@@ -6,11 +6,14 @@
 
 **Closed issues:**
 
+- Add `icon-url` attribute to `quarkus-extension.yaml` pointing to Camel logo  [\#4672](https://github.com/apache/camel-quarkus/issues/4672)
 - jbosstm/lra-coordinator is not available [\#4667](https://github.com/apache/camel-quarkus/issues/4667)
 - Add prefix to copied test classes \(in integration-test-groups\) in integration tests [\#4664](https://github.com/apache/camel-quarkus/issues/4664)
 - camel-quarkus-management: Improve test coverage [\#4661](https://github.com/apache/camel-quarkus/issues/4661)
 - Add Direct VM extension [\#4657](https://github.com/apache/camel-quarkus/issues/4657)
 - \[Camel 4.0-M3\] Upgrade to Groovy 4.x [\#4624](https://github.com/apache/camel-quarkus/issues/4624)
+- HealthCheck for ActiveMQ  [\#4605](https://github.com/apache/camel-quarkus/issues/4605)
+- Make it easier for Dependabot to upgrade dependencies [\#4532](https://github.com/apache/camel-quarkus/issues/4532)
 - Remove `quarkus.camel.yaml.flow-mode` [\#4482](https://github.com/apache/camel-quarkus/issues/4482)
 - Groovy DSL - Add support of Groovy extension modules [\#4384](https://github.com/apache/camel-quarkus/issues/4384)
 - Remove azure-identity `IdentityClientBase` runtime initialization native configuration [\#4356](https://github.com/apache/camel-quarkus/issues/4356)
@@ -18,6 +21,8 @@
 
 **Merged pull requests:**
 
+- Add icon-url attribute to quarkus-extension.yaml pointing to Camel lo… [\#4673](https://github.com/apache/camel-quarkus/pull/4673) ([ppalaga](https://github.com/ppalaga))
+- Use QUARKUS\_HTTP\_PORT env in LraTestResource [\#4670](https://github.com/apache/camel-quarkus/pull/4670) ([zhfeng](https://github.com/zhfeng))
 - Generated sources regen for SBOM [\#4669](https://github.com/apache/camel-quarkus/pull/4669) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Fix \#4667 to use quay.io/jbosstm/lra-coordinator [\#4668](https://github.com/apache/camel-quarkus/pull/4668) ([zhfeng](https://github.com/zhfeng))
 - Remove redundant Azure IdentityClientBase runtime initialized class config [\#4666](https://github.com/apache/camel-quarkus/pull/4666) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -29,6 +34,7 @@
 - Register atlasmap.properties as a native image resource [\#4649](https://github.com/apache/camel-quarkus/pull/4649) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#4635 replace with ReflectiveClassBuildItem.builder\(\) [\#4648](https://github.com/apache/camel-quarkus/pull/4648) ([zhfeng](https://github.com/zhfeng))
 - Ref \#4596: Create jdbc tests for generated keys and other headers [\#4646](https://github.com/apache/camel-quarkus/pull/4646) ([ldrozdo](https://github.com/ldrozdo))
+- Auto synchronize dependabot branches with generated changes [\#4645](https://github.com/apache/camel-quarkus/pull/4645) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Quarkiverse CXF 2.0.0.Alpha4 [\#4644](https://github.com/apache/camel-quarkus/pull/4644) ([ppalaga](https://github.com/ppalaga))
 - Generated sources regen for SBOM [\#4643](https://github.com/apache/camel-quarkus/pull/4643) ([github-actions[bot]](https://github.com/apps/github-actions))
 - camel-quarkus-language: Added language, resource and options tests [\#4641](https://github.com/apache/camel-quarkus/pull/4641) ([djcoleman](https://github.com/djcoleman))
