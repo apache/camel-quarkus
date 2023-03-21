@@ -13,6 +13,7 @@
 ** xref:user-guide/kubernetes.adoc[Kubernetes]
 * xref:migration-guide/index.adoc[Migration guide]
 ** xref:migration-guide/2.0.0.adoc[Camel Quarkus 2.0.0 migration guide]
+** xref:migration-guide/3.0.0.adoc[Camel Quarkus 3.0.0 migration guide]
 * xref:contributor-guide/index.adoc[Contributor guide]
 ** xref:contributor-guide/create-new-extension.adoc[Create new extension]
 ** xref:contributor-guide/promote-jvm-to-native.adoc[Promote JVM extension to Native]
