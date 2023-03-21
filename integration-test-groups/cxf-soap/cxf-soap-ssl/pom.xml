@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-build-parent-it</artifactId>
+        <version>2.13.3-SNAPSHOT</version>
+        <relativePath>../../../poms/build-parent-it/pom.xml</relativePath>
+    </parent>
+
+    <artifactId>camel-quarkus-integration-test-cxf-soap-ssl</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: Cxf Soap Ssl</name>
+    <description>Integration tests for Camel Quarkus CXF extension ssl part</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-cxf-soap</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-direct</artifactId>
+        </dependency>
+        <!-- test dependencies -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkiverse.cxf</groupId>
+            <artifactId>quarkus-cxf-test-util</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>${quarkus.platform.group-id}</groupId>
+                <artifactId>quarkus-maven-plugin</artifactId>
+                <version>${quarkus.platform.version}</version>
+                <extensions>true</extensions><!-- Workaround for https://github.com/quarkusio/quarkus/issues/21718 -->
+                <executions>
+                    <execution>
+                        <id>generate-code</id>
+                        <goals>
+                            <goal>generate-code</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>native</id>
+            <activation>
+                <property>
+                    <name>native</name>
+                </property>
+            </activation>
+            <properties>
+                <quarkus.package.type>native</quarkus.package.type>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>full</id>
+            <activation>
+                <property>
+                    <name>!quickly</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>keytool-maven-plugin</artifactId>
+                        <configuration>
+                            <keypass>password</keypass>
+                            <validity>365</validity>
+                            <keyalg>RSA</keyalg>
+                            <storepass>password</storepass>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>generate-server-keypair</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>clean</goal>
+                                    <goal>generateKeyPair</goal>
+                                </goals>
+                                <configuration>
+                                    <alias>localhost</alias>
+                                    <dname>CN=localhost, OU=eng, O=apache.org</dname>
+                                    <exts>
+                                        <ext>bc:c=ca:true,pathlen:2147483647</ext>
+                                        <ext>IssuerAlternativeName=DNS:NOT-FOR-PRODUCTION-USE</ext>
+                                    </exts>
+                                    <keystore>${project.build.outputDirectory}/truststore-server.jks</keystore>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>export-server-certificate</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>exportCertificate</goal>
+                                </goals>
+                                <configuration>
+                                    <alias>localhost</alias>
+                                    <keystore>${project.build.outputDirectory}/truststore-server.jks</keystore>
+                                    <rfc>true</rfc>
+                                    <file>${project.build.outputDirectory}/localhost.pem</file>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>create-client-trusstore</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>clean</goal>
+                                    <goal>importCertificate</goal>
+                                </goals>
+                                <configuration>
+                                    <alias>localhost</alias>
+                                    <trustcacerts>true</trustcacerts>
+                                    <noprompt>true</noprompt>
+                                    <keystore>${project.build.outputDirectory}/truststore-client.jks</keystore>
+                                    <file>${project.build.outputDirectory}/localhost.pem</file>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>generate-wrong-trusstore</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>clean</goal>
+                                    <goal>generateKeyPair</goal>
+                                </goals>
+                                <configuration>
+                                    <alias>localhost</alias>
+                                    <dname>CN=localhost, OU=eng, O=apache.org</dname>
+                                    <exts>
+                                        <ext>bc:c=ca:true,pathlen:2147483647</ext>
+                                        <ext>IssuerAlternativeName=DNS:NOT-FOR-PRODUCTION-USE</ext>
+                                    </exts>
+                                    <keystore>${project.build.outputDirectory}/truststore-wrong.jks</keystore>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>virtualDependencies</id>
+            <activation>
+                <property>
+                    <name>!noVirtualDependencies</name>
+                </property>
+            </activation>
+            <dependencies>
+                <!-- The following dependencies guarantee that this module is built after them. You can update them by running `mvn process-resources -Pformat -N` from the source tree root directory -->
+                <dependency>
+                    <groupId>org.apache.camel.quarkus</groupId>
+                    <artifactId>camel-quarkus-cxf-soap-deployment</artifactId>
+                    <version>${project.version}</version>
+                    <type>pom</type>
+                    <scope>test</scope>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>*</groupId>
+                            <artifactId>*</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.camel.quarkus</groupId>
+                    <artifactId>camel-quarkus-direct-deployment</artifactId>
+                    <version>${project.version}</version>
+                    <type>pom</type>
+                    <scope>test</scope>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>*</groupId>
+                            <artifactId>*</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+
+</project>
