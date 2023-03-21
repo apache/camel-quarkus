@@ -88,12 +88,11 @@ jobs:
 
           CHANGES_PATH=/home/runner/work/dependabot-pr/changes.patch
           if [[ -f "${CHANGES_PATH}" ]]; then
-            COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+            COMMIT_MESSAGE="Auto generated changes for dependabot commit $(git log -1 --pretty=%H)"
 
-            git reset --soft HEAD~1
             git apply ${CHANGES_PATH}
             git commit -am"${COMMIT_MESSAGE}"
-            git push --force-with-lease origin ${BRANCH_REF}
+            git push origin ${BRANCH_REF}
 
             echo "updated=true" >> $GITHUB_OUTPUT
           else
