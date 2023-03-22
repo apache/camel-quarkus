@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Cleanup tests belonging to removed camel components [\#4675](https://github.com/apache/camel-quarkus/issues/4675)
 - Add `icon-url` attribute to `quarkus-extension.yaml` pointing to Camel logo  [\#4672](https://github.com/apache/camel-quarkus/issues/4672)
 - jbosstm/lra-coordinator is not available [\#4667](https://github.com/apache/camel-quarkus/issues/4667)
 - Add prefix to copied test classes \(in integration-test-groups\) in integration tests [\#4664](https://github.com/apache/camel-quarkus/issues/4664)
@@ -13,6 +14,7 @@
 - Add Direct VM extension [\#4657](https://github.com/apache/camel-quarkus/issues/4657)
 - \[Camel 4.0-M3\] Upgrade to Groovy 4.x [\#4624](https://github.com/apache/camel-quarkus/issues/4624)
 - HealthCheck for ActiveMQ  [\#4605](https://github.com/apache/camel-quarkus/issues/4605)
+- \[Quarkus 3.0.0.Alpha6\] IllegalAnnotationsException Two classes have the same XML type name thrown at build time by quarkus-jaxb [\#4603](https://github.com/apache/camel-quarkus/issues/4603)
 - Make it easier for Dependabot to upgrade dependencies [\#4532](https://github.com/apache/camel-quarkus/issues/4532)
 - Remove `quarkus.camel.yaml.flow-mode` [\#4482](https://github.com/apache/camel-quarkus/issues/4482)
 - Groovy DSL - Add support of Groovy extension modules [\#4384](https://github.com/apache/camel-quarkus/issues/4384)
@@ -21,6 +23,8 @@
 
 **Merged pull requests:**
 
+- Init Migrating to Camel Quarkus 3.0 guide [\#4680](https://github.com/apache/camel-quarkus/pull/4680) ([zbendhiba](https://github.com/zbendhiba))
+- Revert "Temporary workaround for \#4603 IllegalAnnotationsException Tw… [\#4678](https://github.com/apache/camel-quarkus/pull/4678) ([ppalaga](https://github.com/ppalaga))
 - Add icon-url attribute to quarkus-extension.yaml pointing to Camel lo… [\#4673](https://github.com/apache/camel-quarkus/pull/4673) ([ppalaga](https://github.com/ppalaga))
 - Use QUARKUS\_HTTP\_PORT env in LraTestResource [\#4670](https://github.com/apache/camel-quarkus/pull/4670) ([zhfeng](https://github.com/zhfeng))
 - Generated sources regen for SBOM [\#4669](https://github.com/apache/camel-quarkus/pull/4669) ([github-actions[bot]](https://github.com/apps/github-actions))
