@@ -246,6 +246,18 @@ class HttpTest {
                 .body(is("multipartFormData(part1=content1, <part2 value=\"content2\"/>)"));
     }
 
+    @Test
+    public void vertxHttpCustomVertxOptionsShouldSucceed() {
+        RestAssured
+                .given()
+                .queryParam("test-port", RestAssured.port)
+                .when()
+                .get("/test/client/vertx-http/custom-vertx-options")
+                .then()
+                .statusCode(200)
+                .body(is("OK: the custom vertxOptions has triggered the expected exception"));
+    }
+
     private Integer getPort() {
         return getPort("camel.netty-http.test-port");
     }

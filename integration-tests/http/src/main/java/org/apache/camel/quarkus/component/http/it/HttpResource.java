@@ -40,6 +40,8 @@ import jakarta.ws.rs.core.Response;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.FluentProducerTemplate;
+import org.apache.camel.PropertyBindingException;
+import org.apache.camel.ResolveEndpointFailedException;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.EndpointConsumerBuilder;
 import org.apache.camel.builder.EndpointProducerBuilder;
@@ -410,6 +412,28 @@ public class HttpResource {
                 .toF("vertx-http:http://localhost:%d/service/multipart-form-data", port)
                 .withBody(form)
                 .request(String.class);
+    }
+
+    @Path("/vertx-http/custom-vertx-options")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String vertxHttpCustomVertxOptions(@QueryParam("test-port") int port) {
+        try {
+            producerTemplate
+                    .toF("vertx-http:http://localhost:%d/service/custom-vertx-options?vertxOptions=#myVertxOptions", port)
+                    .request();
+            return "NOT_EXPECTED: the custom vertxOptions should have triggered a ResolveEndpointFailedException";
+        } catch (ResolveEndpointFailedException refex) {
+            Throwable firstLevelExceptionCause = refex.getCause();
+            if (firstLevelExceptionCause instanceof PropertyBindingException) {
+                if (firstLevelExceptionCause.getCause() instanceof IllegalArgumentException) {
+                    return "OK: the custom vertxOptions has triggered the expected exception";
+                }
+                return "NOT_EXPECTED: the 2nd level exception cause should be of type IllegalArgumentException";
+            } else {
+                return "NOT_EXPECTED: the 1st level exception cause should be of type PropertyBindingException";
+            }
+        }
     }
 
     // *****************************

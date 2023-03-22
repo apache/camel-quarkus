@@ -64,4 +64,10 @@ public class HttpService {
         }
         return String.format("multipartFormData(%s, %s)", parts.get("part-1"), parts.get("part-2"));
     }
+
+    @GET
+    @Path("/custom-vertx-options")
+    public void customVertxOptions() {
+        // We are not expected to pass here as the Vert.x HTTP client should throw IllegalArgumentException 
+    }
 }
