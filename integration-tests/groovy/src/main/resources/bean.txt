@@ -1,0 +1,4 @@
+def bean = new org.apache.camel.quarkus.component.groovy.it.GroovyBean()
+// rtc is RouteTemplateContext
+bean.setBar(rtc.getProperty('bar', String.class))
+return bean

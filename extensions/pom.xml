@@ -114,6 +114,7 @@
         <module>google-storage</module>
         <module>graphql</module>
         <module>grok</module>
+        <module>groovy</module>
         <module>groovy-dsl</module>
         <module>grpc</module>
         <module>gson</module>
