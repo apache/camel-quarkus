@@ -5,17 +5,17 @@
 :page-aliases: extensions/groovy.adoc
 :linkattrs:
 :cq-artifact-id: camel-quarkus-groovy
-:cq-native-supported: false
-:cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-native-supported: true
+:cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Evaluate a Groovy script
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
-:cq-native-since: n/a
+:cq-native-since: 3.0.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##3.0.0##
 endif::[]
 
 Evaluate a Groovy script
@@ -30,6 +30,10 @@ Please refer to the above link for usage and configuration details.
 [id="extensions-groovy-maven-coordinates"]
 == Maven coordinates
 
+https://{link-quarkus-code-generator}/?extension-search=camel-quarkus-groovy[Create a new project with this extension on {link-quarkus-code-generator}, window="_blank"]
+
+Or add the coordinates to your existing project:
+
 [source,xml]
 ----
 <dependency>
@@ -40,3 +44,11 @@ Please refer to the above link for usage and configuration details.
 ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
+
+[id="extensions-groovy-camel-quarkus-limitations"]
+== Camel Quarkus limitations
+
+Due to some limitations in GraalVM that prevent to execute even basic scripts in native mode, the compilation of the
+Groovy expressions is made with the static compilation enabled which means that the types used in your expression must
+be known at compile time. Please refer to the https://docs.groovy-lang.org/latest/html/documentation/core-semantics.html#static-type-checking[Groovy documentation for more details].
+
