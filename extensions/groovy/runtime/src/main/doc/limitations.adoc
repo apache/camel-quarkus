@@ -1,0 +1,3 @@
+Due to some limitations in GraalVM that prevent to execute even basic scripts in native mode, the compilation of the
+Groovy expressions is made with the static compilation enabled which means that the types used in your expression must
+be known at compile time. Please refer to the https://docs.groovy-lang.org/latest/html/documentation/core-semantics.html#static-type-checking[Groovy documentation for more details].
