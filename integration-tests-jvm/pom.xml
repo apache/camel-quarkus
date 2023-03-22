@@ -64,7 +64,6 @@
         <module>flink</module>
         <module>google-functions</module>
         <module>google-secret-manager</module>
-        <module>groovy</module>
         <module>guava-eventbus</module>
         <module>hashicorp-vault</module>
         <module>hdfs</module>
