@@ -18,12 +18,14 @@ package org.apache.camel.quarkus.component.opentelemetry.it;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import static org.awaitility.Awaitility.await;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -56,6 +58,7 @@ class OpenTelemetryTest {
         }
 
         // Retrieve recorded spans
+        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 5);
         List<Map<String, String>> spans = getSpans();
         assertEquals(5, spans.size());
 
@@ -76,6 +79,7 @@ class OpenTelemetryTest {
                 .body(equalTo("Traced direct:start"));
 
         // Verify the span hierarchy is JAX-RS Service -> Direct Endpoint
+        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 2);
         List<Map<String, String>> spans = getSpans();
         assertEquals(2, spans.size());
         assertEquals(spans.get(0).get("parentId"), spans.get(1).get("spanId"));
@@ -90,6 +94,7 @@ class OpenTelemetryTest {
                 .body(equalTo("Hello " + name));
 
         // Verify the span hierarchy is JAX-RS Service -> Direct Endpoint -> Bean Method
+        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 3);
         List<Map<String, String>> spans = getSpans();
         assertEquals(3, spans.size());
         assertEquals(spans.get(0).get("parentId"), spans.get(1).get("parentId"));
