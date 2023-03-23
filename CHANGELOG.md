@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- \[camel-main\] Http test "basicAuthCache" fails because of CAMEL-19184 [\#4686](https://github.com/apache/camel-quarkus/issues/4686)
 - Cleanup tests belonging to removed camel components [\#4675](https://github.com/apache/camel-quarkus/issues/4675)
 - Add `icon-url` attribute to `quarkus-extension.yaml` pointing to Camel logo  [\#4672](https://github.com/apache/camel-quarkus/issues/4672)
 - jbosstm/lra-coordinator is not available [\#4667](https://github.com/apache/camel-quarkus/issues/4667)
@@ -13,6 +14,9 @@
 - camel-quarkus-management: Improve test coverage [\#4661](https://github.com/apache/camel-quarkus/issues/4661)
 - Add Direct VM extension [\#4657](https://github.com/apache/camel-quarkus/issues/4657)
 - \[Camel 4.0-M3\] Upgrade to Groovy 4.x [\#4624](https://github.com/apache/camel-quarkus/issues/4624)
+- Dead link in weka extension [\#4622](https://github.com/apache/camel-quarkus/issues/4622)
+- Dead link in IPFS extension [\#4621](https://github.com/apache/camel-quarkus/issues/4621)
+- Dead guide link in tagsoup extension [\#4620](https://github.com/apache/camel-quarkus/issues/4620)
 - HealthCheck for ActiveMQ  [\#4605](https://github.com/apache/camel-quarkus/issues/4605)
 - \[Quarkus 3.0.0.Alpha6\] IllegalAnnotationsException Two classes have the same XML type name thrown at build time by quarkus-jaxb [\#4603](https://github.com/apache/camel-quarkus/issues/4603)
 - Make it easier for Dependabot to upgrade dependencies [\#4532](https://github.com/apache/camel-quarkus/issues/4532)
@@ -23,8 +27,11 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 3.0.0.Beta1 [\#4687](https://github.com/apache/camel-quarkus/pull/4687) ([jamesnetherton](https://github.com/jamesnetherton))
+- Update checkout action configuration to pick up dependabot branch changes [\#4682](https://github.com/apache/camel-quarkus/pull/4682) ([jamesnetherton](https://github.com/jamesnetherton))
 - Init Migrating to Camel Quarkus 3.0 guide [\#4680](https://github.com/apache/camel-quarkus/pull/4680) ([zbendhiba](https://github.com/zbendhiba))
 - Revert "Temporary workaround for \#4603 IllegalAnnotationsException Tw… [\#4678](https://github.com/apache/camel-quarkus/pull/4678) ([ppalaga](https://github.com/ppalaga))
+- Bump quarkiverse-mybatis.version from 2.0.0.CR1 to 2.0.0.CR2 [\#4674](https://github.com/apache/camel-quarkus/pull/4674) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Add icon-url attribute to quarkus-extension.yaml pointing to Camel lo… [\#4673](https://github.com/apache/camel-quarkus/pull/4673) ([ppalaga](https://github.com/ppalaga))
 - Use QUARKUS\_HTTP\_PORT env in LraTestResource [\#4670](https://github.com/apache/camel-quarkus/pull/4670) ([zhfeng](https://github.com/zhfeng))
 - Generated sources regen for SBOM [\#4669](https://github.com/apache/camel-quarkus/pull/4669) ([github-actions[bot]](https://github.com/apps/github-actions))
