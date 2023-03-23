@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.spi.ScriptingLanguage;
 
 /**
@@ -30,8 +31,8 @@ class DryModeScriptingLanguage extends DryModeLanguage implements ScriptingLangu
 
     private final Set<ScriptHolder> scripts = ConcurrentHashMap.newKeySet();
 
-    public DryModeScriptingLanguage(String name) {
-        super(name);
+    DryModeScriptingLanguage(CamelContext camelContext, String name) {
+        super(camelContext, name);
     }
 
     @Override
@@ -42,7 +43,7 @@ class DryModeScriptingLanguage extends DryModeLanguage implements ScriptingLangu
     @SuppressWarnings("unchecked")
     @Override
     public <T> T evaluate(String script, Map<String, Object> bindings, Class<T> resultType) {
-        scripts.add(new ScriptHolder(script, bindings));
+        scripts.add(new ScriptHolder(script, loadResource(script), bindings));
         // A non-null value must be returned and the returned type is not really important for the dry mode
         return (T) new Object();
     }

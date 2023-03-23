@@ -24,21 +24,22 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Expression;
 import org.apache.camel.Predicate;
-import org.apache.camel.spi.Language;
+import org.apache.camel.support.LanguageSupport;
 
 /**
  * {@code DryModeLanguage} is a mock language meant to collect all the expressions and predicates that are registered
  * for a specific language.
  */
-public class DryModeLanguage implements Language {
+public class DryModeLanguage extends LanguageSupport {
 
     private final String name;
     private final Predicate defaultPredicate = new DryModePredicate();
     private final Expression defaultExpression = new DryModeExpression();
     private final Map<Boolean, Set<ExpressionHolder>> expressions = new ConcurrentHashMap<>();
 
-    public DryModeLanguage(String name) {
+    DryModeLanguage(CamelContext camelContext, String name) {
         this.name = name;
+        this.setCamelContext(camelContext);
     }
 
     public String getName() {
@@ -59,27 +60,29 @@ public class DryModeLanguage implements Language {
 
     @Override
     public Predicate createPredicate(String expression) {
-        expressions.computeIfAbsent(Boolean.TRUE, mode -> ConcurrentHashMap.newKeySet()).add(new ExpressionHolder(expression));
+        expressions.computeIfAbsent(Boolean.TRUE, mode -> ConcurrentHashMap.newKeySet())
+                .add(new ExpressionHolder(expression, loadResource(expression)));
         return defaultPredicate;
     }
 
     @Override
     public Expression createExpression(String expression) {
-        expressions.computeIfAbsent(Boolean.FALSE, mode -> ConcurrentHashMap.newKeySet()).add(new ExpressionHolder(expression));
+        expressions.computeIfAbsent(Boolean.FALSE, mode -> ConcurrentHashMap.newKeySet())
+                .add(new ExpressionHolder(expression, loadResource(expression)));
         return defaultExpression;
     }
 
     @Override
     public Predicate createPredicate(String expression, Object[] properties) {
         expressions.computeIfAbsent(Boolean.TRUE, mode -> ConcurrentHashMap.newKeySet())
-                .add(new ExpressionHolder(expression, properties));
+                .add(new ExpressionHolder(expression, loadResource(expression), properties));
         return defaultPredicate;
     }
 
     @Override
     public Expression createExpression(String expression, Object[] properties) {
         expressions.computeIfAbsent(Boolean.FALSE, mode -> ConcurrentHashMap.newKeySet())
-                .add(new ExpressionHolder(expression, properties));
+                .add(new ExpressionHolder(expression, loadResource(expression), properties));
         return defaultExpression;
     }
 
