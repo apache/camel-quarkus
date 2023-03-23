@@ -86,7 +86,7 @@
         <module>cxf-soap</module>
         <module>dataformat</module>
         <module>dataset</module>
-        <!--<module>datasonnet</module> this one may come back in Camel 4 https://github.com/apache/camel-quarkus/issues/4477 -->
+        <module>datasonnet</module>
         <module>debezium-mongodb</module>
         <module>debezium-mysql</module>
         <module>debezium-postgres</module>

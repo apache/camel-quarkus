@@ -21,7 +21,6 @@ The following extensions have been removed.
 | camel-quarkus-atmos                       | none
 | camel-quarkus-avro-rpc                    | none
 | camel-quarkus-caffeine-lrucache           | camel-quarkus-ignite, camel-quarkus-infinispan
-| camel-quarkus-datasonnet                  | should be reintroduced
 | camel-quarkus-dozer                       | none
 | camel-quarkus-elasticsearch-rest          | Coming camel-quarkus-elasticsearch
 | camel-quarkus-hbase                       | none

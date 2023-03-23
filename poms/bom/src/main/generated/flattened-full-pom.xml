@@ -710,6 +710,33 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-datasonnet</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>4.0.0-M2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <exclusions>
+          <exclusion>
+            <groupId>jakarta.activation</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>jakarta.activation-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>jakarta.xml.bind</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>jakarta.xml.bind-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>javax.activation</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>activation</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>com.lihaoyi</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>geny_2.13</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>javax.servlet</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>javax.servlet-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-debezium-common</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>4.0.0-M2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
@@ -3175,6 +3202,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-quarkus-dataset-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.0.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-quarkus-datasonnet</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.0.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-quarkus-datasonnet-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.0.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
