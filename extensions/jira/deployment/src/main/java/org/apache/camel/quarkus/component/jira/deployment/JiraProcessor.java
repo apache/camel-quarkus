@@ -19,17 +19,20 @@ package org.apache.camel.quarkus.component.jira.deployment;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.atlassian.jira.rest.client.api.domain.Issue;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.jboss.jandex.IndexView;
 import org.joda.time.DateTimeZone;
 
 class JiraProcessor {
 
     private static final String FEATURE = "camel-jira";
+    private static final String JIRA_MODEL_PACKAGE = "com.atlassian.jira.rest.client.api.domain";
 
     @BuildStep
     ExtensionSslNativeSupportBuildItem activateSslNativeSupport() {
@@ -55,8 +58,26 @@ class JiraProcessor {
     }
 
     @BuildStep
-    ReflectiveClassBuildItem registerForReflection() {
-        // Required by org.apache.camel.component.jira.consumer.WatchUpdatesConsumer
-        return ReflectiveClassBuildItem.builder(Issue.class.getName()).methods().build();
+    ReflectiveClassBuildItem registerJiraClassesForReflection(CombinedIndexBuildItem combinedIndex) {
+        IndexView index = combinedIndex.getIndex();
+        String[] modelClasses = index.getKnownClasses().stream()
+                .map(ci -> ci.name().toString())
+                .filter(n -> n.startsWith(JIRA_MODEL_PACKAGE))
+                .toArray(String[]::new);
+        return ReflectiveClassBuildItem.builder(modelClasses).methods(true).build();
+    }
+
+    @BuildStep
+    IndexDependencyBuildItem registerDependencyForIndex() {
+        return new IndexDependencyBuildItem("com.atlassian.jira", "jira-rest-java-client-api");
+    }
+
+    @BuildStep
+    List<ReflectiveClassBuildItem> registerReflectiveClasses() {
+        List<ReflectiveClassBuildItem> items = new ArrayList<>();
+        items.add(ReflectiveClassBuildItem.builder("com.atlassian.jira.rest.client.api.StatusCategory").methods(true).build());
+        items.add(ReflectiveClassBuildItem.builder("org.codehaus.jettison.json.JSONArray").methods(true).build());
+        items.add(ReflectiveClassBuildItem.builder("org.codehaus.jettison.json.JSONObject").methods(true).build());
+        return items;
     }
 }
