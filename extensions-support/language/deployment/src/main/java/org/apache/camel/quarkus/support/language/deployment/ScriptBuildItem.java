@@ -28,11 +28,13 @@ public final class ScriptBuildItem extends MultiBuildItem {
 
     final String language;
     final String content;
+    final String loadedContent;
     final Map<String, Object> bindings;
 
-    public ScriptBuildItem(String language, String content, Map<String, Object> bindings) {
+    public ScriptBuildItem(String language, String content, String loadedContent, Map<String, Object> bindings) {
         this.language = language;
         this.content = content;
+        this.loadedContent = loadedContent;
         this.bindings = bindings;
     }
 
@@ -42,6 +44,10 @@ public final class ScriptBuildItem extends MultiBuildItem {
 
     public String getContent() {
         return content;
+    }
+
+    public String getLoadedContent() {
+        return loadedContent;
     }
 
     public Map<String, Object> getBindings() {
