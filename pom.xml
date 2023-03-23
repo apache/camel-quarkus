@@ -172,7 +172,7 @@
         <slf4j-log4j12.version>1.7.30</slf4j-log4j12.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <sshd.version>2.9.2</sshd.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.sshd:sshd-common -->
         <stax2.version>4.2</stax2.version>
-        <wiremock.version>3.0.0-beta-2</wiremock.version>
+        <wiremock.version>3.0.0-beta-4</wiremock.version>
         <zt-exec.version>1.12</zt-exec.version>
 
         <!-- Tooling dependency versions (keep sorted alphabetically) -->
