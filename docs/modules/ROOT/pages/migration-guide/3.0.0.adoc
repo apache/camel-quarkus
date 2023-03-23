@@ -17,16 +17,28 @@ The following extensions have been removed.
 [options="header"]
 |===
 | Extension | Alternative extension(s)
-| camel-quarkus-activemq               | camel-quarkus-jms, camel-quarkus-sjms, camel-quarkus-amqp
-| camel-quarkus-caffeine-lrucache      | camel-quarkus-ignite, camel-quarkus-infinispan
-| camel-quarkus-elasticsearch-rest     | TODO Coming camel-quarkus-elasticsearch
-| camel-quarkus-johnzon                | camel-quarkus-jackson, camel-quarkus-fastjson, camel-quarkus-gson
-| camel-quarkus-microprofile-metrics   | camel-quarkus-micrometer, camel-quarkus-opentelemtry
-| camel-quarkus-opentracing            | camel-quarkus-micrometer, camel-quarkus-opentelemtry
-| camel-quarkus-optaplanner            | none
-| camel-quarkus-rabbitmq               | none
-| camel-quarkus-vm                     | camel-quarkus-seda
-| camel-quarkus-xstream                | camel-quarkus-jacksonxml
+| camel-quarkus-activemq                    | camel-quarkus-jms, camel-quarkus-sjms, camel-quarkus-amqp
+| camel-quarkus-atmos                       | none
+| camel-quarkus-avro-rpc                    | none
+| camel-quarkus-caffeine-lrucache           | camel-quarkus-ignite, camel-quarkus-infinispan
+| camel-quarkus-datasonnet                  | should be reintroduced
+| camel-quarkus-dozer                       | none
+| camel-quarkus-elasticsearch-rest          | Coming camel-quarkus-elasticsearch
+| camel-quarkus-hbase                       | none
+| camel-quarkus-iota                        | none
+| camel-quarkus-jbpm                        | none
+| camel-quarkus-jclouds                     | none
+| camel-quarkus-johnzon                     | camel-quarkus-jackson, camel-quarkus-fastjson, camel-quarkus-gson
+| camel-quarkus-microprofile-metrics        | camel-quarkus-micrometer, camel-quarkus-opentelemtry
+| camel-quarkus-milo                        | none
+| camel-quarkus-opentracing                 | camel-quarkus-micrometer, camel-quarkus-opentelemtry
+| camel-quarkus-optaplanner                 | none
+| camel-quarkus-rabbitmq                    | none
+| camel-quarkus-smallrye-reactive-messaging | should be reintroduced
+| camel-quarkus-tika                        | should be reintroduced
+| camel-quarkus-vm                          | camel-quarkus-seda
+| camel-quarkus-xmlsecurity                 | should be reintroduced
+| camel-quarkus-xstream                     | camel-quarkus-jacksonxml
 |===
 
 
