@@ -16,13 +16,16 @@
  */
 package org.apache.camel.quarkus.component.datasonnet.deployment;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.*;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 
 class DatasonnetProcessor {
@@ -39,7 +42,6 @@ class DatasonnetProcessor {
         indexDependency.produce(new IndexDependencyBuildItem("com.datasonnet", "datasonnet-mapper"));
         indexDependency.produce(new IndexDependencyBuildItem("org.scala-lang", "scala-library"));
         indexDependency.produce(new IndexDependencyBuildItem("org.scala-lang.modules", "scala-collection-compat_2.13"));
-        indexDependency.produce(new IndexDependencyBuildItem("com.lihaoyi", "geny_2.13"));
     }
 
     @BuildStep
@@ -52,5 +54,14 @@ class DatasonnetProcessor {
     @BuildStep
     void process(BuildProducer<NativeImageResourceBuildItem> resource) {
         resource.produce(new NativeImageResourceBuildItem("util.libsonnet"));
+    }
+
+    @BuildStep
+    List<ReflectiveClassBuildItem> registerForReflection() {
+        List<ReflectiveClassBuildItem> items = new ArrayList<>();
+        items.add(ReflectiveClassBuildItem.builder("com.datasonnet.jsonnet.Expr[]").methods(true).fields(false).build());
+        items.add(ReflectiveClassBuildItem.builder("com.datasonnet.jsonnet.Expr$Member$Field[]").methods(true).fields(false)
+                .build());
+        return items;
     }
 }

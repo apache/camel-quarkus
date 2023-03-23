@@ -80,6 +80,7 @@ group-05:
   - csv
   - cxf-soap-grouped
   - dataformat
+  - datasonnet
   - hl7
   - jaxb
   - ssh
