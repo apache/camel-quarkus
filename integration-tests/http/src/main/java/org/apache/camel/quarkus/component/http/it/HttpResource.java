@@ -40,12 +40,14 @@ import jakarta.ws.rs.core.Response;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.FluentProducerTemplate;
+import org.apache.camel.Message;
 import org.apache.camel.PropertyBindingException;
 import org.apache.camel.ResolveEndpointFailedException;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.EndpointConsumerBuilder;
 import org.apache.camel.builder.EndpointProducerBuilder;
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
+import org.apache.camel.http.base.HttpOperationFailedException;
 import org.apache.camel.util.IOHelper;
 import org.eclipse.microprofile.config.ConfigProvider;
 
@@ -434,6 +436,41 @@ public class HttpResource {
                 return "NOT_EXPECTED: the 1st level exception cause should be of type PropertyBindingException";
             }
         }
+    }
+
+    @Path("/vertx-http/session-management")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String vertxHttpSessionManagement(@QueryParam("test-port") int port) {
+        String vertxHttpBaseUri = "vertx-http:http://localhost:" + port + "/service/session-management";
+        Exchange result = producerTemplate
+                .toF("%s/secure?sessionManagement=true&cookieStore=#myVertxCookieStore", vertxHttpBaseUri)
+                .request(Exchange.class);
+
+        HttpOperationFailedException exception = result.getException(HttpOperationFailedException.class);
+        if (exception.getStatusCode() != 403) {
+            return "NOT_EXPECTED: The first request in the session is expected to return HTTP 403";
+        }
+
+        result = producerTemplate
+                .toF("%s/login?sessionManagement=true&cookieStore=#myVertxCookieStore", vertxHttpBaseUri)
+                .withHeader("username", "my-username")
+                .withHeader("password", "my-password")
+                .request(Exchange.class);
+
+        Message msg = result.getMessage();
+        if (msg == null) {
+            return "NOT_EXPECTED: The second request in the session should return a message";
+        } else {
+            String setCookieHeader = msg.getHeader("Set-Cookie", String.class);
+            if (setCookieHeader == null || !setCookieHeader.contains("sessionId=my-session-id-123")) {
+                return "NOT_EXPECTED: The message should have a Set-Cookie String header containing \"sessionId=my-session-id-123\"";
+            }
+        }
+
+        return producerTemplate
+                .toF("%s/secure?sessionManagement=true&cookieStore=#myVertxCookieStore", vertxHttpBaseUri)
+                .request(String.class);
     }
 
     // *****************************

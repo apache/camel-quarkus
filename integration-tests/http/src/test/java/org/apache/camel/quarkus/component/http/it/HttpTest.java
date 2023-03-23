@@ -258,6 +258,18 @@ class HttpTest {
                 .body(is("OK: the custom vertxOptions has triggered the expected exception"));
     }
 
+    @Test
+    public void vertxHttpSessionManagementShouldReturnSecretContent() {
+        RestAssured
+                .given()
+                .queryParam("test-port", RestAssured.port)
+                .when()
+                .get("/test/client/vertx-http/session-management")
+                .then()
+                .statusCode(200)
+                .body(is("Some secret content"));
+    }
+
     private Integer getPort() {
         return getPort("camel.netty-http.test-port");
     }

@@ -17,18 +17,28 @@
 package org.apache.camel.quarkus.component.http.it;
 
 import io.vertx.core.VertxOptions;
+import io.vertx.ext.web.client.spi.CookieStore;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 import jakarta.ws.rs.Produces;
 
 @ApplicationScoped
-public class VertxOptionsProducer {
+public class VertxClientRelatedBeansProducer {
 
+    @Singleton
     @Produces
     @Named("myVertxOptions")
-    VertxOptions createVertxClientOptions() {
+    VertxOptions createOptions() {
         // Setting an inconsistent value to generate an IllegalArgumentException on first Vertx.x HTTP client request
         return new VertxOptions().setMaxEventLoopExecuteTime(0);
+    }
+
+    @ApplicationScoped
+    @Produces
+    @Named("myVertxCookieStore")
+    CookieStore createCookieStore() {
+        return CookieStore.build();
     }
 
 }
