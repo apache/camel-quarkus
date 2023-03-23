@@ -112,6 +112,7 @@
 *** xref:reference/extensions/drill.adoc[Drill]
 *** xref:reference/extensions/dropbox.adoc[Dropbox]
 *** xref:reference/extensions/ehcache.adoc[Ehcache]
+*** xref:reference/extensions/elasticsearch.adoc[Elasticsearch]
 *** xref:reference/extensions/etcd3.adoc[Etcd3]
 *** xref:reference/extensions/exec.adoc[Exec]
 *** xref:reference/extensions/fhir.adoc[FHIR]
