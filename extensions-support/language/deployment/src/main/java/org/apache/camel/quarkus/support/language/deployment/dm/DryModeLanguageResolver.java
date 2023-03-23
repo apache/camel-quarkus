@@ -38,9 +38,9 @@ class DryModeLanguageResolver extends DefaultLanguageResolver {
     public Language resolveLanguage(String name, CamelContext context) throws NoSuchLanguageException {
         final Language language = super.resolveLanguage(name, context);
         if (language instanceof ScriptingLanguage) {
-            return languages.computeIfAbsent(name, DryModeScriptingLanguage::new);
+            return languages.computeIfAbsent(name, n -> new DryModeScriptingLanguage(context, n));
         }
-        return languages.computeIfAbsent(name, DryModeLanguage::new);
+        return languages.computeIfAbsent(name, n -> new DryModeLanguage(context, n));
     }
 
     Collection<DryModeLanguage> getLanguages() {
