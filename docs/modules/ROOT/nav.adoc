@@ -203,6 +203,7 @@
 *** xref:reference/extensions/mvel.adoc[MVEL]
 *** xref:reference/extensions/mail.adoc[Mail]
 *** xref:reference/extensions/management.adoc[Management]
+*** xref:reference/extensions/mapstruct.adoc[MapStruct]
 *** xref:reference/extensions/master.adoc[Master]
 *** xref:reference/extensions/microprofile-health.adoc[MicroProfile Health]
 *** xref:reference/extensions/micrometer.adoc[Micrometer]
