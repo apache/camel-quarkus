@@ -58,6 +58,7 @@
         <module>drill</module>
         <module>dsl-modeline</module>
         <module>ehcache</module>
+        <module>elasticsearch</module>
         <module>etcd3</module>
         <module>facebook</module>
         <module>fastjson</module>
