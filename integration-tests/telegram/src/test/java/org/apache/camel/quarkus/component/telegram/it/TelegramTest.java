@@ -35,7 +35,6 @@ import org.apache.camel.quarkus.test.TrustStoreResource;
 import org.apache.camel.quarkus.test.wiremock.MockServer;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
@@ -112,7 +111,6 @@ public class TelegramTest {
     }
 
     @Test
-    @EnabledIfEnvironmentVariable(named = "TELEGRAM_AUTHORIZATION_TOKEN", matches = ".+") //https://github.com/apache/camel-quarkus/issues/4513
     public void mp3() throws IOException {
         try (InputStream in = getClass().getClassLoader().getResourceAsStream("camel-quarkus-rocks.mp3")) {
             /* Send a message */
@@ -126,7 +124,6 @@ public class TelegramTest {
     }
 
     @Test
-    @EnabledIfEnvironmentVariable(named = "TELEGRAM_AUTHORIZATION_TOKEN", matches = ".+") //https://github.com/apache/camel-quarkus/issues/4513
     public void mp4() throws IOException {
         try (InputStream in = getClass().getClassLoader().getResourceAsStream("camel-quarkus-rocks.mp4")) {
             /* Send a message */
@@ -140,7 +137,6 @@ public class TelegramTest {
     }
 
     @Test
-    @EnabledIfEnvironmentVariable(named = "TELEGRAM_AUTHORIZATION_TOKEN", matches = ".+") //https://github.com/apache/camel-quarkus/issues/4513
     public void pdf() throws IOException {
         try (InputStream in = getClass().getClassLoader().getResourceAsStream("camel-quarkus-rocks.pdf")) {
             /* Send a message */
