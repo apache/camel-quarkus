@@ -25,20 +25,26 @@ import java.util.Objects;
 public final class ExpressionHolder {
 
     private final String content;
+    private final String loadedContent;
 
     private final Object[] properties;
 
-    public ExpressionHolder(String content) {
-        this(content, null);
+    public ExpressionHolder(String content, String loadedContent) {
+        this(content, loadedContent, null);
     }
 
-    public ExpressionHolder(String content, Object[] properties) {
+    public ExpressionHolder(String content, String loadedContent, Object[] properties) {
         this.content = content;
+        this.loadedContent = loadedContent;
         this.properties = properties;
     }
 
     public String getContent() {
         return content;
+    }
+
+    public String getLoadedContent() {
+        return loadedContent;
     }
 
     public Object[] getProperties() {

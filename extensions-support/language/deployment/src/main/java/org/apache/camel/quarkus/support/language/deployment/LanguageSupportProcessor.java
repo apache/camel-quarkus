@@ -64,13 +64,17 @@ class LanguageSupportProcessor {
                 for (DryModeLanguage language : main.getLanguages()) {
                     final String name = language.getName();
                     for (ExpressionHolder holder : language.getPredicates()) {
-                        expressions.produce(new ExpressionBuildItem(name, holder.getContent(), holder.getProperties(), true));
+                        expressions.produce(new ExpressionBuildItem(name, holder.getContent(), holder.getLoadedContent(),
+                                holder.getProperties(), true));
                     }
                     for (ExpressionHolder holder : language.getExpressions()) {
-                        expressions.produce(new ExpressionBuildItem(name, holder.getContent(), holder.getProperties(), false));
+                        expressions.produce(new ExpressionBuildItem(name, holder.getContent(), holder.getLoadedContent(),
+                                holder.getProperties(), false));
                     }
                     for (ScriptHolder script : language.getScripts()) {
-                        scripts.produce(new ScriptBuildItem(name, script.getContent(), script.getBindings()));
+                        scripts.produce(
+                                new ScriptBuildItem(name, script.getContent(), script.getLoadedContent(),
+                                        script.getBindings()));
                     }
                 }
                 return new ExpressionExtractionResultBuildItem(true);

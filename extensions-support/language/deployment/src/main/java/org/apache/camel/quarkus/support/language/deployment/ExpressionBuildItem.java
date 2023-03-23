@@ -26,28 +26,52 @@ public final class ExpressionBuildItem extends MultiBuildItem {
 
     final String language;
     final String expression;
+    final String loadedExpression;
     final boolean predicate;
     final Object[] properties;
 
-    public ExpressionBuildItem(String language, String expression, Object[] properties, boolean predicate) {
+    public ExpressionBuildItem(String language, String expression, String loadedExpression, Object[] properties,
+            boolean predicate) {
         this.language = language;
         this.expression = expression;
+        this.loadedExpression = loadedExpression;
         this.properties = properties;
         this.predicate = predicate;
     }
 
+    /**
+     * @return the name of the language in which the expression is written.
+     */
     public String getLanguage() {
         return language;
     }
 
+    /**
+     * @return the original content of the extracted expression.
+     */
     public String getExpression() {
         return expression;
     }
 
+    /**
+     * @return the content of the expression after being loaded in case the given expression is referring to an external
+     *         resource by using the syntax
+     *         <tt>resource:scheme:uri<tt>.
+     */
+    public String getLoadedExpression() {
+        return loadedExpression;
+    }
+
+    /**
+     * @return {@code true} if the expression is a predicate, {@code false} otherwise.
+     */
     public boolean isPredicate() {
         return predicate;
     }
 
+    /**
+     * @return the properties provided to evaluate the expression.
+     */
     public Object[] getProperties() {
         return properties;
     }

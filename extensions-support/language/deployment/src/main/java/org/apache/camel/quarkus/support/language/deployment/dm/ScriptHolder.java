@@ -25,16 +25,22 @@ import java.util.Objects;
 public final class ScriptHolder {
 
     private final String content;
+    private final String loadedContent;
 
     private final Map<String, Object> bindings;
 
-    public ScriptHolder(String content, Map<String, Object> bindings) {
+    public ScriptHolder(String content, String loadedContent, Map<String, Object> bindings) {
         this.content = content;
+        this.loadedContent = loadedContent;
         this.bindings = bindings;
     }
 
     public String getContent() {
         return content;
+    }
+
+    public String getLoadedContent() {
+        return loadedContent;
     }
 
     public Map<String, Object> getBindings() {
