@@ -86,7 +86,6 @@
         <module>debezium</module>
         <module>digitalocean</module>
         <module>disruptor</module>
-        <!--<module>dozer</module>-->
         <module>dropbox</module>
         <!--<module>elasticsearch-rest</module>-->
         <module>exec</module>
