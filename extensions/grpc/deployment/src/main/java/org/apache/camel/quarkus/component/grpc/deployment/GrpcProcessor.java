@@ -73,12 +73,12 @@ class GrpcProcessor {
         for (DotName dotName : STUB_CLASS_DOT_NAMES) {
             index.getAllKnownSubclasses(dotName)
                     .stream()
-                    .map(classInfo -> ReflectiveClassBuildItem.builder(classInfo.name().toString()).methods(true).fields(false)
+                    .map(classInfo -> ReflectiveClassBuildItem.builder(classInfo.name().toString()).methods()
                             .build())
                     .forEach(reflectiveClass::produce);
         }
         reflectiveClass
-                .produce(ReflectiveClassBuildItem.builder(AbstractStub.class.getName()).methods(true).fields(false).build());
+                .produce(ReflectiveClassBuildItem.builder(AbstractStub.class.getName()).methods().build());
     }
 
     @BuildStep
@@ -115,10 +115,10 @@ class GrpcProcessor {
 
             // Register the service classes for reflection
             reflectiveClass
-                    .produce(ReflectiveClassBuildItem.builder(service.name().toString()).methods(true).fields(false).build());
+                    .produce(ReflectiveClassBuildItem.builder(service.name().toString()).methods().build());
             reflectiveClass.produce(
-                    ReflectiveClassBuildItem.builder(service.enclosingClass().toString()).methods(true).fields(false).build());
-            reflectiveClass.produce(ReflectiveClassBuildItem.builder(generatedClassName).methods(true).fields(false).build());
+                    ReflectiveClassBuildItem.builder(service.enclosingClass().toString()).methods().build());
+            reflectiveClass.produce(ReflectiveClassBuildItem.builder(generatedClassName).methods().build());
 
             try (ClassCreator classCreator = ClassCreator.builder()
                     .classOutput(new GeneratedBeanGizmoAdaptor(generatedBean))

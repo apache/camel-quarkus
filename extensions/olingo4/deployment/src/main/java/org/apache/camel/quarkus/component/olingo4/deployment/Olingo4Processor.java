@@ -41,7 +41,7 @@ class Olingo4Processor {
 
     @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass, CombinedIndexBuildItem combinedIndex) {
-        reflectiveClass.produce(ReflectiveClassBuildItem.builder(ODataImpl.class).methods(true).fields(false).build());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(ODataImpl.class).methods().build());
     }
 
     @BuildStep

@@ -62,7 +62,7 @@ class BindyProcessor {
 
         // BreakIterators are needed when counting graphemes
         producer.produce(
-                ReflectiveClassBuildItem.builder("com.ibm.icu.text.BreakIteratorFactory").methods(false).fields(false).build());
+                ReflectiveClassBuildItem.builder("com.ibm.icu.text.BreakIteratorFactory").build());
 
         IndexView idx = index.getIndex();
 
@@ -74,7 +74,7 @@ class BindyProcessor {
                 .map(anno -> anno.target().asClass().name().toString())
                 .forEach(className -> {
                     LOG.debugf("Registering root model class as reflective: %s", className);
-                    producer.produce(ReflectiveClassBuildItem.builder(className).methods(false).fields(true).build());
+                    producer.produce(ReflectiveClassBuildItem.builder(className).fields().build());
                 });
 
         // Registering the class for fields annotated with @Link
@@ -85,7 +85,7 @@ class BindyProcessor {
                 .forEach(anno -> {
                     String className = anno.target().asField().type().name().toString();
                     LOG.debugf("Registering @Link model class as reflective: %s", className);
-                    producer.produce(ReflectiveClassBuildItem.builder(className).methods(false).fields(true).build());
+                    producer.produce(ReflectiveClassBuildItem.builder(className).fields().build());
                 });
 
         // Registering the class of the first parameterized type argument for fields annotated with @OnetoMany
@@ -99,7 +99,7 @@ class BindyProcessor {
                     if (fieldType.arguments().size() >= 1) {
                         String className = fieldType.arguments().get(0).name().toString();
                         LOG.debugf("Registering @OneToMany model class as reflective: %s", className);
-                        producer.produce(ReflectiveClassBuildItem.builder(className).methods(false).fields(true).build());
+                        producer.produce(ReflectiveClassBuildItem.builder(className).fields().build());
                     }
                 });
 
@@ -110,7 +110,7 @@ class BindyProcessor {
                 .forEach(anno -> {
                     String className = anno.value().asClass().name().toString();
                     LOG.debugf("Registering @BindyConverter class as reflective: %s", className);
-                    producer.produce(ReflectiveClassBuildItem.builder(className).methods(true).fields(false).build());
+                    producer.produce(ReflectiveClassBuildItem.builder(className).methods().build());
                 });
 
         // Registering @FormatFactories.value() classes for fields annotated with @FormatFactories
@@ -121,7 +121,7 @@ class BindyProcessor {
                     for (org.jboss.jandex.Type t : anno.value().asClassArray()) {
                         LOG.debugf("Registering @FormatFactories class as reflective: %s", t.name().toString());
                         producer.produce(
-                                ReflectiveClassBuildItem.builder(t.name().toString()).methods(false).fields(false).build());
+                                ReflectiveClassBuildItem.builder(t.name().toString()).build());
                     }
                 });
 
@@ -140,7 +140,7 @@ class BindyProcessor {
                         methodClazz = anno.target().asField().type().toString();
                     }
                     LOG.debugf("Registering @DataField.method() class as reflective: %s", methodClazz);
-                    producer.produce(ReflectiveClassBuildItem.builder(methodClazz).methods(true).fields(false).build());
+                    producer.produce(ReflectiveClassBuildItem.builder(methodClazz).methods().build());
                 });
     }
 }

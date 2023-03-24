@@ -64,7 +64,7 @@ class FopProcessor {
         dtos.add(IOException.class.getName());
         dtos.add(Integer.class.getName());
 
-        return ReflectiveClassBuildItem.builder(dtos.toArray(new String[dtos.size()])).methods(false).fields(false).build();
+        return ReflectiveClassBuildItem.builder(dtos.toArray(new String[dtos.size()])).build();
     }
 
     @BuildStep

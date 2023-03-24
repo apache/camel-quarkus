@@ -55,7 +55,7 @@ class AzureStorageBlobProcessor {
                         || n.startsWith("com.azure.storage.blob.models."))
                 .sorted()
                 .toArray(String[]::new);
-        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(modelClasses).methods(false).fields(true).build());
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(modelClasses).fields().build());
 
     }
 

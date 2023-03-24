@@ -46,7 +46,7 @@ class BraintreeProcessor {
                 "com.braintreegateway.DocumentUpload",
                 "com.braintreegateway.MerchantAccount",
                 "com.braintreegateway.PaymentMethod",
-                "com.braintreegateway.Transaction").methods(true).fields(false).build());
+                "com.braintreegateway.Transaction").methods().build());
     }
 
     @BuildStep

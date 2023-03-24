@@ -61,10 +61,10 @@ class Aws2S3Processor {
 
         reflectiveClasses.produce(
                 ReflectiveClassBuildItem.builder(knownInterceptorImpls.toArray(new String[knownInterceptorImpls.size()]))
-                        .methods(false).fields(false).build());
+                        .build());
 
         reflectiveClasses
-                .produce(ReflectiveClassBuildItem.builder(String.class.getCanonicalName()).methods(true).fields(false).build());
+                .produce(ReflectiveClassBuildItem.builder(String.class.getCanonicalName()).methods().build());
     }
 
     @BuildStep

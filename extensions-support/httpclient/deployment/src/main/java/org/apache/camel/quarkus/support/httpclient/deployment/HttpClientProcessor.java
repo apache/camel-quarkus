@@ -45,7 +45,7 @@ class HttpClientProcessor {
 
         for (ClassInfo info : view.getAllKnownSubclasses(HTTP_REQUEST_BASE_NAME)) {
             reflectiveClasses
-                    .produce(ReflectiveClassBuildItem.builder(info.name().toString()).methods(true).fields(false).build());
+                    .produce(ReflectiveClassBuildItem.builder(info.name().toString()).methods().build());
         }
     }
 

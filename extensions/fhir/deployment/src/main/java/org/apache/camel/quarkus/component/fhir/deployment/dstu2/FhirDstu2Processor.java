@@ -73,7 +73,7 @@ public class FhirDstu2Processor {
         classes.addAll(getModelClasses(propertiesBuildItem.getProperties()));
 
         reflectiveClass
-                .produce(ReflectiveClassBuildItem.builder(classes.toArray(new String[0])).methods(false).fields(false).build());
+                .produce(ReflectiveClassBuildItem.builder(classes.toArray(new String[0])).build());
 
         String[] dstu2Enums = combinedIndex.getIndex()
                 .getKnownClasses()
@@ -82,6 +82,6 @@ public class FhirDstu2Processor {
                 .filter(className -> className.startsWith("ca.uhn.fhir.model.dstu2.valueset"))
                 .toArray(String[]::new);
 
-        reflectiveClass.produce(ReflectiveClassBuildItem.builder(dstu2Enums).methods(false).fields(false).build());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(dstu2Enums).build());
     }
 }

@@ -57,7 +57,7 @@ class AzureEventhubsProcessor {
                         || n.startsWith("com.azure.core.amqp.models."))
                 .sorted()
                 .toArray(String[]::new);
-        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(modelClasses).methods(false).fields(true).build());
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(modelClasses).fields().build());
 
     }
 

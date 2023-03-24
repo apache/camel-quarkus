@@ -257,7 +257,7 @@ public class ConsumeProcessor {
             reflectiveClasses.produce(
                     ReflectiveClassBuildItem.builder(declaringClasses.stream()
                             .map(DotName::toString)
-                            .toArray(String[]::new)).methods(true).fields(false).build());
+                            .toArray(String[]::new)).methods().build());
         }
     }
 

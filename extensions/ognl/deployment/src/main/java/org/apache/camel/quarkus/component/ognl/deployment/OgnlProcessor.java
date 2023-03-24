@@ -53,11 +53,11 @@ class OgnlProcessor {
                             ReflectiveClassBuildItem
                                     .builder(view.getAllKnownImplementors(returnType).stream().map(ClassInfo::name)
                                             .map(DotName::toString).toArray(String[]::new))
-                                    .constructors(false).methods(true).fields(false).build());
+                                    .constructors(false).methods().build());
                 }
             }
         }
         reflectiveClass.produce(ReflectiveClassBuildItem.builder(types.toArray(new Class<?>[0])).constructors(false)
-                .methods(true).fields(false).build());
+                .methods().build());
     }
 }

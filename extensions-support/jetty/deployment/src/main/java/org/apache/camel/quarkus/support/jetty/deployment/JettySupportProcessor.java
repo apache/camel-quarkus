@@ -33,7 +33,7 @@ class JettySupportProcessor {
     @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         for (Class<?> type : JETTY_REFLECTIVE_CLASSES) {
-            reflectiveClass.produce(ReflectiveClassBuildItem.builder(type).methods(true).fields(false).build());
+            reflectiveClass.produce(ReflectiveClassBuildItem.builder(type).methods().build());
         }
     }
 }

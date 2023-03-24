@@ -42,18 +42,18 @@ class GeocoderProcessor {
     List<ReflectiveClassBuildItem> registerReflectiveClasses() {
         List<ReflectiveClassBuildItem> items = new ArrayList<ReflectiveClassBuildItem>();
         items.add(
-                ReflectiveClassBuildItem.builder("com.google.maps.GeocodingApi$Response").methods(false).fields(true).build());
+                ReflectiveClassBuildItem.builder("com.google.maps.GeocodingApi$Response").fields().build());
         items.add(
-                ReflectiveClassBuildItem.builder("com.google.maps.model.GeocodingResult").methods(false).fields(true).build());
+                ReflectiveClassBuildItem.builder("com.google.maps.model.GeocodingResult").fields().build());
         items.add(
-                ReflectiveClassBuildItem.builder("com.google.maps.model.AddressComponent").methods(false).fields(true).build());
-        items.add(ReflectiveClassBuildItem.builder("com.google.maps.model.Geometry").methods(false).fields(true).build());
-        items.add(ReflectiveClassBuildItem.builder("com.google.maps.model.AddressType").methods(false).fields(true).build());
-        items.add(ReflectiveClassBuildItem.builder("com.google.maps.model.PlusCode").methods(false).fields(true).build());
-        items.add(ReflectiveClassBuildItem.builder("com.google.maps.model.Bounds").methods(false).fields(true).build());
-        items.add(ReflectiveClassBuildItem.builder("com.google.maps.model.LatLng").methods(false).fields(true).build());
-        items.add(ReflectiveClassBuildItem.builder("com.google.maps.model.LocationType").methods(false).fields(true).build());
-        items.add(ReflectiveClassBuildItem.builder("com.google.maps.model.GeolocationPayload").methods(false).fields(true)
+                ReflectiveClassBuildItem.builder("com.google.maps.model.AddressComponent").fields().build());
+        items.add(ReflectiveClassBuildItem.builder("com.google.maps.model.Geometry").fields().build());
+        items.add(ReflectiveClassBuildItem.builder("com.google.maps.model.AddressType").fields().build());
+        items.add(ReflectiveClassBuildItem.builder("com.google.maps.model.PlusCode").fields().build());
+        items.add(ReflectiveClassBuildItem.builder("com.google.maps.model.Bounds").fields().build());
+        items.add(ReflectiveClassBuildItem.builder("com.google.maps.model.LatLng").fields().build());
+        items.add(ReflectiveClassBuildItem.builder("com.google.maps.model.LocationType").fields().build());
+        items.add(ReflectiveClassBuildItem.builder("com.google.maps.model.GeolocationPayload").fields()
                 .build());
         return items;
     }

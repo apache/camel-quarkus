@@ -33,7 +33,7 @@ class XmlJaxpProcessor {
     @BuildStep
     void reflective(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         reflectiveClass.produce(
-                ReflectiveClassBuildItem.builder("org.apache.camel.converter.jaxp.XmlConverter").methods(false).fields(false)
+                ReflectiveClassBuildItem.builder("org.apache.camel.converter.jaxp.XmlConverter")
                         .build());
     }
 }

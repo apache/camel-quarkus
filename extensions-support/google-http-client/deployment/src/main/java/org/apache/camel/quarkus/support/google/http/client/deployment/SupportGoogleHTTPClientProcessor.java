@@ -51,7 +51,7 @@ class SupportGoogleHTTPClientProcessor {
                 .map(classInfo -> classInfo.name().toString())
                 .toArray(String[]::new);
 
-        reflectiveClass.produce(ReflectiveClassBuildItem.builder(googleApis).methods(false).fields(true).build());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(googleApis).fields().build());
     }
 
     @BuildStep

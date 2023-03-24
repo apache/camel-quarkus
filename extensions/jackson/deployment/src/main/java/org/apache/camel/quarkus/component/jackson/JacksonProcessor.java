@@ -38,8 +38,8 @@ public class JacksonProcessor {
         List<ReflectiveClassBuildItem> items = new ArrayList<>();
         items.add(
                 ReflectiveClassBuildItem.builder("com.fasterxml.jackson.module.jakarta.xmlbind.JakartaXmlBindAnnotationModule")
-                        .methods(false).fields(true).build());
-        items.add(ReflectiveClassBuildItem.builder(JsonNode.class).methods(false).fields(false).build());
+                        .fields().build());
+        items.add(ReflectiveClassBuildItem.builder(JsonNode.class).build());
         return items;
     }
 }

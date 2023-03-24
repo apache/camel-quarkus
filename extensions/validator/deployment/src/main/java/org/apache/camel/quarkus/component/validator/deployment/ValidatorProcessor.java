@@ -34,7 +34,7 @@ class ValidatorProcessor {
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         reflectiveClass.produce(
                 ReflectiveClassBuildItem.builder("org.apache.camel.support.processor.validation.DefaultValidationErrorHandler")
-                        .methods(false).fields(false).build());
+                        .build());
     }
 
 }

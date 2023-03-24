@@ -43,7 +43,7 @@ class TwitterProcessor {
     @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         reflectiveClass
-                .produce(ReflectiveClassBuildItem.builder(AbstractTwitterComponent.class).methods(true).fields(false).build());
+                .produce(ReflectiveClassBuildItem.builder(AbstractTwitterComponent.class).methods().build());
     }
 
     @BuildStep

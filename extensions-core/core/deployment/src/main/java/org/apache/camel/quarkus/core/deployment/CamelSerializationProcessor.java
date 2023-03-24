@@ -82,7 +82,7 @@ public class CamelSerializationProcessor {
 
         if (!serializationRequests.isEmpty()) {
             //required for serialization of BigInteger
-            reflectiveClasses.produce(ReflectiveClassBuildItem.builder(byte[].class).methods(false).fields(false).build());
+            reflectiveClasses.produce(ReflectiveClassBuildItem.builder(byte[].class).build());
             reflectiveClasses.produce(ReflectiveClassBuildItem.serializationClass(BASE_SERIALIZATION_CLASSES));
         }
     }

@@ -36,7 +36,7 @@ public class DebeziumSupportProcessor {
                 .sorted()
                 .toArray(String[]::new);
 
-        return ReflectiveClassBuildItem.builder(dtos).methods(false).fields(true).build();
+        return ReflectiveClassBuildItem.builder(dtos).fields().build();
     }
 
     @BuildStep
@@ -44,7 +44,7 @@ public class DebeziumSupportProcessor {
         return ReflectiveClassBuildItem.builder(new String[] { "org.apache.kafka.connect.storage.FileOffsetBackingStore",
                 "org.apache.kafka.connect.storage.MemoryOffsetBackingStore",
                 "io.debezium.relational.history.FileDatabaseHistory",
-                "io.debezium.embedded.ConvertingEngineBuilderFactory" }).methods(false).fields(false).build();
+                "io.debezium.embedded.ConvertingEngineBuilderFactory" }).build();
     }
 
     @BuildStep

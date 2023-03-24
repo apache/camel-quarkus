@@ -51,7 +51,7 @@ class JacksonxmlProcessor {
         String[] jsonViewArray = Arrays.stream(jsonViews).flatMap(x -> Arrays.stream(x)).distinct().sorted()
                 .toArray(String[]::new);
 
-        return ReflectiveClassBuildItem.builder(jsonViewArray).methods(false).fields(false).build();
+        return ReflectiveClassBuildItem.builder(jsonViewArray).build();
 
     }
 

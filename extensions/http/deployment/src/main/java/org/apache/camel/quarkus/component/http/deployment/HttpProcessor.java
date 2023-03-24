@@ -39,13 +39,13 @@ class HttpProcessor {
 
     @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
-        reflectiveClasses.produce(ReflectiveClassBuildItem.builder("org.apache.camel.component.http.HttpMethods").methods(true)
-                .fields(false).build());
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder("org.apache.camel.component.http.HttpMethods").methods()
+                .build());
         reflectiveClasses.produce(ReflectiveClassBuildItem.builder("org.apache.http.impl.client.HttpClientBuilder")
-                .methods(true).fields(false).build());
+                .methods().build());
         reflectiveClasses.produce(
-                ReflectiveClassBuildItem.builder(RequestConfig.Builder.class.getName()).methods(true).fields(false).build());
+                ReflectiveClassBuildItem.builder(RequestConfig.Builder.class.getName()).methods().build());
         reflectiveClasses.produce(
-                ReflectiveClassBuildItem.builder(HttpOperationFailedException.class).methods(false).fields(false).build());
+                ReflectiveClassBuildItem.builder(HttpOperationFailedException.class).build());
     }
 }

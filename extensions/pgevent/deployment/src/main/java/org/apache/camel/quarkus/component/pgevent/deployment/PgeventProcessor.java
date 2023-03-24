@@ -45,7 +45,7 @@ class PgeventProcessor {
 
     @BuildStep
     ReflectiveClassBuildItem registerReflectiveClasses() {
-        return ReflectiveClassBuildItem.builder("io.netty.channel.nio.NioEventLoopGroup").methods(false).fields(true).build();
+        return ReflectiveClassBuildItem.builder("io.netty.channel.nio.NioEventLoopGroup").fields().build();
     }
 
     @BuildStep

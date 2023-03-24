@@ -40,6 +40,6 @@ class InfinispanProcessor {
     @BuildStep
     ReflectiveClassBuildItem reflectiveClasses() {
         // Only required when Camel instantiates and manages its own internal CacheContainer
-        return ReflectiveClassBuildItem.builder(ProtoStreamMarshaller.class).methods(false).fields(false).build();
+        return ReflectiveClassBuildItem.builder(ProtoStreamMarshaller.class).build();
     }
 }

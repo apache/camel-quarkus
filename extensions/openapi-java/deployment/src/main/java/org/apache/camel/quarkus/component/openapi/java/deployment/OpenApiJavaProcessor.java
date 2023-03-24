@@ -93,13 +93,13 @@ class OpenApiJavaProcessor {
 
     @BuildStep
     void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses, CombinedIndexBuildItem combinedIndex) {
-        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(SCHEMA.toString()).methods(true).fields(true).build());
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(SCHEMA.toString()).methods().fields().build());
 
         IndexView index = combinedIndex.getIndex();
         index.getAllKnownSubclasses(SCHEMA).stream().map(ClassInfo::toString).forEach(
-                name -> reflectiveClasses.produce(ReflectiveClassBuildItem.builder(name).methods(true).fields(false).build()));
+                name -> reflectiveClasses.produce(ReflectiveClassBuildItem.builder(name).methods().build()));
 
-        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(Discriminator.class).methods(false).fields(false).build());
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(Discriminator.class).build());
     }
 
     @BuildStep(onlyIf = ExposeOpenApiEnabled.class)

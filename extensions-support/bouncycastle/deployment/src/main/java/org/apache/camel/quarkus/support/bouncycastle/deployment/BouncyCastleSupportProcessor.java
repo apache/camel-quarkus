@@ -51,7 +51,7 @@ public class BouncyCastleSupportProcessor {
                         n.startsWith("org.bouncycastle.jcajce.provider.keystore."))
                 .toArray(String[]::new);
 
-        return ReflectiveClassBuildItem.builder(dtos).methods(false).fields(false).build();
+        return ReflectiveClassBuildItem.builder(dtos).build();
     }
 
     @BuildStep

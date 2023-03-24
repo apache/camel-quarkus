@@ -64,12 +64,12 @@ class QuartzProcessor {
 
     @BuildStep
     ReflectiveClassBuildItem registerForReflection() {
-        return ReflectiveClassBuildItem.builder(QUARTZ_JOB_CLASSES).methods(false).fields(false).build();
+        return ReflectiveClassBuildItem.builder(QUARTZ_JOB_CLASSES).build();
     }
 
     @BuildStep
     ReflectiveClassBuildItem registerForReflectionWithMethods() {
-        return ReflectiveClassBuildItem.builder(QUARTZ_JOB_CLASSES_WITH_METHODS).methods(true).fields(false).build();
+        return ReflectiveClassBuildItem.builder(QUARTZ_JOB_CLASSES_WITH_METHODS).methods().build();
     }
 
     @BuildStep
@@ -88,7 +88,7 @@ class QuartzProcessor {
                 .filter(n -> oracleBlobIsPresent || !n.contains("oracle"))
                 .toArray(String[]::new);
 
-        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(delegatesImpl).methods(false).fields(true).build());
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(delegatesImpl).fields().build());
     }
 
     @BuildStep

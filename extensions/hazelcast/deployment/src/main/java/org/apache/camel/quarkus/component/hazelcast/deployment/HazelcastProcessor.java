@@ -76,9 +76,9 @@ class HazelcastProcessor {
     @BuildStep
     List<ReflectiveClassBuildItem> registerReflectiveClasses() {
         List<ReflectiveClassBuildItem> items = new ArrayList<ReflectiveClassBuildItem>();
-        items.add(ReflectiveClassBuildItem.builder("com.hazelcast.core.HazelcastInstance").methods(false).fields(true).build());
-        items.add(ReflectiveClassBuildItem.builder("com.hazelcast.config.Config").methods(false).fields(true).build());
-        items.add(ReflectiveClassBuildItem.builder("com.hazelcast.config.ClientConfig").methods(false).fields(true).build());
+        items.add(ReflectiveClassBuildItem.builder("com.hazelcast.core.HazelcastInstance").fields().build());
+        items.add(ReflectiveClassBuildItem.builder("com.hazelcast.config.Config").fields().build());
+        items.add(ReflectiveClassBuildItem.builder("com.hazelcast.config.ClientConfig").fields().build());
         return items;
     }
 

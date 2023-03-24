@@ -151,7 +151,7 @@ class JshDslProcessor {
                             generatedClass.produce(new GeneratedClassBuildItem(true, className, Files.readAllBytes(p)));
                             if (nameToResource.containsKey(className)) {
                                 reflectiveClass.produce(
-                                        ReflectiveClassBuildItem.builder(className).methods(false).fields(false).build());
+                                        ReflectiveClassBuildItem.builder(className).build());
                                 generatedJavaClass
                                         .produce(new DslGeneratedClassBuildItem(className,
                                                 nameToResource.get(className).getLocation(), true));

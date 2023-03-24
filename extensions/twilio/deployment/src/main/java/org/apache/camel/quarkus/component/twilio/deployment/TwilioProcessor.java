@@ -65,7 +65,7 @@ class TwilioProcessor {
                 .map(classInfo -> classInfo.name().toString())
                 .filter(className -> className.startsWith("com.twilio.rest.api.v2010"))
                 .toArray(String[]::new);
-        reflectiveClass.produce(ReflectiveClassBuildItem.builder(reflectiveClasses).methods(true).fields(false).build());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(reflectiveClasses).methods().build());
 
         // Register Twilio Endpoint implementors for reflection
         String[] endpointImplementors = index.getAllKnownImplementors(DotName.createSimple(Endpoint.class.getName()))
@@ -73,6 +73,6 @@ class TwilioProcessor {
                 .map(classInfo -> classInfo.name().toString())
                 .toArray(String[]::new);
 
-        reflectiveClass.produce(ReflectiveClassBuildItem.builder(endpointImplementors).methods(false).fields(false).build());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(endpointImplementors).build());
     }
 }
