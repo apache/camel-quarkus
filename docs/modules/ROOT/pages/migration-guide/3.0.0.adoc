@@ -4,11 +4,11 @@ The following guide outlines how to adapt your code to changes that were made in
 
 == Changes in Quarkus
 
-Please refer to xref:https://github.com/quarkusio/quarkus/wiki/Migration-Guide-3.0[Quarkus 3.0.0 Migration Guide].
+Please refer to https://github.com/quarkusio/quarkus/wiki/Migration-Guide-3.0[Quarkus 3.0.0 Migration Guide].
 
 == Changes in Camel
 
-Please refer to xref:https://camel.apache.org/manual/camel-4-migration-guide.html[Apache Camel 3.x to 4.0 Migration guide].
+Please refer to xref:manual::camel-4-migration-guide.adoc[Apache Camel 3.x to 4.0 Migration guide].
 
 == Removed extensions
 
