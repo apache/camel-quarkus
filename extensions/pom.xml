@@ -95,7 +95,6 @@
         <module>direct</module>
         <module>disruptor</module>
         <module>dropbox</module>
-        <!--<module>elasticsearch-rest</module> https://github.com/apache/camel-quarkus/issues/4477 -->
         <module>exec</module>
         <module>fhir</module>
         <module>file</module>
