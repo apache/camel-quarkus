@@ -65,6 +65,6 @@ class TelegramProcessor {
                 .sorted()
                 .toArray(String[]::new);
 
-        return ReflectiveClassBuildItem.builder(models).methods(true).fields(true).build();
+        return ReflectiveClassBuildItem.builder(models).methods().fields().build();
     }
 }

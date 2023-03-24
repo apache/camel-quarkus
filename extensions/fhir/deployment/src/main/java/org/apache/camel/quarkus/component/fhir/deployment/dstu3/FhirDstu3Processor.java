@@ -80,10 +80,10 @@ public class FhirDstu3Processor {
         classes.addAll(getModelClasses(propertiesBuildItem.getProperties()));
         classes.addAll(getInnerClasses(Enumerations.class.getName()));
         reflectiveClass.produce(
-                ReflectiveClassBuildItem.builder(Meta.class.getName()).constructors(true).methods(true).fields(true).build());
-        reflectiveClass.produce(ReflectiveClassBuildItem.builder(MetadataResource.class.getName()).constructors(true)
-                .methods(true).fields(true).build());
+                ReflectiveClassBuildItem.builder(Meta.class.getName()).methods().fields().build());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(MetadataResource.class.getName())
+                .methods().fields().build());
         reflectiveClass
-                .produce(ReflectiveClassBuildItem.builder(classes.toArray(new String[0])).methods(false).fields(false).build());
+                .produce(ReflectiveClassBuildItem.builder(classes.toArray(new String[0])).build());
     }
 }

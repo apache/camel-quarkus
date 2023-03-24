@@ -35,12 +35,12 @@ class LeveldbProcessor {
 
     @BuildStep
     ReflectiveClassBuildItem registerForReflection() {
-        return ReflectiveClassBuildItem.builder(Iq80DBFactory.class.getName()).methods(false).fields(false).build();
+        return ReflectiveClassBuildItem.builder(Iq80DBFactory.class.getName()).build();
     }
 
     @BuildStep
     ReflectiveClassBuildItem registerForReflectionWithFields() {
-        return ReflectiveClassBuildItem.builder(DefaultExchangeHolder.class.getName()).methods(false).fields(true).build();
+        return ReflectiveClassBuildItem.builder(DefaultExchangeHolder.class.getName()).fields().build();
     }
 
     @BuildStep

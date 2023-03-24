@@ -51,9 +51,9 @@ class SshProcessor {
                         KeyAgreement.class,
                         KeyFactory.class,
                         Signature.class,
-                        Mac.class).methods(true).fields(false).build());
+                        Mac.class).methods().build());
         reflectiveClasses.produce(
-                ReflectiveClassBuildItem.builder(Nio2ServiceFactoryFactory.class).methods(false).fields(false).build());
+                ReflectiveClassBuildItem.builder(Nio2ServiceFactoryFactory.class).build());
     }
 
     @BuildStep

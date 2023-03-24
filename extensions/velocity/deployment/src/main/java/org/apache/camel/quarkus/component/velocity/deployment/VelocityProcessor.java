@@ -57,12 +57,12 @@ class VelocityProcessor {
 
         dtos.add(CamelVelocityClasspathResourceLoader.class.getName());
 
-        return ReflectiveClassBuildItem.builder(dtos.toArray(new String[dtos.size()])).methods(false).fields(false).build();
+        return ReflectiveClassBuildItem.builder(dtos.toArray(new String[dtos.size()])).build();
     }
 
     @BuildStep
     ReflectiveClassBuildItem registerForReflectionWithMethods() {
-        return ReflectiveClassBuildItem.builder(TreeMap.class.getName()).methods(true).fields(false).build();
+        return ReflectiveClassBuildItem.builder(TreeMap.class.getName()).methods().build();
     }
 
     @BuildStep

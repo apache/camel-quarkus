@@ -49,7 +49,7 @@ class DisruptorProcessor {
         return ReflectiveClassBuildItem.builder(BlockingWaitStrategy.class,
                 SleepingWaitStrategy.class,
                 BusySpinWaitStrategy.class,
-                YieldingWaitStrategy.class).methods(true).fields(false).build();
+                YieldingWaitStrategy.class).methods().build();
     }
 
     @BuildStep

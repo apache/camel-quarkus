@@ -34,7 +34,7 @@ class DebeziumMysqlProcessor {
     @BuildStep
     ReflectiveClassBuildItem reflectiveClasses() {
         return ReflectiveClassBuildItem.builder(new String[] { "io.debezium.connector.mysql.MySqlConnector",
-                "io.debezium.connector.mysql.MySqlConnectorTask" }).methods(false).fields(false).build();
+                "io.debezium.connector.mysql.MySqlConnectorTask" }).build();
     }
 
     @BuildStep

@@ -57,17 +57,17 @@ class AtlasmapProcessor {
     @BuildStep
     List<ReflectiveClassBuildItem> registerReflectiveClasses() {
         List<ReflectiveClassBuildItem> items = new ArrayList<>();
-        items.add(ReflectiveClassBuildItem.builder(DefaultAtlasContextFactory.class).methods(false).fields(false).build());
-        items.add(ReflectiveClassBuildItem.builder(DefaultAtlasModuleInfo.class).methods(false).fields(false).build());
-        items.add(ReflectiveClassBuildItem.builder(JsonModule.class).methods(true).fields(false).build());
-        items.add(ReflectiveClassBuildItem.builder(CsvModule.class).methods(true).fields(false).build());
-        items.add(ReflectiveClassBuildItem.builder(JavaModule.class).methods(true).fields(false).build());
-        items.add(ReflectiveClassBuildItem.builder(XmlModule.class).methods(true).fields(false).build());
-        items.add(ReflectiveClassBuildItem.builder(AtlasContextFactoryMXBean.class).constructors(false).methods(true)
-                .fields(false).build());
-        items.add(ReflectiveClassBuildItem.builder(AtlasModuleInfoMXBean.class).constructors(false).methods(true).fields(false)
+        items.add(ReflectiveClassBuildItem.builder(DefaultAtlasContextFactory.class).build());
+        items.add(ReflectiveClassBuildItem.builder(DefaultAtlasModuleInfo.class).build());
+        items.add(ReflectiveClassBuildItem.builder(JsonModule.class).methods().build());
+        items.add(ReflectiveClassBuildItem.builder(CsvModule.class).methods().build());
+        items.add(ReflectiveClassBuildItem.builder(JavaModule.class).methods().build());
+        items.add(ReflectiveClassBuildItem.builder(XmlModule.class).methods().build());
+        items.add(ReflectiveClassBuildItem.builder(AtlasContextFactoryMXBean.class).constructors(false).methods()
                 .build());
-        items.add(ReflectiveClassBuildItem.builder(DataSourceMetadata.class).constructors(false).methods(true).fields(false)
+        items.add(ReflectiveClassBuildItem.builder(AtlasModuleInfoMXBean.class).constructors(false).methods()
+                .build());
+        items.add(ReflectiveClassBuildItem.builder(DataSourceMetadata.class).constructors(false).methods()
                 .build());
         return items;
     }
@@ -90,7 +90,7 @@ class AtlasmapProcessor {
                         || n.startsWith("io.atlasmap.csv.v2")
                         || n.startsWith("io.atlasmap.dfdl.v2"))
                 .toArray(String[]::new);
-        return ReflectiveClassBuildItem.builder(dtos).methods(true).fields(false).build();
+        return ReflectiveClassBuildItem.builder(dtos).methods().build();
     }
 
     @BuildStep
@@ -113,7 +113,7 @@ class AtlasmapProcessor {
                         // we don't need to add external dependency atlas-core for the services
                         String[] dtos = implementations.stream()
                                 .toArray(String[]::new);
-                        reflectiveClass.produce(ReflectiveClassBuildItem.builder(dtos).methods(true).fields(false).build());
+                        reflectiveClass.produce(ReflectiveClassBuildItem.builder(dtos).methods().build());
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

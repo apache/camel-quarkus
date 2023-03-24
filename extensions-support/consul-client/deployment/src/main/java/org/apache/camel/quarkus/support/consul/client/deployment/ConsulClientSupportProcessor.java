@@ -65,7 +65,7 @@ class ConsulClientSupportProcessor {
                 .map(AnnotationTarget::asClass)
                 .filter(item -> item.name().prefix().toString().startsWith("com.orbitz.consul.model"))
                 .flatMap(item -> index.getIndex().getAllKnownSubclasses(item.name()).stream())
-                .map(item -> ReflectiveClassBuildItem.builder(item.name().toString()).methods(true).fields(false).build())
+                .map(item -> ReflectiveClassBuildItem.builder(item.name().toString()).methods().build())
                 .forEach(reflectiveClasses::produce);
     }
 

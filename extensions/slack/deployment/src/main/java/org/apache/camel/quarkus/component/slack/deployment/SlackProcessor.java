@@ -55,11 +55,11 @@ class SlackProcessor {
                 .filter(className -> className.startsWith("com.slack.api.model")
                         || className.startsWith("com.slack.api.methods.response"))
                 .toArray(String[]::new);
-        return ReflectiveClassBuildItem.builder(slackApiClasses).methods(false).fields(true).build();
+        return ReflectiveClassBuildItem.builder(slackApiClasses).fields().build();
     }
 
     @BuildStep
     ReflectiveClassBuildItem registerForReflection() {
-        return ReflectiveClassBuildItem.builder(SlackMessage.class).methods(false).fields(true).build();
+        return ReflectiveClassBuildItem.builder(SlackMessage.class).fields().build();
     }
 }

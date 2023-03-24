@@ -90,10 +90,10 @@ class KafkaProcessor {
                 .flatMap(Collection::stream)
                 .map(ClassInfo::toString)
                 .forEach(name -> reflectiveClass
-                        .produce(ReflectiveClassBuildItem.builder(name).methods(false).fields(true).build()));
+                        .produce(ReflectiveClassBuildItem.builder(name).fields().build()));
 
         reflectiveClass
-                .produce(ReflectiveClassBuildItem.builder("org.apache.kafka.clients.producer.internals.Sender").methods(false)
-                        .fields(true).build());
+                .produce(ReflectiveClassBuildItem.builder("org.apache.kafka.clients.producer.internals.Sender")
+                        .fields().build());
     }
 }

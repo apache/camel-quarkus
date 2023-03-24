@@ -89,7 +89,7 @@ class SupportMailProcessor {
                 Stream.concat(streamProviders.stream(),
                         Stream.concat(imp1.stream(), Stream.concat(imp2.stream(), imp3.stream()))))
                 .distinct()
-                .toArray(String[]::new)).constructors(true).methods(false).fields(false).build());
+                .toArray(String[]::new)).build());
 
         resource.produce(new NativeImageResourceBuildItem(
                 "META-INF/services/jakarta.mail.Provider",

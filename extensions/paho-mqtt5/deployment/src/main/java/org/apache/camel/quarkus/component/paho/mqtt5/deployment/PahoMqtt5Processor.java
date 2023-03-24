@@ -46,13 +46,13 @@ class PahoMqtt5Processor {
 
     @BuildStep
     void registerReflectiveClasses(BuildProducer<ReflectiveClassBuildItem> p) {
-        p.produce(ReflectiveClassBuildItem.builder(JSR47Logger.class).methods(false).fields(false).build());
-        p.produce(ReflectiveClassBuildItem.builder(ResourceBundleCatalog.class).methods(false).fields(false).build());
-        p.produce(ReflectiveClassBuildItem.builder(ResourceBundle.class).methods(false).fields(false).build());
-        p.produce(ReflectiveClassBuildItem.builder(FileLock.class).methods(false).fields(false).build());
-        p.produce(ReflectiveClassBuildItem.builder(FileChannel.class).methods(true).fields(false).build());
-        p.produce(ReflectiveClassBuildItem.builder(RandomAccessFile.class).methods(true).fields(false).build());
-        p.produce(ReflectiveClassBuildItem.builder("sun.nio.ch.FileLockImpl").methods(true).fields(false).build());
+        p.produce(ReflectiveClassBuildItem.builder(JSR47Logger.class).build());
+        p.produce(ReflectiveClassBuildItem.builder(ResourceBundleCatalog.class).build());
+        p.produce(ReflectiveClassBuildItem.builder(ResourceBundle.class).build());
+        p.produce(ReflectiveClassBuildItem.builder(FileLock.class).build());
+        p.produce(ReflectiveClassBuildItem.builder(FileChannel.class).methods().build());
+        p.produce(ReflectiveClassBuildItem.builder(RandomAccessFile.class).methods().build());
+        p.produce(ReflectiveClassBuildItem.builder("sun.nio.ch.FileLockImpl").methods().build());
     }
 
     @BuildStep

@@ -38,6 +38,6 @@ class FlatpackProcessor {
 
     @BuildStep
     ReflectiveClassBuildItem registerReflectiveClasses() {
-        return ReflectiveClassBuildItem.builder(FlatpackException.class).methods(false).fields(false).build();
+        return ReflectiveClassBuildItem.builder(FlatpackException.class).build();
     }
 }

@@ -58,7 +58,7 @@ public class ReactorNettySupportProcessor {
                 "reactor.netty.channel.BootstrapHandlers$BootstrapInitializerHandler",
                 "reactor.netty.channel.ChannelOperationsHandler",
                 "reactor.netty.resources.PooledConnectionProvider$PooledConnectionAllocator$PooledConnectionInitializer",
-                "reactor.netty.tcp.SslProvider$SslReadHandler").methods(true).fields(false).build());
+                "reactor.netty.tcp.SslProvider$SslReadHandler").methods().build());
 
     }
 

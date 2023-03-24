@@ -34,7 +34,7 @@ class DebeziumSqlserverProcessor {
     @BuildStep
     ReflectiveClassBuildItem reflectiveClasses() {
         return ReflectiveClassBuildItem.builder(new String[] { "io.debezium.connector.sqlserver.SqlServerConnector",
-                "io.debezium.connector.sqlserver.SqlServerConnectorTask" }).methods(false).fields(false).build();
+                "io.debezium.connector.sqlserver.SqlServerConnectorTask" }).build();
     }
 
     @BuildStep

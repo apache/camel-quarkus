@@ -45,7 +45,7 @@ class KuduProcessor {
     @BuildStep
     void reflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         reflectiveClass.produce(ReflectiveClassBuildItem.builder("org.apache.kudu.tserver.Tserver$ResourceMetricsPB",
-                "org.apache.kudu.tserver.Tserver$ResourceMetricsPB$Builder").methods(true).fields(false).build());
+                "org.apache.kudu.tserver.Tserver$ResourceMetricsPB$Builder").methods().build());
     }
 
 }

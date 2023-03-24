@@ -56,11 +56,11 @@ class SolrProcessor {
                     AnnotationTarget.Kind kind = target.kind();
                     if (kind.equals(AnnotationTarget.Kind.FIELD)) {
                         ClassInfo classInfo = target.asField().declaringClass();
-                        return ReflectiveClassBuildItem.builder(classInfo.name().toString()).methods(false).fields(true)
+                        return ReflectiveClassBuildItem.builder(classInfo.name().toString()).fields()
                                 .build();
                     } else if (kind.equals(AnnotationTarget.Kind.METHOD)) {
                         ClassInfo classInfo = target.asMethod().declaringClass();
-                        return ReflectiveClassBuildItem.builder(classInfo.name().toString()).methods(true).fields(false)
+                        return ReflectiveClassBuildItem.builder(classInfo.name().toString()).methods()
                                 .build();
                     } else {
                         throw new RuntimeException(
@@ -70,7 +70,7 @@ class SolrProcessor {
                 .forEach(reflectiveClass::produce);
 
         reflectiveClass.produce(
-                ReflectiveClassBuildItem.builder(ClientCnxnSocketNIO.class.getName()).methods(false).fields(false).build());
+                ReflectiveClassBuildItem.builder(ClientCnxnSocketNIO.class.getName()).build());
     }
 
     @BuildStep

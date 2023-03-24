@@ -37,10 +37,10 @@ class CouchdbProcessor {
     @BuildStep
     List<ReflectiveClassBuildItem> registerReflectiveClasses() {
         List<ReflectiveClassBuildItem> items = new ArrayList<ReflectiveClassBuildItem>();
-        items.add(ReflectiveClassBuildItem.builder("org.lightcouch.Response").methods(false).fields(true).build());
-        items.add(ReflectiveClassBuildItem.builder("org.lightcouch.CouchDbInfo").methods(false).fields(true).build());
-        items.add(ReflectiveClassBuildItem.builder("org.lightcouch.ChangesResult$Row").methods(false).fields(true).build());
-        items.add(ReflectiveClassBuildItem.builder("org.lightcouch.ChangesResult$Row$Rev").methods(false).fields(true).build());
+        items.add(ReflectiveClassBuildItem.builder("org.lightcouch.Response").fields().build());
+        items.add(ReflectiveClassBuildItem.builder("org.lightcouch.CouchDbInfo").fields().build());
+        items.add(ReflectiveClassBuildItem.builder("org.lightcouch.ChangesResult$Row").fields().build());
+        items.add(ReflectiveClassBuildItem.builder("org.lightcouch.ChangesResult$Row$Rev").fields().build());
         return items;
     }
 

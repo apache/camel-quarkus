@@ -34,6 +34,6 @@ class DebeziumMongodbProcessor {
     @BuildStep
     ReflectiveClassBuildItem reflectiveClasses() {
         return ReflectiveClassBuildItem.builder(new String[] { MongoDbConnector.class.getName(),
-                MongoDbConnectorTask.class.getName() }).methods(false).fields(false).build();
+                MongoDbConnectorTask.class.getName() }).build();
     }
 }

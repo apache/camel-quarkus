@@ -24,6 +24,6 @@ class CommonsLoggingSupportProcessor {
     ReflectiveClassBuildItem reflectiveClasses() {
         return ReflectiveClassBuildItem.builder("org.apache.commons.logging.LogFactory",
                 "org.apache.commons.logging.impl.LogFactoryImpl",
-                "org.apache.commons.logging.impl.Jdk14Logger").methods(true).fields(false).build();
+                "org.apache.commons.logging.impl.Jdk14Logger").methods().build();
     }
 }

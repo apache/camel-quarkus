@@ -66,7 +66,7 @@ class RssProcessor {
 
             reflectiveClass.produce(
                     ReflectiveClassBuildItem.builder(parserGenerators.toArray(new String[parserGenerators.size()]))
-                            .methods(false).fields(false).build());
+                            .build());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -78,6 +78,6 @@ class RssProcessor {
                 "com.rometools.rome.feed.module.ModuleImpl",
                 "java.util.Date",
         };
-        reflectiveClass.produce(ReflectiveClassBuildItem.builder(clonableClasses).methods(true).fields(false).build());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(clonableClasses).methods().build());
     }
 }

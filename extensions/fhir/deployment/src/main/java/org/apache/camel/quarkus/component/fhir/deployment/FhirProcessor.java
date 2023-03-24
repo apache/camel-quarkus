@@ -83,7 +83,7 @@ final class FhirProcessor {
         IndexView index = combinedIndex.getIndex();
         index.getAllKnownSubclasses(DotName.createSimple(BaseServerResponseException.class.getName()))
                 .stream()
-                .map(classInfo -> ReflectiveClassBuildItem.builder(classInfo.name().toString()).methods(false).fields(false)
+                .map(classInfo -> ReflectiveClassBuildItem.builder(classInfo.name().toString())
                         .build())
                 .forEach(reflectiveClass::produce);
 
@@ -92,14 +92,14 @@ final class FhirProcessor {
                 .map(classInfo -> classInfo.name().toString())
                 .toArray(String[]::new);
 
-        reflectiveClass.produce(ReflectiveClassBuildItem.builder(clientInterceptors).methods(true).fields(false).build());
-        reflectiveClass.produce(ReflectiveClassBuildItem.builder(INTERCEPTOR_CLASSES).methods(true).fields(false).build());
-        reflectiveClass.produce(ReflectiveClassBuildItem.builder(SchematronBaseValidator.class).constructors(true)
-                .methods(false).fields(true).build());
-        reflectiveClass.produce(ReflectiveClassBuildItem.builder(DependencyLogImpl.class).constructors(true).methods(false)
-                .fields(true).build());
-        reflectiveClass.produce(ReflectiveClassBuildItem.builder(ApacheRestfulClientFactory.class).constructors(true)
-                .methods(true).fields(true).build());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(clientInterceptors).methods().build());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(INTERCEPTOR_CLASSES).methods().build());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(SchematronBaseValidator.class)
+                .fields().build());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(DependencyLogImpl.class)
+                .fields().build());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(ApacheRestfulClientFactory.class)
+                .methods().fields().build());
     }
 
 }

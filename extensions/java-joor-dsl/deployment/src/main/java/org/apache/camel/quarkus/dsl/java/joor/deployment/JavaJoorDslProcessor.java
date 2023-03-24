@@ -106,7 +106,7 @@ public class JavaJoorDslProcessor {
 
         for (JavaJoorGeneratedClassBuildItem clazz : classes) {
             generatedClass.produce(new GeneratedClassBuildItem(true, clazz.getName(), clazz.getClassData()));
-            reflectiveClass.produce(ReflectiveClassBuildItem.builder(clazz.getName()).methods(false).fields(false).build());
+            reflectiveClass.produce(ReflectiveClassBuildItem.builder(clazz.getName()).build());
         }
     }
 

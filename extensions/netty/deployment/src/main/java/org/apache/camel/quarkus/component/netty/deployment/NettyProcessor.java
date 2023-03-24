@@ -38,7 +38,7 @@ class NettyProcessor {
 
     @BuildStep
     ReflectiveClassBuildItem registerForReflection() {
-        return ReflectiveClassBuildItem.builder(DefaultEvictionPolicy.class.getName()).constructors(true).methods(false)
-                .fields(false).build();
+        return ReflectiveClassBuildItem.builder(DefaultEvictionPolicy.class.getName())
+                .build();
     }
 }

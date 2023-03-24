@@ -48,7 +48,7 @@ class DigitaloceanProcessor {
                         || n.startsWith("com.myjeeva.digitalocean.common"))
                 .toArray(String[]::new);
 
-        return ReflectiveClassBuildItem.builder(dtos).methods(true).fields(true).build();
+        return ReflectiveClassBuildItem.builder(dtos).methods().fields().build();
     }
 
     @BuildStep
