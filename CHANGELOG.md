@@ -27,6 +27,7 @@
 
 **Merged pull requests:**
 
+- Update Migration guide : add missing removed dependencies [\#4688](https://github.com/apache/camel-quarkus/pull/4688) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade Quarkus to 3.0.0.Beta1 [\#4687](https://github.com/apache/camel-quarkus/pull/4687) ([jamesnetherton](https://github.com/jamesnetherton))
 - Update checkout action configuration to pick up dependabot branch changes [\#4682](https://github.com/apache/camel-quarkus/pull/4682) ([jamesnetherton](https://github.com/jamesnetherton))
 - Init Migrating to Camel Quarkus 3.0 guide [\#4680](https://github.com/apache/camel-quarkus/pull/4680) ([zbendhiba](https://github.com/zbendhiba))
