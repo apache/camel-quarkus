@@ -30,8 +30,8 @@
     <name>Camel Quarkus :: Support :: Language :: Runtime</name>
 
     <properties>
-        <camel.quarkus.jvmSince>2.17.0</camel.quarkus.jvmSince>
-        <camel.quarkus.nativeSince>2.17.0</camel.quarkus.nativeSince>
+        <camel.quarkus.jvmSince>3.0.0</camel.quarkus.jvmSince>
+        <camel.quarkus.nativeSince>3.0.0</camel.quarkus.nativeSince>
     </properties>
 
     <dependencies>
