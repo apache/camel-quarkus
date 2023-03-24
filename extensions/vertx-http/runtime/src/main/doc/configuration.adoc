@@ -1,0 +1,3 @@
+=== Character encodings
+
+Check the xref:user-guide/native-mode.adoc#charsets[Character encodings section] of the Native mode guide if the application is expected to send and receive requests using non-default encodings.

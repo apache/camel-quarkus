@@ -34,6 +34,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 @QuarkusTest
 @QuarkusTestResource(HttpTestResource.class)
@@ -268,6 +269,22 @@ class HttpTest {
                 .then()
                 .statusCode(200)
                 .body(is("Some secret content"));
+    }
+
+    @Test
+    public void vertxHttpBufferConversionWithCharset() {
+        byte[] actualBytes = RestAssured
+                .given()
+                .queryParam("string", "special char €")
+                .queryParam("charset", "iso-8859-15")
+                .when()
+                .get("/test/client/vertx-http/buffer-conversion-with-charset")
+                .then()
+                .statusCode(200)
+                .extract().asByteArray();
+
+        byte[] expectedBytes = new byte[] { 115, 112, 101, 99, 105, 97, 108, 32, 99, 104, 97, 114, 32, -92 };
+        assertArrayEquals(expectedBytes, actualBytes);
     }
 
     private Integer getPort() {

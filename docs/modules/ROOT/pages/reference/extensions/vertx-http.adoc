@@ -55,3 +55,12 @@ You will also need to enable serialization for the exception classes that you in
 ----
 @RegisterForReflection(targets = { IllegalStateException.class, MyCustomException.class }, serialization = true)
 ----
+
+[id="extensions-vertx-http-additional-camel-quarkus-configuration"]
+== Additional Camel Quarkus configuration
+
+[id="extensions-vertx-http-configuration-character-encodings"]
+=== Character encodings
+
+Check the xref:user-guide/native-mode.adoc#charsets[Character encodings section] of the Native mode guide if the application is expected to send and receive requests using non-default encodings.
+

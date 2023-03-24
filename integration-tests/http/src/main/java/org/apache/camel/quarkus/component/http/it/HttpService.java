@@ -99,4 +99,5 @@ public class HttpService {
         }
         throw new ForbiddenException("Wrong username/password, no cookie will be created");
     }
+
 }

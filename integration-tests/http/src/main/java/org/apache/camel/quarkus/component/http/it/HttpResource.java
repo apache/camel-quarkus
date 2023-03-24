@@ -473,6 +473,18 @@ public class HttpResource {
                 .request(String.class);
     }
 
+    @Path("/vertx-http/buffer-conversion-with-charset")
+    @GET
+    public byte[] vertxBufferConversionWithCharset(@QueryParam("string") String string, @QueryParam("charset") String charset) {
+        Buffer buffer = producerTemplate
+                .to("direct:vertx-http-buffer-conversion-with-charset")
+                .withBody(string)
+                .withHeader(Exchange.CONTENT_TYPE, "text/plain;charset=" + charset)
+                .request(Buffer.class);
+
+        return buffer.getBytes();
+    }
+
     // *****************************
     //
     // Send dynamic tests
