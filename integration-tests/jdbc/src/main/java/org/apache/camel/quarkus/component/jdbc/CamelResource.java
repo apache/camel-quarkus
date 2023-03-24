@@ -16,6 +16,14 @@
  */
 package org.apache.camel.quarkus.component.jdbc;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import io.agroal.api.AgroalDataSource;
 import io.quarkus.agroal.DataSource;
 import jakarta.annotation.PostConstruct;
@@ -29,18 +37,9 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
-import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.quarkus.component.jdbc.model.Camel;
-
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 @Path("/test")
 @ApplicationScoped
@@ -51,9 +50,6 @@ public class CamelResource {
 
     @Inject
     ProducerTemplate template;
-
-    @Inject
-    ConsumerTemplate consumerTemplate;
 
     @Inject
     CamelContext context;
