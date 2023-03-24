@@ -94,7 +94,6 @@
         <module>digitalocean</module>
         <module>direct</module>
         <module>disruptor</module>
-        <!--<module>dozer</module> https://github.com/apache/camel-quarkus/issues/4477 -->
         <module>dropbox</module>
         <!--<module>elasticsearch-rest</module> https://github.com/apache/camel-quarkus/issues/4477 -->
         <module>exec</module>
