@@ -6,7 +6,7 @@ cqNativeSupported: true
 cqStatus: Stable
 cqDeprecated: false
 cqJvmSince: 1.0.0
-cqNativeSince: 2.17.0
+cqNativeSince: 3.0.0
 cqCamelPartName: ognl
 cqCamelPartTitle: OGNL
 cqCamelPartDescription: Evaluates an OGNL expression (Apache Commons OGNL).
