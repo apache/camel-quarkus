@@ -21,8 +21,8 @@ The following extensions have been removed.
 | camel-quarkus-atmos                       | none
 | camel-quarkus-avro-rpc                    | none
 | camel-quarkus-caffeine-lrucache           | camel-quarkus-ignite, camel-quarkus-infinispan
-| camel-quarkus-dozer                       | none
-| camel-quarkus-elasticsearch-rest          | Coming camel-quarkus-elasticsearch
+| camel-quarkus-dozer                       | camel-quarkus-mapstruct
+| camel-quarkus-elasticsearch-rest          | camel-quarkus-elasticsearch
 | camel-quarkus-hbase                       | none
 | camel-quarkus-iota                        | none
 | camel-quarkus-jbpm                        | none
