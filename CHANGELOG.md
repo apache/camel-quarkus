@@ -6,7 +6,10 @@
 
 **Closed issues:**
 
+- Update wrong jvmSince and nativeSince  [\#4698](https://github.com/apache/camel-quarkus/issues/4698)
+- Remove and replace some method in ReflectiveClassBuildItem [\#4694](https://github.com/apache/camel-quarkus/issues/4694)
 - \[camel-main\] Http test "basicAuthCache" fails because of CAMEL-19184 [\#4686](https://github.com/apache/camel-quarkus/issues/4686)
+- Add back DataSonnet [\#4685](https://github.com/apache/camel-quarkus/issues/4685)
 - Cleanup tests belonging to removed camel components [\#4675](https://github.com/apache/camel-quarkus/issues/4675)
 - Add `icon-url` attribute to `quarkus-extension.yaml` pointing to Camel logo  [\#4672](https://github.com/apache/camel-quarkus/issues/4672)
 - jbosstm/lra-coordinator is not available [\#4667](https://github.com/apache/camel-quarkus/issues/4667)
@@ -19,7 +22,9 @@
 - Dead guide link in tagsoup extension [\#4620](https://github.com/apache/camel-quarkus/issues/4620)
 - HealthCheck for ActiveMQ  [\#4605](https://github.com/apache/camel-quarkus/issues/4605)
 - \[Quarkus 3.0.0.Alpha6\] IllegalAnnotationsException Two classes have the same XML type name thrown at build time by quarkus-jaxb [\#4603](https://github.com/apache/camel-quarkus/issues/4603)
+- Expand JDBC test coverage [\#4596](https://github.com/apache/camel-quarkus/issues/4596)
 - Make it easier for Dependabot to upgrade dependencies [\#4532](https://github.com/apache/camel-quarkus/issues/4532)
+- TelegramTest.\[mp3|mp4|pdf\] fail with Camel 4 and Quarkus 3 [\#4513](https://github.com/apache/camel-quarkus/issues/4513)
 - Remove `quarkus.camel.yaml.flow-mode` [\#4482](https://github.com/apache/camel-quarkus/issues/4482)
 - Groovy DSL - Add support of Groovy extension modules [\#4384](https://github.com/apache/camel-quarkus/issues/4384)
 - Remove azure-identity `IdentityClientBase` runtime initialization native configuration [\#4356](https://github.com/apache/camel-quarkus/issues/4356)
@@ -27,6 +32,11 @@
 
 **Merged pull requests:**
 
+- Update jvmSince and nativeSince from 2.17.0 to 3.0.0 [\#4700](https://github.com/apache/camel-quarkus/pull/4700) ([zbendhiba](https://github.com/zbendhiba))
+- Fix xref links in 3.0.0 migration guide [\#4696](https://github.com/apache/camel-quarkus/pull/4696) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix \#4694 remove and replace some methods in ReflectiveClassBuildItem [\#4695](https://github.com/apache/camel-quarkus/pull/4695) ([zhfeng](https://github.com/zhfeng))
+- Enable back Telegram mp3, mp4 and pdf integration tests [\#4692](https://github.com/apache/camel-quarkus/pull/4692) ([zbendhiba](https://github.com/zbendhiba))
+- Add back DataSonnet [\#4690](https://github.com/apache/camel-quarkus/pull/4690) ([zbendhiba](https://github.com/zbendhiba))
 - Update Migration guide : add missing removed dependencies [\#4688](https://github.com/apache/camel-quarkus/pull/4688) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade Quarkus to 3.0.0.Beta1 [\#4687](https://github.com/apache/camel-quarkus/pull/4687) ([jamesnetherton](https://github.com/jamesnetherton))
 - Update checkout action configuration to pick up dependabot branch changes [\#4682](https://github.com/apache/camel-quarkus/pull/4682) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -42,6 +52,7 @@
 - camel-quarkus-management: Added tests for managed beans [\#4663](https://github.com/apache/camel-quarkus/pull/4663) ([djcoleman](https://github.com/djcoleman))
 - Fix metrics introduction in observability doc [\#4660](https://github.com/apache/camel-quarkus/pull/4660) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 3.0.0.Alpha6 [\#4659](https://github.com/apache/camel-quarkus/pull/4659) ([jamesnetherton](https://github.com/jamesnetherton))
+- Ref \#4596: Expand JDBC tests - named parameters and samples [\#4655](https://github.com/apache/camel-quarkus/pull/4655) ([ldrozdo](https://github.com/ldrozdo))
 - Upgrade Quarkiverse Freemarker to 1.0.0.Alpha2 [\#4650](https://github.com/apache/camel-quarkus/pull/4650) ([jamesnetherton](https://github.com/jamesnetherton))
 - Register atlasmap.properties as a native image resource [\#4649](https://github.com/apache/camel-quarkus/pull/4649) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#4635 replace with ReflectiveClassBuildItem.builder\(\) [\#4648](https://github.com/apache/camel-quarkus/pull/4648) ([zhfeng](https://github.com/zhfeng))
