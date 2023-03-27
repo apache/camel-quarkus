@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 def AGENT_LABEL = env.AGENT_LABEL ?: 'ubuntu'
-def JDK_NAME = env.JDK_NAME ?: 'jdk_11_latest'
+def JDK_NAME = env.JDK_NAME ?: 'jdk_17_latest'
 def MAVEN_PARAMS = '-B -e -ntp'
 def VERSION_SUFFIX = "-${env.BRANCH_NAME.toUpperCase().replace('_','-')}-SNAPSHOT"
 
