@@ -22,8 +22,8 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.http.base.HttpOperationFailedException;
+import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.auth.BasicScheme;
-import org.apache.http.client.config.RequestConfig;
 
 class HttpProcessor {
     public static final String FEATURE = "camel-http";
