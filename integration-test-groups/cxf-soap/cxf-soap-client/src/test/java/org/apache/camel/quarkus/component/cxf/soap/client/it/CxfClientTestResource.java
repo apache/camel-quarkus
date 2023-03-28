@@ -18,6 +18,7 @@
 package org.apache.camel.quarkus.component.cxf.soap.client.it;
 
 import java.util.Map;
+import java.util.UUID;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.slf4j.Logger;
@@ -34,10 +35,14 @@ public class CxfClientTestResource implements QuarkusTestResourceLifecycleManage
 
     @Override
     public Map<String, String> start() {
+        final String BASIC_AUTH_USER = "tester";
+        final String BASIC_AUTH_PASSWORD = UUID.randomUUID().toString();
 
         try {
             calculatorContainer = new GenericContainer<>("quay.io/l2x6/calculator-ws:1.1")
                     .withExposedPorts(WILDFLY_PORT)
+                    .withEnv("BASIC_AUTH_USER", BASIC_AUTH_USER)
+                    .withEnv("BASIC_AUTH_PASSWORD", BASIC_AUTH_PASSWORD)
                     .withLogConsumer(new Slf4jLogConsumer(log))
                     .waitingFor(Wait.forHttp("/calculator-ws/CalculatorService?wsdl"));
 
@@ -46,7 +51,9 @@ public class CxfClientTestResource implements QuarkusTestResourceLifecycleManage
             return Map.of(
                     "camel-quarkus.it.calculator.baseUri",
                     "http://" + calculatorContainer.getHost() + ":" +
-                            calculatorContainer.getMappedPort(WILDFLY_PORT));
+                            calculatorContainer.getMappedPort(WILDFLY_PORT),
+                    "cq.cxf.it.calculator.auth.basic.user", BASIC_AUTH_USER,
+                    "cq.cxf.it.calculator.auth.basic.password", BASIC_AUTH_PASSWORD);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
