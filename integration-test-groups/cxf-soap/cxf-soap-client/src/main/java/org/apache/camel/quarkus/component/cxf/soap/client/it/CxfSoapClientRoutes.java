@@ -36,6 +36,7 @@ import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.component.cxf.jaxws.CxfEndpoint;
 import org.apache.cxf.ext.logging.LoggingFeature;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.jboss.eap.quickstarts.wscalculator.basicauthcalculator.BasicAuthCalculatorService;
 import org.jboss.eap.quickstarts.wscalculator.calculator.CalculatorService;
 
 @ApplicationScoped
@@ -90,6 +91,13 @@ public class CxfSoapClientRoutes extends RouteBuilder {
         from("direct:operandsAdd")
                 .setHeader(CxfConstants.OPERATION_NAME).constant("addOperands")
                 .to("cxf:bean:soapClientEndpoint?dataFormat=POJO");
+
+        from("direct:basicAuthAdd")
+                .to("cxf:bean:basicAuthClientEndpoint?dataFormat=POJO&username={{cq.cxf.it.calculator.auth.basic.user}}&password={{cq.cxf.it.calculator.auth.basic.password}}");
+
+        from("direct:basicAuthAddAnonymous")
+                .to("cxf:bean:basicAuthClientEndpoint?dataFormat=POJO");
+
     }
 
     @Produces
@@ -109,6 +117,18 @@ public class CxfSoapClientRoutes extends RouteBuilder {
         result.setServiceClass(CalculatorService.class);
         result.setAddress(calculatorServiceAddress());
         result.setWsdlURL(calculatorServiceWsdlUrl());
+        result.getFeatures().add(loggingFeature);
+        return result;
+    }
+
+    @Produces
+    @SessionScoped
+    @Named
+    CxfEndpoint basicAuthClientEndpoint() {
+        final CxfEndpoint result = new CxfEndpoint();
+        result.setServiceClass(BasicAuthCalculatorService.class);
+        result.setAddress(serviceBaseUri + "/calculator-ws/BasicAuthCalculatorService");
+        result.setWsdlURL("wsdl/BasicAuthCalculatorService.wsdl");
         result.getFeatures().add(loggingFeature);
         return result;
     }
