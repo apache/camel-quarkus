@@ -22,6 +22,18 @@
 
   <xs:element name="add" type="tns:add"></xs:element>
 
+  <xs:element name="addArray" type="tns:addArray"></xs:element>
+
+  <xs:element name="addArrayResponse" type="tns:addArrayResponse"></xs:element>
+
+  <xs:element name="addList" type="tns:addList"></xs:element>
+
+  <xs:element name="addListResponse" type="tns:addListResponse"></xs:element>
+
+  <xs:element name="addNumberAndOperands" type="tns:addNumberAndOperands"></xs:element>
+
+  <xs:element name="addNumberAndOperandsResponse" type="tns:addNumberAndOperandsResponse"></xs:element>
+
   <xs:element name="addOperands" type="tns:addOperands"></xs:element>
 
   <xs:element name="addOperandsResponse" type="tns:addOperandsResponse"></xs:element>
@@ -40,19 +52,6 @@
 
   <xs:element name="subtractResponse" type="tns:subtractResponse"></xs:element>
 
-  <xs:complexType name="divide">
-    <xs:sequence>
-      <xs:element name="arg0" type="xs:int"></xs:element>
-      <xs:element name="arg1" type="xs:int"></xs:element>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="divideResponse">
-    <xs:sequence>
-      <xs:element name="return" type="xs:int"></xs:element>
-    </xs:sequence>
-  </xs:complexType>
-
   <xs:complexType name="add">
     <xs:sequence>
       <xs:element name="arg0" type="xs:int"></xs:element>
@@ -61,6 +60,18 @@
   </xs:complexType>
 
   <xs:complexType name="addResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addArray">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="arg0" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addArrayResponse">
     <xs:sequence>
       <xs:element name="return" type="xs:int"></xs:element>
     </xs:sequence>
@@ -79,9 +90,35 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="addOperands">
+  <xs:complexType name="divide">
     <xs:sequence>
-      <xs:element minOccurs="0" name="arg0" type="tns:operands"></xs:element>
+      <xs:element name="arg0" type="xs:int"></xs:element>
+      <xs:element name="arg1" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="divideResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addList">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="arg0" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addListResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addNumberAndOperands">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int"></xs:element>
+      <xs:element minOccurs="0" name="arg1" type="tns:operands"></xs:element>
     </xs:sequence>
   </xs:complexType>
 
@@ -89,6 +126,18 @@
     <xs:sequence>
       <xs:element name="a" type="xs:int"></xs:element>
       <xs:element name="b" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addNumberAndOperandsResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addOperands">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:operands"></xs:element>
     </xs:sequence>
   </xs:complexType>
 
@@ -120,6 +169,42 @@
 
 </xs:schema>
   </wsdl:types>
+  <wsdl:message name="addListResponse">
+    <wsdl:part element="tns:addListResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addArray">
+    <wsdl:part element="tns:addArray" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="divide">
+    <wsdl:part element="tns:divide" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addList">
+    <wsdl:part element="tns:addList" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addOperandsResponse">
+    <wsdl:part element="tns:addOperandsResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addNumberAndOperands">
+    <wsdl:part element="tns:addNumberAndOperands" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addNumberAndOperandsResponse">
+    <wsdl:part element="tns:addNumberAndOperandsResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addOperands">
+    <wsdl:part element="tns:addOperands" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="multiply">
+    <wsdl:part element="tns:multiply" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="add">
     <wsdl:part element="tns:add" name="parameters">
     </wsdl:part>
@@ -144,39 +229,45 @@
     <wsdl:part element="tns:divideResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="divide">
-    <wsdl:part element="tns:divide" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="addOperandsResponse">
-    <wsdl:part element="tns:addOperandsResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="addOperands">
-    <wsdl:part element="tns:addOperands" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="multiply">
-    <wsdl:part element="tns:multiply" name="parameters">
+  <wsdl:message name="addArrayResponse">
+    <wsdl:part element="tns:addArrayResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="CalculatorService">
-    <wsdl:operation name="divide">
-      <wsdl:input message="tns:divide" name="divide">
-    </wsdl:input>
-      <wsdl:output message="tns:divideResponse" name="divideResponse">
-    </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="add">
       <wsdl:input message="tns:add" name="add">
     </wsdl:input>
       <wsdl:output message="tns:addResponse" name="addResponse">
     </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="addArray">
+      <wsdl:input message="tns:addArray" name="addArray">
+    </wsdl:input>
+      <wsdl:output message="tns:addArrayResponse" name="addArrayResponse">
+    </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="subtract">
       <wsdl:input message="tns:subtract" name="subtract">
     </wsdl:input>
       <wsdl:output message="tns:subtractResponse" name="subtractResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="divide">
+      <wsdl:input message="tns:divide" name="divide">
+    </wsdl:input>
+      <wsdl:output message="tns:divideResponse" name="divideResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addList">
+      <wsdl:input message="tns:addList" name="addList">
+    </wsdl:input>
+      <wsdl:output message="tns:addListResponse" name="addListResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addNumberAndOperands">
+      <wsdl:input message="tns:addNumberAndOperands" name="addNumberAndOperands">
+    </wsdl:input>
+      <wsdl:output message="tns:addNumberAndOperandsResponse" name="addNumberAndOperandsResponse">
     </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="addOperands">
@@ -194,15 +285,6 @@
   </wsdl:portType>
   <wsdl:binding name="CalculatorServiceSoapBinding" type="tns:CalculatorService">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
-    <wsdl:operation name="divide">
-      <soap:operation soapAction="" style="document"></soap:operation>
-      <wsdl:input name="divide">
-        <soap:body use="literal"></soap:body>
-      </wsdl:input>
-      <wsdl:output name="divideResponse">
-        <soap:body use="literal"></soap:body>
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="add">
       <soap:operation soapAction="" style="document"></soap:operation>
       <wsdl:input name="add">
@@ -212,12 +294,48 @@
         <soap:body use="literal"></soap:body>
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="addArray">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="addArray">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="addArrayResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="subtract">
       <soap:operation soapAction="" style="document"></soap:operation>
       <wsdl:input name="subtract">
         <soap:body use="literal"></soap:body>
       </wsdl:input>
       <wsdl:output name="subtractResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="divide">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="divide">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="divideResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addList">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="addList">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="addListResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addNumberAndOperands">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="addNumberAndOperands">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="addNumberAndOperandsResponse">
         <soap:body use="literal"></soap:body>
       </wsdl:output>
     </wsdl:operation>
@@ -242,7 +360,7 @@
   </wsdl:binding>
   <wsdl:service name="CalculatorService">
     <wsdl:port binding="tns:CalculatorServiceSoapBinding" name="Calculator">
-      <soap:address location="http://172.17.0.4:8080/calculator-ws/CalculatorService"></soap:address>
+      <soap:address location="http://172.17.0.3:8080/calculator-ws/CalculatorService"></soap:address>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

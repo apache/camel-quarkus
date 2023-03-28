@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.cxf.soap.client.it;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URI;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -30,7 +32,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.jboss.eap.quickstarts.wscalculator.calculator.Operands;
 import org.jboss.eap.quickstarts.wscalculator.calculator.Result;
 
@@ -45,14 +49,28 @@ public class CxfSoapClientResource {
     @POST
     @Consumes(MediaType.WILDCARD)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response sendSimpleRequest(@QueryParam("a") int a,
-            @QueryParam("b") int b, @QueryParam("endpointUri") String endpointUri) throws Exception {
-        final String response = producerTemplate.requestBody(String.format("direct:%s", endpointUri), new int[] { a, b },
-                String.class);
-        return Response
-                .created(new URI("https://camel.apache.org/"))
-                .entity(response)
-                .build();
+    public Response sendSimpleRequest(
+            @QueryParam("a") int a,
+            @QueryParam("b") int b,
+            @QueryParam("endpointUri") String endpointUri,
+            @QueryParam("operation") String operation) throws Exception {
+        try {
+            final String response = producerTemplate.requestBodyAndHeader(
+                    String.format("direct:%s", endpointUri),
+                    new int[] { a, b },
+                    CxfConstants.OPERATION_NAME,
+                    operation,
+                    String.class);
+            return Response
+                    .created(new URI("https://camel.apache.org/"))
+                    .entity(response)
+                    .build();
+        } catch (CamelExecutionException e) {
+            try (StringWriter stackTrace = new StringWriter(); PrintWriter out = new PrintWriter(stackTrace)) {
+                e.printStackTrace(out);
+                return Response.serverError().entity(stackTrace.toString()).build();
+            }
+        }
     }
 
     @Path("/simpleAddDataFormat")
