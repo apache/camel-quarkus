@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.component.cxf.soap.client.it;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -30,6 +29,7 @@ import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -91,16 +91,9 @@ class CxfSoapClientTest {
                 .getValue("camel-quarkus.it.calculator.baseUri", String.class);
 
         final String wsdlRelPath = "wsdl/CalculatorService.wsdl";
-        final Path staticCopyPath = Paths.get("target/classes/" + wsdlRelPath);
-        if (!Files.isRegularFile(staticCopyPath)) {
-            /* The test is run inside Quarkus Platform
-             * and the resource is not available in the filesystem
-             * So let's copy it */
-            Files.createDirectories(staticCopyPath.getParent());
-            try (InputStream in = getClass().getClassLoader().getResourceAsStream(wsdlRelPath)) {
-                Files.copy(in, staticCopyPath);
-            }
-        }
+        final Path staticCopyPath = Paths.get("src/main/resources/" + wsdlRelPath);
+        Assumptions.assumeTrue(Files.isRegularFile(staticCopyPath),
+                staticCopyPath + " does not exist - we probably run inside Quarkus Platform");
 
         /* The changing Docker IP address in the WSDL should not matter */
         final String sanitizerRegex = "<soap:address location=\"http://[^/]*/calculator-ws/CalculatorService\"></soap:address>";
