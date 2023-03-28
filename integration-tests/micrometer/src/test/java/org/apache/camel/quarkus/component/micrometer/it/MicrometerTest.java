@@ -56,8 +56,9 @@ class MicrometerTest {
         RestAssured.get("/micrometer/timer")
                 .then()
                 .statusCode(200);
-        assertTrue(getMetricValue(Integer.class, "counter", "CamelExchangesSucceeded", "routeId=micrometer-metrics-timer") > 0);
-        assertEquals(0, getMetricValue(Integer.class, "counter", "CamelExchangesFailed", "routeId=micrometer-metrics-timer"));
+        assertTrue(
+                getMetricValue(Integer.class, "counter", "camel.exchanges.succeeded", "routeId=micrometer-metrics-timer") > 0);
+        assertEquals(0, getMetricValue(Integer.class, "counter", "camel.exchanges.failed", "routeId=micrometer-metrics-timer"));
     }
 
     @Test
@@ -66,13 +67,13 @@ class MicrometerTest {
                 .then()
                 .statusCode(200);
         String tags = "nodeId=log1,routeId=log";
-        assertTrue(getMetricValue(Double.class, "timer", "CamelMessageHistory", tags) > 0.0);
+        assertTrue(getMetricValue(Double.class, "timer", "camel.message.history", tags) > 0.0);
     }
 
     @Test
     public void testMicrometerRouteEventNotifier() {
-        assertTrue(getMetricValue(Integer.class, "gauge", "CamelRoutesAdded") >= 4);
-        assertTrue(getMetricValue(Integer.class, "gauge", "CamelRoutesRunning") >= 4);
+        assertTrue(getMetricValue(Integer.class, "gauge", "camel.routes.added") >= 4);
+        assertTrue(getMetricValue(Integer.class, "gauge", "camel.routes.running") >= 4);
     }
 
     @Test
@@ -81,7 +82,7 @@ class MicrometerTest {
                 .then()
                 .statusCode(200);
         String tags = "endpointName=direct://log,eventType=ExchangeSentEvent";
-        assertTrue(getMetricValue(Double.class, "timer", "CamelExchangeEventNotifier", tags) >= 0.0);
+        assertTrue(getMetricValue(Double.class, "timer", "camel.exchange.event.notifier", tags) >= 0.0);
     }
 
     @Test

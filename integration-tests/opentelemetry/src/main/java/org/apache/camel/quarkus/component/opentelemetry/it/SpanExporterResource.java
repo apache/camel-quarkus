@@ -55,6 +55,7 @@ public class SpanExporterResource {
             objectBuilder.add("spanId", span.getSpanId());
             objectBuilder.add("traceId", span.getTraceId());
             objectBuilder.add("parentId", span.getParentSpanId());
+            objectBuilder.add("kind", span.getKind().name());
 
             attributes.forEach((k, v) -> objectBuilder.add(String.valueOf(k), v.toString()));
 

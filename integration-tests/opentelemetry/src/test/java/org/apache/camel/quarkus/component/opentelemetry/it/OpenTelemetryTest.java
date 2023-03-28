@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import io.opentelemetry.api.trace.SpanKind;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterEach;
@@ -79,14 +80,16 @@ class OpenTelemetryTest {
                 .body(equalTo("Traced direct:start"));
 
         // Verify the span hierarchy is JAX-RS Service -> Direct Endpoint
-        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 2);
+        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 3);
         List<Map<String, String>> spans = getSpans();
-        assertEquals(2, spans.size());
-        assertEquals(spans.get(1).get("spanId"), spans.get(0).get("parentId"));
+        assertEquals(3, spans.size());
+        assertEquals(spans.get(0).get("parentId"), spans.get(1).get("spanId"));
+        assertEquals(spans.get(1).get("kind"), SpanKind.CLIENT.name());
+        assertEquals(spans.get(2).get("kind"), SpanKind.SERVER.name());
     }
 
     @Test
-    public void testTracedBean() {
+    public void testTracedBean() throws InterruptedException {
         String name = "Camel Quarkus OpenTelemetry";
         RestAssured.get("/opentelemetry/greet/" + name)
                 .then()
@@ -94,11 +97,13 @@ class OpenTelemetryTest {
                 .body(equalTo("Hello " + name));
 
         // Verify the span hierarchy is JAX-RS Service -> Direct Endpoint -> Bean Method
-        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 3);
+        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 4);
         List<Map<String, String>> spans = getSpans();
-        assertEquals(3, spans.size());
-        assertEquals(spans.get(1).get("parentId"), spans.get(0).get("parentId"));
-        assertEquals(spans.get(2).get("spanId"), spans.get(1).get("parentId"));
+        assertEquals(4, spans.size());
+        assertEquals(spans.get(0).get("parentId"), spans.get(1).get("parentId"));
+        assertEquals(spans.get(1).get("parentId"), spans.get(2).get("spanId"));
+        assertEquals(spans.get(2).get("kind"), SpanKind.CLIENT.name());
+        assertEquals(spans.get(3).get("kind"), SpanKind.SERVER.name());
     }
 
     @Test
@@ -116,20 +121,20 @@ class OpenTelemetryTest {
         await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 5);
         List<Map<String, String>> spans = getSpans();
         assertEquals(5, spans.size());
-        assertEquals(spans.get(1).get("parentId"), spans.get(0).get("parentId"));
-        assertEquals("getConnection", spans.get(0).get("code.function"));
+        assertEquals(spans.get(0).get("parentId"), spans.get(1).get("parentId"));
+        assertEquals(spans.get(0).get("code.function"), "getConnection");
 
-        assertEquals(spans.get(2).get("spanId"), spans.get(1).get("parentId"));
-        assertEquals("SELECT", spans.get(1).get("db.operation"));
+        assertEquals(spans.get(1).get("parentId"), spans.get(2).get("spanId"));
+        assertEquals(spans.get(1).get("db.operation"), "SELECT");
 
-        assertEquals(spans.get(3).get("spanId"), spans.get(2).get("parentId"));
-        assertEquals("bean://jdbcQueryBean", spans.get(2).get("camel.uri"));
+        assertEquals(spans.get(2).get("parentId"), spans.get(3).get("spanId"));
+        assertEquals(spans.get(2).get("camel.uri"), "bean://jdbcQueryBean");
 
-        assertEquals(spans.get(4).get("spanId"), spans.get(3).get("parentId"));
-        assertEquals("direct://jdbcQuery", spans.get(3).get("camel.uri"));
+        assertEquals(spans.get(3).get("parentId"), spans.get(4).get("spanId"));
+        assertEquals(spans.get(3).get("camel.uri"), "direct://jdbcQuery");
 
-        assertEquals("0000000000000000", spans.get(4).get("parentId"));
-        assertEquals("jdbcQuery", spans.get(4).get("code.function"));
+        assertEquals(spans.get(4).get("parentId"), "0000000000000000");
+        assertEquals(spans.get(4).get("code.function"), "jdbcQuery");
     }
 
     private List<Map<String, String>> getSpans() {
