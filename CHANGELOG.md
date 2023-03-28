@@ -10,6 +10,7 @@
 - Remove and replace some method in ReflectiveClassBuildItem [\#4694](https://github.com/apache/camel-quarkus/issues/4694)
 - \[camel-main\] Http test "basicAuthCache" fails because of CAMEL-19184 [\#4686](https://github.com/apache/camel-quarkus/issues/4686)
 - Add back DataSonnet [\#4685](https://github.com/apache/camel-quarkus/issues/4685)
+- jira extension throws ClassNotFoundException: com.fasterxml.jackson.datatype.joda.JodaModule [\#4676](https://github.com/apache/camel-quarkus/issues/4676)
 - Cleanup tests belonging to removed camel components [\#4675](https://github.com/apache/camel-quarkus/issues/4675)
 - Add `icon-url` attribute to `quarkus-extension.yaml` pointing to Camel logo  [\#4672](https://github.com/apache/camel-quarkus/issues/4672)
 - jbosstm/lra-coordinator is not available [\#4667](https://github.com/apache/camel-quarkus/issues/4667)
@@ -29,14 +30,17 @@
 - Groovy DSL - Add support of Groovy extension modules [\#4384](https://github.com/apache/camel-quarkus/issues/4384)
 - Remove azure-identity `IdentityClientBase` runtime initialization native configuration [\#4356](https://github.com/apache/camel-quarkus/issues/4356)
 - Platform HTTP component under load won't serve health endpoints anymore [\#2974](https://github.com/apache/camel-quarkus/issues/2974)
+- Groovy language native support [\#1746](https://github.com/apache/camel-quarkus/issues/1746)
 
 **Merged pull requests:**
 
+- Update SNAPSHOT deploy and Sonarcloud builds to use JDK 17 [\#4702](https://github.com/apache/camel-quarkus/pull/4702) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#4701](https://github.com/apache/camel-quarkus/pull/4701) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Update jvmSince and nativeSince from 2.17.0 to 3.0.0 [\#4700](https://github.com/apache/camel-quarkus/pull/4700) ([zbendhiba](https://github.com/zbendhiba))
 - Fix xref links in 3.0.0 migration guide [\#4696](https://github.com/apache/camel-quarkus/pull/4696) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#4694 remove and replace some methods in ReflectiveClassBuildItem [\#4695](https://github.com/apache/camel-quarkus/pull/4695) ([zhfeng](https://github.com/zhfeng))
 - Enable back Telegram mp3, mp4 and pdf integration tests [\#4692](https://github.com/apache/camel-quarkus/pull/4692) ([zbendhiba](https://github.com/zbendhiba))
+- Fix \(jira\): Add jira model classes and jackson joda datatype \(main branch\) [\#4691](https://github.com/apache/camel-quarkus/pull/4691) ([claudio4j](https://github.com/claudio4j))
 - Add back DataSonnet [\#4690](https://github.com/apache/camel-quarkus/pull/4690) ([zbendhiba](https://github.com/zbendhiba))
 - Update Migration guide : add missing removed dependencies [\#4688](https://github.com/apache/camel-quarkus/pull/4688) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade Quarkus to 3.0.0.Beta1 [\#4687](https://github.com/apache/camel-quarkus/pull/4687) ([jamesnetherton](https://github.com/jamesnetherton))
