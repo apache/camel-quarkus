@@ -22,6 +22,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.zip.GZIPInputStream;
 
+import io.vertx.core.buffer.Buffer;
+import io.vertx.ext.web.multipart.MultipartForm;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -38,12 +40,18 @@ import jakarta.ws.rs.core.Response;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.FluentProducerTemplate;
+import org.apache.camel.Message;
+import org.apache.camel.PropertyBindingException;
+import org.apache.camel.ResolveEndpointFailedException;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.EndpointConsumerBuilder;
 import org.apache.camel.builder.EndpointProducerBuilder;
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
+import org.apache.camel.http.base.HttpOperationFailedException;
 import org.apache.camel.util.IOHelper;
 import org.eclipse.microprofile.config.ConfigProvider;
+
+import static org.apache.camel.component.vertx.http.VertxHttpConstants.CONTENT_TYPE_FORM_URLENCODED;
 
 @Path("/test/client")
 @ApplicationScoped
@@ -376,6 +384,105 @@ public class HttpResource {
                 .withHeader(Exchange.HTTP_METHOD, "GET")
                 .send();
         return exchange.getException().getClass().getName();
+    }
+
+    @Path("/vertx-http/multipart-form-params")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String vertxHttpMultipartFormParams(@QueryParam("test-port") int port,
+            @QueryParam("organization") String organization,
+            @QueryParam("project") String project) {
+        return producerTemplate
+                .toF("vertx-http:http://localhost:%d/service/multipart-form-params", port)
+                .withBody("organization=" + organization + "&project=" + project)
+                .withHeader(Exchange.CONTENT_TYPE, CONTENT_TYPE_FORM_URLENCODED)
+                .request(String.class);
+    }
+
+    @Path("/vertx-http/multipart-form-data")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String vertxHttpMultipartFormData(@QueryParam("test-port") int port) {
+
+        MultipartForm form = MultipartForm.create();
+        form.binaryFileUpload("part-1", "test1.txt", Buffer.buffer("part1=content1".getBytes(StandardCharsets.UTF_8)),
+                "text/plain");
+        form.binaryFileUpload("part-2", "test2.xml",
+                Buffer.buffer("<part2 value=\"content2\"/>".getBytes(StandardCharsets.UTF_8)), "text/xml");
+
+        return producerTemplate
+                .toF("vertx-http:http://localhost:%d/service/multipart-form-data", port)
+                .withBody(form)
+                .request(String.class);
+    }
+
+    @Path("/vertx-http/custom-vertx-options")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String vertxHttpCustomVertxOptions(@QueryParam("test-port") int port) {
+        try {
+            producerTemplate
+                    .toF("vertx-http:http://localhost:%d/service/custom-vertx-options?vertxOptions=#myVertxOptions", port)
+                    .request();
+            return "NOT_EXPECTED: the custom vertxOptions should have triggered a ResolveEndpointFailedException";
+        } catch (ResolveEndpointFailedException refex) {
+            Throwable firstLevelExceptionCause = refex.getCause();
+            if (firstLevelExceptionCause instanceof PropertyBindingException) {
+                if (firstLevelExceptionCause.getCause() instanceof IllegalArgumentException) {
+                    return "OK: the custom vertxOptions has triggered the expected exception";
+                }
+                return "NOT_EXPECTED: the 2nd level exception cause should be of type IllegalArgumentException";
+            } else {
+                return "NOT_EXPECTED: the 1st level exception cause should be of type PropertyBindingException";
+            }
+        }
+    }
+
+    @Path("/vertx-http/session-management")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String vertxHttpSessionManagement(@QueryParam("test-port") int port) {
+        String vertxHttpBaseUri = "vertx-http:http://localhost:" + port + "/service/session-management";
+        Exchange result = producerTemplate
+                .toF("%s/secure?sessionManagement=true&cookieStore=#myVertxCookieStore", vertxHttpBaseUri)
+                .request(Exchange.class);
+
+        HttpOperationFailedException exception = result.getException(HttpOperationFailedException.class);
+        if (exception.getStatusCode() != 403) {
+            return "NOT_EXPECTED: The first request in the session is expected to return HTTP 403";
+        }
+
+        result = producerTemplate
+                .toF("%s/login?sessionManagement=true&cookieStore=#myVertxCookieStore", vertxHttpBaseUri)
+                .withHeader("username", "my-username")
+                .withHeader("password", "my-password")
+                .request(Exchange.class);
+
+        Message msg = result.getMessage();
+        if (msg == null) {
+            return "NOT_EXPECTED: The second request in the session should return a message";
+        } else {
+            String setCookieHeader = msg.getHeader("Set-Cookie", String.class);
+            if (setCookieHeader == null || !setCookieHeader.contains("sessionId=my-session-id-123")) {
+                return "NOT_EXPECTED: The message should have a Set-Cookie String header containing \"sessionId=my-session-id-123\"";
+            }
+        }
+
+        return producerTemplate
+                .toF("%s/secure?sessionManagement=true&cookieStore=#myVertxCookieStore", vertxHttpBaseUri)
+                .request(String.class);
+    }
+
+    @Path("/vertx-http/buffer-conversion-with-charset")
+    @GET
+    public byte[] vertxBufferConversionWithCharset(@QueryParam("string") String string, @QueryParam("charset") String charset) {
+        Buffer buffer = producerTemplate
+                .to("direct:vertx-http-buffer-conversion-with-charset")
+                .withBody(string)
+                .withHeader(Exchange.CONTENT_TYPE, "text/plain;charset=" + charset)
+                .request(Buffer.class);
+
+        return buffer.getBytes();
     }
 
     // *****************************
