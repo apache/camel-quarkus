@@ -1,0 +1,8 @@
+== allowJavaSerializedObject option in native mode
+
+When using the `allowJavaSerializedObject` option in native mode, the support of serialization might need to be enabled.
+Please, refer to the xref:user-guide/native-mode.adoc#serialization[native mode user guide] for more information.
+
+=== Character encodings
+
+Check the xref:user-guide/native-mode.adoc#charsets[Character encodings section] of the Native mode guide if the application is expected to send and receive requests using non-default encodings.
