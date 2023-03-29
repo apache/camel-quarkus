@@ -21,6 +21,7 @@ import java.io.InputStream;
 import javax.inject.Named;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import io.vertx.core.buffer.Buffer;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
@@ -77,6 +78,8 @@ public class HttpRoute extends RouteBuilder {
         from("netty-http:http://0.0.0.0:{{camel.netty-http.test-port}}/test/server/myService")
                 .transform().constant("Hello from myService");
 
+        from("direct:vertx-http-buffer-conversion-with-charset")
+                .convertBodyTo(Buffer.class);
     }
 
     @Named
