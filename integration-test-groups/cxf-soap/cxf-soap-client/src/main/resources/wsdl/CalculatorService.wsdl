@@ -1,173 +1,173 @@
 <?xml version="1.0" ?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.jboss.org/eap/quickstarts/wscalculator/Calculator" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="CalculatorService" targetNamespace="http://www.jboss.org/eap/quickstarts/wscalculator/Calculator">
-<!--
+  <!--
 
-    Licensed to the Apache Software Foundation (ASF) under one or more
-    contributor license agreements.  See the NOTICE file distributed with
-    this work for additional information regarding copyright ownership.
-    The ASF licenses this file to You under the Apache License, Version 2.0
-    (the "License"); you may not use this file except in compliance with
-    the License.  You may obtain a copy of the License at
+      Licensed to the Apache Software Foundation (ASF) under one or more
+      contributor license agreements.  See the NOTICE file distributed with
+      this work for additional information regarding copyright ownership.
+      The ASF licenses this file to You under the Apache License, Version 2.0
+      (the "License"); you may not use this file except in compliance with
+      the License.  You may obtain a copy of the License at
 
-         http://www.apache.org/licenses/LICENSE-2.0
+           http://www.apache.org/licenses/LICENSE-2.0
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
 
--->
+  -->
   <wsdl:types>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.jboss.org/eap/quickstarts/wscalculator/Calculator" elementFormDefault="unqualified" targetNamespace="http://www.jboss.org/eap/quickstarts/wscalculator/Calculator" version="1.0">
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.jboss.org/eap/quickstarts/wscalculator/Calculator" elementFormDefault="unqualified" targetNamespace="http://www.jboss.org/eap/quickstarts/wscalculator/Calculator" version="1.0">
 
-  <xs:element name="add" type="tns:add"></xs:element>
+      <xs:element name="add" type="tns:add"></xs:element>
 
-  <xs:element name="addArray" type="tns:addArray"></xs:element>
+      <xs:element name="addArray" type="tns:addArray"></xs:element>
 
-  <xs:element name="addArrayResponse" type="tns:addArrayResponse"></xs:element>
+      <xs:element name="addArrayResponse" type="tns:addArrayResponse"></xs:element>
 
-  <xs:element name="addList" type="tns:addList"></xs:element>
+      <xs:element name="addList" type="tns:addList"></xs:element>
 
-  <xs:element name="addListResponse" type="tns:addListResponse"></xs:element>
+      <xs:element name="addListResponse" type="tns:addListResponse"></xs:element>
 
-  <xs:element name="addNumberAndOperands" type="tns:addNumberAndOperands"></xs:element>
+      <xs:element name="addNumberAndOperands" type="tns:addNumberAndOperands"></xs:element>
 
-  <xs:element name="addNumberAndOperandsResponse" type="tns:addNumberAndOperandsResponse"></xs:element>
+      <xs:element name="addNumberAndOperandsResponse" type="tns:addNumberAndOperandsResponse"></xs:element>
 
-  <xs:element name="addOperands" type="tns:addOperands"></xs:element>
+      <xs:element name="addOperands" type="tns:addOperands"></xs:element>
 
-  <xs:element name="addOperandsResponse" type="tns:addOperandsResponse"></xs:element>
+      <xs:element name="addOperandsResponse" type="tns:addOperandsResponse"></xs:element>
 
-  <xs:element name="addResponse" type="tns:addResponse"></xs:element>
+      <xs:element name="addResponse" type="tns:addResponse"></xs:element>
 
-  <xs:element name="divide" type="tns:divide"></xs:element>
+      <xs:element name="divide" type="tns:divide"></xs:element>
 
-  <xs:element name="divideResponse" type="tns:divideResponse"></xs:element>
+      <xs:element name="divideResponse" type="tns:divideResponse"></xs:element>
 
-  <xs:element name="multiply" type="tns:multiply"></xs:element>
+      <xs:element name="multiply" type="tns:multiply"></xs:element>
 
-  <xs:element name="multiplyResponse" type="tns:multiplyResponse"></xs:element>
+      <xs:element name="multiplyResponse" type="tns:multiplyResponse"></xs:element>
 
-  <xs:element name="subtract" type="tns:subtract"></xs:element>
+      <xs:element name="subtract" type="tns:subtract"></xs:element>
 
-  <xs:element name="subtractResponse" type="tns:subtractResponse"></xs:element>
+      <xs:element name="subtractResponse" type="tns:subtractResponse"></xs:element>
 
-  <xs:complexType name="add">
-    <xs:sequence>
-      <xs:element name="arg0" type="xs:int"></xs:element>
-      <xs:element name="arg1" type="xs:int"></xs:element>
-    </xs:sequence>
-  </xs:complexType>
+      <xs:complexType name="add">
+        <xs:sequence>
+          <xs:element name="arg0" type="xs:int"></xs:element>
+          <xs:element name="arg1" type="xs:int"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
 
-  <xs:complexType name="addResponse">
-    <xs:sequence>
-      <xs:element name="return" type="xs:int"></xs:element>
-    </xs:sequence>
-  </xs:complexType>
+      <xs:complexType name="addResponse">
+        <xs:sequence>
+          <xs:element name="return" type="xs:int"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
 
-  <xs:complexType name="addArray">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="arg0" type="xs:int"></xs:element>
-    </xs:sequence>
-  </xs:complexType>
+      <xs:complexType name="addArray">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="arg0" type="xs:int"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
 
-  <xs:complexType name="addArrayResponse">
-    <xs:sequence>
-      <xs:element name="return" type="xs:int"></xs:element>
-    </xs:sequence>
-  </xs:complexType>
+      <xs:complexType name="addArrayResponse">
+        <xs:sequence>
+          <xs:element name="return" type="xs:int"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
 
-  <xs:complexType name="subtract">
-    <xs:sequence>
-      <xs:element name="arg0" type="xs:int"></xs:element>
-      <xs:element name="arg1" type="xs:int"></xs:element>
-    </xs:sequence>
-  </xs:complexType>
+      <xs:complexType name="subtract">
+        <xs:sequence>
+          <xs:element name="arg0" type="xs:int"></xs:element>
+          <xs:element name="arg1" type="xs:int"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
 
-  <xs:complexType name="subtractResponse">
-    <xs:sequence>
-      <xs:element name="return" type="xs:int"></xs:element>
-    </xs:sequence>
-  </xs:complexType>
+      <xs:complexType name="subtractResponse">
+        <xs:sequence>
+          <xs:element name="return" type="xs:int"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
 
-  <xs:complexType name="divide">
-    <xs:sequence>
-      <xs:element name="arg0" type="xs:int"></xs:element>
-      <xs:element name="arg1" type="xs:int"></xs:element>
-    </xs:sequence>
-  </xs:complexType>
+      <xs:complexType name="divide">
+        <xs:sequence>
+          <xs:element name="arg0" type="xs:int"></xs:element>
+          <xs:element name="arg1" type="xs:int"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
 
-  <xs:complexType name="divideResponse">
-    <xs:sequence>
-      <xs:element name="return" type="xs:int"></xs:element>
-    </xs:sequence>
-  </xs:complexType>
+      <xs:complexType name="divideResponse">
+        <xs:sequence>
+          <xs:element name="return" type="xs:int"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
 
-  <xs:complexType name="addList">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="arg0" type="xs:int"></xs:element>
-    </xs:sequence>
-  </xs:complexType>
+      <xs:complexType name="addList">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="arg0" type="xs:int"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
 
-  <xs:complexType name="addListResponse">
-    <xs:sequence>
-      <xs:element name="return" type="xs:int"></xs:element>
-    </xs:sequence>
-  </xs:complexType>
+      <xs:complexType name="addListResponse">
+        <xs:sequence>
+          <xs:element name="return" type="xs:int"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
 
-  <xs:complexType name="addNumberAndOperands">
-    <xs:sequence>
-      <xs:element name="arg0" type="xs:int"></xs:element>
-      <xs:element minOccurs="0" name="arg1" type="tns:operands"></xs:element>
-    </xs:sequence>
-  </xs:complexType>
+      <xs:complexType name="addNumberAndOperands">
+        <xs:sequence>
+          <xs:element name="arg0" type="xs:int"></xs:element>
+          <xs:element minOccurs="0" name="arg1" type="tns:operands"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
 
-  <xs:complexType name="operands">
-    <xs:sequence>
-      <xs:element name="a" type="xs:int"></xs:element>
-      <xs:element name="b" type="xs:int"></xs:element>
-    </xs:sequence>
-  </xs:complexType>
+      <xs:complexType name="operands">
+        <xs:sequence>
+          <xs:element name="a" type="xs:int"></xs:element>
+          <xs:element name="b" type="xs:int"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
 
-  <xs:complexType name="addNumberAndOperandsResponse">
-    <xs:sequence>
-      <xs:element name="return" type="xs:int"></xs:element>
-    </xs:sequence>
-  </xs:complexType>
+      <xs:complexType name="addNumberAndOperandsResponse">
+        <xs:sequence>
+          <xs:element name="return" type="xs:int"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
 
-  <xs:complexType name="addOperands">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="arg0" type="tns:operands"></xs:element>
-    </xs:sequence>
-  </xs:complexType>
+      <xs:complexType name="addOperands">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="tns:operands"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
 
-  <xs:complexType name="addOperandsResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="tns:result"></xs:element>
-    </xs:sequence>
-  </xs:complexType>
+      <xs:complexType name="addOperandsResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:result"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
 
-  <xs:complexType name="result">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="operands" type="tns:operands"></xs:element>
-      <xs:element name="result" type="xs:int"></xs:element>
-    </xs:sequence>
-  </xs:complexType>
+      <xs:complexType name="result">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="operands" type="tns:operands"></xs:element>
+          <xs:element name="result" type="xs:int"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
 
-  <xs:complexType name="multiply">
-    <xs:sequence>
-      <xs:element name="arg0" type="xs:int"></xs:element>
-      <xs:element name="arg1" type="xs:int"></xs:element>
-    </xs:sequence>
-  </xs:complexType>
+      <xs:complexType name="multiply">
+        <xs:sequence>
+          <xs:element name="arg0" type="xs:int"></xs:element>
+          <xs:element name="arg1" type="xs:int"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
 
-  <xs:complexType name="multiplyResponse">
-    <xs:sequence>
-      <xs:element name="return" type="xs:int"></xs:element>
-    </xs:sequence>
-  </xs:complexType>
+      <xs:complexType name="multiplyResponse">
+        <xs:sequence>
+          <xs:element name="return" type="xs:int"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
 
-</xs:schema>
+    </xs:schema>
   </wsdl:types>
   <wsdl:message name="addListResponse">
     <wsdl:part element="tns:addListResponse" name="parameters">
@@ -236,51 +236,51 @@
   <wsdl:portType name="CalculatorService">
     <wsdl:operation name="add">
       <wsdl:input message="tns:add" name="add">
-    </wsdl:input>
+      </wsdl:input>
       <wsdl:output message="tns:addResponse" name="addResponse">
-    </wsdl:output>
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="addArray">
       <wsdl:input message="tns:addArray" name="addArray">
-    </wsdl:input>
+      </wsdl:input>
       <wsdl:output message="tns:addArrayResponse" name="addArrayResponse">
-    </wsdl:output>
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="subtract">
       <wsdl:input message="tns:subtract" name="subtract">
-    </wsdl:input>
+      </wsdl:input>
       <wsdl:output message="tns:subtractResponse" name="subtractResponse">
-    </wsdl:output>
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="divide">
       <wsdl:input message="tns:divide" name="divide">
-    </wsdl:input>
+      </wsdl:input>
       <wsdl:output message="tns:divideResponse" name="divideResponse">
-    </wsdl:output>
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="addList">
       <wsdl:input message="tns:addList" name="addList">
-    </wsdl:input>
+      </wsdl:input>
       <wsdl:output message="tns:addListResponse" name="addListResponse">
-    </wsdl:output>
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="addNumberAndOperands">
       <wsdl:input message="tns:addNumberAndOperands" name="addNumberAndOperands">
-    </wsdl:input>
+      </wsdl:input>
       <wsdl:output message="tns:addNumberAndOperandsResponse" name="addNumberAndOperandsResponse">
-    </wsdl:output>
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="addOperands">
       <wsdl:input message="tns:addOperands" name="addOperands">
-    </wsdl:input>
+      </wsdl:input>
       <wsdl:output message="tns:addOperandsResponse" name="addOperandsResponse">
-    </wsdl:output>
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="multiply">
       <wsdl:input message="tns:multiply" name="multiply">
-    </wsdl:input>
+      </wsdl:input>
       <wsdl:output message="tns:multiplyResponse" name="multiplyResponse">
-    </wsdl:output>
+      </wsdl:output>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="CalculatorServiceSoapBinding" type="tns:CalculatorService">

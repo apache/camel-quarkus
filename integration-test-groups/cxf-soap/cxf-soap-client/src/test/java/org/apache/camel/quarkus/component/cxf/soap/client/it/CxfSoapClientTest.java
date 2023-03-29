@@ -53,7 +53,7 @@ class CxfSoapClientTest {
                 .post("/cxf-soap/client/simple")
                 .then()
                 .statusCode(201)
-                .body(equalTo("12"));
+                .body(equalTo("3"));
     }
 
     @ParameterizedTest
