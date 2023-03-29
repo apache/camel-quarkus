@@ -37,6 +37,7 @@
 - Update SNAPSHOT deploy and Sonarcloud builds to use JDK 17 [\#4702](https://github.com/apache/camel-quarkus/pull/4702) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#4701](https://github.com/apache/camel-quarkus/pull/4701) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Update jvmSince and nativeSince from 2.17.0 to 3.0.0 [\#4700](https://github.com/apache/camel-quarkus/pull/4700) ([zbendhiba](https://github.com/zbendhiba))
+- Add Elasticsearch and Mapstruct in JVM only and drop Elasticsearch-rest and Dozer [\#4697](https://github.com/apache/camel-quarkus/pull/4697) ([zbendhiba](https://github.com/zbendhiba))
 - Fix xref links in 3.0.0 migration guide [\#4696](https://github.com/apache/camel-quarkus/pull/4696) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#4694 remove and replace some methods in ReflectiveClassBuildItem [\#4695](https://github.com/apache/camel-quarkus/pull/4695) ([zhfeng](https://github.com/zhfeng))
 - Enable back Telegram mp3, mp4 and pdf integration tests [\#4692](https://github.com/apache/camel-quarkus/pull/4692) ([zbendhiba](https://github.com/zbendhiba))
