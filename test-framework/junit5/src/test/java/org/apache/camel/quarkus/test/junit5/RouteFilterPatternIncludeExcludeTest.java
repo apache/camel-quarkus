@@ -43,8 +43,9 @@ public class RouteFilterPatternIncludeExcludeTest extends CamelQuarkusTestSuppor
     @Test
     public void testRouteFilter() throws Exception {
         assertEquals(1, context.getRoutes().size());
-        assertEquals(1, context.getExtension(Model.class).getRouteDefinitions().size());
-        assertEquals("foo", context.getExtension(Model.class).getRouteDefinitions().get(0).getId());
+        assertEquals(1, context.getCamelContextExtension().getContextPlugin(Model.class).getRouteDefinitions().size());
+        assertEquals("foo",
+                context.getCamelContextExtension().getContextPlugin(Model.class).getRouteDefinitions().get(0).getId());
 
         getMockEndpoint("mock:foo").expectedMessageCount(1);
 

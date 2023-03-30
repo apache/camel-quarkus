@@ -64,7 +64,8 @@ public class CamelContextRecorder {
         // Set ClassLoader first as some actions depend on it being available
         ExtendedCamelContext extendedCamelContext = context.getCamelContextExtension();
         context.setApplicationContextClassLoader(tccl);
-        context.setDefaultExtension(RuntimeCamelCatalog.class, () -> new CamelRuntimeCatalog(config.runtimeCatalog));
+        context.getCamelContextExtension().addContextPlugin(RuntimeCamelCatalog.class,
+                new CamelRuntimeCatalog(config.runtimeCatalog));
         extendedCamelContext.setRegistry(registry.getValue());
         context.setTypeConverterRegistry(typeConverterRegistry.getValue());
         context.setLoadTypeConverters(false);

@@ -35,7 +35,7 @@ public class KameletRecorder {
             @Override
             public void configure(CamelContext context) {
                 try {
-                    context.getExtension(Model.class).addRouteTemplateDefinitions(definitions);
+                    context.getCamelContextExtension().getContextPlugin(Model.class).addRouteTemplateDefinitions(definitions);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
