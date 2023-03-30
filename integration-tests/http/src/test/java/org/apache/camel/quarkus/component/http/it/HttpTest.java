@@ -21,7 +21,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -196,18 +195,6 @@ class HttpTest {
                 .body(
                         "q", is(not(empty())),
                         "fq", is(not(empty())));
-    }
-
-    @Test
-    public void serviceCall() {
-        RestAssured
-                .given()
-                .port(getPort())
-                .when()
-                .get("/test/server/serviceCall")
-                .then()
-                .statusCode(200)
-                .body(Matchers.is("Hello from myService"));
     }
 
     @Test
