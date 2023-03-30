@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.grpc.deployment;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import io.grpc.BindableService;
 import io.grpc.stub.AbstractAsyncStub;
@@ -102,11 +103,21 @@ class GrpcProcessor {
             if (!Modifier.isAbstract(service.flags())) {
                 continue;
             }
+
             if (service.name().withoutPackagePrefix().startsWith("Mutiny")) {
                 /* The generate-code goal of quarkus-maven-plugin generates also Mutiny service that we do not use
                  * Not skipping it here results in randomly registering the Mutiny one or the right one.
                  * In case the Mutiny service one is registered, the client throws something like
                  * io.grpc.StatusRuntimeException: UNIMPLEMENTED */
+                continue;
+            }
+
+            Optional<String> asyncServiceInterface = service.interfaceNames()
+                    .stream()
+                    .map(DotName::toString)
+                    .filter(className -> className.endsWith("AsyncService"))
+                    .findFirst();
+            if (asyncServiceInterface.isEmpty()) {
                 continue;
             }
 
@@ -156,7 +167,8 @@ class GrpcProcessor {
 
                 // Override service methods that the gRPC component is interested in
                 // E.g methods with one or two parameters where one is of type StreamObserver
-                List<MethodInfo> methods = service.methods();
+                ClassInfo asyncServiceClassInfo = index.getClassByName(asyncServiceInterface.get());
+                List<MethodInfo> methods = asyncServiceClassInfo.methods();
                 for (MethodInfo method : methods) {
                     if (isCandidateServiceMethod(method)) {
                         String[] params = method.parameters()
