@@ -66,17 +66,6 @@ public class HttpRoute extends RouteBuilder {
                     }
                 });
 
-        from("netty-http:http://0.0.0.0:{{camel.netty-http.test-port}}/test/server/serviceCall")
-                .serviceCall()
-                .name("myService/test/server/myService")
-                .component("netty-http")
-                .staticServiceDiscovery()
-                .servers("myService@localhost:{{camel.netty-http.test-port}}")
-                .end();
-
-        from("netty-http:http://0.0.0.0:{{camel.netty-http.test-port}}/test/server/myService")
-                .transform().constant("Hello from myService");
-
         from("direct:vertx-http-buffer-conversion-with-charset")
                 .convertBodyTo(Buffer.class);
     }
