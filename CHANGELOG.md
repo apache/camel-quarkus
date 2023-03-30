@@ -6,16 +6,19 @@
 
 **Closed issues:**
 
+- Test CXF client with HTTP BASIC authentication [\#4705](https://github.com/apache/camel-quarkus/issues/4705)
 - Update wrong jvmSince and nativeSince  [\#4698](https://github.com/apache/camel-quarkus/issues/4698)
 - Remove and replace some method in ReflectiveClassBuildItem [\#4694](https://github.com/apache/camel-quarkus/issues/4694)
 - \[camel-main\] Http test "basicAuthCache" fails because of CAMEL-19184 [\#4686](https://github.com/apache/camel-quarkus/issues/4686)
 - Add back DataSonnet [\#4685](https://github.com/apache/camel-quarkus/issues/4685)
+- Cxf-soap: Extend test coverage with Ssl scenario [\#4679](https://github.com/apache/camel-quarkus/issues/4679)
 - jira extension throws ClassNotFoundException: com.fasterxml.jackson.datatype.joda.JodaModule [\#4676](https://github.com/apache/camel-quarkus/issues/4676)
 - Cleanup tests belonging to removed camel components [\#4675](https://github.com/apache/camel-quarkus/issues/4675)
 - Add `icon-url` attribute to `quarkus-extension.yaml` pointing to Camel logo  [\#4672](https://github.com/apache/camel-quarkus/issues/4672)
 - jbosstm/lra-coordinator is not available [\#4667](https://github.com/apache/camel-quarkus/issues/4667)
 - Add prefix to copied test classes \(in integration-test-groups\) in integration tests [\#4664](https://github.com/apache/camel-quarkus/issues/4664)
 - camel-quarkus-management: Improve test coverage [\#4661](https://github.com/apache/camel-quarkus/issues/4661)
+- vertx-http: complete test coverage [\#4658](https://github.com/apache/camel-quarkus/issues/4658)
 - Add Direct VM extension [\#4657](https://github.com/apache/camel-quarkus/issues/4657)
 - \[Camel 4.0-M3\] Upgrade to Groovy 4.x [\#4624](https://github.com/apache/camel-quarkus/issues/4624)
 - Dead link in weka extension [\#4622](https://github.com/apache/camel-quarkus/issues/4622)
@@ -34,6 +37,8 @@
 
 **Merged pull requests:**
 
+- Test CXF client with HTTP BASIC authentication  [\#4709](https://github.com/apache/camel-quarkus/pull/4709) ([ppalaga](https://github.com/ppalaga))
+- Complete vertx-http test coverage \#4658 [\#4708](https://github.com/apache/camel-quarkus/pull/4708) ([aldettinger](https://github.com/aldettinger))
 - Update SNAPSHOT deploy and Sonarcloud builds to use JDK 17 [\#4702](https://github.com/apache/camel-quarkus/pull/4702) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#4701](https://github.com/apache/camel-quarkus/pull/4701) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Update jvmSince and nativeSince from 2.17.0 to 3.0.0 [\#4700](https://github.com/apache/camel-quarkus/pull/4700) ([zbendhiba](https://github.com/zbendhiba))
@@ -46,6 +51,7 @@
 - Update Migration guide : add missing removed dependencies [\#4688](https://github.com/apache/camel-quarkus/pull/4688) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade Quarkus to 3.0.0.Beta1 [\#4687](https://github.com/apache/camel-quarkus/pull/4687) ([jamesnetherton](https://github.com/jamesnetherton))
 - Update checkout action configuration to pick up dependabot branch changes [\#4682](https://github.com/apache/camel-quarkus/pull/4682) ([jamesnetherton](https://github.com/jamesnetherton))
+- Cxf-soap: Extend test coverage with Ssl scenario \#4679 [\#4681](https://github.com/apache/camel-quarkus/pull/4681) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Init Migrating to Camel Quarkus 3.0 guide [\#4680](https://github.com/apache/camel-quarkus/pull/4680) ([zbendhiba](https://github.com/zbendhiba))
 - Revert "Temporary workaround for \#4603 IllegalAnnotationsException Tw… [\#4678](https://github.com/apache/camel-quarkus/pull/4678) ([ppalaga](https://github.com/ppalaga))
 - Bump quarkiverse-mybatis.version from 2.0.0.CR1 to 2.0.0.CR2 [\#4674](https://github.com/apache/camel-quarkus/pull/4674) ([dependabot[bot]](https://github.com/apps/dependabot))
