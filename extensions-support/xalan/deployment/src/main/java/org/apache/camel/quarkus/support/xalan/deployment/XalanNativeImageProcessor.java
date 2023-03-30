@@ -56,6 +56,7 @@ class XalanNativeImageProcessor {
                 "org.apache.xml.dtm.ref.DTMManagerDefault",
                 "org.apache.xml.serializer.OutputPropertiesFactory",
                 "org.apache.xml.serializer.CharInfo",
+                "org.apache.xml.serializer.XMLEntities",
                 "org.apache.xml.utils.FastStringBuffer");
     }
 
