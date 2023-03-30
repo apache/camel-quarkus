@@ -22,6 +22,7 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.xslt.saxon.XsltSaxonAggregationStrategy;
 import org.apache.camel.support.builder.Namespaces;
+import org.apache.xpath.XPathAPI;
 
 // These reflections registrations should be removed with fixing https://github.com/apache/camel-quarkus/issues/1615
 @RegisterForReflection(classNames = {
@@ -50,7 +51,11 @@ public class XmlRouteBuilder extends RouteBuilder {
         from(DIRECT_XML_CBR)
                 .choice()
                 .when(xpath("//order/country = 'UK'"))
-                .setBody(constant("Country UK"))
+                .process(exchange -> {
+                    Document body = exchange.getIn().getBody(Document.class);
+                    String country = XPathAPI.eval(body, "//order/country").toString();
+                    exchange.getIn().setBody("Country " + country);
+                })
                 .otherwise()
                 .setBody(constant("Invalid country code"));
 
