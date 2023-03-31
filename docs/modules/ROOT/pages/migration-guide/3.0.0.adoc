@@ -36,7 +36,6 @@ The following extensions have been removed.
 | camel-quarkus-smallrye-reactive-messaging | should be reintroduced
 | camel-quarkus-tika                        | should be reintroduced
 | camel-quarkus-vm                          | camel-quarkus-seda
-| camel-quarkus-xmlsecurity                 | should be reintroduced
 | camel-quarkus-xstream                     | camel-quarkus-jacksonxml
 |===
 
