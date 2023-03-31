@@ -1,0 +1,3 @@
+The annotations added to the classes to be compiled by the component are ignored by Quarkus. The only annotation that is
+partially supported by the extension is the annotation `RegisterForReflection` to ease the configuration of the reflection
+for the native mode however please note that the element `registerFullHierarchy` is not supported.

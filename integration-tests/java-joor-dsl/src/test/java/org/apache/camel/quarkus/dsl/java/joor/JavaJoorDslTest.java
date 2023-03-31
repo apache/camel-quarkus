@@ -36,6 +36,16 @@ class JavaJoorDslTest {
     }
 
     @Test
+    void joorHi() {
+        RestAssured.given()
+                .body("Will Smith")
+                .post("/java-joor-dsl/hi")
+                .then()
+                .statusCode(200)
+                .body(CoreMatchers.is("Hi Will Smith from jOOR!"));
+    }
+
+    @Test
     void testMainInstanceWithJavaRoutes() {
         RestAssured.given()
                 .get("/java-joor-dsl/main/javaRoutesBuilderLoader")
@@ -53,6 +63,6 @@ class JavaJoorDslTest {
                 .get("/java-joor-dsl/main/routes")
                 .then()
                 .statusCode(200)
-                .body(CoreMatchers.is("my-java-route"));
+                .body(CoreMatchers.is("my-java-route,reflection-route"));
     }
 }

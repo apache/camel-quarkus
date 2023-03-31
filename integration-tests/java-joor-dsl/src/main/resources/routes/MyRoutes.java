@@ -14,11 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class MyRoutes extends org.apache.camel.builder.RouteBuilder {
+import io.quarkus.runtime.annotations.RegisterForReflection;
+import org.apache.camel.builder.RouteBuilder;
+
+@RegisterForReflection(classNames = "org.apache.camel.quarkus.dsl.java.joor.JavaJoorDslBean", ignoreNested = false)
+public class MyRoutes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("direct:joorHello")
             .id("my-java-route")
             .setBody(exchange -> "Hello " + exchange.getMessage().getBody()  + " from jOOR!");
+        from("direct:joorHi")
+            .id("reflection-route")
+            .process(exchange -> {
+                Class<?> c = Thread.currentThread().getContextClassLoader().loadClass("org.apache.camel.quarkus.dsl.java.joor.JavaJoorDslBean");
+                Object hi = c.getMethod("hi", String.class).invoke(null, exchange.getMessage().getBody());
+                Class<?> c2 = Thread.currentThread().getContextClassLoader().loadClass("org.apache.camel.quarkus.dsl.java.joor.JavaJoorDslBean$Inner");
+                exchange.getMessage().setBody(c2.getMethod("addSource", String.class).invoke(null, hi));
+            });
     }
 }
