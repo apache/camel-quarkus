@@ -51,7 +51,7 @@ public class JdbcRoutes extends RouteBuilder {
         from("direct://headers-as-parameters")
                 .to("jdbc:camel-ds?useHeadersAsParameters=true");
 
-        from("timer://interval-polling?delay=2000&repeatCount=1")
+        from("timer://interval-polling?delay=2000&repeatCount=1").routeId("jdbc-poll").autoStartup(false)
                 .setBody(constant("select * from camelsGenerated order by id desc"))
                 .to("jdbc:camel-ds")
                 .to("mock:interval-polling");
