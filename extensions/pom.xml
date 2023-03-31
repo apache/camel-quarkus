@@ -245,7 +245,7 @@
         <module>vm</module>
         <module>weather</module>
         <module>xchange</module>
-        <!--<module>xmlsecurity</module> https://github.com/apache/camel-quarkus/issues/4478 -->
+        <module>xmlsecurity</module>
         <module>xpath</module>
         <module>xslt</module>
         <!--<module>xstream</module> https://github.com/apache/camel-quarkus/issues/4477 -->

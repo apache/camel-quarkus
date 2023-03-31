@@ -86,6 +86,7 @@ group-05:
   - jaxb
   - ssh
   - soap
+  - xmlsecurity
   - syslog
 group-06:
   - exec

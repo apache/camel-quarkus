@@ -300,6 +300,7 @@
 *** xref:reference/extensions/xml-io-dsl.adoc[XML IO DSL]
 *** xref:reference/extensions/xml-jaxb.adoc[XML JAXB]
 *** xref:reference/extensions/xml-jaxp.adoc[XML JAXP]
+*** xref:reference/extensions/xmlsecurity.adoc[XML Security Sign]
 *** xref:reference/extensions/xmpp.adoc[XMPP]
 *** xref:reference/extensions/xpath.adoc[XPath]
 *** xref:reference/extensions/saxon.adoc[XQuery]

@@ -229,7 +229,7 @@
         <module>weather</module>
         <!--<module>xchange</module> https://github.com/apache/camel-quarkus/issues/4516 -->
         <module>xml</module>
-        <!--<module>xmlsecurity</module>-->
+        <module>xmlsecurity</module>
         <module>xpath</module>
         <!--<module>xstream</module>-->
         <!--<module>zendesk</module> https://github.com/apache/camel-quarkus/issues/4514 -->
