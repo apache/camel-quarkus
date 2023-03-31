@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- \[camel-main\] Groovy support causes CI failure [\#4712](https://github.com/apache/camel-quarkus/issues/4712)
 - Test CXF client with HTTP BASIC authentication [\#4705](https://github.com/apache/camel-quarkus/issues/4705)
 - Update wrong jvmSince and nativeSince  [\#4698](https://github.com/apache/camel-quarkus/issues/4698)
 - Remove and replace some method in ReflectiveClassBuildItem [\#4694](https://github.com/apache/camel-quarkus/issues/4694)
@@ -29,6 +30,7 @@
 - Expand JDBC test coverage [\#4596](https://github.com/apache/camel-quarkus/issues/4596)
 - Make it easier for Dependabot to upgrade dependencies [\#4532](https://github.com/apache/camel-quarkus/issues/4532)
 - TelegramTest.\[mp3|mp4|pdf\] fail with Camel 4 and Quarkus 3 [\#4513](https://github.com/apache/camel-quarkus/issues/4513)
+- cassandra-quarkus 1.1.3 not compatible with Quarkus 3 [\#4488](https://github.com/apache/camel-quarkus/issues/4488)
 - Remove `quarkus.camel.yaml.flow-mode` [\#4482](https://github.com/apache/camel-quarkus/issues/4482)
 - Groovy DSL - Add support of Groovy extension modules [\#4384](https://github.com/apache/camel-quarkus/issues/4384)
 - Remove azure-identity `IdentityClientBase` runtime initialization native configuration [\#4356](https://github.com/apache/camel-quarkus/issues/4356)
@@ -37,6 +39,9 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 3.0.0.CR1 [\#4724](https://github.com/apache/camel-quarkus/pull/4724) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix \#4710 to register reflection for FastStringBuffer and resource bundle for XMLErrorResources [\#4720](https://github.com/apache/camel-quarkus/pull/4720) ([zhfeng](https://github.com/zhfeng))
+- vertx-http: remove deprecated serviceCall eip [\#4719](https://github.com/apache/camel-quarkus/pull/4719) ([aldettinger](https://github.com/aldettinger))
 - Test CXF client with HTTP BASIC authentication  [\#4709](https://github.com/apache/camel-quarkus/pull/4709) ([ppalaga](https://github.com/ppalaga))
 - Complete vertx-http test coverage \#4658 [\#4708](https://github.com/apache/camel-quarkus/pull/4708) ([aldettinger](https://github.com/aldettinger))
 - Update SNAPSHOT deploy and Sonarcloud builds to use JDK 17 [\#4702](https://github.com/apache/camel-quarkus/pull/4702) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -79,6 +84,7 @@
 - Bump to CycloneDX Maven Plugin 2.7.5 [\#4618](https://github.com/apache/camel-quarkus/pull/4618) ([oscerd](https://github.com/oscerd))
 - Aws2-cw: remove  io.quarkus:quarkus-jaxp from aws2-cw \#4614 [\#4615](https://github.com/apache/camel-quarkus/pull/4615) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade to cq-maven-plugin 3.5.4 [\#4613](https://github.com/apache/camel-quarkus/pull/4613) ([ppalaga](https://github.com/ppalaga))
+- Upgrade to Quarkus Cassandra 1.2.0-alpha1 [\#4612](https://github.com/apache/camel-quarkus/pull/4612) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to cq-maven-plugin 3.5.3: flatten faster, sync-versions in [\#4611](https://github.com/apache/camel-quarkus/pull/4611) ([ppalaga](https://github.com/ppalaga))
 - Exclude banned xml-apis from org.seleniumhq.selenium:htmlunit-driver [\#4610](https://github.com/apache/camel-quarkus/pull/4610) ([jamesnetherton](https://github.com/jamesnetherton))
 - Improve Telegram integration tests [\#4608](https://github.com/apache/camel-quarkus/pull/4608) ([zbendhiba](https://github.com/zbendhiba))
@@ -1576,6 +1582,7 @@
 - Upgrade to Quarkiverse Freemarker 1.0.0.Alpha1 to become compatible with Quarkus 3 [\#4508](https://github.com/apache/camel-quarkus/issues/4508)
 - main-xml-jaxb, dataformats-json and azure tests cannot be compiled to native with Camel 4 and Quarkus 3 [\#4507](https://github.com/apache/camel-quarkus/issues/4507)
 - GRPC test fails on Quarkus 3 [\#4503](https://github.com/apache/camel-quarkus/issues/4503)
+- google-bigquery and pubsub tests fail in native mode on Camel 4 [\#4502](https://github.com/apache/camel-quarkus/issues/4502)
 - camel-quarkus-integration-test-aws2 fail to compile to native with Camel 4 [\#4501](https://github.com/apache/camel-quarkus/issues/4501)
 - quarkus-pooled-jms incompatible with Quarkus 3 and Jakarta 9/10 [\#4500](https://github.com/apache/camel-quarkus/issues/4500)
 - Infinispan query test fails due to no marshaller registered for Protobuf type person.Person [\#4499](https://github.com/apache/camel-quarkus/issues/4499)
