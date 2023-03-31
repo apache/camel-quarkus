@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.component.jdbc;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -55,7 +54,7 @@ public class CamelResource {
     CamelContext context;
 
     @PostConstruct
-    void postConstruct() throws SQLException {
+    void postConstruct() throws Exception {
         try (Connection con = dataSource.getConnection()) {
             try (Statement statement = con.createStatement()) {
                 try {
@@ -70,6 +69,8 @@ public class CamelResource {
                 statement.execute("insert into camels (id, species) values (1, 'Camelus dromedarius')");
                 statement.execute("insert into camels (id, species) values (2, 'Camelus bactrianus')");
                 statement.execute("insert into camels (id, species) values (3, 'Camelus ferus')");
+
+                context.getRouteController().startRoute("jdbc-poll");
             }
         }
     }
