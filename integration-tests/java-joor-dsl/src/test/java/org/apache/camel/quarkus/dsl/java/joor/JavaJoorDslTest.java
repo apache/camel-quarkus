@@ -46,6 +46,16 @@ class JavaJoorDslTest {
     }
 
     @Test
+    void joorEcho() {
+        RestAssured.given()
+                .body("Ping")
+                .post("/java-joor-dsl/echo")
+                .then()
+                .statusCode(200)
+                .body(CoreMatchers.is("Msg: PING"));
+    }
+
+    @Test
     void testMainInstanceWithJavaRoutes() {
         RestAssured.given()
                 .get("/java-joor-dsl/main/javaRoutesBuilderLoader")
@@ -63,6 +73,6 @@ class JavaJoorDslTest {
                 .get("/java-joor-dsl/main/routes")
                 .then()
                 .statusCode(200)
-                .body(CoreMatchers.is("my-java-route,reflection-route"));
+                .body(CoreMatchers.is("inner-classes-route,my-java-route,reflection-route"));
     }
 }

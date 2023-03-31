@@ -100,8 +100,15 @@ public class JavaJoorDslProcessor {
             generatedClass
                     .produce(new JavaJoorGeneratedClassBuildItem(className, nameToResource.get(className).getLocation(),
                             result.getByteCode(className)));
+            Class<?> aClass = result.getClass(className);
+            for (Class<?> clazz : aClass.getDeclaredClasses()) {
+                String name = clazz.getName();
+                generatedClass
+                        .produce(new JavaJoorGeneratedClassBuildItem(name, nameToResource.get(className).getLocation(),
+                                result.getByteCode(name)));
+            }
             registerForReflection(reflectiveClass, lambdaCapturingTypeProducer,
-                    result.getClass(className).getAnnotation(RegisterForReflection.class));
+                    aClass.getAnnotation(RegisterForReflection.class));
         }
     }
 
