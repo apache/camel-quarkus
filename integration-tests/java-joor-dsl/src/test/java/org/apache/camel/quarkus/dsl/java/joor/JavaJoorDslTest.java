@@ -22,6 +22,8 @@ import org.apache.camel.dsl.java.joor.JavaRoutesBuilderLoader;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+
 @QuarkusTest
 class JavaJoorDslTest {
 
@@ -73,6 +75,23 @@ class JavaJoorDslTest {
                 .get("/java-joor-dsl/main/routes")
                 .then()
                 .statusCode(200)
-                .body(CoreMatchers.is("inner-classes-route,my-java-route,reflection-route"));
+                .body(CoreMatchers.is(
+                        "inner-classes-route,my-java-route,reflection-route,routes-with-bean,routes-with-inner-bean,routes-with-nested-class,routes-with-rest,routes-with-rest-get"));
+
+        RestAssured.given()
+                .get("/java-joor-dsl/main/successful/routes")
+                .then()
+                .statusCode(200)
+                .body(CoreMatchers.is("3"));
+    }
+
+    @Test
+    void testRestEndpoints() {
+        RestAssured.given()
+                .get("/say/emp/123")
+                .then()
+                .log().ifValidationFails()
+                .statusCode(200)
+                .body("name", equalTo("Bruce"), "age", equalTo(68));
     }
 }
