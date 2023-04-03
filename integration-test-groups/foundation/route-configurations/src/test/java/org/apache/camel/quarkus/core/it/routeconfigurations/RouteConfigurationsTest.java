@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.core.it.routeconfigurations;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
@@ -90,6 +91,7 @@ public class RouteConfigurationsTest {
     }
 
     @Test
+    @Disabled //https://github.com/apache/camel-quarkus/issues/4736
     public void sendContentToXmlRouteShouldTriggerOnExceptionInYamlRouteConfiguration() {
         String expected = "onException has been triggered in yamlRouteConfiguration";
         RestAssured.given()

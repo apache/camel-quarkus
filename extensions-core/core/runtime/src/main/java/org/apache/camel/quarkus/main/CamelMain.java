@@ -61,7 +61,7 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
             configurer.setRoutesCollector(routesCollector);
         }
 
-        configurer.setBeanPostProcessor(camelContext.getCamelContextExtension().getBeanPostProcessor());
+        configurer.setBeanPostProcessor(PluginHelper.getBeanPostProcessor(camelContext));
         configurer.setRoutesBuilders(mainConfigurationProperties.getRoutesBuilders());
         configurer.setRoutesExcludePattern(mainConfigurationProperties.getRoutesExcludePattern());
         configurer.setRoutesIncludePattern(mainConfigurationProperties.getRoutesIncludePattern());

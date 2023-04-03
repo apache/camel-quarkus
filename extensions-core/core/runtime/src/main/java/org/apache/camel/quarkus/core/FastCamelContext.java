@@ -108,7 +108,7 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
     @Override
     protected ComponentNameResolver createComponentNameResolver() {
         // Component names are discovered at build time
-        throw new UnsupportedOperationException();
+        return null;
     }
 
     @Override
@@ -120,7 +120,7 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
     @Override
     protected TypeConverterRegistry createTypeConverterRegistry() {
         // TypeConverterRegistry creation is done at build time
-        throw new UnsupportedOperationException();
+        return null;
     }
 
     @Override
@@ -133,12 +133,12 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
     @Override
     protected ModelJAXBContextFactory createModelJAXBContextFactory() {
         // Disabled by default and is provided by the xml-jaxb extension if present on the classpath
-        return new DisabledModelJAXBContextFactory();
+        return null;
     }
 
     protected FactoryFinderResolver createFactoryFinderResolver() {
-        throw new UnsupportedOperationException(
-                "FactoryFinderResolver should have been set in the FastCamelContext constructor");
+        // FactoryFinderResolver is initialized at build time
+        return null;
     }
 
     @Override
