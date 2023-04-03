@@ -54,9 +54,8 @@ class KameletProcessor {
         return new KameletResolverBuildItem(new KameletResolver() {
             @Override
             public Optional<Resource> resolve(String id, CamelContext context) throws Exception {
-                ExtendedCamelContext ecc = context.getCamelContextExtension();
                 return Optional.ofNullable(
-                        PluginHelper.getResourceLoader(ecc).resolveResource("/kamelets/" + id + ".kamelet.yaml"));
+                        PluginHelper.getResourceLoader(context).resolveResource("/kamelets/" + id + ".kamelet.yaml"));
             }
         });
     }
