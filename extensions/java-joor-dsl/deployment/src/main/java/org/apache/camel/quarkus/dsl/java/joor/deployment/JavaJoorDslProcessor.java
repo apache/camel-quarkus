@@ -109,12 +109,14 @@ public class JavaJoorDslProcessor {
                         .produce(new JavaJoorGeneratedClassBuildItem(className, nameToResource.get(className).getLocation(),
                                 result.getByteCode(className)));
                 Class<?> aClass = result.getClass(className);
+                // Inner classes
                 for (Class<?> clazz : aClass.getDeclaredClasses()) {
                     String name = clazz.getName();
                     generatedClass
                             .produce(new JavaJoorGeneratedClassBuildItem(name, nameToResource.get(className).getLocation(),
                                     result.getByteCode(name)));
                 }
+                // Anonymous classes
                 for (int i = 1;; i++) {
                     String name = String.format("%s$%d", className, i);
                     byte[] content = result.getByteCode(name);
@@ -125,8 +127,7 @@ public class JavaJoorDslProcessor {
                             .produce(new JavaJoorGeneratedClassBuildItem(name, nameToResource.get(className).getLocation(),
                                     content));
                 }
-                registerForReflection(reflectiveClass, lambdaCapturingTypeProducer,
-                        aClass.getAnnotation(RegisterForReflection.class));
+                registerForReflection(reflectiveClass, lambdaCapturingTypeProducer, aClass);
             }
         } finally {
             // Restore the CP
@@ -135,8 +136,8 @@ public class JavaJoorDslProcessor {
     }
 
     private void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
-            BuildProducer<LambdaCapturingTypeBuildItem> lambdaCapturingTypeProducer,
-            RegisterForReflection annotation) {
+            BuildProducer<LambdaCapturingTypeBuildItem> lambdaCapturingTypeProducer, Class<?> aClass) {
+        RegisterForReflection annotation = aClass.getAnnotation(RegisterForReflection.class);
         if (annotation == null) {
             return;
         }
@@ -153,17 +154,25 @@ public class JavaJoorDslProcessor {
             LOG.warn(
                     "The element 'registerFullHierarchy' of the annotation 'RegisterForReflection' is not supported by the extension Camel Java jOOR DSL");
         }
-        for (Class<?> type : annotation.targets()) {
-            registerClass(type.getName(), methods, fields, ignoreNested, serialization, reflectiveClass);
+        Class<?>[] targets = annotation.targets();
+        String[] classNames = annotation.classNames();
+        if (targets.length == 0 && classNames.length == 0) {
+            // No target and classname set, the target is then the class itself
+            registerClass(aClass, aClass.getName(), methods, fields, ignoreNested, serialization, reflectiveClass);
+            return;
         }
 
-        for (String className : annotation.classNames()) {
-            registerClass(className, methods, fields, ignoreNested, serialization, reflectiveClass);
+        for (Class<?> type : targets) {
+            registerClass(type, type.getName(), methods, fields, ignoreNested, serialization, reflectiveClass);
+        }
+
+        for (String className : classNames) {
+            registerClass(null, className, methods, fields, ignoreNested, serialization, reflectiveClass);
         }
     }
 
-    private void registerClass(String className, boolean methods, boolean fields, boolean ignoreNested, boolean serialization,
-            BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+    private void registerClass(Class<?> type, String className, boolean methods, boolean fields, boolean ignoreNested,
+            boolean serialization, BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         reflectiveClass.produce(serialization
                 ? ReflectiveClassBuildItem.serializationClass(className)
                 : new ReflectiveClassBuildItem(methods, fields, className));
@@ -173,10 +182,9 @@ public class JavaJoorDslProcessor {
         }
 
         try {
-            Class<?>[] declaredClasses = Thread.currentThread().getContextClassLoader().loadClass(className)
-                    .getDeclaredClasses();
-            for (Class<?> clazz : declaredClasses) {
-                registerClass(clazz.getName(), methods, fields, false, serialization, reflectiveClass);
+            Class<?> aClass = type == null ? Thread.currentThread().getContextClassLoader().loadClass(className) : type;
+            for (Class<?> clazz : aClass.getDeclaredClasses()) {
+                registerClass(clazz, clazz.getName(), methods, fields, false, serialization, reflectiveClass);
             }
         } catch (ClassNotFoundException e) {
             LOG.warn("Failed to load Class {}", className, e);
