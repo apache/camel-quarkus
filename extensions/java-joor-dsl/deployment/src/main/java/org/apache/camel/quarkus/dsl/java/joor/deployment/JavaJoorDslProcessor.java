@@ -115,6 +115,16 @@ public class JavaJoorDslProcessor {
                             .produce(new JavaJoorGeneratedClassBuildItem(name, nameToResource.get(className).getLocation(),
                                     result.getByteCode(name)));
                 }
+                for (int i = 1;; i++) {
+                    String name = String.format("%s$%d", className, i);
+                    byte[] content = result.getByteCode(name);
+                    if (content == null) {
+                        break;
+                    }
+                    generatedClass
+                            .produce(new JavaJoorGeneratedClassBuildItem(name, nameToResource.get(className).getLocation(),
+                                    content));
+                }
                 registerForReflection(reflectiveClass, lambdaCapturingTypeProducer,
                         aClass.getAnnotation(RegisterForReflection.class));
             }
