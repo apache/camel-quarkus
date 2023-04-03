@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.dsl.java.joor;
 
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -27,13 +28,16 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.Route;
+import org.apache.camel.component.direct.DirectEndpoint;
 import org.apache.camel.dsl.java.joor.JavaRoutesBuilderLoader;
 import org.apache.camel.quarkus.main.CamelMain;
 import org.apache.camel.spi.RoutesBuilderLoader;
 
+@RegisterForReflection(targets = String.class)
 @Path("/java-joor-dsl")
 @ApplicationScoped
 public class JavaJoorDslResource {
@@ -70,6 +74,23 @@ public class JavaJoorDslResource {
                 .map(Route::getId)
                 .sorted()
                 .collect(Collectors.joining(","));
+    }
+
+    @GET
+    @Path("/main/successful/routes")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public int successfulRoutes() {
+        int successful = 0;
+        Set<String> excluded = Set.of("my-java-route", "reflection-route", "inner-classes-route", "routes-with-rest");
+        for (Route route : main.getCamelContext().getRoutes()) {
+            String name = route.getRouteId();
+            if (route.getEndpoint() instanceof DirectEndpoint && !excluded.contains(name)
+                    && Boolean.TRUE.equals(producerTemplate.requestBody(route.getEndpoint(), "", Boolean.class))) {
+                successful++;
+            }
+        }
+        return successful;
     }
 
     @POST
