@@ -76,8 +76,16 @@ public class JavaJoorDslResource {
     @Path("/hello")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String hello(String message) throws Exception {
+    public String hello(String message) {
         return producerTemplate.requestBody("direct:joorHello", message, String.class);
+    }
+
+    @POST
+    @Path("/hi")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hi(String name) {
+        return producerTemplate.requestBody("direct:joorHi", name, String.class);
     }
 
 }

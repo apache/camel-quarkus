@@ -33,12 +33,14 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.LambdaCapturingTypeBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeBuild;
 import io.quarkus.maven.dependency.ResolvedDependency;
 import io.quarkus.paths.PathCollection;
 import io.quarkus.runtime.RuntimeValue;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.CamelContext;
 import org.apache.camel.dsl.java.joor.CompilationUnit;
 import org.apache.camel.dsl.java.joor.MultiCompile;
@@ -67,6 +69,8 @@ public class JavaJoorDslProcessor {
 
     @BuildStep(onlyIf = NativeBuild.class)
     void compileClassesAOT(BuildProducer<JavaJoorGeneratedClassBuildItem> generatedClass,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+            BuildProducer<LambdaCapturingTypeBuildItem> lambdaCapturingTypeProducer,
             CurateOutcomeBuildItem curateOutcomeBuildItem) throws Exception {
         Map<String, Resource> nameToResource = new HashMap<>();
         LOG.debug("Loading .java resources");
@@ -104,10 +108,61 @@ public class JavaJoorDslProcessor {
                 generatedClass
                         .produce(new JavaJoorGeneratedClassBuildItem(className, nameToResource.get(className).getLocation(),
                                 result.getByteCode(className)));
+                registerForReflection(reflectiveClass, lambdaCapturingTypeProducer,
+                        result.getClass(className).getAnnotation(RegisterForReflection.class));
             }
         } finally {
             // Restore the CP
             System.setProperty("java.class.path", previousCP);
+        }
+    }
+
+    private void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+            BuildProducer<LambdaCapturingTypeBuildItem> lambdaCapturingTypeProducer,
+            RegisterForReflection annotation) {
+        if (annotation == null) {
+            return;
+        }
+
+        for (String lambdaCapturingType : annotation.lambdaCapturingTypes()) {
+            lambdaCapturingTypeProducer.produce(new LambdaCapturingTypeBuildItem(lambdaCapturingType));
+        }
+        boolean methods = annotation.methods();
+        boolean fields = annotation.fields();
+        boolean ignoreNested = annotation.ignoreNested();
+        boolean serialization = annotation.serialization();
+
+        if (annotation.registerFullHierarchy()) {
+            LOG.warn(
+                    "The element 'registerFullHierarchy' of the annotation 'RegisterForReflection' is not supported by the extension Camel Java jOOR DSL");
+        }
+        for (Class<?> type : annotation.targets()) {
+            registerClass(type.getName(), methods, fields, ignoreNested, serialization, reflectiveClass);
+        }
+
+        for (String className : annotation.classNames()) {
+            registerClass(className, methods, fields, ignoreNested, serialization, reflectiveClass);
+        }
+    }
+
+    private void registerClass(String className, boolean methods, boolean fields, boolean ignoreNested, boolean serialization,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+        reflectiveClass.produce(serialization
+                ? ReflectiveClassBuildItem.serializationClass(className)
+                : new ReflectiveClassBuildItem(methods, fields, className));
+
+        if (ignoreNested) {
+            return;
+        }
+
+        try {
+            Class<?>[] declaredClasses = Thread.currentThread().getContextClassLoader().loadClass(className)
+                    .getDeclaredClasses();
+            for (Class<?> clazz : declaredClasses) {
+                registerClass(clazz.getName(), methods, fields, false, serialization, reflectiveClass);
+            }
+        } catch (ClassNotFoundException e) {
+            LOG.warn("Failed to load Class {}", className, e);
         }
     }
 
