@@ -53,8 +53,8 @@ public class DryModeMain extends MainSupport {
         ctx.setInjector(new DryModeInjector(ctx.getInjector()));
 
         ExtendedCamelContext extendedCamelContext = ctx.getCamelContextExtension();
-        extendedCamelContext.setLanguageResolver(languageResolver);
-        extendedCamelContext.setComponentResolver(new DryModeComponentResolver());
+        extendedCamelContext.addContextPlugin(DryModeLanguageResolver.class, languageResolver);
+        extendedCamelContext.addContextPlugin(DryModeComponentResolver.class, new DryModeComponentResolver());
         return ctx;
     }
 

@@ -33,6 +33,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.impl.event.CamelContextStartedEvent;
 import org.apache.camel.spi.DependencyStrategy;
 import org.apache.camel.spi.ModelineFactory;
+import org.apache.camel.support.PluginHelper;
 import org.apache.camel.support.ResourceHelper;
 
 @Path("/dsl-modeline")
@@ -48,7 +49,7 @@ public class DslModelineResource {
         context = event.getContext();
         deps = new ArrayList<>();
         context.getRegistry().bind("myDep", (DependencyStrategy) dependency -> deps.add(dependency));
-        factory = context.getCamelContextExtension().getModelineFactory();
+        factory = PluginHelper.getModelineFactory(context);
     }
 
     @POST

@@ -60,7 +60,7 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
         this.modelDumper = modelDumper;
 
         ExtendedCamelContext extendedCamelContext = getCamelContextExtension();
-        extendedCamelContext.setFactoryFinderResolver(factoryFinderResolver);
+        extendedCamelContext.addContextPlugin(FactoryFinderResolver.class, factoryFinderResolver);
         setTracing(Boolean.FALSE);
         setDebugging(Boolean.FALSE);
         setMessageHistory(Boolean.FALSE);

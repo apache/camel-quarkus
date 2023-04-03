@@ -48,6 +48,7 @@ import org.apache.camel.spi.ReactiveExecutor;
 import org.apache.camel.spi.ThreadPoolFactory;
 import org.apache.camel.support.DefaultRegistry;
 import org.apache.camel.support.LRUCacheFactory;
+import org.apache.camel.support.PluginHelper;
 import org.apache.camel.support.processor.DefaultExchangeFormatter;
 
 @Path("/test")
@@ -127,7 +128,7 @@ public class CoreMainResource {
                 .forEach((name, value) -> componentsInRegistry.add(name, value.getClass().getName()));
 
         JsonObjectBuilder factoryClassMap = Json.createObjectBuilder();
-        FactoryFinderResolver factoryFinderResolver = camelContext.getCamelContextExtension().getFactoryFinderResolver();
+        FactoryFinderResolver factoryFinderResolver = PluginHelper.getFactoryFinderResolver(camelContext);
         if (factoryFinderResolver instanceof FastFactoryFinderResolver) {
             ((FastFactoryFinderResolver) factoryFinderResolver).getClassMap().forEach((k, v) -> {
                 factoryClassMap.add(k, v.getName());
@@ -156,7 +157,7 @@ public class CoreMainResource {
                 .add("factory-finder", Json.createObjectBuilder()
                         .add("class-map", factoryClassMap))
                 .add("bean-introspection-invocations",
-                        camelContext.getCamelContextExtension().getBeanIntrospection().getInvokedCounter())
+                        PluginHelper.getBeanIntrospection(camelContext).getInvokedCounter())
                 .build();
     }
 
@@ -231,7 +232,7 @@ public class CoreMainResource {
         }
 
         if (component != null) {
-            main.getCamelContext().getCamelContextExtension().getBeanIntrospection().getProperties(component, properties,
+            PluginHelper.getBeanIntrospection(main.getCamelContext()).getProperties(component, properties,
                     null);
             properties.forEach((k, v) -> {
                 if (v != null) {

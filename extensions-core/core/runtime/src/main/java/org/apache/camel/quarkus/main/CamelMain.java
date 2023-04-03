@@ -35,6 +35,7 @@ import org.apache.camel.main.RoutesConfigurer;
 import org.apache.camel.main.SimpleMainShutdownStrategy;
 import org.apache.camel.quarkus.core.CamelConfig.FailureRemedy;
 import org.apache.camel.spi.HasCamelContext;
+import org.apache.camel.support.PluginHelper;
 import org.apache.camel.support.service.ServiceHelper;
 import org.apache.camel.util.StringHelper;
 import org.slf4j.Logger;

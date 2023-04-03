@@ -69,10 +69,10 @@ public class CamelContextRecorder {
         extendedCamelContext.setRegistry(registry.getValue());
         context.setTypeConverterRegistry(typeConverterRegistry.getValue());
         context.setLoadTypeConverters(false);
-        extendedCamelContext.setModelJAXBContextFactory(contextFactory.getValue());
-        extendedCamelContext.setPackageScanClassResolver(packageScanClassResolver.getValue());
+        extendedCamelContext.addContextPlugin(ModelJAXBContextFactory.class, contextFactory.getValue());
+        extendedCamelContext.addContextPlugin(PackageScanClassResolver.class, packageScanClassResolver.getValue());
         context.build();
-        extendedCamelContext.setComponentNameResolver(componentNameResolver.getValue());
+        extendedCamelContext.addContextPlugin(ComponentNameResolver.class, componentNameResolver.getValue());
 
         // register to the container
         beanContainer.instance(CamelProducers.class).setContext(context);
