@@ -88,4 +88,12 @@ public class JavaJoorDslResource {
         return producerTemplate.requestBody("direct:joorHi", name, String.class);
     }
 
+    @POST
+    @Path("/echo")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String echo(String msg) {
+        return producerTemplate.requestBody("direct:joorEcho", msg, String.class);
+    }
+
 }
