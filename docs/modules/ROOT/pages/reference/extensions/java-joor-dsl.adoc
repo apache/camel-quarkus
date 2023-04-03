@@ -43,3 +43,11 @@ Or add the coordinates to your existing project:
 ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
+
+[id="extensions-java-joor-dsl-camel-quarkus-limitations"]
+== Camel Quarkus limitations
+
+The annotations added to the classes to be compiled by the component are ignored by Quarkus. The only annotation that is
+partially supported by the extension is the annotation `RegisterForReflection` to ease the configuration of the reflection
+for the native mode however please note that the element `registerFullHierarchy` is not supported.
+
