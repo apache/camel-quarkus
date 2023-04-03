@@ -14,6 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import java.util.function.Function;
+
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.builder.RouteBuilder;
 
@@ -32,5 +34,18 @@ public class MyRoutes extends RouteBuilder {
                 Class<?> c2 = Thread.currentThread().getContextClassLoader().loadClass("org.apache.camel.quarkus.dsl.java.joor.JavaJoorDslBean$Inner");
                 exchange.getMessage().setBody(c2.getMethod("addSource", String.class).invoke(null, hi));
             });
+        from("direct:joorEcho")
+                .id("inner-classes-route")
+                .process(exchange -> {
+                    exchange.getMessage().setBody(Inner.format((String) exchange.getMessage().getBody()));
+                });
+    }
+
+    public static class Inner {
+
+        public static String format(String result) {
+            Function<String, String> toUpperCase = String::toUpperCase;
+            return String.format("Msg: %s", toUpperCase.apply(result));
+        }
     }
 }
