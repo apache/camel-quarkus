@@ -282,6 +282,7 @@
 *** xref:reference/extensions/telegram.adoc[Telegram]
 *** xref:reference/extensions/threadpoolfactory-vertx.adoc[ThreadPoolFactory Vert.x]
 *** xref:reference/extensions/thrift.adoc[Thrift]
+*** xref:reference/extensions/tika.adoc[Tika]
 *** xref:reference/extensions/timer.adoc[Timer]
 *** xref:reference/extensions/twilio.adoc[Twilio]
 *** xref:reference/extensions/twitter.adoc[Twitter]

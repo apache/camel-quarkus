@@ -232,7 +232,7 @@
         <module>syslog</module>
         <module>tarfile</module>
         <module>telegram</module>
-        <!--<module>tika</module> https://github.com/apache/camel-quarkus/issues/4470 -->
+        <module>tika</module>
         <module>timer</module>
         <module>twilio</module>
         <module>twitter</module>
