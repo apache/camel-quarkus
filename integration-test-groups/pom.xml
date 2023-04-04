@@ -46,6 +46,7 @@
         <module>dataformats-json</module>
         <module>foundation</module>
         <module>mongodb</module>
+        <module>xml</module>
     </modules>
 
 </project>

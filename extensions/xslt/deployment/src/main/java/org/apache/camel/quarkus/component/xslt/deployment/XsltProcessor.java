@@ -36,7 +36,6 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.component.xslt.XsltComponent;
 import org.apache.camel.quarkus.component.xslt.CamelXsltConfig;
@@ -149,11 +148,4 @@ class XsltProcessor {
             }
         }
     }
-
-    //It should be removed with fixing https://github.com/apache/camel-quarkus/issues/1615
-    @BuildStep
-    RuntimeInitializedClassBuildItem runtimeInit() {
-        return new RuntimeInitializedClassBuildItem("org.apache.hc.client5.http.impl.auth.NTLMEngineImpl");
-    }
-
 }

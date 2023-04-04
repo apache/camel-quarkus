@@ -1,0 +1,3 @@
+
+# src/main and src/test are copied from the underlying isolated modules by group-tests.groovy
+/src/
