@@ -6,7 +6,9 @@
 
 **Closed issues:**
 
+- java-joor-dsl - Add support of inner classes [\#4731](https://github.com/apache/camel-quarkus/issues/4731)
 - Intermittent failure in Jdbc native tests [\#4723](https://github.com/apache/camel-quarkus/issues/4723)
+- java-joor-dsl - Add RegisterForReflection annotation support [\#4716](https://github.com/apache/camel-quarkus/issues/4716)
 - \[camel-main\] Groovy support causes CI failure [\#4712](https://github.com/apache/camel-quarkus/issues/4712)
 - Test CXF client with HTTP BASIC authentication [\#4705](https://github.com/apache/camel-quarkus/issues/4705)
 - Update wrong jvmSince and nativeSince  [\#4698](https://github.com/apache/camel-quarkus/issues/4698)
@@ -41,8 +43,12 @@
 
 **Merged pull requests:**
 
+- Generated sources regen for SBOM [\#4734](https://github.com/apache/camel-quarkus/pull/4734) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Bump quarkus-artemis-bom from 3.0.0.Alpha7 to 3.0.0.CR1 [\#4733](https://github.com/apache/camel-quarkus/pull/4733) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Ref \#4731: java-joor-dsl - Add support of inner classes [\#4732](https://github.com/apache/camel-quarkus/pull/4732) ([essobedo](https://github.com/essobedo))
 - Upgrade to quarkus-cxf 2.0.0.Alpha5, Add back XML Security Sign [\#4729](https://github.com/apache/camel-quarkus/pull/4729) ([ppalaga](https://github.com/ppalaga))
 - Start JDBC polling after database initialization \#4723 [\#4728](https://github.com/apache/camel-quarkus/pull/4728) ([jamesnetherton](https://github.com/jamesnetherton))
+- Ref \#4716: java-joor-dsl - Add RegisterForReflection support [\#4726](https://github.com/apache/camel-quarkus/pull/4726) ([essobedo](https://github.com/essobedo))
 - Upgrade Quarkus to 3.0.0.CR1 [\#4724](https://github.com/apache/camel-quarkus/pull/4724) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#4710 to register reflection for FastStringBuffer and resource bundle for XMLErrorResources [\#4720](https://github.com/apache/camel-quarkus/pull/4720) ([zhfeng](https://github.com/zhfeng))
 - vertx-http: remove deprecated serviceCall eip [\#4719](https://github.com/apache/camel-quarkus/pull/4719) ([aldettinger](https://github.com/aldettinger))
