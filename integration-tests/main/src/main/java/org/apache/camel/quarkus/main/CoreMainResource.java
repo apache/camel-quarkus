@@ -136,7 +136,7 @@ public class CoreMainResource {
         }
 
         return Json.createObjectBuilder()
-                .add("xml-model-dumper", camelContext.getCamelContextExtension().getModelToXMLDumper().getClass().getName())
+                .add("xml-model-dumper", PluginHelper.getModelToXMLDumper(camelContext).getClass().getName())
                 .add("routes-collector", collector)
                 .add("listeners", listeners)
                 .add("routeBuilders", routeBuilders)
