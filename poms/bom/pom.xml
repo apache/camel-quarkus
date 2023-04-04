@@ -2335,11 +2335,11 @@
                 <artifactId>camel-thrift</artifactId>
                 <version>${camel.version}</version>
             </dependency>
-            <!--<dependency>
+            <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-tika</artifactId>
                 <version>${camel.version}</version>
-            </dependency>-->
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-timer</artifactId>
@@ -5523,7 +5523,7 @@
                 <artifactId>camel-quarkus-thrift-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
-            <!--<dependency>
+            <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-tika</artifactId>
                 <version>${camel-quarkus.version}</version>
@@ -5532,7 +5532,7 @@
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-tika-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
-            </dependency>-->
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-timer</artifactId>
@@ -6266,6 +6266,12 @@
                 <groupId>io.quarkiverse.tika</groupId>
                 <artifactId>quarkus-tika</artifactId>
                 <version>${quarkiverse-tika.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>io.quarkiverse.tika</groupId>
