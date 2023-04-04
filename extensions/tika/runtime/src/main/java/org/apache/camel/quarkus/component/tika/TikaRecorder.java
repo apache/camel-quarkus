@@ -18,13 +18,8 @@ package org.apache.camel.quarkus.component.tika;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.Set;
-
-import javax.xml.transform.TransformerConfigurationException;
 
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
@@ -41,14 +36,12 @@ import org.apache.camel.Producer;
 import org.apache.camel.component.tika.TikaComponent;
 import org.apache.camel.component.tika.TikaConfiguration;
 import org.apache.camel.component.tika.TikaEndpoint;
-import org.apache.camel.component.tika.TikaParseOutputFormat;
 import org.apache.camel.component.tika.TikaProducer;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.mime.MediaType;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.Parser;
-import org.apache.tika.parser.html.BoilerpipeContentHandler;
 
 @Recorder
 public class TikaRecorder {
@@ -85,7 +78,7 @@ public class TikaRecorder {
         @Override
         public Producer createProducer() throws Exception {
             TikaParser tikaParser = tikaParserProducer.tikaParser();
-            return new QuarkusTikaProducer(this, new Parser() {
+            return new TikaProducer(this, new Parser() {
                 @Override
                 public Set<MediaType> getSupportedTypes(ParseContext parseContext) {
                     return Collections.emptySet();
@@ -103,30 +96,6 @@ public class TikaRecorder {
                     }
                 }
             });
-        }
-    }
-
-    // TODO: Remove this when Camel Tika & Quarkus Tika versions are aligned
-    // https://github.com/apache/camel-quarkus/issues/3599
-    static class QuarkusTikaProducer extends TikaProducer {
-
-        public QuarkusTikaProducer(TikaEndpoint endpoint) {
-            super(endpoint);
-        }
-
-        public QuarkusTikaProducer(TikaEndpoint endpoint, Parser parser) {
-            super(endpoint, parser);
-        }
-
-        @Override
-        protected ContentHandler getContentHandler(TikaConfiguration configuration, OutputStream outputStream)
-                throws TransformerConfigurationException, UnsupportedEncodingException {
-            TikaParseOutputFormat outputFormat = configuration.getTikaParseOutputFormat();
-            if (outputFormat.equals(TikaParseOutputFormat.textMain)) {
-                return new BoilerpipeContentHandler(
-                        new OutputStreamWriter(outputStream, configuration.getTikaParseOutputEncoding()));
-            }
-            return super.getContentHandler(configuration, outputStream);
         }
     }
 
