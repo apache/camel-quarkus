@@ -23,6 +23,8 @@ import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.main.MainSupport;
+import org.apache.camel.spi.ComponentResolver;
+import org.apache.camel.spi.LanguageResolver;
 
 /**
  * {@code DryModeMain} a specific main implementation allowing to do a dry run of the application in order to collect
@@ -53,8 +55,8 @@ public class DryModeMain extends MainSupport {
         ctx.setInjector(new DryModeInjector(ctx.getInjector()));
 
         ExtendedCamelContext extendedCamelContext = ctx.getCamelContextExtension();
-        extendedCamelContext.addContextPlugin(DryModeLanguageResolver.class, languageResolver);
-        extendedCamelContext.addContextPlugin(DryModeComponentResolver.class, new DryModeComponentResolver());
+        extendedCamelContext.addContextPlugin(LanguageResolver.class, languageResolver);
+        extendedCamelContext.addContextPlugin(ComponentResolver.class, new DryModeComponentResolver());
         return ctx;
     }
 
