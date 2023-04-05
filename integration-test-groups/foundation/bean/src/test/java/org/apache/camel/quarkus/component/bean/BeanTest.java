@@ -21,7 +21,6 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.bean.model.Employee;
 import org.apache.camel.util.StringHelper;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -203,7 +202,6 @@ public class BeanTest {
     }
 
     @Test
-    @Disabled // https://github.com/apache/camel-quarkus/issues/4735
     public void parameterTypes() {
         RestAssured.given()
                 .contentType(ContentType.JSON)
