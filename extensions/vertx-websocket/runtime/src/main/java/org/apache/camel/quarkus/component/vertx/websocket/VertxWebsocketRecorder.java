@@ -27,6 +27,7 @@ import org.apache.camel.component.vertx.websocket.VertxWebsocketComponent;
 import org.apache.camel.component.vertx.websocket.VertxWebsocketHost;
 import org.apache.camel.component.vertx.websocket.VertxWebsocketHostConfiguration;
 import org.apache.camel.component.vertx.websocket.VertxWebsocketHostKey;
+import org.apache.camel.spi.annotations.Component;
 
 @Recorder
 public class VertxWebsocketRecorder {
@@ -39,6 +40,7 @@ public class VertxWebsocketRecorder {
         return new RuntimeValue<>(component);
     }
 
+    @Component("vertx-websocket")
     static final class QuarkusVertxWebsocketComponent extends VertxWebsocketComponent {
         @Override
         protected VertxWebsocketHost createVertxWebsocketHost(VertxWebsocketHostConfiguration hostConfiguration,
