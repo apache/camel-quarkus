@@ -144,7 +144,7 @@ class JoorProcessor {
                                 .flatMap(PathCollection::stream)
                                 .map(Objects::toString)
                                 .collect(Collectors.joining(System.getProperty("path.separator")))));
-        for (String className : compilationResult.getClassNames()) {
+        for (String className : compilationResult.getCompiledClassNames()) {
             generatedClass
                     .produce(
                             new GeneratedClassBuildItem(true, className, compilationResult.getByteCode(className)));

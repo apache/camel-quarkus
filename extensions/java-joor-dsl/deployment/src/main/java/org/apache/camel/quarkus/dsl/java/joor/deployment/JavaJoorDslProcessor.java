@@ -99,29 +99,14 @@ public class JavaJoorDslProcessor {
                                 .map(Objects::toString)
                                 .collect(Collectors.joining(System.getProperty("path.separator")))));
         for (String className : result.getClassNames()) {
+            registerForReflection(reflectiveClass, lambdaCapturingTypeProducer, result.getClass(className));
+        }
+        for (String className : result.getCompiledClassNames()) {
+            int index = className.indexOf("$");
+            String outerClassName = index == -1 ? className : className.substring(0, index);
             generatedClass
-                    .produce(new JavaJoorGeneratedClassBuildItem(className, nameToResource.get(className).getLocation(),
+                    .produce(new JavaJoorGeneratedClassBuildItem(className, nameToResource.get(outerClassName).getLocation(),
                             result.getByteCode(className)));
-            Class<?> aClass = result.getClass(className);
-            // Inner classes
-            for (Class<?> clazz : aClass.getDeclaredClasses()) {
-                String name = clazz.getName();
-                generatedClass
-                        .produce(new JavaJoorGeneratedClassBuildItem(name, nameToResource.get(className).getLocation(),
-                                result.getByteCode(name)));
-            }
-            // Anonymous classes
-            for (int i = 1;; i++) {
-                String name = String.format("%s$%d", className, i);
-                byte[] content = result.getByteCode(name);
-                if (content == null) {
-                    break;
-                }
-                generatedClass
-                        .produce(new JavaJoorGeneratedClassBuildItem(name, nameToResource.get(className).getLocation(),
-                                content));
-            }
-            registerForReflection(reflectiveClass, lambdaCapturingTypeProducer, aClass);
         }
     }
 
