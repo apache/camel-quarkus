@@ -36,6 +36,7 @@
 - TelegramTest.\[mp3|mp4|pdf\] fail with Camel 4 and Quarkus 3 [\#4513](https://github.com/apache/camel-quarkus/issues/4513)
 - cassandra-quarkus 1.1.3 not compatible with Quarkus 3 [\#4488](https://github.com/apache/camel-quarkus/issues/4488)
 - Remove `quarkus.camel.yaml.flow-mode` [\#4482](https://github.com/apache/camel-quarkus/issues/4482)
+- Improve the test coverage of the jOOR language [\#4447](https://github.com/apache/camel-quarkus/issues/4447)
 - Groovy DSL - Add support of Groovy extension modules [\#4384](https://github.com/apache/camel-quarkus/issues/4384)
 - Remove azure-identity `IdentityClientBase` runtime initialization native configuration [\#4356](https://github.com/apache/camel-quarkus/issues/4356)
 - Platform HTTP component under load won't serve health endpoints anymore [\#2974](https://github.com/apache/camel-quarkus/issues/2974)
@@ -43,6 +44,7 @@
 
 **Merged pull requests:**
 
+- Ref \#4447: java-joor-dsl - Improve the test coverage [\#4737](https://github.com/apache/camel-quarkus/pull/4737) ([essobedo](https://github.com/essobedo))
 - Generated sources regen for SBOM [\#4734](https://github.com/apache/camel-quarkus/pull/4734) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump quarkus-artemis-bom from 3.0.0.Alpha7 to 3.0.0.CR1 [\#4733](https://github.com/apache/camel-quarkus/pull/4733) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Ref \#4731: java-joor-dsl - Add support of inner classes [\#4732](https://github.com/apache/camel-quarkus/pull/4732) ([essobedo](https://github.com/essobedo))
