@@ -16,7 +16,12 @@
  */
 package org.apache.camel.quarkus.component.jdbc;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -39,12 +44,16 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.quarkus.component.jdbc.model.Camel;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Path("/test")
 @ApplicationScoped
 public class CamelResource {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CamelResource.class);
     @Inject
-    @DataSource("camel-ds")
+    @DataSource("cameldb")
     AgroalDataSource dataSource;
 
     @Inject
@@ -53,33 +62,24 @@ public class CamelResource {
     @Inject
     CamelContext context;
 
+    @ConfigProperty(name = "quarkus.datasource.cameldb.db-kind")
+    String dbKind;
+
     @PostConstruct
     void postConstruct() throws Exception {
-        try (Connection con = dataSource.getConnection()) {
-            try (Statement statement = con.createStatement()) {
-                try {
-                    statement.execute("drop table camels");
-                    statement.execute("drop table camelsGenerated");
-                } catch (Exception ignored) {
-                }
-                statement.execute("create table camels (id int primary key, species varchar(255))");
-                statement.execute("create table camelsGenerated (id int primary key auto_increment, species varchar(255))");
-                statement.execute("create table camelsProcessed (id int primary key auto_increment, species varchar(255))");
-                statement.execute("insert into camelsGenerated (species) values ('Camelus status'), ('Camelus linus')");
-                statement.execute("insert into camels (id, species) values (1, 'Camelus dromedarius')");
-                statement.execute("insert into camels (id, species) values (2, 'Camelus bactrianus')");
-                statement.execute("insert into camels (id, species) values (3, 'Camelus ferus')");
+        Connection conn = dataSource.getConnection();
+        runScripts(conn, "droptables.sql");
+        runScripts(conn, dbKind + ".sql");
+        runScripts(conn, "inserts.sql");
 
-                context.getRouteController().startRoute("jdbc-poll");
-            }
-        }
+        context.getRouteController().startRoute("jdbc-poll");
     }
 
     @Path("/species/{id}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getSpeciesById(@PathParam("id") String id) throws Exception {
-        return template.requestBody("jdbc:camel-ds", "select species from camels where id = " + id, String.class);
+        return template.requestBody("jdbc:cameldb", "select species from camels where id = " + id, String.class);
     }
 
     @SuppressWarnings("unchecked")
@@ -88,14 +88,14 @@ public class CamelResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String getSpeciesByIdWithSelectList(@PathParam("id") String id) throws Exception {
         List<LinkedHashMap<String, Object>> result = template
-                .requestBody("jdbc:camel-ds?outputType=SelectList", "select * from camels where id = " + id, List.class);
+                .requestBody("jdbc:cameldb?outputType=SelectList", "select * from camels where id = " + id, List.class);
 
         if (result.isEmpty()) {
             throw new IllegalStateException("Expected at least 1 camel result but none were found");
         }
 
         LinkedHashMap<String, Object> data = result.get(0);
-        return data.get("SPECIES") + " " + data.get("ID");
+        return data.get(getSpeciesRowName()) + " " + data.get(getIdRowName());
     }
 
     @SuppressWarnings("unchecked")
@@ -103,7 +103,7 @@ public class CamelResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getSpeciesByIdWithDefinedType(@PathParam("id") String id) throws Exception {
-        List<Camel> results = template.requestBody("jdbc:camel-ds?outputClass=" + Camel.class.getName(),
+        List<Camel> results = template.requestBody("jdbc:cameldb?outputClass=" + Camel.class.getName(),
                 "select * from camels where id = " + id, List.class);
 
         if (results.isEmpty()) {
@@ -119,7 +119,7 @@ public class CamelResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String executeStatement(String statement) throws Exception {
-        return template.requestBody("jdbc:camel-ds", statement, String.class);
+        return template.requestBody("jdbc:cameldb", statement, String.class);
     }
 
     @Path("/generated-keys/rows")
@@ -127,7 +127,7 @@ public class CamelResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List generatedKeysRows() throws Exception {
         return template.requestBodyAndHeader("direct://get-generated-keys",
-                "insert into camelsGenerated (species) values ('Camelus testus'), ('Camelus legendarius')",
+                "insert into camelsGenerated (species) values ('Camelus testus')",
                 "CamelRetrieveGeneratedKeys", "true", ArrayList.class);
     }
 
@@ -136,7 +136,7 @@ public class CamelResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String headersFromInsertOrUpdate() throws Exception {
         return template.requestBodyAndHeader("direct://get-headers",
-                "insert into camelsGenerated (species) values ('Camelus status'), ('Camelus linus')",
+                "insert into camelsGenerated (species) values ('Camelus testus')",
                 "CamelRetrieveGeneratedKeys", "true", String.class);
     }
 
@@ -151,16 +151,17 @@ public class CamelResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String headersAsParameters() throws Exception {
+        int id = 3;
         return template.requestBodyAndHeader("direct://headers-as-parameters",
                 "select * from camels where id < :?idmax order by id",
-                "idmax", "3", String.class);
+                "idmax", id, String.class);
     }
 
     @Path("/named-parameters/headers-as-parameters-map")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String headersAsParametersMap() throws Exception {
-        Map<String, String> headersMap = Map.of("idmax", "3", "specs", "Camelus bactrianus");
+        Map<String, Object> headersMap = Map.of("idmax", 3, "specs", "Camelus bactrianus");
         return template.requestBodyAndHeader("direct://headers-as-parameters",
                 "select * from camels where id < :?idmax and species = :?specs order by id",
                 "CamelJdbcParameters", headersMap, String.class);
@@ -183,4 +184,63 @@ public class CamelResource {
         return template.requestBody("direct://move-between-datasources", null, String.class);
     }
 
+    private void runScripts(Connection conn, String fileName) throws SQLException, IOException {
+        try (Statement statement = conn.createStatement()) {
+            try (InputStream is = Thread.currentThread().getContextClassLoader()
+                    .getResourceAsStream("sql/" + fileName);
+                    InputStreamReader isr = new InputStreamReader(is);
+                    BufferedReader reader = new BufferedReader(isr)) {
+
+                //execute each line from the sql script as separate statement
+                reader.lines().filter(s -> s != null && !"".equals(s) && !s.startsWith("--")).forEach(s -> {
+                    try {
+                        statement.execute(s);
+                    } catch (SQLException e) {
+                        if (!s.toUpperCase().startsWith("DROP")) {
+                            throw new RuntimeException(e);
+                        } else {
+                            LOGGER.debug(String.format("Command '%s' failed.", s)); //use debug logging
+                        }
+                    }
+                });
+            }
+        }
+
+    }
+
+    @Path("/get-id-key")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getIdKey() {
+        switch (dbKind) {
+        case "postgresql":
+            return "id";
+        case "oracle":
+            return "ROWID";
+        case "mssql":
+            return "GENERATED_KEYS";
+        case "mariadb":
+            return "insert_id";
+        case "mysql":
+            return "GENERATED_KEY";
+        default:
+            return "ID";
+        }
+    }
+
+    private String getIdRowName() {
+        if (dbKind.equals("h2") || dbKind.equals("oracle") || dbKind.equals("db2")) {
+            return "ID";
+        } else {
+            return "id";
+        }
+    }
+
+    private String getSpeciesRowName() {
+        if (dbKind.equals("h2") || dbKind.equals("oracle") || dbKind.equals("db2")) {
+            return "SPECIES";
+        } else {
+            return "species";
+        }
+    }
 }
