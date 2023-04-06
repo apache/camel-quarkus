@@ -4,9 +4,15 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/3.0.0-M1...HEAD)
 
+**Fixed bugs:**
+
+- Missing `@Component` annotation for `QuarkusVertxWebsocketComponent`  [\#4741](https://github.com/apache/camel-quarkus/issues/4741)
+
 **Closed issues:**
 
+- \[camel-main\] Foundation: BeanTest.parameterTypes  fails with the current Camel main [\#4735](https://github.com/apache/camel-quarkus/issues/4735)
 - java-joor-dsl - Add support of inner classes [\#4731](https://github.com/apache/camel-quarkus/issues/4731)
+- \[Quarkus X.Y.Z\] Performance regression introduced in Camel Quarkus 3.0.0-M1 [\#4727](https://github.com/apache/camel-quarkus/issues/4727)
 - Intermittent failure in Jdbc native tests [\#4723](https://github.com/apache/camel-quarkus/issues/4723)
 - java-joor-dsl - Add RegisterForReflection annotation support [\#4716](https://github.com/apache/camel-quarkus/issues/4716)
 - \[camel-main\] Groovy support causes CI failure [\#4712](https://github.com/apache/camel-quarkus/issues/4712)
@@ -36,6 +42,7 @@
 - TelegramTest.\[mp3|mp4|pdf\] fail with Camel 4 and Quarkus 3 [\#4513](https://github.com/apache/camel-quarkus/issues/4513)
 - cassandra-quarkus 1.1.3 not compatible with Quarkus 3 [\#4488](https://github.com/apache/camel-quarkus/issues/4488)
 - Remove `quarkus.camel.yaml.flow-mode` [\#4482](https://github.com/apache/camel-quarkus/issues/4482)
+- Quarkiverse Tika incompatible with Camel 4 [\#4470](https://github.com/apache/camel-quarkus/issues/4470)
 - Improve the test coverage of the jOOR language [\#4447](https://github.com/apache/camel-quarkus/issues/4447)
 - Groovy DSL - Add support of Groovy extension modules [\#4384](https://github.com/apache/camel-quarkus/issues/4384)
 - Remove azure-identity `IdentityClientBase` runtime initialization native configuration [\#4356](https://github.com/apache/camel-quarkus/issues/4356)
@@ -44,6 +51,10 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 3.0.0.CR2 [\#4744](https://github.com/apache/camel-quarkus/pull/4744) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade CycloneDX Maven Plugin to version 2.7.6 [\#4743](https://github.com/apache/camel-quarkus/pull/4743) ([oscerd](https://github.com/oscerd))
+- Add missing @Component annotation to QuarkusVertxWebsocketComponent [\#4742](https://github.com/apache/camel-quarkus/pull/4742) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add back Tika component [\#4739](https://github.com/apache/camel-quarkus/pull/4739) ([zhfeng](https://github.com/zhfeng))
 - Ref \#4447: java-joor-dsl - Improve the test coverage [\#4737](https://github.com/apache/camel-quarkus/pull/4737) ([essobedo](https://github.com/essobedo))
 - Generated sources regen for SBOM [\#4734](https://github.com/apache/camel-quarkus/pull/4734) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump quarkus-artemis-bom from 3.0.0.Alpha7 to 3.0.0.CR1 [\#4733](https://github.com/apache/camel-quarkus/pull/4733) ([dependabot[bot]](https://github.com/apps/dependabot))
