@@ -1,0 +1,26 @@
+== JDBC integration tests
+
+=== Default database type
+
+When the tests are executed without any special configuration, dev-service `H2` database is used (more details will follow).
+
+=== Dev-service databases
+
+As is described  in the https://quarkus.io/guides/datasource#dev-services[documentation], several database types could be started in dev-service mode.
+Running the tests against a database in dev-service mode could be achieved by addition of build property `cq.jdbcKind`. Example of usage:
+
+`mvn clean test -f integration-tests/jdbc/ -Dcq.jdbcKind=postgresql`
+
+Following databases could be started in the dev-service mode:
+
+- Postgresql (container) - add `-Dcq.jdbcKind=postgresql`
+- MySQL (container) - add `-Dcq.jdbcKind=mysql`
+- MariaDB (container) - add `-Dcq.jdbcKind=mariadb`
+- H2 (in-process) used by default
+- Apache Derby (in-process) - add `-Dcq.jdbcKind=derby`
+- DB2 (container) (requires license acceptance) - add `-Dcq.jdbcKind=db2`
+- MSSQL (container) (requires license acceptance) - add `-Dcq.jdbcKind=mssql`
+- Oracle (container) - add `-Dcq.jdbcKind=oracle`
+
+For more information about dev-service mode, see https://quarkus.io/guides/datasource#dev-services[documentation].
+
