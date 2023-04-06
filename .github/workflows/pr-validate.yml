@@ -38,7 +38,7 @@ concurrency:
 env:
   LANG: en_US
   MAVEN_OPTS: -Xmx3000m
-  CQ_MAVEN_ARGS: -V -ntp -Dhttp.keepAlive=false -e
+  CQ_MAVEN_ARGS: -V -ntp -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=30 -Dmaven.wagon.http.retryHandler.requestSentEnabled=true -e
 
 jobs:
   check-format:
