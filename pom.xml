@@ -556,6 +556,7 @@
                             <exclude>**/k8s-sb/**</exclude>
                             <exclude>.gitattributes</exclude>
                             <exclude>**/src/test/resources/__files/*.xml</exclude>
+                            <exclude>.github/actions/**</exclude>
                         </excludes>
                         <mapping>
                             <cli>CAMEL_PROPERTIES_STYLE</cli>
