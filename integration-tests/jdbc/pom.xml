@@ -31,6 +31,10 @@
     <name>Camel Quarkus :: Integration Tests :: JDBC</name>
     <description>Integration tests for Camel JDBC extension</description>
 
+    <properties>
+        <cq.jdbcKind>h2</cq.jdbcKind>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -54,7 +58,7 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jdbc-h2</artifactId>
+            <artifactId>quarkus-jdbc-${cq.jdbcKind}</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -73,11 +77,6 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-test-h2</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -117,6 +116,11 @@
                                 </goals>
                             </execution>
                         </executions>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <quarkus.test.arg-line>-Dcq.jdbcKind=${cq.jdbcKind}</quarkus.test.arg-line>
+                            </systemPropertyVariables>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
