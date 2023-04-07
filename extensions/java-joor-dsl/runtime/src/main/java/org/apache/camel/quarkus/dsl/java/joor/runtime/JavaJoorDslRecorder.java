@@ -35,7 +35,8 @@ public class JavaJoorDslRecorder {
 
     private static final Logger LOG = LoggerFactory.getLogger(JavaJoorDslRecorder.class);
 
-    public void registerRoutesBuilder(RuntimeValue<CamelContext> context, String className, String location) throws Exception {
+    public RoutesBuilder registerRoutes(RuntimeValue<CamelContext> context, String className, String location)
+            throws Exception {
         Class<?> clazz = Class.forName(className);
         boolean skip = clazz.isInterface() || Modifier.isAbstract(clazz.getModifiers())
                 || Modifier.isPrivate(clazz.getModifiers());
@@ -50,6 +51,7 @@ public class JavaJoorDslRecorder {
                     CamelContextAware.trySetCamelContext(obj, context.getValue());
                     ResourceAware.trySetResource(obj, ResourceHelper.fromString(location, ""));
                     context.getValue().addRoutes(builder);
+                    return builder;
                 } else {
                     LOG.warn("Ignoring the class {} as it is not of type RoutesBuilder", className);
                 }
@@ -58,6 +60,13 @@ public class JavaJoorDslRecorder {
             }
         } else {
             LOG.warn("Ignoring the class {} as it cannot be instantiated with the default constructor", className);
+        }
+        return null;
+    }
+
+    public void registerTemplatedRoutes(RuntimeValue<CamelContext> camelContext, RoutesBuilder builder) throws Exception {
+        if (builder != null) {
+            camelContext.getValue().addTemplatedRoutes(builder);
         }
     }
 }
