@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- camel-quarkus-jdbc: using named parameters fails for postgresql db kind [\#4750](https://github.com/apache/camel-quarkus/issues/4750)
 - \[camel-main\] Foundation: BeanTest.parameterTypes  fails with the current Camel main [\#4735](https://github.com/apache/camel-quarkus/issues/4735)
 - java-joor-dsl - Add support of inner classes [\#4731](https://github.com/apache/camel-quarkus/issues/4731)
 - \[Quarkus X.Y.Z\] Performance regression introduced in Camel Quarkus 3.0.0-M1 [\#4727](https://github.com/apache/camel-quarkus/issues/4727)
@@ -51,9 +52,11 @@
 
 **Merged pull requests:**
 
+- Add GitHub actions directory to license-maven-plugin exclusions [\#4748](https://github.com/apache/camel-quarkus/pull/4748) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 3.0.0.CR2 [\#4744](https://github.com/apache/camel-quarkus/pull/4744) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade CycloneDX Maven Plugin to version 2.7.6 [\#4743](https://github.com/apache/camel-quarkus/pull/4743) ([oscerd](https://github.com/oscerd))
 - Add missing @Component annotation to QuarkusVertxWebsocketComponent [\#4742](https://github.com/apache/camel-quarkus/pull/4742) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix maven connection time out [\#4740](https://github.com/apache/camel-quarkus/pull/4740) ([zhfeng](https://github.com/zhfeng))
 - Add back Tika component [\#4739](https://github.com/apache/camel-quarkus/pull/4739) ([zhfeng](https://github.com/zhfeng))
 - Ref \#4447: java-joor-dsl - Improve the test coverage [\#4737](https://github.com/apache/camel-quarkus/pull/4737) ([essobedo](https://github.com/essobedo))
 - Generated sources regen for SBOM [\#4734](https://github.com/apache/camel-quarkus/pull/4734) ([github-actions[bot]](https://github.com/apps/github-actions))
