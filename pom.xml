@@ -874,6 +874,7 @@
                                         <sortModulesPath>integration-test-groups/compression/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/foundation/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/mongodb/pom.xml</sortModulesPath>
+                                        <sortModulesPath>integration-test-groups/xml/pom.xml</sortModulesPath>
                                     </sortModulesPaths>
                                     <sortDependencyManagementPaths>
                                         <sortDependencyManagementPath>poms/bom/pom.xml</sortDependencyManagementPath>
@@ -957,6 +958,24 @@
                                                 </includes>
                                             </sourcePoms>
                                             <destinationPom>${basedir}/integration-tests/mongodb-grouped/pom.xml</destinationPom>
+                                        </mergePom>
+                                        <mergePom>
+                                            <sourcePoms>
+                                                <directory>${basedir}/integration-test-groups/xml/native</directory>
+                                                <includes>
+                                                    <include>*/pom.xml</include>
+                                                </includes>
+                                            </sourcePoms>
+                                            <destinationPom>${basedir}/integration-tests/xml-grouped/pom.xml</destinationPom>
+                                        </mergePom>
+                                        <mergePom>
+                                            <sourcePoms>
+                                                <directory>${basedir}/integration-test-groups/xml/jvm</directory>
+                                                <includes>
+                                                    <include>*/pom.xml</include>
+                                                </includes>
+                                            </sourcePoms>
+                                            <destinationPom>${basedir}/integration-tests-jvm/xml-grouped/pom.xml</destinationPom>
                                         </mergePom>
                                     </mergePoms>
                                 </configuration>
