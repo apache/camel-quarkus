@@ -104,6 +104,7 @@
         <module>wordpress</module>
         <module>workday</module>
         <module>xj</module>
+        <module>xml-grouped</module>
         <module>xmpp</module>
         <module>xslt-saxon</module>
         <module>zookeeper</module>
