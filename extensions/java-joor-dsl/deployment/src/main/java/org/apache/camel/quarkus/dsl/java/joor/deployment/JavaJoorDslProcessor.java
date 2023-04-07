@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.dsl.java.joor.deployment;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +43,7 @@ import io.quarkus.paths.PathCollection;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.CamelContext;
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.dsl.java.joor.CompilationUnit;
 import org.apache.camel.dsl.java.joor.MultiCompile;
 import org.apache.camel.quarkus.core.deployment.main.CamelMainHelper;
@@ -208,8 +210,14 @@ public class JavaJoorDslProcessor {
             CamelContextBuildItem context,
             JavaJoorDslRecorder recorder) throws Exception {
         RuntimeValue<CamelContext> camelContext = context.getCamelContext();
+        List<RoutesBuilder> builders = new ArrayList<>(classes.size());
+        // Register routes first
         for (JavaJoorGeneratedClassBuildItem clazz : classes) {
-            recorder.registerRoutesBuilder(camelContext, clazz.getName(), clazz.getLocation());
+            builders.add(recorder.registerRoutes(camelContext, clazz.getName(), clazz.getLocation()));
+        }
+        // Then register templated routes
+        for (RoutesBuilder builder : builders) {
+            recorder.registerTemplatedRoutes(camelContext, builder);
         }
     }
 
