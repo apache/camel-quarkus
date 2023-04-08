@@ -47,11 +47,14 @@
 - Improve the test coverage of the jOOR language [\#4447](https://github.com/apache/camel-quarkus/issues/4447)
 - Groovy DSL - Add support of Groovy extension modules [\#4384](https://github.com/apache/camel-quarkus/issues/4384)
 - Remove azure-identity `IdentityClientBase` runtime initialization native configuration [\#4356](https://github.com/apache/camel-quarkus/issues/4356)
+- Introduce a new XML testing group [\#4043](https://github.com/apache/camel-quarkus/issues/4043)
 - Platform HTTP component under load won't serve health endpoints anymore [\#2974](https://github.com/apache/camel-quarkus/issues/2974)
 - Groovy language native support [\#1746](https://github.com/apache/camel-quarkus/issues/1746)
 
 **Merged pull requests:**
 
+- Update camel-quarkus-tika resource [\#4754](https://github.com/apache/camel-quarkus/pull/4754) ([zhfeng](https://github.com/zhfeng))
+- Fix \#4043 to group xml tests [\#4753](https://github.com/apache/camel-quarkus/pull/4753) ([zhfeng](https://github.com/zhfeng))
 - Add GitHub actions directory to license-maven-plugin exclusions [\#4748](https://github.com/apache/camel-quarkus/pull/4748) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 3.0.0.CR2 [\#4744](https://github.com/apache/camel-quarkus/pull/4744) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade CycloneDX Maven Plugin to version 2.7.6 [\#4743](https://github.com/apache/camel-quarkus/pull/4743) ([oscerd](https://github.com/oscerd))
