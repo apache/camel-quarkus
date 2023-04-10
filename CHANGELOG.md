@@ -53,6 +53,7 @@
 
 **Merged pull requests:**
 
+- Generated sources regen for SBOM [\#4756](https://github.com/apache/camel-quarkus/pull/4756) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Update camel-quarkus-tika resource [\#4754](https://github.com/apache/camel-quarkus/pull/4754) ([zhfeng](https://github.com/zhfeng))
 - Fix \#4043 to group xml tests [\#4753](https://github.com/apache/camel-quarkus/pull/4753) ([zhfeng](https://github.com/zhfeng))
 - Add GitHub actions directory to license-maven-plugin exclusions [\#4748](https://github.com/apache/camel-quarkus/pull/4748) ([jamesnetherton](https://github.com/jamesnetherton))
