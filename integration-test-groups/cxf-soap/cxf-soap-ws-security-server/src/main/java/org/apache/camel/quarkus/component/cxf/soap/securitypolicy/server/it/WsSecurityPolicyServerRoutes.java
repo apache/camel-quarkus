@@ -19,9 +19,12 @@ package org.apache.camel.quarkus.component.cxf.soap.securitypolicy.server.it;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Named;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.cxf.jaxws.CxfEndpoint;
 import org.apache.cxf.ext.logging.LoggingFeature;
+import org.apache.cxf.headers.Header;
 
 @ApplicationScoped
 public class WsSecurityPolicyServerRoutes extends RouteBuilder {
@@ -29,10 +32,12 @@ public class WsSecurityPolicyServerRoutes extends RouteBuilder {
     @Override
     public void configure() {
 
-        from("cxf:bean:wsSecurityPolicyHelloService?dataFormat=POJO")
-                .log("exchange: ${exchange}")
-                .setBody(exchange -> "Secure good morning " + exchange.getMessage().getBody(String.class));
-
+        from("cxf:bean:wsSecurityPolicyHelloService?dataFormat=POJO").process(new Processor() {
+            public void process(final Exchange exchange) throws Exception {
+                exchange.getIn().removeHeader(Header.HEADER_LIST);
+                exchange.getMessage().setBody("Secure good morning " + exchange.getMessage().getBody(String.class));
+            }
+        });
     }
 
     @Produces
