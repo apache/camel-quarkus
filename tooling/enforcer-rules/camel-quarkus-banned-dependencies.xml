@@ -25,17 +25,21 @@
                 <exclude>com.github.stephenc.jcip:jcip-annotations</exclude><!-- Should not be needed for compilation nor at runtime -->
                 <exclude>com.google.code.findbugs:jsr305</exclude>
                 <exclude>com.sun.activation:javax.activation</exclude><!-- use com.sun.activation:jakarta.activation instead -->
+                <exclude>io.grpc:grpc-netty-shaded</exclude>
                 <exclude>jakarta.activation:jakarta.activation-api</exclude><!-- use com.sun.activation:jakarta.activation instead -->
                 <exclude>jakarta.json:jakarta.json-api</exclude><!-- use org.glassfish:jakarta.json instead (same as Quarkus) -->
                 <exclude>jakarta.xml.bind:jakarta.xml.bind-api</exclude><!-- use org.jboss.spec.javax.xml.bind:jboss-jaxb-api_2.3_spec instead (same as Quarkus) -->
                 <exclude>javax.annotation:javax.annotation-api</exclude><!-- use jakarta.activation:jakarta.annotation-api instead -->
                 <exclude>javax.el:el-api</exclude><!-- use jakarta.el:jakarta.el-api instead -->
                 <exclude>javax.xml.bind:jaxb-api</exclude><!-- Use jakarta.xml.bind:jakarta.xml.bind-api instead -->
+                <exclude>javax.ws.rs:jsr311-api</exclude><!-- We use whatever Quarkus does -->
                 <!--<exclude>javax.annotation:javax.annotation-api</exclude> has to be allowed because of Maven deps pulled through various quarkus-test-* deps -->
                 <!--<exclude>javax.inject:javax.inject</exclude> has to be allowed because of Maven deps pulled through various quarkus-test-* deps -->
                 <exclude>junit:junit</exclude><!-- should not be needed at all. In the worst case, use io.quarkus:quarkus-junit4-mock instead -->
+                <exclude>org.apache.activemq:activemq-broker</exclude><!-- remove broker as it brings some classes that brak native compilation -->
                 <exclude>org.apache.camel:camel-directvm</exclude><!-- dismiss; the functionality is provided by JBoss Log Manager provided via quarkus-core -->
                 <exclude>org.apache.geronimo.javamail:geronimo-javamail_1.4_mail</exclude><!-- use com.sun.mail:jakarta.mail instead -->
+                <exclude>org.apache.geronimo.specs:geronimo-activation_1.1_spec</exclude>
                 <exclude>org.apache.geronimo.specs:geronimo-jms_1.1_spec</exclude><!-- use jakarta.jms:jakarta.jms-api instead -->
                 <exclude>org.apache.geronimo.specs:geronimo-jms_2.0_spec</exclude><!-- use jakarta.jms:jakarta.jms-api instead -->
                 <exclude>org.apache.geronimo.specs:geronimo-jta_1.0.1B_spec</exclude><!-- use jakarta.transaction:jakarta.transaction-api instead -->
