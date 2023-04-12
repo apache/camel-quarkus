@@ -70,8 +70,8 @@
         <animal-sniffer.version>1.18</animal-sniffer.version>
         <antlr3.version>3.5.2</antlr3.version><!-- Spark, Stringtemplate and probably others -->
         <avro.version>1.11.1</avro.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.avro:avro -->
-        <awssdk.version>2.19.31</awssdk.version><!-- @sync io.quarkiverse.amazonservices:quarkus-amazon-services-parent:${quarkiverse-amazonservices.version} prop:awssdk.version -->
-        <awscrt.version>0.21.4</awscrt.version><!-- @sync software.amazon.awssdk:aws-sdk-java-pom:${awssdk.version} prop:awscrt.version -->
+        <awssdk.version>2.20.44</awssdk.version><!-- @sync io.quarkiverse.amazonservices:quarkus-amazon-services-parent:${quarkiverse-amazonservices.version} prop:awssdk.version -->
+        <awscrt.version>0.21.7</awscrt.version><!-- @sync software.amazon.awssdk:aws-sdk-java-pom:${awssdk.version} prop:awscrt.version -->
         <assertj.version>3.24.2</assertj.version><!-- @sync io.quarkus:quarkus-build-parent:${quarkus.version} prop:assertj.version -->
         <aws-java-sdk.version>1.11.714</aws-java-sdk.version>
         <azure-sdk-bom.version>${azure-sdk-bom-version}</azure-sdk-bom.version>
