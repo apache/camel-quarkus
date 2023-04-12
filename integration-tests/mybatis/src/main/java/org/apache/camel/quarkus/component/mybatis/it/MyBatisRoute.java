@@ -20,23 +20,49 @@ package org.apache.camel.quarkus.component.mybatis.it;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.quarkus.component.mybatis.it.entity.Account;
 
 @ApplicationScoped
 public class MyBatisRoute extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("direct:selectOne")
-                .to("mybatis:selectAccountById?statementType=SelectOne")
-                .to("mock:result");
+                .to("mybatis:selectAccountById?statementType=SelectOne");
+
+        from("direct:selectList")
+                .to("mybatis:selectAllAccounts?statementType=SelectList");
 
         from("direct:insertOne")
                 .transacted()
                 .to("mybatis:insertAccount?statementType=Insert")
-                .to("mock:result");
+                .process(exchange -> {
+                    Account account = exchange.getIn().getBody(Account.class);
+                    if (account.getFirstName().equals("Rollback")) {
+                        throw new RuntimeException("Rollback");
+                    }
+                });
+
+        from("direct:insertList")
+                .transacted()
+                .to("mybatis:batchInsertAccount?statementType=InsertList");
 
         from("direct:deleteOne")
                 .transacted()
-                .to("mybatis:deleteAccountById?statementType=Delete")
-                .to("mock:result");
+                .to("mybatis:deleteAccountById?statementType=Delete");
+
+        from("direct:deleteList")
+                .transacted()
+                .to("mybatis:batchDeleteAccountById?statementType=DeleteList");
+
+        from("direct:updateOne")
+                .transacted()
+                .to("mybatis:updateAccount?statementType=Update");
+
+        from("direct:updateList")
+                .transacted()
+                .to("mybatis:batchUpdateAccount?statementType=UpdateList");
+
+        from("mybatis:selectUnprocessedAccounts?onConsume=consumeAccount").routeId("mybatis-consumer").autoStartup(false)
+                .to("mock:results");
     }
 }

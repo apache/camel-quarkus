@@ -37,11 +37,11 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-mock</artifactId>
+            <artifactId>camel-quarkus-jta</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-jta</artifactId>
+            <artifactId>camel-quarkus-mock</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
