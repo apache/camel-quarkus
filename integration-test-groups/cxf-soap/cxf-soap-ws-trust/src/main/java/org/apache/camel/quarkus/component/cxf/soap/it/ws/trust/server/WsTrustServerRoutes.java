@@ -24,9 +24,12 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 import javax.xml.namespace.QName;
 
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.cxf.jaxws.CxfEndpoint;
 import org.apache.cxf.ext.logging.LoggingFeature;
+import org.apache.cxf.headers.Header;
 
 @ApplicationScoped
 public class WsTrustServerRoutes extends RouteBuilder {
@@ -34,9 +37,12 @@ public class WsTrustServerRoutes extends RouteBuilder {
     @Override
     public void configure() {
 
-        from("cxf:bean:wsTrustHelloService?dataFormat=POJO")
-                .setBody().constant("WS-Trust Hello World!");
-
+        from("cxf:bean:wsTrustHelloService?dataFormat=POJO").process(new Processor() {
+            public void process(final Exchange exchange) throws Exception {
+                exchange.getIn().removeHeader(Header.HEADER_LIST);
+                exchange.getMessage().setBody("WS-Trust Hello World!");
+            }
+        });
     }
 
     @Produces

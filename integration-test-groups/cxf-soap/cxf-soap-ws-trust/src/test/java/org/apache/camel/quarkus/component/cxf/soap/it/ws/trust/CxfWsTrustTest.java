@@ -35,7 +35,6 @@ import org.apache.cxf.ws.security.trust.STSClient;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil.anyNs;
@@ -90,7 +89,6 @@ public class CxfWsTrustTest {
     }
 
     @Test
-    @Disabled("https://github.com/apache/camel-quarkus/issues/4291")
     public void programmaticSts() throws Exception {
         Bus bus = BusFactory.newInstance().createBus();
         try {

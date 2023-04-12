@@ -29,7 +29,6 @@ import org.apache.cxf.ws.security.SecurityConstants;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil.anyNs;
@@ -39,7 +38,6 @@ import static io.restassured.RestAssured.given;
 public class CxfWssSecurityPolicyServerTest {
 
     @Test
-    @Disabled("https://github.com/apache/camel-quarkus/issues/4291")
     void encrypetdSigned() throws IOException {
         WssSecurityPolicyHelloService client = getPlainClient();
 
@@ -52,7 +50,7 @@ public class CxfWssSecurityPolicyServerTest {
         ctx.put(SecurityConstants.ENCRYPT_PROPERTIES,
                 Thread.currentThread().getContextClassLoader().getResource("alice.properties"));
 
-        Assertions.assertThat(client.sayHello("foo")).isEqualTo("Secure Hello foo!");
+        Assertions.assertThat(client.sayHello("foo")).isEqualTo("Secure good morning foo");
     }
 
     @Test
