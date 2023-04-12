@@ -105,6 +105,7 @@
         <hbase.version>${hbase-version}</hbase.version>
         <htrace.version>4.2.0-incubating</htrace.version><!-- Mess in hbase transitive deps -->
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
+        <jackson.version>2.13.4</jackson.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.fasterxml.jackson.core:jackson-core -->
         <jackson1.version>1.9.13</jackson1.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <jackson-asl.version>${jackson1.version}</jackson-asl.version><!-- Can be different from jackson1.version on some occasions -->
         <jakarta.jms-api.version>2.0.3</jakarta.jms-api.version>
@@ -121,6 +122,7 @@
         <jgit.version>6.3.0.202209071007-r</jgit.version><!-- @sync io.quarkiverse.jgit:quarkus-jgit-parent:${quarkiverse-jgit.version} prop:jgit.version -->
         <jna-platform.version>5.6.0</jna-platform.version><!-- @sync com.azure:azure-identity:${azure-identity-version} dep:net.java.dev.jna:jna-platform -->
         <jnr-ffi.version>2.1.2</jnr-ffi.version><!-- Mess in web3j transitive deps -->
+        <jsch.version>0.2.4</jsch.version><!-- @sync io.quarkiverse.jsch:quarkus-jsch-parent:${quarkiverse-jsch.version} prop:jsch.version -->
         <json-path.version>${json-path-version}</json-path.version>
         <json-smart.version>2.4.7</json-smart.version>
         <kafka.version>3.2.3</kafka.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.kafka:kafka-clients -->
@@ -130,7 +132,7 @@
         <minio.version>8.2.2</minio.version><!-- @sync io.quarkiverse.minio:quarkus-minio-parent:${quarkiverse-minio.version} prop:minio.version -->
         <msal4j.version>1.13.1</msal4j.version><!-- @sync com.azure:azure-identity:${azure-identity-version} dep:com.microsoft.azure:msal4j -->
         <mvel2.version>2.4.14.Final</mvel2.version><!-- @sync org.apache.camel:camel-dependencies:${camel.version} prop:mvel-version -->
-        <mybatis.version>3.5.11</mybatis.version><!-- @sync io.quarkiverse.mybatis:quarkus-parent:${quarkiverse-mybatis.version} prop:mybatis.version -->
+        <mybatis.version>3.5.10</mybatis.version><!-- @sync io.quarkiverse.mybatis:quarkus-parent:${quarkiverse-mybatis.version} prop:mybatis.version -->
         <okio.version>${squareup-okio-version}</okio.version>
         <opencensus.version>0.31.0</opencensus.version><!-- Mess in Google cloud. Keep in sync with version used in com.google.http-client:google-http-client -->
         <perfmark-api.version>0.25.0</perfmark-api.version><!-- @sync io.grpc:grpc-netty-shaded:${grpc.version} dep:io.perfmark:perfmark-api -->
@@ -150,7 +152,7 @@
         <xstream.version>${xstream-version}</xstream.version>
         <web3j.version>${web3j-version}</web3j.version>
         <web3j.quorum.version>${web3j-quorum-version}</web3j.quorum.version>
-        <woodstox-core.version>6.5.0</woodstox-core.version><!-- @sync com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${jackson.version} dep:com.fasterxml.woodstox:woodstox-core -->
+        <woodstox-core.version>6.3.1</woodstox-core.version><!-- @sync com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${jackson.version} dep:com.fasterxml.woodstox:woodstox-core -->
         <zookeeper.version>${solr-zookeeper-version}</zookeeper.version><!-- ${solr-zookeeper-version} is newer than ${zookeeper-version} -->
         <zxing.version>3.3.3</zxing.version><!-- Mess in IOTA transitive deps -->
 
@@ -174,7 +176,7 @@
         <maven-utils.version>0.1.0</maven-utils.version>
 
         <!-- Maven plugin versions (keep sorted alphabetically) -->
-        <cq-plugin.version>3.5.0</cq-plugin.version>
+        <cq-plugin.version>3.5.5</cq-plugin.version>
         <build-helper-maven-plugin.version>3.1.0</build-helper-maven-plugin.version>
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
         <formatter-maven-plugin.version>2.17.1</formatter-maven-plugin.version>
