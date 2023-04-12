@@ -11,6 +11,8 @@
 **Closed issues:**
 
 - camel-quarkus-jdbc: using named parameters fails for postgresql db kind [\#4750](https://github.com/apache/camel-quarkus/issues/4750)
+- java-joor-dsl - Add templated route support to native mode [\#4749](https://github.com/apache/camel-quarkus/issues/4749)
+- \[camel-main\] Csimple:  Cannot find compiled csimple language for expression: Hello ${body} [\#4745](https://github.com/apache/camel-quarkus/issues/4745)
 - \[camel-main\] Foundation: BeanTest.parameterTypes  fails with the current Camel main [\#4735](https://github.com/apache/camel-quarkus/issues/4735)
 - java-joor-dsl - Add support of inner classes [\#4731](https://github.com/apache/camel-quarkus/issues/4731)
 - \[Quarkus X.Y.Z\] Performance regression introduced in Camel Quarkus 3.0.0-M1 [\#4727](https://github.com/apache/camel-quarkus/issues/4727)
@@ -54,6 +56,7 @@
 **Merged pull requests:**
 
 - Generated sources regen for SBOM [\#4756](https://github.com/apache/camel-quarkus/pull/4756) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Ref \#4749: java-joor-dsl - Add templated route support to native mode [\#4755](https://github.com/apache/camel-quarkus/pull/4755) ([essobedo](https://github.com/essobedo))
 - Update camel-quarkus-tika resource [\#4754](https://github.com/apache/camel-quarkus/pull/4754) ([zhfeng](https://github.com/zhfeng))
 - Fix \#4043 to group xml tests [\#4753](https://github.com/apache/camel-quarkus/pull/4753) ([zhfeng](https://github.com/zhfeng))
 - Add GitHub actions directory to license-maven-plugin exclusions [\#4748](https://github.com/apache/camel-quarkus/pull/4748) ([jamesnetherton](https://github.com/jamesnetherton))
