@@ -21,9 +21,10 @@ CREATE TABLE ACCOUNT (
     ACC_ID INTEGER,
     ACC_FIRST_NAME VARCHAR(255),
     ACC_LAST_NAME VARCHAR(255),
-    ACC_EMAIL VARCHAR(255)
+    ACC_EMAIL VARCHAR(255),
+    PROCESSED BOOLEAN DEFAULT false
 );
 
-INSERT INTO ACCOUNT VALUES (123, 'James', 'Strachan', 'TryGuessing@gmail.com');
-INSERT INTO ACCOUNT VALUES (456, 'Claus', 'Ibsen', 'Noname@gmail.com');
+INSERT INTO ACCOUNT VALUES (123, 'James', 'Strachan', 'TryGuessing@gmail.com', false);
+INSERT INTO ACCOUNT VALUES (456, 'Claus', 'Ibsen', 'Noname@gmail.com', false);
 
