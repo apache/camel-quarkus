@@ -64,6 +64,10 @@
             <artifactId>javax.annotation-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
           <exclusion>
+            <groupId>org.apache.activemq</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>activemq-broker</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
             <groupId>org.apache.geronimo.specs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>geronimo-jms_1.1_spec</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
@@ -104,6 +108,12 @@
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-as2</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.18.6</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <exclusions>
+          <exclusion>
+            <groupId>org.bouncycastle</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>*</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -124,6 +134,12 @@
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-asn1</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.18.6</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <exclusions>
+          <exclusion>
+            <groupId>org.bouncycastle</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>*</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -156,6 +172,10 @@
             <groupId>commons-logging</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>commons-logging</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
+          <exclusion>
+            <groupId>javax.ws.rs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>jsr311-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -166,6 +186,10 @@
           <exclusion>
             <groupId>commons-logging</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>commons-logging</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>geronimo-activation_1.1_spec</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
         </exclusions>
       </dependency>
@@ -524,16 +548,8 @@
             <artifactId>jakarta.activation-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
           <exclusion>
-            <groupId>jakarta.ws.rs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>jakarta.ws.rs-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
-          <exclusion>
             <groupId>jakarta.xml.bind</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>jakarta.xml.bind-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.geronimo.specs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
         </exclusions>
       </dependency>
@@ -690,10 +706,6 @@
             <artifactId>*</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
           <exclusion>
-            <groupId>org.apache.geronimo.specs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>geronimo-jms_2.0_spec</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
-          <exclusion>
             <groupId>org.checkerframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>checker-qual</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
@@ -762,6 +774,12 @@
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-crypto</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.18.6</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <exclusions>
+          <exclusion>
+            <groupId>org.bouncycastle</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>*</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -788,10 +806,6 @@
             <groupId>javax.servlet</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>javax.servlet-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
-          <exclusion>
-            <groupId>org.apache.geronimo.specs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -802,10 +816,6 @@
           <exclusion>
             <groupId>javax.servlet</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>javax.servlet-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.geronimo.specs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
         </exclusions>
       </dependency>
@@ -949,6 +959,12 @@
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-ehcache</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.18.6</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <exclusions>
+          <exclusion>
+            <groupId>jakarta.xml.bind</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>jakarta.xml.bind-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -995,6 +1011,12 @@
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-fhir</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.18.6</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <exclusions>
+          <exclusion>
+            <groupId>xpp3</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>xpp3</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -1083,6 +1105,10 @@
             <artifactId>commons-logging</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
           <exclusion>
+            <groupId>io.grpc</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>grpc-netty-shaded</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
             <groupId>javax.annotation</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>javax.annotation-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
@@ -1140,6 +1166,10 @@
             <artifactId>commons-logging</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
           <exclusion>
+            <groupId>io.grpc</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>grpc-netty-shaded</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
             <groupId>javax.annotation</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>javax.annotation-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
@@ -1182,6 +1212,10 @@
             <artifactId>commons-logging</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
           <exclusion>
+            <groupId>io.grpc</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>grpc-netty-shaded</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
             <groupId>javax.annotation</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>javax.annotation-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
@@ -1211,6 +1245,10 @@
           <exclusion>
             <groupId>commons-logging</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>commons-logging</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>io.grpc</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>grpc-netty-shaded</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
           <exclusion>
             <groupId>javax.annotation</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -1655,6 +1693,14 @@
         <version>3.18.6</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
+            <groupId>com.google.j2objc</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>j2objc-annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>com.sun.jersey</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>*</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
             <groupId>commons-logging</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>commons-logging</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
@@ -1667,8 +1713,32 @@
             <artifactId>jakarta.xml.bind-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
           <exclusion>
+            <groupId>org.apache.httpcomponents</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>httpclient-cache</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
             <groupId>org.checkerframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>checker-qual</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.glassfish.jersey.core</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>*</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.glassfish.jersey.media</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>*</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>spring-beans</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>spring-context</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>spring-core</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
         </exclusions>
       </dependency>
@@ -1866,16 +1936,6 @@
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-lra</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.18.6</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <exclusions>
-          <exclusion>
-            <groupId>jakarta.ws.rs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>jakarta.ws.rs-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.geronimo.specs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
-        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -2111,6 +2171,10 @@
             <artifactId>annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
           <exclusion>
+            <groupId>io.grpc</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>grpc-netty-shaded</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
             <groupId>org.checkerframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>checker-qual</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
@@ -2130,10 +2194,6 @@
         <artifactId>camel-optaplanner</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.18.6</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
-          <exclusion>
-            <groupId>jakarta.xml.bind</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>jakarta.xml.bind-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
           <exclusion>
             <groupId>org.optaplanner</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>optaplanner-core</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -2162,6 +2222,10 @@
           <exclusion>
             <groupId>commons-logging</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>commons-logging</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.bouncycastle</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>*</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
         </exclusions>
       </dependency>
@@ -2359,10 +2423,6 @@
             <artifactId>jakarta.activation-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
           <exclusion>
-            <groupId>jakarta.ws.rs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>jakarta.ws.rs-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
-          <exclusion>
             <groupId>jakarta.xml.bind</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>jakarta.xml.bind-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
@@ -2470,6 +2530,10 @@
         <version>3.18.6</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
+            <groupId>org.bouncycastle</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>*</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
             <groupId>org.slf4j</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>jcl-over-slf4j</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
@@ -2566,20 +2630,8 @@
         <version>3.18.6</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
-            <groupId>commons-logging</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>commons-logging</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
-          <exclusion>
-            <groupId>jakarta.xml.bind</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>jakarta.xml.bind-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
-          <exclusion>
             <groupId>org.apache.tika</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>*</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.slf4j</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>jcl-over-slf4j</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
         </exclusions>
       </dependency>
@@ -2703,16 +2755,8 @@
             <artifactId>jakarta.activation-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
           <exclusion>
-            <groupId>jakarta.ws.rs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>jakarta.ws.rs-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
-          <exclusion>
             <groupId>jakarta.xml.bind</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>jakarta.xml.bind-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.geronimo.specs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
           <exclusion>
             <groupId>org.checkerframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -6689,7 +6733,22 @@
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>cxf-rt-ws-policy</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>cxf-rt-frontend-jaxrs</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.5.5</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <exclusions>
+          <exclusion>
+            <groupId>jakarta.ws.rs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>jakarta.ws.rs-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>cxf-rt-rs-client</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.5.5</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
@@ -6987,503 +7046,618 @@
         <version>2.12.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
-        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>cxf-core</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-core</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
         <exclusions>
           <exclusion>
-            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
           <exclusion>
-            <groupId>jakarta.xml.bind</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.xml.bind-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>jakarta.xml.bind</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jakarta.xml.bind-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
           <exclusion>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jta_1.1_spec</artifactId>
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>cxf-rt-features-logging</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-rt-features-logging</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
         <exclusions>
           <exclusion>
-            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-          </exclusion>
-          <exclusion>
-            <groupId>jakarta.xml.bind</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.xml.bind-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>cxf-rt-features-metrics</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-rt-features-metrics</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
         <exclusions>
           <exclusion>
-            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-          </exclusion>
-          <exclusion>
-            <groupId>jakarta.xml.bind</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.xml.bind-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>cxf-rt-frontend-jaxws</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-rt-frontend-jaxws</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
         <exclusions>
           <exclusion>
-            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
           <exclusion>
-            <groupId>jakarta.xml.bind</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.xml.bind-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.glassfish.jaxb</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jaxb-runtime</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.ow2.asm</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>asm</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>org.ow2.asm</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>asm</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>cxf-rt-transports-http</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-rt-transports-http</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
         <exclusions>
           <exclusion>
-            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-          </exclusion>
-          <exclusion>
-            <groupId>jakarta.xml.bind</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.xml.bind-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>cxf-rt-transports-http-hc5</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-rt-transports-http-hc5</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
         <exclusions>
           <exclusion>
-            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
           <exclusion>
-            <groupId>jakarta.xml.bind</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.xml.bind-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.slf4j</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jcl-over-slf4j</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>org.slf4j</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jcl-over-slf4j</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>cxf-rt-ws-mex</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-rt-ws-mex</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
         <exclusions>
           <exclusion>
-            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-          </exclusion>
-          <exclusion>
-            <groupId>jakarta.xml.bind</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.xml.bind-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.ow2.asm</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>asm</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>cxf-rt-ws-security</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-rt-ws-security</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
         <exclusions>
           <exclusion>
-            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
           <exclusion>
-            <groupId>jakarta.xml.bind</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.xml.bind-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>jakarta.xml.bind</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jakarta.xml.bind-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
           <exclusion>
-            <groupId>org.apache.geronimo.javamail</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>geronimo-javamail_1.4_mail</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>org.apache.geronimo.javamail</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-javamail_1.4_mail</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
           <exclusion>
-            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.ow2.asm</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>asm</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>cxf-rt-ws-rm</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-rt-ws-rm</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
         <exclusions>
           <exclusion>
-            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-          </exclusion>
-          <exclusion>
-            <groupId>jakarta.xml.bind</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.xml.bind-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.geronimo.javamail</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>geronimo-javamail_1.4_mail</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.ow2.asm</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>asm</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.apache.cxf.services.sts</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>cxf-services-sts-core</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+        <groupId>org.apache.cxf.services.sts</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-services-sts-core</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
         <exclusions>
           <exclusion>
-            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
           <exclusion>
-            <groupId>jakarta.xml.bind</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.xml.bind-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.geronimo.javamail</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>geronimo-javamail_1.4_mail</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.springframework</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>*</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>org.springframework</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>spring-context</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.apache.cxf.xjc-utils</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>cxf-xjc-runtime</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.3.2</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-tools-wsdlto-core</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
         <exclusions>
           <exclusion>
-            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
           <exclusion>
-            <groupId>jakarta.xml.bind</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.xml.bind-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>jakarta.xml.bind</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jakarta.xml.bind-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>quarkus-cxf</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>1.5.10</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>quarkus-cxf-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>1.5.10</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>quarkus-cxf-rt-features-logging</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>1.5.10</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>quarkus-cxf-rt-features-logging-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>1.5.10</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>quarkus-cxf-rt-features-metrics</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>1.5.10</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>quarkus-cxf-rt-features-metrics-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>1.5.10</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>quarkus-cxf-rt-transports-http-hc5</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>1.5.10</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>quarkus-cxf-rt-transports-http-hc5-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>1.5.10</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>quarkus-cxf-rt-ws-security</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>1.5.10</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-tools-wsdlto-databinding-jaxb</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
         <exclusions>
           <exclusion>
-            <groupId>org.apache.geronimo.javamail</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>geronimo-javamail_1.4_mail</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>quarkus-cxf-rt-ws-security-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>1.5.10</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-tools-wsdlto-frontend-jaxws</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
         <exclusions>
           <exclusion>
-            <groupId>org.apache.geronimo.javamail</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>geronimo-javamail_1.4_mail</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>quarkus-cxf-rt-ws-rm</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>1.5.10</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-tools-common</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
         <exclusions>
           <exclusion>
-            <groupId>org.apache.geronimo.javamail</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>geronimo-javamail_1.4_mail</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>quarkus-cxf-rt-ws-rm-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>1.5.10</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>quarkus-cxf-saaj</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>1.5.10</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>quarkus-cxf-saaj-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>1.5.10</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>quarkus-cxf-services-sts</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>1.5.10</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-tools-validator</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
         <exclusions>
           <exclusion>
-            <groupId>org.apache.geronimo.javamail</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>geronimo-javamail_1.4_mail</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>quarkus-cxf-services-sts-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>1.5.10</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>quarkus-cxf-woodstox</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>1.5.10</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>quarkus-cxf-woodstox-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>1.5.10</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>com.sun.xml.messaging.saaj</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>saaj-impl</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>1.5.3</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>org.apache.neethi</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>neethi</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.2.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>org.ehcache</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>ehcache</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.10.8</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-rt-wsdl</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
         <exclusions>
           <exclusion>
-            <groupId>org.glassfish.jaxb</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jaxb-runtime</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.ow2.asm</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>asm</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.jvnet.mimepull</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>mimepull</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>1.9.14</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>org.apache.santuario</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>xmlsec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>2.3.2</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+        <groupId>org.apache.cxf.xjcplugins</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-xjc-boolean</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.3.2</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
         <exclusions>
           <exclusion>
-            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-          </exclusion>
-          <exclusion>
-            <groupId>jakarta.xml.bind</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-            <artifactId>jakarta.xml.bind-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>io.quarkiverse.xmlsec</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>quarkus-xmlsec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>1.1.1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.xmlsec</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>quarkus-xmlsec-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>1.1.1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>cxf-rt-bindings-soap</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+        <groupId>org.apache.cxf.xjcplugins</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-xjc-dv</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.3.2</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
         <exclusions>
           <exclusion>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jta_1.1_spec</artifactId>
+            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>cxf-rt-bindings-xml</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>cxf-rt-databinding-jaxb</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+        <groupId>org.apache.cxf.xjcplugins</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-xjc-javadoc</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.3.2</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
         <exclusions>
           <exclusion>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jta_1.1_spec</artifactId>
+            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+          <exclusion>
+            <groupId>jakarta.xml.bind</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jakarta.xml.bind-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>cxf-rt-frontend-simple</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>cxf-rt-management</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>cxf-rt-rs-json-basic</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+        <groupId>org.apache.cxf.xjcplugins</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-xjc-pl</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.3.2</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
         <exclusions>
           <exclusion>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jta_1.1_spec</artifactId>
+            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>cxf-rt-rs-security-jose</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+        <groupId>org.apache.cxf.xjcplugins</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-xjc-ts</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.3.2</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
         <exclusions>
           <exclusion>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jta_1.1_spec</artifactId>
+            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>cxf-rt-security-saml</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>cxf-rt-wsdl</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+        <groupId>org.apache.cxf.xjcplugins</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-xjc-wsdlextension</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.3.2</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
         <exclusions>
           <exclusion>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jta_1.1_spec</artifactId>
+            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>cxf-rt-ws-addr</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-      </dependency>
-      <dependency>
-        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <artifactId>cxf-rt-security</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
-        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.10 -->
+        <groupId>org.apache.cxf.xjc-utils</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-xjc-runtime</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.3.2</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
         <exclusions>
           <exclusion>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-jta_1.1_spec</artifactId>
+            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+          <exclusion>
+            <groupId>jakarta.xml.bind</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jakarta.xml.bind-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>quarkus-cxf</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.5.11</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>quarkus-cxf-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.5.11</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>quarkus-cxf-rt-features-logging</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.5.11</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>quarkus-cxf-rt-features-logging-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.5.11</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>quarkus-cxf-rt-features-metrics</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.5.11</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>quarkus-cxf-rt-features-metrics-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.5.11</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>quarkus-cxf-rt-transports-http-hc5</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.5.11</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>quarkus-cxf-rt-transports-http-hc5-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.5.11</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>quarkus-cxf-rt-ws-security</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.5.11</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>quarkus-cxf-rt-ws-security-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.5.11</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>quarkus-cxf-rt-ws-rm</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.5.11</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>quarkus-cxf-rt-ws-rm-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.5.11</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>quarkus-cxf-saaj</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.5.11</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>quarkus-cxf-saaj-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.5.11</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>quarkus-cxf-services-sts</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.5.11</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>quarkus-cxf-services-sts-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.5.11</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>quarkus-cxf-woodstox</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.5.11</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>quarkus-cxf-woodstox-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.5.11</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>quarkus-cxf-xjc-plugins</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.5.11</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>quarkus-cxf-xjc-plugins-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.5.11</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>com.sun.xml.messaging.saaj</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>saaj-impl</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.5.3</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.neethi</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>neethi</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.2.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>org.ehcache</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>ehcache</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.10.8</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <exclusions>
+          <exclusion>
+            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+          <exclusion>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.jvnet.mimepull</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>mimepull</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.10.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>jakarta.jws</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>jakarta.jws-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>2.1.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.santuario</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>xmlsec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>2.3.3</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <exclusions>
+          <exclusion>
+            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+          <exclusion>
+            <groupId>jakarta.xml.bind</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jakarta.xml.bind-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.xmlsec</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>quarkus-xmlsec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.1.2</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.xmlsec</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>quarkus-xmlsec-deployment</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>1.1.2</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <exclusions>
+          <exclusion>
+            <groupId>org.ow2.asm</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>asm</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-rt-bindings-soap</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <exclusions>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-rt-bindings-xml</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <exclusions>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-rt-databinding-jaxb</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <exclusions>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-rt-frontend-simple</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <exclusions>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-rt-management</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <exclusions>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-rt-rs-json-basic</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <exclusions>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-rt-rs-security-jose</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <exclusions>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-rt-security-saml</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <exclusions>
+          <exclusion>
+            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.apache.geronimo.javamail</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-javamail_1.4_mail</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-rt-ws-addr</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <exclusions>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-rt-ws-policy</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <exclusions>
+          <exclusion>
+            <groupId>jakarta.activation</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jakarta.activation-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+          <exclusion>
+            <groupId>jakarta.xml.bind</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>jakarta.xml.bind-api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <artifactId>cxf-rt-security</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <version>3.5.5</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+        <exclusions>
+          <exclusion>
+            <groupId>org.apache.geronimo.specs</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
+            <artifactId>geronimo-jta_1.1_spec</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:1.5.11 -->
           </exclusion>
         </exclusions>
       </dependency>
