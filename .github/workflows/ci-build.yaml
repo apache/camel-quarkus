@@ -436,7 +436,7 @@ jobs:
         run: |
           EXAMPLES_BRANCH="camel-quarkus-main"
 
-          if [[ ${GITHUB_REF_NAME} =~ [0-9]+.[0-9]+.x ]]; then
+          if [[ ${GITHUB_REF_NAME} =~ [0-9]+.[0-9]+.x || ${GITHUB_BASE_REF} =~ [0-9]+.[0-9]+.x ]]; then
               EXAMPLES_BRANCH=${GITHUB_REF_NAME}
           fi
 
