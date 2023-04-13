@@ -467,6 +467,8 @@ jobs:
 
           if [[ ${GITHUB_REF_NAME} =~ [0-9]+.[0-9]+.x ]]; then
               EXAMPLES_BRANCH=${GITHUB_REF_NAME}
+          elif [[ ${GITHUB_BASE_REF} =~ [0-9]+.[0-9]+.x ]]; then
+              EXAMPLES_BRANCH=${GITHUB_BASE_REF}
           fi
 
           git clone --depth 1 --branch ${EXAMPLES_BRANCH} https://github.com/apache/camel-quarkus-examples.git \
