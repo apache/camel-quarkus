@@ -6163,7 +6163,7 @@
       <dependency>
         <groupId>io.quarkiverse.tika</groupId>
         <artifactId>quarkus-tika</artifactId>
-        <version>2.0.0.CR2</version>
+        <version>2.0.0</version>
         <exclusions>
           <exclusion>
             <groupId>commons-logging</groupId>
@@ -6174,7 +6174,7 @@
       <dependency>
         <groupId>io.quarkiverse.tika</groupId>
         <artifactId>quarkus-tika-deployment</artifactId>
-        <version>2.0.0.CR2</version>
+        <version>2.0.0</version>
       </dependency>
       <dependency>
         <groupId>jakarta.jms</groupId>
