@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.mybatis.it;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -37,6 +38,9 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.quarkus.component.mybatis.it.entity.Account;
+import org.hamcrest.Matchers;
+
+import static org.awaitility.Awaitility.await;
 
 @Path("/mybatis")
 @ApplicationScoped
@@ -137,6 +141,11 @@ public class MybatisResource {
         context.getRouteController().startRoute("mybatis-consumer");
         MockEndpoint.assertIsSatisfied(context);
 
-        return template.requestBody("mybatis:selectProcessedAccounts?statementType=SelectList", null, List.class);
+        List<?> body = await()
+                .atMost(1, TimeUnit.SECONDS)
+                .until(() -> template.requestBody("mybatis:selectProcessedAccounts?statementType=SelectList", null, List.class),
+                        Matchers.notNullValue());
+
+        return body;
     }
 }
