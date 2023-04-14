@@ -82,7 +82,6 @@
         <module>json-patch</module>
         <module>jsonapi</module>
         <module>jt400</module>
-        <module>ldap</module>
         <module>ldif</module>
         <module>lucene</module>
         <module>management</module>

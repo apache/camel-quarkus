@@ -1,0 +1,67 @@
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<project name="camel-quarkus-ldap" basedir=".">
+    <target name="generate-keys">
+        <exec executable="keytool">
+            <arg value="-genkey" />
+            <arg value="-alias" />
+            <arg value="ldap" />
+            <arg value="-keyalg" />
+            <arg value="RSA" />
+            <arg value="-keysize" />
+            <arg value="2048" />
+            <arg value="-validity" />
+            <arg value="1" />
+            <arg value="-keystore" />
+            <arg value="${basedir}/target/keystore.jks" />
+            <arg value="-storepass" />
+            <arg value="ldapPass" />
+            <arg value="-dname" />
+            <arg value="CN=${hostname}, OU=Camel Quarkus, O=Apache" />
+            <arg value="-ext" />
+            <arg value="SAN=IP:${hostname}" />
+            <arg value="-noprompt" />
+        </exec>
+    </target>
+    <target name="export-certificate" depends="generate-keys">
+        <exec executable="keytool">
+            <arg value="-export" />
+            <arg value="-keystore" />
+            <arg value="${basedir}/target/keystore.jks" />
+            <arg value="-storepass" />
+            <arg value="ldapPass" />
+            <arg value="-alias" />
+            <arg value="ldap" />
+            <arg value="-file" />
+            <arg value="${basedir}/target/ldap-cert" />
+        </exec>
+    </target>
+    <target name="import-certificate" depends="export-certificate">
+        <exec executable="keytool">
+            <arg value="-import" />
+            <arg value="-keystore" />
+            <arg value="${basedir}/target/truststore.jks" />
+            <arg value="-storepass" />
+            <arg value="ldapPass" />
+            <arg value="-file" />
+            <arg value="${basedir}/target/ldap-cert" />
+            <arg value="-noprompt" />
+        </exec>
+    </target>
+</project>

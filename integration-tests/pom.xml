@@ -150,6 +150,7 @@
         <module>kotlin-dsl</module>
         <module>kubernetes</module>
         <module>kudu</module>
+        <module>ldap</module>
         <module>leveldb</module>
         <module>lra</module>
         <module>lumberjack</module>
