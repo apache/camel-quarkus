@@ -101,11 +101,13 @@ public class CxfSoapRoutes extends RouteBuilder {
                     exchange.getIn().setBody(String.format(response, requestMsg + " from Camel route"));
                 });
 
-        from("cxf:bean:echoServiceResponseFromRoute")
-                .setBody(exchange -> exchange.getMessage().getBody(String.class) + " from Camel route");
+        from(String.format("cxf:echoServiceResponseFromRoute?serviceClass=%s&address=/echo-route",
+                EchoServiceImpl.class.getName()))
+                        .setBody(exchange -> exchange.getMessage().getBody(String.class) + " from Camel route");
 
-        from("cxf:bean:echoServiceResponseFromImpl")// no body set here; the response comes from EchoServiceImpl
-                .log("${body}");
+        from(String.format("cxf:echoServiceResponseFromImpl?serviceClass=%s&address=/echo-impl",
+                EchoServiceImpl.class.getName()))// no body set here; the response comes from EchoServiceImpl
+                        .log("${body}");
 
     }
 
@@ -161,28 +163,6 @@ public class CxfSoapRoutes extends RouteBuilder {
         result.setServiceClass(EchoServiceImpl.class);
         result.setAddress("/echo-route-cxf-message-data-format");
         result.setDataFormat(DataFormat.CXF_MESSAGE);
-        result.getFeatures().add(loggingFeature);
-        return result;
-    }
-
-    @Produces
-    @ApplicationScoped
-    @Named
-    CxfEndpoint echoServiceResponseFromRoute() {
-        final CxfEndpoint result = new CxfEndpoint();
-        result.setServiceClass(EchoServiceImpl.class);
-        result.setAddress("/echo-route");
-        result.getFeatures().add(loggingFeature);
-        return result;
-    }
-
-    @Produces
-    @ApplicationScoped
-    @Named
-    CxfEndpoint echoServiceResponseFromImpl() {
-        final CxfEndpoint result = new CxfEndpoint();
-        result.setServiceClass(EchoServiceImpl.class);
-        result.setAddress("/echo-impl");
         result.getFeatures().add(loggingFeature);
         return result;
     }
