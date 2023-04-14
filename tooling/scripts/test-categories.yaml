@@ -109,6 +109,7 @@ group-07:
   - dropbox
   - geocoder
   - jslt
+  - ldap
   - lumberjack
   - ognl
   - olingo4
