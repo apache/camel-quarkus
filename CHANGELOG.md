@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Bump quarkiverse-mybatis.version from 2.0.0.CR2 to 2.0.0 [\#4787](https://github.com/apache/camel-quarkus/pull/4787) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Fix \#4781 Intermittent failure of MyBatisConsumerTest [\#4782](https://github.com/apache/camel-quarkus/pull/4782) ([zhfeng](https://github.com/zhfeng))
 - Bump quarkus-amazon-services-bom from 2.0.0 to 2.0.1 [\#4777](https://github.com/apache/camel-quarkus/pull/4777) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Test also GITHUB\_BASE\_REF to checkout the right examples branch [\#4776](https://github.com/apache/camel-quarkus/pull/4776) ([ppalaga](https://github.com/ppalaga))
