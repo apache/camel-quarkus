@@ -129,6 +129,7 @@ group-08:
   - tika
   - twitter
   - vertx
+  - zendesk
 group-09:
   - amqp
   - ftp

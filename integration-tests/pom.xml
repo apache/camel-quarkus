@@ -232,7 +232,7 @@
         <module>xmlsecurity</module>
         <module>xpath</module>
         <!--<module>xstream</module>-->
-        <!--<module>zendesk</module> https://github.com/apache/camel-quarkus/issues/4514 -->
+        <module>zendesk</module>
     </modules>
 
 </project>
