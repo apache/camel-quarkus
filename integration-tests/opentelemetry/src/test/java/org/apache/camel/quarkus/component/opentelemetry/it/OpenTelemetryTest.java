@@ -101,6 +101,37 @@ class OpenTelemetryTest {
         assertEquals(spans.get(1).get("parentId"), spans.get(2).get("spanId"));
     }
 
+    @Test
+    public void testTracedJdbcQuery() {
+        String timestamp = RestAssured.get("/opentelemetry/jdbc/query")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+
+        assertTrue(Long.parseLong(timestamp) > 0);
+
+        // Verify the span hierarchy is JAX-RS Service -> Direct Endpoint -> Bean Endpoint -> Bean method -> JDBC query
+        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 5);
+        List<Map<String, String>> spans = getSpans();
+        assertEquals(5, spans.size());
+        assertEquals(spans.get(0).get("parentId"), spans.get(1).get("parentId"));
+        assertEquals(spans.get(0).get("code.function"), "getConnection");
+
+        assertEquals(spans.get(1).get("parentId"), spans.get(2).get("spanId"));
+        assertEquals(spans.get(1).get("db.operation"), "SELECT");
+
+        assertEquals(spans.get(2).get("parentId"), spans.get(3).get("spanId"));
+        assertEquals(spans.get(2).get("camel.uri"), "bean://jdbcQueryBean");
+
+        assertEquals(spans.get(3).get("parentId"), spans.get(4).get("spanId"));
+        assertEquals(spans.get(3).get("camel.uri"), "direct://jdbcQuery");
+
+        assertEquals(spans.get(4).get("parentId"), "0000000000000000");
+        assertEquals(spans.get(4).get("code.function"), "jdbcQuery");
+    }
+
     private List<Map<String, String>> getSpans() {
         return RestAssured.given()
                 .get("/opentelemetry/exporter/spans")
