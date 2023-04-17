@@ -60,8 +60,20 @@
             <artifactId>quarkus-resteasy-jsonb</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-agroal</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jdbc-postgresql</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.opentelemetry</groupId>
             <artifactId>opentelemetry-sdk-testing</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.opentelemetry.instrumentation</groupId>
+            <artifactId>opentelemetry-jdbc</artifactId>
         </dependency>
 
         <!-- test dependencies -->
@@ -185,6 +197,17 @@
                     </exclusions>
                 </dependency>
             </dependencies>
+        </profile>
+        <profile>
+            <id>skip-testcontainers-tests</id>
+            <activation>
+                <property>
+                    <name>skip-testcontainers-tests</name>
+                </property>
+            </activation>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
         </profile>
     </profiles>
 
