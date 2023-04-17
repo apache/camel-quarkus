@@ -212,7 +212,7 @@
         <module>spring-rabbitmq</module>
         <module>sql</module>
         <module>ssh</module>
-        <!--<module>stax</module>-->
+        <module>stax</module>
         <module>stringtemplate</module>
         <!--<module>syndication</module> https://github.com/apache/camel-quarkus/issues/4515 -->
         <module>syslog</module>
