@@ -6308,22 +6308,22 @@
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcmail-jdk18on</artifactId>
-        <version>1.72</version>
+        <version>1.73</version>
       </dependency>
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcpg-jdk18on</artifactId>
-        <version>1.72</version>
+        <version>1.73</version>
       </dependency>
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcprov-ext-jdk18on</artifactId>
-        <version>1.72</version>
+        <version>1.73</version>
       </dependency>
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcutil-jdk18on</artifactId>
-        <version>1.72</version>
+        <version>1.73</version>
       </dependency>
       <dependency>
         <groupId>org.brotli</groupId>
@@ -6353,17 +6353,17 @@
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-script-util</artifactId>
-        <version>1.8.10</version>
+        <version>1.8.21</version>
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-scripting-jvm</artifactId>
-        <version>1.8.10</version>
+        <version>1.8.21</version>
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-scripting-jvm-host</artifactId>
-        <version>1.8.10</version>
+        <version>1.8.21</version>
       </dependency>
       <dependency>
         <groupId>org.jruby.joni</groupId>
