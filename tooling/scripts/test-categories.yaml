@@ -115,6 +115,7 @@ group-07:
   - pg-replication-slot
   - sjms2-artemis-client
   - sjms2-qpid-amqp-client
+  - stax
   - weather
 group-08:
   - azure-grouped
