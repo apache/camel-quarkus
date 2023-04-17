@@ -98,8 +98,8 @@
         <module>git</module>
         <module>github</module>
         <module>google</module>
-        <!--<module>google-bigquery</module> https://github.com/apache/camel-quarkus/issues/4502 -->
-        <!--<module>google-pubsub</module> https://github.com/apache/camel-quarkus/issues/4502 -->
+        <module>google-bigquery</module>
+        <module>google-pubsub</module>
         <module>google-storage</module>
         <module>graphql</module>
         <module>grok</module>
