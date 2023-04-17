@@ -61,7 +61,7 @@ public class SpringSupportTest {
     public void verifySourcesJarManifest() throws Exception {
         String[] springModules = new String[] { "beans", "context", "core" };
         for (String module : springModules) {
-            Path path = Paths.get("../" + module + "/target");
+            Path path = Paths.get("../shade/" + module + "/target");
             File file = path.toFile();
             if (!file.exists()) {
                 throw new IllegalStateException("The sources JAR location does not exist: " + file.getAbsolutePath());
