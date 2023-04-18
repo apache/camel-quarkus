@@ -38,5 +38,8 @@ public class OpenTelemetryRouteBuilder extends RouteBuilder {
 
         from("timer:filtered?repeatCount=5&delay=-1")
                 .setBody().constant("Route filtered from tracing");
+
+        from("direct:jdbcQuery")
+                .to("bean:jdbcQueryBean");
     }
 }
