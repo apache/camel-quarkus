@@ -6199,6 +6199,12 @@
                 <groupId>io.quarkiverse.jackson-jq</groupId>
                 <artifactId>quarkus-jackson-jq</artifactId>
                 <version>${quarkiverse-jackson-jq.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>jackson-jq</artifactId>
+                        <groupId>net.thisptr</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>io.quarkiverse.jackson-jq</groupId>
@@ -6286,6 +6292,11 @@
                 <artifactId>smallrye-reactive-messaging-camel</artifactId>
                 <version>${smallrye.reactive.messaging.camel.version}</version>
             </dependency>-->
+            <dependency>
+                <artifactId>jackson-jq</artifactId>
+                <groupId>net.thisptr</groupId>
+                <version>${jackson-jq-version}</version>
+            </dependency>
             <dependency>
                 <groupId>jakarta.jms</groupId>
                 <artifactId>jakarta.jms-api</artifactId>

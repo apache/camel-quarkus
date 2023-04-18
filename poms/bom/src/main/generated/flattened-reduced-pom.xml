@@ -6112,6 +6112,12 @@
         <groupId>io.quarkiverse.jackson-jq</groupId>
         <artifactId>quarkus-jackson-jq</artifactId>
         <version>2.0.0.Alpha</version>
+        <exclusions>
+          <exclusion>
+            <groupId>net.thisptr</groupId>
+            <artifactId>jackson-jq</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jackson-jq</groupId>
@@ -6193,6 +6199,11 @@
         <groupId>io.quarkiverse.tika</groupId>
         <artifactId>quarkus-tika-deployment</artifactId>
         <version>2.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>net.thisptr</groupId>
+        <artifactId>jackson-jq</artifactId>
+        <version>1.0.0-preview.20230409</version>
       </dependency>
       <dependency>
         <groupId>jakarta.jms</groupId>
