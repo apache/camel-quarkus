@@ -52,7 +52,7 @@ concurrency:
 env:
   LANG: en_US.UTF-8
   MAVEN_OPTS: -Xmx3000m
-  CQ_MAVEN_ARGS: -V -ntp -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=30 -Dmaven.wagon.http.retryHandler.requestSentEnabled=true -e
+  CQ_MAVEN_ARGS: -V -ntp -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=30 -Dmaven.wagon.http.retryHandler.requestSentEnabled=true -Dmaven.wagon.http.retryHandler.count=10 -e
   TESTCONTAINERS_RYUK_DISABLED: true
 
 jobs:
