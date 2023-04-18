@@ -147,20 +147,20 @@ class OpenTelemetryTest {
         await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 5);
         List<Map<String, String>> spans = getSpans();
         assertEquals(5, spans.size());
-        assertEquals(spans.get(0).get("parentId"), spans.get(1).get("parentId"));
-        assertEquals(spans.get(0).get("code.function"), "getConnection");
+        assertEquals(spans.get(1).get("parentId"), spans.get(0).get("parentId"));
+        assertEquals("getConnection", spans.get(0).get("code.function"));
 
-        assertEquals(spans.get(1).get("parentId"), spans.get(2).get("spanId"));
-        assertEquals(spans.get(1).get("db.operation"), "SELECT");
+        assertEquals(spans.get(2).get("spanId"), spans.get(1).get("parentId"));
+        assertEquals("SELECT", spans.get(1).get("db.operation"));
 
-        assertEquals(spans.get(2).get("parentId"), spans.get(3).get("spanId"));
-        assertEquals(spans.get(2).get("camel.uri"), "bean://jdbcQueryBean");
+        assertEquals(spans.get(3).get("spanId"), spans.get(2).get("parentId"));
+        assertEquals("bean://jdbcQueryBean", spans.get(2).get("camel.uri"));
 
-        assertEquals(spans.get(3).get("parentId"), spans.get(4).get("spanId"));
-        assertEquals(spans.get(3).get("camel.uri"), "direct://jdbcQuery");
+        assertEquals(spans.get(4).get("spanId"), spans.get(3).get("parentId"));
+        assertEquals("direct://jdbcQuery", spans.get(3).get("camel.uri"));
 
-        assertEquals(spans.get(4).get("parentId"), "0000000000000000");
-        assertEquals(spans.get(4).get("code.function"), "jdbcQuery");
+        assertEquals("0000000000000000", spans.get(4).get("parentId"));
+        assertEquals("jdbcQuery", spans.get(4).get("code.function"));
     }
 
     private List<Map<String, String>> getSpans() {
