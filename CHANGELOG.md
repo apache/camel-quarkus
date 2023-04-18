@@ -4,8 +4,14 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.13.3...HEAD)
 
+**Closed issues:**
+
+- Test OpenTelemetry extension integration with `opentelemetry-jdbc` [\#4789](https://github.com/apache/camel-quarkus/issues/4789)
+
 **Merged pull requests:**
 
+- Test OpenTelemetry extension integration with opentelemetry-jdbc [\#4790](https://github.com/apache/camel-quarkus/pull/4790) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix Spring integration test [\#4788](https://github.com/apache/camel-quarkus/pull/4788) ([jbonofre](https://github.com/jbonofre))
 - Bump quarkiverse-mybatis.version from 2.0.0.CR2 to 2.0.0 [\#4787](https://github.com/apache/camel-quarkus/pull/4787) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Fix \#4781 Intermittent failure of MyBatisConsumerTest [\#4782](https://github.com/apache/camel-quarkus/pull/4782) ([zhfeng](https://github.com/zhfeng))
 - Bump quarkus-amazon-services-bom from 2.0.0 to 2.0.1 [\#4777](https://github.com/apache/camel-quarkus/pull/4777) ([dependabot[bot]](https://github.com/apps/dependabot))
