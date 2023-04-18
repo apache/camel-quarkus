@@ -82,7 +82,7 @@ class OpenTelemetryTest {
         // Verify the span hierarchy is JAX-RS Service -> Direct Endpoint
         List<Map<String, String>> spans = getSpans();
         assertEquals(2, spans.size());
-        assertEquals(spans.get(0).get("parentId"), spans.get(1).get("spanId"));
+        assertEquals(spans.get(1).get("spanId"), spans.get(0).get("parentId"));
     }
 
     @Test
@@ -96,8 +96,8 @@ class OpenTelemetryTest {
         // Verify the span hierarchy is JAX-RS Service -> Direct Endpoint -> Bean Method
         List<Map<String, String>> spans = getSpans();
         assertEquals(3, spans.size());
-        assertEquals(spans.get(0).get("parentId"), spans.get(1).get("parentId"));
-        assertEquals(spans.get(1).get("parentId"), spans.get(2).get("spanId"));
+        assertEquals(spans.get(1).get("parentId"), spans.get(0).get("parentId"));
+        assertEquals(spans.get(2).get("spanId"), spans.get(1).get("parentId"));
     }
 
     @Test
