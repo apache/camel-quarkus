@@ -4,6 +4,8 @@
 The process is _mutatis mutandis_ the same as for the main Apache Camel repository - see the
 xref:manual::release-guide.adoc[Release guide] page of the Camel documentation.
 
+The process is oriented toward releasing the main branch, some adjustments might be needed when it come to releasing maintenance branches.
+
 Here, just a sketch of the repeating part, after you have performed the initial setup following the
 xref:manual::release-guide.adoc[Camel Release guide].
 
@@ -110,6 +112,17 @@ $ cd tooling/perf-regression
 $ java -jar target/quarkus-app/quarkus-run.jar --help
 ----
 
+== Start an upstream vote
+
+Send a mail to start the upstream vote.
+There are plenty of mails on the dev mailing list to get inspiration from.
+For instance, one could search mail with subject below:
+
+[source,shell]
+----
+[VOTE] Release Camel Quarkus 3.0.0-M1
+----
+
 == Next version in Camel Quarkus main branch
 
 If there are no substantial commits in the release branch, which need to get merged/cherry-picked to `main`, you can
@@ -135,6 +148,26 @@ $ mvn clean install -Dquickly # to regen the Qute Camel component metadata + fla
 $ git commit -am "Next is $NEXT_SNAPSHOT"
 # Send a pull request
 ----
+
+== Close the upstream vote
+
+After 72h, the vote may need to be closed.
+There are plenty of mails on the dev mailing list to get inspiration from.
+For instance, one could search mail with subject:
+
+[source,shell]
+----
+[Result][VOTE] Release Apache Camel Quarkus 3.0.0-M1
+----
+
+== Release the Apache staging repository after the vote
+
+* Login to the https://repository.apache.org[Apache staging repository] using your Apache LDAP credentials.
+* Click on `Staging Repositories`
+* Then select `org.apache.camel-quarkus-xxx` in the list of repositories, where `xxx` represents your `username` and `ip`
+* Click `Release` on the toolbar above
+* This will release the repository and make artifacts generally available
+* After that, a popup window is created, click `Close`
 
 == Update the Apache Camel Quarkus distribution subversion repository
 
