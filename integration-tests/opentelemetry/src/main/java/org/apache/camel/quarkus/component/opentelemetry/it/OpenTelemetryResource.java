@@ -46,4 +46,11 @@ public class OpenTelemetryResource {
     public String traceRoute(@PathParam("name") String name) {
         return producerTemplate.requestBody("direct:greet", name, String.class);
     }
+
+    @Path("/jdbc/query")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public long jdbcQuery() {
+        return producerTemplate.requestBody("direct:jdbcQuery", null, Long.class);
+    }
 }
