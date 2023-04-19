@@ -11,7 +11,7 @@ quarkus.application.name=my-camel-application
 quarkus.opentelemetry.tracer.exporter.otlp.endpoint=http://localhost:4317
 ----
 
-Refer to the https://github.com/quarkusio/quarkus/blob/{quarkus-version}/docs/src/main/asciidoc/opentelemetry.adoc[Quarkus OpenTelemetry guide] for a full list of configuration options.
+Refer to the https://quarkus.io/guides/opentelemetry[Quarkus OpenTelemetry guide] for a full list of configuration options.
 
 Route endpoints can be excluded from tracing by configuring a property named `quarkus.camel.opentelemetry.exclude-patterns` in `application.properties`. For example:
 
@@ -21,7 +21,42 @@ Route endpoints can be excluded from tracing by configuring a property named `qu
 quarkus.camel.opentelemetry.exclude-patterns=direct:*,netty-http:*
 ----
 
-### Exporters
+=== Exporters
 
 Quarkus OpenTelemetry defaults to the standard OTLP exporter defined in OpenTelemetry.
 Additional exporters will be available in the Quarkiverse https://github.com/quarkiverse/quarkus-opentelemetry-exporter/blob/main/README.md[quarkus-opentelemetry-exporter] project.
+
+=== Tracing CDI bean method execution
+
+When instrumenting the execution of CDI bean methods from Camel routes, you should annotate such methods with `io.opentelemetry.extension.annotations.WithSpan`. Methods annotated with `@WithSpan` will create a new Span and establish any required relationships with the current Trace context.
+
+For example, to instrument a CDI bean from a Camel route, first ensure the appropriate methods are annotated with `@WithTrace`.
+
+[source,java]
+----
+@ApplicationScoped
+@Named("myBean")
+public class MyBean {
+    @WithSpan
+    public String greet() {
+        return "Hello World!";
+    }
+}
+----
+
+Next, use the bean in your Camel route.
+
+IMPORTANT: To ensure that the sequence of recorded spans is correct, you must use the full `to("bean:")` endpoint URI and not the shortened `.bean()` EIP DSL method.
+
+[source,java]
+----
+public class MyRoutes extends RouteBuilder {
+    @Override
+    public void configure() throws Exception {
+        from("direct:executeBean")
+                .to("bean:myBean?method=greet");
+    }
+}
+----
+
+There is more information about CDI instrumentation in the https://quarkus.io/guides/opentelemetry#cdi[Quarkus OpenTelemetry guide].
