@@ -57,8 +57,8 @@
             <artifactId>quarkus-cxf-services-sts</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.cxf.xjc-utils</groupId>
-            <artifactId>cxf-xjc-runtime</artifactId>
+            <groupId>io.quarkiverse.cxf</groupId>
+            <artifactId>quarkus-cxf-xjc-plugins</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -116,32 +116,226 @@
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
+                <artifactId>keytool-maven-plugin</artifactId>
+                <configuration>
+                    <keypass>password</keypass>
+                    <validity>365</validity>
+                    <keyalg>RSA</keyalg>
+                    <storepass>password</storepass>
+                </configuration>
                 <executions>
                     <execution>
-                        <id>add-sources</id>
+                        <id>generate-cxfca-keypair</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>add-source</goal>
+                            <goal>clean</goal>
+                            <goal>generateKeyPair</goal>
                         </goals>
                         <configuration>
-                            <sources>
-                                <source>${basedir}/target/src/main/java</source>
-                            </sources>
+                            <alias>cxfca</alias>
+                            <dname>CN=cxfca, OU=eng, O=apache.org</dname>
+                            <exts>
+                                <ext>bc:c=ca:true,pathlen:2147483647</ext>
+                                <ext>IssuerAlternativeName=DNS:NOT-FOR-PRODUCTION-USE</ext>
+                            </exts>
+                            <keystore>${project.build.outputDirectory}/cxfca.jks</keystore>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>add-test-sources</id>
+                        <id>export-cxfca-certificate</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>add-test-source</goal>
+                            <goal>exportCertificate</goal>
                         </goals>
                         <configuration>
-                            <sources>
-                                <source>${basedir}/target/src/test/java</source>
-                            </sources>
+                            <alias>cxfca</alias>
+                            <keystore>${project.build.outputDirectory}/cxfca.jks</keystore>
+                            <rfc>true</rfc>
+                            <file>${project.build.outputDirectory}/cxfca.pem</file>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>generate-alice-keypair</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>clean</goal>
+                            <goal>generateKeyPair</goal>
+                        </goals>
+                        <configuration>
+                            <alias>alice</alias>
+                            <dname>CN=alice, OU=eng, O=apache.org</dname>
+                            <exts>
+                                <ext>IssuerAlternativeName=DNS:NOT-FOR-PRODUCTION-USE</ext>
+                                <ext>SubjectAlternativeName=DNS:localhost,IP:127.0.0.1</ext>
+                            </exts>
+                            <keystore>${project.build.outputDirectory}/alice.jks</keystore>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-bob-keypair</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>clean</goal>
+                            <goal>generateKeyPair</goal>
+                        </goals>
+                        <configuration>
+                            <alias>bob</alias>
+                            <dname>CN=bob, OU=eng, O=apache.org</dname>
+                            <exts>
+                                <ext>IssuerAlternativeName=DNS:NOT-FOR-PRODUCTION-USE</ext>
+                                <ext>SubjectAlternativeName=DNS:localhost,IP:127.0.0.1</ext>
+                            </exts>
+                            <keystore>${project.build.outputDirectory}/bob.jks</keystore>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-alice-certificate-request</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generateCertificateRequest</goal>
+                        </goals>
+                        <configuration>
+                            <alias>alice</alias>
+                            <keystore>${project.build.outputDirectory}/alice.jks</keystore>
+                            <file>${project.build.outputDirectory}/alice.csr</file>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-alice-certificate</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generateCertificate</goal>
+                        </goals>
+                        <configuration>
+                            <alias>cxfca</alias>
+                            <keystore>${project.build.outputDirectory}/cxfca.jks</keystore>
+                            <rfc>true</rfc>
+                            <infile>${project.build.outputDirectory}/alice.csr</infile>
+                            <outfile>${project.build.outputDirectory}/alice.pem</outfile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-bob-certificate-request</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generateCertificateRequest</goal>
+                        </goals>
+                        <configuration>
+                            <alias>bob</alias>
+                            <keystore>${project.build.outputDirectory}/bob.jks</keystore>
+                            <file>${project.build.outputDirectory}/bob.csr</file>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-bob-certificate</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generateCertificate</goal>
+                        </goals>
+                        <configuration>
+                            <alias>cxfca</alias>
+                            <keystore>${project.build.outputDirectory}/cxfca.jks</keystore>
+                            <rfc>true</rfc>
+                            <infile>${project.build.outputDirectory}/bob.csr</infile>
+                            <outfile>${project.build.outputDirectory}/bob.pem</outfile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>import-cxfca-certificate-to-alice</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>importCertificate</goal>
+                        </goals>
+                        <configuration>
+                            <alias>cxfca</alias>
+                            <trustcacerts>true</trustcacerts>
+                            <noprompt>true</noprompt>
+                            <keystore>${project.build.outputDirectory}/alice.jks</keystore>
+                            <file>${project.build.outputDirectory}/cxfca.pem</file>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>import-cxfca-certificate-to-bob</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>importCertificate</goal>
+                        </goals>
+                        <configuration>
+                            <alias>cxfca</alias>
+                            <trustcacerts>true</trustcacerts>
+                            <noprompt>true</noprompt>
+                            <keystore>${project.build.outputDirectory}/bob.jks</keystore>
+                            <file>${project.build.outputDirectory}/cxfca.pem</file>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>import-alice-certificate</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>importCertificate</goal>
+                        </goals>
+                        <configuration>
+                            <alias>alice</alias>
+                            <trustcacerts>true</trustcacerts>
+                            <noprompt>true</noprompt>
+                            <keystore>${project.build.outputDirectory}/alice.jks</keystore>
+                            <file>${project.build.outputDirectory}/alice.pem</file>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>import-bob-certificate</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>importCertificate</goal>
+                        </goals>
+                        <configuration>
+                            <alias>bob</alias>
+                            <trustcacerts>true</trustcacerts>
+                            <noprompt>true</noprompt>
+                            <keystore>${project.build.outputDirectory}/bob.jks</keystore>
+                            <file>${project.build.outputDirectory}/bob.pem</file>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>import-bob-certificate-to-alice</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>importCertificate</goal>
+                        </goals>
+                        <configuration>
+                            <alias>bob</alias>
+                            <trustcacerts>true</trustcacerts>
+                            <noprompt>true</noprompt>
+                            <keystore>${project.build.outputDirectory}/alice.jks</keystore>
+                            <file>${project.build.outputDirectory}/bob.pem</file>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>import-alice-certificate-to-bob</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>importCertificate</goal>
+                        </goals>
+                        <configuration>
+                            <alias>alice</alias>
+                            <trustcacerts>true</trustcacerts>
+                            <noprompt>true</noprompt>
+                            <keystore>${project.build.outputDirectory}/bob.jks</keystore>
+                            <file>${project.build.outputDirectory}/alice.pem</file>
+                        </configuration>
+                    </execution>
+<!--                Uncomment execution block below for local testing -->
+<!--                    <execution>-->
+<!--                        <id>list</id>-->
+<!--                        <phase>generate-sources</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>list</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <verbose>true</verbose>-->
+<!--                            <keystore>${project.build.outputDirectory}/bob.jks</keystore>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
                 </executions>
             </plugin>
             <plugin>
@@ -165,43 +359,20 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-codegen-plugin</artifactId>
+                <groupId>${quarkus.platform.group-id}</groupId>
+                <artifactId>quarkus-maven-plugin</artifactId>
+                <version>${quarkus.platform.version}</version>
+                <extensions>true</extensions><!-- Workaround for https://github.com/quarkusio/quarkus/issues/21718 -->
                 <executions>
                     <execution>
+                        <id>generate-code</id>
                         <goals>
-                            <goal>wsdl2java</goal>
+                            <goal>generate-code</goal>
                         </goals>
-                        <configuration>
-                            <wsdlOptions>
-                                <wsdlOption>
-                                    <wsdl>${basedir}/target/classes/wsdl/CalculatorService.wsdl</wsdl>
-                                    <wsdlLocation>classpath:wsdl/CalculatorService.wsdl</wsdlLocation>
-                                </wsdlOption>
-                                <wsdlOption>
-                                    <wsdl>${basedir}/target/classes/wsdl/BasicAuthCalculatorService.wsdl</wsdl>
-                                    <wsdlLocation>classpath:wsdl/BasicAuthCalculatorService.wsdl</wsdlLocation>
-                                </wsdlOption>
-                                <wsdlOption>
-                                    <wsdl>${basedir}/target/classes/wsdl/HelloService.wsdl</wsdl>
-                                    <wsdlLocation>classpath:wsdl/HelloService.wsdl</wsdlLocation>
-                                </wsdlOption>
-                                <wsdlOption>
-                                    <wsdl>${basedir}/target/classes/wsdl/WssCalculatorService.wsdl</wsdl>
-                                    <wsdlLocation>classpath:wsdl/WssCalculatorService.wsdl</wsdlLocation>
-                                </wsdlOption>
-                            </wsdlOptions>
-                        </configuration>
                     </execution>
                 </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.cxf.xjcplugins</groupId>
-                        <artifactId>cxf-xjc-ts</artifactId>
-                        <version>${cxf.xjc-utils.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>
