@@ -89,7 +89,7 @@ class OpenTelemetryTest {
     }
 
     @Test
-    public void testTracedBean() throws InterruptedException {
+    public void testTracedBean() {
         String name = "Camel Quarkus OpenTelemetry";
         RestAssured.get("/opentelemetry/greet/" + name)
                 .then()
@@ -118,9 +118,9 @@ class OpenTelemetryTest {
         assertTrue(Long.parseLong(timestamp) > 0);
 
         // Verify the span hierarchy is JAX-RS Service -> Direct Endpoint -> Bean Endpoint -> Bean method -> JDBC query
-        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 5);
+        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 6);
         List<Map<String, String>> spans = getSpans();
-        assertEquals(5, spans.size());
+        assertEquals(6, spans.size());
         assertEquals(spans.get(0).get("parentId"), spans.get(1).get("parentId"));
         assertEquals(spans.get(0).get("code.function"), "getConnection");
 
@@ -133,8 +133,11 @@ class OpenTelemetryTest {
         assertEquals(spans.get(3).get("parentId"), spans.get(4).get("spanId"));
         assertEquals(spans.get(3).get("camel.uri"), "direct://jdbcQuery");
 
-        assertEquals(spans.get(4).get("parentId"), "0000000000000000");
-        assertEquals(spans.get(4).get("code.function"), "jdbcQuery");
+        assertEquals(spans.get(4).get("parentId"), spans.get(5).get("spanId"));
+        assertEquals(spans.get(4).get("camel.uri"), "direct://jdbcQuery");
+
+        assertEquals(spans.get(5).get("parentId"), "0000000000000000");
+        assertEquals(spans.get(5).get("code.function"), "jdbcQuery");
     }
 
     private List<Map<String, String>> getSpans() {
