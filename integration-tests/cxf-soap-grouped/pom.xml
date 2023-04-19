@@ -57,8 +57,8 @@
             <artifactId>quarkus-cxf-services-sts</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.cxf.xjc-utils</groupId>
-            <artifactId>cxf-xjc-runtime</artifactId>
+            <groupId>io.quarkiverse.cxf</groupId>
+            <artifactId>quarkus-cxf-xjc-plugins</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -339,36 +339,6 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>add-sources</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>${basedir}/target/src/main/java</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>add-test-sources</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>add-test-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>${basedir}/target/src/test/java</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.gmaven</groupId>
                 <artifactId>groovy-maven-plugin</artifactId>
                 <executions>
@@ -389,43 +359,20 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-codegen-plugin</artifactId>
+                <groupId>${quarkus.platform.group-id}</groupId>
+                <artifactId>quarkus-maven-plugin</artifactId>
+                <version>${quarkus.platform.version}</version>
+                <extensions>true</extensions><!-- Workaround for https://github.com/quarkusio/quarkus/issues/21718 -->
                 <executions>
                     <execution>
+                        <id>generate-code</id>
                         <goals>
-                            <goal>wsdl2java</goal>
+                            <goal>generate-code</goal>
                         </goals>
-                        <configuration>
-                            <wsdlOptions>
-                                <wsdlOption>
-                                    <wsdl>${basedir}/target/classes/wsdl/CalculatorService.wsdl</wsdl>
-                                    <wsdlLocation>classpath:wsdl/CalculatorService.wsdl</wsdlLocation>
-                                </wsdlOption>
-                                <wsdlOption>
-                                    <wsdl>${basedir}/target/classes/wsdl/BasicAuthCalculatorService.wsdl</wsdl>
-                                    <wsdlLocation>classpath:wsdl/BasicAuthCalculatorService.wsdl</wsdlLocation>
-                                </wsdlOption>
-                                <wsdlOption>
-                                    <wsdl>${basedir}/target/classes/wsdl/HelloService.wsdl</wsdl>
-                                    <wsdlLocation>classpath:wsdl/HelloService.wsdl</wsdlLocation>
-                                </wsdlOption>
-                                <wsdlOption>
-                                    <wsdl>${basedir}/target/classes/wsdl/WssCalculatorService.wsdl</wsdl>
-                                    <wsdlLocation>classpath:wsdl/WssCalculatorService.wsdl</wsdlLocation>
-                                </wsdlOption>
-                            </wsdlOptions>
-                        </configuration>
                     </execution>
                 </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.cxf.xjcplugins</groupId>
-                        <artifactId>cxf-xjc-ts</artifactId>
-                        <version>${cxf.xjc-utils.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>
