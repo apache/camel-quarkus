@@ -6201,8 +6201,8 @@
                 <version>${quarkiverse-jackson-jq.version}</version>
                 <exclusions>
                     <exclusion>
-                        <artifactId>jackson-jq</artifactId>
                         <groupId>net.thisptr</groupId>
+                        <artifactId>jackson-jq</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -6210,6 +6210,17 @@
                 <groupId>io.quarkiverse.jackson-jq</groupId>
                 <artifactId>quarkus-jackson-jq-deployment</artifactId>
                 <version>${quarkiverse-jackson-jq.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.jackson-jq</groupId>
+                <artifactId>quarkus-jackson-jq-extra</artifactId>
+                <version>${quarkiverse-jackson-jq.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>net.thisptr</groupId>
+                        <artifactId>jackson-jq</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>io.quarkiverse.jgit</groupId>
@@ -6293,8 +6304,13 @@
                 <version>${smallrye.reactive.messaging.camel.version}</version>
             </dependency>-->
             <dependency>
-                <artifactId>jackson-jq</artifactId>
                 <groupId>net.thisptr</groupId>
+                <artifactId>jackson-jq</artifactId>
+                <version>${jackson-jq-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.thisptr</groupId>
+                <artifactId>jackson-jq-extra</artifactId>
                 <version>${jackson-jq-version}</version>
             </dependency>
             <dependency>
