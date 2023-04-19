@@ -7,9 +7,12 @@
 **Closed issues:**
 
 - Test OpenTelemetry extension integration with `opentelemetry-jdbc` [\#4789](https://github.com/apache/camel-quarkus/issues/4789)
+- Olingo4 olingo4endpointPropertyNames are missing queryParams for read method [\#4654](https://github.com/apache/camel-quarkus/issues/4654)
 
 **Merged pull requests:**
 
+- Restore maven.wagon.http.retryHandler.count to CQ\_MAVEN\_ARGS [\#4795](https://github.com/apache/camel-quarkus/pull/4795) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix OpenTelemetry test assertions argument order [\#4792](https://github.com/apache/camel-quarkus/pull/4792) ([jamesnetherton](https://github.com/jamesnetherton))
 - Test OpenTelemetry extension integration with opentelemetry-jdbc [\#4790](https://github.com/apache/camel-quarkus/pull/4790) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix Spring integration test [\#4788](https://github.com/apache/camel-quarkus/pull/4788) ([jbonofre](https://github.com/jbonofre))
 - Bump quarkiverse-mybatis.version from 2.0.0.CR2 to 2.0.0 [\#4787](https://github.com/apache/camel-quarkus/pull/4787) ([dependabot[bot]](https://github.com/apps/dependabot))
