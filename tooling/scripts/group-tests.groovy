@@ -34,35 +34,46 @@ import groovy.ant.AntBuilder
 final Path sourceDir = Paths.get(properties['group-tests.source.dir'])
 final String[] concatRelPaths = properties['group-tests.concat.rel.paths'].split('[\\s,]+')
 final Path destinationModuleDir = Paths.get(properties['group-tests.dest.module.dir'])
+final String excludes = properties['group-tests.files.excludes'] ?: ""
 final String classNamePrefix = properties['group-tests.class.name.prefix'] ?: ""
+final List<String> fileExcludes = excludes.split('[\\s,]+') as List
 /* Property names whose values originating from distinct application.properties files can be concatenated using comma as a separator */
-final Set<String> commaConcatenatePropertyNames = ["quarkus.native.resources.includes", "quarkus.native.resources.excludes"] as Set;
+final Set<String> commaConcatenatePropertyNames = ["quarkus.native.resources.includes", "quarkus.native.resources.excludes"] as Set
 
 final Map<String, ResourceConcatenator> mergedFiles = new HashMap<>()
 concatRelPaths.each {relPath -> mergedFiles.put(relPath, new ResourceConcatenator(commaConcatenatePropertyNames)) }
 
 Files.list(sourceDir)
+    .filter(p -> !fileExcludes.contains(p.getFileName().toString()))
     .filter { p -> Files.exists(p.resolve('pom.xml')) }
     .sorted()
     .forEach { p ->
         mergedFiles.each { relPath, cat ->
             cat.append(p.resolve(relPath))
         }
-        copyResources(p.resolve('src/main/java'), destinationModuleDir.resolve('target/src/main/java'))
-        copyResources(p.resolve('src/test/java'), destinationModuleDir.resolve('target/src/test/java'))
-        copyResources(p.resolve('src/main/resources'), destinationModuleDir.resolve('target/classes'))
-        copyResources(p.resolve('src/test/resources'), destinationModuleDir.resolve('target/test-classes'))
+        copyResources(p.resolve('src/main/java'), destinationModuleDir.resolve('src/main/java'))
+        copyResources(p.resolve('src/test/java'), destinationModuleDir.resolve('src/test/java'))
+        copyResources(p.resolve('src/main/resources'), destinationModuleDir.resolve('src/main/resources'))
+        copyResources(p.resolve('src/test/resources'), destinationModuleDir.resolve('src/test/resources'))
     }
 
 String scriptDir = new File(getClass().protectionDomain.codeSource.location.path).parent
 File sourceFile = new File("${scriptDir}/group-test-utils.groovy")
 Class groovyClass = new GroovyClassLoader(getClass().getClassLoader()).parseClass(sourceFile)
 GroovyObject utils = (GroovyObject) groovyClass.getDeclaredConstructor().newInstance()
-utils.makeTestClassNamesUnique(destinationModuleDir.resolve('target/src/test/java').toFile(), classNamePrefix)
+utils.makeTestClassNamesUnique(destinationModuleDir.resolve('src/test/java').toFile(), classNamePrefix)
+
+Path gitignorePath = destinationModuleDir.resolve('.gitignore')
+String gitignoreContent = ''
+if (Files.isRegularFile(gitignorePath)) {
+    gitignoreContent = gitignorePath.getText('UTF-8')
+}
+if (!gitignoreContent.startsWith('/src/\n') && !gitignoreContent.contains('\n/src/\n')) {
+    Files.write(gitignorePath, (gitignoreContent + '\n# src/main and src/test are copied from the underlying isolated modules by group-tests.groovy\n/src/\n').getBytes('UTF-8'))
+}
 
 mergedFiles.each { relPath, cat ->
-    String destRelPath = relPath.replace('src/main/resources/', 'target/classes/').replace('src/test/resources/', 'target/test-classes/')
-    Path destPath = destinationModuleDir.resolve(destRelPath)
+    Path destPath = destinationModuleDir.resolve(relPath)
     cat.store(destPath)
 }
 
