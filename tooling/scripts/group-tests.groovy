@@ -43,6 +43,15 @@ final Set<String> commaConcatenatePropertyNames = ["quarkus.native.resources.inc
 final Map<String, ResourceConcatenator> mergedFiles = new HashMap<>()
 concatRelPaths.each {relPath -> mergedFiles.put(relPath, new ResourceConcatenator(commaConcatenatePropertyNames)) }
 
+def srcDestMap = [
+    'src/main/java': destinationModuleDir.resolve('src/main/java'),
+    'src/test/java': destinationModuleDir.resolve('src/test/java'),
+    'src/main/resources': destinationModuleDir.resolve('src/main/resources'),
+    'src/test/resources': destinationModuleDir.resolve('src/test/resources')
+]
+
+srcDestMap.forEach { src, dest -> new AntBuilder().delete(dir: dest)}
+
 Files.list(sourceDir)
     .filter(p -> !fileExcludes.contains(p.getFileName().toString()))
     .filter { p -> Files.exists(p.resolve('pom.xml')) }
@@ -51,10 +60,7 @@ Files.list(sourceDir)
         mergedFiles.each { relPath, cat ->
             cat.append(p.resolve(relPath))
         }
-        copyResources(p.resolve('src/main/java'), destinationModuleDir.resolve('src/main/java'))
-        copyResources(p.resolve('src/test/java'), destinationModuleDir.resolve('src/test/java'))
-        copyResources(p.resolve('src/main/resources'), destinationModuleDir.resolve('src/main/resources'))
-        copyResources(p.resolve('src/test/resources'), destinationModuleDir.resolve('src/test/resources'))
+        srcDestMap.forEach { src, dest -> copyResources(p.resolve(src), dest) }
     }
 
 String scriptDir = new File(getClass().protectionDomain.codeSource.location.path).parent
