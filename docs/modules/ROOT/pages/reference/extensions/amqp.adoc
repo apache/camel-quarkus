@@ -60,6 +60,15 @@ When sending JMS message payloads as `javax.jms.ObjectMessage`, you must annotat
 Note that this extension automatically sets `quarkus.camel.native.reflection.serialization-enabled = true` for you. Refer to the xref:user-guide/native-mode.adoc#serialization[native mode user guide] for more information.
 
 
+[id="extensions-amqp-camel-quarkus-limitations"]
+== Camel Quarkus limitations
+
+[id="extensions-amqp-limitations-connection-pooling"]
+=== Connection Pooling
+
+JMS connection pooling isn't supported yet since there is still an open https://github.com/amqphub/quarkus-qpid-jms/issues/22[issue] with quarkus-qpid-jms.
+
+
 [id="extensions-amqp-transferexception-option-in-native-mode"]
 == transferException option in native mode
 
