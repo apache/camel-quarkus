@@ -45,7 +45,13 @@ asciidoc:
     doc-show-extra-content: false # Whether additional content hosted in external AsciiDoc files should be loaded via an include:: directive
 
     # External URLs
+    link-camel-quarkus-source: https://github.com/apache/camel-quarkus/tree/2.13.x
     link-quarkus-code-generator: code.quarkus.io
+    link-quarkus-cxf-doc: https://quarkiverse.github.io/quarkiverse-docs/quarkus-cxf/1.5
+    link-quarkus-cxf-source: https://github.com/quarkiverse/quarkus-cxf/tree/1.5
+    
+    # Misc
+    javaxOrJakartaPackagePrefix: javax # this can be switched to javax in older branches
 
     # Project name
     project-name: "Camel Quarkus"
