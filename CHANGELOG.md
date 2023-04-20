@@ -6,13 +6,18 @@
 
 **Closed issues:**
 
+- \[camel-main\] Add `quarkus-jackson-jq-extra` to jq extension runtime module dependencies [\#4799](https://github.com/apache/camel-quarkus/issues/4799)
 - Test OpenTelemetry extension integration with `opentelemetry-jdbc` [\#4789](https://github.com/apache/camel-quarkus/issues/4789)
+- Add Build-Date in MANIFEST.MF in Camel Quarkus release JARs [\#4711](https://github.com/apache/camel-quarkus/issues/4711)
 - Olingo4 olingo4endpointPropertyNames are missing queryParams for read method [\#4654](https://github.com/apache/camel-quarkus/issues/4654)
 
 **Merged pull requests:**
 
+- Add OpenTelemetry documentation for CDI bean instrumentation [\#4802](https://github.com/apache/camel-quarkus/pull/4802) ([jamesnetherton](https://github.com/jamesnetherton))
+- release: complete release process to be more explicit [\#4800](https://github.com/apache/camel-quarkus/pull/4800) ([aldettinger](https://github.com/aldettinger))
 - Restore maven.wagon.http.retryHandler.count to CQ\_MAVEN\_ARGS [\#4795](https://github.com/apache/camel-quarkus/pull/4795) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix OpenTelemetry test assertions argument order [\#4792](https://github.com/apache/camel-quarkus/pull/4792) ([jamesnetherton](https://github.com/jamesnetherton))
+- Enabling Google BigQuery, Google PubSub, Zendesk  and Stax integration tests [\#4791](https://github.com/apache/camel-quarkus/pull/4791) ([zbendhiba](https://github.com/zbendhiba))
 - Test OpenTelemetry extension integration with opentelemetry-jdbc [\#4790](https://github.com/apache/camel-quarkus/pull/4790) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix Spring integration test [\#4788](https://github.com/apache/camel-quarkus/pull/4788) ([jbonofre](https://github.com/jbonofre))
 - Bump quarkiverse-mybatis.version from 2.0.0.CR2 to 2.0.0 [\#4787](https://github.com/apache/camel-quarkus/pull/4787) ([dependabot[bot]](https://github.com/apps/dependabot))
