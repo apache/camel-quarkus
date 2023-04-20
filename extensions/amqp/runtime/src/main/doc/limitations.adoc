@@ -1,0 +1,3 @@
+=== Connection Pooling
+
+JMS connection pooling isn't supported yet since there is still an open https://github.com/amqphub/quarkus-qpid-jms/issues/22[issue] with quarkus-qpid-jms.
