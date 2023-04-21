@@ -5805,21 +5805,6 @@
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>hapi-fhir-server</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>6.2.4</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <exclusions>
-          <exclusion>
-            <groupId>com.sun.activation</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>jakarta.activation</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
-          <exclusion>
-            <groupId>com.sun.mail</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>jakarta.mail</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-fhir-structures-dstu2.1</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>6.2.4</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
