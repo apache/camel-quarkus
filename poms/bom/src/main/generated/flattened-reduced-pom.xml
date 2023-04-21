@@ -7384,12 +7384,12 @@
       <dependency>
         <groupId>com.datastax.oss.quarkus</groupId>
         <artifactId>cassandra-quarkus-client</artifactId>
-        <version>1.2.0-alpha1</version>
+        <version>1.2.0</version>
       </dependency>
       <dependency>
         <groupId>com.datastax.oss.quarkus</groupId>
         <artifactId>cassandra-quarkus-client-deployment</artifactId>
-        <version>1.2.0-alpha1</version>
+        <version>1.2.0</version>
       </dependency>
       <dependency>
         <groupId>com.datastax.oss</groupId>
