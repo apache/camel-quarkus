@@ -13,6 +13,9 @@
 
 **Merged pull requests:**
 
+- Bump quarkus-artemis-bom from 3.0.0.CR1 to 3.0.0 [\#4814](https://github.com/apache/camel-quarkus/pull/4814) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Add a limitation doc about pooling support for camel-quarkus-amqp [\#4809](https://github.com/apache/camel-quarkus/pull/4809) ([zhfeng](https://github.com/zhfeng))
+- Bump quarkiverse-freemarker.version from 1.0.0.Alpha2 to 1.0.0 [\#4804](https://github.com/apache/camel-quarkus/pull/4804) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Add OpenTelemetry documentation for CDI bean instrumentation [\#4802](https://github.com/apache/camel-quarkus/pull/4802) ([jamesnetherton](https://github.com/jamesnetherton))
 - release: complete release process to be more explicit [\#4800](https://github.com/apache/camel-quarkus/pull/4800) ([aldettinger](https://github.com/aldettinger))
 - Restore maven.wagon.http.retryHandler.count to CQ\_MAVEN\_ARGS [\#4795](https://github.com/apache/camel-quarkus/pull/4795) ([jamesnetherton](https://github.com/jamesnetherton))
