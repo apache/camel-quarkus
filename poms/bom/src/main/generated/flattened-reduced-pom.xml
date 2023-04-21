@@ -7212,87 +7212,87 @@
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-alpn-client</artifactId>
-        <version>11.0.14</version>
+        <version>11.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-alpn-java-client</artifactId>
-        <version>11.0.14</version>
+        <version>11.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-client</artifactId>
-        <version>11.0.14</version>
+        <version>11.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-http</artifactId>
-        <version>11.0.14</version>
+        <version>11.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.http2</groupId>
         <artifactId>http2-client</artifactId>
-        <version>11.0.14</version>
+        <version>11.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.http2</groupId>
         <artifactId>http2-common</artifactId>
-        <version>11.0.14</version>
+        <version>11.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.http2</groupId>
         <artifactId>http2-hpack</artifactId>
-        <version>11.0.14</version>
+        <version>11.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.http2</groupId>
         <artifactId>http2-http-client-transport</artifactId>
-        <version>11.0.14</version>
+        <version>11.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-io</artifactId>
-        <version>11.0.14</version>
+        <version>11.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-security</artifactId>
-        <version>11.0.14</version>
+        <version>11.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-server</artifactId>
-        <version>11.0.14</version>
+        <version>11.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-servlet</artifactId>
-        <version>11.0.14</version>
+        <version>11.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-servlets</artifactId>
-        <version>11.0.14</version>
+        <version>11.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-util</artifactId>
-        <version>11.0.14</version>
+        <version>11.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-util-ajax</artifactId>
-        <version>11.0.14</version>
+        <version>11.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-webapp</artifactId>
-        <version>11.0.14</version>
+        <version>11.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-xml</artifactId>
-        <version>11.0.14</version>
+        <version>11.0.15</version>
       </dependency>
       <dependency>
         <groupId>com.azure</groupId>
