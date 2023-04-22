@@ -7,15 +7,22 @@
 **Closed issues:**
 
 - \[camel-main\] Add `quarkus-jackson-jq-extra` to jq extension runtime module dependencies [\#4799](https://github.com/apache/camel-quarkus/issues/4799)
+- Smnp: Extend test coverage [\#4797](https://github.com/apache/camel-quarkus/issues/4797)
 - Test OpenTelemetry extension integration with `opentelemetry-jdbc` [\#4789](https://github.com/apache/camel-quarkus/issues/4789)
+- CXF generates different WSDL files with JVM/Native modes [\#4746](https://github.com/apache/camel-quarkus/issues/4746)
 - Add Build-Date in MANIFEST.MF in Camel Quarkus release JARs [\#4711](https://github.com/apache/camel-quarkus/issues/4711)
 - Olingo4 olingo4endpointPropertyNames are missing queryParams for read method [\#4654](https://github.com/apache/camel-quarkus/issues/4654)
+- Camel 3.19 - Add camel-cli-connector extension [\#4051](https://github.com/apache/camel-quarkus/issues/4051)
 
 **Merged pull requests:**
 
+- Upgrade cassandra-quarkus to 1.2.0 [\#4815](https://github.com/apache/camel-quarkus/pull/4815) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump quarkus-artemis-bom from 3.0.0.CR1 to 3.0.0 [\#4814](https://github.com/apache/camel-quarkus/pull/4814) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Snmp: Extend test coverage \#4797 [\#4813](https://github.com/apache/camel-quarkus/pull/4813) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Add camel-cli-connector extension. [\#4812](https://github.com/apache/camel-quarkus/pull/4812) ([zbendhiba](https://github.com/zbendhiba))
 - Add a limitation doc about pooling support for camel-quarkus-amqp [\#4809](https://github.com/apache/camel-quarkus/pull/4809) ([zhfeng](https://github.com/zhfeng))
 - Bump quarkiverse-freemarker.version from 1.0.0.Alpha2 to 1.0.0 [\#4804](https://github.com/apache/camel-quarkus/pull/4804) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Upgrade to quarkus-cxf 2.0.1, test for \#4746 [\#4803](https://github.com/apache/camel-quarkus/pull/4803) ([ppalaga](https://github.com/ppalaga))
 - Add OpenTelemetry documentation for CDI bean instrumentation [\#4802](https://github.com/apache/camel-quarkus/pull/4802) ([jamesnetherton](https://github.com/jamesnetherton))
 - release: complete release process to be more explicit [\#4800](https://github.com/apache/camel-quarkus/pull/4800) ([aldettinger](https://github.com/aldettinger))
 - Restore maven.wagon.http.retryHandler.count to CQ\_MAVEN\_ARGS [\#4795](https://github.com/apache/camel-quarkus/pull/4795) ([jamesnetherton](https://github.com/jamesnetherton))
