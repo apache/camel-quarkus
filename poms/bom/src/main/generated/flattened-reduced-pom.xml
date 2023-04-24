@@ -6339,6 +6339,11 @@
       </dependency>
       <dependency>
         <groupId>org.bouncycastle</groupId>
+        <artifactId>bcprov-ext-jdk18on</artifactId>
+        <version>1.72</version>
+      </dependency>
+      <dependency>
+        <groupId>org.bouncycastle</groupId>
         <artifactId>bcutil-jdk18on</artifactId>
         <version>1.72</version>
       </dependency>
@@ -7201,12 +7206,12 @@
       <dependency>
         <groupId>org.amqphub.quarkus</groupId>
         <artifactId>quarkus-qpid-jms</artifactId>
-        <version>2.0.0.Alpha3</version>
+        <version>2.0.0</version>
       </dependency>
       <dependency>
         <groupId>org.amqphub.quarkus</groupId>
         <artifactId>quarkus-qpid-jms-deployment</artifactId>
-        <version>2.0.0.Alpha3</version>
+        <version>2.0.0</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
