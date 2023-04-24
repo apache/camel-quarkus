@@ -16,6 +16,8 @@
 
 **Merged pull requests:**
 
+- Generated sources regen for SBOM [\#4819](https://github.com/apache/camel-quarkus/pull/4819) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Bump quarkiverse-pooled-jms.version from 2.0.0.CR2 to 2.0.0 [\#4818](https://github.com/apache/camel-quarkus/pull/4818) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Upgrade cassandra-quarkus to 1.2.0 [\#4815](https://github.com/apache/camel-quarkus/pull/4815) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump quarkus-artemis-bom from 3.0.0.CR1 to 3.0.0 [\#4814](https://github.com/apache/camel-quarkus/pull/4814) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Snmp: Extend test coverage \#4797 [\#4813](https://github.com/apache/camel-quarkus/pull/4813) ([JiriOndrusek](https://github.com/JiriOndrusek))
