@@ -41,6 +41,7 @@ group-02:
   - oaipmh
   - pubnub
   - protobuf
+  - smallrye-reactive-messaging
   - sql
 group-03:
   - bean-validator
