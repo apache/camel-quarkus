@@ -16,9 +16,8 @@
  */
 package org.apache.camel.quarkus.component.smallrye.reactive.messaging.it;
 
-import jakarta.inject.Inject;
-
 import io.smallrye.mutiny.Multi;
+import jakarta.inject.Inject;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.reactive.streams.api.CamelReactiveStreamsService;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
