@@ -28,8 +28,9 @@ public class MinioTestResource implements QuarkusTestResourceLifecycleManager {
 
     public static final String CONTAINER_ACCESS_KEY = "MINIO_ACCESS_KEY";
     public static final String CONTAINER_SECRET_KEY = "MINIO_SECRET_KEY";
-    private final String CONTAINER_IMAGE = "minio/minio:RELEASE.2020-12-03T05-49-24Z";
+    private final String CONTAINER_IMAGE = "minio/minio:RELEASE.2022-10-08T20-11-00Z";
     private final int BROKER_PORT = 9000;
+    private String endpoint;
 
     private GenericContainer minioServer = new GenericContainer(CONTAINER_IMAGE)
             .withEnv(CONTAINER_ACCESS_KEY, MinioResource.SERVER_ACCESS_KEY)
@@ -48,8 +49,9 @@ public class MinioTestResource implements QuarkusTestResourceLifecycleManager {
         String port = minioServer.getMappedPort(BROKER_PORT) + "";
         String host = minioServer.getHost();
 
+        endpoint = String.format("http://%s:%s", host, port);
         return CollectionHelper.mapOf(
-                MinioClientProducer.MINIO_CLIENT_URL_PARAMETER, String.format("http://%s:%s", host, port));
+                MinioProducer.MINIO_CLIENT_URL_PARAMETER, endpoint);
     }
 
     @Override
@@ -57,5 +59,10 @@ public class MinioTestResource implements QuarkusTestResourceLifecycleManager {
         if (minioServer.isRunning()) {
             minioServer.stop();
         }
+    }
+
+    @Override
+    public void inject(Object testInstance) {
+        ((MinioTest) testInstance).setEndpoint(endpoint);
     }
 }

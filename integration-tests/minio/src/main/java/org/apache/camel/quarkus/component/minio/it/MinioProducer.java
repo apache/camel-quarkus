@@ -20,11 +20,12 @@ import io.minio.MinioClient;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
+import org.apache.camel.component.minio.MinioComponent;
 import org.eclipse.microprofile.config.ConfigProvider;
 
-public class MinioClientProducer {
+public class MinioProducer {
 
-    public static String MINIO_CLIENT_URL_PARAMETER = MinioClientProducer.class.getSimpleName() + "_url";
+    public static String MINIO_CLIENT_URL_PARAMETER = MinioProducer.class.getSimpleName() + "_url";
 
     @Produces
     @Singleton
@@ -34,5 +35,13 @@ public class MinioClientProducer {
                 .endpoint(ConfigProvider.getConfig().getValue(MINIO_CLIENT_URL_PARAMETER, String.class))
                 .credentials(MinioResource.SERVER_ACCESS_KEY, MinioResource.SERVER_SECRET_KEY)
                 .build();
+    }
+
+    @Produces
+    @Named("minioComponentWithoutClient")
+    MinioComponent camelMinioComponent() {
+        MinioComponent minioComponent = new MinioComponent();
+        minioComponent.setAutowiredEnabled(false);
+        return minioComponent;
     }
 }
