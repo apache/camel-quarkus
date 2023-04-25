@@ -6,6 +6,8 @@
 
 **Closed issues:**
 
+- Snmp: add native support [\#4820](https://github.com/apache/camel-quarkus/issues/4820)
+- FHIR integration test native image build fails [\#4811](https://github.com/apache/camel-quarkus/issues/4811)
 - \[camel-main\] Add `quarkus-jackson-jq-extra` to jq extension runtime module dependencies [\#4799](https://github.com/apache/camel-quarkus/issues/4799)
 - Smnp: Extend test coverage [\#4797](https://github.com/apache/camel-quarkus/issues/4797)
 - Test OpenTelemetry extension integration with `opentelemetry-jdbc` [\#4789](https://github.com/apache/camel-quarkus/issues/4789)
@@ -16,12 +18,15 @@
 
 **Merged pull requests:**
 
+- Upgrade Cyclonedx Maven Plugin to version 2.7.7 [\#4824](https://github.com/apache/camel-quarkus/pull/4824) ([oscerd](https://github.com/oscerd))
 - Generated sources regen for SBOM [\#4819](https://github.com/apache/camel-quarkus/pull/4819) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump quarkiverse-pooled-jms.version from 2.0.0.CR2 to 2.0.0 [\#4818](https://github.com/apache/camel-quarkus/pull/4818) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Improve handling of optional FHIR schematron and hapi-fhir-server dependencies [\#4817](https://github.com/apache/camel-quarkus/pull/4817) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade cassandra-quarkus to 1.2.0 [\#4815](https://github.com/apache/camel-quarkus/pull/4815) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump quarkus-artemis-bom from 3.0.0.CR1 to 3.0.0 [\#4814](https://github.com/apache/camel-quarkus/pull/4814) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Snmp: Extend test coverage \#4797 [\#4813](https://github.com/apache/camel-quarkus/pull/4813) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Add camel-cli-connector extension. [\#4812](https://github.com/apache/camel-quarkus/pull/4812) ([zbendhiba](https://github.com/zbendhiba))
+- Upgrade quarkus-qpid-jms to 2.0.0 [\#4810](https://github.com/apache/camel-quarkus/pull/4810) ([zhfeng](https://github.com/zhfeng))
 - Add a limitation doc about pooling support for camel-quarkus-amqp [\#4809](https://github.com/apache/camel-quarkus/pull/4809) ([zhfeng](https://github.com/zhfeng))
 - Bump quarkiverse-freemarker.version from 1.0.0.Alpha2 to 1.0.0 [\#4804](https://github.com/apache/camel-quarkus/pull/4804) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Upgrade to quarkus-cxf 2.0.1, test for \#4746 [\#4803](https://github.com/apache/camel-quarkus/pull/4803) ([ppalaga](https://github.com/ppalaga))
