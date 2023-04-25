@@ -31,6 +31,7 @@ import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
 import org.apache.camel.component.quartz.QuartzComponent;
 import org.apache.camel.quarkus.component.quartz.CamelQuartzRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 import org.quartz.impl.jdbcjobstore.StdJDBCDelegate;
@@ -111,4 +112,9 @@ class QuartzProcessor {
                 recorder.createQuartzComponent());
     }
 
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    CamelContextCustomizerBuildItem createQuartzAutowiredLifecycleStrategyContextCustomizer(CamelQuartzRecorder recorder) {
+        return new CamelContextCustomizerBuildItem(recorder.createQuartzAutowiredLifecycleStrategy());
+    }
 }

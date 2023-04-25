@@ -25,7 +25,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class QuartzQuarkusSchedulerAutowiredTest {
 
@@ -38,7 +38,7 @@ public class QuartzQuarkusSchedulerAutowiredTest {
     CamelContext context;
 
     @Test
-    public void test() throws Exception {
+    public void testQuarkusSchedulerAutowired() throws Exception {
         QuartzComponent component = context.getComponent("quartz", QuartzComponent.class);
         assertEquals("QuarkusQuartzScheduler", component.getScheduler().getSchedulerName());
     }

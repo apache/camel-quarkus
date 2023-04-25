@@ -27,7 +27,13 @@ import io.quarkus.quartz.runtime.QuartzSchedulerImpl;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import jakarta.enterprise.inject.AmbiguousResolutionException;
+import org.apache.camel.CamelContext;
+import org.apache.camel.Component;
+import org.apache.camel.Ordered;
+import org.apache.camel.VetoCamelContextStartException;
 import org.apache.camel.component.quartz.QuartzComponent;
+import org.apache.camel.spi.CamelContextCustomizer;
+import org.apache.camel.support.LifecycleStrategySupport;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.slf4j.Logger;
@@ -40,60 +46,80 @@ public class CamelQuartzRecorder {
         return new RuntimeValue<>(new QuarkusQuartzComponent());
     }
 
+    public RuntimeValue<CamelContextCustomizer> createQuartzAutowiredLifecycleStrategy() {
+        return new RuntimeValue<>(new CamelContextCustomizer() {
+            @Override
+            public void configure(CamelContext camelContext) {
+                camelContext.addLifecycleStrategy(new QuartzAutowiredLifecycleStrategy());
+            }
+        });
+    }
+
     @org.apache.camel.spi.annotations.Component("quartz")
     static class QuarkusQuartzComponent extends QuartzComponent {
-        private static final Logger LOG = LoggerFactory.getLogger(QuarkusQuartzComponent.class);
-
         @Override
         public boolean isAutowiredEnabled() {
-            //autowiring is executed via custom code in doStart method
+            // Autowiring is handled via QuartzAutowiredLifecycleStrategy
             return false;
         }
 
+        public boolean isAutoWiringRequested() {
+            return super.isAutowiredEnabled() && getCamelContext().isAutowiredEnabled();
+        }
+    }
+
+    static final class QuartzAutowiredLifecycleStrategy extends LifecycleStrategySupport implements Ordered {
+        private static final Logger LOG = LoggerFactory.getLogger(QuartzAutowiredLifecycleStrategy.class);
+
         @Override
-        protected void doStartScheduler() throws Exception {
-            //autowire scheduler before the start
+        public int getOrder() {
+            return Ordered.LOWEST;
+        }
 
-            //if autowiring is enabled, execute it here, because special approach because of Quarkus has to be applied
-            if (super.isAutowiredEnabled() && getCamelContext().isAutowiredEnabled()) {
-                InjectableInstance<Scheduler> schedulers = Arc.container().select(Scheduler.class);
+        @Override
+        public void onContextInitializing(CamelContext context) throws VetoCamelContextStartException {
+            QuartzComponent component = context.getComponent("quartz", QuartzComponent.class);
+            if (component instanceof QuarkusQuartzComponent) {
+                QuarkusQuartzComponent quarkusQuartzComponent = (QuarkusQuartzComponent) component;
+                if (quarkusQuartzComponent.isAutoWiringRequested()) {
+                    InjectableInstance<Scheduler> schedulers = Arc.container().select(Scheduler.class);
 
-                LinkedList<Scheduler> foundSchedulers = new LinkedList<>();
+                    LinkedList<Scheduler> foundSchedulers = new LinkedList<>();
 
-                for (InstanceHandle<Scheduler> handle : schedulers.handles()) {
-                    //Scheduler may be null in several cases, which would cause an exception in traditional autowiring
-                    //see https://github.com/quarkusio/quarkus/issues/27929 for more details
-                    if (handle.getBean().getBeanClass().equals(QuartzSchedulerImpl.class)) {
-                        Scheduler scheduler = Arc.container().select(QuartzScheduler.class).getHandle().get().getScheduler();
-                        if (scheduler != null) {
-                            //scheduler is added only if is not null
-                            foundSchedulers.add(scheduler);
+                    for (InstanceHandle<Scheduler> handle : schedulers.handles()) {
+                        //Scheduler may be null in several cases, which would cause an exception in traditional autowiring
+                        //see https://github.com/quarkusio/quarkus/issues/27929 for more details
+                        if (handle.getBean().getBeanClass().equals(QuartzSchedulerImpl.class)) {
+                            Scheduler scheduler = Arc.container().select(QuartzScheduler.class).getHandle().get()
+                                    .getScheduler();
+                            if (scheduler != null) {
+                                //scheduler is added only if is not null
+                                foundSchedulers.add(scheduler);
+                            }
+                            continue;
                         }
-                        continue;
+                        foundSchedulers.add(handle.get());
                     }
-                    foundSchedulers.add(handle.get());
-                }
 
-                if (foundSchedulers.size() > 1) {
-                    throw new AmbiguousResolutionException(String.format("Found %d org.quartz.Scheduler beans (%s).",
-                            foundSchedulers.size(), foundSchedulers.stream().map(s -> {
-                                try {
-                                    return s.getSchedulerName();
-                                } catch (SchedulerException e) {
-                                    return "Scheduler name retrieval failed.";
-                                }
-                            }).collect(Collectors.joining(", "))));
-                } else if (!foundSchedulers.isEmpty()) {
-                    if (LOG.isInfoEnabled()) {
-                        LOG.info(
-                                "Autowired property: scheduler on component: quartz as exactly one instance of type: {} found in the registry",
-                                Scheduler.class.getName());
+                    if (foundSchedulers.size() > 1) {
+                        throw new AmbiguousResolutionException(String.format("Found %d org.quartz.Scheduler beans (%s).",
+                                foundSchedulers.size(), foundSchedulers.stream().map(s -> {
+                                    try {
+                                        return s.getSchedulerName();
+                                    } catch (SchedulerException e) {
+                                        return "Scheduler name retrieval failed.";
+                                    }
+                                }).collect(Collectors.joining(", "))));
+                    } else if (!foundSchedulers.isEmpty()) {
+                        if (LOG.isInfoEnabled()) {
+                            LOG.info(
+                                    "Autowired property: scheduler on component: quartz as exactly one instance of type: {} found in the registry",
+                                    Scheduler.class.getName());
+                        }
+                        quarkusQuartzComponent.setScheduler(foundSchedulers.getFirst());
                     }
-                    setScheduler(foundSchedulers.getFirst());
                 }
             }
-
-            super.doStartScheduler();
         }
     }
 }
