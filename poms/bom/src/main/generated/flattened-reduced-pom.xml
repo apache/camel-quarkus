@@ -9924,6 +9924,11 @@
         <version>3.3.3</version>
       </dependency>
       <dependency>
+        <groupId>com.jayway.jsonpath</groupId>
+        <artifactId>json-path</artifactId>
+        <version>2.6.0</version>
+      </dependency>
+      <dependency>
         <groupId>com.orbitz.consul</groupId>
         <artifactId>consul-client</artifactId>
         <version>1.4.2</version>
@@ -11049,11 +11054,6 @@
         <groupId>com.google.api.grpc</groupId>
         <artifactId>proto-google-common-protos</artifactId>
         <version>1.17.0</version>
-      </dependency>
-      <dependency>
-        <groupId>com.jayway.jsonpath</groupId>
-        <artifactId>json-path</artifactId>
-        <version>2.4.0</version>
       </dependency>
       <dependency>
         <groupId>org.reflections</groupId>
