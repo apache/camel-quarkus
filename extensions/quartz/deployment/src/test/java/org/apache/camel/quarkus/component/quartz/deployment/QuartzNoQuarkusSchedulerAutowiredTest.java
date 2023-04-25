@@ -37,7 +37,7 @@ public class QuartzNoQuarkusSchedulerAutowiredTest {
     CamelContext context;
 
     @Test
-    public void test() throws Exception {
+    public void testQuarkusQuartzSchedulerNotAutowired() throws Exception {
         QuartzComponent component = context.getComponent("quartz", QuartzComponent.class);
         assertEquals("DefaultQuartzScheduler-camel-1", component.getScheduler().getSchedulerName());
     }

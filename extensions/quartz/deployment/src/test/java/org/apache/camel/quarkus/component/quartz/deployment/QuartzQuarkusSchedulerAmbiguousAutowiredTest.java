@@ -20,31 +20,23 @@ import io.quarkus.test.QuarkusUnitTest;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
-import org.apache.camel.component.quartz.QuartzComponent;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class QuartzQuarkusSchedulerAmbiguousAutowiredTest {
 
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .withConfigurationResource("application-configuration-quartz-scheduler.properties")
+            .setExpectedException(RuntimeException.class)
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class));
 
     @Inject
     CamelContext context;
-
-    @Test
-    public void test() {
-        assertThrows(RuntimeException.class, () -> context.getComponent("quartz", QuartzComponent.class));
-    }
 
     @Produces
     public Scheduler produceScheduler() throws SchedulerException {
