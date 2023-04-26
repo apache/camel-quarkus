@@ -1962,11 +1962,17 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <!--<dependency>
+            <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-optaplanner</artifactId>
                 <version>${camel.version}</version>
-            </dependency>-->
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.optaplanner</groupId>
+                        <artifactId>optaplanner-core</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-paho</artifactId>
@@ -4724,7 +4730,7 @@
                 <artifactId>camel-quarkus-opentelemetry-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
-            <!--<dependency>
+            <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-optaplanner</artifactId>
                 <version>${camel-quarkus.version}</version>
@@ -4733,7 +4739,7 @@
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-optaplanner-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
-            </dependency>-->
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-paho</artifactId>
@@ -6526,7 +6532,7 @@
                 <artifactId>mybatis</artifactId>
                 <version>${mybatis.version}</version>
             </dependency>
-            <!--<dependency>
+            <dependency>
                 <groupId>org.optaplanner</groupId>
                 <artifactId>optaplanner-quarkus</artifactId>
                 <version>${optaplanner.version}</version>
@@ -6545,7 +6551,7 @@
                 <groupId>org.optaplanner</groupId>
                 <artifactId>optaplanner-quarkus-jackson-deployment</artifactId>
                 <version>${optaplanner.version}</version>
-            </dependency>-->
+            </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-aop</artifactId>

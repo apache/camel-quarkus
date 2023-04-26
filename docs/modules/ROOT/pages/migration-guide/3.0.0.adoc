@@ -31,7 +31,6 @@ The following extensions have been removed.
 | camel-quarkus-microprofile-metrics        | camel-quarkus-micrometer, camel-quarkus-opentelemtry
 | camel-quarkus-milo                        | none
 | camel-quarkus-opentracing                 | camel-quarkus-micrometer, camel-quarkus-opentelemtry
-| camel-quarkus-optaplanner                 | none
 | camel-quarkus-rabbitmq                    | none
 | camel-quarkus-smallrye-reactive-messaging | should be reintroduced
 | camel-quarkus-tika                        | should be reintroduced
