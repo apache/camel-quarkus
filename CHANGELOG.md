@@ -4,6 +4,10 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.13.3...HEAD)
 
+**Fixed bugs:**
+
+- Camel quartz job silently removed if io.quarkus.scheduler.Scheduled is in use [\#4823](https://github.com/apache/camel-quarkus/issues/4823)
+
 **Closed issues:**
 
 - Snmp: add native support [\#4820](https://github.com/apache/camel-quarkus/issues/4820)
@@ -18,6 +22,7 @@
 
 **Merged pull requests:**
 
+- Fix handling of Quarkus quartz scheduler autowiring [\#4826](https://github.com/apache/camel-quarkus/pull/4826) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Cyclonedx Maven Plugin to version 2.7.7 [\#4824](https://github.com/apache/camel-quarkus/pull/4824) ([oscerd](https://github.com/oscerd))
 - Generated sources regen for SBOM [\#4819](https://github.com/apache/camel-quarkus/pull/4819) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump quarkiverse-pooled-jms.version from 2.0.0.CR2 to 2.0.0 [\#4818](https://github.com/apache/camel-quarkus/pull/4818) ([dependabot[bot]](https://github.com/apps/dependabot))
