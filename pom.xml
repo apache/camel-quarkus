@@ -152,7 +152,7 @@
         <xstream.version>${xstream-version}</xstream.version>
         <web3j.version>${web3j-version}</web3j.version>
         <web3j.quorum.version>${web3j-quorum-version}</web3j.quorum.version>
-        <woodstox-core.version>6.3.1</woodstox-core.version><!-- @sync com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${jackson.version} dep:com.fasterxml.woodstox:woodstox-core -->
+        <woodstox-core.version>6.5.0</woodstox-core.version><!-- sync with quarkus jackson.version is turned off because it brings vulnerable woodstox version-->
         <zookeeper.version>${solr-zookeeper-version}</zookeeper.version><!-- ${solr-zookeeper-version} is newer than ${zookeeper-version} -->
         <zxing.version>3.3.3</zxing.version><!-- Mess in IOTA transitive deps -->
 
