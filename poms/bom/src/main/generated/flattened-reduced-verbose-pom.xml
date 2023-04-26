@@ -6273,6 +6273,10 @@
             <groupId>javax.xml.bind</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>jaxb-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
+          <exclusion>
+            <groupId>org.slf4j</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>slf4j-log4j12</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
