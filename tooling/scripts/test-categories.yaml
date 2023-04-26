@@ -112,6 +112,7 @@ group-07:
   - lumberjack
   - ognl
   - olingo4
+  - optaplanner
   - pg-replication-slot
   - sjms2-artemis-client
   - sjms2-qpid-amqp-client

@@ -1902,6 +1902,17 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-optaplanner</artifactId>
+        <version>4.0.0-M3</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.optaplanner</groupId>
+            <artifactId>optaplanner-core</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-paho</artifactId>
         <version>4.0.0-M3</version>
       </dependency>
@@ -4629,6 +4640,16 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-optaplanner</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-optaplanner-deployment</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-paho</artifactId>
         <version>3.0.0-SNAPSHOT</version>
       </dependency>
@@ -6379,6 +6400,26 @@
         <groupId>org.mybatis</groupId>
         <artifactId>mybatis</artifactId>
         <version>3.5.11</version>
+      </dependency>
+      <dependency>
+        <groupId>org.optaplanner</groupId>
+        <artifactId>optaplanner-quarkus</artifactId>
+        <version>9.37.0.Final</version>
+      </dependency>
+      <dependency>
+        <groupId>org.optaplanner</groupId>
+        <artifactId>optaplanner-quarkus-deployment</artifactId>
+        <version>9.37.0.Final</version>
+      </dependency>
+      <dependency>
+        <groupId>org.optaplanner</groupId>
+        <artifactId>optaplanner-quarkus-jackson</artifactId>
+        <version>9.37.0.Final</version>
+      </dependency>
+      <dependency>
+        <groupId>org.optaplanner</groupId>
+        <artifactId>optaplanner-quarkus-jackson-deployment</artifactId>
+        <version>9.37.0.Final</version>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>

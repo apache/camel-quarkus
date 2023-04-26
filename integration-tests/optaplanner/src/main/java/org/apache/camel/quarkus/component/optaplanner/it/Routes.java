@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.component.optaplanner.it;
 
 import jakarta.enterprise.context.ApplicationScoped;
-
 import org.apache.camel.builder.RouteBuilder;
 
 @ApplicationScoped
@@ -27,19 +26,19 @@ public class Routes extends RouteBuilder {
 
         // async producer
         from("direct:solveAsync")
-                .toF("optaplanner:anything?useSolverManager=true&async=true&problemId=%d",
+                .toF("optaplanner:anything?async=true&problemId=%d",
                         OptaplannerResource.SINGLETON_TIME_TABLE_ID)
                 .to("mock:solveAsync");
 
         // async consumer
-        fromF("optaplanner:anything?useSolverManager=true&problemId=%d", OptaplannerResource.SINGLETON_TIME_TABLE_ID)
+        fromF("optaplanner:anything?problemId=%d", OptaplannerResource.SINGLETON_TIME_TABLE_ID)
                 .id("optaplanner-consumer")
                 .autoStartup(false)
                 .to("mock:bestSolution");
 
         // sync producer
         from("direct:solveSync")
-                .toF("optaplanner:anything?useSolverManager=true&problemId=%d", OptaplannerResource.SINGLETON_TIME_TABLE_ID)
+                .toF("optaplanner:anything?problemId=%d", OptaplannerResource.SINGLETON_TIME_TABLE_ID)
                 .to("mock:solveSync");
     }
 }
