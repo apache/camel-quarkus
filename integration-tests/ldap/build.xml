@@ -33,9 +33,9 @@
             <arg value="-storepass" />
             <arg value="ldapPass" />
             <arg value="-dname" />
-            <arg value="CN=${hostname}, OU=Camel Quarkus, O=Apache" />
+            <arg value="CN=127.0.0.1, OU=Camel Quarkus, O=Apache" />
             <arg value="-ext" />
-            <arg value="SAN=IP:${hostname}" />
+            <arg value="SAN=IP:127.0.0.1" />
             <arg value="-noprompt" />
         </exec>
     </target>
