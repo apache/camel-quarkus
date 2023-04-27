@@ -323,11 +323,6 @@
         <pluginManagement>
             <plugins>
                 <!-- Only plugins relevant to both end user applications and Camel Quarkus extensions -->
-                <plugin>
-                    <groupId>org.apache.cxf</groupId>
-                    <artifactId>cxf-codegen-plugin</artifactId>
-                    <version>${cxf.version}</version>
-                </plugin>
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
