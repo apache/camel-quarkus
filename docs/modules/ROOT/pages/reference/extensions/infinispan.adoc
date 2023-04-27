@@ -54,6 +54,29 @@ endif::[]
 You can either configure the Infinispan client via the relevant Camel Infinispan component & endpoint options, or you
 may use the https://quarkus.io/guides/infinispan-client#configuration-reference[Quarkus Infinispan extension configuration properties].
 
+Note that if you choose to use Quarkus Infinispan configuration properties, you *must* add an injection point for the `RemoteCacheManager` in order for it to be discoverable by the Camel Infinispan component. For example:
+
+[source,java]
+----
+public class Routes extends RouteBuilder {
+    // Injects the default unnamed RemoteCacheManager
+    @Inject
+    RemoteCacheManager cacheManager;
+
+    // If configured, injects an optional named RemoteCacheManager
+    @Inject
+    @InfinispanClientName("myNamedClient")
+    RemoteCacheManager namedCacheManager;
+
+    @Override
+    public void configure() {
+        // Route configuration here...
+    }
+}
+
+----
+
+
 [id="extensions-infinispan-configuration-camel-infinispan-infinispanremoteaggregationrepository-in-native-mode"]
 === Camel Infinispan `InfinispanRemoteAggregationRepository` in native mode
 
