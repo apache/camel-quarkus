@@ -34,6 +34,15 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @ApplicationScoped
 public class SnmpRoute extends RouteBuilder {
 
+    public static final String TRAP_V0_PORT = "SnmpRoute_trap_v0";
+    public static final String TRAP_V1_PORT = "SnmpRoute_trap_v1";
+
+    @ConfigProperty(name = TRAP_V0_PORT)
+    int trap0Port;
+
+    @ConfigProperty(name = "SnmpRoute_trap_v1")
+    int trap1Port;
+
     @ConfigProperty(name = "snmpListenAddress")
     String snmpListenAddress;
 
@@ -43,13 +52,20 @@ public class SnmpRoute extends RouteBuilder {
 
     @Override
     public void configure() {
-        //TRAP consumer
-        from("snmp:0.0.0.0:1662?protocol=udp&type=TRAP&snmpVersion=0")
-                .process(e -> snmpResults.get("trap").add(e.getIn().getBody(SnmpMessage.class)));
+        //TRAP consumer snmpVersion=0
+        from("snmp:0.0.0.0:" + trap0Port + "?protocol=udp&type=TRAP&snmpVersion=0")
+                .process(e -> snmpResults.get("trap0").add(e.getIn().getBody(SnmpMessage.class)));
 
-        //POLL consumer
-        from("snmp://" + snmpListenAddress + "?protocol=udp&type=POLL&snmpVersion=0&oids=1.3.6.1.2.1.1.5.0")
-                .process(e -> snmpResults.get("poll").add(e.getIn().getBody(SnmpMessage.class)));
+        //TRAP consumer snmpVersion=1
+        from("snmp:0.0.0.0:" + trap1Port + "?protocol=udp&type=TRAP&snmpVersion=1")
+                .process(e -> snmpResults.get("trap1").add(e.getIn().getBody(SnmpMessage.class)));
+
+        //POLL consumer snmpVersion=0
+        from("snmp://" + snmpListenAddress + "?protocol=udp&snmpVersion=0&securityName=aaa&type=POLL&oids=1.3.6.1.2.1.1.5.0")
+                .process(e -> snmpResults.get("poll0").add(e.getIn().getBody(SnmpMessage.class)));
+        //POLL consumer snmpVersion=1
+        from("snmp://" + snmpListenAddress + "?protocol=udp&snmpVersion=1&securityName=aaa&type=POLL&oids=1.3.6.1.2.1.1.5.0")
+                .process(e -> snmpResults.get("poll1").add(e.getIn().getBody(SnmpMessage.class)));
     }
 
     static class Producers {
@@ -58,8 +74,10 @@ public class SnmpRoute extends RouteBuilder {
         @Named("snmpTrapResults")
         Map<String, Deque<SnmpMessage>> snmpResults() {
             Map<String, Deque<SnmpMessage>> map = new ConcurrentHashMap<>();
-            map.put("trap", new ConcurrentLinkedDeque());
-            map.put("poll", new ConcurrentLinkedDeque());
+            map.put("trap0", new ConcurrentLinkedDeque());
+            map.put("trap1", new ConcurrentLinkedDeque());
+            map.put("poll0", new ConcurrentLinkedDeque());
+            map.put("poll1", new ConcurrentLinkedDeque());
             return map;
         }
     }

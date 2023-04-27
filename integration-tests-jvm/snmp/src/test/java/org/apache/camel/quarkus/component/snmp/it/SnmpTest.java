@@ -17,12 +17,14 @@
 package org.apache.camel.quarkus.component.snmp.it;
 
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.awaitility.Awaitility.await;
 
@@ -37,18 +39,23 @@ import static org.awaitility.Awaitility.await;
 @QuarkusTestResource(SnmpTestResource.class)
 class SnmpTest {
 
-    @Test
-    public void testSendReceiveTrap() throws Exception {
+    static Stream<Integer> supportedVersions() {
+        return Stream.of(0, 1/*, 3 not supported because of https://issues.apache.org/jira/browse/CAMEL-19298 */);
+    }
+
+    @ParameterizedTest
+    @MethodSource("supportedVersions")
+    public void testSendReceiveTrap(int version) throws Exception {
 
         RestAssured.given()
                 .body("TEXT")
-                .post("/snmp/produceTrap")
+                .post("/snmp/produceTrap/" + version)
                 .then()
                 .statusCode(200);
 
         await().atMost(10L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
             String result = RestAssured.given()
-                    .body("trap")
+                    .body("trap" + version)
                     .post("/snmp/results")
                     .then()
                     .statusCode(200)
@@ -58,11 +65,12 @@ class SnmpTest {
         });
     }
 
-    @Test
-    public void testPoll() throws Exception {
+    @ParameterizedTest
+    @MethodSource("supportedVersions")
+    public void testPoll(int version) throws Exception {
         await().atMost(10L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
             String result = RestAssured.given()
-                    .body("poll")
+                    .body("poll" + version)
                     .post("/snmp/results")
                     .then()
                     .statusCode(200)
@@ -72,22 +80,24 @@ class SnmpTest {
         });
     }
 
-    @Test
-    public void testProducePDU() {
+    @ParameterizedTest
+    @MethodSource("supportedVersions")
+    public void testProducePDU(int version) {
 
         RestAssured
-                .get("/snmp/producePDU")
+                .get("/snmp/producePDU/" + version)
                 .then()
                 .statusCode(200)
                 .body(Matchers.equalTo("Response from the test #1"));
     }
 
-    @Test
-    public void testGetNext() {
+    @ParameterizedTest
+    @MethodSource("supportedVersions")
+    public void testGetNext(int version) {
 
         RestAssured.given()
                 .body("TEXT")
-                .post("/snmp/getNext")
+                .post("/snmp/getNext/" + version)
                 .then()
                 .statusCode(200)
                 .body(Matchers.equalTo("Response from the test #1,Response from the test #2"));

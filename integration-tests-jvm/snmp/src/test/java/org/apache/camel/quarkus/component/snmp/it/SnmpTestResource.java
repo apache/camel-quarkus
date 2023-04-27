@@ -18,18 +18,21 @@ package org.apache.camel.quarkus.component.snmp.it;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.apache.camel.quarkus.test.AvailablePortFinder;
 import org.apache.camel.util.CollectionHelper;
 import org.junit.jupiter.api.Assertions;
 import org.snmp4j.CommandResponder;
 import org.snmp4j.CommandResponderEvent;
 import org.snmp4j.MessageException;
 import org.snmp4j.PDU;
+import org.snmp4j.PDUv1;
 import org.snmp4j.Snmp;
 import org.snmp4j.mp.SnmpConstants;
 import org.snmp4j.mp.StatusInformation;
@@ -61,7 +64,13 @@ public class SnmpTestResource implements QuarkusTestResourceLifecycleManager {
             throw new RuntimeException(e);
         }
 
-        return CollectionHelper.mapOf(LISTEN_ADDRESS, udpTransportMapping.getListenAddress().toString().replaceFirst("/", ":"));
+        Map<String, String> ports = AvailablePortFinder.reserveNetworkPorts(Objects::toString, SnmpRoute.TRAP_V0_PORT,
+                SnmpRoute.TRAP_V1_PORT);
+        Map<String, String> m = CollectionHelper.mergeMaps(
+                ports,
+                CollectionHelper.mapOf(LISTEN_ADDRESS,
+                        udpTransportMapping.getListenAddress().toString().replaceFirst("/", ":")));
+        return m;
     }
 
     @Override
@@ -89,6 +98,11 @@ public class SnmpTestResource implements QuarkusTestResourceLifecycleManager {
             PDU pdu = event.getPDU();
             Vector<? extends VariableBinding> vbs = Optional.ofNullable(pdu.getVariableBindings()).orElse(new Vector<>(0));
             String key = vbs.stream().sequential().map(vb -> vb.getOid().toString()).collect(Collectors.joining(","));
+
+            //differ snmp versions
+            if (pdu instanceof PDUv1) {
+                key = "v1" + key;
+            }
             int numberOfSent = counts.getOrDefault(key, 0);
 
             //if 3 responses were already sent for the OID, do not respond anymore

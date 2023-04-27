@@ -27,6 +27,7 @@ import javax.inject.Named;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -47,6 +48,12 @@ import org.snmp4j.smi.VariableBinding;
 @ApplicationScoped
 public class SnmpResource {
 
+    @ConfigProperty(name = SnmpRoute.TRAP_V0_PORT)
+    int trap0Port;
+
+    @ConfigProperty(name = SnmpRoute.TRAP_V1_PORT)
+    int trap1Port;
+
     @ConfigProperty(name = "snmpListenAddress")
     String snmpListenAddress;
 
@@ -57,12 +64,12 @@ public class SnmpResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/producePDU")
+    @Path("/producePDU/{version}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public Response producePDU() {
-        String url = String.format("snmp://%s?retries=1", snmpListenAddress);
-        SnmpMessage pdu = producerTemplate.requestBody(url, "", SnmpMessage.class);
+    public Response producePDU(@PathParam("version") int version) {
+        String url = String.format("snmp://%s?retries=1&snmpVersion=%d", snmpListenAddress, version);
+        SnmpMessage pdu = producerTemplate.requestBody(url, version, SnmpMessage.class);
 
         String response = pdu.getSnmpMessage().getVariableBindings().stream()
                 .filter(vb -> vb.getOid().equals(SnmpConstants.sysDescr))
@@ -72,26 +79,12 @@ public class SnmpResource {
         return Response.ok(response).build();
     }
 
-    @Path("/sendPoll")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response sendPoll() {
-        SnmpMessage pdu = producerTemplate.requestBody("direct:producePoll", "", SnmpMessage.class);
-
-        String response = pdu.getSnmpMessage().getVariableBindings().stream()
-                .filter(vb -> vb.getOid().equals(SnmpConstants.sysDescr))
-                .map(vb -> vb.getVariable().toString())
-                .collect(Collectors.joining());
-
-        return Response.ok(response).build();
-    }
-
-    @Path("/getNext")
+    @Path("/getNext/{version}")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public Response getNext(String payload) {
-        String url = String.format("snmp://%s?type=GET_NEXT&retries=1&protocol=udp&oids=%s", snmpListenAddress,
-                SnmpConstants.sysDescr);
+    public Response getNext(String payload, @PathParam("version") int version) {
+        String url = String.format("snmp://%s?type=GET_NEXT&retries=1&protocol=udp&oids=%s&snmpVersion=%d", snmpListenAddress,
+                SnmpConstants.sysDescr, version);
         List<SnmpMessage> pdu = producerTemplate.requestBody(url, "", List.class);
 
         String response = pdu.stream()
@@ -103,12 +96,13 @@ public class SnmpResource {
         return Response.ok(response).build();
     }
 
-    @Path("/produceTrap")
+    @Path("/produceTrap/{version}")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public Response sendTrap(String payload) {
-        String url = "snmp:127.0.0.1:1662?protocol=udp&type=TRAP&snmpVersion=0)";
-        PDU trap = createTrap(payload);
+    public Response produceTrap(String payload, @PathParam("version") int version) {
+        int port = new int[] { trap0Port, trap1Port, -1, -1 }[version];
+        String url = "snmp:127.0.0.1:" + port + "?protocol=udp&type=TRAP&snmpVersion=" + version;
+        PDU trap = createTrap(payload, version);
 
         producerTemplate.sendBody(url, trap);
 
@@ -119,27 +113,42 @@ public class SnmpResource {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     public Response results(String from) throws Exception {
-        OID oid = "trap".equals(from) ? new OID("1.2.3.4.5") : SnmpConstants.sysDescr;
+        OID oid = from.startsWith("trap") ? new OID("1.2.3.4.5") : SnmpConstants.sysDescr;
         String result = snmpResults.get(from).stream().map(m -> m.getSnmpMessage().getVariable(oid).toString())
                 .collect(Collectors.joining(","));
 
         return Response.ok(result).build();
     }
 
-    public PDU createTrap(String payload) {
-        PDUv1 trap = new PDUv1();
-        trap.setGenericTrap(PDUv1.ENTERPRISE_SPECIFIC);
-        trap.setSpecificTrap(1);
-
+    public PDU createTrap(String payload, int version) {
         OID oid = new OID("1.2.3.4.5");
-        trap.add(new VariableBinding(SnmpConstants.snmpTrapOID, oid));
-        trap.add(new VariableBinding(SnmpConstants.sysUpTime, new TimeTicks(5000))); // put your uptime here
-        trap.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("System Description")));
-        trap.setEnterprise(oid);
-
-        //Add Payload
         Variable var = new OctetString(payload);
-        trap.add(new VariableBinding(oid, var));
-        return trap;
+        switch (version) {
+        case 0:
+            PDUv1 trap0 = new PDUv1();
+            trap0.setGenericTrap(PDUv1.ENTERPRISE_SPECIFIC);
+            trap0.setSpecificTrap(1);
+
+            trap0.add(new VariableBinding(SnmpConstants.snmpTrapOID, oid));
+            trap0.add(new VariableBinding(SnmpConstants.sysUpTime, new TimeTicks(5000))); // put your uptime here
+            trap0.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("System Description")));
+            trap0.setEnterprise(oid);
+
+            //Add Payload
+            trap0.add(new VariableBinding(oid, var));
+            return trap0;
+        case 1:
+            PDU trap1 = new PDU();
+
+            trap1.add(new VariableBinding(SnmpConstants.snmpTrapOID, oid));
+            trap1.add(new VariableBinding(SnmpConstants.sysUpTime, new TimeTicks(5000))); // put your uptime here
+            trap1.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("System Description")));
+
+            //Add Payload
+            trap1.add(new VariableBinding(oid, var));
+            return trap1;
+        default:
+            return null;
+        }
     }
 }
