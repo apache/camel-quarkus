@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- Add tests and usage guide for LDAP extension [\#4821](https://github.com/apache/camel-quarkus/issues/4821)
 - Snmp: add native support [\#4820](https://github.com/apache/camel-quarkus/issues/4820)
 - FHIR integration test native image build fails [\#4811](https://github.com/apache/camel-quarkus/issues/4811)
 - \[camel-main\] Add `quarkus-jackson-jq-extra` to jq extension runtime module dependencies [\#4799](https://github.com/apache/camel-quarkus/issues/4799)
@@ -19,11 +20,13 @@
 - Add Build-Date in MANIFEST.MF in Camel Quarkus release JARs [\#4711](https://github.com/apache/camel-quarkus/issues/4711)
 - Olingo4 olingo4endpointPropertyNames are missing queryParams for read method [\#4654](https://github.com/apache/camel-quarkus/issues/4654)
 - Camel 3.19 - Add camel-cli-connector extension [\#4051](https://github.com/apache/camel-quarkus/issues/4051)
+- LDAP native support [\#1735](https://github.com/apache/camel-quarkus/issues/1735)
 
 **Merged pull requests:**
 
 - Fix handling of Quarkus quartz scheduler autowiring [\#4826](https://github.com/apache/camel-quarkus/pull/4826) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Cyclonedx Maven Plugin to version 2.7.7 [\#4824](https://github.com/apache/camel-quarkus/pull/4824) ([oscerd](https://github.com/oscerd))
+- Added ldap tests, updated docs and promoted to native. [\#4822](https://github.com/apache/camel-quarkus/pull/4822) ([djcoleman](https://github.com/djcoleman))
 - Generated sources regen for SBOM [\#4819](https://github.com/apache/camel-quarkus/pull/4819) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump quarkiverse-pooled-jms.version from 2.0.0.CR2 to 2.0.0 [\#4818](https://github.com/apache/camel-quarkus/pull/4818) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Improve handling of optional FHIR schematron and hapi-fhir-server dependencies [\#4817](https://github.com/apache/camel-quarkus/pull/4817) ([jamesnetherton](https://github.com/jamesnetherton))
