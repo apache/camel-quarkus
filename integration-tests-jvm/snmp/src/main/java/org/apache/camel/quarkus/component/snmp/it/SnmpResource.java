@@ -47,6 +47,8 @@ import org.snmp4j.smi.VariableBinding;
 @ApplicationScoped
 public class SnmpResource {
 
+    public static OID TRAP_OID = new OID("1.2.3.4.5");
+
     @ConfigProperty(name = SnmpRoute.TRAP_V0_PORT)
     int trap0Port;
 
@@ -108,12 +110,11 @@ public class SnmpResource {
         return Response.ok().build();
     }
 
-    @Path("/results")
+    @Path("/results/{from}")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public Response results(String from) throws Exception {
-        OID oid = from.startsWith("trap") ? new OID("1.2.3.4.5") : SnmpConstants.sysDescr;
-        String result = snmpResults.get(from).stream().map(m -> m.getSnmpMessage().getVariable(oid).toString())
+    public Response results(@PathParam("from") String from, String oid) throws Exception {
+        String result = snmpResults.get(from).stream().map(m -> m.getSnmpMessage().getVariable(new OID(oid)).toString())
                 .collect(Collectors.joining(","));
 
         return Response.ok(result).build();
@@ -128,18 +129,17 @@ public class SnmpResource {
             trap0.setGenericTrap(PDUv1.ENTERPRISE_SPECIFIC);
             trap0.setSpecificTrap(1);
 
-            trap0.add(new VariableBinding(SnmpConstants.snmpTrapOID, oid));
+            trap0.add(new VariableBinding(SnmpConstants.snmpTrapOID, new OctetString(payload)));
             trap0.add(new VariableBinding(SnmpConstants.sysUpTime, new TimeTicks(5000))); // put your uptime here
             trap0.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("System Description")));
             trap0.setEnterprise(oid);
 
-            //Add Payload
             trap0.add(new VariableBinding(oid, var));
             return trap0;
         case 1:
             PDU trap1 = new PDU();
 
-            trap1.add(new VariableBinding(SnmpConstants.snmpTrapOID, oid));
+            trap1.add(new VariableBinding(SnmpConstants.snmpTrapOID, new OctetString(payload)));
             trap1.add(new VariableBinding(SnmpConstants.sysUpTime, new TimeTicks(5000))); // put your uptime here
             trap1.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("System Description")));
 
