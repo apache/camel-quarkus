@@ -135,7 +135,6 @@
         <module>jfr</module>
         <module>jira</module>
         <module>jms</module>
-        <!--<module>johnzon</module> https://github.com/apache/camel-quarkus/issues/4477 -->
         <module>jolt</module>
         <module>joor</module>
         <module>jpa</module>
