@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- Remove org.apache.cxf:cxf-codegen plugin \(cxf-sopak extension is used instead\)  [\#4839](https://github.com/apache/camel-quarkus/issues/4839)
 - Add tests and usage guide for LDAP extension [\#4821](https://github.com/apache/camel-quarkus/issues/4821)
 - Snmp: add native support [\#4820](https://github.com/apache/camel-quarkus/issues/4820)
 - FHIR integration test native image build fails [\#4811](https://github.com/apache/camel-quarkus/issues/4811)
@@ -24,6 +25,9 @@
 
 **Merged pull requests:**
 
+- camel-quarks-ldap: Fixed bug in CI tests from incorrect IP address resolution [\#4845](https://github.com/apache/camel-quarkus/pull/4845) ([djcoleman](https://github.com/djcoleman))
+- Remove org.apache.cxf:cxf-codegen plugin  \#4839 [\#4840](https://github.com/apache/camel-quarkus/pull/4840) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Upgrade to Quarkus 3.0.1.Final [\#4835](https://github.com/apache/camel-quarkus/pull/4835) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix handling of Quarkus quartz scheduler autowiring [\#4826](https://github.com/apache/camel-quarkus/pull/4826) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Cyclonedx Maven Plugin to version 2.7.7 [\#4824](https://github.com/apache/camel-quarkus/pull/4824) ([oscerd](https://github.com/oscerd))
 - Added ldap tests, updated docs and promoted to native. [\#4822](https://github.com/apache/camel-quarkus/pull/4822) ([djcoleman](https://github.com/djcoleman))
