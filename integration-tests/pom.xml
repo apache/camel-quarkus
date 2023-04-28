@@ -53,7 +53,6 @@
         <module>main-yaml</module>
 
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
-        <!--<module>activemq</module>-->
         <module>amqp</module>
         <module>arangodb</module>
         <!--<module>as2</module> https://github.com/apache/camel-quarkus/issues/4492 -->
