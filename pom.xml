@@ -50,7 +50,7 @@
         <optaplanner.version>8.29.0.Final</optaplanner.version><!-- May go back to Camel's ${optaplanner-version} when they are in sync https://repo1.maven.org/maven2/org/optaplanner/optaplanner-quarkus/ -->
         <quarkiverse-amazonservices.version>1.3.1</quarkiverse-amazonservices.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/amazonservices/quarkus-amazon-services-parent/ -->
         <quarkiverse-artemis.version>2.0.1</quarkiverse-artemis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/artemis/quarkus-artemis-parent/ -->
-        <quarkiverse-cxf.version>1.5.13</quarkiverse-cxf.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/cxf/quarkus-cxf-parent/ -->
+        <quarkiverse-cxf.version>1.5.14</quarkiverse-cxf.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/cxf/quarkus-cxf-parent/ -->
         <quarkiverse-freemarker.version>0.3.0</quarkiverse-freemarker.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/freemarker/quarkus-freemarker-parent/ -->
         <quarkiverse-jackson-jq.version>1.1.0</quarkiverse-jackson-jq.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jackson-jq/quarkus-jackson-jq-parent/ -->
         <quarkiverse-jgit.version>2.2.0</quarkiverse-jgit.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jgit/quarkus-jgit-parent/ -->
@@ -152,7 +152,6 @@
         <xstream.version>${xstream-version}</xstream.version>
         <web3j.version>${web3j-version}</web3j.version>
         <web3j.quorum.version>${web3j-quorum-version}</web3j.quorum.version>
-        <woodstox-core.version>6.5.0</woodstox-core.version><!-- sync with quarkus jackson.version is turned off because it brings vulnerable woodstox version-->
         <zookeeper.version>${solr-zookeeper-version}</zookeeper.version><!-- ${solr-zookeeper-version} is newer than ${zookeeper-version} -->
         <zxing.version>3.3.3</zxing.version><!-- Mess in IOTA transitive deps -->
 
@@ -168,7 +167,6 @@
         <pdfbox.version>${pdfbox-version}</pdfbox.version>
         <slf4j-log4j12.version>1.7.30</slf4j-log4j12.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <sshd.version>2.9.2</sshd.version><!-- Sync works only since Quarkus 2.13.6 @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.sshd:sshd-common -->
-        <stax2.version>4.2</stax2.version>
         <wiremock.version>2.27.2</wiremock.version>
         <zt-exec.version>1.12</zt-exec.version>
 
