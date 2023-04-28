@@ -169,7 +169,6 @@
         <module>micrometer</module>
         <module>microprofile-fault-tolerance</module>
         <module>microprofile-health</module>
-        <!--<module>microprofile-metrics</module> https://github.com/apache/camel-quarkus/issues/4477 -->
         <module>minio</module>
         <module>mllp</module>
         <module>mock</module>
