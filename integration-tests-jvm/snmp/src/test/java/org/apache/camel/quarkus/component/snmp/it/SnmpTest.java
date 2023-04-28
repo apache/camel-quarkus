@@ -25,6 +25,7 @@ import io.restassured.RestAssured;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.snmp4j.mp.SnmpConstants;
 
 import static org.awaitility.Awaitility.await;
 
@@ -46,6 +47,7 @@ class SnmpTest {
     @ParameterizedTest
     @MethodSource("supportedVersions")
     public void testSendReceiveTrap(int version) throws Exception {
+        String resultsName = "v" + version + "_trap";
 
         RestAssured.given()
                 .body("TEXT")
@@ -55,8 +57,8 @@ class SnmpTest {
 
         await().atMost(10L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
             String result = RestAssured.given()
-                    .body("trap" + version)
-                    .post("/snmp/results")
+                    .body(SnmpConstants.snmpTrapOID.toString())
+                    .post("/snmp/results/" + resultsName)
                     .then()
                     .statusCode(200)
                     .extract().body().asString();
@@ -68,10 +70,29 @@ class SnmpTest {
     @ParameterizedTest
     @MethodSource("supportedVersions")
     public void testPoll(int version) throws Exception {
-        await().atMost(10L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
+        String resultsName = "v" + version + "_poll";
+
+        await().atMost(20L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
             String result = RestAssured.given()
-                    .body("poll" + version)
-                    .post("/snmp/results")
+                    .body(SnmpConstants.sysName.toString())
+                    .post("/snmp/results/" + resultsName)
+                    .then()
+                    .statusCode(200)
+                    .extract().body().asString();
+
+            return result.startsWith("Response from the test #1,Response from the test #2,Response from the test #3");
+        });
+    }
+
+    @ParameterizedTest
+    @MethodSource("supportedVersions")
+    public void testPollStartingDot(int version) throws Exception {
+        String resultsName = "v" + version + "_pollStartingDot";
+
+        await().atMost(20L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
+            String result = RestAssured.given()
+                    .body("1.3.6.1.4.1.6527.3.1.2.21.2.1.50")
+                    .post("/snmp/results/" + resultsName)
                     .then()
                     .statusCode(200)
                     .extract().body().asString();
@@ -83,7 +104,6 @@ class SnmpTest {
     @ParameterizedTest
     @MethodSource("supportedVersions")
     public void testProducePDU(int version) {
-
         RestAssured
                 .get("/snmp/producePDU/" + version)
                 .then()
@@ -101,5 +121,30 @@ class SnmpTest {
                 .then()
                 .statusCode(200)
                 .body(Matchers.equalTo("Response from the test #1,Response from the test #2"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("supportedVersions")
+    public void testPollWith2OIDs(int version) throws Exception {
+        String resultsName = "v" + version + "_poll2oids";
+
+        await().atMost(20L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
+            String resultOid1 = RestAssured.given()
+                    .body(SnmpConstants.sysName.toString())
+                    .post("/snmp/results/" + resultsName)
+                    .then()
+                    .statusCode(200)
+                    .extract().body().asString();
+            String resultOid2 = RestAssured.given()
+                    .body(SnmpConstants.sysContact.toString())
+                    .post("/snmp/results/" + resultsName)
+                    .then()
+                    .statusCode(200)
+                    .extract().body().asString();
+
+            return resultOid1.startsWith("Response from the test #1,Response from the test #2,Response from the test #3") &&
+                    resultOid2.startsWith("Response from the test #1,Response from the test #2,Response from the test #3");
+        });
+
     }
 }

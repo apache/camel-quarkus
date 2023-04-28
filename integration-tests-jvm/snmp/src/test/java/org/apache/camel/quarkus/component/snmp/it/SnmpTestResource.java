@@ -120,29 +120,32 @@ public class SnmpTestResource implements QuarkusTestResourceLifecycleManager {
                 }
             }
 
-            PDU response = makeResponse(++numberOfSent, SnmpConstants.version1);
-            if (response != null) {
-                try {
-                    response.setRequestID(pdu.getRequestID());
-                    commandResponder.getMessageDispatcher().returnResponsePdu(
-                            event.getMessageProcessingModel(), event.getSecurityModel(),
-                            event.getSecurityName(), event.getSecurityLevel(),
-                            response, event.getMaxSizeResponsePDU(),
-                            event.getStateReference(), new StatusInformation());
-                } catch (MessageException e) {
-                    Assertions.assertNull(e);
-                }
-                counts.put(key, numberOfSent);
+            try {
+                PDU response = makeResponse(++numberOfSent, SnmpConstants.version1, vbs);
+                response.setRequestID(pdu.getRequestID());
+                commandResponder.getMessageDispatcher().returnResponsePdu(
+                        event.getMessageProcessingModel(), event.getSecurityModel(),
+                        event.getSecurityName(), event.getSecurityLevel(),
+                        response, event.getMaxSizeResponsePDU(),
+                        event.getStateReference(), new StatusInformation());
+            } catch (MessageException e) {
+                Assertions.assertNull(e);
             }
+            counts.put(key, numberOfSent);
         }
 
-        private PDU makeResponse(int counter, int version) {
+        private PDU makeResponse(int counter, int version, Vector<? extends VariableBinding> vbs) {
             PDU responsePDU = new PDU();
             responsePDU.setType(PDU.RESPONSE);
             responsePDU.setErrorStatus(PDU.noError);
             responsePDU.setErrorIndex(0);
-            responsePDU.add(new VariableBinding(new OID(SnmpConstants.sysDescr),
-                    new OctetString("Response from the test #" + counter)));
+            if (vbs.isEmpty()) {
+                responsePDU.add(new VariableBinding(new OID(SnmpConstants.sysDescr),
+                        new OctetString("Response from the test #" + counter)));
+            } else {
+                vbs.stream().forEach(vb -> responsePDU.add(new VariableBinding(vb.getOid(),
+                        new OctetString("Response from the test #" + counter))));
+            }
             return responsePDU;
         }
     }
