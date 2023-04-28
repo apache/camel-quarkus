@@ -1,2 +1,0 @@
-ActiveMQ https://activemq.apache.org/selectors.html[XPath selectors] are disabled in native mode as the functionality depends on `activemq-broker`. This dependency 
-is excluded from the dependency tree, since none of the ActiveMQ broker functionality is supported in native mode.
