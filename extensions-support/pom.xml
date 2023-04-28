@@ -56,7 +56,6 @@
         <module>reactor-netty</module>
         <module>retrofit</module>
         <module>spring</module>
-        <module>stax</module>
         <module>webhook</module>
         <module>xalan</module>
     </modules>

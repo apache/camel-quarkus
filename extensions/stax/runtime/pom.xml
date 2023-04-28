@@ -41,8 +41,8 @@
             <artifactId>camel-quarkus-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-stax</artifactId>
+            <groupId>io.quarkiverse.cxf</groupId>
+            <artifactId>quarkus-cxf-woodstox</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
