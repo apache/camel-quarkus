@@ -16,10 +16,24 @@
  */
 package org.apache.camel.catalog.quarkus;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.camel.catalog.CamelCatalog;
 import org.apache.camel.catalog.DefaultCamelCatalog;
+import org.apache.camel.catalog.Kind;
+import org.apache.camel.tooling.model.ArtifactModel;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -29,6 +43,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class QuarkusRuntimeProviderTest {
+
+    private static final Pattern MODULE_PATTERN = Pattern.compile("<module>([^<]+)</module>");
 
     static CamelCatalog catalog;
 
@@ -51,6 +67,60 @@ public class QuarkusRuntimeProviderTest {
     @Test
     public void testProviderName() throws Exception {
         assertEquals("quarkus", catalog.getRuntimeProvider().getProviderName());
+    }
+
+    @Test
+    public void extensionsPresent() throws Exception {
+
+        final Set<String> artifactIdsPresentInCatalog = Stream.of(org.apache.camel.catalog.Kind.values())
+                .filter(kind -> kind != Kind.eip)
+                .flatMap(kind -> catalog.findNames(kind).stream()
+                        .map(name -> catalog.model(kind, name)))
+                .filter(model -> model instanceof ArtifactModel)
+                .map(model -> (ArtifactModel<?>) model)
+                .map(ArtifactModel::getArtifactId)
+                .collect(Collectors.toSet());
+
+        final Set<String> ignoredModules = Set.of(
+                "avro-rpc", // can be removed after fixing https://github.com/apache/camel-quarkus/issues/4462
+                "http-common",
+                "optaplanner" // can be removed after fixing https://github.com/apache/camel-quarkus/issues/4463
+        );
+
+        AtomicInteger cnt = new AtomicInteger();
+        List<String> unknownModules = Stream.of("extensions-core", "extensions", "extensions-jvm")
+                .map(extDir -> Paths.get("../" + extDir + "/pom.xml"))
+                .map(extDirPom -> {
+                    try {
+                        return Files.readString(extDirPom, StandardCharsets.UTF_8);
+                    } catch (IOException e) {
+                        throw new RuntimeException("Could not read " + extDirPom, e);
+                    }
+                })
+                .map(pomContent -> {
+                    final List<String> moduleNames = new ArrayList<>();
+                    final Matcher m = MODULE_PATTERN.matcher(pomContent);
+                    while (m.find()) {
+                        moduleNames.add(m.group(1));
+                    }
+                    return moduleNames;
+                })
+                .flatMap(List::stream)
+                .filter(moduleName -> !ignoredModules.contains(moduleName))
+                .peek(moduleName -> cnt.incrementAndGet())
+                .map(moduleName -> "camel-quarkus-" + moduleName)
+                .filter(moduleName -> !artifactIdsPresentInCatalog.contains(moduleName))
+                .collect(Collectors.toList());
+
+        if (unknownModules.size() > 1) {
+            Assertions
+                    .fail("There are modules in the current source tree that are not present in the generated catalog:\n    " +
+                            unknownModules.stream().collect(Collectors.joining("\n    ")));
+        }
+        if (cnt.get() < 150) {
+            Assertions
+                    .fail("Expected to hit at least one 150 modules but got only " + cnt.get());
+        }
     }
 
     @Test
