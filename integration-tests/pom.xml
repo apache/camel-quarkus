@@ -187,7 +187,6 @@
         <module>quartz</module>
         <module>quartz-clustered</module>
         <module>qute</module>
-        <!--<module>rabbitmq</module>-->
         <module>reactive-streams</module>
         <module>rest</module>
         <module>rest-openapi</module>
