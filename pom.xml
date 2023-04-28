@@ -153,7 +153,6 @@
         <xerces.version>${xerces-version}</xerces.version>
         <xml-apis.version>1.4.01</xml-apis.version><!-- Mess in transitive dependencies of Saxon and Xalan -->
         <xmlgraphics-commons.version>2.8</xmlgraphics-commons.version><!-- @sync org.apache.xmlgraphics:fop-parent:${fop-version} prop:xmlgraphics.commons.version -->
-        <!--<xstream.version>${xstream-version}</xstream.version>-->
         <web3j.version>${web3j-version}</web3j.version>
         <web3j.quorum.version>${web3j-quorum-version}</web3j.quorum.version>
         <woodstox-core.version>6.5.0</woodstox-core.version><!-- @sync com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${jackson.version} dep:com.fasterxml.woodstox:woodstox-core -->
