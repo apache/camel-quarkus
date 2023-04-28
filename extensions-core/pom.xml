@@ -41,7 +41,6 @@
         <module>xml-io-dsl</module>
         <module>xml-jaxb</module>
         <module>xml-jaxp</module>
-        <!--<module>caffeine-lrucache</module> https://github.com/apache/camel-quarkus/issues/4477 -->
         <module>yaml-dsl</module>
     </modules>
 
