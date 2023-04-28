@@ -58,7 +58,6 @@
         <module>spring</module>
         <module>stax</module>
         <module>webhook</module>
-        <!--<module>xstream</module> https://github.com/apache/camel-quarkus/issues/4477 -->
         <module>xalan</module>
     </modules>
 

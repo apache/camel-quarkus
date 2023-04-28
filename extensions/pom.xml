@@ -248,7 +248,6 @@
         <module>xmlsecurity</module>
         <module>xpath</module>
         <module>xslt</module>
-        <!--<module>xstream</module> https://github.com/apache/camel-quarkus/issues/4477 -->
         <module>zendesk</module>
         <module>zip-deflater</module>
         <module>zipfile</module>
