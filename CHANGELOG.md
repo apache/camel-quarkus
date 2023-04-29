@@ -10,6 +10,8 @@
 
 **Closed issues:**
 
+- Snmp: Extend coverage of some smaller features [\#4850](https://github.com/apache/camel-quarkus/issues/4850)
+- Snmp: Extend coverage for supported versions [\#4843](https://github.com/apache/camel-quarkus/issues/4843)
 - Remove org.apache.cxf:cxf-codegen plugin \(cxf-sopak extension is used instead\)  [\#4839](https://github.com/apache/camel-quarkus/issues/4839)
 - Add tests and usage guide for LDAP extension [\#4821](https://github.com/apache/camel-quarkus/issues/4821)
 - Snmp: add native support [\#4820](https://github.com/apache/camel-quarkus/issues/4820)
@@ -19,15 +21,25 @@
 - Test OpenTelemetry extension integration with `opentelemetry-jdbc` [\#4789](https://github.com/apache/camel-quarkus/issues/4789)
 - CXF generates different WSDL files with JVM/Native modes [\#4746](https://github.com/apache/camel-quarkus/issues/4746)
 - Add Build-Date in MANIFEST.MF in Camel Quarkus release JARs [\#4711](https://github.com/apache/camel-quarkus/issues/4711)
+- MinIO: Extend test coverage [\#4707](https://github.com/apache/camel-quarkus/issues/4707)
 - Olingo4 olingo4endpointPropertyNames are missing queryParams for read method [\#4654](https://github.com/apache/camel-quarkus/issues/4654)
+- Permanently remove extensions depending on components removed from Camel 4 [\#4477](https://github.com/apache/camel-quarkus/issues/4477)
 - Camel 3.19 - Add camel-cli-connector extension [\#4051](https://github.com/apache/camel-quarkus/issues/4051)
 - LDAP native support [\#1735](https://github.com/apache/camel-quarkus/issues/1735)
 
 **Merged pull requests:**
 
+- Upgrade to Maven Wrapper 3.2.0 and Maven 3.9.1 [\#4857](https://github.com/apache/camel-quarkus/pull/4857) ([ppalaga](https://github.com/ppalaga))
+- Snmp: Extend coverage of some smaller features \#4850 [\#4854](https://github.com/apache/camel-quarkus/pull/4854) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Test that all componets are present in the generated Catalog, Permanently remove extensions depending on components removed from Camel 4 [\#4852](https://github.com/apache/camel-quarkus/pull/4852) ([ppalaga](https://github.com/ppalaga))
+- Bump quarkus-qpid-jms-bom from 2.0.0 to 2.1.0 [\#4848](https://github.com/apache/camel-quarkus/pull/4848) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump quarkiverse-pooled-jms.version from 2.0.0 to 2.0.1 [\#4847](https://github.com/apache/camel-quarkus/pull/4847) ([dependabot[bot]](https://github.com/apps/dependabot))
 - camel-quarks-ldap: Fixed bug in CI tests from incorrect IP address resolution [\#4845](https://github.com/apache/camel-quarkus/pull/4845) ([djcoleman](https://github.com/djcoleman))
+- Snmp: Extend coverage for supported versions \#4843 [\#4844](https://github.com/apache/camel-quarkus/pull/4844) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Remove org.apache.cxf:cxf-codegen plugin  \#4839 [\#4840](https://github.com/apache/camel-quarkus/pull/4840) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade to Quarkus 3.0.1.Final [\#4835](https://github.com/apache/camel-quarkus/pull/4835) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Upgrade to cq-maven-plugin 4.1.1 [\#4829](https://github.com/apache/camel-quarkus/pull/4829) ([ppalaga](https://github.com/ppalaga))
+- MinIO: Extend test coverage \#4707 [\#4828](https://github.com/apache/camel-quarkus/pull/4828) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix handling of Quarkus quartz scheduler autowiring [\#4826](https://github.com/apache/camel-quarkus/pull/4826) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Cyclonedx Maven Plugin to version 2.7.7 [\#4824](https://github.com/apache/camel-quarkus/pull/4824) ([oscerd](https://github.com/oscerd))
 - Added ldap tests, updated docs and promoted to native. [\#4822](https://github.com/apache/camel-quarkus/pull/4822) ([djcoleman](https://github.com/djcoleman))
