@@ -69,10 +69,10 @@ public class SimpleTest {
     }
 
     @Test
-    public void languageSimple() {
-        given().body("Frankenstein").when().post("/core-languages/route/languageSimple/String").then()
+    public void simpleExchangeMethods() {
+        given().body("Joe").when().post("/core-languages/route/simpleExchangeMethods/String").then()
                 .statusCode(200)
-                .body(is("Hello Frankenstein from language().simple()"));
+                .body(is("exchange.getMessage().getBody() evals to Joe"));
     }
 
 }
