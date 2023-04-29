@@ -137,6 +137,10 @@ public class CamelNativeImageProcessor {
                 .map(ai -> ai.target().asMethod())
                 .forEach(mi -> reflectiveMethod.produce(new ReflectiveMethodBuildItem(mi)));
 
+        reflectiveClass.produce(
+                new ReflectiveClassBuildItem(true, false,
+                        "org.apache.camel.support.AbstractExchange",
+                        org.apache.camel.support.MessageSupport.class.getName()));
     }
 
     @BuildStep
