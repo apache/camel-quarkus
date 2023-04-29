@@ -36,6 +36,9 @@ public class SimpleRoutes extends RouteBuilder {
         from("direct:languageSimple")
                 .transform().language("simple", "Hello ${body} from language().simple()");
 
+        from("direct:simpleExchangeMethods")
+                .transform().simple("exchange.getMessage().getBody() evals to ${exchange.getMessage().getBody()}");
+
     }
 
 }
