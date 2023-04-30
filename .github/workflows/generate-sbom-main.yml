@@ -21,6 +21,10 @@ on:
   schedule:
   - cron: '30 10 * * 0'
   workflow_dispatch:
+env:
+  LANG: en_US.UTF-8
+  MAVEN_OPTS: -Xmx3000m
+  CQ_MAVEN_ARGS: -V -ntp -e -Daether.connector.http.connectionMaxTtl=120
 
 permissions: {}
 jobs:
@@ -47,7 +51,7 @@ jobs:
           java-version: ${{ matrix.java }}
           cache: 'maven'
       - name: mvn build and sbom generation
-        run: ./mvnw -V --no-transfer-progress -e -Psbom -Dquickly -DskipTests verify
+        run: ./mvnw -V --no-transfer-progress -e -Psbom -Dquickly -DskipTests verify ${CQ_MAVEN_ARGS}
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
