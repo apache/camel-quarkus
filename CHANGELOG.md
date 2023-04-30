@@ -10,7 +10,7 @@
 
 **Closed issues:**
 
-- Snmp: Extend coverage of some smaller features [\#4850](https://github.com/apache/camel-quarkus/issues/4850)
+- Stop managing woodstox directly, rather rely on quarkus-cxf-bom [\#4855](https://github.com/apache/camel-quarkus/issues/4855)
 - Snmp: Extend coverage for supported versions [\#4843](https://github.com/apache/camel-quarkus/issues/4843)
 - Remove org.apache.cxf:cxf-codegen plugin \(cxf-sopak extension is used instead\)  [\#4839](https://github.com/apache/camel-quarkus/issues/4839)
 - Add tests and usage guide for LDAP extension [\#4821](https://github.com/apache/camel-quarkus/issues/4821)
@@ -29,9 +29,11 @@
 
 **Merged pull requests:**
 
+- Upgrade to quarkus-cxf 2.0.2, Stop managing woodstox directly, rather [\#4859](https://github.com/apache/camel-quarkus/pull/4859) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to Maven Wrapper 3.2.0 and Maven 3.9.1 [\#4857](https://github.com/apache/camel-quarkus/pull/4857) ([ppalaga](https://github.com/ppalaga))
 - Snmp: Extend coverage of some smaller features \#4850 [\#4854](https://github.com/apache/camel-quarkus/pull/4854) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Test that all componets are present in the generated Catalog, Permanently remove extensions depending on components removed from Camel 4 [\#4852](https://github.com/apache/camel-quarkus/pull/4852) ([ppalaga](https://github.com/ppalaga))
+- Bump quarkus-amazon-services-bom from 2.0.1 to 2.1.1 [\#4849](https://github.com/apache/camel-quarkus/pull/4849) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump quarkus-qpid-jms-bom from 2.0.0 to 2.1.0 [\#4848](https://github.com/apache/camel-quarkus/pull/4848) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump quarkiverse-pooled-jms.version from 2.0.0 to 2.0.1 [\#4847](https://github.com/apache/camel-quarkus/pull/4847) ([dependabot[bot]](https://github.com/apps/dependabot))
 - camel-quarks-ldap: Fixed bug in CI tests from incorrect IP address resolution [\#4845](https://github.com/apache/camel-quarkus/pull/4845) ([djcoleman](https://github.com/djcoleman))
