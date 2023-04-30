@@ -1,3 +1,8 @@
+# These do not exist in 2.13.x and so avoid them popping up when switching from main
+integration-tests-jvm/xml-grouped/
+integration-tests/dataformats-json-grouped/
+integration-tests/xml-grouped/
+
 # Maven
 target/
 pom.xml.tag
