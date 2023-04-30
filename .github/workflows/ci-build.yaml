@@ -52,7 +52,7 @@ concurrency:
 env:
   LANG: en_US.UTF-8
   MAVEN_OPTS: -Xmx3000m
-  CQ_MAVEN_ARGS: -V -ntp -e
+  CQ_MAVEN_ARGS: -V -ntp -e -Daether.connector.http.connectionMaxTtl=120
   TESTCONTAINERS_RYUK_DISABLED: true
 
 jobs:
