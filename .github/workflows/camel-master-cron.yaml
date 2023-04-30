@@ -62,7 +62,14 @@ jobs:
           git fetch origin main
           git rebase origin/main
           git rev-parse origin/main > ~/build-data/main-sha.txt
-      - name: mvn clean install -DskipTests
+      - name: Patch mvnw
+        run: |
+          # This can be removed after upgrading to Maven 3.9.2
+          # make sure mvnw is installed
+          ./mvnw -v
+          # upgrade maven-resolver artifacts
+          ./patch-mvnw.sh
+      - name: Build Camel Quarkus
         run: |
           ./mvnw ${CQ_MAVEN_ARGS} clean install -Papache-snapshots --fail-at-end
       - name: Tar Maven Repo
@@ -122,11 +129,13 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git fetch origin main
           git rebase $(cat ~/build-data/main-sha.txt)
-      - name: Set up JDK 11
-        uses: actions/setup-java@v2
-        with:
-          distribution: 'temurin'
-          java-version: '11'
+      - name: Patch mvnw
+        run: |
+          # This can be removed after upgrading to Maven 3.9.2
+          # make sure mvnw is installed
+          ./mvnw -v
+          # upgrade maven-resolver artifacts
+          ./patch-mvnw.sh
       - name: Integration Tests
         run: |
           for MODULE in $(yq -M -N e ".${{ matrix.category }}" tooling/scripts/test-categories.yaml | cut -f2 -d' '); do
