@@ -29,6 +29,9 @@
 
 **Merged pull requests:**
 
+- Limit aether.connector.http.connectionMaxTtl to 120 seconds [\#4864](https://github.com/apache/camel-quarkus/pull/4864) ([ppalaga](https://github.com/ppalaga))
+- Fixup Upgrade to Maven Wrapper 3.2.0 and Maven 3.9.1 [\#4863](https://github.com/apache/camel-quarkus/pull/4863) ([ppalaga](https://github.com/ppalaga))
+- Generated sources regen for SBOM [\#4862](https://github.com/apache/camel-quarkus/pull/4862) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Upgrade to quarkus-cxf 2.0.2, Stop managing woodstox directly, rather [\#4859](https://github.com/apache/camel-quarkus/pull/4859) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to Maven Wrapper 3.2.0 and Maven 3.9.1 [\#4857](https://github.com/apache/camel-quarkus/pull/4857) ([ppalaga](https://github.com/ppalaga))
 - Snmp: Extend coverage of some smaller features \#4850 [\#4854](https://github.com/apache/camel-quarkus/pull/4854) ([JiriOndrusek](https://github.com/JiriOndrusek))
