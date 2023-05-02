@@ -22,14 +22,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
-import javax.ws.rs.Produces;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.snmp.SnmpMessage;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.snmp4j.mp.SnmpConstants;
 
 @ApplicationScoped
 public class SnmpRoute extends RouteBuilder {
@@ -54,18 +55,38 @@ public class SnmpRoute extends RouteBuilder {
     public void configure() {
         //TRAP consumer snmpVersion=0
         from("snmp:0.0.0.0:" + trap0Port + "?protocol=udp&type=TRAP&snmpVersion=0")
-                .process(e -> snmpResults.get("trap0").add(e.getIn().getBody(SnmpMessage.class)));
+                .process(e -> snmpResults.get("v0_trap").add(e.getIn().getBody(SnmpMessage.class)));
 
         //TRAP consumer snmpVersion=1
         from("snmp:0.0.0.0:" + trap1Port + "?protocol=udp&type=TRAP&snmpVersion=1")
-                .process(e -> snmpResults.get("trap1").add(e.getIn().getBody(SnmpMessage.class)));
+                .process(e -> snmpResults.get("v1_trap").add(e.getIn().getBody(SnmpMessage.class)));
+
+        //POLL consumer 2 oids, snmpVersion=0
+        from("snmp://" + snmpListenAddress + "?protocol=udp&snmpVersion=0&type=POLL&oids=" +
+                SnmpConstants.sysLocation + "," + SnmpConstants.sysContact)
+                        .process(e -> snmpResults.get("v0_poll2oids").add(e.getIn().getBody(SnmpMessage.class)));
+        //POLL consumer 2 oids, snmpVersion=1
+        from("snmp://" + snmpListenAddress + "?protocol=udp&snmpVersion=1&type=POLL&oids=" +
+                SnmpConstants.sysLocation + "," + SnmpConstants.sysContact)
+                        .process(e -> snmpResults.get("v1_poll2oids").add(e.getIn().getBody(SnmpMessage.class)));
+
+        // POLL consumer starting with dot snmpVersion=0
+        from("snmp://" + snmpListenAddress
+                + "?protocol=udp&snmpVersion=0&type=POLL&oids=.1.3.6.1.4.1.6527.3.1.2.21.2.1.50")
+                        .process(e -> snmpResults.get("v0_pollStartingDot").add(e.getIn().getBody(SnmpMessage.class)));
+        //POLL consumer startingWith dot snmpVersion=1
+        from("snmp://" + snmpListenAddress
+                + "?protocol=udp&snmpVersion=1&type=POLL&oids=.1.3.6.1.4.1.6527.3.1.2.21.2.1.50")
+                        .process(e -> snmpResults.get("v1_pollStartingDot").add(e.getIn().getBody(SnmpMessage.class)));
 
         //POLL consumer snmpVersion=0
-        from("snmp://" + snmpListenAddress + "?protocol=udp&snmpVersion=0&securityName=aaa&type=POLL&oids=1.3.6.1.2.1.1.5.0")
-                .process(e -> snmpResults.get("poll0").add(e.getIn().getBody(SnmpMessage.class)));
+        from("snmp://" + snmpListenAddress + "?protocol=udp&snmpVersion=0&type=POLL&oids="
+                + SnmpConstants.sysDescr)
+                        .process(e -> snmpResults.get("v0_poll").add(e.getIn().getBody(SnmpMessage.class)));
         //POLL consumer snmpVersion=1
-        from("snmp://" + snmpListenAddress + "?protocol=udp&snmpVersion=1&securityName=aaa&type=POLL&oids=1.3.6.1.2.1.1.5.0")
-                .process(e -> snmpResults.get("poll1").add(e.getIn().getBody(SnmpMessage.class)));
+        from("snmp://" + snmpListenAddress + "?protocol=udp&snmpVersion=1&type=POLL&oids="
+                + SnmpConstants.sysDescr)
+                        .process(e -> snmpResults.get("v1_poll").add(e.getIn().getBody(SnmpMessage.class)));
     }
 
     static class Producers {
@@ -74,10 +95,15 @@ public class SnmpRoute extends RouteBuilder {
         @Named("snmpTrapResults")
         Map<String, Deque<SnmpMessage>> snmpResults() {
             Map<String, Deque<SnmpMessage>> map = new ConcurrentHashMap<>();
-            map.put("trap0", new ConcurrentLinkedDeque());
-            map.put("trap1", new ConcurrentLinkedDeque());
-            map.put("poll0", new ConcurrentLinkedDeque());
-            map.put("poll1", new ConcurrentLinkedDeque());
+            map.put("v0_trap", new ConcurrentLinkedDeque<SnmpMessage>());
+            map.put("v1_trap", new ConcurrentLinkedDeque<SnmpMessage>());
+            map.put("v0_poll", new ConcurrentLinkedDeque<SnmpMessage>());
+            map.put("v1_poll", new ConcurrentLinkedDeque<SnmpMessage>());
+            map.put("v3_poll", new ConcurrentLinkedDeque<SnmpMessage>());
+            map.put("v0_pollStartingDot", new ConcurrentLinkedDeque<SnmpMessage>());
+            map.put("v1_pollStartingDot", new ConcurrentLinkedDeque<SnmpMessage>());
+            map.put("v0_poll2oids", new ConcurrentLinkedDeque<SnmpMessage>());
+            map.put("v1_poll2oids", new ConcurrentLinkedDeque<SnmpMessage>());
             return map;
         }
     }
