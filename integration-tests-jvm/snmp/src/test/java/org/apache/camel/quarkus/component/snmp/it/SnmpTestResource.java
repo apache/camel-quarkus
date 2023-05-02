@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.snmp.it;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -33,6 +32,7 @@ import org.snmp4j.CommandResponderEvent;
 import org.snmp4j.MessageException;
 import org.snmp4j.PDU;
 import org.snmp4j.PDUv1;
+import org.snmp4j.ScopedPDU;
 import org.snmp4j.Snmp;
 import org.snmp4j.mp.SnmpConstants;
 import org.snmp4j.mp.StatusInformation;
@@ -96,38 +96,34 @@ public class SnmpTestResource implements QuarkusTestResourceLifecycleManager {
         @Override
         public synchronized void processPdu(CommandResponderEvent event) {
             PDU pdu = event.getPDU();
-            Vector<? extends VariableBinding> vbs = Optional.ofNullable(pdu.getVariableBindings()).orElse(new Vector<>(0));
+            Vector<? extends VariableBinding> vbs;
+            if (pdu.getVariableBindings() != null) {
+                vbs = new Vector<>(pdu.getVariableBindings());
+            } else {
+                vbs = new Vector<>(0);
+            }
             String key = vbs.stream().sequential().map(vb -> vb.getOid().toString()).collect(Collectors.joining(","));
 
             //differ snmp versions
             if (pdu instanceof PDUv1) {
-                key = "v1" + key;
+                key = "v1_" + key;
+            } else if (pdu instanceof ScopedPDU) {
+                key = "v3_" + key;
+            } else {
+                key = "v2_" + key;
             }
             int numberOfSent = counts.getOrDefault(key, 0);
 
-            //if 3 responses were already sent for the OID, do not respond anymore
-            if (numberOfSent > 3) {
-                return;
-            }
-            //first 2 responses are quick, the third response takes 3000ms (so there is a timeout with default 1500ms) ->
-            //   getNext producer will receive only 2 messages
-            //   poll consumer should receive all of them
-            if (numberOfSent % 3 == 2) {
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    //nothing
-                }
-            }
-
             try {
                 PDU response = makeResponse(++numberOfSent, SnmpConstants.version1, vbs);
-                response.setRequestID(pdu.getRequestID());
-                commandResponder.getMessageDispatcher().returnResponsePdu(
-                        event.getMessageProcessingModel(), event.getSecurityModel(),
-                        event.getSecurityName(), event.getSecurityLevel(),
-                        response, event.getMaxSizeResponsePDU(),
-                        event.getStateReference(), new StatusInformation());
+                if (response != null) {
+                    response.setRequestID(pdu.getRequestID());
+                    commandResponder.getMessageDispatcher().returnResponsePdu(
+                            event.getMessageProcessingModel(), event.getSecurityModel(),
+                            event.getSecurityName(), event.getSecurityLevel(),
+                            response, event.getMaxSizeResponsePDU(),
+                            event.getStateReference(), new StatusInformation());
+                }
             } catch (MessageException e) {
                 Assertions.assertNull(e);
             }
@@ -140,13 +136,72 @@ public class SnmpTestResource implements QuarkusTestResourceLifecycleManager {
             responsePDU.setErrorStatus(PDU.noError);
             responsePDU.setErrorIndex(0);
             if (vbs.isEmpty()) {
-                responsePDU.add(new VariableBinding(new OID(SnmpConstants.sysDescr),
-                        new OctetString("Response from the test #" + counter)));
+                VariableBinding vb = generateResponseBinding(counter, SnmpTest.PRODUCE_PDU_OID);
+                if (vb != null) {
+                    responsePDU.add(vb);
+                }
             } else {
-                vbs.stream().forEach(vb -> responsePDU.add(new VariableBinding(vb.getOid(),
-                        new OctetString("Response from the test #" + counter))));
+                vbs.stream().forEach(vb -> responsePDU.add(generateResponseBinding(counter, vb.getOid())));
+            }
+            if (responsePDU.getVariableBindings().isEmpty()) {
+                return null;
             }
             return responsePDU;
+        }
+
+        private VariableBinding generateResponseBinding(int counter, OID oid) {
+            //get next test
+            if (SnmpTest.GET_NEXT_OID.equals(oid)) {
+                //if counter < 2 return the same oid
+                if (counter < 3) {
+                    return new VariableBinding(SnmpTest.GET_NEXT_OID, new OctetString("" + counter));
+                }
+                if (counter == 3) {
+                    //else return sysDescr
+                    return new VariableBinding(SnmpTest.GET_NEXT_OID,
+                            new OctetString("My GET_NEXT Printer - response #" + counter));
+                }
+                //else do not send response
+                return null;
+            }
+
+            if (SnmpTest.POLL_OID.equals(oid)) {
+                if (counter < 4) {
+                    return new VariableBinding(SnmpTest.POLL_OID,
+                            new OctetString("My POLL Printer - response #" + counter));
+                }
+
+            }
+
+            if (SnmpTest.PRODUCE_PDU_OID.equals(oid)) {
+                if (counter < 4) {
+                    return new VariableBinding(SnmpTest.PRODUCE_PDU_OID,
+                            new OctetString("My PRODUCE_PDU Printer - response #" + counter));
+                }
+            }
+
+            if (SnmpTest.TWO_OIDS_A.equals(oid)) {
+                if (counter < 4) {
+                    return new VariableBinding(SnmpTest.TWO_OIDS_A,
+                            new OctetString("My 2 OIDs A Printer - response #" + counter));
+                }
+            }
+
+            if (SnmpTest.TWO_OIDS_B.equals(oid)) {
+                if (counter < 4) {
+                    return new VariableBinding(SnmpTest.TWO_OIDS_B,
+                            new OctetString("My 2 OIDs B Printer - response #" + counter));
+                }
+            }
+
+            if (SnmpTest.DOT_OID.equals(oid)) {
+                if (counter < 4) {
+                    return new VariableBinding(SnmpTest.DOT_OID,
+                            new OctetString("My DOT Printer - response #" + counter));
+                }
+            }
+
+            return null;
         }
     }
 }
