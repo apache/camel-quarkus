@@ -75,7 +75,7 @@ You can reach that e.g. by adding a dummy bean injecting `DynamoDbClient`:
 +
 [source,java]
 ----
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 import io.quarkus.arc.Unremovable;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
