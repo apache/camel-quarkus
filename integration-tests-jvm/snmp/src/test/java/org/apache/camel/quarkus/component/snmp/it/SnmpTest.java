@@ -26,6 +26,7 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.snmp4j.mp.SnmpConstants;
+import org.snmp4j.smi.OID;
 
 import static org.awaitility.Awaitility.await;
 
@@ -39,6 +40,13 @@ import static org.awaitility.Awaitility.await;
 @QuarkusTest
 @QuarkusTestResource(SnmpTestResource.class)
 class SnmpTest {
+
+    public static final OID GET_NEXT_OID = new OID(new int[] { 1, 3, 6, 1, 2, 1, 25, 3, 2, 1, 5, 1 });
+    public static final OID POLL_OID = SnmpConstants.sysDescr;
+    public static final OID PRODUCE_PDU_OID = SnmpConstants.sysName;
+    public static final OID TWO_OIDS_A = SnmpConstants.sysLocation;
+    public static final OID TWO_OIDS_B = SnmpConstants.sysContact;
+    public static final OID DOT_OID = new OID(new int[] { 1, 3, 6, 1, 4, 1, 6527, 3, 1, 2, 21, 2, 1, 50 });
 
     static Stream<Integer> supportedVersions() {
         return Stream.of(0, 1/*, 3 not supported because of https://issues.apache.org/jira/browse/CAMEL-19298 */);
@@ -74,13 +82,14 @@ class SnmpTest {
 
         await().atMost(20L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
             String result = RestAssured.given()
-                    .body(SnmpConstants.sysName.toString())
+                    .body(SnmpConstants.sysDescr.toString())
                     .post("/snmp/results/" + resultsName)
                     .then()
                     .statusCode(200)
                     .extract().body().asString();
 
-            return result.startsWith("Response from the test #1,Response from the test #2,Response from the test #3");
+            return result
+                    .startsWith("My POLL Printer - response #1,My POLL Printer - response #2,My POLL Printer - response #3");
         });
     }
 
@@ -91,24 +100,25 @@ class SnmpTest {
 
         await().atMost(20L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
             String result = RestAssured.given()
-                    .body("1.3.6.1.4.1.6527.3.1.2.21.2.1.50")
+                    .body(DOT_OID.toString())
                     .post("/snmp/results/" + resultsName)
                     .then()
                     .statusCode(200)
                     .extract().body().asString();
 
-            return result.startsWith("Response from the test #1,Response from the test #2,Response from the test #3");
+            return result.startsWith("My DOT Printer - response #1,My DOT Printer - response #2,My DOT Printer - response #3");
         });
     }
 
     @ParameterizedTest
     @MethodSource("supportedVersions")
     public void testProducePDU(int version) {
-        RestAssured
-                .get("/snmp/producePDU/" + version)
+        RestAssured.given()
+                .body(PRODUCE_PDU_OID.toString())
+                .post("/snmp/producePDU/" + version)
                 .then()
                 .statusCode(200)
-                .body(Matchers.equalTo("Response from the test #1"));
+                .body(Matchers.startsWith("My PRODUCE_PDU Printer - response #"));
     }
 
     @ParameterizedTest
@@ -116,11 +126,11 @@ class SnmpTest {
     public void testGetNext(int version) {
 
         RestAssured.given()
-                .body("TEXT")
+                .body(GET_NEXT_OID.toString())
                 .post("/snmp/getNext/" + version)
                 .then()
                 .statusCode(200)
-                .body(Matchers.equalTo("Response from the test #1,Response from the test #2"));
+                .body(Matchers.equalTo("1,2,My GET_NEXT Printer - response #3"));
     }
 
     @ParameterizedTest
@@ -130,20 +140,22 @@ class SnmpTest {
 
         await().atMost(20L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
             String resultOid1 = RestAssured.given()
-                    .body(SnmpConstants.sysName.toString())
+                    .body(TWO_OIDS_A.toString())
                     .post("/snmp/results/" + resultsName)
                     .then()
                     .statusCode(200)
                     .extract().body().asString();
             String resultOid2 = RestAssured.given()
-                    .body(SnmpConstants.sysContact.toString())
+                    .body(TWO_OIDS_B.toString())
                     .post("/snmp/results/" + resultsName)
                     .then()
                     .statusCode(200)
                     .extract().body().asString();
 
-            return resultOid1.startsWith("Response from the test #1,Response from the test #2,Response from the test #3") &&
-                    resultOid2.startsWith("Response from the test #1,Response from the test #2,Response from the test #3");
+            return resultOid1.startsWith(
+                    "My 2 OIDs A Printer - response #1,My 2 OIDs A Printer - response #2,My 2 OIDs A Printer - response #3") &&
+                    resultOid2.startsWith(
+                            "My 2 OIDs B Printer - response #1,My 2 OIDs B Printer - response #2,My 2 OIDs B Printer - response #3");
         });
 
     }

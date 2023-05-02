@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -47,8 +46,6 @@ import org.snmp4j.smi.VariableBinding;
 @ApplicationScoped
 public class SnmpResource {
 
-    public static OID TRAP_OID = new OID("1.2.3.4.5");
-
     @ConfigProperty(name = SnmpRoute.TRAP_V0_PORT)
     int trap0Port;
 
@@ -66,14 +63,13 @@ public class SnmpResource {
     ProducerTemplate producerTemplate;
 
     @Path("/producePDU/{version}")
-    @GET
+    @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public Response producePDU(@PathParam("version") int version) {
+    public Response producePDU(@PathParam("version") int version, String payload) {
         String url = String.format("snmp://%s?retries=1&snmpVersion=%d", snmpListenAddress, version);
         SnmpMessage pdu = producerTemplate.requestBody(url, version, SnmpMessage.class);
 
         String response = pdu.getSnmpMessage().getVariableBindings().stream()
-                .filter(vb -> vb.getOid().equals(SnmpConstants.sysDescr))
                 .map(vb -> vb.getVariable().toString())
                 .collect(Collectors.joining());
 
@@ -85,12 +81,12 @@ public class SnmpResource {
     @Produces(MediaType.TEXT_PLAIN)
     public Response getNext(String payload, @PathParam("version") int version) {
         String url = String.format("snmp://%s?type=GET_NEXT&retries=1&protocol=udp&oids=%s&snmpVersion=%d", snmpListenAddress,
-                SnmpConstants.sysDescr, version);
+                payload, version);
+        @SuppressWarnings("unchecked")
         List<SnmpMessage> pdu = producerTemplate.requestBody(url, "", List.class);
 
         String response = pdu.stream()
                 .flatMap(m -> m.getSnmpMessage().getVariableBindings().stream())
-                .filter(vb -> vb.getOid().equals(SnmpConstants.sysDescr))
                 .map(vb -> vb.getVariable().toString())
                 .collect(Collectors.joining(","));
 
