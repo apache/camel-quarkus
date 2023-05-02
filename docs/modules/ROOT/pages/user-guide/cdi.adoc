@@ -8,8 +8,8 @@ your Camel `RouteBuilder`. Here is the `RouteBuilder` from our `timer-log-cdi` x
 
 [source,java]
 ----
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.apache.camel.builder.RouteBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -47,8 +47,8 @@ To access `CamelContext` just inject it into your bean:
 
 [source,java]
 ----
-import javax.inject.Inject;
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
 import java.util.stream.Collectors;
 import java.util.List;
 import org.apache.camel.CamelContext;
@@ -75,7 +75,7 @@ The following use cases are supported by `org.apache.camel.quarkus:camel-quarkus
 
 [source,java]
 ----
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.Produce;
@@ -114,7 +114,7 @@ The following use case is supported by `org.apache.camel.quarkus:camel-quarkus-b
 
 [source,java]
 ----
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.Produce;
 
 @ApplicationScoped
@@ -147,8 +147,8 @@ is important for the native mode.
 
 [source,java]
 ----
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
 @ApplicationScoped
@@ -182,7 +182,7 @@ As an alternative to `@Named`, you may also use `io.smallrye.common.annotation.I
 
 [source,java]
 ----
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import io.smallrye.common.annotation.Identifier;
 
@@ -241,6 +241,6 @@ from("activemq:cheese").bean("foo1234", "onCheese")
 ----
 
 for you.
-Note that Camel Quarkus will implicitly add `@javax.inject.Singleton` and `javax.inject.Named("foo1234")` to the bean class, where `1234` is a hash code obtained from the fully qualified class name.
+Note that Camel Quarkus will implicitly add `@jakarta.inject.Singleton` and `jakarta.inject.Named("foo1234")` to the bean class, where `1234` is a hash code obtained from the fully qualified class name.
 If your bean has some CDI scope (such as `@ApplicationScoped`) or `@Named("someName")` set already,
 those will be honored in the auto-created route.

@@ -5,7 +5,7 @@ You can inject camelContext into test using `@Inject` annotation. Camel context 
 See the following example:
 
 ----
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
@@ -37,7 +37,7 @@ public class MockJvmTest {
 ----
 Route used for the example test:
 ----
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import org.apache.camel.builder.RouteBuilder;
 

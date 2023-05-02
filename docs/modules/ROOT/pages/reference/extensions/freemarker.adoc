@@ -68,9 +68,9 @@ you can let CDI to do the required wiring:
 
 [source,java]
 ----
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import javax.inject.Named;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Named;
 import freemarker.template.Configuration;
 import io.quarkus.arc.Unremovable;
 import org.apache.camel.builder.RouteBuilder;

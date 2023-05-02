@@ -46,8 +46,8 @@ The recommended method is to observe the `ComponentAddEvent` and configure the c
 
 [source,java]
 ----
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
 import org.apache.camel.quarkus.core.events.ComponentAddEvent;
 import org.apache.camel.component.log.LogComponent;
 import org.apache.camel.support.processor.DefaultExchangeFormatter;
@@ -86,8 +86,8 @@ These actions are not performed when you produce your own component instance, th
 
 [source,java]
 ----
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 
 import org.apache.camel.component.log.LogComponent;
 import org.apache.camel.support.processor.DefaultExchangeFormatter;

@@ -127,7 +127,7 @@ You can reach that e.g. by adding a dummy bean injecting `[=quarkusAwsClient.cli
 +
 [source,java]
 ----
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 import io.quarkus.arc.Unremovable;
 import [=quarkusAwsClient.clientClassFqName];
 
