@@ -20,11 +20,14 @@ import java.util.Map;
 
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
+import org.apache.camel.Consumer;
 import org.apache.camel.Endpoint;
+import org.apache.camel.Processor;
 import org.apache.camel.Producer;
 import org.apache.camel.component.snmp.SnmpActionType;
 import org.apache.camel.component.snmp.SnmpComponent;
 import org.apache.camel.component.snmp.SnmpEndpoint;
+import org.apache.camel.component.snmp.SnmpTrapConsumer;
 
 @Recorder
 public class SnmpRecorder {
@@ -65,6 +68,21 @@ public class SnmpRecorder {
             } else {
                 // add the support: snmp walk (use snmp4j GET_NEXT)
                 return new QuarkusSnmpProducer(this, getType());
+            }
+        }
+
+        @Override
+        public Consumer createConsumer(Processor processor) throws Exception {
+            if (getType() == SnmpActionType.TRAP) {
+                SnmpTrapConsumer answer = new SnmpTrapConsumer(this, processor);
+                // As the SnmpTrapConsumer is not a polling consumer we don't need to call the configureConsumer here.
+                return answer;
+            } else if (getType() == SnmpActionType.POLL) {
+                QuarkusSnmpOIDPoller answer = new QuarkusSnmpOIDPoller(this, processor);
+                configureConsumer(answer);
+                return answer;
+            } else {
+                throw new IllegalArgumentException("The type '" + getType() + "' is not valid!");
             }
         }
     }
