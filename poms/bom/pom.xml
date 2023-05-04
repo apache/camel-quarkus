@@ -2530,6 +2530,12 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-snmp</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>org.apache.servicemix.bundles.snmp4j</artifactId>
+                        <groupId>org.apache.servicemix.bundles</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -7015,6 +7021,11 @@
                 <groupId>org.optaplanner</groupId>
                 <artifactId>optaplanner-quarkus-jackson-deployment</artifactId>
                 <version>${optaplanner.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.snmp4j</groupId>
+                <artifactId>snmp4j</artifactId>
+                <version>${snmp4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>

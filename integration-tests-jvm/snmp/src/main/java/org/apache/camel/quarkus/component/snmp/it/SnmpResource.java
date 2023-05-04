@@ -110,7 +110,10 @@ public class SnmpResource {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     public Response results(@PathParam("from") String from, String oid) throws Exception {
-        String result = snmpResults.get(from).stream().map(m -> m.getSnmpMessage().getVariable(new OID(oid)).toString())
+        String result = snmpResults.get(from).stream().map(m -> {
+            Variable v = m.getSnmpMessage().getVariable(new OID(oid));
+            return v != null ? v.toString() : "";
+        })
                 .collect(Collectors.joining(","));
 
         return Response.ok(result).build();
