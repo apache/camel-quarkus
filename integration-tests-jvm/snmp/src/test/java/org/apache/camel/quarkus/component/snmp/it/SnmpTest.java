@@ -22,9 +22,11 @@ import java.util.stream.Stream;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.specification.RequestSpecification;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.snmp4j.mp.SnmpConstants;
 import org.snmp4j.smi.OID;
 
@@ -76,38 +78,44 @@ class SnmpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("supportedVersions")
+    @ValueSource(ints = { 0, 1, 3 })
     public void testPoll(int version) throws Exception {
-        String resultsName = "v" + version + "_poll";
+        RequestSpecification rs = RestAssured.given()
+                .body(POLL_OID.toString());
 
-        await().atMost(20L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
-            String result = RestAssured.given()
-                    .body(SnmpConstants.sysDescr.toString())
-                    .post("/snmp/results/" + resultsName)
-                    .then()
-                    .statusCode(200)
-                    .extract().body().asString();
+        if (version == 3) {
+            rs.queryParam("user", "test")
+                    .queryParam("securityLevel", 1);
+        }
 
-            return result
-                    .startsWith("My POLL Printer - response #1,My POLL Printer - response #2,My POLL Printer - response #3");
-        });
+        rs.post("/snmp/poll/" + version)
+                .then()
+                .statusCode(200)
+                .body(Matchers.equalTo("My POLL Printer - response #1"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("supportedVersions")
+    public void testPollWith2OIDs(int version) throws Exception {
+        RestAssured.given()
+                .body(TWO_OIDS_A + "," + TWO_OIDS_B)
+                .post("/snmp/poll/" + version)
+                .then()
+                .statusCode(200)
+                .body(Matchers.anyOf(
+                        Matchers.equalTo("My 2 OIDs A Printer - response #1,My 2 OIDs B Printer - response #1"),
+                        Matchers.equalTo("My 2 OIDs B Printer - response #1,My 2 OIDs A Printer - response #1")));
     }
 
     @ParameterizedTest
     @MethodSource("supportedVersions")
     public void testPollStartingDot(int version) throws Exception {
-        String resultsName = "v" + version + "_pollStartingDot";
-
-        await().atMost(20L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
-            String result = RestAssured.given()
-                    .body(DOT_OID.toString())
-                    .post("/snmp/results/" + resultsName)
-                    .then()
-                    .statusCode(200)
-                    .extract().body().asString();
-
-            return result.startsWith("My DOT Printer - response #1,My DOT Printer - response #2,My DOT Printer - response #3");
-        });
+        RestAssured.given()
+                .body("." + DOT_OID)
+                .post("/snmp/poll/" + version)
+                .then()
+                .statusCode(200)
+                .body(Matchers.equalTo("My DOT Printer - response #1"));
     }
 
     @ParameterizedTest
@@ -134,30 +142,4 @@ class SnmpTest {
                 .body(Matchers.endsWith("2,My GET_NEXT Printer - response #3"));
     }
 
-    @ParameterizedTest
-    @MethodSource("supportedVersions")
-    public void testPollWith2OIDs(int version) throws Exception {
-        String resultsName = "v" + version + "_poll2oids";
-
-        await().atMost(20L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
-            String resultOid1 = RestAssured.given()
-                    .body(TWO_OIDS_A.toString())
-                    .post("/snmp/results/" + resultsName)
-                    .then()
-                    .statusCode(200)
-                    .extract().body().asString();
-            String resultOid2 = RestAssured.given()
-                    .body(TWO_OIDS_B.toString())
-                    .post("/snmp/results/" + resultsName)
-                    .then()
-                    .statusCode(200)
-                    .extract().body().asString();
-
-            return resultOid1.startsWith(
-                    "My 2 OIDs A Printer - response #1,My 2 OIDs A Printer - response #2,My 2 OIDs A Printer - response #3") &&
-                    resultOid2.startsWith(
-                            "My 2 OIDs B Printer - response #1,My 2 OIDs B Printer - response #2,My 2 OIDs B Printer - response #3");
-        });
-
-    }
 }

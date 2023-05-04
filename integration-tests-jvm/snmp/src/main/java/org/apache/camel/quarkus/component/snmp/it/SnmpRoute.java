@@ -28,7 +28,6 @@ import jakarta.inject.Singleton;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.snmp.SnmpMessage;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.snmp4j.mp.SnmpConstants;
 
 @ApplicationScoped
 public class SnmpRoute extends RouteBuilder {
@@ -39,11 +38,8 @@ public class SnmpRoute extends RouteBuilder {
     @ConfigProperty(name = TRAP_V0_PORT)
     int trap0Port;
 
-    @ConfigProperty(name = "SnmpRoute_trap_v1")
+    @ConfigProperty(name = TRAP_V1_PORT)
     int trap1Port;
-
-    @ConfigProperty(name = "snmpListenAddress")
-    String snmpListenAddress;
 
     @Inject
     @Named("snmpTrapResults")
@@ -58,33 +54,6 @@ public class SnmpRoute extends RouteBuilder {
         //TRAP consumer snmpVersion=1
         from("snmp:0.0.0.0:" + trap1Port + "?protocol=udp&type=TRAP&snmpVersion=1")
                 .process(e -> snmpResults.get("v1_trap").add(e.getIn().getBody(SnmpMessage.class)));
-
-        //POLL consumer 2 oids, snmpVersion=0
-        from("snmp://" + snmpListenAddress + "?protocol=udp&snmpVersion=0&type=POLL&oids=" +
-                SnmpConstants.sysLocation + "," + SnmpConstants.sysContact)
-                        .process(e -> snmpResults.get("v0_poll2oids").add(e.getIn().getBody(SnmpMessage.class)));
-        //POLL consumer 2 oids, snmpVersion=1
-        from("snmp://" + snmpListenAddress + "?protocol=udp&snmpVersion=1&type=POLL&oids=" +
-                SnmpConstants.sysLocation + "," + SnmpConstants.sysContact)
-                        .process(e -> snmpResults.get("v1_poll2oids").add(e.getIn().getBody(SnmpMessage.class)));
-
-        // POLL consumer starting with dot snmpVersion=0
-        from("snmp://" + snmpListenAddress
-                + "?protocol=udp&snmpVersion=0&type=POLL&oids=.1.3.6.1.4.1.6527.3.1.2.21.2.1.50")
-                        .process(e -> snmpResults.get("v0_pollStartingDot").add(e.getIn().getBody(SnmpMessage.class)));
-        //POLL consumer startingWith dot snmpVersion=1
-        from("snmp://" + snmpListenAddress
-                + "?protocol=udp&snmpVersion=1&type=POLL&oids=.1.3.6.1.4.1.6527.3.1.2.21.2.1.50")
-                        .process(e -> snmpResults.get("v1_pollStartingDot").add(e.getIn().getBody(SnmpMessage.class)));
-
-        //POLL consumer snmpVersion=0
-        from("snmp://" + snmpListenAddress + "?protocol=udp&snmpVersion=0&type=POLL&oids="
-                + SnmpConstants.sysDescr)
-                        .process(e -> snmpResults.get("v0_poll").add(e.getIn().getBody(SnmpMessage.class)));
-        //POLL consumer snmpVersion=1
-        from("snmp://" + snmpListenAddress + "?protocol=udp&snmpVersion=1&type=POLL&oids="
-                + SnmpConstants.sysDescr)
-                        .process(e -> snmpResults.get("v1_poll").add(e.getIn().getBody(SnmpMessage.class)));
     }
 
     static class Producers {
@@ -95,13 +64,6 @@ public class SnmpRoute extends RouteBuilder {
             Map<String, Deque<SnmpMessage>> map = new ConcurrentHashMap<>();
             map.put("v0_trap", new ConcurrentLinkedDeque<>());
             map.put("v1_trap", new ConcurrentLinkedDeque<>());
-            map.put("v0_poll", new ConcurrentLinkedDeque<>());
-            map.put("v1_poll", new ConcurrentLinkedDeque<>());
-            map.put("v3_poll", new ConcurrentLinkedDeque<>());
-            map.put("v0_pollStartingDot", new ConcurrentLinkedDeque<>());
-            map.put("v1_pollStartingDot", new ConcurrentLinkedDeque<>());
-            map.put("v0_poll2oids", new ConcurrentLinkedDeque<>());
-            map.put("v1_poll2oids", new ConcurrentLinkedDeque<>());
             return map;
         }
     }
