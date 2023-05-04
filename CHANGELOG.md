@@ -29,6 +29,7 @@
 
 **Merged pull requests:**
 
+- Update documentation references for javax packages to jakarta [\#4869](https://github.com/apache/camel-quarkus/pull/4869) ([jamesnetherton](https://github.com/jamesnetherton))
 - Limit aether.connector.http.connectionMaxTtl to 120 seconds [\#4864](https://github.com/apache/camel-quarkus/pull/4864) ([ppalaga](https://github.com/ppalaga))
 - Fixup Upgrade to Maven Wrapper 3.2.0 and Maven 3.9.1 [\#4863](https://github.com/apache/camel-quarkus/pull/4863) ([ppalaga](https://github.com/ppalaga))
 - Generated sources regen for SBOM [\#4862](https://github.com/apache/camel-quarkus/pull/4862) ([github-actions[bot]](https://github.com/apps/github-actions))
@@ -43,6 +44,7 @@
 - camel-quarks-ldap: Fixed bug in CI tests from incorrect IP address resolution [\#4845](https://github.com/apache/camel-quarkus/pull/4845) ([djcoleman](https://github.com/djcoleman))
 - Snmp: Extend coverage for supported versions \#4843 [\#4844](https://github.com/apache/camel-quarkus/pull/4844) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Remove org.apache.cxf:cxf-codegen plugin  \#4839 [\#4840](https://github.com/apache/camel-quarkus/pull/4840) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- \[MapStruct\] Add tests [\#4838](https://github.com/apache/camel-quarkus/pull/4838) ([avano](https://github.com/avano))
 - Upgrade to Quarkus 3.0.1.Final [\#4835](https://github.com/apache/camel-quarkus/pull/4835) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade to cq-maven-plugin 4.1.1 [\#4829](https://github.com/apache/camel-quarkus/pull/4829) ([ppalaga](https://github.com/ppalaga))
 - MinIO: Extend test coverage \#4707 [\#4828](https://github.com/apache/camel-quarkus/pull/4828) ([JiriOndrusek](https://github.com/JiriOndrusek))
