@@ -34,8 +34,16 @@ import org.snmp4j.PDU;
 import org.snmp4j.PDUv1;
 import org.snmp4j.ScopedPDU;
 import org.snmp4j.Snmp;
+import org.snmp4j.mp.CounterSupport;
+import org.snmp4j.mp.DefaultCounterListener;
+import org.snmp4j.mp.MPv3;
 import org.snmp4j.mp.SnmpConstants;
 import org.snmp4j.mp.StatusInformation;
+import org.snmp4j.security.AuthSHA;
+import org.snmp4j.security.SecurityModels;
+import org.snmp4j.security.SecurityProtocols;
+import org.snmp4j.security.USM;
+import org.snmp4j.security.UsmUser;
 import org.snmp4j.smi.OID;
 import org.snmp4j.smi.OctetString;
 import org.snmp4j.smi.UdpAddress;
@@ -51,6 +59,7 @@ public class SnmpTestResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public Map<String, String> start() {
+        SecurityProtocols.getInstance().addDefaultProtocols();
         DefaultUdpTransportMapping udpTransportMapping;
         try {
             udpTransportMapping = new DefaultUdpTransportMapping(new UdpAddress(LOCAL_ADDRESS));
@@ -58,6 +67,20 @@ public class SnmpTestResource implements QuarkusTestResourceLifecycleManager {
 
             TestCommandResponder responder = new TestCommandResponder(snmpResponder);
             snmpResponder.addCommandResponder(responder);
+
+            SecurityModels respSecModels = new SecurityModels() {
+            };
+
+            CounterSupport.getInstance().addCounterListener(new DefaultCounterListener());
+            MPv3 mpv3CR = (MPv3) snmpResponder.getMessageDispatcher().getMessageProcessingModel(MPv3.ID);
+            mpv3CR.setLocalEngineID(MPv3.createLocalEngineID(new OctetString("responder")));
+            respSecModels.addSecurityModel(new USM(SecurityProtocols.getInstance(),
+                    new OctetString(mpv3CR.getLocalEngineID()), 0));
+            mpv3CR.setSecurityModels(respSecModels);
+
+            snmpResponder.getUSM().addUser(
+                    new UsmUser(new OctetString("test"), AuthSHA.ID, new OctetString("changeit"),
+                            AuthSHA.ID, new OctetString("changeit")));
 
             snmpResponder.listen();
         } catch (Exception e) {
@@ -75,6 +98,7 @@ public class SnmpTestResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public void stop() {
+        SecurityProtocols.setSecurityProtocols(null);
         if (snmpResponder != null) {
             try {
                 snmpResponder.close();
@@ -115,7 +139,7 @@ public class SnmpTestResource implements QuarkusTestResourceLifecycleManager {
             int numberOfSent = counts.getOrDefault(key, 0);
 
             try {
-                PDU response = makeResponse(++numberOfSent, SnmpConstants.version1, vbs);
+                PDU response = makeResponse(pdu, ++numberOfSent, SnmpConstants.version1, vbs);
                 if (response != null) {
                     response.setRequestID(pdu.getRequestID());
                     commandResponder.getMessageDispatcher().returnResponsePdu(
@@ -130,18 +154,18 @@ public class SnmpTestResource implements QuarkusTestResourceLifecycleManager {
             counts.put(key, numberOfSent);
         }
 
-        private PDU makeResponse(int counter, int version, Vector<? extends VariableBinding> vbs) {
-            PDU responsePDU = new PDU();
+        private PDU makeResponse(PDU originalPDU, int counter, int version, Vector<? extends VariableBinding> vbs) {
+            PDU responsePDU = (PDU) originalPDU.clone();
             responsePDU.setType(PDU.RESPONSE);
             responsePDU.setErrorStatus(PDU.noError);
             responsePDU.setErrorIndex(0);
             if (vbs.isEmpty()) {
-                VariableBinding vb = generateResponseBinding(counter, SnmpTest.PRODUCE_PDU_OID);
+                VariableBinding vb = generateResponseBinding(counter, version, SnmpTest.PRODUCE_PDU_OID);
                 if (vb != null) {
                     responsePDU.add(vb);
                 }
             } else {
-                vbs.stream().forEach(vb -> responsePDU.add(generateResponseBinding(counter, vb.getOid())));
+                vbs.stream().forEach(vb -> responsePDU.add(generateResponseBinding(counter, version, vb.getOid())));
             }
             if (responsePDU.getVariableBindings().isEmpty()) {
                 return null;
@@ -149,7 +173,7 @@ public class SnmpTestResource implements QuarkusTestResourceLifecycleManager {
             return responsePDU;
         }
 
-        private VariableBinding generateResponseBinding(int counter, OID oid) {
+        private VariableBinding generateResponseBinding(int counter, int version, OID oid) {
             //get next test
             if (SnmpTest.GET_NEXT_OID.equals(oid)) {
                 //if counter < 2 return the same oid
@@ -166,11 +190,12 @@ public class SnmpTestResource implements QuarkusTestResourceLifecycleManager {
             }
 
             if (SnmpTest.POLL_OID.equals(oid)) {
-                if (counter < 4) {
-                    return new VariableBinding(SnmpTest.POLL_OID,
-                            new OctetString("My POLL Printer - response #" + counter));
+                if (counter > 1) {
+                    throw new RuntimeException(
+                            String.format("Not expected request #%d for poll of version %d.", counter, version));
                 }
-
+                return new VariableBinding(SnmpTest.POLL_OID,
+                        new OctetString("My POLL Printer - response #" + counter));
             }
 
             if (SnmpTest.PRODUCE_PDU_OID.equals(oid)) {
@@ -195,10 +220,8 @@ public class SnmpTestResource implements QuarkusTestResourceLifecycleManager {
             }
 
             if (SnmpTest.DOT_OID.equals(oid)) {
-                if (counter < 4) {
-                    return new VariableBinding(SnmpTest.DOT_OID,
-                            new OctetString("My DOT Printer - response #" + counter));
-                }
+                return new VariableBinding(SnmpTest.DOT_OID,
+                        new OctetString("My DOT Printer - response #" + counter));
             }
 
             return null;

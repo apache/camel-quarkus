@@ -28,9 +28,12 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.camel.ConsumerTemplate;
+import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.snmp.SnmpMessage;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -61,6 +64,9 @@ public class SnmpResource {
     Map<String, Deque<SnmpMessage>> snmpResults;
 
     @Inject
+    ConsumerTemplate consumerTemplate;
+
+    @Inject
     ProducerTemplate producerTemplate;
 
     @Path("/producePDU/{version}")
@@ -87,6 +93,9 @@ public class SnmpResource {
 
         String response = pdu.stream()
                 .flatMap(m -> m.getSnmpMessage().getVariableBindings().stream())
+                //snmp may add null oid to the result - because responder supports v3
+                // (see https://camel.apache.org/components/3.20.x/snmp-component.html#_the_result_of_a_poll)
+                .filter(vb -> !"Null".equals(vb.getVariable().toString()))
                 .map(vb -> vb.getVariable().toString())
                 .collect(Collectors.joining(","));
 
@@ -104,6 +113,35 @@ public class SnmpResource {
         producerTemplate.sendBody(url, trap);
 
         return Response.ok().build();
+    }
+
+    @Path("/poll/{version}")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response poll(@PathParam("version") int version,
+            @QueryParam("user") String user,
+            @QueryParam("securityLevel") String securityLevel,
+            String oid) {
+        String url = String.format("snmp:%s?protocol=udp&snmpVersion=%d&type=POLL&oids=%s", snmpListenAddress, version, oid);
+        if (user != null) {
+            url = url + "&securityName=" + user;
+        }
+        if (securityLevel != null) {
+            url = url + "&securityLevel=" + securityLevel;
+        }
+
+        //Even if routeBuilder is preferred instead of consumerTemplate, consumerTemplete can be used in a case, when the component uses polling consumers by default.
+        // In this case:
+        // - only polling consumer is used by the SNMP component
+        // - usage of the consumerTemplate reduces a lot of requests between SNMP providers significantly, thus making the tests more stable.
+        Exchange e = consumerTemplate.receive(url);
+
+        String result = e.getIn().getBody(SnmpMessage.class).getSnmpMessage().getVariableBindings().stream()
+                //snmp may add null oid to the result - because responder supports v3
+                // (see https://camel.apache.org/components/3.20.x/snmp-component.html#_the_result_of_a_poll)
+                .filter(vb -> !"Null".equals(vb.getVariable().toString()))
+                .map(v -> v.getVariable().toString()).collect(Collectors.joining(","));
+        return Response.ok(result).build();
     }
 
     @Path("/results/{from}")
