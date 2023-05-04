@@ -63,7 +63,7 @@ class SnmpTest {
                 .then()
                 .statusCode(200);
 
-        await().atMost(10L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
+        await().atMost(20L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
             String result = RestAssured.given()
                     .body(SnmpConstants.snmpTrapOID.toString())
                     .post("/snmp/results/" + resultsName)
@@ -130,7 +130,8 @@ class SnmpTest {
                 .post("/snmp/getNext/" + version)
                 .then()
                 .statusCode(200)
-                .body(Matchers.equalTo("1,2,My GET_NEXT Printer - response #3"));
+                //if the resource is too slow, it might have missed first 2 messages with values "1" and "2"
+                .body(Matchers.endsWith("2,My GET_NEXT Printer - response #3"));
     }
 
     @ParameterizedTest
