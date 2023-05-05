@@ -17,13 +17,52 @@
 package org.apache.camel.quarkus.component.vertx.websocket.it;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.vertx.websocket.VertxWebsocketConstants;
 
 public class VertxWebsocketRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("vertx-websocket:///greeting")
+        from("vertx-websocket:/echo")
                 .setBody(simple("Hello ${body}"))
-                .to("vertx-websocket:///greeting");
+                .to("vertx-websocket:/echo");
+
+        from("vertx-websocket:/")
+                .choice().when().simple("${body} == 'ping'")
+                .setBody().header(VertxWebsocketConstants.CONNECTION_KEY)
+                .endChoice()
+                .otherwise()
+                .setBody().simple("Hello ${body}")
+                .end()
+                .to("vertx-websocket:/");
+
+        from("vertx-websocket:redundant.host:9999/test/default/host/port/applied")
+                .setBody(simple("Hello ${body}"))
+                .to("vertx-websocket:/test/default/host/port/applied");
+
+        from("direct:sendMessage")
+                .to("vertx-websocket:/test");
+
+        from("direct:produceToExternalEndpoint")
+                .toD("vertx-websocket:${header.host}:${header.port}/managed/by/quarkus/websockets");
+
+        from("vertx-websocket:/client/consumer")
+                .to("vertx-websocket:/client/consumer?sendToAll=true");
+
+        from("vertx-websocket:/client/consumer?consumeAsClient=true").routeId("consumeAsClientRoute").autoStartup(false)
+                .setBody().simple("Hello ${body}")
+                .to("seda:consumeAsClientResult");
+
+        from("vertx-websocket:/parameterized/path/{paramA}/{paramB}")
+                .setBody().simple("${header.paramA} ${header.paramB}")
+                .to("seda:parameterizedPathResult");
+
+        from("vertx-websocket:/query/params")
+                .setBody().simple("${header.paramA} ${header.paramB}")
+                .to("seda:queryParamsResult");
+
+        from("vertx-websocket:/events?fireWebSocketConnectionEvents=true")
+                .setBody().header(VertxWebsocketConstants.EVENT)
+                .to("seda:eventsResult");
     }
 }

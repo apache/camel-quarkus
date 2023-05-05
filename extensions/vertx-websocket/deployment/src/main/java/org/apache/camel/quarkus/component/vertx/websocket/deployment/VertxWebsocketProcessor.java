@@ -20,8 +20,10 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.LaunchModeBuildItem;
 import io.quarkus.vertx.deployment.VertxBuildItem;
 import io.quarkus.vertx.http.deployment.VertxWebRouterBuildItem;
+import io.quarkus.vertx.http.runtime.HttpConfiguration;
 import org.apache.camel.component.vertx.websocket.VertxWebsocketComponent;
 import org.apache.camel.quarkus.component.vertx.websocket.VertxWebsocketRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
@@ -37,9 +39,14 @@ class VertxWebsocketProcessor {
 
     @BuildStep
     @Record(ExecutionTime.RUNTIME_INIT)
-    CamelRuntimeBeanBuildItem configureVertxWebsocketComponent(VertxBuildItem vertx, VertxWebRouterBuildItem router,
+    CamelRuntimeBeanBuildItem configureVertxWebsocketComponent(
+            VertxBuildItem vertx,
+            VertxWebRouterBuildItem router,
+            LaunchModeBuildItem launchMode,
+            HttpConfiguration httpConfig,
             VertxWebsocketRecorder recorder) {
         return new CamelRuntimeBeanBuildItem("vertx-websocket", VertxWebsocketComponent.class.getName(),
-                recorder.createVertxWebsocketComponent(vertx.getVertx(), router.getHttpRouter()));
+                recorder.createVertxWebsocketComponent(vertx.getVertx(), router.getHttpRouter(), launchMode.getLaunchMode(),
+                        httpConfig));
     }
 }
