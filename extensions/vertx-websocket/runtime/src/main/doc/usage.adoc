@@ -3,11 +3,11 @@
 When you create a Vert.x WebSocket consumer (E.g with `from("vertx-websocket")`), the host and port configuration in the URI are redundant since the WebSocket will always be hosted on 
 the Quarkus HTTP server.
 
-The configuration of the consumer can be simplified to only include the resource path of the WebSocket (prefixed with two forward slashes `//`). For example.
+The configuration of the consumer can be simplified to only include the resource path of the WebSocket. For example.
 
 [source,java]
 ----
-from("vertx-websocket:///my-websocket-path")
+from("vertx-websocket:/my-websocket-path")
     .setBody().constant("Hello World");
 ----
 
@@ -15,6 +15,29 @@ Or alternatively, you can refer to the full host & port configuration for the Qu
 
 [source,java]
 ----
-from("vertx-websocket:localhost:{{quarkus.http.port}}/my-websocket-path")
+from("vertx-websocket:{{quarkus.http.host}}:{{quarkus.http.port}}/my-websocket-path")
     .setBody().constant("Hello World");
 ----
+
+=== Vert.x WebSocket producers
+
+Similar to above, if you want to produce messages to the internal Vert.x WebSocket consumer, then you can omit the host and port from the endpoint URI.
+
+[source,java]
+----
+from("vertx-websocket:/my-websocket-path")
+    .log("Got body: ${body}");
+
+from("direct:sendToWebSocket")
+    .log("vertx-websocket:/my-websocket-path");
+----
+
+Or alternatively, you can refer to the full host & port configuration for the Quarkus HTTP server.
+
+[source,java]
+----
+from("direct:sendToWebSocket")
+    .log("vertx-websocket:{{quarkus.http.host}}:{{quarkus.http.port}}/my-websocket-path");
+----
+
+When producing messages to an external WebSocket server, then you must provide the host name and port (if required).

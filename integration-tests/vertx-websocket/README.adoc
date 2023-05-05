@@ -1,0 +1,15 @@
+# Generating server SSL certificates and trust store
+
+1. Generate the certificate keypair
+
+When prompted for the 'Common Name', use localhost. The other prompts can be skipped.
+
+```
+openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout src/main/resources/server-key.pem -out src/main/resources/server-cert.pem
+```
+
+2. Generate the PKCS12 trust store
+
+```
+cat src/main/resources/server-key.pem src/main/resources/server-cert.pem | openssl pkcs12 -export -out src/test/resources/truststore.p12 -passout pass:s3cr3t
+```
