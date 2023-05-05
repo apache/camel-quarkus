@@ -1,0 +1,5 @@
+SNMP extension uses a different protocol implementation (`org.snmp4j.snmp4j`) than plain Camel 3.18. (https://snmp.app/dist/release/org/snmp4j/snmp4j/2.8.15/snmp4j-2.8.15-distribution.zip[link] for the sources)
+
+Implementation (`org.snmp4j.snmp4j`) will be used in Camel 4 and Camel Quarkus 3.
+A new provider brings more stability and brings fixes to lots of vulnerabilities.
+The configuration of the SNMP extension stays the same.

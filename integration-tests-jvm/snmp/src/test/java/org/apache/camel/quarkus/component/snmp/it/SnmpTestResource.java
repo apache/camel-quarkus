@@ -98,7 +98,7 @@ public class SnmpTestResource implements QuarkusTestResourceLifecycleManager {
             PDU pdu = event.getPDU();
             Vector<? extends VariableBinding> vbs;
             if (pdu.getVariableBindings() != null) {
-                vbs = (Vector<? extends VariableBinding>) new Vector(pdu.getVariableBindings());
+                vbs = new Vector<>(pdu.getVariableBindings());
             } else {
                 vbs = new Vector<>(0);
             }
