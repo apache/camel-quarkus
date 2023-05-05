@@ -22,7 +22,7 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeBuild;
 import org.apache.camel.component.snmp.SnmpComponent;
-import org.apache.camel.quarkus.component.snm.graal.SnmpRecorder;
+import org.apache.camel.quarkus.component.snmp.SnmpRecorder;
 import org.apache.camel.quarkus.core.JvmOnlyRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
 import org.jboss.logging.Logger;

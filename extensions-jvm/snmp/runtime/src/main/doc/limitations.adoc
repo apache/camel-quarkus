@@ -1,0 +1,9 @@
+This extension uses `org.snmp4j:snmp4j` as an SNMP protocol implementation.
+This is different from Camel 3.18.x using `org.apache.servicemix.bundles.snmp4j:org.apache.servicemix.bundles`.
+
+The motivation for this change is twofold:
+
+1. `org.snmp4j:snmp4j` brings more stability and fixes many vulnerabilities.
+2. Camel switches to `org.snmp4j.snmp4j` in version 4 anyway, so Camel Quarkus users can enjoy the same benefits a bit earlier.
+
+This change has no impact on configuration of the SNMP component.
