@@ -11,6 +11,7 @@
 **Closed issues:**
 
 - Stop managing woodstox directly, rather rely on quarkus-cxf-bom [\#4855](https://github.com/apache/camel-quarkus/issues/4855)
+- Snmp: Extend coverage of some smaller features [\#4850](https://github.com/apache/camel-quarkus/issues/4850)
 - Snmp: Extend coverage for supported versions [\#4843](https://github.com/apache/camel-quarkus/issues/4843)
 - Remove org.apache.cxf:cxf-codegen plugin \(cxf-sopak extension is used instead\)  [\#4839](https://github.com/apache/camel-quarkus/issues/4839)
 - Add tests and usage guide for LDAP extension [\#4821](https://github.com/apache/camel-quarkus/issues/4821)
@@ -30,6 +31,7 @@
 **Merged pull requests:**
 
 - Update documentation references for javax packages to jakarta [\#4869](https://github.com/apache/camel-quarkus/pull/4869) ([jamesnetherton](https://github.com/jamesnetherton))
+- Snmp: reworked tests to avoid flaky failures [\#4867](https://github.com/apache/camel-quarkus/pull/4867) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Limit aether.connector.http.connectionMaxTtl to 120 seconds [\#4864](https://github.com/apache/camel-quarkus/pull/4864) ([ppalaga](https://github.com/ppalaga))
 - Fixup Upgrade to Maven Wrapper 3.2.0 and Maven 3.9.1 [\#4863](https://github.com/apache/camel-quarkus/pull/4863) ([ppalaga](https://github.com/ppalaga))
 - Generated sources regen for SBOM [\#4862](https://github.com/apache/camel-quarkus/pull/4862) ([github-actions[bot]](https://github.com/apps/github-actions))
