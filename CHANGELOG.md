@@ -20,17 +20,23 @@
 - \[camel-main\] Add `quarkus-jackson-jq-extra` to jq extension runtime module dependencies [\#4799](https://github.com/apache/camel-quarkus/issues/4799)
 - Smnp: Extend test coverage [\#4797](https://github.com/apache/camel-quarkus/issues/4797)
 - Test OpenTelemetry extension integration with `opentelemetry-jdbc` [\#4789](https://github.com/apache/camel-quarkus/issues/4789)
+- CamelJdbcTest leaks a statement [\#4752](https://github.com/apache/camel-quarkus/issues/4752)
 - CXF generates different WSDL files with JVM/Native modes [\#4746](https://github.com/apache/camel-quarkus/issues/4746)
 - Add Build-Date in MANIFEST.MF in Camel Quarkus release JARs [\#4711](https://github.com/apache/camel-quarkus/issues/4711)
 - MinIO: Extend test coverage [\#4707](https://github.com/apache/camel-quarkus/issues/4707)
 - Olingo4 olingo4endpointPropertyNames are missing queryParams for read method [\#4654](https://github.com/apache/camel-quarkus/issues/4654)
+- \[Quarkus 3.0.0.CR1\] kubernetes-client not compatible with Camel 4.0.0-M2 [\#4651](https://github.com/apache/camel-quarkus/issues/4651)
 - Permanently remove extensions depending on components removed from Camel 4 [\#4477](https://github.com/apache/camel-quarkus/issues/4477)
 - Camel 3.19 - Add camel-cli-connector extension [\#4051](https://github.com/apache/camel-quarkus/issues/4051)
 - LDAP native support [\#1735](https://github.com/apache/camel-quarkus/issues/1735)
 
 **Merged pull requests:**
 
+- Bump quarkiverse-jackson-jq.version from 2.0.0.Alpha to 2.0.1 [\#4877](https://github.com/apache/camel-quarkus/pull/4877) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Restore camel-kubernetes related native testing [\#4874](https://github.com/apache/camel-quarkus/pull/4874) ([jamesnetherton](https://github.com/jamesnetherton))
+- Snmp: tiny timeout change in test to help stability [\#4872](https://github.com/apache/camel-quarkus/pull/4872) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Update documentation references for javax packages to jakarta [\#4869](https://github.com/apache/camel-quarkus/pull/4869) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade Camel to 4.0.0-M3 [\#4868](https://github.com/apache/camel-quarkus/pull/4868) ([jamesnetherton](https://github.com/jamesnetherton))
 - Snmp: reworked tests to avoid flaky failures [\#4867](https://github.com/apache/camel-quarkus/pull/4867) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Limit aether.connector.http.connectionMaxTtl to 120 seconds [\#4864](https://github.com/apache/camel-quarkus/pull/4864) ([ppalaga](https://github.com/ppalaga))
 - Fixup Upgrade to Maven Wrapper 3.2.0 and Maven 3.9.1 [\#4863](https://github.com/apache/camel-quarkus/pull/4863) ([ppalaga](https://github.com/ppalaga))
@@ -1655,6 +1661,8 @@
 
 **Closed issues:**
 
+- \[camel-main\] ObservabilityTest.metrics in examples fails  [\#4773](https://github.com/apache/camel-quarkus/issues/4773)
+- camel-quarkus-snakeyaml not compatible with Quarkus 3.0.0.Alpha6 [\#4662](https://github.com/apache/camel-quarkus/issues/4662)
 - Expand JDBC test coverage - XA [\#4597](https://github.com/apache/camel-quarkus/issues/4597)
 - Improve yaml-dsl documentation [\#4487](https://github.com/apache/camel-quarkus/issues/4487)
 - io.quarkus:quarkus-bom's entries should exclude banned artifacts [\#4475](https://github.com/apache/camel-quarkus/issues/4475)
