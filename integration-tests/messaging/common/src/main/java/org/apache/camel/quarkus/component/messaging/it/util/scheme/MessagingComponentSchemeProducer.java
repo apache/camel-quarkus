@@ -59,7 +59,7 @@ public class MessagingComponentSchemeProducer {
                 if (component != null) {
                     JsonObject object = component.asJsonObject();
                     String label = object.getString("label");
-                    if (label.contains("messaging")) {
+                    if (label.contains("messaging") && !label.contains("core")) {
                         schemas.add(object);
                     }
                 }

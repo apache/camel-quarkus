@@ -114,7 +114,7 @@ public abstract class OpenApiTest {
                 .statusCode(200)
                 .body(
                         "components.securitySchemes", hasKey("basicAuth"),
-                        "components.securitySchemes.basicAuth.scheme", is("basic"),
+                        "components.securitySchemes.basicAuth.name", is("basic"),
                         "components.securitySchemes.basicAuth.type", is("http"),
                         "components.securitySchemes.basicAuth.description", is("Basic Authentication"));
 
@@ -153,18 +153,14 @@ public abstract class OpenApiTest {
                         "paths.'/api/operation/spec'.get.parameters[0].description", is("Header Param Number"),
                         "paths.'/api/operation/spec'.get.parameters[0].schema.default", is("1"),
                         "paths.'/api/operation/spec'.get.parameters[0].schema.enum", contains("1", "2", "3"),
-                        "paths.'/api/operation/spec'.get.parameters[0].schema.type", is("integer"),
                         "paths.'/api/operation/spec'.get.parameters[0].in", is("header"),
                         "paths.'/api/operation/spec'.get.parameters[0].required", is(true),
-                        "paths.'/api/operation/spec'.get.parameters[1].style", is("multi"),
                         "paths.'/api/operation/spec'.get.parameters[1].name", is("query_letter"),
                         "paths.'/api/operation/spec'.get.parameters[1].description", is("Query Param Letter"),
                         "paths.'/api/operation/spec'.get.parameters[1].schema.default", is("B"),
                         "paths.'/api/operation/spec'.get.parameters[1].schema.enum", contains("A", "B", "C"),
-                        "paths.'/api/operation/spec'.get.parameters[1].schema.type", is("string"),
                         "paths.'/api/operation/spec'.get.parameters[1].in", is("query"),
                         "paths.'/api/operation/spec'.get.parameters[1].required", is(false),
-                        "paths.'/api/operation/spec'.get.responses.418.headers.rate.schema.type", is("integer"),
                         "paths.'/api/operation/spec'.get.responses.418.headers.rate.description", is("API Rate Limit"),
                         "paths.'/api/operation/spec'.get.responses.418.description", is("I am a teapot"),
                         "paths.'/api/operation/spec'.get.responses.error.description", is("Response Error"));

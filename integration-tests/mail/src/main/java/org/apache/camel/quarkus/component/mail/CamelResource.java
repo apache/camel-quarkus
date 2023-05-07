@@ -26,7 +26,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.sun.mail.imap.SortTerm;
 import jakarta.activation.FileDataSource;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -52,6 +51,7 @@ import org.apache.camel.attachment.DefaultAttachment;
 import org.apache.camel.component.mail.DefaultJavaMailSender;
 import org.apache.camel.component.mail.JavaMailSender;
 import org.apache.camel.component.mail.MailSorter;
+import org.eclipse.angus.mail.imap.SortTerm;
 
 @Path("/mail")
 @ApplicationScoped
