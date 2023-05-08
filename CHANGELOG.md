@@ -32,6 +32,7 @@
 
 **Merged pull requests:**
 
+- Generated sources regen for SBOM [\#4878](https://github.com/apache/camel-quarkus/pull/4878) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump quarkiverse-jackson-jq.version from 2.0.0.Alpha to 2.0.1 [\#4877](https://github.com/apache/camel-quarkus/pull/4877) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Restore camel-kubernetes related native testing [\#4874](https://github.com/apache/camel-quarkus/pull/4874) ([jamesnetherton](https://github.com/jamesnetherton))
 - Snmp: tiny timeout change in test to help stability [\#4872](https://github.com/apache/camel-quarkus/pull/4872) ([JiriOndrusek](https://github.com/JiriOndrusek))
