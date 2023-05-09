@@ -28,6 +28,7 @@ import jakarta.xml.ws.handler.Handler;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.cxf.jaxws.CxfEndpoint;
 import org.apache.cxf.ext.logging.LoggingFeature;
+import org.apache.cxf.message.MessageContentsList;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 
@@ -54,6 +55,18 @@ public class CxfSoapMtomAwtRoutes extends RouteBuilder {
                 .to("direct:processAwtImage");
 
         from("direct:processAwtImage")
+                .process(exchange -> {
+                    String operationName = (String) exchange.getIn().getHeaders().get("operationName");
+                    MessageContentsList list = exchange.getIn().getBody(MessageContentsList.class);
+                    if ("uploadImage".equals(operationName)) {
+                        exchange.getIn().getHeaders().put("image", list.get(0));
+                        exchange.getIn().getHeaders().put("imageName", list.get(1));
+                        exchange.getIn().getHeaders()
+                                .put("operationName", "uploadImage(${header.image},${header.imageName})");
+                    } else if ("downloadImage".equals(operationName)) {
+                        exchange.getIn().setBody(list.get(0));
+                    }
+                })
                 .recipientList((simple("bean:imageAwtService?method=${header.operationName}")));
 
     }
