@@ -31,11 +31,11 @@ public class ImageService implements IImageService {
     public static final String MSG_SUCCESS = "Upload Successful";
     private static final Logger log = Logger.getLogger(ImageService.class);
 
-    private final Map<String, ImageData> imageRepository = new ConcurrentHashMap<>();
+    private final Map<String, Image> imageRepository = new ConcurrentHashMap<>();
 
     @Override
-    public ImageData downloadImage(String name) {
-        final ImageData image = imageRepository.get(name);
+    public Image downloadImage(String name) {
+        final Image image = imageRepository.get(name);
         if (image == null) {
             throw new IllegalStateException("Image with name " + name + " does not exist.");
         }
@@ -43,12 +43,12 @@ public class ImageService implements IImageService {
     }
 
     @Override
-    public String uploadImage(ImageData image) {
+    public String uploadImage(Image image, String imageName) {
 
-        log.infof("Upload image: %s", image.getName());
+        log.infof("Upload image: %s", imageName);
 
-        if (image.getData() != null && image.getName() != null) {
-            imageRepository.put(image.getName(), image);
+        if (image != null && imageName != null) {
+            imageRepository.put(imageName, image);
             return MSG_SUCCESS;
         }
         throw new IllegalStateException("Illegal Data Format.");
