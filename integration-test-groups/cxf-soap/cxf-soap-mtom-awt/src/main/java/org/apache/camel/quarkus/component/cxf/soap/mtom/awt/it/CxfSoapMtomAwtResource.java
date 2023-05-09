@@ -55,7 +55,7 @@ public class CxfSoapMtomAwtResource {
         try (ByteArrayInputStream bais = new ByteArrayInputStream(image)) {
             final String response = producerTemplate.requestBodyAndHeader(
                     "direct:" + mtomEndpoint(mtomEnabled),
-                    new ImageData(ImageIO.read(bais), imageName),
+                    new Object[] { ImageIO.read(bais), imageName },
                     OPERATION_NAME, "uploadImage", String.class);
             return Response
                     .created(new URI("https://camel.apache.org/"))
@@ -68,13 +68,13 @@ public class CxfSoapMtomAwtResource {
     @GET
     public Response download(@PathParam("imageName") String imageName, @QueryParam("mtomEnabled") boolean mtomEnabled)
             throws Exception {
-        final ImageData image = (ImageData) producerTemplate.requestBodyAndHeader(
+        final java.awt.Image image = producerTemplate.requestBodyAndHeader(
                 "direct:" + mtomEndpoint(mtomEnabled),
                 imageName,
                 OPERATION_NAME,
-                "downloadImage", ImageData.class);
+                "downloadImage", java.awt.Image.class);
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-            ImageIO.write((BufferedImage) image.getData(), "png", baos);
+            ImageIO.write((BufferedImage) image, "png", baos);
             byte[] bytes = baos.toByteArray();
             return Response
                     .created(new URI("https://camel.apache.org/"))
