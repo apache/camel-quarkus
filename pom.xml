@@ -161,7 +161,6 @@
         <consul-client.version>${consul-client-version}</consul-client.version>
         <ftpserver.version>1.1.1</ftpserver.version>
         <greenmail.version>1.6.7</greenmail.version>
-        <istack-commons-runtime.version>3.0.10</istack-commons-runtime.version>
         <jakarta.mail.version>${jakarta-mail-version}</jakarta.mail.version>
         <htmlunit-driver.version>2.47.1</htmlunit-driver.version>
         <mock-javamail.version>${mock-javamail-version}</mock-javamail.version>
