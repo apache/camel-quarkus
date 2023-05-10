@@ -39,7 +39,7 @@ public class CxfClientTestResource implements QuarkusTestResourceLifecycleManage
         final String BASIC_AUTH_PASSWORD = UUID.randomUUID().toString();
 
         try {
-            calculatorContainer = new GenericContainer<>("quay.io/l2x6/calculator-ws:1.1")
+            calculatorContainer = new GenericContainer<>("quay.io/l2x6/calculator-ws:1.2")
                     .withExposedPorts(WILDFLY_PORT)
                     .withEnv("BASIC_AUTH_USER", BASIC_AUTH_USER)
                     .withEnv("BASIC_AUTH_PASSWORD", BASIC_AUTH_PASSWORD)
