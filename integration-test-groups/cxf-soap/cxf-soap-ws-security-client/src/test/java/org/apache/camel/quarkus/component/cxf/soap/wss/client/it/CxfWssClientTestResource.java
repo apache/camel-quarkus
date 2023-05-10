@@ -40,7 +40,7 @@ public class CxfWssClientTestResource implements QuarkusTestResourceLifecycleMan
 
         try {
             try {
-                calculatorContainer = new GenericContainer<>("quay.io/l2x6/calculator-ws:1.1")
+                calculatorContainer = new GenericContainer<>("quay.io/l2x6/calculator-ws:1.2")
                         .withEnv("WSS_USER", user)
                         .withEnv("WSS_PASSWORD", password)
                         .withLogConsumer(new Slf4jLogConsumer(log))
