@@ -26,6 +26,9 @@
 - MinIO: Extend test coverage [\#4707](https://github.com/apache/camel-quarkus/issues/4707)
 - Olingo4 olingo4endpointPropertyNames are missing queryParams for read method [\#4654](https://github.com/apache/camel-quarkus/issues/4654)
 - \[Quarkus 3.0.0.CR1\] kubernetes-client not compatible with Camel 4.0.0-M2 [\#4651](https://github.com/apache/camel-quarkus/issues/4651)
+- Improve vertx-websocket test coverage [\#4629](https://github.com/apache/camel-quarkus/issues/4629)
+- vertx-websocket producer path handling is broken for some scenarios [\#4628](https://github.com/apache/camel-quarkus/issues/4628)
+- `QuarkusVertxWebsocketHost` should return the actual port for the HTTP server [\#4557](https://github.com/apache/camel-quarkus/issues/4557)
 - Permanently remove extensions depending on components removed from Camel 4 [\#4477](https://github.com/apache/camel-quarkus/issues/4477)
 - Camel 3.19 - Add camel-cli-connector extension [\#4051](https://github.com/apache/camel-quarkus/issues/4051)
 - LDAP native support [\#1735](https://github.com/apache/camel-quarkus/issues/1735)
@@ -34,6 +37,7 @@
 
 - Generated sources regen for SBOM [\#4878](https://github.com/apache/camel-quarkus/pull/4878) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump quarkiverse-jackson-jq.version from 2.0.0.Alpha to 2.0.1 [\#4877](https://github.com/apache/camel-quarkus/pull/4877) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Improve test coverage for vertx-websocket [\#4875](https://github.com/apache/camel-quarkus/pull/4875) ([jamesnetherton](https://github.com/jamesnetherton))
 - Restore camel-kubernetes related native testing [\#4874](https://github.com/apache/camel-quarkus/pull/4874) ([jamesnetherton](https://github.com/jamesnetherton))
 - Snmp: tiny timeout change in test to help stability [\#4872](https://github.com/apache/camel-quarkus/pull/4872) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Update documentation references for javax packages to jakarta [\#4869](https://github.com/apache/camel-quarkus/pull/4869) ([jamesnetherton](https://github.com/jamesnetherton))
