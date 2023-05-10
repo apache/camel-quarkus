@@ -6111,22 +6111,22 @@
       <dependency>
         <groupId>io.quarkiverse.minio</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-minio</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.0.0.Alpha3</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.0.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.minio</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-minio-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.0.0.Alpha3</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.0.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.minio</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-minio-native</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.0.0.Alpha3</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.0.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.minio</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-minio-native-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.0.0.Alpha3</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.0.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
