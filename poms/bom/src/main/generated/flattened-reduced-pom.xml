@@ -6436,11 +6436,6 @@
         <version>2.5.0</version>
       </dependency>
       <dependency>
-        <groupId>com.sun.istack</groupId>
-        <artifactId>istack-commons-runtime</artifactId>
-        <version>3.0.10</version>
-      </dependency>
-      <dependency>
         <groupId>com.sun.mail</groupId>
         <artifactId>jakarta.mail</artifactId>
         <version>1.6.7</version>
