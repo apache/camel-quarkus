@@ -27,7 +27,7 @@ or where it helps to keep the test application simple.
 On the other hand, the use of `ConsumerTemplate` should be assessed carefully.
 In some cases, it may use a different `Consumer` implementation (polling vs. non-polling)
 than what would be used by the given component in a route.
-A test application with `ConsumerTemplate` only may thus miss covering important execution paths.
+Thus, a test application with `ConsumerTemplate` may miss covering important execution paths.
 The rule of thumb is to use `ConsumerTemplate` only for components whose default consumer implements `PollingConsumer`.
 
 === Tests
