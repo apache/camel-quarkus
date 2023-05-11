@@ -13,6 +13,7 @@
 - Stop managing woodstox directly, rather rely on quarkus-cxf-bom [\#4855](https://github.com/apache/camel-quarkus/issues/4855)
 - Snmp: Extend coverage of some smaller features [\#4850](https://github.com/apache/camel-quarkus/issues/4850)
 - Snmp: Extend coverage for supported versions [\#4843](https://github.com/apache/camel-quarkus/issues/4843)
+- CI build fails to download Maven artifacts due to: ` java.net.ConnectException: Connection timed out` [\#4842](https://github.com/apache/camel-quarkus/issues/4842)
 - Remove org.apache.cxf:cxf-codegen plugin \(cxf-sopak extension is used instead\)  [\#4839](https://github.com/apache/camel-quarkus/issues/4839)
 - Add tests and usage guide for LDAP extension [\#4821](https://github.com/apache/camel-quarkus/issues/4821)
 - Snmp: add native support [\#4820](https://github.com/apache/camel-quarkus/issues/4820)
@@ -35,6 +36,9 @@
 
 **Merged pull requests:**
 
+- Upgrade CycloneDX Maven Plugin to version 2.7.8 [\#4883](https://github.com/apache/camel-quarkus/pull/4883) ([oscerd](https://github.com/oscerd))
+- Test CXF client with a method referencing class with runtime initialization  [\#4880](https://github.com/apache/camel-quarkus/pull/4880) ([ppalaga](https://github.com/ppalaga))
+- Remove openapi-java extensions limitations doc section as apiContextdListing was removed in Camel [\#4879](https://github.com/apache/camel-quarkus/pull/4879) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#4878](https://github.com/apache/camel-quarkus/pull/4878) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump quarkiverse-jackson-jq.version from 2.0.0.Alpha to 2.0.1 [\#4877](https://github.com/apache/camel-quarkus/pull/4877) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Improve test coverage for vertx-websocket [\#4875](https://github.com/apache/camel-quarkus/pull/4875) ([jamesnetherton](https://github.com/jamesnetherton))
