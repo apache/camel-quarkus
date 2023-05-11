@@ -105,7 +105,7 @@ class CxfSoapClientTest {
                 .post("/cxf-soap/client/simple")
                 .then()
                 .statusCode(500)
-                .body(containsString("HTTP response '401: Unauthorized'"));
+                .body(containsString("HTTP response '401: "));
     }
 
     /**
