@@ -20,7 +20,15 @@ Here are the directories containing integration tests:
 
 The application under test lives under `src/main` directory of the test module.
 It should typically contain one or more Camel routes that utilize the Camel component brought by the extension under test.
-If it helps to avoid additional dependencies, using `@ConsumerTemplate` and/or `@ProducerTemplate` may be favorable over having a full-fledged route.
+
+`ProducerTemplate` may be favorable over having a full-fledged route, e.g. when it helps to avoid additional dependencies
+or where it helps to keep the test application simple.
+
+On the other hand, the use of `ConsumerTemplate` should be assessed carefully.
+In some cases, it may use a different `Consumer` implementation (polling vs. non-polling)
+than what would be used by the given component in a route.
+Thus, a test application with `ConsumerTemplate` may miss covering important execution paths.
+The rule of thumb is to use `ConsumerTemplate` only for components whose default consumer implements `PollingConsumer`.
 
 === Tests
 
