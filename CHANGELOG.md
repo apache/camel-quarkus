@@ -10,6 +10,8 @@
 
 **Closed issues:**
 
+- Remove the local upgrade of maven-resolver used by mvnw once we upgrade to mvnw 3.9.2 [\#4885](https://github.com/apache/camel-quarkus/issues/4885)
+- Snmp: cover snmp v3 for POLL operation [\#4881](https://github.com/apache/camel-quarkus/issues/4881)
 - Stop managing woodstox directly, rather rely on quarkus-cxf-bom [\#4855](https://github.com/apache/camel-quarkus/issues/4855)
 - Snmp: Extend coverage of some smaller features [\#4850](https://github.com/apache/camel-quarkus/issues/4850)
 - Snmp: Extend coverage for supported versions [\#4843](https://github.com/apache/camel-quarkus/issues/4843)
@@ -31,12 +33,19 @@
 - vertx-websocket producer path handling is broken for some scenarios [\#4628](https://github.com/apache/camel-quarkus/issues/4628)
 - `QuarkusVertxWebsocketHost` should return the actual port for the HTTP server [\#4557](https://github.com/apache/camel-quarkus/issues/4557)
 - Permanently remove extensions depending on components removed from Camel 4 [\#4477](https://github.com/apache/camel-quarkus/issues/4477)
+- Document the fact that the default value `/` of quarkus.cxf.path may cause RESTeasy endpoints to be inacessible [\#4192](https://github.com/apache/camel-quarkus/issues/4192)
 - Camel 3.19 - Add camel-cli-connector extension [\#4051](https://github.com/apache/camel-quarkus/issues/4051)
 - LDAP native support [\#1735](https://github.com/apache/camel-quarkus/issues/1735)
 
 **Merged pull requests:**
 
+- Upgrade to Maven 3.9.2, Remove the local upgrade of maven-resolver used by mvnw [\#4890](https://github.com/apache/camel-quarkus/pull/4890) ([ppalaga](https://github.com/ppalaga))
+- Be more specific when to use a ConsumerTemplate in extension tests [\#4889](https://github.com/apache/camel-quarkus/pull/4889) ([ppalaga](https://github.com/ppalaga))
+- Bump quarkiverse-minio.version from 3.0.0.Alpha3 to 3.0.2 [\#4888](https://github.com/apache/camel-quarkus/pull/4888) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Upgrade to quay.io/l2x6/calculator-ws:1.2 [\#4887](https://github.com/apache/camel-quarkus/pull/4887) ([ppalaga](https://github.com/ppalaga))
+- Document CXF SOAP usage, configuration and limitations [\#4886](https://github.com/apache/camel-quarkus/pull/4886) ([ppalaga](https://github.com/ppalaga))
 - Upgrade CycloneDX Maven Plugin to version 2.7.8 [\#4883](https://github.com/apache/camel-quarkus/pull/4883) ([oscerd](https://github.com/oscerd))
+- Snmp: cover snmp v3 for POLL operation \#4881 [\#4882](https://github.com/apache/camel-quarkus/pull/4882) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Test CXF client with a method referencing class with runtime initialization  [\#4880](https://github.com/apache/camel-quarkus/pull/4880) ([ppalaga](https://github.com/ppalaga))
 - Remove openapi-java extensions limitations doc section as apiContextdListing was removed in Camel [\#4879](https://github.com/apache/camel-quarkus/pull/4879) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#4878](https://github.com/apache/camel-quarkus/pull/4878) ([github-actions[bot]](https://github.com/apps/github-actions))
