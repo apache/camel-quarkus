@@ -1877,6 +1877,16 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-openapi-java</artifactId>
         <version>4.0.0-SNAPSHOT</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>checker-qual</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -2057,6 +2067,16 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-rest-openapi</artifactId>
         <version>4.0.0-SNAPSHOT</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>checker-qual</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -6418,7 +6438,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-aop</artifactId>
-        <version>6.0.8</version>
+        <version>6.0.9</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -6433,7 +6453,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-expression</artifactId>
-        <version>6.0.8</version>
+        <version>6.0.9</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -6444,7 +6464,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-jdbc</artifactId>
-        <version>6.0.8</version>
+        <version>6.0.9</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -6459,7 +6479,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-jms</artifactId>
-        <version>6.0.8</version>
+        <version>6.0.9</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -6474,7 +6494,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-messaging</artifactId>
-        <version>6.0.8</version>
+        <version>6.0.9</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -6489,7 +6509,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-orm</artifactId>
-        <version>6.0.8</version>
+        <version>6.0.9</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -6504,7 +6524,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-tx</artifactId>
-        <version>6.0.8</version>
+        <version>6.0.9</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>

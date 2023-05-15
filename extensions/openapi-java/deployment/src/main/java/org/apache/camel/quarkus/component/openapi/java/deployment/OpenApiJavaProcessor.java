@@ -30,7 +30,6 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import io.apicurio.datamodels.openapi.models.OasDocument;
 import io.quarkus.bootstrap.classloading.QuarkusClassLoader;
 import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.Capability;
@@ -59,6 +58,7 @@ import org.apache.camel.openapi.BeanConfig;
 import org.apache.camel.openapi.DefaultRestDefinitionsResolver;
 import org.apache.camel.openapi.RestDefinitionsResolver;
 import org.apache.camel.openapi.RestOpenApiReader;
+import org.apache.camel.openapi.RestOpenApiSupport;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesBuilderClassBuildItem;
 import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.apache.camel.spi.RestConfiguration;
@@ -88,7 +88,7 @@ class OpenApiJavaProcessor {
 
     @BuildStep
     void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
-        indexDependency.produce(new IndexDependencyBuildItem("io.swagger.core.v3", "swagger-models-jakarta"));
+        indexDependency.produce(new IndexDependencyBuildItem("io.swagger.core.v3", "swagger-models"));
     }
 
     @BuildStep
@@ -96,8 +96,8 @@ class OpenApiJavaProcessor {
         reflectiveClasses.produce(ReflectiveClassBuildItem.builder(SCHEMA.toString()).methods().fields().build());
 
         IndexView index = combinedIndex.getIndex();
-        index.getAllKnownSubclasses(SCHEMA).stream().map(ClassInfo::toString).forEach(
-                name -> reflectiveClasses.produce(ReflectiveClassBuildItem.builder(name).methods().build()));
+        index.getAllKnownSubclasses(SCHEMA).stream().map(ClassInfo::toString)
+                .forEach(name -> reflectiveClasses.produce(ReflectiveClassBuildItem.builder(name).methods().build()));
 
         reflectiveClasses.produce(ReflectiveClassBuildItem.builder(Discriminator.class).build());
     }
@@ -186,7 +186,7 @@ class CamelRestOASFilter implements OASFilter {
 
             initOpenApi(bc, info, rc,
                     Optional.ofNullable(rc.getApiProperties()).orElseGet(HashMap::new));
-            final OasDocument openApi = reader.read(context, rests, bc, null, context.getClassResolver());
+            final io.swagger.v3.oas.models.OpenAPI openApi = reader.read(context, rests, bc, null, context.getClassResolver());
             if (!rc.isApiVendorExtension()) {
                 clearVendorExtensions(openApi);
             }
@@ -195,9 +195,9 @@ class CamelRestOASFilter implements OASFilter {
             final ObjectMapper mapper = new ObjectMapper(new JsonFactory());
             mapper.enable(SerializationFeature.INDENT_OUTPUT);
             mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-            final Object dump = io.apicurio.datamodels.Library.writeNode(openApi);
-            final byte[] jsonData = mapper.writeValueAsBytes(dump);
-            final JsonNode node = mapper.readTree(jsonData);
+
+            String jsonContent = RestOpenApiSupport.getJsonFromOpenAPI(openApi, bc);
+            final JsonNode node = mapper.readTree(jsonContent);
 
             OpenAPI oai = new OpenAPIImpl();
             DefinitionReader.processDefinition(oai, node);
