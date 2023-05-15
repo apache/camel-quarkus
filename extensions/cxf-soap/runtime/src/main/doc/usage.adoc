@@ -237,3 +237,12 @@ TIP: Both {project-name} and Quarkus CXF contain a number of
 * `java2ws` - for {link-quarkus-cxf-doc}/user-guide/generate-wsdl-from-java.html[generating WSDL from Java classes]
 
 IMPORTANT: For `wsdl2Java` to work properly, your application will have to directly depend on `io.quarkiverse.cxf:quarkus-cxf`.
+
+TIP: While `wsdlvalidator` is not supported, you can use `wsdl2Java` with the following configuration in `application.properties`
+     to validate your WSDLs:
++
+.application.properties
+[source,properties]
+----
+quarkus.cxf.codegen.wsdl2java.additional-params = -validate
+----
