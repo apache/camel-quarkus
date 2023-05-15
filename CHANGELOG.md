@@ -39,6 +39,7 @@
 
 **Merged pull requests:**
 
+- Generated sources regen for SBOM [\#4898](https://github.com/apache/camel-quarkus/pull/4898) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Upgrade to quarkus-cxf 2.0.3 [\#4891](https://github.com/apache/camel-quarkus/pull/4891) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to Maven 3.9.2, Remove the local upgrade of maven-resolver used by mvnw [\#4890](https://github.com/apache/camel-quarkus/pull/4890) ([ppalaga](https://github.com/ppalaga))
 - Be more specific when to use a ConsumerTemplate in extension tests [\#4889](https://github.com/apache/camel-quarkus/pull/4889) ([ppalaga](https://github.com/ppalaga))
