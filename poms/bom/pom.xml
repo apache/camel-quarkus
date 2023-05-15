@@ -6099,11 +6099,6 @@
                 <version>${commons-cli.version}</version>
             </dependency>
             <dependency>
-                <groupId>commons-collections</groupId>
-                <artifactId>commons-collections</artifactId>
-                <version>${commons-collections.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
                 <version>${commons-lang.version}</version>
@@ -6312,11 +6307,6 @@
                 <version>${commons-collections4.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-math3</artifactId>
-                <version>${commons-math3.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.apache.curator</groupId>
                 <artifactId>curator-client</artifactId>
                 <version>${curator.version}</version>
@@ -6340,11 +6330,6 @@
                 <groupId>org.apache.curator</groupId>
                 <artifactId>curator-x-discovery</artifactId>
                 <version>${curator.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.htrace</groupId>
-                <artifactId>htrace-core4</artifactId>
-                <version>${htrace.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.httpcomponents.client5</groupId>
@@ -6459,26 +6444,6 @@
                 <version>${brotli.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.codehaus.jackson</groupId>
-                <artifactId>jackson-core-asl</artifactId>
-                <version>${jackson-asl.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.codehaus.jackson</groupId>
-                <artifactId>jackson-jaxrs</artifactId>
-                <version>${jackson1.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.codehaus.jackson</groupId>
-                <artifactId>jackson-mapper-asl</artifactId>
-                <version>${jackson1.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.codehaus.jackson</groupId>
-                <artifactId>jackson-xc</artifactId>
-                <version>${jackson1.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.eclipse.angus</groupId>
                 <artifactId>angus-mail</artifactId>
                 <version>${angus-mail.version}</version>
@@ -6517,11 +6482,6 @@
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-scripting-jvm-host</artifactId>
                 <version>${kotlin.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jruby.jcodings</groupId>
-                <artifactId>jcodings</artifactId>
-                <version>${jcodings.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jruby.joni</groupId>

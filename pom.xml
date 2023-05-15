@@ -84,11 +84,9 @@
         <caffeine.version>3.1.5</caffeine.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.github.ben-manes.caffeine:caffeine -->
         <commons-beanutils.version>${commons-beanutils-version}</commons-beanutils.version>
         <commons-cli.version>1.4</commons-cli.version><!-- keep in sync with Quarkus, via quarkus-bootstrap-core -->
-        <commons-collections.version>3.2.2</commons-collections.version><!-- used by hbase, should be pretty stable as commons-collections are not developed actively anymore -->
         <commons-collections4.version>4.4</commons-collections4.version><!-- used by corda -->
         <commons-exec.version>${commons-exec-version}</commons-exec.version>
         <commons-lang.version>2.6</commons-lang.version><!-- used by hbase, should be pretty stable as commons-lang is not developed actively anymore -->
-        <commons-math3.version>3.6.1</commons-math3.version><!-- Mess in the transitive dependencies of Spark and hbase-testing-util -->
         <curator.version>4.3.0</curator.version><!-- Mess in the transitive dependencies of Spark, Zookeeper and other hadoop related components -->
         <cxf.version>4.0.1</cxf.version><!-- @sync io.quarkiverse.cxf:quarkus-cxf-parent:${quarkiverse-cxf.version} prop:cxf.version -->
         <eddsa.version>${eddsa-version}</eddsa.version>
@@ -106,16 +104,12 @@
         <hapi-base.version>${hapi-base-version}</hapi-base.version>
         <hapi-fhir.version>${hapi-fhir-version}</hapi-fhir.version>
         <hapi-fhir-core.version>5.6.971</hapi-fhir-core.version><!-- @sync ca.uhn.hapi.fhir:hapi-fhir:${hapi-fhir.version} prop:fhir_core_version -->
-        <htrace.version>4.2.0-incubating</htrace.version><!-- Mess in hbase transitive deps -->
         <httpclient5.version>5.2.1</httpclient5.version><!-- Saxon and Wiremock -->
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
         <io-netty-iouring.version>0.0.16.Final</io-netty-iouring.version><!-- @sync org.asynchttpclient:async-http-client-project:${ahc.version} prop:netty.iouring -->
         <jackson.version>2.14.2</jackson.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.fasterxml.jackson.core:jackson-core -->
-        <jackson1.version>1.9.13</jackson1.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
-        <jackson-asl.version>${jackson1.version}</jackson-asl.version><!-- Can be different from jackson1.version on some occasions -->
         <jakarta.jms-api.version>3.1.0</jakarta.jms-api.version>
         <java-json-tools.json-patch.version>${json-patch-version}</java-json-tools.json-patch.version><!-- A replacement for com.github.fge:json-patch -->
-        <jcodings.version>1.0.55</jcodings.version><!-- used by hbase -->
         <jodatime.version>2.10.6</jodatime.version><!-- Mess in transitive dependencies of Spark and Splunk -->
         <joni.version>2.1.31</joni.version><!-- used by json-validator -->
         <jaxen.version>1.2.0</jaxen.version>
@@ -158,7 +152,6 @@
         <zookeeper.version>${solr-zookeeper-version}</zookeeper.version><!-- ${solr-zookeeper-version} is newer than ${zookeeper-version} -->
 
         <!-- Test dependency versions (keep sorted alphabetically) -->
-        <commons-logging.version>1.2</commons-logging.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <consul-client.version>${consul-client-version}</consul-client.version>
         <ftpserver.version>1.1.1</ftpserver.version>
         <greenmail.version>1.6.7</greenmail.version>
@@ -166,7 +159,6 @@
         <htmlunit-driver.version>2.47.1</htmlunit-driver.version>
         <mock-javamail.version>${mock-javamail-version}</mock-javamail.version>
         <pdfbox.version>${pdfbox-version}</pdfbox.version>
-        <slf4j-log4j12.version>1.7.30</slf4j-log4j12.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <sshd.version>2.9.2</sshd.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.sshd:sshd-common -->
         <unboundid-ldapsdk.version>6.0.8</unboundid-ldapsdk.version>
         <wiremock.version>3.0.0-beta-4</wiremock.version>
