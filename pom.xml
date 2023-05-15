@@ -76,7 +76,6 @@
         <aws-java-sdk.version>1.11.714</aws-java-sdk.version>
         <azure-sdk-bom.version>${azure-sdk-bom-version}</azure-sdk-bom.version>
         <azure-core.version>1.37.0</azure-core.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-core -->
-        <azure-core-test.version>1.11.0</azure-core-test.version>
         <azure-identity.version>1.8.1</azure-identity.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-identity -->
         <azure-core-http-vertx.version>1.0.0-beta.3</azure-core-http-vertx.version> <!-- TODO: https://github.com/apache/camel-quarkus/issues/4181 -->
         <cassandra-driver-test.version>3.7.1</cassandra-driver-test.version><!-- Keep in sync with testcontainers instead of Debezium bom -->
