@@ -89,13 +89,6 @@ jobs:
             && ./mvnw ${CQ_MAVEN_ARGS} clean install -Dquickly
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Patch mvnw
-        run: |
-          # This can be removed after upgrading to Maven 3.9.2
-          # make sure mvnw is installed
-          ./mvnw -v
-          # upgrade maven-resolver artifacts
-          ./patch-mvnw.sh
       - name: mvn clean install -DskipTests
         run: |
           eval ./mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} clean install -DskipTests -Dquarkus.build.skip
@@ -159,13 +152,6 @@ jobs:
           df -h /
           tar -xzf ../maven-repo.tgz -C ~
           df -h /
-      - name: Patch mvnw
-        run: |
-          # This can be removed after upgrading to Maven 3.9.2
-          # make sure mvnw is installed
-          ./mvnw -v
-          # upgrade maven-resolver artifacts
-          ./patch-mvnw.sh
       - name: Integration Tests
         run: |
           for MODULE in $(yq -M -N e ".${{ matrix.category }}" tooling/scripts/test-categories.yaml | cut -f2 -d' '); do
@@ -239,13 +225,6 @@ jobs:
           df -h /
           tar -xzf ../maven-repo.tgz -C ~
           df -h /
-      - name: Patch mvnw
-        run: |
-          # This can be removed after upgrading to Maven 3.9.2
-          # make sure mvnw is installed
-          ./mvnw -v
-          # upgrade maven-resolver artifacts
-          ./patch-mvnw.sh
       - name: cd extensions-core && mvn test
         run: |
           cd extensions-core
@@ -319,13 +298,6 @@ jobs:
           echo "HOSTS_LINE=$HOSTS_LINE"
           echo "${HOSTS_LINE}" | sudo tee -a /etc/hosts
           cat /etc/hosts
-      - name: Patch mvnw
-        run: |
-          # This can be removed after upgrading to Maven 3.9.2
-          # make sure mvnw is installed
-          ./mvnw -v
-          # upgrade maven-resolver artifacts
-          ./patch-mvnw.sh
       - name: cd integration-tests-jvm && mvn clean test
         run: |
           cd integration-tests-jvm
@@ -374,13 +346,6 @@ jobs:
           df -h /
           tar -xzf ../maven-repo.tgz -C ~
           df -h /
-      - name: Patch mvnw
-        run: |
-          # This can be removed after upgrading to Maven 3.9.2
-          # make sure mvnw is installed
-          ./mvnw -v
-          # upgrade maven-resolver artifacts
-          ./patch-mvnw.sh
       - name: cd integration-tests && mvn clean verify
         run: |
           cd integration-tests
@@ -425,13 +390,6 @@ jobs:
         shell: bash
         run: |
           tar -xzf ../maven-repo.tgz -C ~
-      - name: Patch mvnw
-        run: |
-          # This can be removed after upgrading to Maven 3.9.2
-          # make sure mvnw is installed
-          ./mvnw -v
-          # upgrade maven-resolver artifacts
-          ./patch-mvnw.sh
       - name: cd integration-tests && mvn clean verify
         shell: bash
         run: |
