@@ -108,7 +108,7 @@
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
         <io-netty-iouring.version>0.0.16.Final</io-netty-iouring.version><!-- @sync org.asynchttpclient:async-http-client-project:${ahc.version} prop:netty.iouring -->
         <jackson.version>2.14.2</jackson.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.fasterxml.jackson.core:jackson-core -->
-        <jakarta.jms-api.version>3.1.0</jakarta.jms-api.version>
+        <jakarta.jms-api.version>${jakarta-jms-api-version}</jakarta.jms-api.version>
         <java-json-tools.json-patch.version>${json-patch-version}</java-json-tools.json-patch.version><!-- A replacement for com.github.fge:json-patch -->
         <jodatime.version>2.10.6</jodatime.version><!-- Mess in transitive dependencies of Spark and Splunk -->
         <joni.version>2.1.31</joni.version><!-- used by json-validator -->
