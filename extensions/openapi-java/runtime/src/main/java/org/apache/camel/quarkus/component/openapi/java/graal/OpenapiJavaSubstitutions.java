@@ -16,17 +16,29 @@
  */
 package org.apache.camel.quarkus.component.openapi.java.graal;
 
+import java.util.Calendar;
 import java.util.List;
 
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
-import io.apicurio.datamodels.core.models.ExtensibleNode;
+import io.swagger.v3.oas.models.media.Schema;
 import org.apache.camel.openapi.RestOpenApiReader;
 
+final class OpenapiJavaSubstitutions {
+}
+
 @TargetClass(RestOpenApiReader.class)
-public final class RestOpenApiReaderSubstitutions {
+final class RestOpenApiReaderSubstitutions {
     @Substitute
-    private static void convertAndSetItemsEnum(ExtensibleNode items, List<String> allowableValues, Class<?> type) {
+    private static void convertAndSetItemsEnum(final Schema items, final List<String> allowableValues, final Class<?> type) {
         throw new UnsupportedOperationException("RestOpenApiReader::convertAndSetItemsEnum should not be invoked");
+    }
+}
+
+@TargetClass(Calendar.Builder.class)
+final class CalendarBuilderSubstitution {
+    @Substitute
+    public Calendar build() {
+        throw new UnsupportedOperationException("Calendar::build is not supported");
     }
 }

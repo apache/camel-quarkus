@@ -50,12 +50,11 @@ public class OpenApiV2Test extends OpenApiTest {
                         "paths.'/api/operation/spec'", hasKey("get"),
                         "paths.'/api/operation/spec'.get.parameters[0].name", is("header_number"),
                         "paths.'/api/operation/spec'.get.parameters[0].description", is("Header Param Number"),
-                        "paths.'/api/operation/spec'.get.parameters[0].default", is("1"),
-                        "paths.'/api/operation/spec'.get.parameters[0].enum", contains("1", "2", "3"),
+                        "paths.'/api/operation/spec'.get.parameters[0].default", is(1),
+                        "paths.'/api/operation/spec'.get.parameters[0].enum", contains(1, 2, 3),
                         "paths.'/api/operation/spec'.get.parameters[0].type", is("integer"),
                         "paths.'/api/operation/spec'.get.parameters[0].in", is("header"),
                         "paths.'/api/operation/spec'.get.parameters[0].required", is(true),
-                        "paths.'/api/operation/spec'.get.parameters[1].collectionFormat", is("multi"),
                         "paths.'/api/operation/spec'.get.parameters[1].name", is("query_letter"),
                         "paths.'/api/operation/spec'.get.parameters[1].description", is("Query Param Letter"),
                         "paths.'/api/operation/spec'.get.parameters[1].default", is("B"),
@@ -81,7 +80,7 @@ public class OpenApiV2Test extends OpenApiTest {
                 .statusCode(200)
                 .body(
                         "securityDefinitions", hasKey("basicAuth"),
-                        "securityDefinitions.basicAuth.type", is("basicAuth"),
+                        "securityDefinitions.basicAuth.type", is("basic"),
                         "securityDefinitions.basicAuth.description", is("Basic Authentication"));
     }
 
