@@ -197,7 +197,7 @@
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <os-maven-plugin.version>${os-maven-plugin-version}</os-maven-plugin.version>
         <protobuf-maven-plugin.version>${protobuf-maven-plugin-version}</protobuf-maven-plugin.version>
-        <rpkgtests-maven-plugin.version>0.10.0</rpkgtests-maven-plugin.version>
+        <rpkgtests-maven-plugin.version>1.0.0</rpkgtests-maven-plugin.version>
 
         <!-- Plugin configuration through properties  -->
 
