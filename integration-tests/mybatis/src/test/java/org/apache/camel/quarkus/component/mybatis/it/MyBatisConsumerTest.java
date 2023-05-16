@@ -17,13 +17,20 @@
 
 package org.apache.camel.quarkus.component.mybatis.it;
 
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
+import org.apache.camel.quarkus.component.mybatis.it.entity.Account;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.equalTo;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 @QuarkusTestResource(H2DatabaseTestResource.class)
@@ -34,14 +41,25 @@ public class MyBatisConsumerTest {
         RestAssured.get("/mybatis/consumer")
                 .then()
                 .statusCode(200)
-                .body("size()", equalTo(2))
-                .body("[0].id", equalTo(123))
-                .body("[0].firstName", equalTo("James"))
-                .body("[0].lastName", equalTo("Strachan"))
-                .body("[0].emailAddress", equalTo("TryGuessing@gmail.com"))
-                .body("[1].id", equalTo(456))
-                .body("[1].firstName", equalTo("Claus"))
-                .body("[1].lastName", equalTo("Ibsen"))
-                .body("[1].emailAddress", equalTo("Noname@gmail.com"));
+                .body(is("2"));
+
+        Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(10, TimeUnit.SECONDS).until(() -> {
+            final JsonPath body = given().get("/mybatis/afterConsumer").then().extract().body().jsonPath();
+            if (body != null) {
+                List<Account> accounts = body.getList("", Account.class);
+                return accounts.size() == 2 &&
+                        accounts.get(0).getId() == 123 &&
+                        accounts.get(0).getFirstName().equals("James") &&
+                        accounts.get(0).getLastName().equals("Strachan") &&
+                        accounts.get(0).getEmailAddress().equals("TryGuessing@gmail.com") &&
+                        accounts.get(1).getId() == 456 &&
+                        accounts.get(1).getFirstName().equals("Claus") &&
+                        accounts.get(1).getLastName().equals(("Ibsen")) &&
+                        accounts.get(1).getEmailAddress().equals("Noname@gmail.com");
+
+            } else {
+                return false;
+            }
+        });
     }
 }
