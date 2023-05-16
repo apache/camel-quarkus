@@ -29,7 +29,7 @@ public final class FileUtils {
 
     /**
      * Converts non-*nix path separator characters to the *nix alternative
-     * 
+     *
      * @param  path The {@link java.nio.file.Path} to convert
      * @return      String representation of the path with *nix separators
      */
@@ -39,7 +39,7 @@ public final class FileUtils {
 
     /**
      * Converts non-*nix path separator characters to the *nix alternative
-     * 
+     *
      * @param  path The path String to convert
      * @return      String representation of the path with *nix separators
      */

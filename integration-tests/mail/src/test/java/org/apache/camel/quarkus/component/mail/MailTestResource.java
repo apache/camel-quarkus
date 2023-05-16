@@ -34,11 +34,11 @@ public class MailTestResource implements QuarkusTestResourceLifecycleManager {
         container = new GenericContainer<>(new ImageFromDockerfile()
                 .withFileFromClasspath("Dockerfile", "Dockerfile")
                 .withFileFromClasspath("greenmail.p12", "greenmail.p12"))
-                        .withExposedPorts(MailProtocol.allPorts())
-                        .waitingFor(new HttpWaitStrategy()
-                                .forPort(MailProtocol.API.getPort())
-                                .forPath("/api/service/readiness")
-                                .forStatusCode(200));
+                .withExposedPorts(MailProtocol.allPorts())
+                .waitingFor(new HttpWaitStrategy()
+                        .forPort(MailProtocol.API.getPort())
+                        .forPath("/api/service/readiness")
+                        .forStatusCode(200));
 
         container.start();
 

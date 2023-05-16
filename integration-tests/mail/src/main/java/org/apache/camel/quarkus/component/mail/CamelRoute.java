@@ -102,52 +102,52 @@ public class CamelRoute extends RouteBuilder {
 
         fromF("pop3://localhost:%d?initialDelay=100&delay=500&username=%s&password=%s&delete=true", pop3Port, USERNAME,
                 PASSWORD)
-                        .id(Routes.pop3ReceiveRoute.name())
-                        .autoStartup(false)
-                        .process(exchange -> handleMail(exchange));
+                .id(Routes.pop3ReceiveRoute.name())
+                .autoStartup(false)
+                .process(exchange -> handleMail(exchange));
 
         fromF("pop3s://localhost:%d?initialDelay=100&delay=500&username=%s&password=%s&delete=true&sslContextParameters=#sslContextParameters&additionalJavaMailProperties=#additionalProperties",
                 pop3sPort, USERNAME,
                 PASSWORD)
-                        .id(Routes.pop3sReceiveRoute.name())
-                        .autoStartup(false)
-                        .process(exchange -> handleMail(exchange));
+                .id(Routes.pop3sReceiveRoute.name())
+                .autoStartup(false)
+                .process(exchange -> handleMail(exchange));
 
         fromF("imap://localhost:%d?initialDelay=100&delay=500&username=%s&password=%s&delete=true", imapPort, USERNAME,
                 PASSWORD)
-                        .id(Routes.imapReceiveRoute.name())
-                        .autoStartup(false)
-                        .process(exchange -> handleMail(exchange));
+                .id(Routes.imapReceiveRoute.name())
+                .autoStartup(false)
+                .process(exchange -> handleMail(exchange));
 
         fromF("imaps://localhost:%d?initialDelay=100&delay=500&username=%s&password=%s&delete=true&sslContextParameters=#sslContextParameters&additionalJavaMailProperties=#additionalProperties",
                 imapsPort, USERNAME,
                 PASSWORD)
-                        .id(Routes.imapsReceiveRoute.name())
-                        .autoStartup(false)
-                        .process(exchange -> handleMail(exchange));
+                .id(Routes.imapsReceiveRoute.name())
+                .autoStartup(false)
+                .process(exchange -> handleMail(exchange));
 
         fromF("pop3://localhost:%d?initialDelay=100&delay=500&username=%s&password=%s"
                 + "&delete=true&maxMessagesPerPoll=3", pop3Port, USERNAME, PASSWORD)
-                        .id(Routes.batchReceiveRoute.name())
-                        .autoStartup(false)
-                        .process(e -> {
-                            Map<String, Object> map = handleMail(e);
-                            map.put(ExchangePropertyKey.BATCH_INDEX.getName(), e.getProperty(ExchangePropertyKey.BATCH_INDEX));
-                            map.put(ExchangePropertyKey.BATCH_COMPLETE.getName(),
-                                    e.getProperty(ExchangePropertyKey.BATCH_COMPLETE));
-                            map.put(ExchangePropertyKey.BATCH_SIZE.getName(), e.getProperty(ExchangePropertyKey.BATCH_SIZE));
-                        });
+                .id(Routes.batchReceiveRoute.name())
+                .autoStartup(false)
+                .process(e -> {
+                    Map<String, Object> map = handleMail(e);
+                    map.put(ExchangePropertyKey.BATCH_INDEX.getName(), e.getProperty(ExchangePropertyKey.BATCH_INDEX));
+                    map.put(ExchangePropertyKey.BATCH_COMPLETE.getName(),
+                            e.getProperty(ExchangePropertyKey.BATCH_COMPLETE));
+                    map.put(ExchangePropertyKey.BATCH_SIZE.getName(), e.getProperty(ExchangePropertyKey.BATCH_SIZE));
+                });
 
         fromF("pop3://localhost:%d?initialDelay=100&delay=500&username=%s&password=%s&delete=true", pop3Port, USERNAME,
                 PASSWORD)
-                        .id(Routes.convertersRoute.name())
-                        .autoStartup(false)
-                        .process(e -> {
-                            MailConverters.toInputStream(e.getIn().getBody(MailMessage.class).getMessage());
-                            InputStream is = MailConverters.toInputStream(e.getIn().getBody(MailMessage.class).getMessage());
-                            Map<String, Object> map = handleMail(e);
-                            map.put("convertedStream", is);
-                        });
+                .id(Routes.convertersRoute.name())
+                .autoStartup(false)
+                .process(e -> {
+                    MailConverters.toInputStream(e.getIn().getBody(MailMessage.class).getMessage());
+                    InputStream is = MailConverters.toInputStream(e.getIn().getBody(MailMessage.class).getMessage());
+                    Map<String, Object> map = handleMail(e);
+                    map.put("convertedStream", is);
+                });
 
     }
 

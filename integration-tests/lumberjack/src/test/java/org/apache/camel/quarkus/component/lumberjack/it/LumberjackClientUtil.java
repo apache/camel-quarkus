@@ -47,7 +47,7 @@ public class LumberjackClientUtil {
 
     /**
      * Send payload to Lumberjack server
-     * 
+     *
      * @param  port
      * @param  withSslContextParameters
      * @return
@@ -117,7 +117,7 @@ public class LumberjackClientUtil {
 
     /**
      * read window frame and writes in ByteBuf
-     * 
+     *
      * @param  resource
      * @return
      */

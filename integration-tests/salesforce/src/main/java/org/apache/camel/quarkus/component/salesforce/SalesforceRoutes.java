@@ -79,13 +79,13 @@ public class SalesforceRoutes extends RouteBuilder {
             from("salesforce:subscribe:CamelTestTopic?notifyForFields=ALL&"
                     + "notifyForOperationCreate=true&notifyForOperationDelete=true&notifyForOperationUpdate=true&"
                     + "sObjectClass=" + Account.class.getName() + "&updateTopic=true&sObjectQuery=SELECT Id, Name FROM Account")
-                            .to("seda:CamelTestTopic");
+                    .to("seda:CamelTestTopic");
 
             // Streaming API : topic consumer with RAW Payload - getting json as String
             from("salesforce:subscribe:CamelTestTopic?rawPayload=true&notifyForFields=ALL&"
                     + "notifyForOperationCreate=true&notifyForOperationDelete=true&notifyForOperationUpdate=true&"
                     + "updateTopic=true&sObjectQuery=SELECT Id, Name FROM Account")
-                            .to("seda:RawPayloadCamelTestTopic");
+                    .to("seda:RawPayloadCamelTestTopic");
 
             // it takes some time for the subscriber to subscribe, so we'll try to
             // send repeated platform events and wait until the first one is

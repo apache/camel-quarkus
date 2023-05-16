@@ -327,11 +327,11 @@ public class AzureStorageBlobResource {
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
         ((Stream<PageRangeItem>) pageIterable
                 .stream())
-                        .map(pr -> Json.createObjectBuilder()
-                                .add("offset", pr.getRange().getOffset())
-                                .add("length", pr.getRange().getLength())
-                                .build())
-                        .forEach(arrayBuilder::add);
+                .map(pr -> Json.createObjectBuilder()
+                        .add("offset", pr.getRange().getOffset())
+                        .add("length", pr.getRange().getLength())
+                        .build())
+                .forEach(arrayBuilder::add);
 
         objectBuilder.add("ranges", arrayBuilder.build());
         return objectBuilder.build();

@@ -44,22 +44,22 @@ public class Aws2DdbStreamRoutes extends RouteBuilder {
     public void configure() throws Exception {
         from("aws2-ddbstream://" + streamTableName
                 + "?streamIteratorType=FROM_LATEST")
-                        .id("aws2DdbStreamRoute")
-                        .autoStartup(false)
-                        .process(e -> {
-                            Record record = e.getMessage().getBody(Record.class);
-                            StreamRecord item = record.dynamodb();
-                            Map<String, String> result = new LinkedHashMap<>();
-                            result.put("key", item.keys().get("key").s());
-                            if (item.hasOldImage()) {
-                                result.put("old", item.oldImage().get("value").s());
-                            }
-                            if (item.hasNewImage()) {
-                                result.put("new", item.newImage().get("value").s());
-                            }
-                            result.put("sequenceNumber", item.sequenceNumber());
-                            aws2DdbStreamReceivedEvents.add(result);
-                        });
+                .id("aws2DdbStreamRoute")
+                .autoStartup(false)
+                .process(e -> {
+                    Record record = e.getMessage().getBody(Record.class);
+                    StreamRecord item = record.dynamodb();
+                    Map<String, String> result = new LinkedHashMap<>();
+                    result.put("key", item.keys().get("key").s());
+                    if (item.hasOldImage()) {
+                        result.put("old", item.oldImage().get("value").s());
+                    }
+                    if (item.hasNewImage()) {
+                        result.put("new", item.newImage().get("value").s());
+                    }
+                    result.put("sequenceNumber", item.sequenceNumber());
+                    aws2DdbStreamReceivedEvents.add(result);
+                });
     }
 
     static class Producers {

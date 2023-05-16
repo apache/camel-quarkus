@@ -49,7 +49,7 @@ public class AzureEventhubsRoutes extends RouteBuilder {
                     + ")&blobAccessKey=RAW(" + azureStorageAccountKey
                     + ")&blobContainerName=RAW(" + azureBlobContainerName.get() + ")&amqpTransportType="
                     + AmqpTransportType.AMQP)
-                            .to("mock:azure-consumed");
+                    .to("mock:azure-consumed");
         } else if (!startMockBackend) {
             throw new IllegalStateException(
                     "azure.event.hubs.connection.string and azure.event.hubs.blob.container.name must be set when camel.quarkus.start.mock.backend == false");

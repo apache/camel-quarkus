@@ -76,19 +76,19 @@ public class SqlRoutes extends RouteBuilder {
         from(String.format("sql:select * from projectsViaSql where processed = %s"
                 + " order by id?initialDelay=0&delay=50&consumer.onConsume=update projectsViaSql set processed = %s"
                 + " where id = :#id", representationOfFalse, representationOfTrue))
-                        .process(e -> results.get("consumerRoute").add(e.getMessage().getBody(Map.class)));
+                .process(e -> results.get("consumerRoute").add(e.getMessage().getBody(Map.class)));
 
         from(String.format("sql:classpath:sql/common/%s?initialDelay=0&delay=50&" +
                 "consumer.onConsume=update projectsViaClasspath set processed = %s", selectProjectsScriptName,
                 representationOfTrue))
-                        .process(e -> results.get("consumerClasspathRoute").add(e.getMessage().getBody(Map.class)));
+                .process(e -> results.get("consumerClasspathRoute").add(e.getMessage().getBody(Map.class)));
 
         //File `sql/common/selectProjectsAs*.sql` is copied and modified to create tmp file for another test case
         // (to have different file for the sql request from file and from classpath)
         Path tmpFile = createTmpFileFrom("sql/common/" + selectProjectsScriptName);
         from(String.format("sql:file:%s?initialDelay=0&delay=50&" +
                 "consumer.onConsume=update projectsViaFile set processed = %s", tmpFile, representationOfTrue))
-                        .process(e -> results.get("consumerFileRoute").add(e.getMessage().getBody(Map.class)));
+                .process(e -> results.get("consumerFileRoute").add(e.getMessage().getBody(Map.class)));
 
         from("direct:transacted")
                 .transacted("PROPAGATION_REQUIRED")

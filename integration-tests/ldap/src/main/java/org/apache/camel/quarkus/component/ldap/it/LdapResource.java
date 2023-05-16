@@ -54,7 +54,7 @@ public class LdapResource {
      * Extracts the LDAP connection parameters passed from the test and creates a
      * {@link javax.naming.directory.DirContext} from them.
      * The DirContext is then bound into the CamelContext for use in the LDAP route.
-     * 
+     *
      * @param  options
      * @throws Exception
      */
@@ -114,7 +114,7 @@ public class LdapResource {
      * Converts the list of {@link javax.naming.directory.SearchResult} objects into
      * a structure that Jackson can
      * serialize into JSON.
-     * 
+     *
      * @param  searchResults
      * @return
      * @throws Exception

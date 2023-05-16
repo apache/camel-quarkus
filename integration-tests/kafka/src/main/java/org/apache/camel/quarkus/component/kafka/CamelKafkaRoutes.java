@@ -87,7 +87,7 @@ public class CamelKafkaRoutes extends RouteBuilder {
         from("kafka:test-serializer?autoOffsetReset=earliest" +
                 "&keyDeserializer=org.apache.kafka.common.serialization.IntegerDeserializer" +
                 "&valueDeserializer=org.apache.kafka.common.serialization.DoubleDeserializer")
-                        .to(SEDA_SERIALIZER);
+                .to(SEDA_SERIALIZER);
 
         // Header Propagation using CustomHeaderDeserialize
         from("kafka:test-propagation?headerDeserializer=#customHeaderDeserializer")
