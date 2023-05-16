@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- Paho MQTT 5 Component Quarkus: using ssl inside native image [\#4895](https://github.com/apache/camel-quarkus/issues/4895)
 - Remove the local upgrade of maven-resolver used by mvnw once we upgrade to mvnw 3.9.2 [\#4885](https://github.com/apache/camel-quarkus/issues/4885)
 - Snmp: cover snmp v3 for POLL operation [\#4881](https://github.com/apache/camel-quarkus/issues/4881)
 - Stop managing woodstox directly, rather rely on quarkus-cxf-bom [\#4855](https://github.com/apache/camel-quarkus/issues/4855)
