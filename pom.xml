@@ -178,7 +178,7 @@
         <impsort-maven-plugin.version>1.9.0</impsort-maven-plugin.version>
         <jandex-maven-plugin.version>1.2.3</jandex-maven-plugin.version>
         <keytool-maven-plugin.version>1.7</keytool-maven-plugin.version>
-        <mycila-license.version>3.0</mycila-license.version>
+        <license-maven-plugin.version>4.2</license-maven-plugin.version>
         <maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
@@ -473,7 +473,7 @@
                 <plugin>
                     <groupId>com.mycila</groupId>
                     <artifactId>license-maven-plugin</artifactId>
-                    <version>${mycila-license.version}</version>
+                    <version>${license-maven-plugin.version}</version>
                     <configuration>
                         <failIfUnknown>true</failIfUnknown>
                         <header>header.txt</header>
@@ -501,6 +501,8 @@
                             <exclude>**/*.kts</exclude>
                             <exclude>**/*.ldif</exclude>
                             <exclude>**/*.lock</exclude>
+                            <exclude>**/*.log</exclude>
+                            <exclude>**/*.log.*</exclude>
                             <exclude>**/*.mp3</exclude>
                             <exclude>**/*.mp4</exclude>
                             <exclude>**/*.mvel</exclude>
