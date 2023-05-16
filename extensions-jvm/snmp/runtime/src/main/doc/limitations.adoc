@@ -7,3 +7,7 @@ The motivation for this change is twofold:
 2. Camel switches to `org.snmp4j.snmp4j` in version 4 anyway, so Camel Quarkus users can enjoy the same benefits a bit earlier.
 
 This change has no impact on configuration of the SNMP component.
+
+=== SNMP v3
+
+SNMP with version 3 is supported only for the operation `poll`. (Limitation is caused by the issue in Camel 3.18.6 - see the https://issues.apache.org/jira/browse/CAMEL-19298[ticket])
