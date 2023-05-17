@@ -35,12 +35,17 @@
 - `QuarkusVertxWebsocketHost` should return the actual port for the HTTP server [\#4557](https://github.com/apache/camel-quarkus/issues/4557)
 - Permanently remove extensions depending on components removed from Camel 4 [\#4477](https://github.com/apache/camel-quarkus/issues/4477)
 - Document the fact that the default value `/` of quarkus.cxf.path may cause RESTeasy endpoints to be inacessible [\#4192](https://github.com/apache/camel-quarkus/issues/4192)
+- Fix `com.google.oauth-client:google-oauth-client` dependency convergence issues [\#4139](https://github.com/apache/camel-quarkus/issues/4139)
 - Camel 3.19 - Add camel-cli-connector extension [\#4051](https://github.com/apache/camel-quarkus/issues/4051)
 - LDAP native support [\#1735](https://github.com/apache/camel-quarkus/issues/1735)
 
 **Merged pull requests:**
 
+- Miscellaneous dependency alignment / removal [\#4904](https://github.com/apache/camel-quarkus/pull/4904) ([jamesnetherton](https://github.com/jamesnetherton))
+- Bump quarkus-amazon-services-bom from 2.1.1 to 2.2.0 [\#4903](https://github.com/apache/camel-quarkus/pull/4903) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Recommend using wsdl2Java -validate while wsdlvalidator is not supported [\#4901](https://github.com/apache/camel-quarkus/pull/4901) ([ppalaga](https://github.com/ppalaga))
 - Generated sources regen for SBOM [\#4898](https://github.com/apache/camel-quarkus/pull/4898) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Bump quarkiverse-cxf.version from 2.0.3 to 2.0.4 [\#4897](https://github.com/apache/camel-quarkus/pull/4897) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Upgrade to quarkus-cxf 2.0.3 [\#4891](https://github.com/apache/camel-quarkus/pull/4891) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to Maven 3.9.2, Remove the local upgrade of maven-resolver used by mvnw [\#4890](https://github.com/apache/camel-quarkus/pull/4890) ([ppalaga](https://github.com/ppalaga))
 - Be more specific when to use a ConsumerTemplate in extension tests [\#4889](https://github.com/apache/camel-quarkus/pull/4889) ([ppalaga](https://github.com/ppalaga))
