@@ -89,6 +89,7 @@ class OpenApiJavaProcessor {
     @BuildStep
     void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
         indexDependency.produce(new IndexDependencyBuildItem("io.swagger.core.v3", "swagger-models"));
+        indexDependency.produce(new IndexDependencyBuildItem("io.swagger", "swagger-models"));
     }
 
     @BuildStep
@@ -97,6 +98,11 @@ class OpenApiJavaProcessor {
 
         IndexView index = combinedIndex.getIndex();
         index.getAllKnownSubclasses(SCHEMA).stream().map(ClassInfo::toString)
+                .forEach(name -> reflectiveClasses.produce(ReflectiveClassBuildItem.builder(name).methods().build()));
+
+        index.getKnownClasses().stream().filter(ci -> ci.name().packagePrefix().startsWith("io.swagger.models") ||
+                ci.name().packagePrefix().startsWith("io.swagger.v3.oas.models"))
+                .map(ClassInfo::toString)
                 .forEach(name -> reflectiveClasses.produce(ReflectiveClassBuildItem.builder(name).methods().build()));
 
         reflectiveClasses.produce(ReflectiveClassBuildItem.builder(Discriminator.class).build());
