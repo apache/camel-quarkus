@@ -30,13 +30,12 @@
     </parent>
     <artifactId>cq-perf-regression-sample</artifactId>
     <properties>
-        <compiler-plugin.version>3.8.1</compiler-plugin.version>
+        <hyperfoil-maven-plugin.version>0.24.1</hyperfoil-maven-plugin.version>
         <maven.compiler.parameters>true</maven.compiler.parameters>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
     </properties>
     <!-- The repositories will be set programmatically, if needed -->
     <pluginRepositories />
@@ -187,7 +186,7 @@
             <plugin>
                 <groupId>io.hyperfoil</groupId>
                 <artifactId>hyperfoil-maven-plugin</artifactId>
-                <version>0.22</version>
+                <version>${hyperfoil-maven-plugin.version}</version>
                 <!-- Bound to integration-test phase by default -->
                 <configuration>
                     <yaml>cq-perf-regression-scenario.hf.yaml</yaml>
@@ -215,7 +214,6 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>${surefire-plugin.version}</version>
                         <executions>
                             <execution>
                                 <goals>
