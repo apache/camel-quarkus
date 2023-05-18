@@ -16,12 +16,12 @@ and https://quarkus.io/blog/runtime-performance/#response-times-ms[response late
 these metrics matter to you.
 
 And third, creating a Quarkus extension that works well both in JVM and native mode requires some time and
-xref:contributor-guide/create-new-extension.adoc[expertise]. In case some extension is needed quickly and the native
+xref:create-new-extension.adoc[expertise]. In case some extension is needed quickly and the native
 support is dispensable, relying on JVM-only extensions may make a lot of sense.
 
 == How to create a JVM-only extension
 
-The steps are the same as when xref:contributor-guide/create-new-extension.adoc[creating a native extension], except
+The steps are the same as when xref:create-new-extension.adoc[creating a native extension], except
 for the following:
 
 * Add `-Dcq.nativeSupported=false` to `cq:create` mojo invocation:
