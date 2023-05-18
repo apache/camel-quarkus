@@ -50,5 +50,5 @@ TIP: You may want to install and use https://github.com/mvndaemon/mvnd[`mvnd` - 
 
 == What's next?
 
-* xref:contributor-guide/create-new-extension.adoc[Create new extension].
-* xref:contributor-guide/promote-jvm-to-native.adoc[Promote a JVM extension to Native].
+* xref:create-new-extension.adoc[Create new extension].
+* xref:promote-jvm-to-native.adoc[Promote a JVM extension to Native].
