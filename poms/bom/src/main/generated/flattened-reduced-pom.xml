@@ -6164,7 +6164,7 @@
       <dependency>
         <groupId>io.quarkiverse.tika</groupId>
         <artifactId>quarkus-tika</artifactId>
-        <version>2.0.0</version>
+        <version>2.0.1</version>
         <exclusions>
           <exclusion>
             <groupId>commons-logging</groupId>
@@ -6175,7 +6175,7 @@
       <dependency>
         <groupId>io.quarkiverse.tika</groupId>
         <artifactId>quarkus-tika-deployment</artifactId>
-        <version>2.0.0</version>
+        <version>2.0.1</version>
       </dependency>
       <dependency>
         <groupId>io.smallrye.reactive</groupId>
