@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- \[camel-main\] Openapi-java native is not working \(CAMEL-18963\) [\#4900](https://github.com/apache/camel-quarkus/issues/4900)
 - Paho MQTT 5 Component Quarkus: using ssl inside native image [\#4895](https://github.com/apache/camel-quarkus/issues/4895)
 - Remove the local upgrade of maven-resolver used by mvnw once we upgrade to mvnw 3.9.2 [\#4885](https://github.com/apache/camel-quarkus/issues/4885)
 - Snmp: cover snmp v3 for POLL operation [\#4881](https://github.com/apache/camel-quarkus/issues/4881)
@@ -41,6 +42,7 @@
 
 **Merged pull requests:**
 
+- Restore erroneously removed camel-quartz dependency exclusions [\#4909](https://github.com/apache/camel-quarkus/pull/4909) ([jamesnetherton](https://github.com/jamesnetherton))
 - Miscellaneous dependency alignment / removal [\#4904](https://github.com/apache/camel-quarkus/pull/4904) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump quarkus-amazon-services-bom from 2.1.1 to 2.2.0 [\#4903](https://github.com/apache/camel-quarkus/pull/4903) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Recommend using wsdl2Java -validate while wsdlvalidator is not supported [\#4901](https://github.com/apache/camel-quarkus/pull/4901) ([ppalaga](https://github.com/ppalaga))
