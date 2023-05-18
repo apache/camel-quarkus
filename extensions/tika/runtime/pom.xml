@@ -60,14 +60,6 @@
                     <artifactId>fontbox</artifactId>
                     <groupId>org.apache.pdfbox</groupId>
                 </exclusion>
-                <exclusion>
-                    <artifactId>tika-parser-text-module</artifactId>
-                    <groupId>org.apache.tika</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>tika-core</artifactId>
-                    <groupId>org.apache.tika</groupId>
-                </exclusion>
             </exclusions>
         </dependency>
         <!-- TODO: Remove this: https://github.com/apache/camel-quarkus/issues/4786 -->

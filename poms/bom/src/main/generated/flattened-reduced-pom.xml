@@ -2032,6 +2032,24 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-quartz</artifactId>
         <version>4.0.0-SNAPSHOT</version>
+        <exclusions>
+          <exclusion>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.mchange</groupId>
+            <artifactId>c3p0</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -2325,6 +2343,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-tika</artifactId>
         <version>4.0.0-SNAPSHOT</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>*</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -5019,6 +5043,16 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-smallrye-reactive-messaging</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-smallrye-reactive-messaging-deployment</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-smpp</artifactId>
         <version>3.0.0-SNAPSHOT</version>
       </dependency>
@@ -6210,6 +6244,11 @@
         <version>2.0.0</version>
       </dependency>
       <dependency>
+        <groupId>io.smallrye.reactive</groupId>
+        <artifactId>smallrye-reactive-messaging-camel</artifactId>
+        <version>4.5.0</version>
+      </dependency>
+      <dependency>
         <groupId>jakarta.jms</groupId>
         <artifactId>jakarta.jms-api</artifactId>
         <version>3.1.0</version>
@@ -6348,22 +6387,22 @@
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcmail-jdk18on</artifactId>
-        <version>1.72</version>
+        <version>1.73</version>
       </dependency>
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcpg-jdk18on</artifactId>
-        <version>1.72</version>
+        <version>1.73</version>
       </dependency>
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcprov-ext-jdk18on</artifactId>
-        <version>1.72</version>
+        <version>1.73</version>
       </dependency>
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcutil-jdk18on</artifactId>
-        <version>1.72</version>
+        <version>1.73</version>
       </dependency>
       <dependency>
         <groupId>org.brotli</groupId>
@@ -6393,17 +6432,17 @@
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-script-util</artifactId>
-        <version>1.8.10</version>
+        <version>1.8.21</version>
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-scripting-jvm</artifactId>
-        <version>1.8.10</version>
+        <version>1.8.21</version>
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-scripting-jvm-host</artifactId>
-        <version>1.8.10</version>
+        <version>1.8.21</version>
       </dependency>
       <dependency>
         <groupId>org.mvel</groupId>
