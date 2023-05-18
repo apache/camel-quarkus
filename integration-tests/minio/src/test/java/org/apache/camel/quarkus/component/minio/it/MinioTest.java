@@ -335,8 +335,8 @@ class MinioTest {
                         "bucket", nonExistingBucket2))
                 .post("/minio/operation")
                 .then()
-                .statusCode(500)
-                .body(containsString("Failed to resolve endpoint"));
+                .statusCode(200)
+                .body(not(containsString(nonExistingBucket2)));
     }
 
     @Test
