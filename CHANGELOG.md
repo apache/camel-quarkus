@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- \[camel-main\] Remove excludes for tika/runtime [\#4907](https://github.com/apache/camel-quarkus/issues/4907)
 - \[camel-main\] Openapi-java native is not working \(CAMEL-18963\) [\#4900](https://github.com/apache/camel-quarkus/issues/4900)
 - Paho MQTT 5 Component Quarkus: using ssl inside native image [\#4895](https://github.com/apache/camel-quarkus/issues/4895)
 - Remove the local upgrade of maven-resolver used by mvnw once we upgrade to mvnw 3.9.2 [\#4885](https://github.com/apache/camel-quarkus/issues/4885)
@@ -35,6 +36,7 @@
 - vertx-websocket producer path handling is broken for some scenarios [\#4628](https://github.com/apache/camel-quarkus/issues/4628)
 - `QuarkusVertxWebsocketHost` should return the actual port for the HTTP server [\#4557](https://github.com/apache/camel-quarkus/issues/4557)
 - Permanently remove extensions depending on components removed from Camel 4 [\#4477](https://github.com/apache/camel-quarkus/issues/4477)
+- Upgrade to OptaPlanner 9.x [\#4463](https://github.com/apache/camel-quarkus/issues/4463)
 - Document the fact that the default value `/` of quarkus.cxf.path may cause RESTeasy endpoints to be inacessible [\#4192](https://github.com/apache/camel-quarkus/issues/4192)
 - Fix `com.google.oauth-client:google-oauth-client` dependency convergence issues [\#4139](https://github.com/apache/camel-quarkus/issues/4139)
 - Camel 3.19 - Add camel-cli-connector extension [\#4051](https://github.com/apache/camel-quarkus/issues/4051)
@@ -42,7 +44,11 @@
 
 **Merged pull requests:**
 
+- Upgrade CycloneDX Maven plugin to version 2.7.9 [\#4917](https://github.com/apache/camel-quarkus/pull/4917) ([oscerd](https://github.com/oscerd))
+- fix contributor links [\#4915](https://github.com/apache/camel-quarkus/pull/4915) ([onderson](https://github.com/onderson))
+- Upgrade to Optaplanner 9.37.Final [\#4912](https://github.com/apache/camel-quarkus/pull/4912) ([zbendhiba](https://github.com/zbendhiba))
 - Restore erroneously removed camel-quartz dependency exclusions [\#4909](https://github.com/apache/camel-quarkus/pull/4909) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade Quarkus to 3.1.0.CR1 [\#4908](https://github.com/apache/camel-quarkus/pull/4908) ([jamesnetherton](https://github.com/jamesnetherton))
 - Miscellaneous dependency alignment / removal [\#4904](https://github.com/apache/camel-quarkus/pull/4904) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump quarkus-amazon-services-bom from 2.1.1 to 2.2.0 [\#4903](https://github.com/apache/camel-quarkus/pull/4903) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Recommend using wsdl2Java -validate while wsdlvalidator is not supported [\#4901](https://github.com/apache/camel-quarkus/pull/4901) ([ppalaga](https://github.com/ppalaga))
