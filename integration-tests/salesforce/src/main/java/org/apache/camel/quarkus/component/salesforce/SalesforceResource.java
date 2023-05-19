@@ -193,7 +193,7 @@ public class SalesforceResource {
                 .withHeader("Sforce-Limit-Info", Collections.singletonList("api-usage")).send();
         GlobalObjectsAndHeaders objectsAndHeaders = new GlobalObjectsAndHeaders(
                 exchange.getMessage().getBody(GlobalObjects.class))
-                        .withHeader("Sforce-Limit-Info", exchange.getMessage().getHeader("Sforce-Limit-Info", String.class));
+                .withHeader("Sforce-Limit-Info", exchange.getMessage().getHeader("Sforce-Limit-Info", String.class));
         return objectsAndHeaders.getHeader("Sforce-Limit-Info");
     }
 

@@ -42,17 +42,17 @@ public class FileRoutes extends RouteBuilder {
                 + "readLockCheckInterval=2000&"
                 + "readLockLoggingLevel=TRACE&"
                 + "readLockTimeout=5000")
-                        .to("file://target/" + READ_LOCK_OUT);
+                .to("file://target/" + READ_LOCK_OUT);
 
         from("file://target/quartz?scheduler=quartz&scheduler.cron=0/1+*+*+*+*+?&repeatCount=0")
                 .to("file://target/quartz/out");
 
         from("file://target/" + CONSUME_BATCH + "?"
                 + "initialDelay=0&delay=100")
-                        .id(CONSUME_BATCH)
-                        .noAutoStartup()
-                        .convertBodyTo(String.class)
-                        .to("mock:" + CONSUME_BATCH);
+                .id(CONSUME_BATCH)
+                .noAutoStartup()
+                .convertBodyTo(String.class)
+                .to("mock:" + CONSUME_BATCH);
 
         from("file://target/charsetIsoRead?initialDelay=0&delay=10&delete=true&charset=ISO-8859-1")
                 .routeId("charsetIsoRead")

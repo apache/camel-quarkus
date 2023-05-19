@@ -17,20 +17,26 @@
 
 version: 2
 
-registries:
-  maven-central:
-    type: maven-repository
-    url: https://repo1.maven.org/maven2
-    username: ""
-    password: ""
-
 updates:
   - package-ecosystem: "maven"
     directory: "/"
-    registries:
-      - maven-central
     schedule:
       interval: "daily"
     allow:
+      # Quarkiverse extensions
       - dependency-name: "io.quarkiverse.*:*"
       - dependency-name: "org.amqphub.quarkus:quarkus-qpid-jms-bom"
+      # Maven plugins
+      - dependency-name: "*:*-maven-plugin"
+      - dependency-name: "org.apache.maven.plugins:*"
+    ignore:
+      # Maven plugins
+      # Quarkus is upgraded manually
+      - dependency-name: "io.quarkus:quarkus-*-maven-plugin"
+      # Camel is upgraded manually
+      - dependency-name: "org.apache.camel.maven:*"
+      # To be kept manually in alignment with the enforcer API version used in quarkus-enforcer-rules
+      - dependency-name: "org.apache.maven.plugins:maven-enforcer-plugin"
+      # https://github.com/apache/camel-quarkus/issues/723
+      - dependency-name: "org.apache.maven.plugins:maven-failsafe-plugin"
+      - dependency-name: "org.apache.maven.plugins:maven-surefire-plugin"

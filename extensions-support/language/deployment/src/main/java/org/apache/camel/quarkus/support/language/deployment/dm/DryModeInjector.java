@@ -75,7 +75,7 @@ class DryModeInjector implements Injector {
 
     /**
      * Indicates whether the given type must be replaced by a mock component.
-     * 
+     *
      * @param  type the type to check.
      * @return      {@code true} if it should be replaced, {@code false} otherwise.
      * @param  <T>  the type of the class to check.

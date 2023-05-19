@@ -78,7 +78,7 @@ class LdapTest {
     /**
      * Calls a Camel route to search for LDAP entries where the uid is "tcruise".
      * The test is run in both SSL and non-SSL modes.
-     * 
+     *
      * @param  useSSL
      * @throws Exception
      */
@@ -103,7 +103,7 @@ class LdapTest {
     /**
      * Tests the escaping of search values using the
      * {@link org.apache.camel.component.ldap.LdapHelper} class.
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -126,7 +126,7 @@ class LdapTest {
      * Configures the
      * {@link org.apache.camel.quarkus.component.ldap.it.LdapResource} by sending it
      * a Map of connection properties.
-     * 
+     *
      * @param  useSSL
      * @throws Exception
      */

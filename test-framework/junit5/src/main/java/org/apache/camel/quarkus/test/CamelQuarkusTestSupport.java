@@ -163,7 +163,7 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
      * This method is not called on Camel Quarkus because the `CamelRegistry` is created and owned by Quarkus CDI container.
      * If you need to customize the registry upon creation, you may want to override {@link #createCamelContext()}
      * in the following way:
-     * 
+     *
      * <pre>
      * &#64;Override
      * protected CamelContext createCamelContext() throws Exception {
@@ -173,7 +173,7 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
      *     return ctx;
      * }
      * </pre>
-     * 
+     *
      * @return Never returns any result. UnsupportedOperationException is thrown instead.
      */
     @Override

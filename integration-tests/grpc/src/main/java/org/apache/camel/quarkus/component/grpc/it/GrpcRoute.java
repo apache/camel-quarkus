@@ -45,12 +45,12 @@ public class GrpcRoute extends RouteBuilder {
 
         fromF("grpc://localhost:{{camel.grpc.test.forward.completed.server.port}}/%s?consumerStrategy=PROPAGATION&forwardOnCompleted=true",
                 PING_PONG_SERVICE)
-                        .to("mock:forwardOnCompleted");
+                .to("mock:forwardOnCompleted");
 
         fromF("grpc://localhost:{{camel.grpc.test.forward.error.server.port}}/%s?consumerStrategy=PROPAGATION&forwardOnError=true",
                 PING_PONG_SERVICE)
-                        .filter().body(Throwable.class)
-                        .to("mock:forwardOnError");
+                .filter().body(Throwable.class)
+                .to("mock:forwardOnError");
 
         from("direct:grpcStream")
                 .toF("grpc://localhost:{{camel.grpc.test.server.port}}/%s?producerStrategy=STREAMING&streamRepliesTo=direct:grpcStreamReplies&method=pingAsyncAsync",
@@ -58,35 +58,35 @@ public class GrpcRoute extends RouteBuilder {
 
         fromF("grpc://localhost:{{camel.grpc.test.route.controlled.server.port}}/%s?synchronous=true&consumerStrategy=PROPAGATION&routeControlledStreamObserver=true",
                 PING_PONG_SERVICE)
-                        .process(exchange -> {
-                            Message message = exchange.getMessage();
-                            PingRequest pingRequest = message.getBody(PingRequest.class);
+                .process(exchange -> {
+                    Message message = exchange.getMessage();
+                    PingRequest pingRequest = message.getBody(PingRequest.class);
 
-                            StreamObserver<Object> responseObserver = (StreamObserver<Object>) exchange
-                                    .getProperty(GrpcConstants.GRPC_RESPONSE_OBSERVER);
-                            PongResponse pongResponse = PongResponse.newBuilder()
-                                    .setPongName(pingRequest.getPingName() + " PONG")
-                                    .setPongId(pingRequest.getPingId())
-                                    .build();
+                    StreamObserver<Object> responseObserver = (StreamObserver<Object>) exchange
+                            .getProperty(GrpcConstants.GRPC_RESPONSE_OBSERVER);
+                    PongResponse pongResponse = PongResponse.newBuilder()
+                            .setPongName(pingRequest.getPingName() + " PONG")
+                            .setPongId(pingRequest.getPingId())
+                            .build();
 
-                            message.setBody(pongResponse, PongResponse.class);
-                            exchange.setMessage(message);
-                            responseObserver.onNext(pongResponse);
-                            responseObserver.onCompleted();
-                        });
+                    message.setBody(pongResponse, PongResponse.class);
+                    exchange.setMessage(message);
+                    responseObserver.onNext(pongResponse);
+                    responseObserver.onCompleted();
+                });
 
         fromF("grpc://localhost:{{camel.grpc.test.tls.server.port}}"
                 + "/%s?consumerStrategy=PROPAGATION&"
                 + "negotiationType=TLS&keyCertChainResource=certs/server.pem&"
                 + "keyResource=certs/server.key&trustCertCollectionResource=certs/ca.pem", PING_PONG_SERVICE)
-                        .process("messageOriginProcessor")
-                        .choice()
-                        .when(simple("${header.origin} == 'producer'"))
-                        .bean(new GrpcMessageBuilder(), "buildAsyncPongResponse")
-                        .endChoice()
-                        .otherwise()
-                        .to("mock:tls")
-                        .bean(new GrpcMessageBuilder(), "buildAsyncPongResponse").endChoice();
+                .process("messageOriginProcessor")
+                .choice()
+                .when(simple("${header.origin} == 'producer'"))
+                .bean(new GrpcMessageBuilder(), "buildAsyncPongResponse")
+                .endChoice()
+                .otherwise()
+                .to("mock:tls")
+                .bean(new GrpcMessageBuilder(), "buildAsyncPongResponse").endChoice();
 
         from("direct:sendTls")
                 .toF("grpc://localhost:{{camel.grpc.test.tls.server.port}}"
@@ -97,14 +97,14 @@ public class GrpcRoute extends RouteBuilder {
         fromF("grpc://localhost:{{camel.grpc.test.jwt.server.port}}"
                 + "/%s?consumerStrategy=PROPAGATION&"
                 + "authenticationType=JWT&jwtSecret=%s", PING_PONG_SERVICE, GRPC_JWT_SECRET)
-                        .process("messageOriginProcessor")
-                        .choice()
-                        .when(simple("${header.origin} == 'producer'"))
-                        .bean(new GrpcMessageBuilder(), "buildAsyncPongResponse")
-                        .endChoice()
-                        .otherwise()
-                        .to("mock:jwt")
-                        .bean(new GrpcMessageBuilder(), "buildAsyncPongResponse").endChoice();
+                .process("messageOriginProcessor")
+                .choice()
+                .when(simple("${header.origin} == 'producer'"))
+                .bean(new GrpcMessageBuilder(), "buildAsyncPongResponse")
+                .endChoice()
+                .otherwise()
+                .to("mock:jwt")
+                .bean(new GrpcMessageBuilder(), "buildAsyncPongResponse").endChoice();
 
         from("direct:sendJwt")
                 .toF("grpc://localhost:{{camel.grpc.test.jwt.server.port}}"

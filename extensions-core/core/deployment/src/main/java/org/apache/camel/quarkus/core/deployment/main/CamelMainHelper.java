@@ -56,7 +56,7 @@ public final class CamelMainHelper {
 
     /**
      * Execute a task for each resource that matches with the "include" and "exclude" patterns.
-     * 
+     *
      * @param resourceConsumer the task to execute for each matching resource.
      */
     public static void forEachMatchingResource(Consumer<Resource> resourceConsumer) throws Exception {

@@ -80,8 +80,8 @@ public class CassandraqlRoutes extends RouteBuilder {
 
         fromF("cql://%s/%s?username=%s&password=%s&repeatCount=1&cql=SELECT * FROM employee", dbUrl, KEYSPACE, userName,
                 password).id("employee-consumer")
-                        .autoStartup(false)
-                        .to("seda:employees");
+                .autoStartup(false)
+                .to("seda:employees");
 
         from("direct:aggregate")
                 .aggregate(simple("${body.id}"), createAggregationStrategy())

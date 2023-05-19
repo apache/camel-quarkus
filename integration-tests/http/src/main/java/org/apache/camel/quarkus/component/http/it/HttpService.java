@@ -73,7 +73,7 @@ public class HttpService {
     @GET
     @Path("/custom-vertx-options")
     public void customVertxOptions() {
-        // We are not expected to pass here as the Vert.x HTTP client should throw IllegalArgumentException 
+        // We are not expected to pass here as the Vert.x HTTP client should throw IllegalArgumentException
     }
 
     @GET

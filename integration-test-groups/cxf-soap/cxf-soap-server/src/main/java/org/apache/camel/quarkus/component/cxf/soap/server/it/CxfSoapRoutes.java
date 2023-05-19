@@ -63,7 +63,7 @@ public class CxfSoapRoutes extends RouteBuilder {
 
         from(String.format("cxf:///hello-uri-address?wsdlURL=wsdl/HelloService.wsdl&serviceClass=%s",
                 HelloPortType.class.getName()))
-                        .setBody().simple("Hello ${body} from CXF service");
+                .setBody().simple("Hello ${body} from CXF service");
 
         from("cxf:bean:codeFirstServiceEndpoint")
                 .choice()
@@ -103,11 +103,11 @@ public class CxfSoapRoutes extends RouteBuilder {
 
         from(String.format("cxf:echoServiceResponseFromRoute?serviceClass=%s&address=/echo-route",
                 EchoServiceImpl.class.getName()))
-                        .setBody(exchange -> exchange.getMessage().getBody(String.class) + " from Camel route");
+                .setBody(exchange -> exchange.getMessage().getBody(String.class) + " from Camel route");
 
         from(String.format("cxf:echoServiceResponseFromImpl?serviceClass=%s&address=/echo-impl",
                 EchoServiceImpl.class.getName()))// no body set here; the response comes from EchoServiceImpl
-                        .log("${body}");
+                .log("${body}");
 
     }
 

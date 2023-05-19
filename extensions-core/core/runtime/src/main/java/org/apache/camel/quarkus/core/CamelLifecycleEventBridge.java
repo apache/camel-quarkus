@@ -50,7 +50,7 @@ import org.apache.camel.util.function.Suppliers;
  * Note that this class does not implement all the callback as some notifications them are already covered
  * by management events {@link CamelManagementEventBridge}
  * <p>
- * 
+ *
  * @see ComponentAddEvent
  * @see ComponentRemoveEvent
  * @see EndpointAddEvent

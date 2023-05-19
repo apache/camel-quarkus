@@ -27,8 +27,8 @@ public class GoogleStorageRoute extends RouteBuilder {
                 "&destinationBucket=" + GoogleStorageResource.DEST_BUCKET +
                 "&moveAfterRead=true" +
                 "&includeBody=true")
-                        .id(GoogleStorageResource.POLLING_ROUTE_NAME)
-                        .to(GoogleStorageResource.DIRECT_POLLING);
+                .id(GoogleStorageResource.POLLING_ROUTE_NAME)
+                .to(GoogleStorageResource.DIRECT_POLLING);
     }
 
 }

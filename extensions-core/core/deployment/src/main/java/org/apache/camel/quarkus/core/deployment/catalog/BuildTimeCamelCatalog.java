@@ -38,7 +38,7 @@ public class BuildTimeCamelCatalog extends AbstractCamelCatalog {
 
     /**
      * Gets a list of all component, endpoint, dataformat & language options for the components that are on the classpath
-     * 
+     *
      * @return List of {@link BaseOptionModel} instances
      */
     public List<BaseOptionModel> getAllOptions() {

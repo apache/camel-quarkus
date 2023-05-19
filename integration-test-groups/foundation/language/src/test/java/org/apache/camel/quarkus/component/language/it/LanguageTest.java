@@ -116,7 +116,7 @@ class LanguageTest {
      * This test is called for each entry in {@link languageResultsMap}.
      * The body text is passed to the routeName endpoint, which is checked for successful completion
      * and that the returned body matches the expected result from {@link TestResult}
-     * 
+     *
      * @param routeName - The name of the endpoint exposed in {@link LanguageResource}
      * @param result    - The {@link TestResource} containing input body and expected result
      */
@@ -134,7 +134,7 @@ class LanguageTest {
 
     /**
      * Tests whether scripts can be loaded over HTTP.
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -144,7 +144,7 @@ class LanguageTest {
         server.stubFor(request("GET", urlPathEqualTo("/simple"))
                 .willReturn(aResponse().withBody("Hello ${body} from simple language http")));
 
-        // The heart of the test is very similar to the testLanguage method above, but pass in the 
+        // The heart of the test is very similar to the testLanguage method above, but pass in the
         // URL of the WireMock server as a query parameter.
         RestAssured.given()
                 .queryParam("baseUrl", server.baseUrl())
@@ -209,7 +209,7 @@ class LanguageTest {
 
     /**
      * Creates a health record for a fictional patient.
-     * 
+     *
      * @return
      */
     private static String createHl7Message() {
