@@ -45,6 +45,7 @@
 
 **Merged pull requests:**
 
+- Generated sources regen for SBOM [\#4922](https://github.com/apache/camel-quarkus/pull/4922) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Upgrade CycloneDX Maven plugin to version 2.7.9 [\#4917](https://github.com/apache/camel-quarkus/pull/4917) ([oscerd](https://github.com/oscerd))
 - fix contributor links [\#4915](https://github.com/apache/camel-quarkus/pull/4915) ([onderson](https://github.com/onderson))
 - Upgrade to Optaplanner 9.37.Final [\#4912](https://github.com/apache/camel-quarkus/pull/4912) ([zbendhiba](https://github.com/zbendhiba))
