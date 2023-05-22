@@ -25,6 +25,7 @@ group-01:
   - infinispan-quarkus-client
   - jcache
   - jms-artemis-client
+  - jms-ibmmq-client
   - jsch
   - kafka
   - kafka-sasl

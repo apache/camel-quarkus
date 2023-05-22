@@ -105,6 +105,7 @@
         <hapi-fhir.version>${hapi-fhir-version}</hapi-fhir.version>
         <hapi-fhir-core.version>5.6.971</hapi-fhir-core.version><!-- @sync ca.uhn.hapi.fhir:hapi-fhir:${hapi-fhir.version} prop:fhir_core_version -->
         <httpclient5.version>5.2.1</httpclient5.version><!-- Saxon and Wiremock -->
+        <ibm.mq.client.version>9.3.2.1</ibm.mq.client.version>
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
         <io-netty-iouring.version>0.0.16.Final</io-netty-iouring.version><!-- @sync org.asynchttpclient:async-http-client-project:${ahc.version} prop:netty.iouring -->
         <jackson.version>2.15.0</jackson.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.fasterxml.jackson.core:jackson-core -->

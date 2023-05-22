@@ -1,0 +1,7 @@
+== Running the tests
+
+To run the tests, you need to accept the license from the official docker image for IBM MQ.
+
+You can run `docker run -e LICENSE=view icr.io/ibm-messaging/mq:9.3.2.1-r1` to view the license.
+
+If you accept the license and want to run the tests, use `-Dibm.mq.container.license=accept` property.
