@@ -14,24 +14,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.openapi.java.graal;
+package org.apache.camel.quarkus.support.swagger.runtime.graal;
 
 import java.util.Calendar;
 import java.util.List;
 
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
-import io.swagger.v3.oas.models.media.Schema;
-import org.apache.camel.openapi.RestOpenApiReader;
+import io.swagger.parser.OpenAPIParser;
+import io.swagger.v3.parser.OpenAPIV3Parser;
+import io.swagger.v3.parser.core.extensions.SwaggerParserExtension;
+import io.swagger.v3.parser.core.models.AuthorizationValue;
+import io.swagger.v3.parser.core.models.ParseOptions;
+import io.swagger.v3.parser.core.models.SwaggerParseResult;
 
-final class OpenapiJavaSubstitutions {
+final class SwaggerSubstitutions {
 }
 
-@TargetClass(RestOpenApiReader.class)
-final class RestOpenApiReaderSubstitutions {
+@TargetClass(OpenAPIParser.class)
+final class OpenAPIParserSubstitutions {
+
     @Substitute
-    private static void convertAndSetItemsEnum(final Schema items, final List<String> allowableValues, final Class<?> type) {
-        throw new UnsupportedOperationException("RestOpenApiReader::convertAndSetItemsEnum should not be invoked");
+    public SwaggerParseResult readLocation(String url, List<AuthorizationValue> auth, ParseOptions options) {
+        if (url.startsWith("resource:")) {
+            url = url.replaceFirst("resource:", "");
+        }
+
+        SwaggerParseResult output = null;
+
+        for (SwaggerParserExtension extension : OpenAPIV3Parser.getExtensions()) {
+            output = extension.readLocation(url, auth, options);
+            if (output != null && output.getOpenAPI() != null) {
+                return output;
+            }
+        }
+
+        return output;
     }
 }
 
