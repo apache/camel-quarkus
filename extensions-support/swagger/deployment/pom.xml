@@ -21,30 +21,22 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-rest-openapi-parent</artifactId>
+        <artifactId>camel-quarkus-support-swagger-parent</artifactId>
         <version>3.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-rest-openapi-deployment</artifactId>
-    <name>Camel Quarkus :: REST OpenApi :: Deployment</name>
+    <artifactId>camel-quarkus-support-swagger-deployment</artifactId>
+    <name>Camel Quarkus :: Support :: Swagger :: Deployment</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-core-deployment</artifactId>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-core-deployment</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-rest-deployment</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-rest-openapi</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-swagger-deployment</artifactId>
+            <artifactId>camel-quarkus-support-swagger</artifactId>
         </dependency>
     </dependencies>
 
