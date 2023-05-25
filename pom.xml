@@ -151,7 +151,6 @@
         <!-- Test dependency versions (keep sorted alphabetically) -->
         <consul-client.version>${consul-client-version}</consul-client.version>
         <ftpserver.version>${ftpserver-version}</ftpserver.version>
-        <greenmail.version>1.6.7</greenmail.version>
         <hamcrest.version>2.2</hamcrest.version><!-- Awaitility and Wiremock -->
         <htmlunit-driver.version>2.47.1</htmlunit-driver.version>
         <mock-javamail.version>${mock-javamail-version}</mock-javamail.version>
