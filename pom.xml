@@ -154,7 +154,6 @@
         <ftpserver.version>${ftpserver-version}</ftpserver.version>
         <hamcrest.version>2.2</hamcrest.version><!-- Awaitility and Wiremock -->
         <htmlunit-driver.version>2.47.1</htmlunit-driver.version>
-        <mock-javamail.version>${mock-javamail-version}</mock-javamail.version>
         <pdfbox.version>${pdfbox-version}</pdfbox.version>
         <sshd.version>2.9.2</sshd.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.sshd:sshd-common -->
         <unboundid-ldapsdk.version>6.0.8</unboundid-ldapsdk.version>
