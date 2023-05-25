@@ -6518,11 +6518,6 @@
                 <version>${kotlin.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.jruby.joni</groupId>
-                <artifactId>joni</artifactId>
-                <version>${joni.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.mvel</groupId>
                 <artifactId>mvel2</artifactId>
                 <version>${mvel2.version}</version>
