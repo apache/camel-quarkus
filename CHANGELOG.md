@@ -45,6 +45,7 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 3.1.0.Final [\#4925](https://github.com/apache/camel-quarkus/pull/4925) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#4922](https://github.com/apache/camel-quarkus/pull/4922) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Upgrade CycloneDX Maven plugin to version 2.7.9 [\#4917](https://github.com/apache/camel-quarkus/pull/4917) ([oscerd](https://github.com/oscerd))
 - fix contributor links [\#4915](https://github.com/apache/camel-quarkus/pull/4915) ([onderson](https://github.com/onderson))
@@ -1644,7 +1645,7 @@
 - \[camel-main\] Csimple:  Cannot find compiled csimple language for expression: Hello ${body} [\#4745](https://github.com/apache/camel-quarkus/issues/4745)
 - \[camel-main\] Foundation: BeanTest.parameterTypes  fails with the current Camel main [\#4735](https://github.com/apache/camel-quarkus/issues/4735)
 - java-joor-dsl - Add support of inner classes [\#4731](https://github.com/apache/camel-quarkus/issues/4731)
-- \[Quarkus X.Y.Z\] Performance regression introduced in Camel Quarkus 3.0.0-M1 [\#4727](https://github.com/apache/camel-quarkus/issues/4727)
+- \[Quarkus 3.0.0.CR2\] Performance regression introduced in Camel Quarkus 3.0.0-M1 [\#4727](https://github.com/apache/camel-quarkus/issues/4727)
 - Intermittent failure in Jdbc native tests [\#4723](https://github.com/apache/camel-quarkus/issues/4723)
 - Expand came-quarkus-mybatis test coverage [\#4717](https://github.com/apache/camel-quarkus/issues/4717)
 - java-joor-dsl - Add RegisterForReflection annotation support [\#4716](https://github.com/apache/camel-quarkus/issues/4716)
