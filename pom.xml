@@ -87,7 +87,6 @@
         <commons-collections4.version>4.4</commons-collections4.version><!-- used by corda -->
         <commons-exec.version>${commons-exec-version}</commons-exec.version>
         <commons-lang.version>2.6</commons-lang.version><!-- used by hbase, should be pretty stable as commons-lang is not developed actively anymore -->
-        <curator.version>4.3.0</curator.version><!-- Mess in the transitive dependencies of Spark, Zookeeper and other hadoop related components -->
         <cxf.version>4.0.1</cxf.version><!-- @sync io.quarkiverse.cxf:quarkus-cxf-parent:${quarkiverse-cxf.version} prop:cxf.version -->
         <eddsa.version>${eddsa-version}</eddsa.version>
         <freemarker.version>2.3.32</freemarker.version><!-- @sync io.quarkiverse.freemarker:quarkus-freemarker-parent:${quarkiverse-freemarker.version} prop:freemarker.version -->
