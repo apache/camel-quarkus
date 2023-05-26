@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.debezium.common.it;
 
+import io.debezium.storage.file.history.FileSchemaHistory;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -63,6 +64,7 @@ public class DebeziumMysqlResource extends AbstractDebeziumResource {
         return super.getEndpointUrl(hostname, port, DB_ROOT_USERNAME, password, databaseServerName, offsetStorageFileName)
                 //and add specific parameters
                 + "&databaseServerId=223344"
-                + "&databaseHistoryFileFilename=" + config.getValue(PROPERTY_DB_HISTORY_FILE, String.class);
+                + "&schemaHistoryInternal=" + FileSchemaHistory.class.getName()
+                + "&schemaHistoryInternalFileFilename=" + config.getValue(PROPERTY_DB_HISTORY_FILE, String.class);
     }
 }

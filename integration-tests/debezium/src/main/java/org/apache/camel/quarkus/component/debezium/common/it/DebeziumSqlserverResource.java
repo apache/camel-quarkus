@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.debezium.common.it;
 
+import io.debezium.storage.file.history.FileSchemaHistory;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -56,7 +57,7 @@ public class DebeziumSqlserverResource extends AbstractDebeziumResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String receive() {
         Record record = super.receiveAsRecord();
-        //mssql return empty Strring instead of nulls, wich leads to different status code 200 vs 204
+        //mssql return empty String instead of nulls, which leads to different status code 200 vs 204
         if (record == null || ("d".equals(record.getOperation()) && "".equals(record.getValue()))) {
             return null;
         }
@@ -67,8 +68,9 @@ public class DebeziumSqlserverResource extends AbstractDebeziumResource {
     String getEndpointUrl(String hostname, String port, String username, String password, String databaseServerName,
             String offsetStorageFileName) {
         return super.getEndpointUrl(hostname, port, username, password, databaseServerName, offsetStorageFileName)
-                + "&databaseDbname=" + DB_NAME
-                + "&databaseHistoryFileFilename=" + config.getValue(PROPERTY_DB_HISTORY_FILE, String.class)
+                + "&databaseNames=" + DB_NAME
+                + "&schemaHistoryInternal=" + FileSchemaHistory.class.getName()
+                + "&schemaHistoryInternalFileFilename=" + config.getValue(PROPERTY_DB_HISTORY_FILE, String.class)
                 + "&additionalProperties.database.encrypt=" + encryptConnection;
     }
 }
