@@ -4,6 +4,8 @@
 
 This guide is for developers writing Camel applications on top of Quarkus.
 
+https://camel.apache.org/manual/getting-started.html[Getting started with Camel] is user guide to start with Camel in general. 
+
 WARNING: Camel Quarkus is a new project and this guide is a work in progress.
 https://github.com/apache/camel-quarkus/issues[Issue reports] and fixes are welcome.
 
