@@ -52,7 +52,7 @@ public class JmsProducers {
         return (session, destinationName, pubSubDomain) -> {
             if (destinationName.equals("ignored")) {
                 // Ignore and override the original queue name
-                return session.createQueue("destinationOverride");
+                return session.createQueue("testJmsDestinationResolver");
             }
 
             if (pubSubDomain) {

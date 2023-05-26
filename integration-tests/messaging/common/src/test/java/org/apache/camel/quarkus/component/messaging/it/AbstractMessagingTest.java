@@ -25,15 +25,42 @@ import java.util.Map;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import jakarta.json.bind.JsonbBuilder;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.core.Is.is;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class AbstractMessagingTest {
+    protected String queue;
+    protected String queue2;
+    protected String topic;
+
+    @BeforeAll
+    public void startRoutes(TestInfo info) {
+        // At this point RestAssured is not configured to use the test port
+        // see https://github.com/quarkusio/quarkus/issues/7690#issuecomment-596543310
+        // The comment states it does not work in native, however it seems to work fine
+        RestAssured.given()
+                .port(ConfigProvider.getConfig().getValue("quarkus.http.test-port", Integer.class))
+                .get("/messaging/routes/start");
+    }
+
+    @BeforeEach
+    public void setupDestinations(TestInfo test) {
+        final String testMethod = test.getTestMethod().get().getName();
+        queue = testMethod;
+        queue2 = testMethod + "2";
+        topic = testMethod;
+    }
 
     @Test
     public void testQueueProduceConsume() {
@@ -42,13 +69,13 @@ public abstract class AbstractMessagingTest {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body(message)
-                .post("/messaging/{queueName}", "test-queue")
+                .post("/messaging/{queueName}", queue)
                 .then()
                 .statusCode(201);
 
         RestAssured.given()
                 .contentType(ContentType.TEXT)
-                .get("/messaging/{queueName}", "test-queue")
+                .get("/messaging/{queueName}", queue)
                 .then()
                 .statusCode(200)
                 .body(is(message));
@@ -59,13 +86,13 @@ public abstract class AbstractMessagingTest {
     public void testJmsMessageType(String type) {
         String message = "Message type " + type;
         String expected = message;
-        if (type.equals("node")) {
+        if ("node".equals(type)) {
             expected = "<test>" + message + "</test>";
         }
 
         RestAssured.given()
                 .body(message)
-                .post("/messaging/type/" + type)
+                .post("/messaging/{queueName}/type/{type}", queue, type)
                 .then()
                 .statusCode(200)
                 .body(is(expected));
@@ -80,7 +107,7 @@ public abstract class AbstractMessagingTest {
         RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(JsonbBuilder.create().toJson(message))
-                .post("/messaging/map")
+                .post("/messaging/{queueName}/map", queue)
                 .then()
                 .statusCode(200)
                 .body(is("{\"foo\":\"bar\",\"cheese\":\"wine\"}"));
@@ -91,7 +118,7 @@ public abstract class AbstractMessagingTest {
         String message = "Camel JMS Topic Message";
         RestAssured.given()
                 .body(message)
-                .post("/messaging/topic")
+                .post("/messaging/topic/{topicName}", topic)
                 .then()
                 .statusCode(204);
     }
@@ -99,7 +126,7 @@ public abstract class AbstractMessagingTest {
     @Test
     public void testJmsSelector() {
         RestAssured.given()
-                .get("/messaging/selector/foo='bar'")
+                .get("/messaging/{queueName}/selector/foo='bar'", queue)
                 .then()
                 .statusCode(200)
                 .body(is("Camel JMS Selector Match"));
@@ -110,7 +137,7 @@ public abstract class AbstractMessagingTest {
         String message = "Mr Test Person";
         RestAssured.given()
                 .body(message)
-                .post("/messaging/object")
+                .post("/messaging/{queueName}/object", queue)
                 .then()
                 .statusCode(200)
                 .body(is(message));
@@ -119,7 +146,7 @@ public abstract class AbstractMessagingTest {
     @Test
     public void testJmsTransaction() {
         RestAssured.given()
-                .get("/messaging/transaction")
+                .get("/messaging/{queueName}/transaction", queue)
                 .then()
                 .statusCode(200)
                 .body(is("JMS Transaction Success"));
@@ -132,7 +159,7 @@ public abstract class AbstractMessagingTest {
         for (String msg : messages) {
             RestAssured.given()
                     .body(msg)
-                    .post("/messaging/resequence")
+                    .post("/messaging/{queueName}", queue)
                     .then()
                     .statusCode(201);
         }
@@ -162,7 +189,7 @@ public abstract class AbstractMessagingTest {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body(message)
-                .post("/messaging/{queueName}", "pojoConsume")
+                .post("/messaging/{queueName}", queue)
                 .then()
                 .statusCode(201);
 
