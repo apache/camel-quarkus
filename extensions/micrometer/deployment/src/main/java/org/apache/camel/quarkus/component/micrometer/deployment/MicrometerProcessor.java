@@ -59,8 +59,10 @@ class MicrometerProcessor {
     @Record(ExecutionTime.RUNTIME_INIT)
     @BuildStep(onlyIf = MicrometerEnabled.class)
     RuntimeCamelContextCustomizerBuildItem runtimeContextCustomizer(
+            RootMeterRegistryBuildItem rootMeterRegistryBuildItem,
             CamelMicrometerRecorder recorder,
             CamelMicrometerConfig config) {
-        return new RuntimeCamelContextCustomizerBuildItem(recorder.createRuntimeContextCustomizer(config));
+        return new RuntimeCamelContextCustomizerBuildItem(
+                recorder.createRuntimeContextCustomizer(config, rootMeterRegistryBuildItem.getValue()));
     }
 }

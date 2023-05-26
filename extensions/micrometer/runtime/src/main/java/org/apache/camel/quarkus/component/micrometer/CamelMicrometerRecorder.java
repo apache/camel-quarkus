@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.micrometer;
 
+import io.micrometer.core.instrument.MeterRegistry;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
@@ -23,6 +24,7 @@ import org.apache.camel.component.micrometer.eventnotifier.MicrometerExchangeEve
 import org.apache.camel.component.micrometer.eventnotifier.MicrometerRouteEventNotifier;
 import org.apache.camel.component.micrometer.messagehistory.MicrometerMessageHistoryFactory;
 import org.apache.camel.component.micrometer.routepolicy.MicrometerRoutePolicyFactory;
+import org.apache.camel.component.micrometer.spi.InstrumentedThreadPoolFactory;
 import org.apache.camel.spi.CamelContextCustomizer;
 import org.apache.camel.spi.ManagementStrategy;
 
@@ -33,8 +35,9 @@ public class CamelMicrometerRecorder {
         return new RuntimeValue<>(new MicrometerContextCustomizer(config));
     }
 
-    public RuntimeValue<CamelContextCustomizer> createRuntimeContextCustomizer(CamelMicrometerConfig config) {
-        return new RuntimeValue<>(new MicrometerRuntimeContextCustomizer(config));
+    public RuntimeValue<CamelContextCustomizer> createRuntimeContextCustomizer(CamelMicrometerConfig config,
+            RuntimeValue<MeterRegistry> meterRegistry) {
+        return new RuntimeValue<>(new MicrometerRuntimeContextCustomizer(config, meterRegistry.getValue()));
     }
 
     private static class MicrometerContextCustomizer implements CamelContextCustomizer {
@@ -63,13 +66,21 @@ public class CamelMicrometerRecorder {
 
     private static class MicrometerRuntimeContextCustomizer implements CamelContextCustomizer {
         private final CamelMicrometerConfig config;
+        private final MeterRegistry meterRegistry;
 
-        public MicrometerRuntimeContextCustomizer(CamelMicrometerConfig config) {
+        public MicrometerRuntimeContextCustomizer(CamelMicrometerConfig config, MeterRegistry meterRegistry) {
             this.config = config;
+            this.meterRegistry = meterRegistry;
         }
 
         @Override
         public void configure(CamelContext camelContext) {
+            if (config.enableInstrumentedThreadPoolFactory) {
+                InstrumentedThreadPoolFactory instrumentedThreadPoolFactory = new InstrumentedThreadPoolFactory(meterRegistry,
+                        camelContext.getExecutorServiceManager().getThreadPoolFactory());
+                camelContext.getExecutorServiceManager().setThreadPoolFactory(instrumentedThreadPoolFactory);
+            }
+
             if (!config.enableMessageHistory) {
                 return;
             }
