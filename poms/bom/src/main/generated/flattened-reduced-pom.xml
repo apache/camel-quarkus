@@ -514,6 +514,10 @@
         <version>4.0.0-M3</version>
         <exclusions>
           <exclusion>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-annotations</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>com.github.stephenc.jcip</groupId>
             <artifactId>jcip-annotations</artifactId>
           </exclusion>
@@ -7371,6 +7375,10 @@
         <version>4.15.0</version>
         <exclusions>
           <exclusion>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-annotations</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>com.github.stephenc.jcip</groupId>
             <artifactId>jcip-annotations</artifactId>
           </exclusion>
@@ -7403,6 +7411,10 @@
         <artifactId>java-driver-query-builder</artifactId>
         <version>4.15.0</version>
         <exclusions>
+          <exclusion>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-annotations</artifactId>
+          </exclusion>
           <exclusion>
             <groupId>com.github.stephenc.jcip</groupId>
             <artifactId>jcip-annotations</artifactId>
