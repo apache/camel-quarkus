@@ -22,6 +22,8 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import org.apache.kafka.common.security.authenticator.SaslClientAuthenticator;
 import org.jboss.jandex.IndexView;
 
 public class DebeziumSupportProcessor {
@@ -57,5 +59,10 @@ public class DebeziumSupportProcessor {
     void registerServiceProviders(BuildProducer<NativeImageResourceBuildItem> nativeImage) {
         nativeImage.produce(
                 new NativeImageResourceBuildItem("META-INF/services/io.debezium.engine.DebeziumEngine$BuilderFactory"));
+    }
+
+    @BuildStep
+    RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
+        return new RuntimeInitializedClassBuildItem(SaslClientAuthenticator.class.getName());
     }
 }

@@ -17,13 +17,17 @@
 
 package org.apache.camel.quarkus.component.debezium.common.it.mongodb;
 
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 import org.apache.camel.quarkus.component.debezium.common.it.AbstractDebeziumTestResource;
 import org.apache.camel.quarkus.component.debezium.common.it.Type;
+import org.apache.camel.quarkus.test.AvailablePortFinder;
 import org.apache.commons.io.IOUtils;
 import org.jboss.logging.Logger;
 import org.testcontainers.containers.Container;
+import org.testcontainers.containers.FixedHostPortGenericContainer;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.Network;
 import org.testcontainers.containers.wait.strategy.Wait;
@@ -33,7 +37,8 @@ public class DebeziumMongodbTestResource extends AbstractDebeziumTestResource<Ge
     private static final String PRIVATE_HOST = "mongodb_private";
     private static final String DB_USERNAME = "debezium";
     private static final String DB_PASSWORD = "dbz";
-    private static final int DB_PORT = 27017;
+    private static final String DB_INIT_SCRIPT = "initMongodb.txt";
+    private static final int DB_PORT = AvailablePortFinder.getNextAvailable();
 
     public DebeziumMongodbTestResource() {
         super(Type.mongodb);
@@ -43,38 +48,48 @@ public class DebeziumMongodbTestResource extends AbstractDebeziumTestResource<Ge
 
     @Override
     protected GenericContainer<?> createContainer() {
-        return new GenericContainer("mongo:4.4")
-                .withExposedPorts(DB_PORT)
-                .withCommand("--replSet", "my-mongo-set")
+        return new FixedHostPortGenericContainer<>("mongo:4.4")
+                .withFixedExposedPort(DB_PORT, DB_PORT)
+                .withCommand("--replSet", "my-mongo-set", "--port", String.valueOf(DB_PORT), "--bind_ip",
+                        "localhost," + PRIVATE_HOST)
                 .withNetwork(net)
                 .withNetworkAliases(PRIVATE_HOST)
                 .waitingFor(
                         Wait.forLogMessage(".*Waiting for connections.*", 1));
-
     }
 
     @Override
     protected void startContainer() throws Exception {
         super.startContainer();
-
-        execScriptInContainer("initMongodb.txt");
+        execScriptInContainer();
     }
 
-    private void execScriptInContainer(String scriptFileName) throws Exception {
-        String script = IOUtils.toString(getClass().getResource("/" + scriptFileName), StandardCharsets.UTF_8);
-        String[] cmds = script.split("\\n\\n");
-        for (String cmd : cmds) {
-            Container.ExecResult er = container.execInContainer("mongo", "--eval", cmd);
+    @Override
+    public void stop() {
+        super.stop();
+        AvailablePortFinder.releaseReservedPorts();
+    }
+
+    private void execScriptInContainer() throws Exception {
+        URL resource = getClass().getResource("/" + DB_INIT_SCRIPT);
+        Objects.requireNonNull(resource, DB_INIT_SCRIPT + " could not be found");
+
+        String script = IOUtils.toString(resource, StandardCharsets.UTF_8);
+        script = script.replace("%container-host%", getHostPort());
+        for (String cmd : script.split("\\n\\n")) {
+            Container.ExecResult er = container.execInContainer("mongo", "--port", String.valueOf(DB_PORT), "--eval", cmd);
             if (er.getExitCode() != 0) {
                 LOG.errorf("Error executing MongoDB command: %s", cmd);
+                LOG.error(er.getStdout());
+                LOG.error(er.getStderr());
+                throw new RuntimeException("Error starting mongodb container");
             }
         }
     }
 
     @Override
     protected String getJdbcUrl() {
-        return String.format("mongodb://%s:%s@%s:%d", DB_USERNAME, DB_PASSWORD, container.getHost(),
-                container.getMappedPort(DB_PORT));
+        return String.format("mongodb://%s:%s@%s", DB_USERNAME, DB_PASSWORD, getHostPort());
     }
 
     @Override
@@ -90,5 +105,9 @@ public class DebeziumMongodbTestResource extends AbstractDebeziumTestResource<Ge
     @Override
     protected int getPort() {
         return DB_PORT;
+    }
+
+    private String getHostPort() {
+        return String.format("%s:%d", container.getHost(), container.getMappedPort(DB_PORT));
     }
 }
