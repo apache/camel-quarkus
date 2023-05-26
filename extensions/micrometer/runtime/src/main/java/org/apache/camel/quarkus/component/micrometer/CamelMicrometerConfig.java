@@ -53,4 +53,10 @@ public class CamelMicrometerConfig {
      */
     @ConfigItem(defaultValue = "true")
     public boolean enableRouteEventNotifier;
+
+    /**
+     * Set whether to gather performance information about Camel Thread Pools by injecting an InstrumentedThreadPoolFactory.
+     */
+    @ConfigItem(defaultValue = "false")
+    public boolean enableInstrumentedThreadPoolFactory;
 }

@@ -16,57 +16,56 @@
  */
 package org.apache.camel.quarkus.component.micrometer.deployment;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Properties;
 
 import io.quarkus.test.QuarkusUnitTest;
 import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
-import org.apache.camel.component.micrometer.routepolicy.MicrometerRoutePolicyFactory;
 import org.apache.camel.component.micrometer.spi.InstrumentedThreadPoolFactory;
-import org.apache.camel.impl.engine.DefaultMessageHistoryFactory;
-import org.apache.camel.spi.EventNotifier;
-import org.apache.camel.spi.MessageHistoryFactory;
-import org.apache.camel.spi.RoutePolicyFactory;
 import org.apache.camel.spi.ThreadPoolFactory;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MicrometerMetricsConfigDefaultsTest {
+public class MicrometerInstrumentCoreThreadPoolTest {
 
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class));
+            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
+                    .addAsResource(applicationProperties(), "application.properties"));
 
     @Inject
     CamelContext context;
 
     @Test
-    public void testMicrometerMetricsConfiguration() {
-        List<RoutePolicyFactory> routePolicyFactories = context.getRoutePolicyFactories();
-        assertEquals(1, routePolicyFactories.size());
-        assertTrue(routePolicyFactories.get(0) instanceof MicrometerRoutePolicyFactory);
-
-        MessageHistoryFactory messageHistoryFactory = context.getMessageHistoryFactory();
-        assertNotNull(messageHistoryFactory);
-        assertTrue(messageHistoryFactory instanceof DefaultMessageHistoryFactory);
-
-        List<EventNotifier> eventNotifiers = context.getManagementStrategy()
-                .getEventNotifiers()
-                .stream()
-                .filter(eventNotifier -> !eventNotifier.getClass().getName().contains("BaseMainSupport"))
-                .collect(Collectors.toList());
-        assertEquals(2, eventNotifiers.size());
-
+    public void testInstrumentedThreadPoolFactory() {
         ThreadPoolFactory threadPoolFactory = context.getExecutorServiceManager().getThreadPoolFactory();
         assertNotNull(threadPoolFactory);
-        assertFalse(threadPoolFactory instanceof InstrumentedThreadPoolFactory);
+        assertTrue(threadPoolFactory instanceof InstrumentedThreadPoolFactory);
+    }
+
+    public static final Asset applicationProperties() {
+        Writer writer = new StringWriter();
+
+        Properties props = new Properties();
+        props.setProperty("quarkus.micrometer.enabled", "true");
+        props.setProperty("quarkus.camel.metrics.enable-instrumented-thread-pool-factory", "true");
+
+        try {
+            props.store(writer, "");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return new StringAsset(writer.toString());
     }
 }
