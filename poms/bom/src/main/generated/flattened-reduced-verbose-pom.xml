@@ -514,6 +514,10 @@
         <version>4.0.0-M3</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
+            <groupId>com.github.spotbugs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>spotbugs-annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
             <groupId>com.github.stephenc.jcip</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>jcip-annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
@@ -7351,6 +7355,10 @@
         <version>4.15.0</version><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.2.0 -->
         <exclusions>
           <exclusion>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-annotations</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>com.github.stephenc.jcip</groupId>
             <artifactId>jcip-annotations</artifactId>
           </exclusion>
@@ -7383,6 +7391,10 @@
         <artifactId>java-driver-query-builder</artifactId><!-- com.datastax.oss:java-driver-bom:4.15.0 -->
         <version>4.15.0</version><!-- com.datastax.oss:java-driver-bom:4.15.0 -->
         <exclusions>
+          <exclusion>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-annotations</artifactId>
+          </exclusion>
           <exclusion>
             <groupId>com.github.stephenc.jcip</groupId>
             <artifactId>jcip-annotations</artifactId>
