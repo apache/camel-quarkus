@@ -7212,17 +7212,17 @@
       <dependency>
         <groupId>org.apache.qpid</groupId>
         <artifactId>qpid-jms-client</artifactId>
-        <version>2.2.0</version>
+        <version>2.3.0</version>
       </dependency>
       <dependency>
         <groupId>org.amqphub.quarkus</groupId>
         <artifactId>quarkus-qpid-jms</artifactId>
-        <version>2.1.0</version>
+        <version>2.2.0</version>
       </dependency>
       <dependency>
         <groupId>org.amqphub.quarkus</groupId>
         <artifactId>quarkus-qpid-jms-deployment</artifactId>
-        <version>2.1.0</version>
+        <version>2.2.0</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
