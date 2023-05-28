@@ -13,6 +13,7 @@
 
 **Merged pull requests:**
 
+- Bump quarkus-qpid-jms-bom from 2.1.0 to 2.2.0 [\#4938](https://github.com/apache/camel-quarkus/pull/4938) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Restore master itest platform exclusion [\#4936](https://github.com/apache/camel-quarkus/pull/4936) ([jamesnetherton](https://github.com/jamesnetherton))
 - Micrometer: InstrumentedThreadPoolFactory [\#4935](https://github.com/apache/camel-quarkus/pull/4935) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Ban com.github.spotbugs:spotbugs-annotations [\#4933](https://github.com/apache/camel-quarkus/pull/4933) ([jamesnetherton](https://github.com/jamesnetherton))
