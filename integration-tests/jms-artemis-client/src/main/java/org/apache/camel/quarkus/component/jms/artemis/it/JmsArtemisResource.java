@@ -88,4 +88,14 @@ public class JmsArtemisResource {
     private boolean isValid(String message) {
         return !message.startsWith("fail");
     }
+
+    @Path("/routes/start")
+    @GET
+    public void startRoutes() {
+        try {
+            context.getRouteController().startAllRoutes();
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to start camel routes", e);
+        }
+    }
 }

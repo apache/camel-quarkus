@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.messaging.it;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
@@ -31,28 +32,36 @@ public class MessagingCommonRoutes extends RouteBuilder {
     @Inject
     ComponentScheme componentScheme;
 
+    @Inject
+    CamelContext camelContext;
+
     @Override
     public void configure() throws Exception {
-        fromF("%s:queue:typeTest?concurrentConsumers=5", componentScheme)
-                .toF("%s:queue:typeTestResult", componentScheme);
+        // Don't start the routes by default, for IBM MQ it is needed to create the destinations beforehand
+        // The routes are later started in AbstractMessagingTest#beforeAll method
+        camelContext.setAutoStartup(false);
+
+        fromF("%s:queue:testJmsMessageType?concurrentConsumers=5", componentScheme)
+                .toF("%s:queue:testJmsMessageType2", componentScheme);
 
         String disableStreaming = "";
         if (isDisableStreaming()) {
             disableStreaming = "artemisStreamingEnabled=false";
         }
-        fromF("%s:queue:typeTestResult?%s", componentScheme, disableStreaming)
+        fromF("%s:queue:testJmsMessageType2?%s", componentScheme, disableStreaming)
                 .to("mock:jmsType");
 
         // Map message type routes
-        fromF("%s:queue:mapTest", componentScheme)
+        fromF("%s:queue:testJmsMapMessage", componentScheme)
+                .id("hello")
                 .to("mock:mapResult");
 
         // JMS selector routes
-        fromF("%s:queue:selectorA", componentScheme)
-                .toF("%s:queue:selectorB", componentScheme);
+        fromF("%s:queue:testJmsSelector", componentScheme)
+                .toF("%s:queue:testJmsSelector2", componentScheme);
 
         // JMS transaction tests
-        fromF("%s:queue:txTest?transacted=true", componentScheme)
+        fromF("%s:queue:testJmsTransaction?transacted=true", componentScheme)
                 .errorHandler(jtaTransactionErrorHandler().maximumRedeliveries(4))
                 .transacted()
                 .process(new Processor() {
@@ -69,17 +78,17 @@ public class MessagingCommonRoutes extends RouteBuilder {
                 })
                 .to("mock:txResult");
 
-        fromF("%s:queue:objectTest", componentScheme)
+        fromF("%s:queue:testJmsObject", componentScheme)
                 .to("mock:objectTestResult");
 
         // Topic routes
-        fromF("%s:topic:test?clientId=123&durableSubscriptionName=camel-quarkus", componentScheme)
+        fromF("%s:topic:testJmsTopic?clientId=123&durableSubscriptionName=camel-quarkus", componentScheme)
                 .to("mock:topicResultA");
 
-        fromF("%s:topic:test?clientId=456&durableSubscriptionName=camel-quarkus", componentScheme)
+        fromF("%s:topic:testJmsTopic?clientId=456&durableSubscriptionName=camel-quarkus", componentScheme)
                 .to("mock:topicResultB");
 
-        fromF("%s:queue:resequence", componentScheme)
+        fromF("%s:queue:testResequence", componentScheme)
                 // sort by body by allowing duplicates (message can have same JMSPriority)
                 // and use reverse ordering so 9 is first output (most important), and 0 is last
                 // use batch mode and fire every 3rd second
@@ -87,16 +96,15 @@ public class MessagingCommonRoutes extends RouteBuilder {
                 .to("mock:resequence");
 
         from("direct:replyTo")
-                .toF("%s:queue:replyQueueA?replyTo=replyQueueB&preserveMessageQos=true", componentScheme)
+                .toF("%s:queue:testJmsReplyTo?replyTo=testJmsReplyTo2&preserveMessageQos=true", componentScheme)
                 .to("mock:replyToDone");
 
-        fromF("%s:queue:replyQueueA", componentScheme)
+        fromF("%s:queue:testJmsReplyTo", componentScheme)
                 .to("mock:replyToStart")
                 .transform(body().prepend("Hello "));
 
-        fromF("%s:queue:replyQueueB?disableReplyTo=true", componentScheme)
+        fromF("%s:queue:testJmsReplyTo2?disableReplyTo=true", componentScheme)
                 .to("mock:replyToEnd");
-
     }
 
     private boolean isDisableStreaming() {

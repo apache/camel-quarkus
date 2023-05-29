@@ -61,7 +61,7 @@
         <quarkiverse-tika.version>2.0.0</quarkiverse-tika.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/tika/quarkus-tika-parent/ -->
         <quarkus.version>3.1.0.Final</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
         <quarkus-hazelcast-client.version>3.0.0</quarkus-hazelcast-client.version><!-- https://repo1.maven.org/maven2/com/hazelcast/quarkus-hazelcast-client-bom/ -->
-        <quarkus-qpid-jms.version>2.1.0</quarkus-qpid-jms.version><!-- https://repo1.maven.org/maven2/org/amqphub/quarkus/quarkus-qpid-jms-bom/ -->
+        <quarkus-qpid-jms.version>2.2.0</quarkus-qpid-jms.version><!-- https://repo1.maven.org/maven2/org/amqphub/quarkus/quarkus-qpid-jms-bom/ -->
 
         <!-- Compile dependency versions (keep sorted alphabetically) -->
         <!-- Items annotated with @sync can be updated by running mvn cq:sync-versions -N -e -->
@@ -104,6 +104,7 @@
         <hapi-fhir.version>${hapi-fhir-version}</hapi-fhir.version>
         <hapi-fhir-core.version>5.6.971</hapi-fhir-core.version><!-- @sync ca.uhn.hapi.fhir:hapi-fhir:${hapi-fhir.version} prop:fhir_core_version -->
         <httpclient5.version>5.2.1</httpclient5.version><!-- Saxon and Wiremock -->
+        <ibm.mq.client.version>9.3.2.1</ibm.mq.client.version>
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
         <io-netty-iouring.version>0.0.16.Final</io-netty-iouring.version><!-- @sync org.asynchttpclient:async-http-client-project:${ahc.version} prop:netty.iouring -->
         <jackson.version>2.15.0</jackson.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.fasterxml.jackson.core:jackson-core -->

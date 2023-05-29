@@ -28,13 +28,13 @@ import org.apache.camel.quarkus.component.messaging.it.util.scheme.ComponentSche
 @Singleton
 public class MessagingPojoConsumer {
 
-    private static BlockingQueue<String> messages = new LinkedBlockingQueue<>();
+    private static final BlockingQueue<String> messages = new LinkedBlockingQueue<>();
 
     @Inject
     ComponentScheme scheme;
 
     public String getMessagingUri() {
-        return scheme + ":queue:pojoConsume";
+        return scheme + ":queue:testJmsPojoConsumer";
     }
 
     @Consume(property = "messagingUri")

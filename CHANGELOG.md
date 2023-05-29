@@ -6,16 +6,27 @@
 
 **Closed issues:**
 
+- Micrometer: Instrumenting core thread pool feature is missing. [\#4934](https://github.com/apache/camel-quarkus/issues/4934)
 - camel-quarkus-integration-test-js-dsl should unpack its resources to target rather than src [\#4931](https://github.com/apache/camel-quarkus/issues/4931)
+- Ban com.github.spotbugs:spotbugs-annotations [\#4914](https://github.com/apache/camel-quarkus/issues/4914)
+- MyBatisConsumerTest should keep awaitility in the test scope [\#4793](https://github.com/apache/camel-quarkus/issues/4793)
 
 **Merged pull requests:**
 
+- Generated sources regen for SBOM [\#4939](https://github.com/apache/camel-quarkus/pull/4939) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Bump quarkus-qpid-jms-bom from 2.1.0 to 2.2.0 [\#4938](https://github.com/apache/camel-quarkus/pull/4938) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Restore master itest platform exclusion [\#4936](https://github.com/apache/camel-quarkus/pull/4936) ([jamesnetherton](https://github.com/jamesnetherton))
+- Micrometer: InstrumentedThreadPoolFactory [\#4935](https://github.com/apache/camel-quarkus/pull/4935) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Ban com.github.spotbugs:spotbugs-annotations [\#4933](https://github.com/apache/camel-quarkus/pull/4933) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix \#4793 to update MyBatisConsumerTest and keep awaitility in the te… [\#4932](https://github.com/apache/camel-quarkus/pull/4932) ([zhfeng](https://github.com/zhfeng))
+- Bump quarkus-amazon-services-bom from 2.2.0 to 2.3.0 [\#4930](https://github.com/apache/camel-quarkus/pull/4930) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Dependency cleanup part 2 [\#4929](https://github.com/apache/camel-quarkus/pull/4929) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add sync tag for retrofit version [\#4928](https://github.com/apache/camel-quarkus/pull/4928) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove optional org.jruby.joni:joni from json-validator extension [\#4926](https://github.com/apache/camel-quarkus/pull/4926) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 3.1.0.Final [\#4925](https://github.com/apache/camel-quarkus/pull/4925) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#4922](https://github.com/apache/camel-quarkus/pull/4922) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Remove "none" WSDLs as they are not needed [\#4921](https://github.com/apache/camel-quarkus/pull/4921) ([llowinge](https://github.com/llowinge))
+- \[IBM-MQ\] Add tests for IBM MQ client [\#4918](https://github.com/apache/camel-quarkus/pull/4918) ([avano](https://github.com/avano))
 - Upgrade CycloneDX Maven plugin to version 2.7.9 [\#4917](https://github.com/apache/camel-quarkus/pull/4917) ([oscerd](https://github.com/oscerd))
 - fix contributor links [\#4915](https://github.com/apache/camel-quarkus/pull/4915) ([onderson](https://github.com/onderson))
 - Upgrade to Optaplanner 9.37.Final [\#4912](https://github.com/apache/camel-quarkus/pull/4912) ([zbendhiba](https://github.com/zbendhiba))

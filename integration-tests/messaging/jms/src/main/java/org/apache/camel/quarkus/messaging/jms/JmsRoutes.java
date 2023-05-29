@@ -34,10 +34,10 @@ public class JmsRoutes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
 
-        fromF("%s:queue:transferExchange?transferExchange=true", componentScheme)
+        fromF("%s:queue:testJmsTransferExchange?transferExchange=true", componentScheme)
                 .to("mock:transferExchangeResult");
 
-        fromF("%s:queue:transferException?transferException=true", componentScheme)
+        fromF("%s:queue:testJmsTransferException?transferException=true", componentScheme)
                 .throwException(new IllegalStateException("Forced exception"));
 
         from("direct:computedDestination")

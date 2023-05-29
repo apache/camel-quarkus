@@ -33,7 +33,7 @@ public class AbstractJmsMessagingTest extends AbstractMessagingTest {
         String message = "Test transfer message";
         RestAssured.given()
                 .body(message)
-                .post("/messaging/jms/transfer/exchange")
+                .post("/messaging/jms/{queueName}/transfer/exchange", queue)
                 .then()
                 .statusCode(200)
                 .body(is(message));
@@ -42,7 +42,7 @@ public class AbstractJmsMessagingTest extends AbstractMessagingTest {
     @Test
     public void testJmsTransferException() {
         RestAssured.given()
-                .get("/messaging/jms/transfer/exception")
+                .get("/messaging/jms/{queueName}/transfer/exception", queue)
                 .then()
                 .statusCode(200)
                 .body(is("java.lang.IllegalStateException"));
@@ -53,7 +53,7 @@ public class AbstractJmsMessagingTest extends AbstractMessagingTest {
         String message = "Camel JMS With Custom MessageListenerContainerFactory";
         RestAssured.given()
                 .body(message)
-                .post("/messaging/jms/custom/message/listener/factory")
+                .post("/messaging/jms/{queueName}/custom/message/listener/factory", queue)
                 .then()
                 .statusCode(200)
                 .body(is(message));
@@ -74,7 +74,7 @@ public class AbstractJmsMessagingTest extends AbstractMessagingTest {
     public void testJmsMessageConverter() {
         String result = RestAssured.given()
                 .body("a test message")
-                .post("/messaging/jms/custom/message/converter")
+                .post("/messaging/jms/{queueName}/custom/message/converter", queue)
                 .then()
                 .statusCode(200)
                 .extract()
@@ -90,34 +90,32 @@ public class AbstractJmsMessagingTest extends AbstractMessagingTest {
         String message = UUID.randomUUID().toString();
 
         // Send a message with java.lang.String destination header
-        String destinationA = "queue-" + UUID.randomUUID().toString().split("-")[0];
         RestAssured.given()
                 .queryParam("isStringDestination", "true")
                 .body(message)
-                .post("/messaging/jms/custom/destination/{destinationName}", destinationA)
+                .post("/messaging/jms/custom/destination/{destinationName}", queue)
                 .then()
                 .statusCode(201);
 
         // Send a message with jakarta.jms.Destination destination header
-        String destinationB = "queue-" + UUID.randomUUID().toString().split("-")[0];
         RestAssured.given()
                 .queryParam("isStringDestination", "false")
                 .body(message)
-                .post("/messaging/jms/custom/destination/{destinationName}", destinationB)
+                .post("/messaging/jms/custom/destination/{destinationName}", queue2)
                 .then()
                 .statusCode(201);
 
         // Verify messages sent to destinations
         RestAssured.given()
                 .contentType(ContentType.TEXT)
-                .get("/messaging/{destinationName}", destinationA)
+                .get("/messaging/{destinationName}", queue)
                 .then()
                 .statusCode(200)
                 .body(is(message));
 
         RestAssured.given()
                 .contentType(ContentType.TEXT)
-                .get("/messaging/{destinationName}", destinationB)
+                .get("/messaging/{destinationName}", queue2)
                 .then()
                 .statusCode(200)
                 .body(is(message));

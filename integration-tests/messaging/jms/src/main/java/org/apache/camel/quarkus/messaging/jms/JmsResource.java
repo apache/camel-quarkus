@@ -55,16 +55,16 @@ public class JmsResource {
     @Inject
     ComponentScheme componentScheme;
 
-    @Path("/custom/message/listener/factory")
+    @Path("/{queueName}/custom/message/listener/factory")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String customMessageListenerContainerFactory(String message) {
+    public String customMessageListenerContainerFactory(@PathParam("queueName") String queueName, String message) {
         producerTemplate.sendBody(
                 componentScheme
-                        + ":queue:listener?messageListenerContainerFactory=#customMessageListener",
+                        + ":queue:" + queueName + "?messageListenerContainerFactory=#customMessageListener",
                 message);
-        return consumerTemplate.receiveBody(componentScheme + ":queue:listener", 5000,
+        return consumerTemplate.receiveBody(componentScheme + ":queue:" + queueName, 5000,
                 String.class);
     }
 
@@ -78,37 +78,37 @@ public class JmsResource {
                         + ":queue:ignored?destinationResolver=#customDestinationResolver",
                 message);
 
-        // The custom DestinationResolver should have overridden the original queue name to 'destinationOverride'
-        return consumerTemplate.receiveBody(componentScheme + ":queue:destinationOverride",
+        // The custom DestinationResolver should have overridden the original queue name to 'testJmsDestinationResolver'
+        return consumerTemplate.receiveBody(componentScheme + ":queue:testJmsDestinationResolver",
                 5000, String.class);
     }
 
-    @Path("/custom/message/converter")
+    @Path("/{queueName}/custom/message/converter")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String customMessageConverter(String message) {
+    public String customMessageConverter(@PathParam("queueName") String queueName, String message) {
         producerTemplate.sendBody(
                 componentScheme
-                        + ":queue:converter?messageConverter=#customMessageConverter",
+                        + ":queue:" + queueName + "?messageConverter=#customMessageConverter",
                 message);
         return consumerTemplate.receiveBody(
                 componentScheme
-                        + ":queue:converter?messageConverter=#customMessageConverter",
+                        + ":queue:" + queueName + "?messageConverter=#customMessageConverter",
                 5000,
                 String.class);
     }
 
-    @Path("/transfer/exchange")
+    @Path("/{queueName}/transfer/exchange")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     @POST
-    public Response testTransferExchange(String message) throws InterruptedException {
+    public Response testTransferExchange(@PathParam("queueName") String queueName, String message) throws InterruptedException {
         MockEndpoint mockEndpoint = context.getEndpoint("mock:transferExchangeResult", MockEndpoint.class);
         mockEndpoint.expectedMessageCount(1);
 
         producerTemplate.sendBody(
-                componentScheme + ":queue:transferExchange?transferExchange=true", message);
+                componentScheme + ":queue:" + queueName + "?transferExchange=true", message);
 
         mockEndpoint.assertIsSatisfied();
 
@@ -119,13 +119,13 @@ public class JmsResource {
         return Response.ok().entity(result).build();
     }
 
-    @Path("/transfer/exception")
+    @Path("/{queueName}/transfer/exception")
     @Produces(MediaType.TEXT_PLAIN)
     @GET
-    public Response testTransferException() {
+    public Response testTransferException(@PathParam("queueName") String queueName) {
         try {
             producerTemplate.requestBody(
-                    componentScheme + ":queue:transferException?transferException=true",
+                    componentScheme + ":queue:" + queueName + "?transferException=true",
                     "bad payload");
         } catch (RuntimeCamelException e) {
             Class<? extends Throwable> exception = e.getCause().getClass();

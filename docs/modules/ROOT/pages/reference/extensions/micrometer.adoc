@@ -116,6 +116,12 @@ Set whether to enable the MicrometerExchangeEventNotifier for capturing metrics 
 Set whether to enable the MicrometerRouteEventNotifier for capturing metrics on the total number of routes and total number of routes running.
 | `boolean`
 | `true`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.metrics.enable-instrumented-thread-pool-factory]]`link:#quarkus.camel.metrics.enable-instrumented-thread-pool-factory[quarkus.camel.metrics.enable-instrumented-thread-pool-factory]`
+
+Set whether to gather performance information about Camel Thread Pools by injecting an InstrumentedThreadPoolFactory.
+| `boolean`
+| `false`
 |===
 
 [.configuration-legend]
