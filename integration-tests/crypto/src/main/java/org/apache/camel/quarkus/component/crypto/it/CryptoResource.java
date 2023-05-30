@@ -29,6 +29,7 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.Exchange;
@@ -50,8 +51,9 @@ public class CryptoResource {
 
     @Path("/signature/sign")
     @POST
-    public byte[] sign() {
-        Exchange exchange = producerTemplate.request("direct:sign", new Processor() {
+    public byte[] sign(@QueryParam("raw") boolean raw) {
+        final String endpoint = "direct:sign" + (raw ? "-raw" : "");
+        Exchange exchange = producerTemplate.request(endpoint, new Processor() {
             @Override
             public void process(Exchange exchange) throws Exception {
                 exchange.getMessage().setBody(MESSAGE);
@@ -64,8 +66,9 @@ public class CryptoResource {
     @Path("/signature/verify")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
-    public Response verify(String signature) {
-        Exchange exchange = producerTemplate.send("direct:verify", new Processor() {
+    public Response verify(@QueryParam("raw") boolean raw, String signature) {
+        final String endpoint = "direct:verify" + (raw ? "-raw" : "");
+        Exchange exchange = producerTemplate.send(endpoint, new Processor() {
             @Override
             public void process(Exchange exchange) throws Exception {
                 Message message = exchange.getMessage();
