@@ -1826,6 +1826,10 @@
                 <version>${camel.version}</version>
                 <exclusions>
                     <exclusion>
+                        <groupId>org.eclipse.parsson</groupId>
+                        <artifactId>jakarta.json</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>org.glassfish</groupId>
                         <artifactId>jakarta.json</artifactId>
                     </exclusion>

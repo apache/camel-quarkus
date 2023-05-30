@@ -1764,6 +1764,10 @@
         <version>4.0.0-M3</version>
         <exclusions>
           <exclusion>
+            <groupId>org.eclipse.parsson</groupId>
+            <artifactId>jakarta.json</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>org.glassfish</groupId>
             <artifactId>jakarta.json</artifactId>
           </exclusion>
@@ -6094,7 +6098,7 @@
       <dependency>
         <groupId>io.perfmark</groupId>
         <artifactId>perfmark-api</artifactId>
-        <version>0.25.0</version>
+        <version>0.26.0</version>
       </dependency>
       <dependency>
         <groupId>io.projectreactor</groupId>
@@ -6220,7 +6224,7 @@
       <dependency>
         <groupId>io.smallrye.reactive</groupId>
         <artifactId>smallrye-reactive-messaging-camel</artifactId>
-        <version>4.5.0</version>
+        <version>4.6.0</version>
       </dependency>
       <dependency>
         <groupId>jakarta.jms</groupId>
@@ -6361,22 +6365,22 @@
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcmail-jdk18on</artifactId>
-        <version>1.73</version>
+        <version>1.74</version>
       </dependency>
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcpg-jdk18on</artifactId>
-        <version>1.73</version>
+        <version>1.74</version>
       </dependency>
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcprov-ext-jdk18on</artifactId>
-        <version>1.73</version>
+        <version>1.74</version>
       </dependency>
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcutil-jdk18on</artifactId>
-        <version>1.73</version>
+        <version>1.74</version>
       </dependency>
       <dependency>
         <groupId>org.brotli</groupId>
@@ -6406,17 +6410,17 @@
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-script-util</artifactId>
-        <version>1.8.21</version>
+        <version>1.8.22</version>
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-scripting-jvm</artifactId>
-        <version>1.8.21</version>
+        <version>1.8.22</version>
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-scripting-jvm-host</artifactId>
-        <version>1.8.21</version>
+        <version>1.8.22</version>
       </dependency>
       <dependency>
         <groupId>org.mvel</groupId>
