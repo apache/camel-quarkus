@@ -16,6 +16,12 @@
  */
 package org.apache.camel.quarkus.component.kudu.deployment;
 
+import com.sun.security.auth.module.JndiLoginModule;
+import com.sun.security.auth.module.KeyStoreLoginModule;
+import com.sun.security.auth.module.Krb5LoginModule;
+import com.sun.security.auth.module.LdapLoginModule;
+import com.sun.security.auth.module.NTLoginModule;
+import com.sun.security.auth.module.UnixLoginModule;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
@@ -24,7 +30,15 @@ import io.quarkus.deployment.builditem.nativeimage.NativeImageSecurityProviderBu
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 
 class KuduProcessor {
-
+    private static final String[] JDK_LOGIN_MODULE_CLASSES = {
+            "com.sun.jmx.remote.security.FileLoginModule",
+            JndiLoginModule.class.getName(),
+            KeyStoreLoginModule.class.getName(),
+            Krb5LoginModule.class.getName(),
+            LdapLoginModule.class.getName(),
+            NTLoginModule.class.getName(),
+            UnixLoginModule.class.getName(),
+    };
     private static final String FEATURE = "camel-kudu";
 
     @BuildStep
@@ -44,8 +58,12 @@ class KuduProcessor {
 
     @BuildStep
     void reflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-        reflectiveClass.produce(ReflectiveClassBuildItem.builder("org.apache.kudu.tserver.Tserver$ResourceMetricsPB",
-                "org.apache.kudu.tserver.Tserver$ResourceMetricsPB$Builder").methods().build());
-    }
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(
+                "org.apache.kudu.tserver.Tserver$ResourceMetricsPB",
+                "org.apache.kudu.tserver.Tserver$ResourceMetricsPB$Builder")
+                .methods()
+                .build());
 
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(JDK_LOGIN_MODULE_CLASSES).build());
+    }
 }

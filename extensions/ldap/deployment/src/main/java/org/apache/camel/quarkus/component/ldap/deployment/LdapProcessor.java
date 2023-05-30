@@ -21,11 +21,9 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.AllowJNDIBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.jboss.logging.Logger;
 
 class LdapProcessor {
 
-    private static final Logger LOG = Logger.getLogger(LdapProcessor.class);
     private static final String FEATURE = "camel-ldap";
 
     @BuildStep
@@ -40,6 +38,9 @@ class LdapProcessor {
 
     @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflection) {
-        reflection.produce(ReflectiveClassBuildItem.builder("com.sun.jndi.ldap.LdapCtxFactory").build());
+        reflection.produce(ReflectiveClassBuildItem
+                .builder("com.sun.jndi.ldap.LdapCtxFactory", "com.sun.jndi.dns.DnsContextFactory",
+                        "com.sun.jndi.rmi.registry.RegistryContextFactory")
+                .build());
     }
 }
