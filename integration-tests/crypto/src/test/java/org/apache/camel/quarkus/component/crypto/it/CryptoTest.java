@@ -22,6 +22,8 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.commons.codec.binary.Base64;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.apache.camel.quarkus.component.crypto.it.CryptoResource.MESSAGE;
 import static org.hamcrest.Matchers.is;
@@ -31,7 +33,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @QuarkusTest
 class CryptoTest {
 
-    @Test
+    @ParameterizedTest
+    @ValueSource(booleans = { false, true })
     public void signAndVerifySignature() {
         // Encrypt message
         byte[] signatureBytes = RestAssured.given()
