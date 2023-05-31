@@ -10,9 +10,12 @@
 - camel-quarkus-integration-test-js-dsl should unpack its resources to target rather than src [\#4931](https://github.com/apache/camel-quarkus/issues/4931)
 - Ban com.github.spotbugs:spotbugs-annotations [\#4914](https://github.com/apache/camel-quarkus/issues/4914)
 - MyBatisConsumerTest should keep awaitility in the test scope [\#4793](https://github.com/apache/camel-quarkus/issues/4793)
+- Split JSON dataformats test [\#3088](https://github.com/apache/camel-quarkus/issues/3088)
 
 **Merged pull requests:**
 
+- Upgrade Debezium to 2.2.0.Final [\#4942](https://github.com/apache/camel-quarkus/pull/4942) ([jamesnetherton](https://github.com/jamesnetherton))
+- Added link to get started with Camel in general. [\#4941](https://github.com/apache/camel-quarkus/pull/4941) ([spatnity](https://github.com/spatnity))
 - Generated sources regen for SBOM [\#4939](https://github.com/apache/camel-quarkus/pull/4939) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump quarkus-qpid-jms-bom from 2.1.0 to 2.2.0 [\#4938](https://github.com/apache/camel-quarkus/pull/4938) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Restore master itest platform exclusion [\#4936](https://github.com/apache/camel-quarkus/pull/4936) ([jamesnetherton](https://github.com/jamesnetherton))
