@@ -79,12 +79,14 @@ public interface CalculatorService {
 <1> NOTE: JAX-WS annotations are required. The Simple CXF Frontend is not supported. Complex parameter types require JAXB annotations to work in properly in native mode.
 
 [TIP]
+====
 You can test this client application against the https://quay.io/repository/l2x6/calculator-ws[quay.io/l2x6/calculator-ws:1.2] container that implements this service endpoint interface:
-+
+
 [source,shell]
 ----
 $ docker run -p 8082:8080 quay.io/l2x6/calculator-ws:1.2
 ----
+====
 
 NOTE: `quarkus-cxf` supports {link-quarkus-cxf-doc}/user-guide/first-soap-client.html[injecting SOAP clients]
       using `@io.quarkiverse.cxf.annotation.CXFClient` annotation.
@@ -144,10 +146,13 @@ and `http://localhost:8080/soap-services/hello-inline` respectively.
 
 The WSDL can be accessed by adding `?wsdl` to the above URLs.
 
-IMPORTANT:  Do not use `quarkus.cxf.path = /` in your application unless you are 100% sure that no other extension will want to expose HTTP endpoints.
-+
+[IMPORTANT]
+====
+Do not use `quarkus.cxf.path = /` in your application unless you are 100% sure that no other extension will want to expose HTTP endpoints.
+
 Before `quarkus-cxf` 2.0.0 (i.e. before {project-name} 3.0.0), the default value of `quarkus.cxf.path` was `/`. The default was changed because it prevented other Quarkus extensions from exposing any further HTTP endpoints.
 Among others, RESTEasy, Vert.x, SmallRye Health (no health endpoints exposed!) were impacted by this.
+====
 
 NOTE: `quarkus-cxf` supports alternative ways of exposing SOAP endpoints.
       Refer to the {link-quarkus-cxf-doc}/user-guide/first-soap-web-service.html[SOAP Services] chapter of `quarkus-cxf` user guide for more details.
@@ -238,11 +243,13 @@ TIP: Both {project-name} and Quarkus CXF contain a number of
 
 IMPORTANT: For `wsdl2Java` to work properly, your application will have to directly depend on `io.quarkiverse.cxf:quarkus-cxf`.
 
-TIP: While `wsdlvalidator` is not supported, you can use `wsdl2Java` with the following configuration in `application.properties`
-     to validate your WSDLs:
-+
+[TIP]
+====
+While `wsdlvalidator` is not supported, you can use `wsdl2Java` with the following configuration in `application.properties` to validate your WSDLs:
+
 .application.properties
 [source,properties]
 ----
 quarkus.cxf.codegen.wsdl2java.additional-params = -validate
 ----
+====
