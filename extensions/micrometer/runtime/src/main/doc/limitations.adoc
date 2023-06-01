@@ -1,0 +1,8 @@
+=== Exposing Micrometer statisctics in JMX
+
+The `Exposing Micrometer statisctics in JMX` action is not available in native mode as JMX is not supported on GraalVM.
+
+=== Decrement header for Counter is ignored by Prometheus
+
+Prometheus backend ignores negative values during increment of Counter metrics.
+

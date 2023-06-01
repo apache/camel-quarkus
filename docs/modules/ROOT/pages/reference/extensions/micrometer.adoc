@@ -48,41 +48,30 @@ endif::[]
 == Usage
 This extension leverages https://quarkus.io/guides/micrometer[Quarkus Micrometer]. Quarkus supports a variety of Micrometer metric registry implementations.
 
-Your application should declare one of the following dependencies, depending on the monitoring solution you want to work with.
+Your application should declare the following dependency or  one of the dependencies listed in the https://quarkiverse.github.io/quarkiverse-docs/quarkus-micrometer-registry/dev/index.html[quarkiverse documentation], depending on the monitoring solution you want to work with.
 
-[cols="50,.^50]
-|===
-|Monitoring System | Dependency
+[source,xml]
+----
+<dependency>
+    <groupId>io.micrometer</groupId>
+    <artifactId>micrometer-registry-prometheus</artifactId>
+</dependency>
+----
 
-| Azure
 
-| `io.micrometer:micrometer-registry-azure-monitor`
+[id="extensions-micrometer-camel-quarkus-limitations"]
+== Camel Quarkus limitations
 
-| Datadog
+[id="extensions-micrometer-limitations-exposing-micrometer-statisctics-in-jmx"]
+=== Exposing Micrometer statisctics in JMX
 
-| `io.micrometer:micrometer-registry-datadog`
+The `Exposing Micrometer statisctics in JMX` action is not available in native mode as JMX is not supported on GraalVM.
 
-| JMX (JVM mode only)
+[id="extensions-micrometer-limitations-decrement-header-for-counter-is-ignored-by-prometheus"]
+=== Decrement header for Counter is ignored by Prometheus
 
-| `io.micrometer:micrometer-registry-jmx`
+Prometheus backend ignores negative values during increment of Counter metrics.
 
-| Prometheus
-
-| `io.micrometer:micrometer-registry-prometheus`
-
-| SignalFx
-
-| `io.micrometer:micrometer-registry-signalfx`
-
-| Stackdriver
-
-| `io.micrometer:micrometer-registry-stackdriver`
-
-| StatsD
-
-| `io.micrometer:micrometer-registry-statsd`
-
-|===
 
 
 [id="extensions-micrometer-additional-camel-quarkus-configuration"]

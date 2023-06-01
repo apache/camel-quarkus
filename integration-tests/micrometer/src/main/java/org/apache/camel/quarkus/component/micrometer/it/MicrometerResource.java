@@ -17,12 +17,17 @@
 package org.apache.camel.quarkus.component.micrometer.it;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
+import io.micrometer.core.instrument.Tags;
 import io.micrometer.core.instrument.search.Search;
+import io.micrometer.prometheus.PrometheusMeterRegistry;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -31,7 +36,14 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.micrometer.MicrometerConstants;
+import org.apache.camel.component.micrometer.eventnotifier.MicrometerEventNotifierService;
+import org.apache.camel.component.micrometer.spi.InstrumentedThreadPoolFactory;
+import org.apache.camel.impl.engine.DefaultExecutorServiceManager;
+import org.apache.camel.spi.ThreadPoolFactory;
+import org.apache.camel.support.DefaultThreadPoolFactory;
 
 @Path("/micrometer")
 public class MicrometerResource {
@@ -43,7 +55,17 @@ public class MicrometerResource {
     MeterRegistry meterRegistry;
 
     @Inject
-    TestMetric counter;
+    PrometheusMeterRegistry prometheusMeterRegistry;
+
+    @Inject
+    CamelContext camelContext;
+
+    private LinkedList<Integer> list = new LinkedList<>();
+
+    public MicrometerResource(MeterRegistry meterRegistry) {
+        this.meterRegistry = meterRegistry;
+        meterRegistry.gaugeCollectionSize("example.list.size", Tags.empty(), list);
+    }
 
     @Path("/metric/{type}/{name}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -51,7 +73,6 @@ public class MicrometerResource {
     public Response getMetricValue(@PathParam("type") String type, @PathParam("name") String name,
             @QueryParam("tags") String tagValues) {
         List<Tag> tags = new ArrayList<>();
-
         if (tagValues.length() > 0) {
             String[] tagElements = tagValues.split(",");
             for (String element : tagElements) {
@@ -59,12 +80,11 @@ public class MicrometerResource {
                 tags.add(Tag.of(tagParts[0], tagParts[1]));
             }
         }
-
-        Search search = meterRegistry.find(name).tags(tags);
+        //search only in prometheus registry (not in jmx one), counter test covers among others the unexpected behavior of prometheus
+        Search search = prometheusMeterRegistry.find(name).tags(tags);
         if (search == null) {
             return Response.status(404).build();
         }
-
         try {
             Response.ResponseBuilder response = Response.ok();
             if (type.equals("counter")) {
@@ -78,7 +98,6 @@ public class MicrometerResource {
             } else {
                 throw new IllegalArgumentException("Unknown metric type: " + type);
             }
-
             return response.build();
         } catch (NullPointerException e) {
             //metric does not exist
@@ -86,10 +105,25 @@ public class MicrometerResource {
         }
     }
 
-    @Path("/counter")
+    /**
+     * If inc is > 0, MicrometerConstants.HEADER_COUNTER_INCREMENT is used
+     * If inc is < 0, MicrometerConstants.HEADER_COUNTER_DECREMENT is used (with positive value)
+     * If inc == 0, no header is added.
+     */
+    @Path("/counter/{inc}")
     @GET
-    public Response counter() {
-        producerTemplate.sendBody("direct:counter", null);
+    public Response counter(@PathParam("inc") int increment) {
+        if (increment > 0) {
+            producerTemplate.sendBodyAndHeader("direct:counter", null, MicrometerConstants.HEADER_COUNTER_INCREMENT, increment);
+        } else if (increment < 0) {
+            producerTemplate.sendBodyAndHeader("direct:counter", null, MicrometerConstants.HEADER_COUNTER_DECREMENT,
+                    0 - increment);
+            List l = meterRegistry.getMeters().stream().filter(m -> m.getId().getName().contains("executor"))
+                    .collect(Collectors.toList());//forEach(System.out::println);
+            System.out.println(l);
+        } else {
+            producerTemplate.sendBody("direct:counter", null);
+        }
         return Response.ok().build();
     }
 
@@ -114,10 +148,49 @@ public class MicrometerResource {
         return Response.ok().build();
     }
 
+    @Path("/setInstrumentedThreadPoolFactory")
+    @GET
+    public Response setInstrumentedThreadPoolFactory() {
+        ThreadPoolFactory threadPoolFactory = new DefaultThreadPoolFactory();
+        InstrumentedThreadPoolFactory instrumentedThreadPoolFactory = new InstrumentedThreadPoolFactory(meterRegistry,
+                threadPoolFactory);
+
+        DefaultExecutorServiceManager executorServiceManager = new DefaultExecutorServiceManager(camelContext);
+        executorServiceManager.setThreadPoolFactory(instrumentedThreadPoolFactory);
+        camelContext.setExecutorServiceManager(executorServiceManager);
+
+        return Response.ok().build();
+    }
+
+    @Path("/statistics")
+    @GET
+    public Response statistics() {
+        MicrometerEventNotifierService service = camelContext.hasService(MicrometerEventNotifierService.class);
+        String json = service.dumpStatisticsAsJson();
+        return Response.ok().entity(json).build();
+    }
+
     @Path("/annotations/call/{number}")
     @GET
     public Response annotationsCall(@PathParam("number") int number) {
         producerTemplate.requestBodyAndHeader("direct:annotatedBean", (Object) null, "number", number);
+        return Response.ok().build();
+    }
+
+    @Path("/gauge/{number}")
+    @GET
+    public Response gauge(@PathParam("number") int number) {
+        if (number == 2 || number % 2 == 0) {
+            // add even numbers to the list
+            list.add(number);
+        } else {
+            // remove items from the list for odd numbers
+            try {
+                number = list.removeFirst();
+            } catch (NoSuchElementException nse) {
+                number = 0;
+            }
+        }
         return Response.ok().build();
     }
 }
