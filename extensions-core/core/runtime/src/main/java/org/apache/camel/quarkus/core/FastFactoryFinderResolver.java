@@ -137,7 +137,7 @@ public class FastFactoryFinderResolver extends DefaultFactoryFinderResolver {
 
         @Override
         public void clear() {
-            //nothibg to clear
+            //nothing to clear
         }
 
         private Optional<Object> doNewInstance(String key) {
