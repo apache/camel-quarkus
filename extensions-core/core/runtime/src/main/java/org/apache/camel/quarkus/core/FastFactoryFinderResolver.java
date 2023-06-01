@@ -135,9 +135,15 @@ public class FastFactoryFinderResolver extends DefaultFactoryFinderResolver {
             return Optional.ofNullable(cl);
         }
 
+        @Override
+        public void clear() {
+            //nothibg to clear
+        }
+
         private Optional<Object> doNewInstance(String key) {
             return findClass(key).map(ObjectHelper::newInstance);
         }
+
     }
 
 }
