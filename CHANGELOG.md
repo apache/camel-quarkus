@@ -10,14 +10,17 @@
 - camel-quarkus-integration-test-js-dsl should unpack its resources to target rather than src [\#4931](https://github.com/apache/camel-quarkus/issues/4931)
 - Ban com.github.spotbugs:spotbugs-annotations [\#4914](https://github.com/apache/camel-quarkus/issues/4914)
 - MyBatisConsumerTest should keep awaitility in the test scope [\#4793](https://github.com/apache/camel-quarkus/issues/4793)
+- Cxf-soap: Extend test coverage with Converter scenario [\#4652](https://github.com/apache/camel-quarkus/issues/4652)
 - Split JSON dataformats test [\#3088](https://github.com/apache/camel-quarkus/issues/3088)
 
 **Merged pull requests:**
 
+- Revert "file: disabling idempotent test in order to experiment around… [\#4946](https://github.com/apache/camel-quarkus/pull/4946) ([aldettinger](https://github.com/aldettinger))
 - Upgrade Debezium to 2.2.0.Final [\#4942](https://github.com/apache/camel-quarkus/pull/4942) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added link to get started with Camel in general. [\#4941](https://github.com/apache/camel-quarkus/pull/4941) ([spatnity](https://github.com/spatnity))
 - Generated sources regen for SBOM [\#4939](https://github.com/apache/camel-quarkus/pull/4939) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump quarkus-qpid-jms-bom from 2.1.0 to 2.2.0 [\#4938](https://github.com/apache/camel-quarkus/pull/4938) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump quarkiverse-cxf.version from 2.0.4 to 2.1.0 [\#4937](https://github.com/apache/camel-quarkus/pull/4937) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Restore master itest platform exclusion [\#4936](https://github.com/apache/camel-quarkus/pull/4936) ([jamesnetherton](https://github.com/jamesnetherton))
 - Micrometer: InstrumentedThreadPoolFactory [\#4935](https://github.com/apache/camel-quarkus/pull/4935) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Ban com.github.spotbugs:spotbugs-annotations [\#4933](https://github.com/apache/camel-quarkus/pull/4933) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -162,6 +165,7 @@
 - Fix metrics introduction in observability doc [\#4660](https://github.com/apache/camel-quarkus/pull/4660) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 3.0.0.Alpha6 [\#4659](https://github.com/apache/camel-quarkus/pull/4659) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ref \#4596: Expand JDBC tests - named parameters and samples [\#4655](https://github.com/apache/camel-quarkus/pull/4655) ([ldrozdo](https://github.com/ldrozdo))
+- Cxf-soap: Extend test coverage with Converter scenario \#4652 [\#4653](https://github.com/apache/camel-quarkus/pull/4653) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade Quarkiverse Freemarker to 1.0.0.Alpha2 [\#4650](https://github.com/apache/camel-quarkus/pull/4650) ([jamesnetherton](https://github.com/jamesnetherton))
 - Register atlasmap.properties as a native image resource [\#4649](https://github.com/apache/camel-quarkus/pull/4649) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#4635 replace with ReflectiveClassBuildItem.builder\(\) [\#4648](https://github.com/apache/camel-quarkus/pull/4648) ([zhfeng](https://github.com/zhfeng))
