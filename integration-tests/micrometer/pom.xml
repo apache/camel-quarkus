@@ -63,7 +63,10 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jsonb</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>io.quarkiverse.micrometer.registry</groupId>
+            <artifactId>quarkus-micrometer-registry-jmx</artifactId>
+        </dependency>
         <!-- test dependencies -->
         <dependency>
             <groupId>io.quarkus</groupId>

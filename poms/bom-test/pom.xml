@@ -73,6 +73,11 @@
             </dependency>
 
             <dependency>
+                <groupId>io.quarkiverse.micrometer.registry</groupId>
+                <artifactId>quarkus-micrometer-registry-jmx</artifactId>
+                <version>${quarkiverse-micrometer.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-integration-test-support-custom-dataformat</artifactId>
                 <version>${camel-quarkus.version}</version>

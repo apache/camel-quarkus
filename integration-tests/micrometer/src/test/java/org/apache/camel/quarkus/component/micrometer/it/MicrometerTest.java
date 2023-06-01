@@ -16,23 +16,47 @@
  */
 package org.apache.camel.quarkus.component.micrometer.it;
 
+import java.lang.management.ManagementFactory;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.management.Attribute;
+import javax.management.MBeanServer;
+import javax.management.ObjectInstance;
+import javax.management.ObjectName;
+
+import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import io.restassured.response.ResponseBodyExtractionOptions;
+import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
-class MicrometerTest {
+class MicrometerTest extends AbstractMicrometerTest {
 
     @Test
-    public void testMicrometerMetricsCounter() {
-        RestAssured.get("/micrometer/counter")
+    public void testMicrometerMetricsCounter() throws Exception {
+        RestAssured.get("/micrometer/counter/0")
                 .then()
                 .statusCode(200);
-        assertEquals(1, getMetricValue(Integer.class, "counter", "camel-quarkus-counter"));
+        assertEquals(1, getMetricValue(Integer.class, "counter", "camel-quarkus-counter", "customTag=prometheus"));
+
+        RestAssured.get("/micrometer/counter/5")
+                .then()
+                .statusCode(200);
+        assertEquals(6, getMetricValue(Integer.class, "counter", "camel-quarkus-counter"));
+
+        //prometheus metrics ignores decrements
+        RestAssured.get("/micrometer/counter/-3")
+                .then()
+                .statusCode(200);
+        assertEquals(6, getMetricValue(Integer.class, "counter", "camel-quarkus-counter"));
     }
 
     @Test
@@ -108,40 +132,59 @@ class MicrometerTest {
         assertEquals(1, getMetricValue(Double.class, "counter", "TestMetric.counted2", ""));
     }
 
-    private <T> T getMetricValue(Class<T> as, String type, String name) {
-        return getMetricValue(as, type, name, null);
+    @Test
+    public void testInstrumentedThreadPoolFactory() {
+        assertNotNull(getMetricValue(Double.class, "timer", "executor"));
     }
 
-    private <T> T getMetricValue(Class<T> as, String type, String name, String tags) {
-        return getMetricValue(as, type, name, tags, 200);
+    @Test
+    public void testGauge() {
+        RestAssured.get("/micrometer/gauge/1").then().statusCode(200);
+        RestAssured.get("/micrometer/gauge/2").then().statusCode(200);
+        RestAssured.get("/micrometer/gauge/4").then().statusCode(200);
+        assertEquals(2.0, getMetricValue(Double.class, "gauge", "example.list.size"));
+        RestAssured.get("/micrometer/gauge/6").then().statusCode(200);
+        RestAssured.get("/micrometer/gauge/5").then().statusCode(200);
+        RestAssured.get("/micrometer/gauge/7").then().statusCode(200);
+        assertEquals(1.0, getMetricValue(Double.class, "gauge", "example.list.size"));
     }
 
-    private <T> T getMetricValue(Class<T> as, String type, String name, String tags, int statusCode) {
-        ResponseBodyExtractionOptions resp = RestAssured.given()
-                .queryParam("tags", tags)
-                .when()
-                .get("/micrometer/metric/" + type + "/" + name)
-                .then()
-                .statusCode(statusCode)
-                .extract()
-                .body();
-
-        if (as.equals(String.class)) {
-            return (T) resp.asString();
-        }
-
-        return resp.as(as);
-    }
-
-    /**
-     * Debug available metrics
-     */
-    private String dumpMetrics() {
-        return RestAssured.get("/metrics")
+    @Test
+    public void testDumpAsJson() {
+        JsonPath jsonPath = RestAssured.get("/micrometer/statistics")
                 .then()
                 .statusCode(200)
-                .extract()
-                .body()
-                .asString();
+                .extract().jsonPath();
+
+        //extract required values
+        Map result = jsonPath.getList("gauges").stream()
+                .map(o -> (Map) o)
+                .filter(o -> ((Map) o.get("id")).get("name").toString().contains(".routes."))
+                //filter only values with tag: customTag=prometheus
+                .filter(o -> ((List) ((Map) o.get("id")).get("tags")).stream()
+                        .anyMatch(item -> ((Map) item).containsKey("customTag")))
+                .collect(Collectors.toMap(o -> ((Map) o.get("id")).get("name"), o -> o.get("value").toString()));
+
+        assertEquals(result.size(), 2);
+        assertTrue(result.containsKey("camel.routes.running"));
+        assertEquals(result.get("camel.routes.running"), "5.0");
+        assertTrue(result.containsKey("camel.routes.added"));
+        assertEquals(result.get("camel.routes.added"), "5.0");
+    }
+
+    @Test
+    @DisabledOnIntegrationTest // JMX is not supported in native mode
+    public void testJMX() throws Exception {
+        MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
+
+        ObjectName objectName = new ObjectName("org.apache.camel.micrometer:name=jvmClassesLoaded");
+        Set<ObjectInstance> mbeans = mBeanServer.queryMBeans(objectName, null);
+
+        assertEquals(1, mbeans.size());
+
+        ObjectInstance oi = mbeans.iterator().next();
+        Double classes = (Double) ((Attribute) mBeanServer.getAttributes(oi.getObjectName(), new String[] { "Value" }).get(0))
+                .getValue();
+        assertTrue(classes > 1);
     }
 }

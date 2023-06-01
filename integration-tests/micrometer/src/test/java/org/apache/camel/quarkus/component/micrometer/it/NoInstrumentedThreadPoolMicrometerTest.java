@@ -16,29 +16,23 @@
  */
 package org.apache.camel.quarkus.component.micrometer.it;
 
-import io.micrometer.core.annotation.Counted;
-import io.micrometer.core.annotation.Timed;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Named;
+import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.junit.TestProfile;
+import org.junit.jupiter.api.Test;
 
-@ApplicationScoped
-@Named("testMetric")
-public class TestMetric {
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-    @Counted(value = "TestMetric.counted1")
-    @Timed(value = "TestMetric.timed1")
-    public void call1() {
-        try {
-            //wait 1 second
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            //do nothing
-        }
+/**
+ * Test class runs only in JVM mode, because profile changes some application.properties which is not allowed in native.
+ * (native Exception: "java.lang.IllegalStateException: Build time property cannot be changed at runtime:")
+ * Test verify that instrumented thread pool metric is not present, if the feature is turned off.
+ */
+@QuarkusTest
+@TestProfile(NoInstrumentedThreadPoolProfile.class)
+class NoInstrumentedThreadPoolMicrometerTest extends AbstractMicrometerTest {
+
+    @Test
+    public void testInstrumentedThreadPoolFactory() {
+        assertEquals("Metric does not exist", getMetricValue(String.class, "timer", "executor", null, 500));
     }
-
-    @Counted(value = "TestMetric_wrong.counted2")
-    public void call2() {
-        //do nothing
-    }
-
 }

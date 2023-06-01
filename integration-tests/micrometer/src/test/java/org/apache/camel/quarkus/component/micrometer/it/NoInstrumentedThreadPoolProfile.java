@@ -16,29 +16,14 @@
  */
 package org.apache.camel.quarkus.component.micrometer.it;
 
-import io.micrometer.core.annotation.Counted;
-import io.micrometer.core.annotation.Timed;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Named;
+import java.util.Map;
 
-@ApplicationScoped
-@Named("testMetric")
-public class TestMetric {
+import io.quarkus.test.junit.QuarkusTestProfile;
 
-    @Counted(value = "TestMetric.counted1")
-    @Timed(value = "TestMetric.timed1")
-    public void call1() {
-        try {
-            //wait 1 second
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            //do nothing
-        }
+public class NoInstrumentedThreadPoolProfile implements QuarkusTestProfile {
+
+    @Override
+    public Map<String, String> getConfigOverrides() {
+        return Map.of("quarkus.camel.metrics.enable-instrumented-thread-pool-factory", "false");
     }
-
-    @Counted(value = "TestMetric_wrong.counted2")
-    public void call2() {
-        //do nothing
-    }
-
 }
