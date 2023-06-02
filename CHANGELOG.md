@@ -15,6 +15,8 @@
 
 **Merged pull requests:**
 
+- Fix broken formatting on the CXF extension page [\#4949](https://github.com/apache/camel-quarkus/pull/4949) ([ppalaga](https://github.com/ppalaga))
+- Bump quarkiverse-jsch.version from 3.0.0 to 3.0.1 [\#4948](https://github.com/apache/camel-quarkus/pull/4948) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Revert "file: disabling idempotent test in order to experiment around… [\#4946](https://github.com/apache/camel-quarkus/pull/4946) ([aldettinger](https://github.com/aldettinger))
 - Upgrade Debezium to 2.2.0.Final [\#4942](https://github.com/apache/camel-quarkus/pull/4942) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added link to get started with Camel in general. [\#4941](https://github.com/apache/camel-quarkus/pull/4941) ([spatnity](https://github.com/spatnity))
