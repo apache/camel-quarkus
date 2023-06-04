@@ -15,6 +15,7 @@
 
 **Merged pull requests:**
 
+- Bump formatter-maven-plugin from 2.22.0 to 2.23.0 [\#4953](https://github.com/apache/camel-quarkus/pull/4953) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump quarkiverse-minio.version from 3.0.2 to 3.1.0.Final [\#4952](https://github.com/apache/camel-quarkus/pull/4952) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Fix broken formatting on the CXF extension page [\#4949](https://github.com/apache/camel-quarkus/pull/4949) ([ppalaga](https://github.com/ppalaga))
 - Bump quarkiverse-jsch.version from 3.0.0 to 3.0.1 [\#4948](https://github.com/apache/camel-quarkus/pull/4948) ([dependabot[bot]](https://github.com/apps/dependabot))
