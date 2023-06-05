@@ -1115,6 +1115,10 @@
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
           </exclusion>
+          <exclusion>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -1623,6 +1627,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-iota</artifactId>
         <version>3.20.1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -2518,6 +2528,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-saxon</artifactId>
         <version>3.20.1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -2528,6 +2544,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-schematron</artifactId>
         <version>3.20.1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -2981,6 +3003,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-xslt-saxon</artifactId>
         <version>3.20.1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -7267,6 +7295,12 @@
         <groupId>xalan</groupId>
         <artifactId>xalan</artifactId>
         <version>2.7.2</version>
+        <exclusions>
+          <exclusion>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
