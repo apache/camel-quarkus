@@ -108,8 +108,8 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>groovy-maven-plugin</artifactId>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
                 <executions>
                     <execution>
                         <id>group-sources</id>
@@ -118,7 +118,9 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <source>file:${maven.multiModuleProjectDirectory}/tooling/scripts/copy-tests.groovy</source>
+                            <scripts>
+                                <script>file:${maven.multiModuleProjectDirectory}/tooling/scripts/copy-tests.groovy</script>
+                            </scripts>
                             <properties>
                                 <copy-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2/aws2-s</copy-tests.source.dir>
                                 <copy-tests.dest.module.dir>${project.basedir}</copy-tests.dest.module.dir>

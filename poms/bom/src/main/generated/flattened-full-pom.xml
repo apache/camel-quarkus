@@ -7014,139 +7014,154 @@
         <version>4.0.1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.1.0 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-ant</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-ant</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-astbuilder</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-astbuilder</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-bsf</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-cli-commons</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-cli-commons</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-cli-picocli</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-cli-picocli</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-console</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-console</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-contracts</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-datetime</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-datetime</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-dateutil</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-dateutil</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-docgenerator</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-docgenerator</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-groovydoc</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-ginq</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-groovysh</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-groovydoc</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-jaxb</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-groovysh</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-jmx</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-jmx</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-json</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-json</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-jsr223</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-jsr223</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-macro</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-macro</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-nio</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-macro-library</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-servlet</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-nio</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-sql</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-servlet</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-swing</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-sql</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-templates</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-swing</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-test</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-templates</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-test-junit5</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-test</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-testng</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-test-junit5</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-xml</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-testng</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <artifactId>groovy-yaml</artifactId><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
-        <version>3.0.14</version><!-- org.codehaus.groovy:groovy-bom:3.0.14 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-toml</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-typecheckers</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-xml</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <artifactId>groovy-yaml</artifactId><!-- org.apache.groovy:groovy-bom:4.0.12 -->
+        <version>4.0.12</version><!-- org.apache.groovy:groovy-bom:4.0.12 -->
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.20.72 -->
@@ -20738,6 +20753,21 @@
         <groupId>ch.qos.logback</groupId><!-- io.debezium:debezium-bom:2.2.0.Final -->
         <artifactId>logback-classic</artifactId><!-- io.debezium:debezium-bom:2.2.0.Final -->
         <version>1.2.10</version><!-- io.debezium:debezium-bom:2.2.0.Final -->
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.groovy</groupId><!-- io.debezium:debezium-bom:2.2.0.Final -->
+        <artifactId>groovy</artifactId><!-- io.debezium:debezium-bom:2.2.0.Final -->
+        <version>3.0.7</version><!-- io.debezium:debezium-bom:2.2.0.Final -->
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.groovy</groupId><!-- io.debezium:debezium-bom:2.2.0.Final -->
+        <artifactId>groovy-json</artifactId><!-- io.debezium:debezium-bom:2.2.0.Final -->
+        <version>3.0.7</version><!-- io.debezium:debezium-bom:2.2.0.Final -->
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.groovy</groupId><!-- io.debezium:debezium-bom:2.2.0.Final -->
+        <artifactId>groovy-jsr223</artifactId><!-- io.debezium:debezium-bom:2.2.0.Final -->
+        <version>3.0.7</version><!-- io.debezium:debezium-bom:2.2.0.Final -->
       </dependency>
       <dependency>
         <groupId>io.vitess</groupId><!-- io.debezium:debezium-bom:2.2.0.Final -->

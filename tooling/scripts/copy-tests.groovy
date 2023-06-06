@@ -31,17 +31,17 @@ import groovy.ant.AntBuilder
  * so that the tests can be executed. Use of ('copy-tests.exclude') allows to exclude files.
  */
 
-final Path sourceDir = Paths.get(properties['copy-tests.source.dir'])
-final Path destinationModuleDir = Paths.get(properties['copy-tests.dest.module.dir'])
-final String excl = properties['copy-tests.excludes']
-final String classNamePrefix = properties['group-tests.class.name.prefix'] ?: ""
+final Path sourceDir = Paths.get(binding.properties.variables.'copy-tests.source.dir')
+final Path destinationModuleDir = Paths.get(binding.properties.variables.'copy-tests.dest.module.dir')
+final String excl = binding.properties.variables.'copy-tests.excludes'
+final String classNamePrefix = binding.properties.variables.'group-tests.class.name.prefix' ?: ""
 
 copyResources(sourceDir.resolve('src/main/resources'), destinationModuleDir.resolve('target/classes'), excl)
 copyResources(sourceDir.resolve('src/main/java'), destinationModuleDir.resolve('target/src/main/java'), excl)
 copyResources(sourceDir.resolve('src/test/java'), destinationModuleDir.resolve('target/src/test/java'), excl)
 copyResources(sourceDir.resolve('src/test/resources'), destinationModuleDir.resolve('target/test-classes'), excl)
 
-String scriptDir = new File(getClass().protectionDomain.codeSource.location.path).parent
+String scriptDir = new File(System.getProperty('maven.multiModuleProjectDirectory') + '/tooling/scripts')
 File sourceFile = new File("${scriptDir}/group-test-utils.groovy")
 Class groovyClass = new GroovyClassLoader(getClass().getClassLoader()).parseClass(sourceFile);
 GroovyObject utils = (GroovyObject) groovyClass.getDeclaredConstructor().newInstance();

@@ -27,7 +27,7 @@ import java.util.regex.Pattern
 import java.util.regex.Matcher
 
 
-final Path treeRootDir = Paths.get(properties['maven.multiModuleProjectDirectory'])
+final Path treeRootDir = Paths.get(System.getProperty('maven.multiModuleProjectDirectory'))
 
 final List<Path> replaceInFiles = [
     treeRootDir.resolve('docs/antora.yml')

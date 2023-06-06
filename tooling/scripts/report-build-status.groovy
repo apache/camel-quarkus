@@ -20,7 +20,7 @@ import org.kohsuke.github.*
 /**
  * A script to report on the build status of synchronization for branches camel-main and quarkus-main.
  *
- * A GitHub issue ID is passed to this script from the GitHub workflow. The issue is inteded to be repeatedly closed / reopened
+ * A GitHub issue ID is passed to this script from the GitHub workflow. The issue is intended to be repeatedly closed / reopened
  * whenever a build workflow run is successful / unsuccessful.
  *
  * If failures were encountered in the build, a comment is appended to a specified GitHub issue, with the body containing
@@ -32,17 +32,17 @@ import org.kohsuke.github.*
  * should automatically merge the latest changes from the main branch, to the target branch.
  */
 
-final String TOKEN = properties['token']
-final String STATUS = properties['status'].toLowerCase(Locale.US)
-final String BUILD_ID = properties['buildId']
-final String REPO = properties['repo']
-final String BRANCH = properties['branch']
+final String TOKEN = System.getProperty('token')
+final String STATUS = System.getProperty('status').toLowerCase(Locale.US)
+final String BUILD_ID = System.getProperty('buildId')
+final String REPO = System.getProperty('repo')
+final String BRANCH = System.getProperty('branch')
 final String BRANCH_NAME = "${BRANCH.split('-')[0].capitalize()} ${BRANCH.split('-')[1].capitalize()}"
-final String BRANCH_COMMIT = properties['branch-commit'] ?: 'Unknown'
+final String BRANCH_COMMIT = System.getProperty('branch-commit') ?: 'Unknown'
 final String ACTIONS_URL = "https://github.com/${REPO}/actions/runs/${BUILD_ID.split("-")[0]}"
 final String BRANCH_URL = "https://github.com/${REPO}/tree/${BRANCH}"
 final String ISSUE_LABEL = "build/${BRANCH}"
-final Integer ISSUE_ID = properties['issueId'] as Integer
+final Integer ISSUE_ID = System.getProperty('issueId') as Integer
 
 class Utils {
     static boolean workflowHasPreviousFailures(GHIssue issue, String buildId) {
