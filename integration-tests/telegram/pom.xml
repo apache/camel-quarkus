@@ -43,12 +43,12 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jackson</artifactId>
         </dependency>
-        <!-- Wehbook usage -->
+
+        <!-- To serve the mock Telegram API -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-rest</artifactId>
+            <artifactId>camel-quarkus-platform-http</artifactId>
         </dependency>
-        <!-- To serve the mock Telegram API -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-attachments</artifactId>
@@ -87,6 +87,7 @@
             </exclusions>
         </dependency>
     </dependencies>
+
 
     <profiles>
         <profile>
@@ -140,7 +141,7 @@
                 </dependency>
                 <dependency>
                     <groupId>org.apache.camel.quarkus</groupId>
-                    <artifactId>camel-quarkus-rest-deployment</artifactId>
+                    <artifactId>camel-quarkus-platform-http-deployment</artifactId>
                     <version>${project.version}</version>
                     <type>pom</type>
                     <scope>test</scope>
