@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.quarkiverse.cxf.it.server;
+package org.apache.camel.quarkus.component.cxf.soap.server.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
