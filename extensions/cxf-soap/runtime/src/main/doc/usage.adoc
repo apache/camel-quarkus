@@ -218,7 +218,7 @@ NOTE: The support for `org.apache.cxf.ext.logging.LoggingFeature` is provided by
 
 The extent of supported WS specifications is given by the Quarkus CXF project.
 
-`camel-quarkus-cxf-soap` covers the following specifications via the `{link-quarkus-cxf-doc}/reference/extensions/quarkus-cxf.html[io.quarkiverse.cxf:quarkus-cxf]` extension:
+`camel-quarkus-cxf-soap` covers only the following specifications via the `{link-quarkus-cxf-doc}/reference/extensions/quarkus-cxf.html[io.quarkiverse.cxf:quarkus-cxf]` extension:
 
 * JAX-WS
 * JAXB
@@ -226,7 +226,7 @@ The extent of supported WS specifications is given by the Quarkus CXF project.
 * WS-Policy
 * MTOM
 
-If your application requires some other WS specification, you must add an additional Quarkus CXF dependency covering it.
+If your application requires some other WS specification, such as WS-Security or WS-Trust, you must add an additional Quarkus CXF dependency covering it.
 Refer to Quarkus CXF {link-quarkus-cxf-doc}/reference/index.html[Reference] page to see which WS specifications are covered by which Quarkus CXF extensions.
 
 TIP: Both {project-name} and Quarkus CXF contain a number of
