@@ -238,14 +238,13 @@ once the newly released artifacts are available on https://repo1.maven.org/maven
 ====
 Synchronization between Apache Maven repository and Maven Central may take hours.
 You may find the `await-release` mojo of `cq-maven-plugin` handy if you need to upgrade Camel Quarkus in the Platform as soon as possible:
-+
-+
+
 [source,shell]
 ----
 $ cd camel-quarkus
 $ mvn cq:await-release -Dcq.version=$(git describe --tags `git rev-list --tags --max-count=1`)
 ----
-+
+
 The mojo first lists the artifacts having `groupId` `org.apache.camel.quarkus` and the given `$VERSION`
 from the local Maven repository and then checks that they are available in Maven Central.
 As long as there are unavailable artifacts, the requests are re-tried with a (configurable) delay of 60 seconds.
