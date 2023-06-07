@@ -16,33 +16,31 @@
  */
 package org.apache.camel.quarkus.component.log.it;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.concurrent.TimeUnit;
+import java.nio.file.Paths;
 
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
+public class LogUtils {
+    private LogUtils() {
+        // Utility class
+    }
 
-import static org.awaitility.Awaitility.await;
+    public static boolean isNativeMode() {
+        return "executable".equals(System.getProperty("org.graalvm.nativeimage.kind"));
+    }
 
-@QuarkusTest
-public class LogTest {
-
-    @Test
-    public void logMessage() {
-        Path quarkusLog = LogUtils.resolveQuarkusLogPath();
-        String message = "Hello Camel Quarkus Log";
-        RestAssured.given()
-                .queryParam("endpointUri", "direct:log")
-                .body(message)
-                .post("/log")
-                .then()
-                .statusCode(200);
-
-        await().atMost(10L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
-            String log = Files.readString(quarkusLog);
-            return log.contains("[foo-topic]") && log.contains(message);
-        });
+    public static Path resolveQuarkusLogPath() {
+        Path logDir = Paths.get(".", "target");
+        Path quarkusLog = isNativeMode() ? logDir.resolve("target/quarkus.log") : logDir.resolve("quarkus.log");
+        if (!Files.exists(quarkusLog)) {
+            try {
+                Files.createDirectories(quarkusLog.getParent());
+                Files.createFile(quarkusLog);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return quarkusLog;
     }
 }
