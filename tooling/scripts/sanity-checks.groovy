@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import groovy.xml.XmlParser
 import java.nio.file.Path
 import java.nio.file.Paths
 
@@ -22,7 +23,7 @@ import java.nio.file.Paths
 final List<String> badDeps = []
 final File pomXml = new File(project.basedir, "pom.xml")
 
-final Path treeRootDir = Paths.get(properties['maven.multiModuleProjectDirectory'])
+final Path treeRootDir = Paths.get(System.getProperty('maven.multiModuleProjectDirectory'))
 final Path relativePomPath = treeRootDir.relativize(pomXml.toPath().normalize())
 
 if (pomXml.exists()) {

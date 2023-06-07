@@ -26,7 +26,7 @@ import java.util.regex.Matcher
 
 final String PROJECT_BRANCH_ROOT = ''
 
-final Path treeRootDir = Paths.get(properties['maven.multiModuleProjectDirectory'])
+final Path treeRootDir = Paths.get(System.getProperty('maven.multiModuleProjectDirectory'))
 
 final Path antoraYmlPath = treeRootDir.resolve('docs/antora.yml')
 final Path sourceMapPath = treeRootDir.resolve('docs/source-map.yml')

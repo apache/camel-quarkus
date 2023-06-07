@@ -33,8 +33,8 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>groovy-maven-plugin</artifactId>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
                 <executions>
                     <execution>
                         <id>update-antora-config</id>
@@ -43,10 +43,9 @@
                         </goals>
                         <phase>validate</phase>
                         <configuration>
-                            <source>file:${maven.multiModuleProjectDirectory}/tooling/scripts/update-antora-config.groovy</source>
-                            <properties>
-                                <maven.multiModuleProjectDirectory>${maven.multiModuleProjectDirectory}</maven.multiModuleProjectDirectory>
-                            </properties>
+                            <scripts>
+                                <script>file:${maven.multiModuleProjectDirectory}/tooling/scripts/update-antora-config.groovy</script>
+                            </scripts>
                         </configuration>
                     </execution>
                     <execution>
@@ -56,10 +55,9 @@
                         </goals>
                         <phase>validate</phase>
                         <configuration>
-                            <source>file:${maven.multiModuleProjectDirectory}/tooling/scripts/update-antora-yaml.groovy</source>
-                            <properties>
-                                <maven.multiModuleProjectDirectory>${maven.multiModuleProjectDirectory}</maven.multiModuleProjectDirectory>
-                            </properties>
+                            <scripts>
+                                <script>file:${maven.multiModuleProjectDirectory}/tooling/scripts/update-antora-yaml.groovy</script>
+                            </scripts>
                         </configuration>
                     </execution>
                 </executions>

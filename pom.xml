@@ -169,8 +169,8 @@
         <build-helper-maven-plugin.version>3.4.0</build-helper-maven-plugin.version>
         <exec-maven-plugin.version>3.1.0</exec-maven-plugin.version>
         <formatter-maven-plugin.version>2.23.0</formatter-maven-plugin.version>
-        <groovy-maven-plugin.version>2.1.1</groovy-maven-plugin.version>
-        <groovy.version>3.0.14</groovy.version>
+        <gmavenplus-maven-plugin.version>3.0.0</gmavenplus-maven-plugin.version>
+        <groovy.version>4.0.12</groovy.version>
         <impsort-maven-plugin.version>1.9.0</impsort-maven-plugin.version>
         <jandex-maven-plugin.version>1.2.3</jandex-maven-plugin.version>
         <keytool-maven-plugin.version>1.7</keytool-maven-plugin.version>
@@ -436,22 +436,15 @@
                 </plugin>
 
                 <plugin>
-                    <groupId>org.codehaus.gmaven</groupId>
-                    <artifactId>groovy-maven-plugin</artifactId>
-                    <version>${groovy-maven-plugin.version}</version>
+                    <groupId>org.codehaus.gmavenplus</groupId>
+                    <artifactId>gmavenplus-plugin</artifactId>
+                    <version>${gmavenplus-maven-plugin.version}</version>
                     <dependencies>
                         <dependency>
-                            <groupId>org.codehaus.groovy</groupId>
+                            <groupId>org.apache.groovy</groupId>
                             <artifactId>groovy-all</artifactId>
                             <version>${groovy.version}</version>
                             <type>pom</type>
-                            <exclusions>
-                                <exclusion>
-                                    <!-- groovy-testng depends on testng 7.2.0 which is not on maven central -->
-                                    <groupId>org.codehaus.groovy</groupId>
-                                    <artifactId>groovy-testng</artifactId>
-                                </exclusion>
-                            </exclusions>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -715,8 +708,8 @@
                         </executions>
                     </plugin>
                     <plugin>
-                        <groupId>org.codehaus.gmaven</groupId>
-                        <artifactId>groovy-maven-plugin</artifactId>
+                        <groupId>org.codehaus.gmavenplus</groupId>
+                        <artifactId>gmavenplus-plugin</artifactId>
                         <executions>
                             <execution>
                                 <id>validate-github-workflows</id>
@@ -726,7 +719,9 @@
                                 </goals>
                                 <phase>process-resources</phase>
                                 <configuration>
-                                    <source>file:${project.basedir}/tooling/scripts/validate-github-workflows.groovy</source>
+                                    <scripts>
+                                        <script>file:${project.basedir}/tooling/scripts/validate-github-workflows.groovy</script>
+                                    </scripts>
                                 </configuration>
                             </execution>
                             <execution>
@@ -737,7 +732,9 @@
                                 </goals>
                                 <phase>verify</phase>
                                 <configuration>
-                                    <source>file:${project.basedir}/tooling/scripts/validate-extension-metadata.groovy</source>
+                                    <scripts>
+                                        <script>file:${project.basedir}/tooling/scripts/validate-extension-metadata.groovy</script>
+                                    </scripts>
                                     <properties>
                                         <extensionDirs>extensions-core,extensions-support,extensions</extensionDirs>
                                     </properties>
@@ -1064,8 +1061,8 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.codehaus.gmaven</groupId>
-                        <artifactId>groovy-maven-plugin</artifactId>
+                        <groupId>org.codehaus.gmavenplus</groupId>
+                        <artifactId>gmavenplus-plugin</artifactId>
                         <executions>
                             <execution>
                                 <id>update-antora-yaml</id>
@@ -1075,10 +1072,9 @@
                                 </goals>
                                 <phase>validate</phase>
                                 <configuration>
-                                    <source>file:${maven.multiModuleProjectDirectory}/tooling/scripts/update-antora-yaml.groovy</source>
-                                    <properties>
-                                        <maven.multiModuleProjectDirectory>${maven.multiModuleProjectDirectory}</maven.multiModuleProjectDirectory>
-                                    </properties>
+                                    <scripts>
+                                        <script>file:${maven.multiModuleProjectDirectory}/tooling/scripts/update-antora-yaml.groovy</script>
+                                    </scripts>
                                 </configuration>
                             </execution>
                         </executions>
@@ -1247,8 +1243,8 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.codehaus.gmaven</groupId>
-                        <artifactId>groovy-maven-plugin</artifactId>
+                        <groupId>org.codehaus.gmavenplus</groupId>
+                        <artifactId>gmavenplus-plugin</artifactId>
                         <executions>
                             <execution>
                                 <id>build-notify</id>
@@ -1258,7 +1254,9 @@
                                 </goals>
                                 <phase>verify</phase>
                                 <configuration>
-                                    <source>file:${project.basedir}/tooling/scripts/report-build-status.groovy</source>
+                                    <scripts>
+                                        <script>file:${project.basedir}/tooling/scripts/report-build-status.groovy</script>
+                                    </scripts>
                                 </configuration>
                             </execution>
                         </executions>

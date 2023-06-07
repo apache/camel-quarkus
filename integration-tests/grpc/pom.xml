@@ -98,8 +98,8 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>groovy-maven-plugin</artifactId>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
                 <executions>
                     <execution>
                         <!-- Skip code generation & tests on unsupported platforms -->
@@ -109,11 +109,13 @@
                             <goal>execute</goal>
                         </goals>
                         <configuration>
-                            <source>
-                                String platformUnsupported = project.properties['os.detected.classifier'].matches('^.*?(linux|windows|osx)-x86.*$') ? 'false' : 'true'
-                                project.properties['skipTests'] = platformUnsupported
-                                project.properties['cq.skip.protobuf'] = platformUnsupported || project.properties.containsKey('quickly')
-                            </source>
+                            <scripts>
+                                <script>
+                                    String platformUnsupported = project.properties['os.detected.classifier'].matches('^.*?(linux|windows|osx)-x86.*$') ? 'false' : 'true'
+                                    project.properties['skipTests'] = platformUnsupported
+                                    project.properties['cq.skip.protobuf'] = platformUnsupported || project.properties.containsKey('quickly')
+                                </script>
+                            </scripts>
                         </configuration>
                     </execution>
                     <execution>
@@ -134,15 +136,17 @@
                             <goal>execute</goal>
                         </goals>
                         <configuration>
-                            <source>
-                            def buildDir = project.build.directory
-                            new File("${buildDir}/generated-sources").eachFileRecurse { file -&gt;
-                                if (file.name.endsWith(".java") &amp;&amp; file.text.contains("javax.annotation.Generated")) {
-                                    def modifiedContent = file.text.replace("javax", "jakarta")
-                                    file.write(modifiedContent)
-                                }
-                            }
-                            </source>
+                            <scripts>
+                                <script><![CDATA[
+                                    def buildDir = project.build.directory
+                                    new File("${buildDir}/generated-sources").eachFileRecurse { file ->
+                                        if (file.name.endsWith('.java') && file.text.contains('javax.annotation.Generated')) {
+                                            def modifiedContent = file.text.replace('javax', 'jakarta')
+                                            file.write(modifiedContent)
+                                        }
+                                    }
+                                ]]></script>
+                            </scripts>
                         </configuration>
                     </execution>
                 </executions>

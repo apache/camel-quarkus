@@ -31,11 +31,11 @@ import groovy.ant.AntBuilder
  * one destination module (`group-tests.dest.module.dir`) so that the tests can be executed all at once
  */
 
-final Path sourceDir = Paths.get(properties['group-tests.source.dir'])
-final String[] concatRelPaths = properties['group-tests.concat.rel.paths'].split('[\\s,]+')
-final Path destinationModuleDir = Paths.get(properties['group-tests.dest.module.dir'])
-final String excludes = properties['group-tests.files.excludes'] ?: ""
-final String classNamePrefix = properties['group-tests.class.name.prefix'] ?: ""
+final Path sourceDir = Paths.get(binding.properties.variables.'group-tests.source.dir')
+final String[] concatRelPaths = binding.properties.variables.'group-tests.concat.rel.paths'.split('[\\s,]+')
+final Path destinationModuleDir = Paths.get(binding.properties.variables.'group-tests.dest.module.dir')
+final String excludes = binding.properties.variables.'group-tests.files.excludes' ?: ""
+final String classNamePrefix = binding.properties.variables.'group-tests.class.name.prefix' ?: ""
 final List<String> fileExcludes = excludes.split('[\\s,]+') as List
 /* Property names whose values originating from distinct application.properties files can be concatenated using comma as a separator */
 final Set<String> commaConcatenatePropertyNames = ["quarkus.native.resources.includes", "quarkus.native.resources.excludes"] as Set
@@ -63,7 +63,7 @@ Files.list(sourceDir)
         srcDestMap.forEach { src, dest -> copyResources(p.resolve(src), dest) }
     }
 
-String scriptDir = new File(getClass().protectionDomain.codeSource.location.path).parent
+String scriptDir = new File(System.getProperty('maven.multiModuleProjectDirectory') + '/tooling/scripts')
 File sourceFile = new File("${scriptDir}/group-test-utils.groovy")
 Class groovyClass = new GroovyClassLoader(getClass().getClassLoader()).parseClass(sourceFile)
 GroovyObject utils = (GroovyObject) groovyClass.getDeclaredConstructor().newInstance()
@@ -97,10 +97,10 @@ class ResourceConcatenator {
     private final List<Path> visitedPaths = new ArrayList<>()
     private final Set<String> commaConcatenatePropertyNames;
 
-    public ResourceConcatenator(Set<String> commaConcatenatePropertyNames) {
+    ResourceConcatenator(Set<String> commaConcatenatePropertyNames) {
         this.commaConcatenatePropertyNames = commaConcatenatePropertyNames;
     }
-    public ResourceConcatenator append(Path path) {
+    ResourceConcatenator append(Path path) {
         if (Files.exists(path)) {
             if (path.getFileName().toString().endsWith(".properties")) {
                 Properties newProps = new Properties()
@@ -126,7 +126,7 @@ class ResourceConcatenator {
         return this
     }
 
-    public void store(Path path) {
+    void store(Path path) {
         Files.createDirectories(path.getParent())
         if (path.getFileName().toString().endsWith(".properties")) {
             path.withOutputStream { out ->

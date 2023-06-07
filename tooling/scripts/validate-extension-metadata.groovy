@@ -15,11 +15,10 @@
  * limitations under the License.
  */
 
-import groovy.io.FileType
 import java.nio.file.Files
 import java.nio.file.Path
 
-final String[] extensionDirs = properties['extensionDirs'].split(',')
+final String[] extensionDirs = extensionDirs.split(',')
 
 final String quarkusExtensionRelPath = 'runtime/src/main/resources/META-INF/quarkus-extension.yaml'
 final List<String> messages = []

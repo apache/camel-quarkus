@@ -193,8 +193,8 @@
                         </executions>
                     </plugin>
                     <plugin>
-                        <groupId>org.codehaus.gmaven</groupId>
-                        <artifactId>groovy-maven-plugin</artifactId>
+                        <groupId>org.codehaus.gmavenplus</groupId>
+                        <artifactId>gmavenplus-plugin</artifactId>
                         <executions>
                             <execution>
                                 <id>sanity-checks</id>
@@ -203,10 +203,9 @@
                                 </goals>
                                 <phase>validate</phase>
                                 <configuration>
-                                    <source>file:${maven.multiModuleProjectDirectory}/tooling/scripts/sanity-checks.groovy</source>
-                                    <properties>
-                                        <maven.multiModuleProjectDirectory>${maven.multiModuleProjectDirectory}</maven.multiModuleProjectDirectory>
-                                    </properties>
+                                    <scripts>
+                                        <script>file:${maven.multiModuleProjectDirectory}/tooling/scripts/sanity-checks.groovy</script>
+                                    </scripts>
                                 </configuration>
                             </execution>
                         </executions>
@@ -266,8 +265,8 @@
                         </executions>
                     </plugin>
                     <plugin>
-                        <groupId>org.codehaus.gmaven</groupId>
-                        <artifactId>groovy-maven-plugin</artifactId>
+                        <groupId>org.codehaus.gmavenplus</groupId>
+                        <artifactId>gmavenplus-plugin</artifactId>
                         <executions>
                             <execution>
                                 <id>sanity-checks</id>
@@ -288,8 +287,8 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.codehaus.gmaven</groupId>
-                        <artifactId>groovy-maven-plugin</artifactId>
+                        <groupId>org.codehaus.gmavenplus</groupId>
+                        <artifactId>gmavenplus-plugin</artifactId>
                         <executions>
                             <execution>
                                 <id>sanity-checks</id>
