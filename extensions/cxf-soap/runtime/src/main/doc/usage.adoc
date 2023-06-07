@@ -13,7 +13,7 @@ The CXF and `quarkus-cxf` versions are xref:user-guide/dependency-management.ado
 
 With `camel-quarkus-cxf-soap` (no additional dependencies required), you can use CXF clients as producers in Camel routes:
 
-[source,java]
+[source,java,subs="attributes+"]
 ----
 import org.apache.camel.builder.RouteBuilder;
 import {javaxOrJakartaPackagePrefix}.enterprise.context.ApplicationScoped;
@@ -52,7 +52,7 @@ public class CxfSoapClientRoutes extends RouteBuilder {
 
 The `CalculatorService` may look like the following:
 
-[source,java]
+[source,java,subs="attributes+"]
 ----
 import {javaxOrJakartaPackagePrefix}.jws.WebMethod;
 import {javaxOrJakartaPackagePrefix}.jws.WebService;
@@ -97,7 +97,7 @@ NOTE: `quarkus-cxf` supports {link-quarkus-cxf-doc}/user-guide/first-soap-client
 With `camel-quarkus-cxf-soap`, you can expose SOAP endpoints as consumers in Camel routes.
 No additional dependencies are required for this use case.
 
-[source,java]
+[source,java,subs="attributes+"]
 ----
 import org.apache.camel.builder.RouteBuilder;
 import {javaxOrJakartaPackagePrefix}.enterprise.context.ApplicationScoped;
@@ -161,7 +161,7 @@ NOTE: `quarkus-cxf` supports alternative ways of exposing SOAP endpoints.
 
 You can enable verbose logging of SOAP messages for both clients and servers with `org.apache.cxf.ext.logging.LoggingFeature`:
 
-[source,java]
+[source,java,subs="attributes+"]
 ----
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.cxf.ext.logging.LoggingFeature;
