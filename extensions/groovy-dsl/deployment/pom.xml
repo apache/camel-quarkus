@@ -31,6 +31,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>io.quarkiverse.groovy</groupId>
+            <artifactId>quarkus-groovy-deployment</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-core-deployment</artifactId>
         </dependency>

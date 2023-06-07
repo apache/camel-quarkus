@@ -6117,6 +6117,16 @@
         <version>1.0.0</version>
       </dependency>
       <dependency>
+        <groupId>io.quarkiverse.groovy</groupId>
+        <artifactId>quarkus-groovy</artifactId>
+        <version>3.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.groovy</groupId>
+        <artifactId>quarkus-groovy-deployment</artifactId>
+        <version>3.1.0</version>
+      </dependency>
+      <dependency>
         <groupId>io.quarkiverse.jackson-jq</groupId>
         <artifactId>quarkus-jackson-jq</artifactId>
         <version>2.0.1</version>
