@@ -6194,6 +6194,16 @@
                 <version>${quarkiverse-freemarker.version}</version>
             </dependency>
             <dependency>
+                <groupId>io.quarkiverse.groovy</groupId>
+                <artifactId>quarkus-groovy</artifactId>
+                <version>${quarkiverse-groovy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.groovy</groupId>
+                <artifactId>quarkus-groovy-deployment</artifactId>
+                <version>${quarkiverse-groovy.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.quarkiverse.jackson-jq</groupId>
                 <artifactId>quarkus-jackson-jq</artifactId>
                 <version>${quarkiverse-jackson-jq.version}</version>

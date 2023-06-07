@@ -39,8 +39,8 @@
             <artifactId>camel-quarkus-groovy</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-groovy-dsl-deployment</artifactId>
+            <groupId>io.quarkiverse.groovy</groupId>
+            <artifactId>quarkus-groovy-deployment</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
