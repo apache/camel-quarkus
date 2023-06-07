@@ -30,7 +30,7 @@
   <scm>
     <connection>scm:git:http://gitbox.apache.org/repos/asf/camel-quarkus.git/camel-quarkus-poms/camel-quarkus-bom</connection><!-- org.apache.camel.quarkus:camel-quarkus:${project.version} -->
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/camel-quarkus.git/camel-quarkus-poms/camel-quarkus-bom</developerConnection><!-- org.apache.camel.quarkus:camel-quarkus:${project.version} -->
-    <url>https://gitbox.apache.org/repos/asf?p=camel-quarkus.git;a=summary/camel-quarkus-poms/camel-quarkus-bom</url><!-- org.apache.camel.quarkus:camel-quarkus:${project.version} -->
+    <url>https://github.com/apache/camel-quarkus/camel-quarkus-poms/camel-quarkus-bom</url><!-- org.apache.camel.quarkus:camel-quarkus:${project.version} -->
   </scm>
   <issueManagement>
     <system>GitHub</system><!-- org.apache.camel.quarkus:camel-quarkus:${project.version} -->

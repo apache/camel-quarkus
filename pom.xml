@@ -271,7 +271,7 @@
     <scm>
         <connection>scm:git:http://gitbox.apache.org/repos/asf/camel-quarkus.git</connection>
         <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/camel-quarkus.git</developerConnection>
-        <url>https://gitbox.apache.org/repos/asf?p=camel-quarkus.git;a=summary</url>
+        <url>https://github.com/apache/camel-quarkus</url>
         <tag>HEAD</tag>
     </scm>
 
