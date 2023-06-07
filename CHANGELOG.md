@@ -4,17 +4,33 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/3.0.0-M2...HEAD)
 
+**Fixed bugs:**
+
+- Unable to generate REST API documentation when lightweight mode is enabled [\#2527](https://github.com/apache/camel-quarkus/issues/2527)
+
 **Closed issues:**
 
 - Micrometer: Instrumenting core thread pool feature is missing. [\#4934](https://github.com/apache/camel-quarkus/issues/4934)
 - camel-quarkus-integration-test-js-dsl should unpack its resources to target rather than src [\#4931](https://github.com/apache/camel-quarkus/issues/4931)
+- knative-producer native integration tests are failing [\#4923](https://github.com/apache/camel-quarkus/issues/4923)
+- CXF test is using different package then folder structure [\#4919](https://github.com/apache/camel-quarkus/issues/4919)
 - Ban com.github.spotbugs:spotbugs-annotations [\#4914](https://github.com/apache/camel-quarkus/issues/4914)
 - MyBatisConsumerTest should keep awaitility in the test scope [\#4793](https://github.com/apache/camel-quarkus/issues/4793)
 - Cxf-soap: Extend test coverage with Converter scenario [\#4652](https://github.com/apache/camel-quarkus/issues/4652)
+- \[Camel 3.19.0\] Google-secrets-manager: Remove workaround after fix of CAMEL-18520 [\#4103](https://github.com/apache/camel-quarkus/issues/4103)
+- Google-bigquery: Enable `sqlCrudOperations` test once Camel version is 18.3 [\#4029](https://github.com/apache/camel-quarkus/issues/4029)
+- Missing link to Camel user manual in the CQ documentation [\#3580](https://github.com/apache/camel-quarkus/issues/3580)
+- Upgrade to H2 2.x [\#3498](https://github.com/apache/camel-quarkus/issues/3498)
+- Docs: Camel-quarkus 2.4.x docs don't show information in components/languages/dataformats and misc [\#3387](https://github.com/apache/camel-quarkus/issues/3387)
+- Cannot run debezium tests against alternative BOMs [\#3294](https://github.com/apache/camel-quarkus/issues/3294)
+- Publish docs for the last stable release [\#3191](https://github.com/apache/camel-quarkus/issues/3191)
+- JsonParseException not caught when using OpenAPI generated REST DSL [\#3155](https://github.com/apache/camel-quarkus/issues/3155)
+- RestClient: NullPointerException: Cannot read field "skipPattern" because "this.tracingConfig" is null [\#3142](https://github.com/apache/camel-quarkus/issues/3142)
 - Split JSON dataformats test [\#3088](https://github.com/apache/camel-quarkus/issues/3088)
 
 **Merged pull requests:**
 
+- Use correct package for cxf-soap-server tests [\#4958](https://github.com/apache/camel-quarkus/pull/4958) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#4954](https://github.com/apache/camel-quarkus/pull/4954) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump formatter-maven-plugin from 2.22.0 to 2.23.0 [\#4953](https://github.com/apache/camel-quarkus/pull/4953) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump quarkiverse-minio.version from 3.0.2 to 3.1.0.Final [\#4952](https://github.com/apache/camel-quarkus/pull/4952) ([dependabot[bot]](https://github.com/apps/dependabot))
@@ -1703,8 +1719,10 @@
 - \[CXF\] SoapFault: BSP:R3227: A SECURITY\_HEADER MUST NOT contain more than one TIMESTAMP [\#4291](https://github.com/apache/camel-quarkus/issues/4291)
 - Ban `com.github.stephenc.jcip:jcip-annotations` [\#4193](https://github.com/apache/camel-quarkus/issues/4193)
 - Document the fact that the default value `/` of quarkus.cxf.path may cause RESTeasy endpoints to be inacessible [\#4192](https://github.com/apache/camel-quarkus/issues/4192)
+- Missing virtualDependencies in some integration tests support usage [\#4107](https://github.com/apache/camel-quarkus/issues/4107)
 - Camel 3.19 - Add camel-cli-connector extension [\#4051](https://github.com/apache/camel-quarkus/issues/4051)
 - Introduce a new XML testing group [\#4043](https://github.com/apache/camel-quarkus/issues/4043)
+- Tika 2.x incompatible with Quarkus Tika [\#3599](https://github.com/apache/camel-quarkus/issues/3599)
 - Sql tests with external oracle database fail [\#3256](https://github.com/apache/camel-quarkus/issues/3256)
 - Platform HTTP component under load won't serve health endpoints anymore [\#2974](https://github.com/apache/camel-quarkus/issues/2974)
 - Groovy language native support [\#1746](https://github.com/apache/camel-quarkus/issues/1746)
@@ -2197,6 +2215,7 @@
 - Cannot build camel-quarkus-ipfs because repository.jboss.org is down [\#3532](https://github.com/apache/camel-quarkus/issues/3532)
 - \[Quarkus 2.8.0\] Leverage Strimzi dev services container in kafka-oauth integration tests [\#3531](https://github.com/apache/camel-quarkus/issues/3531)
 - `FileTest.charset` integration test fails on Windows [\#3530](https://github.com/apache/camel-quarkus/issues/3530)
+- Debezium mysql - passing additionalProperties results in wrong properties beeing passed [\#3488](https://github.com/apache/camel-quarkus/issues/3488)
 - Camel Rest / Quarkus Swagger UI / Url Issue from Quarkus Version 2.6.x [\#3457](https://github.com/apache/camel-quarkus/issues/3457)
 - Camel 3.15 - Add build step to capture route source location:line-number [\#3432](https://github.com/apache/camel-quarkus/issues/3432)
 - camel.main.routes-include-pattern with a "\*" wildcard may end up loading a route builder twice [\#3265](https://github.com/apache/camel-quarkus/issues/3265)
