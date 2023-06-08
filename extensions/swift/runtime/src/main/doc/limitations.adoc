@@ -1,0 +1,4 @@
+=== MX types
+
+The MX message types are not supported in native mode because it drastically slows down the native image build due to an
+excessive amount of classes, methods, and fields to access by reflection that need to be registered.
