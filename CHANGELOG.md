@@ -10,6 +10,9 @@
 
 **Closed issues:**
 
+- Telegram: webhook is failing in 2.13.x [\#4961](https://github.com/apache/camel-quarkus/issues/4961)
+- Upgrade to Groovy 4 [\#4960](https://github.com/apache/camel-quarkus/issues/4960)
+- Delegate complexity to quarkus-groovy [\#4959](https://github.com/apache/camel-quarkus/issues/4959)
 - Micrometer: Instrumenting core thread pool feature is missing. [\#4934](https://github.com/apache/camel-quarkus/issues/4934)
 - camel-quarkus-integration-test-js-dsl should unpack its resources to target rather than src [\#4931](https://github.com/apache/camel-quarkus/issues/4931)
 - knative-producer native integration tests are failing [\#4923](https://github.com/apache/camel-quarkus/issues/4923)
@@ -30,6 +33,11 @@
 
 **Merged pull requests:**
 
+- Fix formatting in the release guide [\#4970](https://github.com/apache/camel-quarkus/pull/4970) ([ppalaga](https://github.com/ppalaga))
+- Be more precise about the WS standards coverage, add ,subs="attributes+" to code snippets on the CXF extension page [\#4969](https://github.com/apache/camel-quarkus/pull/4969) ([ppalaga](https://github.com/ppalaga))
+- Use GitHub SCM URL because https://gitbox.apache.org/repos/asf?p=camel-quarkus.git redirects to GitHub anyway [\#4966](https://github.com/apache/camel-quarkus/pull/4966) ([ppalaga](https://github.com/ppalaga))
+- Ref \#4959: Delegate complexity to quarkus-groovy [\#4965](https://github.com/apache/camel-quarkus/pull/4965) ([essobedo](https://github.com/essobedo))
+- Ref \#4960: Upgrade Groovy to 4.0.12 [\#4963](https://github.com/apache/camel-quarkus/pull/4963) ([essobedo](https://github.com/essobedo))
 - Use correct package for cxf-soap-server tests [\#4958](https://github.com/apache/camel-quarkus/pull/4958) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#4954](https://github.com/apache/camel-quarkus/pull/4954) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump formatter-maven-plugin from 2.22.0 to 2.23.0 [\#4953](https://github.com/apache/camel-quarkus/pull/4953) ([dependabot[bot]](https://github.com/apps/dependabot))
