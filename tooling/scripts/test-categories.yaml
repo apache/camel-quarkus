@@ -161,6 +161,7 @@ group-10:
   - main-unknown-args-ignore
   - platform-http-proxy
   - platform-http-proxy-ssl
+  - swift
 group-11:
   - compression-grouped
   - disruptor

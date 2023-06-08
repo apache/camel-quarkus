@@ -257,6 +257,7 @@
 *** xref:reference/extensions/soap.adoc[SOAP dataformat]
 *** xref:reference/extensions/sql.adoc[SQL]
 *** xref:reference/extensions/ssh.adoc[SSH]
+*** xref:reference/extensions/swift.adoc[SWIFT]
 *** xref:reference/extensions/saga.adoc[Saga]
 *** xref:reference/extensions/salesforce.adoc[Salesforce]
 *** xref:reference/extensions/scheduler.adoc[Scheduler]
