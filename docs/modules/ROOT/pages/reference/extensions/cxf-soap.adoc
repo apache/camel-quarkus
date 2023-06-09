@@ -163,11 +163,11 @@ public class CxfSoapRoutes extends RouteBuilder {
     public void configure() {
         /* A CXF Service configured through a CDI bean */
         from("cxf:bean:helloBeanEndpoint")
-                .setBody().simple("Hello ${body} from CXF service");
+                .setBody().simple("Hello $\{body} from CXF service");
 
         /* A CXF Service configured through Camel URI parameters */
         from("cxf:///hello-inline?wsdlURL=wsdl/HelloService.wsdl&serviceClass=org.foo.HelloService")
-                        .setBody().simple("Hello ${body} from CXF service");
+                        .setBody().simple("Hello $\{body} from CXF service");
     }
 
     @Produces
