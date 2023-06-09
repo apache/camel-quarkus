@@ -13,6 +13,7 @@
 - Telegram: webhook is failing in 2.13.x [\#4961](https://github.com/apache/camel-quarkus/issues/4961)
 - Upgrade to Groovy 4 [\#4960](https://github.com/apache/camel-quarkus/issues/4960)
 - Delegate complexity to quarkus-groovy [\#4959](https://github.com/apache/camel-quarkus/issues/4959)
+- \[Quarkus 3.2.0\] No recovery system in which to register XAResourceRecovery instance [\#4945](https://github.com/apache/camel-quarkus/issues/4945)
 - Micrometer: Instrumenting core thread pool feature is missing. [\#4934](https://github.com/apache/camel-quarkus/issues/4934)
 - camel-quarkus-integration-test-js-dsl should unpack its resources to target rather than src [\#4931](https://github.com/apache/camel-quarkus/issues/4931)
 - knative-producer native integration tests are failing [\#4923](https://github.com/apache/camel-quarkus/issues/4923)
@@ -20,6 +21,8 @@
 - Ban com.github.spotbugs:spotbugs-annotations [\#4914](https://github.com/apache/camel-quarkus/issues/4914)
 - MyBatisConsumerTest should keep awaitility in the test scope [\#4793](https://github.com/apache/camel-quarkus/issues/4793)
 - Cxf-soap: Extend test coverage with Converter scenario [\#4652](https://github.com/apache/camel-quarkus/issues/4652)
+- Expand micrometer test coverage [\#4582](https://github.com/apache/camel-quarkus/issues/4582)
+- Camel 3.20 - camel-swift extension [\#4220](https://github.com/apache/camel-quarkus/issues/4220)
 - \[Camel 3.19.0\] Google-secrets-manager: Remove workaround after fix of CAMEL-18520 [\#4103](https://github.com/apache/camel-quarkus/issues/4103)
 - Google-bigquery: Enable `sqlCrudOperations` test once Camel version is 18.3 [\#4029](https://github.com/apache/camel-quarkus/issues/4029)
 - Missing link to Camel user manual in the CQ documentation [\#3580](https://github.com/apache/camel-quarkus/issues/3580)
@@ -33,6 +36,7 @@
 
 **Merged pull requests:**
 
+- Bump unboundid-ldapsdk from 6.0.8 to 6.0.9 [\#4972](https://github.com/apache/camel-quarkus/pull/4972) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Fix formatting in the release guide [\#4970](https://github.com/apache/camel-quarkus/pull/4970) ([ppalaga](https://github.com/ppalaga))
 - Be more precise about the WS standards coverage, add ,subs="attributes+" to code snippets on the CXF extension page [\#4969](https://github.com/apache/camel-quarkus/pull/4969) ([ppalaga](https://github.com/ppalaga))
 - Use GitHub SCM URL because https://gitbox.apache.org/repos/asf?p=camel-quarkus.git redirects to GitHub anyway [\#4966](https://github.com/apache/camel-quarkus/pull/4966) ([ppalaga](https://github.com/ppalaga))
@@ -42,6 +46,7 @@
 - Generated sources regen for SBOM [\#4954](https://github.com/apache/camel-quarkus/pull/4954) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump formatter-maven-plugin from 2.22.0 to 2.23.0 [\#4953](https://github.com/apache/camel-quarkus/pull/4953) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump quarkiverse-minio.version from 3.0.2 to 3.1.0.Final [\#4952](https://github.com/apache/camel-quarkus/pull/4952) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Expand micrometer test coverage \#4582 [\#4951](https://github.com/apache/camel-quarkus/pull/4951) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix broken formatting on the CXF extension page [\#4949](https://github.com/apache/camel-quarkus/pull/4949) ([ppalaga](https://github.com/ppalaga))
 - Bump quarkiverse-jsch.version from 3.0.0 to 3.0.1 [\#4948](https://github.com/apache/camel-quarkus/pull/4948) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Revert "file: disabling idempotent test in order to experiment around… [\#4946](https://github.com/apache/camel-quarkus/pull/4946) ([aldettinger](https://github.com/aldettinger))
