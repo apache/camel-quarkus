@@ -1,0 +1,121 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+#
+# Configuration to determine how issues are automatically labelled.
+#
+# A summary of the configuration keys is as follows:
+#
+#    id: A unique identifier for the label configuration element
+#    regex: The JavaScript regular expression that will apply the specified labels if the issue title or body content matches.
+#    labels: Array of labels to apply to the issue if the regex matches
+#    matchOn: Supported values are:
+#     title: The regex will attempt to match on the issue title
+#     body: The regex will attempt to match on the issue body
+#     titleBody: The regex will attempt to match on the issue title & body
+#
+# Matching only on the issue title may produce more reliable results in some cases. E.g to avoid prematurely matching common phrases in the issue body.
+# For example, strings like 'GitHub' or 'HTTP' would result in the issue being labelled with 'area/github' & 'area/http' as extensions exist with those names.
+#
+# However, some phrases are sufficiently unique to be matched on both the issue title and body.
+# For example, 'Quarkus Platform', 'GraalVM' etc.
+#
+# NOTE: The configuration to label match individual extensions is defined within the label-issue.yaml workflow script, as they get built dynamically.
+#
+# If you want to test changes to the configuration, there is a basic harness:
+#
+# https://github.com/jamesnetherton/cq-github-workflow-tests
+#
+#
+
+---
+config:
+  auto-label:
+  - id: area-build
+    regex: "(^\\[CI\\]|github action(s)?)"
+    labels: ["area/build", "build"]
+    matchOn: "title"
+
+  - id: area-core
+    regex: "\\bcamel-quarkus-(core|main)\\b|\\bcamel quarkus (core|main)\\b|\\b(?<!\\[)camel-main(?!\\])\\b|\\bcamel main(?!\\sbranch)\\b"
+    labels: ["area/core"]
+    matchOn: "titleBody"
+
+  - id: area-documentation
+    regex: "\\b(doc(s|umentation)?|guide(s)?)\\b"
+    labels: ["area/documentation", "documentation"]
+    matchOn: "title"
+
+  - id: area-examples
+    regex: "\\bexample(s)?\\b"
+    labels: ["area/examples", "example"]
+    matchOn: "title"
+
+  - id: area-housekeeping
+    regex: "\\b(ban(ned)?|remove)\\b"
+    labels: ["area/housekeeping", "housekeeping"]
+    matchOn: "title"
+
+  - id: area-jakarta-migration
+    regex: "\\bjakarta(ee)?\\b"
+    labels: ["area/jakarta", "jakarta"]
+    matchOn: "title"
+
+  - id: area-native
+    regex: "\\b(native|graal(vm)?|mandrel)\\b"
+    labels: ["area/native", "native"]
+    matchOn: "titleBody"
+
+  - id: area-openshift
+    regex: "\\bopenshift\\b"
+    labels: ["area/openshift"]
+    matchOn: "title"
+
+  - id: area-quarkus-platform
+    regex: "\\b(quarkus-platform|quarkus platform)\\b"
+    labels: ["area/quarkus-platform"]
+    matchOn: "titleBody"
+
+  - id: area-testing
+    regex: "\\bintegration test(s|ing)?\\b|\\bitest(s)?\\b|\\btest(s|ing)?\\b|\\bcoverage\\b|\\bjunit\\b|testsupport"
+    labels: ["area/testing", "test"]
+    matchOn: "title"
+
+  - id: platform-arm
+    regex: "\\b(arm([0-9]{2})?|aarch([0-9]{2})?)\\b"
+    labels: ["platform/arm"]
+    matchOn: "title"
+
+  - id: platform-mac
+    regex: "\\b(mac(os)?|os( )?x)\\b"
+    labels: ["platform/mac"]
+    matchOn: "title"
+
+  - id: platform-windows
+    regex: "windows"
+    labels: ["platform/windows"]
+    matchOn: "title"
+
+  - id: release-camel-main-next
+    regex: "^\\[camel-main\\]"
+    labels: ["release/camel-next"]
+    matchOn: "title"
+
+  - id: release-quarkus-main-next
+    regex: "^\\[quarkus-main\\]"
+    labels: ["release/quarkus-next"]
+    matchOn: "title"
