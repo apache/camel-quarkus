@@ -36,6 +36,7 @@
 
 **Merged pull requests:**
 
+- Generated sources regen for SBOM [\#4977](https://github.com/apache/camel-quarkus/pull/4977) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Add a profile for analyzing possible dependency conflicts between Camel and Quarkus [\#4976](https://github.com/apache/camel-quarkus/pull/4976) ([ppalaga](https://github.com/ppalaga))
 - Bump quarkus-micrometer-registry-jmx from 0.2.0 to 3.0.2 [\#4974](https://github.com/apache/camel-quarkus/pull/4974) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump unboundid-ldapsdk from 6.0.8 to 6.0.9 [\#4972](https://github.com/apache/camel-quarkus/pull/4972) ([dependabot[bot]](https://github.com/apps/dependabot))
