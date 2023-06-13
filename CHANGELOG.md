@@ -23,6 +23,7 @@
 - Cxf-soap: Extend test coverage with Converter scenario [\#4652](https://github.com/apache/camel-quarkus/issues/4652)
 - Expand micrometer test coverage [\#4582](https://github.com/apache/camel-quarkus/issues/4582)
 - Camel 3.20 - camel-swift extension [\#4220](https://github.com/apache/camel-quarkus/issues/4220)
+- Implement a bot to assign `no fix/won't fix` milestone to closed issues labeled as wontfix [\#4106](https://github.com/apache/camel-quarkus/issues/4106)
 - \[Camel 3.19.0\] Google-secrets-manager: Remove workaround after fix of CAMEL-18520 [\#4103](https://github.com/apache/camel-quarkus/issues/4103)
 - Google-bigquery: Enable `sqlCrudOperations` test once Camel version is 18.3 [\#4029](https://github.com/apache/camel-quarkus/issues/4029)
 - Missing link to Camel user manual in the CQ documentation [\#3580](https://github.com/apache/camel-quarkus/issues/3580)
@@ -36,6 +37,7 @@
 
 **Merged pull requests:**
 
+- Add GitHub Actions workflows to label issues and assign a milestone [\#4978](https://github.com/apache/camel-quarkus/pull/4978) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#4977](https://github.com/apache/camel-quarkus/pull/4977) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Add a profile for analyzing possible dependency conflicts between Camel and Quarkus [\#4976](https://github.com/apache/camel-quarkus/pull/4976) ([ppalaga](https://github.com/ppalaga))
 - Bump quarkus-micrometer-registry-jmx from 0.2.0 to 3.0.2 [\#4974](https://github.com/apache/camel-quarkus/pull/4974) ([dependabot[bot]](https://github.com/apps/dependabot))
