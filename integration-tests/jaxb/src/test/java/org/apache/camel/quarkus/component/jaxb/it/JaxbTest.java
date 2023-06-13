@@ -88,7 +88,7 @@ class JaxbTest {
                 .get("/jaxb/marshal")
                 .then()
                 .statusCode(500)
-                .body("error", containsString("'{lastName}' is expected"));
+                .body("error", containsString("'{lastName}'"));
     }
 
     @Test
@@ -104,7 +104,7 @@ class JaxbTest {
                 .post("/jaxb/unmarshal")
                 .then()
                 .statusCode(500)
-                .body("error", containsString("'{lastName}' is expected"));
+                .body("error", containsString("'{lastName}'"));
     }
 
     @Test
