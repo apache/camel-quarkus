@@ -26,9 +26,11 @@ import javax.net.ssl.SNIServerName;
 import javax.net.ssl.TrustManager;
 import javax.xml.xpath.XPathFactory;
 
+import com.hazelcast.client.config.ClientConfig;
 import com.hazelcast.collection.IList;
 import com.hazelcast.collection.IQueue;
 import com.hazelcast.collection.ISet;
+import com.hazelcast.config.Config;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.cp.IAtomicLong;
 import com.hazelcast.map.IMap;
@@ -43,7 +45,6 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveHierarchyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveHierarchyIgnoreWarningBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.apache.camel.tooling.model.MainModel;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.Type;
@@ -52,20 +53,9 @@ class HazelcastProcessor {
 
     private static final String FEATURE = "camel-hazelcast";
 
-    private static final String[] RUNTIME_INITIALIZED_CLASSES = new String[] {
-            "com.hazelcast.internal.util.ICMPHelper"
-    };
-
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    void configureRuntimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
-        for (String className : RUNTIME_INITIALIZED_CLASSES) {
-            runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(className));
-        }
     }
 
     @BuildStep
@@ -75,10 +65,10 @@ class HazelcastProcessor {
 
     @BuildStep
     List<ReflectiveClassBuildItem> registerReflectiveClasses() {
-        List<ReflectiveClassBuildItem> items = new ArrayList<ReflectiveClassBuildItem>();
-        items.add(ReflectiveClassBuildItem.builder("com.hazelcast.core.HazelcastInstance").fields().build());
-        items.add(ReflectiveClassBuildItem.builder("com.hazelcast.config.Config").fields().build());
-        items.add(ReflectiveClassBuildItem.builder("com.hazelcast.config.ClientConfig").fields().build());
+        List<ReflectiveClassBuildItem> items = new ArrayList<>();
+        items.add(ReflectiveClassBuildItem.builder(HazelcastInstance.class.getName()).fields().build());
+        items.add(ReflectiveClassBuildItem.builder(Config.class.getName()).fields().build());
+        items.add(ReflectiveClassBuildItem.builder(ClientConfig.class.getName()).fields().build());
         return items;
     }
 
