@@ -10,9 +10,11 @@
 
 **Closed issues:**
 
+- camel-quarkus-crypto: Add test coverage for raw keys [\#4979](https://github.com/apache/camel-quarkus/issues/4979)
 - Telegram: webhook is failing in 2.13.x [\#4961](https://github.com/apache/camel-quarkus/issues/4961)
 - Upgrade to Groovy 4 [\#4960](https://github.com/apache/camel-quarkus/issues/4960)
 - Delegate complexity to quarkus-groovy [\#4959](https://github.com/apache/camel-quarkus/issues/4959)
+- Add test coverage for MDC logging [\#4947](https://github.com/apache/camel-quarkus/issues/4947)
 - \[Quarkus 3.2.0\] No recovery system in which to register XAResourceRecovery instance [\#4945](https://github.com/apache/camel-quarkus/issues/4945)
 - Micrometer: Instrumenting core thread pool feature is missing. [\#4934](https://github.com/apache/camel-quarkus/issues/4934)
 - camel-quarkus-integration-test-js-dsl should unpack its resources to target rather than src [\#4931](https://github.com/apache/camel-quarkus/issues/4931)
@@ -37,6 +39,10 @@
 
 **Merged pull requests:**
 
+- JAXB integration tests failing fix if locale different from EN \#4135 [\#4986](https://github.com/apache/camel-quarkus/pull/4986) ([spatnity](https://github.com/spatnity))
+- Temporarily disable auto milestone on PR merge due to permission issues [\#4985](https://github.com/apache/camel-quarkus/pull/4985) ([jamesnetherton](https://github.com/jamesnetherton))
+- Bump wiremock from 3.0.0-beta-8 to 3.0.0-beta-9 [\#4982](https://github.com/apache/camel-quarkus/pull/4982) ([dependabot[bot]](https://github.com/apps/dependabot))
+- camel-quarkus-crypto: Added test to sign/verify raw keys [\#4980](https://github.com/apache/camel-quarkus/pull/4980) ([djcoleman](https://github.com/djcoleman))
 - Add GitHub Actions workflows to label issues and assign a milestone [\#4978](https://github.com/apache/camel-quarkus/pull/4978) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#4977](https://github.com/apache/camel-quarkus/pull/4977) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Add a profile for analyzing possible dependency conflicts between Camel and Quarkus [\#4976](https://github.com/apache/camel-quarkus/pull/4976) ([ppalaga](https://github.com/ppalaga))
@@ -44,6 +50,7 @@
 - Bump unboundid-ldapsdk from 6.0.8 to 6.0.9 [\#4972](https://github.com/apache/camel-quarkus/pull/4972) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Fix formatting in the release guide [\#4970](https://github.com/apache/camel-quarkus/pull/4970) ([ppalaga](https://github.com/ppalaga))
 - Be more precise about the WS standards coverage, add ,subs="attributes+" to code snippets on the CXF extension page [\#4969](https://github.com/apache/camel-quarkus/pull/4969) ([ppalaga](https://github.com/ppalaga))
+- Add test coverage for MDC logging [\#4967](https://github.com/apache/camel-quarkus/pull/4967) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use GitHub SCM URL because https://gitbox.apache.org/repos/asf?p=camel-quarkus.git redirects to GitHub anyway [\#4966](https://github.com/apache/camel-quarkus/pull/4966) ([ppalaga](https://github.com/ppalaga))
 - Ref \#4959: Delegate complexity to quarkus-groovy [\#4965](https://github.com/apache/camel-quarkus/pull/4965) ([essobedo](https://github.com/essobedo))
 - Ref \#4960: Upgrade Groovy to 4.0.12 [\#4963](https://github.com/apache/camel-quarkus/pull/4963) ([essobedo](https://github.com/essobedo))
