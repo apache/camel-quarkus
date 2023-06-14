@@ -7545,29 +7545,29 @@
         <type>test-jar</type><!-- io.debezium:debezium-bom:2.2.0.Final -->
       </dependency>
       <dependency>
-        <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:3.0.0 -->
-        <artifactId>hazelcast</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:3.0.0 -->
-        <version>5.0.2</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:3.0.0 -->
+        <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
+        <artifactId>hazelcast</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
+        <version>5.2.3</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
       </dependency>
       <dependency>
-        <groupId>javax.cache</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:3.0.0 -->
-        <artifactId>cache-api</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:3.0.0 -->
-        <version>1.1.1</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:3.0.0 -->
+        <groupId>javax.cache</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
+        <artifactId>cache-api</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
+        <version>1.1.1</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
       </dependency>
       <dependency>
-        <groupId>net.openhft</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:3.0.0 -->
-        <artifactId>affinity</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:3.0.0 -->
-        <version>3.20.0</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:3.0.0 -->
+        <groupId>net.openhft</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
+        <artifactId>affinity</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
+        <version>3.23.3</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
       </dependency>
       <dependency>
-        <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:3.0.0 -->
-        <artifactId>quarkus-hazelcast-client</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:3.0.0 -->
-        <version>3.0.0</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:3.0.0 -->
+        <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
+        <artifactId>quarkus-hazelcast-client</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
+        <version>4.0.0</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
       </dependency>
       <dependency>
-        <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:3.0.0 -->
-        <artifactId>quarkus-hazelcast-client-deployment</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:3.0.0 -->
-        <version>3.0.0</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:3.0.0 -->
+        <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
+        <artifactId>quarkus-hazelcast-client-deployment</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
+        <version>4.0.0</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
       </dependency>
     </dependencies>
   </dependencyManagement>
