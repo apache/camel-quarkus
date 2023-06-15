@@ -16,11 +16,15 @@
  */
 package org.apache.camel.quarkus.component.file.it;
 
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.file.GenericFile;
 import org.apache.camel.component.file.GenericFileFilter;
 
+import static org.apache.camel.component.file.FileConstants.FILE_NAME_CONSUMED;
 import static org.apache.camel.quarkus.component.file.it.FileResource.CONSUME_BATCH;
 import static org.apache.camel.quarkus.component.file.it.FileResource.SORT_BY;
 
@@ -29,6 +33,8 @@ public class FileRoutes extends RouteBuilder {
 
     public static final String READ_LOCK_IN = "read-lock-in";
     public static final String READ_LOCK_OUT = "read-lock-out";
+
+    private static final Set<String> IDEMPOTENT_FILES_CONSUMED = ConcurrentHashMap.newKeySet();
 
     @Override
     public void configure() {
@@ -60,11 +66,20 @@ public class FileRoutes extends RouteBuilder {
                 .convertBodyTo(String.class)
                 .to("mock:charsetIsoRead");
 
-        from("file://target/idempotent?idempotent=true&move=done/${file:name}&initialDelay=0&delay=10")
-                .convertBodyTo(String.class).to("mock:idempotent");
+        from("file://target/test-files/idempotent?idempotent=true&move=done/${file:name}&initialDelay=0&delay=10")
+                .process(ex -> {
+                    String fileNameConsumed = ex.getMessage().getHeader(FILE_NAME_CONSUMED, String.class);
+                    if (IDEMPOTENT_FILES_CONSUMED.add(fileNameConsumed)) {
+                        ex.getMessage().setHeader("fileNameConsumedStatusHeader", fileNameConsumed + "_was-read-once");
+                    } else {
+                        ex.getMessage().setHeader("fileNameConsumedStatusHeader",
+                                fileNameConsumed + "_was-read-more-than-once");
+                    }
+                })
+                .convertBodyTo(String.class).toD("mock:idempotent_${header.fileNameConsumedStatusHeader}");
 
         bindToRegistry("myFilter", new MyFileFilter<>());
-        from(("file://target/filter?initialDelay=0&delay=10&filter=#myFilter"))
+        from(("file://target/test-files/filter?initialDelay=0&delay=10&filter=#myFilter"))
                 .convertBodyTo(String.class).to("mock:filter");
 
         from(("file://target/sortBy?initialDelay=0&delay=10&sortBy=reverse:file:name"))
@@ -84,8 +99,8 @@ public class FileRoutes extends RouteBuilder {
             if (file.isDirectory()) {
                 return true;
             }
-            // we dont accept any files starting with skip in the name
-            return !file.getFileName().startsWith("skip");
+            // we do not accept any files having name starting with 'skipped_'
+            return !file.getFileName().startsWith("skipped_");
         }
     }
 }
