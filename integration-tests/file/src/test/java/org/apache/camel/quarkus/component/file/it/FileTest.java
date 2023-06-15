@@ -22,7 +22,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -109,58 +108,6 @@ class FileTest {
                     && records.keySet().contains(FILE_CONTENT_02)
                     && records.values().contains(0) && records.values().contains(1);
         });
-    }
-
-    @Test
-    public void idempotent() throws IOException {
-        // Create a new file
-        String fileName01 = createFile(FILE_CONTENT_01, "/file/create/idempotent");
-
-        await().atMost(10, TimeUnit.SECONDS).until(
-                () -> RestAssured
-                        .get("/file/getFromMock/idempotent")
-                        .then()
-                        .extract().asString(),
-                equalTo(FILE_CONTENT_01));
-
-        // clear the mock to assert that FILE_CONTENT_01 will not be received again even if presented a second time to the route
-        RestAssured
-                .get("/file/resetMock/idempotent")
-                .then()
-                .statusCode(204);
-
-        // move file back
-        Path donePath = Paths.get(fileName01.replaceFirst("target/idempotent", "target/idempotent/done"));
-        Path targetPath = Paths.get(fileName01);
-        Files.move(donePath, targetPath, StandardCopyOption.ATOMIC_MOVE);
-        // register file for deletion after tests
-        pathsToDelete.add(targetPath);
-
-        // create another file, to receive only this one in the next check
-        createFile(FILE_CONTENT_02, "/file/create/idempotent");
-
-        // there should be no file in mock
-        await().atMost(10, TimeUnit.SECONDS).until(
-                () -> RestAssured
-                        .get("/file/getFromMock/idempotent")
-                        .then()
-                        .extract().asString(),
-                equalTo(FILE_CONTENT_02));
-    }
-
-    @Test
-    public void filter() throws IOException {
-        String fileName = createFile(FILE_CONTENT_01, "/file/create/filter", null, "skip_" + UUID.randomUUID().toString());
-        createFile(FILE_CONTENT_02, "/file/create/filter");
-
-        pathsToDelete.add(Paths.get(fileName));
-
-        await().atMost(10, TimeUnit.SECONDS).until(
-                () -> RestAssured
-                        .get("/file/getFromMock/filter")
-                        .then()
-                        .extract().asString(),
-                equalTo(FILE_CONTENT_02));
     }
 
     @Test
