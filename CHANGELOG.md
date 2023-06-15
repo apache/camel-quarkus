@@ -16,6 +16,7 @@
 - Delegate complexity to quarkus-groovy [\#4959](https://github.com/apache/camel-quarkus/issues/4959)
 - Add test coverage for MDC logging [\#4947](https://github.com/apache/camel-quarkus/issues/4947)
 - \[Quarkus 3.2.0\] No recovery system in which to register XAResourceRecovery instance [\#4945](https://github.com/apache/camel-quarkus/issues/4945)
+- Kafka Devservices fails with Quarkus 3 [\#4943](https://github.com/apache/camel-quarkus/issues/4943)
 - Micrometer: Instrumenting core thread pool feature is missing. [\#4934](https://github.com/apache/camel-quarkus/issues/4934)
 - camel-quarkus-integration-test-js-dsl should unpack its resources to target rather than src [\#4931](https://github.com/apache/camel-quarkus/issues/4931)
 - knative-producer native integration tests are failing [\#4923](https://github.com/apache/camel-quarkus/issues/4923)
@@ -24,6 +25,7 @@
 - MyBatisConsumerTest should keep awaitility in the test scope [\#4793](https://github.com/apache/camel-quarkus/issues/4793)
 - Cxf-soap: Extend test coverage with Converter scenario [\#4652](https://github.com/apache/camel-quarkus/issues/4652)
 - Expand micrometer test coverage [\#4582](https://github.com/apache/camel-quarkus/issues/4582)
+- quarkus-hazelcast-client not ready for Quarkus 3 [\#4498](https://github.com/apache/camel-quarkus/issues/4498)
 - Camel 3.20 - camel-swift extension [\#4220](https://github.com/apache/camel-quarkus/issues/4220)
 - Implement a bot to assign `no fix/won't fix` milestone to closed issues labeled as wontfix [\#4106](https://github.com/apache/camel-quarkus/issues/4106)
 - \[Camel 3.19.0\] Google-secrets-manager: Remove workaround after fix of CAMEL-18520 [\#4103](https://github.com/apache/camel-quarkus/issues/4103)
@@ -39,6 +41,9 @@
 
 **Merged pull requests:**
 
+- Bump quarkiverse-jgit.version from 3.0.0 to 3.0.1 [\#4991](https://github.com/apache/camel-quarkus/pull/4991) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Upgrade hazelcast-quarkus-client to 4.0.0 [\#4990](https://github.com/apache/camel-quarkus/pull/4990) ([jamesnetherton](https://github.com/jamesnetherton))
+- Bump quarkus-amazon-services-bom from 2.3.0 to 2.3.1 [\#4987](https://github.com/apache/camel-quarkus/pull/4987) ([dependabot[bot]](https://github.com/apps/dependabot))
 - JAXB integration tests failing fix if locale different from EN \#4135 [\#4986](https://github.com/apache/camel-quarkus/pull/4986) ([spatnity](https://github.com/spatnity))
 - Temporarily disable auto milestone on PR merge due to permission issues [\#4985](https://github.com/apache/camel-quarkus/pull/4985) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump wiremock from 3.0.0-beta-8 to 3.0.0-beta-9 [\#4982](https://github.com/apache/camel-quarkus/pull/4982) ([dependabot[bot]](https://github.com/apps/dependabot))
