@@ -35,25 +35,25 @@ public class MySerializationObject implements Serializable {
     private Float _float;
     private Double _double;
     private BigInteger _bigInteger;
-    private HashMap _hashMap;
-    private LinkedHashMap _linkedHashMap;
+    private HashMap<Integer, String> _hashMap;
+    private LinkedHashMap<Integer, String> _linkedHashMap;
     private Character _char;
     private Boolean _boolean;
     private Byte _byte;
 
     public void initValues() {
-        _long = 1l;
+        _long = 1L;
         _integer = 1;
         _date = Date.from(Instant.ofEpochMilli(123456789));
         _string = "A";
-        _float = Float.valueOf(1);
-        _double = Double.valueOf(1);
+        _float = 1F;
+        _double = 1.0;
         _bigInteger = BigInteger.valueOf(1);
-        _hashMap = new HashMap();
+        _hashMap = new HashMap<>();
         _hashMap.put(1, "one");
-        _linkedHashMap = new LinkedHashMap();
+        _linkedHashMap = new LinkedHashMap<>();
         _linkedHashMap.put(1, "one");
-        _char = Character.valueOf('a');
+        _char = 'a';
         _boolean = Boolean.FALSE;
         _byte = Byte.valueOf("1");
     }

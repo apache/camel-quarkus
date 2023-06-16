@@ -145,17 +145,24 @@ class GroovyProcessor {
         }
     }
 
+    // We still need to use RecorderContext#classProxy as using i.e. Class.forName does not work
+    // at runtime. See https://github.com/apache/camel-quarkus/issues/5056
+    @SuppressWarnings("deprecation")
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep(onlyIf = NativeBuild.class)
     CamelBeanBuildItem configureLanguage(
             RecorderContext recorderContext,
             GroovyExpressionRecorder recorder,
             ExpressionExtractionResultBuildItem result,
-            List<GroovyExpressionSourceBuildItem> sources) {
+            List<GroovyExpressionSourceBuildItem> sources) throws ClassNotFoundException {
+
         if (result.isSuccess() && !sources.isEmpty()) {
             RuntimeValue<GroovyLanguage.Builder> builder = recorder.languageBuilder();
             for (GroovyExpressionSourceBuildItem source : sources) {
-                recorder.addScript(builder, source.getOriginalCode(), recorderContext.classProxy(source.getClassName()));
+                recorder.addScript(
+                        builder,
+                        source.getOriginalCode(),
+                        recorderContext.classProxy(source.getClassName()));
             }
             final RuntimeValue<GroovyLanguage> language = recorder.languageNewInstance(builder);
             return new CamelBeanBuildItem("groovy", GroovyLanguage.class.getName(), language);

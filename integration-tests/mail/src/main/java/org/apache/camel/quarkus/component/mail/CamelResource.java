@@ -164,7 +164,7 @@ public class CamelResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Map<String, Object>> getReceivedAsString() throws MessagingException, IOException {
-        List<Map<String, Object>> result = new LinkedList();
+        List<Map<String, Object>> result = new LinkedList<>();
         for (Map<String, Object> email : mailReceivedMessages) {
             InputStream is = (InputStream) email.get("convertedStream");
             result.add(Collections.singletonMap("body", camelContext.getTypeConverter().convertTo(String.class, is)));

@@ -181,7 +181,7 @@ public class CamelKafkaResource {
     @POST
     public Response postMessageWithHeader(@PathParam("id") Integer id, String message) {
         try (Producer<Integer, String> producer = new KafkaProducer<>(producerProperties)) {
-            ProducerRecord data = new ProducerRecord<>("test-propagation", id, message);
+            ProducerRecord<Integer, String> data = new ProducerRecord<>("test-propagation", id, message);
             data.headers().add(new RecordHeader("id", BigInteger.valueOf(id).toByteArray()));
             producer.send(data);
         }

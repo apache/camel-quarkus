@@ -52,11 +52,11 @@ public class JcacheRoutes extends RouteBuilder {
     @ApplicationScoped
     @Named
     public JCachePolicy jcachePolicy() {
-        MutableConfiguration configuration = new MutableConfiguration<>();
+        MutableConfiguration<String, Object> configuration = new MutableConfiguration<>();
         configuration.setTypes(String.class, Object.class);
         configuration.setExpiryPolicyFactory(CreatedExpiryPolicy.factoryOf(new Duration(TimeUnit.SECONDS, 3)));
         CacheManager cacheManager = Caching.getCachingProvider().getCacheManager();
-        Cache cache = cacheManager.createCache("MyJCache", configuration);
+        Cache<String, Object> cache = cacheManager.createCache("MyJCache", configuration);
 
         JCachePolicy jcachePolicy = new JCachePolicy();
         jcachePolicy.setCache(cache);

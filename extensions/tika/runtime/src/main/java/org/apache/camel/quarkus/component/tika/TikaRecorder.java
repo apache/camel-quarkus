@@ -47,7 +47,7 @@ import org.apache.tika.parser.Parser;
 public class TikaRecorder {
 
     public RuntimeValue<TikaComponent> createTikaComponent(BeanContainer container) {
-        return new RuntimeValue<>(new QuarkusTikaComponent(container.instance(TikaParserProducer.class)));
+        return new RuntimeValue<>(new QuarkusTikaComponent(container.beanInstance(TikaParserProducer.class)));
     }
 
     @org.apache.camel.spi.annotations.Component("tika")

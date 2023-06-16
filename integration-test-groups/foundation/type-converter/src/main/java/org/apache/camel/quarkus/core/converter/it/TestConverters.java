@@ -58,13 +58,13 @@ public class TestConverters {
     }
 
     @Converter(fallback = true)
-    public static Object convertTo(Class type, Exchange exchange, Object value, TypeConverterRegistry registry)
+    public static Object convertTo(Class<?> type, Exchange exchange, Object value, TypeConverterRegistry registry)
             throws ClassNotFoundException {
         if (value instanceof String) {
             String s = (String) value;
             String[] tokens = s.split(":");
             if (tokens.length == 3) {
-                Class convertTo = Class.forName(tokens[0]);
+                Class<?> convertTo = Class.forName(tokens[0]);
                 TypeConverter tc = registry.lookup(convertTo, String.class);
                 if (tc != null) {
                     return tc.convertTo(convertTo, s.replaceFirst(tokens[0] + ":", ""));

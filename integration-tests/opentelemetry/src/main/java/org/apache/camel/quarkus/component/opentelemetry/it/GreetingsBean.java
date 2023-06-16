@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.opentelemetry.it;
 
-import io.opentelemetry.extension.annotations.WithSpan;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
 

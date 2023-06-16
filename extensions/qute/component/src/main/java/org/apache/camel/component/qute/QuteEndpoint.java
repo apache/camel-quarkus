@@ -146,6 +146,7 @@ public class QuteEndpoint extends ResourceEndpoint {
         return getCamelContext().getEndpoint(newUri, QuteEndpoint.class);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void onExchange(Exchange exchange) throws Exception {
         String path = getResourceUri();

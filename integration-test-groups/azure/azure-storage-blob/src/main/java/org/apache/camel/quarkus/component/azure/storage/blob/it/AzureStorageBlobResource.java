@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import com.azure.core.http.rest.PagedIterable;
 import com.azure.storage.blob.changefeed.models.BlobChangefeedEvent;
@@ -320,13 +319,14 @@ public class AzureStorageBlobResource {
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject getPageBlobRanges(@QueryParam("pageStart") int start, @QueryParam("pageEnd") int end) {
         PageRange pageRange = new PageRange().setStart(start).setEnd(end);
-        PagedIterable pageIterable = producerTemplate.requestBodyAndHeader("direct:getPageBlobRanges", null,
+        PagedIterable<?> pageIterable = producerTemplate.requestBodyAndHeader("direct:getPageBlobRanges", null,
                 BlobConstants.PAGE_BLOB_RANGE, pageRange, PagedIterable.class);
 
         JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-        ((Stream<PageRangeItem>) pageIterable
-                .stream())
+
+        pageIterable.stream()
+                .map(PageRangeItem.class::cast)
                 .map(pr -> Json.createObjectBuilder()
                         .add("offset", pr.getRange().getOffset())
                         .add("length", pr.getRange().getLength())

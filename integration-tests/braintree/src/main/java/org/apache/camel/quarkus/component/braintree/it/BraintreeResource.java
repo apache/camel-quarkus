@@ -55,6 +55,7 @@ public class BraintreeResource {
     @Path("/sale")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
+    @SuppressWarnings("unchecked")
     public Response sale() throws Exception {
         String api = BraintreeApiCollection.getCollection().getApiName(TransactionGatewayApiMethod.class).getName();
         TransactionRequest transaction = new TransactionRequest()
@@ -81,6 +82,7 @@ public class BraintreeResource {
     @Path("/refund")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
+    @SuppressWarnings("unchecked")
     public Response refund(String transactionId) throws Exception {
         String api = BraintreeApiCollection.getCollection().getApiName(TransactionGatewayApiMethod.class).getName();
         Map<String, Object> headers = new HashMap<>();
