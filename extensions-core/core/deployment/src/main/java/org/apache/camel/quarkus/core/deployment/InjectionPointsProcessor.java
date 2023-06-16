@@ -377,6 +377,7 @@ public class InjectionPointsProcessor {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private void endpointInjectBeans(CamelRecorder recorder, BuildProducer<SyntheticBeanBuildItem> syntheticBeans,
             IndexView index, AnnotationInstance annot, final DotName fieldType) {
         try {

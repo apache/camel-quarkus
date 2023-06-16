@@ -48,7 +48,7 @@ public class CamelMainRecorder {
         main.setDefaultPropertyPlaceholderLocation("false");
 
         // register to the container
-        container.instance(CamelMainProducers.class).setMain(main);
+        container.beanInstance(CamelMainProducers.class).setMain(main);
 
         return new RuntimeValue<>(main);
     }
@@ -91,7 +91,7 @@ public class CamelMainRecorder {
         final CamelRuntime runtime = new CamelMainRuntime(main.getValue(), shutdownTimeoutMs);
 
         // register to the container
-        beanContainer.instance(CamelProducers.class).setRuntime(runtime);
+        beanContainer.beanInstance(CamelProducers.class).setRuntime(runtime);
 
         return new RuntimeValue<>(runtime);
     }

@@ -74,6 +74,7 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
     boolean skip = false;
 
     /** {@inheritDoc} */
+    @SuppressWarnings("unchecked")
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         if (skip) {
@@ -96,12 +97,12 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                 .resolve("integration-test-groups/aws2-quarkus-client");
 
         final Path pomRelPath = multiModuleProjectDirectoryPath.relativize(basePath).resolve("pom.xml");
-        if (!ext.getJvmSince().isPresent()) {
+        if (ext.getJvmSince().isEmpty()) {
             throw new IllegalStateException(
                     CamelQuarkusExtension.CAMEL_QUARKUS_JVM_SINCE + " property must defined in " + pomRelPath);
         }
         final String extensionsDir = basePath.getParent().getParent().getFileName().toString();
-        if (!"extensions-jvm".equals(extensionsDir) && !ext.getNativeSince().isPresent()) {
+        if (!"extensions-jvm".equals(extensionsDir) && ext.getNativeSince().isEmpty()) {
             throw new IllegalStateException(
                     CamelQuarkusExtension.CAMEL_QUARKUS_NATIVE_SINCE + " property must defined in " + pomRelPath);
         }
@@ -344,11 +345,11 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         /* We assume Quarkus client exists if there is a test under integration-test-groups/aws2-quarkus-client */
         final Path quarkusClientTestPath = quarkusAwsClienTestsDir.resolve(artifactIdBase + "/pom.xml");
         if (Files.isRegularFile(quarkusClientTestPath)) {
-            if (!quarkusAwsClientBaseName.isPresent()) {
+            if (quarkusAwsClientBaseName.isEmpty()) {
                 throw new IllegalStateException(quarkusClientTestPath
                         + " exists but cq.quarkus.aws.client.baseName property is not defined in " + runtimePomPath);
             }
-            if (!quarkusAwsClientFqClassName.isPresent()) {
+            if (quarkusAwsClientFqClassName.isEmpty()) {
                 throw new IllegalStateException(quarkusClientTestPath
                         + " exists but cq.quarkus.aws.client.fqClassName property is not defined in " + runtimePomPath);
             }

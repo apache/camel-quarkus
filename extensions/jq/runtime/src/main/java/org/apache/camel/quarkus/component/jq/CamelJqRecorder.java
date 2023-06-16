@@ -25,7 +25,7 @@ import org.apache.camel.language.jq.JqFunctions;
 public class CamelJqRecorder {
 
     public void addCamelFunctionsToScope(BeanContainer beanContainer) {
-        Scope scope = beanContainer.instance(Scope.class);
+        Scope scope = beanContainer.beanInstance(Scope.class);
         if (scope != null) {
             JqFunctions.loadLocal(scope);
         } else {

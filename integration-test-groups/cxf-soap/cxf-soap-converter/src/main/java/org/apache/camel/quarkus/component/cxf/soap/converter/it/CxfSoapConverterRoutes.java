@@ -106,6 +106,7 @@ public class CxfSoapConverterRoutes extends RouteBuilder {
 
                         exchange.getMessage().setBody(String.format(RESPONSE_GET_PERSON, request.getPersonId() + "xml"));
                     } else if ("consumer".equals(operation)) {
+                        @SuppressWarnings("unchecked")
                         CxfPayload<SoapHeader> requestPayload = exchange.getIn().getBody(CxfPayload.class);
                         List<Source> inElements = requestPayload.getBodySources();
                         Element in = new XmlConverter().toDOMElement(inElements.get(0));

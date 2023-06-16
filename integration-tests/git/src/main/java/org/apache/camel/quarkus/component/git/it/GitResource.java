@@ -93,9 +93,11 @@ public class GitResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String log(@PathParam("repoName") String repoName) throws Exception {
-        Iterable<RevCommit> it = producerTemplate.requestBody("git:target/" + repoName + "?operation=log", null,
+        Iterable<?> it = producerTemplate.requestBody("git:target/" + repoName + "?operation=log", null,
                 Iterable.class);
+
         return StreamSupport.stream(it.spliterator(), false)
+                .map(RevCommit.class::cast)
                 .map(commit -> commit.getName() + " " + commit.getFullMessage())
                 .collect(Collectors.joining("\n"));
     }

@@ -20,6 +20,7 @@ import java.util.List;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.ContentType;
 import jakarta.ws.rs.core.Response;
 import org.junit.jupiter.api.Test;
@@ -155,7 +156,7 @@ public class DslModelineTest {
 
     }
 
-    private List parseAndGetDependencies(String line) {
+    private <T> List<T> parseAndGetDependencies(String line) {
         // clear list
         clear();
 
@@ -170,7 +171,8 @@ public class DslModelineTest {
                 .body(line)
                 .get("/dsl-modeline/deps")
                 .then()
-                .extract().body().as(List.class);
+                .extract().body().as(new TypeRef<>() {
+                });
 
     }
 

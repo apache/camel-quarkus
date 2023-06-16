@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.test;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.function.BooleanSupplier;
 
 import org.junit.jupiter.api.extension.ConditionEvaluationResult;
@@ -39,10 +40,10 @@ class EnabledIfCondition implements ExecutionCondition {
     private ConditionEvaluationResult map(EnabledIf annotation) {
         for (Class<? extends BooleanSupplier> type : annotation.value()) {
             try {
-                if (!type.newInstance().getAsBoolean()) {
+                if (!type.getDeclaredConstructor().newInstance().getAsBoolean()) {
                     return disabled(format("Condition %s is false", type.getName()));
                 }
-            } catch (InstantiationException | IllegalAccessException e) {
+            } catch (InstantiationException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
                 return disabled(format("Unable to evaluate condition: %s", type.getName()));
             }
         }

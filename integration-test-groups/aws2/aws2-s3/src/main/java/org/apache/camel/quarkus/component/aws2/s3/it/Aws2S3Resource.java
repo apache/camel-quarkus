@@ -21,7 +21,6 @@ import java.io.File;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URI;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
@@ -53,7 +52,6 @@ import org.apache.camel.quarkus.test.support.aws2.BaseAws2Resource;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.services.s3.model.Bucket;
-import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.NoSuchBucketException;
 import software.amazon.awssdk.services.s3.model.S3Object;
 
@@ -143,11 +141,15 @@ public class Aws2S3Resource extends BaseAws2Resource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<String> objectKey() throws Exception {
-        final List<S3Object> objects = (List<S3Object>) producerTemplate.requestBody(
+        final List<?> objects = producerTemplate.requestBody(
                 componentUri(AWS2S3Operations.listObjects),
                 null,
                 List.class);
-        return objects.stream().map(S3Object::key).collect(Collectors.toList());
+
+        return objects.stream()
+                .map(S3Object.class::cast)
+                .map(S3Object::key)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -206,11 +208,15 @@ public class Aws2S3Resource extends BaseAws2Resource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<String> listBuckets() throws Exception {
-        List<Bucket> buckets = (List<Bucket>) producerTemplate.requestBody(
+        List<?> buckets = producerTemplate.requestBody(
                 componentUri(AWS2S3Operations.listBuckets),
                 null,
                 List.class);
-        return buckets.stream().map(Bucket::name).collect(Collectors.toList());
+
+        return buckets.stream()
+                .map(Bucket.class::cast)
+                .map(Bucket::name)
+                .collect(Collectors.toList());
     }
 
     @Path("bucket/{name}")
@@ -238,14 +244,12 @@ public class Aws2S3Resource extends BaseAws2Resource {
             bucket = bucketName;
         }
 
-        String link = producerTemplate.requestBodyAndHeader(
+        return producerTemplate.requestBodyAndHeader(
                 componentUri(bucket, AWS2S3Operations.createDownloadLink),
                 null,
                 AWS2S3Constants.KEY,
                 key,
                 String.class);
-
-        return link;
     }
 
     @Path("object/range/{key}")
@@ -259,7 +263,7 @@ public class Aws2S3Resource extends BaseAws2Resource {
         headers.put(AWS2S3Constants.RANGE_START, start);
         headers.put(AWS2S3Constants.RANGE_END, end);
 
-        ResponseInputStream<GetObjectResponse> s3Object = producerTemplate.requestBodyAndHeaders(
+        ResponseInputStream<?> s3Object = producerTemplate.requestBodyAndHeaders(
                 componentUri(AWS2S3Operations.getObjectRange) + "&autoCreateBucket=false",
                 null,
                 headers,
@@ -267,7 +271,7 @@ public class Aws2S3Resource extends BaseAws2Resource {
 
         StringBuilder textBuilder = new StringBuilder();
         try (Reader reader = new BufferedReader(
-                new InputStreamReader(s3Object, Charset.forName(StandardCharsets.UTF_8.name())))) {
+                new InputStreamReader(s3Object, StandardCharsets.UTF_8))) {
             int c = 0;
             while ((c = reader.read()) != -1) {
                 textBuilder.append((char) c);

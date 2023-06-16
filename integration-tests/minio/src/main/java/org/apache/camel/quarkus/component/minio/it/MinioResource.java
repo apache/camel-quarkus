@@ -162,7 +162,7 @@ public class MinioResource {
             }
         }
 
-        Iterable objectList;
+        Iterable<?> objectList;
         var sb = new StringBuilder();
         var errorSB = new StringBuilder();
         try {
@@ -188,7 +188,7 @@ public class MinioResource {
         return respBuilder.build();
     }
 
-    private void formatResult(Integer length, Integer offset, Iterable objectList, StringBuilder sb, StringBuilder errorSB) {
+    private void formatResult(Integer length, Integer offset, Iterable<?> objectList, StringBuilder sb, StringBuilder errorSB) {
         objectList.forEach(r -> {
             try {
                 if (r instanceof Result) {
@@ -221,19 +221,19 @@ public class MinioResource {
 
     private Map<String, Object> deserializeMap(String parametersString) {
         return Arrays.stream(parametersString.split(","))
-                .map(s -> new Pair(s.split(":")[0], s.split(":")[1]))
+                .map(s -> new Pair<String>(s.split(":")[0], s.split(":")[1]))
                 .map(p -> {
-                    switch (p.getLeft().toString()) {
+                    switch (p.getLeft()) {
                     case MinioConstants.OFFSET:
                     case MinioConstants.LENGTH:
-                        return new Pair<>(p.getLeft(), Integer.parseInt(p.getRight().toString()));
+                        return new Pair<>(p.getLeft(), Integer.parseInt(p.getRight()));
                     case MinioConstants.MINIO_OPERATION:
-                        return new Pair<>(p.getLeft(), MinioOperations.valueOf(p.getRight().toString()));
+                        return new Pair<>(p.getLeft(), MinioOperations.valueOf(p.getRight()));
                     default:
                         return p;
                     }
                 })
-                .collect(Collectors.toMap(p -> p.getLeft().toString(), p -> p.getRight()));
+                .collect(Collectors.toMap(p -> p.getLeft().toString(), Pair::getRight));
     }
 
 }

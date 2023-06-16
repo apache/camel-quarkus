@@ -58,7 +58,7 @@ public class VelocityResource {
             @QueryParam("contentCache") String contentCache,
             @QueryParam("expectFailure") String exectFaiure) throws Exception {
         LOG.infof("Sending to velocity: %s", message);
-        Map<String, Object> headers = new HashMap() {
+        Map<String, Object> headers = new HashMap<>() {
             {
                 if (item != null) {
                     put("item", item);
@@ -86,7 +86,7 @@ public class VelocityResource {
                     .entity(response)
                     .build();
         } catch (Exception e) {
-            if (exectFaiure != null && Boolean.parseBoolean(exectFaiure)) {
+            if (Boolean.parseBoolean(exectFaiure)) {
                 return Response
                         .created(new URI("https://camel.apache.org/"))
                         .entity(e.toString())
@@ -149,7 +149,7 @@ public class VelocityResource {
     public Response templateViaHeader(String message, @QueryParam("body") String body, @QueryParam("item") String item,
             @QueryParam("name") String name) throws Exception {
         LOG.infof("Sending to velocity: %s", body);
-        Map<String, Object> headers = new HashMap() {
+        Map<String, Object> headers = new HashMap<>() {
             {
                 put("item", item);
                 put("name", name);
@@ -172,7 +172,7 @@ public class VelocityResource {
     @Produces(MediaType.TEXT_PLAIN)
     public Response dynamicTemplate(String template, @QueryParam("body") String body, @QueryParam("item") String item,
             @QueryParam("name") String name) throws Exception {
-        Map<String, Object> headers = new HashMap() {
+        Map<String, Object> headers = new HashMap<>() {
             {
                 put("item", item);
                 put("name", name);
@@ -219,7 +219,7 @@ public class VelocityResource {
         final Map<String, Object> supplementalContext = new HashMap<>();
         supplementalContext.put("body", supplementalBody);
 
-        Map<String, Object> headers = new HashMap() {
+        Map<String, Object> headers = new HashMap<>() {
             {
                 put(VelocityConstants.VELOCITY_TEMPLATE, message);
                 put(VelocityConstants.VELOCITY_SUPPLEMENTAL_CONTEXT, supplementalContext);

@@ -119,7 +119,7 @@ public class ConsumeProcessor {
 
     static String namedValue(ClassInfo classInfo) {
         String beanName = null;
-        final AnnotationInstance named = classInfo.classAnnotation(NAMED_ANNOTATION);
+        final AnnotationInstance named = classInfo.declaredAnnotation(NAMED_ANNOTATION);
         if (named != null) {
             if (named.value() != null) {
                 beanName = named.value().asString();

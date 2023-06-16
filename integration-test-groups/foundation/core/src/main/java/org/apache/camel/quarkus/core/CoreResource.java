@@ -196,7 +196,7 @@ public class CoreResource {
             @PathParam("value") String value) {
         try {
             final Class<?> cl = Class.forName(className, true, Thread.currentThread().getContextClassLoader());
-            final Object inst = cl.newInstance();
+            final Object inst = cl.getDeclaredConstructor().newInstance();
             final Method method = cl.getDeclaredMethod(methodName, Object.class);
             method.invoke(inst, value);
             return Response.ok(inst.toString()).build();
@@ -215,13 +215,13 @@ public class CoreResource {
             @PathParam("value") String value) {
         try {
             final Class<?> cl = Class.forName(className);
-            final Object inst = cl.newInstance();
+            final Object inst = cl.getDeclaredConstructor().newInstance();
             final Field field = cl.getDeclaredField(fieldName);
             field.setAccessible(true);
             field.set(inst, value);
             return Response.ok(inst.toString()).build();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchFieldException
-                | SecurityException | IllegalArgumentException e) {
+                | SecurityException | IllegalArgumentException | NoSuchMethodException | InvocationTargetException e) {
             return Response.serverError().entity(e.getClass().getName() + ": " + e.getMessage()).build();
         }
     }

@@ -28,12 +28,12 @@ import org.eclipse.microprofile.config.spi.ConfigSource;
 
 public class SqlConfigSourceFactory implements ConfigSourceFactory {
 
-    private static MapBackedConfigSource source;
+    private static final MapBackedConfigSource source;
 
     static {
         String jdbcUrl = System.getenv("SQL_JDBC_URL");
 
-        Map<String, String> props = new HashMap();
+        Map<String, String> props = new HashMap<>();
         //external db
         if (jdbcUrl != null) {
             props.put("quarkus.datasource.jdbc.url", jdbcUrl);

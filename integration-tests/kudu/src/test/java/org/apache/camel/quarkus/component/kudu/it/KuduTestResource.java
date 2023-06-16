@@ -46,7 +46,8 @@ public class KuduTestResource implements QuarkusTestResourceLifecycleManager {
     private static final String KUDU_MASTER_NETWORK_ALIAS = "kudu-master";
     private static final String KUDU_TABLET_NETWORK_ALIAS = KuduInfrastructureTestHelper.KUDU_TABLET_SERVER_HOSTNAME;
 
-    private GenericContainer masterContainer, tabletContainer;
+    private GenericContainer<?> masterContainer;
+    private GenericContainer<?> tabletContainer;
 
     @Override
     public Map<String, String> start() {
@@ -56,7 +57,7 @@ public class KuduTestResource implements QuarkusTestResourceLifecycleManager {
             Network kuduNetwork = Network.newNetwork();
 
             // Setup the Kudu master server container
-            masterContainer = new GenericContainer(KUDU_IMAGE).withCommand("master")
+            masterContainer = new GenericContainer<>(KUDU_IMAGE).withCommand("master")
                     .withExposedPorts(KUDU_MASTER_RPC_PORT, KUDU_MASTER_HTTP_PORT).withNetwork(kuduNetwork)
                     .withNetworkAliases(KUDU_MASTER_NETWORK_ALIAS);
             masterContainer = masterContainer.withLogConsumer(new Slf4jLogConsumer(LOG)).waitingFor(Wait.forListeningPort());
@@ -73,7 +74,7 @@ public class KuduTestResource implements QuarkusTestResourceLifecycleManager {
             };
 
             // Setup the Kudu tablet server container
-            tabletContainer = new GenericContainer(KUDU_IMAGE).withCommand("tserver")
+            tabletContainer = new GenericContainer<>(KUDU_IMAGE).withCommand("tserver")
                     .withEnv("KUDU_MASTERS", KUDU_MASTER_NETWORK_ALIAS)
                     .withExposedPorts(KUDU_TABLET_RPC_PORT, KUDU_TABLET_HTTP_PORT).withNetwork(kuduNetwork)
                     .withNetworkAliases(KUDU_TABLET_NETWORK_ALIAS).withCreateContainerCmdModifier(consumer);

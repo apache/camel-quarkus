@@ -22,7 +22,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class MicroProfileFaultToleranceHelper {
 
-    private static final Map<String, AtomicInteger> COUNTERS = new ConcurrentHashMap();
+    private static final Map<String, AtomicInteger> COUNTERS = new ConcurrentHashMap<>();
 
     private MicroProfileFaultToleranceHelper() {
         // Utility class

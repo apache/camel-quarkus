@@ -26,7 +26,7 @@ import org.apache.camel.component.freemarker.FreemarkerComponent;
 public class CamelFreemarkerRecorder {
 
     public RuntimeValue<FreemarkerComponent> createComponent(BeanContainer beanContainer) {
-        final Configuration configuration = beanContainer.instance(Configuration.class);
+        final Configuration configuration = beanContainer.beanInstance(Configuration.class);
 
         final FreemarkerComponent component = new FreemarkerComponent();
         component.setConfiguration(configuration);

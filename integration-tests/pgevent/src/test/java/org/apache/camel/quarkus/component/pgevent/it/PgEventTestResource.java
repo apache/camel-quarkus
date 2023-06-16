@@ -37,7 +37,7 @@ public class PgEventTestResource implements QuarkusTestResourceLifecycleManager 
     private static final int POSTGRES_PORT = 5432;
     private static final String POSTGRES_IMAGE = "postgres:13.0";
 
-    private GenericContainer container;
+    private GenericContainer<?> container;
 
     @Override
     public Map<String, String> start() {
@@ -59,8 +59,8 @@ public class PgEventTestResource implements QuarkusTestResourceLifecycleManager 
         }
     }
 
-    private GenericContainer createContainer() {
-        GenericContainer container = new GenericContainer(POSTGRES_IMAGE)
+    private GenericContainer<?> createContainer() {
+        return new GenericContainer<>(POSTGRES_IMAGE)
                 .withCommand("postgres -c wal_level=logical")
                 .withExposedPorts(POSTGRES_PORT)
                 .withNetworkAliases(CONTAINER_NAME)
@@ -69,6 +69,5 @@ public class PgEventTestResource implements QuarkusTestResourceLifecycleManager 
                 .withEnv("POSTGRES_DB", POSTGRES_DB)
                 .withLogConsumer(new Slf4jLogConsumer(LOGGER))
                 .waitingFor(Wait.forListeningPort());
-        return container;
     }
 }
