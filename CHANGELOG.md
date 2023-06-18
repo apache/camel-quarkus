@@ -41,6 +41,8 @@
 
 **Merged pull requests:**
 
+- Bump wiremock from 3.0.0-beta-9 to 3.0.0-beta-10 [\#4995](https://github.com/apache/camel-quarkus/pull/4995) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump quarkus-artemis-bom from 3.0.0 to 3.0.1 [\#4994](https://github.com/apache/camel-quarkus/pull/4994) ([dependabot[bot]](https://github.com/apps/dependabot))
 - file: rewrite filter and idempotent tests from scratch for clarity an… [\#4993](https://github.com/apache/camel-quarkus/pull/4993) ([aldettinger](https://github.com/aldettinger))
 - Bump quarkiverse-jgit.version from 3.0.0 to 3.0.1 [\#4991](https://github.com/apache/camel-quarkus/pull/4991) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Upgrade hazelcast-quarkus-client to 4.0.0 [\#4990](https://github.com/apache/camel-quarkus/pull/4990) ([jamesnetherton](https://github.com/jamesnetherton))
