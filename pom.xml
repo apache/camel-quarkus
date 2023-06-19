@@ -487,6 +487,7 @@
                             <exclude>**/*.ftl</exclude>
                             <exclude>**/*.graphql</exclude>
                             <exclude>**/*.ics</exclude>
+                            <exclude>**/*.jaas</exclude>
                             <exclude>**/*.jks</exclude>
                             <exclude>**/*.jpeg</exclude>
                             <exclude>**/*.key</exclude>

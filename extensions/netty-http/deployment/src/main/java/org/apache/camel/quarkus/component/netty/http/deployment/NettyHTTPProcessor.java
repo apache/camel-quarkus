@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.netty.http.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 
 class NettyHTTPProcessor {
 
@@ -26,5 +27,21 @@ class NettyHTTPProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    // Needed when using the default JaasSecurityAuthenticator, otherwise fails with ClassNotFoundException
+    @BuildStep
+    ReflectiveClassBuildItem registerForReflection() {
+        return ReflectiveClassBuildItem
+                .builder(
+                        "sun.security.provider.ConfigFile",
+                        "com.sun.security.auth.module.Krb5LoginModule",
+                        "com.sun.security.auth.module.UnixLoginModule",
+                        "com.sun.security.auth.module.JndiLoginModule",
+                        "com.sun.security.auth.module.KeyStoreLoginModule",
+                        "com.sun.security.auth.module.LdapLoginModule",
+                        "com.sun.security.auth.module.NTLoginModule",
+                        "com.sun.jmx.remote.security.FileLoginModule")
+                .build();
     }
 }
