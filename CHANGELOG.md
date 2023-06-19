@@ -41,6 +41,7 @@
 
 **Merged pull requests:**
 
+- Generated sources regen for SBOM [\#4996](https://github.com/apache/camel-quarkus/pull/4996) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump wiremock from 3.0.0-beta-9 to 3.0.0-beta-10 [\#4995](https://github.com/apache/camel-quarkus/pull/4995) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump quarkus-artemis-bom from 3.0.0 to 3.0.1 [\#4994](https://github.com/apache/camel-quarkus/pull/4994) ([dependabot[bot]](https://github.com/apps/dependabot))
 - file: rewrite filter and idempotent tests from scratch for clarity an… [\#4993](https://github.com/apache/camel-quarkus/pull/4993) ([aldettinger](https://github.com/aldettinger))
