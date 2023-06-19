@@ -16,26 +16,20 @@
 #
 
 on:
-  # pull_request:
-  #   branches:
-  #     - main
-  #   types:
-  #     - closed
-
-  issues:
-    types:
-      - closed
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'CHANGELOG.md'
+      - 'camel-quarkus-sbom/**'
 
 permissions:
   contents: read
   issues: write
-  pull-requests: read
 
 jobs:
   assign-issue-milestone:
-    if: github.repository == 'apache/camel-quarkus' &&
-        github.event_name == 'pull_request' &&
-        github.event.pull_request.merged
+    if: github.repository == 'apache/camel-quarkus'
     runs-on: ubuntu-latest
     concurrency:
       group: assign-issue-milestone-${{ github.event.pull_request.number }}
@@ -46,50 +40,25 @@ jobs:
         with:
           script: |
             const issueNumberFromCommitCommentRegex = new RegExp(`.*(?:fix(?:e[sd])?|(?:(?:resolve|close)[sd]?)):?\\s(?:https?:\\/\\/github\\.com\\/${context.repo.owner}\\/${context.repo.repo}\\/issues\\/|#)(\\d+)`, 'igm');
-            const prNumber = context.payload.number;
-            const prIssueReferencesQuery = `{
-              repository(owner: "${context.repo.owner}", name: "${context.repo.repo}") {
-                pullRequest(number: ${prNumber}) {
-                  commits(last: 50) {
-                    nodes {
-                      commit {
-                        message
-                      }
-                    }
-                  }
-                  closingIssuesReferences(last: 50) {
-                    nodes {
-                      number
-                    }
-                  }
-                }
-              }
-            }`;
-
             const issueNumbers = new Set();
 
-            prIssueReferences = await github.graphql(prIssueReferencesQuery);
-            if (prIssueReferences) {
-              // Parse issue number references from commit comments
-              if (prIssueReferences.repository.pullRequest.commits) {
-                prIssueReferences.repository.pullRequest.commits.nodes.forEach(node => {
-                  for (const match of node.commit.message.matchAll(issueNumberFromCommitCommentRegex)) {
-                    let issueNumber = parseInt(match[1]);
-                    if (!isNaN(issueNumber)) {
-                      issueNumbers.add(issueNumber);
-                    }
-                  }
-                });
-              }
+            // Get the commits that triggered this push event
+            const commitComparison = await github.rest.repos.compareCommitsWithBasehead({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              basehead: `${context.payload.before}...${context.payload.after}`,
+            });
 
-              // Get any issue references GitHub associated with the PR
-              if (prIssueReferences.repository.pullRequest.closingIssuesReferences) {
-                prIssueReferences.repository.pullRequest.closingIssuesReferences.nodes.forEach(node => {
-                  if (node.number) {
-                    issueNumbers.add(node.number);
+            if (commitComparison && commitComparison.data) {
+              // Parse issue number references from commit comments
+              commitComparison.data.commits.forEach(commitData => {
+                for (const match of commitData.commit.message.matchAll(issueNumberFromCommitCommentRegex)) {
+                  let issueNumber = parseInt(match[1]);
+                  if (!isNaN(issueNumber)) {
+                    issueNumbers.add(issueNumber);
                   }
-                });
-              }
+                }
+              });
             }
 
             // No issues associated with the merged PR so we can exit
@@ -120,24 +89,3 @@ jobs:
                 });
               }
             }
-
-  assign-wont-fix-issue-milestone:
-    if: github.repository == 'apache/camel-quarkus' &&
-        github.event_name == 'issues' &&
-        github.event.issue.milestone.number != 4 && (contains(github.event.issue.labels.*.name, 'wontfix') || github.event.issue.state_reason == 'not_planned')
-    runs-on: ubuntu-latest
-    concurrency:
-      group: assign-wont-fix-issue-milestone-${{ github.event.issue.number }}
-      cancel-in-progress: true
-    steps:
-      - name: Assign Closed Issue To Wont Fix Milestone
-        uses: actions/github-script@v6
-        with:
-          script: |
-            await github.rest.issues.update({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.payload.issue.number,
-              // https://github.com/apache/camel-quarkus/milestone/4
-              milestone: 4,
-            });
