@@ -44,6 +44,11 @@
                 <artifactId>assertj-core</artifactId>
                 <version>${assertj.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.eclipse.transformer</groupId>
+                <artifactId>org.eclipse.transformer</artifactId>
+                <version>${eclipse-transformer.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>

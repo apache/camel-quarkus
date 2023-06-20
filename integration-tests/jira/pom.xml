@@ -94,6 +94,16 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <!-- Theses classpath configurations must be removed when https://ecosystem.atlassian.net/browse/JRJC-262 gets resolved-->
+                            <additionalClasspathElements>
+                                <additionalClasspathElement>${project.build.directory}/camel-quarkus-integration-test-jira-${project.version}-native-image-source-jar/lib/modified-com.atlassian.jira.jira-rest-java-client-core-${jira-rest-client.version}.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${project.build.directory}/camel-quarkus-integration-test-jira-${project.version}-native-image-source-jar/camel-quarkus-integration-test-jira-${project.version}-runner.jar</additionalClasspathElement>
+                            </additionalClasspathElements>
+                            <classpathDependencyExcludes>
+                                <classpathDependencyExclude>com.atlassian.jira:jira-rest-java-client-core</classpathDependencyExclude>
+                            </classpathDependencyExcludes>
+                        </configuration>
                         <executions>
                             <execution>
                                 <goals>
