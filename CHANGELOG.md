@@ -27,6 +27,7 @@
 - Expand micrometer test coverage [\#4582](https://github.com/apache/camel-quarkus/issues/4582)
 - quarkus-hazelcast-client not ready for Quarkus 3 [\#4498](https://github.com/apache/camel-quarkus/issues/4498)
 - Camel 3.20 - camel-swift extension [\#4220](https://github.com/apache/camel-quarkus/issues/4220)
+- JAXB integration tests failing if locale different from EN [\#4135](https://github.com/apache/camel-quarkus/issues/4135)
 - Implement a bot to assign `no fix/won't fix` milestone to closed issues labeled as wontfix [\#4106](https://github.com/apache/camel-quarkus/issues/4106)
 - \[Camel 3.19.0\] Google-secrets-manager: Remove workaround after fix of CAMEL-18520 [\#4103](https://github.com/apache/camel-quarkus/issues/4103)
 - Google-bigquery: Enable `sqlCrudOperations` test once Camel version is 18.3 [\#4029](https://github.com/apache/camel-quarkus/issues/4029)
@@ -41,6 +42,7 @@
 
 **Merged pull requests:**
 
+- Restore issue auto milestone workflow [\#4997](https://github.com/apache/camel-quarkus/pull/4997) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#4996](https://github.com/apache/camel-quarkus/pull/4996) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump wiremock from 3.0.0-beta-9 to 3.0.0-beta-10 [\#4995](https://github.com/apache/camel-quarkus/pull/4995) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump quarkus-artemis-bom from 3.0.0 to 3.0.1 [\#4994](https://github.com/apache/camel-quarkus/pull/4994) ([dependabot[bot]](https://github.com/apps/dependabot))
