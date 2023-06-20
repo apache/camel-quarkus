@@ -35,9 +35,9 @@ public class JiraRoutes extends RouteBuilder {
 
         from("jira:watchUpdates?jql=RAW(project=" + projectKey
                 + ")&watchedFields=Summary&sendOnlyUpdatedField=false&maxResults=1")
-                        .id("jiraUpdates")
-                        .autoStartup(false)
-                        .to("seda:jiraUpdates");
+                .id("jiraUpdates")
+                .autoStartup(false)
+                .to("seda:jiraUpdates");
 
         from("jira:newComments?jql=RAW(project=" + projectKey + ")&maxResults=1")
                 .id("jiraComments")
