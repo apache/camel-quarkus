@@ -16,23 +16,30 @@
  */
 package org.apache.camel.quarkus.component.jira.deployment;
 
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
+import io.quarkus.deployment.GeneratedClassGizmoAdaptor;
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.gizmo.ClassCreator;
+import io.quarkus.gizmo.MethodCreator;
 import org.jboss.jandex.IndexView;
 import org.joda.time.DateTimeZone;
 
 class JiraProcessor {
-
     private static final String FEATURE = "camel-jira";
     private static final String JIRA_MODEL_PACKAGE = "com.atlassian.jira.rest.client.api.domain";
+    private static final String DISPOSABLE_BEAN_CLASS_NAME = "org.springframework.beans.factory.DisposableBean";
 
     @BuildStep
     ExtensionSslNativeSupportBuildItem activateSslNativeSupport() {
@@ -79,5 +86,39 @@ class JiraProcessor {
         items.add(ReflectiveClassBuildItem.builder("org.codehaus.jettison.json.JSONArray").methods(true).build());
         items.add(ReflectiveClassBuildItem.builder("org.codehaus.jettison.json.JSONObject").methods(true).build());
         return items;
+    }
+
+    @BuildStep(onlyIf = IsSpringBeansAbsent.class)
+    void generateDisposableInterface(BuildProducer<GeneratedClassBuildItem> generatedClass) {
+        // TODO: remove if https://ecosystem.atlassian.net/browse/JRJC-258 eventually gets fixed
+        try (ClassCreator classCreator = ClassCreator.interfaceBuilder()
+                .className(DISPOSABLE_BEAN_CLASS_NAME)
+                .classOutput(new GeneratedClassGizmoAdaptor(generatedClass, false))
+                .build()) {
+
+            /*
+             * Original implementation of DisposableBean is:
+             *
+             * public interface DisposableBean {
+             *   void destroy() throws Exception;
+             * }
+             */
+            try (MethodCreator methodCreator = classCreator.getMethodCreator("destroy", void.class)) {
+                methodCreator.setModifiers(Modifier.PUBLIC | Modifier.ABSTRACT);
+                methodCreator.addException(Exception.class);
+            }
+        }
+    }
+
+    static final class IsSpringBeansAbsent implements BooleanSupplier {
+        @Override
+        public boolean getAsBoolean() {
+            try {
+                Class.forName(DISPOSABLE_BEAN_CLASS_NAME, true, Thread.currentThread().getContextClassLoader());
+                return false;
+            } catch (ClassNotFoundException e) {
+                return true;
+            }
+        }
     }
 }
