@@ -116,6 +116,7 @@ jobs:
             const prefixes = new Set();
             config['config']['auto-label']
               .flatMap(labelConfig => labelConfig.labels)
+              .filter(label => label.includes('/'))
               .map(label => label.split('/')[0])
               .forEach(prefix => prefixes.add(prefix));
 
