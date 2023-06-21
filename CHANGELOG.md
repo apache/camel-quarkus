@@ -25,6 +25,7 @@
 - MyBatisConsumerTest should keep awaitility in the test scope [\#4793](https://github.com/apache/camel-quarkus/issues/4793)
 - Cxf-soap: Extend test coverage with Converter scenario [\#4652](https://github.com/apache/camel-quarkus/issues/4652)
 - Expand micrometer test coverage [\#4582](https://github.com/apache/camel-quarkus/issues/4582)
+- jira test fails with Camel 4 and Quarkus 3 [\#4524](https://github.com/apache/camel-quarkus/issues/4524)
 - quarkus-hazelcast-client not ready for Quarkus 3 [\#4498](https://github.com/apache/camel-quarkus/issues/4498)
 - Camel 3.20 - camel-swift extension [\#4220](https://github.com/apache/camel-quarkus/issues/4220)
 - JAXB integration tests failing if locale different from EN [\#4135](https://github.com/apache/camel-quarkus/issues/4135)
@@ -42,6 +43,7 @@
 
 **Merged pull requests:**
 
+- Re-enable jira tests [\#5000](https://github.com/apache/camel-quarkus/pull/5000) ([zhfeng](https://github.com/zhfeng))
 - Restore issue auto milestone workflow [\#4997](https://github.com/apache/camel-quarkus/pull/4997) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#4996](https://github.com/apache/camel-quarkus/pull/4996) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump wiremock from 3.0.0-beta-9 to 3.0.0-beta-10 [\#4995](https://github.com/apache/camel-quarkus/pull/4995) ([dependabot[bot]](https://github.com/apps/dependabot))
