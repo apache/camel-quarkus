@@ -15,6 +15,8 @@
 # limitations under the License.
 #
 
+name: Assign Issue Milestone
+
 on:
   push:
     branches:
@@ -31,9 +33,6 @@ jobs:
   assign-issue-milestone:
     if: github.repository == 'apache/camel-quarkus'
     runs-on: ubuntu-latest
-    concurrency:
-      group: assign-issue-milestone-${{ github.event.pull_request.number }}
-      cancel-in-progress: true
     steps:
       - name: Assign Closed Issues To Latest Milestone
         uses: actions/github-script@v6
