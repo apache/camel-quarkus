@@ -32,6 +32,8 @@
 - Implement a bot to assign `no fix/won't fix` milestone to closed issues labeled as wontfix [\#4106](https://github.com/apache/camel-quarkus/issues/4106)
 - \[Camel 3.19.0\] Google-secrets-manager: Remove workaround after fix of CAMEL-18520 [\#4103](https://github.com/apache/camel-quarkus/issues/4103)
 - Google-bigquery: Enable `sqlCrudOperations` test once Camel version is 18.3 [\#4029](https://github.com/apache/camel-quarkus/issues/4029)
+- FOP native integration test failure [\#3965](https://github.com/apache/camel-quarkus/issues/3965)
+- Springless Jira REST client [\#3889](https://github.com/apache/camel-quarkus/issues/3889)
 - Missing link to Camel user manual in the CQ documentation [\#3580](https://github.com/apache/camel-quarkus/issues/3580)
 - Upgrade to H2 2.x [\#3498](https://github.com/apache/camel-quarkus/issues/3498)
 - Docs: Camel-quarkus 2.4.x docs don't show information in components/languages/dataformats and misc [\#3387](https://github.com/apache/camel-quarkus/issues/3387)
@@ -43,6 +45,9 @@
 
 **Merged pull requests:**
 
+- Restore FOP integration test native profile [\#5003](https://github.com/apache/camel-quarkus/pull/5003) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add names to auto milestone workflows [\#5002](https://github.com/apache/camel-quarkus/pull/5002) ([jamesnetherton](https://github.com/jamesnetherton))
+- Remove Spring dependencies from Jira extension [\#5001](https://github.com/apache/camel-quarkus/pull/5001) ([jamesnetherton](https://github.com/jamesnetherton))
 - Re-enable jira tests [\#5000](https://github.com/apache/camel-quarkus/pull/5000) ([zhfeng](https://github.com/zhfeng))
 - Restore issue auto milestone workflow [\#4997](https://github.com/apache/camel-quarkus/pull/4997) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#4996](https://github.com/apache/camel-quarkus/pull/4996) ([github-actions[bot]](https://github.com/apps/github-actions))
@@ -1823,6 +1828,7 @@
 - Azure native integration tests fail at runtime [\#4541](https://github.com/apache/camel-quarkus/issues/4541)
 - Migrate example projects to Camel 4 and Quarkus 3 [\#4540](https://github.com/apache/camel-quarkus/issues/4540)
 - PerfRegressionIT failing with Camel 4 and Quarkus 3 [\#4528](https://github.com/apache/camel-quarkus/issues/4528)
+- Twilio test fails with Camel 4 and Quarkus 3 [\#4527](https://github.com/apache/camel-quarkus/issues/4527)
 - Salesforce test fails Camel 4 and Quarkus 3 [\#4526](https://github.com/apache/camel-quarkus/issues/4526)
 - nitrite test fails to compile to native with Camel 4 and Quarkus 3 [\#4525](https://github.com/apache/camel-quarkus/issues/4525)
 - java-joor-dsl fails in native mode with Camel 4 and Quarkus 3 [\#4523](https://github.com/apache/camel-quarkus/issues/4523)
