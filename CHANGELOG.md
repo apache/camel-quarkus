@@ -6,6 +6,7 @@
 
 **Fixed bugs:**
 
+- \[Quarkus 3.2.0\] io.quarkus.arc.Priority has been removed [\#4983](https://github.com/apache/camel-quarkus/issues/4983)
 - Unable to generate REST API documentation when lightweight mode is enabled [\#2527](https://github.com/apache/camel-quarkus/issues/2527)
 
 **Closed issues:**
@@ -45,6 +46,8 @@
 
 **Merged pull requests:**
 
+- Prevent user added issue labels from being incorrectly removed [\#5005](https://github.com/apache/camel-quarkus/pull/5005) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade Quarkus to 3.2.0.CR1 [\#5004](https://github.com/apache/camel-quarkus/pull/5004) ([jamesnetherton](https://github.com/jamesnetherton))
 - Restore FOP integration test native profile [\#5003](https://github.com/apache/camel-quarkus/pull/5003) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add names to auto milestone workflows [\#5002](https://github.com/apache/camel-quarkus/pull/5002) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove Spring dependencies from Jira extension [\#5001](https://github.com/apache/camel-quarkus/pull/5001) ([jamesnetherton](https://github.com/jamesnetherton))
