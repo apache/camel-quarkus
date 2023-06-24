@@ -46,6 +46,8 @@
 
 **Merged pull requests:**
 
+- Upgrade quarkus-amazon-services-bom to 2.3.2 [\#5012](https://github.com/apache/camel-quarkus/pull/5012) ([jamesnetherton](https://github.com/jamesnetherton))
+- Disable google-storage native profile due to \#5010 [\#5011](https://github.com/apache/camel-quarkus/pull/5011) ([jamesnetherton](https://github.com/jamesnetherton))
 - Prevent user added issue labels from being incorrectly removed [\#5005](https://github.com/apache/camel-quarkus/pull/5005) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 3.2.0.CR1 [\#5004](https://github.com/apache/camel-quarkus/pull/5004) ([jamesnetherton](https://github.com/jamesnetherton))
 - Restore FOP integration test native profile [\#5003](https://github.com/apache/camel-quarkus/pull/5003) ([jamesnetherton](https://github.com/jamesnetherton))
