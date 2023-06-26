@@ -46,6 +46,7 @@
 
 **Merged pull requests:**
 
+- Generated sources regen for SBOM [\#5013](https://github.com/apache/camel-quarkus/pull/5013) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Upgrade quarkus-amazon-services-bom to 2.3.2 [\#5012](https://github.com/apache/camel-quarkus/pull/5012) ([jamesnetherton](https://github.com/jamesnetherton))
 - Disable google-storage native profile due to \#5010 [\#5011](https://github.com/apache/camel-quarkus/pull/5011) ([jamesnetherton](https://github.com/jamesnetherton))
 - Prevent user added issue labels from being incorrectly removed [\#5005](https://github.com/apache/camel-quarkus/pull/5005) ([jamesnetherton](https://github.com/jamesnetherton))
