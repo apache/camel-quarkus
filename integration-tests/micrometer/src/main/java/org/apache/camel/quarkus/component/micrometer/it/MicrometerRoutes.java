@@ -27,6 +27,12 @@ public class MicrometerRoutes extends RouteBuilder {
         from("direct:counter")
                 .to("micrometer:counter:camel-quarkus-counter");
 
+        from("direct:counterComposite")
+                .to("micrometer:counter:camel-quarkus-custom-counter");
+
+        from("direct:counterCustom")
+                .to("micrometerCustom:counter:camel-quarkus-custom-counter");
+
         from("direct:summary")
                 .setHeader(HEADER_HISTOGRAM_VALUE, simple("${body}"))
                 .to("micrometer:summary:camel-quarkus-summary");

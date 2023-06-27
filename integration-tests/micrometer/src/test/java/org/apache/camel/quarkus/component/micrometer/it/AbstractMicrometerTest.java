@@ -32,10 +32,16 @@ abstract class AbstractMicrometerTest {
     }
 
     <T> T getMetricValue(Class<T> as, String type, String name, String tags, int statusCode) {
+        return getMetricValue(as, type, name, tags, statusCode, null);
+    }
+
+    <T> T getMetricValue(Class<T> as, String type, String name, String tags, int statusCode, String registry) {
+        String r = (registry == null ? "standard" : registry);
+
         ResponseBodyExtractionOptions resp = RestAssured.given()
                 .queryParam("tags", tags)
                 .when()
-                .get("/micrometer/metric/" + type + "/" + name)
+                .get("/micrometer/metric/" + type + "/" + name + "/" + r)
                 .then()
                 .statusCode(statusCode)
                 .extract()
