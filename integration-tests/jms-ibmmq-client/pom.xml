@@ -41,6 +41,12 @@
             <artifactId>camel-quarkus-jms</artifactId>
         </dependency>
 
+        <!-- Messaging Pooled JMS -->
+        <dependency>
+            <groupId>io.quarkiverse.messaginghub</groupId>
+            <artifactId>quarkus-pooled-jms</artifactId>
+        </dependency>
+
         <!-- Inherit base messaging routes -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -51,7 +57,6 @@
         <dependency>
             <groupId>com.ibm.mq</groupId>
             <artifactId>com.ibm.mq.jakarta.client</artifactId>
-            <scope>provided</scope>
         </dependency>
 
         <!-- test dependencies -->
