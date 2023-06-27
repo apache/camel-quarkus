@@ -60,6 +60,30 @@ class MicrometerTest extends AbstractMicrometerTest {
     }
 
     @Test
+    public void testMicrometerCustomMetrics() throws Exception {
+        //add 10 to custom component
+        RestAssured.get("/micrometer/counterCustom/10")
+                .then()
+                .statusCode(200);
+
+        //increment via standard component should not modify custom registry
+        RestAssured.get("/micrometer/counterComposite/1")
+                .then()
+                .statusCode(200);
+        //custom registry starts with value 10 so addition of not-custom component should not affect it
+        assertEquals(10, getMetricValue(Integer.class, "counter", "camel-quarkus-custom-counter", null, 200, "custom"));
+
+        //add 1 to custom component
+        RestAssured.get("/micrometer/counterCustom/1")
+                .then()
+                .statusCode(200);
+        //component with Quarkus's registry should still see only 1 from the first call
+        assertEquals(1, getMetricValue(Integer.class, "counter", "camel-quarkus-custom-counter", null, 200, null));
+        //component with custom registry should be on 11 see only 1 from the first call
+        assertEquals(11, getMetricValue(Integer.class, "counter", "camel-quarkus-custom-counter", null, 200, "custom"));
+    }
+
+    @Test
     public void testMicrometerSummary() {
         RestAssured.get("/micrometer/summary?value=10")
                 .then()
@@ -167,9 +191,9 @@ class MicrometerTest extends AbstractMicrometerTest {
 
         assertEquals(result.size(), 2);
         assertTrue(result.containsKey("camel.routes.running"));
-        assertEquals(result.get("camel.routes.running"), "5.0");
+        assertEquals(result.get("camel.routes.running"), "7.0");
         assertTrue(result.containsKey("camel.routes.added"));
-        assertEquals(result.get("camel.routes.added"), "5.0");
+        assertEquals(result.get("camel.routes.added"), "7.0");
     }
 
     @Test

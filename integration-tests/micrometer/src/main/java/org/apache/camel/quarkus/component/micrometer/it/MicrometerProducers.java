@@ -23,13 +23,16 @@ import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.config.MeterFilter;
+import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import io.micrometer.core.instrument.util.HierarchicalNameMapper;
 import io.micrometer.jmx.JmxMeterRegistry;
 import io.micrometer.prometheus.PrometheusMeterRegistry;
 import io.quarkus.micrometer.runtime.MeterFilterConstraint;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Named;
 import jakarta.inject.Singleton;
-import jakarta.ws.rs.Produces;
 import org.apache.camel.component.micrometer.CamelJmxConfig;
+import org.apache.camel.component.micrometer.MicrometerComponent;
 
 public class MicrometerProducers {
 
@@ -62,6 +65,18 @@ public class MicrometerProducers {
                 return id;
             }
         };
+    }
+
+    @Singleton
+    @Produces
+    @Named("micrometerCustom")
+    MicrometerComponent micrometerCustomComponent() {
+        MicrometerComponent component = new MicrometerComponent();
+
+        SimpleMeterRegistry registry = new SimpleMeterRegistry();
+        component.setMetricsRegistry(registry);
+
+        return component;
     }
 
 }

@@ -29,6 +29,7 @@ import io.micrometer.core.instrument.Tags;
 import io.micrometer.core.instrument.search.Search;
 import io.micrometer.prometheus.PrometheusMeterRegistry;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -38,12 +39,9 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.micrometer.MicrometerComponent;
 import org.apache.camel.component.micrometer.MicrometerConstants;
 import org.apache.camel.component.micrometer.eventnotifier.MicrometerEventNotifierService;
-import org.apache.camel.component.micrometer.spi.InstrumentedThreadPoolFactory;
-import org.apache.camel.impl.engine.DefaultExecutorServiceManager;
-import org.apache.camel.spi.ThreadPoolFactory;
-import org.apache.camel.support.DefaultThreadPoolFactory;
 
 @Path("/micrometer")
 public class MicrometerResource {
@@ -53,6 +51,10 @@ public class MicrometerResource {
 
     @Inject
     MeterRegistry meterRegistry;
+
+    @Inject
+    @Named("micrometerCustom")
+    MicrometerComponent micrometerCustomComponent;
 
     @Inject
     PrometheusMeterRegistry prometheusMeterRegistry;
@@ -67,10 +69,12 @@ public class MicrometerResource {
         meterRegistry.gaugeCollectionSize("example.list.size", Tags.empty(), list);
     }
 
-    @Path("/metric/{type}/{name}")
+    // registry values are: custom, standard
+    @Path("/metric/{type}/{name}/{registry}")
     @Produces(MediaType.APPLICATION_JSON)
     @GET
     public Response getMetricValue(@PathParam("type") String type, @PathParam("name") String name,
+            @PathParam("registry") String registry,
             @QueryParam("tags") String tagValues) {
         List<Tag> tags = new ArrayList<>();
         if (tagValues.length() > 0) {
@@ -81,7 +85,8 @@ public class MicrometerResource {
             }
         }
         //search only in prometheus registry (not in jmx one), counter test covers among others the unexpected behavior of prometheus
-        Search search = prometheusMeterRegistry.find(name).tags(tags);
+        Search search = ("custom".equals(registry) ? micrometerCustomComponent.getMetricsRegistry() : prometheusMeterRegistry)
+                .find(name).tags(tags);
         if (search == null) {
             return Response.status(404).build();
         }
@@ -105,24 +110,41 @@ public class MicrometerResource {
         }
     }
 
+    @Path("/counter/{inc}")
+    @GET
+    public Response counter(@PathParam("inc") int increment) {
+        return counter(increment, "counter");
+    }
+
+    @Path("/counterCustom/{inc}")
+    @GET
+    public Response counterCustom(@PathParam("inc") int increment) {
+        return counter(increment, "counterCustom");
+    }
+
+    @Path("/counterComposite/{inc}")
+    @GET
+    public Response counterComposite(@PathParam("inc") int increment) {
+        return counter(increment, "counterComposite");
+    }
+
     /**
      * If inc is > 0, MicrometerConstants.HEADER_COUNTER_INCREMENT is used
      * If inc is < 0, MicrometerConstants.HEADER_COUNTER_DECREMENT is used (with positive value)
      * If inc == 0, no header is added.
      */
-    @Path("/counter/{inc}")
-    @GET
-    public Response counter(@PathParam("inc") int increment) {
+    Response counter(int increment, String route) {
+        String path = "direct:" + route;
         if (increment > 0) {
-            producerTemplate.sendBodyAndHeader("direct:counter", null, MicrometerConstants.HEADER_COUNTER_INCREMENT, increment);
+            producerTemplate.sendBodyAndHeader(path, null, MicrometerConstants.HEADER_COUNTER_INCREMENT, increment);
         } else if (increment < 0) {
-            producerTemplate.sendBodyAndHeader("direct:counter", null, MicrometerConstants.HEADER_COUNTER_DECREMENT,
+            producerTemplate.sendBodyAndHeader(path, null, MicrometerConstants.HEADER_COUNTER_DECREMENT,
                     0 - increment);
             List l = meterRegistry.getMeters().stream().filter(m -> m.getId().getName().contains("executor"))
                     .collect(Collectors.toList());//forEach(System.out::println);
             System.out.println(l);
         } else {
-            producerTemplate.sendBody("direct:counter", null);
+            producerTemplate.sendBody(path, null);
         }
         return Response.ok().build();
     }
@@ -145,20 +167,6 @@ public class MicrometerResource {
     @GET
     public Response logMessage() {
         producerTemplate.requestBody("direct:log", (Object) null);
-        return Response.ok().build();
-    }
-
-    @Path("/setInstrumentedThreadPoolFactory")
-    @GET
-    public Response setInstrumentedThreadPoolFactory() {
-        ThreadPoolFactory threadPoolFactory = new DefaultThreadPoolFactory();
-        InstrumentedThreadPoolFactory instrumentedThreadPoolFactory = new InstrumentedThreadPoolFactory(meterRegistry,
-                threadPoolFactory);
-
-        DefaultExecutorServiceManager executorServiceManager = new DefaultExecutorServiceManager(camelContext);
-        executorServiceManager.setThreadPoolFactory(instrumentedThreadPoolFactory);
-        camelContext.setExecutorServiceManager(executorServiceManager);
-
         return Response.ok().build();
     }
 
