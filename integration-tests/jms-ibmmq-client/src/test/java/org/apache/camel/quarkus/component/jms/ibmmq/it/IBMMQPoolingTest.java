@@ -14,12 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.camel.quarkus.component.jms.ibmmq.it;
 
 import java.lang.reflect.Method;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.component.jms.ibmmq.support.IBMMQDestinations;
 import org.apache.camel.quarkus.component.jms.ibmmq.support.IBMMQTestResource;
@@ -30,14 +32,14 @@ import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.startsWith;
 
 @QuarkusTest
 @QuarkusTestResource(IBMMQTestResource.class)
 @EnabledIfSystemProperty(named = "ibm.mq.container.license", matches = "accept")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class IBMMQTest extends AbstractJmsMessagingTest {
+@TestProfile(JmsPoolingEnabled.class)
+public class IBMMQPoolingTest extends AbstractJmsMessagingTest {
     private IBMMQDestinations destinations;
 
     /**
@@ -70,19 +72,8 @@ public class IBMMQTest extends AbstractJmsMessagingTest {
                 .body(startsWith("org.apache.camel.quarkus.component.jms.ibmmq.it.IBMMQConnectionFactory"));
     }
 
-    @Test
-    public void testPojoProducer() {
-        String message = "Camel Quarkus IBM MQ Pojo Producer";
-
-        RestAssured.given()
-                .body(message)
-                .post("/messaging/jms/ibmmq/pojo/producer")
-                .then()
-                .statusCode(204);
-
-        RestAssured.get("/messaging/{queueName}", queue)
-                .then()
-                .statusCode(200)
-                .body(is(message));
+    @Override
+    public void testJmsTopic() {
+        // Ignore testJmsTopic since it can't use setClientId in a pool connection.
     }
 }
