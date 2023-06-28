@@ -4,8 +4,13 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/3.0.0-M2...HEAD)
 
+**Implemented enhancements:**
+
+- Check IBM MQ client is working with quarkus-pooled-jms [\#5016](https://github.com/apache/camel-quarkus/issues/5016)
+
 **Fixed bugs:**
 
+- \[Mandrel 23.0.0\] cxf-soap grouped integration tests native compilation fails [\#5008](https://github.com/apache/camel-quarkus/issues/5008)
 - \[Quarkus 3.2.0\] io.quarkus.arc.Priority has been removed [\#4983](https://github.com/apache/camel-quarkus/issues/4983)
 - Unable to generate REST API documentation when lightweight mode is enabled [\#2527](https://github.com/apache/camel-quarkus/issues/2527)
 
@@ -47,6 +52,8 @@
 
 **Merged pull requests:**
 
+- Fix \#5016 to add a IBMMQ pooling test with quarkus-pooled-jms [\#5017](https://github.com/apache/camel-quarkus/pull/5017) ([zhfeng](https://github.com/zhfeng))
+- Upgrade to quarkus-cxf 2.2.0.CR1 [\#5015](https://github.com/apache/camel-quarkus/pull/5015) ([ppalaga](https://github.com/ppalaga))
 - Generated sources regen for SBOM [\#5013](https://github.com/apache/camel-quarkus/pull/5013) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Upgrade quarkus-amazon-services-bom to 2.3.2 [\#5012](https://github.com/apache/camel-quarkus/pull/5012) ([jamesnetherton](https://github.com/jamesnetherton))
 - Disable google-storage native profile due to \#5010 [\#5011](https://github.com/apache/camel-quarkus/pull/5011) ([jamesnetherton](https://github.com/jamesnetherton))
