@@ -537,6 +537,8 @@
                             <exclude>.gitattributes</exclude>
                             <exclude>**/src/test/resources/__files/*.xml</exclude>
                             <exclude>.github/actions/**</exclude>
+                            <exclude>src/main/codestarts/quarkus/**/*</exclude>
+                            <exclude>src/test/resources/__snapshots__/**</exclude>
                         </excludes>
                         <mapping>
                             <cli>CAMEL_PROPERTIES_STYLE</cli>
