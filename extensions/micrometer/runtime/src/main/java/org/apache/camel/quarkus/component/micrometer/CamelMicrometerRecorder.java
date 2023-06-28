@@ -17,9 +17,11 @@
 package org.apache.camel.quarkus.component.micrometer;
 
 import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
+import org.apache.camel.component.micrometer.MicrometerUtils;
 import org.apache.camel.component.micrometer.eventnotifier.MicrometerExchangeEventNotifier;
 import org.apache.camel.component.micrometer.eventnotifier.MicrometerRouteEventNotifier;
 import org.apache.camel.component.micrometer.messagehistory.MicrometerMessageHistoryFactory;
@@ -38,6 +40,13 @@ public class CamelMicrometerRecorder {
     public RuntimeValue<CamelContextCustomizer> createRuntimeContextCustomizer(CamelMicrometerConfig config,
             RuntimeValue<MeterRegistry> meterRegistry) {
         return new RuntimeValue<>(new MicrometerRuntimeContextCustomizer(config, meterRegistry.getValue()));
+    }
+
+    public void configureDefaultRegistry(RuntimeValue<MeterRegistry> rootMeterRegistry) {
+        // Add SimpleMeterRegistry to the Quarkus composite one
+        if (rootMeterRegistry.getValue() instanceof CompositeMeterRegistry) {
+            ((CompositeMeterRegistry) rootMeterRegistry.getValue()).add(MicrometerUtils.createMeterRegistry());
+        }
     }
 
     private static class MicrometerContextCustomizer implements CamelContextCustomizer {
