@@ -7,9 +7,9 @@ image:https://img.shields.io/badge/zulip-join_chat-brightgreen.svg["Chat on Zuli
 ==== CI Branch Status
 [width="50%"]
 |===
-|main | image:https://github.com/apache/camel-quarkus/workflows/Camel%20Quarkus%20CI/badge.svg?branch=master["Main Branch Build", link="https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22"]
-|camel-main | image:https://github.com/apache/camel-quarkus/workflows/Camel%20Quarkus%20CI/badge.svg?branch=camel-master["Camel Main Branch Build", link="https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22+branch%3Acamel-main"]
-|quarkus-main| image:https://github.com/apache/camel-quarkus/workflows/Camel%20Quarkus%20CI/badge.svg?branch=quarkus-master["Quarkus Main Branch Build", link="https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22+branch%3Aquarkus-main"]
+|main | image:https://github.com/apache/camel-quarkus/actions/workflows/ci-build.yaml/badge.svg?branch=main["Main Branch Build", link="https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22"]
+|camel-main | image:https://github.com/apache/camel-quarkus/actions/workflows/ci-build.yaml/badge.svg?branch=camel-main["Camel Main Branch Build", link="https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22+branch%3Acamel-main"]
+|quarkus-main| image:https://github.com/apache/camel-quarkus/actions/workflows/ci-build.yaml/badge.svg?branch=quarkus-main["Quarkus Main Branch Build", link="https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22+branch%3Aquarkus-main"]
 |===
 
 == What is this
@@ -19,7 +19,7 @@ This project hosts the efforts to port and package the 300+ Camel components as 
 http://camel.apache.org/[Apache Camel] is the Swiss knife of integrating heterogeneous systems with more than a decade
 of history and a lively community of users and developers.
 
-https://camel.apache.org/manual/getting-started.html[Getting started with Camel] is user guide to start with Camel in general. 
+https://camel.apache.org/manual/getting-started.html[Getting started with Camel] is user guide to start with Camel in general.
 
 https://quarkus.io/[Quarkus] is a Java platform offering fast boot times and low memory footprint. It targets both stock
 JVMs (OpenJDK in the first place) and https://www.graalvm.org/[GraalVM].
