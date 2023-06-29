@@ -16,6 +16,7 @@
 
 **Closed issues:**
 
+- Micrometer: Custom registry coverage is missing [\#5018](https://github.com/apache/camel-quarkus/issues/5018)
 - camel-quarkus-crypto: Add test coverage for raw keys [\#4979](https://github.com/apache/camel-quarkus/issues/4979)
 - Telegram: webhook is failing in 2.13.x [\#4961](https://github.com/apache/camel-quarkus/issues/4961)
 - Upgrade to Groovy 4 [\#4960](https://github.com/apache/camel-quarkus/issues/4960)
@@ -52,6 +53,8 @@
 
 **Merged pull requests:**
 
+- Fix image links for CI status badges [\#5022](https://github.com/apache/camel-quarkus/pull/5022) ([jamesnetherton](https://github.com/jamesnetherton))
+- Micrometer: Custom registry coverage is missing \#5018 [\#5019](https://github.com/apache/camel-quarkus/pull/5019) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix \#5016 to add a IBMMQ pooling test with quarkus-pooled-jms [\#5017](https://github.com/apache/camel-quarkus/pull/5017) ([zhfeng](https://github.com/zhfeng))
 - Upgrade to quarkus-cxf 2.2.0.CR1 [\#5015](https://github.com/apache/camel-quarkus/pull/5015) ([ppalaga](https://github.com/ppalaga))
 - Generated sources regen for SBOM [\#5013](https://github.com/apache/camel-quarkus/pull/5013) ([github-actions[bot]](https://github.com/apps/github-actions))
