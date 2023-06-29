@@ -57,7 +57,6 @@
                             <excludes>
                                 <exclude>support/**/*</exclude>
                                 <exclude>support/**/*</exclude>
-                                <exclude>groovy-dsl/pom.xml</exclude><!-- See https://github.com/apache/camel-quarkus/issues/4894 -->
                                 <exclude>master/pom.xml</exclude>
                                 <exclude>master-openshift/pom.xml</exclude>
                                 <exclude>master-file/pom.xml</exclude>
