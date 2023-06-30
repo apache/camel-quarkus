@@ -84,7 +84,6 @@
         <module>jt400</module>
         <module>ldif</module>
         <module>lucene</module>
-        <module>management</module>
         <module>mapstruct</module>
         <module>mvel</module>
         <module>printer</module>
