@@ -4,3 +4,11 @@ Since such serialization is not yet supported by GraalVM, this extension provide
 
 If your payload contains binary data, then you will need to handle that by creating a custom Jackson Serializer / Deserializer. Refer to the https://quarkus.io/guides/writing-extensions#customizing-jackson[Quarkus Jackson guide] for 
 information on how to do this.
+
+Currently it needs a work around in native building to introduce a native-image.properties file containing the following line:
+[source,properties]
+----
+Args = -H:+RunReachabilityHandlersConcurrently
+----
+
+Also this file needs to be in your application, e.g. `src/main/resources/META-INF/native-image/native-image.properties`

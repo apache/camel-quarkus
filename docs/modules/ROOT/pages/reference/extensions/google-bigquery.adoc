@@ -52,3 +52,15 @@ If you want to read SQL scripts from the classpath with `google-bigquery-sql` in
 then you will need to ensure that they are added to the native image via the `quarkus.native.resources.includes` configuration property.
 Please check https://quarkus.io/guides/building-native-image#quarkus-native-pkg-native-config_quarkus.native.resources.includes[Quarkus documentation] for more details.
 
+
+[id="extensions-google-bigquery-camel-quarkus-limitations"]
+== Camel Quarkus limitations
+
+Currently it needs a work around in native building to introduce a native-image.properties file containing the following line:
+[source,properties]
+----
+Args = -H:+RunReachabilityHandlersConcurrently
+----
+
+Also this file needs to be in your application, e.g. `src/main/resources/META-INF/native-image/native-image.properties`
+
