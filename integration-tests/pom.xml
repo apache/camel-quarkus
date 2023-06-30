@@ -172,7 +172,6 @@
         <module>mybatis</module>
         <module>nats</module>
         <module>netty</module>
-        <module>netty-http</module>
         <module>nitrite</module>
         <module>oaipmh</module>
         <module>ognl</module>

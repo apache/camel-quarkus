@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.netty.http.pojo;
+package org.apache.camel.quarkus.component.http.netty.pojo;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.xml.bind.annotation.XmlAccessType;

@@ -174,7 +174,6 @@ group-11:
   - jsonata
   - mustache
   - netty
-  - netty-http
   - qute
   - servlet
   - stringtemplate

@@ -14,10 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.netty.http;
+package org.apache.camel.quarkus.component.http.netty.it;
 
-import io.quarkus.test.junit.QuarkusIntegrationTest;
+import java.util.Map;
+import java.util.Objects;
 
-@QuarkusIntegrationTest
-public class NettyHttpJaasIT extends NettyHttpJaasTest {
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.apache.camel.quarkus.test.AvailablePortFinder;
+
+public class NettyHttpTestResource implements QuarkusTestResourceLifecycleManager {
+    @Override
+    public Map<String, String> start() {
+        return AvailablePortFinder.reserveNetworkPorts(
+                Objects::toString,
+                "camel.netty-http.port", "camel.netty-http.proxyPort", "camel.netty-http.restPort");
+    }
+
+    @Override
+    public void stop() {
+        AvailablePortFinder.releaseReservedPorts();
+    }
 }

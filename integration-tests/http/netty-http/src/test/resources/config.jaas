@@ -1,0 +1,3 @@
+Quarkus {
+   org.apache.camel.quarkus.component.http.netty.auth.JaasLoginModule required debug=true;
+};
