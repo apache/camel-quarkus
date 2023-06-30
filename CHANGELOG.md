@@ -10,12 +10,15 @@
 
 **Fixed bugs:**
 
+- Micrometer: SimpleMeterRegistry is not created if no other registry is defined [\#5023](https://github.com/apache/camel-quarkus/issues/5023)
 - \[Mandrel 23.0.0\] cxf-soap grouped integration tests native compilation fails [\#5008](https://github.com/apache/camel-quarkus/issues/5008)
+- Intermittent failure of test `CxfWsTrustTest.programmaticStsNotSet` [\#4988](https://github.com/apache/camel-quarkus/issues/4988)
 - \[Quarkus 3.2.0\] io.quarkus.arc.Priority has been removed [\#4983](https://github.com/apache/camel-quarkus/issues/4983)
 - Unable to generate REST API documentation when lightweight mode is enabled [\#2527](https://github.com/apache/camel-quarkus/issues/2527)
 
 **Closed issues:**
 
+- Micrometer: It is not necessary to produce JMXRegistry for the test [\#5030](https://github.com/apache/camel-quarkus/issues/5030)
 - Micrometer: Custom registry coverage is missing [\#5018](https://github.com/apache/camel-quarkus/issues/5018)
 - camel-quarkus-crypto: Add test coverage for raw keys [\#4979](https://github.com/apache/camel-quarkus/issues/4979)
 - Telegram: webhook is failing in 2.13.x [\#4961](https://github.com/apache/camel-quarkus/issues/4961)
@@ -53,7 +56,12 @@
 
 **Merged pull requests:**
 
+- Micrometer: It is not necessary to produce JMXRegistry for the test \#5030 [\#5031](https://github.com/apache/camel-quarkus/pull/5031) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Upgrade Quarkus to 3.2.0.Final [\#5027](https://github.com/apache/camel-quarkus/pull/5027) ([jamesnetherton](https://github.com/jamesnetherton))
+- Ref \#2800: Remove the addition of affinity for mac os [\#5025](https://github.com/apache/camel-quarkus/pull/5025) ([essobedo](https://github.com/essobedo))
+- Micrometer: SimpleMeterRegistry is not created if no other registry is defined \#5023 [\#5024](https://github.com/apache/camel-quarkus/pull/5024) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix image links for CI status badges [\#5022](https://github.com/apache/camel-quarkus/pull/5022) ([jamesnetherton](https://github.com/jamesnetherton))
+- Remove reserve-network-port execution for integration tests [\#5021](https://github.com/apache/camel-quarkus/pull/5021) ([jamesnetherton](https://github.com/jamesnetherton))
 - Micrometer: Custom registry coverage is missing \#5018 [\#5019](https://github.com/apache/camel-quarkus/pull/5019) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix \#5016 to add a IBMMQ pooling test with quarkus-pooled-jms [\#5017](https://github.com/apache/camel-quarkus/pull/5017) ([zhfeng](https://github.com/zhfeng))
 - Upgrade to quarkus-cxf 2.2.0.CR1 [\#5015](https://github.com/apache/camel-quarkus/pull/5015) ([ppalaga](https://github.com/ppalaga))
