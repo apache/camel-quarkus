@@ -1,0 +1,21 @@
+For information on using Managed Beans in Camel, consult the xref:manual::jmx.adoc[JMX section of the Camel Manual].
+
+=== Enabling and Disabling JMX
+
+JMX can be enabled or disabled in Camel-Quarkus by any of the following methods:
+
+. Adding or removing the `camel-quarkus-management` extension.
+. Setting the `camel.main.jmxEnabled` configuration property to a boolean value.
+. Setting the system property `-Dorg.apache.camel.jmx.disabled` to a boolean value.
+
+=== Native mode
+
+**Experimental** JMX support was added for native executables in GraalVM for JDK 17/20 / Mandrel 23.0. You can enable this feature by
+adding the following configuration property to `application.properties`.
+
+[source,properties]
+----
+quarkus.native.monitoring=jmxserver
+----
+
+For more information, refer to the https://quarkus.io/guides/building-native-image#using-monitoring-options[Quarkus native guide].

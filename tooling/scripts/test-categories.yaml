@@ -142,6 +142,7 @@ group-09:
   - kafka-sasl-ssl
   - kafka-ssl
   - paho
+  - management
   - nats
   - splunk
   - spring-rabbitmq
