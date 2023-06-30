@@ -14,45 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.netty.http;
+package org.apache.camel.quarkus.component.http.netty.it;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import io.restassured.response.ValidatableResponse;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-
-import static org.hamcrest.Matchers.is;
+import org.junit.jupiter.params.provider.CsvSource;
 
 @QuarkusTest
-@QuarkusTestResource(NettyHttpTestResource.class)
-public class NettyHttpRestTest {
+@QuarkusTestResource(NettyHttpJaasTestResource.class)
+public class NettyHttpJaasTest {
     @ParameterizedTest
-    @ValueSource(strings = { "GET", "POST", "PUT", "DELETE" })
-    public void testRest(String method) {
-        final ValidatableResponse response = RestAssured
-                .when()
-                .get("/netty/http/rest/{method}", method)
-                .then();
-        // DELETE is not defined in the routes, so the request should fail
-        if ("DELETE".equals(method)) {
-            response.statusCode(500);
-        } else {
-            response
-                    .statusCode(200)
-                    .body(is(method));
-        }
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = { "json", "xml" })
-    public void pojoTest(String type) {
+    @CsvSource({
+            "admin,wrongjaaspass,401",
+            "admin,adminjaaspass,200"
+    })
+    public void testJaas(String user, String password, int responseCode) {
         RestAssured
+                .given()
+                .queryParam("test-port", ConfigProvider.getConfig().getValue("camel.netty-http.port", Integer.class))
                 .when()
-                .get("/netty/http/rest/pojo/{type}", type)
+                .get("/test/client/netty-http/jaas/{user}/{password}", user, password)
                 .then()
-                .statusCode(200)
-                .body(is("Received: John Doe"));
+                .statusCode(responseCode);
     }
 }

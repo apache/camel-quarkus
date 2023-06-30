@@ -14,27 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.netty.http;
+package org.apache.camel.quarkus.component.http.netty.auth;
 
-import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import java.security.Principal;
 
-@QuarkusTest
-@QuarkusTestResource(NettyHttpJaasTestResource.class)
-public class NettyHttpJaasTest {
-    @ParameterizedTest
-    @CsvSource({
-            "admin,wrongjaaspass,401",
-            "admin,adminjaaspass,200"
-    })
-    public void testJaas(String user, String password, int responseCode) {
-        RestAssured
-                .when()
-                .get("/netty/http/jaas/{user}/{password}", user, password)
-                .then()
-                .statusCode(responseCode);
+public class TestRolePrincipal implements Principal {
+
+    private final String role;
+
+    public TestRolePrincipal(String role) {
+        this.role = role;
+    }
+
+    @Override
+    public String getName() {
+        return role;
     }
 }
