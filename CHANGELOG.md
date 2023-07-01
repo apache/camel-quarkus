@@ -11,7 +11,9 @@
 **Fixed bugs:**
 
 - Micrometer: SimpleMeterRegistry is not created if no other registry is defined [\#5023](https://github.com/apache/camel-quarkus/issues/5023)
+- \[Mandrel 23.0.0\] google-storage integration test native compilation fails [\#5010](https://github.com/apache/camel-quarkus/issues/5010)
 - \[Mandrel 23.0.0\] cxf-soap grouped integration tests native compilation fails [\#5008](https://github.com/apache/camel-quarkus/issues/5008)
+- \[Mandrel 23.0.0\] google-pubsub integration test native compilation fails [\#5007](https://github.com/apache/camel-quarkus/issues/5007)
 - Intermittent failure of test `CxfWsTrustTest.programmaticStsNotSet` [\#4988](https://github.com/apache/camel-quarkus/issues/4988)
 - \[Quarkus 3.2.0\] io.quarkus.arc.Priority has been removed [\#4983](https://github.com/apache/camel-quarkus/issues/4983)
 - Unable to generate REST API documentation when lightweight mode is enabled [\#2527](https://github.com/apache/camel-quarkus/issues/2527)
@@ -56,6 +58,8 @@
 
 **Merged pull requests:**
 
+- Re-enable google-pubsub and google-storage and add a workaround [\#5033](https://github.com/apache/camel-quarkus/pull/5033) ([zhfeng](https://github.com/zhfeng))
+- Upgrade to quarkus-cxf 2.2.0 [\#5032](https://github.com/apache/camel-quarkus/pull/5032) ([ppalaga](https://github.com/ppalaga))
 - Micrometer: It is not necessary to produce JMXRegistry for the test \#5030 [\#5031](https://github.com/apache/camel-quarkus/pull/5031) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade Quarkus to 3.2.0.Final [\#5027](https://github.com/apache/camel-quarkus/pull/5027) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ref \#2800: Remove the addition of affinity for mac os [\#5025](https://github.com/apache/camel-quarkus/pull/5025) ([essobedo](https://github.com/essobedo))
@@ -1891,6 +1895,7 @@
 - Aws2-sqs: Test with real account fails. [\#4389](https://github.com/apache/camel-quarkus/issues/4389)
 - Remove deprecated components: cmis and dozer [\#4377](https://github.com/apache/camel-quarkus/issues/4377)
 - Upgrade io.github.crac:org-crac because of missing license [\#4260](https://github.com/apache/camel-quarkus/issues/4260)
+- Re-use enforcer config from Quarkus [\#4071](https://github.com/apache/camel-quarkus/issues/4071)
 - jOOR language native support [\#2083](https://github.com/apache/camel-quarkus/issues/2083)
 - OGNL language native support [\#1748](https://github.com/apache/camel-quarkus/issues/1748)
 
