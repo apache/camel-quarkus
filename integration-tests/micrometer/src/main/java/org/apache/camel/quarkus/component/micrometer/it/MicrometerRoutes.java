@@ -17,8 +17,7 @@
 package org.apache.camel.quarkus.component.micrometer.it;
 
 import org.apache.camel.builder.RouteBuilder;
-
-import static org.apache.camel.component.micrometer.MicrometerConstants.HEADER_HISTOGRAM_VALUE;
+import org.apache.camel.component.micrometer.MicrometerConstants;
 
 public class MicrometerRoutes extends RouteBuilder {
 
@@ -34,7 +33,7 @@ public class MicrometerRoutes extends RouteBuilder {
                 .to("micrometerCustom:counter:camel-quarkus-custom-counter");
 
         from("direct:summary")
-                .setHeader(HEADER_HISTOGRAM_VALUE, simple("${body}"))
+                .setHeader(MicrometerConstants.HEADER_HISTOGRAM_VALUE, simple("${body}"))
                 .to("micrometer:summary:camel-quarkus-summary");
 
         from("direct:timer")
@@ -51,6 +50,10 @@ public class MicrometerRoutes extends RouteBuilder {
                 .when(simple("${header.number} == 1")).bean("testMetric", "call1")
                 .otherwise().bean("testMetric", "call2")
                 .end();
+
+        from("direct:jmxHistory")
+                .id("jmxHistory")
+                .log("log: ${body}");
 
     }
 }

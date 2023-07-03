@@ -58,22 +58,29 @@ Your application should declare the following dependency or  one of the dependen
 </dependency>
 ----
 
-If no dependency is declared, the Micrometer extension creates a SimpleMeterRegistry instance, suitable mainly for testing.
+If no dependency is declared, the Micrometer extension creates a `SimpleMeterRegistry` instance, suitable mainly for testing.
 
 
 [id="extensions-micrometer-camel-quarkus-limitations"]
 == Camel Quarkus limitations
 
-[id="extensions-micrometer-limitations-exposing-micrometer-statisctics-in-jmx"]
-=== Exposing Micrometer statisctics in JMX
+[id="extensions-micrometer-limitations-exposing-micrometer-statistics-in-jmx"]
+=== Exposing Micrometer statistics in JMX
 
-The `Exposing Micrometer statisctics in JMX` action is not available in native mode as JMX is not supported on GraalVM.
+Exposing Micrometer statistics in JMX is not available in native mode as `quarkus-micrometer-registry-jmx` does not
+have native support at present.
 
 [id="extensions-micrometer-limitations-decrement-header-for-counter-is-ignored-by-prometheus"]
 === Decrement header for Counter is ignored by Prometheus
 
 Prometheus backend ignores negative values during increment of Counter metrics.
 
+[id="extensions-micrometer-limitations-exposing-statistics-in-jmx"]
+=== Exposing statistics in JMX ===
+
+In {project-name}, registering a `JmxMeterRegistry` is simplified. Add a dependency for
+`io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-jmx` and a `JmxMeterRegistry` will automatically
+get created for you.
 
 
 [id="extensions-micrometer-additional-camel-quarkus-configuration"]
