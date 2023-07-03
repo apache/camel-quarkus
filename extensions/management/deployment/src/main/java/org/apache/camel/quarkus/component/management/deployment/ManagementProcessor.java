@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.management.deployment;
 
 import java.lang.reflect.Modifier;
+import java.rmi.NotBoundException;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -25,6 +26,7 @@ import java.util.stream.Stream;
 
 import javax.management.MBeanException;
 import javax.management.MBeanServerNotification;
+import javax.management.ObjectInstance;
 import javax.management.modelmbean.DescriptorSupport;
 import javax.management.modelmbean.ModelMBeanAttributeInfo;
 import javax.management.modelmbean.ModelMBeanInfoSupport;
@@ -69,7 +71,9 @@ class ManagementProcessor {
             ModelMBeanOperationInfo.class.getName(),
             MBeanException.class.getName(),
             MBeanServerNotification.class.getName(),
-            Object.class.getName()
+            NotBoundException.class.getName(),
+            Object.class.getName(),
+            ObjectInstance.class.getName(),
     };
 
     @BuildStep

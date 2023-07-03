@@ -137,6 +137,7 @@ group-08:
   - zendesk
 group-09:
   - amqp
+  - debug
   - ftp
   - graphql
   - kafka-sasl-ssl

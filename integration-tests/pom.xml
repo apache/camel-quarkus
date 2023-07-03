@@ -83,6 +83,7 @@
         <module>dataformats-json-grouped</module>
         <module>datasonnet</module>
         <module>debezium</module>
+        <module>debug</module>
         <module>digitalocean</module>
         <module>disruptor</module>
         <module>dropbox</module>
