@@ -1,0 +1,7 @@
+By default, the `debug` extension is automatically enabled in development mode. If you want to leverage debugging
+capabilities outside of development mode, you must set a configuration property as follows.
+
+[source,properties]
+----
+quarkus.camel.debug.enabled=true
+----
