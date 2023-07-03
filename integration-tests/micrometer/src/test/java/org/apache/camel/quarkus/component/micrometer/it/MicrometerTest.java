@@ -80,7 +80,7 @@ class MicrometerTest extends AbstractMicrometerTest {
                 .then()
                 .statusCode(200);
         //component with Quarkus's registry should still see only 1 from the first call
-        assertEquals(1, getMetricValue(Integer.class, "counter", "camel-quarkus-custom-counter", null, 200, null));
+        assertEquals(1, getMetricValue(Integer.class, "counter", "camel-quarkus-custom-counter"));
         //component with custom registry should be on 11 see only 1 from the first call
         assertEquals(11, getMetricValue(Integer.class, "counter", "camel-quarkus-custom-counter", null, 200, "custom"));
     }
@@ -193,9 +193,9 @@ class MicrometerTest extends AbstractMicrometerTest {
 
         assertEquals(result.size(), 2);
         assertTrue(result.containsKey("camel.routes.running"));
-        assertEquals(result.get("camel.routes.running"), "7.0");
+        assertEquals(result.get("camel.routes.running"), "8.0");
         assertTrue(result.containsKey("camel.routes.added"));
-        assertEquals(result.get("camel.routes.added"), "7.0");
+        assertEquals(result.get("camel.routes.added"), "8.0");
     }
 
     @ParameterizedTest
@@ -214,4 +214,47 @@ class MicrometerTest extends AbstractMicrometerTest {
                 .getValue();
         assertTrue(classes > 1);
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "metrics", "org.apache.camel.micrometer" }) //test uses domains from both default and custom JMX registries
+    @DisabledOnIntegrationTest // JMX is not supported in native mode
+    public void testJMXHistory(String domain) throws Exception {
+        //send a message to init history for the route with id `jmxHistory`
+        RestAssured.get("/micrometer/sendJmxHistory")
+                .then()
+                .statusCode(200);
+
+        String contextManagementName = RestAssured.get("/micrometer/getContextManagemetName")
+                .then()
+                .statusCode(200)
+                .extract().body().asString();
+
+        // get the message history service using JMX
+        String name = String.format("org.apache.camel:context=%s,type=services,name=MicrometerMessageHistoryService",
+                contextManagementName);
+
+        MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
+
+        ObjectName on = ObjectName.getInstance(name);
+
+        //return json result
+        String json = (String) mBeanServer.invoke(on, "dumpStatisticsAsJson", null, null);
+
+        assertTrue(json.contains("jmxHistory"));
+
+    }
+
+    @Test
+    public void testHistory() throws Exception {
+        JsonPath jsonPath = RestAssured.get("/micrometer/history")
+                .then()
+                .statusCode(200)
+                .extract().jsonPath();
+
+        //assert that jason contains some history paths
+        assertNotNull(jsonPath.get("timers"));
+        assertNotNull(jsonPath.get("counters"));
+        assertNotNull(jsonPath.get("gauges"));
+    }
+
 }

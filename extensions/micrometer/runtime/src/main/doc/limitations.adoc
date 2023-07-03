@@ -6,3 +6,9 @@ The `Exposing Micrometer statisctics in JMX` action is not available in native m
 
 Prometheus backend ignores negative values during increment of Counter metrics.
 
+=== Exposing statistics in JMX ===
+
+Micrometer extension leverages the Quarkus Micrometer extension. There is a difference in registering JMX registries (compared to the camel https://camel.apache.org/components/3.20.x/micrometer-component.html#_exposing_micrometer_statistics_in_jmx[doc]).
+
+Once the JMX dependency (`io.micrometer:micrometer-registry-jmx`) is added, Quarkus detects it, and creates a JMX registry with domain name `metrics`. Manual creation of JMX registry is not required.
+
