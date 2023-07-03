@@ -58,6 +58,8 @@
 
 **Merged pull requests:**
 
+- Generated sources regen for SBOM [\#5040](https://github.com/apache/camel-quarkus/pull/5040) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Bump quarkus-qpid-jms-bom from 2.2.0 to 2.3.0 [\#5039](https://github.com/apache/camel-quarkus/pull/5039) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Re-enable google-pubsub and google-storage and add a workaround [\#5033](https://github.com/apache/camel-quarkus/pull/5033) ([zhfeng](https://github.com/zhfeng))
 - Upgrade to quarkus-cxf 2.2.0 [\#5032](https://github.com/apache/camel-quarkus/pull/5032) ([ppalaga](https://github.com/ppalaga))
 - Micrometer: It is not necessary to produce JMXRegistry for the test \#5030 [\#5031](https://github.com/apache/camel-quarkus/pull/5031) ([JiriOndrusek](https://github.com/JiriOndrusek))
