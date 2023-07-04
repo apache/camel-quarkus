@@ -106,9 +106,9 @@
                                 </goals>
                                 <phase>integration-test</phase>
                                 <configuration>
-                                    <systemProperties>
+                                    <systemPropertyVariables>
                                         <quarkus.runner>${quarkus.runner}</quarkus.runner>
-                                    </systemProperties>
+                                    </systemPropertyVariables>
                                 </configuration>
                             </execution>
                         </executions>
@@ -141,9 +141,9 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <systemProperties>
+                            <systemPropertyVariables>
                                 <quarkus.runner>${quarkus.runner}</quarkus.runner>
-                            </systemProperties>
+                            </systemPropertyVariables>
                         </configuration>
                     </plugin>
                 </plugins>
