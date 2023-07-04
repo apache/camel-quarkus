@@ -6,6 +6,8 @@
 
 **Implemented enhancements:**
 
+- Add native support for camel-quarkus-debug [\#5042](https://github.com/apache/camel-quarkus/issues/5042)
+- Add native support for camel-quarkus-management [\#5029](https://github.com/apache/camel-quarkus/issues/5029)
 - Check IBM MQ client is working with quarkus-pooled-jms [\#5016](https://github.com/apache/camel-quarkus/issues/5016)
 
 **Fixed bugs:**
@@ -58,8 +60,11 @@
 
 **Merged pull requests:**
 
+- Add native support for camel-quarkus-debug [\#5043](https://github.com/apache/camel-quarkus/pull/5043) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#5040](https://github.com/apache/camel-quarkus/pull/5040) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump quarkus-qpid-jms-bom from 2.2.0 to 2.3.0 [\#5039](https://github.com/apache/camel-quarkus/pull/5039) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Add native support for camel-quarkus-management [\#5037](https://github.com/apache/camel-quarkus/pull/5037) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade Camel to 4.0.0-RC1 [\#5036](https://github.com/apache/camel-quarkus/pull/5036) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Re-enable google-pubsub and google-storage and add a workaround [\#5033](https://github.com/apache/camel-quarkus/pull/5033) ([zhfeng](https://github.com/zhfeng))
 - Upgrade to quarkus-cxf 2.2.0 [\#5032](https://github.com/apache/camel-quarkus/pull/5032) ([ppalaga](https://github.com/ppalaga))
 - Micrometer: It is not necessary to produce JMXRegistry for the test \#5030 [\#5031](https://github.com/apache/camel-quarkus/pull/5031) ([JiriOndrusek](https://github.com/JiriOndrusek))
