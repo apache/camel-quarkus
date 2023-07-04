@@ -135,9 +135,9 @@
                                 </goals>
                                 <phase>integration-test</phase>
                                 <configuration>
-                                    <systemProperties>
+                                    <systemPropertyVariables>
                                         <quarkus.runner>${quarkus.runner}</quarkus.runner>
-                                    </systemProperties>
+                                    </systemPropertyVariables>
                                     <environmentVariables>
                                         <!-- Fake KubernetesClusterService so it assumes being run from a pod named leader  -->
                                         <HOSTNAME>leader</HOSTNAME>
@@ -174,9 +174,9 @@
                              </execution>
                          </executions>
                          <configuration>
-                             <systemProperties>
+                             <systemPropertyVariables>
                                  <quarkus.runner>${quarkus.runner}</quarkus.runner>
-                             </systemProperties>
+                             </systemPropertyVariables>
                              <environmentVariables>
                                  Fake KubernetesClusterService so it assumes being run from a pod named leader  &gt;
                                  <HOSTNAME>leader</HOSTNAME>

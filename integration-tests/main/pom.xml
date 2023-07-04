@@ -119,9 +119,9 @@
                                 </goals>
                                 <phase>integration-test</phase>
                                 <configuration>
-                                    <systemProperties>
+                                    <systemPropertyVariables>
                                         <quarkus.test.profile>staging</quarkus.test.profile>
-                                    </systemProperties>
+                                    </systemPropertyVariables>
                                 </configuration>
                             </execution>
                         </executions>
