@@ -197,8 +197,7 @@
         <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
         <maven-scm-plugin.version>2.0.0</maven-scm-plugin.version>
         <maven-shade-plugin.version>3.5.0</maven-shade-plugin.version>
-        <!-- NOTE: We pin to this version due to https://github.com/apache/camel-quarkus/issues/723 -->
-        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
         <os-maven-plugin.version>${os-maven-plugin-version}</os-maven-plugin.version>
         <protobuf-maven-plugin.version>${protobuf-maven-plugin-version}</protobuf-maven-plugin.version>
         <rpkgtests-maven-plugin.version>1.0.0</rpkgtests-maven-plugin.version>
