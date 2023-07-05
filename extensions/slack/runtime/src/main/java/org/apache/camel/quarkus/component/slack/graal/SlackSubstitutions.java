@@ -30,9 +30,12 @@ import com.slack.api.audit.AuditConfig;
 import com.slack.api.methods.MethodsConfig;
 import com.slack.api.rate_limits.metrics.MetricsDatastore;
 import com.slack.api.scim.SCIMConfig;
+import com.slack.api.scim2.SCIM2Config;
 import com.slack.api.util.http.listener.DetailedLoggingListener;
 import com.slack.api.util.http.listener.HttpResponseListener;
 import com.slack.api.util.http.listener.ResponsePrettyPrintingListener;
+import com.slack.api.util.thread.DaemonThreadExecutorServiceProvider;
+import com.slack.api.util.thread.ExecutorServiceProvider;
 
 import static com.oracle.svm.core.annotate.RecomputeFieldValue.Kind.Reset;
 
@@ -161,13 +164,54 @@ final class SlackConfigSubstitutions {
     };
 
     @Alias
-    private List<HttpResponseListener> httpClientResponseHandlers = new ArrayList<>();
+    @RecomputeFieldValue(kind = Reset)
+    private SCIM2Config sCIM2Config = new SCIM2Config() {
+        void throwException() {
+            throw new UnsupportedOperationException("This config is immutable");
+        }
+
+        @Override
+        public void setStatsEnabled(boolean statsEnabled) {
+            throwException();
+        }
+
+        @Override
+        public void setExecutorName(String executorName) {
+            throwException();
+        }
+
+        @Override
+        public void setMaxIdleMills(int maxIdleMills) {
+            throwException();
+        }
+
+        @Override
+        public void setDefaultThreadPoolSize(int defaultThreadPoolSize) {
+            throwException();
+        }
+
+        @Override
+        public void setMetricsDatastore(MetricsDatastore metricsDatastore) {
+            throwException();
+        }
+
+        @Override
+        public void setCustomThreadPoolSizes(Map<String, Integer> customThreadPoolSizes) {
+            throwException();
+        }
+    };
+
+    @Alias
+    private ExecutorServiceProvider executorServiceProvider;
+    @Alias
+    private List<HttpResponseListener> httpClientResponseHandlers = new ArrayList();
 
     @Substitute
     @TargetElement(name = "SlackConfig")
     public SlackConfigSubstitutions() {
         httpClientResponseHandlers.add(new DetailedLoggingListener());
         httpClientResponseHandlers.add(new ResponsePrettyPrintingListener());
+        executorServiceProvider = DaemonThreadExecutorServiceProvider.getInstance();
     }
 }
 
@@ -193,4 +237,12 @@ final class SCIMConfigSubstitutions {
     @Alias
     @RecomputeFieldValue(kind = Reset)
     public static SCIMConfig DEFAULT_SINGLETON = null;
+}
+
+@TargetClass(SCIM2Config.class)
+final class SCIM2ConfigSubstitutions {
+
+    @Alias
+    @RecomputeFieldValue(kind = Reset)
+    public static SCIM2Config DEFAULT_SINGLETON = null;
 }

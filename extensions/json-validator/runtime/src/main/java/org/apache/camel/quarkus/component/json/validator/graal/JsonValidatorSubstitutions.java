@@ -19,16 +19,10 @@ package org.apache.camel.quarkus.component.json.validator.graal;
 import java.lang.reflect.Constructor;
 import java.util.function.BooleanSupplier;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.networknt.schema.JsonSchema;
-import com.networknt.schema.JsonValidator;
-import com.networknt.schema.PatternValidator;
 import com.networknt.schema.ValidationContext;
-import com.oracle.svm.core.annotate.Alias;
-import com.oracle.svm.core.annotate.Delete;
+import com.networknt.schema.regex.RegularExpression;
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
-import com.oracle.svm.core.annotate.TargetElement;
 
 /**
  * Removes references to PatternValidatorEcma262Deletion, which requires optional org.jruby.joni:joni
@@ -36,34 +30,25 @@ import com.oracle.svm.core.annotate.TargetElement;
 public class JsonValidatorSubstitutions {
 }
 
-@TargetClass(value = PatternValidator.class, onlyWith = IsJoniAbsent.class)
-final class PatternValidatorSubstitutions {
-    @Alias
-    private JsonValidator delegate;
-    @Alias
-    private ValidationContext validationContext;
+@TargetClass(value = RegularExpression.class, onlyWith = IsJoniAbsent.class)
+@Substitute
+interface RegularExpressionSubstitutions {
+    @Substitute
+    boolean matches(String value);
 
     @Substitute
-    @TargetElement(name = TargetElement.CONSTRUCTOR_NAME)
-    public PatternValidatorSubstitutions(String schemaPath, JsonNode schemaNode, JsonSchema parentSchema,
-            ValidationContext validationContext) {
+    static RegularExpression compile(String regex, ValidationContext validationContext) {
+        if (null == regex)
+            return s -> true;
         try {
-            Class<?> clazz = Class.forName("com.networknt.schema.PatternValidator$PatternValidatorJava");
-            Constructor<?> constructor = clazz.getDeclaredConstructor(String.class, JsonNode.class, JsonSchema.class,
-                    ValidationContext.class);
+            Class<?> clazz = Class.forName("com.networknt.schema.regex.JDKRegularExpression");
+            Constructor<?> constructor = clazz.getDeclaredConstructor(String.class);
 
-            this.validationContext = validationContext;
-            this.delegate = (JsonValidator) constructor.newInstance(schemaPath, schemaNode, parentSchema,
-                    validationContext);
+            return (RegularExpression) constructor.newInstance(regex);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-}
-
-@TargetClass(className = "com.networknt.schema.PatternValidator$PatternValidatorEcma262", onlyWith = IsJoniAbsent.class)
-@Delete
-final class PatternValidatorEcma262Deletion {
 }
 
 final class IsJoniAbsent implements BooleanSupplier {

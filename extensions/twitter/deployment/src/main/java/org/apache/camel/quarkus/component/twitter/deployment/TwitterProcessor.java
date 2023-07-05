@@ -25,7 +25,7 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.apache.camel.component.twitter.AbstractTwitterComponent;
-import twitter4j.auth.OAuthAuthorization;
+import twitter4j.OAuthAuthorization;
 
 class TwitterProcessor {
     private static final String FEATURE = "camel-twitter";

@@ -20,9 +20,13 @@ import java.util.stream.Stream;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceDirectoryBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 
 class IcalProcessor {
 
@@ -55,6 +59,24 @@ class IcalProcessor {
                 "zoneinfo/Indian",
                 "zoneinfo/Pacific")
                 .forEach(path -> nativeResourceDirs.produce(new NativeImageResourceDirectoryBuildItem(path)));
+    }
+
+    @BuildStep
+    void registerWsSecurityReflectionItems(CombinedIndexBuildItem combinedIndexBuildItem,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+        reflectiveClass
+                .produce(ReflectiveClassBuildItem.builder("net.fortuna.ical4j.util.MapTimeZoneCache").methods(true).build());
+    }
+
+    @BuildStep
+    IndexDependencyBuildItem registerDependencyForIndex() {
+        return new IndexDependencyBuildItem("org.mnode.ical4j", "ical4j");
+    }
+
+    @BuildStep
+    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
+        runtimeInitializedClass
+                .produce(new RuntimeInitializedClassBuildItem("net.fortuna.ical4j.validate.schema.JsonSchemaValidator"));
     }
 
 }

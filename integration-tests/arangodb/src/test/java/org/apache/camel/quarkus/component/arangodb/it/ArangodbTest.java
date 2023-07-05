@@ -19,22 +19,19 @@ package org.apache.camel.quarkus.component.arangodb.it;
 import com.arangodb.ArangoCollection;
 import com.arangodb.ArangoDB;
 import com.arangodb.ArangoDatabase;
-import com.arangodb.DbName;
 import com.arangodb.entity.BaseDocument;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.Matchers.both;
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 @QuarkusTestResource(ArangodbTestResource.class)
@@ -47,29 +44,23 @@ class ArangodbTest {
     @Test
     public void testCreateGetDeleteDocument() {
         // create a new document
-        RequestSpecification request = RestAssured.given()
+        String key = RestAssured.given()
                 .contentType(ContentType.TEXT)
-                .body("{\"foo\":\"bar\"}");
-        Response response = request.put("/arangodb/camel");
+                .body("foo:bar")
+                .put("/arangodb")
+                .then()
+                .statusCode(201)
+                .extract().body().asString();
 
-        int statusCode = response.getStatusCode();
-        assertEquals(201, statusCode);
-        // getting key of the document inserted
-        String key = response.body().asString().trim();
-
-        // get the document by key
-        request = RestAssured.given()
-                .contentType(ContentType.TEXT);
-        response = request.get("/arangodb/camel/" + key);
-        statusCode = response.getStatusCode();
-        assertEquals(200, statusCode);
-        String document = response.body().asString().trim();
-        assertTrue(document.contains("\"foo\":\"bar\""));
+        RestAssured.get("/arangodb/" + key)
+                .then()
+                .statusCode(200)
+                .body(containsString("foo:bar"));
 
         // delete document
         RestAssured.given()
                 .contentType(ContentType.TEXT)
-                .delete("/arangodb/camel/" + key)
+                .delete("/arangodb/" + key)
                 .then()
                 .statusCode(200);
 
@@ -89,19 +80,16 @@ class ArangodbTest {
         // udpate document
         RestAssured.given()
                 .contentType(ContentType.TEXT)
-                .body("{\"key\":\"myKey\",\"foo\":\"hello\", \"gg\":\"42\"}")
-                .post("/arangodb/camel/myKey")
+                .body("key:myKey,foo:hello,gg:42")
+                .post("/arangodb/myKey")
                 .then()
                 .statusCode(200);
 
         // get document by key
-        RequestSpecification request = RestAssured.given()
-                .contentType(ContentType.TEXT);
-        Response response = request.get("/arangodb/camel/myKey");
-        assertEquals(200, response.getStatusCode());
-        String document = response.body().asString().trim();
-        assertTrue(document.contains("\"foo\":\"hello\""));
-        assertTrue(document.contains("\"gg\":\"42\""));
+        RestAssured.get("/arangodb/myKey")
+                .then()
+                .statusCode(200)
+                .body(both(containsString("foo:hello")).and(containsString("gg:42")));
     }
 
     @Test
@@ -118,21 +106,15 @@ class ArangodbTest {
         myObject2.addAttribute("foo", "bar2");
         collection.insertDocument(myObject2);
 
-        // get document with foo = bar1
-        RequestSpecification request = RestAssured.given()
-                .contentType(ContentType.TEXT);
-        Response response = request.get("/arangodb/camel/foo/bar1");
-        assertEquals(200, response.getStatusCode());
-        String result = response.body().asString();
-        assertTrue(result.contains("\"_key\":\"keyBar1\""));
+        RestAssured.get("/arangodb/foo/bar1")
+                .then()
+                .statusCode(200)
+                .body(containsString("_key:keyBar1"));
 
-        //get document with foo = bar2
-        request = RestAssured.given()
-                .contentType(ContentType.TEXT);
-        response = request.get("/arangodb/camel/foo/bar2");
-        assertEquals(200, response.getStatusCode());
-        result = response.body().asString().trim();
-        assertTrue(result.contains("\"_key\":\"keyBar2\""));
+        RestAssured.get("/arangodb/foo/bar2")
+                .then()
+                .statusCode(200)
+                .body(containsString("_key:keyBar2"));
     }
 
     @BeforeAll
@@ -140,8 +122,8 @@ class ArangodbTest {
         String host = ConfigProvider.getConfig().getValue("camel.arangodb.host", String.class);
         Integer port = ConfigProvider.getConfig().getValue("camel.arangodb.port", Integer.class);
         arangoDb = new ArangoDB.Builder().host(host, port).build();
-        arangoDb.createDatabase(DbName.of(DATABASE_NAME));
-        ArangoDatabase arangoDatabase = arangoDb.db(DbName.of(DATABASE_NAME));
+        arangoDb.createDatabase(DATABASE_NAME);
+        ArangoDatabase arangoDatabase = arangoDb.db(DATABASE_NAME);
         arangoDatabase.createCollection(COLLECTION_NAME);
         collection = arangoDatabase.collection(COLLECTION_NAME);
     }

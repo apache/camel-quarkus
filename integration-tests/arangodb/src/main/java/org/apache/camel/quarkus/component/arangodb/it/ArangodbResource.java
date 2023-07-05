@@ -17,13 +17,15 @@
 package org.apache.camel.quarkus.component.arangodb.it;
 
 import java.net.URI;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import com.arangodb.entity.BaseDocument;
 import com.arangodb.entity.DocumentCreateEntity;
 import com.arangodb.entity.DocumentDeleteEntity;
-import com.arangodb.util.MapBuilder;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -37,6 +39,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.ProducerTemplate;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
 
 import static org.apache.camel.component.arangodb.ArangoDbConstants.AQL_QUERY;
@@ -45,7 +48,7 @@ import static org.apache.camel.component.arangodb.ArangoDbConstants.AQL_QUERY_OP
 import static org.apache.camel.component.arangodb.ArangoDbConstants.ARANGO_KEY;
 import static org.apache.camel.component.arangodb.ArangoDbConstants.RESULT_CLASS_TYPE;
 
-@Path("/arangodb/camel")
+@Path("/arangodb")
 @ApplicationScoped
 public class ArangodbResource {
 
@@ -54,14 +57,20 @@ public class ArangodbResource {
     @Inject
     ProducerTemplate producerTemplate;
 
+    @ConfigProperty(name = "camel.arangodb.host")
+    String host;
+
+    @ConfigProperty(name = "camel.arangodb.port")
+    String port;
+
     @PUT
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public Response put(String message) throws Exception {
         LOG.infof("Saving to arangodb: %s", message);
         final DocumentCreateEntity<?> response = producerTemplate.requestBody(
-                "arangodb:test?host={{camel.arangodb.host}}&port={{camel.arangodb.port}}&documentCollection=camel&operation=SAVE_DOCUMENT",
-                message, DocumentCreateEntity.class);
+                String.format("arangodb:test?host=%s&port=%s&documentCollection=camel&operation=SAVE_DOCUMENT", host, port),
+                toDocument(message), DocumentCreateEntity.class);
         LOG.infof("Got response from arangodb: %s", response);
         return Response
                 .created(new URI("https://camel.apache.org/"))
@@ -74,13 +83,13 @@ public class ArangodbResource {
     @Produces(MediaType.TEXT_PLAIN)
     public Response get(@PathParam("key") String key) throws Exception {
         LOG.infof("Retrieve document from arangodb with key: %s", key);
-        final String response = producerTemplate.requestBodyAndHeader(
+        final BaseDocument response = producerTemplate.requestBodyAndHeader(
                 "arangodb:test?host={{camel.arangodb.host}}&port={{camel.arangodb.port}}&documentCollection=camel&operation=FIND_DOCUMENT_BY_KEY",
-                key, RESULT_CLASS_TYPE, String.class, String.class);
+                key, RESULT_CLASS_TYPE, BaseDocument.class, BaseDocument.class);
         LOG.infof("Got response from arangodb: %s", response);
         return Response
                 .ok()
-                .entity(response)
+                .entity(toString(response))
                 .build();
     }
 
@@ -108,7 +117,7 @@ public class ArangodbResource {
 
         producerTemplate.requestBodyAndHeaders(
                 "arangodb:test?host={{camel.arangodb.host}}&port={{camel.arangodb.port}}&documentCollection=camel&operation=UPDATE_DOCUMENT",
-                msg, headers, String.class);
+                toDocument(msg), headers, String.class);
         return Response
                 .ok()
                 .build();
@@ -121,22 +130,45 @@ public class ArangodbResource {
         LOG.infof("Retrieve document from arangodb with foo: %s", fooName);
 
         String query = "FOR t IN camel FILTER t.foo == @foo RETURN t";
-        Map<String, Object> bindVars = new MapBuilder().put("foo", fooName)
-                .get();
+        Map<String, Object> bindVars = Map.of("foo", fooName);
 
         Map<String, Object> headers = new HashMap<>();
         headers.put(AQL_QUERY, query);
         headers.put(AQL_QUERY_BIND_PARAMETERS, bindVars);
         headers.put(AQL_QUERY_OPTIONS, null);
-        headers.put(RESULT_CLASS_TYPE, String.class);
+        headers.put(RESULT_CLASS_TYPE, Map.class);
 
-        final Collection<?> responseList = producerTemplate.requestBodyAndHeaders(
+        final List o = producerTemplate.requestBodyAndHeaders(
                 "arangodb:test?host={{camel.arangodb.host}}&port={{camel.arangodb.port}}&operation=AQL_QUERY",
-                fooName, headers, Collection.class);
+                fooName, headers, List.class);
 
         return Response
                 .ok()
-                .entity(responseList.toString())
+                .entity(toString(o))
                 .build();
+    }
+
+    private BaseDocument toDocument(String msg) {
+        BaseDocument myObject = new BaseDocument();
+        Arrays.stream(msg.split(",")).map(pair -> pair.split(":"))
+                .forEach(strings -> myObject.addAttribute(strings[0], strings[1]));
+        return myObject;
+    }
+
+    private String toString(Object o) {
+        if (o instanceof List && ((List) o).size() == 1 && ((List) o).get(0) instanceof Map) {
+            return toString(((List) o).get(0));
+        }
+
+        if (o instanceof Map) {
+            return (String) ((Map) o).entrySet().stream()
+                    .map(e -> ((Map.Entry) e).getKey() + ":" + ((Map.Entry) e).getValue())
+                    .collect(Collectors.joining(","));
+        }
+
+        if (o instanceof BaseDocument) {
+            return toString(((BaseDocument) o).getProperties());
+        }
+        return o.toString();
     }
 }
