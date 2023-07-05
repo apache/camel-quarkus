@@ -14,21 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.debug;
+package org.apache.camel.quarkus.component.debug.it;
 
-import io.quarkus.runtime.annotations.ConfigPhase;
-import io.quarkus.runtime.annotations.ConfigRoot;
+import org.apache.camel.builder.RouteBuilder;
 
-@ConfigRoot(name = "camel.debug", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
-public class DebugConfig {
-    /**
-     * Set whether to enable Camel debugging support.
-     */
-    public boolean enabled;
+public class DebugRoutes extends RouteBuilder {
 
-    /**
-     * Indicates whether the <i>suspend mode</i> is enabled or not. If {@code true} the message processing is
-     * immediately suspended until the method {@code attach()} is called.
-     */
-    public boolean suspend;
+    @Override
+    public void configure() {
+        getContext().setUseBreadcrumb(false);
+        getContext().setDebugging(true);
+        getContext().setMessageHistory(true);
+        from("direct:start")
+                .log("Processing");
+    }
 }

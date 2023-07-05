@@ -21,7 +21,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -59,6 +61,8 @@ public class CamelSerializationProcessor {
             StackTraceElement[].class.getName(),
             String.class.getName(),
             Throwable.class.getName(),
+            HashSet.class.getName(),
+            LinkedHashSet.class.getName(),
 
             // Camel classes
             CamelExecutionException.class.getName(),

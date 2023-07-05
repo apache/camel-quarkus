@@ -82,6 +82,12 @@ quarkus.camel.debug.enabled=true
 
 | `boolean`
 | `false`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.debug.suspend]]`link:#quarkus.camel.debug.suspend[quarkus.camel.debug.suspend]`
+
+
+| `boolean`
+| `false`
 |===
 
 [.configuration-legend]
