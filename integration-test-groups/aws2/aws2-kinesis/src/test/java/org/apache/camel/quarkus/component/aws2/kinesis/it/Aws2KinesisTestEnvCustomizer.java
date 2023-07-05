@@ -79,6 +79,8 @@ public class Aws2KinesisTestEnvCustomizer implements Aws2TestEnvCustomizer {
     public void customize(Aws2TestEnvContext envContext) {
 
         final String streamName = "camel-quarkus-" + RandomStringUtils.randomAlphanumeric(16).toLowerCase(Locale.ROOT);
+        final String streamNameForDefaultCredentials = "camel-quarkus-"
+                + RandomStringUtils.randomAlphanumeric(16).toLowerCase(Locale.ROOT);
         final String streamArn;
         {
             envContext.property("aws-kinesis.stream-name", streamName);
@@ -97,6 +99,19 @@ public class Aws2KinesisTestEnvCustomizer implements Aws2TestEnvCustomizer {
             }
 
             envContext.closeable(() -> client.deleteStream(DeleteStreamRequest.builder().streamName(streamName).build()));
+        }
+
+        {
+            envContext.property("aws-kinesis.stream-name-for-default-credentials", streamNameForDefaultCredentials);
+            final KinesisClient client = envContext.client(Service.KINESIS, KinesisClient::builder);
+            client.createStream(
+                    CreateStreamRequest.builder()
+                            .shardCount(1)
+                            .streamName(streamNameForDefaultCredentials)
+                            .build());
+
+            envContext.closeable(() -> client
+                    .deleteStream(DeleteStreamRequest.builder().streamName(streamNameForDefaultCredentials).build()));
         }
 
         {

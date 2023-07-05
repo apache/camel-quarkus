@@ -25,7 +25,7 @@
         <title>Test entry title 1</title>
         <link href="https://camel.apache.org/test-entry-1"/>
         <updated>2020-09-01T00:00:00Z</updated>
-        <summary>Test entry summary 1</summary>
+        <comments>Test entry comments 1</comments>
         <content type="text">Test entry content 1</content>
         <author>
             <name>Apache Camel</name>
@@ -35,7 +35,7 @@
         <title>Test entry title 2</title>
         <link href="https://camel.apache.org/test-entry-2"/>
         <updated>2020-09-02T00:00:00Z</updated>
-        <summary>Test entry summary 2</summary>
+        <comments>Test entry comments 2</comments>
         <content type="text">Test entry content 2</content>
         <author>
             <name>Apache Camel</name>
@@ -45,7 +45,7 @@
         <title>Test entry title 3</title>
         <link href="https://camel.apache.org/test-entry-3"/>
         <updated>2020-09-03T00:00:00Z</updated>
-        <summary>Test entry summary 3</summary>
+        <comments>Test entry comments 3</comments>
         <content type="text">Test entry content 3</content>
         <author>
             <name>Apache Camel</name>

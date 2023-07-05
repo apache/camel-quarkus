@@ -71,8 +71,7 @@
 
 
     <profiles>
-        <!--temporarily disabled because of https://github.com/apache/camel-quarkus/issues/5092-->
-        <!--<profile>
+        <profile>
             <id>native</id>
             <activation>
                 <property>
@@ -98,7 +97,7 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>-->
+        </profile>
         <profile>
             <id>virtualDependencies</id>
             <activation>

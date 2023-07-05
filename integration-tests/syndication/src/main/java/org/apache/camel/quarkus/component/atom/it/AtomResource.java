@@ -16,6 +16,9 @@
  */
 package org.apache.camel.quarkus.component.atom.it;
 
+import java.util.List;
+
+import com.apptasticsoftware.rssreader.Item;
 import jakarta.inject.Inject;
 import jakarta.json.Json;
 import jakarta.json.JsonArrayBuilder;
@@ -26,8 +29,6 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
-import org.apache.abdera.model.Entry;
-import org.apache.abdera.model.Feed;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.atom.AtomConstants;
@@ -43,27 +44,19 @@ public class AtomResource {
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject consumeAtomFeed(@QueryParam("test-port") int port) throws Exception {
         Exchange exchange = consumerTemplate.receive("atom://http://localhost:" + port + "/atom.xml?splitEntries=false");
-        Feed feed = exchange.getMessage().getHeader(AtomConstants.ATOM_FEED, Feed.class);
+        List<Item> feed = exchange.getIn().getHeader(AtomConstants.ATOM_FEED, List.class);
+        JsonArrayBuilder atom = Json.createArrayBuilder();
 
-        JsonObjectBuilder atom = Json.createObjectBuilder();
-        atom.add("title", feed.getTitle());
-        atom.add("subtitle", feed.getSubtitle());
-        atom.add("link", feed.getLinks().get(0).getHref().toASCIIString());
-
-        JsonArrayBuilder entries = Json.createArrayBuilder();
-
-        for (Entry entry : feed.getEntries()) {
+        for (Item entry : feed) {
             JsonObjectBuilder atomEntry = Json.createObjectBuilder();
-            atomEntry.add("title", entry.getTitle());
-            atomEntry.add("link", entry.getLinks().get(0).getHref().toASCIIString());
-            atomEntry.add("summary", entry.getSummary());
-            atomEntry.add("content", entry.getContent());
-            atomEntry.add("author", entry.getAuthor().getName());
-            entries.add(atomEntry);
+            atomEntry.add("title", entry.getTitle().get());
+            atomEntry.add("link", entry.getLink().get());
+            atomEntry.add("comments", entry.getComments().get());
+            atomEntry.add("description", entry.getDescription().get());
+            atomEntry.add("author", entry.getAuthor().get());
+            atom.add(atomEntry);
         }
 
-        atom.add("entries", entries.build());
-
-        return atom.build();
+        return Json.createObjectBuilder().add("entries", atom.build()).build();
     }
 }

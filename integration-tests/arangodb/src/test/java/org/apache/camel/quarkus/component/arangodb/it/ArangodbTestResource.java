@@ -32,7 +32,7 @@ public class ArangodbTestResource implements QuarkusTestResourceLifecycleManager
     private static final Logger LOGGER = LoggerFactory.getLogger(ArangodbTestResource.class);
     private GenericContainer<?> container;
     private static final String CONTAINER_NAME = "arango";
-    private static final String ARANGO_IMAGE = "arangodb:latest";
+    private static final String ARANGO_IMAGE = "arangodb:3.10.9";
     private static final String ARANGO_NO_AUTH = "ARANGO_NO_AUTH";
     private static final Integer PORT_DEFAULT = 8529;
 

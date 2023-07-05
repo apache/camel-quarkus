@@ -32,6 +32,9 @@ public class Aws2KinesisRoutes extends RouteBuilder {
     @ConfigProperty(name = "aws-kinesis.stream-name")
     String streamName;
 
+    @ConfigProperty(name = "aws-kinesis.stream-name-for-default-credentials")
+    String streamNameForDefaultCredentials;
+
     @Inject
     @Named("aws2KinesisMessages")
     Queue<String> aws2KinesisMessages;
@@ -40,9 +43,15 @@ public class Aws2KinesisRoutes extends RouteBuilder {
         return "aws2-kinesis://" + streamName;
     }
 
+    private String componentUriForDefaultCredentials() {
+        return "aws2-kinesis://" + streamNameForDefaultCredentials;
+    }
+
     @Override
     public void configure() throws Exception {
         from(componentUri())
+                .process(exchange -> aws2KinesisMessages.add(exchange.getMessage().getBody(String.class)));
+        from(componentUriForDefaultCredentials())
                 .process(exchange -> aws2KinesisMessages.add(exchange.getMessage().getBody(String.class)));
     }
 

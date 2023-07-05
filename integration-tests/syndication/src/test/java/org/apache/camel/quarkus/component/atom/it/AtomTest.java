@@ -40,20 +40,16 @@ class AtomTest {
                 .body()
                 .jsonPath();
 
-        assertEquals("Camel Quarkus Test Feed Title", json.getString("title"));
-        assertEquals("Camel Quarkus Test Feed Subtitle", json.getString("subtitle"));
-        assertEquals("https://camel.apache.org", json.getString("link"));
-
         List<LinkedHashMap<String, String>> entries = json.getList("entries");
         assertEquals(3, entries.size());
 
         for (int i = 0; i < entries.size(); i++) {
             LinkedHashMap<String, String> entry = entries.get(i);
-            int index = i + 1;
+            int index = 3 - i;
             assertEquals("Test entry title " + index, entry.get("title"));
             assertEquals("https://camel.apache.org/test-entry-" + index, entry.get("link"));
-            assertEquals("Test entry summary " + index, entry.get("summary"));
-            assertEquals("Test entry content " + index, entry.get("content"));
+            assertEquals("Test entry comments " + index, entry.get("comments"));
+            assertEquals("Test entry content " + index, entry.get("description"));
             assertEquals("Apache Camel", entry.get("author"));
         }
     }

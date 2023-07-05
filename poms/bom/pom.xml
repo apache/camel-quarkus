@@ -2000,6 +2000,14 @@
                         <groupId>org.optaplanner</groupId>
                         <artifactId>optaplanner-core</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>org.optaplanner</groupId>
+                        <artifactId>optaplanner-core-impl</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.optaplanner</groupId>
+                        <artifactId>optaplanner-persistence-common</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -6085,6 +6093,11 @@
             </dependency>
             <dependency>
                 <groupId>com.github.jnr</groupId>
+                <artifactId>jnr-constants</artifactId>
+                <version>${jnr-constants.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.jnr</groupId>
                 <artifactId>jnr-ffi</artifactId>
                 <version>${jnr-ffi.version}</version>
             </dependency>
@@ -6502,6 +6515,17 @@
                 <groupId>org.apache.kudu</groupId>
                 <artifactId>kudu-client</artifactId>
                 <version>${kudu.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.pdfbox</groupId>
+                <artifactId>fontbox</artifactId>
+                <version>${pdfbox.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.xmlgraphics</groupId>

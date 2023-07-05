@@ -45,6 +45,9 @@ public class Aws2KinesisResource extends BaseAws2Resource {
     @ConfigProperty(name = "aws-kinesis.stream-name")
     String streamName;
 
+    @ConfigProperty(name = "aws-kinesis.stream-name-for-default-credentials")
+    String streamNameForDefaultCredentials;
+
     @Inject
     ProducerTemplate producerTemplate;
 
@@ -81,7 +84,8 @@ public class Aws2KinesisResource extends BaseAws2Resource {
     }
 
     private String componentUri() {
-        return "aws2-kinesis://" + streamName + "?useDefaultCredentialsProvider=" + isUseDefaultCredentials();
+        return "aws2-kinesis://" + (isUseDefaultCredentials() ? streamNameForDefaultCredentials : streamName)
+                + "?useDefaultCredentialsProvider=" + isUseDefaultCredentials();
     }
 
 }
