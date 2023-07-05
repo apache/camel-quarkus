@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.debug.it;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.management.JMX;
 import javax.management.MBeanServerConnection;
 import javax.management.ObjectInstance;
 import javax.management.ObjectName;
@@ -29,6 +30,7 @@ import javax.management.remote.JMXServiceURL;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.ServiceStatus;
+import org.apache.camel.api.management.mbean.ManagedBacklogDebuggerMBean;
 import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.component.debug.JmxConnectorService.DEFAULT_HOST;
@@ -73,6 +75,35 @@ public class DebugTest {
                 assertEquals(ServiceStatus.Started, ServiceStatus.valueOf(status));
             } else {
                 fail("Expected to find 1 CamelContext MBean");
+            }
+        }
+    }
+
+    @Test
+    void accessToBacklogDebugger() throws Exception {
+        String url = String.format("service:jmx:rmi:///jndi/rmi://%s:%d%s", DEFAULT_HOST, DEFAULT_REGISTRY_PORT,
+                DEFAULT_SERVICE_URL_PATH);
+        JMXServiceURL jmxUrl = new JMXServiceURL(url);
+
+        try (JMXConnector connector = JMXConnectorFactory.connect(jmxUrl)) {
+            MBeanServerConnection mbeanServer = connector.getMBeanServerConnection();
+
+            ObjectName objectName = new ObjectName("org.apache.camel:context=*,type=tracer,name=BacklogDebugger");
+            Set<ObjectName> names = mbeanServer.queryNames(objectName, null);
+            assertNotNull(names);
+
+            Iterator<ObjectName> iteratorNames = names.iterator();
+            if (iteratorNames.hasNext()) {
+                ObjectName debuggerMBeanObjectName = iteratorNames.next();
+                assertNotNull(debuggerMBeanObjectName);
+                ManagedBacklogDebuggerMBean backlogDebugger = JMX.newMBeanProxy(mbeanServer, debuggerMBeanObjectName,
+                        ManagedBacklogDebuggerMBean.class);
+                Set<String> breakpoints = backlogDebugger.breakpoints();
+                assertNotNull(breakpoints);
+                Set<String> suspendedBreakpointNodeIds = backlogDebugger.suspendedBreakpointNodeIds();
+                assertNotNull(suspendedBreakpointNodeIds);
+            } else {
+                fail("Expected to find 1 BacklogDebugger");
             }
         }
     }

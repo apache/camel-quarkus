@@ -18,10 +18,14 @@ package org.apache.camel.quarkus.component.debug.deployment;
 
 import java.util.function.BooleanSupplier;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.AllowJNDIBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.SystemPropertyBuildItem;
 import io.quarkus.runtime.LaunchMode;
+import org.apache.camel.api.management.JmxSystemPropertyKeys;
+import org.apache.camel.impl.debugger.BacklogDebugger;
 import org.apache.camel.quarkus.component.debug.DebugConfig;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
@@ -46,6 +50,13 @@ class DebugProcessor {
         // core defines an include path filter for META-INF/services/org/apache/camel/*
         return new CamelServicePatternBuildItem(CamelServiceDestination.DISCOVERY, false,
                 "META-INF/services/org/apache/camel/debugger-factory");
+    }
+
+    @BuildStep(onlyIf = DebugEnabled.class)
+    void configureSystemProperties(BuildProducer<SystemPropertyBuildItem> producer, DebugConfig config) {
+        producer.produce(
+                new SystemPropertyBuildItem(BacklogDebugger.SUSPEND_MODE_SYSTEM_PROP_NAME, Boolean.toString(config.suspend)));
+        producer.produce(new SystemPropertyBuildItem(JmxSystemPropertyKeys.DISABLED, "false"));
     }
 
     static class DebugEnabled implements BooleanSupplier {
