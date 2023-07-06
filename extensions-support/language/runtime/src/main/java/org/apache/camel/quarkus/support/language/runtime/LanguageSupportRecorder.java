@@ -14,30 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.groovy.runtime;
+package org.apache.camel.quarkus.support.language.runtime;
 
-import groovy.lang.Script;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
-import org.apache.camel.language.groovy.GroovyLanguage;
 
 @Recorder
-public class GroovyExpressionRecorder {
+public class LanguageSupportRecorder {
 
-    public RuntimeValue<GroovyLanguage.Builder> languageBuilder() {
-        return new RuntimeValue<>(new GroovyLanguage.Builder());
-    }
-
-    @SuppressWarnings("unchecked")
-    public void addScript(RuntimeValue<GroovyLanguage.Builder> builder, String content, RuntimeValue<Class<?>> clazz) {
-        try {
-            builder.getValue().addScript(content, (Class<Script>) clazz.getValue());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public RuntimeValue<GroovyLanguage> languageNewInstance(RuntimeValue<GroovyLanguage.Builder> builder) {
-        return new RuntimeValue<>(builder.getValue().build());
+    public RuntimeValue<Class<?>> loadClass(String name) throws ClassNotFoundException {
+        return new RuntimeValue<>(Class.forName(name, true, Thread.currentThread().getContextClassLoader()));
     }
 }

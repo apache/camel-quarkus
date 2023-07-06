@@ -36,8 +36,8 @@ public class JoorExpressionRecorder {
         return language;
     }
 
-    public void setResultType(RuntimeValue<JoorLanguage> language, Class<?> resultType) {
-        language.getValue().setResultType(resultType);
+    public void setResultType(RuntimeValue<JoorLanguage> language, RuntimeValue<Class<?>> resultType) {
+        language.getValue().setResultType(resultType.getValue());
     }
 
     public RuntimeValue<JoorExpressionCompiler.Builder> expressionCompilerBuilder() {
@@ -49,21 +49,20 @@ public class JoorExpressionRecorder {
     }
 
     public void addExpression(RuntimeValue<JoorExpressionCompiler.Builder> builder, RuntimeValue<CamelContext> ctx, String id,
-            Class<?> clazz) {
+            RuntimeValue<Class<?>> clazz) {
         try {
             builder.getValue().addExpression(id,
-                    (JoorMethod) clazz.getConstructor(CamelContext.class).newInstance(ctx.getValue()));
+                    (JoorMethod) clazz.getValue().getConstructor(CamelContext.class).newInstance(ctx.getValue()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     public void addScript(RuntimeValue<JoorExpressionScriptingCompiler.Builder> builder, RuntimeValue<CamelContext> ctx,
-            String id,
-            Class<?> clazz) {
+            String id, RuntimeValue<Class<?>> clazz) {
         try {
             builder.getValue().addScript(id,
-                    (JoorScriptingMethod) clazz.getConstructor(CamelContext.class).newInstance(ctx.getValue()));
+                    (JoorScriptingMethod) clazz.getValue().getConstructor(CamelContext.class).newInstance(ctx.getValue()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

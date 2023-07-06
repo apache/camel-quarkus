@@ -32,7 +32,6 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
 import io.quarkus.deployment.pkg.PackageConfig;
 import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
-import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.maven.dependency.ResolvedDependency;
 import io.quarkus.paths.PathCollection;
 import io.quarkus.runtime.RuntimeValue;
@@ -54,6 +53,7 @@ import org.apache.camel.quarkus.support.language.deployment.ExpressionBuildItem;
 import org.apache.camel.quarkus.support.language.deployment.ExpressionExtractionResultBuildItem;
 import org.apache.camel.quarkus.support.language.deployment.ScriptBuildItem;
 import org.apache.camel.quarkus.support.language.runtime.ExpressionUID;
+import org.apache.camel.quarkus.support.language.runtime.LanguageSupportRecorder;
 import org.apache.camel.quarkus.support.language.runtime.ScriptUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -152,16 +152,13 @@ class JoorProcessor {
         }
     }
 
-    // We still need to use RecorderContext#classProxy as using i.e. Class.forName does not work
-    // at runtime. See https://github.com/apache/camel-quarkus/issues/5056
-    @SuppressWarnings("deprecation")
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep(onlyIf = CompileAtBuildTime.class)
     @Consume(CamelContextBuildItem.class)
     CamelBeanBuildItem configureLanguage(
-            RecorderContext recorderContext,
             JoorExpressionConfig config,
             JoorExpressionRecorder recorder,
+            LanguageSupportRecorder languageRecorder,
             CamelContextBuildItem context,
             ExpressionExtractionResultBuildItem result,
             List<JoorExpressionSourceBuildItem> sources) throws ClassNotFoundException {
@@ -179,13 +176,13 @@ class JoorProcessor {
                             expressionScriptingCompilerBuilder,
                             camelContext,
                             source.getId(),
-                            recorderContext.classProxy(source.getClassName()));
+                            languageRecorder.loadClass(source.getClassName()));
                 } else {
                     recorder.addExpression(
                             expressionCompilerBuilder,
                             camelContext,
                             source.getId(),
-                            recorderContext.classProxy(source.getClassName()));
+                            languageRecorder.loadClass(source.getClassName()));
                 }
             }
             final RuntimeValue<JoorLanguage> language = recorder.languageNewInstance(config, expressionCompilerBuilder,
@@ -194,7 +191,7 @@ class JoorProcessor {
             if (config.resultType.isPresent()) {
                 recorder.setResultType(
                         language,
-                        recorderContext.classProxy(config.resultType.get()));
+                        languageRecorder.loadClass(config.resultType.get()));
             }
 
             return new CamelBeanBuildItem("joor", JoorLanguage.class.getName(), language);
