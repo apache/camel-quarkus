@@ -4,16 +4,24 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/3.0.0-RC1...HEAD)
 
+**Implemented enhancements:**
+
+- Add support of the suspend mode to the Camel Debugger [\#5059](https://github.com/apache/camel-quarkus/issues/5059)
+
 **Fixed bugs:**
 
-- \[Mandrel 23.0.0\] google-bigquery integration test native compilation fails [\#5006](https://github.com/apache/camel-quarkus/issues/5006)
+- Cannot retrieve the breakpoints and suspended node ids in native mode [\#5058](https://github.com/apache/camel-quarkus/issues/5058)
 
 **Closed issues:**
 
-- Google extension dependency convergence errors [\#4625](https://github.com/apache/camel-quarkus/issues/4625)
+- Allow disabling periodic scan functionality [\#3078](https://github.com/apache/camel-quarkus/issues/3078)
 
 **Merged pull requests:**
 
+- Improve native support of camel-quarkus-debug [\#5060](https://github.com/apache/camel-quarkus/pull/5060) ([essobedo](https://github.com/essobedo))
+- Bump quarkus-micrometer-registry-jmx from 3.0.2 to 3.1.2 [\#5055](https://github.com/apache/camel-quarkus/pull/5055) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump quarkus-amazon-services-bom from 2.3.3 to 2.4.0 [\#5054](https://github.com/apache/camel-quarkus/pull/5054) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Add sync tag for Groovy version property [\#5052](https://github.com/apache/camel-quarkus/pull/5052) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove skip of maven-enforcer-plugin for Google extensions [\#5049](https://github.com/apache/camel-quarkus/pull/5049) ([jamesnetherton](https://github.com/jamesnetherton))
 - Restore native profiles to kubernetes-client tests [\#5047](https://github.com/apache/camel-quarkus/pull/5047) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump quarkus-amazon-services-bom from 2.3.2 to 2.3.3 [\#5046](https://github.com/apache/camel-quarkus/pull/5046) ([dependabot[bot]](https://github.com/apps/dependabot))
@@ -1689,54 +1697,54 @@
 
 **Fixed bugs:**
 
+- Unable to generate REST API documentation when lightweight mode is enabled [\#2527](https://github.com/apache/camel-quarkus/issues/2527)
 - Micrometer: SimpleMeterRegistry is not created if no other registry is defined [\#5023](https://github.com/apache/camel-quarkus/issues/5023)
 - \[Mandrel 23.0.0\] google-storage integration test native compilation fails [\#5010](https://github.com/apache/camel-quarkus/issues/5010)
 - \[Mandrel 23.0.0\] cxf-soap grouped integration tests native compilation fails [\#5008](https://github.com/apache/camel-quarkus/issues/5008)
 - \[Mandrel 23.0.0\] google-pubsub integration test native compilation fails [\#5007](https://github.com/apache/camel-quarkus/issues/5007)
-- \[Quarkus 3.2.0\] io.quarkus.arc.Priority has been removed [\#4983](https://github.com/apache/camel-quarkus/issues/4983)
-- Unable to generate REST API documentation when lightweight mode is enabled [\#2527](https://github.com/apache/camel-quarkus/issues/2527)
 - \[Mandrel 23.0.0\] google-bigquery integration test native compilation fails [\#5006](https://github.com/apache/camel-quarkus/issues/5006)
+- \[Quarkus 3.2.0\] io.quarkus.arc.Priority has been removed [\#4983](https://github.com/apache/camel-quarkus/issues/4983)
 
 **Closed issues:**
 
-- Upgrade Quarkus Groovy to 3.2  [\#5044](https://github.com/apache/camel-quarkus/issues/5044)
-- Micrometer: It is not necessary to produce JMXRegistry for the test [\#5030](https://github.com/apache/camel-quarkus/issues/5030)
-- Micrometer: Custom registry coverage is missing [\#5018](https://github.com/apache/camel-quarkus/issues/5018)
-- camel-quarkus-crypto: Add test coverage for raw keys [\#4979](https://github.com/apache/camel-quarkus/issues/4979)
 - Telegram: webhook is failing in 2.13.x [\#4961](https://github.com/apache/camel-quarkus/issues/4961)
 - Upgrade to Groovy 4 [\#4960](https://github.com/apache/camel-quarkus/issues/4960)
 - Delegate complexity to quarkus-groovy [\#4959](https://github.com/apache/camel-quarkus/issues/4959)
-- \[Quarkus 3.2.0\]  Enable native profile in master-openshift test [\#4957](https://github.com/apache/camel-quarkus/issues/4957)
-- Improve netty-http test coverage [\#4956](https://github.com/apache/camel-quarkus/issues/4956)
-- Add test coverage for MDC logging [\#4947](https://github.com/apache/camel-quarkus/issues/4947)
 - \[Quarkus 3.2.0\] No recovery system in which to register XAResourceRecovery instance [\#4945](https://github.com/apache/camel-quarkus/issues/4945)
 - Kafka Devservices fails with Quarkus 3 [\#4943](https://github.com/apache/camel-quarkus/issues/4943)
-- Micrometer: Instrumenting core thread pool feature is missing. [\#4934](https://github.com/apache/camel-quarkus/issues/4934)
 - camel-quarkus-integration-test-js-dsl should unpack its resources to target rather than src [\#4931](https://github.com/apache/camel-quarkus/issues/4931)
 - knative-producer native integration tests are failing [\#4923](https://github.com/apache/camel-quarkus/issues/4923)
-- CXF test is using different package then folder structure [\#4919](https://github.com/apache/camel-quarkus/issues/4919)
 - Ban com.github.spotbugs:spotbugs-annotations [\#4914](https://github.com/apache/camel-quarkus/issues/4914)
 - MyBatisConsumerTest should keep awaitility in the test scope [\#4793](https://github.com/apache/camel-quarkus/issues/4793)
 - Cxf-soap: Extend test coverage with Converter scenario [\#4652](https://github.com/apache/camel-quarkus/issues/4652)
-- Expand micrometer test coverage [\#4582](https://github.com/apache/camel-quarkus/issues/4582)
-- jira test fails with Camel 4 and Quarkus 3 [\#4524](https://github.com/apache/camel-quarkus/issues/4524)
-- quarkus-hazelcast-client not ready for Quarkus 3 [\#4498](https://github.com/apache/camel-quarkus/issues/4498)
-- Camel 3.20 - camel-swift extension [\#4220](https://github.com/apache/camel-quarkus/issues/4220)
-- JAXB integration tests failing if locale different from EN [\#4135](https://github.com/apache/camel-quarkus/issues/4135)
-- Implement a bot to assign `no fix/won't fix` milestone to closed issues labeled as wontfix [\#4106](https://github.com/apache/camel-quarkus/issues/4106)
 - \[Camel 3.19.0\] Google-secrets-manager: Remove workaround after fix of CAMEL-18520 [\#4103](https://github.com/apache/camel-quarkus/issues/4103)
 - Google-bigquery: Enable `sqlCrudOperations` test once Camel version is 18.3 [\#4029](https://github.com/apache/camel-quarkus/issues/4029)
-- FOP native integration test failure [\#3965](https://github.com/apache/camel-quarkus/issues/3965)
-- Springless Jira REST client [\#3889](https://github.com/apache/camel-quarkus/issues/3889)
-- Missing link to Camel user manual in the CQ documentation [\#3580](https://github.com/apache/camel-quarkus/issues/3580)
 - Upgrade to H2 2.x [\#3498](https://github.com/apache/camel-quarkus/issues/3498)
 - Docs: Camel-quarkus 2.4.x docs don't show information in components/languages/dataformats and misc [\#3387](https://github.com/apache/camel-quarkus/issues/3387)
 - Cannot run debezium tests against alternative BOMs [\#3294](https://github.com/apache/camel-quarkus/issues/3294)
 - Publish docs for the last stable release [\#3191](https://github.com/apache/camel-quarkus/issues/3191)
 - JsonParseException not caught when using OpenAPI generated REST DSL [\#3155](https://github.com/apache/camel-quarkus/issues/3155)
 - RestClient: NullPointerException: Cannot read field "skipPattern" because "this.tracingConfig" is null [\#3142](https://github.com/apache/camel-quarkus/issues/3142)
-- Split JSON dataformats test [\#3088](https://github.com/apache/camel-quarkus/issues/3088)
+- Upgrade Quarkus Groovy to 3.2  [\#5044](https://github.com/apache/camel-quarkus/issues/5044)
+- Micrometer: It is not necessary to produce JMXRegistry for the test [\#5030](https://github.com/apache/camel-quarkus/issues/5030)
+- Micrometer: Custom registry coverage is missing [\#5018](https://github.com/apache/camel-quarkus/issues/5018)
+- camel-quarkus-crypto: Add test coverage for raw keys [\#4979](https://github.com/apache/camel-quarkus/issues/4979)
+- \[Quarkus 3.2.0\]  Enable native profile in master-openshift test [\#4957](https://github.com/apache/camel-quarkus/issues/4957)
+- Improve netty-http test coverage [\#4956](https://github.com/apache/camel-quarkus/issues/4956)
+- Add test coverage for MDC logging [\#4947](https://github.com/apache/camel-quarkus/issues/4947)
+- Micrometer: Instrumenting core thread pool feature is missing. [\#4934](https://github.com/apache/camel-quarkus/issues/4934)
+- CXF test is using different package then folder structure [\#4919](https://github.com/apache/camel-quarkus/issues/4919)
 - Google extension dependency convergence errors [\#4625](https://github.com/apache/camel-quarkus/issues/4625)
+- Expand micrometer test coverage [\#4582](https://github.com/apache/camel-quarkus/issues/4582)
+- jira test fails with Camel 4 and Quarkus 3 [\#4524](https://github.com/apache/camel-quarkus/issues/4524)
+- quarkus-hazelcast-client not ready for Quarkus 3 [\#4498](https://github.com/apache/camel-quarkus/issues/4498)
+- Camel 3.20 - camel-swift extension [\#4220](https://github.com/apache/camel-quarkus/issues/4220)
+- JAXB integration tests failing if locale different from EN [\#4135](https://github.com/apache/camel-quarkus/issues/4135)
+- Implement a bot to assign `no fix/won't fix` milestone to closed issues labeled as wontfix [\#4106](https://github.com/apache/camel-quarkus/issues/4106)
+- FOP native integration test failure [\#3965](https://github.com/apache/camel-quarkus/issues/3965)
+- Springless Jira REST client [\#3889](https://github.com/apache/camel-quarkus/issues/3889)
+- Missing link to Camel user manual in the CQ documentation [\#3580](https://github.com/apache/camel-quarkus/issues/3580)
+- Split JSON dataformats test [\#3088](https://github.com/apache/camel-quarkus/issues/3088)
 
 ## [3.0.0-M2](https://github.com/apache/camel-quarkus/tree/3.0.0-M2) (2023-05-25)
 
