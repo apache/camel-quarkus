@@ -30,7 +30,6 @@ import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeBuild;
-import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.maven.dependency.ResolvedDependency;
 import io.quarkus.paths.PathCollection;
 import io.quarkus.runtime.RuntimeValue;
@@ -42,6 +41,7 @@ import org.apache.camel.quarkus.support.language.deployment.ExpressionBuildItem;
 import org.apache.camel.quarkus.support.language.deployment.ExpressionExtractionResultBuildItem;
 import org.apache.camel.quarkus.support.language.deployment.ScriptBuildItem;
 import org.apache.camel.quarkus.support.language.runtime.ExpressionUID;
+import org.apache.camel.quarkus.support.language.runtime.LanguageSupportRecorder;
 import org.apache.camel.quarkus.support.language.runtime.ScriptUID;
 import org.codehaus.groovy.control.CompilationUnit;
 import org.codehaus.groovy.control.CompilerConfiguration;
@@ -145,14 +145,11 @@ class GroovyProcessor {
         }
     }
 
-    // We still need to use RecorderContext#classProxy as using i.e. Class.forName does not work
-    // at runtime. See https://github.com/apache/camel-quarkus/issues/5056
-    @SuppressWarnings("deprecation")
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep(onlyIf = NativeBuild.class)
     CamelBeanBuildItem configureLanguage(
-            RecorderContext recorderContext,
             GroovyExpressionRecorder recorder,
+            LanguageSupportRecorder languageRecorder,
             ExpressionExtractionResultBuildItem result,
             List<GroovyExpressionSourceBuildItem> sources) throws ClassNotFoundException {
 
@@ -162,7 +159,7 @@ class GroovyProcessor {
                 recorder.addScript(
                         builder,
                         source.getOriginalCode(),
-                        recorderContext.classProxy(source.getClassName()));
+                        languageRecorder.loadClass(source.getClassName()));
             }
             final RuntimeValue<GroovyLanguage> language = recorder.languageNewInstance(builder);
             return new CamelBeanBuildItem("groovy", GroovyLanguage.class.getName(), language);
