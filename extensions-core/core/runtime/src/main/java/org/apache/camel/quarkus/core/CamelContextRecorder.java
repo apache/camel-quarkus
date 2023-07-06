@@ -75,7 +75,7 @@ public class CamelContextRecorder {
         extendedCamelContext.addContextPlugin(ComponentNameResolver.class, componentNameResolver.getValue());
 
         // register to the container
-        beanContainer.instance(CamelProducers.class).setContext(context);
+        beanContainer.beanInstance(CamelProducers.class).setContext(context);
 
         return new RuntimeValue<>(context);
     }
@@ -88,17 +88,17 @@ public class CamelContextRecorder {
         final CamelRuntime runtime = new CamelContextRuntime(context.getValue());
 
         // register to the container
-        beanContainer.instance(CamelProducers.class).setRuntime(runtime);
+        beanContainer.beanInstance(CamelProducers.class).setRuntime(runtime);
 
         return new RuntimeValue<>(runtime);
     }
 
     public RuntimeValue<CamelContextCustomizer> createNoShutdownStrategyCustomizer() {
-        return new RuntimeValue((CamelContextCustomizer) context -> context.setShutdownStrategy(new NoShutdownStrategy()));
+        return new RuntimeValue<>(context -> context.setShutdownStrategy(new NoShutdownStrategy()));
     }
 
     public RuntimeValue<CamelContextCustomizer> createSourceLocationEnabledCustomizer() {
-        return new RuntimeValue((CamelContextCustomizer) context -> context.setSourceLocationEnabled(true));
+        return new RuntimeValue<>(context -> context.setSourceLocationEnabled(true));
     }
 
     public void addRoutes(RuntimeValue<CamelContext> context, List<String> nonCdiRoutesBuilderClassNames) {
@@ -130,9 +130,7 @@ public class CamelContextRecorder {
                 });
             }
 
-            for (RoutesBuilder cdiRoutesBuilder : context.getValue().getRegistry().findByType(RoutesBuilder.class)) {
-                allRoutesBuilders.add(cdiRoutesBuilder);
-            }
+            allRoutesBuilders.addAll(context.getValue().getRegistry().findByType(RoutesBuilder.class));
 
             // Add RouteConfigurationsBuilders before RoutesBuilders
             for (RoutesBuilder routesBuilder : allRoutesBuilders) {

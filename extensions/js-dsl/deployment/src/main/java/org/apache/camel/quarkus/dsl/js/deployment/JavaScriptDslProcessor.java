@@ -147,7 +147,12 @@ public class JavaScriptDslProcessor {
                 }
             }
 
-            reflectiveClass.produce(new ReflectiveClassBuildItem(true, type.isEnum(), type));
+            reflectiveClass.produce(
+                    ReflectiveClassBuildItem.builder(type)
+                            .constructors(true)
+                            .methods(true)
+                            .fields(type.isEnum())
+                            .build());
         }
 
         for (Class<?> type : JAVA_CLASSES) {

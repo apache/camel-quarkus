@@ -26,7 +26,7 @@ import org.apache.camel.component.qute.QuteComponent;
 public class CamelQuteRecorder {
 
     public RuntimeValue<QuteComponent> createQuteComponent(BeanContainer beanContainer) {
-        Engine quteEngine = beanContainer.instance(Engine.class);
+        Engine quteEngine = beanContainer.beanInstance(Engine.class);
 
         QuteComponent component = new QuteComponent();
         component.setQuteEngine(quteEngine);

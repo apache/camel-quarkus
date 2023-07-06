@@ -53,7 +53,6 @@
         <module>controlbus-statistics</module>
         <module>corda</module>
         <module>couchbase</module>
-        <module>debug</module>
         <module>djl</module>
         <module>dns</module>
         <module>drill</module>
@@ -83,7 +82,6 @@
         <module>jt400</module>
         <module>ldif</module>
         <module>lucene</module>
-        <module>management</module>
         <module>mapstruct</module>
         <module>mvel</module>
         <module>printer</module>

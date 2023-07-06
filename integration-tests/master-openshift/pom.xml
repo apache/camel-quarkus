@@ -135,9 +135,9 @@
                                 </goals>
                                 <phase>integration-test</phase>
                                 <configuration>
-                                    <systemProperties>
+                                    <systemPropertyVariables>
                                         <quarkus.runner>${quarkus.runner}</quarkus.runner>
-                                    </systemProperties>
+                                    </systemPropertyVariables>
                                     <environmentVariables>
                                         <!-- Fake KubernetesClusterService so it assumes being run from a pod named leader  -->
                                         <HOSTNAME>leader</HOSTNAME>
@@ -149,7 +149,6 @@
                 </plugins>
             </build>
         </profile>
-        <!-- https://github.com/apache/camel-quarkus/issues/4957
          <profile>
              <id>native</id>
              <activation>
@@ -175,9 +174,9 @@
                              </execution>
                          </executions>
                          <configuration>
-                             <systemProperties>
+                             <systemPropertyVariables>
                                  <quarkus.runner>${quarkus.runner}</quarkus.runner>
-                             </systemProperties>
+                             </systemPropertyVariables>
                              <environmentVariables>
                                  Fake KubernetesClusterService so it assumes being run from a pod named leader  &gt;
                                  <HOSTNAME>leader</HOSTNAME>
@@ -187,7 +186,6 @@
                  </plugins>
              </build>
          </profile>
-         -->
          <profile>
              <id>virtualDependencies</id>
              <activation>

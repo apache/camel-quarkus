@@ -90,6 +90,7 @@
         <module>debezium-mysql</module>
         <module>debezium-postgres</module>
         <module>debezium-sqlserver</module>
+        <module>debug</module>
         <module>digitalocean</module>
         <module>direct</module>
         <module>disruptor</module>
@@ -166,6 +167,7 @@
         <module>lumberjack</module>
         <module>lzf</module>
         <module>mail</module>
+        <module>management</module>
         <module>master</module>
         <module>micrometer</module>
         <module>microprofile-fault-tolerance</module>
@@ -225,6 +227,7 @@
         <module>stax</module>
         <module>stream</module>
         <module>stringtemplate</module>
+        <module>swift</module>
         <module>syslog</module>
         <module>tarfile</module>
         <module>telegram</module>

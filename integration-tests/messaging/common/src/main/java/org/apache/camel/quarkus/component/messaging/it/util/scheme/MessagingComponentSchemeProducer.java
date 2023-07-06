@@ -37,7 +37,7 @@ public class MessagingComponentSchemeProducer {
     @Singleton
     public ComponentScheme getMessagingComponentScheme(CamelContext camelContext) {
         ExtendedCamelContext context = camelContext.getCamelContextExtension();
-        RuntimeCamelCatalog catalog = context.getRuntimeCamelCatalog();
+        RuntimeCamelCatalog catalog = context.getContextPlugin(RuntimeCamelCatalog.class);
         ComponentNameResolver resolver = PluginHelper.getComponentNameResolver(context);
         List<JsonObject> schemas = new ArrayList<>();
 
@@ -59,7 +59,7 @@ public class MessagingComponentSchemeProducer {
                 if (component != null) {
                     JsonObject object = component.asJsonObject();
                     String label = object.getString("label");
-                    if (label.contains("messaging")) {
+                    if (label.contains("messaging") && !label.contains("core")) {
                         schemas.add(object);
                     }
                 }

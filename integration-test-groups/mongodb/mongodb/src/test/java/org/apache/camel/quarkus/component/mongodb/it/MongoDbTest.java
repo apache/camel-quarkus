@@ -57,8 +57,8 @@ class MongoDbTest {
 
     public static final String MSG = "Hello Camel Quarkus Mongo DB";
 
-    private static String COLLECTION_OUTPUT_TYPE_DOCUMENT_LIST = "outputTypeDocumentList";
-    private static String COLLECTION_OUTPUT_TYPE_DOCUMENT = "outputTypeDocument";
+    private static final String COLLECTION_OUTPUT_TYPE_DOCUMENT_LIST = "outputTypeDocumentList";
+    private static final String COLLECTION_OUTPUT_TYPE_DOCUMENT = "outputTypeDocument";
 
     private static MongoClient mongoClient;
 
@@ -68,10 +68,7 @@ class MongoDbTest {
     public static void setUp() throws SQLException {
         final String mongoUrl = "mongodb://" + ConfigProvider.getConfig().getValue("quarkus.mongodb.hosts", String.class);
 
-        if (mongoUrl != null) {
-            mongoClient = MongoClients.create(mongoUrl);
-        }
-
+        mongoClient = MongoClients.create(mongoUrl);
         db = mongoClient.getDatabase("test");
     }
 
@@ -145,7 +142,7 @@ class MongoDbTest {
 
     @Test
     public void testTailingConsumer() throws Exception {
-        MongoCollection collection = db.getCollection(MongoDbConstants.COLLECTION_TAILING, Document.class);
+        MongoCollection<Document> collection = db.getCollection(MongoDbConstants.COLLECTION_TAILING, Document.class);
 
         for (int i = 1; i <= (10 * MongoDbConstants.CAP_NUMBER); i++) {
             collection.insertOne(new Document("increasing", i).append("string", "value" + i));
@@ -159,7 +156,7 @@ class MongoDbTest {
 
     @Test
     public void testPersistentTailingConsumer() throws Exception {
-        MongoCollection collection = db.getCollection(MongoDbConstants.COLLECTION_PERSISTENT_TAILING, Document.class);
+        MongoCollection<Document> collection = db.getCollection(MongoDbConstants.COLLECTION_PERSISTENT_TAILING, Document.class);
 
         for (int i = 1; i <= (3 * MongoDbConstants.CAP_NUMBER); i++) {
             collection.insertOne(new Document("increasing", i).append("string", "value" + i));
@@ -208,7 +205,7 @@ class MongoDbTest {
 
     @Test
     public void testStreamConsumerWithFilter() throws Exception {
-        MongoCollection collection = db.getCollection(MongoDbConstants.COLLECTION_STREAM_CHANGES, Document.class);
+        MongoCollection<Document> collection = db.getCollection(MongoDbConstants.COLLECTION_STREAM_CHANGES, Document.class);
 
         for (int i = 1; i <= 10; i++) {
             collection.insertOne(new Document("increasing", i).append("string", "value" + i));
@@ -240,7 +237,7 @@ class MongoDbTest {
 
     @Test
     public void testOutputTypeDocumentList() throws Exception {
-        MongoCollection collection = db.getCollection(COLLECTION_OUTPUT_TYPE_DOCUMENT_LIST, Document.class);
+        MongoCollection<Document> collection = db.getCollection(COLLECTION_OUTPUT_TYPE_DOCUMENT_LIST, Document.class);
 
         collection.insertOne(new Document("name", "Sheldon"));
         collection.insertOne(new Document("name", "Irma"));
@@ -264,7 +261,7 @@ class MongoDbTest {
 
     @Test
     public void testOutputTypeDocument() throws Exception {
-        MongoCollection collection = db.getCollection(COLLECTION_OUTPUT_TYPE_DOCUMENT, Document.class);
+        MongoCollection<Document> collection = db.getCollection(COLLECTION_OUTPUT_TYPE_DOCUMENT, Document.class);
 
         collection.insertOne(new Document("name", "Sheldon"));
 

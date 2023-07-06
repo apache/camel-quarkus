@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.stringtemplate.it;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -39,7 +38,7 @@ class StringtemplateTest {
 
     @Test
     public void testTemplateFromClasspath() {
-        Map<String, Object> headers = new HashMap() {
+        Map<String, Object> headers = new HashMap<>() {
             {
                 put("name", "Sheldon");
                 put("item", "Camel in Action");
@@ -66,7 +65,7 @@ class StringtemplateTest {
         variableMap.put("headers", headersMap);
         variableMap.put("body", "Monday");
         variableMap.put("item", "1");
-        Map<String, Object> headers = new HashMap() {
+        Map<String, Object> headers = new HashMap<>() {
             {
                 put("name", "Sheldon");
                 put("item", "7");
@@ -135,7 +134,7 @@ class StringtemplateTest {
                 .body(equalTo("Hi Sheldon"));
 
         //override file
-        Files.write(Paths.get(template.getPath()), "Bye <headers.name>".getBytes(StandardCharsets.UTF_8));
+        Files.writeString(Paths.get(template.getPath()), "Bye <headers.name>");
 
         RestAssured.given()
                 .queryParam("template", "file:" + template.getPath())
@@ -152,7 +151,7 @@ class StringtemplateTest {
     private File createFile(String fileName, String body) throws IOException {
         File tmpFile = File.createTempFile(fileName, ".tm");
 
-        Files.write(tmpFile.toPath(), body.getBytes(StandardCharsets.UTF_8));
+        Files.writeString(tmpFile.toPath(), body);
 
         tmpFile.deleteOnExit();
         return tmpFile;

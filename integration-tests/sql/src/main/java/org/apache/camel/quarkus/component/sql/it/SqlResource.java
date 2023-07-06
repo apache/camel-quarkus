@@ -181,7 +181,7 @@ public class SqlResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List consumerResults(@PathParam("resultId") String resultId) throws Exception {
-        List<Map> list = new LinkedList(this.results.get(resultId));
+        List<Map> list = new LinkedList<>(this.results.get(resultId));
         results.get(resultId).clear();
         return list;
     }

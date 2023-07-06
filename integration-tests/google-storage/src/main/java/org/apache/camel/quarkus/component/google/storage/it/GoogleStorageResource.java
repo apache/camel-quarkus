@@ -108,8 +108,8 @@ public class GoogleStorageResource {
             return new String(((CopyWriter) response).getResult().getContent());
         }
         if (response instanceof List) {
-            List l = (List) response;
-            return (String) l.stream().map(o -> {
+            List<?> l = (List<?>) response;
+            return l.stream().map(o -> {
                 if (o instanceof Bucket) {
                     return ((Bucket) o).getName();
                 }
@@ -165,7 +165,7 @@ public class GoogleStorageResource {
             buckets.remove(DEST_BUCKET);
         }
 
-        buckets.stream().forEach(
+        buckets.forEach(
                 b -> {
                     for (Blob blob : client.list(b).iterateAll()) {
                         client.delete(blob.getBlobId());

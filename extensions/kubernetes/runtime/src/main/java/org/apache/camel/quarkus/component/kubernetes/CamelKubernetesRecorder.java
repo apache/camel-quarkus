@@ -24,7 +24,7 @@ import io.quarkus.runtime.annotations.Recorder;
 @Recorder
 public class CamelKubernetesRecorder {
     public RuntimeValue<?> getKubernetesClient(BeanContainer beanContainer) {
-        KubernetesClient client = beanContainer.instance(KubernetesClient.class);
+        KubernetesClient client = beanContainer.beanInstance(KubernetesClient.class);
         return new RuntimeValue<>(client);
     }
 }

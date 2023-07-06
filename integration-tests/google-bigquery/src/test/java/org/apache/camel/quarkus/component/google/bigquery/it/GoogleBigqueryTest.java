@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.google.cloud.bigquery.BigQuery;
+import com.google.cloud.bigquery.FieldValue;
 import com.google.cloud.bigquery.FieldValueList;
 import com.google.cloud.bigquery.Job;
 import com.google.cloud.bigquery.JobInfo;
@@ -115,7 +116,7 @@ class GoogleBigqueryTest {
     @Test
     public void insertListTest() throws Exception {
         // Insert rows
-        List data = new LinkedList();
+        List<Object> data = new LinkedList<>();
         for (int i = 1; i <= 3; i++) {
             Map<String, String> object = new HashMap<>();
             object.put("id", String.valueOf(i));
@@ -275,7 +276,7 @@ class GoogleBigqueryTest {
     private List<List<Object>> parseResult(TableResult tr) {
         List<List<Object>> retVal = new ArrayList<>();
         for (FieldValueList flv : tr.getValues()) {
-            retVal.add(flv.stream().map(fv -> fv.getValue()).collect(Collectors.toList()));
+            retVal.add(flv.stream().map(FieldValue::getValue).collect(Collectors.toList()));
         }
         return retVal;
     }

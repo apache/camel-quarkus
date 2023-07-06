@@ -53,7 +53,7 @@ public class EipResource {
     @Produces(MediaType.TEXT_PLAIN)
     @GET
     public String mock(@PathParam("name") String name, @PathParam("count") int count, @PathParam("timeout") int timeout) {
-        List<String> results = context.getRegistry().lookupByNameAndType(name, List.class);
-        return results.stream().collect(Collectors.joining(","));
+        List<?> results = context.getRegistry().lookupByNameAndType(name, List.class);
+        return results.stream().map(String.class::cast).collect(Collectors.joining(","));
     }
 }

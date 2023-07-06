@@ -58,6 +58,8 @@ Your application should declare the following dependency or  one of the dependen
 </dependency>
 ----
 
+If no dependency is declared, the Micrometer extension creates a SimpleMeterRegistry instance, suitable mainly for testing.
+
 
 [id="extensions-micrometer-camel-quarkus-limitations"]
 == Camel Quarkus limitations

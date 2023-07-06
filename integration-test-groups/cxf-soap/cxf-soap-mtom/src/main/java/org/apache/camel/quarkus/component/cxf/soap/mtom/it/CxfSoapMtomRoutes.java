@@ -124,7 +124,7 @@ public class CxfSoapMtomRoutes extends RouteBuilder {
                             elements.add(new DOMSource(StaxUtils
                                     .read(new StringReader(String.format(reqMessage, imageName, imageName)))
                                     .getDocumentElement()));
-                            CxfPayload payload = new CxfPayload<>(
+                            CxfPayload<?> payload = new CxfPayload<>(
                                     new ArrayList<SoapHeader>(), elements, null);
                             exchange.getIn().setBody(payload);
                             exchange.getIn(AttachmentMessage.class).addAttachment(imageName,
@@ -136,7 +136,7 @@ public class CxfSoapMtomRoutes extends RouteBuilder {
                             elements.add(
                                     new DOMSource(StaxUtils.read(new StringReader(String.format(REQ_DOWNLOAD_MSG, imageName)))
                                             .getDocumentElement()));
-                            CxfPayload payload = new CxfPayload<>(
+                            CxfPayload<?> payload = new CxfPayload<>(
                                     new ArrayList<SoapHeader>(), elements, null);
                             exchange.getIn().setBody(payload);
                         }
@@ -175,7 +175,10 @@ public class CxfSoapMtomRoutes extends RouteBuilder {
 
         @Override
         public void process(Exchange exchange) throws Exception {
+
+            @SuppressWarnings("unchecked")
             CxfPayload<SoapHeader> in = exchange.getIn().getBody(CxfPayload.class);
+
             String operation = in.getBody().get(0).getLocalName();
             if ("uploadImage".equals(operation)) {
                 Map<String, String> ns = new HashMap<>();
@@ -193,7 +196,7 @@ public class CxfSoapMtomRoutes extends RouteBuilder {
                 List<Source> elements = new ArrayList<>();
                 elements.add(new DOMSource(StaxUtils.read(new StringReader(String.format(RESP_UPLOAD_MSG, uploadStatus)))
                         .getDocumentElement()));
-                CxfPayload payload = new CxfPayload<>(
+                CxfPayload<?> payload = new CxfPayload<>(
                         new ArrayList<SoapHeader>(), elements, null);
                 exchange.getIn().setBody(payload);
                 // We have correctly uploaded the image, so we can put the upload status in the header, so we don't mess with CXFPayload in CxfSoapMtomResource
@@ -216,7 +219,7 @@ public class CxfSoapMtomRoutes extends RouteBuilder {
                                 StaxUtils.read(new StringReader(String.format(respMessage, imageName, imageName)))
                                         .getDocumentElement()));
                 ImageFile imageFile = imageService.downloadImage(imageName);
-                CxfPayload payload = new CxfPayload<>(
+                CxfPayload<?> payload = new CxfPayload<>(
                         new ArrayList<SoapHeader>(), elements, null);
                 exchange.getIn().setBody(payload);
                 exchange.getIn(AttachmentMessage.class).addAttachment(imageName, new DataHandler(
@@ -302,9 +305,13 @@ public class CxfSoapMtomRoutes extends RouteBuilder {
         result.setServiceClass(IImageService.class);
         result.setMtomEnabled(mtomEnabled);
         result.setAddress(address);
+
+        @SuppressWarnings("rawtypes")
         List<Handler> handlers = new ArrayList<>();
+
         handlers.add(new MtomAttachmentChecker(mtomEnabled));
         result.setHandlers(handlers);
+
         return result;
     }
 

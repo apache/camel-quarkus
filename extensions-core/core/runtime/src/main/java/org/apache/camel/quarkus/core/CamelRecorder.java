@@ -186,7 +186,8 @@ public class CamelRecorder {
         };
     }
 
-    public Supplier<?> produceProxy(Class<?> clazz, String uri) {
+    @SuppressWarnings("unchecked")
+    public <T> Supplier<T> produceProxy(Class<T> clazz, String uri) {
         return () -> {
             final CamelContext camelContext = Arc.container().instance(CamelContext.class).get();
             final BeanProxyFactory factory = PluginHelper.getBeanProxyFactory(camelContext);

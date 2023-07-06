@@ -99,7 +99,7 @@ public class JqResource {
         endpoint.expectedBodiesReceived(new Book("foo", "bar"));
 
         ObjectNode node = mapper.createObjectNode();
-        node.with("book").put("author", "foo").put("title", "bar");
+        node.withObject("/book").put("author", "foo").put("title", "bar");
 
         producerTemplate.sendBody("direct:expressionPojo", node);
 

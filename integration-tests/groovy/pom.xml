@@ -65,7 +65,7 @@
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.groovy</groupId>
-                    <artifactId>groovy</artifactId>
+                    <artifactId>*</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>

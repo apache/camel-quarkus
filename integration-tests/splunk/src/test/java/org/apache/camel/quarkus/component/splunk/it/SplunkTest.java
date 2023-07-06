@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.ContentType;
 import org.apache.camel.util.CollectionHelper;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -51,7 +52,8 @@ class SplunkTest {
                 .post("/splunk/normal")
                 .then()
                 .statusCode(200)
-                .extract().as(List.class);
+                .extract().as(new TypeRef<>() {
+                });
 
         Assertions.assertEquals(3, result.size());
         Assertions.assertEquals("Irma_normal", result.get(0).get("name"));

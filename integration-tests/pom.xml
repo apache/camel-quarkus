@@ -83,6 +83,7 @@
         <module>dataformats-json-grouped</module>
         <module>datasonnet</module>
         <module>debezium</module>
+        <module>debug</module>
         <module>digitalocean</module>
         <module>disruptor</module>
         <module>dropbox</module>
@@ -156,6 +157,7 @@
         <module>lra</module>
         <module>lumberjack</module>
         <module>mail</module>
+        <module>management</module>
         <module>master</module>
         <module>master-file</module>
         <module>master-openshift</module>
@@ -214,6 +216,7 @@
         <module>ssh</module>
         <module>stax</module>
         <module>stringtemplate</module>
+        <module>swift</module>
         <!--<module>syndication</module> https://github.com/apache/camel-quarkus/issues/4515 -->
         <module>syslog</module>
         <module>tarfile</module>

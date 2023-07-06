@@ -32,6 +32,8 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -196,12 +198,13 @@ class MicrometerTest extends AbstractMicrometerTest {
         assertEquals(result.get("camel.routes.added"), "7.0");
     }
 
-    @Test
+    @ParameterizedTest
+    @ValueSource(strings = { "metrics", "org.apache.camel.micrometer" }) //test uses domains from both default and custom JMX registries
     @DisabledOnIntegrationTest // JMX is not supported in native mode
-    public void testJMX() throws Exception {
+    public void testJMXQuarkusDomain(String domain) throws Exception {
         MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
 
-        ObjectName objectName = new ObjectName("org.apache.camel.micrometer:name=jvmClassesLoaded");
+        ObjectName objectName = new ObjectName(domain + ":name=jvmClassesLoaded");
         Set<ObjectInstance> mbeans = mBeanServer.queryMBeans(objectName, null);
 
         assertEquals(1, mbeans.size());

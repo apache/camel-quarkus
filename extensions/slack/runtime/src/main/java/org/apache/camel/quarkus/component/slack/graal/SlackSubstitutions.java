@@ -161,7 +161,7 @@ final class SlackConfigSubstitutions {
     };
 
     @Alias
-    private List<HttpResponseListener> httpClientResponseHandlers = new ArrayList();
+    private List<HttpResponseListener> httpClientResponseHandlers = new ArrayList<>();
 
     @Substitute
     @TargetElement(name = "SlackConfig")

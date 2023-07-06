@@ -25,6 +25,7 @@ import java.util.Map;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.apache.camel.Exchange;
@@ -116,12 +117,14 @@ class LeveldbTest {
             rs = rs.queryParam("mocks", mocks);
         }
 
-        return (Map<String, List<Map<String, Object>>>) rs.contentType(ContentType.JSON)
+        return rs.contentType(ContentType.JSON)
                 .body(messages)
                 .post("/leveldb/aggregate")
                 .then()
                 .statusCode(201)
-                .extract().as(Map.class);
+                .extract()
+                .as(new TypeRef<>() {
+                });
     }
 
     @AfterAll

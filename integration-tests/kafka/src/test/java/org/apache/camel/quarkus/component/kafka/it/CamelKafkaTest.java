@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.kafka.it;
 
-import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -75,8 +74,8 @@ public class CamelKafkaTest {
                     .statusCode(202);
         }
 
-        List<String> body = RestAssured.get("/kafka/idempotent").then().extract().body().as(List.class);
-        assertEquals(5, body.size());
+        String[] body = RestAssured.get("/kafka/idempotent").then().extract().body().as(String[].class);
+        assertEquals(5, body.length);
 
     }
 

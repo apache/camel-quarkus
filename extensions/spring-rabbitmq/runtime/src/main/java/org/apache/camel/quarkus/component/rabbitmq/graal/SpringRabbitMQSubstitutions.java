@@ -27,7 +27,7 @@ final class SpringRabbitMQSubstitutions {
 /**
  * Force disablement of Micrometer in native mode as Spring metrics is not supported
  */
-@TargetClass(className = "org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer")
+@TargetClass(className = "org.springframework.amqp.rabbit.listener.ObservableListenerContainer")
 final class AbstractMessageListenerContainerSubstitutions {
 
     @Alias

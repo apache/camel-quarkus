@@ -24,6 +24,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.hazelcast.it.model.HazelcastMapRequest;
 import org.junit.jupiter.api.Test;
@@ -125,13 +126,17 @@ public class HazelcastReplicatedmapTest {
 
         // verify that the consumer has received all added keys
         await().atMost(10L, TimeUnit.SECONDS).until(() -> {
-            List<String> body = RestAssured.get("/added").then().extract().body().as(List.class);
+            List<String> body = RestAssured.get("/added").then().extract().body().as(new TypeRef<>() {
+            });
+
             return body.size() == 2 && body.containsAll(Arrays.asList("1", "2"));
         });
 
         // verify that the consumer has received all removed keys
         await().atMost(10L, TimeUnit.SECONDS).until(() -> {
-            List<String> body = RestAssured.get("/deleted").then().extract().body().as(List.class);
+            List<String> body = RestAssured.get("/deleted").then().extract().body().as(new TypeRef<>() {
+            });
+
             return body.size() == 1 && body.contains("1");
         });
 

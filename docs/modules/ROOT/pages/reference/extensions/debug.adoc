@@ -4,17 +4,17 @@
 = Debug
 :linkattrs:
 :cq-artifact-id: camel-quarkus-debug
-:cq-native-supported: false
-:cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-native-supported: true
+:cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Enables Camel Route Debugging
 :cq-deprecated: false
 :cq-jvm-since: 2.10.0
-:cq-native-since: n/a
+:cq-native-since: 3.0.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##2.10.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##2.10.0## [.badge-key]##Native since##[.badge-supported]##3.0.0##
 endif::[]
 
 Enables Camel Route Debugging
@@ -29,6 +29,10 @@ Please refer to the above link for usage and configuration details.
 [id="extensions-debug-maven-coordinates"]
 == Maven coordinates
 
+https://{link-quarkus-code-generator}/?extension-search=camel-quarkus-debug[Create a new project with this extension on {link-quarkus-code-generator}, window="_blank"]
+
+Or add the coordinates to your existing project:
+
 [source,xml]
 ----
 <dependency>
@@ -39,3 +43,53 @@ Please refer to the above link for usage and configuration details.
 ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
+
+[id="extensions-debug-usage"]
+== Usage
+[id="extensions-debug-usage-native-mode"]
+=== Native mode
+
+**Experimental** JMX support was added for native executables in GraalVM for JDK 17/20 / Mandrel 23.0. You can enable this feature by
+adding the following configuration property to `application.properties`.
+
+[source,properties]
+----
+quarkus.native.monitoring=jmxserver,jmxclient
+----
+
+For more information, refer to the https://quarkus.io/guides/building-native-image#using-monitoring-options[Quarkus native guide].
+
+
+[id="extensions-debug-additional-camel-quarkus-configuration"]
+== Additional Camel Quarkus configuration
+
+By default, the `debug` extension is automatically enabled in development mode. If you want to leverage debugging
+capabilities outside of development mode, you must set a configuration property as follows.
+
+[source,properties]
+----
+quarkus.camel.debug.enabled=true
+----
+
+
+[width="100%",cols="80,5,15",options="header"]
+|===
+| Configuration property | Type | Default
+
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.debug.enabled]]`link:#quarkus.camel.debug.enabled[quarkus.camel.debug.enabled]`
+
+
+| `boolean`
+| `false`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.debug.suspend]]`link:#quarkus.camel.debug.suspend[quarkus.camel.debug.suspend]`
+
+
+| `boolean`
+| `false`
+|===
+
+[.configuration-legend]
+{doc-link-icon-lock}[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
+

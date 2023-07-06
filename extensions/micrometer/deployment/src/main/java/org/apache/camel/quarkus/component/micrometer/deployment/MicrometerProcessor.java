@@ -16,12 +16,16 @@
  */
 package org.apache.camel.quarkus.component.micrometer.deployment;
 
+import java.util.List;
+import java.util.Optional;
+
 import io.micrometer.core.instrument.MeterRegistry;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.micrometer.deployment.MicrometerProcessor.MicrometerEnabled;
+import io.quarkus.micrometer.deployment.MicrometerRegistryProviderBuildItem;
 import io.quarkus.micrometer.deployment.RootMeterRegistryBuildItem;
 import org.apache.camel.component.micrometer.MicrometerConstants;
 import org.apache.camel.quarkus.component.micrometer.CamelMicrometerConfig;
@@ -64,5 +68,17 @@ class MicrometerProcessor {
             CamelMicrometerConfig config) {
         return new RuntimeCamelContextCustomizerBuildItem(
                 recorder.createRuntimeContextCustomizer(config, rootMeterRegistryBuildItem.getValue()));
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    void configureDefaultRegistry(
+            List<MicrometerRegistryProviderBuildItem> providers,
+            Optional<RootMeterRegistryBuildItem> registry,
+            CamelMicrometerRecorder recorder) {
+        // Register SimpleMeterRegistry to the CompositeMeterRegistry (created by Quarkus) if there is no MicrometerRegistryProviderBuildItem
+        if (registry.isPresent() && providers.isEmpty()) {
+            recorder.configureDefaultRegistry(registry.get().getValue());
+        }
     }
 }

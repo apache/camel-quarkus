@@ -48,7 +48,7 @@ public class SqlRoutes extends RouteBuilder {
 
     @Inject
     @Named("results")
-    Map<String, List> results;
+    Map<String, List<Object>> results;
 
     @Inject
     TransactionManager tm;
@@ -127,7 +127,7 @@ public class SqlRoutes extends RouteBuilder {
             while ((c = is.read()) >= 0) {
                 baos.write(c);
             }
-            String content = new String(baos.toByteArray(), StandardCharsets.UTF_8);
+            String content = baos.toString(StandardCharsets.UTF_8);
             content = content.replaceAll("projectsViaClasspath", "projectsViaFile");
             fos.write(content.getBytes(StandardCharsets.UTF_8));
         }
@@ -137,8 +137,8 @@ public class SqlRoutes extends RouteBuilder {
     @Produces
     @ApplicationScoped
     @Named("results")
-    Map<String, List> results() {
-        Map<String, List> result = new HashMap<>();
+    Map<String, List<Object>> results() {
+        Map<String, List<Object>> result = new HashMap<>();
         result.put("consumerRoute", new CopyOnWriteArrayList<>());
         result.put("consumerClasspathRoute", new CopyOnWriteArrayList<>());
         result.put("consumerFileRoute", new CopyOnWriteArrayList<>());

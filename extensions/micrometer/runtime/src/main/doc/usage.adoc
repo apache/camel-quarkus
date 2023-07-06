@@ -9,3 +9,5 @@ Your application should declare the following dependency or  one of the dependen
     <artifactId>micrometer-registry-prometheus</artifactId>
 </dependency>
 ----
+
+If no dependency is declared, the Micrometer extension creates a SimpleMeterRegistry instance, suitable mainly for testing.
