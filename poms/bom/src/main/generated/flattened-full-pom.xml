@@ -6346,12 +6346,12 @@
       <dependency>
         <groupId>org.apache.avro</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>avro-ipc-jetty</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.11.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.11.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>org.apache.avro</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>avro-ipc-netty</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.11.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.11.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>org.apache.commons</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -21279,176 +21279,64 @@
         <version>4.0.0</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
       </dependency>
       <dependency>
-        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>quarkus-bom-quarkus-platform-descriptor</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.0.0.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <type>json</type><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <classifier>3.0.0.Final</classifier><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
+        <artifactId>quarkus-bom-quarkus-platform-descriptor</artifactId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
+        <version>999-SNAPSHOT</version><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
+        <type>json</type><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
+        <classifier>999-SNAPSHOT</classifier><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
       </dependency>
       <dependency>
-        <groupId>com.oracle.database.jdbc.debug</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc11-debug</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <type>pom</type><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
+        <artifactId>quarkus-smallrye-reactive-messaging-pulsar-deployment</artifactId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
+        <version>999-SNAPSHOT</version><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
       </dependency>
       <dependency>
-        <groupId>com.oracle.database.jdbc.debug</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc11-observability-debug</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <type>pom</type><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
+        <artifactId>quarkus-smallrye-reactive-messaging-pulsar</artifactId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
+        <version>999-SNAPSHOT</version><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
       </dependency>
       <dependency>
-        <groupId>com.oracle.database.jdbc.debug</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc11_g</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.quarkus</groupId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
+        <artifactId>quarkus-test-hibernate-reactive-panache</artifactId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
+        <version>999-SNAPSHOT</version><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
       </dependency>
       <dependency>
-        <groupId>com.oracle.database.jdbc.debug</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc11dms_g</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>io.smallrye.reactive</groupId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
+        <artifactId>smallrye-reactive-messaging-pulsar</artifactId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
+        <version>4.7.0</version><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
       </dependency>
       <dependency>
-        <groupId>com.oracle.database.jdbc.debug</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc8-debug</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <type>pom</type><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>org.apache.pulsar</groupId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
+        <artifactId>pulsar-client-messagecrypto-bc</artifactId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
+        <version>3.0.0</version><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
       </dependency>
       <dependency>
-        <groupId>com.oracle.database.jdbc.debug</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc8-observability-debug</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <type>pom</type><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>com.oracle.database.jdbc.debug</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc8_g</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>com.oracle.database.jdbc.debug</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc8dms_g</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>com.oracle.database.observability</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc11-observability</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <type>pom</type><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>com.oracle.database.observability</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc11dms</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>com.oracle.database.observability</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc8-observability</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <type>pom</type><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>com.oracle.database.observability</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ojdbc8dms</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>com.oracle.database.security</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>osdt_cert</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>com.oracle.database.security</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>osdt_core</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>21.5.0.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.contrib</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-aws-resources</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>org.apache.pulsar</groupId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
+        <artifactId>pulsar-client-original</artifactId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
+        <version>3.0.0</version><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
         <exclusions>
           <exclusion>
-            <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>opentelemetry-api</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+            <groupId>org.checkerframework</groupId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
+            <artifactId>checker-qual</artifactId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
           </exclusion>
           <exclusion>
-            <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>opentelemetry-sdk</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+            <groupId>commons-logging</groupId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
+            <artifactId>commons-logging</artifactId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
           </exclusion>
           <exclusion>
-            <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>opentelemetry-semconv</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+            <groupId>javax.validation</groupId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
+            <artifactId>validation-api</artifactId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
           </exclusion>
           <exclusion>
-            <groupId>com.fasterxml.jackson.core</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>jackson-core</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>com.squareup.okhttp3</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>okhttp</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+            <groupId>javax.ws.rs</groupId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
+            <artifactId>javax.ws.rs-api</artifactId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
           </exclusion>
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>io.opentelemetry.contrib</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-aws-xray-propagator</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <exclusions>
-          <exclusion>
-            <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>opentelemetry-api</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.contrib</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-aws-xray</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <exclusions>
-          <exclusion>
-            <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>opentelemetry-sdk</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>opentelemetry-sdk-trace</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>opentelemetry-semconv</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>com.fasterxml.jackson.core</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>jackson-core</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>com.fasterxml.jackson.core</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>jackson-databind</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-          <exclusion>
-            <groupId>com.squareup.okhttp3</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-            <artifactId>okhttp</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry.instrumentation</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-spring-webflux-5.0</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.smallrye.reactive</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>smallrye-mutiny-vertx-health-checks</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>3.2.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.resteasy</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>resteasy-context-propagation</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>6.2.1.Final</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mockito</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>mockito-inline</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>5.2.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
+        <groupId>org.flywaydb</groupId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
+        <artifactId>flyway-database-oracle</artifactId><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
+        <version>9.20.0</version><!-- io.quarkus:quarkus-bom:999-SNAPSHOT -->
       </dependency>
     </dependencies>
   </dependencyManagement>
