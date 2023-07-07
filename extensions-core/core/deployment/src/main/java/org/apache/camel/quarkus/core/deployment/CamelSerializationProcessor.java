@@ -25,6 +25,8 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -47,13 +49,17 @@ public class CamelSerializationProcessor {
             Byte.class.getName(),
             Character.class.getName(),
             Collections.EMPTY_LIST.getClass().getName(),
+            ConcurrentSkipListMap.class.getName(),
+            ConcurrentSkipListSet.class.getName(),
             Date.class.getName(),
             Double.class.getName(),
             Exception.class.getName(),
             Float.class.getName(),
             HashMap.class.getName(),
+            HashSet.class.getName(),
             Integer.class.getName(),
             LinkedHashMap.class.getName(),
+            LinkedHashSet.class.getName(),
             Long.class.getName(),
             Number.class.getName(),
             RuntimeException.class.getName(),
@@ -61,8 +67,6 @@ public class CamelSerializationProcessor {
             StackTraceElement[].class.getName(),
             String.class.getName(),
             Throwable.class.getName(),
-            HashSet.class.getName(),
-            LinkedHashSet.class.getName(),
 
             // Camel classes
             CamelExecutionException.class.getName(),

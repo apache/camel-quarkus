@@ -158,7 +158,7 @@
         <consul-client.version>${consul-client-version}</consul-client.version>
         <ftpserver.version>${ftpserver-version}</ftpserver.version>
         <hamcrest.version>2.2</hamcrest.version><!-- Awaitility and Wiremock -->
-        <htmlunit-driver.version>4.9.1</htmlunit-driver.version>
+        <htmlunit-driver.version>4.10.0</htmlunit-driver.version>
         <pdfbox.version>${pdfbox-version}</pdfbox.version>
         <sshd.version>2.9.2</sshd.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.sshd:sshd-common -->
         <unboundid-ldapsdk.version>6.0.9</unboundid-ldapsdk.version>
@@ -198,7 +198,7 @@
         <maven-scm-plugin.version>2.0.0</maven-scm-plugin.version>
         <maven-shade-plugin.version>3.5.0</maven-shade-plugin.version>
         <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
-        <os-maven-plugin.version>${os-maven-plugin-version}</os-maven-plugin.version>
+        <os-maven-plugin.version>1.7.1</os-maven-plugin.version>
         <protobuf-maven-plugin.version>${protobuf-maven-plugin-version}</protobuf-maven-plugin.version>
         <rpkgtests-maven-plugin.version>1.0.0</rpkgtests-maven-plugin.version>
 
