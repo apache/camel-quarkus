@@ -15,12 +15,15 @@
 **Closed issues:**
 
 - Allow disabling periodic scan functionality [\#3078](https://github.com/apache/camel-quarkus/issues/3078)
+- Surefire 3.0.0-M4 passing even if a build step throws an exception [\#723](https://github.com/apache/camel-quarkus/issues/723)
 
 **Merged pull requests:**
 
+- Set the official snapshot repositories [\#5062](https://github.com/apache/camel-quarkus/pull/5062) ([essobedo](https://github.com/essobedo))
 - Improve native support of camel-quarkus-debug [\#5060](https://github.com/apache/camel-quarkus/pull/5060) ([essobedo](https://github.com/essobedo))
 - Bump quarkus-micrometer-registry-jmx from 3.0.2 to 3.1.2 [\#5055](https://github.com/apache/camel-quarkus/pull/5055) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump quarkus-amazon-services-bom from 2.3.3 to 2.4.0 [\#5054](https://github.com/apache/camel-quarkus/pull/5054) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore: fix various build/compilation warnings [\#5053](https://github.com/apache/camel-quarkus/pull/5053) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add sync tag for Groovy version property [\#5052](https://github.com/apache/camel-quarkus/pull/5052) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove skip of maven-enforcer-plugin for Google extensions [\#5049](https://github.com/apache/camel-quarkus/pull/5049) ([jamesnetherton](https://github.com/jamesnetherton))
 - Restore native profiles to kubernetes-client tests [\#5047](https://github.com/apache/camel-quarkus/pull/5047) ([jamesnetherton](https://github.com/jamesnetherton))
