@@ -25,6 +25,7 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.GeneratedNativeImageClassBuildItem;
 import io.quarkus.deployment.builditem.GeneratedResourceBuildItem;
+import io.quarkus.deployment.builditem.NativeImageFeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
@@ -82,7 +83,8 @@ class XalanNativeImageProcessor {
     @BuildStep
     void installTransformerFactory(
             BuildProducer<GeneratedNativeImageClassBuildItem> nativeImageClass,
-            BuildProducer<GeneratedResourceBuildItem> generatedResources) {
+            BuildProducer<GeneratedResourceBuildItem> generatedResources,
+            BuildProducer<NativeImageFeatureBuildItem> nativeImageFeature) {
 
         final String serviceProviderFileContent = XalanTransformerFactory.class.getName() + "\n";
 
@@ -98,14 +100,14 @@ class XalanNativeImageProcessor {
          * or NativeImageResourceBuildItem will pick the service file preferred by us.
          * We are thus forced to use this low level mechanism to ensure that.
          */
+        String xalanAutoFeatureClassName = getClass().getName() + "AutoFeature";
         final ClassCreator file = new ClassCreator(new ClassOutput() {
             @Override
             public void write(String s, byte[] bytes) {
                 nativeImageClass.produce(new GeneratedNativeImageClassBuildItem(s, bytes));
             }
-        }, getClass().getName() + "AutoFeature", null,
+        }, xalanAutoFeatureClassName, null,
                 Object.class.getName(), Feature.class.getName());
-        file.addAnnotation("com.oracle.svm.core.annotate.AutomaticFeature");
         final MethodCreator beforeAn = file.getMethodCreator("beforeAnalysis", "V",
                 Feature.BeforeAnalysisAccess.class.getName());
         final TryBlock overallCatch = beforeAn.tryBlock();
@@ -121,6 +123,7 @@ class XalanNativeImageProcessor {
         beforeAn.returnValue(null);
         file.close();
 
+        nativeImageFeature.produce(new NativeImageFeatureBuildItem(xalanAutoFeatureClassName));
     }
 
 }
