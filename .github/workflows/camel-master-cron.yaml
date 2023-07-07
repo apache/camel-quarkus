@@ -72,7 +72,7 @@ jobs:
       - name: Fail if there are uncommitted changes
         shell: bash
         run: |
-          [[ -z $(git status --porcelain | grep -v antora.yml) ]] || { echo 'There are uncommitted changes'; git status; exit 1; }
+          [[ -z $(git status --porcelain | grep -v antora.yml) ]] || { echo 'There are uncommitted changes'; git status; git diff; exit 1; }
       - name: Tar Maven Repo
         shell: bash
         run: |
@@ -174,7 +174,7 @@ jobs:
       - name: Fail if there are uncommitted changes
         shell: bash
         run: |
-          [[ -z $(git status --porcelain) ]] || { echo 'There are uncommitted changes'; git status; exit 1; }
+          [[ -z $(git status --porcelain) ]] || { echo 'There are uncommitted changes'; git status; git diff; exit 1; }
       - name: Report Build Failure
         if: failure() || cancelled()
         run: |
