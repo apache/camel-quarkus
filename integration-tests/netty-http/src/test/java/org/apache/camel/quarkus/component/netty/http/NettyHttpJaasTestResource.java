@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.netty.http;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,16 +25,16 @@ import java.util.Map;
 
 public class NettyHttpJaasTestResource extends NettyHttpTestResource {
     private static final String JAAS_FILE_NAME = "config.jaas";
-    private static final Path SOURCE_FILE = Paths.get("src/test/resources/").resolve(JAAS_FILE_NAME);
     private static final Path TARGET_FILE = Paths.get("target/").resolve(JAAS_FILE_NAME);
 
     @Override
     public Map<String, String> start() {
         if (!Files.exists(TARGET_FILE)) {
-            try {
-                Files.copy(SOURCE_FILE, TARGET_FILE);
+            try (InputStream in = getClass().getClassLoader().getResourceAsStream(JAAS_FILE_NAME)) {
+                Files.createDirectories(TARGET_FILE.getParent());
+                Files.copy(in, TARGET_FILE);
             } catch (IOException e) {
-                throw new RuntimeException("Unable to copy " + JAAS_FILE_NAME, e);
+                throw new RuntimeException("Unable to copy " + JAAS_FILE_NAME + " from class path to " + TARGET_FILE, e);
             }
         }
 
