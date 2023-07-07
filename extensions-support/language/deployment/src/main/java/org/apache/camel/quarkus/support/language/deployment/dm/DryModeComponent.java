@@ -31,6 +31,13 @@ public class DryModeComponent extends DefaultComponent {
 
     @Override
     protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) {
-        return new DryModeEndpoint(uri);
+        DryModeEndpoint endpoint = new DryModeEndpoint(uri);
+        endpoint.setComponent(this);
+        return endpoint;
+    }
+
+    @Override
+    protected boolean resolveRawParameterValues() {
+        return false;
     }
 }

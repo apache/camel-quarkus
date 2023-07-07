@@ -55,6 +55,11 @@ public class DryModeEndpoint extends DefaultEndpoint {
         return String.format("dm:%s", uri);
     }
 
+    @Override
+    public boolean isLenientProperties() {
+        return true;
+    }
+
     private static class DryModeConsumer extends DefaultConsumer {
 
         DryModeConsumer(Endpoint endpoint, Processor processor) {
