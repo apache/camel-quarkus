@@ -42,6 +42,12 @@
             <artifactId>camel-quarkus-integration-test-messaging-jms</artifactId>
         </dependency>
 
+        <!-- Messaging Pooled JMS -->
+        <dependency>
+            <groupId>io.quarkiverse.messaginghub</groupId>
+            <artifactId>quarkus-pooled-jms</artifactId>
+        </dependency>
+
         <!-- test dependencies -->
         <dependency>
             <groupId>io.quarkus</groupId>
