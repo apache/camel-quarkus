@@ -116,9 +116,9 @@ public class TwilioResource {
             return new TwilioRestClient.Builder(
                     ConfigProvider.getConfig().getValue("camel.component.twilio.username", String.class),
                     ConfigProvider.getConfig().getValue("camel.component.twilio.password", String.class))
-                            .accountSid(ConfigProvider.getConfig().getValue("camel.component.twilio.account-sid", String.class))
-                            .httpClient(client)
-                            .build();
+                    .accountSid(ConfigProvider.getConfig().getValue("camel.component.twilio.account-sid", String.class))
+                    .httpClient(client)
+                    .build();
         }
         return null;
     }
