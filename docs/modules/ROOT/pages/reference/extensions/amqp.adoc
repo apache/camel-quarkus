@@ -59,14 +59,25 @@ you must ensure that the `camel-quarkus-xml-jaxp` extension is present on the cl
 When sending JMS message payloads as `javax.jms.ObjectMessage`, you must annotate the relevant classes to be registered for serialization with `@RegisterForReflection(serialization = true)`. 
 Note that this extension automatically sets `quarkus.camel.native.reflection.serialization-enabled = true` for you. Refer to the xref:user-guide/native-mode.adoc#serialization[native mode user guide] for more information.
 
-
-[id="extensions-amqp-camel-quarkus-limitations"]
-== Camel Quarkus limitations
-
-[id="extensions-amqp-limitations-connection-pooling"]
+[id="extensions-amqp-usage-connection-pooling"]
 === Connection Pooling
 
-JMS connection pooling isn't supported yet since there is still an open https://github.com/amqphub/quarkus-qpid-jms/issues/22[issue] with quarkus-qpid-jms.
+You can use the `quarkus-pooled-jms` extension to get pooling support for the connections. Refer to the https://quarkiverse.github.io/quarkiverse-docs/quarkus-pooled-jms/dev/index.html[quarkus-pooled-jms] extension documentation for more information.
+
+Just add the following dependency to your `pom.xml`:
+[source,xml]
+----
+<dependency>
+    <groupId>io.quarkiverse.messaginghub</groupId>
+    <artifactId>quarkus-pooled-jms</artifactId>
+</dependency>
+----
+
+To enable the pooling support, you need to add the following configuration to your `application.properties`:
+[source,properties]
+----
+quarkus.qpid-jms.wrap=true
+----
 
 
 [id="extensions-amqp-transferexception-option-in-native-mode"]
