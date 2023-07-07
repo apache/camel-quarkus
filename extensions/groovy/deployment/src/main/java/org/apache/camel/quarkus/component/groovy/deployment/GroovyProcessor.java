@@ -41,7 +41,6 @@ import org.apache.camel.quarkus.support.language.deployment.ExpressionBuildItem;
 import org.apache.camel.quarkus.support.language.deployment.ExpressionExtractionResultBuildItem;
 import org.apache.camel.quarkus.support.language.deployment.ScriptBuildItem;
 import org.apache.camel.quarkus.support.language.runtime.ExpressionUID;
-import org.apache.camel.quarkus.support.language.runtime.LanguageSupportRecorder;
 import org.apache.camel.quarkus.support.language.runtime.ScriptUID;
 import org.codehaus.groovy.control.CompilationUnit;
 import org.codehaus.groovy.control.CompilerConfiguration;
@@ -149,9 +148,8 @@ class GroovyProcessor {
     @BuildStep(onlyIf = NativeBuild.class)
     CamelBeanBuildItem configureLanguage(
             GroovyExpressionRecorder recorder,
-            LanguageSupportRecorder languageRecorder,
             ExpressionExtractionResultBuildItem result,
-            List<GroovyExpressionSourceBuildItem> sources) throws ClassNotFoundException {
+            List<GroovyExpressionSourceBuildItem> sources) {
 
         if (result.isSuccess() && !sources.isEmpty()) {
             RuntimeValue<GroovyLanguage.Builder> builder = recorder.languageBuilder();
@@ -159,7 +157,7 @@ class GroovyProcessor {
                 recorder.addScript(
                         builder,
                         source.getOriginalCode(),
-                        languageRecorder.loadClass(source.getClassName()));
+                        source.getClassName());
             }
             final RuntimeValue<GroovyLanguage> language = recorder.languageNewInstance(builder);
             return new CamelBeanBuildItem("groovy", GroovyLanguage.class.getName(), language);

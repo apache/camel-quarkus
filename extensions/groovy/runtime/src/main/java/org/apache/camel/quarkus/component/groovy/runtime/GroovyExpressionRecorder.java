@@ -29,9 +29,10 @@ public class GroovyExpressionRecorder {
     }
 
     @SuppressWarnings("unchecked")
-    public void addScript(RuntimeValue<GroovyLanguage.Builder> builder, String content, RuntimeValue<Class<?>> clazz) {
+    public void addScript(RuntimeValue<GroovyLanguage.Builder> builder, String content, String className) {
         try {
-            builder.getValue().addScript(content, (Class<Script>) clazz.getValue());
+            builder.getValue().addScript(content,
+                    (Class<Script>) Class.forName(className, true, Thread.currentThread().getContextClassLoader()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
