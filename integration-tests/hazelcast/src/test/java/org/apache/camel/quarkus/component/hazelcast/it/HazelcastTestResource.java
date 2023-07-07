@@ -24,7 +24,6 @@ import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
 public class HazelcastTestResource implements QuarkusTestResourceLifecycleManager {
     private volatile HazelcastInstance member;
-    private static volatile HazelcastInstance member2;
 
     @Override
     public Map<String, String> start() {
@@ -37,17 +36,6 @@ public class HazelcastTestResource implements QuarkusTestResourceLifecycleManage
         if (member != null) {
             member.shutdown();
         }
-
-        if (member2 != null) {
-            member.shutdown();
-        }
-    }
-
-    /**
-     * this is used to test new instance in the same cluster
-     */
-    public static void addMemberToCluster() {
-        member2 = Hazelcast.newHazelcastInstance();
     }
 
 }
