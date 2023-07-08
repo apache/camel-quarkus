@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.camel.quarkus</groupId>
   <artifactId>camel-quarkus-bom</artifactId>
-  <version>2.16.0</version>
+  <version>2.16.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Camel Quarkus :: BOM</name>
   <description>Apache Camel extensions for Quarkus</description>
