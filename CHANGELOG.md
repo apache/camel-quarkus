@@ -6,19 +6,30 @@
 
 **Implemented enhancements:**
 
+- Add a pooling test with quarkus-qpid-jms [\#5068](https://github.com/apache/camel-quarkus/issues/5068)
 - Add support of the suspend mode to the Camel Debugger [\#5059](https://github.com/apache/camel-quarkus/issues/5059)
 
 **Fixed bugs:**
 
+- Nitrite native integration test could not serialize \[\[3941604762136\]NO₂\] [\#5070](https://github.com/apache/camel-quarkus/issues/5070)
 - Cannot retrieve the breakpoints and suspended node ids in native mode [\#5058](https://github.com/apache/camel-quarkus/issues/5058)
 
 **Closed issues:**
 
+- Replace the deprecated RecorderContext\#classProxy in groovy and joor extensions [\#5056](https://github.com/apache/camel-quarkus/issues/5056)
 - Allow disabling periodic scan functionality [\#3078](https://github.com/apache/camel-quarkus/issues/3078)
 - Surefire 3.0.0-M4 passing even if a build step throws an exception [\#723](https://github.com/apache/camel-quarkus/issues/723)
 
 **Merged pull requests:**
 
+- chore: Add git diff when there are uncommitted changes [\#5076](https://github.com/apache/camel-quarkus/pull/5076) ([essobedo](https://github.com/essobedo))
+- Register additional JDK classes for serialization required by Nitrite [\#5075](https://github.com/apache/camel-quarkus/pull/5075) ([jamesnetherton](https://github.com/jamesnetherton))
+- Use NativeImageFeatureBuildItem instead of deprecated AutomaticFeature annotation [\#5074](https://github.com/apache/camel-quarkus/pull/5074) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix \#5068 to add a pooling test with quarkus-qpid-jms [\#5069](https://github.com/apache/camel-quarkus/pull/5069) ([zhfeng](https://github.com/zhfeng))
+- Ref \#5056: Replace the deprecated RecorderContext\#classProxy [\#5066](https://github.com/apache/camel-quarkus/pull/5066) ([essobedo](https://github.com/essobedo))
+- Restrict downloading of com.atlassian dependencies to packages.atlassian.com [\#5065](https://github.com/apache/camel-quarkus/pull/5065) ([jamesnetherton](https://github.com/jamesnetherton))
+- Bump os-maven-plugin from 1.7.0 to 1.7.1 [\#5064](https://github.com/apache/camel-quarkus/pull/5064) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump htmlunit-driver from 4.9.1 to 4.10.0 [\#5063](https://github.com/apache/camel-quarkus/pull/5063) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Set the official snapshot repositories [\#5062](https://github.com/apache/camel-quarkus/pull/5062) ([essobedo](https://github.com/essobedo))
 - Improve native support of camel-quarkus-debug [\#5060](https://github.com/apache/camel-quarkus/pull/5060) ([essobedo](https://github.com/essobedo))
 - Bump quarkus-micrometer-registry-jmx from 3.0.2 to 3.1.2 [\#5055](https://github.com/apache/camel-quarkus/pull/5055) ([dependabot[bot]](https://github.com/apps/dependabot))
@@ -1711,15 +1722,8 @@
 **Closed issues:**
 
 - Telegram: webhook is failing in 2.13.x [\#4961](https://github.com/apache/camel-quarkus/issues/4961)
-- Upgrade to Groovy 4 [\#4960](https://github.com/apache/camel-quarkus/issues/4960)
-- Delegate complexity to quarkus-groovy [\#4959](https://github.com/apache/camel-quarkus/issues/4959)
-- \[Quarkus 3.2.0\] No recovery system in which to register XAResourceRecovery instance [\#4945](https://github.com/apache/camel-quarkus/issues/4945)
-- Kafka Devservices fails with Quarkus 3 [\#4943](https://github.com/apache/camel-quarkus/issues/4943)
 - camel-quarkus-integration-test-js-dsl should unpack its resources to target rather than src [\#4931](https://github.com/apache/camel-quarkus/issues/4931)
 - knative-producer native integration tests are failing [\#4923](https://github.com/apache/camel-quarkus/issues/4923)
-- Ban com.github.spotbugs:spotbugs-annotations [\#4914](https://github.com/apache/camel-quarkus/issues/4914)
-- MyBatisConsumerTest should keep awaitility in the test scope [\#4793](https://github.com/apache/camel-quarkus/issues/4793)
-- Cxf-soap: Extend test coverage with Converter scenario [\#4652](https://github.com/apache/camel-quarkus/issues/4652)
 - \[Camel 3.19.0\] Google-secrets-manager: Remove workaround after fix of CAMEL-18520 [\#4103](https://github.com/apache/camel-quarkus/issues/4103)
 - Google-bigquery: Enable `sqlCrudOperations` test once Camel version is 18.3 [\#4029](https://github.com/apache/camel-quarkus/issues/4029)
 - Upgrade to H2 2.x [\#3498](https://github.com/apache/camel-quarkus/issues/3498)
@@ -1732,11 +1736,20 @@
 - Micrometer: It is not necessary to produce JMXRegistry for the test [\#5030](https://github.com/apache/camel-quarkus/issues/5030)
 - Micrometer: Custom registry coverage is missing [\#5018](https://github.com/apache/camel-quarkus/issues/5018)
 - camel-quarkus-crypto: Add test coverage for raw keys [\#4979](https://github.com/apache/camel-quarkus/issues/4979)
+- Upgrade to Groovy 4 [\#4960](https://github.com/apache/camel-quarkus/issues/4960)
+- Delegate complexity to quarkus-groovy [\#4959](https://github.com/apache/camel-quarkus/issues/4959)
 - \[Quarkus 3.2.0\]  Enable native profile in master-openshift test [\#4957](https://github.com/apache/camel-quarkus/issues/4957)
 - Improve netty-http test coverage [\#4956](https://github.com/apache/camel-quarkus/issues/4956)
 - Add test coverage for MDC logging [\#4947](https://github.com/apache/camel-quarkus/issues/4947)
+- \[Quarkus 3.2.0\] No recovery system in which to register XAResourceRecovery instance [\#4945](https://github.com/apache/camel-quarkus/issues/4945)
+- Kafka Devservices fails with Quarkus 3 [\#4943](https://github.com/apache/camel-quarkus/issues/4943)
 - Micrometer: Instrumenting core thread pool feature is missing. [\#4934](https://github.com/apache/camel-quarkus/issues/4934)
 - CXF test is using different package then folder structure [\#4919](https://github.com/apache/camel-quarkus/issues/4919)
+- Ban com.github.spotbugs:spotbugs-annotations [\#4914](https://github.com/apache/camel-quarkus/issues/4914)
+- \[camel-main\] Remove excludes for tika/runtime [\#4907](https://github.com/apache/camel-quarkus/issues/4907)
+- \[camel-main\] Openapi-java native is not working \(CAMEL-18963\) [\#4900](https://github.com/apache/camel-quarkus/issues/4900)
+- MyBatisConsumerTest should keep awaitility in the test scope [\#4793](https://github.com/apache/camel-quarkus/issues/4793)
+- Cxf-soap: Extend test coverage with Converter scenario [\#4652](https://github.com/apache/camel-quarkus/issues/4652)
 - Google extension dependency convergence errors [\#4625](https://github.com/apache/camel-quarkus/issues/4625)
 - Expand micrometer test coverage [\#4582](https://github.com/apache/camel-quarkus/issues/4582)
 - jira test fails with Camel 4 and Quarkus 3 [\#4524](https://github.com/apache/camel-quarkus/issues/4524)
@@ -1760,8 +1773,6 @@
 
 **Closed issues:**
 
-- \[camel-main\] Remove excludes for tika/runtime [\#4907](https://github.com/apache/camel-quarkus/issues/4907)
-- \[camel-main\] Openapi-java native is not working \(CAMEL-18963\) [\#4900](https://github.com/apache/camel-quarkus/issues/4900)
 - Paho MQTT 5 Component Quarkus: using ssl inside native image [\#4895](https://github.com/apache/camel-quarkus/issues/4895)
 - Snmp: add native support [\#4820](https://github.com/apache/camel-quarkus/issues/4820)
 - Fix `com.google.oauth-client:google-oauth-client` dependency convergence issues [\#4139](https://github.com/apache/camel-quarkus/issues/4139)
