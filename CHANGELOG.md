@@ -12,6 +12,7 @@
 **Fixed bugs:**
 
 - Nitrite native integration test could not serialize \[\[3941604762136\]NO₂\] [\#5070](https://github.com/apache/camel-quarkus/issues/5070)
+- Expression extractor fails when there are properties to set [\#5067](https://github.com/apache/camel-quarkus/issues/5067)
 - Cannot retrieve the breakpoints and suspended node ids in native mode [\#5058](https://github.com/apache/camel-quarkus/issues/5058)
 
 **Closed issues:**
@@ -22,6 +23,7 @@
 
 **Merged pull requests:**
 
+- Ref \#5067: Make expression extractor supports properties [\#5079](https://github.com/apache/camel-quarkus/pull/5079) ([essobedo](https://github.com/essobedo))
 - chore: Add git diff when there are uncommitted changes [\#5076](https://github.com/apache/camel-quarkus/pull/5076) ([essobedo](https://github.com/essobedo))
 - Register additional JDK classes for serialization required by Nitrite [\#5075](https://github.com/apache/camel-quarkus/pull/5075) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use NativeImageFeatureBuildItem instead of deprecated AutomaticFeature annotation [\#5074](https://github.com/apache/camel-quarkus/pull/5074) ([jamesnetherton](https://github.com/jamesnetherton))
