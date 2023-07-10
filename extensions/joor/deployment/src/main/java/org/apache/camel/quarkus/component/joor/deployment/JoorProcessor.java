@@ -53,7 +53,6 @@ import org.apache.camel.quarkus.support.language.deployment.ExpressionBuildItem;
 import org.apache.camel.quarkus.support.language.deployment.ExpressionExtractionResultBuildItem;
 import org.apache.camel.quarkus.support.language.deployment.ScriptBuildItem;
 import org.apache.camel.quarkus.support.language.runtime.ExpressionUID;
-import org.apache.camel.quarkus.support.language.runtime.LanguageSupportRecorder;
 import org.apache.camel.quarkus.support.language.runtime.ScriptUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -158,10 +157,9 @@ class JoorProcessor {
     CamelBeanBuildItem configureLanguage(
             JoorExpressionConfig config,
             JoorExpressionRecorder recorder,
-            LanguageSupportRecorder languageRecorder,
             CamelContextBuildItem context,
             ExpressionExtractionResultBuildItem result,
-            List<JoorExpressionSourceBuildItem> sources) throws ClassNotFoundException {
+            List<JoorExpressionSourceBuildItem> sources) {
 
         if (result.isSuccess() && !sources.isEmpty()) {
             final RuntimeValue<JoorExpressionCompiler.Builder> expressionCompilerBuilder = recorder
@@ -176,13 +174,13 @@ class JoorProcessor {
                             expressionScriptingCompilerBuilder,
                             camelContext,
                             source.getId(),
-                            languageRecorder.loadClass(source.getClassName()));
+                            source.getClassName());
                 } else {
                     recorder.addExpression(
                             expressionCompilerBuilder,
                             camelContext,
                             source.getId(),
-                            languageRecorder.loadClass(source.getClassName()));
+                            source.getClassName());
                 }
             }
             final RuntimeValue<JoorLanguage> language = recorder.languageNewInstance(config, expressionCompilerBuilder,
@@ -191,7 +189,7 @@ class JoorProcessor {
             if (config.resultType.isPresent()) {
                 recorder.setResultType(
                         language,
-                        languageRecorder.loadClass(config.resultType.get()));
+                        config.resultType.get());
             }
 
             return new CamelBeanBuildItem("joor", JoorLanguage.class.getName(), language);

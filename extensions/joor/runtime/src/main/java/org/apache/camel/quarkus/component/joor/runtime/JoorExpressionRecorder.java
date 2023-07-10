@@ -36,8 +36,12 @@ public class JoorExpressionRecorder {
         return language;
     }
 
-    public void setResultType(RuntimeValue<JoorLanguage> language, RuntimeValue<Class<?>> resultType) {
-        language.getValue().setResultType(resultType.getValue());
+    public void setResultType(RuntimeValue<JoorLanguage> language, String className) {
+        try {
+            language.getValue().setResultType(Class.forName(className, true, Thread.currentThread().getContextClassLoader()));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public RuntimeValue<JoorExpressionCompiler.Builder> expressionCompilerBuilder() {
@@ -49,20 +53,22 @@ public class JoorExpressionRecorder {
     }
 
     public void addExpression(RuntimeValue<JoorExpressionCompiler.Builder> builder, RuntimeValue<CamelContext> ctx, String id,
-            RuntimeValue<Class<?>> clazz) {
+            String className) {
         try {
             builder.getValue().addExpression(id,
-                    (JoorMethod) clazz.getValue().getConstructor(CamelContext.class).newInstance(ctx.getValue()));
+                    (JoorMethod) Class.forName(className, true, Thread.currentThread().getContextClassLoader())
+                            .getConstructor(CamelContext.class).newInstance(ctx.getValue()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     public void addScript(RuntimeValue<JoorExpressionScriptingCompiler.Builder> builder, RuntimeValue<CamelContext> ctx,
-            String id, RuntimeValue<Class<?>> clazz) {
+            String id, String className) {
         try {
             builder.getValue().addScript(id,
-                    (JoorScriptingMethod) clazz.getValue().getConstructor(CamelContext.class).newInstance(ctx.getValue()));
+                    (JoorScriptingMethod) Class.forName(className, true, Thread.currentThread().getContextClassLoader())
+                            .getConstructor(CamelContext.class).newInstance(ctx.getValue()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
