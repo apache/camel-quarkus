@@ -23,6 +23,7 @@
 
 **Merged pull requests:**
 
+- Generated sources regen for SBOM [\#5085](https://github.com/apache/camel-quarkus/pull/5085) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Ref \#5067: Make expression extractor supports properties [\#5079](https://github.com/apache/camel-quarkus/pull/5079) ([essobedo](https://github.com/essobedo))
 - chore: Add git diff when there are uncommitted changes [\#5076](https://github.com/apache/camel-quarkus/pull/5076) ([essobedo](https://github.com/essobedo))
 - Register additional JDK classes for serialization required by Nitrite [\#5075](https://github.com/apache/camel-quarkus/pull/5075) ([jamesnetherton](https://github.com/jamesnetherton))
