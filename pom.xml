@@ -88,7 +88,6 @@
         <commons-math3.version>3.6.1</commons-math3.version><!-- Mess in the transitive dependencies of Spark and hbase-testing-util -->
         <curator.version>4.3.0</curator.version><!-- Mess in the transitive dependencies of Spark, Zookeeper and other hadoop related components -->
         <cxf.version>3.5.5</cxf.version><!-- @sync io.quarkiverse.cxf:quarkus-cxf-parent:${quarkiverse-cxf.version} prop:cxf.version -->
-        <cxf.xjc-utils.version>3.3.2</cxf.xjc-utils.version><!-- @sync io.quarkiverse.cxf:quarkus-cxf-parent:${quarkiverse-cxf.version} prop:cxf.xjcplugins.version -->
         <eddsa.version>${eddsa-version}</eddsa.version>
         <freemarker.version>2.3.31</freemarker.version><!-- @sync io.quarkiverse.freemarker:quarkus-freemarker-parent:${quarkiverse-freemarker.version} prop:freemarker.version -->
         <geny.version>0.6.2</geny.version>
@@ -103,9 +102,9 @@
         <hapi-fhir-core.version>4.2.0</hapi-fhir-core.version><!-- @sync ca.uhn.hapi.fhir:hapi-fhir:${hapi-fhir.version} prop:fhir_core_version -->
         <hbase.version>${hbase-version}</hbase.version>
         <htrace.version>4.2.0-incubating</htrace.version><!-- Mess in hbase transitive deps -->
-        <infinispan.version>14.0.5.Final</infinispan.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.infinispan:infinispan-core -->
+        <infinispan.version>14.0.6.Final</infinispan.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.infinispan:infinispan-core -->
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
-        <jackson.version>2.13.4</jackson.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.fasterxml.jackson.core:jackson-core -->
+        <jackson.version>2.14.2</jackson.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.fasterxml.jackson.core:jackson-core -->
         <jackson1.version>1.9.13</jackson1.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <jackson-asl.version>${jackson1.version}</jackson-asl.version><!-- Can be different from jackson1.version on some occasions -->
         <jakarta.jms-api.version>2.0.3</jakarta.jms-api.version>
@@ -122,10 +121,10 @@
         <jgit.version>6.4.0.202211300538-r</jgit.version><!-- @sync io.quarkiverse.jgit:quarkus-jgit-parent:${quarkiverse-jgit.version} prop:jgit.version -->
         <jna-platform.version>5.6.0</jna-platform.version><!-- @sync com.azure:azure-identity:${azure-identity.version} dep:net.java.dev.jna:jna-platform -->
         <jnr-ffi.version>2.1.2</jnr-ffi.version><!-- Mess in web3j transitive deps -->
-        <jsch.version>0.2.4</jsch.version><!-- @sync io.quarkiverse.jsch:quarkus-jsch-parent:${quarkiverse-jsch.version} prop:jsch.version -->
+        <jsch.version>0.2.6</jsch.version><!-- @sync io.quarkiverse.jsch:quarkus-jsch-parent:${quarkiverse-jsch.version} prop:jsch.version -->
         <json-path.version>${json-path-version}</json-path.version>
-        <json-smart.version>2.4.7</json-smart.version><!-- @sync com.jayway.jsonpath:json-path:${json-path.version} dep:net.minidev:json-smart -->
-        <kafka.version>3.3.1</kafka.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.kafka:kafka-clients -->
+        <json-smart.version>2.4.10</json-smart.version><!-- @sync com.jayway.jsonpath:json-path:${json-path.version} dep:net.minidev:json-smart -->
+        <kafka.version>3.3.2</kafka.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.kafka:kafka-clients -->
         <kudu.version>${kudu-version}</kudu.version>
         <kotlin.version>1.7.22</kotlin.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.jetbrains.kotlin:kotlin-stdlib -->
         <kryo.version>2.24.0</kryo.version><!-- @sync org.apache.flink:flink-core:${flink-version} dep:com.esotericsoftware.kryo:kryo -->
@@ -137,7 +136,7 @@
         <okio.version>${squareup-okio-version}</okio.version>
         <opencensus.version>0.31.0</opencensus.version><!-- Mess in Google cloud. Keep in sync with version used in com.google.http-client:google-http-client -->
         <perfmark-api.version>0.25.0</perfmark-api.version><!-- @sync io.grpc:grpc-netty-shaded:${grpc.version} dep:io.perfmark:perfmark-api -->
-        <protobuf.version>3.21.9</protobuf.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.google.protobuf:protobuf-java -->
+        <protobuf.version>3.22.0</protobuf.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.google.protobuf:protobuf-java -->
         <reactor-core.version>3.4.23</reactor-core.version><!-- @sync com.azure:azure-core:${azure-core.version} dep:io.projectreactor:reactor-core -->
         <reactor-netty.version>${reactor-netty-version}</reactor-netty.version>
         <retrofit.version>2.5.0</retrofit.version>
@@ -154,7 +153,7 @@
         <xstream.version>${xstream-version}</xstream.version>
         <web3j.version>${web3j-version}</web3j.version>
         <web3j.quorum.version>${web3j-quorum-version}</web3j.quorum.version>
-        <woodstox-core.version>6.3.1</woodstox-core.version><!-- @sync com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${jackson.version} dep:com.fasterxml.woodstox:woodstox-core -->
+        <woodstox-core.version>6.5.0</woodstox-core.version><!-- @sync com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${jackson.version} dep:com.fasterxml.woodstox:woodstox-core -->
         <zookeeper.version>${solr-zookeeper-version}</zookeeper.version><!-- ${solr-zookeeper-version} is newer than ${zookeeper-version} -->
         <zxing.version>3.3.3</zxing.version><!-- Mess in IOTA transitive deps -->
 
