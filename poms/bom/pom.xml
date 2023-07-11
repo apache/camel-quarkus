@@ -123,10 +123,6 @@
                         <artifactId>javax.annotation-api</artifactId>
                     </exclusion>
                     <exclusion>
-                        <groupId>org.apache.activemq</groupId>
-                        <artifactId>activemq-broker</artifactId>
-                    </exclusion>
-                    <exclusion>
                         <groupId>org.apache.geronimo.specs</groupId>
                         <artifactId>geronimo-jms_1.1_spec</artifactId>
                     </exclusion>
@@ -167,12 +163,6 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-as2</artifactId>
                 <version>${camel.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.bouncycastle</groupId>
-                        <artifactId>*</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -193,12 +183,6 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-asn1</artifactId>
                 <version>${camel.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.bouncycastle</groupId>
-                        <artifactId>*</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -231,10 +215,6 @@
                         <groupId>commons-logging</groupId>
                         <artifactId>commons-logging</artifactId>
                     </exclusion>
-                    <exclusion>
-                        <groupId>javax.ws.rs</groupId>
-                        <artifactId>jsr311-api</artifactId>
-                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -245,10 +225,6 @@
                     <exclusion>
                         <groupId>commons-logging</groupId>
                         <artifactId>commons-logging</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.geronimo.specs</groupId>
-                        <artifactId>geronimo-activation_1.1_spec</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -607,8 +583,16 @@
                         <artifactId>jakarta.activation-api</artifactId>
                     </exclusion>
                     <exclusion>
+                        <groupId>jakarta.ws.rs</groupId>
+                        <artifactId>jakarta.ws.rs-api</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>jakarta.xml.bind</groupId>
                         <artifactId>jakarta.xml.bind-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.geronimo.specs</groupId>
+                        <artifactId>geronimo-jta_1.1_spec</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -778,6 +762,10 @@
                         <artifactId>*</artifactId>
                     </exclusion>
                     <exclusion>
+                        <groupId>org.apache.geronimo.specs</groupId>
+                        <artifactId>geronimo-jms_2.0_spec</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>org.checkerframework</groupId>
                         <artifactId>checker-qual</artifactId>
                     </exclusion>
@@ -846,12 +834,6 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-crypto</artifactId>
                 <version>${camel.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.bouncycastle</groupId>
-                        <artifactId>*</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -1044,12 +1026,6 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-ehcache</artifactId>
                 <version>${camel.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>jakarta.xml.bind</groupId>
-                        <artifactId>jakarta.xml.bind-api</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -1126,12 +1102,6 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-fhir</artifactId>
                 <version>${camel.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>xpp3</groupId>
-                        <artifactId>xpp3</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -1224,10 +1194,6 @@
                         <artifactId>commons-logging</artifactId>
                     </exclusion>
                     <exclusion>
-                        <groupId>io.grpc</groupId>
-                        <artifactId>grpc-netty-shaded</artifactId>
-                    </exclusion>
-                    <exclusion>
                         <groupId>javax.annotation</groupId>
                         <artifactId>javax.annotation-api</artifactId>
                     </exclusion>
@@ -1285,10 +1251,6 @@
                         <artifactId>commons-logging</artifactId>
                     </exclusion>
                     <exclusion>
-                        <groupId>io.grpc</groupId>
-                        <artifactId>grpc-netty-shaded</artifactId>
-                    </exclusion>
-                    <exclusion>
                         <groupId>javax.annotation</groupId>
                         <artifactId>javax.annotation-api</artifactId>
                     </exclusion>
@@ -1331,10 +1293,6 @@
                         <artifactId>commons-logging</artifactId>
                     </exclusion>
                     <exclusion>
-                        <groupId>io.grpc</groupId>
-                        <artifactId>grpc-netty-shaded</artifactId>
-                    </exclusion>
-                    <exclusion>
                         <groupId>javax.annotation</groupId>
                         <artifactId>javax.annotation-api</artifactId>
                     </exclusion>
@@ -1364,10 +1322,6 @@
                     <exclusion>
                         <groupId>commons-logging</groupId>
                         <artifactId>commons-logging</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.grpc</groupId>
-                        <artifactId>grpc-netty-shaded</artifactId>
                     </exclusion>
                     <exclusion>
                         <groupId>javax.annotation</groupId>
@@ -1842,14 +1796,6 @@
                 <version>${camel.version}</version>
                 <exclusions>
                     <exclusion>
-                        <groupId>com.google.j2objc</groupId>
-                        <artifactId>j2objc-annotations</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.sun.jersey</groupId>
-                        <artifactId>*</artifactId>
-                    </exclusion>
-                    <exclusion>
                         <groupId>commons-logging</groupId>
                         <artifactId>commons-logging</artifactId>
                     </exclusion>
@@ -1862,32 +1808,8 @@
                         <artifactId>jakarta.xml.bind-api</artifactId>
                     </exclusion>
                     <exclusion>
-                        <groupId>org.apache.httpcomponents</groupId>
-                        <artifactId>httpclient-cache</artifactId>
-                    </exclusion>
-                    <exclusion>
                         <groupId>org.checkerframework</groupId>
                         <artifactId>checker-qual</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.glassfish.jersey.core</groupId>
-                        <artifactId>*</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.glassfish.jersey.media</groupId>
-                        <artifactId>*</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-beans</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-context</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>spring-core</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -2105,6 +2027,16 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-lra</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>jakarta.ws.rs</groupId>
+                        <artifactId>jakarta.ws.rs-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.geronimo.specs</groupId>
+                        <artifactId>geronimo-jta_1.1_spec</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -2340,10 +2272,6 @@
                         <artifactId>annotations</artifactId>
                     </exclusion>
                     <exclusion>
-                        <groupId>io.grpc</groupId>
-                        <artifactId>grpc-netty-shaded</artifactId>
-                    </exclusion>
-                    <exclusion>
                         <groupId>org.checkerframework</groupId>
                         <artifactId>checker-qual</artifactId>
                     </exclusion>
@@ -2363,6 +2291,10 @@
                 <artifactId>camel-optaplanner</artifactId>
                 <version>${camel.version}</version>
                 <exclusions>
+                    <exclusion>
+                        <groupId>jakarta.xml.bind</groupId>
+                        <artifactId>jakarta.xml.bind-api</artifactId>
+                    </exclusion>
                     <exclusion>
                         <groupId>org.optaplanner</groupId>
                         <artifactId>optaplanner-core</artifactId>
@@ -2391,10 +2323,6 @@
                     <exclusion>
                         <groupId>commons-logging</groupId>
                         <artifactId>commons-logging</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.bouncycastle</groupId>
-                        <artifactId>*</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -2628,6 +2556,10 @@
                         <artifactId>jakarta.activation-api</artifactId>
                     </exclusion>
                     <exclusion>
+                        <groupId>jakarta.ws.rs</groupId>
+                        <artifactId>jakarta.ws.rs-api</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>jakarta.xml.bind</groupId>
                         <artifactId>jakarta.xml.bind-api</artifactId>
                     </exclusion>
@@ -2741,10 +2673,6 @@
                 <version>${camel.version}</version>
                 <exclusions>
                     <exclusion>
-                        <groupId>org.bouncycastle</groupId>
-                        <artifactId>*</artifactId>
-                    </exclusion>
-                    <exclusion>
                         <groupId>org.slf4j</groupId>
                         <artifactId>jcl-over-slf4j</artifactId>
                     </exclusion>
@@ -2841,8 +2769,20 @@
                 <version>${camel.version}</version>
                 <exclusions>
                     <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jakarta.xml.bind</groupId>
+                        <artifactId>jakarta.xml.bind-api</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>org.apache.tika</groupId>
                         <artifactId>*</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>jcl-over-slf4j</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -2966,8 +2906,16 @@
                         <artifactId>jakarta.activation-api</artifactId>
                     </exclusion>
                     <exclusion>
+                        <groupId>jakarta.ws.rs</groupId>
+                        <artifactId>jakarta.ws.rs-api</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>jakarta.xml.bind</groupId>
                         <artifactId>jakarta.xml.bind-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.geronimo.specs</groupId>
+                        <artifactId>geronimo-jta_1.1_spec</artifactId>
                     </exclusion>
                     <exclusion>
                         <groupId>org.checkerframework</groupId>
@@ -7064,24 +7012,9 @@
                 <artifactId>curator-x-discovery</artifactId>
                 <version>${curator.version}</version>
             </dependency>
-            <dependency>
+            <dependency><!-- remove with quarkiverse-cxf 1.5.1+1 -->
                 <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-                <version>${cxf.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>jakarta.ws.rs</groupId>
-                        <artifactId>jakarta.ws.rs-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.geronimo.specs</groupId>
-                        <artifactId>geronimo-jta_1.1_spec</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-rs-client</artifactId>
+                <artifactId>cxf-rt-ws-policy</artifactId>
                 <version>${cxf.version}</version>
                 <exclusions>
                     <exclusion>
@@ -7439,30 +7372,6 @@
                             </bannedDependencyResources>
                             <bomEntryTransformations>
                                 <bomEntryTransformation>
-                                    <gavPattern>org.apache.camel:camel-as2</gavPattern>
-                                    <addExclusions>org.bouncycastle:*</addExclusions>
-                                </bomEntryTransformation>
-                                <bomEntryTransformation>
-                                    <gavPattern>org.apache.camel:camel-asn1</gavPattern>
-                                    <addExclusions>org.bouncycastle:*</addExclusions>
-                                </bomEntryTransformation>
-                                <bomEntryTransformation>
-                                    <gavPattern>org.apache.camel:camel-crypto</gavPattern>
-                                    <addExclusions>org.bouncycastle:*</addExclusions>
-                                </bomEntryTransformation>
-                                <bomEntryTransformation>
-                                    <gavPattern>org.apache.camel:camel-amqp</gavPattern>
-                                    <addExclusions>org.apache.camel:camel-spring</addExclusions>
-                                </bomEntryTransformation>
-                                <bomEntryTransformation>
-                                    <gavPattern>org.apache.camel:camel-avro</gavPattern>
-                                    <addExclusions>org.apache.camel:camel-avro-rpc-jetty</addExclusions>
-                                </bomEntryTransformation>
-                                <bomEntryTransformation>
-                                    <gavPattern>org.apache.camel:camel-avro-rpc</gavPattern>
-                                    <addExclusions>org.apache.camel:camel-avro-rpc-jetty</addExclusions>
-                                </bomEntryTransformation>
-                                <bomEntryTransformation>
                                     <gavPattern>org.apache.camel:camel-coap</gavPattern>
                                     <addExclusions>org.eclipse.californium:californium-legal</addExclusions>
                                 </bomEntryTransformation>
@@ -7471,24 +7380,8 @@
                                     <addExclusions>org.apache.activemq:*,org.liquibase:liquibase-core</addExclusions>
                                 </bomEntryTransformation>
                                 <bomEntryTransformation>
-                                    <gavPattern>org.apache.camel:camel-fhir</gavPattern>
-                                    <addExclusions>xpp3:xpp3</addExclusions>
-                                </bomEntryTransformation>
-                                <bomEntryTransformation>
                                     <gavPattern>org.apache.camel:camel-hdfs</gavPattern>
                                     <addExclusions>javax.ws.rs:jsr311-api</addExclusions>
-                                </bomEntryTransformation>
-                                <bomEntryTransformation>
-                                    <gavPattern>org.apache.camel:camel-jira</gavPattern>
-                                    <addExclusions>com.google.j2objc:j2objc-annotations,com.sun.jersey:*,org.glassfish.jersey.core:*,org.glassfish.jersey.media:*,org.apache.httpcomponents:httpclient-cache,org.springframework:spring-beans,org.springframework:spring-core,org.springframework:spring-context</addExclusions>
-                                </bomEntryTransformation>
-                                <bomEntryTransformation>
-                                    <gavPattern>org.apache.camel:camel-jms</gavPattern>
-                                    <addExclusions>org.apache.camel:camel-spring</addExclusions>
-                                </bomEntryTransformation>
-                                <bomEntryTransformation>
-                                    <gavPattern>org.apache.camel:camel-jpa</gavPattern>
-                                    <addExclusions>org.apache.camel:camel-spring</addExclusions>
                                 </bomEntryTransformation>
                                 <bomEntryTransformation>
                                     <gavPattern>org.apache.camel:camel-jq</gavPattern>
@@ -7497,14 +7390,6 @@
                                 <bomEntryTransformation>
                                     <gavPattern>org.apache.camel:camel-optaplanner</gavPattern>
                                     <addExclusions>org.optaplanner:optaplanner-core,org.optaplanner:optaplanner-persistence-common</addExclusions>
-                                </bomEntryTransformation>
-                                <bomEntryTransformation>
-                                    <gavPattern>org.apache.camel:camel-pdf</gavPattern>
-                                    <addExclusions>org.bouncycastle:*</addExclusions>
-                                </bomEntryTransformation>
-                                <bomEntryTransformation>
-                                    <gavPattern>org.apache.camel:camel-ssh</gavPattern>
-                                    <addExclusions>org.bouncycastle:*</addExclusions>
                                 </bomEntryTransformation>
                                 <bomEntryTransformation>
                                     <gavPattern>org.apache.camel:camel-tika</gavPattern>
@@ -7521,20 +7406,8 @@
                                     <addExclusions>com.github.stephenc.jcip:jcip-annotations,com.google.code.findbugs:jsr305</addExclusions>
                                 </autogeneratedBomEntryTransformation>
                                 <autogeneratedBomEntryTransformation>
-                                    <gavPattern>org.apache.kafka:connect-api</gavPattern>
-                                    <addExclusions>javax.ws.rs:javax.ws.rs-api</addExclusions>
-                                </autogeneratedBomEntryTransformation>
-                                <autogeneratedBomEntryTransformation>
-                                    <gavPattern>org.eclipse.jetty:jetty-server</gavPattern>
-                                    <addExclusions>javax.servlet:javax.servlet-api</addExclusions>
-                                </autogeneratedBomEntryTransformation>
-                                <autogeneratedBomEntryTransformation>
-                                    <gavPattern>org.ehcache:ehcache</gavPattern>
-                                    <addExclusions>jakarta.xml.bind:jakarta.xml.bind-api</addExclusions>
-                                </autogeneratedBomEntryTransformation>
-                                <autogeneratedBomEntryTransformation>
-                                    <gavPattern>software.amazon.awssdk:apache-client</gavPattern>
-                                    <addExclusions>commons-logging:commons-logging</addExclusions>
+                                    <gavPattern>org.apache.cxf:cxf-core</gavPattern>
+                                    <addExclusions>org.apache.geronimo.specs:geronimo-jta_1.1_spec</addExclusions>
                                 </autogeneratedBomEntryTransformation>
                                 <autogeneratedBomEntryTransformation>
                                     <gavPattern>org.apache.cxf:cxf-rt-bindings-soap</gavPattern>
@@ -7545,8 +7418,32 @@
                                     <addExclusions>org.apache.geronimo.specs:geronimo-jta_1.1_spec</addExclusions>
                                 </autogeneratedBomEntryTransformation>
                                 <autogeneratedBomEntryTransformation>
+                                    <gavPattern>org.apache.cxf:cxf-rt-rs-json-basic</gavPattern>
+                                    <addExclusions>org.apache.geronimo.specs:geronimo-jta_1.1_spec</addExclusions>
+                                </autogeneratedBomEntryTransformation>
+                                <autogeneratedBomEntryTransformation>
+                                    <gavPattern>org.apache.cxf:cxf-rt-rs-security-jose</gavPattern>
+                                    <addExclusions>org.apache.geronimo.specs:geronimo-jta_1.1_spec</addExclusions>
+                                </autogeneratedBomEntryTransformation>
+                                <autogeneratedBomEntryTransformation>
+                                    <gavPattern>org.apache.cxf:cxf-rt-security</gavPattern>
+                                    <addExclusions>org.apache.geronimo.specs:geronimo-jta_1.1_spec</addExclusions>
+                                </autogeneratedBomEntryTransformation>
+                                <autogeneratedBomEntryTransformation>
                                     <gavPattern>org.apache.cxf:cxf-rt-wsdl</gavPattern>
                                     <addExclusions>org.apache.geronimo.specs:geronimo-jta_1.1_spec</addExclusions>
+                                </autogeneratedBomEntryTransformation>
+                                <autogeneratedBomEntryTransformation>
+                                    <gavPattern>org.apache.kafka:connect-api</gavPattern>
+                                    <addExclusions>javax.ws.rs:javax.ws.rs-api</addExclusions>
+                                </autogeneratedBomEntryTransformation>
+                                <autogeneratedBomEntryTransformation>
+                                    <gavPattern>org.eclipse.jetty:jetty-server</gavPattern>
+                                    <addExclusions>javax.servlet:javax.servlet-api</addExclusions>
+                                </autogeneratedBomEntryTransformation>
+                                <autogeneratedBomEntryTransformation>
+                                    <gavPattern>software.amazon.awssdk:apache-client</gavPattern>
+                                    <addExclusions>commons-logging:commons-logging</addExclusions>
                                 </autogeneratedBomEntryTransformation>
                             </autogeneratedBomEntryTransformations>
                         </configuration>

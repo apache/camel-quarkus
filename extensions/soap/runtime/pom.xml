@@ -65,10 +65,6 @@
             <groupId>io.quarkiverse.cxf</groupId>
             <artifactId>quarkus-cxf-saaj</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.jboss.spec.javax.xml.bind</groupId>
-            <artifactId>jboss-jaxb-api_2.3_spec</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
