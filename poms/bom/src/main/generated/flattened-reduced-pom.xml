@@ -52,6 +52,11 @@
     <dependencies>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-activemq</artifactId>
+        <version>4.0.0-RC1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-amqp</artifactId>
         <version>4.0.0-RC1</version>
       </dependency>
@@ -2620,6 +2625,16 @@
             <artifactId>checker-qual</artifactId>
           </exclusion>
         </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-activemq</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-activemq-deployment</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
