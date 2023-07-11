@@ -137,7 +137,7 @@ When set to true, the `CamelRuntime` will be started automatically.
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.service.discovery.exclude-patterns]]`link:#quarkus.camel.service.discovery.exclude-patterns[quarkus.camel.service.discovery.exclude-patterns]`
 
-A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath. The services defined in the matching files will not be discoverable via the `org.apache.camel.spi.FactoryFinder` mechanism. 
+A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath. The services defined in the matching files will *not* be discoverable via the **`org.apache.camel.spi.FactoryFinder` mechanism. 
 The excludes have higher precedence than includes. The excludes defined here can also be used to veto the discoverability of services included by Camel Quarkus extensions. 
 Example values: `META-INF/services/org/apache/camel/foo/++*++,META-INF/services/org/apache/camel/foo/++**++/bar`
 | `string`
@@ -153,9 +153,9 @@ Example values: `META-INF/services/org/apache/camel/foo/++*++,META-INF/services/
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.service.registry.exclude-patterns]]`link:#quarkus.camel.service.registry.exclude-patterns[quarkus.camel.service.registry.exclude-patterns]`
 
-A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath. The services defined in the matching files will not be added to Camel registry during application's static initialization. 
+A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath. The services defined in the matching files will *not* be added to Camel registry during application's static initialization. 
 The excludes have higher precedence than includes. The excludes defined here can also be used to veto the registration of services included by Camel Quarkus extensions. 
-Example values: `META-INF/services/org/apache/camel/foo/++*++,META-INF/services/org/apache/camel/foo/++**++/bar`
+Example values: `META-INF/services/org/apache/camel/foo/++*++,META-INF/services/org/apache/camel/foo/++**++/bar`**
 | `string`
 | 
 
@@ -227,7 +227,7 @@ Replaced by `quarkus.native.resources.includes` in Camel Quarkus 2.0.0. Using th
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.native.reflection.exclude-patterns]]`link:#quarkus.camel.native.reflection.exclude-patterns[quarkus.camel.native.reflection.exclude-patterns]`
 
-A comma separated list of Ant-path style patterns to match class names that should be excluded from registering for reflection. Use the class name format as returned by the `java.lang.Class.getName()` method: package segments delimited by period `.` and inner classes by dollar sign `$`. 
+A comma separated list of Ant-path style patterns to match class names that should be *excluded* from registering for reflection. Use the class name format as returned by the `java.lang.Class.getName()` method: package segments delimited by period `.` and inner classes by dollar sign `$`. 
 This option narrows down the set selected by `include-patterns`. By default, no classes are excluded. 
 This option cannot be used to unregister classes which have been registered internally by Quarkus extensions.
 | `string`

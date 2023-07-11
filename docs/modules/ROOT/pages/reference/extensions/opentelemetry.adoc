@@ -100,8 +100,8 @@ quarkus.camel.opentelemetry.exclude-patterns=direct:*,netty-http:*
 
 Quarkus OpenTelemetry defaults to the standard OTLP exporter defined in OpenTelemetry.
 Additional exporters will be available in the Quarkiverse https://github.com/quarkiverse/quarkus-opentelemetry-exporter/blob/main/README.md[quarkus-opentelemetry-exporter] project.
-[id="extensions-opentelemetry-usage-tracing-cdi-bean-method-execution"]
 
+[id="extensions-opentelemetry-usage-tracing-cdi-bean-method-execution"]
 === Tracing CDI bean method execution
 
 When instrumenting the execution of CDI bean methods from Camel routes, you should annotate such methods with `io.opentelemetry.extension.annotations.WithSpan`. Methods annotated with `@WithSpan` will create a new Span and establish any required relationships with the current Trace context.
