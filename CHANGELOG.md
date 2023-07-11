@@ -11,6 +11,7 @@
 
 **Fixed bugs:**
 
+- NettyHttpJaasTestResource reads config.jaas from disk [\#5083](https://github.com/apache/camel-quarkus/issues/5083)
 - Nitrite native integration test could not serialize \[\[3941604762136\]NO₂\] [\#5070](https://github.com/apache/camel-quarkus/issues/5070)
 - Expression extractor fails when there are properties to set [\#5067](https://github.com/apache/camel-quarkus/issues/5067)
 - Cannot retrieve the breakpoints and suspended node ids in native mode [\#5058](https://github.com/apache/camel-quarkus/issues/5058)
@@ -24,7 +25,10 @@
 **Merged pull requests:**
 
 - Generated sources regen for SBOM [\#5085](https://github.com/apache/camel-quarkus/pull/5085) ([github-actions[bot]](https://github.com/apps/github-actions))
+- NettyHttpJaasTestResource reads config.jaas from disk  [\#5084](https://github.com/apache/camel-quarkus/pull/5084) ([ppalaga](https://github.com/ppalaga))
 - Ref \#5067: Make expression extractor supports properties [\#5079](https://github.com/apache/camel-quarkus/pull/5079) ([essobedo](https://github.com/essobedo))
+- Enable Twilio test after the component was fixed via Camel 4.0.0-M2 [\#5078](https://github.com/apache/camel-quarkus/pull/5078) ([ppalaga](https://github.com/ppalaga))
+- Ref \#5056: Improve the replacement of RecorderContext\#classProxy [\#5077](https://github.com/apache/camel-quarkus/pull/5077) ([essobedo](https://github.com/essobedo))
 - chore: Add git diff when there are uncommitted changes [\#5076](https://github.com/apache/camel-quarkus/pull/5076) ([essobedo](https://github.com/essobedo))
 - Register additional JDK classes for serialization required by Nitrite [\#5075](https://github.com/apache/camel-quarkus/pull/5075) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use NativeImageFeatureBuildItem instead of deprecated AutomaticFeature annotation [\#5074](https://github.com/apache/camel-quarkus/pull/5074) ([jamesnetherton](https://github.com/jamesnetherton))
