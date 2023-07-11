@@ -136,6 +136,7 @@ group-08:
   - vertx
   - zendesk
 group-09:
+  - activemq
   - amqp
   - debug
   - ftp
