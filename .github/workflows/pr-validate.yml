@@ -37,7 +37,7 @@ concurrency:
 
 env:
   LANG: en_US
-  MAVEN_OPTS: -Xmx3000m
+  MAVEN_OPTS: -Xmx4400m
   CQ_MAVEN_ARGS: -V -ntp -e -Daether.connector.http.connectionMaxTtl=120
 
 jobs:
