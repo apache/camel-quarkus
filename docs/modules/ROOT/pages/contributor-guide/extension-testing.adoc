@@ -54,12 +54,17 @@ If you want to add just a new test module for an existing extension,
 
 == Minimal set of dependencies
 
-Keeping the set of test module dependencies as small as possible has two main advantages:
+Keeping the set of test module dependencies as small as possible has several advantages:
 
 * Less code is faster to compile to native image
 * Additional code may introduce some side effects, mainly in native compilation.
   For instance, an extension A may configure the native compiler in such a way that it causes also extension B to work properly in native mode.
   However, if B was tested in isolation, it would not work.
+* This rule also applies to `junit`, `testcontainers`, `rest-assured`, `assertj` and similar testing dependencies:
+  Unless there is some really good reason to do the opposite, they should be kept in Maven `test` scope.
+  Having them in the `compile` or `runtime` scope makes them analyzed and possibly compiled by GraalVM
+  when the tests are run in native mode.
+  On one hand, it makes the native compilation slower and on the other hand, those testing artifacts may cause native compilation issues.
 
 == Grouping
 
