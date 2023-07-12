@@ -18,8 +18,10 @@ package org.apache.camel.quarkus.component.velocity.it;
 
 import java.net.URI;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -158,6 +160,25 @@ public class VelocityResource {
         };
         final String response = producerTemplate.requestBodyAndHeaders("velocity::dummy?allowTemplateFromHeader=true", body,
                 headers,
+                String.class);
+        LOG.infof("Got response from velocity: %s", response);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(response)
+                .build();
+    }
+
+    @Path("/list")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response list(String payload, @QueryParam("template") String template) throws Exception {
+        final List<Person> persons = Stream.of(payload.split(";"))
+                .map(Person::fromString)
+                .collect(Collectors.toList());
+
+        final String response = producerTemplate.requestBody("velocity:" + template,
+                persons,
                 String.class);
         LOG.infof("Got response from velocity: %s", response);
         return Response
