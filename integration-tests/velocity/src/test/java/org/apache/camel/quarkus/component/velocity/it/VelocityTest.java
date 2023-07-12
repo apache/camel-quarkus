@@ -76,6 +76,23 @@ class VelocityTest {
     }
 
     @Test
+    public void forEach() {
+        RestAssured.given()
+                .queryParam("template", "//template/foreach.vm")
+                .contentType(ContentType.TEXT)
+                .body("Joe,US;Paul,UK")
+                .post("/velocity/list")
+                .then()
+                .statusCode(201)
+                .body(equalTo(
+                        """
+
+                                - Person{name='Joe', country='US'}, 0, 1, true
+                                - Person{name='Paul', country='UK'}, 1, 2, false
+                                    """));
+    }
+
+    @Test
     public void testTemplateViaClasspathWithProperties() {
         //class loader is forbidden by properties, response should fail
         RestAssured.given()

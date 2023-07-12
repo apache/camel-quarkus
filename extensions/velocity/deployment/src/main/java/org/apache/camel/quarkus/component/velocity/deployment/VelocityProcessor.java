@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.velocity.deployment;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
@@ -26,6 +27,7 @@ import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.component.velocity.CamelVelocityClasspathResourceLoader;
+import org.apache.velocity.runtime.directive.ForeachScope;
 import org.jboss.jandex.IndexView;
 
 import static java.util.stream.Collectors.toCollection;
@@ -47,7 +49,9 @@ class VelocityProcessor {
     }
 
     @BuildStep
-    ReflectiveClassBuildItem registerForReflection(CombinedIndexBuildItem combinedIndex) {
+    void reflectiveClass(
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+            CombinedIndexBuildItem combinedIndex) {
         IndexView index = combinedIndex.getIndex();
 
         ArrayList<String> dtos = index.getKnownClasses().stream().map(ci -> ci.name().toString())
@@ -56,13 +60,14 @@ class VelocityProcessor {
                 .collect(toCollection(ArrayList::new));
 
         dtos.add(CamelVelocityClasspathResourceLoader.class.getName());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(dtos.toArray(new String[dtos.size()])).build());
 
-        return ReflectiveClassBuildItem.builder(dtos.toArray(new String[dtos.size()])).build();
-    }
-
-    @BuildStep
-    ReflectiveClassBuildItem registerForReflectionWithMethods() {
-        return ReflectiveClassBuildItem.builder(TreeMap.class.getName()).methods().build();
+        reflectiveClass.produce(
+                ReflectiveClassBuildItem.builder(
+                        TreeMap.class.getName(),
+                        ForeachScope.class.getName())
+                        .methods()
+                        .build());
     }
 
     @BuildStep

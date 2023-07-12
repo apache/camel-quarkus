@@ -24,6 +24,11 @@ public class Person {
     private String name;
     private String country;
 
+    public static Person fromString(String str) {
+        String[] fields = str.split(",");
+        return new Person(fields[0], fields[1]);
+    }
+
     public Person() {
     }
 
