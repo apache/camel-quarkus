@@ -21,7 +21,7 @@ group-01:
   - git
   - google-storage
   - hazelcast
-  - http
+  - http-grouped
   - infinispan
   - infinispan-quarkus-client
   - jcache
