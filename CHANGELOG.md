@@ -13,6 +13,7 @@
 
 - Re-add activemq extension after it was added back in Camel 4.0.0-RC1 [\#5087](https://github.com/apache/camel-quarkus/issues/5087)
 - NettyHttpJaasTestResource reads config.jaas from disk [\#5083](https://github.com/apache/camel-quarkus/issues/5083)
+- Velocity $foreach.index, $foreach.count and $foreach.hasNext do not work in native mode [\#5080](https://github.com/apache/camel-quarkus/issues/5080)
 - Nitrite native integration test could not serialize \[\[3941604762136\]NO₂\] [\#5070](https://github.com/apache/camel-quarkus/issues/5070)
 - Expression extractor fails when there are properties to set [\#5067](https://github.com/apache/camel-quarkus/issues/5067)
 - Cannot retrieve the breakpoints and suspended node ids in native mode [\#5058](https://github.com/apache/camel-quarkus/issues/5058)
@@ -25,6 +26,8 @@
 
 **Merged pull requests:**
 
+- Add a note to the contributor guide about keeping junit & Co. in Maven test scope [\#5091](https://github.com/apache/camel-quarkus/pull/5091) ([ppalaga](https://github.com/ppalaga))
+- Velocity $foreach.index, $foreach.count and $foreach.hasNext do not work in native mode [\#5090](https://github.com/apache/camel-quarkus/pull/5090) ([ppalaga](https://github.com/ppalaga))
 - Re-add activemq extension after it was added back in Camel 4.0.0-RC1 [\#5089](https://github.com/apache/camel-quarkus/pull/5089) ([ppalaga](https://github.com/ppalaga))
 - Generated sources regen for SBOM [\#5085](https://github.com/apache/camel-quarkus/pull/5085) ([github-actions[bot]](https://github.com/apps/github-actions))
 - NettyHttpJaasTestResource reads config.jaas from disk  [\#5084](https://github.com/apache/camel-quarkus/pull/5084) ([ppalaga](https://github.com/ppalaga))
