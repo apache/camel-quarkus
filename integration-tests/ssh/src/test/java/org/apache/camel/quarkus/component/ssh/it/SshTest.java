@@ -20,6 +20,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class SshTest {
 
     @Test
+    @Disabled //temporarily disabled because of https://github.com/apache/camel-quarkus/issues/5092
     public void testWriteToSSHAndReadFromSSH() {
         final String fileContent = "Hello Camel Quarkus SSH";
         // Write a file to SSH session
