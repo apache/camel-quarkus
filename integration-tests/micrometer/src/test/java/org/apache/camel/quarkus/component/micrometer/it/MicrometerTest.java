@@ -204,7 +204,7 @@ class MicrometerTest extends AbstractMicrometerTest {
     public void testJMXQuarkusDomain(String domain) throws Exception {
         MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
 
-        ObjectName objectName = new ObjectName(domain + ":name=jvmClassesLoaded");
+        ObjectName objectName = new ObjectName(domain + ":name=jvmClassesLoaded,type=gauges");
         Set<ObjectInstance> mbeans = mBeanServer.queryMBeans(objectName, null);
 
         assertEquals(1, mbeans.size());

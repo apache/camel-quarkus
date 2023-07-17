@@ -6173,6 +6173,16 @@
         </exclusions>
       </dependency>
       <dependency>
+        <groupId>io.dropwizard.metrics</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>dropwizard-core</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>4.2.19</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>io.dropwizard.metrics</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>metrics-jmx</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>4.2.19</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
         <groupId>io.perfmark</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>perfmark-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>0.26.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -21019,11 +21029,6 @@
       <dependency>
         <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:2.2.0.Final -->
         <artifactId>metrics-core</artifactId><!-- io.debezium:debezium-bom:2.2.0.Final -->
-        <version>4.0.1</version><!-- io.debezium:debezium-bom:2.2.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:2.2.0.Final -->
-        <artifactId>metrics-jmx</artifactId><!-- io.debezium:debezium-bom:2.2.0.Final -->
         <version>4.0.1</version><!-- io.debezium:debezium-bom:2.2.0.Final -->
       </dependency>
       <dependency>
