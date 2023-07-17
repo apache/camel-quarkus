@@ -26,6 +26,7 @@
 
 **Merged pull requests:**
 
+- Generated sources regen for SBOM [\#5097](https://github.com/apache/camel-quarkus/pull/5097) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Add a note to the contributor guide about keeping junit & Co. in Maven test scope [\#5091](https://github.com/apache/camel-quarkus/pull/5091) ([ppalaga](https://github.com/ppalaga))
 - Velocity $foreach.index, $foreach.count and $foreach.hasNext do not work in native mode [\#5090](https://github.com/apache/camel-quarkus/pull/5090) ([ppalaga](https://github.com/ppalaga))
 - Re-add activemq extension after it was added back in Camel 4.0.0-RC1 [\#5089](https://github.com/apache/camel-quarkus/pull/5089) ([ppalaga](https://github.com/ppalaga))
