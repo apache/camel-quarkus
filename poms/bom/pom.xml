@@ -6250,6 +6250,16 @@
                 </exclusions>
             </dependency>
             <dependency>
+                <groupId>io.dropwizard.metrics</groupId>
+                <artifactId>dropwizard-core</artifactId>
+                <version>${dropwizard-metrics.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.dropwizard.metrics</groupId>
+                <artifactId>metrics-jmx</artifactId>
+                <version>${dropwizard-metrics.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.perfmark</groupId>
                 <artifactId>perfmark-api</artifactId>
                 <version>${perfmark-api.version}</version>
