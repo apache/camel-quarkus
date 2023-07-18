@@ -21,12 +21,19 @@
 **Closed issues:**
 
 - Replace the deprecated RecorderContext\#classProxy in groovy and joor extensions [\#5056](https://github.com/apache/camel-quarkus/issues/5056)
+- Tika: Remove excluded pdfbox, once qaurkiverse.tika adapts new tika version  [\#4786](https://github.com/apache/camel-quarkus/issues/4786)
+- Migrate from `org.graalvm.nativeimage:svm` to `org.graalvm.sdk:graal-sdk` [\#4602](https://github.com/apache/camel-quarkus/issues/4602)
 - Allow disabling periodic scan functionality [\#3078](https://github.com/apache/camel-quarkus/issues/3078)
 - Surefire 3.0.0-M4 passing even if a build step throws an exception [\#723](https://github.com/apache/camel-quarkus/issues/723)
 
 **Merged pull requests:**
 
+- Remove pdfbox dependency excludes from quarkus-tika [\#5098](https://github.com/apache/camel-quarkus/pull/5098) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#5097](https://github.com/apache/camel-quarkus/pull/5097) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Bump quarkus-qpid-jms-bom from 2.3.0 to 2.4.0 [\#5096](https://github.com/apache/camel-quarkus/pull/5096) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump quarkiverse-tika.version from 2.0.0 to 2.0.2 [\#5095](https://github.com/apache/camel-quarkus/pull/5095) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump quarkiverse-jsch.version from 3.0.1 to 3.0.2 [\#5094](https://github.com/apache/camel-quarkus/pull/5094) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump quarkus-amazon-services-bom from 2.4.0 to 2.4.1 [\#5093](https://github.com/apache/camel-quarkus/pull/5093) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Add a note to the contributor guide about keeping junit & Co. in Maven test scope [\#5091](https://github.com/apache/camel-quarkus/pull/5091) ([ppalaga](https://github.com/ppalaga))
 - Velocity $foreach.index, $foreach.count and $foreach.hasNext do not work in native mode [\#5090](https://github.com/apache/camel-quarkus/pull/5090) ([ppalaga](https://github.com/ppalaga))
 - Re-add activemq extension after it was added back in Camel 4.0.0-RC1 [\#5089](https://github.com/apache/camel-quarkus/pull/5089) ([ppalaga](https://github.com/ppalaga))
