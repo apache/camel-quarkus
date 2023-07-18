@@ -17,10 +17,8 @@
 package org.apache.camel.quarkus.component.micrometer.it;
 
 import java.lang.management.ManagementFactory;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.management.Attribute;
 import javax.management.MBeanServer;
@@ -183,19 +181,14 @@ class MicrometerTest extends AbstractMicrometerTest {
                 .extract().jsonPath();
 
         //extract required values
-        Map result = jsonPath.getList("gauges").stream()
-                .map(o -> (Map) o)
-                .filter(o -> ((Map) o.get("id")).get("name").toString().contains(".routes."))
-                //filter only values with tag: customTag=prometheus
-                .filter(o -> ((List) ((Map) o.get("id")).get("tags")).stream()
-                        .anyMatch(item -> ((Map) item).containsKey("customTag")))
-                .collect(Collectors.toMap(o -> ((Map) o.get("id")).get("name"), o -> o.get("value").toString()));
+        Map<String, Float> result = jsonPath.getMap(
+                "gauges.findAll { it.id.name =~ /routes/ && it.id.tags.find { it.customTag } }.collectEntries { [it.id.name, it.value] }");
 
         assertEquals(result.size(), 2);
         assertTrue(result.containsKey("camel.routes.running"));
-        assertEquals(result.get("camel.routes.running"), "7.0");
+        assertEquals(7.0f, result.get("camel.routes.running"));
         assertTrue(result.containsKey("camel.routes.added"));
-        assertEquals(result.get("camel.routes.added"), "7.0");
+        assertEquals(7.0f, result.get("camel.routes.added"));
     }
 
     @ParameterizedTest
