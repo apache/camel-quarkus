@@ -293,8 +293,8 @@
                 <version>${hamcrest.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.hamcrest-core</groupId>
-                <artifactId>hamcrest</artifactId>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-core</artifactId>
                 <version>${hamcrest.version}</version>
             </dependency>
             <dependency>
