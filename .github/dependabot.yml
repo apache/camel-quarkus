@@ -32,7 +32,7 @@ updates:
       - dependency-name: "com.github.tomakehurst:wiremock"
       - dependency-name: "com.unboundid:unboundid-ldapsdk"
       - dependency-name: "org.hamcrest:hamcrest"
-      - dependency-name: "org.hamcrest-core:hamcrest"
+      - dependency-name: "org.hamcrest:hamcrest-core"
       - dependency-name: "org.seleniumhq.selenium:htmlunit-driver"
       - dependency-name: "org.zeroturnaround:zt-exec"
       # Maven plugins
