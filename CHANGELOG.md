@@ -12,6 +12,7 @@
 **Fixed bugs:**
 
 - Re-add activemq extension after it was added back in Camel 4.0.0-RC1 [\#5087](https://github.com/apache/camel-quarkus/issues/5087)
+- MicrometerTest.testJMXQuarkusDomain\(\) fail with Quarkus Platform BOMs [\#5086](https://github.com/apache/camel-quarkus/issues/5086)
 - NettyHttpJaasTestResource reads config.jaas from disk [\#5083](https://github.com/apache/camel-quarkus/issues/5083)
 - Velocity $foreach.index, $foreach.count and $foreach.hasNext do not work in native mode [\#5080](https://github.com/apache/camel-quarkus/issues/5080)
 - Nitrite native integration test could not serialize \[\[3941604762136\]NO₂\] [\#5070](https://github.com/apache/camel-quarkus/issues/5070)
@@ -28,6 +29,10 @@
 
 **Merged pull requests:**
 
+- Add missing graal-sdk dependency declaration to extensions that use GraalVM APIs [\#5103](https://github.com/apache/camel-quarkus/pull/5103) ([jamesnetherton](https://github.com/jamesnetherton))
+- Simplify MicrometerTest.testDumpAsJson results extraction [\#5102](https://github.com/apache/camel-quarkus/pull/5102) ([jamesnetherton](https://github.com/jamesnetherton))
+- Bump quarkiverse-jgit.version from 3.0.1 to 3.0.2 [\#5101](https://github.com/apache/camel-quarkus/pull/5101) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Manage io.dropwizard.metrics dependencies used by camel-quarkus extensions [\#5100](https://github.com/apache/camel-quarkus/pull/5100) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove pdfbox dependency excludes from quarkus-tika [\#5098](https://github.com/apache/camel-quarkus/pull/5098) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#5097](https://github.com/apache/camel-quarkus/pull/5097) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump quarkus-qpid-jms-bom from 2.3.0 to 2.4.0 [\#5096](https://github.com/apache/camel-quarkus/pull/5096) ([dependabot[bot]](https://github.com/apps/dependabot))
