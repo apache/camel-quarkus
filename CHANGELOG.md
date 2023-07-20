@@ -29,6 +29,8 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 3.2.1.final [\#5105](https://github.com/apache/camel-quarkus/pull/5105) ([jamesnetherton](https://github.com/jamesnetherton))
+- Added atlassion-groupId for the correct functionality with the 'io.atlassian.fugue' [\#5104](https://github.com/apache/camel-quarkus/pull/5104) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Add missing graal-sdk dependency declaration to extensions that use GraalVM APIs [\#5103](https://github.com/apache/camel-quarkus/pull/5103) ([jamesnetherton](https://github.com/jamesnetherton))
 - Simplify MicrometerTest.testDumpAsJson results extraction [\#5102](https://github.com/apache/camel-quarkus/pull/5102) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump quarkiverse-jgit.version from 3.0.1 to 3.0.2 [\#5101](https://github.com/apache/camel-quarkus/pull/5101) ([dependabot[bot]](https://github.com/apps/dependabot))
