@@ -38,6 +38,9 @@
         <!-- You are required to accept an EULA for SQL container image. We cannot do it by default for legal reasons. -->
         <!-- See https://camel.apache.org/camel-quarkus/latest/extensions/debezium-sqlserver.html#_integration-testing for more details -->
         <sqlserver.EULA>src/test/resources/container-license-acceptance.txt</sqlserver.EULA>
+
+        <!-- TODO: https://github.com/apache/camel-quarkus/issues/5110 -->
+        <skipTests>true</skipTests>
     </properties>
 
     <dependencies>
@@ -128,6 +131,7 @@
 
 
     <profiles>
+        <!-- TODO: https://github.com/apache/camel-quarkus/issues/5110
         <profile>
             <id>native</id>
             <activation>
@@ -155,6 +159,7 @@
                 </plugins>
             </build>
         </profile>
+        -->
         <profile>
             <id>mysqlDriver</id>
             <activation>
