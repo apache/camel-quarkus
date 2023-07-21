@@ -126,10 +126,6 @@ jobs:
       - name: Check free space on disk
         run: |
           df -h /
-      - name: Setup apache-snapshots profile
-        if: github.ref == 'refs/heads/camel-main' || github.base_ref == 'camel-main'
-        run: |
-          echo "BRANCH_OPTIONS=-Papache-snapshots" >> $GITHUB_ENV
       - name: Setup oss-snapshots profile
         if: github.ref == 'refs/heads/quarkus-main' || github.base_ref == 'quarkus-main'
         run: |
@@ -139,6 +135,14 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+      - name: Build Camel
+        if: github.ref == 'refs/heads/camel-main' || github.base_ref == 'camel-main'
+        run: |
+          cd ../
+          git clone --depth 1 --branch main https://github.com/apache/camel.git \
+            && cd camel \
+            && echo "Current Camel commit:" $(git rev-parse HEAD) \
+            && ./mvnw ${CQ_MAVEN_ARGS} clean install -Dquickly
       - name: Build Quarkus
         if: github.ref == 'refs/heads/quarkus-main' || github.base_ref == 'quarkus-main'
         run: |
@@ -188,10 +192,6 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJson(needs.initial-mvn-install.outputs.matrix) }}
     steps:
-      - name: Setup apache-snapshots profile
-        if: github.ref == 'refs/heads/camel-main' || github.base_ref == 'camel-main'
-        run: |
-          echo "BRANCH_OPTIONS=-Papache-snapshots" >> $GITHUB_ENV
       - name: Setup oss-snapshots profile
         if: github.ref == 'refs/heads/quarkus-main' || github.base_ref == 'quarkus-main'
         run: |
@@ -265,10 +265,6 @@ jobs:
     env:
       MAVEN_OPTS: -Xmx3000m
     steps:
-      - name: Setup apache-snapshots profile
-        if: github.ref == 'refs/heads/camel-main' || github.base_ref == 'camel-main'
-        run: |
-          echo "BRANCH_OPTIONS=-Papache-snapshots" >> $GITHUB_ENV
       - name: Setup oss-snapshots profile
         if: github.ref == 'refs/heads/quarkus-main' || github.base_ref == 'quarkus-main'
         run: |
@@ -335,10 +331,6 @@ jobs:
     env:
       MAVEN_OPTS: -Xmx3000m
     steps:
-      - name: Setup apache-snapshots profile
-        if: github.ref == 'refs/heads/camel-main' || github.base_ref == 'camel-main'
-        run: |
-          echo "BRANCH_OPTIONS=-Papache-snapshots" >> $GITHUB_ENV
       - name: Setup oss-snapshots profile
         if: github.ref == 'refs/heads/quarkus-main' || github.base_ref == 'quarkus-main'
         run: |
@@ -390,11 +382,6 @@ jobs:
     env:
       MAVEN_OPTS: -Xmx3000m
     steps:
-      - name: Setup apache-snapshots profile
-        shell: bash
-        if: github.ref == 'refs/heads/camel-main' || github.base_ref == 'camel-main'
-        run: |
-          echo "BRANCH_OPTIONS=-Papache-snapshots" >> $GITHUB_ENV
       - name: Setup oss-snapshots profile
         shell: bash
         if: github.ref == 'refs/heads/quarkus-main' || github.base_ref == 'quarkus-main'
@@ -433,10 +420,6 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.labels.*.name, 'JVM')
     steps:
-      - name: Setup apache-snapshots profile
-        if: github.ref == 'refs/heads/camel-main' || github.base_ref == 'camel-main'
-        run: |
-          echo "BRANCH_OPTIONS=-Papache-snapshots" >> $GITHUB_ENV
       - name: Setup oss-snapshots profile
         if: github.ref == 'refs/heads/quarkus-main' || github.base_ref == 'quarkus-main'
         run: |
