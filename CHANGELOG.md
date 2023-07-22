@@ -11,6 +11,7 @@
 
 **Fixed bugs:**
 
+- \[Quarkus 3.3.0\] Micrometer native integration test application throws NPE on startup [\#5109](https://github.com/apache/camel-quarkus/issues/5109)
 - Re-add activemq extension after it was added back in Camel 4.0.0-RC1 [\#5087](https://github.com/apache/camel-quarkus/issues/5087)
 - MicrometerTest.testJMXQuarkusDomain\(\) fail with Quarkus Platform BOMs [\#5086](https://github.com/apache/camel-quarkus/issues/5086)
 - NettyHttpJaasTestResource reads config.jaas from disk [\#5083](https://github.com/apache/camel-quarkus/issues/5083)
@@ -29,6 +30,10 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 3.2.2.Final [\#5114](https://github.com/apache/camel-quarkus/pull/5114) ([jamesnetherton](https://github.com/jamesnetherton))
+- Do not produce JmxMeterRegistry bean in native mode testing [\#5113](https://github.com/apache/camel-quarkus/pull/5113) ([jamesnetherton](https://github.com/jamesnetherton))
+- Build Camel from source for camel-main branch builds [\#5112](https://github.com/apache/camel-quarkus/pull/5112) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix hamcrest GAV in bom-test [\#5106](https://github.com/apache/camel-quarkus/pull/5106) ([claudio4j](https://github.com/claudio4j))
 - Upgrade Quarkus to 3.2.1.final [\#5105](https://github.com/apache/camel-quarkus/pull/5105) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added atlassion-groupId for the correct functionality with the 'io.atlassian.fugue' [\#5104](https://github.com/apache/camel-quarkus/pull/5104) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Add missing graal-sdk dependency declaration to extensions that use GraalVM APIs [\#5103](https://github.com/apache/camel-quarkus/pull/5103) ([jamesnetherton](https://github.com/jamesnetherton))
