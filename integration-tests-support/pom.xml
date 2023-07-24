@@ -39,6 +39,8 @@
         <module>activemq</module>
         <module>aws2</module>
         <module>azure</module>
+        <module>camel-k-loader-inspector</module>
+        <module>camel-k-runtime-inspector</module>
         <module>custom-dataformat</module>
         <module>custom-log-component</module>
         <module>custom-routes-collector</module>
