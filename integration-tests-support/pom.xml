@@ -45,6 +45,7 @@
         <module>custom-type-converter</module>
         <module>custom-main-listener</module>
         <module>google</module>
+        <module>jdbc</module>
         <module>kafka</module>
         <module>mongodb</module>
         <module>process-executor-support</module>

@@ -1,0 +1,2 @@
+docker.io/ibmcom/db2:11.5.7.0a
+mcr.microsoft.com/mssql/server:2019-latest

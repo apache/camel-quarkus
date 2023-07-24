@@ -121,6 +121,7 @@
         <module>jaxb</module>
         <module>jcache</module>
         <module>jdbc</module>
+        <module>jdbc-grouped</module>
         <module>jfr</module>
         <module>jira</module>
         <module>jms-artemis-client</module>
