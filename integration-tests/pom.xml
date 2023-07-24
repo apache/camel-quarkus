@@ -69,6 +69,7 @@
         <module>box</module>
         <module>braintree</module>
         <module>caffeine</module>
+        <module>camel-k-runtime</module>
         <module>cassandraql</module>
         <module>cbor</module>
         <module>compression-grouped</module>

@@ -203,6 +203,7 @@ group-12:
   - vertx-websocket
 group-13:
   - box
+  - camel-k-runtime
   - fhir
   - github
   - google

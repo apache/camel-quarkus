@@ -697,6 +697,19 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-camel-k</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-cassandraql</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
@@ -4313,6 +4326,7 @@
                         <configuration>
                             <skipArtifactIdBases>
                                 <skipArtifactIdBase>http-common</skipArtifactIdBase>
+                                <skipArtifactIdBase>camel-k</skipArtifactIdBase>
                                 <skipArtifactIdBase>support-.*</skipArtifactIdBase>
                                 <skipArtifactIdBase>integration-tests?-support-.*</skipArtifactIdBase>
                             </skipArtifactIdBases>
