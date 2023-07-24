@@ -110,11 +110,13 @@
         <httpclient5.version>${httpclient-version}</httpclient5.version><!-- Saxon and Wiremock -->
         <ibm.mq.client.version>9.3.2.1</ibm.mq.client.version>
         <icu4j.version>${icu4j-version}</icu4j.version>
+        <immutables.version>2.9.3</immutables.version>
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
         <jackson.version>2.15.2</jackson.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.fasterxml.jackson.core:jackson-core -->
         <jakarta.jms-api.version>${jakarta-jms-api-version}</jakarta.jms-api.version>
         <java-json-tools.json-patch.version>${json-patch-version}</java-json-tools.json-patch.version><!-- A replacement for com.github.fge:json-patch -->
         <jodatime.version>${jodatime2-version}</jodatime.version><!-- Mess in transitive dependencies of Splunk -->
+        <jolokia.version>1.7.2</jolokia.version><!-- For camel-k -->
         <jaxen.version>1.2.0</jaxen.version>
         <javassist.version>${javassist-version}</javassist.version><!-- debezium -->
         <jetty.version>${jetty-version}</jetty.version>
@@ -572,6 +574,7 @@
                             <exclude>node/**</exclude>
                             <exclude>**/resources/routes.1</exclude>
                             <exclude>**/resources/routes.2</exclude>
+                            <exclude>**/conf.d/**</exclude>
                             <exclude>**/generated/**</exclude>
                             <exclude>.envrc</exclude>
                             <exclude>**/.idea/**</exclude>
@@ -579,6 +582,7 @@
                             <exclude>.gitattributes</exclude>
                             <exclude>**/src/test/resources/__files/*.xml</exclude>
                             <exclude>.github/actions/**</exclude>
+                            <exclude>**/my-property</exclude>
                         </excludes>
                         <mapping>
                             <cli>CAMEL_PROPERTIES_STYLE</cli>

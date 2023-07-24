@@ -72,6 +72,7 @@
         <module>braintree</module>
         <module>browse</module>
         <module>caffeine</module>
+        <module>camel-k</module>
         <module>cassandraql</module>
         <module>cbor</module>
         <module>cloudevents</module>
