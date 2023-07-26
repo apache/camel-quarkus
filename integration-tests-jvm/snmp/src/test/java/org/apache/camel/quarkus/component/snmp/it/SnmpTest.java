@@ -22,11 +22,9 @@ import java.util.stream.Stream;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import io.restassured.specification.RequestSpecification;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.snmp4j.mp.SnmpConstants;
 import org.snmp4j.smi.OID;
 
@@ -51,7 +49,7 @@ class SnmpTest {
     public static final OID DOT_OID = new OID(new int[] { 1, 3, 6, 1, 4, 1, 6527, 3, 1, 2, 21, 2, 1, 50 });
 
     static Stream<Integer> supportedVersions() {
-        return Stream.of(0, 1/*, 3 not supported because of https://issues.apache.org/jira/browse/CAMEL-19298 */);
+        return Stream.of(0, 1, 3);
     }
 
     @ParameterizedTest
@@ -61,6 +59,7 @@ class SnmpTest {
 
         RestAssured.given()
                 .body("TEXT")
+                .queryParam("urlAppend", version == 3 ? "&securityName=test&securityLevel=1" : null)
                 .post("/snmp/produceTrap/" + version)
                 .then()
                 .statusCode(200);
@@ -78,17 +77,12 @@ class SnmpTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = { 0, 1, 3 })
+    @MethodSource("supportedVersions")
     public void testPoll(int version) throws Exception {
-        RequestSpecification rs = RestAssured.given()
-                .body(POLL_OID.toString());
-
-        if (version == 3) {
-            rs.queryParam("user", "test")
-                    .queryParam("securityLevel", 1);
-        }
-
-        rs.post("/snmp/poll/" + version)
+        RestAssured.given()
+                .body(POLL_OID.toString())
+                .queryParam("urlAppend", version == 3 ? "&securityName=test&securityLevel=1" : null)
+                .post("/snmp/poll/" + version)
                 .then()
                 .statusCode(200)
                 .body(Matchers.equalTo("My POLL Printer - response #1"));
@@ -99,6 +93,7 @@ class SnmpTest {
     public void testPollWith2OIDs(int version) throws Exception {
         RestAssured.given()
                 .body(TWO_OIDS_A + "," + TWO_OIDS_B)
+                .queryParam("urlAppend", version == 3 ? "&securityName=test&securityLevel=1" : null)
                 .post("/snmp/poll/" + version)
                 .then()
                 .statusCode(200)
@@ -112,6 +107,7 @@ class SnmpTest {
     public void testPollStartingDot(int version) throws Exception {
         RestAssured.given()
                 .body("." + DOT_OID)
+                .queryParam("urlAppend", version == 3 ? "&securityName=test&securityLevel=1" : null)
                 .post("/snmp/poll/" + version)
                 .then()
                 .statusCode(200)
@@ -123,6 +119,7 @@ class SnmpTest {
     public void testProducePDU(int version) {
         RestAssured.given()
                 .body(PRODUCE_PDU_OID.toString())
+                .queryParam("urlAppend", version == 3 ? "&securityName=test&securityLevel=1" : null)
                 .post("/snmp/producePDU/" + version)
                 .then()
                 .statusCode(200)
@@ -135,6 +132,7 @@ class SnmpTest {
 
         RestAssured.given()
                 .body(GET_NEXT_OID.toString())
+                .queryParam("urlAppend", version == 3 ? "&securityName=test&securityLevel=1" : null)
                 .post("/snmp/getNext/" + version)
                 .then()
                 .statusCode(200)
