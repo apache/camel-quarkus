@@ -1,0 +1,46 @@
+=== Annotation Processor
+
+To use MapStruct, you must configure your build to use an annotation processor.
+
+==== Maven
+
+[source,xml]
+----
+<plugins>
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+            <annotationProcessorPaths>
+                <path>
+                    <groupId>org.mapstruct</groupId>
+                    <artifactId>mapstruct-processor</artifactId>
+                    <version>{mapstruct-version}</version>
+                </path>
+            </annotationProcessorPaths>
+        </configuration>
+    </plugin>
+</plugins>
+----
+
+==== Gradle
+
+[source,gradle]
+----
+dependencies {
+    annotationProcessor 'org.mapstruct:mapstruct-processor:{mapstruct-version}'
+    testAnnotationProcessor 'org.mapstruct:mapstruct-processor:{mapstruct-version}'
+}
+----
+
+=== Mapper definition discovery
+
+By default, {project-name} will automatically discover the package paths of your `@Mapper` annotated interfaces or abstract classes and
+pass them to the Camel MapStruct component.
+
+If you want finer control over the specific packages that are scanned, then you can set a configuration property in `application.properties`.
+
+[source,properties]
+----
+camel.component.mapstruct.mapper-package-name = com.first.package,org.second.package
+----

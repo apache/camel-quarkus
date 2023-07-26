@@ -169,6 +169,7 @@
         <module>lzf</module>
         <module>mail</module>
         <module>management</module>
+        <module>mapstruct</module>
         <module>master</module>
         <module>micrometer</module>
         <module>microprofile-fault-tolerance</module>
