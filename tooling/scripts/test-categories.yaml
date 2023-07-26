@@ -88,6 +88,7 @@ group-05:
   - datasonnet
   - hl7
   - jaxb
+  - mapstruct
   - ssh
   - soap
   - xmlsecurity

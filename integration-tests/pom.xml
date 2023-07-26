@@ -159,6 +159,7 @@
         <module>lumberjack</module>
         <module>mail</module>
         <module>management</module>
+        <module>mapstruct</module>
         <module>master</module>
         <module>master-file</module>
         <module>master-openshift</module>

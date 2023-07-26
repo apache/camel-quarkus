@@ -4,17 +4,17 @@
 = MapStruct
 :linkattrs:
 :cq-artifact-id: camel-quarkus-mapstruct
-:cq-native-supported: false
-:cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-native-supported: true
+:cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Type Conversion using Mapstruct
 :cq-deprecated: false
 :cq-jvm-since: 3.0.0
-:cq-native-since: n/a
+:cq-native-since: 3.0.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##3.0.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##3.0.0## [.badge-key]##Native since##[.badge-supported]##3.0.0##
 endif::[]
 
 Type Conversion using Mapstruct
@@ -29,6 +29,10 @@ Please refer to the above link for usage and configuration details.
 [id="extensions-mapstruct-maven-coordinates"]
 == Maven coordinates
 
+https://{link-quarkus-code-generator}/?extension-search=camel-quarkus-mapstruct[Create a new project with this extension on {link-quarkus-code-generator}, window="_blank"]
+
+Or add the coordinates to your existing project:
+
 [source,xml]
 ----
 <dependency>
@@ -39,3 +43,57 @@ Please refer to the above link for usage and configuration details.
 ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
+
+[id="extensions-mapstruct-usage"]
+== Usage
+[id="extensions-mapstruct-usage-annotation-processor"]
+=== Annotation Processor
+
+To use MapStruct, you must configure your build to use an annotation processor.
+
+[id="extensions-mapstruct-usage-maven"]
+==== Maven
+
+[source,xml]
+----
+<plugins>
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+            <annotationProcessorPaths>
+                <path>
+                    <groupId>org.mapstruct</groupId>
+                    <artifactId>mapstruct-processor</artifactId>
+                    <version>{mapstruct-version}</version>
+                </path>
+            </annotationProcessorPaths>
+        </configuration>
+    </plugin>
+</plugins>
+----
+
+[id="extensions-mapstruct-usage-gradle"]
+==== Gradle
+
+[source,gradle]
+----
+dependencies {
+    annotationProcessor 'org.mapstruct:mapstruct-processor:{mapstruct-version}'
+    testAnnotationProcessor 'org.mapstruct:mapstruct-processor:{mapstruct-version}'
+}
+----
+
+[id="extensions-mapstruct-usage-mapper-definition-discovery"]
+=== Mapper definition discovery
+
+By default, {project-name} will automatically discover the package paths of your `@Mapper` annotated interfaces or abstract classes and
+pass them to the Camel MapStruct component.
+
+If you want finer control over the specific packages that are scanned, then you can set a configuration property in `application.properties`.
+
+[source,properties]
+----
+camel.component.mapstruct.mapper-package-name = com.first.package,org.second.package
+----
+
