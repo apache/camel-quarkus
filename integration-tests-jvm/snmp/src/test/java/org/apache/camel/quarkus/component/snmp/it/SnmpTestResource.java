@@ -88,7 +88,7 @@ public class SnmpTestResource implements QuarkusTestResourceLifecycleManager {
         }
 
         Map<String, String> ports = AvailablePortFinder.reserveNetworkPorts(Objects::toString, SnmpRoute.TRAP_V0_PORT,
-                SnmpRoute.TRAP_V1_PORT);
+                SnmpRoute.TRAP_V1_PORT, SnmpRoute.TRAP_V3_PORT);
         Map<String, String> m = CollectionHelper.mergeMaps(
                 ports,
                 CollectionHelper.mapOf(LISTEN_ADDRESS,

@@ -34,12 +34,16 @@ public class SnmpRoute extends RouteBuilder {
 
     public static final String TRAP_V0_PORT = "SnmpRoute_trap_v0";
     public static final String TRAP_V1_PORT = "SnmpRoute_trap_v1";
+    public static final String TRAP_V3_PORT = "SnmpRoute_trap_v3";
 
     @ConfigProperty(name = TRAP_V0_PORT)
     int trap0Port;
 
     @ConfigProperty(name = TRAP_V1_PORT)
     int trap1Port;
+
+    @ConfigProperty(name = TRAP_V3_PORT)
+    int trap3Port;
 
     @Inject
     @Named("snmpTrapResults")
@@ -54,6 +58,10 @@ public class SnmpRoute extends RouteBuilder {
         //TRAP consumer snmpVersion=1
         from("snmp:0.0.0.0:" + trap1Port + "?protocol=udp&type=TRAP&snmpVersion=1")
                 .process(e -> snmpResults.get("v1_trap").add(e.getIn().getBody(SnmpMessage.class)));
+
+        //TRAP consumer snmpVersion=3
+        from("snmp:0.0.0.0:" + trap3Port + "?protocol=udp&type=TRAP&snmpVersion=3")
+                .process(e -> snmpResults.get("v3_trap").add(e.getIn().getBody(SnmpMessage.class)));
     }
 
     static class Producers {
@@ -64,6 +72,7 @@ public class SnmpRoute extends RouteBuilder {
             Map<String, Deque<SnmpMessage>> map = new ConcurrentHashMap<>();
             map.put("v0_trap", new ConcurrentLinkedDeque<>());
             map.put("v1_trap", new ConcurrentLinkedDeque<>());
+            map.put("v3_trap", new ConcurrentLinkedDeque<>());
             return map;
         }
     }

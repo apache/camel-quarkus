@@ -38,6 +38,7 @@ import org.apache.camel.component.snmp.SnmpMessage;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.snmp4j.PDU;
 import org.snmp4j.PDUv1;
+import org.snmp4j.ScopedPDU;
 import org.snmp4j.mp.SnmpConstants;
 import org.snmp4j.smi.OID;
 import org.snmp4j.smi.OctetString;
@@ -55,6 +56,9 @@ public class SnmpResource {
     @ConfigProperty(name = SnmpRoute.TRAP_V1_PORT)
     int trap1Port;
 
+    @ConfigProperty(name = SnmpRoute.TRAP_V3_PORT)
+    int trap3Port;
+
     @ConfigProperty(name = "snmpListenAddress")
     String snmpListenAddress;
 
@@ -71,8 +75,14 @@ public class SnmpResource {
     @Path("/producePDU/{version}")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public Response producePDU(@PathParam("version") int version, String payload) {
+    public Response producePDU(@PathParam("version") int version,
+            @QueryParam("urlAppend") String urlAppend,
+            String payload) {
         String url = String.format("snmp://%s?retries=1&snmpVersion=%d", snmpListenAddress, version);
+        if (urlAppend != null) {
+            url = url + urlAppend;
+        }
+
         SnmpMessage pdu = producerTemplate.requestBody(url, version, SnmpMessage.class);
 
         String response = pdu.getSnmpMessage().getVariableBindings().stream()
@@ -85,9 +95,15 @@ public class SnmpResource {
     @Path("/getNext/{version}")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public Response getNext(String payload, @PathParam("version") int version) {
+    public Response getNext(String payload,
+            @QueryParam("urlAppend") String urlAppend,
+            @PathParam("version") int version) {
         String url = String.format("snmp://%s?type=GET_NEXT&retries=1&protocol=udp&oids=%s&snmpVersion=%d", snmpListenAddress,
                 payload, version);
+        if (urlAppend != null) {
+            url = url + urlAppend;
+        }
+
         @SuppressWarnings("unchecked")
         List<SnmpMessage> pdu = producerTemplate.requestBody(url, "", List.class);
 
@@ -105,9 +121,14 @@ public class SnmpResource {
     @Path("/produceTrap/{version}")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public Response produceTrap(String payload, @PathParam("version") int version) {
-        int port = new int[] { trap0Port, trap1Port, -1, -1 }[version];
+    public Response produceTrap(String payload,
+            @QueryParam("urlAppend") String urlAppend,
+            @PathParam("version") int version) {
+        int port = new int[] { trap0Port, trap1Port, -1, trap3Port }[version];
         String url = "snmp:127.0.0.1:" + port + "?protocol=udp&type=TRAP&snmpVersion=" + version;
+        if (urlAppend != null) {
+            url = url + urlAppend;
+        }
         PDU trap = createTrap(payload, version);
 
         producerTemplate.sendBody(url, trap);
@@ -119,15 +140,11 @@ public class SnmpResource {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     public Response poll(@PathParam("version") int version,
-            @QueryParam("user") String user,
-            @QueryParam("securityLevel") String securityLevel,
+            @QueryParam("urlAppend") String urlAppend,
             String oid) {
         String url = String.format("snmp:%s?protocol=udp&snmpVersion=%d&type=POLL&oids=%s", snmpListenAddress, version, oid);
-        if (user != null) {
-            url = url + "&securityName=" + user;
-        }
-        if (securityLevel != null) {
-            url = url + "&securityLevel=" + securityLevel;
+        if (urlAppend != null) {
+            url = url + urlAppend;
         }
 
         //Even if routeBuilder is preferred instead of consumerTemplate, consumerTemplete can be used in a case, when the component uses polling consumers by default.
@@ -157,31 +174,29 @@ public class SnmpResource {
     public PDU createTrap(String payload, int version) {
         OID oid = new OID("1.2.3.4.5");
         Variable var = new OctetString(payload);
+        PDU pdu;
         switch (version) {
         case 0:
             PDUv1 trap0 = new PDUv1();
             trap0.setGenericTrap(PDUv1.ENTERPRISE_SPECIFIC);
             trap0.setSpecificTrap(1);
-
-            trap0.add(new VariableBinding(SnmpConstants.snmpTrapOID, new OctetString(payload)));
-            trap0.add(new VariableBinding(SnmpConstants.sysUpTime, new TimeTicks(5000))); // put your uptime here
-            trap0.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("System Description")));
             trap0.setEnterprise(oid);
 
-            trap0.add(new VariableBinding(oid, var));
-            return trap0;
+            pdu = trap0;
+            break;
         case 1:
-            PDU trap1 = new PDU();
-
-            trap1.add(new VariableBinding(SnmpConstants.snmpTrapOID, new OctetString(payload)));
-            trap1.add(new VariableBinding(SnmpConstants.sysUpTime, new TimeTicks(5000))); // put your uptime here
-            trap1.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("System Description")));
-
-            //Add Payload
-            trap1.add(new VariableBinding(oid, var));
-            return trap1;
+            pdu = new PDU();
+            break;
         default:
-            return null;
+            pdu = new ScopedPDU();
+            break;
         }
+
+        pdu.add(new VariableBinding(SnmpConstants.snmpTrapOID, new OctetString(payload)));
+        pdu.add(new VariableBinding(SnmpConstants.sysUpTime, new TimeTicks(5000))); // put your uptime here
+        pdu.add(new VariableBinding(SnmpConstants.sysDescr, new OctetString("System Description")));
+
+        pdu.add(new VariableBinding(oid, var));
+        return pdu;
     }
 }
