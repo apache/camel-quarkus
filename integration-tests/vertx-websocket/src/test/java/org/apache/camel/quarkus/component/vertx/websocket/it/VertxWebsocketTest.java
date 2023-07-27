@@ -42,6 +42,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.startsWith;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -53,9 +54,6 @@ class VertxWebsocketTest {
 
     @TestHTTPResource("/echo")
     URI echo;
-
-    @TestHTTPResource("/test/default/host/port/applied")
-    URI defaultHostPortApplied;
 
     @TestHTTPResource("/client/consumer")
     URI clientConsumer;
@@ -82,17 +80,15 @@ class VertxWebsocketTest {
         }
     }
 
-    @Test
-    public void testEchoWithIgnoredHostPortConfig() throws Exception {
-        String message = "From Ignored Host Port Config";
-
-        try (WebSocketConnection connection = new WebSocketConnection(defaultHostPortApplied, message)) {
-            connection.connect();
-
-            List<String> messages = connection.getMessages();
-            assertEquals(1, messages.size());
-            assertEquals("Hello " + message, messages.get(0));
-        }
+    @ParameterizedTest
+    @ValueSource(strings = { "invalid.host", "localhost:9999", "invalid.host:9999" })
+    public void testInvalidHostPortConfig(String hostPort) throws Exception {
+        RestAssured.given()
+                .queryParam("hostPort", hostPort)
+                .get("/vertx-websocket/invalid/consumer/uri")
+                .then()
+                .statusCode(500)
+                .body(startsWith("Invalid host/port"));
     }
 
     @Test

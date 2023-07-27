@@ -85,6 +85,13 @@ public class VertxWebsocketRecorder {
         @Override
         protected VertxWebsocketHost createVertxWebsocketHost(VertxWebsocketHostConfiguration hostConfiguration,
                 VertxWebsocketHostKey hostKey) {
+            // If a host / port was specified on the consumer, it must be the same as what the Quarkus HTTP server is bound to
+            if (!hostKey.getHost().equals(HOST) || hostKey.getPort() != PORT) {
+                String message = String.format(
+                        "Invalid host/port %s:%d. The host/port can only be configured as %s:%d",
+                        hostKey.getHost(), hostKey.getPort(), HOST, PORT);
+                throw new IllegalArgumentException(message);
+            }
             return new QuarkusVertxWebsocketHost(getCamelContext(), hostConfiguration, hostKey);
         }
 

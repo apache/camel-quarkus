@@ -35,6 +35,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
@@ -42,10 +43,12 @@ import org.apache.camel.quarkus.component.vertx.websocket.VertxWebsocketRecorder
 import org.apache.camel.support.jsse.KeyStoreParameters;
 import org.apache.camel.support.jsse.SSLContextParameters;
 import org.apache.camel.support.jsse.TrustManagersParameters;
+import org.jboss.logging.Logger;
 
 @Path("/vertx-websocket")
 @ApplicationScoped
 public class VertxWebsocketResource {
+    private static final Logger LOG = Logger.getLogger(VertxWebsocketResource.class);
 
     @Inject
     CamelContext context;
@@ -119,6 +122,20 @@ public class VertxWebsocketResource {
                 VertxWebsocketRecorder.QuarkusVertxWebsocketEndpoint.class);
         WebSocketConnectOptions connectOptions = endpoint.getWebSocketConnectOptions(new HttpClientOptions());
         return connectOptions.getPort();
+    }
+
+    @Path("/invalid/consumer/uri")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response invalidConsumerHostPort(@QueryParam("hostPort") String hostPort) {
+        try {
+            consumerTemplate.receive("vertx-websocket:" + hostPort + "/test");
+            return Response.ok().build();
+        } catch (Exception e) {
+            LOG.error("Error creating vertx-websocket consumer", e);
+            String message = e.getCause() != null ? e.getCause().getMessage() : e.getMessage();
+            return Response.serverError().entity(message).build();
+        }
     }
 
     @Named

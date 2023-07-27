@@ -36,10 +36,6 @@ public class VertxWebsocketRoutes extends RouteBuilder {
                 .end()
                 .to("vertx-websocket:/");
 
-        from("vertx-websocket:redundant.host:9999/test/default/host/port/applied")
-                .setBody(simple("Hello ${body}"))
-                .to("vertx-websocket:/test/default/host/port/applied");
-
         from("direct:sendMessage")
                 .to("vertx-websocket:/test");
 
