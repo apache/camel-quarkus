@@ -63,13 +63,9 @@ from("vertx-websocket:/my-websocket-path")
     .setBody().constant("Hello World");
 ----
 
-Or alternatively, you can refer to the full host & port configuration for the Quarkus HTTP server.
-
-[source,java]
-----
-from("vertx-websocket:{{quarkus.http.host}}:{{quarkus.http.port}}/my-websocket-path")
-    .setBody().constant("Hello World");
-----
+NOTE: While you do not need to explicitly configure the host/port on the vertx-websocket consumer. If you choose to,
+the host & port must exactly match the value of the Quarkus HTTP server configuration values for `quarkus.http.host` and `quarkus.http.port`.
+Otherwise an exception will be thrown at runtime.
 
 [id="extensions-vertx-websocket-usage-vert-x-websocket-producers"]
 === Vert.x WebSocket producers
@@ -93,7 +89,7 @@ from("direct:sendToWebSocket")
     .log("vertx-websocket:{{quarkus.http.host}}:{{quarkus.http.port}}/my-websocket-path");
 ----
 
-When producing messages to an external WebSocket server, then you must provide the host name and port (if required).
+When producing messages to an external WebSocket server, then you must always provide the host name and port (if required).
 
 
 [id="extensions-vertx-websocket-additional-camel-quarkus-configuration"]
