@@ -33,6 +33,7 @@ import com.hazelcast.collection.ISet;
 import com.hazelcast.config.Config;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.cp.IAtomicLong;
+import com.hazelcast.internal.util.ICMPHelper;
 import com.hazelcast.map.IMap;
 import com.hazelcast.multimap.MultiMap;
 import com.hazelcast.replicatedmap.ReplicatedMap;
@@ -45,6 +46,8 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveHierarchyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveHierarchyIgnoreWarningBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import io.quarkus.utilities.OS;
 import org.apache.camel.tooling.model.MainModel;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.Type;
@@ -94,6 +97,13 @@ class HazelcastProcessor {
                 TrustManager.class,
                 XPathFactory.class,
                 MainModel.class);
+    }
+
+    @BuildStep
+    void registerICMPHelper(BuildProducer<RuntimeInitializedClassBuildItem> initializedClasses) {
+        if (OS.determineOS() != OS.LINUX) {
+            initializedClasses.produce(new RuntimeInitializedClassBuildItem(ICMPHelper.class.getName()));
+        }
     }
 
     private static void registerTypeHierarchy(
