@@ -36,9 +36,6 @@ public class VertxWebsocketRoutes extends RouteBuilder {
                 .end()
                 .to("vertx-websocket:/");
 
-        from("direct:sendMessage")
-                .to("vertx-websocket:/test");
-
         from("direct:produceToExternalEndpoint")
                 .toD("vertx-websocket:${header.host}:${header.port}/managed/by/quarkus/websockets");
 
