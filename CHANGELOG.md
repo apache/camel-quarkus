@@ -30,6 +30,7 @@
 
 **Merged pull requests:**
 
+- Bump quarkiverse-groovy.version from 3.2.1 to 3.2.2 [\#5120](https://github.com/apache/camel-quarkus/pull/5120) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Generated sources regen for SBOM [\#5115](https://github.com/apache/camel-quarkus/pull/5115) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Upgrade Quarkus to 3.2.2.Final [\#5114](https://github.com/apache/camel-quarkus/pull/5114) ([jamesnetherton](https://github.com/jamesnetherton))
 - Do not produce JmxMeterRegistry bean in native mode testing [\#5113](https://github.com/apache/camel-quarkus/pull/5113) ([jamesnetherton](https://github.com/jamesnetherton))
