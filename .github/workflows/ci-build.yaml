@@ -219,7 +219,7 @@ jobs:
           df -h /
       - name: Integration Tests
         run: |
-          for MODULE in $(yq -M -N e ".${{ matrix.category }}" tooling/scripts/test-categories.yaml | cut -f2 -d' '); do
+          for MODULE in $(yq -M -N e ".${{ matrix.category }}" tooling/scripts/test-categories.yaml | grep -vE '^\s*#' | cut -f2 -d' '); do
             if [[ "${MODULE}" == "null" ]]; then
               continue
             fi
