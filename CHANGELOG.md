@@ -6,6 +6,7 @@
 
 **Implemented enhancements:**
 
+- vertx-websocket consumer can be configured with host + port without any impact on the exposed endpoint [\#5118](https://github.com/apache/camel-quarkus/issues/5118)
 - Add a pooling test with quarkus-qpid-jms [\#5068](https://github.com/apache/camel-quarkus/issues/5068)
 - Add support of the suspend mode to the Camel Debugger [\#5059](https://github.com/apache/camel-quarkus/issues/5059)
 
@@ -19,17 +20,25 @@
 - Nitrite native integration test could not serialize \[\[3941604762136\]NO₂\] [\#5070](https://github.com/apache/camel-quarkus/issues/5070)
 - Expression extractor fails when there are properties to set [\#5067](https://github.com/apache/camel-quarkus/issues/5067)
 - Cannot retrieve the breakpoints and suspended node ids in native mode [\#5058](https://github.com/apache/camel-quarkus/issues/5058)
+- Hazelcast integration tests fail in native mode On Mac OS [\#5026](https://github.com/apache/camel-quarkus/issues/5026)
 
 **Closed issues:**
 
+- SNMP v3 test coverage [\#5121](https://github.com/apache/camel-quarkus/issues/5121)
 - Replace the deprecated RecorderContext\#classProxy in groovy and joor extensions [\#5056](https://github.com/apache/camel-quarkus/issues/5056)
 - Tika: Remove excluded pdfbox, once qaurkiverse.tika adapts new tika version  [\#4786](https://github.com/apache/camel-quarkus/issues/4786)
 - Migrate from `org.graalvm.nativeimage:svm` to `org.graalvm.sdk:graal-sdk` [\#4602](https://github.com/apache/camel-quarkus/issues/4602)
+- Mapstruct: native support [\#3994](https://github.com/apache/camel-quarkus/issues/3994)
 - Allow disabling periodic scan functionality [\#3078](https://github.com/apache/camel-quarkus/issues/3078)
 - Surefire 3.0.0-M4 passing even if a build step throws an exception [\#723](https://github.com/apache/camel-quarkus/issues/723)
 
 **Merged pull requests:**
 
+- Disallow invalid host/port values on the vertx-websocket server consumer [\#5127](https://github.com/apache/camel-quarkus/pull/5127) ([jamesnetherton](https://github.com/jamesnetherton))
+- Ref \#5026: Delay the init of ICMPHelper on non Linux OS [\#5125](https://github.com/apache/camel-quarkus/pull/5125) ([essobedo](https://github.com/essobedo))
+- Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 2.4.1 to 2.4.2 [\#5124](https://github.com/apache/camel-quarkus/pull/5124) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Add MapStruct native support [\#5123](https://github.com/apache/camel-quarkus/pull/5123) ([jamesnetherton](https://github.com/jamesnetherton))
+- SNMPv3 test coverage [\#5122](https://github.com/apache/camel-quarkus/pull/5122) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Bump quarkiverse-groovy.version from 3.2.1 to 3.2.2 [\#5120](https://github.com/apache/camel-quarkus/pull/5120) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Generated sources regen for SBOM [\#5115](https://github.com/apache/camel-quarkus/pull/5115) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Upgrade Quarkus to 3.2.2.Final [\#5114](https://github.com/apache/camel-quarkus/pull/5114) ([jamesnetherton](https://github.com/jamesnetherton))
