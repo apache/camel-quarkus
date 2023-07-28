@@ -218,7 +218,7 @@
         <module>stax</module>
         <module>stringtemplate</module>
         <module>swift</module>
-        <!--<module>syndication</module> https://github.com/apache/camel-quarkus/issues/4515 -->
+        <module>syndication</module>
         <module>syslog</module>
         <module>tarfile</module>
         <module>telegram</module>
