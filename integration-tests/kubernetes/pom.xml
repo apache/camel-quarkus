@@ -75,7 +75,13 @@
 
 
     <profiles>
-       <profile>
+        <profile>
+            <id>ci</id>
+            <properties>
+                <quarkus.native.native-image-xmx>5g</quarkus.native.native-image-xmx>
+            </properties>
+        </profile>
+        <profile>
             <id>native</id>
             <activation>
                 <property>
