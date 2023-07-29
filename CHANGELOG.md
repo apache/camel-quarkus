@@ -34,6 +34,7 @@
 
 **Merged pull requests:**
 
+- Configure native-image-xmx for kubernetes and master-openshift native tests [\#5128](https://github.com/apache/camel-quarkus/pull/5128) ([jamesnetherton](https://github.com/jamesnetherton))
 - Disallow invalid host/port values on the vertx-websocket server consumer [\#5127](https://github.com/apache/camel-quarkus/pull/5127) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ref \#5026: Delay the init of ICMPHelper on non Linux OS [\#5125](https://github.com/apache/camel-quarkus/pull/5125) ([essobedo](https://github.com/essobedo))
 - Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 2.4.1 to 2.4.2 [\#5124](https://github.com/apache/camel-quarkus/pull/5124) ([dependabot[bot]](https://github.com/apps/dependabot))
