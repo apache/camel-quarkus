@@ -34,6 +34,7 @@
 
 **Merged pull requests:**
 
+- Bump quarkiverse-mybatis.version from 2.0.0 to 2.1.0 [\#5129](https://github.com/apache/camel-quarkus/pull/5129) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Configure native-image-xmx for kubernetes and master-openshift native tests [\#5128](https://github.com/apache/camel-quarkus/pull/5128) ([jamesnetherton](https://github.com/jamesnetherton))
 - Disallow invalid host/port values on the vertx-websocket server consumer [\#5127](https://github.com/apache/camel-quarkus/pull/5127) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ref \#5026: Delay the init of ICMPHelper on non Linux OS [\#5125](https://github.com/apache/camel-quarkus/pull/5125) ([essobedo](https://github.com/essobedo))
