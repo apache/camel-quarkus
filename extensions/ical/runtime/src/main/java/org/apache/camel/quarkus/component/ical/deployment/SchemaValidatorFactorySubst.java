@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.ical.deployment;
 
+import java.util.function.BooleanSupplier;
+
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
 import net.fortuna.ical4j.model.parameter.Schema;
@@ -23,17 +25,27 @@ import net.fortuna.ical4j.model.property.StructuredData;
 import net.fortuna.ical4j.validate.Validator;
 import net.fortuna.ical4j.validate.schema.SchemaValidatorFactory;
 
-@TargetClass(value = SchemaValidatorFactory.class)
+/**
+ * Cuts out paths to optional JsonSchemaValidator. Only required if STRUCTURED-DATA elements are present
+ * in the calendar definition. See RFC 9073.
+ */
+@TargetClass(value = SchemaValidatorFactory.class, onlyWith = IsJsonSkemaAbsent.class)
 final class SchemaValidatorFactorySubstitutions {
-
     @Substitute
     public static Validator<StructuredData> newInstance(Schema schema) {
-        //see https://github.com/apache/camel-quarkus/issues/5099 for more details
-        //Method causes error (it is unclear to me, why it is happening):
-        //UnresolvedElementException: Discovered unresolved method during parsing: net.fortuna.ical4j.validate.schema.JsonSchemaValidator.<init>(java.net.URL).
-        // This error is reported at image build time because class net.fortuna.ical4j.validate.schema.SchemaValidatorFactory
-        // is registered for linking at image build time by command line
+        throw new UnsupportedOperationException(
+                "iCalendar JSON schema validation is unavailable. Add com.github.erosb:json-sKema to the application classpath");
+    }
+}
 
-        throw new RuntimeException("Feature is not supported.");
+final class IsJsonSkemaAbsent implements BooleanSupplier {
+    @Override
+    public boolean getAsBoolean() {
+        try {
+            Class.forName("com.github.erosb.jsonsKema.Schema", false, Thread.currentThread().getContextClassLoader());
+            return false;
+        } catch (ClassNotFoundException e) {
+            return true;
+        }
     }
 }

@@ -20,13 +20,13 @@ import java.util.stream.Stream;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceDirectoryBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
+import net.fortuna.ical4j.model.TimeZoneLoader;
+import net.fortuna.ical4j.util.MapTimeZoneCache;
 
 class IcalProcessor {
 
@@ -62,21 +62,13 @@ class IcalProcessor {
     }
 
     @BuildStep
-    void registerWsSecurityReflectionItems(CombinedIndexBuildItem combinedIndexBuildItem,
-            BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+    void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         reflectiveClass
-                .produce(ReflectiveClassBuildItem.builder("net.fortuna.ical4j.util.MapTimeZoneCache").methods(true).build());
+                .produce(ReflectiveClassBuildItem.builder(MapTimeZoneCache.class).build());
     }
 
     @BuildStep
-    IndexDependencyBuildItem registerDependencyForIndex() {
-        return new IndexDependencyBuildItem("org.mnode.ical4j", "ical4j");
+    RuntimeReinitializedClassBuildItem runtimeReinitializedClasses() {
+        return new RuntimeReinitializedClassBuildItem(TimeZoneLoader.class.getName());
     }
-
-    @BuildStep
-    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
-        runtimeInitializedClass
-                .produce(new RuntimeInitializedClassBuildItem("net.fortuna.ical4j.validate.schema.JsonSchemaValidator"));
-    }
-
 }
