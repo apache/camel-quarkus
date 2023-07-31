@@ -248,6 +248,7 @@
         <module>xmlsecurity</module>
         <module>xpath</module>
         <module>xslt</module>
+        <module>xslt-saxon</module>
         <module>zendesk</module>
         <module>zip-deflater</module>
         <module>zipfile</module>

@@ -102,7 +102,6 @@
         <module>xj</module>
         <module>xml-grouped</module>
         <module>xmpp</module>
-        <module>xslt-saxon</module>
         <module>zookeeper</module>
         <module>zookeeper-master</module>
     </modules>

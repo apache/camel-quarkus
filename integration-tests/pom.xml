@@ -235,6 +235,7 @@
         <module>xml-grouped</module>
         <module>xmlsecurity</module>
         <module>xpath</module>
+        <module>xslt-saxon</module>
         <module>zendesk</module>
     </modules>
 
