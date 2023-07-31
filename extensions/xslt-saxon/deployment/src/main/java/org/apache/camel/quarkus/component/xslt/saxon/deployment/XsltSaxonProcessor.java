@@ -16,13 +16,18 @@
  */
 package org.apache.camel.quarkus.component.xslt.saxon.deployment;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.pkg.steps.NativeBuild;
-import org.apache.camel.quarkus.core.JvmOnlyRecorder;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import net.sf.saxon.Configuration;
+import net.sf.saxon.functions.StringJoin;
+import net.sf.saxon.functions.String_1;
+import net.sf.saxon.functions.Tokenize_1;
+import org.apache.camel.component.xslt.saxon.XsltSaxonBuilder;
 import org.jboss.logging.Logger;
+import org.xmlresolver.loaders.XmlLoader;
 
 class XsltSaxonProcessor {
 
@@ -34,13 +39,15 @@ class XsltSaxonProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
-    /**
-     * Remove this once this extension starts supporting the native mode.
-     */
-    @BuildStep(onlyIf = NativeBuild.class)
-    @Record(value = ExecutionTime.RUNTIME_INIT)
-    void warnJvmInNative(JvmOnlyRecorder recorder) {
-        JvmOnlyRecorder.warnJvmInNative(LOG, FEATURE); // warn at build time
-        recorder.warnJvmInNative(FEATURE); // warn at runtime
+    @BuildStep
+    void build(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses,
+            BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClasses) {
+        reflectiveClasses.produce(ReflectiveClassBuildItem
+                .builder(Configuration.class, String_1.class, Tokenize_1.class, StringJoin.class).build());
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(XmlLoader.class).build());
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(XsltSaxonBuilder.class).build());
+
+        runtimeInitializedClasses
+                .produce(new RuntimeInitializedClassBuildItem("org.apache.hc.client5.http.impl.auth.NTLMEngineImpl"));
     }
 }
