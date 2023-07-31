@@ -2,38 +2,11 @@
 
 ## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/3.0.0-RC1...HEAD)
-
-**Implemented enhancements:**
-
-- vertx-websocket consumer can be configured with host + port without any impact on the exposed endpoint [\#5118](https://github.com/apache/camel-quarkus/issues/5118)
-- Add a pooling test with quarkus-qpid-jms [\#5068](https://github.com/apache/camel-quarkus/issues/5068)
-- Add support of the suspend mode to the Camel Debugger [\#5059](https://github.com/apache/camel-quarkus/issues/5059)
-
-**Fixed bugs:**
-
-- \[Quarkus 3.3.0\] Micrometer native integration test application throws NPE on startup [\#5109](https://github.com/apache/camel-quarkus/issues/5109)
-- Re-add activemq extension after it was added back in Camel 4.0.0-RC1 [\#5087](https://github.com/apache/camel-quarkus/issues/5087)
-- MicrometerTest.testJMXQuarkusDomain\(\) fail with Quarkus Platform BOMs [\#5086](https://github.com/apache/camel-quarkus/issues/5086)
-- NettyHttpJaasTestResource reads config.jaas from disk [\#5083](https://github.com/apache/camel-quarkus/issues/5083)
-- Velocity $foreach.index, $foreach.count and $foreach.hasNext do not work in native mode [\#5080](https://github.com/apache/camel-quarkus/issues/5080)
-- Nitrite native integration test could not serialize \[\[3941604762136\]NO₂\] [\#5070](https://github.com/apache/camel-quarkus/issues/5070)
-- Expression extractor fails when there are properties to set [\#5067](https://github.com/apache/camel-quarkus/issues/5067)
-- Cannot retrieve the breakpoints and suspended node ids in native mode [\#5058](https://github.com/apache/camel-quarkus/issues/5058)
-- Hazelcast integration tests fail in native mode On Mac OS [\#5026](https://github.com/apache/camel-quarkus/issues/5026)
-
-**Closed issues:**
-
-- SNMP v3 test coverage [\#5121](https://github.com/apache/camel-quarkus/issues/5121)
-- Replace the deprecated RecorderContext\#classProxy in groovy and joor extensions [\#5056](https://github.com/apache/camel-quarkus/issues/5056)
-- Tika: Remove excluded pdfbox, once qaurkiverse.tika adapts new tika version  [\#4786](https://github.com/apache/camel-quarkus/issues/4786)
-- Migrate from `org.graalvm.nativeimage:svm` to `org.graalvm.sdk:graal-sdk` [\#4602](https://github.com/apache/camel-quarkus/issues/4602)
-- Mapstruct: native support [\#3994](https://github.com/apache/camel-quarkus/issues/3994)
-- Allow disabling periodic scan functionality [\#3078](https://github.com/apache/camel-quarkus/issues/3078)
-- Surefire 3.0.0-M4 passing even if a build step throws an exception [\#723](https://github.com/apache/camel-quarkus/issues/723)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/3.0.0-RC2...HEAD)
 
 **Merged pull requests:**
 
+- Generated sources regen for SBOM [\#5130](https://github.com/apache/camel-quarkus/pull/5130) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump quarkiverse-mybatis.version from 2.0.0 to 2.1.0 [\#5129](https://github.com/apache/camel-quarkus/pull/5129) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Configure native-image-xmx for kubernetes and master-openshift native tests [\#5128](https://github.com/apache/camel-quarkus/pull/5128) ([jamesnetherton](https://github.com/jamesnetherton))
 - Disallow invalid host/port values on the vertx-websocket server consumer [\#5127](https://github.com/apache/camel-quarkus/pull/5127) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -42,6 +15,7 @@
 - Add MapStruct native support [\#5123](https://github.com/apache/camel-quarkus/pull/5123) ([jamesnetherton](https://github.com/jamesnetherton))
 - SNMPv3 test coverage [\#5122](https://github.com/apache/camel-quarkus/pull/5122) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Bump quarkiverse-groovy.version from 3.2.1 to 3.2.2 [\#5120](https://github.com/apache/camel-quarkus/pull/5120) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Camel 4.0.0 rc2 upgrade [\#5119](https://github.com/apache/camel-quarkus/pull/5119) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Generated sources regen for SBOM [\#5115](https://github.com/apache/camel-quarkus/pull/5115) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Upgrade Quarkus to 3.2.2.Final [\#5114](https://github.com/apache/camel-quarkus/pull/5114) ([jamesnetherton](https://github.com/jamesnetherton))
 - Do not produce JmxMeterRegistry bean in native mode testing [\#5113](https://github.com/apache/camel-quarkus/pull/5113) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1747,6 +1721,42 @@
 - org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
 
+## [3.0.0-RC2](https://github.com/apache/camel-quarkus/tree/3.0.0-RC2) (2023-07-30)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/3.0.0-RC1...3.0.0-RC2)
+
+**Implemented enhancements:**
+
+- vertx-websocket consumer can be configured with host + port without any impact on the exposed endpoint [\#5118](https://github.com/apache/camel-quarkus/issues/5118)
+- Add a pooling test with quarkus-qpid-jms [\#5068](https://github.com/apache/camel-quarkus/issues/5068)
+- Add support of the suspend mode to the Camel Debugger [\#5059](https://github.com/apache/camel-quarkus/issues/5059)
+
+**Fixed bugs:**
+
+- Expression extractor fails when there are properties to set [\#5067](https://github.com/apache/camel-quarkus/issues/5067)
+- \[Quarkus 3.3.0\] Micrometer native integration test application throws NPE on startup [\#5109](https://github.com/apache/camel-quarkus/issues/5109)
+- Camel Paho 5 integrates EMQX JWKS [\#5107](https://github.com/apache/camel-quarkus/issues/5107)
+- Re-add activemq extension after it was added back in Camel 4.0.0-RC1 [\#5087](https://github.com/apache/camel-quarkus/issues/5087)
+- MicrometerTest.testJMXQuarkusDomain\(\) fail with Quarkus Platform BOMs [\#5086](https://github.com/apache/camel-quarkus/issues/5086)
+- NettyHttpJaasTestResource reads config.jaas from disk [\#5083](https://github.com/apache/camel-quarkus/issues/5083)
+- Velocity $foreach.index, $foreach.count and $foreach.hasNext do not work in native mode [\#5080](https://github.com/apache/camel-quarkus/issues/5080)
+- Nitrite native integration test could not serialize \[\[3941604762136\]NO₂\] [\#5070](https://github.com/apache/camel-quarkus/issues/5070)
+- Cannot retrieve the breakpoints and suspended node ids in native mode [\#5058](https://github.com/apache/camel-quarkus/issues/5058)
+- Hazelcast integration tests fail in native mode On Mac OS [\#5026](https://github.com/apache/camel-quarkus/issues/5026)
+
+**Closed issues:**
+
+- Allow disabling periodic scan functionality [\#3078](https://github.com/apache/camel-quarkus/issues/3078)
+- Surefire 3.0.0-M4 passing even if a build step throws an exception [\#723](https://github.com/apache/camel-quarkus/issues/723)
+- SNMP v3 test coverage [\#5121](https://github.com/apache/camel-quarkus/issues/5121)
+- \[camel-main\] Enable ssh tests + native after consuming quarkus-main \(which brings sshd 2.10.0\) [\#5092](https://github.com/apache/camel-quarkus/issues/5092)
+- Replace the deprecated RecorderContext\#classProxy in groovy and joor extensions [\#5056](https://github.com/apache/camel-quarkus/issues/5056)
+- Tika: Remove excluded pdfbox, once qaurkiverse.tika adapts new tika version  [\#4786](https://github.com/apache/camel-quarkus/issues/4786)
+- Migrate from `org.graalvm.nativeimage:svm` to `org.graalvm.sdk:graal-sdk` [\#4602](https://github.com/apache/camel-quarkus/issues/4602)
+- syndication test fails to compile to native with Camel 4 and Quarkus 3 [\#4515](https://github.com/apache/camel-quarkus/issues/4515)
+- Mapstruct: native support [\#3994](https://github.com/apache/camel-quarkus/issues/3994)
+- Split HTTP test [\#3087](https://github.com/apache/camel-quarkus/issues/3087)
+
 ## [3.0.0-RC1](https://github.com/apache/camel-quarkus/tree/3.0.0-RC1) (2023-07-04)
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/3.0.0-M2...3.0.0-RC1)
@@ -1780,7 +1790,6 @@
 - Publish docs for the last stable release [\#3191](https://github.com/apache/camel-quarkus/issues/3191)
 - JsonParseException not caught when using OpenAPI generated REST DSL [\#3155](https://github.com/apache/camel-quarkus/issues/3155)
 - RestClient: NullPointerException: Cannot read field "skipPattern" because "this.tracingConfig" is null [\#3142](https://github.com/apache/camel-quarkus/issues/3142)
-- Split HTTP test [\#3087](https://github.com/apache/camel-quarkus/issues/3087)
 - Upgrade Quarkus Groovy to 3.2  [\#5044](https://github.com/apache/camel-quarkus/issues/5044)
 - Micrometer: It is not necessary to produce JMXRegistry for the test [\#5030](https://github.com/apache/camel-quarkus/issues/5030)
 - Micrometer: Custom registry coverage is missing [\#5018](https://github.com/apache/camel-quarkus/issues/5018)
