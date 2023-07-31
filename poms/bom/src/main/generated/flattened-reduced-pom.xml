@@ -6167,7 +6167,7 @@
       <dependency>
         <groupId>io.netty.incubator</groupId>
         <artifactId>netty-incubator-transport-classes-io_uring</artifactId>
-        <version>0.0.16.Final</version>
+        <version>0.0.20.Final</version>
       </dependency>
       <dependency>
         <groupId>io.opencensus</groupId>
@@ -6459,7 +6459,7 @@
       <dependency>
         <groupId>org.asynchttpclient</groupId>
         <artifactId>async-http-client</artifactId>
-        <version>3.0.0.Beta1</version>
+        <version>3.0.0.Beta2</version>
         <exclusions>
           <exclusion>
             <groupId>com.sun.activation</groupId>
