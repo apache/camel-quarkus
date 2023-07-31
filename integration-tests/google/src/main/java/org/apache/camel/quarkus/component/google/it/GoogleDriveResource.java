@@ -48,9 +48,9 @@ public class GoogleDriveResource {
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response createFile(String title) throws Exception {
+    public Response createFile(String name) throws Exception {
         File fileMetadata = new File();
-        fileMetadata.setTitle(title);
+        fileMetadata.setName(name);
         HttpContent mediaContent = new ByteArrayContent("text/plain",
                 "Hello Camel Quarkus Google Drive".getBytes(StandardCharsets.UTF_8));
 
@@ -71,7 +71,7 @@ public class GoogleDriveResource {
         try {
             File response = producerTemplate.requestBody("google-drive://drive-files/get?inBody=fileId", fileId, File.class);
             if (response != null) {
-                return Response.ok(response.getTitle()).build();
+                return Response.ok(response.getName()).build();
             } else {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }

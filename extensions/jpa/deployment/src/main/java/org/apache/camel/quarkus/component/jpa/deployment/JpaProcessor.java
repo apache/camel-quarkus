@@ -16,14 +16,8 @@
  */
 package org.apache.camel.quarkus.component.jpa.deployment;
 
-import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import org.apache.camel.component.jpa.JpaComponent;
-import org.apache.camel.quarkus.component.jpa.CamelJpaRecorder;
-import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 
 class JpaProcessor {
 
@@ -32,18 +26,5 @@ class JpaProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @Record(ExecutionTime.RUNTIME_INIT)
-    @BuildStep
-    void configureJpaComponentBean(
-            BuildProducer<CamelRuntimeBeanBuildItem> camelRuntimeBean,
-            CamelJpaRecorder recorder) {
-
-        camelRuntimeBean.produce(
-                new CamelRuntimeBeanBuildItem(
-                        "jpa",
-                        JpaComponent.class.getName(),
-                        recorder.createJpaComponent()));
     }
 }

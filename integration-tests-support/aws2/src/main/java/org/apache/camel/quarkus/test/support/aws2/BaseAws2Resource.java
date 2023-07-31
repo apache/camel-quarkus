@@ -52,6 +52,9 @@ public class BaseAws2Resource {
     @POST
     public Response setUseDefaultCredentials(boolean useDefaultCredentialsProvider) throws Exception {
         this.useDefaultCredentials = useDefaultCredentialsProvider;
+        //call listener
+        onDefaultCredentialsProviderChange();
+
         return Response.ok().build();
     }
 
@@ -91,5 +94,12 @@ public class BaseAws2Resource {
 
     public boolean isUseDefaultCredentials() {
         return useDefaultCredentials;
+    }
+
+    /**
+     * Different aws2 extension might need to react to initialization of default credentials (e.g. kinesis)
+     */
+    protected void onDefaultCredentialsProviderChange() throws Exception {
+
     }
 }

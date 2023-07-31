@@ -51,7 +51,6 @@
         <module>cometd</module>
         <module>console</module>
         <module>controlbus-statistics</module>
-        <module>corda</module>
         <module>couchbase</module>
         <module>djl</module>
         <module>dns</module>
