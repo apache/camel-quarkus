@@ -30,8 +30,11 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.aws2.kinesis.Kinesis2Component;
 import org.apache.camel.component.aws2.kinesis.Kinesis2Constants;
+import org.apache.camel.component.aws2.kinesis.KinesisConnection;
 import org.apache.camel.quarkus.test.support.aws2.BaseAws2Resource;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
@@ -50,6 +53,9 @@ public class Aws2KinesisResource extends BaseAws2Resource {
 
     @Inject
     ProducerTemplate producerTemplate;
+
+    @Inject
+    CamelContext camelContext;
 
     @Inject
     @Named("aws2KinesisMessages")
@@ -88,4 +94,13 @@ public class Aws2KinesisResource extends BaseAws2Resource {
                 + "?useDefaultCredentialsProvider=" + isUseDefaultCredentials();
     }
 
+    @Override
+    protected void onDefaultCredentialsProviderChange() throws Exception {
+        //reset connection, because irt is cached since https://github.com/apache/camel/pull/10919
+        KinesisConnection kc = camelContext.getRegistry().findSingleByType(Kinesis2Component.class).getConnection();
+        kc.close();
+        kc.setKinesisAsyncClient(null);
+        kc.setKinesisClient(null);
+        super.onDefaultCredentialsProviderChange();
+    }
 }

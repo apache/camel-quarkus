@@ -52,8 +52,8 @@ public class CamelKafkaHealthCheckTest {
                 .contentType(ContentType.JSON)
                 .header("Content-Type", containsString("charset=UTF-8"))
                 .body("status", is("DOWN"),
-                        "checks.find { it.name == 'camel-components' }.status", is("DOWN"),
-                        "checks.find { it.name == 'camel-components' }.data.topic", notNullValue(),
-                        "checks.find { it.name == 'camel-components' }.data.'client.id'", notNullValue());
+                        "checks.find { it.name == 'camel-producers' }.status", is("DOWN"),
+                        "checks.find { it.name == 'camel-producers' }.data.topic", notNullValue(),
+                        "checks.find { it.name == 'camel-producers' }.data.'client.id'", notNullValue());
     }
 }
