@@ -17,7 +17,6 @@ The following extensions have been removed.
 [options="header"]
 |===
 | Extension | Alternative extension(s)
-| camel-quarkus-activemq                    | camel-quarkus-jms, camel-quarkus-sjms, camel-quarkus-amqp
 | camel-quarkus-atmos                       | none
 | camel-quarkus-avro-rpc                    | none
 | camel-quarkus-caffeine-lrucache           | camel-quarkus-ignite, camel-quarkus-infinispan
@@ -32,10 +31,6 @@ The following extensions have been removed.
 | camel-quarkus-milo                        | none
 | camel-quarkus-opentracing                 | camel-quarkus-micrometer, camel-quarkus-opentelemtry
 | camel-quarkus-rabbitmq                    | none
-| camel-quarkus-smallrye-reactive-messaging | should be reintroduced
-| camel-quarkus-tika                        | should be reintroduced
 | camel-quarkus-vm                          | camel-quarkus-seda
 | camel-quarkus-xstream                     | camel-quarkus-jacksonxml
 |===
-
-
