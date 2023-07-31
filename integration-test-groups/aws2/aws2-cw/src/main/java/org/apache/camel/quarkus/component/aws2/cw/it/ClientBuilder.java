@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.aws2.cw.it;
 
-import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Named;
 import org.apache.camel.component.aws2.cw.CloudWatchClientMock;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
@@ -25,14 +24,6 @@ public class ClientBuilder {
 
     @Named("customClient")
     CloudWatchClient produceClient() {
-        return new CloudWatchClientMock();
-    }
-
-    @Produces
-    @Named("customClient2")
-    CloudWatchClient produceClient2() {
-        //second client is required to avoid autowiring of the first client if there is only one client
-        //workaround because of https://github.com/apache/camel-quarkus/issues/4400
         return new CloudWatchClientMock();
     }
 }
