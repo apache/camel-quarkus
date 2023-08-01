@@ -24,6 +24,8 @@ public class KafkaHealthCheckProfile implements QuarkusTestProfile {
     @Override
     public Map<String, String> getConfigOverrides() {
         // force shutdown
-        return Map.of("camel.main.shutdownTimeout", "10");
+        return Map.of(
+                "camel.main.shutdownTimeout", "10",
+                "camel.health.producers-enabled", "true");
     }
 }
