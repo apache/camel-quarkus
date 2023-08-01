@@ -4,8 +4,24 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/3.0.0-RC2...HEAD)
 
+**Fixed bugs:**
+
+- ical native build failure [\#5099](https://github.com/apache/camel-quarkus/issues/5099)
+
+**Closed issues:**
+
+- aws2-cw: remove workaround with autowired once CAMEL-18878 is fixed [\#4400](https://github.com/apache/camel-quarkus/issues/4400)
+- XSLT Saxon native support [\#1615](https://github.com/apache/camel-quarkus/issues/1615)
+
 **Merged pull requests:**
 
+- Tidy iCal extension native workaround for absence of com.github.erosbjson-sKema [\#5138](https://github.com/apache/camel-quarkus/pull/5138) ([jamesnetherton](https://github.com/jamesnetherton))
+- Remove redundant autowiring workaround in aws2-cw tests [\#5137](https://github.com/apache/camel-quarkus/pull/5137) ([jamesnetherton](https://github.com/jamesnetherton))
+- Align Apache HTTP Client 5.x with Camel [\#5135](https://github.com/apache/camel-quarkus/pull/5135) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade async-http-client to 3.0.0.Beta2 [\#5134](https://github.com/apache/camel-quarkus/pull/5134) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add xslt-saxon native support [\#5133](https://github.com/apache/camel-quarkus/pull/5133) ([zhfeng](https://github.com/zhfeng))
+- Add missing graal-sdk dependency to ical runtime module [\#5132](https://github.com/apache/camel-quarkus/pull/5132) ([jamesnetherton](https://github.com/jamesnetherton))
+- Update 3.x migration guide removed extensions table [\#5131](https://github.com/apache/camel-quarkus/pull/5131) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#5130](https://github.com/apache/camel-quarkus/pull/5130) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump quarkiverse-mybatis.version from 2.0.0 to 2.1.0 [\#5129](https://github.com/apache/camel-quarkus/pull/5129) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Configure native-image-xmx for kubernetes and master-openshift native tests [\#5128](https://github.com/apache/camel-quarkus/pull/5128) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1740,6 +1756,7 @@
 - MicrometerTest.testJMXQuarkusDomain\(\) fail with Quarkus Platform BOMs [\#5086](https://github.com/apache/camel-quarkus/issues/5086)
 - NettyHttpJaasTestResource reads config.jaas from disk [\#5083](https://github.com/apache/camel-quarkus/issues/5083)
 - Velocity $foreach.index, $foreach.count and $foreach.hasNext do not work in native mode [\#5080](https://github.com/apache/camel-quarkus/issues/5080)
+- Master OpenShift integration test native compilation fails intermittently [\#5071](https://github.com/apache/camel-quarkus/issues/5071)
 - Nitrite native integration test could not serialize \[\[3941604762136\]NO₂\] [\#5070](https://github.com/apache/camel-quarkus/issues/5070)
 - Cannot retrieve the breakpoints and suspended node ids in native mode [\#5058](https://github.com/apache/camel-quarkus/issues/5058)
 - Hazelcast integration tests fail in native mode On Mac OS [\#5026](https://github.com/apache/camel-quarkus/issues/5026)
