@@ -314,7 +314,9 @@ The following needs to be done:
 * Click "Edit Tag" button
 * In the "New release" form:
   * Leave "Release title" empty
-  * Add something meaningful to the description, e.g. something like
+  * Choose the tag of the previous release from the "Previous tag" select field
+  * Click the "Generate release notes" button. It should generate a summary all changes for the release.
+  * In addition you can add links to blog posts if required. e.g. something like
 +
 [source,markdown]
 ----
