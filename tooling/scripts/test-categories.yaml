@@ -152,6 +152,7 @@ group-09:
   - spring-rabbitmq
   - xpath
 group-10:
+  - as2
   - aws2-quarkus-client-grouped
   - atlasmap
   - braintree

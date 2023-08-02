@@ -76,7 +76,7 @@ public class As2CertificateHelper {
 
         kpg.initialize(1024, new SecureRandom());
 
-        String issueDN = "O=Earth 2 Software, C=E2";
+        String issueDN = "O=Punkhorn Software, C=US";
         KeyPair issueKP = kpg.generateKeyPair();
         X509Certificate issueCert = makeCertificate(
                 issueKP, issueDN, issueKP, issueDN);
@@ -84,7 +84,7 @@ public class As2CertificateHelper {
         //
         // certificate we sign against
         //
-        String signingDN = "CN=Shekdon, E=test@gmail.com, O=Earth 2 Software, C=E2";
+        String signingDN = "CN=Shekdon, E=test@gmail.com, O=Punkhorn Software, C=US";
         signingKP = kpg.generateKeyPair();
         signingCert = makeCertificate(
                 signingKP, signingDN, issueKP, issueDN);
@@ -145,7 +145,9 @@ public class As2CertificateHelper {
                 HTTP_SOCKET_TIMEOUT,
                 HTTP_CONNECTION_TIMEOUT,
                 HTTP_CONNECTION_POOL_SIZE,
-                HTTP_CONNECTION_POOL_TTL);
+                HTTP_CONNECTION_POOL_TTL,
+                null,
+                null);
         return clientConnection;
     }
 
