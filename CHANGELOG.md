@@ -15,6 +15,11 @@
 
 **Merged pull requests:**
 
+- Bump org.seleniumhq.selenium:htmlunit-driver from 4.10.0 to 4.11.0 [\#5146](https://github.com/apache/camel-quarkus/pull/5146) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump quarkiverse-jsch.version from 3.0.2 to 3.0.3 [\#5145](https://github.com/apache/camel-quarkus/pull/5145) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Add instructions for auto release note generation to release docs [\#5143](https://github.com/apache/camel-quarkus/pull/5143) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade Quarkus to 3.2.3.Final [\#5141](https://github.com/apache/camel-quarkus/pull/5141) ([jamesnetherton](https://github.com/jamesnetherton))
+- Restore AS2 testing [\#5140](https://github.com/apache/camel-quarkus/pull/5140) ([jamesnetherton](https://github.com/jamesnetherton))
 - Tidy iCal extension native workaround for absence of com.github.erosbjson-sKema [\#5138](https://github.com/apache/camel-quarkus/pull/5138) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove redundant autowiring workaround in aws2-cw tests [\#5137](https://github.com/apache/camel-quarkus/pull/5137) ([jamesnetherton](https://github.com/jamesnetherton))
 - Align Apache HTTP Client 5.x with Camel [\#5135](https://github.com/apache/camel-quarkus/pull/5135) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -60,7 +65,7 @@
 - chore: Add git diff when there are uncommitted changes [\#5076](https://github.com/apache/camel-quarkus/pull/5076) ([essobedo](https://github.com/essobedo))
 - Register additional JDK classes for serialization required by Nitrite [\#5075](https://github.com/apache/camel-quarkus/pull/5075) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use NativeImageFeatureBuildItem instead of deprecated AutomaticFeature annotation [\#5074](https://github.com/apache/camel-quarkus/pull/5074) ([jamesnetherton](https://github.com/jamesnetherton))
-- \[ \#3087\] Divide HTTP tests into separate modules [\#5073](https://github.com/apache/camel-quarkus/pull/5073) ([avano](https://github.com/avano))
+- Divide HTTP tests into separate modules [\#5073](https://github.com/apache/camel-quarkus/pull/5073) ([avano](https://github.com/avano))
 - Fix \#5068 to add a pooling test with quarkus-qpid-jms [\#5069](https://github.com/apache/camel-quarkus/pull/5069) ([zhfeng](https://github.com/zhfeng))
 - Ref \#5056: Replace the deprecated RecorderContext\#classProxy [\#5066](https://github.com/apache/camel-quarkus/pull/5066) ([essobedo](https://github.com/essobedo))
 - Restrict downloading of com.atlassian dependencies to packages.atlassian.com [\#5065](https://github.com/apache/camel-quarkus/pull/5065) ([jamesnetherton](https://github.com/jamesnetherton))
