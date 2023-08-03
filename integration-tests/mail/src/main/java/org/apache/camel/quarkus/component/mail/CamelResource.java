@@ -42,6 +42,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
@@ -240,4 +241,18 @@ public class CamelResource {
         }).collect(Collectors.toList());
     }
 
+    @Path("/exception")
+    @GET
+    public Response throwMailConnectException() {
+        try {
+            producerTemplate.requestBody("direct:throwMailConnectException", (Object) null);
+            return Response.ok().build();
+        } catch (Exception e) {
+            Class<?> causeClass = e.getClass();
+            if (e.getCause() != null) {
+                causeClass = e.getCause().getClass();
+            }
+            return Response.serverError().entity(causeClass.getName()).build();
+        }
+    }
 }
