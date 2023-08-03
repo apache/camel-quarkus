@@ -37,9 +37,9 @@ import io.restassured.http.ContentType;
 import jakarta.json.bind.JsonbBuilder;
 import org.apache.camel.ExchangePropertyKey;
 import org.apache.camel.ServiceStatus;
+import org.eclipse.angus.mail.util.MailConnectException;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,6 +51,7 @@ import org.testcontainers.shaded.org.awaitility.Awaitility;
 import static org.apache.camel.quarkus.component.mail.CamelRoute.EMAIL_ADDRESS;
 import static org.apache.camel.quarkus.component.mail.CamelRoute.PASSWORD;
 import static org.apache.camel.quarkus.component.mail.CamelRoute.USERNAME;
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 @QuarkusTestResource(MailTestResource.class)
@@ -94,7 +95,7 @@ public class MailTest {
                 .post("/api/service/reset")
                 .then()
                 .statusCode(200)
-                .body("message", Matchers.is("Performed reset"));
+                .body("message", is("Performed reset"));
 
         RestAssured.get("/mail/stopConsumers")
                 .then()
@@ -336,6 +337,14 @@ public class MailTest {
         Assertions.assertTrue(sorted.get(1).contains("message 2"));
         Assertions.assertTrue(sorted.get(2).contains("message 3"));
         Assertions.assertTrue(sorted.get(3).contains("message 4"));
+    }
+
+    @Test
+    void testThrowMailConnectException() {
+        RestAssured.get("/mail/exception")
+                .then()
+                .statusCode(500)
+                .body(is(MailConnectException.class.getName()));
     }
 
     // helper methods

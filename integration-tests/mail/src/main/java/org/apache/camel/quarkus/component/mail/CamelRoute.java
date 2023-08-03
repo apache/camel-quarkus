@@ -45,6 +45,7 @@ import org.apache.camel.component.mail.MailMessage;
 import org.apache.camel.support.jsse.KeyManagersParameters;
 import org.apache.camel.support.jsse.SSLContextParameters;
 import org.apache.camel.support.jsse.TrustManagersParameters;
+import org.eclipse.angus.mail.util.MailConnectException;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
@@ -85,6 +86,9 @@ public class CamelRoute extends RouteBuilder {
 
     @Override
     public void configure() {
+        onException(MailConnectException.class)
+                .log("Failed to connect to mail host")
+                .handled(false);
 
         from("direct:sendMail")
                 .toF("smtp://localhost:%d?username=%s&password=%s", smtpPort, USERNAME, PASSWORD);
@@ -149,6 +153,8 @@ public class CamelRoute extends RouteBuilder {
                     map.put("convertedStream", is);
                 });
 
+        from("direct:throwMailConnectException")
+                .to("smtp://bad.host.org?to=foo@bar.com");
     }
 
     private Map<String, Object> handleMail(Exchange exchange) throws MessagingException {

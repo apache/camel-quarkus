@@ -39,32 +39,48 @@ import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
+import jakarta.mail.MessagingException;
 import jakarta.mail.Provider;
 import org.eclipse.angus.mail.handlers.handler_base;
+import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 
 class SupportMailProcessor {
 
     @BuildStep
-    void process(CombinedIndexBuildItem combinedIndex, BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+    ReflectiveClassBuildItem registerForReflection(CombinedIndexBuildItem combinedIndex) {
+        String[] mailExceptionClassNames = combinedIndex.getIndex()
+                .getAllKnownSubclasses(MessagingException.class.getName())
+                .stream()
+                .map(ClassInfo::name)
+                .map(DotName::toString)
+                .toArray(String[]::new);
+
+        return ReflectiveClassBuildItem.builder(mailExceptionClassNames).build();
+    }
+
+    @BuildStep
+    void registerServices(
+            CombinedIndexBuildItem combinedIndex,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
             BuildProducer<NativeImageResourceBuildItem> resource,
             BuildProducer<ServiceProviderBuildItem> services) {
         List<String> providers = resources("META-INF/services/jakarta.mail.Provider")
                 .flatMap(this::lines)
                 .filter(s -> !s.startsWith("#"))
-                .collect(Collectors.toList());
+                .toList();
 
         List<String> streamProviders = resources("META-INF/services/jakarta.mail.util.StreamProvider")
                 .flatMap(this::lines)
                 .filter(s -> !s.startsWith("#"))
-                .collect(Collectors.toList());
+                .toList();
 
         List<String> imp1 = providers.stream()
                 .map(this::loadClass)
                 .map(this::instantiate)
                 .map(Provider.class::cast)
                 .map(Provider::getClassName)
-                .collect(Collectors.toList());
+                .toList();
 
         List<String> imp2 = Stream.of("META-INF/javamail.default.providers", "META-INF/javamail.providers")
                 .flatMap(this::resources)
@@ -74,7 +90,7 @@ class SupportMailProcessor {
                 .map(String::trim)
                 .filter(s -> s.startsWith("class="))
                 .map(s -> s.substring("class=".length()))
-                .collect(Collectors.toList());
+                .toList();
 
         List<String> imp3 = resources("META-INF/mailcap")
                 .flatMap(this::lines)
@@ -83,7 +99,7 @@ class SupportMailProcessor {
                 .map(String::trim)
                 .filter(s -> s.startsWith("x-java-content-handler="))
                 .map(s -> s.substring("x-java-content-handler=".length()))
-                .collect(Collectors.toList());
+                .toList();
 
         reflectiveClass.produce(ReflectiveClassBuildItem.builder(Stream.concat(providers.stream(),
                 Stream.concat(streamProviders.stream(),
@@ -115,6 +131,7 @@ class SupportMailProcessor {
     @BuildStep
     void registerDependencyForIndex(BuildProducer<IndexDependencyBuildItem> items) {
         items.produce(new IndexDependencyBuildItem("jakarta.activation", "jakarta.activation-api"));
+        items.produce(new IndexDependencyBuildItem("jakarta.mail", "jakarta.mail-api"));
         items.produce(new IndexDependencyBuildItem("org.eclipse.angus", "angus-activation"));
         items.produce(new IndexDependencyBuildItem("org.eclipse.angus", "angus-mail"));
     }
