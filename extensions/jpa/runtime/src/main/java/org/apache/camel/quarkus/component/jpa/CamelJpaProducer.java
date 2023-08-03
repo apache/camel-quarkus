@@ -16,16 +16,16 @@
  */
 package org.apache.camel.quarkus.component.jpa;
 
-import io.quarkus.runtime.RuntimeValue;
-import io.quarkus.runtime.annotations.Recorder;
-import org.apache.camel.component.jpa.JpaComponent;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Dependent;
+import jakarta.enterprise.inject.Produces;
+import org.apache.camel.component.jpa.TransactionStrategy;
 
-@Recorder
-public class CamelJpaRecorder {
-
-    public RuntimeValue<JpaComponent> createJpaComponent() {
-        JpaComponent component = new JpaComponent();
-        component.setTransactionStrategy(new QuarkusTransactionStrategy());
-        return new RuntimeValue<>(component);
+@Dependent
+public class CamelJpaProducer {
+    @Produces
+    @ApplicationScoped
+    public TransactionStrategy quarkusTransactionStrategy() {
+        return new QuarkusTransactionStrategy();
     }
 }

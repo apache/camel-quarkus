@@ -14,18 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jpa;
 
-import io.quarkus.runtime.RuntimeValue;
-import io.quarkus.runtime.annotations.Recorder;
-import org.apache.camel.component.jpa.JpaComponent;
+package org.apache.camel.quarkus.component.jpa.graal;
 
-@Recorder
-public class CamelJpaRecorder {
+import com.oracle.svm.core.annotate.Delete;
+import com.oracle.svm.core.annotate.TargetClass;
+import org.apache.camel.component.jpa.DefaultTransactionStrategy;
 
-    public RuntimeValue<JpaComponent> createJpaComponent() {
-        JpaComponent component = new JpaComponent();
-        component.setTransactionStrategy(new QuarkusTransactionStrategy());
-        return new RuntimeValue<>(component);
-    }
+@TargetClass(DefaultTransactionStrategy.class)
+@Delete
+final public class DefaultTransactionStrategySubstitution {
 }
