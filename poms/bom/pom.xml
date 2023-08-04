@@ -6163,6 +6163,11 @@
                 <version>${ibm.mq.client.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.ibm.icu</groupId>
+                <artifactId>icu4j</artifactId>
+                <version>${icu4j.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.jayway.jsonpath</groupId>
                 <artifactId>json-path</artifactId>
                 <version>${json-path.version}</version>
@@ -6864,6 +6869,7 @@
                                 <resolutionEntryPointInclude>net.openhft:affinity</resolutionEntryPointInclude> <!-- https://github.com/apache/camel-quarkus/issues/3788 -->
                                 <resolutionEntryPointInclude>xerces:xercesImpl</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>com.ibm.mq:com.ibm.mq.jakarta.client</resolutionEntryPointInclude>
+                                <resolutionEntryPointInclude>com.ibm.icu:icu4j</resolutionEntryPointInclude>
                             </resolutionEntryPointIncludes>
                             <bannedDependencyResources>
                                 <bannedDependencyResource>
