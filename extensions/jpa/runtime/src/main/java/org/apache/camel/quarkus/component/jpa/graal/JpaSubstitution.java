@@ -18,14 +18,20 @@
 package org.apache.camel.quarkus.component.jpa.graal;
 
 import com.oracle.svm.core.annotate.Alias;
+import com.oracle.svm.core.annotate.Delete;
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
 import jakarta.persistence.EntityManagerFactory;
+import org.apache.camel.component.jpa.DefaultTransactionStrategy;
+import org.apache.camel.component.jpa.JpaComponent;
 import org.apache.camel.component.jpa.JpaEndpoint;
 import org.apache.camel.component.jpa.TransactionStrategy;
 
+final public class JpaSubstitution {
+}
+
 @TargetClass(JpaEndpoint.class)
-final public class JpaEndpointSubstitution {
+final class JpaEndpointSubstitution {
     @Alias
     private TransactionStrategy transactionStrategy;
 
@@ -38,5 +44,16 @@ final public class JpaEndpointSubstitution {
     public TransactionStrategy getTransactionStrategy() {
         return transactionStrategy;
     }
+}
 
+@TargetClass(JpaComponent.class)
+final class JpaComponentSubstitution {
+    @Substitute
+    private void createTransactionStrategy() {
+    }
+}
+
+@TargetClass(DefaultTransactionStrategy.class)
+@Delete
+final class DefaultTransactionStrategySubstitution {
 }
