@@ -6,15 +6,19 @@
 
 **Fixed bugs:**
 
+- camel-quarkus-mail: Exception classes not registered for reflection [\#5142](https://github.com/apache/camel-quarkus/issues/5142)
 - ical native build failure [\#5099](https://github.com/apache/camel-quarkus/issues/5099)
 
 **Closed issues:**
 
+- Manage icu4j version [\#5149](https://github.com/apache/camel-quarkus/issues/5149)
 - aws2-cw: remove workaround with autowired once CAMEL-18878 is fixed [\#4400](https://github.com/apache/camel-quarkus/issues/4400)
 - XSLT Saxon native support [\#1615](https://github.com/apache/camel-quarkus/issues/1615)
 
 **Merged pull requests:**
 
+- Fix \#5149 to manage com.ibm.icu:icu4j [\#5150](https://github.com/apache/camel-quarkus/pull/5150) ([zhfeng](https://github.com/zhfeng))
+- Register known jakarta.mail exception classes for reflection [\#5148](https://github.com/apache/camel-quarkus/pull/5148) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump org.seleniumhq.selenium:htmlunit-driver from 4.10.0 to 4.11.0 [\#5146](https://github.com/apache/camel-quarkus/pull/5146) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump quarkiverse-jsch.version from 3.0.2 to 3.0.3 [\#5145](https://github.com/apache/camel-quarkus/pull/5145) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Add instructions for auto release note generation to release docs [\#5143](https://github.com/apache/camel-quarkus/pull/5143) ([jamesnetherton](https://github.com/jamesnetherton))
