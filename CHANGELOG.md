@@ -17,6 +17,7 @@
 
 **Merged pull requests:**
 
+- Generated sources regen for SBOM [\#5151](https://github.com/apache/camel-quarkus/pull/5151) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Fix \#5149 to manage com.ibm.icu:icu4j [\#5150](https://github.com/apache/camel-quarkus/pull/5150) ([zhfeng](https://github.com/zhfeng))
 - Register known jakarta.mail exception classes for reflection [\#5148](https://github.com/apache/camel-quarkus/pull/5148) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump org.seleniumhq.selenium:htmlunit-driver from 4.10.0 to 4.11.0 [\#5146](https://github.com/apache/camel-quarkus/pull/5146) ([dependabot[bot]](https://github.com/apps/dependabot))
