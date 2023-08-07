@@ -25,6 +25,7 @@ import org.apache.camel.quarkus.component.debezium.common.it.AbstractDebeziumTes
 import org.apache.camel.quarkus.component.debezium.common.it.Type;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
 import org.apache.commons.io.IOUtils;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 import org.testcontainers.containers.Container;
 import org.testcontainers.containers.FixedHostPortGenericContainer;
@@ -39,6 +40,7 @@ public class DebeziumMongodbTestResource extends AbstractDebeziumTestResource<Ge
     private static final String DB_PASSWORD = "dbz";
     private static final String DB_INIT_SCRIPT = "initMongodb.txt";
     private static final int DB_PORT = AvailablePortFinder.getNextAvailable();
+    private static final String MONGO_IMAGE_NAME = ConfigProvider.getConfig().getValue("mongodb.container.image", String.class);
 
     public DebeziumMongodbTestResource() {
         super(Type.mongodb);
@@ -48,7 +50,7 @@ public class DebeziumMongodbTestResource extends AbstractDebeziumTestResource<Ge
 
     @Override
     protected GenericContainer<?> createContainer() {
-        return new FixedHostPortGenericContainer<>("mongo:4.4")
+        return new FixedHostPortGenericContainer<>(MONGO_IMAGE_NAME)
                 .withFixedExposedPort(DB_PORT, DB_PORT)
                 .withCommand("--replSet", "my-mongo-set", "--port", String.valueOf(DB_PORT), "--bind_ip",
                         "localhost," + PRIVATE_HOST)

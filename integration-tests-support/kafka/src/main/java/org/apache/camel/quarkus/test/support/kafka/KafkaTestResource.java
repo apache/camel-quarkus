@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.KafkaContainer;
@@ -29,7 +30,8 @@ import org.testcontainers.utility.TestcontainersConfiguration;
 
 public class KafkaTestResource implements QuarkusTestResourceLifecycleManager {
 
-    protected static final DockerImageName KAFKA_IMAGE_NAME = DockerImageName.parse("confluentinc/cp-kafka").withTag("5.4.3");
+    protected static final DockerImageName KAFKA_IMAGE_NAME = DockerImageName
+            .parse(ConfigProvider.getConfig().getValue("kafka.container.image", String.class));
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaTestResource.class);
 
     private KafkaContainer container;

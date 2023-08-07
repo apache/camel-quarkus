@@ -20,6 +20,7 @@ package org.apache.camel.quarkus.component.cxf.soap.wss.client.it;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
@@ -29,6 +30,7 @@ import org.testcontainers.containers.wait.strategy.Wait;
 public class CxfWssClientTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger log = LoggerFactory.getLogger(CxfWssClientTestResource.class);
 
+    private static final String IMAGE_NAME = ConfigProvider.getConfig().getValue("calculator-ws.container.image", String.class);
     private static final int WILDFLY_PORT = 8080;
     private GenericContainer<?> calculatorContainer;
 
@@ -40,7 +42,7 @@ public class CxfWssClientTestResource implements QuarkusTestResourceLifecycleMan
 
         try {
             try {
-                calculatorContainer = new GenericContainer<>("quay.io/l2x6/calculator-ws:1.2")
+                calculatorContainer = new GenericContainer<>(IMAGE_NAME)
                         .withEnv("WSS_USER", user)
                         .withEnv("WSS_PASSWORD", password)
                         .withLogConsumer(new Slf4jLogConsumer(log))

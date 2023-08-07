@@ -27,6 +27,7 @@ import io.quarkus.runtime.configuration.ConfigUtils;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import io.smallrye.config.SmallRyeConfig;
 import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
@@ -35,7 +36,7 @@ import org.testcontainers.containers.wait.strategy.Wait;
 
 public class AzureStorageTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(AzureStorageTestResource.class);
-    private static final String AZURITE_IMAGE = "mcr.microsoft.com/azure-storage/azurite:3.23.0";
+    private static final String AZURITE_IMAGE = ConfigProvider.getConfig().getValue("azurite.container.image", String.class);
 
     public enum Service {
         blob(10000),

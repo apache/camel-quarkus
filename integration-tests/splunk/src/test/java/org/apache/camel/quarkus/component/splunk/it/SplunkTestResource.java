@@ -22,6 +22,7 @@ import java.util.TimeZone;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 
@@ -29,6 +30,7 @@ public class SplunkTestResource implements QuarkusTestResourceLifecycleManager {
 
     public static String TEST_INDEX = "testindex";
     public static String SAVED_SEARCH_NAME = "savedSearchForTest";
+    private static final String SPLUNK_IMAGE_NAME = ConfigProvider.getConfig().getValue("splunk.container.image", String.class);
     private static final int REMOTE_PORT = 8089;
 
     private GenericContainer container;
@@ -37,7 +39,7 @@ public class SplunkTestResource implements QuarkusTestResourceLifecycleManager {
     public Map<String, String> start() {
 
         try {
-            container = new GenericContainer("splunk/splunk:9.0.1")
+            container = new GenericContainer(SPLUNK_IMAGE_NAME)
                     .withExposedPorts(REMOTE_PORT, SplunkResource.LOCAL_TCP_PORT)
                     .withEnv("SPLUNK_START_ARGS", "--accept-license")
                     .withEnv("SPLUNK_PASSWORD", "changeit")
@@ -45,7 +47,7 @@ public class SplunkTestResource implements QuarkusTestResourceLifecycleManager {
                     .withEnv("TZ", TimeZone.getDefault().getID())
                     .waitingFor(
                             Wait.forLogMessage(".*Ansible playbook complete.*\\n", 1)
-                                    .withStartupTimeout(Duration.ofSeconds(120)));
+                                    .withStartupTimeout(Duration.ofMinutes(5)));
 
             container.start();
 

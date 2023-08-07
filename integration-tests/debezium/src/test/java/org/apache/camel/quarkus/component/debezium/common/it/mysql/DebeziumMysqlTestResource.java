@@ -26,6 +26,7 @@ import java.util.Map;
 import org.apache.camel.quarkus.component.debezium.common.it.AbstractDebeziumTestResource;
 import org.apache.camel.quarkus.component.debezium.common.it.DebeziumMysqlResource;
 import org.apache.camel.quarkus.component.debezium.common.it.Type;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 import org.testcontainers.containers.MySQLContainer;
 
@@ -36,7 +37,7 @@ public class DebeziumMysqlTestResource extends AbstractDebeziumTestResource<MySQ
     public static final String DB_USERNAME = "user";
     public static final String DB_PASSWORD = "test";
     private static final int DB_PORT = 3306;
-    private static final String MYSQL_IMAGE = "mysql:5.7";
+    private static final String MYSQL_IMAGE = ConfigProvider.getConfig().getValue("mysql.container.image", String.class);
 
     private Path historyFile;
 

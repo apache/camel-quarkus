@@ -20,6 +20,7 @@ import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
@@ -35,7 +36,7 @@ public class PgEventTestResource implements QuarkusTestResourceLifecycleManager 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PgEventTestResource.class);
     private static final int POSTGRES_PORT = 5432;
-    private static final String POSTGRES_IMAGE = "postgres:13.0";
+    private static final String POSTGRES_IMAGE = ConfigProvider.getConfig().getValue("postgres.container.image", String.class);
 
     private GenericContainer<?> container;
 

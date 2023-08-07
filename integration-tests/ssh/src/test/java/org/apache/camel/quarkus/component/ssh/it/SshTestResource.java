@@ -20,6 +20,7 @@ import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
@@ -30,7 +31,8 @@ public class SshTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(SshTestResource.class);
 
     private static final int SSH_PORT = 2222;
-    private static final String SSH_IMAGE = "linuxserver/openssh-server";
+    private static final String SSH_IMAGE = ConfigProvider.getConfig().getValue("openssh-server.container.image",
+            String.class);
 
     private GenericContainer container;
 

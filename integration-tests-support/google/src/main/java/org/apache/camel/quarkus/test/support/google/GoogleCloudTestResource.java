@@ -24,12 +24,14 @@ import java.util.ServiceLoader;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
 
 public class GoogleCloudTestResource implements QuarkusTestResourceLifecycleManager {
-    public static final String GOOGLE_EMULATOR_IMAGE = "gcr.io/google.com/cloudsdktool/cloud-sdk:390.0.0-emulators";
+    public static final String GOOGLE_EMULATOR_IMAGE = ConfigProvider.getConfig().getValue("google-cloud-sdk.container.image",
+            String.class);
     public static final String PARAM_PROJECT_ID = "google.project.id";
     public static final String PARAM_CREDENTIALS_PATH = "google.credentialsPath";
 

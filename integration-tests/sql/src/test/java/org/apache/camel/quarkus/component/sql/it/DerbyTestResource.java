@@ -24,6 +24,7 @@ import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
@@ -37,7 +38,7 @@ import org.testcontainers.utility.TestcontainersConfiguration;
  */
 public class DerbyTestResource<T extends GenericContainer> implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(DerbyTestResource.class);
-
+    private static final String DERBY_IMAGE_NAME = ConfigProvider.getConfig().getValue("derby.container.image", String.class);
     private GenericContainer container;
 
     @Override

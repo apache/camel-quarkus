@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.BindMode;
@@ -39,7 +40,7 @@ public class NatsTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOG = LoggerFactory.getLogger(NatsTestResource.class);
     private static final String BASIC_AUTH_USERNAME = "admin";
     private static final String BASIC_AUTH_PASSWORD = "password";
-    private static final String NATS_IMAGE = "nats:2.1.9";
+    private static final String NATS_IMAGE = ConfigProvider.getConfig().getValue("nats.container.image", String.class);
     private static final int NATS_SERVER_PORT = 4222;
     private static final String TOKEN_AUTH_TOKEN = "!admin23456";
 

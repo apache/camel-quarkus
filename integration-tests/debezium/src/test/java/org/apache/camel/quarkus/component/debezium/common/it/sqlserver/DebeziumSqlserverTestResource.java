@@ -27,16 +27,16 @@ import java.util.Map;
 import org.apache.camel.quarkus.component.debezium.common.it.AbstractDebeziumTestResource;
 import org.apache.camel.quarkus.component.debezium.common.it.DebeziumSqlserverResource;
 import org.apache.camel.quarkus.component.debezium.common.it.Type;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 import org.testcontainers.containers.MSSQLServerContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
 
-import static org.testcontainers.containers.MSSQLServerContainer.IMAGE;
-
 public class DebeziumSqlserverTestResource extends AbstractDebeziumTestResource<MSSQLServerContainer<?>> {
     private static final Logger LOG = Logger.getLogger(DebeziumSqlserverTestResource.class);
-    private static final DockerImageName DOCKER_IMAGE_NAME = DockerImageName.parse(IMAGE).withTag("2017-CU12");
+    private static final DockerImageName DOCKER_IMAGE_NAME = DockerImageName
+            .parse(ConfigProvider.getConfig().getValue("sql-server.container.image", String.class));
     private static final int DB_PORT = 1433;
     private Path historyFile;
 

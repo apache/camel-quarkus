@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
@@ -31,7 +32,7 @@ import org.testcontainers.utility.TestcontainersConfiguration;
 public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(ActiveMQTestResource.class);
 
-    private static final String ACTIVEMQ_IMAGE = "rmohr/activemq:5.15.9-alpine";
+    private static final String ACTIVEMQ_IMAGE = ConfigProvider.getConfig().getValue("activemq.container.image", String.class);
     private static final int TCP_PORT = 61616;
 
     private GenericContainer<?> container;

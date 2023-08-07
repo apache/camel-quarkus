@@ -20,6 +20,7 @@ package org.apache.camel.quarkus.component.debezium.common.it.postgres;
 import org.apache.camel.quarkus.component.debezium.common.it.AbstractDebeziumTestResource;
 import org.apache.camel.quarkus.component.debezium.common.it.DebeziumPostgresResource;
 import org.apache.camel.quarkus.component.debezium.common.it.Type;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
@@ -27,7 +28,8 @@ public class DebeziumPostgresTestResource extends AbstractDebeziumTestResource<P
 
     public static final String DB_USERNAME = "postgres";
     public static final String DB_PASSWORD = "changeit";
-    private static final String POSTGRES_IMAGE = "debezium/postgres:11";
+    private static final String POSTGRES_IMAGE = ConfigProvider.getConfig().getValue("postgres-debezium.container.image",
+            String.class);
     private static final int DB_PORT = 5432;
 
     public DebeziumPostgresTestResource() {

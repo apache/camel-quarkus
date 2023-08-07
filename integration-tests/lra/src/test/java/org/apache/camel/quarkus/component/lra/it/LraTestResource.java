@@ -22,13 +22,15 @@ import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
 import org.apache.camel.util.CollectionHelper;
 import org.apache.commons.lang3.SystemUtils;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 
 public class LraTestResource implements QuarkusTestResourceLifecycleManager {
 
     private static final Integer LRA_PORT = AvailablePortFinder.getNextAvailable();
-    private static final String LRA_IMAGE = "quay.io/jbosstm/lra-coordinator:5.13.1.Final-2.16.4.Final";
+    private static final String LRA_IMAGE = ConfigProvider.getConfig().getValue("lra-coordinator.container.image",
+            String.class);
 
     private GenericContainer container;
     private String hostname;
