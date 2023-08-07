@@ -21,13 +21,15 @@ import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.testcontainers.containers.FixedHostPortGenericContainer;
 import org.testcontainers.containers.GenericContainer;
 
 public class GoogleStorageTestResource implements QuarkusTestResourceLifecycleManager {
 
     public static final int PORT = AvailablePortFinder.getNextAvailable();
-    public static final String CONTAINER_NAME = "fsouza/fake-gcs-server:1.37";
+    public static final String CONTAINER_NAME = ConfigProvider.getConfig().getValue("google-storage.container.image",
+            String.class);
 
     private GenericContainer<?> container;
 

@@ -20,6 +20,7 @@ package org.apache.camel.quarkus.component.pg.replication.slot.it;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
@@ -36,7 +37,7 @@ import static org.apache.camel.util.CollectionHelper.mapOf;
 public class PgReplicationSlotTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOG = LoggerFactory.getLogger(PgReplicationSlotTestResource.class);
     private static final int POSTGRES_PORT = 5432;
-    private static final String POSTGRES_IMAGE = "postgres:13.0";
+    private static final String POSTGRES_IMAGE = ConfigProvider.getConfig().getValue("postgres.container.image", String.class);
     private static final String POSTGRES_DB_NAME = "camel_db";
     private static final String POSTGRES_PASSWORD = "postgres-password";
     private static final String POSTGRES_USER = "postgres-user";

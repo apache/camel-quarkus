@@ -26,6 +26,7 @@ import com.github.dockerjava.api.model.HostConfig;
 import com.github.dockerjava.api.model.Ports;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
@@ -42,7 +43,7 @@ public class KuduTestResource implements QuarkusTestResourceLifecycleManager {
     private static final int KUDU_MASTER_HTTP_PORT = 8051;
     private static final int KUDU_TABLET_RPC_PORT = 7050;
     private static final int KUDU_TABLET_HTTP_PORT = 8050;
-    private static final String KUDU_IMAGE = "apache/kudu:1.12.0";
+    private static final String KUDU_IMAGE = ConfigProvider.getConfig().getValue("kudu.container.image", String.class);
     private static final String KUDU_MASTER_NETWORK_ALIAS = "kudu-master";
     private static final String KUDU_TABLET_NETWORK_ALIAS = KuduInfrastructureTestHelper.KUDU_TABLET_SERVER_HOSTNAME;
 

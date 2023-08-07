@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.BindMode;
@@ -31,7 +32,8 @@ public class InfinispanCommonServerTestResource implements QuarkusTestResourceLi
     protected static final String USER = "camel";
     protected static final String PASS = "camel";
     private static final Logger LOGGER = LoggerFactory.getLogger(InfinispanCommonServerTestResource.class);
-    private static final String CONTAINER_IMAGE = System.getProperty("infinispan.container.image", "infinispan/server:14.0");
+    private static final String CONTAINER_IMAGE = ConfigProvider.getConfig().getValue("infinispan.container.image",
+            String.class);
     private static final int HOTROD_PORT = 11222;
 
     private GenericContainer<?> container;

@@ -23,6 +23,7 @@ import java.util.Map;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import io.strimzi.test.container.StrimziKafkaContainer;
 import org.apache.camel.quarkus.kafka.oauth.it.container.KeycloakContainer;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 import org.testcontainers.utility.MountableFile;
 
@@ -49,7 +50,8 @@ public class KafkaKeycloakTestResource implements QuarkusTestResourceLifecycleMa
         keycloak.createHostsFile();
 
         //Start kafka container
-        this.kafka = new StrimziKafkaContainer("quay.io/strimzi/kafka:latest-kafka-3.0.0")
+        String imageName = ConfigProvider.getConfig().getValue("strimzi-kafka.container.image", String.class);
+        this.kafka = new StrimziKafkaContainer(imageName)
                 .withBrokerId(1)
                 .withKafkaConfigurationMap(Map.of("listener.security.protocol.map", "JWT:SASL_PLAINTEXT,BROKER1:PLAINTEXT"))
                 .withNetworkAliases("kafka")

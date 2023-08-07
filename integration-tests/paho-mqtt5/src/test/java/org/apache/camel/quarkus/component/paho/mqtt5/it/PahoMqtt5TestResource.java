@@ -23,6 +23,7 @@ import com.github.dockerjava.api.model.Ulimit;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
 import org.apache.camel.util.CollectionHelper;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.BindMode;
@@ -35,7 +36,7 @@ import org.testcontainers.utility.TestcontainersConfiguration;
 public class PahoMqtt5TestResource implements QuarkusTestResourceLifecycleManager {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PahoMqtt5TestResource.class);
-    private static final String IMAGE = "eclipse-mosquitto:1.6.12";
+    private static final String IMAGE = ConfigProvider.getConfig().getValue("eclipse-mosquitto.container.image", String.class);
     private static final int TCP_PORT = 1883;
     private static final int SSL_PORT = 8883;
     private static final int WS_PORT = 9001;

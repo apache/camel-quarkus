@@ -27,6 +27,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.CreateCollectionOptions;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.commons.io.IOUtils;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.Container;
@@ -39,7 +40,7 @@ public class MongoDbTestResource implements QuarkusTestResourceLifecycleManager 
     private static final Logger LOGGER = LoggerFactory.getLogger(MongoDbTestResource.class);
 
     private static final int MONGODB_PORT = 27017;
-    private static final String MONGO_IMAGE = "mongo:4.4";
+    private static final String MONGO_IMAGE = ConfigProvider.getConfig().getValue("mongodb.container.image", String.class);
     private static final String PRIVATE_HOST = "mongodb_private";
 
     private GenericContainer container;

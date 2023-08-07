@@ -28,11 +28,13 @@ import com.couchbase.client.java.manager.view.View;
 import com.couchbase.client.java.view.DesignDocumentNamespace;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.testcontainers.couchbase.CouchbaseContainer;
 import org.testcontainers.utility.DockerImageName;
 
 public class CouchbaseTestResource implements QuarkusTestResourceLifecycleManager {
-    private final static DockerImageName COUCHBASE_IMAGE = DockerImageName.parse("couchbase/server:6.5.1");
+    private static final DockerImageName COUCHBASE_IMAGE = DockerImageName
+            .parse(ConfigProvider.getConfig().getValue("couchbase.container.image", String.class));
     public static final int KV_PORT = 11210;
     public static final int MANAGEMENT_PORT = 8091;
     public static final int VIEW_PORT = 8092;
@@ -44,9 +46,8 @@ public class CouchbaseTestResource implements QuarkusTestResourceLifecycleManage
     protected Cluster cluster;
 
     private class CustomCouchbaseContainer extends CouchbaseContainer {
-        public CustomCouchbaseContainer() {
-            super(COUCHBASE_IMAGE);
-
+        public CustomCouchbaseContainer(DockerImageName imageName) {
+            super(imageName);
             addFixedExposedPort(KV_PORT, KV_PORT);
             addFixedExposedPort(MANAGEMENT_PORT, MANAGEMENT_PORT);
             addFixedExposedPort(VIEW_PORT, VIEW_PORT);
@@ -57,7 +58,7 @@ public class CouchbaseTestResource implements QuarkusTestResourceLifecycleManage
 
     @Override
     public Map<String, String> start() {
-        container = new CustomCouchbaseContainer();
+        container = new CustomCouchbaseContainer(COUCHBASE_IMAGE.asCompatibleSubstituteFor("couchbase/server"));
         container.start();
 
         initBucket();

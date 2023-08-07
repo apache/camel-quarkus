@@ -23,10 +23,12 @@ import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.CassandraContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.utility.DockerImageName;
 import org.testcontainers.utility.TestcontainersConfiguration;
 
 import static org.testcontainers.containers.CassandraContainer.CQL_PORT;
@@ -34,7 +36,8 @@ import static org.testcontainers.containers.CassandraContainer.CQL_PORT;
 public class CassandraqlTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(CassandraqlTestResource.class);
     private static final int PORT = 9042;
-    private static final String DOCKER_IMAGE_NAME = "cassandra:4.0.1";
+    private static final String DOCKER_IMAGE_NAME = ConfigProvider.getConfig().getValue("cassandra.container.image",
+            String.class);
 
     protected CassandraContainer<?> container;
 
@@ -42,7 +45,8 @@ public class CassandraqlTestResource implements QuarkusTestResourceLifecycleMana
     public Map<String, String> start() {
         LOGGER.info(TestcontainersConfiguration.getInstance().toString());
         try {
-            container = new CassandraContainer<>(DOCKER_IMAGE_NAME)
+            DockerImageName imageName = DockerImageName.parse(DOCKER_IMAGE_NAME).asCompatibleSubstituteFor("cassandra");
+            container = new CassandraContainer<>(imageName)
                     .withExposedPorts(PORT)
                     .waitingFor(Wait.forLogMessage(".*Created default superuser role.*", 1))
                     .withConfigurationOverride("/cassandra");

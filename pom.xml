@@ -205,6 +205,45 @@
         <protobuf-maven-plugin.version>${protobuf-maven-plugin-version}</protobuf-maven-plugin.version>
         <rpkgtests-maven-plugin.version>1.0.0</rpkgtests-maven-plugin.version>
 
+        <!-- Test container image properties -->
+        <activemq.container.image>docker.io/rmohr/activemq:5.15.9-alpine</activemq.container.image>
+        <activemq-artemis.container.image>quay.io/artemiscloud/activemq-artemis-broker:1.0.20</activemq-artemis.container.image>
+        <arangodb.container.image>docker.io/arangodb:3.11.2</arangodb.container.image>
+        <azurite.container.image>mcr.microsoft.com/azure-storage/azurite:3.23.0</azurite.container.image>
+        <calculator-ws.container.image>quay.io/l2x6/calculator-ws:1.2</calculator-ws.container.image>
+        <cassandra.container.image>docker.io/cassandra:4.1.3</cassandra.container.image>
+        <consul.container.image>docker.io/hashicorp/consul:1.16</consul.container.image>
+        <couchbase.container.image>docker.io/couchbase/server:7.2.0</couchbase.container.image>
+        <couchdb.container.image>docker.io/couchdb:2.3.1</couchdb.container.image>
+        <derby.container.image>docker.io/az82/docker-derby:10.16</derby.container.image>
+        <eclipse-mosquitto.container.image>docker.io/eclipse-mosquitto:1.6.15</eclipse-mosquitto.container.image>
+        <fhir.container.image.base>docker.io/hapiproject/hapi</fhir.container.image.base>
+        <fhir.container.image>${fhir.container.image.base}:v6.6.0</fhir.container.image>
+        <fhir-dstu.container.image>${fhir.container.image.base}:v4.2.0</fhir-dstu.container.image>
+        <google-cloud-sdk.container.image>gcr.io/google.com/cloudsdktool/cloud-sdk:441.0.0-emulators</google-cloud-sdk.container.image>
+        <google-storage.container.image>docker.io/fsouza/fake-gcs-server:1.47.3</google-storage.container.image>
+        <greenmail.container.image>docker.io/greenmail/standalone:2.0.0</greenmail.container.image>
+        <ibm-mq.container.image>icr.io/ibm-messaging/mq:9.3.2.1-r1</ibm-mq.container.image>
+        <infinispan.container.image>docker.io/infinispan/server:14.0</infinispan.container.image>
+        <influxdb.container.image>docker.io/influxdb:1.8.10</influxdb.container.image>
+        <kafka.container.image>confluentinc/cp-kafka:7.4.0</kafka.container.image>
+        <kudu.container.image>docker.io/apache/kudu:1.15.0</kudu.container.image>
+        <localstack.container.image>docker.io/localstack/localstack:0.12.17.5</localstack.container.image>
+        <lra-coordinator.container.image>quay.io/jbosstm/lra-coordinator:7.0.0.Final-3.2.2.Final</lra-coordinator.container.image>
+        <minio.container.image>docker.io/minio/minio:RELEASE.2023-07-21T21-12-44Z</minio.container.image>
+        <mysql.container.image>docker.io/mysql:5.7</mysql.container.image>
+        <mongodb.container.image>docker.io/mongo:4.4</mongodb.container.image>
+        <nats.container.image>docker.io/nats:2.9.20</nats.container.image>
+        <openssh-server.container.image>docker.io/linuxserver/openssh-server:version-9.3_p2-r0</openssh-server.container.image>
+        <postgres.container.image>docker.io/postgres:15.0</postgres.container.image>
+        <postgres-debezium.container.image>docker.io/debezium/postgres:15-alpine</postgres-debezium.container.image>
+        <rabbitmq.container.image>docker.io/rabbitmq:3.9.29-management-alpine</rabbitmq.container.image>
+        <redis.container.image>docker.io/redis:7.0.12</redis.container.image>
+        <strimzi-kafka.container.image>quay.io/strimzi/kafka:latest-kafka-3.0.0</strimzi-kafka.container.image>
+        <splunk.container.image>docker.io/splunk/splunk:9.1</splunk.container.image>
+        <sql-server.container.image>mcr.microsoft.com/mssql/server:2017-CU12</sql-server.container.image>
+        <tinyproxy.container.image>docker.io/monokal/tinyproxy</tinyproxy.container.image>
+
         <!-- Plugin configuration through properties  -->
 
         <!-- maven-resources-plugin -->

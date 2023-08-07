@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
@@ -37,9 +38,10 @@ public class CxfClientTestResource implements QuarkusTestResourceLifecycleManage
     public Map<String, String> start() {
         final String BASIC_AUTH_USER = "tester";
         final String BASIC_AUTH_PASSWORD = UUID.randomUUID().toString();
+        final String IMAGE_NAME = ConfigProvider.getConfig().getValue("calculator-ws.container.image", String.class);
 
         try {
-            calculatorContainer = new GenericContainer<>("quay.io/l2x6/calculator-ws:1.2")
+            calculatorContainer = new GenericContainer<>(IMAGE_NAME)
                     .withExposedPorts(WILDFLY_PORT)
                     .withEnv("BASIC_AUTH_USER", BASIC_AUTH_USER)
                     .withEnv("BASIC_AUTH_PASSWORD", BASIC_AUTH_PASSWORD)

@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.fhir.it;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -1087,7 +1086,7 @@ public class FhirR4Resource {
         Date date = dateFormat.parse("1998-04-29");
         patient.setBirthDate(date);
 
-        String url = "Patient?" + Patient.SP_IDENTIFIER + '=' + URLEncoder.encode(patient.getIdElement().getIdPart(), "UTF-8");
+        String url = "Patient?" + Patient.SP_RES_ID + '=' + patient.getIdPart();
 
         Map<String, Object> headers = new HashMap<>();
         headers.put("CamelFhir.resource", patient);
@@ -1114,7 +1113,7 @@ public class FhirR4Resource {
         Date date = dateFormat.parse("1998-04-29");
         patient.setBirthDate(date);
 
-        String url = "Patient?" + Patient.SP_IDENTIFIER + '=' + URLEncoder.encode(patient.getId(), "UTF-8");
+        String url = "Patient?" + Patient.SP_RES_ID + '=' + patient.getIdPart();
 
         Map<String, Object> headers = new HashMap<>();
         headers.put("CamelFhir.resourceAsString", fhirContextInstance.get().newJsonParser().encodeResourceToString(patient));

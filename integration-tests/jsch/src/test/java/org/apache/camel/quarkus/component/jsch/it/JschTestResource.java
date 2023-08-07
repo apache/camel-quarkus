@@ -20,11 +20,13 @@ import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 
 public class JschTestResource implements QuarkusTestResourceLifecycleManager {
-    private static final String JSCH_IMAGE = "linuxserver/openssh-server";
+    private static final String JSCH_IMAGE = ConfigProvider.getConfig().getValue("openssh-server.container.image",
+            String.class);
     private static final String USERNAME = "admin";
     private static final String PASSWORD = "2s3cr3t!";
     private static final int JSCH_PORT = 2222;

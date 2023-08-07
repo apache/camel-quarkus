@@ -20,13 +20,15 @@ import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.testcontainers.containers.RabbitMQContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.utility.DockerImageName;
 
 public class SpringRabbitmqTestResource implements QuarkusTestResourceLifecycleManager {
 
-    private static final String RABBITMQ_IMAGE = "rabbitmq:3.7.25-management-alpine";
+    private static final String RABBITMQ_IMAGE = ConfigProvider.getConfig().getValue("rabbitmq.container.image", String.class);
     private static final int RABBITMQ_PORT = 5672;
     private static final String RABBITMQ_USERNAME = "guest";
     private static final String RABBITMQ_PASSWORD = "guest";
@@ -37,7 +39,8 @@ public class SpringRabbitmqTestResource implements QuarkusTestResourceLifecycleM
     public Map<String, String> start() {
 
         try {
-            container = new RabbitMQContainer(RABBITMQ_IMAGE)
+            DockerImageName imageName = DockerImageName.parse(RABBITMQ_IMAGE).asCompatibleSubstituteFor("rabbitmq");
+            container = new RabbitMQContainer(imageName)
                     .withExposedPorts(RABBITMQ_PORT)
                     .waitingFor(Wait.forLogMessage(".*Server startup complete.*", 1));
             container.start();

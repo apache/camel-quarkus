@@ -21,6 +21,7 @@ import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
@@ -30,8 +31,8 @@ import org.testcontainers.utility.TestcontainersConfiguration;
 public class InfluxdbTestResource implements QuarkusTestResourceLifecycleManager {
     public static final Logger LOGGER = LoggerFactory.getLogger(InfluxdbTestResource.class);
     public static final int INFLUXDB_PORT = 8086;
-    public static final String INFLUXDB_VERSION = "1.7.10";
-    public static final String INFLUXDB_IMAGE = "influxdb:" + INFLUXDB_VERSION;
+    public static final String INFLUXDB_IMAGE = ConfigProvider.getConfig().getValue("influxdb.container.image", String.class);
+    public static final String INFLUXDB_VERSION = INFLUXDB_IMAGE.split(":")[1];
 
     private GenericContainer<?> container;
 

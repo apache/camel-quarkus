@@ -23,12 +23,13 @@ import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.commons.io.FileUtils;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
 
 public class IBMMQTestResource implements QuarkusTestResourceLifecycleManager {
-    private static final String IMAGE_NAME = System.getProperty("ibm.mq.container.image", "icr.io/ibm-messaging/mq:9.3.2.1-r1");
+    private static final String IMAGE_NAME = ConfigProvider.getConfig().getValue("ibm-mq.container.image", String.class);
     private static final int PORT = 1414;
     private static final String QUEUE_MANAGER_NAME = "QM1";
     private static final String USER = "app";

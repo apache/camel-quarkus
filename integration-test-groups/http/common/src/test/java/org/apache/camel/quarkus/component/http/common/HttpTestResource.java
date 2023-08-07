@@ -21,16 +21,17 @@ import java.util.Objects;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
-import org.testcontainers.utility.DockerImageName;
 
 import static org.apache.camel.quarkus.component.http.common.AbstractHttpResource.USER_ADMIN;
 import static org.apache.camel.quarkus.component.http.common.AbstractHttpResource.USER_ADMIN_PASSWORD;
 
 public class HttpTestResource implements QuarkusTestResourceLifecycleManager {
 
-    private static final DockerImageName TINY_PROXY_IMAGE_NAME = DockerImageName.parse("monokal/tinyproxy");
+    private static final String TINY_PROXY_IMAGE_NAME = ConfigProvider.getConfig().getValue("tinyproxy.container.image",
+            String.class);
     private static final Integer TINY_PROXY_PORT = 8888;
     private GenericContainer<?> container;
 

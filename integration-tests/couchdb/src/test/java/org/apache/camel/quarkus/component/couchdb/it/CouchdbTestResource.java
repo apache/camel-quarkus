@@ -21,6 +21,7 @@ import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
@@ -30,7 +31,7 @@ import org.testcontainers.utility.TestcontainersConfiguration;
 public class CouchdbTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(CouchdbTestResource.class);
     private static final int COUCHDB_PORT = 5984;
-    private static final String COUCHDB_IMAGE = "couchdb:2.3.1";
+    private static final String COUCHDB_IMAGE = ConfigProvider.getConfig().getValue("couchdb.container.image", String.class);
 
     private GenericContainer container;
 

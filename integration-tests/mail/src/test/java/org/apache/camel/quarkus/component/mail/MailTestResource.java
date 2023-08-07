@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.HttpWaitStrategy;
 import org.testcontainers.images.builder.ImageFromDockerfile;
@@ -32,7 +33,10 @@ public class MailTestResource implements QuarkusTestResourceLifecycleManager {
     public Map<String, String> start() {
         //Dockerfile with ImageFromDockerfile is used, because ownership of the certificate has to be changed
         container = new GenericContainer<>(new ImageFromDockerfile()
-                .withFileFromClasspath("Dockerfile", "Dockerfile")
+                .withDockerfileFromBuilder(builder -> {
+                    builder.from(ConfigProvider.getConfig().getValue("greenmail.container.image", String.class));
+                    builder.copy("greenmail.p12", "/home/greenmail/greenmail.p12");
+                })
                 .withFileFromClasspath("greenmail.p12", "greenmail.p12"))
                 .withExposedPorts(MailProtocol.allPorts())
                 .waitingFor(new HttpWaitStrategy()
