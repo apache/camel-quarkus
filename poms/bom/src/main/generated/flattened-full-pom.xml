@@ -6154,7 +6154,7 @@
       <dependency>
         <groupId>io.projectreactor</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>reactor-core</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.4.29</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.4.30</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.projectreactor.netty</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -6410,7 +6410,7 @@
       <dependency>
         <groupId>org.apache.zookeeper</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>zookeeper</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.8.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.9.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>ch.qos.logback</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -6425,7 +6425,7 @@
       <dependency>
         <groupId>org.apache.zookeeper</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>zookeeper-jute</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.8.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.9.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>org.asynchttpclient</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -20472,284 +20472,284 @@
         <version>11.0.15</version><!-- org.eclipse.jetty:jetty-bom:11.0.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-ai-formrecognizer</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>4.0.8</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-ai-formrecognizer</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>4.0.9</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-ai-metricsadvisor</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.1.15</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-ai-metricsadvisor</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.1.16</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-ai-textanalytics</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>5.3.0</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-ai-textanalytics</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>5.3.1</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-communication-callautomation</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.0.1</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-communication-callautomation</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.0.2</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-communication-chat</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.3.9</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-communication-chat</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.3.10</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-communication-common</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.2.9</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-communication-common</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.2.10</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-communication-email</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.0.3</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-communication-email</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.0.4</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-communication-identity</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.4.7</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-communication-identity</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.4.8</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-communication-phonenumbers</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.1.3</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-communication-phonenumbers</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.1.4</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-communication-rooms</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.0.1</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-communication-rooms</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.0.2</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-communication-sms</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.1.14</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-communication-sms</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.1.15</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-containers-containerregistry</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.1.1</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-containers-containerregistry</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.1.2</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-core</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.40.0</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-core</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.41.0</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-core-amqp</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>2.8.6</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-core-amqp</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>2.8.7</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-core-http-netty</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.13.4</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-core-http-netty</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.13.5</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-core-http-okhttp</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.11.10</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-core-http-okhttp</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.11.11</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-core-management</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.11.2</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-core-management</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.11.3</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-core-serializer-json-gson</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.2.1</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-core-serializer-json-gson</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.2.2</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-core-serializer-json-jackson</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.4.1</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-core-serializer-json-jackson</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.4.2</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-cosmos</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>4.46.0</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-cosmos</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>4.48.0</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-cosmos-encryption</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>2.2.0</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-cosmos-encryption</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>2.3.0</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-data-appconfiguration</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.4.6</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-data-appconfiguration</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.4.7</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-data-schemaregistry</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.3.7</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-data-schemaregistry</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.3.8</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-data-schemaregistry-apacheavro</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.1.7</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-data-schemaregistry-apacheavro</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.1.8</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-data-tables</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>12.3.12</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-data-tables</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>12.3.13</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-developer-loadtesting</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.0.3</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-developer-loadtesting</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.0.4</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-digitaltwins-core</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.3.10</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-digitaltwins-core</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.3.11</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-identity</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.9.1</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-identity</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.9.2</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-identity-extensions</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.1.5</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-identity-extensions</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.1.6</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-iot-deviceupdate</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.0.8</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-iot-deviceupdate</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.0.9</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-json</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.0.1</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-json</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.0.1</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-messaging-eventgrid</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>4.17.0</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-messaging-eventgrid</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>4.17.1</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-messaging-eventhubs</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>5.15.6</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-messaging-eventhubs</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>5.15.7</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-messaging-eventhubs-checkpointstore-blob</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.16.7</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-messaging-eventhubs-checkpointstore-blob</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.16.8</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-messaging-servicebus</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>7.14.1</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-messaging-servicebus</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>7.14.2</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-messaging-webpubsub</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.2.5</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-messaging-webpubsub</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.2.6</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-mixedreality-authentication</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.2.14</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-mixedreality-authentication</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.2.15</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-mixedreality-remoterendering</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.1.19</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-mixedreality-remoterendering</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.1.20</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-monitor-ingestion</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.0.4</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-monitor-ingestion</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.0.5</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-monitor-query</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.2.1</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-monitor-query</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.2.2</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-search-documents</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>11.5.8</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-search-documents</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>11.5.9</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-security-attestation</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.1.14</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-security-attestation</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.1.15</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-security-confidentialledger</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>1.0.10</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-security-confidentialledger</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>1.0.11</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-security-keyvault-administration</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>4.3.3</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-security-keyvault-administration</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>4.3.4</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-security-keyvault-certificates</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>4.5.3</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-security-keyvault-certificates</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>4.5.4</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-security-keyvault-jca</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>2.7.1</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-security-keyvault-jca</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>2.7.1</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-security-keyvault-keys</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>4.6.3</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-security-keyvault-keys</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>4.6.4</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-security-keyvault-secrets</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>4.6.3</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-security-keyvault-secrets</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>4.6.4</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-storage-blob</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>12.22.3</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-storage-blob</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>12.23.0</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-storage-blob-batch</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>12.18.3</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-storage-blob-batch</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>12.19.0</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-storage-blob-cryptography</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>12.21.3</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-storage-blob-cryptography</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>12.22.0</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-storage-common</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>12.21.2</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-storage-common</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>12.22.0</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-storage-file-datalake</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>12.15.3</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-storage-file-datalake</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>12.16.0</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-storage-file-share</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>12.18.2</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-storage-file-share</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>12.19.0</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-storage-internal-avro</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>12.7.2</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-storage-internal-avro</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>12.8.0</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <artifactId>azure-storage-queue</artifactId><!-- com.azure:azure-sdk-bom:1.2.14 -->
-        <version>12.17.2</version><!-- com.azure:azure-sdk-bom:1.2.14 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <artifactId>azure-storage-queue</artifactId><!-- com.azure:azure-sdk-bom:1.2.15 -->
+        <version>12.18.0</version><!-- com.azure:azure-sdk-bom:1.2.15 -->
       </dependency>
       <dependency>
         <groupId>com.datastax.oss</groupId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.2.0 -->
@@ -20894,9 +20894,9 @@
         <version>25.1-jre-graal-sub-1</version><!-- com.datastax.oss:java-driver-bom:4.15.0 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>connect-api</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>3.4.0</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>connect-api</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>3.4.0</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
         <exclusions>
           <exclusion>
             <groupId>javax.ws.rs</groupId>
@@ -20905,342 +20905,342 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>connect-json</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>3.4.0</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>connect-json</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>3.4.0</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>connect-file</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>3.4.0</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>connect-file</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>3.4.0</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>connect-transforms</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>3.4.0</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>connect-transforms</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>3.4.0</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>kafka_2.13</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>3.4.0</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <classifier>test</classifier><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>kafka_2.13</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>3.4.0</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <classifier>test</classifier><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.confluent</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>kafka-connect-avro-converter</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>7.0.1</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.confluent</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>kafka-connect-avro-converter</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>7.0.1</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.confluent</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>kafka-connect-protobuf-converter</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>7.0.1</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.confluent</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>kafka-connect-protobuf-converter</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>7.0.1</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.apicurio</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>apicurio-registry-utils-converter</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.4.1.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.apicurio</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>apicurio-registry-utils-converter</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.4.1.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>com.mysql</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>mysql-connector-j</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>8.0.33</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>com.mysql</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>mysql-connector-j</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>8.0.33</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>com.zendesk</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>mysql-binlog-connector-java</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>0.27.2</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>com.zendesk</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>mysql-binlog-connector-java</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>0.27.2</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>mil.nga</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>wkb</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>1.0.2</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>mil.nga</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>wkb</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>1.0.2</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>com.oracle.instantclient</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>xstreams</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>21.6.0.0</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>com.oracle.instantclient</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>xstreams</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>21.6.0.0</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>ch.qos.logback</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>logback-classic</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>1.2.10</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>ch.qos.logback</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>logback-classic</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>1.2.10</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>groovy</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>3.0.7</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>org.codehaus.groovy</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>groovy</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>3.0.7</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>groovy-json</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>3.0.7</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>org.codehaus.groovy</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>groovy-json</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>3.0.7</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>org.codehaus.groovy</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>groovy-jsr223</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>3.0.7</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>org.codehaus.groovy</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>groovy-jsr223</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>3.0.7</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.vitess</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>vitess-grpc-client</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>12.0.0</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.vitess</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>vitess-grpc-client</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>12.0.0</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>org.apache.cassandra</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>cassandra-all</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>3.11.12</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>org.apache.cassandra</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>cassandra-all</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>3.11.12</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>com.datastax.cassandra</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>cassandra-driver-core</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>4.14.0</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>com.datastax.cassandra</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>cassandra-driver-core</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>4.14.0</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>metrics-core</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>4.0.1</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>metrics-core</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>4.0.1</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>metrics-healthchecks</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>4.0.1</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>metrics-healthchecks</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>4.0.1</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>metrics-servlets</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>4.0.1</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>metrics-servlets</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>4.0.1</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>javax.xml.bind</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>jaxb-api</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.1</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>javax.xml.bind</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>jaxb-api</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.1</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>org.infinispan</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>infinispan-core-jakarta</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>14.0.11.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>org.infinispan</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>infinispan-core-jakarta</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>14.0.11.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>redis.clients</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>jedis</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>4.1.1</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>redis.clients</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>jedis</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>4.1.1</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>org.apache.rocketmq</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>rocketmq-client</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>4.9.4</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>org.apache.rocketmq</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>rocketmq-client</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>4.9.4</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>org.apache.rocketmq</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>rocketmq-tools</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>4.9.4</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>org.apache.rocketmq</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>rocketmq-tools</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>4.9.4</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>junit</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>junit</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>4.13.1</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>junit</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>junit</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>4.13.1</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>org.easytesting</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>fest-assert</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>1.4</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>org.easytesting</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>fest-assert</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>1.4</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>org.assertj</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>assertj-core</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>3.11.1</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <scope>test</scope><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>org.assertj</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>assertj-core</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>3.11.1</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <scope>test</scope><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>org.openjdk.jmh</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>jmh-core</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>1.21</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>org.openjdk.jmh</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>jmh-core</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>1.21</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>org.openjdk.jmh</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>jmh-generator-annprocess</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>1.21</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>org.openjdk.jmh</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>jmh-generator-annprocess</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>1.21</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>org.skyscreamer</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>jsonassert</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>1.5.0</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <scope>test</scope><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>org.skyscreamer</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>jsonassert</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>1.5.0</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <scope>test</scope><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>org.reflections</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>reflections</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>0.9.12</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>org.reflections</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>reflections</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>0.9.12</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>org.cassandraunit</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>cassandra-unit</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>3.5.0.1</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <scope>test</scope><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>org.cassandraunit</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>cassandra-unit</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>3.5.0.1</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <scope>test</scope><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-api</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-api</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-core</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-core</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-storage-jdbc</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-storage-jdbc</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-storage-kafka</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-storage-kafka</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-storage-azure-blob</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-storage-azure-blob</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-storage-s3</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-storage-s3</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-storage-file</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-storage-file</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-storage-redis</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-storage-redis</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-storage-tests</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-storage-tests</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-scripting</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-scripting</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-scripting-languages</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <type>pom</type><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-scripting-languages</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <type>pom</type><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-embedded</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-embedded</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-connector-jdbc</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-connector-jdbc</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-connector-postgres</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-connector-postgres</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-connector-postgres-test</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-connector-postgres-test</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-connector-mysql</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-connector-mysql</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-ddl-parser</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-ddl-parser</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-connector-mongodb</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-connector-mongodb</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-connector-sqlserver</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-connector-sqlserver</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-connector-oracle</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-connector-oracle</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-connector-db2</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-connector-db2</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-connector-spanner</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-connector-spanner</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-connector-vitess</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-connector-vitess</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-connector-cassandra-3</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-connector-cassandra-3</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-connector-cassandra-4</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-connector-cassandra-4</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-testing-testcontainers</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-testing-testcontainers</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-schema-generator</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-schema-generator</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-quarkus-outbox</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-quarkus-outbox</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-quarkus-outbox-deployment</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-quarkus-outbox-deployment</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-core</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <type>test-jar</type><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-core</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <type>test-jar</type><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-embedded</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <type>test-jar</type><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-embedded</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <type>test-jar</type><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <artifactId>debezium-connector-mysql</artifactId><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <version>2.3.0.Final</version><!-- io.debezium:debezium-bom:2.3.0.Final -->
-        <type>test-jar</type><!-- io.debezium:debezium-bom:2.3.0.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <artifactId>debezium-connector-mysql</artifactId><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <version>2.3.2.Final</version><!-- io.debezium:debezium-bom:2.3.2.Final -->
+        <type>test-jar</type><!-- io.debezium:debezium-bom:2.3.2.Final -->
       </dependency>
       <dependency>
         <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
