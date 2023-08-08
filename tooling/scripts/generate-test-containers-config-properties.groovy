@@ -30,5 +30,5 @@ if (testClasses.exists()) {
     metaInfDir.mkdir()
 
     File file = new File("${metaInfDir.absolutePath}/microprofile-config.properties")
-    file.write(fileContent)
+    file.write(fileContent, 'UTF-8')
 }
