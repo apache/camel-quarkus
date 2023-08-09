@@ -217,6 +217,7 @@
         <couchdb.container.image>docker.io/couchdb:2.3.1</couchdb.container.image>
         <derby.container.image>docker.io/az82/docker-derby:10.16</derby.container.image>
         <eclipse-mosquitto.container.image>docker.io/eclipse-mosquitto:1.6.15</eclipse-mosquitto.container.image>
+        <elasticsearch.container.image>docker.io/elasticsearch:8.8.1</elasticsearch.container.image>
         <fhir.container.image.base>docker.io/hapiproject/hapi</fhir.container.image.base>
         <fhir.container.image>${fhir.container.image.base}:v6.6.0</fhir.container.image>
         <fhir-dstu.container.image>${fhir.container.image.base}:v4.2.0</fhir-dstu.container.image>
