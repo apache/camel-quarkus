@@ -13,10 +13,13 @@
 
 - Manage icu4j version [\#5149](https://github.com/apache/camel-quarkus/issues/5149)
 - aws2-cw: remove workaround with autowired once CAMEL-18878 is fixed [\#4400](https://github.com/apache/camel-quarkus/issues/4400)
+- Figure out how to maintain versions of test containers [\#2225](https://github.com/apache/camel-quarkus/issues/2225)
 - XSLT Saxon native support [\#1615](https://github.com/apache/camel-quarkus/issues/1615)
 
 **Merged pull requests:**
 
+- Set encoding to UTF-8 when writing microprofile-config.properties [\#5157](https://github.com/apache/camel-quarkus/pull/5157) ([jamesnetherton](https://github.com/jamesnetherton))
+- Manage test container versions in the root project pom.xml [\#5152](https://github.com/apache/camel-quarkus/pull/5152) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#5151](https://github.com/apache/camel-quarkus/pull/5151) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Fix \#5149 to manage com.ibm.icu:icu4j [\#5150](https://github.com/apache/camel-quarkus/pull/5150) ([zhfeng](https://github.com/zhfeng))
 - Register known jakarta.mail exception classes for reflection [\#5148](https://github.com/apache/camel-quarkus/pull/5148) ([jamesnetherton](https://github.com/jamesnetherton))
