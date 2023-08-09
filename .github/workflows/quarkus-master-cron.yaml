@@ -114,6 +114,19 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJson(needs.initial-mvn-install.outputs.matrix) }}
     steps:
+      - name: Reclaim Disk Space
+        run: |
+          df -h /
+          echo "Reclaiming disk space..."
+          sudo rm -rf /opt/ghc \
+               rm -rf /opt/pipx \
+               rm -rf /usr/local/go \
+               rm -rf /usr/local/lib/android \
+               rm -rf /usr/local/share/boost \
+               rm -rf /usr/share/dotnet \
+               rm -rf /usr/share/rust \
+               rm -rf /usr/share/swift
+          df -h /
       - name: Download Maven Repo
         uses: actions/download-artifact@v2
         with:
