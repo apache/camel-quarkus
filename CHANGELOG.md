@@ -18,6 +18,8 @@
 
 **Merged pull requests:**
 
+- Reclaim disk space before running integration tests [\#5159](https://github.com/apache/camel-quarkus/pull/5159) ([jamesnetherton](https://github.com/jamesnetherton))
+- Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 2.4.2 to 2.4.3 [\#5158](https://github.com/apache/camel-quarkus/pull/5158) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Set encoding to UTF-8 when writing microprofile-config.properties [\#5157](https://github.com/apache/camel-quarkus/pull/5157) ([jamesnetherton](https://github.com/jamesnetherton))
 - Manage test container versions in the root project pom.xml [\#5152](https://github.com/apache/camel-quarkus/pull/5152) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#5151](https://github.com/apache/camel-quarkus/pull/5151) ([github-actions[bot]](https://github.com/apps/github-actions))
