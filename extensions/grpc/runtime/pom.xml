@@ -52,12 +52,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-grpc</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.netty</groupId>
-                    <artifactId>netty-tcnative-boringssl-static</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.jboss.logging</groupId>

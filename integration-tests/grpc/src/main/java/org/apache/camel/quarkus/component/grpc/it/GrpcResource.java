@@ -22,7 +22,6 @@ import java.util.Map;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -36,7 +35,7 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.quarkus.component.grpc.it.model.PingRequest;
 import org.apache.camel.quarkus.component.grpc.it.model.PongResponse;
 
-import static org.apache.camel.quarkus.component.grpc.it.GrpcRoute.PING_PONG_SERVICE;
+import static org.apache.camel.component.grpc.GrpcConstants.GRPC_METHOD_NAME_HEADER;
 
 @Path("/grpc")
 @ApplicationScoped
@@ -50,17 +49,34 @@ public class GrpcResource {
 
     @Path("/producer")
     @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String producer(String pingName, @QueryParam("pingId") int pingId) throws Exception {
+    @Produces(MediaType.APPLICATION_JSON)
+    @SuppressWarnings("unchecked")
+    public String producer(
+            @QueryParam("portPropertyPlaceholder") String portPropertyPlaceholder,
+            @QueryParam("pingName") String pingName,
+            @QueryParam("methodName") String methodName,
+            @QueryParam("pingId") int pingId,
+            @QueryParam("synchronous") boolean synchronous) {
+
         final PingRequest pingRequest = PingRequest.newBuilder()
                 .setPingName(pingName)
                 .setPingId(pingId)
                 .build();
-        final PongResponse response = producerTemplate.requestBody(
-                "grpc://localhost:{{grpc.test.server.port}}/" + PING_PONG_SERVICE + "?method=pingSyncSync&synchronous=true",
-                pingRequest, PongResponse.class);
-        return response.getPongName();
+        final Map<String, Object> headers = Map.of(
+                "port", portPropertyPlaceholder,
+                GRPC_METHOD_NAME_HEADER, methodName,
+                "isSync", String.valueOf(synchronous));
+
+        PongResponse response;
+        if (methodName.contains("Async")) {
+            List<PongResponse> responses = producerTemplate.requestBodyAndHeaders("direct:sendGrpcMessage", pingRequest,
+                    headers, List.class);
+            response = responses.get(0);
+        } else {
+            response = producerTemplate.requestBodyAndHeaders("direct:sendGrpcMessage", pingRequest, headers,
+                    PongResponse.class);
+        }
+        return "{\"pongName\": \"%s\", \"pongId\": %d}".formatted(response.getPongName(), response.getPongId());
     }
 
     @Path("/forwardOnCompleted")
