@@ -51,7 +51,8 @@ if (!badDeps.isEmpty()) {
 }
 
 // check jvmSince and nativeCheck not newer than current SNAPSHOT version
-final String currentVersion = project.version - '-SNAPSHOT'
+def versionRegex = ~/\-.*/
+final String currentVersion = project.version - versionRegex
 final String jvmSince    = project.properties['camel.quarkus.jvmSince']
 final String nativeSince = project.properties['camel.quarkus.nativeSince']
 
