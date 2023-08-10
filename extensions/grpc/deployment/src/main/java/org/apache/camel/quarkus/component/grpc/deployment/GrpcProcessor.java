@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import com.google.api.client.json.GenericJson;
 import io.grpc.BindableService;
 import io.grpc.stub.AbstractAsyncStub;
 import io.grpc.stub.AbstractBlockingStub;
@@ -80,6 +81,7 @@ class GrpcProcessor {
         }
         reflectiveClass
                 .produce(ReflectiveClassBuildItem.builder(AbstractStub.class.getName()).methods().build());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(GenericJson.class.getName()).build());
     }
 
     @BuildStep

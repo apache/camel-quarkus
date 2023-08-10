@@ -27,12 +27,48 @@ public class PingPongImpl extends org.apache.camel.quarkus.component.grpc.it.mod
 
     @Override
     public void pingSyncSync(PingRequest request, StreamObserver<PongResponse> responseObserver) {
-        LOG.infof("gRPC server received data from PingPong service PingId=%s PingName=%s", request.getPingId(),
+        LOG.infof("gRPC server pingSyncSync received data from PingPong service PingId=%s PingName=%s", request.getPingId(),
                 request.getPingName());
         PongResponse response = PongResponse.newBuilder().setPongName(request.getPingName() + GRPC_TEST_PONG_VALUE)
                 .setPongId(request.getPingId()).build();
 
         responseObserver.onNext(response);
         responseObserver.onCompleted();
+    }
+
+    @Override
+    public void pingSyncAsync(PingRequest request, StreamObserver<PongResponse> responseObserver) {
+        LOG.infof("gRPC server pingSyncAsync received data from PingPong service PingId=%s PingName=%s", request.getPingId(),
+                request.getPingName());
+        PongResponse response = PongResponse.newBuilder().setPongName(request.getPingName() + GRPC_TEST_PONG_VALUE)
+                .setPongId(request.getPingId()).build();
+
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public StreamObserver<PingRequest> pingAsyncAsync(StreamObserver<PongResponse> responseObserver) {
+        return new StreamObserver<>() {
+            @Override
+            public void onNext(PingRequest request) {
+                LOG.infof("gRPC server pingAsyncAsync received data from PingPong service PingId=%s PingName=%s",
+                        request.getPingId(),
+                        request.getPingName());
+                PongResponse response = PongResponse.newBuilder().setPongName(request.getPingName() + GRPC_TEST_PONG_VALUE)
+                        .setPongId(request.getPingId()).build();
+                responseObserver.onNext(response);
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                responseObserver.onError(throwable);
+            }
+
+            @Override
+            public void onCompleted() {
+                responseObserver.onCompleted();
+            }
+        };
     }
 }

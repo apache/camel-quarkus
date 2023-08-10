@@ -20,8 +20,6 @@ package org.apache.camel.quarkus.component.grpc.it;
 import java.util.Map;
 import java.util.Objects;
 
-import io.grpc.Server;
-import io.grpc.ServerBuilder;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
 import org.slf4j.Logger;
@@ -29,28 +27,22 @@ import org.slf4j.LoggerFactory;
 
 public class GrpcServerTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(GrpcServerTestResource.class);
-    private Server grpcServer;
 
     @Override
     public Map<String, String> start() {
         try {
-            Map<String, String> config = AvailablePortFinder.reserveNetworkPorts(
+            return AvailablePortFinder.reserveNetworkPorts(
                     Objects::toString,
-                    "grpc.test.server.port",
-                    "camel.grpc.test.server.port",
+                    "camel.grpc.test.async.server.port",
+                    "camel.grpc.test.sync.server.port",
+                    "camel.grpc.test.server.exception.port",
                     "camel.grpc.test.forward.completed.server.port",
                     "camel.grpc.test.forward.error.server.port",
                     "camel.grpc.test.route.controlled.server.port",
                     "camel.grpc.test.tls.server.port",
-                    "camel.grpc.test.jwt.server.port");
-
-            String port = config.get("grpc.test.server.port");
-            grpcServer = ServerBuilder.forPort(Integer.parseInt(port))
-                    .addService(new PingPongImpl())
-                    .build()
-                    .start();
-
-            return config;
+                    "camel.grpc.test.jwt.server.port",
+                    "camel.grpc.test.sync.aggregation.server.port",
+                    "camel.grpc.test.async.aggregation.server.port");
         } catch (Exception e) {
             throw new RuntimeException("Could not start gRPC server", e);
         }
@@ -58,13 +50,6 @@ public class GrpcServerTestResource implements QuarkusTestResourceLifecycleManag
 
     @Override
     public void stop() {
-        try {
-            if (grpcServer != null) {
-                grpcServer.shutdown();
-            }
-        } catch (Exception e) {
-            LOGGER.error("Could not stop gRPC server", e);
-        }
         AvailablePortFinder.releaseReservedPorts();
     }
 }
