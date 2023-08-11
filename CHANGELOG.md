@@ -12,12 +12,14 @@
 **Closed issues:**
 
 - Manage icu4j version [\#5149](https://github.com/apache/camel-quarkus/issues/5149)
+- Introduce group testing for different jdbc db types [\#4772](https://github.com/apache/camel-quarkus/issues/4772)
 - aws2-cw: remove workaround with autowired once CAMEL-18878 is fixed [\#4400](https://github.com/apache/camel-quarkus/issues/4400)
 - Figure out how to maintain versions of test containers [\#2225](https://github.com/apache/camel-quarkus/issues/2225)
 - XSLT Saxon native support [\#1615](https://github.com/apache/camel-quarkus/issues/1615)
 
 **Merged pull requests:**
 
+- Bump quarkiverse-pooled-jms.version from 2.0.1 to 2.0.2 [\#5171](https://github.com/apache/camel-quarkus/pull/5171) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Reclaim disk space before running integration tests [\#5159](https://github.com/apache/camel-quarkus/pull/5159) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 2.4.2 to 2.4.3 [\#5158](https://github.com/apache/camel-quarkus/pull/5158) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Set encoding to UTF-8 when writing microprofile-config.properties [\#5157](https://github.com/apache/camel-quarkus/pull/5157) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -47,6 +49,7 @@
 - SNMPv3 test coverage [\#5122](https://github.com/apache/camel-quarkus/pull/5122) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Bump quarkiverse-groovy.version from 3.2.1 to 3.2.2 [\#5120](https://github.com/apache/camel-quarkus/pull/5120) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Camel 4.0.0 rc2 upgrade [\#5119](https://github.com/apache/camel-quarkus/pull/5119) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Ref\#4772 Introduce group testing for different jdbc db types [\#5116](https://github.com/apache/camel-quarkus/pull/5116) ([ldrozdo](https://github.com/ldrozdo))
 - Generated sources regen for SBOM [\#5115](https://github.com/apache/camel-quarkus/pull/5115) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Upgrade Quarkus to 3.2.2.Final [\#5114](https://github.com/apache/camel-quarkus/pull/5114) ([jamesnetherton](https://github.com/jamesnetherton))
 - Do not produce JmxMeterRegistry bean in native mode testing [\#5113](https://github.com/apache/camel-quarkus/pull/5113) ([jamesnetherton](https://github.com/jamesnetherton))
