@@ -6730,6 +6730,11 @@
                 </exclusions>
             </dependency>
             <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-messaging</artifactId>
                 <version>${spring.version}</version>
@@ -6870,6 +6875,7 @@
                                 <resolutionEntryPointInclude>xerces:xercesImpl</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>com.ibm.mq:com.ibm.mq.jakarta.client</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>com.ibm.icu:icu4j</resolutionEntryPointInclude>
+                                <resolutionEntryPointInclude>org.mapstruct:mapstruct-processor</resolutionEntryPointInclude>
                             </resolutionEntryPointIncludes>
                             <bannedDependencyResources>
                                 <bannedDependencyResource>
