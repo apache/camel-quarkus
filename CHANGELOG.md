@@ -4,13 +4,20 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/3.0.0-RC2...HEAD)
 
+**Implemented enhancements:**
+
+- Add `org.mapstruct:mapstruct-processor` to the BOM [\#5163](https://github.com/apache/camel-quarkus/issues/5163)
+
 **Fixed bugs:**
 
+- Compilation fails for gRPC applications in dev mode  [\#5167](https://github.com/apache/camel-quarkus/issues/5167)
 - camel-quarkus-mail: Exception classes not registered for reflection [\#5142](https://github.com/apache/camel-quarkus/issues/5142)
 - ical native build failure [\#5099](https://github.com/apache/camel-quarkus/issues/5099)
 
 **Closed issues:**
 
+- Add tests for camel-quarkus-elasticsearch [\#5162](https://github.com/apache/camel-quarkus/issues/5162)
+- Extend test coverage of gRPC extension [\#5155](https://github.com/apache/camel-quarkus/issues/5155)
 - Manage icu4j version [\#5149](https://github.com/apache/camel-quarkus/issues/5149)
 - Introduce group testing for different jdbc db types [\#4772](https://github.com/apache/camel-quarkus/issues/4772)
 - aws2-cw: remove workaround with autowired once CAMEL-18878 is fixed [\#4400](https://github.com/apache/camel-quarkus/issues/4400)
@@ -19,7 +26,11 @@
 
 **Merged pull requests:**
 
+- Unban com.google.code.findbugs:jsr305 for gRPC extension [\#5175](https://github.com/apache/camel-quarkus/pull/5175) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add org.mapstruct:mapstruct-processor to the BOM [\#5172](https://github.com/apache/camel-quarkus/pull/5172) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump quarkiverse-pooled-jms.version from 2.0.1 to 2.0.2 [\#5171](https://github.com/apache/camel-quarkus/pull/5171) ([dependabot[bot]](https://github.com/apps/dependabot))
+- \[5162\] Add elasticsearch tests [\#5170](https://github.com/apache/camel-quarkus/pull/5170) ([llowinge](https://github.com/llowinge))
+- Extend test coverage of gRPC extension [\#5168](https://github.com/apache/camel-quarkus/pull/5168) ([jamesnetherton](https://github.com/jamesnetherton))
 - Reclaim disk space before running integration tests [\#5159](https://github.com/apache/camel-quarkus/pull/5159) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 2.4.2 to 2.4.3 [\#5158](https://github.com/apache/camel-quarkus/pull/5158) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Set encoding to UTF-8 when writing microprofile-config.properties [\#5157](https://github.com/apache/camel-quarkus/pull/5157) ([jamesnetherton](https://github.com/jamesnetherton))
