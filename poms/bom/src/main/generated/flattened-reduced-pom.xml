@@ -6085,14 +6085,14 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>com.ibm.mq</groupId>
-        <artifactId>com.ibm.mq.jakarta.client</artifactId>
-        <version>9.3.2.1</version>
-      </dependency>
-      <dependency>
         <groupId>com.ibm.icu</groupId>
         <artifactId>icu4j</artifactId>
         <version>73.2</version>
+      </dependency>
+      <dependency>
+        <groupId>com.ibm.mq</groupId>
+        <artifactId>com.ibm.mq.jakarta.client</artifactId>
+        <version>9.3.2.1</version>
       </dependency>
       <dependency>
         <groupId>com.jayway.jsonpath</groupId>
@@ -6536,6 +6536,11 @@
         <version>1.8.22</version>
       </dependency>
       <dependency>
+        <groupId>org.mapstruct</groupId>
+        <artifactId>mapstruct-processor</artifactId>
+        <version>1.5.5.Final</version>
+      </dependency>
+      <dependency>
         <groupId>org.mvel</groupId>
         <artifactId>mvel2</artifactId>
         <version>2.5.0.Final</version>
@@ -6620,11 +6625,6 @@
             <artifactId>spring-core</artifactId>
           </exclusion>
         </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.mapstruct</groupId>
-        <artifactId>mapstruct-processor</artifactId>
-        <version>1.5.5.Final</version>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
