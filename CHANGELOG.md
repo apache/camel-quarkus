@@ -26,6 +26,7 @@
 
 **Merged pull requests:**
 
+- Generated sources regen for SBOM [\#5176](https://github.com/apache/camel-quarkus/pull/5176) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Unban com.google.code.findbugs:jsr305 for gRPC extension [\#5175](https://github.com/apache/camel-quarkus/pull/5175) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add org.mapstruct:mapstruct-processor to the BOM [\#5172](https://github.com/apache/camel-quarkus/pull/5172) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump quarkiverse-pooled-jms.version from 2.0.1 to 2.0.2 [\#5171](https://github.com/apache/camel-quarkus/pull/5171) ([dependabot[bot]](https://github.com/apps/dependabot))
