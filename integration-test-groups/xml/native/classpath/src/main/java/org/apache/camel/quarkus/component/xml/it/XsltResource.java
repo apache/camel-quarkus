@@ -22,17 +22,16 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DefaultValue;
-import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
-import org.apache.camel.CamelContext;
+import net.sf.saxon.trans.XPathException;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.component.mock.MockEndpoint;
 import org.jboss.logging.Logger;
 
 @Path("/xml")
@@ -47,34 +46,45 @@ public class XsltResource {
     @Inject
     ConsumerTemplate consumerTemplate;
 
-    @Inject
-    CamelContext camelContext;
-
-    @Path("/xslt")
+    @Path("/stax")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public String classpath(@QueryParam("output") @DefaultValue("string") String output, String body) {
+    public String stax(String body) {
+        return producerTemplate.requestBody("xslt-saxon:xslt/classpath-transform.xsl?allowStAX=true", body, String.class);
+    }
+
+    @Path("/{component}")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public String classpath(@PathParam("component") String component,
+            @QueryParam("output") @DefaultValue("string") String output, String body) {
         if (output.equals("file")) {
-            return producerTemplate.requestBodyAndHeader("xslt:xslt/classpath-transform.xsl?output=file",
+            return producerTemplate.requestBodyAndHeader(component + ":xslt/classpath-transform.xsl?output=file",
                     body, Exchange.XSLT_FILE_NAME, "target/xsltme.xml", String.class);
         }
-        return producerTemplate.requestBody("xslt:xslt/classpath-transform.xsl?output=" + output, body, String.class);
+        return producerTemplate.requestBody(component + ":xslt/classpath-transform.xsl?output=" + output, body, String.class);
     }
 
-    @Path("/xslt_include")
+    @Path("/{component}/include")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public String xsltInclude(String body) {
-        return producerTemplate.requestBody("xslt:xslt/include.xsl", body, String.class);
+    public String xsltInclude(@PathParam("component") String component, String body) {
+        return producerTemplate.requestBody(component + ":xslt/include.xsl", body, String.class);
     }
 
-    @Path("/xslt_terminate")
+    @Path("/{component}/terminate")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public String xsltTerminate(String body) {
-        Exchange out = producerTemplate.request("xslt:xslt/terminate.xsl", exchange -> exchange.getIn().setBody(body));
-        Exception warning = out.getProperty(Exchange.XSLT_WARNING, Exception.class);
-        return warning.getMessage();
+    public String xsltTerminate(@PathParam("component") String component, String body) throws Exception {
+        Exchange out = producerTemplate.request(component + ":xslt/terminate.xsl", exchange -> exchange.getIn().setBody(body));
+        if (component.equals("xslt")) {
+            Exception warning = out.getProperty(Exchange.XSLT_WARNING, Exception.class);
+            return warning.getMessage();
+        } else if (component.equals("xslt-saxon")) {
+            Exception error = out.getProperty(Exchange.XSLT_FATAL_ERROR, Exception.class);
+            return ((XPathException) error).getErrorObject().head().getStringValue();
+        }
+        return "";
     }
 
     @Path("/xslt-extension-function")
@@ -84,28 +94,22 @@ public class XsltResource {
         return producerTemplate.requestBody("xslt:xslt/extension-function.xsl", body, String.class);
     }
 
-    @Path("/xslt-custom-uri-resolver")
+    @Path("/xslt-saxon-extension-function")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public String customURIResolver(String body) {
-        return producerTemplate.requestBody("xslt:xslt/include_not_existing_resource.xsl?uriResolver=#customURIResolver", body,
+    public String saxonExtensionFunction(String body) {
+        return producerTemplate.requestBody(
+                "xslt-saxon:xslt/saxon-extension-function.xsl?saxonExtensionFunctions=#function1,#function2", body,
                 String.class);
     }
 
-    @Path("/aggregate")
-    @GET
+    @Path("/{component}/custom-uri-resolver")
+    @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public String aggregate() throws Exception {
-        MockEndpoint mock = camelContext.getEndpoint("mock:transformed", MockEndpoint.class);
-        mock.expectedMessageCount(1);
-
-        producerTemplate.sendBody("direct:aggregate", "<item>A</item>");
-        producerTemplate.sendBody("direct:aggregate", "<item>B</item>");
-        producerTemplate.sendBody("direct:aggregate", "<item>C</item>");
-
-        mock.assertIsSatisfied();
-        return mock.getExchanges().get(0).getIn().getBody(String.class);
-
+    public String customURIResolver(@PathParam("component") String component, String body) {
+        return producerTemplate.requestBody(
+                component + ":xslt/include_not_existing_resource.xsl?uriResolver=#customURIResolver", body,
+                String.class);
     }
 
     @Path("/html-transform")
