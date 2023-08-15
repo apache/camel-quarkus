@@ -119,7 +119,6 @@
         <module>java-joor-dsl</module>
         <module>jaxb</module>
         <module>jcache</module>
-        <module>jdbc</module>
         <module>jdbc-grouped</module>
         <module>jfr</module>
         <module>jira</module>

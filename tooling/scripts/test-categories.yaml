@@ -69,7 +69,6 @@ group-04:
   - cassandraql
   - couchdb
   - influxdb
-  - jdbc
   - jms-qpid-amqp-client
   - jpa
   - kudu
