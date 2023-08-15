@@ -18,10 +18,13 @@ package org.apache.camel.quarkus.component.splunk.deployment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import com.splunk.HttpService;
+import com.splunk.Index;
+import com.splunk.Input;
+import com.splunk.SavedSearch;
+import com.splunk.Service;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
@@ -51,25 +54,27 @@ class SplunkProcessor {
     @BuildStep
     RuntimeInitializedClassBuildItem runtimeInitBcryptUtil() {
         // this class uses a SecureRandom which needs to be initialised at run time
-        return new RuntimeInitializedClassBuildItem("com.splunk.HttpService");
+        return new RuntimeInitializedClassBuildItem(HttpService.class.getName());
     }
 
     @BuildStep
     ReflectiveClassBuildItem registerForReflection(CombinedIndexBuildItem combinedIndex) {
         IndexView index = combinedIndex.getIndex();
 
-        List<String> dtos = new LinkedList<>();
-        dtos.addAll(index.getAllKnownSubclasses(DotName.createSimple("com.splunk.Input")).stream()
-                .map(c -> c.name().toString()).collect(Collectors.toList()));
+        List<String> dtos = index.getAllKnownSubclasses(DotName.createSimple(Input.class))
+                .stream()
+                .map(c -> c.name().toString())
+                .toList();
 
-        return ReflectiveClassBuildItem.builder(dtos.toArray(new String[dtos.size()])).build();
+        return ReflectiveClassBuildItem.builder(dtos.toArray(new String[0])).build();
     }
 
     @BuildStep
     List<ReflectiveClassBuildItem> reflectiveClasses() {
-        return Arrays.asList(ReflectiveClassBuildItem.builder("com.splunk.Index").build(),
-                ReflectiveClassBuildItem.builder("com.splunk.SavedSearch").build(),
-                ReflectiveClassBuildItem.builder("com.splunk.Service").build());
+        return Arrays.asList(ReflectiveClassBuildItem.builder(Index.class.getName()).constructors().build(),
+                ReflectiveClassBuildItem.builder(SavedSearch.class.getName()).constructors().build(),
+                ReflectiveClassBuildItem.builder(Input.class.getName()).constructors().build(),
+                ReflectiveClassBuildItem.builder(Service.class.getName()).constructors().build());
     }
 
     @BuildStep
