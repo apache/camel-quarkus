@@ -30,10 +30,6 @@
     <name>Camel Quarkus :: Integration Tests :: gRPC</name>
     <description>Integration tests for Camel Quarkus gRPC extension</description>
 
-    <properties>
-        <cq.skip.protobuf>false</cq.skip.protobuf><!-- set to true via groovy below on unsupported platforms or if -Dquickly is available -->
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -59,6 +55,10 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jsonb</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-integration-tests-support-grpc</artifactId>
+        </dependency>
 
         <!-- test dependencies -->
         <dependency>
@@ -79,6 +79,7 @@
         <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -128,116 +129,16 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>kr.motd.maven</groupId>
-                <artifactId>os-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>detect-os</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>detect</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.gmavenplus</groupId>
-                <artifactId>gmavenplus-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <!-- Skip code generation & tests on unsupported platforms -->
-                        <id>skip-plugins-on-unsupported-platform</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
-                            <scripts>
-                                <script>
-                                    String platformUnsupported = project.properties['os.detected.classifier'].matches('^.*?(linux|windows|osx)-x86.*$') ? 'false' : 'true'
-                                    project.properties['skipTests'] = platformUnsupported
-                                    project.properties['cq.skip.protobuf'] = platformUnsupported || project.properties.containsKey('quickly')
-                                </script>
-                            </scripts>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <!--
-                            Hack around grpc-java protobuf generator tagging generated classes with javax.annotation.Generated.
-
-                            This avoids implementing the recommendation to add a dependency on org.apache.tomcat:annotations-api:
-
-                            https://github.com/grpc/grpc-java#download
-
-                            Hopefully this will eventually get fixed for the Jakarta 10+ world:
-
-                            https://github.com/grpc/grpc-java/issues/9179
-                        -->
-                        <id>strip-javax-generated-annotation</id>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
-                            <scripts>
-                                <script>
-                                    def buildDir = project.build.directory
-                                    new File("${buildDir}/generated-sources").eachFileRecurse { file -&gt;
-                                        if (file.name.endsWith('.java') &amp;&amp; file.text.contains('javax.annotation.Generated')) {
-                                            def modifiedContent = file.text.replace('javax', 'jakarta')
-                                            file.write(modifiedContent)
-                                        }
-                                    }
-                                </script>
-                            </scripts>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.xolstice.maven.plugins</groupId>
-                <artifactId>protobuf-maven-plugin</artifactId>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-maven-plugin</artifactId>
                 <extensions>true</extensions>
                 <executions>
                     <execution>
                         <goals>
-                            <goal>compile</goal>
-                            <goal>compile-custom</goal>
+                            <goal>build</goal>
+                            <goal>generate-code</goal>
+                            <goal>generate-code-tests</goal>
                         </goals>
-                        <phase>generate-sources</phase>
-                        <configuration>
-                            <protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
-                            <pluginId>grpc-java</pluginId>
-                            <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
-                            <checkStaleness>true</checkStaleness>
-                            <skip>${cq.skip.protobuf}</skip>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>default-compile</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <skipMain>${cq.skip.protobuf}</skipMain>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>default-testCompile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>testCompile</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${cq.skip.protobuf}</skip>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>

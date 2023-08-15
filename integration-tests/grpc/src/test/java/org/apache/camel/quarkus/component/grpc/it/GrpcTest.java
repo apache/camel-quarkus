@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.grpc.it;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
@@ -39,6 +40,7 @@ import org.apache.camel.quarkus.component.grpc.it.model.PingPongGrpc.PingPongBlo
 import org.apache.camel.quarkus.component.grpc.it.model.PingPongGrpc.PingPongStub;
 import org.apache.camel.quarkus.component.grpc.it.model.PingRequest;
 import org.apache.camel.quarkus.component.grpc.it.model.PongResponse;
+import org.apache.camel.util.StringHelper;
 import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -62,6 +64,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 @QuarkusTest
 @QuarkusTestResource(GrpcServerTestResource.class)
@@ -574,6 +577,25 @@ class GrpcTest {
         }
     }
 
+    @ParameterizedTest
+    @MethodSource("generatedProtoClassNames")
+    public void codeGenDependencyScan(String generatedClassPackage) {
+        // Additional proto files scanned from org.apache.camel.quarkus:camel-quarkus-integration-tests-support-grpc
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        String packageChar = StringHelper.after(generatedClassPackage, "org.acme.proto.").replaceAll(".sub|.dir", "");
+        String generatedClassName = generatedClassPackage + ".PingPongProto" + packageChar.toUpperCase();
+        try {
+            classLoader.loadClass(generatedClassName);
+            if (packageChar.equals("d")) {
+                fail("Expected to not be able to load generated class: " + generatedClassName);
+            }
+        } catch (ClassNotFoundException e) {
+            if (!packageChar.equals("d")) {
+                fail("Expected to be able to load generated class: " + generatedClassName);
+            }
+        }
+    }
+
     static Stream<Arguments> producerMethodPorts() {
         return Stream.of(
                 Arguments.of("pingSyncSync", "{{camel.grpc.test.async.server.port}}"),
@@ -582,6 +604,20 @@ class GrpcTest {
                 Arguments.of("pingSyncSync", "{{camel.grpc.test.sync.server.port}}"),
                 Arguments.of("pingSyncAsync", "{{camel.grpc.test.sync.server.port}}"),
                 Arguments.of("pingAsyncAsync", "{{camel.grpc.test.sync.server.port}}"));
+    }
+
+    static List<String> generatedProtoClassNames() {
+        String packagePrefix = "org.acme.proto.";
+        return List.of(
+                packagePrefix + "a",
+                packagePrefix + "b",
+                packagePrefix + "c",
+                packagePrefix + "c.sub",
+                packagePrefix + "c.sub.dir",
+                packagePrefix + "d",
+                packagePrefix + "d.sub",
+                packagePrefix + "d.sub.dir",
+                packagePrefix + "e");
     }
 
     static final class PongResponseStreamObserver implements StreamObserver<PongResponse> {
