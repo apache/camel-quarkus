@@ -21,26 +21,29 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
-import org.apache.camel.util.CollectionHelper;
+import org.apache.camel.component.splunk.ProducerType;
+import org.apache.commons.lang3.StringUtils;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.jboss.logging.Logger;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 
 public class SplunkTestResource implements QuarkusTestResourceLifecycleManager {
 
     public static String TEST_INDEX = "testindex";
-    public static String SAVED_SEARCH_NAME = "savedSearchForTest";
     private static final String SPLUNK_IMAGE_NAME = ConfigProvider.getConfig().getValue("splunk.container.image", String.class);
     private static final int REMOTE_PORT = 8089;
+    private static final int WEB_PORT = 8000;
+    private static final Logger LOG = Logger.getLogger(SplunkTestResource.class);
 
-    private GenericContainer container;
+    private GenericContainer<?> container;
 
     @Override
     public Map<String, String> start() {
 
         try {
-            container = new GenericContainer(SPLUNK_IMAGE_NAME)
-                    .withExposedPorts(REMOTE_PORT, SplunkResource.LOCAL_TCP_PORT)
+            container = new GenericContainer<>(SPLUNK_IMAGE_NAME)
+                    .withExposedPorts(REMOTE_PORT, SplunkResource.LOCAL_TCP_PORT, WEB_PORT)
                     .withEnv("SPLUNK_START_ARGS", "--accept-license")
                     .withEnv("SPLUNK_PASSWORD", "changeit")
                     .withEnv("SPLUNK_LICENSE_URI", "Free")
@@ -64,9 +67,14 @@ public class SplunkTestResource implements QuarkusTestResourceLifecycleManager {
             container.execInContainer("sudo", "./bin/splunk", "add", "index", TEST_INDEX);
             container.execInContainer("sudo", "./bin/splunk", "add", "tcp", String.valueOf(SplunkResource.LOCAL_TCP_PORT),
                     "-sourcetype",
-                    SplunkResource.SOURCE_TYPE);
+                    ProducerType.TCP.name());
 
-            return CollectionHelper.mapOf(
+            String banner = StringUtils.repeat("*", 50);
+            LOG.info(banner);
+            LOG.infof("Splunk UI running on: http://localhost:%d", container.getMappedPort(WEB_PORT));
+            LOG.info(banner);
+
+            return Map.of(
                     SplunkResource.PARAM_REMOTE_PORT, container.getMappedPort(REMOTE_PORT).toString(),
                     SplunkResource.PARAM_TCP_PORT, container.getMappedPort(SplunkResource.LOCAL_TCP_PORT).toString());
         } catch (Exception e) {
