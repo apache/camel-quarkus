@@ -26,11 +26,14 @@
 
 **Merged pull requests:**
 
+- Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 2.4.3 to 2.4.4 [\#5182](https://github.com/apache/camel-quarkus/pull/5182) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Upgrade to Quarkus CXF 2.2.1 [\#5181](https://github.com/apache/camel-quarkus/pull/5181) ([ppalaga](https://github.com/ppalaga))
 - Generated sources regen for SBOM [\#5176](https://github.com/apache/camel-quarkus/pull/5176) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Unban com.google.code.findbugs:jsr305 for gRPC extension [\#5175](https://github.com/apache/camel-quarkus/pull/5175) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add org.mapstruct:mapstruct-processor to the BOM [\#5172](https://github.com/apache/camel-quarkus/pull/5172) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump quarkiverse-pooled-jms.version from 2.0.1 to 2.0.2 [\#5171](https://github.com/apache/camel-quarkus/pull/5171) ([dependabot[bot]](https://github.com/apps/dependabot))
 - \[5162\] Add elasticsearch tests [\#5170](https://github.com/apache/camel-quarkus/pull/5170) ([llowinge](https://github.com/llowinge))
+- Camel 4.0.0 upgrade [\#5169](https://github.com/apache/camel-quarkus/pull/5169) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Extend test coverage of gRPC extension [\#5168](https://github.com/apache/camel-quarkus/pull/5168) ([jamesnetherton](https://github.com/jamesnetherton))
 - Reclaim disk space before running integration tests [\#5159](https://github.com/apache/camel-quarkus/pull/5159) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 2.4.2 to 2.4.3 [\#5158](https://github.com/apache/camel-quarkus/pull/5158) ([dependabot[bot]](https://github.com/apps/dependabot))
