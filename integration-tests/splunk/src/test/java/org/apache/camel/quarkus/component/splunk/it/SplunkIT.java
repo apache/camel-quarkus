@@ -20,4 +20,5 @@ import io.quarkus.test.junit.QuarkusIntegrationTest;
 
 @QuarkusIntegrationTest
 class SplunkIT extends SplunkTest {
+
 }

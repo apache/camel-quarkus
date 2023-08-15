@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.apache.camel.component.splunk.ProducerType;
 import org.apache.camel.util.CollectionHelper;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.testcontainers.containers.GenericContainer;
@@ -29,7 +30,6 @@ import org.testcontainers.containers.wait.strategy.Wait;
 public class SplunkTestResource implements QuarkusTestResourceLifecycleManager {
 
     public static String TEST_INDEX = "testindex";
-    public static String SAVED_SEARCH_NAME = "savedSearchForTest";
     private static final String SPLUNK_IMAGE_NAME = ConfigProvider.getConfig().getValue("splunk.container.image", String.class);
     private static final int REMOTE_PORT = 8089;
 
@@ -64,11 +64,13 @@ public class SplunkTestResource implements QuarkusTestResourceLifecycleManager {
             container.execInContainer("sudo", "./bin/splunk", "add", "index", TEST_INDEX);
             container.execInContainer("sudo", "./bin/splunk", "add", "tcp", String.valueOf(SplunkResource.LOCAL_TCP_PORT),
                     "-sourcetype",
-                    SplunkResource.SOURCE_TYPE);
+                    ProducerType.TCP.name());
 
-            return CollectionHelper.mapOf(
+            Map<String, String> map = CollectionHelper.mapOf(
                     SplunkResource.PARAM_REMOTE_PORT, container.getMappedPort(REMOTE_PORT).toString(),
                     SplunkResource.PARAM_TCP_PORT, container.getMappedPort(SplunkResource.LOCAL_TCP_PORT).toString());
+
+            return map;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

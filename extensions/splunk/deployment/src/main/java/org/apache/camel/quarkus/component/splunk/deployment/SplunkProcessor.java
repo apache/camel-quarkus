@@ -22,6 +22,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.splunk.Index;
+import com.splunk.Input;
+import com.splunk.SavedSearch;
+import com.splunk.Service;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
@@ -67,9 +71,10 @@ class SplunkProcessor {
 
     @BuildStep
     List<ReflectiveClassBuildItem> reflectiveClasses() {
-        return Arrays.asList(ReflectiveClassBuildItem.builder("com.splunk.Index").build(),
-                ReflectiveClassBuildItem.builder("com.splunk.SavedSearch").build(),
-                ReflectiveClassBuildItem.builder("com.splunk.Service").build());
+        return Arrays.asList(ReflectiveClassBuildItem.builder(Index.class.getName()).constructors().build(),
+                ReflectiveClassBuildItem.builder(SavedSearch.class.getName()).constructors().build(),
+                ReflectiveClassBuildItem.builder(Input.class.getName()).constructors().build(),
+                ReflectiveClassBuildItem.builder(Service.class.getName()).constructors().build());
     }
 
     @BuildStep

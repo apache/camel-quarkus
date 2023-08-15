@@ -1,0 +1,4 @@
+Splunk UI is helpful for the testing as you can see (and search) fir the data inside splunk. UI is present in the docker image.
+
+Quick way of accessing the UI is to add exposed port 8000 and some thread sleep int the `SplunkTestResource` (to make sure that the container is not closed when the test execution ends)
+Use e.g, `docker ps` to obtain the real mapped port for 8000 and access http://127.0.0.1:${exposed_8000)/ in a browser. (the page with search executions is http://127.0.0.1:${exposed_8000)/en-US/app/search/search)
