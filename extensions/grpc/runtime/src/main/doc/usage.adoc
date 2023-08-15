@@ -1,45 +1,23 @@
 === Protobuf generated code
 
-You can https://github.com/grpc/grpc-java#generated-code[generate] gRPC service stubs with protobuf.
-
-==== protobuf-maven-plugin
-
-The `protobuf-maven-plugin` can generate service stubs for `.proto` files. Below is an example configuration for Maven.
+Camel Quarkus gRPC can generate gRPC service stubs for `.proto` files. When using Maven, ensure that you have
+enabled the `generate-code` goals of the `quarkus-maven-plugin` in your project build.
 
 [source,xml]
 ----
 <build>
-    <extensions>
-        <extension>
-            <groupId>kr.motd.maven</groupId>
-            <artifactId>os-maven-plugin</artifactId>
-            <version>{os-maven-plugin-version}</version>
-        </extension>
-    </extensions>
-
     <plugins>
         <plugin>
-            <groupId>org.xolstice.maven.plugins</groupId>
-            <artifactId>protobuf-maven-plugin</artifactId>
-            <version>{protobuf-maven-plugin-version}</version>
-            <configuration>
-                <protocArtifact>com.google.protobuf:protoc:${protoc.version}:exe:${os.detected.classifier}</protocArtifact>
-                <pluginId>grpc-java</pluginId>
-                <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
-            </configuration>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-maven-plugin</artifactId>
+            <version>${quarkus.platform.version}</version>
+            <extensions>true</extensions>
             <executions>
                 <execution>
-                    <id>compile</id>
                     <goals>
-                        <goal>compile</goal>
-                        <goal>compile-custom</goal>
-                    </goals>
-                </execution>
-                <execution>
-                    <id>test-compile</id>
-                    <goals>
-                        <goal>test-compile</goal>
-                        <goal>test-compile-custom</goal>
+                        <goal>build</goal>
+                        <goal>generate-code</goal>
+                        <goal>generate-code-tests</goal>
                     </goals>
                 </execution>
             </executions>
@@ -48,23 +26,47 @@ The `protobuf-maven-plugin` can generate service stubs for `.proto` files. Below
 </build>
 ----
 
-==== Generated code limitations
+With this configuration, you can put your service and message definitions into the `src/main/proto` directory and
+the `quarkus-maven-plugin` will generate code from your `.proto` files.
 
-A limitation of the generated code is that it is annotated with the non Jakarta EE 10 friendly `@javax.annotation.Generated`.
+==== Scanning `proto` files with imports
 
-To avoid compilation issues, the `grpc-java` project recommendation is to add a `provided` scoped dependency like this:
+The Protocol Buffers specification provides a way to import proto files. You can control the scope of dependencies to
+scan by adding configuration property `quarkus.camel.grpc.codegen.scan-for-imports` property to `application.properties`.
+The available options are outlined below.
 
-[source,xml]
+* `all` - Scan all dependencies
+* `none` - Disable dependency scanning. Use only the proto definitions defined in `src/main/proto` or `src/test/proto`
+* `groupId1:artifactId1,groupId2:artifactId2` - Scan only the dependencies matching the `groupId` and `artifactId` list
+
+The default value is `com.google.protobuf:protobuf-java`.
+
+==== Scanning `proto` files from dependencies
+
+If you have proto files shared across multiple dependencies, you can generate gRPC service stubs for them by adding
+configuration property `quarkus.camel.grpc.codegen.scan-for-proto` to `application.properties`.
+
+First add a dependency for the artifact(s) containing proto files to your project. Next, enable proto file
+dependency scanning.
+
+[source,properties]
 ----
-<dependency>
-    <groupId>org.apache.tomcat</groupId>
-    <artifactId>annotations-api</artifactId>
-    <version>6.0.53</version>
-    <scope>provided</scope>
-</dependency>
+quarkus.camel.grpc.codegen.scan-for-proto=org.my.groupId1:my-artifact-id-1,org.my.groupId2:my-artifact-id-2
 ----
 
-Alternatively, you can use Maven or Gradle plugins to iterate over the generated code (found at `target/generated-sources` for Maven) and replace all instances of `@javax.annotation.Generated` with `@jakarta.annotation.Generated`.
+It is possible to include / exclude specific proto files from dependency scanning via configuration properties.
+
+The configuration property name suffix is the Maven `groupId` / `artifactId` for the dependency to configure includes / excludes on.
+Paths are relative to the classpath location of the proto files within the dependency. Paths can be an explicit path to a proto file,
+or as glob patterns to include / exclude multiple files.
+
+[source,properties]
+----
+quarkus.camel.grpc.codegen.scan-for-proto-includes."<groupId>\:<artifactId>"=foo/**,bar/**,baz/a-proto.proto
+quarkus.camel.grpc.codegen.scan-for-proto-excludes."<groupId>\:<artifactId>"=foo/private/**,baz/another-proto.proto
+----
+
+NOTE: The `:` character within property keys must be escaped with `\`.
 
 === Accessing classpath resources in native mode
 

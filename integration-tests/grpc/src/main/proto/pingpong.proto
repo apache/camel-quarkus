@@ -16,6 +16,9 @@
  */
 syntax = "proto3";
 
+// Tests that arbitrary imports can work
+import "google/protobuf/timestamp.proto";
+
 option java_multiple_files = true;
 option java_package = "org.apache.camel.quarkus.component.grpc.it.model";
 option java_outer_classname = "PingPongProto";
