@@ -10,24 +10,34 @@
 
 **Fixed bugs:**
 
+- `jms-ibmmq-client` integration test native build runs on CI despite being commented out [\#5180](https://github.com/apache/camel-quarkus/issues/5180)
 - Compilation fails for gRPC applications in dev mode  [\#5167](https://github.com/apache/camel-quarkus/issues/5167)
+- InvocationTargetException when running sanity-checks on 3.0.0-RC2 [\#5165](https://github.com/apache/camel-quarkus/issues/5165)
 - camel-quarkus-mail: Exception classes not registered for reflection [\#5142](https://github.com/apache/camel-quarkus/issues/5142)
 - ical native build failure [\#5099](https://github.com/apache/camel-quarkus/issues/5099)
 
 **Closed issues:**
 
+- Remove `integration-tests/jdbc` module [\#5164](https://github.com/apache/camel-quarkus/issues/5164)
 - Add tests for camel-quarkus-elasticsearch [\#5162](https://github.com/apache/camel-quarkus/issues/5162)
 - Extend test coverage of gRPC extension [\#5155](https://github.com/apache/camel-quarkus/issues/5155)
 - Manage icu4j version [\#5149](https://github.com/apache/camel-quarkus/issues/5149)
 - Introduce group testing for different jdbc db types [\#4772](https://github.com/apache/camel-quarkus/issues/4772)
+- \[camel-main\] Xml tests: Better handling of http client \(registration of org.apache.hc.client5.http.impl.auth.NTLMEngineImp\) [\#4722](https://github.com/apache/camel-quarkus/issues/4722)
 - aws2-cw: remove workaround with autowired once CAMEL-18878 is fixed [\#4400](https://github.com/apache/camel-quarkus/issues/4400)
+- Springless JPA extension [\#4084](https://github.com/apache/camel-quarkus/issues/4084)
+- Use quarkus-maven-plugin:generate-code in GRPC test [\#3190](https://github.com/apache/camel-quarkus/issues/3190)
 - Figure out how to maintain versions of test containers [\#2225](https://github.com/apache/camel-quarkus/issues/2225)
 - XSLT Saxon native support [\#1615](https://github.com/apache/camel-quarkus/issues/1615)
 
 **Merged pull requests:**
 
+- Remove integration-tests/jdbc module [\#5186](https://github.com/apache/camel-quarkus/pull/5186) ([jamesnetherton](https://github.com/jamesnetherton))
+- Introduce custom  CodeGenProvider for gRPC extension [\#5185](https://github.com/apache/camel-quarkus/pull/5185) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix \#5180 to skip quarkus build on jms-ibmmq-client integration tests [\#5183](https://github.com/apache/camel-quarkus/pull/5183) ([zhfeng](https://github.com/zhfeng))
 - Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 2.4.3 to 2.4.4 [\#5182](https://github.com/apache/camel-quarkus/pull/5182) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Upgrade to Quarkus CXF 2.2.1 [\#5181](https://github.com/apache/camel-quarkus/pull/5181) ([ppalaga](https://github.com/ppalaga))
+- chore: regen for mapstruct and xslt-saxon [\#5179](https://github.com/apache/camel-quarkus/pull/5179) ([zhfeng](https://github.com/zhfeng))
 - Generated sources regen for SBOM [\#5176](https://github.com/apache/camel-quarkus/pull/5176) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Unban com.google.code.findbugs:jsr305 for gRPC extension [\#5175](https://github.com/apache/camel-quarkus/pull/5175) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add org.mapstruct:mapstruct-processor to the BOM [\#5172](https://github.com/apache/camel-quarkus/pull/5172) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -35,6 +45,7 @@
 - \[5162\] Add elasticsearch tests [\#5170](https://github.com/apache/camel-quarkus/pull/5170) ([llowinge](https://github.com/llowinge))
 - Camel 4.0.0 upgrade [\#5169](https://github.com/apache/camel-quarkus/pull/5169) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Extend test coverage of gRPC extension [\#5168](https://github.com/apache/camel-quarkus/pull/5168) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix compareVersion in sanity-checks.groovy \#5165 [\#5166](https://github.com/apache/camel-quarkus/pull/5166) ([zhfeng](https://github.com/zhfeng))
 - Reclaim disk space before running integration tests [\#5159](https://github.com/apache/camel-quarkus/pull/5159) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 2.4.2 to 2.4.3 [\#5158](https://github.com/apache/camel-quarkus/pull/5158) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Set encoding to UTF-8 when writing microprofile-config.properties [\#5157](https://github.com/apache/camel-quarkus/pull/5157) ([jamesnetherton](https://github.com/jamesnetherton))
