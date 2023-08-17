@@ -7,6 +7,7 @@
 **Implemented enhancements:**
 
 - Add `org.mapstruct:mapstruct-processor` to the BOM [\#5163](https://github.com/apache/camel-quarkus/issues/5163)
+- Expand test coverage on xslt-saxon [\#5139](https://github.com/apache/camel-quarkus/issues/5139)
 
 **Fixed bugs:**
 
@@ -32,6 +33,7 @@
 
 **Merged pull requests:**
 
+- Exclude unwanted vertx-grpc transitive dependencies form quarkus-grpc-common [\#5188](https://github.com/apache/camel-quarkus/pull/5188) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove integration-tests/jdbc module [\#5186](https://github.com/apache/camel-quarkus/pull/5186) ([jamesnetherton](https://github.com/jamesnetherton))
 - Introduce custom  CodeGenProvider for gRPC extension [\#5185](https://github.com/apache/camel-quarkus/pull/5185) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#5180 to skip quarkus build on jms-ibmmq-client integration tests [\#5183](https://github.com/apache/camel-quarkus/pull/5183) ([zhfeng](https://github.com/zhfeng))
@@ -40,6 +42,7 @@
 - chore: regen for mapstruct and xslt-saxon [\#5179](https://github.com/apache/camel-quarkus/pull/5179) ([zhfeng](https://github.com/zhfeng))
 - Generated sources regen for SBOM [\#5176](https://github.com/apache/camel-quarkus/pull/5176) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Unban com.google.code.findbugs:jsr305 for gRPC extension [\#5175](https://github.com/apache/camel-quarkus/pull/5175) ([jamesnetherton](https://github.com/jamesnetherton))
+- Expand xslt-saxon test coverage [\#5173](https://github.com/apache/camel-quarkus/pull/5173) ([zhfeng](https://github.com/zhfeng))
 - Add org.mapstruct:mapstruct-processor to the BOM [\#5172](https://github.com/apache/camel-quarkus/pull/5172) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump quarkiverse-pooled-jms.version from 2.0.1 to 2.0.2 [\#5171](https://github.com/apache/camel-quarkus/pull/5171) ([dependabot[bot]](https://github.com/apps/dependabot))
 - \[5162\] Add elasticsearch tests [\#5170](https://github.com/apache/camel-quarkus/pull/5170) ([llowinge](https://github.com/llowinge))
@@ -1804,6 +1807,7 @@
 - Nitrite native integration test could not serialize \[\[3941604762136\]NO₂\] [\#5070](https://github.com/apache/camel-quarkus/issues/5070)
 - Cannot retrieve the breakpoints and suspended node ids in native mode [\#5058](https://github.com/apache/camel-quarkus/issues/5058)
 - Hazelcast integration tests fail in native mode On Mac OS [\#5026](https://github.com/apache/camel-quarkus/issues/5026)
+- Issue with producerAsyncClient in camel-quarkus-azure-eventhubs - namespace equals null [\#4975](https://github.com/apache/camel-quarkus/issues/4975)
 
 **Closed issues:**
 
