@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.xml.it;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.stream.Stream;
 
 import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
@@ -28,6 +29,8 @@ import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.is;
@@ -36,12 +39,24 @@ import static org.hamcrest.Matchers.is;
 public class XsltTest {
     private static final String BODY = "<mail><subject>Hey</subject><body>Hello world!</body></mail>";
 
+    private static Stream<Arguments> matrix() {
+        return Stream.of(
+                Arguments.of("xslt", "string"),
+                Arguments.of("xslt", "bytes"),
+                Arguments.of("xslt", "dom"),
+                Arguments.of("xslt", "file"),
+                Arguments.of("xslt-saxon", "string"),
+                Arguments.of("xslt-saxon", "bytes"),
+                Arguments.of("xslt-saxon", "dom"),
+                Arguments.of("xslt-saxon", "file"));
+    }
+
     @ParameterizedTest
-    @ValueSource(strings = { "string", "bytes", "dom", "file" })
-    public void xslt(String output) throws Exception {
+    @MethodSource("matrix")
+    public void xslt(String component, String output) throws Exception {
         final String actual = RestAssured.given()
                 .body(BODY)
-                .post("/xml/xslt?output=" + output)
+                .post("/xml/" + component + "?output=" + output)
                 .then()
                 .statusCode(200)
                 .extract().body().asString().trim().replaceAll(">\\s+<", "><");
@@ -65,6 +80,20 @@ public class XsltTest {
     }
 
     @Test
+    public void saxonStAX() {
+        final String actual = RestAssured.given()
+                .body(BODY)
+                .post("/xml/stax")
+                .then()
+                .statusCode(200)
+                .extract().body().asString().trim().replaceAll(">\\s+<", "><");
+
+        Assertions.assertEquals(
+                "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><classpath-xsl subject=\"Hey\"><cheese><mail><subject>Hey</subject><body>Hello world!</body></mail></cheese></classpath-xsl>",
+                actual);
+    }
+
+    @Test
     public void xsltExtensionFunction() {
         final String actual = RestAssured.given()
                 .body(BODY)
@@ -79,10 +108,26 @@ public class XsltTest {
     }
 
     @Test
-    public void xsltCustomURIResolver() {
+    @DisabledOnIntegrationTest("xslt-saxon extension function does not be supported in native mode")
+    public void saxonExtensionFunction() {
         final String actual = RestAssured.given()
                 .body(BODY)
-                .post("/xml/xslt-custom-uri-resolver")
+                .post("/xml/xslt-saxon-extension-function")
+                .then()
+                .statusCode(200)
+                .extract().body().asString().trim().replaceAll(">\\s+<", "><");
+
+        Assertions.assertEquals(
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Test1>3</Test1><Test2>abccde</Test2><Test3>xyz</Test3>",
+                actual);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "xslt", "xslt-saxon" })
+    public void xsltCustomURIResolver(String component) {
+        final String actual = RestAssured.given()
+                .body(BODY)
+                .post("/xml/" + component + "/custom-uri-resolver")
                 .then()
                 .statusCode(200)
                 .extract().body().asString().trim().replaceAll(">\\s+<", "><");
@@ -92,12 +137,13 @@ public class XsltTest {
                 actual);
     }
 
-    @Test
+    @ParameterizedTest
+    @ValueSource(strings = { "xslt", "xslt-saxon" })
     @DisabledOnIntegrationTest("Generating xslt templates dynamically does not be supported in native mode")
-    public void xsltInclude() {
+    public void xsltInclude(String component) {
         final String actual = RestAssured.given()
                 .body(BODY)
-                .post("/xml/xslt_include")
+                .post("/xml/" + component + "/include")
                 .then()
                 .statusCode(200)
                 .extract().body().asString().trim().replaceAll(">\\s+<", "><");
@@ -107,12 +153,13 @@ public class XsltTest {
                 actual);
     }
 
-    @Test
+    @ParameterizedTest
+    @ValueSource(strings = { "xslt", "xslt-saxon" })
     @DisabledOnIntegrationTest("forwarding xslt error and warn messages does not be supported in native mode")
-    public void xsltTerminate() {
+    public void xsltTerminate(String component) {
         RestAssured.given()
                 .body("<staff><programmer><name>Daisy Duck</name><dob></dob></programmer></staff>")
-                .post("/xml/xslt_terminate")
+                .post("/xml/" + component + "/terminate")
                 .then()
                 .statusCode(200)
                 .body(is("Error: DOB is an empty string!"));

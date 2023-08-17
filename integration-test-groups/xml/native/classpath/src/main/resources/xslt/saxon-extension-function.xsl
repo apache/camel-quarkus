@@ -17,22 +17,23 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-integration-tests-support</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
+<xsl:stylesheet version="2.0"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:func="http://mytest/" 
+    exclude-result-prefixes="func">
 
-    <artifactId>camel-quarkus-integration-tests-support-xslt</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Support :: XSLT</name>
+	<xsl:output method="xml" encoding="UTF-8" indent="no" />
 
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-xslt-saxon</artifactId>
-        </dependency>
-    </dependencies>
-</project>
+	<xsl:template match="/">
+		<Test1>
+            <xsl:value-of select="func:myExtensionFunction1(1, 2)"/>
+        </Test1>
+        <Test2>
+            <xsl:value-of select="func:myExtensionFunction2('abc', 'cde')"/>
+        </Test2>
+        <Test3>
+            <xsl:value-of select="func:myExtensionFunction2('xyz')"/>
+        </Test3>
+	</xsl:template>
+
+</xsl:stylesheet>

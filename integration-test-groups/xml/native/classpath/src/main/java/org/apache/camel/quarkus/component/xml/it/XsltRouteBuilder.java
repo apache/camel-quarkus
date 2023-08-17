@@ -18,7 +18,10 @@ package org.apache.camel.quarkus.component.xml.it;
 
 import org.w3c.dom.Document;
 
+import org.apache.camel.BindToRegistry;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.quarkus.test.support.xslt.MyExtensionFunction1;
+import org.apache.camel.quarkus.test.support.xslt.MyExtensionFunction2;
 import org.apache.camel.support.builder.Namespaces;
 import org.apache.xpath.XPathAPI;
 
@@ -55,4 +58,10 @@ public class XsltRouteBuilder extends RouteBuilder {
                 .to("seda:xtokenize-result");
 
     }
+
+    @BindToRegistry
+    private MyExtensionFunction1 function1 = new MyExtensionFunction1();
+
+    @BindToRegistry
+    private MyExtensionFunction2 function2 = new MyExtensionFunction2();
 }
