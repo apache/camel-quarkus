@@ -56,10 +56,10 @@ public class CamelContextProcessor {
      * @param  recorder                 the recorder.
      * @param  registry                 a reference to a {@link org.apache.camel.spi.Registry}.
      * @param  typeConverterRegistry    a reference to a {@link TypeConverterRegistry}.
-     * @param  modelJAXBContextFactory  a list of known {@link ModelJAXBContextFactory}.
-     * @param  xmlModelDumper           a list of known {@link CamelModelToXMLDumperBuildItem}.
+     * @param  modelJAXBContextFactory  a reference to a {@link ModelJAXBContextFactory}.
+     * @param  xmlModelDumper           a reference to a {@link CamelModelToXMLDumperBuildItem}.
      * @param  yamlModelDumper          a reference to a {@link CamelModelToYAMLDumperBuildItem}.
-     * @param  factoryFinderResolver    a list of known {@link org.apache.camel.spi.FactoryFinderResolver}.
+     * @param  factoryFinderResolver    a reference to a {@link org.apache.camel.spi.FactoryFinderResolver}.
      * @param  customizers              a list of {@link org.apache.camel.spi.CamelContextCustomizer} used to
      *                                  customize the {@link CamelContext} at {@link ExecutionTime#STATIC_INIT}.
      * @param  componentNameResolver    a reference to a {@link org.apache.camel.spi.ComponentNameResolver}
