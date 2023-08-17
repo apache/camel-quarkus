@@ -38,6 +38,7 @@ import org.apache.camel.spi.ComponentNameResolver;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.ModelToXMLDumper;
+import org.apache.camel.spi.ModelToYAMLDumper;
 import org.apache.camel.spi.PackageScanClassResolver;
 import org.apache.camel.spi.ReactiveExecutor;
 import org.apache.camel.spi.Registry;
@@ -127,6 +128,10 @@ public class CamelRecorder {
 
     public RuntimeValue<ModelToXMLDumper> newDisabledModelToXMLDumper() {
         return new RuntimeValue<>(new DisabledModelToXMLDumper());
+    }
+
+    public RuntimeValue<ModelToYAMLDumper> newDisabledModelToYAMLDumper() {
+        return new RuntimeValue<>(new DisabledModelToYAMLDumper());
     }
 
     public RuntimeValue<RegistryRoutesLoader> newDefaultRegistryRoutesLoader() {

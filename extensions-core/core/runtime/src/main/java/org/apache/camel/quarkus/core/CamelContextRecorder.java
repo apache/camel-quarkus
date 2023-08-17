@@ -37,6 +37,7 @@ import org.apache.camel.spi.ComponentNameResolver;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.ModelToXMLDumper;
+import org.apache.camel.spi.ModelToYAMLDumper;
 import org.apache.camel.spi.PackageScanClassResolver;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.TypeConverterRegistry;
@@ -48,6 +49,7 @@ public class CamelContextRecorder {
             RuntimeValue<TypeConverterRegistry> typeConverterRegistry,
             RuntimeValue<ModelJAXBContextFactory> contextFactory,
             RuntimeValue<ModelToXMLDumper> xmlModelDumper,
+            RuntimeValue<ModelToYAMLDumper> yamlModelDumper,
             RuntimeValue<FactoryFinderResolver> factoryFinderResolver,
             RuntimeValue<ComponentNameResolver> componentNameResolver,
             RuntimeValue<PackageScanClassResolver> packageScanClassResolver,
@@ -57,7 +59,8 @@ public class CamelContextRecorder {
 
         FastCamelContext context = new FastCamelContext(
                 version,
-                xmlModelDumper.getValue());
+                xmlModelDumper.getValue(),
+                yamlModelDumper.getValue());
 
         final ClassLoader tccl = Thread.currentThread().getContextClassLoader();
         // Set ClassLoader first as some actions depend on it being available

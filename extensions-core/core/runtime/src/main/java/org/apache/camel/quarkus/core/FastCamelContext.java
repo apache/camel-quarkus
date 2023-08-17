@@ -41,6 +41,7 @@ import org.apache.camel.spi.Language;
 import org.apache.camel.spi.ManagementNameStrategy;
 import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.ModelToXMLDumper;
+import org.apache.camel.spi.ModelToYAMLDumper;
 import org.apache.camel.spi.PackageScanResourceResolver;
 import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.spi.Registry;
@@ -51,12 +52,14 @@ import org.apache.camel.util.IOHelper;
 public class FastCamelContext extends DefaultCamelContext implements CatalogCamelContext, ModelCamelContext {
     private final String version;
     private final ModelToXMLDumper xmlModelDumper;
+    private final ModelToYAMLDumper yamlModelDumper;
 
-    public FastCamelContext(String version, ModelToXMLDumper xmlModelDumper) {
+    public FastCamelContext(String version, ModelToXMLDumper xmlModelDumper, ModelToYAMLDumper yamlModelDumper) {
         super(false);
 
         this.version = version;
         this.xmlModelDumper = xmlModelDumper;
+        this.yamlModelDumper = yamlModelDumper;
     }
 
     @Override
@@ -151,6 +154,11 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
     @Override
     protected ModelToXMLDumper createModelToXMLDumper() {
         return xmlModelDumper;
+    }
+
+    @Override
+    protected ModelToYAMLDumper createModelToYAMLDumper() {
+        return yamlModelDumper;
     }
 
     @Override

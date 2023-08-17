@@ -62,6 +62,7 @@ import org.apache.camel.quarkus.core.deployment.spi.CamelComponentNameResolverBu
 import org.apache.camel.quarkus.core.deployment.spi.CamelFactoryFinderResolverBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelJAXBContextFactoryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelToXMLDumperBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelModelToYAMLDumperBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelPackageScanClassBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelPackageScanClassResolverBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesBuilderClassBuildItem;
@@ -314,6 +315,13 @@ class CamelProcessor {
     @Record(value = ExecutionTime.STATIC_INIT, optional = true)
     public CamelModelToXMLDumperBuildItem createModelToXMLDumper(CamelRecorder recorder) {
         return new CamelModelToXMLDumperBuildItem(recorder.newDisabledModelToXMLDumper());
+    }
+
+    @Overridable
+    @BuildStep
+    @Record(value = ExecutionTime.STATIC_INIT, optional = true)
+    public CamelModelToYAMLDumperBuildItem createModelToYAMLDumper(CamelRecorder recorder) {
+        return new CamelModelToYAMLDumperBuildItem(recorder.newDisabledModelToYAMLDumper());
     }
 
     @BuildStep

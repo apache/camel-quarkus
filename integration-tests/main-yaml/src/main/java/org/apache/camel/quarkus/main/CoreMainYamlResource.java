@@ -30,6 +30,7 @@ import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.dsl.yaml.YamlRoutesBuilderLoader;
 import org.apache.camel.spi.RoutesBuilderLoader;
+import org.apache.camel.support.PluginHelper;
 
 @Path("/main/yaml")
 @ApplicationScoped
@@ -63,6 +64,7 @@ public class CoreMainYamlResource {
                 .add("yaml-routes-builder-loader",
                         camelContext.getBootstrapFactoryFinder(RoutesBuilderLoader.FACTORY_PATH)
                                 .findClass(YamlRoutesBuilderLoader.EXTENSION).get().getName())
+                .add("yaml-model-dumper", PluginHelper.getModelToYAMLDumper(camelContext).getClass().getName())
                 .add("routeBuilders", routeBuilders)
                 .add("routes", routes)
                 .build();
