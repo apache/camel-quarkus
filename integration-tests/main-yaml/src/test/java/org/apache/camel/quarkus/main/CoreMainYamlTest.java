@@ -21,6 +21,7 @@ import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.dsl.yaml.YamlRoutesBuilderLoader;
+import org.apache.camel.yaml.LwModelToYAMLDumper;
 import org.hamcrest.Matcher;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -45,6 +46,7 @@ public class CoreMainYamlTest {
 
         assertThat(p.getString("yaml-routes-builder-loader"))
                 .isEqualTo(YamlRoutesBuilderLoader.class.getName());
+        assertThat(p.getString("yaml-model-dumper")).isEqualTo(LwModelToYAMLDumper.class.getName());
         assertThat(p.getList("routeBuilders", String.class))
                 .isEmpty();
         assertThat(p.getList("routes", String.class))

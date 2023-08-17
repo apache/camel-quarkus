@@ -40,6 +40,7 @@ import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildI
 import org.apache.camel.quarkus.core.deployment.spi.CamelFactoryFinderResolverBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelJAXBContextFactoryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelToXMLDumperBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelModelToYAMLDumperBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelPackageScanClassResolverBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRegistryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelTypeConverterRegistryBuildItem;
@@ -56,7 +57,8 @@ public class CamelContextProcessor {
      * @param  registry                 a reference to a {@link org.apache.camel.spi.Registry}.
      * @param  typeConverterRegistry    a reference to a {@link TypeConverterRegistry}.
      * @param  modelJAXBContextFactory  a list of known {@link ModelJAXBContextFactory}.
-     * @param  modelDumper              a list of known {@link CamelModelToXMLDumperBuildItem}.
+     * @param  xmlModelDumper           a list of known {@link CamelModelToXMLDumperBuildItem}.
+     * @param  yamlModelDumper          a reference to a {@link CamelModelToYAMLDumperBuildItem}.
      * @param  factoryFinderResolver    a list of known {@link org.apache.camel.spi.FactoryFinderResolver}.
      * @param  customizers              a list of {@link org.apache.camel.spi.CamelContextCustomizer} used to
      *                                  customize the {@link CamelContext} at {@link ExecutionTime#STATIC_INIT}.
@@ -72,7 +74,8 @@ public class CamelContextProcessor {
             CamelRegistryBuildItem registry,
             CamelTypeConverterRegistryBuildItem typeConverterRegistry,
             CamelModelJAXBContextFactoryBuildItem modelJAXBContextFactory,
-            CamelModelToXMLDumperBuildItem modelDumper,
+            CamelModelToXMLDumperBuildItem xmlModelDumper,
+            CamelModelToYAMLDumperBuildItem yamlModelDumper,
             CamelFactoryFinderResolverBuildItem factoryFinderResolver,
             List<CamelContextCustomizerBuildItem> customizers,
             CamelComponentNameResolverBuildItem componentNameResolver,
@@ -83,7 +86,8 @@ public class CamelContextProcessor {
                 registry.getRegistry(),
                 typeConverterRegistry.getRegistry(),
                 modelJAXBContextFactory.getContextFactory(),
-                modelDumper.getValue(),
+                xmlModelDumper.getValue(),
+                yamlModelDumper.getValue(),
                 factoryFinderResolver.getFactoryFinderResolver(),
                 componentNameResolver.getComponentNameResolver(),
                 packageScanClassResolver.getPackageScanClassResolver(),
