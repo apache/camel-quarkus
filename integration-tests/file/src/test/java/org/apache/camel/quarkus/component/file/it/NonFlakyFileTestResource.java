@@ -34,10 +34,12 @@ public class NonFlakyFileTestResource implements QuarkusTestResourceLifecycleMan
 
     static final Path TEST_FILES_FOLDER = Paths.get("target", "test-files");
 
-    static final String IDEMPOTENT_FILE_NAME = "moved-back-read-once";
-    static final String IDEMPOTENT_FILE_CONTENT = IDEMPOTENT_FILE_NAME + "-CONTENT";
     static final String FILTER_NON_SKIPPED_FILE_NAME = "non-skipped-file";
     static final String FILTER_NON_SKIPPED_FILE_CONTENT = FILTER_NON_SKIPPED_FILE_NAME + "-CONTENT";
+    static final String IDEMPOTENT_FILE_NAME = "moved-back-read-once";
+    static final String IDEMPOTENT_FILE_CONTENT = IDEMPOTENT_FILE_NAME + "-CONTENT";
+    static final String POLL_ENRICH_FILE_NAME = "poll-enrich-file";
+    static final String POLL_ENRICH_FILE_CONTENT = POLL_ENRICH_FILE_NAME + "-CONTENT";
 
     private final List<Path> createdTestFiles = new ArrayList<Path>();
 
@@ -50,6 +52,8 @@ public class NonFlakyFileTestResource implements QuarkusTestResourceLifecycleMan
             createTestFile("filter", "skipped_file");
 
             createTestFile("idempotent", IDEMPOTENT_FILE_NAME);
+
+            createTestFile("poll-enrich", POLL_ENRICH_FILE_NAME);
 
             ensureAllTestFilesCreatedWithExpectedContent();
         } catch (Exception ex) {
