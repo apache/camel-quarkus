@@ -56,7 +56,6 @@ public class CamelContextRecorder {
             CamelConfig config) {
 
         FastCamelContext context = new FastCamelContext(
-                factoryFinderResolver.getValue(),
                 version,
                 xmlModelDumper.getValue());
 
@@ -64,8 +63,8 @@ public class CamelContextRecorder {
         // Set ClassLoader first as some actions depend on it being available
         ExtendedCamelContext extendedCamelContext = context.getCamelContextExtension();
         context.setApplicationContextClassLoader(tccl);
-        context.getCamelContextExtension().addContextPlugin(RuntimeCamelCatalog.class,
-                new CamelRuntimeCatalog(config.runtimeCatalog));
+        extendedCamelContext.addContextPlugin(FactoryFinderResolver.class, factoryFinderResolver.getValue());
+        extendedCamelContext.addContextPlugin(RuntimeCamelCatalog.class, new CamelRuntimeCatalog(config.runtimeCatalog));
         extendedCamelContext.setRegistry(registry.getValue());
         context.setTypeConverterRegistry(typeConverterRegistry.getValue());
         context.setLoadTypeConverters(false);

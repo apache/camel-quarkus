@@ -22,7 +22,6 @@ import java.util.Objects;
 
 import org.apache.camel.CatalogCamelContext;
 import org.apache.camel.Component;
-import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.component.microprofile.config.CamelMicroProfilePropertiesSource;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -51,19 +50,13 @@ import org.apache.camel.util.IOHelper;
 
 public class FastCamelContext extends DefaultCamelContext implements CatalogCamelContext, ModelCamelContext {
     private final String version;
-    private final ModelToXMLDumper modelDumper;
+    private final ModelToXMLDumper xmlModelDumper;
 
-    public FastCamelContext(FactoryFinderResolver factoryFinderResolver, String version, ModelToXMLDumper modelDumper) {
+    public FastCamelContext(String version, ModelToXMLDumper xmlModelDumper) {
         super(false);
 
         this.version = version;
-        this.modelDumper = modelDumper;
-
-        ExtendedCamelContext extendedCamelContext = getCamelContextExtension();
-        extendedCamelContext.addContextPlugin(FactoryFinderResolver.class, factoryFinderResolver);
-        setTracing(Boolean.FALSE);
-        setDebugging(Boolean.FALSE);
-        setMessageHistory(Boolean.FALSE);
+        this.xmlModelDumper = xmlModelDumper;
     }
 
     @Override
@@ -157,7 +150,7 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
 
     @Override
     protected ModelToXMLDumper createModelToXMLDumper() {
-        return modelDumper;
+        return xmlModelDumper;
     }
 
     @Override
