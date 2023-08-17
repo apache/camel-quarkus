@@ -6117,7 +6117,18 @@
             <dependency>
                 <groupId>com.google.auth</groupId>
                 <artifactId>google-auth-library-credentials</artifactId>
-                <version>${google-auth-library-credentials.version}</version>
+                <version>${google-auth-library.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.auth</groupId>
+                <artifactId>google-auth-library-oauth2-http</artifactId>
+                <version>${google-auth-library.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.google.cloud</groupId>

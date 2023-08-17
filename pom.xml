@@ -96,7 +96,7 @@
         <freemarker.version>2.3.32</freemarker.version><!-- @sync io.quarkiverse.freemarker:quarkus-freemarker-parent:${quarkiverse-freemarker.version} prop:freemarker.version -->
         <geny.version>0.6.2</geny.version>
         <github-api.version>1.313</github-api.version><!-- Used in a Groovy script bellow -->
-        <google-auth-library-credentials.version>${google-auth-library-oauth2-http-version}</google-auth-library-credentials.version>
+        <google-auth-library.version>1.19.0</google-auth-library.version><!-- @sync com.google.cloud:google-cloud-pubsub:${google-cloud-pubsub.version} dep:com.google.auth:google-auth-library-oauth2-http -->
         <google-oauth-client.version>${google-oauth-client-version}</google-oauth-client.version>
         <google-cloud-bom.version>0.200.0</google-cloud-bom.version><!-- @sync com.google.cloud:libraries-bom:${google-cloud-bom-version} dep:com.google.cloud:google-cloud-bom -->
         <google-cloud-pubsub-bom.version>1.123.18</google-cloud-pubsub-bom.version><!-- @sync com.google.cloud:google-cloud-bom:${google-cloud-bom.version} dep:com.google.cloud:google-cloud-pubsub-bom -->
