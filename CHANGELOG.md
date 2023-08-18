@@ -11,17 +11,21 @@
 
 **Fixed bugs:**
 
+- Dependency convergence check error com.google.auth:google-auth-library-oauth2-http [\#5194](https://github.com/apache/camel-quarkus/issues/5194)
 - `jms-ibmmq-client` integration test native build runs on CI despite being commented out [\#5180](https://github.com/apache/camel-quarkus/issues/5180)
 - Compilation fails for gRPC applications in dev mode  [\#5167](https://github.com/apache/camel-quarkus/issues/5167)
 - InvocationTargetException when running sanity-checks on 3.0.0-RC2 [\#5165](https://github.com/apache/camel-quarkus/issues/5165)
+- google-pubsub integration tests fail on quarkus-platform [\#5144](https://github.com/apache/camel-quarkus/issues/5144)
 - camel-quarkus-mail: Exception classes not registered for reflection [\#5142](https://github.com/apache/camel-quarkus/issues/5142)
 - ical native build failure [\#5099](https://github.com/apache/camel-quarkus/issues/5099)
+- \[Mandrel 22.3.1\] CXF SOAP native image compilation failure [\#4467](https://github.com/apache/camel-quarkus/issues/4467)
 
 **Closed issues:**
 
 - Remove `integration-tests/jdbc` module [\#5164](https://github.com/apache/camel-quarkus/issues/5164)
 - Add tests for camel-quarkus-elasticsearch [\#5162](https://github.com/apache/camel-quarkus/issues/5162)
 - Extend test coverage of gRPC extension [\#5155](https://github.com/apache/camel-quarkus/issues/5155)
+- Expand Splunk test coverage [\#5154](https://github.com/apache/camel-quarkus/issues/5154)
 - Manage icu4j version [\#5149](https://github.com/apache/camel-quarkus/issues/5149)
 - Introduce group testing for different jdbc db types [\#4772](https://github.com/apache/camel-quarkus/issues/4772)
 - \[camel-main\] Xml tests: Better handling of http client \(registration of org.apache.hc.client5.http.impl.auth.NTLMEngineImp\) [\#4722](https://github.com/apache/camel-quarkus/issues/4722)
@@ -33,6 +37,8 @@
 
 **Merged pull requests:**
 
+- Fix dependency convergence error for google-auth-library-oauth2-http [\#5195](https://github.com/apache/camel-quarkus/pull/5195) ([jamesnetherton](https://github.com/jamesnetherton))
+- Expand Splunk test coverage [\#5192](https://github.com/apache/camel-quarkus/pull/5192) ([jamesnetherton](https://github.com/jamesnetherton))
 - Exclude unwanted vertx-grpc transitive dependencies form quarkus-grpc-common [\#5188](https://github.com/apache/camel-quarkus/pull/5188) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove integration-tests/jdbc module [\#5186](https://github.com/apache/camel-quarkus/pull/5186) ([jamesnetherton](https://github.com/jamesnetherton))
 - Introduce custom  CodeGenProvider for gRPC extension [\#5185](https://github.com/apache/camel-quarkus/pull/5185) ([jamesnetherton](https://github.com/jamesnetherton))
