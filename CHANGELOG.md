@@ -37,6 +37,7 @@
 
 **Merged pull requests:**
 
+- Bump io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-jmx from 3.1.2 to 3.2.4 [\#5198](https://github.com/apache/camel-quarkus/pull/5198) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Fix dependency convergence error for google-auth-library-oauth2-http [\#5195](https://github.com/apache/camel-quarkus/pull/5195) ([jamesnetherton](https://github.com/jamesnetherton))
 - Expand Splunk test coverage [\#5192](https://github.com/apache/camel-quarkus/pull/5192) ([jamesnetherton](https://github.com/jamesnetherton))
 - Exclude unwanted vertx-grpc transitive dependencies form quarkus-grpc-common [\#5188](https://github.com/apache/camel-quarkus/pull/5188) ([jamesnetherton](https://github.com/jamesnetherton))
