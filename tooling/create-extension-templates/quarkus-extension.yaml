@@ -40,4 +40,12 @@ metadata:
 [/#if]
   status:
   - "[=status]"
-[#if deprecated ]  - "deprecated"[/#if]
+[#if deprecated ]  - "deprecated"
+[/#if]
+[#if codeStartLanguages?size > 0]  codestart:
+    name: "camel-quarkus-[=artifactIdBase]"
+    languages:
+[#list codeStartLanguages as language]
+    - "[=language]"
+[/#list]
+    artifact: "org.apache.camel.quarkus:camel-quarkus-[=artifactIdBase]:codestarts:jar:${project.version}"[/#if]

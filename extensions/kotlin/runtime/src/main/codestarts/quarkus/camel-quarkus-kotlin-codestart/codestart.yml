@@ -15,23 +15,20 @@
 # limitations under the License.
 #
 
-# This is a generated file. Do not edit directly!
-# To re-generate, run the following command from the top level directory:
-#
-#   mvn -N cq:update-quarkus-metadata
-#
----
-name: "Camel Kotlin"
-description: "Write Camel integration routes in Kotlin"
-icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
+name: "camel-quarkus-kotlin"
+ref: "camel-quarkus-kotlin"
+type: "code"
+tags: "extension-codestart"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/kotlin.html"
-  categories:
-  - "integration"
-  status:
-  - "stable"
-  codestart:
-    name: "camel-quarkus-kotlin"
-    languages:
-    - "kotlin"
-    artifact: "org.apache.camel.quarkus:camel-quarkus-kotlin:codestarts:jar:${project.version}"
+  title: "Camel Quarkus Kotlin"
+  description: "Start to code with the Camel Quarkus Kotlin extension."
+  related-guide-section: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/kotlin.html"
+language:
+  base:
+    dependencies:
+      - "org.apache.camel.quarkus:camel-quarkus-direct"
+      - "org.apache.camel.quarkus:camel-quarkus-log"
+      - "org.apache.camel.quarkus:camel-quarkus-timer"
+    test-dependencies:
+      - "org.apache.camel.quarkus:camel-quarkus-junit5"
+      - "org.jetbrains.kotlin:kotlin-test-junit5"
