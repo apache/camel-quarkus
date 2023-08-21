@@ -88,7 +88,7 @@ public class FileRoutes extends RouteBuilder {
                 .convertBodyTo(String.class).to("mock:" + SORT_BY);
 
         from("direct:pollEnrich")
-                .pollEnrich("file://target/pollEnrich?fileName=pollEnrich.txt");
+                .pollEnrich("file://target/test-files/poll-enrich?fileName=poll-enrich-file");
 
     }
 
