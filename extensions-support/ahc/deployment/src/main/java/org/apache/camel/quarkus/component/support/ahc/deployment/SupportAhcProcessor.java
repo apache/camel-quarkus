@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.support.ahc.deployment;
 
 import java.util.stream.Stream;
 
-import io.netty.incubator.channel.uring.IOUringEventLoopGroup;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
@@ -39,11 +38,6 @@ class SupportAhcProcessor {
     @BuildStep
     ExtensionSslNativeSupportBuildItem activateSslNativeSupport() {
         return new ExtensionSslNativeSupportBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
-        return new RuntimeInitializedClassBuildItem(IOUringEventLoopGroup.class.getName());
     }
 
     @BuildStep

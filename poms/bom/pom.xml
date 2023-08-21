@@ -6242,11 +6242,6 @@
                 </exclusions>
             </dependency>
             <dependency>
-                <groupId>io.netty.incubator</groupId>
-                <artifactId>netty-incubator-transport-classes-io_uring</artifactId>
-                <version>${io-netty-iouring.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>io.opencensus</groupId>
                 <artifactId>opencensus-api</artifactId>
                 <version>${opencensus.version}</version>
