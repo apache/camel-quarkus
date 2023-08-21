@@ -29,7 +29,7 @@ public class CamelRoute extends RouteBuilder {
 
     @Override
     public void configure() {
-        from("timer:hello?delay=-1&repeatCount=3")
+        from("timer:hello?delay=-1&repeatCount=3&includeMetadata=true")
                 .setBody().constant("Hello " + greetedSubject + "!")
                 .log("Logging ${body} - from timer named ${headers." + Exchange.TIMER_NAME + "}");
     }

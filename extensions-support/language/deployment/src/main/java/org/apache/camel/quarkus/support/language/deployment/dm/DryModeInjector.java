@@ -68,6 +68,15 @@ class DryModeInjector implements Injector {
         return delegate.newInstance(type, postProcessBean);
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> T newInstance(Class<T> type, Class<?> factoryClass, String factoryMethod) {
+        if (mustBeReplaced(type)) {
+            return (T) delegate.newInstance(DryModeComponent.class);
+        }
+        return delegate.newInstance(type, factoryClass, factoryMethod);
+    }
+
     @Override
     public boolean supportsAutoWiring() {
         return delegate.supportsAutoWiring();

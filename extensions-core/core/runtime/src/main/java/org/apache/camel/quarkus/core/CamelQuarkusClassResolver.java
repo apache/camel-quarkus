@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.core;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -41,6 +42,14 @@ public class CamelQuarkusClassResolver implements ClassResolver {
             classLoaders = new LinkedHashSet<>();
         }
         classLoaders.add(classLoader);
+    }
+
+    @Override
+    public Set<ClassLoader> getClassLoaders() {
+        if (classLoaders == null) {
+            return Collections.emptySet();
+        }
+        return Collections.unmodifiableSet(classLoaders);
     }
 
     @Override

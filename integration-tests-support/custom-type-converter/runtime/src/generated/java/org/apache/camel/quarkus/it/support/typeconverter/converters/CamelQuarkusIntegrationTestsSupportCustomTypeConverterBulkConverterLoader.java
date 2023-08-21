@@ -9,6 +9,7 @@ import org.apache.camel.Ordered;
 import org.apache.camel.TypeConversionException;
 import org.apache.camel.TypeConverterLoaderException;
 import org.apache.camel.TypeConverter;
+import org.apache.camel.converter.TypeConvertible;
 import org.apache.camel.spi.BulkTypeConverters;
 import org.apache.camel.spi.TypeConverterLoader;
 import org.apache.camel.spi.TypeConverterRegistry;
@@ -43,6 +44,7 @@ public final class CamelQuarkusIntegrationTestsSupportCustomTypeConverterBulkCon
     @Override
     public void load(TypeConverterRegistry registry) throws TypeConverterLoaderException {
         registry.addBulkTypeConverters(this);
+        doRegistration(registry);
     }
 
     @Override
@@ -72,6 +74,13 @@ public final class CamelQuarkusIntegrationTestsSupportCustomTypeConverterBulkCon
             }
         }
         return null;
+    }
+
+    private void doRegistration(TypeConverterRegistry registry) {
+        registry.addConverter(new TypeConvertible<>(java.lang.String.class, org.apache.camel.quarkus.it.support.typeconverter.pairs.MyBulk1Pair.class), this);
+        registry.addConverter(new TypeConvertible<>(java.lang.String.class, org.apache.camel.quarkus.it.support.typeconverter.pairs.MyBulk2Pair.class), this);
+        
+        
     }
 
     public TypeConverter lookup(Class<?> to, Class<?> from) {

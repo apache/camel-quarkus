@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.pdf.it;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URI;
 
@@ -33,6 +32,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.pdf.PdfHeaderConstants;
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.pdmodel.encryption.StandardDecryptionMaterial;
@@ -56,7 +56,7 @@ public class PdfResource {
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response createFromText(String message) throws Exception {
         document = producerTemplate.requestBody(
-                "pdf:create?fontSize=6&pageSize=PAGE_SIZE_A5&font=Courier", message, byte[].class);
+                "pdf:create?fontSize=6&pageSize=PAGE_SIZE_A5&font=COURIER", message, byte[].class);
 
         LOG.infof("The PDDocument has been created and contains %d bytes", document.length);
 
@@ -69,7 +69,7 @@ public class PdfResource {
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response appendText(String message) throws Exception {
         document = producerTemplate.requestBodyAndHeader("pdf:append", message,
-                PdfHeaderConstants.PDF_DOCUMENT_HEADER_NAME, PDDocument.load(document), byte[].class);
+                PdfHeaderConstants.PDF_DOCUMENT_HEADER_NAME, Loader.loadPDF(document), byte[].class);
 
         LOG.infof("The PDDocument has been updated and now contains %d bytes", document.length);
 
@@ -81,7 +81,7 @@ public class PdfResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String get() throws Exception {
         LOG.info("Extracting text from the PDDocument");
-        return producerTemplate.requestBody("pdf:extractText", PDDocument.load(document), String.class);
+        return producerTemplate.requestBody("pdf:extractText", Loader.loadPDF(document), String.class);
     }
 
     @Path("/encrypt/standard")
@@ -96,7 +96,7 @@ public class PdfResource {
         StandardProtectionPolicy policy = new StandardProtectionPolicy(ownerPassword, userPassword, permission);
 
         byte[] document = producerTemplate.requestBodyAndHeader(
-                "pdf:create?fontSize=6&pageSize=PAGE_SIZE_A5&font=Courier",
+                "pdf:create?fontSize=6&pageSize=PAGE_SIZE_A5&font=COURIER",
                 message,
                 PdfHeaderConstants.PROTECTION_POLICY_HEADER_NAME,
                 policy,
@@ -111,7 +111,7 @@ public class PdfResource {
     public Response decryptStandard(@QueryParam("password") String password, byte[] rawDocument) throws IOException {
         StandardDecryptionMaterial material = new StandardDecryptionMaterial(password);
 
-        PDDocument document = PDDocument.load(new ByteArrayInputStream(rawDocument), password);
+        PDDocument document = Loader.loadPDF(rawDocument, password);
 
         String result = producerTemplate.requestBodyAndHeader(
                 "pdf:extractText",

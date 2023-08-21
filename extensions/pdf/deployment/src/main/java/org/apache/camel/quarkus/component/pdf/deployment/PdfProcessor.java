@@ -55,8 +55,6 @@ class PdfProcessor {
 
     private static final String[] RUNTIME_INITIALIZED_CLASSES = new String[] {
             "org.apache.pdfbox.pdmodel.font.PDType1Font",
-            "org.apache.camel.component.pdf.PdfConfiguration",
-            "org.apache.camel.component.pdf.Standard14Fonts",
             "org.apache.pdfbox.pdmodel.PDDocument",
             "org.apache.pdfbox.pdmodel.graphics.color.PDDeviceRGB",
             "org.apache.pdfbox.pdmodel.graphics.color.PDDeviceGray"

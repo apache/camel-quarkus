@@ -31,6 +31,8 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.specification.RequestSpecification;
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.jupiter.api.BeforeAll;
@@ -117,7 +119,7 @@ class FopTest {
     }
 
     private PDDocument getDocumentFrom(InputStream inputStream) throws IOException {
-        return PDDocument.load(inputStream);
+        return Loader.loadPDF(new RandomAccessReadBuffer(inputStream));
     }
 
     private String extractTextFrom(PDDocument document) throws IOException {

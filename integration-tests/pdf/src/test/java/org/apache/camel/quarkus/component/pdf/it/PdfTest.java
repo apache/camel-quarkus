@@ -21,6 +21,7 @@ import java.io.IOException;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -42,7 +43,7 @@ class PdfTest {
                 .body("content to be included in the created pdf document").post("/pdf/createFromText").then().statusCode(201)
                 .extract().asByteArray();
 
-        PDDocument doc = PDDocument.load(bytes);
+        PDDocument doc = Loader.loadPDF(bytes);
         PDFTextStripper pdfTextStripper = new PDFTextStripper();
         String text = pdfTextStripper.getText(doc);
         assertEquals(1, doc.getNumberOfPages());
@@ -56,7 +57,7 @@ class PdfTest {
         byte[] bytes = RestAssured.given().contentType(ContentType.TEXT).body("another line that should be appended")
                 .put("/pdf/appendText").then().statusCode(200).extract().asByteArray();
 
-        PDDocument doc = PDDocument.load(bytes);
+        PDDocument doc = Loader.loadPDF(bytes);
         PDFTextStripper pdfTextStripper = new PDFTextStripper();
         String text = pdfTextStripper.getText(doc);
         assertEquals(2, doc.getNumberOfPages());
@@ -92,7 +93,7 @@ class PdfTest {
                 .asByteArray();
 
         // Test loading the PDF without credentials
-        Assertions.assertThrows(InvalidPasswordException.class, () -> PDDocument.load(bytes));
+        Assertions.assertThrows(InvalidPasswordException.class, () -> Loader.loadPDF(bytes));
 
         // Decrypt
         RestAssured.given()

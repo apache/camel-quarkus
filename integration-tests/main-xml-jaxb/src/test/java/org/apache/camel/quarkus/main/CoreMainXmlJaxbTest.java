@@ -75,9 +75,9 @@ public class CoreMainXmlJaxbTest {
     }
 
     private boolean logContainsDumpedRoutes(String log) {
-        return log.contains("<route customId=\"true\" id=\"my-xml-route\">") &&
-                log.contains("<route customId=\"true\" id=\"rest-route\">") &&
-                log.contains("<rest customId=\"true\" id=\"greet\" path=\"/greeting\">") &&
-                log.contains("<routeTemplate customId=\"true\" id=\"myTemplate\">");
+        return log.contains("<route id=\"my-xml-route\">") &&
+                log.contains("<route id=\"rest-route\">") &&
+                log.contains("<rest id=\"greet\" path=\"/greeting\">") &&
+                log.contains("<routeTemplate id=\"myTemplate\">");
     }
 }
