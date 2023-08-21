@@ -28,8 +28,8 @@ asciidoc:
     requires: "'util=camel-website-util,quarkus=xref:js/quarkus.js'"
 
     # Project versions
-    camel-version: 4.0.1 # replace ${camel.version}
-    camel-docs-version: 4.0.x # replace ${camel.docs.components.version}
+    camel-version: 4.1.0 # replace ${camel.version}
+    camel-docs-version: 4.1.x # replace ${camel.docs.components.version}
     quarkus-version: 3.4.1 # replace ${quarkus.version}
     graalvm-version: 23.0.1 # replace ${graalvm.version}
     graalvm-docs-version: jdk17

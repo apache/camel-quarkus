@@ -27,6 +27,16 @@ import org.apache.camel.spi.Resource;
 
 public class CustomRoutesCollector implements RoutesCollector {
     @Override
+    public boolean isIgnoreLoadingError() {
+        return false;
+    }
+
+    @Override
+    public void setIgnoreLoadingError(boolean ignoreLoadingError) {
+        // Noop
+    }
+
+    @Override
     public List<RoutesBuilder> collectRoutesFromRegistry(
             CamelContext camelContext,
             String excludePattern,

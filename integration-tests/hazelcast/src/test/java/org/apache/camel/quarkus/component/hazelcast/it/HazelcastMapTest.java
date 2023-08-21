@@ -167,25 +167,25 @@ public class HazelcastMapTest {
                 .statusCode(202);
 
         // verify that the consumer has received all the added values
-        await().atMost(10L, TimeUnit.SECONDS).until(() -> {
+        await().atMost(20L, TimeUnit.SECONDS).until(() -> {
             List<String> body = RestAssured.get("/added").then().extract().body().as(List.class);
             return body.size() == 2 && body.containsAll(Arrays.asList("1", "2"));
         });
 
         // verify that the consumer has received one removed value with key = 1
-        await().atMost(10L, TimeUnit.SECONDS).until(() -> {
+        await().atMost(20L, TimeUnit.SECONDS).until(() -> {
             List<String> body = RestAssured.get("/deleted").then().extract().body().as(List.class);
             return body.size() == 1 && body.contains("1");
         });
 
         // verify that the consumer has received one evicted value with key = 2
-        await().atMost(10L, TimeUnit.SECONDS).until(() -> {
+        await().atMost(20L, TimeUnit.SECONDS).until(() -> {
             List<String> body = RestAssured.get("/evicted").then().extract().body().as(List.class);
             return body.size() == 1 && body.contains("2");
         });
 
         // verify that the consumer has received one updated value with key = 2
-        await().atMost(10L, TimeUnit.SECONDS).until(() -> {
+        await().atMost(20L, TimeUnit.SECONDS).until(() -> {
             List<String> body = RestAssured.get("/updated").then().extract().body().as(List.class);
             return body.size() == 1 && body.contains("2");
         });

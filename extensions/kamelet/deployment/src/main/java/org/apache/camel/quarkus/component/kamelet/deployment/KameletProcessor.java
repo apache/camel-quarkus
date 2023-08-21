@@ -35,6 +35,7 @@ import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.model.RouteTemplateDefinition;
+import org.apache.camel.quarkus.component.kamelet.EmptyKameletResource;
 import org.apache.camel.quarkus.component.kamelet.KameletConfiguration;
 import org.apache.camel.quarkus.component.kamelet.KameletRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
@@ -119,6 +120,19 @@ class KameletProcessor {
             }
         }
 
-        return new CamelContextCustomizerBuildItem(recorder.createTemplateLoaderCustomizer(definitions));
+        // TODO: Improve / remove this https://github.com/apache/camel-quarkus/issues/5230
+        // Use Quarkus recorder serialization friendly EmptyKameletResource instead of the default Resource.
+        // The resource will get reevaluated at runtime and replaced if it exists
+        definitions.forEach(definition -> {
+            Resource originalResource = definition.getResource();
+            EmptyKameletResource resource = new EmptyKameletResource();
+            resource.setScheme(originalResource.getScheme());
+            resource.setLocation(originalResource.getLocation());
+            resource.setExists(originalResource.exists());
+            definition.setResource(resource);
+        });
+
+        return new CamelContextCustomizerBuildItem(
+                recorder.createTemplateLoaderCustomizer(definitions));
     }
 }

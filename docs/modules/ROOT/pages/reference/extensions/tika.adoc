@@ -54,6 +54,8 @@ can be changed only via `application.properties`.
 While you can use any of the available https://tika.apache.org/1.24.1/formats.html[Tika parsers] in JVM mode,
 only some of those are supported in native mode - see the https://quarkiverse.github.io/quarkiverse-docs/quarkus-tika/dev/index.html[Quarkus Tika guide].
 
+PDF and ODF parsers can not be used both in JVM mode or in the native mode. Pdf extension is suggested for purposes of pdf consumption to avoid a version conflict between Camel and Quarkus-tika extension involving PdfBox dependency.
+
 Use of the Tika parser without any configuration will initialize all available parsers. Unfortunately as some of them
 don't work in the native mode, the whole execution will fail.
 

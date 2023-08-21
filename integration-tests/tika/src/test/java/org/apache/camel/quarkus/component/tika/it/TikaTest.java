@@ -23,6 +23,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsStringIgnoringCase;
@@ -33,11 +34,13 @@ import static org.hamcrest.Matchers.startsWith;
 @QuarkusTest
 class TikaTest {
 
+    @Disabled //Requires new release of quarkiverse-tike, which adopts tika with pdfBox 3.x https://github.com/apache/camel-quarkus/issues/5234
     @Test
     public void testPdf() throws Exception {
         testParse("quarkus.pdf", "application/pdf", "Hello Quarkus");
     }
 
+    @Disabled //Requires new release of quarkiverse-tike, which adopts tika with pdfBox 3.x https://github.com/apache/camel-quarkus/issues/5234
     @Test
     public void testOdf() throws Exception {
         testParse("testOpenOffice2.odt", "application/vnd.oasis.opendocument.text",

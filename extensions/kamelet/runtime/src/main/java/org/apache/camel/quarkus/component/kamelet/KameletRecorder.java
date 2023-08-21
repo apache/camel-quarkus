@@ -25,9 +25,16 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.model.Model;
 import org.apache.camel.model.RouteTemplateDefinition;
 import org.apache.camel.spi.CamelContextCustomizer;
+import org.apache.camel.spi.Resource;
+import org.apache.camel.spi.ResourceLoader;
+import org.apache.camel.support.PluginHelper;
+import org.apache.camel.util.ObjectHelper;
+import org.jboss.logging.Logger;
 
 @Recorder
 public class KameletRecorder {
+    private static final Logger LOG = Logger.getLogger(KameletRecorder.class);
+
     public RuntimeValue<CamelContextCustomizer> createTemplateLoaderCustomizer(
             @RelaxedValidation List<RouteTemplateDefinition> definitions) {
 
@@ -35,6 +42,23 @@ public class KameletRecorder {
             @Override
             public void configure(CamelContext context) {
                 try {
+                    // TODO: Improve / remove this: https://github.com/apache/camel-quarkus/issues/5230
+                    ResourceLoader resourceLoader = PluginHelper.getResourceLoader(context);
+                    for (RouteTemplateDefinition definition : definitions) {
+                        Resource originalResource = definition.getResource();
+                        String location = originalResource.getLocation();
+                        if (originalResource instanceof EmptyKameletResource && !ObjectHelper.isNotEmpty(location)) {
+                            Resource resource = resourceLoader.resolveResource(location);
+                            if (resource != null) {
+                                definition.setResource(resource);
+                            } else {
+                                if (LOG.isDebugEnabled()) {
+                                    LOG.debugf("Failed resolving Kamelet resource %s. Resource dumping will be disabled.",
+                                            definition.getId());
+                                }
+                            }
+                        }
+                    }
                     context.getCamelContextExtension().getContextPlugin(Model.class).addRouteTemplateDefinitions(definitions);
                 } catch (Exception e) {
                     throw new RuntimeException(e);

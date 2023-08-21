@@ -120,7 +120,7 @@ public class CoreTest {
     @Test
     void testCustomBeanWithConstructorParameterInjection() {
         RestAssured.when().get("/core/custom-bean-with-constructor-parameter-injection").then()
-                .body(is("localhost:2121|scott|tiger"));
+                .body(is("\"localhost:2121\"|\"scott\"|\"tiger\""));
     }
 
     @Test

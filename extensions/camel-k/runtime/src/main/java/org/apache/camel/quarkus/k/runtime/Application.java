@@ -151,6 +151,16 @@ public final class Application {
         }
 
         @Override
+        public boolean isIgnoreLoadingError() {
+            return false;
+        }
+
+        @Override
+        public void setIgnoreLoadingError(boolean ignoreLoadingError) {
+            // Noop
+        }
+
+        @Override
         public List<RoutesBuilder> collectRoutesFromRegistry(CamelContext camelContext, String excludePattern,
                 String includePattern) {
             return Collections.emptyList();
