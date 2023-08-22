@@ -325,6 +325,12 @@ Check the full [release announcement](https://camel.apache.org/blog/2021/06/came
 +
   * Click the green "Publish release" button at the bottom
 
+== Update the project changelog
+
+Create a new release heading in `changelog.md`. E.g `== 3.2.0`. Under there, you can copy & paste the generated release notes markdown (see previous step) from the GitHub release page into `changelog.md`.
+
+You may want to clean up the markdown and remove the `What's Changed` heading and fix up any abbreviated lines that end in `...`.
+
 == Upgrade and tag Examples
 
 This section needs to be executed only when a Quarkus Platform release has been published.

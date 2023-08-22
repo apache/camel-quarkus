@@ -1,5016 +1,2847 @@
 # Changelog
 
-## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/3.0.0-RC2...HEAD)
-
-**Implemented enhancements:**
-
-- perf-regression:  [\#5205](https://github.com/apache/camel-quarkus/issues/5205)
-- Add yaml-io extension [\#5178](https://github.com/apache/camel-quarkus/issues/5178)
-- Add `org.mapstruct:mapstruct-processor` to the BOM [\#5163](https://github.com/apache/camel-quarkus/issues/5163)
-- Expand test coverage on xslt-saxon [\#5139](https://github.com/apache/camel-quarkus/issues/5139)
-
-**Fixed bugs:**
-
-- Dependency convergence check error com.google.auth:google-auth-library-oauth2-http [\#5194](https://github.com/apache/camel-quarkus/issues/5194)
-- `jms-ibmmq-client` integration test native build runs on CI despite being commented out [\#5180](https://github.com/apache/camel-quarkus/issues/5180)
-- Compilation fails for gRPC applications in dev mode  [\#5167](https://github.com/apache/camel-quarkus/issues/5167)
-- InvocationTargetException when running sanity-checks on 3.0.0-RC2 [\#5165](https://github.com/apache/camel-quarkus/issues/5165)
-- google-pubsub integration tests fail on quarkus-platform [\#5144](https://github.com/apache/camel-quarkus/issues/5144)
-- camel-quarkus-mail: Exception classes not registered for reflection [\#5142](https://github.com/apache/camel-quarkus/issues/5142)
-- ical native build failure [\#5099](https://github.com/apache/camel-quarkus/issues/5099)
-- \[Mandrel 22.3.1\] CXF SOAP native image compilation failure [\#4467](https://github.com/apache/camel-quarkus/issues/4467)
-
-**Closed issues:**
-
-- Remove `integration-tests/jdbc` module [\#5164](https://github.com/apache/camel-quarkus/issues/5164)
-- Add tests for camel-quarkus-elasticsearch [\#5162](https://github.com/apache/camel-quarkus/issues/5162)
-- Extend test coverage of gRPC extension [\#5155](https://github.com/apache/camel-quarkus/issues/5155)
-- Expand Splunk test coverage [\#5154](https://github.com/apache/camel-quarkus/issues/5154)
-- Manage icu4j version [\#5149](https://github.com/apache/camel-quarkus/issues/5149)
-- Introduce group testing for different jdbc db types [\#4772](https://github.com/apache/camel-quarkus/issues/4772)
-- \[camel-main\] Xml tests: Better handling of http client \(registration of org.apache.hc.client5.http.impl.auth.NTLMEngineImp\) [\#4722](https://github.com/apache/camel-quarkus/issues/4722)
-- aws2-cw: remove workaround with autowired once CAMEL-18878 is fixed [\#4400](https://github.com/apache/camel-quarkus/issues/4400)
-- Springless JPA extension [\#4084](https://github.com/apache/camel-quarkus/issues/4084)
-- Use quarkus-maven-plugin:generate-code in GRPC test [\#3190](https://github.com/apache/camel-quarkus/issues/3190)
-- Figure out how to maintain versions of test containers [\#2225](https://github.com/apache/camel-quarkus/issues/2225)
-- XSLT Saxon native support [\#1615](https://github.com/apache/camel-quarkus/issues/1615)
-
-**Merged pull requests:**
-
-- Fix quarkus-maven-plugin groupId & version for gRPC itest module [\#5204](https://github.com/apache/camel-quarkus/pull/5204) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix usage of deprecated Quarkus SSL config properties [\#5203](https://github.com/apache/camel-quarkus/pull/5203) ([jamesnetherton](https://github.com/jamesnetherton))
-- Downgrade async-http-client to 2.12.3. Relates \#5201 [\#5202](https://github.com/apache/camel-quarkus/pull/5202) ([jamesnetherton](https://github.com/jamesnetherton))
-- Generated sources regen for SBOM [\#5200](https://github.com/apache/camel-quarkus/pull/5200) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Bump io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-jmx from 3.1.2 to 3.2.4 [\#5198](https://github.com/apache/camel-quarkus/pull/5198) ([dependabot[bot]](https://github.com/apps/dependabot))
-- file: migrate pollEnrich to the non-flaky test harness \#3584 [\#5197](https://github.com/apache/camel-quarkus/pull/5197) ([aldettinger](https://github.com/aldettinger))
-- Fix dependency convergence error for google-auth-library-oauth2-http [\#5195](https://github.com/apache/camel-quarkus/pull/5195) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add yaml-io extension  [\#5193](https://github.com/apache/camel-quarkus/pull/5193) ([jamesnetherton](https://github.com/jamesnetherton))
-- Expand Splunk test coverage [\#5192](https://github.com/apache/camel-quarkus/pull/5192) ([jamesnetherton](https://github.com/jamesnetherton))
-- Exclude unwanted vertx-grpc transitive dependencies form quarkus-grpc-common [\#5188](https://github.com/apache/camel-quarkus/pull/5188) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove integration-tests/jdbc module [\#5186](https://github.com/apache/camel-quarkus/pull/5186) ([jamesnetherton](https://github.com/jamesnetherton))
-- Introduce custom  CodeGenProvider for gRPC extension [\#5185](https://github.com/apache/camel-quarkus/pull/5185) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#5180 to skip quarkus build on jms-ibmmq-client integration tests [\#5183](https://github.com/apache/camel-quarkus/pull/5183) ([zhfeng](https://github.com/zhfeng))
-- Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 2.4.3 to 2.4.4 [\#5182](https://github.com/apache/camel-quarkus/pull/5182) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Upgrade to Quarkus CXF 2.2.1 [\#5181](https://github.com/apache/camel-quarkus/pull/5181) ([ppalaga](https://github.com/ppalaga))
-- chore: regen for mapstruct and xslt-saxon [\#5179](https://github.com/apache/camel-quarkus/pull/5179) ([zhfeng](https://github.com/zhfeng))
-- Generated sources regen for SBOM [\#5176](https://github.com/apache/camel-quarkus/pull/5176) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Unban com.google.code.findbugs:jsr305 for gRPC extension [\#5175](https://github.com/apache/camel-quarkus/pull/5175) ([jamesnetherton](https://github.com/jamesnetherton))
-- Expand xslt-saxon test coverage [\#5173](https://github.com/apache/camel-quarkus/pull/5173) ([zhfeng](https://github.com/zhfeng))
-- Add org.mapstruct:mapstruct-processor to the BOM [\#5172](https://github.com/apache/camel-quarkus/pull/5172) ([jamesnetherton](https://github.com/jamesnetherton))
-- Bump quarkiverse-pooled-jms.version from 2.0.1 to 2.0.2 [\#5171](https://github.com/apache/camel-quarkus/pull/5171) ([dependabot[bot]](https://github.com/apps/dependabot))
-- \[5162\] Add elasticsearch tests [\#5170](https://github.com/apache/camel-quarkus/pull/5170) ([llowinge](https://github.com/llowinge))
-- Camel 4.0.0 upgrade [\#5169](https://github.com/apache/camel-quarkus/pull/5169) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Extend test coverage of gRPC extension [\#5168](https://github.com/apache/camel-quarkus/pull/5168) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix compareVersion in sanity-checks.groovy \#5165 [\#5166](https://github.com/apache/camel-quarkus/pull/5166) ([zhfeng](https://github.com/zhfeng))
-- Reclaim disk space before running integration tests [\#5159](https://github.com/apache/camel-quarkus/pull/5159) ([jamesnetherton](https://github.com/jamesnetherton))
-- Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 2.4.2 to 2.4.3 [\#5158](https://github.com/apache/camel-quarkus/pull/5158) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Set encoding to UTF-8 when writing microprofile-config.properties [\#5157](https://github.com/apache/camel-quarkus/pull/5157) ([jamesnetherton](https://github.com/jamesnetherton))
-- Manage test container versions in the root project pom.xml [\#5152](https://github.com/apache/camel-quarkus/pull/5152) ([jamesnetherton](https://github.com/jamesnetherton))
-- Generated sources regen for SBOM [\#5151](https://github.com/apache/camel-quarkus/pull/5151) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Fix \#5149 to manage com.ibm.icu:icu4j [\#5150](https://github.com/apache/camel-quarkus/pull/5150) ([zhfeng](https://github.com/zhfeng))
-- Register known jakarta.mail exception classes for reflection [\#5148](https://github.com/apache/camel-quarkus/pull/5148) ([jamesnetherton](https://github.com/jamesnetherton))
-- Bump org.seleniumhq.selenium:htmlunit-driver from 4.10.0 to 4.11.0 [\#5146](https://github.com/apache/camel-quarkus/pull/5146) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump quarkiverse-jsch.version from 3.0.2 to 3.0.3 [\#5145](https://github.com/apache/camel-quarkus/pull/5145) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Add instructions for auto release note generation to release docs [\#5143](https://github.com/apache/camel-quarkus/pull/5143) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 3.2.3.Final [\#5141](https://github.com/apache/camel-quarkus/pull/5141) ([jamesnetherton](https://github.com/jamesnetherton))
-- Restore AS2 testing [\#5140](https://github.com/apache/camel-quarkus/pull/5140) ([jamesnetherton](https://github.com/jamesnetherton))
-- Tidy iCal extension native workaround for absence of com.github.erosbjson-sKema [\#5138](https://github.com/apache/camel-quarkus/pull/5138) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove redundant autowiring workaround in aws2-cw tests [\#5137](https://github.com/apache/camel-quarkus/pull/5137) ([jamesnetherton](https://github.com/jamesnetherton))
-- Align Apache HTTP Client 5.x with Camel [\#5135](https://github.com/apache/camel-quarkus/pull/5135) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade async-http-client to 3.0.0.Beta2 [\#5134](https://github.com/apache/camel-quarkus/pull/5134) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add xslt-saxon native support [\#5133](https://github.com/apache/camel-quarkus/pull/5133) ([zhfeng](https://github.com/zhfeng))
-- Add missing graal-sdk dependency to ical runtime module [\#5132](https://github.com/apache/camel-quarkus/pull/5132) ([jamesnetherton](https://github.com/jamesnetherton))
-- Update 3.x migration guide removed extensions table [\#5131](https://github.com/apache/camel-quarkus/pull/5131) ([jamesnetherton](https://github.com/jamesnetherton))
-- Generated sources regen for SBOM [\#5130](https://github.com/apache/camel-quarkus/pull/5130) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Bump quarkiverse-mybatis.version from 2.0.0 to 2.1.0 [\#5129](https://github.com/apache/camel-quarkus/pull/5129) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Configure native-image-xmx for kubernetes and master-openshift native tests [\#5128](https://github.com/apache/camel-quarkus/pull/5128) ([jamesnetherton](https://github.com/jamesnetherton))
-- Disallow invalid host/port values on the vertx-websocket server consumer [\#5127](https://github.com/apache/camel-quarkus/pull/5127) ([jamesnetherton](https://github.com/jamesnetherton))
-- Ref \#5026: Delay the init of ICMPHelper on non Linux OS [\#5125](https://github.com/apache/camel-quarkus/pull/5125) ([essobedo](https://github.com/essobedo))
-- Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 2.4.1 to 2.4.2 [\#5124](https://github.com/apache/camel-quarkus/pull/5124) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Add MapStruct native support [\#5123](https://github.com/apache/camel-quarkus/pull/5123) ([jamesnetherton](https://github.com/jamesnetherton))
-- SNMPv3 test coverage [\#5122](https://github.com/apache/camel-quarkus/pull/5122) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Bump quarkiverse-groovy.version from 3.2.1 to 3.2.2 [\#5120](https://github.com/apache/camel-quarkus/pull/5120) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Camel 4.0.0 rc2 upgrade [\#5119](https://github.com/apache/camel-quarkus/pull/5119) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Ref\#4772 Introduce group testing for different jdbc db types [\#5116](https://github.com/apache/camel-quarkus/pull/5116) ([ldrozdo](https://github.com/ldrozdo))
-- Generated sources regen for SBOM [\#5115](https://github.com/apache/camel-quarkus/pull/5115) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Upgrade Quarkus to 3.2.2.Final [\#5114](https://github.com/apache/camel-quarkus/pull/5114) ([jamesnetherton](https://github.com/jamesnetherton))
-- Do not produce JmxMeterRegistry bean in native mode testing [\#5113](https://github.com/apache/camel-quarkus/pull/5113) ([jamesnetherton](https://github.com/jamesnetherton))
-- Build Camel from source for camel-main branch builds [\#5112](https://github.com/apache/camel-quarkus/pull/5112) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix hamcrest GAV in bom-test [\#5106](https://github.com/apache/camel-quarkus/pull/5106) ([claudio4j](https://github.com/claudio4j))
-- Upgrade Quarkus to 3.2.1.final [\#5105](https://github.com/apache/camel-quarkus/pull/5105) ([jamesnetherton](https://github.com/jamesnetherton))
-- Added atlassion-groupId for the correct functionality with the 'io.atlassian.fugue' [\#5104](https://github.com/apache/camel-quarkus/pull/5104) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Add missing graal-sdk dependency declaration to extensions that use GraalVM APIs [\#5103](https://github.com/apache/camel-quarkus/pull/5103) ([jamesnetherton](https://github.com/jamesnetherton))
-- Simplify MicrometerTest.testDumpAsJson results extraction [\#5102](https://github.com/apache/camel-quarkus/pull/5102) ([jamesnetherton](https://github.com/jamesnetherton))
-- Bump quarkiverse-jgit.version from 3.0.1 to 3.0.2 [\#5101](https://github.com/apache/camel-quarkus/pull/5101) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Manage io.dropwizard.metrics dependencies used by camel-quarkus extensions [\#5100](https://github.com/apache/camel-quarkus/pull/5100) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove pdfbox dependency excludes from quarkus-tika [\#5098](https://github.com/apache/camel-quarkus/pull/5098) ([jamesnetherton](https://github.com/jamesnetherton))
-- Generated sources regen for SBOM [\#5097](https://github.com/apache/camel-quarkus/pull/5097) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Bump quarkus-qpid-jms-bom from 2.3.0 to 2.4.0 [\#5096](https://github.com/apache/camel-quarkus/pull/5096) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump quarkiverse-tika.version from 2.0.0 to 2.0.2 [\#5095](https://github.com/apache/camel-quarkus/pull/5095) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump quarkiverse-jsch.version from 3.0.1 to 3.0.2 [\#5094](https://github.com/apache/camel-quarkus/pull/5094) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump quarkus-amazon-services-bom from 2.4.0 to 2.4.1 [\#5093](https://github.com/apache/camel-quarkus/pull/5093) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Add a note to the contributor guide about keeping junit & Co. in Maven test scope [\#5091](https://github.com/apache/camel-quarkus/pull/5091) ([ppalaga](https://github.com/ppalaga))
-- Velocity $foreach.index, $foreach.count and $foreach.hasNext do not work in native mode [\#5090](https://github.com/apache/camel-quarkus/pull/5090) ([ppalaga](https://github.com/ppalaga))
-- Re-add activemq extension after it was added back in Camel 4.0.0-RC1 [\#5089](https://github.com/apache/camel-quarkus/pull/5089) ([ppalaga](https://github.com/ppalaga))
-- Generated sources regen for SBOM [\#5085](https://github.com/apache/camel-quarkus/pull/5085) ([github-actions[bot]](https://github.com/apps/github-actions))
-- NettyHttpJaasTestResource reads config.jaas from disk  [\#5084](https://github.com/apache/camel-quarkus/pull/5084) ([ppalaga](https://github.com/ppalaga))
-- Ref \#5067: Make expression extractor supports properties [\#5079](https://github.com/apache/camel-quarkus/pull/5079) ([essobedo](https://github.com/essobedo))
-- Enable Twilio test after the component was fixed via Camel 4.0.0-M2 [\#5078](https://github.com/apache/camel-quarkus/pull/5078) ([ppalaga](https://github.com/ppalaga))
-- Ref \#5056: Improve the replacement of RecorderContext\#classProxy [\#5077](https://github.com/apache/camel-quarkus/pull/5077) ([essobedo](https://github.com/essobedo))
-- chore: Add git diff when there are uncommitted changes [\#5076](https://github.com/apache/camel-quarkus/pull/5076) ([essobedo](https://github.com/essobedo))
-- Register additional JDK classes for serialization required by Nitrite [\#5075](https://github.com/apache/camel-quarkus/pull/5075) ([jamesnetherton](https://github.com/jamesnetherton))
-- Use NativeImageFeatureBuildItem instead of deprecated AutomaticFeature annotation [\#5074](https://github.com/apache/camel-quarkus/pull/5074) ([jamesnetherton](https://github.com/jamesnetherton))
-- Divide HTTP tests into separate modules [\#5073](https://github.com/apache/camel-quarkus/pull/5073) ([avano](https://github.com/avano))
-- Fix \#5068 to add a pooling test with quarkus-qpid-jms [\#5069](https://github.com/apache/camel-quarkus/pull/5069) ([zhfeng](https://github.com/zhfeng))
-- Ref \#5056: Replace the deprecated RecorderContext\#classProxy [\#5066](https://github.com/apache/camel-quarkus/pull/5066) ([essobedo](https://github.com/essobedo))
-- Restrict downloading of com.atlassian dependencies to packages.atlassian.com [\#5065](https://github.com/apache/camel-quarkus/pull/5065) ([jamesnetherton](https://github.com/jamesnetherton))
-- Bump os-maven-plugin from 1.7.0 to 1.7.1 [\#5064](https://github.com/apache/camel-quarkus/pull/5064) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump htmlunit-driver from 4.9.1 to 4.10.0 [\#5063](https://github.com/apache/camel-quarkus/pull/5063) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Set the official snapshot repositories [\#5062](https://github.com/apache/camel-quarkus/pull/5062) ([essobedo](https://github.com/essobedo))
-- Build Camel on the nightly build instead of relying on the SNAPSHOT repo [\#5061](https://github.com/apache/camel-quarkus/pull/5061) ([jamesnetherton](https://github.com/jamesnetherton))
-- Improve native support of camel-quarkus-debug [\#5060](https://github.com/apache/camel-quarkus/pull/5060) ([essobedo](https://github.com/essobedo))
-- Bump quarkus-micrometer-registry-jmx from 3.0.2 to 3.1.2 [\#5055](https://github.com/apache/camel-quarkus/pull/5055) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump quarkus-amazon-services-bom from 2.3.3 to 2.4.0 [\#5054](https://github.com/apache/camel-quarkus/pull/5054) ([dependabot[bot]](https://github.com/apps/dependabot))
-- chore: fix various build/compilation warnings [\#5053](https://github.com/apache/camel-quarkus/pull/5053) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add sync tag for Groovy version property [\#5052](https://github.com/apache/camel-quarkus/pull/5052) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove skip of maven-enforcer-plugin for Google extensions [\#5049](https://github.com/apache/camel-quarkus/pull/5049) ([jamesnetherton](https://github.com/jamesnetherton))
-- Restore native profiles to kubernetes-client tests [\#5047](https://github.com/apache/camel-quarkus/pull/5047) ([jamesnetherton](https://github.com/jamesnetherton))
-- Bump quarkus-amazon-services-bom from 2.3.2 to 2.3.3 [\#5046](https://github.com/apache/camel-quarkus/pull/5046) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Ref \#5044 - Upgrade Quarkus Groovy to 3.2.1 [\#5045](https://github.com/apache/camel-quarkus/pull/5045) ([essobedo](https://github.com/essobedo))
-- Add native support for camel-quarkus-debug [\#5043](https://github.com/apache/camel-quarkus/pull/5043) ([jamesnetherton](https://github.com/jamesnetherton))
-- Re-enable google-bigquery and add a work around [\#5041](https://github.com/apache/camel-quarkus/pull/5041) ([zhfeng](https://github.com/zhfeng))
-- Generated sources regen for SBOM [\#5040](https://github.com/apache/camel-quarkus/pull/5040) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Bump quarkus-qpid-jms-bom from 2.2.0 to 2.3.0 [\#5039](https://github.com/apache/camel-quarkus/pull/5039) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Replace org.graalvm.nativeimage:svm with org.graalvm.sdk:graal-sdk which has a status of public API [\#5038](https://github.com/apache/camel-quarkus/pull/5038) ([ppalaga](https://github.com/ppalaga))
-- Add native support for camel-quarkus-management [\#5037](https://github.com/apache/camel-quarkus/pull/5037) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Camel to 4.0.0-RC1 [\#5036](https://github.com/apache/camel-quarkus/pull/5036) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Re-enable google-pubsub and google-storage and add a workaround [\#5033](https://github.com/apache/camel-quarkus/pull/5033) ([zhfeng](https://github.com/zhfeng))
-- Upgrade to quarkus-cxf 2.2.0 [\#5032](https://github.com/apache/camel-quarkus/pull/5032) ([ppalaga](https://github.com/ppalaga))
-- Micrometer: It is not necessary to produce JMXRegistry for the test \#5030 [\#5031](https://github.com/apache/camel-quarkus/pull/5031) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Upgrade Quarkus to 3.2.0.Final [\#5027](https://github.com/apache/camel-quarkus/pull/5027) ([jamesnetherton](https://github.com/jamesnetherton))
-- Ref \#2800: Remove the addition of affinity for mac os [\#5025](https://github.com/apache/camel-quarkus/pull/5025) ([essobedo](https://github.com/essobedo))
-- Micrometer: SimpleMeterRegistry is not created if no other registry is defined \#5023 [\#5024](https://github.com/apache/camel-quarkus/pull/5024) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Fix image links for CI status badges [\#5022](https://github.com/apache/camel-quarkus/pull/5022) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove reserve-network-port execution for integration tests [\#5021](https://github.com/apache/camel-quarkus/pull/5021) ([jamesnetherton](https://github.com/jamesnetherton))
-- Micrometer: Custom registry coverage is missing \#5018 [\#5019](https://github.com/apache/camel-quarkus/pull/5019) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Fix \#5016 to add a IBMMQ pooling test with quarkus-pooled-jms [\#5017](https://github.com/apache/camel-quarkus/pull/5017) ([zhfeng](https://github.com/zhfeng))
-- Upgrade to quarkus-cxf 2.2.0.CR1 [\#5015](https://github.com/apache/camel-quarkus/pull/5015) ([ppalaga](https://github.com/ppalaga))
-- Generated sources regen for SBOM [\#5013](https://github.com/apache/camel-quarkus/pull/5013) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Upgrade quarkus-amazon-services-bom to 2.3.2 [\#5012](https://github.com/apache/camel-quarkus/pull/5012) ([jamesnetherton](https://github.com/jamesnetherton))
-- Disable google-storage native profile due to \#5010 [\#5011](https://github.com/apache/camel-quarkus/pull/5011) ([jamesnetherton](https://github.com/jamesnetherton))
-- Prevent user added issue labels from being incorrectly removed [\#5005](https://github.com/apache/camel-quarkus/pull/5005) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 3.2.0.CR1 [\#5004](https://github.com/apache/camel-quarkus/pull/5004) ([jamesnetherton](https://github.com/jamesnetherton))
-- Restore FOP integration test native profile [\#5003](https://github.com/apache/camel-quarkus/pull/5003) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add names to auto milestone workflows [\#5002](https://github.com/apache/camel-quarkus/pull/5002) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove Spring dependencies from Jira extension [\#5001](https://github.com/apache/camel-quarkus/pull/5001) ([jamesnetherton](https://github.com/jamesnetherton))
-- Re-enable jira tests [\#5000](https://github.com/apache/camel-quarkus/pull/5000) ([zhfeng](https://github.com/zhfeng))
-- \[closes \#4956\] Extend netty-http test coverage [\#4999](https://github.com/apache/camel-quarkus/pull/4999) ([avano](https://github.com/avano))
-- Restore issue auto milestone workflow [\#4997](https://github.com/apache/camel-quarkus/pull/4997) ([jamesnetherton](https://github.com/jamesnetherton))
-- Generated sources regen for SBOM [\#4996](https://github.com/apache/camel-quarkus/pull/4996) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Bump wiremock from 3.0.0-beta-9 to 3.0.0-beta-10 [\#4995](https://github.com/apache/camel-quarkus/pull/4995) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump quarkus-artemis-bom from 3.0.0 to 3.0.1 [\#4994](https://github.com/apache/camel-quarkus/pull/4994) ([dependabot[bot]](https://github.com/apps/dependabot))
-- file: rewrite filter and idempotent tests from scratch for clarity an… [\#4993](https://github.com/apache/camel-quarkus/pull/4993) ([aldettinger](https://github.com/aldettinger))
-- Bump quarkiverse-jgit.version from 3.0.0 to 3.0.1 [\#4991](https://github.com/apache/camel-quarkus/pull/4991) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Upgrade hazelcast-quarkus-client to 4.0.0 [\#4990](https://github.com/apache/camel-quarkus/pull/4990) ([jamesnetherton](https://github.com/jamesnetherton))
-- Bump quarkus-amazon-services-bom from 2.3.0 to 2.3.1 [\#4987](https://github.com/apache/camel-quarkus/pull/4987) ([dependabot[bot]](https://github.com/apps/dependabot))
-- JAXB integration tests failing fix if locale different from EN \#4135 [\#4986](https://github.com/apache/camel-quarkus/pull/4986) ([spatnity](https://github.com/spatnity))
-- Temporarily disable auto milestone on PR merge due to permission issues [\#4985](https://github.com/apache/camel-quarkus/pull/4985) ([jamesnetherton](https://github.com/jamesnetherton))
-- Bump wiremock from 3.0.0-beta-8 to 3.0.0-beta-9 [\#4982](https://github.com/apache/camel-quarkus/pull/4982) ([dependabot[bot]](https://github.com/apps/dependabot))
-- camel-quarkus-crypto: Added test to sign/verify raw keys [\#4980](https://github.com/apache/camel-quarkus/pull/4980) ([djcoleman](https://github.com/djcoleman))
-- Add GitHub Actions workflows to label issues and assign a milestone [\#4978](https://github.com/apache/camel-quarkus/pull/4978) ([jamesnetherton](https://github.com/jamesnetherton))
-- Generated sources regen for SBOM [\#4977](https://github.com/apache/camel-quarkus/pull/4977) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Add a profile for analyzing possible dependency conflicts between Camel and Quarkus [\#4976](https://github.com/apache/camel-quarkus/pull/4976) ([ppalaga](https://github.com/ppalaga))
-- Bump quarkus-micrometer-registry-jmx from 0.2.0 to 3.0.2 [\#4974](https://github.com/apache/camel-quarkus/pull/4974) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump unboundid-ldapsdk from 6.0.8 to 6.0.9 [\#4972](https://github.com/apache/camel-quarkus/pull/4972) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Fix formatting in the release guide [\#4970](https://github.com/apache/camel-quarkus/pull/4970) ([ppalaga](https://github.com/ppalaga))
-- Be more precise about the WS standards coverage, add ,subs="attributes+" to code snippets on the CXF extension page [\#4969](https://github.com/apache/camel-quarkus/pull/4969) ([ppalaga](https://github.com/ppalaga))
-- Add test coverage for MDC logging [\#4967](https://github.com/apache/camel-quarkus/pull/4967) ([jamesnetherton](https://github.com/jamesnetherton))
-- Use GitHub SCM URL because https://gitbox.apache.org/repos/asf?p=camel-quarkus.git redirects to GitHub anyway [\#4966](https://github.com/apache/camel-quarkus/pull/4966) ([ppalaga](https://github.com/ppalaga))
-- Ref \#4959: Delegate complexity to quarkus-groovy [\#4965](https://github.com/apache/camel-quarkus/pull/4965) ([essobedo](https://github.com/essobedo))
-- Ref \#4960: Upgrade Groovy to 4.0.12 [\#4963](https://github.com/apache/camel-quarkus/pull/4963) ([essobedo](https://github.com/essobedo))
-- Use correct package for cxf-soap-server tests [\#4958](https://github.com/apache/camel-quarkus/pull/4958) ([jamesnetherton](https://github.com/jamesnetherton))
-- Generated sources regen for SBOM [\#4954](https://github.com/apache/camel-quarkus/pull/4954) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Bump formatter-maven-plugin from 2.22.0 to 2.23.0 [\#4953](https://github.com/apache/camel-quarkus/pull/4953) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump quarkiverse-minio.version from 3.0.2 to 3.1.0.Final [\#4952](https://github.com/apache/camel-quarkus/pull/4952) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Expand micrometer test coverage \#4582 [\#4951](https://github.com/apache/camel-quarkus/pull/4951) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Fix broken formatting on the CXF extension page [\#4949](https://github.com/apache/camel-quarkus/pull/4949) ([ppalaga](https://github.com/ppalaga))
-- Bump quarkiverse-jsch.version from 3.0.0 to 3.0.1 [\#4948](https://github.com/apache/camel-quarkus/pull/4948) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Revert "file: disabling idempotent test in order to experiment around… [\#4946](https://github.com/apache/camel-quarkus/pull/4946) ([aldettinger](https://github.com/aldettinger))
-- Upgrade Debezium to 2.2.0.Final [\#4942](https://github.com/apache/camel-quarkus/pull/4942) ([jamesnetherton](https://github.com/jamesnetherton))
-- Added link to get started with Camel in general. [\#4941](https://github.com/apache/camel-quarkus/pull/4941) ([spatnity](https://github.com/spatnity))
-- Generated sources regen for SBOM [\#4939](https://github.com/apache/camel-quarkus/pull/4939) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Bump quarkus-qpid-jms-bom from 2.1.0 to 2.2.0 [\#4938](https://github.com/apache/camel-quarkus/pull/4938) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump quarkiverse-cxf.version from 2.0.4 to 2.1.0 [\#4937](https://github.com/apache/camel-quarkus/pull/4937) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Restore master itest platform exclusion [\#4936](https://github.com/apache/camel-quarkus/pull/4936) ([jamesnetherton](https://github.com/jamesnetherton))
-- Micrometer: InstrumentedThreadPoolFactory [\#4935](https://github.com/apache/camel-quarkus/pull/4935) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Ban com.github.spotbugs:spotbugs-annotations [\#4933](https://github.com/apache/camel-quarkus/pull/4933) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#4793 to update MyBatisConsumerTest and keep awaitility in the te… [\#4932](https://github.com/apache/camel-quarkus/pull/4932) ([zhfeng](https://github.com/zhfeng))
-- Bump quarkus-amazon-services-bom from 2.2.0 to 2.3.0 [\#4930](https://github.com/apache/camel-quarkus/pull/4930) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Dependency cleanup part 2 [\#4929](https://github.com/apache/camel-quarkus/pull/4929) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add sync tag for retrofit version [\#4928](https://github.com/apache/camel-quarkus/pull/4928) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove optional org.jruby.joni:joni from json-validator extension [\#4926](https://github.com/apache/camel-quarkus/pull/4926) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 3.1.0.Final [\#4925](https://github.com/apache/camel-quarkus/pull/4925) ([jamesnetherton](https://github.com/jamesnetherton))
-- Generated sources regen for SBOM [\#4922](https://github.com/apache/camel-quarkus/pull/4922) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Remove "none" WSDLs as they are not needed [\#4921](https://github.com/apache/camel-quarkus/pull/4921) ([llowinge](https://github.com/llowinge))
-- \[IBM-MQ\] Add tests for IBM MQ client [\#4918](https://github.com/apache/camel-quarkus/pull/4918) ([avano](https://github.com/avano))
-- Upgrade CycloneDX Maven plugin to version 2.7.9 [\#4917](https://github.com/apache/camel-quarkus/pull/4917) ([oscerd](https://github.com/oscerd))
-- fix contributor links [\#4915](https://github.com/apache/camel-quarkus/pull/4915) ([onderson](https://github.com/onderson))
-- Upgrade to Optaplanner 9.37.Final [\#4912](https://github.com/apache/camel-quarkus/pull/4912) ([zbendhiba](https://github.com/zbendhiba))
-- Restore erroneously removed camel-quartz dependency exclusions [\#4909](https://github.com/apache/camel-quarkus/pull/4909) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 3.1.0.CR1 [\#4908](https://github.com/apache/camel-quarkus/pull/4908) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Maven plugins and remove redundant plugin version properties [\#4906](https://github.com/apache/camel-quarkus/pull/4906) ([jamesnetherton](https://github.com/jamesnetherton))
-- Miscellaneous dependency alignment / removal [\#4904](https://github.com/apache/camel-quarkus/pull/4904) ([jamesnetherton](https://github.com/jamesnetherton))
-- Bump quarkus-amazon-services-bom from 2.1.1 to 2.2.0 [\#4903](https://github.com/apache/camel-quarkus/pull/4903) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Recommend using wsdl2Java -validate while wsdlvalidator is not supported [\#4901](https://github.com/apache/camel-quarkus/pull/4901) ([ppalaga](https://github.com/ppalaga))
-- Generated sources regen for SBOM [\#4898](https://github.com/apache/camel-quarkus/pull/4898) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Bump quarkiverse-cxf.version from 2.0.3 to 2.0.4 [\#4897](https://github.com/apache/camel-quarkus/pull/4897) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Prepare tests for Quarkus Platform [\#4896](https://github.com/apache/camel-quarkus/pull/4896) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to quarkus-cxf 2.0.3 [\#4891](https://github.com/apache/camel-quarkus/pull/4891) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to Maven 3.9.2, Remove the local upgrade of maven-resolver used by mvnw [\#4890](https://github.com/apache/camel-quarkus/pull/4890) ([ppalaga](https://github.com/ppalaga))
-- Be more specific when to use a ConsumerTemplate in extension tests [\#4889](https://github.com/apache/camel-quarkus/pull/4889) ([ppalaga](https://github.com/ppalaga))
-- Bump quarkiverse-minio.version from 3.0.0.Alpha3 to 3.0.2 [\#4888](https://github.com/apache/camel-quarkus/pull/4888) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Upgrade to quay.io/l2x6/calculator-ws:1.2 [\#4887](https://github.com/apache/camel-quarkus/pull/4887) ([ppalaga](https://github.com/ppalaga))
-- Document CXF SOAP usage, configuration and limitations [\#4886](https://github.com/apache/camel-quarkus/pull/4886) ([ppalaga](https://github.com/ppalaga))
-- Upgrade CycloneDX Maven Plugin to version 2.7.8 [\#4883](https://github.com/apache/camel-quarkus/pull/4883) ([oscerd](https://github.com/oscerd))
-- Snmp: cover snmp v3 for POLL operation \#4881 [\#4882](https://github.com/apache/camel-quarkus/pull/4882) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Test CXF client with a method referencing class with runtime initialization  [\#4880](https://github.com/apache/camel-quarkus/pull/4880) ([ppalaga](https://github.com/ppalaga))
-- Remove openapi-java extensions limitations doc section as apiContextdListing was removed in Camel [\#4879](https://github.com/apache/camel-quarkus/pull/4879) ([jamesnetherton](https://github.com/jamesnetherton))
-- Generated sources regen for SBOM [\#4878](https://github.com/apache/camel-quarkus/pull/4878) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Bump quarkiverse-jackson-jq.version from 2.0.0.Alpha to 2.0.1 [\#4877](https://github.com/apache/camel-quarkus/pull/4877) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Improve test coverage for vertx-websocket [\#4875](https://github.com/apache/camel-quarkus/pull/4875) ([jamesnetherton](https://github.com/jamesnetherton))
-- Restore camel-kubernetes related native testing [\#4874](https://github.com/apache/camel-quarkus/pull/4874) ([jamesnetherton](https://github.com/jamesnetherton))
-- Snmp: tiny timeout change in test to help stability [\#4872](https://github.com/apache/camel-quarkus/pull/4872) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Update documentation references for javax packages to jakarta [\#4869](https://github.com/apache/camel-quarkus/pull/4869) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Camel to 4.0.0-M3 [\#4868](https://github.com/apache/camel-quarkus/pull/4868) ([jamesnetherton](https://github.com/jamesnetherton))
-- Snmp: reworked tests to avoid flaky failures [\#4867](https://github.com/apache/camel-quarkus/pull/4867) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Limit aether.connector.http.connectionMaxTtl to 120 seconds [\#4864](https://github.com/apache/camel-quarkus/pull/4864) ([ppalaga](https://github.com/ppalaga))
-- Fixup Upgrade to Maven Wrapper 3.2.0 and Maven 3.9.1 [\#4863](https://github.com/apache/camel-quarkus/pull/4863) ([ppalaga](https://github.com/ppalaga))
-- Generated sources regen for SBOM [\#4862](https://github.com/apache/camel-quarkus/pull/4862) ([github-actions[bot]](https://github.com/apps/github-actions))
-- simple\("${exchange.getMessage\(\).getBody\(\)}"\) causes a MethodNotFoundException in native mode [\#4861](https://github.com/apache/camel-quarkus/pull/4861) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to quarkus-cxf 2.0.2, Stop managing woodstox directly, rather [\#4859](https://github.com/apache/camel-quarkus/pull/4859) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to Maven Wrapper 3.2.0 and Maven 3.9.1 [\#4857](https://github.com/apache/camel-quarkus/pull/4857) ([ppalaga](https://github.com/ppalaga))
-- Snmp: Extend coverage of some smaller features \#4850 [\#4854](https://github.com/apache/camel-quarkus/pull/4854) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Test that all componets are present in the generated Catalog, Permanently remove extensions depending on components removed from Camel 4 [\#4852](https://github.com/apache/camel-quarkus/pull/4852) ([ppalaga](https://github.com/ppalaga))
-- Bump quarkus-amazon-services-bom from 2.0.1 to 2.1.1 [\#4849](https://github.com/apache/camel-quarkus/pull/4849) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump quarkus-qpid-jms-bom from 2.0.0 to 2.1.0 [\#4848](https://github.com/apache/camel-quarkus/pull/4848) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump quarkiverse-pooled-jms.version from 2.0.0 to 2.0.1 [\#4847](https://github.com/apache/camel-quarkus/pull/4847) ([dependabot[bot]](https://github.com/apps/dependabot))
-- camel-quarks-ldap: Fixed bug in CI tests from incorrect IP address resolution [\#4845](https://github.com/apache/camel-quarkus/pull/4845) ([djcoleman](https://github.com/djcoleman))
-- Snmp: Extend coverage for supported versions \#4843 [\#4844](https://github.com/apache/camel-quarkus/pull/4844) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Remove org.apache.cxf:cxf-codegen plugin  \#4839 [\#4840](https://github.com/apache/camel-quarkus/pull/4840) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- \[MapStruct\] Add tests [\#4838](https://github.com/apache/camel-quarkus/pull/4838) ([avano](https://github.com/avano))
-- Upgrade to Quarkus 3.0.1.Final [\#4835](https://github.com/apache/camel-quarkus/pull/4835) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Upgrade to cq-maven-plugin 4.1.1 [\#4829](https://github.com/apache/camel-quarkus/pull/4829) ([ppalaga](https://github.com/ppalaga))
-- MinIO: Extend test coverage \#4707 [\#4828](https://github.com/apache/camel-quarkus/pull/4828) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Fix handling of Quarkus quartz scheduler autowiring [\#4826](https://github.com/apache/camel-quarkus/pull/4826) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Cyclonedx Maven Plugin to version 2.7.7 [\#4824](https://github.com/apache/camel-quarkus/pull/4824) ([oscerd](https://github.com/oscerd))
-- Added ldap tests, updated docs and promoted to native. [\#4822](https://github.com/apache/camel-quarkus/pull/4822) ([djcoleman](https://github.com/djcoleman))
-- Generated sources regen for SBOM [\#4819](https://github.com/apache/camel-quarkus/pull/4819) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Bump quarkiverse-pooled-jms.version from 2.0.0.CR2 to 2.0.0 [\#4818](https://github.com/apache/camel-quarkus/pull/4818) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Improve handling of optional FHIR schematron and hapi-fhir-server dependencies [\#4817](https://github.com/apache/camel-quarkus/pull/4817) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade cassandra-quarkus to 1.2.0 [\#4815](https://github.com/apache/camel-quarkus/pull/4815) ([jamesnetherton](https://github.com/jamesnetherton))
-- Bump quarkus-artemis-bom from 3.0.0.CR1 to 3.0.0 [\#4814](https://github.com/apache/camel-quarkus/pull/4814) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Snmp: Extend test coverage \#4797 [\#4813](https://github.com/apache/camel-quarkus/pull/4813) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Add camel-cli-connector extension. [\#4812](https://github.com/apache/camel-quarkus/pull/4812) ([zbendhiba](https://github.com/zbendhiba))
-- Upgrade quarkus-qpid-jms to 2.0.0 [\#4810](https://github.com/apache/camel-quarkus/pull/4810) ([zhfeng](https://github.com/zhfeng))
-- Add a limitation doc about pooling support for camel-quarkus-amqp [\#4809](https://github.com/apache/camel-quarkus/pull/4809) ([zhfeng](https://github.com/zhfeng))
-- Bump quarkiverse-freemarker.version from 1.0.0.Alpha2 to 1.0.0 [\#4804](https://github.com/apache/camel-quarkus/pull/4804) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Upgrade to quarkus-cxf 2.0.1, test for \#4746 [\#4803](https://github.com/apache/camel-quarkus/pull/4803) ([ppalaga](https://github.com/ppalaga))
-- Add OpenTelemetry documentation for CDI bean instrumentation [\#4802](https://github.com/apache/camel-quarkus/pull/4802) ([jamesnetherton](https://github.com/jamesnetherton))
-- release: complete release process to be more explicit [\#4800](https://github.com/apache/camel-quarkus/pull/4800) ([aldettinger](https://github.com/aldettinger))
-- Restore maven.wagon.http.retryHandler.count to CQ\_MAVEN\_ARGS [\#4795](https://github.com/apache/camel-quarkus/pull/4795) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix OpenTelemetry test assertions argument order [\#4792](https://github.com/apache/camel-quarkus/pull/4792) ([jamesnetherton](https://github.com/jamesnetherton))
-- Enabling Google BigQuery, Google PubSub, Zendesk  and Stax integration tests [\#4791](https://github.com/apache/camel-quarkus/pull/4791) ([zbendhiba](https://github.com/zbendhiba))
-- Test OpenTelemetry extension integration with opentelemetry-jdbc [\#4790](https://github.com/apache/camel-quarkus/pull/4790) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix Spring integration test [\#4788](https://github.com/apache/camel-quarkus/pull/4788) ([jbonofre](https://github.com/jbonofre))
-- Bump quarkiverse-mybatis.version from 2.0.0.CR2 to 2.0.0 [\#4787](https://github.com/apache/camel-quarkus/pull/4787) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Fix \#4781 Intermittent failure of MyBatisConsumerTest [\#4782](https://github.com/apache/camel-quarkus/pull/4782) ([zhfeng](https://github.com/zhfeng))
-- Bump quarkus-amazon-services-bom from 2.0.0 to 2.0.1 [\#4777](https://github.com/apache/camel-quarkus/pull/4777) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Test also GITHUB\_BASE\_REF to checkout the right examples branch [\#4776](https://github.com/apache/camel-quarkus/pull/4776) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to Quarkus 3.0.0.Final [\#4774](https://github.com/apache/camel-quarkus/pull/4774) ([zbendhiba](https://github.com/zbendhiba))
-- Cxf fixes [\#4771](https://github.com/apache/camel-quarkus/pull/4771) ([llowinge](https://github.com/llowinge))
-- Fix \#4717 to expand camel-quarkus-mybatis test coverage [\#4769](https://github.com/apache/camel-quarkus/pull/4769) ([zhfeng](https://github.com/zhfeng))
-- Bump quarkus-amazon-services-bom from 2.0.0.Alpha1 to 2.0.0 [\#4767](https://github.com/apache/camel-quarkus/pull/4767) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump quarkiverse-jgit.version from 2.3.2 to 3.0.0 [\#4765](https://github.com/apache/camel-quarkus/pull/4765) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump quarkiverse-jsch.version from 2.0.3 to 3.0.0 [\#4764](https://github.com/apache/camel-quarkus/pull/4764) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Bump quarkiverse-tika.version from 2.0.0.CR2 to 2.0.0 [\#4763](https://github.com/apache/camel-quarkus/pull/4763) ([dependabot[bot]](https://github.com/apps/dependabot))
-- file: disabling idempotent test in order to experiment around flakine… [\#4762](https://github.com/apache/camel-quarkus/pull/4762) ([aldettinger](https://github.com/aldettinger))
-- \#4291 avoid In/Out Message soap headers conflict [\#4761](https://github.com/apache/camel-quarkus/pull/4761) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to quarkus-cxf 2.0.0.Alpha7 [\#4757](https://github.com/apache/camel-quarkus/pull/4757) ([ppalaga](https://github.com/ppalaga))
-- Generated sources regen for SBOM [\#4756](https://github.com/apache/camel-quarkus/pull/4756) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Ref \#4749: java-joor-dsl - Add templated route support to native mode [\#4755](https://github.com/apache/camel-quarkus/pull/4755) ([essobedo](https://github.com/essobedo))
-- Update camel-quarkus-tika resource [\#4754](https://github.com/apache/camel-quarkus/pull/4754) ([zhfeng](https://github.com/zhfeng))
-- Fix \#4043 to group xml tests [\#4753](https://github.com/apache/camel-quarkus/pull/4753) ([zhfeng](https://github.com/zhfeng))
-- Ref\#4596 Cover different db types for jdbc [\#4751](https://github.com/apache/camel-quarkus/pull/4751) ([ldrozdo](https://github.com/ldrozdo))
-- Add GitHub actions directory to license-maven-plugin exclusions [\#4748](https://github.com/apache/camel-quarkus/pull/4748) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 3.0.0.CR2 [\#4744](https://github.com/apache/camel-quarkus/pull/4744) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade CycloneDX Maven Plugin to version 2.7.6 [\#4743](https://github.com/apache/camel-quarkus/pull/4743) ([oscerd](https://github.com/oscerd))
-- Add missing @Component annotation to QuarkusVertxWebsocketComponent [\#4742](https://github.com/apache/camel-quarkus/pull/4742) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix maven connection time out [\#4740](https://github.com/apache/camel-quarkus/pull/4740) ([zhfeng](https://github.com/zhfeng))
-- Add back Tika component [\#4739](https://github.com/apache/camel-quarkus/pull/4739) ([zhfeng](https://github.com/zhfeng))
-- Ref \#4447: java-joor-dsl - Improve the test coverage [\#4737](https://github.com/apache/camel-quarkus/pull/4737) ([essobedo](https://github.com/essobedo))
-- Generated sources regen for SBOM [\#4734](https://github.com/apache/camel-quarkus/pull/4734) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Bump quarkus-artemis-bom from 3.0.0.Alpha7 to 3.0.0.CR1 [\#4733](https://github.com/apache/camel-quarkus/pull/4733) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Ref \#4731: java-joor-dsl - Add support of inner classes [\#4732](https://github.com/apache/camel-quarkus/pull/4732) ([essobedo](https://github.com/essobedo))
-- Upgrade to quarkus-cxf 2.0.0.Alpha5, Add back XML Security Sign [\#4729](https://github.com/apache/camel-quarkus/pull/4729) ([ppalaga](https://github.com/ppalaga))
-- Start JDBC polling after database initialization \#4723 [\#4728](https://github.com/apache/camel-quarkus/pull/4728) ([jamesnetherton](https://github.com/jamesnetherton))
-- Ref \#4716: java-joor-dsl - Add RegisterForReflection support [\#4726](https://github.com/apache/camel-quarkus/pull/4726) ([essobedo](https://github.com/essobedo))
-- Upgrade Quarkus to 3.0.0.CR1 [\#4724](https://github.com/apache/camel-quarkus/pull/4724) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#4710 to register reflection for FastStringBuffer and resource bundle for XMLErrorResources [\#4720](https://github.com/apache/camel-quarkus/pull/4720) ([zhfeng](https://github.com/zhfeng))
-- vertx-http: remove deprecated serviceCall eip [\#4719](https://github.com/apache/camel-quarkus/pull/4719) ([aldettinger](https://github.com/aldettinger))
-- Test CXF client with HTTP BASIC authentication  [\#4709](https://github.com/apache/camel-quarkus/pull/4709) ([ppalaga](https://github.com/ppalaga))
-- Complete vertx-http test coverage \#4658 [\#4708](https://github.com/apache/camel-quarkus/pull/4708) ([aldettinger](https://github.com/aldettinger))
-- Update SNAPSHOT deploy and Sonarcloud builds to use JDK 17 [\#4702](https://github.com/apache/camel-quarkus/pull/4702) ([jamesnetherton](https://github.com/jamesnetherton))
-- Generated sources regen for SBOM [\#4701](https://github.com/apache/camel-quarkus/pull/4701) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Update jvmSince and nativeSince from 2.17.0 to 3.0.0 [\#4700](https://github.com/apache/camel-quarkus/pull/4700) ([zbendhiba](https://github.com/zbendhiba))
-- Add Elasticsearch and Mapstruct in JVM only and drop Elasticsearch-rest and Dozer [\#4697](https://github.com/apache/camel-quarkus/pull/4697) ([zbendhiba](https://github.com/zbendhiba))
-- Fix xref links in 3.0.0 migration guide [\#4696](https://github.com/apache/camel-quarkus/pull/4696) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#4694 remove and replace some methods in ReflectiveClassBuildItem [\#4695](https://github.com/apache/camel-quarkus/pull/4695) ([zhfeng](https://github.com/zhfeng))
-- Enable back Telegram mp3, mp4 and pdf integration tests [\#4692](https://github.com/apache/camel-quarkus/pull/4692) ([zbendhiba](https://github.com/zbendhiba))
-- Fix \(jira\): Add jira model classes and jackson joda datatype \(main branch\) [\#4691](https://github.com/apache/camel-quarkus/pull/4691) ([claudio4j](https://github.com/claudio4j))
-- Add back DataSonnet [\#4690](https://github.com/apache/camel-quarkus/pull/4690) ([zbendhiba](https://github.com/zbendhiba))
-- Update Migration guide : add missing removed dependencies [\#4688](https://github.com/apache/camel-quarkus/pull/4688) ([zbendhiba](https://github.com/zbendhiba))
-- Upgrade Quarkus to 3.0.0.Beta1 [\#4687](https://github.com/apache/camel-quarkus/pull/4687) ([jamesnetherton](https://github.com/jamesnetherton))
-- Update checkout action configuration to pick up dependabot branch changes [\#4682](https://github.com/apache/camel-quarkus/pull/4682) ([jamesnetherton](https://github.com/jamesnetherton))
-- Cxf-soap: Extend test coverage with Ssl scenario \#4679 [\#4681](https://github.com/apache/camel-quarkus/pull/4681) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Init Migrating to Camel Quarkus 3.0 guide [\#4680](https://github.com/apache/camel-quarkus/pull/4680) ([zbendhiba](https://github.com/zbendhiba))
-- Revert "Temporary workaround for \#4603 IllegalAnnotationsException Tw… [\#4678](https://github.com/apache/camel-quarkus/pull/4678) ([ppalaga](https://github.com/ppalaga))
-- Bump quarkiverse-mybatis.version from 2.0.0.CR1 to 2.0.0.CR2 [\#4674](https://github.com/apache/camel-quarkus/pull/4674) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Add icon-url attribute to quarkus-extension.yaml pointing to Camel lo… [\#4673](https://github.com/apache/camel-quarkus/pull/4673) ([ppalaga](https://github.com/ppalaga))
-- Use QUARKUS\_HTTP\_PORT env in LraTestResource [\#4670](https://github.com/apache/camel-quarkus/pull/4670) ([zhfeng](https://github.com/zhfeng))
-- Generated sources regen for SBOM [\#4669](https://github.com/apache/camel-quarkus/pull/4669) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Fix \#4667 to use quay.io/jbosstm/lra-coordinator [\#4668](https://github.com/apache/camel-quarkus/pull/4668) ([zhfeng](https://github.com/zhfeng))
-- Remove redundant Azure IdentityClientBase runtime initialized class config [\#4666](https://github.com/apache/camel-quarkus/pull/4666) ([jamesnetherton](https://github.com/jamesnetherton))
-- Make AWS test class names in grouped testing unique [\#4665](https://github.com/apache/camel-quarkus/pull/4665) ([jamesnetherton](https://github.com/jamesnetherton))
-- camel-quarkus-management: Added tests for managed beans [\#4663](https://github.com/apache/camel-quarkus/pull/4663) ([djcoleman](https://github.com/djcoleman))
-- Fix metrics introduction in observability doc [\#4660](https://github.com/apache/camel-quarkus/pull/4660) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 3.0.0.Alpha6 [\#4659](https://github.com/apache/camel-quarkus/pull/4659) ([jamesnetherton](https://github.com/jamesnetherton))
-- Ref \#4596: Expand JDBC tests - named parameters and samples [\#4655](https://github.com/apache/camel-quarkus/pull/4655) ([ldrozdo](https://github.com/ldrozdo))
-- Cxf-soap: Extend test coverage with Converter scenario \#4652 [\#4653](https://github.com/apache/camel-quarkus/pull/4653) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Upgrade Quarkiverse Freemarker to 1.0.0.Alpha2 [\#4650](https://github.com/apache/camel-quarkus/pull/4650) ([jamesnetherton](https://github.com/jamesnetherton))
-- Register atlasmap.properties as a native image resource [\#4649](https://github.com/apache/camel-quarkus/pull/4649) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#4635 replace with ReflectiveClassBuildItem.builder\(\) [\#4648](https://github.com/apache/camel-quarkus/pull/4648) ([zhfeng](https://github.com/zhfeng))
-- Ref \#4596: Create jdbc tests for generated keys and other headers [\#4646](https://github.com/apache/camel-quarkus/pull/4646) ([ldrozdo](https://github.com/ldrozdo))
-- Auto synchronize dependabot branches with generated changes [\#4645](https://github.com/apache/camel-quarkus/pull/4645) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to Quarkiverse CXF 2.0.0.Alpha4 [\#4644](https://github.com/apache/camel-quarkus/pull/4644) ([ppalaga](https://github.com/ppalaga))
-- Generated sources regen for SBOM [\#4643](https://github.com/apache/camel-quarkus/pull/4643) ([github-actions[bot]](https://github.com/apps/github-actions))
-- camel-quarkus-language: Added language, resource and options tests [\#4641](https://github.com/apache/camel-quarkus/pull/4641) ([djcoleman](https://github.com/djcoleman))
-- Bump quarkus-artemis to 3.0.0.Alpha7 and quarkus-pooled-jms to 2.0.0.CR2 [\#4636](https://github.com/apache/camel-quarkus/pull/4636) ([zhfeng](https://github.com/zhfeng))
-- Upgrade Quarkus to 3.0.0.Alpha5 [\#4627](https://github.com/apache/camel-quarkus/pull/4627) ([jamesnetherton](https://github.com/jamesnetherton))
-- Generated sources regen for SBOM [\#4623](https://github.com/apache/camel-quarkus/pull/4623) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Bump to CycloneDX Maven Plugin 2.7.5 [\#4618](https://github.com/apache/camel-quarkus/pull/4618) ([oscerd](https://github.com/oscerd))
-- Aws2-cw: remove  io.quarkus:quarkus-jaxp from aws2-cw \#4614 [\#4615](https://github.com/apache/camel-quarkus/pull/4615) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Upgrade to cq-maven-plugin 3.5.4 [\#4613](https://github.com/apache/camel-quarkus/pull/4613) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to Quarkus Cassandra 1.2.0-alpha1 [\#4612](https://github.com/apache/camel-quarkus/pull/4612) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to cq-maven-plugin 3.5.3: flatten faster, sync-versions in [\#4611](https://github.com/apache/camel-quarkus/pull/4611) ([ppalaga](https://github.com/ppalaga))
-- Exclude banned xml-apis from org.seleniumhq.selenium:htmlunit-driver [\#4610](https://github.com/apache/camel-quarkus/pull/4610) ([jamesnetherton](https://github.com/jamesnetherton))
-- Improve Telegram integration tests [\#4608](https://github.com/apache/camel-quarkus/pull/4608) ([zbendhiba](https://github.com/zbendhiba))
-- Split infinispan testing into separate modules for the quarkus and camel managed clients [\#4607](https://github.com/apache/camel-quarkus/pull/4607) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove workaround for quarkus.http.test-ssl-port being ignored by REST Assured [\#4604](https://github.com/apache/camel-quarkus/pull/4604) ([jamesnetherton](https://github.com/jamesnetherton))
-- Generated sources regen for SBOM [\#4601](https://github.com/apache/camel-quarkus/pull/4601) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Micrometer test coverage - @Counted [\#4600](https://github.com/apache/camel-quarkus/pull/4600) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Upgrade quarkus-jackson-jq to 2.0.0.Alpha [\#4599](https://github.com/apache/camel-quarkus/pull/4599) ([jamesnetherton](https://github.com/jamesnetherton))
-- Move Qute component camel-package-maven-plugin execution phase to process-classes [\#4595](https://github.com/apache/camel-quarkus/pull/4595) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to Quarkiverse CXF 2.0.0  [\#4594](https://github.com/apache/camel-quarkus/pull/4594) ([ppalaga](https://github.com/ppalaga))
-- Minimize exclusions in the BOM, remove superfluous exclusions in extensions [\#4593](https://github.com/apache/camel-quarkus/pull/4593) ([ppalaga](https://github.com/ppalaga))
-- Zendesk test cannot be compiled to native with Camel 4 and Quarkus 3  [\#4592](https://github.com/apache/camel-quarkus/pull/4592) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Upgrade github-api to 1.313 [\#4590](https://github.com/apache/camel-quarkus/pull/4590) ([jamesnetherton](https://github.com/jamesnetherton))
-- Ref \#4393: Groovy DSL - Get rid of --report-unsupported-elements-at-runtime [\#4589](https://github.com/apache/camel-quarkus/pull/4589) ([essobedo](https://github.com/essobedo))
-- Generated sources regen for SBOM [\#4587](https://github.com/apache/camel-quarkus/pull/4587) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Restore camel-quarkus-stax testing [\#4584](https://github.com/apache/camel-quarkus/pull/4584) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix contributor guide [\#4583](https://github.com/apache/camel-quarkus/pull/4583) ([aldettinger](https://github.com/aldettinger))
-- Update qute.json to 3.0.0-SNAPSHOT [\#4581](https://github.com/apache/camel-quarkus/pull/4581) ([zhfeng](https://github.com/zhfeng))
-- create itest project for xml-io + bean \#4579 [\#4580](https://github.com/apache/camel-quarkus/pull/4580) ([aldettinger](https://github.com/aldettinger))
-- Split json dataformats to different modules [\#4578](https://github.com/apache/camel-quarkus/pull/4578) ([ldrozdo](https://github.com/ldrozdo))
-- \[backport to main\] test - Define routes in YAML DSL using beans declared in Java  [\#4577](https://github.com/apache/camel-quarkus/pull/4577) ([AnetaCadova](https://github.com/AnetaCadova))
-- Restore ability for camel.main.javaRoutesIncludePattern to be overridable at runtime [\#4575](https://github.com/apache/camel-quarkus/pull/4575) ([jamesnetherton](https://github.com/jamesnetherton))
-- xml-io: document the possibility to add all charsets in native mode \#… [\#4573](https://github.com/apache/camel-quarkus/pull/4573) ([aldettinger](https://github.com/aldettinger))
-- Revert "Disable crypto test temporarily \#4510" [\#4571](https://github.com/apache/camel-quarkus/pull/4571) ([jamesnetherton](https://github.com/jamesnetherton))
-- Multiple test methods do not work when extending CamelQuarkusTestSupport [\#4568](https://github.com/apache/camel-quarkus/pull/4568) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Use XML DSL to define templated route in integration test [\#4567](https://github.com/apache/camel-quarkus/pull/4567) ([osmman](https://github.com/osmman))
-- xml-io: Remove the use of XMLRoutesDefinitionLoader deprecated class … [\#4565](https://github.com/apache/camel-quarkus/pull/4565) ([aldettinger](https://github.com/aldettinger))
-- Upgrade Quarkus to 3.0.0.Alpha4 [\#4563](https://github.com/apache/camel-quarkus/pull/4563) ([jamesnetherton](https://github.com/jamesnetherton))
-- Adapt FHIR tests after upgrade to 6.x [\#4562](https://github.com/apache/camel-quarkus/pull/4562) ([jamesnetherton](https://github.com/jamesnetherton))
-- Generated sources regen for SBOM [\#4561](https://github.com/apache/camel-quarkus/pull/4561) ([github-actions[bot]](https://github.com/apps/github-actions))
-- bump quarkus-artemis-bom from 3.0.0.Alpha3 to 3.0.0.Alpha6 [\#4559](https://github.com/apache/camel-quarkus/pull/4559) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Generated sources regen for SBOM [\#4558](https://github.com/apache/camel-quarkus/pull/4558) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Fix vertx-websocket URIs in tests [\#4556](https://github.com/apache/camel-quarkus/pull/4556) ([jamesnetherton](https://github.com/jamesnetherton))
-- Provide a Github action for generating SBOM [\#4554](https://github.com/apache/camel-quarkus/pull/4554) ([oscerd](https://github.com/oscerd))
-- camel-quarkus-integration-test-aws2 fail to compile \(native\) with Camel4 [\#4552](https://github.com/apache/camel-quarkus/pull/4552) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Fix camel-nitrite native tests [\#4551](https://github.com/apache/camel-quarkus/pull/4551) ([zhfeng](https://github.com/zhfeng))
-- Fix references to removed extensions and reference Camel latest docs [\#4549](https://github.com/apache/camel-quarkus/pull/4549) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix compilation of gRPC service stubs [\#4548](https://github.com/apache/camel-quarkus/pull/4548) ([jamesnetherton](https://github.com/jamesnetherton))
-- Re-enable saxon tests [\#4547](https://github.com/apache/camel-quarkus/pull/4547) ([zhfeng](https://github.com/zhfeng))
-- Remove unwanted references to grpc-netty-shaded from OpenTelemetry extension [\#4545](https://github.com/apache/camel-quarkus/pull/4545) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove redundant CI workflow steps [\#4544](https://github.com/apache/camel-quarkus/pull/4544) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix NPE instantiating Azure HttpHeaderName [\#4543](https://github.com/apache/camel-quarkus/pull/4543) ([jamesnetherton](https://github.com/jamesnetherton))
-- Ref \#4523/\#4443: Get rid of jOOR workarounds used for native mode [\#4542](https://github.com/apache/camel-quarkus/pull/4542) ([essobedo](https://github.com/essobedo))
-- Fix JAXB and Salesforce native compilation issues [\#4539](https://github.com/apache/camel-quarkus/pull/4539) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to Quarkus Minio 3.0.0.Alpha3 and quarkus-qpid-jms-bom 2.0.0.Alpha3 [\#4536](https://github.com/apache/camel-quarkus/pull/4536) ([ppalaga](https://github.com/ppalaga))
-- perf-regression: restore PerfRegressionIT to test against 3.0.0-SNAPS… [\#4535](https://github.com/apache/camel-quarkus/pull/4535) ([aldettinger](https://github.com/aldettinger))
-- Upgrade quarkus-pooled-jms to 2.0.0.CR1 and re-enable jms-artemis-tests [\#4533](https://github.com/apache/camel-quarkus/pull/4533) ([zhfeng](https://github.com/zhfeng))
-- Mail test fails in native mode \#4519 [\#4530](https://github.com/apache/camel-quarkus/pull/4530) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Improve documentation, add Kubernetes section [\#4521](https://github.com/apache/camel-quarkus/pull/4521) ([zbendhiba](https://github.com/zbendhiba))
-- Upgrade to Camel 4.0.0 and Quarkus 3.0.0.Alpha3 [\#4504](https://github.com/apache/camel-quarkus/pull/4504) ([ppalaga](https://github.com/ppalaga))
-- Improve yaml-dsl documentation and add simple test scenarios [\#4489](https://github.com/apache/camel-quarkus/pull/4489) ([jamesnetherton](https://github.com/jamesnetherton))
-- Update dependabot [\#4483](https://github.com/apache/camel-quarkus/pull/4483) ([zhfeng](https://github.com/zhfeng))
-- Add quarkus-qpid-jms for dependency version checking [\#4480](https://github.com/apache/camel-quarkus/pull/4480) ([zhfeng](https://github.com/zhfeng))
-- file: fix warning [\#4476](https://github.com/apache/camel-quarkus/pull/4476) ([aldettinger](https://github.com/aldettinger))
-- Aws2: Add testing of defaultCredentialProvider to each extension \#4442 [\#4474](https://github.com/apache/camel-quarkus/pull/4474) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Re-enable filter test \#3584 [\#4471](https://github.com/apache/camel-quarkus/pull/4471) ([aldettinger](https://github.com/aldettinger))
-- Provide SBOM for Camel-Quarkus project [\#4461](https://github.com/apache/camel-quarkus/pull/4461) ([oscerd](https://github.com/oscerd))
-- Fixup SQL extension documentation and native testing with alternate JDBC drivers [\#4460](https://github.com/apache/camel-quarkus/pull/4460) ([jamesnetherton](https://github.com/jamesnetherton))
-- Ref \#3088: Split JSON dataformats test [\#4457](https://github.com/apache/camel-quarkus/pull/4457) ([ldrozdo](https://github.com/ldrozdo))
-- Verify that the specific log message we're interested in is not present for RouteBuilderWarningWithoutProducedBuilderTest [\#4456](https://github.com/apache/camel-quarkus/pull/4456) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#4454 to set jms properties with ActiveMQ connections in native b… [\#4455](https://github.com/apache/camel-quarkus/pull/4455) ([zhfeng](https://github.com/zhfeng))
-- Ref \#4452: Allow to disable build time compilation of jOOR expressions [\#4453](https://github.com/apache/camel-quarkus/pull/4453) ([essobedo](https://github.com/essobedo))
-- Ref \#1748: OGNL language native support [\#4451](https://github.com/apache/camel-quarkus/pull/4451) ([essobedo](https://github.com/essobedo))
-- Support registry lookups by name for beans annotated with io.smallrye.common.annotation.Identifier [\#4449](https://github.com/apache/camel-quarkus/pull/4449) ([jamesnetherton](https://github.com/jamesnetherton))
-- perf-regression: add --use-mandrel-native-builder option \#4436 [\#4448](https://github.com/apache/camel-quarkus/pull/4448) ([aldettinger](https://github.com/aldettinger))
-- Pass Object class type to BeanManager.getReferece to avoid bean resolution issues \#4444 [\#4446](https://github.com/apache/camel-quarkus/pull/4446) ([jamesnetherton](https://github.com/jamesnetherton))
-- fix the master-openshift itest flakiness \#4387 [\#4445](https://github.com/apache/camel-quarkus/pull/4445) ([aldettinger](https://github.com/aldettinger))
-- Ref \#2083: jOOR language native support [\#4440](https://github.com/apache/camel-quarkus/pull/4440) ([essobedo](https://github.com/essobedo))
-- Clean up redundant properties from root pom.xml [\#4439](https://github.com/apache/camel-quarkus/pull/4439) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add test for REST DSL returning CORS headers for OPTIONS request [\#4438](https://github.com/apache/camel-quarkus/pull/4438) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#4128 add a dependabot to upgrade quarkiverse versions [\#4433](https://github.com/apache/camel-quarkus/pull/4433) ([zhfeng](https://github.com/zhfeng))
-- Fix \#4122 to use io.quarkiverse.cxf:quarkus-cxf-saaj [\#4431](https://github.com/apache/camel-quarkus/pull/4431) ([zhfeng](https://github.com/zhfeng))
-- fix the release doc [\#4430](https://github.com/apache/camel-quarkus/pull/4430) ([aldettinger](https://github.com/aldettinger))
-- Next is 2.17.0-SNAPSHOT [\#4429](https://github.com/apache/camel-quarkus/pull/4429) ([aldettinger](https://github.com/aldettinger))
-- Ref \#4426: Support CSimple expressions with all DSLs [\#4428](https://github.com/apache/camel-quarkus/pull/4428) ([essobedo](https://github.com/essobedo))
-- Restore ability to test command mode runners [\#4427](https://github.com/apache/camel-quarkus/pull/4427) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix camel-console documentation xref [\#4425](https://github.com/apache/camel-quarkus/pull/4425) ([jamesnetherton](https://github.com/jamesnetherton))
-- Restore azure-grouped native testing [\#4422](https://github.com/apache/camel-quarkus/pull/4422) ([jamesnetherton](https://github.com/jamesnetherton))
-- Camel Quarkus 2.16.0 pre-release tasks [\#4421](https://github.com/apache/camel-quarkus/pull/4421) ([aldettinger](https://github.com/aldettinger))
-- Upgrade Quarkus to 2.16.0.Final [\#4419](https://github.com/apache/camel-quarkus/pull/4419) ([jamesnetherton](https://github.com/jamesnetherton))
-- Ref \#4416: Make the csimple extension agnostic to build systems [\#4417](https://github.com/apache/camel-quarkus/pull/4417) ([essobedo](https://github.com/essobedo))
-- Ref \#4413: JavaShell DSL support [\#4414](https://github.com/apache/camel-quarkus/pull/4414) ([essobedo](https://github.com/essobedo))
-- Add camel-console extension [\#4411](https://github.com/apache/camel-quarkus/pull/4411) ([zbendhiba](https://github.com/zbendhiba))
-- Telegram: Testing subscribing and unsubscribing to Webhook [\#4410](https://github.com/apache/camel-quarkus/pull/4410) ([zbendhiba](https://github.com/zbendhiba))
-- Ref \#4407: js-dsl - Improve the interoperability with Java code [\#4409](https://github.com/apache/camel-quarkus/pull/4409) ([essobedo](https://github.com/essobedo))
-- Add platform-http test for retrieving an HTTP header with no value [\#4406](https://github.com/apache/camel-quarkus/pull/4406) ([jamesnetherton](https://github.com/jamesnetherton))
-- Disable MasterOpenShiftIT due to \#4387 [\#4405](https://github.com/apache/camel-quarkus/pull/4405) ([jamesnetherton](https://github.com/jamesnetherton))
-- testing defaultCredentialProvider with local stack \#440 [\#4404](https://github.com/apache/camel-quarkus/pull/4404) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Ref \#4392: Kotlin DSL native support [\#4403](https://github.com/apache/camel-quarkus/pull/4403) ([essobedo](https://github.com/essobedo))
-- Upgrade Quarkus to 2.16.0.CR1 [\#4402](https://github.com/apache/camel-quarkus/pull/4402) ([jamesnetherton](https://github.com/jamesnetherton))
-- perf-regression: write the report to disk \#4263 [\#4399](https://github.com/apache/camel-quarkus/pull/4399) ([aldettinger](https://github.com/aldettinger))
-- Add extra support content for JMS pooling usage. [\#4396](https://github.com/apache/camel-quarkus/pull/4396) ([Gerry-Forde](https://github.com/Gerry-Forde))
-- Aws2: Allow testing of useDefaultCredentialsProvider \#4346 [\#4395](https://github.com/apache/camel-quarkus/pull/4395) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- perf-regression: try resolving 'java.home' system property first in itest \#4023 [\#4390](https://github.com/apache/camel-quarkus/pull/4390) ([aldettinger](https://github.com/aldettinger))
-- Reenable Olingo4 native integration tests [\#4388](https://github.com/apache/camel-quarkus/pull/4388) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Camel to 3.20.1 [\#4386](https://github.com/apache/camel-quarkus/pull/4386) ([jamesnetherton](https://github.com/jamesnetherton))
-- Ref \#4379: Groovy DSL native support [\#4385](https://github.com/apache/camel-quarkus/pull/4385) ([essobedo](https://github.com/essobedo))
-- Poll telegram stop-location endpoint to avoid sporadic failures [\#4383](https://github.com/apache/camel-quarkus/pull/4383) ([jamesnetherton](https://github.com/jamesnetherton))
-- Test framework - warn if global RouteBuilder may be wrong [\#4382](https://github.com/apache/camel-quarkus/pull/4382) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Fix unterminated listing block breaking the website build [\#4380](https://github.com/apache/camel-quarkus/pull/4380) ([orpiske](https://github.com/orpiske))
-- Add link to supported data formats in dataformat extension docs introduction [\#4378](https://github.com/apache/camel-quarkus/pull/4378) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove dependency on camel-health from camel-quarkus-core [\#4376](https://github.com/apache/camel-quarkus/pull/4376) ([jamesnetherton](https://github.com/jamesnetherton))
-- Deprecate hdfs and hbase component \#3763 [\#4375](https://github.com/apache/camel-quarkus/pull/4375) ([aldettinger](https://github.com/aldettinger))
-- Register azure-identity IdentityClientBase for runtime initialization [\#4373](https://github.com/apache/camel-quarkus/pull/4373) ([jamesnetherton](https://github.com/jamesnetherton))
-- Tika: Enable test testImagePng \#4371 [\#4372](https://github.com/apache/camel-quarkus/pull/4372) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- DoBeforeEach does not work with Advice \#4362 [\#4370](https://github.com/apache/camel-quarkus/pull/4370) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Post camel 3.20.0 upgrade cleanup [\#4369](https://github.com/apache/camel-quarkus/pull/4369) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade cassandra-quarkus-client to 1.1.3 [\#4368](https://github.com/apache/camel-quarkus/pull/4368) ([jamesnetherton](https://github.com/jamesnetherton))
-- fix qute package declaration [\#4364](https://github.com/apache/camel-quarkus/pull/4364) ([claudio4j](https://github.com/claudio4j))
-- Upgrade to Quarkiverse CXF 1.7.2 [\#4360](https://github.com/apache/camel-quarkus/pull/4360) ([ppalaga](https://github.com/ppalaga))
-- Ref \#4358: Java jOOR DSL native support [\#4359](https://github.com/apache/camel-quarkus/pull/4359) ([essobedo](https://github.com/essobedo))
-- Make at least the quick profile compatible with mvnd 1.0.0-m1 [\#4355](https://github.com/apache/camel-quarkus/pull/4355) ([ppalaga](https://github.com/ppalaga))
-- Added extra content to the Control Bus extension for supported languages. [\#4354](https://github.com/apache/camel-quarkus/pull/4354) ([Gerry-Forde](https://github.com/Gerry-Forde))
-- Check extension pages with strict option [\#4351](https://github.com/apache/camel-quarkus/pull/4351) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to 3.20 [\#4350](https://github.com/apache/camel-quarkus/pull/4350) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Exclude io.fabric8:zjsonpatch from test artifacts to avoid version misconvergence [\#4348](https://github.com/apache/camel-quarkus/pull/4348) ([ppalaga](https://github.com/ppalaga))
-- Workaround Datasonnet integration tests fail in native mode on … [\#4343](https://github.com/apache/camel-quarkus/pull/4343) ([ppalaga](https://github.com/ppalaga))
-- Update index.adoc [\#4341](https://github.com/apache/camel-quarkus/pull/4341) ([y-luis-rojo](https://github.com/y-luis-rojo))
-- Depend on quarkus-minio-native instead of quarkus-minio to be able to… [\#4340](https://github.com/apache/camel-quarkus/pull/4340) ([ppalaga](https://github.com/ppalaga))
-- Fix name of bean in the CDI documentation [\#4335](https://github.com/apache/camel-quarkus/pull/4335) ([zbendhiba](https://github.com/zbendhiba))
-- Next is 2.16.0 [\#4333](https://github.com/apache/camel-quarkus/pull/4333) ([zbendhiba](https://github.com/zbendhiba))
-- Upgrade to quarkus-cxf 1.7.1 [\#4331](https://github.com/apache/camel-quarkus/pull/4331) ([ppalaga](https://github.com/ppalaga))
-- Updating librairies [\#4329](https://github.com/apache/camel-quarkus/pull/4329) ([zbendhiba](https://github.com/zbendhiba))
-- tidy up of jms extension documentation [\#4327](https://github.com/apache/camel-quarkus/pull/4327) ([zhfeng](https://github.com/zhfeng))
-- Fix \#4317 to update jms documentation for pooling and XA support [\#4323](https://github.com/apache/camel-quarkus/pull/4323) ([zhfeng](https://github.com/zhfeng))
-- Upgrade to Quarkus 2.15.0.Final and Quarkiverse CXF 1.7.0 [\#4322](https://github.com/apache/camel-quarkus/pull/4322) ([ppalaga](https://github.com/ppalaga))
-- Fix Opentelemetry port number in the documentation [\#4320](https://github.com/apache/camel-quarkus/pull/4320) ([zbendhiba](https://github.com/zbendhiba))
-- Avoid port clashes with WireMock dynamically allocated port [\#4314](https://github.com/apache/camel-quarkus/pull/4314) ([jamesnetherton](https://github.com/jamesnetherton))
-- Manage jakarta.xml.soap-api and sync jakarta.ws properties with CXF [\#4312](https://github.com/apache/camel-quarkus/pull/4312) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove superfluous actions heading from controlbus docs [\#4311](https://github.com/apache/camel-quarkus/pull/4311) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add quarkus-pooled-jms-deployment to camel-quarkus-bom [\#4309](https://github.com/apache/camel-quarkus/pull/4309) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 2.15.0.CR1 [\#4308](https://github.com/apache/camel-quarkus/pull/4308) ([jamesnetherton](https://github.com/jamesnetherton))
-- Test Java first CXF server endpoint with multiple SEI methods  [\#4307](https://github.com/apache/camel-quarkus/pull/4307) ([ppalaga](https://github.com/ppalaga))
-- Bump Optaplanner to 8.31.0.Final [\#4303](https://github.com/apache/camel-quarkus/pull/4303) ([zbendhiba](https://github.com/zbendhiba))
-- camel-quarkus-catalog - Make it possible to get the camel version  [\#4302](https://github.com/apache/camel-quarkus/pull/4302) ([ppalaga](https://github.com/ppalaga))
-- Minor tidy up of controlbus extension documentation [\#4296](https://github.com/apache/camel-quarkus/pull/4296) ([jamesnetherton](https://github.com/jamesnetherton))
-- Extend tests with RAW and CXF\_MESSAGE dataFormats [\#4293](https://github.com/apache/camel-quarkus/pull/4293) ([llowinge](https://github.com/llowinge))
-- Add a separate version property for FHIR core dependencies [\#4292](https://github.com/apache/camel-quarkus/pull/4292) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#3980 to disable JMX in commons-pool2 during native building [\#4287](https://github.com/apache/camel-quarkus/pull/4287) ([zhfeng](https://github.com/zhfeng))
-- Revert "Springless JPA extension \(\#4049\)" [\#4286](https://github.com/apache/camel-quarkus/pull/4286) ([zhfeng](https://github.com/zhfeng))
-- Remove camel-quarkus-support-xstream from salesforce extension issue … [\#4276](https://github.com/apache/camel-quarkus/pull/4276) ([svkcemk](https://github.com/svkcemk))
-- Fix \#4258 make xml integration tests working in Quarkus Platform [\#4275](https://github.com/apache/camel-quarkus/pull/4275) ([zhfeng](https://github.com/zhfeng))
-- Cover endpoint URI based CXF definitions [\#4270](https://github.com/apache/camel-quarkus/pull/4270) ([llowinge](https://github.com/llowinge))
-- CxfSoapClientTest.wsdlUpToDate\(\) and CxfSoapWssClientTest.wsdlUpToDat… [\#4268](https://github.com/apache/camel-quarkus/pull/4268) ([ppalaga](https://github.com/ppalaga))
-- add file cluster service automatic configuration itest \#4262 [\#4267](https://github.com/apache/camel-quarkus/pull/4267) ([aldettinger](https://github.com/aldettinger))
-- controlbus: Added language tests \(fixes \#4008\) [\#4266](https://github.com/apache/camel-quarkus/pull/4266) ([djcoleman](https://github.com/djcoleman))
-- automatic configuration of FileLockClusterService \#4262 [\#4265](https://github.com/apache/camel-quarkus/pull/4265) ([aldettinger](https://github.com/aldettinger))
-- Enhance test covarege of MTOM with PAYLOAD data format [\#4264](https://github.com/apache/camel-quarkus/pull/4264) ([llowinge](https://github.com/llowinge))
-- Next is 2.15.0 [\#4257](https://github.com/apache/camel-quarkus/pull/4257) ([zbendhiba](https://github.com/zbendhiba))
-- Update OpenTelemetry exporter documentation in line with changes in Quarkus 2.14.0.Final [\#4256](https://github.com/apache/camel-quarkus/pull/4256) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgarde quarkus-artemis to 2.0.1 and quarkus-pooled-jms to 1.0.6 [\#4253](https://github.com/apache/camel-quarkus/pull/4253) ([zhfeng](https://github.com/zhfeng))
-- Google-bigquery: Enable sqlCrudOperations test once Camel version is 3.18.3 [\#4252](https://github.com/apache/camel-quarkus/pull/4252) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Fix \#4250 to add JmsArtemisXATest [\#4251](https://github.com/apache/camel-quarkus/pull/4251) ([zhfeng](https://github.com/zhfeng))
-- Fix GitHub actions deprecation warnings [\#4249](https://github.com/apache/camel-quarkus/pull/4249) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Qpid JMS to 0.39.0 [\#4245](https://github.com/apache/camel-quarkus/pull/4245) ([zbendhiba](https://github.com/zbendhiba))
-- camel-quarkus-xchange: MissingResourceException: Can't find bundle fo… [\#4244](https://github.com/apache/camel-quarkus/pull/4244) ([ppalaga](https://github.com/ppalaga))
-- Fix : flakiness of Scheduler integration-tests. [\#4240](https://github.com/apache/camel-quarkus/pull/4240) ([svkcemk](https://github.com/svkcemk))
-- Use Camel hapi-base-version property for hapi-base [\#4239](https://github.com/apache/camel-quarkus/pull/4239) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#3951 to add a test with quarkus-pooled-jms [\#4237](https://github.com/apache/camel-quarkus/pull/4237) ([zhfeng](https://github.com/zhfeng))
-- Upgrade Quarkus to 2.14.0.Final [\#4236](https://github.com/apache/camel-quarkus/pull/4236) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to quarkus-cxf 1.5.5 [\#4232](https://github.com/apache/camel-quarkus/pull/4232) ([ppalaga](https://github.com/ppalaga))
-- replace doc occurence of camel-quarkus-jaxp with camel-quarkus-xml-jaxp [\#4229](https://github.com/apache/camel-quarkus/pull/4229) ([aldettinger](https://github.com/aldettinger))
-- Adding a test for custom ConnectionFactory without quarkus.artemis.url [\#4228](https://github.com/apache/camel-quarkus/pull/4228) ([zhfeng](https://github.com/zhfeng))
-- Add CXF WS-SecurityPolicy test [\#4224](https://github.com/apache/camel-quarkus/pull/4224) ([ppalaga](https://github.com/ppalaga))
-- Test CXF service having an Implementation class in the application [\#4223](https://github.com/apache/camel-quarkus/pull/4223) ([ppalaga](https://github.com/ppalaga))
-- perf-regression: remove workaround and final fix Java 17 issue \#4031 [\#4222](https://github.com/apache/camel-quarkus/pull/4222) ([aldettinger](https://github.com/aldettinger))
-- fix line ending [\#4221](https://github.com/apache/camel-quarkus/pull/4221) ([aldettinger](https://github.com/aldettinger))
-- Upgrade Quarkus to 2.14.0.CR1 [\#4215](https://github.com/apache/camel-quarkus/pull/4215) ([jamesnetherton](https://github.com/jamesnetherton))
-- CxfSoapMtomIT fails in native mode  [\#4214](https://github.com/apache/camel-quarkus/pull/4214) ([ppalaga](https://github.com/ppalaga))
-- Remove unecessary basedir in Kafka Oauth tests [\#4213](https://github.com/apache/camel-quarkus/pull/4213) ([zbendhiba](https://github.com/zbendhiba))
-- Manage dependency com.jayway.jsonpath:json-path [\#4212](https://github.com/apache/camel-quarkus/pull/4212) ([jamesnetherton](https://github.com/jamesnetherton))
-- Split mtom tests [\#4210](https://github.com/apache/camel-quarkus/pull/4210) ([llowinge](https://github.com/llowinge))
-- Move all Debezium itest deployment dependencies to virtualDependencies profile [\#4209](https://github.com/apache/camel-quarkus/pull/4209) ([jamesnetherton](https://github.com/jamesnetherton))
-- More CXF tests and cleanup [\#4207](https://github.com/apache/camel-quarkus/pull/4207) ([ppalaga](https://github.com/ppalaga))
-- Sync camel-main / quarkus-main nightly CI workflows with the main workflow [\#4205](https://github.com/apache/camel-quarkus/pull/4205) ([jamesnetherton](https://github.com/jamesnetherton))
-- Increased workflow memory limit to avoid java heap space errors [\#4201](https://github.com/apache/camel-quarkus/pull/4201) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- controlbus: Added action option tests \(fixes \#4009\) [\#4200](https://github.com/apache/camel-quarkus/pull/4200) ([djcoleman](https://github.com/djcoleman))
-- Upgrade Quarkus to 2.13.3.Final [\#4199](https://github.com/apache/camel-quarkus/pull/4199) ([jamesnetherton](https://github.com/jamesnetherton))
-- Cxf-soap tests: Refactor and split [\#4195](https://github.com/apache/camel-quarkus/pull/4195) ([ppalaga](https://github.com/ppalaga))
-- Upgrade Quarkus Amazon services to 1.3.1 [\#4191](https://github.com/apache/camel-quarkus/pull/4191) ([zbendhiba](https://github.com/zbendhiba))
-- Upgrade Optaplanner to 8.29.0.Final [\#4190](https://github.com/apache/camel-quarkus/pull/4190) ([zbendhiba](https://github.com/zbendhiba))
-- Upgrade cq-maven-plugin to 3.2.2 [\#4189](https://github.com/apache/camel-quarkus/pull/4189) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add usage section to ref documentation for CDI integration [\#4186](https://github.com/apache/camel-quarkus/pull/4186) ([jamesnetherton](https://github.com/jamesnetherton))
-- Convert pull\_request\_template.md to \*nix line endings [\#4185](https://github.com/apache/camel-quarkus/pull/4185) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to quarkus-cxf 1.5.4 [\#4184](https://github.com/apache/camel-quarkus/pull/4184) ([ppalaga](https://github.com/ppalaga))
-- Exclude com.github.stephenc.jcip:jcip-annotations from Azure extensions [\#4183](https://github.com/apache/camel-quarkus/pull/4183) ([jamesnetherton](https://github.com/jamesnetherton))
-- Use official azure-core-http-vertx client in Azure extensions [\#4182](https://github.com/apache/camel-quarkus/pull/4182) ([jamesnetherton](https://github.com/jamesnetherton))
-- Avoid usage of deprecated ClientProxyUnwrapper [\#4179](https://github.com/apache/camel-quarkus/pull/4179) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add a PackageScanClassResolver implementation that works in native mode [\#4178](https://github.com/apache/camel-quarkus/pull/4178) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 2.13.2.Final [\#4174](https://github.com/apache/camel-quarkus/pull/4174) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix assertion invocation in core extension tests [\#4173](https://github.com/apache/camel-quarkus/pull/4173) ([osmman](https://github.com/osmman))
-- Fallback to mocked responses if XChange APIs are not available [\#4170](https://github.com/apache/camel-quarkus/pull/4170) ([jamesnetherton](https://github.com/jamesnetherton))
-- rest-openapi: Minor update to usage doc \(\#4117\) [\#4168](https://github.com/apache/camel-quarkus/pull/4168) ([djcoleman](https://github.com/djcoleman))
-- Fix Salesforce endpoint URIs for CDC eventing [\#4166](https://github.com/apache/camel-quarkus/pull/4166) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add sync tag for ahc.version property [\#4164](https://github.com/apache/camel-quarkus/pull/4164) ([jamesnetherton](https://github.com/jamesnetherton))
-- Align Azure SDK BOM version with Camel  [\#4163](https://github.com/apache/camel-quarkus/pull/4163) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 2.13.1.Final [\#4160](https://github.com/apache/camel-quarkus/pull/4160) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus Amazon services to 1.3.0 [\#4157](https://github.com/apache/camel-quarkus/pull/4157) ([zbendhiba](https://github.com/zbendhiba))
-- Update Debezium to 1.9.6.Final [\#4156](https://github.com/apache/camel-quarkus/pull/4156) ([zbendhiba](https://github.com/zbendhiba))
-- Convert germanbooks-iso-8859-1.json to \*nix line endings [\#4154](https://github.com/apache/camel-quarkus/pull/4154) ([jamesnetherton](https://github.com/jamesnetherton))
-- Set explicit nofile ulimit for activemq-artemis-broker image to make … [\#4152](https://github.com/apache/camel-quarkus/pull/4152) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to camel-3.19.0 [\#4151](https://github.com/apache/camel-quarkus/pull/4151) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- doc: switch to === syntax to match doc tooling [\#4150](https://github.com/apache/camel-quarkus/pull/4150) ([aldettinger](https://github.com/aldettinger))
-- kubernetes: add documentation related to cluster service \#4086 [\#4146](https://github.com/apache/camel-quarkus/pull/4146) ([aldettinger](https://github.com/aldettinger))
-- Adjust the set of components to search in catalog tests [\#4145](https://github.com/apache/camel-quarkus/pull/4145) ([jamesnetherton](https://github.com/jamesnetherton))
-- Increase test coverage of ref extension [\#4144](https://github.com/apache/camel-quarkus/pull/4144) ([jamesnetherton](https://github.com/jamesnetherton))
-- Manage `reactor-core` & `google-oauth-client` [\#4140](https://github.com/apache/camel-quarkus/pull/4140) ([jamesnetherton](https://github.com/jamesnetherton))
-- Update release guide [\#4137](https://github.com/apache/camel-quarkus/pull/4137) ([zbendhiba](https://github.com/zbendhiba))
-- Upgrade Quarkus CXF to 1.5.2 [\#4136](https://github.com/apache/camel-quarkus/pull/4136) ([jamesnetherton](https://github.com/jamesnetherton))
-- Improve test coverage for scheduler component. [\#4133](https://github.com/apache/camel-quarkus/pull/4133) ([svkcemk](https://github.com/svkcemk))
-- Fix malformed id headings for AWS extensions [\#4132](https://github.com/apache/camel-quarkus/pull/4132) ([jamesnetherton](https://github.com/jamesnetherton))
-- Next is 2.14.0 [\#4131](https://github.com/apache/camel-quarkus/pull/4131) ([zbendhiba](https://github.com/zbendhiba))
-- Fix Netty integration tests on FIPS system [\#4130](https://github.com/apache/camel-quarkus/pull/4130) ([osmman](https://github.com/osmman))
-- Upgrade dependencies versions [\#4129](https://github.com/apache/camel-quarkus/pull/4129) ([zbendhiba](https://github.com/zbendhiba))
-- Add tests for rest-openapi extension \(apache\#4117\) [\#4125](https://github.com/apache/camel-quarkus/pull/4125) ([djcoleman](https://github.com/djcoleman))
-- Splunk: tests are failing after the upgrade of Splunk in Camel \#4085 [\#4124](https://github.com/apache/camel-quarkus/pull/4124) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Upgrade Quarkus to 2.13.0.Final [\#4121](https://github.com/apache/camel-quarkus/pull/4121) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade OptaPlanner to 8.27.0.Final [\#4118](https://github.com/apache/camel-quarkus/pull/4118) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix generated AsciiDoc id headings [\#4113](https://github.com/apache/camel-quarkus/pull/4113) ([jamesnetherton](https://github.com/jamesnetherton))
-- Register LegacyPDFStreamEngine for runtime initialization [\#4110](https://github.com/apache/camel-quarkus/pull/4110) ([jamesnetherton](https://github.com/jamesnetherton))
-- CamelQuarkusTestSupport: Alow to use AdiceWith with another route \#4104 [\#4105](https://github.com/apache/camel-quarkus/pull/4105) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Restore named DataSource autowiring for JDBC and SQL extensions [\#4101](https://github.com/apache/camel-quarkus/pull/4101) ([jamesnetherton](https://github.com/jamesnetherton))
-- Deprecated parameters in several annotations are ignored - inconsisten [\#4099](https://github.com/apache/camel-quarkus/pull/4099) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Fix \#4096 to sync snakeyaml with quarkus-bom [\#4098](https://github.com/apache/camel-quarkus/pull/4098) ([zhfeng](https://github.com/zhfeng))
-- Upgrade Quarkus to 2.13.0.CR1 [\#4094](https://github.com/apache/camel-quarkus/pull/4094) ([jamesnetherton](https://github.com/jamesnetherton))
-- kubernetes: auto-configure Kubernetes Cluster Service \#4086 [\#4093](https://github.com/apache/camel-quarkus/pull/4093) ([aldettinger](https://github.com/aldettinger))
-- JCache native mode [\#4088](https://github.com/apache/camel-quarkus/pull/4088) ([javaduke](https://github.com/javaduke))
-- Fix name of artifact id [\#4082](https://github.com/apache/camel-quarkus/pull/4082) ([llowinge](https://github.com/llowinge))
-- Upgrade Camel to 3.18.2 [\#4081](https://github.com/apache/camel-quarkus/pull/4081) ([jamesnetherton](https://github.com/jamesnetherton))
-- update virtual profiles [\#4079](https://github.com/apache/camel-quarkus/pull/4079) ([aldettinger](https://github.com/aldettinger))
-- master: add test with openshift \#4077 [\#4078](https://github.com/apache/camel-quarkus/pull/4078) ([aldettinger](https://github.com/aldettinger))
-- CXF test fails in Quarkus Platform because of hard-coded absolute loc… [\#4074](https://github.com/apache/camel-quarkus/pull/4074) ([ppalaga](https://github.com/ppalaga))
-- Use AsciiDoc attributes to conditionally include content [\#4073](https://github.com/apache/camel-quarkus/pull/4073) ([jamesnetherton](https://github.com/jamesnetherton))
-- Testing guide confusing about CamelTestSupport [\#4072](https://github.com/apache/camel-quarkus/pull/4072) ([ppalaga](https://github.com/ppalaga))
-- Disabling ContinuousDevTest [\#4070](https://github.com/apache/camel-quarkus/pull/4070) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- pg-replication-slot: fix warning [\#4067](https://github.com/apache/camel-quarkus/pull/4067) ([aldettinger](https://github.com/aldettinger))
-- Google-pubsub: Improve google-pubsub test coverage with MESSAGE\_ID \#4062 [\#4064](https://github.com/apache/camel-quarkus/pull/4064) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Migrate to the new config format of the flattener mojo [\#4061](https://github.com/apache/camel-quarkus/pull/4061) ([ppalaga](https://github.com/ppalaga))
-- Ban camel-directvm  [\#4060](https://github.com/apache/camel-quarkus/pull/4060) ([ppalaga](https://github.com/ppalaga))
-- Fix deprecated methods [\#4057](https://github.com/apache/camel-quarkus/pull/4057) ([aldettinger](https://github.com/aldettinger))
-- pg-replication-slot: fix usage of deprecated method [\#4056](https://github.com/apache/camel-quarkus/pull/4056) ([aldettinger](https://github.com/aldettinger))
-- master: fix itests harness in native mode [\#4055](https://github.com/apache/camel-quarkus/pull/4055) ([aldettinger](https://github.com/aldettinger))
-- Fix \#4007 increase JPA extension test coverage [\#4053](https://github.com/apache/camel-quarkus/pull/4053) ([osmman](https://github.com/osmman))
-- Upgrade to Quarkiverse CXF 1.5.0, the Santuario related stuff moved t… [\#4052](https://github.com/apache/camel-quarkus/pull/4052) ([ppalaga](https://github.com/ppalaga))
-- Springless JPA extension [\#4049](https://github.com/apache/camel-quarkus/pull/4049) ([zhfeng](https://github.com/zhfeng))
-- Adapt Dropbox tests to new authentication mechanism [\#4048](https://github.com/apache/camel-quarkus/pull/4048) ([jamesnetherton](https://github.com/jamesnetherton))
-- Filter out non-service endpoints in Salesforce testGetRestResources [\#4046](https://github.com/apache/camel-quarkus/pull/4046) ([jamesnetherton](https://github.com/jamesnetherton))
-- Log warning instead of throw exception for Debezium MongoDB container script execution failure [\#4045](https://github.com/apache/camel-quarkus/pull/4045) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 2.12.0.Final [\#4044](https://github.com/apache/camel-quarkus/pull/4044) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix potential NPE in change feed result checking [\#4042](https://github.com/apache/camel-quarkus/pull/4042) ([jamesnetherton](https://github.com/jamesnetherton))
-- file: experiment disabling filter test \#3584 [\#4041](https://github.com/apache/camel-quarkus/pull/4041) ([aldettinger](https://github.com/aldettinger))
-- Make nightly branch sync workflows report failures if the build was cancelled [\#4038](https://github.com/apache/camel-quarkus/pull/4038) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to Quarkiverse CXF 1.5.0.CR1 [\#4037](https://github.com/apache/camel-quarkus/pull/4037) ([ppalaga](https://github.com/ppalaga))
-- \[closes \#4028\] Fix sqsAutoCreateDelayedQueue test [\#4036](https://github.com/apache/camel-quarkus/pull/4036) ([llowinge](https://github.com/llowinge))
-- Improve google-bigquery test coverage \#3949 [\#4035](https://github.com/apache/camel-quarkus/pull/4035) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Enlarge timeout for Keycloak startup [\#4034](https://github.com/apache/camel-quarkus/pull/4034) ([llowinge](https://github.com/llowinge))
-- Fix conflict in property name with OS env variable [\#4032](https://github.com/apache/camel-quarkus/pull/4032) ([llowinge](https://github.com/llowinge))
-- Pass encrypt property to Debezium MS SQL Server JDBC URL [\#4030](https://github.com/apache/camel-quarkus/pull/4030) ([jamesnetherton](https://github.com/jamesnetherton))
-- perf-regression: workaround hyperfoil-maven-plugin issue with JDK 17 … [\#4026](https://github.com/apache/camel-quarkus/pull/4026) ([aldettinger](https://github.com/aldettinger))
-- perf-regresssion: fix number format exception when java and mvnw don'… [\#4024](https://github.com/apache/camel-quarkus/pull/4024) ([aldettinger](https://github.com/aldettinger))
-- perf-regression: disable itests when building with -Dquickly [\#4022](https://github.com/apache/camel-quarkus/pull/4022) ([aldettinger](https://github.com/aldettinger))
-- Fix \#3389: geocoder test returned wrong city [\#4020](https://github.com/apache/camel-quarkus/pull/4020) ([djcoleman](https://github.com/djcoleman))
-- Register HttpOperationFailedException for reflection [\#4019](https://github.com/apache/camel-quarkus/pull/4019) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#3904 increase xslt extension test coverage [\#4018](https://github.com/apache/camel-quarkus/pull/4018) ([zhfeng](https://github.com/zhfeng))
-- Restore ability to run js-dsl native tests [\#4017](https://github.com/apache/camel-quarkus/pull/4017) ([jamesnetherton](https://github.com/jamesnetherton))
-- perf-regression: collect reports during releases \#3967 [\#4013](https://github.com/apache/camel-quarkus/pull/4013) ([aldettinger](https://github.com/aldettinger))
-- perf-regression: avoid using fixed port \#4004 [\#4005](https://github.com/apache/camel-quarkus/pull/4005) ([aldettinger](https://github.com/aldettinger))
-- Upgrade Quarkus to 2.12.0.CR1 [\#4003](https://github.com/apache/camel-quarkus/pull/4003) ([jamesnetherton](https://github.com/jamesnetherton))
-- perf-regression: add unit test \#4001 [\#4002](https://github.com/apache/camel-quarkus/pull/4002) ([aldettinger](https://github.com/aldettinger))
-- Docs module cleanups [\#3999](https://github.com/apache/camel-quarkus/pull/3999) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove documentation references to REST DSL inline routes [\#3997](https://github.com/apache/camel-quarkus/pull/3997) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix route inclusion / exclusion filtering [\#3996](https://github.com/apache/camel-quarkus/pull/3996) ([jamesnetherton](https://github.com/jamesnetherton))
-- Minor tidying of test-framework modules and docs [\#3990](https://github.com/apache/camel-quarkus/pull/3990) ([jamesnetherton](https://github.com/jamesnetherton))
-- perf-regression: add integration tests \#3982 [\#3988](https://github.com/apache/camel-quarkus/pull/3988) ([aldettinger](https://github.com/aldettinger))
-- Fix doc reference to JUnit 5 component [\#3986](https://github.com/apache/camel-quarkus/pull/3986) ([gzurowski](https://github.com/gzurowski))
-- CxfSoapClientIT.wsSecurityClient fails in native mode: wsse:Nonce not present in the request  [\#3985](https://github.com/apache/camel-quarkus/pull/3985) ([ppalaga](https://github.com/ppalaga))
-- Upgrade Camel to 3.18.1 [\#3984](https://github.com/apache/camel-quarkus/pull/3984) ([jamesnetherton](https://github.com/jamesnetherton))
-- Avoid io.quarkus.platform:quarkus-bom usage in perf-regression module [\#3981](https://github.com/apache/camel-quarkus/pull/3981) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add more clarity around the purpose of tracing extensions encoding config property [\#3976](https://github.com/apache/camel-quarkus/pull/3976) ([jamesnetherton](https://github.com/jamesnetherton))
-- perf-regression: use pure Camel transformation \#3974 [\#3975](https://github.com/apache/camel-quarkus/pull/3975) ([aldettinger](https://github.com/aldettinger))
-- Update observability guide to reference OpenTelemetry instead of OpenTracing [\#3973](https://github.com/apache/camel-quarkus/pull/3973) ([jamesnetherton](https://github.com/jamesnetherton))
-- Improve/clean-up camel-quarkus-validator extension tests. [\#3972](https://github.com/apache/camel-quarkus/pull/3972) ([svkcemk](https://github.com/svkcemk))
-- perf-regression: Align to the root mvnw \#3960 [\#3969](https://github.com/apache/camel-quarkus/pull/3969) ([aldettinger](https://github.com/aldettinger))
-- Improve the CXF extension and its tests: [\#3968](https://github.com/apache/camel-quarkus/pull/3968) ([ppalaga](https://github.com/ppalaga))
-- Merge the performance regression detection prototype \#3905 [\#3959](https://github.com/apache/camel-quarkus/pull/3959) ([aldettinger](https://github.com/aldettinger))
-- Add docs for Sonarcloud build and analysis results [\#3958](https://github.com/apache/camel-quarkus/pull/3958) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix intermittent native mode failures of JacksonJsonTest [\#3955](https://github.com/apache/camel-quarkus/pull/3955) ([jamesnetherton](https://github.com/jamesnetherton))
-- Close the streams returned by Files.walk properly [\#3954](https://github.com/apache/camel-quarkus/pull/3954) ([ppalaga](https://github.com/ppalaga))
-- Increase test coverage \(file/http\) for camel-quarkus-validator extens… [\#3953](https://github.com/apache/camel-quarkus/pull/3953) ([svkcemk](https://github.com/svkcemk))
-- Add more details to the Jackson ObjectMapper usage section [\#3952](https://github.com/apache/camel-quarkus/pull/3952) ([ppalaga](https://github.com/ppalaga))
-- Test Azure Storage Blob with credentialType AZURE\_IDENTITY [\#3950](https://github.com/apache/camel-quarkus/pull/3950) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add missing jboss-jaxrs-api\_2.1\_spec dependency to ServiceNow extension [\#3948](https://github.com/apache/camel-quarkus/pull/3948) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 2.11.1.Final [\#3943](https://github.com/apache/camel-quarkus/pull/3943) ([jamesnetherton](https://github.com/jamesnetherton))
-- Next is 2.12.0 [\#3941](https://github.com/apache/camel-quarkus/pull/3941) ([jamesnetherton](https://github.com/jamesnetherton))
-- Delete potentially locked file on VM exit for Windows dev mode test [\#3940](https://github.com/apache/camel-quarkus/pull/3940) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest on Windows [\#3939](https://github.com/apache/camel-quarkus/pull/3939) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to Debezium 1.9.5.Final [\#3938](https://github.com/apache/camel-quarkus/pull/3938) ([zbendhiba](https://github.com/zbendhiba))
-- Test Quarkus Jackson `ObjectMapper` with `JacksonDataFormat` + Docs [\#3937](https://github.com/apache/camel-quarkus/pull/3937) ([jamesnetherton](https://github.com/jamesnetherton))
-- Hashicorp vault [\#3935](https://github.com/apache/camel-quarkus/pull/3935) ([oscerd](https://github.com/oscerd))
-- Upgrade third party Quarkus extension dependencies [\#3934](https://github.com/apache/camel-quarkus/pull/3934) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix Google Big Query grpc-netty-shaded exclusions [\#3933](https://github.com/apache/camel-quarkus/pull/3933) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add native support for Azure Identity service principal authentication [\#3932](https://github.com/apache/camel-quarkus/pull/3932) ([jamesnetherton](https://github.com/jamesnetherton))
-- Camel Quarkus CXF Extension [\#3931](https://github.com/apache/camel-quarkus/pull/3931) ([javaduke](https://github.com/javaduke))
-- Upgrade Quarkus to 2.11.0.Final [\#3930](https://github.com/apache/camel-quarkus/pull/3930) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add DataSet extension [\#3929](https://github.com/apache/camel-quarkus/pull/3929) ([jamesnetherton](https://github.com/jamesnetherton))
-- \[closes \#3927\] Improve camel quarkus master integration test [\#3928](https://github.com/apache/camel-quarkus/pull/3928) ([llowinge](https://github.com/llowinge))
-- Fix \#3924 make sure the http client options working in native mode [\#3925](https://github.com/apache/camel-quarkus/pull/3925) ([zhfeng](https://github.com/zhfeng))
-- Remove platform-http-vertx workarounds now that Quarkus & Camel Vert.x is in sync [\#3920](https://github.com/apache/camel-quarkus/pull/3920) ([jamesnetherton](https://github.com/jamesnetherton))
-- Improve google-pubsub test coverage \#3910 [\#3919](https://github.com/apache/camel-quarkus/pull/3919) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Upgrade Quarkus to 2.11.0.CR1 [\#3917](https://github.com/apache/camel-quarkus/pull/3917) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#3914 to get TransactionManager and UserTransaction from Arc container [\#3915](https://github.com/apache/camel-quarkus/pull/3915) ([zhfeng](https://github.com/zhfeng))
-- Fix some cq warnings [\#3913](https://github.com/apache/camel-quarkus/pull/3913) ([aldettinger](https://github.com/aldettinger))
-- Remove last logs to ensure flakiness is now corrected \#3584 [\#3912](https://github.com/apache/camel-quarkus/pull/3912) ([aldettinger](https://github.com/aldettinger))
-- Add some tests for issues fixed in Camel 3.18.0 [\#3908](https://github.com/apache/camel-quarkus/pull/3908) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add JQ extension [\#3907](https://github.com/apache/camel-quarkus/pull/3907) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add support for InfinispanRemoteAggregationRepository [\#3906](https://github.com/apache/camel-quarkus/pull/3906) ([jamesnetherton](https://github.com/jamesnetherton))
-- Increase JAXB extension test coverage [\#3902](https://github.com/apache/camel-quarkus/pull/3902) ([jamesnetherton](https://github.com/jamesnetherton))
-- dozer: Deprecate the typeConverterEnabled config \#3900 [\#3901](https://github.com/apache/camel-quarkus/pull/3901) ([aldettinger](https://github.com/aldettinger))
-- core: Fix some warnings [\#3898](https://github.com/apache/camel-quarkus/pull/3898) ([aldettinger](https://github.com/aldettinger))
-- Upgrade Camel to 3.18.0 [\#3897](https://github.com/apache/camel-quarkus/pull/3897) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove inline routes from platform-http REST DSL docs [\#3895](https://github.com/apache/camel-quarkus/pull/3895) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 2.10.1.Final [\#3894](https://github.com/apache/camel-quarkus/pull/3894) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#3809 add reflections for all transports [\#3892](https://github.com/apache/camel-quarkus/pull/3892) ([zhfeng](https://github.com/zhfeng))
-- Fix \#3858 rename to quarkus.camel.source-location-enabled [\#3886](https://github.com/apache/camel-quarkus/pull/3886) ([zhfeng](https://github.com/zhfeng))
-- Fix \#3884 upgrade quarkus-artemis to 1.2.0 [\#3885](https://github.com/apache/camel-quarkus/pull/3885) ([zhfeng](https://github.com/zhfeng))
-- Remove redundant Spring dependencies from JDBC extension [\#3883](https://github.com/apache/camel-quarkus/pull/3883) ([jamesnetherton](https://github.com/jamesnetherton))
-- Simplify support for Quartz clustering [\#3882](https://github.com/apache/camel-quarkus/pull/3882) ([jamesnetherton](https://github.com/jamesnetherton))
-- Parametrize infinispan image [\#3881](https://github.com/apache/camel-quarkus/pull/3881) ([llowinge](https://github.com/llowinge))
-- Upgrade artemiscloud/activemq-artemis-broker to 1.0.5 [\#3880](https://github.com/apache/camel-quarkus/pull/3880) ([zhfeng](https://github.com/zhfeng))
-- Ensure new extensions are generated to reference quarkus-extension-maven-plugin [\#3874](https://github.com/apache/camel-quarkus/pull/3874) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove redundant BOM imports from integration tests [\#3873](https://github.com/apache/camel-quarkus/pull/3873) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix PDF encryption in native mode [\#3872](https://github.com/apache/camel-quarkus/pull/3872) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Optaplanner to 8.23.0.Final [\#3868](https://github.com/apache/camel-quarkus/pull/3868) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add extension DSL modeline [\#3867](https://github.com/apache/camel-quarkus/pull/3867) ([zbendhiba](https://github.com/zbendhiba))
-- Fix \#3863 to use quarkus-extension-maven-plugin [\#3866](https://github.com/apache/camel-quarkus/pull/3866) ([zhfeng](https://github.com/zhfeng))
-- Fix \#3864 to add nofile ulimit in ArangodbTestResource [\#3865](https://github.com/apache/camel-quarkus/pull/3865) ([zhfeng](https://github.com/zhfeng))
-- paho-mqtt5 test failing with Error: Unable to create websockets liste… [\#3861](https://github.com/apache/camel-quarkus/pull/3861) ([ppalaga](https://github.com/ppalaga))
-- Use JUnit fail static method import instead of JSoup [\#3859](https://github.com/apache/camel-quarkus/pull/3859) ([jamesnetherton](https://github.com/jamesnetherton))
-- Next is 2.11.0 [\#3855](https://github.com/apache/camel-quarkus/pull/3855) ([zhfeng](https://github.com/zhfeng))
-- file: attempt atomic move to fix flakiness \#3584 [\#3854](https://github.com/apache/camel-quarkus/pull/3854) ([aldettinger](https://github.com/aldettinger))
-- update openapi-java usage.adoc [\#3853](https://github.com/apache/camel-quarkus/pull/3853) ([zhfeng](https://github.com/zhfeng))
-- Fix \#3828 to update openapi-java document [\#3852](https://github.com/apache/camel-quarkus/pull/3852) ([zhfeng](https://github.com/zhfeng))
-- Upgrade Quarkus to 2.10.0.Final [\#3851](https://github.com/apache/camel-quarkus/pull/3851) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade OptaPlanner to 8.22.1.Final [\#3849](https://github.com/apache/camel-quarkus/pull/3849) ([jamesnetherton](https://github.com/jamesnetherton))
-- CamelTestSupport style of testing \#3511 [\#3847](https://github.com/apache/camel-quarkus/pull/3847) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Upgrade Quarkus to 2.10.0.CR1 [\#3846](https://github.com/apache/camel-quarkus/pull/3846) ([jamesnetherton](https://github.com/jamesnetherton))
-- Ensure ElasticSearch REST delete index route uses the correct URI scheme [\#3845](https://github.com/apache/camel-quarkus/pull/3845) ([jamesnetherton](https://github.com/jamesnetherton))
-- Modify Cassandra & AWS S3 tests to pick up Camel 3.17.0 fixes [\#3843](https://github.com/apache/camel-quarkus/pull/3843) ([jamesnetherton](https://github.com/jamesnetherton))
-- Auto discover routes created as LambdaEndpointRouteBuilder [\#3842](https://github.com/apache/camel-quarkus/pull/3842) ([jamesnetherton](https://github.com/jamesnetherton))
-- Use timer repeatCount of 1 in foundation timer tests [\#3840](https://github.com/apache/camel-quarkus/pull/3840) ([jamesnetherton](https://github.com/jamesnetherton))
-- Pin fake-gcs-server container image to 1.37 tag [\#3839](https://github.com/apache/camel-quarkus/pull/3839) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#3823 make quarkus-agroal an optional dependency in camel-quarkus… [\#3836](https://github.com/apache/camel-quarkus/pull/3836) ([zhfeng](https://github.com/zhfeng))
-- Fix invalid links in the contributor guide doc [\#3833](https://github.com/apache/camel-quarkus/pull/3833) ([aldettinger](https://github.com/aldettinger))
-- Fix \#3829 disable checksum validation when testing with quarkus-aws2-… [\#3830](https://github.com/apache/camel-quarkus/pull/3830) ([zhfeng](https://github.com/zhfeng))
-- Better manage FHIR dependencies [\#3827](https://github.com/apache/camel-quarkus/pull/3827) ([ppalaga](https://github.com/ppalaga))
-- Increase FHIR container startup timeout to 5 minutes [\#3824](https://github.com/apache/camel-quarkus/pull/3824) ([jamesnetherton](https://github.com/jamesnetherton))
-- Registry lookup for overridden DefaultBean types does not work [\#3821](https://github.com/apache/camel-quarkus/pull/3821) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Fix \#3774 to add tests for openApi oneOf, allOf and anyOf with annota… [\#3818](https://github.com/apache/camel-quarkus/pull/3818) ([zhfeng](https://github.com/zhfeng))
-- Test aws-secrets-manager extension with Localstack \#3741 [\#3815](https://github.com/apache/camel-quarkus/pull/3815) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Add zhfeng key [\#3814](https://github.com/apache/camel-quarkus/pull/3814) ([zhfeng](https://github.com/zhfeng))
-- net.openhft:affinity included in flattened BOM only on Mac  [\#3813](https://github.com/apache/camel-quarkus/pull/3813) ([ppalaga](https://github.com/ppalaga))
-- Remove some superfluous runtime initialized classes from camel-quarkus-support-reactor-netty [\#3811](https://github.com/apache/camel-quarkus/pull/3811) ([jamesnetherton](https://github.com/jamesnetherton))
-- Reinitialize ActiveMQ IdGenerator at runtime to ensure generated id uniqueness [\#3808](https://github.com/apache/camel-quarkus/pull/3808) ([jamesnetherton](https://github.com/jamesnetherton))
-- Create an Azure Key Vault Extension [\#3806](https://github.com/apache/camel-quarkus/pull/3806) ([oscerd](https://github.com/oscerd))
-- Use WireMock for xchange tests [\#3802](https://github.com/apache/camel-quarkus/pull/3802) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add migration guide for the 2.10.0 release [\#3801](https://github.com/apache/camel-quarkus/pull/3801) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add debug JVM only extension [\#3800](https://github.com/apache/camel-quarkus/pull/3800) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Google Cloud Native Image Support to 0.14.1 [\#3796](https://github.com/apache/camel-quarkus/pull/3796) ([jamesnetherton](https://github.com/jamesnetherton))
-- Exclude unwanted Apache Commons dependencies from hapi-fhir-structures-dstu2.1 [\#3794](https://github.com/apache/camel-quarkus/pull/3794) ([jamesnetherton](https://github.com/jamesnetherton))
-- Improve camel-quarkus-velocity test coverage \#3790 [\#3793](https://github.com/apache/camel-quarkus/pull/3793) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Upgrade Camel to 3.17.0 [\#3792](https://github.com/apache/camel-quarkus/pull/3792) ([jamesnetherton](https://github.com/jamesnetherton))
-- Split compression related tests into a test group \#3689 [\#3791](https://github.com/apache/camel-quarkus/pull/3791) ([aldettinger](https://github.com/aldettinger))
-- Increase FHIR client socket timeout [\#3789](https://github.com/apache/camel-quarkus/pull/3789) ([jamesnetherton](https://github.com/jamesnetherton))
-- file: Add some extra logs to attempt catching info about flakiness \#3584 [\#3787](https://github.com/apache/camel-quarkus/pull/3787) ([aldettinger](https://github.com/aldettinger))
-- Remove redundant infinispan-jboss-marshalling from the BOM [\#3785](https://github.com/apache/camel-quarkus/pull/3785) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix failing Slack integration tests with the real Slack service [\#3782](https://github.com/apache/camel-quarkus/pull/3782) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#3703 to use valueWithDefault during processing @Producer and @En… [\#3780](https://github.com/apache/camel-quarkus/pull/3780) ([zhfeng](https://github.com/zhfeng))
-- Upgrade Google Cloud Native Image Support to 0.14.0 [\#3779](https://github.com/apache/camel-quarkus/pull/3779) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix verification of AWS S3 download links [\#3777](https://github.com/apache/camel-quarkus/pull/3777) ([jamesnetherton](https://github.com/jamesnetherton))
-- Next is 2.10.0 [\#3776](https://github.com/apache/camel-quarkus/pull/3776) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus Qpid JMS to 0.34.0 [\#3772](https://github.com/apache/camel-quarkus/pull/3772) ([jamesnetherton](https://github.com/jamesnetherton))
-- Update of jakarta.mail to 1.6.7 [\#3770](https://github.com/apache/camel-quarkus/pull/3770) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Camel Datasonnet Extension [\#3769](https://github.com/apache/camel-quarkus/pull/3769) ([javaduke](https://github.com/javaduke))
-- Upgrade Quarkus to 2.9.0.Final [\#3767](https://github.com/apache/camel-quarkus/pull/3767) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove infinispan-core dependency for unsupported InfinispanRemoteAggregationRepository [\#3766](https://github.com/apache/camel-quarkus/pull/3766) ([jamesnetherton](https://github.com/jamesnetherton))
-- ⬆️  Upgrade Debezium to 1.9.2.Final [\#3762](https://github.com/apache/camel-quarkus/pull/3762) ([zbendhiba](https://github.com/zbendhiba))
-- ⬆️  Upgrade Amazon Services to 1.1.1 [\#3761](https://github.com/apache/camel-quarkus/pull/3761) ([zbendhiba](https://github.com/zbendhiba))
-- ⬆️ Upgrade Optaplanner to 8.20.0.Final [\#3760](https://github.com/apache/camel-quarkus/pull/3760) ([zbendhiba](https://github.com/zbendhiba))
-- paho: add test case for RFC3986 style urls \#3758 [\#3759](https://github.com/apache/camel-quarkus/pull/3759) ([aldettinger](https://github.com/aldettinger))
-- Add KeyStoreParameters for reflection [\#3755](https://github.com/apache/camel-quarkus/pull/3755) ([ismailbaskin](https://github.com/ismailbaskin))
-- Upgrade Quarkus to 2.9.0.CR1 [\#3753](https://github.com/apache/camel-quarkus/pull/3753) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix MockEndpoint usage in gRPC tests [\#3752](https://github.com/apache/camel-quarkus/pull/3752) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove c3p0 from Quartz extension [\#3751](https://github.com/apache/camel-quarkus/pull/3751) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix MockEndpoint usage in Infinispan tests [\#3747](https://github.com/apache/camel-quarkus/pull/3747) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix compilation warnings in Azure Vert.x HTTP Client [\#3744](https://github.com/apache/camel-quarkus/pull/3744) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add missing service include pattern for properties-function [\#3740](https://github.com/apache/camel-quarkus/pull/3740) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#3737 to register reflection methods of OpenAPI Schema [\#3738](https://github.com/apache/camel-quarkus/pull/3738) ([zhfeng](https://github.com/zhfeng))
-- Telegram integration test : test sending message with customized keyb… [\#3735](https://github.com/apache/camel-quarkus/pull/3735) ([zbendhiba](https://github.com/zbendhiba))
-- Ensure the S3 download link really works [\#3734](https://github.com/apache/camel-quarkus/pull/3734) ([ppalaga](https://github.com/ppalaga))
-- paho: expand test coverage \#3720 [\#3733](https://github.com/apache/camel-quarkus/pull/3733) ([ppalaga](https://github.com/ppalaga))
-- Fix \#3730 improve paho-mqtt5 ssl tests [\#3731](https://github.com/apache/camel-quarkus/pull/3731) ([zhfeng](https://github.com/zhfeng))
-- Fix \#3728 AWS S3 integration test should remove all objects in finall… [\#3729](https://github.com/apache/camel-quarkus/pull/3729) ([zhfeng](https://github.com/zhfeng))
-- Azure Storage Queue : add consumer integration tests [\#3726](https://github.com/apache/camel-quarkus/pull/3726) ([zbendhiba](https://github.com/zbendhiba))
-- Import quarkus-bom in Catalog [\#3725](https://github.com/apache/camel-quarkus/pull/3725) ([ppalaga](https://github.com/ppalaga))
-- fixup 501833 Fix Aws2KinesisTest.kinesis test  [\#3723](https://github.com/apache/camel-quarkus/pull/3723) ([ppalaga](https://github.com/ppalaga))
-- Azure Storage Queue : increase Producer test coverage [\#3719](https://github.com/apache/camel-quarkus/pull/3719) ([zbendhiba](https://github.com/zbendhiba))
-- Reduce the noise in verbose flattened BOMs \#3702 [\#3717](https://github.com/apache/camel-quarkus/pull/3717) ([ppalaga](https://github.com/ppalaga))
-- Fix `Aws2KinesisTest.kinesis` test [\#3715](https://github.com/apache/camel-quarkus/pull/3715) ([jamesnetherton](https://github.com/jamesnetherton))
-- Avoid creating serialization config for non-serializable classes [\#3714](https://github.com/apache/camel-quarkus/pull/3714) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add missing build dependency link on Mail Integration tests [\#3710](https://github.com/apache/camel-quarkus/pull/3710) ([zbendhiba](https://github.com/zbendhiba))
-- Fix \#3656 Improve camel-quarkus-paho-mqtt5 test coverage [\#3709](https://github.com/apache/camel-quarkus/pull/3709) ([zhfeng](https://github.com/zhfeng))
-- Add cloudEvents and knative extensions [\#3705](https://github.com/apache/camel-quarkus/pull/3705) ([zbendhiba](https://github.com/zbendhiba))
-- Fix documentation [\#3704](https://github.com/apache/camel-quarkus/pull/3704) ([aldettinger](https://github.com/aldettinger))
-- Test Azure Blob with autowiredEnabled=false [\#3699](https://github.com/apache/camel-quarkus/pull/3699) ([jamesnetherton](https://github.com/jamesnetherton))
-- Next is 2.9.0 [\#3696](https://github.com/apache/camel-quarkus/pull/3696) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 2.8.0.Final [\#3693](https://github.com/apache/camel-quarkus/pull/3693) ([jamesnetherton](https://github.com/jamesnetherton))
-- camel-quarkus-paho: Add reflection config for RandomAccessFile [\#3691](https://github.com/apache/camel-quarkus/pull/3691) ([zhfeng](https://github.com/zhfeng))
-- Ban javax.el:el-api in favor of  jakarta.el:jakarta.el-api [\#3690](https://github.com/apache/camel-quarkus/pull/3690) ([ppalaga](https://github.com/ppalaga))
-- Improve mail test coverage \#3674 [\#3685](https://github.com/apache/camel-quarkus/pull/3685) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Stop managing Snappy in Spark BOM, as it is now managed in quarkus-bom [\#3684](https://github.com/apache/camel-quarkus/pull/3684) ([ppalaga](https://github.com/ppalaga))
-- Fix potential Azure Blob test failures when testing against the real service [\#3683](https://github.com/apache/camel-quarkus/pull/3683) ([jamesnetherton](https://github.com/jamesnetherton))
-- paho: Add test coverage for file persistence \#3680 [\#3681](https://github.com/apache/camel-quarkus/pull/3681) ([aldettinger](https://github.com/aldettinger))
-- Improve MicroProfile Fault Tolerance extension test coverage [\#3679](https://github.com/apache/camel-quarkus/pull/3679) ([jamesnetherton](https://github.com/jamesnetherton))
-- More bans [\#3678](https://github.com/apache/camel-quarkus/pull/3678) ([ppalaga](https://github.com/ppalaga))
-- Update antora.yml to point at 3.16.x branches [\#3676](https://github.com/apache/camel-quarkus/pull/3676) ([jamesnetherton](https://github.com/jamesnetherton))
-- Ban javax.activation-api, javax.annotation-api and JBoss spec artifacts [\#3675](https://github.com/apache/camel-quarkus/pull/3675) ([ppalaga](https://github.com/ppalaga))
-- Ban javax.validation and junit 4 [\#3673](https://github.com/apache/camel-quarkus/pull/3673) ([ppalaga](https://github.com/ppalaga))
-- paho: fix NullPointerException when MqqtException occurs during recon… [\#3672](https://github.com/apache/camel-quarkus/pull/3672) ([aldettinger](https://github.com/aldettinger))
-- Revert "Add Camel 3.16.0 staging repository" [\#3667](https://github.com/apache/camel-quarkus/pull/3667) ([ppalaga](https://github.com/ppalaga))
-- Better control what we manage in our BOM  [\#3666](https://github.com/apache/camel-quarkus/pull/3666) ([ppalaga](https://github.com/ppalaga))
-- Add more details about `@QuarkusIntegrationTest` to the testing guide [\#3664](https://github.com/apache/camel-quarkus/pull/3664) ([jamesnetherton](https://github.com/jamesnetherton))
-- Align `com.github.java-json-tools:json-patch` version with Camel [\#3663](https://github.com/apache/camel-quarkus/pull/3663) ([jamesnetherton](https://github.com/jamesnetherton))
-- Stop importing io.quarkus:quarkus-bom into camel-quarkus-bom [\#3662](https://github.com/apache/camel-quarkus/pull/3662) ([ppalaga](https://github.com/ppalaga))
-- Exclude jboss-marshalling-osgi from infinispan-jboss-marshalling [\#3661](https://github.com/apache/camel-quarkus/pull/3661) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix loading of XML routes with routes-include-pattern wildcard [\#3660](https://github.com/apache/camel-quarkus/pull/3660) ([jamesnetherton](https://github.com/jamesnetherton))
-- Improve Infinispan extension test coverage [\#3659](https://github.com/apache/camel-quarkus/pull/3659) ([jamesnetherton](https://github.com/jamesnetherton))
-- Azure integration tests - upgrade the setup script [\#3654](https://github.com/apache/camel-quarkus/pull/3654) ([zbendhiba](https://github.com/zbendhiba))
-- Upgrade Quarkus to 2.8.0.CR1 + Upgrade Camel to 3.16.0 [\#3653](https://github.com/apache/camel-quarkus/pull/3653) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix typo in docs & Added tests for NotNull validator checks [\#3652](https://github.com/apache/camel-quarkus/pull/3652) ([mmuzikar](https://github.com/mmuzikar))
-- Avoid compiling regular expressions in loops [\#3649](https://github.com/apache/camel-quarkus/pull/3649) ([ppalaga](https://github.com/ppalaga))
-- Switch from `NativeImageTest` to `QuarkusIntegrationTest` [\#3648](https://github.com/apache/camel-quarkus/pull/3648) ([jamesnetherton](https://github.com/jamesnetherton))
-- file: Ensure FileTest.charset is fixed under Windows \#3530 [\#3647](https://github.com/apache/camel-quarkus/pull/3647) ([aldettinger](https://github.com/aldettinger))
-- Tidy geronimo-jms\_2.0\_spec exclusions [\#3646](https://github.com/apache/camel-quarkus/pull/3646) ([ppalaga](https://github.com/ppalaga))
-- file: Rewrite the charset related test \#3627 [\#3645](https://github.com/apache/camel-quarkus/pull/3645) ([aldettinger](https://github.com/aldettinger))
-- Fix registration of consul client API proxy interface [\#3644](https://github.com/apache/camel-quarkus/pull/3644) ([jamesnetherton](https://github.com/jamesnetherton))
-- Slack : fix native support for Webhook URL + add test coverage [\#3643](https://github.com/apache/camel-quarkus/pull/3643) ([zbendhiba](https://github.com/zbendhiba))
-- Fix Gradle native builds for Spring backed extensions [\#3640](https://github.com/apache/camel-quarkus/pull/3640) ([jamesnetherton](https://github.com/jamesnetherton))
-- Camel quarkus 3532 [\#3639](https://github.com/apache/camel-quarkus/pull/3639) ([aldettinger](https://github.com/aldettinger))
-- Upgrade and sync xmlgraphics-commons [\#3637](https://github.com/apache/camel-quarkus/pull/3637) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade cassandra-quarkus-client to 1.1.2 [\#3636](https://github.com/apache/camel-quarkus/pull/3636) ([jamesnetherton](https://github.com/jamesnetherton))
-- Use com.github.java-json-tools:\* instead of com.github.fge:\*  [\#3634](https://github.com/apache/camel-quarkus/pull/3634) ([ppalaga](https://github.com/ppalaga))
-- Fix the antora-playbook.yml link [\#3633](https://github.com/apache/camel-quarkus/pull/3633) ([aldettinger](https://github.com/aldettinger))
-- Upgrade Quarkus to 2.7.5.Final [\#3631](https://github.com/apache/camel-quarkus/pull/3631) ([jamesnetherton](https://github.com/jamesnetherton))
-- Support additional FHIR 2.x versions [\#3630](https://github.com/apache/camel-quarkus/pull/3630) ([jamesnetherton](https://github.com/jamesnetherton))
-- Exclude ipfs from camel-quarkus-test-list \#3618 [\#3629](https://github.com/apache/camel-quarkus/pull/3629) ([aldettinger](https://github.com/aldettinger))
-- Fix \#3432 add a build step to support source location [\#3628](https://github.com/apache/camel-quarkus/pull/3628) ([zhfeng](https://github.com/zhfeng))
-- Disable FHIR versions not required by default [\#3626](https://github.com/apache/camel-quarkus/pull/3626) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#3606 to add reflection configs for Schema and its subClasses [\#3624](https://github.com/apache/camel-quarkus/pull/3624) ([zhfeng](https://github.com/zhfeng))
-- Fix cassandraql itests failing on quarkus-platform \#3621 [\#3623](https://github.com/apache/camel-quarkus/pull/3623) ([aldettinger](https://github.com/aldettinger))
-- Disable flaky GrpcTest.forwardOnError [\#3622](https://github.com/apache/camel-quarkus/pull/3622) ([jamesnetherton](https://github.com/jamesnetherton))
-- 📝Slack test : update Readme with new Oauth Configuration [\#3620](https://github.com/apache/camel-quarkus/pull/3620) ([zbendhiba](https://github.com/zbendhiba))
-- Kafka Oauth test bump Keycloak container version to 16.1.1 & leverage… [\#3619](https://github.com/apache/camel-quarkus/pull/3619) ([zbendhiba](https://github.com/zbendhiba))
-- Remote println from SQS test [\#3616](https://github.com/apache/camel-quarkus/pull/3616) ([mmuzikar](https://github.com/mmuzikar))
-- Increase FHIR extension test coverage [\#3614](https://github.com/apache/camel-quarkus/pull/3614) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 2.7.4.Final [\#3613](https://github.com/apache/camel-quarkus/pull/3613) ([zbendhiba](https://github.com/zbendhiba))
-- zipfile: complete test coverage \#3610 [\#3611](https://github.com/apache/camel-quarkus/pull/3611) ([aldettinger](https://github.com/aldettinger))
-- Complete the release guide [\#3607](https://github.com/apache/camel-quarkus/pull/3607) ([aldettinger](https://github.com/aldettinger))
-- Upgrade third party Quarkus extensions prior to release [\#3603](https://github.com/apache/camel-quarkus/pull/3603) ([aldettinger](https://github.com/aldettinger))
-- Merge platform-http-engine tests with platform-http [\#3598](https://github.com/apache/camel-quarkus/pull/3598) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add Azure Core HTTP Client Vert.x extension [\#3597](https://github.com/apache/camel-quarkus/pull/3597) ([jamesnetherton](https://github.com/jamesnetherton))
-- file: fix a race condition where an exchange is missed due to a call … [\#3596](https://github.com/apache/camel-quarkus/pull/3596) ([aldettinger](https://github.com/aldettinger))
-- Fix \#3553 make beans of InterceptStrategy unremovable [\#3593](https://github.com/apache/camel-quarkus/pull/3593) ([zhfeng](https://github.com/zhfeng))
-- Remove redundant workarounds for Kotlin compilation on JDK 17 [\#3591](https://github.com/apache/camel-quarkus/pull/3591) ([jamesnetherton](https://github.com/jamesnetherton))
-- Bump Hazelcast client to 3.0.0 [\#3590](https://github.com/apache/camel-quarkus/pull/3590) ([zbendhiba](https://github.com/zbendhiba))
-- Bump Optaplanner to 8.18.0.Final [\#3589](https://github.com/apache/camel-quarkus/pull/3589) ([zbendhiba](https://github.com/zbendhiba))
-- Manage mvel via cq:sync-versions to allow additional consistency checks [\#3588](https://github.com/apache/camel-quarkus/pull/3588) ([ppalaga](https://github.com/ppalaga))
-- Add Extension for Camel Azure Servicebus [\#3587](https://github.com/apache/camel-quarkus/pull/3587) ([oscerd](https://github.com/oscerd))
-- Upgrade Quarkus to 2.7.3.Final [\#3586](https://github.com/apache/camel-quarkus/pull/3586) ([jamesnetherton](https://github.com/jamesnetherton))
-- jsonpath: fix different number of ObjectMapper modules between JVM an… [\#3583](https://github.com/apache/camel-quarkus/pull/3583) ([aldettinger](https://github.com/aldettinger))
-- Ensure correct camel-quarkus-examples branch for maintenance branch PRs [\#3578](https://github.com/apache/camel-quarkus/pull/3578) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix JSON keys are unquoted when using writeAsString in native mode \#3571 [\#3576](https://github.com/apache/camel-quarkus/pull/3576) ([aldettinger](https://github.com/aldettinger))
-- Exclude optional `reactor-netty-http-brave` [\#3575](https://github.com/apache/camel-quarkus/pull/3575) ([jamesnetherton](https://github.com/jamesnetherton))
-- Improve camel-quarkus-bean-validator test coverage \#3567 [\#3572](https://github.com/apache/camel-quarkus/pull/3572) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Upgrade Quarkus to 2.7.2.Final [\#3570](https://github.com/apache/camel-quarkus/pull/3570) ([jamesnetherton](https://github.com/jamesnetherton))
-- Increase azure-storage-blob extension test coverage [\#3568](https://github.com/apache/camel-quarkus/pull/3568) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Azurite container image to 3.15.0 [\#3563](https://github.com/apache/camel-quarkus/pull/3563) ([jamesnetherton](https://github.com/jamesnetherton))
-- Deprecate AHC and AHC-WS extensions  [\#3560](https://github.com/apache/camel-quarkus/pull/3560) ([ppalaga](https://github.com/ppalaga))
-- Fix \#3551 ban all non-canonical JTA specs artifacts [\#3559](https://github.com/apache/camel-quarkus/pull/3559) ([zhfeng](https://github.com/zhfeng))
-- gson: complete doc and test coverage \#3556 [\#3557](https://github.com/apache/camel-quarkus/pull/3557) ([aldettinger](https://github.com/aldettinger))
-- Improve available port discovery in tests [\#3555](https://github.com/apache/camel-quarkus/pull/3555) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#3548 to exclude geronimo-jta\_1.1\_spec in camel-activemq [\#3550](https://github.com/apache/camel-quarkus/pull/3550) ([zhfeng](https://github.com/zhfeng))
-- Fix link to Quarkus Freemarker docs [\#3547](https://github.com/apache/camel-quarkus/pull/3547) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fixup e72113e send optaplanner test messages asynchronously [\#3546](https://github.com/apache/camel-quarkus/pull/3546) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove freemarker inaccurate documentation [\#3545](https://github.com/apache/camel-quarkus/pull/3545) ([aldettinger](https://github.com/aldettinger))
-- Deprecate camel-quarkus-spark  [\#3544](https://github.com/apache/camel-quarkus/pull/3544) ([ppalaga](https://github.com/ppalaga))
-- Remove duplicate software.amazon.awssdk:iam dependency declaration [\#3543](https://github.com/apache/camel-quarkus/pull/3543) ([jamesnetherton](https://github.com/jamesnetherton))
-- Poll for optaplanner results to avoid timeouts on slow machines [\#3542](https://github.com/apache/camel-quarkus/pull/3542) ([jamesnetherton](https://github.com/jamesnetherton))
-- Disable flaky messaging resequence test on GitHub CI \(\#2957\) [\#3540](https://github.com/apache/camel-quarkus/pull/3540) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Maven Wrapper to 3.1.0 [\#3539](https://github.com/apache/camel-quarkus/pull/3539) ([jamesnetherton](https://github.com/jamesnetherton))
-- Run integration tests on Windows [\#3537](https://github.com/apache/camel-quarkus/pull/3537) ([jamesnetherton](https://github.com/jamesnetherton))
-- Exclude json-simple from camel-slack, workaround for CAMEL-17619 [\#3536](https://github.com/apache/camel-quarkus/pull/3536) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to Quarkus 2.7.1 [\#3535](https://github.com/apache/camel-quarkus/pull/3535) ([ppalaga](https://github.com/ppalaga))
-- Remove IPFS and Weka extensions temporarily [\#3533](https://github.com/apache/camel-quarkus/pull/3533) ([ppalaga](https://github.com/ppalaga))
-- Incorrect version of quarkus-maven-plugin may be resolved \#3520 [\#3528](https://github.com/apache/camel-quarkus/pull/3528) ([ppalaga](https://github.com/ppalaga))
-- \#3503 Add xslt.features support [\#3526](https://github.com/apache/camel-quarkus/pull/3526) ([DenisIstomin](https://github.com/DenisIstomin))
-- Upgrade to Camel 3.15.0 [\#3525](https://github.com/apache/camel-quarkus/pull/3525) ([jamesnetherton](https://github.com/jamesnetherton))
-- Clean up usage of `quarkus.test.flat-class-path` [\#3524](https://github.com/apache/camel-quarkus/pull/3524) ([jamesnetherton](https://github.com/jamesnetherton))
-- Build with Maven 3.8.4 [\#3523](https://github.com/apache/camel-quarkus/pull/3523) ([jamesnetherton](https://github.com/jamesnetherton))
-- Expand Cassandra CQL extension test coverage [\#3522](https://github.com/apache/camel-quarkus/pull/3522) ([jamesnetherton](https://github.com/jamesnetherton))
-- Prevent various plugins from resolving commons-logging:commons-logging [\#3518](https://github.com/apache/camel-quarkus/pull/3518) ([ppalaga](https://github.com/ppalaga))
-- Add release guide notes for updating k8s version labels in example projects [\#3516](https://github.com/apache/camel-quarkus/pull/3516) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix nitrate collection tests on slow machines [\#3515](https://github.com/apache/camel-quarkus/pull/3515) ([jamesnetherton](https://github.com/jamesnetherton))
-- Clean up usage of deprecated Quarkus APIs [\#3513](https://github.com/apache/camel-quarkus/pull/3513) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade formatter-maven-plugin to 2.17.1 [\#3512](https://github.com/apache/camel-quarkus/pull/3512) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix deprecation warnings and typos in csimple extension [\#3510](https://github.com/apache/camel-quarkus/pull/3510) ([jamesnetherton](https://github.com/jamesnetherton))
-- fix update script [\#3508](https://github.com/apache/camel-quarkus/pull/3508) ([djencks](https://github.com/djencks))
-- Fix \#3496 Ban javax.servlet:javax.servlet-api in favor of jakarta.ser… [\#3506](https://github.com/apache/camel-quarkus/pull/3506) ([zhfeng](https://github.com/zhfeng))
-- Next is 2.8.0 [\#3502](https://github.com/apache/camel-quarkus/pull/3502) ([jamesnetherton](https://github.com/jamesnetherton))
-- Use parametrized groupId for quarkus-maven-plugin so that it is possible to run our tests with io.quarkus.platform:quarkus-maven-plugin [\#3501](https://github.com/apache/camel-quarkus/pull/3501) ([ppalaga](https://github.com/ppalaga))
-- Removed the deprecated @BuildTimeAvroDataFormat annotation \#2791 [\#3500](https://github.com/apache/camel-quarkus/pull/3500) ([aldettinger](https://github.com/aldettinger))
-- Upgrade Camel to 3.14.1 [\#3497](https://github.com/apache/camel-quarkus/pull/3497) ([jamesnetherton](https://github.com/jamesnetherton))
-- CVE-2020-8908 guava: local information disclosure via temporary direc… [\#3495](https://github.com/apache/camel-quarkus/pull/3495) ([ppalaga](https://github.com/ppalaga))
-- Require Maven 3.8.1+ to build Camel Quarkus [\#3492](https://github.com/apache/camel-quarkus/pull/3492) ([ppalaga](https://github.com/ppalaga))
-- Manage camel-quarkus-catalog in camel-quarkus-bom to allow Camel K to [\#3490](https://github.com/apache/camel-quarkus/pull/3490) ([ppalaga](https://github.com/ppalaga))
-- Upgrade Quarkus to 2.7.0.Final [\#3489](https://github.com/apache/camel-quarkus/pull/3489) ([jamesnetherton](https://github.com/jamesnetherton))
-- Dependency management tweaks [\#3486](https://github.com/apache/camel-quarkus/pull/3486) ([ppalaga](https://github.com/ppalaga))
-- Remove quarkus.camel.main.enabled configuration property [\#3485](https://github.com/apache/camel-quarkus/pull/3485) ([jamesnetherton](https://github.com/jamesnetherton))
-- Bump Optaplanner to 8.16.0.Final and enable CI tests [\#3484](https://github.com/apache/camel-quarkus/pull/3484) ([zbendhiba](https://github.com/zbendhiba))
-- 📝 Update Salesforce doc, with more details on setting developer account [\#3482](https://github.com/apache/camel-quarkus/pull/3482) ([zbendhiba](https://github.com/zbendhiba))
-- Fix \#3251 expose REST DSL services to quarkus openapis [\#3481](https://github.com/apache/camel-quarkus/pull/3481) ([zhfeng](https://github.com/zhfeng))
-- camel-website \#701 camel-quarkus RI table setup \(main\) [\#3477](https://github.com/apache/camel-quarkus/pull/3477) ([djencks](https://github.com/djencks))
-- Add NOTE section for smallrye-reactive-messaging usage docs [\#3476](https://github.com/apache/camel-quarkus/pull/3476) ([jamesnetherton](https://github.com/jamesnetherton))
-- Avoid creating `CamelBeanBuildItem` for health checks if they are disabled [\#3475](https://github.com/apache/camel-quarkus/pull/3475) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 2.7.0.CR1 [\#3473](https://github.com/apache/camel-quarkus/pull/3473) ([jamesnetherton](https://github.com/jamesnetherton))
-- 📝 Improve documentation on setting up the Salesforce developer account [\#3469](https://github.com/apache/camel-quarkus/pull/3469) ([zbendhiba](https://github.com/zbendhiba))
-- Update Salesforce Integration tests to Salesforce API upgrade [\#3467](https://github.com/apache/camel-quarkus/pull/3467) ([zbendhiba](https://github.com/zbendhiba))
-- Ban netty-all  [\#3465](https://github.com/apache/camel-quarkus/pull/3465) ([ppalaga](https://github.com/ppalaga))
-- Aws2  quarkus client ddb refactor [\#3462](https://github.com/apache/camel-quarkus/pull/3462) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- aws2-quarkus-client Verify that no client except quarkus one is used  [\#3458](https://github.com/apache/camel-quarkus/pull/3458) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Make local maven settings applied to surefire plugin so that Quarkus … [\#3455](https://github.com/apache/camel-quarkus/pull/3455) ([ppalaga](https://github.com/ppalaga))
-- Add 2.7.0 migration guide [\#3454](https://github.com/apache/camel-quarkus/pull/3454) ([jamesnetherton](https://github.com/jamesnetherton))
-- Ban log4j 1.x  [\#3452](https://github.com/apache/camel-quarkus/pull/3452) ([ppalaga](https://github.com/ppalaga))
-- Remove vertx-kafka extension [\#3450](https://github.com/apache/camel-quarkus/pull/3450) ([jamesnetherton](https://github.com/jamesnetherton))
-- Avoid usage of deprecated io.quarkus.arc.AlternativePriority [\#3445](https://github.com/apache/camel-quarkus/pull/3445) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add test coverage for OpenTelemetry `@WithSpan` annotation [\#3443](https://github.com/apache/camel-quarkus/pull/3443) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove redundancy in pom description [\#3440](https://github.com/apache/camel-quarkus/pull/3440) ([apupier](https://github.com/apupier))
-- Exclude commons-logging from htmlunit-driver [\#3438](https://github.com/apache/camel-quarkus/pull/3438) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix timestamp validation in syslog integration tests [\#3437](https://github.com/apache/camel-quarkus/pull/3437) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add test coverage for Quarkus SecurityIdentity & Principal in platform-http routes [\#3435](https://github.com/apache/camel-quarkus/pull/3435) ([jamesnetherton](https://github.com/jamesnetherton))
-- Setup a reproducer showing that camel.main.durationMaxSeconds is not … [\#3434](https://github.com/apache/camel-quarkus/pull/3434) ([aldettinger](https://github.com/aldettinger))
-- Explicit that the cron extension should be used in conjunction with a… [\#3431](https://github.com/apache/camel-quarkus/pull/3431) ([aldettinger](https://github.com/aldettinger))
-- camel-website \#701: RI info \(main\) [\#3426](https://github.com/apache/camel-quarkus/pull/3426) ([djencks](https://github.com/djencks))
-- main update to docs local build v2 [\#3422](https://github.com/apache/camel-quarkus/pull/3422) ([djencks](https://github.com/djencks))
-- Added Json-Patch JVM Extension  [\#3419](https://github.com/apache/camel-quarkus/pull/3419) ([oscerd](https://github.com/oscerd))
-- Manage Eclipse jgit version and jzlib version [\#3415](https://github.com/apache/camel-quarkus/pull/3415) ([zbendhiba](https://github.com/zbendhiba))
-- 📝Add released branch to official documentation [\#3413](https://github.com/apache/camel-quarkus/pull/3413) ([zbendhiba](https://github.com/zbendhiba))
-- Force Bouncycastle dependency bcutil-jdk15on version [\#3412](https://github.com/apache/camel-quarkus/pull/3412) ([zbendhiba](https://github.com/zbendhiba))
-- 📝 Use Quarkus Platform Maven Wrapper [\#3409](https://github.com/apache/camel-quarkus/pull/3409) ([zbendhiba](https://github.com/zbendhiba))
-- Ban commons-logging and commons-logging-api [\#3406](https://github.com/apache/camel-quarkus/pull/3406) ([ppalaga](https://github.com/ppalaga))
-- Next is 2.7.0 [\#3404](https://github.com/apache/camel-quarkus/pull/3404) ([zbendhiba](https://github.com/zbendhiba))
-- See \#3396 Main content-as tables [\#3397](https://github.com/apache/camel-quarkus/pull/3397) ([djencks](https://github.com/djencks))
-- ⬆️ Upgrade Tika version [\#3395](https://github.com/apache/camel-quarkus/pull/3395) ([zbendhiba](https://github.com/zbendhiba))
-- ⬆️ Upgrade Quarkiverse jgit and Amazon services [\#3393](https://github.com/apache/camel-quarkus/pull/3393) ([zbendhiba](https://github.com/zbendhiba))
-- ⬆️ Upgrade Camel to 3.14.0 [\#3392](https://github.com/apache/camel-quarkus/pull/3392) ([zbendhiba](https://github.com/zbendhiba))
-- ⬆️ Upgrade Quarkus 2.6.0.Final [\#3388](https://github.com/apache/camel-quarkus/pull/3388) ([zbendhiba](https://github.com/zbendhiba))
-- POC/WIP local build setup [\#3385](https://github.com/apache/camel-quarkus/pull/3385) ([djencks](https://github.com/djencks))
-- protobuf: Missing method "getName" when using contentTypeFormat=json … [\#3384](https://github.com/apache/camel-quarkus/pull/3384) ([aldettinger](https://github.com/aldettinger))
-- ⬆️ Use the Quarkus Artemis BOM and upgrade to 1.0.2 [\#3383](https://github.com/apache/camel-quarkus/pull/3383) ([zbendhiba](https://github.com/zbendhiba))
-- Fix \#3374 to use File.separatorChar when get fqcn from generated … [\#3380](https://github.com/apache/camel-quarkus/pull/3380) ([zhfeng](https://github.com/zhfeng))
-- Ban log4j-core and log4j-slf4j-impl  [\#3378](https://github.com/apache/camel-quarkus/pull/3378) ([ppalaga](https://github.com/ppalaga))
-- Remove com.amazonaws:aws-java-sdk-swf-libraries from the BOM  [\#3376](https://github.com/apache/camel-quarkus/pull/3376) ([ppalaga](https://github.com/ppalaga))
-- Exclude maven-artifact from camel-quarkus-debezium-mongodb  [\#3373](https://github.com/apache/camel-quarkus/pull/3373) ([ppalaga](https://github.com/ppalaga))
-- Ensure consistent version of `software.amazon.awssdk` dependencies [\#3371](https://github.com/apache/camel-quarkus/pull/3371) ([jamesnetherton](https://github.com/jamesnetherton))
-- Sql test using derby doesn't start dev service and shows class loadin… [\#3370](https://github.com/apache/camel-quarkus/pull/3370) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Use yq installed on the GitHub actions VM instead of downloading and installing it [\#3368](https://github.com/apache/camel-quarkus/pull/3368) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 2.6.0.CR1 [\#3367](https://github.com/apache/camel-quarkus/pull/3367) ([jamesnetherton](https://github.com/jamesnetherton))
-- Ban com.sun.activation:javax.activation  [\#3362](https://github.com/apache/camel-quarkus/pull/3362) ([ppalaga](https://github.com/ppalaga))
-- Workaround for NoSuchFileException: .../target/classes when executing a [\#3359](https://github.com/apache/camel-quarkus/pull/3359) ([ppalaga](https://github.com/ppalaga))
-- Fix AWS Lambda failing itest \#3356 [\#3357](https://github.com/apache/camel-quarkus/pull/3357) ([aldettinger](https://github.com/aldettinger))
-- ✅ Test AWS2 SQS in isolation [\#3352](https://github.com/apache/camel-quarkus/pull/3352) ([zbendhiba](https://github.com/zbendhiba))
-- Fix bash syntax error in CI integration tests step [\#3351](https://github.com/apache/camel-quarkus/pull/3351) ([jamesnetherton](https://github.com/jamesnetherton))
-- Avoid hard coding Bindy resource path for `NativeImageResourceDirectoryBuildItem` [\#3349](https://github.com/apache/camel-quarkus/pull/3349) ([jamesnetherton](https://github.com/jamesnetherton))
-- fix  \[JDK17\]kudu:integration test failed in native mode \#3340 [\#3341](https://github.com/apache/camel-quarkus/pull/3341) ([ffang](https://github.com/ffang))
-- Fix misalignment of protobuf dependencies [\#3338](https://github.com/apache/camel-quarkus/pull/3338) ([jamesnetherton](https://github.com/jamesnetherton))
-- Ban com.google.code.findbugs:jsr305 unconditionally  [\#3337](https://github.com/apache/camel-quarkus/pull/3337) ([ppalaga](https://github.com/ppalaga))
-- Remove `camel-quarkus-support-common` [\#3334](https://github.com/apache/camel-quarkus/pull/3334) ([jamesnetherton](https://github.com/jamesnetherton))
-- Verify that `kafka.bootstrap.servers` property is available before attempting to use it for dev services [\#3330](https://github.com/apache/camel-quarkus/pull/3330) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add manifest to camel-quarkus-support-spring source JARs [\#3328](https://github.com/apache/camel-quarkus/pull/3328) ([jamesnetherton](https://github.com/jamesnetherton))
-- Sql test using derby doesn't start dev service and stored procedure is not working on derby db [\#3324](https://github.com/apache/camel-quarkus/pull/3324) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Fix `MicroProfileHealthTest.testFailureThreshold` test failure [\#3322](https://github.com/apache/camel-quarkus/pull/3322) ([jamesnetherton](https://github.com/jamesnetherton))
-- Document that vertx-websocket consumers run on the Quarkus Vert.x web server [\#3320](https://github.com/apache/camel-quarkus/pull/3320) ([jamesnetherton](https://github.com/jamesnetherton))
-- JFR Native support [\#3319](https://github.com/apache/camel-quarkus/pull/3319) ([jamesnetherton](https://github.com/jamesnetherton))
-- Next is 2.6.0 [\#3317](https://github.com/apache/camel-quarkus/pull/3317) ([zbendhiba](https://github.com/zbendhiba))
-- core: Add RouteConfigurationsBuilder before regular RoutesBuilder whe… [\#3316](https://github.com/apache/camel-quarkus/pull/3316) ([aldettinger](https://github.com/aldettinger))
-- Disable FOP integration test failed in native mode on Mac OS \#3280 [\#3314](https://github.com/apache/camel-quarkus/pull/3314) ([ffang](https://github.com/ffang))
-- Make building possible with Java 11 through 17 [\#3313](https://github.com/apache/camel-quarkus/pull/3313) ([ppalaga](https://github.com/ppalaga))
-- Bump Optaplanner version to 8.14.0.Final [\#3311](https://github.com/apache/camel-quarkus/pull/3311) ([zbendhiba](https://github.com/zbendhiba))
-- Graceful shutdown strategy used as default one [\#3310](https://github.com/apache/camel-quarkus/pull/3310) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Bump nimbus-jose-jwt version from Quarkus bom [\#3309](https://github.com/apache/camel-quarkus/pull/3309) ([zbendhiba](https://github.com/zbendhiba))
-- Upgrade Quarkus Qpid JMS to 0.30.0 [\#3308](https://github.com/apache/camel-quarkus/pull/3308) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix broken links to SmallRye Reactive Messaging documentation [\#3306](https://github.com/apache/camel-quarkus/pull/3306) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 2.5.0.Final [\#3305](https://github.com/apache/camel-quarkus/pull/3305) ([jamesnetherton](https://github.com/jamesnetherton))
-- Make the dependency management more consistent [\#3303](https://github.com/apache/camel-quarkus/pull/3303) ([ppalaga](https://github.com/ppalaga))
-- Add route configuration test coverage for endpoint route builder \#2078 [\#3301](https://github.com/apache/camel-quarkus/pull/3301) ([aldettinger](https://github.com/aldettinger))
-- Revert "Fixup 218bef4 Special fix for JMS extensions depending on" [\#3300](https://github.com/apache/camel-quarkus/pull/3300) ([ppalaga](https://github.com/ppalaga))
-- Upgrade Camel to 3.13.0 [\#3299](https://github.com/apache/camel-quarkus/pull/3299) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove management of netty-tcnative-boringssl-static [\#3293](https://github.com/apache/camel-quarkus/pull/3293) ([jamesnetherton](https://github.com/jamesnetherton))
-- Improve Release guide [\#3292](https://github.com/apache/camel-quarkus/pull/3292) ([ppalaga](https://github.com/ppalaga))
-- Avoid using Camel Salesforce DTO types as the return type or method parameters in integration tests [\#3291](https://github.com/apache/camel-quarkus/pull/3291) ([jamesnetherton](https://github.com/jamesnetherton))
-- Debezium tests are using JUnit 4 Assertions and Assumptions \#3289 [\#3290](https://github.com/apache/camel-quarkus/pull/3290) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Upgrade Quarkus to 2.5.0.CR1 [\#3288](https://github.com/apache/camel-quarkus/pull/3288) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#3284 to get kafka.bootstrap.servers from DevServicesLauncherConf… [\#3287](https://github.com/apache/camel-quarkus/pull/3287) ([zhfeng](https://github.com/zhfeng))
-- Fixup 218bef4 Special fix for JMS extensions depending on [\#3286](https://github.com/apache/camel-quarkus/pull/3286) ([ppalaga](https://github.com/ppalaga))
-- Remove BOM reference to non existent camel-quarkus-xstream-common-deployment dependency [\#3285](https://github.com/apache/camel-quarkus/pull/3285) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#3276 to make sure all objects have been deleted after each test … [\#3279](https://github.com/apache/camel-quarkus/pull/3279) ([zhfeng](https://github.com/zhfeng))
-- Fixup 218bef4 Special fix for Solr - Cannot run tests against [\#3278](https://github.com/apache/camel-quarkus/pull/3278) ([ppalaga](https://github.com/ppalaga))
-- Sql doc update because of the failure with external oracle database \#… [\#3272](https://github.com/apache/camel-quarkus/pull/3272) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- avro: Fix the documentation about avro schema build time parsing \#3270 [\#3271](https://github.com/apache/camel-quarkus/pull/3271) ([aldettinger](https://github.com/aldettinger))
-- Added missing stored procedure test for oracle [\#3269](https://github.com/apache/camel-quarkus/pull/3269) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- DebeziumMongodbTest skipped tests \#3213 [\#3266](https://github.com/apache/camel-quarkus/pull/3266) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Remove not needed anymore BeansWeakCache substitution. Closes \#3226 [\#3264](https://github.com/apache/camel-quarkus/pull/3264) ([vladimirfx](https://github.com/vladimirfx))
-- Fixup 218bef4 Deactivate the virtualDepenencies profile via -DnoVirtu… [\#3263](https://github.com/apache/camel-quarkus/pull/3263) ([ppalaga](https://github.com/ppalaga))
-- Cannot run tests against alternative BOMs  [\#3262](https://github.com/apache/camel-quarkus/pull/3262) ([ppalaga](https://github.com/ppalaga))
-- Sql - enable stored procedure test for different db types \#3080 [\#3261](https://github.com/apache/camel-quarkus/pull/3261) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Expand route configurations test coverage \#2978 [\#3257](https://github.com/apache/camel-quarkus/pull/3257) ([aldettinger](https://github.com/aldettinger))
-- Fix \#3254 to re-enable KafkaSaslSslIT and KafkaSslIT native tests [\#3255](https://github.com/apache/camel-quarkus/pull/3255) ([zhfeng](https://github.com/zhfeng))
-- Make sure all AWS extensions tested with Quarkus clients have the option documented [\#3253](https://github.com/apache/camel-quarkus/pull/3253) ([ppalaga](https://github.com/ppalaga))
-- Add notes about the salesforce-maven-plugin to the Salesforce extension docs [\#3250](https://github.com/apache/camel-quarkus/pull/3250) ([jamesnetherton](https://github.com/jamesnetherton))
-- Sql - native tests fail on NPE during db initialization \#3247 [\#3248](https://github.com/apache/camel-quarkus/pull/3248) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Assert that Component DSL and Endpoint DSL work for AtlasMap [\#3246](https://github.com/apache/camel-quarkus/pull/3246) ([ppalaga](https://github.com/ppalaga))
-- Added explanation that Quarkus-amazon-lambda can not be used by aws2-… [\#3245](https://github.com/apache/camel-quarkus/pull/3245) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Align Azurite container version with Camel [\#3244](https://github.com/apache/camel-quarkus/pull/3244) ([jamesnetherton](https://github.com/jamesnetherton))
-- Use log await strategy for Spring RabbitMQ container [\#3242](https://github.com/apache/camel-quarkus/pull/3242) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove bulkhead related tests as this is not yet implemented in Camel… [\#3241](https://github.com/apache/camel-quarkus/pull/3241) ([aldettinger](https://github.com/aldettinger))
-- Use log await strategy for RabbitMQ container [\#3240](https://github.com/apache/camel-quarkus/pull/3240) ([jamesnetherton](https://github.com/jamesnetherton))
-- Simplify `defining-camel-routes.adoc` and remove camel-k-version property [\#3238](https://github.com/apache/camel-quarkus/pull/3238) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#3095 improve the aws2-s3 doc to explain chunk\_signature in multi… [\#3237](https://github.com/apache/camel-quarkus/pull/3237) ([zhfeng](https://github.com/zhfeng))
-- Stub GeoCoder nominatim APIs [\#3235](https://github.com/apache/camel-quarkus/pull/3235) ([jamesnetherton](https://github.com/jamesnetherton))
-- Disable MongoDB dev services in slack itest [\#3234](https://github.com/apache/camel-quarkus/pull/3234) ([jamesnetherton](https://github.com/jamesnetherton))
-- camel quarkus main latest to next [\#3232](https://github.com/apache/camel-quarkus/pull/3232) ([djencks](https://github.com/djencks))
-- Temporary disable Tika native tests \#3230 [\#3231](https://github.com/apache/camel-quarkus/pull/3231) ([ppalaga](https://github.com/ppalaga))
-- 2592 aws2 quarkus clients tests [\#3224](https://github.com/apache/camel-quarkus/pull/3224) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Import quarkus-bom before camel-quarkus-bom in tests  [\#3223](https://github.com/apache/camel-quarkus/pull/3223) ([ppalaga](https://github.com/ppalaga))
-- Upgrade Quarkus Qpid JMS to 0.29.0 [\#3221](https://github.com/apache/camel-quarkus/pull/3221) ([jamesnetherton](https://github.com/jamesnetherton))
-- doc: rephrase the section about charsets in native mode to remove lin… [\#3220](https://github.com/apache/camel-quarkus/pull/3220) ([aldettinger](https://github.com/aldettinger))
-- Fix \#3206 to produce RunTimeConfigurationDefaultBuildItem with camel.… [\#3218](https://github.com/apache/camel-quarkus/pull/3218) ([zhfeng](https://github.com/zhfeng))
-- update to new indexer,jsonpath syntax [\#3214](https://github.com/apache/camel-quarkus/pull/3214) ([djencks](https://github.com/djencks))
-- Use JDK 17 in alternative JVM jobs [\#3212](https://github.com/apache/camel-quarkus/pull/3212) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 2.4.0.Final [\#3210](https://github.com/apache/camel-quarkus/pull/3210) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add missing shiro reflective class configuration for commons-beanutils converters [\#3209](https://github.com/apache/camel-quarkus/pull/3209) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkiverse Minio to 2.3.0 [\#3205](https://github.com/apache/camel-quarkus/pull/3205) ([jamesnetherton](https://github.com/jamesnetherton))
-- Use log await strategy for ipfs container [\#3202](https://github.com/apache/camel-quarkus/pull/3202) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#3157 to make sure the brokers option is configured in native mode [\#3198](https://github.com/apache/camel-quarkus/pull/3198) ([zhfeng](https://github.com/zhfeng))
-- Documentation and metadata improvements [\#3197](https://github.com/apache/camel-quarkus/pull/3197) ([ppalaga](https://github.com/ppalaga))
-- Remove quarkiverse-google-cloud-services dependencies [\#3188](https://github.com/apache/camel-quarkus/pull/3188) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fixes \#3184: Add requires attribute to playbook [\#3187](https://github.com/apache/camel-quarkus/pull/3187) ([djencks](https://github.com/djencks))
-- Aws2-lambda: Add event source mapping test \#2749 [\#3186](https://github.com/apache/camel-quarkus/pull/3186) ([aldettinger](https://github.com/aldettinger))
-- Improve the User guide [\#3185](https://github.com/apache/camel-quarkus/pull/3185) ([ppalaga](https://github.com/ppalaga))
-- Fix source code formatting in native mode reflection docs [\#3183](https://github.com/apache/camel-quarkus/pull/3183) ([jamesnetherton](https://github.com/jamesnetherton))
-- Simplify native mode locale docs section [\#3182](https://github.com/apache/camel-quarkus/pull/3182) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 2.4.0.CR1 [\#3180](https://github.com/apache/camel-quarkus/pull/3180) ([jamesnetherton](https://github.com/jamesnetherton))
-- Update declaring Bean Capability [\#3178](https://github.com/apache/camel-quarkus/pull/3178) ([zbendhiba](https://github.com/zbendhiba))
-- Fix path to spring boot docs [\#3177](https://github.com/apache/camel-quarkus/pull/3177) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#3169 to add S3 KMS encryption test [\#3176](https://github.com/apache/camel-quarkus/pull/3176) ([zhfeng](https://github.com/zhfeng))
-- AWS Aws2DdbQuarkusClientTest fails with real AWS \#3174 [\#3175](https://github.com/apache/camel-quarkus/pull/3175) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Aws sqs test fix [\#3170](https://github.com/apache/camel-quarkus/pull/3170) ([VratislavHais](https://github.com/VratislavHais))
-- AWS S3 tests should delete all buckets they create [\#3168](https://github.com/apache/camel-quarkus/pull/3168) ([ppalaga](https://github.com/ppalaga))
-- Switch back to using containers for ActiveMQ messaging tests [\#3166](https://github.com/apache/camel-quarkus/pull/3166) ([jamesnetherton](https://github.com/jamesnetherton))
-- CI build should test example projects with camel-quarkus SNAPSHOT \#3160 [\#3165](https://github.com/apache/camel-quarkus/pull/3165) ([ppalaga](https://github.com/ppalaga))
-- fix  Aws2S3Test could fail with real AWS S3 service caused by bucket … [\#3164](https://github.com/apache/camel-quarkus/pull/3164) ([ffang](https://github.com/ffang))
-- Document how to pass parts of release announcement to Quarkus team [\#3162](https://github.com/apache/camel-quarkus/pull/3162) ([ppalaga](https://github.com/ppalaga))
-- Check whether service binding is enabled before creating QuarkusKafkaClientFactory [\#3161](https://github.com/apache/camel-quarkus/pull/3161) ([jamesnetherton](https://github.com/jamesnetherton))
-- Revert Aws2TestEnvContext changes in order to extend aws lambda function version operations test coverage [\#3158](https://github.com/apache/camel-quarkus/pull/3158) ([aldettinger](https://github.com/aldettinger))
-- Camel 3.12 follow-up fixes [\#3153](https://github.com/apache/camel-quarkus/pull/3153) ([jamesnetherton](https://github.com/jamesnetherton))
-- Register CDI event bridges only when required [\#3151](https://github.com/apache/camel-quarkus/pull/3151) ([jamesnetherton](https://github.com/jamesnetherton))
-- Avoid release:prepare failure "The version could not be updated: [\#3150](https://github.com/apache/camel-quarkus/pull/3150) ([ppalaga](https://github.com/ppalaga))
-- Enable auto replacement of camel-spring-boot docs branch reference [\#3148](https://github.com/apache/camel-quarkus/pull/3148) ([jamesnetherton](https://github.com/jamesnetherton))
-- Issue 3143 fix eip xrefs some more [\#3147](https://github.com/apache/camel-quarkus/pull/3147) ([djencks](https://github.com/djencks))
-- Fixes \#3143: Add latest non-prerelease eips [\#3146](https://github.com/apache/camel-quarkus/pull/3146) ([djencks](https://github.com/djencks))
-- Upgrade Camel to 3.12.0 [\#3144](https://github.com/apache/camel-quarkus/pull/3144) ([jamesnetherton](https://github.com/jamesnetherton))
-- Enable Aws2TestEnvContext to handle setting up Quarkus AWS configuration properties [\#3141](https://github.com/apache/camel-quarkus/pull/3141) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 2.3.0.Final [\#3140](https://github.com/apache/camel-quarkus/pull/3140) ([jamesnetherton](https://github.com/jamesnetherton))
-- aws2-lambda: Add lambda function tag operations test \#2749 [\#3139](https://github.com/apache/camel-quarkus/pull/3139) ([aldettinger](https://github.com/aldettinger))
-- Fix list continuation in aws2-ddb docs [\#3138](https://github.com/apache/camel-quarkus/pull/3138) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add missing grouped test modules to formatting steps [\#3136](https://github.com/apache/camel-quarkus/pull/3136) ([jamesnetherton](https://github.com/jamesnetherton))
-- Test Quarkus S3 extension with Camel Quarkus AWS 2 S3 [\#3135](https://github.com/apache/camel-quarkus/pull/3135) ([zhfeng](https://github.com/zhfeng))
-- Make integration tests runnable against Quarkus Platform BOM  [\#3134](https://github.com/apache/camel-quarkus/pull/3134) ([ppalaga](https://github.com/ppalaga))
-- Test Quarkus DynamoDB extension with Camel Quarkus AWS 2 DDB [\#3133](https://github.com/apache/camel-quarkus/pull/3133) ([jamesnetherton](https://github.com/jamesnetherton))
-- Use camel-quarkus-build-parent-it as a direct parent of each test module [\#3128](https://github.com/apache/camel-quarkus/pull/3128) ([ppalaga](https://github.com/ppalaga))
-- Add notes on Quarkus Dev Services to JDBC & SQL extension docs [\#3127](https://github.com/apache/camel-quarkus/pull/3127) ([jamesnetherton](https://github.com/jamesnetherton))
-- aws2-lambda: Add alias tests  \#2749 [\#3126](https://github.com/apache/camel-quarkus/pull/3126) ([aldettinger](https://github.com/aldettinger))
-- Improve Kafka integration with Quarkus dev services [\#3125](https://github.com/apache/camel-quarkus/pull/3125) ([jamesnetherton](https://github.com/jamesnetherton))
-- Improve Kafka test coverage [\#3124](https://github.com/apache/camel-quarkus/pull/3124) ([zbendhiba](https://github.com/zbendhiba))
-- Upgrade Quarkus to 2.3.0.CR1 [\#3122](https://github.com/apache/camel-quarkus/pull/3122) ([jamesnetherton](https://github.com/jamesnetherton))
-- aws2-lambda: Added updateFunction and getFunction tests  \#2749 [\#3120](https://github.com/apache/camel-quarkus/pull/3120) ([aldettinger](https://github.com/aldettinger))
-- Upgrade Quarkus to 2.2.3.Final [\#3118](https://github.com/apache/camel-quarkus/pull/3118) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fixup 0be98ea Use test grouping for MongoDB extensions \#3089 [\#3117](https://github.com/apache/camel-quarkus/pull/3117) ([ppalaga](https://github.com/ppalaga))
-- Fixup 68be716 Allow extending an existing Catalog [\#3113](https://github.com/apache/camel-quarkus/pull/3113) ([ppalaga](https://github.com/ppalaga))
-- Test platform-http with SSL enabled [\#3112](https://github.com/apache/camel-quarkus/pull/3112) ([jamesnetherton](https://github.com/jamesnetherton))
-- Salesforce: Enable Platform Event custom fields in native mode [\#3111](https://github.com/apache/camel-quarkus/pull/3111) ([zbendhiba](https://github.com/zbendhiba))
-- use Antora 3.0.0-alpha.9 and fail build on warn to check xrefs [\#3110](https://github.com/apache/camel-quarkus/pull/3110) ([djencks](https://github.com/djencks))
-- Upgrade aws localstack version \#2749 [\#3108](https://github.com/apache/camel-quarkus/pull/3108) ([aldettinger](https://github.com/aldettinger))
-- Reinstate binance in xchange tests [\#3106](https://github.com/apache/camel-quarkus/pull/3106) ([jamesnetherton](https://github.com/jamesnetherton))
-- Update Salesforce testCDCAndStreamingEvents test to wait for consumin… [\#3105](https://github.com/apache/camel-quarkus/pull/3105) ([zbendhiba](https://github.com/zbendhiba))
-- Improve native support for `org.apache.http.impl.client.BasicAuthCache` [\#3104](https://github.com/apache/camel-quarkus/pull/3104) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix lambda tests on localstack \#2595 [\#3102](https://github.com/apache/camel-quarkus/pull/3102) ([aldettinger](https://github.com/aldettinger))
-- Revert back to taking the azure-sdk-bom version from Camel [\#3101](https://github.com/apache/camel-quarkus/pull/3101) ([jamesnetherton](https://github.com/jamesnetherton))
-- Improve handling of quarkus.\*.enabled configuration properties [\#3100](https://github.com/apache/camel-quarkus/pull/3100) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to the latest Camel & Quarkus releases [\#3099](https://github.com/apache/camel-quarkus/pull/3099) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fixup 9788fb65 Remove leftover extensions-jvm/digitalocean [\#3098](https://github.com/apache/camel-quarkus/pull/3098) ([ppalaga](https://github.com/ppalaga))
-- Add notes on how to configure the Platform HTTP server [\#3096](https://github.com/apache/camel-quarkus/pull/3096) ([jamesnetherton](https://github.com/jamesnetherton))
-- Use test grouping for MongoDB extensions [\#3092](https://github.com/apache/camel-quarkus/pull/3092) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove superfluous xml-jaxb dependency from the REST test [\#3090](https://github.com/apache/camel-quarkus/pull/3090) ([ppalaga](https://github.com/ppalaga))
-- Only configure OpenTracingTracer if Quarkus Jaeger tracing is enabled [\#3085](https://github.com/apache/camel-quarkus/pull/3085) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add documentation to OpenApi Java extension about apiContextIdListing limitations [\#3082](https://github.com/apache/camel-quarkus/pull/3082) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove redundant dependencies from openapi-java extension [\#3081](https://github.com/apache/camel-quarkus/pull/3081) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#2745 Expand AWS S3 test coverage [\#3077](https://github.com/apache/camel-quarkus/pull/3077) ([zhfeng](https://github.com/zhfeng))
-- WIP: \[\#2777\] Increase test coverage of aws2sqs component [\#3074](https://github.com/apache/camel-quarkus/pull/3074) ([VratislavHais](https://github.com/VratislavHais))
-- Expand OpenApi Java test coverage [\#3073](https://github.com/apache/camel-quarkus/pull/3073) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fixed reference to camel-kamelets-catalog [\#3071](https://github.com/apache/camel-quarkus/pull/3071) ([oscerd](https://github.com/oscerd))
-- Fixed reference to Kamelets catalog [\#3070](https://github.com/apache/camel-quarkus/pull/3070) ([oscerd](https://github.com/oscerd))
-- Salesforce : add Platform events test fixes \#2938 [\#3068](https://github.com/apache/camel-quarkus/pull/3068) ([zbendhiba](https://github.com/zbendhiba))
-- Sql - enable test with different databases \#3053 [\#3066](https://github.com/apache/camel-quarkus/pull/3066) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- \[Website\] fix attribute syntax [\#3064](https://github.com/apache/camel-quarkus/pull/3064) ([djencks](https://github.com/djencks))
-- Allow extending an existing Catalog [\#3063](https://github.com/apache/camel-quarkus/pull/3063) ([ppalaga](https://github.com/ppalaga))
-- Test OpenAPI with YAML responses [\#3062](https://github.com/apache/camel-quarkus/pull/3062) ([jamesnetherton](https://github.com/jamesnetherton))
-- Use testcontainers gcloud for Google PubSub itest [\#3061](https://github.com/apache/camel-quarkus/pull/3061) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add additional test coverage for REST DSL methods [\#3060](https://github.com/apache/camel-quarkus/pull/3060) ([jamesnetherton](https://github.com/jamesnetherton))
-- Document tagging examples in the Release Guide [\#3059](https://github.com/apache/camel-quarkus/pull/3059) ([ppalaga](https://github.com/ppalaga))
-- Document mvn cq:await-release -Dcq.version=$VERSION [\#3057](https://github.com/apache/camel-quarkus/pull/3057) ([ppalaga](https://github.com/ppalaga))
-- Exclude main-unknown-args-ignore test from the list of tests for the platform again [\#3055](https://github.com/apache/camel-quarkus/pull/3055) ([ppalaga](https://github.com/ppalaga))
-- \[\#3028\] Increase test coverage of a binding mode of camel-rest component [\#3052](https://github.com/apache/camel-quarkus/pull/3052) ([VratislavHais](https://github.com/VratislavHais))
-- Upgrade to OptaPlanner Quarkus 8.9.1.Final [\#3051](https://github.com/apache/camel-quarkus/pull/3051) ([ppalaga](https://github.com/ppalaga))
-- Document the usage of partial Quarkus BOMs  [\#3050](https://github.com/apache/camel-quarkus/pull/3050) ([ppalaga](https://github.com/ppalaga))
-- Fix branch names in CI builds section [\#3049](https://github.com/apache/camel-quarkus/pull/3049) ([jamesnetherton](https://github.com/jamesnetherton))
-- Have each release on a \<major\>.\<minor\>.x branch to make Antora happy … [\#3048](https://github.com/apache/camel-quarkus/pull/3048) ([ppalaga](https://github.com/ppalaga))
-- Remove reference to camel-quarkus-attachments from platform-http docs as it is a non-optional transitive dependency [\#3047](https://github.com/apache/camel-quarkus/pull/3047) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fixup 5cf60953 SolrTest failure when using CloundContainer [\#3046](https://github.com/apache/camel-quarkus/pull/3046) ([ppalaga](https://github.com/ppalaga))
-- Set the version in docs/antora.yml when tagging a release [\#3045](https://github.com/apache/camel-quarkus/pull/3045) ([ppalaga](https://github.com/ppalaga))
-- Fix Splunk container exposed ports configuration [\#3041](https://github.com/apache/camel-quarkus/pull/3041) ([jamesnetherton](https://github.com/jamesnetherton))
-- Exclude grpc-netty-shaded in favour of grpc-netty as it is not supported by quarkus-opentelemetry [\#3040](https://github.com/apache/camel-quarkus/pull/3040) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove dummy quarkus.google.cloud.project-id after it was made option… [\#3039](https://github.com/apache/camel-quarkus/pull/3039) ([ppalaga](https://github.com/ppalaga))
-- Upgrade Qpid JMS & Quarkiverse Google Cloud Services [\#3038](https://github.com/apache/camel-quarkus/pull/3038) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 2.2.0.Final [\#3035](https://github.com/apache/camel-quarkus/pull/3035) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add ability to test HL7 extension with multiple HAPI implementations [\#3034](https://github.com/apache/camel-quarkus/pull/3034) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#2965 to register SunJaxb21NamespacePrefixMapp for reflection [\#3033](https://github.com/apache/camel-quarkus/pull/3033) ([zhfeng](https://github.com/zhfeng))
-- Enable Kubernetes extension native tests on CI [\#3032](https://github.com/apache/camel-quarkus/pull/3032) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add additional test coverage to messaging extesnions [\#3031](https://github.com/apache/camel-quarkus/pull/3031) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix failure of SalesforceTest.testGetAccountByQueryHelper [\#3030](https://github.com/apache/camel-quarkus/pull/3030) ([jamesnetherton](https://github.com/jamesnetherton))
-- property attribute with @Consume does not work  [\#3029](https://github.com/apache/camel-quarkus/pull/3029) ([ppalaga](https://github.com/ppalaga))
-- Test setting the kamelet from an external file provided at runtime \#3025 [\#3026](https://github.com/apache/camel-quarkus/pull/3026) ([aldettinger](https://github.com/aldettinger))
-- fix SolrTest failure when using CloundContainer \#2967 [\#3024](https://github.com/apache/camel-quarkus/pull/3024) ([ffang](https://github.com/ffang))
-- Test camel-xchange with kraken until binance issues are resolved [\#3020](https://github.com/apache/camel-quarkus/pull/3020) ([jamesnetherton](https://github.com/jamesnetherton))
-- CoreTest.testCamelContextAwareRegistryBeansInitialized failing after … [\#3019](https://github.com/apache/camel-quarkus/pull/3019) ([ppalaga](https://github.com/ppalaga))
-- Upgrade Quarkus to 2.2.0.CR1 [\#3015](https://github.com/apache/camel-quarkus/pull/3015) ([jamesnetherton](https://github.com/jamesnetherton))
-- Ensure ActiveMQ container is fully started before running tests [\#3014](https://github.com/apache/camel-quarkus/pull/3014) ([jamesnetherton](https://github.com/jamesnetherton))
-- Reduce console log output from EipTest.throttle [\#3012](https://github.com/apache/camel-quarkus/pull/3012) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add dev mode support to camel-quarkus-kotlin [\#3011](https://github.com/apache/camel-quarkus/pull/3011) ([jamesnetherton](https://github.com/jamesnetherton))
-- fix extension creation on Windows [\#3008](https://github.com/apache/camel-quarkus/pull/3008) ([dufoli](https://github.com/dufoli))
-- Upgrade to cassandra-quarkus 1.1.1 [\#3007](https://github.com/apache/camel-quarkus/pull/3007) ([ppalaga](https://github.com/ppalaga))
-- Salesforce: Expand Consumer integration tests : add tests for Streami… [\#3005](https://github.com/apache/camel-quarkus/pull/3005) ([zbendhiba](https://github.com/zbendhiba))
-- Avoid deprecated BuildProducer injection [\#3004](https://github.com/apache/camel-quarkus/pull/3004) ([jamesnetherton](https://github.com/jamesnetherton))
-- Be more specific about which endpoints are mocked in AdviceWith test [\#3003](https://github.com/apache/camel-quarkus/pull/3003) ([jamesnetherton](https://github.com/jamesnetherton))
-- Introduce a common set of extendable messaging tests [\#3000](https://github.com/apache/camel-quarkus/pull/3000) ([jamesnetherton](https://github.com/jamesnetherton))
-- Salesforce : Expand producer test coverage [\#2998](https://github.com/apache/camel-quarkus/pull/2998) ([zbendhiba](https://github.com/zbendhiba))
--  Test language\(\) DSL method & Language component native support [\#2996](https://github.com/apache/camel-quarkus/pull/2996) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to cq-maven-plugin 0.38.0, keep spaces in simple XML elements [\#2995](https://github.com/apache/camel-quarkus/pull/2995) ([ppalaga](https://github.com/ppalaga))
-- Upgrade Camel to 3.11.1 [\#2994](https://github.com/apache/camel-quarkus/pull/2994) ([jamesnetherton](https://github.com/jamesnetherton))
-- Improve grouped test modules READMEs [\#2993](https://github.com/apache/camel-quarkus/pull/2993) ([ppalaga](https://github.com/ppalaga))
-- xchange: explicitly register the CurrencyNames bundle at build time \#… [\#2992](https://github.com/apache/camel-quarkus/pull/2992) ([aldettinger](https://github.com/aldettinger))
-- Expand AWS DDB tests \#2776 [\#2988](https://github.com/apache/camel-quarkus/pull/2988) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Run cq:sync-versions in the CI build to verify properties are in sync [\#2987](https://github.com/apache/camel-quarkus/pull/2987) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 2.1.1.Final [\#2986](https://github.com/apache/camel-quarkus/pull/2986) ([jamesnetherton](https://github.com/jamesnetherton))
-- Use shaded spring support dependencies in Spring RabbitMQ extension [\#2985](https://github.com/apache/camel-quarkus/pull/2985) ([jamesnetherton](https://github.com/jamesnetherton))
-- leveldb: remove useless substitutions in favor of graalvm built-in Me… [\#2984](https://github.com/apache/camel-quarkus/pull/2984) ([aldettinger](https://github.com/aldettinger))
-- Polish dependency management [\#2982](https://github.com/apache/camel-quarkus/pull/2982) ([ppalaga](https://github.com/ppalaga))
-- Skip querying Jandex for quarkus.camel.native.reflection.include-patt… [\#2973](https://github.com/apache/camel-quarkus/pull/2973) ([ppalaga](https://github.com/ppalaga))
-- jolt: remove the DeepCopySubstitution in favor of Quarkus serializati… [\#2972](https://github.com/apache/camel-quarkus/pull/2972) ([aldettinger](https://github.com/aldettinger))
-- Use quarkus-grpc-common instead of quarkus-grpc in the gRPC extension [\#2971](https://github.com/apache/camel-quarkus/pull/2971) ([jamesnetherton](https://github.com/jamesnetherton))
-- Introduce a build time optimized FastComponentNameResolver [\#2963](https://github.com/apache/camel-quarkus/pull/2963) ([jamesnetherton](https://github.com/jamesnetherton))
-- More EIP DSL method tests [\#2962](https://github.com/apache/camel-quarkus/pull/2962) ([ppalaga](https://github.com/ppalaga))
-- Fix foundation core faulttolerance itest package name [\#2961](https://github.com/apache/camel-quarkus/pull/2961) ([aldettinger](https://github.com/aldettinger))
-- Test sending messages to an SNS FIFO topic \#2625 [\#2960](https://github.com/apache/camel-quarkus/pull/2960) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Removed static modifier from top level class example [\#2959](https://github.com/apache/camel-quarkus/pull/2959) ([mmuzikar](https://github.com/mmuzikar))
-- Improve the Configuration by convention section of the configuration … [\#2958](https://github.com/apache/camel-quarkus/pull/2958) ([ppalaga](https://github.com/ppalaga))
-- Polish the wording of the Configuration docs page [\#2956](https://github.com/apache/camel-quarkus/pull/2956) ([ppalaga](https://github.com/ppalaga))
-- More EIP tests [\#2953](https://github.com/apache/camel-quarkus/pull/2953) ([ppalaga](https://github.com/ppalaga))
-- AWS2 ddb-streams integration tests failures \#2860 [\#2951](https://github.com/apache/camel-quarkus/pull/2951) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Document upgrading Camel Quarkus in Quarkus platform [\#2950](https://github.com/apache/camel-quarkus/pull/2950) ([ppalaga](https://github.com/ppalaga))
-- Next is 2.2.0 [\#2949](https://github.com/apache/camel-quarkus/pull/2949) ([zbendhiba](https://github.com/zbendhiba))
-- Stress the more preferred way of configuring components via CDI by mo… [\#2947](https://github.com/apache/camel-quarkus/pull/2947) ([ppalaga](https://github.com/ppalaga))
-- Expand ElasticSearch REST test coverage [\#2945](https://github.com/apache/camel-quarkus/pull/2945) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove an outdated sentence from the SQL extension docs, which was re… [\#2944](https://github.com/apache/camel-quarkus/pull/2944) ([ppalaga](https://github.com/ppalaga))
-- Test Quarkus and Camel ElasticSearch REST client configuration [\#2943](https://github.com/apache/camel-quarkus/pull/2943) ([jamesnetherton](https://github.com/jamesnetherton))
-- \[Camel 3.11\] Solr cloud integration tests are failing \#2814 [\#2942](https://github.com/apache/camel-quarkus/pull/2942) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Add native support for transferException [\#2940](https://github.com/apache/camel-quarkus/pull/2940) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus Debezium to 1.6.1.Final and Quarkus Google Cloud to 0… [\#2937](https://github.com/apache/camel-quarkus/pull/2937) ([zbendhiba](https://github.com/zbendhiba))
-- Upgrade Quarkus Qpid JMS to 0.26.0 [\#2936](https://github.com/apache/camel-quarkus/pull/2936) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to Quarkus 2.1.0.Final [\#2934](https://github.com/apache/camel-quarkus/pull/2934) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to Optaplanner 8.8.0 & fix removeProperty tests [\#2933](https://github.com/apache/camel-quarkus/pull/2933) ([ppalaga](https://github.com/ppalaga))
-- Use default timer delay for main-unknown-args itest application [\#2931](https://github.com/apache/camel-quarkus/pull/2931) ([jamesnetherton](https://github.com/jamesnetherton))
-- Use static issues to report nightly sync workflow failures [\#2928](https://github.com/apache/camel-quarkus/pull/2928) ([jamesnetherton](https://github.com/jamesnetherton))
-- Make the creation of a GitHub release a part of the release process [\#2924](https://github.com/apache/camel-quarkus/pull/2924) ([ppalaga](https://github.com/ppalaga))
-- Document the options for configuring the ElasticSearch REST client [\#2923](https://github.com/apache/camel-quarkus/pull/2923) ([jamesnetherton](https://github.com/jamesnetherton))
-- Salesforce - Mock existing integration tests [\#2921](https://github.com/apache/camel-quarkus/pull/2921) ([zbendhiba](https://github.com/zbendhiba))
-- Remove reflective class registration for ScramSaslClientFactory [\#2920](https://github.com/apache/camel-quarkus/pull/2920) ([jamesnetherton](https://github.com/jamesnetherton))
-- Support JMS ObjectMessage [\#2919](https://github.com/apache/camel-quarkus/pull/2919) ([jamesnetherton](https://github.com/jamesnetherton))
-- Expand Netty test coverage [\#2918](https://github.com/apache/camel-quarkus/pull/2918) ([jamesnetherton](https://github.com/jamesnetherton))
-- add zbendhiba public key [\#2917](https://github.com/apache/camel-quarkus/pull/2917) ([zbendhiba](https://github.com/zbendhiba))
-- Remove quarkus.camel.sql.script-files configuration property  [\#2916](https://github.com/apache/camel-quarkus/pull/2916) ([jamesnetherton](https://github.com/jamesnetherton))
-- Laveraging quarkus-security [\#2915](https://github.com/apache/camel-quarkus/pull/2915) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Prevent configuration of QuarkusKafkaClientFactory if quarkus-kubernetes-service-binding is not on the classpath [\#2913](https://github.com/apache/camel-quarkus/pull/2913) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add information about BOMs and precedence of them [\#2912](https://github.com/apache/camel-quarkus/pull/2912) ([mmuzikar](https://github.com/mmuzikar))
-- camel-quarkus-minio: quarkus.minio.url is not mandatory [\#2911](https://github.com/apache/camel-quarkus/pull/2911) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Upgrade Quarkus to 2.1.0.CR1 [\#2910](https://github.com/apache/camel-quarkus/pull/2910) ([jamesnetherton](https://github.com/jamesnetherton))
-- fix  js-dsl integration test failure \#2908 [\#2909](https://github.com/apache/camel-quarkus/pull/2909) ([ffang](https://github.com/ffang))
-- fix  can't build camel-fhir extension native image \#2906 [\#2907](https://github.com/apache/camel-quarkus/pull/2907) ([ffang](https://github.com/ffang))
-- Use of serialization feature of Quakus \(includes Sql and Nitrite\) [\#2904](https://github.com/apache/camel-quarkus/pull/2904) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Warn users that not all combinations of artifacts managed by [\#2899](https://github.com/apache/camel-quarkus/pull/2899) ([ppalaga](https://github.com/ppalaga))
-- Add tests for Quarkus traced beans with Camel routes [\#2898](https://github.com/apache/camel-quarkus/pull/2898) ([jamesnetherton](https://github.com/jamesnetherton))
-- add info about usage of nimbus-jose-jwt [\#2896](https://github.com/apache/camel-quarkus/pull/2896) ([zbendhiba](https://github.com/zbendhiba))
-- Remove extra .Final in plugin version [\#2895](https://github.com/apache/camel-quarkus/pull/2895) ([gastaldi](https://github.com/gastaldi))
-- Remove redundant jdk-8-classpath profile [\#2891](https://github.com/apache/camel-quarkus/pull/2891) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add a summary page for messaging extensions [\#2890](https://github.com/apache/camel-quarkus/pull/2890) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix read-lock tests [\#2889](https://github.com/apache/camel-quarkus/pull/2889) ([philschaller](https://github.com/philschaller))
-- Remove useless docker-java8 profile [\#2887](https://github.com/apache/camel-quarkus/pull/2887) ([aldettinger](https://github.com/aldettinger))
-- kudu: remove the useless test harness logic dedicated to Java 8 \#2885 [\#2886](https://github.com/apache/camel-quarkus/pull/2886) ([aldettinger](https://github.com/aldettinger))
-- Upgrade Quarkus to 2.0.1.Final [\#2883](https://github.com/apache/camel-quarkus/pull/2883) ([jamesnetherton](https://github.com/jamesnetherton))
-- Avoid producing FeatureBuildItem in support extensions [\#2882](https://github.com/apache/camel-quarkus/pull/2882) ([jamesnetherton](https://github.com/jamesnetherton))
-- Leverage catalog metadata to discover unremovable types [\#2881](https://github.com/apache/camel-quarkus/pull/2881) ([jamesnetherton](https://github.com/jamesnetherton))
-- kafka : impossible to authenticate with oauth2 [\#2879](https://github.com/apache/camel-quarkus/pull/2879) ([zbendhiba](https://github.com/zbendhiba))
-- Add test for camel.faulttolerance.\* properties \#2780 [\#2877](https://github.com/apache/camel-quarkus/pull/2877) ([aldettinger](https://github.com/aldettinger))
-- Fix \#2869 to combine build sanity checks into a single scirpt [\#2875](https://github.com/apache/camel-quarkus/pull/2875) ([zhfeng](https://github.com/zhfeng))
-- Clean up unnecessary use of @Unremovable [\#2871](https://github.com/apache/camel-quarkus/pull/2871) ([jamesnetherton](https://github.com/jamesnetherton))
-- Default to JDK 11 source & target compiler options [\#2870](https://github.com/apache/camel-quarkus/pull/2870) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#2763 to ensure jvmSince and nativeSince not newer that current v… [\#2866](https://github.com/apache/camel-quarkus/pull/2866) ([zhfeng](https://github.com/zhfeng))
-- Fix usage of incorrect @Produces annotation [\#2865](https://github.com/apache/camel-quarkus/pull/2865) ([jamesnetherton](https://github.com/jamesnetherton))
-- Dependency upgrades [\#2863](https://github.com/apache/camel-quarkus/pull/2863) ([ppalaga](https://github.com/ppalaga))
-- Class loader issues in AvroRpcTest with Quarkus 2.0.0.Alpha3 \#2651 [\#2859](https://github.com/apache/camel-quarkus/pull/2859) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Add OpenTelemetry extension [\#2854](https://github.com/apache/camel-quarkus/pull/2854) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove Camel 3.11 staging repository [\#2851](https://github.com/apache/camel-quarkus/pull/2851) ([jamesnetherton](https://github.com/jamesnetherton))
-- Improve extension descriptions [\#2848](https://github.com/apache/camel-quarkus/pull/2848) ([ppalaga](https://github.com/ppalaga))
-- Fix \#2285 upgrade to use the lasest narayana lra-coordinator [\#2847](https://github.com/apache/camel-quarkus/pull/2847) ([zhfeng](https://github.com/zhfeng))
-- Add a TypeConverter for platform-http to convert Buffer to ByteBuffer and work around \#2838 [\#2846](https://github.com/apache/camel-quarkus/pull/2846) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add a section about mocking remote endpoints to Testing page of user guide [\#2843](https://github.com/apache/camel-quarkus/pull/2843) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix InfinispanTest failed on Mac \#2840 [\#2841](https://github.com/apache/camel-quarkus/pull/2841) ([ffang](https://github.com/ffang))
-- Upgrade to Camel 3.11 [\#2839](https://github.com/apache/camel-quarkus/pull/2839) ([ppalaga](https://github.com/ppalaga))
-- Use a custom NativeImageStartedNotifier for box native tests to work around \#2830 [\#2837](https://github.com/apache/camel-quarkus/pull/2837) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add a section about testing to the Contributor guide [\#2836](https://github.com/apache/camel-quarkus/pull/2836) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to Quarkus 2.0.0.Final [\#2835](https://github.com/apache/camel-quarkus/pull/2835) ([ppalaga](https://github.com/ppalaga))
-- Deprecate quarkus.camel.sql.script-files configuration property [\#2827](https://github.com/apache/camel-quarkus/pull/2827) ([jamesnetherton](https://github.com/jamesnetherton))
-- Update the Command mode docs page [\#2826](https://github.com/apache/camel-quarkus/pull/2826) ([ppalaga](https://github.com/ppalaga))
-- Test camel.threadpool.\* set of properties \#2781 [\#2825](https://github.com/apache/camel-quarkus/pull/2825) ([aldettinger](https://github.com/aldettinger))
-- Migration guide: mention Quarkus 2.0 migration guide, [\#2824](https://github.com/apache/camel-quarkus/pull/2824) ([ppalaga](https://github.com/ppalaga))
-- Manage Groovy dependencies with groovy-bom import [\#2821](https://github.com/apache/camel-quarkus/pull/2821) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to Quarkiverse Google Cloud Services 0.8.0.CR1 [\#2820](https://github.com/apache/camel-quarkus/pull/2820) ([ppalaga](https://github.com/ppalaga))
-- Tested and documented the specification of custom beans in applicatio… [\#2818](https://github.com/apache/camel-quarkus/pull/2818) ([aldettinger](https://github.com/aldettinger))
-- Unmanage unnecessary google dependencies  [\#2817](https://github.com/apache/camel-quarkus/pull/2817) ([ppalaga](https://github.com/ppalaga))
-- Replace quarkus.camel.native.resources.\* with quarkus.native.resource… [\#2813](https://github.com/apache/camel-quarkus/pull/2813) ([ppalaga](https://github.com/ppalaga))
-- Remove camel-quarkus-main  [\#2811](https://github.com/apache/camel-quarkus/pull/2811) ([ppalaga](https://github.com/ppalaga))
-- Reduce Splunk minimum free disk space requirement [\#2809](https://github.com/apache/camel-quarkus/pull/2809) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove redundant apt dependency from camel-quarkus-bom [\#2808](https://github.com/apache/camel-quarkus/pull/2808) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to Cassandra Quarkus 1.1.0-rc2, fix \#2801 [\#2807](https://github.com/apache/camel-quarkus/pull/2807) ([ppalaga](https://github.com/ppalaga))
-- Expand HTTP clients test coverage [\#2806](https://github.com/apache/camel-quarkus/pull/2806) ([jamesnetherton](https://github.com/jamesnetherton))
-- Website build fixed after commit of kamelet docs [\#2804](https://github.com/apache/camel-quarkus/pull/2804) ([oscerd](https://github.com/oscerd))
-- Expand jsonpath test coverage \#2783 [\#2803](https://github.com/apache/camel-quarkus/pull/2803) ([aldettinger](https://github.com/aldettinger))
-- fix Issue/2733 : Native support for kamelet.yaml discovery [\#2799](https://github.com/apache/camel-quarkus/pull/2799) ([valdar](https://github.com/valdar))
-- Test Quarkus and Camel Infinispan client configuration [\#2798](https://github.com/apache/camel-quarkus/pull/2798) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fixup \#2658 Intermittent failures in MongoDbTest.testTailingConsumer\(… [\#2795](https://github.com/apache/camel-quarkus/pull/2795) ([ppalaga](https://github.com/ppalaga))
-- Avoid leaking localstack containers when ryuk is disabled [\#2792](https://github.com/apache/camel-quarkus/pull/2792) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix JSON Jackson jacksonConversionPojo test-addressed feedback \#2726 [\#2790](https://github.com/apache/camel-quarkus/pull/2790) ([ffang](https://github.com/ffang))
--  fix hazelcast integration-test failed in native mode\(On Mac\) \#2719 [\#2789](https://github.com/apache/camel-quarkus/pull/2789) ([ffang](https://github.com/ffang))
-- Dependency upgrades [\#2788](https://github.com/apache/camel-quarkus/pull/2788) ([ppalaga](https://github.com/ppalaga))
-- Deprecated @BuildTimeAvroDataFormat in favor of quarkus-avro build ti… [\#2787](https://github.com/apache/camel-quarkus/pull/2787) ([aldettinger](https://github.com/aldettinger))
-- Exclude org.bouncycastle:bcprov-debug-jdk15on from camel-as2 because we [\#2785](https://github.com/apache/camel-quarkus/pull/2785) ([ppalaga](https://github.com/ppalaga))
-- Fix typo in JIRA relationship name [\#2784](https://github.com/apache/camel-quarkus/pull/2784) ([mmuzikar](https://github.com/mmuzikar))
-- Remove health configuration workaround [\#2779](https://github.com/apache/camel-quarkus/pull/2779) ([jamesnetherton](https://github.com/jamesnetherton))
-- Adapt Observability docs page to Quarkus 2.0.0 [\#2775](https://github.com/apache/camel-quarkus/pull/2775) ([jamesnetherton](https://github.com/jamesnetherton))
-- Test setting MLLP default charset from system property for native mode [\#2774](https://github.com/apache/camel-quarkus/pull/2774) ([jamesnetherton](https://github.com/jamesnetherton))
-- fix Unable to determine the status of the running process in TimerIT … [\#2773](https://github.com/apache/camel-quarkus/pull/2773) ([ffang](https://github.com/ffang))
-- Kafka - add Kafka Idempotent repository test [\#2771](https://github.com/apache/camel-quarkus/pull/2771) ([zbendhiba](https://github.com/zbendhiba))
-- Retry Solr cloud container 'is started' steps on failure [\#2770](https://github.com/apache/camel-quarkus/pull/2770) ([jamesnetherton](https://github.com/jamesnetherton))
-- Avoid port clashes where it may already be reserved via the build-helper-maven-plugin [\#2769](https://github.com/apache/camel-quarkus/pull/2769) ([jamesnetherton](https://github.com/jamesnetherton))
-- Use autoOffsetReset earliest to avoid missing messages sent by the Kafka producer [\#2768](https://github.com/apache/camel-quarkus/pull/2768) ([jamesnetherton](https://github.com/jamesnetherton))
-- Avoid duplicating code in BaseModel & FastCamelContext [\#2765](https://github.com/apache/camel-quarkus/pull/2765) ([jamesnetherton](https://github.com/jamesnetherton))
-- Camel quarkus 2652 [\#2764](https://github.com/apache/camel-quarkus/pull/2764) ([aldettinger](https://github.com/aldettinger))
-- Fix Qute component metadata in Camel Quarkus catalog [\#2760](https://github.com/apache/camel-quarkus/pull/2760) ([ppalaga](https://github.com/ppalaga))
-- Unregister MongoDb's ChangeStreamDocument from reflection once it is … [\#2759](https://github.com/apache/camel-quarkus/pull/2759) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to azure-bom 1.0.3 and fix \#2207 Upgrading to Jackson 2.12.1 … [\#2758](https://github.com/apache/camel-quarkus/pull/2758) ([ppalaga](https://github.com/ppalaga))
-- yaml-dsl: enable flow mode deserialization by default [\#2757](https://github.com/apache/camel-quarkus/pull/2757) ([lburgazzoli](https://github.com/lburgazzoli))
-- camel-jackson-avro data format native support [\#2754](https://github.com/apache/camel-quarkus/pull/2754) ([jamesnetherton](https://github.com/jamesnetherton))
-- Sql aggregator does not work in native mode. [\#2748](https://github.com/apache/camel-quarkus/pull/2748) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Intermittent failures in MongoDbTest-testTailingConsumer and testPersistentTailingConsumer [\#2746](https://github.com/apache/camel-quarkus/pull/2746) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Intermittent failures in Aws2SqsSnsIT  [\#2743](https://github.com/apache/camel-quarkus/pull/2743) ([ppalaga](https://github.com/ppalaga))
-- Add integration test for discovering custom ProtobufMapper beans [\#2742](https://github.com/apache/camel-quarkus/pull/2742) ([jamesnetherton](https://github.com/jamesnetherton))
-- Unable to determine the status of the running process in LogIT without resteasy [\#2740](https://github.com/apache/camel-quarkus/pull/2740) ([ppalaga](https://github.com/ppalaga))
-- Fixed the CryptoIT test \#2673 [\#2738](https://github.com/apache/camel-quarkus/pull/2738) ([aldettinger](https://github.com/aldettinger))
-- Improve KafkaClientFactory integration [\#2735](https://github.com/apache/camel-quarkus/pull/2735) ([jamesnetherton](https://github.com/jamesnetherton))
-- Disable dev services for Kafka itests [\#2734](https://github.com/apache/camel-quarkus/pull/2734) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix MasterTest health check endpoint path [\#2732](https://github.com/apache/camel-quarkus/pull/2732) ([jamesnetherton](https://github.com/jamesnetherton))
-- camel-jackson-protobuf data format native support [\#2728](https://github.com/apache/camel-quarkus/pull/2728) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#2608 to create destination correctly and re-enable the test case [\#2725](https://github.com/apache/camel-quarkus/pull/2725) ([zhfeng](https://github.com/zhfeng))
-- Upgrade to Quarkus 2.0.0.CR3 [\#2722](https://github.com/apache/camel-quarkus/pull/2722) ([ppalaga](https://github.com/ppalaga))
-- Fixes for Quarkus Platform 2.0.0 [\#2720](https://github.com/apache/camel-quarkus/pull/2720) ([ppalaga](https://github.com/ppalaga))
-- Enable test for REST body validation [\#2717](https://github.com/apache/camel-quarkus/pull/2717) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add missing use cases into MongoDb test coverage \#2715 [\#2716](https://github.com/apache/camel-quarkus/pull/2716) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Added move and delete tests for FTP extension \#2645 [\#2710](https://github.com/apache/camel-quarkus/pull/2710) ([aldettinger](https://github.com/aldettinger))
-- Fix vertx-http SSL integration test [\#2705](https://github.com/apache/camel-quarkus/pull/2705) ([jamesnetherton](https://github.com/jamesnetherton))
-- Expanded Saxon test coverage with XPath saxon tests and fixed related… [\#2703](https://github.com/apache/camel-quarkus/pull/2703) ([aldettinger](https://github.com/aldettinger))
-- Build with JDK 16 as 15 is EOL [\#2700](https://github.com/apache/camel-quarkus/pull/2700) ([jamesnetherton](https://github.com/jamesnetherton))
-- Document usage of dashed query params with platform-http [\#2699](https://github.com/apache/camel-quarkus/pull/2699) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade SmallRye Reactive Messaging Camel to 3.3.2 [\#2698](https://github.com/apache/camel-quarkus/pull/2698) ([jamesnetherton](https://github.com/jamesnetherton))
-- fix typo [\#2697](https://github.com/apache/camel-quarkus/pull/2697) ([zbendhiba](https://github.com/zbendhiba))
-- Expand Sql test coverage \#2623 [\#2694](https://github.com/apache/camel-quarkus/pull/2694) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Upgrade to Quarkus 2.0.0.CR2 [\#2688](https://github.com/apache/camel-quarkus/pull/2688) ([ppalaga](https://github.com/ppalaga))
-- Fix another typo 'EndpointInject' [\#2687](https://github.com/apache/camel-quarkus/pull/2687) ([kdubois](https://github.com/kdubois))
-- Fix typo in EndpointInject title [\#2686](https://github.com/apache/camel-quarkus/pull/2686) ([kdubois](https://github.com/kdubois))
-- Add tests and documentation for transaction policies [\#2684](https://github.com/apache/camel-quarkus/pull/2684) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix aws2-support dependency on httpclient [\#2683](https://github.com/apache/camel-quarkus/pull/2683) ([aloubyansky](https://github.com/aloubyansky))
-- fix camel-quarkus-jacksonxml:JsonView annotations take no effect in n… [\#2682](https://github.com/apache/camel-quarkus/pull/2682) ([ffang](https://github.com/ffang))
-- Fix Error when using camel-quarkus-jackson in native mode: java.lang.… [\#2680](https://github.com/apache/camel-quarkus/pull/2680) ([ffang](https://github.com/ffang))
-- jackson: add test coverage \#2634 [\#2672](https://github.com/apache/camel-quarkus/pull/2672) ([ffang](https://github.com/ffang))
-- upgrade json-smart [\#2669](https://github.com/apache/camel-quarkus/pull/2669) ([zbendhiba](https://github.com/zbendhiba))
-- quarkus-jackson is included quarkus-kafka-client since quarkus 2.0.0.… [\#2668](https://github.com/apache/camel-quarkus/pull/2668) ([zbendhiba](https://github.com/zbendhiba))
-- Quick fix - Intermittent failures in MongoDbTest.testTailingConsumer [\#2665](https://github.com/apache/camel-quarkus/pull/2665) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Eagerly initialized Random in various extensions [\#2663](https://github.com/apache/camel-quarkus/pull/2663) ([ppalaga](https://github.com/ppalaga))
-- Fix \#2604 to add a camel-sql case in jta integration tests [\#2655](https://github.com/apache/camel-quarkus/pull/2655) ([zhfeng](https://github.com/zhfeng))
-- Ensure camel-quarkus-integration-wiremock-support is test scope [\#2644](https://github.com/apache/camel-quarkus/pull/2644) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to Camel 3.10.0 and Quarkus 2.0.0.Alpha3 [\#2643](https://github.com/apache/camel-quarkus/pull/2643) ([ppalaga](https://github.com/ppalaga))
-- Expand MongoDb test coverage \#2622 [\#2642](https://github.com/apache/camel-quarkus/pull/2642) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Test EIPs DSL methods \#2628 [\#2641](https://github.com/apache/camel-quarkus/pull/2641) ([ppalaga](https://github.com/ppalaga))
-- Use CamelContextCustomizer from camel-api [\#2640](https://github.com/apache/camel-quarkus/pull/2640) ([jamesnetherton](https://github.com/jamesnetherton))
-- Use WireMock for GitHub tests [\#2639](https://github.com/apache/camel-quarkus/pull/2639) ([jamesnetherton](https://github.com/jamesnetherton))
-- \#2633 jacksonxml: add test coverage [\#2635](https://github.com/apache/camel-quarkus/pull/2635) ([ffang](https://github.com/ffang))
-- add quarkus-jackson in the camel-quarkus-kafka extension [\#2629](https://github.com/apache/camel-quarkus/pull/2629) ([zbendhiba](https://github.com/zbendhiba))
-- Use concurrency key instead of cancel-workflow-runs action [\#2620](https://github.com/apache/camel-quarkus/pull/2620) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add tests for path prefixes and all HTTP methods [\#2619](https://github.com/apache/camel-quarkus/pull/2619) ([jamesnetherton](https://github.com/jamesnetherton))
-- Test core languages in isolation [\#2614](https://github.com/apache/camel-quarkus/pull/2614) ([ppalaga](https://github.com/ppalaga))
-- Add tests for MicroProfile metrics configuration options [\#2611](https://github.com/apache/camel-quarkus/pull/2611) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add test coverage for additional JMS message types [\#2609](https://github.com/apache/camel-quarkus/pull/2609) ([jamesnetherton](https://github.com/jamesnetherton))
-- Update first-steps.adoc [\#2603](https://github.com/apache/camel-quarkus/pull/2603) ([yazidaqel](https://github.com/yazidaqel))
-- Leverage quarkus-hazelcast-client-bom, upgrade to quarkus-hazelcast-client 1.2.0 [\#2602](https://github.com/apache/camel-quarkus/pull/2602) ([ppalaga](https://github.com/ppalaga))
-- Document locale limitations in native mode  [\#2601](https://github.com/apache/camel-quarkus/pull/2601) ([ppalaga](https://github.com/ppalaga))
-- Revisit core, main and foundation integration tests \#2362 [\#2597](https://github.com/apache/camel-quarkus/pull/2597) ([ppalaga](https://github.com/ppalaga))
-- AWS2 components have to set client.endpointOverride\(\) to work on Loca… [\#2596](https://github.com/apache/camel-quarkus/pull/2596) ([ppalaga](https://github.com/ppalaga))
-- REST extension doc link is not processed correctly  [\#2593](https://github.com/apache/camel-quarkus/pull/2593) ([ppalaga](https://github.com/ppalaga))
-- Support @Consume  [\#2588](https://github.com/apache/camel-quarkus/pull/2588) ([ppalaga](https://github.com/ppalaga))
-- Add DataSource configuration docs to JDBC & SQL extensions [\#2587](https://github.com/apache/camel-quarkus/pull/2587) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fixed native issue and completed test/documentation \#1710 [\#2585](https://github.com/apache/camel-quarkus/pull/2585) ([aldettinger](https://github.com/aldettinger))
-- Test TypeConverters \#2537 [\#2584](https://github.com/apache/camel-quarkus/pull/2584) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Do not use deprecated BuildStep.applicationArchiveMarkers\(\) [\#2583](https://github.com/apache/camel-quarkus/pull/2583) ([jamesnetherton](https://github.com/jamesnetherton))
-- Support @EndpointInject and @Produce  [\#2581](https://github.com/apache/camel-quarkus/pull/2581) ([ppalaga](https://github.com/ppalaga))
-- With fix of \#2260 too many @Converters are registered \#2570 [\#2571](https://github.com/apache/camel-quarkus/pull/2571) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Move RestBindingMode XML tests to rest itest module [\#2563](https://github.com/apache/camel-quarkus/pull/2563) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add additional SOAP extension test coverage [\#2562](https://github.com/apache/camel-quarkus/pull/2562) ([jamesnetherton](https://github.com/jamesnetherton))
-- Custom TypeConverter is not automatically registered \#2260 [\#2560](https://github.com/apache/camel-quarkus/pull/2560) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- \[fix\] \#2356 Test file language [\#2559](https://github.com/apache/camel-quarkus/pull/2559) ([KurtStam](https://github.com/KurtStam))
-- Explained how to override default build locale in bindy documentation… [\#2557](https://github.com/apache/camel-quarkus/pull/2557) ([aldettinger](https://github.com/aldettinger))
-- Update changelog action to v1.4 [\#2556](https://github.com/apache/camel-quarkus/pull/2556) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add MLLP test coverage for setting charset [\#2555](https://github.com/apache/camel-quarkus/pull/2555) ([jamesnetherton](https://github.com/jamesnetherton))
-- \#2550 fix several native integration-test failure [\#2553](https://github.com/apache/camel-quarkus/pull/2553) ([ffang](https://github.com/ffang))
-- Wrap PR template content in comments by default [\#2552](https://github.com/apache/camel-quarkus/pull/2552) ([jamesnetherton](https://github.com/jamesnetherton))
-- xpath: Fixed native issue and completed tests/documentation \#2547 [\#2551](https://github.com/apache/camel-quarkus/pull/2551) ([aldettinger](https://github.com/aldettinger))
-- Test Batch Consumer, charset, filter, sortby, idempotent of the file component [\#2548](https://github.com/apache/camel-quarkus/pull/2548) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- XChange native support [\#2545](https://github.com/apache/camel-quarkus/pull/2545) ([jamesnetherton](https://github.com/jamesnetherton))
-- Test bean binding  [\#2544](https://github.com/apache/camel-quarkus/pull/2544) ([ppalaga](https://github.com/ppalaga))
-- fix org.apache.camel.quarkus.component.splunk.it.SplunkTest failure i… [\#2543](https://github.com/apache/camel-quarkus/pull/2543) ([ffang](https://github.com/ffang))
-- Added tests and docs for the simple language \#2533 [\#2541](https://github.com/apache/camel-quarkus/pull/2541) ([aldettinger](https://github.com/aldettinger))
-- Expand HL7 test coverage [\#2538](https://github.com/apache/camel-quarkus/pull/2538) ([jamesnetherton](https://github.com/jamesnetherton))
-- Expand REST test coverage [\#2535](https://github.com/apache/camel-quarkus/pull/2535) ([jamesnetherton](https://github.com/jamesnetherton))
-- Document the possibility to use CDI beans with camel bean component [\#2531](https://github.com/apache/camel-quarkus/pull/2531) ([ppalaga](https://github.com/ppalaga))
-- Test class component, test bean language  [\#2530](https://github.com/apache/camel-quarkus/pull/2530) ([ppalaga](https://github.com/ppalaga))
-- Fix \#1384 camel-mybatis native support [\#2525](https://github.com/apache/camel-quarkus/pull/2525) ([zhfeng](https://github.com/zhfeng))
-- fix org.apache.camel.quarkus.component.lra.it.LraTest failed \#2523 [\#2524](https://github.com/apache/camel-quarkus/pull/2524) ([ffang](https://github.com/ffang))
-- Fix asciidoctor warnings at camel-website build [\#2517](https://github.com/apache/camel-quarkus/pull/2517) ([tadayosi](https://github.com/tadayosi))
-- Fix admonitions in adocs [\#2516](https://github.com/apache/camel-quarkus/pull/2516) ([tadayosi](https://github.com/tadayosi))
-- Fixed classpath and no prefix resources that were ignored in dev mode… [\#2515](https://github.com/apache/camel-quarkus/pull/2515) ([aldettinger](https://github.com/aldettinger))
-- Qute component improperly classified as other in Camel Quarkus Catalog [\#2510](https://github.com/apache/camel-quarkus/pull/2510) ([ppalaga](https://github.com/ppalaga))
-- AtlasMap: Use jandex to discover the types we need to register for re… [\#2509](https://github.com/apache/camel-quarkus/pull/2509) ([zbendhiba](https://github.com/zbendhiba))
-- Add test coverage for Kafka with SASL\_SSL [\#2507](https://github.com/apache/camel-quarkus/pull/2507) ([jamesnetherton](https://github.com/jamesnetherton))
-- \#2490 fix camel-quarkus-hbase-integration-test [\#2506](https://github.com/apache/camel-quarkus/pull/2506) ([ffang](https://github.com/ffang))
-- Google Storage support \#2421 [\#2505](https://github.com/apache/camel-quarkus/pull/2505) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Add integration-tests-support-kafka module [\#2504](https://github.com/apache/camel-quarkus/pull/2504) ([jamesnetherton](https://github.com/jamesnetherton))
-- Replace references to camel master branch with main in antora playbooks [\#2501](https://github.com/apache/camel-quarkus/pull/2501) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add test coverage for Kafka with SSL [\#2500](https://github.com/apache/camel-quarkus/pull/2500) ([jamesnetherton](https://github.com/jamesnetherton))
-- update ci doc [\#2498](https://github.com/apache/camel-quarkus/pull/2498) ([zbendhiba](https://github.com/zbendhiba))
-- Add integration tests \#2388 [\#2497](https://github.com/apache/camel-quarkus/pull/2497) ([zbendhiba](https://github.com/zbendhiba))
-- bindy: fixed the locale test so that it detects issues on Java 8 too … [\#2496](https://github.com/apache/camel-quarkus/pull/2496) ([aldettinger](https://github.com/aldettinger))
-- Fix SlackConfig class for native builds [\#2495](https://github.com/apache/camel-quarkus/pull/2495) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix invalid xref link to configuration.adoc [\#2494](https://github.com/apache/camel-quarkus/pull/2494) ([jamesnetherton](https://github.com/jamesnetherton))
-- Simplify testcontainers usage [\#2493](https://github.com/apache/camel-quarkus/pull/2493) ([jamesnetherton](https://github.com/jamesnetherton))
-- Reballance CI test categories even more [\#2488](https://github.com/apache/camel-quarkus/pull/2488) ([ppalaga](https://github.com/ppalaga))
-- Reballance CI test categories, do not validate docs links in inital-mvn-install CI phase [\#2485](https://github.com/apache/camel-quarkus/pull/2485) ([ppalaga](https://github.com/ppalaga))
-- Test skipped in native mode should be executed on default Java version at least  [\#2482](https://github.com/apache/camel-quarkus/pull/2482) ([ppalaga](https://github.com/ppalaga))
-- Add Quarkus service binding support to Kafka extension [\#2480](https://github.com/apache/camel-quarkus/pull/2480) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to Quarkus 1.13.2.Final [\#2478](https://github.com/apache/camel-quarkus/pull/2478) ([ppalaga](https://github.com/ppalaga))
-- Run Azure tests grouped on the CI thus saving some time [\#2477](https://github.com/apache/camel-quarkus/pull/2477) ([ppalaga](https://github.com/ppalaga))
-- documentation fixes [\#2475](https://github.com/apache/camel-quarkus/pull/2475) ([aldettinger](https://github.com/aldettinger))
-- Revisit the documentation \#2136 \#2470 \#2374 [\#2474](https://github.com/apache/camel-quarkus/pull/2474) ([ppalaga](https://github.com/ppalaga))
-- Upper case Bootstrap, Fix \#2164 [\#2472](https://github.com/apache/camel-quarkus/pull/2472) ([cunningt](https://github.com/cunningt))
-- Docs improvements [\#2469](https://github.com/apache/camel-quarkus/pull/2469) ([ppalaga](https://github.com/ppalaga))
-- Improve MongoDB extension documentation of named clients [\#2467](https://github.com/apache/camel-quarkus/pull/2467) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix intermittent failure in native MicroprofileMetricsIT [\#2464](https://github.com/apache/camel-quarkus/pull/2464) ([jamesnetherton](https://github.com/jamesnetherton))
-- Added native support for camel-openstack \* components \#1943 [\#2463](https://github.com/apache/camel-quarkus/pull/2463) ([aldettinger](https://github.com/aldettinger))
-- Make Quarkus Micrometer optional for Reactor Netty extension [\#2462](https://github.com/apache/camel-quarkus/pull/2462) ([jamesnetherton](https://github.com/jamesnetherton))
-- Forward HBase testcontainer's log to stdout to see whether \#2458 is o… [\#2459](https://github.com/apache/camel-quarkus/pull/2459) ([ppalaga](https://github.com/ppalaga))
-- Fix \#2441 to remove the unused beanContainer in FhirR5Processor [\#2455](https://github.com/apache/camel-quarkus/pull/2455) ([zhfeng](https://github.com/zhfeng))
-- Add code.quarkus.io badges on extension pages  [\#2454](https://github.com/apache/camel-quarkus/pull/2454) ([ppalaga](https://github.com/ppalaga))
-- camel-quarkus-dozer Error when running native executable \#2449 [\#2453](https://github.com/apache/camel-quarkus/pull/2453) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Fix xref-validator download failure [\#2446](https://github.com/apache/camel-quarkus/pull/2446) ([ppalaga](https://github.com/ppalaga))
-- Show deprecation info in Extensions reference  [\#2444](https://github.com/apache/camel-quarkus/pull/2444) ([ppalaga](https://github.com/ppalaga))
-- \[fix\] Enforce correct maven version [\#2443](https://github.com/apache/camel-quarkus/pull/2443) ([llowinge](https://github.com/llowinge))
-- Upgrade CassandraQL quarkus extension to 1.0.1 \#2423 [\#2440](https://github.com/apache/camel-quarkus/pull/2440) ([zbendhiba](https://github.com/zbendhiba))
-- openstack: added nova server and swift tests \#1943 [\#2438](https://github.com/apache/camel-quarkus/pull/2438) ([aldettinger](https://github.com/aldettinger))
-- Azure Storage Data Lake appends newline to the file content  [\#2437](https://github.com/apache/camel-quarkus/pull/2437) ([ppalaga](https://github.com/ppalaga))
-- Fix NPE if Qute template can't be found [\#2434](https://github.com/apache/camel-quarkus/pull/2434) ([jamesnetherton](https://github.com/jamesnetherton))
-- Make camel-quarkus-xml-io work again after we broke it with camel-qua… [\#2432](https://github.com/apache/camel-quarkus/pull/2432) ([ppalaga](https://github.com/ppalaga))
-- Split misc test category into new networking-dataformats category [\#2430](https://github.com/apache/camel-quarkus/pull/2430) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade quarkus-google-cloud-services to 0.5.0 [\#2429](https://github.com/apache/camel-quarkus/pull/2429) ([jamesnetherton](https://github.com/jamesnetherton))
-- MLLP Native support [\#2428](https://github.com/apache/camel-quarkus/pull/2428) ([jamesnetherton](https://github.com/jamesnetherton))
-- Consume kubernetes-client-bom via Quarkus BoM [\#2427](https://github.com/apache/camel-quarkus/pull/2427) ([ppalaga](https://github.com/ppalaga))
-- docs: add xref support for adoc file sourced from javadoc [\#2420](https://github.com/apache/camel-quarkus/pull/2420) ([ppalaga](https://github.com/ppalaga))
-- Fix intermittent failure in camel-quarkus-master-integration-test [\#2419](https://github.com/apache/camel-quarkus/pull/2419) ([jamesnetherton](https://github.com/jamesnetherton))
-- core: Removed the href in core javadoc as it does not generate a corr… [\#2418](https://github.com/apache/camel-quarkus/pull/2418) ([aldettinger](https://github.com/aldettinger))
-- Fix of Spring RabbitMQ integration test failures after spring update [\#2415](https://github.com/apache/camel-quarkus/pull/2415) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- bindy: do not embed useless resources \#2413 [\#2414](https://github.com/apache/camel-quarkus/pull/2414) ([aldettinger](https://github.com/aldettinger))
-- Document the process for maintaining \(quarkus | camel\)-master branches [\#2412](https://github.com/apache/camel-quarkus/pull/2412) ([jamesnetherton](https://github.com/jamesnetherton))
-- bindy: created a test to show the locale issue in native and document… [\#2408](https://github.com/apache/camel-quarkus/pull/2408) ([aldettinger](https://github.com/aldettinger))
-- Remove Camel 3.9.0 staging repository [\#2404](https://github.com/apache/camel-quarkus/pull/2404) ([jamesnetherton](https://github.com/jamesnetherton))
-- Revert Disable doc xref checks as there is no camel-3.9.x branch yet [\#2394](https://github.com/apache/camel-quarkus/pull/2394) ([jamesnetherton](https://github.com/jamesnetherton))
-- Quarkiverse dependency upgrades [\#2390](https://github.com/apache/camel-quarkus/pull/2390) ([ppalaga](https://github.com/ppalaga))
-- DigitalOcean native support \#1594 [\#2387](https://github.com/apache/camel-quarkus/pull/2387) ([zbendhiba](https://github.com/zbendhiba))
-- Replace hbase-testing-util with docker container \#2295 [\#2379](https://github.com/apache/camel-quarkus/pull/2379) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Upgrade to Camel 3.9.0 [\#2378](https://github.com/apache/camel-quarkus/pull/2378) ([jamesnetherton](https://github.com/jamesnetherton))
-- Only invoke completed method on unknown arguments if the failure remedy is FAIL [\#2373](https://github.com/apache/camel-quarkus/pull/2373) ([jamesnetherton](https://github.com/jamesnetherton))
-- openstack: added neutron port, subnet and nova flavor tests \#1943 [\#2372](https://github.com/apache/camel-quarkus/pull/2372) ([aldettinger](https://github.com/aldettinger))
-- Merge camel-quarkus-main into camel-quarkus-core \#2358 [\#2371](https://github.com/apache/camel-quarkus/pull/2371) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to Quarkus 1.13.0.Final [\#2370](https://github.com/apache/camel-quarkus/pull/2370) ([ppalaga](https://github.com/ppalaga))
-- Increase MicroProfile health extension test coverage [\#2369](https://github.com/apache/camel-quarkus/pull/2369) ([jamesnetherton](https://github.com/jamesnetherton))
-- Use AbstractHealthCheck for custom health checks [\#2364](https://github.com/apache/camel-quarkus/pull/2364) ([jamesnetherton](https://github.com/jamesnetherton))
-- openstack: added neutron network tests \#1943 [\#2359](https://github.com/apache/camel-quarkus/pull/2359) ([aldettinger](https://github.com/aldettinger))
-- Add test coverage for FTPS [\#2357](https://github.com/apache/camel-quarkus/pull/2357) ([jamesnetherton](https://github.com/jamesnetherton))
-- Deprecate camel-quarkus-componentdsl and camel-quarkus-endpointdsl ex… [\#2355](https://github.com/apache/camel-quarkus/pull/2355) ([ppalaga](https://github.com/ppalaga))
-- Add a link to a blog post about Camel Quarkus command line applications [\#2352](https://github.com/apache/camel-quarkus/pull/2352) ([ppalaga](https://github.com/ppalaga))
-- Fix some deprecation warnings [\#2348](https://github.com/apache/camel-quarkus/pull/2348) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Kotlin to 1.4.31 [\#2347](https://github.com/apache/camel-quarkus/pull/2347) ([jamesnetherton](https://github.com/jamesnetherton))
-- openstack: added keystone tests \#1943 [\#2346](https://github.com/apache/camel-quarkus/pull/2346) ([aldettinger](https://github.com/aldettinger))
-- Remove AWS SDK v1 extensions after they have been removed from Camel [\#2345](https://github.com/apache/camel-quarkus/pull/2345) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to Quarkus 1.13.0.CR1 [\#2343](https://github.com/apache/camel-quarkus/pull/2343) ([jamesnetherton](https://github.com/jamesnetherton))
-- Register classes with Solr Field annotations for reflection [\#2342](https://github.com/apache/camel-quarkus/pull/2342) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add configuration option to ignore unknown arguments [\#2338](https://github.com/apache/camel-quarkus/pull/2338) ([jamesnetherton](https://github.com/jamesnetherton))
-- Disable OptaplannerTest.solveSync on CI [\#2337](https://github.com/apache/camel-quarkus/pull/2337) ([jamesnetherton](https://github.com/jamesnetherton))
-- openstack: added cinder snapshots and glance tests \#1943 [\#2335](https://github.com/apache/camel-quarkus/pull/2335) ([aldettinger](https://github.com/aldettinger))
-- Fix wrong format of RouteBuilder [\#2334](https://github.com/apache/camel-quarkus/pull/2334) ([llowinge](https://github.com/llowinge))
-- openstack: added cinder volume tests \#1943 [\#2330](https://github.com/apache/camel-quarkus/pull/2330) ([aldettinger](https://github.com/aldettinger))
-- Upgrade Quarkus to 1.12.2.Final [\#2329](https://github.com/apache/camel-quarkus/pull/2329) ([jamesnetherton](https://github.com/jamesnetherton))
-- Document that AtlasMap user classes may need to be registered for ref… [\#2328](https://github.com/apache/camel-quarkus/pull/2328) ([zbendhiba](https://github.com/zbendhiba))
-- couchbase JVM : add integration tests fixes \#2326 [\#2327](https://github.com/apache/camel-quarkus/pull/2327) ([zbendhiba](https://github.com/zbendhiba))
-- HL7 Native support [\#2325](https://github.com/apache/camel-quarkus/pull/2325) ([jamesnetherton](https://github.com/jamesnetherton))
-- Updated link in testing doc [\#2324](https://github.com/apache/camel-quarkus/pull/2324) ([mmuzikar](https://github.com/mmuzikar))
-- Workaround \#2207 in Azure Storage Data Lake test [\#2322](https://github.com/apache/camel-quarkus/pull/2322) ([ppalaga](https://github.com/ppalaga))
-- Use camel-servicenow-maven-plugin to generate model classes [\#2321](https://github.com/apache/camel-quarkus/pull/2321) ([jamesnetherton](https://github.com/jamesnetherton))
-- Unable to use Salesforce DTOs in native mode [\#2315](https://github.com/apache/camel-quarkus/pull/2315) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 1.12.1.Final [\#2313](https://github.com/apache/camel-quarkus/pull/2313) ([jamesnetherton](https://github.com/jamesnetherton))
-- Adjust references to the runner JAR for the fast-jar format [\#2311](https://github.com/apache/camel-quarkus/pull/2311) ([jamesnetherton](https://github.com/jamesnetherton))
-- Paho MQTT 5 support  [\#2310](https://github.com/apache/camel-quarkus/pull/2310) ([ppalaga](https://github.com/ppalaga))
-- Stitch and Huawei SMN JVM support [\#2309](https://github.com/apache/camel-quarkus/pull/2309) ([ppalaga](https://github.com/ppalaga))
-- Review usage of quarkus.ssl.native in integration tests [\#2307](https://github.com/apache/camel-quarkus/pull/2307) ([jamesnetherton](https://github.com/jamesnetherton))
-- Azure Storage Data Lake JVM support \#2289 [\#2305](https://github.com/apache/camel-quarkus/pull/2305) ([ppalaga](https://github.com/ppalaga))
-- Move HTTP send-dynamic test to HTTP itest module [\#2303](https://github.com/apache/camel-quarkus/pull/2303) ([jamesnetherton](https://github.com/jamesnetherton))
-- bindy: added native support for methods registered with @DataField [\#2298](https://github.com/apache/camel-quarkus/pull/2298) ([aldettinger](https://github.com/aldettinger))
-- Use azure-sdk-bom instead of individual azure artifact versions [\#2297](https://github.com/apache/camel-quarkus/pull/2297) ([ppalaga](https://github.com/ppalaga))
-- Test AWS 2 SES [\#2288](https://github.com/apache/camel-quarkus/pull/2288) ([ppalaga](https://github.com/ppalaga))
-- LRA native support [\#2286](https://github.com/apache/camel-quarkus/pull/2286) ([jamesnetherton](https://github.com/jamesnetherton))
-- Test AWS 2 Lambda [\#2283](https://github.com/apache/camel-quarkus/pull/2283) ([ppalaga](https://github.com/ppalaga))
-- bindy: fixed reflective classes registration, fixes \#2268 [\#2281](https://github.com/apache/camel-quarkus/pull/2281) ([aldettinger](https://github.com/aldettinger))
-- Test AWS 2 CloudWatch [\#2280](https://github.com/apache/camel-quarkus/pull/2280) ([ppalaga](https://github.com/ppalaga))
-- Improve the release guide [\#2279](https://github.com/apache/camel-quarkus/pull/2279) ([ppalaga](https://github.com/ppalaga))
-- Prefer SyntheticBeanBuildItem to initializing bean producers via volatile fields  [\#2277](https://github.com/apache/camel-quarkus/pull/2277) ([ppalaga](https://github.com/ppalaga))
-- Next is 1.8.0 [\#2274](https://github.com/apache/camel-quarkus/pull/2274) ([ppalaga](https://github.com/ppalaga))
-- Azure EventHubs test fixup [\#2271](https://github.com/apache/camel-quarkus/pull/2271) ([ppalaga](https://github.com/ppalaga))
-- Upgrade Quarkus Qpid JMS to 0.23.0 [\#2270](https://github.com/apache/camel-quarkus/pull/2270) ([jamesnetherton](https://github.com/jamesnetherton))
-- Make git tests ignore local configuration [\#2269](https://github.com/apache/camel-quarkus/pull/2269) ([jamesnetherton](https://github.com/jamesnetherton))
-- Disable ryuk on CI builds [\#2267](https://github.com/apache/camel-quarkus/pull/2267) ([jamesnetherton](https://github.com/jamesnetherton))
-- Deprecate Webocket JSR 356 \#2262 [\#2265](https://github.com/apache/camel-quarkus/pull/2265) ([ppalaga](https://github.com/ppalaga))
-- Add basic Netty UDP tests [\#2264](https://github.com/apache/camel-quarkus/pull/2264) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 1.12.0.Final [\#2263](https://github.com/apache/camel-quarkus/pull/2263) ([jamesnetherton](https://github.com/jamesnetherton))
-- JFR JVM only support [\#2259](https://github.com/apache/camel-quarkus/pull/2259) ([jamesnetherton](https://github.com/jamesnetherton))
-- Added CBOR data format native support \#1754 [\#2257](https://github.com/apache/camel-quarkus/pull/2257) ([aldettinger](https://github.com/aldettinger))
-- Test AWS 2 Firehose [\#2256](https://github.com/apache/camel-quarkus/pull/2256) ([ppalaga](https://github.com/ppalaga))
-- Nitrite native support \#1298 [\#2254](https://github.com/apache/camel-quarkus/pull/2254) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- AWS 2 Kinesis native support  [\#2252](https://github.com/apache/camel-quarkus/pull/2252) ([ppalaga](https://github.com/ppalaga))
-- Remove Camel 3.8.0 staging repository [\#2251](https://github.com/apache/camel-quarkus/pull/2251) ([jamesnetherton](https://github.com/jamesnetherton))
-- Enable FOP native integration tests [\#2247](https://github.com/apache/camel-quarkus/pull/2247) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix intermittent failure of SpringRabbitmqTest [\#2246](https://github.com/apache/camel-quarkus/pull/2246) ([jamesnetherton](https://github.com/jamesnetherton))
-- await for consumer fixes \#2205 [\#2245](https://github.com/apache/camel-quarkus/pull/2245) ([zbendhiba](https://github.com/zbendhiba))
-- Remove outdated extensions README [\#2244](https://github.com/apache/camel-quarkus/pull/2244) ([jamesnetherton](https://github.com/jamesnetherton))
-- Test AWS 2 DynamoDB Streams [\#2242](https://github.com/apache/camel-quarkus/pull/2242) ([ppalaga](https://github.com/ppalaga))
-- Docs xref checks failure with Camel 3.8.0 [\#2240](https://github.com/apache/camel-quarkus/pull/2240) ([jamesnetherton](https://github.com/jamesnetherton))
-- Test AWS 2 DynamoDB properly [\#2238](https://github.com/apache/camel-quarkus/pull/2238) ([ppalaga](https://github.com/ppalaga))
-- AtlasMap native support \#1989 [\#2237](https://github.com/apache/camel-quarkus/pull/2237) ([zbendhiba](https://github.com/zbendhiba))
-- \[update\] Upgrade testcontainers version [\#2236](https://github.com/apache/camel-quarkus/pull/2236) ([llowinge](https://github.com/llowinge))
-- Add Kamelet component extension  [\#2235](https://github.com/apache/camel-quarkus/pull/2235) ([jamesnetherton](https://github.com/jamesnetherton))
-- Removing unnecessary exclusions in test for CassandaQL [\#2234](https://github.com/apache/camel-quarkus/pull/2234) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- camel-spring-rabbitmq - new component \#2128 [\#2233](https://github.com/apache/camel-quarkus/pull/2233) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Remove redundant Netty reflective class configuration [\#2232](https://github.com/apache/camel-quarkus/pull/2232) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to Quarkus 1.12.0.CR1 [\#2231](https://github.com/apache/camel-quarkus/pull/2231) ([jamesnetherton](https://github.com/jamesnetherton))
-- Allow running AWS 2 tests both grouped and isolated [\#2230](https://github.com/apache/camel-quarkus/pull/2230) ([ppalaga](https://github.com/ppalaga))
-- Use Java 15 as 14 is EOL [\#2229](https://github.com/apache/camel-quarkus/pull/2229) ([jamesnetherton](https://github.com/jamesnetherton))
-- Ensure integration tests have enough free disk space [\#2228](https://github.com/apache/camel-quarkus/pull/2228) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to Camel 3.8.0 [\#2227](https://github.com/apache/camel-quarkus/pull/2227) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix camel-master CI branch build [\#2224](https://github.com/apache/camel-quarkus/pull/2224) ([jamesnetherton](https://github.com/jamesnetherton))
-- Test AWS 2 SNS properly [\#2222](https://github.com/apache/camel-quarkus/pull/2222) ([ppalaga](https://github.com/ppalaga))
-- PubNub native support [\#2218](https://github.com/apache/camel-quarkus/pull/2218) ([jamesnetherton](https://github.com/jamesnetherton))
-- Test AWS 2 SQS properly [\#2217](https://github.com/apache/camel-quarkus/pull/2217) ([ppalaga](https://github.com/ppalaga))
-- Replaced the JettyTestServer class with MockOaipmhServer based on wir… [\#2214](https://github.com/apache/camel-quarkus/pull/2214) ([aldettinger](https://github.com/aldettinger))
-- Azure EventHubs native build fails with Quarkus 1.12  [\#2208](https://github.com/apache/camel-quarkus/pull/2208) ([ppalaga](https://github.com/ppalaga))
-- Replace the deprecated VanillaUuidGenerator with DefaultUuidGenerator [\#2203](https://github.com/apache/camel-quarkus/pull/2203) ([lburgazzoli](https://github.com/lburgazzoli))
-- Upgrade SmallRye Reactive Messaging Camel to 2.8.0 [\#2199](https://github.com/apache/camel-quarkus/pull/2199) ([jamesnetherton](https://github.com/jamesnetherton))
-- Test AWS 2 S3 properly [\#2198](https://github.com/apache/camel-quarkus/pull/2198) ([ppalaga](https://github.com/ppalaga))
-- Syslog native support [\#2197](https://github.com/apache/camel-quarkus/pull/2197) ([jamesnetherton](https://github.com/jamesnetherton))
-- Changelog is back [\#2195](https://github.com/apache/camel-quarkus/pull/2195) ([oscerd](https://github.com/oscerd))
-- AWS2 EventBridge native support [\#2193](https://github.com/apache/camel-quarkus/pull/2193) ([oscerd](https://github.com/oscerd))
-- Added OAI-PMH support [\#2190](https://github.com/apache/camel-quarkus/pull/2190) ([aldettinger](https://github.com/aldettinger))
-- XML Security native support [\#2186](https://github.com/apache/camel-quarkus/pull/2186) ([jamesnetherton](https://github.com/jamesnetherton))
-- Freemarker native support  [\#2184](https://github.com/apache/camel-quarkus/pull/2184) ([ppalaga](https://github.com/ppalaga))
-- Import quarkus-qpid-jms-bom to our BoM instead of importing quarkus-q… [\#2181](https://github.com/apache/camel-quarkus/pull/2181) ([ppalaga](https://github.com/ppalaga))
-- Some JVM-only extensions falsely advertized as supporting native [\#2179](https://github.com/apache/camel-quarkus/pull/2179) ([ppalaga](https://github.com/ppalaga))
-- Azure Event Hubs support [\#2178](https://github.com/apache/camel-quarkus/pull/2178) ([ppalaga](https://github.com/ppalaga))
-- StAX native support [\#2177](https://github.com/apache/camel-quarkus/pull/2177) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 1.11.1.Final [\#2173](https://github.com/apache/camel-quarkus/pull/2173) ([jamesnetherton](https://github.com/jamesnetherton))
-- XML Tokenize language native support [\#2169](https://github.com/apache/camel-quarkus/pull/2169) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#1895 to remove registerNarayanaReflectiveClass [\#2165](https://github.com/apache/camel-quarkus/pull/2165) ([zhfeng](https://github.com/zhfeng))
-- Improvement for first-steps docs [\#2162](https://github.com/apache/camel-quarkus/pull/2162) ([tstuber](https://github.com/tstuber))
-- IPFS native support [\#2159](https://github.com/apache/camel-quarkus/pull/2159) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Camel to 3.7.1 [\#2158](https://github.com/apache/camel-quarkus/pull/2158) ([jamesnetherton](https://github.com/jamesnetherton))
-- Avoid usage of deprecated capabilities string constants [\#2154](https://github.com/apache/camel-quarkus/pull/2154) ([jamesnetherton](https://github.com/jamesnetherton))
-- Improve the release docs [\#2150](https://github.com/apache/camel-quarkus/pull/2150) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to cq-maven-plugin 0.27, stop using mvnd.rules altogether [\#2148](https://github.com/apache/camel-quarkus/pull/2148) ([ppalaga](https://github.com/ppalaga))
-- add Awaitility + suppress warnings \#2127 [\#2146](https://github.com/apache/camel-quarkus/pull/2146) ([zbendhiba](https://github.com/zbendhiba))
-- Azure Storage Queue Service native support [\#2143](https://github.com/apache/camel-quarkus/pull/2143) ([ppalaga](https://github.com/ppalaga))
-- Improve the release docs [\#2141](https://github.com/apache/camel-quarkus/pull/2141) ([ppalaga](https://github.com/ppalaga))
-- Avoid automatic minio client autowiring \#2134 [\#2140](https://github.com/apache/camel-quarkus/pull/2140) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Azure Storage Blob native support  [\#2139](https://github.com/apache/camel-quarkus/pull/2139) ([ppalaga](https://github.com/ppalaga))
-- Upgrade Quarkus Qpid JMS to 0.22.0 [\#2138](https://github.com/apache/camel-quarkus/pull/2138) ([jamesnetherton](https://github.com/jamesnetherton))
-- Hazelcast integration tests : switch to testcontainers \#2127 [\#2137](https://github.com/apache/camel-quarkus/pull/2137) ([zbendhiba](https://github.com/zbendhiba))
-- Upgrade Quarkus to 1.11.0.Final [\#2133](https://github.com/apache/camel-quarkus/pull/2133) ([jamesnetherton](https://github.com/jamesnetherton))
-- Allow running the Azure test against the real Azure API in addition to [\#2132](https://github.com/apache/camel-quarkus/pull/2132) ([ppalaga](https://github.com/ppalaga))
-- Add notes on enabling Geolocation APIs for geocoder extension integration tests [\#2130](https://github.com/apache/camel-quarkus/pull/2130) ([jamesnetherton](https://github.com/jamesnetherton))
-- add missing QuarkusTestResource [\#2129](https://github.com/apache/camel-quarkus/pull/2129) ([zbendhiba](https://github.com/zbendhiba))
-- Add vertx-kafka component support [\#2125](https://github.com/apache/camel-quarkus/pull/2125) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove changelog generation workflow [\#2124](https://github.com/apache/camel-quarkus/pull/2124) ([jamesnetherton](https://github.com/jamesnetherton))
-- Debezium MongoDB Connector native support [\#2123](https://github.com/apache/camel-quarkus/pull/2123) ([ppalaga](https://github.com/ppalaga))
-- Switch back to AdoptOpenJDK/install-jdk action [\#2121](https://github.com/apache/camel-quarkus/pull/2121) ([jamesnetherton](https://github.com/jamesnetherton))
-- Align Kotlin and SmallRye Reactive Messaging Camel with Quarkus [\#2118](https://github.com/apache/camel-quarkus/pull/2118) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove docker.io prefix for images [\#2117](https://github.com/apache/camel-quarkus/pull/2117) ([llowinge](https://github.com/llowinge))
-- Minio native support \#2040 [\#2116](https://github.com/apache/camel-quarkus/pull/2116) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Add more integration tests for camel-hazelcast extension \#2094 [\#2115](https://github.com/apache/camel-quarkus/pull/2115) ([zbendhiba](https://github.com/zbendhiba))
-- antora/xref-validator failure after a component was removed from Camel [\#2114](https://github.com/apache/camel-quarkus/pull/2114) ([ppalaga](https://github.com/ppalaga))
-- Upgrade Quarkus to 1.11.0.CR1 [\#2111](https://github.com/apache/camel-quarkus/pull/2111) ([jamesnetherton](https://github.com/jamesnetherton))
-- Temporary workaround for \#2109 antora/xref-validator after a componen… [\#2110](https://github.com/apache/camel-quarkus/pull/2110) ([ppalaga](https://github.com/ppalaga))
-- CSimple NPE even if CSimple language is not used  [\#2108](https://github.com/apache/camel-quarkus/pull/2108) ([ppalaga](https://github.com/ppalaga))
-- Added Redis Aggregation Repository support in JVM mode only \#2085 [\#2106](https://github.com/apache/camel-quarkus/pull/2106) ([aldettinger](https://github.com/aldettinger))
-- Remove hystrix from test-categories.yaml [\#2105](https://github.com/apache/camel-quarkus/pull/2105) ([llowinge](https://github.com/llowinge))
-- Temporarily switch to actions/setup-java [\#2104](https://github.com/apache/camel-quarkus/pull/2104) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade SmallRye Reactive Messaging Camel to 2.7.0 [\#2100](https://github.com/apache/camel-quarkus/pull/2100) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix twitter itest in native mode using ConfigProvider insted of Confi… [\#2096](https://github.com/apache/camel-quarkus/pull/2096) ([llowinge](https://github.com/llowinge))
-- Hazelcast native support fixes \#1647 [\#2093](https://github.com/apache/camel-quarkus/pull/2093) ([zbendhiba](https://github.com/zbendhiba))
-- Removed loadsApplicationClasses = true as it has no more effect [\#2092](https://github.com/apache/camel-quarkus/pull/2092) ([aldettinger](https://github.com/aldettinger))
-- Upgrade to Quarkus 1.11.0.Beta1 [\#2089](https://github.com/apache/camel-quarkus/pull/2089) ([ppalaga](https://github.com/ppalaga))
-- Added JSONata extension [\#2088](https://github.com/apache/camel-quarkus/pull/2088) ([aldettinger](https://github.com/aldettinger))
-- CAMEL-15948: examples.json instead of .adoc files [\#2087](https://github.com/apache/camel-quarkus/pull/2087) ([zregvart](https://github.com/zregvart))
-- Last release is 1.5.0 [\#2086](https://github.com/apache/camel-quarkus/pull/2086) ([ppalaga](https://github.com/ppalaga))
-- Next is 1.6.0 [\#2076](https://github.com/apache/camel-quarkus/pull/2076) ([ppalaga](https://github.com/ppalaga))
-- Documented the Camel Quarkus testing approach \#1981 [\#2075](https://github.com/apache/camel-quarkus/pull/2075) ([aldettinger](https://github.com/aldettinger))
-- Require Java 11 [\#2073](https://github.com/apache/camel-quarkus/pull/2073) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to Quarkus 1.10.3.Final [\#2062](https://github.com/apache/camel-quarkus/pull/2062) ([ppalaga](https://github.com/ppalaga))
-- Polish how we pass -Djavax.net.ssl.trustStore to the Solr test \#2029 [\#2056](https://github.com/apache/camel-quarkus/pull/2056) ([ppalaga](https://github.com/ppalaga))
-- Fix persistence of WireMock mappings [\#2054](https://github.com/apache/camel-quarkus/pull/2054) ([jamesnetherton](https://github.com/jamesnetherton))
-- Updated the release guide in order to publish sources [\#2053](https://github.com/apache/camel-quarkus/pull/2053) ([aldettinger](https://github.com/aldettinger))
-- Use camel-dependencies as parent pom to inherit camel version properties [\#2051](https://github.com/apache/camel-quarkus/pull/2051) ([jamesnetherton](https://github.com/jamesnetherton))
-- Micrometer component support [\#2050](https://github.com/apache/camel-quarkus/pull/2050) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 1.10.2.Final [\#2047](https://github.com/apache/camel-quarkus/pull/2047) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix GeocoderNominationTest postalCode field assertion failure [\#2043](https://github.com/apache/camel-quarkus/pull/2043) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fixup 94ef785 Next is 1.5.0-SNAPSHOT [\#2041](https://github.com/apache/camel-quarkus/pull/2041) ([ppalaga](https://github.com/ppalaga))
-- Add JVM only extensions for minio [\#2039](https://github.com/apache/camel-quarkus/pull/2039) ([github-actions[bot]](https://github.com/apps/github-actions))
-- JSch native support [\#2038](https://github.com/apache/camel-quarkus/pull/2038) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add Nitrite tests [\#2035](https://github.com/apache/camel-quarkus/pull/2035) ([ppalaga](https://github.com/ppalaga))
-- Upgrade Quarkus to 1.10.1.Final [\#2032](https://github.com/apache/camel-quarkus/pull/2032) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus Qpid JMS to 0.21.0 [\#2030](https://github.com/apache/camel-quarkus/pull/2030) ([jamesnetherton](https://github.com/jamesnetherton))
-- Test the Freemarker extension properly, although only in JVM mode for [\#2028](https://github.com/apache/camel-quarkus/pull/2028) ([ppalaga](https://github.com/ppalaga))
-- Solr native support fixes \#1703 [\#2026](https://github.com/apache/camel-quarkus/pull/2026) ([zbendhiba](https://github.com/zbendhiba))
-- Camel Avro RPC component native support \#1941 [\#2025](https://github.com/apache/camel-quarkus/pull/2025) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Fix protobuf itest dependency on deployment [\#2021](https://github.com/apache/camel-quarkus/pull/2021) ([llowinge](https://github.com/llowinge))
-- Fix debezium itest pom dependencies to deployments [\#2020](https://github.com/apache/camel-quarkus/pull/2020) ([llowinge](https://github.com/llowinge))
-- Leverage Quarkus plugin's generate-code mojo instead of protobuf-maven-plugin to generate protobuf stubs [\#2018](https://github.com/apache/camel-quarkus/pull/2018) ([ppalaga](https://github.com/ppalaga))
-- Upgrade Quarkus Qpid JMS to 0.20.0 [\#2017](https://github.com/apache/camel-quarkus/pull/2017) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 1.10.0.Final [\#2016](https://github.com/apache/camel-quarkus/pull/2016) ([jamesnetherton](https://github.com/jamesnetherton))
-- Added key [\#2015](https://github.com/apache/camel-quarkus/pull/2015) ([aldettinger](https://github.com/aldettinger))
-- Added JSLT native support \#1740 [\#2010](https://github.com/apache/camel-quarkus/pull/2010) ([aldettinger](https://github.com/aldettinger))
-- Fix github itest to use oauth token instead username/password [\#2009](https://github.com/apache/camel-quarkus/pull/2009) ([llowinge](https://github.com/llowinge))
-- Kudu: unshade and remove embedded netty and use quarkus-netty instead [\#2008](https://github.com/apache/camel-quarkus/pull/2008) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to Quarkus 1.10.0.CR1 [\#2004](https://github.com/apache/camel-quarkus/pull/2004) ([jamesnetherton](https://github.com/jamesnetherton))
-- Added MSV native support [\#2000](https://github.com/apache/camel-quarkus/pull/2000) ([aldettinger](https://github.com/aldettinger))
-- Configurable Debezium itest timeout [\#1999](https://github.com/apache/camel-quarkus/pull/1999) ([llowinge](https://github.com/llowinge))
-- Upgrade Quarkus to 1.9.2.Final [\#1994](https://github.com/apache/camel-quarkus/pull/1994) ([jamesnetherton](https://github.com/jamesnetherton))
-- Migrate ServiceNow, Slack, Geocoder & Telegram tests to WireMock [\#1993](https://github.com/apache/camel-quarkus/pull/1993) ([jamesnetherton](https://github.com/jamesnetherton))
-- Added nagios native support \#1726 [\#1991](https://github.com/apache/camel-quarkus/pull/1991) ([aldettinger](https://github.com/aldettinger))
-- core: allign BaseModel with org.apache.camel.impl.DefaultModel [\#1985](https://github.com/apache/camel-quarkus/pull/1985) ([lburgazzoli](https://github.com/lburgazzoli))
-- PostgresSQL Event : add usage of Quarkus AgroalDatasource fixes \#1909 [\#1982](https://github.com/apache/camel-quarkus/pull/1982) ([zbendhiba](https://github.com/zbendhiba))
-- Reenable Olingo4 integration test [\#1980](https://github.com/apache/camel-quarkus/pull/1980) ([jamesnetherton](https://github.com/jamesnetherton))
-- Configuration option \(not\) to start the runtime \#1969 [\#1977](https://github.com/apache/camel-quarkus/pull/1977) ([ppalaga](https://github.com/ppalaga))
-- Add JVM only extensions for aws2-eventbridge [\#1975](https://github.com/apache/camel-quarkus/pull/1975) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Automate the process of creating jvm only extensions [\#1974](https://github.com/apache/camel-quarkus/pull/1974) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fixup Provide a quick profile \#1607 [\#1968](https://github.com/apache/camel-quarkus/pull/1968) ([ppalaga](https://github.com/ppalaga))
-- Zendesk native support [\#1967](https://github.com/apache/camel-quarkus/pull/1967) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 1.9.1.Final [\#1966](https://github.com/apache/camel-quarkus/pull/1966) ([jamesnetherton](https://github.com/jamesnetherton))
-- Twilio native support [\#1964](https://github.com/apache/camel-quarkus/pull/1964) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#819 saga native support [\#1963](https://github.com/apache/camel-quarkus/pull/1963) ([zhfeng](https://github.com/zhfeng))
-- Provide a quickly profile [\#1962](https://github.com/apache/camel-quarkus/pull/1962) ([ppalaga](https://github.com/ppalaga))
-- Leverage Quarkus JAXP extension where applicable \#1806 [\#1958](https://github.com/apache/camel-quarkus/pull/1958) ([ppalaga](https://github.com/ppalaga))
-- Document Spark peculiarities \#1928 [\#1957](https://github.com/apache/camel-quarkus/pull/1957) ([ppalaga](https://github.com/ppalaga))
-- Leverage camel-platform-http-vertx in platform-http extension [\#1954](https://github.com/apache/camel-quarkus/pull/1954) ([jamesnetherton](https://github.com/jamesnetherton))
-- Replace ${camel.quarkus.project.root} set by directory-maven-plugin w… [\#1953](https://github.com/apache/camel-quarkus/pull/1953) ([ppalaga](https://github.com/ppalaga))
-- lumberjack : move client payload sending to test fixes \#1949 [\#1950](https://github.com/apache/camel-quarkus/pull/1950) ([zbendhiba](https://github.com/zbendhiba))
-- ActiveMQ Default XPath evaluator could not be loaded [\#1947](https://github.com/apache/camel-quarkus/pull/1947) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix usage of deprecated GitHub actions commands [\#1946](https://github.com/apache/camel-quarkus/pull/1946) ([jamesnetherton](https://github.com/jamesnetherton))
-- Camel 3.6.0 upgrade leftovers [\#1940](https://github.com/apache/camel-quarkus/pull/1940) ([jamesnetherton](https://github.com/jamesnetherton))
-- Exclude glassfish dependencies from hbase-testing-util [\#1939](https://github.com/apache/camel-quarkus/pull/1939) ([jamesnetherton](https://github.com/jamesnetherton))
-- Lumberjack native support fixes \#1732 [\#1938](https://github.com/apache/camel-quarkus/pull/1938) ([zbendhiba](https://github.com/zbendhiba))
-- Enable Spring dependent extensions to work with Quarkus Spring [\#1937](https://github.com/apache/camel-quarkus/pull/1937) ([jamesnetherton](https://github.com/jamesnetherton))
-- Set retention-days parameter on upload-artifact action [\#1936](https://github.com/apache/camel-quarkus/pull/1936) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove Camel 3.6.0 staging repository [\#1934](https://github.com/apache/camel-quarkus/pull/1934) ([jamesnetherton](https://github.com/jamesnetherton))
-- Increase test coverage for Spring dependent extensions [\#1932](https://github.com/apache/camel-quarkus/pull/1932) ([jamesnetherton](https://github.com/jamesnetherton))
-- FOP tests fail in Quarkus Platform \#1930 [\#1931](https://github.com/apache/camel-quarkus/pull/1931) ([ppalaga](https://github.com/ppalaga))
-- Jenkinsfile build: changed the JDK name following INFRA new approach [\#1929](https://github.com/apache/camel-quarkus/pull/1929) ([oscerd](https://github.com/oscerd))
-- Align jackson-dataformat-xml version with Quarkus jackson [\#1925](https://github.com/apache/camel-quarkus/pull/1925) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus Qpid JMS to 0.19.0 [\#1924](https://github.com/apache/camel-quarkus/pull/1924) ([jamesnetherton](https://github.com/jamesnetherton))
-- Trigger changelog generation on workflow\_dispatch [\#1923](https://github.com/apache/camel-quarkus/pull/1923) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 1.9.0.Final [\#1921](https://github.com/apache/camel-quarkus/pull/1921) ([jamesnetherton](https://github.com/jamesnetherton))
-- Added nsq native support fixes \#1722 [\#1920](https://github.com/apache/camel-quarkus/pull/1920) ([aldettinger](https://github.com/aldettinger))
-- pgevent: correct service name [\#1919](https://github.com/apache/camel-quarkus/pull/1919) ([zbendhiba](https://github.com/zbendhiba))
-- Spark JVM support [\#1916](https://github.com/apache/camel-quarkus/pull/1916) ([ppalaga](https://github.com/ppalaga))
-- Workaround AdviceWithRouteBuilder and MicroprofileMetrics conflict [\#1915](https://github.com/apache/camel-quarkus/pull/1915) ([jamesnetherton](https://github.com/jamesnetherton))
-- HBase JVM support [\#1906](https://github.com/apache/camel-quarkus/pull/1906) ([ppalaga](https://github.com/ppalaga))
-- PostgresSQL Event native support fixes \#1719 [\#1905](https://github.com/apache/camel-quarkus/pull/1905) ([zbendhiba](https://github.com/zbendhiba))
-- Prevent CI workflows running on forks [\#1904](https://github.com/apache/camel-quarkus/pull/1904) ([jamesnetherton](https://github.com/jamesnetherton))
-- Document all ways to start a new project [\#1903](https://github.com/apache/camel-quarkus/pull/1903) ([jamesnetherton](https://github.com/jamesnetherton))
-- LevelDB native support \#1839 [\#1902](https://github.com/apache/camel-quarkus/pull/1902) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- camel-quarkus-jira: Add resteasy-common dependency [\#1899](https://github.com/apache/camel-quarkus/pull/1899) ([mmelko](https://github.com/mmelko))
-- File specific issues for TODOs where necessary \#1285 [\#1897](https://github.com/apache/camel-quarkus/pull/1897) ([ppalaga](https://github.com/ppalaga))
-- Restrict changelog workflow to only run on apache/camel-quarkus repo [\#1893](https://github.com/apache/camel-quarkus/pull/1893) ([jamesnetherton](https://github.com/jamesnetherton))
-- Quarkus 1.9.0 post upgrade fixes [\#1890](https://github.com/apache/camel-quarkus/pull/1890) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 1.9.0.CR1 [\#1887](https://github.com/apache/camel-quarkus/pull/1887) ([jamesnetherton](https://github.com/jamesnetherton))
-- Crypto extension requires reflective access to DigitalSignatureConstants [\#1883](https://github.com/apache/camel-quarkus/pull/1883) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to Debezium 1.3.0.Final [\#1882](https://github.com/apache/camel-quarkus/pull/1882) ([ppalaga](https://github.com/ppalaga))
-- CAMEL-QUARKUS-1720: Added Postgres replication slot native support [\#1880](https://github.com/apache/camel-quarkus/pull/1880) ([aldettinger](https://github.com/aldettinger))
-- Crypto \(JCE\) native support [\#1878](https://github.com/apache/camel-quarkus/pull/1878) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix twitter itest so it initially waits when start polling tweets [\#1877](https://github.com/apache/camel-quarkus/pull/1877) ([llowinge](https://github.com/llowinge))
-- Add an Examples step to the release guide [\#1875](https://github.com/apache/camel-quarkus/pull/1875) ([ppalaga](https://github.com/ppalaga))
-- NoSuchMethodException: org.apache.camel.service.lra.LRASagaRoutes.\<init\>\(\) [\#1873](https://github.com/apache/camel-quarkus/pull/1873) ([ppalaga](https://github.com/ppalaga))
-- Headersmap native support [\#1872](https://github.com/apache/camel-quarkus/pull/1872) ([jamesnetherton](https://github.com/jamesnetherton))
-- Generate the list of examples from the AsciiDoc pages generated in the [\#1870](https://github.com/apache/camel-quarkus/pull/1870) ([ppalaga](https://github.com/ppalaga))
-- Let's see if removing -Dmaven.wagon.http.pool=false solves the Maven … [\#1867](https://github.com/apache/camel-quarkus/pull/1867) ([ppalaga](https://github.com/ppalaga))
-- Upgrade SmallRye Reactive Messaging Camel to 2.4.0 [\#1866](https://github.com/apache/camel-quarkus/pull/1866) ([jamesnetherton](https://github.com/jamesnetherton))
-- Move examples to a separate git repository [\#1864](https://github.com/apache/camel-quarkus/pull/1864) ([ppalaga](https://github.com/ppalaga))
-- Fix platform-http handler exception handling [\#1863](https://github.com/apache/camel-quarkus/pull/1863) ([jamesnetherton](https://github.com/jamesnetherton))
-- Turn of Maven connection pooling to avoid connection issues on the CI… [\#1859](https://github.com/apache/camel-quarkus/pull/1859) ([ppalaga](https://github.com/ppalaga))
-- Tidy up pom.xml files [\#1858](https://github.com/apache/camel-quarkus/pull/1858) ([ppalaga](https://github.com/ppalaga))
-- platform-http: handle requests using a thread from the worker pool [\#1857](https://github.com/apache/camel-quarkus/pull/1857) ([lburgazzoli](https://github.com/lburgazzoli))
-- Geocoder native support fixes \#1645 [\#1856](https://github.com/apache/camel-quarkus/pull/1856) ([zbendhiba](https://github.com/zbendhiba))
-- Document allowContextMapAll native mode limitations [\#1855](https://github.com/apache/camel-quarkus/pull/1855) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to cq-maven-plugin 0.20.0, set nativeSince property when prom… [\#1854](https://github.com/apache/camel-quarkus/pull/1854) ([ppalaga](https://github.com/ppalaga))
-- Document camel main xml configuration properties [\#1853](https://github.com/apache/camel-quarkus/pull/1853) ([jamesnetherton](https://github.com/jamesnetherton))
-- Shiro, Ribbon, JCache JVM support [\#1849](https://github.com/apache/camel-quarkus/pull/1849) ([ppalaga](https://github.com/ppalaga))
-- Duplicate license headers in Velocity test templates \#1843 [\#1847](https://github.com/apache/camel-quarkus/pull/1847) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Ensure InputStream is closed after reading rome.properties [\#1842](https://github.com/apache/camel-quarkus/pull/1842) ([jamesnetherton](https://github.com/jamesnetherton))
-- AWS XRay, Headersmap, Jasypt, LevelDB, LRA JVM support [\#1841](https://github.com/apache/camel-quarkus/pull/1841) ([ppalaga](https://github.com/ppalaga))
-- RSS native support [\#1836](https://github.com/apache/camel-quarkus/pull/1836) ([jamesnetherton](https://github.com/jamesnetherton))
-- List of misc. components empty after the recent docs generation chang… [\#1835](https://github.com/apache/camel-quarkus/pull/1835) ([ppalaga](https://github.com/ppalaga))
-- Exclude .idea directory from license checks [\#1833](https://github.com/apache/camel-quarkus/pull/1833) ([jamesnetherton](https://github.com/jamesnetherton))
-- Use distinct descriptions for the for the various JSON data formats [\#1832](https://github.com/apache/camel-quarkus/pull/1832) ([ppalaga](https://github.com/ppalaga))
-- Atom native support [\#1831](https://github.com/apache/camel-quarkus/pull/1831) ([jamesnetherton](https://github.com/jamesnetherton))
-- String template native support \#1694 [\#1828](https://github.com/apache/camel-quarkus/pull/1828) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Fix intermittent failure of AHC-WS itest [\#1827](https://github.com/apache/camel-quarkus/pull/1827) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove redundant skip of maven-enforcer-plugin execution [\#1825](https://github.com/apache/camel-quarkus/pull/1825) ([jamesnetherton](https://github.com/jamesnetherton))
-- OptaPlanner native support fixes \#1721 [\#1822](https://github.com/apache/camel-quarkus/pull/1822) ([zbendhiba](https://github.com/zbendhiba))
-- Configure NativeImageResourceBuildItem for camel route classpath resources [\#1821](https://github.com/apache/camel-quarkus/pull/1821) ([jamesnetherton](https://github.com/jamesnetherton))
-- Run verify for the docs module on the CI \#1819 [\#1820](https://github.com/apache/camel-quarkus/pull/1820) ([ppalaga](https://github.com/ppalaga))
-- Improve mock backend logging [\#1818](https://github.com/apache/camel-quarkus/pull/1818) ([llowinge](https://github.com/llowinge))
-- Camel quarkus disable auto route discovery not working [\#1817](https://github.com/apache/camel-quarkus/pull/1817) ([lburgazzoli](https://github.com/lburgazzoli))
-- Use partials instead of pages for the individual Camel bits [\#1814](https://github.com/apache/camel-quarkus/pull/1814) ([ppalaga](https://github.com/ppalaga))
-- Added UniVocity data formats native support \#1756 [\#1813](https://github.com/apache/camel-quarkus/pull/1813) ([aldettinger](https://github.com/aldettinger))
-- Align guava & google-http-client versions with Quarkus [\#1811](https://github.com/apache/camel-quarkus/pull/1811) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 1.8.1.Final [\#1809](https://github.com/apache/camel-quarkus/pull/1809) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix launch of camel main applications from IntelliJ [\#1808](https://github.com/apache/camel-quarkus/pull/1808) ([jamesnetherton](https://github.com/jamesnetherton))
-- Velocity Support \#837 [\#1804](https://github.com/apache/camel-quarkus/pull/1804) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- feat\(ssh\): promoting native extension [\#1802](https://github.com/apache/camel-quarkus/pull/1802) ([squakez](https://github.com/squakez))
-- Browse native support [\#1801](https://github.com/apache/camel-quarkus/pull/1801) ([jamesnetherton](https://github.com/jamesnetherton))
-- gRPC native support [\#1797](https://github.com/apache/camel-quarkus/pull/1797) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove UpdateDocExtensionsListMojo followup \#1777 [\#1794](https://github.com/apache/camel-quarkus/pull/1794) ([ppalaga](https://github.com/ppalaga))
-- FOP native support \#1642 [\#1793](https://github.com/apache/camel-quarkus/pull/1793) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Added jing native support fixes \#1741 [\#1792](https://github.com/apache/camel-quarkus/pull/1792) ([aldettinger](https://github.com/aldettinger))
-- Disruptor native support [\#1791](https://github.com/apache/camel-quarkus/pull/1791) ([lburgazzoli](https://github.com/lburgazzoli))
-- Update camel-quarkus-last-release property to 1.1.0 [\#1789](https://github.com/apache/camel-quarkus/pull/1789) ([jamesnetherton](https://github.com/jamesnetherton))
-- Document update [\#1788](https://github.com/apache/camel-quarkus/pull/1788) ([NiteshKoushik](https://github.com/NiteshKoushik))
-- Switch from Gitter to Zulip [\#1787](https://github.com/apache/camel-quarkus/pull/1787) ([lburgazzoli](https://github.com/lburgazzoli))
-- Exclude daily branch build bot generated issues from the changelog [\#1786](https://github.com/apache/camel-quarkus/pull/1786) ([jamesnetherton](https://github.com/jamesnetherton))
-- Caffeine native support [\#1785](https://github.com/apache/camel-quarkus/pull/1785) ([lburgazzoli](https://github.com/lburgazzoli))
-- Added automatic changelog gh action [\#1784](https://github.com/apache/camel-quarkus/pull/1784) ([oscerd](https://github.com/oscerd))
-- Fix intermittent failures of SmallRyeReactiveMessagingIT [\#1780](https://github.com/apache/camel-quarkus/pull/1780) ([jamesnetherton](https://github.com/jamesnetherton))
-- Wrong jira component version definition in camel-quarkus-bom \#1775 [\#1778](https://github.com/apache/camel-quarkus/pull/1778) ([ppalaga](https://github.com/ppalaga))
-- Use asciidoctor-antora-indexer to produce lists of extensions [\#1777](https://github.com/apache/camel-quarkus/pull/1777) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to cq-maven-plugin 0.19.0, Make mvn -N cq:format remove empty… [\#1774](https://github.com/apache/camel-quarkus/pull/1774) ([ppalaga](https://github.com/ppalaga))
-- Add some pre-release tasks to the release guide [\#1771](https://github.com/apache/camel-quarkus/pull/1771) ([jamesnetherton](https://github.com/jamesnetherton))
-- camel-quarkus-main - Uses reflection for setting its name [\#1768](https://github.com/apache/camel-quarkus/pull/1768) ([lburgazzoli](https://github.com/lburgazzoli))
-- Document cq:create -Dcq.nativeSupported=false for creating JVM-only e… [\#1767](https://github.com/apache/camel-quarkus/pull/1767) ([ppalaga](https://github.com/ppalaga))
-- Quarkus 1.8.0.final [\#1766](https://github.com/apache/camel-quarkus/pull/1766) ([jamesnetherton](https://github.com/jamesnetherton))
-- Added ssl authentation to the nats extensions [\#1764](https://github.com/apache/camel-quarkus/pull/1764) ([aldettinger](https://github.com/aldettinger))
-- Test for \#1497 xml-io should pass namespace info to NamespaceAware [\#1760](https://github.com/apache/camel-quarkus/pull/1760) ([ppalaga](https://github.com/ppalaga))
-- AWS2-Lambda Extension: Adding interceptors and align to the other ext… [\#1758](https://github.com/apache/camel-quarkus/pull/1758) ([oscerd](https://github.com/oscerd))
-- JGroups, JGroups raft, HL7 Terser, Syslog, JSonApi, ASN.1 File, Barcode, BeanIO, CBOR, JSon Fastjson, uniVocity, Freemarker JVM support [\#1757](https://github.com/apache/camel-quarkus/pull/1757) ([ppalaga](https://github.com/ppalaga))
-- Aws2 sts [\#1745](https://github.com/apache/camel-quarkus/pull/1745) ([oscerd](https://github.com/oscerd))
-- Management JVM support [\#1744](https://github.com/apache/camel-quarkus/pull/1744) ([jamesnetherton](https://github.com/jamesnetherton))
-- JT400, JSLT, Jing, JCR, JClouds JVM support [\#1743](https://github.com/apache/camel-quarkus/pull/1743) ([ppalaga](https://github.com/ppalaga))
-- Enhance Github itest with configurable credentials [\#1738](https://github.com/apache/camel-quarkus/pull/1738) ([llowinge](https://github.com/llowinge))
-- MLLP, Milo, Lumberjack, Lucene, LDIF, LDAP, Language JVM support [\#1736](https://github.com/apache/camel-quarkus/pull/1736) ([ppalaga](https://github.com/ppalaga))
-- Promote AWS 2 Lambda to native [\#1730](https://github.com/apache/camel-quarkus/pull/1730) ([Jeansen](https://github.com/Jeansen))
-- SSH, Nagios, MyBatis, MVEL and MSV JVM support [\#1729](https://github.com/apache/camel-quarkus/pull/1729) ([ppalaga](https://github.com/ppalaga))
-- Printer, PostgresSQL Event, PostgresSQL Replication Slot, OptaPlanner and NSQ JVM support [\#1724](https://github.com/apache/camel-quarkus/pull/1724) ([ppalaga](https://github.com/ppalaga))
-- Fixed bean parameter bindings using language annotations in native mo… [\#1716](https://github.com/apache/camel-quarkus/pull/1716) ([aldettinger](https://github.com/aldettinger))
-- Weather native support fixes \#1631 [\#1715](https://github.com/apache/camel-quarkus/pull/1715) ([zbendhiba](https://github.com/zbendhiba))
-- XQuery, Saga, RSS, Robot Framework and QuickFix JVM support [\#1713](https://github.com/apache/camel-quarkus/pull/1713) ([ppalaga](https://github.com/ppalaga))
-- Soroush, Solr, SNMP, SMPP, SIP, and Schematron JVM support [\#1708](https://github.com/apache/camel-quarkus/pull/1708) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to cq-maven-plugin 0.18.1 [\#1700](https://github.com/apache/camel-quarkus/pull/1700) ([ppalaga](https://github.com/ppalaga))
-- String Template, Stomp, StAX, Splunk HEC and Splunk JVM support [\#1699](https://github.com/apache/camel-quarkus/pull/1699) ([ppalaga](https://github.com/ppalaga))
-- Dropbox native support [\#1693](https://github.com/apache/camel-quarkus/pull/1693) ([jamesnetherton](https://github.com/jamesnetherton))
-- Speedup the initial CI mvn install by adding -T1C [\#1692](https://github.com/apache/camel-quarkus/pull/1692) ([ppalaga](https://github.com/ppalaga))
-- Remove camel 3.5.0 staging repositories [\#1690](https://github.com/apache/camel-quarkus/pull/1690) ([jamesnetherton](https://github.com/jamesnetherton))
-- Replace mvnd.builder.rules with virtual dependencies [\#1689](https://github.com/apache/camel-quarkus/pull/1689) ([ppalaga](https://github.com/ppalaga))
-- Feat\(mongodb\): add support for named client [\#1688](https://github.com/apache/camel-quarkus/pull/1688) ([squakez](https://github.com/squakez))
-- Move FastUuidGenerator to Camel [\#1683](https://github.com/apache/camel-quarkus/pull/1683) ([lburgazzoli](https://github.com/lburgazzoli))
-- Align dependencies with latest camel & quarkus releases [\#1682](https://github.com/apache/camel-quarkus/pull/1682) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add vertx-websocket component extension [\#1681](https://github.com/apache/camel-quarkus/pull/1681) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add integration tests for the camel-quarkus-kotlin extension [\#1679](https://github.com/apache/camel-quarkus/pull/1679) ([lburgazzoli](https://github.com/lburgazzoli))
-- Upgrade to Quarkus 1.8.0.CR1 [\#1678](https://github.com/apache/camel-quarkus/pull/1678) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove UnbannedReflectiveBuildItem [\#1677](https://github.com/apache/camel-quarkus/pull/1677) ([jamesnetherton](https://github.com/jamesnetherton))
-- Added nats native support fixes \#1578 [\#1674](https://github.com/apache/camel-quarkus/pull/1674) ([aldettinger](https://github.com/aldettinger))
-- Add vertx-http component extension [\#1673](https://github.com/apache/camel-quarkus/pull/1673) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix Google gmail itest to wait for deletion of mail [\#1671](https://github.com/apache/camel-quarkus/pull/1671) ([llowinge](https://github.com/llowinge))
-- Upgrade to Camel 3.5.0 [\#1670](https://github.com/apache/camel-quarkus/pull/1670) ([ppalaga](https://github.com/ppalaga))
-- Add some logging to debug \#1632 [\#1668](https://github.com/apache/camel-quarkus/pull/1668) ([jamesnetherton](https://github.com/jamesnetherton))
-- Register missing Camel quartz job classes for reflection [\#1665](https://github.com/apache/camel-quarkus/pull/1665) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix Twitter itest to wait for latest sent message [\#1660](https://github.com/apache/camel-quarkus/pull/1660) ([llowinge](https://github.com/llowinge))
-- Hipchat, IEC 60870, Ignite, IOTA and JBPM JVM support [\#1657](https://github.com/apache/camel-quarkus/pull/1657) ([ppalaga](https://github.com/ppalaga))
-- Re-ballance test-categories.yaml once again [\#1655](https://github.com/apache/camel-quarkus/pull/1655) ([ppalaga](https://github.com/ppalaga))
-- More CI tweaks [\#1651](https://github.com/apache/camel-quarkus/pull/1651) ([ppalaga](https://github.com/ppalaga))
-- HDFS, hazelcast, Guava EventBus, Geocoder and Ganglia JVM support [\#1650](https://github.com/apache/camel-quarkus/pull/1650) ([ppalaga](https://github.com/ppalaga))
-- FOP, Flink, Facebook, ElSQL and Ehcache JVM support [\#1643](https://github.com/apache/camel-quarkus/pull/1643) ([ppalaga](https://github.com/ppalaga))
-- Weather, Velocity, Twilio, Thrift and Stub JVM support [\#1636](https://github.com/apache/camel-quarkus/pull/1636) ([ppalaga](https://github.com/ppalaga))
-- XChange, Workday, Wordpress, Weka and Web3j JVM support [\#1629](https://github.com/apache/camel-quarkus/pull/1629) ([ppalaga](https://github.com/ppalaga))
-- Upgrade Quarkus to 1.7.1.Final [\#1628](https://github.com/apache/camel-quarkus/pull/1628) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add IPFS, IRC & JSch JVM only extensions [\#1627](https://github.com/apache/camel-quarkus/pull/1627) ([jamesnetherton](https://github.com/jamesnetherton))
-- CI definition tweaks [\#1624](https://github.com/apache/camel-quarkus/pull/1624) ([ppalaga](https://github.com/ppalaga))
-- ZooKeeper, ZooKeeper Master, Zendesk, Yammer, XSLT Saxon, XMPP, XML Security and XJ JVM support [\#1618](https://github.com/apache/camel-quarkus/pull/1618) ([ppalaga](https://github.com/ppalaga))
-- Fix JAXB dependency alignment issues [\#1609](https://github.com/apache/camel-quarkus/pull/1609) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#1602 Speed up the CI [\#1606](https://github.com/apache/camel-quarkus/pull/1606) ([ppalaga](https://github.com/ppalaga))
-- Send unique messages in Slack itest to avoid false positive tests [\#1604](https://github.com/apache/camel-quarkus/pull/1604) ([llowinge](https://github.com/llowinge))
-- Upgrade to cq-maven-plugin 0.17.0, sanitize model.name when using it as [\#1603](https://github.com/apache/camel-quarkus/pull/1603) ([ppalaga](https://github.com/ppalaga))
-- Crypto \(JCE\), DigitalOcean, Disruptor, Deep Java Library and Drill JVM support [\#1600](https://github.com/apache/camel-quarkus/pull/1600) ([ppalaga](https://github.com/ppalaga))
-- Fix servicenow itest to clean resources [\#1596](https://github.com/apache/camel-quarkus/pull/1596) ([llowinge](https://github.com/llowinge))
-- Add DNS, etcd & plusar JVM only extensions [\#1595](https://github.com/apache/camel-quarkus/pull/1595) ([jamesnetherton](https://github.com/jamesnetherton))
--  CM SMS Gateway, CMIS, CoAP, CometD and Corda JVM support [\#1590](https://github.com/apache/camel-quarkus/pull/1590) ([ppalaga](https://github.com/ppalaga))
-- Bonita, Beanstalk, Caffeine, ChatScript and Chunk JVM support [\#1585](https://github.com/apache/camel-quarkus/pull/1585) ([ppalaga](https://github.com/ppalaga))
-- Improve docs [\#1579](https://github.com/apache/camel-quarkus/pull/1579) ([ppalaga](https://github.com/ppalaga))
-- Add Dropbox, jOOQ & NATS JVM support [\#1576](https://github.com/apache/camel-quarkus/pull/1576) ([jamesnetherton](https://github.com/jamesnetherton))
-- Clean google drive in google sheets itest [\#1575](https://github.com/apache/camel-quarkus/pull/1575) ([llowinge](https://github.com/llowinge))
-- Atomix, AWS 2 Kinesis, AWS 2 Lambda, Azure Storage Blob and Azure Storage Queue JVM support [\#1569](https://github.com/apache/camel-quarkus/pull/1569) ([ppalaga](https://github.com/ppalaga))
-- Added flatpack component support \#1541 [\#1568](https://github.com/apache/camel-quarkus/pull/1568) ([aldettinger](https://github.com/aldettinger))
-- RabbitMQ native extension [\#1567](https://github.com/apache/camel-quarkus/pull/1567) ([Jeansen](https://github.com/Jeansen))
-- Tests for \#1563 contextPath ignored for platform-http with REST DSL [\#1565](https://github.com/apache/camel-quarkus/pull/1565) ([ppalaga](https://github.com/ppalaga))
-- Fix itest when Twitter acount have spaces in name [\#1562](https://github.com/apache/camel-quarkus/pull/1562) ([llowinge](https://github.com/llowinge))
-- APNS, Asterisk and Atom JVM support [\#1559](https://github.com/apache/camel-quarkus/pull/1559) ([ppalaga](https://github.com/ppalaga))
-- Update mvnd rules and split their entries by newlines where merge con… [\#1555](https://github.com/apache/camel-quarkus/pull/1555) ([ppalaga](https://github.com/ppalaga))
-- Fix telegram itest component property resolution [\#1554](https://github.com/apache/camel-quarkus/pull/1554) ([llowinge](https://github.com/llowinge))
-- Compute the component counts using JavaScript to avoid merge conflicts [\#1552](https://github.com/apache/camel-quarkus/pull/1552) ([ppalaga](https://github.com/ppalaga))
-- Document snapshot builds in CI docs [\#1551](https://github.com/apache/camel-quarkus/pull/1551) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#765 Git support [\#1548](https://github.com/apache/camel-quarkus/pull/1548) ([ppalaga](https://github.com/ppalaga))
-- Publish SNAPSHOT builds [\#1547](https://github.com/apache/camel-quarkus/pull/1547) ([jamesnetherton](https://github.com/jamesnetherton))
-- Use proper extension page URLs in quarkus-extension.yaml [\#1546](https://github.com/apache/camel-quarkus/pull/1546) ([ppalaga](https://github.com/ppalaga))
-- update create new extension guide : add update of test-categories.yaml [\#1544](https://github.com/apache/camel-quarkus/pull/1544) ([zbendhiba](https://github.com/zbendhiba))
-- Add missing netty dependencies to olingo4 extension [\#1543](https://github.com/apache/camel-quarkus/pull/1543) ([jamesnetherton](https://github.com/jamesnetherton))
-- Added support for flatpack dataformat fixes \#796 [\#1542](https://github.com/apache/camel-quarkus/pull/1542) ([aldettinger](https://github.com/aldettinger))
-- Switch from restcountries.eu to estcountries.com as the .eu service is not reliable anymore [\#1539](https://github.com/apache/camel-quarkus/pull/1539) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fixup c11d8da9 Let the list of extensions page show extensions [\#1537](https://github.com/apache/camel-quarkus/pull/1537) ([ppalaga](https://github.com/ppalaga))
-- chore\(build\): configure ci to run on release rbanches [\#1536](https://github.com/apache/camel-quarkus/pull/1536) ([lburgazzoli](https://github.com/lburgazzoli))
-- Let the list of extensions page show extensions, move list of supported [\#1534](https://github.com/apache/camel-quarkus/pull/1534) ([ppalaga](https://github.com/ppalaga))
-- Avoid purging artifacts for builds that may be in progress [\#1529](https://github.com/apache/camel-quarkus/pull/1529) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgarde to camel v3.4.3 [\#1527](https://github.com/apache/camel-quarkus/pull/1527) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fixed the VerifyError in the health example fixes \#1517 [\#1525](https://github.com/apache/camel-quarkus/pull/1525) ([aldettinger](https://github.com/aldettinger))
-- 1.0.0 post release cleanup [\#1524](https://github.com/apache/camel-quarkus/pull/1524) ([ppalaga](https://github.com/ppalaga))
-- Upgrade Quarkus Qpid JMS to 0.17.0 [\#1521](https://github.com/apache/camel-quarkus/pull/1521) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to Quarkus 1.7.0.Final [\#1520](https://github.com/apache/camel-quarkus/pull/1520) ([jamesnetherton](https://github.com/jamesnetherton))
-- Disable merge commits on pull requests [\#1519](https://github.com/apache/camel-quarkus/pull/1519) ([jamesnetherton](https://github.com/jamesnetherton))
-- Simplify component configuration for box and fhir itests [\#1518](https://github.com/apache/camel-quarkus/pull/1518) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add missing camel-quarkus-main dependency to braintree & twitter itests [\#1516](https://github.com/apache/camel-quarkus/pull/1516) ([jamesnetherton](https://github.com/jamesnetherton))
-- Completed bean itests with an @InjectMock test [\#1515](https://github.com/apache/camel-quarkus/pull/1515) ([aldettinger](https://github.com/aldettinger))
-- Add extension for smallrye-reactive-messaging-camel [\#1514](https://github.com/apache/camel-quarkus/pull/1514) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to Quarkus 1.7.0.CR2 [\#1513](https://github.com/apache/camel-quarkus/pull/1513) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add master extension [\#1511](https://github.com/apache/camel-quarkus/pull/1511) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to Quarkus 1.7.0.CR1 [\#1508](https://github.com/apache/camel-quarkus/pull/1508) ([ppalaga](https://github.com/ppalaga))
-- Added grok support \#1466 [\#1504](https://github.com/apache/camel-quarkus/pull/1504) ([aldettinger](https://github.com/aldettinger))
-- Fixup \#1244 Improve the docs about the default REST transport provider [\#1503](https://github.com/apache/camel-quarkus/pull/1503) ([ppalaga](https://github.com/ppalaga))
-- Remove service exclude for ThreadPoolProfileConfigurationProperties [\#1499](https://github.com/apache/camel-quarkus/pull/1499) ([jamesnetherton](https://github.com/jamesnetherton))
-- Correct bind type for OpenTracingTracer bean [\#1498](https://github.com/apache/camel-quarkus/pull/1498) ([jamesnetherton](https://github.com/jamesnetherton))
-- Make camel-quarkus-rest depend on camel-quarkus-platform-http [\#1496](https://github.com/apache/camel-quarkus/pull/1496) ([lburgazzoli](https://github.com/lburgazzoli))
-- Upgrade to Camel 3.4.2 [\#1492](https://github.com/apache/camel-quarkus/pull/1492) ([lburgazzoli](https://github.com/lburgazzoli))
-- Upgrade Quarkus to 1.6.1.Final [\#1489](https://github.com/apache/camel-quarkus/pull/1489) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#1286 Pass deprecation info to quarkus-extension.yaml [\#1485](https://github.com/apache/camel-quarkus/pull/1485) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to Apache Camel 3.4.1 [\#1484](https://github.com/apache/camel-quarkus/pull/1484) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fixup \#1468 Intermittent failure of CamelDevModeTest [\#1483](https://github.com/apache/camel-quarkus/pull/1483) ([ppalaga](https://github.com/ppalaga))
-- Fix \#1426 Dependency parity checks are now done by Quarkus extension-descriptor mojo [\#1481](https://github.com/apache/camel-quarkus/pull/1481) ([ppalaga](https://github.com/ppalaga))
-- Fixup \#1448 Add delay=-1&repeatCount=1 to the command mode test route… [\#1480](https://github.com/apache/camel-quarkus/pull/1480) ([ppalaga](https://github.com/ppalaga))
-- Use java.home system property in TrustStoreResource [\#1479](https://github.com/apache/camel-quarkus/pull/1479) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#1448 Add an integration test for the command mode [\#1477](https://github.com/apache/camel-quarkus/pull/1477) ([ppalaga](https://github.com/ppalaga))
-- Fix \#1468 Intermittent failure of CamelDevModeTest [\#1473](https://github.com/apache/camel-quarkus/pull/1473) ([ppalaga](https://github.com/ppalaga))
-- Add JPA extension [\#1467](https://github.com/apache/camel-quarkus/pull/1467) ([jamesnetherton](https://github.com/jamesnetherton))
-- Reproducer for \#1459 [\#1465](https://github.com/apache/camel-quarkus/pull/1465) ([lburgazzoli](https://github.com/lburgazzoli))
-- improve bootstrap and configuration documentation [\#1464](https://github.com/apache/camel-quarkus/pull/1464) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix issues with building from the source release zip [\#1463](https://github.com/apache/camel-quarkus/pull/1463) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add example about how to use @Handler with beans registered to the Camel Context [\#1461](https://github.com/apache/camel-quarkus/pull/1461) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#1455 Exclude the node directory from src kit [\#1458](https://github.com/apache/camel-quarkus/pull/1458) ([WillemJiang](https://github.com/WillemJiang))
-- Fix \#1428 to add the usage.adoc [\#1457](https://github.com/apache/camel-quarkus/pull/1457) ([zhfeng](https://github.com/zhfeng))
-- org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
-- Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
-
-## [3.0.0-RC2](https://github.com/apache/camel-quarkus/tree/3.0.0-RC2) (2023-07-30)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/3.0.0-RC1...3.0.0-RC2)
-
-**Implemented enhancements:**
-
-- vertx-websocket consumer can be configured with host + port without any impact on the exposed endpoint [\#5118](https://github.com/apache/camel-quarkus/issues/5118)
-- Add a pooling test with quarkus-qpid-jms [\#5068](https://github.com/apache/camel-quarkus/issues/5068)
-- Add support of the suspend mode to the Camel Debugger [\#5059](https://github.com/apache/camel-quarkus/issues/5059)
-
-**Fixed bugs:**
-
-- Expression extractor fails when there are properties to set [\#5067](https://github.com/apache/camel-quarkus/issues/5067)
-- \[Quarkus 3.3.0\] Micrometer native integration test application throws NPE on startup [\#5109](https://github.com/apache/camel-quarkus/issues/5109)
-- Camel Paho 5 integrates EMQX JWKS [\#5107](https://github.com/apache/camel-quarkus/issues/5107)
-- Re-add activemq extension after it was added back in Camel 4.0.0-RC1 [\#5087](https://github.com/apache/camel-quarkus/issues/5087)
-- MicrometerTest.testJMXQuarkusDomain\(\) fail with Quarkus Platform BOMs [\#5086](https://github.com/apache/camel-quarkus/issues/5086)
-- NettyHttpJaasTestResource reads config.jaas from disk [\#5083](https://github.com/apache/camel-quarkus/issues/5083)
-- Velocity $foreach.index, $foreach.count and $foreach.hasNext do not work in native mode [\#5080](https://github.com/apache/camel-quarkus/issues/5080)
-- Master OpenShift integration test native compilation fails intermittently [\#5071](https://github.com/apache/camel-quarkus/issues/5071)
-- Nitrite native integration test could not serialize \[\[3941604762136\]NO₂\] [\#5070](https://github.com/apache/camel-quarkus/issues/5070)
-- Cannot retrieve the breakpoints and suspended node ids in native mode [\#5058](https://github.com/apache/camel-quarkus/issues/5058)
-- Hazelcast integration tests fail in native mode On Mac OS [\#5026](https://github.com/apache/camel-quarkus/issues/5026)
-- Issue with producerAsyncClient in camel-quarkus-azure-eventhubs - namespace equals null [\#4975](https://github.com/apache/camel-quarkus/issues/4975)
-
-**Closed issues:**
-
-- Allow disabling periodic scan functionality [\#3078](https://github.com/apache/camel-quarkus/issues/3078)
-- Surefire 3.0.0-M4 passing even if a build step throws an exception [\#723](https://github.com/apache/camel-quarkus/issues/723)
-- SNMP v3 test coverage [\#5121](https://github.com/apache/camel-quarkus/issues/5121)
-- \[camel-main\] Enable ssh tests + native after consuming quarkus-main \(which brings sshd 2.10.0\) [\#5092](https://github.com/apache/camel-quarkus/issues/5092)
-- Replace the deprecated RecorderContext\#classProxy in groovy and joor extensions [\#5056](https://github.com/apache/camel-quarkus/issues/5056)
-- Tika: Remove excluded pdfbox, once qaurkiverse.tika adapts new tika version  [\#4786](https://github.com/apache/camel-quarkus/issues/4786)
-- Migrate from `org.graalvm.nativeimage:svm` to `org.graalvm.sdk:graal-sdk` [\#4602](https://github.com/apache/camel-quarkus/issues/4602)
-- syndication test fails to compile to native with Camel 4 and Quarkus 3 [\#4515](https://github.com/apache/camel-quarkus/issues/4515)
-- Mapstruct: native support [\#3994](https://github.com/apache/camel-quarkus/issues/3994)
-- Split HTTP test [\#3087](https://github.com/apache/camel-quarkus/issues/3087)
-
-## [3.0.0-RC1](https://github.com/apache/camel-quarkus/tree/3.0.0-RC1) (2023-07-04)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/3.0.0-M2...3.0.0-RC1)
-
-**Implemented enhancements:**
-
-- Add native support for camel-quarkus-debug [\#5042](https://github.com/apache/camel-quarkus/issues/5042)
-- Add native support for camel-quarkus-management [\#5029](https://github.com/apache/camel-quarkus/issues/5029)
-- Check IBM MQ client is working with quarkus-pooled-jms [\#5016](https://github.com/apache/camel-quarkus/issues/5016)
-
-**Fixed bugs:**
-
-- Unable to generate REST API documentation when lightweight mode is enabled [\#2527](https://github.com/apache/camel-quarkus/issues/2527)
-- Micrometer: SimpleMeterRegistry is not created if no other registry is defined [\#5023](https://github.com/apache/camel-quarkus/issues/5023)
-- \[Mandrel 23.0.0\] google-storage integration test native compilation fails [\#5010](https://github.com/apache/camel-quarkus/issues/5010)
-- \[Mandrel 23.0.0\] cxf-soap grouped integration tests native compilation fails [\#5008](https://github.com/apache/camel-quarkus/issues/5008)
-- \[Mandrel 23.0.0\] google-pubsub integration test native compilation fails [\#5007](https://github.com/apache/camel-quarkus/issues/5007)
-- \[Mandrel 23.0.0\] google-bigquery integration test native compilation fails [\#5006](https://github.com/apache/camel-quarkus/issues/5006)
-- \[Quarkus 3.2.0\] io.quarkus.arc.Priority has been removed [\#4983](https://github.com/apache/camel-quarkus/issues/4983)
-
-**Closed issues:**
-
-- Telegram: webhook is failing in 2.13.x [\#4961](https://github.com/apache/camel-quarkus/issues/4961)
-- camel-quarkus-integration-test-js-dsl should unpack its resources to target rather than src [\#4931](https://github.com/apache/camel-quarkus/issues/4931)
-- knative-producer native integration tests are failing [\#4923](https://github.com/apache/camel-quarkus/issues/4923)
-- \[Camel 3.19.0\] Google-secrets-manager: Remove workaround after fix of CAMEL-18520 [\#4103](https://github.com/apache/camel-quarkus/issues/4103)
-- Google-bigquery: Enable `sqlCrudOperations` test once Camel version is 18.3 [\#4029](https://github.com/apache/camel-quarkus/issues/4029)
-- Upgrade to H2 2.x [\#3498](https://github.com/apache/camel-quarkus/issues/3498)
-- Docs: Camel-quarkus 2.4.x docs don't show information in components/languages/dataformats and misc [\#3387](https://github.com/apache/camel-quarkus/issues/3387)
-- Cannot run debezium tests against alternative BOMs [\#3294](https://github.com/apache/camel-quarkus/issues/3294)
-- Publish docs for the last stable release [\#3191](https://github.com/apache/camel-quarkus/issues/3191)
-- JsonParseException not caught when using OpenAPI generated REST DSL [\#3155](https://github.com/apache/camel-quarkus/issues/3155)
-- RestClient: NullPointerException: Cannot read field "skipPattern" because "this.tracingConfig" is null [\#3142](https://github.com/apache/camel-quarkus/issues/3142)
-- Upgrade Quarkus Groovy to 3.2  [\#5044](https://github.com/apache/camel-quarkus/issues/5044)
-- Micrometer: It is not necessary to produce JMXRegistry for the test [\#5030](https://github.com/apache/camel-quarkus/issues/5030)
-- Micrometer: Custom registry coverage is missing [\#5018](https://github.com/apache/camel-quarkus/issues/5018)
-- camel-quarkus-crypto: Add test coverage for raw keys [\#4979](https://github.com/apache/camel-quarkus/issues/4979)
-- Upgrade to Groovy 4 [\#4960](https://github.com/apache/camel-quarkus/issues/4960)
-- Delegate complexity to quarkus-groovy [\#4959](https://github.com/apache/camel-quarkus/issues/4959)
-- \[Quarkus 3.2.0\]  Enable native profile in master-openshift test [\#4957](https://github.com/apache/camel-quarkus/issues/4957)
-- Improve netty-http test coverage [\#4956](https://github.com/apache/camel-quarkus/issues/4956)
-- Add test coverage for MDC logging [\#4947](https://github.com/apache/camel-quarkus/issues/4947)
-- \[Quarkus 3.2.0\] No recovery system in which to register XAResourceRecovery instance [\#4945](https://github.com/apache/camel-quarkus/issues/4945)
-- Kafka Devservices fails with Quarkus 3 [\#4943](https://github.com/apache/camel-quarkus/issues/4943)
-- Micrometer: Instrumenting core thread pool feature is missing. [\#4934](https://github.com/apache/camel-quarkus/issues/4934)
-- CXF test is using different package then folder structure [\#4919](https://github.com/apache/camel-quarkus/issues/4919)
-- Ban com.github.spotbugs:spotbugs-annotations [\#4914](https://github.com/apache/camel-quarkus/issues/4914)
-- \[camel-main\] Remove excludes for tika/runtime [\#4907](https://github.com/apache/camel-quarkus/issues/4907)
-- \[camel-main\] Openapi-java native is not working \(CAMEL-18963\) [\#4900](https://github.com/apache/camel-quarkus/issues/4900)
-- MyBatisConsumerTest should keep awaitility in the test scope [\#4793](https://github.com/apache/camel-quarkus/issues/4793)
-- Cxf-soap: Extend test coverage with Converter scenario [\#4652](https://github.com/apache/camel-quarkus/issues/4652)
-- Google extension dependency convergence errors [\#4625](https://github.com/apache/camel-quarkus/issues/4625)
-- Expand micrometer test coverage [\#4582](https://github.com/apache/camel-quarkus/issues/4582)
-- jira test fails with Camel 4 and Quarkus 3 [\#4524](https://github.com/apache/camel-quarkus/issues/4524)
-- quarkus-hazelcast-client not ready for Quarkus 3 [\#4498](https://github.com/apache/camel-quarkus/issues/4498)
-- Camel 3.20 - camel-swift extension [\#4220](https://github.com/apache/camel-quarkus/issues/4220)
-- JAXB integration tests failing if locale different from EN [\#4135](https://github.com/apache/camel-quarkus/issues/4135)
-- Implement a bot to assign `no fix/won't fix` milestone to closed issues labeled as wontfix [\#4106](https://github.com/apache/camel-quarkus/issues/4106)
-- FOP native integration test failure [\#3965](https://github.com/apache/camel-quarkus/issues/3965)
-- Springless Jira REST client [\#3889](https://github.com/apache/camel-quarkus/issues/3889)
-- Missing link to Camel user manual in the CQ documentation [\#3580](https://github.com/apache/camel-quarkus/issues/3580)
-- Split JSON dataformats test [\#3088](https://github.com/apache/camel-quarkus/issues/3088)
-
-## [3.0.0-M2](https://github.com/apache/camel-quarkus/tree/3.0.0-M2) (2023-05-25)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.13.3...3.0.0-M2)
-
-**Fixed bugs:**
-
-- Camel quartz job silently removed if io.quarkus.scheduler.Scheduled is in use [\#4823](https://github.com/apache/camel-quarkus/issues/4823)
-- Missing `@Component` annotation for `QuarkusVertxWebsocketComponent`  [\#4741](https://github.com/apache/camel-quarkus/issues/4741)
-
-**Closed issues:**
-
-- Paho MQTT 5 Component Quarkus: using ssl inside native image [\#4895](https://github.com/apache/camel-quarkus/issues/4895)
-- Snmp: add native support [\#4820](https://github.com/apache/camel-quarkus/issues/4820)
-- Fix `com.google.oauth-client:google-oauth-client` dependency convergence issues [\#4139](https://github.com/apache/camel-quarkus/issues/4139)
-- Remove the local upgrade of maven-resolver used by mvnw once we upgrade to mvnw 3.9.2 [\#4885](https://github.com/apache/camel-quarkus/issues/4885)
-- Snmp: cover snmp v3 for POLL operation [\#4881](https://github.com/apache/camel-quarkus/issues/4881)
-- Stop managing woodstox directly, rather rely on quarkus-cxf-bom [\#4855](https://github.com/apache/camel-quarkus/issues/4855)
-- Snmp: Extend coverage of some smaller features [\#4850](https://github.com/apache/camel-quarkus/issues/4850)
-- Snmp: Extend coverage for supported versions [\#4843](https://github.com/apache/camel-quarkus/issues/4843)
-- CI build fails to download Maven artifacts due to: ` java.net.ConnectException: Connection timed out` [\#4842](https://github.com/apache/camel-quarkus/issues/4842)
-- Remove org.apache.cxf:cxf-codegen plugin \(cxf-sopak extension is used instead\)  [\#4839](https://github.com/apache/camel-quarkus/issues/4839)
-- Cannot find eclipse-formatter-config.xml when an example is copied out of examples source tree. [\#4832](https://github.com/apache/camel-quarkus/issues/4832)
-- Add tests and usage guide for LDAP extension [\#4821](https://github.com/apache/camel-quarkus/issues/4821)
-- FHIR integration test native image build fails [\#4811](https://github.com/apache/camel-quarkus/issues/4811)
-- \[camel-main\] Add `quarkus-jackson-jq-extra` to jq extension runtime module dependencies [\#4799](https://github.com/apache/camel-quarkus/issues/4799)
-- Smnp: Extend test coverage [\#4797](https://github.com/apache/camel-quarkus/issues/4797)
-- Test OpenTelemetry extension integration with `opentelemetry-jdbc` [\#4789](https://github.com/apache/camel-quarkus/issues/4789)
-- Intermittent failure of MyBatisConsumerTest [\#4781](https://github.com/apache/camel-quarkus/issues/4781)
-- \[camel-main\] ObservabilityTest.metrics in examples fails  [\#4773](https://github.com/apache/camel-quarkus/issues/4773)
-- CamelJdbcTest leaks a statement [\#4752](https://github.com/apache/camel-quarkus/issues/4752)
-- java-joor-dsl - Add templated route support to native mode [\#4749](https://github.com/apache/camel-quarkus/issues/4749)
-- CXF generates different WSDL files with JVM/Native modes [\#4746](https://github.com/apache/camel-quarkus/issues/4746)
-- \[camel-main\] Csimple:  Cannot find compiled csimple language for expression: Hello ${body} [\#4745](https://github.com/apache/camel-quarkus/issues/4745)
-- \[camel-main\] Foundation: BeanTest.parameterTypes  fails with the current Camel main [\#4735](https://github.com/apache/camel-quarkus/issues/4735)
-- java-joor-dsl - Add support of inner classes [\#4731](https://github.com/apache/camel-quarkus/issues/4731)
-- \[Quarkus 3.0.0.CR2\] Performance regression introduced in Camel Quarkus 3.0.0-M1 [\#4727](https://github.com/apache/camel-quarkus/issues/4727)
-- Intermittent failure in Jdbc native tests [\#4723](https://github.com/apache/camel-quarkus/issues/4723)
-- Expand came-quarkus-mybatis test coverage [\#4717](https://github.com/apache/camel-quarkus/issues/4717)
-- java-joor-dsl - Add RegisterForReflection annotation support [\#4716](https://github.com/apache/camel-quarkus/issues/4716)
-- \[camel-main\] Groovy support causes CI failure [\#4712](https://github.com/apache/camel-quarkus/issues/4712)
-- Add Build-Date in MANIFEST.MF in Camel Quarkus release JARs [\#4711](https://github.com/apache/camel-quarkus/issues/4711)
-- MinIO: Extend test coverage [\#4707](https://github.com/apache/camel-quarkus/issues/4707)
-- Test CXF client with HTTP BASIC authentication [\#4705](https://github.com/apache/camel-quarkus/issues/4705)
-- Update wrong jvmSince and nativeSince  [\#4698](https://github.com/apache/camel-quarkus/issues/4698)
-- Remove and replace some method in ReflectiveClassBuildItem [\#4694](https://github.com/apache/camel-quarkus/issues/4694)
-- \[camel-main\] Http test "basicAuthCache" fails because of CAMEL-19184 [\#4686](https://github.com/apache/camel-quarkus/issues/4686)
-- Add back DataSonnet [\#4685](https://github.com/apache/camel-quarkus/issues/4685)
-- Add back XML Security Sign  [\#4684](https://github.com/apache/camel-quarkus/issues/4684)
-- Cxf-soap: Extend test coverage with Ssl scenario [\#4679](https://github.com/apache/camel-quarkus/issues/4679)
-- jira extension throws ClassNotFoundException: com.fasterxml.jackson.datatype.joda.JodaModule [\#4676](https://github.com/apache/camel-quarkus/issues/4676)
-- Add `icon-url` attribute to `quarkus-extension.yaml` pointing to Camel logo  [\#4672](https://github.com/apache/camel-quarkus/issues/4672)
-- jbosstm/lra-coordinator is not available [\#4667](https://github.com/apache/camel-quarkus/issues/4667)
-- Add prefix to copied test classes \(in integration-test-groups\) in integration tests [\#4664](https://github.com/apache/camel-quarkus/issues/4664)
-- camel-quarkus-snakeyaml not compatible with Quarkus 3.0.0.Alpha6 [\#4662](https://github.com/apache/camel-quarkus/issues/4662)
-- camel-quarkus-management: Improve test coverage [\#4661](https://github.com/apache/camel-quarkus/issues/4661)
-- vertx-http: complete test coverage [\#4658](https://github.com/apache/camel-quarkus/issues/4658)
-- \[Quarkus 3.0.0.CR1\] kubernetes-client not compatible with Camel 4.0.0-M2 [\#4651](https://github.com/apache/camel-quarkus/issues/4651)
-- smallrye-reactive-messaging-camel not compatible with Camel 4.0.0-M2 [\#4637](https://github.com/apache/camel-quarkus/issues/4637)
-- Improve vertx-websocket test coverage [\#4629](https://github.com/apache/camel-quarkus/issues/4629)
-- vertx-websocket producer path handling is broken for some scenarios [\#4628](https://github.com/apache/camel-quarkus/issues/4628)
-- \[Camel 4.0-M3\] Upgrade to Groovy 4.x [\#4624](https://github.com/apache/camel-quarkus/issues/4624)
-- Dead link in weka extension [\#4622](https://github.com/apache/camel-quarkus/issues/4622)
-- Dead link in IPFS extension [\#4621](https://github.com/apache/camel-quarkus/issues/4621)
-- \[Quarkus 3.0.0.Alpha6\] IllegalAnnotationsException Two classes have the same XML type name thrown at build time by quarkus-jaxb [\#4603](https://github.com/apache/camel-quarkus/issues/4603)
-- Expand JDBC test coverage [\#4596](https://github.com/apache/camel-quarkus/issues/4596)
-- `QuarkusVertxWebsocketHost` should return the actual port for the HTTP server [\#4557](https://github.com/apache/camel-quarkus/issues/4557)
-- Make it easier for Dependabot to upgrade dependencies [\#4532](https://github.com/apache/camel-quarkus/issues/4532)
-- TelegramTest.\[mp3|mp4|pdf\] fail with Camel 4 and Quarkus 3 [\#4513](https://github.com/apache/camel-quarkus/issues/4513)
-- cassandra-quarkus 1.1.3 not compatible with Quarkus 3 [\#4488](https://github.com/apache/camel-quarkus/issues/4488)
-- Remove `quarkus.camel.yaml.flow-mode` [\#4482](https://github.com/apache/camel-quarkus/issues/4482)
-- Permanently remove extensions depending on components removed from Camel 4 [\#4477](https://github.com/apache/camel-quarkus/issues/4477)
-- Quarkiverse Tika incompatible with Camel 4 [\#4470](https://github.com/apache/camel-quarkus/issues/4470)
-- Upgrade to OptaPlanner 9.x [\#4463](https://github.com/apache/camel-quarkus/issues/4463)
-- Improve the test coverage of the jOOR language [\#4447](https://github.com/apache/camel-quarkus/issues/4447)
-- Groovy DSL - Add support of Groovy extension modules [\#4384](https://github.com/apache/camel-quarkus/issues/4384)
-- Remove azure-identity `IdentityClientBase` runtime initialization native configuration [\#4356](https://github.com/apache/camel-quarkus/issues/4356)
-- \[CXF\] SoapFault: BSP:R3227: A SECURITY\_HEADER MUST NOT contain more than one TIMESTAMP [\#4291](https://github.com/apache/camel-quarkus/issues/4291)
-- Ban `com.github.stephenc.jcip:jcip-annotations` [\#4193](https://github.com/apache/camel-quarkus/issues/4193)
-- Document the fact that the default value `/` of quarkus.cxf.path may cause RESTeasy endpoints to be inacessible [\#4192](https://github.com/apache/camel-quarkus/issues/4192)
-- Missing virtualDependencies in some integration tests support usage [\#4107](https://github.com/apache/camel-quarkus/issues/4107)
-- Camel 3.19 - Add camel-cli-connector extension [\#4051](https://github.com/apache/camel-quarkus/issues/4051)
-- Introduce a new XML testing group [\#4043](https://github.com/apache/camel-quarkus/issues/4043)
-- Tika 2.x incompatible with Quarkus Tika [\#3599](https://github.com/apache/camel-quarkus/issues/3599)
-- Sql tests with external oracle database fail [\#3256](https://github.com/apache/camel-quarkus/issues/3256)
-- Platform HTTP component under load won't serve health endpoints anymore [\#2974](https://github.com/apache/camel-quarkus/issues/2974)
-- Groovy language native support [\#1746](https://github.com/apache/camel-quarkus/issues/1746)
-- LDAP native support [\#1735](https://github.com/apache/camel-quarkus/issues/1735)
-
-## [2.13.3](https://github.com/apache/camel-quarkus/tree/2.13.3) (2023-04-14)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/3.0.0-M1...2.13.3)
-
-**Closed issues:**
-
-- camel-quarkus-jdbc: using named parameters fails for postgresql db kind [\#4750](https://github.com/apache/camel-quarkus/issues/4750)
-- Cleanup tests belonging to removed camel components [\#4675](https://github.com/apache/camel-quarkus/issues/4675)
-- Add Direct VM extension [\#4657](https://github.com/apache/camel-quarkus/issues/4657)
-- Dead guide link in tagsoup extension [\#4620](https://github.com/apache/camel-quarkus/issues/4620)
-- HealthCheck for ActiveMQ  [\#4605](https://github.com/apache/camel-quarkus/issues/4605)
-- Olingo4 olingo4endpointPropertyNames are missing queryParams for read method [\#4654](https://github.com/apache/camel-quarkus/issues/4654)
-
-## [3.0.0-M1](https://github.com/apache/camel-quarkus/tree/3.0.0-M1) (2023-03-14)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.16.0...3.0.0-M1)
-
-**Fixed bugs:**
-
-- `camel.main.javaRoutesIncludePattern` not overridable at runtime [\#4574](https://github.com/apache/camel-quarkus/issues/4574)
-- \[Mandrel 22.3.1\] pgevent native image compilation failure [\#4469](https://github.com/apache/camel-quarkus/issues/4469)
-- \[Mandrel 22.3.1\] Quartz clustered native image compilation failure [\#4468](https://github.com/apache/camel-quarkus/issues/4468)
-- \[Mandrel 22.3.1\] Qpid JMS client native image compilation failure [\#4466](https://github.com/apache/camel-quarkus/issues/4466)
-- Type interface is not a bean type of PRODUCER\_METHOD [\#4444](https://github.com/apache/camel-quarkus/issues/4444)
-
-**Closed issues:**
-
-- Expand JDBC test coverage - XA [\#4597](https://github.com/apache/camel-quarkus/issues/4597)
-- Improve yaml-dsl documentation [\#4487](https://github.com/apache/camel-quarkus/issues/4487)
-- io.quarkus:quarkus-bom's entries should exclude banned artifacts [\#4475](https://github.com/apache/camel-quarkus/issues/4475)
-- perf-regression: introduce version specific build options [\#4436](https://github.com/apache/camel-quarkus/issues/4436)
-- js-dsl: JavaScriptDslTest is failing on quarkus-platform [\#4434](https://github.com/apache/camel-quarkus/issues/4434)
-- Support CSimple expressions with all DSLs [\#4426](https://github.com/apache/camel-quarkus/issues/4426)
-- Intermittent failure of MasterOpenShiftTest [\#4387](https://github.com/apache/camel-quarkus/issues/4387)
-- Integrate beans with qualifier io.smallrye.common.annotation.Identifier [\#4374](https://github.com/apache/camel-quarkus/issues/4374)
-- \[Quarkus 2.16\]  Camel-kubernetes does not work in native \(needs quarkus update\)  [\#4357](https://github.com/apache/camel-quarkus/issues/4357)
-- Dependabot to upgrade quarkiverse versions [\#4128](https://github.com/apache/camel-quarkus/issues/4128)
-- Have separate saaj extension in Quarkiverse CXF [\#4122](https://github.com/apache/camel-quarkus/issues/4122)
-- Test `aws-secrets-manager` extension with Localstack [\#3741](https://github.com/apache/camel-quarkus/issues/3741)
-- Sql derby - test exernal db if possible, remove workaround because of quarkus issue \#21639 [\#3327](https://github.com/apache/camel-quarkus/issues/3327)
-- camel-quarkus-language: Improve test coverage of languages and options [\#4640](https://github.com/apache/camel-quarkus/issues/4640)
-- ReflectiveClassBuildItem has been deprecated and marked for removal [\#4635](https://github.com/apache/camel-quarkus/issues/4635)
-- Remove org.freemarker:freemarker dependency override [\#4634](https://github.com/apache/camel-quarkus/issues/4634)
-- AtlasMap - NullPointerException in native mode [\#4633](https://github.com/apache/camel-quarkus/issues/4633)
-- Bump to CycloneDX Maven Plugin 2.7.5 [\#4617](https://github.com/apache/camel-quarkus/issues/4617)
-- Aws2-cw: dependency io.quarkus:quarkus-jaxp is not needed for the native run [\#4614](https://github.com/apache/camel-quarkus/issues/4614)
-- `cq-maven-plugin` `ClassNotFoundException` on `sort-poms` execution [\#4606](https://github.com/apache/camel-quarkus/issues/4606)
-- Micrometer test coverage - possible issue with @Counted annotation and metrics mandatory [\#4598](https://github.com/apache/camel-quarkus/issues/4598)
-- xml-io-with-beans: create itest project for xml-io + bean [\#4579](https://github.com/apache/camel-quarkus/issues/4579)
-- xml-io: document the possibility to add all charsets in native mode [\#4572](https://github.com/apache/camel-quarkus/issues/4572)
-- Split infinispan testing into separate modules for the quarkus and camel managed clients [\#4570](https://github.com/apache/camel-quarkus/issues/4570)
-- CamelQuarkusTestSupport: Lifecycle.PER\_CLASS may cause following tests to fail [\#4569](https://github.com/apache/camel-quarkus/issues/4569)
-- xml-io: Remove the use of XMLRoutesDefinitionLoader deprecated class [\#4564](https://github.com/apache/camel-quarkus/issues/4564)
-- Multiple test methods do not work when extending CamelQuarkusTestSupport [\#4560](https://github.com/apache/camel-quarkus/issues/4560)
-- Azure native integration tests fail at runtime [\#4541](https://github.com/apache/camel-quarkus/issues/4541)
-- Migrate example projects to Camel 4 and Quarkus 3 [\#4540](https://github.com/apache/camel-quarkus/issues/4540)
-- PerfRegressionIT failing with Camel 4 and Quarkus 3 [\#4528](https://github.com/apache/camel-quarkus/issues/4528)
-- Twilio test fails with Camel 4 and Quarkus 3 [\#4527](https://github.com/apache/camel-quarkus/issues/4527)
-- Salesforce test fails Camel 4 and Quarkus 3 [\#4526](https://github.com/apache/camel-quarkus/issues/4526)
-- nitrite test fails to compile to native with Camel 4 and Quarkus 3 [\#4525](https://github.com/apache/camel-quarkus/issues/4525)
-- java-joor-dsl fails in native mode with Camel 4 and Quarkus 3 [\#4523](https://github.com/apache/camel-quarkus/issues/4523)
-- Improve documentation for Kubernetes [\#4520](https://github.com/apache/camel-quarkus/issues/4520)
-- mail test fails in native mode [\#4519](https://github.com/apache/camel-quarkus/issues/4519)
-- VertxWebsocketTest fails with "Path must start with /" on Camel 4 and Quarkus 3 [\#4518](https://github.com/apache/camel-quarkus/issues/4518)
-- zendesk test cannot be compiled to native with Camel 4 and Quarkus 3 [\#4514](https://github.com/apache/camel-quarkus/issues/4514)
-- saxon test cannot be compiled to native with Camel 4 and Quarkus 3 [\#4512](https://github.com/apache/camel-quarkus/issues/4512)
-- quarkus-jackson-jq not ready for Quarkus 3 [\#4511](https://github.com/apache/camel-quarkus/issues/4511)
-- crypto test cannot be compiled to native with Camel 4 and Quarkus 3 [\#4510](https://github.com/apache/camel-quarkus/issues/4510)
-- opentelemetry test fails to compile to native with Camel 4 and Quarkus 3 [\#4509](https://github.com/apache/camel-quarkus/issues/4509)
-- Upgrade to Quarkiverse Freemarker 1.0.0.Alpha1 to become compatible with Quarkus 3 [\#4508](https://github.com/apache/camel-quarkus/issues/4508)
-- main-xml-jaxb, dataformats-json and azure tests cannot be compiled to native with Camel 4 and Quarkus 3 [\#4507](https://github.com/apache/camel-quarkus/issues/4507)
-- GRPC test fails on Quarkus 3 [\#4503](https://github.com/apache/camel-quarkus/issues/4503)
-- google-bigquery and pubsub tests fail in native mode on Camel 4 [\#4502](https://github.com/apache/camel-quarkus/issues/4502)
-- camel-quarkus-integration-test-aws2 fail to compile to native with Camel 4 [\#4501](https://github.com/apache/camel-quarkus/issues/4501)
-- quarkus-pooled-jms incompatible with Quarkus 3 and Jakarta 9/10 [\#4500](https://github.com/apache/camel-quarkus/issues/4500)
-- Infinispan query test fails due to no marshaller registered for Protobuf type person.Person [\#4499](https://github.com/apache/camel-quarkus/issues/4499)
-- FhirDstu2Hl7OrgTest fails on Camel 4 [\#4497](https://github.com/apache/camel-quarkus/issues/4497)
-- Upgrade to Quarkiverse Amazon Services 2.x [\#4496](https://github.com/apache/camel-quarkus/issues/4496)
-- XmlTest fails with NoSuchLanguageException: No language could be found for: xtokenize on Camel 4.0.0-M1 [\#4494](https://github.com/apache/camel-quarkus/issues/4494)
-- MailTest.receiveSecured fails on Camel 4/Quarkus 3: Can't verify identity of server: localhost [\#4493](https://github.com/apache/camel-quarkus/issues/4493)
-- Quarkiverse MyBatis 1.x not ready for Quarkus 3/Jakarta 9/10 [\#4491](https://github.com/apache/camel-quarkus/issues/4491)
-- Provide a Github action for generating SBOM [\#4481](https://github.com/apache/camel-quarkus/issues/4481)
-- Upgrade to Quarkiverse CXF 2.0.0 [\#4478](https://github.com/apache/camel-quarkus/issues/4478)
-- smallrye-reactive-messaging-camel missing in smallrye-reactive-messaging 4.x [\#4464](https://github.com/apache/camel-quarkus/issues/4464)
-- Provide SBOM for Camel-Quarkus project [\#4459](https://github.com/apache/camel-quarkus/issues/4459)
-- camel-quarkus-activemq can not set jms some properties in native mode [\#4454](https://github.com/apache/camel-quarkus/issues/4454)
-- Allow to disable build time compilation of jOOR expressions [\#4452](https://github.com/apache/camel-quarkus/issues/4452)
-- Get rid of jOOR workarounds used for native mode [\#4443](https://github.com/apache/camel-quarkus/issues/4443)
-- Aws2: Add testing of defaultCredentialProvider to each extension [\#4442](https://github.com/apache/camel-quarkus/issues/4442)
-- Switch to Jakarta 9/10 [\#4415](https://github.com/apache/camel-quarkus/issues/4415)
-- Get rid of `--report-unsupported-elements-at-runtime` for Groovy DSL [\#4393](https://github.com/apache/camel-quarkus/issues/4393)
-- Aws2-sqs: Test with real account fails. [\#4389](https://github.com/apache/camel-quarkus/issues/4389)
-- Remove deprecated components: cmis and dozer [\#4377](https://github.com/apache/camel-quarkus/issues/4377)
-- Upgrade io.github.crac:org-crac because of missing license [\#4260](https://github.com/apache/camel-quarkus/issues/4260)
-- Re-use enforcer config from Quarkus [\#4071](https://github.com/apache/camel-quarkus/issues/4071)
-- jOOR language native support [\#2083](https://github.com/apache/camel-quarkus/issues/2083)
-- OGNL language native support [\#1748](https://github.com/apache/camel-quarkus/issues/1748)
-
-**Merged pull requests:**
-
-- Aws2-sqs: Test with real account fails. \#4389 [\#4450](https://github.com/apache/camel-quarkus/pull/4450) ([JiriOndrusek](https://github.com/JiriOndrusek))
-
-## [2.16.0](https://github.com/apache/camel-quarkus/tree/2.16.0) (2023-01-19)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.13.2...2.16.0)
-
-**Implemented enhancements:**
-
-- Create serialization/deserialization helper instead of json mediatype [\#4353](https://github.com/apache/camel-quarkus/issues/4353)
-
-**Fixed bugs:**
-
-- \[Quarkus 2.14.0\] OptaPlanner tests fail to start [\#4116](https://github.com/apache/camel-quarkus/issues/4116)
-- Multiple test methods do not work in a class extending CamelQuarkusTestSupport  [\#4362](https://github.com/apache/camel-quarkus/issues/4362)
-- Enabling supervised route controller prevents registration of route & consumer health checks [\#3989](https://github.com/apache/camel-quarkus/issues/3989)
-
-**Closed issues:**
-
-- Aws2: Allow testing of useDefaultCredentialsProvider [\#4346](https://github.com/apache/camel-quarkus/issues/4346)
-- Depend on quarkus-minio-native instead of quarkus-minio to be able to create Minio clients programmatically [\#4328](https://github.com/apache/camel-quarkus/issues/4328)
-- Google-bigquery test sqlCrudOperations fails with real account on branch 2.13.x [\#4304](https://github.com/apache/camel-quarkus/issues/4304)
-- Camel 3.20 - Add camel-console as an extension [\#4274](https://github.com/apache/camel-quarkus/issues/4274)
-- \[Camel 3.20\] CamelContext must be specified on: KeyStoreParameters [\#4248](https://github.com/apache/camel-quarkus/issues/4248)
-- Platform-http : add integration tests for reverse proxy feature  \(Camel 3.18.3\) [\#4246](https://github.com/apache/camel-quarkus/issues/4246)
-- Expand AWS CW test coverage [\#4196](https://github.com/apache/camel-quarkus/issues/4196)
-- Improve test coverage for scheduler component [\#4175](https://github.com/apache/camel-quarkus/issues/4175)
-- Increase telegram test coverage [\#3562](https://github.com/apache/camel-quarkus/issues/3562)
-- Make the csimple extension agnostic to build systems [\#4416](https://github.com/apache/camel-quarkus/issues/4416)
-- JavaShell DSL support [\#4413](https://github.com/apache/camel-quarkus/issues/4413)
-- js-dsl - Improve the interoperability with Java code [\#4407](https://github.com/apache/camel-quarkus/issues/4407)
-- Aws2: investigate possibilty of testing defaultXCredentialProvider with local stack [\#4401](https://github.com/apache/camel-quarkus/issues/4401)
-- Kotlin DSL native support [\#4392](https://github.com/apache/camel-quarkus/issues/4392)
-- Test framework - problem when global RouteBuilder is used [\#4381](https://github.com/apache/camel-quarkus/issues/4381)
-- Groovy DSL native support [\#4379](https://github.com/apache/camel-quarkus/issues/4379)
-- Tika: Enable test testImagePng [\#4371](https://github.com/apache/camel-quarkus/issues/4371)
-- Java jOOR DSL native support [\#4358](https://github.com/apache/camel-quarkus/issues/4358)
-- Split package warning [\#4330](https://github.com/apache/camel-quarkus/issues/4330)
-- \[Camel 3.20.0\] SmallRye Fault Tolerance 5.6.0 not compattible with Camel 3.20.0 [\#4298](https://github.com/apache/camel-quarkus/issues/4298)
-- \[Camel 3.20.0\] Remove JSONata dependency override [\#4294](https://github.com/apache/camel-quarkus/issues/4294)
-- perf-regression: write the report to disk [\#4263](https://github.com/apache/camel-quarkus/issues/4263)
-- \[Quarkus 2.15.0\] SmallRye Fault Tolerance 5.6.0 not compattible with Camel 3.19.0 [\#4225](https://github.com/apache/camel-quarkus/issues/4225)
-- \[Camel 3.20\] xml integration tests is failing on native build [\#4216](https://github.com/apache/camel-quarkus/issues/4216)
-- Splunk: tests are failing after the upgrade of Splunk in Camel [\#4085](https://github.com/apache/camel-quarkus/issues/4085)
-- perf-regression: PerfRegressionIT should use `java.home` system property for the java executable location [\#4023](https://github.com/apache/camel-quarkus/issues/4023)
-- CVE-2022-26612: Apache Hadoop: Arbitrary file write in FileUtil\#unpackEntries on Windows [\#3763](https://github.com/apache/camel-quarkus/issues/3763)
-
-**Merged pull requests:**
-
-- Expand AWS CW test coverage \#4196 [\#4345](https://github.com/apache/camel-quarkus/pull/4345) ([JiriOndrusek](https://github.com/JiriOndrusek))
-
-## [2.13.2](https://github.com/apache/camel-quarkus/tree/2.13.2) (2022-12-16)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.15.0...2.13.2)
-
-## [2.15.0](https://github.com/apache/camel-quarkus/tree/2.15.0) (2022-12-08)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.14.0...2.15.0)
-
-**Fixed bugs:**
-
-- JMS consumer in a XA router can not work with JPA [\#4279](https://github.com/apache/camel-quarkus/issues/4279)
-
-**Closed issues:**
-
-- camel-quarkus-http - ClassNotFoundException - javax.servlet.http.HttpServletRequest [\#4300](https://github.com/apache/camel-quarkus/issues/4300)
-- CXF endpoint configured via URI options doesn't work with PAYLOAD mode [\#4282](https://github.com/apache/camel-quarkus/issues/4282)
-- The used Quarkus version in camel-quarkus 2.13.1 [\#4278](https://github.com/apache/camel-quarkus/issues/4278)
-- \[Camel 3.19.0\] Kubernetes: tests + native has to be disabled until Quarkus 2.14 [\#4095](https://github.com/apache/camel-quarkus/issues/4095)
-- Increase test coverage in controlbus extension with languages [\#4008](https://github.com/apache/camel-quarkus/issues/4008)
-- \[2.15.0\] Rely on jakarta.jws-api, jakarta.xml.soap-api and jakarta.xml.ws-api managed in Quarkiverse CXF [\#4321](https://github.com/apache/camel-quarkus/issues/4321)
-- \[2.15.0\] Upgrade to Quarkiverse CXF 1.7.0 [\#4319](https://github.com/apache/camel-quarkus/issues/4319)
-- Update camel-quarkus-jms doc to add pooling and XA integrate support [\#4317](https://github.com/apache/camel-quarkus/issues/4317)
-- Test Java first CXF server endpoint with multiple SEI methods [\#4306](https://github.com/apache/camel-quarkus/issues/4306)
-- camel-quarkus-catalog - Make it possible to get the camel version [\#4301](https://github.com/apache/camel-quarkus/issues/4301)
-- Remove `camel-quarkus-support-xstream` dependency from Salesforce extension [\#4272](https://github.com/apache/camel-quarkus/issues/4272)
-- Automatic configuration of FileLockClusterService [\#4262](https://github.com/apache/camel-quarkus/issues/4262)
-- \[Quarkus 2.14\] XML intergration tests are failing in Quarkus platform [\#4258](https://github.com/apache/camel-quarkus/issues/4258)
-- XmlTest.aggregate\(\) test fails on the platform [\#4255](https://github.com/apache/camel-quarkus/issues/4255)
-- CxfSoapClientTest.wsdlUpToDate\(\) and CxfSoapWssClientTest.wsdlUpToDate\(\) fail on the platform [\#4254](https://github.com/apache/camel-quarkus/issues/4254)
-- Improve jms-artemis-client integration tests with XA support by quarkus-pooled-jms [\#4250](https://github.com/apache/camel-quarkus/issues/4250)
-- \[Quarkus 2.15.0\] Remove `not-quarkus-snapshots` profile from Observability example project [\#4231](https://github.com/apache/camel-quarkus/issues/4231)
-- Camel quarkus xslt processor runtime uriresolver not able to dynamically load resource from classpath [\#4142](https://github.com/apache/camel-quarkus/issues/4142)
-- Native build fails when using both camel-quarkus-activemq and quarkus-jdbc-oracle [\#3980](https://github.com/apache/camel-quarkus/issues/3980)
-
-## [2.14.0](https://github.com/apache/camel-quarkus/tree/2.14.0) (2022-11-04)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.13.1...2.14.0)
-
-**Fixed bugs:**
-
-- camel-quarkus-xchange: MissingResourceException: Can't find bundle for base name sun.util.resources.CurrencyNames, locale en\_US [\#4242](https://github.com/apache/camel-quarkus/issues/4242)
-- SalesforceIntegrationTest.testCDCAndStreamingEvents fails [\#4161](https://github.com/apache/camel-quarkus/issues/4161)
-- XStream native integration test failure [\#4149](https://github.com/apache/camel-quarkus/issues/4149)
-- Native mode tests for serialization are failing [\#4148](https://github.com/apache/camel-quarkus/issues/4148)
-- \[Quarkus 2.14.0\] PgeventTest application fails to start [\#4114](https://github.com/apache/camel-quarkus/issues/4114)
-- DefaultPackageScanClassResolver does not work in native mode [\#4112](https://github.com/apache/camel-quarkus/issues/4112)
-- kamelet-chucknorris example project tests are failing [\#4111](https://github.com/apache/camel-quarkus/issues/4111)
-
-**Closed issues:**
-
-- Manage dependency `com.jayway.jsonpath:json-path` [\#4211](https://github.com/apache/camel-quarkus/issues/4211)
-- CxfSoapMtomIT fails in native mode [\#4208](https://github.com/apache/camel-quarkus/issues/4208)
-- Create test coverage for CXF SOAP MTOM [\#4203](https://github.com/apache/camel-quarkus/issues/4203)
-- Use official `com.azure:azure-core-http-vertx:1.0.0-beta.1` in Azure extensions [\#4180](https://github.com/apache/camel-quarkus/issues/4180)
-- Cxf-soap tests: Refactor and split [\#4171](https://github.com/apache/camel-quarkus/issues/4171)
-- Fallback to mocked back end for XChange tests if crypto API endpoints are not available [\#4169](https://github.com/apache/camel-quarkus/issues/4169)
-- Manage `io.projectreactor:reactor-core` [\#4138](https://github.com/apache/camel-quarkus/issues/4138)
-- Move org.apache.cxf.xjc-utils:cxf-xjc-runtime BOM entry to quarkus-cxf-bom [\#4123](https://github.com/apache/camel-quarkus/issues/4123)
-- rest-openapi: Add test cases for more specificationUri formats [\#4117](https://github.com/apache/camel-quarkus/issues/4117)
-- \[Quarkus Main\] Compatibility with Jandex 3 [\#4108](https://github.com/apache/camel-quarkus/issues/4108)
-- \[Camel 3.19.0\] azure-core-http-client-vertx: Deployment tests are failing on java heap space [\#4090](https://github.com/apache/camel-quarkus/issues/4090)
-- Automatic configuration of kubernetes cluster service [\#4086](https://github.com/apache/camel-quarkus/issues/4086)
-- perf-regression: adopt hyperfoil-maven-plugin 0.22 when released [\#4031](https://github.com/apache/camel-quarkus/issues/4031)
-- Increase test coverage of ref extension [\#4010](https://github.com/apache/camel-quarkus/issues/4010)
-- Add a test in camel-quarkus-integration-test-jms-artemis-client with quarkus-pooled-jms [\#3951](https://github.com/apache/camel-quarkus/issues/3951)
-- Increase XSLT extension test coverage [\#3904](https://github.com/apache/camel-quarkus/issues/3904)
-- Reference Camel `azure-sdk-bom-version` property in `azure-sdk-bom.version` [\#3229](https://github.com/apache/camel-quarkus/issues/3229)
-- Make `quarkus.artemis.url` optional [\#2857](https://github.com/apache/camel-quarkus/issues/2857)
-
-## [2.13.1](https://github.com/apache/camel-quarkus/tree/2.13.1) (2022-11-04)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.13.0...2.13.1)
-
-**Closed issues:**
-
-- Quarkus Maven Plugin unable to handle maven exclusions [\#4230](https://github.com/apache/camel-quarkus/issues/4230)
-- Can't authenticate using quarkus elasticsearch-rest [\#4194](https://github.com/apache/camel-quarkus/issues/4194)
-- Deprecated parameters in several annotations are ignored - inconsistent with other annotations. [\#4097](https://github.com/apache/camel-quarkus/issues/4097)
-- \[Camel 3.19.0\] Quartz: solve autowired scheduler properly and remove quick workaround [\#4076](https://github.com/apache/camel-quarkus/issues/4076)
-- Increase test coverage in controlbus extension with more actions [\#4009](https://github.com/apache/camel-quarkus/issues/4009)
-- Add extension for camel-dsl-modeline [\#3834](https://github.com/apache/camel-quarkus/issues/3834)
-- Sync `camel-main` / `quarkus-main` nightly CI workflows with the main workflow [\#3716](https://github.com/apache/camel-quarkus/issues/3716)
-- Extensions for camel-knative and camel-cloudevents [\#3459](https://github.com/apache/camel-quarkus/issues/3459)
-
-## [2.13.0](https://github.com/apache/camel-quarkus/tree/2.13.0) (2022-09-23)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.12.0...2.13.0)
-
-**Fixed bugs:**
-
-- JTA-JPA example project test failure [\#4126](https://github.com/apache/camel-quarkus/issues/4126)
-- Tika integration test native build failure  [\#4109](https://github.com/apache/camel-quarkus/issues/4109)
-- \[Quarkus 2.13.0\] JTA integration test fails due to undiscoverable `DataSource` [\#4063](https://github.com/apache/camel-quarkus/issues/4063)
-- Map style config property resolution does not work in native mode [\#4011](https://github.com/apache/camel-quarkus/issues/4011)
-
-**Closed issues:**
-
-- \[Quarkus 2.13.0\] Quarkus Kubernetes not compatible with Camel 3.18.x [\#4083](https://github.com/apache/camel-quarkus/issues/4083)
-- Upgrade to quarkus-cxf 1.5.0 and clean up duplicate code and config [\#3983](https://github.com/apache/camel-quarkus/issues/3983)
-- Improve google-bigquery test coverage [\#3949](https://github.com/apache/camel-quarkus/issues/3949)
-- \[JDK17\]spring integration tests failed in native mode [\#3333](https://github.com/apache/camel-quarkus/issues/3333)
-- \[JDK17\]Optaplanner integration test failed in native mode  [\#3332](https://github.com/apache/camel-quarkus/issues/3332)
-- \[JDK17\]integration test failed in native mode caused by unresolved type during parsing: sun.security.krb5.Credentials [\#3326](https://github.com/apache/camel-quarkus/issues/3326)
-- \[JDK17\]integration tests failed in native mode which uses JMX [\#3325](https://github.com/apache/camel-quarkus/issues/3325)
-- \[JDK17\]integration test failed in native mode on Mac which depends on quarkus-awt feature [\#3323](https://github.com/apache/camel-quarkus/issues/3323)
-- Investigate the new TX API in Quarkus Transaction [\#3267](https://github.com/apache/camel-quarkus/issues/3267)
-- CamelQuarkusTestSupport: Alow to use AdiceWith with another route [\#4104](https://github.com/apache/camel-quarkus/issues/4104)
-- Add crash recovery test in jta-jpa example [\#4100](https://github.com/apache/camel-quarkus/issues/4100)
-- Sync {snakeyaml.version} with quarkus-bom [\#4096](https://github.com/apache/camel-quarkus/issues/4096)
-- master: add an itest with openshift [\#4077](https://github.com/apache/camel-quarkus/issues/4077)
-- Testing guide confusing about CamelTestSupport [\#4068](https://github.com/apache/camel-quarkus/issues/4068)
-- Google-pubsub: Improve google-pubsub test coverage with GooglePubsubConstants.MESSAGE\_ID [\#4062](https://github.com/apache/camel-quarkus/issues/4062)
-- Ban camel-directvm [\#4059](https://github.com/apache/camel-quarkus/issues/4059)
-- CXF test fails in Quarkus Platform because of hard-coded absolute local wsdlLocation [\#4058](https://github.com/apache/camel-quarkus/issues/4058)
-- master: fix itests harness in native mode [\#4050](https://github.com/apache/camel-quarkus/issues/4050)
-- Increase JPA extension test coverage [\#4007](https://github.com/apache/camel-quarkus/issues/4007)
-- JCache native support [\#1846](https://github.com/apache/camel-quarkus/issues/1846)
-
-## [2.12.0](https://github.com/apache/camel-quarkus/tree/2.12.0) (2022-08-26)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.11.0...2.12.0)
-
-**Fixed bugs:**
-
-- `quarkus.camel.routes-discovery.exclude-patterns` does not work when the `RouteBuilder` is a CDI bean [\#3993](https://github.com/apache/camel-quarkus/issues/3993)
-- \[Quarkus 2.12.0\] Secure gRPC consumer tests are failing [\#3947](https://github.com/apache/camel-quarkus/issues/3947)
-
-**Closed issues:**
-
-- Provide a ready to use master component for kubernetes [\#4006](https://github.com/apache/camel-quarkus/issues/4006)
-- apache-camel-mock Routes are not getting cleaned up after test completes [\#4000](https://github.com/apache/camel-quarkus/issues/4000)
-- AWS SQS test sqsAutoCreateDelayedQueue fails [\#4028](https://github.com/apache/camel-quarkus/issues/4028)
-- Debezium test DebeziumSqlserverTest fails  [\#4027](https://github.com/apache/camel-quarkus/issues/4027)
-- Dropbox integration test authentication failure [\#4021](https://github.com/apache/camel-quarkus/issues/4021)
-- perf-regression: JDK 17 support [\#4016](https://github.com/apache/camel-quarkus/issues/4016)
-- perf-regression: disable itests when -D quickly is passed [\#4015](https://github.com/apache/camel-quarkus/issues/4015)
-- perf-regression: java.lang.NumberFormatException: For input string: "782,36" [\#4014](https://github.com/apache/camel-quarkus/issues/4014)
-- perf-regression: avoid using fixed port [\#4004](https://github.com/apache/camel-quarkus/issues/4004)
-- perf-regression: complete unit test coverage [\#4001](https://github.com/apache/camel-quarkus/issues/4001)
-- CEQ 2.11 - rest component .route\(\) method not available but present in docs [\#3995](https://github.com/apache/camel-quarkus/issues/3995)
-- perf-regression: add integration-tests [\#3982](https://github.com/apache/camel-quarkus/issues/3982)
-- `perf-regression` module should not import `io.quarkus.platform:quarkus-bom` [\#3979](https://github.com/apache/camel-quarkus/issues/3979)
-- Duplicate BOM dependency declaration `org.apache.santuario:xmlsec` [\#3978](https://github.com/apache/camel-quarkus/issues/3978)
-- perf-regression: Use pure Camel transformation [\#3974](https://github.com/apache/camel-quarkus/issues/3974)
-- Register `HttpOperationFailedException` for reflection [\#3971](https://github.com/apache/camel-quarkus/issues/3971)
-- perf-regression: introduce the performance regression in the release process [\#3967](https://github.com/apache/camel-quarkus/issues/3967)
-- CxfSoapClientIT.wsSecurityClient fails in native mode: wsse:Nonce not present in the request [\#3966](https://github.com/apache/camel-quarkus/issues/3966)
-- \[Quarkus 2.12.0\] Azure Storage Blob native integration test failure [\#3964](https://github.com/apache/camel-quarkus/issues/3964)
-- \[Quarkus 2.12.0\] Figure out how to test `js-dsl` in native mode [\#3961](https://github.com/apache/camel-quarkus/issues/3961)
-- perf-regression: Align to the root mvnw [\#3960](https://github.com/apache/camel-quarkus/issues/3960)
-- Google-pubsub remove @TestMethodOrder from the tests and investigate closing error  [\#3957](https://github.com/apache/camel-quarkus/issues/3957)
-- camel-quarkus-servicenow - 2.11.0 release - java.lang.ClassNotFoundException: javax.ws.rs.client.ClientRequestFilter [\#3946](https://github.com/apache/camel-quarkus/issues/3946)
-- \[Camel 3.19.0\] Dependency covergence check failure in HDFS extension [\#3942](https://github.com/apache/camel-quarkus/issues/3942)
-- Add camel-quarkus-master example [\#3923](https://github.com/apache/camel-quarkus/issues/3923)
-- Improve google-pubsub test coverage [\#3910](https://github.com/apache/camel-quarkus/issues/3910)
-- Merge the performance regression prototype in camel-quarkus main [\#3905](https://github.com/apache/camel-quarkus/issues/3905)
-- Test Azure Storage Blob with `credentialType` `AZURE_IDENTITY` [\#3822](https://github.com/apache/camel-quarkus/issues/3822)
-- `CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest` fails on Windows [\#3529](https://github.com/apache/camel-quarkus/issues/3529)
-- CamelTestSupport style of testing  [\#3511](https://github.com/apache/camel-quarkus/issues/3511)
-- Geocoder started returning "New York City" instead of "New York" [\#3389](https://github.com/apache/camel-quarkus/issues/3389)
-- CXF JAX-WS support [\#764](https://github.com/apache/camel-quarkus/issues/764)
-
-## [2.11.0](https://github.com/apache/camel-quarkus/tree/2.11.0) (2022-07-22)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.7.2...2.11.0)
-
-**Fixed bugs:**
-
-- Http Timeout Parameter Fails when compiled Natively  [\#3924](https://github.com/apache/camel-quarkus/issues/3924)
-- \[Quarkus 2.11.0\] OptaPlanner native image build fails [\#3899](https://github.com/apache/camel-quarkus/issues/3899)
-- Camel Quarkus 2.10.0 attempts to resolve properties for prod profile when running tests or in dev mode [\#3879](https://github.com/apache/camel-quarkus/issues/3879)
-- PDF extension encryption does not work in native mode [\#3871](https://github.com/apache/camel-quarkus/issues/3871)
-- Bean introspection on `@Singleton` scoped beans does not work  [\#3856](https://github.com/apache/camel-quarkus/issues/3856)
-- Cannot compile native image for Google PubSub integration tests [\#3832](https://github.com/apache/camel-quarkus/issues/3832)
-- Configuration of ActiveMQ broker URL properties may require reflective access [\#3809](https://github.com/apache/camel-quarkus/issues/3809)
-
-**Closed issues:**
-
-- flattened-full-pom.xml contains some artifacts from quarkus 2.9.0.Final [\#3887](https://github.com/apache/camel-quarkus/issues/3887)
-- Reduce the noise in verbose flattened BOMs [\#3702](https://github.com/apache/camel-quarkus/issues/3702)
-- Improve support for `InfinispanRemoteAggregationRepository` [\#3657](https://github.com/apache/camel-quarkus/issues/3657)
-- Apache Drill Unable to start [\#3315](https://github.com/apache/camel-quarkus/issues/3315)
-- XA JMS Transaction fails [\#2815](https://github.com/apache/camel-quarkus/issues/2815)
-- Improve camel-quarkus-master integration test [\#3927](https://github.com/apache/camel-quarkus/issues/3927)
-- Add DataSet extension [\#3926](https://github.com/apache/camel-quarkus/issues/3926)
-- Test Quarkus Jackson `ObjectMapper` with `JacksonDataFormat` [\#3922](https://github.com/apache/camel-quarkus/issues/3922)
-- Document ways of customizing `ObjectMapper` for `JacksonDataFormat` [\#3921](https://github.com/apache/camel-quarkus/issues/3921)
-- Get TransationManager and UserTransaction from quarkus container in camel-quarkus-jpa [\#3914](https://github.com/apache/camel-quarkus/issues/3914)
-- Create a Camel Hashicorp Vault Extension [\#3911](https://github.com/apache/camel-quarkus/issues/3911)
-- dozer: deprecate typeConverterEnabled config [\#3900](https://github.com/apache/camel-quarkus/issues/3900)
-- Increase JAXB extension test coverage [\#3896](https://github.com/apache/camel-quarkus/issues/3896)
-- Upgrade quarkus-artemis to 1.2.0 [\#3884](https://github.com/apache/camel-quarkus/issues/3884)
-- \[Quarkus 2.11.0\] Vert.x 4.3.1 not compatible with Camel 3.17.x [\#3877](https://github.com/apache/camel-quarkus/issues/3877)
-- arangodb integration tests failing with can not start container [\#3864](https://github.com/apache/camel-quarkus/issues/3864)
-- quarkus-bootstrap-maven-plugin is deprecated [\#3863](https://github.com/apache/camel-quarkus/issues/3863)
-- paho-mqtt5 test failing with `Error: Unable to create websockets listener on port 9001` [\#3860](https://github.com/apache/camel-quarkus/issues/3860)
-- Consider removing configuration for `camel.main.source-location-enabled` [\#3858](https://github.com/apache/camel-quarkus/issues/3858)
-- Clarify usage of Quarkus Quartz clustering support [\#3850](https://github.com/apache/camel-quarkus/issues/3850)
-- \[Camel 3.18.0\] Create camel-jq extension [\#3835](https://github.com/apache/camel-quarkus/issues/3835)
-- Unable to compile native image for Azure Storage Blob extension [\#3820](https://github.com/apache/camel-quarkus/issues/3820)
-- Create an example for JTA+JPA integration [\#3817](https://github.com/apache/camel-quarkus/issues/3817)
-- Aws SQS: Remove unnecessary headers from the test because of CAMEL-18123 [\#3803](https://github.com/apache/camel-quarkus/issues/3803)
-- Reduce the number of `timer-log` example projects [\#3708](https://github.com/apache/camel-quarkus/issues/3708)
-
-## [2.7.2](https://github.com/apache/camel-quarkus/tree/2.7.2) (2022-06-29)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.10.0...2.7.2)
-
-**Closed issues:**
-
-- 2.10.0 not able to boot NoClassDefFoundError: org/apache/camel/builder/ErrorHandlerBuilder [\#3870](https://github.com/apache/camel-quarkus/issues/3870)
-- Camel TypeConverterLoader in native mode [\#3857](https://github.com/apache/camel-quarkus/issues/3857)
-
-## [2.10.0](https://github.com/apache/camel-quarkus/tree/2.10.0) (2022-06-17)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.9.0...2.10.0)
-
-**Implemented enhancements:**
-
-- Auto discover routes created as LambdaEndpointRouteBuilder [\#3837](https://github.com/apache/camel-quarkus/issues/3837)
-
-**Fixed bugs:**
-
-- \[Quarkus 2.10.0\] Unable to build native image with XML JAXB extension [\#3838](https://github.com/apache/camel-quarkus/issues/3838)
-- \[Quarkus 2.10.0\] `ElasticsearchRestTest.testElasticsearchDeleteIndex` test failue [\#3831](https://github.com/apache/camel-quarkus/issues/3831)
-- Duplicate JMSMessageIDs in camel-quarkus-activemq [\#3807](https://github.com/apache/camel-quarkus/issues/3807)
-- Registry lookup for overridden `DefaultBean` types does not work [\#3797](https://github.com/apache/camel-quarkus/issues/3797)
-- Slack integration tests fail with the real Slack service [\#3781](https://github.com/apache/camel-quarkus/issues/3781)
-- KeyStoreParameters is not in reflection list on Salesforce component. [\#3754](https://github.com/apache/camel-quarkus/issues/3754)
-
-**Closed issues:**
-
-- Changes in health endpoint with camel from Quarkus version 2.7.5 to version \>=2.8.0 [\#3799](https://github.com/apache/camel-quarkus/issues/3799)
-- URL to the Kafka brokers must be configured with the brokers option in native mode \(continued\) [\#3742](https://github.com/apache/camel-quarkus/issues/3742)
-- \[Camel 3.17.0\] Property placeholder resolution is broken [\#3739](https://github.com/apache/camel-quarkus/issues/3739)
-- Create an Azure Key Vault Extension [\#3688](https://github.com/apache/camel-quarkus/issues/3688)
-- \[Camel 3.17.0\] Bean introspection is broken [\#3682](https://github.com/apache/camel-quarkus/issues/3682)
-- camel-quarkus-openapi-java not marking required boolean properties if variable prefixed with is [\#3605](https://github.com/apache/camel-quarkus/issues/3605)
-- camel-quarkus-integration-test-js-dsl is failing on Quarkus 2.2.4 [\#3390](https://github.com/apache/camel-quarkus/issues/3390)
-- \[Quarkus 2.5.1.Final\] Camel exception when using jsonpath after unmarshalling in quarkus native [\#3369](https://github.com/apache/camel-quarkus/issues/3369)
-- Update Release Guide [\#3350](https://github.com/apache/camel-quarkus/issues/3350)
-- Docs module fails to build [\#3307](https://github.com/apache/camel-quarkus/issues/3307)
-- CI build should test example projects with camel-quarkus SNAPSHOT [\#3160](https://github.com/apache/camel-quarkus/issues/3160)
-- Create a SQL / JDBC example project [\#3056](https://github.com/apache/camel-quarkus/issues/3056)
-- Hazelcast native build is failing on GitHub CI [\#2880](https://github.com/apache/camel-quarkus/issues/2880)
-- Intermittent failures in OpenstackGlanceTest [\#2862](https://github.com/apache/camel-quarkus/issues/2862)
-- camel-zookeeper-master - Avoid osgi lookup [\#2221](https://github.com/apache/camel-quarkus/issues/2221)
-- Properties Bean configure not working with AMQP and Infinispan [\#1935](https://github.com/apache/camel-quarkus/issues/1935)
-- aws2-s3 downloadLink test does not work with the real AWS account [\#3829](https://github.com/apache/camel-quarkus/issues/3829)
-- Improve openapi-java component documentation [\#3828](https://github.com/apache/camel-quarkus/issues/3828)
-- Unable to find a JDBC driver corresponding to the database kind 'postgresql', when camel-quarkus-quartz dependency added [\#3823](https://github.com/apache/camel-quarkus/issues/3823)
-- foundation-grouped tests seems to be flaky since upgrade to camel 3.17.0 [\#3819](https://github.com/apache/camel-quarkus/issues/3819)
-- Create platform-http-security with Keycloak example [\#3805](https://github.com/apache/camel-quarkus/issues/3805)
-- Intermittent failure of `ConverterTest.testConverterGetStatistics` [\#3798](https://github.com/apache/camel-quarkus/issues/3798)
-- Improve camel-quarkus-velocity test coverage [\#3790](https://github.com/apache/camel-quarkus/issues/3790)
-- net.openhft:affinity included in flattened BOM only on Mac [\#3788](https://github.com/apache/camel-quarkus/issues/3788)
-- Switch from OpenTracing to OpenTelemetry in observability example [\#3784](https://github.com/apache/camel-quarkus/issues/3784)
-- Support camel-debug component [\#3775](https://github.com/apache/camel-quarkus/issues/3775)
-- \[Camel 3.17.0\] openApi oneOf, allOf and anyOf with annotation @Schema [\#3774](https://github.com/apache/camel-quarkus/issues/3774)
-- \[Camel 3.17.0\] Restore `jakarta-mail-version` placeholder in `jakarta.mail.version` property [\#3771](https://github.com/apache/camel-quarkus/issues/3771)
-- Intermittent failure of FHIR integration tests `SocketTimeoutException` [\#3746](https://github.com/apache/camel-quarkus/issues/3746)
-- Use WireMock for xchange tests [\#3724](https://github.com/apache/camel-quarkus/issues/3724)
-- \[Camel 3.17.0\] Switch FTP / JSCH extensions to `com.github.mwiede:jsch` [\#3711](https://github.com/apache/camel-quarkus/issues/3711)
-- Gracefully handle `AnnotationInstance` being null in `InjectionPointsProcessor.syntheticBeans` [\#3703](https://github.com/apache/camel-quarkus/issues/3703)
-- Remove deprecated extensions [\#3698](https://github.com/apache/camel-quarkus/issues/3698)
-- Split camel-quarkus-integration-test-compression into separate zipfile, lzf and zip-deflater tests [\#3689](https://github.com/apache/camel-quarkus/issues/3689)
-- Camel can not support kafka transactions. [\#3642](https://github.com/apache/camel-quarkus/issues/3642)
-- cassandraql: itests failing on quarkus-platform [\#3621](https://github.com/apache/camel-quarkus/issues/3621)
-- Remove AHC and AHC-WS extensions [\#3558](https://github.com/apache/camel-quarkus/issues/3558)
-- Remove camel-quarkus-spark [\#3466](https://github.com/apache/camel-quarkus/issues/3466)
-- camel-quarkus-opentelemetry component logs unresolved toD uri [\#3461](https://github.com/apache/camel-quarkus/issues/3461)
-- DataSonnet language support [\#2078](https://github.com/apache/camel-quarkus/issues/2078)
-- Remove deprecated Ribbon extension [\#1845](https://github.com/apache/camel-quarkus/issues/1845)
-- Remove deprecated BeanIO extension [\#1753](https://github.com/apache/camel-quarkus/issues/1753)
-- Remove deprecated SIP extension [\#1707](https://github.com/apache/camel-quarkus/issues/1707)
-- Remove deprecated Soroush extension [\#1702](https://github.com/apache/camel-quarkus/issues/1702)
-- Remove deprecated Ganglia extension [\#1644](https://github.com/apache/camel-quarkus/issues/1644)
-- Remove deprecated ElSQL extension [\#1639](https://github.com/apache/camel-quarkus/issues/1639)
-- Remove deprecated Yammer extension [\#1614](https://github.com/apache/camel-quarkus/issues/1614)
-- Remove deprecated etcd extension [\#1592](https://github.com/apache/camel-quarkus/issues/1592)
-- Remove deprecated Beanstalk extension [\#1581](https://github.com/apache/camel-quarkus/issues/1581)
-- Remove deprecated Atomix extension [\#1570](https://github.com/apache/camel-quarkus/issues/1570)
-
-## [2.9.0](https://github.com/apache/camel-quarkus/tree/2.9.0) (2022-05-06)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.8.0...2.9.0)
-
-**Closed issues:**
-
-- Update jakarta.mail from 1.6.6 to 1.6.7 [\#3764](https://github.com/apache/camel-quarkus/issues/3764)
-- Native image build failing using SES and url http client [\#3745](https://github.com/apache/camel-quarkus/issues/3745)
-- Unexpected attribute '{http://camel.apache.org/schema/spring}uri' when using Rest XML with Quarkus 2.8.0.Final [\#3732](https://github.com/apache/camel-quarkus/issues/3732)
-- Improve mail test coverage [\#3674](https://github.com/apache/camel-quarkus/issues/3674)
-- `Aws2KinesisTest.kinesis` failure [\#3638](https://github.com/apache/camel-quarkus/issues/3638)
-- camel-quarkus-atlasmap including xercesImpl problem [\#3282](https://github.com/apache/camel-quarkus/issues/3282)
-- paho: add test case for RFC3986 style urls [\#3758](https://github.com/apache/camel-quarkus/issues/3758)
-- Remove `c3p0` from Quartz extension [\#3749](https://github.com/apache/camel-quarkus/issues/3749)
-- Debezium Postgresql integration test fails with Quarkus 2.8.1.Final [\#3748](https://github.com/apache/camel-quarkus/issues/3748)
-- camel-quarkus-openapi-java ArraySchema not registered for reflection [\#3737](https://github.com/apache/camel-quarkus/issues/3737)
-- Improve paho-mqtt5 SSL test [\#3730](https://github.com/apache/camel-quarkus/issues/3730)
-- AWS S3 integration test should remove all objects in finally block [\#3728](https://github.com/apache/camel-quarkus/issues/3728)
-- paho: expand test coverage [\#3720](https://github.com/apache/camel-quarkus/issues/3720)
-- Azure Storage Queue - add consumer integration test  [\#3718](https://github.com/apache/camel-quarkus/issues/3718)
-- Test Azure Blob with `autowiredEnabled=false` [\#3694](https://github.com/apache/camel-quarkus/issues/3694)
-- Improve camel-quarkus-paho-mqtt5 test coverage [\#3656](https://github.com/apache/camel-quarkus/issues/3656)
-- Azure storage queue : increase Producer test coverage [\#3577](https://github.com/apache/camel-quarkus/issues/3577)
-
-## [2.8.0](https://github.com/apache/camel-quarkus/tree/2.8.0) (2022-04-04)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.7.1...2.8.0)
-
-**Fixed bugs:**
-
-- Azure Storage blob - test failure [\#3655](https://github.com/apache/camel-quarkus/issues/3655)
-- camel-quarkus-openapi-java marking all properties as type object in native mode [\#3606](https://github.com/apache/camel-quarkus/issues/3606)
-- Consul native integration test failure [\#3509](https://github.com/apache/camel-quarkus/issues/3509)
-- Transacted routing in combination with Split EIP fails [\#3471](https://github.com/apache/camel-quarkus/issues/3471)
-
-**Closed issues:**
-
-- paho: FilePersistence is not tested [\#3680](https://github.com/apache/camel-quarkus/issues/3680)
-- Improve MicroProfile Fault Tolerance extension test coverage [\#3677](https://github.com/apache/camel-quarkus/issues/3677)
-- paho: NullPointerException when MqqtException occurs during reconnect attempt in native mode [\#3671](https://github.com/apache/camel-quarkus/issues/3671)
-- Improve Infinispan extension test coverage [\#3658](https://github.com/apache/camel-quarkus/issues/3658)
-- Add more details about `@QuarkusIntegrationTest` in Testing guide [\#3650](https://github.com/apache/camel-quarkus/issues/3650)
-- file: FileTest is flaky [\#3627](https://github.com/apache/camel-quarkus/issues/3627)
-- camel-quarkus-test-list should not include ipfs removed extension [\#3618](https://github.com/apache/camel-quarkus/issues/3618)
-- Error building native executable with camel-quarkus-activemq [\#3617](https://github.com/apache/camel-quarkus/issues/3617)
-- Support additional FHIR 2.x versions [\#3615](https://github.com/apache/camel-quarkus/issues/3615)
-- zipfile: Complete test coverage [\#3610](https://github.com/apache/camel-quarkus/issues/3610)
-- \[Camel 3.16\] rest-json example compliation error [\#3608](https://github.com/apache/camel-quarkus/issues/3608)
-- Use https instead of http to reference xsds [\#3604](https://github.com/apache/camel-quarkus/issues/3604)
-- Increase FHIR extension test coverage [\#3601](https://github.com/apache/camel-quarkus/issues/3601)
-- Improve quartz test coverage [\#3579](https://github.com/apache/camel-quarkus/issues/3579)
-- Create Camel Google Secret Manager Extension [\#3566](https://github.com/apache/camel-quarkus/issues/3566)
-- AWS Lambda example tests should use mock event server [\#3554](https://github.com/apache/camel-quarkus/issues/3554)
-- Cannot build camel-quarkus-ipfs because repository.jboss.org is down [\#3532](https://github.com/apache/camel-quarkus/issues/3532)
-- \[Quarkus 2.8.0\] Leverage Strimzi dev services container in kafka-oauth integration tests [\#3531](https://github.com/apache/camel-quarkus/issues/3531)
-- `FileTest.charset` integration test fails on Windows [\#3530](https://github.com/apache/camel-quarkus/issues/3530)
-- Debezium mysql - passing additionalProperties results in wrong properties beeing passed [\#3488](https://github.com/apache/camel-quarkus/issues/3488)
-- Camel Rest / Quarkus Swagger UI / Url Issue from Quarkus Version 2.6.x [\#3457](https://github.com/apache/camel-quarkus/issues/3457)
-- Camel 3.15 - Add build step to capture route source location:line-number [\#3432](https://github.com/apache/camel-quarkus/issues/3432)
-- camel.main.routes-include-pattern with a "\*" wildcard may end up loading a route builder twice [\#3265](https://github.com/apache/camel-quarkus/issues/3265)
-- Investigate QuarkusIntegrationTest as a replacement for camel-quarkus-integration-tests-process-executor-support [\#2468](https://github.com/apache/camel-quarkus/issues/2468)
-- Consider implementing a vert.x-web based Azure HttpClient [\#2196](https://github.com/apache/camel-quarkus/issues/2196)
-
-**Merged pull requests:**
-
-- Create Camel Google Secret Manager Extension [\#3668](https://github.com/apache/camel-quarkus/pull/3668) ([oscerd](https://github.com/oscerd))
-
-## [2.7.1](https://github.com/apache/camel-quarkus/tree/2.7.1) (2022-03-31)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.8.0-M1...2.7.1)
-
-**Closed issues:**
-
-- Use com.github.java-json-tools:\* instead of com.github.fge:\* [\#3632](https://github.com/apache/camel-quarkus/issues/3632)
-- \[Camel 3.16.0\] - camel-kafka uses some reflection for readiness health check [\#3592](https://github.com/apache/camel-quarkus/issues/3592)
-- Update dependency org.reflections:reflections in dependencyManagement of quarkus-camel-bom [\#3569](https://github.com/apache/camel-quarkus/issues/3569)
-- Improve slack test coverage [\#3541](https://github.com/apache/camel-quarkus/issues/3541)
-- Ban javax.validation in favor of jakarta.validation  [\#3504](https://github.com/apache/camel-quarkus/issues/3504)
-- Ban junit 4 [\#3354](https://github.com/apache/camel-quarkus/issues/3354)
-- Better control what we manage in our BOM [\#3302](https://github.com/apache/camel-quarkus/issues/3302)
-
-## [2.8.0-M1](https://github.com/apache/camel-quarkus/tree/2.8.0-M1) (2022-03-08)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.7.0...2.8.0-M1)
-
-**Implemented enhancements:**
-
-- Camel-xslt-quarkus: add extension functions support [\#3503](https://github.com/apache/camel-quarkus/issues/3503)
-- Camel Rest DSL - Expose Rest DSL services to quarkus openapi [\#3251](https://github.com/apache/camel-quarkus/issues/3251)
-
-**Closed issues:**
-
-- Improve camel-quarkus-bean-validator test coverage [\#3567](https://github.com/apache/camel-quarkus/issues/3567)
-- Feature request: make beans for configuration of optional services unremovable by default [\#3553](https://github.com/apache/camel-quarkus/issues/3553)
-- How do you configure an InterceptStrategy in Quarkus? [\#3552](https://github.com/apache/camel-quarkus/issues/3552)
-- Ban jboss-transaction-api\*, javax.transaction:\* and geronimo-jta\* in favor of jakarta.transaction:jakarta.transaction-api [\#3551](https://github.com/apache/camel-quarkus/issues/3551)
-- Incorrect version of `quarkus-maven-plugin` may be resolved [\#3520](https://github.com/apache/camel-quarkus/issues/3520)
-- Prevent various plugins from resolving commons-logging:commons-logging [\#3517](https://github.com/apache/camel-quarkus/issues/3517)
-- Ban javax.servlet:servlet-api in favor of jakarta.servlet:jakarta.servlet-api [\#3496](https://github.com/apache/camel-quarkus/issues/3496)
-- Camel 3.15 - Some dataformats renamed [\#3460](https://github.com/apache/camel-quarkus/issues/3460)
-- \[Camel 3.15\] Fhir tests are failing [\#3416](https://github.com/apache/camel-quarkus/issues/3416)
-- Better integration with Quarkus OpenAPI & OpenAPI Swagger UI [\#3346](https://github.com/apache/camel-quarkus/issues/3346)
-- Run integration tests on Windows [\#3342](https://github.com/apache/camel-quarkus/issues/3342)
-- `DebeziumMongodbTest` skipped tests [\#3213](https://github.com/apache/camel-quarkus/issues/3213)
-- spark:hive is does not work [\#1956](https://github.com/apache/camel-quarkus/issues/1956)
-- spark:dataframe does not work on Java 11 [\#1955](https://github.com/apache/camel-quarkus/issues/1955)
-- \[Dependency hell\] Spark native support [\#1701](https://github.com/apache/camel-quarkus/issues/1701)
-- A tool to check/sync dependency versions with camel & quarkus  [\#1684](https://github.com/apache/camel-quarkus/issues/1684)
-- jsonpath: The behavior change in native-mode when an application depend upon jackson-module-jaxb-annotations [\#3582](https://github.com/apache/camel-quarkus/issues/3582)
-- Build maintence branch PRs against corresponding camel-quarkus-examples maintenance branch [\#3574](https://github.com/apache/camel-quarkus/issues/3574)
-- jsonpath: JSON keys are unquoted when using writeAsString in native mode [\#3571](https://github.com/apache/camel-quarkus/issues/3571)
-- Increase `azure-storage-blob` extension test coverage [\#3561](https://github.com/apache/camel-quarkus/issues/3561)
-- Gson: Complete doc and test coverage [\#3556](https://github.com/apache/camel-quarkus/issues/3556)
-- LinkageError when using camel-quarkus-activemq together with quarkus-agroal [\#3548](https://github.com/apache/camel-quarkus/issues/3548)
-- Expand Cassandra CQL extension test coverage [\#3514](https://github.com/apache/camel-quarkus/issues/3514)
-- deadLetterChannel does not work in BaseRouteBuilder configure method [\#3436](https://github.com/apache/camel-quarkus/issues/3436)
-- Add Extension for Camel Azure Servicebus [\#3386](https://github.com/apache/camel-quarkus/issues/3386)
-- Test examples on Windows [\#3343](https://github.com/apache/camel-quarkus/issues/3343)
-- Improve available port discovery in tests [\#3199](https://github.com/apache/camel-quarkus/issues/3199)
-- Cannot build project on Windows [\#1429](https://github.com/apache/camel-quarkus/issues/1429)
-- rest-dsl - Integrate with quarkus-openapi [\#383](https://github.com/apache/camel-quarkus/issues/383)
-
-## [2.7.0](https://github.com/apache/camel-quarkus/tree/2.7.0) (2022-01-28)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.2.1...2.7.0)
-
-**Fixed bugs:**
-
-- camel.main.durationMaxSeconds is not honoured [\#3394](https://github.com/apache/camel-quarkus/issues/3394)
-- SecurityIdentity is not propagated to Camel route [\#3353](https://github.com/apache/camel-quarkus/issues/3353)
-
-**Closed issues:**
-
-- CVE-2020-8908 guava: local information disclosure via temporary directory created with unsafe permissions [\#3494](https://github.com/apache/camel-quarkus/issues/3494)
-- java.lang.IllegalStateException: The stream has no active subscriptions smallrye-reactive-messaging-camel [\#3474](https://github.com/apache/camel-quarkus/issues/3474)
-- quarkus 2.6 - debezium mysql error [\#3463](https://github.com/apache/camel-quarkus/issues/3463)
-- aws2-quarkus-client Verify that no client except quarkus one is used during test [\#3447](https://github.com/apache/camel-quarkus/issues/3447)
-- \[quarkus-main\]crypto test failure in native mode [\#3402](https://github.com/apache/camel-quarkus/issues/3402)
-- Manage camel-quarkus-catalog in camel-quarkus-bom to allow Camel K to use Quarkus Platform BOMs [\#3347](https://github.com/apache/camel-quarkus/issues/3347)
-- Refactor aws2-quarkus-client-ddb\(s3\) by copying files \(not duplicating\) [\#3236](https://github.com/apache/camel-quarkus/issues/3236)
-- \[Quarkus 2.7\] Otplanner tests failing with latest Optaplanner version [\#3483](https://github.com/apache/camel-quarkus/issues/3483)
-- Health check `CamelBeanBuildItem` should use the check id as the name [\#3470](https://github.com/apache/camel-quarkus/issues/3470)
-- Ban netty-all [\#3464](https://github.com/apache/camel-quarkus/issues/3464)
-- Ban log4j 1.x [\#3451](https://github.com/apache/camel-quarkus/issues/3451)
-- Deprecate / remove `quarkus.camel.main.enabled` configuration property [\#3446](https://github.com/apache/camel-quarkus/issues/3446)
-- camel.main.durationMaxSeconds is not honoured [\#3433](https://github.com/apache/camel-quarkus/issues/3433)
-- \[Quarkus 2.7.0\] :  CI : Found Banned Dependency: commons-logging:commons-logging [\#3421](https://github.com/apache/camel-quarkus/issues/3421)
-- \[Quarkus 2.7.0\]\[MAC OS\]java.lang.UnsatisfiedLinkError: no awt in java.library.path in native tests [\#3417](https://github.com/apache/camel-quarkus/issues/3417)
-- Manage Eclipse jgit version and jzlib version [\#3414](https://github.com/apache/camel-quarkus/issues/3414)
-- Create a Json-patch extension [\#3403](https://github.com/apache/camel-quarkus/issues/3403)
-- \[Quarkus 2.6.0.Final\] Remove `software.amazon.awssdk:apache-client` dependency override  [\#3366](https://github.com/apache/camel-quarkus/issues/3366)
-- Import quarkus-bom before camel-quarkus-bom in tests [\#3222](https://github.com/apache/camel-quarkus/issues/3222)
-- Could not find io.netty:netty-tcnative-boringssl-static [\#3115](https://github.com/apache/camel-quarkus/issues/3115)
-- avro: Remove the deprecated @BuildTimeAvroDataFormat [\#2791](https://github.com/apache/camel-quarkus/issues/2791)
-- jsonpath : Unexpected character \('r' \(code 114\)\): was expecting double-quote to start field name [\#2676](https://github.com/apache/camel-quarkus/issues/2676)
-- Use Micrometer instead of MP metrics in observability example [\#2487](https://github.com/apache/camel-quarkus/issues/2487)
-
-## [2.2.1](https://github.com/apache/camel-quarkus/tree/2.2.1) (2022-01-14)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.6.0...2.2.1)
-
-**Closed issues:**
-
-- Ban `commons-logging` and `commons-logging-api` [\#3405](https://github.com/apache/camel-quarkus/issues/3405)
-- \[Docs\] Self-contained way of generating components/dataformats/etc tables [\#3396](https://github.com/apache/camel-quarkus/issues/3396)
-
-## [2.6.0](https://github.com/apache/camel-quarkus/tree/2.6.0) (2021-12-18)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.5.0...2.6.0)
-
-**Fixed bugs:**
-
-- Exclude maven-artifact from camel-quarkus-debezium-mongodb [\#3372](https://github.com/apache/camel-quarkus/issues/3372)
-
-**Closed issues:**
-
-- Testing transacted routes with Quarkus and CamelTestSupport fails [\#3379](https://github.com/apache/camel-quarkus/issues/3379)
-- Using camel-quarkus-xslt-saxon in native mode ends up with java.lang.NoSuchMethodException at runtime  [\#3360](https://github.com/apache/camel-quarkus/issues/3360)
-- Remove CI workflow steps to install `yq` [\#3355](https://github.com/apache/camel-quarkus/issues/3355)
-- \[Camel 3.14.0\] Kafka integration test never completes [\#3312](https://github.com/apache/camel-quarkus/issues/3312)
-- \[Camel 3.13.0\] `MicroProfileHealthTest.testFailureThreshold` test failure [\#3277](https://github.com/apache/camel-quarkus/issues/3277)
-- Sql test using derby doesn't start dev service and shows class loading issue if stored procedure is called [\#3260](https://github.com/apache/camel-quarkus/issues/3260)
-- Camel-Catalog-Quarkus: It is missing for release-1.0.0-M5 [\#904](https://github.com/apache/camel-quarkus/issues/904)
-- protobuf: Missing method "getName" when using contentTypeFormat=json in native mode [\#3382](https://github.com/apache/camel-quarkus/issues/3382)
-- Use the Quarkiverse Artemis BOM and upgrade to 1.0.2 [\#3381](https://github.com/apache/camel-quarkus/issues/3381)
-- Ban log4j-core and log4j-slf4j-impl [\#3377](https://github.com/apache/camel-quarkus/issues/3377)
-- Remove com.amazonaws:aws-java-sdk-swf-libraries from the BOM [\#3375](https://github.com/apache/camel-quarkus/issues/3375)
-- XSLT integration-test fails on Windows 10 [\#3374](https://github.com/apache/camel-quarkus/issues/3374)
-- Ban javax.enterprise:cdi-api in favor of jakarta.enterprise:jakarta.enterprise.cdi-api [\#3364](https://github.com/apache/camel-quarkus/issues/3364)
-- Ban geronimo-jms\_\*\_spec [\#3363](https://github.com/apache/camel-quarkus/issues/3363)
-- Ban com.sun.activation:javax.activation [\#3361](https://github.com/apache/camel-quarkus/issues/3361)
-- `vertx-kafka` extension incompatible with `kafka-clients` 3.0.0 [\#3358](https://github.com/apache/camel-quarkus/issues/3358)
-- aws-lambda: itest failing when run against the real AWS API [\#3356](https://github.com/apache/camel-quarkus/issues/3356)
-- Bindy extension should avoid hard coding the resource path for `NativeImageResourceDirectoryBuildItem` [\#3348](https://github.com/apache/camel-quarkus/issues/3348)
-- \[JDK17\]kudu:integration test failed in native mode [\#3340](https://github.com/apache/camel-quarkus/issues/3340)
-- Ban com.google.code.findbugs:jsr305 unconditionally [\#3335](https://github.com/apache/camel-quarkus/issues/3335)
-- Camel Quarkus Kafka extension dev services support should check for the availability of `kafka.bootstrap.servers` [\#3329](https://github.com/apache/camel-quarkus/issues/3329)
-- camel-quarkus-support-\* source JARs should have manifests [\#3321](https://github.com/apache/camel-quarkus/issues/3321)
-- Document that `vertx-websocket` consumers run on the Quarkus Vert.x web server [\#3318](https://github.com/apache/camel-quarkus/issues/3318)
-- FOP integration test failed in native mode [\#3280](https://github.com/apache/camel-quarkus/issues/3280)
-- Consider removing `camel-quarkus-support-common` [\#3243](https://github.com/apache/camel-quarkus/issues/3243)
-- `quarkus.camel.main.shutdown.timeout`  doesn't work as intended [\#3179](https://github.com/apache/camel-quarkus/issues/3179)
-- \[Camel 3.12\] New feature: route configurations [\#2978](https://github.com/apache/camel-quarkus/issues/2978)
-- \[Quarkus 2.5\] Example with kafka + Oauth2 needs the stimzi Oauth client [\#2872](https://github.com/apache/camel-quarkus/issues/2872)
-- Test AWS2 SQS in isolation [\#2606](https://github.com/apache/camel-quarkus/issues/2606)
-- JFR Native support [\#2151](https://github.com/apache/camel-quarkus/issues/2151)
-
-**Merged pull requests:**
-
-- :white\_check\_mark: Kafka Oauth Integration test with Strimzi and Keyc… [\#3336](https://github.com/apache/camel-quarkus/pull/3336) ([zbendhiba](https://github.com/zbendhiba))
-
-## [2.5.0](https://github.com/apache/camel-quarkus/tree/2.5.0) (2021-11-19)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.4.0...2.5.0)
-
-**Closed issues:**
-
-- Debezium tests are using JUnit 4 Assertions and Assumptions [\#3289](https://github.com/apache/camel-quarkus/issues/3289)
-- quarkus:dev NPE KafkaProcessor.configureKafkaComponentForDevServices\(KafkaProcessor.java:65\) [\#3284](https://github.com/apache/camel-quarkus/issues/3284)
-- Camel-quarkus-couchbase Consumer is not working [\#3283](https://github.com/apache/camel-quarkus/issues/3283)
-- Document that a maintenance branch should be created also in examples for each minor release [\#3281](https://github.com/apache/camel-quarkus/issues/3281)
-- AWS Integration test doesn't clean bucket [\#3276](https://github.com/apache/camel-quarkus/issues/3276)
-- \[camel 3.13.0\]compilation failure in ftp integration test which is caused by recent SSHD upgrade in Camel 3.13 [\#3274](https://github.com/apache/camel-quarkus/issues/3274)
-- Fix of issue \#3080 \(Sql - enable stored procedure test for different db types\) misses Oracle db type [\#3268](https://github.com/apache/camel-quarkus/issues/3268)
-- Avoid using Camel Salesforce DTO types as the return type or method parameters in integration tests [\#3259](https://github.com/apache/camel-quarkus/issues/3259)
-- Cannot run tests against alternative BOMs [\#3258](https://github.com/apache/camel-quarkus/issues/3258)
-- Re-enable KafkaSaslSslIT and KafkaSslIT [\#3254](https://github.com/apache/camel-quarkus/issues/3254)
-- Sql - native tests fail on NPE during db initialization [\#3247](https://github.com/apache/camel-quarkus/issues/3247)
-- \[Quarkus 2.5.0\] Kafka SASL / SSL tests are failing [\#3239](https://github.com/apache/camel-quarkus/issues/3239)
-- \[Quarkus-Main\] Kafka DevService properties  [\#3227](https://github.com/apache/camel-quarkus/issues/3227)
-- GraalVM 21.2.0 + Java 16 - Native build fails [\#3226](https://github.com/apache/camel-quarkus/issues/3226)
-- \[camel 3.13.0\] `MllpTest.testCharsetFromMsh18` failure [\#3225](https://github.com/apache/camel-quarkus/issues/3225)
-- Make sure all AWS extensions tested with Quarkus clients have the option documented [\#3201](https://github.com/apache/camel-quarkus/issues/3201)
-- Investigate the large size of content uploading with camel-quarkus-aws2-s3 [\#3095](https://github.com/apache/camel-quarkus/issues/3095)
-- Sql - enable stored procedure test for different db types [\#3080](https://github.com/apache/camel-quarkus/issues/3080)
-- Check whether/how the clients for Quarkus AWS extension can be used in Camel routes [\#2592](https://github.com/apache/camel-quarkus/issues/2592)
-- Stub nominatim.openstreetmap.org APIs with WireMock for GeocoderNominationTest [\#2033](https://github.com/apache/camel-quarkus/issues/2033)
-- avro: fix the documentation about avro schema build time parsing [\#3270](https://github.com/apache/camel-quarkus/issues/3270)
-- \[camel 3.13\] NativeImageResourceBuildItem fails for Atlasmap extension [\#3189](https://github.com/apache/camel-quarkus/issues/3189)
-- Make integration tests runnable against Quarkus Platform BOM [\#3123](https://github.com/apache/camel-quarkus/issues/3123)
-- Aws2-ddb: Document usage of quarkus-amazon-dynamodb for client creation \(and limitations\) [\#2989](https://github.com/apache/camel-quarkus/issues/2989)
-- \[camel 3.13\] Atlasmap : use jandex index for atlasmap bean discovery [\#2578](https://github.com/apache/camel-quarkus/issues/2578)
-
-## [2.4.0](https://github.com/apache/camel-quarkus/tree/2.4.0) (2021-10-22)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.3.0...2.4.0)
-
-**Fixed bugs:**
-
-- gRPC producers with TLS enabled do not work [\#2966](https://github.com/apache/camel-quarkus/issues/2966)
-
-**Closed issues:**
-
-- Test AWS Kinesis with Quarkus client [\#3200](https://github.com/apache/camel-quarkus/issues/3200)
-- doc: rephrase the section about charsets in native mode [\#3219](https://github.com/apache/camel-quarkus/issues/3219)
-- `ShiroProcessor` is missing reflective class configuration for `commons-beanutils` converters [\#3208](https://github.com/apache/camel-quarkus/issues/3208)
-- Investigate KafkaDevServicesDisabledTest failure test [\#3206](https://github.com/apache/camel-quarkus/issues/3206)
-- Improve AWS2 DDB docs [\#3195](https://github.com/apache/camel-quarkus/issues/3195)
-- Improve the Avro extension page [\#3194](https://github.com/apache/camel-quarkus/issues/3194)
-- Improve the description of camel-quarkus-sql [\#3193](https://github.com/apache/camel-quarkus/issues/3193)
-- Improve the description of camel-quarkus-openapi-java [\#3192](https://github.com/apache/camel-quarkus/issues/3192)
-- Error: @antora/user-require-helper tried to access {requires} [\#3184](https://github.com/apache/camel-quarkus/issues/3184)
-- AWS Aws2DdbQuarkusClientTest fails with real AWS [\#3174](https://github.com/apache/camel-quarkus/issues/3174)
-- \[Quarkus 2.4.0\] Messaging tests fail with ambiguous dependencies for `org.apache.camel.quarkus.component.messaging.it.util.scheme.ComponentScheme` [\#3173](https://github.com/apache/camel-quarkus/issues/3173)
-- io.quarkus.deployment.builditem.CapabilityBuildItem\(name\) is deprecated [\#3172](https://github.com/apache/camel-quarkus/issues/3172)
-- OpenAPI Java integration tests fail with Camel 3.13.0-SNAPSHOT [\#3171](https://github.com/apache/camel-quarkus/issues/3171)
-- Test AWS S3 encryption using KMS [\#3169](https://github.com/apache/camel-quarkus/issues/3169)
-- AWS S3 tests should delete all buckets they create [\#3167](https://github.com/apache/camel-quarkus/issues/3167)
-- Aws2S3Test could fail with real AWS S3 service caused by bucket name conflicts [\#3163](https://github.com/apache/camel-quarkus/issues/3163)
-- URL to the Kafka brokers must be configured with the brokers option in native mode [\#3157](https://github.com/apache/camel-quarkus/issues/3157)
-- QuarkusKafkaClientFactoryDisabledViaPropertiesTest is broken [\#3154](https://github.com/apache/camel-quarkus/issues/3154)
-- Unify package names for the for the test in camel-quarkus-examples [\#3152](https://github.com/apache/camel-quarkus/issues/3152)
-- Register camel \<--\> CDI event bridges only when observers for the events are detected  [\#3149](https://github.com/apache/camel-quarkus/issues/3149)
-- Docs xref check failures [\#3143](https://github.com/apache/camel-quarkus/issues/3143)
-- \[Camel 3.12\] Remove the reflection register for SunJaxb21NamespacePrefixMapper [\#3132](https://github.com/apache/camel-quarkus/issues/3132)
-- Google-Storage Extension: Cannot set serviceAccountKey because of Quarkiverse extension [\#3131](https://github.com/apache/camel-quarkus/issues/3131)
-- \[Quarkus 2.4.0\] AWT packages forced to be runtime initialized [\#3130](https://github.com/apache/camel-quarkus/issues/3130)
-- \[Camel 3.12\] enable autoCreate CI integration tests [\#3097](https://github.com/apache/camel-quarkus/issues/3097)
-- \[Camel 3.12\] Subclasses of ServiceCallConfiguration should not need to be registered for reflection [\#2955](https://github.com/apache/camel-quarkus/issues/2955)
-- \[Camel 3.12\] UnmarshalTypeName should be renamed to unmarshalType [\#2874](https://github.com/apache/camel-quarkus/issues/2874)
-- \[camel 3.12\] core: camel.threadpools.config\[\*\] properties should not need reflection anymore [\#2828](https://github.com/apache/camel-quarkus/issues/2828)
-- Expand AWS Lambda test coverage [\#2749](https://github.com/apache/camel-quarkus/issues/2749)
-
-## [2.3.0](https://github.com/apache/camel-quarkus/tree/2.3.0) (2021-10-01)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.2.0...2.3.0)
-
-**Fixed bugs:**
-
-- Opentracing can't be disabled via config [\#3084](https://github.com/apache/camel-quarkus/issues/3084)
-- XchangeTest failure due to deprecated binance WAPI endpoints [\#3016](https://github.com/apache/camel-quarkus/issues/3016)
-
-**Closed issues:**
-
-- RestClient and Opentracing runs into StackOverflowError [\#3145](https://github.com/apache/camel-quarkus/issues/3145)
-- Split Quartz test into Quartz and Cron [\#3086](https://github.com/apache/camel-quarkus/issues/3086)
-- JdbcAggregationRepository build error by spring JtaTransactionManager  [\#3054](https://github.com/apache/camel-quarkus/issues/3054)
-- Examples should have use Quarkus Main Application  [\#1280](https://github.com/apache/camel-quarkus/issues/1280)
-- Split package usage warning with camel-quarkus [\#3159](https://github.com/apache/camel-quarkus/issues/3159)
-- clientRequestValidation not working with camel REST DSL [\#3129](https://github.com/apache/camel-quarkus/issues/3129)
-- Improve Kafka integration with Quarkus dev services [\#3121](https://github.com/apache/camel-quarkus/issues/3121)
-- Finish expanding of AWS DDB tests [\#3114](https://github.com/apache/camel-quarkus/issues/3114)
-- Docs xref check failures [\#3109](https://github.com/apache/camel-quarkus/issues/3109)
-- Salesforce integration tests: possible failures [\#3103](https://github.com/apache/camel-quarkus/issues/3103)
-- Test `platform-http` with SSL enabled [\#3093](https://github.com/apache/camel-quarkus/issues/3093)
-- Improve handling of `quarkus.*.enabled` configuration properties [\#3091](https://github.com/apache/camel-quarkus/issues/3091)
-- Split MongoDB test into MongoDB and Mongo Grid FS [\#3089](https://github.com/apache/camel-quarkus/issues/3089)
-- Improve native support for `org.apache.http.impl.client.BasicAuthCache` [\#3079](https://github.com/apache/camel-quarkus/issues/3079)
-- \[Camel 3.11.2 / Camel 3.12.0\] Enable tests for OpenApi license and contact info [\#3076](https://github.com/apache/camel-quarkus/issues/3076)
-- Expand OpenAPI Java test coverage [\#3072](https://github.com/apache/camel-quarkus/issues/3072)
-- Salesforce : Impossible to custom fields for Platform events [\#3067](https://github.com/apache/camel-quarkus/issues/3067)
-- Sql - enable test with different databases [\#3053](https://github.com/apache/camel-quarkus/issues/3053)
-- Expand REST DSL test coverage [\#3036](https://github.com/apache/camel-quarkus/issues/3036)
-- Unsatisfying test coverage of binding mode in rest component [\#3028](https://github.com/apache/camel-quarkus/issues/3028)
-- \[Quarkus 2.3.0\] `GooglePubSubTest` failure [\#3027](https://github.com/apache/camel-quarkus/issues/3027)
-- `CoreTest.testCamelContextAwareRegistryBeansInitialized` failing after RouteBuilder started implementing CamelContextAware [\#3002](https://github.com/apache/camel-quarkus/issues/3002)
-- \[Camel 3.11.2, 3.12.0\] Consider usage of `IgnoreSplitPackageBuildItem` [\#2997](https://github.com/apache/camel-quarkus/issues/2997)
-- Salesforce : add test coverage  [\#2938](https://github.com/apache/camel-quarkus/issues/2938)
-- Expand AWS S3 test coverage [\#2745](https://github.com/apache/camel-quarkus/issues/2745)
-- Kafka - add test coverage [\#2627](https://github.com/apache/camel-quarkus/issues/2627)
-- AWS2 Lambda integration timeouts on Localstack [\#2595](https://github.com/apache/camel-quarkus/issues/2595)
-- Test camel-quarkus-aws2-s3 together with quarkus-amazon-s3 [\#2590](https://github.com/apache/camel-quarkus/issues/2590)
-
-## [2.2.0](https://github.com/apache/camel-quarkus/tree/2.2.0) (2021-08-27)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.1.0...2.2.0)
-
-**Fixed bugs:**
-
-- \[Quarkus 2.2.0\] XChange native itest fails to find `CurrencyNames` resource bundle [\#2983](https://github.com/apache/camel-quarkus/issues/2983)
-- \[Quarkus 2.2.0\] Spring RabbitMQ native build fails [\#2980](https://github.com/apache/camel-quarkus/issues/2980)
-- \[Quarkus 2.2.0\] `quarkus-google-cloud-services` dependent extensions native image build fails  [\#2979](https://github.com/apache/camel-quarkus/issues/2979)
-- \[Quarkus 2.2.0\] Infinispan itests fail in native mode [\#2975](https://github.com/apache/camel-quarkus/issues/2975)
-- Camel-Infinispan consumer doesn't work [\#2344](https://github.com/apache/camel-quarkus/issues/2344)
-
-**Closed issues:**
-
-- xchange native itests failure [\#3042](https://github.com/apache/camel-quarkus/issues/3042)
-- Exception when configuring camel-kafka with environment variables in native mode [\#3017](https://github.com/apache/camel-quarkus/issues/3017)
-- Solr: Investigate, why native tests fail in openjdk 11 \(not in graalvm jdk\) [\#2941](https://github.com/apache/camel-quarkus/issues/2941)
-- Test creating a subscription of an SQS Queue to an SNS Topic [\#2624](https://github.com/apache/camel-quarkus/issues/2624)
-- \[CI\] - Camel Master Branch Build Failure [\#2393](https://github.com/apache/camel-quarkus/issues/2393)
-- \[CI\] - Quarkus Master Branch Build Failure [\#2375](https://github.com/apache/camel-quarkus/issues/2375)
-- Nightly branch sync issue reporting sometimes does not work [\#2367](https://github.com/apache/camel-quarkus/issues/2367)
-- Document the relation about quarkus beans and camel components [\#1245](https://github.com/apache/camel-quarkus/issues/1245)
-- Language component native support [\#817](https://github.com/apache/camel-quarkus/issues/817)
-- kamelet: Test the kamelet location option [\#3025](https://github.com/apache/camel-quarkus/issues/3025)
-- Document the usage of partial Quarkus BOMs [\#3023](https://github.com/apache/camel-quarkus/issues/3023)
-- Salesforce test failure [\#3022](https://github.com/apache/camel-quarkus/issues/3022)
-- `property` attribute with `@Consume` does not work [\#3021](https://github.com/apache/camel-quarkus/issues/3021)
-- Add test coverage to messaging extesnions [\#3018](https://github.com/apache/camel-quarkus/issues/3018)
-- Reduce console log output from `EipTest.throttle` [\#3001](https://github.com/apache/camel-quarkus/issues/3001)
-- creation of extension on windows failed [\#2999](https://github.com/apache/camel-quarkus/issues/2999)
-- Upgrade to to GraalVM 21.2 [\#2981](https://github.com/apache/camel-quarkus/issues/2981)
-- \[Quarkus 2.2.0\] XmlSecurity itests fail in native mode [\#2977](https://github.com/apache/camel-quarkus/issues/2977)
-- Skip querying Jandex for quarkus.camel.native.reflection.include-patterns that have no wildcards [\#2970](https://github.com/apache/camel-quarkus/issues/2970)
-- SolrTest failure when using CloundContainer [\#2967](https://github.com/apache/camel-quarkus/issues/2967)
-- Automatically register for reflection: org.apache.camel.converter.jaxb.mapper.SunJaxb21NamespacePrefixMapper [\#2965](https://github.com/apache/camel-quarkus/issues/2965)
-- Multiple gRPC consumers for the same service class does not work [\#2954](https://github.com/apache/camel-quarkus/issues/2954)
-- Provide a common set of JMS tests to test different combinations of JMS extension, client & broker [\#2914](https://github.com/apache/camel-quarkus/issues/2914)
-- Read-lock tests are flawed [\#2888](https://github.com/apache/camel-quarkus/issues/2888)
-- AWS2 ddb-streams integration tests failures [\#2860](https://github.com/apache/camel-quarkus/issues/2860)
-- Make `quarkus.google.cloud.project-id` optional [\#2858](https://github.com/apache/camel-quarkus/issues/2858)
-- Have each release on a \<major\>.\<minor\>.x branch to make Antora happy [\#2853](https://github.com/apache/camel-quarkus/issues/2853)
-- Set the version in docs/antora.yml when tagging a release [\#2852](https://github.com/apache/camel-quarkus/issues/2852)
-- Cannot convert buffer types in platform-http [\#2838](https://github.com/apache/camel-quarkus/issues/2838)
-- Box native integration test failure [\#2830](https://github.com/apache/camel-quarkus/issues/2830)
-- Expand ElasticSearch REST test coverage [\#2819](https://github.com/apache/camel-quarkus/issues/2819)
-- \[Camel 3.11\] Solr cloud integration tests are failing [\#2814](https://github.com/apache/camel-quarkus/issues/2814)
-- Google PubSub Extension is not working in camel-k [\#2796](https://github.com/apache/camel-quarkus/issues/2796)
-- Expand AWS DDB tests [\#2776](https://github.com/apache/camel-quarkus/issues/2776)
-- Apple M1 cannot build the camel-quarkus project [\#2762](https://github.com/apache/camel-quarkus/issues/2762)
-- Add ability to test HL7 extension with multiple HAPI implementations [\#2744](https://github.com/apache/camel-quarkus/issues/2744)
-- \[elastic-search\] Test both camel and quarkus configuration of underlying component quarkus client [\#2714](https://github.com/apache/camel-quarkus/issues/2714)
-- Test EIPs DSL methods [\#2628](https://github.com/apache/camel-quarkus/issues/2628)
-- Test sending messages to an SNS FIFO topic [\#2625](https://github.com/apache/camel-quarkus/issues/2625)
-- LevelDB:  mapped bytebuffer cleaner update for jdk 9+ needs workaround to work in native mode [\#1908](https://github.com/apache/camel-quarkus/issues/1908)
-- \[Serialization\] transferException URI option does not work in native mode [\#1868](https://github.com/apache/camel-quarkus/issues/1868)
-- \[Serialization\] Jolt: Remove the DeepCopySubstitution when/if graal supports Object serialization [\#1433](https://github.com/apache/camel-quarkus/issues/1433)
-- Kubernetes extension native compilation high memory consumption [\#1101](https://github.com/apache/camel-quarkus/issues/1101)
-- \[camel-master branch\] support ComponentNameResolver [\#892](https://github.com/apache/camel-quarkus/issues/892)
-
-## [2.1.0](https://github.com/apache/camel-quarkus/tree/2.1.0) (2021-07-23)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.0.0...2.1.0)
-
-**Fixed bugs:**
-
-- Cannot re-process old Kafka messages because of Quarkus overriding the group.id [\#2901](https://github.com/apache/camel-quarkus/issues/2901)
-
-**Closed issues:**
-
-- Revise DefaultExchangeHolder [\#2905](https://github.com/apache/camel-quarkus/issues/2905)
-- openapi-java failure when building native-image [\#2892](https://github.com/apache/camel-quarkus/issues/2892)
-- string-template:bean Bean Injection:  camel quarkus cannot find resource error [\#2849](https://github.com/apache/camel-quarkus/issues/2849)
-- Document the need of @RegisterForReflection in Bean doc [\#2844](https://github.com/apache/camel-quarkus/issues/2844)
-- add affinity dependency in a mac profile for camel-hazelcast extension [\#2800](https://github.com/apache/camel-quarkus/issues/2800)
-- Intermittent failure of testJmsTransaction  [\#2767](https://github.com/apache/camel-quarkus/issues/2767)
-- Test both camel and quarkus configuration of underlying component quarkus client [\#2712](https://github.com/apache/camel-quarkus/issues/2712)
-- Split with AggregationStrategy [\#2690](https://github.com/apache/camel-quarkus/issues/2690)
-- No consumers available on endpoint [\#2632](https://github.com/apache/camel-quarkus/issues/2632)
-- Autowiring of beans can cause warning and problem "bean was marked as unused and removed during build" [\#2519](https://github.com/apache/camel-quarkus/issues/2519)
-- Turn off bean removal by ArC  [\#1387](https://github.com/apache/camel-quarkus/issues/1387)
-- NPE when testing serviceCall EIP [\#2952](https://github.com/apache/camel-quarkus/issues/2952)
-- js-dsl integration test failure [\#2908](https://github.com/apache/camel-quarkus/issues/2908)
-- can't build camel-fhir extension native image [\#2906](https://github.com/apache/camel-quarkus/issues/2906)
-- kudu: remove the useless test harness logic dedicated to Java 8 [\#2885](https://github.com/apache/camel-quarkus/issues/2885)
-- Avoid producing `FeatureBuildItem` in support extensions [\#2873](https://github.com/apache/camel-quarkus/issues/2873)
-- Promote tags to GitHub releases [\#2864](https://github.com/apache/camel-quarkus/issues/2864)
-- Give some guidance to end users which messaging extensions they should use in which situation [\#2856](https://github.com/apache/camel-quarkus/issues/2856)
-- \[Quarkus 2.1\] Remove reflective class registration for `ScramSaslClientFactory` [\#2850](https://github.com/apache/camel-quarkus/issues/2850)
-- Remove `quarkus.camel.sql.script-files` configuration property [\#2823](https://github.com/apache/camel-quarkus/issues/2823)
-- Leverage catalog metadata to discover unremovable bean types [\#2822](https://github.com/apache/camel-quarkus/issues/2822)
-- Update the Command mode docs page [\#2782](https://github.com/apache/camel-quarkus/issues/2782)
-- Test camel.faulttolerance.\* set of properties [\#2780](https://github.com/apache/camel-quarkus/issues/2780)
-- Automatic check to ensure that camel.quarkus.jvmSince and camel.quarkus.nativeSince are not newer than the current SNAPSHOT [\#2763](https://github.com/apache/camel-quarkus/issues/2763)
-- Refactor registration of serialization once support is present in Quarkus [\#2755](https://github.com/apache/camel-quarkus/issues/2755)
-- Add Kamelet example [\#2731](https://github.com/apache/camel-quarkus/issues/2731)
-- camel-quarkus-minio: "quarkus.minio.url" is mandatory and must be a valid url [\#2721](https://github.com/apache/camel-quarkus/issues/2721)
-- Revisit user guide testing page [\#2679](https://github.com/apache/camel-quarkus/issues/2679)
-- Salesforce : Mock existing tests [\#2667](https://github.com/apache/camel-quarkus/issues/2667)
-- Class loader issues in AvroRpcTest with Quarkus 2.0.0.Alpha3 [\#2651](https://github.com/apache/camel-quarkus/issues/2651)
-- Expand Netty test coverage [\#2636](https://github.com/apache/camel-quarkus/issues/2636)
-- Add camel-kamelet extension example [\#2630](https://github.com/apache/camel-quarkus/issues/2630)
-- Support JMS ObjectMessage [\#2599](https://github.com/apache/camel-quarkus/issues/2599)
-- Document the options for configuring the ElasticSearch REST client [\#2502](https://github.com/apache/camel-quarkus/issues/2502)
-- Nitrite - follow up - simplify serialization configuration [\#2255](https://github.com/apache/camel-quarkus/issues/2255)
-- OpenTelemetry support [\#2084](https://github.com/apache/camel-quarkus/issues/2084)
-- Investigate replacing bouncycastle support extension with Quarkus bouncycastle  [\#2005](https://github.com/apache/camel-quarkus/issues/2005)
-
-## [2.0.0](https://github.com/apache/camel-quarkus/tree/2.0.0) (2021-06-25)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.0.0-M2...2.0.0)
-
-**Implemented enhancements:**
-
-- Native support for kamelet.yaml discovery [\#2733](https://github.com/apache/camel-quarkus/issues/2733)
-
-**Fixed bugs:**
-
-- Camel jira throws in native mode java.lang.ClassNotFoundException: org.glassfish.jersey.internal.RuntimeDelegateImpl [\#2650](https://github.com/apache/camel-quarkus/issues/2650)
-
-**Closed issues:**
-
-- onException in xml dsl [\#2842](https://github.com/apache/camel-quarkus/issues/2842)
-- Ability to retrieve traceId for observability in routes [\#2802](https://github.com/apache/camel-quarkus/issues/2802)
-- camel-kamelet-reify native support [\#2617](https://github.com/apache/camel-quarkus/issues/2617)
-- Use in an example: autowiring of beans available in the CDI container to CamelContext and components [\#2351](https://github.com/apache/camel-quarkus/issues/2351)
-- camel-quarkus-kafka : Kafka oauth authentication issue with kafka-oauth-client 0.8.x versions [\#2878](https://github.com/apache/camel-quarkus/issues/2878)
-- Combine build sanity checks into a single script [\#2869](https://github.com/apache/camel-quarkus/issues/2869)
-- InfinispanTest failed on Mac [\#2840](https://github.com/apache/camel-quarkus/issues/2840)
-- Add a section about mocking remote endpoints to Testing page of user guide [\#2834](https://github.com/apache/camel-quarkus/issues/2834)
-- Salesforce native integration tests throw CNFE for `java.io.InputStream` [\#2831](https://github.com/apache/camel-quarkus/issues/2831)
-- Let quarkus-google-cloud-services or com.google.cloud:libraries-bom align opencensus, perfmark & Co. [\#2816](https://github.com/apache/camel-quarkus/issues/2816)
-- Manage Groovy dependencies with `groovy-bom` import [\#2812](https://github.com/apache/camel-quarkus/issues/2812)
-- CNFE MapperResultProducerService when com.datastax.oss:java-driver-mapper-runtime is not in the class path [\#2801](https://github.com/apache/camel-quarkus/issues/2801)
-- Expand HTTP extension test coverage [\#2794](https://github.com/apache/camel-quarkus/issues/2794)
-- camel-quarkus-http doesn't build native image - Random/SplittableRandom [\#2793](https://github.com/apache/camel-quarkus/issues/2793)
-- Expand jsonpath test coverage [\#2783](https://github.com/apache/camel-quarkus/issues/2783)
-- Test camel.threadpool.\* set of properties [\#2781](https://github.com/apache/camel-quarkus/issues/2781)
-- Test specifying custom beans in application.properties [\#2778](https://github.com/apache/camel-quarkus/issues/2778)
-- Unable to determine the status of the running process in TimerIT without resteasy [\#2772](https://github.com/apache/camel-quarkus/issues/2772)
-- Solr test doesn't work on RHEL 8 [\#2766](https://github.com/apache/camel-quarkus/issues/2766)
-- camel.main.dump-routes = true does not work [\#2761](https://github.com/apache/camel-quarkus/issues/2761)
-- Avoid duplicating code in `org.apache.camel.quarkus.core.BaseModel` [\#2752](https://github.com/apache/camel-quarkus/issues/2752)
-- kubernetes integration-test failure in native mode [\#2730](https://github.com/apache/camel-quarkus/issues/2730)
-- Use EmbeddedActiveMQ in messaging and jta integration tests  [\#2727](https://github.com/apache/camel-quarkus/issues/2727)
-- Fix JSON Jackson jacksonConversionPojo test [\#2726](https://github.com/apache/camel-quarkus/issues/2726)
-- cassandra-driver-core 3.5.0 managed in Debezium BOM too old for testcontainers 1.15.3 [\#2724](https://github.com/apache/camel-quarkus/issues/2724)
-- hazelcast integration-test failed in native mode\(On Mac\) [\#2719](https://github.com/apache/camel-quarkus/issues/2719)
-- \[infinispan\] Test both camel and quarkus configuration of underlying component quarkus client [\#2713](https://github.com/apache/camel-quarkus/issues/2713)
-- Register all @JsonView array elements for reflection [\#2708](https://github.com/apache/camel-quarkus/issues/2708)
-- demonstrate how to configure quarkus-jackson extension's own ObjectMapper instance and reuse it in our jackson test [\#2706](https://github.com/apache/camel-quarkus/issues/2706)
-- \[Camel 3.11\] Remove vertx-http itest SSL workaround [\#2704](https://github.com/apache/camel-quarkus/issues/2704)
-- Expand Saxon test coverage with xpath saxon tests [\#2702](https://github.com/apache/camel-quarkus/issues/2702)
-- \[Camel 3.11\] ThreadPoolBulkhead not available in smallrye-fault-tolerance 5.1.0 [\#2696](https://github.com/apache/camel-quarkus/issues/2696)
-- Debezium: Unresolved type during parsing: org.eclipse.jetty.util.StringUtil  [\#2695](https://github.com/apache/camel-quarkus/issues/2695)
-- Sql aggregator does not work in native mode, solve DefaultExchangeHolder globally. [\#2693](https://github.com/apache/camel-quarkus/issues/2693)
-- Unmanage unnecessary google dependencies  [\#2689](https://github.com/apache/camel-quarkus/issues/2689)
-- Problem with dashed queryParams [\#2685](https://github.com/apache/camel-quarkus/issues/2685)
-- camel-quarkus-jacksonxml:JsonView annotations take no effect in native mode [\#2681](https://github.com/apache/camel-quarkus/issues/2681)
-- Quarkus Native: SQS to Mongo fails to compile with NoClassDefFoundError: jnr/unixsocket/UnixSocket [\#2678](https://github.com/apache/camel-quarkus/issues/2678)
-- Intermittent failures in MllpIT  [\#2671](https://github.com/apache/camel-quarkus/issues/2671)
-- AWS2 test: org.apache.log4j.Priority required via netty, although netty should not be in the class path at all  [\#2670](https://github.com/apache/camel-quarkus/issues/2670)
-- Adapt Observability docs page to Quarkus 2.0.0 [\#2659](https://github.com/apache/camel-quarkus/issues/2659)
-- Solr test fails during native compilation after upgrade to Camel 3.10.0 and Quarkus 2.0.0.Alpha3 [\#2657](https://github.com/apache/camel-quarkus/issues/2657)
-- vert-x http client failing for HTTPS with Quarkus 2.0.0.Alpha3 [\#2656](https://github.com/apache/camel-quarkus/issues/2656)
-- kamelet extension: add test for kamelet discovery mechanism [\#2652](https://github.com/apache/camel-quarkus/issues/2652)
-- Test moving and deleting files on an FTP server [\#2645](https://github.com/apache/camel-quarkus/issues/2645)
-- jackson: add test coverage [\#2634](https://github.com/apache/camel-quarkus/issues/2634)
-- jacksonxml: add test coverage [\#2633](https://github.com/apache/camel-quarkus/issues/2633)
-- Kafka - add Kafka Idempotent repository test [\#2626](https://github.com/apache/camel-quarkus/issues/2626)
-- Expand Sql test coverage [\#2623](https://github.com/apache/camel-quarkus/issues/2623)
-- Reinstate camel integration tests to the Quarkus Platform nightly SNAPSHOT build [\#2621](https://github.com/apache/camel-quarkus/issues/2621)
-- \[camel 3.10\] load selected list of kamelets definitions at build time [\#2618](https://github.com/apache/camel-quarkus/issues/2618)
-- camel-jackson-protobuf data format native support [\#2615](https://github.com/apache/camel-quarkus/issues/2615)
-- camel-jackson-avro data format native support [\#2610](https://github.com/apache/camel-quarkus/issues/2610)
-- Add a section about testing to the Contributor guide [\#2607](https://github.com/apache/camel-quarkus/issues/2607)
-- \[camel 3.10\] Test setting MLLP default charset from system property for native mode [\#2554](https://github.com/apache/camel-quarkus/issues/2554)
-- \[Quarkus 2.0\] Consider following the way how Quarkus handles Avro schemas [\#2513](https://github.com/apache/camel-quarkus/issues/2513)
-- Salesforce fails to start because loginUrl configuration is ignored [\#2499](https://github.com/apache/camel-quarkus/issues/2499)
-- \[Camel 3.10\] Improve KafkaClientFactory integration [\#2486](https://github.com/apache/camel-quarkus/issues/2486)
-- \[Camel 3.10\] jsonpath: Getting rid of json-smart as explicit and transitive dependency [\#2435](https://github.com/apache/camel-quarkus/issues/2435)
-- Remove camel-quarkus-main [\#2391](https://github.com/apache/camel-quarkus/issues/2391)
-- Test LRA extension with the latest Narayana LRA coordinator [\#2285](https://github.com/apache/camel-quarkus/issues/2285)
-- Upgrading to Jackson 2.12.1 via Quarkus BOM 1.12 breaks Azure SDK v12 extensions  [\#2207](https://github.com/apache/camel-quarkus/issues/2207)
-- Replace quarkus.camel.native.resources.\* with quarkus.native.resources.\* [\#988](https://github.com/apache/camel-quarkus/issues/988)
-
-## [2.0.0-M2](https://github.com/apache/camel-quarkus/tree/2.0.0-M2) (2021-06-10)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.0.0-M1...2.0.0-M2)
-
-**Closed issues:**
-
-- Error when using Camel Kinesis component - java.lang.ClassNotFoundException: org.apache.commons.logging.LogFactory [\#2666](https://github.com/apache/camel-quarkus/issues/2666)
-- Native compilation issues on GraalVM 21.1 [\#2653](https://github.com/apache/camel-quarkus/issues/2653)
-- CamelKafkaTest fails intermittently on the CI [\#2461](https://github.com/apache/camel-quarkus/issues/2461)
-- Quarkus Oracle Jdbc Issue NativeMode [\#2448](https://github.com/apache/camel-quarkus/issues/2448)
-- Optaplanner native integration tests fail with Quarkus 1.12 [\#2205](https://github.com/apache/camel-quarkus/issues/2205)
-- Mocking ProducerTemplate [\#2067](https://github.com/apache/camel-quarkus/issues/2067)
-- Debezium-mongodb - observe issue DBZ-2831, which blocks integration tests. [\#2060](https://github.com/apache/camel-quarkus/issues/2060)
-- aws kinesis: De-aggregate producer side aggregated msgs [\#2023](https://github.com/apache/camel-quarkus/issues/2023)
-- AWS properties not picked up [\#1871](https://github.com/apache/camel-quarkus/issues/1871)
-- Investigate intermittent build failures due to port conflicts [\#1370](https://github.com/apache/camel-quarkus/issues/1370)
-- Kafka and Strimzi examples [\#1028](https://github.com/apache/camel-quarkus/issues/1028)
-- Ugly re-formatted code [\#444](https://github.com/apache/camel-quarkus/issues/444)
-- Do not include the source XSLT files into the application archive [\#438](https://github.com/apache/camel-quarkus/issues/438)
-- Consider importing camel-bom in camel-quarkus-bom [\#159](https://github.com/apache/camel-quarkus/issues/159)
-- Intermittent failures in Aws2SqsSnsIT [\#2741](https://github.com/apache/camel-quarkus/issues/2741)
-- Unable to determine the status of the running process in LogIT without resteasy [\#2737](https://github.com/apache/camel-quarkus/issues/2737)
-- Resume release command needs to be performed from target/checkout directory [\#2736](https://github.com/apache/camel-quarkus/issues/2736)
-- Kafka SASL tests fail after the upgrade to Quarkus 2.0.0.CR3 [\#2729](https://github.com/apache/camel-quarkus/issues/2729)
-- camel-quarkus-example : dev mode issue [\#2723](https://github.com/apache/camel-quarkus/issues/2723)
-- Add missing use cases into MongoDb test coverage [\#2715](https://github.com/apache/camel-quarkus/issues/2715)
-- \[camel-quarkus-examples\] HealthTest/TimerLogMainTest/ObservabilityTest failure on camel-quarkus-main branch [\#2711](https://github.com/apache/camel-quarkus/issues/2711)
-- Fix Qute component metadata in Camel Quarkus catalog [\#2701](https://github.com/apache/camel-quarkus/issues/2701)
-- \[Quarkus 2.0.0.CR3\] ClassNotFoundException: com.aayushatharva.brotli4j.decoder.DecoderJNI$Wrapper in Google Storage, PubSub and BigQuery test [\#2692](https://github.com/apache/camel-quarkus/issues/2692)
-- Error when using camel-quarkus-jackson in native mode: java.lang.ClassNotFoundException: com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule [\#2677](https://github.com/apache/camel-quarkus/issues/2677)
-- GraalVM 21.1 in CryptoIT: Trying to verify a provider that was not registered at build time: BC version 1.68 [\#2673](https://github.com/apache/camel-quarkus/issues/2673)
-- camel-quarkus-master-integration-test failing after the upgrade to Camel 3.10.0 and Quarkus 2.0.0.Alpha3 [\#2660](https://github.com/apache/camel-quarkus/issues/2660)
-- Intermittent failures in MongoDbTest.testTailingConsumer\(\) and MongoDbTest.testPersistentTailingConsumer\(\) [\#2658](https://github.com/apache/camel-quarkus/issues/2658)
-- Unregister MongoDb's ChangeStreamDocument from reflection once it is provided by Quarkus [\#2649](https://github.com/apache/camel-quarkus/issues/2649)
-- \[Quarkus 2.0.0.CR1\] Stop managing kotlinx-coroutines-core once we get it managed from Quarkus [\#2646](https://github.com/apache/camel-quarkus/issues/2646)
-- Messaging integration test for JMS topics is not working [\#2608](https://github.com/apache/camel-quarkus/issues/2608)
-- \[Camel 3.10\] Upgrade to minio 8.2.1 in Camel 3.10 breaks Quarkiverse Minio and MinioClientProducer in our test [\#2503](https://github.com/apache/camel-quarkus/issues/2503)
-- \[2.0\] Remove camel-quarkus-xml-io [\#2436](https://github.com/apache/camel-quarkus/issues/2436)
-- Remove -H:+InlineBeforeAnalysis from Spring RabbitMQ test once Quarkus has InlineBeforeAnalysisBuildItem [\#2416](https://github.com/apache/camel-quarkus/issues/2416)
-- \[2.0\] Remove camel-quarkus-componentdsl and camel-quarkus-endpointdsl extensions [\#2354](https://github.com/apache/camel-quarkus/issues/2354)
-- Import Debezium BOM [\#1310](https://github.com/apache/camel-quarkus/issues/1310)
-
-## [2.0.0-M1](https://github.com/apache/camel-quarkus/tree/2.0.0-M1) (2021-05-26)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.8.1...2.0.0-M1)
-
-**Implemented enhancements:**
-
-- Support @EndpointInject and @Produce [\#2539](https://github.com/apache/camel-quarkus/issues/2539)
-
-**Closed issues:**
-
-- package org.apache.camel.builder does not exist when using fast-jar in application.properties [\#2612](https://github.com/apache/camel-quarkus/issues/2612)
-- \[Quarkus 2.0.0.Alpha2\] : quarkus-bootstrap-maven-plugin  [\#2568](https://github.com/apache/camel-quarkus/issues/2568)
-- Datasonnet language not supported? [\#2546](https://github.com/apache/camel-quarkus/issues/2546)
-- SetHeader does not create a Map when using \[\] [\#2540](https://github.com/apache/camel-quarkus/issues/2540)
-- CDI: programmatic lookup problem detected io.quarkus.arc.impl.ArcContainerImpl getMatchingBeans [\#2532](https://github.com/apache/camel-quarkus/issues/2532)
-- Investigate need of @ApplicationScoped annotation [\#2471](https://github.com/apache/camel-quarkus/issues/2471)
-- HBase testcontainer fails with UnknownHostException: \<myhostname\>.localdomain: Name or service not known [\#2458](https://github.com/apache/camel-quarkus/issues/2458)
-- Issue with Camel FHIR extension when upgrading to 1.13.0.Final [\#2450](https://github.com/apache/camel-quarkus/issues/2450)
-- Mybatis Component native support [\#1384](https://github.com/apache/camel-quarkus/issues/1384)
-- GraalVM 21.1, KafkaSaslSslIT: ClassNotFoundException: org.apache.kafka.common.security.scram.internals.ScramSaslClient$ScramSaslClientFactory [\#2674](https://github.com/apache/camel-quarkus/issues/2674)
-- Eagerly initialized Random in various extensions [\#2664](https://github.com/apache/camel-quarkus/issues/2664)
-- Use `CamelContextCustomizer` from camel-api [\#2637](https://github.com/apache/camel-quarkus/issues/2637)
-- Complete simple core doc concerning "type:\*\*\*" expressions [\#2631](https://github.com/apache/camel-quarkus/issues/2631)
-- Expand MongoDb test coverage [\#2622](https://github.com/apache/camel-quarkus/issues/2622)
-- Test data format EIPs [\#2616](https://github.com/apache/camel-quarkus/issues/2616)
-- Test core languages in isolation [\#2613](https://github.com/apache/camel-quarkus/issues/2613)
-- Add a camel-sql case in jta integration tests [\#2604](https://github.com/apache/camel-quarkus/issues/2604)
-- Cancel Stale Workflow Runs job is cancelling workflows on all branches [\#2594](https://github.com/apache/camel-quarkus/issues/2594)
-- REST extension doc link is not processed correctly [\#2591](https://github.com/apache/camel-quarkus/issues/2591)
-- \[camel 3.10\] NATS native image build failure [\#2589](https://github.com/apache/camel-quarkus/issues/2589)
-- Support @Consume [\#2580](https://github.com/apache/camel-quarkus/issues/2580)
-- \[Quarkus 2.0.0.Alpha2\]  vert.x failure [\#2577](https://github.com/apache/camel-quarkus/issues/2577)
-- \[Quarkus 2.0.0.Alpha2\]  Capabilities error [\#2573](https://github.com/apache/camel-quarkus/issues/2573)
-- \[Quarkus 2.0.0.Alpha2\] System.properties not recognized if set in Test Resource [\#2572](https://github.com/apache/camel-quarkus/issues/2572)
-- With fix of \#2260 too many @Converters are registered [\#2570](https://github.com/apache/camel-quarkus/issues/2570)
-- \[Quarkus 2.0.0.Alpha2\] upgrade to  GrpcService annotation [\#2569](https://github.com/apache/camel-quarkus/issues/2569)
-- \[Quarkus 2.0.0.Alpha2\] quarkus.test.profile not considered in TestResource [\#2566](https://github.com/apache/camel-quarkus/issues/2566)
-- Expand SOAP extension test coverage [\#2561](https://github.com/apache/camel-quarkus/issues/2561)
-- several integration-test failure in native mode [\#2550](https://github.com/apache/camel-quarkus/issues/2550)
-- Test XPath [\#2547](https://github.com/apache/camel-quarkus/issues/2547)
-- org.apache.camel.quarkus.component.splunk.it.SplunkTest failure if system timezone isn't UTC [\#2542](https://github.com/apache/camel-quarkus/issues/2542)
-- Test TypeConverters [\#2537](https://github.com/apache/camel-quarkus/issues/2537)
-- Test simple language [\#2533](https://github.com/apache/camel-quarkus/issues/2533)
-- Expand REST test coverage [\#2529](https://github.com/apache/camel-quarkus/issues/2529)
-- REST JSON example should use the Camel REST DSL [\#2528](https://github.com/apache/camel-quarkus/issues/2528)
-- org.apache.camel.quarkus.component.lra.it.LraTest failed on non-linux machines [\#2523](https://github.com/apache/camel-quarkus/issues/2523)
-- Document locale limitations in native mode [\#2522](https://github.com/apache/camel-quarkus/issues/2522)
-- Adapt MicroProfile Health to Camel 3.10 [\#2521](https://github.com/apache/camel-quarkus/issues/2521)
-- Expand HL7 test coverage [\#2520](https://github.com/apache/camel-quarkus/issues/2520)
-- Expand MLLP test coverage [\#2518](https://github.com/apache/camel-quarkus/issues/2518)
-- quarkus.test.flat-class-path=true required to run Avro tests [\#2514](https://github.com/apache/camel-quarkus/issues/2514)
-- Test Batch Consumer, charset, filter and sortby options of the file component [\#2512](https://github.com/apache/camel-quarkus/issues/2512)
-- Qute component improperly classified as "other" in Camel Quarkus Catalog [\#2508](https://github.com/apache/camel-quarkus/issues/2508)
-- Test bean binding [\#2492](https://github.com/apache/camel-quarkus/issues/2492)
-- Document the possibility to use CDI beans with camel bean component [\#2491](https://github.com/apache/camel-quarkus/issues/2491)
-- Unable to build mongo-to-slack in native with 1.13 quarkus [\#2489](https://github.com/apache/camel-quarkus/issues/2489)
-- Add test coverage for Kafka with SSL [\#2484](https://github.com/apache/camel-quarkus/issues/2484)
-- Stop testing JavaScript DSL in native mode [\#2481](https://github.com/apache/camel-quarkus/issues/2481)
-- Dev Mode: rests xml resources seems ignored [\#2476](https://github.com/apache/camel-quarkus/issues/2476)
-- Add info about Camel IDE plugins to the documentation [\#2470](https://github.com/apache/camel-quarkus/issues/2470)
-- Improve MongoDB extension documentation of named clients   [\#2466](https://github.com/apache/camel-quarkus/issues/2466)
-- Intermittent failure in native MicroprofileMetricsIT [\#2460](https://github.com/apache/camel-quarkus/issues/2460)
-- \[camel 3.10\] kotlin-dsl Enforcer rules have failed [\#2451](https://github.com/apache/camel-quarkus/issues/2451)
-- camel-quarkus-dozer Error when running native executable [\#2449](https://github.com/apache/camel-quarkus/issues/2449)
-- \[Camel 3.10\] Missing EndpointKey [\#2447](https://github.com/apache/camel-quarkus/issues/2447)
-- FixedLengthWithLocaleTest.marshalFixedLengthWithLocaleShouldSucceed fails on Java 8 [\#2445](https://github.com/apache/camel-quarkus/issues/2445)
-- Unable to add camel-quarkus-microprofile-metrics when using camel-quarkus-azure-eventhubs components [\#2442](https://github.com/apache/camel-quarkus/issues/2442)
-- Unable to start Quarkus with Camel FHIR  [\#2441](https://github.com/apache/camel-quarkus/issues/2441)
-- Add code.quarkus.io badges on extension pages [\#2433](https://github.com/apache/camel-quarkus/issues/2433)
-- Upgrade CassandraQL quarkus extension to 1.0.1 [\#2423](https://github.com/apache/camel-quarkus/issues/2423)
-- Google Storage support [\#2421](https://github.com/apache/camel-quarkus/issues/2421)
-- Kafka with SASL\_SSL does not work in quarkus native mode [\#2409](https://github.com/apache/camel-quarkus/issues/2409)
-- \[Camel  3.10\] jsonpath : Missing property in path $\['room'\] [\#2395](https://github.com/apache/camel-quarkus/issues/2395)
-- Tests skipped in native mode should be executed on default Java version at least [\#2389](https://github.com/apache/camel-quarkus/issues/2389)
-- Add integration tests for Digitalocean [\#2388](https://github.com/apache/camel-quarkus/issues/2388)
-- Adapt examples to the merger of main into core [\#2377](https://github.com/apache/camel-quarkus/issues/2377)
-- Adjust the documentation after the merger of main into core [\#2374](https://github.com/apache/camel-quarkus/issues/2374)
-- Store the association between Camel Quarkus Catalog items and Camel Catalog items [\#2368](https://github.com/apache/camel-quarkus/issues/2368)
-- Revisit core, main and foundation integration tests [\#2362](https://github.com/apache/camel-quarkus/issues/2362)
-- Test class component, test bean language [\#2361](https://github.com/apache/camel-quarkus/issues/2361)
-- Test file language [\#2356](https://github.com/apache/camel-quarkus/issues/2356)
-- kafka: better integration with quarkus kafka extension [\#2333](https://github.com/apache/camel-quarkus/issues/2333)
-- couchbase JVM : add integration tests [\#2326](https://github.com/apache/camel-quarkus/issues/2326)
-- \[camel-master\] Support for new DSLs [\#2301](https://github.com/apache/camel-quarkus/issues/2301)
-- FileTest fails on the platform [\#2278](https://github.com/apache/camel-quarkus/issues/2278)
-- Show deprecation info in Extensions reference [\#2266](https://github.com/apache/camel-quarkus/issues/2266)
-- Custom TypeConverter is not automatically registered [\#2260](https://github.com/apache/camel-quarkus/issues/2260)
-- AtlasMap: Use jandex to discover the types we need to register for reflection [\#2241](https://github.com/apache/camel-quarkus/issues/2241)
-- AWS2 components have to set client.endpointOverride\(\) to work on Localstack [\#2216](https://github.com/apache/camel-quarkus/issues/2216)
-- Startup log of bootstrap runtime [\#2164](https://github.com/apache/camel-quarkus/issues/2164)
-- Use AsciiDoc variable for Quarkus version in the documentation [\#2163](https://github.com/apache/camel-quarkus/issues/2163)
-- Document correct BoM usage [\#2136](https://github.com/apache/camel-quarkus/issues/2136)
-- Using Camel's @Produce injection [\#2066](https://github.com/apache/camel-quarkus/issues/2066)
-- Openstack native support [\#1943](https://github.com/apache/camel-quarkus/issues/1943)
-- Add a filter to discard AnnotationTypeConverterLoader [\#1896](https://github.com/apache/camel-quarkus/issues/1896)
-- Add integration tests for camel-quarkus-kafka + sasl  [\#1783](https://github.com/apache/camel-quarkus/issues/1783)
-- XQuery component and language native support [\#1710](https://github.com/apache/camel-quarkus/issues/1710)
-- DigitalOcean native support [\#1594](https://github.com/apache/camel-quarkus/issues/1594)
-- REST OpenApi native support [\#1235](https://github.com/apache/camel-quarkus/issues/1235)
-- Add support for MicroProfile Fault Tolerance [\#1234](https://github.com/apache/camel-quarkus/issues/1234)
-- NullPointerException with telegram webhook [\#1200](https://github.com/apache/camel-quarkus/issues/1200)
-- ClassNotFoundException: CamelCronService [\#1195](https://github.com/apache/camel-quarkus/issues/1195)
-- Remove Elasticsearch Rest doc title fix when upgrading to Camel 3.3.0 [\#1167](https://github.com/apache/camel-quarkus/issues/1167)
-- XChange native support [\#769](https://github.com/apache/camel-quarkus/issues/769)
-
-## [1.8.1](https://github.com/apache/camel-quarkus/tree/1.8.1) (2021-04-01)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.8.0...1.8.1)
-
-**Fixed bugs:**
-
-- Spring RabbitMQ integration test fails in native mode with Camel 3.9.0 [\#2340](https://github.com/apache/camel-quarkus/issues/2340)
-
-**Closed issues:**
-
-- \[CI\] - Camel Master Branch Build Failure [\#2392](https://github.com/apache/camel-quarkus/issues/2392)
-- Stop CI testing on Java 8 [\#2287](https://github.com/apache/camel-quarkus/issues/2287)
-- camel-nats intermittently failing on quarkus-platform [\#2061](https://github.com/apache/camel-quarkus/issues/2061)
-- Make camel-quarkus-xml-io work again after we broke it with camel-quarkus-xml-io-dsl in 1.8.0 [\#2431](https://github.com/apache/camel-quarkus/issues/2431)
-- Consume kubernetes-client-bom via Quarkus BoM [\#2426](https://github.com/apache/camel-quarkus/issues/2426)
-- camel-quarkus-cassandraql : build failure in camel-master branch [\#2424](https://github.com/apache/camel-quarkus/issues/2424)
-- docs: add xref support for adoc file sourced from javadoc [\#2417](https://github.com/apache/camel-quarkus/issues/2417)
-- bindy: do not embed useless resources [\#2413](https://github.com/apache/camel-quarkus/issues/2413)
-- NPE if Qute template can't be found [\#2410](https://github.com/apache/camel-quarkus/issues/2410)
-- Document the process for maintaining \(quarkus | camel\)-master branches [\#2406](https://github.com/apache/camel-quarkus/issues/2406)
-- Upgrade to the latest Quarkiverse Google Cloud Services [\#2405](https://github.com/apache/camel-quarkus/issues/2405)
-- Intermittent failure in camel-quarkus-master-integration-test [\#2384](https://github.com/apache/camel-quarkus/issues/2384)
-- Add test coverage for health check interval and failure-threshold [\#2366](https://github.com/apache/camel-quarkus/issues/2366)
-- Add test coverage for a custom HealthCheckRepository  [\#2365](https://github.com/apache/camel-quarkus/issues/2365)
-- Use camel-servicenow-maven-plugin to generate model classes [\#2316](https://github.com/apache/camel-quarkus/issues/2316)
-- \[Camel 3.9\] Azure Storage Data Lake appends newline to the file content [\#2302](https://github.com/apache/camel-quarkus/issues/2302)
-- MLLP native support [\#1731](https://github.com/apache/camel-quarkus/issues/1731)
-
-## [1.8.0](https://github.com/apache/camel-quarkus/tree/1.8.0) (2021-03-26)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.7.0...1.8.0)
-
-**Fixed bugs:**
-
-- Unable to use Salesforce DTOs in native mode [\#2312](https://github.com/apache/camel-quarkus/issues/2312)
-
-**Closed issues:**
-
-- Direct component example [\#2363](https://github.com/apache/camel-quarkus/issues/2363)
-- \[CI\] - Quarkus Master Branch Build Failure [\#2360](https://github.com/apache/camel-quarkus/issues/2360)
-- Test autowiring of beans available in the CDI container to CamelContext and components [\#2350](https://github.com/apache/camel-quarkus/issues/2350)
-- \[CI\] - Camel Master Branch Build Failure [\#2349](https://github.com/apache/camel-quarkus/issues/2349)
-- \[CI\] - Quarkus Master Branch Build Failure [\#2336](https://github.com/apache/camel-quarkus/issues/2336)
-- \[CI\] - Camel Master Branch Build Failure [\#2332](https://github.com/apache/camel-quarkus/issues/2332)
-- \[CI\] - Quarkus Master Branch Build Failure [\#2331](https://github.com/apache/camel-quarkus/issues/2331)
-- quarkus 1.7.0 DocumentBuilderFactoryImpl not found [\#2323](https://github.com/apache/camel-quarkus/issues/2323)
-- Camel DSL Azure - Storage Blob Service doesn't work as native build. [\#2318](https://github.com/apache/camel-quarkus/issues/2318)
-- \[CI\] - Quarkus Master Branch Build Failure [\#2314](https://github.com/apache/camel-quarkus/issues/2314)
-- Azure Storage Data Lake listFileSystem operation causes an infinte loop of requests [\#2304](https://github.com/apache/camel-quarkus/issues/2304)
-- CI job integration-tests-alternative-jvm \(15\) failing against a valid PR [\#2300](https://github.com/apache/camel-quarkus/issues/2300)
-- \[CI\] - Camel Master Branch Build Failure [\#2284](https://github.com/apache/camel-quarkus/issues/2284)
-- plugin update-extension-doc-page fails when running extensions-jvm tests [\#2276](https://github.com/apache/camel-quarkus/issues/2276)
-- \[CI\] - Quarkus Master Branch Build Failure [\#2275](https://github.com/apache/camel-quarkus/issues/2275)
-- \[CI\] - Camel Master Branch Build Failure [\#2261](https://github.com/apache/camel-quarkus/issues/2261)
-- Perform basic testing of aws extension through localstack [\#1071](https://github.com/apache/camel-quarkus/issues/1071)
-- LRA native support [\#793](https://github.com/apache/camel-quarkus/issues/793)
-- Think about consolidating enforcing rules [\#293](https://github.com/apache/camel-quarkus/issues/293)
-- Freemarker native support [\#223](https://github.com/apache/camel-quarkus/issues/223)
-- Merge camel-quarkus-main into camel-quarkus-core [\#2358](https://github.com/apache/camel-quarkus/issues/2358)
-- Make Solr extension automatically register classes with @Field annotations for reflection [\#2341](https://github.com/apache/camel-quarkus/issues/2341)
-- Document that AtlasMap user classes may need to be registered for reflection [\#2319](https://github.com/apache/camel-quarkus/issues/2319)
-- Test FTPS [\#2317](https://github.com/apache/camel-quarkus/issues/2317)
-- Investigate integration test usage of quarkus.ssl.native [\#2306](https://github.com/apache/camel-quarkus/issues/2306)
-- Azure extension native build fails with Quarkus 1.13 [\#2299](https://github.com/apache/camel-quarkus/issues/2299)
-- SQL integration tests fail with Quarkus 1.13 - Multiple DataSources found in the registry [\#2296](https://github.com/apache/camel-quarkus/issues/2296)
-- Replace hbase-testing-util with docker container [\#2295](https://github.com/apache/camel-quarkus/issues/2295)
-- \[camel-master\] Support for YAML DSL [\#2294](https://github.com/apache/camel-quarkus/issues/2294)
-- main: add an option to ignore command line arguments [\#2293](https://github.com/apache/camel-quarkus/issues/2293)
-- bindy: @DataField\(method=\*\) is not supported [\#2282](https://github.com/apache/camel-quarkus/issues/2282)
-- Prefer SyntheticBeanBuildItem to initializing bean producers via volatile fields [\#2273](https://github.com/apache/camel-quarkus/issues/2273)
-- Bindy - Do not rely on quarkus-resteasy-jackson to register reflective classes [\#2268](https://github.com/apache/camel-quarkus/issues/2268)
-- Remove support for Webocket JSR 356 [\#2262](https://github.com/apache/camel-quarkus/issues/2262)
-- Camel Quarkus OptaPlanner does not work as of Quarkus 1.12 in apps generated by code.quarkus.io [\#2253](https://github.com/apache/camel-quarkus/issues/2253)
-- Optaplanner : upgrade to 8.x extension [\#2243](https://github.com/apache/camel-quarkus/issues/2243)
-- Optimise the camel-quarkus-examples CI build [\#2147](https://github.com/apache/camel-quarkus/issues/2147)
-- Paho MQTT 5 support [\#2145](https://github.com/apache/camel-quarkus/issues/2145)
-- Move Netty related BuildItems to Quarkus Netty extension [\#2142](https://github.com/apache/camel-quarkus/issues/2142)
-- Revisit transaction support [\#1918](https://github.com/apache/camel-quarkus/issues/1918)
-- HL7 Terser language native support [\#1747](https://github.com/apache/camel-quarkus/issues/1747)
-- Splunk native support [\#1698](https://github.com/apache/camel-quarkus/issues/1698)
-- Add tests to example projects [\#1501](https://github.com/apache/camel-quarkus/issues/1501)
-- Nitrite native support [\#1298](https://github.com/apache/camel-quarkus/issues/1298)
-
-## [1.7.0](https://github.com/apache/camel-quarkus/tree/1.7.0) (2021-02-19)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.6.0...1.7.0)
-
-**Closed issues:**
-
-- Building native fails for Quarkus 1.11.3.Final [\#2250](https://github.com/apache/camel-quarkus/issues/2250)
-- \[CI\] - Quarkus Master Branch Build Failure [\#2249](https://github.com/apache/camel-quarkus/issues/2249)
-- \[CI\] - Camel Master Branch Build Failure [\#2248](https://github.com/apache/camel-quarkus/issues/2248)
-- \[CI\] - Camel Master Branch Build Failure [\#2239](https://github.com/apache/camel-quarkus/issues/2239)
-- \[camel-master\] azure-storage-\* integration tests fail [\#2215](https://github.com/apache/camel-quarkus/issues/2215)
-- FHIR tests don't work with all possible options [\#2201](https://github.com/apache/camel-quarkus/issues/2201)
-- \[CI\] - Quarkus Master Branch Build Failure [\#2194](https://github.com/apache/camel-quarkus/issues/2194)
-- Red [\#2188](https://github.com/apache/camel-quarkus/issues/2188)
-- \[CI\] - Quarkus Master Branch Build Failure [\#2183](https://github.com/apache/camel-quarkus/issues/2183)
-- \[CI\] - Camel Master Branch Build Failure [\#2182](https://github.com/apache/camel-quarkus/issues/2182)
-- \[CI\] - Camel Master Branch Build Failure [\#2175](https://github.com/apache/camel-quarkus/issues/2175)
-- \[CI\] - Quarkus Master Branch Build Failure [\#2170](https://github.com/apache/camel-quarkus/issues/2170)
-- \[CI\] - Quarkus Master Branch Build Failure [\#2161](https://github.com/apache/camel-quarkus/issues/2161)
-- \[CI\] - Camel Master Branch Build Failure [\#2157](https://github.com/apache/camel-quarkus/issues/2157)
-- \[CI\] - Quarkus Master Branch Build Failure [\#2153](https://github.com/apache/camel-quarkus/issues/2153)
-- \[CI\] - Camel Master Branch Build Failure [\#2144](https://github.com/apache/camel-quarkus/issues/2144)
-- Figure out how we could leverage Quarkus Developer Console [\#2007](https://github.com/apache/camel-quarkus/issues/2007)
-- XML Tokenize language native support [\#780](https://github.com/apache/camel-quarkus/issues/780)
-- Docs xref checks failure with Camel 3.8.0 [\#2226](https://github.com/apache/camel-quarkus/issues/2226)
-- \[camel-master\] azure-eventhubs: discovered unresolved type during parsing [\#2213](https://github.com/apache/camel-quarkus/issues/2213)
-- \[camel-master\] nats: failure running integration tests [\#2211](https://github.com/apache/camel-quarkus/issues/2211)
-- camel-quarkus-git: integration test fail if gpg signing is enabled [\#2210](https://github.com/apache/camel-quarkus/issues/2210)
-- camel 3.8 - Removed reflection in 9 components [\#2209](https://github.com/apache/camel-quarkus/issues/2209)
-- Azure EventHubs native build fails with Quarkus 1.12 [\#2204](https://github.com/apache/camel-quarkus/issues/2204)
-- OAI-PMH: Get rid of the JettyTestServer class for tests [\#2192](https://github.com/apache/camel-quarkus/issues/2192)
-- Re-introduce Changelog GH Action [\#2189](https://github.com/apache/camel-quarkus/issues/2189)
-- Netty UDP does not work in native mode [\#2187](https://github.com/apache/camel-quarkus/issues/2187)
-- \[camel 3.8\] create an extension for the kamelet component [\#2174](https://github.com/apache/camel-quarkus/issues/2174)
-- Require Java 11 in examples [\#2152](https://github.com/apache/camel-quarkus/issues/2152)
-- Reimplement creation of minio client to avoid minio extension limitations [\#2134](https://github.com/apache/camel-quarkus/issues/2134)
-- camel-spring-rabbitmq - new component [\#2128](https://github.com/apache/camel-quarkus/issues/2128)
-- Hazelcast integration tests : random failing tests on CI  [\#2127](https://github.com/apache/camel-quarkus/issues/2127)
-- Align Kubernetes client version with Quarkus [\#2126](https://github.com/apache/camel-quarkus/issues/2126)
-- FOP integration tests fail in native mode with GraalVM 20.3.0 [\#2113](https://github.com/apache/camel-quarkus/issues/2113)
-- ReplicatedMap : The Hazelcast consumer is not notified on its listener [\#2095](https://github.com/apache/camel-quarkus/issues/2095)
-- OAI-PMH support [\#2081](https://github.com/apache/camel-quarkus/issues/2081)
-- Azure Event Hubs support [\#2079](https://github.com/apache/camel-quarkus/issues/2079)
-- AtlasMap native support [\#1989](https://github.com/apache/camel-quarkus/issues/1989)
-- AWS2 EventBridge native support [\#1976](https://github.com/apache/camel-quarkus/issues/1976)
-- PubNub native support [\#1944](https://github.com/apache/camel-quarkus/issues/1944)
-- Remove JtaProcessor.registerNarayanaReflectiveClass when quarkusio/quarkus\#10180 gets fixed [\#1895](https://github.com/apache/camel-quarkus/issues/1895)
-- CBOR data format native support [\#1754](https://github.com/apache/camel-quarkus/issues/1754)
-- StAX native support [\#1696](https://github.com/apache/camel-quarkus/issues/1696)
-- XML Security native support [\#1617](https://github.com/apache/camel-quarkus/issues/1617)
-- Azure Storage Queue Service native support [\#1574](https://github.com/apache/camel-quarkus/issues/1574)
-- AWS 2 Kinesis native support [\#1571](https://github.com/apache/camel-quarkus/issues/1571)
-- CassandraQL native support [\#1355](https://github.com/apache/camel-quarkus/issues/1355)
-- IPFS native support [\#770](https://github.com/apache/camel-quarkus/issues/770)
-- Syslog data format native support [\#595](https://github.com/apache/camel-quarkus/issues/595)
-
-## [1.6.0](https://github.com/apache/camel-quarkus/tree/1.6.0) (2021-01-15)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.5.0...1.6.0)
-
-**Closed issues:**
-
-- Document the correct usage of BoMs [\#2135](https://github.com/apache/camel-quarkus/issues/2135)
-- camel-quarkus-csimple package not exists but presented in documentation [\#2131](https://github.com/apache/camel-quarkus/issues/2131)
-- Could not find artifact com.google.protobuf:protoc:exe:osx-x86\_64:3.13.0 in nexus [\#2097](https://github.com/apache/camel-quarkus/issues/2097)
-- \[CI\] - Camel Master Branch Build Failure [\#2077](https://github.com/apache/camel-quarkus/issues/2077)
-- \[CI\] - Quarkus Master Branch Build Failure [\#2065](https://github.com/apache/camel-quarkus/issues/2065)
-- Release: Update Apache Committee Report Helper for camel-quarkus-1.6.0 released on 2021-01-18 [\#2149](https://github.com/apache/camel-quarkus/issues/2149)
-- Minio: Observe issue in quarkiverse-minio [\#2120](https://github.com/apache/camel-quarkus/issues/2120)
-- Remove changelog gh action [\#2119](https://github.com/apache/camel-quarkus/issues/2119)
-- Geocoder tests with external service are not working [\#2112](https://github.com/apache/camel-quarkus/issues/2112)
-- antora/xref-validator failure after a component was removed from Camel [\#2109](https://github.com/apache/camel-quarkus/issues/2109)
-- CSimple NPE even if CSimple language is not used [\#2098](https://github.com/apache/camel-quarkus/issues/2098)
-- Add more integration tests for camel-hazelcast  extension [\#2094](https://github.com/apache/camel-quarkus/issues/2094)
-- Skipped tests on CI \(eg. hystrix\) [\#2091](https://github.com/apache/camel-quarkus/issues/2091)
-- Twitter itest doesn't work in native mode [\#2090](https://github.com/apache/camel-quarkus/issues/2090)
-- Redis support [\#2085](https://github.com/apache/camel-quarkus/issues/2085)
-- Vert.x Kafka support [\#2082](https://github.com/apache/camel-quarkus/issues/2082)
-- JSONata support [\#2080](https://github.com/apache/camel-quarkus/issues/2080)
-- Create ASF distribution [\#2045](https://github.com/apache/camel-quarkus/issues/2045)
-- Minio native support [\#2040](https://github.com/apache/camel-quarkus/issues/2040)
-- BigQuery native support [\#2014](https://github.com/apache/camel-quarkus/issues/2014)
-- camel-quarkus-kafka: Reconnection issues when working with schema registry [\#1960](https://github.com/apache/camel-quarkus/issues/1960)
-- Hazelcast native support [\#1647](https://github.com/apache/camel-quarkus/issues/1647)
-- Azure Storage Blob native support [\#1573](https://github.com/apache/camel-quarkus/issues/1573)
-- Require Java 11 [\#1299](https://github.com/apache/camel-quarkus/issues/1299)
-- Debezium MongoDB Connector native support [\#1190](https://github.com/apache/camel-quarkus/issues/1190)
-
-## [1.5.0](https://github.com/apache/camel-quarkus/tree/1.5.0) (2020-12-14)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.4.0...1.5.0)
-
-**Closed issues:**
-
-- \[CI\] - Camel Master Branch Build Failure [\#2071](https://github.com/apache/camel-quarkus/issues/2071)
-- Camel import not working [\#2068](https://github.com/apache/camel-quarkus/issues/2068)
-- \[CI\] - Camel Master Branch Build Failure [\#2064](https://github.com/apache/camel-quarkus/issues/2064)
-- \[CI\] - Camel Master Branch Build Failure [\#2059](https://github.com/apache/camel-quarkus/issues/2059)
-- \[CI\] - Quarkus Master Branch Build Failure [\#2058](https://github.com/apache/camel-quarkus/issues/2058)
-- \[CI\] - Quarkus Master Branch Build Failure [\#2049](https://github.com/apache/camel-quarkus/issues/2049)
-- \[CI\] - Camel Master Branch Build Failure [\#2046](https://github.com/apache/camel-quarkus/issues/2046)
-- \[CI\] - Quarkus Master Branch Build Failure [\#2044](https://github.com/apache/camel-quarkus/issues/2044)
-- \[CI\] - Camel Master Branch Build Failure [\#2037](https://github.com/apache/camel-quarkus/issues/2037)
-- \[CI\] - Quarkus Master Branch Build Failure [\#2031](https://github.com/apache/camel-quarkus/issues/2031)
-- \[CI\] - Camel Master Branch Build Failure [\#2019](https://github.com/apache/camel-quarkus/issues/2019)
-- \[CI\] - Quarkus Master Branch Build Failure [\#2013](https://github.com/apache/camel-quarkus/issues/2013)
-- FastHeadersMapFactory ClassNotFoundException since 1.0.0-M6 [\#1086](https://github.com/apache/camel-quarkus/issues/1086)
-- JSch native support [\#797](https://github.com/apache/camel-quarkus/issues/797)
-- Protobuf dataformat native support [\#789](https://github.com/apache/camel-quarkus/issues/789)
-- \[Camel 3.7\] Test with camel.main.lightweight=true [\#2063](https://github.com/apache/camel-quarkus/issues/2063)
-- CSimple language support [\#2036](https://github.com/apache/camel-quarkus/issues/2036)
-- Micrometer component support [\#2034](https://github.com/apache/camel-quarkus/issues/2034)
-- Polish how we pass -Djavax.net.ssl.trustStore to the Solr test [\#2029](https://github.com/apache/camel-quarkus/issues/2029)
-- timer-log-main example: The example is not working in dev mode [\#2024](https://github.com/apache/camel-quarkus/issues/2024)
-- \[CI\] - Camel Master Branch Build Failure [\#2022](https://github.com/apache/camel-quarkus/issues/2022)
-- \[Camel 3.7\] Camel main autowire properties by type has been removed  [\#2002](https://github.com/apache/camel-quarkus/issues/2002)
-- Antora xref check fails on camel-master branch [\#1996](https://github.com/apache/camel-quarkus/issues/1996)
-- \[Camel 3.7\] Investigate reason of the explicit registration of some resources in CamelProcessor [\#1995](https://github.com/apache/camel-quarkus/issues/1995)
-- Make UpdateExtensionDocPageMojo generate cross reference URLs [\#1986](https://github.com/apache/camel-quarkus/issues/1986)
-- NATS integration test failure - Unable to connect to NATS servers [\#1978](https://github.com/apache/camel-quarkus/issues/1978)
-- \[Camel 3.7\] JSON-B data format support [\#1973](https://github.com/apache/camel-quarkus/issues/1973)
-- Olingo integration test is throwing SSLPeerUnverifiedException [\#1972](https://github.com/apache/camel-quarkus/issues/1972)
-- LevelDB extension does not compile with Camel 3.7.0-SNAPSHOT [\#1948](https://github.com/apache/camel-quarkus/issues/1948)
-- Camel Avro RPC component native support [\#1941](https://github.com/apache/camel-quarkus/issues/1941)
-- Remove Camel AS2 configuration class reflection registration [\#1874](https://github.com/apache/camel-quarkus/issues/1874)
-- OptaPlanner native support [\#1721](https://github.com/apache/camel-quarkus/issues/1721)
-- Solr native support [\#1703](https://github.com/apache/camel-quarkus/issues/1703)
-- Google pubsub extension native support [\#1041](https://github.com/apache/camel-quarkus/issues/1041)
-
-## [1.4.0](https://github.com/apache/camel-quarkus/tree/1.4.0) (2020-11-19)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.3.0...1.4.0)
-
-**Fixed bugs:**
-
-- AdviceWithRouteBuilder replaceFromWith and microprofile-metrics conflict [\#1894](https://github.com/apache/camel-quarkus/issues/1894)
-- Main extension cannot load rest XML definitions [\#1852](https://github.com/apache/camel-quarkus/issues/1852)
-- quarkus-spring-web breaks startup of camel-quarkus-activemq [\#1759](https://github.com/apache/camel-quarkus/issues/1759)
-
-**Closed issues:**
-
-- \[CI\] - Camel Master Branch Build Failure [\#2012](https://github.com/apache/camel-quarkus/issues/2012)
-- \[CI\] - Quarkus Master Branch Build Failure [\#2006](https://github.com/apache/camel-quarkus/issues/2006)
-- \[CI\] - Camel Master Branch Build Failure [\#2003](https://github.com/apache/camel-quarkus/issues/2003)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1998](https://github.com/apache/camel-quarkus/issues/1998)
-- \[CI\] - Camel Master Branch Build Failure [\#1997](https://github.com/apache/camel-quarkus/issues/1997)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1987](https://github.com/apache/camel-quarkus/issues/1987)
-- Data Format : Unable marshal LinkedHashMap to Protobuf [\#1983](https://github.com/apache/camel-quarkus/issues/1983)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1971](https://github.com/apache/camel-quarkus/issues/1971)
-- \[CI\] - Camel Master Branch Build Failure [\#1970](https://github.com/apache/camel-quarkus/issues/1970)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1959](https://github.com/apache/camel-quarkus/issues/1959)
-- \[CI\] - Camel Master Branch Build Failure [\#1945](https://github.com/apache/camel-quarkus/issues/1945)
-- How to add startHistoryId queryParameter to google-mail:history/list \(camel-quarkus-google-mail\) [\#1927](https://github.com/apache/camel-quarkus/issues/1927)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1922](https://github.com/apache/camel-quarkus/issues/1922)
-- \[CI\] - Camel Master Branch Build Failure [\#1912](https://github.com/apache/camel-quarkus/issues/1912)
-- SnappyCompression fails while building native image [\#1910](https://github.com/apache/camel-quarkus/issues/1910)
-- Log with KafkaProducer does not work [\#1862](https://github.com/apache/camel-quarkus/issues/1862)
-- Hipchat native support [\#1652](https://github.com/apache/camel-quarkus/issues/1652)
-- Need an archetype for Camel Quarkus [\#1173](https://github.com/apache/camel-quarkus/issues/1173)
-- PDF integration tests failing with Camel 3.7.0-SNAPSHOT [\#1979](https://github.com/apache/camel-quarkus/issues/1979)
-- Configuration option \(not\) to start the runtime [\#1969](https://github.com/apache/camel-quarkus/issues/1969)
-- json-validator native build fails with Camel 3.7.0-SNAPSHOT [\#1961](https://github.com/apache/camel-quarkus/issues/1961)
-- lumberjack : move client payload sending to test [\#1949](https://github.com/apache/camel-quarkus/issues/1949)
-- ActiveMQ Default XPath evaluator could not be loaded [\#1933](https://github.com/apache/camel-quarkus/issues/1933)
-- FOP tests fail in Quarkus Platform [\#1930](https://github.com/apache/camel-quarkus/issues/1930)
-- Document Spark peculiarities [\#1928](https://github.com/apache/camel-quarkus/issues/1928)
-- Unreleased Resource: Streams [\#1913](https://github.com/apache/camel-quarkus/issues/1913)
-- PostgresSQL Event : add usage of Quarkus AgroalDatasource  [\#1909](https://github.com/apache/camel-quarkus/issues/1909)
-- \[Camel Quarkus 1.2\] Remove quarkus.camel.native.resources.include-patterns = routes/\*.xml in examples [\#1901](https://github.com/apache/camel-quarkus/issues/1901)
-- Crypto extension requires reflective access to DigitalSignatureConstants [\#1881](https://github.com/apache/camel-quarkus/issues/1881)
-- Fix usage of deprecated GitHub actions commands [\#1876](https://github.com/apache/camel-quarkus/issues/1876)
-- \[Quarkus 1.9\] leverage Quarkus JAXP extension where applicable [\#1806](https://github.com/apache/camel-quarkus/issues/1806)
-- JSLT native support [\#1740](https://github.com/apache/camel-quarkus/issues/1740)
-- Lumberjack native support [\#1732](https://github.com/apache/camel-quarkus/issues/1732)
-- MSV native support [\#1728](https://github.com/apache/camel-quarkus/issues/1728)
-- Nagios native support [\#1726](https://github.com/apache/camel-quarkus/issues/1726)
-- Revert PR \#1667 once kudu-client stops shading Netty [\#1669](https://github.com/apache/camel-quarkus/issues/1669)
-- Twilio native support [\#1633](https://github.com/apache/camel-quarkus/issues/1633)
-- Zendesk native support [\#1613](https://github.com/apache/camel-quarkus/issues/1613)
-- Provide a quick profile [\#1607](https://github.com/apache/camel-quarkus/issues/1607)
-- Automate the process of creating jvm only extensions  [\#1561](https://github.com/apache/camel-quarkus/issues/1561)
-- Leverage camel-platform-http-vertx in platform-http extension [\#1144](https://github.com/apache/camel-quarkus/issues/1144)
-- Saga native support [\#819](https://github.com/apache/camel-quarkus/issues/819)
-
-## [1.3.0](https://github.com/apache/camel-quarkus/tree/1.3.0) (2020-10-16)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.2.0...1.3.0)
-
-**Closed issues:**
-
-- HBase integration tests fail with Camel 3.6.0 [\#1914](https://github.com/apache/camel-quarkus/issues/1914)
-- Test Geocoder with Google maps mock API if GOOGLE\_GEOCODER\_API\_KEY is not provided [\#1860](https://github.com/apache/camel-quarkus/issues/1860)
-- Shiro native support [\#1844](https://github.com/apache/camel-quarkus/issues/1844)
-- \[Camel 3.6\] Remove workaround for CAMEL-15518 [\#1769](https://github.com/apache/camel-quarkus/issues/1769)
-- \[Camel 3.6?\] Remove createEndpoint method override in QuarkusVertxWebsocketComponent [\#1737](https://github.com/apache/camel-quarkus/issues/1737)
-- \[Camel 3.6?\] Improve the camel-bean extension by not using an alias for BeanAnnotationExpressionFactory [\#1725](https://github.com/apache/camel-quarkus/issues/1725)
-- \[Camel 3.6\] Remove QuarkusVertxHttpBinding [\#1675](https://github.com/apache/camel-quarkus/issues/1675)
-
-## [1.2.0](https://github.com/apache/camel-quarkus/tree/1.2.0) (2020-10-15)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.1.0...1.2.0)
-
-**Implemented enhancements:**
-
-- Suggestion: Add column for native supported version in camel quarkus extensions list [\#1781](https://github.com/apache/camel-quarkus/issues/1781)
-
-**Fixed bugs:**
-
-- pgevent : config issue [\#1917](https://github.com/apache/camel-quarkus/issues/1917)
-- The stream has no active subscriptions when using camel-quarkus-smallrye-reactive-messaging [\#1851](https://github.com/apache/camel-quarkus/issues/1851)
-- NoSuchMethodException: org.apache.camel.service.lra.LRASagaRoutes.\<init\>\(\) [\#1840](https://github.com/apache/camel-quarkus/issues/1840)
-- Intermittent failure of AhcWsProducerConsumer [\#1815](https://github.com/apache/camel-quarkus/issues/1815)
-- 1.1.0 Main fails to start in IntelliJ [\#1800](https://github.com/apache/camel-quarkus/issues/1800)
-- Camel-Quarkus Kafka: Failed to configure SaslClientAuthenticator [\#1687](https://github.com/apache/camel-quarkus/issues/1687)
-
-**Closed issues:**
-
-- \[CI\] - Camel Master Branch Build Failure [\#1900](https://github.com/apache/camel-quarkus/issues/1900)
-- IllegalArgumentException thrown on itest application startup  [\#1891](https://github.com/apache/camel-quarkus/issues/1891)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1886](https://github.com/apache/camel-quarkus/issues/1886)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1865](https://github.com/apache/camel-quarkus/issues/1865)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1850](https://github.com/apache/camel-quarkus/issues/1850)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1830](https://github.com/apache/camel-quarkus/issues/1830)
-- \[CI\] - Camel Master Branch Build Failure [\#1826](https://github.com/apache/camel-quarkus/issues/1826)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1810](https://github.com/apache/camel-quarkus/issues/1810)
-- \[CI\] - Camel Master Branch Build Failure [\#1805](https://github.com/apache/camel-quarkus/issues/1805)
-- NATS tests do not work on the platform [\#1803](https://github.com/apache/camel-quarkus/issues/1803)
-- \[CI\] - Camel Master Branch Build Failure [\#1798](https://github.com/apache/camel-quarkus/issues/1798)
-- \[CI\] - Camel Master Branch Build Failure [\#1779](https://github.com/apache/camel-quarkus/issues/1779)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1773](https://github.com/apache/camel-quarkus/issues/1773)
-- Add more examples [\#310](https://github.com/apache/camel-quarkus/issues/310)
-- Add Camel-Aws-SSM extension [\#108](https://github.com/apache/camel-quarkus/issues/108)
-- \[QUARKUS 1.9\] Remove the driver registration workaround from Postgres Replication Slot extension [\#1885](https://github.com/apache/camel-quarkus/issues/1885)
-- Duplicate license headers in Velocity test templates [\#1843](https://github.com/apache/camel-quarkus/issues/1843)
-- LevelDB native support [\#1839](https://github.com/apache/camel-quarkus/issues/1839)
-- Headersmap native support [\#1838](https://github.com/apache/camel-quarkus/issues/1838)
-- List of misc. components empty after the recent docs generation changes [\#1834](https://github.com/apache/camel-quarkus/issues/1834)
-- Document all ways to start a new project [\#1824](https://github.com/apache/camel-quarkus/issues/1824)
-- A user guide page informing about various ways to define routes [\#1823](https://github.com/apache/camel-quarkus/issues/1823)
-- Run verify for the docs module on the CI [\#1819](https://github.com/apache/camel-quarkus/issues/1819)
-- Camel quarkus disable auto route discovery not working [\#1816](https://github.com/apache/camel-quarkus/issues/1816)
-- Configure NativeImageResourceBuildItem for camel route classpath resources [\#1812](https://github.com/apache/camel-quarkus/issues/1812)
-- allowContextMapAll requires template engines to have reflective access to camel core classess  [\#1807](https://github.com/apache/camel-quarkus/issues/1807)
-- Find a proper place for registering SAXMessages native resource bundle  [\#1796](https://github.com/apache/camel-quarkus/issues/1796)
-- Generate partials instead of pages for the individual Camel bits [\#1795](https://github.com/apache/camel-quarkus/issues/1795)
-- \[Quarkus 1.9\] Caffeine: remove CacheLoader processor  [\#1790](https://github.com/apache/camel-quarkus/issues/1790)
-- Wrong jira component version definition in camel-quarkus-bom 1.0.1 file [\#1775](https://github.com/apache/camel-quarkus/issues/1775)
-- Adding Changelog generated automatically through gh action [\#1772](https://github.com/apache/camel-quarkus/issues/1772)
-- Component counts not shown on the website [\#1770](https://github.com/apache/camel-quarkus/issues/1770)
-- \[Quarkus 1.9\] Move httpmine from our BOM to Quarkus BOM [\#1763](https://github.com/apache/camel-quarkus/issues/1763)
-- uniVocity data formats native support [\#1756](https://github.com/apache/camel-quarkus/issues/1756)
-- Jing native support [\#1741](https://github.com/apache/camel-quarkus/issues/1741)
-- NSQ native support [\#1722](https://github.com/apache/camel-quarkus/issues/1722)
-- PostgresSQL Replication Slot native support [\#1720](https://github.com/apache/camel-quarkus/issues/1720)
-- PostgresSQL Event native support [\#1719](https://github.com/apache/camel-quarkus/issues/1719)
-- Be able to determine that the test was run against external service or not [\#1717](https://github.com/apache/camel-quarkus/issues/1717)
-- RSS component native support [\#1711](https://github.com/apache/camel-quarkus/issues/1711)
-- Stop managing httpclient-cache as it is managed by Quarkus [\#1704](https://github.com/apache/camel-quarkus/issues/1704)
-- String template native support [\#1694](https://github.com/apache/camel-quarkus/issues/1694)
-- Move examples to a separate git repository [\#1691](https://github.com/apache/camel-quarkus/issues/1691)
-- Make mvn -N cq:format remove empty application.properties files [\#1676](https://github.com/apache/camel-quarkus/issues/1676)
-- Document cq:create -Dcq.nativeSupported=false for creating JVM-only extensions [\#1662](https://github.com/apache/camel-quarkus/issues/1662)
-- camel-quarkus-activemq extension broker url configuration [\#1661](https://github.com/apache/camel-quarkus/issues/1661)
-- Geocoder native support [\#1645](https://github.com/apache/camel-quarkus/issues/1645)
-- FOP native support [\#1642](https://github.com/apache/camel-quarkus/issues/1642)
-- SmallRyeReactiveMessagingIT fails intermittently [\#1632](https://github.com/apache/camel-quarkus/issues/1632)
-- MongoClientName annotation class not available when using camel-quarkus-mongodb extension [\#1608](https://github.com/apache/camel-quarkus/issues/1608)
-- Disruptor native support [\#1597](https://github.com/apache/camel-quarkus/issues/1597)
-- Crypto \(JCE\) native support [\#1593](https://github.com/apache/camel-quarkus/issues/1593)
-- Atom native support [\#1560](https://github.com/apache/camel-quarkus/issues/1560)
-- Use asciidoctor-antora-indexer to produce lists of extensions and components on the reference pages [\#1557](https://github.com/apache/camel-quarkus/issues/1557)
-- Add styles for Quarkus config options fixed at build time [\#1410](https://github.com/apache/camel-quarkus/issues/1410)
-- File specific issues for TODOs where necessary [\#1285](https://github.com/apache/camel-quarkus/issues/1285)
-- Velocity Support [\#837](https://github.com/apache/camel-quarkus/issues/837)
-- Browse native support [\#816](https://github.com/apache/camel-quarkus/issues/816)
-- SSH support [\#798](https://github.com/apache/camel-quarkus/issues/798)
-- Caffeine native support [\#794](https://github.com/apache/camel-quarkus/issues/794)
-- gRPC native support [\#762](https://github.com/apache/camel-quarkus/issues/762)
-
-## [1.1.0](https://github.com/apache/camel-quarkus/tree/1.1.0) (2020-09-09)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.0.1...1.1.0)
-
-**Fixed bugs:**
-
-- KuduIT fails with Camel 3.5.0 [\#1664](https://github.com/apache/camel-quarkus/issues/1664)
-- Unable to use quartz as scheduler for ScheduledPollConsumer in native mode [\#1663](https://github.com/apache/camel-quarkus/issues/1663)
-- \[Camel 3.5\] OpenTracing integration test fails with Camel 3.5.0-SNAPSHOT [\#1493](https://github.com/apache/camel-quarkus/issues/1493)
-
-**Closed issues:**
-
-- \[CI\] - Camel Master Branch Build Failure [\#1532](https://github.com/apache/camel-quarkus/issues/1532)
-- camel-quarkus-main - Uses reflection for setting its name [\#1765](https://github.com/apache/camel-quarkus/issues/1765)
-- Add TLS based authentication support to the nats extension [\#1761](https://github.com/apache/camel-quarkus/issues/1761)
-- @Simple annotated bean parameter binding not working in native mode [\#1685](https://github.com/apache/camel-quarkus/issues/1685)
-- Create an AWS2-STS extension [\#1680](https://github.com/apache/camel-quarkus/issues/1680)
-- Weather native support [\#1631](https://github.com/apache/camel-quarkus/issues/1631)
-- ClassNotFoundException thrown when using onException in native mode [\#1605](https://github.com/apache/camel-quarkus/issues/1605)
-- Speed up the CI [\#1602](https://github.com/apache/camel-quarkus/issues/1602)
-- jakarta.xml.bind:jakarta.xml.bind-api version alignment issues [\#1601](https://github.com/apache/camel-quarkus/issues/1601)
-- NATS native support [\#1578](https://github.com/apache/camel-quarkus/issues/1578)
-- Dropbox native support [\#1577](https://github.com/apache/camel-quarkus/issues/1577)
-- AWS 2 Lambda native support [\#1572](https://github.com/apache/camel-quarkus/issues/1572)
-- make camel-management a camel-quarkus extension.  [\#1564](https://github.com/apache/camel-quarkus/issues/1564)
-- \[Camel 3.5?\] contextPath ignored for platform-http with REST DSL [\#1563](https://github.com/apache/camel-quarkus/issues/1563)
-- Cron component not initialized when used with Endpoint DSL \(since Quarkus 1.7.0.Final\) [\#1553](https://github.com/apache/camel-quarkus/issues/1553)
-- Telegram test doesn't work [\#1550](https://github.com/apache/camel-quarkus/issues/1550)
-- Flatpack component support [\#1541](https://github.com/apache/camel-quarkus/issues/1541)
-- http related tests rely on external service that may sometimes be down [\#1538](https://github.com/apache/camel-quarkus/issues/1538)
-- Add ArangoDB component extension [\#1533](https://github.com/apache/camel-quarkus/issues/1533)
-- RabbitMQ native support [\#1531](https://github.com/apache/camel-quarkus/issues/1531)
-- Add entry in Quarkus MAINTAINERS.adoc [\#1523](https://github.com/apache/camel-quarkus/issues/1523)
-- health example throws VerifyError as class MonkeyHealthCheck\_ClientProxy overrides final method AbstractHealthCheck.addMetaData [\#1517](https://github.com/apache/camel-quarkus/issues/1517)
-- Add core extension to the list of extensions documentation [\#1510](https://github.com/apache/camel-quarkus/issues/1510)
-- UpdateExtensionDocPageMojo generates wrong link for Camel threadpoolfactory-vertx component [\#1506](https://github.com/apache/camel-quarkus/issues/1506)
-- \[Camel 3.5/3.4.3\] xml-io should pass namespace info to NamespaceAware elements [\#1497](https://github.com/apache/camel-quarkus/issues/1497)
-- Create a vert.x http client extension [\#1491](https://github.com/apache/camel-quarkus/issues/1491)
-- org.apache.camel.NoTypeConversionAvailableException: No type converter available to convert from type: java.util.HashMap to the required type: java.nio.ByteBuffer with value {name=e} [\#1475](https://github.com/apache/camel-quarkus/issues/1475)
-- Add Camel AS2 Modules as Quarkus Extension [\#1471](https://github.com/apache/camel-quarkus/issues/1471)
-- \[Camel 3.5\] Move FastUuidGenerator to Camel [\#1470](https://github.com/apache/camel-quarkus/issues/1470)
-- Add support for smallrye-reactive-messaging-camel [\#1469](https://github.com/apache/camel-quarkus/issues/1469)
-- Extension for camel-threadpoolfactory-vertx [\#1430](https://github.com/apache/camel-quarkus/issues/1430)
-- \[Camel 3.5\] Configuring api context path with property camel.context.rest-configuration.api-context-path does not work [\#1303](https://github.com/apache/camel-quarkus/issues/1303)
-- \[Camel 3.5\] Create a vert.x websocket extension [\#1301](https://github.com/apache/camel-quarkus/issues/1301)
-- Investigate removing reflective class configuration for components that extend AbstractApiComponent [\#1108](https://github.com/apache/camel-quarkus/issues/1108)
-- Flatpack dataformat support [\#796](https://github.com/apache/camel-quarkus/issues/796)
-- Create extension for camel-master component [\#711](https://github.com/apache/camel-quarkus/issues/711)
-- Remove UnbannedReflectiveBuildItem + policy extension ? [\#699](https://github.com/apache/camel-quarkus/issues/699)
-
-## [1.0.1](https://github.com/apache/camel-quarkus/tree/1.0.1) (2020-08-26)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.0.0...1.0.1)
-
-**Closed issues:**
-
-- IPFS native support [\#1623](https://github.com/apache/camel-quarkus/issues/1623)
-- Browse component native support [\#1582](https://github.com/apache/camel-quarkus/issues/1582)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1566](https://github.com/apache/camel-quarkus/issues/1566)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1530](https://github.com/apache/camel-quarkus/issues/1530)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1522](https://github.com/apache/camel-quarkus/issues/1522)
-- Add support for Azure SDK12 components [\#1494](https://github.com/apache/camel-quarkus/issues/1494)
-- Git support [\#765](https://github.com/apache/camel-quarkus/issues/765)
-- Provide aggregated tests for quarkus-platform [\#413](https://github.com/apache/camel-quarkus/issues/413)
-
-## [1.0.0](https://github.com/apache/camel-quarkus/tree/1.0.0) (2020-08-10)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.0.0-CR3...1.0.0)
-
-**Implemented enhancements:**
-
-- Don't bind auto-discovered beans to the registry if they are produced by the user [\#1406](https://github.com/apache/camel-quarkus/issues/1406)
-- Create a Camel Json Jackson extension [\#306](https://github.com/apache/camel-quarkus/issues/306)
-- Auto configuration of metrics management strategies [\#195](https://github.com/apache/camel-quarkus/issues/195)
-- Initialization ordering [\#147](https://github.com/apache/camel-quarkus/issues/147)
-- Create a Camel Kafka extension [\#142](https://github.com/apache/camel-quarkus/issues/142)
-- Expose health in quarkus  [\#141](https://github.com/apache/camel-quarkus/issues/141)
-- Expose metrics in quarkus [\#128](https://github.com/apache/camel-quarkus/issues/128)
-
-**Fixed bugs:**
-
-- Support path parameters in platform-http [\#382](https://github.com/apache/camel-quarkus/issues/382)
-- The synthetic test poms are missing signatures [\#207](https://github.com/apache/camel-quarkus/issues/207)
-
-**Closed issues:**
-
-- \[CI\] - Quarkus Master Branch Build Failure [\#1509](https://github.com/apache/camel-quarkus/issues/1509)
-- @BindToRegistry not working with @ApplicationScoped route builders [\#1505](https://github.com/apache/camel-quarkus/issues/1505)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1502](https://github.com/apache/camel-quarkus/issues/1502)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1487](https://github.com/apache/camel-quarkus/issues/1487)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1482](https://github.com/apache/camel-quarkus/issues/1482)
-- Add camel-master extension [\#1476](https://github.com/apache/camel-quarkus/issues/1476)
-- Running a Camel-main batch application [\#1474](https://github.com/apache/camel-quarkus/issues/1474)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1472](https://github.com/apache/camel-quarkus/issues/1472)
-- \[CI\] - Camel Master Branch Build Failure [\#1456](https://github.com/apache/camel-quarkus/issues/1456)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1451](https://github.com/apache/camel-quarkus/issues/1451)
-- Quarkus And XML Routes [\#1436](https://github.com/apache/camel-quarkus/issues/1436)
-- \[Quarkus 1.6.1.Final\] platform-http: dev mode breaking with log "Request has already been read" [\#1373](https://github.com/apache/camel-quarkus/issues/1373)
-- Kafka Component Writing Messages with ProducerTemplate [\#743](https://github.com/apache/camel-quarkus/issues/743)
-- vertx-websocket extension [\#1507](https://github.com/apache/camel-quarkus/issues/1507)
-- Health example fails to start [\#1500](https://github.com/apache/camel-quarkus/issues/1500)
-- Debezium test fails on branch camel-master [\#1490](https://github.com/apache/camel-quarkus/issues/1490)
-- Intermittent failure of CamelDevModeTest [\#1468](https://github.com/apache/camel-quarkus/issues/1468)
-- Add Grok Extension [\#1466](https://github.com/apache/camel-quarkus/issues/1466)
-- Unable to build from source release zip [\#1460](https://github.com/apache/camel-quarkus/issues/1460)
-- @Handler on Bean does not resolve method [\#1459](https://github.com/apache/camel-quarkus/issues/1459)
-- src kit need to exclude the node installation  [\#1455](https://github.com/apache/camel-quarkus/issues/1455)
-- org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1453](https://github.com/apache/camel-quarkus/issues/1453)
-- Document how to use mock in JVM mode tests [\#1449](https://github.com/apache/camel-quarkus/issues/1449)
-- Add an integration test for the command mode [\#1448](https://github.com/apache/camel-quarkus/issues/1448)
-- Document JTA extension usage [\#1428](https://github.com/apache/camel-quarkus/issues/1428)
-- \[Quarkus 1.6.0\] Remove our dependency parity check once quarkusio/quarkus\#10279 is fixed [\#1426](https://github.com/apache/camel-quarkus/issues/1426)
-- Upgrade to Debezium 1.2.0.Final [\#1418](https://github.com/apache/camel-quarkus/issues/1418)
-- The CI should fail if there are uncommitted changes after the build [\#1415](https://github.com/apache/camel-quarkus/issues/1415)
-- \[Quarkus 1.7\] quarkus-extension-processor race conditions when modules are built in parallel [\#1403](https://github.com/apache/camel-quarkus/issues/1403)
-- Asterisk not escaped in Quarkus config docs [\#1402](https://github.com/apache/camel-quarkus/issues/1402)
-- Remove service exclude for ThreadPoolProfileConfigurationProperties [\#1380](https://github.com/apache/camel-quarkus/issues/1380)
-- OpenAPI Java extension cannot handle non-default API context path   [\#1309](https://github.com/apache/camel-quarkus/issues/1309)
-- Pass deprecation info to quarkus-extension.yaml [\#1286](https://github.com/apache/camel-quarkus/issues/1286)
-- Make camel-quarkus-rest depend on camel-quarkus-platform-http [\#1244](https://github.com/apache/camel-quarkus/issues/1244)
-- Add extension support for camel-jpa [\#889](https://github.com/apache/camel-quarkus/issues/889)
-- Unable to GET an https URL with netty-http client [\#695](https://github.com/apache/camel-quarkus/issues/695)
-- Fhir test are not working in native mode [\#473](https://github.com/apache/camel-quarkus/issues/473)
-- Fix camel-quarkus-pdf native tests [\#472](https://github.com/apache/camel-quarkus/issues/472)
-- Add an option to filter auto-discovered routes [\#396](https://github.com/apache/camel-quarkus/issues/396)
-- Remove MicroProfile Metrics extension workarounds [\#319](https://github.com/apache/camel-quarkus/issues/319)
-- Improve dev mode [\#314](https://github.com/apache/camel-quarkus/issues/314)
-- Use Camel's async processor in platform-http [\#299](https://github.com/apache/camel-quarkus/issues/299)
-- Add OpenTracing extension [\#276](https://github.com/apache/camel-quarkus/issues/276)
-- Ensure the PlatformHttpComponent is registered before the routes are started [\#218](https://github.com/apache/camel-quarkus/issues/218)
-- \[platform http\] support for rest dsl [\#217](https://github.com/apache/camel-quarkus/issues/217)
-- Make xml and jaxb disabled by default and opt-in when depending on camel [\#188](https://github.com/apache/camel-quarkus/issues/188)
-- Leverage platform http service [\#184](https://github.com/apache/camel-quarkus/issues/184)
-- Generate documentation to be included in quarkus [\#183](https://github.com/apache/camel-quarkus/issues/183)
-- @ConfigProperty and @Inject do not work in RouteBuilders [\#136](https://github.com/apache/camel-quarkus/issues/136)
-- Add support for quarkus provided event loop [\#131](https://github.com/apache/camel-quarkus/issues/131)
-- Include quarkus info in camel-catalog [\#75](https://github.com/apache/camel-quarkus/issues/75)
-- quarkus-camel - Use MainSupport as base for running Camel [\#9](https://github.com/apache/camel-quarkus/issues/9)
-
-**Merged pull requests:**
-
-- Fix README link [\#161](https://github.com/apache/camel-quarkus/pull/161) ([fviolette](https://github.com/fviolette))
-
-## [1.0.0-CR3](https://github.com/apache/camel-quarkus/tree/1.0.0-CR3) (2020-07-03)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.0.0-CR2...1.0.0-CR3)
-
-**Implemented enhancements:**
-
-- Observe Camel's Management events [\#1398](https://github.com/apache/camel-quarkus/issues/1398)
-- Observe Camel's events [\#1353](https://github.com/apache/camel-quarkus/issues/1353)
-
-**Fixed bugs:**
-
-- CamelBeanPostProcessor is invoked after routes are already configured [\#1368](https://github.com/apache/camel-quarkus/issues/1368)
-- \[Quarkus 1.6\]\[iCal\] TimeZone-less DTSTART and DTEND changed to GMT in native mode [\#838](https://github.com/apache/camel-quarkus/issues/838)
-
-**Closed issues:**
-
-- Question regarding AWS Credentials without XML beans [\#1431](https://github.com/apache/camel-quarkus/issues/1431)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1427](https://github.com/apache/camel-quarkus/issues/1427)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1417](https://github.com/apache/camel-quarkus/issues/1417)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1381](https://github.com/apache/camel-quarkus/issues/1381)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1345](https://github.com/apache/camel-quarkus/issues/1345)
-- Commit cannot be completed since the group has already rebalanced and assigned the partitions to another member [\#1328](https://github.com/apache/camel-quarkus/issues/1328)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1297](https://github.com/apache/camel-quarkus/issues/1297)
-- \[CI\] - Camel Master Branch Build Failure [\#1284](https://github.com/apache/camel-quarkus/issues/1284)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1283](https://github.com/apache/camel-quarkus/issues/1283)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1271](https://github.com/apache/camel-quarkus/issues/1271)
-- camel-quarkus-avro: Remove ObjectSubstitution when/if quarkus serialization has been fixed [\#1247](https://github.com/apache/camel-quarkus/issues/1247)
-- Tests fail on integration-tests/platform-http for 1.0.0-M5 [\#906](https://github.com/apache/camel-quarkus/issues/906)
-- camel-quarkus - Optimize to not allow adding new routes [\#726](https://github.com/apache/camel-quarkus/issues/726)
-- JAX-RS endpoint accessible before Camel context is started [\#1439](https://github.com/apache/camel-quarkus/issues/1439)
-- Jolt support [\#1421](https://github.com/apache/camel-quarkus/issues/1421)
-- Observe Camel's Lifecycle events [\#1399](https://github.com/apache/camel-quarkus/issues/1399)
-- Package Maven Plugin: Goal prefix is specified as: 'camel-quarkus'. Maven currently expects it to be 'camel-quarkus-package'. [\#1395](https://github.com/apache/camel-quarkus/issues/1395)
-- The quarkus-bootstrap-maven-plugin is listed twice on all the runtime extensions POMs [\#1390](https://github.com/apache/camel-quarkus/issues/1390)
-- AWS2-Athena extension [\#1388](https://github.com/apache/camel-quarkus/issues/1388)
-- Create a camel-componentdsl extension [\#1376](https://github.com/apache/camel-quarkus/issues/1376)
-- Json Validator Support [\#1367](https://github.com/apache/camel-quarkus/issues/1367)
-- \[suggestion\] log message for FileNotFound exception not clear enough [\#1365](https://github.com/apache/camel-quarkus/issues/1365)
-- Add an AWS2-SES native extension [\#1363](https://github.com/apache/camel-quarkus/issues/1363)
-- Add an AWS2-MSK native extension [\#1360](https://github.com/apache/camel-quarkus/issues/1360)
-- Add an AWS2-MQ native extension [\#1359](https://github.com/apache/camel-quarkus/issues/1359)
-- Add an AWS2-KMS native extension [\#1358](https://github.com/apache/camel-quarkus/issues/1358)
-- Add an AWS2-IAM native extension [\#1357](https://github.com/apache/camel-quarkus/issues/1357)
-- Add an AWS2-DDB native extension [\#1356](https://github.com/apache/camel-quarkus/issues/1356)
-- List all the configuration properties onthe website [\#1350](https://github.com/apache/camel-quarkus/issues/1350)
-- Replace joschi/setup-jdk with AdoptOpenJDK/install-jdk [\#1349](https://github.com/apache/camel-quarkus/issues/1349)
-- Create vertx component extension [\#1322](https://github.com/apache/camel-quarkus/issues/1322)
-- NoClassDefFoundError for HttpServletRequest in native tests for olingo4 [\#1319](https://github.com/apache/camel-quarkus/issues/1319)
-- Make Kudu native test runnable on Quarkus Platform on Java 8 and 11 [\#1314](https://github.com/apache/camel-quarkus/issues/1314)
-- \[Quarkus 1.6\] Unresolved method AutoscalingAPIGroupDSL.v1\(\) error in Kubernetes native image generation [\#1313](https://github.com/apache/camel-quarkus/issues/1313)
-- Debezium unit tests failing with Quarkus master [\#1312](https://github.com/apache/camel-quarkus/issues/1312)
-- Add an AWS2-Translate native extension [\#1308](https://github.com/apache/camel-quarkus/issues/1308)
-- Document SSL auto-enabled by extensions [\#1300](https://github.com/apache/camel-quarkus/issues/1300)
-- Platform HTTP does not automatically set content-length or chunked [\#1288](https://github.com/apache/camel-quarkus/issues/1288)
-- Add rest and restapi to the list of discoverable factories [\#1287](https://github.com/apache/camel-quarkus/issues/1287)
-- Create extension for camel-openapi-java [\#1281](https://github.com/apache/camel-quarkus/issues/1281)
-- Add enforce rule to avoid extension depending on camel-quarkus-xml-io or camel-quarkus-xml-jaxb directly  [\#1277](https://github.com/apache/camel-quarkus/issues/1277)
-- \[Quarkus 1.6\] quarkus:dev can't reload when updating timer-log example [\#1274](https://github.com/apache/camel-quarkus/issues/1274)
-- \[Quarkus 1.6\] Unsupported type MethodAccessorGenerator on Consul [\#1273](https://github.com/apache/camel-quarkus/issues/1273)
-- Azure native test failure [\#1269](https://github.com/apache/camel-quarkus/issues/1269)
-- camel-jta support [\#1263](https://github.com/apache/camel-quarkus/issues/1263)
-- Remove NettyHttpComponent producer method from RestOpenapiResource [\#1237](https://github.com/apache/camel-quarkus/issues/1237)
-- Remove mongodb from BOM after upgrade to Quarkus 1.5.x [\#1225](https://github.com/apache/camel-quarkus/issues/1225)
-- Example can't be run from the project itself [\#1223](https://github.com/apache/camel-quarkus/issues/1223)
-- Revert workaround for @EnabledIf after upgrade to Quarkus 1.5.x [\#1222](https://github.com/apache/camel-quarkus/issues/1222)
-- transacted\(\) support in camel-quarkus [\#1197](https://github.com/apache/camel-quarkus/issues/1197)
-- Debezium SQL Server Connector native support [\#1193](https://github.com/apache/camel-quarkus/issues/1193)
-- Unresolved type Base64 in camel-jira native test [\#1166](https://github.com/apache/camel-quarkus/issues/1166)
-- Add an AWS2-EKS native extension [\#1142](https://github.com/apache/camel-quarkus/issues/1142)
-- Add an AWS2-ECS native extension [\#1141](https://github.com/apache/camel-quarkus/issues/1141)
-- Add an AWS2-EC2 native extensions [\#1140](https://github.com/apache/camel-quarkus/issues/1140)
-- Revisit camel-quarkus bootstrap [\#1128](https://github.com/apache/camel-quarkus/issues/1128)
-- Jira test fails in native mode on Quarkus Platform [\#1090](https://github.com/apache/camel-quarkus/issues/1090)
-- Remove the need for registering RestBindingJaxbDataFormatFactory service  [\#1066](https://github.com/apache/camel-quarkus/issues/1066)
-- Remove enforcing camel keyword in metadata [\#1058](https://github.com/apache/camel-quarkus/issues/1058)
-- Support Quarkus command mode [\#1037](https://github.com/apache/camel-quarkus/issues/1037)
-- Couchdb native support for Consumer Mode [\#1022](https://github.com/apache/camel-quarkus/issues/1022)
-- camel-quarkus-aws-sns failing to compile image-native [\#870](https://github.com/apache/camel-quarkus/issues/870)
-- NullPointerException when starting with quarkus:dev goal [\#828](https://github.com/apache/camel-quarkus/issues/828)
-- Tika support [\#799](https://github.com/apache/camel-quarkus/issues/799)
-- Test the Jira extension using Testcontainer and the Jira image [\#752](https://github.com/apache/camel-quarkus/issues/752)
-- Add documentation about configuration options [\#536](https://github.com/apache/camel-quarkus/issues/536)
-- Feature: Add camel-mock [\#531](https://github.com/apache/camel-quarkus/issues/531)
-- Improve extension summary so they have more details in the code.quarkus.io [\#465](https://github.com/apache/camel-quarkus/issues/465)
-
-**Merged pull requests:**
-
-- Upgrade Quarkus Qpid JMS to 0.16.0 [\#1450](https://github.com/apache/camel-quarkus/pull/1450) ([jamesnetherton](https://github.com/jamesnetherton))
-- Feature: Add camel-mock \#531 [\#1447](https://github.com/apache/camel-quarkus/pull/1447) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Upgrade to Quarkus 1.6.0.Final [\#1446](https://github.com/apache/camel-quarkus/pull/1446) ([ppalaga](https://github.com/ppalaga))
-- Make sure that Quarkus orders booting our runtime before starting to serve HTTP endpoints. [\#1445](https://github.com/apache/camel-quarkus/pull/1445) ([ppalaga](https://github.com/ppalaga))
-- Split main startup logic [\#1444](https://github.com/apache/camel-quarkus/pull/1444) ([lburgazzoli](https://github.com/lburgazzoli))
-- Improve the bootstrap docs [\#1442](https://github.com/apache/camel-quarkus/pull/1442) ([ppalaga](https://github.com/ppalaga))
-- Re-enable TimerDevModeTest.logMessageEdit\(\) after the upgrade to Quar… [\#1440](https://github.com/apache/camel-quarkus/pull/1440) ([ppalaga](https://github.com/ppalaga))
-- Upgrade cq-maven-plugin to 0.11.0 [\#1438](https://github.com/apache/camel-quarkus/pull/1438) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#1415 The CI should fail if there are uncommitted changes after t… [\#1435](https://github.com/apache/camel-quarkus/pull/1435) ([ppalaga](https://github.com/ppalaga))
-- Add skip option to UpdateExtensionDocPageMojo to be able to workaroun… [\#1434](https://github.com/apache/camel-quarkus/pull/1434) ([ppalaga](https://github.com/ppalaga))
-- Added Jolt support \#1421 [\#1432](https://github.com/apache/camel-quarkus/pull/1432) ([aldettinger](https://github.com/aldettinger))
-- Fix \#1313 Upgrade to Kubernetes Client 4.10.2 to align with Quarkus [\#1425](https://github.com/apache/camel-quarkus/pull/1425) ([ppalaga](https://github.com/ppalaga))
-- Enable Debezium tests after the upgrade to Quarkus 1.6.0.CR1 [\#1424](https://github.com/apache/camel-quarkus/pull/1424) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to Quarkus 1.6.0.CR1 [\#1423](https://github.com/apache/camel-quarkus/pull/1423) ([ppalaga](https://github.com/ppalaga))
-- Ensure Quarkus Vertx instance is set on the camel component when not using camel-quarkus-main [\#1422](https://github.com/apache/camel-quarkus/pull/1422) ([jamesnetherton](https://github.com/jamesnetherton))
-- Ensure CamelContextAware beans have CamelContext set when bound to the registry [\#1420](https://github.com/apache/camel-quarkus/pull/1420) ([jamesnetherton](https://github.com/jamesnetherton))
-- Rename camel-quarkus-package-maven-plugin to camel-quarkus-maven-plugin [\#1416](https://github.com/apache/camel-quarkus/pull/1416) ([lburgazzoli](https://github.com/lburgazzoli))
-- CAMEL-15216 : Omit the warning of level index [\#1414](https://github.com/apache/camel-quarkus/pull/1414) ([AemieJ](https://github.com/AemieJ))
-- Added an AWS2-Athena native extension [\#1412](https://github.com/apache/camel-quarkus/pull/1412) ([oscerd](https://github.com/oscerd))
-- Fix \#1263 - Add the camel-jta extension [\#1411](https://github.com/apache/camel-quarkus/pull/1411) ([zhfeng](https://github.com/zhfeng))
-- Update dependencies [\#1409](https://github.com/apache/camel-quarkus/pull/1409) ([lburgazzoli](https://github.com/lburgazzoli))
-- Added Json Validator support \#1367 [\#1408](https://github.com/apache/camel-quarkus/pull/1408) ([aldettinger](https://github.com/aldettinger))
-- Create a camel-componentdsl extension [\#1407](https://github.com/apache/camel-quarkus/pull/1407) ([lburgazzoli](https://github.com/lburgazzoli))
-- Observe Camel's events [\#1405](https://github.com/apache/camel-quarkus/pull/1405) ([lburgazzoli](https://github.com/lburgazzoli))
-- Observe Camel's Lifecycle events [\#1404](https://github.com/apache/camel-quarkus/pull/1404) ([lburgazzoli](https://github.com/lburgazzoli))
-- Aws2 ses [\#1401](https://github.com/apache/camel-quarkus/pull/1401) ([oscerd](https://github.com/oscerd))
-- Observe Camel's Management events [\#1400](https://github.com/apache/camel-quarkus/pull/1400) ([lburgazzoli](https://github.com/lburgazzoli))
-- Cleanup [\#1397](https://github.com/apache/camel-quarkus/pull/1397) ([lburgazzoli](https://github.com/lburgazzoli))
-- The quarkus-bootstrap-maven-plugin is listed twice on all the runtime extensions POMs [\#1396](https://github.com/apache/camel-quarkus/pull/1396) ([lburgazzoli](https://github.com/lburgazzoli))
-- component injection: produce a CamelRuntimeTaskBuildItem for synchronization purpose [\#1394](https://github.com/apache/camel-quarkus/pull/1394) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix potential NPE [\#1393](https://github.com/apache/camel-quarkus/pull/1393) ([lburgazzoli](https://github.com/lburgazzoli))
-- Replace joschi/setup-jdk with AdoptOpenJDK/install-jdk [\#1392](https://github.com/apache/camel-quarkus/pull/1392) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#1350 List Quarkus configuration options on extension pages [\#1389](https://github.com/apache/camel-quarkus/pull/1389) ([ppalaga](https://github.com/ppalaga))
-- Post Camel 3.4.0 upgrade cleanups [\#1386](https://github.com/apache/camel-quarkus/pull/1386) ([jamesnetherton](https://github.com/jamesnetherton))
-- AWS2-MSK [\#1385](https://github.com/apache/camel-quarkus/pull/1385) ([oscerd](https://github.com/oscerd))
-- Upgrade to Quarkus 1.5.2.Final [\#1382](https://github.com/apache/camel-quarkus/pull/1382) ([jamesnetherton](https://github.com/jamesnetherton))
-- Log message for FileNotFound exception not clear enough \#1365 [\#1379](https://github.com/apache/camel-quarkus/pull/1379) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Fix \#1300 Document SSL auto-enabled by extensions [\#1378](https://github.com/apache/camel-quarkus/pull/1378) ([ppalaga](https://github.com/ppalaga))
-- Adding a dependency to make example work  [\#1377](https://github.com/apache/camel-quarkus/pull/1377) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Upgrade to Camel 3.4.0 [\#1375](https://github.com/apache/camel-quarkus/pull/1375) ([jamesnetherton](https://github.com/jamesnetherton))
-- Aws2 mq [\#1374](https://github.com/apache/camel-quarkus/pull/1374) ([oscerd](https://github.com/oscerd))
-- Type safe component injection [\#1372](https://github.com/apache/camel-quarkus/pull/1372) ([lburgazzoli](https://github.com/lburgazzoli))
-- AWS2-KMS [\#1369](https://github.com/apache/camel-quarkus/pull/1369) ([oscerd](https://github.com/oscerd))
-- Fix \#838 TimeZone-less DTSTART and DTEND not changed to GMT [\#1366](https://github.com/apache/camel-quarkus/pull/1366) ([ppalaga](https://github.com/ppalaga))
-- Aws2 iam [\#1364](https://github.com/apache/camel-quarkus/pull/1364) ([oscerd](https://github.com/oscerd))
-- AWS2-ECS: Fixed the deployment module [\#1362](https://github.com/apache/camel-quarkus/pull/1362) ([oscerd](https://github.com/oscerd))
-- AWS2 DDB [\#1361](https://github.com/apache/camel-quarkus/pull/1361) ([oscerd](https://github.com/oscerd))
-- Aws2 eks [\#1354](https://github.com/apache/camel-quarkus/pull/1354) ([oscerd](https://github.com/oscerd))
-- Unable to GET an https URL with netty-http client \#695 [\#1352](https://github.com/apache/camel-quarkus/pull/1352) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- debezium-embedded dependencies \#1340 [\#1351](https://github.com/apache/camel-quarkus/pull/1351) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- chore\(doc\): rephrase CamelServiceDestination javadocs. [\#1348](https://github.com/apache/camel-quarkus/pull/1348) ([lburgazzoli](https://github.com/lburgazzoli))
-- debezium: exclude org.apache.kafka:kafka-log4j-appender from debezium-embedded transitive dependencies [\#1347](https://github.com/apache/camel-quarkus/pull/1347) ([lburgazzoli](https://github.com/lburgazzoli))
-- integration-tests: make influxdb tests more idiomatic [\#1346](https://github.com/apache/camel-quarkus/pull/1346) ([lburgazzoli](https://github.com/lburgazzoli))
-- Upgrade to Quarkus 1.5.1.Final [\#1343](https://github.com/apache/camel-quarkus/pull/1343) ([ppalaga](https://github.com/ppalaga))
-- Make the local Antora build produce .htaccess file with redirects based [\#1342](https://github.com/apache/camel-quarkus/pull/1342) ([ppalaga](https://github.com/ppalaga))
-- Add notes related to quarkus extension configuration for amqp, kubernetes & mongo-gridfs docs [\#1341](https://github.com/apache/camel-quarkus/pull/1341) ([jamesnetherton](https://github.com/jamesnetherton))
-- The next is 1.0.0-CR3 [\#1339](https://github.com/apache/camel-quarkus/pull/1339) ([ppalaga](https://github.com/ppalaga))
-- Cleanup [\#1337](https://github.com/apache/camel-quarkus/pull/1337) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add vertx component extension [\#1336](https://github.com/apache/camel-quarkus/pull/1336) ([jamesnetherton](https://github.com/jamesnetherton))
-- Declare org.graalvm.nativeimage:svm as provided [\#1335](https://github.com/apache/camel-quarkus/pull/1335) ([lburgazzoli](https://github.com/lburgazzoli))
-- Revert "Fixed how to build link in create new extension guide" [\#1334](https://github.com/apache/camel-quarkus/pull/1334) ([oscerd](https://github.com/oscerd))
-- Revert link [\#1333](https://github.com/apache/camel-quarkus/pull/1333) ([oscerd](https://github.com/oscerd))
-- Link fix [\#1332](https://github.com/apache/camel-quarkus/pull/1332) ([oscerd](https://github.com/oscerd))
-- Fix \#1066 Remove the need for registering RestBindingJaxbDataFormatFa… [\#1331](https://github.com/apache/camel-quarkus/pull/1331) ([ppalaga](https://github.com/ppalaga))
-- Fixed contributor guide index.adoc links [\#1330](https://github.com/apache/camel-quarkus/pull/1330) ([oscerd](https://github.com/oscerd))
-- AWS2-ECS native extension [\#1329](https://github.com/apache/camel-quarkus/pull/1329) ([oscerd](https://github.com/oscerd))
-- Fixing the contributing guide links in README.adoc [\#1327](https://github.com/apache/camel-quarkus/pull/1327) ([oscerd](https://github.com/oscerd))
-- Avoid duplicate feature registration of camel-support-debezium [\#1326](https://github.com/apache/camel-quarkus/pull/1326) ([jamesnetherton](https://github.com/jamesnetherton))
-- Debezium tests fail on Quarkus Platform in native mode \#1311 [\#1325](https://github.com/apache/camel-quarkus/pull/1325) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Add servlet-api to classpath to help pointsto analysis \#1319 [\#1324](https://github.com/apache/camel-quarkus/pull/1324) ([galderz](https://github.com/galderz))
-- Added couchdb consumer support in native mode \#1022 [\#1323](https://github.com/apache/camel-quarkus/pull/1323) ([aldettinger](https://github.com/aldettinger))
-- Fix \#1314 Make Kudu native test runnable on Quarkus Platform on Java … [\#1318](https://github.com/apache/camel-quarkus/pull/1318) ([ppalaga](https://github.com/ppalaga))
-- Aws2 translate [\#1317](https://github.com/apache/camel-quarkus/pull/1317) ([oscerd](https://github.com/oscerd))
-- Leverage cq:promote when porting extensions from JVM to native [\#1316](https://github.com/apache/camel-quarkus/pull/1316) ([ppalaga](https://github.com/ppalaga))
-- Fixed link in Debezium-sqlserver extension [\#1315](https://github.com/apache/camel-quarkus/pull/1315) ([oscerd](https://github.com/oscerd))
-- chore\(pgp\): update pgp key for Nicola Ferraro [\#1307](https://github.com/apache/camel-quarkus/pull/1307) ([nicolaferraro](https://github.com/nicolaferraro))
-- Add AWS2-EC2 native extension [\#1306](https://github.com/apache/camel-quarkus/pull/1306) ([oscerd](https://github.com/oscerd))
-- Revert \#1299 require Java 11 [\#1305](https://github.com/apache/camel-quarkus/pull/1305) ([ppalaga](https://github.com/ppalaga))
-- Fixup \#1193 Debezium SQL Server Connector native support [\#1304](https://github.com/apache/camel-quarkus/pull/1304) ([ppalaga](https://github.com/ppalaga))
-- Minor fixes [\#1302](https://github.com/apache/camel-quarkus/pull/1302) ([ppalaga](https://github.com/ppalaga))
-- 1.0.0-CR2 post release polishing [\#1296](https://github.com/apache/camel-quarkus/pull/1296) ([ppalaga](https://github.com/ppalaga))
-- Remove superflous metrics dependencies from OpenTracing extension [\#1295](https://github.com/apache/camel-quarkus/pull/1295) ([jamesnetherton](https://github.com/jamesnetherton))
-- Enable SSL for Azure extension \#1269 [\#1294](https://github.com/apache/camel-quarkus/pull/1294) ([galderz](https://github.com/galderz))
-- Create extension for camel-openapi-java [\#1293](https://github.com/apache/camel-quarkus/pull/1293) ([lburgazzoli](https://github.com/lburgazzoli))
-- Drop the Jaxb based XMLRoutesDefinitionLoader [\#1292](https://github.com/apache/camel-quarkus/pull/1292) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add rest and restapi to the list of discoverable factories [\#1290](https://github.com/apache/camel-quarkus/pull/1290) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#1288: automatically set content-length or chunked on platform-ht… [\#1289](https://github.com/apache/camel-quarkus/pull/1289) ([nicolaferraro](https://github.com/nicolaferraro))
-- chore\(deps\): update testcontainers to v1.14.3 [\#1279](https://github.com/apache/camel-quarkus/pull/1279) ([lburgazzoli](https://github.com/lburgazzoli))
-- Debezium SQL Server Connector native support \#1193 [\#1278](https://github.com/apache/camel-quarkus/pull/1278) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- extension dependencies issue [\#1276](https://github.com/apache/camel-quarkus/pull/1276) ([lburgazzoli](https://github.com/lburgazzoli))
-- Stub Jira endpoints for integration testing [\#1270](https://github.com/apache/camel-quarkus/pull/1270) ([jamesnetherton](https://github.com/jamesnetherton))
-- Tika support [\#998](https://github.com/apache/camel-quarkus/pull/998) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Revisit camel-quarkus bootstrap [\#1344](https://github.com/apache/camel-quarkus/pull/1344) ([lburgazzoli](https://github.com/lburgazzoli))
-
-## [1.0.0-CR2](https://github.com/apache/camel-quarkus/tree/1.0.0-CR2) (2020-05-29)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.0.0-CR1...1.0.0-CR2)
-
-**Closed issues:**
-
-- Revisit factory finder set-up [\#1112](https://github.com/apache/camel-quarkus/issues/1112)
-- extension dependencies issue [\#1275](https://github.com/apache/camel-quarkus/issues/1275)
-- Document how extension pages are generated [\#1255](https://github.com/apache/camel-quarkus/issues/1255)
-- Document how quarkus-extemsion.yaml is generated [\#1243](https://github.com/apache/camel-quarkus/issues/1243)
-- Per-extension documentation pages [\#1232](https://github.com/apache/camel-quarkus/issues/1232)
-- Cute Extension - Add options for allowing template via header/context map [\#1212](https://github.com/apache/camel-quarkus/issues/1212)
-- Use influxdb 2.18 as in Camel 3.3.0 [\#1208](https://github.com/apache/camel-quarkus/issues/1208)
-- Debezium MySQL Connector native support [\#1192](https://github.com/apache/camel-quarkus/issues/1192)
-- Debezium PostgresSQL Connector native support [\#1191](https://github.com/apache/camel-quarkus/issues/1191)
-- ASM Unsupported api 524288 after the upgrade to Gizmo 1.0.3 [\#1182](https://github.com/apache/camel-quarkus/issues/1182)
-- Avro dataformat native support [\#1180](https://github.com/apache/camel-quarkus/issues/1180)
-- Add simple timer dev mode test [\#1177](https://github.com/apache/camel-quarkus/issues/1177)
-- Dev mode does not work using platform 1.4.1 [\#1171](https://github.com/apache/camel-quarkus/issues/1171)
-- ClassNotFoundException JAXBContext in camel-core-impl [\#1161](https://github.com/apache/camel-quarkus/issues/1161)
-- Drop Kudu container-based itests infra for JDK 8 [\#1157](https://github.com/apache/camel-quarkus/issues/1157)
-- javadoc plugin re-run in release:perform [\#1156](https://github.com/apache/camel-quarkus/issues/1156)
-- Disable tests \(unit and integration\) while doing a release [\#1155](https://github.com/apache/camel-quarkus/issues/1155)
-- Generating JavaDoc is slown on Java 11 [\#1154](https://github.com/apache/camel-quarkus/issues/1154)
-- Import camel-quarkus-bom-test into camel-quarkus-build-parent-it [\#1153](https://github.com/apache/camel-quarkus/issues/1153)
-- Add JDK 11 support to the Kudu container based itests infrastructure [\#1132](https://github.com/apache/camel-quarkus/issues/1132)
-- mongo-gridfs should reuse the Quarkus Mongo extension [\#932](https://github.com/apache/camel-quarkus/issues/932)
-
-## [1.0.0-CR1](https://github.com/apache/camel-quarkus/tree/1.0.0-CR1) (2020-05-27)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.0.0-M7...1.0.0-CR1)
-
-**Closed issues:**
-
-- Unregister unnecessary Camel configuration classes from reflection [\#1266](https://github.com/apache/camel-quarkus/issues/1266)
-- \[CI\] - Camel Master Branch Build Failure [\#1261](https://github.com/apache/camel-quarkus/issues/1261)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1251](https://github.com/apache/camel-quarkus/issues/1251)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1218](https://github.com/apache/camel-quarkus/issues/1218)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1210](https://github.com/apache/camel-quarkus/issues/1210)
-- Kudu IT failing [\#1206](https://github.com/apache/camel-quarkus/issues/1206)
-- \[CI\] - Camel Master Branch Build Failure [\#1205](https://github.com/apache/camel-quarkus/issues/1205)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1179](https://github.com/apache/camel-quarkus/issues/1179)
-- \[CI\] - Camel Master Branch Build Failure [\#1174](https://github.com/apache/camel-quarkus/issues/1174)
-- ActiveMQ XalanXPathEvaluator CNFE warning [\#1160](https://github.com/apache/camel-quarkus/issues/1160)
-- \[CI\] - Quarkus Master Branch Build Failure [\#1148](https://github.com/apache/camel-quarkus/issues/1148)
-- MethodAccessorGenerator reachable error in camel-activemq tests with jdk11u-dev [\#1145](https://github.com/apache/camel-quarkus/issues/1145)
-- Remove register for reflection in file/ftp when upgrading to Camel 3.3 [\#1113](https://github.com/apache/camel-quarkus/issues/1113)
-- Test Azure extension with Azurite [\#1072](https://github.com/apache/camel-quarkus/issues/1072)
-- Improve the quality of quarkus-extension.yaml files [\#1006](https://github.com/apache/camel-quarkus/issues/1006)
-- Elasticsearch Rest native mode [\#896](https://github.com/apache/camel-quarkus/issues/896)
-- Cannot build examples/timer-log in native mode [\#756](https://github.com/apache/camel-quarkus/issues/756)
-
-**Merged pull requests:**
-
-- Add Peter Palaga's PGP key [\#1268](https://github.com/apache/camel-quarkus/pull/1268) ([ppalaga](https://github.com/ppalaga))
-- Upgrade Quarkus to 1.5.0.Final [\#1267](https://github.com/apache/camel-quarkus/pull/1267) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove camel-rest workaround as the fic for the issue is included in Apache Camel 3.3.0 [\#1265](https://github.com/apache/camel-quarkus/pull/1265) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#1208 Use influxdb 2.18 as in Camel 3.3.0 [\#1264](https://github.com/apache/camel-quarkus/pull/1264) ([ppalaga](https://github.com/ppalaga))
-- Status badges on extension pages [\#1260](https://github.com/apache/camel-quarkus/pull/1260) ([ppalaga](https://github.com/ppalaga))
-- Split doc pages to user-guide and contributor-guide directories and s… [\#1259](https://github.com/apache/camel-quarkus/pull/1259) ([ppalaga](https://github.com/ppalaga))
-- Debezium MySQL Connector native support \#1192 [\#1258](https://github.com/apache/camel-quarkus/pull/1258) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Fix \#1255 Document how extension pages are generated [\#1257](https://github.com/apache/camel-quarkus/pull/1257) ([ppalaga](https://github.com/ppalaga))
-- Document how quarkus-extemsion.yaml is generated [\#1256](https://github.com/apache/camel-quarkus/pull/1256) ([ppalaga](https://github.com/ppalaga))
-- \#1232 Extension pages [\#1254](https://github.com/apache/camel-quarkus/pull/1254) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to Quarkus 1.5.0.CR1 [\#1253](https://github.com/apache/camel-quarkus/pull/1253) ([ppalaga](https://github.com/ppalaga))
-- Automatically cancel redundant workflow runs [\#1252](https://github.com/apache/camel-quarkus/pull/1252) ([jamesnetherton](https://github.com/jamesnetherton))
-- Enable update-extension-doc-page mojo in newly scaffolded extensions [\#1250](https://github.com/apache/camel-quarkus/pull/1250) ([ppalaga](https://github.com/ppalaga))
-- Fix \#1232 Per-extension documentation pages [\#1249](https://github.com/apache/camel-quarkus/pull/1249) ([ppalaga](https://github.com/ppalaga))
-- Add support for MicroProfile Fault Tolerance [\#1248](https://github.com/apache/camel-quarkus/pull/1248) ([jamesnetherton](https://github.com/jamesnetherton))
-- Added native support for avro dataformat \#1180 [\#1246](https://github.com/apache/camel-quarkus/pull/1246) ([aldettinger](https://github.com/aldettinger))
-- Add MongoDB GridFS native support [\#1242](https://github.com/apache/camel-quarkus/pull/1242) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#1212 - Add the allowTemplateFromHeader option in the qute component [\#1241](https://github.com/apache/camel-quarkus/pull/1241) ([zhfeng](https://github.com/zhfeng))
-- Reduce the number of Qute component dependencies [\#1240](https://github.com/apache/camel-quarkus/pull/1240) ([ppalaga](https://github.com/ppalaga))
-- Remove duplicate kubernetes-client.version property [\#1238](https://github.com/apache/camel-quarkus/pull/1238) ([ppalaga](https://github.com/ppalaga))
-- Add REST OpenApi native support [\#1236](https://github.com/apache/camel-quarkus/pull/1236) ([jamesnetherton](https://github.com/jamesnetherton))
-- Bump Testcontainers to version 1.14.2 [\#1231](https://github.com/apache/camel-quarkus/pull/1231) ([oscerd](https://github.com/oscerd))
-- Improve Quarkus metadata [\#1230](https://github.com/apache/camel-quarkus/pull/1230) ([ppalaga](https://github.com/ppalaga))
-- Remove Elasticsearch Rest doc title fix [\#1229](https://github.com/apache/camel-quarkus/pull/1229) ([jamesnetherton](https://github.com/jamesnetherton))
-- Test Azure extension with Azurite [\#1228](https://github.com/apache/camel-quarkus/pull/1228) ([jamesnetherton](https://github.com/jamesnetherton))
-- Run the CI on Java 14 instead of Java 12 [\#1227](https://github.com/apache/camel-quarkus/pull/1227) ([ppalaga](https://github.com/ppalaga))
-- Camel 3.3.0 upgrade follow ups [\#1226](https://github.com/apache/camel-quarkus/pull/1226) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to Camel 3.3.0 [\#1224](https://github.com/apache/camel-quarkus/pull/1224) ([ppalaga](https://github.com/ppalaga))
-- Workaround for quarkusio/quarkus/issues/9273 [\#1221](https://github.com/apache/camel-quarkus/pull/1221) ([gnodet](https://github.com/gnodet))
-- Follow the existing naming convention in SAP NetWeaver test artifactId [\#1220](https://github.com/apache/camel-quarkus/pull/1220) ([ppalaga](https://github.com/ppalaga))
-- Remove 'core' prefix for main related integration tests modules [\#1217](https://github.com/apache/camel-quarkus/pull/1217) ([lburgazzoli](https://github.com/lburgazzoli))
-- Introduce RuntimeCamelContextCustomizerBuildItem to allow to customize the camel context before it is started [\#1216](https://github.com/apache/camel-quarkus/pull/1216) ([lburgazzoli](https://github.com/lburgazzoli))
-- Debezium PostgresSQL Connector native support \#1191 [\#1215](https://github.com/apache/camel-quarkus/pull/1215) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Rename test support extension to a more meaningful name [\#1214](https://github.com/apache/camel-quarkus/pull/1214) ([lburgazzoli](https://github.com/lburgazzoli))
-- Do not use version literals in BOMs [\#1213](https://github.com/apache/camel-quarkus/pull/1213) ([ppalaga](https://github.com/ppalaga))
-- Refactor core module layout [\#1211](https://github.com/apache/camel-quarkus/pull/1211) ([lburgazzoli](https://github.com/lburgazzoli))
-- Move integration-tests support modules out of integration-tests folder [\#1207](https://github.com/apache/camel-quarkus/pull/1207) ([lburgazzoli](https://github.com/lburgazzoli))
-- Idiomatic Mustache test [\#1204](https://github.com/apache/camel-quarkus/pull/1204) ([ppalaga](https://github.com/ppalaga))
-- Do not skip tests in native jobs using -DskipTest it skips also [\#1203](https://github.com/apache/camel-quarkus/pull/1203) ([ppalaga](https://github.com/ppalaga))
-- fix caffeine-lrucache modules name [\#1202](https://github.com/apache/camel-quarkus/pull/1202) ([lburgazzoli](https://github.com/lburgazzoli))
-- ftp: remove redundant build items [\#1201](https://github.com/apache/camel-quarkus/pull/1201) ([lburgazzoli](https://github.com/lburgazzoli))
-- Ensure consistent itest name tag [\#1199](https://github.com/apache/camel-quarkus/pull/1199) ([jamesnetherton](https://github.com/jamesnetherton))
-- Use artifact uploads/downloads instead of cache to pass Maven repo to… [\#1198](https://github.com/apache/camel-quarkus/pull/1198) ([ppalaga](https://github.com/ppalaga))
-- Fix ClassNotFoundException when using quartz extension [\#1196](https://github.com/apache/camel-quarkus/pull/1196) ([jamesnetherton](https://github.com/jamesnetherton))
-- Import software.amazon.awssdk:bom instead of managing the items indiv… [\#1194](https://github.com/apache/camel-quarkus/pull/1194) ([ppalaga](https://github.com/ppalaga))
-- AWS2-Commons extensions: Added back SSL Native support [\#1189](https://github.com/apache/camel-quarkus/pull/1189) ([oscerd](https://github.com/oscerd))
-- Add branch commit to the intergration build failure report [\#1187](https://github.com/apache/camel-quarkus/pull/1187) ([ppalaga](https://github.com/ppalaga))
-- AWS2 Extensions cleanup [\#1186](https://github.com/apache/camel-quarkus/pull/1186) ([oscerd](https://github.com/oscerd))
-- Add jaxb as dependency and allow skipping formatting [\#1185](https://github.com/apache/camel-quarkus/pull/1185) ([galderz](https://github.com/galderz))
-- Build Quarkus master faster with -Denforcer.skip -Dquarkus.build.skip… [\#1184](https://github.com/apache/camel-quarkus/pull/1184) ([ppalaga](https://github.com/ppalaga))
-- Fix \#1182 ASM Unsupported api 524288 after the upgrade to Gizmo 1.0.3 [\#1183](https://github.com/apache/camel-quarkus/pull/1183) ([ppalaga](https://github.com/ppalaga))
-- Upgrade Quarkus to 1.4.2.Final [\#1181](https://github.com/apache/camel-quarkus/pull/1181) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#1177 Add simple timer dev mode test [\#1178](https://github.com/apache/camel-quarkus/pull/1178) ([ppalaga](https://github.com/ppalaga))
-- Fixed the jvm8 CI build \#1157 [\#1176](https://github.com/apache/camel-quarkus/pull/1176) ([aldettinger](https://github.com/aldettinger))
-- Code cleanup [\#1175](https://github.com/apache/camel-quarkus/pull/1175) ([lburgazzoli](https://github.com/lburgazzoli))
-- Bump Jandex to version 1.0.8 [\#1172](https://github.com/apache/camel-quarkus/pull/1172) ([oscerd](https://github.com/oscerd))
-- Bump Camel-Quarkus last release to 1.0.0-M7 [\#1170](https://github.com/apache/camel-quarkus/pull/1170) ([oscerd](https://github.com/oscerd))
-- Replace hard coded native test categories with dynamic lookup [\#1169](https://github.com/apache/camel-quarkus/pull/1169) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#1153 Import camel-quarkus-bom-test into camel-quarkus-build-pare… [\#1168](https://github.com/apache/camel-quarkus/pull/1168) ([ppalaga](https://github.com/ppalaga))
-- Upgrade Quarkus Qpid JMS to 0.14.1 [\#1165](https://github.com/apache/camel-quarkus/pull/1165) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add native support for Elasticsearch REST [\#1164](https://github.com/apache/camel-quarkus/pull/1164) ([jamesnetherton](https://github.com/jamesnetherton))
-- Release process improvements [\#1162](https://github.com/apache/camel-quarkus/pull/1162) ([ppalaga](https://github.com/ppalaga))
-- deps: update kotlin to v1.3.72 [\#1159](https://github.com/apache/camel-quarkus/pull/1159) ([lburgazzoli](https://github.com/lburgazzoli))
-- Improve master -\> camel-master sync workflow [\#1158](https://github.com/apache/camel-quarkus/pull/1158) ([jamesnetherton](https://github.com/jamesnetherton))
-- build: create build-parent-it pom to collect common integration tests set-up [\#1151](https://github.com/apache/camel-quarkus/pull/1151) ([lburgazzoli](https://github.com/lburgazzoli))
-- Automatic sync branch master to camel-master [\#1150](https://github.com/apache/camel-quarkus/pull/1150) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Upgrade Activemq to version 5.11.12 [\#1149](https://github.com/apache/camel-quarkus/pull/1149) ([oscerd](https://github.com/oscerd))
-- Update quarkus to v1.4.1.Final [\#1147](https://github.com/apache/camel-quarkus/pull/1147) ([lburgazzoli](https://github.com/lburgazzoli))
-- Upgrade Quarkus Qpid JMS to 0.14.0 [\#1143](https://github.com/apache/camel-quarkus/pull/1143) ([jamesnetherton](https://github.com/jamesnetherton))
-- Exclude docs module from quarkus-master sync build [\#1139](https://github.com/apache/camel-quarkus/pull/1139) ([jamesnetherton](https://github.com/jamesnetherton))
-- Bump Github-api to version 1.111 [\#1138](https://github.com/apache/camel-quarkus/pull/1138) ([oscerd](https://github.com/oscerd))
-- Bump Testcontainers to version 1.14.1 [\#1137](https://github.com/apache/camel-quarkus/pull/1137) ([oscerd](https://github.com/oscerd))
-- Update quarkus to v1.4.0.Final [\#1135](https://github.com/apache/camel-quarkus/pull/1135) ([lburgazzoli](https://github.com/lburgazzoli))
-- Added an AWS2-CW native extension [\#1134](https://github.com/apache/camel-quarkus/pull/1134) ([oscerd](https://github.com/oscerd))
-- Added release guide to the documentation [\#1131](https://github.com/apache/camel-quarkus/pull/1131) ([oscerd](https://github.com/oscerd))
-- Add a doc page to describe the CI setup [\#1130](https://github.com/apache/camel-quarkus/pull/1130) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fixed wrong repository to point for releasing [\#1129](https://github.com/apache/camel-quarkus/pull/1129) ([oscerd](https://github.com/oscerd))
-- Improve master -\> quarkus-master branch scheduled synchronization workflow [\#1127](https://github.com/apache/camel-quarkus/pull/1127) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fixes CAMEL-14945: move attribute to component descriptor... [\#1125](https://github.com/apache/camel-quarkus/pull/1125) ([djencks](https://github.com/djencks))
-- Automatic sync branch master to quarkus-master [\#1124](https://github.com/apache/camel-quarkus/pull/1124) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Fix Kudu native build on JDK 11 [\#1122](https://github.com/apache/camel-quarkus/pull/1122) ([jamesnetherton](https://github.com/jamesnetherton))
-- Trigger project build on push [\#1119](https://github.com/apache/camel-quarkus/pull/1119) ([jamesnetherton](https://github.com/jamesnetherton))
-- Automatic sync branch master to quarkus-master [\#1118](https://github.com/apache/camel-quarkus/pull/1118) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Dynamic endpoint cannot be resolved properly \(toD\) [\#1117](https://github.com/apache/camel-quarkus/pull/1117) ([lburgazzoli](https://github.com/lburgazzoli))
-- Paho extension native support for Websocket Connections [\#1114](https://github.com/apache/camel-quarkus/pull/1114) ([lburgazzoli](https://github.com/lburgazzoli))
-- Automatic sync branch master to quarkus-master [\#1111](https://github.com/apache/camel-quarkus/pull/1111) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Add integration test for \#1105 [\#1110](https://github.com/apache/camel-quarkus/pull/1110) ([philschaller](https://github.com/philschaller))
-- Remove unneccessary reflective class registration for camel configuration [\#1107](https://github.com/apache/camel-quarkus/pull/1107) ([jamesnetherton](https://github.com/jamesnetherton))
-- Automatic sync branch master to camel-master [\#1106](https://github.com/apache/camel-quarkus/pull/1106) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Automatic sync branch master to quarkus-master [\#1104](https://github.com/apache/camel-quarkus/pull/1104) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Simplify the Catalog related code after the upgrade to Camel 3.2.0 [\#1103](https://github.com/apache/camel-quarkus/pull/1103) ([ppalaga](https://github.com/ppalaga))
-- Automatic sync branch master to quarkus-master [\#1102](https://github.com/apache/camel-quarkus/pull/1102) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Added an AWS2 SNS extension [\#1100](https://github.com/apache/camel-quarkus/pull/1100) ([oscerd](https://github.com/oscerd))
-- Docs navigation improvements, docs wording [\#1098](https://github.com/apache/camel-quarkus/pull/1098) ([ppalaga](https://github.com/ppalaga))
-- Fixed Typo in the antora.yml file [\#1096](https://github.com/apache/camel-quarkus/pull/1096) ([oscerd](https://github.com/oscerd))
-- Kubernetes extension native support [\#1095](https://github.com/apache/camel-quarkus/pull/1095) ([jamesnetherton](https://github.com/jamesnetherton))
-- Automatic sync branch master to quarkus-master [\#1094](https://github.com/apache/camel-quarkus/pull/1094) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Introducing an AWS2 support extension [\#1093](https://github.com/apache/camel-quarkus/pull/1093) ([oscerd](https://github.com/oscerd))
-- Fix AMQP tests hanging in CI environment [\#1091](https://github.com/apache/camel-quarkus/pull/1091) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade Quarkus to 1.4.0.CR1 [\#1089](https://github.com/apache/camel-quarkus/pull/1089) ([jamesnetherton](https://github.com/jamesnetherton))
-- Automatic sync branch master to quarkus-master [\#1087](https://github.com/apache/camel-quarkus/pull/1087) ([github-actions[bot]](https://github.com/apps/github-actions))
-- AWS2 S3 native extension [\#1085](https://github.com/apache/camel-quarkus/pull/1085) ([oscerd](https://github.com/oscerd))
-- Upgrade Jackson to version 2.10.3 to align with Camel version used [\#1082](https://github.com/apache/camel-quarkus/pull/1082) ([oscerd](https://github.com/oscerd))
-- Upgrade to Testcontainers 1.14.0 [\#1081](https://github.com/apache/camel-quarkus/pull/1081) ([oscerd](https://github.com/oscerd))
-- Automatic sync branch master to quarkus-master [\#1080](https://github.com/apache/camel-quarkus/pull/1080) ([github-actions[bot]](https://github.com/apps/github-actions))
-- http-log example [\#1079](https://github.com/apache/camel-quarkus/pull/1079) ([davsclaus](https://github.com/davsclaus))
-- Fix \#984 introduce the CamelContextCustomizerBuildItem [\#1076](https://github.com/apache/camel-quarkus/pull/1076) ([zhfeng](https://github.com/zhfeng))
-- Automatic sync branch master to camel-master [\#1074](https://github.com/apache/camel-quarkus/pull/1074) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Bump to Camel Quarkus 1.0.0-M6 [\#1073](https://github.com/apache/camel-quarkus/pull/1073) ([oscerd](https://github.com/oscerd))
-- Add a native extension for AWS2-SQS [\#1070](https://github.com/apache/camel-quarkus/pull/1070) ([oscerd](https://github.com/oscerd))
-- Sidebar menu tidy up names-14567 [\#1068](https://github.com/apache/camel-quarkus/pull/1068) ([rimshach](https://github.com/rimshach))
-- Post 3.2 cleanup [\#1067](https://github.com/apache/camel-quarkus/pull/1067) ([lburgazzoli](https://github.com/lburgazzoli))
-- Move spring's kotlin processors and substitutions to a dedicated file [\#1065](https://github.com/apache/camel-quarkus/pull/1065) ([lburgazzoli](https://github.com/lburgazzoli))
-- Post Camel 3.2.0 upgrade fixes [\#1063](https://github.com/apache/camel-quarkus/pull/1063) ([jamesnetherton](https://github.com/jamesnetherton))
-- Automatic sync branch master to quarkus-master [\#1062](https://github.com/apache/camel-quarkus/pull/1062) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Use test resources instead of system properties for easy testing within the quarkus platform [\#1060](https://github.com/apache/camel-quarkus/pull/1060) ([lburgazzoli](https://github.com/lburgazzoli))
-- CI build improvements [\#1059](https://github.com/apache/camel-quarkus/pull/1059) ([jamesnetherton](https://github.com/jamesnetherton))
-- Bump Quarkus to version 1.3.2.Final [\#1056](https://github.com/apache/camel-quarkus/pull/1056) ([oscerd](https://github.com/oscerd))
-- Moved the guide to promote a JVM Only extension to native to a dedica… [\#1052](https://github.com/apache/camel-quarkus/pull/1052) ([aldettinger](https://github.com/aldettinger))
-- Completed the contributor guide with a section to promote JVM Only ex… [\#1051](https://github.com/apache/camel-quarkus/pull/1051) ([aldettinger](https://github.com/aldettinger))
-- InfluxDB native support \#1036 [\#1050](https://github.com/apache/camel-quarkus/pull/1050) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- CI build improvements [\#1049](https://github.com/apache/camel-quarkus/pull/1049) ([jamesnetherton](https://github.com/jamesnetherton))
-- Webhook component support [\#1048](https://github.com/apache/camel-quarkus/pull/1048) ([jamesnetherton](https://github.com/jamesnetherton))
-- Servlet tests \#853 \#854 [\#1046](https://github.com/apache/camel-quarkus/pull/1046) ([ppalaga](https://github.com/ppalaga))
-- Update groovy to v3.0.2 [\#1045](https://github.com/apache/camel-quarkus/pull/1045) ([lburgazzoli](https://github.com/lburgazzoli))
-- BeanInfo::getImplClazz can be null for primitives or arrays [\#1043](https://github.com/apache/camel-quarkus/pull/1043) ([lburgazzoli](https://github.com/lburgazzoli))
-- TrustStoreResource does not work on Java 11 [\#1042](https://github.com/apache/camel-quarkus/pull/1042) ([lburgazzoli](https://github.com/lburgazzoli))
-- SAP NetWeaver native support [\#1038](https://github.com/apache/camel-quarkus/pull/1038) ([jamesnetherton](https://github.com/jamesnetherton))
-- Automatic sync branch master to quarkus-master [\#1033](https://github.com/apache/camel-quarkus/pull/1033) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Fix intermittent failure of messaging tests [\#1031](https://github.com/apache/camel-quarkus/pull/1031) ([jamesnetherton](https://github.com/jamesnetherton))
-- AWS-SWF: Make the extension native [\#1030](https://github.com/apache/camel-quarkus/pull/1030) ([oscerd](https://github.com/oscerd))
-- Revisit \#1017 Be even less intrusive when registering our Transformer… [\#1027](https://github.com/apache/camel-quarkus/pull/1027) ([ppalaga](https://github.com/ppalaga))
-- chore\(xslt\): cleanup and small fix [\#1026](https://github.com/apache/camel-quarkus/pull/1026) ([lburgazzoli](https://github.com/lburgazzoli))
-- Temporarilly disable JmsTest until \#1023 is fixed [\#1025](https://github.com/apache/camel-quarkus/pull/1025) ([jamesnetherton](https://github.com/jamesnetherton))
-- Added native support for Couchdb extension in producer mode \#989 [\#1024](https://github.com/apache/camel-quarkus/pull/1024) ([aldettinger](https://github.com/aldettinger))
-- Camel-AWS-SDB: Make the extension Native [\#1020](https://github.com/apache/camel-quarkus/pull/1020) ([oscerd](https://github.com/oscerd))
-- chore: small cleanup [\#1019](https://github.com/apache/camel-quarkus/pull/1019) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#1017 Do not hardcode the TransformerFactory implementation irrev… [\#1018](https://github.com/apache/camel-quarkus/pull/1018) ([ppalaga](https://github.com/ppalaga))
-- Use testcontainer to test camel infinispan extension to reduce test dependencies on infinispan [\#1014](https://github.com/apache/camel-quarkus/pull/1014) ([lburgazzoli](https://github.com/lburgazzoli))
-- Workaround for the platform http not be able to handle matchOnUriPrefix [\#1012](https://github.com/apache/camel-quarkus/pull/1012) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix native images issues on Java 11 [\#1011](https://github.com/apache/camel-quarkus/pull/1011) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#706 Improve RuntimeCatalogConfig docs [\#1009](https://github.com/apache/camel-quarkus/pull/1009) ([ppalaga](https://github.com/ppalaga))
-- Fix \#963 Build processor class template may create redundant LOG field [\#1008](https://github.com/apache/camel-quarkus/pull/1008) ([ppalaga](https://github.com/ppalaga))
-- Upgrade Quarkus Qpid JMS to 0.13.1 [\#1007](https://github.com/apache/camel-quarkus/pull/1007) ([jamesnetherton](https://github.com/jamesnetherton))
-- Make consul depend on core-cloud \#1003 [\#1004](https://github.com/apache/camel-quarkus/pull/1004) ([galderz](https://github.com/galderz))
-- New source assembly descriptor and root pom rename [\#1002](https://github.com/apache/camel-quarkus/pull/1002) ([ppalaga](https://github.com/ppalaga))
-- Add jaxb dependency \#996 [\#997](https://github.com/apache/camel-quarkus/pull/997) ([galderz](https://github.com/galderz))
-- Automatic sync branch master to quarkus-master [\#993](https://github.com/apache/camel-quarkus/pull/993) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Update Quarkus to v1.3.1.Final [\#992](https://github.com/apache/camel-quarkus/pull/992) ([lburgazzoli](https://github.com/lburgazzoli))
-- Make a tabular list of examples for the examples page [\#991](https://github.com/apache/camel-quarkus/pull/991) ([AemieJ](https://github.com/AemieJ))
-- \[CAMEL-13704\] - Added PR template file with instructions on what to include [\#990](https://github.com/apache/camel-quarkus/pull/990) ([Xxyumi-hub](https://github.com/Xxyumi-hub))
-- Fix \#253 Build time property to register classes for reflection [\#987](https://github.com/apache/camel-quarkus/pull/987) ([ppalaga](https://github.com/ppalaga))
-- Update Quarkus extension description for zip-deflater and lzf [\#986](https://github.com/apache/camel-quarkus/pull/986) ([rsvoboda](https://github.com/rsvoboda))
-- Move quarkus.camel.resources.\* config options to quarkus.camel.native… [\#983](https://github.com/apache/camel-quarkus/pull/983) ([ppalaga](https://github.com/ppalaga))
-- Add GitHub extension [\#982](https://github.com/apache/camel-quarkus/pull/982) ([jamesnetherton](https://github.com/jamesnetherton))
-- Separate some misc extensions into their own categories [\#981](https://github.com/apache/camel-quarkus/pull/981) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix asciidoc syntax errors in native-mode.adoc [\#980](https://github.com/apache/camel-quarkus/pull/980) ([djencks](https://github.com/djencks))
-- Fix asciidoc syntax error [\#979](https://github.com/apache/camel-quarkus/pull/979) ([djencks](https://github.com/djencks))
-- Add Google Pubsub extension \(JVM only\) [\#978](https://github.com/apache/camel-quarkus/pull/978) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#976 REST OpenApi support \(JVM only\) [\#977](https://github.com/apache/camel-quarkus/pull/977) ([ppalaga](https://github.com/ppalaga))
-- Speedup the Validate PR Style GH workflow by invoking only mvn validate [\#975](https://github.com/apache/camel-quarkus/pull/975) ([ppalaga](https://github.com/ppalaga))
-- Protobuf and gRPC [\#974](https://github.com/apache/camel-quarkus/pull/974) ([ppalaga](https://github.com/ppalaga))
-- Clean up poms: introduce test BOM, manage only where necessary [\#973](https://github.com/apache/camel-quarkus/pull/973) ([ppalaga](https://github.com/ppalaga))
-- Documented the use of quarkus.camel.resources.\*-patterns \#961 [\#971](https://github.com/apache/camel-quarkus/pull/971) ([aldettinger](https://github.com/aldettinger))
-- Update to add the camel-servicenow extension [\#970](https://github.com/apache/camel-quarkus/pull/970) ([zhfeng](https://github.com/zhfeng))
-- Add Avro JVM Extension [\#969](https://github.com/apache/camel-quarkus/pull/969) ([mmelko](https://github.com/mmelko))
-- Add AMQP extension [\#968](https://github.com/apache/camel-quarkus/pull/968) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove redundant native profile from kubernetes extension [\#967](https://github.com/apache/camel-quarkus/pull/967) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add Kubernetes extension \(JVM only\) [\#966](https://github.com/apache/camel-quarkus/pull/966) ([jamesnetherton](https://github.com/jamesnetherton))
-- AWS SWF and SDB [\#962](https://github.com/apache/camel-quarkus/pull/962) ([ppalaga](https://github.com/ppalaga))
-- Added options to select resources for inclusion in native executable \#868 [\#960](https://github.com/apache/camel-quarkus/pull/960) ([aldettinger](https://github.com/aldettinger))
-- Fix \#936 Warn if JVM only extensions are used in native mode [\#957](https://github.com/apache/camel-quarkus/pull/957) ([ppalaga](https://github.com/ppalaga))
-- AWS 2 [\#955](https://github.com/apache/camel-quarkus/pull/955) ([ppalaga](https://github.com/ppalaga))
-- Add Google BigQuery extension [\#954](https://github.com/apache/camel-quarkus/pull/954) ([jamesnetherton](https://github.com/jamesnetherton))
-- Automatic sync branch master to quarkus-master [\#940](https://github.com/apache/camel-quarkus/pull/940) ([github-actions[bot]](https://github.com/apps/github-actions))
-- SAP NetWeaver, Groovy and OGNL [\#938](https://github.com/apache/camel-quarkus/pull/938) ([ppalaga](https://github.com/ppalaga))
-- Add quartz & cron extensions [\#935](https://github.com/apache/camel-quarkus/pull/935) ([jamesnetherton](https://github.com/jamesnetherton))
-- PubNub and RabbitMQ [\#933](https://github.com/apache/camel-quarkus/pull/933) ([ppalaga](https://github.com/ppalaga))
-- OpenStack support \(JVM only\) [\#930](https://github.com/apache/camel-quarkus/pull/930) ([jamesnetherton](https://github.com/jamesnetherton))
-- InfluxDB, Kudu, MongoDB GridFS and Nitrite [\#929](https://github.com/apache/camel-quarkus/pull/929) ([ppalaga](https://github.com/ppalaga))
-- Updated Maven version in Prerequisites section [\#923](https://github.com/apache/camel-quarkus/pull/923) ([djcoleman](https://github.com/djcoleman))
-- Use Awaitility to poll for Google calendar deletion [\#921](https://github.com/apache/camel-quarkus/pull/921) ([jamesnetherton](https://github.com/jamesnetherton))
-- Debezium connectors [\#920](https://github.com/apache/camel-quarkus/pull/920) ([ppalaga](https://github.com/ppalaga))
-- Add Google Sheets extension [\#919](https://github.com/apache/camel-quarkus/pull/919) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add Google Calendar extension [\#914](https://github.com/apache/camel-quarkus/pull/914) ([jamesnetherton](https://github.com/jamesnetherton))
-- chore\(deprecation\): replace usage fo deprecated io.quarkus.vertx.web.deployment.BodyHandlerBuildItem [\#913](https://github.com/apache/camel-quarkus/pull/913) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore\(it\): small telegram tests cleanup [\#912](https://github.com/apache/camel-quarkus/pull/912) ([lburgazzoli](https://github.com/lburgazzoli))
-- Cassandra, CouchDB and Couchbase [\#911](https://github.com/apache/camel-quarkus/pull/911) ([ppalaga](https://github.com/ppalaga))
-- Add Google Drive extension [\#907](https://github.com/apache/camel-quarkus/pull/907) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add Google Mail extension [\#905](https://github.com/apache/camel-quarkus/pull/905) ([jamesnetherton](https://github.com/jamesnetherton))
-- POM enhancements [\#903](https://github.com/apache/camel-quarkus/pull/903) ([ppalaga](https://github.com/ppalaga))
-- Fix \#901 GraphQLResource should read from the classpath instead from … [\#902](https://github.com/apache/camel-quarkus/pull/902) ([ppalaga](https://github.com/ppalaga))
-- Bump to Camel-Quarkus 1.0.0-M5 [\#900](https://github.com/apache/camel-quarkus/pull/900) ([oscerd](https://github.com/oscerd))
-- Fix \#897 List the JVM-only extensions in the docs [\#898](https://github.com/apache/camel-quarkus/pull/898) ([ppalaga](https://github.com/ppalaga))
-- The first JVM-only extension [\#895](https://github.com/apache/camel-quarkus/pull/895) ([ppalaga](https://github.com/ppalaga))
-- telegram extension cannot construct IncomingMessageEntity for commands [\#893](https://github.com/apache/camel-quarkus/pull/893) ([lburgazzoli](https://github.com/lburgazzoli))
-- Automatic sync branch master to quarkus-master [\#890](https://github.com/apache/camel-quarkus/pull/890) ([github-actions[bot]](https://github.com/apps/github-actions))
-- camel-quarkus-core: make caffeine cache optional [\#887](https://github.com/apache/camel-quarkus/pull/887) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add soap dataformat quarkus extension [\#883](https://github.com/apache/camel-quarkus/pull/883) ([mmelko](https://github.com/mmelko))
-- Update to introduce the quarkus qute extension [\#878](https://github.com/apache/camel-quarkus/pull/878) ([zhfeng](https://github.com/zhfeng))
-
-## [1.0.0-M7](https://github.com/apache/camel-quarkus/tree/1.0.0-M7) (2020-04-27)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.0.0-M6...1.0.0-M7)
-
-**Fixed bugs:**
-
-- Property binding requires reflective access to configuration classes [\#843](https://github.com/apache/camel-quarkus/issues/843)
-- Gson integration test fails with Camel 3.1.0  [\#776](https://github.com/apache/camel-quarkus/issues/776)
-
-**Closed issues:**
-
-- \[CI\] - Quarkus Master Branch Build Failure [\#1136](https://github.com/apache/camel-quarkus/issues/1136)
-- Added AWS2-CW native extension [\#1133](https://github.com/apache/camel-quarkus/issues/1133)
-- Quarkus Master - Classes that should be initialized at run time got initialized during image building  [\#1126](https://github.com/apache/camel-quarkus/issues/1126)
-- Kudu native build fails [\#1121](https://github.com/apache/camel-quarkus/issues/1121)
-- Dynamic endpoint cannot be resolved properly \(toD\) [\#1116](https://github.com/apache/camel-quarkus/issues/1116)
-- ActiveMQ test failing with Quarkus master [\#1115](https://github.com/apache/camel-quarkus/issues/1115)
-- Paho extension native support for Websocket Connections [\#1109](https://github.com/apache/camel-quarkus/issues/1109)
-- Read lock options for files are ignored [\#1105](https://github.com/apache/camel-quarkus/issues/1105)
-- AWS2-SNS native extension [\#1099](https://github.com/apache/camel-quarkus/issues/1099)
-- Kudu extension native support [\#1097](https://github.com/apache/camel-quarkus/issues/1097)
-- Create a support extension for AWS2 [\#1092](https://github.com/apache/camel-quarkus/issues/1092)
-- AWS2-S3 native extension [\#1084](https://github.com/apache/camel-quarkus/issues/1084)
-- AWS2-SQS native followups [\#1083](https://github.com/apache/camel-quarkus/issues/1083)
-- Camel JMX is logged as enabled for native compiled example [\#1078](https://github.com/apache/camel-quarkus/issues/1078)
-- Is quarkus.ssl.native=true still needed [\#1077](https://github.com/apache/camel-quarkus/issues/1077)
-- Move extension aws2-sqs to native extensions [\#1069](https://github.com/apache/camel-quarkus/issues/1069)
-- Reinstate MongoDB extensions [\#1064](https://github.com/apache/camel-quarkus/issues/1064)
-- Revert dependency patch after Camel 3.2 upgrade [\#1040](https://github.com/apache/camel-quarkus/issues/1040)
-- Kubernetes extension native support [\#1039](https://github.com/apache/camel-quarkus/issues/1039)
-- InfluxDB native support [\#1036](https://github.com/apache/camel-quarkus/issues/1036)
-- Remove platform-http workaround when upgrading camel to 3.2.0 [\#1013](https://github.com/apache/camel-quarkus/issues/1013)
-- Camel-Avro: In 3.2.0 it will be splitted in camel-avro and camel-avro-rpc [\#995](https://github.com/apache/camel-quarkus/issues/995)
-- Introduce the CamelContextCustomizerBuildItem to do further customization of the camel context [\#984](https://github.com/apache/camel-quarkus/issues/984)
-- Platform HTTP consumer does not support matchOnUriPrefix [\#880](https://github.com/apache/camel-quarkus/issues/880)
-
-## [1.0.0-M6](https://github.com/apache/camel-quarkus/tree/1.0.0-M6) (2020-04-09)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.0.0-M5...1.0.0-M6)
-
-**Implemented enhancements:**
-
-- Don't publish integration tests during a Maven release [\#842](https://github.com/apache/camel-quarkus/issues/842)
-- Create a Camel Kubernetes extension [\#303](https://github.com/apache/camel-quarkus/issues/303)
-- Create a Camel AMQP extension [\#143](https://github.com/apache/camel-quarkus/issues/143)
-
-**Fixed bugs:**
-
-- Olingo4 native mode integration test failure [\#1061](https://github.com/apache/camel-quarkus/issues/1061)
-- XML integration tests fail in native mode on JDK 11 [\#1000](https://github.com/apache/camel-quarkus/issues/1000)
-- RestBindingReifier.setupJaxb fails in native mode with JDK 11 [\#999](https://github.com/apache/camel-quarkus/issues/999)
-- CustomDefaultServletClassTest Failed to index: org.apache.camel.quarkus.component.servlet.test.CustomServlet [\#854](https://github.com/apache/camel-quarkus/issues/854)
-- NoDefaultServletTest cannot find property quarkus.camel.servlet.url-patterns [\#853](https://github.com/apache/camel-quarkus/issues/853)
-- TrustStoreResource does not work on Java 11 [\#852](https://github.com/apache/camel-quarkus/issues/852)
-
-**Closed issues:**
-
-- Upgrade Quarkus to version 1.3.2.Final [\#1054](https://github.com/apache/camel-quarkus/issues/1054)
-- NPE in ContainerBeansBuildItem [\#1044](https://github.com/apache/camel-quarkus/issues/1044)
-- Vertx throws exception IllegalStateException: Request has already been read [\#1032](https://github.com/apache/camel-quarkus/issues/1032)
-- Camel-AWS-SWF: Support native [\#1029](https://github.com/apache/camel-quarkus/issues/1029)
-- Intermittent failure of messaging tests [\#1023](https://github.com/apache/camel-quarkus/issues/1023)
-- Create a doc page to list necessary steps to promote a jvm-only extension to native [\#1021](https://github.com/apache/camel-quarkus/issues/1021)
-- Do not hardcode the TransformerFactory implementation irreversibly [\#1017](https://github.com/apache/camel-quarkus/issues/1017)
-- Camel-AWS-SDB: Support native [\#1016](https://github.com/apache/camel-quarkus/issues/1016)
-- camle-tagsoup extension tests  fails in native mode on Jdk 11 [\#1010](https://github.com/apache/camel-quarkus/issues/1010)
-- PropertyBindingException slidingwindowsize [\#1005](https://github.com/apache/camel-quarkus/issues/1005)
-- ClassNotFoundException Caffeine SSLMS [\#1003](https://github.com/apache/camel-quarkus/issues/1003)
-- Rename the top module from camel-quarkus-parent to camel-quarkus [\#1001](https://github.com/apache/camel-quarkus/issues/1001)
-- Unresolved type JAXBContext [\#996](https://github.com/apache/camel-quarkus/issues/996)
-- Couchdb native support for Producer Mode [\#989](https://github.com/apache/camel-quarkus/issues/989)
-- REST OpenApi support \(JVM only\) [\#976](https://github.com/apache/camel-quarkus/issues/976)
-- gRPC support \(JVM only\) [\#965](https://github.com/apache/camel-quarkus/issues/965)
-- Protobuf dataformat support \(JVM only\) [\#964](https://github.com/apache/camel-quarkus/issues/964)
-- Build processor class template may create redundant LOG field  [\#963](https://github.com/apache/camel-quarkus/issues/963)
-- Document the use of quarkus.camel.resources.\*-patterns [\#961](https://github.com/apache/camel-quarkus/issues/961)
-- AWS SimpleDB support \(JVM only\) [\#959](https://github.com/apache/camel-quarkus/issues/959)
-- AWS Simple Workflow support \(JVM only\) [\#958](https://github.com/apache/camel-quarkus/issues/958)
-- SAP NetWeaver native support [\#956](https://github.com/apache/camel-quarkus/issues/956)
-- AWS 2 Translate support \(JVM only\) [\#953](https://github.com/apache/camel-quarkus/issues/953)
-- AWS 2 Simple Queue Service support \(JVM only\) [\#952](https://github.com/apache/camel-quarkus/issues/952)
-- AWS 2 Simple Notification System support \(JVM only\) [\#951](https://github.com/apache/camel-quarkus/issues/951)
-- AWS 2 Simple Email Service support \(JVM only\) [\#950](https://github.com/apache/camel-quarkus/issues/950)
-- AWS 2 MSK support \(JVM only\) [\#949](https://github.com/apache/camel-quarkus/issues/949)
-- AWS 2 MQ support \(JVM only\) [\#948](https://github.com/apache/camel-quarkus/issues/948)
-- AWS 2 KMS support \(JVM only\) [\#947](https://github.com/apache/camel-quarkus/issues/947)
-- AWS 2 IAM support \(JVM only\) [\#946](https://github.com/apache/camel-quarkus/issues/946)
-- AWS 2 EKS support \(JVM only\) [\#945](https://github.com/apache/camel-quarkus/issues/945)
-- AWS 2 ECS support \(JVM only\) [\#944](https://github.com/apache/camel-quarkus/issues/944)
-- AWS 2 EC2 support \(JVM only\) [\#943](https://github.com/apache/camel-quarkus/issues/943)
-- AWS 2 DynamoDB support \(JVM only\) [\#942](https://github.com/apache/camel-quarkus/issues/942)
-- AWS 2 CloudWatch support \(JVM only\) [\#941](https://github.com/apache/camel-quarkus/issues/941)
-- SAP NetWeaver support \(JVM only\) [\#937](https://github.com/apache/camel-quarkus/issues/937)
-- Warn if JVM only extensions are used in native mode [\#936](https://github.com/apache/camel-quarkus/issues/936)
-- PubNub support [\#931](https://github.com/apache/camel-quarkus/issues/931)
-- Nitrite support [\#928](https://github.com/apache/camel-quarkus/issues/928)
-- MongoDB GridFS support [\#927](https://github.com/apache/camel-quarkus/issues/927)
-- Kudu support [\#926](https://github.com/apache/camel-quarkus/issues/926)
-- InfluxDB support [\#925](https://github.com/apache/camel-quarkus/issues/925)
-- Openstack support [\#922](https://github.com/apache/camel-quarkus/issues/922)
-- Debezium SQL Server Connector support [\#918](https://github.com/apache/camel-quarkus/issues/918)
-- Debezium MySQL Connector support [\#917](https://github.com/apache/camel-quarkus/issues/917)
-- Debezium PostgresSQL Connector support [\#916](https://github.com/apache/camel-quarkus/issues/916)
-- Debezium MongoDB Connector support [\#915](https://github.com/apache/camel-quarkus/issues/915)
-- CouchDB support [\#910](https://github.com/apache/camel-quarkus/issues/910)
-- Couchbase support \(JVM only\) [\#909](https://github.com/apache/camel-quarkus/issues/909)
-- Cassandra CQL support [\#908](https://github.com/apache/camel-quarkus/issues/908)
-- GraphQLResource should read from the classpath instead from the filesystem [\#901](https://github.com/apache/camel-quarkus/issues/901)
-- camel-quarkus-elasticsearch-rest build fails with "Dependency convergence error" [\#899](https://github.com/apache/camel-quarkus/issues/899)
-- List the JVM-only extensions in the docs [\#897](https://github.com/apache/camel-quarkus/issues/897)
-- Elastichsearch Rest support [\#894](https://github.com/apache/camel-quarkus/issues/894)
-- telegram extension cannot construct IncomingMessageEntity for commands [\#888](https://github.com/apache/camel-quarkus/issues/888)
-- camel-quarkus-core: make caffeine cache optional [\#886](https://github.com/apache/camel-quarkus/issues/886)
-- Add templates config option to the Mustache extension [\#868](https://github.com/apache/camel-quarkus/issues/868)
-- Duplicate LICENSE\(.txt\) and NOTICE\(.txt\) files in the source distribution [\#844](https://github.com/apache/camel-quarkus/issues/844)
-- Qute support [\#825](https://github.com/apache/camel-quarkus/issues/825)
-- Quartz support [\#823](https://github.com/apache/camel-quarkus/issues/823)
-- Cron support [\#822](https://github.com/apache/camel-quarkus/issues/822)
-- Webhook component support [\#820](https://github.com/apache/camel-quarkus/issues/820)
-- Openshift support [\#812](https://github.com/apache/camel-quarkus/issues/812)
-- GitHub support [\#811](https://github.com/apache/camel-quarkus/issues/811)
-- Google Sheets support [\#809](https://github.com/apache/camel-quarkus/issues/809)
-- Google Pubsub support [\#808](https://github.com/apache/camel-quarkus/issues/808)
-- Google Mail support [\#807](https://github.com/apache/camel-quarkus/issues/807)
-- Google Drive support [\#806](https://github.com/apache/camel-quarkus/issues/806)
-- Google Calendar support [\#805](https://github.com/apache/camel-quarkus/issues/805)
-- Google BigQuery support [\#804](https://github.com/apache/camel-quarkus/issues/804)
-- Avro support [\#782](https://github.com/apache/camel-quarkus/issues/782)
-- Groovy language support [\#781](https://github.com/apache/camel-quarkus/issues/781)
-- ServiceNow support [\#766](https://github.com/apache/camel-quarkus/issues/766)
-- SOAP dataformat support [\#763](https://github.com/apache/camel-quarkus/issues/763)
-- Upgarde Quarkus to v1.3.0.Final [\#760](https://github.com/apache/camel-quarkus/issues/760)
-- Improve RuntimeCatalogConfig docs [\#706](https://github.com/apache/camel-quarkus/issues/706)
-- Do not expose mutable collections from FHIR BuildItems [\#690](https://github.com/apache/camel-quarkus/issues/690)
-- RabbitMQ support [\#675](https://github.com/apache/camel-quarkus/issues/675)
-- Camel routes with xslt doesn't work in dev mode [\#671](https://github.com/apache/camel-quarkus/issues/671)
-- Utility to generate/scaffold an extension for a camel component [\#616](https://github.com/apache/camel-quarkus/issues/616)
-- OGNL language support [\#410](https://github.com/apache/camel-quarkus/issues/410)
-
-## [1.0.0-M5](https://github.com/apache/camel-quarkus/tree/1.0.0-M5) (2020-03-13)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.0.0-M4...1.0.0-M5)
-
-**Fixed bugs:**
-
-- Quarkus fails to start with uri: platform-http://hello [\#879](https://github.com/apache/camel-quarkus/issues/879)
-- @BindToRegistry fields need to be explicitly registered for reflection in order to work in native mode [\#867](https://github.com/apache/camel-quarkus/issues/867)
-- Camel MongoDB extension does not register camelMongoClient bean [\#747](https://github.com/apache/camel-quarkus/issues/747)
-
-**Closed issues:**
-
-- FastCamelContext to implement ModelCamelContext [\#877](https://github.com/apache/camel-quarkus/issues/877)
-- kafka itests fails [\#875](https://github.com/apache/camel-quarkus/issues/875)
-- Re-org the source tree [\#865](https://github.com/apache/camel-quarkus/issues/865)
-- Support for camel-xml-io [\#847](https://github.com/apache/camel-quarkus/issues/847)
-- Optimize PR build GitHub action [\#836](https://github.com/apache/camel-quarkus/issues/836)
-- Ref component support [\#818](https://github.com/apache/camel-quarkus/issues/818)
-- Mustache support [\#803](https://github.com/apache/camel-quarkus/issues/803)
-- GraphQL support [\#801](https://github.com/apache/camel-quarkus/issues/801)
-- File Watch support [\#795](https://github.com/apache/camel-quarkus/issues/795)
-- JSon XStream dataformat support [\#787](https://github.com/apache/camel-quarkus/issues/787)
-- JAXB dataformat support [\#786](https://github.com/apache/camel-quarkus/issues/786)
-- JacksonXML support [\#785](https://github.com/apache/camel-quarkus/issues/785)
-- iCal support [\#784](https://github.com/apache/camel-quarkus/issues/784)
-- GZip Deflater support [\#783](https://github.com/apache/camel-quarkus/issues/783)
-- Add support for camel-johnzon extension [\#775](https://github.com/apache/camel-quarkus/issues/775)
-- Upgarde Camel to v3.1.0 [\#759](https://github.com/apache/camel-quarkus/issues/759)
-- Automate tests against camel and quarkus master [\#652](https://github.com/apache/camel-quarkus/issues/652)
-- MongoDB itest fails on Camel 3.1.0-SNAPSHOT [\#649](https://github.com/apache/camel-quarkus/issues/649)
-- java.lang.NoClassDefFoundError with JDK 11+ [\#642](https://github.com/apache/camel-quarkus/issues/642)
-- Add support for camel-activemq [\#424](https://github.com/apache/camel-quarkus/issues/424)
-
-**Merged pull requests:**
-
-- Upgrade Quarkus to 1.3.0.Final [\#884](https://github.com/apache/camel-quarkus/pull/884) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove default or redundant config of the failsafe plugin [\#882](https://github.com/apache/camel-quarkus/pull/882) ([ppalaga](https://github.com/ppalaga))
-- FastCamelContext to implement ModelCamelContext [\#881](https://github.com/apache/camel-quarkus/pull/881) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fixed kafka itests as @Inject is not supported in native tests [\#876](https://github.com/apache/camel-quarkus/pull/876) ([aldettinger](https://github.com/aldettinger))
-- Ref component support [\#874](https://github.com/apache/camel-quarkus/pull/874) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore\(doc\): fix contributor guide example [\#873](https://github.com/apache/camel-quarkus/pull/873) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore\(build\): update maven to v3.6.3 [\#871](https://github.com/apache/camel-quarkus/pull/871) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#865 Re-org the source tree [\#869](https://github.com/apache/camel-quarkus/pull/869) ([ppalaga](https://github.com/ppalaga))
-- Add GraphQL extension [\#864](https://github.com/apache/camel-quarkus/pull/864) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#795 File Watch support [\#863](https://github.com/apache/camel-quarkus/pull/863) ([ppalaga](https://github.com/ppalaga))
-- Upgrade Quarkus to 1.3.0.CR2 [\#862](https://github.com/apache/camel-quarkus/pull/862) ([jamesnetherton](https://github.com/jamesnetherton))
-- Optimize PR build GitHub action [\#861](https://github.com/apache/camel-quarkus/pull/861) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add ActiveMQ extension [\#860](https://github.com/apache/camel-quarkus/pull/860) ([jamesnetherton](https://github.com/jamesnetherton))
-- Automatic sync branch master to quarkus-master [\#859](https://github.com/apache/camel-quarkus/pull/859) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Fix \#787 JSon XStream dataformat support [\#857](https://github.com/apache/camel-quarkus/pull/857) ([ppalaga](https://github.com/ppalaga))
-- Bump to Quarkus 1.0.0-M4 [\#856](https://github.com/apache/camel-quarkus/pull/856) ([oscerd](https://github.com/oscerd))
-- Post Quarkus 1.3.0.CR1 upgrade tidy ups [\#855](https://github.com/apache/camel-quarkus/pull/855) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to Quarkus 1.3.0.CR1 [\#851](https://github.com/apache/camel-quarkus/pull/851) ([jamesnetherton](https://github.com/jamesnetherton))
-- add camel-jaxb into extensions [\#850](https://github.com/apache/camel-quarkus/pull/850) ([mmelko](https://github.com/mmelko))
-- Support for camel-xml-io [\#849](https://github.com/apache/camel-quarkus/pull/849) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#785 JacksonXML support [\#848](https://github.com/apache/camel-quarkus/pull/848) ([ppalaga](https://github.com/ppalaga))
-- Fix since versions on various places [\#845](https://github.com/apache/camel-quarkus/pull/845) ([ppalaga](https://github.com/ppalaga))
-- Add JMS extension [\#841](https://github.com/apache/camel-quarkus/pull/841) ([jamesnetherton](https://github.com/jamesnetherton))
-- Added Johnzon extension \#775 [\#840](https://github.com/apache/camel-quarkus/pull/840) ([aldettinger](https://github.com/aldettinger))
-- Fix \#784 iCal support [\#839](https://github.com/apache/camel-quarkus/pull/839) ([ppalaga](https://github.com/ppalaga))
-- Remove MongoDB dependency overrides [\#834](https://github.com/apache/camel-quarkus/pull/834) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add websocket-jsr356 extension [\#833](https://github.com/apache/camel-quarkus/pull/833) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#831 Move Groovy executions under the enforce profile [\#832](https://github.com/apache/camel-quarkus/pull/832) ([ppalaga](https://github.com/ppalaga))
-- Automatic sync branch master to camel-master [\#830](https://github.com/apache/camel-quarkus/pull/830) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Automatic sync branch master to quarkus-master [\#829](https://github.com/apache/camel-quarkus/pull/829) ([github-actions[bot]](https://github.com/apps/github-actions))
-- \#791 \#783 \#788 Compression dataformats [\#827](https://github.com/apache/camel-quarkus/pull/827) ([ppalaga](https://github.com/ppalaga))
-- Add Braintree extension [\#826](https://github.com/apache/camel-quarkus/pull/826) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add xpath language extension [\#779](https://github.com/apache/camel-quarkus/pull/779) ([jamesnetherton](https://github.com/jamesnetherton))
-- Ensure that the GitHub Actions run each itest [\#778](https://github.com/apache/camel-quarkus/pull/778) ([ppalaga](https://github.com/ppalaga))
-- Fix \#498 Improve the XSLT test coverage [\#777](https://github.com/apache/camel-quarkus/pull/777) ([ppalaga](https://github.com/ppalaga))
-- Add Azure extension [\#774](https://github.com/apache/camel-quarkus/pull/774) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add telegram extension to CI build [\#773](https://github.com/apache/camel-quarkus/pull/773) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to camel 3.1.0 [\#768](https://github.com/apache/camel-quarkus/pull/768) ([jamesnetherton](https://github.com/jamesnetherton))
-- Jira integration test fails in native mode [\#758](https://github.com/apache/camel-quarkus/pull/758) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove redundant mvnd.builder.rules from the top level pom.xml [\#755](https://github.com/apache/camel-quarkus/pull/755) ([ppalaga](https://github.com/ppalaga))
-- Fix \#960 Do not expose mutable collections from FHIR BuildItems [\#754](https://github.com/apache/camel-quarkus/pull/754) ([ppalaga](https://github.com/ppalaga))
-- Remove redundant quarkus.ssl.native=true from box application.properties [\#751](https://github.com/apache/camel-quarkus/pull/751) ([ppalaga](https://github.com/ppalaga))
-- FhirDataformatTest failure -TransformerFactoryImpl not found [\#750](https://github.com/apache/camel-quarkus/pull/750) ([jamesnetherton](https://github.com/jamesnetherton))
-- Minor cleanup and a mvnd.builder.rule update [\#749](https://github.com/apache/camel-quarkus/pull/749) ([ppalaga](https://github.com/ppalaga))
-- Automatic sync branch master to quarkus-master [\#745](https://github.com/apache/camel-quarkus/pull/745) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Automatic sync branch master to camel-master [\#744](https://github.com/apache/camel-quarkus/pull/744) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Add LoginToken to Salesforce reflective class list [\#742](https://github.com/apache/camel-quarkus/pull/742) ([jamesnetherton](https://github.com/jamesnetherton))
-- Created a camel gson extension \#681 [\#738](https://github.com/apache/camel-quarkus/pull/738) ([aldettinger](https://github.com/aldettinger))
-- chore\(test\): add test for bean\(class, method\) [\#737](https://github.com/apache/camel-quarkus/pull/737) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix XSLT extension NoSuchMethodError: TransformerFactory.newInstance\(String,ClassLoader\) [\#736](https://github.com/apache/camel-quarkus/pull/736) ([jamesnetherton](https://github.com/jamesnetherton))
-- build: Do resource hungry native builds in parallel [\#735](https://github.com/apache/camel-quarkus/pull/735) ([jamesnetherton](https://github.com/jamesnetherton))
-- CAMEL-QUARKUS-729: Centralized JSON dataformats related itests in dat… [\#734](https://github.com/apache/camel-quarkus/pull/734) ([aldettinger](https://github.com/aldettinger))
-- Speed up build for misc extensions   [\#733](https://github.com/apache/camel-quarkus/pull/733) ([jamesnetherton](https://github.com/jamesnetherton))
-- Removed useless Jenkinsfile\(s\) [\#732](https://github.com/apache/camel-quarkus/pull/732) ([oscerd](https://github.com/oscerd))
-- Cleanup tests [\#731](https://github.com/apache/camel-quarkus/pull/731) ([lburgazzoli](https://github.com/lburgazzoli))
-- Update kotlin to v1.3.61 [\#730](https://github.com/apache/camel-quarkus/pull/730) ([lburgazzoli](https://github.com/lburgazzoli))
-- Improve Jira extension [\#728](https://github.com/apache/camel-quarkus/pull/728) ([jamesnetherton](https://github.com/jamesnetherton))
-- Update quarkus to v1.3.0.Alpha2 [\#727](https://github.com/apache/camel-quarkus/pull/727) ([lburgazzoli](https://github.com/lburgazzoli))
-- Automatic sync branch master to quarkus-master [\#724](https://github.com/apache/camel-quarkus/pull/724) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Resolves \#162 adds camel-box support [\#722](https://github.com/apache/camel-quarkus/pull/722) ([johnpoth](https://github.com/johnpoth))
-- Fix \#598 Use quarkus.package.type=native instead of the native-image mojo [\#720](https://github.com/apache/camel-quarkus/pull/720) ([ppalaga](https://github.com/ppalaga))
-- Fix \#713 Revisit the Quarkus native image mojo options generated by create-extension [\#719](https://github.com/apache/camel-quarkus/pull/719) ([ppalaga](https://github.com/ppalaga))
-- Schedule sync of quarkus-master branch [\#718](https://github.com/apache/camel-quarkus/pull/718) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#716 Move the Atlassian Maven repository to the Jira runtime module [\#717](https://github.com/apache/camel-quarkus/pull/717) ([ppalaga](https://github.com/ppalaga))
-- camel-jira extension:more polish up [\#714](https://github.com/apache/camel-quarkus/pull/714) ([ffang](https://github.com/ffang))
-- create camel-jira extension \#710 [\#712](https://github.com/apache/camel-quarkus/pull/712) ([ffang](https://github.com/ffang))
-- \#688 \#694 Minor create-extension mojo fixes [\#709](https://github.com/apache/camel-quarkus/pull/709) ([ppalaga](https://github.com/ppalaga))
-- \#670 fix PDF itests in native mode [\#707](https://github.com/apache/camel-quarkus/pull/707) ([ffang](https://github.com/ffang))
-- Update mvnd.builder.rules [\#705](https://github.com/apache/camel-quarkus/pull/705) ([ppalaga](https://github.com/ppalaga))
-- Ensure that catalog files are added to the native image [\#704](https://github.com/apache/camel-quarkus/pull/704) ([lburgazzoli](https://github.com/lburgazzoli))
-- Use camel-quarkus-support-httpclient in slack extension [\#703](https://github.com/apache/camel-quarkus/pull/703) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add olingo4 itest to project list [\#702](https://github.com/apache/camel-quarkus/pull/702) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove enableJni from integration tests as JNI si always enabled on GraalVM 19.3.1 [\#701](https://github.com/apache/camel-quarkus/pull/701) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#696 Test HTTPS with the HTTP clients [\#697](https://github.com/apache/camel-quarkus/pull/697) ([ppalaga](https://github.com/ppalaga))
-- Add olingo4 extension [\#693](https://github.com/apache/camel-quarkus/pull/693) ([jamesnetherton](https://github.com/jamesnetherton))
-- Cleanup: Declare quarkus-development-mode-spi as a nonExtensionArtifact [\#691](https://github.com/apache/camel-quarkus/pull/691) ([ppalaga](https://github.com/ppalaga))
-- Automatic sync branch master to camel-master [\#689](https://github.com/apache/camel-quarkus/pull/689) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Snapshots and Actions [\#687](https://github.com/apache/camel-quarkus/pull/687) ([lburgazzoli](https://github.com/lburgazzoli))
--  Upgrade to quarkus 1.3.0.Alpha1 [\#685](https://github.com/apache/camel-quarkus/pull/685) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add stream extension [\#682](https://github.com/apache/camel-quarkus/pull/682) ([jamesnetherton](https://github.com/jamesnetherton))
-- Create enforce profile that disables dependency checks [\#679](https://github.com/apache/camel-quarkus/pull/679) ([johnpoth](https://github.com/johnpoth))
-- camel-fhir record FHIR context instead of creating it at runtime. Onl… [\#678](https://github.com/apache/camel-quarkus/pull/678) ([johnpoth](https://github.com/johnpoth))
-- Add GitHub action for automatic testing of camel-master branch [\#677](https://github.com/apache/camel-quarkus/pull/677) ([jamesnetherton](https://github.com/jamesnetherton))
-- fix\(rest-json/pom.xml\): use quarkus-based dependency [\#674](https://github.com/apache/camel-quarkus/pull/674) ([hanzo2001](https://github.com/hanzo2001))
-- Cleanup [\#667](https://github.com/apache/camel-quarkus/pull/667) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix the \<firstVersion\> of extensions that were released for the first… [\#665](https://github.com/apache/camel-quarkus/pull/665) ([ppalaga](https://github.com/ppalaga))
-- Bump To Quarkus 1.0.0-M3 [\#664](https://github.com/apache/camel-quarkus/pull/664) ([oscerd](https://github.com/oscerd))
-- Add integration test for Jackson unmarshalling with different POJOs [\#663](https://github.com/apache/camel-quarkus/pull/663) ([philschaller](https://github.com/philschaller))
-- Upgrade TestContainers to version 1.12.5 [\#662](https://github.com/apache/camel-quarkus/pull/662) ([oscerd](https://github.com/oscerd))
-
-## [1.0.0-M4](https://github.com/apache/camel-quarkus/tree/1.0.0-M4) (2020-03-03)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.0.0-M3...1.0.0-M4)
-
-**Fixed bugs:**
-
-- Jira integration test fails in native mode [\#757](https://github.com/apache/camel-quarkus/issues/757)
-- FhirDataformatTest failure -TransformerFactoryImpl not found [\#748](https://github.com/apache/camel-quarkus/issues/748)
-- Salesforce extension does not work in native mode [\#740](https://github.com/apache/camel-quarkus/issues/740)
-- NoSuchMethodError: TransformerFactory.newInstance\(String,ClassLoader\) in dev mode [\#721](https://github.com/apache/camel-quarkus/issues/721)
-- PDF itest fails in native mode when building the font cache [\#670](https://github.com/apache/camel-quarkus/issues/670)
-- Unmarshalling with Jackson in multiple routes with different classes [\#637](https://github.com/apache/camel-quarkus/issues/637)
-
-**Closed issues:**
-
-- Move Groovy executions under the enforce profile [\#831](https://github.com/apache/camel-quarkus/issues/831)
-- Braintree support [\#810](https://github.com/apache/camel-quarkus/issues/810)
-- Zip Deflate Compression dataformat support [\#791](https://github.com/apache/camel-quarkus/issues/791)
-- LZF Deflate Compression dataformat support [\#788](https://github.com/apache/camel-quarkus/issues/788)
-- Add support for camel-jms [\#767](https://github.com/apache/camel-quarkus/issues/767)
-- Create Azure component extension [\#761](https://github.com/apache/camel-quarkus/issues/761)
-- Camel-Jira extension: Enforcer rules are failing on the module [\#753](https://github.com/apache/camel-quarkus/issues/753)
-- Create a XPath language extension [\#739](https://github.com/apache/camel-quarkus/issues/739)
-- Create dataformats-json itests from jackson itests [\#729](https://github.com/apache/camel-quarkus/issues/729)
-- Move the Atlassian Maven repository to the Jira runtime module. [\#716](https://github.com/apache/camel-quarkus/issues/716)
-- improve camel-jira integration test [\#715](https://github.com/apache/camel-quarkus/issues/715)
-- Revisit the Quarkus native image mojo options generated by create-extension [\#713](https://github.com/apache/camel-quarkus/issues/713)
-- create camel-jira extension [\#710](https://github.com/apache/camel-quarkus/issues/710)
-- Restore the testing of the font option when switching to camel 3.1.0 [\#708](https://github.com/apache/camel-quarkus/issues/708)
-- Test HTTPS with the HTTP clients [\#696](https://github.com/apache/camel-quarkus/issues/696)
-- quarkus-maven-plugin generate application.properties file for IT tests [\#694](https://github.com/apache/camel-quarkus/issues/694)
-- Create a camel olingo4 extension [\#692](https://github.com/apache/camel-quarkus/issues/692)
-- Create extension mojo not working after Quarkus 1.3.0.Alpha1 upgrade [\#688](https://github.com/apache/camel-quarkus/issues/688)
-- Ensure that catalog files are added to the native image [\#686](https://github.com/apache/camel-quarkus/issues/686)
-- Upgrade to quarkus 1.3.0.Alpha1 [\#684](https://github.com/apache/camel-quarkus/issues/684)
-- Timer not fired in native mode [\#683](https://github.com/apache/camel-quarkus/issues/683)
-- Create a camel gson extension [\#681](https://github.com/apache/camel-quarkus/issues/681)
-- Create a camel stream extension [\#680](https://github.com/apache/camel-quarkus/issues/680)
-- Incredible use of RAM even on small example/rest-json [\#673](https://github.com/apache/camel-quarkus/issues/673)
-- Create a camel-bindy extension [\#653](https://github.com/apache/camel-quarkus/issues/653)
-- Add JniBuildItem to extensions that need JNI [\#627](https://github.com/apache/camel-quarkus/issues/627)
-- Create a camel-websocket-jsr356 extension [\#613](https://github.com/apache/camel-quarkus/issues/613)
-- Use quarkus.package.type=native instead of the native-image mojo [\#598](https://github.com/apache/camel-quarkus/issues/598)
-- Improve the XSLT test coverage [\#498](https://github.com/apache/camel-quarkus/issues/498)
-- Native SSL support does not work on ASF Jenkins CI  [\#468](https://github.com/apache/camel-quarkus/issues/468)
-- support camel-box [\#162](https://github.com/apache/camel-quarkus/issues/162)
-
-## [1.0.0-M3](https://github.com/apache/camel-quarkus/tree/1.0.0-M3) (2020-01-24)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.0.0-M2...1.0.0-M3)
-
-**Implemented enhancements:**
-
-- Create a Camel ReactiveStreams extension [\#304](https://github.com/apache/camel-quarkus/issues/304)
-- Create a Camel Telegram extension [\#74](https://github.com/apache/camel-quarkus/issues/74)
-
-**Fixed bugs:**
-
-- camel-pdf: build failure in jvm mode with Apache Camel 3.0.1 [\#631](https://github.com/apache/camel-quarkus/issues/631)
-
-**Closed issues:**
-
-- The MicroProfile test fails against Camel 3.1.0-SNAPSHOT [\#650](https://github.com/apache/camel-quarkus/issues/650)
-- Lower the level of "Could not find a non-optional class for key ..." message [\#640](https://github.com/apache/camel-quarkus/issues/640)
-- Dependency parity check [\#635](https://github.com/apache/camel-quarkus/issues/635)
-- Upgrade to Apache Camel 3.0.1 [\#628](https://github.com/apache/camel-quarkus/issues/628)
-- Add Camel-AWS-Kinesis extension [\#624](https://github.com/apache/camel-quarkus/issues/624)
-- Encourage users to ask for missing extensions and to help implementing them [\#622](https://github.com/apache/camel-quarkus/issues/622)
-- Introduce CamelServiceInfo transformers [\#620](https://github.com/apache/camel-quarkus/issues/620)
-- Create a camel-ahc-ws extension  [\#619](https://github.com/apache/camel-quarkus/issues/619)
-- Registerable and discoverable Camel services [\#617](https://github.com/apache/camel-quarkus/issues/617)
-- Extension for endpoint DSL [\#612](https://github.com/apache/camel-quarkus/issues/612)
-- Improve the camel-jsonpath extension by not using an alias for DefaultAnnotationExpressionFactory [\#611](https://github.com/apache/camel-quarkus/issues/611)
-- Fix the defineClass exception in camel-quarkus-jsonpath while running in native mode [\#610](https://github.com/apache/camel-quarkus/issues/610)
-- Upgrade to Quarkus 1.1.1.Final [\#606](https://github.com/apache/camel-quarkus/issues/606)
-- Remove PlatformHttpSpanDecorator from OpenTracing extension [\#605](https://github.com/apache/camel-quarkus/issues/605)
-- ahc dependencies [\#601](https://github.com/apache/camel-quarkus/issues/601)
-- Consolidate http based component integration tests [\#600](https://github.com/apache/camel-quarkus/issues/600)
-- Document the need to set quarkus.native.add-all-charsets = true in HTTP extensions [\#599](https://github.com/apache/camel-quarkus/issues/599)
-- Create a camel-http extension [\#596](https://github.com/apache/camel-quarkus/issues/596)
-- Different versions for Jetty and Jetty-Maven-plugin [\#578](https://github.com/apache/camel-quarkus/issues/578)
-- Contribute A New Example Project. [\#574](https://github.com/apache/camel-quarkus/issues/574)
-- AWS support: Leverage Quarkus-jackson instead of using Jackson stuff in each extension [\#572](https://github.com/apache/camel-quarkus/issues/572)
-- Untrack Artemis test instance data [\#568](https://github.com/apache/camel-quarkus/issues/568)
-- Create an AWS common extension [\#566](https://github.com/apache/camel-quarkus/issues/566)
-- Create AWS Lambda extension [\#563](https://github.com/apache/camel-quarkus/issues/563)
-- Create AWS EC2 Extension [\#562](https://github.com/apache/camel-quarkus/issues/562)
-- Create AWS Translate extension [\#561](https://github.com/apache/camel-quarkus/issues/561)
-- AHC extension [\#560](https://github.com/apache/camel-quarkus/issues/560)
-- Randomize http test port [\#553](https://github.com/apache/camel-quarkus/issues/553)
-- Add camel-endpointdsl extension [\#551](https://github.com/apache/camel-quarkus/issues/551)
-- \[MongoDB extension\] Refactor with camel 3.1.x new connection bean [\#544](https://github.com/apache/camel-quarkus/issues/544)
-- Unmarshal json in spring xml [\#543](https://github.com/apache/camel-quarkus/issues/543)
-- \[graalvm-19.3.0\] camel-quarkus-salesforce fails to compile in native mode [\#541](https://github.com/apache/camel-quarkus/issues/541)
-- \[graalvm-19.3.0\] camel-quarkus-bean fails to compile in native mode [\#540](https://github.com/apache/camel-quarkus/issues/540)
-- Dozer extension should use JaxbFileRootBuildItem [\#539](https://github.com/apache/camel-quarkus/issues/539)
-- Add support/spring artifact for common substrate support [\#538](https://github.com/apache/camel-quarkus/issues/538)
-- camel-json-path extension [\#426](https://github.com/apache/camel-quarkus/issues/426)
-- Re-enable the FHIR tests once the FHIR testing service is back again [\#352](https://github.com/apache/camel-quarkus/issues/352)
-- Dev mode does not work on Java 12 [\#289](https://github.com/apache/camel-quarkus/issues/289)
-- Error building with caffeine on GraalVM 19.1.1 \(quarkus snapshot\) [\#80](https://github.com/apache/camel-quarkus/issues/80)
-
-**Merged pull requests:**
-
-- Set firstVersion to 1.0.0 to match the reality [\#661](https://github.com/apache/camel-quarkus/pull/661) ([ppalaga](https://github.com/ppalaga))
-- The MicroProfile test fails if message history is turned off [\#660](https://github.com/apache/camel-quarkus/pull/660) ([lburgazzoli](https://github.com/lburgazzoli))
-- Create a Camel ReactiveStreams extension \(initial implementation\) [\#659](https://github.com/apache/camel-quarkus/pull/659) ([lburgazzoli](https://github.com/lburgazzoli))
-- Update Quarkus to v1.2.0.Final [\#658](https://github.com/apache/camel-quarkus/pull/658) ([lburgazzoli](https://github.com/lburgazzoli))
-- factory-finder: move reactive-executor filter to core processor as the related service is always programmatically configured [\#657](https://github.com/apache/camel-quarkus/pull/657) ([lburgazzoli](https://github.com/lburgazzoli))
-- Context and FactoryFinder improvements [\#656](https://github.com/apache/camel-quarkus/pull/656) ([lburgazzoli](https://github.com/lburgazzoli))
-- fhir: reduce uri options by leveraging component configuration [\#655](https://github.com/apache/camel-quarkus/pull/655) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add tests and improvements for FastFactoryFinder [\#648](https://github.com/apache/camel-quarkus/pull/648) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#518 Rely on configurers for Configuration classes instead of using [\#647](https://github.com/apache/camel-quarkus/pull/647) ([ppalaga](https://github.com/ppalaga))
-- chore: move dependencies exlusions to runtime bom [\#646](https://github.com/apache/camel-quarkus/pull/646) ([lburgazzoli](https://github.com/lburgazzoli))
-- Removed the now useless alias for DefaultAnnotationExpressionFactory … [\#645](https://github.com/apache/camel-quarkus/pull/645) ([aldettinger](https://github.com/aldettinger))
-- Fix \#599 Document the need to set quarkus.native.add-all-charsets = true in HTTP extensions [\#644](https://github.com/apache/camel-quarkus/pull/644) ([ppalaga](https://github.com/ppalaga))
-- Remove PlatformHttpSpanDecorator from OpenTracing extension [\#643](https://github.com/apache/camel-quarkus/pull/643) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#640 Lower the level of "Could not find a non-optional class for … [\#641](https://github.com/apache/camel-quarkus/pull/641) ([ppalaga](https://github.com/ppalaga))
-- Removed the Apache repositories since now the situation should be ok … [\#639](https://github.com/apache/camel-quarkus/pull/639) ([oscerd](https://github.com/oscerd))
-- Fix \#635 Dependency parity check [\#638](https://github.com/apache/camel-quarkus/pull/638) ([ppalaga](https://github.com/ppalaga))
-- Determine the Camel version at build time [\#636](https://github.com/apache/camel-quarkus/pull/636) ([ppalaga](https://github.com/ppalaga))
-- Run native tests with GitHub Actions [\#634](https://github.com/apache/camel-quarkus/pull/634) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#622 Encourage users to ask for missing extensions and to help im… [\#633](https://github.com/apache/camel-quarkus/pull/633) ([ppalaga](https://github.com/ppalaga))
-- Add impsort-maven-plugin [\#632](https://github.com/apache/camel-quarkus/pull/632) ([ppalaga](https://github.com/ppalaga))
-- Update to Apache Camel 3.0.1 [\#630](https://github.com/apache/camel-quarkus/pull/630) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore: fix sjm2 extension metadata [\#629](https://github.com/apache/camel-quarkus/pull/629) ([lburgazzoli](https://github.com/lburgazzoli))
-- Added an AWS Kinesis extension [\#626](https://github.com/apache/camel-quarkus/pull/626) ([oscerd](https://github.com/oscerd))
-- Add ahc-ws extension [\#625](https://github.com/apache/camel-quarkus/pull/625) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#620 Introduce CamelServiceInfo transformers [\#621](https://github.com/apache/camel-quarkus/pull/621) ([ppalaga](https://github.com/ppalaga))
-- Fix \#617 Registerable and discoverable Camel services [\#618](https://github.com/apache/camel-quarkus/pull/618) ([ppalaga](https://github.com/ppalaga))
-- Initial camel-consul support [\#615](https://github.com/apache/camel-quarkus/pull/615) ([lburgazzoli](https://github.com/lburgazzoli))
-- Added an AWS Translate extension [\#614](https://github.com/apache/camel-quarkus/pull/614) ([oscerd](https://github.com/oscerd))
-- Created a camel-jsonpath extension \#426 [\#609](https://github.com/apache/camel-quarkus/pull/609) ([aldettinger](https://github.com/aldettinger))
-- Add spring common extension [\#608](https://github.com/apache/camel-quarkus/pull/608) ([jamesnetherton](https://github.com/jamesnetherton))
-- Bump Quarkus to version 1.1.1.Final [\#607](https://github.com/apache/camel-quarkus/pull/607) ([oscerd](https://github.com/oscerd))
-- ahc dependencies [\#604](https://github.com/apache/camel-quarkus/pull/604) ([lburgazzoli](https://github.com/lburgazzoli))
-- WIP - Prepare for Quarkus 1.2 [\#603](https://github.com/apache/camel-quarkus/pull/603) ([gsmet](https://github.com/gsmet))
-- Consolidate http based component integration tests [\#602](https://github.com/apache/camel-quarkus/pull/602) ([lburgazzoli](https://github.com/lburgazzoli))
-- Create a camel-http extension [\#597](https://github.com/apache/camel-quarkus/pull/597) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore: remove jetty-maven-plugin.version as jetty-maven-plugin is not more used [\#594](https://github.com/apache/camel-quarkus/pull/594) ([lburgazzoli](https://github.com/lburgazzoli))
-- build: formatter-maven-plugin should validate code format when check-format profile is active [\#593](https://github.com/apache/camel-quarkus/pull/593) ([lburgazzoli](https://github.com/lburgazzoli))
-- build: add Java 12 to PR build action [\#592](https://github.com/apache/camel-quarkus/pull/592) ([lburgazzoli](https://github.com/lburgazzoli))
-- Remove @Nullable leftovers [\#591](https://github.com/apache/camel-quarkus/pull/591) ([lburgazzoli](https://github.com/lburgazzoli))
-- Format method param JavaDoc in columns [\#590](https://github.com/apache/camel-quarkus/pull/590) ([ppalaga](https://github.com/ppalaga))
-- Improve dev mode test and \*BeanBuldItem [\#589](https://github.com/apache/camel-quarkus/pull/589) ([lburgazzoli](https://github.com/lburgazzoli))
-- Some cleanup and improvements [\#588](https://github.com/apache/camel-quarkus/pull/588) ([lburgazzoli](https://github.com/lburgazzoli))
-- Move MicroProfile metrics camel context configuration to static init [\#587](https://github.com/apache/camel-quarkus/pull/587) ([jamesnetherton](https://github.com/jamesnetherton))
-- Camel-AWS extensions: Cleanup [\#586](https://github.com/apache/camel-quarkus/pull/586) ([oscerd](https://github.com/oscerd))
-- chore: include test xml routes in native image [\#585](https://github.com/apache/camel-quarkus/pull/585) ([lburgazzoli](https://github.com/lburgazzoli))
-- Added AWS-Lambda extension [\#584](https://github.com/apache/camel-quarkus/pull/584) ([oscerd](https://github.com/oscerd))
-- Add basic tests for dev mode [\#583](https://github.com/apache/camel-quarkus/pull/583) ([lburgazzoli](https://github.com/lburgazzoli))
-- Throw NoSuchLanguageException if a language cannot be found [\#582](https://github.com/apache/camel-quarkus/pull/582) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add tests for \#543 [\#581](https://github.com/apache/camel-quarkus/pull/581) ([lburgazzoli](https://github.com/lburgazzoli))
-- Dozer extension should use JaxbFileRootBuildItem [\#580](https://github.com/apache/camel-quarkus/pull/580) ([jamesnetherton](https://github.com/jamesnetherton))
-- Cleanup [\#577](https://github.com/apache/camel-quarkus/pull/577) ([oscerd](https://github.com/oscerd))
-- Don't search license in csv file [\#576](https://github.com/apache/camel-quarkus/pull/576) ([oscerd](https://github.com/oscerd))
-- CSV File Splitter To Log [\#575](https://github.com/apache/camel-quarkus/pull/575) ([Namphibian](https://github.com/Namphibian))
-- AWS support: Leverage Quarkus-jackson instead of using Jackson stuff … [\#573](https://github.com/apache/camel-quarkus/pull/573) ([oscerd](https://github.com/oscerd))
-- Remove mp-config workaround [\#571](https://github.com/apache/camel-quarkus/pull/571) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#560 AHC extension [\#570](https://github.com/apache/camel-quarkus/pull/570) ([ppalaga](https://github.com/ppalaga))
-- Fix \#568 Untrack Artemis test instance data [\#569](https://github.com/apache/camel-quarkus/pull/569) ([ppalaga](https://github.com/ppalaga))
-- Create an AWS commons extension [\#567](https://github.com/apache/camel-quarkus/pull/567) ([oscerd](https://github.com/oscerd))
-- AWS-EC2 Extension [\#565](https://github.com/apache/camel-quarkus/pull/565) ([oscerd](https://github.com/oscerd))
-- Fix first version of Camel-SQL extension [\#559](https://github.com/apache/camel-quarkus/pull/559) ([oscerd](https://github.com/oscerd))
-- Update docs to version 1.0.0-M2 [\#558](https://github.com/apache/camel-quarkus/pull/558) ([oscerd](https://github.com/oscerd))
-- A JUnit dependency is required to run our integration tests outside of [\#557](https://github.com/apache/camel-quarkus/pull/557) ([ppalaga](https://github.com/ppalaga))
-- Restored the native profile for camel-quarkus-pdf integration tests [\#556](https://github.com/apache/camel-quarkus/pull/556) ([aldettinger](https://github.com/aldettinger))
-- Randomize http test port [\#555](https://github.com/apache/camel-quarkus/pull/555) ([lburgazzoli](https://github.com/lburgazzoli))
-- Modular RoutesCollector [\#554](https://github.com/apache/camel-quarkus/pull/554) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add camel-endpointdsl extension [\#552](https://github.com/apache/camel-quarkus/pull/552) ([lburgazzoli](https://github.com/lburgazzoli))
-- Enable local native sftp tests [\#547](https://github.com/apache/camel-quarkus/pull/547) ([lburgazzoli](https://github.com/lburgazzoli))
-
-## [1.0.0-M2](https://github.com/apache/camel-quarkus/tree/1.0.0-M2) (2019-12-17)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.0.0-M1...1.0.0-M2)
-
-**Closed issues:**
-
-- Manjaro: Dependency Problem with Platform-HTTP [\#532](https://github.com/apache/camel-quarkus/issues/532)
-- Re-introduce RoutesBuilderBuildItem [\#526](https://github.com/apache/camel-quarkus/issues/526)
-- XSLT documentation is misleading [\#520](https://github.com/apache/camel-quarkus/issues/520)
-- Rely on configurers for Configuration classes instead of using reflection [\#518](https://github.com/apache/camel-quarkus/issues/518)
-- Create AWS-IAM Extension [\#514](https://github.com/apache/camel-quarkus/issues/514)
-- Do not use hard coded ports in integration-tests [\#508](https://github.com/apache/camel-quarkus/issues/508)
-- camel-sql extension [\#505](https://github.com/apache/camel-quarkus/issues/505)
-
-**Merged pull requests:**
-
-- Quarkus 1.1 upgrade [\#550](https://github.com/apache/camel-quarkus/pull/550) ([gsmet](https://github.com/gsmet))
-- Add initial support for kotlin [\#549](https://github.com/apache/camel-quarkus/pull/549) ([lburgazzoli](https://github.com/lburgazzoli))
-- Ensure custom services such as deataformats, languages and component are not removed from container [\#548](https://github.com/apache/camel-quarkus/pull/548) ([lburgazzoli](https://github.com/lburgazzoli))
-- Ensure RoutesBuilder instances created by a CDI Producder are  not removed [\#546](https://github.com/apache/camel-quarkus/pull/546) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix commons-logging setup [\#545](https://github.com/apache/camel-quarkus/pull/545) ([lburgazzoli](https://github.com/lburgazzoli))
-- examples: add timer-log kotlin example [\#542](https://github.com/apache/camel-quarkus/pull/542) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore: Clarify supported URI schemes in SQL script-files config property [\#535](https://github.com/apache/camel-quarkus/pull/535) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add SQL component extension [\#533](https://github.com/apache/camel-quarkus/pull/533) ([jamesnetherton](https://github.com/jamesnetherton))
-- chore: Remove redundant banned dependency [\#530](https://github.com/apache/camel-quarkus/pull/530) ([jamesnetherton](https://github.com/jamesnetherton))
-- Replace \<firstVersion\> 0.5.0 with 1.0.0-M1 [\#529](https://github.com/apache/camel-quarkus/pull/529) ([ppalaga](https://github.com/ppalaga))
-- Re-introduce RoutesBuilderBuildItem [\#528](https://github.com/apache/camel-quarkus/pull/528) ([lburgazzoli](https://github.com/lburgazzoli))
-- 1.0.0-M1 [\#527](https://github.com/apache/camel-quarkus/pull/527) ([oscerd](https://github.com/oscerd))
-- Add a workaround for Camel's DI \(see CAMEL-14271\) [\#525](https://github.com/apache/camel-quarkus/pull/525) ([lburgazzoli](https://github.com/lburgazzoli))
-- refactor FHIR integration tests [\#524](https://github.com/apache/camel-quarkus/pull/524) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#520 XSLT documentation is misleading [\#523](https://github.com/apache/camel-quarkus/pull/523) ([ppalaga](https://github.com/ppalaga))
-- Do not check licenses in integration-tests/sjms/data [\#522](https://github.com/apache/camel-quarkus/pull/522) ([ppalaga](https://github.com/ppalaga))
-- chore: cleanup poms [\#519](https://github.com/apache/camel-quarkus/pull/519) ([lburgazzoli](https://github.com/lburgazzoli))
-- introduce testcontainers [\#517](https://github.com/apache/camel-quarkus/pull/517) ([lburgazzoli](https://github.com/lburgazzoli))
-- Create AWS-IAM Extension [\#515](https://github.com/apache/camel-quarkus/pull/515) ([oscerd](https://github.com/oscerd))
-- ftp: implement ftp/sft server test support with QuarkusTestResourceLifecycleManager [\#512](https://github.com/apache/camel-quarkus/pull/512) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore: Fix pom sorting script execution [\#510](https://github.com/apache/camel-quarkus/pull/510) ([jamesnetherton](https://github.com/jamesnetherton))
-- Do not use hard coded ports in integration-tests [\#509](https://github.com/apache/camel-quarkus/pull/509) ([lburgazzoli](https://github.com/lburgazzoli))
-- Automatically register dozer mapping classes for reflection [\#507](https://github.com/apache/camel-quarkus/pull/507) ([jamesnetherton](https://github.com/jamesnetherton))
-
-## [1.0.0-M1](https://github.com/apache/camel-quarkus/tree/1.0.0-M1) (2019-12-04)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/0.4.0...1.0.0-M1)
-
-**Implemented enhancements:**
-
-- Cerate a Camel MongoDB extension [\#302](https://github.com/apache/camel-quarkus/issues/302)
-- Add Camel-AWS-ECS extension [\#17](https://github.com/apache/camel-quarkus/issues/17)
-- Add Camel-AWS-KMS extension [\#16](https://github.com/apache/camel-quarkus/issues/16)
-
-**Fixed bugs:**
-
-- xslt extension not working on java 11 [\#427](https://github.com/apache/camel-quarkus/issues/427)
-
-**Closed issues:**
-
-- seda extension [\#500](https://github.com/apache/camel-quarkus/issues/500)
-- Filter out beans from CDI from build time discovery [\#499](https://github.com/apache/camel-quarkus/issues/499)
-- Group catalog re-generation and formatting mojos under a single profile [\#494](https://github.com/apache/camel-quarkus/issues/494)
-- Add support for tidymarkup and tagsoup [\#490](https://github.com/apache/camel-quarkus/issues/490)
-- The validator test should use a classpath URI for the XSD [\#484](https://github.com/apache/camel-quarkus/issues/484)
-- Flatten the integration-tests hierarchy and remove camel-quarkus-test-list.xml from git [\#483](https://github.com/apache/camel-quarkus/issues/483)
-- Native compile fails in some aggregation strategy which I am not using [\#477](https://github.com/apache/camel-quarkus/issues/477)
-- List itests in an XML file for the Quarkus platform [\#476](https://github.com/apache/camel-quarkus/issues/476)
-- Support dependency injection of FluentProducerTemplate/FluentConsumerTemplate  [\#474](https://github.com/apache/camel-quarkus/issues/474)
-- Upgrade to quarkus 1.0.0.Final [\#470](https://github.com/apache/camel-quarkus/issues/470)
-- Upgrade to camel  3.0.0 [\#469](https://github.com/apache/camel-quarkus/issues/469)
-- Problem: Classes that should be initialized at run time got initialized during image building [\#467](https://github.com/apache/camel-quarkus/issues/467)
-- Create a Camel FTP extension [\#463](https://github.com/apache/camel-quarkus/issues/463)
-- Support only classpath: XSLT URIs [\#455](https://github.com/apache/camel-quarkus/issues/455)
-- camel-quarkus-netty-http failing to boot [\#454](https://github.com/apache/camel-quarkus/issues/454)
-- Move the platform-http component to Camel [\#453](https://github.com/apache/camel-quarkus/issues/453)
-- Avoid subclassing the upstream XsltComponent [\#441](https://github.com/apache/camel-quarkus/issues/441)
-- Get the basedir reliably [\#439](https://github.com/apache/camel-quarkus/issues/439)
-- Create a Camel Dozer extension [\#435](https://github.com/apache/camel-quarkus/issues/435)
-- Consolidate microprofile integration tests [\#433](https://github.com/apache/camel-quarkus/issues/433)
-- camel-hystrix extension [\#429](https://github.com/apache/camel-quarkus/issues/429)
-- XSLT extension does not work with file: URIs [\#428](https://github.com/apache/camel-quarkus/issues/428)
-- Use @Inject in the timer-log-cdi example [\#416](https://github.com/apache/camel-quarkus/issues/416)
-- Document that beans managed by Arc are not instantiated from a static initializer [\#415](https://github.com/apache/camel-quarkus/issues/415)
-- Using custom camel componet into quarkus-camel [\#379](https://github.com/apache/camel-quarkus/issues/379)
-
-**Merged pull requests:**
-
-- feat: base64 extension [\#506](https://github.com/apache/camel-quarkus/pull/506) ([davsclaus](https://github.com/davsclaus))
-- Improve bean discovery filtering [\#504](https://github.com/apache/camel-quarkus/pull/504) ([lburgazzoli](https://github.com/lburgazzoli))
-- Improve registration of DozerTypeConverter [\#503](https://github.com/apache/camel-quarkus/pull/503) ([jamesnetherton](https://github.com/jamesnetherton))
-- feat: seda extension. [\#502](https://github.com/apache/camel-quarkus/pull/502) ([davsclaus](https://github.com/davsclaus))
-- Filter out beans from CDI from build time discovery [\#501](https://github.com/apache/camel-quarkus/pull/501) ([lburgazzoli](https://github.com/lburgazzoli))
-- fix dependencies management in package-maven-plugin [\#497](https://github.com/apache/camel-quarkus/pull/497) ([lburgazzoli](https://github.com/lburgazzoli))
-- mp-config: enable testing profiles in native mode [\#496](https://github.com/apache/camel-quarkus/pull/496) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#494 Group catalog re-generation and formatting mojos under a sin… [\#495](https://github.com/apache/camel-quarkus/pull/495) ([ppalaga](https://github.com/ppalaga))
-- Issue 490: Add tagsoup support [\#493](https://github.com/apache/camel-quarkus/pull/493) ([jsight](https://github.com/jsight))
-- Scripts to sort pom.xml files [\#492](https://github.com/apache/camel-quarkus/pull/492) ([ppalaga](https://github.com/ppalaga))
-- Document and test referring to beans by name [\#491](https://github.com/apache/camel-quarkus/pull/491) ([ppalaga](https://github.com/ppalaga))
-- Fix \#483 Flatten the integration-tests hierarchy and remove camel-qua… [\#489](https://github.com/apache/camel-quarkus/pull/489) ([ppalaga](https://github.com/ppalaga))
-- Update to quarkus-1.0.1.Final [\#487](https://github.com/apache/camel-quarkus/pull/487) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#484 The validator test should use a classpath URI for the XSD [\#486](https://github.com/apache/camel-quarkus/pull/486) ([ppalaga](https://github.com/ppalaga))
-- Add camel-sjms2 extension [\#485](https://github.com/apache/camel-quarkus/pull/485) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#476 List itests in an XML file for the Quarkus platform [\#482](https://github.com/apache/camel-quarkus/pull/482) ([ppalaga](https://github.com/ppalaga))
-- Add workaroud for MP Config profile awarness [\#481](https://github.com/apache/camel-quarkus/pull/481) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add MongoDB extension [\#480](https://github.com/apache/camel-quarkus/pull/480) ([jamesnetherton](https://github.com/jamesnetherton))
-- Simplify the Tooling hierarchy [\#479](https://github.com/apache/camel-quarkus/pull/479) ([ppalaga](https://github.com/ppalaga))
-- Fixes native test and add support for FHIR R5 specification [\#478](https://github.com/apache/camel-quarkus/pull/478) ([johnpoth](https://github.com/johnpoth))
-- Support dependency injection of FluentProducerTemplate/FluentConsumerTemplate [\#475](https://github.com/apache/camel-quarkus/pull/475) ([lburgazzoli](https://github.com/lburgazzoli))
-- Upgrade to camel 3.0.0 and quarkus 1.0.0.Final [\#471](https://github.com/apache/camel-quarkus/pull/471) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add FTP extension [\#464](https://github.com/apache/camel-quarkus/pull/464) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add spring-di example [\#462](https://github.com/apache/camel-quarkus/pull/462) ([lburgazzoli](https://github.com/lburgazzoli))
-- Startup a FHIR server when running the FHIR integration tests [\#461](https://github.com/apache/camel-quarkus/pull/461) ([johnpoth](https://github.com/johnpoth))
-- Fix \#453 Move the platform-http component to Camel [\#459](https://github.com/apache/camel-quarkus/pull/459) ([ppalaga](https://github.com/ppalaga))
-- Add support extension for commons-logging [\#458](https://github.com/apache/camel-quarkus/pull/458) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#455 Support only classpath: XSLT URIs [\#456](https://github.com/apache/camel-quarkus/pull/456) ([ppalaga](https://github.com/ppalaga))
-- \#416, \#415 [\#452](https://github.com/apache/camel-quarkus/pull/452) ([ppalaga](https://github.com/ppalaga))
-- Update to Quarkus 1.0.0-CR2 and regen [\#450](https://github.com/apache/camel-quarkus/pull/450) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add Hystirx component extension [\#449](https://github.com/apache/camel-quarkus/pull/449) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fixed FhirProcessor imports [\#448](https://github.com/apache/camel-quarkus/pull/448) ([oscerd](https://github.com/oscerd))
-- Add Camel-AWS-ECS extension [\#447](https://github.com/apache/camel-quarkus/pull/447) ([oscerd](https://github.com/oscerd))
-- Remove workaround for https://github.com/quarkusio/quarkus/issues/4564 as it seems to be fixed [\#445](https://github.com/apache/camel-quarkus/pull/445) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add Camel-AWS-KMS extension [\#443](https://github.com/apache/camel-quarkus/pull/443) ([oscerd](https://github.com/oscerd))
-- Add Dozer component extension [\#442](https://github.com/apache/camel-quarkus/pull/442) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#428 XSLT extension does not work with file: URIs [\#440](https://github.com/apache/camel-quarkus/pull/440) ([ppalaga](https://github.com/ppalaga))
-- xslt extension not working on java 11 [\#437](https://github.com/apache/camel-quarkus/pull/437) ([lburgazzoli](https://github.com/lburgazzoli))
-- Update latest version released to 0.4.0 [\#436](https://github.com/apache/camel-quarkus/pull/436) ([oscerd](https://github.com/oscerd))
-- Consolidate microprofile integration tests [\#434](https://github.com/apache/camel-quarkus/pull/434) ([lburgazzoli](https://github.com/lburgazzoli))
-- Create a Camel Kafka extension [\#432](https://github.com/apache/camel-quarkus/pull/432) ([lburgazzoli](https://github.com/lburgazzoli))
-- Improve bean validator extension [\#431](https://github.com/apache/camel-quarkus/pull/431) ([lburgazzoli](https://github.com/lburgazzoli))
-- Initial JMS support [\#430](https://github.com/apache/camel-quarkus/pull/430) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fixes \#411 bean-validator extension [\#412](https://github.com/apache/camel-quarkus/pull/412) ([davsclaus](https://github.com/davsclaus))
-
-## [0.4.0](https://github.com/apache/camel-quarkus/tree/0.4.0) (2019-11-15)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/0.3.1...0.4.0)
-
-**Implemented enhancements:**
-
-- Create a Camel File extension [\#398](https://github.com/apache/camel-quarkus/issues/398)
-- Create a Camel SnakeYAML extension [\#338](https://github.com/apache/camel-quarkus/issues/338)
-
-**Fixed bugs:**
-
-- xslt extension not building in native mode [\#419](https://github.com/apache/camel-quarkus/issues/419)
-
-**Closed issues:**
-
-- Create a Camel exec extension [\#417](https://github.com/apache/camel-quarkus/issues/417)
-- bean-validator extension [\#411](https://github.com/apache/camel-quarkus/issues/411)
-- dataformat extension [\#408](https://github.com/apache/camel-quarkus/issues/408)
-- xslt extension [\#406](https://github.com/apache/camel-quarkus/issues/406)
-- Add scheduler extension [\#403](https://github.com/apache/camel-quarkus/issues/403)
-- camel-validator component [\#391](https://github.com/apache/camel-quarkus/issues/391)
-- \[code formatter\] multi line TODOs are not supported [\#389](https://github.com/apache/camel-quarkus/issues/389)
-- @Inject CamelContext on RouteBuilder seems not working [\#386](https://github.com/apache/camel-quarkus/issues/386)
-- ControlBus extension [\#385](https://github.com/apache/camel-quarkus/issues/385)
-- camel-quarkus-microprofile-metrics - Does not work [\#384](https://github.com/apache/camel-quarkus/issues/384)
-- Avoid usage of the remote-resource-plugin and prefer local LICENSE / NOTICE files [\#376](https://github.com/apache/camel-quarkus/issues/376)
-- Upgrade to Quarkus 0.28.1 [\#372](https://github.com/apache/camel-quarkus/issues/372)
-- Add description to extension matedata [\#360](https://github.com/apache/camel-quarkus/issues/360)
-- Make netty-http dependent on netty and remove the duplications [\#357](https://github.com/apache/camel-quarkus/issues/357)
-- Issues in the List of extensions  [\#356](https://github.com/apache/camel-quarkus/issues/356)
-- Update contributor guide: s/json/yaml/, extension adoc page [\#354](https://github.com/apache/camel-quarkus/issues/354)
-- Add category to extension descriptors [\#347](https://github.com/apache/camel-quarkus/issues/347)
-- Experiment with the code formatter plugin https://code.revelc.net/formatter-maven-plugin/ [\#337](https://github.com/apache/camel-quarkus/issues/337)
-- Make the maven plugin depend on the camel package-maven-plugin [\#336](https://github.com/apache/camel-quarkus/issues/336)
-- Create a Camel Netty TCP extension [\#248](https://github.com/apache/camel-quarkus/issues/248)
-- Be listed in code.quarkus.io [\#190](https://github.com/apache/camel-quarkus/issues/190)
-
-**Merged pull requests:**
-
-- Fix \#356 Issues in the List of extensions [\#425](https://github.com/apache/camel-quarkus/pull/425) ([ppalaga](https://github.com/ppalaga))
-- build\(actions\): enable build in jvm mode for all the supported java versions [\#423](https://github.com/apache/camel-quarkus/pull/423) ([lburgazzoli](https://github.com/lburgazzoli))
-- xslt extension not building in native mode [\#422](https://github.com/apache/camel-quarkus/pull/422) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore: Remove unused itest dependencies [\#421](https://github.com/apache/camel-quarkus/pull/421) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add exec component extension [\#420](https://github.com/apache/camel-quarkus/pull/420) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#382 Support path parameters in platform-http [\#418](https://github.com/apache/camel-quarkus/pull/418) ([ppalaga](https://github.com/ppalaga))
-- chore: add timer-log-cdi example [\#414](https://github.com/apache/camel-quarkus/pull/414) ([lburgazzoli](https://github.com/lburgazzoli))
-- Dataformat [\#409](https://github.com/apache/camel-quarkus/pull/409) ([davsclaus](https://github.com/davsclaus))
-- Xslt [\#407](https://github.com/apache/camel-quarkus/pull/407) ([davsclaus](https://github.com/davsclaus))
-- core: avoid referencing application classes in bean build items and loading them in core build processors [\#405](https://github.com/apache/camel-quarkus/pull/405) ([lburgazzoli](https://github.com/lburgazzoli))
-- Scheduler [\#404](https://github.com/apache/camel-quarkus/pull/404) ([davsclaus](https://github.com/davsclaus))
-- Fix \#136 and \#396 [\#402](https://github.com/apache/camel-quarkus/pull/402) ([ppalaga](https://github.com/ppalaga))
-- chore: Fix deprecation warning on netty tests and simplify it a bit [\#401](https://github.com/apache/camel-quarkus/pull/401) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add file component extension [\#399](https://github.com/apache/camel-quarkus/pull/399) ([jamesnetherton](https://github.com/jamesnetherton))
-- Cleanup and CamelConfig improvements [\#397](https://github.com/apache/camel-quarkus/pull/397) ([lburgazzoli](https://github.com/lburgazzoli))
-- Cleanup Netty extension [\#395](https://github.com/apache/camel-quarkus/pull/395) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix license headers [\#394](https://github.com/apache/camel-quarkus/pull/394) ([ppalaga](https://github.com/ppalaga))
-- added Camel validation extension [\#393](https://github.com/apache/camel-quarkus/pull/393) ([ploef](https://github.com/ploef))
-- Perform TypeConverterLoader discovery using jandex instead of camel's class path scanner [\#392](https://github.com/apache/camel-quarkus/pull/392) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add SnakeYAML extension [\#390](https://github.com/apache/camel-quarkus/pull/390) ([jamesnetherton](https://github.com/jamesnetherton))
-- feat: controlbus extension. [\#388](https://github.com/apache/camel-quarkus/pull/388) ([davsclaus](https://github.com/davsclaus))
-- Recommend mvn license:format -Plicense in the docs [\#387](https://github.com/apache/camel-quarkus/pull/387) ([ppalaga](https://github.com/ppalaga))
-- Update to Quarkus 1.0.0.CR1 [\#381](https://github.com/apache/camel-quarkus/pull/381) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore: remove checkstyle leftovers [\#380](https://github.com/apache/camel-quarkus/pull/380) ([lburgazzoli](https://github.com/lburgazzoli))
-- Update to quarkus 0.28.1 [\#378](https://github.com/apache/camel-quarkus/pull/378) ([lburgazzoli](https://github.com/lburgazzoli))
-- Use local legal files, fixes \#376 [\#377](https://github.com/apache/camel-quarkus/pull/377) ([gnodet](https://github.com/gnodet))
-- Reuse camel package maven plugin to avoid duplicating code, fixes \#336 [\#375](https://github.com/apache/camel-quarkus/pull/375) ([gnodet](https://github.com/gnodet))
-- chore\(deps\): remove jetty-client from suport/common [\#374](https://github.com/apache/camel-quarkus/pull/374) ([lburgazzoli](https://github.com/lburgazzoli))
-- Upgrade to quarkus 0.28.0 [\#373](https://github.com/apache/camel-quarkus/pull/373) ([gnodet](https://github.com/gnodet))
-- Issue 337 [\#371](https://github.com/apache/camel-quarkus/pull/371) ([gnodet](https://github.com/gnodet))
-- Improve the Github workflows: use -ntp, check licenses, better step a… [\#370](https://github.com/apache/camel-quarkus/pull/370) ([ppalaga](https://github.com/ppalaga))
-- Use capabilities instead of feature names [\#369](https://github.com/apache/camel-quarkus/pull/369) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add description to extension matedata [\#367](https://github.com/apache/camel-quarkus/pull/367) ([lburgazzoli](https://github.com/lburgazzoli))
-- Set camel-quarkus-last-release: 0.3.1 in site.yml [\#366](https://github.com/apache/camel-quarkus/pull/366) ([ppalaga](https://github.com/ppalaga))
-- Fix \#357 Make netty-http dependent on netty and remove the duplications [\#365](https://github.com/apache/camel-quarkus/pull/365) ([ppalaga](https://github.com/ppalaga))
-- Make -Pnative equivalent with -Dnative, prefer -Pnative in the docs [\#363](https://github.com/apache/camel-quarkus/pull/363) ([ppalaga](https://github.com/ppalaga))
-- chore: fix cs [\#362](https://github.com/apache/camel-quarkus/pull/362) ([lburgazzoli](https://github.com/lburgazzoli))
-- Use uppercase FHIR where appropriate [\#359](https://github.com/apache/camel-quarkus/pull/359) ([ppalaga](https://github.com/ppalaga))
-- Publish discovered RoutesBuilders via CamelBeanBuildItem [\#358](https://github.com/apache/camel-quarkus/pull/358) ([ppalaga](https://github.com/ppalaga))
-- Fix \#354 Update contributor guide: s/json/yaml/, extension adoc page [\#355](https://github.com/apache/camel-quarkus/pull/355) ([ppalaga](https://github.com/ppalaga))
-- Camel quarkus netty [\#353](https://github.com/apache/camel-quarkus/pull/353) ([dhartford](https://github.com/dhartford))
-
-## [0.3.1](https://github.com/apache/camel-quarkus/tree/0.3.1) (2019-10-30)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/0.3.0...0.3.1)
-
-**Closed issues:**
-
-- Update to quarkus 0.27.0 when available [\#346](https://github.com/apache/camel-quarkus/issues/346)
-- platform-http should return 415 for an unaccepted content type [\#326](https://github.com/apache/camel-quarkus/issues/326)
-- TarfileTest can fail on exotic platforms [\#270](https://github.com/apache/camel-quarkus/issues/270)
-- platform-http component should return 204 for success and no body [\#220](https://github.com/apache/camel-quarkus/issues/220)
-
-**Merged pull requests:**
-
-- Improve service filter and related methods [\#351](https://github.com/apache/camel-quarkus/pull/351) ([lburgazzoli](https://github.com/lburgazzoli))
-- Upgrade to quarkus 0.27.0 [\#350](https://github.com/apache/camel-quarkus/pull/350) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#270 TarfileTest can fail on exotic platforms [\#349](https://github.com/apache/camel-quarkus/pull/349) ([ppalaga](https://github.com/ppalaga))
-- Fix \#220 platform-http component should return 204 for success and no… [\#348](https://github.com/apache/camel-quarkus/pull/348) ([ppalaga](https://github.com/ppalaga))
-- Set camel-quarkus-last-release: 0.3.0 in site.yml [\#345](https://github.com/apache/camel-quarkus/pull/345) ([ppalaga](https://github.com/ppalaga))
-- Improve the contributor guide, esp. the create-extension examples [\#343](https://github.com/apache/camel-quarkus/pull/343) ([ppalaga](https://github.com/ppalaga))
-- Created a camel-pdf component extension fixes \#341 [\#342](https://github.com/apache/camel-quarkus/pull/342) ([aldettinger](https://github.com/aldettinger))
-- Improve camel service discovery and filtering [\#340](https://github.com/apache/camel-quarkus/pull/340) ([lburgazzoli](https://github.com/lburgazzoli))
-- main: impove events and build phase [\#339](https://github.com/apache/camel-quarkus/pull/339) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#326 platform-http should return 415 for an unaccepted content type [\#335](https://github.com/apache/camel-quarkus/pull/335) ([ppalaga](https://github.com/ppalaga))
-
-## [0.3.0](https://github.com/apache/camel-quarkus/tree/0.3.0) (2019-10-25)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/0.2.0...0.3.0)
-
-**Implemented enhancements:**
-
-- Create a Camel VM extension [\#318](https://github.com/apache/camel-quarkus/issues/318)
-- Create a Camel Slack extension [\#305](https://github.com/apache/camel-quarkus/issues/305)
-
-**Fixed bugs:**
-
-- Paho integration tests fail in native mode [\#273](https://github.com/apache/camel-quarkus/issues/273)
-
-**Closed issues:**
-
-- Create a Camel pdf component extension [\#341](https://github.com/apache/camel-quarkus/issues/341)
-- Do not use docker to run native tests [\#332](https://github.com/apache/camel-quarkus/issues/332)
-- Document the platform-http extension [\#324](https://github.com/apache/camel-quarkus/issues/324)
-- Make camel-attachments an optional dependency of platform-http [\#322](https://github.com/apache/camel-quarkus/issues/322)
-- Upgarde to camel 3.0.0-RC3 [\#316](https://github.com/apache/camel-quarkus/issues/316)
-- Upgrade to quarkus 0.26.0 [\#315](https://github.com/apache/camel-quarkus/issues/315)
-- examples/rest-json - Needs trailing slash for urls to work [\#309](https://github.com/apache/camel-quarkus/issues/309)
-- Support multipart/form-data in platform-http extension [\#308](https://github.com/apache/camel-quarkus/issues/308)
-- Add observability example [\#297](https://github.com/apache/camel-quarkus/issues/297)
-- Add a support/xml artifact for common substrate support [\#294](https://github.com/apache/camel-quarkus/issues/294)
-- Rename xml-common extension to core-xml [\#292](https://github.com/apache/camel-quarkus/issues/292)
-- Bind discovered routes to registry to leverage RoutesCollector [\#290](https://github.com/apache/camel-quarkus/issues/290)
-- master failing  [\#288](https://github.com/apache/camel-quarkus/issues/288)
-- Un-negate the names [\#285](https://github.com/apache/camel-quarkus/issues/285)
-- Missing versions/dependancies in rest json example [\#281](https://github.com/apache/camel-quarkus/issues/281)
-- Add minimal extension metadata [\#278](https://github.com/apache/camel-quarkus/issues/278)
-- camel-quarkus-integration-test-core -Dnative outofmemory or 137 error [\#275](https://github.com/apache/camel-quarkus/issues/275)
-- Add tarfile extension [\#265](https://github.com/apache/camel-quarkus/issues/265)
-- About component REST compatibility issues [\#264](https://github.com/apache/camel-quarkus/issues/264)
-- integration-tests/servlet doesn't work in development mode [\#263](https://github.com/apache/camel-quarkus/issues/263)
-- Use bomEntryVersion of CreateExtensionMojo to avoid ${project.version} usage in BOMs [\#262](https://github.com/apache/camel-quarkus/issues/262)
-- camel-quarkus parent pom when already have a parent pom [\#260](https://github.com/apache/camel-quarkus/issues/260)
-- The User guide should refer to the rest-json example rather than the servlet itest [\#259](https://github.com/apache/camel-quarkus/issues/259)
-- Shell scripts in the user guide documentation are not compatible with Mac OS X [\#257](https://github.com/apache/camel-quarkus/issues/257)
-- \[servlet-extension\] Unrecognized configuration key "quarkus.camel.servlet.url-patterns" provided [\#251](https://github.com/apache/camel-quarkus/issues/251)
-- CamelContext.getVersion\(\) always returns an empty string [\#247](https://github.com/apache/camel-quarkus/issues/247)
-- Update doc with better extension list [\#245](https://github.com/apache/camel-quarkus/issues/245)
-- Auto configure MicroProfile metrics Camel context event notifier [\#240](https://github.com/apache/camel-quarkus/issues/240)
-- ActiveMQTestResource should not eat the exception [\#234](https://github.com/apache/camel-quarkus/issues/234)
-- Help with the creation of the Component Camel-Quarkus-JMS [\#233](https://github.com/apache/camel-quarkus/issues/233)
-- Add a daily job that test master agains quarkus snapshots [\#232](https://github.com/apache/camel-quarkus/issues/232)
-- Upgrade to Quarkus 0.23.0 [\#209](https://github.com/apache/camel-quarkus/issues/209)
-- Release 0.2.0 [\#203](https://github.com/apache/camel-quarkus/issues/203)
-- Remove scaffold-integration-test.groovy [\#173](https://github.com/apache/camel-quarkus/issues/173)
-- netty4-http producer fails with RejectedExecutionException [\#132](https://github.com/apache/camel-quarkus/issues/132)
-- Decide how to maintain examples [\#118](https://github.com/apache/camel-quarkus/issues/118)
-- camel application property routesUri is not overridden at runtime [\#54](https://github.com/apache/camel-quarkus/issues/54)
-
-**Merged pull requests:**
-
-- Polish examples and use -P native for all of them for native build. [\#334](https://github.com/apache/camel-quarkus/pull/334) ([davsclaus](https://github.com/davsclaus))
-- Do not use docker to run native tests, fixes \#332 [\#333](https://github.com/apache/camel-quarkus/pull/333) ([gnodet](https://github.com/gnodet))
-- Add Slack extension [\#331](https://github.com/apache/camel-quarkus/pull/331) ([jamesnetherton](https://github.com/jamesnetherton))
-- chore\(build\): add doclint-java8-disable profile borrowed from Apache Camel [\#329](https://github.com/apache/camel-quarkus/pull/329) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore\(build\): set groovy-maven-plugin version [\#328](https://github.com/apache/camel-quarkus/pull/328) ([lburgazzoli](https://github.com/lburgazzoli))
-- Improve dev mode [\#327](https://github.com/apache/camel-quarkus/pull/327) ([lburgazzoli](https://github.com/lburgazzoli))
-- Upgarde quarkus to v0.26.1 [\#325](https://github.com/apache/camel-quarkus/pull/325) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#322 Make camel-attachments an optional dependency of platform-http [\#323](https://github.com/apache/camel-quarkus/pull/323) ([ppalaga](https://github.com/ppalaga))
-- Fix \#308 Support multipart/form-data in platform-http extension [\#321](https://github.com/apache/camel-quarkus/pull/321) ([ppalaga](https://github.com/ppalaga))
-- Add jackson and vm extensions, fixes \#306 and \#318 [\#320](https://github.com/apache/camel-quarkus/pull/320) ([gnodet](https://github.com/gnodet))
-- Upgrade Camel & Quarkus to latest releases [\#317](https://github.com/apache/camel-quarkus/pull/317) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fixup \#262 Use bomEntryVersion of CreateExtensionMojo [\#313](https://github.com/apache/camel-quarkus/pull/313) ([ppalaga](https://github.com/ppalaga))
-- Timer example [\#312](https://github.com/apache/camel-quarkus/pull/312) ([davsclaus](https://github.com/davsclaus))
-- Add observability example [\#311](https://github.com/apache/camel-quarkus/pull/311) ([jamesnetherton](https://github.com/jamesnetherton))
-- chore: rename SubstrateProcessor [\#307](https://github.com/apache/camel-quarkus/pull/307) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore: add tests for quarkusio/quarkus\#4408 [\#301](https://github.com/apache/camel-quarkus/pull/301) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#285 Un-negate the config options names [\#300](https://github.com/apache/camel-quarkus/pull/300) ([ppalaga](https://github.com/ppalaga))
-- Improve XML support [\#298](https://github.com/apache/camel-quarkus/pull/298) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix version in integration-test-pom.xml [\#296](https://github.com/apache/camel-quarkus/pull/296) ([johnpoth](https://github.com/johnpoth))
-- Enable PlatformHttpTest.invalidMethod\(\) [\#295](https://github.com/apache/camel-quarkus/pull/295) ([ppalaga](https://github.com/ppalaga))
-- master failing [\#291](https://github.com/apache/camel-quarkus/pull/291) ([lburgazzoli](https://github.com/lburgazzoli))
-- Activate bomEntryVersion now that we are on Quarkus 0.25 [\#287](https://github.com/apache/camel-quarkus/pull/287) ([ppalaga](https://github.com/ppalaga))
-- Add FHIR extension [\#286](https://github.com/apache/camel-quarkus/pull/286) ([johnpoth](https://github.com/johnpoth))
-- Followup \#278 Assert that quarkus-extension.json exists for each exte… [\#284](https://github.com/apache/camel-quarkus/pull/284) ([ppalaga](https://github.com/ppalaga))
-- Document health, metrics & OpenTracing extensions [\#283](https://github.com/apache/camel-quarkus/pull/283) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add minimal extension metadata [\#282](https://github.com/apache/camel-quarkus/pull/282) ([lburgazzoli](https://github.com/lburgazzoli))
-- Update to quarkus 0.25.0 [\#280](https://github.com/apache/camel-quarkus/pull/280) ([lburgazzoli](https://github.com/lburgazzoli))
-- fix: Add OpenTracing extension [\#279](https://github.com/apache/camel-quarkus/pull/279) ([jamesnetherton](https://github.com/jamesnetherton))
-- fix\(build\): Handle loading routes from XML with latest camel SNAPSHOT [\#277](https://github.com/apache/camel-quarkus/pull/277) ([jamesnetherton](https://github.com/jamesnetherton))
-- fix: Paho integration tests fail in native mode [\#274](https://github.com/apache/camel-quarkus/pull/274) ([jamesnetherton](https://github.com/jamesnetherton))
-- fix: CamelContext.getVersion\(\) always returns an empty string [\#272](https://github.com/apache/camel-quarkus/pull/272) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add MicroProfile Health extension [\#271](https://github.com/apache/camel-quarkus/pull/271) ([jamesnetherton](https://github.com/jamesnetherton))
-- Polish2 [\#269](https://github.com/apache/camel-quarkus/pull/269) ([davsclaus](https://github.com/davsclaus))
-- Fixes \#265 - Add tarfile extension [\#266](https://github.com/apache/camel-quarkus/pull/266) ([davsclaus](https://github.com/davsclaus))
-- Fix \#259 The User guide should refer to the rest-json example [\#261](https://github.com/apache/camel-quarkus/pull/261) ([ppalaga](https://github.com/ppalaga))
-- Fix \#217 Support rest dsl in platform-http component [\#256](https://github.com/apache/camel-quarkus/pull/256) ([ppalaga](https://github.com/ppalaga))
-- Remove the script for generating synthetic test-jars [\#255](https://github.com/apache/camel-quarkus/pull/255) ([ppalaga](https://github.com/ppalaga))
-- Fix \#251 Unrecognized configuration key [\#254](https://github.com/apache/camel-quarkus/pull/254) ([ppalaga](https://github.com/ppalaga))
-- camel application property routesUri is not overridden at runtime [\#252](https://github.com/apache/camel-quarkus/pull/252) ([lburgazzoli](https://github.com/lburgazzoli))
-- \#245 update the extensions list in the website docs also [\#250](https://github.com/apache/camel-quarkus/pull/250) ([davsclaus](https://github.com/davsclaus))
-- Make xml and jaxb disabled by default and opt-in when depending on ca… [\#249](https://github.com/apache/camel-quarkus/pull/249) ([gnodet](https://github.com/gnodet))
-- chore: add some doc about camel-main build steps [\#246](https://github.com/apache/camel-quarkus/pull/246) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore: remove workaround for runtime registry as issue has been fixed upstream [\#244](https://github.com/apache/camel-quarkus/pull/244) ([lburgazzoli](https://github.com/lburgazzoli))
-- Generate extension list readme file via tooling like we do at Apache Camel [\#243](https://github.com/apache/camel-quarkus/pull/243) ([davsclaus](https://github.com/davsclaus))
-- quarkus-camel-catalog [\#242](https://github.com/apache/camel-quarkus/pull/242) ([davsclaus](https://github.com/davsclaus))
-- Auto configure MicroProfile metrics Camel context event notifier [\#241](https://github.com/apache/camel-quarkus/pull/241) ([jamesnetherton](https://github.com/jamesnetherton))
-- Added License header on the html file [\#239](https://github.com/apache/camel-quarkus/pull/239) ([WillemJiang](https://github.com/WillemJiang))
-- port rest-json quickstart to camel-quarkus [\#238](https://github.com/apache/camel-quarkus/pull/238) ([lburgazzoli](https://github.com/lburgazzoli))
-- Improve the beans and registry BuildItems' JavaDoc [\#237](https://github.com/apache/camel-quarkus/pull/237) ([ppalaga](https://github.com/ppalaga))
-- Add workarounds for https://github.com/quarkusio/quarkus/issues/4407 [\#236](https://github.com/apache/camel-quarkus/pull/236) ([lburgazzoli](https://github.com/lburgazzoli))
-- \#234 Added log when starting or stoping ActiveMQ Broker failed [\#235](https://github.com/apache/camel-quarkus/pull/235) ([WillemJiang](https://github.com/WillemJiang))
-- Add support for quarkus provided event loop [\#231](https://github.com/apache/camel-quarkus/pull/231) ([lburgazzoli](https://github.com/lburgazzoli))
-- Ensure the PlatformHttpComponent is registered before the routes are started [\#230](https://github.com/apache/camel-quarkus/pull/230) ([lburgazzoli](https://github.com/lburgazzoli))
-- Do not use deprecated methods [\#229](https://github.com/apache/camel-quarkus/pull/229) ([lburgazzoli](https://github.com/lburgazzoli))
-- Cleanup [\#228](https://github.com/apache/camel-quarkus/pull/228) ([lburgazzoli](https://github.com/lburgazzoli))
-- Use MainSupport as base for running Camel [\#226](https://github.com/apache/camel-quarkus/pull/226) ([lburgazzoli](https://github.com/lburgazzoli))
-- Rename substitutions class names [\#225](https://github.com/apache/camel-quarkus/pull/225) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore: rename CamelRegistryBuildItem to a more meaningful CamelBeanBuildItem [\#222](https://github.com/apache/camel-quarkus/pull/222) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore\(deps\): upgrade quarkus to v0.23.2 [\#221](https://github.com/apache/camel-quarkus/pull/221) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore: fix mail cs [\#219](https://github.com/apache/camel-quarkus/pull/219) ([lburgazzoli](https://github.com/lburgazzoli))
-- Remove scaffold-integration-test.groovy [\#216](https://github.com/apache/camel-quarkus/pull/216) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore\(build\): move depdendencies enforcer script to build/scripts [\#215](https://github.com/apache/camel-quarkus/pull/215) ([lburgazzoli](https://github.com/lburgazzoli))
-- Submodule for support extensions [\#214](https://github.com/apache/camel-quarkus/pull/214) ([lburgazzoli](https://github.com/lburgazzoli))
-- cleanup aws and paho extensions [\#212](https://github.com/apache/camel-quarkus/pull/212) ([lburgazzoli](https://github.com/lburgazzoli))
-- Upgarde to quarkus v0.23.1 [\#211](https://github.com/apache/camel-quarkus/pull/211) ([lburgazzoli](https://github.com/lburgazzoli))
-- Upgrade the docs to camel-quarkus-last-release: 0.2.0 [\#210](https://github.com/apache/camel-quarkus/pull/210) ([ppalaga](https://github.com/ppalaga))
-- Auto configuration of metrics management strategies [\#205](https://github.com/apache/camel-quarkus/pull/205) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#184 Leverage platform http service [\#201](https://github.com/apache/camel-quarkus/pull/201) ([ppalaga](https://github.com/ppalaga))
-- Fix \#133 Test netty4-http as a producer [\#134](https://github.com/apache/camel-quarkus/pull/134) ([ppalaga](https://github.com/ppalaga))
-
-## [0.2.0](https://github.com/apache/camel-quarkus/tree/0.2.0) (2019-09-23)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/0.1.0...0.2.0)
-
-**Implemented enhancements:**
-
-- Create a Camel MQTT extension [\#171](https://github.com/apache/camel-quarkus/issues/171)
-
-**Closed issues:**
-
-- Master broken [\#185](https://github.com/apache/camel-quarkus/issues/185)
-- Move the routesUri to the runtime config [\#182](https://github.com/apache/camel-quarkus/issues/182)
-- Generate a jar with a non-test pom for each integration test [\#179](https://github.com/apache/camel-quarkus/issues/179)
-- Remove support for defer-init-phase [\#172](https://github.com/apache/camel-quarkus/issues/172)
-- Trigger the rebuild of Camel website on docs/\*\*/\* change [\#168](https://github.com/apache/camel-quarkus/issues/168)
-- support for camel-timer [\#163](https://github.com/apache/camel-quarkus/issues/163)
-- Salesforce integration test takes 30+ mins [\#149](https://github.com/apache/camel-quarkus/issues/149)
-- Upgrade to Apache Camel RC1 [\#139](https://github.com/apache/camel-quarkus/issues/139)
-- Test netty4-http as a producer [\#133](https://github.com/apache/camel-quarkus/issues/133)
-- Properies evaluation broken after the introduction of PropertyBindingSupport [\#129](https://github.com/apache/camel-quarkus/issues/129)
-- Deployment BOM [\#124](https://github.com/apache/camel-quarkus/issues/124)
-- Publish snaphosts [\#123](https://github.com/apache/camel-quarkus/issues/123)
-- rename xml extension to xml-common [\#116](https://github.com/apache/camel-quarkus/issues/116)
-- Move create-extension-templates to i.e. tooling [\#114](https://github.com/apache/camel-quarkus/issues/114)
-- Document the release process [\#113](https://github.com/apache/camel-quarkus/issues/113)
-- Make camel-quarkus-bom usable as a parent for user applications [\#112](https://github.com/apache/camel-quarkus/issues/112)
-- Release v0.1.0 [\#109](https://github.com/apache/camel-quarkus/issues/109)
-- Servlet extension should set the default RestConfiguration [\#107](https://github.com/apache/camel-quarkus/issues/107)
-- Make CamelRuntime smart to decide deferInitPhase [\#96](https://github.com/apache/camel-quarkus/issues/96)
-- Env variable substitution doesn't work [\#82](https://github.com/apache/camel-quarkus/issues/82)
-- Bean extension fails in native mode due to using dynamic proxies [\#70](https://github.com/apache/camel-quarkus/issues/70)
-- FastCamelContext.clearModel\(\) causes NPEs at runtime [\#69](https://github.com/apache/camel-quarkus/issues/69)
-- Enforce dependency rules [\#58](https://github.com/apache/camel-quarkus/issues/58)
-- Re-introduce test scope in integration test projects [\#41](https://github.com/apache/camel-quarkus/issues/41)
-- Website [\#38](https://github.com/apache/camel-quarkus/issues/38)
-- quarkus-camel - Migrate option prefixes [\#8](https://github.com/apache/camel-quarkus/issues/8)
-- Upgrade to Camel SNAPSHOT [\#7](https://github.com/apache/camel-quarkus/issues/7)
-
-**Merged pull requests:**
-
-- Disable deployment of synthetic test poms for now see \#207 [\#208](https://github.com/apache/camel-quarkus/pull/208) ([ppalaga](https://github.com/ppalaga))
-- Improve the maven deployment of the synthetic test jars [\#206](https://github.com/apache/camel-quarkus/pull/206) ([ppalaga](https://github.com/ppalaga))
-- Set the missing deploy plugin properties for the reusable-test-jar ex… [\#204](https://github.com/apache/camel-quarkus/pull/204) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to Quarkus 0.22.0 [\#202](https://github.com/apache/camel-quarkus/pull/202) ([ppalaga](https://github.com/ppalaga))
-- improve the paho integration test [\#200](https://github.com/apache/camel-quarkus/pull/200) ([zhfeng](https://github.com/zhfeng))
-- Add the camel-paho extension to support the MQTT [\#197](https://github.com/apache/camel-quarkus/pull/197) ([zhfeng](https://github.com/zhfeng))
-- chore\(deps\): update quarkus to v0.21.2 [\#196](https://github.com/apache/camel-quarkus/pull/196) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore\(it\): add noDeps to quarkus-maven-plugin to make hot-reload working in multi-module projects [\#194](https://github.com/apache/camel-quarkus/pull/194) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore\(reflection\): add CamelContext and StreamCachingStrategy to the list of reflective classes [\#193](https://github.com/apache/camel-quarkus/pull/193) ([lburgazzoli](https://github.com/lburgazzoli))
-- don't start camel context before the container is fully started [\#192](https://github.com/apache/camel-quarkus/pull/192) ([lburgazzoli](https://github.com/lburgazzoli))
-- Issue 69 [\#187](https://github.com/apache/camel-quarkus/pull/187) ([gnodet](https://github.com/gnodet))
-- Fix \#179 Generate a jar with a non-test pom for each integration test [\#181](https://github.com/apache/camel-quarkus/pull/181) ([ppalaga](https://github.com/ppalaga))
-- Make code generators checkstyle compliant [\#177](https://github.com/apache/camel-quarkus/pull/177) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to Maven 3.6.2 [\#176](https://github.com/apache/camel-quarkus/pull/176) ([ppalaga](https://github.com/ppalaga))
-- Fix checkstyle violations [\#175](https://github.com/apache/camel-quarkus/pull/175) ([jamesnetherton](https://github.com/jamesnetherton))
-- Expose metrics in quarkus [\#174](https://github.com/apache/camel-quarkus/pull/174) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to Apache Camel RC1 [\#170](https://github.com/apache/camel-quarkus/pull/170) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add website build trigger [\#169](https://github.com/apache/camel-quarkus/pull/169) ([zregvart](https://github.com/zregvart))
-- CSV Extension [\#167](https://github.com/apache/camel-quarkus/pull/167) ([ppalaga](https://github.com/ppalaga))
-- Fixes \#123 adding a deploy profile [\#166](https://github.com/apache/camel-quarkus/pull/166) ([oscerd](https://github.com/oscerd))
-- camel-zipfile quarkus extension [\#165](https://github.com/apache/camel-quarkus/pull/165) ([davsclaus](https://github.com/davsclaus))
-- Support for camel-mail [\#164](https://github.com/apache/camel-quarkus/pull/164) ([gnodet](https://github.com/gnodet))
-- Groovy script to scaffold an integration test when creating a new [\#160](https://github.com/apache/camel-quarkus/pull/160) ([ppalaga](https://github.com/ppalaga))
-- Fix \#70 Bean extension does not fail in native mode due to dynamic pr… [\#158](https://github.com/apache/camel-quarkus/pull/158) ([ppalaga](https://github.com/ppalaga))
-- Fixup \#124 Deployments POM [\#157](https://github.com/apache/camel-quarkus/pull/157) ([ppalaga](https://github.com/ppalaga))
-- Fix \#58 Enforce dependency rules [\#156](https://github.com/apache/camel-quarkus/pull/156) ([ppalaga](https://github.com/ppalaga))
-- Update the link to the new site of Camel [\#155](https://github.com/apache/camel-quarkus/pull/155) ([oscerd](https://github.com/oscerd))
-- Remove unecessary conditional discovery [\#154](https://github.com/apache/camel-quarkus/pull/154) ([lburgazzoli](https://github.com/lburgazzoli))
-- Adapt the Contributor guide to the new layout of POMs and new native … [\#153](https://github.com/apache/camel-quarkus/pull/153) ([ppalaga](https://github.com/ppalaga))
-- Modularize recorder and processors [\#152](https://github.com/apache/camel-quarkus/pull/152) ([lburgazzoli](https://github.com/lburgazzoli))
-- Set disableReports=true in quarkus-maven-plugin config to speed up th… [\#151](https://github.com/apache/camel-quarkus/pull/151) ([ppalaga](https://github.com/ppalaga))
-- Fix \#41 Re-introduce test scope in integration test projects [\#150](https://github.com/apache/camel-quarkus/pull/150) ([ppalaga](https://github.com/ppalaga))
-- Basic impl for \#147 [\#148](https://github.com/apache/camel-quarkus/pull/148) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore\(test\): add test to validate camel registry hooks in ArC [\#146](https://github.com/apache/camel-quarkus/pull/146) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#124 Deployment BOM [\#145](https://github.com/apache/camel-quarkus/pull/145) ([ppalaga](https://github.com/ppalaga))
-- chore\(extension\): add extension for camel-http-common [\#144](https://github.com/apache/camel-quarkus/pull/144) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add tests to the twitter itest project [\#138](https://github.com/apache/camel-quarkus/pull/138) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to Quarkus 0.21.1 [\#137](https://github.com/apache/camel-quarkus/pull/137) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to Quarkus 0.21.0 [\#135](https://github.com/apache/camel-quarkus/pull/135) ([ppalaga](https://github.com/ppalaga))
-- Fix \#129 Properies evaluation broken after the introduction of Proper… [\#130](https://github.com/apache/camel-quarkus/pull/130) ([ppalaga](https://github.com/ppalaga))
-- Order the dependencies managed in the BOM [\#127](https://github.com/apache/camel-quarkus/pull/127) ([ppalaga](https://github.com/ppalaga))
-- Fix \#114 Move create-extension-templates to i.e. tooling [\#126](https://github.com/apache/camel-quarkus/pull/126) ([ppalaga](https://github.com/ppalaga))
-- Fix \#113 Document the release process [\#125](https://github.com/apache/camel-quarkus/pull/125) ([ppalaga](https://github.com/ppalaga))
-- User guide [\#122](https://github.com/apache/camel-quarkus/pull/122) ([ppalaga](https://github.com/ppalaga))
-- create extension for camel's core cloud impl [\#121](https://github.com/apache/camel-quarkus/pull/121) ([lburgazzoli](https://github.com/lburgazzoli))
-- Override DefaultStreamCachingStrategy::resolveSpoolDirectory to avoid NPE [\#120](https://github.com/apache/camel-quarkus/pull/120) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore: replace custom properties binding implementation with PropertyBindingSupport from camel support [\#119](https://github.com/apache/camel-quarkus/pull/119) ([lburgazzoli](https://github.com/lburgazzoli))
-- rename xml extension to xml-common [\#117](https://github.com/apache/camel-quarkus/pull/117) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#112 Make camel-quarkus-bom usable as a parent for user applications [\#115](https://github.com/apache/camel-quarkus/pull/115) ([ppalaga](https://github.com/ppalaga))
-
-## [0.1.0](https://github.com/apache/camel-quarkus/tree/0.1.0) (2019-08-07)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/0.0.2...0.1.0)
-
-**Implemented enhancements:**
-
-- Consider porting the Twitter Camel support [\#57](https://github.com/apache/camel-quarkus/issues/57)
-
-**Closed issues:**
-
-- Figure out whether the Reifier substitutions can be added conditionally [\#98](https://github.com/apache/camel-quarkus/issues/98)
-- AWS Extensions integration test are not built as native [\#81](https://github.com/apache/camel-quarkus/issues/81)
-- Documentation [\#37](https://github.com/apache/camel-quarkus/issues/37)
-- Release first version of camel-quarkus [\#36](https://github.com/apache/camel-quarkus/issues/36)
-- "Multiple consumers for the same endpoint" after renaming packages in extensions/servlet/deployment/src/test/java [\#24](https://github.com/apache/camel-quarkus/issues/24)
-
-**Merged pull requests:**
-
-- Figure out whether the Reifier substitutions can be added conditionally [\#110](https://github.com/apache/camel-quarkus/pull/110) ([lburgazzoli](https://github.com/lburgazzoli))
-- Use source block instead of code [\#106](https://github.com/apache/camel-quarkus/pull/106) ([zregvart](https://github.com/zregvart))
-- Fix \#37 Setup the documentation [\#105](https://github.com/apache/camel-quarkus/pull/105) ([ppalaga](https://github.com/ppalaga))
-- Remove the TravisCI badge from the README [\#104](https://github.com/apache/camel-quarkus/pull/104) ([ppalaga](https://github.com/ppalaga))
-- Rename the rest of java packages in itests [\#103](https://github.com/apache/camel-quarkus/pull/103) ([ppalaga](https://github.com/ppalaga))
-- Add configuration for quarkus:create-extension mojo [\#102](https://github.com/apache/camel-quarkus/pull/102) ([ppalaga](https://github.com/ppalaga))
-- chore\(cleanup\): remove ide-config [\#101](https://github.com/apache/camel-quarkus/pull/101) ([lburgazzoli](https://github.com/lburgazzoli))
-- Upgrade quarkus to v0.20.0  plsu some cleanup [\#100](https://github.com/apache/camel-quarkus/pull/100) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add twitter extension [\#99](https://github.com/apache/camel-quarkus/pull/99) ([jamesnetherton](https://github.com/jamesnetherton))
-- Omit the artifactId in release tags [\#95](https://github.com/apache/camel-quarkus/pull/95) ([ppalaga](https://github.com/ppalaga))
-- Fix typo s/AWs\_REGION/AWS\_REGION/ [\#94](https://github.com/apache/camel-quarkus/pull/94) ([ppalaga](https://github.com/ppalaga))
-- Move test packages to org.apache.camel [\#77](https://github.com/apache/camel-quarkus/pull/77) ([lburgazzoli](https://github.com/lburgazzoli))
-- Upgrade to Camel 3.0.0-M4 [\#72](https://github.com/apache/camel-quarkus/pull/72) ([ppalaga](https://github.com/ppalaga))
-
-## [0.0.2](https://github.com/apache/camel-quarkus/tree/0.0.2) (2019-07-29)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/camel-quarkus-parent-0.0.1...0.0.2)
-
-## [camel-quarkus-parent-0.0.1](https://github.com/apache/camel-quarkus/tree/camel-quarkus-parent-0.0.1) (2019-07-25)
-
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/0e8177815305790d7e79004a9e9f81a48d2b7c41...camel-quarkus-parent-0.0.1)
-
-**Closed issues:**
-
-- Upgrade quarkus to v0.19.0 [\#60](https://github.com/apache/camel-quarkus/issues/60)
-- Review extensions' dependencies chains [\#56](https://github.com/apache/camel-quarkus/issues/56)
-- Use caffein as LRUCache in native mode [\#45](https://github.com/apache/camel-quarkus/issues/45)
-- Infinispan substrate test are disbaled [\#44](https://github.com/apache/camel-quarkus/issues/44)
-- Use RestAssured in JDBC test [\#42](https://github.com/apache/camel-quarkus/issues/42)
-- Move Bean test out of Core integration test [\#39](https://github.com/apache/camel-quarkus/issues/39)
-- Move XStream processor from salesforce to a dedicated extension [\#34](https://github.com/apache/camel-quarkus/issues/34)
-- Move jetty processor from salesforce to a dedicated extension [\#33](https://github.com/apache/camel-quarkus/issues/33)
-- Move netty integration-tests out of core [\#32](https://github.com/apache/camel-quarkus/issues/32)
-- Move infinispan integration-tests out of core [\#31](https://github.com/apache/camel-quarkus/issues/31)
-- Use docker-build in travis [\#29](https://github.com/apache/camel-quarkus/issues/29)
-- Rename integration test artifacts [\#25](https://github.com/apache/camel-quarkus/issues/25)
-- Avoid 3rd party maven repositories if possible [\#20](https://github.com/apache/camel-quarkus/issues/20)
-- Configure license format [\#19](https://github.com/apache/camel-quarkus/issues/19)
-- Add Camel-AWS-EKS extension [\#18](https://github.com/apache/camel-quarkus/issues/18)
-- Configure checkstyle [\#14](https://github.com/apache/camel-quarkus/issues/14)
-- Test the native mode on TravisCI [\#11](https://github.com/apache/camel-quarkus/issues/11)
-- Produce test-jars of the integration tests [\#10](https://github.com/apache/camel-quarkus/issues/10)
-- Initial source code - Package names [\#6](https://github.com/apache/camel-quarkus/issues/6)
-- Initial source code - Maven GAV [\#5](https://github.com/apache/camel-quarkus/issues/5)
-- Initial source code - Add license headers [\#4](https://github.com/apache/camel-quarkus/issues/4)
-
-**Merged pull requests:**
-
-- Added failIfNoTest option in surefire configuration [\#93](https://github.com/apache/camel-quarkus/pull/93) ([oscerd](https://github.com/oscerd))
-- chore\(build\): move release profile to camel-quarkus-parent [\#92](https://github.com/apache/camel-quarkus/pull/92) ([lburgazzoli](https://github.com/lburgazzoli))
-- Remove unused imports from CamelRoute in netty4-http integration test [\#91](https://github.com/apache/camel-quarkus/pull/91) ([ppalaga](https://github.com/ppalaga))
-- chore\(it\): cleanup it poms [\#90](https://github.com/apache/camel-quarkus/pull/90) ([lburgazzoli](https://github.com/lburgazzoli))
-- AWS Extension configuration classes need to be registered for reflection [\#89](https://github.com/apache/camel-quarkus/pull/89) ([oscerd](https://github.com/oscerd))
-- Changed the integration test module name and folder name for AWS [\#88](https://github.com/apache/camel-quarkus/pull/88) ([oscerd](https://github.com/oscerd))
-- chore\(test\): add camel core cdi test [\#87](https://github.com/apache/camel-quarkus/pull/87) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix typo s/nett4/netty4/ [\#86](https://github.com/apache/camel-quarkus/pull/86) ([ppalaga](https://github.com/ppalaga))
-- Add a single integration test module for the AWS extensions [\#85](https://github.com/apache/camel-quarkus/pull/85) ([oscerd](https://github.com/oscerd))
-- chore\(it\): cleanup application.properties and poms [\#84](https://github.com/apache/camel-quarkus/pull/84) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fixes \#18 Add a Camel AWS-EKS Extension [\#83](https://github.com/apache/camel-quarkus/pull/83) ([oscerd](https://github.com/oscerd))
-- Move netty integration-tests out of core [\#79](https://github.com/apache/camel-quarkus/pull/79) ([lburgazzoli](https://github.com/lburgazzoli))
-- Dedicated extension for jetty and xstream [\#78](https://github.com/apache/camel-quarkus/pull/78) ([lburgazzoli](https://github.com/lburgazzoli))
-- Prepare for Camel 3.0.0-M3/4 [\#67](https://github.com/apache/camel-quarkus/pull/67) ([ppalaga](https://github.com/ppalaga))
-- Upgrade quarkus to v0.19.1 [\#66](https://github.com/apache/camel-quarkus/pull/66) ([lburgazzoli](https://github.com/lburgazzoli))
-- Upgrade quarkus to v0.19.0 [\#64](https://github.com/apache/camel-quarkus/pull/64) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore\(build\): cleanup build set-up [\#61](https://github.com/apache/camel-quarkus/pull/61) ([lburgazzoli](https://github.com/lburgazzoli))
-- Review extensions' dependencies chains [\#59](https://github.com/apache/camel-quarkus/pull/59) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#31 Move infinispan integration-tests out of core [\#55](https://github.com/apache/camel-quarkus/pull/55) ([ppalaga](https://github.com/ppalaga))
-- chore\(build\): remove travis build [\#53](https://github.com/apache/camel-quarkus/pull/53) ([lburgazzoli](https://github.com/lburgazzoli))
-- Removed Jenkinsfile not used [\#52](https://github.com/apache/camel-quarkus/pull/52) ([oscerd](https://github.com/oscerd))
-- Do not use io.quarkus...FeatureBuildItem feature constants [\#50](https://github.com/apache/camel-quarkus/pull/50) ([ppalaga](https://github.com/ppalaga))
-- chore\(build\): add Jenkinsfile [\#49](https://github.com/apache/camel-quarkus/pull/49) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore\(arc\): add ConsumerTemplate and ProducerTemplate producers [\#48](https://github.com/apache/camel-quarkus/pull/48) ([lburgazzoli](https://github.com/lburgazzoli))
-- Use RestAssured in JDBC test [\#47](https://github.com/apache/camel-quarkus/pull/47) ([lburgazzoli](https://github.com/lburgazzoli))
-- Caffeine [\#46](https://github.com/apache/camel-quarkus/pull/46) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore: ignore ObjectStore folder [\#43](https://github.com/apache/camel-quarkus/pull/43) ([lburgazzoli](https://github.com/lburgazzoli))
-- Manage camel-servlet and camel-aws-sns in the BOM [\#40](https://github.com/apache/camel-quarkus/pull/40) ([ppalaga](https://github.com/ppalaga))
-- Fix \#10 Produce test-jars of the integration tests [\#35](https://github.com/apache/camel-quarkus/pull/35) ([ppalaga](https://github.com/ppalaga))
-- Use docker-build in travis [\#30](https://github.com/apache/camel-quarkus/pull/30) ([lburgazzoli](https://github.com/lburgazzoli))
-- Avoid 3rd party maven repositories if possible [\#28](https://github.com/apache/camel-quarkus/pull/28) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add badges and How to build section to the README [\#27](https://github.com/apache/camel-quarkus/pull/27) ([ppalaga](https://github.com/ppalaga))
-- Fix \#25 Use the same naming scheme for artifactIds and module names [\#26](https://github.com/apache/camel-quarkus/pull/26) ([ppalaga](https://github.com/ppalaga))
-- Fix \#6 Rename packages from io.quarkus.camel to org.apache.camel.quarkus [\#23](https://github.com/apache/camel-quarkus/pull/23) ([ppalaga](https://github.com/ppalaga))
-- Initial import cleanup [\#22](https://github.com/apache/camel-quarkus/pull/22) ([lburgazzoli](https://github.com/lburgazzoli))
-- Use vanilla Maven Compiler Plugin version \(from maven central\) [\#21](https://github.com/apache/camel-quarkus/pull/21) ([davsclaus](https://github.com/davsclaus))
-- chore\(build\): use project.version [\#15](https://github.com/apache/camel-quarkus/pull/15) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add keys [\#13](https://github.com/apache/camel-quarkus/pull/13) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#11 Test the native mode on TravisCI [\#12](https://github.com/apache/camel-quarkus/pull/12) ([ppalaga](https://github.com/ppalaga))
-- Migrate Camel extensions from Quarkus [\#3](https://github.com/apache/camel-quarkus/pull/3) ([ppalaga](https://github.com/ppalaga))
-- Add Maven wrapper and .travis.yml [\#2](https://github.com/apache/camel-quarkus/pull/2) ([ppalaga](https://github.com/ppalaga))
-- Add Parent POM [\#1](https://github.com/apache/camel-quarkus/pull/1) ([ppalaga](https://github.com/ppalaga))
-
-
-
-\* *This Changelog was automatically generated by [github_changelog_generator](https://github.com/github-changelog-generator/github-changelog-generator)*
+## 3.0.0-RC2
+
+* Restore native profiles to kubernetes-client tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5047
+* Remove skip of maven-enforcer-plugin for Google extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5049
+* Re-enable google-bigquery and add a work around by @zhfeng in https://github.com/apache/camel-quarkus/pull/5041
+* Bump quarkus-micrometer-registry-jmx from 3.0.2 to 3.1.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/5055
+* Bump quarkus-amazon-services-bom from 2.3.3 to 2.4.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/5054
+* Add sync tag for Groovy version property by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5052
+* Improve native support of camel-quarkus-debug by @essobedo in https://github.com/apache/camel-quarkus/pull/5060
+* Set the official snapshot repositories by @essobedo in https://github.com/apache/camel-quarkus/pull/5062
+* chore: fix various build/compilation warnings by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/5053
+* Ref #5056: Replace the deprecated RecorderContext#classProxy by @essobedo in https://github.com/apache/camel-quarkus/pull/5066
+* Fix #5068 to add a pooling test with quarkus-qpid-jms by @zhfeng in https://github.com/apache/camel-quarkus/pull/5069
+* Restrict downloading of com.atlassian dependencies to packages.atlassian.com by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5065
+* Bump htmlunit-driver from 4.9.1 to 4.10.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/5063
+* Bump os-maven-plugin from 1.7.0 to 1.7.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/5064
+* Use NativeImageFeatureBuildItem instead of deprecated AutomaticFeature annotation by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5074
+* Register additional JDK classes for serialization required by Nitrite by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5075
+* chore: Add git diff when there are uncommitted changes by @essobedo in https://github.com/apache/camel-quarkus/pull/5076
+* Ref #5067: Make expression extractor supports properties by @essobedo in https://github.com/apache/camel-quarkus/pull/5079
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5085
+* Ref #5056: Improve the replacement of RecorderContext#classProxy by @essobedo in https://github.com/apache/camel-quarkus/pull/5077
+* Enable Twilio test after the component was fixed via Camel 4.0.0-M2 by @ppalaga in https://github.com/apache/camel-quarkus/pull/5078
+* NettyHttpJaasTestResource reads config.jaas from disk  by @ppalaga in https://github.com/apache/camel-quarkus/pull/5084
+* Re-add activemq extension after it was added back in Camel 4.0.0-RC1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/5089
+* Velocity $foreach.index, $foreach.count and $foreach.hasNext do not work in native mode by @ppalaga in https://github.com/apache/camel-quarkus/pull/5090
+* Add a note to the contributor guide about keeping junit & Co. in Maven test scope by @ppalaga in https://github.com/apache/camel-quarkus/pull/5091
+* [ #3087] Divide HTTP tests into separate modules by @avano in https://github.com/apache/camel-quarkus/pull/5073
+* Replace org.graalvm.nativeimage:svm with org.graalvm.sdk:graal-sdk which has a status of public API by @ppalaga in https://github.com/apache/camel-quarkus/pull/5038
+* Build Camel on the nightly build instead of relying on the SNAPSHOT repo by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5061
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5097
+* Bump quarkus-amazon-services-bom from 2.4.0 to 2.4.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/5093
+* Bump quarkiverse-jsch.version from 3.0.1 to 3.0.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/5094
+* Bump quarkiverse-tika.version from 2.0.0 to 2.0.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/5095
+* Bump quarkus-qpid-jms-bom from 2.3.0 to 2.4.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/5096
+* Remove pdfbox dependency excludes from quarkus-tika by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5098
+* Bump quarkiverse-jgit.version from 3.0.1 to 3.0.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/5101
+* Manage io.dropwizard.metrics dependencies used by camel-quarkus extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5100
+* Simplify MicrometerTest.testDumpAsJson results extraction by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5102
+* Add missing graal-sdk dependency declaration to extensions that use GraalVM APIs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5103
+* Added atlassion-groupId for the correct functionality with the 'io.atlassian.fugue' by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5104
+* Upgrade Quarkus to 3.2.1.final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5105
+* Fix hamcrest GAV in bom-test by @claudio4j in https://github.com/apache/camel-quarkus/pull/5106
+* Build Camel from source for camel-main branch builds by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5112
+* Do not produce JmxMeterRegistry bean in native mode testing by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5113
+* Upgrade Quarkus to 3.2.2.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5114
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5115
+* Bump quarkiverse-groovy.version from 3.2.1 to 3.2.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/5120
+* Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 2.4.1 to 2.4.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/5124
+* SNMPv3 test coverage by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5122
+* Add MapStruct native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5123
+* Ref #5026: Delay the init of ICMPHelper on non Linux OS by @essobedo in https://github.com/apache/camel-quarkus/pull/5125
+* Disallow invalid host/port values on the vertx-websocket server consumer by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5127
+* Configure native-image-xmx for kubernetes and master-openshift native tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5128
+* Bump quarkiverse-mybatis.version from 2.0.0 to 2.1.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/5129
+* Camel 4.0.0 rc2 upgrade by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5119
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.0.0-RC1...3.0.0-RC2
+
+## 3.0.0-RC1
+
+* Bump quarkus-amazon-services-bom from 2.2.0 to 2.3.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/4930
+* Fix #4793 to update MyBatisConsumerTest and keep awaitility in the test scope by @zhfeng in https://github.com/apache/camel-quarkus/pull/4932
+* [IBM-MQ] Add tests for IBM MQ client by @avano in https://github.com/apache/camel-quarkus/pull/4918
+* Ban com.github.spotbugs:spotbugs-annotations by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4933
+* Micrometer: InstrumentedThreadPoolFactory by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4935
+* Restore master itest platform exclusion by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4936
+* Bump quarkus-qpid-jms-bom from 2.1.0 to 2.2.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/4938
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/4939
+* Added link to get started with Camel in general. by @spatnity in https://github.com/apache/camel-quarkus/pull/4941
+* Upgrade Debezium to 2.2.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4942
+* Bump quarkiverse-cxf.version from 2.0.4 to 2.1.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/4937
+* Revert "file: disabling idempotent test in order to experiment around flakiness by @aldettinger in https://github.com/apache/camel-quarkus/pull/4946
+* Cxf-soap: Extend test coverage with Converter scenario #4652 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4653
+* Bump quarkiverse-jsch.version from 3.0.0 to 3.0.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/4948
+* Fix broken formatting on the CXF extension page by @ppalaga in https://github.com/apache/camel-quarkus/pull/4949
+* Bump quarkiverse-minio.version from 3.0.2 to 3.1.0.Final by @dependabot in https://github.com/apache/camel-quarkus/pull/4952
+* Bump formatter-maven-plugin from 2.22.0 to 2.23.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/4953
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/4954
+* Use correct package for cxf-soap-server tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4958
+* Ref #4960: Upgrade Groovy to 4.0.12 by @essobedo in https://github.com/apache/camel-quarkus/pull/4963
+* Ref #4959: Delegate complexity to quarkus-groovy by @essobedo in https://github.com/apache/camel-quarkus/pull/4965
+* Use GitHub SCM URL because https://gitbox.apache.org/repos/asf?p=camel-quarkus.git redirects to GitHub anyway by @ppalaga in https://github.com/apache/camel-quarkus/pull/4966
+* Fix formatting in the release guide by @ppalaga in https://github.com/apache/camel-quarkus/pull/4970
+* Be more precise about the WS standards coverage, add ,subs="attributes+" to code snippets on the CXF extension page by @ppalaga in https://github.com/apache/camel-quarkus/pull/4969
+* Bump unboundid-ldapsdk from 6.0.8 to 6.0.9 by @dependabot in https://github.com/apache/camel-quarkus/pull/4972
+* Expand micrometer test coverage #4582 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4951
+* Bump quarkus-micrometer-registry-jmx from 0.2.0 to 3.0.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/4974
+* Add a profile for analyzing possible dependency conflicts between Camel and Quarkus by @ppalaga in https://github.com/apache/camel-quarkus/pull/4976
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/4977
+* Add GitHub Actions workflows to label issues and assign a milestone by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4978
+* Bump wiremock from 3.0.0-beta-8 to 3.0.0-beta-9 by @dependabot in https://github.com/apache/camel-quarkus/pull/4982
+* camel-quarkus-crypto: Added test to sign/verify raw keys by @djcoleman in https://github.com/apache/camel-quarkus/pull/4980
+* Temporarily disable auto milestone on PR merge due to permission issues by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4985
+* Add test coverage for MDC logging by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4967
+* JAXB integration tests failing fix if locale different from EN #4135 by @spatnity in https://github.com/apache/camel-quarkus/pull/4986
+* Bump quarkus-amazon-services-bom from 2.3.0 to 2.3.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/4987
+* Upgrade hazelcast-quarkus-client to 4.0.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4990
+* Bump quarkiverse-jgit.version from 3.0.0 to 3.0.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/4991
+* file: rewrite filter and idempotent tests from scratch for clarity by @aldettinger in https://github.com/apache/camel-quarkus/pull/4993
+* Bump quarkus-artemis-bom from 3.0.0 to 3.0.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/4994
+* Bump wiremock from 3.0.0-beta-9 to 3.0.0-beta-10 by @dependabot in https://github.com/apache/camel-quarkus/pull/4995
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/4996
+* Restore issue auto milestone workflow by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4997
+* Re-enable jira tests by @zhfeng in https://github.com/apache/camel-quarkus/pull/5000
+* Remove Spring dependencies from Jira extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5001
+* Add names to auto milestone workflows by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5002
+* Restore FOP integration test native profile by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5003
+* Prevent user added issue labels from being incorrectly removed by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5005
+* Upgrade Quarkus to 3.2.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5004
+* Disable google-storage native profile due to #5010 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5011
+* Upgrade quarkus-amazon-services-bom to 2.3.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5012
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5013
+* [closes #4956] Extend netty-http test coverage by @avano in https://github.com/apache/camel-quarkus/pull/4999
+* Upgrade to quarkus-cxf 2.2.0.CR1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/5015
+* Fix #5016 to add a IBMMQ pooling test with quarkus-pooled-jms by @zhfeng in https://github.com/apache/camel-quarkus/pull/5017
+* Micrometer: Custom registry coverage is missing #5018 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5019
+* Fix image links for CI status badges by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5022
+* Remove reserve-network-port execution for integration tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5021
+* Ref #2800: Remove the addition of affinity for mac os by @essobedo in https://github.com/apache/camel-quarkus/pull/5025
+* Upgrade Quarkus to 3.2.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5027
+* Micrometer: SimpleMeterRegistry is not created if no other registry is defined #5023 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5024
+* Micrometer: It is not necessary to produce JMXRegistry for the test #5030 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5031
+* Upgrade to quarkus-cxf 2.2.0 by @ppalaga in https://github.com/apache/camel-quarkus/pull/5032
+* Re-enable google-pubsub and google-storage and add a workaround by @zhfeng in https://github.com/apache/camel-quarkus/pull/5033
+* Bump quarkus-qpid-jms-bom from 2.2.0 to 2.3.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/5039
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5040
+* Add native support for camel-quarkus-management by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5037
+* Upgrade Camel to 4.0.0-RC1 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5036
+* Add native support for camel-quarkus-debug by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5043
+* Bump quarkus-amazon-services-bom from 2.3.2 to 2.3.3 by @dependabot in https://github.com/apache/camel-quarkus/pull/5046
+* Ref #5044 - Upgrade Quarkus Groovy to 3.2.1 by @essobedo in https://github.com/apache/camel-quarkus/pull/5045
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.0.0-M2...3.0.0-RC1
+
+## 3.0.0-M2
+
+* Fix metrics introduction in observability doc by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4660
+* Upgrade Quarkus to 3.0.0.Alpha6 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4659
+* camel-quarkus-management: Added tests for managed beans by @djcoleman in https://github.com/apache/camel-quarkus/pull/4663
+* Remove redundant Azure IdentityClientBase runtime initialized class config by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4666
+* Make AWS test class names in grouped testing unique by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4665
+* Fix #4667 to use quay.io/jbosstm/lra-coordinator by @zhfeng in https://github.com/apache/camel-quarkus/pull/4668
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/4669
+* Use QUARKUS_HTTP_PORT env in LraTestResource by @zhfeng in https://github.com/apache/camel-quarkus/pull/4670
+* Auto synchronize dependabot branches with generated changes by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4645
+* Add icon-url attribute to quarkus-extension.yaml pointing to Camel logo by @ppalaga in https://github.com/apache/camel-quarkus/pull/4673
+* Revert "Temporary workaround for #4603 IllegalAnnotationsException Two classes by @ppalaga in https://github.com/apache/camel-quarkus/pull/4678
+* Init Migrating to Camel Quarkus 3.0 guide by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4680
+* Update checkout action configuration to pick up dependabot branch changes by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4682
+* Bump quarkiverse-mybatis.version from 2.0.0.CR1 to 2.0.0.CR2 by @dependabot in https://github.com/apache/camel-quarkus/pull/4674
+* Upgrade Quarkus to 3.0.0.Beta1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4687
+* Update Migration guide : add missing removed dependencies by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4688
+* Enable back Telegram mp3, mp4 and pdf integration tests by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4692
+* Add back DataSonnet by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4690
+* Fix xref links in 3.0.0 migration guide by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4696
+* Fix #4694 remove and replace some methods in ReflectiveClassBuildItem by @zhfeng in https://github.com/apache/camel-quarkus/pull/4695
+* Ref #4596: Expand JDBC tests - named parameters and samples by @ldrozdo in https://github.com/apache/camel-quarkus/pull/4655
+* Update jvmSince and nativeSince from 2.17.0 to 3.0.0 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4700
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/4701
+* Update SNAPSHOT deploy and Sonarcloud builds to use JDK 17 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4702
+* Fix (jira): Add jira model classes and jackson joda datatype (main branch) by @claudio4j in https://github.com/apache/camel-quarkus/pull/4691
+* Add Elasticsearch and Mapstruct in JVM only and drop Elasticsearch-rest and Dozer by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4697
+* Complete vertx-http test coverage #4658 by @aldettinger in https://github.com/apache/camel-quarkus/pull/4708
+* Test CXF client with HTTP BASIC authentication  by @ppalaga in https://github.com/apache/camel-quarkus/pull/4709
+* Cxf-soap: Extend test coverage with Ssl scenario #4679 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4681
+* vertx-http: remove deprecated serviceCall eip by @aldettinger in https://github.com/apache/camel-quarkus/pull/4719
+* Fix #4710 to register reflection for FastStringBuffer and resource bundle for XMLErrorResources by @zhfeng in https://github.com/apache/camel-quarkus/pull/4720
+* Upgrade Quarkus to 3.0.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4724
+* Upgrade to Quarkus Cassandra 1.2.0-alpha1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4612
+* Start JDBC polling after database initialization #4723 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4728
+* Upgrade to quarkus-cxf 2.0.0.Alpha5, Add back XML Security Sign by @ppalaga in https://github.com/apache/camel-quarkus/pull/4729
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/4734
+* Ref #4716: java-joor-dsl - Add RegisterForReflection support by @essobedo in https://github.com/apache/camel-quarkus/pull/4726
+* Bump quarkus-artemis-bom from 3.0.0.Alpha7 to 3.0.0.CR1 by @dependabot in https://github.com/apache/camel-quarkus/pull/4733
+* Ref #4731: java-joor-dsl - Add support of inner classes by @essobedo in https://github.com/apache/camel-quarkus/pull/4732
+* Ref #4447: java-joor-dsl - Improve the test coverage by @essobedo in https://github.com/apache/camel-quarkus/pull/4737
+* Add back Tika component by @zhfeng in https://github.com/apache/camel-quarkus/pull/4739
+* Upgrade CycloneDX Maven Plugin to version 2.7.6 by @oscerd in https://github.com/apache/camel-quarkus/pull/4743
+* Add missing @Component annotation to QuarkusVertxWebsocketComponent by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4742
+* Upgrade Quarkus to 3.0.0.CR2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4744
+* Fix maven connection time out by @zhfeng in https://github.com/apache/camel-quarkus/pull/4740
+* Add GitHub actions directory to license-maven-plugin exclusions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4748
+* Update camel-quarkus-tika resource by @zhfeng in https://github.com/apache/camel-quarkus/pull/4754
+* Fix #4043 to group xml tests by @zhfeng in https://github.com/apache/camel-quarkus/pull/4753
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/4756
+* Ref #4749: java-joor-dsl - Add templated route support to native mode by @essobedo in https://github.com/apache/camel-quarkus/pull/4755
+* Upgrade to quarkus-cxf 2.0.0.Alpha7 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4757
+* #4291 avoid In/Out Message soap headers conflict by @ppalaga in https://github.com/apache/camel-quarkus/pull/4761
+* Bump quarkiverse-tika.version from 2.0.0.CR2 to 2.0.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/4763
+* Bump quarkiverse-jsch.version from 2.0.3 to 3.0.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/4764
+* file: disabling idempotent test in order to experiment around flakiness by @aldettinger in https://github.com/apache/camel-quarkus/pull/4762
+* Bump quarkus-amazon-services-bom from 2.0.0.Alpha1 to 2.0.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/4767
+* Bump quarkiverse-jgit.version from 2.3.2 to 3.0.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/4765
+* Ref#4596 Cover different db types for jdbc by @ldrozdo in https://github.com/apache/camel-quarkus/pull/4751
+* Fix #4717 to expand camel-quarkus-mybatis test coverage by @zhfeng in https://github.com/apache/camel-quarkus/pull/4769
+* Upgrade to Quarkus 3.0.0.Final by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4774
+* Cxf fixes by @llowinge in https://github.com/apache/camel-quarkus/pull/4771
+* Test also GITHUB_BASE_REF to checkout the right examples branch by @ppalaga in https://github.com/apache/camel-quarkus/pull/4776
+* Bump quarkus-amazon-services-bom from 2.0.0 to 2.0.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/4777
+* Fix #4781 Intermittent failure of MyBatisConsumerTest by @zhfeng in https://github.com/apache/camel-quarkus/pull/4782
+* Bump quarkiverse-mybatis.version from 2.0.0.CR2 to 2.0.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/4787
+* Fix Spring integration test by @jbonofre in https://github.com/apache/camel-quarkus/pull/4788
+* Test OpenTelemetry extension integration with opentelemetry-jdbc by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4790
+* Fix OpenTelemetry test assertions argument order by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4792
+* Restore maven.wagon.http.retryHandler.count to CQ_MAVEN_ARGS by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4795
+* release: complete release process to be more explicit by @aldettinger in https://github.com/apache/camel-quarkus/pull/4800
+* Enabling Google BigQuery, Google PubSub, Zendesk  and Stax integration tests by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4791
+* Add OpenTelemetry documentation for CDI bean instrumentation by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4802
+* Add a limitation doc about pooling support for camel-quarkus-amqp by @zhfeng in https://github.com/apache/camel-quarkus/pull/4809
+* Bump quarkiverse-freemarker.version from 1.0.0.Alpha2 to 1.0.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/4804
+* Bump quarkus-artemis-bom from 3.0.0.CR1 to 3.0.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/4814
+* Snmp: Extend test coverage #4797 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4813
+* Add camel-cli-connector extension. by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4812
+* Upgrade to quarkus-cxf 2.0.1, test for #4746 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4803
+* Upgrade cassandra-quarkus to 1.2.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4815
+* Bump quarkiverse-pooled-jms.version from 2.0.0.CR2 to 2.0.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/4818
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/4819
+* Upgrade quarkus-qpid-jms to 2.0.0 by @zhfeng in https://github.com/apache/camel-quarkus/pull/4810
+* Improve handling of optional FHIR schematron and hapi-fhir-server dependencies by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4817
+* Upgrade Cyclonedx Maven Plugin to version 2.7.7 by @oscerd in https://github.com/apache/camel-quarkus/pull/4824
+* Fix handling of Quarkus quartz scheduler autowiring by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4826
+* Added ldap tests, updated docs and promoted to native. by @djcoleman in https://github.com/apache/camel-quarkus/pull/4822
+* Upgrade to Quarkus 3.0.1.Final by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4835
+* Remove org.apache.cxf:cxf-codegen plugin  #4839 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4840
+* camel-quarks-ldap: Fixed bug in CI tests from incorrect IP address resolution by @djcoleman in https://github.com/apache/camel-quarkus/pull/4845
+* Bump quarkus-qpid-jms-bom from 2.0.0 to 2.1.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/4848
+* Snmp: Extend coverage for supported versions #4843 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4844
+* MinIO: Extend test coverage #4707 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4828
+* Bump quarkiverse-pooled-jms.version from 2.0.0 to 2.0.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/4847
+* Snmp: Extend coverage of some smaller features #4850 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4854
+* Upgrade to Maven Wrapper 3.2.0 and Maven 3.9.1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4857
+* Upgrade to cq-maven-plugin 4.1.1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4829
+* Test that all componets are present in the generated Catalog, Permanently remove extensions depending on components removed from Camel 4 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4852
+* Upgrade to quarkus-cxf 2.0.2, Stop managing woodstox directly, rather by @ppalaga in https://github.com/apache/camel-quarkus/pull/4859
+* Bump quarkus-amazon-services-bom from 2.0.1 to 2.1.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/4849
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/4862
+* Fixup Upgrade to Maven Wrapper 3.2.0 and Maven 3.9.1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4863
+* Limit aether.connector.http.connectionMaxTtl to 120 seconds by @ppalaga in https://github.com/apache/camel-quarkus/pull/4864
+* simple("${exchange.getMessage().getBody()}") causes a MethodNotFoundException in native mode by @ppalaga in https://github.com/apache/camel-quarkus/pull/4861
+* Update documentation references for javax packages to jakarta by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4869
+* [MapStruct] Add tests by @avano in https://github.com/apache/camel-quarkus/pull/4838
+* Snmp: reworked tests to avoid flaky failures by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4867
+* Snmp: tiny timeout change in test to help stability by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4872
+* Upgrade Camel to 4.0.0-M3 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4868
+* Bump quarkiverse-jackson-jq.version from 2.0.0.Alpha to 2.0.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/4877
+* Restore camel-kubernetes related native testing by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4874
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/4878
+* Improve test coverage for vertx-websocket by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4875
+* Remove openapi-java extensions limitations doc section as apiContextdListing was removed in Camel by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4879
+* Upgrade CycloneDX Maven Plugin to version 2.7.8 by @oscerd in https://github.com/apache/camel-quarkus/pull/4883
+* Test CXF client with a method referencing class with runtime initialization  by @ppalaga in https://github.com/apache/camel-quarkus/pull/4880
+* Bump quarkiverse-minio.version from 3.0.0.Alpha3 to 3.0.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/4888
+* Upgrade to quay.io/l2x6/calculator-ws:1.2 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4887
+* Snmp: cover snmp v3 for POLL operation #4881 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4882
+* Be more specific when to use a ConsumerTemplate in extension tests by @ppalaga in https://github.com/apache/camel-quarkus/pull/4889
+* Document CXF SOAP usage, configuration and limitations by @ppalaga in https://github.com/apache/camel-quarkus/pull/4886
+* Upgrade to Maven 3.9.2, Remove the local upgrade of maven-resolver used by mvnw by @ppalaga in https://github.com/apache/camel-quarkus/pull/4890
+* Upgrade to quarkus-cxf 2.0.3 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4891
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/4898
+* Recommend using wsdl2Java -validate while wsdlvalidator is not supported by @ppalaga in https://github.com/apache/camel-quarkus/pull/4901
+* Bump quarkiverse-cxf.version from 2.0.3 to 2.0.4 by @dependabot in https://github.com/apache/camel-quarkus/pull/4897
+* Bump quarkus-amazon-services-bom from 2.1.1 to 2.2.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/4903
+* Miscellaneous dependency alignment / removal by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4904
+* Restore erroneously removed camel-quartz dependency exclusions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4909
+* Upgrade Quarkus to 3.1.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4908
+* Upgrade to Optaplanner 9.37.Final by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4912
+* fix contributor links by @onderson in https://github.com/apache/camel-quarkus/pull/4915
+* Upgrade CycloneDX Maven plugin to version 2.7.9 by @oscerd in https://github.com/apache/camel-quarkus/pull/4917
+* Upgrade Maven plugins and remove redundant plugin version properties by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4906
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/4922
+* Upgrade Quarkus to 3.1.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4925
+* Remove "none" WSDLs as they are not needed by @llowinge in https://github.com/apache/camel-quarkus/pull/4921
+* Add sync tag for retrofit version by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4928
+* Remove optional org.jruby.joni:joni from json-validator extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4926
+* Dependency cleanup part 2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4929
+* Prepare tests for Quarkus Platform by @ppalaga in https://github.com/apache/camel-quarkus/pull/4896
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.0.0-M1...3.0.0-M2
+
+## 2.13.3
+
+* [2.13.x] Exclude io.fabric8:zjsonpatch from test artifacts to avoid version misconvergence by @ppalaga in https://github.com/apache/camel-quarkus/pull/4349
+* Upgrade to Quarkiverse CXF 1.5.10 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4361
+* [2.13] Check extension pages with strict option by @ppalaga in https://github.com/apache/camel-quarkus/pull/4352
+* Backport jms doc 2.13.x by @zhfeng in https://github.com/apache/camel-quarkus/pull/4366
+* Added conditional logic for supported content. by @Gerry-Forde in https://github.com/apache/camel-quarkus/pull/4391
+* Backport doc fixes by @aldettinger in https://github.com/apache/camel-quarkus/pull/4397
+* [2.13.x] Upgrade to Camel 3.18.4 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4336
+* Test with Camel 3.18.5 staging repository and Quarkus 2.13.7 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4435
+* Backports 2.13.x by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4495
+* test - Define routes in YAML DSL using beans declared in Java by @AnetaCadova in https://github.com/apache/camel-quarkus/pull/4576
+* Backports 2.13.x by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4586
+* Backports 2.13.x by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4671
+* Fix (jira): Add jira model classes and jackson joda datatype to @BuildStep (2.13.x) by @claudio4j in https://github.com/apache/camel-quarkus/pull/4677
+* Complete vertx-http test coverage #4658 by @aldettinger in https://github.com/apache/camel-quarkus/pull/4714
+* [2.13.x] Upgrade Camel to 3.18.6 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4718
+* Backports 2.13.x by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4747
+* [2.13.x] Fixup Test also GITHUB_BASE_REF to checkout the right examples branch by @ppalaga in https://github.com/apache/camel-quarkus/pull/4775
+* Backports 2.13.x by @zhfeng in https://github.com/apache/camel-quarkus/pull/4779
+* [Backport 2.13.x] Mybatis by @zhfeng in https://github.com/apache/camel-quarkus/pull/4778
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.13.2...2.13.3
+
+## 3.0.0-M1
+
+* Fix camel-console documentation xref by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4425
+* fix the release doc by @aldettinger in https://github.com/apache/camel-quarkus/pull/4430
+* Restore ability to test command mode runners by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4427
+* Next is 2.17.0-SNAPSHOT by @aldettinger in https://github.com/apache/camel-quarkus/pull/4429
+* Test aws-secrets-manager extension with Localstack #3741 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/3815
+* Sql test using derby doesn't start dev service and shows class loading issue if stored procedure is called by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/3370
+* Ref #4426: Support CSimple expressions with all DSLs by @essobedo in https://github.com/apache/camel-quarkus/pull/4428
+* Fix #4122 to use io.quarkiverse.cxf:quarkus-cxf-saaj by @zhfeng in https://github.com/apache/camel-quarkus/pull/4431
+* Fix #4128 add a dependabot to upgrade quarkiverse versions by @zhfeng in https://github.com/apache/camel-quarkus/pull/4433
+* Add test for REST DSL returning CORS headers for OPTIONS request by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4438
+* Clean up redundant properties from root pom.xml by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4439
+* fix the master-openshift itest flakiness #4387 by @aldettinger in https://github.com/apache/camel-quarkus/pull/4445
+* testing defaultCredentialProvider with local stack #440 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4404
+* Pass Object class type to BeanManager.getReferece to avoid bean resolution issues #4444 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4446
+* Ref #2083: jOOR language native support by @essobedo in https://github.com/apache/camel-quarkus/pull/4440
+* perf-regression: add --use-mandrel-native-builder option #4436 by @aldettinger in https://github.com/apache/camel-quarkus/pull/4448
+* Fix #4454 to set jms properties with ActiveMQ connections in native build by @zhfeng in https://github.com/apache/camel-quarkus/pull/4455
+* Aws2-sqs: Test with real account fails. #4389 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4450
+* Ref #4452: Allow to disable build time compilation of jOOR expressions by @essobedo in https://github.com/apache/camel-quarkus/pull/4453
+* Support registry lookups by name for beans annotated with io.smallrye.common.annotation.Identifier by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4449
+* Ref #1748: OGNL language native support by @essobedo in https://github.com/apache/camel-quarkus/pull/4451
+* Verify that the specific log message we're interested in is not present for RouteBuilderWarningWithoutProducedBuilderTest by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4456
+* Fixup SQL extension documentation and native testing with alternate JDBC drivers by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4460
+* Ref #3088: Split JSON dataformats test by @ldrozdo in https://github.com/apache/camel-quarkus/pull/4457
+* Re-enable filter test #3584 by @aldettinger in https://github.com/apache/camel-quarkus/pull/4471
+* file: fix warning by @aldettinger in https://github.com/apache/camel-quarkus/pull/4476
+* Provide SBOM for Camel-Quarkus project by @oscerd in https://github.com/apache/camel-quarkus/pull/4461
+* Add quarkus-qpid-jms for dependency version checking by @zhfeng in https://github.com/apache/camel-quarkus/pull/4480
+* Update dependabot by @zhfeng in https://github.com/apache/camel-quarkus/pull/4483
+* Improve yaml-dsl documentation and add simple test scenarios by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4489
+* Improve documentation, add Kubernetes section by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4521
+* Upgrade to Camel 4.0.0 and Quarkus 3.0.0.Alpha3 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4504
+* Mail test fails in native mode #4519 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4530
+* Upgrade quarkus-pooled-jms to 2.0.0.CR1 and re-enable jms-artemis-tests by @zhfeng in https://github.com/apache/camel-quarkus/pull/4533
+* perf-regression: restore PerfRegressionIT to test against 3.0.0-SNAPSOT by @aldettinger in https://github.com/apache/camel-quarkus/pull/4535
+* Upgrade to Quarkus Minio 3.0.0.Alpha3 and quarkus-qpid-jms-bom 2.0.0.Alpha3 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4536
+* Fix JAXB and Salesforce native compilation issues by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4539
+* Fix references to removed extensions and reference Camel latest docs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4549
+* Ref #4523/#4443: Get rid of jOOR workarounds used for native mode by @essobedo in https://github.com/apache/camel-quarkus/pull/4542
+* Fix NPE instantiating Azure HttpHeaderName by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4543
+* Remove unwanted references to grpc-netty-shaded from OpenTelemetry extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4545
+* Re-enable saxon tests by @zhfeng in https://github.com/apache/camel-quarkus/pull/4547
+* Provide a Github action for generating SBOM by @oscerd in https://github.com/apache/camel-quarkus/pull/4554
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/4558
+* Fix vertx-websocket URIs in tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4556
+* camel-quarkus-integration-test-aws2 fail to compile (native) with Camel4 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4552
+* Fix camel-nitrite native tests by @zhfeng in https://github.com/apache/camel-quarkus/pull/4551
+* Remove redundant CI workflow steps by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4544
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/4561
+* bump quarkus-artemis-bom from 3.0.0.Alpha3 to 3.0.0.Alpha6 by @dependabot in https://github.com/apache/camel-quarkus/pull/4559
+* Fix compilation of gRPC service stubs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4548
+* Upgrade Quarkus to 3.0.0.Alpha4 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4563
+* xml-io: Remove the use of XMLRoutesDefinitionLoader deprecated class by @aldettinger in https://github.com/apache/camel-quarkus/pull/4565
+* Adapt FHIR tests after upgrade to 6.x by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4562
+* Use XML DSL to define templated route in integration test by @osmman in https://github.com/apache/camel-quarkus/pull/4567
+* Aws2: Add testing of defaultCredentialProvider to each extension #4442 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4474
+* Revert "Disable crypto test temporarily #4510" by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4571
+* xml-io: document the possibility to add all charsets in native mode by @aldettinger in https://github.com/apache/camel-quarkus/pull/4573
+* Restore ability for camel.main.javaRoutesIncludePattern to be overridable at runtime by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4575
+* create itest project for xml-io + bean #4579 by @aldettinger in https://github.com/apache/camel-quarkus/pull/4580
+* Update qute.json to 3.0.0-SNAPSHOT by @zhfeng in https://github.com/apache/camel-quarkus/pull/4581
+* Fix contributor guide by @aldettinger in https://github.com/apache/camel-quarkus/pull/4583
+* Split json dataformats to different modules by @ldrozdo in https://github.com/apache/camel-quarkus/pull/4578
+* [backport to main] test - Define routes in YAML DSL using beans declared in Java  by @AnetaCadova in https://github.com/apache/camel-quarkus/pull/4577
+* Multiple test methods do not work when extending CamelQuarkusTestSupport by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4568
+* Restore camel-quarkus-stax testing by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4584
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/4587
+* Upgrade github-api to 1.313 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4590
+* Ref #4393: Groovy DSL - Get rid of --report-unsupported-elements-at-runtime by @essobedo in https://github.com/apache/camel-quarkus/pull/4589
+* Minimize exclusions in the BOM, remove superfluous exclusions in extensions by @ppalaga in https://github.com/apache/camel-quarkus/pull/4593
+* Upgrade to Quarkiverse CXF 2.0.0  by @ppalaga in https://github.com/apache/camel-quarkus/pull/4594
+* Move Qute component camel-package-maven-plugin execution phase to process-classes by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4595
+* Upgrade quarkus-jackson-jq to 2.0.0.Alpha by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4599
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/4601
+* Zendesk test cannot be compiled to native with Camel 4 and Quarkus 3  by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4592
+* Remove workaround for quarkus.http.test-ssl-port being ignored by REST Assured by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4604
+* Micrometer test coverage - @Counted by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4600
+* Improve Telegram integration tests by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4608
+* Split infinispan testing into separate modules for the quarkus and camel managed clients by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4607
+* Exclude banned xml-apis from org.seleniumhq.selenium:htmlunit-driver by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4610
+* Upgrade to cq-maven-plugin 3.5.3: flatten faster, sync-versions in by @ppalaga in https://github.com/apache/camel-quarkus/pull/4611
+* Aws2-cw: remove  io.quarkus:quarkus-jaxp from aws2-cw #4614 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4615
+* Bump to CycloneDX Maven Plugin 2.7.5 by @oscerd in https://github.com/apache/camel-quarkus/pull/4618
+* Upgrade to cq-maven-plugin 3.5.4 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4613
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/4623
+* Upgrade Quarkus to 3.0.0.Alpha5 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4627
+* Bump quarkus-artemis to 3.0.0.Alpha7 and quarkus-pooled-jms to 2.0.0.CR2 by @zhfeng in https://github.com/apache/camel-quarkus/pull/4636
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/4643
+* Upgrade to Quarkiverse CXF 2.0.0.Alpha4 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4644
+* camel-quarkus-language: Added language, resource and options tests by @djcoleman in https://github.com/apache/camel-quarkus/pull/4641
+* Ref #4596: Create jdbc tests for generated keys and other headers by @ldrozdo in https://github.com/apache/camel-quarkus/pull/4646
+* Fix #4635 replace with ReflectiveClassBuildItem.builder() by @zhfeng in https://github.com/apache/camel-quarkus/pull/4648
+* Register atlasmap.properties as a native image resource by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4649
+* Upgrade Quarkiverse Freemarker to 1.0.0.Alpha2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4650
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.16.0...3.0.0-M1
+
+## 2.16.0
+
+* Upgrade to quarkus-cxf 1.7.1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4331
+* Next is 2.16.0 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4333
+* Fix name of bean in the CDI documentation by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4335
+* Update index.adoc by @y-luis-rojo in https://github.com/apache/camel-quarkus/pull/4341
+* Workaround Datasonnet integration tests fail in native mode on Mandrel by @ppalaga in https://github.com/apache/camel-quarkus/pull/4343
+* Exclude io.fabric8:zjsonpatch from test artifacts to avoid version misconvergence by @ppalaga in https://github.com/apache/camel-quarkus/pull/4348
+* Depend on quarkus-minio-native instead of quarkus-minio to be able to create Minio clients programmatically by @ppalaga in https://github.com/apache/camel-quarkus/pull/4340
+* Check extension pages with strict option by @ppalaga in https://github.com/apache/camel-quarkus/pull/4351
+* Added extra content to the Control Bus extension for supported languages. by @Gerry-Forde in https://github.com/apache/camel-quarkus/pull/4354
+* Upgrade to Quarkiverse CXF 1.7.2 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4360
+* Make at least the quick profile compatible with mvnd 1.0.0-m1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4355
+* fix qute package declaration by @claudio4j in https://github.com/apache/camel-quarkus/pull/4364
+* Upgrade to 3.20 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4350
+* Upgrade cassandra-quarkus-client to 1.1.3 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4368
+* Post camel 3.20.0 upgrade cleanup by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4369
+* DoBeforeEach does not work with Advice #4362 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4370
+* Tika: Enable test testImagePng #4371 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4372
+* Register azure-identity IdentityClientBase for runtime initialization by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4373
+* Deprecate hdfs and hbase component #3763 by @aldettinger in https://github.com/apache/camel-quarkus/pull/4375
+* Remove dependency on camel-health from camel-quarkus-core by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4376
+* Add link to supported data formats in dataformat extension docs introduction by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4378
+* Fix unterminated listing block breaking the website build by @orpiske in https://github.com/apache/camel-quarkus/pull/4380
+* Ref #4358: Java jOOR DSL native support by @essobedo in https://github.com/apache/camel-quarkus/pull/4359
+* Poll telegram stop-location endpoint to avoid sporadic failures by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4383
+* Ref #4379: Groovy DSL native support by @essobedo in https://github.com/apache/camel-quarkus/pull/4385
+* Upgrade Camel to 3.20.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4386
+* Reenable Olingo4 native integration tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4388
+* perf-regression: try resolving 'java.home' system property first in itest #4023 by @aldettinger in https://github.com/apache/camel-quarkus/pull/4390
+* Add extra support content for JMS pooling usage. by @Gerry-Forde in https://github.com/apache/camel-quarkus/pull/4396
+* Test framework - warn if global RouteBuilder may be wrong by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4382
+* perf-regression: write the report to disk #4263 by @aldettinger in https://github.com/apache/camel-quarkus/pull/4399
+* Aws2: Allow testing of useDefaultCredentialsProvider #4346 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4395
+* Upgrade Quarkus to 2.16.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4402
+* Expand AWS CW test coverage #4196 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4345
+* Splunk: tests are failing after the upgrade of Splunk in Camel #4085 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4124
+* Disable MasterOpenShiftIT due to #4387 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4405
+* Add platform-http test for retrieving an HTTP header with no value by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4406
+* Telegram: Testing subscribing and unsubscribing to Webhook by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4410
+* Ref #4392: Kotlin DSL native support by @essobedo in https://github.com/apache/camel-quarkus/pull/4403
+* Ref #4416: Make the csimple extension agnostic to build systems by @essobedo in https://github.com/apache/camel-quarkus/pull/4417
+* Ref #4407: js-dsl - Improve the interoperability with Java code by @essobedo in https://github.com/apache/camel-quarkus/pull/4409
+* Upgrade Quarkus to 2.16.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4419
+* Ref #4413: JavaShell DSL support by @essobedo in https://github.com/apache/camel-quarkus/pull/4414
+* Restore azure-grouped native testing by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4422
+* Add camel-console extension by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4411
+* Camel Quarkus 2.16.0 pre-release tasks by @aldettinger in https://github.com/apache/camel-quarkus/pull/4421
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.15.0...2.16.0
+
+## 2.13.2
+
+* 2.13.x backports + Quarkus 2.13.4.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4261
+* Backports 2.13.x by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4271
+* Platform-http : add integration tests for reverse proxy feature  by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4273
+* Backports 2.13.x by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4277
+* Backports 2.13.x by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4289
+* Google-bigquery: Fixed sqlCrudOperations in branch 2.13.x by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4290
+* Backports 2.13.x by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4297
+* [2.13.x] Upgrade Quarkus to 2.13.5.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4299
+* Google-bigquery test sqlCrudOperations fails with real account on 2.13.x by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4305
+* Backports 2.13.x by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4310
+* [2.13.x] Upgrade to quarkus-cxf 1.5.8 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4318
+* Backports 2.13.x by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4316
+* Fix Opentelemetry port numbers in the documentation by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4324
+* Fix #4317 to update jms documentation for pooling and XA support (#4323) by @zhfeng in https://github.com/apache/camel-quarkus/pull/4325
+* [2.13.x] Upgrade to quarkus-cxf 1.5.9; ban org.apache.geronimo.javamail:geronimo-javamail_1.4_mail by @ppalaga in https://github.com/apache/camel-quarkus/pull/4332
+* Fix name of bean in the CDI documentation by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4338
+* [2.13.x] backports by @ppalaga in https://github.com/apache/camel-quarkus/pull/4344
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.13.1...2.13.2
+
+## 2.15.0
+
+* Fix #4250 to add JmsArtemisXATest by @zhfeng in https://github.com/apache/camel-quarkus/pull/4251
+* Upgarde quarkus-artemis to 2.0.1 and quarkus-pooled-jms to 1.0.6 by @zhfeng in https://github.com/apache/camel-quarkus/pull/4253
+* Update OpenTelemetry exporter documentation in line with changes in Quarkus 2.14.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4256
+* Fix GitHub actions deprecation warnings by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4249
+* Google-bigquery: Enable sqlCrudOperations test once Camel version is 3.18.3 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4252
+* automatic configuration of FileLockClusterService #4262 by @aldettinger in https://github.com/apache/camel-quarkus/pull/4265
+* Next is 2.15.0 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4257
+* Enhance test covarege of MTOM with PAYLOAD data format by @llowinge in https://github.com/apache/camel-quarkus/pull/4264
+* add file cluster service automatic configuration itest #4262 by @aldettinger in https://github.com/apache/camel-quarkus/pull/4267
+* controlbus: Added language tests (fixes #4008) by @djcoleman in https://github.com/apache/camel-quarkus/pull/4266
+* CxfSoapClientTest.wsdlUpToDate() and CxfSoapWssClientTest.wsdlUpToDate() fail on the platform by @ppalaga in https://github.com/apache/camel-quarkus/pull/4268
+* Cover endpoint URI based CXF definitions by @llowinge in https://github.com/apache/camel-quarkus/pull/4270
+* Fix #4258 make xml integration tests working in Quarkus Platform by @zhfeng in https://github.com/apache/camel-quarkus/pull/4275
+* Remove camel-quarkus-support-xstream from salesforce extension by @svkcemk in https://github.com/apache/camel-quarkus/pull/4276
+* Revert "Springless JPA extension (#4049)" by @zhfeng in https://github.com/apache/camel-quarkus/pull/4286
+* Fix #3980 to disable JMX in commons-pool2 during native building by @zhfeng in https://github.com/apache/camel-quarkus/pull/4287
+* Add a separate version property for FHIR core dependencies by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4292
+* Minor tidy up of controlbus extension documentation by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4296
+* Extend tests with RAW and CXF_MESSAGE dataFormats by @llowinge in https://github.com/apache/camel-quarkus/pull/4293
+* Add CXF WS-SecurityPolicy test by @ppalaga in https://github.com/apache/camel-quarkus/pull/4224
+* camel-quarkus-catalog - Make it possible to get the camel version  by @ppalaga in https://github.com/apache/camel-quarkus/pull/4302
+* Add quarkus-pooled-jms-deployment to camel-quarkus-bom by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4309
+* Test Java first CXF server endpoint with multiple SEI methods  by @ppalaga in https://github.com/apache/camel-quarkus/pull/4307
+* Upgrade Quarkus to 2.15.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4308
+* Remove superfluous actions heading from controlbus docs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4311
+* Bump Optaplanner to 8.31.0.Final by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4303
+* Avoid port clashes with WireMock dynamically allocated port by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4314
+* Manage jakarta.xml.soap-api and sync jakarta.ws properties with CXF by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4312
+* Fix Opentelemetry port number in the documentation by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4320
+* Fix #4317 to update jms documentation for pooling and XA support by @zhfeng in https://github.com/apache/camel-quarkus/pull/4323
+* Upgrade to Quarkus 2.15.0.Final and Quarkiverse CXF 1.7.0 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4322
+* tidy up of jms extension documentation by @zhfeng in https://github.com/apache/camel-quarkus/pull/4327
+* Updating librairies by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4329
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.14.0...2.15.0
+
+## 2.14.0
+
+* Next is 2.14.0 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4131
+* Fix malformed id headings for AWS extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4132
+* Upgrade Quarkus CXF to 1.5.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4136
+* kubernetes: auto-configure Kubernetes Cluster Service #4086 by @aldettinger in https://github.com/apache/camel-quarkus/pull/4093
+* Manage `reactor-core` & `google-oauth-client` by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4140
+* Update release guide by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4137
+* Increase test coverage of ref extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4144
+* Add tests for rest-openapi extension (apache#4117) by @djcoleman in https://github.com/apache/camel-quarkus/pull/4125
+* Adjust the set of components to search in catalog tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4145
+* kubernetes: add documentation related to cluster service #4086 by @aldettinger in https://github.com/apache/camel-quarkus/pull/4146
+* doc: switch to === syntax to match doc tooling by @aldettinger in https://github.com/apache/camel-quarkus/pull/4150
+* Convert germanbooks-iso-8859-1.json to *nix line endings by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4154
+* Set explicit nofile ulimit for activemq-artemis-broker image to make it work also on system with low default nofile ulimit by @ppalaga in https://github.com/apache/camel-quarkus/pull/4152
+* Update Debezium to 1.9.6.Final by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4156
+* Upgrade to camel-3.19.0 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4151
+* Fix Netty integration tests on FIPS system by @osmman in https://github.com/apache/camel-quarkus/pull/4130
+* Deprecated parameters in several annotations are ignored - inconsisten by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4099
+* Add cloudEvents and knative extensions by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3705
+* Align Azure SDK BOM version with Camel  by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4163
+* Upgrade Quarkus to 2.13.1.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4160
+* Add sync tag for ahc.version property by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4164
+* Fix Salesforce endpoint URIs for CDC eventing by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4166
+* rest-openapi: Minor update to usage doc (#4117) by @djcoleman in https://github.com/apache/camel-quarkus/pull/4168
+* Fallback to mocked responses if XChange APIs are not available by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4170
+* Improve test coverage for scheduler component. by @svkcemk in https://github.com/apache/camel-quarkus/pull/4133
+* Upgrade Quarkus Amazon services to 1.3.0 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4157
+* Fix assertion invocation in core extension tests by @osmman in https://github.com/apache/camel-quarkus/pull/4173
+* Upgrade Quarkus to 2.13.2.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4174
+* Add a PackageScanClassResolver implementation that works in native mode by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4178
+* Avoid usage of deprecated ClientProxyUnwrapper by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4179
+* Exclude com.github.stephenc.jcip:jcip-annotations from Azure extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4183
+* Add extension DSL modeline by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3867
+* Convert pull_request_template.md to *nix line endings by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4185
+* Upgrade to quarkus-cxf 1.5.4 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4184
+* Add usage section to ref documentation for CDI integration by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4186
+* Upgrade cq-maven-plugin to 3.2.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4189
+* Upgrade Optaplanner to 8.29.0.Final by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4190
+* Upgrade Quarkus Amazon services to 1.3.1 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4191
+* Cxf-soap tests: Refactor and split by @ppalaga in https://github.com/apache/camel-quarkus/pull/4195
+* Upgrade Quarkus to 2.13.3.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4199
+* Increased workflow memory limit to avoid java heap space errors by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4201
+* controlbus: Added action option tests (fixes #4009) by @djcoleman in https://github.com/apache/camel-quarkus/pull/4200
+* Use official azure-core-http-vertx client in Azure extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4182
+* Sync camel-main / quarkus-main nightly CI workflows with the main workflow by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4205
+* Fix #3904 increase xslt extension test coverage by @zhfeng in https://github.com/apache/camel-quarkus/pull/4018
+* More CXF tests and cleanup by @ppalaga in https://github.com/apache/camel-quarkus/pull/4207
+* Move all Debezium itest deployment dependencies to virtualDependencies profile by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4209
+* Split mtom tests by @llowinge in https://github.com/apache/camel-quarkus/pull/4210
+* CxfSoapMtomIT fails in native mode  by @ppalaga in https://github.com/apache/camel-quarkus/pull/4214
+* Remove unecessary basedir in Kafka Oauth tests by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4213
+* Manage dependency com.jayway.jsonpath:json-path by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4212
+* Upgrade Quarkus to 2.14.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4215
+* perf-regression: remove workaround and final fix Java 17 issue #4031 by @aldettinger in https://github.com/apache/camel-quarkus/pull/4222
+* fix line ending by @aldettinger in https://github.com/apache/camel-quarkus/pull/4221
+* Test CXF service having an Implementation class in the application by @ppalaga in https://github.com/apache/camel-quarkus/pull/4223
+* replace doc occurence of camel-quarkus-jaxp with camel-quarkus-xml-jaxp by @aldettinger in https://github.com/apache/camel-quarkus/pull/4229
+* Upgrade to quarkus-cxf 1.5.5 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4232
+* Adding a test for custom ConnectionFactory without quarkus.artemis.url by @zhfeng in https://github.com/apache/camel-quarkus/pull/4228
+* Upgrade Quarkus to 2.14.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4236
+* Use Camel hapi-base-version property for hapi-base by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4239
+* Fix #3951 to add a test with quarkus-pooled-jms by @zhfeng in https://github.com/apache/camel-quarkus/pull/4237
+* Fix : flakiness of Scheduler integration-tests. by @svkcemk in https://github.com/apache/camel-quarkus/pull/4240
+* Upgrade Qpid JMS to 0.39.0 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4245
+* camel-quarkus-xchange: MissingResourceException: Can't find bundle for base name sun.util.resources.CurrencyNames, locale en_US by @ppalaga in https://github.com/apache/camel-quarkus/pull/4244
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.13.0...2.14.0
+
+## 2.13.1
+
+* Backports 2.13.x by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4143
+* Backports 2.13.x by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4147
+* Backports 2.13.x by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4167
+* Backports 2.13.x by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4176
+* Backports 2.13.x by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4188
+* 2.13.x backports + Camel 3.18.3 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4227
+* Upgrade to quarkus-cxf 1.5.5 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4234
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.13.0...2.13.1
+
+## 2.13.0
+
+* Fix #4007 increase JPA extension test coverage by @osmman in https://github.com/apache/camel-quarkus/pull/4053
+* master: fix itests harness in native mode by @aldettinger in https://github.com/apache/camel-quarkus/pull/4055
+* pg-replication-slot: fix usage of deprecated method by @aldettinger in https://github.com/apache/camel-quarkus/pull/4056
+* Fix deprecated methods by @aldettinger in https://github.com/apache/camel-quarkus/pull/4057
+* Ban camel-directvm  by @ppalaga in https://github.com/apache/camel-quarkus/pull/4060
+* Migrate to the new config format of the flattener mojo by @ppalaga in https://github.com/apache/camel-quarkus/pull/4061
+* Google-pubsub: Improve google-pubsub test coverage with MESSAGE_ID #4062 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4064
+* pg-replication-slot: fix warning by @aldettinger in https://github.com/apache/camel-quarkus/pull/4067
+* Disabling ContinuousDevTest by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4070
+* Improve google-bigquery test coverage #3949 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4035
+* Testing guide confusing about CamelTestSupport by @ppalaga in https://github.com/apache/camel-quarkus/pull/4072
+* Use AsciiDoc attributes to conditionally include content by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4073
+* CXF test fails in Quarkus Platform because of hard-coded absolute local wsdlLocation by @ppalaga in https://github.com/apache/camel-quarkus/pull/4074
+* master: add test with openshift #4077 by @aldettinger in https://github.com/apache/camel-quarkus/pull/4078
+* update virtual profiles by @aldettinger in https://github.com/apache/camel-quarkus/pull/4079
+* Upgrade Camel to 3.18.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4081
+* Fix name of artifact id by @llowinge in https://github.com/apache/camel-quarkus/pull/4082
+* JCache native mode by @javaduke in https://github.com/apache/camel-quarkus/pull/4088
+* Springless JPA extension by @zhfeng in https://github.com/apache/camel-quarkus/pull/4049
+* Upgrade Quarkus to 2.13.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4094
+* Fix #4096 to sync snakeyaml with quarkus-bom by @zhfeng in https://github.com/apache/camel-quarkus/pull/4098
+* Restore named DataSource autowiring for JDBC and SQL extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4101
+* Register LegacyPDFStreamEngine for runtime initialization by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4110
+* Fix generated AsciiDoc id headings by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4113
+* Upgrade OptaPlanner to 8.27.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4118
+* Upgrade Quarkus to 2.13.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4121
+* CamelQuarkusTestSupport: Alow to use AdiceWith with another route #4104 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/4105
+* Upgrade dependencies versions by @zbendhiba in https://github.com/apache/camel-quarkus/pull/4129
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.12.0...2.13.0
+
+## 2.12.0
+
+## What's Changed
+* Fix CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest on Windows by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3939
+* Delete potentially locked file on VM exit for Windows dev mode test by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3940
+* Next is 2.12.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3941
+* Upgrade Quarkus to 2.11.1.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3943
+* Add missing jboss-jaxrs-api_2.1_spec dependency to ServiceNow extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3948
+* Test Azure Storage Blob with credentialType AZURE_IDENTITY by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3950
+* Add more details to the Jackson ObjectMapper usage section by @ppalaga in https://github.com/apache/camel-quarkus/pull/3952
+* Increase test coverage (file/http) for camel-quarkus-validator extension by @svkcemk in https://github.com/apache/camel-quarkus/pull/3953
+* Fix intermittent native mode failures of JacksonJsonTest by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3955
+* Close the streams returned by Files.walk properly by @ppalaga in https://github.com/apache/camel-quarkus/pull/3954
+* Add docs for Sonarcloud build and analysis results by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3958
+* Camel Quarkus CXF Extension by @javaduke in https://github.com/apache/camel-quarkus/pull/3931
+* Merge the performance regression detection prototype #3905 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3959
+* Improve the CXF extension and its tests: by @ppalaga in https://github.com/apache/camel-quarkus/pull/3968
+* Update observability guide to reference OpenTelemetry instead of OpenTracing by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3973
+* perf-regression: Align to the root mvnw #3960 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3969
+* perf-regression: use pure Camel transformation #3974 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3975
+* Add more clarity around the purpose of tracing extensions encoding config property by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3976
+* CamelTestSupport style of testing #3511 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/3847
+* Avoid io.quarkus.platform:quarkus-bom usage in perf-regression module by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3981
+* Fix doc reference to JUnit 5 component by @gzurowski in https://github.com/apache/camel-quarkus/pull/3986
+* Upgrade Camel to 3.18.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3984
+* Minor tidying of test-framework modules and docs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3990
+* CxfSoapClientIT.wsSecurityClient fails in native mode: wsse:Nonce not present in the request  by @ppalaga in https://github.com/apache/camel-quarkus/pull/3985
+* Improve/clean-up camel-quarkus-validator extension tests. by @svkcemk in https://github.com/apache/camel-quarkus/pull/3972
+* Remove documentation references to REST DSL inline routes by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3997
+* Fix route inclusion / exclusion filtering by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3996
+* Docs module cleanups by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3999
+* perf-regression: add integration tests #3982 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3988
+* perf-regression: add unit test #4001 by @aldettinger in https://github.com/apache/camel-quarkus/pull/4002
+* perf-regression: avoid using fixed port #4004 by @aldettinger in https://github.com/apache/camel-quarkus/pull/4005
+* Upgrade Quarkus to 2.12.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4003
+* perf-regression: collect reports during releases #3967 by @aldettinger in https://github.com/apache/camel-quarkus/pull/4013
+* Restore ability to run js-dsl native tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4017
+* Register HttpOperationFailedException for reflection by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4019
+* Fix #3389: geocoder test returned wrong city by @djcoleman in https://github.com/apache/camel-quarkus/pull/4020
+* Improve google-pubsub test coverage #3910 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/3919
+* perf-regression: workaround hyperfoil-maven-plugin issue with JDK 17 by @aldettinger in https://github.com/apache/camel-quarkus/pull/4026
+* perf-regression: disable itests when building with -Dquickly by @aldettinger in https://github.com/apache/camel-quarkus/pull/4022
+* Pass encrypt property to Debezium MS SQL Server JDBC URL by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4030
+* Fix conflict in property name with OS env variable by @llowinge in https://github.com/apache/camel-quarkus/pull/4032
+* Enlarge timeout for Keycloak startup by @llowinge in https://github.com/apache/camel-quarkus/pull/4034
+* perf-regresssion: fix number format exception when java and mvnw don't have same default locale by @aldettinger in https://github.com/apache/camel-quarkus/pull/4024
+* [closes #4028] Fix sqsAutoCreateDelayedQueue test by @llowinge in https://github.com/apache/camel-quarkus/pull/4036
+* Upgrade to Quarkiverse CXF 1.5.0.CR1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/4037
+* Make nightly branch sync workflows report failures if the build was cancelled by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4038
+* file: experiment disabling filter test #3584 by @aldettinger in https://github.com/apache/camel-quarkus/pull/4041
+* Fix potential NPE in change feed result checking by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4042
+* Upgrade Quarkus to 2.12.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4044
+* Filter out non-service endpoints in Salesforce testGetRestResources by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4046
+* Log warning instead of throw exception for Debezium MongoDB container script execution failure by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4045
+* Adapt Dropbox tests to new authentication mechanism by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/4048
+* Upgrade to Quarkiverse CXF 1.5.0, the Santuario related stuff moved to quarkus-cxf-santuario by @ppalaga in https://github.com/apache/camel-quarkus/pull/4052
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.11.0...2.12.0
+
+## 2.11.0
+
+* Next is 2.11.0 by @zhfeng in https://github.com/apache/camel-quarkus/pull/3855
+* file: attempt atomic move to fix flakiness #3584 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3854
+* Use JUnit fail static method import instead of JSoup by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3859
+* paho-mqtt5 test failing with Error: Unable to create websockets listener by @ppalaga in https://github.com/apache/camel-quarkus/pull/3861
+* Fix #3863 to use quarkus-extension-maven-plugin by @zhfeng in https://github.com/apache/camel-quarkus/pull/3866
+* Fix #3864 to add nofile ulimit in ArangodbTestResource by @zhfeng in https://github.com/apache/camel-quarkus/pull/3865
+* Upgrade Optaplanner to 8.23.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3868
+* Remove redundant BOM imports from integration tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3873
+* Fix PDF encryption in native mode by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3872
+* Ensure new extensions are generated to reference quarkus-extension-maven-plugin by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3874
+* Upgrade artemiscloud/activemq-artemis-broker to 1.0.5 by @zhfeng in https://github.com/apache/camel-quarkus/pull/3880
+* Parametrize infinispan image by @llowinge in https://github.com/apache/camel-quarkus/pull/3881
+* Simplify support for Quartz clustering by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3882
+* Remove redundant Spring dependencies from JDBC extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3883
+* Fix #3884 upgrade quarkus-artemis to 1.2.0 by @zhfeng in https://github.com/apache/camel-quarkus/pull/3885
+* Fix #3858 rename to quarkus.camel.source-location-enabled by @zhfeng in https://github.com/apache/camel-quarkus/pull/3886
+* Fix #3809 add reflections for all transports by @zhfeng in https://github.com/apache/camel-quarkus/pull/3892
+* Upgrade Quarkus to 2.10.1.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3894
+* Remove inline routes from platform-http REST DSL docs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3895
+* core: Fix some warnings by @aldettinger in https://github.com/apache/camel-quarkus/pull/3898
+* dozer: Deprecate the typeConverterEnabled config #3900 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3901
+* Increase JAXB extension test coverage by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3902
+* Upgrade Camel to 3.18.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3897
+* Add support for InfinispanRemoteAggregationRepository by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3906
+* Add JQ extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3907
+* Add some tests for issues fixed in Camel 3.18.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3908
+* Remove last logs to ensure flakiness is now corrected #3584 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3912
+* Fix some cq warnings by @aldettinger in https://github.com/apache/camel-quarkus/pull/3913
+* Fix #3914 to get TransactionManager and UserTransaction from Arc container by @zhfeng in https://github.com/apache/camel-quarkus/pull/3915
+* Upgrade Quarkus to 2.11.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3917
+* Remove platform-http-vertx workarounds now that Quarkus & Camel Vert.x is in sync by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3920
+* Fix #3924 make sure the http client options working in native mode by @zhfeng in https://github.com/apache/camel-quarkus/pull/3925
+* [closes #3927] Improve camel quarkus master integration test by @llowinge in https://github.com/apache/camel-quarkus/pull/3928
+* Add DataSet extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3929
+* Upgrade Quarkus to 2.11.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3930
+* Add native support for Azure Identity service principal authentication by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3932
+* Fix Google Big Query grpc-netty-shaded exclusions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3933
+* Upgrade third party Quarkus extension dependencies by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3934
+* Hashicorp vault by @oscerd in https://github.com/apache/camel-quarkus/pull/3935
+* Test Quarkus Jackson `ObjectMapper` with `JacksonDataFormat` + Docs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3937
+* Upgrade to Debezium 1.9.5.Final by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3938
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.10.0...2.11.0
+
+## 2.10.0
+
+* Fix verification of AWS S3 download links by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3777
+* Next is 2.10.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3776
+* Camel Datasonnet Extension by @javaduke in https://github.com/apache/camel-quarkus/pull/3769
+* Fix #3703 to use valueWithDefault during processing @Producer and @EndpointInject by @zhfeng in https://github.com/apache/camel-quarkus/pull/3780
+* Upgrade Google Cloud Native Image Support to 0.14.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3779
+* Fix failing Slack integration tests with the real Slack service by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3782
+* Remove redundant infinispan-jboss-marshalling from the BOM by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3785
+* file: Add some extra logs to attempt catching info about flakiness #3584 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3787
+* Increase FHIR client socket timeout by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3789
+* Exclude unwanted Apache Commons dependencies from hapi-fhir-structures-dstu2.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3794
+* Split compression related tests into a test group #3689 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3791
+* Improve camel-quarkus-velocity test coverage #3790 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/3793
+* Upgrade Google Cloud Native Image Support to 0.14.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3796
+* Upgrade Camel to 3.17.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3792
+* Add debug JVM only extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3800
+* Use WireMock for xchange tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3802
+* Add migration guide for the 2.10.0 release by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3801
+* Create an Azure Key Vault Extension by @oscerd in https://github.com/apache/camel-quarkus/pull/3806
+* Reinitialize ActiveMQ IdGenerator at runtime to ensure generated id uniqueness by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3808
+* Remove some superfluous runtime initialized classes from camel-quarkus-support-reactor-netty by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3811
+* Add zhfeng key by @zhfeng in https://github.com/apache/camel-quarkus/pull/3814
+* net.openhft:affinity included in flattened BOM only on Mac  by @ppalaga in https://github.com/apache/camel-quarkus/pull/3813
+* Fix #3774 to add tests for openApi oneOf, allOf and anyOf with annotation by @zhfeng in https://github.com/apache/camel-quarkus/pull/3818
+* Increase FHIR container startup timeout to 5 minutes by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3824
+* Better manage FHIR dependencies by @ppalaga in https://github.com/apache/camel-quarkus/pull/3827
+* Fix #3829 disable checksum validation when testing with quarkus-aws2-s3 client by @zhfeng in https://github.com/apache/camel-quarkus/pull/3830
+* Fix invalid links in the contributor guide doc by @aldettinger in https://github.com/apache/camel-quarkus/pull/3833
+* Fix #3823 make quarkus-agroal an optional dependency in camel-quarkus-quartz by @zhfeng in https://github.com/apache/camel-quarkus/pull/3836
+* Registry lookup for overridden DefaultBean types does not work by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/3821
+* Pin fake-gcs-server container image to 1.37 tag by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3839
+* Use timer repeatCount of 1 in foundation timer tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3840
+* Auto discover routes created as LambdaEndpointRouteBuilder by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3842
+* Modify Cassandra & AWS S3 tests to pick up Camel 3.17.0 fixes by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3843
+* Ensure ElasticSearch REST delete index route uses the correct URI scheme by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3845
+* Upgrade Quarkus to 2.10.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3846
+* Upgrade OptaPlanner to 8.22.1.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3849
+* Upgrade Quarkus to 2.10.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3851
+* Add KeyStoreParameters for reflection by @ismailbaskin in https://github.com/apache/camel-quarkus/pull/3755
+* Fix #3828 to update openapi-java document by @zhfeng in https://github.com/apache/camel-quarkus/pull/3852
+* update openapi-java usage.adoc by @zhfeng in https://github.com/apache/camel-quarkus/pull/3853
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.9.0...2.10.0
+
+## 2.9.0
+
+* Test Azure Blob with autowiredEnabled=false by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3699
+* camel-quarkus-paho: Add reflection config for RandomAccessFile by @zhfeng in https://github.com/apache/camel-quarkus/pull/3691
+* Ban javax.el:el-api in favor of  jakarta.el:jakarta.el-api by @ppalaga in https://github.com/apache/camel-quarkus/pull/3690
+* Improve mail test coverage #3674 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/3685
+* Next is 2.9.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3696
+* Fix documentation by @aldettinger in https://github.com/apache/camel-quarkus/pull/3704
+* Add missing build dependency link on Mail Integration tests by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3710
+* Avoid creating serialization config for non-serializable classes by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3714
+* Fix `Aws2KinesisTest.kinesis` test by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3715
+* Fix #3656 Improve camel-quarkus-paho-mqtt5 test coverage by @zhfeng in https://github.com/apache/camel-quarkus/pull/3709
+* Reduce the noise in verbose flattened BOMs #3702 by @ppalaga in https://github.com/apache/camel-quarkus/pull/3717
+* Azure Storage Queue : increase Producer test coverage by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3719
+* fixup 501833 Fix Aws2KinesisTest.kinesis test  by @ppalaga in https://github.com/apache/camel-quarkus/pull/3723
+* Import quarkus-bom in Catalog by @ppalaga in https://github.com/apache/camel-quarkus/pull/3725
+* Fix #3728 AWS S3 integration test should remove all objects in finally block by @zhfeng in https://github.com/apache/camel-quarkus/pull/3729
+* Fix #3730 improve paho-mqtt5 ssl tests by @zhfeng in https://github.com/apache/camel-quarkus/pull/3731
+* Azure Storage Queue : add consumer integration tests by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3726
+* paho: expand test coverage #3720 by @ppalaga in https://github.com/apache/camel-quarkus/pull/3733
+* Ensure the S3 download link really works by @ppalaga in https://github.com/apache/camel-quarkus/pull/3734
+* Telegram integration test : test sending message with customized keyboard by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3735
+* Fix #3737 to register reflection methods of OpenAPI Schema by @zhfeng in https://github.com/apache/camel-quarkus/pull/3738
+* Add missing service include pattern for properties-function by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3740
+* Fix compilation warnings in Azure Vert.x HTTP Client by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3744
+* Fix MockEndpoint usage in Infinispan tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3747
+* Remove c3p0 from Quartz extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3751
+* Fix MockEndpoint usage in gRPC tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3752
+* Upgrade Quarkus to 2.9.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3753
+* Remove infinispan-core dependency for unsupported InfinispanRemoteAggregationRepository by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3766
+* Upgrade Quarkus to 2.9.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3767
+* Upgrade Optaplanner to 8.20.0.Final by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3760
+* Upgrade Amazon Services to 1.1.1 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3761
+* Update of jakarta.mail to 1.6.7 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/3770
+* Upgrade Quarkus Qpid JMS to 0.34.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3772
+* paho: add test case for RFC3986 style urls #3758 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3759
+* Upgrade Debezium to 1.9.2.Final by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3762
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.8.0...2.9.0
+
+## 2.8.0
+
+* Add Azure Core HTTP Client Vert.x extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3597
+* Complete the release guide by @aldettinger in https://github.com/apache/camel-quarkus/pull/3607
+* Bump Optaplanner to 8.18.0.Final by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3589
+* zipfile: complete test coverage #3610 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3611
+* Upgrade Quarkus to 2.7.4.Final by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3613
+* Increase FHIR extension test coverage by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3614
+* Remote println from SQS test by @mmuzikar in https://github.com/apache/camel-quarkus/pull/3616
+* Disable flaky GrpcTest.forwardOnError by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3622
+* Fix cassandraql itests failing on quarkus-platform #3621 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3623
+* Slack test : update Readme with new Oauth Configuration by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3620
+* Fix #3606 to add reflection configs for Schema and its subClasses by @zhfeng in https://github.com/apache/camel-quarkus/pull/3624
+* Disable FHIR versions not required by default by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3626
+* Exclude ipfs from camel-quarkus-test-list #3618 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3629
+* Fix the antora-playbook.yml link by @aldettinger in https://github.com/apache/camel-quarkus/pull/3633
+* Support additional FHIR 2.x versions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3630
+* Upgrade Quarkus to 2.7.5.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3631
+* Use com.github.java-json-tools:* instead of com.github.fge:*  by @ppalaga in https://github.com/apache/camel-quarkus/pull/3634
+* Fix #3432 add a build step to support source location by @zhfeng in https://github.com/apache/camel-quarkus/pull/3628
+* Upgrade cassandra-quarkus-client to 1.1.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3636
+* Upgrade and sync xmlgraphics-commons by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3637
+* Camel quarkus 3532 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3639
+* Fix Gradle native builds for Spring backed extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3640
+* Slack : fix native support for Webhook URL + add test coverage by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3643
+* Fix registration of consul client API proxy interface by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3644
+* file: Rewrite the charset related test #3627 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3645
+* Tidy geronimo-jms_2.0_spec exclusions by @ppalaga in https://github.com/apache/camel-quarkus/pull/3646
+* file: Ensure FileTest.charset is fixed under Windows #3530 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3647
+* Switch from `NativeImageTest` to `QuarkusIntegrationTest` by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3648
+* Avoid compiling regular expressions in loops by @ppalaga in https://github.com/apache/camel-quarkus/pull/3649
+* Upgrade Quarkus to 2.8.0.CR1 + Upgrade Camel to 3.16.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3653
+* Fix typo in docs & Added tests for NotNull validator checks by @mmuzikar in https://github.com/apache/camel-quarkus/pull/3652
+* Improve Infinispan extension test coverage by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3659
+* Fix loading of XML routes with routes-include-pattern wildcard by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3660
+* Exclude jboss-marshalling-osgi from infinispan-jboss-marshalling by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3661
+* Azure integration tests - upgrade the setup script by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3654
+* Stop importing io.quarkus:quarkus-bom into camel-quarkus-bom by @ppalaga in https://github.com/apache/camel-quarkus/pull/3662
+* Align `com.github.java-json-tools:json-patch` version with Camel by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3663
+* Add more details about `@QuarkusIntegrationTest` to the testing guide by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3664
+* Revert "Add Camel 3.16.0 staging repository" by @ppalaga in https://github.com/apache/camel-quarkus/pull/3667
+* Create Camel Google Secret Manager Extension by @oscerd in https://github.com/apache/camel-quarkus/pull/3668
+* paho: fix NullPointerException when MqqtException occurs during reconnect attempt in native mode by @aldettinger in https://github.com/apache/camel-quarkus/pull/3672
+* Better control what we manage in our BOM  by @ppalaga in https://github.com/apache/camel-quarkus/pull/3666
+* Ban javax.validation and junit 4 by @ppalaga in https://github.com/apache/camel-quarkus/pull/3673
+* Ban javax.activation-api, javax.annotation-api and JBoss spec artifacts by @ppalaga in https://github.com/apache/camel-quarkus/pull/3675
+* Update antora.yml to point at 3.16.x branches by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3676
+* More bans by @ppalaga in https://github.com/apache/camel-quarkus/pull/3678
+* paho: Add test coverage for file persistence #3680 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3681
+* Improve MicroProfile Fault Tolerance extension test coverage by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3679
+* Kafka Oauth test bump Keycloak container version to 16.1.1 & leverage Strimzi dev services container by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3619
+* Fix potential Azure Blob test failures when testing against the real service by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3683
+* Stop managing Snappy in Spark BOM, as it is now managed in quarkus-bom by @ppalaga in https://github.com/apache/camel-quarkus/pull/3684
+* Upgrade Quarkus to 2.8.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3693
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.8.0-M1...2.8.0
+
+## 2.7.1
+
+* update antora.yml and source-map.yml for doc release by @djencks in https://github.com/apache/camel-quarkus/pull/3507
+* [2.7.x] backports by @ppalaga in https://github.com/apache/camel-quarkus/pull/3519
+* [2.7.x] backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3527
+* [2.7.x] Backports by @ppalaga in https://github.com/apache/camel-quarkus/pull/3538
+* [2.7.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3573
+* [2.7.x] Backports + Camel 3.14.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3600
+* [2.7.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3635
+* Revert "Remove IPFS and Weka extensions temporarily, workaround #3532" by @aldettinger in https://github.com/apache/camel-quarkus/pull/3641
+* [2.7.x] Backports by @ppalaga in https://github.com/apache/camel-quarkus/pull/3687
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.7.0...2.7.1
+
+## 2.8.0-M1
+
+* Next is 2.8.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3502
+* Fix #3496 Ban javax.servlet:javax.servlet-api in favor of jakarta.servlet:jakarta.servlet-api by @zhfeng in https://github.com/apache/camel-quarkus/pull/3506
+* fix update script by @djencks in https://github.com/apache/camel-quarkus/pull/3508
+* Fix deprecation warnings and typos in csimple extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3510
+* Upgrade formatter-maven-plugin to 2.17.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3512
+* Clean up usage of deprecated Quarkus APIs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3513
+* Fix nitrate collection tests on slow machines by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3515
+* Prevent various plugins from resolving commons-logging:commons-logging by @ppalaga in https://github.com/apache/camel-quarkus/pull/3518
+* Expand Cassandra CQL extension test coverage by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3522
+* Build with Maven 3.8.4 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3523
+* Clean up usage of `quarkus.test.flat-class-path` by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3524
+* Add release guide notes for updating k8s version labels in example projects by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3516
+* Fix #3251 expose REST DSL services to quarkus openapis by @zhfeng in https://github.com/apache/camel-quarkus/pull/3481
+* Upgrade to Camel 3.15.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3525
+* Remove IPFS and Weka extensions temporarily by @ppalaga in https://github.com/apache/camel-quarkus/pull/3533
+* #3503 Add xslt.features support by @DenisIstomin in https://github.com/apache/camel-quarkus/pull/3526
+* Exclude json-simple from camel-slack, workaround for CAMEL-17619 by @ppalaga in https://github.com/apache/camel-quarkus/pull/3536
+* Upgrade to Quarkus 2.7.1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/3535
+* Incorrect version of quarkus-maven-plugin may be resolved #3520 by @ppalaga in https://github.com/apache/camel-quarkus/pull/3528
+* Fix #1384 camel-mybatis native support by @zhfeng in https://github.com/apache/camel-quarkus/pull/2525
+* Run integration tests on Windows by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3537
+* Upgrade Maven Wrapper to 3.1.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3539
+* Disable flaky messaging resequence test on GitHub CI (#2957) by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3540
+* DebeziumMongodbTest skipped tests #3213 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/3266
+* Poll for optaplanner results to avoid timeouts on slow machines by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3542
+* Remove duplicate software.amazon.awssdk:iam dependency declaration by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3543
+* Deprecate camel-quarkus-spark  by @ppalaga in https://github.com/apache/camel-quarkus/pull/3544
+* Remove freemarker inaccurate documentation by @aldettinger in https://github.com/apache/camel-quarkus/pull/3545
+* Fixup e72113e send optaplanner test messages asynchronously by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3546
+* Fix link to Quarkus Freemarker docs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3547
+* Fix #3548 to exclude geronimo-jta_1.1_spec in camel-activemq by @zhfeng in https://github.com/apache/camel-quarkus/pull/3550
+* Improve available port discovery in tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3555
+* gson: complete doc and test coverage #3556 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3557
+* Fix #3551 ban all non-canonical JTA specs artifacts by @zhfeng in https://github.com/apache/camel-quarkus/pull/3559
+* Upgrade Azurite container image to 3.15.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3563
+* Deprecate AHC and AHC-WS extensions  by @ppalaga in https://github.com/apache/camel-quarkus/pull/3560
+* Increase azure-storage-blob extension test coverage by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3568
+* Upgrade Quarkus to 2.7.2.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3570
+* Fix JSON keys are unquoted when using writeAsString in native mode #3571 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3576
+* Exclude optional `reactor-netty-http-brave` by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3575
+* Ensure correct camel-quarkus-examples branch for maintenance branch PRs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3578
+* jsonpath: fix different number of ObjectMapper modules between JVM and native mode by @aldettinger in https://github.com/apache/camel-quarkus/pull/3583
+* Improve camel-quarkus-bean-validator test coverage #3567 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/3572
+* Upgrade Quarkus to 2.7.3.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3586
+* Add Extension for Camel Azure Servicebus by @oscerd in https://github.com/apache/camel-quarkus/pull/3587
+* Manage mvel via cq:sync-versions to allow additional consistency checks by @ppalaga in https://github.com/apache/camel-quarkus/pull/3588
+* Bump Hazelcast client to 3.0.0 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3590
+* Remove redundant workarounds for Kotlin compilation on JDK 17 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3591
+* file: fix a race condition where an exchange is missed due to a call to mockEndpoint.reset() by @aldettinger in https://github.com/apache/camel-quarkus/pull/3596
+* Merge platform-http-engine tests with platform-http by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3598
+* Fix #3553 make beans of InterceptStrategy unremovable by @zhfeng in https://github.com/apache/camel-quarkus/pull/3593
+* Upgrade third party Quarkus extensions prior to release by @aldettinger in https://github.com/apache/camel-quarkus/pull/3603
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.7.0...2.8.0-M1
+
+## 2.7.0
+
+* See #3396 Main content-as tables by @djencks in https://github.com/apache/camel-quarkus/pull/3397
+* Next is 2.7.0 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3404
+* Ban commons-logging and commons-logging-api by @ppalaga in https://github.com/apache/camel-quarkus/pull/3406
+* Use Quarkus Platform Maven Wrapper by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3409
+* Force Bouncycastle dependency bcutil-jdk15on version by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3412
+* Add released branch to official documentation by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3413
+* Manage Eclipse jgit version and jzlib version by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3415
+* Added Json-Patch JVM Extension  by @oscerd in https://github.com/apache/camel-quarkus/pull/3419
+* main update to docs local build v2 by @djencks in https://github.com/apache/camel-quarkus/pull/3422
+* camel-website #701: RI info (main) by @djencks in https://github.com/apache/camel-quarkus/pull/3426
+* Explicit that the cron extension should be used in conjunction with another extension offering an implementation by @aldettinger in https://github.com/apache/camel-quarkus/pull/3431
+* Bump Optaplanner version to 8.14.0.Final by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3311
+* Add test coverage for Quarkus SecurityIdentity & Principal in platform-http routes by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3435
+* Fix timestamp validation in syslog integration tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3437
+* Exclude commons-logging from htmlunit-driver by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3438
+* Setup a reproducer showing that camel.main.durationMaxSeconds is not honoured by @aldettinger in https://github.com/apache/camel-quarkus/pull/3434
+* Add test coverage for OpenTelemetry `@WithSpan` annotation by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3443
+* Avoid usage of deprecated io.quarkus.arc.AlternativePriority by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3445
+* Remove redundancy in pom description by @apupier in https://github.com/apache/camel-quarkus/pull/3440
+* Ban log4j 1.x  by @ppalaga in https://github.com/apache/camel-quarkus/pull/3452
+* Remove vertx-kafka extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3450
+* Add 2.7.0 migration guide by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3454
+* Make local maven settings applied to surefire plugin so that Quarkus could build the application model accordingly by @ppalaga in https://github.com/apache/camel-quarkus/pull/3455
+* aws2-quarkus-client Verify that no client except quarkus one is used  by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/3458
+* Ban netty-all  by @ppalaga in https://github.com/apache/camel-quarkus/pull/3465
+* Aws2  quarkus client ddb refactor by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/3462
+* Update Salesforce Integration tests to Salesforce API upgrade by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3467
+* Improve documentation on setting up the Salesforce developer account by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3469
+* Upgrade Quarkus to 2.7.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3473
+* Avoid creating `CamelBeanBuildItem` for health checks if they are disabled by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3475
+* Add NOTE section for smallrye-reactive-messaging usage docs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3476
+* camel-website #701 camel-quarkus RI table setup (main) by @djencks in https://github.com/apache/camel-quarkus/pull/3477
+* Bump Optaplanner to 8.16.0.Final and enable CI tests by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3484
+* Update Salesforce doc, with more details on setting developer account by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3482
+* Remove quarkus.camel.main.enabled configuration property by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3485
+* Dependency management tweaks by @ppalaga in https://github.com/apache/camel-quarkus/pull/3486
+* Upgrade Quarkus to 2.7.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3489
+* Manage camel-quarkus-catalog in camel-quarkus-bom to allow Camel K to by @ppalaga in https://github.com/apache/camel-quarkus/pull/3490
+* Require Maven 3.8.1+ to build Camel Quarkus by @ppalaga in https://github.com/apache/camel-quarkus/pull/3492
+* CVE-2020-8908 guava: local information disclosure via temporary directory created with unsafe permissions by @ppalaga in https://github.com/apache/camel-quarkus/pull/3495
+* Removed the deprecated @BuildTimeAvroDataFormat annotation #2791 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3500
+* Upgrade Camel to 3.14.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3497
+* Use parametrized groupId for quarkus-maven-plugin so that it is possible to run our tests with io.quarkus.platform:quarkus-maven-plugin by @ppalaga in https://github.com/apache/camel-quarkus/pull/3501
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.6.0...2.7.0
+
+## 2.2.1
+
+* update to new indexer,jsonpath syntax, fix some versions by @djencks in https://github.com/apache/camel-quarkus/pull/3215
+* 2.2.x Backports by @ppalaga in https://github.com/apache/camel-quarkus/pull/3439
+* Upgrade to Camel 3.11.5 by @ppalaga in https://github.com/apache/camel-quarkus/pull/3441
+* 2.2.x backports by @ppalaga in https://github.com/apache/camel-quarkus/pull/3449
+* Backport ban log4j 1.x by @ppalaga in https://github.com/apache/camel-quarkus/pull/3453
+* 2.2.x backports by @ppalaga in https://github.com/apache/camel-quarkus/pull/3456
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.2.0...2.2.1
+
+## 2.6.0
+
+* Make building possible with Java 11 through 17 by @ppalaga in https://github.com/apache/camel-quarkus/pull/3313
+* Disable FOP integration test failed in native mode on Mac OS #3280 by @ffang in https://github.com/apache/camel-quarkus/pull/3314
+* Graceful shutdown strategy used as default one by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/3310
+* Next is 2.6.0 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3317
+* Document that vertx-websocket consumers run on the Quarkus Vert.x web server by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3320
+* Fix `MicroProfileHealthTest.testFailureThreshold` test failure by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3322
+* JFR Native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3319
+* core: Add RouteConfigurationsBuilder before regular RoutesBuilder when camel main is disabled by @aldettinger in https://github.com/apache/camel-quarkus/pull/3316
+* Verify that `kafka.bootstrap.servers` property is available before attempting to use it for dev services by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3330
+* Sql test using derby doesn't start dev service and stored procedure is not working on derby db by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/3324
+* Add manifest to camel-quarkus-support-spring source JARs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3328
+* Remove `camel-quarkus-support-common` by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3334
+* Ban com.google.code.findbugs:jsr305 unconditionally  by @ppalaga in https://github.com/apache/camel-quarkus/pull/3337
+* Fix misalignment of protobuf dependencies by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3338
+* Avoid hard coding Bindy resource path for `NativeImageResourceDirectoryBuildItem` by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3349
+* :white_check_mark: Kafka Oauth Integration test with Strimzi and Keycloak by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3336
+* Fix bash syntax error in CI integration tests step by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3351
+* Fix AWS Lambda failing itest #3356 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3357
+* fix  [JDK17]kudu:integration test failed in native mode #3340 by @ffang in https://github.com/apache/camel-quarkus/pull/3341
+* Workaround for NoSuchFileException: .../target/classes when executing a by @ppalaga in https://github.com/apache/camel-quarkus/pull/3359
+* Ban com.sun.activation:javax.activation  by @ppalaga in https://github.com/apache/camel-quarkus/pull/3362
+* Use yq installed on the GitHub actions VM instead of downloading and installing it by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3368
+* Upgrade Quarkus to 2.6.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3367
+* Test AWS2 SQS in isolation by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3352
+* Exclude maven-artifact from camel-quarkus-debezium-mongodb  by @ppalaga in https://github.com/apache/camel-quarkus/pull/3373
+* Ensure consistent version of `software.amazon.awssdk` dependencies by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3371
+* Remove com.amazonaws:aws-java-sdk-swf-libraries from the BOM  by @ppalaga in https://github.com/apache/camel-quarkus/pull/3376
+* Ban log4j-core and log4j-slf4j-impl  by @ppalaga in https://github.com/apache/camel-quarkus/pull/3378
+* Fix #3374 to use File.separatorChar when get fqcn from generated xslt class files by @zhfeng in https://github.com/apache/camel-quarkus/pull/3380
+* Use the Quarkus Artemis BOM and upgrade to 1.0.2 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3383
+* protobuf: Missing method "getName" when using contentTypeFormat=json in native mode by @aldettinger in https://github.com/apache/camel-quarkus/pull/3384
+* Sql doc update because of the failure with external oracle database by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/3272
+* Upgrade Quarkus 2.6.0.Final by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3388
+* POC/WIP local build setup by @djencks in https://github.com/apache/camel-quarkus/pull/3385
+* Upgrade Quarkiverse jgit and Amazon services by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3393
+* Upgrade Tika version by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3395
+* Upgrade Camel to 3.14.0 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3392
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.5.0...2.6.0
+
+## 2.5.0
+
+* update to new indexer,jsonpath syntax by @djencks in https://github.com/apache/camel-quarkus/pull/3214
+* Import quarkus-bom before camel-quarkus-bom in tests  by @ppalaga in https://github.com/apache/camel-quarkus/pull/3223
+* 2592 aws2 quarkus clients tests by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/3224
+* Temporary disable Tika native tests #3230 by @ppalaga in https://github.com/apache/camel-quarkus/pull/3231
+* Disable MongoDB dev services in slack itest by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3234
+* Stub GeoCoder nominatim APIs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3235
+* camel quarkus main latest to next by @djencks in https://github.com/apache/camel-quarkus/pull/3232
+* Simplify `defining-camel-routes.adoc` and remove camel-k-version property by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3238
+* Use log await strategy for RabbitMQ container by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3240
+* Fix #3095 improve the aws2-s3 doc to explain chunk_signature in multipart upload by @zhfeng in https://github.com/apache/camel-quarkus/pull/3237
+* Remove bulkhead related tests as this is not yet implemented in Camel by @aldettinger in https://github.com/apache/camel-quarkus/pull/3241
+* Use log await strategy for Spring RabbitMQ container by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3242
+* Align Azurite container version with Camel by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3244
+* Added explanation that Quarkus-amazon-lambda can not be used by aws2-lambda by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/3245
+* Add notes about the salesforce-maven-plugin to the Salesforce extension docs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3250
+* Assert that Component DSL and Endpoint DSL work for AtlasMap by @ppalaga in https://github.com/apache/camel-quarkus/pull/3246
+* Sql - native tests fail on NPE during db initialization #3247 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/3248
+* Make sure all AWS extensions tested with Quarkus clients have the option documented by @ppalaga in https://github.com/apache/camel-quarkus/pull/3253
+* Fix #3254 to re-enable KafkaSaslSslIT and KafkaSslIT native tests by @zhfeng in https://github.com/apache/camel-quarkus/pull/3255
+* Expand route configurations test coverage #2978 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3257
+* Sql - enable stored procedure test for different db types #3080 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/3261
+* Cannot run tests against alternative BOMs  by @ppalaga in https://github.com/apache/camel-quarkus/pull/3262
+* Fixup 218bef4 Deactivate the virtualDepenencies profile via -DnoVirtualDependencies rather than !virtualDependencies by @ppalaga in https://github.com/apache/camel-quarkus/pull/3263
+* Remove not needed anymore BeansWeakCache substitution. Closes #3226 by @vladimirfx in https://github.com/apache/camel-quarkus/pull/3264
+* avro: Fix the documentation about avro schema build time parsing #3270 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3271
+* Fixup 218bef4 Special fix for Solr - Cannot run tests against by @ppalaga in https://github.com/apache/camel-quarkus/pull/3278
+* Fix #3276 to make sure all objects have been deleted after each test in AWS2 S3 by @zhfeng in https://github.com/apache/camel-quarkus/pull/3279
+* Remove BOM reference to non existent camel-quarkus-xstream-common-deployment dependency by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3285
+* Fixup 218bef4 Special fix for JMS extensions depending on by @ppalaga in https://github.com/apache/camel-quarkus/pull/3286
+* Fix #3284 to get kafka.bootstrap.servers from DevServicesLauncherConfigResultBuildItem by @zhfeng in https://github.com/apache/camel-quarkus/pull/3287
+* Upgrade Quarkus to 2.5.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3288
+* Debezium tests are using JUnit 4 Assertions and Assumptions #3289 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/3290
+* Added missing stored procedure test for oracle by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/3269
+* Improve Release guide by @ppalaga in https://github.com/apache/camel-quarkus/pull/3292
+* Avoid using Camel Salesforce DTO types as the return type or method parameters in integration tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3291
+* Remove management of netty-tcnative-boringssl-static by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3293
+* Revert "Fixup 218bef4 Special fix for JMS extensions depending on" by @ppalaga in https://github.com/apache/camel-quarkus/pull/3300
+* Make the dependency management more consistent by @ppalaga in https://github.com/apache/camel-quarkus/pull/3303
+* Add route configuration test coverage for endpoint route builder #2078 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3301
+* Upgrade Quarkus to 2.5.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3305
+* Fix broken links to SmallRye Reactive Messaging documentation by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3306
+* Upgrade Camel to 3.13.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3299
+* Upgrade Quarkus Qpid JMS to 0.30.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3308
+* Bump nimbus-jose-jwt version from Quarkus bom by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3309
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.4.0...2.5.0
+
+## 2.4.0
+
+* Upgrade Camel to 3.12.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3144
+* Camel 3.12 follow-up fixes by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3153
+* Revert Aws2TestEnvContext changes in order to extend aws lambda function version operations test coverage by @aldettinger in https://github.com/apache/camel-quarkus/pull/3158
+* Register CDI event bridges only when required by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3151
+* Document how to pass parts of release announcement to Quarkus team by @ppalaga in https://github.com/apache/camel-quarkus/pull/3162
+* Check whether service binding is enabled before creating QuarkusKafkaClientFactory by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3161
+* CI build should test example projects with camel-quarkus SNAPSHOT #3160 by @ppalaga in https://github.com/apache/camel-quarkus/pull/3165
+* Switch back to using containers for ActiveMQ messaging tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3166
+* fix  Aws2S3Test could fail with real AWS S3 service caused by bucket name conflicts by @ffang in https://github.com/apache/camel-quarkus/pull/3164
+* AWS S3 tests should delete all buckets they create by @ppalaga in https://github.com/apache/camel-quarkus/pull/3168
+* AWS Aws2DdbQuarkusClientTest fails with real AWS #3174 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/3175
+* Fix path to spring boot docs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3177
+* Fix #3169 to add S3 KMS encryption test by @zhfeng in https://github.com/apache/camel-quarkus/pull/3176
+* Update declaring Bean Capability by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3178
+* Upgrade Quarkus to 2.4.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3180
+* Simplify native mode locale docs section by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3182
+* Fix source code formatting in native mode reflection docs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3183
+* Improve the User guide by @ppalaga in https://github.com/apache/camel-quarkus/pull/3185
+* Fixes #3184: Add requires attribute to playbook by @djencks in https://github.com/apache/camel-quarkus/pull/3187
+* Aws2-lambda: Add event source mapping test #2749 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3186
+* Remove quarkiverse-google-cloud-services dependencies by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3188
+* Use log await strategy for ipfs container by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3202
+* Upgrade Quarkiverse Minio to 2.3.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3205
+* Fix #3157 to make sure the brokers option is configured in native mode by @zhfeng in https://github.com/apache/camel-quarkus/pull/3198
+* Aws sqs test fix by @VratislavHais in https://github.com/apache/camel-quarkus/pull/3170
+* Add missing shiro reflective class configuration for commons-beanutils converters by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3209
+* Upgrade Quarkus to 2.4.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3210
+* doc: rephrase the section about charsets in native mode to remove link to substratevm 19.3.0 source code by @aldettinger in https://github.com/apache/camel-quarkus/pull/3220
+* Use JDK 17 in alternative JVM jobs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3212
+* Upgrade Quarkus Qpid JMS to 0.29.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3221
+* Fix #3206 to produce RunTimeConfigurationDefaultBuildItem with camel.component.kafka.brokers property by @zhfeng in https://github.com/apache/camel-quarkus/pull/3218
+* Documentation and metadata improvements by @ppalaga in https://github.com/apache/camel-quarkus/pull/3197
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.3.0...2.4.0
+
+## 2.3.0
+
+* Exclude main-unknown-args-ignore test from the list of tests for the platform again by @ppalaga in https://github.com/apache/camel-quarkus/pull/3055
+* Document mvn cq:await-release -Dcq.version=$VERSION by @ppalaga in https://github.com/apache/camel-quarkus/pull/3057
+* [#3028] Increase test coverage of a binding mode of camel-rest component by @VratislavHais in https://github.com/apache/camel-quarkus/pull/3052
+* Document tagging examples in the Release Guide by @ppalaga in https://github.com/apache/camel-quarkus/pull/3059
+* Add additional test coverage for REST DSL methods by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3060
+* Use testcontainers gcloud for Google PubSub itest by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3061
+* Test OpenAPI with YAML responses by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3062
+* [Website] fix attribute syntax by @djencks in https://github.com/apache/camel-quarkus/pull/3064
+* Allow extending an existing Catalog by @ppalaga in https://github.com/apache/camel-quarkus/pull/3063
+* Fixed reference to Kamelets catalog by @oscerd in https://github.com/apache/camel-quarkus/pull/3070
+* Fixed reference to camel-kamelets-catalog by @oscerd in https://github.com/apache/camel-quarkus/pull/3071
+* Expand OpenApi Java test coverage by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3073
+* Sql - enable test with different databases #3053 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/3066
+* Remove redundant dependencies from openapi-java extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3081
+* Add documentation to OpenApi Java extension about apiContextIdListing limitations by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3082
+* Only configure OpenTracingTracer if Quarkus Jaeger tracing is enabled by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3085
+* Fix #2745 Expand AWS S3 test coverage by @zhfeng in https://github.com/apache/camel-quarkus/pull/3077
+* Remove superfluous xml-jaxb dependency from the REST test by @ppalaga in https://github.com/apache/camel-quarkus/pull/3090
+* Fixup 9788fb65 Remove leftover extensions-jvm/digitalocean by @ppalaga in https://github.com/apache/camel-quarkus/pull/3098
+* Use test grouping for MongoDB extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3092
+* Add notes on how to configure the Platform HTTP server by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3096
+* Salesforce : add Platform events test fixes #2938 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3068
+* Upgrade to the latest Camel & Quarkus releases by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3099
+* WIP: [#2777] Increase test coverage of aws2sqs component by @VratislavHais in https://github.com/apache/camel-quarkus/pull/3074
+* Improve handling of quarkus.*.enabled configuration properties by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3100
+* Reinstate binance in xchange tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3106
+* Improve native support for `org.apache.http.impl.client.BasicAuthCache` by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3104
+* Revert back to taking the azure-sdk-bom version from Camel by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3101
+* Fix lambda tests on localstack #2595 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3102
+* Upgrade aws localstack version #2749 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3108
+* use Antora 3.0.0-alpha.9 and fail build on warn to check xrefs by @djencks in https://github.com/apache/camel-quarkus/pull/3110
+* Fixup 68be716 Allow extending an existing Catalog by @ppalaga in https://github.com/apache/camel-quarkus/pull/3113
+* Test platform-http with SSL enabled by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3112
+* Salesforce: Enable Platform Event custom fields in native mode by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3111
+* Update Salesforce testCDCAndStreamingEvents test to wait for consuming the right Document by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3105
+* Fixup 0be98ea Use test grouping for MongoDB extensions #3089 by @ppalaga in https://github.com/apache/camel-quarkus/pull/3117
+* Upgrade Quarkus to 2.2.3.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3118
+* aws2-lambda: Added updateFunction and getFunction tests  #2749 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3120
+* Upgrade Quarkus to 2.3.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3122
+* Use camel-quarkus-build-parent-it as a direct parent of each test module by @ppalaga in https://github.com/apache/camel-quarkus/pull/3128
+* Improve Kafka integration with Quarkus dev services by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3125
+* aws2-lambda: Add alias tests  #2749 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3126
+* Add notes on Quarkus Dev Services to JDBC & SQL extension docs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3127
+* Improve Kafka test coverage by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3124
+* Test Quarkus DynamoDB extension with Camel Quarkus AWS 2 DDB by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3133
+* Fix list continuation in aws2-ddb docs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3138
+* Add missing grouped test modules to formatting steps by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3136
+* aws2-lambda: Add lambda function tag operations test #2749 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3139
+* Make integration tests runnable against Quarkus Platform BOM  by @ppalaga in https://github.com/apache/camel-quarkus/pull/3134
+* Test Quarkus S3 extension with Camel Quarkus AWS 2 S3 by @zhfeng in https://github.com/apache/camel-quarkus/pull/3135
+* Upgrade Quarkus to 2.3.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3140
+* Fixes #3143: Add latest non-prerelease eips by @djencks in https://github.com/apache/camel-quarkus/pull/3146
+* Issue 3143 fix eip xrefs some more by @djencks in https://github.com/apache/camel-quarkus/pull/3147
+* Enable auto replacement of camel-spring-boot docs branch reference by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3148
+* Enable Aws2TestEnvContext to handle setting up Quarkus AWS configuration properties by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3141
+* Avoid release:prepare failure "The version could not be updated: by @ppalaga in https://github.com/apache/camel-quarkus/pull/3150
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.2.0...2.3.0
+
+## 2.2.0
+
+* Remove an outdated sentence from the SQL extension docs, which was related to quarkus.camel.sql.script-files that was removed recently by @ppalaga in https://github.com/apache/camel-quarkus/pull/2944
+* Test Quarkus and Camel ElasticSearch REST client configuration by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2943
+* [Camel 3.11] Solr cloud integration tests are failing #2814 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2942
+* Add native support for transferException by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2940
+* Expand ElasticSearch REST test coverage by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2945
+* Stress the more preferred way of configuring components via CDI by moving it up by @ppalaga in https://github.com/apache/camel-quarkus/pull/2947
+* Next is 2.2.0 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2949
+* Document upgrading Camel Quarkus in Quarkus platform by @ppalaga in https://github.com/apache/camel-quarkus/pull/2950
+* AWS2 ddb-streams integration tests failures #2860 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2951
+* Polish the wording of the Configuration docs page by @ppalaga in https://github.com/apache/camel-quarkus/pull/2956
+* More EIP tests by @ppalaga in https://github.com/apache/camel-quarkus/pull/2953
+* Improve the Configuration by convention section of the configuration guide by @ppalaga in https://github.com/apache/camel-quarkus/pull/2958
+* Removed static modifier from top level class example by @mmuzikar in https://github.com/apache/camel-quarkus/pull/2959
+* Fix foundation core faulttolerance itest package name by @aldettinger in https://github.com/apache/camel-quarkus/pull/2961
+* More EIP DSL method tests by @ppalaga in https://github.com/apache/camel-quarkus/pull/2962
+* Introduce a build time optimized FastComponentNameResolver by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2963
+* Use quarkus-grpc-common instead of quarkus-grpc in the gRPC extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2971
+* Test sending messages to an SNS FIFO topic #2625 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2960
+* Skip querying Jandex for quarkus.camel.native.reflection.include-patterns by @ppalaga in https://github.com/apache/camel-quarkus/pull/2973
+* jolt: remove the DeepCopySubstitution in favor of Quarkus serialization by @aldettinger in https://github.com/apache/camel-quarkus/pull/2972
+* leveldb: remove useless substitutions in favor of graalvm built-in MethodHandles support by @aldettinger in https://github.com/apache/camel-quarkus/pull/2984
+* Upgrade Quarkus to 2.1.1.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2986
+* Use shaded spring support dependencies in Spring RabbitMQ extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2985
+* Run cq:sync-versions in the CI build to verify properties are in sync by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2987
+* Expand AWS DDB tests #2776 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2988
+* Improve grouped test modules READMEs by @ppalaga in https://github.com/apache/camel-quarkus/pull/2993
+* xchange: explicitly register the CurrencyNames bundle at build time by @aldettinger in https://github.com/apache/camel-quarkus/pull/2992
+* Upgrade Camel to 3.11.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2994
+* Upgrade to cq-maven-plugin 0.38.0, keep spaces in simple XML elements by @ppalaga in https://github.com/apache/camel-quarkus/pull/2995
+* Test language() DSL method & Language component native support by @ppalaga in https://github.com/apache/camel-quarkus/pull/2996
+* Salesforce : Expand producer test coverage by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2998
+* Be more specific about which endpoints are mocked in AdviceWith test by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3003
+* Avoid deprecated BuildProducer injection by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3004
+* Fix read-lock tests by @philschaller in https://github.com/apache/camel-quarkus/pull/2889
+* Introduce a common set of extendable messaging tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3000
+* fix extension creation on Windows by @dufoli in https://github.com/apache/camel-quarkus/pull/3008
+* Upgrade to cassandra-quarkus 1.1.1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/3007
+* Salesforce: Expand Consumer integration tests : add tests for Streaming by @zbendhiba in https://github.com/apache/camel-quarkus/pull/3005
+* Add dev mode support to camel-quarkus-kotlin by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3011
+* Reduce console log output from EipTest.throttle by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3012
+* Ensure ActiveMQ container is fully started before running tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3014
+* Upgrade Quarkus to 2.2.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3015
+* CoreTest.testCamelContextAwareRegistryBeansInitialized failing after RouteBuilder started implementing CamelContextAware by @ppalaga in https://github.com/apache/camel-quarkus/pull/3019
+* Test camel-xchange with kraken until binance issues are resolved by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3020
+* Test setting the kamelet from an external file provided at runtime #3025 by @aldettinger in https://github.com/apache/camel-quarkus/pull/3026
+* property attribute with @Consume does not work  by @ppalaga in https://github.com/apache/camel-quarkus/pull/3029
+* Fix failure of SalesforceTest.testGetAccountByQueryHelper by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3030
+* Add additional test coverage to messaging extesnions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3031
+* Enable Kubernetes extension native tests on CI by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3032
+* Add ability to test HL7 extension with multiple HAPI implementations by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3034
+* Fix #2965 to register SunJaxb21NamespacePrefixMapp for reflection by @zhfeng in https://github.com/apache/camel-quarkus/pull/3033
+* Upgrade Quarkus to 2.2.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3035
+* Upgrade Qpid JMS & Quarkiverse Google Cloud Services by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3038
+* Remove dummy quarkus.google.cloud.project-id after it was made optional by @ppalaga in https://github.com/apache/camel-quarkus/pull/3039
+* Exclude grpc-netty-shaded in favour of grpc-netty as it is not supported by quarkus-opentelemetry by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3040
+* Fix Splunk container exposed ports configuration by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3041
+* fix SolrTest failure when using CloundContainer #2967 by @ffang in https://github.com/apache/camel-quarkus/pull/3024
+* Fixup 5cf60953 SolrTest failure when using CloundContainer by @ppalaga in https://github.com/apache/camel-quarkus/pull/3046
+* Set the version in docs/antora.yml when tagging a release by @ppalaga in https://github.com/apache/camel-quarkus/pull/3045
+* Remove reference to camel-quarkus-attachments from platform-http docs as it is a non-optional transitive dependency by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3047
+* Have each release on a <major>.<minor>.x branch to make Antora happy by @ppalaga in https://github.com/apache/camel-quarkus/pull/3048
+* Fix branch names in CI builds section by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/3049
+* Document the usage of partial Quarkus BOMs  by @ppalaga in https://github.com/apache/camel-quarkus/pull/3050
+* Upgrade to OptaPlanner Quarkus 8.9.1.Final by @ppalaga in https://github.com/apache/camel-quarkus/pull/3051
+* Polish dependency management by @ppalaga in https://github.com/apache/camel-quarkus/pull/2982
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.1.0...2.2.0
+
+## 2.1.0
+
+* Improve extension descriptions by @ppalaga in https://github.com/apache/camel-quarkus/pull/2848
+* Remove Camel 3.11 staging repository by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2851
+* Add OpenTelemetry extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2854
+* Class loader issues in AvroRpcTest with Quarkus 2.0.0.Alpha3 #2651 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2859
+* Dependency upgrades by @ppalaga in https://github.com/apache/camel-quarkus/pull/2863
+* Fix usage of incorrect @Produces annotation by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2865
+* Fix #2763 to ensure jvmSince and nativeSince not newer that current version by @zhfeng in https://github.com/apache/camel-quarkus/pull/2866
+* Fix #2869 to combine build sanity checks into a single scirpt by @zhfeng in https://github.com/apache/camel-quarkus/pull/2875
+* Clean up unnecessary use of @Unremovable by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2871
+* Default to JDK 11 source & target compiler options by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2870
+* Add test for camel.faulttolerance.* properties #2780 by @aldettinger in https://github.com/apache/camel-quarkus/pull/2877
+* kafka : impossible to authenticate with oauth2 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2879
+* Upgrade Quarkus to 2.0.1.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2883
+* Avoid producing FeatureBuildItem in support extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2882
+* kudu: remove the useless test harness logic dedicated to Java 8 #2885 by @aldettinger in https://github.com/apache/camel-quarkus/pull/2886
+* Remove useless docker-java8 profile by @aldettinger in https://github.com/apache/camel-quarkus/pull/2887
+* Leverage catalog metadata to discover unremovable types by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2881
+* Add a summary page for messaging extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2890
+* Remove extra .Final in plugin version by @gastaldi in https://github.com/apache/camel-quarkus/pull/2895
+* add info about usage of nimbus-jose-jwt by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2896
+* Warn users that not all combinations of artifacts managed by by @ppalaga in https://github.com/apache/camel-quarkus/pull/2899
+* Remove redundant jdk-8-classpath profile by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2891
+* Add tests for Quarkus traced beans with Camel routes by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2898
+* Test EIPs DSL methods #2628 by @ppalaga in https://github.com/apache/camel-quarkus/pull/2641
+* fix  can't build camel-fhir extension native image #2906 by @ffang in https://github.com/apache/camel-quarkus/pull/2907
+* Upgrade Quarkus to 2.1.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2910
+* camel-quarkus-minio: quarkus.minio.url is not mandatory by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2911
+* Prevent configuration of QuarkusKafkaClientFactory if quarkus-kubernetes-service-binding is not on the classpath by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2913
+* Add information about BOMs and precedence of them by @mmuzikar in https://github.com/apache/camel-quarkus/pull/2912
+* Use of serialization feature of Quakus (includes Sql and Nitrite) by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2904
+* Build with JDK 16 as 15 is EOL by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2700
+* Laveraging quarkus-security by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2915
+* Remove reflective class registration for ScramSaslClientFactory by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2920
+* Remove quarkus.camel.sql.script-files configuration property  by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2916
+* Expand Netty test coverage by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2918
+* Support JMS ObjectMessage by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2919
+* Document the options for configuring the ElasticSearch REST client by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2923
+* add zbendhiba public key by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2917
+* fix  js-dsl integration test failure #2908 by @ffang in https://github.com/apache/camel-quarkus/pull/2909
+* Make the creation of a GitHub release a part of the release process by @ppalaga in https://github.com/apache/camel-quarkus/pull/2924
+* Use static issues to report nightly sync workflow failures by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2928
+* Use default timer delay for main-unknown-args itest application by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2931
+* Upgrade to Optaplanner 8.8.0 & fix removeProperty tests by @ppalaga in https://github.com/apache/camel-quarkus/pull/2933
+* Upgrade to Quarkus 2.1.0.Final by @ppalaga in https://github.com/apache/camel-quarkus/pull/2934
+* Salesforce - Mock existing integration tests by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2921
+* Upgrade Quarkus Qpid JMS to 0.26.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2936
+* Upgrade Quarkus Debezium to 1.6.1.Final and Quarkus Google Cloud to 0.9.0 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2937
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.0.0...2.1.0
+
+## 2.0.0
+
+* Avoid duplicating code in BaseModel & FastCamelContext by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2765
+* Use autoOffsetReset earliest to avoid missing messages sent by the Kafka producer by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2768
+* Avoid port clashes where it may already be reserved via the build-helper-maven-plugin by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2769
+* Camel quarkus 2652 by @aldettinger in https://github.com/apache/camel-quarkus/pull/2764
+* fix Unable to determine the status of the running process in TimerIT without resteasy by @ffang in https://github.com/apache/camel-quarkus/pull/2773
+* Kafka - add Kafka Idempotent repository test by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2771
+* Retry Solr cloud container 'is started' steps on failure by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2770
+* Test setting MLLP default charset from system property for native mode by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2774
+* Adapt Observability docs page to Quarkus 2.0.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2775
+* Remove health configuration workaround by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2779
+* Fix typo in JIRA relationship name by @mmuzikar in https://github.com/apache/camel-quarkus/pull/2784
+* Exclude org.bouncycastle:bcprov-debug-jdk15on from camel-as2 because we by @ppalaga in https://github.com/apache/camel-quarkus/pull/2785
+* Deprecated @BuildTimeAvroDataFormat in favor of quarkus-avro build time class generation by @aldettinger in https://github.com/apache/camel-quarkus/pull/2787
+* Avoid leaking localstack containers when ryuk is disabled by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2792
+* Fixup #2658 Intermittent failures in MongoDbTest.testTailingConsumer and MongoDbTest.testPersistentTailingConsumer() by @ppalaga in https://github.com/apache/camel-quarkus/pull/2795
+* Test Quarkus and Camel Infinispan client configuration by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2798
+* Fix JSON Jackson jacksonConversionPojo test-addressed feedback #2726 by @ffang in https://github.com/apache/camel-quarkus/pull/2790
+* fix Issue/2733 : Native support for kamelet.yaml discovery by @valdar in https://github.com/apache/camel-quarkus/pull/2799
+* Website build fixed after commit of kamelet docs by @oscerd in https://github.com/apache/camel-quarkus/pull/2804
+* fix hazelcast integration-test failed in native mode(On Mac) #2719 by @ffang in https://github.com/apache/camel-quarkus/pull/2789
+* Expand jsonpath test coverage #2783 by @aldettinger in https://github.com/apache/camel-quarkus/pull/2803
+* Dependency upgrades by @ppalaga in https://github.com/apache/camel-quarkus/pull/2788
+* Remove redundant apt dependency from camel-quarkus-bom by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2808
+* Upgrade to Cassandra Quarkus 1.1.0-rc2, fix #2801 by @ppalaga in https://github.com/apache/camel-quarkus/pull/2807
+* Expand HTTP clients test coverage by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2806
+* Reduce Splunk minimum free disk space requirement by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2809
+* Upgrade to azure-bom 1.0.3 and fix #2207 Upgrading to Jackson 2.12.1 via Quarkus BOM 1.12 breaks Azure SDK v12 extensions by @ppalaga in https://github.com/apache/camel-quarkus/pull/2758
+* Remove camel-quarkus-main  by @ppalaga in https://github.com/apache/camel-quarkus/pull/2811
+* Unmanage unnecessary google dependencies  by @ppalaga in https://github.com/apache/camel-quarkus/pull/2817
+* Replace quarkus.camel.native.resources.* with quarkus.native.resources.* by @ppalaga in https://github.com/apache/camel-quarkus/pull/2813
+* Tested and documented the specification of custom beans in application.properties by @aldettinger in https://github.com/apache/camel-quarkus/pull/2818
+* Upgrade to Quarkiverse Google Cloud Services 0.8.0.CR1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/2820
+* Manage Groovy dependencies with groovy-bom import by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2821
+* Test camel.threadpool.* set of properties #2781 by @aldettinger in https://github.com/apache/camel-quarkus/pull/2825
+* Migration guide: mention Quarkus 2.0 migration guide, by @ppalaga in https://github.com/apache/camel-quarkus/pull/2824
+* Update the Command mode docs page by @ppalaga in https://github.com/apache/camel-quarkus/pull/2826
+* Deprecate quarkus.camel.sql.script-files configuration property by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2827
+* Upgrade to Quarkus 2.0.0.Final by @ppalaga in https://github.com/apache/camel-quarkus/pull/2835
+* Use a custom NativeImageStartedNotifier for box native tests to work around #2830 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2837
+* Upgrade to Camel 3.11 by @ppalaga in https://github.com/apache/camel-quarkus/pull/2839
+* Add a TypeConverter for platform-http to convert Buffer to ByteBuffer and work around #2838 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2846
+* Add a section about mocking remote endpoints to Testing page of user guide by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2843
+* Fix InfinispanTest failed on Mac #2840 by @ffang in https://github.com/apache/camel-quarkus/pull/2841
+* Fix #2285 upgrade to use the lasest narayana lra-coordinator by @zhfeng in https://github.com/apache/camel-quarkus/pull/2847
+* Add a section about testing to the Contributor guide by @ppalaga in https://github.com/apache/camel-quarkus/pull/2836
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.0.0-M2...2.0.0
+
+## 2.0.0-M2
+
+* jackson: add test coverage #2634 by @ffang in https://github.com/apache/camel-quarkus/pull/2672
+* Fix aws2-support dependency on httpclient by @aloubyansky in https://github.com/apache/camel-quarkus/pull/2683
+* Add tests and documentation for transaction policies by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2684
+* Fix Error when using camel-quarkus-jackson in native mode: java.lang.ClassNotFoundException by @ffang in https://github.com/apache/camel-quarkus/pull/2680
+* Fix typo in EndpointInject title by @kdubois in https://github.com/apache/camel-quarkus/pull/2686
+* Fix another typo 'EndpointInject' by @kdubois in https://github.com/apache/camel-quarkus/pull/2687
+* Upgrade to Quarkus 2.0.0.CR2 by @ppalaga in https://github.com/apache/camel-quarkus/pull/2688
+* fix typo by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2697
+* Upgrade SmallRye Reactive Messaging Camel to 3.3.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2698
+* Document usage of dashed query params with platform-http by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2699
+* fix camel-quarkus-jacksonxml:JsonView annotations take no effect in native mode by @ffang in https://github.com/apache/camel-quarkus/pull/2682
+* Expanded Saxon test coverage with XPath saxon tests and fixed related native issues by @aldettinger in https://github.com/apache/camel-quarkus/pull/2703
+* Fix vertx-http SSL integration test by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2705
+* Added move and delete tests for FTP extension #2645 by @aldettinger in https://github.com/apache/camel-quarkus/pull/2710
+* Expand Sql test coverage #2623 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2694
+* Enable test for REST body validation by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2717
+* Add missing use cases into MongoDb test coverage #2715 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2716
+* Fixes for Quarkus Platform 2.0.0 by @ppalaga in https://github.com/apache/camel-quarkus/pull/2720
+* Fix #2608 to create destination correctly and re-enable the test case by @zhfeng in https://github.com/apache/camel-quarkus/pull/2725
+* camel-jackson-protobuf data format native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2728
+* Upgrade to Quarkus 2.0.0.CR3 by @ppalaga in https://github.com/apache/camel-quarkus/pull/2722
+* Fix MasterTest health check endpoint path by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2732
+* Disable dev services for Kafka itests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2734
+* Improve KafkaClientFactory integration by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2735
+* Fixed the CryptoIT test #2673 by @aldettinger in https://github.com/apache/camel-quarkus/pull/2738
+* Unable to determine the status of the running process in LogIT without resteasy by @ppalaga in https://github.com/apache/camel-quarkus/pull/2740
+* Add integration test for discovering custom ProtobufMapper beans by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2742
+* Intermittent failures in Aws2SqsSnsIT  by @ppalaga in https://github.com/apache/camel-quarkus/pull/2743
+* Intermittent failures in MongoDbTest-testTailingConsumer and testPersistentTailingConsumer by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2746
+* Sql aggregator does not work in native mode. by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2748
+* camel-jackson-avro data format native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2754
+* yaml-dsl: enable flow mode deserialization by default by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/2757
+* Unregister MongoDb's ChangeStreamDocument from reflection once it is provided by Quarkus by @ppalaga in https://github.com/apache/camel-quarkus/pull/2759
+* Fix Qute component metadata in Camel Quarkus catalog by @ppalaga in https://github.com/apache/camel-quarkus/pull/2760
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/2.0.0-M1...2.0.0-M2
+
+## 2.0.0-M1
+
+* DigitalOcean native support #1594 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2387
+* openstack: added nova server and swift tests #1943 by @aldettinger in https://github.com/apache/camel-quarkus/pull/2438
+* Show deprecation info in Extensions reference  by @ppalaga in https://github.com/apache/camel-quarkus/pull/2444
+* Fix xref-validator download failure by @ppalaga in https://github.com/apache/camel-quarkus/pull/2446
+* Upgrade CassandraQL quarkus extension to 1.0.1 #2423 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2440
+* [fix] Enforce correct maven version by @llowinge in https://github.com/apache/camel-quarkus/pull/2443
+* couchbase JVM : add integration tests fixes #2326 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2327
+* Add code.quarkus.io badges on extension pages  by @ppalaga in https://github.com/apache/camel-quarkus/pull/2454
+* Fix #2441 to remove the unused beanContainer in FhirR5Processor by @zhfeng in https://github.com/apache/camel-quarkus/pull/2455
+* camel-quarkus-dozer Error when running native executable #2449 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2453
+* Forward HBase testcontainer's log to stdout to see whether #2458 is occurring by @ppalaga in https://github.com/apache/camel-quarkus/pull/2459
+* Make Quarkus Micrometer optional for Reactor Netty extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2462
+* Added native support for camel-openstack * components #1943 by @aldettinger in https://github.com/apache/camel-quarkus/pull/2463
+* Fix intermittent failure in native MicroprofileMetricsIT by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2464
+* Improve MongoDB extension documentation of named clients by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2467
+* Docs improvements by @ppalaga in https://github.com/apache/camel-quarkus/pull/2469
+* Upper case Bootstrap, Fix #2164 by @cunningt in https://github.com/apache/camel-quarkus/pull/2472
+* Revisit the documentation #2136 #2470 #2374 by @ppalaga in https://github.com/apache/camel-quarkus/pull/2474
+* documentation fixes by @aldettinger in https://github.com/apache/camel-quarkus/pull/2475
+* Run Azure tests grouped on the CI thus saving some time by @ppalaga in https://github.com/apache/camel-quarkus/pull/2477
+* Upgrade to Quarkus 1.13.2.Final by @ppalaga in https://github.com/apache/camel-quarkus/pull/2478
+* Test skipped in native mode should be executed on default Java version at least  by @ppalaga in https://github.com/apache/camel-quarkus/pull/2482
+* Add Quarkus service binding support to Kafka extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2480
+* Reballance CI test categories, do not validate docs links in inital-mvn-install CI phase by @ppalaga in https://github.com/apache/camel-quarkus/pull/2485
+* Reballance CI test categories even more by @ppalaga in https://github.com/apache/camel-quarkus/pull/2488
+* Fix invalid xref link to configuration.adoc by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2494
+* Simplify testcontainers usage by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2493
+* Fix SlackConfig class for native builds by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2495
+* bindy: fixed the locale test so that it detects issues on Java 8 too by @aldettinger in https://github.com/apache/camel-quarkus/pull/2496
+* update ci doc by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2498
+* Add integration tests #2388 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2497
+* Replace references to camel master branch with main in antora playbooks by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2501
+* Add test coverage for Kafka with SSL by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2500
+* Add integration-tests-support-kafka module by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2504
+* Add test coverage for Kafka with SASL_SSL by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2507
+* Qute component improperly classified as other in Camel Quarkus Catalog by @ppalaga in https://github.com/apache/camel-quarkus/pull/2510
+* Fix admonitions in adocs by @tadayosi in https://github.com/apache/camel-quarkus/pull/2516
+* Fix asciidoctor warnings at camel-website build by @tadayosi in https://github.com/apache/camel-quarkus/pull/2517
+* #2490 fix camel-quarkus-hbase-integration-test by @ffang in https://github.com/apache/camel-quarkus/pull/2506
+* Fixed classpath and no prefix resources that were ignored in dev mode by @aldettinger in https://github.com/apache/camel-quarkus/pull/2515
+* Document the possibility to use CDI beans with camel bean component by @ppalaga in https://github.com/apache/camel-quarkus/pull/2531
+* fix org.apache.camel.quarkus.component.lra.it.LraTest failed #2523 by @ffang in https://github.com/apache/camel-quarkus/pull/2524
+* Test class component, test bean language  by @ppalaga in https://github.com/apache/camel-quarkus/pull/2530
+* Expand REST test coverage by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2535
+* Expand HL7 test coverage by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2538
+* Added tests and docs for the simple language #2533 by @aldettinger in https://github.com/apache/camel-quarkus/pull/2541
+* fix org.apache.camel.quarkus.component.splunk.it.SplunkTest failure if system timezone isn't UTC by @ffang in https://github.com/apache/camel-quarkus/pull/2543
+* Test bean binding  by @ppalaga in https://github.com/apache/camel-quarkus/pull/2544
+* XChange native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2545
+* Test Batch Consumer, charset, filter, sortby, idempotent of the file component by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2548
+* Wrap PR template content in comments by default by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2552
+* xpath: Fixed native issue and completed tests/documentation #2547 by @aldettinger in https://github.com/apache/camel-quarkus/pull/2551
+* Add MLLP test coverage for setting charset by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2555
+* #2550 fix several native integration-test failure by @ffang in https://github.com/apache/camel-quarkus/pull/2553
+* Explained how to override default build locale in bindy documentation by @aldettinger in https://github.com/apache/camel-quarkus/pull/2557
+* Update changelog action to v1.4 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2556
+* [fix] #2356 Test file language by @KurtStam in https://github.com/apache/camel-quarkus/pull/2559
+* Move RestBindingMode XML tests to rest itest module by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2563
+* Google Storage support #2421 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2505
+* AtlasMap: Use jandex to discover the types we need to register for reflection by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2509
+* Custom TypeConverter is not automatically registered #2260 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2560
+* Add additional SOAP extension test coverage by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2562
+* With fix of #2260 too many @Converters are registered #2570 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2571
+* Do not use deprecated BuildStep.applicationArchiveMarkers() by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2583
+* Support @EndpointInject and @Produce  by @ppalaga in https://github.com/apache/camel-quarkus/pull/2581
+* Add DataSource configuration docs to JDBC & SQL extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2587
+* Test TypeConverters #2537 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2584
+* Support @Consume  by @ppalaga in https://github.com/apache/camel-quarkus/pull/2588
+* Fixed native issue and completed test/documentation #1710 by @aldettinger in https://github.com/apache/camel-quarkus/pull/2585
+* REST extension doc link is not processed correctly  by @ppalaga in https://github.com/apache/camel-quarkus/pull/2593
+* AWS2 components have to set client.endpointOverride() to work on Localstack by @ppalaga in https://github.com/apache/camel-quarkus/pull/2596
+* Revisit core, main and foundation integration tests #2362 by @ppalaga in https://github.com/apache/camel-quarkus/pull/2597
+* Leverage quarkus-hazelcast-client-bom, upgrade to quarkus-hazelcast-client 1.2.0 by @ppalaga in https://github.com/apache/camel-quarkus/pull/2602
+* Document locale limitations in native mode  by @ppalaga in https://github.com/apache/camel-quarkus/pull/2601
+* Update first-steps.adoc by @yazidaqel in https://github.com/apache/camel-quarkus/pull/2603
+* Add tests for MicroProfile metrics configuration options by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2611
+* Add test coverage for additional JMS message types by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2609
+* Test core languages in isolation by @ppalaga in https://github.com/apache/camel-quarkus/pull/2614
+* Add tests for path prefixes and all HTTP methods by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2619
+* Use concurrency key instead of cancel-workflow-runs action by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2620
+* add quarkus-jackson in the camel-quarkus-kafka extension by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2629
+* Use WireMock for GitHub tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2639
+* #2633 jacksonxml: add test coverage by @ffang in https://github.com/apache/camel-quarkus/pull/2635
+* Expand MongoDb test coverage #2622 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2642
+* Upgrade to Camel 3.10.0 and Quarkus 2.0.0.Alpha3 by @ppalaga in https://github.com/apache/camel-quarkus/pull/2643
+* Use CamelContextCustomizer from camel-api by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2640
+* Ensure camel-quarkus-integration-wiremock-support is test scope by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2644
+* Quick fix - Intermittent failures in MongoDbTest.testTailingConsumer by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2665
+* quarkus-jackson is included quarkus-kafka-client since quarkus 2.0.0 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2668
+* Fix #2604 to add a camel-sql case in jta integration tests by @zhfeng in https://github.com/apache/camel-quarkus/pull/2655
+* upgrade json-smart by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2669
+* Eagerly initialized Random in various extensions by @ppalaga in https://github.com/apache/camel-quarkus/pull/2663
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/1.8.1...2.0.0-M1
+
+## 1.8.1
+
+* Quarkiverse dependency upgrades by @ppalaga in https://github.com/apache/camel-quarkus/pull/2390
+* Revert Disable doc xref checks as there is no camel-3.9.x branch yet by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2394
+* Increase MicroProfile health extension test coverage by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2369
+* Remove Camel 3.9.0 staging repository by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2404
+* bindy: created a test to show the locale issue in native and documented by @aldettinger in https://github.com/apache/camel-quarkus/pull/2408
+* Document the process for maintaining (quarkus | camel)-master branches by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2412
+* bindy: do not embed useless resources #2413 by @aldettinger in https://github.com/apache/camel-quarkus/pull/2414
+* core: Removed the href in core javadoc as it does not generate a correct documentation by @aldettinger in https://github.com/apache/camel-quarkus/pull/2418
+* Fix intermittent failure in camel-quarkus-master-integration-test by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2419
+* Fix of Spring RabbitMQ integration test failures after spring update by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2415
+* docs: add xref support for adoc file sourced from javadoc by @ppalaga in https://github.com/apache/camel-quarkus/pull/2420
+* Consume kubernetes-client-bom via Quarkus BoM by @ppalaga in https://github.com/apache/camel-quarkus/pull/2427
+* MLLP Native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2428
+* Split misc test category into new networking-dataformats category by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2430
+* Upgrade quarkus-google-cloud-services to 0.5.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2429
+* Fix NPE if Qute template can't be found by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2434
+* Make camel-quarkus-xml-io work again after we broke it with camel-quarkus-xml-io-dsl in 1.8.0 by @ppalaga in https://github.com/apache/camel-quarkus/pull/2432
+* Azure Storage Data Lake appends newline to the file content  by @ppalaga in https://github.com/apache/camel-quarkus/pull/2437
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/1.8.0...1.8.1
+
+## 1.8.0
+
+* Next is 1.8.0 by @ppalaga in https://github.com/apache/camel-quarkus/pull/2274
+* Prefer SyntheticBeanBuildItem to initializing bean producers via volatile fields  by @ppalaga in https://github.com/apache/camel-quarkus/pull/2277
+* Improve the release guide by @ppalaga in https://github.com/apache/camel-quarkus/pull/2279
+* Freemarker native support  by @ppalaga in https://github.com/apache/camel-quarkus/pull/2184
+* Test AWS 2 CloudWatch by @ppalaga in https://github.com/apache/camel-quarkus/pull/2280
+* bindy: fixed reflective classes registration, fixes #2268 by @aldettinger in https://github.com/apache/camel-quarkus/pull/2281
+* LRA native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2286
+* Test AWS 2 Lambda by @ppalaga in https://github.com/apache/camel-quarkus/pull/2283
+* Nitrite native support #1298 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2254
+* Test AWS 2 SES by @ppalaga in https://github.com/apache/camel-quarkus/pull/2288
+* Use azure-sdk-bom instead of individual azure artifact versions by @ppalaga in https://github.com/apache/camel-quarkus/pull/2297
+* Azure Storage Data Lake JVM support #2289 by @ppalaga in https://github.com/apache/camel-quarkus/pull/2305
+* bindy: added native support for methods registered with @DataField by @aldettinger in https://github.com/apache/camel-quarkus/pull/2298
+* Review usage of quarkus.ssl.native in integration tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2307
+* Move HTTP send-dynamic test to HTTP itest module by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2303
+* Stitch and Huawei SMN JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/2309
+* Paho MQTT 5 support  by @ppalaga in https://github.com/apache/camel-quarkus/pull/2310
+* Adjust references to the runner JAR for the fast-jar format by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2311
+* Upgrade Quarkus to 1.12.1.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2313
+* Unable to use Salesforce DTOs in native mode by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2315
+* Use camel-servicenow-maven-plugin to generate model classes by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2321
+* Updated link in testing doc by @mmuzikar in https://github.com/apache/camel-quarkus/pull/2324
+* HL7 Native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2325
+* Upgrade Quarkus to 1.12.2.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2329
+* openstack: added cinder volume tests #1943 by @aldettinger in https://github.com/apache/camel-quarkus/pull/2330
+* Document that AtlasMap user classes may need to be registered for reflection by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2328
+* openstack: added cinder snapshots and glance tests #1943 by @aldettinger in https://github.com/apache/camel-quarkus/pull/2335
+* Add configuration option to ignore unknown arguments by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2338
+* Disable OptaplannerTest.solveSync on CI by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2337
+* Register classes with Solr Field annotations for reflection by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2342
+* Upgrade to Quarkus 1.13.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2343
+* Workaround #2207 in Azure Storage Data Lake test by @ppalaga in https://github.com/apache/camel-quarkus/pull/2322
+* Remove AWS SDK v1 extensions after they have been removed from Camel by @ppalaga in https://github.com/apache/camel-quarkus/pull/2345
+* openstack: added keystone tests #1943 by @aldettinger in https://github.com/apache/camel-quarkus/pull/2346
+* Upgrade Kotlin to 1.4.31 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2347
+* Fix wrong format of RouteBuilder by @llowinge in https://github.com/apache/camel-quarkus/pull/2334
+* Add a link to a blog post about Camel Quarkus command line applications by @ppalaga in https://github.com/apache/camel-quarkus/pull/2352
+* Fix some deprecation warnings by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2348
+* Deprecate camel-quarkus-componentdsl and camel-quarkus-endpointdsl example by @ppalaga in https://github.com/apache/camel-quarkus/pull/2355
+* openstack: added neutron network tests #1943 by @aldettinger in https://github.com/apache/camel-quarkus/pull/2359
+* Add test coverage for FTPS by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2357
+* Use AbstractHealthCheck for custom health checks by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2364
+* openstack: added neutron port, subnet and nova flavor tests #1943 by @aldettinger in https://github.com/apache/camel-quarkus/pull/2372
+* Upgrade to Quarkus 1.13.0.Final by @ppalaga in https://github.com/apache/camel-quarkus/pull/2370
+* Only invoke completed method on unknown arguments if the failure remedy is FAIL by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2373
+* Upgrade to Camel 3.9.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2378
+* Replace hbase-testing-util with docker container #2295 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2379
+* Merge camel-quarkus-main into camel-quarkus-core #2358 by @ppalaga in https://github.com/apache/camel-quarkus/pull/2371
+
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/1.7.0...1.8.0
+
+## 1.7.0
+
+* Improve the release docs by @ppalaga in https://github.com/apache/camel-quarkus/pull/2141
+* add Awaitility + suppress warnings #2127 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2146
+* Azure Storage Queue Service native support by @ppalaga in https://github.com/apache/camel-quarkus/pull/2143
+* Upgrade to cq-maven-plugin 0.27, stop using mvnd.rules altogether by @ppalaga in https://github.com/apache/camel-quarkus/pull/2148
+* Improve the release docs by @ppalaga in https://github.com/apache/camel-quarkus/pull/2150
+* Avoid automatic minio client autowiring #2134 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2140
+* Avoid usage of deprecated capabilities string constants by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2154
+* Upgrade Camel to 3.7.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2158
+* IPFS native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2159
+* Improvement for first-steps docs by @tstuber in https://github.com/apache/camel-quarkus/pull/2162
+* Fix #1895 to remove registerNarayanaReflectiveClass by @zhfeng in https://github.com/apache/camel-quarkus/pull/2165
+* XML Tokenize language native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2169
+* Upgrade Quarkus to 1.11.1.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2173
+* Some JVM-only extensions falsely advertized as supporting native by @ppalaga in https://github.com/apache/camel-quarkus/pull/2179
+* StAX native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2177
+* Azure Event Hubs support by @ppalaga in https://github.com/apache/camel-quarkus/pull/2178
+* Import quarkus-qpid-jms-bom to our BoM by @ppalaga in https://github.com/apache/camel-quarkus/pull/2181
+* XML Security native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2186
+* Added OAI-PMH support by @aldettinger in https://github.com/apache/camel-quarkus/pull/2190
+* AWS2 EventBridge native support by @oscerd in https://github.com/apache/camel-quarkus/pull/2193
+* Changelog is back by @oscerd in https://github.com/apache/camel-quarkus/pull/2195
+* Syslog native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2197
+* Upgrade SmallRye Reactive Messaging Camel to 2.8.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2199
+* Test AWS 2 S3 properly by @ppalaga in https://github.com/apache/camel-quarkus/pull/2198
+* Replace the deprecated VanillaUuidGenerator with DefaultUuidGenerator by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/2203
+* Replaced the JettyTestServer class with MockOaipmhServer based on wirmock by @aldettinger in https://github.com/apache/camel-quarkus/pull/2214
+* Test AWS 2 SQS properly by @ppalaga in https://github.com/apache/camel-quarkus/pull/2217
+* PubNub native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2218
+* Test AWS 2 SNS properly by @ppalaga in https://github.com/apache/camel-quarkus/pull/2222
+* Fix camel-master CI branch build by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2224
+* Upgrade to Camel 3.8.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2227
+* Ensure integration tests have enough free disk space by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2228
+* Use Java 15 as 14 is EOL by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2229
+* Allow running AWS 2 tests both grouped and isolated by @ppalaga in https://github.com/apache/camel-quarkus/pull/2230
+* Upgrade to Quarkus 1.12.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2231
+* Azure EventHubs native build fails with Quarkus 1.12  by @ppalaga in https://github.com/apache/camel-quarkus/pull/2208
+* Remove redundant Netty reflective class configuration by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2232
+* camel-spring-rabbitmq - new component #2128 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2233
+* Add Kamelet component extension  by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2235
+* [update] Upgrade testcontainers version by @llowinge in https://github.com/apache/camel-quarkus/pull/2236
+* Test AWS 2 DynamoDB properly by @ppalaga in https://github.com/apache/camel-quarkus/pull/2238
+* Docs xref checks failure with Camel 3.8.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2240
+* Remove outdated extensions README by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2244
+* Removing unnecessary exclusions in test for CassandaQL by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2234
+* AtlasMap native support #1989 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2237
+* Test AWS 2 DynamoDB Streams by @ppalaga in https://github.com/apache/camel-quarkus/pull/2242
+* await for consumer fixes #2205 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2245
+* Enable FOP native integration tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2247
+* Fix intermittent failure of SpringRabbitmqTest by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2246
+* Remove Camel 3.8.0 staging repository by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2251
+* AWS 2 Kinesis native support  by @ppalaga in https://github.com/apache/camel-quarkus/pull/2252
+* Added CBOR data format native support #1754 by @aldettinger in https://github.com/apache/camel-quarkus/pull/2257
+* Test AWS 2 Firehose by @ppalaga in https://github.com/apache/camel-quarkus/pull/2256
+* Upgrade Quarkus to 1.12.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2263
+* JFR JVM only support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2259
+* Deprecate Webocket JSR 356 #2262 by @ppalaga in https://github.com/apache/camel-quarkus/pull/2265
+* Add basic Netty UDP tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2264
+* Upgrade Quarkus Qpid JMS to 0.23.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2270
+* Make git tests ignore local configuration by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2269
+* Disable ryuk on CI builds by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2267
+* Azure EventHubs test fixup by @ppalaga in https://github.com/apache/camel-quarkus/pull/2271
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/1.6.0...1.7.0
+
+## 1.6.0
+
+* Require Java 11 by @ppalaga in https://github.com/apache/camel-quarkus/pull/2073
+* Documented the Camel Quarkus testing approach #1981 by @aldettinger in https://github.com/apache/camel-quarkus/pull/2075
+* Next is 1.6.0 by @ppalaga in https://github.com/apache/camel-quarkus/pull/2076
+* Last release is 1.5.0 by @ppalaga in https://github.com/apache/camel-quarkus/pull/2086
+* CAMEL-15948: examples.json instead of .adoc files by @zregvart in https://github.com/apache/camel-quarkus/pull/2087
+* Added JSONata extension by @aldettinger in https://github.com/apache/camel-quarkus/pull/2088
+* Upgrade to Quarkus 1.11.0.Beta1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/2089
+* Removed loadsApplicationClasses = true as it has no more effect by @aldettinger in https://github.com/apache/camel-quarkus/pull/2092
+* Fix twitter itest in native mode using ConfigProvider insted of ConfigProperty by @llowinge in https://github.com/apache/camel-quarkus/pull/2096
+* Hazelcast native support fixes #1647 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2093
+* Temporarily switch to actions/setup-java by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2104
+* Upgrade SmallRye Reactive Messaging Camel to 2.7.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2100
+* Temporary workaround for #2109 antora/xref-validator after a component was removed from Camel by @ppalaga in https://github.com/apache/camel-quarkus/pull/2110
+* Added Redis Aggregation Repository support in JVM mode only #2085 by @aldettinger in https://github.com/apache/camel-quarkus/pull/2106
+* antora/xref-validator failure after a component was removed from Camel by @ppalaga in https://github.com/apache/camel-quarkus/pull/2114
+* CSimple NPE even if CSimple language is not used  by @ppalaga in https://github.com/apache/camel-quarkus/pull/2108
+* Remove docker.io prefix for images by @llowinge in https://github.com/apache/camel-quarkus/pull/2117
+* Remove hystrix from test-categories.yaml by @llowinge in https://github.com/apache/camel-quarkus/pull/2105
+* Add more integration tests for camel-hazelcast extension #2094 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2115
+* Align Kotlin and SmallRye Reactive Messaging Camel with Quarkus by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2118
+* Upgrade Quarkus to 1.11.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2111
+* Switch back to AdoptOpenJDK/install-jdk action by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2121
+* Remove changelog generation workflow by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2124
+* Debezium MongoDB Connector native support by @ppalaga in https://github.com/apache/camel-quarkus/pull/2123
+* Add vertx-kafka component support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2125
+* add missing QuarkusTestResource by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2129
+* Add notes on enabling Geolocation APIs for geocoder extension integration tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2130
+* Minio native support #2040 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2116
+* Upgrade Quarkus to 1.11.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2133
+* Allow running the Azure test against the real Azure API in addition to by @ppalaga in https://github.com/apache/camel-quarkus/pull/2132
+* Hazelcast integration tests : switch to testcontainers #2127 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2137
+* Upgrade Quarkus Qpid JMS to 0.22.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2138
+* Azure Storage Blob native support  by @ppalaga in https://github.com/apache/camel-quarkus/pull/2139
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/1.5.0...1.6.0
+
+## 1.5.0
+
+* Fix debezium itest pom dependencies to deployments by @llowinge in https://github.com/apache/camel-quarkus/pull/2020
+* Leverage Quarkus plugin's generate-code mojo instead of protobuf-maven-plugin to generate protobuf stubs by @ppalaga in https://github.com/apache/camel-quarkus/pull/2018
+* Fix protobuf itest dependency on deployment by @llowinge in https://github.com/apache/camel-quarkus/pull/2021
+* Camel Avro RPC component native support #1941 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/2025
+* Upgrade Quarkus to 1.10.1.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2032
+* Upgrade Quarkus Qpid JMS to 0.21.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2030
+* Test the Freemarker extension properly, although only in JVM mode for by @ppalaga in https://github.com/apache/camel-quarkus/pull/2028
+* Add Nitrite tests by @ppalaga in https://github.com/apache/camel-quarkus/pull/2035
+* JSch native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2038
+* Add JVM only extensions for minio by @github-actions in https://github.com/apache/camel-quarkus/pull/2039
+* OptaPlanner native support fixes #1721 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/1822
+* Fixup 94ef785 Next is 1.5.0-SNAPSHOT by @ppalaga in https://github.com/apache/camel-quarkus/pull/2041
+* Fix GeocoderNominationTest postalCode field assertion failure by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2043
+* Upgrade Quarkus to 1.10.2.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2047
+* Micrometer component support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2050
+* Use camel-dependencies as parent pom to inherit camel version properties by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2051
+* Updated the release guide in order to publish sources by @aldettinger in https://github.com/apache/camel-quarkus/pull/2053
+* Solr native support fixes #1703 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/2026
+* Fix persistence of WireMock mappings by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2054
+* Polish how we pass -Djavax.net.ssl.trustStore to the Solr test #2029 by @ppalaga in https://github.com/apache/camel-quarkus/pull/2056
+* Upgrade to Quarkus 1.10.3.Final by @ppalaga in https://github.com/apache/camel-quarkus/pull/2062
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/1.4.0...1.5.0
+
+## 1.4.0
+
+* Jenkinsfile build: changed the JDK name following INFRA new approach by @oscerd in https://github.com/apache/camel-quarkus/pull/1929
+* FOP tests fail in Quarkus Platform #1930 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1931
+* Increase test coverage for Spring dependent extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1932
+* Remove Camel 3.6.0 staging repository by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1934
+* Set retention-days parameter on upload-artifact action by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1936
+* Exclude glassfish dependencies from hbase-testing-util by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1939
+* Lumberjack native support fixes #1732 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/1938
+* Camel 3.6.0 upgrade leftovers by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1940
+* Enable Spring dependent extensions to work with Quarkus Spring by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1937
+* Fix usage of deprecated GitHub actions commands by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1946
+* ActiveMQ Default XPath evaluator could not be loaded by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1947
+* lumberjack : move client payload sending to test fixes #1949 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/1950
+* Leverage camel-platform-http-vertx in platform-http extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1954
+* Replace `${camel.quarkus.project.root}` set by directory-maven-plugin with `${maven.multiModuleProjectDirectory}` by @ppalaga in https://github.com/apache/camel-quarkus/pull/1953
+* Document Spark peculiarities #1928 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1957
+* Leverage Quarkus JAXP extension where applicable #1806 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1958
+* Provide a quickly profile by @ppalaga in https://github.com/apache/camel-quarkus/pull/1962
+* Twilio native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1964
+* Fix #819 saga native support by @zhfeng in https://github.com/apache/camel-quarkus/pull/1963
+* Zendesk native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1967
+* Upgrade Quarkus to 1.9.1.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1966
+* Fixup Provide a quick profile #1607 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1968
+* Automate the process of creating jvm only extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1974
+* Add JVM only extensions for aws2-eventbridge by @github-actions in https://github.com/apache/camel-quarkus/pull/1975
+* Configuration option (not) to start the runtime #1969 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1977
+* Reenable Olingo4 integration test by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1980
+* PostgresSQL Event : add usage of Quarkus AgroalDatasource fixes #1909 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/1982
+* Added nagios native support #1726 by @aldettinger in https://github.com/apache/camel-quarkus/pull/1991
+* Migrate ServiceNow, Slack, Geocoder & Telegram tests to WireMock by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1993
+* core: allign BaseModel with org.apache.camel.impl.DefaultModel by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1985
+* Upgrade Quarkus to 1.9.2.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1994
+* Configurable Debezium itest timeout by @llowinge in https://github.com/apache/camel-quarkus/pull/1999
+* Added MSV native support by @aldettinger in https://github.com/apache/camel-quarkus/pull/2000
+* Upgrade to Quarkus 1.10.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2004
+* Kudu: unshade and remove embedded netty and use quarkus-netty instead by @ppalaga in https://github.com/apache/camel-quarkus/pull/2008
+* Added JSLT native support #1740 by @aldettinger in https://github.com/apache/camel-quarkus/pull/2010
+* Added key by @aldettinger in https://github.com/apache/camel-quarkus/pull/2015
+* Fix github itest to use oauth token instead username/password by @llowinge in https://github.com/apache/camel-quarkus/pull/2009
+* Upgrade Quarkus to 1.10.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2016
+* Upgrade Quarkus Qpid JMS to 0.20.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/2017
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/1.3.0...1.4.0
+
+## 1.3.0
+
+* Align jackson-dataformat-xml version with Quarkus jackson by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1925
+* typo corrected by @talhacevik in https://github.com/apache/camel-quarkus/pull/1926
+* Spark JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1916
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/1.2.0...1.3.0
+
+## 1.2.0
+
+* Upgrade to cq-maven-plugin 0.19.0, Make mvn -N cq:format remove empty application.properties files by @ppalaga in https://github.com/apache/camel-quarkus/pull/1774
+* Wrong jira component version definition in camel-quarkus-bom #1775 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1778
+* Fix intermittent failures of SmallRyeReactiveMessagingIT by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1780
+* Added automatic changelog gh action by @oscerd in https://github.com/apache/camel-quarkus/pull/1784
+* Caffeine native support by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1785
+* Exclude daily branch build bot generated issues from the changelog by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1786
+* Switch from Gitter to Zulip by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1787
+* Document update by @NiteshKoushik in https://github.com/apache/camel-quarkus/pull/1788
+* Update camel-quarkus-last-release property to 1.1.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1789
+* Disruptor native support by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1791
+* Use asciidoctor-antora-indexer to produce lists of extensions by @ppalaga in https://github.com/apache/camel-quarkus/pull/1777
+* Added jing native support fixes #1741 by @aldettinger in https://github.com/apache/camel-quarkus/pull/1792
+* Remove UpdateDocExtensionsListMojo followup #1777 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1794
+* gRPC native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1797
+* FOP native support #1642 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/1793
+* Browse native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1801
+* Upgrade Quarkus to 1.8.1.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1809
+* Fix launch of camel main applications from IntelliJ by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1808
+* feat(ssh): promoting native extension by @squakez in https://github.com/apache/camel-quarkus/pull/1802
+* Align guava & google-http-client versions with Quarkus by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1811
+* Added UniVocity data formats native support #1756 by @aldettinger in https://github.com/apache/camel-quarkus/pull/1813
+* Feat(mongodb): add support for named client by @squakez in https://github.com/apache/camel-quarkus/pull/1688
+* Camel quarkus disable auto route discovery not working by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1817
+* Run verify for the docs module on the CI #1819 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1820
+* Configure NativeImageResourceBuildItem for camel route classpath resources by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1821
+* Remove redundant skip of maven-enforcer-plugin execution by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1825
+* Fix intermittent failure of AHC-WS itest by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1827
+* Use partials instead of pages for the individual Camel bits by @ppalaga in https://github.com/apache/camel-quarkus/pull/1814
+* Exclude .idea directory from license checks by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1833
+* Atom native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1831
+* Use distinct descriptions for the for the various JSON data formats by @ppalaga in https://github.com/apache/camel-quarkus/pull/1832
+* List of misc. components empty after the recent docs generation changes by @ppalaga in https://github.com/apache/camel-quarkus/pull/1835
+* RSS native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1836
+* Ensure InputStream is closed after reading rome.properties by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1842
+* AWS XRay, Headersmap, Jasypt, LevelDB, LRA JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1841
+* Velocity Support #837 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/1804
+* Shiro, Ribbon, JCache JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1849
+* Duplicate license headers in Velocity test templates #1843 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/1847
+* Document camel main xml configuration properties by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1853
+* Upgrade to cq-maven-plugin 0.20.0, set nativeSince property when promoting an extension to native by @ppalaga in https://github.com/apache/camel-quarkus/pull/1854
+* String template native support #1694 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/1828
+* Improve mock backend logging by @llowinge in https://github.com/apache/camel-quarkus/pull/1818
+* Document allowContextMapAll native mode limitations by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1855
+* Tidy up pom.xml files by @ppalaga in https://github.com/apache/camel-quarkus/pull/1858
+* platform-http: handle requests using a thread from the worker pool by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1857
+* Turn of Maven connection pooling to avoid connection issues on the CI actions/runner-images#1499 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1859
+* Fix platform-http handler exception handling by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1863
+* Move examples to a separate git repository by @ppalaga in https://github.com/apache/camel-quarkus/pull/1864
+* Geocoder native support fixes #1645 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/1856
+* Upgrade SmallRye Reactive Messaging Camel to 2.4.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1866
+* Let's see if removing -Dmaven.wagon.http.pool=false solves the Maven connection problems by @ppalaga in https://github.com/apache/camel-quarkus/pull/1867
+* Generate the list of examples from the AsciiDoc pages generated in the by @ppalaga in https://github.com/apache/camel-quarkus/pull/1870
+* Headersmap native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1872
+* Add an Examples step to the release guide by @ppalaga in https://github.com/apache/camel-quarkus/pull/1875
+* NoSuchMethodException: org.apache.camel.service.lra.LRASagaRoutes.<init>() by @ppalaga in https://github.com/apache/camel-quarkus/pull/1873
+* Crypto (JCE) native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1878
+* Crypto extension requires reflective access to DigitalSignatureConstants by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1883
+* CAMEL-QUARKUS-1720: Added Postgres replication slot native support by @aldettinger in https://github.com/apache/camel-quarkus/pull/1880
+* Upgrade Quarkus to 1.9.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1887
+* Quarkus 1.9.0 post upgrade fixes by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1890
+* Restrict changelog workflow to only run on apache/camel-quarkus repo by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1893
+* Fix twitter itest so it initially waits when start polling tweets by @llowinge in https://github.com/apache/camel-quarkus/pull/1877
+* File specific issues for TODOs where necessary #1285 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1897
+* camel-quarkus-jira: Add resteasy-common dependency by @mmelko in https://github.com/apache/camel-quarkus/pull/1899
+* Upgrade to Debezium 1.3.0.Final by @ppalaga in https://github.com/apache/camel-quarkus/pull/1882
+* Document all ways to start a new project by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1903
+* Prevent CI workflows running on forks by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1904
+* HBase JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1906
+* PostgresSQL Event native support fixes #1719 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/1905
+* Workaround AdviceWithRouteBuilder and MicroprofileMetrics conflict by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1915
+* pgevent: correct service name by @zbendhiba in https://github.com/apache/camel-quarkus/pull/1919
+* Upgrade Quarkus to 1.9.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1921
+* Added nsq native support fixes #1722 by @aldettinger in https://github.com/apache/camel-quarkus/pull/1920
+* LevelDB native support #1839 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/1902
+* Trigger changelog generation on workflow_dispatch by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1923
+* Upgrade Quarkus Qpid JMS to 0.19.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1924
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/1.1.0...1.2.0
+
+## 1.1.0
+
+* Add master extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1511
+* Add extension for smallrye-reactive-messaging-camel by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1514
+* 1.0.0 post release cleanup by @ppalaga in https://github.com/apache/camel-quarkus/pull/1524
+* Fixed the VerifyError in the health example fixes #1517 by @aldettinger in https://github.com/apache/camel-quarkus/pull/1525
+* Completed bean itests with an @InjectMock test by @aldettinger in https://github.com/apache/camel-quarkus/pull/1515
+* Avoid purging artifacts for builds that may be in progress by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1529
+* Upgarde to camel v3.4.3 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1527
+* Let the list of extensions page show extensions, move list of supported by @ppalaga in https://github.com/apache/camel-quarkus/pull/1534
+* chore(build): configure ci to run on release rbanches by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1536
+* Fixup c11d8da9 Let the list of extensions page show extensions by @ppalaga in https://github.com/apache/camel-quarkus/pull/1537
+* Switch from restcountries.eu to estcountries.com as the .eu service is not reliable anymore by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1539
+* Added support for flatpack dataformat fixes #796 by @aldettinger in https://github.com/apache/camel-quarkus/pull/1542
+* update create new extension guide : add update of test-categories.yaml by @zbendhiba in https://github.com/apache/camel-quarkus/pull/1544
+* Add missing netty dependencies to olingo4 extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1543
+* Use proper extension page URLs in quarkus-extension.yaml by @ppalaga in https://github.com/apache/camel-quarkus/pull/1546
+* Publish SNAPSHOT builds by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1547
+* Fix #765 Git support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1548
+* Document snapshot builds in CI docs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1551
+* Fix telegram itest component property resolution by @llowinge in https://github.com/apache/camel-quarkus/pull/1554
+* Update mvnd rules and split their entries by newlines where merge conflicts may happen by @ppalaga in https://github.com/apache/camel-quarkus/pull/1555
+* Compute the component counts using JavaScript to avoid merge conflicts by @ppalaga in https://github.com/apache/camel-quarkus/pull/1552
+* APNS, Asterisk and Atom JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1559
+* Fix itest when Twitter acount have spaces in name by @llowinge in https://github.com/apache/camel-quarkus/pull/1562
+* RabbitMQ native extension by @Jeansen in https://github.com/apache/camel-quarkus/pull/1567
+* Added flatpack component support #1541 by @aldettinger in https://github.com/apache/camel-quarkus/pull/1568
+* Atomix, AWS 2 Kinesis, AWS 2 Lambda, Azure Storage Blob and Azure Storage Queue JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1569
+* Clean google drive in google sheets itest by @llowinge in https://github.com/apache/camel-quarkus/pull/1575
+* Add Dropbox, jOOQ & NATS JVM support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1576
+* Improve docs by @ppalaga in https://github.com/apache/camel-quarkus/pull/1579
+* Bonita, Beanstalk, Caffeine, ChatScript and Chunk JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1585
+* CM SMS Gateway, CMIS, CoAP, CometD and Corda JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1590
+* Add DNS, etcd & plusar JVM only extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1595
+* Fix servicenow itest to clean resources by @llowinge in https://github.com/apache/camel-quarkus/pull/1596
+* Crypto (JCE), DigitalOcean, Disruptor, Deep Java Library and Drill JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1600
+* Upgrade to cq-maven-plugin 0.17.0, sanitize model.name when using it as by @ppalaga in https://github.com/apache/camel-quarkus/pull/1603
+* Send unique messages in Slack itest to avoid false positive tests by @llowinge in https://github.com/apache/camel-quarkus/pull/1604
+* Fix #1602 Speed up the CI by @ppalaga in https://github.com/apache/camel-quarkus/pull/1606
+* Fix JAXB dependency alignment issues by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1609
+* ZooKeeper, ZooKeeper Master, Zendesk, Yammer, XSLT Saxon, XMPP, XML Security and XJ JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1618
+* Add IPFS, IRC & JSch JVM only extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1627
+* CI definition tweaks by @ppalaga in https://github.com/apache/camel-quarkus/pull/1624
+* XChange, Workday, Wordpress, Weka and Web3j JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1629
+* Upgrade Quarkus to 1.7.1.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1628
+* Weather, Velocity, Twilio, Thrift and Stub JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1636
+* FOP, Flink, Facebook, ElSQL and Ehcache JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1643
+* HDFS, hazelcast, Guava EventBus, Geocoder and Ganglia JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1650
+* More CI tweaks by @ppalaga in https://github.com/apache/camel-quarkus/pull/1651
+* Hipchat, IEC 60870, Ignite, IOTA and JBPM JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1657
+* Re-ballance test-categories.yaml once again by @ppalaga in https://github.com/apache/camel-quarkus/pull/1655
+* Fix Twitter itest to wait for latest sent message by @llowinge in https://github.com/apache/camel-quarkus/pull/1660
+* Register missing Camel quartz job classes for reflection by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1665
+* Add some logging to debug #1632 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1668
+* Upgrade to Camel 3.5.0 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1670
+* Fix Google gmail itest to wait for deletion of mail by @llowinge in https://github.com/apache/camel-quarkus/pull/1671
+* Add vertx-http component extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1673
+* Upgrade to Quarkus 1.8.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1678
+* Remove UnbannedReflectiveBuildItem by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1677
+* Added nats native support fixes #1578 by @aldettinger in https://github.com/apache/camel-quarkus/pull/1674
+* Add integration tests for the camel-quarkus-kotlin extension by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1679
+* Align dependencies with latest camel & quarkus releases by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1682
+* Move FastUuidGenerator to Camel by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1683
+* Add vertx-websocket component extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1681
+* Remove camel 3.5.0 staging repositories by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1690
+* Replace mvnd.builder.rules with virtual dependencies by @ppalaga in https://github.com/apache/camel-quarkus/pull/1689
+* Speedup the initial CI mvn install by adding -T1C by @ppalaga in https://github.com/apache/camel-quarkus/pull/1692
+* String Template, Stomp, StAX, Splunk HEC and Splunk JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1699
+* Upgrade to cq-maven-plugin 0.18.1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1700
+* Soroush, Solr, SNMP, SMPP, SIP, and Schematron JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1708
+* Dropbox native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1693
+* XQuery, Saga, RSS, Robot Framework and QuickFix JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1713
+* Printer, PostgresSQL Event, PostgresSQL Replication Slot, OptaPlanner and NSQ JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1724
+* Fixed bean parameter bindings using language annotations in native mode by @aldettinger in https://github.com/apache/camel-quarkus/pull/1716
+* SSH, Nagios, MyBatis, MVEL and MSV JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1729
+* Promote AWS 2 Lambda to native by @Jeansen in https://github.com/apache/camel-quarkus/pull/1730
+* MLLP, Milo, Lumberjack, Lucene, LDIF, LDAP, Language JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1736
+* Weather native support fixes #1631 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/1715
+* Enhance Github itest with configurable credentials by @llowinge in https://github.com/apache/camel-quarkus/pull/1738
+* JT400, JSLT, Jing, JCR, JClouds JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1743
+* Management JVM support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1744
+* Aws2 sts by @oscerd in https://github.com/apache/camel-quarkus/pull/1745
+* JGroups, JGroups raft, HL7 Terser, Syslog, JSonApi, ASN.1 File, Barcode, BeanIO, CBOR, JSon Fastjson, uniVocity, Freemarker JVM support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1757
+* AWS2-Lambda Extension: Adding interceptors and align to the other extension by @oscerd in https://github.com/apache/camel-quarkus/pull/1758
+* Tests for #1563 contextPath ignored for platform-http with REST DSL by @ppalaga in https://github.com/apache/camel-quarkus/pull/1565
+* Test for #1497 xml-io should pass namespace info to NamespaceAware by @ppalaga in https://github.com/apache/camel-quarkus/pull/1760
+* Added ssl authentation to the nats extensions by @aldettinger in https://github.com/apache/camel-quarkus/pull/1764
+* Document cq:create -Dcq.nativeSupported=false for creating JVM-only extensions by @ppalaga in https://github.com/apache/camel-quarkus/pull/1767
+* Quarkus 1.8.0.final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1766
+* camel-quarkus-main - Uses reflection for setting its name by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1768
+* Add some pre-release tasks to the release guide by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1771
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/1.0.1...1.1.0
+
+## 1.0.1
+
+* Upgrade camel to v3.4.3 (1.0.x) by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1535
+* Cherry pick fixes to 1.0.x by @ppalaga in https://github.com/apache/camel-quarkus/pull/1637
+
+## 1.0.0
+
+* Fix #1455 Exclude the node directory from src kit by @WillemJiang in https://github.com/apache/camel-quarkus/pull/1458
+* Fix #1428 to add the usage.adoc by @zhfeng in https://github.com/apache/camel-quarkus/pull/1457
+* Document how to use mock in JVM mode tests #1449 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/1452
+* org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1454
+* Add example about how to use @Handler with beans registered to the Camel Context by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1461
+* Fix issues with building from the source release zip by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1463
+* improve bootstrap and configuration documentation by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1464
+* Add JPA extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1467
+* Fix #1468 Intermittent failure of CamelDevModeTest by @ppalaga in https://github.com/apache/camel-quarkus/pull/1473
+* Fix #1448 Add an integration test for the command mode by @ppalaga in https://github.com/apache/camel-quarkus/pull/1477
+* Use java.home system property in TrustStoreResource by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1479
+* Fixup #1448 Add delay=-1&repeatCount=1 to the command mode test route to finish faster by @ppalaga in https://github.com/apache/camel-quarkus/pull/1480
+* Fix #1426 Dependency parity checks are now done by Quarkus extension-descriptor mojo by @ppalaga in https://github.com/apache/camel-quarkus/pull/1481
+* Fixup #1468 Intermittent failure of CamelDevModeTest by @ppalaga in https://github.com/apache/camel-quarkus/pull/1483
+* Upgrade to Apache Camel 3.4.1 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1484
+* Reproducer for #1459 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1465
+* Upgrade Quarkus to 1.6.1.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1489
+* Upgrade to Camel 3.4.2 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1492
+* Make camel-quarkus-rest depend on camel-quarkus-platform-http by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1496
+* Correct bind type for OpenTracingTracer bean by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1498
+* Remove service exclude for ThreadPoolProfileConfigurationProperties by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1499
+* Fixup #1244 Improve the docs about the default REST transport provider by @ppalaga in https://github.com/apache/camel-quarkus/pull/1503
+* Added grok support #1466 by @aldettinger in https://github.com/apache/camel-quarkus/pull/1504
+* Fix #1286 Pass deprecation info to quarkus-extension.yaml by @ppalaga in https://github.com/apache/camel-quarkus/pull/1485
+* Upgrade to Quarkus 1.7.0.CR1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1508
+* Upgrade to Quarkus 1.7.0.CR2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1513
+* Add missing camel-quarkus-main dependency to braintree & twitter itests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1516
+* Simplify component configuration for box and fhir itests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1518
+* Upgrade to Quarkus 1.7.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1520
+* Disable merge commits on pull requests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1519
+* Upgrade Quarkus Qpid JMS to 0.17.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1521
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/1.0.0-CR3...1.0.0
+
+## 1.0.0-CR3
+
+* chore(deps): update testcontainers to v1.14.3 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1279
+* Add rest and restapi to the list of discoverable factories by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1290
+* Fix #1288: automatically set content-length or chunked on platform-http by @nicolaferraro in https://github.com/apache/camel-quarkus/pull/1289
+* Drop the Jaxb based XMLRoutesDefinitionLoader by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1292
+* Remove superflous metrics dependencies from OpenTracing extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1295
+* 1.0.0-CR2 post release polishing by @ppalaga in https://github.com/apache/camel-quarkus/pull/1296
+* Enable SSL for Azure extension #1269 by @galderz in https://github.com/apache/camel-quarkus/pull/1294
+* Debezium SQL Server Connector native support #1193 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/1278
+* Minor fixes by @ppalaga in https://github.com/apache/camel-quarkus/pull/1302
+* Create extension for camel-openapi-java by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1293
+* Fixup #1193 Debezium SQL Server Connector native support by @ppalaga in https://github.com/apache/camel-quarkus/pull/1304
+* chore(pgp): update pgp key for Nicola Ferraro by @nicolaferraro in https://github.com/apache/camel-quarkus/pull/1307
+* Add AWS2-EC2 native extension by @oscerd in https://github.com/apache/camel-quarkus/pull/1306
+* Revert #1299 require Java 11 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1305
+* Fixed link in Debezium-sqlserver extension by @oscerd in https://github.com/apache/camel-quarkus/pull/1315
+* Leverage cq:promote when porting extensions from JVM to native by @ppalaga in https://github.com/apache/camel-quarkus/pull/1316
+* Aws2 translate by @oscerd in https://github.com/apache/camel-quarkus/pull/1317
+* Fix #1314 Make Kudu native test runnable on Quarkus Platform on Java 8 and 11 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1318
+* Added couchdb consumer support in native mode #1022 by @aldettinger in https://github.com/apache/camel-quarkus/pull/1323
+* Fixing the contributing guide links in README.adoc by @oscerd in https://github.com/apache/camel-quarkus/pull/1327
+* Avoid duplicate feature registration of camel-support-debezium by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1326
+* Add servlet-api to classpath to help pointsto analysis #1319 by @galderz in https://github.com/apache/camel-quarkus/pull/1324
+* Debezium tests fail on Quarkus Platform in native mode #1311 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/1325
+* Fixed contributor guide index.adoc links by @oscerd in https://github.com/apache/camel-quarkus/pull/1330
+* Link fix by @oscerd in https://github.com/apache/camel-quarkus/pull/1332
+* Revert link by @oscerd in https://github.com/apache/camel-quarkus/pull/1333
+* Revert "Fixed how to build link in create new extension guide" by @oscerd in https://github.com/apache/camel-quarkus/pull/1334
+* Fix #1066 Remove the need for registering RestBindingJaxbDataFormatFactory by @ppalaga in https://github.com/apache/camel-quarkus/pull/1331
+* AWS2-ECS native extension by @oscerd in https://github.com/apache/camel-quarkus/pull/1329
+* Declare org.graalvm.nativeimage:svm as provided by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1335
+* Add vertx component extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1336
+* Cleanup by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1337
+* The next is 1.0.0-CR3 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1339
+* Add notes related to quarkus extension configuration for amqp, kubernetes & mongo-gridfs docs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1341
+* Upgrade to Quarkus 1.5.1.Final by @ppalaga in https://github.com/apache/camel-quarkus/pull/1343
+* debezium: exclude org.apache.kafka:kafka-log4j-appender from debezium-embedded transitive dependencies by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1347
+* integration-tests: make influxdb tests more idiomatic by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1346
+* chore(doc): rephrase CamelServiceDestination javadocs. by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1348
+* debezium-embedded dependencies #1340 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/1351
+* Unable to GET an https URL with netty-http client #695 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/1352
+* Aws2 eks by @oscerd in https://github.com/apache/camel-quarkus/pull/1354
+* AWS2-ECS: Fixed the deployment module by @oscerd in https://github.com/apache/camel-quarkus/pull/1362
+* AWS2 DDB by @oscerd in https://github.com/apache/camel-quarkus/pull/1361
+* Aws2 iam by @oscerd in https://github.com/apache/camel-quarkus/pull/1364
+* AWS2-KMS by @oscerd in https://github.com/apache/camel-quarkus/pull/1369
+* Tika support by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/998
+* Upgrade to Camel 3.4.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1375
+* Adding a dependency to make example work  by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/1377
+* Type safe component injection by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1372
+* Fix #1300 Document SSL auto-enabled by extensions by @ppalaga in https://github.com/apache/camel-quarkus/pull/1378
+* Aws2 mq by @oscerd in https://github.com/apache/camel-quarkus/pull/1374
+* Log message for FileNotFound exception not clear enough #1365 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/1379
+* Upgrade to Quarkus 1.5.2.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1382
+* AWS2-MSK by @oscerd in https://github.com/apache/camel-quarkus/pull/1385
+* Post Camel 3.4.0 upgrade cleanups by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1386
+* Fix #1350 List Quarkus configuration options on extension pages by @ppalaga in https://github.com/apache/camel-quarkus/pull/1389
+* Revisit camel-quarkus bootstrap by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1344
+* Replace joschi/setup-jdk with AdoptOpenJDK/install-jdk by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1392
+* Fix potential NPE by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1393
+* component injection: produce a CamelRuntimeTaskBuildItem for synchronization purpose by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1394
+* The quarkus-bootstrap-maven-plugin is listed twice on all the runtime extensions POMs by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1396
+* Cleanup by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1397
+* Observe Camel's Management events by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1400
+* Aws2 ses by @oscerd in https://github.com/apache/camel-quarkus/pull/1401
+* Observe Camel's Lifecycle events by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1404
+* Observe Camel's events by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1405
+* Update dependencies by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1409
+* CAMEL-15216 : Omit the warning of level index by @AemieJ in https://github.com/apache/camel-quarkus/pull/1414
+* Added an AWS2-Athena native extension by @oscerd in https://github.com/apache/camel-quarkus/pull/1412
+* Added Json Validator support #1367 by @aldettinger in https://github.com/apache/camel-quarkus/pull/1408
+* Create a camel-componentdsl extension by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1407
+* Rename camel-quarkus-package-maven-plugin to camel-quarkus-maven-plugin by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1416
+* Ensure CamelContextAware beans have CamelContext set when bound to the registry by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1420
+* Make the local Antora build produce .htaccess file with redirects based by @ppalaga in https://github.com/apache/camel-quarkus/pull/1342
+* Ensure Quarkus Vertx instance is set on the camel component when not using camel-quarkus-main by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1422
+* Upgrade to Quarkus 1.6.0.CR1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1423
+* Enable Debezium tests after the upgrade to Quarkus 1.6.0.CR1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1424
+* Fix #1313 Upgrade to Kubernetes Client 4.10.2 to align with Quarkus by @ppalaga in https://github.com/apache/camel-quarkus/pull/1425
+* Fix #1263 - Add the camel-jta extension by @zhfeng in https://github.com/apache/camel-quarkus/pull/1411
+* Added Jolt support #1421 by @aldettinger in https://github.com/apache/camel-quarkus/pull/1432
+* Add skip option to UpdateExtensionDocPageMojo to be able to workaround by @ppalaga in https://github.com/apache/camel-quarkus/pull/1434
+* Fix #838 TimeZone-less DTSTART and DTEND not changed to GMT by @ppalaga in https://github.com/apache/camel-quarkus/pull/1366
+* Fix #1415 The CI should fail if there are uncommitted changes after the build by @ppalaga in https://github.com/apache/camel-quarkus/pull/1435
+* Upgrade cq-maven-plugin to 0.11.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1438
+* Improve the bootstrap docs by @ppalaga in https://github.com/apache/camel-quarkus/pull/1442
+* Re-enable TimerDevModeTest.logMessageEdit() after the upgrade to Quarkus 1.6.0.CR1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1440
+* Split main startup logic by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1444
+* Make sure that Quarkus orders booting our runtime before starting to serve HTTP endpoints. by @ppalaga in https://github.com/apache/camel-quarkus/pull/1445
+* Upgrade to Quarkus 1.6.0.Final by @ppalaga in https://github.com/apache/camel-quarkus/pull/1446
+* Feature: Add camel-mock #531 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/1447
+* Upgrade Quarkus Qpid JMS to 0.16.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1450
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/1.0.0-CR2...1.0.0-CR3
+
+## 1.0.0-CR2
+
+* Stub Jira endpoints for integration testing by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1270
+* extension dependencies issue by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1276
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/1.0.0-CR1...1.0.0-CR2
+
+## 1.0.0-CR1
+
+* build: create build-parent-it pom to collect common integration tests set-up by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1151
+* Improve master -> camel-master sync workflow by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1158
+* Automatic sync branch master to camel-master by @github-actions in https://github.com/apache/camel-quarkus/pull/1150
+* deps: update kotlin to v1.3.72 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1159
+* Release process improvements by @ppalaga in https://github.com/apache/camel-quarkus/pull/1162
+* Upgrade Activemq to version 5.11.12 by @oscerd in https://github.com/apache/camel-quarkus/pull/1149
+* Upgrade Quarkus Qpid JMS to 0.14.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1165
+* Add native support for Elasticsearch REST by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1164
+* Fix #1153 Import camel-quarkus-bom-test into camel-quarkus-build-parent by @ppalaga in https://github.com/apache/camel-quarkus/pull/1168
+* Bump Camel-Quarkus last release to 1.0.0-M7 by @oscerd in https://github.com/apache/camel-quarkus/pull/1170
+* Bump Jandex to version 1.0.8 by @oscerd in https://github.com/apache/camel-quarkus/pull/1172
+* Fixed the jvm8 CI build #1157 by @aldettinger in https://github.com/apache/camel-quarkus/pull/1176
+* Fix #1177 Add simple timer dev mode test by @ppalaga in https://github.com/apache/camel-quarkus/pull/1178
+* Replace hard coded native test categories with dynamic lookup by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1169
+* Code cleanup by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1175
+* Upgrade Quarkus to 1.4.2.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1181
+* Build Quarkus master faster with -Denforcer.skip -Dquarkus.build.skip -DskipDocs by @ppalaga in https://github.com/apache/camel-quarkus/pull/1184
+* Fix #1182 ASM Unsupported api 524288 after the upgrade to Gizmo 1.0.3 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1183
+* Add branch commit to the intergration build failure report by @ppalaga in https://github.com/apache/camel-quarkus/pull/1187
+* AWS2 Extensions cleanup by @oscerd in https://github.com/apache/camel-quarkus/pull/1186
+* AWS2-Commons extensions: Added back SSL Native support by @oscerd in https://github.com/apache/camel-quarkus/pull/1189
+* Fix ClassNotFoundException when using quartz extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1196
+* Ensure consistent itest name tag by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1199
+* Use artifact uploads/downloads instead of cache to pass Maven repo to dependent CI jobs by @ppalaga in https://github.com/apache/camel-quarkus/pull/1198
+* Import software.amazon.awssdk:bom instead of managing the items individually by @ppalaga in https://github.com/apache/camel-quarkus/pull/1194
+* fix caffeine-lrucache modules name by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1202
+* ftp: remove redundant build items by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1201
+* Do not skip tests in native jobs using -DskipTest it skips also by @ppalaga in https://github.com/apache/camel-quarkus/pull/1203
+* Idiomatic Mustache test by @ppalaga in https://github.com/apache/camel-quarkus/pull/1204
+* Move integration-tests support modules out of integration-tests folder by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1207
+* Add jaxb as dependency and allow skipping formatting by @galderz in https://github.com/apache/camel-quarkus/pull/1185
+* Refactor core module layout by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1211
+* Do not use version literals in BOMs by @ppalaga in https://github.com/apache/camel-quarkus/pull/1213
+* Rename test support extension to a more meaningful name by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1214
+* Remove 'core' prefix for main related integration tests modules by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1217
+* Introduce RuntimeCamelContextCustomizerBuildItem to allow to customize the camel context before it is started by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1216
+* Workaround for quarkusio/quarkus/issues/9273 by @gnodet in https://github.com/apache/camel-quarkus/pull/1221
+* Upgrade to Camel 3.3.0 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1224
+* Camel 3.3.0 upgrade follow ups by @ppalaga in https://github.com/apache/camel-quarkus/pull/1226
+* Run the CI on Java 14 instead of Java 12 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1227
+* Test Azure extension with Azurite by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1228
+* Remove Elasticsearch Rest doc title fix by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1229
+* Improve Quarkus metadata by @ppalaga in https://github.com/apache/camel-quarkus/pull/1230
+* Bump Testcontainers to version 1.14.2 by @oscerd in https://github.com/apache/camel-quarkus/pull/1231
+* Follow the existing naming convention in SAP NetWeaver test artifactId by @ppalaga in https://github.com/apache/camel-quarkus/pull/1220
+* Add REST OpenApi native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1236
+* Remove duplicate kubernetes-client.version property by @ppalaga in https://github.com/apache/camel-quarkus/pull/1238
+* Fix #1212 - Add the allowTemplateFromHeader option in the qute component by @zhfeng in https://github.com/apache/camel-quarkus/pull/1241
+* Reduce the number of Qute component dependencies by @ppalaga in https://github.com/apache/camel-quarkus/pull/1240
+* Added native support for avro dataformat #1180 by @aldettinger in https://github.com/apache/camel-quarkus/pull/1246
+* Add MongoDB GridFS native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1242
+* Debezium PostgresSQL Connector native support #1191 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/1215
+* Add support for MicroProfile Fault Tolerance by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1248
+* Fix #1232 Per-extension documentation pages by @ppalaga in https://github.com/apache/camel-quarkus/pull/1249
+* Enable update-extension-doc-page mojo in newly scaffolded extensions by @ppalaga in https://github.com/apache/camel-quarkus/pull/1250
+* Automatically cancel redundant workflow runs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1252
+* Upgrade to Quarkus 1.5.0.CR1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1253
+* #1232 Extension pages by @ppalaga in https://github.com/apache/camel-quarkus/pull/1254
+* Document how quarkus-extemsion.yaml is generated by @ppalaga in https://github.com/apache/camel-quarkus/pull/1256
+* Fix #1255 Document how extension pages are generated by @ppalaga in https://github.com/apache/camel-quarkus/pull/1257
+* Split doc pages to user-guide and contributor-guide directories and set redirects by @ppalaga in https://github.com/apache/camel-quarkus/pull/1259
+* Status badges on extension pages by @ppalaga in https://github.com/apache/camel-quarkus/pull/1260
+* Remove camel-rest workaround as the fic for the issue is included in Apache Camel 3.3.0 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1265
+* Fix #1208 Use influxdb 2.18 as in Camel 3.3.0 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1264
+* Upgrade Quarkus to 1.5.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1267
+* Debezium MySQL Connector native support #1192 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/1258
+* Add Peter Palaga's PGP key by @ppalaga in https://github.com/apache/camel-quarkus/pull/1268
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/1.0.0-M7...1.0.0-CR1
+
+## 1.0.0-M7
+
+* CI build improvements by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1059
+* Post Camel 3.2.0 upgrade fixes by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1063
+* Use test resources instead of system properties for easy testing within the quarkus platform by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1060
+* Move spring's kotlin processors and substitutions to a dedicated file by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1065
+* Post 3.2 cleanup by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1067
+* Sidebar menu tidy up names-14567 by @rimshach in https://github.com/apache/camel-quarkus/pull/1068
+* Add a native extension for AWS2-SQS by @oscerd in https://github.com/apache/camel-quarkus/pull/1070
+* Automatic sync branch master to quarkus-master by @github-actions in https://github.com/apache/camel-quarkus/pull/1062
+* Bump to Camel Quarkus 1.0.0-M6 by @oscerd in https://github.com/apache/camel-quarkus/pull/1073
+* Automatic sync branch master to quarkus-master by @github-actions in https://github.com/apache/camel-quarkus/pull/1080
+* Upgrade to Testcontainers 1.14.0 by @oscerd in https://github.com/apache/camel-quarkus/pull/1081
+* Automatic sync branch master to camel-master by @github-actions in https://github.com/apache/camel-quarkus/pull/1074
+* http-log example by @davsclaus in https://github.com/apache/camel-quarkus/pull/1079
+* Upgrade Jackson to version 2.10.3 to align with Camel version used by @oscerd in https://github.com/apache/camel-quarkus/pull/1082
+* AWS2 S3 native extension by @oscerd in https://github.com/apache/camel-quarkus/pull/1085
+* Automatic sync branch master to quarkus-master by @github-actions in https://github.com/apache/camel-quarkus/pull/1087
+* Upgrade Quarkus to 1.4.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1089
+* InfluxDB native support #1036 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/1050
+* Fix AMQP tests hanging in CI environment by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1091
+* Introducing an AWS2 support extension by @oscerd in https://github.com/apache/camel-quarkus/pull/1093
+* Automatic sync branch master to quarkus-master by @github-actions in https://github.com/apache/camel-quarkus/pull/1094
+* Fixed Typo in the antora.yml file by @oscerd in https://github.com/apache/camel-quarkus/pull/1096
+* Docs navigation improvements, docs wording by @ppalaga in https://github.com/apache/camel-quarkus/pull/1098
+* Added an AWS2 SNS extension by @oscerd in https://github.com/apache/camel-quarkus/pull/1100
+* Kubernetes extension native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1095
+* Fix #984 introduce the CamelContextCustomizerBuildItem by @zhfeng in https://github.com/apache/camel-quarkus/pull/1076
+* Automatic sync branch master to quarkus-master by @github-actions in https://github.com/apache/camel-quarkus/pull/1102
+* Simplify the Catalog related code after the upgrade to Camel 3.2.0 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1103
+* Automatic sync branch master to quarkus-master by @github-actions in https://github.com/apache/camel-quarkus/pull/1104
+* Automatic sync branch master to camel-master by @github-actions in https://github.com/apache/camel-quarkus/pull/1106
+* Remove unneccessary reflective class registration for camel configuration by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1107
+* Automatic sync branch master to quarkus-master by @github-actions in https://github.com/apache/camel-quarkus/pull/1111
+* Add integration test for #1105 by @philschaller in https://github.com/apache/camel-quarkus/pull/1110
+* Paho extension native support for Websocket Connections by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1114
+* Automatic sync branch master to quarkus-master by @github-actions in https://github.com/apache/camel-quarkus/pull/1118
+* Dynamic endpoint cannot be resolved properly (toD) by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1117
+* Fix Kudu native build on JDK 11 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1122
+* Trigger project build on push by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1119
+* Automatic sync branch master to quarkus-master by @github-actions in https://github.com/apache/camel-quarkus/pull/1124
+* Improve master -> quarkus-master branch scheduled synchronization workflow by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1127
+* Fixed wrong repository to point for releasing by @oscerd in https://github.com/apache/camel-quarkus/pull/1129
+* Add a doc page to describe the CI setup by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1130
+* Added release guide to the documentation by @oscerd in https://github.com/apache/camel-quarkus/pull/1131
+* Added an AWS2-CW native extension by @oscerd in https://github.com/apache/camel-quarkus/pull/1134
+* Fixes CAMEL-14945: move attribute to component descriptor... by @djencks in https://github.com/apache/camel-quarkus/pull/1125
+* Update quarkus to v1.4.0.Final by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1135
+* Exclude docs module from quarkus-master sync build by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1139
+* Bump Github-api to version 1.111 by @oscerd in https://github.com/apache/camel-quarkus/pull/1138
+* Upgrade Quarkus Qpid JMS to 0.14.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1143
+* Bump Testcontainers to version 1.14.1 by @oscerd in https://github.com/apache/camel-quarkus/pull/1137
+* Update quarkus to v1.4.1.Final by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1147
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/1.0.0-M6...1.0.0-M7
+
+## 1.0.0-M6
+
+* Add soap dataformat quarkus extension by @mmelko in https://github.com/apache/camel-quarkus/pull/883
+* camel-quarkus-core: make caffeine cache optional by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/887
+* Automatic sync branch master to quarkus-master by @github-actions in https://github.com/apache/camel-quarkus/pull/890
+* telegram extension cannot construct IncomingMessageEntity for commands by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/893
+* Update to introduce the quarkus qute extension by @zhfeng in https://github.com/apache/camel-quarkus/pull/878
+* The first JVM-only extension by @ppalaga in https://github.com/apache/camel-quarkus/pull/895
+* Bump to Camel-Quarkus 1.0.0-M5 by @oscerd in https://github.com/apache/camel-quarkus/pull/900
+* Fix #901 GraphQLResource should read from the classpath instead from the filesystem by @ppalaga in https://github.com/apache/camel-quarkus/pull/902
+* POM enhancements by @ppalaga in https://github.com/apache/camel-quarkus/pull/903
+* Add Google Mail extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/905
+* Add Google Drive extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/907
+* Fix #897 List the JVM-only extensions in the docs by @ppalaga in https://github.com/apache/camel-quarkus/pull/898
+* Cassandra, CouchDB and Couchbase by @ppalaga in https://github.com/apache/camel-quarkus/pull/911
+* chore(it): small telegram tests cleanup by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/912
+* Add Google Calendar extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/914
+* Add Google Sheets extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/919
+* Debezium connectors by @ppalaga in https://github.com/apache/camel-quarkus/pull/920
+* Use Awaitility to poll for Google calendar deletion by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/921
+* chore(deprecation): replace usage fo deprecated io.quarkus.vertx.web.deployment.BodyHandlerBuildItem by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/913
+* Updated Maven version in Prerequisites section by @djcoleman in https://github.com/apache/camel-quarkus/pull/923
+* InfluxDB, Kudu, MongoDB GridFS and Nitrite by @ppalaga in https://github.com/apache/camel-quarkus/pull/929
+* OpenStack support (JVM only) by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/930
+* PubNub and RabbitMQ by @ppalaga in https://github.com/apache/camel-quarkus/pull/933
+* Add quartz & cron extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/935
+* SAP NetWeaver, Groovy and OGNL by @ppalaga in https://github.com/apache/camel-quarkus/pull/938
+* Automatic sync branch master to quarkus-master by @github-actions in https://github.com/apache/camel-quarkus/pull/940
+* Add Google BigQuery extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/954
+* AWS 2 by @ppalaga in https://github.com/apache/camel-quarkus/pull/955
+* Fix #936 Warn if JVM only extensions are used in native mode by @ppalaga in https://github.com/apache/camel-quarkus/pull/957
+* Added options to select resources for inclusion in native executable #868 by @aldettinger in https://github.com/apache/camel-quarkus/pull/960
+* AWS SWF and SDB by @ppalaga in https://github.com/apache/camel-quarkus/pull/962
+* Add Kubernetes extension (JVM only) by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/966
+* Remove redundant native profile from kubernetes extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/967
+* Add AMQP extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/968
+* Add Avro JVM Extension by @mmelko in https://github.com/apache/camel-quarkus/pull/969
+* Documented the use of quarkus.camel.resources.*-patterns #961 by @aldettinger in https://github.com/apache/camel-quarkus/pull/971
+* Update to add the camel-servicenow extension by @zhfeng in https://github.com/apache/camel-quarkus/pull/970
+* Clean up poms: introduce test BOM, manage only where necessary by @ppalaga in https://github.com/apache/camel-quarkus/pull/973
+* Protobuf and gRPC by @ppalaga in https://github.com/apache/camel-quarkus/pull/974
+* Fix asciidoc syntax error by @djencks in https://github.com/apache/camel-quarkus/pull/979
+* Add Google Pubsub extension (JVM only) by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/978
+* Fix #976 REST OpenApi support (JVM only) by @ppalaga in https://github.com/apache/camel-quarkus/pull/977
+* Speedup the Validate PR Style GH workflow by invoking only mvn validate by @ppalaga in https://github.com/apache/camel-quarkus/pull/975
+* Fix asciidoc syntax errors in native-mode.adoc by @djencks in https://github.com/apache/camel-quarkus/pull/980
+* Separate some misc extensions into their own categories by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/981
+* Move quarkus.camel.resources.* config options to quarkus.camel.native.resources.* by @ppalaga in https://github.com/apache/camel-quarkus/pull/983
+* Update Quarkus extension description for zip-deflater and lzf by @rsvoboda in https://github.com/apache/camel-quarkus/pull/986
+* Fix #253 Build time property to register classes for reflection by @ppalaga in https://github.com/apache/camel-quarkus/pull/987
+* Add GitHub extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/982
+* Make a tabular list of examples for the examples page by @AemieJ in https://github.com/apache/camel-quarkus/pull/991
+* [CAMEL-13704] - Added PR template file with instructions on what to include by @Xxyumi-hub in https://github.com/apache/camel-quarkus/pull/990
+* Automatic sync branch master to quarkus-master by @github-actions in https://github.com/apache/camel-quarkus/pull/993
+* Add jaxb dependency #996 by @galderz in https://github.com/apache/camel-quarkus/pull/997
+* Update Quarkus to v1.3.1.Final by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/992
+* New source assembly descriptor and root pom rename by @ppalaga in https://github.com/apache/camel-quarkus/pull/1002
+* Make consul depend on core-cloud #1003 by @galderz in https://github.com/apache/camel-quarkus/pull/1004
+* Fix #963 Build processor class template may create redundant LOG field by @ppalaga in https://github.com/apache/camel-quarkus/pull/1008
+* Upgrade Quarkus Qpid JMS to 0.13.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1007
+* Workaround for the platform http not be able to handle matchOnUriPrefix by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1012
+* Fix native images issues on Java 11 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1011
+* Use testcontainer to test camel infinispan extension to reduce test dependencies on infinispan by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1014
+* chore: small cleanup by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1019
+* Camel-AWS-SDB: Make the extension Native by @oscerd in https://github.com/apache/camel-quarkus/pull/1020
+* Added native support for Couchdb extension in producer mode #989 by @aldettinger in https://github.com/apache/camel-quarkus/pull/1024
+* Fix #1017 Do not hardcode the TransformerFactory implementation by @ppalaga in https://github.com/apache/camel-quarkus/pull/1018
+* chore(xslt): cleanup and small fix by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1026
+* Temporarilly disable JmsTest until #1023 is fixed by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1025
+* Revisit #1017 Be even less intrusive when registering our TransformerFactory by @ppalaga in https://github.com/apache/camel-quarkus/pull/1027
+* AWS-SWF: Make the extension native by @oscerd in https://github.com/apache/camel-quarkus/pull/1030
+* Fix #706 Improve RuntimeCatalogConfig docs by @ppalaga in https://github.com/apache/camel-quarkus/pull/1009
+* Fix intermittent failure of messaging tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1031
+* Automatic sync branch master to quarkus-master by @github-actions in https://github.com/apache/camel-quarkus/pull/1033
+* SAP NetWeaver native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1038
+* TrustStoreResource does not work on Java 11 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1042
+* BeanInfo::getImplClazz can be null for primitives or arrays by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1043
+* Update groovy to v3.0.2 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/1045
+* Servlet tests #853 #854 by @ppalaga in https://github.com/apache/camel-quarkus/pull/1046
+* Webhook component support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1048
+* CI build improvements by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/1049
+* Completed the contributor guide with a section to promote JVM Only extension to native by @aldettinger in https://github.com/apache/camel-quarkus/pull/1051
+* Moved the guide to promote a JVM Only extension to native to a dedicated page by @aldettinger in https://github.com/apache/camel-quarkus/pull/1052
+* Bump Quarkus to version 1.3.2.Final by @oscerd in https://github.com/apache/camel-quarkus/pull/1056
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/1.0.0-M5...1.0.0-M6
+
+## 1.0.0-M5
+
+* Fix #784 iCal support by @ppalaga in https://github.com/apache/camel-quarkus/pull/839
+* Added Johnzon extension #775 by @aldettinger in https://github.com/apache/camel-quarkus/pull/840
+* Automatic sync branch master to quarkus-master by @github-actions in https://github.com/apache/camel-quarkus/pull/829
+* Add JMS extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/841
+* Fix since versions on various places by @ppalaga in https://github.com/apache/camel-quarkus/pull/845
+* Fix #785 JacksonXML support by @ppalaga in https://github.com/apache/camel-quarkus/pull/848
+* Support for camel-xml-io by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/849
+* Upgrade to Quarkus 1.3.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/851
+* add camel-jaxb into extensions by @mmelko in https://github.com/apache/camel-quarkus/pull/850
+* Post Quarkus 1.3.0.CR1 upgrade tidy ups by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/855
+* Bump to Quarkus 1.0.0-M4 by @oscerd in https://github.com/apache/camel-quarkus/pull/856
+* Fix #787 JSon XStream dataformat support by @ppalaga in https://github.com/apache/camel-quarkus/pull/857
+* Automatic sync branch master to quarkus-master by @github-actions in https://github.com/apache/camel-quarkus/pull/859
+* Add ActiveMQ extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/860
+* Optimize PR build GitHub action by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/861
+* Upgrade Quarkus to 1.3.0.CR2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/862
+* Fix #795 File Watch support by @ppalaga in https://github.com/apache/camel-quarkus/pull/863
+* Add GraphQL extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/864
+* Fix #865 Re-org the source tree by @ppalaga in https://github.com/apache/camel-quarkus/pull/869
+* chore(build): update maven to v3.6.3 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/871
+* chore(doc): fix contributor guide example by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/873
+* Fixed kafka itests as @Inject is not supported in native tests by @aldettinger in https://github.com/apache/camel-quarkus/pull/876
+* Ref component support by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/874
+* Remove default or redundant config of the failsafe plugin by @ppalaga in https://github.com/apache/camel-quarkus/pull/882
+* FastCamelContext to implement ModelCamelContext by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/881
+* Upgrade Quarkus to 1.3.0.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/884
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/1.0.0-M4...1.0.0-M5
+
+## 1.0.0-M4
+
+* Add integration test for Jackson unmarshalling with different POJOs by @philschaller in https://github.com/apache/camel-quarkus/pull/663
+* Upgrade TestContainers to version 1.12.5 by @oscerd in https://github.com/apache/camel-quarkus/pull/662
+* Bump To Quarkus 1.0.0-M3 by @oscerd in https://github.com/apache/camel-quarkus/pull/664
+* Fix the <firstVersion> of extensions that were released for the first time by @ppalaga in https://github.com/apache/camel-quarkus/pull/665
+* Cleanup by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/667
+* fix(rest-json/pom.xml): use quarkus-based dependency by @hanzo2001 in https://github.com/apache/camel-quarkus/pull/674
+* Add GitHub action for automatic testing of camel-master branch by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/677
+* camel-fhir record FHIR context instead of creating it at runtime. Onl by @johnpoth in https://github.com/apache/camel-quarkus/pull/678
+* Create enforce profile that disables dependency checks by @johnpoth in https://github.com/apache/camel-quarkus/pull/679
+* Add stream extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/682
+* Upgrade to quarkus 1.3.0.Alpha1 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/685
+* Snapshots and Actions by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/687
+* Automatic sync branch master to camel-master by @github-actions in https://github.com/apache/camel-quarkus/pull/689
+* Add olingo4 extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/693
+* Add olingo4 itest to project list by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/702
+* Remove enableJni from integration tests as JNI si always enabled on GraalVM 19.3.1 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/701
+* Use camel-quarkus-support-httpclient in slack extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/703
+* Cleanup: Declare quarkus-development-mode-spi as a nonExtensionArtifact by @ppalaga in https://github.com/apache/camel-quarkus/pull/691
+* Fix #696 Test HTTPS with the HTTP clients by @ppalaga in https://github.com/apache/camel-quarkus/pull/697
+* #670 fix PDF itests in native mode by @ffang in https://github.com/apache/camel-quarkus/pull/707
+* Ensure that catalog files are added to the native image by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/704
+* Update mvnd.builder.rules by @ppalaga in https://github.com/apache/camel-quarkus/pull/705
+* #688 #694 Minor create-extension mojo fixes by @ppalaga in https://github.com/apache/camel-quarkus/pull/709
+* create camel-jira extension #710 by @ffang in https://github.com/apache/camel-quarkus/pull/712
+* camel-jira extension:more polish up by @ffang in https://github.com/apache/camel-quarkus/pull/714
+* Schedule sync of quarkus-master branch by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/718
+* Fix #716 Move the Atlassian Maven repository to the Jira runtime module by @ppalaga in https://github.com/apache/camel-quarkus/pull/717
+* Fix #713 Revisit the Quarkus native image mojo options generated by create-extension by @ppalaga in https://github.com/apache/camel-quarkus/pull/719
+* Fix #598 Use quarkus.package.type=native instead of the native-image mojo by @ppalaga in https://github.com/apache/camel-quarkus/pull/720
+* Update quarkus to v1.3.0.Alpha2 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/727
+* Improve Jira extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/728
+* Resolves #162 adds camel-box support by @johnpoth in https://github.com/apache/camel-quarkus/pull/722
+* Automatic sync branch master to quarkus-master by @github-actions in https://github.com/apache/camel-quarkus/pull/724
+* Update kotlin to v1.3.61 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/730
+* Cleanup tests by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/731
+* Removed useless Jenkinsfile(s) by @oscerd in https://github.com/apache/camel-quarkus/pull/732
+* Speed up build for misc extensions   by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/733
+* CAMEL-QUARKUS-729: Centralized JSON dataformats related itests in dataformats-json by @aldettinger in https://github.com/apache/camel-quarkus/pull/734
+* build: Do resource hungry native builds in parallel by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/735
+* Fix XSLT extension NoSuchMethodError: TransformerFactory.newInstance(String,ClassLoader) by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/736
+* Created a camel gson extension #681 by @aldettinger in https://github.com/apache/camel-quarkus/pull/738
+* chore(test): add test for bean(class, method) by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/737
+* Add LoginToken to Salesforce reflective class list by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/742
+* Automatic sync branch master to camel-master by @github-actions in https://github.com/apache/camel-quarkus/pull/744
+* Minor cleanup and a mvnd.builder.rule update by @ppalaga in https://github.com/apache/camel-quarkus/pull/749
+* FhirDataformatTest failure -TransformerFactoryImpl not found by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/750
+* Remove redundant quarkus.ssl.native=true from box application.properties by @ppalaga in https://github.com/apache/camel-quarkus/pull/751
+* Remove redundant mvnd.builder.rules from the top level pom.xml by @ppalaga in https://github.com/apache/camel-quarkus/pull/755
+* Fix #960 Do not expose mutable collections from FHIR BuildItems by @ppalaga in https://github.com/apache/camel-quarkus/pull/754
+* Jira integration test fails in native mode by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/758
+* Upgrade to camel 3.1.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/768
+* Add telegram extension to CI build by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/773
+* Add Azure extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/774
+* Automatic sync branch master to quarkus-master by @github-actions in https://github.com/apache/camel-quarkus/pull/745
+* Ensure that the GitHub Actions run each itest by @ppalaga in https://github.com/apache/camel-quarkus/pull/778
+* Fix #498 Improve the XSLT test coverage by @ppalaga in https://github.com/apache/camel-quarkus/pull/777
+* Add xpath language extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/779
+* Add Braintree extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/826
+* #791 #783 #788 Compression dataformats by @ppalaga in https://github.com/apache/camel-quarkus/pull/827
+* Fix #831 Move Groovy executions under the enforce profile by @ppalaga in https://github.com/apache/camel-quarkus/pull/832
+* Add websocket-jsr356 extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/833
+* Remove MongoDB dependency overrides by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/834
+* Automatic sync branch master to camel-master by @github-actions in https://github.com/apache/camel-quarkus/pull/830
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/1.0.0-M3...1.0.0-M4
+
+## 1.0.0-M3
+
+* Add camel-endpointdsl extension by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/552
+* Modular RoutesCollector by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/554
+* A JUnit dependency is required to run our integration tests outside of by @ppalaga in https://github.com/apache/camel-quarkus/pull/557
+* Randomize http test port by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/555
+* Restored the native profile for camel-quarkus-pdf integration tests by @aldettinger in https://github.com/apache/camel-quarkus/pull/556
+* Update docs to version 1.0.0-M2 by @oscerd in https://github.com/apache/camel-quarkus/pull/558
+* Fix first version of Camel-SQL extension by @oscerd in https://github.com/apache/camel-quarkus/pull/559
+* AWS-EC2 Extension by @oscerd in https://github.com/apache/camel-quarkus/pull/565
+* Fix #568 Untrack Artemis test instance data by @ppalaga in https://github.com/apache/camel-quarkus/pull/569
+* Remove mp-config workaround by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/571
+* Create an AWS commons extension by @oscerd in https://github.com/apache/camel-quarkus/pull/567
+* Fix #560 AHC extension by @ppalaga in https://github.com/apache/camel-quarkus/pull/570
+* AWS support: Leverage Quarkus-jackson instead of using Jackson stuff in each extension by @oscerd in https://github.com/apache/camel-quarkus/pull/573
+* Don't search license in csv file by @oscerd in https://github.com/apache/camel-quarkus/pull/576
+* CSV File Splitter To Log by @Namphibian in https://github.com/apache/camel-quarkus/pull/575
+* Cleanup by @oscerd in https://github.com/apache/camel-quarkus/pull/577
+* Add basic tests for dev mode by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/583
+* Throw NoSuchLanguageException if a language cannot be found by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/582
+* Dozer extension should use JaxbFileRootBuildItem by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/580
+* Add tests for #543 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/581
+* Added AWS-Lambda extension by @oscerd in https://github.com/apache/camel-quarkus/pull/584
+* chore: include test xml routes in native image by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/585
+* Camel-AWS extensions: Cleanup by @oscerd in https://github.com/apache/camel-quarkus/pull/586
+* Move MicroProfile metrics camel context configuration to static init by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/587
+* Some cleanup and improvements by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/588
+* Improve dev mode test and *BeanBuldItem by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/589
+* Format method param JavaDoc in columns by @ppalaga in https://github.com/apache/camel-quarkus/pull/590
+* Remove @Nullable leftovers by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/591
+* build: add Java 12 to PR build action by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/592
+* chore: remove jetty-maven-plugin.version as jetty-maven-plugin is not more used by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/594
+* build: formatter-maven-plugin should validate code format when check-format profile is active by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/593
+* Create a camel-http extension by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/597
+* Consolidate http based component integration tests by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/602
+* ahc dependencies by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/604
+* Bump Quarkus to version 1.1.1.Final by @oscerd in https://github.com/apache/camel-quarkus/pull/607
+* Created a camel-jsonpath extension #426 by @aldettinger in https://github.com/apache/camel-quarkus/pull/609
+* Add spring common extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/608
+* Added an AWS Translate extension by @oscerd in https://github.com/apache/camel-quarkus/pull/614
+* Initial camel-consul support by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/615
+* Fix #620 Introduce CamelServiceInfo transformers by @ppalaga in https://github.com/apache/camel-quarkus/pull/621
+* chore: fix sjm2 extension metadata by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/629
+* Fix #622 Encourage users to ask for missing extensions and to help implementing them by @ppalaga in https://github.com/apache/camel-quarkus/pull/633
+* Add impsort-maven-plugin by @ppalaga in https://github.com/apache/camel-quarkus/pull/632
+* Update to Apache Camel 3.0.1 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/630
+* Removed the Apache repositories since now the situation should be ok in central by @oscerd in https://github.com/apache/camel-quarkus/pull/639
+* Fix #617 Registerable and discoverable Camel services by @ppalaga in https://github.com/apache/camel-quarkus/pull/618
+* Fix #640 Lower the level of "Could not find a non-optional class for key message by @ppalaga in https://github.com/apache/camel-quarkus/pull/641
+* Remove PlatformHttpSpanDecorator from OpenTracing extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/643
+* WIP - Prepare for Quarkus 1.2 by @gsmet in https://github.com/apache/camel-quarkus/pull/603
+* Removed the now useless alias for DefaultAnnotationExpressionFactory by @aldettinger in https://github.com/apache/camel-quarkus/pull/645
+* Added an AWS Kinesis extension by @oscerd in https://github.com/apache/camel-quarkus/pull/626
+* Run native tests with GitHub Actions by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/634
+* chore: move dependencies exlusions to runtime bom by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/646
+* Add tests and improvements for FastFactoryFinder by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/648
+* fhir: reduce uri options by leveraging component configuration by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/655
+* Add ahc-ws extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/625
+* Determine the Camel version at build time by @ppalaga in https://github.com/apache/camel-quarkus/pull/636
+* Fix #599 Document the need to set quarkus.native.add-all-charsets = true in HTTP extensions by @ppalaga in https://github.com/apache/camel-quarkus/pull/644
+* Context and FactoryFinder improvements by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/656
+* factory-finder: move reactive-executor filter to core processor as the related service is always programmatically configured by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/657
+* Update Quarkus to v1.2.0.Final by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/658
+* The MicroProfile test fails if message history is turned off by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/660
+* Create a Camel ReactiveStreams extension (initial implementation) by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/659
+* Fix #635 Dependency parity check by @ppalaga in https://github.com/apache/camel-quarkus/pull/638
+* Enable local native sftp tests by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/547
+* Fix #518 Rely on configurers for Configuration classes instead of using by @ppalaga in https://github.com/apache/camel-quarkus/pull/647
+* Set firstVersion to 1.0.0 to match the reality by @ppalaga in https://github.com/apache/camel-quarkus/pull/661
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/1.0.0-M2...1.0.0-M3
+
+## 1.0.0-M2
+
+* Automatically register dozer mapping classes for reflection by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/507
+* chore: Fix pom sorting script execution by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/510
+* Do not use hard coded ports in integration-tests by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/509
+* ftp: implement ftp/sft server test support with QuarkusTestResourceLifecycleManager by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/512
+* introduce testcontainers by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/517
+* Create AWS-IAM Extension by @oscerd in https://github.com/apache/camel-quarkus/pull/515
+* chore: cleanup poms by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/519
+* Fix #520 XSLT documentation is misleading by @ppalaga in https://github.com/apache/camel-quarkus/pull/523
+* Do not check licenses in integration-tests/sjms/data by @ppalaga in https://github.com/apache/camel-quarkus/pull/522
+* Add a workaround for Camel's DI (see CAMEL-14271) by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/525
+* 1.0.0-M1 by @oscerd in https://github.com/apache/camel-quarkus/pull/527
+* Re-introduce RoutesBuilderBuildItem by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/528
+* Replace <firstVersion> 0.5.0 with 1.0.0-M1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/529
+* refactor FHIR integration tests by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/524
+* Add SQL component extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/533
+* chore: Remove redundant banned dependency by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/530
+* chore: Clarify supported URI schemes in SQL script-files config property by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/535
+* examples: add timer-log kotlin example by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/542
+* Fix commons-logging setup by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/545
+* Ensure RoutesBuilder instances created by a CDI Producder are  not removed by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/546
+* Ensure custom services such as deataformats, languages and component are not removed from container by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/548
+* Add initial support for kotlin by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/549
+* Quarkus 1.1 upgrade by @gsmet in https://github.com/apache/camel-quarkus/pull/550
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/1.0.0-M1...1.0.0-M2
+
+## 1.0.0-M1
+
+* Fixes #411 bean-validator extension by @davsclaus in https://github.com/apache/camel-quarkus/pull/412
+* Initial JMS support by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/430
+* Improve bean validator extension by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/431
+* Consolidate microprofile integration tests by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/434
+* Create a Camel Kafka extension by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/432
+* Update latest version released to 0.4.0 by @oscerd in https://github.com/apache/camel-quarkus/pull/436
+* xslt extension not working on java 11 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/437
+* Fix #428 XSLT extension does not work with file: URIs by @ppalaga in https://github.com/apache/camel-quarkus/pull/440
+* Add Dozer component extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/442
+* Add Camel-AWS-KMS extension by @oscerd in https://github.com/apache/camel-quarkus/pull/443
+* Fixed FhirProcessor imports by @oscerd in https://github.com/apache/camel-quarkus/pull/448
+* Add Camel-AWS-ECS extension by @oscerd in https://github.com/apache/camel-quarkus/pull/447
+* Remove workaround for https://github.com/quarkusio/quarkus/issues/4564 as it seems to be fixed by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/445
+* Add Hystirx component extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/449
+* Update to Quarkus 1.0.0-CR2 and regen by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/450
+* #416, #415 by @ppalaga in https://github.com/apache/camel-quarkus/pull/452
+* Fix #455 Support only classpath: XSLT URIs by @ppalaga in https://github.com/apache/camel-quarkus/pull/456
+* Add support extension for commons-logging by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/458
+* Add spring-di example by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/462
+* Add FTP extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/464
+* Startup a FHIR server when running the FHIR integration tests by @johnpoth in https://github.com/apache/camel-quarkus/pull/461
+* Upgrade to camel 3.0.0 and quarkus 1.0.0.Final by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/471
+* Fix #453 Move the platform-http component to Camel by @ppalaga in https://github.com/apache/camel-quarkus/pull/459
+* Support dependency injection of FluentProducerTemplate/FluentConsumerTemplate by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/475
+* Fixes native test and add support for FHIR R5 specification by @johnpoth in https://github.com/apache/camel-quarkus/pull/478
+* Add MongoDB extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/480
+* Simplify the Tooling hierarchy by @ppalaga in https://github.com/apache/camel-quarkus/pull/479
+* Fix #476 List itests in an XML file for the Quarkus platform by @ppalaga in https://github.com/apache/camel-quarkus/pull/482
+* Add camel-sjms2 extension by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/485
+* Update to quarkus-1.0.1.Final by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/487
+* Add workaroud for MP Config profile awarness by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/481
+* Fix #484 The validator test should use a classpath URI for the XSD by @ppalaga in https://github.com/apache/camel-quarkus/pull/486
+* Fix #483 Flatten the integration-tests hierarchy and remove camel-quarkus-test-list.xml from git by @ppalaga in https://github.com/apache/camel-quarkus/pull/489
+* Document and test referring to beans by name by @ppalaga in https://github.com/apache/camel-quarkus/pull/491
+* Scripts to sort pom.xml files by @ppalaga in https://github.com/apache/camel-quarkus/pull/492
+* Fix #494 Group catalog re-generation and formatting mojos under a single profile by @ppalaga in https://github.com/apache/camel-quarkus/pull/495
+* mp-config: enable testing profiles in native mode by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/496
+* fix dependencies management in package-maven-plugin by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/497
+* Issue 490: Add tagsoup support by @jsight in https://github.com/apache/camel-quarkus/pull/493
+* feat: seda extension. by @davsclaus in https://github.com/apache/camel-quarkus/pull/502
+* Filter out beans from CDI from build time discovery by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/501
+* Improve registration of DozerTypeConverter by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/503
+* Improve bean discovery filtering by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/504
+* feat: base64 extension by @davsclaus in https://github.com/apache/camel-quarkus/pull/506
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/0.4.0...1.0.0-M1
+
+## 0.4.0
+
+* Use uppercase FHIR where appropriate by @ppalaga in https://github.com/apache/camel-quarkus/pull/359
+* Fix #354 Update contributor guide: s/json/yaml/, extension adoc page by @ppalaga in https://github.com/apache/camel-quarkus/pull/355
+* Camel quarkus netty by @dhartford in https://github.com/apache/camel-quarkus/pull/353
+* chore: fix cs by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/362
+* Make -Pnative equivalent with -Dnative, prefer -Pnative in the docs by @ppalaga in https://github.com/apache/camel-quarkus/pull/363
+* Fix #357 Make netty-http dependent on netty and remove the duplications by @ppalaga in https://github.com/apache/camel-quarkus/pull/365
+* Set camel-quarkus-last-release: 0.3.1 in site.yml by @ppalaga in https://github.com/apache/camel-quarkus/pull/366
+* Add description to extension matedata by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/367
+* Use capabilities instead of feature names by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/369
+* Upgrade to quarkus 0.28.0 by @gnodet in https://github.com/apache/camel-quarkus/pull/373
+* Reuse camel package maven plugin to avoid duplicating code, fixes #336 by @gnodet in https://github.com/apache/camel-quarkus/pull/375
+* chore(deps): remove jetty-client from suport/common by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/374
+* Use local legal files, fixes #376 by @gnodet in https://github.com/apache/camel-quarkus/pull/377
+* Issue 337 by @gnodet in https://github.com/apache/camel-quarkus/pull/371
+* Update to quarkus 0.28.1 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/378
+* Improve the Github workflows: use -ntp, check licenses, better step and WF names by @ppalaga in https://github.com/apache/camel-quarkus/pull/370
+* chore: remove checkstyle leftovers by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/380
+* Update to Quarkus 1.0.0.CR1 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/381
+* Recommend mvn license:format -Plicense in the docs by @ppalaga in https://github.com/apache/camel-quarkus/pull/387
+* feat: controlbus extension. by @davsclaus in https://github.com/apache/camel-quarkus/pull/388
+* Add SnakeYAML extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/390
+* Perform TypeConverterLoader discovery using jandex instead of camel's class path scanner by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/392
+* Fix license headers by @ppalaga in https://github.com/apache/camel-quarkus/pull/394
+* Cleanup Netty extension by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/395
+* Cleanup and CamelConfig improvements by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/397
+* Add file component extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/399
+* chore: Fix deprecation warning on netty tests and simplify it a bit by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/401
+* Publish discovered RoutesBuilders via CamelBeanBuildItem by @ppalaga in https://github.com/apache/camel-quarkus/pull/358
+* added Camel validation extension by @ploef in https://github.com/apache/camel-quarkus/pull/393
+* Fix #136 and #396 by @ppalaga in https://github.com/apache/camel-quarkus/pull/402
+* Scheduler by @davsclaus in https://github.com/apache/camel-quarkus/pull/404
+* Xslt by @davsclaus in https://github.com/apache/camel-quarkus/pull/407
+* Dataformat by @davsclaus in https://github.com/apache/camel-quarkus/pull/409
+* core: avoid referencing application classes in bean build items and loading them in core build processors by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/405
+* chore: add timer-log-cdi example by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/414
+* Fix #382 Support path parameters in platform-http by @ppalaga in https://github.com/apache/camel-quarkus/pull/418
+* chore: Remove unused itest dependencies by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/421
+* Add exec component extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/420
+* build(actions): enable build in jvm mode for all the supported java versions by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/423
+* xslt extension not building in native mode by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/422
+* Fix #356 Issues in the List of extensions by @ppalaga in https://github.com/apache/camel-quarkus/pull/425
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/0.3.1...0.4.0
+
+## 0.3.1
+
+* Fix #326 platform-http should return 415 for an unaccepted content type by @ppalaga in https://github.com/apache/camel-quarkus/pull/335
+* Improve camel service discovery and filtering by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/340
+* main: impove events and build phase by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/339
+* Improve the contributor guide, esp. the create-extension examples by @ppalaga in https://github.com/apache/camel-quarkus/pull/343
+* Set camel-quarkus-last-release: 0.3.0 in site.yml by @ppalaga in https://github.com/apache/camel-quarkus/pull/345
+* Created a camel-pdf component extension fixes #341 by @aldettinger in https://github.com/apache/camel-quarkus/pull/342
+* Improve service filter and related methods by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/351
+* Fix #270 TarfileTest can fail on exotic platforms by @ppalaga in https://github.com/apache/camel-quarkus/pull/349
+* Fix #220 platform-http component should return 204 for success and no body by @ppalaga in https://github.com/apache/camel-quarkus/pull/348
+* Upgrade to quarkus 0.27.0 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/350
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/0.3.0...0.3.1
+
+## 0.3.0
+
+* Auto configuration of metrics management strategies by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/205
+* Upgrade the docs to camel-quarkus-last-release: 0.2.0 by @ppalaga in https://github.com/apache/camel-quarkus/pull/210
+* Upgarde to quarkus v0.23.1 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/211
+* cleanup aws and paho extensions by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/212
+* Submodule for support extensions by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/214
+* chore(build): move depdendencies enforcer script to build/scripts by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/215
+* Remove scaffold-integration-test.groovy by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/216
+* chore: fix mail cs by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/219
+* chore(deps): upgrade quarkus to v0.23.2 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/221
+* Fix #184 Leverage platform http service by @ppalaga in https://github.com/apache/camel-quarkus/pull/201
+* chore: rename CamelRegistryBuildItem to a more meaningful CamelBeanBuildItem by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/222
+* Rename substitutions class names by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/225
+* Use MainSupport as base for running Camel by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/226
+* Cleanup by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/228
+* Fix #133 Test netty4-http as a producer by @ppalaga in https://github.com/apache/camel-quarkus/pull/134
+* Do not use deprecated methods by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/229
+* Ensure the PlatformHttpComponent is registered before the routes are started by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/230
+* Add support for quarkus provided event loop by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/231
+* Improve the beans and registry BuildItems' JavaDoc by @ppalaga in https://github.com/apache/camel-quarkus/pull/237
+* #234 Added log when starting or stoping ActiveMQ Broker failed by @WillemJiang in https://github.com/apache/camel-quarkus/pull/235
+* Add workarounds for https://github.com/quarkusio/quarkus/issues/4407 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/236
+* port rest-json quickstart to camel-quarkus by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/238
+* Added License header on the html file by @WillemJiang in https://github.com/apache/camel-quarkus/pull/239
+* Auto configure MicroProfile metrics Camel context event notifier by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/241
+* quarkus-camel-catalog by @davsclaus in https://github.com/apache/camel-quarkus/pull/242
+* Generate extension list readme file via tooling like we do at Apache Camel by @davsclaus in https://github.com/apache/camel-quarkus/pull/243
+* chore: remove workaround for runtime registry as issue has been fixed upstream by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/244
+* chore: add some doc about camel-main build steps by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/246
+* #245 update the extensions list in the website docs also by @davsclaus in https://github.com/apache/camel-quarkus/pull/250
+* camel application property routesUri is not overridden at runtime by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/252
+* Remove the script for generating synthetic test-jars by @ppalaga in https://github.com/apache/camel-quarkus/pull/255
+* Fix #259 The User guide should refer to the rest-json example by @ppalaga in https://github.com/apache/camel-quarkus/pull/261
+* Fix #251 Unrecognized configuration key by @ppalaga in https://github.com/apache/camel-quarkus/pull/254
+* Fix #217 Support rest dsl in platform-http component by @ppalaga in https://github.com/apache/camel-quarkus/pull/256
+* Fixes #265 - Add tarfile extension by @davsclaus in https://github.com/apache/camel-quarkus/pull/266
+* Polish2 by @davsclaus in https://github.com/apache/camel-quarkus/pull/269
+* Add MicroProfile Health extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/271
+* fix: CamelContext.getVersion() always returns an empty string by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/272
+* fix: Paho integration tests fail in native mode by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/274
+* fix(build): Handle loading routes from XML with latest camel SNAPSHOT by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/277
+* Make xml and jaxb disabled by default and opt-in when depending on camel #188 by @gnodet in https://github.com/apache/camel-quarkus/pull/249
+* fix: Add OpenTracing extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/279
+* Update to quarkus 0.25.0 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/280
+* Add minimal extension metadata by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/282
+* Document health, metrics & OpenTracing extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/283
+* master failing by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/291
+* Activate bomEntryVersion now that we are on Quarkus 0.25 by @ppalaga in https://github.com/apache/camel-quarkus/pull/287
+* Fix version in integration-test-pom.xml by @johnpoth in https://github.com/apache/camel-quarkus/pull/296
+* Followup #278 Assert that quarkus-extension.json exists for each extension by @ppalaga in https://github.com/apache/camel-quarkus/pull/284
+* Enable PlatformHttpTest.invalidMethod() by @ppalaga in https://github.com/apache/camel-quarkus/pull/295
+* Improve XML support by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/298
+* Fix #285 Un-negate the config options names by @ppalaga in https://github.com/apache/camel-quarkus/pull/300
+* chore: add tests for quarkusio/quarkus#4408 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/301
+* chore: rename SubstrateProcessor by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/307
+* Timer example by @davsclaus in https://github.com/apache/camel-quarkus/pull/312
+* Fixup #262 Use bomEntryVersion of CreateExtensionMojo by @ppalaga in https://github.com/apache/camel-quarkus/pull/313
+* Add observability example by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/311
+* Upgrade Camel & Quarkus to latest releases by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/317
+* Fix #308 Support multipart/form-data in platform-http extension by @ppalaga in https://github.com/apache/camel-quarkus/pull/321
+* Upgarde quarkus to v0.26.1 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/325
+* chore(build): add doclint-java8-disable profile borrowed from Apache Camel by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/329
+* Improve dev mode by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/327
+* chore(build): set groovy-maven-plugin version by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/328
+* Fix #322 Make camel-attachments an optional dependency of platform-http by @ppalaga in https://github.com/apache/camel-quarkus/pull/323
+* Add FHIR extension by @johnpoth in https://github.com/apache/camel-quarkus/pull/286
+* Add Slack extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/331
+* Add jackson and vm extensions, fixes #306 and #318 by @gnodet in https://github.com/apache/camel-quarkus/pull/320
+* Do not use docker to run native tests, fixes #332 by @gnodet in https://github.com/apache/camel-quarkus/pull/333
+* Polish examples and use -P native for all of them for native build. by @davsclaus in https://github.com/apache/camel-quarkus/pull/334
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/0.2.0...0.3.0
+
+## 0.2.0
+
+* rename xml extension to xml-common by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/117
+* Override DefaultStreamCachingStrategy::resolveSpoolDirectory to avoid NPE by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/120
+* chore: replace custom properties binding implementation with PropertyBindingSupport from camel support by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/119
+* Fix #112 Make camel-quarkus-bom usable as a parent for user applications by @ppalaga in https://github.com/apache/camel-quarkus/pull/115
+* create extension for camel's core cloud impl by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/121
+* User guide by @ppalaga in https://github.com/apache/camel-quarkus/pull/122
+* Fix #113 Document the release process by @ppalaga in https://github.com/apache/camel-quarkus/pull/125
+* Fix #114 Move create-extension-templates to i.e. tooling by @ppalaga in https://github.com/apache/camel-quarkus/pull/126
+* Order the dependencies managed in the BOM by @ppalaga in https://github.com/apache/camel-quarkus/pull/127
+* Fix #129 Properies evaluation broken after the introduction of PropertyBindingSupport by @ppalaga in https://github.com/apache/camel-quarkus/pull/130
+* Upgrade to Quarkus 0.21.0 by @ppalaga in https://github.com/apache/camel-quarkus/pull/135
+* Upgrade to Quarkus 0.21.1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/137
+* chore(extension): add extension for camel-http-common by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/144
+* chore(test): add test to validate camel registry hooks in ArC by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/146
+* Basic impl for #147 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/148
+* Add tests to the twitter itest project by @ppalaga in https://github.com/apache/camel-quarkus/pull/138
+* Fix #124 Deployment BOM by @ppalaga in https://github.com/apache/camel-quarkus/pull/145
+* Fix #41 Re-introduce test scope in integration test projects by @ppalaga in https://github.com/apache/camel-quarkus/pull/150
+* Modularize recorder and processors by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/152
+* Set disableReports=true in quarkus-maven-plugin config to speed up the itests execution by @ppalaga in https://github.com/apache/camel-quarkus/pull/151
+* Adapt the Contributor guide to the new layout of POMs and new native build arguments by @ppalaga in https://github.com/apache/camel-quarkus/pull/153
+* Update the link to the new site of Camel by @oscerd in https://github.com/apache/camel-quarkus/pull/155
+* Remove unecessary conditional discovery by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/154
+* Fix #58 Enforce dependency rules by @ppalaga in https://github.com/apache/camel-quarkus/pull/156
+* Fixup #124 Deployments POM by @ppalaga in https://github.com/apache/camel-quarkus/pull/157
+* Fix #70 Bean extension does not fail in native mode due to dynamic proxies anymore by @ppalaga in https://github.com/apache/camel-quarkus/pull/158
+* Fix README link by @fviolette in https://github.com/apache/camel-quarkus/pull/161
+* Groovy script to scaffold an integration test when creating a new by @ppalaga in https://github.com/apache/camel-quarkus/pull/160
+* camel-zipfile quarkus extension by @davsclaus in https://github.com/apache/camel-quarkus/pull/165
+* Fixes #123 adding a deploy profile by @oscerd in https://github.com/apache/camel-quarkus/pull/166
+* CSV Extension by @ppalaga in https://github.com/apache/camel-quarkus/pull/167
+* Add website build trigger by @zregvart in https://github.com/apache/camel-quarkus/pull/169
+* Upgrade to Apache Camel RC1 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/170
+* Expose metrics in quarkus by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/174
+* Fix checkstyle violations by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/175
+* Upgrade to Maven 3.6.2 by @ppalaga in https://github.com/apache/camel-quarkus/pull/176
+* Make code generators checkstyle compliant by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/177
+* Issue 69 by @gnodet in https://github.com/apache/camel-quarkus/pull/187
+* Fix #179 Generate a jar with a non-test pom for each integration test by @ppalaga in https://github.com/apache/camel-quarkus/pull/181
+* chore(reflection): add CamelContext and StreamCachingStrategy to the list of reflective classes by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/193
+* don't start camel context before the container is fully started by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/192
+* chore(it): add noDeps to quarkus-maven-plugin to make hot-reload working in multi-module projects by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/194
+* Support for camel-mail by @gnodet in https://github.com/apache/camel-quarkus/pull/164
+* chore(deps): update quarkus to v0.21.2 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/196
+* Add the camel-paho extension to support the MQTT by @zhfeng in https://github.com/apache/camel-quarkus/pull/197
+* improve the paho integration test by @zhfeng in https://github.com/apache/camel-quarkus/pull/200
+* Upgrade to Quarkus 0.22.0 by @ppalaga in https://github.com/apache/camel-quarkus/pull/202
+* Set the missing deploy plugin properties for the reusable-test-jar by @ppalaga in https://github.com/apache/camel-quarkus/pull/204
+* Improve the maven deployment of the synthetic test jars by @ppalaga in https://github.com/apache/camel-quarkus/pull/206
+* Disable deployment of synthetic test poms for now see #207 by @ppalaga in https://github.com/apache/camel-quarkus/pull/208
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/0.1.0...0.2.0
+
+## 0.1.0
+
+* Fix typo s/AWs_REGION/AWS_REGION/ by @ppalaga in https://github.com/apache/camel-quarkus/pull/94
+* Move test packages to org.apache.camel by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/77
+* Omit the artifactId in release tags by @ppalaga in https://github.com/apache/camel-quarkus/pull/95
+* Add twitter extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/99
+* Upgrade to Camel 3.0.0-M4 by @ppalaga in https://github.com/apache/camel-quarkus/pull/72
+* chore(cleanup): remove ide-config by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/101
+* Upgrade quarkus to v0.20.0  plsu some cleanup by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/100
+* Add configuration for quarkus:create-extension mojo by @ppalaga in https://github.com/apache/camel-quarkus/pull/102
+* Rename the rest of java packages in itests by @ppalaga in https://github.com/apache/camel-quarkus/pull/103
+* Remove the TravisCI badge from the README by @ppalaga in https://github.com/apache/camel-quarkus/pull/104
+* Fix #37 Setup the documentation by @ppalaga in https://github.com/apache/camel-quarkus/pull/105
+* Use source block instead of code by @zregvart in https://github.com/apache/camel-quarkus/pull/106
+* Figure out whether the Reifier substitutions can be added conditionally by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/110
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/0.0.2...0.1.0
+
+## 0.0.2
+
+* Add Parent POM by @ppalaga in https://github.com/apache/camel-quarkus/pull/1
+* Add Maven wrapper and .travis.yml by @ppalaga in https://github.com/apache/camel-quarkus/pull/2
+* Migrate Camel extensions from Quarkus by @ppalaga in https://github.com/apache/camel-quarkus/pull/3
+* Add keys by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/13
+* Use vanilla Maven Compiler Plugin version (from maven central) by @davsclaus in https://github.com/apache/camel-quarkus/pull/21
+* chore(build): use project.version by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/15
+* Initial import cleanup by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/22
+* Fix #11 Test the native mode on TravisCI by @ppalaga in https://github.com/apache/camel-quarkus/pull/12
+* Add badges and How to build section to the README by @ppalaga in https://github.com/apache/camel-quarkus/pull/27
+* Fix #25 Use the same naming scheme for artifactIds and module names by @ppalaga in https://github.com/apache/camel-quarkus/pull/26
+* Avoid 3rd party maven repositories if possible by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/28
+* Use docker-build in travis by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/30
+* Fix #6 Rename packages from io.quarkus.camel to org.apache.camel.quarkus by @ppalaga in https://github.com/apache/camel-quarkus/pull/23
+* Manage camel-servlet and camel-aws-sns in the BOM by @ppalaga in https://github.com/apache/camel-quarkus/pull/40
+* Fix #10 Produce test-jars of the integration tests by @ppalaga in https://github.com/apache/camel-quarkus/pull/35
+* chore: ignore ObjectStore folder by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/43
+* Caffeine by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/46
+* chore(build): add Jenkinsfile by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/49
+* chore(arc): add ConsumerTemplate and ProducerTemplate producers by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/48
+* Do not use io.quarkus...FeatureBuildItem feature constants by @ppalaga in https://github.com/apache/camel-quarkus/pull/50
+* Removed Jenkinsfile not used by @oscerd in https://github.com/apache/camel-quarkus/pull/52
+* chore(build): remove travis build by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/53
+* Use RestAssured in JDBC test by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/47
+* Fix #31 Move infinispan integration-tests out of core by @ppalaga in https://github.com/apache/camel-quarkus/pull/55
+* Review extensions' dependencies chains by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/59
+* chore(build): cleanup build set-up by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/61
+* Upgrade quarkus to v0.19.0 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/64
+* Upgrade quarkus to v0.19.1 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/66
+* Prepare for Camel 3.0.0-M3/4 by @ppalaga in https://github.com/apache/camel-quarkus/pull/67
+* Dedicated extension for jetty and xstream by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/78
+* Move netty integration-tests out of core by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/79
+* Fixes #18 Add a Camel AWS-EKS Extension by @oscerd in https://github.com/apache/camel-quarkus/pull/83
+* chore(it): cleanup application.properties and poms by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/84
+* Add a single integration test module for the AWS extensions by @oscerd in https://github.com/apache/camel-quarkus/pull/85
+* Fix typo s/nett4/netty4/ by @ppalaga in https://github.com/apache/camel-quarkus/pull/86
+* chore(test): add camel core cdi test by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/87
+* Changed the integration test module name and folder name for AWS by @oscerd in https://github.com/apache/camel-quarkus/pull/88
+* AWS Extension configuration classes need to be registered for reflection by @oscerd in https://github.com/apache/camel-quarkus/pull/89
+* Remove unused imports from CamelRoute in netty4-http integration test by @ppalaga in https://github.com/apache/camel-quarkus/pull/91
+* chore(it): cleanup it poms by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/90
+* chore(build): move release profile to camel-quarkus-parent by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/92
+* Added failIfNoTest option in surefire configuration by @oscerd in https://github.com/apache/camel-quarkus/pull/93
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/commits/0.0.2
+
+## 0.0.1
+
+* Add Parent POM by @ppalaga in https://github.com/apache/camel-quarkus/pull/1
+* Add Maven wrapper and .travis.yml by @ppalaga in https://github.com/apache/camel-quarkus/pull/2
+* Migrate Camel extensions from Quarkus by @ppalaga in https://github.com/apache/camel-quarkus/pull/3
+* Add keys by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/13
+* Use vanilla Maven Compiler Plugin version (from maven central) by @davsclaus in https://github.com/apache/camel-quarkus/pull/21
+* chore(build): use project.version by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/15
+* Initial import cleanup by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/22
+* Fix #11 Test the native mode on TravisCI by @ppalaga in https://github.com/apache/camel-quarkus/pull/12
+* Add badges and How to build section to the README by @ppalaga in https://github.com/apache/camel-quarkus/pull/27
+* Fix #25 Use the same naming scheme for artifactIds and module names by @ppalaga in https://github.com/apache/camel-quarkus/pull/26
+* Avoid 3rd party maven repositories if possible by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/28
+* Use docker-build in travis by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/30
+* Fix #6 Rename packages from io.quarkus.camel to org.apache.camel.quarkus by @ppalaga in https://github.com/apache/camel-quarkus/pull/23
+* Manage camel-servlet and camel-aws-sns in the BOM by @ppalaga in https://github.com/apache/camel-quarkus/pull/40
+* Fix #10 Produce test-jars of the integration tests by @ppalaga in https://github.com/apache/camel-quarkus/pull/35
+* chore: ignore ObjectStore folder by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/43
+* Caffeine by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/46
+* chore(build): add Jenkinsfile by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/49
+* chore(arc): add ConsumerTemplate and ProducerTemplate producers by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/48
+* Do not use io.quarkus...FeatureBuildItem feature constants by @ppalaga in https://github.com/apache/camel-quarkus/pull/50
+* Removed Jenkinsfile not used by @oscerd in https://github.com/apache/camel-quarkus/pull/52
+* chore(build): remove travis build by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/53
+* Use RestAssured in JDBC test by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/47
+* Fix #31 Move infinispan integration-tests out of core by @ppalaga in https://github.com/apache/camel-quarkus/pull/55
+* Review extensions' dependencies chains by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/59
+* chore(build): cleanup build set-up by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/61
+* Upgrade quarkus to v0.19.0 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/64
+* Upgrade quarkus to v0.19.1 by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/66
+* Prepare for Camel 3.0.0-M3/4 by @ppalaga in https://github.com/apache/camel-quarkus/pull/67
+* Dedicated extension for jetty and xstream by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/78
+* Move netty integration-tests out of core by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/79
+* Fixes #18 Add a Camel AWS-EKS Extension by @oscerd in https://github.com/apache/camel-quarkus/pull/83
+* chore(it): cleanup application.properties and poms by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/84
+* Add a single integration test module for the AWS extensions by @oscerd in https://github.com/apache/camel-quarkus/pull/85
+* Fix typo s/nett4/netty4/ by @ppalaga in https://github.com/apache/camel-quarkus/pull/86
+* chore(test): add camel core cdi test by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/87
+* Changed the integration test module name and folder name for AWS by @oscerd in https://github.com/apache/camel-quarkus/pull/88
+* AWS Extension configuration classes need to be registered for reflection by @oscerd in https://github.com/apache/camel-quarkus/pull/89
+* Remove unused imports from CamelRoute in netty4-http integration test by @ppalaga in https://github.com/apache/camel-quarkus/pull/91
+* chore(it): cleanup it poms by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/90
+* chore(build): move release profile to camel-quarkus-parent by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/92
+* Added failIfNoTest option in surefire configuration by @oscerd in https://github.com/apache/camel-quarkus/pull/93
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/commits/camel-quarkus-parent-0.0.1
