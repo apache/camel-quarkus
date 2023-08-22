@@ -42,6 +42,11 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-support-ahc</artifactId>
         </dependency>
+        <!-- TODO: Remove this: https://github.com/apache/camel-quarkus/issues/5201 -->
+        <dependency>
+            <groupId>org.eclipse.transformer</groupId>
+            <artifactId>org.eclipse.transformer</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
