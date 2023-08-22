@@ -6,6 +6,8 @@
 
 **Implemented enhancements:**
 
+- perf-regression:  [\#5205](https://github.com/apache/camel-quarkus/issues/5205)
+- Add yaml-io extension [\#5178](https://github.com/apache/camel-quarkus/issues/5178)
 - Add `org.mapstruct:mapstruct-processor` to the BOM [\#5163](https://github.com/apache/camel-quarkus/issues/5163)
 - Expand test coverage on xslt-saxon [\#5139](https://github.com/apache/camel-quarkus/issues/5139)
 
@@ -37,9 +39,14 @@
 
 **Merged pull requests:**
 
+- Fix quarkus-maven-plugin groupId & version for gRPC itest module [\#5204](https://github.com/apache/camel-quarkus/pull/5204) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix usage of deprecated Quarkus SSL config properties [\#5203](https://github.com/apache/camel-quarkus/pull/5203) ([jamesnetherton](https://github.com/jamesnetherton))
+- Downgrade async-http-client to 2.12.3. Relates \#5201 [\#5202](https://github.com/apache/camel-quarkus/pull/5202) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generated sources regen for SBOM [\#5200](https://github.com/apache/camel-quarkus/pull/5200) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-jmx from 3.1.2 to 3.2.4 [\#5198](https://github.com/apache/camel-quarkus/pull/5198) ([dependabot[bot]](https://github.com/apps/dependabot))
+- file: migrate pollEnrich to the non-flaky test harness \#3584 [\#5197](https://github.com/apache/camel-quarkus/pull/5197) ([aldettinger](https://github.com/aldettinger))
 - Fix dependency convergence error for google-auth-library-oauth2-http [\#5195](https://github.com/apache/camel-quarkus/pull/5195) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add yaml-io extension  [\#5193](https://github.com/apache/camel-quarkus/pull/5193) ([jamesnetherton](https://github.com/jamesnetherton))
 - Expand Splunk test coverage [\#5192](https://github.com/apache/camel-quarkus/pull/5192) ([jamesnetherton](https://github.com/jamesnetherton))
 - Exclude unwanted vertx-grpc transitive dependencies form quarkus-grpc-common [\#5188](https://github.com/apache/camel-quarkus/pull/5188) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove integration-tests/jdbc module [\#5186](https://github.com/apache/camel-quarkus/pull/5186) ([jamesnetherton](https://github.com/jamesnetherton))
