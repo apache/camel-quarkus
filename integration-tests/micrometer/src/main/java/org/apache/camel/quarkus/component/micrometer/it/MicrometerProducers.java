@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.micrometer.it;
 
-import java.util.Arrays;
+import java.util.List;
 
 import io.micrometer.core.instrument.Clock;
 import io.micrometer.core.instrument.Meter;
@@ -40,7 +40,7 @@ public class MicrometerProducers {
     @Produces
     @Singleton
     @IfBuildProfile("test")
-    public MeterRegistry registry(Clock clock) {
+    public MeterRegistry registry() {
         return new JmxMeterRegistry(CamelJmxConfig.DEFAULT, Clock.SYSTEM, HierarchicalNameMapper.DEFAULT);
     }
 
@@ -48,7 +48,7 @@ public class MicrometerProducers {
     @Singleton
     @MeterFilterConstraint(applyTo = PrometheusMeterRegistry.class)
     public MeterFilter configurePrometheusRegistries() {
-        return MeterFilter.commonTags(Arrays.asList(
+        return MeterFilter.commonTags(List.of(
                 Tag.of("customTag", "prometheus")));
     }
 

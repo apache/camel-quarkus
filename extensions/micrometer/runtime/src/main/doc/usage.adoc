@@ -10,4 +10,4 @@ Your application should declare the following dependency or  one of the dependen
 </dependency>
 ----
 
-If no dependency is declared, the Micrometer extension creates a SimpleMeterRegistry instance, suitable mainly for testing.
+If no dependency is declared, the Micrometer extension creates a `SimpleMeterRegistry` instance, suitable mainly for testing.

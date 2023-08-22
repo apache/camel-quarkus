@@ -21,7 +21,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
@@ -42,6 +41,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.micrometer.MicrometerComponent;
 import org.apache.camel.component.micrometer.MicrometerConstants;
 import org.apache.camel.component.micrometer.eventnotifier.MicrometerEventNotifierService;
+import org.apache.camel.component.micrometer.messagehistory.MicrometerMessageHistoryService;
 
 @Path("/micrometer")
 public class MicrometerResource {
@@ -139,10 +139,7 @@ public class MicrometerResource {
             producerTemplate.sendBodyAndHeader(path, null, MicrometerConstants.HEADER_COUNTER_INCREMENT, increment);
         } else if (increment < 0) {
             producerTemplate.sendBodyAndHeader(path, null, MicrometerConstants.HEADER_COUNTER_DECREMENT,
-                    0 - increment);
-            List l = meterRegistry.getMeters().stream().filter(m -> m.getId().getName().contains("executor"))
-                    .collect(Collectors.toList());//forEach(System.out::println);
-            System.out.println(l);
+                    -increment);
         } else {
             producerTemplate.sendBody(path, null);
         }
@@ -178,10 +175,34 @@ public class MicrometerResource {
         return Response.ok().entity(json).build();
     }
 
+    @Path("/history")
+    @GET
+    public Response history() {
+        MicrometerMessageHistoryService service = camelContext.hasService(MicrometerMessageHistoryService.class);
+        if (service == null) {
+            return Response.status(500).entity("History is null").build();
+        }
+        String json = service.dumpStatisticsAsJson();
+        return Response.ok().entity(json).build();
+    }
+
     @Path("/annotations/call/{number}")
     @GET
     public Response annotationsCall(@PathParam("number") int number) {
         producerTemplate.requestBodyAndHeader("direct:annotatedBean", (Object) null, "number", number);
+        return Response.ok().build();
+    }
+
+    @Path("/getContextManagementName")
+    @GET
+    public Response getContextManagemetName() throws Exception {
+        return Response.ok().entity(camelContext.getManagementName()).build();
+    }
+
+    @Path("/sendJmxHistory")
+    @GET
+    public Response annotationsCall() {
+        producerTemplate.sendBody("direct:jmxHistory", "hello");
         return Response.ok().build();
     }
 

@@ -1,8 +1,14 @@
-=== Exposing Micrometer statisctics in JMX
+=== Exposing Micrometer statistics in JMX
 
-The `Exposing Micrometer statisctics in JMX` action is not available in native mode as JMX is not supported on GraalVM.
+Exposing Micrometer statistics in JMX is not available in native mode as `quarkus-micrometer-registry-jmx` does not
+have native support at present.
 
 === Decrement header for Counter is ignored by Prometheus
 
 Prometheus backend ignores negative values during increment of Counter metrics.
 
+=== Exposing statistics in JMX ===
+
+In {project-name}, registering a `JmxMeterRegistry` is simplified. Add a dependency for
+`io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-jmx` and a `JmxMeterRegistry` will automatically
+get created for you.
