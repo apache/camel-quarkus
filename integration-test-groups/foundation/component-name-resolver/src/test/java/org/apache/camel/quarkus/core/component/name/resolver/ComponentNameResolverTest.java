@@ -16,13 +16,15 @@
  */
 package org.apache.camel.quarkus.core.component.name.resolver;
 
+import java.util.List;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.core.FastComponentNameResolver;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
@@ -38,15 +40,17 @@ public class ComponentNameResolverTest {
 
     @Test
     public void resolveComponentNames() {
-        String componentNames = RestAssured.get("/component-name-resolver/resolve")
+        String rawComponentNames = RestAssured.get("/component-name-resolver/resolve")
                 .then()
                 .statusCode(200)
                 .extract()
                 .body()
                 .asString();
 
+        List<String> componentNames = List.of(rawComponentNames.split(","));
         assertTrue(componentNames.contains("direct"));
         assertTrue(componentNames.contains("log"));
         assertTrue(componentNames.contains("mock"));
+        assertFalse(componentNames.contains("cron"));
     }
 }

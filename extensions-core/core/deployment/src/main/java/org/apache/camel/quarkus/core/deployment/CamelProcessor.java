@@ -54,10 +54,6 @@ import org.apache.camel.quarkus.core.CamelConfigFlags;
 import org.apache.camel.quarkus.core.CamelProducers;
 import org.apache.camel.quarkus.core.CamelRecorder;
 import org.apache.camel.quarkus.core.FastFactoryFinderResolver.Builder;
-import org.apache.camel.quarkus.core.deployment.catalog.BuildTimeCamelCatalog;
-import org.apache.camel.quarkus.core.deployment.catalog.BuildTimeJsonSchemaResolver;
-import org.apache.camel.quarkus.core.deployment.catalog.SchemaResource;
-import org.apache.camel.quarkus.core.deployment.spi.BuildTimeCamelCatalogBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelComponentNameResolverBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelFactoryFinderResolverBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelJAXBContextFactoryBuildItem;
@@ -399,15 +395,19 @@ class CamelProcessor {
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
     CamelComponentNameResolverBuildItem componentNameResolver(
-            BuildTimeCamelCatalogBuildItem camelCatalog,
+            ApplicationArchivesBuildItem applicationArchives,
+            CamelConfig camelConfig,
             CamelRecorder recorder) {
-        BuildTimeCamelCatalog catalog = camelCatalog.getCatalog();
-        BuildTimeJsonSchemaResolver jSonSchemaResolver = catalog.getJSonSchemaResolver();
-        Set<String> componentNames = jSonSchemaResolver.getSchemaResources()
-                .stream()
-                .filter(resource -> resource.getType().equals("component"))
-                .map(SchemaResource::getName)
+
+        PathFilter pathFilter = new PathFilter.Builder()
+                .include("META-INF/services/org/apache/camel/component/*")
+                .exclude(camelConfig.service.registry.excludePatterns)
+                .build();
+
+        Set<String> componentNames = CamelSupport.services(applicationArchives, pathFilter)
+                .map(CamelServiceBuildItem::getName)
                 .collect(Collectors.collectingAndThen(Collectors.toUnmodifiableSet(), TreeSet::new));
+
         return new CamelComponentNameResolverBuildItem(recorder.createComponentNameResolver(componentNames));
     }
 
