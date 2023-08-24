@@ -21,6 +21,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
@@ -44,5 +45,23 @@ class VertxTest {
                 .then()
                 .statusCode(201)
                 .body(is("Hello " + message));
+    }
+
+    @Test
+    public void testDefaultExceptionMapper() {
+        RestAssured.given().accept("text/html")
+                .get("/vertx/exception")
+                .then()
+                .statusCode(400)
+                .body(containsString("Custom exception"));
+    }
+
+    @Test
+    public void testNotFoundExceptionMapper() {
+        RestAssured.given().accept("text/html")
+                .get("/vertx/exception2")
+                .then()
+                .statusCode(404)
+                .body(containsString("Custom Not Found exception"));
     }
 }

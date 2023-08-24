@@ -21,11 +21,14 @@ import java.net.URI;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.ext.ExceptionMapper;
+import javax.ws.rs.ext.Provider;
 
 import io.vertx.core.Vertx;
 import org.apache.camel.CamelContext;
@@ -59,5 +62,32 @@ public class VertxResource {
     public boolean quarkusVertxInstanceUsedInVertxComponent() {
         VertxComponent component = camelContext.getComponent("vertx", VertxComponent.class);
         return component.getVertx() == vertx;
+    }
+
+    @Path("/exception")
+    @GET
+    @Produces("text/html")
+    public String exception() {
+        throw new RuntimeException("My runtime exception");
+    }
+
+    @Provider
+    public static class CustomNotFoundExceptionMapper implements ExceptionMapper<NotFoundException> {
+        @Override
+        public Response toResponse(NotFoundException exception) {
+            return Response.status(404)
+                    .entity("Custom Not Found exception")
+                    .build();
+        }
+    }
+
+    @Provider
+    public static class CustomWebApplicationExceptionMapper implements ExceptionMapper<Exception> {
+        @Override
+        public Response toResponse(Exception exception) {
+            return Response.status(400)
+                    .entity("Custom exception")
+                    .build();
+        }
     }
 }
