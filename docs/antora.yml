@@ -30,7 +30,7 @@ asciidoc:
     # Project versions
     camel-version: 4.0.0 # replace ${camel.version}
     camel-docs-version: ""
-    quarkus-version: 3.2.4.Final # replace ${quarkus.version}
+    quarkus-version: 3.2.5.Final # replace ${quarkus.version}
     graalvm-version: 23.0.1 # replace ${graalvm.version}
     graalvm-docs-version: 22.3
     mapstruct-version: 1.5.5.Final # replace ${mapstruct.version}
