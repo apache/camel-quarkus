@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+import java.util.HashMap;
 import java.util.Map;
 
 import jakarta.inject.Named;
@@ -36,7 +37,8 @@ public class InfinispanRoutes extends InfinispanCommonRoutes {
     @Produces
     @Named("additionalConfig")
     Map<String, String> additionalInfinispanConfig() {
-        Map<String, String> config = Map.of(MARSHALLER, ProtoStreamMarshaller.class.getName());
+        Map<String, String> config = new HashMap<>();
+        config.put(MARSHALLER, ProtoStreamMarshaller.class.getName());
         if (OS.getCurrentOs().equals(OS.MAC_OS) || OS.getCurrentOs().equals(OS.WINDOWS)) {
             config.put(CLIENT_INTELLIGENCE, "BASIC");
         }
