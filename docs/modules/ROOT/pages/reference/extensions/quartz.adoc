@@ -60,7 +60,7 @@ Support for Quartz clustering is provided by the Quarkus Quartz extension. The f
 # Quartz configuration
 quarkus.quartz.clustered=true
 quarkus.quartz.store-type=jdbc-cmt
-quarkus.quartz.start-mode=forced
+quarkus.scheduler.start-mode=forced
 
 # Datasource configuration
 quarkus.datasource.db-kind=postgresql
