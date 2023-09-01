@@ -1,6 +1,6 @@
-= Camel Quarkus 3.0.0 Migration Guide
+= Camel Quarkus 3.2.0 Migration Guide
 
-The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 3.0.0.
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 3.2.0.
 
 == Changes in Quarkus
 
