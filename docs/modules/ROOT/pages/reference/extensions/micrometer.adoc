@@ -95,7 +95,7 @@ get created for you.
 
 Set whether to enable the MicrometerRoutePolicyFactory for capturing metrics on route processing times.
 | `boolean`
-| `true`
+| `false`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.metrics.enable-message-history]]`link:#quarkus.camel.metrics.enable-message-history[quarkus.camel.metrics.enable-message-history]`
 

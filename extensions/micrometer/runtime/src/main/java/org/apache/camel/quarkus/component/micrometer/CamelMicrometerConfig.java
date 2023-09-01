@@ -27,7 +27,7 @@ public class CamelMicrometerConfig {
      * Set whether to enable the MicrometerRoutePolicyFactory for capturing metrics
      * on route processing times.
      */
-    @ConfigItem(defaultValue = "true")
+    @ConfigItem(defaultValue = "false")
     public boolean enableRoutePolicy;
 
     /**
