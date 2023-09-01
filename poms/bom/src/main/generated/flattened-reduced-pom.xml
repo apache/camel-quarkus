@@ -6392,7 +6392,7 @@
       <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>connect-runtime</artifactId>
-        <version>3.5.0</version>
+        <version>3.5.1</version>
         <exclusions>
           <exclusion>
             <groupId>javax.activation</groupId>
@@ -6518,12 +6518,12 @@
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-scripting-jvm</artifactId>
-        <version>1.9.0</version>
+        <version>1.9.10</version>
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-scripting-jvm-host</artifactId>
-        <version>1.9.0</version>
+        <version>1.9.10</version>
       </dependency>
       <dependency>
         <groupId>org.mapstruct</groupId>
