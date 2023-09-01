@@ -36,3 +36,19 @@ The following extensions have been removed.
 | camel-quarkus-vm                          | camel-quarkus-seda
 | camel-quarkus-xstream                     | camel-quarkus-jacksonxml
 |===
+
+
+== Change to default values of `camel.metrics.enableRoutePolicy` configuration
+
+The Micrometer extension's route policy was enabled by default in previous releases.
+
+Current behaviour has changed to reflect the default behavior of Camel.
+`MicrometerRoutePolicyFactory` is now disabled by default.
+
+You can enable `MicrometerRoutePolicyFactory` using configuration property.
+
+```
+quarkus.camel.metrics.enable-route-policy = true
+```
+
+For more information, refer to the xref:reference/extensions/micrometer.adoc[Camel Quarkus Micrometer Extension] documentation.
