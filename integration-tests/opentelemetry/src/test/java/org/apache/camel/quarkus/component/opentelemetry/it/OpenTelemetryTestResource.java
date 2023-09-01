@@ -16,9 +16,22 @@
  */
 package org.apache.camel.quarkus.component.opentelemetry.it;
 
-import io.quarkus.test.junit.QuarkusIntegrationTest;
+import java.util.Map;
 
-@QuarkusIntegrationTest
-class OpenTelemetryIT extends OpenTelemetryTest {
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.eclipse.microprofile.config.ConfigProvider;
 
+public class OpenTelemetryTestResource implements QuarkusTestResourceLifecycleManager {
+    private static final String POSTGRES_IMAGE_NAME = ConfigProvider.getConfig().getValue("postgres.container.image",
+            String.class);
+
+    @Override
+    public Map<String, String> start() {
+        return Map.of("quarkus.datasource.\"postgres\".devservices.image-name", POSTGRES_IMAGE_NAME);
+    }
+
+    @Override
+    public void stop() {
+        // Noop
+    }
 }
