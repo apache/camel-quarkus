@@ -112,6 +112,7 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
 
         final List<ArtifactModel<?>> models = catalog.filterModels(ext.getRuntimeArtifactIdBase())
                 .filter(artifactModel -> !artifactModel.getArtifactId().equals("camel-management"))
+                .filter(artifactModel -> !artifactModel.getArtifactId().equals("camel-yaml-io"))
                 .sorted(BaseModel.compareTitle())
                 .collect(Collectors.toList());
 
