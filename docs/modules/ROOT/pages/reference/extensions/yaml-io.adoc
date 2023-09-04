@@ -19,13 +19,6 @@ endif::[]
 
 YAML IO
 
-[id="extensions-yaml-io-whats-inside"]
-== What's inside
-
-* xref:{cq-camel-components}:others:yaml-io.adoc[Yaml Io]
-
-Please refer to the above link for usage and configuration details.
-
 [id="extensions-yaml-io-maven-coordinates"]
 == Maven coordinates
 
