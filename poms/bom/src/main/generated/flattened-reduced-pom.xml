@@ -6011,7 +6011,7 @@
       <dependency>
         <groupId>com.github.mwiede</groupId>
         <artifactId>jsch</artifactId>
-        <version>0.2.10</version>
+        <version>0.2.11</version>
       </dependency>
       <dependency>
         <groupId>com.google.auth</groupId>
@@ -6243,12 +6243,12 @@
       <dependency>
         <groupId>io.quarkiverse.jsch</groupId>
         <artifactId>quarkus-jsch</artifactId>
-        <version>3.0.3</version>
+        <version>3.0.4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jsch</groupId>
         <artifactId>quarkus-jsch-deployment</artifactId>
-        <version>3.0.3</version>
+        <version>3.0.4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.messaginghub</groupId>
