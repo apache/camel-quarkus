@@ -31,7 +31,7 @@
     <description>Runtime adapter connecting with Camel CLI</description>
 
     <properties>
-        <camel.quarkus.jvmSince>3.0.0</camel.quarkus.jvmSince>
+        <camel.quarkus.jvmSince>3.2.0</camel.quarkus.jvmSince>
     </properties>
 
     <dependencies>

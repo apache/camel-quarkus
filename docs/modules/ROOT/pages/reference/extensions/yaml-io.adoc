@@ -9,12 +9,12 @@
 :cq-status-deprecation: Stable
 :cq-description: YAML IO
 :cq-deprecated: false
-:cq-jvm-since: 3.0.0
-:cq-native-since: 3.0.0
+:cq-jvm-since: 3.2.0
+:cq-native-since: 3.2.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##3.0.0## [.badge-key]##Native since##[.badge-supported]##3.0.0##
+[.badge-key]##JVM since##[.badge-supported]##3.2.0## [.badge-key]##Native since##[.badge-supported]##3.2.0##
 endif::[]
 
 YAML IO

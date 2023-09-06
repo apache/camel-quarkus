@@ -6,7 +6,7 @@ cqNativeSupported: true
 cqStatus: Stable
 cqDeprecated: false
 cqJvmSince: 1.0.0
-cqNativeSince: 3.0.0
+cqNativeSince: 3.2.0
 cqCamelPartName: groovy
 cqCamelPartTitle: Groovy
 cqCamelPartDescription: Evaluates a Groovy script.

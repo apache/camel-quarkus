@@ -5,7 +5,7 @@ cqArtifactIdBase: elasticsearch
 cqNativeSupported: false
 cqStatus: Preview
 cqDeprecated: false
-cqJvmSince: 3.0.0
+cqJvmSince: 3.2.0
 cqNativeSince: n/a
 cqCamelPartName: elasticsearch
 cqCamelPartTitle: Elasticsearch
