@@ -22,6 +22,8 @@ group-01:
   - google-storage
   - hazelcast
   - http-grouped
+  - infinispan
+  - infinispan-quarkus-client
   - jcache
   - jms-artemis-client
   - jms-ibmmq-client
