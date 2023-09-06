@@ -222,6 +222,7 @@
                                     <goal>verify</goal>
                                 </goals>
                                 <configuration>
+                                    <skipInvocation>${skipTests}</skipInvocation>
                                     <properties>
                                         <com.sun.xml.bind.v2.bytecode.ClassTailor.noOptimize>true
                                         </com.sun.xml.bind.v2.bytecode.ClassTailor.noOptimize>
