@@ -31,8 +31,8 @@
     <description>YAML IO</description>
 
     <properties>
-        <camel.quarkus.jvmSince>3.0.0</camel.quarkus.jvmSince>
-        <camel.quarkus.nativeSince>3.0.0</camel.quarkus.nativeSince>
+        <camel.quarkus.jvmSince>3.2.0</camel.quarkus.jvmSince>
+        <camel.quarkus.nativeSince>3.2.0</camel.quarkus.nativeSince>
     </properties>
 
     <dependencies>
