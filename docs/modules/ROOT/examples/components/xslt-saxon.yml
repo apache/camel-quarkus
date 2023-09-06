@@ -6,7 +6,7 @@ cqNativeSupported: true
 cqStatus: Stable
 cqDeprecated: false
 cqJvmSince: 1.1.0
-cqNativeSince: 3.0.0
+cqNativeSince: 3.2.0
 cqCamelPartName: xslt-saxon
 cqCamelPartTitle: XSLT Saxon
 cqCamelPartDescription: Transform XML payloads using an XSLT template using Saxon.

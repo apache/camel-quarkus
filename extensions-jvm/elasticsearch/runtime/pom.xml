@@ -31,7 +31,7 @@
     <description>Send requests to ElasticSearch via Java Client API.</description>
 
     <properties>
-        <camel.quarkus.jvmSince>3.0.0</camel.quarkus.jvmSince>
+        <camel.quarkus.jvmSince>3.2.0</camel.quarkus.jvmSince>
     </properties>
 
     <dependencies>

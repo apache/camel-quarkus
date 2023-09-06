@@ -5,8 +5,8 @@ cqArtifactIdBase: swift
 cqNativeSupported: true
 cqStatus: Stable
 cqDeprecated: false
-cqJvmSince: 3.0.0
-cqNativeSince: 3.0.0
+cqJvmSince: 3.2.0
+cqNativeSince: 3.2.0
 cqCamelPartName: swiftMt
 cqCamelPartTitle: SWIFT MT
 cqCamelPartDescription: Encode and decode SWIFT MT messages.

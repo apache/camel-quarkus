@@ -9,12 +9,12 @@
 :cq-status-deprecation: Preview
 :cq-description: Runtime adapter connecting with Camel CLI
 :cq-deprecated: false
-:cq-jvm-since: 3.0.0
+:cq-jvm-since: 3.2.0
 :cq-native-since: n/a
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##3.0.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##3.2.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
 endif::[]
 
 Runtime adapter connecting with Camel CLI
