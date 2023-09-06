@@ -10,11 +10,11 @@
 :cq-description: Transform XML payloads using an XSLT template using Saxon.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0
-:cq-native-since: 3.0.0
+:cq-native-since: 3.2.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native since##[.badge-supported]##3.0.0##
+[.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native since##[.badge-supported]##3.2.0##
 endif::[]
 
 Transform XML payloads using an XSLT template using Saxon.
