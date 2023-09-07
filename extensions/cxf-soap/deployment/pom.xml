@@ -46,6 +46,11 @@
             <groupId>io.quarkiverse.cxf</groupId>
             <artifactId>quarkus-cxf-rt-features-logging-deployment</artifactId>
         </dependency>
+        <!-- TODO: https://github.com/apache/camel-quarkus/issues/5277 -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-vertx-http-dev-console-spi</artifactId>
+          </dependency>
     </dependencies>
 
     <build>
