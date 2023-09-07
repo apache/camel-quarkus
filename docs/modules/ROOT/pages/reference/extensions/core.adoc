@@ -225,18 +225,6 @@ Used for inclusive filtering scanning of RouteBuilder classes. The exclusive fil
 | `string`
 | 
 
-|icon:lock[title=Fixed at build time] [[quarkus.camel.native.resources.exclude-patterns]]`link:#quarkus.camel.native.resources.exclude-patterns[quarkus.camel.native.resources.exclude-patterns]`
-
-Replaced by `quarkus.native.resources.excludes` in Camel Quarkus 2.0.0. Using this property throws an exception at build time.
-| `string`
-| 
-
-|icon:lock[title=Fixed at build time] [[quarkus.camel.native.resources.include-patterns]]`link:#quarkus.camel.native.resources.include-patterns[quarkus.camel.native.resources.include-patterns]`
-
-Replaced by `quarkus.native.resources.includes` in Camel Quarkus 2.0.0. Using this property throws an exception at build time.
-| `string`
-| 
-
 |icon:lock[title=Fixed at build time] [[quarkus.camel.native.reflection.exclude-patterns]]`link:#quarkus.camel.native.reflection.exclude-patterns[quarkus.camel.native.reflection.exclude-patterns]`
 
 A comma separated list of Ant-path style patterns to match class names that should be *excluded* from registering for reflection. Use the class name format as returned by the `java.lang.Class.getName()` method: package segments delimited by period `.` and inner classes by dollar sign `$`.
