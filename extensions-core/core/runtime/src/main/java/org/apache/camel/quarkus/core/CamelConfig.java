@@ -213,36 +213,12 @@ public class CamelConfig {
 
     @ConfigGroup
     public static class NativeConfig {
-        /**
-         * Build time configuration options for resources inclusion in the native executable.
-         */
-        @ConfigItem
-        public ResourcesConfig resources;
 
         /**
          * Register classes for reflection.
          */
         @ConfigItem
         public ReflectionConfig reflection;
-
-    }
-
-    @ConfigGroup
-    public static class ResourcesConfig {
-
-        /**
-         * Replaced by {@code quarkus.native.resources.excludes} in Camel Quarkus 2.0.0.
-         * Using this property throws an exception at build time.
-         */
-        @ConfigItem
-        public Optional<List<String>> excludePatterns;
-
-        /**
-         * Replaced by {@code quarkus.native.resources.includes} in Camel Quarkus 2.0.0.
-         * Using this property throws an exception at build time.
-         */
-        @ConfigItem
-        public Optional<List<String>> includePatterns;
 
     }
 
