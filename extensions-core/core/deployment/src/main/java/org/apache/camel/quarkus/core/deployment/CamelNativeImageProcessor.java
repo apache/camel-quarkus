@@ -46,7 +46,6 @@ import org.apache.camel.impl.engine.DefaultDataFormatResolver;
 import org.apache.camel.impl.engine.DefaultLanguageResolver;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelConfig.ReflectionConfig;
-import org.apache.camel.quarkus.core.CamelConfig.ResourcesConfig;
 import org.apache.camel.quarkus.core.CamelConfigFlags;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesBuilderClassBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceBuildItem;
@@ -222,21 +221,6 @@ public class CamelNativeImageProcessor {
         }
 
         return resources;
-    }
-
-    @BuildStep
-    void embedSelectResourcesInNativeExecutable(CamelConfig config, ApplicationArchivesBuildItem archives,
-            BuildProducer<NativeImageResourceBuildItem> resources) {
-
-        final ResourcesConfig resourcesConfig = config.native_.resources;
-        if (resourcesConfig.includePatterns.isPresent()) {
-            throw new IllegalStateException(
-                    "quarkus.camel.native.resources.include-patterns configuration property was removed in Camel Quarkus 2.0.0. Use quarkus.native.resources.includes instead.");
-        }
-        if (resourcesConfig.excludePatterns.isPresent()) {
-            throw new IllegalStateException(
-                    "quarkus.camel.native.resources.exclude-patterns configuration property was removed in Camel Quarkus 2.0.0. Use quarkus.native.resources.excludes instead.");
-        }
     }
 
     @BuildStep
