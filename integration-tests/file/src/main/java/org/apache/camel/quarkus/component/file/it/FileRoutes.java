@@ -50,8 +50,9 @@ public class FileRoutes extends RouteBuilder {
                 + "readLockTimeout=5000")
                 .to("file://target/" + READ_LOCK_OUT);
 
-        from("file://target/quartz?scheduler=quartz&scheduler.cron=0/1+*+*+*+*+?&repeatCount=0")
-                .to("file://target/quartz/out");
+        from("file://target/test-files/quartz-scheduled?scheduler=quartz&scheduler.cron=0/1+*+*+*+*+?&repeatCount=0")
+                .convertBodyTo(String.class)
+                .to("mock:quartzScheduledFilePolling");
 
         from("file://target/" + CONSUME_BATCH + "?"
                 + "initialDelay=0&delay=100")

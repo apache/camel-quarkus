@@ -40,6 +40,8 @@ public class NonFlakyFileTestResource implements QuarkusTestResourceLifecycleMan
     static final String IDEMPOTENT_FILE_CONTENT = IDEMPOTENT_FILE_NAME + "-CONTENT";
     static final String POLL_ENRICH_FILE_NAME = "poll-enrich-file";
     static final String POLL_ENRICH_FILE_CONTENT = POLL_ENRICH_FILE_NAME + "-CONTENT";
+    static final String QUARTZ_SCHEDULED_FILE_NAME = "quartz-schedule-file";
+    static final String QUARTZ_SCHEDULED_FILE_CONTENT = QUARTZ_SCHEDULED_FILE_NAME + "-CONTENT";
 
     private final List<Path> createdTestFiles = new ArrayList<Path>();
 
@@ -54,6 +56,8 @@ public class NonFlakyFileTestResource implements QuarkusTestResourceLifecycleMan
             createTestFile("idempotent", IDEMPOTENT_FILE_NAME);
 
             createTestFile("poll-enrich", POLL_ENRICH_FILE_NAME);
+
+            createTestFile("quartz-scheduled", QUARTZ_SCHEDULED_FILE_NAME);
 
             ensureAllTestFilesCreatedWithExpectedContent();
         } catch (Exception ex) {
