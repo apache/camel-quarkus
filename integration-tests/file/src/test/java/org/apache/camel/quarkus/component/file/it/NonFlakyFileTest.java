@@ -34,6 +34,7 @@ import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResourc
 import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.IDEMPOTENT_FILE_CONTENT;
 import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.IDEMPOTENT_FILE_NAME;
 import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.POLL_ENRICH_FILE_CONTENT;
+import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.QUARTZ_SCHEDULED_FILE_CONTENT;
 import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.TEST_FILES_FOLDER;
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -93,6 +94,16 @@ class NonFlakyFileTest {
                 .then()
                 .statusCode(200)
                 .body(Matchers.is(POLL_ENRICH_FILE_CONTENT));
+    }
+
+    @Test
+    public void quartzScheduledFilePollingShouldSucceed() {
+        await().atMost(10, TimeUnit.SECONDS).until(
+                () -> RestAssured
+                        .get("/file/getFromMock/quartzScheduledFilePolling")
+                        .then()
+                        .extract().asString(),
+                equalTo(QUARTZ_SCHEDULED_FILE_CONTENT));
     }
 
 }

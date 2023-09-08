@@ -184,22 +184,6 @@ class FileTest {
                 .statusCode(200);
     }
 
-    @Test
-    public void quartzSchedulerFilePollingConsumer() throws InterruptedException, UnsupportedEncodingException {
-        String fileName = createFile(FILE_BODY, "/file/create/quartz");
-
-        String targetFileName = Paths.get(fileName).toFile().getName();
-        await().atMost(10, TimeUnit.SECONDS).until(() -> {
-            return Files.exists(Paths.get("target/quartz/out", targetFileName));
-        });
-
-        RestAssured
-                .get("/file/get/{folder}/{name}", "quartz/out", targetFileName)
-                .then()
-                .statusCode(200)
-                .body(equalTo(FILE_BODY));
-    }
-
     private static String createFile(String content, String path) throws UnsupportedEncodingException {
         return createFile(content, path, "UTF-8", null);
     }
