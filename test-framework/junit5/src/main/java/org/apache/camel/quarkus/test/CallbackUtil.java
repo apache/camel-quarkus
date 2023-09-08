@@ -29,8 +29,8 @@ import org.junit.jupiter.api.extension.ExecutableInvoker;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestInstances;
 import org.junit.jupiter.api.parallel.ExecutionMode;
-import org.junit.jupiter.engine.execution.ExtensionValuesStore;
 import org.junit.jupiter.engine.execution.NamespaceAwareStore;
+import org.junit.platform.engine.support.store.NamespacedHierarchicalStore;
 
 public class CallbackUtil {
 
@@ -75,7 +75,8 @@ public class CallbackUtil {
         public MockExtensionContext(Optional<TestInstance.Lifecycle> lifecycle, String currentTestName) {
             this.lifecycle = lifecycle;
             this.currentTestName = currentTestName;
-            this.globalStore = new NamespaceAwareStore(new ExtensionValuesStore(null), ExtensionContext.Namespace.GLOBAL);
+            this.globalStore = new NamespaceAwareStore(new NamespacedHierarchicalStore<>(null),
+                    ExtensionContext.Namespace.GLOBAL);
         }
 
         @Override

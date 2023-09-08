@@ -96,11 +96,24 @@ public class KafkaSslTestResource extends KafkaTestResource {
 
         SSLKafkaContainer(final DockerImageName dockerImageName) {
             super(dockerImageName);
+        }
+
+        @Override
+        public String getBootstrapServers() {
+            return String.format("SSL://%s:%s", getHost(), getMappedPort(KAFKA_PORT));
+        }
+
+        @Override
+        protected void configure() {
+            super.configure();
 
             String protocolMap = "SSL:SSL,BROKER:PLAINTEXT";
             String listeners = "SSL://0.0.0.0:" + KAFKA_PORT + ",BROKER://0.0.0.0:9092";
+            String host = getNetwork() != null ? getNetworkAliases().get(0) : "localhost";
 
             withEnv("KAFKA_LISTENERS", listeners);
+            withEnv("KAFKA_ADVERTISED_LISTENERS",
+                    String.format("SSL://%s:9093,BROKER://%s:9092", host, host));
             withEnv("KAFKA_LISTENER_SECURITY_PROTOCOL_MAP", protocolMap);
             withEnv("KAFKA_INTER_BROKER_LISTENER_NAME", "BROKER");
             withEnv("KAFKA_SSL_KEY_CREDENTIALS", KAFKA_SSL_CREDS_FILE);
@@ -114,20 +127,6 @@ public class KafkaSslTestResource extends KafkaTestResource {
             withEnv("KAFKA_CONFLUENT_SUPPORT_METRICS_ENABLE", "false");
             withEmbeddedZookeeper().waitingFor(Wait.forListeningPort());
             withLogConsumer(frame -> System.out.print(frame.getUtf8String()));
-        }
-
-        @Override
-        public String getBootstrapServers() {
-            return String.format("SSL://%s:%s", getHost(), getMappedPort(KAFKA_PORT));
-        }
-
-        @Override
-        protected void configure() {
-            super.configure();
-
-            String host = getNetwork() != null ? getNetworkAliases().get(0) : "localhost";
-            withEnv("KAFKA_ADVERTISED_LISTENERS",
-                    String.format("SSL://%s:9093,BROKER://%s:9092", host, host));
         }
 
         @Override
