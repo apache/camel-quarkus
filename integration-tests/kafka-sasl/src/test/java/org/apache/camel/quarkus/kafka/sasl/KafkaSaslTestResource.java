@@ -82,19 +82,6 @@ public class KafkaSaslTestResource extends KafkaTestResource {
 
         SaslKafkaContainer(final DockerImageName dockerImageName) {
             super(dockerImageName);
-
-            String protocolMap = "SASL_PLAINTEXT:SASL_PLAINTEXT,BROKER:PLAINTEXT";
-            String listeners = "SASL_PLAINTEXT://0.0.0.0:" + KAFKA_PORT + ",BROKER://0.0.0.0:9092";
-
-            withEnv("KAFKA_OPTS", "-Djava.security.auth.login.config=/etc/kafka/kafka_server_jaas.conf");
-            withEnv("KAFKA_LISTENERS", listeners);
-            withEnv("KAFKA_LISTENER_SECURITY_PROTOCOL_MAP", protocolMap);
-            withEnv("KAFKA_CONFLUENT_SUPPORT_METRICS_ENABLE", "false");
-            withEnv("KAFKA_SASL_ENABLED_MECHANISMS", "PLAIN");
-            withEnv("ZOOKEEPER_SASL_ENABLED", "false");
-            withEnv("KAFKA_INTER_BROKER_LISTENER_NAME", "BROKER");
-            withEnv("KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL", "PLAIN");
-            withEmbeddedZookeeper().waitingFor(Wait.forListeningPort());
         }
 
         @Override
@@ -106,9 +93,21 @@ public class KafkaSaslTestResource extends KafkaTestResource {
         protected void configure() {
             super.configure();
 
+            String protocolMap = "SASL_PLAINTEXT:SASL_PLAINTEXT,BROKER:PLAINTEXT";
+            String listeners = "SASL_PLAINTEXT://0.0.0.0:" + KAFKA_PORT + ",BROKER://0.0.0.0:9092";
             String host = getNetwork() != null ? getNetworkAliases().get(0) : "localhost";
+
+            withEnv("KAFKA_OPTS", "-Djava.security.auth.login.config=/etc/kafka/kafka_server_jaas.conf");
+            withEnv("KAFKA_LISTENERS", listeners);
             withEnv("KAFKA_ADVERTISED_LISTENERS",
                     String.format("SASL_PLAINTEXT://%s:9093,BROKER://%s:9092", host, host));
+            withEnv("KAFKA_LISTENER_SECURITY_PROTOCOL_MAP", protocolMap);
+            withEnv("KAFKA_CONFLUENT_SUPPORT_METRICS_ENABLE", "false");
+            withEnv("KAFKA_SASL_ENABLED_MECHANISMS", "PLAIN");
+            withEnv("ZOOKEEPER_SASL_ENABLED", "false");
+            withEnv("KAFKA_INTER_BROKER_LISTENER_NAME", "BROKER");
+            withEnv("KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL", "PLAIN");
+            withEmbeddedZookeeper().waitingFor(Wait.forListeningPort());
         }
 
         @Override

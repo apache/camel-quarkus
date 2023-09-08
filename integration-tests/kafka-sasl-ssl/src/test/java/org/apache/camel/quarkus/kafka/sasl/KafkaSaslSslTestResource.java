@@ -100,12 +100,25 @@ public class KafkaSaslSslTestResource extends KafkaTestResource {
 
         SaslSslKafkaContainer(final DockerImageName dockerImageName) {
             super(dockerImageName);
+        }
+
+        @Override
+        public String getBootstrapServers() {
+            return String.format("SASL_SSL://%s:%s", getHost(), getMappedPort(KAFKA_PORT));
+        }
+
+        @Override
+        protected void configure() {
+            super.configure();
 
             String protocolMap = "SASL_SSL:SASL_SSL,BROKER:PLAINTEXT";
             String listeners = "SASL_SSL://0.0.0.0:" + KAFKA_PORT + ",BROKER://0.0.0.0:9092";
+            String host = getNetwork() != null ? getNetworkAliases().get(0) : "localhost";
 
             withEnv("KAFKA_OPTS", "-Djava.security.auth.login.config=/etc/kafka/kafka_server_jaas.conf");
             withEnv("KAFKA_LISTENERS", listeners);
+            withEnv("KAFKA_ADVERTISED_LISTENERS",
+                    String.format("SASL_SSL://%s:9093,BROKER://%s:9092", host, host));
             withEnv("KAFKA_LISTENER_SECURITY_PROTOCOL_MAP", protocolMap);
             withEnv("KAFKA_CONFLUENT_SUPPORT_METRICS_ENABLE", "false");
             withEnv("KAFKA_SASL_ENABLED_MECHANISMS", "SCRAM-SHA-512");
@@ -121,20 +134,6 @@ public class KafkaSaslSslTestResource extends KafkaTestResource {
             withEnv("KAFKA_SSL_TRUSTSTORE_TYPE", KAFKA_KEYSTORE_TYPE);
             withEnv("KAFKA_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM", "");
             waitingFor(Wait.forLogMessage(".*started.*KafkaServer.*", 1));
-        }
-
-        @Override
-        public String getBootstrapServers() {
-            return String.format("SASL_SSL://%s:%s", getHost(), getMappedPort(KAFKA_PORT));
-        }
-
-        @Override
-        protected void configure() {
-            super.configure();
-
-            String host = getNetwork() != null ? getNetworkAliases().get(0) : "localhost";
-            withEnv("KAFKA_ADVERTISED_LISTENERS",
-                    String.format("SASL_SSL://%s:9093,BROKER://%s:9092", host, host));
         }
 
         @Override

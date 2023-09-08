@@ -135,7 +135,8 @@ class JshDslProcessor {
                 null,
                 null,
                 List.of(),
-                List.of());
+                List.of(),
+                null);
         try (JavaCompilationProvider compiler = new JavaCompilationProvider()) {
             compiler.compile(filesToCompile, context);
         }
