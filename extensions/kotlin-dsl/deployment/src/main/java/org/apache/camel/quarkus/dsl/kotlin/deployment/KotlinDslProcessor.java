@@ -136,7 +136,8 @@ class KotlinDslProcessor {
                 KotlinConstantsKt.JVM_TARGET,
                 KotlinConstantsKt.JVM_TARGET,
                 List.of(),
-                List.of());
+                List.of(),
+                null);
         try (KotlinCompilationProvider compiler = new KotlinCompilationProvider()) {
             compiler.compile(filesToCompile, context);
         }

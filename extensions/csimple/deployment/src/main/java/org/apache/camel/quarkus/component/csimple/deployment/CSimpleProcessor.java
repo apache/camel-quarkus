@@ -268,7 +268,8 @@ class CSimpleProcessor {
                 "11",
                 "11",
                 Collections.emptyList(),
-                Collections.emptyList());
+                Collections.emptyList(),
+                null);
     }
 
 }
