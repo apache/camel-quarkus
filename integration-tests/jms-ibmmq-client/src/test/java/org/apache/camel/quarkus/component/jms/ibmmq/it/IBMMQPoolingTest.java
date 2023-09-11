@@ -32,7 +32,7 @@ import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
-import static org.hamcrest.Matchers.startsWith;
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 @QuarkusTestResource(IBMMQTestResource.class)
@@ -69,7 +69,7 @@ public class IBMMQPoolingTest extends AbstractJmsMessagingTest {
         RestAssured.get("/messaging/jms/ibmmq/connection/factory")
                 .then()
                 .statusCode(200)
-                .body(startsWith("org.apache.camel.quarkus.component.jms.ibmmq.it.IBMMQConnectionFactory"));
+                .body(is("org.messaginghub.pooled.jms.JmsPoolConnectionFactory"));
     }
 
     @Override
