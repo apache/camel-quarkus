@@ -18,25 +18,29 @@ package org.apache.camel.quarkus.component.jms.ibmmq.it;
 
 import com.ibm.mq.jakarta.jms.MQConnectionFactory;
 import com.ibm.msg.client.jakarta.wmq.WMQConstants;
-import jakarta.enterprise.context.Dependent;
+import io.quarkiverse.messaginghub.pooled.jms.PooledJmsWrapper;
+import jakarta.enterprise.inject.Produces;
+import jakarta.jms.ConnectionFactory;
 import org.eclipse.microprofile.config.ConfigProvider;
 
-@Dependent
-public class IBMMQConnectionFactory extends MQConnectionFactory {
+public class IBMMQConnectionFactory {
 
-    public IBMMQConnectionFactory() {
-        setHostName(ConfigProvider.getConfig().getValue("ibm.mq.host", String.class));
+    @Produces
+    public ConnectionFactory createConnectionFactory(PooledJmsWrapper wrapper) {
+        MQConnectionFactory mq = new MQConnectionFactory();
         try {
-            setPort(ConfigProvider.getConfig().getValue("ibm.mq.port", Integer.class));
-            setChannel(ConfigProvider.getConfig().getValue("ibm.mq.channel", String.class));
-            setQueueManager(ConfigProvider.getConfig().getValue("ibm.mq.queueManagerName", String.class));
-            setTransportType(WMQConstants.WMQ_CM_CLIENT);
-            setStringProperty(WMQConstants.USERID,
+            mq.setHostName(ConfigProvider.getConfig().getValue("ibm.mq.host", String.class));
+            mq.setPort(ConfigProvider.getConfig().getValue("ibm.mq.port", Integer.class));
+            mq.setChannel(ConfigProvider.getConfig().getValue("ibm.mq.channel", String.class));
+            mq.setQueueManager(ConfigProvider.getConfig().getValue("ibm.mq.queueManagerName", String.class));
+            mq.setTransportType(WMQConstants.WMQ_CM_CLIENT);
+            mq.setStringProperty(WMQConstants.USERID,
                     ConfigProvider.getConfig().getValue("ibm.mq.user", String.class));
-            setStringProperty(WMQConstants.PASSWORD,
+            mq.setStringProperty(WMQConstants.PASSWORD,
                     ConfigProvider.getConfig().getValue("ibm.mq.password", String.class));
         } catch (Exception e) {
             throw new RuntimeException("Unable to create new IBM MQ connection factory", e);
         }
+        return wrapper.wrapConnectionFactory(mq);
     }
 }
