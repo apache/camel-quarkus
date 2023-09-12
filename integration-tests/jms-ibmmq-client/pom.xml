@@ -31,7 +31,6 @@
     <description>Integration tests for Camel Quarkus JMS extension with the IBM MQ Client</description>
 
     <properties>
-        <quarkus.build.skip>true</quarkus.build.skip>
     </properties>
 
     <dependencies>
