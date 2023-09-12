@@ -41,6 +41,12 @@
             <artifactId>camel-quarkus-jms</artifactId>
         </dependency>
 
+        <!-- XA Transaction test needs camel-quarkus-jta -->
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-jta</artifactId>
+        </dependency>
+
         <!-- Messaging Pooled JMS -->
         <dependency>
             <groupId>io.quarkiverse.messaginghub</groupId>
