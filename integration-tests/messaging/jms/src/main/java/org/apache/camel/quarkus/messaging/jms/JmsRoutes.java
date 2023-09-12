@@ -19,8 +19,11 @@ package org.apache.camel.quarkus.messaging.jms;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.TransactionManager;
+import org.apache.camel.BindToRegistry;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.quarkus.component.messaging.it.util.scheme.ComponentScheme;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.jta.JtaTransactionManager;
 
 @ApplicationScoped
 public class JmsRoutes extends RouteBuilder {
@@ -44,11 +47,13 @@ public class JmsRoutes extends RouteBuilder {
                 .bean("destinationHeaderSetter")
                 .toF("%s:queue:override", componentScheme);
 
-        fromF("%s:queue:xa", componentScheme)
+        fromF("%s:queue:xa?transactionManager=#jtaTransactionManager", componentScheme)
+                .routeId("xaConsumer")
                 .log("Received message ${body}")
                 .to("mock:xaResult");
 
         from("direct:xa")
+                .routeId("xa")
                 .transacted()
                 .process(x -> {
                     transactionManager.getTransaction().enlistResource(new DummyXAResource());
@@ -63,5 +68,10 @@ public class JmsRoutes extends RouteBuilder {
                 .otherwise()
                 .log("Message added: ${body}")
                 .endChoice();
+    }
+
+    @BindToRegistry("jtaTransactionManager")
+    public PlatformTransactionManager getTransactionManager() {
+        return new JtaTransactionManager(transactionManager);
     }
 }
