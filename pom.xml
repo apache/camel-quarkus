@@ -227,7 +227,7 @@
         <influxdb.container.image>docker.io/influxdb:1.8.10</influxdb.container.image>
         <kafka.container.image>confluentinc/cp-kafka:7.4.0</kafka.container.image>
         <kudu.container.image>docker.io/apache/kudu:1.15.0</kudu.container.image>
-        <localstack.container.image>docker.io/localstack/localstack:0.12.17.5</localstack.container.image>
+        <localstack.container.image>docker.io/localstack/localstack:2.2.0</localstack.container.image>
         <lra-coordinator.container.image>quay.io/jbosstm/lra-coordinator:7.0.0.Final-3.2.2.Final</lra-coordinator.container.image>
         <minio.container.image>docker.io/minio/minio:RELEASE.2023-07-21T21-12-44Z</minio.container.image>
         <mysql.container.image>docker.io/mysql:5.7</mysql.container.image>
