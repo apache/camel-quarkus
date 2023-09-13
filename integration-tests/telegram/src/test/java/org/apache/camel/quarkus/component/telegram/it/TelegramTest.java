@@ -35,6 +35,7 @@ import org.apache.camel.quarkus.test.TrustStoreResource;
 import org.apache.camel.quarkus.test.wiremock.MockServer;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
@@ -212,6 +213,7 @@ public class TelegramTest {
     }
 
     @Test
+    @ExtendWith(CustomWebhookCondition.class)
     void testWebhookEndpoint() {
         //simulate POST messages from Telegram
         final var message = "{\n" +
