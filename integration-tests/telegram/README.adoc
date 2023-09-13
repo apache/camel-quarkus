@@ -24,4 +24,11 @@ Or
 
 Set environment variable `WIREMOCK_RECORD=true`
 
-Note that you'll need 2 differents bots, one dedicated to the webhook consumer only.
+Note that you'll need 2 different bots, one dedicated to the webhook consumer only.
+
+If you want to disable the webhook test, you can set the environment property
+
+[source,shell]
+----
+export TELEGRAM_WEBHOOK_DISABLED=true
+----

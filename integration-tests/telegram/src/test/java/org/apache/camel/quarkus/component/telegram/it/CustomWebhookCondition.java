@@ -16,23 +16,22 @@
  */
 package org.apache.camel.quarkus.component.telegram.it;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import org.apache.camel.builder.RouteBuilder;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.junit.jupiter.api.extension.ConditionEvaluationResult;
+import org.junit.jupiter.api.extension.ExecutionCondition;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
-@ApplicationScoped
-public class Routes extends RouteBuilder {
-
-    @ConfigProperty(name = "webhook.disabled")
-    String webhookDisabled;
+public class CustomWebhookCondition implements ExecutionCondition {
+    private static final String TELEGRAM_WEBHOOK_DISABLED = "TELEGRAM_WEBHOOK_DISABLED";
 
     @Override
-    public void configure() throws Exception {
-        boolean isWebhookDisabled = Boolean.parseBoolean(webhookDisabled);
-        if (!isWebhookDisabled) {
-            from("webhook:telegram:bots?webhookPath=/my-test&webhook-external-url={{webhook-external-url}}&authorization-token={{webhook-authorization-token}}")
-                    .log("webhook message : ${body}")
-                    .to("mock:webhook");
+    public ConditionEvaluationResult evaluateExecutionCondition(ExtensionContext extensionContext) {
+        boolean isWebhookDisabled = System.getenv(TELEGRAM_WEBHOOK_DISABLED) != null
+                && Boolean.parseBoolean(System.getenv(TELEGRAM_WEBHOOK_DISABLED));
+
+        if (isWebhookDisabled) {
+            return ConditionEvaluationResult.disabled("Webhook test is disabled");
         }
+
+        return ConditionEvaluationResult.enabled("Webhook test is enabled");
     }
 }
