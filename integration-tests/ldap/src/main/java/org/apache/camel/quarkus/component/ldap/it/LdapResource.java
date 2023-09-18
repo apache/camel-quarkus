@@ -30,7 +30,9 @@ import javax.naming.directory.InitialDirContext;
 import javax.naming.directory.SearchResult;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -50,6 +52,12 @@ public class LdapResource {
     @Inject
     CamelContext camelContext;
 
+    private String ldapHost;
+    private String ldapPort;
+    private boolean useSSL;
+    private String trustStoreFilename;
+    private String trustStorePassword;
+
     /**
      * Extracts the LDAP connection parameters passed from the test and creates a
      * {@link javax.naming.directory.DirContext} from them.
@@ -62,43 +70,43 @@ public class LdapResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void configure(Map<String, String> options) throws Exception {
-        String host = options.get("host");
-        String port = options.get("port");
-        boolean useSSL = Boolean.valueOf(options.get("ssl"));
-        String trustStoreFilename = options.get("trustStore");
-        String trustStorePassword = options.get("trustStorePassword");
-
-        DirContext dirContext = createLdapContext(host, port, useSSL, trustStoreFilename, trustStorePassword);
-        camelContext.getRegistry().bind("ldapserver", dirContext);
+        ldapHost = options.get("host");
+        ldapPort = options.get("port");
+        useSSL = Boolean.valueOf(options.get("ssl"));
+        trustStoreFilename = options.get("trustStore");
+        trustStorePassword = options.get("trustStorePassword");
     }
 
     @Path("/search")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response search(@QueryParam("q") String filter) throws Exception {
-        ProducerTemplate producer = camelContext.createProducerTemplate();
-        List<SearchResult> results = producer.requestBody("direct:start", filter, List.class);
-        return Response.ok(convertSearchResults(results)).build();
+    public Response search(@QueryParam("q") String q) throws Exception {
+        return Response.ok(searchByUid(q)).build();
     }
 
     @Path("/safeSearch")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response safeSearch(@QueryParam("q") String unsafeFilter) throws Exception {
-        String filter = String.format("(ou=%s)", LdapHelper.escapeFilter(unsafeFilter));
-        ProducerTemplate producer = camelContext.createProducerTemplate();
-        List<SearchResult> results = producer.requestBody("direct:start", filter, List.class);
-
-        return Response.ok(convertSearchResults(results)).build();
+    public Response safeSearch(@QueryParam("q") String q) throws Exception {
+        return Response.ok(searchByUid(LdapHelper.escapeFilter(q))).build();
     }
 
-    private DirContext createLdapContext(String host, String port, boolean useSSL, String trustStoreFilename,
-            String trustStorePassword)
-            throws Exception {
+    @SuppressWarnings("unchecked")
+    private List<Map<String, String>> searchByUid(String uid) throws Exception {
+        String filter = String.format("(uid=%s)", uid);
+        ProducerTemplate producer = camelContext.createProducerTemplate();
+        List<SearchResult> results = producer.requestBody("direct:start", filter, List.class);
+        return convertSearchResults(results);
+    }
+
+    @Produces
+    @Dependent
+    @Named("ldapserver")
+    public DirContext createLdapContext() throws Exception {
         String scheme = useSSL ? "ldaps" : "ldap";
         Hashtable<String, Object> env = new Hashtable<>();
         env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-        env.put(Context.PROVIDER_URL, String.format("%s://%s:%s", scheme, host, port));
+        env.put(Context.PROVIDER_URL, String.format("%s://%s:%s", scheme, ldapHost, ldapPort));
         env.put(Context.SECURITY_AUTHENTICATION, "none");
 
         if (useSSL) {

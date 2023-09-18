@@ -24,6 +24,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.unboundid.ldap.listener.InMemoryDirectoryServer;
 import com.unboundid.ldap.listener.InMemoryDirectoryServerConfig;
@@ -110,7 +111,7 @@ class LdapTest {
         TypeRef<List<Map<String, Object>>> typeRef = new TypeRef<>() {
         };
         List<Map<String, Object>> results = RestAssured.given()
-                .queryParam("q", "(uid=tcruise)")
+                .queryParam("q", "tcruise")
                 .get("/ldap/search")
                 .then()
                 .statusCode(200)
@@ -132,14 +133,37 @@ class LdapTest {
 
         TypeRef<List<Map<String, Object>>> typeRef = new TypeRef<>() {
         };
+
+        // Verfiy that calling the unsafe endpoint with a wildcard returns multiple results.
         List<Map<String, Object>> results = RestAssured.given()
+                .queryParam("q", "test*")
+                .get("/ldap/search")
+                .then()
+                .statusCode(200)
+                .extract().as(typeRef);
+        assertEquals(3, results.size());
+        assertEquals(List.of("test1", "test2", "testNoOU"),
+                results.stream().map(r -> r.get("uid")).collect(Collectors.toList()));
+
+        // Verify that the same query passed to the safeSearch returns no matching results.
+        results = RestAssured.given()
                 .queryParam("q", "test*")
                 .get("/ldap/safeSearch")
                 .then()
                 .statusCode(200)
                 .extract().as(typeRef);
-
         assertEquals(0, results.size());
+
+        // Verify that non-escaped queries also work with escaped search
+        results = RestAssured.given()
+                .queryParam("q", "test1")
+                .get("/ldap/safeSearch")
+                .then()
+                .statusCode(200)
+                .extract().as(typeRef);
+        assertEquals(1, results.size());
+        assertEquals("test1", results.get(0).get("ou"));
+
     }
 
     /**
