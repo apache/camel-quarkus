@@ -111,7 +111,7 @@ class LdapTest {
         TypeRef<List<Map<String, Object>>> typeRef = new TypeRef<>() {
         };
         List<Map<String, Object>> results = RestAssured.given()
-                .queryParam("q", "tcruise")
+                .queryParam("ldapQuery", "tcruise")
                 .get("/ldap/search")
                 .then()
                 .statusCode(200)
@@ -136,7 +136,7 @@ class LdapTest {
 
         // Verfiy that calling the unsafe endpoint with a wildcard returns multiple results.
         List<Map<String, Object>> results = RestAssured.given()
-                .queryParam("q", "test*")
+                .queryParam("ldapQuery", "test*")
                 .get("/ldap/search")
                 .then()
                 .statusCode(200)
@@ -147,7 +147,7 @@ class LdapTest {
 
         // Verify that the same query passed to the safeSearch returns no matching results.
         results = RestAssured.given()
-                .queryParam("q", "test*")
+                .queryParam("ldapQuery", "test*")
                 .get("/ldap/safeSearch")
                 .then()
                 .statusCode(200)
@@ -156,7 +156,7 @@ class LdapTest {
 
         // Verify that non-escaped queries also work with escaped search
         results = RestAssured.given()
-                .queryParam("q", "test1")
+                .queryParam("ldapQuery", "test1")
                 .get("/ldap/safeSearch")
                 .then()
                 .statusCode(200)
