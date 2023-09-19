@@ -81,7 +81,7 @@ public ConnectionFactory createXAConnectionFactory(PooledJmsWrapper wrapper) {
 
 [NOTE]
 ====
-If you use `ibmmq-client` to consumer messages and enable XA, you needs to config `TransactionManager` in the camel router like this:
+If you use `ibmmq-client` to consume messages and enable XA, you need to configure `TransactionManager` in the camel route like this:
 [source,java]
 ----
 @Inject
