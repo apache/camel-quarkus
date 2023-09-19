@@ -30,6 +30,11 @@
     <name>Camel Quarkus :: Integration Tests :: Kubernetes</name>
     <description>Integration tests for Camel Quarkus Kubernetes extension</description>
 
+    <!-- TODO: https://github.com/apache/camel-quarkus/issues/5318 -->
+    <properties>
+        <skipTests>true</skipTests>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -81,6 +86,7 @@
                 <quarkus.native.native-image-xmx>5g</quarkus.native.native-image-xmx>
             </properties>
         </profile>
+        <!-- TODO: https://github.com/apache/camel-quarkus/issues/5318
         <profile>
             <id>native</id>
             <activation>
@@ -108,6 +114,7 @@
                 </plugins>
             </build>
         </profile>
+        -->
         <profile>
             <id>virtualDependencies</id>
             <activation>

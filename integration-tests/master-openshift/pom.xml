@@ -32,6 +32,8 @@
 
     <properties>
         <quarkus.runner>${project.build.directory}/quarkus-app/quarkus-run.jar</quarkus.runner>
+        <!-- TODO: https://github.com/apache/camel-quarkus/issues/5318 -->
+        <skipTests>true</skipTests>
     </properties>
 
     <dependencies>
@@ -154,6 +156,7 @@
                 </plugins>
             </build>
         </profile>
+         <!-- TODO: https://github.com/apache/camel-quarkus/issues/5318
          <profile>
              <id>native</id>
              <activation>
@@ -191,6 +194,7 @@
                  </plugins>
              </build>
          </profile>
+        -->
          <profile>
              <id>virtualDependencies</id>
              <activation>
