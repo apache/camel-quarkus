@@ -80,15 +80,15 @@ public class LdapResource {
     @Path("/search")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response search(@QueryParam("q") String q) throws Exception {
-        return Response.ok(searchByUid(q)).build();
+    public Response search(@QueryParam("ldapQuery") String ldapQuery) throws Exception {
+        return Response.ok(searchByUid(ldapQuery)).build();
     }
 
     @Path("/safeSearch")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response safeSearch(@QueryParam("q") String q) throws Exception {
-        return Response.ok(searchByUid(LdapHelper.escapeFilter(q))).build();
+    public Response safeSearch(@QueryParam("ldapQuery") String ldapQuery) throws Exception {
+        return Response.ok(searchByUid(LdapHelper.escapeFilter(ldapQuery))).build();
     }
 
     @SuppressWarnings("unchecked")
