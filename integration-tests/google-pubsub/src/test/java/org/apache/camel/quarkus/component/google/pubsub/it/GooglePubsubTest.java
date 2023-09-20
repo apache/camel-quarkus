@@ -113,92 +113,29 @@ class GooglePubsubTest {
 
     //Disabled on real account because of https://issues.apache.org/jira/browse/CAMEL-18277
     @DisabledIfEnvironmentVariable(named = "GOOGLE_APPLICATION_CREDENTIALS", matches = ".+")
-    // https://github.com/apache/camel-quarkus/issues/3944
-    @DisabledIfEnvironmentVariable(named = "CI", matches = "true")
     @Test
     public void testOrdering() throws Exception {
         LOG.info("Start of the ordering test");
-        RestAssured.given()
-                .queryParam("toEndpoint", GooglePubSubRoutes.ORDERING_DIRECT_IN)
-                .body("1")
-                .post("/google-pubsub/sendToEndpoint")
-                .then()
-                .statusCode(201);
-        RestAssured.given()
-                .queryParam("toEndpoint", GooglePubSubRoutes.ORDERING_DIRECT_IN)
-                .body("2")
-                .post("/google-pubsub/sendToEndpoint")
-                .then()
-                .statusCode(201);
-        RestAssured.given()
-                .queryParam("toEndpoint", GooglePubSubRoutes.ORDERING_DIRECT_IN)
-                .body("3")
-                .post("/google-pubsub/sendToEndpoint")
-                .then()
-                .statusCode(201);
-        RestAssured.given()
-                .queryParam("toEndpoint", GooglePubSubRoutes.ORDERING_DIRECT_IN)
-                .body("4")
-                .post("/google-pubsub/sendToEndpoint")
-                .then()
-                .statusCode(201);
-        RestAssured.given()
-                .queryParam("toEndpoint", GooglePubSubRoutes.ORDERING_DIRECT_IN)
-                .body("5")
-                .post("/google-pubsub/sendToEndpoint")
-                .then()
-                .statusCode(201);
-        RestAssured.given()
-                .queryParam("toEndpoint", GooglePubSubRoutes.ORDERING_DIRECT_IN)
-                .body("6")
-                .post("/google-pubsub/sendToEndpoint")
-                .then()
-                .statusCode(201);
+
+        String messages = "1,2,3,4,5,6";
+
+        for (String message : messages.split(",")) {
+            RestAssured.given()
+                    .queryParam("toEndpoint", GooglePubSubRoutes.ORDERING_DIRECT_IN)
+                    .body(message)
+                    .post("/google-pubsub/sendToEndpoint")
+                    .then()
+                    .statusCode(201);
+        }
+
         LOG.info("All messages were sent");
 
-        await().atMost(5, TimeUnit.SECONDS).until(() -> RestAssured.given()
+        await().atMost(10, TimeUnit.SECONDS).until(() -> RestAssured.given()
                 .get("/google-pubsub/receive/subscriptionOrdering/google-pubsub.ordering-subscription-name")
                 .then()
                 .statusCode(200)
                 .extract().asString(),
-                Matchers.is("1"));
-        LOG.info("Message \"1\" received.");
-        await().atMost(5, TimeUnit.SECONDS).until(() -> RestAssured.given()
-                .get("/google-pubsub/receive/subscriptionOrdering/google-pubsub.ordering-subscription-name")
-                .then()
-                .statusCode(200)
-                .extract().asString(),
-                Matchers.is("2"));
-        LOG.info("Message \"2\" received.");
-        await().atMost(5, TimeUnit.SECONDS).until(() -> RestAssured.given()
-                .get("/google-pubsub/receive/subscriptionOrdering/google-pubsub.ordering-subscription-name")
-                .then()
-                .statusCode(200)
-                .extract().asString(),
-                Matchers.is("3"));
-        LOG.info("Message \"3\" received.");
-        await().atMost(5, TimeUnit.SECONDS).until(() -> RestAssured.given()
-                .get("/google-pubsub/receive/subscriptionOrdering/google-pubsub.ordering-subscription-name")
-                .then()
-                .statusCode(200)
-                .extract().asString(),
-                Matchers.is("4"));
-        LOG.info("Message \"4\" received.");
-        await().atMost(5, TimeUnit.SECONDS).until(() -> RestAssured.given()
-                .get("/google-pubsub/receive/subscriptionOrdering/google-pubsub.ordering-subscription-name")
-                .then()
-                .statusCode(200)
-                .extract().asString(),
-                Matchers.is("5"));
-        LOG.info("Message \"5\" received.");
-        await().atMost(5, TimeUnit.SECONDS).until(() -> RestAssured.given()
-                .get("/google-pubsub/receive/subscriptionOrdering/google-pubsub.ordering-subscription-name")
-                .then()
-                .statusCode(200)
-                .extract().asString(),
-                Matchers.is("6"));
-        LOG.info("Message \"6\" received.");
-
+                Matchers.is(messages));
     }
 
     @Test
