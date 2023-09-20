@@ -31,6 +31,7 @@ public class GooglePubSubRoutes extends RouteBuilder {
     public static final String ORDERING_DIRECT_IN = "direct:ordering_in";
     public static final String ACK_DIRECT_IN = "direct:ack_in";
     public static final String ACK_MOCK_RESULT = "mock:ack_result";
+    public static final String ORDERING_MOCK_RESULT = "mock:ordering_result";
 
     @Produces
     @Named("ackFailing")
@@ -60,6 +61,9 @@ public class GooglePubSubRoutes extends RouteBuilder {
                         throw new Exception("fail");
                     }
                 }).to(ACK_MOCK_RESULT);
+
+        from("google-pubsub:{{project.id}}:{{google-pubsub.ordering-subscription-name}}?synchronousPull=true")
+                .to(ORDERING_MOCK_RESULT);
     }
 
     static class AcKFailing {

@@ -39,6 +39,8 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.google.pubsub.GooglePubsubConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 
+import static org.apache.camel.quarkus.component.google.pubsub.it.GooglePubSubRoutes.ORDERING_MOCK_RESULT;
+
 @Path("/google-pubsub")
 public class GooglePubsubResource {
 
@@ -123,9 +125,12 @@ public class GooglePubsubResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String receiveFromSubscriptionOrdered(@PathParam("subscriptionName") String subscriptionName) throws Exception {
-
-        return consumeEndpoint(subscriptionName,
-                "&messageOrderingEnabled=true&pubsubEndpoint=pubsub.googleapis.com:443");
+        MockEndpoint endpoint = context.getEndpoint(ORDERING_MOCK_RESULT, MockEndpoint.class);
+        return endpoint.getExchanges()
+                .stream()
+                .map(Exchange::getMessage)
+                .map(message -> message.getBody(String.class))
+                .collect(Collectors.joining(","));
     }
 
     private String consumeEndpoint(String subscriptionName, String parameters) {
