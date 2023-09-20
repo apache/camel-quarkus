@@ -76,31 +76,96 @@ quarkus.pooled-jms.max-connections = 8
 endif::[]
 
 You can use the `quarkus-pooled-jms` extension to get pooling and XA support for JMS connections. Refer to the https://quarkiverse.github.io/quarkiverse-docs/quarkus-pooled-jms/dev/index.html[quarkus-pooled-jms] extension documentation for more information.
-Currently, it only works with `quarkus-artemis-jms` extension. Just add these two dependencies to your `pom.xml`:
+Currently, it can work with `quarkus-artemis-jms`, `quarkus-qpid-jms` and `ibmmq-client`. Just add the dependency to your `pom.xml`:
 [source,xml]
 ----
 <dependency>
     <groupId>io.quarkiverse.messaginghub</groupId>
     <artifactId>quarkus-pooled-jms</artifactId>
 </dependency>
-<dependency>
-    <groupId>io.quarkiverse.artemis</groupId>
-    <artifactId>quarkus-artemis-jms</artifactId>
-</dependency>
 ----
 
-Note that pooling is enabled by default.
-
-To enable XA, you need to add the following configuration to your `application.properties`:
-[source,properties]
-----
-quarkus.pooled-jms.xa.enabled=true
-----
-
+Pooling is enabled by default.
 [NOTE]
 ====
 `clientID` and `durableSubscriptionName` are not supported in pooling connections. If `setClientID` is called on a `reused` connection from the pool, an `IllegalStateException` will be thrown. You will get some error messages such like `Cause: setClientID can only be called directly after the connection is created`
 ====
+
+To enable XA, you need to add `quarkus-narayana-jta` extension:
+[source,xml]
+----
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-narayana-jta</artifactId>
+</dependency>
+----
+and add the following configuration to your `application.properties`:
+[source,properties]
+----
+quarkus.pooled-jms.transaction=xa
+quarkus.transaction-manager.enable-recovery=true
+----
+
+XA support is only available with `quarkus-artemis-jms` and `ibmmq-client`. Also We highly recommend to enable transaction recovery.
+
+Since there is no quarkus extension for `ibmmq-client` currently, you need to create a custom `ConnectionFactory` and wrap it by yourself. Here is an example:
+[source,java]
+----
+@Produces
+public ConnectionFactory createXAConnectionFactory(PooledJmsWrapper wrapper) {
+    MQXAConnectionFactory mq = new MQXAConnectionFactory();
+    try {
+        mq.setHostName(ConfigProvider.getConfig().getValue("ibm.mq.host", String.class));
+        mq.setPort(ConfigProvider.getConfig().getValue("ibm.mq.port", Integer.class));
+        mq.setChannel(ConfigProvider.getConfig().getValue("ibm.mq.channel", String.class));
+        mq.setQueueManager(ConfigProvider.getConfig().getValue("ibm.mq.queueManagerName", String.class));
+        mq.setTransportType(WMQConstants.WMQ_CM_CLIENT);
+        mq.setStringProperty(WMQConstants.USERID,
+            ConfigProvider.getConfig().getValue("ibm.mq.user", String.class));
+        mq.setStringProperty(WMQConstants.PASSWORD,
+            ConfigProvider.getConfig().getValue("ibm.mq.password", String.class));
+    } catch (Exception e) {
+        throw new RuntimeException("Unable to create new IBM MQ connection factory", e);
+    }
+    return wrapper.wrapConnectionFactory(mq);
+}
+----
+
+[NOTE]
+====
+If you use `ibmmq-client` to consume messages and enable XA, you need to configure `TransactionManager` in the camel route like this:
+[source,java]
+----
+@Inject
+TransactionManager transactionManager;
+
+@Override
+public void configure() throws Exception {
+    from("jms:queue:DEV.QUEUE.XA?transactionManager=#jtaTransactionManager");
+}
+
+@Named("jtaTransactionManager")
+public PlatformTransactionManager getTransactionManager() {
+    return new JtaTransactionManager(transactionManager);
+}
+----
+
+Otherwise, you will get an exception like `MQRC_SYNCPOINT_NOT_AVAILABLE`.
+====
+
+ifeval::[{doc-show-extra-content} == true]
+
+[NOTE]
+====
+When you are using `ibmmq-client` and rollback a transaction, there will be a WARN message like:
+[source]
+----
+WARN  [com.arj.ats.jta] (executor-thread-1) ARJUNA016045: attempted rollback of < formatId=131077, gtrid_length=35, bqual_length=36, tx_uid=0:ffffc0a86510:aed3:650915d7:16, node_name=quarkus, branch_uid=0:ffffc0a86510:aed3:650915d7:1f, subordinatenodename=null, eis_name=0 > (com.ibm.mq.jmqi.JmqiXAResource@79786dde) failed with exception code XAException.XAER_NOTA: javax.transaction.xa.XAException: The method 'xa_rollback' has failed with errorCode '-4'.
+----
+====
+ it may be ignored and can be assumed that MQ has discarded the transaction's work. Please refer to https://access.redhat.com/solutions/1250743[Red Hat Knowledgebase] for more information.
+
+endif::[]
 
 
 [id="extensions-jms-transferexception-option-in-native-mode"]
