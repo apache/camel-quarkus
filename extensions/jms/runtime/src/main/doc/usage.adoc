@@ -92,7 +92,7 @@ public void configure() throws Exception {
     from("jms:queue:DEV.QUEUE.XA?transactionManager=#jtaTransactionManager");
 }
 
-@BindToRegistry("jtaTransactionManager")
+@Named("jtaTransactionManager")
 public PlatformTransactionManager getTransactionManager() {
     return new JtaTransactionManager(transactionManager);
 }
