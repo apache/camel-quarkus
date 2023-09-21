@@ -32,7 +32,7 @@ asciidoc:
     camel-docs-version: 4.0.x # replace ${camel.docs.components.version}
     quarkus-version: 3.4.0 # replace ${quarkus.version}
     graalvm-version: 23.0.1 # replace ${graalvm.version}
-    graalvm-docs-version: 22.3
+    graalvm-docs-version: jdk17
     mapstruct-version: 1.5.5.Final # replace ${mapstruct.version}
     min-maven-version: 3.8.2 # replace ${min-maven-version}
     target-maven-version: 3.9.3 # replace ${target-maven-version}
