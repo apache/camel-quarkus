@@ -37,12 +37,12 @@
 
     <modules>
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
-        <module>jvm/aggregate</module>
-        <module>jvm/bean</module>
-        <module>jvm/file</module>
-        <module>jvm/http</module>
-        <module>jvm/ref</module>
-        <module>native/classpath</module>
+        <module>jvm/xslt-aggregate</module>
+        <module>jvm/xslt-bean</module>
+        <module>jvm/xslt-file</module>
+        <module>jvm/xslt-http</module>
+        <module>jvm/xslt-ref</module>
+        <module>native/xslt-classpath</module>
     </modules>
 
 </project>
