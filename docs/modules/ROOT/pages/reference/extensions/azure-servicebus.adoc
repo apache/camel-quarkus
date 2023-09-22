@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##2.8.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
 endif::[]
 
-Send and receive messages to/from Azure Event Bus.
+Send and receive messages to/from Azure Service Bus.
 
 [id="extensions-azure-servicebus-whats-inside"]
 == What's inside
