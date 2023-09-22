@@ -30,14 +30,20 @@ import io.restassured.http.ContentType;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
+import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.FILE_CREATION_FILE_CONTENT;
+import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.FILE_CREATION_FILE_NAME;
+import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.FILE_CREATION_FOLDER;
 import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.FILTER_NON_SKIPPED_FILE_CONTENT;
 import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.IDEMPOTENT_FILE_CONTENT;
 import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.IDEMPOTENT_FILE_NAME;
 import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.POLL_ENRICH_FILE_CONTENT;
 import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.QUARTZ_SCHEDULED_FILE_CONTENT;
 import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.TEST_FILES_FOLDER;
+import static org.apache.commons.io.FileUtils.readFileToString;
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
@@ -104,6 +110,30 @@ class NonFlakyFileTest {
                         .then()
                         .extract().asString(),
                 equalTo(QUARTZ_SCHEDULED_FILE_CONTENT));
+    }
+
+    @Test
+    public void createFileShouldSucceed() throws IOException {
+
+        String charset = "UTF-8";
+        Path expectedFilePath = TEST_FILES_FOLDER.resolve(Paths.get(FILE_CREATION_FOLDER, FILE_CREATION_FILE_NAME));
+
+        assertFalse(Files.exists(expectedFilePath));
+
+        // Create a new file in the "test-files" folder so that it's cleared at each run by the NonFlakyFileTestResource
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(FILE_CREATION_FILE_CONTENT)
+                .queryParam("folder", FILE_CREATION_FOLDER)
+                .queryParam("charset", charset)
+                .queryParam("fileName", FILE_CREATION_FILE_NAME)
+                .post("/file/create-file")
+                .then()
+                .statusCode(201);
+
+        await().atMost(1, TimeUnit.SECONDS).until(() -> Files.exists(expectedFilePath));
+
+        assertEquals(FILE_CREATION_FILE_CONTENT, readFileToString(expectedFilePath.toFile(), charset));
     }
 
 }

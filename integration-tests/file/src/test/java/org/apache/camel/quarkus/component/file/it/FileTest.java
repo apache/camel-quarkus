@@ -46,7 +46,6 @@ import static org.hamcrest.core.IsEqual.equalTo;
 @QuarkusTest
 class FileTest {
 
-    private static final String FILE_BODY = "Hello Camel Quarkus";
     private static final String FILE_CONTENT_01 = "Hello1";
     private static final String FILE_CONTENT_02 = "Hello2";
     private static final String FILE_CONTENT_03 = "Hello3";
@@ -64,19 +63,6 @@ class FileTest {
         });
 
         pathsToDelete.clear();
-    }
-
-    @Test
-    public void file() throws UnsupportedEncodingException {
-        // Create a new file
-        String fileName = createFile(FILE_BODY, "/file/create/in");
-
-        // Read the file
-        RestAssured
-                .get("/file/get/in/" + Paths.get(fileName).getFileName())
-                .then()
-                .statusCode(200)
-                .body(equalTo(FILE_BODY));
     }
 
     @Test

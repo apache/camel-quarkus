@@ -42,6 +42,9 @@ public class NonFlakyFileTestResource implements QuarkusTestResourceLifecycleMan
     static final String POLL_ENRICH_FILE_CONTENT = POLL_ENRICH_FILE_NAME + "-CONTENT";
     static final String QUARTZ_SCHEDULED_FILE_NAME = "quartz-schedule-file";
     static final String QUARTZ_SCHEDULED_FILE_CONTENT = QUARTZ_SCHEDULED_FILE_NAME + "-CONTENT";
+    static final String FILE_CREATION_FOLDER = "file-creation";
+    static final String FILE_CREATION_FILE_NAME = "should-be-created";
+    static final String FILE_CREATION_FILE_CONTENT = FILE_CREATION_FILE_NAME + "-CONTENT";
 
     private final List<Path> createdTestFiles = new ArrayList<Path>();
 
@@ -58,6 +61,8 @@ public class NonFlakyFileTestResource implements QuarkusTestResourceLifecycleMan
             createTestFile("poll-enrich", POLL_ENRICH_FILE_NAME);
 
             createTestFile("quartz-scheduled", QUARTZ_SCHEDULED_FILE_NAME);
+
+            // Do not use  createTestFile("file-creation"... as it is already reserved by the createFileShouldSucceed test
 
             ensureAllTestFilesCreatedWithExpectedContent();
         } catch (Exception ex) {
