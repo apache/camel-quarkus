@@ -45,6 +45,14 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-mongodb-client</artifactId>
         </dependency>
+        <!--
+       We need this dependency to make mongodb compile in native (contains CredentialsProviderFinder).
+       Quarkus side is solved by optional dependency 'quarkus-smallrye-health'
+       -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-credentials</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
