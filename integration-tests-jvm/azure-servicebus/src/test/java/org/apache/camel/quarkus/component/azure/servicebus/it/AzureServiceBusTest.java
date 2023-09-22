@@ -39,10 +39,7 @@ class AzureServiceBusTest {
                 .then().statusCode(200).extract().body().as(List.class);
 
         Assertions.assertEquals(inputBatch, sentMessages);
-    }
 
-    @Test
-    public void basicConsumerTest() {
         final List consumedMessages = RestAssured.given()
                 .contentType(ContentType.JSON)
                 .get("/azure-servicebus/consumer")
@@ -52,5 +49,4 @@ class AzureServiceBusTest {
         Assertions.assertFalse(consumedMessages.isEmpty());
         Assertions.assertTrue(consumedMessages.stream().anyMatch(inputBatch::contains));
     }
-
 }
