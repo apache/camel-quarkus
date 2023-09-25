@@ -186,4 +186,11 @@ class AwsSecretsManagerTest {
         //                .body(is("true"));
     }
 
+    @Test
+    public void testAwsSecretRefreshPeriodicTaskExists() {
+        RestAssured.get("/aws-secrets-manager/period/task/resolver/exists")
+                .then()
+                .statusCode(200)
+                .body(is("true"));
+    }
 }
