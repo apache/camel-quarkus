@@ -136,6 +136,7 @@ group-08:
   - tika
   - twitter
   - vertx
+  - xml-jaxp
   - zendesk
 group-09:
   - activemq
