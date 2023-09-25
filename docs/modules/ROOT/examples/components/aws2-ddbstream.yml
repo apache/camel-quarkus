@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: aws2-ddbstream
 cqCamelPartTitle: AWS DynamoDB Streams
-cqCamelPartDescription: Receive messages from AWS DynamoDB Stream service using AWS SDK version 2.x.
+cqCamelPartDescription: Receive messages from AWS DynamoDB Stream.
 cqExtensionPageTitle: AWS 2 DynamoDB

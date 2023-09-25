@@ -46,7 +46,7 @@ public class OpenApiV3Test extends OpenApiTest {
                 .statusCode(200)
                 .body(
                         "components.securitySchemes", hasKey("bearerAuth"),
-                        "components.securitySchemes.bearerAuth.name", is("bearer"),
+                        "components.securitySchemes.bearerAuth.scheme", is("bearer"),
                         "components.securitySchemes.bearerAuth.type", is("http"),
                         "components.securitySchemes.bearerAuth.bearerFormat", is("Bearer Token Authentication"));
     }

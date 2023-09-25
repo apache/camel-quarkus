@@ -8,7 +8,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Send and receive messages to/from AWS SQS service using AWS SDK version 2.x.
+:cq-description: Send and receive messages to/from AWS SQS.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
@@ -18,7 +18,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.0.0##
 endif::[]
 
-Send and receive messages to/from AWS SQS service using AWS SDK version 2.x.
+Send and receive messages to/from AWS SQS.
 
 [id="extensions-aws2-sqs-whats-inside"]
 == What's inside

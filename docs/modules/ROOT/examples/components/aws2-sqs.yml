@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: aws2-sqs
 cqCamelPartTitle: AWS Simple Queue Service (SQS)
-cqCamelPartDescription: Send and receive messages to/from AWS SQS service using AWS SDK version 2.x.
+cqCamelPartDescription: Send and receive messages to/from AWS SQS.
 cqExtensionPageTitle: AWS 2 Simple Queue Service (SQS)

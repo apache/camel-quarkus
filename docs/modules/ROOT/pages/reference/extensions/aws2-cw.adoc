@@ -8,7 +8,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Sending metrics to AWS CloudWatch using AWS SDK version 2.x.
+:cq-description: Sending metrics to AWS CloudWatch.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
@@ -18,7 +18,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.0.0##
 endif::[]
 
-Sending metrics to AWS CloudWatch using AWS SDK version 2.x.
+Sending metrics to AWS CloudWatch.
 
 [id="extensions-aws2-cw-whats-inside"]
 == What's inside

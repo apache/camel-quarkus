@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: aws2-ec2
 cqCamelPartTitle: AWS Elastic Compute Cloud (EC2)
-cqCamelPartDescription: Manage AWS EC2 instances using AWS SDK version 2.x.
+cqCamelPartDescription: Manage AWS EC2 instances.
 cqExtensionPageTitle: AWS 2 Elastic Compute Cloud (EC2)
