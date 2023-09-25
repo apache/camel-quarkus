@@ -18,11 +18,13 @@ package org.apache.camel.quarkus.component.aws.secrets.manager.it;
 
 import java.net.URI;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -34,6 +36,8 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.aws.secretsmanager.SecretsManagerOperations;
+import org.apache.camel.spi.PeriodTaskResolver;
+import org.apache.camel.support.PluginHelper;
 import org.apache.camel.util.CollectionHelper;
 import org.jboss.logging.Logger;
 import software.amazon.awssdk.services.secretsmanager.model.CreateSecretResponse;
@@ -110,5 +114,14 @@ public class AwsSecretsManagerResource {
         }
 
         return Response.created(new URI("https://camel.apache.org/")).entity(result).build();
+    }
+
+    @Path("/period/task/resolver/exists")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean awsSecretRefreshPeriodicTaskExists() {
+        PeriodTaskResolver periodTaskResolver = PluginHelper.getPeriodTaskResolver(context);
+        Objects.requireNonNull(periodTaskResolver, "Expected a PeriodTaskResolver to be configured");
+        return periodTaskResolver.newInstance("aws-secret-refresh", Runnable.class).isPresent();
     }
 }
