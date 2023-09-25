@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: aws2-kms
 cqCamelPartTitle: AWS Key Management Service (KMS)
-cqCamelPartDescription: Manage keys stored in AWS KMS instances using AWS SDK version 2.x.
+cqCamelPartDescription: Manage keys stored in AWS KMS instances.
 cqExtensionPageTitle: AWS 2 Key Management Service (KMS)

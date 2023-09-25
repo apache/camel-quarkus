@@ -88,11 +88,10 @@ public class Aws2SqsSnsResource extends BaseAws2Resource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public Response snsSend(String message,
-            @QueryParam("queueUrl") String queueUrl,
             @DefaultValue("false") @QueryParam("fifo") boolean fifo) throws Exception {
 
         String endpointUri = String.format(
-                "aws2-sns://%s?useDefaultCredentialsProvider=%s&subscribeSNStoSQS=true&queueUrl=RAW(%s)%s",
+                "aws2-sns://%s?useDefaultCredentialsProvider=%s&subscribeSNStoSQS=true&queueArn=RAW(%s)%s",
                 fifo ? fifoTopicName : topicName, isUseDefaultCredentials(),
                 fifo ? snsFifoReceiverQueueArn : snsReceiverQueueArn,
                 fifo ? "&messageGroupIdStrategy=useExchangeId" : "");
