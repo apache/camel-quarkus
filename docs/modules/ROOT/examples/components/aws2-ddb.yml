@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: aws2-ddb
 cqCamelPartTitle: AWS DynamoDB
-cqCamelPartDescription: Store and retrieve data from AWS DynamoDB service using AWS SDK version 2.x.
+cqCamelPartDescription: Store and retrieve data from AWS DynamoDB.
 cqExtensionPageTitle: AWS 2 DynamoDB

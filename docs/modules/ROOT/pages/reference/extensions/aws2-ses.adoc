@@ -8,7 +8,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Send e-mails through AWS SES service using AWS SDK version 2.x.
+:cq-description: Send e-mails through AWS SES service.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
@@ -18,7 +18,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.0.0##
 endif::[]
 
-Send e-mails through AWS SES service using AWS SDK version 2.x.
+Send e-mails through AWS SES service.
 
 [id="extensions-aws2-ses-whats-inside"]
 == What's inside

@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: 1.1.0
 cqCamelPartName: aws2-sts
 cqCamelPartTitle: AWS Security Token Service (STS)
-cqCamelPartDescription: Manage AWS STS cluster instances using AWS SDK version 2.x.
+cqCamelPartDescription: Manage AWS STS cluster instances.
 cqExtensionPageTitle: AWS 2 Security Token Service (STS)

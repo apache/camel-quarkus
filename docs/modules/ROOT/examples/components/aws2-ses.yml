@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: aws2-ses
 cqCamelPartTitle: AWS Simple Email Service (SES)
-cqCamelPartDescription: Send e-mails through AWS SES service using AWS SDK version 2.x.
+cqCamelPartDescription: Send e-mails through AWS SES service.
 cqExtensionPageTitle: AWS 2 Simple Email Service (SES)

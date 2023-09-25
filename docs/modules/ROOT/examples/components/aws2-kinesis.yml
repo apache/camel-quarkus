@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: 1.7.0
 cqCamelPartName: aws2-kinesis
 cqCamelPartTitle: AWS Kinesis
-cqCamelPartDescription: Consume and produce records from and to AWS Kinesis Streams using AWS SDK version 2.x.
+cqCamelPartDescription: Consume and produce records from and to AWS Kinesis Streams.
 cqExtensionPageTitle: AWS 2 Kinesis

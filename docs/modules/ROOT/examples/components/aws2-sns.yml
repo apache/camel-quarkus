@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: aws2-sns
 cqCamelPartTitle: AWS Simple Notification System (SNS)
-cqCamelPartDescription: Send messages to an AWS Simple Notification Topic using AWS SDK version 2.x.
+cqCamelPartDescription: Send messages to AWS Simple Notification Topic.
 cqExtensionPageTitle: AWS 2 Simple Notification System (SNS)
