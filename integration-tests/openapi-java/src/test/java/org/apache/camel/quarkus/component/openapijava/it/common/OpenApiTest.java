@@ -114,7 +114,7 @@ public abstract class OpenApiTest {
                 .statusCode(200)
                 .body(
                         "components.securitySchemes", hasKey("basicAuth"),
-                        "components.securitySchemes.basicAuth.name", is("basic"),
+                        "components.securitySchemes.basicAuth.scheme", is("basic"),
                         "components.securitySchemes.basicAuth.type", is("http"),
                         "components.securitySchemes.basicAuth.description", is("Basic Authentication"));
 

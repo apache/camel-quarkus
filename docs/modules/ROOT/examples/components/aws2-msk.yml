@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: aws2-msk
 cqCamelPartTitle: AWS Managed Streaming for Apache Kafka (MSK)
-cqCamelPartDescription: Manage AWS MSK instances using AWS SDK version 2.x.
+cqCamelPartDescription: Manage AWS MSK instances.
 cqExtensionPageTitle: AWS 2 Managed Streaming for Apache Kafka (MSK)

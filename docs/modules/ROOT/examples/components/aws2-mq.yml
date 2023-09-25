@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: aws2-mq
 cqCamelPartTitle: AWS MQ
-cqCamelPartDescription: Manage AWS MQ instances using AWS SDK version 2.x.
+cqCamelPartDescription: Send messages to AWS MQ.
 cqExtensionPageTitle: AWS 2 MQ

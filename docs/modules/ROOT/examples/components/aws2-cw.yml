@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: aws2-cw
 cqCamelPartTitle: AWS CloudWatch
-cqCamelPartDescription: Sending metrics to AWS CloudWatch using AWS SDK version 2.x.
+cqCamelPartDescription: Sending metrics to AWS CloudWatch.
 cqExtensionPageTitle: AWS 2 CloudWatch

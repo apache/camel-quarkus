@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: aws2-eks
 cqCamelPartTitle: AWS Elastic Kubernetes Service (EKS)
-cqCamelPartDescription: Manage AWS EKS cluster instances using AWS SDK version 2.x.
+cqCamelPartDescription: Manage AWS EKS cluster instances.
 cqExtensionPageTitle: AWS 2 Elastic Kubernetes Service (EKS)

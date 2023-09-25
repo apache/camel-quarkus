@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: 1.1.0
 cqCamelPartName: aws2-lambda
 cqCamelPartTitle: AWS Lambda
-cqCamelPartDescription: Manage and invoke AWS Lambda functions using AWS SDK version 2.x.
+cqCamelPartDescription: Manage and invoke AWS Lambda functions.
 cqExtensionPageTitle: AWS 2 Lambda
