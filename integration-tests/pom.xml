@@ -231,6 +231,7 @@
         <module>weather</module>
         <!--<module>xchange</module> https://github.com/apache/camel-quarkus/issues/4516 -->
         <module>xml-grouped</module>
+        <module>xml-jaxp</module>
         <module>xmlsecurity</module>
         <module>xpath</module>
         <module>xslt-saxon</module>
