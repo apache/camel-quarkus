@@ -18,8 +18,8 @@ package org.apache.camel.quarkus.messaging.jms;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.transaction.TransactionManager;
-import org.apache.camel.BindToRegistry;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.quarkus.component.messaging.it.util.scheme.ComponentScheme;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -70,7 +70,7 @@ public class JmsRoutes extends RouteBuilder {
                 .endChoice();
     }
 
-    @BindToRegistry("jtaTransactionManager")
+    @Named("jtaTransactionManager")
     public PlatformTransactionManager getTransactionManager() {
         return new JtaTransactionManager(transactionManager);
     }
