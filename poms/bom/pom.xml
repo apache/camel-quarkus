@@ -3847,12 +3847,12 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-grpc-deployment</artifactId>
+                <artifactId>camel-quarkus-grpc-codegen</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-grpc-codegen</artifactId>
+                <artifactId>camel-quarkus-grpc-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
