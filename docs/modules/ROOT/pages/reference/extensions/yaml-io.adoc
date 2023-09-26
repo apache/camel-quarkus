@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: YAML IO
+:cq-description: Dump routes in YAML format
 :cq-deprecated: false
 :cq-jvm-since: 3.2.0
 :cq-native-since: 3.2.0
@@ -17,7 +17,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##3.2.0## [.badge-key]##Native since##[.badge-supported]##3.2.0##
 endif::[]
 
-YAML IO
+Dump routes in YAML format
 
 [id="extensions-yaml-io-maven-coordinates"]
 == Maven coordinates
