@@ -22,7 +22,7 @@
 #
 ---
 name: "Camel AWS 2 MQ"
-description: "Manage AWS MQ instances using AWS SDK version 2.x"
+description: "Send messages to AWS MQ"
 icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
   keywords:
