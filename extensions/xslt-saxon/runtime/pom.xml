@@ -48,6 +48,11 @@
             <groupId>org.brotli</groupId>
             <artifactId>dec</artifactId>
         </dependency>
+        <!-- Required for the native build of the simple app with this extension only -->
+        <dependency>
+            <groupId>org.apache.httpcomponents.core5</groupId>
+            <artifactId>httpcore5</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
