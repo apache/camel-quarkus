@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-yaml-io</artifactId>
     <name>Camel Quarkus :: YAML IO :: Runtime</name>
-    <description>YAML IO</description>
+    <description>Dump routes in YAML format</description>
 
     <properties>
         <camel.quarkus.jvmSince>3.2.0</camel.quarkus.jvmSince>
