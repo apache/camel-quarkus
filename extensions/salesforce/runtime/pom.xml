@@ -54,6 +54,11 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-salesforce</artifactId>
         </dependency>
+        <!-- Required for the native build of the simple app with this extension only -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-netty</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
