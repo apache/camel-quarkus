@@ -50,7 +50,7 @@ for (String extensionDir in extensionDirs) {
                         messages.add(shortPath + ' must contain metadata section')
                         return
                     }
-                    if (!descriptor.metadata.guide) {
+                    if (!descriptor.name.equals("Camel K") && !descriptor.metadata.guide) {
                         messages.add(shortPath + ' must contain a link to a guide')
                     }
 

@@ -32,7 +32,8 @@ metadata:
   - "[=keyword]"
 [/#list]
 [/#if]
-  guide: "[=guideUrl]"
+[#if nameBase != 'Camel K' ]  guide: "[=guideUrl]"
+[/#if]
 [#if categories?size > 0 ]  categories:
 [#list categories as category]
   - "[=category]"
