@@ -1,5 +1,108 @@
 # Changelog
 
+## 3.4.0
+
+* Next is 3.3.0 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/5231
+* Onboard Camel K Runtime fixups by @ppalaga in https://github.com/apache/camel-quarkus/pull/5219
+* Reinstate auto update of antora.yml camel-docs-version attribute by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5238
+* Upgrade to Quarkus 3.3.1 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/5236
+* Update migration guide version for 3.2.0 LTS by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5248
+* Fix resolution of postgres.container.image config property in OpenTelemetry tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5245
+* Fix resolution of postgres.container.image config property in Quartz Clustered tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5246
+* Manage platform participant dependencies by @zbendhiba in https://github.com/apache/camel-quarkus/pull/5250
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5252
+* Fix camel website build errors related to CQ by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5255
+* Bump quarkiverse-jgit.version from 3.0.2 to 3.0.3 by @dependabot in https://github.com/apache/camel-quarkus/pull/5256
+* Exclude com.google.auto.value:auto-value-annotations from gRPC and Google Pubsub extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5259
+* Bump quarkiverse-minio.version from 3.1.0.Final to 3.3.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/5262
+* Bump quarkiverse-jsch.version from 3.0.3 to 3.0.4 by @dependabot in https://github.com/apache/camel-quarkus/pull/5263
+* Upgrade to Quarkus CXF 2.3.1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/5261
+* Set native-image-xmx for camel-k-runtime integration tests for GitHub CI by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5265
+* Update supported since metadata from 3.0.0 to 3.2.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5267
+* Test REST to SOAP bridge scenario by @ppalaga in https://github.com/apache/camel-quarkus/pull/5271
+* Do not run camel-k-maven-plugin tests if skipTests = true by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5273
+* Remove redundant camel-quarkus-bom import in knative runtime module by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5274
+* Bump org.seleniumhq.selenium:htmlunit-driver from 4.11.0 to 4.12.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/5275
+* Upgrade Quarkus to 3.4.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5270
+* Remove quarkus.camel.native.resources.*-patterns config properties  #5251 by @spatnity in https://github.com/apache/camel-quarkus/pull/5280
+* Next is 3.4.0-SNAPSHOT by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5281
+* Telegram webhook extra doc by @zbendhiba in https://github.com/apache/camel-quarkus/pull/5282
+* Bump quarkiverse-jgit.version from 3.0.3 to 3.0.4 by @dependabot in https://github.com/apache/camel-quarkus/pull/5285
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5286
+* file: migrate quartz scheduled file polling to new test harness #3584 by @aldettinger in https://github.com/apache/camel-quarkus/pull/5284
+* Upgrade quarkus-pooled-jms to 2.1.0 by @zhfeng in https://github.com/apache/camel-quarkus/pull/5287
+* Remove redundant quarkus-virtual-threads dependency from knative extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5288
+* Fix #5212 to add XA test for IBMMQ client by @zhfeng in https://github.com/apache/camel-quarkus/pull/5223
+* Javax replaced with jakarta in adoc files #5293 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5294
+* Revert "Fix #5180 to skip quarkus build on jms-ibmmq-client integration tests by @zhfeng in https://github.com/apache/camel-quarkus/pull/5290
+* Add Generated SBOM to release as artifacts by @oscerd in https://github.com/apache/camel-quarkus/pull/5296
+* Telegram integration tests: add the possibility to disable running webhook test by @zbendhiba in https://github.com/apache/camel-quarkus/pull/5299
+* Correcting failing checks when localstack is upgraded to 2.2.0 by @spatnity in https://github.com/apache/camel-quarkus/pull/5303
+* Upgrade Quarkus to 3.4.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5304
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.2.0...3.4.0
+
+## 3.2.0
+
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5130
+* Update 3.x migration guide removed extensions table by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5131
+* Add missing graal-sdk dependency to ical runtime module by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5132
+* Add xslt-saxon native support by @zhfeng in https://github.com/apache/camel-quarkus/pull/5133
+* Upgrade async-http-client to 3.0.0.Beta2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5134
+* Align Apache HTTP Client 5.x with Camel by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5135
+* Remove redundant autowiring workaround in aws2-cw tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5137
+* Tidy iCal extension native workaround for absence of com.github.erosbjson-sKema by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5138
+* Restore AS2 testing by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5140
+* Upgrade Quarkus to 3.2.3.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5141
+* Add instructions for auto release note generation to release docs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5143
+* Bump org.seleniumhq.selenium:htmlunit-driver from 4.10.0 to 4.11.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/5146
+* Bump quarkiverse-jsch.version from 3.0.2 to 3.0.3 by @dependabot in https://github.com/apache/camel-quarkus/pull/5145
+* Register known jakarta.mail exception classes for reflection by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5148
+* Fix #5149 to manage com.ibm.icu:icu4j by @zhfeng in https://github.com/apache/camel-quarkus/pull/5150
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5151
+* Manage test container versions in the root project pom.xml by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5152
+* Set encoding to UTF-8 when writing microprofile-config.properties by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5157
+* Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 2.4.2 to 2.4.3 by @dependabot in https://github.com/apache/camel-quarkus/pull/5158
+* Reclaim disk space before running integration tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5159
+* Ref#4772 Introduce group testing for different jdbc db types by @ldrozdo in https://github.com/apache/camel-quarkus/pull/5116
+* Bump quarkiverse-pooled-jms.version from 2.0.1 to 2.0.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/5171
+* Add elasticsearch tests by @llowinge in https://github.com/apache/camel-quarkus/pull/5170
+* Add org.mapstruct:mapstruct-processor to the BOM by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5172
+* Extend test coverage of gRPC extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5168
+* Unban com.google.code.findbugs:jsr305 for gRPC extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5175
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5176
+* Camel 4.0.0 upgrade by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5169
+* Upgrade to Quarkus CXF 2.2.1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/5181
+* Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 2.4.3 to 2.4.4 by @dependabot in https://github.com/apache/camel-quarkus/pull/5182
+* Fix #5180 to skip quarkus build on jms-ibmmq-client integration tests by @zhfeng in https://github.com/apache/camel-quarkus/pull/5183
+* Fix compareVersion in sanity-checks.groovy #5165 by @zhfeng in https://github.com/apache/camel-quarkus/pull/5166
+* Introduce custom  CodeGenProvider for gRPC extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5185
+* Remove integration-tests/jdbc module by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5186
+* chore: regen for mapstruct and xslt-saxon by @zhfeng in https://github.com/apache/camel-quarkus/pull/5179
+* Exclude unwanted vertx-grpc transitive dependencies form quarkus-grpc-common by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5188
+* Expand xslt-saxon test coverage by @zhfeng in https://github.com/apache/camel-quarkus/pull/5173
+* Expand Splunk test coverage by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5192
+* Fix dependency convergence error for google-auth-library-oauth2-http by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5195
+* Bump io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-jmx from 3.1.2 to 3.2.4 by @dependabot in https://github.com/apache/camel-quarkus/pull/5198
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5200
+* file: migrate pollEnrich to the non-flaky test harness #3584 by @aldettinger in https://github.com/apache/camel-quarkus/pull/5197
+* Add yaml-io extension  by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5193
+* Downgrade async-http-client to 2.12.3. Relates #5201 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5202
+* Fix usage of deprecated Quarkus SSL config properties by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5203
+* Fix quarkus-maven-plugin groupId & version for gRPC itest module by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5204
+* Remove changelog GitHub action by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5213
+* Upgrade to Quarkus CXF 2.2.2 by @ppalaga in https://github.com/apache/camel-quarkus/pull/5211
+* Micrometer: Message History factory and JMX MicrometerMessageHistory is not covered by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5210
+* Populate FastComponentNameResolver component names from included component service paths by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5215
+* Add missing dependencies to cli-connector extension and include dev-console service pattern by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5220
+* Add missing logging dependency in elasticsearch extension by @zbendhiba in https://github.com/apache/camel-quarkus/pull/5222
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5226
+* Use defined images for dev services in tests by @llowinge in https://github.com/apache/camel-quarkus/pull/5224
+* Upgrade to Quarkus 3.2.5.Final by @zbendhiba in https://github.com/apache/camel-quarkus/pull/5228
+* Upgrade Amazon services to 2.4.5 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/5229
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.0.0-RC2...3.2.0
+
 ## 3.0.0-RC2
 
 * Restore native profiles to kubernetes-client tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5047
