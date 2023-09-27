@@ -22,8 +22,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
@@ -40,8 +40,10 @@ import org.apache.camel.quarkus.component.kamelet.KameletRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
 import org.apache.camel.spi.Resource;
 import org.apache.camel.support.PluginHelper;
+import org.jboss.logging.Logger;
 
 class KameletProcessor {
+    private static final Logger LOGGER = Logger.getLogger(KameletProcessor.class);
     private static final String FEATURE = "camel-kamelet";
 
     @BuildStep
@@ -60,41 +62,54 @@ class KameletProcessor {
         });
     }
 
-    @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
-    CamelContextCustomizerBuildItem configureTemplates(
+    void loadResources(
             List<KameletResolverBuildItem> resolvers,
             KameletConfiguration configuration,
-            KameletRecorder recorder) throws Exception {
+            BuildProducer<KameletResourceBuildItem> resources) throws Exception {
 
-        List<RouteTemplateDefinition> definitions = new ArrayList<>();
         List<KameletResolver> kameletResolvers = resolvers.stream()
                 .map(KameletResolverBuildItem::getResolver)
                 .sorted(Comparator.comparingInt(Ordered::getOrder))
-                .collect(Collectors.toList());
+                .toList();
 
         CamelContext context = new DefaultCamelContext();
-        ExtendedCamelContext ecc = context.getCamelContextExtension();
 
         for (String id : configuration.identifiers.orElse(Collections.emptyList())) {
             for (KameletResolver resolver : kameletResolvers) {
-                final Optional<Resource> resource = resolver.resolve(id, context);
-                if (!resource.isPresent()) {
-                    continue;
-                }
+                resolver.resolve(id, context)
+                        .map(r -> new KameletResourceBuildItem(id, r))
+                        .ifPresent(resources::produce);
+            }
+        }
+    }
 
-                Collection<RoutesBuilder> rbs = PluginHelper.getRoutesLoader(ecc).findRoutesBuilders(resource.get());
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    CamelContextCustomizerBuildItem configureTemplates(
+            List<KameletResourceBuildItem> resources,
+            KameletRecorder recorder) throws Exception {
+
+        List<RouteTemplateDefinition> definitions = new ArrayList<>();
+
+        try (CamelContext context = new DefaultCamelContext()) {
+            ExtendedCamelContext ecc = context.getCamelContextExtension();
+
+            for (KameletResourceBuildItem item : resources) {
+                LOGGER.debugf("Loading kamelet from: %s)", item.getResource());
+
+                Collection<RoutesBuilder> rbs = PluginHelper.getRoutesLoader(ecc).findRoutesBuilders(item.getResource());
                 for (RoutesBuilder rb : rbs) {
                     RouteBuilder routeBuilder = (RouteBuilder) rb;
                     routeBuilder.configure();
-                    if (routeBuilder.getRouteTemplateCollection().getRouteTemplates().size() == 0) {
+                    if (routeBuilder.getRouteTemplateCollection().getRouteTemplates().isEmpty()) {
                         throw new IllegalStateException(
                                 "No kamelet template was created for "
-                                        + "kamelet:" + id + ". It might be that the kamelet was malformed?");
+                                        + "kamelet:" + item.getId() + ". It might be that the kamelet was malformed?");
                     } else if (routeBuilder.getRouteTemplateCollection().getRouteTemplates().size() > 1) {
                         throw new IllegalStateException(
                                 "A kamelet is not supposed to create more than one route ("
-                                        + "kamelet:" + id + ","
+                                        + "kamelet:" + item.getId() + ","
                                         + "routes: " + routeBuilder.getRouteTemplateCollection().getRouteTemplates().size()
                                         + ")");
                     }

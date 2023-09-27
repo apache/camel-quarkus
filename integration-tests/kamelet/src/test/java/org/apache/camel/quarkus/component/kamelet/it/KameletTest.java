@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.component.kamelet.it;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -97,10 +96,12 @@ class KameletTest {
                 .when().get("/kamelet/list");
         resp.then().statusCode(200);
 
-        ArrayList<Map<String, ?>> jsonAsArrayList = resp.body()
+        ArrayList<String> jsonAsArrayList = resp.body()
                 .jsonPath().get("");
+
         assertTrue(jsonAsArrayList.contains("injector"));
         assertTrue(jsonAsArrayList.contains("logger"));
+        assertTrue(jsonAsArrayList.contains("custom-log"));
     }
 
     @Test
