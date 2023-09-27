@@ -44,6 +44,7 @@
         <module>custom-routes-collector</module>
         <module>custom-type-converter</module>
         <module>custom-main-listener</module>
+        <module>custom-kamelet-resource</module>
         <module>google</module>
         <module>grpc</module>
         <module>jdbc</module>
