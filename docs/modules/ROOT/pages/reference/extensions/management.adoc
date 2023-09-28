@@ -61,5 +61,7 @@ adding the following configuration property to `application.properties`.
 quarkus.native.monitoring=jmxserver
 ----
 
+If you want the native application to be discoverable by tools such as JConsole and VisualVM, append the `jvmstat` option to the above mentioned configuration.
+
 For more information, refer to the https://quarkus.io/guides/building-native-image#using-monitoring-options[Quarkus native guide].
 
