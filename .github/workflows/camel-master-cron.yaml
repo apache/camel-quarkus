@@ -35,6 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-native-matrix.outputs.matrix }}
+      examples-matrix: ${{ steps.set-examples-matrix.outputs.examples-matrix }}
     env:
       MAVEN_OPTS: -Xmx4400m
     steps:
@@ -96,6 +97,19 @@ jobs:
         run: |
           CATEGORIES=$(yq -M -N -I 0 -o=json e 'keys' tooling/scripts/test-categories.yaml | tr '"' "'")
           echo "matrix={'category': ${CATEGORIES}}" >> $GITHUB_OUTPUT
+      - name: Setup Examples Matrix
+        id: set-examples-matrix
+        run: |
+          EXAMPLES_BRANCH="camel-quarkus-main"
+          if [[ ${GITHUB_REF_NAME} =~ [0-9]+.[0-9]+.x ]]; then
+              EXAMPLES_BRANCH=${GITHUB_REF_NAME}
+          elif [[ ${GITHUB_BASE_REF} =~ [0-9]+.[0-9]+.x ]]; then
+              EXAMPLES_BRANCH=${GITHUB_BASE_REF}
+          fi
+
+          sudo apt install groovy -y --no-install-recommends
+          EXAMPLES_MATRIX=$(groovy -DEXAMPLES_BRANCH=${EXAMPLES_BRANCH} tooling/scripts/generate-examples-matrix.groovy)
+          echo "examples-matrix=${EXAMPLES_MATRIX}" >> $GITHUB_OUTPUT
       - name: Report Build Failure
         if: failure() || cancelled()
         run: |
@@ -373,8 +387,12 @@ jobs:
           ./mvnw ${CQ_MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
 
   examples-tests:
+    name: Examples Tests - ${{matrix.name}}
     needs: initial-mvn-install
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.initial-mvn-install.outputs.examples-matrix) }}
     steps:
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -406,18 +424,47 @@ jobs:
       - name: set CQ_VERSION
         run: echo "CQ_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout -N)" >> $GITHUB_ENV
       - name: clone and verify examples
+        env:
+          EXAMPLE_MODULES: ${{matrix.examples}}
+        shell: '/usr/bin/bash {0}'
         run: |
           EXAMPLES_BRANCH="camel-quarkus-main"
 
           if [[ ${GITHUB_REF_NAME} =~ [0-9]+.[0-9]+.x ]]; then
               EXAMPLES_BRANCH=${GITHUB_REF_NAME}
+          elif [[ ${GITHUB_BASE_REF} =~ [0-9]+.[0-9]+.x ]]; then
+              EXAMPLES_BRANCH=${GITHUB_BASE_REF}
           fi
 
           git clone --depth 1 --branch ${EXAMPLES_BRANCH} https://github.com/apache/camel-quarkus-examples.git \
             && cd camel-quarkus-examples \
             && echo "Current Examples commit:" $(git rev-parse HEAD) \
-            && ./mvnw ${CQ_MAVEN_ARGS} org.l2x6.cq:cq-maven-plugin:2.10.0:examples-set-platform -Dcq.camel-quarkus.version=${CQ_VERSION} \
-            && ./mvnw-for-each.sh ${CQ_MAVEN_ARGS} -Pnative,docker clean verify
+            && ./mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} org.l2x6.cq:cq-maven-plugin:2.10.0:examples-set-platform -Dcq.camel-quarkus.version=${CQ_VERSION}
+
+          BUILD_FAILURES=()
+
+          for MODULE in ${EXAMPLE_MODULES//,/ }; do
+            cd ${MODULE}
+
+            ../mvnw ${MAVEN_ARGS} clean verify \
+              -Dformatter.skip -Dimpsort.skip \
+              -Pnative,docker,ci
+
+            if [[ $? -ne 0 ]]; then
+              BUILD_FAILURES[${#BUILD_FAILURES[@]}]=${MODULE}
+            fi
+
+            cd -
+          done
+
+          if [[ ${#BUILD_FAILURES[@]} -gt 0 ]]; then
+            echo -e "\nBuild errors were encountred in the following projects:\n"
+            for FAILURE in ${BUILD_FAILURES[@]}; do
+                echo "* ${FAILURE}"
+            done
+            echo -e "\nCheck build logs for further information."
+            exit 1
+          fi
       - name: Report Build Failure
         if: failure() || cancelled()
         run: |
