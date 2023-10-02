@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package apache.camel.quarkus.component.xml.jaxp;
+package org.apache.camel.quarkus.component.xml.jaxp;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
