@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
-import io.quarkus.deployment.pkg.steps.NativeBuild;
+import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
@@ -37,7 +37,7 @@ public class DslSupportProcessor {
     private static final Pattern IMPORT_PATTERN = Pattern.compile("import .*");
     public static final String CLASS_EXT = ".class";
 
-    @BuildStep(onlyIf = NativeBuild.class)
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
     @Record(value = ExecutionTime.STATIC_INIT)
     void registerRoutesBuilder(List<DslGeneratedClassBuildItem> classes,
             CamelContextBuildItem context,

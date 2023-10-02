@@ -20,7 +20,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.pkg.steps.NativeBuild;
+import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
 import org.apache.camel.quarkus.component.dsl.modeline.runtime.PropertyTraitRecorder;
@@ -34,7 +34,7 @@ public class DslModelineProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
-    @BuildStep(onlyIf = NativeBuild.class)
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
     void nativeUnsupported() {
         throw new RuntimeException("The " + FEATURE + " extension is not supported in native mode "
                 + "as JMX is not supported on GraalVM");

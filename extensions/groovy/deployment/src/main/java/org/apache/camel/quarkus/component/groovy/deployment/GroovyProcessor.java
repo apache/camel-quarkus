@@ -29,7 +29,7 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
-import io.quarkus.deployment.pkg.steps.NativeBuild;
+import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import io.quarkus.maven.dependency.ResolvedDependency;
 import io.quarkus.paths.PathCollection;
 import io.quarkus.runtime.RuntimeValue;
@@ -69,7 +69,7 @@ class GroovyProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
-    @BuildStep(onlyIf = NativeBuild.class)
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
     void collectExpressions(ExpressionExtractionResultBuildItem result,
             List<ExpressionBuildItem> expressions,
             List<ScriptBuildItem> scripts,
@@ -107,7 +107,7 @@ class GroovyProcessor {
         }
     }
 
-    @BuildStep(onlyIf = NativeBuild.class)
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
     void compileScriptsAOT(CurateOutcomeBuildItem curateOutcomeBuildItem,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
             List<GroovyExpressionSourceBuildItem> sources,
@@ -145,7 +145,7 @@ class GroovyProcessor {
     }
 
     @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep(onlyIf = NativeBuild.class)
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
     CamelBeanBuildItem configureLanguage(
             GroovyExpressionRecorder recorder,
             ExpressionExtractionResultBuildItem result,

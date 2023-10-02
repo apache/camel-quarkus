@@ -20,7 +20,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.pkg.steps.NativeBuild;
+import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import org.apache.camel.quarkus.core.JvmOnlyRecorder;
 import org.jboss.logging.Logger;
 
@@ -37,7 +37,7 @@ class GuavaEventbusProcessor {
     /**
      * Remove this once this extension starts supporting the native mode.
      */
-    @BuildStep(onlyIf = NativeBuild.class)
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
     @Record(value = ExecutionTime.RUNTIME_INIT)
     void warnJvmInNative(JvmOnlyRecorder recorder) {
         JvmOnlyRecorder.warnJvmInNative(LOG, FEATURE); // warn at build time

@@ -34,7 +34,7 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.pkg.steps.NativeBuild;
+import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import io.quarkus.gizmo.ClassCreator;
 import io.quarkus.gizmo.Gizmo;
 import io.quarkus.gizmo.MethodCreator;
@@ -105,7 +105,7 @@ final class FhirProcessor {
                 .fields().build());
     }
 
-    @BuildStep(onlyIf = { NativeBuild.class, IsFhirServerAbsent.class })
+    @BuildStep(onlyIf = { NativeOrNativeSourcesBuild.class, IsFhirServerAbsent.class })
     void generateRestfulServerUtils(BuildProducer<GeneratedClassBuildItem> generatedClass) {
         // Avoid having redundant hapi-fhir-server on the classpath and generate RestfulServerUtils.createEtag to satisfy native compilation.
         try (ClassCreator classCreator = ClassCreator.builder()

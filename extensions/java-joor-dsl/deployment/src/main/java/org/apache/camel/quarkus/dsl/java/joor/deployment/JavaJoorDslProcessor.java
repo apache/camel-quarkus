@@ -35,7 +35,7 @@ import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.LambdaCapturingTypeBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
-import io.quarkus.deployment.pkg.steps.NativeBuild;
+import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import io.quarkus.maven.dependency.ResolvedDependency;
 import io.quarkus.paths.PathCollection;
 import io.quarkus.runtime.RuntimeValue;
@@ -63,7 +63,7 @@ public class JavaJoorDslProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
-    @BuildStep(onlyIf = NativeBuild.class)
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
     void compileClassesAOT(BuildProducer<JavaJoorGeneratedClassBuildItem> generatedClass,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
             BuildProducer<LambdaCapturingTypeBuildItem> lambdaCapturingTypeProducer,
@@ -173,7 +173,7 @@ public class JavaJoorDslProcessor {
         }
     }
 
-    @BuildStep(onlyIf = NativeBuild.class)
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
     void registerGeneratedClasses(BuildProducer<GeneratedClassBuildItem> generatedClass,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
             List<JavaJoorGeneratedClassBuildItem> classes) {
@@ -185,7 +185,7 @@ public class JavaJoorDslProcessor {
                 .builder(classes.stream().map(JavaJoorGeneratedClassBuildItem::getName).toArray(String[]::new)).build());
     }
 
-    @BuildStep(onlyIf = NativeBuild.class)
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
     @Record(value = ExecutionTime.STATIC_INIT)
     void registerRoutesBuilder(List<JavaJoorGeneratedClassBuildItem> classes,
             CamelContextBuildItem context,

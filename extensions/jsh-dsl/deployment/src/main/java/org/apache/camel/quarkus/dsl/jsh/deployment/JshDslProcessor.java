@@ -42,7 +42,7 @@ import io.quarkus.deployment.dev.CompilationProvider;
 import io.quarkus.deployment.dev.JavaCompilationProvider;
 import io.quarkus.deployment.pkg.builditem.BuildSystemTargetBuildItem;
 import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
-import io.quarkus.deployment.pkg.steps.NativeBuild;
+import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import io.quarkus.maven.dependency.ResolvedDependency;
 import io.quarkus.paths.PathCollection;
 import org.apache.camel.quarkus.core.deployment.main.CamelMainHelper;
@@ -78,7 +78,7 @@ class JshDslProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
-    @BuildStep(onlyIf = NativeBuild.class)
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
     void compileScriptsAOT(BuildProducer<GeneratedClassBuildItem> generatedClass,
             BuildProducer<GeneratedResourceBuildItem> generatedResource,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
