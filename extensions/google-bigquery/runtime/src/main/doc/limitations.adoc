@@ -1,7 +1,0 @@
-Currently it needs a work around in native building to introduce a native-image.properties file containing the following line:
-[source,properties]
-----
-Args = -H:+RunReachabilityHandlersConcurrently
-----
-
-Also this file needs to be in your application, e.g. `src/main/resources/META-INF/native-image/native-image.properties`
