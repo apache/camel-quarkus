@@ -16,7 +16,7 @@
 #
 
 github:
-  description: "Apache Camel Quarkus support"
+  description: "Apache Camel Quarkus"
   homepage: https://camel.apache.org
   labels:
     - camel
