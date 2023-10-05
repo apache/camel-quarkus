@@ -16,7 +16,14 @@
  */
 package org.apache.camel.quarkus.k.it;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Comparator;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResource;
@@ -58,9 +65,19 @@ public class RuntimeWithYamlTest {
     }
 
     public static class Resources implements QuarkusTestResourceLifecycleManager {
+        private static final Path TEMP_DIR = Paths.get("target/test-classes/camel-k-runtime-yaml"); // Specify your temporary directory here
+
         @Override
         public Map<String, String> start() {
-            final String res = Paths.get("src/test/resources").toAbsolutePath().toString();
+            // Create the temporary directory if it doesn't exist
+            File tempDir = TEMP_DIR.toFile();
+            tempDir.mkdirs();
+
+            // Copy the XML files from the classpath to the temporary directory
+            copyResourceToTemp("routes-with-beans.yaml");
+
+            // Set the path to the temporary directory
+            final String res = tempDir.getAbsolutePath();
 
             return mapOf(
                     // sources
@@ -70,8 +87,25 @@ public class RuntimeWithYamlTest {
                     "camel.beans.myProcessor", "#class:" + MyProcessor.class.getName());
         }
 
+        private void copyResourceToTemp(String resourceName) {
+            try (InputStream stream = getClass().getClassLoader().getResourceAsStream(resourceName)) {
+                Path tempPath = TEMP_DIR.resolve(resourceName);
+                Files.copy(stream, tempPath, StandardCopyOption.REPLACE_EXISTING);
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to copy resource " + resourceName + " to temporary directory", e);
+            }
+        }
+
         @Override
         public void stop() {
+            try {
+                Files.walk(TEMP_DIR)
+                        .sorted(Comparator.reverseOrder())
+                        .map(Path::toFile)
+                        .forEach(File::delete);
+            } catch (IOException e) {
+                // Ignored
+            }
         }
     }
 }

@@ -105,9 +105,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <environmentVariables>
-                        <CAMEL_K_CONF>${project.basedir}/src/test/resources/conf.properties</CAMEL_K_CONF>
-                        <CAMEL_K_CONF_D>${project.basedir}/src/test/resources/conf.d</CAMEL_K_CONF_D>
+                     <environmentVariables>
+                        <CAMEL_K_CONF>${project.build.testOutputDirectory}/camel-k-runtime/conf.properties</CAMEL_K_CONF>
+                        <CAMEL_K_CONF_D>${project.build.testOutputDirectory}/camel-k-runtime/conf.d</CAMEL_K_CONF_D>
                     </environmentVariables>
                 </configuration>
             </plugin>
@@ -143,9 +143,9 @@
                                     <goal>verify</goal>
                                 </goals>
                                 <configuration>
-                                    <environmentVariables>
-                                        <CAMEL_K_CONF>${project.basedir}/src/test/resources/conf.properties</CAMEL_K_CONF>
-                                        <CAMEL_K_CONF_D>${project.basedir}/src/test/resources/conf.d</CAMEL_K_CONF_D>
+                                   <environmentVariables>
+                                        <CAMEL_K_CONF>${project.build.testOutputDirectory}/camel-k-runtime/conf.properties</CAMEL_K_CONF>
+                                        <CAMEL_K_CONF_D>${project.build.testOutputDirectory}/camel-k-runtime/conf.d</CAMEL_K_CONF_D>
                                     </environmentVariables>
                                 </configuration>
                             </execution>
