@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.xml.jaxb;
 
+import io.quarkus.runtime.ImageMode;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import jakarta.xml.bind.JAXBException;
@@ -24,14 +25,13 @@ import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.ModelToXMLDumper;
 import org.apache.camel.xml.jaxb.DefaultModelJAXBContextFactory;
 import org.apache.camel.xml.jaxb.JaxbModelToXMLDumper;
-import org.graalvm.nativeimage.ImageInfo;
 
 @Recorder
 public class XmlJaxbRecorder {
 
     public RuntimeValue<ModelJAXBContextFactory> newContextFactory() {
         DefaultModelJAXBContextFactory factory = new DefaultModelJAXBContextFactory();
-        if (ImageInfo.inImageBuildtimeCode()) {
+        if (ImageMode.current() == ImageMode.NATIVE_BUILD) {
             try {
                 factory.newJAXBContext();
             } catch (JAXBException e) {
