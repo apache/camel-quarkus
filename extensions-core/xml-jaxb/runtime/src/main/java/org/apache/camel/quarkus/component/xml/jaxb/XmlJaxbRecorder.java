@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.xml.jaxb;
 
-import io.quarkus.runtime.ImageMode;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import jakarta.xml.bind.JAXBException;
@@ -31,12 +30,10 @@ public class XmlJaxbRecorder {
 
     public RuntimeValue<ModelJAXBContextFactory> newContextFactory() {
         DefaultModelJAXBContextFactory factory = new DefaultModelJAXBContextFactory();
-        if (ImageMode.current() == ImageMode.NATIVE_BUILD) {
-            try {
-                factory.newJAXBContext();
-            } catch (JAXBException e) {
-                throw new RuntimeCamelException("Unable to initialize Camel JAXBContext", e);
-            }
+        try {
+            factory.newJAXBContext();
+        } catch (JAXBException e) {
+            throw new RuntimeCamelException("Unable to initialize Camel JAXBContext", e);
         }
         return new RuntimeValue<>(factory);
     }
