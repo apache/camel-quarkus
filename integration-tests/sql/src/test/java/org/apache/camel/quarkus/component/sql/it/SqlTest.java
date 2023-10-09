@@ -153,9 +153,16 @@ class SqlTest {
 
     @Test
     public void testDefaultErrorCode() throws InterruptedException {
+        String dbKind = RestAssured
+                .get("/sql/dbKind")
+                .then()
+                .statusCode(200)
+                .extract().asString();
         postMap("/sql/toDirect/transacted", CollectionHelper.mapOf(SqlConstants.SQL_QUERY, "select * from NOT_EXIST"))
                 .statusCode(200)
-                .body(startsWith("org.springframework.jdbc.BadSqlGrammarException"));
+                //SQLExceptionSubclassTranslator does not transalate mssql error - https://github.com/apache/camel-quarkus/issues/5411
+                .body("mssql".equals(dbKind) ? containsString("Invalid object name 'NOT_EXIST'")
+                        : startsWith("org.springframework.jdbc.BadSqlGrammarException"));
     }
 
     @Test

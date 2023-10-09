@@ -205,4 +205,11 @@ public class SqlResource {
         }
     }
 
+    @Path("/dbKind")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getDbKind() {
+        return dbKind;
+    }
+
 }
