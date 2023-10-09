@@ -140,7 +140,7 @@
                             <properties>
                                 <group-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/jdbc</group-tests.source.dir>
                                 <group-tests.dest.module.dir>${project.basedir}</group-tests.dest.module.dir>
-                                <group-tests.concat.rel.paths>src/main/resources/application.properties</group-tests.concat.rel.paths>
+                                <group-tests.concat.rel.paths>src/main/resources/application.properties,src/test/resources/container-license-acceptance.txt</group-tests.concat.rel.paths>
                             </properties>
                         </configuration>
                     </execution>
