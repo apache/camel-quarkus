@@ -1,5 +1,38 @@
 # Changelog
 
+## 3.2.1
+
+* [3.2.x] Reinstate auto update of antora.yml camel-docs-version attribute by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5239
+* [3.2.x] Fix camel website build errors related to CQ by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5257
+* [3.2.x] Exclude com.google.auto.value:auto-value-annotations from gRPC and Google Pubsub extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5264
+* [3.2.x] Upgrade to Quarkus CXF 2.2.3 by @ppalaga in https://github.com/apache/camel-quarkus/pull/5266
+* [3.2.x] Update supported since metadata from 3.0.0 to 3.2.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5272
+* [3.2.x] Remove redundant camel-quarkus-bom import in knative runtime module by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5276
+* Backports 3.2.x by @zbendhiba in https://github.com/apache/camel-quarkus/pull/5283
+* Backport 3.2.x by @zhfeng in https://github.com/apache/camel-quarkus/pull/5291
+* [3.2.x] Javax replaced with jakarta in adoc files #5293 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5295
+* [3.2.x] Upgrade Quarkus to 3.2.6.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5305
+* Backports from main by @zbendhiba in https://github.com/apache/camel-quarkus/pull/5308
+* Update jms doc to add some usages about IBM MQ Client by @zhfeng in https://github.com/apache/camel-quarkus/pull/5342
+* [3.2.x] Upgrade to Quarkus CXF 2.2.4 by @ppalaga in https://github.com/apache/camel-quarkus/pull/5347
+* Mongodb: native build fails because of CredentialsProviderFinder by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5337
+* Backport 3.2.x by @zhfeng in https://github.com/apache/camel-quarkus/pull/5344
+* Xslt-saxon: native build fails because of BrotliInputSreamFactory by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5352
+* Backport 3.2.x by @zhfeng in https://github.com/apache/camel-quarkus/pull/5356
+* [3.2.x] Regen by @zhfeng in https://github.com/apache/camel-quarkus/pull/5359
+* Aws2 kinesis: native build fails because of missing netty by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5363
+* Kafka: native build fails because of missing vertx by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5368
+* Salesforce: native build fails because of missing netty by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5372
+* [3.2.x] Improve descriptions for xml-jaxp & yaml-io extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5373
+* [3.2.x] Revert "Force Oracle devservices image to gvenzl/oracle-free:23.2-slim by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5375
+* [3.2.x] Add missing quarkus-netty dependency to gRPC extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5384
+* [3.2.x] Fix package name for xml-jaxp integration tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5389
+* [3.2.x] Improve implementation of GooglePubsubTest.testOrdering by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5391
+* jta: fix dataSource bean reference in documentation (#5395) by @aldettinger in https://github.com/apache/camel-quarkus/pull/5396
+* [3.2.x] Upgrade to Quarkus CXF 2.2.5 by @ppalaga in https://github.com/apache/camel-quarkus/pull/5399
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.2.0...3.2.1
+
 ## 3.4.0
 
 * Next is 3.3.0 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/5231
