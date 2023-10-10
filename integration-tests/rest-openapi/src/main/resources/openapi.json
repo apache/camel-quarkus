@@ -2,7 +2,7 @@
   "openapi" : "3.0.3",
   "info" : {
     "title" : "camel-quarkus-integration-test-rest-openapi API",
-    "version" : "2.13.0-SNAPSHOT"
+    "version" : "3.0.0"
   },
   "paths" : {
     "/fruits" : {
@@ -25,9 +25,53 @@
             }
           }
         }
+      },
+      "post" : {
+        "tags" : [ "Fruit Resource" ],
+        "operationId" : "add",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Fruit"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "/rest-openapi/fruits/list" : {
+    "/rest-openapi/fruits/list/bean" : {
+      "get" : {
+        "tags" : [ "Rest Openapi Resource" ],
+        "parameters" : [ {
+          "name" : "port",
+          "in" : "query",
+          "schema" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/rest-openapi/fruits/list/classpath" : {
       "get" : {
         "tags" : [ "Rest Openapi Resource" ],
         "parameters" : [ {
@@ -46,6 +90,24 @@
       }
     },
     "/rest-openapi/fruits/list/file" : {
+      "get" : {
+        "tags" : [ "Rest Openapi Resource" ],
+        "parameters" : [ {
+          "name" : "port",
+          "in" : "query",
+          "schema" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/rest-openapi/fruits/list/json" : {
       "get" : {
         "tags" : [ "Rest Openapi Resource" ],
         "parameters" : [ {
@@ -86,6 +148,10 @@
     "schemas" : {
       "Fruit" : {
         "type" : "object",
+        "required": [
+          "name",
+          "description"
+        ],
         "properties" : {
           "name" : {
             "type" : "string"
@@ -94,6 +160,13 @@
             "type" : "string"
           }
         }
+      }
+    },
+    "securitySchemes" : {
+      "SecurityScheme" : {
+        "type" : "http",
+        "description" : "Authentication",
+        "scheme" : "basic"
       }
     }
   }

@@ -37,5 +37,8 @@ public class RestOpenApiRoutes extends RouteBuilder {
 
         from("direct:start-classpath")
                 .toD("rest-openapi:#list?specificationUri=classpath:openapi.json&host=RAW(http://localhost:${header.test-port})");
+
+        from("direct:validate")
+                .toD("rest-openapi:#add?specificationUri=classpath:openapi.json&host=RAW(http://localhost:${header.test-port})&requestValidationEnabled=true");
     }
 }
