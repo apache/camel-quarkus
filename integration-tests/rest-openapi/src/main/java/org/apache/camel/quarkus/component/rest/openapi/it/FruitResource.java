@@ -20,12 +20,15 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Set;
 
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.quarkus.component.rest.openapi.it.model.Fruit;
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 
 @Path("/fruits")
 @Produces(MediaType.APPLICATION_JSON)
@@ -42,5 +45,15 @@ public class FruitResource {
     @GET
     public Set<Fruit> list() {
         return fruits;
+    }
+
+    @Operation(operationId = "add")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String add(@RequestBody(required = true) Fruit fruit) {
+        // We don't bother adding the fruit to the fruits set as we're only interested in validating
+        // the actual request against the OpenAPI specification
+        return "Fruit created";
     }
 }

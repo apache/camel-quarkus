@@ -29,6 +29,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 class RestOpenapiTest {
@@ -73,6 +74,38 @@ class RestOpenapiTest {
     @Test
     public void testInvokeClasspathApiEndpoint() {
         invokeApiEndpoint("/rest-openapi/fruits/list/classpath");
+    }
+
+    @Test
+    public void testInvokeApiEndpointWithRequestValidationEnabled() {
+        // Empty request body
+        RestAssured.given()
+                .queryParam("port", RestAssured.port)
+                .contentType(ContentType.JSON)
+                .post("/rest-openapi/fruits/add")
+                .then()
+                .statusCode(500)
+                .body(is("A request body is required but none found."));
+
+        // Mandatory JSON description field missing
+        RestAssured.given()
+                .queryParam("port", RestAssured.port)
+                .contentType(ContentType.JSON)
+                .body("{\"name\": \"Orange\"}")
+                .post("/rest-openapi/fruits/add")
+                .then()
+                .statusCode(500)
+                .body(is("Object has missing required properties ([\"description\"])"));
+
+        // Valid request
+        RestAssured.given()
+                .queryParam("port", RestAssured.port)
+                .contentType(ContentType.JSON)
+                .body("{\"name\": \"Orange\",\"description\":\"Tasty fruit\"}")
+                .post("/rest-openapi/fruits/add")
+                .then()
+                .statusCode(200)
+                .body(is("Fruit created"));
     }
 
     private void invokeApiEndpoint(String path) {

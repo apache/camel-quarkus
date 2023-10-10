@@ -14,18 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.rest.openapi.it.model;
+package org.apache.camel.quarkus.component.rest.openapi.graal;
 
-public class Fruit {
+import java.util.concurrent.ExecutorService;
 
-    public String name;
-    public String description;
+import com.github.fge.msgsimple.provider.LoadingMessageSourceProvider;
+import com.oracle.svm.core.annotate.Alias;
+import com.oracle.svm.core.annotate.RecomputeFieldValue;
+import com.oracle.svm.core.annotate.TargetClass;
 
-    public Fruit() {
-    }
+import static com.oracle.svm.core.annotate.RecomputeFieldValue.Kind.Reset;
 
-    public Fruit(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
+@TargetClass(LoadingMessageSourceProvider.class)
+final class LoadingMessageSourceProviderSubstitutions {
+    // Avoid eager initialization of ExecutorService at build time
+    @Alias
+    @RecomputeFieldValue(kind = Reset)
+    private ExecutorService service;
 }
