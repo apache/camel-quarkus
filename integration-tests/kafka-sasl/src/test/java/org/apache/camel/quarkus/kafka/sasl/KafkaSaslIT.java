@@ -16,10 +16,8 @@
  */
 package org.apache.camel.quarkus.kafka.sasl;
 
-import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@DisabledOnIntegrationTest("https://github.com/apache/camel-quarkus/issues/5381")
 @QuarkusIntegrationTest
 public class KafkaSaslIT extends KafkaSaslBindingTest {
 }
