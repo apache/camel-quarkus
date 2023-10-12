@@ -6435,16 +6435,6 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.apache.yetus</groupId>
-        <artifactId>audience-annotations</artifactId>
-        <version>0.14.1</version>
-      </dependency>
-      <dependency>
-        <groupId>org.snakeyaml</groupId>
-        <artifactId>snakeyaml-engine</artifactId>
-        <version>2.7</version>
-      </dependency>
-      <dependency>
         <groupId>org.apache.xmlgraphics</groupId>
         <artifactId>xmlgraphics-commons</artifactId>
         <version>2.9</version>
@@ -6454,6 +6444,11 @@
             <artifactId>commons-logging</artifactId>
           </exclusion>
         </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.yetus</groupId>
+        <artifactId>audience-annotations</artifactId>
+        <version>0.14.1</version>
       </dependency>
       <dependency>
         <groupId>org.apache.zookeeper</groupId>
@@ -6575,6 +6570,11 @@
         <groupId>org.optaplanner</groupId>
         <artifactId>optaplanner-quarkus-jackson-deployment</artifactId>
         <version>9.37.0.Final</version>
+      </dependency>
+      <dependency>
+        <groupId>org.snakeyaml</groupId>
+        <artifactId>snakeyaml-engine</artifactId>
+        <version>2.7</version>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
