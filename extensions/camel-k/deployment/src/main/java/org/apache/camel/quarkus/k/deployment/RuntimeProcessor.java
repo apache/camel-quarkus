@@ -134,11 +134,5 @@ public class RuntimeProcessor {
 
         getAllKnownImplementors(view, StreamCachingStrategy.SpoolRule.class)
                 .forEach(i -> reflectiveClass.produce(reflectiveClassBuildItem(i)));
-
-        reflectiveClass.produce(
-                ReflectiveClassBuildItem.builder("StreamCachingStrategy.SpoolRule.class")
-                        .methods()
-                        .fields()
-                        .build());
     }
 }
