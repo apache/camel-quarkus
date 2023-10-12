@@ -6564,7 +6564,7 @@
             <dependency>
                 <groupId>org.snakeyaml</groupId>
                 <artifactId>snakeyaml-engine</artifactId>
-                <version>${snakeyaml-engine-version}</version>
+                <version>${snakeyaml-engine.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.xmlgraphics</groupId>
