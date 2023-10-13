@@ -128,7 +128,7 @@ Sets whether header names need to be encoded. Can be useful in situations where 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.opentelemetry.exclude-patterns]]`link:#quarkus.camel.opentelemetry.exclude-patterns[quarkus.camel.opentelemetry.exclude-patterns]`
 
-Sets whether to disable tracing for endpoint URIs that match the given patterns. The pattern can take the following forms:
+Sets whether to disable tracing for endpoint URIs that match the given comma separated patterns. The pattern can take the following forms:
 
 
 

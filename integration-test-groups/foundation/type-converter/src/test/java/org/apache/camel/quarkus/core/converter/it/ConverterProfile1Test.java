@@ -14,27 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.debug.deployment;
+package org.apache.camel.quarkus.core.converter.it;
 
-import jakarta.inject.Inject;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
-import org.apache.camel.CamelContext;
-import org.apache.camel.impl.debugger.DefaultBacklogDebugger;
-import org.apache.camel.spi.BacklogDebugger;
+import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.junit.QuarkusTestProfile;
+import io.quarkus.test.junit.TestProfile;
+import org.junit.jupiter.api.Test;
 
-@Path("/debug")
-public class DebugResource {
-    @Inject
-    CamelContext context;
+// See https://github.com/apache/camel-quarkus/issues/5467
+@QuarkusTest
+@TestProfile(ConverterProfile1Test.class)
+public class ConverterProfile1Test extends ConverterTestBase implements QuarkusTestProfile {
 
-    @Path("/enabled")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public boolean debuggingEnabled() {
-        BacklogDebugger debugger = DefaultBacklogDebugger.getBacklogDebugger(context);
-        return debugger != null && debugger.isEnabled();
+    @Test
+    void testFallback() {
+        testConverter("/converter/fallback", "a:b", "test_a", "b");
     }
 }

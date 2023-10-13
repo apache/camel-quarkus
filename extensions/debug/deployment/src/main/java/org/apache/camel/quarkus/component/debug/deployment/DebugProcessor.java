@@ -25,10 +25,10 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.SystemPropertyBuildItem;
 import io.quarkus.runtime.LaunchMode;
 import org.apache.camel.api.management.JmxSystemPropertyKeys;
-import org.apache.camel.impl.debugger.BacklogDebugger;
 import org.apache.camel.quarkus.component.debug.DebugConfig;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
+import org.apache.camel.spi.BacklogDebugger;
 import org.eclipse.microprofile.config.ConfigProvider;
 
 class DebugProcessor {

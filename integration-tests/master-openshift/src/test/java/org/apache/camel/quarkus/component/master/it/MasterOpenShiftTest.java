@@ -46,7 +46,7 @@ import org.zeroturnaround.exec.StartedProcess;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.emptyString;
 
-@Disabled // https://github.com/apache/camel-quarkus/issues/5318
+@Disabled // https://github.com/apache/camel-quarkus/issues/5318, https://github.com/apache/camel-quarkus/issues/5447
 @QuarkusTestResource(MasterOpenShiftTestResource.class)
 @QuarkusTest
 class MasterOpenShiftTest {

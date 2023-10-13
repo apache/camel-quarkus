@@ -23,7 +23,8 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
-import org.apache.camel.impl.debugger.BacklogDebugger;
+import org.apache.camel.impl.debugger.DefaultBacklogDebugger;
+import org.apache.camel.spi.BacklogDebugger;
 
 @Path("/debug")
 @ApplicationScoped
@@ -36,7 +37,7 @@ public class DebugResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public boolean debuggingEnabled() {
-        BacklogDebugger debugger = BacklogDebugger.getBacklogDebugger(context);
+        BacklogDebugger debugger = DefaultBacklogDebugger.getBacklogDebugger(context);
         return debugger != null && debugger.isEnabled();
     }
 }

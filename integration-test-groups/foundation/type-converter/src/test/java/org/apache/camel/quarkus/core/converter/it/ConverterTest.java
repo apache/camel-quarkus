@@ -18,15 +18,12 @@ package org.apache.camel.quarkus.core.converter.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import io.restassured.response.ValidatableResponse;
-import jakarta.ws.rs.core.MediaType;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.*;
 
 @QuarkusTest
-public class ConverterTest {
+public class ConverterTest extends ConverterTestBase {
 
     @Test
     void testConverterFromRegistry() {
@@ -86,16 +83,6 @@ public class ConverterTest {
     }
 
     @Test
-    void testFallback() {
-        testConverter("/converter/fallback", "a:b", "test_a", "b");
-    }
-
-    @Test
-    void testExchangeConverter() {
-        testConverter("/converter/fallback", "c:d", "test_c", "d");
-    }
-
-    @Test
     void testConverterGetStatistics() {
         enableStatistics(true);
 
@@ -105,34 +92,5 @@ public class ConverterTest {
         RestAssured.when().get("/converter/getStatisticsHit").then().body("hit", is(1), "miss", is(0));
 
         enableStatistics(false);
-    }
-
-    private void enableStatistics(boolean b) {
-        RestAssured.given()
-                .contentType(ContentType.TEXT).body(b)
-                .post("/converter/setStatisticsEnabled")
-                .then()
-                .statusCode(204);
-    }
-
-    private void testConverterReturningNull(String url, String body) {
-        testConverter(url, body, 204, null, null);
-    }
-
-    private void testConverter(String url, String body, String expectedKey, String expectedValue) {
-        testConverter(url, body, 200, expectedKey, expectedValue);
-    }
-
-    private void testConverter(String url, String body, int expectedResultCode, String expectedKey, String expectedValue) {
-        ValidatableResponse response = RestAssured.given()
-                .contentType(ContentType.TEXT).body(body)
-                .accept(MediaType.APPLICATION_JSON)
-                .post(url)
-                .then()
-                .statusCode(expectedResultCode);
-
-        if (expectedKey != null) {
-            response.body("key", is(expectedKey), "val", is(expectedValue));
-        }
     }
 }

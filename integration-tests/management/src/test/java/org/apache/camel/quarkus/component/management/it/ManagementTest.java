@@ -60,7 +60,7 @@ class ManagementTest {
                 .post("/management/invoke")
                 .then()
                 .statusCode(200)
-                .body(containsString("<from uri=\"direct:start\"/>"));
+                .body(containsString("<from id=\"from1\" uri=\"direct:start\"/>"));
     }
 
     @Test
