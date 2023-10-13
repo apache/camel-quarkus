@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.opentelemetry;
 
-import java.util.List;
 import java.util.Optional;
 
 import io.quarkus.runtime.annotations.ConfigItem;
@@ -35,7 +34,8 @@ public final class CamelOpenTelemetryConfig {
     public boolean encoding;
 
     /**
-     * Sets whether to disable tracing for endpoint URIs that match the given patterns. The pattern can take the following
+     * Sets whether to disable tracing for endpoint URIs that match the given
+     * comma separated patterns. The pattern can take the following
      * forms:
      * <p>
      * <p>
@@ -48,5 +48,5 @@ public final class CamelOpenTelemetryConfig {
      * 3. A regular expression matching the endpoint URI. E.g platform-http:/prefix/.*
      */
     @ConfigItem
-    public Optional<List<String>> excludePatterns;
+    public Optional<String> excludePatterns;
 }

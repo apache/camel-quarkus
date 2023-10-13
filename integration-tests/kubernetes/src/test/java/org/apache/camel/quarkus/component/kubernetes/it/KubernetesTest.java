@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 
-@Disabled //https://github.com/apache/camel-quarkus/issues/5318
+@Disabled //https://github.com/apache/camel-quarkus/issues/5318, https://github.com/apache/camel-quarkus/issues/5447
 @QuarkusTest
 @QuarkusTestResource(KubernetesServerTestResource.class)
 public class KubernetesTest {

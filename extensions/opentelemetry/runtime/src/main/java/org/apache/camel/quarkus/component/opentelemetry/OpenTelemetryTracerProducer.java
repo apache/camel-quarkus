@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.component.opentelemetry;
 
-import java.util.LinkedHashSet;
-
 import io.opentelemetry.api.trace.Tracer;
 import io.quarkus.arc.DefaultBean;
 import jakarta.enterprise.inject.Produces;
@@ -43,7 +41,7 @@ public class OpenTelemetryTracerProducer {
         if (tracer != null) {
             openTelemetryTracer.setTracer(tracer);
             if (config.excludePatterns.isPresent()) {
-                openTelemetryTracer.setExcludePatterns(new LinkedHashSet<>(config.excludePatterns.get()));
+                openTelemetryTracer.setExcludePatterns(config.excludePatterns.get());
             }
             openTelemetryTracer.setEncoding(config.encoding);
         }

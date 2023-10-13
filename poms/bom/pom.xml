@@ -6094,6 +6094,17 @@
                 <version>${kryo.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.box</groupId>
+                <artifactId>box-java-sdk</artifactId>
+                <version>${box-java-sdk.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>jose4j</artifactId>
+                        <groupId>org.bitbucket.b_c</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
                 <groupId>com.github.java-json-tools</groupId>
                 <artifactId>json-patch</artifactId>
                 <version>${java-json-tools.json-patch.version}</version>
