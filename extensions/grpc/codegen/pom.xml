@@ -73,6 +73,12 @@
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protoc</artifactId>
+            <classifier>linux-ppcle_64</classifier>
+            <type>exe</type>
+        </dependency>
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protoc</artifactId>
             <classifier>osx-x86_64</classifier>
             <type>exe</type>
         </dependency>
@@ -110,6 +116,12 @@
             <groupId>io.grpc</groupId>
             <artifactId>protoc-gen-grpc-java</artifactId>
             <classifier>linux-x86_64</classifier>
+            <type>exe</type>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>protoc-gen-grpc-java</artifactId>
+            <classifier>linux-ppcle_64</classifier>
             <type>exe</type>
         </dependency>
         <dependency>

@@ -6080,6 +6080,13 @@
         </exclusions>
       </dependency>
       <dependency>
+        <groupId>com.google.protobuf</groupId>
+        <artifactId>protoc</artifactId>
+        <version>3.22.0</version>
+        <type>exe</type>
+        <classifier>linux-ppcle_64</classifier>
+      </dependency>
+      <dependency>
         <groupId>com.ibm.icu</groupId>
         <artifactId>icu4j</artifactId>
         <version>73.2</version>
@@ -6160,6 +6167,13 @@
         <groupId>commons-lang</groupId>
         <artifactId>commons-lang</artifactId>
         <version>2.6</version>
+      </dependency>
+      <dependency>
+        <groupId>io.grpc</groupId>
+        <artifactId>protoc-gen-grpc-java</artifactId>
+        <version>1.57.2</version>
+        <type>exe</type>
+        <classifier>linux-ppcle_64</classifier>
       </dependency>
       <dependency>
         <groupId>io.minio</groupId>
