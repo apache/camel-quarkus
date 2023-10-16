@@ -37,9 +37,9 @@ public class FtpsTestResource extends FtpTestResource {
 
     @Override
     public Map<String, String> start() {
-        try (InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("server.jks")) {
-            Objects.requireNonNull(stream, "FTP keystore file server.jks could not be loaded");
-            keystoreFilePath = Files.createTempFile("camel-ftps-keystore", "jks");
+        try (InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("keystore.p12")) {
+            Objects.requireNonNull(stream, "FTP keystore file keystore.p12 could not be loaded");
+            keystoreFilePath = Files.createTempFile("camel-ftps-keystore", "p12");
             Files.write(keystoreFilePath, stream.readAllBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);
