@@ -845,11 +845,6 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
-        <artifactId>camel-endpointdsl-support</artifactId>
-        <version>4.2.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
         <artifactId>camel-etcd3</artifactId>
         <version>4.2.0-SNAPSHOT</version>
         <exclusions>
@@ -1171,11 +1166,6 @@
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-groovy-dsl</artifactId>
-        <version>4.2.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
-        <artifactId>camel-groovy-dsl-common</artifactId>
         <version>4.2.0-SNAPSHOT</version>
       </dependency>
       <dependency>
@@ -2567,16 +2557,6 @@
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-yaml-dsl</artifactId>
-        <version>4.2.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
-        <artifactId>camel-yaml-dsl-common</artifactId>
-        <version>4.2.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
-        <artifactId>camel-yaml-dsl-deserializers</artifactId>
         <version>4.2.0-SNAPSHOT</version>
       </dependency>
       <dependency>
@@ -6215,7 +6195,7 @@
       <dependency>
         <groupId>io.projectreactor.netty</groupId>
         <artifactId>reactor-netty</artifactId>
-        <version>1.1.11</version>
+        <version>1.1.12</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.freemarker</groupId>
@@ -6526,11 +6506,6 @@
         <version>2.0.2</version>
       </dependency>
       <dependency>
-        <groupId>org.graalvm.js</groupId>
-        <artifactId>js</artifactId>
-        <version>23.0.1</version>
-      </dependency>
-      <dependency>
         <groupId>org.influxdb</groupId>
         <artifactId>influxdb-java</artifactId>
         <version>2.23</version>
@@ -6539,16 +6514,6 @@
         <groupId>org.javassist</groupId>
         <artifactId>javassist</artifactId>
         <version>3.29.2-GA</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jetbrains.kotlin</groupId>
-        <artifactId>kotlin-scripting-jvm</artifactId>
-        <version>1.9.10</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jetbrains.kotlin</groupId>
-        <artifactId>kotlin-scripting-jvm-host</artifactId>
-        <version>1.9.10</version>
       </dependency>
       <dependency>
         <groupId>org.mapstruct</groupId>
@@ -6593,7 +6558,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-aop</artifactId>
-        <version>6.0.12</version>
+        <version>6.0.13</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -6608,7 +6573,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-expression</artifactId>
-        <version>6.0.12</version>
+        <version>6.0.13</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -6619,7 +6584,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-jdbc</artifactId>
-        <version>6.0.12</version>
+        <version>6.0.13</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -6634,7 +6599,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-jms</artifactId>
-        <version>6.0.12</version>
+        <version>6.0.13</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -6649,7 +6614,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-messaging</artifactId>
-        <version>6.0.12</version>
+        <version>6.0.13</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -6664,7 +6629,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-tx</artifactId>
-        <version>6.0.12</version>
+        <version>6.0.13</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
