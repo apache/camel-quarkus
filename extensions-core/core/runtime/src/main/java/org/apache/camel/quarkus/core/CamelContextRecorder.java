@@ -69,8 +69,12 @@ public class CamelContextRecorder {
         extendedCamelContext.addContextPlugin(FactoryFinderResolver.class, factoryFinderResolver.getValue());
         extendedCamelContext.addContextPlugin(RuntimeCamelCatalog.class, new CamelRuntimeCatalog(config.runtimeCatalog));
         extendedCamelContext.setRegistry(registry.getValue());
-        context.setTypeConverterRegistry(typeConverterRegistry.getValue());
+
+        TypeConverterRegistry typeConverterRegistryValue = typeConverterRegistry.getValue();
+        typeConverterRegistryValue.setInjector(new FastTypeConverterInjector(context));
+        context.setTypeConverterRegistry(typeConverterRegistryValue);
         context.setLoadTypeConverters(false);
+
         extendedCamelContext.addContextPlugin(ModelJAXBContextFactory.class, contextFactory.getValue());
         extendedCamelContext.addContextPlugin(PackageScanClassResolver.class, packageScanClassResolver.getValue());
         context.build();

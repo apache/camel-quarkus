@@ -36,7 +36,6 @@ import org.apache.camel.quarkus.it.support.typeconverter.pairs.MyBulk1Pair;
 import org.apache.camel.quarkus.it.support.typeconverter.pairs.MyBulk2Pair;
 import org.apache.camel.quarkus.it.support.typeconverter.pairs.MyLoaderPair;
 import org.apache.camel.quarkus.it.support.typeconverter.pairs.MyRegistryPair;
-import org.apache.camel.spi.Registry;
 import org.apache.camel.support.DefaultExchange;
 import org.apache.camel.util.CollectionHelper;
 
@@ -44,22 +43,36 @@ import org.apache.camel.util.CollectionHelper;
 @ApplicationScoped
 public class ConverterResource {
     @Inject
-    Registry registry;
-    @Inject
     CamelContext context;
 
     @Path("/myRegistryPair")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public MyRegistryPair converterMyRegistrPair(String input) {
+    public MyRegistryPair converterMyRegistryPair(String input) {
         return context.getTypeConverter().convertTo(MyRegistryPair.class, input);
     }
 
-    @Path("/myTestPair")
+    @Path("/myTestPair/string")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public MyTestPair fromStringToMyTestPair(String input) {
         return context.getTypeConverter().convertTo(MyTestPair.class, input);
+    }
+
+    @Path("/myTestPair/int")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public MyTestPair fromIntToMyTestPair(String input) {
+        Integer valueToConvert = Integer.valueOf(input);
+        return context.getTypeConverter().convertTo(MyTestPair.class, valueToConvert);
+    }
+
+    @Path("/myTestPair/float")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public MyTestPair fromFloatToMyTestPair(String input) {
+        Float valueToConvert = Float.valueOf(input);
+        return context.getTypeConverter().convertTo(MyTestPair.class, valueToConvert);
     }
 
     @Path("/myLoaderPair")
@@ -93,7 +106,7 @@ public class ConverterResource {
     @Path("/setStatisticsEnabled")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public void cnverterSetStatisticsEnabled(boolean value) {
+    public void converterSetStatisticsEnabled(boolean value) {
         context.getTypeConverterRegistry().getStatistics().setStatisticsEnabled(value);
         if (value) {
             context.getTypeConverterRegistry().getStatistics().reset();
@@ -122,7 +135,7 @@ public class ConverterResource {
     @Produces(MediaType.APPLICATION_JSON)
     public MyExchangePair convertMyExchangePair(String input, @QueryParam("converterValue") String converterValue) {
         Exchange e = new DefaultExchange(context);
-        e.setProperty(TestConverters.CONVERTER_VALUE, converterValue);
+        e.setProperty(StaticMethodConverter.CONVERTER_VALUE, converterValue);
         return context.getTypeConverter().convertTo(MyExchangePair.class, e, input);
     }
 

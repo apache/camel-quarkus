@@ -35,9 +35,19 @@ public class ConverterTest {
     }
 
     @Test
-    void testConverterFromAnnotation() {
+    void testConverterFromAnnotationWithStaticMethods() {
         //converter with annotation present in this module
-        testConverter("/converter/myTestPair", "a:b", "test_a", "b");
+        testConverter("/converter/myTestPair/string", "a:b", "test_a", "b");
+    }
+
+    @Test
+    void testConverterFromAnnotationWithNonStaticMethods() {
+        testConverter("/converter/myTestPair/int", "1", "test_1", "2");
+    }
+
+    @Test
+    void testConverterFromAnnotationAsCdiBean() {
+        testConverter("/converter/myTestPair/float", "2.0", "test_2.0", "3.0");
     }
 
     @Test
@@ -90,7 +100,7 @@ public class ConverterTest {
         enableStatistics(true);
 
         //cause 1 hit
-        testConverterFromAnnotation();
+        testConverterFromAnnotationWithStaticMethods();
 
         RestAssured.when().get("/converter/getStatisticsHit").then().body("hit", is(1), "miss", is(0));
 
@@ -113,13 +123,13 @@ public class ConverterTest {
         testConverter(url, body, 200, expectedKey, expectedValue);
     }
 
-    private void testConverter(String url, String body, int expectedResutCode, String expectedKey, String expectedValue) {
+    private void testConverter(String url, String body, int expectedResultCode, String expectedKey, String expectedValue) {
         ValidatableResponse response = RestAssured.given()
                 .contentType(ContentType.TEXT).body(body)
                 .accept(MediaType.APPLICATION_JSON)
                 .post(url)
                 .then()
-                .statusCode(expectedResutCode);
+                .statusCode(expectedResultCode);
 
         if (expectedKey != null) {
             response.body("key", is(expectedKey), "val", is(expectedValue));
