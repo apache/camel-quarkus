@@ -42,11 +42,9 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.maven.dependency.ArtifactKey;
 import io.quarkus.runtime.RuntimeValue;
 import io.smallrye.common.annotation.Identifier;
-import org.apache.camel.Converter;
 import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
 import org.apache.camel.quarkus.core.CamelCapabilities;
 import org.apache.camel.quarkus.core.CamelConfig;
@@ -107,6 +105,8 @@ class CamelProcessor {
             "org.apache.camel.Producer");
     private static final DotName PREDICATE_TYPE = DotName.createSimple(
             "org.apache.camel.Predicate");
+    private static final DotName CONVERTER_TYPE = DotName.createSimple(
+            "org.apache.camel.Converter");
 
     private static final Set<DotName> UNREMOVABLE_BEANS_TYPES = CamelSupport.setOf(
             ROUTES_BUILDER_TYPE,
@@ -231,7 +231,7 @@ class CamelProcessor {
             ApplicationArchivesBuildItem applicationArchives,
             List<CamelTypeConverterLoaderBuildItem> additionalLoaders,
             CombinedIndexBuildItem combinedIndex,
-            BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+            BuildProducer<UnremovableBeanBuildItem> unremovableBean) {
 
         IndexView index = combinedIndex.getIndex();
 
@@ -270,7 +270,7 @@ class CamelProcessor {
             ArtifactKey artifactKey = archive.getKey();
             if (artifactKey != null && "org.apache.camel".equals(artifactKey.getGroupId())
                     && artifactKey.getArtifactId().startsWith("camel-")) {
-                internalConverters.addAll(archive.getIndex().getAnnotations(DotName.createSimple(Converter.class.getName()))
+                internalConverters.addAll(archive.getIndex().getAnnotations(CONVERTER_TYPE)
                         .stream().filter(a -> a.target().kind() == AnnotationTarget.Kind.CLASS)
                         .map(a -> a.target().asClass().name().toString())
                         .collect(Collectors.toSet()));
@@ -278,7 +278,7 @@ class CamelProcessor {
         }
 
         Set<Class<?>> convertersClasses = index
-                .getAnnotations(DotName.createSimple(Converter.class.getName()))
+                .getAnnotations(CONVERTER_TYPE)
                 .stream().filter(a -> a.target().kind() == AnnotationTarget.Kind.CLASS &&
                         (a.value("generateBulkLoader") == null || !a.value("generateBulkLoader").asBoolean()) &&
                         (a.value("generateLoader") == null || !a.value("generateLoader").asBoolean()))
@@ -288,6 +288,9 @@ class CamelProcessor {
                 .collect(Collectors.toSet());
 
         recorder.loadAnnotatedConverters(typeConverterRegistry, convertersClasses);
+
+        // Enable @Converter annotated classes to be CDI beans
+        unremovableBean.produce(UnremovableBeanBuildItem.beanClassAnnotation(CONVERTER_TYPE));
 
         //
         // User can register loaders by providing a CamelTypeConverterLoaderBuildItem that can be used to

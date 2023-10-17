@@ -25,7 +25,7 @@ import org.apache.camel.quarkus.core.converter.it.model.MyTestPair;
 import org.apache.camel.spi.TypeConverterRegistry;
 
 @Converter
-public class TestConverters {
+public class StaticMethodConverter {
 
     public static final String CONVERTER_VALUE = "converter_value";
 
