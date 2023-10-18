@@ -27,6 +27,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.RouteConfigurationsBuilder;
 import org.apache.camel.RoutesBuilder;
+import org.apache.camel.TypeConverter;
 import org.apache.camel.builder.LambdaRouteBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
@@ -70,6 +71,7 @@ public class CamelContextRecorder {
         extendedCamelContext.addContextPlugin(RuntimeCamelCatalog.class, new CamelRuntimeCatalog(config.runtimeCatalog));
         extendedCamelContext.setRegistry(registry.getValue());
         context.setTypeConverterRegistry(typeConverterRegistry.getValue());
+        context.setTypeConverter((TypeConverter) typeConverterRegistry.getValue());
         context.setLoadTypeConverters(false);
         extendedCamelContext.addContextPlugin(ModelJAXBContextFactory.class, contextFactory.getValue());
         extendedCamelContext.addContextPlugin(PackageScanClassResolver.class, packageScanClassResolver.getValue());

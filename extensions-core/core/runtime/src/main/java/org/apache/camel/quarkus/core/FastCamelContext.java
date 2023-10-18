@@ -108,6 +108,11 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
     }
 
     @Override
+    protected boolean eagerCreateTypeConverter() {
+        return false;
+    }
+
+    @Override
     protected TypeConverter createTypeConverter() {
         // TypeConverter impls are resolved at build time
         throw new UnsupportedOperationException();
