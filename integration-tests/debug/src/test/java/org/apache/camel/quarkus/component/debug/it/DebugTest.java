@@ -32,6 +32,8 @@ import io.restassured.RestAssured;
 import org.apache.camel.ServiceStatus;
 import org.apache.camel.api.management.mbean.ManagedBacklogDebuggerMBean;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import static org.apache.camel.component.debug.JmxConnectorService.DEFAULT_HOST;
 import static org.apache.camel.component.debug.JmxConnectorService.DEFAULT_REGISTRY_PORT;
@@ -42,6 +44,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 @QuarkusTest
+@DisabledOnOs(value = OS.WINDOWS, disabledReason = "https://github.com/apache/camel-quarkus/issues/5443")
 public class DebugTest {
 
     @Test
