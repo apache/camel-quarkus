@@ -6061,7 +6061,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-pubsub</artifactId>
-        <version>1.125.0</version>
+        <version>1.125.6</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.android</groupId>
