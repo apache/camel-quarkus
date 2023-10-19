@@ -167,6 +167,7 @@
                 </dependency>
             </dependencies>
         </profile>
+        <!-- TODO: https://github.com/apache/camel-quarkus/issues/5441
         <profile>
             <id>native</id>
             <activation>
@@ -194,6 +195,7 @@
                 </plugins>
             </build>
         </profile>
+        -->
     </profiles>
 
 </project>
