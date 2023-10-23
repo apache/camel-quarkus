@@ -17,7 +17,7 @@
 
 
 new File(basedir, "document.xml").withReader {
-    def document = new groovy.util.XmlSlurper().parse(it)
+    def document = new groovy.xml.XmlSlurper().parse(it)
 
     assert document.rest.@path == '/camel/'
     assert document.rest.get.size() == 1
