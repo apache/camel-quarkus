@@ -265,10 +265,10 @@ jobs:
           ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip -Dcamel-quarkus.update-extension-doc-page.skip \
             test
-      - name: cd tooling/perf-regression && mvn verify
+      - name: cd tooling && mvn verify
         run: |
-          cd tooling/perf-regression
-          ../../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
+          cd tooling
+          ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
             verify
       - name: cd catalog && mvn test
