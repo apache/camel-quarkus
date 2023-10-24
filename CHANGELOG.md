@@ -1,5 +1,82 @@
 # Changelog
 
+## 3.5.0
+
+* Test Prometheus metrics with CXF SOAP client and service by @ppalaga in https://github.com/apache/camel-quarkus/pull/5297
+* Next is 3.5.0 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/5307
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5313
+* Upgrade to Quarkus CXF 2.4.0 by @ppalaga in https://github.com/apache/camel-quarkus/pull/5311
+* Updates to LDAP tests and usage docs by @djcoleman in https://github.com/apache/camel-quarkus/pull/5310
+* Exclude vertx-grpc dependencies from Google BigQuery and Google PubSub extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5315
+* ldap: fixup query name parameter in itest by @aldettinger in https://github.com/apache/camel-quarkus/pull/5316
+* Bump quarkiverse-pooled-jms.version from 2.1.0 to 2.2.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/5320
+* Bump quarkiverse-jgit.version from 3.0.4 to 3.0.5 by @dependabot in https://github.com/apache/camel-quarkus/pull/5321
+* Improve implementation of GooglePubsubTest.testOrdering by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5322
+* Update jms doc to add some usages about IBM MQ Client by @zhfeng in https://github.com/apache/camel-quarkus/pull/5317
+* Bump io.quarkiverse.artemis:quarkus-artemis-bom from 3.1.0 to 3.1.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/5325
+* Update graalvm-docs-version in antora.yml by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5327
+* Remove redundant usage.adoc from xml-jaxp extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5329
+* Upgrade Quarkus to 3.4.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5338
+* Add xslt prefix to grouped XML test sub-modules so that the intent is clear by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5339
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5341
+* Bump com.unboundid:unboundid-ldapsdk from 6.0.9 to 6.0.10 by @dependabot in https://github.com/apache/camel-quarkus/pull/5331
+* file: migrate file creation test to new harness #3584 by @aldettinger in https://github.com/apache/camel-quarkus/pull/5340
+* Upgrade to Quarkus CXF 2.4.1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/5355
+* Create basic Azure Servicebus tests by @ldrozdo in https://github.com/apache/camel-quarkus/pull/5333
+* Mongodb: native build fails because of CredentialsProviderFinder by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5336
+* Add basic test coverage for xml-jaxp type converters by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5346
+* Add Camel service inclusion pattern for periodic-task by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5348
+* Upgrade Camel to 4.0.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5354
+* Xslt-saxon: native build fails because of BrotliInputSreamFactory by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5351
+* Regen by @zhfeng in https://github.com/apache/camel-quarkus/pull/5357
+* Update CHANGELOG with 3.2.0 & 3.4.0 releases by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5358
+* Regenerate extension metadata by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5364
+* Improve descriptions for xml-jaxp & yaml-io extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5370
+* Aws2 kinesis: native build fails because of missing netty by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5362
+* Remove guide link metadata from camel-k extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5365
+* Kafka: native build fails because of missing vertx by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5367
+* Salesforce: native build fails because of missing netty by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5371
+* Revert Force Oracle devservices image to gvenzl/oracle-free:23.2-slim by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5374
+* Add note for jvmstat to management extension native JMX documentation by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5376
+* Bump com.mycila:license-maven-plugin from 4.2 to 4.3 by @dependabot in https://github.com/apache/camel-quarkus/pull/5377
+* Add missing quarkus-netty dependency to gRPC extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5383
+* Upgrade github actions to latest versions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5385
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5387
+* feat(native): support Native Sources by @squakez in https://github.com/apache/camel-quarkus/pull/5380
+* Fix package name for xml-jaxp integration tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5388
+* Speed up examples CI build step by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5386
+* Allow extensions to inject kamelets resources by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/5392
+* generalize kubernetes version label updates to all examples in release procedure by @aldettinger in https://github.com/apache/camel-quarkus/pull/5394
+* jta: fix dataSource bean reference in documentation by @aldettinger in https://github.com/apache/camel-quarkus/pull/5395
+* Disable Quarkus integration-tests module due to quarkusio/quarkus#36245 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5397
+* Bump quarkiverse-groovy.version from 3.2.2 to 3.4.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/5401
+* Change description of this project which is presented in google result by @oscerd in https://github.com/apache/camel-quarkus/pull/5402
+* Remove Google Cloud native build limitation for RunReachabilityHandlersConcurrently option by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5403
+* Bump org.seleniumhq.selenium:htmlunit-driver from 4.12.0 to 4.13.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/5406
+* Camel-k-runtime tests is failing in Quarkus platform #5319 by @spatnity in https://github.com/apache/camel-quarkus/pull/5404
+* perf-tool: upgrade hyperfoil version by @aldettinger in https://github.com/apache/camel-quarkus/pull/5408
+* Use ImageMode enum in XmlJaxbRecorder instead of graal-sdk APIs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5410
+* Remove redundant cxf.version property by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5409
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5412
+* Combine container-license-acceptance.txt in jdbc-grouped test module by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5414
+* perf: Upgrade to Java 17 #5417 by @aldettinger in https://github.com/apache/camel-quarkus/pull/5418
+* Upgrade Camel to 4.1.0 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5415
+* Upgrade Quarkus to 3.5.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5420
+* Sql: Test SqlTest#testDefaultErrorCode fails with mssql by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5416
+* Splunk docker image for testing should be 9.0 (not 9.1) by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5423
+* Bump io.quarkiverse.artemis:quarkus-artemis-bom from 3.1.1 to 3.1.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/5421
+* Remove erroneous SpoolRule reflective class configuration from camel-k-runtime extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5425
+* Reformat generated files by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5426
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5428
+* Add gRPC codegen protoc support for ppc64le architecture by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5431
+* Support user TypeConverter as CDI beans by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5436
+* Ftp fails in the FIPS because of the not supported key. by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5433
+* Fix #5437 to avoid FastCamelContext creating TypeConverter by @zhfeng in https://github.com/apache/camel-quarkus/pull/5439
+* Upgrade Quarkus to 3.5.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5440
+
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.4.0...3.5.0
+
 ## 3.2.1
 
 * [3.2.x] Reinstate auto update of antora.yml camel-docs-version attribute by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5239
