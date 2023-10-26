@@ -41,6 +41,8 @@ if (!missingFiles.isEmpty()) {
 }
 
 
+project.properties['camel-quarkus.version'] = project.version.replace("-SNAPSHOT", "")
+
 final Pattern replacementPattern = ~'([\\-\\:]) *([^ ]+) *# * replace \\$\\{([^}]+)\\}'
 
 replaceInFiles.each { path ->

@@ -83,14 +83,64 @@ Note that not all combinations of artifacts managed by the various BOMs are test
 
 == Combining with other BOMs
 
-When combining `camel-quarkus-bom` with any other BOM,
+When combining `quarkus-camel-bom` with any other BOM,
 think carefully in which order you import them,
 because the order of imports defines the precedence.
 
-I.e. if `my-foo-bom` is imported before `camel-quarkus-bom` then the versions defined in
+I.e. if `my-foo-bom` is imported before `quarkus-camel-bom` then the versions defined in
 `my-foo-bom` will take the precedence.
-This might or might not be what you want, depending on whether there are any overlaps between `my-foo-bom` and `camel-quarkus-bom`
-and depending on whether those versions with higher precedence work with the rest of the artifacts managed in `camel-quarkus-bom`.
+This might or might not be what you want, depending on whether there are any overlaps between `my-foo-bom` and `quarkus-camel-bom`
+and depending on whether those versions with higher precedence work with the rest of the artifacts managed in `quarkus-camel-bom`.
+
+== Upgrading to new Camel Quarkus releases
+
+Assuming you are importing `quarkus-bom` and `quarkus-camel-bom` in your project, upgrading to new releases should be a simple case of incrementing the `quarkus.platform.version` property.
+
+Sometimes it happens that the latest Camel Quarkus release is not yet availble via the `quarkus-camel-bom`.
+To work around this, you can replace the `io.quarkus.platform:quarkus-camel-bom` import with `org.apache.camel.quarkus:camel-quarkus-bom`.
+
+Note that if you do this, some dependencies in `camel-quarkus-bom` may not be perfectly aligned with other Quarkus universe members as they would be in `quarkus-camel-bom`.
+
+[source,xml,subs="attributes+"]
+----
+<project>
+  ...
+  <properties>
+    <quarkus.platform.version>{quarkus-version}</quarkus.platform.version>
+    <camel-quarkus.version>{camel-quarkus-version}</camel-quarkus.version>
+    ...
+  </properties>
+  <dependencyManagement>
+    <dependencies>
+      <!-- The BOMs managing the dependency versions -->
+      <dependency>
+        <groupId>io.quarkus.platform</groupId>
+        <artifactId>quarkus-bom</artifactId>
+        <version>${quarkus.platform.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-bom</artifactId>
+        <version>${camel-quarkus.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+</project>
+----
+
+IMPORTANT: Ensure that the major.minor version parts of `quarkus.platform.version` & `camel-quarkus.version` match. Mixing different release streams will likely result in build or runtime errors.
+
+When upgrading from one major release to another (E.g from 2.x to 3.x).
+Quarkus provides an https://quarkus.io/guides/update-quarkus[updater tool] that can apply the necessary modifications to your project and make it compatible with the new major release.
+
+In addition, Camel & Camel Quarkus publish migration guides that document potential breaking changes.
+
+* xref:manual::migration-and-upgrade.adoc[Camel migration guides]
+* xref:migration-guide/index.adoc[Camel Quarkus migration guides]
 
 == What's next?
 
