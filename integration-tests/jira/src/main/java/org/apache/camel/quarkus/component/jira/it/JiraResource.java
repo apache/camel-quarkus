@@ -19,9 +19,7 @@ package org.apache.camel.quarkus.component.jira.it;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.atlassian.jira.rest.client.api.domain.Comment;
@@ -173,13 +171,12 @@ public class JiraResource {
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     public Response watchIssue(@PathParam("key") String key, @QueryParam("action") String action, String watchers) {
-        List<String> watchList = Collections.singletonList(watchers);
         Map<String, Object> headers = new HashMap<>();
         headers.put(ISSUE_KEY, key);
         if (action.equals("watch")) {
-            headers.put(ISSUE_WATCHERS_ADD, watchList);
+            headers.put(ISSUE_WATCHERS_ADD, watchers);
         } else if (action.equals("unwatch")) {
-            headers.put(ISSUE_WATCHERS_REMOVE, watchList);
+            headers.put(ISSUE_WATCHERS_REMOVE, watchers);
         } else {
             throw new IllegalArgumentException("Unknown watch action: " + action);
         }
@@ -193,7 +190,7 @@ public class JiraResource {
         Map<String, Object> headers = new HashMap<>();
         headers.put(PARENT_ISSUE_KEY, parentKey);
         headers.put(CHILD_ISSUE_KEY, childKey);
-        headers.put(LINK_TYPE, "Related");
+        headers.put(LINK_TYPE, "Relates");
 
         producerTemplate.requestBodyAndHeaders("jira:addIssueLink", null, headers);
 
