@@ -77,6 +77,8 @@
                 <include>org.springframework:spring-tx</include>
                 <include>org.springframework.amqp:spring-amqp</include>
                 <include>org.springframework.amqp:spring-rabbit</include>
+                <include>org.springframework.data:spring-data-keyvalue</include><!-- required by camel-spring-redis -->
+                <include>org.springframework.data:spring-data-redis</include><!-- required by camel-spring-redis -->
                 <include>org.springframework.retry:spring-retry</include>
                 <include>org.springframework.vault:spring-vault-core</include><!-- required by camel-hashicorp-vault -->
                 <!-- Also note that the following Spring artifacts are available (shaded)

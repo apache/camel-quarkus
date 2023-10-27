@@ -2259,6 +2259,17 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-spring-redis</artifactId>
+        <version>4.1.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-sql</artifactId>
         <version>4.1.0</version>
       </dependency>
@@ -5148,6 +5159,16 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-spring-redis</artifactId>
+        <version>3.6.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-spring-redis-deployment</artifactId>
+        <version>3.6.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-sql</artifactId>
         <version>3.6.0-SNAPSHOT</version>
       </dependency>
@@ -6677,6 +6698,37 @@
         </exclusions>
       </dependency>
       <dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-redis</artifactId>
+        <version>3.1.2</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-oxm</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
         <groupId>org.threeten</groupId>
         <artifactId>threetenbp</artifactId>
         <version>1.6.0</version>
@@ -6700,6 +6752,11 @@
         <groupId>org.web3j</groupId>
         <artifactId>quorum</artifactId>
         <version>4.10.0</version>
+      </dependency>
+      <dependency>
+        <groupId>redis.clients</groupId>
+        <artifactId>jedis</artifactId>
+        <version>4.4.3</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk.crt</groupId>

@@ -91,6 +91,7 @@
         <module>smpp</module>
         <module>snmp</module>
         <module>splunk-hec</module>
+        <module>spring-redis</module>
         <module>stitch</module>
         <module>stomp</module>
         <module>stub</module>
