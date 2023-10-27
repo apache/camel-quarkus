@@ -6114,7 +6114,7 @@
       <dependency>
         <groupId>com.google.protobuf</groupId>
         <artifactId>protoc</artifactId>
-        <version>3.22.0</version>
+        <version>3.24.4</version>
         <type>exe</type>
         <classifier>linux-ppcle_64</classifier>
       </dependency>
@@ -6203,7 +6203,7 @@
       <dependency>
         <groupId>io.grpc</groupId>
         <artifactId>protoc-gen-grpc-java</artifactId>
-        <version>1.57.2</version>
+        <version>1.59.0</version>
         <type>exe</type>
         <classifier>linux-ppcle_64</classifier>
       </dependency>
@@ -6428,7 +6428,7 @@
       <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>connect-runtime</artifactId>
-        <version>3.5.1</version>
+        <version>3.6.0</version>
         <exclusions>
           <exclusion>
             <groupId>javax.activation</groupId>

@@ -25,12 +25,10 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.kubernetes.client.KubernetesServerTestResource;
 import io.quarkus.test.kubernetes.client.KubernetesTestServer;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 
-@Disabled //https://github.com/apache/camel-quarkus/issues/5318, https://github.com/apache/camel-quarkus/issues/5447
 @QuarkusTest
 @QuarkusTestResource(KubernetesServerTestResource.class)
 public class KubernetesTest {
