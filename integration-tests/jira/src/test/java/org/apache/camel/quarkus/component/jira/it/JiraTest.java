@@ -402,8 +402,8 @@ public class JiraTest {
 
             String transitionId = System.getenv("JIRA_TRANSITION_ID");
             if (transitionId == null) {
-                // The default for the Jira docker server
-                transitionId = "31";
+                // The default for the 'done' resolution on the Jira docker server
+                transitionId = "41";
             }
 
             // Transition issue
