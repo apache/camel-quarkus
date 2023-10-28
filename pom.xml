@@ -126,6 +126,7 @@
         <jnr-ffi.version>2.2.13</jnr-ffi.version><!-- Mess in web3j transitive deps -->
         <jsch.version>0.2.11</jsch.version><!-- @sync io.quarkiverse.jsch:quarkus-jsch-parent:${quarkiverse-jsch.version} prop:jsch.version -->
         <json-path.version>${json-path-version}</json-path.version>
+        <jedis-client.version>${jedis-client-version}</jedis-client.version>
         <json-smart.version>2.4.10</json-smart.version><!-- @sync com.jayway.jsonpath:json-path:${json-path.version} dep:net.minidev:json-smart -->
         <kafka.version>3.5.1</kafka.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.kafka:kafka-clients -->
         <kudu.version>${kudu-version}</kudu.version>
@@ -146,6 +147,7 @@
         <retrofit.version>2.9.0</retrofit.version><!-- @sync org.influxdb:influxdb-java:${influxdb.version} dep:com.squareup.retrofit2:retrofit -->
         <smallrye.reactive.messaging.camel.version>4.10.1</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
         <spring.version>${spring-version}</spring.version>
+        <spring.data.redis.version>${spring-data-redis-version}</spring.data.redis.version>
         <snakeyaml.version>2.1</snakeyaml.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.yaml:snakeyaml -->
         <snakeyaml-engine.version>${snakeyaml-engine-version}</snakeyaml-engine.version><!-- Resolve conflict between camel-snakeyaml & kubernetes-client -->
         <tablesaw.version>0.43.1</tablesaw.version>
