@@ -6260,16 +6260,6 @@
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.minio</groupId>
-        <artifactId>quarkus-minio</artifactId>
-        <version>3.1.0.Final</version>
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.minio</groupId>
-        <artifactId>quarkus-minio-deployment</artifactId>
-        <version>3.1.0.Final</version>
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.minio</groupId>
         <artifactId>quarkus-minio-native</artifactId>
         <version>3.1.0.Final</version>
       </dependency>
