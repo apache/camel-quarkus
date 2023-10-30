@@ -21,6 +21,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.camel.Handler;
 import org.apache.camel.support.language.DefaultAnnotationExpressionFactory;
 import org.apache.camel.support.language.LanguageAnnotation;
 import org.jboss.jandex.AnnotationInstance;
@@ -68,4 +69,19 @@ class BeanProcessor {
         }
     }
 
+    @BuildStep
+    void registerBeanHandlersForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+            CombinedIndexBuildItem combinedIndex) {
+        IndexView index = combinedIndex.getIndex();
+        DotName handlerAnnotation = DotName.createSimple(Handler.class.getName());
+        index.getAnnotations(handlerAnnotation).forEach(annotationInstance -> {
+            DotName className = annotationInstance.target().asMethod().declaringClass().name();
+            ReflectiveClassBuildItem reflectiveClassBuildItem = ReflectiveClassBuildItem.builder(className.toString())
+                    .methods()
+                    .build();
+
+            reflectiveClass.produce(reflectiveClassBuildItem);
+
+        });
+    }
 }

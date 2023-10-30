@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.bean;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
 import org.apache.camel.Exchange;
@@ -24,7 +23,6 @@ import org.apache.camel.Handler;
 
 @ApplicationScoped
 @Named("withHandlerOnProxy")
-@RegisterForReflection
 public class WithHandlerBean {
     /**
      * Just set an hello message.
