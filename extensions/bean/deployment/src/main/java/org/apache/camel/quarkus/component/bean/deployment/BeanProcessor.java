@@ -37,6 +37,7 @@ class BeanProcessor {
     private static final String FEATURE = "camel-bean";
     private static final Logger LOGGER = LoggerFactory.getLogger(BeanProcessor.class);
     private static final DotName LANGUAGE_ANNOTATION = DotName.createSimple(LanguageAnnotation.class.getName());
+    private static final DotName HANDLER_ANNOTATION = DotName.createSimple(Handler.class.getName());
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -73,8 +74,7 @@ class BeanProcessor {
     void registerBeanHandlersForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
             CombinedIndexBuildItem combinedIndex) {
         IndexView index = combinedIndex.getIndex();
-        DotName handlerAnnotation = DotName.createSimple(Handler.class.getName());
-        index.getAnnotations(handlerAnnotation).forEach(annotationInstance -> {
+        index.getAnnotations(HANDLER_ANNOTATION).forEach(annotationInstance -> {
             DotName className = annotationInstance.target().asMethod().declaringClass().name();
             ReflectiveClassBuildItem reflectiveClassBuildItem = ReflectiveClassBuildItem.builder(className.toString())
                     .methods()
