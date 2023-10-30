@@ -9,5 +9,5 @@ cqJvmSince: 2.8.0
 cqNativeSince: n/a
 cqCamelPartName: azure-servicebus
 cqCamelPartTitle: Azure ServiceBus
-cqCamelPartDescription: Send and receive messages to/from Azure Event Bus.
+cqCamelPartDescription: Send and receive messages to/from Azure Service Bus.
 cqExtensionPageTitle: Azure ServiceBus
