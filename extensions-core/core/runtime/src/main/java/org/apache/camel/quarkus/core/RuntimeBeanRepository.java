@@ -20,12 +20,14 @@ import java.lang.annotation.Annotation;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
 import io.quarkus.arc.Arc;
 import io.quarkus.arc.ArcContainer;
+import io.quarkus.arc.InstanceHandle;
 import io.smallrye.common.annotation.Identifier;
 import jakarta.enterprise.inject.AmbiguousResolutionException;
 import jakarta.enterprise.inject.literal.NamedLiteral;
@@ -148,6 +150,24 @@ public final class RuntimeBeanRepository implements BeanRepository {
         return getBeanManager()
                 .map(manager -> getReferencesByType(manager, type))
                 .orElseGet(Collections::emptySet);
+    }
+
+    @Override
+    public <T> T findSingleByType(Class<T> type) {
+        ArcContainer container = Arc.container();
+        Optional<Annotation[]> qualifiers = resolveQualifiersForType(type);
+        if (container != null) {
+            List<InstanceHandle<T>> handles;
+            if (qualifiers.isPresent()) {
+                handles = container.listAll(type, qualifiers.get());
+            } else {
+                handles = container.listAll(type);
+            }
+            if (handles.size() > 0) {
+                return handles.get(0).get();
+            }
+        }
+        return null;
     }
 
     private Optional<Annotation[]> resolveQualifiersForType(Class<?> type) {
