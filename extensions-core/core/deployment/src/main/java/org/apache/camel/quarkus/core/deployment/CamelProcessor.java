@@ -27,6 +27,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanRegistrationPhaseBuildItem;
@@ -174,7 +175,8 @@ class CamelProcessor {
                 "META-INF/services/org/apache/camel/urifactory/*",
                 "META-INF/services/org/apache/camel/properties-function/*",
                 "META-INF/services/org/apache/camel/health-check/*",
-                "META-INF/services/org/apache/camel/periodic-task/*"));
+                "META-INF/services/org/apache/camel/periodic-task/*",
+                "META-INF/services/org/apache/camel/datatype/transformer/*"));
     }
 
     @BuildStep
