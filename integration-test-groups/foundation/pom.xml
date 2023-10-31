@@ -55,6 +55,7 @@
         <module>seda</module>
         <module>stream</module>
         <module>timer</module>
+        <module>transformer</module>
         <module>type-converter</module>
     </modules>
 
