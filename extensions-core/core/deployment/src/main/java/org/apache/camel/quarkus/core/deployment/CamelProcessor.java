@@ -220,6 +220,10 @@ class CamelProcessor {
                 .build();
         CamelSupport.services(applicationArchives, pathFilter)
                 .forEach(camelServices::produce);
+
+        if (LOGGER.isDebugEnabled()) {
+            debugCamelServiceInclusion(applicationArchives, servicePatterns);
+        }
     }
 
     /*
@@ -437,5 +441,48 @@ class CamelProcessor {
         return new NativeImageResourceBuildItem(
                 "META-INF/services/org/apache/camel/bean-processor-factory",
                 "META-INF/services/org/apache/camel/rest-registry-factory");
+    }
+
+    /**
+     * Useful for identifying Camel services that are potentially not covered by inclusion patterns
+     */
+    private void debugCamelServiceInclusion(ApplicationArchivesBuildItem applicationArchives,
+            List<CamelServicePatternBuildItem> servicePatterns) {
+        PathFilter.Builder pathBuilder = new PathFilter.Builder();
+        servicePatterns.forEach(camelServicePatternBuildItem -> {
+            camelServicePatternBuildItem.getPatterns().forEach(pathBuilder::include);
+        });
+
+        PathFilter filter = pathBuilder.build();
+        HashSet<String> missingServiceIncludes = new HashSet<>();
+
+        for (ApplicationArchive archive : applicationArchives.getAllApplicationArchives()) {
+            for (Path root : archive.getRootDirectories()) {
+                final Path resourcePath = root.resolve("META-INF/services/org/apache/camel");
+
+                if (!Files.isDirectory(resourcePath)) {
+                    continue;
+                }
+
+                try (Stream<Path> files = Files.walk(resourcePath)) {
+                    files.filter(Files::isRegularFile).forEach(file -> {
+                        Path key = root.relativize(file);
+                        if (!filter.asPathPredicate().test(key)) {
+                            missingServiceIncludes.add(key.toString());
+                        }
+                    });
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+        if (!missingServiceIncludes.isEmpty()) {
+            // Note this is only partly reliable info as some include patterns are provided elsewhere independently of camel-quarkus-core
+            LOGGER.debug("Found potential missing service include patterns for the following paths:");
+            missingServiceIncludes.forEach(path -> {
+                LOGGER.debug("Missing service include path: {}", path);
+            });
+        }
     }
 }
