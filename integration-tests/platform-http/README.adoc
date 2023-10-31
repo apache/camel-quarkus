@@ -31,7 +31,7 @@ $ mv server.key server-key.pem
 
 * Generate the PKCS12 trust store
 
-When prompted for pssword, value is _s3cr3t_.
+When prompted for a password, the value is _s3cr3t_.
 ```
 $ keytool -import -file server-cert.pem -alias server -keystore truststore.p12
 ```
