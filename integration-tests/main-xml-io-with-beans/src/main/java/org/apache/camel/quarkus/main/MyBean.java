@@ -16,10 +16,8 @@
  */
 package org.apache.camel.quarkus.main;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.Handler;
 
-@RegisterForReflection
 public class MyBean {
 
     @Handler
