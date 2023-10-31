@@ -39,7 +39,7 @@ public class CamelPrecedeBeanTest {
     CamelContext context;
 
     @Test
-    public void test() {
+    public void testBeanPrecedence() {
         MyTestBean bean = CamelContextHelper.findSingleByType(context, MyTestBean.class);
         assertEquals("bar", bean.getName());
     }
