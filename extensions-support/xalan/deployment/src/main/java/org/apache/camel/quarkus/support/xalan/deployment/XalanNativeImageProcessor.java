@@ -33,17 +33,21 @@ class XalanNativeImageProcessor {
     private static final String TRANSFORMER_FACTORY_SERVICE_FILE_PATH = "META-INF/services/javax.xml.transform.TransformerFactory";
 
     @BuildStep
-    ReflectiveClassBuildItem reflectiveClasses() {
-        return ReflectiveClassBuildItem.builder("org.apache.camel.quarkus.support.xalan.XalanTransformerFactory",
-                "org.apache.xalan.xsltc.dom.ObjectFactory",
-                "org.apache.xalan.xsltc.dom.XSLTCDTMManager",
-                "org.apache.xalan.xsltc.trax.ObjectFactory",
-                "org.apache.xalan.xsltc.trax.TransformerFactoryImpl",
-                "org.apache.xml.dtm.ObjectFactory",
-                "org.apache.xml.dtm.ref.DTMManagerDefault",
-                "org.apache.xml.serializer.OutputPropertiesFactory",
-                "org.apache.xml.serializer.CharInfo",
-                "org.apache.xml.utils.FastStringBuffer").methods().build();
+    List<ReflectiveClassBuildItem> reflectiveClasses() {
+        return Arrays.asList(
+                ReflectiveClassBuildItem.builder("org.apache.camel.quarkus.support.xalan.XalanTransformerFactory",
+                        "org.apache.xalan.xsltc.dom.ObjectFactory",
+                        "org.apache.xalan.xsltc.dom.XSLTCDTMManager",
+                        "org.apache.xalan.xsltc.trax.ObjectFactory",
+                        "org.apache.xalan.xsltc.trax.TransformerFactoryImpl",
+                        "org.apache.xml.dtm.ObjectFactory",
+                        "org.apache.xml.dtm.ref.DTMManagerDefault",
+                        "org.apache.xml.serializer.OutputPropertiesFactory",
+                        "org.apache.xml.serializer.CharInfo",
+                        "org.apache.xml.utils.FastStringBuffer").methods().build(),
+                ReflectiveClassBuildItem.builder("org.apache.xml.serializer.ToHTMLStream",
+                        "org.apache.xml.serializer.ToTextStream",
+                        "org.apache.xml.serializer.ToXMLStream").build());
     }
 
     @BuildStep
