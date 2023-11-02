@@ -17,12 +17,14 @@
 package org.apache.camel.quarkus.component.file.it;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.commons.io.FileUtils;
@@ -42,11 +44,16 @@ public class NonFlakyFileTestResource implements QuarkusTestResourceLifecycleMan
     static final String POLL_ENRICH_FILE_CONTENT = POLL_ENRICH_FILE_NAME + "-CONTENT";
     static final String QUARTZ_SCHEDULED_FILE_NAME = "quartz-schedule-file";
     static final String QUARTZ_SCHEDULED_FILE_CONTENT = QUARTZ_SCHEDULED_FILE_NAME + "-CONTENT";
+    static final String CHARSET_READ_FILE_NAME = "charset-read-file";
+    static final String CHARSET_READ_FILE_CONTENT = "A string with \u00F0 char to be read";
+    static final String CHARSET_WRITE_FILE_CREATION_FOLDER = "charset-write";
+    static final String CHARSET_WRITE_FILE_NAME = "charset-write-file";
+    static final String CHARSET_WRITE_FILE_CONTENT = "A string with \u00F0 char to be written";
     static final String FILE_CREATION_FOLDER = "file-creation";
     static final String FILE_CREATION_FILE_NAME = "should-be-created";
     static final String FILE_CREATION_FILE_CONTENT = FILE_CREATION_FILE_NAME + "-CONTENT";
 
-    private final List<Path> createdTestFiles = new ArrayList<Path>();
+    private final Map<Path, byte[]> createdTestFilesExpectedContent = new HashMap<>();
 
     @Override
     public Map<String, String> start() {
@@ -62,7 +69,10 @@ public class NonFlakyFileTestResource implements QuarkusTestResourceLifecycleMan
 
             createTestFile("quartz-scheduled", QUARTZ_SCHEDULED_FILE_NAME);
 
+            createTestFile("charset-read", CHARSET_READ_FILE_NAME, CHARSET_READ_FILE_CONTENT, StandardCharsets.ISO_8859_1);
+
             // Do not use  createTestFile("file-creation"... as it is already reserved by the createFileShouldSucceed test
+            // Do not use  createTestFile("charset-write"... as it is already reserved by the writeFileWithIso8859_1CharsetShouldSucceed test
 
             ensureAllTestFilesCreatedWithExpectedContent();
         } catch (Exception ex) {
@@ -71,19 +81,25 @@ public class NonFlakyFileTestResource implements QuarkusTestResourceLifecycleMan
         return null;
     }
 
-    private void createTestFile(String testName, String testFileName) throws IOException {
+    private void createTestFile(String testName, String testFileName, String content, Charset charset) throws IOException {
         Path testFilePath = TEST_FILES_FOLDER.resolve(Paths.get(testName, testFileName));
-        FileUtils.writeStringToFile(testFilePath.toFile(), testFileName + "-CONTENT", StandardCharsets.UTF_8);
-        createdTestFiles.add(testFilePath);
+        byte[] contentBytes = content.getBytes(charset);
+        FileUtils.writeByteArrayToFile(testFilePath.toFile(), contentBytes);
+        createdTestFilesExpectedContent.put(testFilePath, contentBytes);
+    }
+
+    private void createTestFile(String testName, String testFileName) throws IOException {
+        createTestFile(testName, testFileName, testFileName + "-CONTENT", StandardCharsets.UTF_8);
     }
 
     private void ensureAllTestFilesCreatedWithExpectedContent() {
-        for (Path path : createdTestFiles) {
+        for (Entry<Path, byte[]> createdTestFileExpectedContent : createdTestFilesExpectedContent.entrySet()) {
+            Path path = createdTestFileExpectedContent.getKey();
             try {
-                String content = FileUtils.readFileToString(path.toFile(), StandardCharsets.UTF_8);
-                String expectedContent = path.toFile().getName() + "-CONTENT";
+                byte[] content = FileUtils.readFileToByteArray(path.toFile());
+                byte[] expectedContent = createdTestFileExpectedContent.getValue();
 
-                if (!expectedContent.equals(content)) {
+                if (!Arrays.equals(expectedContent, content)) {
                     String format = "The NonFlakyFileTestResource failed to create the test file %s with expected content";
                     throw new RuntimeException(String.format(format, path));
                 }
