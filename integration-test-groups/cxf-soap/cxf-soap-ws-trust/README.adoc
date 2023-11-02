@@ -1,0 +1,53 @@
+= WS-Trust tests
+
+== FIPS
+
+Please use profile `fips` if running the tests in the FIPS-enabled environment. The tests have to leverage BouncyCastle-fips dependency instead of standard BouncyCastle.
+
+== Generating keystores
+
+Run following commands in a folder with `cxfca-openssl.config`.
+
+```
+echo "*** Generate keys ***"
+openssl genrsa -out myservice.key 2048
+openssl genrsa -out mysts.key 2048
+openssl genrsa -out myclient.key 2048
+openssl genrsa -out actasclient.key 2048
+
+echo "*** Certificate authority ***"
+echo "When prompted for certificate information, confirm default values."
+openssl genrsa -out cxfca.key 2048
+openssl req -x509 -new -key cxfca.key -nodes -out cxfca.pem -config cxfca-openssl.cnf -days 10000 -extensions v3_req
+openssl req -new -subj '/O=apache.org/OU=eng (NOT FOR PRODUCTION)/CN=cxfca' -x509 -key cxfca.key -out cxfca.crt
+
+echo "*** Generate certificates ***"
+openssl req -new -subj '/O=apache.org/OU=eng (NOT FOR PRODUCTION)/CN=myservice' -key myservice.key -out myservice.csr
+openssl x509 -req -in myservice.csr -CA cxfca.pem -CAkey cxfca.key -CAcreateserial -days 10000 -out myservice.crt
+openssl req -new -subj '/O=apache.org/OU=eng (NOT FOR PRODUCTION)/CN=mysts' -key mysts.key -out mysts.csr
+openssl x509 -req -in mysts.csr -CA cxfca.pem -CAkey cxfca.key -CAcreateserial -days 10000 -out mysts.crt
+openssl req -new -subj '/O=apache.org/OU=eng (NOT FOR PRODUCTION)/CN=myclient' -key myclient.key -out myclient.csr
+openssl x509 -req -in myclient.csr -CA cxfca.pem -CAkey cxfca.key -CAcreateserial -days 10000 -out myclient.crt
+openssl req -new -subj '/O=apache.org/OU=eng (NOT FOR PRODUCTION)/CN=actasclient' -key actasclient.key -out actasclient.csr
+openssl x509 -req -in actasclient.csr -CA cxfca.pem -CAkey cxfca.key -CAcreateserial -days 10000 -out actasclient.crt
+
+echo "*** Export keystores ***"
+echo "When prompted for password, type 'sspass'."
+openssl pkcs12 -export -in myservice.crt -inkey myservice.key -certfile cxfca.crt -name "myservicekey" -out servicestore.p12 -passout pass:sspass -keypbe aes-256-cbc -certpbe aes-256-cbc
+echo "When prompted whether to trust the certificate, type 'yes'."
+keytool -import -trustcacerts -alias mystskey -file mysts.crt -keystore servicestore.p12
+
+echo "When prompted for password, type 'stsspass'."
+openssl pkcs12 -export -in mysts.crt -inkey mysts.key -certfile cxfca.crt -name "mystskey" -out stsstore.p12 -passout pass:stsspass -keypbe aes-256-cbc -certpbe aes-256-cbc
+echo "When prompted whether to trust the certificate, type 'yes'."
+keytool -import -trustcacerts -alias myservicekey -file myservice.crt -keystore stsstore.p12
+keytool -import -trustcacerts -alias myclientkey -file myclient.crt -keystore stsstore.p12
+keytool -import -trustcacerts -alias myactaskey -file actasclient.crt -keystore stsstore.p12
+
+echo "When prompted for password, type 'cspass'."
+openssl pkcs12 -export -in myclient.crt -inkey myclient.key -certfile cxfca.crt -name "myclientkey" -out clientstore.p12 -passout pass:cspass -keypbe aes-256-cbc -certpbe aes-256-cbc
+echo "When prompted whether to trust the certificate, type 'yes'."
+keytool -import -trustcacerts -alias myservicekey -file myservice.crt -keystore clientstore.p12
+keytool -import -trustcacerts -alias mystskey -file mysts.crt -keystore clientstore.p12
+keytool -import -trustcacerts -alias actaskey -file actasclient.crt -keystore clientstore.p12
+```

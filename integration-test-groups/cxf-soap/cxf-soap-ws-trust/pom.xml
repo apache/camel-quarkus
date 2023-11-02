@@ -147,6 +147,36 @@
                 <skipTests>true</skipTests>
             </properties>
         </profile>
+        <profile>
+            <id>fips</id>
+            <activation>
+                <property>
+                    <name>fips</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>io.quarkiverse.cxf</groupId>
+                    <artifactId>quarkus-cxf-services-sts</artifactId>
+                    <exclusions>
+                        <!-- BC-FIPS is used instead of BC-->
+                        <exclusion>
+                            <artifactId>*</artifactId>
+                            <groupId>org.bouncycastle</groupId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+                <dependency>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bc-fips</artifactId>
+                </dependency>
+                <!--Required for registration of BCFIPS -->
+                <dependency>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-security</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 
 </project>
