@@ -11,7 +11,7 @@
     "supportLevel": "Preview",
     "groupId": "org.apache.camel.quarkus",
     "artifactId": "camel-quarkus-qute-component",
-    "version": "3.2.2-SNAPSHOT",
+    "version": "3.2.3-SNAPSHOT",
     "scheme": "qute",
     "extendsScheme": "",
     "syntax": "qute:resourceUri",
