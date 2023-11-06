@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.core.languages.it;
 
-import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 
@@ -69,7 +68,6 @@ public class SimpleTest {
                 .body(is("BYTE_BUFFER"));
     }
 
-    @DisabledOnIntegrationTest("https://github.com/apache/camel-quarkus/issues/5444")
     @Test
     public void simpleExchangeMethods() {
         given().body("Joe").when().post("/core-languages/route/simpleExchangeMethods/String").then()
