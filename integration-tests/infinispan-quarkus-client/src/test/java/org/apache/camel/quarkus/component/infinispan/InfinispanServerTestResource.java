@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.infinispan;
 import java.util.Map;
 
 import org.apache.camel.quarkus.component.infinispan.common.InfinispanCommonServerTestResource;
-import org.infinispan.commons.util.OS;
 
 public class InfinispanServerTestResource extends InfinispanCommonServerTestResource {
 
@@ -32,10 +31,7 @@ public class InfinispanServerTestResource extends InfinispanCommonServerTestReso
         config.put("quarkus.infinispan-client.auth-realm", "default");
         config.put("quarkus.infinispan-client.sasl-mechanism", "DIGEST-MD5");
         config.put("quarkus.infinispan-client.auth-server-name", "infinispan");
-
-        if (OS.getCurrentOs().equals(OS.MAC_OS) || OS.getCurrentOs().equals(OS.WINDOWS)) {
-            config.put("quarkus.infinispan-client.client-intelligence", "BASIC");
-        }
+        config.put("quarkus.infinispan-client.client-intelligence", "BASIC");
 
         return config;
     }
