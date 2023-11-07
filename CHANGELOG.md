@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.2.2
+
+* [3.2.x] Remove Google Cloud native build limitation for RunReachabilityHandlersConcurrently option by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5405
+* Backports 3.2.x by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5413
+* Splunk docker image for testing should be 9.0 (not 9.1) by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5424
+* Sql: Test SqlTest#testDefaultErrorCode fails with mssql by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5435
+* Ftp fails in the FIPS because of the not supported key. by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5434
+* Upgrade Camel to 4.0.2 by @zhfeng in https://github.com/apache/camel-quarkus/pull/5468
+* [3.2.x] Only manage io.quarkiverse.minio:quarkus-minio-native by @zhfeng in https://github.com/apache/camel-quarkus/pull/5471
+* [3.2.x] Register To*Stream classes for reflection by @zhfeng in https://github.com/apache/camel-quarkus/pull/5479
+* [3.2.x] Upgrade Quarkus to 3.2.7.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5481
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.2.1...3.2.2
+
 ## 3.5.0
 
 * Test Prometheus metrics with CXF SOAP client and service by @ppalaga in https://github.com/apache/camel-quarkus/pull/5297
@@ -73,7 +87,6 @@
 * Ftp fails in the FIPS because of the not supported key. by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5433
 * Fix #5437 to avoid FastCamelContext creating TypeConverter by @zhfeng in https://github.com/apache/camel-quarkus/pull/5439
 * Upgrade Quarkus to 3.5.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5440
-
 
 **Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.4.0...3.5.0
 
