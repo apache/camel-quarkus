@@ -31,8 +31,6 @@ import java.util.concurrent.ConcurrentSkipListSet;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.CamelExecutionException;
-import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.deployment.spi.CamelSerializationBuildItem;
 import org.apache.camel.support.DefaultExchangeHolder;
@@ -69,9 +67,7 @@ public class CamelSerializationProcessor {
             Throwable.class.getName(),
 
             // Camel classes
-            CamelExecutionException.class.getName(),
             DefaultExchangeHolder.class.getName(),
-            RuntimeCamelException.class.getName(),
     };
 
     @BuildStep
