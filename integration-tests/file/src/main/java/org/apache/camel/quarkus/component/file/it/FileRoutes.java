@@ -61,9 +61,7 @@ public class FileRoutes extends RouteBuilder {
                 .convertBodyTo(String.class)
                 .to("mock:" + CONSUME_BATCH);
 
-        from("file://target/charsetIsoRead?initialDelay=0&delay=10&delete=true&charset=ISO-8859-1")
-                .routeId("charsetIsoRead")
-                .autoStartup(false)
+        from("file://target/test-files/charset-read?initialDelay=0&delay=10&delete=true&charset=ISO-8859-1")
                 .convertBodyTo(String.class)
                 .to("mock:charsetIsoRead");
 

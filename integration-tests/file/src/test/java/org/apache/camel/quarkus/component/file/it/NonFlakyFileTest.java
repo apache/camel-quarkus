@@ -30,6 +30,10 @@ import io.restassured.http.ContentType;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
+import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.CHARSET_READ_FILE_CONTENT;
+import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.CHARSET_WRITE_FILE_CONTENT;
+import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.CHARSET_WRITE_FILE_CREATION_FOLDER;
+import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.CHARSET_WRITE_FILE_NAME;
 import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.FILE_CREATION_FILE_CONTENT;
 import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.FILE_CREATION_FILE_NAME;
 import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.FILE_CREATION_FOLDER;
@@ -134,6 +138,41 @@ class NonFlakyFileTest {
         await().atMost(1, TimeUnit.SECONDS).until(() -> Files.exists(expectedFilePath));
 
         assertEquals(FILE_CREATION_FILE_CONTENT, readFileToString(expectedFilePath.toFile(), charset));
+    }
+
+    @Test
+    void readFileWithIso8859_1CharsetShouldSucceed() {
+        await().atMost(10, TimeUnit.SECONDS).until(
+                () -> RestAssured
+                        .get("/file/getFromMock/charsetIsoRead")
+                        .then()
+                        .extract().asString(),
+                equalTo(CHARSET_READ_FILE_CONTENT));
+    }
+
+    @Test
+    void writeFileWithIso8859_1CharsetShouldSucceed() throws IOException {
+        String charset = "ISO-8859-1";
+        Path expectedFilePath = TEST_FILES_FOLDER
+                .resolve(Paths.get(CHARSET_WRITE_FILE_CREATION_FOLDER, CHARSET_WRITE_FILE_NAME));
+
+        assertFalse(Files.exists(expectedFilePath));
+
+        // Create a new file in the "test-files" folder so that it's cleared at each run by the NonFlakyFileTestResource
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(CHARSET_WRITE_FILE_CONTENT)
+                .queryParam("folder", CHARSET_WRITE_FILE_CREATION_FOLDER)
+                .queryParam("charset", charset)
+                .queryParam("fileName", CHARSET_WRITE_FILE_NAME)
+                .post("/file/create-file")
+                .then()
+                .statusCode(201);
+
+        await().atMost(1, TimeUnit.SECONDS).until(() -> Files.exists(expectedFilePath));
+
+        assertEquals(CHARSET_WRITE_FILE_CONTENT, readFileToString(expectedFilePath.toFile(), charset));
+
     }
 
 }

@@ -66,14 +66,6 @@ class FileTest {
     }
 
     @Test
-    public void writeThenReadFileWithCharsetShouldSucceed() {
-        RestAssured
-                .get("/file/writeThenReadFileWithCharsetShouldSucceed")
-                .then()
-                .statusCode(204);
-    }
-
-    @Test
     public void batch() throws InterruptedException, UnsupportedEncodingException {
         // Create 2 files
         createFile(FILE_CONTENT_01, "/file/create/" + CONSUME_BATCH);
