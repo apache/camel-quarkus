@@ -6971,6 +6971,7 @@
                         </goals>
                         <phase>process-resources</phase>
                         <configuration>
+                            <onCheckFailure>WARN</onCheckFailure><!-- Workaround https://github.com/quarkusio/quarkus/issues/36952 -->
                             <additionalBoms>
                                 <additionalBom>io.quarkus:quarkus-bom:${quarkus.version}</additionalBom>
                             </additionalBoms>
