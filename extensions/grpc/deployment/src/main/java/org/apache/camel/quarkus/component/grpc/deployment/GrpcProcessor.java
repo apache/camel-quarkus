@@ -51,9 +51,10 @@ import org.jboss.jandex.IndexView;
 import org.jboss.jandex.MethodInfo;
 import org.jboss.jandex.MethodParameterInfo;
 import org.jboss.jandex.Type;
+import org.jboss.logging.Logger;
 
 class GrpcProcessor {
-
+    private static final Logger LOG = Logger.getLogger(GrpcProcessor.class);
     private static final DotName BINDABLE_SERVICE_DOT_NAME = DotName.createSimple(BindableService.class.getName());
     private static final DotName[] STUB_CLASS_DOT_NAMES = new DotName[] {
             DotName.createSimple(AbstractAsyncStub.class.getName()),
@@ -102,7 +103,11 @@ class GrpcProcessor {
         // Override the various sync and async methods so that requests can be intercepted and delegated to Camel routing
         // This mimics similar logic in DefaultBindableServiceFactory that uses Javassist ProxyFactory & MethodHandler
         for (ClassInfo service : bindableServiceImpls) {
+            String superClassName = service.name().toString();
+            String generatedClassName = superClassName + "QuarkusMethodHandler";
+
             if (!Modifier.isAbstract(service.flags())) {
+                logDebugMessage("Ignoring BindableService %s as it is not an interface or abstract class", superClassName);
                 continue;
             }
 
@@ -111,6 +116,7 @@ class GrpcProcessor {
                  * Not skipping it here results in randomly registering the Mutiny one or the right one.
                  * In case the Mutiny service one is registered, the client throws something like
                  * io.grpc.StatusRuntimeException: UNIMPLEMENTED */
+                logDebugMessage("Ignoring BindableService %s as it a Mutiny service", superClassName);
                 continue;
             }
 
@@ -120,18 +126,18 @@ class GrpcProcessor {
                     .filter(className -> className.endsWith("AsyncService"))
                     .findFirst();
             if (asyncServiceInterface.isEmpty()) {
+                logDebugMessage("Ignoring BindableService %s as it does not implement AsyncService", superClassName);
                 continue;
             }
 
-            String superClassName = service.name().toString();
-            String generatedClassName = superClassName + "QuarkusMethodHandler";
-
             // Register the service classes for reflection
             reflectiveClass
-                    .produce(ReflectiveClassBuildItem.builder(service.name().toString()).methods().build());
+                    .produce(ReflectiveClassBuildItem.builder(superClassName).methods().build());
             reflectiveClass.produce(
                     ReflectiveClassBuildItem.builder(service.enclosingClass().toString()).methods().build());
             reflectiveClass.produce(ReflectiveClassBuildItem.builder(generatedClassName).methods().build());
+
+            logDebugMessage("Generating CamelQuarkusBindableService %s extending %s", generatedClassName, superClassName);
 
             try (ClassCreator classCreator = ClassCreator.builder()
                     .classOutput(new GeneratedBeanGizmoAdaptor(generatedBean))
@@ -185,6 +191,9 @@ class GrpcProcessor {
 
                         String returnType = method.returnType().name().toString();
                         try (MethodCreator methodCreator = classCreator.getMethodCreator(method.name(), returnType, params)) {
+                            logDebugMessage("Creating service implementation for method %s in %s", method.name(),
+                                    generatedClassName);
+
                             method.exceptions()
                                     .stream()
                                     .map(type -> type.name().toString())
@@ -238,5 +247,11 @@ class GrpcProcessor {
 
         ResultHandle resultHandle = methodCreator.readInstanceField(fieldCreator.getFieldDescriptor(), methodCreator.getThis());
         return methodCreator.invokeVirtualMethod(method, resultHandle, methodParams);
+    }
+
+    private void logDebugMessage(String message, Object... params) {
+        if (LOG.isDebugEnabled()) {
+            LOG.debugf(message, params);
+        }
     }
 }
