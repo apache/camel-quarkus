@@ -252,24 +252,28 @@ jobs:
           cd extensions-core
           ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip -Dcamel-quarkus.update-extension-doc-page.skip \
+            --fail-at-end \
             test
       - name: cd extensions && mvn test
         run: |
           cd extensions
           ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip -Dcamel-quarkus.update-extension-doc-page.skip \
+            --fail-at-end \
             test
       - name: cd test-framework && mvn test
         run: |
           cd test-framework
           ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip -Dcamel-quarkus.update-extension-doc-page.skip \
+            --fail-at-end \
             test
       - name: cd tooling && mvn verify
         run: |
           cd tooling
           ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
+            --fail-at-end \
             verify
       - name: cd catalog && mvn test
         run: |
