@@ -84,6 +84,35 @@ To generate Salesforce DTOs for your project, use the `salesforce-maven-plugin`.
 </plugin>
 ----
 
+[id="extensions-salesforce-usage-native-mode-support-for-pub-sub-api-with-pojo-pubsubdeserializetype"]
+=== Native mode support for Pub / Sub API with POJO `pubSubDeserializeType`
+
+When using the Camel Salesforce Pub / Sub API and `pubSubDeserializeType` is configured as `POJO`, you must register any classes configured on the `pubSubPojoClass` option for reflection.
+
+For example, given the following route.
+
+[source,java]
+----
+from("salesforce:pubSubSubscribe:/event/TestEvent__e?pubSubDeserializeType=POJO&pubSubPojoClass=org.foo.TestEvent")
+    .log("Received Salesforce POJO topic message: ${body}");
+----
+
+Class `org.foo.TestEvent` would need to be registered for reflection.
+
+[source,java]
+----
+package org.foo;
+
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
+public class TestEvent {
+    // Getters / setters etc
+}
+----
+
+Refer to the xref:user-guide/native-mode.adoc#reflection[Native mode] user guide for more information.
+
 
 [id="extensions-salesforce-ssl-in-native-mode"]
 == SSL in native mode

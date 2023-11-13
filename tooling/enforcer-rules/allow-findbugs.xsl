@@ -27,7 +27,7 @@
       </xsl:copy>
     </xsl:template>
 
-    <!-- Allows findbugs usage in the gRPC extension -->
+    <!-- Allows findbugs usage in extensions that use quarkus-grpc-common -->
     <!-- https://github.com/apache/camel-quarkus/issues/5167 -->
     <xsl:template match="//bannedDependencies/excludes/exclude[contains(text(), 'com.google.code.findbugs:jsr305')]"/>
 </xsl:stylesheet>

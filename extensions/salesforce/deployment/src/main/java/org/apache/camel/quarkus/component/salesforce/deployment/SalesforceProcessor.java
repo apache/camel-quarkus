@@ -16,6 +16,9 @@
  */
 package org.apache.camel.quarkus.component.salesforce.deployment;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
@@ -31,6 +34,7 @@ import org.jboss.jandex.IndexView;
 class SalesforceProcessor {
 
     private static final String SALESFORCE_DTO_PACKAGE = "org.apache.camel.component.salesforce.api.dto";
+    private static final String SALESFORCE_EVENTBUS_PACKAGE = "com.sforce.eventbus";
     private static final String SALESFORCE_INTERNAL_DTO_PACKAGE = "org.apache.camel.component.salesforce.internal.dto";
     private static final String FEATURE = "camel-salesforce";
 
@@ -78,5 +82,15 @@ class SalesforceProcessor {
 
         // Ensure package scanning for user DTO classes can work in native mode
         packageScanClass.produce(new CamelPackageScanClassBuildItem(userDtoClasses));
+    }
+
+    @BuildStep
+    CamelPackageScanClassBuildItem registerEventBusPackageScanClasses(CombinedIndexBuildItem combinedIndexBuildItem) {
+        Set<String> eventBusDTOClasses = combinedIndexBuildItem.getIndex()
+                .getClassesInPackage(SALESFORCE_EVENTBUS_PACKAGE)
+                .stream()
+                .map(classInfo -> classInfo.name().toString())
+                .collect(Collectors.toUnmodifiableSet());
+        return new CamelPackageScanClassBuildItem(eventBusDTOClasses);
     }
 }
