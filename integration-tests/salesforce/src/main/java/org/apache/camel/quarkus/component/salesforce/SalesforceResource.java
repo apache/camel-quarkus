@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import com.sforce.eventbus.TestEvent__e;
 import jakarta.inject.Inject;
 import jakarta.json.Json;
 import jakarta.json.JsonArrayBuilder;
@@ -39,6 +40,8 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.apache.avro.generic.GenericRecord;
+import org.apache.avro.generic.GenericRecordBuilder;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
@@ -61,6 +64,7 @@ import org.apache.camel.component.salesforce.internal.dto.QueryRecordsPushTopic;
 import org.apache.camel.quarkus.component.salesforce.generated.Account;
 import org.apache.camel.quarkus.component.salesforce.generated.QueryRecordsAccount;
 import org.apache.camel.quarkus.component.salesforce.model.GlobalObjectsAndHeaders;
+import org.apache.camel.quarkus.component.salesforce.model.TestEventPojo;
 import org.apache.camel.spi.RouteController;
 
 @Path("/salesforce")
@@ -162,14 +166,15 @@ public class SalesforceResource {
         return jobInfoToJsonObject(result);
     }
 
-    @Path("/cdc/{action}")
+    @Path("/route/{routeId}/{action}")
     @POST
-    public Response modifyCdcConsumerState(@PathParam("action") String action) throws Exception {
+    public Response manageRoute(@PathParam("routeId") String routeId, @PathParam("action") String action)
+            throws Exception {
         RouteController controller = context.getRouteController();
         if (action.equals("start")) {
-            controller.startRoute("cdc");
+            controller.startRoute(routeId);
         } else if (action.equals("stop")) {
-            controller.stopRoute("cdc");
+            controller.stopRoute(routeId);
         } else {
             throw new IllegalArgumentException("Unknown action: " + action);
         }
@@ -290,6 +295,123 @@ public class SalesforceResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getPlatformEvent() {
         return consumerTemplate.receiveBody("salesforce:subscribe:event/TestEvent__e?rawPayload=true", 10000, String.class);
+    }
+
+    @POST
+    @Path("/publish/event/avro")
+    public void pubSubPublishAvro(
+            @QueryParam("createdBy") String createdBy,
+            @QueryParam("createdDate") long createdDate,
+            @QueryParam("testFieldValue") String testFieldValue) {
+        TestEvent__e testEvent = TestEvent__e.newBuilder()
+                .setCreatedDate(createdDate)
+                .setCreatedById(createdBy)
+                .setTestFieldC(testFieldValue)
+                .build();
+
+        template.to("direct:pubSubPublish")
+                .withBody(List.of(testEvent))
+                .request();
+    }
+
+    @POST
+    @Path("/publish/event/generic/record")
+    public void pubSubPublishGenericRecord(
+            @QueryParam("createdBy") String createdBy,
+            @QueryParam("createdDate") long createdDate,
+            @QueryParam("testFieldValue") String testFieldValue) {
+        GenericRecord record = new GenericRecordBuilder(TestEvent__e.getClassSchema())
+                .set("CreatedDate", createdDate)
+                .set("CreatedById", createdBy)
+                .set("Test_Field__c", testFieldValue)
+                .build();
+
+        template.to("direct:pubSubPublish")
+                .withBody(List.of(record))
+                .request();
+    }
+
+    @POST
+    @Path("/publish/event/json")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void pubSubPublishJson(String json) {
+        template.to("direct:pubSubPublish")
+                .withBody(List.of(json))
+                .request();
+    }
+
+    @POST
+    @Path("/publish/event/pojo")
+    public void pubSubPublishPojo(
+            @QueryParam("createdBy") String createdBy,
+            @QueryParam("createdDate") long createdDate,
+            @QueryParam("testFieldValue") String testFieldValue) {
+        TestEventPojo pojo = new TestEventPojo();
+        pojo.setCreatedDate(createdDate);
+        pojo.setCreatedById(createdBy);
+        pojo.setTest_Field__c(testFieldValue);
+
+        template.to("direct:pubSubPublish")
+                .withBody(List.of(pojo))
+                .request();
+    }
+
+    @GET
+    @Path("/subscribe/event/avro")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response pubSubSubscribeAvro() {
+        TestEvent__e testEvent = consumerTemplate.receiveBody("seda:pubSubSubscribeAvro", 5000, TestEvent__e.class);
+        if (testEvent == null) {
+            return Response.serverError().entity("testEvent was null").build();
+        }
+
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        builder.add("createdBy", testEvent.getCreatedById().toString());
+        builder.add("createdDate", testEvent.getCreatedDate());
+        builder.add("testFieldValue", testEvent.getTestFieldC().toString());
+
+        return Response.ok().entity(builder.build()).build();
+    }
+
+    @GET
+    @Path("/subscribe/event/generic/record")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response pubSubSubscribeGenericRecord() {
+        GenericRecord record = consumerTemplate.receiveBody("seda:pubSubSubscribeGenericRecord", 5000, GenericRecord.class);
+        if (record == null) {
+            return Response.serverError().entity("record was null").build();
+        }
+
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        builder.add("createdBy", record.get("CreatedById").toString());
+        builder.add("createdDate", record.get("CreatedDate").toString());
+        builder.add("testFieldValue", record.get("Test_Field__c").toString());
+
+        return Response.ok().entity(builder.build()).build();
+    }
+
+    @GET
+    @Path("/subscribe/event/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String pubSubSubscribeJson() {
+        return consumerTemplate.receiveBody("seda:pubSubSubscribeJson", 5000, String.class);
+    }
+
+    @GET
+    @Path("/subscribe/event/pojo")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response pubSubSubscribePojo() {
+        TestEventPojo testEvent = consumerTemplate.receiveBody("seda:pubSubSubscribePojo", 5000, TestEventPojo.class);
+        if (testEvent == null) {
+            return Response.serverError().entity("testEvent was null").build();
+        }
+
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        builder.add("createdBy", testEvent.getCreatedById());
+        builder.add("createdDate", testEvent.getCreatedDate());
+        builder.add("testFieldValue", testEvent.getTest_Field__c());
+
+        return Response.ok().entity(builder.build()).build();
     }
 
     private JsonObject accountToJsonObject(Account account) {

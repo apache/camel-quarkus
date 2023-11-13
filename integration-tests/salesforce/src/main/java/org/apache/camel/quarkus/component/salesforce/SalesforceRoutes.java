@@ -24,6 +24,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.salesforce.AuthenticationType;
 import org.apache.camel.component.salesforce.SalesforceComponent;
 import org.apache.camel.quarkus.component.salesforce.generated.Account;
+import org.apache.camel.quarkus.component.salesforce.model.TestEventPojo;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -70,9 +71,10 @@ public class SalesforceRoutes extends RouteBuilder {
         Optional<String> wireMockUrl = ConfigProvider.getConfig().getOptionalValue("wiremock.url", String.class);
         // Wiremock used only with Templates - this Route is used only with Salesforce credentials
         if (!wireMockUrl.isPresent()) {
-
             // Change Data Capture
-            from("salesforce:subscribe:/data/AccountChangeEvent?replayId=-1").routeId("cdc").autoStartup(false)
+            from("salesforce:subscribe:/data/AccountChangeEvent?replayId=-1")
+                    .routeId("cdc")
+                    .autoStartup(false)
                     .to("seda:events");
 
             // Streaming API : topic consumer - getting Account object
@@ -91,8 +93,44 @@ public class SalesforceRoutes extends RouteBuilder {
             // send repeated platform events and wait until the first one is
             // received
             from("timer:platform")
+                    .autoStartup(false)
+                    .routeId("platformEventTimer")
                     .setBody().simple("{\"Test_Field__c\": \"data\"}")
                     .to("salesforce:createSObject?sObjectName=TestEvent__e");
+
+            // Pub / sub API
+            from("direct:pubSubPublish")
+                    .log("Sent Salesforce topic message: ${body}")
+                    .to("salesforce:pubSubPublish:/event/TestEvent__e");
+
+            // AVRO deserialize type (also analogous to SPECIFIC_RECORD)
+            from("salesforce:pubSubSubscribe:/event/TestEvent__e")
+                    .routeId("topicSubscribeAvro")
+                    .autoStartup(false)
+                    .log("Received Salesforce AVRO topic message: ${body}")
+                    .to("seda:pubSubSubscribeAvro");
+
+            // GENERIC_RECORD deserialize type
+            from("salesforce:pubSubSubscribe:/event/TestEvent__e?pubSubDeserializeType=GENERIC_RECORD")
+                    .routeId("topicSubscribeGenericRecord")
+                    .autoStartup(false)
+                    .log("Received Salesforce GENERIC_RECORD topic message: ${body}")
+                    .to("seda:pubSubSubscribeGenericRecord");
+
+            // JSON deserialize type
+            from("salesforce:pubSubSubscribe:/event/TestEvent__e?pubSubDeserializeType=JSON")
+                    .routeId("topicSubscribeJson")
+                    .autoStartup(false)
+                    .log("Received Salesforce JSON topic message: ${body}")
+                    .to("seda:pubSubSubscribeJson");
+
+            // POJO deserialize type
+            from("salesforce:pubSubSubscribe:/event/TestEvent__e?pubSubDeserializeType=POJO&pubSubPojoClass="
+                    + TestEventPojo.class.getName())
+                    .routeId("topicSubscribePojo")
+                    .autoStartup(false)
+                    .log("Received Salesforce POJO topic message: ${body}")
+                    .to("seda:pubSubSubscribePojo");
         }
     }
 }
