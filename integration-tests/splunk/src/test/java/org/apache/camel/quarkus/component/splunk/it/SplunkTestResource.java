@@ -69,12 +69,15 @@ public class SplunkTestResource implements QuarkusTestResourceLifecycleManager {
                     "-sourcetype",
                     ProducerType.TCP.name());
 
+            String splunkHost = container.getHost();
+
             String banner = StringUtils.repeat("*", 50);
             LOG.info(banner);
-            LOG.infof("Splunk UI running on: http://localhost:%d", container.getMappedPort(WEB_PORT));
+            LOG.infof("Splunk UI running on: http://%s:%d", splunkHost, container.getMappedPort(WEB_PORT));
             LOG.info(banner);
 
             return Map.of(
+                    SplunkResource.PARAM_REMOTE_HOST, splunkHost,
                     SplunkResource.PARAM_REMOTE_PORT, container.getMappedPort(REMOTE_PORT).toString(),
                     SplunkResource.PARAM_TCP_PORT, container.getMappedPort(SplunkResource.LOCAL_TCP_PORT).toString());
         } catch (Exception e) {

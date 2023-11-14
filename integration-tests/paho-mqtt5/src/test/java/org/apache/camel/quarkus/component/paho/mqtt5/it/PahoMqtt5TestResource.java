@@ -78,7 +78,7 @@ public class PahoMqtt5TestResource implements QuarkusTestResourceLifecycleManage
                         .withFixedExposedPort(port, TCP_PORT);
 
                 result = CollectionHelper.mapOf(
-                        "paho5.broker.tcp.url", "tcp://localhost:" + port);
+                        "paho5.broker.tcp.url", "tcp://" + container.getHost() + ":" + port);
             } else {
                 container = new GenericContainer<>(IMAGE)
                         .withExposedPorts(TCP_PORT, WS_PORT, SSL_PORT)
@@ -103,9 +103,13 @@ public class PahoMqtt5TestResource implements QuarkusTestResourceLifecycleManage
                 result = CollectionHelper.mapOf(
                         "camel.component.paho-mqtt5.username", MQTT_USERNAME,
                         "camel.component.paho-mqtt5.password", MQTT_PASSWORD,
-                        "paho5.broker.tcp.url", String.format("tcp://localhost:%d", container.getMappedPort(TCP_PORT)),
-                        "paho5.broker.ssl.url", String.format("ssl://localhost:%d", container.getMappedPort(SSL_PORT)),
-                        "paho5.broker.ws.url", String.format("ws://localhost:%d", container.getMappedPort(WS_PORT)));
+                        "paho5.broker.host", container.getHost(),
+                        "paho5.broker.tcp.url",
+                        String.format("tcp://%s:%d", container.getHost(), container.getMappedPort(TCP_PORT)),
+                        "paho5.broker.ssl.url",
+                        String.format("ssl://%s:%d", container.getHost(), container.getMappedPort(SSL_PORT)),
+                        "paho5.broker.ws.url",
+                        String.format("ws://%s:%d", container.getHost(), container.getMappedPort(WS_PORT)));
             }
 
             return result;
