@@ -33,6 +33,7 @@ import org.apache.camel.builder.EndpointConsumerBuilder;
 import org.apache.camel.builder.EndpointProducerBuilder;
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 import org.apache.camel.quarkus.component.http.common.AbstractHttpResource;
+import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 
 @Path("/test/client/http")
@@ -104,15 +105,17 @@ public class HttpResource extends AbstractHttpResource {
     @GET
     @Produces(MediaType.APPLICATION_XML)
     public String httpProxy() {
-        Integer proxyPort = ConfigProvider.getConfig().getValue("tiny.proxy.port", Integer.class);
+        Config config = ConfigProvider.getConfig();
+        String proxyHost = config.getValue("tiny.proxy.host", String.class);
+        Integer proxyPort = config.getValue("tiny.proxy.port", Integer.class);
         return producerTemplate
                 .toF("%s?"
                         + "proxyAuthMethod=Basic"
                         + "&proxyAuthScheme=http"
-                        + "&proxyAuthHost=localhost"
+                        + "&proxyAuthHost=%s"
                         + "&proxyAuthPort=%d"
                         + "&proxyAuthUsername=%s"
-                        + "&proxyAuthPassword=%s", String.format(PROXIED_URL, "http"), proxyPort, USER_ADMIN,
+                        + "&proxyAuthPassword=%s", String.format(PROXIED_URL, "http"), proxyHost, proxyPort, USER_ADMIN,
                         USER_ADMIN_PASSWORD)
                 .request(String.class);
     }

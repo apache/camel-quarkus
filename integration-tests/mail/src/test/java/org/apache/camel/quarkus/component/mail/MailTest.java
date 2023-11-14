@@ -81,7 +81,8 @@ public class MailTest {
         RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(userJson)
-                .post("http://localhost:" + config.getValue("mail.api.port", Integer.class) + "/api/user")
+                .post("http://" + config.getValue("mail.host", String.class) + ":"
+                        + config.getValue("mail.api.port", Integer.class) + "/api/user")
                 .then()
                 .statusCode(200);
     }
@@ -91,8 +92,8 @@ public class MailTest {
         // Clear mailboxes
         Config config = ConfigProvider.getConfig();
         RestAssured.given()
-                .port(config.getValue("mail.api.port", Integer.class))
-                .post("/api/service/reset")
+                .post("http://" + config.getValue("mail.host", String.class) + ":"
+                        + config.getValue("mail.api.port", Integer.class) + "/api/service/reset")
                 .then()
                 .statusCode(200)
                 .body("message", is("Performed reset"));

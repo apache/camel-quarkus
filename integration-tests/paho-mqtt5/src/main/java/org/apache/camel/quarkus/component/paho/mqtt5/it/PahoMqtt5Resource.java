@@ -24,8 +24,13 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.concurrent.TimeUnit;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLSession;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
@@ -42,6 +47,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.component.paho.mqtt5.PahoMqtt5Constants;
 import org.apache.camel.spi.RouteController;
+import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 
 @Path("/paho-mqtt5")
@@ -76,7 +82,9 @@ public class PahoMqtt5Resource {
         try {
             if ("ssl".equals(protocol)) {
                 tmpKeystore = setKeyStore(keystore);
-                sslClientProps = "&sslClientProps.com.ibm.ssl.keyStore=" + tmpKeystore +
+                sslClientProps = "&httpsHostnameVerificationEnabled=false" +
+                        "&sslHostnameVerifier=#hostnameVerifier" +
+                        "&sslClientProps.com.ibm.ssl.keyStore=" + tmpKeystore +
                         "&sslClientProps.com.ibm.ssl.keyStorePassword=" + password +
                         "&sslClientProps.com.ibm.ssl.trustStore=" + tmpKeystore +
                         "&sslClientProps.com.ibm.ssl.trustStorePassword=" + password;
@@ -105,7 +113,9 @@ public class PahoMqtt5Resource {
         try {
             if ("ssl".equals(protocol)) {
                 tmpKeystore = setKeyStore(keystore);
-                sslClientProps = "&sslClientProps.com.ibm.ssl.keyStore=" + tmpKeystore +
+                sslClientProps = "&httpsHostnameVerificationEnabled=false" +
+                        "&sslHostnameVerifier=#hostnameVerifier" +
+                        "&sslClientProps.com.ibm.ssl.keyStore=" + tmpKeystore +
                         "&sslClientProps.com.ibm.ssl.keyStorePassword=" + password +
                         "&sslClientProps.com.ibm.ssl.trustStore=" + tmpKeystore +
                         "&sslClientProps.com.ibm.ssl.trustStorePassword=" + password;
@@ -174,6 +184,20 @@ public class PahoMqtt5Resource {
     public Response send(String message) throws Exception {
         producerTemplate.sendBody("direct:test", message);
         return Response.created(new URI("https://camel.apache.org/")).build();
+    }
+
+    @Singleton
+    @Named
+    HostnameVerifier hostnameVerifier() {
+        // Allow certificate host name validation to work with whatever container host name is used
+        return new HostnameVerifier() {
+            final Config config = ConfigProvider.getConfig();
+
+            @Override
+            public boolean verify(String hostname, SSLSession session) {
+                return config.getValue("paho5.broker.host", String.class).equals(hostname);
+            }
+        };
     }
 
     private String brokerUrl(String protocol) {

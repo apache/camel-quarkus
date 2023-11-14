@@ -60,11 +60,13 @@ public class PahoTestResource implements QuarkusTestResourceLifecycleManager {
 
             container.start();
 
-            result = CollectionHelper.mapOf("camel.component.paho.username", MQTT_USERNAME,
-                    "camel.component.paho.password", MQTT_PASSWORD, "paho.broker.tcp.url",
-                    String.format("tcp://localhost:%d", container.getMappedPort(TCP_PORT)), "paho.broker.ssl.url",
-                    String.format("ssl://localhost:%d", container.getMappedPort(SSL_PORT)), "paho.broker.ws.url",
-                    String.format("ws://localhost:%d", container.getMappedPort(WS_PORT)));
+            result = CollectionHelper.mapOf(
+                    "camel.component.paho.username", MQTT_USERNAME,
+                    "camel.component.paho.password", MQTT_PASSWORD,
+                    "paho.broker.host", container.getHost(),
+                    "paho.broker.tcp.url", String.format("tcp://%s:%d", container.getHost(), container.getMappedPort(TCP_PORT)),
+                    "paho.broker.ssl.url", String.format("ssl://%s:%d", container.getHost(), container.getMappedPort(SSL_PORT)),
+                    "paho.broker.ws.url", String.format("ws://%s:%d", container.getHost(), container.getMappedPort(WS_PORT)));
 
             return result;
         } catch (Exception e) {

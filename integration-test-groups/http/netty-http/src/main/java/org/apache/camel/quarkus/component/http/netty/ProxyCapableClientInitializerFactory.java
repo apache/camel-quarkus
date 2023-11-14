@@ -24,6 +24,7 @@ import org.apache.camel.component.netty.ClientInitializerFactory;
 import org.apache.camel.component.netty.NettyProducer;
 import org.apache.camel.component.netty.http.HttpClientInitializerFactory;
 import org.apache.camel.component.netty.http.NettyHttpProducer;
+import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 
 import static org.apache.camel.quarkus.component.http.common.AbstractHttpResource.USER_ADMIN;
@@ -40,8 +41,10 @@ public class ProxyCapableClientInitializerFactory extends HttpClientInitializerF
 
     @Override
     protected void initChannel(Channel channel) throws Exception {
-        Integer proxyPort = ConfigProvider.getConfig().getValue("tiny.proxy.port", Integer.class);
-        InetSocketAddress proxyServerAddress = new InetSocketAddress("localhost", proxyPort);
+        Config config = ConfigProvider.getConfig();
+        String proxyHost = config.getValue("tiny.proxy.host", String.class);
+        Integer proxyPort = config.getValue("tiny.proxy.port", Integer.class);
+        InetSocketAddress proxyServerAddress = new InetSocketAddress(proxyHost, proxyPort);
         HttpProxyHandler httpProxyHandler = new HttpProxyHandler(proxyServerAddress, USER_ADMIN, USER_ADMIN_PASSWORD);
         httpProxyHandler.setConnectTimeoutMillis(5000);
         super.initChannel(channel);
