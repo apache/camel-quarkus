@@ -66,6 +66,9 @@ public class CamelRoute extends RouteBuilder {
     static final String USERNAME = "test";
     static final String PASSWORD = "s3cr3t";
 
+    @ConfigProperty(name = "mail.host")
+    String mailHost;
+
     @ConfigProperty(name = "mail.smtp.port")
     int smtpPort;
 
@@ -91,11 +94,11 @@ public class CamelRoute extends RouteBuilder {
                 .handled(false);
 
         from("direct:sendMail")
-                .toF("smtp://localhost:%d?username=%s&password=%s", smtpPort, USERNAME, PASSWORD);
+                .toF("smtp://%s:%d?username=%s&password=%s", mailHost, smtpPort, USERNAME, PASSWORD);
 
         from("direct:sendMailSecured").toF(
-                "smtps://localhost:%d?username=%s&password=%s&sslContextParameters=#sslContextParameters&additionalJavaMailProperties=#additionalProperties",
-                smtpsPort, USERNAME, PASSWORD);
+                "smtps://%s:%d?username=%s&password=%s&sslContextParameters=#sslContextParameters&additionalJavaMailProperties=#additionalProperties",
+                mailHost, smtpsPort, USERNAME, PASSWORD);
 
         from("direct:mimeMultipartMarshal")
                 .marshal().mimeMultipart();
@@ -104,34 +107,34 @@ public class CamelRoute extends RouteBuilder {
                 .unmarshal().mimeMultipart()
                 .marshal().mimeMultipart();
 
-        fromF("pop3://localhost:%d?initialDelay=100&delay=500&username=%s&password=%s&delete=true", pop3Port, USERNAME,
+        fromF("pop3://%s:%d?initialDelay=100&delay=500&username=%s&password=%s&delete=true", mailHost, pop3Port, USERNAME,
                 PASSWORD)
                 .id(Routes.pop3ReceiveRoute.name())
                 .autoStartup(false)
                 .process(exchange -> handleMail(exchange));
 
-        fromF("pop3s://localhost:%d?initialDelay=100&delay=500&username=%s&password=%s&delete=true&sslContextParameters=#sslContextParameters&additionalJavaMailProperties=#additionalProperties",
-                pop3sPort, USERNAME,
+        fromF("pop3s://%s:%d?initialDelay=100&delay=500&username=%s&password=%s&delete=true&sslContextParameters=#sslContextParameters&additionalJavaMailProperties=#additionalProperties",
+                mailHost, pop3sPort, USERNAME,
                 PASSWORD)
                 .id(Routes.pop3sReceiveRoute.name())
                 .autoStartup(false)
                 .process(exchange -> handleMail(exchange));
 
-        fromF("imap://localhost:%d?initialDelay=100&delay=500&username=%s&password=%s&delete=true", imapPort, USERNAME,
+        fromF("imap://%s:%d?initialDelay=100&delay=500&username=%s&password=%s&delete=true", mailHost, imapPort, USERNAME,
                 PASSWORD)
                 .id(Routes.imapReceiveRoute.name())
                 .autoStartup(false)
                 .process(exchange -> handleMail(exchange));
 
-        fromF("imaps://localhost:%d?initialDelay=100&delay=500&username=%s&password=%s&delete=true&sslContextParameters=#sslContextParameters&additionalJavaMailProperties=#additionalProperties",
-                imapsPort, USERNAME,
+        fromF("imaps://%s:%d?initialDelay=100&delay=500&username=%s&password=%s&delete=true&sslContextParameters=#sslContextParameters&additionalJavaMailProperties=#additionalProperties",
+                mailHost, imapsPort, USERNAME,
                 PASSWORD)
                 .id(Routes.imapsReceiveRoute.name())
                 .autoStartup(false)
                 .process(exchange -> handleMail(exchange));
 
-        fromF("pop3://localhost:%d?initialDelay=100&delay=500&username=%s&password=%s"
-                + "&delete=true&maxMessagesPerPoll=3", pop3Port, USERNAME, PASSWORD)
+        fromF("pop3://%s:%d?initialDelay=100&delay=500&username=%s&password=%s"
+                + "&delete=true&maxMessagesPerPoll=3", mailHost, pop3Port, USERNAME, PASSWORD)
                 .id(Routes.batchReceiveRoute.name())
                 .autoStartup(false)
                 .process(e -> {
@@ -142,7 +145,7 @@ public class CamelRoute extends RouteBuilder {
                     map.put(ExchangePropertyKey.BATCH_SIZE.getName(), e.getProperty(ExchangePropertyKey.BATCH_SIZE));
                 });
 
-        fromF("pop3://localhost:%d?initialDelay=100&delay=500&username=%s&password=%s&delete=true", pop3Port, USERNAME,
+        fromF("pop3://%s:%d?initialDelay=100&delay=500&username=%s&password=%s&delete=true", mailHost, pop3Port, USERNAME,
                 PASSWORD)
                 .id(Routes.convertersRoute.name())
                 .autoStartup(false)

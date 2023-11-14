@@ -30,6 +30,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.component.splunk.ProducerType;
+import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -69,9 +70,10 @@ class SplunkTest {
     public void testSavedSearchWithTcp() throws InterruptedException {
         String suffix = "_SavedSearchOfTcp";
         //create saved search
+        Config config = ConfigProvider.getConfig();
         RestAssured.given()
-                .baseUri("http://localhost")
-                .port(ConfigProvider.getConfig().getValue(SplunkResource.PARAM_REMOTE_PORT, Integer.class))
+                .baseUri("http://" + config.getValue(SplunkResource.PARAM_REMOTE_HOST, String.class))
+                .port(config.getValue(SplunkResource.PARAM_REMOTE_PORT, Integer.class))
                 .contentType(ContentType.JSON)
                 .param("name", SplunkResource.SAVED_SEARCH_NAME)
                 .param("disabled", "0")

@@ -51,6 +51,7 @@ public class HttpTestResource implements QuarkusTestResourceLifecycleManager {
                 "camel.netty-http.test-port",
                 "camel.netty-http.https-test-port",
                 "camel.netty-http.compression-test-port");
+        options.put("tiny.proxy.host", container.getHost());
         options.put("tiny.proxy.port", container.getMappedPort(TINY_PROXY_PORT).toString());
         return options;
     }
