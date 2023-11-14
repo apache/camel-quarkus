@@ -47,6 +47,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 public class SplunkResource {
 
     public static final String SAVED_SEARCH_NAME = "savedSearchForTest";
+    public static final String PARAM_REMOTE_HOST = "org.apache.camel.quarkus.component.splunk.it.SplunkResource_host";
     public static final String PARAM_REMOTE_PORT = "org.apache.camel.quarkus.component.splunk.it.SplunkResource_remotePort";
     public static final String PARAM_TCP_PORT = "org.apache.camel.quarkus.component.splunk.it.SplunkResource_tcpPort";
     public static final String SOURCE = "test";
@@ -57,6 +58,9 @@ public class SplunkResource {
 
     @Inject
     ConsumerTemplate consumerTemplate;
+
+    @ConfigProperty(name = PARAM_REMOTE_HOST)
+    String host;
 
     @ConfigProperty(name = PARAM_REMOTE_PORT)
     Integer port;
@@ -79,21 +83,21 @@ public class SplunkResource {
 
         if ("savedSearch".equals(mapName)) {
             url = String.format(
-                    "splunk://savedsearch?username=admin&password=changeit&scheme=http&port=%d&delay=500&initEarliestTime=-10m&savedsearch=%s",
-                    port, SAVED_SEARCH_NAME);
+                    "splunk://savedsearch?username=admin&password=changeit&scheme=http&host=%s&port=%d&delay=500&initEarliestTime=-10m&savedsearch=%s",
+                    host, port, SAVED_SEARCH_NAME);
         } else if ("normalSearch".equals(mapName)) {
             url = String.format(
-                    "splunk://normal?username=admin&password=changeit&scheme=http&port=%d&delay=5000&initEarliestTime=-10s&search="
+                    "splunk://normal?username=admin&password=changeit&scheme=http&host=%s&port=%d&delay=5000&initEarliestTime=-10s&search="
                             + "search sourcetype=\"SUBMIT\" | rex field=_raw \"Name: (?<name>.*) From: (?<from>.*)\"",
-                    port);
+                    host, port);
         } else {
             url = String.format(
-                    "splunk://realtime?username=admin&password=changeit&scheme=http&port=%d&delay=3000&initEarliestTime=rt-10s&latestTime=RAW(rt+40s)&search="
+                    "splunk://realtime?username=admin&password=changeit&scheme=http&host=%s&port=%d&delay=3000&initEarliestTime=rt-10s&latestTime=RAW(rt+40s)&search="
                             + "search sourcetype=\"STREAM\" | rex field=_raw \"Name: (?<name>.*) From: (?<from>.*)\"",
-                    port, ProducerType.STREAM.name());
+                    host, port, ProducerType.STREAM.name());
         }
 
-        List<SplunkEvent> events = events = new LinkedList<>();
+        List<SplunkEvent> events = new LinkedList<>();
         for (int i = 0; i < count; i++) {
             SplunkEvent se = consumerTemplate.receiveBody(url, 5000, SplunkEvent.class);
             if (se == null) {
@@ -137,14 +141,14 @@ public class SplunkResource {
         String url;
         if (ProducerType.TCP == ProducerType.valueOf(producerType)) {
             url = String.format(
-                    "splunk:%s?raw=%b&username=admin&password=changeit&scheme=http&port=%d&index=%s&sourceType=%s&source=%s&tcpReceiverLocalPort=%d&tcpReceiverPort=%d",
-                    producerType.toLowerCase(), !(message instanceof SplunkEvent), port, index, producerType, SOURCE,
+                    "splunk:%s?raw=%b&username=admin&password=changeit&scheme=http&host=%s&port=%d&index=%s&sourceType=%s&source=%s&tcpReceiverLocalPort=%d&tcpReceiverPort=%d",
+                    producerType.toLowerCase(), !(message instanceof SplunkEvent), host, port, index, producerType, SOURCE,
                     LOCAL_TCP_PORT, tcpPort);
 
         } else {
             url = String.format(
-                    "splunk:%s?raw=%b&scheme=http&port=%d&index=%s&sourceType=%s&source=%s",
-                    producerType.toLowerCase(), !(message instanceof SplunkEvent), port, index, producerType, SOURCE);
+                    "splunk:%s?raw=%b&scheme=http&host=%s&port=%d&index=%s&sourceType=%s&source=%s",
+                    producerType.toLowerCase(), !(message instanceof SplunkEvent), host, port, index, producerType, SOURCE);
         }
         final String response = producerTemplate.requestBody(url, message, String.class);
         return Response

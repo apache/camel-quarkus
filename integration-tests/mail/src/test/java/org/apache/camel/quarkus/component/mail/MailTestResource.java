@@ -47,6 +47,8 @@ public class MailTestResource implements QuarkusTestResourceLifecycleManager {
         container.start();
 
         Map<String, String> options = new HashMap<>();
+        options.put("mail.host", container.getHost());
+
         for (MailProtocol protocol : MailProtocol.values()) {
             String optionName = String.format("mail.%s.port", protocol.name().toLowerCase());
             Integer mappedPort = container.getMappedPort(protocol.getPort());

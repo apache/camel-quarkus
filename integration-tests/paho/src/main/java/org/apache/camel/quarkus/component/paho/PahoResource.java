@@ -21,8 +21,13 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLSession;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -35,6 +40,7 @@ import jakarta.ws.rs.core.Response;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.paho.PahoConstants;
+import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.jboss.logging.Logger;
@@ -143,10 +149,25 @@ public class PahoResource {
         return ConfigProvider.getConfig().getValue("paho.broker." + protocol + ".url", String.class);
     }
 
+    @Singleton
+    @Named
+    HostnameVerifier hostnameVerifier() {
+        // Allow certificate host name validation to work with whatever container host name is used
+        return new HostnameVerifier() {
+            final Config config = ConfigProvider.getConfig();
+
+            @Override
+            public boolean verify(String hostname, SSLSession session) {
+                return config.getValue("paho.broker.host", String.class).equals(hostname);
+            }
+        };
+    }
+
     private String sslOptions(java.nio.file.Path keyStore) {
         return keyStore == null
                 ? ""
-                : "&sslClientProps.com.ibm.ssl.keyStore=" + keyStore +
+                : "&httpsHostnameVerificationEnabled=false&sslHostnameVerifier=#hostnameVerifier" +
+                        "&sslClientProps.com.ibm.ssl.keyStore=" + keyStore +
                         "&sslClientProps.com.ibm.ssl.keyStorePassword=" + KEYSTORE_PASSWORD +
                         "&sslClientProps.com.ibm.ssl.trustStore=" + keyStore +
                         "&sslClientProps.com.ibm.ssl.trustStorePassword=" + KEYSTORE_PASSWORD;

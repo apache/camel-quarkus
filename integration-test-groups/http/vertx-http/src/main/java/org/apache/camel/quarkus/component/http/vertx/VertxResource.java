@@ -35,6 +35,7 @@ import org.apache.camel.PropertyBindingException;
 import org.apache.camel.ResolveEndpointFailedException;
 import org.apache.camel.http.base.HttpOperationFailedException;
 import org.apache.camel.quarkus.component.http.common.AbstractHttpResource;
+import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 
 import static org.apache.camel.component.vertx.http.VertxHttpConstants.CONTENT_TYPE_FORM_URLENCODED;
@@ -91,14 +92,16 @@ public class VertxResource extends AbstractHttpResource {
     @GET
     @Produces(MediaType.APPLICATION_XML)
     public String httpProxy() {
-        Integer proxyPort = ConfigProvider.getConfig().getValue("tiny.proxy.port", Integer.class);
+        Config config = ConfigProvider.getConfig();
+        String proxyHost = config.getValue("tiny.proxy.host", String.class);
+        Integer proxyPort = config.getValue("tiny.proxy.port", Integer.class);
         return producerTemplate
                 .toF("vertx-http:%s?"
-                        + "proxyHost=localhost"
+                        + "proxyHost=%s"
                         + "&proxyPort=%d"
                         + "&proxyType=HTTP"
                         + "&proxyUsername=%s"
-                        + "&proxyPassword=%s", String.format(PROXIED_URL, "vertx-http"), proxyPort, USER_ADMIN,
+                        + "&proxyPassword=%s", String.format(PROXIED_URL, "vertx-http"), proxyHost, proxyPort, USER_ADMIN,
                         USER_ADMIN_PASSWORD)
                 .request(String.class);
     }
