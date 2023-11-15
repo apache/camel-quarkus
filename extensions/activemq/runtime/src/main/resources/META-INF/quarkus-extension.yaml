@@ -23,8 +23,8 @@
 ---
 name: "Camel ActiveMQ"
 description: "Send messages to (or consume from) Apache ActiveMQ. This component extends the Camel JMS component"
-icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
+  icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/activemq.html"
   categories:
   - "integration"

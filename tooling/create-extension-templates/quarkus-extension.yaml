@@ -23,8 +23,8 @@
 ---
 name: "[#if !nameBase?starts_with("Camel")]Camel [/#if][=nameBase]"
 description: "[=description]"
-icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
+  icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 [#if unlisted ]  unlisted: true
 [/#if]
 [#if keywords?size > 0 ]  keywords:

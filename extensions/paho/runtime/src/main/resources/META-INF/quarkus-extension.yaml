@@ -23,8 +23,8 @@
 ---
 name: "Camel Paho"
 description: "Communicate with MQTT message brokers using Eclipse Paho MQTT Client"
-icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
+  icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/paho.html"
   categories:
   - "integration"

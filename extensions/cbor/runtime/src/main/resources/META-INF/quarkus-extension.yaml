@@ -23,8 +23,8 @@
 ---
 name: "Camel CBOR"
 description: "Unmarshal a CBOR payload to POJO and back"
-icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
+  icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/cbor.html"
   categories:
   - "integration"

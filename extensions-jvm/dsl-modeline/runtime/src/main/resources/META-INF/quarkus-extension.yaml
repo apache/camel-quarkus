@@ -23,8 +23,8 @@
 ---
 name: "Camel DSL Modeline"
 description: "Support for Camel K style modeline"
-icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
+  icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
   unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/dsl-modeline.html"
   categories:

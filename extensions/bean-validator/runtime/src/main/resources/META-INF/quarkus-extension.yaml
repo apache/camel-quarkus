@@ -23,8 +23,8 @@
 ---
 name: "Camel Bean Validator"
 description: "Validate the message body using the Java Bean Validation API"
-icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
+  icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/bean-validator.html"
   categories:
   - "integration"
