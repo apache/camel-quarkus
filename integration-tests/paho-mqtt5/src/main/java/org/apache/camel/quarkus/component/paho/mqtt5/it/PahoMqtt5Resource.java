@@ -49,10 +49,12 @@ import org.apache.camel.component.paho.mqtt5.PahoMqtt5Constants;
 import org.apache.camel.spi.RouteController;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.jboss.logging.Logger;
 
 @Path("/paho-mqtt5")
 @ApplicationScoped
 public class PahoMqtt5Resource {
+    private static final Logger LOG = Logger.getLogger(PahoMqtt5Resource.class);
 
     @Inject
     CamelContext context;
@@ -219,9 +221,9 @@ public class PahoMqtt5Resource {
 
     private void removeKeyStore(String keystore) {
         try {
-            Files.delete(Paths.get(keystore));
+            Files.deleteIfExists(Paths.get(keystore));
         } catch (Exception e) {
-            throw new RuntimeException("Could not delete " + keystore, e);
+            LOG.warn("Failed to delete temporary keystore file", e);
         }
     }
 }
