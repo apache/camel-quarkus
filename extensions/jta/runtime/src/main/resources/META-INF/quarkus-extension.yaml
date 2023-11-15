@@ -23,8 +23,8 @@
 ---
 name: "Camel JTA"
 description: "Enclose Camel routes in transactions using Java Transaction API (JTA) and Narayana transaction manager"
-icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
+  icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/jta.html"
   categories:
   - "integration"
