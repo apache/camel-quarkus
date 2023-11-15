@@ -23,8 +23,8 @@
 ---
 name: "Camel AWS 2 Elastic Container Service (ECS)"
 description: "Manage AWS ECS cluster instances"
-icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
+  icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
   keywords:
   - "Amazon"
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/aws2-ecs.html"

@@ -23,8 +23,8 @@
 ---
 name: "Camel CLI Connector"
 description: "Runtime adapter connecting with Camel CLI"
-icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
+  icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
   unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/cli-connector.html"
   categories:

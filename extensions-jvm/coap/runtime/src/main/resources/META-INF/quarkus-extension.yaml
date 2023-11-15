@@ -23,8 +23,8 @@
 ---
 name: "Camel CoAP"
 description: "Send and receive messages to/from COAP capable devices"
-icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
+  icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
   unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/coap.html"
   categories:

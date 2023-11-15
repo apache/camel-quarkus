@@ -23,8 +23,8 @@
 ---
 name: "Camel Saga"
 description: "Execute custom actions within a route using the Saga EIP"
-icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
+  icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/saga.html"
   categories:
   - "integration"

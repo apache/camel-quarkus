@@ -23,8 +23,8 @@
 ---
 name: "Camel Deep Java Library"
 description: "Infer Deep Learning models from message exchanges data using Deep Java Library (DJL)"
-icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
+  icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
   unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/djl.html"
   categories:

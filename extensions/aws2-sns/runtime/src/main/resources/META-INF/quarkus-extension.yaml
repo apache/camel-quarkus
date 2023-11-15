@@ -23,8 +23,8 @@
 ---
 name: "Camel AWS 2 Simple Notification System (SNS)"
 description: "Send messages to AWS Simple Notification Topic"
-icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
+  icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
   keywords:
   - "Amazon"
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/aws2-sns.html"
