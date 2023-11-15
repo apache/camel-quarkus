@@ -186,9 +186,9 @@ public class PahoResource {
 
     private void removeKeyStore(java.nio.file.Path keystore) {
         try {
-            Files.delete(keystore);
+            Files.deleteIfExists(keystore);
         } catch (Exception e) {
-            throw new RuntimeException("Could not delete " + keystore, e);
+            LOG.warn("Failed to delete temporary keystore file", e);
         }
     }
 }
