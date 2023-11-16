@@ -6188,14 +6188,6 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <!-- TODO: Remove this: https://github.com/quarkusio/quarkus/issues/22418 -->
-            <dependency>
-                <groupId>com.google.protobuf</groupId>
-                <artifactId>protoc</artifactId>
-                <version>${protobuf.version}</version>
-                <classifier>linux-ppcle_64</classifier>
-                <type>exe</type>
-            </dependency>
             <dependency>
                 <groupId>com.ibm.icu</groupId>
                 <artifactId>icu4j</artifactId>
@@ -6287,14 +6279,6 @@
                 <groupId>io.dropwizard.metrics</groupId>
                 <artifactId>metrics-jmx</artifactId>
                 <version>${dropwizard-metrics.version}</version>
-            </dependency>
-            <!-- TODO: Remove this: https://github.com/quarkusio/quarkus/issues/22418 -->
-            <dependency>
-                <groupId>io.grpc</groupId>
-                <artifactId>protoc-gen-grpc-java</artifactId>
-                <version>${grpc.version}</version>
-                <classifier>linux-ppcle_64</classifier>
-                <type>exe</type>
             </dependency>
             <dependency>
                 <groupId>io.minio</groupId>
