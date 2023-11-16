@@ -230,6 +230,7 @@
         <infinispan.container.image>docker.io/infinispan/server:14.0</infinispan.container.image>
         <influxdb.container.image>docker.io/influxdb:1.8.10</influxdb.container.image>
         <kafka.container.image>confluentinc/cp-kafka:7.4.0</kafka.container.image>
+        <keycloak.container.image>quay.io/keycloak/keycloak:22.0.5</keycloak.container.image>
         <kudu.container.image>docker.io/apache/kudu:1.15.0</kudu.container.image>
         <localstack.container.image>docker.io/localstack/localstack:2.2.0</localstack.container.image>
         <lra-coordinator.container.image>quay.io/jbosstm/lra-coordinator:7.0.0.Final-3.2.2.Final</lra-coordinator.container.image>
