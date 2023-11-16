@@ -6112,13 +6112,6 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>com.google.protobuf</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>protoc</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.24.4</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <type>exe</type><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <classifier>linux-ppcle_64</classifier><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
         <groupId>com.ibm.icu</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>icu4j</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>73.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -6209,13 +6202,6 @@
         <groupId>io.dropwizard.metrics</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>metrics-jmx</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>4.2.21</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
-        <groupId>io.grpc</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>protoc-gen-grpc-java</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.59.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <type>exe</type><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <classifier>linux-ppcle_64</classifier><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.minio</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
