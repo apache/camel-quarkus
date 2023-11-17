@@ -43,7 +43,7 @@ import static org.apache.camel.quarkus.component.fhir.deployment.FhirUtil.getMod
 import static org.apache.camel.quarkus.component.fhir.deployment.FhirUtil.getResourceDefinitions;
 
 public class FhirR4Processor {
-    private static final String FHIR_VERSION_PROPERTIES = "org/hl7/fhir/r4/model/fhirversion.properties";
+    private static final String FHIR_VERSION_PROPERTIES = "org/hl7/fhir/r4/hapi/model/fhirversion.properties";
 
     @BuildStep(onlyIf = FhirFlags.R4Enabled.class)
     R4PropertiesBuildItem fhirProperties() {

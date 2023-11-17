@@ -45,12 +45,6 @@ ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
 
-[id="extensions-jolt-allowcontextmapall-option-in-native-mode"]
-== allowContextMapAll option in native mode
-
-The `allowContextMapAll` option is not supported in native mode as it requires reflective access to security sensitive camel core classes such as
-`CamelContext` & `Exchange`. This is considered a security risk and thus access to the feature is not provided by default.
-
 [id="extensions-jolt-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 

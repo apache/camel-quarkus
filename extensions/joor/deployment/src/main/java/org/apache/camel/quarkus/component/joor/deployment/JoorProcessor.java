@@ -39,9 +39,9 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.dsl.java.joor.CompilationUnit;
 import org.apache.camel.dsl.java.joor.MultiCompile;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.language.joor.JavaLanguage;
 import org.apache.camel.language.joor.JoorCompiler;
 import org.apache.camel.language.joor.JoorExpression;
-import org.apache.camel.language.joor.JoorLanguage;
 import org.apache.camel.language.joor.JoorScriptingCompiler;
 import org.apache.camel.quarkus.component.joor.runtime.JoorExpressionCompiler;
 import org.apache.camel.quarkus.component.joor.runtime.JoorExpressionConfig;
@@ -76,17 +76,17 @@ class JoorProcessor {
             BuildProducer<JoorExpressionSourceBuildItem> producer) throws Exception {
         if (result.isSuccess()) {
             List<ExpressionBuildItem> joorExpressions = expressions.stream()
-                    .filter(exp -> "joor".equals(exp.getLanguage()))
+                    .filter(exp -> "java".equals(exp.getLanguage()))
                     .collect(Collectors.toList());
             List<ScriptBuildItem> joorScripts = scripts.stream()
-                    .filter(exp -> "joor".equals(exp.getLanguage()))
+                    .filter(exp -> "java".equals(exp.getLanguage()))
                     .collect(Collectors.toList());
             if (joorExpressions.isEmpty() && joorScripts.isEmpty()) {
                 return;
             }
             // Don't close it as it won't be started and some log entries are added on close/stop
             CamelContext ctx = new DefaultCamelContext();
-            try (JoorLanguage language = new JoorLanguage()) {
+            try (JavaLanguage language = new JavaLanguage()) {
                 language.setCamelContext(ctx);
                 language.setSingleQuotes(config.singleQuotes);
                 config.configResource.ifPresent(language::setConfigResource);
@@ -183,7 +183,7 @@ class JoorProcessor {
                             source.getClassName());
                 }
             }
-            final RuntimeValue<JoorLanguage> language = recorder.languageNewInstance(config, expressionCompilerBuilder,
+            final RuntimeValue<JavaLanguage> language = recorder.languageNewInstance(config, expressionCompilerBuilder,
                     expressionScriptingCompilerBuilder);
 
             if (config.resultType.isPresent()) {
@@ -192,7 +192,7 @@ class JoorProcessor {
                         config.resultType.get());
             }
 
-            return new CamelBeanBuildItem("joor", JoorLanguage.class.getName(), language);
+            return new CamelBeanBuildItem("java", JavaLanguage.class.getName(), language);
         }
         return null;
     }
