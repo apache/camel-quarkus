@@ -201,7 +201,7 @@ class CamelRestOASFilter implements OASFilter {
             mapper.enable(SerializationFeature.INDENT_OUTPUT);
             mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
-            String jsonContent = RestOpenApiSupport.getJsonFromOpenAPI(openApi, bc);
+            String jsonContent = RestOpenApiSupport.getJsonFromOpenAPIAsString(openApi, bc);
             final JsonNode node = mapper.readTree(jsonContent);
 
             OpenAPI oai = new OpenAPIImpl();

@@ -47,6 +47,11 @@ public class SpringKotlinProcessor {
         createClass(generatedClass, "kotlin.reflect.KParameter", Object.class.getName(), true);
         createClass(generatedClass, "kotlin.reflect.KCallable", Object.class.getName(), false);
         createClass(generatedClass, "kotlin.reflect.KFunction", "kotlin.reflect.KCallable", false);
+        createClass(generatedClass, "kotlin.reflect.KAnnotatedElement", Object.class.getName(), false);
+        createClass(generatedClass, "kotlin.reflect.KClass", "kotlin.reflect.KAnnotatedElement", false);
+        createClass(generatedClass, "kotlin.text.Regex", Object.class.getName(), false);
+        createClass(generatedClass, "kotlin.coroutines.CoroutineContext$Key", Object.class.getName(), false);
+        createClass(generatedClass, "kotlinx.coroutines.Job$Key", "kotlin.coroutines.CoroutineContext$Key", false);
     }
 
     private boolean isKotlinStdlibAvailable(ApplicationModel applicationModel) {

@@ -24,7 +24,7 @@ public class JoorRoute extends RouteBuilder {
     public void configure() {
         routeTemplate("whereTo")
                 .templateParameter("bar")
-                .templateBean("myBar", "joor", "resource:classpath:bean.txt")
+                .templateBean("myBar", "java", "resource:classpath:bean.txt")
                 .from("kamelet:source")
                 .to("bean:{{myBar}}");
 
@@ -32,10 +32,10 @@ public class JoorRoute extends RouteBuilder {
                 .kamelet("whereTo?bar=Shamrock");
 
         from("direct:joorHello")
-                .transform().joor("'Hello ' + body + ' from jOOR!'");
+                .transform().java("'Hello ' + body + ' from jOOR!'");
         from("direct:predicate")
                 .choice()
-                .when().joor("((int) body) / 2 > 10")
+                .when().java("((int) body) / 2 > 10")
                 .setBody().constant("High").endChoice()
                 .otherwise()
                 .setBody().constant("Low").endChoice();

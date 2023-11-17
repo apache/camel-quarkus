@@ -48,16 +48,34 @@ public class EipResource {
     @Inject
     CamelContext context;
 
+    @Path("/routeAsync/{route}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response routeAsync(String statement, @PathParam("route") String route, @Context UriInfo uriInfo) {
+        return route(statement, route, uriInfo, true);
+    }
+
     @Path("/route/{route}")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response route(String statement, @PathParam("route") String route, @Context UriInfo uriInfo) {
+    public Response routeSync(String statement, @PathParam("route") String route, @Context UriInfo uriInfo) {
+        return route(statement, route, uriInfo, false);
+    }
+
+    public Response route(String statement, String route, @Context UriInfo uriInfo, boolean async) {
         final Map<String, Object> headers = uriInfo.getQueryParameters().entrySet().stream()
                 .map(e -> new AbstractMap.SimpleImmutableEntry<String, Object>(e.getKey(), e.getValue().get(0)))
                 .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
         try {
+            if (async) {
+                producerTemplate.asyncRequestBodyAndHeaders("direct:" + route, statement, headers, String.class);
+                return Response.ok().build();
+            }
+
             String result = producerTemplate.requestBodyAndHeaders("direct:" + route, statement, headers, String.class);
+            System.out.println("---- result for " + statement + " is " + result);
             return Response.ok(result).build();
         } catch (CamelExecutionException e) {
             return Response.serverError().entity(e.getMessage()).build();
