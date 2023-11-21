@@ -98,9 +98,9 @@
         <github-api.version>1.313</github-api.version><!-- Used in a Groovy script bellow -->
         <google-auth-library.version>1.20.0</google-auth-library.version><!-- @sync com.google.cloud:google-cloud-pubsub:${google-cloud-pubsub.version} dep:com.google.auth:google-auth-library-oauth2-http -->
         <google-oauth-client.version>${google-oauth-client-version}</google-oauth-client.version>
-        <google-cloud-bom.version>0.207.0</google-cloud-bom.version><!-- @sync com.google.cloud:libraries-bom:${google-cloud-bom-version} dep:com.google.cloud:google-cloud-bom -->
-        <google-cloud-pubsub-bom.version>1.125.8</google-cloud-pubsub-bom.version><!-- @sync com.google.cloud:google-cloud-bom:${google-cloud-bom.version} dep:com.google.cloud:google-cloud-pubsub-bom -->
-        <google-cloud-pubsub.version>1.125.8</google-cloud-pubsub.version><!-- @sync com.google.cloud:google-cloud-pubsub-bom:${google-cloud-pubsub-bom.version} dep:com.google.cloud:google-cloud-pubsub -->
+        <google-cloud-bom.version>0.208.0</google-cloud-bom.version><!-- @sync com.google.cloud:libraries-bom:${google-cloud-bom-version} dep:com.google.cloud:google-cloud-bom -->
+        <google-cloud-pubsub-bom.version>1.125.11</google-cloud-pubsub-bom.version><!-- @sync com.google.cloud:google-cloud-bom:${google-cloud-bom.version} dep:com.google.cloud:google-cloud-pubsub-bom -->
+        <google-cloud-pubsub.version>1.125.11</google-cloud-pubsub.version><!-- @sync com.google.cloud:google-cloud-pubsub-bom:${google-cloud-pubsub-bom.version} dep:com.google.cloud:google-cloud-pubsub -->
         <graalvm.version>23.0.1</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.sdk:graal-sdk -->
         <graalvm-docs.version>jdk21</graalvm-docs.version><!-- @sync io.quarkus:quarkus-documentation:${quarkus.version} prop:graal-community.tag-for-documentation -->
         <groovy.version>4.0.16</groovy.version><!-- @sync io.quarkiverse.groovy:quarkus-groovy-parent:${quarkiverse-groovy.version} prop:groovy.version -->
@@ -108,7 +108,7 @@
         <hapi.version>${hapi-version}</hapi.version>
         <hapi-base.version>${hapi-base-version}</hapi-base.version>
         <hapi-fhir.version>${hapi-fhir-version}</hapi-fhir.version>
-        <hapi-fhir-core.version>6.0.1</hapi-fhir-core.version><!-- @sync ca.uhn.hapi.fhir:hapi-fhir:${hapi-fhir.version} prop:fhir_core_version -->
+        <hapi-fhir-core.version>6.0.22.2</hapi-fhir-core.version><!-- @sync ca.uhn.hapi.fhir:hapi-fhir:${hapi-fhir.version} prop:fhir_core_version -->
         <httpclient5.version>${httpclient-version}</httpclient5.version><!-- Saxon and Wiremock -->
         <ibm.mq.client.version>9.3.2.1</ibm.mq.client.version>
         <icu4j.version>${icu4j-version}</icu4j.version>
