@@ -16,6 +16,9 @@
  */
 package org.apache.camel.quarkus.component.quartz.deployment;
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
 import io.quarkus.scheduler.Scheduled;
 import io.quarkus.test.QuarkusUnitTest;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -23,7 +26,6 @@ import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.quartz.QuartzComponent;
-import org.jboss.logging.Logger;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
@@ -36,45 +38,37 @@ public class QuartzQuarkusSchedulerAutowiredWithSchedulerBeanTest {
 
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class))
-            .setLogRecordPredicate(logRecord -> logRecord.getMessage().contains("Scheduled Job"))
-            .assertLogRecords(logRecords -> {
-                boolean quarkusScheduledJobRan = logRecords.stream()
-                        .anyMatch(logRecord -> logRecord.getMessage().startsWith("Quarkus Scheduled"));
-                boolean camelScheduledJobRan = logRecords.stream()
-                        .anyMatch(logRecord -> logRecord.getMessage().startsWith("Camel Scheduled"));
-                assertTrue(quarkusScheduledJobRan);
-                assertTrue(camelScheduledJobRan);
-            });
+            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class));
 
     @Inject
     CamelContext context;
+
+    private static final CountDownLatch quarkusQuartzLatch = new CountDownLatch(1);
+    private static final CountDownLatch camelQuartzLatch = new CountDownLatch(1);
 
     @Test
     public void testQuarkusSchedulerAutowired() throws Exception {
         QuartzComponent component = context.getComponent("quartz", QuartzComponent.class);
         assertEquals("QuarkusQuartzScheduler", component.getScheduler().getSchedulerName());
+        assertTrue(quarkusQuartzLatch.await(10, TimeUnit.SECONDS));
+        assertTrue(camelQuartzLatch.await(10, TimeUnit.SECONDS));
     }
 
     @ApplicationScoped
     static final class SchedulerBean {
-        private static final Logger LOG = Logger.getLogger(SchedulerBean.class);
-
         @Scheduled(every = "1s", concurrentExecution = Scheduled.ConcurrentExecution.SKIP)
         public void scheduledQuarkusJob() {
-            LOG.info("Quarkus Scheduled Job");
+            quarkusQuartzLatch.countDown();
         }
     }
 
     @ApplicationScoped
     static final class Routes extends RouteBuilder {
-        private static final Logger LOG = Logger.getLogger(Routes.class);
-
         @Override
         public void configure() throws Exception {
             from("quartz://scheduledCamelJob?cron=0/1+*+*+*+*+?")
                     .process(exchange -> {
-                        LOG.info("Camel Scheduled Job");
+                        camelQuartzLatch.countDown();
                     });
         }
     }
