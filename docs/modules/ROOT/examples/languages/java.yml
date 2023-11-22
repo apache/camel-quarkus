@@ -7,7 +7,7 @@ cqStatus: Stable
 cqDeprecated: true
 cqJvmSince: 2.0.0
 cqNativeSince: 3.2.0
-cqCamelPartName: joor
-cqCamelPartTitle: jOOR
-cqCamelPartDescription: Evaluates a jOOR (Java compiled once at runtime) expression.
+cqCamelPartName: java
+cqCamelPartTitle: Java
+cqCamelPartDescription: Evaluates a Java (Java compiled once at runtime) expression.
 cqExtensionPageTitle: jOOR

@@ -6,15 +6,15 @@
 :cq-artifact-id: camel-quarkus-joor
 :cq-native-supported: true
 :cq-status: Stable
-:cq-status-deprecation: Stable
+:cq-status-deprecation: Stable Deprecated
 :cq-description: Evaluate a jOOR (Java compiled once at runtime) expression language.
-:cq-deprecated: false
+:cq-deprecated: true
 :cq-jvm-since: 2.0.0
 :cq-native-since: 3.2.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##2.0.0## [.badge-key]##Native since##[.badge-supported]##3.2.0##
+[.badge-key]##JVM since##[.badge-supported]##2.0.0## [.badge-key]##Native since##[.badge-supported]##3.2.0## [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##
 endif::[]
 
 Evaluate a jOOR (Java compiled once at runtime) expression language.
@@ -22,9 +22,10 @@ Evaluate a jOOR (Java compiled once at runtime) expression language.
 [id="extensions-joor-whats-inside"]
 == What's inside
 
+* xref:{cq-camel-components}:languages:java-language.adoc[Java language]
 * xref:{cq-camel-components}:languages:joor-language.adoc[jOOR language]
 
-Please refer to the above link for usage and configuration details.
+Please refer to the above links for usage and configuration details.
 
 [id="extensions-joor-maven-coordinates"]
 == Maven coordinates

@@ -19,24 +19,24 @@ package org.apache.camel.quarkus.component.joor.runtime;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
-import org.apache.camel.language.joor.JoorLanguage;
+import org.apache.camel.language.joor.JavaLanguage;
 import org.apache.camel.language.joor.JoorMethod;
 import org.apache.camel.language.joor.JoorScriptingMethod;
 
 @Recorder
 public class JoorExpressionRecorder {
 
-    public RuntimeValue<JoorLanguage> languageNewInstance(JoorExpressionConfig config,
+    public RuntimeValue<JavaLanguage> languageNewInstance(JoorExpressionConfig config,
             RuntimeValue<JoorExpressionCompiler.Builder> compilerBuilder,
             RuntimeValue<JoorExpressionScriptingCompiler.Builder> scriptingCompilerBuilder) {
-        RuntimeValue<JoorLanguage> language = new RuntimeValue<>(
-                new JoorLanguage(compilerBuilder.getValue().build(), scriptingCompilerBuilder.getValue().build()));
+        RuntimeValue<JavaLanguage> language = new RuntimeValue<>(
+                new JavaLanguage(compilerBuilder.getValue().build(), scriptingCompilerBuilder.getValue().build()));
         language.getValue().setSingleQuotes(config.singleQuotes);
         config.configResource.ifPresent(language.getValue()::setConfigResource);
         return language;
     }
 
-    public void setResultType(RuntimeValue<JoorLanguage> language, String className) {
+    public void setResultType(RuntimeValue<JavaLanguage> language, String className) {
         try {
             language.getValue().setResultType(Class.forName(className, true, Thread.currentThread().getContextClassLoader()));
         } catch (Exception e) {
