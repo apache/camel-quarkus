@@ -5885,52 +5885,52 @@
       <dependency>
         <groupId>ca.uhn.hapi</groupId>
         <artifactId>hapi-base</artifactId>
-        <version>2.3</version>
+        <version>2.5.1</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi</groupId>
         <artifactId>hapi-structures-v21</artifactId>
-        <version>2.3</version>
+        <version>2.5.1</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi</groupId>
         <artifactId>hapi-structures-v22</artifactId>
-        <version>2.3</version>
+        <version>2.5.1</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi</groupId>
         <artifactId>hapi-structures-v23</artifactId>
-        <version>2.3</version>
+        <version>2.5.1</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi</groupId>
         <artifactId>hapi-structures-v231</artifactId>
-        <version>2.3</version>
+        <version>2.5.1</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi</groupId>
         <artifactId>hapi-structures-v24</artifactId>
-        <version>2.3</version>
+        <version>2.5.1</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi</groupId>
         <artifactId>hapi-structures-v25</artifactId>
-        <version>2.3</version>
+        <version>2.5.1</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi</groupId>
         <artifactId>hapi-structures-v251</artifactId>
-        <version>2.3</version>
+        <version>2.5.1</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi</groupId>
         <artifactId>hapi-structures-v26</artifactId>
-        <version>2.3</version>
+        <version>2.5.1</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-base</artifactId>
-        <version>6.8.5</version>
+        <version>6.10.0</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
@@ -5949,32 +5949,32 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-client</artifactId>
-        <version>6.8.5</version>
+        <version>6.10.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-dstu2.1</artifactId>
-        <version>6.8.5</version>
+        <version>6.10.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-dstu3</artifactId>
-        <version>6.8.5</version>
+        <version>6.10.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-hl7org-dstu2</artifactId>
-        <version>6.8.5</version>
+        <version>6.10.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-r4</artifactId>
-        <version>6.8.5</version>
+        <version>6.10.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-r5</artifactId>
-        <version>6.8.5</version>
+        <version>6.10.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
