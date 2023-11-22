@@ -18,6 +18,8 @@ package org.apache.camel.quarkus.component.mail;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -102,7 +104,7 @@ public class CamelResource {
             AttachmentMessage in = exchange.getMessage(AttachmentMessage.class);
 
             DefaultAttachment attachment;
-            if (fileName.startsWith("/")) {
+            if (Files.exists(Paths.get(fileName))) {
                 attachment = new DefaultAttachment(new FileDataSource(fileName));
             } else {
                 attachment = new DefaultAttachment(
