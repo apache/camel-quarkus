@@ -27,6 +27,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.hazelcast.it.model.HazelcastMapRequest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import static io.restassured.RestAssured.given;
 import static org.awaitility.Awaitility.await;
@@ -35,6 +36,7 @@ import static org.hamcrest.Matchers.equalTo;
 @QuarkusTest
 @TestHTTPEndpoint(HazelcastMapResource.class)
 @QuarkusTestResource(HazelcastTestResource.class)
+@DisabledIfEnvironmentVariable(named = "CI", matches = "true", disabledReason = "https://github.com/apache/camel-quarkus/issues/5081")
 public class HazelcastMapTest {
 
     @SuppressWarnings("unchecked")
