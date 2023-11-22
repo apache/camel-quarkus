@@ -6400,12 +6400,6 @@
         <groupId>org.apache.httpcomponents.client5</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>httpclient5</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>5.2.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <exclusions>
-          <exclusion>
-            <groupId>org.apache.httpcomponents.core5</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>httpcore5-h2</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
-        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.httpcomponents.core5</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
