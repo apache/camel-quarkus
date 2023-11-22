@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.debug.it;
 
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import javax.management.JMX;
 import javax.management.MBeanServerConnection;
@@ -32,19 +33,17 @@ import io.restassured.RestAssured;
 import org.apache.camel.ServiceStatus;
 import org.apache.camel.api.management.mbean.ManagedBacklogDebuggerMBean;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledOnOs;
-import org.junit.jupiter.api.condition.OS;
 
 import static org.apache.camel.component.debug.JmxConnectorService.DEFAULT_HOST;
 import static org.apache.camel.component.debug.JmxConnectorService.DEFAULT_REGISTRY_PORT;
 import static org.apache.camel.component.debug.JmxConnectorService.DEFAULT_SERVICE_URL_PATH;
+import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 @QuarkusTest
-@DisabledOnOs(value = OS.WINDOWS, disabledReason = "https://github.com/apache/camel-quarkus/issues/5443")
 public class DebugTest {
 
     @Test
@@ -61,25 +60,27 @@ public class DebugTest {
                 DEFAULT_SERVICE_URL_PATH);
         JMXServiceURL jmxUrl = new JMXServiceURL(url);
 
-        try (JMXConnector connector = JMXConnectorFactory.connect(jmxUrl)) {
-            MBeanServerConnection mbeanServer = connector.getMBeanServerConnection();
+        await().pollInterval(50, TimeUnit.MILLISECONDS).atMost(10, TimeUnit.SECONDS).untilAsserted(() -> {
+            try (JMXConnector connector = JMXConnectorFactory.connect(jmxUrl)) {
+                MBeanServerConnection mbeanServer = connector.getMBeanServerConnection();
 
-            ObjectName objectName = new ObjectName("org.apache.camel:type=context,*");
-            Set<ObjectInstance> mbeans = mbeanServer.queryMBeans(objectName, null);
-            assertNotNull(mbeans);
+                ObjectName objectName = new ObjectName("org.apache.camel:type=context,*");
+                Set<ObjectInstance> mbeans = mbeanServer.queryMBeans(objectName, null);
+                assertNotNull(mbeans);
 
-            Iterator<ObjectInstance> iterator = mbeans.iterator();
-            if (iterator.hasNext()) {
-                ObjectInstance camelContext = iterator.next();
-                assertNotNull(camelContext);
+                Iterator<ObjectInstance> iterator = mbeans.iterator();
+                if (iterator.hasNext()) {
+                    ObjectInstance camelContext = iterator.next();
+                    assertNotNull(camelContext);
 
-                String status = (String) mbeanServer.invoke(camelContext.getObjectName(), "getState", new Object[] {},
-                        new String[] {});
-                assertEquals(ServiceStatus.Started, ServiceStatus.valueOf(status));
-            } else {
-                fail("Expected to find 1 CamelContext MBean");
+                    String status = (String) mbeanServer.invoke(camelContext.getObjectName(), "getState", new Object[] {},
+                            new String[] {});
+                    assertEquals(ServiceStatus.Started, ServiceStatus.valueOf(status));
+                } else {
+                    fail("Expected to find 1 CamelContext MBean");
+                }
             }
-        }
+        });
     }
 
     @Test
@@ -88,26 +89,28 @@ public class DebugTest {
                 DEFAULT_SERVICE_URL_PATH);
         JMXServiceURL jmxUrl = new JMXServiceURL(url);
 
-        try (JMXConnector connector = JMXConnectorFactory.connect(jmxUrl)) {
-            MBeanServerConnection mbeanServer = connector.getMBeanServerConnection();
+        await().pollInterval(50, TimeUnit.MILLISECONDS).atMost(10, TimeUnit.SECONDS).untilAsserted(() -> {
+            try (JMXConnector connector = JMXConnectorFactory.connect(jmxUrl)) {
+                MBeanServerConnection mbeanServer = connector.getMBeanServerConnection();
 
-            ObjectName objectName = new ObjectName("org.apache.camel:context=*,type=tracer,name=BacklogDebugger");
-            Set<ObjectName> names = mbeanServer.queryNames(objectName, null);
-            assertNotNull(names);
+                ObjectName objectName = new ObjectName("org.apache.camel:context=*,type=tracer,name=BacklogDebugger");
+                Set<ObjectName> names = mbeanServer.queryNames(objectName, null);
+                assertNotNull(names);
 
-            Iterator<ObjectName> iteratorNames = names.iterator();
-            if (iteratorNames.hasNext()) {
-                ObjectName debuggerMBeanObjectName = iteratorNames.next();
-                assertNotNull(debuggerMBeanObjectName);
-                ManagedBacklogDebuggerMBean backlogDebugger = JMX.newMBeanProxy(mbeanServer, debuggerMBeanObjectName,
-                        ManagedBacklogDebuggerMBean.class);
-                Set<String> breakpoints = backlogDebugger.breakpoints();
-                assertNotNull(breakpoints);
-                Set<String> suspendedBreakpointNodeIds = backlogDebugger.suspendedBreakpointNodeIds();
-                assertNotNull(suspendedBreakpointNodeIds);
-            } else {
-                fail("Expected to find 1 BacklogDebugger");
+                Iterator<ObjectName> iteratorNames = names.iterator();
+                if (iteratorNames.hasNext()) {
+                    ObjectName debuggerMBeanObjectName = iteratorNames.next();
+                    assertNotNull(debuggerMBeanObjectName);
+                    ManagedBacklogDebuggerMBean backlogDebugger = JMX.newMBeanProxy(mbeanServer, debuggerMBeanObjectName,
+                            ManagedBacklogDebuggerMBean.class);
+                    Set<String> breakpoints = backlogDebugger.breakpoints();
+                    assertNotNull(breakpoints);
+                    Set<String> suspendedBreakpointNodeIds = backlogDebugger.suspendedBreakpointNodeIds();
+                    assertNotNull(suspendedBreakpointNodeIds);
+                } else {
+                    fail("Expected to find 1 BacklogDebugger");
+                }
             }
-        }
+        });
     }
 }
