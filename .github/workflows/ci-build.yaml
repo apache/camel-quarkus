@@ -60,6 +60,25 @@ env:
   CHECKOUT_REF: ${{ github.event_name == 'pull_request' && github.actor == 'dependabot[bot]' && github.head_ref || '' }}
 
 jobs:
+  # This is a hack to work around a GitHub API limitation:
+  # when the PR is coming from another fork, the pull_requests field of the
+  # workflow_run payload is empty.
+  # For more details, see
+  # https://github.community/t/pull-request-attribute-empty-in-workflow-run-event-object-for-pr-from-forked-repo/154682
+  attach-pr-number:
+    runs-on: ubuntu-latest
+    name: Attach pull request number
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Create file
+        run: |
+          echo -n ${{ github.event.number }} > pull-request-number
+      - name: Upload pull request number
+        uses: actions/upload-artifact@v3
+        with:
+          name: pull-request-number-${{ github.event.number }}
+          path: pull-request-number
+          retention-days: 1
   pre-build-checks:
     if: github.repository == 'apache/camel-quarkus'
     runs-on: ubuntu-latest
@@ -284,6 +303,15 @@ jobs:
               --fail-at-end \
               -pl "${NATIVE_MODULES[*]}"
           fi
+      - name: Upload build reports (if build failed)
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() || cancelled() }}
+        with:
+          name: "build-reports-Native Tests - ${{matrix.category}}"
+          path: |
+            **/target/*-reports/TEST-*.xml
+            target/build-report.json
+          retention-days: 2
       - name: Fail if there are uncommitted changes
         shell: bash
         run: |
@@ -355,6 +383,15 @@ jobs:
           ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
             test
+      - name: Upload build reports (if build failed)
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() || cancelled() }}
+        with:
+          name: "build-reports-Funcitonal Extension Tests"
+          path: |
+            **/target/*-reports/TEST-*.xml
+            target/build-report.json
+          retention-days: 2
 
   extensions-jvm-tests:
     runs-on: ubuntu-latest
@@ -405,6 +442,15 @@ jobs:
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
             --fail-at-end \
             clean test
+      - name: Upload build reports (if build failed)
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() || cancelled() }}
+        with:
+          name: "build-reports-Integration Tests JVM - JDK ${{matrix.java}}"
+          path: |
+            **/target/*-reports/TEST-*.xml
+            target/build-report.json
+          retention-days: 2
 
   integration-tests-alternative-platform:
     runs-on: ${{ matrix.os }}
@@ -449,6 +495,15 @@ jobs:
             -Dskip-testcontainers-tests -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
             --fail-at-end \
             clean verify
+      - name: Upload build reports (if build failed)
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() || cancelled() }}
+        with:
+          name: "build-reports-Integration Tests - ${{matrix.os}}"
+          path: |
+            **/target/*-reports/TEST-*.xml
+            target/build-report.json
+          retention-days: 2
 
   examples-tests:
     name: Examples Tests - ${{matrix.name}}
@@ -525,3 +580,12 @@ jobs:
             echo -e "\nCheck build logs for further information."
             exit 1
           fi
+      - name: Upload build reports (if build failed)
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() || cancelled() }}
+        with:
+          name: "build-reports-Example Tests - ${{matrix.examples}}"
+          path: |
+            **/target/*-reports/TEST-*.xml
+            target/build-report.json
+          retention-days: 2
