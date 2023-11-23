@@ -50,7 +50,7 @@
         <optaplanner.version>9.37.0.Final</optaplanner.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/org/optaplanner/optaplanner-quarkus/ -->
         <quarkiverse-amazonservices.version>2.5.0</quarkiverse-amazonservices.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/io/quarkiverse/amazonservices/quarkus-amazon-services-parent/ -->
         <quarkiverse-artemis.version>3.1.2</quarkiverse-artemis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/artemis/quarkus-artemis-parent/ -->
-        <quarkiverse-cxf.version>2.5.0</quarkiverse-cxf.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/io/quarkiverse/cxf/quarkus-cxf-parent/ -->
+        <quarkiverse-cxf.version>2.6.1</quarkiverse-cxf.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/io/quarkiverse/cxf/quarkus-cxf-parent/ -->
         <quarkiverse-freemarker.version>1.0.0</quarkiverse-freemarker.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/freemarker/quarkus-freemarker-parent/ -->
         <quarkiverse-groovy.version>3.5.0</quarkiverse-groovy.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/groovy/quarkus-groovy-parent/ -->
         <quarkiverse-jackson-jq.version>2.0.1</quarkiverse-jackson-jq.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jackson-jq/quarkus-jackson-jq-parent/ -->
@@ -212,7 +212,7 @@
         <activemq-artemis.container.image>quay.io/artemiscloud/activemq-artemis-broker:1.0.20</activemq-artemis.container.image>
         <arangodb.container.image>docker.io/arangodb:3.11.2</arangodb.container.image>
         <azurite.container.image>mcr.microsoft.com/azure-storage/azurite:3.26.0</azurite.container.image>
-        <calculator-ws.container.image>quay.io/l2x6/calculator-ws:1.2</calculator-ws.container.image>
+        <calculator-ws.container.image>quay.io/l2x6/calculator-ws:1.3</calculator-ws.container.image>
         <cassandra.container.image>docker.io/cassandra:4.1.3</cassandra.container.image>
         <consul.container.image>docker.io/hashicorp/consul:1.16</consul.container.image>
         <couchbase.container.image>docker.io/couchbase/server:7.2.0</couchbase.container.image>
