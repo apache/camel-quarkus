@@ -26,6 +26,7 @@ import java.util.stream.Stream;
 
 import com.github.dockerjava.api.command.InspectContainerResponse;
 import org.apache.camel.quarkus.test.support.kafka.KafkaTestResource;
+import org.apache.camel.quarkus.test.support.kafka.KafkaTestSupport;
 import org.apache.camel.util.CollectionHelper;
 import org.apache.commons.io.FileUtils;
 import org.testcontainers.containers.KafkaContainer;
@@ -41,12 +42,12 @@ public class KafkaSaslSslTestResource extends KafkaTestResource {
     private static final String KAFKA_KEYSTORE_TYPE = "PKCS12";
     private static final String KAFKA_SSL_CREDS_FILE = "broker-creds";
     private static final String KAFKA_TRUSTSTORE_FILE = "kafka-truststore.p12";
-    private Path configDir;
+    private static final String KAFKA_CERTIFICATE_SCRIPT = "generate-certificates.sh";
+    private static Path configDir;
     private SaslSslKafkaContainer container;
 
     @Override
     public Map<String, String> start() {
-        // Set up the SSL key / trust store directory
         try {
             configDir = Files.createTempDirectory("KafkaSaslSslTestResource-");
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -61,6 +62,9 @@ public class KafkaSaslSslTestResource extends KafkaTestResource {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        KafkaTestSupport.regenerateCertificatesForDockerHost(configDir, KAFKA_CERTIFICATE_SCRIPT, KAFKA_KEYSTORE_FILE,
+                KAFKA_TRUSTSTORE_FILE);
 
         container = new SaslSslKafkaContainer(KAFKA_IMAGE_NAME);
         container.start();
@@ -143,13 +147,15 @@ public class KafkaSaslSslTestResource extends KafkaTestResource {
                     MountableFile.forClasspathResource("config/kafka_server_jaas.conf"),
                     "/etc/kafka/kafka_server_jaas.conf");
 
-            copyFileToContainer(
-                    MountableFile.forClasspathResource("config/" + KAFKA_KEYSTORE_FILE),
-                    "/etc/kafka/secrets/" + KAFKA_KEYSTORE_FILE);
-
-            copyFileToContainer(
-                    MountableFile.forClasspathResource("config/" + KAFKA_TRUSTSTORE_FILE),
-                    "/etc/kafka/secrets/" + KAFKA_TRUSTSTORE_FILE);
+            Stream.of(KAFKA_KEYSTORE_FILE, KAFKA_TRUSTSTORE_FILE)
+                    .forEach(keyStoreFile -> {
+                        try {
+                            copyFileToContainer(Transferable.of(Files.readAllBytes(configDir.resolve(keyStoreFile))),
+                                    "/etc/kafka/secrets/" + keyStoreFile);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
 
             copyFileToContainer(
                     Transferable.of(KAFKA_KEYSTORE_PASSWORD.getBytes(StandardCharsets.UTF_8)),
