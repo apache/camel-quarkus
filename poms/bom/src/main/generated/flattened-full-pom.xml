@@ -5955,6 +5955,12 @@
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-fhir-structures-dstu2.1</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>6.10.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <exclusions>
+          <exclusion>
+            <groupId>junit</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>junit</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
