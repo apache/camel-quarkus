@@ -16,28 +16,53 @@
  */
 package org.apache.camel.quarkus.component.mail;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.apache.commons.io.FileUtils;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.testcontainers.DockerClientFactory;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.HttpWaitStrategy;
 import org.testcontainers.images.builder.ImageFromDockerfile;
+import org.testcontainers.images.builder.Transferable;
+import org.testcontainers.utility.MountableFile;
 
 public class MailTestResource implements QuarkusTestResourceLifecycleManager {
-
+    private static final String GREENMAIL_CERTIFICATE_STORE_FILE = "greenmail.p12";
+    private static final String GENERATE_CERTIFICATE_SCRIPT = "generate-certificates.sh";
     private GenericContainer<?> container;
+    private Path certificateStoreLocation;
 
     @Override
     public Map<String, String> start() {
+        try {
+            certificateStoreLocation = Files.createTempDirectory("MailTestResource-");
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            try (InputStream in = classLoader.getResourceAsStream(GREENMAIL_CERTIFICATE_STORE_FILE)) {
+                Files.copy(in, certificateStoreLocation.resolve(GREENMAIL_CERTIFICATE_STORE_FILE));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        String dockerHost = DockerClientFactory.instance().dockerHostIpAddress();
+        if (!dockerHost.equals("localhost") && !dockerHost.equals("127.0.0.1")) {
+            regenerateCertificatesForDockerHost();
+        }
+
         //Dockerfile with ImageFromDockerfile is used, because ownership of the certificate has to be changed
         container = new GenericContainer<>(new ImageFromDockerfile()
                 .withDockerfileFromBuilder(builder -> {
                     builder.from(ConfigProvider.getConfig().getValue("greenmail.container.image", String.class));
-                    builder.copy("greenmail.p12", "/home/greenmail/greenmail.p12");
+                    builder.copy(GREENMAIL_CERTIFICATE_STORE_FILE, "/home/greenmail/greenmail.p12");
                 })
-                .withFileFromClasspath("greenmail.p12", "greenmail.p12"))
+                .withFileFromTransferable(GREENMAIL_CERTIFICATE_STORE_FILE, Transferable.of(getCertificateStoreContent())))
                 .withExposedPorts(MailProtocol.allPorts())
                 .waitingFor(new HttpWaitStrategy()
                         .forPort(MailProtocol.API.getPort())
@@ -62,6 +87,46 @@ public class MailTestResource implements QuarkusTestResourceLifecycleManager {
     public void stop() {
         if (container != null) {
             container.stop();
+        }
+        if (certificateStoreLocation != null) {
+            try {
+                FileUtils.deleteDirectory(certificateStoreLocation.toFile());
+            } catch (IOException e) {
+                // Ignored
+            }
+        }
+    }
+
+    private void regenerateCertificatesForDockerHost() {
+        // Run certificate generation in a container in case the target platform does not have prerequisites like OpenSSL installed (E.g on Windows)
+        String imageName = ConfigProvider.getConfig().getValue("eclipse-temurin.container.image", String.class);
+        try (GenericContainer<?> container = new GenericContainer<>(imageName)) {
+            container.withCreateContainerCmdModifier(modifier -> {
+                modifier.withEntrypoint("/bin/bash");
+                modifier.withStdinOpen(true);
+                modifier.withAttachStdout(true);
+            });
+            container.setWorkingDirectory("/");
+            container.start();
+
+            String host = container.getHost();
+            container.copyFileToContainer(
+                    MountableFile.forClasspathResource(GENERATE_CERTIFICATE_SCRIPT),
+                    "/" + GENERATE_CERTIFICATE_SCRIPT);
+            container.execInContainer("/bin/bash", "/" + GENERATE_CERTIFICATE_SCRIPT, host,
+                    "DNS:%s,IP:%s".formatted(host, host));
+            container.copyFileFromContainer("/" + GREENMAIL_CERTIFICATE_STORE_FILE,
+                    certificateStoreLocation.resolve(GREENMAIL_CERTIFICATE_STORE_FILE).toString());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private byte[] getCertificateStoreContent() {
+        try {
+            return Files.readAllBytes(certificateStoreLocation.resolve(GREENMAIL_CERTIFICATE_STORE_FILE));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
