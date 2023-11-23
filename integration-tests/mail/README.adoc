@@ -1,10 +1,10 @@
-== Camel Quarkus Kafka SSL integration tests
+== Camel Quarkus Mail integration tests
 
 To regenerate the SSL certificates and trust stores for use with local host testing run the following script:
 
 [source,shell]
 ----
-cd src/test/resources/config
+cd src/test/resources
 ./regenerate-certificates.sh
 ----
 
@@ -12,6 +12,6 @@ If required, you can override the default certificate CN and SAN configuration b
 
 [source,shell]
 ----
-cd src/test/resources/config
+cd src/test/resources
 ./regenerate-certificates.sh "other-dns-or-ip" "DNS:another-dns,IP:192.168.1.150"
 ----
