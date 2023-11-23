@@ -5979,32 +5979,32 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.dstu2</artifactId>
-        <version>6.0.22.2</version>
+        <version>6.1.2.2</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.dstu2016may</artifactId>
-        <version>6.0.22.2</version>
+        <version>6.1.2.2</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.dstu3</artifactId>
-        <version>6.0.22.2</version>
+        <version>6.1.2.2</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.r4</artifactId>
-        <version>6.0.22.2</version>
+        <version>6.1.2.2</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.r5</artifactId>
-        <version>6.0.22.2</version>
+        <version>6.1.2.2</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.utilities</artifactId>
-        <version>6.0.22.2</version>
+        <version>6.1.2.2</version>
       </dependency>
       <dependency>
         <groupId>com.azure</groupId>
@@ -7696,6 +7696,11 @@
         <groupId>io.dropwizard.metrics</groupId>
         <artifactId>metrics-core</artifactId>
         <version>4.0.1</version>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.13.1</version>
       </dependency>
       <dependency>
         <groupId>org.reflections</groupId>

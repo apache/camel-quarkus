@@ -5979,32 +5979,32 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>org.hl7.fhir.dstu2</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>6.0.22.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>6.1.2.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>org.hl7.fhir.dstu2016may</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>6.0.22.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>6.1.2.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>org.hl7.fhir.dstu3</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>6.0.22.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>6.1.2.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>org.hl7.fhir.r4</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>6.0.22.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>6.1.2.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>org.hl7.fhir.r5</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>6.0.22.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>6.1.2.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>org.hl7.fhir.utilities</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>6.0.22.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>6.1.2.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>com.azure</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
