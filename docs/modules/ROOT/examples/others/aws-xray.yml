@@ -9,5 +9,5 @@ cqJvmSince: 1.2.0
 cqNativeSince: n/a
 cqCamelPartName: aws-xray
 cqCamelPartTitle: AWS XRay
-cqCamelPartDescription: Distributed tracing using AWS XRay
+cqCamelPartDescription: Enable Distributed tracing using AWS XRay
 cqExtensionPageTitle: AWS XRay
