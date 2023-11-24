@@ -6308,7 +6308,7 @@
       <dependency>
         <groupId>io.smallrye.reactive</groupId>
         <artifactId>smallrye-reactive-messaging-camel</artifactId>
-        <version>4.10.2</version>
+        <version>4.15.0</version>
       </dependency>
       <dependency>
         <groupId>io.swagger.core.v3</groupId>
@@ -6524,12 +6524,12 @@
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-scripting-jvm</artifactId>
-        <version>1.9.21</version>
+        <version>1.9.22</version>
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-scripting-jvm-host</artifactId>
-        <version>1.9.21</version>
+        <version>1.9.22</version>
       </dependency>
       <dependency>
         <groupId>org.mapstruct</groupId>

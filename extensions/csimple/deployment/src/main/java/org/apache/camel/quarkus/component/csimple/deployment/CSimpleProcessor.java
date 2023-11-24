@@ -269,6 +269,9 @@ class CSimpleProcessor {
                 "11",
                 Collections.emptyList(),
                 Collections.emptyList(),
+                null,
+                Collections.emptySet(),
+                Collections.emptyList(),
                 null);
     }
 

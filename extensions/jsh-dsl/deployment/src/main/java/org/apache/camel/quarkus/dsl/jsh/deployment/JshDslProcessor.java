@@ -24,6 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -125,17 +126,20 @@ class JshDslProcessor {
                         .map(Path::toFile)
                         .filter(f -> f.getName().endsWith(".jar"))
                         .collect(Collectors.toSet()),
-                Set.of(),
+                Collections.emptySet(),
                 projectDir.toFile(),
                 generatedSourceDir.toFile(),
                 classesDir.toFile(),
                 StandardCharsets.UTF_8.name(),
-                Map.of(),
+                Collections.emptyMap(),
                 null,
                 null,
                 null,
-                List.of(),
-                List.of(),
+                Collections.emptyList(),
+                Collections.emptyList(),
+                null,
+                Collections.emptySet(),
+                Collections.emptyList(),
                 null);
         try (JavaCompilationProvider compiler = new JavaCompilationProvider()) {
             compiler.compile(filesToCompile, context);

@@ -21,6 +21,7 @@ import java.sql.Driver;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import com.impossibl.postgres.jdbc.PGBuffersStruct;
 import com.impossibl.postgres.system.procs.ProcProvider;
 import io.quarkus.agroal.spi.JdbcDriverBuildItem;
 import io.quarkus.datasource.common.runtime.DatabaseKind;
@@ -29,6 +30,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.SslNativeConfigBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import io.quarkus.deployment.util.ServiceUtil;
 
@@ -46,6 +48,11 @@ class PgeventProcessor {
     @BuildStep
     ReflectiveClassBuildItem registerReflectiveClasses() {
         return ReflectiveClassBuildItem.builder("io.netty.channel.nio.NioEventLoopGroup").fields().build();
+    }
+
+    @BuildStep
+    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(PGBuffersStruct.class.getName()));
     }
 
     @BuildStep
