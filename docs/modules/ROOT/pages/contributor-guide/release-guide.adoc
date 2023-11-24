@@ -69,6 +69,24 @@ $ mvn deploy -Papache-release -DskipTests -Denforcer.skip -Dquarkus.build.skip -
 * This will close the repository from future deployments and make it available for others to view
 * After that, a popup window is created, enter the name and version of the artifact being released in the `Description` field and finally click `Close`
 
+== Update the Apache Camel Quarkus development subversion repository
+
+The process is identical to that outlined in the `Assemble the Apache Camel Quarkus sources distribution` section below. Except that you must checkout the `dev` SVN repository.
+
+[source,shell]
+----
+$ svn checkout 'https://dist.apache.org/repos/dist/dev/camel' camel-releases-dist
+----
+
+When exporting the `URL` variable, it should be set to the closed staging repository URL for the new release. For example.
+
+[source,shell]
+----
+$ export URL='https://repository.apache.org/content/repositories/orgapachecamel-1647/org/apache/camel/quarkus/camel-quarkus'
+----
+
+After the changes have been committed. You can check them by browsing to https://dist.apache.org/repos/dist/dev/camel/camel-quarkus/.
+
 == Collect the performance regression report
 
 Once the staging repository has been closed, run the `perf-regression` tool in order to compare the current staging against the previous released version.
@@ -196,7 +214,7 @@ $ gpg -k $EMAIL >> KEYS
 $ gpg --armor --export $EMAIL >> KEYS
 ----
 
-Assemble the Apache Camel Quarkus distribution:
+Assemble the Apache Camel Quarkus sources distribution and SBOM artifacts:
 [source,shell]
 ----
 $ mkdir -p "camel-quarkus/$VERSION"
@@ -204,7 +222,13 @@ $ cd "camel-quarkus/$VERSION"
 $ export URL='https://repository.apache.org/content/repositories/releases/org/apache/camel/quarkus/camel-quarkus'
 $ wget -O "apache-camel-quarkus-$VERSION-src.zip" "$URL/$VERSION/camel-quarkus-$VERSION-src.zip"
 $ wget -O "apache-camel-quarkus-$VERSION-src.zip.asc" "$URL/$VERSION/camel-quarkus-$VERSION-src.zip.asc"
+$ wget -O "apache-camel-quarkus-$VERSION-sbom.json" "$URL/$VERSION/camel-quarkus-$VERSION-cyclonedx.json"
+$ wget -O "apache-camel-quarkus-$VERSION-sbom.json.asc" "$URL/$VERSION/camel-quarkus-$VERSION-cyclonedx.json.asc"
+$ wget -O "apache-camel-quarkus-$VERSION-sbom.xml" "$URL/$VERSION/camel-quarkus-$VERSION-cyclonedx.xml"
+$ wget -O "apache-camel-quarkus-$VERSION-sbom.xml.asc" "$URL/$VERSION/camel-quarkus-$VERSION-cyclonedx.xml.asc"
 $ sha512sum "apache-camel-quarkus-$VERSION-src.zip" > "apache-camel-quarkus-$VERSION-src.zip.sha512"
+$ sha512sum "apache-camel-quarkus-$VERSION-sbom.json" > "apache-camel-quarkus-$VERSION-sbom.json.sha512"
+$ sha512sum "apache-camel-quarkus-$VERSION-sbom.xml" > "apache-camel-quarkus-$VERSION-sbom.xml.sha512"
 ----
 Ensure that only the latest release from each maintained branches is present (including active LTS versions).
 Typically, when releasing e.g. 1.4.0, you may need to delete e.g. 1.3.0:
