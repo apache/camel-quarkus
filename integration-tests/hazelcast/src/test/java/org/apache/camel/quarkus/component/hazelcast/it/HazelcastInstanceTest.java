@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.hazelcast.it;
 
 import java.util.concurrent.TimeUnit;
 
+import com.hazelcast.core.HazelcastInstance;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
@@ -33,8 +34,15 @@ public class HazelcastInstanceTest {
 
     @Test
     public void testInstance() {
-        HazelcastTestResource.addMemberToCluster();
-        await().atMost(10L, TimeUnit.SECONDS)
-                .until(() -> RestAssured.get("/added").then().extract().body().asString().equals("1"));
+        HazelcastInstance newMember = HazelcastTestResource.addMemberToCluster();
+        try {
+            await().atMost(10L, TimeUnit.SECONDS)
+                    .until(() -> RestAssured.get("/added").then().extract().body().asString().equals("1"));
+        } finally {
+            newMember.shutdown();
+
+            await().atMost(10L, TimeUnit.SECONDS)
+                    .until(() -> RestAssured.get("/deleted").then().extract().body().asString().equals("1"));
+        }
     }
 }
