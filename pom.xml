@@ -48,7 +48,7 @@
         <cassandra-quarkus.version>1.2.0</cassandra-quarkus.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/com/datastax/oss/quarkus/cassandra-quarkus-bom/ -->
         <debezium.version>2.3.3.Final</debezium.version> <!-- This should be in sync with quarkus-platform https://github.com/quarkusio/quarkus-platform-->
         <optaplanner.version>9.37.0.Final</optaplanner.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/org/optaplanner/optaplanner-quarkus/ -->
-        <quarkiverse-amazonservices.version>2.5.3</quarkiverse-amazonservices.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/io/quarkiverse/amazonservices/quarkus-amazon-services-parent/ -->
+        <quarkiverse-amazonservices.version>2.7.2</quarkiverse-amazonservices.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/io/quarkiverse/amazonservices/quarkus-amazon-services-parent/ -->
         <quarkiverse-artemis.version>3.1.2</quarkiverse-artemis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/artemis/quarkus-artemis-parent/ -->
         <quarkiverse-cxf.version>2.6.1</quarkiverse-cxf.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/io/quarkiverse/cxf/quarkus-cxf-parent/ -->
         <quarkiverse-freemarker.version>1.0.0</quarkiverse-freemarker.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/freemarker/quarkus-freemarker-parent/ -->
@@ -73,7 +73,7 @@
         <antlr3.version>3.5.2</antlr3.version><!-- Spark, Stringtemplate and probably others -->
         <audience-annotations.version>${yetus-audience-annotations-version}</audience-annotations.version>
         <avro.version>1.11.3</avro.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.avro:avro -->
-        <awssdk.version>2.21.17</awssdk.version><!-- @sync io.quarkiverse.amazonservices:quarkus-amazon-services-parent:${quarkiverse-amazonservices.version} prop:awssdk.version -->
+        <awssdk.version>2.21.29</awssdk.version><!-- @sync io.quarkiverse.amazonservices:quarkus-amazon-services-parent:${quarkiverse-amazonservices.version} prop:awssdk.version -->
         <awscrt.version>0.28.0</awscrt.version><!-- @sync software.amazon.awssdk:aws-sdk-java-pom:${awssdk.version} prop:awscrt.version -->
         <assertj.version>3.24.2</assertj.version><!-- @sync io.quarkus:quarkus-build-parent:${quarkus.version} prop:assertj.version -->
         <aws-java-sdk.version>1.11.714</aws-java-sdk.version>
@@ -233,7 +233,7 @@
         <kafka.container.image>confluentinc/cp-kafka:7.4.0</kafka.container.image>
         <keycloak.container.image>quay.io/keycloak/keycloak:22.0.5</keycloak.container.image>
         <kudu.container.image>docker.io/apache/kudu:1.15.0</kudu.container.image>
-        <localstack.container.image>docker.io/localstack/localstack:2.2.0</localstack.container.image>
+        <localstack.container.image>docker.io/localstack/localstack:3.0.1</localstack.container.image>
         <lra-coordinator.container.image>quay.io/jbosstm/lra-coordinator:7.0.0.Final-3.2.2.Final</lra-coordinator.container.image>
         <minio.container.image>docker.io/minio/minio:RELEASE.2023-07-21T21-12-44Z</minio.container.image>
         <mysql.container.image>docker.io/mysql:5.7</mysql.container.image>
