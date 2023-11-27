@@ -80,6 +80,9 @@ class OpenApiJavaProcessor {
     private static final String FEATURE = "camel-openapi-java";
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenApiJavaProcessor.class);
     private static final DotName SCHEMA = DotName.createSimple(Schema.class.getName());
+    private static final Class<?>[] OPENAPI_ARRAY_TYPES = new Class<?>[] {
+            Integer.class, Long.class, Float.class, Double.class, Boolean.class
+    };
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -101,6 +104,7 @@ class OpenApiJavaProcessor {
                 .forEach(name -> reflectiveClasses.produce(ReflectiveClassBuildItem.builder(name).methods().build()));
 
         reflectiveClasses.produce(ReflectiveClassBuildItem.builder(Discriminator.class).build());
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(OPENAPI_ARRAY_TYPES).methods().build());
     }
 
     @BuildStep(onlyIf = ExposeOpenApiEnabled.class)

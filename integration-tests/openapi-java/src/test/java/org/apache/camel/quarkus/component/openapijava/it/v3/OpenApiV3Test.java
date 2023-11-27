@@ -25,6 +25,7 @@ import org.apache.camel.quarkus.component.openapijava.it.common.OpenApiTest;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.is;
 
@@ -172,5 +173,31 @@ public class OpenApiV3Test extends OpenApiTest {
                         "components.schemas.AnyOfFormWrapper.type", is("object"),
                         "components.schemas.AnyOfFormWrapper.properties.formElements.$ref",
                         is("#/components/schemas/AnyOfForm"));
+    }
+
+    @ParameterizedTest
+    @EnumSource(OpenApiContentType.class)
+    public void arrayTypes(OpenApiContentType contentType) {
+        RestAssured.given()
+                .header("Accept", contentType.getMimeType())
+                .get("/openapi")
+                .then()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .body(
+                        "paths.'/api/operation/spec/array/params'.get.parameters[0].name", is("string_array"),
+                        "paths.'/api/operation/spec/array/params'.get.parameters[0].schema.enum", contains("A", "B", "C"),
+                        "paths.'/api/operation/spec/array/params'.get.parameters[1].name", is("int_array"),
+                        "paths.'/api/operation/spec/array/params'.get.parameters[1].schema.enum", contains(1, 2, 3),
+                        "paths.'/api/operation/spec/array/params'.get.parameters[2].name", is("integer_array"),
+                        "paths.'/api/operation/spec/array/params'.get.parameters[2].schema.enum", contains(1, 2, 3),
+                        "paths.'/api/operation/spec/array/params'.get.parameters[3].name", is("long_array"),
+                        "paths.'/api/operation/spec/array/params'.get.parameters[3].schema.enum", contains(1, 2, 3),
+                        "paths.'/api/operation/spec/array/params'.get.parameters[4].name", is("float_array"),
+                        "paths.'/api/operation/spec/array/params'.get.parameters[4].schema.enum", contains(1.0f, 2.0f, 3.0f),
+                        "paths.'/api/operation/spec/array/params'.get.parameters[5].name", is("double_array"),
+                        "paths.'/api/operation/spec/array/params'.get.parameters[5].schema.enum", contains(1.0f, 2.0f, 3.0f),
+                        "paths.'/api/operation/spec/array/params'.get.parameters[6].name", is("boolean_array"),
+                        "paths.'/api/operation/spec/array/params'.get.parameters[6].schema.enum", contains(true, false));
     }
 }
