@@ -124,7 +124,7 @@ public class EipRoutes extends RouteBuilder {
                 .setBody(e -> "Hello from thread " + Thread.currentThread().getName());
 
         from("direct:throttle")
-                .throttle(THROTTLE_MAXIMUM_REQUEST_COUNT).timePeriodMillis(THROTTLE_PERIOD).rejectExecution(true)
+                .throttle(THROTTLE_MAXIMUM_REQUEST_COUNT).rejectExecution(true).delay(THROTTLE_PERIOD)
                 .to("mock:throttle");
 
         from("direct:tryCatchFinally")
