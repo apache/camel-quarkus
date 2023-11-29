@@ -30,8 +30,8 @@ mkdir $1/
 cd $1/
 
 wget https://github.com/apache/camel-quarkus/archive/refs/tags/$1.zip -O apache-camel-quarkus-$1-src.zip
-cp ../../../target/apache-camel-quarkus-$1-sbom.json apache-camel-quarkus-$1-sbom.json
-cp ../../../target/apache-camel-quarkus-$1-sbom.xml apache-camel-quarkus-$1-sbom.xml
+cp ../../../target/checkout/target/camel-quarkus-$1-sbom.json apache-camel-quarkus-$1-sbom.json
+cp ../../../target/checkout/target/camel-quarkus-$1-sbom.xml apache-camel-quarkus-$1-sbom.xml
 cd ../
 ./sign.sh $1/
 svn import $1/ https://dist.apache.org/repos/dist/dev/camel/camel-quarkus/$2/ -m "Import camel-quarkus release"
