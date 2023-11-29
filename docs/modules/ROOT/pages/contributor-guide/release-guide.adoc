@@ -71,19 +71,15 @@ $ mvn deploy -Papache-release -DskipTests -Denforcer.skip -Dquarkus.build.skip -
 
 == Update the Apache Camel Quarkus development subversion repository
 
-The process is identical to that outlined in the `Assemble the Apache Camel Quarkus sources distribution` section below. Except that you must checkout the `dev` SVN repository.
+Camel-Quarkus provides some release scripts to push the required bits in development subversion repository.
 
 [source,shell]
 ----
-$ svn checkout 'https://dist.apache.org/repos/dist/dev/camel' camel-releases-dist
+$ cd release-utils/scripts/
+$ ./upload-source.sh $VERSION $VERSION
 ----
 
-When exporting the `URL` variable, it should be set to the closed staging repository URL for the new release. For example.
-
-[source,shell]
-----
-$ export URL='https://repository.apache.org/content/repositories/orgapachecamel-1647/org/apache/camel/quarkus/camel-quarkus'
-----
+This will take care of grabbing the source zip from github and getting the SBOMs from target directory. After signing the files, it will push the folder to `dist/dev/`
 
 After the changes have been committed. You can check them by browsing to https://dist.apache.org/repos/dist/dev/camel/camel-quarkus/.
 
@@ -252,6 +248,16 @@ Commit the changes:
 $ svn add --force .
 $ svn commit -m "Apache Camel Quarkus $VERSION released artifacts"
 ----
+
+Altenatively you could also use the release-scripts promote-release.sh
+
+[source,shell]
+----
+$ cd release-utils/scripts/
+$ ./promote-release.sh $VERSION $VERSION
+----
+
+where `$VERSION` is the version just released.
 
 == Upgrade Camel Quarkus in Quarkus Platform
 
