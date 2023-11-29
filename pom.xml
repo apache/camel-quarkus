@@ -589,6 +589,7 @@
                             <exclude>**/src/test/resources/__files/*.xml</exclude>
                             <exclude>.github/actions/**</exclude>
                             <exclude>**/my-property</exclude>
+                            <exclude>release-utils/*.sh</exclude>
                         </excludes>
                         <mapping>
                             <cli>CAMEL_PROPERTIES_STYLE</cli>
