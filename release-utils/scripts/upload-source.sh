@@ -34,6 +34,6 @@ cp ../../../target/apache-camel-quarkus-$1-sbom.json apache-camel-quarkus-$1-sbo
 cp ../../../target/apache-camel-quarkus-$1-sbom.xml apache-camel-quarkus-$1-sbom.xml
 cd ../
 ./sign.sh $1/
-svn import $1/ https://dist.apache.org/repos/dist/dev/camel/camel-quarkus/$2/ -m "Import camel-kamelets release"
+svn import $1/ https://dist.apache.org/repos/dist/dev/camel/camel-quarkus/$2/ -m "Import camel-quarkus release"
 
 rm -rf $1/
