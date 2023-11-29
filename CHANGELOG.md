@@ -1,5 +1,62 @@
 # Changelog
 
+## 3.6.0
+
+* Next is 3.6.0-SNAPSHOT by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5445
+* Update Maven wrapper distribution URL to Maven 3.9.5 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5446
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5448
+* Fix package path to XmlSlurper in camel-k-maven-plugin integration tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5451
+* Add changelog for 3.5.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5454
+* Bump quarkiverse-groovy.version from 3.4.0 to 3.5.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/5455
+* Fix build order for camel-quarkus-camel-k-deployment test dependencies by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5456
+* Upgrade to Quarkus CXF 2.5.0  by @ppalaga in https://github.com/apache/camel-quarkus/pull/5457
+* Remove duplicate quarkus-resteasy dependency from camel-quarkus-integration-test-azure-servicebus by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5458
+* Document how users can upgrade to new Camel Quarkus releases without a Quarkus Platform release by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5460
+* Bump quarkiverse-mybatis.version from 2.1.0 to 2.2.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/5459
+* Update Jira tests to work with the latest container image by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5465
+* Fix #5453 to introduce camel-spring-redis extension by @zhfeng in https://github.com/apache/camel-quarkus/pull/5466
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5469
+* Bump org.cyclonedx:cyclonedx-maven-plugin from 2.7.9 to 2.7.10 by @dependabot in https://github.com/apache/camel-quarkus/pull/5475
+* Only manage io.quarkiverse.minio:quarkus-minio-native by @zhfeng in https://github.com/apache/camel-quarkus/pull/5470
+* Automatically register beans with methods annotated with @Handler for reflection by @spatnity in https://github.com/apache/camel-quarkus/pull/5472
+* Review Camel service include patterns by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5476
+* Platform-http test fails in FIPS environment by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5463
+* Register To*Stream classes for reflection by @turing85 in https://github.com/apache/camel-quarkus/pull/5477
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5484
+* Add changelog for 3.2.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5487
+* Set infinispan-quarkus-client test client-intelligence to BASIC on all platforms by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5488
+* file: migrate charset test to non flaky test harness #3584 by @aldettinger in https://github.com/apache/camel-quarkus/pull/5480
+* Re-enable SimpleIT by @zhfeng in https://github.com/apache/camel-quarkus/pull/5491
+* Add debug logging to gRPC extension class generation build steps by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5494
+* Upgrade to Quarkus 3.5.1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/5495
+* Add --fail-at-end to functional-extension-tests Maven executions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5496
+* Bump quarkiverse-tika.version from 2.0.2 to 2.0.3 by @dependabot in https://github.com/apache/camel-quarkus/pull/5498
+* Revert "Bump quarkiverse-tika.version from 2.0.2 to 2.0.3" by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5499
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5500
+* Add support for Salesforce pub / sub API by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5503
+* Upgrade to 4.2.0 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5501
+* Clean up usage of hard coded hosts that use containers by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5509
+* Use Apache Camel icon for extension catalog by @ppalaga in https://github.com/apache/camel-quarkus/pull/5514
+* Upgrade Quarkus to 3.6.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5512
+* Improve container setup for kafka-oauth test by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5516
+* Quarkus 3.6.0.CR1 upgrade post tidy ups by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5517
+* Bump org.codehaus.mojo:exec-maven-plugin from 3.1.0 to 3.1.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/5519
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5520
+* Re-enable SnakeYAML JVM test and native profile  by @zhfeng in https://github.com/apache/camel-quarkus/pull/5524
+* Ftp regenerate certificate + extend validity by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5523
+* Bump quarkiverse-jsch.version from 3.0.4 to 3.0.5 by @dependabot in https://github.com/apache/camel-quarkus/pull/5526
+* Fix intermittent failure of QuartzQuarkusSchedulerAutowiredWithSchedulerBeanTest by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5530
+* Fix intermittent failure of debug integration test by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5531
+* Fix MailTest.testAttachments test on Windows by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5537
+* Upgrade Quarkus to 3.6.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5539
+* Enable Mail & Kafka test certificates to be regenerated for the docker host name or ip address by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5540
+* Upgrade Debezium to 2.3.3.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5542
+* Upgrade quarkus-amazon-services to 2.5.3 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5545
+* Upgrade to Quarkus CXF 2.6.1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/5546
+* Downgrade calculator-ws container version to 1.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5550
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.5.0...3.6.0
+
 ## 3.2.2
 
 * [3.2.x] Remove Google Cloud native build limitation for RunReachabilityHandlersConcurrently option by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5405
