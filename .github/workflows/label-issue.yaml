@@ -48,7 +48,7 @@ jobs:
         run: |
           npm install js-yaml
       - name: Label Issue
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');

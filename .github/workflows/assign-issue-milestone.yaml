@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Assign Closed Issues To Latest Milestone
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const issueNumberFromCommitCommentRegex = new RegExp(`.*(?:fix(?:e[sd])?|(?:(?:resolve|close)[sd]?)):?\\s(?:https?:\\/\\/github\\.com\\/${context.repo.owner}\\/${context.repo.repo}\\/issues\\/|#)(\\d+)`, 'igm');
