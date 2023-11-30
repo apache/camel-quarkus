@@ -17,12 +17,9 @@
 package org.apache.camel.quarkus.eip.it;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -474,36 +471,24 @@ class EipTest {
 
     @Test
     public void throttle() {
-        final int durationMs = EipRoutes.THROTTLE_PERIOD * 4;
-        LOG.infof("About to sent messages for %d ms", durationMs);
-        final long deadline = System.currentTimeMillis() + (durationMs);
-        int i = 0;
-        final Map<Integer, AtomicInteger> statusCounts = new HashMap<>();
-        statusCounts.put(200, new AtomicInteger());
-        statusCounts.put(500, new AtomicInteger()); // the counter for the rejected requests
-        while (System.currentTimeMillis() < deadline) {
-            /* Send messages for 500 ms */
-            final int status = RestAssured.given()
+        LOG.infof("About to sent 6 messages");
+        for (int i = 0; i < 6; i++) {
+            RestAssured.given()
                     .contentType(ContentType.TEXT)
-                    .body("message-" + i++)
-                    .post("/eip/route/throttle")
+                    .body("message-" + i)
+                    .post("/eip/routeAsync/throttle")
                     .then()
                     .extract().statusCode();
-            statusCounts.get(status).incrementAndGet();
         }
-        int successCount = statusCounts.get(200).get();
-        int rejectedCount = statusCounts.get(500).get();
-        LOG.infof("Sent %d messages, sucessful %d, rejected %d", i, successCount, rejectedCount);
-        Assertions.assertThat(rejectedCount).isGreaterThan(0); // assert that some were rejected
-        String[] samples = RestAssured.get("/eip/mock/throttle/" + successCount + "+/5000/body")
+        String[] samples = RestAssured.get("/eip/mock/throttle/2/5000/body")
                 .then()
                 .statusCode(200)
                 .extract()
                 .body().asString().split(",");
         LOG.infof("%d messages passed the route", samples.length);
-        Assertions.assertThat(samples.length).isEqualTo(successCount);
-        Assertions.assertThat(successCount)
-                .isLessThanOrEqualTo(EipRoutes.THROTTLE_PERIOD * EipRoutes.THROTTLE_MAXIMUM_REQUEST_COUNT);
+        Assertions.assertThat(samples.length).isEqualTo(EipRoutes.THROTTLE_MAXIMUM_REQUEST_COUNT);
+        Assertions.assertThat("message-0").isIn(samples);
+        Assertions.assertThat("message-1").isIn(samples);
     }
 
     @Test
