@@ -14,18 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.kotlin.deployment
+package org.apache.camel.quarkus.kotlin.deployment;
 
-import io.quarkus.deployment.annotations.BuildStep
-import io.quarkus.deployment.builditem.FeatureBuildItem
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.FeatureBuildItem;
 
 class KotlinFeature {
-    companion object {
-        private const val FEATURE = "camel-kotlin"
-    }
+    private static final String FEATURE = "camel-kotlin";
 
     @BuildStep
-    fun feature(): FeatureBuildItem {
-        return FeatureBuildItem(FEATURE)
+    FeatureBuildItem featureBuildItem() {
+        return new FeatureBuildItem(FEATURE);
     }
 }
