@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.support.spring.graal;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
@@ -51,20 +49,6 @@ final class SubstituteKotlinDetector {
 @TargetClass(className = "org.springframework.core.KotlinReflectionParameterNameDiscoverer")
 @Delete
 final class SubstituteKotlinReflectionParameterNameDiscoverer {
-}
-
-@TargetClass(className = "org.springframework.beans.BeanUtils$KotlinDelegate")
-final class SubstituteBeanUtilsKotlinDelegate {
-    @Substitute
-    public static <T> Constructor<T> findPrimaryConstructor(Class<T> clazz) {
-        throw new UnsupportedOperationException("Kotlin is not supported");
-    }
-
-    @Substitute
-    public static <T> T instantiateClass(Constructor<T> ctor, Object... args)
-            throws IllegalAccessException, InvocationTargetException, InstantiationException {
-        throw new UnsupportedOperationException("Kotlin is not supported");
-    }
 }
 
 @TargetClass(className = "org.springframework.core.MethodParameter$KotlinDelegate")

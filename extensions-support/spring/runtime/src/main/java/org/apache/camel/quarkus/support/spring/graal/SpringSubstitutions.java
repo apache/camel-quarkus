@@ -44,11 +44,6 @@ final class SubstituteDefaultParameterNameDiscoverer {
 final class SubstituteStandardReflectionParameterNameDiscoverer {
 }
 
-@TargetClass(className = "org.springframework.core.LocalVariableTableParameterNameDiscoverer")
-@Delete
-final class SubstituteLocalVariableTableParameterNameDiscoverer {
-}
-
 @TargetClass(className = "org.springframework.core.io.VfsUtils")
 @Delete
 final class SubstituteVfsUtils {
