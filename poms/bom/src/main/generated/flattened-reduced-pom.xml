@@ -6753,7 +6753,7 @@
       <dependency>
         <groupId>redis.clients</groupId>
         <artifactId>jedis</artifactId>
-        <version>5.1.0</version>
+        <version>5.0.2</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk.crt</groupId>
@@ -7478,62 +7478,77 @@
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-alpn-client</artifactId>
-        <version>11.0.18</version>
+        <version>12.0.3</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-client</artifactId>
-        <version>11.0.18</version>
+        <version>12.0.3</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-http</artifactId>
-        <version>11.0.18</version>
+        <version>12.0.3</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-io</artifactId>
-        <version>11.0.18</version>
+        <version>12.0.3</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-security</artifactId>
-        <version>11.0.18</version>
+        <version>12.0.3</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-server</artifactId>
-        <version>11.0.18</version>
+        <version>12.0.3</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-servlet</artifactId>
-        <version>11.0.18</version>
-      </dependency>
-      <dependency>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-servlets</artifactId>
-        <version>11.0.18</version>
+        <artifactId>jetty-session</artifactId>
+        <version>12.0.3</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-util</artifactId>
-        <version>11.0.18</version>
+        <version>12.0.3</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-util-ajax</artifactId>
-        <version>11.0.18</version>
-      </dependency>
-      <dependency>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-webapp</artifactId>
-        <version>11.0.18</version>
+        <version>12.0.3</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-xml</artifactId>
-        <version>11.0.18</version>
+        <version>12.0.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jetty.websocket</groupId>
+        <artifactId>jetty-websocket-core-common</artifactId>
+        <version>12.0.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jetty.websocket</groupId>
+        <artifactId>jetty-websocket-core-server</artifactId>
+        <version>12.0.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jetty.websocket</groupId>
+        <artifactId>jetty-websocket-jetty-api</artifactId>
+        <version>12.0.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jetty.websocket</groupId>
+        <artifactId>jetty-websocket-jetty-common</artifactId>
+        <version>12.0.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jetty.websocket</groupId>
+        <artifactId>jetty-websocket-jetty-server</artifactId>
+        <version>12.0.3</version>
       </dependency>
       <dependency>
         <groupId>com.azure</groupId>
@@ -7706,6 +7721,11 @@
         <groupId>io.dropwizard.metrics</groupId>
         <artifactId>metrics-core</artifactId>
         <version>4.0.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-servlet</artifactId>
+        <version>9.4.12.v20180830</version>
       </dependency>
       <dependency>
         <groupId>org.reflections</groupId>
