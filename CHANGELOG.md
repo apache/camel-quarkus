@@ -1,5 +1,23 @@
 # Changelog
 
+## 3.2.3
+
+* [3.2.x] Update generated files after release by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5483
+* [3.2.x] Set infinispan-quarkus-client test client-intelligence to BASIC on all platforms by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5489
+* [3.2.x] Upgrade Quarkus to 3.2.8.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5492
+* [3.2.x] Infinispan test: fix broken immutable list by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5507
+* [3.2.x] Clean up usage of hard coded hosts that use containers by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5513
+* [3.2.x] Upgrade camel 4.0.3 by @zhfeng in https://github.com/apache/camel-quarkus/pull/5525
+* [3.2.x] Upgrade Quarkus to 3.2.9.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5527
+* [3.2.x] Ftp regenerate certificate + extend validity (#5523) by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5529
+* [3.2.x] Upgrade quarkus-artemis to 3.0.3 by @zhfeng in https://github.com/apache/camel-quarkus/pull/5532
+* [3.2.x] Upgrade quarkus-pooled-jms to 2.1.1 by @zhfeng in https://github.com/apache/camel-quarkus/pull/5533
+* [3.2.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5543
+* [3.2.x] Upgrade to Quarkus CXF 2.2.6 by @ppalaga in https://github.com/apache/camel-quarkus/pull/5547
+* [3.2.x] Remove redundant Apache Arrow io.netty classes from google-biqquery e… by @zhfeng in https://github.com/apache/camel-quarkus/pull/5564
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.2.2...3.2.3
+
 ## 3.6.0
 
 * Next is 3.6.0-SNAPSHOT by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5445
