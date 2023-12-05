@@ -70,7 +70,6 @@
                                     </includes>
                                     <excludes>
                                         <exclude>org/springframework/beans/factory/groovy/**</exclude>
-                                        <exclude>org/springframework/beans/BeanUtils$Kotlin*</exclude>
                                     </excludes>
                                 </filter>
                             </filters>

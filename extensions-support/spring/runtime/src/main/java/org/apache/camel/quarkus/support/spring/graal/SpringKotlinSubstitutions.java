@@ -16,8 +16,11 @@
  */
 package org.apache.camel.quarkus.support.spring.graal;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.util.function.BooleanSupplier;
 
 import com.oracle.svm.core.annotate.Delete;
 import com.oracle.svm.core.annotate.Substitute;
@@ -44,11 +47,30 @@ final class SubstituteKotlinDetector {
     public static boolean isKotlinType(Class<?> clazz) {
         return false;
     }
+
+    @Substitute
+    public static boolean isSuspendingFunction(Method method) {
+        return false;
+    }
 }
 
 @TargetClass(className = "org.springframework.core.KotlinReflectionParameterNameDiscoverer")
 @Delete
 final class SubstituteKotlinReflectionParameterNameDiscoverer {
+}
+
+@TargetClass(className = "org.springframework.beans.BeanUtils$KotlinDelegate")
+final class SubstituteBeanUtilsKotlinDelegate {
+    @Substitute
+    public static <T> Constructor<T> findPrimaryConstructor(Class<T> clazz) {
+        throw new UnsupportedOperationException("Kotlin is not supported");
+    }
+
+    @Substitute
+    public static <T> T instantiateClass(Constructor<T> ctor, Object... args)
+            throws IllegalAccessException, InvocationTargetException, InstantiationException {
+        throw new UnsupportedOperationException("Kotlin is not supported");
+    }
 }
 
 @TargetClass(className = "org.springframework.core.MethodParameter$KotlinDelegate")
@@ -66,5 +88,25 @@ final class SubstituteMethodParameterKotlinDelegate {
     @Substitute
     private static Class<?> getReturnType(Method method) {
         throw new UnsupportedOperationException("Kotlin is not supported");
+    }
+}
+
+@TargetClass(className = "org.springframework.aop.support.AopUtils$KotlinDelegate", onlyWith = SpringAopPresent.class)
+final class SubstituteAopUtilsKotlinDelegate {
+    @Substitute
+    public static Object invokeSuspendingFunction(Method method, Object target, Object... args) {
+        throw new UnsupportedOperationException("Kotlin is not supported");
+    }
+}
+
+final class SpringAopPresent implements BooleanSupplier {
+    @Override
+    public boolean getAsBoolean() {
+        try {
+            Thread.currentThread().getContextClassLoader().loadClass("org.springframework.aop.support.AopUtils");
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
     }
 }
