@@ -71,6 +71,7 @@
 
 
     <profiles>
+        <!-- Camel 3.18.x is now EOL and not aligned with org.apache.sshd 2.10
         <profile>
             <id>native</id>
             <activation>
@@ -98,6 +99,7 @@
                 </plugins>
             </build>
         </profile>
+        -->
         <profile>
             <id>virtualDependencies</id>
             <activation>
