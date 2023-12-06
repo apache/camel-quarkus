@@ -1282,6 +1282,10 @@
             <groupId>org.checkerframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>checker-qual</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
+          <exclusion>
+            <groupId>org.eclipse.jetty</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>*</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -6444,6 +6448,10 @@
             <artifactId>jaxb-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
           <exclusion>
+            <groupId>org.eclipse.jetty</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>jetty-servlet</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
             <groupId>org.slf4j</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>slf4j-log4j12</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
@@ -7526,11 +7534,6 @@
         <version>12.0.4</version><!-- org.eclipse.jetty:jetty-bom:12.0.4 -->
       </dependency>
       <dependency>
-        <groupId>org.eclipse.jetty</groupId><!-- org.eclipse.jetty:jetty-bom:12.0.4 -->
-        <artifactId>jetty-xml</artifactId><!-- org.eclipse.jetty:jetty-bom:12.0.4 -->
-        <version>12.0.4</version><!-- org.eclipse.jetty:jetty-bom:12.0.4 -->
-      </dependency>
-      <dependency>
         <groupId>org.eclipse.jetty.websocket</groupId><!-- org.eclipse.jetty:jetty-bom:12.0.4 -->
         <artifactId>jetty-websocket-core-common</artifactId><!-- org.eclipse.jetty:jetty-bom:12.0.4 -->
         <version>12.0.4</version><!-- org.eclipse.jetty:jetty-bom:12.0.4 -->
@@ -7726,11 +7729,6 @@
         <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:2.3.3.Final -->
         <artifactId>metrics-core</artifactId><!-- io.debezium:debezium-bom:2.3.3.Final -->
         <version>4.0.1</version><!-- io.debezium:debezium-bom:2.3.3.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.eclipse.jetty</groupId><!-- io.debezium:debezium-bom:2.3.3.Final -->
-        <artifactId>jetty-servlet</artifactId><!-- io.debezium:debezium-bom:2.3.3.Final -->
-        <version>9.4.12.v20180830</version><!-- io.debezium:debezium-bom:2.3.3.Final -->
       </dependency>
       <dependency>
         <groupId>org.reflections</groupId><!-- io.debezium:debezium-bom:2.3.3.Final -->
