@@ -17,7 +17,9 @@
 package org.apache.camel.quarkus.component.ssh.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
+import org.junit.jupiter.api.Disabled;
 
+@Disabled("Camel 3.18.x is now EOL and not aligned with org.apache.sshd 2.10")
 @QuarkusIntegrationTest
 class SshIT extends SshTest {
 

@@ -20,10 +20,12 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Disabled("Camel 3.18.x is now EOL and not aligned with org.apache.sshd 2.10")
 @QuarkusTest
 @QuarkusTestResource(SshTestResource.class)
 class SshTest {
