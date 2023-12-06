@@ -24,6 +24,7 @@ Perform operations against Kubernetes API
 == What's inside
 
 * xref:{cq-camel-components}::kubernetes-config-maps-component.adoc[Kubernetes ConfigMap component], URI syntax: `kubernetes-config-maps:masterUrl`
+* xref:{cq-camel-components}::kubernetes-cronjob-component.adoc[Kubernetes Cronjob component], URI syntax: `kubernetes-cronjob:masterUrl`
 * xref:{cq-camel-components}::kubernetes-custom-resources-component.adoc[Kubernetes Custom Resources component], URI syntax: `kubernetes-custom-resources:masterUrl`
 * xref:{cq-camel-components}::kubernetes-deployments-component.adoc[Kubernetes Deployments component], URI syntax: `kubernetes-deployments:masterUrl`
 * xref:{cq-camel-components}::kubernetes-events-component.adoc[Kubernetes Event component], URI syntax: `kubernetes-events:masterUrl`
