@@ -214,24 +214,13 @@ jobs:
         if: github.ref == 'refs/heads/quarkus-main' || github.base_ref == 'quarkus-main'
         run: |
           echo "BRANCH_OPTIONS=-Poss-snapshots -Dquarkus.version=999-SNAPSHOT" >> $GITHUB_ENV
-      - name: Reclaim Disk Space
-        run: |
-          df -h /
-          echo "Reclaiming disk space..."
-          sudo rm -rf /opt/ghc \
-               rm -rf /opt/pipx \
-               rm -rf /usr/local/go \
-               rm -rf /usr/local/lib/android \
-               rm -rf /usr/local/share/boost \
-               rm -rf /usr/share/dotnet \
-               rm -rf /usr/share/rust \
-               rm -rf /usr/share/swift
-          df -h /
       - name: Checkout
         uses: actions/checkout@v4
         with:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
+      - name: Reclaim Disk Space
+        run: .github/reclaim-disk-space.sh
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -417,18 +406,7 @@ jobs:
           ref: ${{ env.CHECKOUT_REF }}
           fetch-depth: 0
       - name: Reclaim Disk Space
-        run: |
-          df -h /
-          echo "Reclaiming disk space..."
-          sudo rm -rf /opt/ghc \
-               rm -rf /opt/pipx \
-               rm -rf /usr/local/go \
-               rm -rf /usr/local/lib/android \
-               rm -rf /usr/local/share/boost \
-               rm -rf /usr/share/dotnet \
-               rm -rf /usr/share/rust \
-               rm -rf /usr/share/swift
-          df -h /
+        run: .github/reclaim-disk-space.sh
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
