@@ -18,8 +18,6 @@ package org.apache.camel.quarkus.component.salesforce;
 
 import java.util.Map;
 
-import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import com.github.tomakehurst.wiremock.extension.responsetemplating.ResponseTemplateTransformer;
 import org.apache.camel.quarkus.test.wiremock.WireMockTestResourceLifecycleManager;
 
 public class SalesforceTestResource extends WireMockTestResourceLifecycleManager {
@@ -50,10 +48,4 @@ public class SalesforceTestResource extends WireMockTestResourceLifecycleManager
         }
         return options;
     }
-
-    @Override
-    protected void customizeWiremockConfiguration(WireMockConfiguration config) {
-        config.extensions(new ResponseTemplateTransformer(false));
-    }
-
 }
