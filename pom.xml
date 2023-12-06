@@ -170,7 +170,7 @@
         <pdfbox.version>${pdfbox-version}</pdfbox.version>
         <sshd.version>2.10.0</sshd.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.sshd:sshd-common -->
         <unboundid-ldapsdk.version>6.0.11</unboundid-ldapsdk.version>
-        <wiremock.version>3.0.0-beta-10</wiremock.version>
+        <wiremock.version>3.3.1</wiremock.version>
         <zt-exec.version>1.12</zt-exec.version>
 
         <!-- Tooling dependency versions (keep sorted alphabetically) -->

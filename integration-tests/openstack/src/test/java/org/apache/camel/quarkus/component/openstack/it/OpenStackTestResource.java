@@ -18,8 +18,6 @@ package org.apache.camel.quarkus.component.openstack.it;
 
 import java.util.Map;
 
-import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import com.github.tomakehurst.wiremock.extension.responsetemplating.ResponseTemplateTransformer;
 import org.apache.camel.quarkus.test.wiremock.WireMockTestResourceLifecycleManager;
 
 public class OpenStackTestResource extends WireMockTestResourceLifecycleManager {
@@ -41,10 +39,4 @@ public class OpenStackTestResource extends WireMockTestResourceLifecycleManager 
     protected boolean isMockingEnabled() {
         return true;
     }
-
-    @Override
-    protected void customizeWiremockConfiguration(WireMockConfiguration config) {
-        config.extensions(new ResponseTemplateTransformer(false));
-    }
-
 }
