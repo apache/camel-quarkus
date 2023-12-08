@@ -25,9 +25,9 @@ $ ./my-application-runner -XX:+FlightRecorder -XX:StartFlightRecording=filename=
 
 === Flight recording in native mode
 
-To build a native image with Java Flight Recorder support, it is mandatory to enable VM inspection via the following configuration property in `application.properties`.
+To build a native image with Java Flight Recorder support, you must enable it via the following configuration property in `application.properties`.
 
 [source,properties]
 ----
-quarkus.native.enable-vm-inspection=true
+quarkus.native.monitoring=jfr
 ----
