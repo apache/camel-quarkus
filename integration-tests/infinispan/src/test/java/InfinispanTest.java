@@ -21,6 +21,7 @@ import io.restassured.RestAssured;
 import org.apache.camel.quarkus.component.infinispan.common.InfinispanCommonTest;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 
@@ -37,8 +38,8 @@ public class InfinispanTest extends InfinispanCommonTest {
     }
 
     @Disabled
+    @Test
     @Override
     public void query() {
-        super.query();
     }
 }
