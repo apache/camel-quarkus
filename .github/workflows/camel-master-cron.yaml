@@ -470,7 +470,7 @@ jobs:
           for MODULE in ${EXAMPLE_MODULES//,/ }; do
             cd ${MODULE}
 
-            ../mvnw ${MAVEN_ARGS} clean verify \
+            ../mvnw ${CQ_MAVEN_ARGS} clean verify \
               -Dformatter.skip -Dimpsort.skip \
               -Dquarkus.native.builder-image.pull=missing \
               -Pnative,docker,ci
