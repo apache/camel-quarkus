@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.test.userTestCases;
 
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit.callback.QuarkusTestMethodContext;
 import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.EndpointInject;
@@ -28,6 +27,7 @@ import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.quarkus.test.CamelQuarkusTestSupport;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -56,8 +56,8 @@ public class AdviceInDoBeforeEachMethodsTest extends CamelQuarkusTestSupport {
         };
     }
 
-    @Override
-    protected void doBeforeEach(QuarkusTestMethodContext context) throws Exception {
+    @BeforeEach
+    protected void applyAdvice() throws Exception {
         AdviceWith.adviceWith(this.context, "sampleRoute",
                 AdviceInDoBeforeEachMethodsTest::enhanceRoute);
     }

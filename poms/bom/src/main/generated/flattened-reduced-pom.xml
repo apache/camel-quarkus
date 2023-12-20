@@ -6414,7 +6414,7 @@
       <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>connect-runtime</artifactId>
-        <version>3.6.0</version>
+        <version>3.6.1</version>
         <exclusions>
           <exclusion>
             <groupId>javax.activation</groupId>
