@@ -52,6 +52,9 @@ public class NonFlakyFileTestResource implements QuarkusTestResourceLifecycleMan
     static final String FILE_CREATION_FOLDER = "file-creation";
     static final String FILE_CREATION_FILE_NAME = "should-be-created";
     static final String FILE_CREATION_FILE_CONTENT = FILE_CREATION_FILE_NAME + "-CONTENT";
+    static final String READ_LOCK_FOLDER_IN = "read-lock-in";
+    static final String READ_LOCK_FOLDER_OUT = "read-lock-out";
+    static final String READ_LOCK_FILE_NAME = "read-lock-file";
 
     private final Map<Path, byte[]> createdTestFilesExpectedContent = new HashMap<>();
 
@@ -71,8 +74,11 @@ public class NonFlakyFileTestResource implements QuarkusTestResourceLifecycleMan
 
             createTestFile("charset-read", CHARSET_READ_FILE_NAME, CHARSET_READ_FILE_CONTENT, StandardCharsets.ISO_8859_1);
 
+            createTestFile("read-lock-in", READ_LOCK_FILE_NAME);
+
             // Do not use  createTestFile("file-creation"... as it is already reserved by the createFileShouldSucceed test
             // Do not use  createTestFile("charset-write"... as it is already reserved by the writeFileWithIso8859_1CharsetShouldSucceed test
+            // Do not use  createTestFile("read-lock-out"... as it is already reserved by the readLockCantBeAcquiredOnFileSmallerThanReadLockMinLength test
 
             ensureAllTestFilesCreatedWithExpectedContent();
         } catch (Exception ex) {

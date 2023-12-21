@@ -30,25 +30,14 @@ import io.restassured.http.ContentType;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.CHARSET_READ_FILE_CONTENT;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.CHARSET_WRITE_FILE_CONTENT;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.CHARSET_WRITE_FILE_CREATION_FOLDER;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.CHARSET_WRITE_FILE_NAME;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.FILE_CREATION_FILE_CONTENT;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.FILE_CREATION_FILE_NAME;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.FILE_CREATION_FOLDER;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.FILTER_NON_SKIPPED_FILE_CONTENT;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.IDEMPOTENT_FILE_CONTENT;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.IDEMPOTENT_FILE_NAME;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.POLL_ENRICH_FILE_CONTENT;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.QUARTZ_SCHEDULED_FILE_CONTENT;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.TEST_FILES_FOLDER;
+import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.*;
 import static org.apache.commons.io.FileUtils.readFileToString;
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * This is an attempt to rewrite file tests from scratch in a cleaner way. It aims at having the test logic more
@@ -172,7 +161,22 @@ class NonFlakyFileTest {
         await().atMost(1, TimeUnit.SECONDS).until(() -> Files.exists(expectedFilePath));
 
         assertEquals(CHARSET_WRITE_FILE_CONTENT, readFileToString(expectedFilePath.toFile(), charset));
-
     }
 
+    @Test
+    void readLockCantBeAcquiredOnFileSmallerThanReadLockMinLength() throws InterruptedException {
+
+        Path inputFilePath = TEST_FILES_FOLDER.resolve(Paths.get(READ_LOCK_FOLDER_IN, READ_LOCK_FILE_NAME));
+        Path doneFilePath = TEST_FILES_FOLDER.resolve(Paths.get(READ_LOCK_FOLDER_IN, ".done", READ_LOCK_FILE_NAME));
+        Path outputFilePath = TEST_FILES_FOLDER.resolve(Paths.get(READ_LOCK_FOLDER_OUT, READ_LOCK_FILE_NAME));
+
+        Thread.sleep(10_000L);
+
+        // Check that the input file still reside in input folder
+        assertTrue(Files.exists(inputFilePath));
+
+        // Check that .done and output folder do not contain the input file
+        assertFalse(Files.exists(doneFilePath));
+        assertFalse(Files.exists(outputFilePath));
+    }
 }
