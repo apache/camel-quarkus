@@ -38,7 +38,7 @@ public class FileRoutes extends RouteBuilder {
 
     @Override
     public void configure() {
-        from("file://target/" + READ_LOCK_IN + "?"
+        from("file://target/test-files/read-lock-in?"
                 + "initialDelay=0&"
                 + "move=.done&"
                 + "delay=1000&"
@@ -48,7 +48,7 @@ public class FileRoutes extends RouteBuilder {
                 + "readLockCheckInterval=2000&"
                 + "readLockLoggingLevel=TRACE&"
                 + "readLockTimeout=5000")
-                .to("file://target/" + READ_LOCK_OUT);
+                .to("file://target/test-files/read-lock-out");
 
         from("file://target/test-files/quartz-scheduled?scheduler=quartz&scheduler.cron=0/1+*+*+*+*+?&repeatCount=0")
                 .convertBodyTo(String.class)

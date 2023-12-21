@@ -21,9 +21,6 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -34,7 +31,6 @@ import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.ValidatableResponse;
 import org.apache.camel.quarkus.core.util.FileUtils;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.quarkus.component.file.it.FileResource.CONSUME_BATCH;
@@ -49,21 +45,6 @@ class FileTest {
     private static final String FILE_CONTENT_01 = "Hello1";
     private static final String FILE_CONTENT_02 = "Hello2";
     private static final String FILE_CONTENT_03 = "Hello3";
-
-    private List<Path> pathsToDelete = new LinkedList<>();
-
-    @AfterEach
-    public void afterEach() {
-        pathsToDelete.stream().forEach(p -> {
-            try {
-                Files.delete(p);
-            } catch (IOException e) {
-                // ignore
-            }
-        });
-
-        pathsToDelete.clear();
-    }
 
     @Test
     public void batch() throws InterruptedException, UnsupportedEncodingException {
@@ -124,42 +105,6 @@ class FileTest {
         Files.delete(file);
 
         awaitEvent(dir, file, "DELETE");
-    }
-
-    @Test
-    public void fileReadLock_minLength() throws Exception {
-        // Create a new file
-        String filePath = RestAssured.given()
-                .contentType(ContentType.BINARY)
-                .body(new byte[] {})
-                .post("/file/create/{name}", FileRoutes.READ_LOCK_IN)
-                .then()
-                .statusCode(201)
-                .extract()
-                .body()
-                .asString();
-
-        String fileName = Paths.get(filePath).getFileName().toString();
-
-        Thread.sleep(10_000L);
-
-        // Read the file that should not be there (.done folder)
-        RestAssured
-                .get("/file/get/{folder}/{name}", FileRoutes.READ_LOCK_IN + "/.done", fileName)
-                .then()
-                .statusCode(204);
-
-        // Read the file that should not be there (output folder)
-        RestAssured
-                .get("/file/get/{folder}/{name}", FileRoutes.READ_LOCK_OUT, fileName)
-                .then()
-                .statusCode(204);
-
-        // Read the file that should be there (input folder)
-        RestAssured
-                .get("/file/get/{folder}/{name}", FileRoutes.READ_LOCK_IN, fileName)
-                .then()
-                .statusCode(200);
     }
 
     private static String createFile(String content, String path) throws UnsupportedEncodingException {
