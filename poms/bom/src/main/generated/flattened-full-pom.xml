@@ -6258,12 +6258,12 @@
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-groovy</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.6.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.6.4</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-groovy-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.6.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.6.4</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jackson-jq</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -6429,27 +6429,27 @@
       <dependency>
         <groupId>org.apache.groovy</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>groovy</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>4.0.16</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>4.0.17</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>groovy-json</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>4.0.16</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>4.0.17</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>groovy-test</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>4.0.16</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>4.0.17</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>groovy-xml</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>4.0.16</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>4.0.17</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>groovy-yaml</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>4.0.16</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>4.0.17</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>org.apache.httpcomponents.client5</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -7315,129 +7315,129 @@
         <version>4.0.3</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:2.6.1 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-ant</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-ant</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-astbuilder</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-astbuilder</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-cli-commons</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-cli-commons</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-cli-picocli</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-cli-picocli</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-console</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-console</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-contracts</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-contracts</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-datetime</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-datetime</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-dateutil</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-dateutil</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-docgenerator</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-docgenerator</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-ginq</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-ginq</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-groovydoc</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-groovydoc</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-groovysh</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-groovysh</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-jmx</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-jmx</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-jsr223</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-jsr223</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-macro</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-macro</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-macro-library</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-macro-library</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-nio</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-nio</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-servlet</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-servlet</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-sql</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-sql</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-swing</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-swing</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-templates</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-templates</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-test-junit5</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-test-junit5</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-testng</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-testng</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-toml</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-toml</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <artifactId>groovy-typecheckers</artifactId><!-- org.apache.groovy:groovy-bom:4.0.16 -->
-        <version>4.0.16</version><!-- org.apache.groovy:groovy-bom:4.0.16 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <artifactId>groovy-typecheckers</artifactId><!-- org.apache.groovy:groovy-bom:4.0.17 -->
+        <version>4.0.17</version><!-- org.apache.groovy:groovy-bom:4.0.17 -->
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.22.1 -->
