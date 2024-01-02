@@ -142,7 +142,6 @@
 *** xref:reference/extensions/groovy-dsl.adoc[Groovy DSL]
 *** xref:reference/extensions/gson.adoc[Gson]
 *** xref:reference/extensions/guava-eventbus.adoc[Guava EventBus]
-*** xref:reference/extensions/hdfs.adoc[HDFS]
 *** xref:reference/extensions/hl7.adoc[HL7]
 *** xref:reference/extensions/http.adoc[HTTP]
 *** xref:reference/extensions/hashicorp-vault.adoc[Hashicorp Vault]
