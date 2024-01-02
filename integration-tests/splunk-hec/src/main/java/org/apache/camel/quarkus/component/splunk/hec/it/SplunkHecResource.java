@@ -51,7 +51,7 @@ public class SplunkHecResource {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     public String send(String data, @QueryParam("indexTime") Long indexTime) {
-        String url = String.format("splunk-hec:%s:%s/%s?skipTlsVerify=true&index=%s", host, hecPort, token, index);
+        String url = String.format("splunk-hec:%s:%s?token=%s&skipTlsVerify=true&index=%s", host, hecPort, token, index);
         return producer.requestBodyAndHeader(url, data, SplunkHECConstants.INDEX_TIME, indexTime, String.class);
     }
 }

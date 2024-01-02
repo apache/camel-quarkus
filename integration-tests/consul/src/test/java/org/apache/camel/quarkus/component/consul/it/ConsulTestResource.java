@@ -18,10 +18,10 @@ package org.apache.camel.quarkus.component.consul.it;
 
 import java.util.Map;
 
-import com.orbitz.consul.Consul;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.kiwiproject.consul.Consul;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;

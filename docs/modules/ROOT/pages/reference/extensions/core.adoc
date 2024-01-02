@@ -30,6 +30,7 @@ Camel core functionality and basic Camel languages: Constant, ExchangeProperty, 
 * xref:{cq-camel-components}:languages:ref-language.adoc[Ref language]
 * xref:{cq-camel-components}:languages:simple-language.adoc[Simple language]
 * xref:{cq-camel-components}:languages:tokenize-language.adoc[Tokenize language]
+* xref:{cq-camel-components}:languages:variable-language.adoc[Variable language]
 
 Please refer to the above links for usage and configuration details.
 

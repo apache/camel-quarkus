@@ -20,11 +20,13 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.hamcrest.CoreMatchers;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
+@Disabled //https://github.com/apache/camel-quarkus/issues/5751
 class CSimpleTest {
 
     @Test

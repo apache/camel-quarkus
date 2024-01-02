@@ -184,11 +184,13 @@ class MicrometerTest extends AbstractMicrometerTest {
         Map<String, Float> result = jsonPath.getMap(
                 "gauges.findAll { it.id.name =~ /routes/ && it.id.tags.find { it.customTag } }.collectEntries { [it.id.name, it.value] }");
 
-        assertEquals(result.size(), 2);
+        assertEquals(result.size(), 3);
         assertTrue(result.containsKey("camel.routes.running"));
         assertEquals(8.0f, result.get("camel.routes.running"));
         assertTrue(result.containsKey("camel.routes.added"));
         assertEquals(8.0f, result.get("camel.routes.added"));
+        assertTrue(result.containsKey("camel.routes.reloaded"));
+        assertEquals(0.0f, result.get("camel.routes.reloaded"));
     }
 
     @ParameterizedTest

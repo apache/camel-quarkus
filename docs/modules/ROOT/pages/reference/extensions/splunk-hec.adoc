@@ -22,7 +22,7 @@ The splunk component allows to publish events in Splunk using the HTTP Event Col
 [id="extensions-splunk-hec-whats-inside"]
 == What's inside
 
-* xref:{cq-camel-components}::splunk-hec-component.adoc[Splunk HEC component], URI syntax: `splunk-hec:splunkURL/token`
+* xref:{cq-camel-components}::splunk-hec-component.adoc[Splunk HEC component], URI syntax: `splunk-hec:splunkURL`
 
 Please refer to the above link for usage and configuration details.
 

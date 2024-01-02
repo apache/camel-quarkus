@@ -8,6 +8,6 @@ cqDeprecated: false
 cqJvmSince: 1.8.0
 cqNativeSince: 2.16.0
 cqCamelPartName: groovy-dsl
-cqCamelPartTitle: Groovy Dsl
+cqCamelPartTitle: Groovy DSL
 cqCamelPartDescription: Camel DSL with Groovy
 cqExtensionPageTitle: Groovy DSL

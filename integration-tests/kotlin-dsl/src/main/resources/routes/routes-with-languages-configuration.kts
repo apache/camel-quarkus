@@ -19,17 +19,15 @@ import org.apache.camel.language.bean.BeanLanguage
 camel {
     languages {
         language<BeanLanguage>("bean") {
-            beanType = String::class.java
-            method = "toUpperCase"
+            isValidate = false
         }
         language<BeanLanguage>("my-bean") {
-            beanType = String::class.java
-            method = "toLowerCase"
+            isValidate = true
         }
     }
 }
 from("direct:routes-with-languages-configuration")
-    .id("routes-with-languages-configuration")
-    .process().message {
-        m -> m.body = m.exchange.context.getRegistry().lookupByName("my-bean") != null
-    }
+        .id("routes-with-languages-configuration")
+        .process().message {
+            m -> m.body = m.exchange.context.getRegistry().lookupByName("my-bean") != null
+        }
