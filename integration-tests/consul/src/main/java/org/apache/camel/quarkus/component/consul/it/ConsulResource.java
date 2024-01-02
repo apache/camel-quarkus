@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.consul.it;
 
-import com.orbitz.consul.model.kv.ImmutableValue;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -29,6 +28,7 @@ import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.component.consul.ConsulConstants;
 import org.apache.camel.component.consul.endpoint.ConsulKeyValueActions;
+import org.kiwiproject.consul.model.kv.ImmutableValue;
 
 @Path("/test/kv")
 @ApplicationScoped

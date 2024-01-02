@@ -492,8 +492,23 @@ class EipTest {
                             .extract()
                             .body().asString();
 
-                    return samples.split(",").length == 2 && samples.contains("message-0") && samples.contains("message-1");
+                    return samples.split(",").length == EipRoutes.THROTTLE_MAXIMUM_REQUEST_COUNT;
                 });
+        //wait for another 2 messages
+        long startTime = System.currentTimeMillis();
+        await().atMost(EipRoutes.THROTTLE_TIMEOUT + 5000, TimeUnit.MILLISECONDS)
+                .pollDelay(EipRoutes.THROTTLE_TIMEOUT, TimeUnit.MILLISECONDS).until(() -> {
+                    String samples = RestAssured.get("/eip/mock/throttle/2/5000/body")
+                            .then()
+                            .statusCode(200)
+                            .extract()
+                            .body().asString();
+
+                    return samples.split(",").length == EipRoutes.THROTTLE_MAXIMUM_REQUEST_COUNT;
+                });
+        long endTime = System.currentTimeMillis();
+        //the time of waiting has to be similar to throttle_Period (assert that it is > throttle_period/2)
+        Assertions.assertThat(endTime - startTime).isGreaterThan(EipRoutes.THROTTLE_TIMEOUT / 2);
     }
 
     @Test

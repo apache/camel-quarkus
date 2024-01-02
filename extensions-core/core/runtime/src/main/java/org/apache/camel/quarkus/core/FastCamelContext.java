@@ -40,6 +40,7 @@ import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.Language;
 import org.apache.camel.spi.ManagementNameStrategy;
 import org.apache.camel.spi.ModelJAXBContextFactory;
+import org.apache.camel.spi.ModelReifierFactory;
 import org.apache.camel.spi.ModelToXMLDumper;
 import org.apache.camel.spi.ModelToYAMLDumper;
 import org.apache.camel.spi.PackageScanResourceResolver;
@@ -47,6 +48,7 @@ import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.ShutdownStrategy;
 import org.apache.camel.spi.TypeConverterRegistry;
+import org.apache.camel.spi.VariableRepositoryFactory;
 import org.apache.camel.util.IOHelper;
 
 public class FastCamelContext extends DefaultCamelContext implements CatalogCamelContext, ModelCamelContext {
@@ -105,6 +107,17 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
     protected ComponentNameResolver createComponentNameResolver() {
         // Component names are discovered at build time
         return null;
+    }
+
+    @Override
+    protected ModelReifierFactory createModelReifierFactory() {
+        //reifier is not required during the cinstruction time of context (for camel Quarkus)
+        return null;
+    }
+
+    ModelReifierFactory createDefaultModelReifierFactory() {
+        //original creation is triggered right after the con text is constructed
+        return super.createModelReifierFactory();
     }
 
     @Override
@@ -169,6 +182,11 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
     @Override
     protected PackageScanResourceResolver createPackageScanResourceResolver() {
         return new CamelQuarkusPackageScanResourceResolver();
+    }
+
+    protected VariableRepositoryFactory createVariableRepositoryFactory() {
+        // VariableRepositoryFactory is initialized at build time
+        return null;
     }
 
     @Override

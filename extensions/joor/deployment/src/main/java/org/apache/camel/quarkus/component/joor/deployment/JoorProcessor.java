@@ -36,13 +36,13 @@ import io.quarkus.maven.dependency.ResolvedDependency;
 import io.quarkus.paths.PathCollection;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
-import org.apache.camel.dsl.java.joor.CompilationUnit;
-import org.apache.camel.dsl.java.joor.MultiCompile;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.language.joor.CompilationUnit;
 import org.apache.camel.language.joor.JavaLanguage;
 import org.apache.camel.language.joor.JoorCompiler;
 import org.apache.camel.language.joor.JoorExpression;
 import org.apache.camel.language.joor.JoorScriptingCompiler;
+import org.apache.camel.language.joor.MultiCompile;
 import org.apache.camel.quarkus.component.joor.runtime.JoorExpressionCompiler;
 import org.apache.camel.quarkus.component.joor.runtime.JoorExpressionConfig;
 import org.apache.camel.quarkus.component.joor.runtime.JoorExpressionRecorder;
@@ -185,12 +185,6 @@ class JoorProcessor {
             }
             final RuntimeValue<JavaLanguage> language = recorder.languageNewInstance(config, expressionCompilerBuilder,
                     expressionScriptingCompilerBuilder);
-
-            if (config.resultType.isPresent()) {
-                recorder.setResultType(
-                        language,
-                        config.resultType.get());
-            }
 
             return new CamelBeanBuildItem("java", JavaLanguage.class.getName(), language);
         }

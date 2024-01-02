@@ -22,12 +22,14 @@ public class JqRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
+        var jq = expression().jq().expression(".foo").source("header:Content").end();
+
         from("direct:expression")
                 .transform().jq(".foo")
                 .to("mock:expression");
 
         from("direct:expressionHeader")
-                .transform().jq(".foo", "Content")
+                .transform(jq)
                 .to("mock:expressionHeader");
 
         from("direct:expressionHeaderFunction")
@@ -35,7 +37,7 @@ public class JqRoutes extends RouteBuilder {
                 .to("mock:expressionHeaderFunction");
 
         from("direct:expressionHeaderString")
-                .transform().jq(".foo", String.class, "Content")
+                .transform(jq)
                 .to("mock:expressionHeaderString");
 
         from("direct:expressionPojo")
@@ -43,7 +45,7 @@ public class JqRoutes extends RouteBuilder {
                 .to("mock:expressionPojo");
 
         from("direct:expressionProperty")
-                .transform().jq(".foo", "Content")
+                .transform(jq)
                 .to("mock:expressionProperty");
 
         from("direct:expressionPropertyFunction")

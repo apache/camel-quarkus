@@ -25,6 +25,9 @@ public class JsonPathTestRoute extends RouteBuilder {
 
     @Override
     public void configure() {
+        var jp = expression().jsonpath().expression("$.book.price").resultType(int.class)
+                .source("header:jsonBookHeader").end();
+
         from("direct:getBookPriceLevel")
                 .choice()
                 .when().jsonpath("$.store.book[?(@.price < 10)]")
@@ -42,7 +45,7 @@ public class JsonPathTestRoute extends RouteBuilder {
 
         from("direct:splitBooks").split().jsonpath("$.books[*]").to("mock:prices");
 
-        from("direct:setHeader").setHeader("price").jsonpath("$.book.price", false, int.class, "jsonBookHeader")
+        from("direct:setHeader").setHeader("price", jp)
                 .to("mock:setHeader");
 
         from("direct:getAuthorsFromJsonStream").transform().jsonpath("$.store.book[*].title");

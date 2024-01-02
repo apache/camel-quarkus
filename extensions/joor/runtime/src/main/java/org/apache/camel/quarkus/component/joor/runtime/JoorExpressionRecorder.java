@@ -36,14 +36,6 @@ public class JoorExpressionRecorder {
         return language;
     }
 
-    public void setResultType(RuntimeValue<JavaLanguage> language, String className) {
-        try {
-            language.getValue().setResultType(Class.forName(className, true, Thread.currentThread().getContextClassLoader()));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public RuntimeValue<JoorExpressionCompiler.Builder> expressionCompilerBuilder() {
         return new RuntimeValue<>(new JoorExpressionCompiler.Builder());
     }

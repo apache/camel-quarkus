@@ -21,12 +21,14 @@ import java.util.UUID;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
 @QuarkusTestResource(ConsulTestResource.class)
+@Disabled //https://github.com/apache/camel-quarkus/issues/5635
 class ConsulTest {
     @Test
     public void basic() {

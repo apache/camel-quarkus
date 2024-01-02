@@ -63,7 +63,7 @@ public class MicrometerMetricsConfigDefaultsTest {
                 .stream()
                 .filter(eventNotifier -> !eventNotifier.getClass().getName().contains("BaseMainSupport"))
                 .collect(Collectors.toList());
-        assertEquals(2, eventNotifiers.size());
+        assertEquals(3, eventNotifiers.size());
 
         ThreadPoolFactory threadPoolFactory = context.getExecutorServiceManager().getThreadPoolFactory();
         assertNotNull(threadPoolFactory);

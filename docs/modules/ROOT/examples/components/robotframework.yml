@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: n/a
 cqCamelPartName: robotframework
 cqCamelPartTitle: Robot Framework
-cqCamelPartDescription: Pass camel exchanges to acceptence test written in Robot DSL.
+cqCamelPartDescription: Pass camel exchanges to acceptance test written in Robot DSL.
 cqExtensionPageTitle: Robot Framework

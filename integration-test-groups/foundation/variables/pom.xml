@@ -23,30 +23,30 @@
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-build-parent-it</artifactId>
         <version>3.8.0-SNAPSHOT</version>
-        <relativePath>../../poms/build-parent-it/pom.xml</relativePath>
+        <relativePath>../../../poms/build-parent-it/pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-integration-test-google-bigquery</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Google BigQuery</name>
-    <description>Integration tests for Camel Quarkus Google BigQuery extension</description>
+    <artifactId>camel-quarkus-integration-test-variables</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: Variables</name>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-google-bigquery</artifactId>
+            <artifactId>camel-quarkus-bean</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-mock</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-direct</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-jackson</artifactId>
+            <artifactId>quarkus-resteasy</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jsonb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-jsonb</artifactId>
-        </dependency>
+        
 
         <!-- test dependencies -->
         <dependency>
@@ -61,18 +61,12 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-integration-tests-support-google</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-integration-wiremock-support</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
     <profiles>
-        <!-- //https://github.com/apache/camel-quarkus/issues/5734
         <profile>
             <id>native</id>
             <activation>
@@ -100,7 +94,6 @@
                 </plugins>
             </build>
         </profile>
-        -->
         <profile>
             <id>virtualDependencies</id>
             <activation>
@@ -112,7 +105,33 @@
                 <!-- The following dependencies guarantee that this module is built after them. You can update them by running `mvn process-resources -Pformat -N` from the source tree root directory -->
                 <dependency>
                     <groupId>org.apache.camel.quarkus</groupId>
-                    <artifactId>camel-quarkus-google-bigquery-deployment</artifactId>
+                    <artifactId>camel-quarkus-bean-deployment</artifactId>
+                    <version>${project.version}</version>
+                    <type>pom</type>
+                    <scope>test</scope>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>*</groupId>
+                            <artifactId>*</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.camel.quarkus</groupId>
+                    <artifactId>camel-quarkus-direct-deployment</artifactId>
+                    <version>${project.version}</version>
+                    <type>pom</type>
+                    <scope>test</scope>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>*</groupId>
+                            <artifactId>*</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.camel.quarkus</groupId>
+                    <artifactId>camel-quarkus-mock-deployment</artifactId>
                     <version>${project.version}</version>
                     <type>pom</type>
                     <scope>test</scope>
