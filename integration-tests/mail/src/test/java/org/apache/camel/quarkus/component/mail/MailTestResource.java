@@ -29,11 +29,12 @@ import org.eclipse.microprofile.config.ConfigProvider;
 import org.testcontainers.DockerClientFactory;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.HttpWaitStrategy;
-import org.testcontainers.images.builder.ImageFromDockerfile;
 import org.testcontainers.images.builder.Transferable;
 import org.testcontainers.utility.MountableFile;
 
 public class MailTestResource implements QuarkusTestResourceLifecycleManager {
+    private static final String GREENMAIL_IMAGE_NAME = ConfigProvider.getConfig().getValue("greenmail.container.image",
+            String.class);
     private static final String GREENMAIL_CERTIFICATE_STORE_FILE = "greenmail.p12";
     private static final String GENERATE_CERTIFICATE_SCRIPT = "generate-certificates.sh";
     private GenericContainer<?> container;
@@ -56,13 +57,8 @@ public class MailTestResource implements QuarkusTestResourceLifecycleManager {
             regenerateCertificatesForDockerHost();
         }
 
-        //Dockerfile with ImageFromDockerfile is used, because ownership of the certificate has to be changed
-        container = new GenericContainer<>(new ImageFromDockerfile()
-                .withDockerfileFromBuilder(builder -> {
-                    builder.from(ConfigProvider.getConfig().getValue("greenmail.container.image", String.class));
-                    builder.copy(GREENMAIL_CERTIFICATE_STORE_FILE, "/home/greenmail/greenmail.p12");
-                })
-                .withFileFromTransferable(GREENMAIL_CERTIFICATE_STORE_FILE, Transferable.of(getCertificateStoreContent())))
+        container = new GenericContainer<>(GREENMAIL_IMAGE_NAME)
+                .withCopyToContainer(Transferable.of(getCertificateStoreContent()), "/home/greenmail/greenmail.p12")
                 .withExposedPorts(MailProtocol.allPorts())
                 .waitingFor(new HttpWaitStrategy()
                         .forPort(MailProtocol.API.getPort())
