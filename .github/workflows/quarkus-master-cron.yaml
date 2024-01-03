@@ -88,7 +88,7 @@ jobs:
           ls -lh ${{ runner.temp }}/maven-repo.tgz
           df -h /
       - name: Persist Maven Repo
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: maven-repo
           path: ${{ runner.temp }}/maven-repo.tgz
