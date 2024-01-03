@@ -47,6 +47,7 @@ import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.ShutdownStrategy;
 import org.apache.camel.spi.TypeConverterRegistry;
+import org.apache.camel.spi.VariableRepositoryFactory;
 import org.apache.camel.util.IOHelper;
 
 public class FastCamelContext extends DefaultCamelContext implements CatalogCamelContext, ModelCamelContext {
@@ -169,6 +170,11 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
     @Override
     protected PackageScanResourceResolver createPackageScanResourceResolver() {
         return new CamelQuarkusPackageScanResourceResolver();
+    }
+
+    protected VariableRepositoryFactory createVariableRepositoryFactory() {
+        // VariableRepositoryFactory is initialized at build time
+        return null;
     }
 
     @Override

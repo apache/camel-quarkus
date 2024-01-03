@@ -33,6 +33,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 import org.apache.camel.builder.endpoint.LambdaEndpointRouteBuilder;
 import org.apache.camel.catalog.RuntimeCamelCatalog;
+import org.apache.camel.impl.engine.DefaultVariableRepositoryFactory;
 import org.apache.camel.spi.CamelContextCustomizer;
 import org.apache.camel.spi.ComponentNameResolver;
 import org.apache.camel.spi.FactoryFinderResolver;
@@ -42,6 +43,7 @@ import org.apache.camel.spi.ModelToYAMLDumper;
 import org.apache.camel.spi.PackageScanClassResolver;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.TypeConverterRegistry;
+import org.apache.camel.spi.VariableRepositoryFactory;
 
 @Recorder
 public class CamelContextRecorder {
@@ -69,6 +71,8 @@ public class CamelContextRecorder {
         context.setApplicationContextClassLoader(tccl);
         extendedCamelContext.addContextPlugin(FactoryFinderResolver.class, factoryFinderResolver.getValue());
         extendedCamelContext.addContextPlugin(RuntimeCamelCatalog.class, new CamelRuntimeCatalog(config.runtimeCatalog));
+        //variable repository factory depends on factoryFinder and classLoader, therefore has to be initialized afterwards
+        extendedCamelContext.addContextPlugin(VariableRepositoryFactory.class, new DefaultVariableRepositoryFactory(context));
         extendedCamelContext.setRegistry(registry.getValue());
 
         TypeConverterRegistry typeConverterRegistryValue = typeConverterRegistry.getValue();
