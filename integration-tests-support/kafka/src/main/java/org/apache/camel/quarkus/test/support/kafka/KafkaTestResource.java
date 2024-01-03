@@ -20,32 +20,27 @@ import java.util.Collections;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import io.strimzi.test.container.StrimziKafkaContainer;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testcontainers.containers.KafkaContainer;
-import org.testcontainers.containers.wait.strategy.Wait;
-import org.testcontainers.utility.DockerImageName;
 import org.testcontainers.utility.TestcontainersConfiguration;
 
 public class KafkaTestResource implements QuarkusTestResourceLifecycleManager {
-
-    protected static final DockerImageName KAFKA_IMAGE_NAME = DockerImageName
-            .parse(ConfigProvider.getConfig().getValue("kafka.container.image", String.class));
+    protected static final String KAFKA_IMAGE_NAME = ConfigProvider.getConfig().getValue("kafka.container.image", String.class);
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaTestResource.class);
 
-    private KafkaContainer container;
+    private StrimziKafkaContainer container;
 
     @Override
     public Map<String, String> start() {
         LOGGER.info(TestcontainersConfiguration.getInstance().toString());
 
         try {
-            container = new KafkaContainer(KAFKA_IMAGE_NAME)
+            container = new StrimziKafkaContainer(KAFKA_IMAGE_NAME)
                     /* Added container startup logging because of https://github.com/apache/camel-quarkus/issues/2461 */
                     .withLogConsumer(frame -> System.out.print(frame.getUtf8String()))
-                    .withEmbeddedZookeeper()
-                    .waitingFor(Wait.forListeningPort());
+                    .waitForRunning();
 
             container.start();
 
@@ -69,7 +64,6 @@ public class KafkaTestResource implements QuarkusTestResourceLifecycleManager {
     @Override
     public void inject(TestInjector testInjector) {
         testInjector.injectIntoFields(container,
-                new TestInjector.AnnotatedAndMatchesType(InjectKafka.class, KafkaContainer.class));
+                new TestInjector.AnnotatedAndMatchesType(InjectKafka.class, StrimziKafkaContainer.class));
     }
-
 }

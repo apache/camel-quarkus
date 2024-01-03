@@ -16,6 +16,11 @@
  */
 package org.apache.camel.quarkus.component.kafka.deployment;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Properties;
+
 import io.quarkus.test.QuarkusUnitTest;
 import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
@@ -25,6 +30,8 @@ import org.apache.camel.component.kafka.KafkaComponent;
 import org.apache.camel.component.kafka.KafkaConfiguration;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -36,7 +43,8 @@ public class KafkaDevServicesEnabledTest {
 
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class));
+            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
+                    .addAsResource(applicationProperties(), "application.properties"));
 
     @Inject
     CamelContext context;
@@ -61,5 +69,20 @@ public class KafkaDevServicesEnabledTest {
         producerTemplate.sendBody("kafka:test?autoOffsetReset=earliest", payload);
         String result = consumerTemplate.receiveBody("kafka:test?autoOffsetReset=earliest", 5000, String.class);
         assertEquals(payload, result);
+    }
+
+    public static final Asset applicationProperties() {
+        Writer writer = new StringWriter();
+
+        Properties props = new Properties();
+        props.setProperty("quarkus.kafka.devservices.provider", "strimzi");
+
+        try {
+            props.store(writer, "");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return new StringAsset(writer.toString());
     }
 }
