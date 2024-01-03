@@ -227,7 +227,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Download Maven Repo
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
         with:
           name: maven-repo
           path: ..
@@ -301,7 +301,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Download Maven Repo
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
         with:
           name: maven-repo
           path: ..
@@ -371,7 +371,7 @@ jobs:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
       - name: Download Maven Repo
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
         with:
           name: maven-repo
           path: ..
@@ -413,7 +413,7 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
       - name: Download Maven Repo
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
         with:
           name: maven-repo
           path: ..
@@ -458,7 +458,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Download Maven Repo
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
         with:
           name: maven-repo
           path: ..
@@ -496,7 +496,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Download Maven Repo
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
         with:
           name: maven-repo
           path: ..
