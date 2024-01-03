@@ -231,7 +231,8 @@
         <ibm-mq.container.image>icr.io/ibm-messaging/mq:9.3.2.1-r1</ibm-mq.container.image>
         <infinispan.container.image>docker.io/infinispan/server:14.0</infinispan.container.image>
         <influxdb.container.image>docker.io/influxdb:1.8.10</influxdb.container.image>
-        <kafka.container.image>confluentinc/cp-kafka:7.4.0</kafka.container.image>
+        <kafka.container.image>quay.io/strimzi-test-container/test-container:latest-kafka-3.2.1</kafka.container.image>
+        <kafka-oauth.container.image>quay.io/strimzi/kafka:latest-kafka-3.6.1</kafka-oauth.container.image>
         <keycloak.container.image>quay.io/keycloak/keycloak:22.0.5</keycloak.container.image>
         <kudu.container.image>docker.io/apache/kudu:1.15.0</kudu.container.image>
         <localstack.container.image>docker.io/localstack/localstack:3.0.1</localstack.container.image>
@@ -245,7 +246,6 @@
         <postgres-debezium.container.image>docker.io/debezium/postgres:15-alpine</postgres-debezium.container.image>
         <rabbitmq.container.image>docker.io/rabbitmq:3.9.29-management-alpine</rabbitmq.container.image>
         <redis.container.image>docker.io/redis:7.0.12</redis.container.image>
-        <strimzi-kafka.container.image>quay.io/strimzi/kafka:latest-kafka-3.0.0</strimzi-kafka.container.image>
         <splunk.container.image>docker.io/splunk/splunk:9.0</splunk.container.image>
         <sql-server.container.image>mcr.microsoft.com/mssql/server:2017-CU12</sql-server.container.image>
         <tinyproxy.container.image>docker.io/monokal/tinyproxy</tinyproxy.container.image>

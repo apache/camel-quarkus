@@ -80,7 +80,8 @@ public class KafkaKeycloakTestResource implements QuarkusTestResourceLifecycleMa
         }
 
         //Start kafka container
-        String imageName = ConfigProvider.getConfig().getValue("strimzi-kafka.container.image", String.class);
+        //TODO: Ideally we'd use kafka.container.image, but we can't due to https://github.com/strimzi/test-container/issues/63
+        String imageName = ConfigProvider.getConfig().getValue("kafka-oauth.container.image", String.class);
         this.kafka = new StrimziKafkaContainer(imageName)
                 .withBrokerId(1)
                 .withKafkaConfigurationMap(Map.of("listener.security.protocol.map",
