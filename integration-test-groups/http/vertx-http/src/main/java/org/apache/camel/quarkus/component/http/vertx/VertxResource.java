@@ -93,8 +93,8 @@ public class VertxResource extends AbstractHttpResource {
     @Produces(MediaType.APPLICATION_XML)
     public String httpProxy() {
         Config config = ConfigProvider.getConfig();
-        String proxyHost = config.getValue("tiny.proxy.host", String.class);
-        Integer proxyPort = config.getValue("tiny.proxy.port", Integer.class);
+        String proxyHost = config.getValue("proxy.host", String.class);
+        Integer proxyPort = config.getValue("proxy.port", Integer.class);
         return producerTemplate
                 .toF("vertx-http:%s?"
                         + "proxyHost=%s"

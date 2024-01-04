@@ -248,7 +248,6 @@
         <strimzi-kafka.container.image>quay.io/strimzi/kafka:latest-kafka-3.0.0</strimzi-kafka.container.image>
         <splunk.container.image>docker.io/splunk/splunk:9.0</splunk.container.image>
         <sql-server.container.image>mcr.microsoft.com/mssql/server:2017-CU12</sql-server.container.image>
-        <tinyproxy.container.image>docker.io/monokal/tinyproxy</tinyproxy.container.image>
 
         <!-- Plugin configuration through properties  -->
 
