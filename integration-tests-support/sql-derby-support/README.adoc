@@ -1,3 +1,0 @@
-== SQL integration tests
-
-This module creates jar with stored procedure used in test from `sql` module (for derby database).
