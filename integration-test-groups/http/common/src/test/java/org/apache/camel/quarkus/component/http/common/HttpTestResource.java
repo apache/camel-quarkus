@@ -16,51 +16,137 @@
  */
 package org.apache.camel.quarkus.component.http.common;
 
+import java.util.Base64;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import io.vertx.core.Handler;
+import io.vertx.core.Vertx;
+import io.vertx.core.VertxOptions;
+import io.vertx.core.http.HttpMethod;
+import io.vertx.core.http.HttpServer;
+import io.vertx.core.http.HttpServerRequest;
+import io.vertx.core.http.HttpServerResponse;
+import io.vertx.core.net.NetClient;
+import io.vertx.core.net.NetSocket;
+import io.vertx.core.streams.Pump;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
-import org.eclipse.microprofile.config.ConfigProvider;
-import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.containers.wait.strategy.Wait;
+import org.jboss.logging.Logger;
 
 import static org.apache.camel.quarkus.component.http.common.AbstractHttpResource.USER_ADMIN;
 import static org.apache.camel.quarkus.component.http.common.AbstractHttpResource.USER_ADMIN_PASSWORD;
 
 public class HttpTestResource implements QuarkusTestResourceLifecycleManager {
-
-    private static final String TINY_PROXY_IMAGE_NAME = ConfigProvider.getConfig().getValue("tinyproxy.container.image",
-            String.class);
-    private static final Integer TINY_PROXY_PORT = 8888;
-    private GenericContainer<?> container;
+    private static final Logger LOG = Logger.getLogger(HttpTestResource.class);
+    private ProxyServer server;
 
     @Override
     public Map<String, String> start() {
-        container = new GenericContainer(TINY_PROXY_IMAGE_NAME)
-                .withEnv("BASIC_AUTH_USER", USER_ADMIN)
-                .withEnv("BASIC_AUTH_PASSWORD", USER_ADMIN_PASSWORD)
-                .withExposedPorts(TINY_PROXY_PORT)
-                .withCommand("ANY")
-                .waitingFor(Wait.forListeningPort());
-
-        container.start();
-
         Map<String, String> options = AvailablePortFinder.reserveNetworkPorts(
                 Objects::toString,
+                "proxy.port",
                 "camel.netty-http.test-port",
                 "camel.netty-http.https-test-port",
                 "camel.netty-http.compression-test-port");
-        options.put("tiny.proxy.host", container.getHost());
-        options.put("tiny.proxy.port", container.getMappedPort(TINY_PROXY_PORT).toString());
+        options.put("proxy.host", "localhost");
+
+        server = new ProxyServer(Integer.parseInt(options.get("proxy.port")), USER_ADMIN, USER_ADMIN_PASSWORD);
+        server.start();
+
         return options;
     }
 
     @Override
     public void stop() {
-        if (container != null) {
-            container.stop();
-        }
         AvailablePortFinder.releaseReservedPorts();
+        if (server != null) {
+            server.stop();
+        }
+    }
+
+    /**
+     * Bare-bones HTTP proxy server implementation that supports authentication.
+     */
+    static final class ProxyServer implements Handler<HttpServerRequest> {
+        private final int port;
+        private final String proxyUser;
+        private final String proxyPassword;
+        private final Vertx vertx;
+        private final HttpServer proxyServer;
+
+        ProxyServer(int port, String proxyUser, String proxyPassword) {
+            this.port = port;
+            this.proxyUser = proxyUser;
+            this.proxyPassword = proxyPassword;
+            this.vertx = Vertx.vertx(new VertxOptions().setWorkerPoolSize(1).setEventLoopPoolSize(1));
+            this.proxyServer = vertx.createHttpServer();
+        }
+
+        void start() {
+            CountDownLatch startLatch = new CountDownLatch(1);
+            proxyServer.requestHandler(this);
+            proxyServer.listen(port).onComplete(result -> {
+                LOG.infof("HTTP proxy server started on port %d", port);
+                startLatch.countDown();
+            });
+            try {
+                startLatch.await(1, TimeUnit.MINUTES);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        void stop() {
+            if (proxyServer != null) {
+                LOG.info("HTTP proxy server shutting down");
+                proxyServer.close();
+            }
+            if (vertx != null) {
+                vertx.close();
+            }
+        }
+
+        @Override
+        public void handle(HttpServerRequest httpServerRequest) {
+            String authorization = httpServerRequest.getHeader("Proxy-Authorization");
+            HttpServerResponse response = httpServerRequest.response();
+            if (httpServerRequest.method().equals(HttpMethod.CONNECT) && authorization == null) {
+                response.putHeader("Proxy-Authenticate", "Basic")
+                        .setStatusCode(407)
+                        .end();
+                return;
+            }
+
+            String[] authParts = authorization.split(" ");
+            String[] credentials = new String(Base64.getDecoder().decode(authParts[1])).split(":");
+            if (credentials.length != 2) {
+                response.setStatusCode(400).end();
+            } else {
+                if (credentials[0].equals(proxyUser) && credentials[1].equals(proxyPassword)) {
+                    String host = httpServerRequest.getHeader("Host");
+                    String[] hostParts = host.split(":");
+
+                    // Deal with the result of the CONNECT tunnel and proxy the request / response
+                    NetClient netClient = vertx.createNetClient();
+                    netClient.connect(Integer.parseInt(hostParts[1]), hostParts[0], result -> {
+                        if (result.succeeded()) {
+                            NetSocket clientSocket = result.result();
+                            NetSocket serverSocket = httpServerRequest.toNetSocket().result();
+                            serverSocket.closeHandler(v -> clientSocket.close());
+                            clientSocket.closeHandler(v -> serverSocket.close());
+                            Pump.pump(serverSocket, clientSocket).start();
+                            Pump.pump(clientSocket, serverSocket).start();
+                        } else {
+                            response.setStatusCode(403).end();
+                        }
+                    });
+                } else {
+                    response.setStatusCode(401).end();
+                }
+            }
+        }
     }
 }

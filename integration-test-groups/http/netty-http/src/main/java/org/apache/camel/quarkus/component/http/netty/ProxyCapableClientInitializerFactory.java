@@ -42,8 +42,8 @@ public class ProxyCapableClientInitializerFactory extends HttpClientInitializerF
     @Override
     protected void initChannel(Channel channel) throws Exception {
         Config config = ConfigProvider.getConfig();
-        String proxyHost = config.getValue("tiny.proxy.host", String.class);
-        Integer proxyPort = config.getValue("tiny.proxy.port", Integer.class);
+        String proxyHost = config.getValue("proxy.host", String.class);
+        Integer proxyPort = config.getValue("proxy.port", Integer.class);
         InetSocketAddress proxyServerAddress = new InetSocketAddress(proxyHost, proxyPort);
         HttpProxyHandler httpProxyHandler = new HttpProxyHandler(proxyServerAddress, USER_ADMIN, USER_ADMIN_PASSWORD);
         httpProxyHandler.setConnectTimeoutMillis(5000);
