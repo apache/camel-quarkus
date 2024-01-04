@@ -14,18 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package test;
+package org.apache.camel.quarkus.component.sql.it.storedproc.derby;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class AddNumsProcedure {
-
-    public static void testProc(int a, int b) throws SQLException {
-        String sql = "insert into ADD_NUMS_RESULTS (id, value) VALUES (1, " + (a + b) + ")";
-
+public class NumberAddStoredProcedure {
+    public static void addNumbers(int a, int b) throws SQLException {
+        String sql = "INSERT INTO ADD_NUMS_RESULTS (id, value) VALUES (1, " + (a + b) + ")";
         try (Connection con = DriverManager.getConnection("jdbc:default:connection");
                 PreparedStatement ps = con.prepareStatement(sql)) {
             ps.execute();
