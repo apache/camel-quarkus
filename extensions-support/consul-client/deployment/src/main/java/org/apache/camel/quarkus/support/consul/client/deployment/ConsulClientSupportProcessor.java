@@ -41,11 +41,11 @@ class ConsulClientSupportProcessor {
     private static final DotName DOT_NAME_IMMUTABLE_MAP = DotName.createSimple(
             "com.google.common.collect.ImmutableMap");
 
-    private static final Pattern CLIENT_API_PATTERN = Pattern.compile("com\\.orbitz\\.consul\\..*Client\\$Api");
+    private static final Pattern CLIENT_API_PATTERN = Pattern.compile("org\\.kiwiproject\\.consul\\..*Client\\$Api");
 
     @BuildStep
     AdditionalApplicationArchiveMarkerBuildItem applicationArchiveMarkers() {
-        return new AdditionalApplicationArchiveMarkerBuildItem("com/orbitz/consul");
+        return new AdditionalApplicationArchiveMarkerBuildItem("org/kiwiproject/consul");
     }
 
     @BuildStep
@@ -63,7 +63,7 @@ class ConsulClientSupportProcessor {
                 .map(AnnotationInstance::target)
                 .filter(item -> item.kind() == AnnotationTarget.Kind.CLASS)
                 .map(AnnotationTarget::asClass)
-                .filter(item -> item.name().prefix().toString().startsWith("com.orbitz.consul.model"))
+                .filter(item -> item.name().prefix().toString().startsWith("org.kiwiproject.consul.model"))
                 .flatMap(item -> index.getIndex().getAllKnownSubclasses(item.name()).stream())
                 .map(item -> ReflectiveClassBuildItem.builder(item.name().toString()).methods().build())
                 .forEach(reflectiveClasses::produce);

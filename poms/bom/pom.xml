@@ -6233,21 +6233,6 @@
                 </exclusions>
             </dependency>
             <dependency>
-                <groupId>com.orbitz.consul</groupId>
-                <artifactId>consul-client</artifactId>
-                <version>${consul-client.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.google.code.findbugs</groupId>
-                        <artifactId>jsr305</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.checkerframework</groupId>
-                        <artifactId>checker-qual</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
                 <groupId>com.squareup.okio</groupId>
                 <artifactId>okio</artifactId>
                 <version>${okio.version}</version>
@@ -6729,6 +6714,21 @@
                     <exclusion>
                         <groupId>com.googlecode.json-simple</groupId>
                         <artifactId>json-simple</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.kiwiproject</groupId>
+                <artifactId>consul-client</artifactId>
+                <version>${consul-client.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.checkerframework</groupId>
+                        <artifactId>checker-qual</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
