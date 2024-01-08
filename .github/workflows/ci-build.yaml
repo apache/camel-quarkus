@@ -125,7 +125,7 @@ jobs:
       matrix: ${{ steps.set-native-matrix.outputs.matrix }}
       examples-matrix: ${{ steps.set-examples-matrix.outputs.examples-matrix }}
     env:
-      MAVEN_OPTS: -Xmx4400m
+      MAVEN_OPTS: -Xmx4500m
     steps:
       - name: Check free space on disk
         run: |
