@@ -55,7 +55,7 @@ public class OpenTelemetryDisabledTest {
         Writer writer = new StringWriter();
 
         Properties props = new Properties();
-        props.setProperty("quarkus.opentelemetry.enabled", "false");
+        props.setProperty("quarkus.otel.enabled", "false");
 
         try {
             props.store(writer, "");
