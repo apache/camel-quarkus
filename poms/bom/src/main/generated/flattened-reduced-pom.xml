@@ -6558,7 +6558,7 @@
       <dependency>
         <groupId>org.kiwiproject</groupId>
         <artifactId>consul-client</artifactId>
-        <version>1.2.0</version>
+        <version>1.3.0</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
