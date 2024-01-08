@@ -6977,8 +6977,6 @@
                                 <resolutionEntryPointInclude>com.ibm.mq:com.ibm.mq.jakarta.client</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>com.ibm.icu:icu4j</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>org.mapstruct:mapstruct-processor</resolutionEntryPointInclude>
-                                <resolutionEntryPointInclude>io.grpc:protoc-gen-grpc-java:*</resolutionEntryPointInclude>
-                                <resolutionEntryPointInclude>com.google.protobuf:protoc:*</resolutionEntryPointInclude>
                             </resolutionEntryPointIncludes>
                             <bannedDependencyResources>
                                 <bannedDependencyResource>
