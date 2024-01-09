@@ -220,6 +220,7 @@
         <module>sjms2</module>
         <module>slack</module>
         <module>smallrye-reactive-messaging</module>
+        <module>smb</module>
         <module>snakeyaml</module>
         <module>soap</module>
         <module>splunk</module>

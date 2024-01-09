@@ -250,6 +250,7 @@
 *** xref:reference/extensions/sap-netweaver.adoc[SAP NetWeaver]
 *** xref:reference/extensions/jsch.adoc[SCP]
 *** xref:reference/extensions/seda.adoc[SEDA]
+*** xref:reference/extensions/smb.adoc[SMB]
 *** xref:reference/extensions/smpp.adoc[SMPP]
 *** xref:reference/extensions/snmp.adoc[SNMP]
 *** xref:reference/extensions/soap.adoc[SOAP dataformat]
