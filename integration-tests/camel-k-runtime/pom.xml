@@ -30,11 +30,6 @@
     <name>Camel Quarkus :: Integration Tests :: Camel K Runtime</name>
     <description>Integration tests for Camel Quarkus K Runtime extension</description>
 
-    <properties>
-        <!-- TODO: https://github.com/apache/camel-quarkus/issues/5515 -->
-        <ci.native.tests.skip>true</ci.native.tests.skip>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>

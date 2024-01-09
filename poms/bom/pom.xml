@@ -1679,6 +1679,18 @@
                         <groupId>io.fabric8</groupId>
                         <artifactId>kubernetes-httpclient-okhttp</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>openshift-model-hive</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>openshift-model-miscellaneous</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>openshift-model-operator</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
