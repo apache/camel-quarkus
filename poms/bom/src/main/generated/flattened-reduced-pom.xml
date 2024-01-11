@@ -6226,7 +6226,7 @@
       <dependency>
         <groupId>io.projectreactor.netty</groupId>
         <artifactId>reactor-netty</artifactId>
-        <version>1.1.14</version>
+        <version>1.1.15</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.freemarker</groupId>
@@ -6362,7 +6362,7 @@
       <dependency>
         <groupId>joda-time</groupId>
         <artifactId>joda-time</artifactId>
-        <version>2.12.5</version>
+        <version>2.12.6</version>
       </dependency>
       <dependency>
         <groupId>net.i2p.crypto</groupId>
