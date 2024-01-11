@@ -41,10 +41,10 @@ class SmbProcessor {
                 .build());
         reflectiveClass
                 .produce(ReflectiveClassBuildItem.builder(com.hierynomus.smbj.auth.SpnegoAuthenticator.Factory.class.getName())
-                .build());
+                        .build());
         reflectiveClass
                 .produce(ReflectiveClassBuildItem.builder("net.engio.mbassy.dispatch.ReflectiveHandlerInvocation")
-                .build());
+                        .build());
 
     }
 }
