@@ -20,11 +20,17 @@ import java.nio.file.Paths
 
 
 // check bad dependencies
+final Boolean skip = Boolean.getBoolean("sanity-checks.skip")
 final List<String> badDeps = []
 final File pomXml = new File(project.basedir, "pom.xml")
 
 final Path treeRootDir = Paths.get(System.getProperty('maven.multiModuleProjectDirectory'))
 final Path relativePomPath = treeRootDir.relativize(pomXml.toPath().normalize())
+
+if (skip) {
+    println "Sanity checks are disabled"
+    return
+}
 
 if (pomXml.exists()) {
     def pomXmlProject = new XmlParser().parseText(pomXml.getText('UTF-8'))
