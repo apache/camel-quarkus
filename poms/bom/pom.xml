@@ -2239,6 +2239,17 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-smb</artifactId>
+                <version>${camel.version}</version>
+                <exclusions>
+                  <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                  </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-smpp</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -5127,6 +5138,16 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-smb</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-smb-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-smpp</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
@@ -6063,11 +6084,6 @@
                 <version>${azure-core-http-vertx.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.esotericsoftware.kryo</groupId>
-                <artifactId>kryo</artifactId>
-                <version>${kryo.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.box</groupId>
                 <artifactId>box-java-sdk</artifactId>
                 <version>${box-java-sdk.version}</version>
@@ -6077,6 +6093,11 @@
                         <groupId>org.bitbucket.b_c</groupId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.esotericsoftware.kryo</groupId>
+                <artifactId>kryo</artifactId>
+                <version>${kryo.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.java-json-tools</groupId>
@@ -6896,9 +6917,9 @@
                 <version>${jedis-client.version}</version>
             </dependency>
             <dependency>
-                <groupId>software.amazon.awssdk.crt</groupId>
-                <artifactId>aws-crt</artifactId>
-                <version>${awscrt.version}</version>
+                <groupId>software.amazon.awssdk</groupId>
+                <artifactId>http-auth-aws</artifactId>
+                <version>${awssdk.version}</version>
             </dependency>
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
@@ -6906,9 +6927,9 @@
                 <version>${awssdk.version}</version>
             </dependency>
             <dependency>
-                <groupId>software.amazon.awssdk</groupId>
-                <artifactId>http-auth-aws</artifactId>
-                <version>${awssdk.version}</version>
+                <groupId>software.amazon.awssdk.crt</groupId>
+                <artifactId>aws-crt</artifactId>
+                <version>${awscrt.version}</version>
             </dependency>
             <dependency>
                 <groupId>xalan</groupId>
