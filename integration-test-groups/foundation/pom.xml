@@ -57,6 +57,7 @@
         <module>timer</module>
         <module>transformer</module>
         <module>type-converter</module>
+        <module>variables</module>
     </modules>
 
 </project>
