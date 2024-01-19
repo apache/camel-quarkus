@@ -21,19 +21,12 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.xml.stream.XMLEventFactory;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLOutputFactory;
-
-import com.ctc.wstx.shaded.msv.org_isorelax.verifier.VerifierFactoryLoader;
-import com.ctc.wstx.shaded.msv.relaxng_datatype.DatatypeLibraryFactory;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.ObjectCodec;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import io.quarkus.deployment.util.ServiceUtil;
-import org.codehaus.stax2.validation.XMLValidationSchemaFactory;
 
 public class JacksonDataformatXmlSupportProcessor {
 
@@ -41,22 +34,10 @@ public class JacksonDataformatXmlSupportProcessor {
 
     @BuildStep
     void serviceProviders(BuildProducer<ServiceProviderBuildItem> serviceProviders) {
-        Stream.concat(
-                Stream.of(
-                        JsonFactory.class,
-                        ObjectCodec.class,
-                        VerifierFactoryLoader.class,
-                        DatatypeLibraryFactory.class,
-                        XMLEventFactory.class,
-                        XMLInputFactory.class,
-                        XMLOutputFactory.class)
-                        .map(Class::getName),
-                Stream.of(
-                        XMLValidationSchemaFactory.INTERNAL_ID_SCHEMA_DTD,
-                        XMLValidationSchemaFactory.INTERNAL_ID_SCHEMA_RELAXNG,
-                        XMLValidationSchemaFactory.INTERNAL_ID_SCHEMA_W3C,
-                        XMLValidationSchemaFactory.INTERNAL_ID_SCHEMA_TREX)
-                        .map(schemaId -> XMLValidationSchemaFactory.class.getName() + "." + schemaId))
+        Stream.of(
+                JsonFactory.class,
+                ObjectCodec.class)
+                .map(Class::getName)
                 .forEach(serviceName -> {
                     try {
                         final Set<String> names = ServiceUtil.classNamesNamedIn(Thread.currentThread().getContextClassLoader(),

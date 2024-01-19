@@ -41,6 +41,10 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-support-jackson-dataformat-xml</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.quarkiverse.cxf</groupId>
+            <artifactId>quarkus-cxf-woodstox-deployment</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
