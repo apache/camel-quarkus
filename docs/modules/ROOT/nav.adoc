@@ -118,7 +118,6 @@
 *** xref:reference/extensions/fhir.adoc[FHIR]
 *** xref:reference/extensions/fop.adoc[FOP]
 *** xref:reference/extensions/ftp.adoc[FTP]
-*** xref:reference/extensions/facebook.adoc[Facebook]
 *** xref:reference/extensions/file.adoc[File]
 *** xref:reference/extensions/file-watch.adoc[File Watch]
 *** xref:reference/extensions/flatpack.adoc[Flatpack]
