@@ -6300,12 +6300,12 @@
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId>
         <artifactId>quarkus-mybatis</artifactId>
-        <version>2.2.0</version>
+        <version>2.2.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId>
         <artifactId>quarkus-mybatis-deployment</artifactId>
-        <version>2.2.0</version>
+        <version>2.2.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.tika</groupId>
@@ -6562,7 +6562,7 @@
       <dependency>
         <groupId>org.mybatis</groupId>
         <artifactId>mybatis</artifactId>
-        <version>3.5.13</version>
+        <version>3.5.15</version>
       </dependency>
       <dependency>
         <groupId>org.optaplanner</groupId>
