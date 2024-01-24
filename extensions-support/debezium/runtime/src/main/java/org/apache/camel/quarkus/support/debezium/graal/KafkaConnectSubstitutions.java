@@ -30,7 +30,7 @@ import com.oracle.svm.core.annotate.TargetClass;
 class KafkaConnectSubstitutions {
 }
 
-@TargetClass(className = "org.apache.kafka.connect.runtime.WorkerConfig")
+@TargetClass(className = "org.apache.kafka.connect.runtime.rest.RestServerConfig")
 final class WorkerConfigSubstitutions {
     @Alias
     static void validateHttpResponseHeaderConfig(String config) {
@@ -38,7 +38,7 @@ final class WorkerConfigSubstitutions {
 
 }
 
-@TargetClass(className = "org.apache.kafka.connect.runtime.WorkerConfig$ResponseHttpHeadersValidator")
+@TargetClass(className = "org.apache.kafka.connect.runtime.rest.RestServerConfig$ResponseHttpHeadersValidator")
 final class ResponseHttpHeadersValidatorSubstitutions {
     @Substitute
     public void ensureValid(String name, Object value) {
