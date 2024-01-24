@@ -6326,7 +6326,7 @@
       <dependency>
         <groupId>io.smallrye.reactive</groupId>
         <artifactId>smallrye-reactive-messaging-camel</artifactId>
-        <version>4.15.0</version>
+        <version>4.16.0</version>
       </dependency>
       <dependency>
         <groupId>io.swagger.core.v3</groupId>
