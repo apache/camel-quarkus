@@ -98,7 +98,6 @@
         <module>web3j</module>
         <module>wordpress</module>
         <module>workday</module>
-        <module>xj</module>
         <module>xmpp</module>
         <module>zookeeper</module>
         <module>zookeeper-master</module>

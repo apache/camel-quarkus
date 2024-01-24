@@ -184,6 +184,7 @@ group-11:
   - tarfile
   - univocity-parsers
   - velocity
+  - xj
   - xml-grouped
   - xslt-saxon
 group-12:
