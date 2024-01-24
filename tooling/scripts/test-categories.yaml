@@ -211,6 +211,7 @@ group-13:
   - github
   - google
   - groovy-dsl
+  - jasypt
   - jira
   - java-joor-dsl
   - js-dsl

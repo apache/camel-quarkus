@@ -69,7 +69,6 @@
         <module>iec60870</module>
         <module>ignite</module>
         <module>irc</module>
-        <module>jasypt</module>
         <module>jcr</module>
         <module>jgroups</module>
         <module>jgroups-raft</module>

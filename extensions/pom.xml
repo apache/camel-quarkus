@@ -131,6 +131,7 @@
         <module>jackson-avro</module>
         <module>jackson-protobuf</module>
         <module>jacksonxml</module>
+        <module>jasypt</module>
         <module>java-joor-dsl</module>
         <module>jaxb</module>
         <module>jcache</module>
