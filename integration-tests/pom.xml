@@ -232,6 +232,7 @@
         <module>vertx-websocket</module>
         <module>weather</module>
         <!--<module>xchange</module> https://github.com/apache/camel-quarkus/issues/4516 -->
+        <module>xj</module>
         <module>xml-grouped</module>
         <module>xml-jaxp</module>
         <module>xmlsecurity</module>
