@@ -24,7 +24,7 @@
 name: "Camel XSLT"
 description: "Transforms XML payload using an XSLT template"
 metadata:
-  icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
+  icon-url: "https://raw.githubusercontent.com/apache/camel-website/main/antora-ui-camel/src/img/logo-d.svg"
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/xslt.html"
   categories:
   - "integration"

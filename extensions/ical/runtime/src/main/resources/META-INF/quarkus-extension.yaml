@@ -24,7 +24,7 @@
 name: "Camel iCal"
 description: "Marshal and unmarshal iCal (.ics) documents to/from model objects"
 metadata:
-  icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
+  icon-url: "https://raw.githubusercontent.com/apache/camel-website/main/antora-ui-camel/src/img/logo-d.svg"
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/ical.html"
   categories:
   - "integration"

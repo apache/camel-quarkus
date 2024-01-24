@@ -24,7 +24,7 @@
 name: "Camel FHIR"
 description: "Exchange information in the healthcare domain using the FHIR (Fast Healthcare Interoperability Resources) standard"
 metadata:
-  icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
+  icon-url: "https://raw.githubusercontent.com/apache/camel-website/main/antora-ui-camel/src/img/logo-d.svg"
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/fhir.html"
   categories:
   - "integration"
