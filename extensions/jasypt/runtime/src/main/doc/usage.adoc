@@ -40,7 +40,7 @@ public class MySecureRoute extends RouteBuilder {
 TIP: You can use the ability to mask security sensitive configuration in Camel by suffixing property values with `.secret`.
 You can also disable the startup configuration summary with the configuration `camel.main.autoConfigurationLogSummary = false`.
 
-==== Injecting encrypted configuration
+=== Injecting encrypted configuration
 
 You can use the `@ConfigProperty` annotation to inject encrypted configuration into your Camel routes or CDI beans.
 
