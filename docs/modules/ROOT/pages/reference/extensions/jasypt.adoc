@@ -89,7 +89,7 @@ TIP: You can use the ability to mask security sensitive configuration in Camel b
 You can also disable the startup configuration summary with the configuration `camel.main.autoConfigurationLogSummary = false`.
 
 [id="extensions-jasypt-usage-injecting-encrypted-configuration"]
-==== Injecting encrypted configuration
+=== Injecting encrypted configuration
 
 You can use the `@ConfigProperty` annotation to inject encrypted configuration into your Camel routes or CDI beans.
 
