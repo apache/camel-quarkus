@@ -89,7 +89,7 @@ TIP: You can use the ability to mask security sensitive configuration in Camel b
 You can also disable the startup configuration summary with the configuration `camel.main.autoConfigurationLogSummary = false`.
 
 [id="extensions-jasypt-usage-injecting-encrypted-configuration"]
-==== Injecting encrypted configuration
+=== Injecting encrypted configuration
 
 You can use the `@ConfigProperty` annotation to inject encrypted configuration into your Camel routes or CDI beans.
 
@@ -109,7 +109,7 @@ public class MySecureRoute extends RouteBuilder {
 ----
 
 [id="extensions-jasypt-usage-securing-alternate-configuration-sources"]
-==== Securing alternate configuration sources
+=== Securing alternate configuration sources
 
 If you prefer to keep your secret configuration in a file separate to `application.properties`,
 you can use the `quarkus.config.locations` configuration option to specify additional configuration files.
@@ -117,12 +117,12 @@ you can use the `quarkus.config.locations` configuration option to specify addit
 In native mode you must also add any additional configuration file resource paths to `quarkus.native.resources.includes`.
 
 [id="extensions-jasypt-usage-finer-control-of-jasypt-configuration"]
-==== Finer control of Jasypt configuration
+=== Finer control of Jasypt configuration
 
 If you require finer control of the Jasypt configuration than that provided by the default configuration, the following options are available.
 
 [id="extensions-jasypt-usage-jasyptconfigurationcustomizer"]
-===== JasyptConfigurationCustomizer
+==== JasyptConfigurationCustomizer
 
 Implement a `JasyptConfigurationCustomizer` class to customize any aspect of the Jasypt `EnvironmentStringPBEConfig`.
 
@@ -154,7 +154,7 @@ quarkus.camel.jasypt.configuration-customizer-class-name = org.acme.MyJasyptEncr
 ----
 
 [id="extensions-jasypt-usage-disabling-automatic-jasypt-configuration"]
-===== Disabling automatic Jasypt configuration
+==== Disabling automatic Jasypt configuration
 
 If you prefer to use the 'classic' Java DSL way of configuring Camel Jasypt, you can disable the automatic configuration with `quarkus.camel.jasypt.enabled = false`.
 
@@ -214,7 +214,7 @@ The master password used by Jasypt for decrypting configuration values. This opt
 
 `sys:` will to look up the value from a JVM system property. `sysenv:` will look up the value from the OS system environment with the given key.
 | `string`
-| 
+|
 
 | [[quarkus.camel.jasypt.random-iv-generator-algorithm]]`link:#quarkus.camel.jasypt.random-iv-generator-algorithm[quarkus.camel.jasypt.random-iv-generator-algorithm]`
 
@@ -232,9 +232,8 @@ Configures the Jasypt StandardPBEStringEncryptor with a RandomSaltGenerator usin
 
 The fully qualified class name of an org.apache.camel.quarkus.component.jasypt.JasyptConfigurationCustomizer implementation. This provides the optional capability of having full control over the Jasypt configuration.
 | `string`
-| 
+|
 |===
 
 [.configuration-legend]
 {doc-link-icon-lock}[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
-
