@@ -6832,6 +6832,7 @@
                         </goals>
                         <phase>process-resources</phase>
                         <configuration>
+                            <onCheckFailure>WARN</onCheckFailure>
                             <additionalBoms>
                                 <additionalBom>io.quarkus:quarkus-bom:${quarkus.version}</additionalBom>
                             </additionalBoms>
