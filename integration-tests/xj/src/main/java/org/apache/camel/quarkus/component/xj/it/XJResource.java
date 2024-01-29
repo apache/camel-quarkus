@@ -19,20 +19,28 @@ package org.apache.camel.quarkus.component.xj.it;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
+import org.apache.camel.ProducerTemplate;
 import org.jboss.logging.Logger;
 
 @Path("/xj")
 @ApplicationScoped
-public class XjResource {
+public class XJResource {
 
-    private static final Logger LOG = Logger.getLogger(XjResource.class);
+    private static final Logger LOG = Logger.getLogger(XJResource.class);
 
     private static final String COMPONENT_XJ = "xj";
+
+    @Inject
+    ProducerTemplate producerTemplate;
+
     @Inject
     CamelContext context;
 
@@ -46,5 +54,36 @@ public class XjResource {
         }
         LOG.warnf("Could not load [%s] from the Camel context", COMPONENT_XJ);
         return Response.status(500, COMPONENT_XJ + " could not be loaded from the Camel context").build();
+    }
+
+    @Path("/j2x")
+    @POST
+    @Produces(MediaType.APPLICATION_XML)
+    public String j2x(@QueryParam("output") String output, String body) {
+        if (output.equals("file")) {
+            return producerTemplate.requestBodyAndHeader("xj:hellojson2xml.xsl?transformDirection=JSON2XML&output=file",
+                    body, Exchange.XSLT_FILE_NAME, "target/J2XOutputFileTest.xml", String.class);
+        }
+        return producerTemplate.requestBody("xj:hellojson2xml.xsl?transformDirection=JSON2XML&output=" + output, body,
+                String.class);
+    }
+
+    @Path("/x2j")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public String x2j(@QueryParam("output") String output, String body) {
+        if (output.equals("file")) {
+            return producerTemplate.requestBodyAndHeader("xj:helloxml2json.xsl?transformDirection=XML2JSON&output=file",
+                    body, Exchange.XSLT_FILE_NAME, "target/X2JOutputFileTest.xml", String.class);
+        }
+        return producerTemplate.requestBody("xj:helloxml2json.xsl?transformDirection=XML2JSON&output=" + output, body,
+                String.class);
+    }
+
+    @Path("/identity")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public String identity(@QueryParam("direction") String direction, String body) {
+        return producerTemplate.requestBody("xj:identity?transformDirection=" + direction, body, String.class);
     }
 }
