@@ -24,7 +24,7 @@
 name: "Camel Azure ServiceBus"
 description: "Send and receive messages to/from Azure Event Bus"
 metadata:
-  icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
+  icon-url: "https://raw.githubusercontent.com/apache/camel-website/main/antora-ui-camel/src/img/logo-d.svg"
   unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/azure-servicebus.html"
   categories:
