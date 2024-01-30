@@ -23,8 +23,8 @@
 ---
 name: "Camel SNMP"
 description: "Receive traps and poll SNMP (Simple Network Management Protocol) capable devices"
-icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
+  icon-url: "https://raw.githubusercontent.com/apache/camel-website/main/antora-ui-camel/src/img/logo-d.svg"
   unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/snmp.html"
   categories:

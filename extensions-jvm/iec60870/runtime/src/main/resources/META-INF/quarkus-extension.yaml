@@ -23,8 +23,8 @@
 ---
 name: "Camel IEC 60870 Client"
 description: "IEC 60870 supervisory control and data acquisition (SCADA) client using NeoSCADA implementation"
-icon-url: "https://camel.apache.org/_/img/logo-d-f21b25ba38.svg"
 metadata:
+  icon-url: "https://raw.githubusercontent.com/apache/camel-website/main/antora-ui-camel/src/img/logo-d.svg"
   unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/iec60870.html"
   categories:
