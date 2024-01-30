@@ -16,78 +16,276 @@
  */
 package org.apache.camel.quarkus.component.kudu.it;
 
-import java.util.List;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.apache.camel.component.kudu.KuduUtils;
+import io.restassured.http.ContentType;
 import org.apache.kudu.client.KuduClient;
 import org.apache.kudu.client.KuduException;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 
-import static org.apache.camel.quarkus.component.kudu.it.KuduInfrastructureTestHelper.KUDU_AUTHORITY_CONFIG_KEY;
+import static org.apache.camel.quarkus.component.kudu.it.KuduRoute.KUDU_AUTHORITY_CONFIG_KEY;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @QuarkusTestResource(KuduTestResource.class)
 @QuarkusTest
-@TestMethodOrder(OrderAnnotation.class)
 class KuduTest {
-
     private static final Logger LOG = Logger.getLogger(KuduTest.class);
-    static String MASTER_RPC_AUTHORITY;
+    static KuduClient client;
 
     @BeforeAll
     static void setup() {
-        MASTER_RPC_AUTHORITY = ConfigProvider.getConfig().getValue(KUDU_AUTHORITY_CONFIG_KEY, String.class);
-        KuduInfrastructureTestHelper.overrideTabletServerHostnameResolution();
+        String authority = ConfigProvider.getConfig().getValue(KUDU_AUTHORITY_CONFIG_KEY, String.class);
+        client = new KuduClient.KuduClientBuilder(authority).build();
     }
 
-    @Order(1)
-    @Test
-    public void createTableShouldSucceed() throws KuduException {
-        LOG.info("Calling createTableShouldSucceed");
+    @AfterAll
+    static void afterAll() {
+        if (client != null) {
+            try {
+                client.close();
+            } catch (KuduException e) {
+                LOG.warn("Failed to close kudu client", e);
+            }
+        }
+    }
 
-        KuduClient client = new KuduClient.KuduClientBuilder(MASTER_RPC_AUTHORITY).build();
+    @BeforeEach
+    void beforeEach() throws KuduException {
+        createTable();
+    }
+
+    @AfterEach
+    void afterEach() {
+        if (client != null) {
+            try {
+                client.deleteTable(KuduRoute.TABLE_NAME);
+            } catch (KuduException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    void createTable() throws KuduException {
         assertEquals(0, client.getTablesList().getTablesList().size());
-
-        RestAssured.put("/kudu/createTable").then().statusCode(200);
-
+        RestAssured.put("/kudu/createTable")
+                .then()
+                .statusCode(200);
         assertEquals(1, client.getTablesList().getTablesList().size());
     }
 
-    @Order(2)
     @Test
-    public void insertShouldSucceed() throws KuduException {
-        LOG.info("Calling insertShouldSucceed");
+    void kuduCrud() throws KuduException {
+        // Create
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(Map.of("id", "key1", "name", "Samuel", "age", 50))
+                .put("/kudu/insert")
+                .then()
+                .statusCode(200);
 
-        RestAssured.put("/kudu/insert").then().statusCode(200);
+        // Read
+        RestAssured.get("/kudu/scan")
+                .then()
+                .statusCode(200)
+                .body(
+                        "[0].id", is("key1"),
+                        "[0].name", is("Samuel"),
+                        "[0].age", is(50));
 
-        KuduClient client = new KuduClient.KuduClientBuilder(MASTER_RPC_AUTHORITY).build();
+        // Update
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(Map.of("id", "key1", "name", "John", "age", 40))
+                .patch("/kudu/update")
+                .then()
+                .statusCode(200);
 
-        List<Map<String, Object>> records = KuduUtils.doScan("TestTable", client);
-        assertEquals(1, records.size());
-        Map<String, Object> record = records.get(0);
-        assertNotNull(record);
-        assertEquals("key1", record.get("id"));
-        assertEquals("Samuel", record.get("name"));
+        RestAssured.get("/kudu/scan")
+                .then()
+                .statusCode(200)
+                .body(
+                        "[0].id", is("key1"),
+                        "[0].name", is("John"),
+                        "[0].age", is(40));
+
+        // Delete
+        RestAssured.delete("/kudu/delete/key1")
+                .then()
+                .statusCode(200);
+
+        // Confirm deletion
+        RestAssured.get("/kudu/scan")
+                .then()
+                .statusCode(200)
+                .body("$.size()", is(0));
     }
 
-    @Order(3)
     @Test
-    public void scanShouldSucceed() {
-        LOG.info("Calling scanShouldSucceed");
+    void upsertUpdate() {
+        // Create
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(Map.of("id", "key1", "name", "Samuel", "age", 50))
+                .put("/kudu/insert")
+                .then()
+                .statusCode(200);
 
-        String record = RestAssured.get("/kudu/scan").then().statusCode(200).extract().asString();
-        assertEquals("key1/Samuel", record);
+        // Read
+        RestAssured.get("/kudu/scan")
+                .then()
+                .statusCode(200)
+                .body(
+                        "[0].id", is("key1"),
+                        "[0].name", is("Samuel"),
+                        "[0].age", is(50));
+
+        // Upsert update of name
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(Map.of("id", "key1", "name", "John", "age", 50))
+                .patch("/kudu/upsert")
+                .then()
+                .statusCode(200);
+
+        // Read update
+        RestAssured.get("/kudu/scan")
+                .then()
+                .statusCode(200)
+                .body(
+                        "[0].id", is("key1"),
+                        "[0].name", is("John"),
+                        "[0].age", is(50));
     }
 
+    @Test
+    void upsertInsert() {
+        // Upsert
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(Map.of("id", "key1", "name", "Samuel", "age", 50))
+                .put("/kudu/insert")
+                .then()
+                .statusCode(200);
+
+        // Read
+        RestAssured.get("/kudu/scan")
+                .then()
+                .statusCode(200)
+                .body(
+                        "[0].id", is("key1"),
+                        "[0].name", is("Samuel"),
+                        "[0].age", is(50));
+    }
+
+    @Test
+    void scanWithSpecificColumns() {
+        // Create
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(Map.of("id", "key1", "name", "Samuel", "age", 50))
+                .put("/kudu/insert")
+                .then()
+                .statusCode(200);
+
+        // Read
+        RestAssured.given()
+                .queryParam("columnNames", "name,age")
+                .get("/kudu/scan")
+                .then()
+                .statusCode(200)
+                .body(
+                        "[0].id", nullValue(),
+                        "[0].age", equalTo(50),
+                        "[0].name", is("Samuel"));
+    }
+
+    @Test
+    void scanWithPredicate() {
+        // Create
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(Map.of("id", "key1", "name", "Samuel", "age", 50))
+                .put("/kudu/insert")
+                .then()
+                .statusCode(200);
+
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(Map.of("id", "key2", "name", "Alice", "age", 12))
+                .put("/kudu/insert")
+                .then()
+                .statusCode(200);
+
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(Map.of("id", "key3", "name", "John", "age", 40))
+                .put("/kudu/insert")
+                .then()
+                .statusCode(200);
+
+        // Read (finds all records with age >= 18)
+        RestAssured.given()
+                .queryParam("minAge", 18)
+                .get("/kudu/scan/predicate")
+                .then()
+                .statusCode(200)
+                .body(
+                        "[0].id", is("key1"),
+                        "[0].name", is("Samuel"),
+                        "[0].age", is(50),
+                        "[1].id", is("key3"),
+                        "[1].name", is("John"),
+                        "[1].age", is(40));
+    }
+
+    @Test
+    void scanWithLimit() {
+        // Create
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(Map.of("id", "key1", "name", "Samuel", "age", 50))
+                .put("/kudu/insert")
+                .then()
+                .statusCode(200);
+
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(Map.of("id", "key2", "name", "John", "age", 40))
+                .put("/kudu/insert")
+                .then()
+                .statusCode(200);
+
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(Map.of("id", "key3", "name", "Alice", "age", 12))
+                .put("/kudu/insert")
+                .then()
+                .statusCode(200);
+
+        // Read (limit of 2 records)
+        RestAssured.given()
+                .queryParam("limit", 2)
+                .get("/kudu/scan/limit")
+                .then()
+                .statusCode(200)
+                .body(
+                        "[0].id", is("key1"),
+                        "[0].name", is("Samuel"),
+                        "[0].age", is(50),
+                        "[1].id", is("key2"),
+                        "[1].name", is("John"),
+                        "[1].age", is(40));
+    }
 }
