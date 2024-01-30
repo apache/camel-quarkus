@@ -24,42 +24,44 @@ import java.util.Map;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PATCH;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.kudu.KuduConstants;
+import org.apache.camel.util.ObjectHelper;
 import org.apache.kudu.ColumnSchema;
 import org.apache.kudu.Schema;
 import org.apache.kudu.Type;
 import org.apache.kudu.client.CreateTableOptions;
-import org.apache.kudu.client.KuduException;
-import org.jboss.logging.Logger;
+import org.apache.kudu.client.KuduPredicate;
 
 @Path("/kudu")
 @ApplicationScoped
 public class KuduResource {
-
-    private static final Logger LOG = Logger.getLogger(KuduResource.class);
-
-    @Inject
-    CamelContext camelContext;
-
     @Inject
     ProducerTemplate producerTemplate;
 
     @Path("/createTable")
     @PUT
     public Response createTable() {
-        LOG.info("Calling createTable");
-
         final List<ColumnSchema> columns = new ArrayList<>(2);
         columns.add(new ColumnSchema.ColumnSchemaBuilder("id", Type.STRING).key(true).build());
         columns.add(new ColumnSchema.ColumnSchemaBuilder("name", Type.STRING).build());
+        columns.add(new ColumnSchema.ColumnSchemaBuilder("age", Type.INT32).build());
 
-        CreateTableOptions cto = new CreateTableOptions().setRangePartitionColumns(Arrays.asList("id")).setNumReplicas(1);
+        CreateTableOptions cto = new CreateTableOptions()
+                .setRangePartitionColumns(List.of("id"))
+                .setNumReplicas(1);
 
         final Map<String, Object> headers = new HashMap<>();
         headers.put(KuduConstants.CAMEL_KUDU_SCHEMA, new Schema(columns));
@@ -72,23 +74,83 @@ public class KuduResource {
 
     @Path("/insert")
     @PUT
-    public Response insert() {
-        LOG.info("Calling insert");
-
-        Map<String, Object> row = new HashMap<>();
-        row.put("id", "key1");
-        row.put("name", "Samuel");
-
-        producerTemplate.requestBody("direct:insert", row);
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response insert(Map<String, Object> insertRowData) {
+        producerTemplate.requestBody("direct:insert", insertRowData);
 
         return Response.ok().build();
     }
 
-    @Path("/scan")
-    @GET
-    public String scan() throws KuduException {
-        LOG.info("Calling scan");
-        return producerTemplate.requestBody("direct:scan", (Object) null, String.class);
+    @Path("/update")
+    @PATCH
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response update(Map<String, Object> updateRowData) {
+        producerTemplate.requestBody("direct:update", updateRowData);
+
+        return Response.ok().build();
     }
 
+    @Path("/delete/{id}")
+    @DELETE
+    public Response delete(@PathParam("id") String id) {
+        Map<String, Object> row = new HashMap<>();
+        row.put("id", id);
+
+        producerTemplate.requestBody("direct:delete", row);
+
+        return Response.ok().build();
+    }
+
+    @Path("/upsert")
+    @PATCH
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response upsertPatch(Map<String, Object> upsertRowData) {
+        producerTemplate.requestBody("direct:upsert", upsertRowData);
+
+        return Response.ok().build();
+    }
+
+    @Path("/upsert")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response upsertPost(Map<String, Object> upsertRowData) {
+        producerTemplate.requestBody("direct:upsert", upsertRowData);
+
+        return Response.ok().build();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Path("/scan")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Map<String, Object>> scan(@QueryParam("columnNames") String columnNames) {
+        Map<String, Object> headers = new HashMap<>();
+        if (ObjectHelper.isNotEmpty(columnNames)) {
+            headers.put(KuduConstants.CAMEL_KUDU_SCAN_COLUMN_NAMES, Arrays.asList(columnNames.split(",")));
+        }
+        return producerTemplate.requestBodyAndHeaders("direct:scan", null, headers, List.class);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Path("/scan/predicate")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Map<String, Object>> scanWithAgePredicate(@QueryParam("minAge") int minAge) {
+        Map<String, Object> headers = new HashMap<>();
+        ColumnSchema ageColumn = new ColumnSchema.ColumnSchemaBuilder("age", Type.INT32).build();
+        KuduPredicate predicate = KuduPredicate.newComparisonPredicate(ageColumn, KuduPredicate.ComparisonOp.GREATER_EQUAL,
+                minAge);
+        headers.put(KuduConstants.CAMEL_KUDU_SCAN_PREDICATE, predicate);
+        return producerTemplate.requestBodyAndHeaders("direct:scan", null, headers, List.class);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Path("/scan/limit")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Map<String, Object>> scanWithLimit(@QueryParam("limit") long limit) {
+        Map<String, Object> headers = new HashMap<>();
+        headers.put(KuduConstants.CAMEL_KUDU_SCAN_LIMIT, limit);
+        return producerTemplate.requestBodyAndHeaders("direct:scan", null, headers, List.class);
+    }
 }

@@ -18,17 +18,30 @@ package org.apache.camel.quarkus.component.kudu.it;
 
 import org.apache.camel.builder.RouteBuilder;
 
-import static org.apache.camel.quarkus.component.kudu.it.KuduInfrastructureTestHelper.KUDU_AUTHORITY_CONFIG_KEY;
-
 public class KuduRoute extends RouteBuilder {
+    public static final String KUDU_AUTHORITY_CONFIG_KEY = "camel.kudu.test.master.rpc-authority";
+    public static final String TABLE_NAME = "TestTable";
 
     @Override
     public void configure() {
-        final String kuduEndpointUriFormat = "kudu:{{" + KUDU_AUTHORITY_CONFIG_KEY + "}}/TestTable?operation=%s";
+        final String kuduEndpointUriFormat = "kudu:{{" + KUDU_AUTHORITY_CONFIG_KEY + "}}/" + TABLE_NAME + "?operation=%s";
 
-        from("direct:create_table").toF(kuduEndpointUriFormat, "create_table");
-        from("direct:insert").toF(kuduEndpointUriFormat, "insert");
-        from("direct:scan").toF(kuduEndpointUriFormat, "scan").setBody(simple("${body[0][id]}/${body[0][name]}"));
+        from("direct:create_table")
+                .toF(kuduEndpointUriFormat, "create_table");
+
+        from("direct:insert")
+                .toF(kuduEndpointUriFormat, "insert");
+
+        from("direct:update")
+                .toF(kuduEndpointUriFormat, "update");
+
+        from("direct:upsert")
+                .toF(kuduEndpointUriFormat, "upsert");
+
+        from("direct:delete")
+                .toF(kuduEndpointUriFormat, "delete");
+
+        from("direct:scan")
+                .toF(kuduEndpointUriFormat, "scan");
     }
-
 }
