@@ -16,17 +16,24 @@
  */
 package org.apache.camel.quarkus.component.xj.deployment;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import org.jboss.logging.Logger;
 
-class XjProcessor {
+public class XJProcessor {
 
-    private static final Logger LOG = Logger.getLogger(XjProcessor.class);
+    private static final Logger LOG = Logger.getLogger(XJProcessor.class);
     private static final String FEATURE = "camel-xj";
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    void nativeImageResources(BuildProducer<NativeImageResourceBuildItem> nativeImageResource) {
+        nativeImageResource.produce(new NativeImageResourceBuildItem("org/apache/camel/component/xj/identity.xsl"));
     }
 }
