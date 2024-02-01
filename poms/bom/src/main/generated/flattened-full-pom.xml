@@ -6645,6 +6645,16 @@
         <version>2.5.1.Final</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
+        <groupId>org.mvnpm.at.lit-labs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>ssr-dom-shim</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.1.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm.at.lit</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>reactive-element</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>2.0.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
         <groupId>org.mybatis</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>mybatis</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.5.15</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -22642,18 +22652,6 @@
         <groupId>org.mockito</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
         <artifactId>mockito-inline</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
         <version>5.2.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.lit-labs</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>ssr-dom-shim</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.1.0</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.lit</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>reactive-element</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.6.1</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <scope>runtime</scope><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.open-wc</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->

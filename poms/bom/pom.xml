@@ -6721,6 +6721,17 @@
                 <artifactId>mvel2</artifactId>
                 <version>${mvel2.version}</version>
             </dependency>
+            <!-- TODO: Remove org.mvnpm overrides https://github.com/quarkusio/quarkus/issues/38510-->
+            <dependency>
+                <groupId>org.mvnpm.at.lit-labs</groupId>
+                <artifactId>ssr-dom-shim</artifactId>
+                <version>${mvnpm-ssr-dom-shim.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mvnpm.at.lit</groupId>
+                <artifactId>reactive-element</artifactId>
+                <version>${mvnpm-reactive-element.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis</artifactId>
