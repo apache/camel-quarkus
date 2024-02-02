@@ -21,7 +21,10 @@ import java.util.concurrent.TimeUnit;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.awaitility.Awaitility.await;
 
@@ -80,5 +83,19 @@ class LraTest {
                     .body()
                     .asString().equals("5");
         });
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "hello", "fail", "timeout" })
+    void testManualSaga(String body) {
+        final String actual = RestAssured.given()
+                .queryParam("id", 1)
+                .body(body)
+                .post("/lra/manual")
+                .then()
+                .statusCode(200)
+                .extract().body().asString();
+
+        Assertions.assertEquals(body.equals("hello") ? "complete" : "compensate", actual);
     }
 }
