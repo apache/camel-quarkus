@@ -68,10 +68,8 @@ public class FileResource {
     @Path("/getBatch")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Map<String, Object> getBatch() throws Exception {
+    public Map<String, Object> getBatch() {
         MockEndpoint mockEndpoint = context.getEndpoint("mock:" + CONSUME_BATCH, MockEndpoint.class);
-
-        context.getRouteController().startRoute(CONSUME_BATCH);
 
         Map<String, Object> result = new HashMap<>();
 

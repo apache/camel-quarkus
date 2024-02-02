@@ -54,10 +54,7 @@ public class FileRoutes extends RouteBuilder {
                 .convertBodyTo(String.class)
                 .to("mock:quartzScheduledFilePolling");
 
-        from("file://target/" + CONSUME_BATCH + "?"
-                + "initialDelay=0&delay=100")
-                .id(CONSUME_BATCH)
-                .noAutoStartup()
+        from("file://target/test-files/batch-in?initialDelay=0&delay=1000")
                 .convertBodyTo(String.class)
                 .to("mock:" + CONSUME_BATCH);
 
