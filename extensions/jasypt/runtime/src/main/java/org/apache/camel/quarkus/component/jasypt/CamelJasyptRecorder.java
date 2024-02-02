@@ -34,7 +34,8 @@ public class CamelJasyptRecorder {
         configurationProperties.setAutoConfigurationEnvironmentVariablesEnabled(false);
     }
 
-    public RuntimeValue<CamelContextCustomizer> createPropertiesComponentCamelContextCustomizer(CamelJasyptConfig config) {
+    public RuntimeValue<CamelContextCustomizer> createPropertiesComponentCamelContextCustomizer(
+            CamelJasyptBuildTimeConfig config) {
         return new RuntimeValue<>(new CamelContextCustomizer() {
             @Override
             public void configure(CamelContext camelContext) {

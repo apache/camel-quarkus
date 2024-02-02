@@ -17,9 +17,11 @@
 package org.apache.camel.quarkus.component.jasypt;
 
 import org.apache.camel.component.jasypt.JasyptPropertiesParser;
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 
 class CamelJasyptPropertiesParserHolder {
     private static volatile JasyptPropertiesParser INSTANCE;
+    private static volatile StandardPBEStringEncryptor ENCRYPTOR;
 
     private CamelJasyptPropertiesParserHolder() {
         // Utility class
@@ -34,5 +36,16 @@ class CamelJasyptPropertiesParserHolder {
             }
         }
         return INSTANCE;
+    }
+
+    static void setEncryptor(StandardPBEStringEncryptor encryptor) {
+        synchronized (CamelJasyptPropertiesParserHolder.class) {
+            getJasyptPropertiesParser().setEncryptor(encryptor);
+            ENCRYPTOR = encryptor;
+        }
+    }
+
+    static StandardPBEStringEncryptor getEncryptor() {
+        return ENCRYPTOR;
     }
 }

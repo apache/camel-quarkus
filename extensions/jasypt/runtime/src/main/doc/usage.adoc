@@ -17,6 +17,9 @@ jbang org.apache.camel:camel-jasypt:{camel-version} -c encrypt -p secret-passwor
 IMPORTANT: If you choose to use a different Jasypt algorithm to the default (`PBEWithMD5AndDES`), you must provide `-a` (algorithm), `-riga` (IV generator algorithm) & `-rsga` (Salt generator algorithm)
 arguments to set the correct algorithms used in encryption. Else your application will not be able to decrypt configuration values.
 
+Alternatively, when running in dev mode, open the https://quarkus.io/guides/dev-mode-differences#dev-ui[Dev UI] and click the 'utilities' link in the Camel Jasypt pane.
+Next, select either the 'Decrypt' or 'Encrypt' action, enter some text and click the submit button. The result of the action is output together with a button to copy it to the clipboard.
+
 Configuration properties can be added to `application.properties` with the encrypted value enclosed within `ENC()` For example.
 
 [source]
