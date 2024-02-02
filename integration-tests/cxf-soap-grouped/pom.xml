@@ -130,6 +130,11 @@
             <artifactId>assertj-core</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-test-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -583,6 +588,23 @@
                                         <ext>IssuerAlternativeName=DNS:NOT-FOR-PRODUCTION-USE</ext>
                                     </exts>
                                     <keystore>${project.build.outputDirectory}/truststore-wrong.jks</keystore>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>generate-alice-wrong-keypair</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>clean</goal>
+                                    <goal>generateKeyPair</goal>
+                                </goals>
+                                <configuration>
+                                    <alias>alice_wrong</alias>
+                                    <dname>CN=alice_wrong, OU=eng, O=apache.org</dname>
+                                    <exts>
+                                        <ext>IssuerAlternativeName=DNS:NOT-FOR-PRODUCTION-USE</ext>
+                                        <ext>SubjectAlternativeName=DNS:localhost,IP:127.0.0.1</ext>
+                                    </exts>
+                                    <keystore>${project.build.outputDirectory}/alice_wrong.jks</keystore>
                                 </configuration>
                             </execution>
                         </executions>

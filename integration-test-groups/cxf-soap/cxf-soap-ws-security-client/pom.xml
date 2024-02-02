@@ -81,6 +81,11 @@
             <artifactId>quarkus-junit4-mock</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -177,6 +182,47 @@
             <properties>
                 <skipTests>true</skipTests>
             </properties>
+        </profile>
+        <profile>
+            <id>full</id>
+            <activation>
+                <property>
+                    <name>!quickly</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>keytool-maven-plugin</artifactId>
+                        <configuration>
+                            <keypass>password</keypass>
+                            <validity>365</validity>
+                            <keyalg>RSA</keyalg>
+                            <storepass>password</storepass>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>generate-alice-wrong-keypair</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>clean</goal>
+                                    <goal>generateKeyPair</goal>
+                                </goals>
+                                <configuration>
+                                    <alias>alice_wrong</alias>
+                                    <dname>CN=alice_wrong, OU=eng, O=apache.org</dname>
+                                    <exts>
+                                        <ext>IssuerAlternativeName=DNS:NOT-FOR-PRODUCTION-USE</ext>
+                                        <ext>SubjectAlternativeName=DNS:localhost,IP:127.0.0.1</ext>
+                                    </exts>
+                                    <keystore>${project.build.outputDirectory}/alice_wrong.jks</keystore>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 
