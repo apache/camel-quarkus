@@ -20,7 +20,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Optional;
 
 import io.agroal.api.AgroalDataSource;
 import io.quarkus.arc.Arc;
@@ -35,7 +34,6 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.direct.DirectComponent;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.eclipse.microprofile.config.ConfigProvider;
 
 @Path("/jasypt")
 public class JasyptResource {
@@ -59,14 +57,6 @@ public class JasyptResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String decryptConfiguration(@PathParam("endpointUri") String endpointUri) {
         return producerTemplate.requestBody(endpointUri, null, String.class);
-    }
-
-    @Path("/decrypt/configuration-from-provider/{configKey}")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String decryptConfigurationFromConfigProvider(@PathParam("configKey") String configKey) {
-        Optional<String> optional = ConfigProvider.getConfig().getOptionalValue(configKey, String.class);
-        return optional.orElse(null);
     }
 
     @Path("/timer/mock/results")

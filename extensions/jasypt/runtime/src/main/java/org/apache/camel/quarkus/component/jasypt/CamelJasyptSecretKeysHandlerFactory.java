@@ -108,7 +108,7 @@ public class CamelJasyptSecretKeysHandlerFactory implements SecretKeysHandlerFac
             throw new IllegalStateException("The jasypt password has not been configured.");
         }
 
-        parser.setEncryptor(encryptor);
+        CamelJasyptPropertiesParserHolder.setEncryptor(encryptor);
     }
 
     private String getPassword(ConfigSourceContext context) {

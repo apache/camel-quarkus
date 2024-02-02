@@ -14,10 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jasypt.it;
+package org.apache.camel.quarkus.component.jasypt;
 
-import io.quarkus.test.junit.QuarkusIntegrationTest;
+import jakarta.enterprise.context.ApplicationScoped;
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 
-@QuarkusIntegrationTest
-class JasyptManualConfigurationIT extends JasyptManualConfigurationTest {
+@ApplicationScoped
+public class CamelJasyptDevUIService {
+    public String encryptText(String text) {
+        StandardPBEStringEncryptor encryptor = CamelJasyptPropertiesParserHolder.getEncryptor();
+        if (encryptor != null) {
+            return encryptor.encrypt(text);
+        }
+        return null;
+    }
+
+    public String decryptText(String text) {
+        StandardPBEStringEncryptor encryptor = CamelJasyptPropertiesParserHolder.getEncryptor();
+        if (encryptor != null) {
+            return encryptor.decrypt(text);
+        }
+        return null;
+    }
 }

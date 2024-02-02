@@ -23,6 +23,7 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.camel.quarkus.component.jasypt.CamelJasyptBuildTimeConfig;
 import org.apache.camel.quarkus.component.jasypt.CamelJasyptConfig;
 import org.apache.camel.quarkus.component.jasypt.CamelJasyptRecorder;
 import org.apache.camel.quarkus.component.jasypt.JasyptConfigurationCustomizer;
@@ -65,7 +66,7 @@ class JasyptProcessor {
     @Record(ExecutionTime.RUNTIME_INIT)
     @BuildStep
     RuntimeCamelContextCustomizerBuildItem propertiesComponentRuntimeCamelContextCustomizer(
-            CamelJasyptConfig config,
+            CamelJasyptBuildTimeConfig config,
             CamelJasyptRecorder recorder) {
         return new RuntimeCamelContextCustomizerBuildItem(recorder.createPropertiesComponentCamelContextCustomizer(config));
     }

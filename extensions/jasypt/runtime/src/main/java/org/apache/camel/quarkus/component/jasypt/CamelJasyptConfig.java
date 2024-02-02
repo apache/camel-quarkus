@@ -35,14 +35,6 @@ public class CamelJasyptConfig {
     static final String DEFAULT_ALGORITHM = StandardPBEByteEncryptor.DEFAULT_ALGORITHM;
 
     /**
-     * Setting this option to false will disable Jasypt integration with Quarkus SmallRye configuration.
-     * You can however, manually configure Jasypt with Camel in the 'classic' way of manually configuring
-     * JasyptPropertiesParser and PropertiesComponent. Refer to the usage section for more details.
-     */
-    @ConfigItem(defaultValue = "true")
-    public boolean enabled;
-
-    /**
      * The algorithm to be used for decryption.
      */
     @ConfigItem(defaultValue = DEFAULT_ALGORITHM)
