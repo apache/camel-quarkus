@@ -27,7 +27,9 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.apache.camel.CamelContext;
 import org.apache.camel.FluentProducerTemplate;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.quarkus.component.lra.it.service.CreditService;
 import org.apache.camel.quarkus.component.lra.it.service.OrderManagerService;
 
@@ -37,6 +39,9 @@ public class LraResource {
 
     @Inject
     FluentProducerTemplate producerTemplate;
+
+    @Inject
+    CamelContext context;
 
     @Inject
     CreditService creditService;
@@ -73,4 +78,24 @@ public class LraResource {
     public int getAvailableCredit() {
         return creditService.getCredit();
     }
+
+    @Path("/manual")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public String manualSaga(@QueryParam("id") String id, String body) throws Exception {
+        String name = body.equals("fail") || body.equals("timeout") ? "compensate" : "complete";
+        MockEndpoint mockEndpoint = context.getEndpoint("mock:" + name, MockEndpoint.class);
+        mockEndpoint.reset();
+        mockEndpoint.expectedMessageCount(1);
+        mockEndpoint.expectedHeaderReceived("id", id);
+
+        producerTemplate.to("direct:manualSaga")
+                .withHeader("myid", id)
+                .withBody(body)
+                .send();
+
+        mockEndpoint.assertIsSatisfied(5000);
+        return mockEndpoint.getReceivedExchanges().get(0).getMessage().getBody(String.class);
+    }
+
 }

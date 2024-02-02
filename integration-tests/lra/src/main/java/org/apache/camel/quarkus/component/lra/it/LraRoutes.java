@@ -16,10 +16,13 @@
  */
 package org.apache.camel.quarkus.component.lra.it;
 
+import java.util.concurrent.TimeUnit;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.SagaCompletionMode;
 import org.apache.camel.model.SagaPropagation;
 import org.apache.camel.quarkus.component.lra.it.service.CreditService;
 import org.apache.camel.quarkus.component.lra.it.service.OrderManagerService;
@@ -82,5 +85,30 @@ public class LraRoutes extends RouteBuilder {
                     throw new Exception("fail");
                 })
                 .end();
+
+        // ManualSaga
+        from("direct:manualSaga")
+                .saga()
+                .completionMode(SagaCompletionMode.MANUAL)
+                .timeout(1, TimeUnit.SECONDS)
+                .option("id", header("myid"))
+                .completion("direct:complete")
+                .compensation("direct:compensate")
+                .to("mock:endpoint")
+                .choice()
+                .when(body().isEqualTo("fail"))
+                .to("saga:compensate")
+                .when(body().isNotEqualTo("timeout"))
+                .to("saga:complete")
+                .end();
+
+        from("direct:complete")
+                .setBody(constant("complete"))
+                .to("mock:complete");
+
+        from("direct:compensate")
+                .setBody(constant("compensate"))
+                .to("mock:compensate");
+
     }
 }
