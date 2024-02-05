@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.infinispan;
 import java.util.Set;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.infinispan.remote.InfinispanRemoteComponent;
 import org.apache.camel.component.infinispan.remote.InfinispanRemoteConfiguration;
@@ -29,20 +28,17 @@ import org.eclipse.microprofile.config.ConfigProvider;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.configuration.Configuration;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
+import org.infinispan.commons.configuration.StringConfiguration;
 import org.infinispan.commons.marshall.ProtoStreamMarshaller;
 
 @ApplicationScoped
 public class InfinispanQuarkusClientRoutes extends InfinispanCommonRoutes {
 
-    // TODO: This should not be required: https://github.com/apache/camel-quarkus/issues/4841
-    @Inject
-    RemoteCacheManager cacheManager;
-
     @Override
     protected Configuration getConfigurationBuilder() {
         Config config = ConfigProvider.getConfig();
         ConfigurationBuilder clientBuilder = new ConfigurationBuilder();
-        String[] hostParts = config.getValue("quarkus.infinispan-client.server-list", String.class).split(":");
+        String[] hostParts = config.getValue("quarkus.infinispan-client.hosts", String.class).split(":");
 
         clientBuilder.addServer()
                 .host(hostParts[0])
@@ -51,13 +47,12 @@ public class InfinispanQuarkusClientRoutes extends InfinispanCommonRoutes {
         clientBuilder
                 .security()
                 .authentication()
-                .username(config.getValue("quarkus.infinispan-client.auth-username", String.class))
-                .password(config.getValue("quarkus.infinispan-client.auth-password", String.class))
+                .username(config.getValue("quarkus.infinispan-client.username", String.class))
+                .password(config.getValue("quarkus.infinispan-client.password", String.class))
                 .serverName(config.getValue("quarkus.infinispan-client.auth-server-name", String.class))
                 .saslMechanism(config.getValue("quarkus.infinispan-client.sasl-mechanism", String.class))
                 .realm(config.getValue("quarkus.infinispan-client.auth-realm", String.class))
                 .marshaller(new ProtoStreamMarshaller());
-
         return clientBuilder.build();
     }
 
@@ -69,6 +64,8 @@ public class InfinispanQuarkusClientRoutes extends InfinispanCommonRoutes {
         configuration.setCacheContainerConfiguration(getConfigurationBuilder());
         Set<RemoteCacheManager> beans = camelContext.getRegistry().findByType(RemoteCacheManager.class);
         RemoteCacheManager cacheManager = beans.iterator().next();
+        cacheManager.administration()
+                .getOrCreateCache(CACHE_NAME, new StringConfiguration(InfinispanCommonRoutes.LOCAL_CACHE_CONFIG));
         configuration.setCacheContainer(cacheManager);
         return configuration;
     }

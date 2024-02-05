@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.infinispan;
 
-import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.component.infinispan.common.InfinispanCommonTest;
@@ -26,7 +25,6 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
 @QuarkusTest
-@QuarkusTestResource(InfinispanServerTestResource.class)
 public class InfinispanQuarkusClientTest extends InfinispanCommonTest {
 
     @Test
