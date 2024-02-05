@@ -245,6 +245,7 @@
         <postgres-debezium.container.image>docker.io/debezium/postgres:15-alpine</postgres-debezium.container.image>
         <rabbitmq.container.image>docker.io/rabbitmq:3.9.29-management-alpine</rabbitmq.container.image>
         <redis.container.image>docker.io/redis:7.0.12</redis.container.image>
+        <smb.container.image>quay.io/jamesnetherton/camel-smb-test-server:1.0.0</smb.container.image>
         <splunk.container.image>docker.io/splunk/splunk:9.0</splunk.container.image>
         <sql-server.container.image>mcr.microsoft.com/mssql/server:2017-CU12</sql-server.container.image>
 
