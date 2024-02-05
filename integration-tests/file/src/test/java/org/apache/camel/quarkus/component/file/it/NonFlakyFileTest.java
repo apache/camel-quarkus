@@ -21,6 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.common.QuarkusTestResource;
@@ -178,5 +179,20 @@ class NonFlakyFileTest {
         // Check that .done and output folder do not contain the input file
         assertFalse(Files.exists(doneFilePath));
         assertFalse(Files.exists(outputFilePath));
+    }
+
+    @Test
+    void twoFilesShouldBeReadInSameBatch() {
+        await().atMost(10, TimeUnit.SECONDS).until(() -> {
+            Map<?, ?> records = RestAssured
+                    .get("/file/getBatch/")
+                    .then()
+                    .statusCode(200)
+                    .extract().as(Map.class);
+
+            return records.size() == 2 && records.keySet().contains(BATCH_FILE_NAME_1_CONTENT)
+                    && records.keySet().contains(BATCH_FILE_NAME_2_CONTENT)
+                    && records.values().contains(0) && records.values().contains(1);
+        });
     }
 }

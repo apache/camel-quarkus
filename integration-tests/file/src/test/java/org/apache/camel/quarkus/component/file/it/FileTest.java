@@ -21,7 +21,6 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -33,7 +32,6 @@ import io.restassured.response.ValidatableResponse;
 import org.apache.camel.quarkus.core.util.FileUtils;
 import org.junit.jupiter.api.Test;
 
-import static org.apache.camel.quarkus.component.file.it.FileResource.CONSUME_BATCH;
 import static org.apache.camel.quarkus.component.file.it.FileResource.SEPARATOR;
 import static org.apache.camel.quarkus.component.file.it.FileResource.SORT_BY;
 import static org.awaitility.Awaitility.await;
@@ -45,28 +43,6 @@ class FileTest {
     private static final String FILE_CONTENT_01 = "Hello1";
     private static final String FILE_CONTENT_02 = "Hello2";
     private static final String FILE_CONTENT_03 = "Hello3";
-
-    @Test
-    public void batch() throws InterruptedException, UnsupportedEncodingException {
-        // Create 2 files
-        createFile(FILE_CONTENT_01, "/file/create/" + CONSUME_BATCH);
-        createFile(FILE_CONTENT_02, "/file/create/" + CONSUME_BATCH);
-
-        // start route
-        startRouteAndWait(CONSUME_BATCH);
-
-        await().atMost(10, TimeUnit.SECONDS).until(() -> {
-            Map<?, ?> records = RestAssured
-                    .get("/file/getBatch/")
-                    .then()
-                    .statusCode(200)
-                    .extract().as(Map.class);
-
-            return records.size() == 2 && records.keySet().contains(FILE_CONTENT_01)
-                    && records.keySet().contains(FILE_CONTENT_02)
-                    && records.values().contains(0) && records.values().contains(1);
-        });
-    }
 
     @Test
     public void sortBy() throws IOException, InterruptedException {
@@ -105,10 +81,6 @@ class FileTest {
         Files.delete(file);
 
         awaitEvent(dir, file, "DELETE");
-    }
-
-    private static String createFile(String content, String path) throws UnsupportedEncodingException {
-        return createFile(content, path, "UTF-8", null);
     }
 
     static String createFile(String content, String path, String charset, String prefix)
