@@ -19,9 +19,9 @@ package org.apache.camel.quarkus.component.smb.it;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
-import org.testcontainers.images.builder.ImageFromDockerfile;
 
 public class SmbTestResource implements QuarkusTestResourceLifecycleManager {
 
@@ -29,11 +29,12 @@ public class SmbTestResource implements QuarkusTestResourceLifecycleManager {
 
     private GenericContainer<?> container;
 
+    private static final String SMB_IMAGE = ConfigProvider.getConfig().getValue("smb.container.image", String.class);
+
     @Override
     public Map<String, String> start() {
         try {
-            container = new GenericContainer<>(new ImageFromDockerfile("localhost/samba:camel", false)
-                    .withFileFromClasspath(".", "/"))
+            container = new GenericContainer<>(SMB_IMAGE)
                     .withExposedPorts(SMB_PORT)
                     .waitingFor(Wait.forListeningPort());
             container.start();
