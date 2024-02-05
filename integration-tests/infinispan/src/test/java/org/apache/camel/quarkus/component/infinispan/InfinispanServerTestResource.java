@@ -16,20 +16,22 @@
  */
 package org.apache.camel.quarkus.component.infinispan;
 
+import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.camel.quarkus.component.infinispan.common.InfinispanCommonServerTestResource;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.testcontainers.DockerClientFactory;
 
-public class InfinispanServerTestResource extends InfinispanCommonServerTestResource {
+public class InfinispanServerTestResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public Map<String, String> start() {
-        Map<String, String> config = super.start();
-
+        Map<String, String> config = new HashMap<>();
+        String host = String.format("%s:31222", DockerClientFactory.instance().dockerHostIpAddress());
         config.put("camel.component.infinispan.autowired-enabled", "false");
-        config.put("camel.component.infinispan.hosts", getServerList());
-        config.put("camel.component.infinispan.username", USER);
-        config.put("camel.component.infinispan.password", PASS);
+        config.put("camel.component.infinispan.hosts", host);
+        config.put("camel.component.infinispan.username", "admin");
+        config.put("camel.component.infinispan.password", "password");
         config.put("camel.component.infinispan.secure", "true");
         config.put("camel.component.infinispan.security-realm", "default");
         config.put("camel.component.infinispan.sasl-mechanism", "DIGEST-MD5");
@@ -37,5 +39,10 @@ public class InfinispanServerTestResource extends InfinispanCommonServerTestReso
         config.put("camel.component.infinispan.configuration-properties", "#additionalConfig");
 
         return config;
+    }
+
+    @Override
+    public void stop() {
+
     }
 }

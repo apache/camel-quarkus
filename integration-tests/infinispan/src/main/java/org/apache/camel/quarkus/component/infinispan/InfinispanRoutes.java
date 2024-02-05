@@ -43,6 +43,7 @@ public class InfinispanRoutes extends InfinispanCommonRoutes {
         if (OS.getCurrentOs().equals(OS.MAC_OS) || OS.getCurrentOs().equals(OS.WINDOWS)) {
             config.put(CLIENT_INTELLIGENCE, "BASIC");
         }
+        config.put("infinispan.client.hotrod.cache.camel-infinispan.configuration", InfinispanCommonRoutes.LOCAL_CACHE_CONFIG);
         return config;
     }
 
@@ -65,7 +66,6 @@ public class InfinispanRoutes extends InfinispanCommonRoutes {
                 .saslMechanism(config.getValue("camel.component.infinispan.sasl-mechanism", String.class))
                 .realm(config.getValue("camel.component.infinispan.security-realm", String.class))
                 .marshaller(new ProtoStreamMarshaller());
-
         return clientBuilder.build();
     }
 
