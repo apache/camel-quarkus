@@ -40,6 +40,7 @@ import org.apache.camel.component.splunk.ProducerType;
 import org.apache.camel.component.splunk.SplunkComponent;
 import org.apache.camel.component.splunk.SplunkConfiguration;
 import org.apache.camel.component.splunk.event.SplunkEvent;
+import org.apache.camel.quarkus.test.support.splunk.SplunkConstants;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @Path("/splunk")
@@ -47,11 +48,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 public class SplunkResource {
 
     public static final String SAVED_SEARCH_NAME = "savedSearchForTest";
-    public static final String PARAM_REMOTE_HOST = "org.apache.camel.quarkus.component.splunk.it.SplunkResource_host";
-    public static final String PARAM_REMOTE_PORT = "org.apache.camel.quarkus.component.splunk.it.SplunkResource_remotePort";
-    public static final String PARAM_TCP_PORT = "org.apache.camel.quarkus.component.splunk.it.SplunkResource_tcpPort";
     public static final String SOURCE = "test";
-    public static final int LOCAL_TCP_PORT = 9998;
 
     @Inject
     ProducerTemplate producerTemplate;
@@ -59,13 +56,13 @@ public class SplunkResource {
     @Inject
     ConsumerTemplate consumerTemplate;
 
-    @ConfigProperty(name = PARAM_REMOTE_HOST)
+    @ConfigProperty(name = SplunkConstants.PARAM_REMOTE_HOST)
     String host;
 
-    @ConfigProperty(name = PARAM_REMOTE_PORT)
+    @ConfigProperty(name = SplunkConstants.PARAM_REMOTE_PORT)
     Integer port;
 
-    @ConfigProperty(name = PARAM_TCP_PORT)
+    @ConfigProperty(name = SplunkConstants.PARAM_TCP_PORT)
     Integer tcpPort;
 
     @Named
@@ -143,7 +140,7 @@ public class SplunkResource {
             url = String.format(
                     "splunk:%s?raw=%b&username=admin&password=changeit&scheme=http&host=%s&port=%d&index=%s&sourceType=%s&source=%s&tcpReceiverLocalPort=%d&tcpReceiverPort=%d",
                     producerType.toLowerCase(), !(message instanceof SplunkEvent), host, port, index, producerType, SOURCE,
-                    LOCAL_TCP_PORT, tcpPort);
+                    SplunkConstants.TCP_PORT, tcpPort);
 
         } else {
             url = String.format(
