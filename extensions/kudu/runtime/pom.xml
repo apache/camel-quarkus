@@ -45,15 +45,38 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-micrometer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
             <artifactId>quarkus-netty</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.checkerframework</groupId>
+                    <artifactId>checker-qual</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.sangupta</groupId>
+            <artifactId>murmur</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-kudu</artifactId>
             <exclusions>
+                <!-- replaced by camel-quarkus-kudu-client -->
                 <exclusion>
                     <groupId>org.apache.kudu</groupId>
-                    <artifactId>kudu-client</artifactId><!-- replaced by camel-quarkus-kudu-client -->
+                    <artifactId>kudu-client</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>

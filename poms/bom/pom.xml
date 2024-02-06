@@ -6227,6 +6227,11 @@
                 </exclusions>
             </dependency>
             <dependency>
+                <groupId>com.sangupta</groupId>
+                <artifactId>murmur</artifactId>
+                <version>${murmur.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.squareup.okio</groupId>
                 <artifactId>okio</artifactId>
                 <version>${okio.version}</version>
@@ -6570,6 +6575,10 @@
                     <exclusion>
                         <groupId>com.google.code.findbugs</groupId>
                         <artifactId>jsr305</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.yetus</groupId>
+                        <artifactId>audience-annotations</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
