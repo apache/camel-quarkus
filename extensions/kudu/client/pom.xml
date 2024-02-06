@@ -29,8 +29,8 @@
     <artifactId>camel-quarkus-kudu-client</artifactId>
     <name>Camel Quarkus :: Kudu :: Client</name>
 
-    <description>org.apache.kudu:kudu-client with netty package relocations reverted and netty classes stripped away
-        so that camel-quarkus-kudu can use quarkus-netty as a replacement</description>
+    <description>org.apache.kudu:kudu-client with guava, micrometer, murmur, netty &amp; protobuf package relocations reverted and associated classes stripped away
+        so that camel-quarkus-kudu can use the equivalent quarkus extensions as a replacement</description>
 
     <dependencies>
         <dependency>
@@ -60,16 +60,56 @@
                             </artifactSet>
                             <relocations>
                                 <relocation>
+                                    <pattern>org.apache.kudu.shaded.com.google</pattern>
+                                    <shadedPattern>com.google</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.kudu.shaded.com.sangupta</pattern>
+                                    <shadedPattern>com.sangupta</shadedPattern>
+                                </relocation>
+                                <relocation>
                                     <pattern>org.apache.kudu.shaded.io.netty</pattern>
                                     <shadedPattern>io.netty</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.kudu.shaded.io.micrometer</pattern>
+                                    <shadedPattern>io.micrometer</shadedPattern>
                                 </relocation>
                             </relocations>
                             <filters>
                                 <filter>
                                     <artifact>org.apache.kudu:kudu-client</artifact>
                                     <excludes>
+                                        <!--
+                                            Remove shaded packages from guava, murmur, protobuf-java & redundant checkerframework.
+                                            Replaced by dependencies on guava, mumur and protobuf-java.
+                                        -->
+                                        <exclude>META-INF/proguard/**</exclude>
+                                        <exclude>META-INF/maven/com.google.*/**</exclude>
+                                        <exclude>org/apache/kudu/shaded/com/google/**</exclude>
+                                        <exclude>org/apache/kudu/shaded/com/sangupta/**</exclude>
+                                        <exclude>org/apache/kudu/shaded/org/checkerframework/**</exclude>
+                                        <!--
+                                            Remove shaded netty packages. Replaced by quarkus-netty.
+                                        -->
+                                        <exclude>META-INF/io.netty.versions.properties</exclude>
+                                        <exclude>META-INF/maven/io.netty/**</exclude>
+                                        <exclude>META-INF/native/**</exclude>
                                         <exclude>META-INF/native-image/**</exclude>
                                         <exclude>org/apache/kudu/shaded/io/netty/**</exclude>
+                                        <!--
+                                            Remove shaded packages from micrometer, HdrHistogram & LatencyUtils.
+                                            Replaced by quarkus-micrometer.
+                                        -->
+                                        <exclude>META-INF/micrometer-core.properties</exclude>
+                                        <exclude>META-INF/NOTICE</exclude>
+                                        <exclude>META-INF/maven/org.hdrhistogram/**</exclude>
+                                        <exclude>META-INF/maven/org.latencyutils/**</exclude>
+                                        <exclude>META-INF/maven/org.jctools/**</exclude>
+                                        <exclude>META-INF/services/reactor.blockhound.integration.BlockHoundIntegration</exclude>
+                                        <exclude>org/apache/kudu/shaded/io/micrometer/**</exclude>
+                                        <exclude>org/apache/kudu/shaded/org/HdrHistogram/**</exclude>
+                                        <exclude>org/apache/kudu/shaded/org/LatencyUtils/**</exclude>
                                     </excludes>
                                 </filter>
                             </filters>
