@@ -121,5 +121,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: ${{ needs.update.outputs.pr-number }},
-              body: "Branch auto synchronized due to changes in generated files. New workflow run triggered:\n\nhttps://github.com/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}"
+              body: ":warning: :warning: :warning:\n\nBranch auto synchronized due to changes in generated files. New workflow run triggered:\n\nhttps://github.com/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}\n\nPlease check the workflow result before merging.\n\n:warning: :warning: :warning:"
             });
