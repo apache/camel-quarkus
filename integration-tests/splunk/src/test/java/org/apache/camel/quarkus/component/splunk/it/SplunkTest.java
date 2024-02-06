@@ -30,6 +30,8 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.component.splunk.ProducerType;
+import org.apache.camel.quarkus.test.support.splunk.SplunkConstants;
+import org.apache.camel.quarkus.test.support.splunk.SplunkTestResource;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.Matchers;
@@ -72,8 +74,8 @@ class SplunkTest {
         //create saved search
         Config config = ConfigProvider.getConfig();
         RestAssured.given()
-                .baseUri("http://" + config.getValue(SplunkResource.PARAM_REMOTE_HOST, String.class))
-                .port(config.getValue(SplunkResource.PARAM_REMOTE_PORT, Integer.class))
+                .baseUri("http://" + config.getValue(SplunkConstants.PARAM_REMOTE_HOST, String.class))
+                .port(config.getValue(SplunkConstants.PARAM_REMOTE_PORT, Integer.class))
                 .contentType(ContentType.JSON)
                 .param("name", SplunkResource.SAVED_SEARCH_NAME)
                 .param("disabled", "0")

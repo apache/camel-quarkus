@@ -225,6 +225,7 @@
         <module>snakeyaml</module>
         <module>soap</module>
         <module>splunk</module>
+        <module>splunk-hec</module>
         <module>spring-rabbitmq</module>
         <module>sql</module>
         <module>ssh</module>

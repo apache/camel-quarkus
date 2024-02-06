@@ -51,6 +51,7 @@
         <module>kafka</module>
         <module>mongodb</module>
         <module>process-executor-support</module>
+        <module>splunk</module>
         <module>test-support</module>
         <module>mock-backend</module>
         <module>wiremock</module>
