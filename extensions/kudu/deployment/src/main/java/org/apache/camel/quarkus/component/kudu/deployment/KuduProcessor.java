@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.kudu.deployment;
 
+import java.util.stream.Stream;
+
 import com.sun.security.auth.module.JndiLoginModule;
 import com.sun.security.auth.module.KeyStoreLoginModule;
 import com.sun.security.auth.module.Krb5LoginModule;
@@ -28,6 +30,7 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageSecurityProviderBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
 
 class KuduProcessor {
     private static final String[] JDK_LOGIN_MODULE_CLASSES = {
@@ -65,5 +68,18 @@ class KuduProcessor {
                 .build());
 
         reflectiveClass.produce(ReflectiveClassBuildItem.builder(JDK_LOGIN_MODULE_CLASSES).build());
+    }
+
+    @BuildStep
+    void runtimeReinitializedClasses(BuildProducer<RuntimeReinitializedClassBuildItem> runtimeReinitializedClass) {
+        // Required due to Protobuf / Kudu usage of sun.misc.Unsafe to compute static field values
+        Stream.of("com.google.protobuf.UnsafeUtil",
+                "com.google.common.primitives.UnsignedBytes$LexicographicalComparatorHolder",
+                "com.google.common.primitives.UnsignedBytes$LexicographicalComparatorHolder$UnsafeComparator",
+                "org.apache.kudu.client.TableLocationsCache",
+                "org.apache.kudu.client.PartitionSchema",
+                "org.apache.kudu.client.PartitionSchema$BoundsComparator")
+                .map(RuntimeReinitializedClassBuildItem::new)
+                .forEach(runtimeReinitializedClass::produce);
     }
 }
