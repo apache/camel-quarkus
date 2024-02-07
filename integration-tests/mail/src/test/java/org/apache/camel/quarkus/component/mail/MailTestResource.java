@@ -26,13 +26,16 @@ import java.util.Map;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.jboss.logging.Logger;
 import org.testcontainers.DockerClientFactory;
+import org.testcontainers.containers.Container.ExecResult;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.HttpWaitStrategy;
 import org.testcontainers.images.builder.Transferable;
 import org.testcontainers.utility.MountableFile;
 
 public class MailTestResource implements QuarkusTestResourceLifecycleManager {
+    private static final Logger LOG = Logger.getLogger(MailTestResource.class);
     private static final String GREENMAIL_IMAGE_NAME = ConfigProvider.getConfig().getValue("greenmail.container.image",
             String.class);
     private static final String GREENMAIL_CERTIFICATE_STORE_FILE = "greenmail.p12";
@@ -109,8 +112,14 @@ public class MailTestResource implements QuarkusTestResourceLifecycleManager {
             container.copyFileToContainer(
                     MountableFile.forClasspathResource(GENERATE_CERTIFICATE_SCRIPT),
                     "/" + GENERATE_CERTIFICATE_SCRIPT);
-            container.execInContainer("/bin/bash", "/" + GENERATE_CERTIFICATE_SCRIPT, host,
-                    "DNS:%s,IP:%s".formatted(host, host));
+            ExecResult result = container.execInContainer("/bin/bash", "/" + GENERATE_CERTIFICATE_SCRIPT, host,
+                    "DNS:%s,IP:%s".formatted(host, host), "/" + GREENMAIL_CERTIFICATE_STORE_FILE);
+
+            LOG.info(GENERATE_CERTIFICATE_SCRIPT + " - STDOUT:");
+            LOG.info(result.getStdout());
+            LOG.info(GENERATE_CERTIFICATE_SCRIPT + " - STDERR:");
+            LOG.info(result.getStderr());
+
             container.copyFileFromContainer("/" + GREENMAIL_CERTIFICATE_STORE_FILE,
                     certificateStoreLocation.resolve(GREENMAIL_CERTIFICATE_STORE_FILE).toString());
         } catch (Exception e) {

@@ -19,8 +19,14 @@
 
 export CN=${1:-localhost}
 export SUBJECT_ALT_NAMES=${2:-"DNS:localhost,IP:127.0.0.1"}
+export CERT_OUTPUT_FILE=${3:-greenmail.p12}
+
+echo "====> PWD = ${PWD}"
+echo "====> CN = ${CN}"
+echo "====> SUBJECT_ALT_NAMES = ${SUBJECT_ALT_NAMES}"
+echo "====> CERT_OUTPUT_FILE = ${CERT_OUTPUT_FILE}"
 
 openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes -keyout greenmail.key -out greenmail.crt -subj "/CN=${CN}" -addext "subjectAltName=${SUBJECT_ALT_NAMES}"
-openssl pkcs12 -export -out greenmail.p12 -inkey greenmail.key -in greenmail.crt -password pass:changeit
+openssl pkcs12 -export -out ${CERT_OUTPUT_FILE} -inkey greenmail.key -in greenmail.crt -password pass:changeit
 
 rm -f *.crt *.key
