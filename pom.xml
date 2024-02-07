@@ -222,7 +222,7 @@
         <eclipse-temurin.container.image>eclipse-temurin:17-ubi9-minimal</eclipse-temurin.container.image>
         <elasticsearch.container.image>docker.io/elasticsearch:8.8.1</elasticsearch.container.image>
         <fhir.container.image.base>docker.io/hapiproject/hapi</fhir.container.image.base>
-        <fhir.container.image>${fhir.container.image.base}:v6.6.0</fhir.container.image>
+        <fhir.container.image>${fhir.container.image.base}:v6.8.3</fhir.container.image>
         <fhir-dstu.container.image>${fhir.container.image.base}:v4.2.0</fhir-dstu.container.image>
         <google-cloud-sdk.container.image>gcr.io/google.com/cloudsdktool/cloud-sdk:441.0.0-emulators</google-cloud-sdk.container.image>
         <google-storage.container.image>docker.io/fsouza/fake-gcs-server:1.47.3</google-storage.container.image>
