@@ -124,6 +124,7 @@ jobs:
     outputs:
       matrix: ${{ steps.set-native-matrix.outputs.matrix }}
       examples-matrix: ${{ steps.set-examples-matrix.outputs.examples-matrix }}
+      alternate-jvm-matrix: ${{ steps.set-alternate-jvm-matrix.outputs.alternate-jvm-matrix }}
     env:
       MAVEN_OPTS: -Xmx4500m
     steps:
@@ -187,6 +188,15 @@ jobs:
         run: |
           CATEGORIES=$(yq -M -N -I 0 -o=json e 'keys' tooling/scripts/test-categories.yaml | tr '"' "'")
           echo "matrix={'category': ${CATEGORIES}}" >> $GITHUB_OUTPUT
+      - name: Setup Alternate JVM Matrix
+        id: set-alternate-jvm-matrix
+        shell: bash
+        run: |
+          cd integration-tests
+          mvn help:evaluate -Dexpression=project.modules -N -q -DforceStdout | sed -e 's/<[^>]*>//g' -e 's/^[[:space:]]*//' -e '/^$/d' > ${{ runner.temp }}/itest-modules.txt
+          GROUP1_MODULES=$(cat ${{ runner.temp }}/itest-modules.txt | grep -E '^[a-m].*' | tr '\n' ',' | sed 's/,$//')
+          GROUP2_MODULES=$(cat ${{ runner.temp }}/itest-modules.txt | grep -E '^[n-z].*' | tr '\n' ',' | sed 's/,$//')
+          echo "alternate-jvm-matrix={'include': [{'name': 'group-01', 'modules': '${GROUP1_MODULES}'},{'name': 'group-02', 'modules': '${GROUP2_MODULES}'}]}" >> $GITHUB_OUTPUT
       - name: Setup Examples Matrix
         id: set-examples-matrix
         run: |
@@ -236,6 +246,7 @@ jobs:
         run: |
           df -h /
           tar -xzf ../maven-repo.tgz -C ~
+          rm -f ../maven-repo.tgz
           df -h /
       - name: Integration Tests
         run: |
@@ -310,6 +321,7 @@ jobs:
         run: |
           df -h /
           tar -xzf ../maven-repo.tgz -C ~
+          rm -f ../maven-repo.tgz
           df -h /
       - name: cd extensions-core && mvn test
         run: |
@@ -380,6 +392,7 @@ jobs:
         run: |
           df -h /
           tar -xzf ../maven-repo.tgz -C ~
+          rm -f ../maven-repo.tgz
           df -h /
       - name: cd integration-tests-jvm && mvn clean test
         run: |
@@ -390,9 +403,13 @@ jobs:
             clean test
 
   integration-tests-alternative-jdk:
+    name: Integration Tests Alternative JDK 21 ${{matrix.name}}
     runs-on: ubuntu-latest
     needs: initial-mvn-install
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.labels.*.name, 'JVM')
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.initial-mvn-install.outputs.alternate-jvm-matrix) }}
     env:
       MAVEN_OPTS: -Xmx3000m
     steps:
@@ -422,11 +439,16 @@ jobs:
         run: |
           df -h /
           tar -xzf ../maven-repo.tgz -C ~
+          rm -f ../maven-repo.tgz
           df -h /
       - name: cd integration-tests && mvn clean verify
+        shell: bash
+        env:
+          TEST_MODULES: ${{matrix.modules}}
         run: |
           cd integration-tests
           ../mvnw ${CQ_MAVEN_ARGS} ${BRANCH_OPTIONS} \
+            -pl "${TEST_MODULES// /,}" \
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
             --fail-at-end \
             clean verify
@@ -466,6 +488,7 @@ jobs:
         shell: bash
         run: |
           tar -xzf ../maven-repo.tgz -C ~
+          rm -f ../maven-repo.tgz
       - name: cd integration-tests && mvn clean verify
         shell: bash
         run: |
@@ -505,6 +528,7 @@ jobs:
         run: |
           df -h /
           tar -xzf ../maven-repo.tgz -C ~
+          rm -f ../maven-repo.tgz
           df -h /
       - name: set CQ_VERSION
         run: echo "CQ_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout -N)" >> $GITHUB_ENV
