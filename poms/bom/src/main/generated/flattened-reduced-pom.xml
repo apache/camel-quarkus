@@ -834,6 +834,17 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-elasticsearch-rest-client</artifactId>
+        <version>4.3.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-endpointdsl</artifactId>
         <version>4.3.0</version>
         <exclusions>
@@ -3497,6 +3508,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-elasticsearch-deployment</artifactId>
+        <version>3.8.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-elasticsearch-rest-client</artifactId>
+        <version>3.8.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-elasticsearch-rest-client-deployment</artifactId>
         <version>3.8.0-SNAPSHOT</version>
       </dependency>
       <dependency>
