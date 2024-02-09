@@ -30,6 +30,10 @@
     <name>Camel Quarkus :: Integration Tests :: Master With OpenShift</name>
     <description>Integration tests for Camel Quarkus Master extension with OpenShift</description>
 
+    <properties>
+        <quarkus.runner>${project.build.directory}/quarkus-app/quarkus-run.jar</quarkus.runner>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
