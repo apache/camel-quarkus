@@ -301,6 +301,8 @@ $ sed -i "s|<camel-quarkus.version>[^<]*</camel-quarkus.version>|<camel-quarkus.
 $ git status
 ----
 +
+* Review the list of skipped tests configured on the Camel member in `pom.xml` (E.g ones that have `<skip>true</skip>`). If any are known to have been fixed in the latest release, remove the entries so that they can be enabled again.
++
 * Re-generate the BOMs
 +
 [source,shell]
