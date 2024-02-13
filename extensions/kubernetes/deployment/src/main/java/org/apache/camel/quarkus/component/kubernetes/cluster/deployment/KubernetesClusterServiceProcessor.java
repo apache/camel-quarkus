@@ -22,30 +22,31 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.component.kubernetes.cluster.KubernetesClusterService;
-import org.apache.camel.quarkus.component.kubernetes.cluster.KubernetesClusterServiceConfig;
+import org.apache.camel.quarkus.component.kubernetes.cluster.KubernetesClusterServiceBuildTimeConfig;
 import org.apache.camel.quarkus.component.kubernetes.cluster.KubernetesClusterServiceRecorder;
-import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
+import org.apache.camel.quarkus.component.kubernetes.cluster.KubernetesClusterServiceRuntimeConfig;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 import org.apache.camel.support.cluster.RebalancingCamelClusterService;
 
 class KubernetesClusterServiceProcessor {
 
-    @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep(onlyIf = KubernetesClusterServiceConfig.Enabled.class)
+    @Record(ExecutionTime.RUNTIME_INIT)
+    @BuildStep(onlyIf = KubernetesClusterServiceBuildTimeConfig.Enabled.class)
     @Consume(CamelContextBuildItem.class)
-    CamelBeanBuildItem setupKubernetesClusterService(
-            KubernetesClusterServiceConfig config,
+    CamelRuntimeBeanBuildItem setupKubernetesClusterService(
+            KubernetesClusterServiceBuildTimeConfig buildTimeConfig,
+            KubernetesClusterServiceRuntimeConfig runtimeConfig,
             KubernetesClusterServiceRecorder recorder) {
 
-        if (config.rebalancing) {
+        if (buildTimeConfig.rebalancing) {
             final RuntimeValue<RebalancingCamelClusterService> krcs = recorder
-                    .createKubernetesRebalancingClusterService(config);
-            return new CamelBeanBuildItem("kubernetesRebalancingClusterService",
+                    .createKubernetesRebalancingClusterService(runtimeConfig);
+            return new CamelRuntimeBeanBuildItem("kubernetesRebalancingClusterService",
                     RebalancingCamelClusterService.class.getName(), krcs);
         } else {
-            final RuntimeValue<KubernetesClusterService> kcs = recorder.createKubernetesClusterService(config);
-            return new CamelBeanBuildItem("kubernetesClusterService", KubernetesClusterService.class.getName(), kcs);
+            final RuntimeValue<KubernetesClusterService> kcs = recorder.createKubernetesClusterService(runtimeConfig);
+            return new CamelRuntimeBeanBuildItem("kubernetesClusterService", KubernetesClusterService.class.getName(), kcs);
         }
     }
-
 }

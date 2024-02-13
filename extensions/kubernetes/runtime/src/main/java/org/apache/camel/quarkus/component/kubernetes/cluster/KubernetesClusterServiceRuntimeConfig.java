@@ -18,22 +18,14 @@ package org.apache.camel.quarkus.component.kubernetes.cluster;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.BooleanSupplier;
 
 import io.quarkus.runtime.annotations.ConfigItem;
+import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
 import org.apache.camel.component.kubernetes.cluster.LeaseResourceType;
-import org.eclipse.microprofile.config.ConfigProvider;
 
-@ConfigRoot(name = "camel.cluster.kubernetes")
-public class KubernetesClusterServiceConfig {
-
-    /**
-     * Whether a Kubernetes Cluster Service should be automatically configured
-     * according to 'quarkus.camel.cluster.kubernetes.*' configurations.
-     */
-    @ConfigItem(defaultValue = "false")
-    public boolean enabled;
+@ConfigRoot(name = "camel.cluster.kubernetes", phase = ConfigPhase.RUN_TIME)
+public class KubernetesClusterServiceRuntimeConfig {
 
     /**
      * The cluster service ID (defaults to null).
@@ -114,25 +106,9 @@ public class KubernetesClusterServiceConfig {
     public Optional<LeaseResourceType> leaseResourceType;
 
     /**
-     * Whether the camel master namespace leaders should be distributed evenly
-     * across all the camel contexts in the cluster.
-     */
-    @ConfigItem(defaultValue = "true")
-    public boolean rebalancing;
-
-    /**
      * The labels key/value used to identify the pods composing the cluster,
      * defaults to empty map.
      */
     @ConfigItem
     public Map<String, String> labels;
-
-    public static final class Enabled implements BooleanSupplier {
-        @Override
-        public boolean getAsBoolean() {
-            return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.cluster.kubernetes.enabled", Boolean.class)
-                    .orElse(Boolean.FALSE);
-        }
-    }
-
 }
