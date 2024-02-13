@@ -24,34 +24,34 @@ import org.apache.camel.support.cluster.RebalancingCamelClusterService;
 @Recorder
 public class KubernetesClusterServiceRecorder {
 
-    public RuntimeValue<KubernetesClusterService> createKubernetesClusterService(KubernetesClusterServiceConfig config) {
+    public RuntimeValue<KubernetesClusterService> createKubernetesClusterService(KubernetesClusterServiceRuntimeConfig config) {
         KubernetesClusterService kcs = setupKubernetesClusterServiceFromConfig(config);
         return new RuntimeValue<KubernetesClusterService>(kcs);
     }
 
     public RuntimeValue<RebalancingCamelClusterService> createKubernetesRebalancingClusterService(
-            KubernetesClusterServiceConfig config) {
+            KubernetesClusterServiceRuntimeConfig config) {
         KubernetesClusterService kcs = setupKubernetesClusterServiceFromConfig(config);
         RebalancingCamelClusterService rebalancingService = new RebalancingCamelClusterService(kcs,
                 kcs.getRenewDeadlineMillis());
         return new RuntimeValue<RebalancingCamelClusterService>(rebalancingService);
     }
 
-    private KubernetesClusterService setupKubernetesClusterServiceFromConfig(KubernetesClusterServiceConfig config) {
+    private KubernetesClusterService setupKubernetesClusterServiceFromConfig(KubernetesClusterServiceRuntimeConfig config) {
         KubernetesClusterService clusterService = new KubernetesClusterService();
 
-        config.id.ifPresent(id -> clusterService.setId(id));
-        config.masterUrl.ifPresent(url -> clusterService.setMasterUrl(url));
-        config.connectionTimeoutMillis.ifPresent(ctm -> clusterService.setConnectionTimeoutMillis(ctm));
-        config.namespace.ifPresent(ns -> clusterService.setKubernetesNamespace(ns));
-        config.podName.ifPresent(pn -> clusterService.setPodName(pn));
-        config.jitterFactor.ifPresent(jf -> clusterService.setJitterFactor(jf));
-        config.leaseDurationMillis.ifPresent(ldm -> clusterService.setLeaseDurationMillis(ldm));
-        config.renewDeadlineMillis.ifPresent(rdm -> clusterService.setRenewDeadlineMillis(rdm));
-        config.retryPeriodMillis.ifPresent(rpm -> clusterService.setRetryPeriodMillis(rpm));
-        config.order.ifPresent(o -> clusterService.setOrder(o));
-        config.resourceName.ifPresent(krn -> clusterService.setKubernetesResourceName(krn));
-        config.leaseResourceType.ifPresent(lrt -> clusterService.setLeaseResourceType(lrt));
+        config.id.ifPresent(clusterService::setId);
+        config.masterUrl.ifPresent(clusterService::setMasterUrl);
+        config.connectionTimeoutMillis.ifPresent(clusterService::setConnectionTimeoutMillis);
+        config.namespace.ifPresent(clusterService::setKubernetesNamespace);
+        config.podName.ifPresent(clusterService::setPodName);
+        config.jitterFactor.ifPresent(clusterService::setJitterFactor);
+        config.leaseDurationMillis.ifPresent(clusterService::setLeaseDurationMillis);
+        config.renewDeadlineMillis.ifPresent(clusterService::setRenewDeadlineMillis);
+        config.retryPeriodMillis.ifPresent(clusterService::setRetryPeriodMillis);
+        config.order.ifPresent(clusterService::setOrder);
+        config.resourceName.ifPresent(clusterService::setKubernetesResourceName);
+        config.leaseResourceType.ifPresent(clusterService::setLeaseResourceType);
 
         clusterService.setClusterLabels(config.labels);
 
