@@ -96,8 +96,13 @@ public class DataSetResource {
     @GET
     @Path("/simple/consumer")
     public void dataSetSimpleConsumer() throws Exception {
+        SimpleDataSet simpleDataSet = CamelContextHelper.lookup(context, "simpleDataSetForConsumer", SimpleDataSet.class);
         MockEndpoint endpoint = context.getEndpoint("mock:simpleDataSetResult", MockEndpoint.class);
-        endpoint.expectedBodiesReceived("<hello>world!</hello>");
+        endpoint.expectedMessageCount((int) simpleDataSet.getSize());
+        endpoint.expectedMessagesMatches(exchange -> {
+            String body = exchange.getMessage().getBody(String.class);
+            return body != null && body.equals("<hello>world!</hello>");
+        });
 
         context.getRouteController().startRoute("simple");
         try {
