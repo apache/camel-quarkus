@@ -26,7 +26,6 @@ public class JasyptSecureExtensionConfigTestProfile implements QuarkusTestProfil
     @Override
     public Map<String, String> getConfigOverrides() {
         return Map.of(
-                "quarkus.datasource.devservices.enabled", "true",
                 // camel
                 "quarkus.datasource.devservices.username",
                 "ENC(ehEx3VxgoFVuReSFsgyUrw==)",
