@@ -81,7 +81,7 @@
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>keytool-maven-plugin</artifactId>
                         <configuration>
-                            <validity>3650</validity>
+                            <validity>18250</validity>
                             <keyalg>RSA</keyalg>
                             <storepass>ldapPass</storepass>
                             <noprompt>true</noprompt>
