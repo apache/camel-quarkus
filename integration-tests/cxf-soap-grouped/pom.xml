@@ -311,7 +311,7 @@
                         <artifactId>keytool-maven-plugin</artifactId>
                         <configuration>
                             <keypass>password</keypass>
-                            <validity>365</validity>
+                            <validity>18250</validity>
                             <keyalg>RSA</keyalg>
                             <storepass>password</storepass>
                         </configuration>
