@@ -23,11 +23,17 @@ echo "Reclaiming disk space..."
 
 # Unwanted development SDKs
 sudo rm -rf /opt/ghc \
+     rm -rf /opt/hostedtoolcache/CodeQL \
      rm -rf /opt/pipx \
+     rm -rf /usr/lib/google-cloud-sdk \
+     rm -rf /usr/local/.ghcup \
      rm -rf /usr/local/go \
      rm -rf /usr/local/lib/android \
+     rm -rf /usr/local/lib/node_modules \
      rm -rf /usr/local/share/boost \
+     rm -rf /usr/local/share/powershell \
      rm -rf /usr/share/dotnet \
+     rm -rf /usr/share/miniconda \
      rm -rf /usr/share/rust \
      rm -rf /usr/share/swift
 
