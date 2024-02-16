@@ -56,13 +56,6 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>io.quarkiverse.artemis</groupId>
-                <artifactId>quarkus-artemis-bom</artifactId>
-                <version>${quarkiverse-artemis.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
                 <groupId>io.quarkiverse.cxf</groupId>
                 <artifactId>quarkus-cxf-bom-test</artifactId>
                 <version>${quarkiverse-cxf.version}</version>
@@ -70,6 +63,11 @@
                 <scope>import</scope>
             </dependency>
 
+            <dependency>
+                <groupId>io.quarkiverse.artemis</groupId>
+                <artifactId>quarkus-test-artemis</artifactId>
+                <version>${quarkiverse-artemis.version}</version>
+            </dependency>
             <dependency>
                 <groupId>io.quarkiverse.micrometer.registry</groupId>
                 <artifactId>quarkus-micrometer-registry-jmx</artifactId>

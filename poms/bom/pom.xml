@@ -6341,6 +6341,16 @@
                 <version>${reactor-netty.version}</version>
             </dependency>
             <dependency>
+                <groupId>io.quarkiverse.artemis</groupId>
+                <artifactId>quarkus-artemis-jms</artifactId>
+                <version>${quarkiverse-artemis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.artemis</groupId>
+                <artifactId>quarkus-artemis-jms-deployment</artifactId>
+                <version>${quarkiverse-artemis.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.quarkiverse.freemarker</groupId>
                 <artifactId>quarkus-freemarker</artifactId>
                 <version>${quarkiverse-freemarker.version}</version>
@@ -7017,6 +7027,7 @@
                                 <!-- whose dependencies we want to cover in the flattened BOM -->
                                 <resolutionEntryPointInclude>org.apache.camel.quarkus:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>ca.uhn.hapi:*</resolutionEntryPointInclude>
+                                <resolutionEntryPointInclude>io.quarkiverse.artemis:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>io.quarkiverse.cxf:*</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>io.quarkiverse.minio:minio-native</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>io.quarkiverse.messaginghub:*</resolutionEntryPointInclude>

@@ -6249,6 +6249,16 @@
         <version>1.1.13</version>
       </dependency>
       <dependency>
+        <groupId>io.quarkiverse.artemis</groupId>
+        <artifactId>quarkus-artemis-jms</artifactId>
+        <version>3.1.4</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.artemis</groupId>
+        <artifactId>quarkus-artemis-jms-deployment</artifactId>
+        <version>3.1.4</version>
+      </dependency>
+      <dependency>
         <groupId>io.quarkiverse.freemarker</groupId>
         <artifactId>quarkus-freemarker</artifactId>
         <version>1.0.0</version>
