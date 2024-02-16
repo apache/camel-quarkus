@@ -60,6 +60,13 @@ public class NonFlakyFileTestResource implements QuarkusTestResourceLifecycleMan
     static final String BATCH_FILE_NAME_1_CONTENT = BATCH_FILE_NAME_1 + "-CONTENT";
     static final String BATCH_FILE_NAME_2 = "batch-file-2";
     static final String BATCH_FILE_NAME_2_CONTENT = BATCH_FILE_NAME_2 + "-CONTENT";
+    static final String SORT_BY_FOLDER_IN = "sortby-in";
+    static final String SORT_BY_NAME_1 = "sortby-file-1";
+    static final String SORT_BY_NAME_1_CONTENT = SORT_BY_NAME_1 + "-CONTENT";
+    static final String SORT_BY_NAME_2 = "sortby-file-2";
+    static final String SORT_BY_NAME_2_CONTENT = SORT_BY_NAME_2 + "-CONTENT";
+    static final String SORT_BY_NAME_3 = "sortby-file-3";
+    static final String SORT_BY_NAME_3_CONTENT = SORT_BY_NAME_3 + "-CONTENT";
 
     private final Map<Path, byte[]> createdTestFilesExpectedContent = new HashMap<>();
 
@@ -83,6 +90,10 @@ public class NonFlakyFileTestResource implements QuarkusTestResourceLifecycleMan
 
             createTestFile("batch-in", BATCH_FILE_NAME_1);
             createTestFile("batch-in", BATCH_FILE_NAME_2);
+
+            createTestFile("sortby-in", SORT_BY_NAME_3);
+            createTestFile("sortby-in", SORT_BY_NAME_1);
+            createTestFile("sortby-in", SORT_BY_NAME_2);
 
             // Do not use  createTestFile("file-creation"... as it is already reserved by the createFileShouldSucceed test
             // Do not use  createTestFile("charset-write"... as it is already reserved by the writeFileWithIso8859_1CharsetShouldSucceed test

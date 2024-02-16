@@ -31,6 +31,8 @@ import io.restassured.http.ContentType;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
+import static org.apache.camel.quarkus.component.file.it.FileResource.SEPARATOR;
+import static org.apache.camel.quarkus.component.file.it.FileResource.SORT_BY;
 import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.*;
 import static org.apache.commons.io.FileUtils.readFileToString;
 import static org.awaitility.Awaitility.await;
@@ -195,4 +197,15 @@ class NonFlakyFileTest {
                     && records.values().contains(0) && records.values().contains(1);
         });
     }
+
+    @Test
+    void filesCreatedInWrongOrderShouldBeSortedByReverseFilename() {
+        await().atMost(10, TimeUnit.SECONDS).until(
+                () -> RestAssured
+                        .get("/file/getFromMock/" + SORT_BY)
+                        .then()
+                        .extract().asString(),
+                equalTo(SORT_BY_NAME_3_CONTENT + SEPARATOR + SORT_BY_NAME_2_CONTENT + SEPARATOR + SORT_BY_NAME_1_CONTENT));
+    }
+
 }

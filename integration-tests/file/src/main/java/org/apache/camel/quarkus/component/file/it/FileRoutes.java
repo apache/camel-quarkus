@@ -78,9 +78,7 @@ public class FileRoutes extends RouteBuilder {
         from(("file://target/test-files/filter?initialDelay=0&delay=10&filter=#myFilter"))
                 .convertBodyTo(String.class).to("mock:filter");
 
-        from(("file://target/sortBy?initialDelay=0&delay=10&sortBy=reverse:file:name"))
-                .id(SORT_BY)
-                .noAutoStartup()
+        from(("file://target/test-files/sortby-in?initialDelay=0&delay=10&sortBy=reverse:file:name"))
                 .convertBodyTo(String.class).to("mock:" + SORT_BY);
 
         from("direct:pollEnrich")
