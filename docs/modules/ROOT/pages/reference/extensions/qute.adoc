@@ -40,7 +40,10 @@ endif::[]
 
 [id="extensions-qute-usage"]
 == Usage
-Please refer to the https://quarkus.io/guides/qute[Quarkus Qute].
+include::partial$component-configure-options.adoc[]
+include::partial$component-endpoint-options.adoc[]
+
+For more information about Qute, please refer to the https://quarkus.io/guides/qute[Quarkus Qute] documentation.
 
 
 [id="extensions-qute-camel-quarkus-limitations"]
