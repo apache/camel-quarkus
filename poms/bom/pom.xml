@@ -6783,11 +6783,6 @@
                 <version>${mybatis.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.mvnpm.at.lit-labs</groupId>
-                <artifactId>ssr-dom-shim</artifactId>
-                <version>${ssr-dom-shim.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.optaplanner</groupId>
                 <artifactId>optaplanner-quarkus</artifactId>
                 <version>${optaplanner.version}</version>

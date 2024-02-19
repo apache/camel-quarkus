@@ -6606,11 +6606,6 @@
         <version>3.5.15</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
-        <groupId>org.mvnpm.at.lit-labs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>ssr-dom-shim</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.1.2-pre.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
         <groupId>org.optaplanner</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>optaplanner-quarkus</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>9.37.0.Final</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
