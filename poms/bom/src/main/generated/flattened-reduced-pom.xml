@@ -467,6 +467,21 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-beanio</artifactId>
+        <version>4.4.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-bindy</artifactId>
         <version>4.4.0</version>
       </dependency>
@@ -1706,6 +1721,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-mail-microsoft-oauth</artifactId>
+        <version>4.4.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-main</artifactId>
         <version>4.4.0</version>
       </dependency>
@@ -1875,6 +1895,21 @@
           <exclusion>
             <groupId>org.checkerframework</groupId>
             <artifactId>checker-qual</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-opensearch</artifactId>
+        <version>4.4.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -3049,6 +3084,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-bean-validator-deployment</artifactId>
+        <version>3.8.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-beanio</artifactId>
+        <version>3.8.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-beanio-deployment</artifactId>
         <version>3.8.0-SNAPSHOT</version>
       </dependency>
       <dependency>
@@ -4483,6 +4528,16 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-mail-microsoft-oauth</artifactId>
+        <version>3.8.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-mail-microsoft-oauth-deployment</artifactId>
+        <version>3.8.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-management</artifactId>
         <version>3.8.0-SNAPSHOT</version>
       </dependency>
@@ -4699,6 +4754,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-openapi-java-deployment</artifactId>
+        <version>3.8.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-opensearch</artifactId>
+        <version>3.8.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-opensearch-deployment</artifactId>
         <version>3.8.0-SNAPSHOT</version>
       </dependency>
       <dependency>
@@ -6601,9 +6666,19 @@
         <version>2.5.2.Final</version>
       </dependency>
       <dependency>
+        <groupId>org.mvnpm.at.lit-labs</groupId>
+        <artifactId>ssr-dom-shim</artifactId>
+        <version>${ssr-dom-shim.version}</version>
+      </dependency>
+      <dependency>
         <groupId>org.mybatis</groupId>
         <artifactId>mybatis</artifactId>
         <version>3.5.15</version>
+      </dependency>
+      <dependency>
+        <groupId>org.opensearch.client</groupId>
+        <artifactId>opensearch-rest-client</artifactId>
+        <version>2.11.1</version>
       </dependency>
       <dependency>
         <groupId>org.optaplanner</groupId>

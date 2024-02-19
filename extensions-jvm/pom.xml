@@ -44,6 +44,7 @@
         <module>azure-servicebus</module>
         <module>azure-storage-datalake</module>
         <module>barcode</module>
+        <module>beanio</module>
         <module>bonita</module>
         <module>chatscript</module>
         <module>chunk</module>
@@ -80,7 +81,9 @@
         <module>jt400</module>
         <module>ldif</module>
         <module>lucene</module>
+        <module>mail-microsoft-oauth</module>
         <module>mvel</module>
+        <module>opensearch</module>
         <module>printer</module>
         <module>pulsar</module>
         <module>quickfix</module>
