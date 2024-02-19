@@ -32,7 +32,7 @@ The following extensions have been removed.
 | camel-quarkus-microprofile-metrics        | camel-quarkus-micrometer, camel-quarkus-opentelemtry
 | camel-quarkus-milo                        | none
 | camel-quarkus-opentracing                 | camel-quarkus-micrometer, camel-quarkus-opentelemtry
-| camel-quarkus-rabbitmq                    | none
+| camel-quarkus-rabbitmq                    | camel-quarkus-spring-rabbitmq
 | camel-quarkus-vm                          | camel-quarkus-seda
 | camel-quarkus-xstream                     | camel-quarkus-jacksonxml
 |===
