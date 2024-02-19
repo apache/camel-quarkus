@@ -6606,11 +6606,6 @@
         <version>3.5.15</version>
       </dependency>
       <dependency>
-        <groupId>org.mvnpm.at.lit-labs</groupId>
-        <artifactId>ssr-dom-shim</artifactId>
-        <version>1.1.2-pre.1</version>
-      </dependency>
-      <dependency>
         <groupId>org.optaplanner</groupId>
         <artifactId>optaplanner-quarkus</artifactId>
         <version>9.37.0.Final</version>
