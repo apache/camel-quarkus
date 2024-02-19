@@ -19,13 +19,11 @@ package org.apache.camel.quarkus.component.jasypt.it;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.is;
 
-@Disabled("https://github.com/apache/camel-quarkus/issues/5665")
 @QuarkusTest
 @TestProfile(JasyptAlternateConfigProfileTestProfile.class)
 class JasyptAlternateConfigProfileTest {
