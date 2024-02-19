@@ -98,13 +98,6 @@ public class FileResource {
         return result;
     }
 
-    @Path("/resetMock/{mockId}")
-    @GET
-    public void resetMock(@PathParam("mockId") String mockId) {
-        MockEndpoint mockEndpoint = context.getEndpoint("mock:" + mockId, MockEndpoint.class);
-        mockEndpoint.reset();
-    }
-
     @Path("/create-file")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)

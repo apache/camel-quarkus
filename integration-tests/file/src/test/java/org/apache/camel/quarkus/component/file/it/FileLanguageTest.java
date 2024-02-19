@@ -23,6 +23,8 @@ import java.util.Date;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import org.apache.camel.quarkus.core.util.FileUtils;
 import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.quarkus.component.file.it.FileLanguageRoutes.FILE_LANGUAGE;
@@ -36,13 +38,13 @@ class FileLanguageTest {
     @Test
     public void fileLanguageExt() throws UnsupportedEncodingException, InterruptedException {
         // Create a new file
-        String txtFileName = FileTest.createFile(FILE_BODY, "/file/create/" + FileLanguageRoutes.FILE_LANG_TXT_IN, null,
+        String txtFileName = createFile(FILE_BODY, "/file/create/" + FileLanguageRoutes.FILE_LANG_TXT_IN, null,
                 "in.txt");
-        String xmlFileName = FileTest.createFile(FILE_BODY, "/file/create/" + FileLanguageRoutes.FILE_LANG_TXT_IN, null,
+        String xmlFileName = createFile(FILE_BODY, "/file/create/" + FileLanguageRoutes.FILE_LANG_TXT_IN, null,
                 "in.xml");
 
         // Start route with ${file:onlyname.noext}.txt"
-        FileTest.startRouteAndWait(FILE_LANGUAGE + "_txt");
+        startRouteAndWait(FILE_LANGUAGE + "_txt");
 
         // Read the file matched fileLanguage
         RestAssured
@@ -61,10 +63,10 @@ class FileLanguageTest {
     @Test
     public void fileLanguageDate() throws UnsupportedEncodingException, InterruptedException {
         // Create a new file
-        FileTest.createFile(FILE_BODY, "/file/create/" + FileLanguageRoutes.FILE_LANG_DATE_IN, null, "in.xml");
+        createFile(FILE_BODY, "/file/create/" + FileLanguageRoutes.FILE_LANG_DATE_IN, null, "in.xml");
 
         // Start route with ${date:now:yyyyMMdd}-${in.header.myHeader}.${file:ext}
-        FileTest.startRouteAndWait(FILE_LANGUAGE + "_date");
+        startRouteAndWait(FILE_LANGUAGE + "_date");
 
         SimpleDateFormat format = new SimpleDateFormat();
         format.applyPattern("yyyyMMdd");
@@ -76,6 +78,43 @@ class FileLanguageTest {
                 .then()
                 .statusCode(200)
                 .body(equalTo(FILE_BODY));
+    }
+
+    private static void startRouteAndWait(String routeId) throws InterruptedException {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(routeId)
+                .post("/file/startRoute")
+                .then()
+                .statusCode(204);
+
+        // wait for start
+        Thread.sleep(500);
+    }
+
+    private static String createFile(String content, String path, String charset, String prefix)
+            throws UnsupportedEncodingException {
+        if (charset == null) {
+            charset = "UTF-8";
+        }
+        return createFile(content.getBytes(charset), path, charset, prefix);
+    }
+
+    private static String createFile(byte[] content, String path, String charset, String fileName) {
+        String createdFilePath = RestAssured.given()
+                .urlEncodingEnabled(true)
+                .queryParam("charset", charset)
+                .contentType(ContentType.BINARY)
+                .body(content)
+                .queryParam("fileName", fileName)
+                .post(path)
+                .then()
+                .statusCode(201)
+                .extract()
+                .body()
+                .asString();
+
+        return FileUtils.nixifyPath(createdFilePath);
     }
 
 }
