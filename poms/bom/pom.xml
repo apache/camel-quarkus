@@ -6108,17 +6108,6 @@
                 <version>${azure-core-http-vertx.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.box</groupId>
-                <artifactId>box-java-sdk</artifactId>
-                <version>${box-java-sdk.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>jose4j</artifactId>
-                        <groupId>org.bitbucket.b_c</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
                 <groupId>com.esotericsoftware.kryo</groupId>
                 <artifactId>kryo</artifactId>
                 <version>${kryo.version}</version>
