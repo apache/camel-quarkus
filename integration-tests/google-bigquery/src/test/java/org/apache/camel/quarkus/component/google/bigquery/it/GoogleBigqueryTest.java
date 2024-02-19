@@ -44,7 +44,6 @@ import org.apache.camel.quarkus.test.support.google.GoogleCloudTestResource;
 import org.apache.camel.quarkus.test.support.google.GoogleProperty;
 import org.apache.camel.util.CollectionHelper;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.util.CollectionHelper.mapOf;
@@ -55,7 +54,6 @@ import static org.hamcrest.Matchers.is;
 @TestHTTPEndpoint(GoogleBigqueryResource.class)
 @QuarkusTestResource(GoogleBigqueryWiremockTestResource.class)
 @QuarkusTestResource(GoogleCloudTestResource.class)
-@Disabled //https://github.com/apache/camel-quarkus/issues/5734
 class GoogleBigqueryTest {
 
     @GoogleProperty(name = "project.id")
