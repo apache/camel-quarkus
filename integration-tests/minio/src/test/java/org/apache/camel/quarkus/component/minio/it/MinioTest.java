@@ -43,6 +43,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.matchesPattern;
 import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.startsWith;
 
 @QuarkusTest
 @QuarkusTestResource(MinioTestResource.class)
@@ -105,7 +106,7 @@ class MinioTest {
         RestAssured.get("/minio/consumerWithClientCreation/non_existing_endpoint_!@#$")
                 .then()
                 .statusCode(500)
-                .body(is("invalid hostname"));
+                .body(startsWith("invalid hostname"));
     }
 
     @Test
