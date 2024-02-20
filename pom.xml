@@ -229,7 +229,6 @@
         <google-storage.container.image>docker.io/fsouza/fake-gcs-server:1.47.3</google-storage.container.image>
         <greenmail.container.image>docker.io/greenmail/standalone:2.0.0</greenmail.container.image>
         <ibm-mq.container.image>icr.io/ibm-messaging/mq:9.3.2.1-r1</ibm-mq.container.image>
-        <infinispan.container.image>docker.io/infinispan/server:14.0</infinispan.container.image>
         <influxdb.container.image>docker.io/influxdb:1.8.10</influxdb.container.image>
         <kafka.container.image>quay.io/strimzi-test-container/test-container:latest-kafka-3.2.1</kafka.container.image>
         <kafka-oauth.container.image>quay.io/strimzi/kafka:latest-kafka-3.6.1</kafka-oauth.container.image>
