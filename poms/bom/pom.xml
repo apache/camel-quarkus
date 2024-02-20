@@ -6837,19 +6837,9 @@
                 <version>${mvel2.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.mvnpm.at.lit-labs</groupId>
-                <artifactId>ssr-dom-shim</artifactId>
-                <version>${ssr-dom-shim.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis</artifactId>
                 <version>${mybatis.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mvnpm.at.lit-labs</groupId>
-                <artifactId>ssr-dom-shim</artifactId>
-                <version>${ssr-dom-shim.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.opensearch.client</groupId>
