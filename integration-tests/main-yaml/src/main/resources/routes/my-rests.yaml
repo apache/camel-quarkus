@@ -40,5 +40,5 @@
     from:
       uri: "direct:echoMethodPath"
       steps:
-        - set-body:
+        - setBody:
             simple: "${header.CamelHttpMethod}: ${header.CamelHttpPath}"

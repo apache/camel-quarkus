@@ -24,7 +24,7 @@
     - name: "errorBean"
       type: "org.apache.camel.quarkus.main.ErrorBean"
 
-- on-exception:
+- onException:
     handled:
       constant: "true"
     exception:
@@ -42,8 +42,8 @@
             when:
               - simple: "${header.forceFailure} == 'true'"
                 steps:
-                  - throw-exception:
-                      exception-type: "org.apache.camel.quarkus.main.CustomException"
+                  - throwException:
+                      exceptionType: "org.apache.camel.quarkus.main.CustomException"
                       message: "Forced custom exception"
             otherwise:
               steps:
@@ -54,10 +54,10 @@
     from:
       uri: "direct:tryCatch"
       steps:
-        - do-try:
+        - doTry:
             steps:
               - to: "bean:errorBean"
-            do-catch:
+            doCatch:
               - exception:
                   - "org.apache.camel.quarkus.main.CustomException"
                 steps:
