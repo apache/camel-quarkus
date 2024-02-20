@@ -71,7 +71,7 @@ $ mvn deploy -Papache-release -DskipTests -Denforcer.skip -Dquarkus.build.skip -
 
 == Update the Apache Camel Quarkus development subversion repository
 
-Camel-Quarkus provides some release scripts to push the required bits in development subversion repository.
+Camel Quarkus provides some release scripts to push the required bits in development subversion repository.
 
 [source,shell]
 ----
