@@ -46,6 +46,6 @@ spec:
         timerName: "{{routeId}}"
         period: "{{delay}}"
       steps:
-        - set-body:
-            exchange-property: "CamelTimerCounter"
+        - setBody:
+            exchangeProperty: "CamelTimerCounter"
         - to: "kamelet:sink"

@@ -15,15 +15,15 @@
 # limitations under the License.
 #
 
-- route-configuration:
+- routeConfiguration:
     id: "yamlRouteConfiguration"
-    on-exception:
-      - on-exception:
+    onException:
+      - onException:
           handled:
             constant: "true"
           exception:
             - "org.apache.camel.quarkus.core.it.routeconfigurations.RouteConfigurationsException"
           steps:
-            - set-body:
+            - setBody:
                 constant:
                   expression: "onException has been triggered in yamlRouteConfiguration"

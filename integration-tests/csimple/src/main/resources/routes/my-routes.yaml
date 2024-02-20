@@ -19,5 +19,5 @@
 - from:
     uri: "direct:csimple-yaml-dsl"
     steps:
-      - set-body:
+      - setBody:
           csimple: "Bonjour ${body}"

@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-- route-template:
+- routeTemplate:
     id: "myTemplate"
     parameters:
       - name: "path"
@@ -24,11 +24,11 @@
     from:
       uri: "platform-http:{{path}}?httpMethodRestrict={{method}}"
       steps:
-        - set-body:
+        - setBody:
             constant: "{{greeting}}"
 
-- templated-route:
-    route-template-ref: "myTemplate"
+- templatedRoute:
+    routeTemplateRef: "myTemplate"
     parameters:
       - name: "path"
         value: "/templated/greeting"
