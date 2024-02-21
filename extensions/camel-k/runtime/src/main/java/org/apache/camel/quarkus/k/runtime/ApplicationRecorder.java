@@ -25,6 +25,7 @@ import org.apache.camel.main.MainListener;
 import org.apache.camel.main.RoutesCollector;
 import org.apache.camel.quarkus.k.core.Runtime;
 import org.apache.camel.quarkus.main.CamelMain;
+import org.apache.camel.spi.ModelReifierFactory;
 import org.slf4j.LoggerFactory;
 
 @Recorder
@@ -44,5 +45,9 @@ public class ApplicationRecorder {
 
     public RuntimeValue<RoutesCollector> createRoutesCollector() {
         return new RuntimeValue<>(new Application.NoRoutesCollector());
+    }
+
+    public RuntimeValue<ModelReifierFactory> modelReifierFactory() {
+        return new RuntimeValue<>(new ApplicationModelReifierFactory());
     }
 }

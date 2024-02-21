@@ -31,6 +31,7 @@ import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.main.BaseMainSupport;
+import org.apache.camel.model.Model;
 import org.apache.camel.quarkus.k.core.Runtime;
 import org.apache.camel.quarkus.main.CamelMain;
 
@@ -46,7 +47,6 @@ public class Application {
     @GET
     @Path("/inspect")
     @Produces(MediaType.APPLICATION_JSON)
-    @SuppressWarnings("unchecked")
     public JsonObject inspect() {
         return Json.createObjectBuilder()
                 .add(
@@ -62,11 +62,14 @@ public class Application {
                 .add(
                         "global-options",
                         Json.createObjectBuilder(
-                                (Map) instance(CamelMain.class)
+                                instance(CamelMain.class)
                                         .map(BaseMainSupport::getCamelContext)
                                         .map(CamelContext::getGlobalOptions)
                                         .orElseGet(Collections::emptyMap))
                                 .build())
+                .add("model-reifier-factory", Json.createValue(
+                        camelContext.getCamelContextExtension().getContextPlugin(Model.class)
+                                .getModelReifierFactory().getClass().getName()))
                 .build();
     }
 

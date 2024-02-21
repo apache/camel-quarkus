@@ -33,6 +33,7 @@ import io.restassured.path.json.JsonPath;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.quarkus.core.FastCamelContext;
 import org.apache.camel.quarkus.k.runtime.Application;
+import org.apache.camel.quarkus.k.runtime.ApplicationModelReifierFactory;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -59,6 +60,8 @@ public class RuntimeTest {
                 .isEqualTo(Application.Runtime.class.getName());
         assertThat(p.getString("routes-collector"))
                 .isEqualTo(Application.NoRoutesCollector.class.getName());
+        assertThat(p.getString("model-reifier-factory"))
+                .isEqualTo(ApplicationModelReifierFactory.class.getName());
     }
 
     public static class Resources implements QuarkusTestResourceLifecycleManager {
