@@ -38,6 +38,7 @@ import org.apache.camel.spi.CamelContextCustomizer;
 import org.apache.camel.spi.ComponentNameResolver;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.ModelJAXBContextFactory;
+import org.apache.camel.spi.ModelReifierFactory;
 import org.apache.camel.spi.ModelToXMLDumper;
 import org.apache.camel.spi.ModelToYAMLDumper;
 import org.apache.camel.spi.PackageScanClassResolver;
@@ -56,6 +57,7 @@ public class CamelContextRecorder {
             RuntimeValue<FactoryFinderResolver> factoryFinderResolver,
             RuntimeValue<ComponentNameResolver> componentNameResolver,
             RuntimeValue<PackageScanClassResolver> packageScanClassResolver,
+            RuntimeValue<ModelReifierFactory> modelReifierFactory,
             BeanContainer beanContainer,
             String version,
             CamelConfig config) {
@@ -75,8 +77,7 @@ public class CamelContextRecorder {
         extendedCamelContext.addContextPlugin(VariableRepositoryFactory.class, new DefaultVariableRepositoryFactory(context));
         extendedCamelContext.setRegistry(registry.getValue());
 
-        //initialize reifier factory (later then implemented in the Camel)
-        context.setModelReifierFactory(context.createDefaultModelReifierFactory());
+        context.setModelReifierFactory(modelReifierFactory.getValue());
 
         TypeConverterRegistry typeConverterRegistryValue = typeConverterRegistry.getValue();
         typeConverterRegistryValue.setInjector(new FastTypeConverterInjector(context));

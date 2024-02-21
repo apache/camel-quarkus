@@ -56,6 +56,7 @@ import org.apache.camel.quarkus.core.FastFactoryFinderResolver.Builder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelComponentNameResolverBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelFactoryFinderResolverBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelJAXBContextFactoryBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelModelReifierFactoryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelToXMLDumperBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelToYAMLDumperBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelPackageScanClassBuildItem;
@@ -441,6 +442,15 @@ class CamelProcessor {
         return new NativeImageResourceBuildItem(
                 "META-INF/services/org/apache/camel/bean-processor-factory",
                 "META-INF/services/org/apache/camel/rest-registry-factory");
+    }
+
+    @Overridable
+    @BuildStep
+    @Record(value = ExecutionTime.STATIC_INIT, optional = true)
+    CamelModelReifierFactoryBuildItem modelReifierFactory(
+            CamelRecorder recorder) {
+
+        return new CamelModelReifierFactoryBuildItem(recorder.modelReifierFactory());
     }
 
     /**

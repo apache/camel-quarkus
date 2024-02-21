@@ -39,6 +39,7 @@ import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelFactoryFinderResolverBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelJAXBContextFactoryBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelModelReifierFactoryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelToXMLDumperBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelToYAMLDumperBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelPackageScanClassResolverBuildItem;
@@ -80,6 +81,7 @@ public class CamelContextProcessor {
             List<CamelContextCustomizerBuildItem> customizers,
             CamelComponentNameResolverBuildItem componentNameResolver,
             CamelPackageScanClassResolverBuildItem packageScanClassResolver,
+            CamelModelReifierFactoryBuildItem modelReifierFactory,
             CamelConfig config) {
 
         RuntimeValue<CamelContext> context = recorder.createContext(
@@ -91,6 +93,7 @@ public class CamelContextProcessor {
                 factoryFinderResolver.getFactoryFinderResolver(),
                 componentNameResolver.getComponentNameResolver(),
                 packageScanClassResolver.getPackageScanClassResolver(),
+                modelReifierFactory.getModelReifierFactory(),
                 beanContainer.getValue(),
                 CamelSupport.getCamelVersion(),
                 config);

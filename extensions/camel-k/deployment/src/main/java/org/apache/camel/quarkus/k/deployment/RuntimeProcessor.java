@@ -36,6 +36,7 @@ import org.apache.camel.builder.RouteBuilderLifecycleStrategy;
 import org.apache.camel.quarkus.core.deployment.main.spi.CamelMainBuildItem;
 import org.apache.camel.quarkus.core.deployment.main.spi.CamelMainListenerBuildItem;
 import org.apache.camel.quarkus.core.deployment.main.spi.CamelRoutesCollectorBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelModelReifierFactoryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeTaskBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
@@ -134,5 +135,11 @@ public class RuntimeProcessor {
 
         getAllKnownImplementors(view, StreamCachingStrategy.SpoolRule.class)
                 .forEach(i -> reflectiveClass.produce(reflectiveClassBuildItem(i)));
+    }
+
+    @BuildStep
+    @Record(value = ExecutionTime.STATIC_INIT, optional = true)
+    CamelModelReifierFactoryBuildItem modelReifierFactory(ApplicationRecorder recorder) {
+        return new CamelModelReifierFactoryBuildItem(recorder.modelReifierFactory());
     }
 }

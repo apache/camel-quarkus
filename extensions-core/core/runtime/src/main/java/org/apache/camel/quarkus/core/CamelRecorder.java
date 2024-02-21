@@ -27,6 +27,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.impl.DefaultModelReifierFactory;
 import org.apache.camel.impl.engine.DefaultReactiveExecutor;
 import org.apache.camel.model.ValidateDefinition;
 import org.apache.camel.model.validator.PredicateValidatorDefinition;
@@ -37,6 +38,7 @@ import org.apache.camel.spi.BeanProxyFactory;
 import org.apache.camel.spi.ComponentNameResolver;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.ModelJAXBContextFactory;
+import org.apache.camel.spi.ModelReifierFactory;
 import org.apache.camel.spi.ModelToXMLDumper;
 import org.apache.camel.spi.ModelToYAMLDumper;
 import org.apache.camel.spi.PackageScanClassResolver;
@@ -152,6 +154,10 @@ public class CamelRecorder {
 
     public RuntimeValue<FactoryFinderResolver> factoryFinderResolver(RuntimeValue<Builder> builder) {
         return new RuntimeValue<>(builder.getValue().build());
+    }
+
+    public RuntimeValue<ModelReifierFactory> modelReifierFactory() {
+        return new RuntimeValue<>(new DefaultModelReifierFactory());
     }
 
     public RuntimeValue<ReactiveExecutor> createReactiveExecutor() {
