@@ -14,22 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.k.runtime;
+package org.apache.camel.quarkus.k.it;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.Route;
-import org.apache.camel.impl.DefaultModelReifierFactory;
-import org.apache.camel.model.RouteDefinition;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-public class ApplicationModelReifierFactory extends DefaultModelReifierFactory {
-    @Override
-    public Route createRoute(CamelContext camelContext, Object routeDefinition) {
-        ApplicationRoutes routes = camelContext.getRegistry().findSingleByType(ApplicationRoutes.class);
-
-        if (routeDefinition instanceof RouteDefinition) {
-            routes.override((RouteDefinition) routeDefinition);
-        }
-
-        return super.createRoute(camelContext, routeDefinition);
-    }
+@QuarkusIntegrationTest
+public class WithRoutesOverridesIT extends WithRoutesOverridesTest {
 }
