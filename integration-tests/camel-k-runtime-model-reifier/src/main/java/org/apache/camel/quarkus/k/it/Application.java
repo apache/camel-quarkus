@@ -14,22 +14,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.k.runtime;
+package org.apache.camel.quarkus.k.it;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Route;
-import org.apache.camel.impl.DefaultModelReifierFactory;
-import org.apache.camel.model.RouteDefinition;
 
-public class ApplicationModelReifierFactory extends DefaultModelReifierFactory {
-    @Override
-    public Route createRoute(CamelContext camelContext, Object routeDefinition) {
-        ApplicationRoutes routes = camelContext.getRegistry().findSingleByType(ApplicationRoutes.class);
+@Path("/camel-k")
+@ApplicationScoped
+public class Application {
 
-        if (routeDefinition instanceof RouteDefinition) {
-            routes.override((RouteDefinition) routeDefinition);
-        }
+    @Inject
+    CamelContext camelContext;
 
-        return super.createRoute(camelContext, routeDefinition);
+    @GET
+    @Path("/inspect/route/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonObject inspectRoute(@PathParam("id") String id) {
+        Route route = camelContext.getRoute(id);
+        route.getEndpoint().getEndpointUri();
+
+        return Json.createObjectBuilder()
+                .add("id", route.getRouteId())
+                .add("input", route.getEndpoint().getEndpointUri())
+                .build();
     }
 }

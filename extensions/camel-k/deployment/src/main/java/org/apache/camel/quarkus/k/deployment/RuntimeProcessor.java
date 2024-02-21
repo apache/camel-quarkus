@@ -44,6 +44,7 @@ import org.apache.camel.quarkus.k.core.Runtime;
 import org.apache.camel.quarkus.k.core.SourceDefinition;
 import org.apache.camel.quarkus.k.runtime.ApplicationProducers;
 import org.apache.camel.quarkus.k.runtime.ApplicationRecorder;
+import org.apache.camel.quarkus.k.runtime.ApplicationRoutes;
 import org.apache.camel.quarkus.k.support.Constants;
 import org.apache.camel.quarkus.k.support.RuntimeSupport;
 import org.apache.camel.spi.CamelContextCustomizer;
@@ -88,7 +89,8 @@ public class RuntimeProcessor {
     @BuildStep
     List<AdditionalBeanBuildItem> unremovableBeans() {
         return List.of(
-                AdditionalBeanBuildItem.unremovableOf(ApplicationProducers.class));
+                AdditionalBeanBuildItem.unremovableOf(ApplicationProducers.class),
+                AdditionalBeanBuildItem.unremovableOf(ApplicationRoutes.class));
     }
 
     @BuildStep

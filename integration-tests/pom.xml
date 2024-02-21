@@ -70,6 +70,7 @@
         <module>braintree</module>
         <module>caffeine</module>
         <module>camel-k-runtime</module>
+        <module>camel-k-runtime-model-reifier</module>
         <module>cassandraql</module>
         <module>cbor</module>
         <module>compression-grouped</module>

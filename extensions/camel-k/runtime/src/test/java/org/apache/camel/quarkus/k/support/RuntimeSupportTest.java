@@ -135,7 +135,7 @@ public class RuntimeSupportTest {
     @Test
     public void testLoadCustomizerOrder() {
         DefaultCamelContext context = new DefaultCamelContext();
-        context.setName("camel");
+        context.getCamelContextExtension().setName("camel");
         context.getRegistry().bind("c1", new CamelContextCustomizer() {
             @Override
             public int getOrder() {
