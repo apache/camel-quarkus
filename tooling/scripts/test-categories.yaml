@@ -144,6 +144,7 @@ group-09:
   - debug
   - ftp
   - graphql
+  - jt400
   - kafka-sasl-ssl
   - kafka-ssl
   - paho

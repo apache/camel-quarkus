@@ -137,6 +137,7 @@
         <module>json-validator</module>
         <module>jsonata</module>
         <module>jsonpath</module>
+        <module>jt400</module>
         <module>jta</module>
         <module>kafka</module>
         <module>kafka-oauth</module>

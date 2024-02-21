@@ -151,6 +151,7 @@
         <module>jsonata</module>
         <module>jsonb</module>
         <module>jsonpath</module>
+        <module>jt400</module>
         <module>jta</module>
         <module>kafka</module>
         <module>kamelet</module>
