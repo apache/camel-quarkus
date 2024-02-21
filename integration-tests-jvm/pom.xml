@@ -77,7 +77,6 @@
         <module>jooq</module>
         <module>json-patch</module>
         <module>jsonapi</module>
-        <module>jt400</module>
         <module>ldif</module>
         <module>lucene</module>
         <module>mail-microsoft-oauth</module>
