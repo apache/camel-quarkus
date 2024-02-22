@@ -53,6 +53,11 @@ replaceInFiles.each { path ->
         while (m.find()) {
             final String property = m.group(3)
             final String newValue = project.properties.get(property)
+            if (property == "quarkus.version" && newValue == "999-SNAPSHOT") {
+                // Skip updating this on quarkus-main
+                continue
+            }
+
             println " - replacing ${property} '" + m.group(2) +"' -> '${newValue}'"
             m.appendReplacement(newContent, '$1 ' + Matcher.quoteReplacement(newValue) + ' # replace ' + Matcher.quoteReplacement('${' + property + '}'))
         }
