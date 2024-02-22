@@ -14,6 +14,7 @@ xref:manual::release-guide.adoc[Camel Release guide].
 * When releasing after a recent Quarkus release, check for new releases of third party Quarkus extensions we depend on.
   They are listed in the https://github.com/apache/camel-quarkus/blob/main/pom.xml#L48-L61[Primary dependencies] section of the top level `pom.xml`.
   If there are new releases, upgrade the versions accordingly and run `mvn cq:sync-versions -N` from the root directory of the source tree.
+  Note that some of the versions are mandated by quarkus, so camel-quarkus should use the same values as the quarkus-platform bom.
 * Close the GitHub release https://github.com/apache/camel-quarkus/milestones[milestone] and assign any remaining issues that aren't covered by the release to the next milestone
 
 == Create a release branch
@@ -90,11 +91,15 @@ Once the staging repository has been closed, run the `perf-regression` tool in o
 It's important that the machine running the `perf-regression` tool be equally loaded during the run.
 The simplest way would be to take a 1 hour slot at the end of the day, launch the tool on your main station and then lock the screen.
 
+At this stage, one is probably working from the release branch.
+The performance regression tool might be present in the `target/checkout` folder.
+Otherwise a full `mvn clean install -Dquickly` rebuild is needed prior to running the performance regression tool.
+Another option is to switch to the main branch, where no rebuild should be needed.
+
 For instance, running the tool to compare the `2.10.0` staging release against the `2.9.0` previous release would look as below:
 
 [source,shell]
 ----
-$ cd tooling/perf-regression
 $ java -jar target/quarkus-app/quarkus-run.jar -an 2.9.0 2.10.0
 ----
 
