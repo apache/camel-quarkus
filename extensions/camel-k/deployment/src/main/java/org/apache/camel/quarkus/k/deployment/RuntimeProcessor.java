@@ -25,9 +25,11 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelReifierFactoryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeTaskBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.RuntimeCamelContextCustomizerBuildItem;
 import org.apache.camel.quarkus.k.runtime.ApplicationRecorder;
 import org.apache.camel.quarkus.k.runtime.ApplicationRoutes;
 import org.apache.camel.quarkus.k.runtime.ApplicationRoutesConfig;
+import org.apache.camel.quarkus.k.runtime.ApplicationShutdownConfig;
 import org.apache.camel.spi.StreamCachingStrategy;
 import org.jboss.jandex.IndexView;
 
@@ -60,6 +62,8 @@ public class RuntimeProcessor {
                 AdditionalBeanBuildItem.unremovableOf(ApplicationRoutes.class));
         additionalBeans.produce(
                 AdditionalBeanBuildItem.unremovableOf(ApplicationRoutesConfig.class));
+        additionalBeans.produce(
+                AdditionalBeanBuildItem.unremovableOf(ApplicationShutdownConfig.class));
 
         runtimeTasks.produce(
                 new CamelRuntimeTaskBuildItem("camel-k"));
@@ -69,5 +73,11 @@ public class RuntimeProcessor {
     @Record(value = ExecutionTime.STATIC_INIT, optional = true)
     CamelModelReifierFactoryBuildItem modelReifierFactory(ApplicationRecorder recorder) {
         return new CamelModelReifierFactoryBuildItem(recorder.modelReifierFactory());
+    }
+
+    @BuildStep
+    @Record(value = ExecutionTime.RUNTIME_INIT)
+    RuntimeCamelContextCustomizerBuildItem eventNotifier(ApplicationRecorder recorder, ApplicationShutdownConfig config) {
+        return new RuntimeCamelContextCustomizerBuildItem(recorder.shutdownCustomizer(config));
     }
 }

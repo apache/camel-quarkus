@@ -37,10 +37,6 @@ public class ApplicationRoutes {
     @Inject
     ApplicationRoutesConfig config;
 
-    public ApplicationRoutesConfig config() {
-        return this.config;
-    }
-
     public void override(RouteDefinition definition) {
         if (config.overrides().isEmpty()) {
             return;

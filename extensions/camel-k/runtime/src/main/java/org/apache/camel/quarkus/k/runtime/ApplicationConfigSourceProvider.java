@@ -58,16 +58,30 @@ public class ApplicationConfigSourceProvider implements ConfigSourceProvider {
         // to individually load sub-dirs.
 
         final Map<String, String> usrPropertiesConfigMaps = loadConfigMapUserProperties();
-        final Map<String, String> usrPropertiesSecrets = loadConfigSecretsProperties();
-        final Map<String, String> serviceBindingProperties = loadServiceBindingsProperties();
+        final Map<String, String> usrPropertiesSecrets = loadSecretsProperties();
+        final Map<String, String> abBindingProperties = loadServiceBindingsProperties();
 
         return List.of(
-                new PropertiesConfigSource(sysProperties, "camel-k-sys", ConfigSource.DEFAULT_ORDINAL + 1000),
-                new PropertiesConfigSource(appProperties, "camel-k-app", ConfigSource.DEFAULT_ORDINAL),
-                new PropertiesConfigSource(usrPropertiesConfigMaps, "camel-k-usr-configmap", ConfigSource.DEFAULT_ORDINAL + 1),
-                new PropertiesConfigSource(usrPropertiesSecrets, "camel-k-usr-secrets", ConfigSource.DEFAULT_ORDINAL + 1),
-                new PropertiesConfigSource(serviceBindingProperties, "camel-k-servicebindings",
-                        ConfigSource.DEFAULT_ORDINAL + 2));
+                new PropertiesConfigSource(
+                        sysProperties,
+                        "camel-k-sys",
+                        ConfigSource.DEFAULT_ORDINAL + 1100),
+                new PropertiesConfigSource(
+                        appProperties,
+                        "camel-k-app",
+                        ConfigSource.DEFAULT_ORDINAL + 1050),
+                new PropertiesConfigSource(
+                        usrPropertiesConfigMaps,
+                        "camel-k-usr-configmap",
+                        ConfigSource.DEFAULT_ORDINAL + 1010),
+                new PropertiesConfigSource(
+                        usrPropertiesSecrets,
+                        "camel-k-usr-secrets",
+                        ConfigSource.DEFAULT_ORDINAL + 1010),
+                new PropertiesConfigSource(
+                        abBindingProperties,
+                        "camel-k-servicebindings",
+                        ConfigSource.DEFAULT_ORDINAL + 1005));
     }
 
     public static Map<String, String> loadApplicationProperties() {
@@ -102,7 +116,7 @@ public class ApplicationConfigSourceProvider implements ConfigSourceProvider {
                 ApplicationConstants.PATH_CONFIGMAPS);
     }
 
-    public static Map<String, String> loadConfigSecretsProperties() {
+    public static Map<String, String> loadSecretsProperties() {
         return loadUserProperties(
                 ApplicationConstants.PROPERTY_CAMEL_K_MOUNT_PATH_SECRETS,
                 ApplicationConstants.ENV_CAMEL_K_MOUNT_PATH_SECRETS,

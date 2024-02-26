@@ -64,7 +64,7 @@ public class RuntimeTest {
         given().get("/camel-k/property/root.key").then().statusCode(200).body(is("root.value"));
         given().get("/camel-k/property/001.key").then().statusCode(200).body(is("001.value"));
         given().get("/camel-k/property/002.key").then().statusCode(200).body(is("002.value"));
-        given().get("/camel-k/property/a.key").then().statusCode(200).body(is("a.002"));
+        given().get("/camel-k/property/a.key").then().statusCode(200).body(is("a.root"));
         given().get("/camel-k/property/flat-property").then().statusCode(200).body(is("flat-value"));
     }
 

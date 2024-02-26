@@ -16,43 +16,18 @@
  */
 package org.apache.camel.quarkus.k.runtime;
 
-import java.util.List;
-import java.util.Optional;
-
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
 import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefault;
 
-@ConfigMapping(prefix = "camel.k.routes")
+@ConfigMapping(prefix = "camel.k.shutdown")
 @ConfigRoot(phase = ConfigPhase.RUN_TIME)
-public interface ApplicationRoutesConfig {
+public interface ApplicationShutdownConfig {
     /**
-     * A list of {@link RouteOverride} items to override some aspect of a {@link org.apache.camel.model.RouteDefinition}.
+     * To specify how many messages to process by Camel before automatic terminating the JVM. If there are inflight
+     * messages, the shutdown is delayed till all the exchanges have been completed.
      */
-    Optional<List<RouteOverride>> overrides();
-
-    interface RouteOverride {
-        /**
-         * Identifies the route to be amended.
-         */
-        Optional<String> id();
-
-        /**
-         * Override for the {@link org.apache.camel.model.FromDefinition} of a
-         * {@link org.apache.camel.model.RouteDefinition}.
-         */
-        RouteInputOverride input();
-    }
-
-    interface RouteInputOverride {
-        /**
-         * The optional endpoint that should be replaced.
-         */
-        Optional<String> from();
-
-        /**
-         * The value that should replace the endpoint.
-         */
-        String with();
-    }
+    @WithDefault("0")
+    int maxMessages();
 }
