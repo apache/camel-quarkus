@@ -16,36 +16,12 @@
  */
 package org.apache.camel.quarkus.k.runtime;
 
-import java.util.List;
-
-import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
-import org.apache.camel.main.MainListener;
-import org.apache.camel.main.RoutesCollector;
-import org.apache.camel.quarkus.k.core.Runtime;
-import org.apache.camel.quarkus.main.CamelMain;
 import org.apache.camel.spi.ModelReifierFactory;
-import org.slf4j.LoggerFactory;
 
 @Recorder
 public class ApplicationRecorder {
-
-    public void version(String version) {
-        LoggerFactory.getLogger(Runtime.class).info("Apache Camel K Runtime {}", version);
-    }
-
-    public RuntimeValue<MainListener> createMainListener(List<Runtime.Listener> listeners) {
-        return new RuntimeValue<>(new Application.ListenerAdapter(listeners));
-    }
-
-    public void publishRuntime(RuntimeValue<CamelMain> main, BeanContainer container) {
-        container.beanInstance(ApplicationProducers.class).setRuntime(new Application.Runtime(main.getValue()));
-    }
-
-    public RuntimeValue<RoutesCollector> createRoutesCollector() {
-        return new RuntimeValue<>(new Application.NoRoutesCollector());
-    }
 
     public RuntimeValue<ModelReifierFactory> modelReifierFactory() {
         return new RuntimeValue<>(new ApplicationModelReifierFactory());

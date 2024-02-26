@@ -62,6 +62,9 @@ public class WithRoutesOverridesTest {
         @Override
         public Map<String, String> start() {
             return CollectionHelper.mapOf(
+                    // routes
+                    "camel.main.routes-include-pattern", "classpath:routes/test-route-001.yaml",
+                    // overrides
                     "camel.k.routes.overrides[0].input.from", "direct:r1",
                     "camel.k.routes.overrides[0].input.with", "direct:r1override",
                     "camel.k.routes.overrides[1].id", "r2invalid",
@@ -75,9 +78,7 @@ public class WithRoutesOverridesTest {
                     "camel.k.routes.overrides[3].input.with", "direct:r4override",
                     "camel.k.routes.overrides[4].input.with", "direct:r5invalid",
                     "camel.k.routes.overrides[5].id", "r5",
-                    "camel.k.routes.overrides[5].input.with", "direct:r5override",
-                    "camel.k.sources[0].location", "classpath:routes.yaml",
-                    "camel.k.sources[0].type", "source");
+                    "camel.k.routes.overrides[5].input.with", "direct:r5override");
         }
 
         @Override

@@ -31,8 +31,7 @@ import java.util.Optional;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.HotDeploymentWatchedFileBuildItem;
-import org.apache.camel.quarkus.k.support.Constants;
-import org.apache.camel.util.StringHelper;
+import org.apache.camel.quarkus.k.runtime.ApplicationConstants;
 import org.apache.commons.io.FilenameUtils;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -44,35 +43,10 @@ public class HotDeploymentProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(HotDeploymentProcessor.class);
 
     @BuildStep
-    List<HotDeploymentWatchedFileBuildItem> routes() {
-        final Config config = ConfigProvider.getConfig();
-        final Optional<String> value = config.getOptionalValue(Constants.PROPERTY_CAMEL_K_ROUTES, String.class);
-
-        List<HotDeploymentWatchedFileBuildItem> items = new ArrayList<>();
-
-        if (value.isPresent()) {
-            for (String source : value.get().split(",", -1)) {
-                String path = StringHelper.after(source, ":");
-                if (path == null) {
-                    path = source;
-                }
-
-                Path p = Paths.get(path);
-                if (Files.exists(p)) {
-                    LOGGER.info("Register source for hot deployment: {}", p.toAbsolutePath());
-                    items.add(new HotDeploymentWatchedFileBuildItem(p.toAbsolutePath().toString()));
-                }
-            }
-        }
-
-        return items;
-    }
-
-    @BuildStep
     List<HotDeploymentWatchedFileBuildItem> conf() {
         final Config config = ConfigProvider.getConfig();
-        final Optional<String> conf = config.getOptionalValue(Constants.PROPERTY_CAMEL_K_CONF, String.class);
-        final Optional<String> confd = config.getOptionalValue(Constants.PROPERTY_CAMEL_K_CONF_D, String.class);
+        final Optional<String> conf = config.getOptionalValue(ApplicationConstants.PROPERTY_CAMEL_K_CONF, String.class);
+        final Optional<String> confd = config.getOptionalValue(ApplicationConstants.PROPERTY_CAMEL_K_CONF_D, String.class);
 
         List<HotDeploymentWatchedFileBuildItem> items = new ArrayList<>();
 

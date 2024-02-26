@@ -16,26 +16,24 @@
  */
 package org.apache.camel.quarkus.k.it;
 
-import java.util.Collections;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
+import jakarta.json.bind.Jsonb;
+import jakarta.json.bind.JsonbBuilder;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
-import org.apache.camel.component.properties.PropertiesComponent;
-import org.apache.camel.main.BaseMainSupport;
+import org.apache.camel.Route;
 import org.apache.camel.model.Model;
-import org.apache.camel.quarkus.k.core.Runtime;
-import org.apache.camel.quarkus.main.CamelMain;
-
-import static org.apache.camel.quarkus.k.runtime.Application.instance;
+import org.apache.camel.model.RouteDefinition;
+import org.apache.camel.model.rest.RestDefinition;
 
 @Path("/camel-k")
 @ApplicationScoped
@@ -49,38 +47,21 @@ public class Application {
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject inspect() {
         return Json.createObjectBuilder()
-                .add(
-                        "camel-context",
-                        instance(CamelContext.class).map(Object::getClass).map(Class::getName).orElse(""))
-                .add(
-                        "camel-k-runtime",
-                        instance(Runtime.class).map(Object::getClass).map(Class::getName).orElse(""))
-                .add(
-                        "routes-collector",
-                        instance(CamelMain.class).map(BaseMainSupport::getRoutesCollector).map(Object::getClass)
-                                .map(Class::getName).orElse(""))
-                .add(
-                        "global-options",
-                        Json.createObjectBuilder(
-                                instance(CamelMain.class)
-                                        .map(BaseMainSupport::getCamelContext)
-                                        .map(CamelContext::getGlobalOptions)
-                                        .orElseGet(Collections::emptyMap))
-                                .build())
                 .add("model-reifier-factory", Json.createValue(
                         camelContext.getCamelContextExtension().getContextPlugin(Model.class)
                                 .getModelReifierFactory().getClass().getName()))
-                .build();
-    }
-
-    @GET
-    @Path("/inspect/context")
-    @Produces(MediaType.APPLICATION_JSON)
-    public JsonObject inspectContext() {
-        return Json.createObjectBuilder()
-                .add("message-history", camelContext.isMessageHistory())
-                .add("load-type-converters", camelContext.isLoadTypeConverters())
-                .add("name", camelContext.getName())
+                .add("routes", Json.createArrayBuilder(
+                        camelContext.getRoutes().stream()
+                                .map(Route::getId)
+                                .collect(Collectors.toList())))
+                .add("route-definitions", Json.createArrayBuilder(
+                        camelContext.getCamelContextExtension().getContextPlugin(Model.class).getRouteDefinitions().stream()
+                                .map(RouteDefinition::getId)
+                                .collect(Collectors.toList())))
+                .add("rest-definitions", Json.createArrayBuilder(
+                        camelContext.getCamelContextExtension().getContextPlugin(Model.class).getRestDefinitions().stream()
+                                .map(RestDefinition::getId)
+                                .collect(Collectors.toList())))
                 .build();
     }
 
@@ -88,24 +69,29 @@ public class Application {
     @Path("/property/{name}")
     @Produces(MediaType.TEXT_PLAIN)
     public String property(@PathParam("name") String name) {
-        return instance(CamelContext.class)
-                .map(CamelContext::getPropertiesComponent)
-                .map(PropertiesComponent.class::cast)
-                .flatMap(pc -> pc.resolveProperty(name)).orElse("");
+        return camelContext.getPropertiesComponent().resolveProperty(name).orElse("");
     }
 
-    @SuppressWarnings("unchecked")
     @GET
     @Path("/properties")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject properties() {
         return Json.createObjectBuilder(
-                instance(CamelContext.class)
-                        .map(CamelContext::getPropertiesComponent)
-                        .map(PropertiesComponent.class::cast)
-                        .map(PropertiesComponent::loadProperties)
-                        .map(Map.class::cast)
-                        .orElseGet(Collections::emptyMap))
+                camelContext.getPropertiesComponent().loadPropertiesAsMap())
                 .build();
+    }
+
+    @GET
+    @Path("/registry/beans/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String bean(@PathParam("name") String name) throws Exception {
+        Object bean = camelContext.getRegistry().lookupByName(name);
+        if (bean == null) {
+            throw new IllegalArgumentException("Bean with name: " + name + " not found");
+        }
+
+        try (Jsonb jsonb = JsonbBuilder.create()) {
+            return jsonb.toJson(bean);
+        }
     }
 }

@@ -25,14 +25,14 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Comparator;
 import java.util.Map;
+import java.util.Objects;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.path.json.JsonPath;
 import jakarta.ws.rs.core.MediaType;
-import org.apache.camel.quarkus.core.FastCamelContext;
-import org.apache.camel.quarkus.k.runtime.Application;
+import org.apache.camel.quarkus.k.runtime.ApplicationConstants;
 import org.apache.camel.quarkus.k.runtime.ApplicationModelReifierFactory;
 import org.junit.jupiter.api.Test;
 
@@ -54,14 +54,18 @@ public class RuntimeTest {
                 .body()
                 .jsonPath();
 
-        assertThat(p.getString("camel-context"))
-                .isEqualTo(FastCamelContext.class.getName());
-        assertThat(p.getString("camel-k-runtime"))
-                .isEqualTo(Application.Runtime.class.getName());
-        assertThat(p.getString("routes-collector"))
-                .isEqualTo(Application.NoRoutesCollector.class.getName());
         assertThat(p.getString("model-reifier-factory"))
                 .isEqualTo(ApplicationModelReifierFactory.class.getName());
+    }
+
+    @Test
+    public void properties() {
+        given().get("/camel-k/property/my-property").then().statusCode(200).body(is("my-test-value"));
+        given().get("/camel-k/property/root.key").then().statusCode(200).body(is("root.value"));
+        given().get("/camel-k/property/001.key").then().statusCode(200).body(is("001.value"));
+        given().get("/camel-k/property/002.key").then().statusCode(200).body(is("002.value"));
+        given().get("/camel-k/property/a.key").then().statusCode(200).body(is("a.002"));
+        given().get("/camel-k/property/flat-property").then().statusCode(200).body(is("flat-value"));
     }
 
     public static class Resources implements QuarkusTestResourceLifecycleManager {
@@ -70,26 +74,39 @@ public class RuntimeTest {
         @Override
         public Map<String, String> start() {
             Path confd = TEMP_DIR.resolve("conf.d");
+            Path cfgmaps = confd.resolve("_configmaps");
+
+            try {
+                Files.createDirectories(cfgmaps);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
             for (int i = 1; i <= 3; i++) {
                 String path = String.format("00%d", i);
-                Path confdSubDir = confd.resolve(path);
-                confdSubDir.toFile().mkdirs();
+                Path confdSubDir = cfgmaps.resolve(path);
+
+                try {
+                    Files.createDirectories(confdSubDir);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
 
                 String file = i < 3 ? "conf.properties" : "flat-property";
-                copyResourceToTemp("conf.d/" + path + "/" + file, confdSubDir.resolve(file).toAbsolutePath());
+                copyResourceToTemp("conf.d/_configmaps/" + path + "/" + file, confdSubDir.resolve(file).toAbsolutePath());
             }
 
             Path confProperties = TEMP_DIR.resolve("conf.properties");
             copyResourceToTemp("conf.properties", confProperties.toAbsolutePath());
 
             return Map.of(
-                    "CAMEL_K_CONF", confProperties.toAbsolutePath().toString(),
-                    "CAMEL_K_CONF_D", confd.toAbsolutePath().toString());
+                    ApplicationConstants.PROPERTY_CAMEL_K_CONF, confProperties.toAbsolutePath().toString(),
+                    ApplicationConstants.PROPERTY_CAMEL_K_CONF_D, confd.toAbsolutePath().toString());
         }
 
         private void copyResourceToTemp(String resourceName, Path destination) {
             try (InputStream stream = getClass().getClassLoader().getResourceAsStream(resourceName)) {
+                Objects.requireNonNull(stream);
                 Files.copy(stream, destination, StandardCopyOption.REPLACE_EXISTING);
             } catch (Exception e) {
                 throw new RuntimeException("Failed to copy resource " + resourceName + " to temporary directory", e);
@@ -107,15 +124,5 @@ public class RuntimeTest {
                 // Ignored
             }
         }
-    }
-
-    @Test
-    public void properties() {
-        given().get("/camel-k/property/my-property").then().statusCode(200).body(is("my-test-value"));
-        given().get("/camel-k/property/root.key").then().statusCode(200).body(is("root.value"));
-        given().get("/camel-k/property/001.key").then().statusCode(200).body(is("001.value"));
-        given().get("/camel-k/property/002.key").then().statusCode(200).body(is("002.value"));
-        given().get("/camel-k/property/a.key").then().statusCode(200).body(is("a.002"));
-        given().get("/camel-k/property/flat-property").then().statusCode(200).body(is("flat-value"));
     }
 }

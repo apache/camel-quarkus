@@ -38,12 +38,8 @@ import org.apache.camel.spi.HasCamelContext;
 import org.apache.camel.support.PluginHelper;
 import org.apache.camel.support.service.ServiceHelper;
 import org.apache.camel.util.StringHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public final class CamelMain extends MainCommandLineSupport implements HasCamelContext {
-    private static final Logger LOGGER = LoggerFactory.getLogger(CamelMain.class);
-
     private final AtomicBoolean engineStarted;
     private final FailureRemedy failureRemedy;
 
@@ -53,6 +49,7 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
         this.failureRemedy = failureRemedy;
     }
 
+    @Override
     protected void configureRoutes(CamelContext camelContext) throws Exception {
         // then configure and add the routes
         RoutesConfigurer configurer = new RoutesConfigurer();
