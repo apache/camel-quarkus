@@ -22,6 +22,7 @@ import java.util.Map;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.testcontainers.DockerClientFactory;
 import org.testcontainers.containers.FixedHostPortGenericContainer;
 import org.testcontainers.containers.GenericContainer;
 
@@ -39,13 +40,15 @@ public class GoogleStorageTestResource implements QuarkusTestResourceLifecycleMa
         Map<String, String> properties = new HashMap<>();
 
         if (GoogleStorageHelper.usingMockBackend()) {
+            String url = "http://%s:%s".formatted(DockerClientFactory.instance().dockerHostIpAddress(), PORT);
             container = new FixedHostPortGenericContainer<>(CONTAINER_NAME)
                     .withFixedExposedPort(PORT, PORT)
                     .withCreateContainerCmdModifier(
-                            it -> it.withEntrypoint("/bin/fake-gcs-server", "-scheme", "http", "-port", String.valueOf(PORT)));
+                            it -> it.withEntrypoint("/bin/fake-gcs-server", "-external-url", url, "-scheme", "http", "-port",
+                                    String.valueOf(PORT)));
             container.start();
 
-            properties.put(GoogleStorageResource.PARAM_PORT, String.valueOf(PORT));
+            properties.put(GoogleStorageResource.GOOGLE_STORAGE_URL_CONFIG_KEY, url);
         }
 
         return properties;

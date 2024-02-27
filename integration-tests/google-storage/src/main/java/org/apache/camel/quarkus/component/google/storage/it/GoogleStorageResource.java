@@ -59,8 +59,7 @@ public class GoogleStorageResource {
 
     public static final String DIRECT_POLLING = "direct:polling";
 
-    public static final String PARAM_PORT = "org.apache.camel.quarkus.component.googlr.storage.it.GoogleStorageClientProducer_port";
-
+    public static final String GOOGLE_STORAGE_URL_CONFIG_KEY = "google.storage.url";
     public static final String QUERY_OBJECT_NAME = "objectName";
     public static final String QUERY_BUCKET = "bucketName";
     public static final String QUERY_OPERATION = "operation";
@@ -78,9 +77,9 @@ public class GoogleStorageResource {
     Storage storageClient() throws IOException {
         Storage storage;
         if (GoogleStorageHelper.usingMockBackend()) {
-            String port = ConfigProvider.getConfig().getValue(GoogleStorageResource.PARAM_PORT, String.class);
+            String host = ConfigProvider.getConfig().getValue(GOOGLE_STORAGE_URL_CONFIG_KEY, String.class);
             storage = StorageOptions.newBuilder()
-                    .setHost("http://localhost:" + port)
+                    .setHost(host)
                     .setProjectId("dummy-project-for-testing")
                     .build()
                     .getService();

@@ -164,7 +164,7 @@ public class GooglePubSubCustomizer implements GoogleTestEnvCustomizer {
 
     private FixedTransportChannelProvider createChannelProvider(GoogleCloudContext context) {
         ManagedChannel channel = ManagedChannelBuilder
-                .forTarget(String.format("%s:%s", "localhost", container.getFirstMappedPort()))
+                .forTarget(String.format("%s:%s", container.getHost(), container.getFirstMappedPort()))
                 .usePlaintext()
                 .build();
 
