@@ -14,11 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jt400.it;
+package com.ibm.as400.access;
 
-import io.quarkus.test.junit.QuarkusIntegrationTest;
+import java.io.IOException;
 
-@QuarkusIntegrationTest
-class Jt400IT extends Jt400Test {
+public class MockAS400Server extends AS400NoThreadServer {
+
+    MockAS400Server(AS400ImplRemote system) throws IOException {
+        super(system, 1, new MockSocketContainer(), "job/String/something");
+    }
+
+    @Override
+    public DataStream sendAndReceive(DataStream requestStream) throws IOException {
+        if (!MockedResponses.isEmpty()) {
+            return MockedResponses.removeFirst();
+        }
+
+        return null;
+    }
 
 }

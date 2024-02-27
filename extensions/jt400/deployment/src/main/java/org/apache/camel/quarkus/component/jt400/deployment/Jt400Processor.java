@@ -18,16 +18,26 @@ package org.apache.camel.quarkus.component.jt400.deployment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
+import com.ibm.as400.access.ConvTable;
+import com.ibm.as400.access.NLSImplNative;
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import org.jboss.jandex.DotName;
+import org.jboss.jandex.IndexView;
 import org.jboss.logging.Logger;
 
 class Jt400Processor {
 
     private static final Logger LOG = Logger.getLogger(Jt400Processor.class);
     private static final String FEATURE = "camel-jt400";
+    private static final DotName CONV_TABLE_NAME = DotName.createSimple(ConvTable.class.getName());
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -40,4 +50,31 @@ class Jt400Processor {
         items.add(new RuntimeInitializedClassBuildItem("com.ibm.as400.access.CredentialVault"));
         return items;
     }
+
+    @BuildStep
+    void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClassesProducer,
+            CombinedIndexBuildItem combinedIndex) {
+        IndexView index = combinedIndex.getIndex();
+
+        reflectiveClassesProducer.produce(ReflectiveClassBuildItem.builder(NLSImplNative.class).build());
+
+        Pattern pattern = Pattern.compile("com.ibm.as400.access.*Remote");
+        index.getKnownClasses().stream()
+                .filter(c -> pattern.matcher(c.name().toString()).matches())
+                .map(c -> ReflectiveClassBuildItem.builder(c.name().toString()).build())
+                .forEach(reflectiveClassesProducer::produce);
+
+        combinedIndex.getIndex()
+                .getAllKnownSubclasses(CONV_TABLE_NAME)
+                .stream()
+                .map(c -> ReflectiveClassBuildItem.builder(c.name().toString()).build())
+                .forEach(reflectiveClassesProducer::produce);
+
+    }
+
+    @BuildStep
+    IndexDependencyBuildItem registerDependencyForIndex() {
+        return new IndexDependencyBuildItem("net.sf.jt400", "jt400", "java11");
+    }
+
 }
