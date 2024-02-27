@@ -71,11 +71,6 @@
             </dependency>
 
             <dependency>
-                <groupId>com.squareup.okhttp3</groupId>
-                <artifactId>mockwebserver</artifactId>
-                <version>${okhttp.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>io.quarkiverse.micrometer.registry</groupId>
                 <artifactId>quarkus-micrometer-registry-jmx</artifactId>
                 <version>${quarkiverse-micrometer.version}</version>
