@@ -75,6 +75,10 @@
             <artifactId>grpc-netty</artifactId>
             <exclusions>
                 <exclusion>
+                    <groupId>com.google.code.findbugs</groupId>
+                    <artifactId>jsr305</artifactId>
+                </exclusion>
+                <exclusion>
                     <groupId>com.google.android</groupId>
                     <artifactId>annotations</artifactId>
                 </exclusion>
