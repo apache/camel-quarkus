@@ -6843,6 +6843,11 @@
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
+        <artifactId>endpoints-spi</artifactId>
+        <version>2.24.9</version>
+      </dependency>
+      <dependency>
+        <groupId>software.amazon.awssdk</groupId>
         <artifactId>http-auth-aws</artifactId>
         <version>2.24.9</version>
       </dependency>
