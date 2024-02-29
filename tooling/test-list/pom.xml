@@ -65,6 +65,7 @@
                                 <exclude>main-unknown-args-ignore/pom.xml</exclude>
                                 <exclude>messaging/pom.xml</exclude>
                                 <exclude>quartz-clustered/pom.xml</exclude>
+                                <exclude>camel-k-runtime-shutdown/pom.xml</exclude>
                             </excludes>
                         </fileSet>
                     </fileSets>

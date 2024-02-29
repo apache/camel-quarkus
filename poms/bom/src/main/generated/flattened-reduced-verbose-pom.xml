@@ -6460,11 +6460,6 @@
         <version>3.5.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>groovy</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>4.0.18</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
         <groupId>org.apache.httpcomponents.client5</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>httpclient5</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>5.2.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -7329,6 +7324,11 @@
         <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.8.0 -->
         <artifactId>cxf-tools-wsdlto-frontend-jaxws</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.8.0 -->
         <version>4.0.3</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.8.0 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+        <artifactId>groovy</artifactId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+        <version>4.0.18</version><!-- org.apache.groovy:groovy-bom:4.0.18 -->
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->

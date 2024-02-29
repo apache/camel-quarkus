@@ -14,20 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.k.runtime;
+package org.apache.camel.quarkus.k.it;
 
-import io.quarkus.runtime.RuntimeValue;
-import io.quarkus.runtime.annotations.Recorder;
-import org.apache.camel.spi.CamelContextCustomizer;
-import org.apache.camel.spi.ModelReifierFactory;
-
-@Recorder
-public class ApplicationRecorder {
-    public RuntimeValue<ModelReifierFactory> modelReifierFactory() {
-        return new RuntimeValue<>(new ApplicationModelReifierFactory());
-    }
-
-    public RuntimeValue<CamelContextCustomizer> shutdownCustomizer(ApplicationShutdownConfig config) {
-        return new RuntimeValue<>(new ApplicationShutdownCustomizer(config));
-    }
+public class RuntimeShutdownIT extends RuntimeShutdownTest {
 }

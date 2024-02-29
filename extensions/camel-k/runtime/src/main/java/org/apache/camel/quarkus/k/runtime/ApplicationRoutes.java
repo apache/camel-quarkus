@@ -18,9 +18,9 @@ package org.apache.camel.quarkus.k.runtime;
 
 import java.util.Objects;
 
+import io.quarkus.arc.Unremovable;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import org.apache.camel.CamelContext;
 import org.apache.camel.model.FromDefinition;
 import org.apache.camel.model.RouteDefinition;
 import org.slf4j.Logger;
@@ -29,19 +29,13 @@ import org.slf4j.LoggerFactory;
 /**
  * A bean to hold routes related logic.
  */
+@Unremovable
 @ApplicationScoped
 public class ApplicationRoutes {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationRoutes.class);
 
     @Inject
     ApplicationRoutesConfig config;
-
-    @Inject
-    CamelContext context;
-
-    public ApplicationRoutesConfig config() {
-        return this.config;
-    }
 
     public void override(RouteDefinition definition) {
         if (config.overrides().isEmpty()) {

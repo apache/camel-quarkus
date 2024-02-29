@@ -6520,31 +6520,6 @@
         <version>1.11.3</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>groovy</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>4.0.18</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>groovy-json</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>4.0.18</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>groovy-test</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>4.0.18</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>groovy-xml</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>4.0.18</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>groovy-yaml</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>4.0.18</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
         <groupId>org.apache.httpcomponents.client5</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>httpclient5</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>5.2.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -7472,6 +7447,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+        <artifactId>groovy</artifactId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+        <version>4.0.18</version><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
         <artifactId>groovy-ant</artifactId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
         <version>4.0.18</version><!-- org.apache.groovy:groovy-bom:4.0.18 -->
       </dependency>
@@ -7537,6 +7517,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+        <artifactId>groovy-json</artifactId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+        <version>4.0.18</version><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
         <artifactId>groovy-jsr223</artifactId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
         <version>4.0.18</version><!-- org.apache.groovy:groovy-bom:4.0.18 -->
       </dependency>
@@ -7577,6 +7562,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+        <artifactId>groovy-test</artifactId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+        <version>4.0.18</version><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
         <artifactId>groovy-test-junit5</artifactId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
         <version>4.0.18</version><!-- org.apache.groovy:groovy-bom:4.0.18 -->
       </dependency>
@@ -7593,6 +7583,16 @@
       <dependency>
         <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
         <artifactId>groovy-typecheckers</artifactId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+        <version>4.0.18</version><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+        <artifactId>groovy-xml</artifactId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+        <version>4.0.18</version><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+        <artifactId>groovy-yaml</artifactId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
         <version>4.0.18</version><!-- org.apache.groovy:groovy-bom:4.0.18 -->
       </dependency>
       <dependency>

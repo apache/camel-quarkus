@@ -6460,11 +6460,6 @@
         <version>3.5.2</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId>
-        <artifactId>groovy</artifactId>
-        <version>4.0.18</version>
-      </dependency>
-      <dependency>
         <groupId>org.apache.httpcomponents.client5</groupId>
         <artifactId>httpclient5</artifactId>
         <version>5.2.1</version>
@@ -7329,6 +7324,11 @@
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-tools-wsdlto-frontend-jaxws</artifactId>
         <version>4.0.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.groovy</groupId>
+        <artifactId>groovy</artifactId>
+        <version>4.0.18</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>

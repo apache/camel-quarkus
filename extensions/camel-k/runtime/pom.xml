@@ -167,16 +167,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <environmentVariables>
-                        <CAMEL_K_RESOURCE_001>my env content</CAMEL_K_RESOURCE_001>
-                        <MY_ENV_RESOURCE_TXT>env:CAMEL_K_RESOURCE_001</MY_ENV_RESOURCE_TXT>
-                        <CAMEL_K_RESOURCE_002>H4sIAFlah1wAA8utVEjOzy0oSi0uTk1RSM0rA3LzSlLzSrgAUbkzGRoAAAA=</CAMEL_K_RESOURCE_002>
-                        <MY_COMPRESSED_ENV_RESOURCE_TXT>env:CAMEL_K_RESOURCE_002?compression=true</MY_COMPRESSED_ENV_RESOURCE_TXT>
-                    </environmentVariables>
                     <systemPropertyVariables>
                         <root>${project.basedir}</root>
-                        <camel.k.mount-path.configmaps>${project.basedir}/src/test/resources/configmaps</camel.k.mount-path.configmaps>
-                        <camel.k.mount-path.secrets>${project.basedir}/src/test/resources/secrets</camel.k.mount-path.secrets>
+                        <camel.k.mount-path.configmaps>${project.basedir}/src/test/resources/conf.d/_configmaps</camel.k.mount-path.configmaps>
+                        <camel.k.mount-path.secrets>${project.basedir}/src/test/resources/conf.d/_secrets</camel.k.mount-path.secrets>
                         <camel.kubernetes-config.client-enabled>false</camel.kubernetes-config.client-enabled>
                     </systemPropertyVariables>
                 </configuration>
