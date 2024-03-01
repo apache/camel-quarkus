@@ -26,8 +26,10 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.undertow.deployment.ServletBuildItem;
 import io.quarkus.undertow.deployment.ServletBuildItem.Builder;
+import jakarta.servlet.MultipartConfigElement;
 import org.apache.camel.quarkus.servlet.runtime.CamelServletConfig;
 import org.apache.camel.quarkus.servlet.runtime.CamelServletConfig.ServletConfig;
+import org.apache.camel.quarkus.servlet.runtime.CamelServletConfig.ServletConfig.MultipartConfig;
 
 class ServletProcessor {
     private static final String FEATURE = "camel-servlet";
@@ -79,6 +81,15 @@ class ServletProcessor {
         additionalBean.produce(new AdditionalBeanBuildItem(servletConfig.servletClass));
         for (String pattern : urlPatterns.get()) {
             builder.addMapping(pattern);
+        }
+
+        MultipartConfig multipartConfig = servletConfig.multipart;
+        if (multipartConfig != null) {
+            builder.setMultipartConfig(new MultipartConfigElement(
+                    multipartConfig.location,
+                    multipartConfig.maxFileSize,
+                    multipartConfig.maxRequestSize,
+                    multipartConfig.fileSizeThreshold));
         }
 
         return builder.build();

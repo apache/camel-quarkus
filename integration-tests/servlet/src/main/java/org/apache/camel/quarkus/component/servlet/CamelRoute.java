@@ -17,12 +17,13 @@
 package org.apache.camel.quarkus.component.servlet;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
+import jakarta.inject.Inject;
 import org.apache.camel.builder.RouteBuilder;
 
 @ApplicationScoped
 public class CamelRoute extends RouteBuilder {
+    @Inject
+    MultiPartProcessor multiPartProcessor;
 
     @Override
     public void configure() {
@@ -49,13 +50,13 @@ public class CamelRoute extends RouteBuilder {
                 .setBody(constant("GET: /favorite"));
 
         from("direct:echoMethodPath")
-                .process(new Processor() {
-                    @Override
-                    public void process(Exchange exchange) throws Exception {
-                        exchange.toString();
-                    }
-                })
                 .setBody().simple("${header.CamelHttpMethod}: ${header.CamelServletContextPath}");
+
+        from("servlet://multipart/default?attachmentMultipartBinding=true")
+                .process(multiPartProcessor);
+
+        from("servlet://multipart?servletName=my-named-servlet&attachmentMultipartBinding=true")
+                .process(multiPartProcessor);
     }
 
 }
