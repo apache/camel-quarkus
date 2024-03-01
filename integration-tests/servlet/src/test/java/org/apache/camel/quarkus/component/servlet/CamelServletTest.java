@@ -16,16 +16,21 @@
  */
 package org.apache.camel.quarkus.component.servlet;
 
+import java.nio.charset.StandardCharsets;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.hamcrest.core.IsEqual;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.oneOf;
+
 @QuarkusTest
 public class CamelServletTest {
 
     @Test
-    public void multiplePaths() throws Throwable {
+    public void multiplePaths() {
         RestAssured.when().get("/folder-1/rest-get").then().body(IsEqual.equalTo("GET: /rest-get"));
         RestAssured.when().get("/folder-2/rest-get").then().body(IsEqual.equalTo("GET: /rest-get"));
         RestAssured.when().post("/folder-1/rest-post").then().body(IsEqual.equalTo("POST: /rest-post"));
@@ -35,15 +40,45 @@ public class CamelServletTest {
     }
 
     @Test
-    public void namedWithservletClass() throws Throwable {
+    public void namedWithservletClass() {
         RestAssured.when().get("/my-named-folder/custom").then()
                 .body(IsEqual.equalTo("GET: /custom"))
                 .and().header("x-servlet-class-name", CustomServlet.class.getName());
     }
 
     @Test
-    public void ignoredKey() throws Throwable {
+    public void ignoredKey() {
         RestAssured.when().get("/my-favorite-folder/favorite").then()
                 .body(IsEqual.equalTo("GET: /favorite"));
+    }
+
+    @Test
+    public void multipartDefaultConfig() {
+        String body = "Hello World";
+        RestAssured.given()
+                .multiPart("file", "file", body.getBytes(StandardCharsets.UTF_8))
+                .post("/folder-1/multipart/default")
+                .then()
+                .statusCode(200)
+                .body(is(body));
+    }
+
+    @Test
+    public void multipartCustomConfig() {
+        String body = "Hello World";
+        RestAssured.given()
+                .multiPart("file", "file", body.getBytes(StandardCharsets.UTF_8))
+                .post("/folder-1/multipart/default")
+                .then()
+                .statusCode(200)
+                .body(is(body));
+
+        // Request body exceeding the limits defined on the multipart config
+        RestAssured.given()
+                .multiPart("test-multipart", "file", body.repeat(10).getBytes(StandardCharsets.UTF_8))
+                .post("/my-named-folder/multipart")
+                .then()
+                // TODO: Expect 413 only - https://github.com/apache/camel-quarkus/issues/5830
+                .statusCode(oneOf(413, 500));
     }
 }

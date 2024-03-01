@@ -65,6 +65,11 @@ public final class CamelServletConfig {
         public String servletName;
 
         /**
+         * Servlet multipart request configuration.
+         */
+        public MultipartConfig multipart;
+
+        /**
          * @return {@code true} if this {@link ServletConfig} is valid as a whole. This currently translates to
          *         {@link #urlPatterns} being non-empty because {@link #servletClass} and {@link #servletName} have
          *         default values. Otherwise returns {@code false}.
@@ -87,6 +92,37 @@ public final class CamelServletConfig {
             return DEFAULT_SERVLET_NAME.equals(servletName) ? key : servletName;
         }
 
+        /**
+         * Servlet multipart request configuration.
+         */
+        @ConfigGroup
+        public static class MultipartConfig {
+            /**
+             * An absolute path to a directory on the file system to store files temporarily while the parts are
+             * processed or when the size of the file exceeds the specified file-size-threshold configuration value.
+             */
+            @ConfigItem(defaultValue = "${java.io.tmpdir}")
+            public String location;
+
+            /**
+             * The maximum size allowed in bytes for uploaded files. The default size (-1) allows an unlimited size.
+             */
+            @ConfigItem(defaultValue = "-1")
+            public long maxFileSize;
+
+            /**
+             * The maximum size allowed in bytes for a multipart/form-data request. The default size (-1) allows an unlimited
+             * size.
+             */
+            @ConfigItem(defaultValue = "-1")
+            public long maxRequestSize;
+
+            /**
+             * The file size in bytes after which the file will be temporarily stored on disk.
+             */
+            @ConfigItem(defaultValue = "0")
+            public int fileSizeThreshold;
+        }
     }
 
 }
