@@ -48,9 +48,13 @@ group-02:
   - sql
 group-03:
   - bean-validator
+  - box
   - foundation-grouped
   - core-discovery-disabled
   - freemarker
+  - github
+  - google
+  - jsh-dsl
   - json-validator
   - main
   - main-collector
@@ -207,19 +211,15 @@ group-12:
   - rest-openapi
   - vertx-websocket
 group-13:
-  - box
   - camel-k-runtime
   - camel-k-runtime-model-reifier
   - camel-k-runtime-shutdown
   - fhir
-  - github
-  - google
   - groovy-dsl
   - jasypt
   - jira
   - java-joor-dsl
   - js-dsl
-  - jsh-dsl
   - kotlin-dsl
   - kubernetes
   - salesforce
