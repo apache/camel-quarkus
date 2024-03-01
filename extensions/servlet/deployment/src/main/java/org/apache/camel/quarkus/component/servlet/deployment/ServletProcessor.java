@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
 
-import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
@@ -42,11 +41,11 @@ class ServletProcessor {
     }
 
     @BuildStep
-    void build(BuildProducer<ServletBuildItem> servlet, BuildProducer<AdditionalBeanBuildItem> additionalBean) {
+    void build(BuildProducer<ServletBuildItem> servlet) {
         boolean servletCreated = false;
         if (camelServletConfig.defaultServlet.isValid()) {
             servlet.produce(
-                    newServlet(ServletConfig.DEFAULT_SERVLET_NAME, camelServletConfig.defaultServlet, additionalBean));
+                    newServlet(ServletConfig.DEFAULT_SERVLET_NAME, camelServletConfig.defaultServlet));
             servletCreated = true;
         }
 
@@ -56,7 +55,7 @@ class ServletProcessor {
                         String.format("Use quarkus.camel.servlet.url-patterns instead of quarkus.camel.servlet.%s.url-patterns",
                                 ServletConfig.DEFAULT_SERVLET_NAME));
             }
-            servlet.produce(newServlet(e.getKey(), e.getValue(), additionalBean));
+            servlet.produce(newServlet(e.getKey(), e.getValue()));
             servletCreated = true;
         }
 
@@ -67,8 +66,7 @@ class ServletProcessor {
 
     }
 
-    static ServletBuildItem newServlet(String key, ServletConfig servletConfig,
-            BuildProducer<AdditionalBeanBuildItem> additionalBean) {
+    static ServletBuildItem newServlet(String key, ServletConfig servletConfig) {
         final String servletName = servletConfig.getEffectiveServletName(key);
         final Optional<List<String>> urlPatterns = servletConfig.urlPatterns;
         if (!urlPatterns.isPresent() || urlPatterns.get().isEmpty()) {
@@ -78,7 +76,6 @@ class ServletProcessor {
         }
 
         final Builder builder = ServletBuildItem.builder(servletName, servletConfig.servletClass);
-        additionalBean.produce(new AdditionalBeanBuildItem(servletConfig.servletClass));
         for (String pattern : urlPatterns.get()) {
             builder.addMapping(pattern);
         }
