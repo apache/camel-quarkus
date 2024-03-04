@@ -117,6 +117,43 @@ from("servlet://goodbye?servletName=my-custom-b")
     .setBody().constant("Goodbye World");
 ----
 
+*Finer control of Servlet configuration*
+
+If you need more control of the Servlet configuration, for example to configure custom init parameters,
+then you can do this with a custom Servlet class through the `jakarta.servlet.annotation.WebServlet` annotation options.
+
+[source,java]
+----
+import jakarta.servlet.annotation.WebServlet;
+import org.apache.camel.component.servlet.CamelHttpTransportServlet;
+
+@WebServlet(
+    urlPatterns = {"/*"},
+    initParams = {
+        @WebInitParam(name = "myParam", value = "myValue")
+    }
+)
+public class MyCustomServlet extends CamelHttpTransportServlet {
+}
+----
+
+Or you can configure the `CamelHttpTransportServlet` using a `web-app` descriptor placed into `src/main/resources/META-INF/web.xml`.
+
+[source,xml]
+----
+<web-app>
+  <servlet>
+    <servlet-name>CamelServlet</servlet-name>
+    <servlet-class>org.apache.camel.component.servlet.CamelHttpTransportServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>CamelServlet</servlet-name>
+    <url-pattern>/services/*</url-pattern>
+  </servlet-mapping>
+</web-app>
+----
+
 
 [id="extensions-servlet-transferexception-option-in-native-mode"]
 == transferException option in native mode

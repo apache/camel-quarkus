@@ -25,10 +25,14 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.undertow.deployment.ServletBuildItem;
 import io.quarkus.undertow.deployment.ServletBuildItem.Builder;
+import io.quarkus.undertow.deployment.WebMetadataBuildItem;
 import jakarta.servlet.MultipartConfigElement;
 import org.apache.camel.quarkus.servlet.runtime.CamelServletConfig;
 import org.apache.camel.quarkus.servlet.runtime.CamelServletConfig.ServletConfig;
 import org.apache.camel.quarkus.servlet.runtime.CamelServletConfig.ServletConfig.MultipartConfig;
+import org.jboss.metadata.web.spec.WebMetaData;
+
+import static org.apache.camel.quarkus.servlet.runtime.CamelServletConfig.ServletConfig.DEFAULT_SERVLET_CLASS;
 
 class ServletProcessor {
     private static final String FEATURE = "camel-servlet";
@@ -41,8 +45,16 @@ class ServletProcessor {
     }
 
     @BuildStep
-    void build(BuildProducer<ServletBuildItem> servlet) {
+    void build(BuildProducer<ServletBuildItem> servlet, WebMetadataBuildItem webMetadata) {
         boolean servletCreated = false;
+
+        WebMetaData metaData = webMetadata.getWebMetaData();
+        if (metaData != null && metaData.getServlets() != null) {
+            servletCreated = metaData.getServlets()
+                    .stream()
+                    .anyMatch(meta -> meta.getServletClass().equals(DEFAULT_SERVLET_CLASS));
+        }
+
         if (camelServletConfig.defaultServlet.isValid()) {
             servlet.produce(
                     newServlet(ServletConfig.DEFAULT_SERVLET_NAME, camelServletConfig.defaultServlet));
