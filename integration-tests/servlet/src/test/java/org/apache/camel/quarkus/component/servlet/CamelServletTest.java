@@ -20,36 +20,52 @@ import java.nio.charset.StandardCharsets;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.hamcrest.core.IsEqual;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.anEmptyMap;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.Matchers.oneOf;
+import static org.hamcrest.Matchers.startsWith;
+import static org.hamcrest.core.IsEqual.equalTo;
 
 @QuarkusTest
 public class CamelServletTest {
-
     @Test
-    public void multiplePaths() {
-        RestAssured.when().get("/folder-1/rest-get").then().body(IsEqual.equalTo("GET: /rest-get"));
-        RestAssured.when().get("/folder-2/rest-get").then().body(IsEqual.equalTo("GET: /rest-get"));
-        RestAssured.when().post("/folder-1/rest-post").then().body(IsEqual.equalTo("POST: /rest-post"));
-        RestAssured.when().post("/folder-2/rest-post").then().body(IsEqual.equalTo("POST: /rest-post"));
-        RestAssured.when().get("/folder-1/hello").then().body(IsEqual.equalTo("GET: /hello"));
-        RestAssured.when().get("/folder-2/hello").then().body(IsEqual.equalTo("GET: /hello"));
+    public void defaultConfiguration() {
+        RestAssured.get("/debug/configuration")
+                .then()
+                .body(
+                        "isAsync", equalTo(false),
+                        "threadName", startsWith("executor-thread"),
+                        "initParams", anEmptyMap(),
+                        "loadOnStartup", nullValue());
     }
 
     @Test
-    public void namedWithservletClass() {
-        RestAssured.when().get("/my-named-folder/custom").then()
-                .body(IsEqual.equalTo("GET: /custom"))
-                .and().header("x-servlet-class-name", CustomServlet.class.getName());
+    public void multiplePaths() {
+        RestAssured.get("/folder-1/rest-get").then().body(equalTo("GET: /rest-get"));
+        RestAssured.get("/folder-2/rest-get").then().body(equalTo("GET: /rest-get"));
+        RestAssured.post("/folder-1/rest-post").then().body(equalTo("POST: /rest-post"));
+        RestAssured.post("/folder-2/rest-post").then().body(equalTo("POST: /rest-post"));
+        RestAssured.get("/folder-1/hello").then().body(equalTo("GET: /hello"));
+        RestAssured.get("/folder-2/hello").then().body(equalTo("GET: /hello"));
+    }
+
+    @Test
+    public void namedWithServletClass() {
+        RestAssured.get("/my-custom-folder/custom")
+                .then()
+                .body(equalTo("GET: /custom"))
+                .and()
+                .header("x-servlet-class-name", CustomServlet.class.getName());
     }
 
     @Test
     public void ignoredKey() {
-        RestAssured.when().get("/my-favorite-folder/favorite").then()
-                .body(IsEqual.equalTo("GET: /favorite"));
+        RestAssured.get("/my-named-folder/named")
+                .then()
+                .body(equalTo("GET: /my-named-servlet"));
     }
 
     @Test
@@ -76,9 +92,54 @@ public class CamelServletTest {
         // Request body exceeding the limits defined on the multipart config
         RestAssured.given()
                 .multiPart("test-multipart", "file", body.repeat(10).getBytes(StandardCharsets.UTF_8))
-                .post("/my-named-folder/multipart")
+                .post("/multipart-servlet/multipart")
                 .then()
                 // TODO: Expect 413 only - https://github.com/apache/camel-quarkus/issues/5830
                 .statusCode(oneOf(413, 500));
+    }
+
+    @Test
+    public void eagerInitServlet() {
+        RestAssured.get("/eager-init-servlet/eager-init")
+                .then()
+                .body(
+                        "isAsync", equalTo(false),
+                        "threadName", startsWith("executor-thread"),
+                        "initParams", anEmptyMap(),
+                        "loadOnStartup", equalTo(1));
+    }
+
+    @Test
+    public void asyncServlet() {
+        RestAssured.get("/async-servlet/async")
+                .then()
+                .body(
+                        "isAsync", equalTo(true),
+                        "threadName", startsWith("executor-thread"),
+                        "initParams.async", equalTo("true"),
+                        "loadOnStartup", nullValue());
+    }
+
+    @Test
+    public void asyncWithForceAwaitServlet() {
+        RestAssured.get("/sync-async-servlet/force-await")
+                .then()
+                .body(
+                        "isAsync", equalTo(true),
+                        "threadName", startsWith("executor-thread"),
+                        "initParams.async", equalTo("true"),
+                        "initParams.forceAwait", equalTo("true"),
+                        "loadOnStartup", nullValue());
+    }
+
+    @Test
+    public void asyncWithCustomExecutor() {
+        RestAssured.get("/custom-executor/execute/get")
+                .then()
+                .body(
+                        "isAsync", equalTo(true),
+                        "threadName", equalTo("custom-executor"),
+                        "initParams.async", equalTo("true"),
+                        "loadOnStartup", nullValue());
     }
 }

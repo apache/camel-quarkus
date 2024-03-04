@@ -65,6 +65,33 @@ public final class CamelServletConfig {
         public String servletName;
 
         /**
+         * Sets the loadOnStartup priority on the Servlet. A loadOnStartup is a value greater than or equal to zero,
+         * indicates to the container the initialization priority of the Servlet. If loadOnStartup is a negative
+         * integer, the Servlet is initialized lazily.
+         */
+        @ConfigItem(defaultValue = "-1")
+        public Integer loadOnStartup;
+
+        /**
+         * Enables Camel to benefit from asynchronous Servlet support.
+         */
+        @ConfigItem(defaultValue = "false")
+        public boolean async;
+
+        /**
+         * When set to {@code true} used in conjunction with {@code quarkus.camel.servlet.async = true}, this will force
+         * route processing to run synchronously.
+         */
+        @ConfigItem(defaultValue = "false")
+        public boolean forceAwait;
+
+        /**
+         * The name of a bean to configure an optional custom thread pool for handling Camel Servlet processing.
+         */
+        @ConfigItem
+        public Optional<String> executorRef;
+
+        /**
          * Servlet multipart request configuration.
          */
         public MultipartConfig multipart;

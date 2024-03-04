@@ -156,6 +156,30 @@ A servletName as it would be defined in a `web.xml` file or in the `jakarta.serv
 | `string`
 | `CamelServlet`
 
+|icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.load-on-startup]]`link:#quarkus.camel.servlet.load-on-startup[quarkus.camel.servlet.load-on-startup]`
+
+Sets the loadOnStartup priority on the Servlet. A loadOnStartup is a value greater than or equal to zero, indicates to the container the initialization priority of the Servlet. If loadOnStartup is a negative integer, the Servlet is initialized lazily.
+| `java.lang.Integer`
+| `-1`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.async]]`link:#quarkus.camel.servlet.async[quarkus.camel.servlet.async]`
+
+Enables Camel to benefit from asynchronous Servlet support.
+| `boolean`
+| `false`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.force-await]]`link:#quarkus.camel.servlet.force-await[quarkus.camel.servlet.force-await]`
+
+When set to `true` used in conjunction with `quarkus.camel.servlet.async = true`, this will force route processing to run synchronously.
+| `boolean`
+| `false`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.executor-ref]]`link:#quarkus.camel.servlet.executor-ref[quarkus.camel.servlet.executor-ref]`
+
+The name of a bean to configure an optional custom thread pool for handling Camel Servlet processing.
+| `string`
+| 
+
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.multipart.location]]`link:#quarkus.camel.servlet.multipart.location[quarkus.camel.servlet.multipart.location]`
 
 An absolute path to a directory on the file system to store files temporarily while the parts are processed or when the size of the file exceeds the specified file-size-threshold configuration value.
@@ -197,6 +221,30 @@ A fully qualified name of a servlet class to serve paths that match `url-pattern
 A servletName as it would be defined in a `web.xml` file or in the `jakarta.servlet.annotation.WebServlet++#++name()` annotation.
 | `string`
 | `CamelServlet`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.-named-servlets-.load-on-startup]]`link:#quarkus.camel.servlet.-named-servlets-.load-on-startup[quarkus.camel.servlet."named-servlets".load-on-startup]`
+
+Sets the loadOnStartup priority on the Servlet. A loadOnStartup is a value greater than or equal to zero, indicates to the container the initialization priority of the Servlet. If loadOnStartup is a negative integer, the Servlet is initialized lazily.
+| `java.lang.Integer`
+| `-1`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.-named-servlets-.async]]`link:#quarkus.camel.servlet.-named-servlets-.async[quarkus.camel.servlet."named-servlets".async]`
+
+Enables Camel to benefit from asynchronous Servlet support.
+| `boolean`
+| `false`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.-named-servlets-.force-await]]`link:#quarkus.camel.servlet.-named-servlets-.force-await[quarkus.camel.servlet."named-servlets".force-await]`
+
+When set to `true` used in conjunction with `quarkus.camel.servlet.async = true`, this will force route processing to run synchronously.
+| `boolean`
+| `false`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.-named-servlets-.executor-ref]]`link:#quarkus.camel.servlet.-named-servlets-.executor-ref[quarkus.camel.servlet."named-servlets".executor-ref]`
+
+The name of a bean to configure an optional custom thread pool for handling Camel Servlet processing.
+| `string`
+| 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.-named-servlets-.multipart.location]]`link:#quarkus.camel.servlet.-named-servlets-.multipart.location[quarkus.camel.servlet."named-servlets".multipart.location]`
 
