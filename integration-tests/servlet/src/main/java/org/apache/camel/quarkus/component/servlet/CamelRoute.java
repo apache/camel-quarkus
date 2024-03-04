@@ -18,12 +18,18 @@ package org.apache.camel.quarkus.component.servlet;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 
 @ApplicationScoped
 public class CamelRoute extends RouteBuilder {
     @Inject
     MultiPartProcessor multiPartProcessor;
+
+    @Inject
+    @Named("servletConfigInfoProcessor")
+    Processor servletConfigInfoProcessor;
 
     @Override
     public void configure() {
@@ -43,11 +49,14 @@ public class CamelRoute extends RouteBuilder {
         from("servlet://hello?matchOnUriPrefix=true")
                 .setBody(constant("GET: /hello"));
 
-        from("servlet://custom?servletName=my-named-servlet")
+        from("servlet://configuration")
+                .process(servletConfigInfoProcessor);
+
+        from("servlet://custom?servletName=custom-servlet")
                 .setBody(constant("GET: /custom"));
 
-        from("servlet://favorite?servletName=my-favorite-servlet")
-                .setBody(constant("GET: /favorite"));
+        from("servlet://named?servletName=my-named-servlet")
+                .setBody(constant("GET: /my-named-servlet"));
 
         from("direct:echoMethodPath")
                 .setBody().simple("${header.CamelHttpMethod}: ${header.CamelServletContextPath}");
@@ -55,8 +64,23 @@ public class CamelRoute extends RouteBuilder {
         from("servlet://multipart/default?attachmentMultipartBinding=true")
                 .process(multiPartProcessor);
 
-        from("servlet://multipart?servletName=my-named-servlet&attachmentMultipartBinding=true")
+        from("servlet://multipart?servletName=multipart-servlet&attachmentMultipartBinding=true")
                 .process(multiPartProcessor);
-    }
 
+        from("servlet://eager-init?servletName=eager-init-servlet&matchOnUriPrefix=true")
+                .setHeader("servletName").constant("eager-init-servlet")
+                .process(servletConfigInfoProcessor);
+
+        from("servlet://async?servletName=async-servlet&matchOnUriPrefix=true")
+                .setHeader("servletName").constant("async-servlet")
+                .process(servletConfigInfoProcessor);
+
+        from("servlet://force-await?servletName=sync-async-servlet&matchOnUriPrefix=true")
+                .setHeader("servletName").constant("sync-async-servlet")
+                .process(servletConfigInfoProcessor);
+
+        from("servlet://execute?servletName=custom-executor-servlet&matchOnUriPrefix=true")
+                .setHeader("servletName").constant("custom-executor-servlet")
+                .process(servletConfigInfoProcessor);
+    }
 }
