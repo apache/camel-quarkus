@@ -63,7 +63,6 @@ class ServletProcessor {
             throw new IllegalStateException(
                     "Map at least one servlet to a path using quarkus.camel.servlet.url-patterns or quarkus.camel.servlet.[your-servlet-name].url-patterns");
         }
-
     }
 
     static ServletBuildItem newServlet(String key, ServletConfig servletConfig) {
@@ -79,6 +78,24 @@ class ServletProcessor {
         for (String pattern : urlPatterns.get()) {
             builder.addMapping(pattern);
         }
+
+        // NOTE: We only configure loadOnStartup, async & forceAwait if the default values were overridden
+        if (servletConfig.loadOnStartup > -1) {
+            builder.setLoadOnStartup(servletConfig.loadOnStartup);
+        }
+
+        if (servletConfig.async) {
+            builder.setAsyncSupported(servletConfig.async);
+            builder.addInitParam("async", "true");
+        }
+
+        if (servletConfig.forceAwait) {
+            builder.addInitParam("forceAwait", "true");
+        }
+
+        servletConfig.executorRef.ifPresent(executorRef -> {
+            builder.addInitParam("executorRef", executorRef);
+        });
 
         MultipartConfig multipartConfig = servletConfig.multipart;
         if (multipartConfig != null) {
