@@ -16,11 +16,18 @@
  */
 package org.apache.camel.quarkus.component.servlet;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.apache.camel.CamelContext;
+import org.apache.camel.http.common.HttpHelper;
+import org.apache.camel.impl.DefaultCamelContext;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.anEmptyMap;
 import static org.hamcrest.Matchers.is;
@@ -28,6 +35,9 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.Matchers.oneOf;
 import static org.hamcrest.Matchers.startsWith;
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @QuarkusTest
 public class CamelServletTest {
@@ -42,22 +52,72 @@ public class CamelServletTest {
                         "loadOnStartup", nullValue());
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = { "GET", "POST", "PUT", "PATCH", "DELETE", "HEAD" })
+    public void multiplePaths(String method) {
+        String lowercaseMethod = method.toLowerCase();
+        String restResponse = method.equals("HEAD") ? "" : method + ": /rest-" + lowercaseMethod;
+        RestAssured.given()
+                .request(method, "/folder-1/rest-" + lowercaseMethod)
+                .then()
+                .statusCode(200)
+                .body(equalTo(restResponse));
+
+        RestAssured.given()
+                .request(method, "/folder-2/rest-" + lowercaseMethod)
+                .then()
+                .statusCode(200)
+                .body(equalTo(restResponse));
+
+        String helloResponse = method.equals("HEAD") ? "" : method + ": /hello";
+        RestAssured.given()
+                .request(method, "/folder-1/hello")
+                .then()
+                .statusCode(200)
+                .body(equalTo(helloResponse));
+
+        RestAssured.given()
+                .request(method, "/folder-2/hello")
+                .then()
+                .statusCode(200)
+                .body(equalTo(helloResponse));
+    }
+
     @Test
-    public void multiplePaths() {
-        RestAssured.get("/folder-1/rest-get").then().body(equalTo("GET: /rest-get"));
-        RestAssured.get("/folder-2/rest-get").then().body(equalTo("GET: /rest-get"));
-        RestAssured.post("/folder-1/rest-post").then().body(equalTo("POST: /rest-post"));
-        RestAssured.post("/folder-2/rest-post").then().body(equalTo("POST: /rest-post"));
-        RestAssured.get("/folder-1/hello").then().body(equalTo("GET: /hello"));
-        RestAssured.get("/folder-2/hello").then().body(equalTo("GET: /hello"));
+    public void options() {
+        RestAssured.given()
+                .request("OPTIONS", "/method-options/options")
+                .then()
+                .statusCode(200)
+                .body(equalTo("OPTIONS: /options"));
+    }
+
+    @Test
+    public void trace() {
+        RestAssured.given()
+                .request("TRACE", "/method-trace/trace")
+                .then()
+                .statusCode(200)
+                .body(equalTo("TRACE: /trace"));
+    }
+
+    @Test
+    public void requestParameters() {
+        RestAssured.given()
+                .formParam("prefix", "Hello")
+                .queryParam("suffix", "World")
+                .post("/folder-1/params")
+                .then()
+                .statusCode(200)
+                .body(equalTo("Hello World"));
     }
 
     @Test
     public void namedWithServletClass() {
         RestAssured.get("/my-custom-folder/custom")
                 .then()
+                .statusCode(200)
                 .body(equalTo("GET: /custom"))
-                .and()
                 .header("x-servlet-class-name", CustomServlet.class.getName());
     }
 
@@ -141,5 +201,26 @@ public class CamelServletTest {
                         "threadName", equalTo("custom-executor"),
                         "initParams.async", equalTo("true"),
                         "loadOnStartup", nullValue());
+    }
+
+    @Test
+    public void transferException() throws IOException, ClassNotFoundException {
+        InputStream response = RestAssured.given()
+                .get("/folder-1/transfer/exception")
+                .then()
+                .statusCode(500)
+                .contentType("application/x-java-serialized-object")
+                .extract()
+                .body()
+                .asInputStream();
+
+        // The CamelContext instance is only needed to ensure the correct ClassLoader is used for deserialization
+        CamelContext context = new DefaultCamelContext();
+        context.setApplicationContextClassLoader(Thread.currentThread().getContextClassLoader());
+        Object exception = HttpHelper.deserializeJavaObjectFromStream(response, context);
+        assertNotNull(exception);
+
+        CustomException cause = assertInstanceOf(CustomException.class, exception);
+        assertEquals(CustomException.MESSAGE, cause.getMessage());
     }
 }
