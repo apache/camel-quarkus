@@ -44,10 +44,34 @@ public class CamelRoute extends RouteBuilder {
                 .to("direct:echoMethodPath")
 
                 .post("/rest-post")
+                .to("direct:echoMethodPath")
+
+                .put("/rest-put")
+                .to("direct:echoMethodPath")
+
+                .patch("/rest-patch")
+                .to("direct:echoMethodPath")
+
+                .delete("/rest-delete")
+                .to("direct:echoMethodPath")
+
+                .head("/rest-head")
                 .to("direct:echoMethodPath");
 
         from("servlet://hello?matchOnUriPrefix=true")
-                .setBody(constant("GET: /hello"));
+                .to("direct:echoMethodPath");
+
+        from("servlet://options?servletName=options-method-servlet&optionsEnabled=true")
+                .to("direct:echoMethodPath");
+
+        from("servlet://trace?servletName=trace-method-servlet&traceEnabled=true")
+                .to("direct:echoMethodPath");
+
+        from("servlet://transfer/exception?transferException=true&muteException=false")
+                .throwException(new CustomException());
+
+        from("servlet://params")
+                .setBody().simple("${header.prefix} ${header.suffix}");
 
         from("servlet://configuration")
                 .process(servletConfigInfoProcessor);
