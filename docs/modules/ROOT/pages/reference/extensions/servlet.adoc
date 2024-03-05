@@ -45,6 +45,79 @@ ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
 
+[id="extensions-servlet-usage"]
+== Usage
+[id="extensions-servlet-usage-configuring-camelhttptransportservlet"]
+=== Configuring CamelHttpTransportServlet
+
+[id="extensions-servlet-usage-minimal-configuration"]
+==== Minimal configuration
+
+The simplest way to configure `CamelHttpTransportServlet` is with configuration properties.
+The most minimal setup requires that you define one or more URL patterns for the Servlet with `quarkus.camel.servlet.url-patterns`.
+
+For example with configuration like the following.
+
+[source,properties]
+----
+quarkus.camel.servlet.url-patterns = /*
+----
+
+And a Camel route.
+
+[source,java]
+----
+from("servlet://greet")
+    .setBody().constant("Hello World");
+----
+
+Produces the message `Hello World`.
+
+[id="extensions-servlet-usage-advanced-configuration"]
+==== Advanced configuration
+
+*Servlet name*
+
+To give a specific name to the Servlet you can use the `quarkus.camel.servlet.servlet-name` configuration option.
+
+[source,properties]
+----
+quarkus.camel.servlet.url-patterns = My Custom Name
+----
+
+*Servlet class*
+
+You may use a custom Servlet class (E.g one that extends `CamelHttpTransportServlet`) in your Camel routes.
+
+[source,properties]
+----
+quarkus.camel.servlet.servlet-class = org.acme.MyCustomServlet
+----
+
+*Multiple named Servlets*
+
+For more advanced use cases you can configure multiple 'named' Servlets.
+
+[source,properties]
+----
+quarkus.camel.servlet.my-servlet-a.servlet-name = my-custom-a
+quarkus.camel.servlet.my-servlet-a.url-patterns = /custom/a/*
+
+quarkus.camel.servlet.my-servlet-b.servlet-name = my-custom-b
+quarkus.camel.servlet.my-servlet-b.servlet-class = org.acme.CustomServletB
+quarkus.camel.servlet.my-servlet-b.url-patterns = /custom/b/*
+----
+
+[source,java]
+----
+from("servlet://greet?servletName=my-custom-a")
+    .setBody().constant("Hello World");
+
+from("servlet://goodbye?servletName=my-custom-b")
+    .setBody().constant("Goodbye World");
+----
+
+
 [id="extensions-servlet-transferexception-option-in-native-mode"]
 == transferException option in native mode
 
