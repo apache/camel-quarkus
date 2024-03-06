@@ -38,11 +38,11 @@ import freemarker.cache.MultiTemplateLoader;
 import freemarker.cache.TemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
-import org.apache.camel.catalog.Kind;
 import org.apache.camel.tooling.model.ArtifactModel;
 import org.apache.camel.tooling.model.ComponentModel;
 import org.apache.camel.tooling.model.DataFormatModel;
 import org.apache.camel.tooling.model.JsonMapper;
+import org.apache.camel.tooling.model.Kind;
 import org.apache.camel.tooling.model.LanguageModel;
 import org.apache.camel.tooling.model.OtherModel;
 import org.apache.maven.model.Model;
@@ -175,10 +175,14 @@ public class CqUtils {
         switch (kind) {
         case component:
             return "component";
+        case console:
+            return "console";
         case dataformat:
             return "data format";
         case language:
             return "language";
+        case transformer:
+            return "transformer";
         case other:
             return "misc. component";
         default:
@@ -259,10 +263,12 @@ public class CqUtils {
     }
 
     public static ArtifactModel<?> cloneArtifactModel(ArtifactModel<?> model) {
-        final Kind kind = Kind.valueOf(model.getKind());
+        final Kind kind = model.getKind();
         switch (kind) {
         case component:
             return JsonMapper.generateComponentModel(JsonMapper.asJsonObject((ComponentModel) model));
+        case console:
+            return null;
         case dataformat:
             return JsonMapper.generateDataFormatModel(JsonMapper.asJsonObject((DataFormatModel) model));
         case language:

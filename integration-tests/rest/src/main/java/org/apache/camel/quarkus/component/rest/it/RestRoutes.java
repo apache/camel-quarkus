@@ -42,29 +42,29 @@ public class RestRoutes extends RouteBuilder {
         rest("/rest")
                 .delete()
                 .produces("text/plain")
-                .to("direct:echoMethodPath")
+                .to("seda:echoMethodPath")
 
                 .get()
                 .produces("text/plain")
-                .to("direct:echoMethodPath")
+                .to("seda:echoMethodPath")
 
                 .head()
-                .to("direct:contentTypeText")
+                .to("seda:contentTypeText")
 
                 .patch()
                 .consumes("text/plain")
                 .produces("text/plain")
-                .to("direct:echoBodyPath")
+                .to("seda:echoBodyPath")
 
                 .post()
                 .consumes("text/plain")
                 .produces("text/plain")
-                .to("direct:echoBodyPath")
+                .to("seda:echoBodyPath")
 
                 .put()
                 .consumes("text/plain")
                 .produces("text/plain")
-                .to("direct:echoBodyPath")
+                .to("seda:echoBodyPath")
 
                 .post("/validation")
                 .clientRequestValidation(true)
@@ -81,7 +81,7 @@ public class RestRoutes extends RouteBuilder {
                 .bindingMode(RestBindingMode.json)
                 .type(Person.class)
                 .produces(MediaType.TEXT_PLAIN)
-                .to("direct:personString")
+                .to("seda:personString")
 
                 .get("/binding/json/producer")
                 .to("direct:personJson")
@@ -90,7 +90,7 @@ public class RestRoutes extends RouteBuilder {
                 .bindingMode(RestBindingMode.xml)
                 .type(Person.class)
                 .produces(MediaType.TEXT_PLAIN)
-                .to("direct:personString")
+                .to("seda:personString")
 
                 .get("/binding/xml/producer")
                 .to("direct:personXml")
@@ -99,15 +99,15 @@ public class RestRoutes extends RouteBuilder {
                 .to("direct:hello")
 
                 .verb("head", "/custom/verb")
-                .to("direct:contentTypeText")
+                .to("seda:contentTypeText")
 
                 .post("/multipart/upload")
                 .to("direct:processAttachments");
 
-        from("direct:echoMethodPath")
+        from("seda:echoMethodPath")
                 .setBody().simple("${header.CamelHttpMethod}: ${header.CamelHttpPath}");
 
-        from("direct:echoBodyPath")
+        from("seda:echoBodyPath")
                 .setBody().simple("${body}: ${header.CamelHttpPath}");
 
         from("direct:greetWithBody")
@@ -119,7 +119,7 @@ public class RestRoutes extends RouteBuilder {
         from("direct:hello")
                 .log("Hello ${body}");
 
-        from("direct:personString")
+        from("seda:personString")
                 .setHeader(Exchange.CONTENT_TYPE, constant("text/plain"))
                 .setBody().simple("Name: ${body.firstName} ${body.lastName}, Age: ${body.age}");
 
@@ -129,7 +129,7 @@ public class RestRoutes extends RouteBuilder {
         from("direct:personXml")
                 .setBody().constant(PERSON_XML);
 
-        from("direct:contentTypeText")
+        from("seda:contentTypeText")
                 .setHeader(Exchange.CONTENT_TYPE).constant("text/plain");
 
         from("direct:processAttachments")

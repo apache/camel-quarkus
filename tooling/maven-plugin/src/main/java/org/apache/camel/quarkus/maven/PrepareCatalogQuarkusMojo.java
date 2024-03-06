@@ -28,13 +28,15 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-import org.apache.camel.catalog.Kind;
 import org.apache.camel.tooling.model.ArtifactModel;
 import org.apache.camel.tooling.model.ComponentModel;
 import org.apache.camel.tooling.model.DataFormatModel;
+import org.apache.camel.tooling.model.DevConsoleModel;
+import org.apache.camel.tooling.model.Kind;
 import org.apache.camel.tooling.model.LanguageModel;
 import org.apache.camel.tooling.model.OtherModel;
 import org.apache.camel.tooling.model.SupportLevel;
+import org.apache.camel.tooling.model.TransformerModel;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -93,7 +95,7 @@ public class PrepareCatalogQuarkusMojo extends AbstractExtensionListMojo {
                     final String artifactIdBase = ext.getArtifactIdBase();
                     final Path schemaFile = ext
                             .getExtensionDir()
-                            .resolve("component/src/generated/resources/org/apache/camel/component/"
+                            .resolve("component/src/generated/resources/META-INF/org/apache/camel/component/"
                                     + artifactIdBase + "/" + artifactIdBase + ".json")
                             .toAbsolutePath().normalize();
                     if (Files.isRegularFile(schemaFile)) {
@@ -129,10 +131,14 @@ public class PrepareCatalogQuarkusMojo extends AbstractExtensionListMojo {
                         final Kind extKind = ext.getKind();
                         if (extKind == Kind.component) {
                             model = new ComponentModel();
-                        } else if (extKind == Kind.language) {
-                            model = new LanguageModel();
+                        } else if (extKind == Kind.console) {
+                            model = new DevConsoleModel();
                         } else if (extKind == Kind.dataformat) {
                             model = new DataFormatModel();
+                        } else if (extKind == Kind.language) {
+                            model = new LanguageModel();
+                        } else if (extKind == Kind.transformer) {
+                            model = new TransformerModel();
                         } else {
                             model = new OtherModel();
                         }
@@ -147,12 +153,12 @@ public class PrepareCatalogQuarkusMojo extends AbstractExtensionListMojo {
                         model.setLabel(ext.getLabel().orElse("quarkus"));
                         update(model, ext, nativeSupported, quarkusVersion);
                         CqCatalog.serialize(catalogPath, model);
-                        schemesByKind.get(model.getKind()).add(model.getName());
+                        schemesByKind.get(model.getKind().name()).add(model.getName());
                     } else {
                         for (ArtifactModel<?> model : models) {
                             update(model, ext, nativeSupported, quarkusVersion);
                             CqCatalog.serialize(catalogPath, model);
-                            schemesByKind.get(model.getKind()).add(model.getName());
+                            schemesByKind.get(model.getKind().name()).add(model.getName());
                         }
                     }
                 });

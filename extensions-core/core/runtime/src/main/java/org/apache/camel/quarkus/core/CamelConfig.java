@@ -331,6 +331,17 @@ public class CamelConfig {
 
         /**
          * If {@code true} the Runtime Camel Catalog embedded in the application will contain JSON schemas of Camel
+         * dev consoles available in the application; otherwise dev console JSON schemas will not be available in the
+         * Runtime Camel Catalog and any attempt to access those will result in a RuntimeException.
+         * <p>
+         * Setting this to {@code false} helps to reduce the size of the native image. In JVM mode, there is no real
+         * benefit of setting this flag to {@code false} except for making the behavior consistent with native mode.
+         */
+        @ConfigItem(defaultValue = "true")
+        public boolean devconsoles;
+
+        /**
+         * If {@code true} the Runtime Camel Catalog embedded in the application will contain JSON schemas of Camel
          * EIP models available in the application; otherwise EIP model JSON schemas will not be available in the
          * Runtime Camel Catalog and any attempt to access those will result in a RuntimeException.
          * <p>
@@ -339,6 +350,17 @@ public class CamelConfig {
          */
         @ConfigItem(defaultValue = "true")
         public boolean models;
+
+        /**
+         * If {@code true} the Runtime Camel Catalog embedded in the application will contain JSON schemas of Camel
+         * transformers available in the application; otherwise transformer JSON schemas will not be available in the
+         * Runtime Camel Catalog and any attempt to access those will result in a RuntimeException.
+         * <p>
+         * Setting this to {@code false} helps to reduce the size of the native image. In JVM mode, there is no real
+         * benefit of setting this flag to {@code false} except for making the behavior consistent with native mode.
+         */
+        @ConfigItem(defaultValue = "true")
+        public boolean transformers;
     }
 
     /**

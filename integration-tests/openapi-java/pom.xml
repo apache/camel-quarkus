@@ -56,6 +56,10 @@
             <artifactId>camel-quarkus-rest</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-seda</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
         </dependency>
@@ -91,18 +95,6 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <executions>
-                            <execution>
-                                <id>profile-openapi-v2</id>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                                <configuration>
-                                    <systemPropertyVariables>
-                                        <test.profile>openapi.v2</test.profile>
-                                    </systemPropertyVariables>
-                                </configuration>
-                            </execution>
                             <execution>
                                 <id>profile-openapi-v3</id>
                                 <goals>

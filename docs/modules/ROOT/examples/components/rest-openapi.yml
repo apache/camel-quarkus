@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: rest-openapi
 cqCamelPartTitle: REST OpenApi
-cqCamelPartDescription: Configure REST producers based on an OpenAPI specification document delegating to a component implementing the RestProducerFactory interface.
+cqCamelPartDescription: To call REST services using OpenAPI specification as contract.
 cqExtensionPageTitle: REST OpenApi

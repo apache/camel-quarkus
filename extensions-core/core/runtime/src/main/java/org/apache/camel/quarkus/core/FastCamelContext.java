@@ -24,9 +24,11 @@ import org.apache.camel.CatalogCamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.component.microprofile.config.CamelMicroProfilePropertiesSource;
+import org.apache.camel.console.DevConsole;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.engine.DefaultComponentResolver;
 import org.apache.camel.impl.engine.DefaultDataFormatResolver;
+import org.apache.camel.impl.engine.DefaultDevConsoleResolver;
 import org.apache.camel.impl.engine.DefaultLanguageResolver;
 import org.apache.camel.impl.engine.DefaultShutdownStrategy;
 import org.apache.camel.model.ModelCamelContext;
@@ -203,7 +205,8 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
         if (instance != null) {
             clazz = instance.getClass();
         } else {
-            clazz = getFactoryFinder(DefaultComponentResolver.RESOURCE_PATH).findClass(componentName).orElse(null);
+            clazz = getCamelContextExtension().getFactoryFinder(DefaultComponentResolver.RESOURCE_PATH).findClass(componentName)
+                    .orElse(null);
             if (clazz == null) {
                 instance = hasComponent(componentName);
                 if (instance != null) {
@@ -230,13 +233,32 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
         if (instance != null) {
             clazz = instance.getClass();
         } else {
-            clazz = getFactoryFinder(DefaultDataFormatResolver.DATAFORMAT_RESOURCE_PATH).findClass(dataFormatName).orElse(null);
+            clazz = getCamelContextExtension().getFactoryFinder(DefaultDataFormatResolver.DATAFORMAT_RESOURCE_PATH)
+                    .findClass(dataFormatName).orElse(null);
             if (clazz == null) {
                 return null;
             }
         }
 
         return getJsonSchema(clazz.getPackage().getName(), dataFormatName);
+    }
+
+    @Override
+    public String getDevConsoleParameterJsonSchema(String devConsoleName) throws IOException {
+        Class<?> clazz;
+
+        Object instance = getRegistry().lookupByNameAndType(devConsoleName, DevConsole.class);
+        if (instance != null) {
+            clazz = instance.getClass();
+        } else {
+            clazz = getCamelContextExtension().getFactoryFinder(DefaultDevConsoleResolver.DEV_CONSOLE_RESOURCE_PATH)
+                    .findClass(devConsoleName).orElse(null);
+            if (clazz == null) {
+                return null;
+            }
+        }
+
+        return getJsonSchema(clazz.getPackage().getName(), devConsoleName);
     }
 
     @Override
@@ -247,7 +269,8 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
         if (instance != null) {
             clazz = instance.getClass();
         } else {
-            clazz = getFactoryFinder(DefaultLanguageResolver.LANGUAGE_RESOURCE_PATH).findClass(languageName).orElse(null);
+            clazz = getCamelContextExtension().getFactoryFinder(DefaultLanguageResolver.LANGUAGE_RESOURCE_PATH)
+                    .findClass(languageName).orElse(null);
             if (clazz == null) {
                 return null;
             }
@@ -257,7 +280,7 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
     }
 
     private String getJsonSchema(String packageName, String name) throws IOException {
-        String path = packageName.replace('.', '/') + "/" + name + ".json";
+        String path = "META-INF/" + packageName.replace('.', '/') + "/" + name + ".json";
         InputStream inputStream = getClassResolver().loadResourceAsStream(path);
 
         if (inputStream != null) {

@@ -17,8 +17,11 @@
 package org.apache.camel.quarkus.component.micrometer.it;
 
 import java.lang.management.ManagementFactory;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import javax.management.Attribute;
 import javax.management.MBeanServer;
@@ -29,6 +32,8 @@ import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
+import org.awaitility.Awaitility;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -175,22 +180,34 @@ class MicrometerTest extends AbstractMicrometerTest {
 
     @Test
     public void testDumpAsJson() {
-        JsonPath jsonPath = RestAssured.get("/micrometer/statistics")
+
+        RestAssured.get("/micrometer/sendDumpAsJson")
                 .then()
-                .statusCode(200)
-                .extract().jsonPath();
+                .statusCode(200);
 
-        //extract required values
-        Map<String, Float> result = jsonPath.getMap(
-                "gauges.findAll { it.id.name =~ /routes/ && it.id.tags.find { it.customTag } }.collectEntries { [it.id.name, it.value] }");
+        Awaitility.await().atMost(10, TimeUnit.SECONDS).until(() -> {
+            JsonPath jsonPath = RestAssured.get("/micrometer/statistics")
+                    .then()
+                    .statusCode(200)
+                    .extract().jsonPath();
 
-        assertEquals(result.size(), 3);
-        assertTrue(result.containsKey("camel.routes.running"));
-        assertEquals(8.0f, result.get("camel.routes.running"));
-        assertTrue(result.containsKey("camel.routes.added"));
-        assertEquals(8.0f, result.get("camel.routes.added"));
-        assertTrue(result.containsKey("camel.routes.reloaded"));
-        assertEquals(0.0f, result.get("camel.routes.reloaded"));
+            //extract required values
+            Map<List<Map<String, String>>, Integer> result = jsonPath.getMap(
+                    "timers.findAll { it.id.name=='camel.exchange.event.notifier' }.collectEntries { [it.id.tags, it.count] }");
+
+            //convert to simpler map
+            Map<String, Integer> filteredResult = result.entrySet().stream()
+                    .collect(Collectors.toMap(e -> e.getKey().toString(), e2 -> e2.getValue()));
+            //remove non-prometheus tags, keep only dumpAsJson routeId for status ExchangeCompletedEvent
+            filteredResult.keySet().removeIf(k -> !k.contains("customTag=prometheus")
+                    || !k.contains("routeId=dumpAsJson")
+                    || k.contains("eventType=ExchangeCompletedEvent"));
+
+            //assert results
+            return filteredResult.values().stream().map(String::valueOf).collect(Collectors.joining());
+        },
+                //1 exchange with completed status should be caught
+                Matchers.is("1"));
     }
 
     @ParameterizedTest

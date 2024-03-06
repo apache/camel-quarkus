@@ -39,15 +39,15 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 public class CamelBeansUnremovableTest {
 
-    static final String RESSOURCE_PATH = "org/apache/camel/quarkus/core/runtime/"
+    static final String RESOURCE_PATH = "META-INF/org/apache/camel/quarkus/core/runtime/"
             + CamelBeansUnremovableTest.class.getSimpleName();
 
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addAsResource("custom-component.json", RESSOURCE_PATH + "/custom-component.json")
-                    .addAsResource("custom-dataformat.json", RESSOURCE_PATH + "/custom-dataformat.json")
-                    .addAsResource("custom-language.json", RESSOURCE_PATH + "/custom-language.json"));
+                    .addAsResource("custom-component.json", RESOURCE_PATH + "/custom-component.json")
+                    .addAsResource("custom-dataformat.json", RESOURCE_PATH + "/custom-dataformat.json")
+                    .addAsResource("custom-language.json", RESOURCE_PATH + "/custom-language.json"));
 
     @Inject
     CamelContext context;
