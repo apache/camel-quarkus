@@ -49,6 +49,10 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-seda</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-support-webhook</artifactId>
         </dependency>
         <dependency>

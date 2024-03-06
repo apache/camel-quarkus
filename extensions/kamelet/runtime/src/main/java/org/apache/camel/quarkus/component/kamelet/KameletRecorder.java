@@ -58,6 +58,11 @@ public class KameletRecorder {
                                 }
                             }
                         }
+                        //return references to camelContext https://github.com/apache/camel-quarkus/issues/5849
+                        definition.setCamelContext(context);
+                        if (definition.getRoute() != null && definition.getRoute().getOutputs() != null) {
+                            definition.getRoute().getOutputs().forEach(o -> o.setCamelContext(context));
+                        }
                     }
                     context.getCamelContextExtension().getContextPlugin(Model.class).addRouteTemplateDefinitions(definitions);
                 } catch (Exception e) {

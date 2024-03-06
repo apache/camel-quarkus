@@ -45,8 +45,18 @@ public class BuildTimeJsonSchemaResolver implements JSonSchemaResolver {
     }
 
     @Override
+    public String getDevConsoleJSonSchema(String name) {
+        throw new UnsupportedOperationException("DevConsole JSON schema resolution is not supported");
+    }
+
+    @Override
     public String getLanguageJSonSchema(String name) {
         return resolveJsonSchema("language", name);
+    }
+
+    @Override
+    public String getTransformerJSonSchema(String name) {
+        throw new UnsupportedOperationException("Transformer JSON schema resolution is not supported");
     }
 
     @Override
@@ -62,6 +72,11 @@ public class BuildTimeJsonSchemaResolver implements JSonSchemaResolver {
     @Override
     public String getMainJsonSchema() {
         throw new UnsupportedOperationException("Main JSON schema resolution is not supported");
+    }
+
+    @Override
+    public String getPojoBeanJSonSchema(String name) {
+        throw new UnsupportedOperationException("Pojo bean JSON schema resolution is not supported");
     }
 
     public Set<SchemaResource> getSchemaResources() {

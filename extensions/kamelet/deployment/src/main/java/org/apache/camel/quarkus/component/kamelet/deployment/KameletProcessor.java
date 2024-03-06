@@ -130,6 +130,11 @@ class KameletProcessor {
             resource.setLocation(originalResource.getLocation());
             resource.setExists(originalResource.exists());
             definition.setResource(resource);
+            //remove references to camelContext https://github.com/apache/camel-quarkus/issues/5849
+            definition.setCamelContext(null);
+            if (definition.getRoute() != null && definition.getRoute().getOutputs() != null) {
+                definition.getRoute().getOutputs().forEach(o -> o.setCamelContext(null));
+            }
         });
 
         return new CamelContextCustomizerBuildItem(

@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 
-import org.apache.camel.catalog.Kind;
+import org.apache.camel.tooling.model.Kind;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;

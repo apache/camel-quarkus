@@ -76,7 +76,7 @@ class JavaJoorDslTest {
                 .then()
                 .statusCode(200)
                 .body(CoreMatchers.is(
-                        "inner-classes-route,my-java-route,reflection-route,routes-with-bean,routes-with-inner-bean,routes-with-nested-class,routes-with-rest,routes-with-rest-get,routes-with-template"));
+                        "inner-classes-route,my-java-route,reflection-route,routes-with-bean,routes-with-inner-bean,routes-with-nested-class,routes-with-rest,routes-with-template"));
 
         RestAssured.given()
                 .get("/java-joor-dsl/main/successful/routes")

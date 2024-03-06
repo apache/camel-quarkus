@@ -54,7 +54,7 @@ class KotlinDslTest {
                 .then()
                 .statusCode(200)
                 .body(CoreMatchers.is(
-                        "my-kotlin-route,routes,routes-with-components-configuration,routes-with-dataformats-configuration,routes-with-endpoint-dsl,routes-with-error-handler,routes-with-languages-configuration,routes-with-rest,routes-with-rest-dsl-get,routes-with-rest-dsl-post,routes-with-rest-get,routes-with-rest-post"));
+                        "my-kotlin-route,routes,routes-with-components-configuration,routes-with-dataformats-configuration,routes-with-endpoint-dsl,routes-with-error-handler,routes-with-languages-configuration,routes-with-rest,routes-with-rest-dsl-get,routes-with-rest-dsl-post"));
 
         RestAssured.given()
                 .get("/kotlin-dsl/main/successful/routes")
