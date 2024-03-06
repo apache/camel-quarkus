@@ -47,12 +47,12 @@ public class PlatformHttpRouteBuilder extends RouteBuilder {
 
         rest()
                 .get("/platform-http/rest-get")
-                .to("direct:echoMethodPath")
+                .to("seda:echoMethodPath")
                 .post("/platform-http/rest-post")
                 .consumes("text/plain").produces("text/plain")
-                .to("direct:echoMethodPath");
+                .to("seda:echoMethodPath");
 
-        from("direct:echoMethodPath")
+        from("seda:echoMethodPath")
                 .setBody().simple("${header.CamelHttpMethod}: ${header.CamelHttpPath}");
 
         from("direct:greet")

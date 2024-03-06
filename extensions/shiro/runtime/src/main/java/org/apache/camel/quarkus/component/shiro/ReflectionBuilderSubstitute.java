@@ -18,9 +18,9 @@ package org.apache.camel.quarkus.component.shiro;
 
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
-import org.apache.shiro.config.DefaultInterpolator;
-import org.apache.shiro.config.Interpolator;
-import org.apache.shiro.config.ReflectionBuilder;
+import org.apache.shiro.config.ogdl.DefaultInterpolator;
+import org.apache.shiro.config.ogdl.Interpolator;
+import org.apache.shiro.config.ogdl.ReflectionBuilder;
 
 @TargetClass(value = ReflectionBuilder.class)
 final class ReflectionBuilderSubstitute {

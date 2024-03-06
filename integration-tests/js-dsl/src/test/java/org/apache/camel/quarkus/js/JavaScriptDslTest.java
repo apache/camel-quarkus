@@ -54,7 +54,7 @@ class JavaScriptDslTest {
                 .then()
                 .statusCode(200)
                 .body(CoreMatchers.is(
-                        "my-js-route,routes-with-component-configuration,routes-with-context-configuration,routes-with-endpoint-dsl,routes-with-modules,routes-with-processors-consumer,routes-with-processors-processor,routes-with-rest-configuration,routes-with-rest-configuration-goodbye,routes-with-rest-dsl,routes-with-rest-dsl-hello"));
+                        "my-js-route,routes-with-component-configuration,routes-with-context-configuration,routes-with-endpoint-dsl,routes-with-modules,routes-with-processors-consumer,routes-with-processors-processor,routes-with-rest-configuration-goodbye,routes-with-rest-dsl-hello"));
 
         RestAssured.given()
                 .get("/js-dsl/main/successful/routes")

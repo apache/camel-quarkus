@@ -222,4 +222,11 @@ public class MicrometerResource {
         }
         return Response.ok().build();
     }
+
+    @Path("/sendDumpAsJson")
+    @GET
+    public Response sendDumpAsJson() {
+        producerTemplate.sendBody("direct:dumpAsJson", "hello");
+        return Response.ok().build();
+    }
 }

@@ -18,27 +18,27 @@
 - rest:
     get:
       - path: "/rest"
-        to: "direct:echoMethodPath"
+        to: "seda:choMethodPath"
     post:
       - path: "/rest"
-        to: "direct:echoMethodPath"
+        to: "seda:choMethodPath"
     patch:
       - path: "/rest"
-        to: "direct:echoMethodPath"
+        to: "seda:choMethodPath"
     put:
       - path: "/rest"
-        to: "direct:echoMethodPath"
+        to: "seda:choMethodPath"
     delete:
       - path: "/rest"
-        to: "direct:echoMethodPath"
+        to: "seda:choMethodPath"
     head:
       - path: "/rest"
-        to: "direct:echoMethodPath"
+        to: "seda:choMethodPath"
 
 - route:
     id: "rest-route"
     from:
-      uri: "direct:echoMethodPath"
+      uri: "seda:choMethodPath"
       steps:
         - setBody:
             simple: "${header.CamelHttpMethod}: ${header.CamelHttpPath}"

@@ -55,5 +55,8 @@ public class MicrometerRoutes extends RouteBuilder {
                 .id("jmxHistory")
                 .log("log: ${body}");
 
+        from("direct:dumpAsJson")
+                .id("dumpAsJson")
+                .log("log: ${body}");
     }
 }

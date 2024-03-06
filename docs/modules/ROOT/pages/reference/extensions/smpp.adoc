@@ -23,7 +23,7 @@ Send and receive SMS messages using a SMSC (Short Message Service Center).
 == What's inside
 
 * xref:{cq-camel-components}::smpp-component.adoc[SMPP component], URI syntax: `smpp:host:port`
-* xref:{cq-camel-components}::smpp-component.adoc[SMPP (Secure) component], URI syntax: `smpps:host:port`
+* xref:{cq-camel-components}::smpps-component.adoc[SMPP (Secure) component], URI syntax: `smpps:host:port`
 
 Please refer to the above links for usage and configuration details.
 
