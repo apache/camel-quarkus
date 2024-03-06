@@ -35,6 +35,7 @@ import org.apache.camel.tooling.model.DataFormatModel;
 import org.apache.camel.tooling.model.LanguageModel;
 import org.apache.camel.tooling.model.OtherModel;
 import org.apache.camel.tooling.model.SupportLevel;
+import org.apache.camel.tooling.model.TransformerModel;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -133,6 +134,8 @@ public class PrepareCatalogQuarkusMojo extends AbstractExtensionListMojo {
                             model = new LanguageModel();
                         } else if (extKind == Kind.dataformat) {
                             model = new DataFormatModel();
+                        } else if (extKind == Kind.transformer) {
+                            model = new TransformerModel();
                         } else {
                             model = new OtherModel();
                         }

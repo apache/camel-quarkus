@@ -179,6 +179,8 @@ public class CqUtils {
             return "data format";
         case language:
             return "language";
+        case transformer:
+            return "transformer";
         case other:
             return "misc. component";
         default:

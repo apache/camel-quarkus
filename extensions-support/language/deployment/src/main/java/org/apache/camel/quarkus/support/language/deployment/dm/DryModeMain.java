@@ -51,7 +51,7 @@ public class DryModeMain extends MainSupport {
     @Override
     protected CamelContext createCamelContext() {
         DefaultCamelContext ctx = new DefaultCamelContext(false);
-        ctx.setName(getAppName());
+        ctx.getCamelContextExtension().setName(getAppName());
         ctx.setInjector(new DryModeInjector(ctx.getInjector()));
 
         ExtendedCamelContext extendedCamelContext = ctx.getCamelContextExtension();

@@ -8,6 +8,6 @@ cqDeprecated: false
 cqJvmSince: 1.1.0
 cqNativeSince: n/a
 cqCamelPartName: wordpress
-cqCamelPartTitle: Wordpress
-cqCamelPartDescription: Manage posts and users using Wordpress API.
+cqCamelPartTitle: WordPress
+cqCamelPartDescription: Manage posts and users using the WordPress API.
 cqExtensionPageTitle: Wordpress

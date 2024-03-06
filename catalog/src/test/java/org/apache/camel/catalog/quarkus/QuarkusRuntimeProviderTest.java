@@ -184,6 +184,16 @@ public class QuarkusRuntimeProviderTest {
     }
 
     @Test
+    public void testFindTransformers() throws Exception {
+        List<String> names = catalog.findTransformerNames();
+
+        assertNotNull(names);
+        assertFalse(names.isEmpty());
+
+        assertTrue(names.contains("azure-storage-blob:application-cloudevents"));
+    }
+
+    @Test
     public void testComponentArtifactId() throws Exception {
         String json = catalog.componentJSonSchema("salesforce");
 

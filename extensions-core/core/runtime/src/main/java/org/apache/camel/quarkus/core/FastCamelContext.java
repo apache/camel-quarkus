@@ -203,7 +203,8 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
         if (instance != null) {
             clazz = instance.getClass();
         } else {
-            clazz = getFactoryFinder(DefaultComponentResolver.RESOURCE_PATH).findClass(componentName).orElse(null);
+            clazz = getCamelContextExtension().getFactoryFinder(DefaultComponentResolver.RESOURCE_PATH).findClass(componentName)
+                    .orElse(null);
             if (clazz == null) {
                 instance = hasComponent(componentName);
                 if (instance != null) {
@@ -230,7 +231,8 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
         if (instance != null) {
             clazz = instance.getClass();
         } else {
-            clazz = getFactoryFinder(DefaultDataFormatResolver.DATAFORMAT_RESOURCE_PATH).findClass(dataFormatName).orElse(null);
+            clazz = getCamelContextExtension().getFactoryFinder(DefaultDataFormatResolver.DATAFORMAT_RESOURCE_PATH)
+                    .findClass(dataFormatName).orElse(null);
             if (clazz == null) {
                 return null;
             }
@@ -247,7 +249,8 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
         if (instance != null) {
             clazz = instance.getClass();
         } else {
-            clazz = getFactoryFinder(DefaultLanguageResolver.LANGUAGE_RESOURCE_PATH).findClass(languageName).orElse(null);
+            clazz = getCamelContextExtension().getFactoryFinder(DefaultLanguageResolver.LANGUAGE_RESOURCE_PATH)
+                    .findClass(languageName).orElse(null);
             if (clazz == null) {
                 return null;
             }
@@ -257,7 +260,7 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
     }
 
     private String getJsonSchema(String packageName, String name) throws IOException {
-        String path = packageName.replace('.', '/') + "/" + name + ".json";
+        String path = "META-INF/" + packageName.replace('.', '/') + "/" + name + ".json";
         InputStream inputStream = getClassResolver().loadResourceAsStream(path);
 
         if (inputStream != null) {
