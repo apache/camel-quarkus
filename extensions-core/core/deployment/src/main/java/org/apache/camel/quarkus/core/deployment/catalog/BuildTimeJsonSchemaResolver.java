@@ -50,6 +50,11 @@ public class BuildTimeJsonSchemaResolver implements JSonSchemaResolver {
     }
 
     @Override
+    public String getTransformerJSonSchema(String name) {
+        throw new UnsupportedOperationException("Transformer JSON schema resolution is not supported");
+    }
+
+    @Override
     public String getOtherJSonSchema(String name) {
         throw new UnsupportedOperationException("Other JSON schema resolution is not supported");
     }

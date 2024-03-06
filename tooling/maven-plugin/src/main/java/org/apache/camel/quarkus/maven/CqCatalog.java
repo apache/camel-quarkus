@@ -43,6 +43,7 @@ import org.apache.camel.tooling.model.DataFormatModel;
 import org.apache.camel.tooling.model.JsonMapper;
 import org.apache.camel.tooling.model.LanguageModel;
 import org.apache.camel.tooling.model.OtherModel;
+import org.apache.camel.tooling.model.TransformerModel;
 
 public class CqCatalog {
 
@@ -181,7 +182,7 @@ public class CqCatalog {
 
     static void serialize(final Path catalogPath, ArtifactModel<?> model) {
         final Path out = catalogPath.resolve(model.getKind() + "s")
-                .resolve(model.getName() + ".json");
+                .resolve(model.getName().replace(":", "-") + ".json");
         try {
             Files.createDirectories(out.getParent());
         } catch (IOException e) {
@@ -197,6 +198,9 @@ public class CqCatalog {
             break;
         case dataformat:
             rawJson = JsonMapper.createParameterJsonSchema((DataFormatModel) model);
+            break;
+        case transformer:
+            rawJson = JsonMapper.createParameterJsonSchema((TransformerModel) model);
             break;
         case other:
             rawJson = JsonMapper.createJsonSchema((OtherModel) model);
@@ -321,10 +325,12 @@ public class CqCatalog {
         private static final String COMPONENT_DIR = CQ_CATALOG_DIR + "/components";
         private static final String DATAFORMAT_DIR = CQ_CATALOG_DIR + "/dataformats";
         private static final String LANGUAGE_DIR = CQ_CATALOG_DIR + "/languages";
+        private static final String TRANSFORMER_DIR = CQ_CATALOG_DIR + "/transformers";
         private static final String OTHER_DIR = CQ_CATALOG_DIR + "/others";
         private static final String COMPONENTS_CATALOG = CQ_CATALOG_DIR + "/components.properties";
         private static final String DATA_FORMATS_CATALOG = CQ_CATALOG_DIR + "/dataformats.properties";
         private static final String LANGUAGE_CATALOG = CQ_CATALOG_DIR + "/languages.properties";
+        private static final String TRANSFORMER_CATALOG = CQ_CATALOG_DIR + "/transformers.properties";
         private static final String OTHER_CATALOG = CQ_CATALOG_DIR + "/others.properties";
 
         private CamelCatalog camelCatalog;
@@ -374,6 +380,11 @@ public class CqCatalog {
         }
 
         @Override
+        public String getTransformerJSonSchemaDirectory() {
+            return TRANSFORMER_DIR;
+        }
+
+        @Override
         public String getOtherJSonSchemaDirectory() {
             return OTHER_DIR;
         }
@@ -388,6 +399,10 @@ public class CqCatalog {
 
         protected String getLanguageCatalog() {
             return LANGUAGE_CATALOG;
+        }
+
+        protected String getTransformerCatalog() {
+            return TRANSFORMER_CATALOG;
         }
 
         protected String getOtherCatalog() {
@@ -426,6 +441,20 @@ public class CqCatalog {
         public List<String> findLanguageNames() {
             List<String> names = new ArrayList<>();
             InputStream is = getCamelCatalog().getVersionManager().getResourceAsStream(getLanguageCatalog());
+            if (is != null) {
+                try {
+                    CatalogHelper.loadLines(is, names);
+                } catch (IOException e) {
+                    // ignore
+                }
+            }
+            return names;
+        }
+
+        @Override
+        public List<String> findTransformerNames() {
+            List<String> names = new ArrayList<>();
+            InputStream is = getCamelCatalog().getVersionManager().getResourceAsStream(getTransformerCatalog());
             if (is != null) {
                 try {
                     CatalogHelper.loadLines(is, names);

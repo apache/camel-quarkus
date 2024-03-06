@@ -35,10 +35,12 @@ public class QuarkusRuntimeProvider implements RuntimeProvider {
     private static final String COMPONENT_DIR = "org/apache/camel/catalog/quarkus/components";
     private static final String DATAFORMAT_DIR = "org/apache/camel/catalog/quarkus/dataformats";
     private static final String LANGUAGE_DIR = "org/apache/camel/catalog/quarkus/languages";
+    private static final String TRANSFORMER_DIR = "org/apache/camel/catalog/quarkus/transformers";
     private static final String OTHER_DIR = "org/apache/camel/catalog/quarkus/others";
     private static final String COMPONENTS_CATALOG = "org/apache/camel/catalog/quarkus/components.properties";
     private static final String DATA_FORMATS_CATALOG = "org/apache/camel/catalog/quarkus/dataformats.properties";
     private static final String LANGUAGE_CATALOG = "org/apache/camel/catalog/quarkus/languages.properties";
+    private static final String TRANSFORMER_CATALOG = "org/apache/camel/catalog/quarkus/transformers.properties";
     private static final String OTHER_CATALOG = "org/apache/camel/catalog/quarkus/others.properties";
 
     private CamelCatalog camelCatalog;
@@ -84,6 +86,11 @@ public class QuarkusRuntimeProvider implements RuntimeProvider {
     }
 
     @Override
+    public String getTransformerJSonSchemaDirectory() {
+        return TRANSFORMER_DIR;
+    }
+
+    @Override
     public String getOtherJSonSchemaDirectory() {
         return OTHER_DIR;
     }
@@ -120,6 +127,20 @@ public class QuarkusRuntimeProvider implements RuntimeProvider {
     public List<String> findLanguageNames() {
         List<String> names = new ArrayList<>();
         InputStream is = camelCatalog.getVersionManager().getResourceAsStream(LANGUAGE_CATALOG);
+        if (is != null) {
+            try {
+                CatalogHelper.loadLines(is, names);
+            } catch (IOException e) {
+                // ignore
+            }
+        }
+        return names;
+    }
+
+    @Override
+    public List<String> findTransformerNames() {
+        List<String> names = new ArrayList<>();
+        InputStream is = camelCatalog.getVersionManager().getResourceAsStream(TRANSFORMER_CATALOG);
         if (is != null) {
             try {
                 CatalogHelper.loadLines(is, names);
