@@ -1426,6 +1426,15 @@
                 <artifactId>camel-infinispan</artifactId>
                 <version>${camel.version}</version>
                 <exclusions>
+                    <!-- TODO: https://github.com/apache/camel-quarkus/issues/5844 -->
+                    <exclusion>
+                        <groupId>org.infinispan</groupId>
+                        <artifactId>infinispan-commons-jakarta</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.infinispan</groupId>
+                        <artifactId>infinispan-client-hotrod-jakarta</artifactId>
+                    </exclusion>
                     <exclusion>
                         <groupId>org.slf4j</groupId>
                         <artifactId>jcl-over-slf4j</artifactId>
