@@ -6124,7 +6124,7 @@
       <dependency>
         <groupId>com.github.mwiede</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>jsch</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>0.2.16</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>0.2.17</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>com.google.auth</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -6351,12 +6351,12 @@
       <dependency>
         <groupId>io.quarkiverse.jsch</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-jsch</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.0.6</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.0.7</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jsch</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-jsch-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.0.6</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.0.7</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.messaginghub</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
