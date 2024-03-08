@@ -54,7 +54,7 @@ class GroovyDslTest {
                 .then()
                 .statusCode(200)
                 .body(CoreMatchers.is(
-                        "my-groovy-route,routes-with-components-configuration,routes-with-dataformats-configuration,routes-with-eip-body,routes-with-eip-exchange,routes-with-eip-message,routes-with-eip-process,routes-with-eip-setBody,routes-with-endpoint-dsl,routes-with-error-handler,routes-with-languages-configuration,routes-with-rest,routes-with-rest-dsl-get,routes-with-rest-dsl-post,routes-with-rest-get,routes-with-rest-post"));
+                        "my-groovy-route,routes-with-components-configuration,routes-with-dataformats-configuration,routes-with-eip-body,routes-with-eip-exchange,routes-with-eip-message,routes-with-eip-process,routes-with-eip-setBody,routes-with-endpoint-dsl,routes-with-error-handler,routes-with-languages-configuration,routes-with-rest,routes-with-rest-dsl-get,routes-with-rest-dsl-post"));
         RestAssured.given()
                 .get("/groovy-dsl/main/successful/routes")
                 .then()

@@ -21,14 +21,12 @@ rest {
 
     path("/my/path") {
         get("/get") {
-            id("routes-with-rest-get")
             produces("text/plain")
             to("direct:get")
         }
     }
 
     post {
-        id("routes-with-rest-post")
         path("/post")
         consumes("text/plain")
         produces("text/plain")
