@@ -102,14 +102,14 @@ public class OpenApiRoutes extends RouteBuilder {
                 .code("error")
                 .message("Response Error")
                 .endResponseMessage()
-                .to("direct:echoMethodPath")
+                .to("seda:echoMethodPath")
 
                 .get("/security/scopes")
                 .security("OAuth2", "scope1,scope2,scope3")
-                .to("direct:echoMethodPath")
+                .to("seda:echoMethodPath")
 
                 .get("/security/api/key")
-                .to("direct:echoMethodPath")
+                .to("seda:echoMethodPath")
                 .securityDefinitions()
                 .apiKey("X-API-Key", "The API key")
                 .withHeader("X-API-KEY")
@@ -117,13 +117,13 @@ public class OpenApiRoutes extends RouteBuilder {
                 .end()
 
                 .get("/security/basic/auth")
-                .to("direct:echoMethodPath")
+                .to("seda:echoMethodPath")
                 .securityDefinitions()
                 .basicAuth("basicAuth", "Basic Authentication")
                 .end()
 
                 .get("/security/oauth2")
-                .to("direct:echoMethodPath")
+                .to("seda:echoMethodPath")
                 .securityDefinitions()
                 .oauth2("oauth2", "OAuth2 Authentication")
                 .flow("implicit")
@@ -137,19 +137,19 @@ public class OpenApiRoutes extends RouteBuilder {
         if (openApiVersion.startsWith("3")) {
             rest()
                     .get("/security/bearer/token")
-                    .to("direct:echoMethodPath")
+                    .to("seda:echoMethodPath")
                     .securityDefinitions()
                     .bearerToken("bearerAuth", "Bearer Token Authentication")
                     .end()
 
                     .get("/security/mutual/tls")
-                    .to("direct:echoMethodPath")
+                    .to("seda:echoMethodPath")
                     .securityDefinitions()
                     .mutualTLS("mutualTLS")
                     .end()
 
                     .get("/security/openid")
-                    .to("direct:echoMethodPath")
+                    .to("seda:echoMethodPath")
                     .securityDefinitions()
                     .openIdConnect("openId", "https://secure.apache.org/fake/openid-configuration")
                     .end()
@@ -227,7 +227,7 @@ public class OpenApiRoutes extends RouteBuilder {
                     .arrayType("password")
                     .allowableValues("foo", "bar", "cheese")
                     .endParam()
-                    .to("direct:echoMethodPath");
+                    .to("seda:echoMethodPath");
 
             rest("/form")
                     .post("/oneOf")
@@ -242,7 +242,7 @@ public class OpenApiRoutes extends RouteBuilder {
                     .code(200).message("Ok")
                     .endResponseMessage()
 
-                    .to("direct:res");
+                    .to("seda:res");
 
             rest("/form")
                     .post("/allOf")
@@ -257,7 +257,7 @@ public class OpenApiRoutes extends RouteBuilder {
                     .code(200).message("Ok")
                     .endResponseMessage()
 
-                    .to("direct:res");
+                    .to("seda:res");
 
             rest("/form")
                     .post("/anyOf")
@@ -272,17 +272,17 @@ public class OpenApiRoutes extends RouteBuilder {
                     .code(200).message("Ok")
                     .endResponseMessage()
 
-                    .to("direct:res");
+                    .to("seda:res");
         }
 
         from("direct:fruits")
                 .setBody().constant(getFruits())
                 .marshal().json();
 
-        from("direct:echoMethodPath")
+        from("seda:echoMethodPath")
                 .setBody().simple("${header.CamelHttpMethod}: ${header.CamelHttpPath}");
 
-        from("direct:res")
+        from("seda:res")
                 .setBody(constant("{\"result\": \"Ok\"}"));
     }
 
