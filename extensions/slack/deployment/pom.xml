@@ -38,6 +38,11 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-slack</artifactId>
         </dependency>
+        <!-- Optional dependency, if not present Quarkus complains about missing class -->
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-cloudevents-deployment</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
