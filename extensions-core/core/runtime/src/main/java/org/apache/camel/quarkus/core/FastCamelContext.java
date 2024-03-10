@@ -24,9 +24,11 @@ import org.apache.camel.CatalogCamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.component.microprofile.config.CamelMicroProfilePropertiesSource;
+import org.apache.camel.console.DevConsole;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.engine.DefaultComponentResolver;
 import org.apache.camel.impl.engine.DefaultDataFormatResolver;
+import org.apache.camel.impl.engine.DefaultDevConsoleResolver;
 import org.apache.camel.impl.engine.DefaultLanguageResolver;
 import org.apache.camel.impl.engine.DefaultShutdownStrategy;
 import org.apache.camel.model.ModelCamelContext;
@@ -239,6 +241,24 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
         }
 
         return getJsonSchema(clazz.getPackage().getName(), dataFormatName);
+    }
+
+    @Override
+    public String getDevConsoleParameterJsonSchema(String devConsoleName) throws IOException {
+        Class<?> clazz;
+
+        Object instance = getRegistry().lookupByNameAndType(devConsoleName, DevConsole.class);
+        if (instance != null) {
+            clazz = instance.getClass();
+        } else {
+            clazz = getCamelContextExtension().getFactoryFinder(DefaultDevConsoleResolver.DEV_CONSOLE_RESOURCE_PATH)
+                    .findClass(devConsoleName).orElse(null);
+            if (clazz == null) {
+                return null;
+            }
+        }
+
+        return getJsonSchema(clazz.getPackage().getName(), devConsoleName);
     }
 
     @Override

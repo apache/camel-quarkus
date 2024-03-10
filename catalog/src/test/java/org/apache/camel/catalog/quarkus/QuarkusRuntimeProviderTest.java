@@ -153,6 +153,18 @@ public class QuarkusRuntimeProviderTest {
     }
 
     @Test
+    public void testFindDevConsoleNames() throws Exception {
+        List<String> names = catalog.findDevConsoleNames();
+
+        assertNotNull(names);
+        assertFalse(names.isEmpty());
+
+        assertTrue(names.contains("context"));
+        assertTrue(names.contains("endpoint"));
+        assertTrue(names.contains("jvm"));
+    }
+
+    @Test
     public void testFindLanguageNames() throws Exception {
         List<String> names = catalog.findLanguageNames();
 

@@ -40,6 +40,7 @@ import org.apache.camel.catalog.impl.CatalogHelper;
 import org.apache.camel.tooling.model.ArtifactModel;
 import org.apache.camel.tooling.model.ComponentModel;
 import org.apache.camel.tooling.model.DataFormatModel;
+import org.apache.camel.tooling.model.DevConsoleModel;
 import org.apache.camel.tooling.model.JsonMapper;
 import org.apache.camel.tooling.model.LanguageModel;
 import org.apache.camel.tooling.model.OtherModel;
@@ -164,8 +165,7 @@ public class CqCatalog {
     }
 
     public Stream<ArtifactModel<?>> models() {
-        return kinds()
-                .flatMap(kind -> models(kind));
+        return kinds().flatMap(this::models);
     }
 
     public Stream<ArtifactModel<?>> models(org.apache.camel.catalog.Kind kind) {
@@ -193,11 +193,14 @@ public class CqCatalog {
         case component:
             rawJson = JsonMapper.createParameterJsonSchema((ComponentModel) model);
             break;
-        case language:
-            rawJson = JsonMapper.createParameterJsonSchema((LanguageModel) model);
+        case console:
+            rawJson = JsonMapper.createParameterJsonSchema((DevConsoleModel) model);
             break;
         case dataformat:
             rawJson = JsonMapper.createParameterJsonSchema((DataFormatModel) model);
+            break;
+        case language:
+            rawJson = JsonMapper.createParameterJsonSchema((LanguageModel) model);
             break;
         case transformer:
             rawJson = JsonMapper.createParameterJsonSchema((TransformerModel) model);
@@ -324,11 +327,13 @@ public class CqCatalog {
 
         private static final String COMPONENT_DIR = CQ_CATALOG_DIR + "/components";
         private static final String DATAFORMAT_DIR = CQ_CATALOG_DIR + "/dataformats";
+        private static final String DEV_CONSOLE_DIR = CQ_CATALOG_DIR + "/consoles";
         private static final String LANGUAGE_DIR = CQ_CATALOG_DIR + "/languages";
         private static final String TRANSFORMER_DIR = CQ_CATALOG_DIR + "/transformers";
         private static final String OTHER_DIR = CQ_CATALOG_DIR + "/others";
         private static final String COMPONENTS_CATALOG = CQ_CATALOG_DIR + "/components.properties";
         private static final String DATA_FORMATS_CATALOG = CQ_CATALOG_DIR + "/dataformats.properties";
+        private static final String DEV_CONSOLE_CATALOG = CQ_CATALOG_DIR + "/consoles.properties";
         private static final String LANGUAGE_CATALOG = CQ_CATALOG_DIR + "/languages.properties";
         private static final String TRANSFORMER_CATALOG = CQ_CATALOG_DIR + "/transformers.properties";
         private static final String OTHER_CATALOG = CQ_CATALOG_DIR + "/others.properties";
@@ -375,6 +380,11 @@ public class CqCatalog {
         }
 
         @Override
+        public String getDevConsoleJSonSchemaDirectory() {
+            return DEV_CONSOLE_DIR;
+        }
+
+        @Override
         public String getLanguageJSonSchemaDirectory() {
             return LANGUAGE_DIR;
         }
@@ -395,6 +405,10 @@ public class CqCatalog {
 
         protected String getDataFormatsCatalog() {
             return DATA_FORMATS_CATALOG;
+        }
+
+        private String getDevConsoleCatalog() {
+            return DEV_CONSOLE_CATALOG;
         }
 
         protected String getLanguageCatalog() {
@@ -427,6 +441,20 @@ public class CqCatalog {
         public List<String> findDataFormatNames() {
             List<String> names = new ArrayList<>();
             InputStream is = getCamelCatalog().getVersionManager().getResourceAsStream(getDataFormatsCatalog());
+            if (is != null) {
+                try {
+                    CatalogHelper.loadLines(is, names);
+                } catch (IOException e) {
+                    // ignore
+                }
+            }
+            return names;
+        }
+
+        @Override
+        public List<String> findDevConsoleNames() {
+            List<String> names = new ArrayList<>();
+            InputStream is = getCamelCatalog().getVersionManager().getResourceAsStream(getDevConsoleCatalog());
             if (is != null) {
                 try {
                     CatalogHelper.loadLines(is, names);

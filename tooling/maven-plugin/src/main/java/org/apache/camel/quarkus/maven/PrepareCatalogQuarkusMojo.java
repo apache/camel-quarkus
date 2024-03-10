@@ -32,6 +32,7 @@ import org.apache.camel.catalog.Kind;
 import org.apache.camel.tooling.model.ArtifactModel;
 import org.apache.camel.tooling.model.ComponentModel;
 import org.apache.camel.tooling.model.DataFormatModel;
+import org.apache.camel.tooling.model.DevConsoleModel;
 import org.apache.camel.tooling.model.LanguageModel;
 import org.apache.camel.tooling.model.OtherModel;
 import org.apache.camel.tooling.model.SupportLevel;
@@ -130,10 +131,12 @@ public class PrepareCatalogQuarkusMojo extends AbstractExtensionListMojo {
                         final Kind extKind = ext.getKind();
                         if (extKind == Kind.component) {
                             model = new ComponentModel();
-                        } else if (extKind == Kind.language) {
-                            model = new LanguageModel();
+                        } else if (extKind == Kind.console) {
+                            model = new DevConsoleModel();
                         } else if (extKind == Kind.dataformat) {
                             model = new DataFormatModel();
+                        } else if (extKind == Kind.language) {
+                            model = new LanguageModel();
                         } else if (extKind == Kind.transformer) {
                             model = new TransformerModel();
                         } else {

@@ -43,6 +43,7 @@ import org.apache.camel.Producer;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.impl.engine.DefaultComponentResolver;
 import org.apache.camel.impl.engine.DefaultDataFormatResolver;
+import org.apache.camel.impl.engine.DefaultDevConsoleResolver;
 import org.apache.camel.impl.engine.DefaultLanguageResolver;
 import org.apache.camel.impl.engine.DefaultTransformerResolver;
 import org.apache.camel.quarkus.core.CamelConfig;
@@ -188,6 +189,10 @@ public class CamelNativeImageProcessor {
                     }
                     if (config.runtimeCatalog.dataformats
                             && service.path.startsWith(DefaultDataFormatResolver.DATAFORMAT_RESOURCE_PATH)) {
+                        resources.add(new NativeImageResourceBuildItem(jsonPath));
+                    }
+                    if (config.runtimeCatalog.devconsoles
+                            && service.path.startsWith(DefaultDevConsoleResolver.DEV_CONSOLE_RESOURCE_PATH)) {
                         resources.add(new NativeImageResourceBuildItem(jsonPath));
                     }
                     if (config.runtimeCatalog.languages
