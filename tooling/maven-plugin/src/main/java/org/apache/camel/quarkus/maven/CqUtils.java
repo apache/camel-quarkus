@@ -175,6 +175,8 @@ public class CqUtils {
         switch (kind) {
         case component:
             return "component";
+        case console:
+            return "console";
         case dataformat:
             return "data format";
         case language:
@@ -265,6 +267,8 @@ public class CqUtils {
         switch (kind) {
         case component:
             return JsonMapper.generateComponentModel(JsonMapper.asJsonObject((ComponentModel) model));
+        case console:
+            return null;
         case dataformat:
             return JsonMapper.generateDataFormatModel(JsonMapper.asJsonObject((DataFormatModel) model));
         case language:

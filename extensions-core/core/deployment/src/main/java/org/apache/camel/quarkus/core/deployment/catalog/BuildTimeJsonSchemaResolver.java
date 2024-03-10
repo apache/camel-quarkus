@@ -45,6 +45,11 @@ public class BuildTimeJsonSchemaResolver implements JSonSchemaResolver {
     }
 
     @Override
+    public String getDevConsoleJSonSchema(String name) {
+        throw new UnsupportedOperationException("DevConsole JSON schema resolution is not supported");
+    }
+
+    @Override
     public String getLanguageJSonSchema(String name) {
         return resolveJsonSchema("language", name);
     }

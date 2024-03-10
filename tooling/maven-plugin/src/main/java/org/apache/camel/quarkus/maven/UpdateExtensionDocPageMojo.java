@@ -55,6 +55,7 @@ import org.apache.camel.quarkus.maven.processor.SectionIdPostProcessor;
 import org.apache.camel.tooling.model.ArtifactModel;
 import org.apache.camel.tooling.model.BaseModel;
 import org.apache.camel.tooling.model.ComponentModel;
+import org.apache.camel.tooling.model.DevConsoleModel;
 import org.apache.camel.tooling.model.TransformerModel;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -112,6 +113,7 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                 templatesUriBase, encoding);
 
         final List<ArtifactModel<?>> models = catalog.filterModels(ext.getRuntimeArtifactIdBase())
+                .filter(artifactModel -> !(artifactModel instanceof DevConsoleModel))
                 .filter(artifactModel -> !(artifactModel instanceof TransformerModel))
                 .filter(artifactModel -> !artifactModel.getArtifactId().equals("camel-management"))
                 .filter(artifactModel -> !artifactModel.getArtifactId().equals("camel-yaml-io"))
