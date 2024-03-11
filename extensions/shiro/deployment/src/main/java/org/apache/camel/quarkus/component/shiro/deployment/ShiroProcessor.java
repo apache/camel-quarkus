@@ -32,7 +32,7 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.CamelAuthorizationException;
-import org.apache.shiro.ShiroException;
+import org.apache.shiro.lang.ShiroException;
 import org.jboss.jandex.DotName;
 
 class ShiroProcessor {
