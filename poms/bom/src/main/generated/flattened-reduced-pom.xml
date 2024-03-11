@@ -6442,7 +6442,7 @@
       <dependency>
         <groupId>io.swagger.parser.v3</groupId>
         <artifactId>swagger-parser</artifactId>
-        <version>2.1.20</version>
+        <version>2.1.21</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
