@@ -30,7 +30,7 @@ To give a specific name to the Servlet you can use the `quarkus.camel.servlet.se
 
 [source,properties]
 ----
-quarkus.camel.servlet.url-patterns = My Custom Name
+quarkus.camel.servlet.servlet-name = My Custom Name
 ----
 
 *Servlet class*
