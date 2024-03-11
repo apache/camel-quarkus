@@ -2063,6 +2063,29 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-qdrant</artifactId>
+        <version>4.5.0-SNAPSHOT</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.google.android</groupId>
+            <artifactId>annotations</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>checker-qual</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>animal-sniffer-annotations</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-quartz</artifactId>
         <version>4.5.0-SNAPSHOT</version>
         <exclusions>
@@ -4898,6 +4921,16 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-qdrant</artifactId>
+        <version>3.9.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-qdrant-deployment</artifactId>
+        <version>3.9.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-quartz</artifactId>
         <version>3.9.0-SNAPSHOT</version>
       </dependency>
@@ -6222,12 +6255,12 @@
       </dependency>
       <dependency>
         <groupId>com.squareup.okhttp3</groupId>
-        <artifactId>okhttp</artifactId>
+        <artifactId>logging-interceptor</artifactId>
         <version>4.12.0</version>
       </dependency>
       <dependency>
         <groupId>com.squareup.okhttp3</groupId>
-        <artifactId>logging-interceptor</artifactId>
+        <artifactId>okhttp</artifactId>
         <version>4.12.0</version>
       </dependency>
       <dependency>
@@ -7317,6 +7350,16 @@
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy</artifactId>
+        <version>4.0.18</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.groovy</groupId>
+        <artifactId>groovy-json</artifactId>
+        <version>4.0.18</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.groovy</groupId>
+        <artifactId>groovy-xml</artifactId>
         <version>4.0.18</version>
       </dependency>
       <dependency>

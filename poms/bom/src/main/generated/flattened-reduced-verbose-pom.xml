@@ -2063,6 +2063,29 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-qdrant</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>4.5.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.google.android</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>com.google.code.findbugs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>jsr305</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.checkerframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>checker-qual</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.codehaus.mojo</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>animal-sniffer-annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-quartz</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>4.5.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
@@ -4898,6 +4921,16 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-quarkus-qdrant</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.9.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-quarkus-qdrant-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.9.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-quarkus-quartz</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.9.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
@@ -6222,12 +6255,12 @@
       </dependency>
       <dependency>
         <groupId>com.squareup.okhttp3</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>okhttp</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>logging-interceptor</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>4.12.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>com.squareup.okhttp3</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>logging-interceptor</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>okhttp</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>4.12.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
@@ -7317,6 +7350,16 @@
       <dependency>
         <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
         <artifactId>groovy</artifactId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+        <version>4.0.18</version><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+        <artifactId>groovy-json</artifactId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+        <version>4.0.18</version><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+        <artifactId>groovy-xml</artifactId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
         <version>4.0.18</version><!-- org.apache.groovy:groovy-bom:4.0.18 -->
       </dependency>
       <dependency>
