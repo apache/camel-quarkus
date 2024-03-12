@@ -29,6 +29,7 @@ import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
+import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -39,7 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 class MicrometerTest extends AbstractMicrometerTest {
-
+    private static final Logger LOG = Logger.getLogger(MicrometerTest.class);
     @Test
     public void testMicrometerMetricsCounter() throws Exception {
         RestAssured.get("/micrometer/counter/0")
@@ -183,6 +184,8 @@ class MicrometerTest extends AbstractMicrometerTest {
         //extract required values
         Map<String, Float> result = jsonPath.getMap(
                 "gauges.findAll { it.id.name =~ /routes/ && it.id.tags.find { it.customTag } }.collectEntries { [it.id.name, it.value] }");
+        //todo remove for debugging purposes
+        LOG.info("Dumped json is " + result);
 
         assertEquals(result.size(), 3);
         assertTrue(result.containsKey("camel.routes.running"));
