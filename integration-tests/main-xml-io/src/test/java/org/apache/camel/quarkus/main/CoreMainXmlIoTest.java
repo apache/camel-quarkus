@@ -108,4 +108,14 @@ public class CoreMainXmlIoTest {
                 .body(Matchers.is("Hello World from ISO-8859-15 encoded route containing € symbol !"));
     }
 
+    @Test
+    public void beanTypeShouldSucceed() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("beanTypeShouldSucceed")
+                .post("/xml-io/route/withBeanType")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("beanTypeShouldSucceed-handled-by-MyBean"));
+    }
 }
