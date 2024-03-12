@@ -95,7 +95,7 @@ public class PrepareCatalogQuarkusMojo extends AbstractExtensionListMojo {
                     final String artifactIdBase = ext.getArtifactIdBase();
                     final Path schemaFile = ext
                             .getExtensionDir()
-                            .resolve("component/src/generated/resources/org/apache/camel/component/"
+                            .resolve("component/src/generated/resources/META-INF/org/apache/camel/component/"
                                     + artifactIdBase + "/" + artifactIdBase + ".json")
                             .toAbsolutePath().normalize();
                     if (Files.isRegularFile(schemaFile)) {
