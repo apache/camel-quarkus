@@ -41,6 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @QuarkusTest
 class MicrometerTest extends AbstractMicrometerTest {
     private static final Logger LOG = Logger.getLogger(MicrometerTest.class);
+
     @Test
     public void testMicrometerMetricsCounter() throws Exception {
         RestAssured.get("/micrometer/counter/0")
