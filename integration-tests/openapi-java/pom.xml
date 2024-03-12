@@ -96,18 +96,6 @@
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>profile-openapi-v2</id>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                                <configuration>
-                                    <systemPropertyVariables>
-                                        <test.profile>openapi.v2</test.profile>
-                                    </systemPropertyVariables>
-                                </configuration>
-                            </execution>
-                            <execution>
                                 <id>profile-openapi-v3</id>
                                 <goals>
                                     <goal>integration-test</goal>
