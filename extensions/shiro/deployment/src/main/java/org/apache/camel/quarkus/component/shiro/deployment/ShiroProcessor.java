@@ -101,6 +101,6 @@ class ShiroProcessor {
 
     @BuildStep
     IndexDependencyBuildItem registerDependencyForIndex() {
-        return new IndexDependencyBuildItem("org.apache.shiro", "shiro-core", "jakarta");
+        return new IndexDependencyBuildItem("org.apache.shiro", "shiro-core");
     }
 }
