@@ -84,6 +84,8 @@ import org.jboss.jandex.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.apache.camel.quarkus.core.CamelCapabilities.CLOUD_EVENTS;
+
 class CamelProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(CamelProcessor.class);
 
@@ -204,6 +206,18 @@ class CamelProcessor {
                 CamelServiceDestination.REGISTRY,
                 false,
                 list)));
+    }
+
+    @BuildStep
+    CamelServicePatternBuildItem conditionalCloudEventsTransformerServiceExcludePattern(Capabilities capabilities) {
+        // Exclude cloudevents transformers unless optional camel-quarkus-cloudevents is present
+        if (capabilities.isMissing(CLOUD_EVENTS)) {
+            return new CamelServicePatternBuildItem(
+                    CamelServiceDestination.DISCOVERY,
+                    false,
+                    "META-INF/services/org/apache/camel/transformer/*cloudevents*");
+        }
+        return null;
     }
 
     @BuildStep
