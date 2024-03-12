@@ -262,6 +262,24 @@
                 </plugins>
             </build>
         </profile>
-
+        <profile>
+            <id>debug</id>
+            <activation>
+                <property>
+                    <name>debug</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-invoker-plugin</artifactId>
+                        <configuration>
+                            <mavenOpts>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=8000</mavenOpts>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 </project>
