@@ -150,16 +150,16 @@ public class NettyHttpRoutes extends RouteBuilder {
         from("netty-http:http://localhost:{{camel.netty-http.port}}/proxy").setBody().constant("proxy");
 
         rest("/rest")
-                .get("/").to("direct:printMethod")
-                .post("/").to("direct:printMethod")
-                .put("/").to("direct:printMethod")
+                .get("/").to("seda:printMethod")
+                .post("/").to("seda:printMethod")
+                .put("/").to("seda:printMethod")
                 .post("/json").bindingMode(RestBindingMode.json).consumes("application/json").type(UserPojo.class)
-                .to("direct:printBody")
+                .to("seda:printBody")
                 .post("/xml").bindingMode(RestBindingMode.xml).consumes("application/xml").type(UserPojo.class)
-                .to("direct:printBody");
+                .to("seda:printBody");
 
-        from("direct:printMethod").setBody().header(RestConstants.HTTP_METHOD);
-        from("direct:printBody").process(e -> {
+        from("seda:printMethod").setBody().header(RestConstants.HTTP_METHOD);
+        from("seda:printBody").process(e -> {
             e.getIn().setHeader(Exchange.CONTENT_TYPE, "text/plain");
             e.getIn().setBody(e.getIn().getBody(UserPojo.class).toString());
         });
