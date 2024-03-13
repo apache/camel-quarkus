@@ -20,11 +20,14 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
+import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.Tags;
+import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 import io.micrometer.core.instrument.search.Search;
 import io.micrometer.prometheus.PrometheusMeterRegistry;
 import jakarta.inject.Inject;
@@ -42,9 +45,11 @@ import org.apache.camel.component.micrometer.MicrometerComponent;
 import org.apache.camel.component.micrometer.MicrometerConstants;
 import org.apache.camel.component.micrometer.eventnotifier.MicrometerEventNotifierService;
 import org.apache.camel.component.micrometer.messagehistory.MicrometerMessageHistoryService;
+import org.jboss.logging.Logger;
 
 @Path("/micrometer")
 public class MicrometerResource {
+    private static final Logger LOG = Logger.getLogger(MicrometerResource.class);
 
     @Inject
     ProducerTemplate producerTemplate;
@@ -172,6 +177,20 @@ public class MicrometerResource {
     public Response statistics() {
         MicrometerEventNotifierService service = camelContext.hasService(MicrometerEventNotifierService.class);
         String json = service.dumpStatisticsAsJson();
+
+        //todo debug logging
+        LOG.info("json is " + json);
+        LOG.info("Service.started(): " + service.isStarted());
+        LOG.info("meter registry is " + service.getMeterRegistry());
+        if (service.getMeterRegistry() instanceof CompositeMeterRegistry) {
+            LOG.info("composite registry from " + ((CompositeMeterRegistry) service.getMeterRegistry()).getRegistries());
+        }
+        Optional<Meter> om = service.getMeterRegistry().getMeters().stream()
+                .filter(m -> m.getId().getName().contains("camel.routes.added")).findFirst();
+        LOG.info("meter `camel.routes.added` " + om.get());
+        if (om.isPresent()) {
+            LOG.info("value is " + om.get().measure().iterator().next().getValue());
+        }
         return Response.ok().entity(json).build();
     }
 
