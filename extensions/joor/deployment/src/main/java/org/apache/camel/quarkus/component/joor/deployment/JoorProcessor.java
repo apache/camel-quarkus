@@ -30,7 +30,7 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
-import io.quarkus.deployment.pkg.PackageConfig;
+import io.quarkus.deployment.pkg.NativeConfig;
 import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
 import io.quarkus.maven.dependency.ResolvedDependency;
 import io.quarkus.paths.PathCollection;
@@ -196,11 +196,11 @@ class JoorProcessor {
      */
     public static final class CompileAtBuildTime implements BooleanSupplier {
         JoorExpressionConfig config;
-        PackageConfig packageConfig;
+        NativeConfig nativeConfig;
 
         @Override
         public boolean getAsBoolean() {
-            return config.compileAtBuildTime || packageConfig.type.equalsIgnoreCase(PackageConfig.BuiltInType.NATIVE.name());
+            return config.compileAtBuildTime || nativeConfig.enabled();
         }
     }
 }
