@@ -1,0 +1,104 @@
+=== External IBM i
+
+
+To execute the tests against an external IBM i server, provide the connection information by setting environment variables
+
+```
+export JT400_URL=#jdbc_url
+export JT400_USERNAME=#username
+export JT400_PASSWORD=#password
+```
+
+or for Windows:
+
+```
+$Env:JT400_URL = "#jdbc_url"
+$Env:JT400_USERNAME="#username"
+$Env:JT400_PASSWORD="#password"
+```
+
+Tests using an external server are disabled until environmental property `JT400_URL` is present.
+
+=== Mocked test
+
+Mocked tests are enabled by default.
+Unfortunately in case that mocked tests are enabled, the flat class path is forced for the Quarkus, which may influence
+the tests.
+
+Execution of mocked tests can be skipped by activating profile `skip-mock-tests`.
+
+=== How to configure an external server
+
+Several objects (queues, user spaces, ..) have to be created in the external server to make testing successful.
+
+The suggested approach is to create a test library. In the following text, the test library's name is `REDHAT5`
+
+Download i-access client solutions from this https://www.ibm.com/support/pages/ibm-i-access-client-solutions[page].
+Use the 5250 emulator option from the client and run the following command for library creation:
+
+```
+CRTLIB REDHAT5
+```
+
+==== Program call testing
+
+Program call test reads the content of user space.
+
+```
+//interface for multiline commands
+CALL QCMD
+
+//creation of PROGCALL user space
+CALL PGM(QSYS/QUSCRTUS) PARM(('PROGCALL  REDHAT5   ' (*CHAR 20))
+        ('TEST      ' (*CHAR 10)) (16 (*INT 4))
+        (' ' (*CHAR 1)) ('*ALL      ' (*CHAR 10))
+        ('                ' (*CHAR 16)))
+
+//value is set to hello camel
+CALL PGM(QSYS/QUSCHGUS) PARM(('PROGCALL  REDHAT5   ' (*CHAR 20))
+        (1 (*INT 4)) (16 (*INT 4))
+        ('hello camel     ' (*CHAR 16))
+        ('1' (*CHAR 1))  )
+```
+
+==== Message queue testing
+
+Message queue can be created by following the command
+
+```
+CRTMSGQ REDHAT5/TESTMSGQ
+```
+
+==== Data queue testing
+
+Two data-queues are required for the testing. One created as `keyed=true` and one as `LIFO`.
+
+```
+//keyed data queue
+CRTDTAQ DTAQ(REDHAT5/TESTKEYED) SEQ(*KEYED) KEYLEN(20) MAXLEN(100)
+
+//LIFO data queue
+CRTDTAQ DTAQ(REDHAT5/TESTLIFO) SEQ(*LIFO) MAXLEN(100)
+```
+
+==== Using different object names
+
+If your test object names are different from the default ones, you can override default values via environmental variable
+
+```
+export JT400_LIBRARY=#library_if_not_REDHA5
+export JT400_LIFO_QUEUE=#lifoqueue_if_not_TESTLIFO.DTAQ
+export JT400_KEYED_QUEUE=#lkeyedqueue_if_not_TESTKEYED.DTAQ
+export JT400_MESSAGE_QUEUE=#messagequeue_if_not_TESTMSGQ.MSGQ
+export JT400_USER_SPACE=#userspace_if_not_PROGCALL
+```
+
+or for Windows:
+
+```
+$Env:JT400_LIBRARY = "#library_if_not_REDHA5"
+$Env:JT400_LIFO_QUEUE="#lifoqueue_if_not_TESTLIFO.DTAQe"
+$Env:JT400_KEYED_QUEUE="#lkeyedqueue_if_not_TESTKEYED.DTAQ"
+$Env:JT400_MESSAGE_QUEUE="#messagequeue_if_not_TESTMSGQ.MSGQe"
+$Env:JT400_USER_SPACE="#userspace_if_not_PROGCALL"
+```
