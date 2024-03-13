@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jt400.it;
+package org.apache.camel.quarkus.component.jt400.it.mock;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +28,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Named;
 
-public class Jt400Producers {
+public class Jt400MockProducers {
 
     @Produces
     @ApplicationScoped

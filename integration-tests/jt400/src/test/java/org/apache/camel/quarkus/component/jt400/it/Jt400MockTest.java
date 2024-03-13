@@ -22,6 +22,7 @@ import java.util.Map;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.apache.camel.quarkus.component.jt400.it.mock.Jt400MockResource;
 import org.apache.camel.util.CollectionHelper;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -34,12 +35,12 @@ public class Jt400MockTest {
 
     @Test
     public void testReadKeyedDataQueue() {
-        prepareMockReply(Jt400Resource.ReplyType.ok);
-        prepareMockReply(Jt400Resource.ReplyType.DQRequestAttributesNormal, CollectionHelper.mapOf("keyLength", 5));
-        prepareMockReply(Jt400Resource.ReplyType.ok);
-        prepareMockReply(Jt400Resource.ReplyType.DQReadNormal, 0x8003, "mocked jt400", "Hello from mocked jt400!", "MYKEY");
+        prepareMockReply(Jt400MockResource.ReplyType.ok);
+        prepareMockReply(Jt400MockResource.ReplyType.DQRequestAttributesNormal, CollectionHelper.mapOf("keyLength", 5));
+        prepareMockReply(Jt400MockResource.ReplyType.ok);
+        prepareMockReply(Jt400MockResource.ReplyType.DQReadNormal, 0x8003, "mocked jt400", "Hello from mocked jt400!", "MYKEY");
 
-        RestAssured.get("/jt400/keyedDataQueue/read")
+        RestAssured.get("/jt400/mock/keyedDataQueue/read")
                 .then()
                 .statusCode(200)
                 .body(Matchers.equalTo("Hello from mocked jt400!"));
@@ -47,14 +48,14 @@ public class Jt400MockTest {
 
     @Test
     public void testWriteKeyedDataQueue() {
-        prepareMockReply(Jt400Resource.ReplyType.ok);
-        prepareMockReply(Jt400Resource.ReplyType.DQRequestAttributesNormal, CollectionHelper.mapOf("keyLength", 7));
-        prepareMockReply(Jt400Resource.ReplyType.ok);
-        prepareMockReply(Jt400Resource.ReplyType.DQCommonReply, CollectionHelper.mapOf("hashCode", 0x8002));
+        prepareMockReply(Jt400MockResource.ReplyType.ok);
+        prepareMockReply(Jt400MockResource.ReplyType.DQRequestAttributesNormal, CollectionHelper.mapOf("keyLength", 7));
+        prepareMockReply(Jt400MockResource.ReplyType.ok);
+        prepareMockReply(Jt400MockResource.ReplyType.DQCommonReply, CollectionHelper.mapOf("hashCode", 0x8002));
 
         RestAssured.given()
                 .body("Written in mocked jt400!")
-                .post("/jt400/keyedDataQueue/write/testKey")
+                .post("/jt400/mock/keyedDataQueue/write/testKey")
                 .then()
                 .statusCode(200)
                 .body(Matchers.equalTo("Written in mocked jt400!"));
@@ -62,24 +63,24 @@ public class Jt400MockTest {
 
     @Test
     public void testReadMessageQueue() {
-        prepareMockReply(Jt400Resource.ReplyType.RCExchangeAttributesReply);
-        prepareMockReply(Jt400Resource.ReplyType.RCExchangeAttributesReply);
-        prepareMockReply(Jt400Resource.ReplyType.RCCallProgramReply);
+        prepareMockReply(Jt400MockResource.ReplyType.RCExchangeAttributesReply);
+        prepareMockReply(Jt400MockResource.ReplyType.RCExchangeAttributesReply);
+        prepareMockReply(Jt400MockResource.ReplyType.RCCallProgramReply);
 
-        RestAssured.get("/jt400/messageQueue/read")
+        RestAssured.get("/jt400/mock/messageQueue/read")
                 .then()
                 .statusCode(200);
     }
 
     @Test
     public void testWriteMessageQueue() {
-        prepareMockReply(Jt400Resource.ReplyType.RCExchangeAttributesReply);
-        prepareMockReply(Jt400Resource.ReplyType.RCExchangeAttributesReply);
-        prepareMockReply(Jt400Resource.ReplyType.RCCallProgramReply);
+        prepareMockReply(Jt400MockResource.ReplyType.RCExchangeAttributesReply);
+        prepareMockReply(Jt400MockResource.ReplyType.RCExchangeAttributesReply);
+        prepareMockReply(Jt400MockResource.ReplyType.RCCallProgramReply);
 
         RestAssured.given()
                 .body("Written in mocked jt400!")
-                .post("/jt400/messageQueue/write/testKey")
+                .post("/jt400/mock/messageQueue/write/testKey")
                 .then()
                 .statusCode(200)
                 .body(Matchers.equalTo("Written in mocked jt400!"));
@@ -87,20 +88,20 @@ public class Jt400MockTest {
 
     @Test
     public void testProgramCall() {
-        prepareMockReply(Jt400Resource.ReplyType.RCExchangeAttributesReply);
-        prepareMockReply(Jt400Resource.ReplyType.RCExchangeAttributesReply);
-        prepareMockReply(Jt400Resource.ReplyType.RCCallProgramReply);
+        prepareMockReply(Jt400MockResource.ReplyType.RCExchangeAttributesReply);
+        prepareMockReply(Jt400MockResource.ReplyType.RCExchangeAttributesReply);
+        prepareMockReply(Jt400MockResource.ReplyType.RCCallProgramReply);
 
         RestAssured.given()
                 .body("Written in mocked jt400!")
-                .post("/jt400/programCall")
+                .post("/jt400/mock/programCall")
                 .then()
                 .statusCode(200)
                 .body(Matchers.both(Matchers.not(Matchers.containsString("par1"))).and(
                         Matchers.containsString("par2")));
     }
 
-    private void prepareMockReply(Jt400Resource.ReplyType replyType,
+    private void prepareMockReply(Jt400MockResource.ReplyType replyType,
             Integer hashCode,
             String senderInformation,
             String entry,
@@ -113,29 +114,29 @@ public class Jt400MockTest {
                         "senderInformation", senderInformation,
                         "entry", entry,
                         "key", key))
-                .post("/jt400/put/mockResponse")
+                .post("/jt400/mock/put/mockResponse")
                 .then()
                 .statusCode(200);
     }
 
-    private void prepareMockReply(Jt400Resource.ReplyType replyType) {
+    private void prepareMockReply(Jt400MockResource.ReplyType replyType) {
         //prepare mock data
         RestAssured.given()
                 .body(CollectionHelper.mapOf("replyType", replyType.name()))
                 .contentType(ContentType.JSON)
-                .post("/jt400/put/mockResponse")
+                .post("/jt400/mock/put/mockResponse")
                 .then()
                 .statusCode(200);
     }
 
-    private void prepareMockReply(Jt400Resource.ReplyType replyType, Map<String, Object> data) {
+    private void prepareMockReply(Jt400MockResource.ReplyType replyType, Map<String, Object> data) {
         Map<String, Object> request = new HashMap<>(data);
         request.put("replyType", replyType.name());
         //prepare mock data
         RestAssured.given()
                 .body(request)
                 .contentType(ContentType.JSON)
-                .post("/jt400/put/mockResponse")
+                .post("/jt400/mock/put/mockResponse")
                 .then()
                 .statusCode(200);
     }
