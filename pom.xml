@@ -61,7 +61,7 @@
         <quarkiverse-mybatis.version>2.2.2</quarkiverse-mybatis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/mybatis/quarkus-mybatis-parent/ -->
         <quarkiverse-pooled-jms.version>2.3.1</quarkiverse-pooled-jms.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/messaginghub/quarkus-pooled-jms-parent/ -->
         <quarkiverse-tika.version>2.0.2</quarkiverse-tika.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/tika/quarkus-tika-parent/ -->
-        <quarkus.version>3.9.0</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
+        <quarkus.version>3.10.0.CR1</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
         <quarkus-hazelcast-client.version>4.0.0</quarkus-hazelcast-client.version><!-- https://repo1.maven.org/maven2/com/hazelcast/quarkus-hazelcast-client-bom/ -->
         <quarkus-qpid-jms.version>2.6.1</quarkus-qpid-jms.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/org/amqphub/quarkus/quarkus-qpid-jms-bom/ -->
 
@@ -113,7 +113,7 @@
         <icu4j.version>${icu4j-version}</icu4j.version>
         <immutables.version>2.9.3</immutables.version>
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
-        <jackson.version>2.16.1</jackson.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.fasterxml.jackson.core:jackson-core -->
+        <jackson.version>2.17.0</jackson.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.fasterxml.jackson.core:jackson-core -->
         <jakarta.jms-api.version>${jakarta-jms-api-version}</jakarta.jms-api.version>
         <java-json-tools.json-patch.version>${json-patch-version}</java-json-tools.json-patch.version><!-- A replacement for com.github.fge:json-patch -->
         <jodatime.version>${jodatime2-version}</jodatime.version><!-- Mess in transitive dependencies of Splunk -->
@@ -149,7 +149,7 @@
         <reactor-core.version>3.4.34</reactor-core.version><!-- @sync com.azure:azure-core:${azure-core.version} dep:io.projectreactor:reactor-core -->
         <reactor-netty.version>${reactor-netty-version}</reactor-netty.version>
         <retrofit.version>2.9.0</retrofit.version><!-- @sync org.influxdb:influxdb-java:${influxdb.version} dep:com.squareup.retrofit2:retrofit -->
-        <smallrye.reactive.messaging.camel.version>4.18.0</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
+        <smallrye.reactive.messaging.camel.version>4.20.0</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
         <snakeyaml.version>2.2</snakeyaml.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.yaml:snakeyaml -->
         <snakeyaml-engine.version>${snakeyaml-engine-version}</snakeyaml-engine.version><!-- Resolve conflict between camel-snakeyaml & kubernetes-client -->
         <spring.version>${spring-version}</spring.version>
@@ -170,7 +170,7 @@
         <hamcrest.version>2.2</hamcrest.version><!-- Awaitility and Wiremock -->
         <htmlunit-driver.version>4.13.0</htmlunit-driver.version>
         <pdfbox.version>${pdfbox-version}</pdfbox.version>
-        <sshd.version>2.12.0</sshd.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.sshd:sshd-common -->
+        <sshd.version>2.12.1</sshd.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.sshd:sshd-common -->
         <unboundid-ldapsdk.version>7.0.0</unboundid-ldapsdk.version>
         <wiremock.version>3.3.1</wiremock.version>
         <zt-exec.version>1.12</zt-exec.version>
