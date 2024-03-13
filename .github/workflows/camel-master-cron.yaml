@@ -70,7 +70,7 @@ jobs:
           git clone --depth 1 --branch main https://github.com/apache/camel.git \
             && cd camel \
             && echo "Current Camel commit:" $(git rev-parse HEAD) \
-            && ./mvnw ${CQ_MAVEN_ARGS} clean install -Dquickly
+            && ./mvnw ${CQ_MAVEN_ARGS} clean install -Dquickly -T1C
       - name: mvn clean install -DskipTests
         run: |
           eval ./mvnw ${CQ_MAVEN_ARGS} clean install -DskipTests -Dquarkus.build.skip
