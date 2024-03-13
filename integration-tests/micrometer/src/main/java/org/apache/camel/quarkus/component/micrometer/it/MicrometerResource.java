@@ -20,14 +20,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
-import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.Tags;
-import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 import io.micrometer.core.instrument.search.Search;
 import io.micrometer.prometheus.PrometheusMeterRegistry;
 import jakarta.inject.Inject;
@@ -177,29 +174,6 @@ public class MicrometerResource {
     public Response statistics() {
         MicrometerEventNotifierService service = camelContext.hasService(MicrometerEventNotifierService.class);
         String json = service.dumpStatisticsAsJson();
-
-        //todo debug logging
-        LOG.info("json is " + json);
-        LOG.info("Service.started(): " + service.isStarted());
-        LOG.info("meter registry is " + service.getMeterRegistry());
-        if (service.getMeterRegistry() instanceof CompositeMeterRegistry) {
-            LOG.info("composite registry from " + ((CompositeMeterRegistry) service.getMeterRegistry()).getRegistries());
-        }
-        LOG.info("Searching for the `camel.routes.added` in single registries.");
-        ((CompositeMeterRegistry) service.getMeterRegistry()).getRegistries().forEach(mr -> {
-            Optional<Meter> o = mr.getMeters().stream().filter(m -> m.getId().getName().equals("camel.routes.added")).findAny();
-            LOG.info("`camel.routes.added` present in " + mr + ": " + o.isPresent());
-            if (o.isPresent()) {
-                LOG.info("   with value " + o.get().measure().iterator().next());
-            }
-        });
-
-        Optional<Meter> om = service.getMeterRegistry().getMeters().stream()
-                .filter(m -> m.getId().getName().contains("camel.routes.added")).findFirst();
-        LOG.info("meter `camel.routes.added` " + om.get());
-        if (om.isPresent()) {
-            LOG.info("value is " + om.get().measure().iterator().next().getValue());
-        }
         return Response.ok().entity(json).build();
     }
 
@@ -248,6 +222,13 @@ public class MicrometerResource {
                 number = 0;
             }
         }
+        return Response.ok().build();
+    }
+
+    @Path("/sendDumpAsJson")
+    @GET
+    public Response sendDumpAsJson() {
+        producerTemplate.sendBody("direct:dumpAsJson", "hello");
         return Response.ok().build();
     }
 }
