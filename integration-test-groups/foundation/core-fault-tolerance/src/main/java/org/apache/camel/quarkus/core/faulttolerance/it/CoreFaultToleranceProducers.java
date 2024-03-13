@@ -59,7 +59,7 @@ public class CoreFaultToleranceProducers {
     @ApplicationScoped
     @Named("threadTimer")
     ThreadTimer threadTimer(@Named("threadTimerExecutor") ExecutorService executorService) {
-        return new ThreadTimer(executorService);
+        return ThreadTimer.create(executorService);
     }
 
     @ApplicationScoped
