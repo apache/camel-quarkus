@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: 3.8.0
 cqCamelPartName: splunk-hec
 cqCamelPartTitle: Splunk HEC
-cqCamelPartDescription: The splunk component allows to publish events in Splunk using the HTTP Event Collector.
+cqCamelPartDescription: The splunk component allows publishing events in Splunk using the HTTP Event Collector.
 cqExtensionPageTitle: Splunk HEC
