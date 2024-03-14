@@ -8,6 +8,6 @@ cqDeprecated: false
 cqJvmSince: 1.8.0
 cqNativeSince: n/a
 cqCamelPartName: azure-storage-datalake
-cqCamelPartTitle: Azure Storage Datalake Service
-cqCamelPartDescription: Sends and receives files to/from Azure DataLake Storage.
+cqCamelPartTitle: Azure Storage Data Lake Service
+cqCamelPartDescription: Sends and receives files to/from Azure Data Lake Storage.
 cqExtensionPageTitle: Azure storage datalake service

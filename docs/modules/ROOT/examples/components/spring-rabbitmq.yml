@@ -9,5 +9,5 @@ cqJvmSince: 1.7.0
 cqNativeSince: 1.7.0
 cqCamelPartName: spring-rabbitmq
 cqCamelPartTitle: Spring RabbitMQ
-cqCamelPartDescription: Send and receive messages from RabbitMQ using Spring RabbitMQ client.
+cqCamelPartDescription: Send and receive messages from RabbitMQ using the Spring RabbitMQ client.
 cqExtensionPageTitle: Spring RabbitMQ
