@@ -17,9 +17,7 @@
 package org.apache.camel.quarkus.component.git.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
-import org.junit.jupiter.api.Disabled;
 
-@Disabled("https://github.com/apache/camel-quarkus/issues/5870")
 @QuarkusIntegrationTest
 class GitIT extends GitTest {
 
