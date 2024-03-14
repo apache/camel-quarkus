@@ -119,9 +119,7 @@ public class CamelJasyptSecretKeysHandlerFactory implements SecretKeysHandlerFac
                 // Preserve backwards compat with the Camel way of configuring the master password
                 if (password.startsWith(SYS_ENV_CONFIG_PREFIX)) {
                     password = System.getenv(StringHelper.after(password, SYS_ENV_CONFIG_PREFIX));
-                }
-
-                if (password.startsWith(SYS_CONFIG_PREFIX)) {
+                } else if (password.startsWith(SYS_CONFIG_PREFIX)) {
                     password = System.getProperty(StringHelper.after(password, SYS_CONFIG_PREFIX));
                 }
             }
