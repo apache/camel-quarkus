@@ -210,7 +210,7 @@ class MicrometerTest extends AbstractMicrometerTest {
             //assert results
             return filteredResult.values().stream().map(String::valueOf).collect(Collectors.joining());
         },
-        Matchers.is("1"));
+                Matchers.is("1"));
     }
 
     @ParameterizedTest
