@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: 1.4.0
 cqCamelPartName: jslt
 cqCamelPartTitle: JSLT
-cqCamelPartDescription: Query or transform JSON payloads using an JSLT.
+cqCamelPartDescription: Query or transform JSON payloads using JSLT.
 cqExtensionPageTitle: JSLT
