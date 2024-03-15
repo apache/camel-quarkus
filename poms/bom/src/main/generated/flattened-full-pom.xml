@@ -1549,6 +1549,12 @@
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-js-dsl</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>4.4.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <exclusions>
+          <exclusion>
+            <groupId>org.graalvm.js</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>js</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -6691,13 +6697,13 @@
       </dependency>
       <dependency>
         <groupId>org.graalvm.js</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>js</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>23.0.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>js-language</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>23.1.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>org.graalvm.js</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>js-scriptengine</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>23.0.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>23.1.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>org.influxdb</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -19851,6 +19857,11 @@
         <groupId>org.glassfish.jaxb</groupId><!-- io.quarkus:quarkus-bom:3.8.1 -->
         <artifactId>txw2</artifactId><!-- io.quarkus:quarkus-bom:3.8.1 -->
         <version>4.0.4</version><!-- io.quarkus:quarkus-bom:3.8.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.graalvm.js</groupId><!-- io.quarkus:quarkus-bom:3.8.1 -->
+        <artifactId>js</artifactId><!-- io.quarkus:quarkus-bom:3.8.1 -->
+        <version>23.0.1</version><!-- io.quarkus:quarkus-bom:3.8.1 -->
       </dependency>
       <dependency>
         <groupId>org.graalvm.sdk</groupId><!-- io.quarkus:quarkus-bom:3.8.1 -->

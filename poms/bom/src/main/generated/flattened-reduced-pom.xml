@@ -1549,6 +1549,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-js-dsl</artifactId>
         <version>4.4.1</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.graalvm.js</groupId>
+            <artifactId>js</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -6611,8 +6617,8 @@
       </dependency>
       <dependency>
         <groupId>org.graalvm.js</groupId>
-        <artifactId>js</artifactId>
-        <version>23.0.1</version>
+        <artifactId>js-language</artifactId>
+        <version>23.1.2</version>
       </dependency>
       <dependency>
         <groupId>org.influxdb</groupId>
