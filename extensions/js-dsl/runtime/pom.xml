@@ -59,7 +59,7 @@
                 <artifactId>quarkus-extension-maven-plugin</artifactId>
                 <configuration>
                     <parentFirstArtifacts>
-                        <parentFirstArtifact>org.graalvm.sdk:graal-sdk</parentFirstArtifact>
+                        <parentFirstArtifact>org.graalvm.sdk:nativeimage</parentFirstArtifact>
                         <parentFirstArtifact>org.graalvm.nativeimage:svm</parentFirstArtifact>
                         <parentFirstArtifact>org.graalvm.truffle:truffle-api</parentFirstArtifact>
                         <parentFirstArtifact>org.graalvm.js:js</parentFirstArtifact>
