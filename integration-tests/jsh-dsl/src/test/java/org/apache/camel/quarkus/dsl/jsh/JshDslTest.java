@@ -21,10 +21,7 @@ import io.restassured.RestAssured;
 import org.apache.camel.dsl.jsh.JshRoutesBuilderLoader;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledOnOs;
-import org.junit.jupiter.api.condition.OS;
 
-@DisabledOnOs(value = OS.WINDOWS, disabledReason = "https://github.com/apache/camel-quarkus/issues/5873")
 @QuarkusTest
 class JshDslTest {
 
