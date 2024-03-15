@@ -34,7 +34,6 @@ import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import org.awaitility.Awaitility;
 import org.hamcrest.Matchers;
-import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -45,7 +44,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 class MicrometerTest extends AbstractMicrometerTest {
-    private static final Logger LOG = Logger.getLogger(MicrometerTest.class);
 
     @Test
     public void testMicrometerMetricsCounter() throws Exception {
@@ -200,16 +198,15 @@ class MicrometerTest extends AbstractMicrometerTest {
             //convert to simpler map
             Map<String, Integer> filteredResult = result.entrySet().stream()
                     .collect(Collectors.toMap(e -> e.getKey().toString(), e2 -> e2.getValue()));
-            //remove prometheus tags
-            filteredResult.keySet().removeIf(k -> k.contains("customTag=prometheus"));
-            //keep only dumpAsJson routeId
-            filteredResult.keySet().removeIf(k -> !k.contains("routeId=dumpAsJson"));
-            //keep only `ExchangeCompletedEvent`
-            filteredResult.keySet().removeIf(k -> !k.contains("eventType=ExchangeCompletedEvent"));
+            //remove non-prometheus tags, keep only dumpAsJson routeId for status ExchangeCompletedEvent
+            filteredResult.keySet().removeIf(k -> !k.contains("customTag=prometheus")
+                    || !k.contains("routeId=dumpAsJson")
+                    || k.contains("eventType=ExchangeCompletedEvent"));
 
             //assert results
             return filteredResult.values().stream().map(String::valueOf).collect(Collectors.joining());
         },
+                //1 exchange with completed status should be caught
                 Matchers.is("1"));
     }
 

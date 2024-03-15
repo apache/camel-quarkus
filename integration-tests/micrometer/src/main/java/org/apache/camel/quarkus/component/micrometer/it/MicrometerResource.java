@@ -42,11 +42,9 @@ import org.apache.camel.component.micrometer.MicrometerComponent;
 import org.apache.camel.component.micrometer.MicrometerConstants;
 import org.apache.camel.component.micrometer.eventnotifier.MicrometerEventNotifierService;
 import org.apache.camel.component.micrometer.messagehistory.MicrometerMessageHistoryService;
-import org.jboss.logging.Logger;
 
 @Path("/micrometer")
 public class MicrometerResource {
-    private static final Logger LOG = Logger.getLogger(MicrometerResource.class);
 
     @Inject
     ProducerTemplate producerTemplate;
