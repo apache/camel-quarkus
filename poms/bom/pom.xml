@@ -6341,6 +6341,12 @@
                 <groupId>com.squareup.okhttp3</groupId>
                 <artifactId>mockwebserver</artifactId>
                 <version>${okhttp.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>junit</groupId>
+                        <artifactId>junit</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.squareup.okio</groupId>
@@ -7102,6 +7108,7 @@
                                 <resolutionEntryPointInclude>net.openhft:affinity</resolutionEntryPointInclude> <!-- https://github.com/apache/camel-quarkus/issues/3788 -->
                                 <resolutionEntryPointInclude>com.ibm.mq:com.ibm.mq.jakarta.client</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>com.ibm.icu:icu4j</resolutionEntryPointInclude>
+                                <resolutionEntryPointInclude>com.squareup.okhttp3:mockwebserver</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>org.mapstruct:mapstruct-processor</resolutionEntryPointInclude>
                             </resolutionEntryPointIncludes>
                             <bannedDependencyResources>
