@@ -7593,12 +7593,12 @@
       <dependency>
         <groupId>org.amqphub.quarkus</groupId>
         <artifactId>quarkus-qpid-jms</artifactId>
-        <version>2.6.0</version>
+        <version>2.6.1</version>
       </dependency>
       <dependency>
         <groupId>org.amqphub.quarkus</groupId>
         <artifactId>quarkus-qpid-jms-deployment</artifactId>
-        <version>2.6.0</version>
+        <version>2.6.1</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
