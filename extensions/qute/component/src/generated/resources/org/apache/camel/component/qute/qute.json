@@ -11,7 +11,7 @@
     "supportLevel": "Stable",
     "groupId": "org.apache.camel.quarkus",
     "artifactId": "camel-quarkus-qute-component",
-    "version": "3.8.1-SNAPSHOT",
+    "version": "3.8.2-SNAPSHOT",
     "scheme": "qute",
     "extendsScheme": "",
     "syntax": "qute:resourceUri",
