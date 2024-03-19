@@ -224,7 +224,7 @@ public class CqCatalog {
 
     public static Stream<Kind> kinds() {
         return Stream.of(Kind.values())
-                .filter(kind -> kind != Kind.eip);
+                .filter(kind -> (kind != Kind.eip && kind != Kind.model));
     }
 
     public static boolean isFirstScheme(ArtifactModel<?> model) {
