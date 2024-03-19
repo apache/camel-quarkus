@@ -20,6 +20,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.TreeMap;
 
 import org.apache.camel.catalog.CamelCatalog;
 import org.apache.camel.catalog.RuntimeProvider;
@@ -38,6 +41,7 @@ public class QuarkusRuntimeProvider implements RuntimeProvider {
     private static final String LANGUAGE_DIR = "org/apache/camel/catalog/quarkus/languages";
     private static final String TRANSFORMER_DIR = "org/apache/camel/catalog/quarkus/transformers";
     private static final String OTHER_DIR = "org/apache/camel/catalog/quarkus/others";
+    private static final String CAPABILITIES_CATALOG = "org/apache/camel/catalog/quarkus/capabilities.properties";
     private static final String COMPONENTS_CATALOG = "org/apache/camel/catalog/quarkus/components.properties";
     private static final String DEV_CONSOLE_CATALOG = "org/apache/camel/catalog/quarkus/consoles.properties";
     private static final String DATA_FORMATS_CATALOG = "org/apache/camel/catalog/quarkus/dataformats.properties";
@@ -186,4 +190,15 @@ public class QuarkusRuntimeProvider implements RuntimeProvider {
         return names;
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @Override
+    public Map<String, String> findCapabilities() {
+        final Properties properties = new Properties();
+        try (InputStream is = getCamelCatalog().getVersionManager().getResourceAsStream(CAPABILITIES_CATALOG)) {
+            properties.load(is);
+        } catch (IOException e) {
+            // ignore
+        }
+        return new TreeMap<>((Map<String, String>) (Map) properties);
+    }
 }
