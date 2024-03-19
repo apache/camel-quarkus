@@ -1,5 +1,25 @@
 # Changelog
 
+## 3.8.1
+
+* release: fix qute version by @aldettinger in https://github.com/apache/camel-quarkus/pull/5788
+* [3.8.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5795
+* update quarkus metadata #5803 by @aldettinger in https://github.com/apache/camel-quarkus/pull/5804
+* [3.8.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5810
+* [3.8.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5819
+* [3.8.x] Manage software.amazon.awssdk:endpoints-spi by @ppalaga in https://github.com/apache/camel-quarkus/pull/5823
+* [3.8.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5828
+* [3.8.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5839
+* [3.8.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5847
+* [3.8.x] Upgrade Quarkus to 3.8.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5852
+* Fix typo in servlet name configuration code snippet by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5858
+* [3.8.x] Upgrade Quarkus CXF to 3.8.1 by @zhfeng in https://github.com/apache/camel-quarkus/pull/5876
+* [3.8.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5880
+* jt400: extend test coverage by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5884
+* [3.8.x] Upgrade Quarkus to 3.8.3 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5885
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.8.0...3.8.1
+
 ## 3.8.0
 
 * Next is 3.8.0-SNAPSHOT by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5681
