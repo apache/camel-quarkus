@@ -28,6 +28,7 @@ import org.junit.jupiter.params.provider.EnumSource;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 
 /**
  * Tests specific to OpenAPI 3.x
@@ -107,7 +108,12 @@ public class OpenApiV3Test extends OpenApiTest {
                         "components.schemas.Fruit.type", is("object"),
                         "components.schemas.Fruit.properties.name.type", is("string"),
                         "components.schemas.Fruit.properties.description.type", is("string"),
-                        "components.schemas.Fruit.properties.num.type", is("integer"));
+                        "components.schemas.Fruit.properties.num.type", is("integer"),
+                        // Theses fields should be removed by Mixin classes
+                        "components.schemas.Fruit", not(hasKey("extensions")),
+                        "components.schemas.Fruit", not(hasKey("exampleSetFlag")),
+                        "components.schemas.Fruit", not(hasKey("types")),
+                        "components.schemas.Fruit", not(hasKey("jsonSchema")));
     }
 
     @ParameterizedTest

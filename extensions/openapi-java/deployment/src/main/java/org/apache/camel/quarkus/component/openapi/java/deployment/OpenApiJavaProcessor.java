@@ -28,6 +28,7 @@ import java.util.function.Consumer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import io.quarkus.bootstrap.classloading.QuarkusClassLoader;
@@ -43,6 +44,23 @@ import io.quarkus.smallrye.openapi.deployment.spi.AddToOpenAPIDefinitionBuildIte
 import io.smallrye.openapi.api.models.OpenAPIImpl;
 import io.smallrye.openapi.api.util.MergeUtil;
 import io.smallrye.openapi.runtime.io.definition.DefinitionReader;
+import io.swagger.v3.core.jackson.mixin.Components31Mixin;
+import io.swagger.v3.core.jackson.mixin.ComponentsMixin;
+import io.swagger.v3.core.jackson.mixin.DateSchemaMixin;
+import io.swagger.v3.core.jackson.mixin.Discriminator31Mixin;
+import io.swagger.v3.core.jackson.mixin.DiscriminatorMixin;
+import io.swagger.v3.core.jackson.mixin.ExampleMixin;
+import io.swagger.v3.core.jackson.mixin.ExtensionsMixin;
+import io.swagger.v3.core.jackson.mixin.Info31Mixin;
+import io.swagger.v3.core.jackson.mixin.InfoMixin;
+import io.swagger.v3.core.jackson.mixin.LicenseMixin;
+import io.swagger.v3.core.jackson.mixin.MediaTypeMixin;
+import io.swagger.v3.core.jackson.mixin.OpenAPI31Mixin;
+import io.swagger.v3.core.jackson.mixin.OpenAPIMixin;
+import io.swagger.v3.core.jackson.mixin.OperationMixin;
+import io.swagger.v3.core.jackson.mixin.Schema31Mixin;
+import io.swagger.v3.core.jackson.mixin.SchemaConverterMixin;
+import io.swagger.v3.core.jackson.mixin.SchemaMixin;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.media.Discriminator;
@@ -80,8 +98,23 @@ class OpenApiJavaProcessor {
     private static final String FEATURE = "camel-openapi-java";
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenApiJavaProcessor.class);
     private static final DotName SCHEMA = DotName.createSimple(Schema.class.getName());
+    private static final DotName JSON_SERIALIZER = DotName.createSimple(JsonSerializer.class.getName());
     private static final Class<?>[] OPENAPI_ARRAY_TYPES = new Class<?>[] {
             Integer.class, Long.class, Float.class, Double.class, Boolean.class
+    };
+    private static final Class<?>[] OPENAPI_MIXIN_TYPES = new Class<?>[] {
+            Components31Mixin.class, ComponentsMixin.class,
+            DateSchemaMixin.class,
+            Discriminator31Mixin.class, DiscriminatorMixin.class,
+            ExampleMixin.class,
+            ExtensionsMixin.class,
+            Info31Mixin.class, InfoMixin.class,
+            LicenseMixin.class,
+            MediaTypeMixin.class,
+            OpenAPI31Mixin.class, OpenAPIMixin.class,
+            OperationMixin.class,
+            Schema31Mixin.class, SchemaMixin.class,
+            SchemaConverterMixin.class
     };
 
     @BuildStep
@@ -92,6 +125,7 @@ class OpenApiJavaProcessor {
     @BuildStep
     void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
         indexDependency.produce(new IndexDependencyBuildItem("io.swagger.core.v3", "swagger-models"));
+        indexDependency.produce(new IndexDependencyBuildItem("io.swagger.core.v3", "swagger-core-jakarta"));
         indexDependency.produce(new IndexDependencyBuildItem("io.swagger", "swagger-models"));
     }
 
@@ -102,9 +136,12 @@ class OpenApiJavaProcessor {
         IndexView index = combinedIndex.getIndex();
         index.getAllKnownSubclasses(SCHEMA).stream().map(ClassInfo::toString)
                 .forEach(name -> reflectiveClasses.produce(ReflectiveClassBuildItem.builder(name).methods().build()));
+        index.getAllKnownSubclasses(JSON_SERIALIZER).stream().map(ClassInfo::toString)
+                .forEach(name -> reflectiveClasses.produce(ReflectiveClassBuildItem.builder(name).methods().build()));
 
         reflectiveClasses.produce(ReflectiveClassBuildItem.builder(Discriminator.class).build());
         reflectiveClasses.produce(ReflectiveClassBuildItem.builder(OPENAPI_ARRAY_TYPES).methods().build());
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(OPENAPI_MIXIN_TYPES).methods().build());
     }
 
     @BuildStep(onlyIf = ExposeOpenApiEnabled.class)
