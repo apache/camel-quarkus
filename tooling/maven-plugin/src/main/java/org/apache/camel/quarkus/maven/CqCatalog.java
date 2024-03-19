@@ -25,6 +25,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -34,7 +37,6 @@ import org.apache.camel.catalog.CamelCatalog;
 import org.apache.camel.catalog.DefaultCamelCatalog;
 import org.apache.camel.catalog.DefaultRuntimeProvider;
 import org.apache.camel.catalog.DefaultVersionManager;
-import org.apache.camel.catalog.Kind;
 import org.apache.camel.catalog.RuntimeProvider;
 import org.apache.camel.catalog.impl.CatalogHelper;
 import org.apache.camel.tooling.model.ArtifactModel;
@@ -42,6 +44,7 @@ import org.apache.camel.tooling.model.ComponentModel;
 import org.apache.camel.tooling.model.DataFormatModel;
 import org.apache.camel.tooling.model.DevConsoleModel;
 import org.apache.camel.tooling.model.JsonMapper;
+import org.apache.camel.tooling.model.Kind;
 import org.apache.camel.tooling.model.LanguageModel;
 import org.apache.camel.tooling.model.OtherModel;
 import org.apache.camel.tooling.model.TransformerModel;
@@ -168,7 +171,7 @@ public class CqCatalog {
         return kinds().flatMap(this::models);
     }
 
-    public Stream<ArtifactModel<?>> models(org.apache.camel.catalog.Kind kind) {
+    public Stream<ArtifactModel<?>> models(Kind kind) {
         return catalog.findNames(kind).stream().map(name -> (ArtifactModel<?>) catalog.model(kind, name));
     }
 
@@ -189,7 +192,7 @@ public class CqCatalog {
             throw new RuntimeException("Could not create " + out.getParent(), e);
         }
         String rawJson;
-        switch (Kind.valueOf(model.getKind())) {
+        switch (model.getKind()) {
         case component:
             rawJson = JsonMapper.createParameterJsonSchema((ComponentModel) model);
             break;
@@ -221,7 +224,7 @@ public class CqCatalog {
 
     public static Stream<Kind> kinds() {
         return Stream.of(Kind.values())
-                .filter(kind -> kind != org.apache.camel.catalog.Kind.eip);
+                .filter(kind -> kind != Kind.eip);
     }
 
     public static boolean isFirstScheme(ArtifactModel<?> model) {
@@ -337,6 +340,7 @@ public class CqCatalog {
         private static final String LANGUAGE_CATALOG = CQ_CATALOG_DIR + "/languages.properties";
         private static final String TRANSFORMER_CATALOG = CQ_CATALOG_DIR + "/transformers.properties";
         private static final String OTHER_CATALOG = CQ_CATALOG_DIR + "/others.properties";
+        private static final String CAPABILITIES_CATALOG = "org/apache/camel/catalog/capabilities.properties";
 
         private CamelCatalog camelCatalog;
 
@@ -423,6 +427,10 @@ public class CqCatalog {
             return OTHER_CATALOG;
         }
 
+        protected String getCapabilitiesCatalog() {
+            return CAPABILITIES_CATALOG;
+        }
+
         @Override
         public List<String> findComponentNames() {
             List<String> names = new ArrayList<>();
@@ -505,6 +513,22 @@ public class CqCatalog {
                 }
             }
             return names;
+        }
+
+        @Override
+        public Map<String, String> findCapabilities() {
+            final Properties properties = new Properties();
+
+            InputStream is = getCamelCatalog().getVersionManager().getResourceAsStream(getCapabilitiesCatalog());
+            if (is != null) {
+                try {
+                    properties.load(is);
+                } catch (IOException e) {
+                    // ignore
+                }
+            }
+
+            return new TreeMap<>((Map<String, String>) (Map) properties);
         }
     }
 
