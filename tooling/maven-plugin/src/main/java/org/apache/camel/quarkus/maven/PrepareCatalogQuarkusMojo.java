@@ -153,12 +153,12 @@ public class PrepareCatalogQuarkusMojo extends AbstractExtensionListMojo {
                         model.setLabel(ext.getLabel().orElse("quarkus"));
                         update(model, ext, nativeSupported, quarkusVersion);
                         CqCatalog.serialize(catalogPath, model);
-                        schemesByKind.get(model.getKind()).add(model.getName());
+                        schemesByKind.get(model.getKind().name()).add(model.getName());
                     } else {
                         for (ArtifactModel<?> model : models) {
                             update(model, ext, nativeSupported, quarkusVersion);
                             CqCatalog.serialize(catalogPath, model);
-                            schemesByKind.get(model.getKind()).add(model.getName());
+                            schemesByKind.get(model.getKind().name()).add(model.getName());
                         }
                     }
                 });

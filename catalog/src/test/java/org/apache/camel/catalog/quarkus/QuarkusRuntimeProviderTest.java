@@ -31,8 +31,8 @@ import java.util.stream.Stream;
 
 import org.apache.camel.catalog.CamelCatalog;
 import org.apache.camel.catalog.DefaultCamelCatalog;
-import org.apache.camel.catalog.Kind;
 import org.apache.camel.tooling.model.ArtifactModel;
+import org.apache.camel.tooling.model.Kind;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -72,7 +72,7 @@ public class QuarkusRuntimeProviderTest {
     @Test
     public void extensionsPresent() throws Exception {
 
-        final Set<String> artifactIdsPresentInCatalog = Stream.of(org.apache.camel.catalog.Kind.values())
+        final Set<String> artifactIdsPresentInCatalog = Stream.of(Kind.values())
                 .filter(kind -> kind != Kind.eip)
                 .flatMap(kind -> catalog.findNames(kind).stream()
                         .map(name -> catalog.model(kind, name)))
