@@ -39,6 +39,7 @@ import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -52,6 +53,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 @QuarkusTestResource(MongoDbTestResource.class)
+@Disabled //https://github.com/apache/camel-quarkus/issues/5895
 class MongoDbTest {
     private static final Logger LOG = Logger.getLogger(MongoDbTest.class);
 

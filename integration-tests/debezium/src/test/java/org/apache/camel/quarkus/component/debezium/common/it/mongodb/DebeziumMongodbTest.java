@@ -35,6 +35,7 @@ import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -50,6 +51,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 @QuarkusTest
 @QuarkusTestResource(DebeziumMongodbTestResource.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Disabled //https://github.com/apache/camel-quarkus/issues/5895
 class DebeziumMongodbTest extends AbstractDebeziumTest {
     private static MongoClient mongoClient;
 

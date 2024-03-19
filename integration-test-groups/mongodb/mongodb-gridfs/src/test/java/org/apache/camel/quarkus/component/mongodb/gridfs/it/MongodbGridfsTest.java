@@ -22,6 +22,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.support.mongodb.MongoDbTestResource;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -29,6 +30,7 @@ import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 @QuarkusTestResource(MongoDbTestResource.class)
+@Disabled //https://github.com/apache/camel-quarkus/issues/5895
 class MongodbGridfsTest {
 
     @ParameterizedTest
