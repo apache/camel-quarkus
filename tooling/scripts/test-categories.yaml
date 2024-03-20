@@ -18,6 +18,7 @@
 # Association of test categories and integration test modules. Used by GitHub workflows. Keep sorted alphabetically.
 group-01:
   - caffeine
+  - qdrant
   - git
   - google-storage
   - hazelcast
