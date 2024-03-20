@@ -437,10 +437,21 @@ $ git commit -m "Next is $NEXT_CQ_VERSION"
 $ git push upstream camel-quarkus-main --force-with-lease
 ----
 
+== Write the release announcement blog post
+
+Taking inspiration from previous release announcement blog post, we need to write one for the release at hand.
+
+Please, keep in mind a few things when preparing the pull request for the camel-website:
+
+* A release marker file should be added in https://github.com/apache/camel-website/tree/main/content/releases/q
+* Marker files for LTS versions should include the end of life date, ala  'eol: date'
+* The end of life date is the minimum date between camel LTS eol date and quarkus LTS eol date
+* Documentation branches should be updated in https://github.com/apache/camel-website/blob/main/antora-playbook-snippets/antora-playbook.yml[antora-playbook.yml]
+* We maintain documentation branches only for LTS versions and main
+
 == Further steps
 
 In addition to the above, the following is needed:
 
 * https://github.com/apache/camel-quarkus/issues/new[Create a ticket] asking a https://projects.apache.org/committee.html?camel[PMC member] to update the https://reporter.apache.org/addrelease.html?camel[Apache Committee Report Helper]. The ticket title could be as follow.
   Release: The Apache Committee Report Helper should be updated by a PMC member as camel-quarkus-X.Y.Z has been released on YYYY-MM-DD.
-* When writing the release announcement blog post, do not forget to add the release note section in https://github.com/apache/camel-website/tree/main/content/releases/q, and to add the branch for documentation in https://github.com/apache/camel-website/blob/main/antora-playbook-snippets/antora-playbook.yml[antora-playbook.yml].
