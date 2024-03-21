@@ -25,6 +25,6 @@ import org.apache.camel.quarkus.component.cxf.soap.it.ws.trust.common.PasswordCa
 public class ServerCallbackHandler extends PasswordCallbackHandler {
 
     public ServerCallbackHandler() {
-        super(Map.of("myservicekey", "skpass"));
+        super(Map.of("myservicekey", "sspass"));
     }
 }

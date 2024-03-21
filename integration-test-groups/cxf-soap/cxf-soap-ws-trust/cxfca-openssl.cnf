@@ -1,0 +1,16 @@
+[req]
+distinguished_name  = req_distinguished_name
+req_extensions = v3_req
+
+[req_distinguished_name]
+organizationName          = Organization Name (eg, company)
+organizationName_default = apache.org
+organizationalUnitName          = Organization Unit (eg, company)
+organizationalUnitName_default = eng (NOT FOR PRODUCTION)
+commonName            = Common Name (eg, YOUR name)
+commonName_default = cxfca
+
+[v3_req]
+basicConstraints = CA:true
+keyUsage = critical, keyCertSign
+

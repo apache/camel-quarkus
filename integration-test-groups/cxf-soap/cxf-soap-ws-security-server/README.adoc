@@ -17,3 +17,18 @@ We test in two ways how the SOAP service endpoints are deployed: the Camel way a
 * See also `WssSecurityPolicyHelloServiceCxfWayImpl`
 * This way may come in handy in situations when the Camel way does not work properly,
   such as https://github.com/apache/camel-quarkus/issues/4291
+
+= FIPS
+
+Please use profile `fips` if running the tests in the FIPS-enabled environment. The tests have to leverage BouncyCastle-fips dependency instead of standard BouncyCastle.
+
+= Generating keystores
+
+Run following script `keystores.sh` in a folder with `cxfca-openssl.config`.
+
+Content of the script file:
+
+[source,bash]
+----
+include::./keystores.sh[]
+----
