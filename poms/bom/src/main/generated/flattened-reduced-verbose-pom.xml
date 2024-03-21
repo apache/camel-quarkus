@@ -6864,17 +6864,17 @@
       <dependency>
         <groupId>software.amazon.awssdk</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>endpoints-spi</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>2.24.9</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>2.25.13</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>http-auth-aws</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>2.24.9</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>2.25.13</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>sdk-core</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>2.24.9</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>2.25.13</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk.crt</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -7365,109 +7365,109 @@
         <version>4.0.18</version><!-- org.apache.groovy:groovy-bom:4.0.18 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>annotations</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>annotations</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>arns</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>arns</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>json-utils</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>json-utils</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>third-party-jackson-core</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>third-party-jackson-core</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>third-party-jackson-dataformat-cbor</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>third-party-jackson-dataformat-cbor</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>auth</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>auth</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>aws-core</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>aws-core</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>profiles</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>profiles</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>aws-cbor-protocol</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>aws-cbor-protocol</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>aws-json-protocol</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>aws-json-protocol</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>aws-query-protocol</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>aws-query-protocol</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>aws-xml-protocol</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>aws-xml-protocol</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>protocol-core</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>protocol-core</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>regions</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>regions</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>checksums-spi</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>checksums-spi</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>checksums</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>checksums</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>http-auth-spi</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>http-auth-spi</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>http-auth</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>http-auth</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>identity-spi</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>identity-spi</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>http-client-spi</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>http-client-spi</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>apache-client</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>apache-client</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
         <exclusions>
           <exclusion>
             <groupId>commons-logging</groupId>
@@ -7476,129 +7476,129 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>netty-nio-client</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>netty-nio-client</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>utils</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>utils</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>athena</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>athena</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>cloudtrail</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>cloudtrail</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>cloudwatch</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>cloudwatch</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>dynamodb</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>dynamodb</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>ec2</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>ec2</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>ecs</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>ecs</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>eks</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>eks</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>firehose</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>firehose</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>iam</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>iam</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>kafka</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>kafka</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>kinesis</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>kinesis</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>kms</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>kms</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>lambda</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>lambda</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>mq</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>mq</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>s3</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>s3</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>secretsmanager</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>secretsmanager</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>ses</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>ses</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>sns</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>sns</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>sqs</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>sqs</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>sts</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>sts</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>translate</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>translate</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>eventbridge</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>eventbridge</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <artifactId>metrics-spi</artifactId><!-- software.amazon.awssdk:bom:2.24.9 -->
-        <version>2.24.9</version><!-- software.amazon.awssdk:bom:2.24.9 -->
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <artifactId>metrics-spi</artifactId><!-- software.amazon.awssdk:bom:2.25.13 -->
+        <version>2.25.13</version><!-- software.amazon.awssdk:bom:2.25.13 -->
       </dependency>
       <dependency>
         <groupId>org.apache.qpid</groupId><!-- org.amqphub.quarkus:quarkus-qpid-jms-bom:2.6.1 -->
