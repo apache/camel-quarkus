@@ -25,7 +25,7 @@ Mocked tests are enabled by default.
 Unfortunately in case that mocked tests are enabled, the flat class path is forced for the Quarkus, which may influence
 the tests.
 
-Execution of mocked tests can be skipped by activating profile `skip-mock-tests`.
+Execution of mocked tests can be skipped by setting property `skip-mock-tests` to true (by adding parameter `-Dskip-mock-tests=true`).
 
 === How to configure an external server
 
