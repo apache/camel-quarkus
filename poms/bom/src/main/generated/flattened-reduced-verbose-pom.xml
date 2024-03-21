@@ -7155,6 +7155,21 @@
         <version>6.6.1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.8.1 -->
       </dependency>
       <dependency>
+        <groupId>com.sun.xml.fastinfoset</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.8.1 -->
+        <artifactId>FastInfoset</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.8.1 -->
+        <version>2.1.1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.8.1 -->
+        <exclusions>
+          <exclusion>
+            <groupId>javax.xml</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.8.1 -->
+            <artifactId>jsr173</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.8.1 -->
+          </exclusion>
+          <exclusion>
+            <groupId>javax.xml.bind</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.8.1 -->
+            <artifactId>jsr173_api</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.8.1 -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
         <groupId>com.sun.xml.messaging.saaj</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.8.1 -->
         <artifactId>saaj-impl</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.8.1 -->
         <version>2.0.1</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.8.1 -->
