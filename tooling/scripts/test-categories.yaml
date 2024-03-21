@@ -148,6 +148,7 @@ group-09:
   - ftp
   - graphql
   - jt400
+  - jt400-mocked
   - kafka-sasl-ssl
   - kafka-ssl
   - paho
