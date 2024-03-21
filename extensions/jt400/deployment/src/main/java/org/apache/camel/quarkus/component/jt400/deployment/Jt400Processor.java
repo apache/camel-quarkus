@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import com.ibm.as400.access.AS400;
 import com.ibm.as400.access.ConvTable;
 import com.ibm.as400.access.NLSImplNative;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -27,8 +28,10 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
+import io.quarkus.deployment.builditem.NativeImageEnableAllCharsetsBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 import org.jboss.logging.Logger;
@@ -52,11 +55,22 @@ class Jt400Processor {
     }
 
     @BuildStep
+    NativeImageEnableAllCharsetsBuildItem charset() {
+        return new NativeImageEnableAllCharsetsBuildItem();
+    }
+
+    @BuildStep
+    RuntimeReinitializedClassBuildItem runtimeReiinitializedClass() {
+        return new RuntimeReinitializedClassBuildItem(AS400.class.getName());
+    }
+
+    @BuildStep
     void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClassesProducer,
             CombinedIndexBuildItem combinedIndex) {
         IndexView index = combinedIndex.getIndex();
 
         reflectiveClassesProducer.produce(ReflectiveClassBuildItem.builder(NLSImplNative.class).build());
+        reflectiveClassesProducer.produce(ReflectiveClassBuildItem.builder("com.ibm.as400.access.SocketContainerInet").build());
 
         Pattern pattern = Pattern.compile("com.ibm.as400.access.*Remote");
         index.getKnownClasses().stream()
