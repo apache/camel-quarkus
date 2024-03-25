@@ -86,6 +86,7 @@
 *** xref:reference/extensions/chunk.adoc[Chunk]
 *** xref:reference/extensions/core-cloud.adoc[Cloud]
 *** xref:reference/extensions/cloudevents.adoc[Cloudevents]
+*** xref:reference/extensions/kubernetes-cluster-service.adoc[Cluster Service]
 *** xref:reference/extensions/coap.adoc[CoAP]
 *** xref:reference/extensions/cometd.adoc[CometD]
 *** xref:reference/extensions/console.adoc[Console]
