@@ -59,7 +59,7 @@ public final class AbstractClientApplicationBaseSubstitutions {
         return supplier;
     }
 
-    static final class Msal4jIsPresent implements BooleanSupplier {
+    public static final class Msal4jIsPresent implements BooleanSupplier {
         @Override
         public boolean getAsBoolean() {
             try {
