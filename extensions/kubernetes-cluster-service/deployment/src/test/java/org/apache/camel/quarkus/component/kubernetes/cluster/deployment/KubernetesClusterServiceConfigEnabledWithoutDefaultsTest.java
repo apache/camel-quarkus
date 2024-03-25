@@ -43,11 +43,10 @@ public class KubernetesClusterServiceConfigEnabledWithoutDefaultsTest {
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class).addAsResource(applicationProperties(),
                     "application.properties"));
 
-    public static final Asset applicationProperties() {
+    public static Asset applicationProperties() {
         Writer writer = new StringWriter();
 
         Properties props = new Properties();
-        props.setProperty("quarkus.camel.cluster.kubernetes.enabled", "true");
         props.setProperty("quarkus.camel.cluster.kubernetes.id", "kcs-id");
         props.setProperty("quarkus.camel.cluster.kubernetes.master-url", "kcs-master-url");
         props.setProperty("quarkus.camel.cluster.kubernetes.connection-timeout-millis", "5033");

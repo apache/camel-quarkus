@@ -24,7 +24,9 @@ import java.util.Properties;
 import io.quarkus.test.QuarkusUnitTest;
 import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
+import org.apache.camel.Ordered;
 import org.apache.camel.component.kubernetes.cluster.KubernetesClusterService;
+import org.apache.camel.component.kubernetes.cluster.LeaseResourceType;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -33,17 +35,21 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class KubernetesClusterServiceConfigDefaultTest {
+public class KubernetesClusterServiceConfigEnabledWithoutRebalancingTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class).addAsResource(applicationProperties(),
                     "application.properties"));
 
-    public static final Asset applicationProperties() {
+    public static Asset applicationProperties() {
         Writer writer = new StringWriter();
 
         Properties props = new Properties();
+        props.setProperty("quarkus.camel.cluster.kubernetes.rebalancing", "false");
 
         try {
             props.store(writer, "");
@@ -58,13 +64,32 @@ public class KubernetesClusterServiceConfigDefaultTest {
     CamelContext camelContext;
 
     @Test
-    public void defaultConfigShouldNotAutoConfigure() {
+    public void enabledConfigWithoutRebalancingAndDefaultsShouldAutoConfigure() {
         KubernetesClusterService[] kcss = camelContext.getCamelContextExtension()
                 .getServices()
                 .stream()
                 .filter(s -> s instanceof KubernetesClusterService)
                 .toArray(KubernetesClusterService[]::new);
-        assertEquals(0, kcss.length);
+        assertEquals(1, kcss.length);
+
+        KubernetesClusterService kcs = kcss[0];
+        assertNotNull(kcs);
+
+        assertNull(kcs.getId());
+        assertNull(kcs.getMasterUrl());
+        assertNull(kcs.getConnectionTimeoutMillis());
+        assertNull(kcs.getKubernetesNamespace());
+        assertNull(kcs.getPodName());
+        assertEquals(1.2, kcs.getJitterFactor());
+        assertEquals(15000L, kcs.getLeaseDurationMillis());
+        assertEquals(10000L, kcs.getRenewDeadlineMillis());
+        assertEquals(2000L, kcs.getRetryPeriodMillis());
+        assertEquals(Ordered.LOWEST, kcs.getOrder());
+        assertEquals("leaders", kcs.getKubernetesResourceName());
+        assertEquals(LeaseResourceType.Lease, kcs.getLeaseResourceType());
+
+        assertNotNull(kcs.getClusterLabels());
+        assertTrue(kcs.getClusterLabels().isEmpty());
     }
 
 }

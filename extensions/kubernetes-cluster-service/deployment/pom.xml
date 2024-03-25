@@ -21,13 +21,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-kubernetes-parent</artifactId>
+        <artifactId>camel-quarkus-kubernetes-cluster-service-parent</artifactId>
         <version>3.10.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-kubernetes-deployment</artifactId>
-    <name>Camel Quarkus :: Kubernetes :: Deployment</name>
+    <artifactId>camel-quarkus-kubernetes-cluster-service-deployment</artifactId>
+    <name>Camel Quarkus :: Kubernetes Cluster Service :: Deployment</name>
 
     <dependencies>
         <dependency>
@@ -48,7 +48,16 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-kubernetes</artifactId>
+            <artifactId>camel-quarkus-kubernetes-deployment</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-kubernetes-cluster-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit5-internal</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

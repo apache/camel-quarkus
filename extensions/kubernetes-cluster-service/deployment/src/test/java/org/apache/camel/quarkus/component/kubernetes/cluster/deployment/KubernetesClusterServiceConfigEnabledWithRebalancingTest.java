@@ -40,11 +40,10 @@ public class KubernetesClusterServiceConfigEnabledWithRebalancingTest {
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class).addAsResource(applicationProperties(),
                     "application.properties"));
 
-    public static final Asset applicationProperties() {
+    public static Asset applicationProperties() {
         Writer writer = new StringWriter();
 
         Properties props = new Properties();
-        props.setProperty("quarkus.camel.cluster.kubernetes.enabled", "true");
 
         try {
             props.store(writer, "");

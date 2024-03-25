@@ -161,6 +161,7 @@
         <module>kotlin</module>
         <module>kotlin-dsl</module>
         <module>kubernetes</module>
+        <module>kubernetes-cluster-service</module>
         <module>kudu</module>
         <module>language</module>
         <module>ldap</module>
