@@ -3637,6 +3637,16 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-file-cluster-service</artifactId>
+        <version>3.9.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-file-cluster-service-deployment</artifactId>
+        <version>3.9.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-file-watch</artifactId>
         <version>3.10.0-SNAPSHOT</version>
       </dependency>
@@ -4424,6 +4434,16 @@
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-kubernetes-deployment</artifactId>
         <version>3.10.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-kubernetes-cluster-service</artifactId>
+        <version>3.9.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-kubernetes-cluster-service-deployment</artifactId>
+        <version>3.9.1-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
