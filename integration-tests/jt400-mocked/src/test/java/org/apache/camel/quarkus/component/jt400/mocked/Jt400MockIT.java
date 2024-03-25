@@ -14,13 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jt400.it;
+package org.apache.camel.quarkus.component.jt400.mocked;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 @QuarkusIntegrationTest
-@DisabledIfSystemProperty(named = "skip-mock-tests", matches = "true")
 class Jt400MockIT extends Jt400MockTest {
 
 }
