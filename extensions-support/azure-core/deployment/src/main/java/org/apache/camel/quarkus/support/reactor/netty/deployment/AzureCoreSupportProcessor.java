@@ -22,6 +22,7 @@ import java.util.stream.Stream;
 
 import com.azure.core.annotation.ServiceInterface;
 import com.azure.core.http.HttpClientProvider;
+import com.microsoft.aad.msal4j.AbstractClientApplicationBaseSubstitutions.Msal4jIsPresent;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
@@ -29,8 +30,10 @@ import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import io.quarkus.deployment.util.ServiceUtil;
+import io.quarkus.utilities.OS;
 import org.jboss.jandex.DotName;
 
 public class AzureCoreSupportProcessor {
@@ -93,4 +96,18 @@ public class AzureCoreSupportProcessor {
                 .forEach(proxyDefinitions::produce);
     }
 
+    @BuildStep(onlyIf = Msal4jIsPresent.class)
+    void enableLoadingOfNativeLibraries(BuildProducer<RuntimeReinitializedClassBuildItem> runtimeReinitializedClass) {
+        OS os = OS.determineOS();
+        if (os.equals(OS.LINUX) || os.equals(OS.MAC)) {
+            String iSecurityLibraryClassName = "com.microsoft.aad.msal4jextensions.persistence.%s.ISecurityLibrary"
+                    .formatted(os.name().toLowerCase());
+            runtimeReinitializedClass.produce(new RuntimeReinitializedClassBuildItem(iSecurityLibraryClassName));
+        }
+
+        if (os.equals(OS.WINDOWS)) {
+            runtimeReinitializedClass.produce(new RuntimeReinitializedClassBuildItem("com.sun.jna.platform.win32.Crypt32"));
+            runtimeReinitializedClass.produce(new RuntimeReinitializedClassBuildItem("com.sun.jna.platform.win32.Kernel32"));
+        }
+    }
 }
