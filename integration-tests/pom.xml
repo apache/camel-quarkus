@@ -139,6 +139,7 @@
         <module>jsonata</module>
         <module>jsonpath</module>
         <module>jt400</module>
+        <module>jt400-mocked</module>
         <module>jta</module>
         <module>kafka</module>
         <module>kafka-oauth</module>

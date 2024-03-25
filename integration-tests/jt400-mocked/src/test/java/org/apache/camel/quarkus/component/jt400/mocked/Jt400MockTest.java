@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jt400.it;
+package org.apache.camel.quarkus.component.jt400.mocked;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,15 +22,12 @@ import java.util.Map;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.apache.camel.quarkus.component.jt400.it.mock.Jt400MockResource;
+import org.apache.camel.quarkus.component.jt400.mocked.it.Jt400MockResource;
 import org.apache.camel.util.CollectionHelper;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 @QuarkusTest
-@DisabledIfSystemProperty(named = "skip-mock-tests", matches = "true")
-
 public class Jt400MockTest {
 
     @Test
