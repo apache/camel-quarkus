@@ -41,6 +41,10 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-file-cluster-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-log</artifactId>
         </dependency>
         <dependency>

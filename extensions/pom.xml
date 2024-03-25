@@ -99,6 +99,7 @@
         <module>exec</module>
         <module>fhir</module>
         <module>file</module>
+        <module>file-cluster-service</module>
         <module>file-watch</module>
         <module>flatpack</module>
         <module>fop</module>
