@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.azure.storage.blob.deployment;
 
-import com.azure.identity.implementation.IdentityClient;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
@@ -25,7 +24,6 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 
@@ -68,17 +66,5 @@ class AzureStorageBlobProcessor {
     void nativeResources(BuildProducer<NativeImageResourceBuildItem> nativeResources) {
         nativeResources.produce(new NativeImageResourceBuildItem(
                 "azure-storage-blob.properties"));
-    }
-
-    @BuildStep
-    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
-        // Required by azure-identity
-        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem("com.sun.jna.platform.win32.Crypt32"));
-        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem("com.sun.jna.platform.win32.Kernel32"));
-        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(IdentityClient.class.getName()));
-        runtimeInitializedClass.produce(
-                new RuntimeInitializedClassBuildItem("com.microsoft.aad.msal4jextensions.persistence.linux.ISecurityLibrary"));
-        runtimeInitializedClass.produce(
-                new RuntimeInitializedClassBuildItem("com.microsoft.aad.msal4jextensions.persistence.mac.ISecurityLibrary"));
     }
 }
