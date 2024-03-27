@@ -1,5 +1,75 @@
 # Changelog
 
+## 3.9.0
+
+* Avoid updating quarkus.version in antora.yml on the quarkus-main branch by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5787
+* Update release guide by @aldettinger in https://github.com/apache/camel-quarkus/pull/5790
+* Next is 3.9.0-SNAPSHOT by @aldettinger in https://github.com/apache/camel-quarkus/pull/5789
+* Add JUnit conditions for FIPS mode by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5791
+* Remove maven-deploy-plugin configuration deprecated since maven 3 by @aldettinger in https://github.com/apache/camel-quarkus/pull/5793
+* Add a Jasypt test profile for FIPS by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5794
+* feat(camel-k): add options to override some aspects of a route by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/5792
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5797
+* update quarkus metadata #5803 by @aldettinger in https://github.com/apache/camel-quarkus/pull/5805
+* Bump org.codehaus.mojo:exec-maven-plugin from 3.1.1 to 3.2.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/5796
+* Move com.squareup.okhttp3:mockwebserver into camel-quarkus-bom by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5806
+* Use correct quarkus-extension-maven-plugin in beanio extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5807
+* Upgrade quarkus-amazon-services to 2.12.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5811
+* Avoid hard coded use of localhost in Google cloud extension tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5808
+* Update release changelog and associated process step by @aldettinger in https://github.com/apache/camel-quarkus/pull/5817
+* Upgrade Quarkus to 3.8.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5818
+* jt400 mock coverage + native fixes by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5812
+* Add jolokia and okhttp to dependabot config by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5820
+* Manage software.amazon.awssdk:endpoints-spi by @ppalaga in https://github.com/apache/camel-quarkus/pull/5821
+* Clean up camel-k extension leftovers by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/5802
+* Remove xerces:xercesImpl from the BOM by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5822
+* Bump io.quarkiverse.artemis:quarkus-artemis-bom from 3.1.4 to 3.2.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/5826
+* Bump quarkiverse-groovy.version from 3.7.1 to 3.8.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/5825
+* Upgrade cq-maven-plugin to 4.5.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5827
+* Rebalance native test category group-13 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5829
+* Add multipart configuration options to servlet extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5328
+* Remove registration of Servlet classes with AdditionalBeanBuildItem by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5831
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5833
+* Bump quarkiverse-pooled-jms.version from 2.3.0 to 2.3.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/5836
+* Servlet extension improvements by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5837
+* Upgrade cq-maven-plugin to 4.6.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5838
+* Migrate file watch tests to new harness #3584 by @aldettinger in https://github.com/apache/camel-quarkus/pull/5840
+* Bump quarkiverse-jgit.version from 3.0.6 to 3.0.7 by @dependabot in https://github.com/apache/camel-quarkus/pull/5841
+* Bump quarkiverse-jsch.version from 3.0.6 to 3.0.7 by @dependabot in https://github.com/apache/camel-quarkus/pull/5842
+* Bump quarkiverse-mybatis.version from 2.2.1 to 2.2.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/5845
+* Bump org.amqphub.quarkus:quarkus-qpid-jms-bom from 2.5.0 to 2.6.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/5846
+* Upgrade Quarkus to 3.8.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5848
+* Bump io.quarkiverse.artemis:quarkus-artemis-bom from 3.2.0 to 3.2.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/5854
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5856
+* Fix typo in servlet name configuration code snippet by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5857
+* Exclude CloudEvents transformer services unless camel-quarkus-cloudevents is on the classpath by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5862
+* Move main-xml-io-with-beans tests into main-xml-io by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5863
+* Add profile to debug camel-k-maven-plugin integration tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5864
+* Bump com.unboundid:unboundid-ldapsdk from 6.0.11 to 7.0.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/5865
+* Remove redundant use of oss-snapshots profile on push to quarkus-main by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5867
+* Remove obsolete vertx-grpc exclusions since they potentially cause issues if quarkus-grpc is present by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5868
+* Upgrade Quarkus to 3.9.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5869
+* Speed up Windows, quarkus-main & camel-main builds by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5871
+* Avoid potential NPE when handling Jasypt password prefixes by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5875
+* Upgrade to Quarkus CXF 3.8.1 by @zhfeng in https://github.com/apache/camel-quarkus/pull/5877
+* Upgrade Camel to 4.4.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5878
+* Upgrade quarkus-jgit to 3.1.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5879
+* Upgrade Quarkus to 3.9.0.CR2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5881
+* Enable java-joor-dsl & jsh-dsl tests on Windows by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5882
+* jt400: extend test coverage by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5883
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5886
+* Fixup adding com.squareup.okhttp3:mockwebserver to camel-quarkus-bom by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5888
+* Remove redundant parentFirstArtifact configuration from js-dsl extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5889
+* Align Debezium & QPid JMS versions with the Quarkus Platform by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5890
+* Add changelog for 3.8.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5894
+* Register Mixin classes for reflection by @zhfeng in https://github.com/apache/camel-quarkus/pull/5898
+* Explicit blog post annoucement step in the release procedure by @aldettinger in https://github.com/apache/camel-quarkus/pull/5901
+* Upgrade Quarkus to 3.9.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5902
+* Upgrade to Quarkus CXF 3.9.0 by @ppalaga in https://github.com/apache/camel-quarkus/pull/5904
+* Manage com.sun.xml.fastinfoset:FastInfoset by @zhfeng in https://github.com/apache/camel-quarkus/pull/5905
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.8.0...3.9.0
+
 ## 3.8.1
 
 * release: fix qute version by @aldettinger in https://github.com/apache/camel-quarkus/pull/5788
