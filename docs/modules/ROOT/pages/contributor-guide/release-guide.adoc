@@ -348,7 +348,7 @@ The following needs to be done:
 
 * Go to https://github.com/apache/camel-quarkus/releases[https://github.com/apache/camel-quarkus/releases].
 * Click the tag you want to promote to a GitHub release
-* Click "Edit Tag" button
+* Click "Create release from tag" button
 * In the "New release" form:
   * Leave "Release title" empty
   * Choose the tag of the previous release from the "Previous tag" select field
