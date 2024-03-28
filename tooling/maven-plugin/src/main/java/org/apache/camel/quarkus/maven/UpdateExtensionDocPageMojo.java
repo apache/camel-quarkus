@@ -47,7 +47,6 @@ import io.quarkus.annotation.processor.generate_doc.ConfigDocItem;
 import io.quarkus.annotation.processor.generate_doc.ConfigDocKey;
 import io.quarkus.annotation.processor.generate_doc.DocGeneratorUtil;
 import io.quarkus.annotation.processor.generate_doc.FsMap;
-import org.apache.camel.catalog.Kind;
 import org.apache.camel.quarkus.maven.processor.AppendNewLinePostProcessor;
 import org.apache.camel.quarkus.maven.processor.AsciiDocFile;
 import org.apache.camel.quarkus.maven.processor.DocumentationPostProcessor;
@@ -55,6 +54,9 @@ import org.apache.camel.quarkus.maven.processor.SectionIdPostProcessor;
 import org.apache.camel.tooling.model.ArtifactModel;
 import org.apache.camel.tooling.model.BaseModel;
 import org.apache.camel.tooling.model.ComponentModel;
+import org.apache.camel.tooling.model.DevConsoleModel;
+import org.apache.camel.tooling.model.Kind;
+import org.apache.camel.tooling.model.TransformerModel;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -111,6 +113,8 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                 templatesUriBase, encoding);
 
         final List<ArtifactModel<?>> models = catalog.filterModels(ext.getRuntimeArtifactIdBase())
+                .filter(artifactModel -> !(artifactModel instanceof DevConsoleModel))
+                .filter(artifactModel -> !(artifactModel instanceof TransformerModel))
                 .filter(artifactModel -> !artifactModel.getArtifactId().equals("camel-management"))
                 .filter(artifactModel -> !artifactModel.getArtifactId().equals("camel-yaml-io"))
                 .sorted(BaseModel.compareTitle())
@@ -187,7 +191,7 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
 
             private String camelBitLink(ArtifactModel<?> model) {
                 model = CqCatalog.toCamelDocsModel(model);
-                final String kind = model.getKind();
+                final String kind = model.getKind().name();
                 String name = model.getName();
                 String xrefPrefix = "xref:{cq-camel-components}:" + (!"component".equals(kind) ? kind + "s:" : ":");
                 if (name.equals("xml-io-dsl")) {
@@ -292,7 +296,7 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         models.stream()
                 .filter(CqCatalog::isFirstScheme)
                 .forEach(m -> {
-                    final Kind kind = Kind.valueOf(m.getKind());
+                    final Kind kind = m.getKind();
                     final HashMap<String, Object> modelClone = new HashMap<>(model);
                     modelClone.put("camelPartName", m.getName());
                     modelClone.put("camelPartTitle", m.getTitle());

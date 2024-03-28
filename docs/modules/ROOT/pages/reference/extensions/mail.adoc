@@ -24,12 +24,12 @@ Send and receive emails using imap, pop3 and smtp protocols. Marshal Camel messa
 == What's inside
 
 * xref:{cq-camel-components}::mail-component.adoc[IMAP component], URI syntax: `imap:host:port`
-* xref:{cq-camel-components}::mail-component.adoc[IMAPS (Secure) component], URI syntax: `imaps:host:port`
+* xref:{cq-camel-components}::imaps-component.adoc[IMAPS (Secure) component], URI syntax: `imaps:host:port`
 * xref:{cq-camel-components}:dataformats:mimeMultipart-dataformat.adoc[MIME Multipart data format]
-* xref:{cq-camel-components}::mail-component.adoc[POP3 component], URI syntax: `pop3:host:port`
-* xref:{cq-camel-components}::mail-component.adoc[POP3S component], URI syntax: `pop3s:host:port`
-* xref:{cq-camel-components}::mail-component.adoc[SMTP component], URI syntax: `smtp:host:port`
-* xref:{cq-camel-components}::mail-component.adoc[SMTPS component], URI syntax: `smtps:host:port`
+* xref:{cq-camel-components}::pop3-component.adoc[POP3 component], URI syntax: `pop3:host:port`
+* xref:{cq-camel-components}::pop3s-component.adoc[POP3S component], URI syntax: `pop3s:host:port`
+* xref:{cq-camel-components}::smtp-component.adoc[SMTP component], URI syntax: `smtp:host:port`
+* xref:{cq-camel-components}::smtps-component.adoc[SMTPS component], URI syntax: `smtps:host:port`
 
 Please refer to the above links for usage and configuration details.
 

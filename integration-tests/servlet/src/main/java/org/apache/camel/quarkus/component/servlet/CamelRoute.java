@@ -41,31 +41,31 @@ public class CamelRoute extends RouteBuilder {
 
         rest()
                 .get("/rest-get")
-                .to("direct:echoMethodPath")
+                .to("seda:echoMethodPath")
 
                 .post("/rest-post")
-                .to("direct:echoMethodPath")
+                .to("seda:echoMethodPath")
 
                 .put("/rest-put")
-                .to("direct:echoMethodPath")
+                .to("seda:echoMethodPath")
 
                 .patch("/rest-patch")
-                .to("direct:echoMethodPath")
+                .to("seda:echoMethodPath")
 
                 .delete("/rest-delete")
-                .to("direct:echoMethodPath")
+                .to("seda:echoMethodPath")
 
                 .head("/rest-head")
-                .to("direct:echoMethodPath");
+                .to("seda:echoMethodPath");
 
         from("servlet://hello?matchOnUriPrefix=true")
-                .to("direct:echoMethodPath");
+                .to("seda:echoMethodPath");
 
         from("servlet://options?servletName=options-method-servlet&optionsEnabled=true")
-                .to("direct:echoMethodPath");
+                .to("seda:echoMethodPath");
 
         from("servlet://trace?servletName=trace-method-servlet&traceEnabled=true")
-                .to("direct:echoMethodPath");
+                .to("seda:echoMethodPath");
 
         from("servlet://transfer/exception?transferException=true&muteException=false")
                 .throwException(new CustomException());
@@ -82,7 +82,7 @@ public class CamelRoute extends RouteBuilder {
         from("servlet://named?servletName=my-named-servlet")
                 .setBody(constant("GET: /my-named-servlet"));
 
-        from("direct:echoMethodPath")
+        from("seda:echoMethodPath")
                 .setBody().simple("${header.CamelHttpMethod}: ${header.CamelServletContextPath}");
 
         from("servlet://multipart/default?attachmentMultipartBinding=true")

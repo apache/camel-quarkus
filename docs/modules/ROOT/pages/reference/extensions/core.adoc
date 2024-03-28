@@ -200,9 +200,25 @@ Setting this to `false` helps to reduce the size of the native image. In JVM mod
 | `boolean`
 | `true`
 
+|icon:lock[title=Fixed at build time] [[quarkus.camel.runtime-catalog.devconsoles]]`link:#quarkus.camel.runtime-catalog.devconsoles[quarkus.camel.runtime-catalog.devconsoles]`
+
+If `true` the Runtime Camel Catalog embedded in the application will contain JSON schemas of Camel dev consoles available in the application; otherwise dev console JSON schemas will not be available in the Runtime Camel Catalog and any attempt to access those will result in a RuntimeException.
+
+Setting this to `false` helps to reduce the size of the native image. In JVM mode, there is no real benefit of setting this flag to `false` except for making the behavior consistent with native mode.
+| `boolean`
+| `true`
+
 |icon:lock[title=Fixed at build time] [[quarkus.camel.runtime-catalog.models]]`link:#quarkus.camel.runtime-catalog.models[quarkus.camel.runtime-catalog.models]`
 
 If `true` the Runtime Camel Catalog embedded in the application will contain JSON schemas of Camel EIP models available in the application; otherwise EIP model JSON schemas will not be available in the Runtime Camel Catalog and any attempt to access those will result in a RuntimeException.
+
+Setting this to `false` helps to reduce the size of the native image. In JVM mode, there is no real benefit of setting this flag to `false` except for making the behavior consistent with native mode.
+| `boolean`
+| `true`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.runtime-catalog.transformers]]`link:#quarkus.camel.runtime-catalog.transformers[quarkus.camel.runtime-catalog.transformers]`
+
+If `true` the Runtime Camel Catalog embedded in the application will contain JSON schemas of Camel transformers available in the application; otherwise transformer JSON schemas will not be available in the Runtime Camel Catalog and any attempt to access those will result in a RuntimeException.
 
 Setting this to `false` helps to reduce the size of the native image. In JVM mode, there is no real benefit of setting this flag to `false` except for making the behavior consistent with native mode.
 | `boolean`

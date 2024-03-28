@@ -20,6 +20,7 @@ import example.avro.Admin;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.dataformat.avro.AvroDataFormat;
+import org.apache.camel.model.dataformat.AvroLibrary;
 
 import static org.apache.camel.quarkus.component.avro.it.AvroSchemaLoader.getSchema;
 
@@ -29,15 +30,15 @@ public class AvroRoute extends RouteBuilder {
     @Override
     public void configure() {
 
-        from("direct:marshalUsingBuildTimeGeneratedClass").marshal().avro(Admin.class);
-        from("direct:unmarshalUsingBuildTimeGeneratedClass").unmarshal().avro(Admin.class);
+        from("direct:marshalUsingBuildTimeGeneratedClass").marshal().avro(AvroLibrary.ApacheAvro, Admin.class);
+        from("direct:unmarshalUsingBuildTimeGeneratedClass").unmarshal().avro(AvroLibrary.ApacheAvro, Admin.class);
 
         AvroDataFormat configureTimeAvroDataFormat = new AvroDataFormat(getSchema());
         from("direct:marshalUsingConfigureTimeAvroDataFormat").marshal(configureTimeAvroDataFormat);
         from("direct:unmarshalUsingConfigureTimeAvroDataFormat").unmarshal(configureTimeAvroDataFormat);
 
-        from("direct:marshalUsingAvroDsl").marshal().avro();
-        from("direct:unmarshalUsingInstanceClassNameAvroDsl").unmarshal().avro(Value.class.getName());
-        from("direct:unmarshalUsingSchemaAvroDsl").unmarshal().avro(Value.SCHEMA$);
+        from("direct:marshalUsingAvroDsl").marshal().avro(AvroLibrary.ApacheAvro);
+        from("direct:unmarshalUsingInstanceClassNameAvroDsl").unmarshal().avro(AvroLibrary.ApacheAvro, Value.class.getName());
+        from("direct:unmarshalUsingSchemaAvroDsl").unmarshal().avro(AvroLibrary.ApacheAvro, Value.SCHEMA$);
     }
 }

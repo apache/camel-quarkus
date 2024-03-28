@@ -59,7 +59,9 @@ public class CamelMicrometerRecorder {
         @Override
         public void configure(CamelContext camelContext) {
             if (config.enableRoutePolicy) {
-                camelContext.addRoutePolicyFactory(new MicrometerRoutePolicyFactory());
+                MicrometerRoutePolicyFactory mrpf = new MicrometerRoutePolicyFactory();
+                mrpf.setCamelContext(camelContext);
+                camelContext.addRoutePolicyFactory(mrpf);
             }
 
             ManagementStrategy managementStrategy = camelContext.getManagementStrategy();

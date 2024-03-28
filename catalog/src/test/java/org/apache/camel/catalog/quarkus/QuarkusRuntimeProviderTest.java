@@ -31,8 +31,8 @@ import java.util.stream.Stream;
 
 import org.apache.camel.catalog.CamelCatalog;
 import org.apache.camel.catalog.DefaultCamelCatalog;
-import org.apache.camel.catalog.Kind;
 import org.apache.camel.tooling.model.ArtifactModel;
+import org.apache.camel.tooling.model.Kind;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -72,8 +72,8 @@ public class QuarkusRuntimeProviderTest {
     @Test
     public void extensionsPresent() throws Exception {
 
-        final Set<String> artifactIdsPresentInCatalog = Stream.of(org.apache.camel.catalog.Kind.values())
-                .filter(kind -> kind != Kind.eip)
+        final Set<String> artifactIdsPresentInCatalog = Stream.of(Kind.values())
+                .filter(kind -> (kind != Kind.eip && kind != Kind.model && kind != Kind.bean))
                 .flatMap(kind -> catalog.findNames(kind).stream()
                         .map(name -> catalog.model(kind, name)))
                 .filter(model -> model instanceof ArtifactModel)
@@ -153,6 +153,18 @@ public class QuarkusRuntimeProviderTest {
     }
 
     @Test
+    public void testFindDevConsoleNames() throws Exception {
+        List<String> names = catalog.findDevConsoleNames();
+
+        assertNotNull(names);
+        assertFalse(names.isEmpty());
+
+        assertTrue(names.contains("context"));
+        assertTrue(names.contains("endpoint"));
+        assertTrue(names.contains("jvm"));
+    }
+
+    @Test
     public void testFindLanguageNames() throws Exception {
         List<String> names = catalog.findLanguageNames();
 
@@ -181,6 +193,16 @@ public class QuarkusRuntimeProviderTest {
         assertTrue(names.contains("attachments"));
 
         assertFalse(names.contains("blueprint"));
+    }
+
+    @Test
+    public void testFindTransformers() throws Exception {
+        List<String> names = catalog.findTransformerNames();
+
+        assertNotNull(names);
+        assertFalse(names.isEmpty());
+
+        assertTrue(names.contains("azure-storage-blob:application-cloudevents"));
     }
 
     @Test

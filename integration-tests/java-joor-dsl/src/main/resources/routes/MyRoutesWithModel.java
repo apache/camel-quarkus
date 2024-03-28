@@ -23,7 +23,6 @@ public class MyRoutesWithModel extends RouteBuilder {
     public void configure() throws Exception {
         rest("/say")
             .get("/emp/{id}")
-                .id("routes-with-rest-get")
                 .produces("application/json")
                 .outType(MyUser.class)
                 .to("direct:routes-with-rest");

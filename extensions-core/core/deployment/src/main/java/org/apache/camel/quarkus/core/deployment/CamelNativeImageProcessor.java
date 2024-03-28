@@ -43,7 +43,9 @@ import org.apache.camel.Producer;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.impl.engine.DefaultComponentResolver;
 import org.apache.camel.impl.engine.DefaultDataFormatResolver;
+import org.apache.camel.impl.engine.DefaultDevConsoleResolver;
 import org.apache.camel.impl.engine.DefaultLanguageResolver;
+import org.apache.camel.impl.engine.DefaultTransformerResolver;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelConfig.ReflectionConfig;
 import org.apache.camel.quarkus.core.CamelConfigFlags;
@@ -179,7 +181,7 @@ public class CamelNativeImageProcessor {
                 .forEach(service -> {
 
                     String packageName = getPackageName(service.type);
-                    String jsonPath = String.format("%s/%s.json", packageName.replace('.', '/'), service.name);
+                    String jsonPath = String.format("META-INF/%s/%s.json", packageName.replace('.', '/'), service.name);
 
                     if (config.runtimeCatalog.components
                             && service.path.startsWith(DefaultComponentResolver.RESOURCE_PATH)) {
@@ -189,8 +191,16 @@ public class CamelNativeImageProcessor {
                             && service.path.startsWith(DefaultDataFormatResolver.DATAFORMAT_RESOURCE_PATH)) {
                         resources.add(new NativeImageResourceBuildItem(jsonPath));
                     }
+                    if (config.runtimeCatalog.devconsoles
+                            && service.path.startsWith(DefaultDevConsoleResolver.DEV_CONSOLE_RESOURCE_PATH)) {
+                        resources.add(new NativeImageResourceBuildItem(jsonPath));
+                    }
                     if (config.runtimeCatalog.languages
                             && service.path.startsWith(DefaultLanguageResolver.LANGUAGE_RESOURCE_PATH)) {
+                        resources.add(new NativeImageResourceBuildItem(jsonPath));
+                    }
+                    if (config.runtimeCatalog.transformers
+                            && service.path.startsWith(DefaultTransformerResolver.DATA_TYPE_TRANSFORMER_RESOURCE_PATH)) {
                         resources.add(new NativeImageResourceBuildItem(jsonPath));
                     }
                 });

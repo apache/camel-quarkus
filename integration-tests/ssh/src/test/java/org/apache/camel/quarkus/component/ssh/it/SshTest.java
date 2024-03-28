@@ -20,10 +20,12 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Disabled("https://github.com/apache/camel-quarkus/issues/5850")
 @QuarkusTest
 @QuarkusTestResource(SshTestResource.class)
 class SshTest {

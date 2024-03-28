@@ -20,6 +20,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.TreeMap;
 
 import org.apache.camel.catalog.CamelCatalog;
 import org.apache.camel.catalog.RuntimeProvider;
@@ -34,12 +37,19 @@ public class QuarkusRuntimeProvider implements RuntimeProvider {
 
     private static final String COMPONENT_DIR = "org/apache/camel/catalog/quarkus/components";
     private static final String DATAFORMAT_DIR = "org/apache/camel/catalog/quarkus/dataformats";
+    private static final String DEV_CONSOLE_DIR = "org/apache/camel/catalog/quarkus/consoles";
     private static final String LANGUAGE_DIR = "org/apache/camel/catalog/quarkus/languages";
+    private static final String TRANSFORMER_DIR = "org/apache/camel/catalog/quarkus/transformers";
     private static final String OTHER_DIR = "org/apache/camel/catalog/quarkus/others";
+    private static final String BEANS_DIR = "org/apache/camel/catalog/beans";
+    private static final String CAPABILITIES_CATALOG = "org/apache/camel/catalog/quarkus/capabilities.properties";
     private static final String COMPONENTS_CATALOG = "org/apache/camel/catalog/quarkus/components.properties";
+    private static final String DEV_CONSOLE_CATALOG = "org/apache/camel/catalog/quarkus/consoles.properties";
     private static final String DATA_FORMATS_CATALOG = "org/apache/camel/catalog/quarkus/dataformats.properties";
     private static final String LANGUAGE_CATALOG = "org/apache/camel/catalog/quarkus/languages.properties";
+    private static final String TRANSFORMER_CATALOG = "org/apache/camel/catalog/quarkus/transformers.properties";
     private static final String OTHER_CATALOG = "org/apache/camel/catalog/quarkus/others.properties";
+    private static final String BEANS_CATALOG = "org/apache/camel/catalog/quarkus/beans.properties";
 
     private CamelCatalog camelCatalog;
 
@@ -79,13 +89,28 @@ public class QuarkusRuntimeProvider implements RuntimeProvider {
     }
 
     @Override
+    public String getDevConsoleJSonSchemaDirectory() {
+        return DEV_CONSOLE_DIR;
+    }
+
+    @Override
     public String getLanguageJSonSchemaDirectory() {
         return LANGUAGE_DIR;
     }
 
     @Override
+    public String getTransformerJSonSchemaDirectory() {
+        return TRANSFORMER_DIR;
+    }
+
+    @Override
     public String getOtherJSonSchemaDirectory() {
         return OTHER_DIR;
+    }
+
+    @Override
+    public String getPojoBeanJSonSchemaDirectory() {
+        return BEANS_DIR;
     }
 
     @Override
@@ -117,9 +142,37 @@ public class QuarkusRuntimeProvider implements RuntimeProvider {
     }
 
     @Override
+    public List<String> findDevConsoleNames() {
+        List<String> names = new ArrayList<>();
+        InputStream is = camelCatalog.getVersionManager().getResourceAsStream(DEV_CONSOLE_CATALOG);
+        if (is != null) {
+            try {
+                CatalogHelper.loadLines(is, names);
+            } catch (IOException e) {
+                // ignore
+            }
+        }
+        return names;
+    }
+
+    @Override
     public List<String> findLanguageNames() {
         List<String> names = new ArrayList<>();
         InputStream is = camelCatalog.getVersionManager().getResourceAsStream(LANGUAGE_CATALOG);
+        if (is != null) {
+            try {
+                CatalogHelper.loadLines(is, names);
+            } catch (IOException e) {
+                // ignore
+            }
+        }
+        return names;
+    }
+
+    @Override
+    public List<String> findTransformerNames() {
+        List<String> names = new ArrayList<>();
+        InputStream is = camelCatalog.getVersionManager().getResourceAsStream(TRANSFORMER_CATALOG);
         if (is != null) {
             try {
                 CatalogHelper.loadLines(is, names);
@@ -144,4 +197,29 @@ public class QuarkusRuntimeProvider implements RuntimeProvider {
         return names;
     }
 
+    @Override
+    public List<String> findBeansNames() {
+        List<String> names = new ArrayList<>();
+        InputStream is = camelCatalog.getVersionManager().getResourceAsStream(BEANS_CATALOG);
+        if (is != null) {
+            try {
+                CatalogHelper.loadLines(is, names);
+            } catch (IOException e) {
+                // ignore
+            }
+        }
+        return names;
+    }
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @Override
+    public Map<String, String> findCapabilities() {
+        final Properties properties = new Properties();
+        try (InputStream is = getCamelCatalog().getVersionManager().getResourceAsStream(CAPABILITIES_CATALOG)) {
+            properties.load(is);
+        } catch (IOException e) {
+            // ignore
+        }
+        return new TreeMap<>((Map<String, String>) (Map) properties);
+    }
 }

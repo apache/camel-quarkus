@@ -52,7 +52,7 @@ class VelocityTest {
         RestAssured.given()
                 .queryParam("name", "Sheldon")
                 .queryParam("item", "Camel in Action")
-                .queryParam("template", "file:/" + template.getPath())
+                .queryParam("template", "file://" + template.getPath())
                 .contentType(ContentType.TEXT)
                 .body("PS: Next beer is on me")
                 .post("/velocity/template")
@@ -203,7 +203,7 @@ class VelocityTest {
         File template = createFile("velocity_test", "Hi ${body}");
 
         RestAssured.given()
-                .queryParam("template", "file:/" + template.getPath())
+                .queryParam("template", "file://" + template.getPath())
                 .queryParam("contentCache", useContentCache)
                 .contentType(ContentType.TEXT)
                 .body("Sheldon")
@@ -216,7 +216,7 @@ class VelocityTest {
         Files.write(Paths.get(template.getPath()), "Bye ${body}".getBytes(StandardCharsets.UTF_8));
 
         RestAssured.given()
-                .queryParam("template", "file:/" + template.getPath())
+                .queryParam("template", "file://" + template.getPath())
                 .queryParam("contentCache", useContentCache)
                 .contentType(ContentType.TEXT)
                 .body("Sheldon")

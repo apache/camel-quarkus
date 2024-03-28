@@ -23,7 +23,7 @@ Offers publish/subscribe, peer-to-peer (via a server), and RPC style messaging u
 == What's inside
 
 * xref:{cq-camel-components}::cometd-component.adoc[CometD component], URI syntax: `cometd:host:port/channelName`
-* xref:{cq-camel-components}::cometd-component.adoc[CometD (Secure) component], URI syntax: `cometds:host:port/channelName`
+* xref:{cq-camel-components}::cometds-component.adoc[CometD (Secure) component], URI syntax: `cometds:host:port/channelName`
 
 Please refer to the above links for usage and configuration details.
 

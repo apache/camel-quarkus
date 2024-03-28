@@ -58,7 +58,7 @@ public class SchemaResource {
 
     public String getLocation() {
         String packageName = className.prefix().toString();
-        return packageName.replace('.', '/') + "/" + name + ".json";
+        return "META-INF/" + packageName.replace('.', '/') + "/" + name + ".json";
     }
 
     public String load() {
