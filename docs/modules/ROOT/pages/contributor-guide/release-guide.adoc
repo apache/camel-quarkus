@@ -446,7 +446,7 @@ Please, keep in mind a few things when preparing the pull request for the camel-
 * A release marker file should be added in https://github.com/apache/camel-website/tree/main/content/releases/q
 * Marker files for LTS versions should include the end of life date, ala  'eol: date'
 * The end of life date is the minimum date between camel LTS eol date and quarkus LTS eol date
-* Documentation branches should be updated in https://github.com/apache/camel-website/blob/main/antora-playbook-snippets/antora-playbook.yml[antora-playbook.yml]
+* Documentation branches for LTS releases should be updated in https://github.com/apache/camel-website/blob/main/antora-playbook-snippets/antora-playbook.yml[antora-playbook.yml]
 * We maintain documentation branches only for LTS versions and main
 
 == Further steps
