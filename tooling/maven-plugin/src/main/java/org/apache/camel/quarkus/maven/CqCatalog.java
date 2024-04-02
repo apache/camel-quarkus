@@ -228,7 +228,7 @@ public class CqCatalog {
     }
 
     public static boolean isFirstScheme(ArtifactModel<?> model) {
-        if (model.getKind().equals("component")) {
+        if (model.getKind().equals(Kind.component)) {
             final String altSchemes = ((ComponentModel) model).getAlternativeSchemes();
             if (altSchemes == null || altSchemes.isEmpty()) {
                 return true;
@@ -244,7 +244,7 @@ public class CqCatalog {
     public static boolean hasAlternativeScheme(ArtifactModel<?> model, String scheme) {
         if (scheme.equals(model.getName())) {
             return true;
-        } else if (model.getKind().equals("component")) {
+        } else if (model.getKind().equals(Kind.component)) {
             final String altSchemes = ((ComponentModel) model).getAlternativeSchemes();
             if (altSchemes == null || altSchemes.isEmpty()) {
                 return false;
@@ -257,14 +257,14 @@ public class CqCatalog {
     }
 
     public static ArtifactModel<?> findFirstSchemeModel(ArtifactModel<?> model, List<ArtifactModel<?>> models) {
-        if (model.getKind().equals("component")) {
+        if (model.getKind().equals(Kind.component)) {
             final String altSchemes = ((ComponentModel) model).getAlternativeSchemes();
             if (altSchemes == null || altSchemes.isEmpty()) {
                 return model;
             } else {
                 final String scheme = model.getName();
                 return models.stream()
-                        .filter(m -> "component".equals(m.getKind()))
+                        .filter(m -> Kind.component.equals(m.getKind()))
                         .filter(CqCatalog::isFirstScheme)
                         .filter(m -> CqCatalog.hasAlternativeScheme(m, scheme))
                         .findFirst()
@@ -286,7 +286,7 @@ public class CqCatalog {
                 .collect(Collectors.toList());
         if (models.size() > 1) {
             List<ArtifactModel<?>> componentModels = models.stream()
-                    .filter(m -> m.getKind().equals("component"))
+                    .filter(m -> m.getKind().equals(Kind.component))
                     .collect(Collectors.toList());
             if (componentModels.size() == 1) {
                 /* If there is only one component take that one */
