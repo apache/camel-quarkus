@@ -6399,12 +6399,12 @@
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-groovy</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.8.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.9.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-groovy-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.8.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.9.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jackson-jq</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -7418,19 +7418,19 @@
         <version>4.0.4</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.9.0 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
-        <artifactId>groovy</artifactId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
-        <version>4.0.18</version><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.20 -->
+        <artifactId>groovy</artifactId><!-- org.apache.groovy:groovy-bom:4.0.20 -->
+        <version>4.0.20</version><!-- org.apache.groovy:groovy-bom:4.0.20 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
-        <artifactId>groovy-json</artifactId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
-        <version>4.0.18</version><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.20 -->
+        <artifactId>groovy-json</artifactId><!-- org.apache.groovy:groovy-bom:4.0.20 -->
+        <version>4.0.20</version><!-- org.apache.groovy:groovy-bom:4.0.20 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
-        <artifactId>groovy-xml</artifactId><!-- org.apache.groovy:groovy-bom:4.0.18 -->
-        <version>4.0.18</version><!-- org.apache.groovy:groovy-bom:4.0.18 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.20 -->
+        <artifactId>groovy-xml</artifactId><!-- org.apache.groovy:groovy-bom:4.0.20 -->
+        <version>4.0.20</version><!-- org.apache.groovy:groovy-bom:4.0.20 -->
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.15 -->

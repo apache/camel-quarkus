@@ -52,7 +52,7 @@
         <quarkiverse-artemis.version>3.2.1</quarkiverse-artemis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/artemis/quarkus-artemis-parent/ -->
         <quarkiverse-cxf.version>3.9.0</quarkiverse-cxf.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/io/quarkiverse/cxf/quarkus-cxf-parent/ -->
         <quarkiverse-freemarker.version>1.0.0</quarkiverse-freemarker.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/freemarker/quarkus-freemarker-parent/ -->
-        <quarkiverse-groovy.version>3.8.0</quarkiverse-groovy.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/groovy/quarkus-groovy-parent/ -->
+        <quarkiverse-groovy.version>3.9.1</quarkiverse-groovy.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/groovy/quarkus-groovy-parent/ -->
         <quarkiverse-jackson-jq.version>2.0.2</quarkiverse-jackson-jq.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jackson-jq/quarkus-jackson-jq-parent/ -->
         <quarkiverse-jgit.version>3.1.0</quarkiverse-jgit.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jgit/quarkus-jgit-parent/ -->
         <quarkiverse-jsch.version>3.0.7</quarkiverse-jsch.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jsch/quarkus-jsch-parent/ -->
@@ -102,7 +102,7 @@
         <google-cloud-pubsub.version>1.127.1</google-cloud-pubsub.version><!-- @sync com.google.cloud:google-cloud-pubsub-bom:${google-cloud-pubsub-bom.version} dep:com.google.cloud:google-cloud-pubsub -->
         <graalvm.version>23.1.2</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.sdk:graal-sdk -->
         <graalvm-docs.version>jdk21</graalvm-docs.version><!-- @sync io.quarkus:quarkus-documentation:${quarkus.version} prop:graal-community.tag-for-documentation -->
-        <groovy.version>4.0.18</groovy.version><!-- @sync io.quarkiverse.groovy:quarkus-groovy-parent:${quarkiverse-groovy.version} prop:groovy.version -->
+        <groovy.version>4.0.20</groovy.version><!-- @sync io.quarkiverse.groovy:quarkus-groovy-parent:${quarkiverse-groovy.version} prop:groovy.version -->
         <grpc.version>1.62.2</grpc.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.grpc:grpc-core -->
         <hapi.version>${hapi-version}</hapi.version>
         <hapi-base.version>${hapi-base-version}</hapi-base.version>
