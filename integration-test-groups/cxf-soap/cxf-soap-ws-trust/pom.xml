@@ -43,10 +43,6 @@
             <groupId>io.quarkiverse.cxf</groupId>
             <artifactId>quarkus-cxf-services-sts</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.quarkiverse.cxf</groupId>
-            <artifactId>quarkus-cxf-rt-features-logging</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>io.quarkus</groupId>
