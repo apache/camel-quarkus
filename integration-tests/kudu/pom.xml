@@ -30,6 +30,13 @@
     <name>Camel Quarkus :: Integration Tests :: Kudu</name>
     <description>Integration tests for Camel Quarkus Kudu extension</description>
 
+    <properties>
+        <!-- This is to allow the "deep reflection" we do in KuduInfrastructureTestHelper -->
+        <opens>java.base/java.net=ALL-UNNAMED</opens>
+        <argLine>--add-opens ${opens}</argLine>
+        <quarkus.native.additional-build-args>-J--add-opens=${opens}</quarkus.native.additional-build-args>
+    </properties>
+
     <dependencies>
          <dependency>
             <groupId>io.quarkus</groupId>
