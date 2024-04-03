@@ -204,6 +204,7 @@
         <module>platform-http</module>
         <module>protobuf</module>
         <module>pubnub</module>
+        <module>qdrant</module>
         <module>quartz</module>
         <module>qute</module>
         <module>reactive-streams</module>
