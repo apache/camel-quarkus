@@ -19,6 +19,9 @@ package org.apache.camel.quarkus.support.swagger.runtime.graal;
 import java.util.Calendar;
 import java.util.List;
 
+import com.oracle.svm.core.annotate.Alias;
+import com.oracle.svm.core.annotate.RecomputeFieldValue;
+import com.oracle.svm.core.annotate.RecomputeFieldValue.Kind;
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
 import io.swagger.parser.OpenAPIParser;
@@ -27,6 +30,9 @@ import io.swagger.v3.parser.core.extensions.SwaggerParserExtension;
 import io.swagger.v3.parser.core.models.AuthorizationValue;
 import io.swagger.v3.parser.core.models.ParseOptions;
 import io.swagger.v3.parser.core.models.SwaggerParseResult;
+import io.swagger.v3.parser.exception.ReadContentException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class SwaggerSubstitutions {
 }
@@ -50,6 +56,44 @@ final class OpenAPIParserSubstitutions {
         }
 
         return output;
+    }
+}
+
+@TargetClass(OpenAPIV3Parser.class)
+final class OpenAPIPV3ParserSubstitutions {
+    @Alias
+    @RecomputeFieldValue(kind = Kind.FromAlias)
+    private static Logger LOGGER = LoggerFactory.getLogger(OpenAPIV3Parser.class);
+
+    @Substitute
+    public SwaggerParseResult readLocation(String url, List<AuthorizationValue> auth, ParseOptions options) {
+        try {
+            if (url.startsWith("resource:")) {
+                url = url.replaceFirst("resource:", "");
+            }
+            final String content = readContentFromLocation(url, emptyListIfNull(auth));
+            LOGGER.debug("Loaded raw data: {}", content);
+            return readContents(content, auth, options, url);
+        } catch (ReadContentException e) {
+            LOGGER.warn("Exception while reading:", e);
+            return SwaggerParseResult.ofError(e.getMessage());
+        }
+    }
+
+    @Alias
+    private String readContentFromLocation(String location, List<AuthorizationValue> auth) {
+        return null;
+    }
+
+    @Alias
+    private <T> List<T> emptyListIfNull(List<T> list) {
+        return null;
+    }
+
+    @Alias
+    public SwaggerParseResult readContents(String swaggerAsString, List<AuthorizationValue> auth, ParseOptions options,
+            String location) {
+        return null;
     }
 }
 

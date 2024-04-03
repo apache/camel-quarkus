@@ -31,3 +31,4 @@ metadata:
   - "integration"
   status:
   - "experimental"
+  - "deprecated"

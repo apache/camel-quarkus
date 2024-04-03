@@ -34,7 +34,7 @@ import org.apache.camel.component.as2.internal.AS2Constants;
 import org.apache.camel.quarkus.component.as2.it.transport.ClientResult;
 import org.apache.camel.quarkus.component.as2.it.transport.Request;
 import org.apache.camel.quarkus.component.as2.it.transport.ServerResult;
-import org.apache.http.protocol.HttpCoreContext;
+import org.apache.hc.core5.http.protocol.HttpCoreContext;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 

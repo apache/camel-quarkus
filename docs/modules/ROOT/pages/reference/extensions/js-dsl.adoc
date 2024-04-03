@@ -6,15 +6,15 @@
 :cq-artifact-id: camel-quarkus-js-dsl
 :cq-native-supported: true
 :cq-status: Experimental
-:cq-status-deprecation: Experimental
+:cq-status-deprecation: Experimental Deprecated
 :cq-description: An JavaScript stack for parsing JavaScript route definitions
-:cq-deprecated: false
+:cq-deprecated: true
 :cq-jvm-since: 1.8.0
 :cq-native-since: 1.8.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.8.0## [.badge-key]##Native since##[.badge-supported]##1.8.0##
+[.badge-key]##JVM since##[.badge-supported]##1.8.0## [.badge-key]##Native since##[.badge-supported]##1.8.0## [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##
 endif::[]
 
 An JavaScript stack for parsing JavaScript route definitions

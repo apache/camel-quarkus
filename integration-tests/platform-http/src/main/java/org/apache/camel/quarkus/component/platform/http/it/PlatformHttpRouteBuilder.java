@@ -90,7 +90,7 @@ public class PlatformHttpRouteBuilder extends RouteBuilder {
                 .to("log:multipart")
                 .process(e -> {
                     final AttachmentMessage am = e.getMessage(AttachmentMessage.class);
-                    final DataHandler src = am.getAttachment("bytes.bin");
+                    final DataHandler src = am.getAttachment("file");
                     try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
                         src.writeTo(out);
                         e.getMessage().setBody(out.toByteArray());
