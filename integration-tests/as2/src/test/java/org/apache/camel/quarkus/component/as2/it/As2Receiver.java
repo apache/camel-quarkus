@@ -33,11 +33,13 @@ import java.util.List;
 
 import org.apache.camel.component.as2.api.AS2ServerConnection;
 import org.apache.camel.component.as2.api.AS2SignatureAlgorithm;
-import org.apache.http.HttpException;
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponse;
-import org.apache.http.protocol.HttpContext;
-import org.apache.http.protocol.HttpRequestHandler;
+import org.apache.hc.core5.http.ClassicHttpRequest;
+import org.apache.hc.core5.http.ClassicHttpResponse;
+import org.apache.hc.core5.http.HttpException;
+import org.apache.hc.core5.http.HttpRequest;
+import org.apache.hc.core5.http.HttpResponse;
+import org.apache.hc.core5.http.io.HttpRequestHandler;
+import org.apache.hc.core5.http.protocol.HttpContext;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.AuthorityKeyIdentifier;
 import org.bouncycastle.asn1.x509.Extension;
@@ -181,7 +183,7 @@ public class As2Receiver {
         private HttpResponse response;
 
         @Override
-        public void handle(HttpRequest request, HttpResponse response, HttpContext context)
+        public void handle(ClassicHttpRequest request, ClassicHttpResponse response, HttpContext httpContext)
                 throws HttpException, IOException {
             this.request = request;
             this.response = response;

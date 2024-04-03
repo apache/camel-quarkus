@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.arangodb.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
 
 class ArangodbProcessor {
 
@@ -26,5 +27,10 @@ class ArangodbProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    RuntimeReinitializedClassBuildItem runtimeReinitializedClass() {
+        return new RuntimeReinitializedClassBuildItem("com.arangodb.http.compression.JdkZlibEncoder");
     }
 }
