@@ -244,6 +244,7 @@
         <openssh-server.container.image>docker.io/linuxserver/openssh-server:version-9.3_p2-r0</openssh-server.container.image>
         <postgres.container.image>docker.io/postgres:15.0</postgres.container.image>
         <postgres-debezium.container.image>docker.io/debezium/postgres:15-alpine</postgres-debezium.container.image>
+        <qdrant.container.image>docker.io/qdrant/qdrant:v1.8.4-unprivileged</qdrant.container.image>
         <rabbitmq.container.image>docker.io/rabbitmq:3.9.29-management-alpine</rabbitmq.container.image>
         <redis.container.image>docker.io/redis:7.0.12</redis.container.image>
         <smb.container.image>quay.io/jamesnetherton/camel-smb-test-server:1.0.0</smb.container.image>

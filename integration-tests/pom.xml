@@ -194,6 +194,7 @@
         <module>platform-http-proxy-ssl</module>
         <module>protobuf</module>
         <module>pubnub</module>
+        <module>qdrant</module>
         <module>quartz</module>
         <module>quartz-clustered</module>
         <module>qute</module>
