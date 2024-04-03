@@ -23,8 +23,8 @@ import org.apache.camel.component.as2.api.AS2ClientConnection;
 import org.apache.camel.component.as2.api.AS2ClientManager;
 import org.apache.camel.component.as2.api.AS2MediaType;
 import org.apache.camel.component.as2.api.AS2MessageStructure;
+import org.apache.hc.core5.http.ContentType;
 import org.apache.http.HttpException;
-import org.apache.http.entity.ContentType;
 
 public class As2Sender {
 
@@ -35,11 +35,19 @@ public class As2Sender {
         AS2ClientConnection clientConnection = As2CertificateHelper.createClientConnection(port);
         AS2ClientManager clientManager = new AS2ClientManager(clientConnection);
 
-        return ediMessage -> clientManager.send(ediMessage, As2Helper.REQUEST_URI, As2Helper.SUBJECT, As2Helper.FROM,
-                As2Helper.AS2_NAME,
-                As2Helper.AS2_NAME, AS2MessageStructure.PLAIN,
-                ContentType.create(AS2MediaType.APPLICATION_EDIFACT, StandardCharsets.US_ASCII.name()), null, null, null, null,
-                null, As2Helper.DISPOSITION_NOTIFICATION_TO, As2Helper.SIGNED_RECEIPT_MIC_ALGORITHMS, null, null, null);
+        return ediMessage -> {
+            try {
+                clientManager.send(ediMessage, As2Helper.REQUEST_URI, As2Helper.SUBJECT, As2Helper.FROM,
+                        As2Helper.AS2_NAME,
+                        As2Helper.AS2_NAME, AS2MessageStructure.PLAIN,
+                        ContentType.create(AS2MediaType.APPLICATION_EDIFACT, StandardCharsets.US_ASCII.name()), null, null,
+                        null, null,
+                        null, As2Helper.DISPOSITION_NOTIFICATION_TO, As2Helper.SIGNED_RECEIPT_MIC_ALGORITHMS, null, null, null,
+                        null);
+            } catch (org.apache.hc.core5.http.HttpException e) {
+                throw new RuntimeException(e);
+            }
+        };
     }
 
     public interface As2SenderClient {

@@ -48,6 +48,10 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-arangodb</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-netty</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

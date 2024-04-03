@@ -2439,7 +2439,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-langchain-chat</artifactId>
+            <artifactId>camel-quarkus-langchain4j-chat</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
             <scope>test</scope>
@@ -2452,7 +2452,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-langchain-embeddings</artifactId>
+            <artifactId>camel-quarkus-langchain4j-embeddings</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
             <scope>test</scope>

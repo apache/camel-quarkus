@@ -26,7 +26,7 @@ import org.apache.camel.component.as2.api.AS2MediaType;
 import org.apache.camel.component.as2.api.AS2MessageStructure;
 import org.apache.camel.component.as2.api.AS2SignatureAlgorithm;
 import org.apache.camel.quarkus.component.as2.it.As2CertificateHelper;
-import org.apache.http.entity.ContentType;
+import org.apache.hc.core5.http.ContentType;
 
 public class Request {
 
@@ -116,7 +116,7 @@ public class Request {
             retVal.put(getMessageStructureKey(), getMessageStructure());
         }
         retVal.put("CamelAS2.ediMessageContentType",
-                org.apache.http.entity.ContentType.create(AS2MediaType.APPLICATION_EDIFACT, StandardCharsets.US_ASCII.name()));
+                ContentType.create(AS2MediaType.APPLICATION_EDIFACT, StandardCharsets.US_ASCII.name()));
         if (getEncryptionAlgorithm() != null) {
             retVal.put("CamelAS2.encryptingCertificateChain", As2CertificateHelper.getCertList());
             retVal.put("CamelAS2.encryptingAlgorithm", getEncryptionAlgorithm());

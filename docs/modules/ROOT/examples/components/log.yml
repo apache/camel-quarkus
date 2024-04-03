@@ -8,6 +8,6 @@ cqDeprecated: false
 cqJvmSince: 0.0.1
 cqNativeSince: 0.0.1
 cqCamelPartName: log
-cqCamelPartTitle: Log
-cqCamelPartDescription: Log messages to the underlying logging mechanism.
+cqCamelPartTitle: Log Data
+cqCamelPartDescription: Prints data form the routed message (such as body and headers) to the logger.
 cqExtensionPageTitle: Log

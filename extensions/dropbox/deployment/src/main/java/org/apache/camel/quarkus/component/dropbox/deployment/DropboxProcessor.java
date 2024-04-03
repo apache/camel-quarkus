@@ -24,7 +24,6 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 
 class DropboxProcessor {
@@ -43,13 +42,7 @@ class DropboxProcessor {
 
     @BuildStep
     RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
-        return new RuntimeInitializedClassBuildItem("com.dropbox.core.http.SSLConfig");
-    }
-
-    @BuildStep
-    NativeImageResourceBuildItem nativeImageResources() {
-        // Required by com.dropbox.core.http.SSLConfig
-        return new NativeImageResourceBuildItem("com/dropbox/core/trusted-certs.raw", "com/dropbox/core/sdk-version.txt");
+        return new RuntimeInitializedClassBuildItem("io.netty.handler.codec.compression.ZstdConstants");
     }
 
     @BuildStep

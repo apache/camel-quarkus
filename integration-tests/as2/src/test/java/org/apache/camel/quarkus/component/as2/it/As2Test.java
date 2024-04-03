@@ -28,7 +28,7 @@ import org.apache.camel.component.as2.api.entity.AS2MessageDispositionNotificati
 import org.apache.camel.quarkus.component.as2.it.transport.ClientResult;
 import org.apache.camel.quarkus.component.as2.it.transport.Request;
 import org.apache.camel.quarkus.component.as2.it.transport.ServerResult;
-import org.apache.http.message.BasicHttpEntityEnclosingRequest;
+import org.apache.hc.core5.http.message.BasicClassicHttpRequest;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
@@ -77,7 +77,7 @@ public class As2Test {
             assertEquals(As2Helper.EDI_MESSAGE.replaceAll("[\n\r]", ""), result.getResult().replaceAll("[\n\r]", ""),
                     "Unexpected content for enveloped mime part");
 
-            assertEquals(BasicHttpEntityEnclosingRequest.class.getSimpleName(), result.getRequestClass(),
+            assertEquals(BasicClassicHttpRequest.class.getSimpleName(), result.getRequestClass(),
                     "Request does not contain entity");
         });
     }

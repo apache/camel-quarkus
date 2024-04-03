@@ -4,7 +4,7 @@ cqArtifactId: camel-quarkus-jsh-dsl
 cqArtifactIdBase: jsh-dsl
 cqNativeSupported: true
 cqStatus: Stable
-cqDeprecated: false
+cqDeprecated: true
 cqJvmSince: 2.16.0
 cqNativeSince: 2.16.0
 cqCamelPartName: jsh-dsl

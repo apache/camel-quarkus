@@ -206,10 +206,6 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                     xrefPrefix = "xref:manual::";
                     name = "camel-console";
                 }
-                // TODO: Remove this https://github.com/apache/camel-quarkus/issues/5971
-                if (name.startsWith("langchain")) {
-                    name = name.replace("langchain", "langchain4j");
-                }
                 return xrefPrefix + name + (!"other".equals(kind) ? "-" + kind : "") + ".adoc";
             }
         });
