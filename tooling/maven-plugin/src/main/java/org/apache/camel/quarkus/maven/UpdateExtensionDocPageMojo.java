@@ -31,6 +31,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -54,9 +55,7 @@ import org.apache.camel.quarkus.maven.processor.SectionIdPostProcessor;
 import org.apache.camel.tooling.model.ArtifactModel;
 import org.apache.camel.tooling.model.BaseModel;
 import org.apache.camel.tooling.model.ComponentModel;
-import org.apache.camel.tooling.model.DevConsoleModel;
 import org.apache.camel.tooling.model.Kind;
-import org.apache.camel.tooling.model.TransformerModel;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -70,6 +69,13 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
     private static final DocumentationPostProcessor[] documentationPostProcessors = {
             new AppendNewLinePostProcessor(),
             new SectionIdPostProcessor()
+    };
+    static final Predicate<ArtifactModel<?>> SUPPORTED_MODEL_KIND_FILTER = artifactModel -> {
+        Kind kind = artifactModel.getKind();
+        return kind.equals(Kind.component) ||
+                kind.equals(Kind.dataformat) ||
+                kind.equals(Kind.language) ||
+                kind.equals(Kind.other);
     };
 
     @Parameter(defaultValue = "false", property = "camel-quarkus.update-extension-doc-page.skip")
@@ -113,8 +119,7 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                 templatesUriBase, encoding);
 
         final List<ArtifactModel<?>> models = catalog.filterModels(ext.getRuntimeArtifactIdBase())
-                .filter(artifactModel -> !(artifactModel instanceof DevConsoleModel))
-                .filter(artifactModel -> !(artifactModel instanceof TransformerModel))
+                .filter(SUPPORTED_MODEL_KIND_FILTER)
                 .filter(artifactModel -> !artifactModel.getArtifactId().equals("camel-management"))
                 .filter(artifactModel -> !artifactModel.getArtifactId().equals("camel-yaml-io"))
                 .sorted(BaseModel.compareTitle())
