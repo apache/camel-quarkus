@@ -46,7 +46,7 @@ public class ProxyCapableClientInitializerFactory extends HttpClientInitializerF
         Integer proxyPort = config.getValue("proxy.port", Integer.class);
         InetSocketAddress proxyServerAddress = new InetSocketAddress(proxyHost, proxyPort);
         HttpProxyHandler httpProxyHandler = new HttpProxyHandler(proxyServerAddress, USER_ADMIN, USER_ADMIN_PASSWORD);
-        httpProxyHandler.setConnectTimeoutMillis(5000);
+        httpProxyHandler.setConnectTimeoutMillis(config.getValue("proxy.connection.timeout", Long.class));
         super.initChannel(channel);
         channel.pipeline().addFirst(httpProxyHandler);
     }
