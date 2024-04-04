@@ -33,8 +33,8 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MicrometerInstrumentCoreThreadPoolTest {
 
@@ -50,10 +50,10 @@ public class MicrometerInstrumentCoreThreadPoolTest {
     public void testInstrumentedThreadPoolFactory() {
         ThreadPoolFactory threadPoolFactory = context.getExecutorServiceManager().getThreadPoolFactory();
         assertNotNull(threadPoolFactory);
-        assertTrue(threadPoolFactory instanceof InstrumentedThreadPoolFactory);
+        assertInstanceOf(InstrumentedThreadPoolFactory.class, threadPoolFactory);
     }
 
-    public static final Asset applicationProperties() {
+    public static Asset applicationProperties() {
         Writer writer = new StringWriter();
 
         Properties props = new Properties();

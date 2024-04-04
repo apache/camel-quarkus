@@ -120,6 +120,18 @@ Set whether to enable the MicrometerRouteEventNotifier for capturing metrics on 
 Set whether to gather performance information about Camel Thread Pools by injecting an InstrumentedThreadPoolFactory.
 | `boolean`
 | `false`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.metrics.naming-strategy]]`link:#quarkus.camel.metrics.naming-strategy[quarkus.camel.metrics.naming-strategy]`
+
+Controls the naming style to use for metrics. The available values are `default` and `legacy`. `default` uses the default Micrometer naming convention. `legacy` uses the legacy camel-case naming style.
+| `org.apache.camel.quarkus.component.micrometer.CamelMicrometerConfig.MetricsNamingStrategy`
+| `default`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.metrics.route-policy-level]]`link:#quarkus.camel.metrics.route-policy-level[quarkus.camel.metrics.route-policy-level]`
+
+Sets the level of metrics to capture. The available values are `all` ,`context` and `route`. `all` captures metrics for both the camel context and routes. `route` captures metrics for routes only. `context` captures metrics for the camel context only.
+| `org.apache.camel.quarkus.component.micrometer.CamelMicrometerConfig.RoutePolicyLevel`
+| `all`
 |===
 
 [.configuration-legend]

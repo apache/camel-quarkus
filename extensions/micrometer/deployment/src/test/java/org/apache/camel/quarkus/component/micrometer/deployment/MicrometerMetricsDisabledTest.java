@@ -35,6 +35,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -55,10 +56,10 @@ public class MicrometerMetricsDisabledTest {
 
         MessageHistoryFactory messageHistoryFactory = context.getMessageHistoryFactory();
         assertNotNull(messageHistoryFactory);
-        assertTrue(messageHistoryFactory instanceof DefaultMessageHistoryFactory);
+        assertInstanceOf(DefaultMessageHistoryFactory.class, messageHistoryFactory);
     }
 
-    public static final Asset applicationProperties() {
+    public static Asset applicationProperties() {
         Writer writer = new StringWriter();
 
         Properties props = new Properties();

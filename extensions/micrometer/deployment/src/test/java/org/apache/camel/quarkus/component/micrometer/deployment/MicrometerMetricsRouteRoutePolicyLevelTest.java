@@ -19,14 +19,15 @@ package org.apache.camel.quarkus.component.micrometer.deployment;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.List;
 import java.util.Properties;
 
 import io.quarkus.test.QuarkusUnitTest;
 import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
-import org.apache.camel.component.micrometer.messagehistory.MicrometerMessageHistoryFactory;
-import org.apache.camel.component.micrometer.messagehistory.MicrometerMessageHistoryNamingStrategy;
-import org.apache.camel.spi.MessageHistoryFactory;
+import org.apache.camel.component.micrometer.routepolicy.MicrometerRoutePolicyConfiguration;
+import org.apache.camel.component.micrometer.routepolicy.MicrometerRoutePolicyFactory;
+import org.apache.camel.spi.RoutePolicyFactory;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -35,12 +36,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MicrometerMetricsConfigOverrideTest {
-
+public class MicrometerMetricsRouteRoutePolicyLevelTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
@@ -50,26 +50,23 @@ public class MicrometerMetricsConfigOverrideTest {
     CamelContext context;
 
     @Test
-    public void testMicroProfileMetricsConfiguration() {
-        assertTrue(context.getRoutePolicyFactories().isEmpty());
+    void routeRoutePolicy() {
+        List<RoutePolicyFactory> routePolicyFactories = context.getRoutePolicyFactories();
+        assertEquals(1, routePolicyFactories.size());
+        RoutePolicyFactory routePolicyFactory = routePolicyFactories.get(0);
+        assertInstanceOf(MicrometerRoutePolicyFactory.class, routePolicyFactory);
 
-        MessageHistoryFactory messageHistoryFactory = context.getMessageHistoryFactory();
-        assertNotNull(messageHistoryFactory);
-        assertInstanceOf(MicrometerMessageHistoryFactory.class, messageHistoryFactory);
-
-        MicrometerMessageHistoryFactory micrometerMessageHistoryFactory = (MicrometerMessageHistoryFactory) messageHistoryFactory;
-        assertEquals(MicrometerMessageHistoryNamingStrategy.DEFAULT, micrometerMessageHistoryFactory.getNamingStrategy());
+        MicrometerRoutePolicyFactory micrometerRoutePolicyFactory = (MicrometerRoutePolicyFactory) routePolicyFactory;
+        MicrometerRoutePolicyConfiguration policyConfiguration = micrometerRoutePolicyFactory.getPolicyConfiguration();
+        assertFalse(policyConfiguration.isContextEnabled());
+        assertTrue(policyConfiguration.isRouteEnabled());
     }
 
     public static Asset applicationProperties() {
         Writer writer = new StringWriter();
 
         Properties props = new Properties();
-        props.setProperty("quarkus.camel.metrics.enable-route-policy", "false");
-        props.setProperty("quarkus.camel.metrics.enable-message-history", "true");
-        props.setProperty("quarkus.camel.metrics.enable-exchange-event-notifier", "false");
-        props.setProperty("quarkus.camel.metrics.enable-route-event-notifier", "false");
-        props.setProperty("quarkus.camel.metrics.enable-camel-context-event-notifier", "false");
+        props.setProperty("quarkus.camel.metrics.route-policy-level", "route");
 
         try {
             props.store(writer, "");
