@@ -38,7 +38,6 @@ public class JschTestResource implements QuarkusTestResourceLifecycleManager {
         try {
             container = new GenericContainer(JSCH_IMAGE)
                     .withExposedPorts(JSCH_PORT)
-                    .withEnv("DOCKER_MODS", "linuxserver/mods:openssh-server-openssh-client")
                     .withEnv("PASSWORD_ACCESS", "true")
                     .withEnv("USER_NAME", USERNAME)
                     .withEnv("USER_PASSWORD", PASSWORD)
