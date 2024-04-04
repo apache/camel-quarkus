@@ -22,7 +22,6 @@ import io.quarkus.runtime.annotations.ConfigRoot;
 
 @ConfigRoot(name = "camel.metrics", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public class CamelMicrometerConfig {
-
     /**
      * Set whether to enable the MicrometerRoutePolicyFactory for capturing metrics
      * on route processing times.
@@ -59,4 +58,32 @@ public class CamelMicrometerConfig {
      */
     @ConfigItem(defaultValue = "false")
     public boolean enableInstrumentedThreadPoolFactory;
+
+    /**
+     * Controls the naming style to use for metrics. The available values are {@code default} and {@code legacy}.
+     * {@code default} uses the default Micrometer naming convention.
+     * {@code legacy} uses the legacy camel-case naming style.
+     */
+    @ConfigItem(defaultValue = "default")
+    public MetricsNamingStrategy namingStrategy;
+
+    /**
+     * Sets the level of metrics to capture. The available values are {@code all} ,{@code context} and {@code route}.
+     * {@code all} captures metrics for both the camel context and routes.
+     * {@code route} captures metrics for routes only.
+     * {@code context} captures metrics for the camel context only.
+     */
+    @ConfigItem(defaultValue = "all")
+    public RoutePolicyLevel routePolicyLevel;
+
+    public enum MetricsNamingStrategy {
+        DEFAULT,
+        LEGACY
+    }
+
+    public enum RoutePolicyLevel {
+        ALL,
+        CONTEXT,
+        ROUTE
+    }
 }

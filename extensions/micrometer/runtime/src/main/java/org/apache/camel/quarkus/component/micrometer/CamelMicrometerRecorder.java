@@ -23,10 +23,17 @@ import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.micrometer.MicrometerUtils;
 import org.apache.camel.component.micrometer.eventnotifier.MicrometerExchangeEventNotifier;
+import org.apache.camel.component.micrometer.eventnotifier.MicrometerExchangeEventNotifierNamingStrategy;
 import org.apache.camel.component.micrometer.eventnotifier.MicrometerRouteEventNotifier;
+import org.apache.camel.component.micrometer.eventnotifier.MicrometerRouteEventNotifierNamingStrategy;
 import org.apache.camel.component.micrometer.messagehistory.MicrometerMessageHistoryFactory;
+import org.apache.camel.component.micrometer.messagehistory.MicrometerMessageHistoryNamingStrategy;
+import org.apache.camel.component.micrometer.routepolicy.MicrometerRoutePolicyConfiguration;
 import org.apache.camel.component.micrometer.routepolicy.MicrometerRoutePolicyFactory;
+import org.apache.camel.component.micrometer.routepolicy.MicrometerRoutePolicyNamingStrategy;
 import org.apache.camel.component.micrometer.spi.InstrumentedThreadPoolFactory;
+import org.apache.camel.quarkus.component.micrometer.CamelMicrometerConfig.MetricsNamingStrategy;
+import org.apache.camel.quarkus.component.micrometer.CamelMicrometerConfig.RoutePolicyLevel;
 import org.apache.camel.spi.CamelContextCustomizer;
 import org.apache.camel.spi.ManagementStrategy;
 
@@ -59,18 +66,42 @@ public class CamelMicrometerRecorder {
         @Override
         public void configure(CamelContext camelContext) {
             if (config.enableRoutePolicy) {
-                MicrometerRoutePolicyFactory mrpf = new MicrometerRoutePolicyFactory();
-                mrpf.setCamelContext(camelContext);
-                camelContext.addRoutePolicyFactory(mrpf);
+                MicrometerRoutePolicyFactory factory = new MicrometerRoutePolicyFactory();
+                factory.setCamelContext(camelContext);
+                camelContext.addRoutePolicyFactory(factory);
+
+                if (config.namingStrategy.equals(MetricsNamingStrategy.LEGACY)) {
+                    factory.setNamingStrategy(MicrometerRoutePolicyNamingStrategy.LEGACY);
+                }
+
+                MicrometerRoutePolicyConfiguration policyConfiguration = factory.getPolicyConfiguration();
+                if (config.routePolicyLevel.equals(RoutePolicyLevel.ALL)) {
+                    factory.getPolicyConfiguration().setContextEnabled(true);
+                    factory.getPolicyConfiguration().setRouteEnabled(true);
+                } else if (config.routePolicyLevel.equals(RoutePolicyLevel.CONTEXT)) {
+                    factory.getPolicyConfiguration().setContextEnabled(true);
+                    factory.getPolicyConfiguration().setRouteEnabled(false);
+                } else {
+                    policyConfiguration.setContextEnabled(false);
+                    policyConfiguration.setRouteEnabled(true);
+                }
             }
 
             ManagementStrategy managementStrategy = camelContext.getManagementStrategy();
             if (config.enableExchangeEventNotifier) {
-                managementStrategy.addEventNotifier(new MicrometerExchangeEventNotifier());
+                MicrometerExchangeEventNotifier eventNotifier = new MicrometerExchangeEventNotifier();
+                if (config.namingStrategy.equals(MetricsNamingStrategy.LEGACY)) {
+                    eventNotifier.setNamingStrategy(MicrometerExchangeEventNotifierNamingStrategy.LEGACY);
+                }
+                managementStrategy.addEventNotifier(eventNotifier);
             }
 
             if (config.enableRouteEventNotifier) {
-                managementStrategy.addEventNotifier(new MicrometerRouteEventNotifier());
+                MicrometerRouteEventNotifier eventNotifier = new MicrometerRouteEventNotifier();
+                if (config.namingStrategy.equals(MetricsNamingStrategy.LEGACY)) {
+                    eventNotifier.setNamingStrategy(MicrometerRouteEventNotifierNamingStrategy.LEGACY);
+                }
+                managementStrategy.addEventNotifier(eventNotifier);
             }
         }
     }
@@ -100,7 +131,11 @@ public class CamelMicrometerRecorder {
                 camelContext.setMessageHistory(true);
             }
 
-            camelContext.setMessageHistoryFactory(new MicrometerMessageHistoryFactory());
+            MicrometerMessageHistoryFactory messageHistoryFactory = new MicrometerMessageHistoryFactory();
+            if (config.namingStrategy.equals(MetricsNamingStrategy.LEGACY)) {
+                messageHistoryFactory.setNamingStrategy(MicrometerMessageHistoryNamingStrategy.LEGACY);
+            }
+            camelContext.setMessageHistoryFactory(messageHistoryFactory);
         }
     }
 }
