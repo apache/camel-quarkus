@@ -69,6 +69,13 @@ Message queue can be created by following the command
 CRTMSGQ LIBRARY/TESTMSGQ
 ```
 
+
+Second queue is required for testing of inquiry messages:
+
+```
+CRTMSGQ LIBRARY/REPLYMSGQ
+```
+
 ==== Data queue testing
 
 Two data-queues are required for the testing. One created as `keyed=true` and one as `LIFO`.
@@ -90,6 +97,7 @@ export JT400_LIBRARY=#library_if_not_LIBRARY
 export JT400_LIFO_QUEUE=#lifoqueue_if_not_TESTLIFO.DTAQ
 export JT400_KEYED_QUEUE=#lkeyedqueue_if_not_TESTKEYED.DTAQ
 export JT400_MESSAGE_QUEUE=#messagequeue_if_not_TESTMSGQ.MSGQ
+export JT400_MESSAGE_REPLYTO_QUEUE=#messagequeueinquiry_if_not_REPLYMSGQ.MSGQ
 export JT400_USER_SPACE=#userspace_if_not_PROGCALL
 ```
 
@@ -99,6 +107,7 @@ or for Windows:
 $Env:JT400_LIBRARY = "#library_if_not_LIBRARY"
 $Env:JT400_LIFO_QUEUE="#lifoqueue_if_not_TESTLIFO.DTAQe"
 $Env:JT400_KEYED_QUEUE="#lkeyedqueue_if_not_TESTKEYED.DTAQ"
-$Env:JT400_MESSAGE_QUEUE="#messagequeue_if_not_TESTMSGQ.MSGQe"
+$Env:JT400_MESSAGE_QUEUE="#messagequeue_if_not_TESTMSGQ.MSGQ"
+$Env:JT400_MESSAGE_REPLYTO_QUEUE="#messagequeueinquiry_if_not_REPLYMSGQ.MSGQ"
 $Env:JT400_USER_SPACE="#userspace_if_not_PROGCALL"
 ```

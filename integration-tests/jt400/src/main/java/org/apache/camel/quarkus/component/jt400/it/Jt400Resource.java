@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import com.ibm.as400.access.AS400;
+import com.ibm.as400.access.MessageQueue;
 import com.ibm.as400.access.QueuedMessage;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -31,6 +33,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
@@ -45,7 +48,7 @@ public class Jt400Resource {
     String jt400Url;
 
     @ConfigProperty(name = "cq.jt400.username")
-    String jt400USername;
+    String jt400Username;
 
     @ConfigProperty(name = "cq.jt400.password")
     String jt400Password;
@@ -62,6 +65,9 @@ public class Jt400Resource {
     @ConfigProperty(name = "cq.jt400.message-queue")
     String jt400MessageQueue;
 
+    @ConfigProperty(name = "cq.jt400.message-replyto-queue")
+    String jt400MessageReplyToQueue;
+
     @ConfigProperty(name = "cq.jt400.user-space")
     String jt400UserSpace;
 
@@ -70,6 +76,9 @@ public class Jt400Resource {
 
     @Inject
     ConsumerTemplate consumerTemplate;
+
+    @Inject
+    CamelContext context;
 
     @Path("/dataQueue/read/")
     @POST
@@ -123,6 +132,36 @@ public class Jt400Resource {
         return Response.ok().entity(ex).build();
     }
 
+    @Path("/client/inquiryMessage/write/")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response clientInquiryMessageWrite(String data) throws Exception {
+        Jt400Endpoint jt400Endpoint = context.getEndpoint(getUrlForLibrary(jt400MessageReplyToQueue), Jt400Endpoint.class);
+        AS400 as400 = jt400Endpoint.getConfiguration().getConnection();
+        //send inquiry message (with the same client as is used in the component, to avoid `CPF2451 Message queue TESTMSGQ is allocated to another job`.
+        MessageQueue queue = new MessageQueue(as400, jt400Endpoint.getConfiguration().getObjectPath());
+        try {
+            queue.sendInquiry(data, "/QSYS.LIB/" + jt400Library + ".LIB/" + jt400MessageReplyToQueue);
+        } catch (Exception e) {
+            return Response.status(500).entity(e.getMessage()).build();
+        }
+        return Response.ok().build();
+    }
+
+    @Path("/client/queuedMessage/read")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response clientQueuedMessageRead(String queueName) throws Exception {
+
+        Jt400Endpoint jt400Endpoint = context.getEndpoint(getUrlForLibrary(queueName), Jt400Endpoint.class);
+        AS400 as400 = jt400Endpoint.getConfiguration().getConnection();
+        //send inquiry message (with the same client as is used in the component, to avoid `CPF2451 Message queue TESTMSGQ is allocated to another job`.
+        MessageQueue queue = new MessageQueue(as400, jt400Endpoint.getConfiguration().getObjectPath());
+        QueuedMessage message = queue.receive(null);
+
+        return Response.ok().entity(message != null ? message.getText() : "").build();
+    }
+
     @Path("/messageQueue/write/")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
@@ -135,8 +174,9 @@ public class Jt400Resource {
     @Path("/messageQueue/read/")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response messageQueueRead() {
-        Exchange ex = consumerTemplate.receive(getUrlForLibrary(jt400MessageQueue));
+    public Response messageQueueRead(@QueryParam("queue") String queue) {
+        Exchange ex = consumerTemplate
+                .receive(getUrlForLibrary(queue == null ? jt400MessageQueue : queue));
 
         return generateResponse(ex.getIn().getBody(String.class), ex);
     }
@@ -164,12 +204,12 @@ public class Jt400Resource {
     }
 
     private String getUrlForLibrary(String suffix) {
-        return String.format("jt400://%s:%s@%s%s", jt400USername, jt400Password, jt400Url,
+        return String.format("jt400://%s:%s@%s%s", jt400Username, jt400Password, jt400Url,
                 "/QSYS.LIB/" + jt400Library + ".LIB/" + suffix);
     }
 
     private String getUrl(String suffix) {
-        return String.format("jt400://%s:%s@%s%s", jt400USername, jt400Password, jt400Url, suffix);
+        return String.format("jt400://%s:%s@%s%s", jt400Username, jt400Password, jt400Url, suffix);
     }
 
     Response generateResponse(String result, Exchange ex) {
