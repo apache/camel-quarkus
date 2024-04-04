@@ -24,7 +24,6 @@ import org.apache.camel.CatalogCamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.component.microprofile.config.CamelMicroProfilePropertiesSource;
-import org.apache.camel.console.DevConsole;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.engine.DefaultComponentResolver;
 import org.apache.camel.impl.engine.DefaultDataFormatResolver;
@@ -245,20 +244,7 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
 
     @Override
     public String getDevConsoleParameterJsonSchema(String devConsoleName) throws IOException {
-        Class<?> clazz;
-
-        Object instance = getRegistry().lookupByNameAndType(devConsoleName, DevConsole.class);
-        if (instance != null) {
-            clazz = instance.getClass();
-        } else {
-            clazz = getCamelContextExtension().getFactoryFinder(DefaultDevConsoleResolver.DEV_CONSOLE_RESOURCE_PATH)
-                    .findClass(devConsoleName).orElse(null);
-            if (clazz == null) {
-                return null;
-            }
-        }
-
-        return getJsonSchema(clazz.getPackage().getName(), devConsoleName);
+        return getJsonSchema(DefaultDevConsoleResolver.DEV_CONSOLE_RESOURCE_PATH, devConsoleName);
     }
 
     @Override
@@ -280,9 +266,29 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
     }
 
     private String getJsonSchema(String packageName, String name) throws IOException {
-        String path = "META-INF/" + packageName.replace('.', '/') + "/" + name + ".json";
-        InputStream inputStream = getClassResolver().loadResourceAsStream(path);
+        String fileName = name + ".json";
+        String path;
+        if (packageName.contains("/")) {
+            path = packageName + fileName;
+        } else {
+            path = "META-INF/" + packageName.replace('.', '/') + "/" + fileName;
+        }
 
+        String json = loadJsonSchema(path);
+        if (json == null && path.startsWith("META-INF")) {
+            // Try fallback to the 'classic' service path without the META-INF prefix
+            json = loadJsonSchema(path.replace("META-INF/", ""));
+
+            if (json == null) {
+                // Try fallback to non-service paths with the META-INF prefix
+                json = loadJsonSchema(path.replace("META-INF/services", "META-INF"));
+            }
+        }
+        return json;
+    }
+
+    private String loadJsonSchema(String path) throws IOException {
+        InputStream inputStream = getClassResolver().loadResourceAsStream(path);
         if (inputStream != null) {
             try {
                 return IOHelper.loadText(inputStream);
@@ -290,7 +296,6 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
                 IOHelper.close(inputStream);
             }
         }
-
         return null;
     }
 

@@ -38,6 +38,17 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-console</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit5-internal</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-stub</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
