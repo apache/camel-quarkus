@@ -52,6 +52,7 @@ public class HttpTestResource implements QuarkusTestResourceLifecycleManager {
                 "camel.netty-http.https-test-port",
                 "camel.netty-http.compression-test-port");
         options.put("proxy.host", "localhost");
+        options.put("proxy.connection.timeout", "10000");
 
         server = new ProxyServer(Integer.parseInt(options.get("proxy.port")), USER_ADMIN, USER_ADMIN_PASSWORD);
         server.start();
