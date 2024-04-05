@@ -1,5 +1,7 @@
 == Certificate for HTTPS
 
-Server keystore has to contain server certificate. It is possible to use self-signed certificate created by following command:
+Server keystore has to contain server certificate.
 
-`keytool -genkeypair -keystore keystore.p12 -storetype PKCS12 -storepass changeit -alias localhost -keyalg RSA -keysize 2048 -validity 99999 -dname "CN=localhost"'
+=== How to generate new keystore and truststore
+
+Delete folder `common/src/main/resources/jsse` and run the script `common/generate-certs.sh` to generate new keystore and truststore.
