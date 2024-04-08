@@ -22,7 +22,7 @@ LangChain4j Embeddings
 [id="extensions-langchain-embeddings-whats-inside"]
 == What's inside
 
-* xref:{cq-camel-components}::langchain-embeddings-component.adoc[LangChain4j Embeddings component], URI syntax: `langchain-embeddings:embeddingId`
+* xref:{cq-camel-components}::langchain4j-embeddings-component.adoc[LangChain4j Embeddings component], URI syntax: `langchain-embeddings:embeddingId`
 
 Please refer to the above link for usage and configuration details.
 
