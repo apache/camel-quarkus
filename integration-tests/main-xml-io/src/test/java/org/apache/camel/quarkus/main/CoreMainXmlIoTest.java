@@ -16,7 +16,10 @@
  */
 package org.apache.camel.quarkus.main;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -25,11 +28,12 @@ import io.restassured.path.json.JsonPath;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.dsl.xml.io.XmlRoutesBuilderLoader;
 import org.apache.camel.quarkus.core.DisabledModelJAXBContextFactory;
-import org.apache.camel.quarkus.core.DisabledModelToXMLDumper;
+import org.apache.camel.xml.LwModelToXMLDumper;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
@@ -45,7 +49,7 @@ public class CoreMainXmlIoTest {
                 .body()
                 .jsonPath();
 
-        assertThat(p.getString("xml-model-dumper")).isEqualTo(DisabledModelToXMLDumper.class.getName());
+        assertThat(p.getString("xml-model-dumper")).isEqualTo(LwModelToXMLDumper.class.getName());
         assertThat(p.getString("xml-model-factory")).isEqualTo(DisabledModelJAXBContextFactory.class.getName());
 
         assertThat(p.getString("xml-routes-builder-loader"))
@@ -117,5 +121,19 @@ public class CoreMainXmlIoTest {
                 .then()
                 .statusCode(200)
                 .body(Matchers.is("beanTypeShouldSucceed-handled-by-MyBean"));
+    }
+
+    @Test
+    public void testDumpRoutes() {
+        await().atMost(10L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
+            String log = Files.readString(Paths.get("target/quarkus.log"));
+            return logContainsDumpedRoutes(log);
+        });
+    }
+
+    private boolean logContainsDumpedRoutes(String log) {
+        return log.contains("<route id=\"my-xml-route\">") &&
+                log.contains("<rest id=\"greet\" path=\"/greeting\">") &&
+                log.contains("<routeTemplate id=\"myTemplate\">");
     }
 }

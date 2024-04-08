@@ -18,7 +18,11 @@
 package org.apache.camel.quarkus.dsl.xml.io.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelModelToXMLDumperBuildItem;
+import org.apache.camel.quarkus.dsl.xml.XmlIoDslRecorder;
 
 public class XmlIoDslProcessor {
     private static final String FEATURE = "camel-xml-io-dsl";
@@ -26,5 +30,11 @@ public class XmlIoDslProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    @Record(value = ExecutionTime.STATIC_INIT, optional = true)
+    CamelModelToXMLDumperBuildItem xmlModelDumper(XmlIoDslRecorder recorder) {
+        return new CamelModelToXMLDumperBuildItem(recorder.newXmlIoModelToXMLDumper());
     }
 }
