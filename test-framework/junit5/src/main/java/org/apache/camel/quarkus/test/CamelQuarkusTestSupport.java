@@ -318,7 +318,7 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
 
         if (isUseRouteBuilder()) {
             //save the routeIds of routes existing before setup
-            createdRoutes = context.getRoutes().stream().map(Route::getRouteId).collect(Collectors.toSet());
+            createdRoutes = context.getRoutes().stream().map(r -> r.getRouteId()).collect(Collectors.toSet());
         }
 
         super.doPreSetup();
@@ -346,7 +346,7 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
 
         if (isUseRouteBuilder()) {
             //remove from the routes all routes which existed before setup
-            var allRoutes = context.getRoutes().stream().map(Route::getRouteId).collect(Collectors.toSet());
+            var allRoutes = context.getRoutes().stream().map(r -> r.getRouteId()).collect(Collectors.toSet());
             if (createdRoutes != null) {
                 allRoutes.removeAll(createdRoutes);
             }
