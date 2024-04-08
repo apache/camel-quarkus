@@ -199,7 +199,7 @@
                   </sp:ProtectionToken>
                   <sp:AlgorithmSuite>
                      <wsp:Policy>
-                        <sp:Basic256 />
+                         <sp:CustomAlgorithmSuite/>
                      </wsp:Policy>
                   </sp:AlgorithmSuite>
                   <sp:Layout>

@@ -78,7 +78,7 @@
                     <sp:OnlySignEntireHeadersAndBody />
                     <sp:AlgorithmSuite>
                         <wsp:Policy>
-                            <sp:Basic256 />
+                            <sp:CustomAlgorithmSuite/>
                         </wsp:Policy>
                     </sp:AlgorithmSuite>
                 </wsp:Policy>
