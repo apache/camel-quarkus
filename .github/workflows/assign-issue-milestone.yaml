@@ -75,7 +75,7 @@ jobs:
 
             // Assign the latest milestone to issues associated with the merged PR
             if (milestoneResults && milestoneResults.data.length > 0) {
-              const milestones = milestoneResults.data.filter(data => data.title.match("^[0-9].[0-9].[0-9].*"));
+              const milestones = milestoneResults.data.filter(data => data.title.match("^[0-9]+.[0-9]+.[0-9]+.*"));
               if (milestones && milestones.length > 0) {
                 const latestMilestone = milestones[0].number;
                 issueNumbers.forEach(issueNumber => {
