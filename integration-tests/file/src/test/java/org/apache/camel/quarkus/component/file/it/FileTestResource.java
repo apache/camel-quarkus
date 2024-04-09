@@ -32,7 +32,7 @@ import org.apache.commons.io.FileUtils;
 /**
  * Ensures that all test files are created with expected content before camel routes starts to consume them.
  */
-public class NonFlakyFileTestResource implements QuarkusTestResourceLifecycleManager {
+public class FileTestResource implements QuarkusTestResourceLifecycleManager {
 
     static final Path TEST_FILES_FOLDER = Paths.get("target", "test-files");
 
