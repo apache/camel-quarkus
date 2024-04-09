@@ -37,27 +37,27 @@ import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.quarkus.component.file.it.FileResource.SEPARATOR;
 import static org.apache.camel.quarkus.component.file.it.FileResource.SORT_BY;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.BATCH_FILE_NAME_1_CONTENT;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.BATCH_FILE_NAME_2_CONTENT;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.CHARSET_READ_FILE_CONTENT;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.CHARSET_WRITE_FILE_CONTENT;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.CHARSET_WRITE_FILE_CREATION_FOLDER;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.CHARSET_WRITE_FILE_NAME;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.FILE_CREATION_FILE_CONTENT;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.FILE_CREATION_FILE_NAME;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.FILE_CREATION_FOLDER;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.FILTER_NON_SKIPPED_FILE_CONTENT;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.IDEMPOTENT_FILE_CONTENT;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.IDEMPOTENT_FILE_NAME;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.POLL_ENRICH_FILE_CONTENT;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.QUARTZ_SCHEDULED_FILE_CONTENT;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.READ_LOCK_FILE_NAME;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.READ_LOCK_FOLDER_IN;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.READ_LOCK_FOLDER_OUT;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.SORT_BY_NAME_1_CONTENT;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.SORT_BY_NAME_2_CONTENT;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.SORT_BY_NAME_3_CONTENT;
-import static org.apache.camel.quarkus.component.file.it.NonFlakyFileTestResource.TEST_FILES_FOLDER;
+import static org.apache.camel.quarkus.component.file.it.FileTestResource.BATCH_FILE_NAME_1_CONTENT;
+import static org.apache.camel.quarkus.component.file.it.FileTestResource.BATCH_FILE_NAME_2_CONTENT;
+import static org.apache.camel.quarkus.component.file.it.FileTestResource.CHARSET_READ_FILE_CONTENT;
+import static org.apache.camel.quarkus.component.file.it.FileTestResource.CHARSET_WRITE_FILE_CONTENT;
+import static org.apache.camel.quarkus.component.file.it.FileTestResource.CHARSET_WRITE_FILE_CREATION_FOLDER;
+import static org.apache.camel.quarkus.component.file.it.FileTestResource.CHARSET_WRITE_FILE_NAME;
+import static org.apache.camel.quarkus.component.file.it.FileTestResource.FILE_CREATION_FILE_CONTENT;
+import static org.apache.camel.quarkus.component.file.it.FileTestResource.FILE_CREATION_FILE_NAME;
+import static org.apache.camel.quarkus.component.file.it.FileTestResource.FILE_CREATION_FOLDER;
+import static org.apache.camel.quarkus.component.file.it.FileTestResource.FILTER_NON_SKIPPED_FILE_CONTENT;
+import static org.apache.camel.quarkus.component.file.it.FileTestResource.IDEMPOTENT_FILE_CONTENT;
+import static org.apache.camel.quarkus.component.file.it.FileTestResource.IDEMPOTENT_FILE_NAME;
+import static org.apache.camel.quarkus.component.file.it.FileTestResource.POLL_ENRICH_FILE_CONTENT;
+import static org.apache.camel.quarkus.component.file.it.FileTestResource.QUARTZ_SCHEDULED_FILE_CONTENT;
+import static org.apache.camel.quarkus.component.file.it.FileTestResource.READ_LOCK_FILE_NAME;
+import static org.apache.camel.quarkus.component.file.it.FileTestResource.READ_LOCK_FOLDER_IN;
+import static org.apache.camel.quarkus.component.file.it.FileTestResource.READ_LOCK_FOLDER_OUT;
+import static org.apache.camel.quarkus.component.file.it.FileTestResource.SORT_BY_NAME_1_CONTENT;
+import static org.apache.camel.quarkus.component.file.it.FileTestResource.SORT_BY_NAME_2_CONTENT;
+import static org.apache.camel.quarkus.component.file.it.FileTestResource.SORT_BY_NAME_3_CONTENT;
+import static org.apache.camel.quarkus.component.file.it.FileTestResource.TEST_FILES_FOLDER;
 import static org.apache.commons.io.FileUtils.readFileToString;
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -74,8 +74,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Linked to https://github.com/apache/camel-quarkus/issues/3584
  */
 @QuarkusTest
-@QuarkusTestResource(NonFlakyFileTestResource.class)
-class NonFlakyFileTest {
+@QuarkusTestResource(FileTestResource.class)
+class FileTest {
 
     @Test
     void idempotentFileShouldBeReadOnlyOnce() throws IOException, InterruptedException {
@@ -234,7 +234,7 @@ class NonFlakyFileTest {
 
     @Test
     public void fileWatchShouldCatchCreateModifyAndDeleteEvents() throws IOException {
-        final Path fileWatchDirectory = Files.createTempDirectory(NonFlakyFileTest.class.getSimpleName()).toRealPath();
+        final Path fileWatchDirectory = Files.createTempDirectory(FileTest.class.getSimpleName()).toRealPath();
         RestAssured.given()
                 .queryParam("path", fileWatchDirectory.toString())
                 .get("/file-watch/get-events")

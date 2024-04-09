@@ -19,6 +19,6 @@ package org.apache.camel.quarkus.component.file.it;
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
 @QuarkusIntegrationTest
-class NonFlakyFileIT extends NonFlakyFileTest {
+class FileIT extends FileTest {
 
 }
