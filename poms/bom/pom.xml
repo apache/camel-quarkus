@@ -191,6 +191,17 @@
             </dependency>-->
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-aws-bedrock</artifactId>
+                <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-aws-secrets-manager</artifactId>
                 <version>${camel.version}</version>
                 <exclusions>
@@ -2883,6 +2894,16 @@
                 <artifactId>camel-quarkus-avro-rpc-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>-->
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-aws-bedrock</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-aws-bedrock-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-aws-secrets-manager</artifactId>

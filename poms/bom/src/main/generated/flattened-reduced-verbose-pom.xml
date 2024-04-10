@@ -129,6 +129,17 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-aws-bedrock</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>4.5.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>commons-logging</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-aws-secrets-manager</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>4.5.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
@@ -2806,6 +2817,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-quarkus-avro-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.10.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-quarkus-aws-bedrock</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.10.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-quarkus-aws-bedrock-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.10.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
@@ -7681,6 +7702,26 @@
       <dependency>
         <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.15 -->
         <artifactId>metrics-spi</artifactId><!-- software.amazon.awssdk:bom:2.25.15 -->
+        <version>2.25.15</version><!-- software.amazon.awssdk:bom:2.25.15 -->
+      </dependency>
+      <dependency>
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.15 -->
+        <artifactId>bedrockruntime</artifactId><!-- software.amazon.awssdk:bom:2.25.15 -->
+        <version>2.25.15</version><!-- software.amazon.awssdk:bom:2.25.15 -->
+      </dependency>
+      <dependency>
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.15 -->
+        <artifactId>bedrock</artifactId><!-- software.amazon.awssdk:bom:2.25.15 -->
+        <version>2.25.15</version><!-- software.amazon.awssdk:bom:2.25.15 -->
+      </dependency>
+      <dependency>
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.15 -->
+        <artifactId>bedrockagentruntime</artifactId><!-- software.amazon.awssdk:bom:2.25.15 -->
+        <version>2.25.15</version><!-- software.amazon.awssdk:bom:2.25.15 -->
+      </dependency>
+      <dependency>
+        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.25.15 -->
+        <artifactId>bedrockagent</artifactId><!-- software.amazon.awssdk:bom:2.25.15 -->
         <version>2.25.15</version><!-- software.amazon.awssdk:bom:2.25.15 -->
       </dependency>
       <dependency>
