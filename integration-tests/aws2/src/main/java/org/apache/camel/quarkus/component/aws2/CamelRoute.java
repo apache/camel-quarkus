@@ -76,7 +76,7 @@ public class CamelRoute extends RouteBuilder {
                 .to("log:sf?showAll=true");
 
         from("timer:quarkus-bedrock?repeatCount=1")
-                .to("aws-bedorck://myaccount?operation=invokeTextModel")
+                .to("aws-bedrock://myaccount?operation=invokeTextModel")
                 .to("log:sf?showAll=true");
 
         from("timer:quarkus-translate?repeatCount=1")
