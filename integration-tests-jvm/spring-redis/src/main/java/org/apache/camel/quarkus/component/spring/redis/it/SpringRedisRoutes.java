@@ -17,31 +17,30 @@
 package org.apache.camel.quarkus.component.spring.redis.it;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
-import org.apache.camel.ProducerTemplate;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.redis.RedisConstants;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-@Path("/spring-redis")
 @ApplicationScoped
-public class SpringRedisResource {
-    @Inject
-    ProducerTemplate template;
+public class SpringRedisRoutes extends RouteBuilder {
+    static final String KEY = "test-key";
 
-    @Path("/set")
-    @GET
-    public Response set() throws Exception {
-        template.sendBody("direct:set", "foo");
-        return Response.ok().build();
-    }
+    @ConfigProperty(name = "redis.host")
+    String host;
 
-    @Path("/exists")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String exists() throws Exception {
-        return template.requestBody("direct:exists", null, String.class);
+    @ConfigProperty(name = "redis.port")
+    int port;
+
+    @Override
+    public void configure() throws Exception {
+        from("direct:set")
+                .setHeader(RedisConstants.COMMAND).constant("SET")
+                .setHeader(RedisConstants.KEY).constant(KEY)
+                .toF("spring-redis://%s:%d?redisTemplate=#redisTemplate", host, port);
+
+        from("direct:exists")
+                .setHeader(RedisConstants.COMMAND).constant("EXISTS")
+                .setHeader(RedisConstants.KEY).constant(KEY)
+                .toF("spring-redis://%s:%d?redisTemplate=#redisTemplate", host, port);
     }
 }

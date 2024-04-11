@@ -66,6 +66,7 @@
                                         <include>org/springframework/core/io/**</include>
                                         <include>org/springframework/core/log/**</include>
                                         <include>org/springframework/core/metrics/**</include>
+                                        <include>org/springframework/core/serializer/**</include>
                                         <include>org/springframework/core/task/**</include>
                                         <include>org/springframework/lang/**</include>
                                         <include>org/springframework/util/*</include>

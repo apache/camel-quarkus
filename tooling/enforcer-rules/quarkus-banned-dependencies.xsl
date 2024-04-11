@@ -30,5 +30,5 @@
     <!-- This is to remove some entries from -->
     <!-- https://github.com/quarkusio/quarkus/blob/main/independent-projects/enforcer-rules/src/main/resources/enforcer-rules/quarkus-banned-dependencies.xml -->
     <!-- before passing it to Maven enforcer plugin -->
-    <xsl:template match="//bannedDependencies/excludes/exclude[contains(text(), 'org.springframework:spring-')]"/>
+    <xsl:template match="//bannedDependencies/excludes/exclude[contains(text(), 'org.springframework:spring-') or contains(text(), 'org.springframework.data:spring-')]"/>
 </xsl:stylesheet>

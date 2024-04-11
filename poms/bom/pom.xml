@@ -2416,12 +2416,6 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-spring-redis</artifactId>
                 <version>${camel.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.springframework.data</groupId>
-                        <artifactId>spring-data-redis</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -7091,10 +7085,6 @@
                     <exclusion>
                         <groupId>org.springframework</groupId>
                         <artifactId>spring-oxm</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework.data</groupId>
-                        <artifactId>spring-data-commons</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
