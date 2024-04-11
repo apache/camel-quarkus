@@ -39,7 +39,7 @@
         <!-- Allow running our tests against alternative BOMs, such as io.quarkus.platform:quarkus-camel-bom https://repo1.maven.org/maven2/io/quarkus/platform/quarkus-camel-bom/ -->
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.version>${quarkus.version}</quarkus.platform.version>
+        <quarkus.platform.version>3.9.3</quarkus.platform.version>
         <camel-quarkus.platform.group-id>org.apache.camel.quarkus</camel-quarkus.platform.group-id>
         <camel-quarkus.platform.artifact-id>camel-quarkus-bom</camel-quarkus.platform.artifact-id>
         <camel-quarkus.platform.version>3.10.0-SNAPSHOT</camel-quarkus.platform.version>
