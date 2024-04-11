@@ -77,6 +77,7 @@
                 <include>org.springframework:spring-tx</include>
                 <include>org.springframework.amqp:spring-amqp</include>
                 <include>org.springframework.amqp:spring-rabbit</include>
+                <include>org.springframework.data:spring-data-commons</include><!-- required by camel-spring-redis -->
                 <include>org.springframework.data:spring-data-keyvalue</include><!-- required by camel-spring-redis -->
                 <include>org.springframework.data:spring-data-redis</include><!-- required by camel-spring-redis -->
                 <include>org.springframework.retry:spring-retry</include>
