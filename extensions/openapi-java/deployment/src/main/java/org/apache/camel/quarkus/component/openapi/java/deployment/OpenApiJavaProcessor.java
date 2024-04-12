@@ -185,8 +185,7 @@ class OpenApiJavaProcessor {
             try {
                 configurer.configureRoutes(ctx);
             } catch (Exception e) {
-                //ignore
-                LOGGER.warn("config routes failed with " + e);
+                LOGGER.warn("Failed to configure routes due to: {}.", e.getMessage(), e);
             }
             openAPI.produce(new AddToOpenAPIDefinitionBuildItem(new CamelRestOASFilter(ctx)));
         }
@@ -218,7 +217,7 @@ class CamelRestOASFilter implements OASFilter {
             final List<RestDefinition> rests = resolver.getRestDefinitions(context, null);
 
             if (rests == null || rests.isEmpty()) {
-                LOGGER.debug("Can not find Rest definitions");
+                LOGGER.warn("Unable to find Camel REST definitions to expose on the Quarkus OpenAPI endpoint.");
                 return;
             }
 
