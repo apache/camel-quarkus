@@ -43,10 +43,12 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-log</artifactId>
         </dependency>
+        <!-- TODO: https://github.com/apache/camel-quarkus/issues/5995
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-microprofile-fault-tolerance</artifactId>
         </dependency>
+        -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-microprofile-health</artifactId>
@@ -78,6 +80,23 @@
         </dependency>
     </dependencies>
 
+    <!-- TODO: https://github.com/apache/camel-quarkus/issues/5995 -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>org/apache/camel/quarkus/component/microprofile/it/faulttolerance/**</exclude>
+                    </excludes>
+                    <testExcludes>
+                        <exclude>org/apache/camel/quarkus/component/microprofile/it/faulttolerance/**</exclude>
+                    </testExcludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <profiles>
         <profile>
