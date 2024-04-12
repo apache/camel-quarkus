@@ -17,9 +17,7 @@
 package org.apache.camel.quarkus.component.openapijava.it.v3;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
-import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 @QuarkusIntegrationTest
-@EnabledIfSystemProperty(named = "test.profile", matches = "openapi.v3")
 class OpenApiV3IT extends OpenApiV3Test {
 }
