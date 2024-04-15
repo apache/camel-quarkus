@@ -88,7 +88,7 @@ jobs:
           ls -lh ${{ runner.temp }}/maven-repo.tgz
           df -h /
       - name: Persist Maven Repo
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: maven-repo
           path: ${{ runner.temp }}/maven-repo.tgz
@@ -139,7 +139,7 @@ jobs:
       matrix: ${{ fromJson(needs.initial-mvn-install.outputs.matrix) }}
     steps:
       - name: Download Maven Repo
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: maven-repo
           path: ..
@@ -221,7 +221,7 @@ jobs:
       MAVEN_OPTS: -Xmx3000m
     steps:
       - name: Download Maven Repo
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: maven-repo
           path: ..
@@ -298,7 +298,7 @@ jobs:
       MAVEN_OPTS: -Xmx3000m
     steps:
       - name: Download Maven Repo
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: maven-repo
           path: ..
@@ -365,7 +365,7 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
       - name: Download Maven Repo
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: maven-repo
           path: ..
@@ -399,7 +399,7 @@ jobs:
       MAVEN_OPTS: -Xmx3000m
     steps:
       - name: Download Maven Repo
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: maven-repo
           path: ..
@@ -452,7 +452,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Download Maven Repo
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: maven-repo
           path: ..
@@ -534,7 +534,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Download Maven Repo
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: maven-repo
           path: ..
