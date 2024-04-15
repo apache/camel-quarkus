@@ -78,6 +78,7 @@
         <module>jooq</module>
         <module>json-patch</module>
         <module>jsonapi</module>
+        <module>langchain-chat</module>
         <module>langchain-embeddings</module>
         <module>ldif</module>
         <module>lucene</module>
