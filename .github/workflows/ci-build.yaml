@@ -110,7 +110,7 @@ jobs:
             echo "continue-build=true" >> $GITHUB_OUTPUT
           fi
       - name: Upload dependabot changeset
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: steps.pre-build-checks.outputs.continue-build == 'false'
         with:
           name: dependabot-pr-changeset
@@ -174,7 +174,7 @@ jobs:
           ls -lh ${{ runner.temp }}/maven-repo.tgz
           df -h /
       - name: Persist Maven Repo
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: maven-repo
           path: ${{ runner.temp }}/maven-repo.tgz
@@ -229,7 +229,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Download Maven Repo
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: maven-repo
           path: ..
@@ -300,7 +300,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Download Maven Repo
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: maven-repo
           path: ..
@@ -367,7 +367,7 @@ jobs:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
       - name: Download Maven Repo
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: maven-repo
           path: ..
@@ -410,7 +410,7 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
       - name: Download Maven Repo
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: maven-repo
           path: ..
@@ -455,7 +455,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Download Maven Repo
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: maven-repo
           path: ..
@@ -496,7 +496,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Download Maven Repo
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: maven-repo
           path: ..
