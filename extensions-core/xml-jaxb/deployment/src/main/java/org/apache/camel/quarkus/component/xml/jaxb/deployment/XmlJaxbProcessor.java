@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.xml.jaxb.deployment;
 
+import java.util.function.BooleanSupplier;
+
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
@@ -46,9 +48,25 @@ class XmlJaxbProcessor {
         return new CamelModelJAXBContextFactoryBuildItem(recorder.newContextFactory());
     }
 
-    @BuildStep
+    @BuildStep(onlyIfNot = XmlIoPresent.class)
     @Record(value = ExecutionTime.STATIC_INIT, optional = true)
     CamelModelToXMLDumperBuildItem xmlModelDumper(XmlJaxbRecorder recorder) {
         return new CamelModelToXMLDumperBuildItem(recorder.newJaxbModelToXMLDumper());
+    }
+
+    /**
+     * Normally we'd use Capabilities to detect xml-io-dsl, but in this case we must suppress the xmlModelDumper
+     * build step running. Since we can't have multiple active producers of CamelModelToXMLDumperBuildItem.
+     */
+    static class XmlIoPresent implements BooleanSupplier {
+        @Override
+        public boolean getAsBoolean() {
+            try {
+                Thread.currentThread().getContextClassLoader().loadClass("org.apache.camel.xml.LwModelToXMLDumper");
+                return true;
+            } catch (ClassNotFoundException e) {
+                return false;
+            }
+        }
     }
 }
