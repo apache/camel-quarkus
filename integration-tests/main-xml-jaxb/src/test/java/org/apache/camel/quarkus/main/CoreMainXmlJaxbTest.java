@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.main;
 
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -26,7 +25,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import jakarta.ws.rs.core.MediaType;
-import org.apache.camel.dsl.xml.io.XmlRoutesBuilderLoader;
 import org.apache.camel.xml.jaxb.DefaultModelJAXBContextFactory;
 import org.apache.camel.xml.jaxb.JaxbModelToXMLDumper;
 import org.junit.jupiter.api.Test;
@@ -51,15 +49,12 @@ public class CoreMainXmlJaxbTest {
         assertThat(p.getString("xml-model-dumper")).isEqualTo(JaxbModelToXMLDumper.class.getName());
         assertThat(p.getString("xml-model-factory")).isEqualTo(DefaultModelJAXBContextFactory.class.getName());
 
-        assertThat(p.getString("xml-routes-builder-loader"))
-                .isEqualTo(XmlRoutesBuilderLoader.class.getName());
-
         assertThat(p.getList("routeBuilders", String.class))
                 .isEmpty();
 
         List<String> routes = p.getList("routes", String.class);
         assertThat(routes)
-                .contains("my-xml-route");
+                .contains("my-yaml-route");
         assertThat(routes)
                 .contains("templated-route");
         assertThat(routes)
@@ -69,13 +64,13 @@ public class CoreMainXmlJaxbTest {
     @Test
     public void testDumpRoutes() {
         await().atMost(10L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
-            String log = new String(Files.readAllBytes(Paths.get("target/quarkus.log")), StandardCharsets.UTF_8);
+            String log = Files.readString(Paths.get("target/quarkus.log"));
             return logContainsDumpedRoutes(log);
         });
     }
 
     private boolean logContainsDumpedRoutes(String log) {
-        return log.contains("<route id=\"my-xml-route\">") &&
+        return log.contains("<route id=\"my-yaml-route\">") &&
                 log.contains("<rest id=\"greet\" path=\"/greeting\">") &&
                 log.contains("<routeTemplate id=\"myTemplate\">");
     }
