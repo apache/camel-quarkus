@@ -28,7 +28,7 @@ asciidoc:
     camel-version: 4.4.1 # replace ${camel.version}
     camel-docs-version: 4.4.x
     camel-quarkus-version: 3.8.2 # replace ${camel-quarkus.version}
-    quarkus-version: 3.8.3 # replace ${quarkus.version}
+    quarkus-version: 3.8.4 # replace ${quarkus.version}
     graalvm-version: 23.1.2 # replace ${graalvm.version}
     graalvm-docs-version: jdk21 # replace ${graalvm-docs.version}
     mapstruct-version: 1.5.5.Final # replace ${mapstruct.version}
