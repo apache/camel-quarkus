@@ -17,9 +17,7 @@
 package org.apache.camel.quarkus.core.faulttolerance.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
-import org.junit.jupiter.api.Disabled;
 
-@Disabled("https://github.com/apache/camel-quarkus/issues/5995")
 @QuarkusIntegrationTest
 public class CoreFaultToleranceIT extends CoreFaultToleranceTest {
 }

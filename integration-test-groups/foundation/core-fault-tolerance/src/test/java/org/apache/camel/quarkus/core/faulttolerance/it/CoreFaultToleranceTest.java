@@ -17,13 +17,11 @@
 package org.apache.camel.quarkus.core.faulttolerance.it;
 
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.get;
 import static org.hamcrest.Matchers.is;
 
-@Disabled("https://github.com/apache/camel-quarkus/issues/5995")
 @QuarkusTest
 public class CoreFaultToleranceTest {
 
