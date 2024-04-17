@@ -30,12 +30,6 @@
     <name>Camel Quarkus :: Integration Tests :: Cxf Soap Grouped</name>
     <description>Cxf Soap tests from ../integration-test-groups/cxf-soap merged together</description>
 
-    <!-- TODO: Remove this: https://github.com/apache/camel-quarkus/issues/5926 -->
-    <properties>
-        <quarkus.build.skip>true</quarkus.build.skip>
-        <skipTests>true</skipTests>
-    </properties>
-
     <!-- Regenerate the dependencies via `mvn process-resources -Pformat -N` from the source tree root directory -->
     <dependencies>
         <dependency>
