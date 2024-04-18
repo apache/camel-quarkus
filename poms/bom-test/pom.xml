@@ -335,6 +335,10 @@
                         <groupId>javax.annotation</groupId>
                         <artifactId>javax.annotation-api</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>org.checkerframework</groupId>
+                        <artifactId>checker-qual</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
