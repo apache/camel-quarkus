@@ -45,7 +45,7 @@ import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.dto.meta.CurrencyMetaData;
-import org.knowm.xchange.dto.meta.CurrencyPairMetaData;
+import org.knowm.xchange.dto.meta.InstrumentMetaData;
 import org.knowm.xchange.kraken.KrakenExchange;
 
 @Path("/xchange")
@@ -115,10 +115,10 @@ public class XchangeResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String currencyPairsMetadata(@QueryParam("base") String base, @QueryParam("counter") String counter) {
-        CurrencyPairMetaData metaData = producerTemplate.requestBody(
+        InstrumentMetaData metaData = producerTemplate.requestBody(
                 "xchange:" + DEFAULT_CRYPTO_EXCHANGE + "?service=metadata&method=currencyPairMetaData",
                 new CurrencyPair(base, counter),
-                CurrencyPairMetaData.class);
+                InstrumentMetaData.class);
         return metaData.getTradingFee().toPlainString();
     }
 

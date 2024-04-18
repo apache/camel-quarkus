@@ -158,6 +158,7 @@ group-09:
   - splunk
   - splunk-hec
   - spring-rabbitmq
+  - xchange
   - xpath
 group-10:
   - as2
