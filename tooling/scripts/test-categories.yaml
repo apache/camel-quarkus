@@ -111,6 +111,7 @@ group-06:
   - quartz
   - saga
   - sjms-qpid-amqp-client
+  - wasm
 group-07:
   - dataformats-json-grouped
   - dropbox
