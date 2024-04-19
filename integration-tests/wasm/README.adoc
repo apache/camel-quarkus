@@ -1,0 +1,13 @@
+== Recompiling the test functions
+
+First install the Rust toolchain:
+
+https://rustup.rs/
+
+Then compile functions.wasm:
+
+[source,shell]
+----
+cd rust
+./build.sh
+----

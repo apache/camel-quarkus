@@ -251,6 +251,7 @@
         <module>vertx</module>
         <module>vertx-http</module>
         <module>vertx-websocket</module>
+        <module>wasm</module>
         <module>weather</module>
         <module>xchange</module>
         <module>xj</module>

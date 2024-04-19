@@ -594,6 +594,7 @@
                             <exclude>.github/actions/**</exclude>
                             <exclude>**/my-property</exclude>
                             <exclude>release-utils/*.sh</exclude>
+                            <exclude>**/*.wasm</exclude>
                         </excludes>
                         <mapping>
                             <cli>CAMEL_PROPERTIES_STYLE</cli>
@@ -610,9 +611,11 @@
                             <rnc>SCRIPT_STYLE</rnc>
                             <ini>SCRIPT_STYLE</ini>
                             <rng>XML_STYLE</rng>
+                            <rs>DOUBLESLASH_STYLE</rs>
                             <spring.factories>CAMEL_PROPERTIES_STYLE</spring.factories>
                             <spring.provides>CAMEL_PROPERTIES_STYLE</spring.provides>
                             <tm>CAMEL_PROPERTIES_STYLE</tm>
+                            <toml>SCRIPT_STYLE</toml>
                             <kt>SLASHSTAR_STYLE</kt>
                             <wsdl>XML_STYLE</wsdl>
                         </mapping>

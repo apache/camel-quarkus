@@ -2568,6 +2568,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-wasm</artifactId>
+        <version>4.5.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-weather</artifactId>
         <version>4.5.0</version>
         <exclusions>
@@ -5861,6 +5866,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-vertx-websocket-deployment</artifactId>
+        <version>3.10.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-wasm</artifactId>
+        <version>3.10.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-wasm-deployment</artifactId>
         <version>3.10.0-SNAPSHOT</version>
       </dependency>
       <dependency>
