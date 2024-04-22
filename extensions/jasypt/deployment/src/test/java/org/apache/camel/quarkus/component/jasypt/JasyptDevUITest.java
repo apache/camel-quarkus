@@ -23,14 +23,12 @@ import io.quarkus.test.QuarkusDevModeTest;
 import org.apache.camel.util.ObjectHelper;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@Disabled("https://github.com/apache/camel-quarkus/issues/5946")
 public class JasyptDevUITest extends DevUIJsonRPCTest {
     @RegisterExtension
     static final QuarkusDevModeTest CONFIG = new QuarkusDevModeTest().withEmptyApplication();

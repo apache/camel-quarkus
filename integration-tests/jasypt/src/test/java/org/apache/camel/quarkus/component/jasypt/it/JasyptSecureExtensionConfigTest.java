@@ -27,15 +27,6 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 @TestProfile(JasyptSecureExtensionConfigTestProfile.class)
 class JasyptSecureExtensionConfigTest {
-    @Test
-    void secureDatabaseCredentials() throws InterruptedException {
-        RestAssured.given()
-                .get("/jasypt/secure/database")
-                .then()
-                .statusCode(200)
-                .body(is("camel"));
-    }
-
     @DisabledIfEnvironmentVariable(named = "CI", matches = "true", disabledReason = "https://github.com/apache/camel-quarkus/issues/5675")
     @Test
     void secureDirectComponentTimeout() throws InterruptedException {
