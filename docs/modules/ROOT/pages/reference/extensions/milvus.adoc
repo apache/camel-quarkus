@@ -4,17 +4,17 @@
 = Milvus
 :linkattrs:
 :cq-artifact-id: camel-quarkus-milvus
-:cq-native-supported: true
-:cq-status: Stable
-:cq-status-deprecation: Stable
+:cq-native-supported: false
+:cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Perform operations on the Milvus Vector Database.
 :cq-deprecated: false
 :cq-jvm-since: 3.10.0
-:cq-native-since: 3.10.0
+:cq-native-since: n/a
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##3.10.0## [.badge-key]##Native since##[.badge-supported]##3.10.0##
+[.badge-key]##JVM since##[.badge-supported]##3.10.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
 endif::[]
 
 Perform operations on the Milvus Vector Database.
@@ -28,10 +28,6 @@ Please refer to the above link for usage and configuration details.
 
 [id="extensions-milvus-maven-coordinates"]
 == Maven coordinates
-
-https://{link-quarkus-code-generator}/?extension-search=camel-quarkus-milvus[Create a new project with this extension on {link-quarkus-code-generator}, window="_blank"]
-
-Or add the coordinates to your existing project:
 
 [source,xml]
 ----

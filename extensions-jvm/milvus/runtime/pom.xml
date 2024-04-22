@@ -34,7 +34,6 @@
 
     <properties>
         <camel.quarkus.jvmSince>3.10.0</camel.quarkus.jvmSince>
-        <camel.quarkus.nativeSince>3.10.0</camel.quarkus.nativeSince>
     </properties>
 
     <dependencies>
