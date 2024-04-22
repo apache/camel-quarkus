@@ -58,22 +58,12 @@ public class CamelJasyptSecretKeysHandlerFactory implements SecretKeysHandlerFac
 
     @Override
     public SecretKeysHandler getSecretKeysHandler(ConfigSourceContext context) {
-        String enabledValue = getConfigValue(context, "enabled", "true");
-        if (enabledValue != null) {
-            enabled = Boolean.parseBoolean(enabledValue);
-        }
-
-        if (enabled) {
-            configureJasypt(context);
-        }
+        configureJasypt(context);
 
         return new SecretKeysHandler() {
             @Override
             public String decode(String secret) {
-                if (enabled) {
-                    return parser.parseProperty("", secret, null);
-                }
-                return secret;
+                return parser.parseProperty("", secret, null);
             }
 
             @Override
