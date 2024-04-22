@@ -28,7 +28,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.awaitility.Awaitility;
 import org.hamcrest.Matchers;
 import org.jboss.logging.Logger;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
@@ -41,25 +40,34 @@ public class Jt400Test {
 
     private final int MSG_LENGTH = 20;
     //tests may be executed in parallel, therefore the timeout is a little bigger in case the test has to wait for another one
-    private final int WAIT_IN_SECONDS = 20;
+    private static final int WAIT_IN_SECONDS = 30;
 
     @BeforeAll
     public static void beforeAll() throws Exception {
+        //lock execution
+        getClientHelper().lock();
+
         //for development purposes
         //        logQueues();
 
-        //lock execution
-        Jt400TestResource.CLIENT_HELPER.lock();
-    }
-
-    @AfterAll
-    public static void afterAll() throws Exception {
-        getClientHelper().unlock();
+        //clear al data in advance to be sure that there is no data in the queues
+        //it is not possible to clear data after the run because of CPF2451 Message queue REPLYMSGQ is allocated to another job
+        //wait is required also because of CPF2451, usually takes ~20 seconds to release connections to a  reply queue
+        Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(WAIT_IN_SECONDS, TimeUnit.SECONDS).until(
+                () -> {
+                    try {
+                        return getClientHelper().clear();
+                    } catch (Exception e) {
+                        LOGGER.debug("Clear failed because of: " + e.getMessage());
+                        return false;
+                    }
+                },
+                Matchers.is(true));
     }
 
     private static void logQueues() throws Exception {
         StringBuilder sb = new StringBuilder("\n");
-        sb.append("**********************************************************");
+        sb.append("************************************************************");
         sb.append(getClientHelper().dumpQueues());
         sb.append("\n**********************************************************\n");
         LOGGER.info(sb.toString());
@@ -67,7 +75,7 @@ public class Jt400Test {
 
     @Test
     public void testDataQueue() {
-        LOGGER.debug("** testDataQueue() ** has started ");
+        LOGGER.debug("**** testDataQueue() ** has started ");
 
         String msg = RandomStringUtils.randomAlphanumeric(MSG_LENGTH).toLowerCase(Locale.ROOT);
         String answer = "Hello From DQ: " + msg;
@@ -91,7 +99,7 @@ public class Jt400Test {
 
     @Test
     public void testDataQueueBinary() throws Exception {
-        LOGGER.debug("** testDataQueueBinary() ** has started ");
+        LOGGER.debug("**** testDataQueueBinary() ** has started ");
         String msg = RandomStringUtils.randomAlphanumeric(MSG_LENGTH).toLowerCase(Locale.ROOT);
         String answer = "Hello (bin) " + msg;
 
@@ -118,7 +126,7 @@ public class Jt400Test {
 
     @Test
     public void testKeyedDataQueue() {
-        LOGGER.debug("** testKeyedDataQueue() ** has started ");
+        LOGGER.debug("**** testKeyedDataQueue() ** has started ");
         String msg1 = RandomStringUtils.randomAlphanumeric(MSG_LENGTH).toLowerCase(Locale.ROOT);
         String msg2 = RandomStringUtils.randomAlphanumeric(MSG_LENGTH).toLowerCase(Locale.ROOT);
         String answer1 = "Hello From KDQ: " + msg1;
@@ -170,7 +178,7 @@ public class Jt400Test {
 
     @Test
     public void testMessageQueue() throws Exception {
-        LOGGER.debug("** testMessageQueue() ** has started ");
+        LOGGER.debug("**** testMessageQueue() ** has started ");
         //write
         String msg = RandomStringUtils.randomAlphanumeric(MSG_LENGTH).toLowerCase(Locale.ROOT);
         String answer = "Hello from MQ: " + msg;
@@ -205,19 +213,20 @@ public class Jt400Test {
 
     @Test
     public void testInquiryMessageQueue() throws Exception {
-        LOGGER.debug("** testInquiryMessageQueue() **: has started ");
+        LOGGER.debug("**** testInquiryMessageQueue() **: has started ");
+
         String msg = RandomStringUtils.randomAlphanumeric(10).toLowerCase(Locale.ROOT);
         String replyMsg = "reply to: " + msg;
-
-        LOGGER.debug("testInquiryMessageQueue: writing " + msg);
+        getClientHelper().registerForRemoval(Jt400TestResource.RESOURCE_TYPE.replyToQueueu, msg);
+        getClientHelper().registerForRemoval(Jt400TestResource.RESOURCE_TYPE.replyToQueueu, replyMsg);
 
         //sending a message using the same client as component
         getClientHelper().sendInquiry(msg);
 
+        LOGGER.debug("testInquiryMessageQueue: message " + msg + " written via client");
         //register deletion of the message in case some following task fails
         QueuedMessage queuedMessage = getClientHelper().peekReplyToQueueMessage(msg);
         if (queuedMessage != null) {
-            getClientHelper().registerForRemoval(Jt400TestResource.RESOURCE_TYPE.replyToQueueu, queuedMessage.getKey());
             LOGGER.debug("testInquiryMessageQueue: message confirmed by peek: " + msg);
         }
 
@@ -227,6 +236,7 @@ public class Jt400Test {
                 .post("/jt400/inquiryMessageSetExpected")
                 .then()
                 .statusCode(204);
+
         //start route before sending message (and wait for start)
         Awaitility.await().atMost(WAIT_IN_SECONDS, TimeUnit.SECONDS).until(
                 () -> RestAssured.get("/jt400/route/start/inquiryRoute")
@@ -237,7 +247,7 @@ public class Jt400Test {
         LOGGER.debug("testInquiryMessageQueue: inquiry route started");
 
         //await to be processed
-        Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(20, TimeUnit.SECONDS).until(
+        Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(WAIT_IN_SECONDS, TimeUnit.SECONDS).until(
                 () -> RestAssured.get("/jt400/inquiryMessageProcessed")
                         .then()
                         .statusCode(200)
