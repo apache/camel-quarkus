@@ -27,25 +27,22 @@ import org.apache.camel.spi.CamelContextCustomizer;
 
 @Recorder
 public class CamelJasyptRecorder {
-    public void disableCamelMainAutoConfigFromSysEnv(RuntimeValue<CamelMain> camelMainRuntimeValue, CamelJasyptConfig config) {
+    public void disableCamelMainAutoConfigFromSysEnv(RuntimeValue<CamelMain> camelMainRuntimeValue) {
         CamelMain main = camelMainRuntimeValue.getValue();
         MainConfigurationProperties configurationProperties = main.getMainConfigurationProperties();
         configurationProperties.setAutoConfigurationSystemPropertiesEnabled(false);
         configurationProperties.setAutoConfigurationEnvironmentVariablesEnabled(false);
     }
 
-    public RuntimeValue<CamelContextCustomizer> createPropertiesComponentCamelContextCustomizer(
-            CamelJasyptBuildTimeConfig config) {
+    public RuntimeValue<CamelContextCustomizer> createPropertiesComponentCamelContextCustomizer() {
         return new RuntimeValue<>(new CamelContextCustomizer() {
             @Override
             public void configure(CamelContext camelContext) {
-                if (config.enabled) {
-                    PropertiesComponent component = (PropertiesComponent) camelContext.getPropertiesComponent();
-                    JasyptPropertiesParser jasyptPropertiesParser = CamelJasyptPropertiesParserHolder
-                            .getJasyptPropertiesParser();
-                    jasyptPropertiesParser.setPropertiesComponent(component);
-                    component.setPropertiesParser(jasyptPropertiesParser);
-                }
+                PropertiesComponent component = (PropertiesComponent) camelContext.getPropertiesComponent();
+                JasyptPropertiesParser jasyptPropertiesParser = CamelJasyptPropertiesParserHolder
+                        .getJasyptPropertiesParser();
+                jasyptPropertiesParser.setPropertiesComponent(component);
+                component.setPropertiesParser(jasyptPropertiesParser);
             }
         });
     }

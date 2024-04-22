@@ -14,18 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jasypt.it;
+package org.apache.camel.quarkus.component.jasypt;
 
-import java.util.Map;
+import io.quarkus.runtime.configuration.ConfigBuilder;
+import io.smallrye.config.SmallRyeConfigBuilder;
 
-import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit.QuarkusTestProfile;
-
-@QuarkusTest
-public class JasyptSecureExtensionConfigTestProfile implements QuarkusTestProfile {
+public class CamelJasyptRuntimeConfigBuilder implements ConfigBuilder {
     @Override
-    public Map<String, String> getConfigOverrides() {
-        return Map.of(
-                "camel.component.direct.timeout", "ENC(FGlWjTf42zBT4vCRCztncA==)");
+    public SmallRyeConfigBuilder configBuilder(SmallRyeConfigBuilder builder) {
+        return builder.withInterceptorFactories(new CamelJasyptConfigSourceInterceptorFactory())
+                .withSecretKeyHandlerFactories(new CamelJasyptSecretKeysHandlerFactory());
     }
 }

@@ -32,20 +32,13 @@ import org.jasypt.properties.PropertyValueEncryptionUtils;
  * requirement for the user automatically.
  */
 public class CamelJasyptConfigSourceInterceptorFactory implements ConfigSourceInterceptorFactory {
-    private boolean enabled = true;
-
     @Override
     public ConfigSourceInterceptor getInterceptor(ConfigSourceInterceptorContext context) {
-        ConfigValue enabledConfigValue = context.proceed("quarkus.camel.jasypt.enabled");
-        if (enabledConfigValue != null) {
-            enabled = Boolean.parseBoolean(enabledConfigValue.getValue());
-        }
-
         return new ConfigSourceInterceptor() {
             @Override
             public ConfigValue getValue(ConfigSourceInterceptorContext context, String name) {
                 ConfigValue configValue = context.proceed(name);
-                if (enabled && configValue != null) {
+                if (configValue != null) {
                     String value = configValue.getValue();
                     if (PropertyValueEncryptionUtils.isEncryptedValue(value)) {
                         return configValue.withValue("${camel-jasypt::%s}".formatted(value));
