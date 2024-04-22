@@ -215,6 +215,7 @@
 *** xref:reference/extensions/microprofile-health.adoc[MicroProfile Health]
 *** xref:reference/extensions/micrometer.adoc[Micrometer]
 *** xref:reference/extensions/microprofile-fault-tolerance.adoc[Microprofile Fault Tolerance]
+*** xref:reference/extensions/milvus.adoc[Milvus]
 *** xref:reference/extensions/minio.adoc[Minio]
 *** xref:reference/extensions/mock.adoc[Mock]
 *** xref:reference/extensions/mongodb.adoc[MongoDB]
