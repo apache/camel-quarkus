@@ -88,6 +88,31 @@ CRTDTAQ DTAQ(LIBRARY/TESTKEYED) SEQ(*KEYED) KEYLEN(20) MAXLEN(100)
 CRTDTAQ DTAQ(LIBRARY/TESTLIFO) SEQ(*LIFO) MAXLEN(100)
 ```
 
+==== Synchronization for parallel executions
+
+The tests do not work by default for parallel executions.
+For parallel scenario, the locking file has to be provided.
+
+You can create such file by running
+
+```
+QSH CMD('touch #file_lock_path')
+for example QSH CMD('touch /home/#username/cq_jt400_lock')
+```
+
+How to provide a locking file:
+
+```
+export JT400_LOCK_FILE=#file_lock_path
+```
+
+or for Windows:
+
+```
+$Env:JT400_LOCK_FILE="#file_lock_path"
+```
+*If locking file is not provided, tests may fail their executions in parallel mode*
+
 ==== Using different object names
 
 If your test object names are different from the default ones, you can override default values via environmental variable
@@ -109,27 +134,5 @@ $Env:JT400_LIFO_QUEUE="#lifoqueue_if_not_TESTLIFO.DTAQe"
 $Env:JT400_KEYED_QUEUE="#lkeyedqueue_if_not_TESTKEYED.DTAQ"
 $Env:JT400_MESSAGE_QUEUE="#messagequeue_if_not_TESTMSGQ.MSGQ"
 $Env:JT400_MESSAGE_REPLYTO_QUEUE="#messagequeueinquiry_if_not_REPLYMSGQ.MSGQ"
-$Env:JT400_USER_SPACE="#userspace_if_not_PROGCALL"
 ```
 
-=== Clear queues after unexpected failures
-
-If tests finishes without unexpected failure, tests are taking care of clearing the data.
-In some cases data might stay written into the real server if test fails unexpectedly.
-This state should might alter following executions.
-
-To force full clear (of each queue) can be achieved by add ing parameter
-```
--Dcq.jt400.clear-all=true
-```
-Be aware that with `-Dcq.jt400.clear-all=true`, the tests can not successfully finish in parallel run.
-
-Usage of clear queues parameter is *strongly* suggested during development
-
-
-==== Parallel runs and locking
-
-Simple locking mechanism is implemented for the test to allow parallel executions.
-
-Whenever test is started, new entry is  written into keyed data queue `JT400_KEYED_QUEUE` with the key `cq.jt400.global-lock` and entry is removed after the run.
-Tests are able to clear this lock even if previous execution fails unexpectedly.
