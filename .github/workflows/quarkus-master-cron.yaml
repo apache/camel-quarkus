@@ -347,6 +347,18 @@ jobs:
     env:
       MAVEN_OPTS: -Xmx3000m
     steps:
+      - name: Download Maven Repo
+        uses: actions/download-artifact@v4
+        with:
+          name: maven-repo
+          path: ..
+      - name: Extract Maven Repo
+        shell: bash
+        run: |
+          df -h /
+          tar -xzf ../maven-repo.tgz -C ~
+          rm -f ../maven-repo.tgz
+          df -h /
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -365,18 +377,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-      - name: Download Maven Repo
-        uses: actions/download-artifact@v4
-        with:
-          name: maven-repo
-          path: ..
-      - name: Extract Maven Repo
-        shell: bash
-        run: |
-          df -h /
-          tar -xzf ../maven-repo.tgz -C ~
-          rm -f ../maven-repo.tgz
-          df -h /
       - name: cd integration-tests && mvn clean verify
         shell: bash
         env:
