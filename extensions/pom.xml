@@ -179,6 +179,7 @@
         <module>micrometer</module>
         <module>microprofile-fault-tolerance</module>
         <module>microprofile-health</module>
+        <module>milvus</module>
         <module>minio</module>
         <module>mllp</module>
         <module>mock</module>
