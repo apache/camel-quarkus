@@ -41,6 +41,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.jt400.Jt400Component;
 import org.apache.camel.component.jt400.Jt400Endpoint;
 import org.jboss.logging.Logger;
 
@@ -154,6 +155,18 @@ public class Jt400MockResource {
 
         MockedResponses.add(dataStream);
 
+        return Response.ok().build();
+    }
+
+    @Path("/component/stopWrong")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response stopComponent() throws Exception {
+        Jt400Component comp = context.getComponent("jt400", Jt400Component.class);
+        comp.close();
+        //this second call to close connection won't wprk, because the connection pool is already closing
+        //the call would need to read from a resource bundle therefore it covers existence of resource bundle in the native
+        comp.getConnectionPool().close();
         return Response.ok().build();
     }
 

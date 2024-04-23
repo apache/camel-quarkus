@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.jt400.deployment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListResourceBundle;
 import java.util.regex.Pattern;
 
 import com.ibm.as400.access.AS400;
@@ -29,6 +30,7 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.NativeImageEnableAllCharsetsBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
@@ -41,6 +43,7 @@ class Jt400Processor {
     private static final Logger LOG = Logger.getLogger(Jt400Processor.class);
     private static final String FEATURE = "camel-jt400";
     private static final DotName CONV_TABLE_NAME = DotName.createSimple(ConvTable.class.getName());
+    private static final DotName LIST_RESOURCE_BUNDLE_NAME = DotName.createSimple(ListResourceBundle.class.getName());
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -84,6 +87,17 @@ class Jt400Processor {
                 .map(c -> ReflectiveClassBuildItem.builder(c.name().toString()).build())
                 .forEach(reflectiveClassesProducer::produce);
 
+    }
+
+    @BuildStep
+    void resourceBundles(BuildProducer<NativeImageResourceBundleBuildItem> imageResourceBundles,
+            CombinedIndexBuildItem combinedIndex) {
+        IndexView index = combinedIndex.getIndex();
+
+        index.getAllKnownSubclasses(LIST_RESOURCE_BUNDLE_NAME).stream()
+                .filter(cl -> cl.name().toString().startsWith("com.ibm.as400"))
+                .map(c -> new NativeImageResourceBundleBuildItem(c.name().toString()))
+                .forEach(imageResourceBundles::produce);
     }
 
     @BuildStep

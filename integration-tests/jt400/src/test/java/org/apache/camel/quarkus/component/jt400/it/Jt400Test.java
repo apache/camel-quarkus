@@ -271,6 +271,21 @@ public class Jt400Test {
         LOGGER.debug("testInquiryMessageQueue: reply message confirmed by peek: " + replyMsg);
     }
 
+    /**
+     * Test for existence of resource bundle.
+     * If the bundle is not loaded properly, the close of connection pool would fail
+     * (see mor information in the resource method)
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testMissingResourceBundle() throws Exception {
+        //stop component and then stop connectionPool, which is already stoppingm therefore requires resourceBundle to show the failure reason
+        RestAssured.get("/jt400/component/stopWrong")
+                .then()
+                .statusCode(200);
+    }
+
     @Test
     public void testProgramCall() {
         RestAssured.given()
