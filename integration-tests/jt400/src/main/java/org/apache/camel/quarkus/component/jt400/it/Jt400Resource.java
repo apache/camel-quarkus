@@ -37,6 +37,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.jt400.Jt400Component;
 import org.apache.camel.component.jt400.Jt400Endpoint;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -169,11 +170,19 @@ public class Jt400Resource {
         }
         boolean resp = context.getRouteController().getRouteStatus(routeName).isStopped();
 
-        //stop component to avoid CPF2451 Message queue REPLYMSGQ is allocated to another job.
-        Jt400Endpoint jt400Endpoint = context.getEndpoint(getUrlForLibrary(jt400MessageReplyToQueue), Jt400Endpoint.class);
-        jt400Endpoint.close();
-
         return Response.ok().entity(resp).build();
+    }
+
+    @Path("/component/stopWrong")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response stopComponent() throws Exception {
+        Jt400Component comp = context.getComponent("jt400", Jt400Component.class);
+        comp.close();
+        //this second call to close connection won't wprk, because the connection pool is already closing
+        //the call would need to read from a resource bundle therefore it covers existence of resource bundle in the native
+        comp.getConnectionPool().close();
+        return Response.ok().build();
     }
 
     @Path("/inquiryMessageSetExpected")
