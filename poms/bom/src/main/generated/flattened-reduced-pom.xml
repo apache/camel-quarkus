@@ -6592,7 +6592,7 @@
       <dependency>
         <groupId>io.smallrye.reactive</groupId>
         <artifactId>smallrye-reactive-messaging-camel</artifactId>
-        <version>4.20.0</version>
+        <version>4.21.0</version>
       </dependency>
       <dependency>
         <groupId>io.swagger.core.v3</groupId>
@@ -6767,22 +6767,22 @@
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcmail-jdk18on</artifactId>
-        <version>1.77</version>
+        <version>1.78.1</version>
       </dependency>
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcpg-jdk18on</artifactId>
-        <version>1.77</version>
+        <version>1.78.1</version>
       </dependency>
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcprov-ext-jdk18on</artifactId>
-        <version>1.77</version>
+        <version>1.78</version>
       </dependency>
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcutil-jdk18on</artifactId>
-        <version>1.77</version>
+        <version>1.78.1</version>
       </dependency>
       <dependency>
         <groupId>org.brotli</groupId>
