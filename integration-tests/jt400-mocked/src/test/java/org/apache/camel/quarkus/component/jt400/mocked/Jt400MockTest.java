@@ -98,6 +98,21 @@ public class Jt400MockTest {
                         Matchers.containsString("par2")));
     }
 
+    /**
+     * Test for existence of resource bundle.
+     * If the bundle is not loaded properly, the close of connection pool would fail
+     * (see mor information in the resource method)
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testMissingResourceBundle() throws Exception {
+        //stop component and then stop connectionPool, which is already stoppingm therefore requires resourceBundle to show the failure reason
+        RestAssured.get("/jt400/mock/component/stopWrong")
+                .then()
+                .statusCode(200);
+    }
+
     private void prepareMockReply(Jt400MockResource.ReplyType replyType,
             Integer hashCode,
             String senderInformation,
