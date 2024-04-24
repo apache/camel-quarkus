@@ -30,12 +30,9 @@ import java.util.stream.Collectors;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.auth.oauth2.ServiceAccountCredentials;
 import com.google.cloud.NoCredentials;
-import com.google.cloud.ServiceRpc;
 import com.google.cloud.bigquery.BigQuery;
 import com.google.cloud.bigquery.BigQueryOptions;
 import com.google.cloud.bigquery.JobId;
-import com.google.cloud.bigquery.spi.BigQueryRpcFactory;
-import com.google.cloud.bigquery.spi.v2.CustomHostCapableHttpBigQueryRpc;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
@@ -161,15 +158,7 @@ public class GoogleBigqueryResource {
                 BigQueryOptions.Builder builder = BigQueryOptions.newBuilder().setProjectId(projectId);
 
                 if (host != null) {
-                    builder.setHost(host)
-                            .setLocation(host)
-                            // TODO: Remove this https://github.com/apache/camel-quarkus/issues/5734
-                            .setServiceRpcFactory(new BigQueryRpcFactory() {
-                                @Override
-                                public ServiceRpc create(BigQueryOptions options) {
-                                    return new CustomHostCapableHttpBigQueryRpc(options);
-                                }
-                            });
+                    builder.setHost(host).setLocation(host);
                 }
 
                 if (credentialsPath == null) {
