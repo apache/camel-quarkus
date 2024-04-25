@@ -412,7 +412,7 @@
                         <releaseProfiles>apache-release</releaseProfiles>
                         <goals>deploy</goals>
                         <!-- Both release:prepare and release:perform config -->
-                        <arguments>-DskipTests -Denforcer.skip -Dquarkus.build.skip -Dformatter.skip -Dimpsort.skip -Dskip.installyarn -Dskip.yarn</arguments>
+                        <arguments>-DskipTests -Denforcer.skip -Dquarkus.build.skip -Dformatter.skip -Dimpsort.skip</arguments>
                     </configuration>
                 </plugin>
 
