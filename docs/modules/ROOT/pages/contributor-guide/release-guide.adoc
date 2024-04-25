@@ -58,7 +58,7 @@ $ cd target/checkout
 +
 [source,shell]
 ----
-$ mvn deploy -Papache-release -DskipTests -Denforcer.skip -Dquarkus.build.skip -Dformatter.skip -Dimpsort.skip -Dskip.installyarn -Dskip.yarn -rf :camel-quarkus-openapi-java
+$ mvn deploy -Papache-release -DskipTests -Denforcer.skip -Dquarkus.build.skip -Dformatter.skip -Dimpsort.skip -rf :camel-quarkus-openapi-java
 ----
 
 == Close the Apache staging repository
