@@ -4,7 +4,7 @@ To use MapStruct, you must configure your build to use an annotation processor.
 
 ==== Maven
 
-[source,xml,subs="attributes"]
+[source,xml]
 ----
 <plugins>
     <plugin>
@@ -25,7 +25,7 @@ To use MapStruct, you must configure your build to use an annotation processor.
 
 ==== Gradle
 
-[source,gradle,subs="attributes"]
+[source,gradle]
 ----
 dependencies {
     annotationProcessor 'org.mapstruct:mapstruct-processor:{mapstruct-version}'
