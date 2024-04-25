@@ -95,7 +95,7 @@
                 </file>
             </activation>
             <properties>
-                <quarkus.package.type>native</quarkus.package.type>
+                <quarkus.native.enabled>true</quarkus.native.enabled>
                 <!-- Force host only native builds since the docker builder image does not have GraalVM JS installed -->
                 <quarkus.native.container-build>false</quarkus.native.container-build>
                 <quarkus.native.additional-build-args>--language:js</quarkus.native.additional-build-args>
