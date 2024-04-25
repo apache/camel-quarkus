@@ -43,7 +43,6 @@ import org.junit.jupiter.api.Test;
 import org.testcontainers.shaded.org.awaitility.Awaitility;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 @QuarkusTestResource(CxfWssClientTestResource.class)
@@ -116,7 +115,7 @@ class CxfSoapWssClientTest {
                 //always fails because there is no server implementation
                 createSayHelloWrongClient().sayHelloWrong("Sheldon");
             } catch (SOAPFaultException e) {
-                return "Connection refused".equals(e.getMessage());
+                return e.getMessage() != null && e.getMessage().toLowerCase().contains("connection refused");
             }
             //can not happen (client does not work)
             return false;
