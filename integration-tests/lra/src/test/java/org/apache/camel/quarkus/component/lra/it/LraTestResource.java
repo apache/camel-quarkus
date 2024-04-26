@@ -58,7 +58,18 @@ public class LraTestResource implements QuarkusTestResourceLifecycleManager {
                 lraPort = container.getMappedPort(LRA_PORT);
             }
 
+            // If the test runs with a remote docker, it needs to know the IP of the machine where the test app runs
+            if (System.getenv("DOCKER_HOST") != null) {
+                hostname = System.getProperty("lra.appNode.ip");
+                if (hostname == null) {
+                    throw new RuntimeException(
+                            "You need to supply application node IP when running LRA test with a remote docker instance using lra.appNode.ip property");
+                }
+            }
+
             return CollectionHelper.mapOf(
+                    // In case of remote docker, expose the endpoint at 0.0.0.0, as the default is "localhost" only
+                    "quarkus.http.host", "0.0.0.0",
                     "camel.lra.coordinator-url",
                     String.format("http://%s:%d", container.getHost(), lraPort),
                     "camel.lra.local-participant-url",
