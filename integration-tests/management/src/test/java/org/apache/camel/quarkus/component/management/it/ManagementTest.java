@@ -60,7 +60,58 @@ class ManagementTest {
                 .post("/management/invoke")
                 .then()
                 .statusCode(200)
-                .body(containsString("<from id=\"from1\" uri=\"direct:start\"/>"));
+                .body(containsString("uri=\"direct:start\""));
+    }
+
+    @Test
+    public void testUpdateRoute() {
+        // Modify the hello route
+        String updatedRouteXml = """
+                    <route id="hello" xmlns="http://camel.apache.org/schema/spring">
+                        <from uri="direct:updated"/>
+                        <log message="Updated hello route"/>
+                    </route>
+                """;
+
+        RestAssured.given()
+                .queryParam("routeId", "hello")
+                .body(updatedRouteXml)
+                .patch("/management/route")
+                .then()
+                .statusCode(204);
+
+        RestAssured.given()
+                .queryParam("name", "org.apache.camel:type=context,*")
+                .queryParam("operation", "dumpRoutesAsXml")
+                .post("/management/invoke")
+                .then()
+                .statusCode(200)
+                .body(containsString("uri=\"direct:updated\""));
+
+        // Restore the original hello route
+        String originalRouteXml = """
+                    <route id="hello" xmlns="http://camel.apache.org/schema/spring">
+                        <from uri="direct:start"/>
+                        <setBody>
+                            <constant>Hello World</constant>
+                        </setBody>
+                    </route>
+                """;
+
+        RestAssured.given()
+                .queryParam("routeId", "hello")
+                .body(originalRouteXml)
+                .patch("/management/route")
+                .then()
+                .statusCode(204);
+
+        RestAssured.given()
+                .queryParam("name", "org.apache.camel:type=context,*")
+                .queryParam("operation", "dumpRoutesAsXml")
+                .post("/management/invoke")
+                .then()
+                .statusCode(200)
+                .body(containsString("uri=\"direct:start\""));
     }
 
     @Test

@@ -26,7 +26,9 @@ import javax.management.ObjectInstance;
 import javax.management.ObjectName;
 
 import jakarta.inject.Inject;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
@@ -79,6 +81,23 @@ public class ManagementResource {
     @Path("/invoke/route")
     public String invokeRoute(@QueryParam("endpointUri") String endpointUri) {
         return template.requestBody(endpointUri, null, String.class);
+    }
+
+    @PATCH
+    @Path("/route")
+    public void updateRoute(@QueryParam("routeId") String routeId, String xml) throws Exception {
+        String mbeanName = "org.apache.camel:context=%s,type=routes,name=\"%s\"".formatted(getContextName(), routeId);
+        ObjectInstance mbean = getMBean(mbeanName);
+        getMBeanServer().invoke(mbean.getObjectName(), "updateRouteFromXml",
+                new Object[] { xml },
+                new String[] { String.class.getName() });
+    }
+
+    @DELETE
+    @Path("/route")
+    public void removeRoute(@QueryParam("routeId") String routeId) throws Exception {
+        // No need for JMX in this case as we're just cleaning up for a test case
+        camelContext.removeRoute(routeId);
     }
 
     private ObjectInstance getMBean(String name) throws MalformedObjectNameException {
