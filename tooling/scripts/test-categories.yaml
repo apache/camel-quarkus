@@ -111,6 +111,7 @@ group-06:
   - quartz
   - saga
   - sjms-qpid-amqp-client
+  - splunk
   - wasm
 group-07:
   - dataformats-json-grouped
@@ -123,6 +124,7 @@ group-07:
   - olingo4
   - optaplanner
   - pg-replication-slot
+  - splunk-hec
   - sjms2-artemis-client
   - sjms2-qpid-amqp-client
   - stax
@@ -156,8 +158,6 @@ group-09:
   - paho
   - management
   - nats
-  - splunk
-  - splunk-hec
   - spring-rabbitmq
   - xchange
   - xpath
