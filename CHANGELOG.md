@@ -1,5 +1,79 @@
 # Changelog
 
+## 3.10.0
+
+* update release plugin version by @aldettinger in https://github.com/apache/camel-quarkus/pull/5910
+* Next is 3.10.0-SNAPSHOT by @aldettinger in https://github.com/apache/camel-quarkus/pull/5909
+* jt400AS400 should be registered for runtime reinitialization by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5908
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5918
+* Separation of jt400 test module into mocked one integration one. by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5915
+* Fix potential UnsatisfiedLinkError for Azure extensions in native mode by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5916
+* Next is 3.10.0-SNAPSHOT by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5925
+* JT400: Use better name of workspace in the readme.adoc by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5928
+* Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 2.12.1 to 2.13.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/5917
+* Bump org.cyclonedx:cyclonedx-maven-plugin from 2.7.11 to 2.8.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/5930
+* Update CHANGELOG.md for Camel Quarkus 3.9.0 release by @aldettinger in https://github.com/apache/camel-quarkus/pull/5931
+* quarkus master split by @lburgazzoli in https://github.com/apache/camel-quarkus/pull/5922
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5935
+* Upgrade camel to 4.5.0 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5921
+* Fix docs symbolic link to camel-quarkus-qute.json by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5940
+* Remove quarkus-cxf-rt-features-logging since it is deprecated by @zhfeng in https://github.com/apache/camel-quarkus/pull/5937
+* Fix doc links for components with multiple URI schemes by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5942
+* Reinstate Kudu tablet server host resolution workaround by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5938
+* Upgrade cq-maven-plugin to 4.7.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5939
+* Bump quarkiverse-groovy.version from 3.8.0 to 3.9.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/5936
+* Link to Camel SNAPSHOT docs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5944
+* Adjust UpdateExtensionDocPageMojo to filter on supported catalog model kinds by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5947
+* Add Micrometer naming strategy and route policy level configuration options by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5951
+* Enable CSimple tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5952
+* Promote Qdrant extension to native #5815 by @aldettinger in https://github.com/apache/camel-quarkus/pull/5948
+* Add tests for FastCamelContext JSON schema lookups by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5956
+* Remove jsch container DOCKER_MODS configuration by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5958
+* JT400 Inquiry test by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5954
+* [NettyHttp] Increase proxy connection timeout and make it configurable by @avano in https://github.com/apache/camel-quarkus/pull/5959
+* Improve the testability against Quarkus Platform BOMs by @ppalaga in https://github.com/apache/camel-quarkus/pull/5961
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5974
+* Camel 4.5 : create langchain-embeddings extension by @zbendhiba in https://github.com/apache/camel-quarkus/pull/5972
+* Temporarily rename any langchain doc xrefs to langchain4j by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5977
+* Fix auto milestone workflow title regex by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5976
+* Http: use FIPS complaiant keystore and truststore by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5968
+* Remove findbugs exclusion from quarkus-grpc-common in gRPC extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5978
+* Bump io.quarkiverse.artemis:quarkus-artemis-bom from 3.2.1 to 3.3.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/5984
+* Restore file tests original class naming by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5985
+* Create AWS bedrock extensions by @oscerd in https://github.com/apache/camel-quarkus/pull/5987
+* Fix various ClassNotFoundExceptions for spring-redis extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5989
+* Tidy openapi-java tests after removal of support for OpenAPI V2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5991
+* Tidy logging for openapi-java expose option build time code by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5992
+* jdbc-db2: fails in fips environment #5993 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5994
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/5997
+* Upgrade upload & download GitHub actions to v4 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5998
+* Jt400: tests are not cleaning after themselves and parallel run fails by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6001
+* Dependency management improvements by @ppalaga in https://github.com/apache/camel-quarkus/pull/6007
+* Use xml-io-dsl instead of xml-jaxb when using the management extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6002
+* Document how to generate a new example project by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6004
+* Upgrade Quarkus to 3.10.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6005
+* Upgrade to Quarkus CXF 3.10.0.CR1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/6009
+* Cxf-soap: tests are not working in FIPS environment by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5980
+* Enable xchange tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6011
+* Add Wasm extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6012
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6014
+* Fix nightly CI workflow alternate JDK steps by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6015
+* Create Milvus Extension by @oscerd in https://github.com/apache/camel-quarkus/pull/6020
+* Fixup Milvus JVM only state by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6023
+* Removed Qdrant leftover test in JVM Integration tests by @oscerd in https://github.com/apache/camel-quarkus/pull/6024
+* Bump quarkiverse-groovy.version from 3.9.1 to 3.9.3 by @dependabot in https://github.com/apache/camel-quarkus/pull/6026
+* JT400 tests can not be run in parallel #6018 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6019
+* Make Jasypt SmallRye Config integration operate only on runtime properties by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6017
+* Activate format profile as part of CI checks by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6027
+* Jt400: possible missing resource in the native by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6030
+* Fix AsciiDoc attribute substitution in MapStruct and Jasypt documentation by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6032
+* Upgrade Quarkus to 3.10.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6033
+* Remove workaround for Google BigQuery host resolution by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6034
+* Upgrade to Quarkus CXF 3.10.0 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6035
+* Exclude faulttolerance package from MicroProfile integration test module javadoc by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6036
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.9.0...3.10.0
+
 ## 3.9.0
 
 * Avoid updating quarkus.version in antora.yml on the quarkus-main branch by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5787
