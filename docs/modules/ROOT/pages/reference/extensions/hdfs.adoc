@@ -22,7 +22,7 @@ Read and write from/to an HDFS filesystem using Hadoop 3.x.
 [id="extensions-hdfs-whats-inside"]
 == What's inside
 
-* HDFS component, URI syntax: `hdfs:hostName:port/path`
+* [HDFS component], URI syntax: `hdfs:hostName:port/path`
 
 Please refer to the above link for usage and configuration details.
 

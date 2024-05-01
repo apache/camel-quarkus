@@ -22,7 +22,7 @@ Send requests to Facebook APIs supported by Facebook4J.
 [id="extensions-facebook-whats-inside"]
 == What's inside
 
-* Facebook component, URI syntax: `facebook:methodName`
+* [Facebook component], URI syntax: `facebook:methodName`
 
 Please refer to the above link for usage and configuration details.
 
