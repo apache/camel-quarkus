@@ -20,7 +20,6 @@ import java.util.Properties;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
-import org.apache.camel.Endpoint;
 import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.builder.RouteBuilder;
@@ -64,13 +63,10 @@ public class AdviceWithAnotherRouteTest extends CamelQuarkusTestSupport {
 
     @Test
     public void testOverride() throws Exception {
-
         getMockEndpoint("mock:file").expectedMessageCount(1);
         getMockEndpoint("mock:result").expectedMessageCount(1);
         template.sendBody("direct:start", "Haha");
         template.sendBody("direct:sftp", "Hello World");
-        Endpoint endpoint = getMockEndpoint("mock:start", true);
-        System.out.println(endpoint);
 
         MockEndpoint.assertIsSatisfied(context);
     }

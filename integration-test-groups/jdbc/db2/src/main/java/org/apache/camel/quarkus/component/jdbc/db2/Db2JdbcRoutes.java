@@ -32,7 +32,6 @@ public class Db2JdbcRoutes extends RouteBuilder {
                 .process(new Processor() {
                     @Override
                     public void process(Exchange exchange) throws Exception {
-                        System.out.println(exchange.getIn().getHeaders());
                         Object in = exchange.getIn().getHeader("CamelGeneratedKeysRows");
                         exchange.getIn().setBody(in);
                     }
