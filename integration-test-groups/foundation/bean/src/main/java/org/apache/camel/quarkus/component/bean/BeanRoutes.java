@@ -110,6 +110,8 @@ public class BeanRoutes extends RouteBuilder {
         from("direct:produceInterface")
                 .process(e -> e.getMessage().setBody("produceInterface " + e.getMessage().getBody(String.class)));
 
+        from("direct:propertyInject")
+                .toD("bean:${header.beanName}?method=${header.beanMethod}");
     }
 
     @SuppressWarnings("unchecked")

@@ -30,6 +30,7 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
@@ -202,4 +203,13 @@ public class BeanResource {
                 .map(b -> b.getName()).collect(Collectors.toSet());
     }
 
+    @Path("/propertyInject")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String propertyInject(
+            @QueryParam("beanName") String beanName,
+            @QueryParam("beanMethod") String beanMethod) {
+        Map<String, Object> headers = Map.of("beanName", beanName, "beanMethod", beanMethod);
+        return template.requestBodyAndHeaders("direct:propertyInject", null, headers, String.class);
+    }
 }
