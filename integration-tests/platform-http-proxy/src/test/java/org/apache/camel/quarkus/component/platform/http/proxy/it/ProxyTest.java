@@ -32,13 +32,11 @@ public class ProxyTest {
     void testProxy() {
 
         final var proxyUrl = "http://localhost:" + RestAssured.port;
-        System.out.println("proxyUrl :: " + proxyUrl);
 
         String url = given()
                 .get("/platform-http-proxy")
                 .body().asString();
 
-        System.out.println("URL is :: " + url);
         given()
                 .proxy(proxyUrl)
                 .contentType(ContentType.JSON)

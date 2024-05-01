@@ -75,7 +75,6 @@ public class EipResource {
             }
 
             String result = producerTemplate.requestBodyAndHeaders("direct:" + route, statement, headers, String.class);
-            System.out.println("---- result for " + statement + " is " + result);
             return Response.ok(result).build();
         } catch (CamelExecutionException e) {
             return Response.serverError().entity(e.getMessage()).build();

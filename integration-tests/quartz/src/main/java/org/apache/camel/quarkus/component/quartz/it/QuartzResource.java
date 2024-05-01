@@ -85,7 +85,6 @@ public class QuartzResource {
     public Map<String, String> getMisfire(@QueryParam("fromEndpoint") String fromEndpoint) throws Exception {
         Exchange exchange = consumerTemplate.receive("seda:" + fromEndpoint + "-result", 5000);
 
-        System.out.println(exchange.getMessage().getHeaders().keySet().stream().collect(Collectors.joining(",")));
         return CollectionHelper.mapOf("timezone",
                 exchange.getMessage().getHeader("trigger", CronTrigger.class).getTimeZone().getID(),
                 "misfire", exchange.getMessage().getHeader("trigger", CronTrigger.class).getMisfireInstruction() + "");
