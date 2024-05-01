@@ -16,14 +16,23 @@
  */
 package org.apache.camel.quarkus.component.cli.connector.deployment;
 
+import java.util.function.BooleanSupplier;
+
+import io.quarkus.builder.Version;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.BuildSteps;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
+import org.apache.camel.quarkus.component.cli.connector.CamelCliConnectorConfig;
+import org.apache.camel.quarkus.component.cli.connector.CamelCliConnectorRecorder;
 import org.apache.camel.quarkus.core.JvmOnlyRecorder;
+import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
+import org.apache.camel.spi.CliConnectorFactory;
 import org.jboss.logging.Logger;
 
+@BuildSteps(onlyIf = CliConnectorProcessor.CliConnectorEnabled.class)
 class CliConnectorProcessor {
 
     private static final Logger LOG = Logger.getLogger(CliConnectorProcessor.class);
@@ -34,6 +43,14 @@ class CliConnectorProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
+    @BuildStep
+    @Record(value = ExecutionTime.STATIC_INIT)
+    CamelBeanBuildItem camelBeanBuildItem(CamelCliConnectorRecorder recorder) {
+        return new CamelBeanBuildItem("quarkusCliConnectorFactory",
+                CliConnectorFactory.class.getName(),
+                recorder.createCliConnectorFactory(Version.getVersion()));
+    }
+
     /**
      * Remove this once this extension starts supporting the native mode.
      */
@@ -42,5 +59,13 @@ class CliConnectorProcessor {
     void warnJvmInNative(JvmOnlyRecorder recorder) {
         JvmOnlyRecorder.warnJvmInNative(LOG, FEATURE); // warn at build time
         recorder.warnJvmInNative(FEATURE); // warn at runtime
+    }
+
+    static class CliConnectorEnabled implements BooleanSupplier {
+        CamelCliConnectorConfig config;
+
+        public boolean getAsBoolean() {
+            return config.enabled;
+        }
     }
 }

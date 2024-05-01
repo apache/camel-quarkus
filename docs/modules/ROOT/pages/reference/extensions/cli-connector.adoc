@@ -39,3 +39,22 @@ Please refer to the above link for usage and configuration details.
 ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
+
+[id="extensions-cli-connector-additional-camel-quarkus-configuration"]
+== Additional Camel Quarkus configuration
+
+[width="100%",cols="80,5,15",options="header"]
+|===
+| Configuration property | Type | Default
+
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.cli.enabled]]`link:#quarkus.camel.cli.enabled[quarkus.camel.cli.enabled]`
+
+Sets whether to enable Camel CLI Connector support.
+| `boolean`
+| `true`
+|===
+
+[.configuration-legend]
+{doc-link-icon-lock}[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
+
