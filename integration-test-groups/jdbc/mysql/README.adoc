@@ -1,0 +1,26 @@
+== JDBC MySql tests
+
+=== FIPS
+
+* To execute the tests on FIPS enabled system add `-Dfips` property so that tests will use prooper transformation for the password. Example of usage:
+
+`mvn clean test -Dfips`
+
+* Dev service (MySql docker image) does not start correctly on FIPS enabled system. Please use external database.
+
+To execute the tests against external database, provide the database's connection information by setting environment variables
+
+```
+export MYSQL_JDBC_URL=#jdbc_url
+export MYSQL_JDBC_USERNAME=#username
+export MYSQL_JDBC_PASSWORD=#password
+```
+
+or for windows:
+
+```
+$Env:MYSQL_JDBC_URL = "#jdbc_url"
+$Env:MYSQL_JDBC_USERNAME="#username"
+$Env:MYSQL_JDBC_PASSWORD
+```
+.
