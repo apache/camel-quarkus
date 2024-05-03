@@ -1,5 +1,36 @@
 # Changelog
 
+## 3.8.2
+
+* [3.8.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5892
+* [3.8.x] Register Mixin classes for reflection (#5898) by @zhfeng in https://github.com/apache/camel-quarkus/pull/5900
+* [3.8.x] Manage com.sun.xml.fastinfoset:FastInfoset by @zhfeng in https://github.com/apache/camel-quarkus/pull/5906
+* jt400 com.ibm.as400.access.AS400 should be registered for runtime reinit by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5913
+* [3.8.x] Fix potential UnsatisfiedLinkError for Azure extensions in native mode by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5919
+* Separation of jt400 test module into mocked one integration one. (#5915) by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5920
+* JT400: Use better name of workspace in the readme.adoc by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5929
+* [3.8.x] Upgrade QCXF to 3.8.2 by @zhfeng in https://github.com/apache/camel-quarkus/pull/5933
+* [3.8.x] Remove quarkus-cxf-rt-features-logging since it is deprecated (#5937) by @zhfeng in https://github.com/apache/camel-quarkus/pull/5941
+* [3.8.x] Reinstate Kudu tablet server host resolution workaround by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/5943
+* [3.8.x] JT400 Inquiry test by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5955
+* [3.8.x] Removed jsch container and netty increased proxy connections by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5963
+* [3.8.x] Improve the testability against Quarkus Platform BOMs by @ppalaga in https://github.com/apache/camel-quarkus/pull/5960
+* [3.8.x] Http: use FIPS complaiant keystore and truststore by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5969
+* Upgrade to Quarkus CXF 3.8.3 by @ppalaga in https://github.com/apache/camel-quarkus/pull/5988
+* [3.8.x] jdbc-db2: fails in fips environment #5993 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5996
+* [3.8.x] Jt400: tests are not cleaning after themselves and parallel run fails by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6003
+* [3.8.x] Dependency management improvements by @ppalaga in https://github.com/apache/camel-quarkus/pull/6006
+* Upgrade to cq-maven-plugin 4.6.8 by @ppalaga in https://github.com/apache/camel-quarkus/pull/6008
+* [3.8.x] Upgrade Quarkus to 3.8.4 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6010
+* [3.8.x] Cxf-soap: tests are not working in FIPS environment by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/5982
+* [3.8.x] JT400 tests can not be run in parallel #6018 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6022
+* [3.8.x] Jt400: possible missing resource in the native by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6031
+* [3.8.x] Backport by @zhfeng in https://github.com/apache/camel-quarkus/pull/6045
+* [3.8.x] Upgrade Camel to 4.4.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6046
+
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.8.1...3.8.2
+
 ## 3.10.0
 
 * update release plugin version by @aldettinger in https://github.com/apache/camel-quarkus/pull/5910
