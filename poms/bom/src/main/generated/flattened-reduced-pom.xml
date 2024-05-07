@@ -6631,7 +6631,17 @@
       </dependency>
       <dependency>
         <groupId>io.swagger.core.v3</groupId>
-        <artifactId>swagger-models</artifactId>
+        <artifactId>swagger-annotations-jakarta</artifactId>
+        <version>2.2.20</version>
+      </dependency>
+      <dependency>
+        <groupId>io.swagger.core.v3</groupId>
+        <artifactId>swagger-core-jakarta</artifactId>
+        <version>2.2.20</version>
+      </dependency>
+      <dependency>
+        <groupId>io.swagger.core.v3</groupId>
+        <artifactId>swagger-models-jakarta</artifactId>
         <version>2.2.20</version>
       </dependency>
       <dependency>
@@ -6642,6 +6652,18 @@
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-core</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-models</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>io.swagger.parser.v3</groupId>
+            <artifactId>swagger-parser-v2-converter</artifactId>
           </exclusion>
           <exclusion>
             <groupId>org.checkerframework</groupId>
@@ -6704,6 +6726,10 @@
         <artifactId>connect-runtime</artifactId>
         <version>3.7.0</version>
         <exclusions>
+          <exclusion>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+          </exclusion>
           <exclusion>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>

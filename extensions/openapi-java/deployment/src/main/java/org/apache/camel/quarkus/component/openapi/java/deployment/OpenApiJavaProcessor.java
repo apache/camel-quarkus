@@ -124,9 +124,8 @@ class OpenApiJavaProcessor {
 
     @BuildStep
     void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
-        indexDependency.produce(new IndexDependencyBuildItem("io.swagger.core.v3", "swagger-models"));
+        indexDependency.produce(new IndexDependencyBuildItem("io.swagger.core.v3", "swagger-models-jakarta"));
         indexDependency.produce(new IndexDependencyBuildItem("io.swagger.core.v3", "swagger-core-jakarta"));
-        indexDependency.produce(new IndexDependencyBuildItem("io.swagger", "swagger-models"));
     }
 
     @BuildStep
