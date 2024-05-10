@@ -16,7 +16,11 @@
  */
 package org.apache.camel.quarkus.component.couchdb.it;
 
+import java.util.Optional;
+import java.util.stream.StreamSupport;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 public class CouchdbTestDocument {
@@ -67,11 +71,16 @@ public class CouchdbTestDocument {
 
     public static CouchdbTestDocument fromJsonObject(JsonObject jsonObject) {
         CouchdbTestDocument doc = new CouchdbTestDocument();
-        if (jsonObject.has("_id")) {
-            doc.setId(jsonObject.get("_id").getAsString());
+        if (jsonObject.has("id")) {
+            doc.setId(jsonObject.get("id").getAsString());
         }
-        if (jsonObject.has("_rev")) {
-            doc.setRevision(jsonObject.get("_rev").getAsString());
+        if (jsonObject.has("changes") && jsonObject.get("changes").isJsonArray()) {
+            JsonArray ja = jsonObject.get("changes").getAsJsonArray();
+            Optional<String> rev = StreamSupport.stream(ja.spliterator(), true)
+                    .filter(jo -> ((JsonObject) jo).has("rev"))
+                    .map(jo2 -> ((JsonObject) jo2).get("rev").getAsString())
+                    .findAny();
+            doc.setRevision(rev.orElse(null));
         }
         if (jsonObject.has("value")) {
             doc.setValue(jsonObject.get("value").getAsString());

@@ -67,7 +67,7 @@
 
 
     <profiles>
-        <profile>
+          <profile>
             <id>native</id>
             <activation>
                 <property>

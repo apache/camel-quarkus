@@ -16,14 +16,17 @@
  */
 package org.apache.camel.quarkus.component.couchdb.deployment;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.DotName;
 
 class CouchdbProcessor {
 
@@ -35,18 +38,24 @@ class CouchdbProcessor {
     }
 
     @BuildStep
-    List<ReflectiveClassBuildItem> registerReflectiveClasses() {
-        List<ReflectiveClassBuildItem> items = new ArrayList<ReflectiveClassBuildItem>();
-        items.add(ReflectiveClassBuildItem.builder("org.lightcouch.Response").fields().build());
-        items.add(ReflectiveClassBuildItem.builder("org.lightcouch.CouchDbInfo").fields().build());
-        items.add(ReflectiveClassBuildItem.builder("org.lightcouch.ChangesResult$Row").fields().build());
-        items.add(ReflectiveClassBuildItem.builder("org.lightcouch.ChangesResult$Row$Rev").fields().build());
-        return items;
+    void registerReflectiveClasses(
+            CombinedIndexBuildItem combinedIndex,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+        Set<String> modelClasses = combinedIndex.getIndex()
+                .getClassesInPackage(DotName.createSimple("com.ibm.cloud.cloudant.v1.model"))
+                .stream()
+                .map(ClassInfo::name)
+                .map(DotName::toString)
+                .collect(Collectors.toUnmodifiableSet());
+
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(modelClasses.toArray(new String[0]))
+                .fields(true)
+                .build());
     }
 
     @BuildStep
     void addDependenciesToIndexer(BuildProducer<IndexDependencyBuildItem> indexDependencyProducer) {
-        indexDependencyProducer.produce(new IndexDependencyBuildItem("com.google.code.gson", "gson"));
+        indexDependencyProducer.produce(new IndexDependencyBuildItem("com.ibm.cloud", "cloudant"));
     }
 
 }

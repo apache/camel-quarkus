@@ -33,23 +33,23 @@ public class SecondPerClassET extends CamelQuarkusTestSupport {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:startTest").to("direct:start").to("mock:result");
+                from("direct:startTest2").to("direct:start").to("mock:result");
             }
         };
     }
 
     @Test
-    public void someTestA() throws InterruptedException {
+    public void someTestC() throws InterruptedException {
         MockEndpoint mockEndpoint = getMockEndpoint("mock:result");
         mockEndpoint.expectedBodiesReceived("Some Value");
 
-        template.sendBody("direct:startTest", null);
+        template.sendBody("direct:startTest2", null);
 
         mockEndpoint.assertIsSatisfied();
     }
 
     @Test
-    public void someTestB() throws InterruptedException {
+    public void someTestD() throws InterruptedException {
         MockEndpoint mockEndpoint = getMockEndpoint("mock:result");
         mockEndpoint.expectedBodiesReceived("Some Value");
 

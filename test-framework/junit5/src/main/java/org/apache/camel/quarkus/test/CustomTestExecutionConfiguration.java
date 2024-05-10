@@ -14,27 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.test.common;
+package org.apache.camel.quarkus.test;
 
-import java.util.concurrent.TimeUnit;
+import org.apache.camel.test.junit5.TestExecutionConfiguration;
 
-import io.quarkus.test.junit.QuarkusTest;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
+public final class CustomTestExecutionConfiguration extends TestExecutionConfiguration {
 
-import static org.awaitility.Awaitility.await;
+    CustomTestExecutionConfiguration withCustomUseAdviceWith(boolean useAdviceWith) {
+        return (CustomTestExecutionConfiguration) super.withUseAdviceWith(useAdviceWith);
+    }
 
-// requires CallbacksPerTestFalse01Test to be run before
-@QuarkusTest
-public class CallbacksPerTestFalse02Test {
-
-    @Test
-    public void testAfter01Class() {
-
-        await().atMost(5, TimeUnit.SECONDS).until(() -> AbstractCallbacksTest.testFromAnotherClass(
-                CallbacksPerTestFalse02Test.class.getSimpleName(),
-                CallbacksPerTestFalse01Test.createAssertionConsumer()),
-                Matchers.is(AbstractCallbacksTest.Callback.values().length));
-
+    CustomTestExecutionConfiguration withCustomCreateCamelContextPerClass(boolean createCamelContextPerClass) {
+        return (CustomTestExecutionConfiguration) super.withCreateCamelContextPerClass(createCamelContextPerClass);
     }
 }

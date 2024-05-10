@@ -33,7 +33,7 @@ import jakarta.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.component.cloudevents.CloudEvents;
+import org.apache.camel.cloudevents.CloudEvents;
 import org.apache.camel.component.knative.KnativeComponent;
 import org.apache.camel.component.mock.MockEndpoint;
 

@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.couchdb.it;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -33,7 +34,6 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.couchdb.CouchDbConstants;
 import org.apache.camel.component.couchdb.CouchDbOperations;
 import org.jboss.logging.Logger;
-import org.lightcouch.NoDocumentException;
 
 import static org.apache.camel.quarkus.component.couchdb.it.CouchDbRoute.COUCHDB_ENDPOINT_URI;
 
@@ -52,7 +52,7 @@ public class CouchdbResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public CouchdbTestDocument create(CouchdbTestDocument document) {
+    public CouchdbTestDocument create(CouchdbTestDocument document) throws InterruptedException {
         LOG.info("Invoking create");
         Exchange createExchange = producerTemplate.request(COUCHDB_ENDPOINT_URI,
                 e -> e.getMessage().setBody(document.toJsonObject()));
@@ -72,7 +72,7 @@ public class CouchdbResource {
             e.getMessage().setHeader(CouchDbConstants.HEADER_METHOD, CouchDbOperations.GET);
             e.getMessage().setHeader(CouchDbConstants.HEADER_DOC_ID, document.getId());
         });
-        if (getExchange.getException(NoDocumentException.class) != null) {
+        if (getExchange.getException(NotFoundException.class) != null) {
             return null;
         } else {
             return getExchange.getMessage().getBody(String.class);

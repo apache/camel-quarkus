@@ -109,6 +109,13 @@ class XchangeProcessor {
                 .filter(className -> className.startsWith("jakarta.ws.rs"))
                 .toArray(String[]::new);
         reflectiveClass.produce(ReflectiveClassBuildItem.builder(jaxrsAnnotations).methods().build());
+
+        //constructors for converters
+        String[] converterClasses = index.getAllKnownSubclasses("com.fasterxml.jackson.databind.util.StdConverter")
+                .stream()
+                .map(classInfo -> classInfo.name().toString())
+                .toArray(String[]::new);
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(converterClasses).methods().fields().build());
     }
 
     @BuildStep

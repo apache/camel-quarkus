@@ -9,5 +9,5 @@ cqJvmSince: 1.8.0
 cqNativeSince: 2.16.0
 cqCamelPartName: kotlin-dsl
 cqCamelPartTitle: Kotlin DSL
-cqCamelPartDescription: Camel DSL with Kotlin
+cqCamelPartDescription: Camel DSL with Kotlin (Deprecated)
 cqExtensionPageTitle: Kotlin DSL

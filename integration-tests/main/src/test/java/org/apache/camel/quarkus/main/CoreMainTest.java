@@ -25,6 +25,7 @@ import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import jakarta.ws.rs.core.MediaType;
+import org.apache.camel.ServiceStatus;
 import org.apache.camel.quarkus.core.DisabledModelToXMLDumper;
 import org.apache.camel.quarkus.core.RegistryRoutesLoaders;
 import org.apache.camel.quarkus.it.support.mainlistener.CustomMainListener;
@@ -206,5 +207,22 @@ public class CoreMainTest {
                 .then()
                 .statusCode(200)
                 .body(is("String From Registry"));
+    }
+
+    @Test
+    public void testJmxConnectorService() {
+        RestAssured.given()
+                .accept(MediaType.TEXT_PLAIN)
+                .get("/test/service/jmx-connector/status")
+                .then()
+                .statusCode(200)
+                .body(is(ServiceStatus.Started.name().toUpperCase()));
+
+        RestAssured.given()
+                .accept(MediaType.TEXT_PLAIN)
+                .get("/test/service/jmx-connector/expected/connect/state")
+                .then()
+                .statusCode(200)
+                .body(is("true"));
     }
 }

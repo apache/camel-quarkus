@@ -124,14 +124,15 @@ public class PubnubResource {
     public void setState() throws Exception {
         Map<String, String> state = new HashMap<>();
         state.put("test-state-key", "test-state-value");
-        producerTemplate.requestBodyAndHeader("pubnub:test-state?pubNub=#pubNub", state, PubNubConstants.OPERATION, "SETSTATE");
+        producerTemplate.requestBodyAndHeader("pubnub:test-state?uuid=myuuid&pubNub=#pubNub", state, PubNubConstants.OPERATION,
+                "SETSTATE");
     }
 
     @Path("/state")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getState() throws Exception {
-        PNGetStateResult result = producerTemplate.requestBodyAndHeader("pubnub:test-state?pubNub=#pubNub", null,
+        PNGetStateResult result = producerTemplate.requestBodyAndHeader("pubnub:test-state?uuid=myuuid&pubNub=#pubNub", null,
                 PubNubConstants.OPERATION, "GETSTATE", PNGetStateResult.class);
         return result.getStateByUUID().get("test-state").getAsJsonObject().get("test-state-key").getAsString();
     }
@@ -172,6 +173,6 @@ public class PubnubResource {
             configuration.setReconnectionPolicy(PNReconnectionPolicy.LINEAR);
         }
 
-        return new PubNub(configuration);
+        return PubNub.create(configuration);
     }
 }

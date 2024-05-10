@@ -68,7 +68,9 @@ class DataformatTest {
         final String icsTemplate = IOUtils.toString(getClass().getResourceAsStream("/test.ics"), StandardCharsets.UTF_8);
         final String icalString = String.format(
                 icsTemplate,
+                ZoneId.systemDefault().getId(),
                 toFormatedLocalDateTime(START),
+                ZoneId.systemDefault().getId(),
                 toFormatedLocalDateTime(END),
                 START.getZone().getId());
 

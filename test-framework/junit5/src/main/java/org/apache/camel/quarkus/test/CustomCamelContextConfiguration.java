@@ -14,27 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.test.common;
+package org.apache.camel.quarkus.test;
 
-import java.util.concurrent.TimeUnit;
+import org.apache.camel.test.junit5.CamelContextConfiguration;
 
-import io.quarkus.test.junit.QuarkusTest;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
+public final class CustomCamelContextConfiguration extends CamelContextConfiguration {
 
-import static org.awaitility.Awaitility.await;
+    CustomCamelContextConfiguration withCustomCamelContextSupplier(CamelContextSupplier camelContextSupplier) {
+        return (CustomCamelContextConfiguration) super.withCamelContextSupplier(camelContextSupplier);
+    }
 
-// requires CallbacksPerTestTrue01Test to be run before
-@QuarkusTest
-public class CallbacksPerTestTrue02Test {
+    CustomCamelContextConfiguration withCustomPostProcessor(PostProcessor postProcessor) {
+        return (CustomCamelContextConfiguration) super.withPostProcessor(postProcessor);
+    }
 
-    @Test
-    public void testAfter01Class() {
-
-        await().atMost(5, TimeUnit.SECONDS).until(() -> AbstractCallbacksTest.testFromAnotherClass(
-                CallbacksPerTestTrue02Test.class.getSimpleName(),
-                CallbacksPerTestTrue01Test.createAssertionConsumer()),
-                Matchers.is(AbstractCallbacksTest.Callback.values().length));
-
+    CustomCamelContextConfiguration withCustomRoutesSupplier(RoutesSupplier routesSupplier) {
+        return (CustomCamelContextConfiguration) super.withRoutesSupplier(routesSupplier);
     }
 }

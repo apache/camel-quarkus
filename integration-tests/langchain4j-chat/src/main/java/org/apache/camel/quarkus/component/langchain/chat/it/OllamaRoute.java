@@ -16,11 +16,22 @@
  */
 package org.apache.camel.quarkus.component.langchain.chat.it;
 
+import dev.langchain4j.model.chat.ChatLanguageModel;
+import io.quarkiverse.langchain4j.ollama.OllamaChatLanguageModel;
+import io.quarkiverse.langchain4j.ollama.Options;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
 import org.apache.camel.builder.RouteBuilder;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+import static java.time.Duration.ofSeconds;
 
 @ApplicationScoped
 public class OllamaRoute extends RouteBuilder {
+
+    @ConfigProperty(name = "quarkus.langchain4j.ollama.base-url")
+    private String ollamaUrl;
+
     @Override
     public void configure() throws Exception {
         from("direct:send-simple-message?timeout=30000")
@@ -34,5 +45,16 @@ public class OllamaRoute extends RouteBuilder {
         from("direct:send-multiple?timeout=30000")
                 .to("langchain4j-chat:test3?chatOperation=CHAT_MULTIPLE_MESSAGES")
                 .to("mock:multipleMessageResponse");
+    }
+
+    //model reflects the values in wire-mocked response
+    @Produces
+    public ChatLanguageModel produceModel() {
+        return OllamaChatLanguageModel.builder()
+                .options(Options.builder().temperature(0.3).topK(40).topP(0.9).build())
+                .model("orca-mini")
+                .baseUrl(ollamaUrl)
+                .timeout(ofSeconds(3000))
+                .build();
     }
 }

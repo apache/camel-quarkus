@@ -21,6 +21,8 @@ import org.apache.camel.builder.RouteBuilder;
 public class Routes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
+        getContext().setDebugging(false);
+
         from("direct:start").routeId("hello").setBody().constant("Hello World");
 
         from("direct:count").routeId("count")
