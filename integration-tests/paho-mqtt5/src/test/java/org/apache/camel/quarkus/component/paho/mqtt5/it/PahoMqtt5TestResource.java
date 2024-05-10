@@ -75,7 +75,9 @@ public class PahoMqtt5TestResource implements QuarkusTestResourceLifecycleManage
                 int port = AvailablePortFinder.getNextAvailable();
 
                 container = new FixedHostPortGenericContainer<>(IMAGE)
-                        .withFixedExposedPort(port, TCP_PORT);
+                        .withFixedExposedPort(port, TCP_PORT)
+                        .withClasspathResourceMapping("mosquitto-no-auth.conf", "/mosquitto/config/mosquitto.conf",
+                                BindMode.READ_ONLY);
 
                 result = CollectionHelper.mapOf(
                         "paho5.broker.tcp.url", "tcp://" + container.getHost() + ":" + port);
