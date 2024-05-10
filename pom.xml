@@ -216,13 +216,13 @@
         <activemq.container.image>docker.io/rmohr/activemq:5.15.9-alpine</activemq.container.image>
         <activemq-artemis.container.image>quay.io/artemiscloud/activemq-artemis-broker:1.0.20</activemq-artemis.container.image>
         <arangodb.container.image>docker.io/arangodb:3.12.0</arangodb.container.image>
-        <azurite.container.image>mcr.microsoft.com/azure-storage/azurite:3.28.0</azurite.container.image>
+        <azurite.container.image>mcr.microsoft.com/azure-storage/azurite:3.29.0</azurite.container.image>
         <calculator-ws.container.image>quay.io/l2x6/calculator-ws:1.2</calculator-ws.container.image>
         <cassandra.container.image>docker.io/cassandra:4.1.3</cassandra.container.image>
         <consul.container.image>docker.io/hashicorp/consul:1.16</consul.container.image>
         <couchbase.container.image>docker.io/couchbase/server:7.2.0</couchbase.container.image>
         <couchdb.container.image>docker.io/couchdb:2.3.1</couchdb.container.image>
-        <eclipse-mosquitto.container.image>docker.io/eclipse-mosquitto:1.6.15</eclipse-mosquitto.container.image>
+        <eclipse-mosquitto.container.image>docker.io/eclipse-mosquitto:2.0.18</eclipse-mosquitto.container.image>
         <eclipse-temurin.container.image>eclipse-temurin:17-jdk</eclipse-temurin.container.image>
         <elasticsearch.container.image>docker.io/elasticsearch:8.8.1</elasticsearch.container.image>
         <fhir.container.image.base>docker.io/hapiproject/hapi</fhir.container.image.base>
@@ -234,15 +234,15 @@
         <ibm-mq.container.image>icr.io/ibm-messaging/mq:9.3.2.1-r1</ibm-mq.container.image>
         <influxdb.container.image>docker.io/influxdb:1.8.10</influxdb.container.image>
         <kafka.container.image>quay.io/strimzi-test-container/test-container:latest-kafka-3.2.1</kafka.container.image>
-        <kafka-oauth.container.image>quay.io/strimzi/kafka:latest-kafka-3.6.1</kafka-oauth.container.image>
-        <keycloak.container.image>quay.io/keycloak/keycloak:22.0.5</keycloak.container.image>
+        <kafka-oauth.container.image>quay.io/strimzi/kafka:latest-kafka-3.7.0</kafka-oauth.container.image>
+        <keycloak.container.image>quay.io/keycloak/keycloak:23.0.7</keycloak.container.image>
         <kudu.container.image>docker.io/apache/kudu:1.17.0</kudu.container.image>
-        <localstack.container.image>docker.io/localstack/localstack:3.0.1</localstack.container.image>
-        <lra-coordinator.container.image>quay.io/jbosstm/lra-coordinator:7.0.0.Final-3.2.2.Final</lra-coordinator.container.image>
+        <localstack.container.image>docker.io/localstack/localstack:3.3.0</localstack.container.image>
+        <lra-coordinator.container.image>quay.io/jbosstm/lra-coordinator:7.0.1.Final-3.8.3</lra-coordinator.container.image>
         <minio.container.image>docker.io/minio/minio:RELEASE.2023-07-21T21-12-44Z</minio.container.image>
         <mysql.container.image>docker.io/mysql:5.7</mysql.container.image>
         <mongodb.container.image>docker.io/mongo:4.4</mongodb.container.image>
-        <nats.container.image>docker.io/nats:2.9.20</nats.container.image>
+        <nats.container.image>docker.io/nats:2.10.14</nats.container.image>
         <openssh-server.container.image>docker.io/linuxserver/openssh-server:version-9.3_p2-r0</openssh-server.container.image>
         <postgres.container.image>docker.io/postgres:15.0</postgres.container.image>
         <postgres-debezium.container.image>docker.io/debezium/postgres:15-alpine</postgres-debezium.container.image>
