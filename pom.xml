@@ -190,7 +190,7 @@
         <impsort-maven-plugin.version>1.9.0</impsort-maven-plugin.version>
         <jandex-maven-plugin.version>1.2.3</jandex-maven-plugin.version>
         <keytool-maven-plugin.version>1.7</keytool-maven-plugin.version>
-        <license-maven-plugin.version>4.3</license-maven-plugin.version>
+        <license-maven-plugin.version>4.5</license-maven-plugin.version>
         <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
         <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
         <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
