@@ -26,35 +26,31 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-quarkus-integration-tests-support-kafka</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Support :: Kafka</name>
+    <artifactId>camel-quarkus-integration-tests-support-certificate-generator</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: Support :: Certificate generator</name>
 
     <dependencies>
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-kafka-client</artifactId>
+            <groupId>me.escoffier.certs</groupId>
+            <artifactId>certificate-generator-junit5</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-integration-test-support</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.strimzi</groupId>
-            <artifactId>strimzi-test-container</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit4-mock</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-integration-test-support</artifactId>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

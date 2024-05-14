@@ -167,6 +167,7 @@
         <zookeeper.version>${zookeeper-version}</zookeeper.version>
 
         <!-- Test dependency versions (keep sorted alphabetically) -->
+        <certificate.generator.version>0.5.0</certificate.generator.version>
         <consul-client.version>${consul-client-version}</consul-client.version>
         <ftpserver.version>${ftpserver-version}</ftpserver.version>
         <hamcrest.version>2.2</hamcrest.version><!-- Awaitility and Wiremock -->

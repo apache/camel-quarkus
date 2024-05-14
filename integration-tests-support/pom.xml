@@ -50,6 +50,7 @@
         <module>activemq</module>
         <module>aws2</module>
         <module>azure</module>
+        <module>certificate-generator</module>
         <module>custom-dataformat</module>
         <module>custom-log-component</module>
         <module>custom-routes-collector</module>

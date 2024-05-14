@@ -22,10 +22,12 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
+import org.apache.camel.quarkus.test.DisabledIfFipsMode;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@DisabledIfFipsMode
 @QuarkusTest
 @QuarkusTestResource(KafkaSaslTestResource.class)
 public class KafkaSaslBindingTest {
