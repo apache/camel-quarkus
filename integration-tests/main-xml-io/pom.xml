@@ -223,6 +223,18 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>format</id>
+            <properties>
+                <project.build.sourceEncoding>ISO-8859-15</project.build.sourceEncoding>
+            </properties>
+        </profile>
+        <profile>
+            <id>check-format</id>
+            <properties>
+                <project.build.sourceEncoding>ISO-8859-15</project.build.sourceEncoding>
+            </properties>
+        </profile>
     </profiles>
 
 
