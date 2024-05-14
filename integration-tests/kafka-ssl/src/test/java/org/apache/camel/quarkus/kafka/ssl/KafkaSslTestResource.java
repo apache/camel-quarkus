@@ -16,9 +16,6 @@
  */
 package org.apache.camel.quarkus.kafka.ssl;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -26,68 +23,37 @@ import java.util.stream.Stream;
 import com.github.dockerjava.api.command.InspectContainerResponse;
 import io.strimzi.test.container.StrimziKafkaContainer;
 import org.apache.camel.quarkus.test.support.kafka.KafkaTestResource;
-import org.apache.camel.quarkus.test.support.kafka.KafkaTestSupport;
 import org.apache.camel.util.CollectionHelper;
-import org.apache.commons.io.FileUtils;
 import org.apache.kafka.clients.CommonClientConfigs;
-import org.testcontainers.images.builder.Transferable;
+import org.testcontainers.utility.MountableFile;
 
 public class KafkaSslTestResource extends KafkaTestResource {
-    private static final String KAFKA_KEYSTORE_FILE = "kafka-keystore.p12";
-    private static final String KAFKA_KEYSTORE_PASSWORD = "kafkas3cret";
-    private static final String KAFKA_KEYSTORE_TYPE = "PKCS12";
-    private static final String KAFKA_TRUSTSTORE_FILE = "kafka-truststore.p12";
-    private static final String KAFKA_CERTIFICATE_SCRIPT = "generate-certificates.sh";
-    private static Path configDir;
-    private SSLKafkaContainer container;
+
+    static final String KAFKA_KEYSTORE_PASSWORD = "PAG4i8511xp1lzVu585foRLjD4v62yBS";
+    static final String KAFKA_HOSTNAME = "localhost";
+    static final String CERTS_BASEDIR = "target/certs";
+
+    static final String KAFKA_KEYSTORE_FILE = KAFKA_HOSTNAME + "-keystore.p12";
+    static final String KAFKA_KEYSTORE_TYPE = "PKCS12";
+    static final String KAFKA_TRUSTSTORE_FILE = KAFKA_HOSTNAME + "-truststore.p12";
 
     @Override
     public Map<String, String> start() {
-        try {
-            configDir = Files.createTempDirectory("KafkaSaslSslTestResource-");
-            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            Stream.of(KAFKA_KEYSTORE_FILE, KAFKA_TRUSTSTORE_FILE)
-                    .forEach(fileName -> {
-                        try (InputStream in = classLoader.getResourceAsStream("config/" + fileName)) {
-                            Files.copy(in, configDir.resolve(fileName));
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    });
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
-        KafkaTestSupport.regenerateCertificatesForDockerHost(configDir, KAFKA_CERTIFICATE_SCRIPT, KAFKA_KEYSTORE_FILE,
-                KAFKA_TRUSTSTORE_FILE);
-
-        container = new SSLKafkaContainer(KAFKA_IMAGE_NAME);
-        container.waitForRunning();
-        container.start();
+        String bootstrapServers = start(name -> new SSLKafkaContainer(name));
 
         return CollectionHelper.mapOf(
-                "kafka." + CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG, container.getBootstrapServers(),
-                "camel.component.kafka.brokers", container.getBootstrapServers(),
+                "kafka." + CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers,
+                "camel.component.kafka.brokers", bootstrapServers,
                 "camel.component.kafka.security-protocol", "SSL",
                 "camel.component.kafka.ssl-key-password", KAFKA_KEYSTORE_PASSWORD,
-                "camel.component.kafka.ssl-keystore-location", configDir.resolve(KAFKA_KEYSTORE_FILE).toString(),
+                "camel.component.kafka.ssl-keystore-location", Path.of(CERTS_BASEDIR).resolve(KAFKA_KEYSTORE_FILE).toString(),
                 "camel.component.kafka.ssl-keystore-password", KAFKA_KEYSTORE_PASSWORD,
                 "camel.component.kafka.ssl-keystore-type", KAFKA_KEYSTORE_TYPE,
-                "camel.component.kafka.ssl-truststore-location", configDir.resolve(KAFKA_TRUSTSTORE_FILE).toString(),
+                "camel.component.kafka.ssl-truststore-location",
+                Path.of(CERTS_BASEDIR).resolve(KAFKA_TRUSTSTORE_FILE).toString(),
                 "camel.component.kafka.ssl-truststore-password", KAFKA_KEYSTORE_PASSWORD,
                 "camel.component.kafka.ssl-truststore-type", KAFKA_KEYSTORE_TYPE);
-    }
-
-    @Override
-    public void stop() {
-        if (this.container != null) {
-            try {
-                this.container.stop();
-                FileUtils.deleteDirectory(configDir.toFile());
-            } catch (Exception e) {
-                // Ignored
-            }
-        }
     }
 
     // KafkaContainer does not support SSL OOTB so we need some customizations
@@ -117,6 +83,7 @@ public class KafkaSslTestResource extends KafkaTestResource {
                     Map.entry("ssl.truststore.type", KAFKA_KEYSTORE_TYPE),
                     Map.entry("ssl.endpoint.identification.algorithm", ""));
 
+            withEnv("STRIMZI_TEST_ROOT_LOG_LEVEL", "DEBUG");
             withBrokerId(1);
             withKafkaConfigurationMap(config);
             withLogConsumer(frame -> System.out.print(frame.getUtf8String()));
@@ -128,12 +95,9 @@ public class KafkaSslTestResource extends KafkaTestResource {
 
             Stream.of(KAFKA_KEYSTORE_FILE, KAFKA_TRUSTSTORE_FILE)
                     .forEach(keyStoreFile -> {
-                        try {
-                            copyFileToContainer(Transferable.of(Files.readAllBytes(configDir.resolve(keyStoreFile))),
-                                    "/etc/kafka/secrets/" + keyStoreFile);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
+                        copyFileToContainer(
+                                MountableFile.forHostPath(Path.of(CERTS_BASEDIR).resolve(keyStoreFile)),
+                                "/etc/kafka/secrets/" + keyStoreFile);
                     });
         }
     }

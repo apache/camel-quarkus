@@ -39,7 +39,7 @@ public class DisabledIfFipsModeCondition extends EnabledIfFipsModeCondition {
 
     private ConditionEvaluationResult map(DisabledIfFipsMode annotation) {
         List<String> providersToMatch = List.of(annotation.providers());
-        Optional<String> fipsProviders = findFipsProvider(providersToMatch);
+        Optional<String> fipsProviders = FipsModeUtil.findFipsProvider(providersToMatch);
 
         if (fipsProviders == null) {
             return enabled("No FIPS security providers were detected");

@@ -16,10 +16,7 @@
  */
 package org.apache.camel.quarkus.kafka.sasl;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -27,75 +24,44 @@ import java.util.stream.Stream;
 import com.github.dockerjava.api.command.InspectContainerResponse;
 import io.strimzi.test.container.StrimziKafkaContainer;
 import org.apache.camel.quarkus.test.support.kafka.KafkaTestResource;
-import org.apache.camel.quarkus.test.support.kafka.KafkaTestSupport;
 import org.apache.camel.util.CollectionHelper;
-import org.apache.commons.io.FileUtils;
 import org.testcontainers.images.builder.Transferable;
 import org.testcontainers.utility.MountableFile;
 
 import static io.strimzi.test.container.StrimziZookeeperContainer.ZOOKEEPER_PORT;
 
 public class KafkaSaslSslTestResource extends KafkaTestResource {
-    private static final String KAFKA_KEYSTORE_FILE = "kafka-keystore.p12";
-    private static final String KAFKA_KEYSTORE_PASSWORD = "kafkas3cret";
-    private static final String KAFKA_KEYSTORE_TYPE = "PKCS12";
-    private static final String KAFKA_TRUSTSTORE_FILE = "kafka-truststore.p12";
-    private static final String KAFKA_CERTIFICATE_SCRIPT = "generate-certificates.sh";
-    private static Path configDir;
-    private SaslSslKafkaContainer container;
+    static final String KAFKA_KEYSTORE_PASSWORD = "n7BfLSrdIKZSd2SJv8pUvVurrOW6q2Q3G";
+    //min lengthe is 32 because of SCRAM-SHA-512
+    static final String ALICE_PASSWORD = "IuepUrtaAXpwgTy6TPmInRAUinlK2acQL";
+    static final String KAFKA_HOSTNAME = "localhost";
+    static final String CERTS_BASEDIR = "target/certs";
+
+    static final String KAFKA_KEYSTORE_FILE = KAFKA_HOSTNAME + "-keystore.p12";
+    static final String KAFKA_KEYSTORE_TYPE = "PKCS12";
+    static final String KAFKA_TRUSTSTORE_FILE = KAFKA_HOSTNAME + "-truststore.p12";
 
     @Override
     public Map<String, String> start() {
-        try {
-            configDir = Files.createTempDirectory("KafkaSaslSslTestResource-");
-            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            Stream.of("kafka_server_jaas.conf", KAFKA_KEYSTORE_FILE, KAFKA_TRUSTSTORE_FILE)
-                    .forEach(fileName -> {
-                        try (InputStream in = classLoader.getResourceAsStream("config/" + fileName)) {
-                            Files.copy(in, configDir.resolve(fileName));
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    });
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        KafkaTestSupport.regenerateCertificatesForDockerHost(configDir, KAFKA_CERTIFICATE_SCRIPT, KAFKA_KEYSTORE_FILE,
-                KAFKA_TRUSTSTORE_FILE);
-
-        container = new SaslSslKafkaContainer(KAFKA_IMAGE_NAME);
-        container.waitForRunning();
-        container.start();
+        String bootstrapServers = start(name -> new SaslSslKafkaContainer(name));
 
         String jaasConfig = "org.apache.kafka.common.security.scram.ScramLoginModule required "
                 + "username=\"alice\" "
-                + "password=\"alice-secret\";";
+                + "password=\"" + ALICE_PASSWORD + "\";";
 
         return CollectionHelper.mapOf(
-                "camel.component.kafka.brokers", container.getBootstrapServers(),
+                "camel.component.kafka.brokers", bootstrapServers,
                 "camel.component.kafka.sasl-mechanism", "SCRAM-SHA-512",
                 "camel.component.kafka.sasl-jaas-config", jaasConfig,
                 "camel.component.kafka.security-protocol", "SASL_SSL",
                 "camel.component.kafka.ssl-key-password", KAFKA_KEYSTORE_PASSWORD,
-                "camel.component.kafka.ssl-keystore-location", configDir.resolve(KAFKA_KEYSTORE_FILE).toString(),
+                "camel.component.kafka.ssl-keystore-location", Path.of(CERTS_BASEDIR).resolve(KAFKA_KEYSTORE_FILE).toString(),
                 "camel.component.kafka.ssl-keystore-password", KAFKA_KEYSTORE_PASSWORD,
                 "camel.component.kafka.ssl-keystore-type", KAFKA_KEYSTORE_TYPE,
-                "camel.component.kafka.ssl-truststore-location", configDir.resolve(KAFKA_TRUSTSTORE_FILE).toString(),
+                "camel.component.kafka.ssl-truststore-location",
+                Path.of(CERTS_BASEDIR).resolve(KAFKA_TRUSTSTORE_FILE).toString(),
                 "camel.component.kafka.ssl-truststore-password", KAFKA_KEYSTORE_PASSWORD,
                 "camel.component.kafka.ssl-truststore-type", KAFKA_KEYSTORE_TYPE);
-    }
-
-    @Override
-    public void stop() {
-        if (this.container != null) {
-            try {
-                this.container.stop();
-                FileUtils.deleteDirectory(configDir.toFile());
-            } catch (Exception e) {
-                // Ignored
-            }
-        }
     }
 
     // KafkaContainer does not support SASL SSL OOTB so we need some customizations
@@ -143,17 +109,15 @@ public class KafkaSaslSslTestResource extends KafkaTestResource {
 
             Stream.of(KAFKA_KEYSTORE_FILE, KAFKA_TRUSTSTORE_FILE)
                     .forEach(keyStoreFile -> {
-                        try {
-                            copyFileToContainer(Transferable.of(Files.readAllBytes(configDir.resolve(keyStoreFile))),
-                                    "/etc/kafka/secrets/" + keyStoreFile);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
+                        copyFileToContainer(
+                                MountableFile.forHostPath(Path.of(CERTS_BASEDIR).resolve(keyStoreFile)),
+                                "/etc/kafka/secrets/" + keyStoreFile);
                     });
 
             String setupUsersScript = "#!/bin/bash\n"
                     + "KAFKA_OPTS= /opt/kafka/bin/kafka-configs.sh --zookeeper localhost:" + ZOOKEEPER_PORT
-                    + " --alter --add-config 'SCRAM-SHA-512=[iterations=8192,password=alice-secret]' --entity-type users --entity-name alice";
+                    + " --alter --add-config 'SCRAM-SHA-512=[iterations=8192,password=" + ALICE_PASSWORD
+                    + "]' --entity-type users --entity-name alice";
 
             copyFileToContainer(
                     Transferable.of(setupUsersScript.getBytes(StandardCharsets.UTF_8), 0775),
