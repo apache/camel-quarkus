@@ -82,6 +82,11 @@
                 <version>${quarkiverse-micrometer.version}</version>
             </dependency>
             <dependency>
+                <groupId>me.escoffier.certs</groupId>
+                <artifactId>certificate-generator-junit5</artifactId>
+                <version>${certificate.generator.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-integration-test-support-custom-dataformat</artifactId>
                 <version>${camel-quarkus.version}</version>
@@ -148,6 +153,11 @@
                 <artifactId>camel-quarkus-integration-tests-support-jdbc</artifactId>
                 <version>${camel-quarkus.version}</version>
                 <type>test-jar</type>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-integration-tests-support-certificate-generator</artifactId>
+                <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
