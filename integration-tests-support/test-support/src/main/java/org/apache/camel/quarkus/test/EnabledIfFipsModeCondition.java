@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.test;
 
-import java.security.Provider;
-import java.security.Security;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +37,7 @@ public class EnabledIfFipsModeCondition implements ExecutionCondition {
 
     private ConditionEvaluationResult map(EnabledIfFipsMode annotation) {
         List<String> providersToMatch = List.of(annotation.providers());
-        Optional<String> fipsProviders = findFipsProvider(providersToMatch);
+        Optional<String> fipsProviders = FipsModeUtil.findFipsProvider(providersToMatch);
 
         if (fipsProviders == null) {
             return disabled("No FIPS security providers were detected");
@@ -51,29 +49,4 @@ public class EnabledIfFipsModeCondition implements ExecutionCondition {
         return enabled("Detected FIPS security provider " + fipsProviders.get());
     }
 
-    /**
-     * Returns null if system is not in fips mode.
-     * Returns Optional.empty if system is in fips mode and there is some provider containing "fips"
-     * Returns Optional.name if system is in fips mode and there is a match with the provided providers
-     * (the last 2 options allows to differentiate reason of the enablement/disablement)
-     */
-    Optional<String> findFipsProvider(List<String> providersToMatch) {
-        Provider[] jdkProviders = Security.getProviders();
-        int matchCount = 0;
-
-        for (Provider provider : jdkProviders) {
-            if (providersToMatch.isEmpty() && provider.getName().toLowerCase().contains("fips")) {
-                return Optional.of(provider.getName());
-            } else if (providersToMatch.contains(provider.getName())) {
-                matchCount++;
-            }
-        }
-
-        if (!providersToMatch.isEmpty() && matchCount == providersToMatch.size()) {
-            return Optional.empty();
-        }
-
-        return null;
-
-    }
 }
