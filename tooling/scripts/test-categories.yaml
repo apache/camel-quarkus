@@ -29,6 +29,7 @@ group-01:
   - jms-artemis-client
   - jms-ibmmq-client
   - jsch
+  - microprofile-fault-tolerance
   - kafka
   - kafka-sasl
   - mllp
@@ -174,6 +175,7 @@ group-10:
   - mail
   - main-unknown-args-fail
   - main-unknown-args-ignore
+  - microprofile-health
   - platform-http-proxy
   - platform-http-proxy-ssl
   - swift
@@ -205,7 +207,6 @@ group-12:
   - knative-endpoint-consumer
   - knative-event-consumer
   - knative-producer
-  - microprofile
   - openapi-java
   - paho-mqtt5
   - platform-http
