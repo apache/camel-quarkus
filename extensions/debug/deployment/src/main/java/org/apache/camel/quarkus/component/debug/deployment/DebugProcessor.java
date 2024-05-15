@@ -66,7 +66,7 @@ class DebugProcessor {
         @Override
         public boolean getAsBoolean() {
             return (launchMode.equals(LaunchMode.DEVELOPMENT)) || (config.enabled
-                    || ConfigProvider.getConfig().getOptionalValue("camel.main.debugging", boolean.class).orElse(false));
+                    || ConfigProvider.getConfig().getOptionalValue("camel.debug.enabled", boolean.class).orElse(false));
         }
     }
 }
