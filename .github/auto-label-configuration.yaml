@@ -65,6 +65,11 @@ config:
     labels: ["area/examples", "example"]
     matchOn: "title"
 
+  - id: area-fips
+    regex: "\\bfips\\b"
+    labels: ["area/fips"]
+    matchOn: "title"
+
   - id: area-housekeeping
     regex: "\\b(ban(ned)?|remove)\\b"
     labels: ["area/housekeeping", "housekeeping"]
