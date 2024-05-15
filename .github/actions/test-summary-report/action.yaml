@@ -85,6 +85,8 @@ runs:
                     }
                     log(`Pushing summary detail to summaryData array`);
                     summaryData.push([className, testName, message, details]);
+                  } else {
+                    log(testCase);
                   }
                 });
               }
