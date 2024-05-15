@@ -122,10 +122,10 @@ The package name for the generated classes.
 | `string`
 | `org.apache.camel.quarkus.component.xslt.generated`
 
-|icon:lock[title=Fixed at build time] [[quarkus.camel.xslt.features]]`link:#quarkus.camel.xslt.features[quarkus.camel.xslt.features]`
+|icon:lock[title=Fixed at build time] [[quarkus.camel.xslt.features.-features]]`link:#quarkus.camel.xslt.features.-features[quarkus.camel.xslt.features."features"]`
 
 TransformerFactory features.
-| ``Map<String,Boolean>``
+| `java.lang.Boolean`
 | 
 |===
 

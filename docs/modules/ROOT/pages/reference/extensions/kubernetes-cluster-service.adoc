@@ -146,10 +146,10 @@ The lease resource type used in Kubernetes, either 'config-map' or 'lease' (defa
 | `org.apache.camel.component.kubernetes.cluster.LeaseResourceType`
 | 
 
-| [[quarkus.camel.cluster.kubernetes.labels]]`link:#quarkus.camel.cluster.kubernetes.labels[quarkus.camel.cluster.kubernetes.labels]`
+| [[quarkus.camel.cluster.kubernetes.labels.-labels]]`link:#quarkus.camel.cluster.kubernetes.labels.-labels[quarkus.camel.cluster.kubernetes.labels."labels"]`
 
 The labels key/value used to identify the pods composing the cluster, defaults to empty map.
-| ``Map<String,String>``
+| `java.lang.String`
 | 
 |===
 
