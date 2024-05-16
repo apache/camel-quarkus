@@ -22,7 +22,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import io.agroal.api.AgroalDataSource;
-import io.quarkus.agroal.DataSource;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -33,7 +32,6 @@ import jakarta.inject.Singleton;
 @RegisterForReflection(fields = false)
 public class JdbcQueryBean {
     @Inject
-    @DataSource("postgres")
     AgroalDataSource dataSource;
 
     public long getNowTimestamp() {
