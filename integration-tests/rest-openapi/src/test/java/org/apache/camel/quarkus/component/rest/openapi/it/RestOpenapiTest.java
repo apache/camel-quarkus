@@ -109,4 +109,16 @@ class RestOpenapiTest {
                         containsInAnyOrder("Apple", "Pineapple"));
     }
 
+    @Test
+    public void testGetPet() {
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .get("/api/v3/pet/123")
+                .then()
+                .statusCode(200)
+                .body("id", is(123), "name", is("Test"), "status", is("available"));
+    }
+
 }

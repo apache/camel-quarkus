@@ -155,6 +155,8 @@
         <spring.version>${spring-version}</spring.version>
         <spring.data.redis.version>${spring-data-redis-version}</spring.data.redis.version>
         <swagger.version>${swagger-openapi3-version}</swagger.version>
+        <swagger-codegen.version>3.0.52</swagger-codegen.version>
+        <swagger-codegen-generators.version>1.0.46</swagger-codegen-generators.version>
         <swagger-parser.version>${swagger-openapi3-java-parser-version}</swagger-parser.version>
         <tablesaw.version>0.43.1</tablesaw.version>
         <threetenbp.version>1.6.0</threetenbp.version>

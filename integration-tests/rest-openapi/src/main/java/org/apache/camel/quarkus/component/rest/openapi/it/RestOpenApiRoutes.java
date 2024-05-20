@@ -17,11 +17,14 @@
 package org.apache.camel.quarkus.component.rest.openapi.it;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.quarkus.component.rest.openapi.it.model.Pet;
+import org.apache.camel.quarkus.component.rest.openapi.it.model.Pet.StatusEnum;
 
 public class RestOpenApiRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
+        rest().openApi().specification("petstore.json").missingOperation("ignore");
 
         from("direct:start-web-json")
                 .toD("rest-openapi:#list?specificationUri=RAW(http://localhost:${header.test-port}/q/openapi?format=JSON)");
@@ -40,5 +43,21 @@ public class RestOpenApiRoutes extends RouteBuilder {
 
         from("direct:validate")
                 .toD("rest-openapi:#add?specificationUri=classpath:openapi.json&host=RAW(http://localhost:${header.test-port})&requestValidationEnabled=true");
+
+        from("direct:getPetById")
+                .process(e -> {
+                    // build response body as POJO
+                    Pet pet = new Pet();
+                    pet.setId(e.getMessage().getHeader("petId", long.class));
+                    pet.setName("Test");
+                    pet.setStatus(StatusEnum.AVAILABLE);
+                    e.getMessage().setBody(pet);
+                });
+
+        from("direct:updatePet")
+                .process(e -> {
+                    Pet pet = e.getMessage().getBody(Pet.class);
+                    pet.setStatus(StatusEnum.PENDING);
+                });
     }
 }
