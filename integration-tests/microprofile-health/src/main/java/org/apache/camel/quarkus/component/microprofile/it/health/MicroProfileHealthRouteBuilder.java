@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.microprofile.it.health;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.spi.SupervisingRouteController;
 
 public class MicroProfileHealthRouteBuilder extends RouteBuilder {
     @Override
@@ -26,5 +27,14 @@ public class MicroProfileHealthRouteBuilder extends RouteBuilder {
 
         from("direct:disabled").routeId("disabledHealthRoute")
                 .log("This route will not show up in health checks as it is disabled in application.properties");
+
+        if (getContext().getRouteController() instanceof SupervisingRouteController) {
+            from("direct:supervising").routeId("supervisingRoute")
+                    .to("log:end");
+
+            // Force a failure for SupervisingRouteController to try and recover (duplicate consumer on the same endpoint)
+            from("direct:supervising?timeout=100").routeId("brokenRoute")
+                    .to("log:end");
+        }
     }
 }
