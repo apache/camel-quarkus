@@ -6964,12 +6964,13 @@
       </dependency>
       <dependency>
         <groupId>org.jolokia</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>jolokia-jvm</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.7.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>jolokia-agent-jvm</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>2.0.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <classifier>javaagent</classifier><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>org.jolokia</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>jolokia-core</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>jolokia-server-core</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
           <exclusion>
             <groupId>com.googlecode.json-simple</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
