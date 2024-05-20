@@ -39,6 +39,7 @@ import org.jboss.jandex.ClassInfo;
 public final class CamelSupport {
     public static final String CAMEL_SERVICE_BASE_PATH = "META-INF/services/org/apache/camel";
     public static final String CAMEL_ROOT_PACKAGE_DIRECTORY = "org/apache/camel";
+    public static final String COMPILATION_JVM_TARGET = "17";
 
     private CamelSupport() {
     }

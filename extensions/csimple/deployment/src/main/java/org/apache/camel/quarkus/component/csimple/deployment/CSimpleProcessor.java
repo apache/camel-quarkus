@@ -65,6 +65,7 @@ import org.apache.camel.quarkus.component.csimple.CSimpleLanguageRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CompiledCSimpleExpressionBuildItem;
+import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.apache.camel.quarkus.core.util.FileUtils;
 import org.apache.camel.quarkus.support.language.deployment.ExpressionBuildItem;
 import org.apache.camel.quarkus.support.language.deployment.ExpressionExtractionResultBuildItem;
@@ -264,9 +265,9 @@ class CSimpleProcessor {
                 csimpleClassesDir.toFile(),
                 StandardCharsets.UTF_8.name(),
                 Collections.emptyMap(),
+                CamelSupport.COMPILATION_JVM_TARGET,
                 null,
-                "11",
-                "11",
+                null,
                 Collections.emptyList(),
                 Collections.emptyList(),
                 null,

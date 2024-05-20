@@ -47,6 +47,7 @@ import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import io.quarkus.maven.dependency.ResolvedDependency;
 import io.quarkus.paths.PathCollection;
 import org.apache.camel.quarkus.core.deployment.main.CamelMainHelper;
+import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.apache.camel.quarkus.dsl.jsh.runtime.Configurer;
 import org.apache.camel.quarkus.support.dsl.deployment.DslGeneratedClassBuildItem;
 import org.apache.camel.quarkus.support.dsl.deployment.DslSupportProcessor;
@@ -132,7 +133,7 @@ class JshDslProcessor {
                 classesDir.toFile(),
                 StandardCharsets.UTF_8.name(),
                 Collections.emptyMap(),
-                null,
+                CamelSupport.COMPILATION_JVM_TARGET,
                 null,
                 null,
                 Collections.emptyList(),
