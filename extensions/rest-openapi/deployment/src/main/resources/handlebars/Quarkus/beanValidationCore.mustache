@@ -1,0 +1,36 @@
+{{!
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+}}
+{{#pattern}} @Pattern(regexp="{{{pattern}}}"){{/pattern}}{{!
+minLength && maxLength set
+}}{{#minLength}}{{#maxLength}} @Size(min={{minLength}},max={{maxLength}}){{/maxLength}}{{/minLength}}{{!
+minLength set, maxLength not
+}}{{#minLength}}{{^maxLength}} @Size(min={{minLength}}){{/maxLength}}{{/minLength}}{{!
+minLength not set, maxLength set
+}}{{^minLength}}{{#maxLength}} @Size(max={{maxLength}}){{/maxLength}}{{/minLength}}{{!
+@Size: minItems && maxItems set 
+}}{{#minItems}}{{#maxItems}} @Size(min={{minItems}},max={{maxItems}}){{/maxItems}}{{/minItems}}{{!
+@Size: minItems set, maxItems not 
+}}{{#minItems}}{{^maxItems}} @Size(min={{minItems}}){{/maxItems}}{{/minItems}}{{!
+@Size: minItems not set && maxItems set 
+}}{{^minItems}}{{#maxItems}} @Size(max={{maxItems}}){{/maxItems}}{{/minItems}}{{! 
+check for integer or long / all others=decimal type with @Decimal*
+isInteger set
+}}{{#is this 'integer'}}{{#minimum}} @Min({{minimum}}){{/minimum}}{{#maximum}} @Max({{maximum}}){{/maximum}}{{/is}}{{!
+isLong set 
+}}{{#is this 'long'}}{{#minimum}} @Min({{minimum}}){{/minimum}}{{#maximum}} @Max({{maximum}}){{/maximum}}{{/is}}{{!
+Not Integer, not Long => we have a decimal value!
+}}{{#isNot this 'integer'}}{{#isNot this 'long'}}{{#minimum}} @DecimalMin("{{minimum}}"){{/minimum}}{{#maximum}} @DecimalMax("{{maximum}}"){{/maximum}}{{/isNot}}{{/isNot}}

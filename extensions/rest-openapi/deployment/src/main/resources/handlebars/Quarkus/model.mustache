@@ -1,0 +1,67 @@
+{{!
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+}}
+{{>licenseInfo}}
+
+package {{package}};
+
+{{^x-is-composed-model}}
+{{^supportJava6}}
+import java.util.Objects;
+import java.util.Arrays;
+{{/supportJava6}}
+{{#supportJava6}}
+import org.apache.commons.lang3.ObjectUtils;
+{{/supportJava6}}
+{{#imports}}
+import {{import}};
+{{/imports}}
+{{#serializableModel}}
+import java.io.Serializable;
+{{/serializableModel}}
+{{#jackson}}
+{{#withXml}}
+import com.fasterxml.jackson.dataformat.xml.annotation.*;
+{{/withXml}}
+{{/jackson}}
+{{#withXml}}
+import javax.xml.bind.annotation.*;
+{{/withXml}}
+{{#parcelableModel}}
+import android.os.Parcelable;
+import android.os.Parcel;
+{{/parcelableModel}}
+{{#useBeanValidation}}
+{{#jakarta}}
+import jakarta.validation.constraints.*;
+import jakarta.validation.Valid;
+{{/jakarta}}
+{{^jakarta}}
+import javax.validation.constraints.*;
+import javax.validation.Valid;
+{{/jakarta}}
+{{/useBeanValidation}}
+{{/x-is-composed-model}}
+{{#models}}
+{{#model}}
+{{#isComposedModel}}
+{{>interface}}
+{{/isComposedModel}}
+{{^isComposedModel}}
+{{#is this 'enum'}}{{>modelEnum}}{{/is}}{{#isNot this 'enum'}}{{>pojo}}{{/isNot}}
+{{/isComposedModel}}
+{{/model}}
+{{/models}}
