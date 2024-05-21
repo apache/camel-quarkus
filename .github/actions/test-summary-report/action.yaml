@@ -46,9 +46,6 @@ runs:
           const junit = require('junit2json');
           const testReportGlobPattern = "${{ inputs.test-report-xml-base-dir }}/${{ inputs.test-report-xml-includes }}".replace(/\.+\/+/g, "")
           const summaryData = [];
-          const log = function(message) {
-            console.log(message);
-          };
 
           // Configure test summary table headers
           summaryData.push([
@@ -62,31 +59,31 @@ runs:
           const globber = await glob.create(testReportGlobPattern);
           for await (const reportFile of globber.globGenerator()) {
             const file = fs.readFileSync(reportFile);
-            log(`Found JUnit report: ${reportFile}`);
             const report = junit.parse(file).then((report) => {
-              log(`Report errors: ${report.errors}`);
-              log(`Report failures: ${report.failures}`);
               if (report.errors > 0 || report.failures > 0) {
-                log(`Test case count: ${report.testcase.length}`);
                 report.testcase.forEach((testCase) => {
-                  log(`Test case failure: ${testCase.failure}`);
-                  if (testCase.failure !== undefined) {
+                  const failure = testCase.failure !== undefined ? testCase.failure : testCase.error;
+                  if (failure !== undefined) {
                     const shortClassName = `<code>${testCase.classname.substring(testCase.classname.lastIndexOf('.') + 1)}</code>`;
                     const className = `<details><summary>${shortClassName}</summary>\n<code>${testCase.classname}</code></details>`;
-                    const details = `<details><summary>View</summary>\n<pre>${testCase.failure[0].inner}</pre></details>`;
-                    let testName = `<code>${testCase.name}</code>`;
-                    if (testCase.length > 25) {
-                      testName = `<details><summary>View</summary>\n<code>${testCase.name}</code></details>`;
+                    const details = `<details><summary>View</summary>\n<pre>${failure[0].inner}</pre></details>`;
+
+                    let testName = "";
+                    if (testCase.name !== undefined && testCase.name.trim().length > 0) {
+                      testName = `<code>${testCase.name}</code>`;
+                      if (testCase.name.trim().length > 25) {
+                        testName = `<details><summary>View</summary>\n<code>${testCase.name}</code></details>`;
+                      }
+                    } else {
+                      // Some JUnit extensions do odd things to the test name on failure, so it may be null or empty
+                      testName = `<code>Unknown</code>`;
                     }
 
-                    let message = `<pre>${testCase.failure[0].message}</pre>`;
+                    let message = `<pre>${failure[0].message}</pre>`;
                     if (message.length > 50) {
                       message = `<details><summary>View</summary>\n${message}</details>`;
                     }
-                    log(`Pushing summary detail to summaryData array`);
                     summaryData.push([className, testName, message, details]);
-                  } else {
-                    log(testCase);
                   }
                 });
               }
@@ -94,10 +91,7 @@ runs:
           }
 
           // Write the summary data if there were test failures
-          log(`summaryData array length: ${summaryData.length}`);
           if (summaryData.length > 1) {
-            log(`Writing summary`);
-            log(summaryData);
             await core.summary
               .addHeading("Test Failures", "3")
               .addTable(summaryData)
