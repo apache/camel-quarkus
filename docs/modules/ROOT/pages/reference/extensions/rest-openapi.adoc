@@ -76,6 +76,58 @@ When using the `classpath` resource locator with native code, the path to the Op
 quarkus.native.resources.includes=openapi.json
 ----
 
+[id="extensions-rest-openapi-usage-contract-first-development"]
+=== Contract First Development
+The model classes generation has been integrated with the `quarkus-maven-plugin`. So there's no need to use the `swagger-codegen-maven-plugin`, instead put your contract files in `src/main/openapi` with a `.json` suffix. And add the `generate-code` goal to the `quarkus-maven-plugin` like:
+
+[source,xml]
+----
+<plugin>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-maven-plugin</artifactId>
+    <executions>
+        <execution>
+            <goals>
+                <goal>generate-code</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
+----
+
+It requires a specific package name for the model classes by using the `quarkus.camel.openapi.codegen.model-package` property of the `application.properties` file. For example:
+
+[source,properties]
+----
+quarkus.camel.openapi.codegen.model-package=org.acme
+----
+This package name should be added in `camel.rest.bindingPackageScan` as well.
+
+The contract files in `src/main/openapi` needs to be added in the classpath since they could be used in Camel Rest DSL. So you can add `src/main/openapi` in `pom.xml`
+
+[source,xml]
+----
+<build>
+    <resources>
+        <resource>
+            <directory>src/main/openapi</directory>
+        </resource>
+        <resource>
+            <directory>src/main/resources</directory>
+        </resource>
+    </resources>
+</build>
+----
+
+When running in the native mode, the contract files must be specified the `quarkus.native.resources.include` like
+
+[source,properties]
+----
+quarkus.native.resources.includes=contract.json
+----
+
+Please refer to https://camel.apache.org/manual/rest-dsl-openapi.html#_contract_first[Camel Rest DSL Contract First] for more details.
+
 
 [id="extensions-rest-openapi-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
