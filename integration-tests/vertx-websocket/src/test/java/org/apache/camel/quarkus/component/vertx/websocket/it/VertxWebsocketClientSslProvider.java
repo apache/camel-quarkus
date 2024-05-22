@@ -35,7 +35,8 @@ public class VertxWebsocketClientSslProvider implements WebsocketClientSslProvid
     private static final SSLContext SSL_CONTEXT;
 
     static {
-        try (InputStream stream = VertxWebsocketClientSslProvider.class.getResourceAsStream("/truststore.p12")) {
+        try (InputStream stream = VertxWebsocketClientSslProvider.class
+                .getResourceAsStream("/certs/vertx-websocket-truststore.p12")) {
             KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
             keystore.load(stream, "changeit".toCharArray());
 

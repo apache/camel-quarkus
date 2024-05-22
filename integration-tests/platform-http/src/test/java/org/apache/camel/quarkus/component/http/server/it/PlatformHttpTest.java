@@ -23,8 +23,11 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.http.Method;
+import me.escoffier.certs.Format;
+import me.escoffier.certs.junit5.Certificate;
 import org.apache.camel.component.platform.http.PlatformHttpComponent;
 import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpEngine;
+import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -35,12 +38,15 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
+@TestCertificates(certificates = {
+        @Certificate(name = "platform-http", formats = {
+                Format.PKCS12, Format.PEM }, password = "changeit") })
 @QuarkusTest
 class PlatformHttpTest {
 
     @BeforeAll
     public static void beforeAll() {
-        RestAssured.trustStore("truststore.p12", "s3cr3t");
+        RestAssured.trustStore("certs/platform-http-truststore.p12", "changeit");
     }
 
     @Test

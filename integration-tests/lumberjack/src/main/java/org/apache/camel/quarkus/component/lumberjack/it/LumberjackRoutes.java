@@ -83,7 +83,7 @@ public class LumberjackRoutes extends RouteBuilder {
         KeyManagersParameters keyManagersParameters = new KeyManagersParameters();
         KeyStoreParameters keyStore = new KeyStoreParameters();
         keyStore.setPassword("changeit");
-        keyStore.setResource("ssl/keystore.jks");
+        keyStore.setResource("certs/lumberjack-keystore.jks");
         keyManagersParameters.setKeyPassword("changeit");
         keyManagersParameters.setKeyStore(keyStore);
         sslContextParameters.setKeyManagers(keyManagersParameters);

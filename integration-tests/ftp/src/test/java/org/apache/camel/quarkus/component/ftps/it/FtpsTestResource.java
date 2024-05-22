@@ -16,12 +16,7 @@
  */
 package org.apache.camel.quarkus.component.ftps.it;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Map;
-import java.util.Objects;
 
 import org.apache.camel.quarkus.component.ftp.it.FtpTestResource;
 import org.apache.ftpserver.listener.ListenerFactory;
@@ -29,45 +24,27 @@ import org.apache.ftpserver.ssl.SslConfigurationFactory;
 
 public class FtpsTestResource extends FtpTestResource {
 
-    private Path keystoreFilePath;
-
     public FtpsTestResource() {
         super("ftps");
     }
 
     @Override
-    public Map<String, String> start() {
-        try (InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("keystore.p12")) {
-            Objects.requireNonNull(stream, "FTP keystore file keystore.p12 could not be loaded");
-            keystoreFilePath = Files.createTempFile("camel-ftps-keystore", "p12");
-            Files.write(keystoreFilePath, stream.readAllBytes());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return super.start();
-    }
-
-    @Override
     protected ListenerFactory createListenerFactory(int port) {
+        //do not create a factory if keystore file does not exists
+        //because the test is disabled, but the test resource is "activated", this condition prevents the failure
+        //for the FtpTest
+        if (!Path.of(FtpsTest.CERTIFICATE_KEYSTORE_FILE).toFile().exists()) {
+            return null;
+        }
+
         SslConfigurationFactory sslConfigFactory = new SslConfigurationFactory();
-        sslConfigFactory.setKeystoreFile(keystoreFilePath.toFile());
+        sslConfigFactory.setKeystoreFile(Path.of(FtpsTest.CERTIFICATE_KEYSTORE_FILE).toFile());
         sslConfigFactory.setKeystoreType("PKCS12");
         sslConfigFactory.setKeystorePassword("password");
-        sslConfigFactory.setKeyPassword("password");
         sslConfigFactory.setSslProtocol("TLSv1.3");
 
         ListenerFactory factory = super.createListenerFactory(port);
         factory.setSslConfiguration(sslConfigFactory.createSslConfiguration());
         return factory;
-    }
-
-    @Override
-    public void stop() {
-        super.stop();
-        try {
-            Files.deleteIfExists(keystoreFilePath);
-        } catch (IOException e) {
-            // Ignored
-        }
     }
 }

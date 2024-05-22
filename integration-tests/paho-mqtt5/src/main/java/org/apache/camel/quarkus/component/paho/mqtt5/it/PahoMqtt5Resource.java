@@ -68,8 +68,8 @@ public class PahoMqtt5Resource {
     @Inject
     ConsumerTemplate consumerTemplate;
 
-    private final String keystore = "clientkeystore.jks";
-    private final String password = "quarkus";
+    private final String keystore = "certs/paho-mqtt5-keystore.p12";
+    public final static String KEYSTORE_PASSWORD = "quarkus";
 
     @Path("/{protocol}/{queueName}")
     @GET
@@ -87,9 +87,9 @@ public class PahoMqtt5Resource {
                 sslClientProps = "&httpsHostnameVerificationEnabled=false" +
                         "&sslHostnameVerifier=#hostnameVerifier" +
                         "&sslClientProps.com.ibm.ssl.keyStore=" + tmpKeystore +
-                        "&sslClientProps.com.ibm.ssl.keyStorePassword=" + password +
+                        "&sslClientProps.com.ibm.ssl.keyStorePassword=" + KEYSTORE_PASSWORD +
                         "&sslClientProps.com.ibm.ssl.trustStore=" + tmpKeystore +
-                        "&sslClientProps.com.ibm.ssl.trustStorePassword=" + password;
+                        "&sslClientProps.com.ibm.ssl.trustStorePassword=" + KEYSTORE_PASSWORD;
             }
             result = consumerTemplate.receiveBody(
                     "paho-mqtt5:" + queueName + "?brokerUrl=" + brokerUrl(protocol) + sslClientProps, 5000,
@@ -118,9 +118,9 @@ public class PahoMqtt5Resource {
                 sslClientProps = "&httpsHostnameVerificationEnabled=false" +
                         "&sslHostnameVerifier=#hostnameVerifier" +
                         "&sslClientProps.com.ibm.ssl.keyStore=" + tmpKeystore +
-                        "&sslClientProps.com.ibm.ssl.keyStorePassword=" + password +
+                        "&sslClientProps.com.ibm.ssl.keyStorePassword=" + KEYSTORE_PASSWORD +
                         "&sslClientProps.com.ibm.ssl.trustStore=" + tmpKeystore +
-                        "&sslClientProps.com.ibm.ssl.trustStorePassword=" + password;
+                        "&sslClientProps.com.ibm.ssl.trustStorePassword=" + KEYSTORE_PASSWORD;
             }
             producerTemplate.sendBody(
                     "paho-mqtt5:" + queueName + "?retained=true&brokerUrl=" + brokerUrl(protocol) + sslClientProps, message);

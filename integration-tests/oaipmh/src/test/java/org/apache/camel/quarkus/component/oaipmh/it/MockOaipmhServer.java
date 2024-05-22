@@ -42,7 +42,7 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMoc
 public final class MockOaipmhServer {
 
     private static Map<String, String> responseCache;
-    private static final String PASSWORD = "changeit";
+    static final String PASSWORD = "changeit";
 
     private int httpPort;
     private int httpsPort;
@@ -91,7 +91,7 @@ public final class MockOaipmhServer {
         WireMockConfiguration config = wireMockConfig().extensions(transformer);
 
         config.httpsPort(httpsPort);
-        String keyStorePath = MockOaipmhServer.class.getResource("/jettyKS/localhost.p12").toExternalForm();
+        String keyStorePath = MockOaipmhServer.class.getResource("/certs/oaipmh-keystore.p12").toExternalForm();
         config.keystorePath(keyStorePath);
         config.keystorePassword(PASSWORD);
         config.keyManagerPassword(PASSWORD);

@@ -141,7 +141,7 @@ public class VertxWebsocketResource {
     @Named
     public SSLContextParameters clientSSLContextParameters() {
         KeyStoreParameters truststoreParameters = new KeyStoreParameters();
-        truststoreParameters.setResource("/truststore.p12");
+        truststoreParameters.setResource("/certs/vertx-websocket-truststore.p12");
         truststoreParameters.setPassword("changeit");
 
         TrustManagersParameters trustManagersParameters = new TrustManagersParameters();
