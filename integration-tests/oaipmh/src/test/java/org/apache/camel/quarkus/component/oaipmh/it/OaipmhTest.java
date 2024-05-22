@@ -20,6 +20,9 @@ import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
+import me.escoffier.certs.Format;
+import me.escoffier.certs.junit5.Certificate;
+import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.get;
@@ -27,6 +30,9 @@ import static io.restassured.RestAssured.given;
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.is;
 
+@TestCertificates(certificates = {
+        @Certificate(name = "oaipmh", formats = {
+                Format.PKCS12 }, password = MockOaipmhServer.PASSWORD) })
 @QuarkusTest
 @QuarkusTestResource(OaipmhTestResource.class)
 class OaipmhTest {

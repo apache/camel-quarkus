@@ -23,11 +23,17 @@ import io.quarkus.test.common.http.TestHTTPResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
+import me.escoffier.certs.Format;
+import me.escoffier.certs.junit5.Certificate;
+import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@TestCertificates(certificates = {
+        @Certificate(name = "vertx-websocket", formats = {
+                Format.PKCS12, Format.PEM }, password = "changeit") })
 @TestProfile(VertxWebsocketSslTestProfile.class)
 @QuarkusTest
 public class VertxWebsocketSslTest {
@@ -36,7 +42,7 @@ public class VertxWebsocketSslTest {
 
     @BeforeAll
     public static void beforeAll() {
-        RestAssured.trustStore("truststore.p12", "changeit");
+        RestAssured.trustStore("certs/vertx-websocket-truststore.p12", "changeit");
     }
 
     @Test

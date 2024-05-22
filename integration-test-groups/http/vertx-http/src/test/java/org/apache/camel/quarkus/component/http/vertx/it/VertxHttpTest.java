@@ -19,13 +19,19 @@ package org.apache.camel.quarkus.component.http.vertx.it;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import me.escoffier.certs.Format;
+import me.escoffier.certs.junit5.Certificate;
 import org.apache.camel.quarkus.component.http.common.AbstractHttpTest;
 import org.apache.camel.quarkus.component.http.common.HttpTestResource;
+import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
+@TestCertificates(certificates = {
+        @Certificate(name = HttpTestResource.KEYSTORE_NAME, formats = {
+                Format.PKCS12 }, password = HttpTestResource.KEYSTORE_PASSWORD) })
 @QuarkusTest
 @QuarkusTestResource(HttpTestResource.class)
 public class VertxHttpTest extends AbstractHttpTest {

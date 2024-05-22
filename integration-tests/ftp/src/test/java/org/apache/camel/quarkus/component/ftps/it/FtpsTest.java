@@ -20,15 +20,24 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import me.escoffier.certs.Format;
+import me.escoffier.certs.junit5.Certificate;
+import org.apache.camel.quarkus.test.support.certificate.CertificatesUtil;
+import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 
+@TestCertificates(certificates = {
+        @Certificate(name = "ftp", formats = {
+                Format.PKCS12 }, password = "password") })
 @Disabled //https://github.com/apache/camel-quarkus/issues/4089
 @QuarkusTest
 @QuarkusTestResource(FtpsTestResource.class)
 class FtpsTest {
+    static final String CERTIFICATE_KEYSTORE_FILE = CertificatesUtil.keystoreFile("ftp", "p12");
+
     @Test
     public void testFtpsComponent() {
         // Create a new file on the FTPS server

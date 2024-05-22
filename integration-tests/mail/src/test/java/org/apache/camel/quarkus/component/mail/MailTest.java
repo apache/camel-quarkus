@@ -35,8 +35,12 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import jakarta.json.bind.JsonbBuilder;
+import me.escoffier.certs.Format;
+import me.escoffier.certs.junit5.Certificate;
 import org.apache.camel.ExchangePropertyKey;
 import org.apache.camel.ServiceStatus;
+import org.apache.camel.quarkus.test.support.certificate.CertificatesUtil;
+import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.eclipse.angus.mail.util.MailConnectException;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -53,9 +57,14 @@ import static org.apache.camel.quarkus.component.mail.CamelRoute.PASSWORD;
 import static org.apache.camel.quarkus.component.mail.CamelRoute.USERNAME;
 import static org.hamcrest.Matchers.is;
 
+@TestCertificates(certificates = {
+        @Certificate(name = "greenmail", formats = {
+                Format.PKCS12 }, password = MailTestResource.KEYSTORE_PASSWORD)
+}, docker = true)
 @QuarkusTest
 @QuarkusTestResource(MailTestResource.class)
 public class MailTest {
+    static final String GREENMAIL_CERTIFICATE_STORE_FILE = CertificatesUtil.keystoreFile("greenmail", "p12");
     private static final Pattern DELIMITER_PATTERN = Pattern.compile("\r\n[^\r\n]+");
     private static final String EXPECTED_TEMPLATE = "${delimiter}\r\n"
             + "Content-Type: text/plain; charset=UTF8; other-parameter=true\r\n"

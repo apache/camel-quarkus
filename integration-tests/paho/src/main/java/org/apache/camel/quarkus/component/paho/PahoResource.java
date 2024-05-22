@@ -57,8 +57,8 @@ public class PahoResource {
     @Inject
     ConsumerTemplate consumerTemplate;
 
-    private static final String KEYSTORE_FILE = "clientkeystore.jks";
-    private static final String KEYSTORE_PASSWORD = "quarkus";
+    private static final String KEYSTORE_FILE = "certs/paho-keystore.p12";
+    public static final String KEYSTORE_PASSWORD = "quarkus";
 
     @Path("/{protocol}/{queueName}")
     @GET
@@ -176,7 +176,7 @@ public class PahoResource {
     private java.nio.file.Path copyKeyStore() {
         java.nio.file.Path tmpKeystore = null;
         try (InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(KEYSTORE_FILE);) {
-            tmpKeystore = Files.createTempFile("keystore-", ".jks");
+            tmpKeystore = Files.createTempFile("keystore-", ".p12");
             Files.copy(in, tmpKeystore, StandardCopyOption.REPLACE_EXISTING);
             return tmpKeystore;
         } catch (Exception e) {

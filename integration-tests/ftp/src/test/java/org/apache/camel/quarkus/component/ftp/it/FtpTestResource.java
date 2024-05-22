@@ -90,15 +90,18 @@ public class FtpTestResource implements QuarkusTestResourceLifecycleManager {
 
             ListenerFactory factory = createListenerFactory(port);
 
-            FtpServerFactory serverFactory = new FtpServerFactory();
-            serverFactory.setUserManager(userMgr);
-            serverFactory.setFileSystem(fsf);
-            serverFactory.setConnectionConfig(new ConnectionConfigFactory().createConnectionConfig());
-            serverFactory.addListener("default", factory.createListener());
+            if (factory != null) {
+                FtpServerFactory serverFactory = new FtpServerFactory();
+                serverFactory.setUserManager(userMgr);
+                serverFactory.setFileSystem(fsf);
+                serverFactory.setConnectionConfig(new ConnectionConfigFactory().createConnectionConfig());
 
-            FtpServerFactory ftpServerFactory = serverFactory;
-            ftpServer = ftpServerFactory.createServer();
-            ftpServer.start();
+                serverFactory.addListener("default", factory.createListener());
+
+                FtpServerFactory ftpServerFactory = serverFactory;
+                ftpServer = ftpServerFactory.createServer();
+                ftpServer.start();
+            }
 
             return CollectionHelper.mapOf(
                     "camel." + componentName + ".test-port", Integer.toString(port),

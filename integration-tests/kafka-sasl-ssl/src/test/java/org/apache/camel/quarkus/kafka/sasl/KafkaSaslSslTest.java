@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestCertificates(certificates = {
         @Certificate(name = KafkaSaslSslTestResource.KAFKA_HOSTNAME, formats = {
                 Format.PKCS12 }, password = KafkaSaslSslTestResource.KAFKA_KEYSTORE_PASSWORD)
-}, baseDir = KafkaSaslSslTestResource.CERTS_BASEDIR)
+}, baseDir = KafkaSaslSslTestResource.CERTS_BASEDIR, docker = true)
 @QuarkusTest
 @QuarkusTestResource(KafkaSaslSslTestResource.class)
 public class KafkaSaslSslTest {

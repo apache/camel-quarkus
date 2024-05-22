@@ -20,10 +20,18 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import me.escoffier.certs.Format;
+import me.escoffier.certs.junit5.Certificate;
+import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 
+@TestCertificates(certificates = {
+        @Certificate(name = "ftp", formats = {
+                Format.PEM }, password = "password"),
+        @Certificate(name = "ftp", formats = {
+                Format.PKCS12 }, password = "password") })
 @QuarkusTest
 @QuarkusTestResource(SftpTestResource.class)
 class SftpTest {

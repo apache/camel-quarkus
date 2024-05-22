@@ -14,19 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.vertx.websocket.it;
+package org.apache.camel.quarkus.test.support.certificate;
 
-import java.util.Map;
+public class CertificatesUtil {
+    public static final String DEFAULT_CERTS_BASEDIR = "target/classes/certs";
 
-import io.quarkus.test.junit.QuarkusTestProfile;
+    private CertificatesUtil() {
+    }
 
-public class VertxWebsocketSslTestProfile implements QuarkusTestProfile {
-
-    @Override
-    public Map<String, String> getConfigOverrides() {
-        return Map.of(
-                "quarkus.http.ssl.certificate.files", "certs/vertx-websocket.crt",
-                "quarkus.http.ssl.certificate.key-files", "certs/vertx-websocket.key",
-                "quarkus.http.insecure-requests", "disabled");
+    public static String keystoreFile(String name, String extension) {
+        return DEFAULT_CERTS_BASEDIR + "/" + name + "-keystore." + extension;
     }
 }

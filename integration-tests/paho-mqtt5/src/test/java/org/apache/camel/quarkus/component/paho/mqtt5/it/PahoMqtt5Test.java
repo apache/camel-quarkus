@@ -20,12 +20,19 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import me.escoffier.certs.Format;
+import me.escoffier.certs.junit5.Certificate;
+import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.core.Is.is;
 
+@TestCertificates(certificates = {
+        @Certificate(name = "paho-mqtt5", formats = {
+                Format.PKCS12, Format.PEM }, password = PahoMqtt5Resource.KEYSTORE_PASSWORD)
+}, docker = true)
 @QuarkusTest
 @QuarkusTestResource(PahoMqtt5TestResource.class)
 class PahoMqtt5Test {

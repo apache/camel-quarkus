@@ -50,7 +50,7 @@ public class PlatformHttpSSLTestResource extends WireMockTestResourceLifecycleMa
         // add an SSL port
         config.dynamicHttpsPort();
         // Either a path to a file or a resource on the classpath
-        config.keystorePath("ssl/keystore.p12");
+        config.keystorePath("certs/proxy-ssl-keystore.p12");
         // The password used to access the keystore. Defaults to "password" if omitted
         config.keystorePassword("changeit");
         // The password used to access individual keys in the keystore. Defaults to "password" if omitted
