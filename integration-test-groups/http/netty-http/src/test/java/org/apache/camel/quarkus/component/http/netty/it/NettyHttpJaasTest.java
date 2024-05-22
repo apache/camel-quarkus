@@ -19,10 +19,17 @@ package org.apache.camel.quarkus.component.http.netty.it;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import me.escoffier.certs.Format;
+import me.escoffier.certs.junit5.Certificate;
+import org.apache.camel.quarkus.component.http.common.HttpTestResource;
+import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+@TestCertificates(certificates = {
+        @Certificate(name = HttpTestResource.KEYSTORE_NAME, formats = {
+                Format.PKCS12 }, password = HttpTestResource.KEYSTORE_PASSWORD) })
 @QuarkusTest
 @QuarkusTestResource(NettyHttpJaasTestResource.class)
 public class NettyHttpJaasTest {

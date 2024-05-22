@@ -1,7 +1,0 @@
-== Certificate for HTTPS
-
-Server keystore has to contain server certificate.
-
-=== How to generate new keystore and truststore
-
-Delete folder `common/src/main/resources/jsse` and run the script `common/generate-certs.sh` to generate new keystore and truststore.

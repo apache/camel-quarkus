@@ -226,7 +226,6 @@
         <couchbase.container.image>docker.io/couchbase/server:7.2.0</couchbase.container.image>
         <couchdb.container.image>docker.io/couchdb:2.3.1</couchdb.container.image>
         <eclipse-mosquitto.container.image>docker.io/eclipse-mosquitto:2.0.18</eclipse-mosquitto.container.image>
-        <eclipse-temurin.container.image>eclipse-temurin:17-jdk</eclipse-temurin.container.image>
         <elasticsearch.container.image>docker.io/elasticsearch:8.8.1</elasticsearch.container.image>
         <fhir.container.image.base>docker.io/hapiproject/hapi</fhir.container.image.base>
         <fhir.container.image>${fhir.container.image.base}:v6.8.3</fhir.container.image>

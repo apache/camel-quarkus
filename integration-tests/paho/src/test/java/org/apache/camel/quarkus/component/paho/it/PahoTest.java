@@ -20,6 +20,10 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import me.escoffier.certs.Format;
+import me.escoffier.certs.junit5.Certificate;
+import org.apache.camel.quarkus.component.paho.PahoResource;
+import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -27,6 +31,10 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.StringRegularExpression.matchesRegex;
 
+@TestCertificates(certificates = {
+        @Certificate(name = "paho", formats = {
+                Format.PKCS12, Format.PEM }, password = PahoResource.KEYSTORE_PASSWORD)
+}, docker = true)
 @QuarkusTest
 @QuarkusTestResource(PahoTestResource.class)
 class PahoTest {

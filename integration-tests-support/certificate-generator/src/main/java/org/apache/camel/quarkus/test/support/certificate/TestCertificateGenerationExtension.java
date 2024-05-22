@@ -43,7 +43,7 @@ import org.testcontainers.DockerClientFactory;
  * based on docker host (required for usage with external docker host)
  * Therefore I created a new annotation 'TestCertificates' which would use this new extension.
  */
-public class TestCertificateGenerationExtension implements BeforeAllCallback, ParameterResolver {
+public class TestCertificateGenerationExtension implements BeforeAllCallback {
     private static final Logger LOGGER = Logger.getLogger(TestCertificateGenerationExtension.class);
 
     public static TestCertificateGenerationExtension getInstance(ExtensionContext extensionContext) {
@@ -65,8 +65,12 @@ public class TestCertificateGenerationExtension implements BeforeAllCallback, Pa
         var annotation = maybe.get();
 
         //cn and alternativeSubjectName might be different (to reflect docker host)
-        Optional<String> cn = resolveDockerHost();
-        Optional<String> altSubName = cn.stream().map(h -> "IP:%s".formatted(h)).findAny();
+        Optional<String> cn = Optional.empty();
+        Optional<String> altSubName = Optional.empty();
+        if (annotation.docker()) {
+            cn = resolveDockerHost();
+            altSubName = cn.stream().map(h -> "IP:%s".formatted(h)).findAny();
+        }
 
         for (Certificate certificate : annotation.certificates()) {
             String baseDir = annotation.baseDir();
@@ -113,15 +117,4 @@ public class TestCertificateGenerationExtension implements BeforeAllCallback, Pa
         return Optional.empty();
     }
 
-    @Override
-    public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
-            throws ParameterResolutionException {
-        throw new IllegalArgumentException("Not supported!");
-    }
-
-    @Override
-    public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
-            throws ParameterResolutionException {
-        throw new IllegalArgumentException("Not supported!");
-    }
 }

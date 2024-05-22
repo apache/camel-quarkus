@@ -21,10 +21,16 @@ import java.io.IOException;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import me.escoffier.certs.Format;
+import me.escoffier.certs.junit5.Certificate;
+import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 
+@TestCertificates(certificates = {
+        @Certificate(name = "netty", formats = {
+                Format.PKCS12 }, password = "changeit") })
 @QuarkusTest
 @QuarkusTestResource(NettyUdpTestResource.class)
 class NettyUdpTest {

@@ -41,6 +41,10 @@ import static org.apache.camel.quarkus.component.http.common.AbstractHttpResourc
 
 public class HttpTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOG = Logger.getLogger(HttpTestResource.class);
+
+    public static final String KEYSTORE_NAME = "localhost";
+    public static final String KEYSTORE_PASSWORD = "localhost-keystore-password";
+
     private ProxyServer server;
 
     @Override
