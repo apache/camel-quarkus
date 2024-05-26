@@ -126,8 +126,6 @@ When running in the native mode, the contract files must be specified the `quark
 quarkus.native.resources.includes=contract.json
 ----
 
-Please refer to https://camel.apache.org/manual/rest-dsl-openapi.html#_contract_first[Camel Rest DSL Contract First] for more details.
-
 
 [id="extensions-rest-openapi-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
