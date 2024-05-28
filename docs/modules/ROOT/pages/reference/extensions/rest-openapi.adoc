@@ -127,6 +127,7 @@ quarkus.native.resources.includes=contract.json
 ----
 
 
+
 [id="extensions-rest-openapi-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 
