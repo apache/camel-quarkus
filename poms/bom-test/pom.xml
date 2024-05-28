@@ -73,8 +73,7 @@
             <dependency>
                 <groupId>dev.langchain4j</groupId>
                 <artifactId>langchain4j-ollama</artifactId>
-                <!-- TODO: Figure out why using a version property seems to make the build fail -->
-                <version>0.30.0</version>
+                <version>${langchain4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.quarkiverse.micrometer.registry</groupId>
