@@ -6315,7 +6315,7 @@
       <dependency>
         <groupId>com.azure</groupId>
         <artifactId>azure-core-http-vertx</artifactId>
-        <version>1.0.0-beta.3</version>
+        <version>1.0.0-beta.18</version>
       </dependency>
       <dependency>
         <groupId>com.esotericsoftware.kryo</groupId>
