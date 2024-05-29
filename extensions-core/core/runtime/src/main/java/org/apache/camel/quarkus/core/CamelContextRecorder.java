@@ -24,6 +24,7 @@ import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.catalog.RuntimeCamelCatalog;
+import org.apache.camel.impl.debugger.BacklogTracer;
 import org.apache.camel.impl.engine.DefaultVariableRepositoryFactory;
 import org.apache.camel.spi.CamelContextCustomizer;
 import org.apache.camel.spi.ComponentNameResolver;
@@ -106,5 +107,35 @@ public class CamelContextRecorder {
         camelContext.getValue()
                 .getManagementStrategy()
                 .addEventNotifier(new CamelManagementEventBridge(observedManagementEvents));
+    }
+
+    public RuntimeValue<CamelContextCustomizer> createBacklogTracerCustomizer(CamelConfig config) {
+        return new RuntimeValue<>(context -> {
+            // must enable source location so tracer tooling knows to map breakpoints to source code
+            context.setSourceLocationEnabled(true);
+
+            // enable tracer on camel
+            context.setBacklogTracing(config.trace.enabled);
+            context.setBacklogTracingStandby(config.trace.standby);
+            context.setBacklogTracingTemplates(config.trace.traceTemplates);
+
+            BacklogTracer tracer = BacklogTracer.createTracer(context);
+            tracer.setEnabled(config.trace.enabled);
+            tracer.setStandby(config.trace.standby);
+            tracer.setBacklogSize(config.trace.backlogSize);
+            tracer.setRemoveOnDump(config.trace.removeOnDump);
+            tracer.setBodyMaxChars(config.trace.bodyMaxChars);
+            tracer.setBodyIncludeStreams(config.trace.bodyIncludeStreams);
+            tracer.setBodyIncludeFiles(config.trace.bodyIncludeFiles);
+            tracer.setIncludeExchangeProperties(config.trace.includeExchangeProperties);
+            tracer.setIncludeExchangeVariables(config.trace.includeExchangeVariables);
+            tracer.setIncludeException(config.trace.includeException);
+            tracer.setTraceRests(config.trace.traceRests);
+            tracer.setTraceTemplates(config.trace.traceTemplates);
+            tracer.setTracePattern(config.trace.tracePattern.orElse(null));
+            tracer.setTraceFilter(config.trace.traceFilter.orElse(null));
+
+            context.getCamelContextExtension().addContextPlugin(BacklogTracer.class, tracer);
+        });
     }
 }

@@ -80,10 +80,16 @@ public class CamelConfig {
     public EventBridgeConfig eventBridge;
 
     /**
-     * Build time configuration options for enable/disable camel source location
+     * Build time configuration options for enable/disable camel source location.
      */
     @ConfigItem(defaultValue = "false")
     public boolean sourceLocationEnabled;
+
+    /**
+     * Build time configuration options for the Camel tracing.
+     */
+    @ConfigItem
+    public TraceConfig trace;
 
     @ConfigGroup
     public static class BootstrapConfig {
@@ -405,5 +411,97 @@ public class CamelConfig {
          */
         @ConfigItem(defaultValue = "true")
         public boolean enabled;
+    }
+
+    @ConfigGroup
+    public static class TraceConfig {
+
+        /**
+         * Enables tracer in your Camel application.
+         */
+        @ConfigItem(defaultValue = "false")
+        public boolean enabled;
+
+        /**
+         * To set the tracer in standby mode, where the tracer will be installed, but not automatically enabled. The tracer can
+         * then be enabled explicitly later from Java, JMX or tooling.
+         */
+        @ConfigItem(defaultValue = "false")
+        public boolean standby;
+
+        /**
+         * Defines how many of the last messages to keep in the tracer.
+         */
+        @ConfigItem(defaultValue = "1000")
+        public int backlogSize;
+
+        /**
+         * Whether all traced messages should be removed when the tracer is dumping. By default, the messages are removed,
+         * which means that dumping will not contain previous dumped messages.
+         */
+        @ConfigItem(defaultValue = "true")
+        public boolean removeOnDump;
+
+        /**
+         * To limit the message body to a maximum size in the traced message. Use 0 or negative value to use unlimited size.
+         */
+        @ConfigItem(defaultValue = "131072")
+        public int bodyMaxChars;
+
+        /**
+         * Whether to include the message body of stream based messages. If enabled then beware the stream may not be
+         * re-readable later. See more about Stream Caching.
+         */
+        @ConfigItem(defaultValue = "false")
+        public boolean bodyIncludeStreams;
+
+        /**
+         * Whether to include the message body of file based messages. The overhead is that the file content has to be read
+         * from the file.
+         */
+        @ConfigItem(defaultValue = "true")
+        public boolean bodyIncludeFiles;
+
+        /**
+         * Whether to include the exchange properties in the traced message.
+         */
+        @ConfigItem(defaultValue = "true")
+        public boolean includeExchangeProperties;
+
+        /**
+         * Whether to include the exchange variables in the traced message.
+         */
+        @ConfigItem(defaultValue = "true")
+        public boolean includeExchangeVariables;
+
+        /**
+         * Whether to include the exception in the traced message in case of failed exchange.
+         */
+        @ConfigItem(defaultValue = "true")
+        public boolean includeException;
+
+        /**
+         * Whether to trace routes that is created from Rest DSL.
+         */
+        @ConfigItem(defaultValue = "false")
+        public boolean traceRests;
+
+        /**
+         * Whether to trace routes that is created from route templates or kamelets.
+         */
+        @ConfigItem(defaultValue = "false")
+        public boolean traceTemplates;
+
+        /**
+         * Filter for tracing by route or node id.
+         */
+        @ConfigItem
+        public Optional<String> tracePattern;
+
+        /**
+         * Filter for tracing messages.
+         */
+        @ConfigItem
+        public Optional<String> traceFilter;
     }
 }

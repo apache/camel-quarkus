@@ -307,9 +307,93 @@ Note that this configuration item only has any effect when observers configured 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.source-location-enabled]]`link:#quarkus.camel.source-location-enabled[quarkus.camel.source-location-enabled]`
 
-Build time configuration options for enable/disable camel source location
+Build time configuration options for enable/disable camel source location.
 | `boolean`
 | `false`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.trace.enabled]]`link:#quarkus.camel.trace.enabled[quarkus.camel.trace.enabled]`
+
+Enables tracer in your Camel application.
+| `boolean`
+| `false`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.trace.standby]]`link:#quarkus.camel.trace.standby[quarkus.camel.trace.standby]`
+
+To set the tracer in standby mode, where the tracer will be installed, but not automatically enabled. The tracer can then be enabled explicitly later from Java, JMX or tooling.
+| `boolean`
+| `false`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.trace.backlog-size]]`link:#quarkus.camel.trace.backlog-size[quarkus.camel.trace.backlog-size]`
+
+Defines how many of the last messages to keep in the tracer.
+| `int`
+| `1000`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.trace.remove-on-dump]]`link:#quarkus.camel.trace.remove-on-dump[quarkus.camel.trace.remove-on-dump]`
+
+Whether all traced messages should be removed when the tracer is dumping. By default, the messages are removed, which means that dumping will not contain previous dumped messages.
+| `boolean`
+| `true`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.trace.body-max-chars]]`link:#quarkus.camel.trace.body-max-chars[quarkus.camel.trace.body-max-chars]`
+
+To limit the message body to a maximum size in the traced message. Use 0 or negative value to use unlimited size.
+| `int`
+| `131072`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.trace.body-include-streams]]`link:#quarkus.camel.trace.body-include-streams[quarkus.camel.trace.body-include-streams]`
+
+Whether to include the message body of stream based messages. If enabled then beware the stream may not be re-readable later. See more about Stream Caching.
+| `boolean`
+| `false`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.trace.body-include-files]]`link:#quarkus.camel.trace.body-include-files[quarkus.camel.trace.body-include-files]`
+
+Whether to include the message body of file based messages. The overhead is that the file content has to be read from the file.
+| `boolean`
+| `true`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.trace.include-exchange-properties]]`link:#quarkus.camel.trace.include-exchange-properties[quarkus.camel.trace.include-exchange-properties]`
+
+Whether to include the exchange properties in the traced message.
+| `boolean`
+| `true`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.trace.include-exchange-variables]]`link:#quarkus.camel.trace.include-exchange-variables[quarkus.camel.trace.include-exchange-variables]`
+
+Whether to include the exchange variables in the traced message.
+| `boolean`
+| `true`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.trace.include-exception]]`link:#quarkus.camel.trace.include-exception[quarkus.camel.trace.include-exception]`
+
+Whether to include the exception in the traced message in case of failed exchange.
+| `boolean`
+| `true`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.trace.trace-rests]]`link:#quarkus.camel.trace.trace-rests[quarkus.camel.trace.trace-rests]`
+
+Whether to trace routes that is created from Rest DSL.
+| `boolean`
+| `false`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.trace.trace-templates]]`link:#quarkus.camel.trace.trace-templates[quarkus.camel.trace.trace-templates]`
+
+Whether to trace routes that is created from route templates or kamelets.
+| `boolean`
+| `false`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.trace.trace-pattern]]`link:#quarkus.camel.trace.trace-pattern[quarkus.camel.trace.trace-pattern]`
+
+Filter for tracing by route or node id.
+| `string`
+| 
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.trace.trace-filter]]`link:#quarkus.camel.trace.trace-filter[quarkus.camel.trace.trace-filter]`
+
+Filter for tracing messages.
+| `string`
+| 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.main.shutdown.timeout]]`link:#quarkus.camel.main.shutdown.timeout[quarkus.camel.main.shutdown.timeout]`
 
