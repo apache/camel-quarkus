@@ -69,7 +69,6 @@
         <!-- Items annotated with @sync can be updated by running mvn cq:sync-versions -N -e -->
         <ahc.version>2.12.3</ahc.version><!-- @sync com.cloudbees.thirdparty:zendesk-java-client:${zendesk-client-version} dep:org.asynchttpclient:async-http-client -->
         <angus-mail.version>${angus-mail-version}</angus-mail.version>
-        <animal-sniffer.version>1.18</animal-sniffer.version>
         <antlr3.version>3.5.2</antlr3.version><!-- Spark, Stringtemplate and probably others -->
         <audience-annotations.version>${yetus-audience-annotations-version}</audience-annotations.version>
         <avro.version>1.11.3</avro.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.avro:avro -->
@@ -114,7 +113,6 @@
         <icu4j.version>${icu4j-version}</icu4j.version>
         <immutables.version>2.9.3</immutables.version>
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
-        <jackson.version>2.17.1</jackson.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.fasterxml.jackson.core:jackson-core -->
         <jakarta.jms-api.version>${jakarta-jms-api-version}</jakarta.jms-api.version>
         <java-json-tools.json-patch.version>${json-patch-version}</java-json-tools.json-patch.version><!-- A replacement for com.github.fge:json-patch -->
         <jodatime.version>${jodatime2-version}</jodatime.version><!-- Mess in transitive dependencies of Splunk -->
@@ -145,7 +143,6 @@
         <okio.version>3.6.0</okio.version><!-- @sync com.squareup.okhttp3:okhttp:${okhttp.version} dep:com.squareup.okio:okio-->
         <opencensus.version>0.31.0</opencensus.version><!-- Mess in Google cloud. Keep in sync with version used in com.google.http-client:google-http-client -->
         <perfmark-api.version>0.26.0</perfmark-api.version><!-- @sync io.grpc:grpc-netty-shaded:${grpc.version} dep:io.perfmark:perfmark-api -->
-        <protobuf.version>3.25.0</protobuf.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.google.protobuf:protobuf-java -->
         <reactor-core.version>3.4.36</reactor-core.version><!-- @sync com.azure:azure-core:${azure-core.version} dep:io.projectreactor:reactor-core -->
         <reactor-netty.version>${reactor-netty-version}</reactor-netty.version>
         <retrofit.version>2.9.0</retrofit.version><!-- @sync org.influxdb:influxdb-java:${influxdb.version} dep:com.squareup.retrofit2:retrofit -->
@@ -162,7 +159,6 @@
         <threetenbp.version>1.6.0</threetenbp.version>
         <xalan.version>2.7.2</xalan.version><!-- Xalan should be removed as is in Camel, but it is not possible. https://github.com/apache/camel-quarkus/issues/4065-->
         <xchange.version>${xchange-version}</xchange.version>
-        <xerces.version>${xerces-version}</xerces.version>
         <xmlgraphics-commons.version>2.9</xmlgraphics-commons.version><!-- @sync org.apache.xmlgraphics:fop-parent:${fop-version} prop:xmlgraphics.commons.version -->
         <web3j.version>${web3j-version}</web3j.version>
         <web3j.quorum.version>${web3j-quorum-version}</web3j.quorum.version>
@@ -198,7 +194,6 @@
         <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
         <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-        <maven-dependency-plugin.version>3.5.0</maven-dependency-plugin.version>
         <maven-deploy-plugin.version>3.1.1</maven-deploy-plugin.version>
         <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
         <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
