@@ -69,7 +69,7 @@ runs:
                     const details = `<details><summary>View</summary>\n<pre>${failure[0].inner}</pre></details>`;
 
                     let testName = "";
-                    if (testCase.name !== undefined && testCase.name.trim().length > 0) {
+                    if ((typeof testCase.name === 'string' || testCase.name instanceof String) && (testCase.name.trim().length > 0)) {
                       testName = `<code>${testCase.name}</code>`;
                       if (testCase.name.trim().length > 25) {
                         testName = `<details><summary>View</summary>\n<code>${testCase.name}</code></details>`;
