@@ -17,7 +17,9 @@
 package org.apache.camel.quarkus.component.jdbc.mysql;
 
 import com.mysql.cj.protocol.a.authentication.Sha256PasswordPlugin;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 
+@RegisterForReflection
 public class Sha256FIPSPasswordPlugin extends Sha256PasswordPlugin {
 
     public Sha256FIPSPasswordPlugin() {
