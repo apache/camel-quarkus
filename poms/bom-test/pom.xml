@@ -71,9 +71,9 @@
             </dependency>
 
             <dependency>
-                <groupId>dev.langchain4j</groupId>
-                <artifactId>langchain4j-ollama</artifactId>
-                <version>${langchain4j.version}</version>
+                <groupId>io.quarkiverse.langchain4j</groupId>
+                <artifactId>quarkus-langchain4j-ollama</artifactId>
+                <version>${quarkiverse-langchain4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.quarkiverse.micrometer.registry</groupId>

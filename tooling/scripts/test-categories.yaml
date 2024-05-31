@@ -134,6 +134,7 @@ group-08:
   - azure-grouped
   - crypto
   - jq
+  - langchain4j-chat
   - master
   - master-file
   - master-openshift

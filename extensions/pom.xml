@@ -165,6 +165,7 @@
         <module>kubernetes</module>
         <module>kubernetes-cluster-service</module>
         <module>kudu</module>
+        <module>langchain4j-chat</module>
         <module>language</module>
         <module>ldap</module>
         <module>leveldb</module>
