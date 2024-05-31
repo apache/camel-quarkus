@@ -1,9 +1,7 @@
-query BookById($id: ID) {
+query BookById($id: Int!) {
   bookById(id: $id) {
     id
     name
-    author {
-      name
-    }
+    author
   }
 }

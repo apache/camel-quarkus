@@ -14,47 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.graphql.it.model;
+package org.apache.camel.quarkus.component.graphql.it;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
+import java.util.Map;
 
-@RegisterForReflection
-public class Book {
-    private int id;
-    private String name;
-    private String author;
+import io.quarkus.test.junit.QuarkusTestProfile;
 
-    public Book() {
-
-    }
-
-    public Book(int id, String name, String author) {
-        this.id = id;
-        this.name = name;
-        this.author = author;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
+/**
+ * Custom test profile to enable basic authentication on the GraphQL server endpoint
+ */
+public class GraphQLAuthenticationTestProfile implements QuarkusTestProfile {
+    @Override
+    public Map<String, String> getConfigOverrides() {
+        return Map.of(
+                "quarkus.security.users.embedded.users.camel", "p4ssw0rd",
+                "quarkus.security.users.embedded.roles.camel", "Admin",
+                "quarkus.http.auth.permission.default.policy", "authenticated",
+                "quarkus.http.auth.permission.default.paths", "/graphql");
     }
 }
