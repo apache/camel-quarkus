@@ -52,10 +52,6 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit4-mock</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-integration-test-support</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
