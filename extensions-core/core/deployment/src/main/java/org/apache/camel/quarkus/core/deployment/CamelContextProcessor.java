@@ -179,6 +179,21 @@ public class CamelContextProcessor {
         }
     }
 
+    /**
+     * Enable camel tracer if quarkus.camel.trace.enabled=true
+     *
+     * @param recorder the recorder
+     * @param producer producer of context customizer build item
+     */
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep(onlyIf = TraceEnabled.class)
+    public void enableCamelTrace(
+            CamelConfig config,
+            CamelContextRecorder recorder,
+            BuildProducer<CamelContextCustomizerBuildItem> producer) {
+        producer.produce(new CamelContextCustomizerBuildItem(recorder.createBacklogTracerCustomizer(config)));
+    }
+
     public static final class EventBridgeEnabled implements BooleanSupplier {
         CamelConfig config;
 
@@ -194,6 +209,15 @@ public class CamelContextProcessor {
         @Override
         public boolean getAsBoolean() {
             return config.sourceLocationEnabled;
+        }
+    }
+
+    public static final class TraceEnabled implements BooleanSupplier {
+        CamelConfig config;
+
+        @Override
+        public boolean getAsBoolean() {
+            return config.trace.enabled || config.trace.standby;
         }
     }
 }
