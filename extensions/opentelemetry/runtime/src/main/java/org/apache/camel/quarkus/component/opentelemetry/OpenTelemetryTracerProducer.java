@@ -23,6 +23,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.apache.camel.opentelemetry.CamelQuarkusOpenTelemetryTracer;
 import org.apache.camel.opentelemetry.OpenTelemetryTracer;
+import org.apache.camel.opentelemetry.OpenTelemetryTracingStrategy;
 
 @Singleton
 public class OpenTelemetryTracerProducer {
@@ -43,6 +44,13 @@ public class OpenTelemetryTracerProducer {
             if (config.excludePatterns.isPresent()) {
                 openTelemetryTracer.setExcludePatterns(config.excludePatterns.get());
             }
+
+            if (config.traceProcessors) {
+                OpenTelemetryTracingStrategy tracingStrategy = new OpenTelemetryTracingStrategy(openTelemetryTracer);
+                tracingStrategy.setPropagateContext(true);
+                openTelemetryTracer.setTracingStrategy(tracingStrategy);
+            }
+
             openTelemetryTracer.setEncoding(config.encoding);
         }
         return openTelemetryTracer;

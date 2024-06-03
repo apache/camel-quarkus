@@ -22,7 +22,7 @@ import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
 
-@ConfigRoot(name = "camel.opentelemetry", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+@ConfigRoot(name = "camel.opentelemetry", phase = ConfigPhase.RUN_TIME)
 public final class CamelOpenTelemetryConfig {
 
     /**
@@ -34,7 +34,7 @@ public final class CamelOpenTelemetryConfig {
     public boolean encoding;
 
     /**
-     * Sets whether to disable tracing for endpoint URIs that match the given
+     * Sets whether to disable tracing for endpoint URIs or Processor ids that match the given
      * comma separated patterns. The pattern can take the following
      * forms:
      * <p>
@@ -49,4 +49,11 @@ public final class CamelOpenTelemetryConfig {
      */
     @ConfigItem
     public Optional<String> excludePatterns;
+
+    /**
+     * Sets whether to create new OpenTelemetry spans for each Camel Processor. Use the excludePatterns
+     * property to filter out Processors.
+     */
+    @ConfigItem(defaultValue = "false")
+    public boolean traceProcessors;
 }
