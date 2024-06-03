@@ -120,15 +120,15 @@ There is more information about CDI instrumentation in the https://quarkus.io/gu
 | Configuration property | Type | Default
 
 
-|icon:lock[title=Fixed at build time] [[quarkus.camel.opentelemetry.encoding]]`link:#quarkus.camel.opentelemetry.encoding[quarkus.camel.opentelemetry.encoding]`
+| [[quarkus.camel.opentelemetry.encoding]]`link:#quarkus.camel.opentelemetry.encoding[quarkus.camel.opentelemetry.encoding]`
 
 Sets whether header names need to be encoded. Can be useful in situations where OpenTelemetry propagators potentially set header name values in formats that are not compatible with the target system. E.g for JMS where the specification mandates header names are valid Java identifiers.
 | `boolean`
 | `false`
 
-|icon:lock[title=Fixed at build time] [[quarkus.camel.opentelemetry.exclude-patterns]]`link:#quarkus.camel.opentelemetry.exclude-patterns[quarkus.camel.opentelemetry.exclude-patterns]`
+| [[quarkus.camel.opentelemetry.exclude-patterns]]`link:#quarkus.camel.opentelemetry.exclude-patterns[quarkus.camel.opentelemetry.exclude-patterns]`
 
-Sets whether to disable tracing for endpoint URIs that match the given comma separated patterns. The pattern can take the following forms:
+Sets whether to disable tracing for endpoint URIs or Processor ids that match the given comma separated patterns. The pattern can take the following forms:
 
 
 
@@ -143,6 +143,12 @@ Sets whether to disable tracing for endpoint URIs that match the given comma sep
 3. A regular expression matching the endpoint URI. E.g platform-http:/prefix/.++*++
 | `string`
 | 
+
+| [[quarkus.camel.opentelemetry.trace-processors]]`link:#quarkus.camel.opentelemetry.trace-processors[quarkus.camel.opentelemetry.trace-processors]`
+
+Sets whether to create new OpenTelemetry spans for each Camel Processor. Use the excludePatterns property to filter out Processors.
+| `boolean`
+| `false`
 |===
 
 [.configuration-legend]

@@ -27,6 +27,7 @@ import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import static org.apache.camel.quarkus.component.opentelemetry.it.OpenTelemetryTestHelper.getSpans;
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -86,8 +87,8 @@ class OpenTelemetryTest {
         List<Map<String, String>> spans = getSpans();
         assertEquals(3, spans.size());
         assertEquals(spans.get(0).get("parentId"), spans.get(1).get("spanId"));
-        assertEquals(spans.get(1).get("kind"), SpanKind.CLIENT.name());
-        assertEquals(spans.get(2).get("kind"), SpanKind.SERVER.name());
+        assertEquals(SpanKind.CLIENT.name(), spans.get(1).get("kind"));
+        assertEquals(SpanKind.SERVER.name(), spans.get(2).get("kind"));
     }
 
     @Test
@@ -104,8 +105,8 @@ class OpenTelemetryTest {
         assertEquals(4, spans.size());
         assertEquals(spans.get(0).get("parentId"), spans.get(1).get("parentId"));
         assertEquals(spans.get(1).get("parentId"), spans.get(2).get("spanId"));
-        assertEquals(spans.get(2).get("kind"), SpanKind.CLIENT.name());
-        assertEquals(spans.get(3).get("kind"), SpanKind.SERVER.name());
+        assertEquals(SpanKind.CLIENT.name(), spans.get(2).get("kind"));
+        assertEquals(SpanKind.SERVER.name(), spans.get(3).get("kind"));
     }
 
     @Test
@@ -140,16 +141,5 @@ class OpenTelemetryTest {
 
         assertEquals(spans.get(5).get("parentId"), "0000000000000000");
         assertEquals(spans.get(5).get("code.function"), "jdbcQuery");
-    }
-
-    private List<Map<String, String>> getSpans() {
-        return RestAssured.given()
-                .get("/opentelemetry/exporter/spans")
-                .then()
-                .statusCode(200)
-                .extract()
-                .body()
-                .jsonPath()
-                .get();
     }
 }
