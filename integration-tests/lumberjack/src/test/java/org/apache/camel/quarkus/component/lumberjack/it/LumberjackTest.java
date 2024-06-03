@@ -22,6 +22,9 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import me.escoffier.certs.Format;
+import me.escoffier.certs.junit5.Certificate;
+import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Test;
 
@@ -29,6 +32,9 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@TestCertificates(certificates = {
+        @Certificate(name = "lumberjack", formats = {
+                Format.JKS }, password = "changeit") })
 @QuarkusTest
 @TestHTTPEndpoint(LumberjackResource.class)
 @QuarkusTestResource(LumberjackTestResource.class)

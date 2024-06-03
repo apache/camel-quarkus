@@ -20,14 +20,20 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import me.escoffier.certs.Format;
+import me.escoffier.certs.junit5.Certificate;
 import org.apache.camel.quarkus.component.http.common.AbstractHttpTest;
 import org.apache.camel.quarkus.component.http.common.HttpTestResource;
+import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 
+@TestCertificates(certificates = {
+        @Certificate(name = HttpTestResource.KEYSTORE_NAME, formats = {
+                Format.PKCS12 }, password = HttpTestResource.KEYSTORE_PASSWORD) })
 @QuarkusTest
 @QuarkusTestResource(HttpTestResource.class)
 public class HttpTest extends AbstractHttpTest {

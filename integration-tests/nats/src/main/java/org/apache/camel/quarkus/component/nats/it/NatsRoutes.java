@@ -72,7 +72,7 @@ public class NatsRoutes extends RouteBuilder {
         KeyManagersParameters keyManagersParameters = new KeyManagersParameters();
         KeyStoreParameters keyStore = new KeyStoreParameters();
         keyStore.setPassword("password");
-        keyStore.setResource("certs/keystore.jks");
+        keyStore.setResource("certs/nats-keystore.p12");
         keyManagersParameters.setKeyPassword("password");
         keyManagersParameters.setKeyStore(keyStore);
         sslContextParameters.setKeyManagers(keyManagersParameters);
@@ -80,7 +80,7 @@ public class NatsRoutes extends RouteBuilder {
         TrustManagersParameters trustManagersParameters = new TrustManagersParameters();
         KeyStoreParameters trustStore = new KeyStoreParameters();
         trustStore.setPassword("password");
-        trustStore.setResource("certs/truststore.jks");
+        trustStore.setResource("certs/nats-truststore.p12");
         trustManagersParameters.setKeyStore(trustStore);
         sslContextParameters.setTrustManagers(trustManagersParameters);
 

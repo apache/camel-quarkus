@@ -39,8 +39,9 @@ public @interface TestCertificates {
 
     /**
      * The base directory in which certificates will be generated.
+     * Default value is `target/classes/certs`
      */
-    String baseDir();
+    String baseDir() default CertificatesUtil.DEFAULT_CERTS_BASEDIR;
 
     /**
      * The certificates to generate.
@@ -52,4 +53,10 @@ public @interface TestCertificates {
      * Whether to replace the certificates if they already exist.
      */
     boolean replaceIfExists() default false;
+
+    /**
+     * Whether certificate is used in docker container. If so, the cn and subject alt name has to equal docker host
+     * (which might differ in case of external docker host)
+     */
+    boolean docker() default false;
 }

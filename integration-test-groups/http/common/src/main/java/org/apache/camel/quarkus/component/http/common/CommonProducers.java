@@ -27,12 +27,12 @@ public class CommonProducers {
     @Named
     public SSLContextParameters sslContextParameters() {
         KeyStoreParameters keystoreParameters = new KeyStoreParameters();
-        keystoreParameters.setResource("/jsse/localhost-keystore.pkcs12");
+        keystoreParameters.setResource("/certs/localhost-keystore.p12");
         keystoreParameters.setPassword("localhost-keystore-password");
 
         KeyStoreParameters truststoreParameters = new KeyStoreParameters();
-        truststoreParameters.setResource("/jsse/client-truststore.pkcs12");
-        truststoreParameters.setPassword("client-truststore-password");
+        truststoreParameters.setResource("/certs/localhost-truststore.p12");
+        truststoreParameters.setPassword("localhost-keystore-password");
 
         TrustManagersParameters trustManagersParameters = new TrustManagersParameters();
         trustManagersParameters.setKeyStore(truststoreParameters);

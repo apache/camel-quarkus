@@ -64,7 +64,7 @@ public class SftpTestResource implements QuarkusTestResourceLifecycleManager {
 
             sshServer = SshServer.setUpDefaultServer();
             sshServer.setPort(port);
-            sshServer.setKeyPairProvider(new ClassLoadableResourceKeyPairProvider("test.key"));
+            sshServer.setKeyPairProvider(new ClassLoadableResourceKeyPairProvider("certs/ftp.key"));
             sshServer.setSubsystemFactories(Collections.singletonList(new SftpSubsystemFactory()));
             sshServer.setCommandFactory(new ScpCommandFactory());
             sshServer.setPasswordAuthenticator((username, password, session) -> true);

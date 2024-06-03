@@ -20,11 +20,17 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import me.escoffier.certs.Format;
+import me.escoffier.certs.junit5.Certificate;
+import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
+@TestCertificates(certificates = {
+        @Certificate(name = "proxy-ssl", formats = {
+                Format.PKCS12 }, password = "changeit") })
 @QuarkusTest
 @QuarkusTestResource(PlatformHttpSSLTestResource.class)
 public class ProxySslTest {

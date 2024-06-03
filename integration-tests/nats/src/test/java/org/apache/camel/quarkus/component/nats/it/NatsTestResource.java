@@ -134,18 +134,19 @@ public class NatsTestResource implements QuarkusTestResourceLifecycleManager {
         GenericContainer<?> container = new GenericContainer<>(NATS_IMAGE)
                 .withExposedPorts(NATS_SERVER_PORT)
                 .withNetworkAliases("tlsAuthContainer")
-                .withClasspathResourceMapping("certs/ca.pem", "/certs/ca.pem", BindMode.READ_ONLY, SelinuxContext.SHARED)
-                .withClasspathResourceMapping("certs/key.pem", "/certs/key.pem", BindMode.READ_ONLY, SelinuxContext.SHARED)
-                .withClasspathResourceMapping("certs/server.pem", "/certs/server.pem", BindMode.READ_ONLY,
+                .withClasspathResourceMapping("certs/nats-ca.crt", "/certs/nats-ca.crt", BindMode.READ_ONLY,
+                        SelinuxContext.SHARED)
+                .withClasspathResourceMapping("certs/nats.key", "/certs/nats.key", BindMode.READ_ONLY, SelinuxContext.SHARED)
+                .withClasspathResourceMapping("certs/nats.crt", "/certs/nats.crt", BindMode.READ_ONLY,
                         SelinuxContext.SHARED)
                 .withClasspathResourceMapping("conf/tls.conf", "/conf/tls.conf", BindMode.READ_ONLY, SelinuxContext.SHARED)
                 .withCommand(
                         "--config", "/conf/tls.conf",
                         "--tls",
-                        "--tlscert=/certs/server.pem",
-                        "--tlskey=/certs/key.pem",
+                        "--tlscert=/certs/nats.crt",
+                        "--tlskey=/certs/nats.key",
                         "--tlsverify",
-                        "--tlscacert=/certs/ca.pem")
+                        "--tlscacert=/certs/nats-ca.crt")
                 .withLogConsumer(new Slf4jLogConsumer(LOG).withPrefix("tlsAuthContainer"))
                 .waitingFor(Wait.forLogMessage(".*Server is ready.*", 1));
         try {

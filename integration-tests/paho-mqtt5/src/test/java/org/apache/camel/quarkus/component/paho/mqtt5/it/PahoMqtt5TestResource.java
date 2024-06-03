@@ -86,9 +86,11 @@ public class PahoMqtt5TestResource implements QuarkusTestResourceLifecycleManage
                         .withExposedPorts(TCP_PORT, WS_PORT, SSL_PORT)
                         .withClasspathResourceMapping("mosquitto.conf", "/mosquitto/config/mosquitto.conf", BindMode.READ_ONLY)
                         .withClasspathResourceMapping("password.conf", "/etc/mosquitto/password", BindMode.READ_ONLY)
-                        .withClasspathResourceMapping("certs/ca.pem", "/etc/mosquitto/certs/ca.pem", BindMode.READ_ONLY)
-                        .withClasspathResourceMapping("certs/server.pem", "/etc/mosquitto/certs/server.pem", BindMode.READ_ONLY)
-                        .withClasspathResourceMapping("certs/server.key", "/etc/mosquitto/certs/server.key",
+                        .withClasspathResourceMapping("certs/paho-mqtt5-ca.crt", "/etc/mosquitto/certs/paho-mqtt5-ca.crt",
+                                BindMode.READ_ONLY)
+                        .withClasspathResourceMapping("certs/paho-mqtt5.crt", "/etc/mosquitto/certs/paho-mqtt5.crt",
+                                BindMode.READ_ONLY)
+                        .withClasspathResourceMapping("certs/paho-mqtt5.key", "/etc/mosquitto/certs/paho-mqtt5.key",
                                 BindMode.READ_ONLY);
             }
 
