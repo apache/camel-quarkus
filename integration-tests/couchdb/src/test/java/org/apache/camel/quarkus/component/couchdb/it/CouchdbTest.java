@@ -22,6 +22,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.awaitility.Awaitility.await;
@@ -29,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@Disabled("https://github.com/apache/camel-quarkus/issues/6148")
 @QuarkusTest
 @QuarkusTestResource(CouchdbTestResource.class)
 class CouchdbTest {
