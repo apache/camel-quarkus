@@ -39,6 +39,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
 import io.quarkus.deployment.builditem.GeneratedResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ExcludeConfigBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.dev.CompilationProvider;
 import io.quarkus.deployment.pkg.builditem.BuildSystemTargetBuildItem;
@@ -78,6 +79,19 @@ class KotlinDslProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    void excludeJLineNativeImageConfigs(BuildProducer<ExcludeConfigBuildItem> nativeImageExclusions) {
+        // Exclude various jline native-image.properties, as the required native-image configuration files
+        // are not shaded into org.jetbrains.kotlin:kotlin-compiler-embeddable.
+        // See: https://github.com/apache/camel-quarkus/issues/6147
+        String nativeResourceTemplate = "/META-INF/native-image/org\\.jline/jline-terminal%s/native-image\\.properties";
+        Stream.of("", "-jansi", "-jna", "-jni")
+                .forEach(module -> {
+                    nativeImageExclusions.produce(new ExcludeConfigBuildItem(".*kotlin-compiler-embeddable.*",
+                            nativeResourceTemplate.formatted(module)));
+                });
     }
 
     @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
