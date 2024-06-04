@@ -137,7 +137,7 @@ jobs:
             // Check to see if labels already exist, and if not, create them so we can set the color
             const labelQuery = `{
               repository(owner: "${context.repo.owner}", name: "${context.repo.repo}") {
-                labels(first: 50, query: "name: ${Array.from(labels).join(' ')}") {
+                labels(first: 50, query: "name: ${Array.from(labels).join(' || ')}") {
                   nodes {
                     name
                   }
