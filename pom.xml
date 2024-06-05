@@ -186,7 +186,7 @@
         <cyclonedx-maven-plugin-version>2.8.0</cyclonedx-maven-plugin-version>
         <build-helper-maven-plugin.version>3.6.0</build-helper-maven-plugin.version>
         <exec-maven-plugin.version>3.3.0</exec-maven-plugin.version>
-        <formatter-maven-plugin.version>2.24.0</formatter-maven-plugin.version>
+        <formatter-maven-plugin.version>2.24.1</formatter-maven-plugin.version>
         <gmavenplus-maven-plugin.version>3.0.0</gmavenplus-maven-plugin.version>
         <impsort-maven-plugin.version>1.10.0</impsort-maven-plugin.version>
         <jandex-maven-plugin.version>1.2.3</jandex-maven-plugin.version>
