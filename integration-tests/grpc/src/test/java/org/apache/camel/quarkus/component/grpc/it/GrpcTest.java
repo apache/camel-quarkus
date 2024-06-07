@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.grpc.it;
 
+import java.io.FileInputStream;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -32,6 +33,8 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
+import me.escoffier.certs.Format;
+import me.escoffier.certs.junit5.Certificate;
 import org.apache.camel.component.grpc.auth.jwt.JwtAlgorithm;
 import org.apache.camel.component.grpc.auth.jwt.JwtCallCredentials;
 import org.apache.camel.component.grpc.auth.jwt.JwtHelper;
@@ -40,6 +43,7 @@ import org.apache.camel.quarkus.component.grpc.it.model.PingPongGrpc.PingPongBlo
 import org.apache.camel.quarkus.component.grpc.it.model.PingPongGrpc.PingPongStub;
 import org.apache.camel.quarkus.component.grpc.it.model.PingRequest;
 import org.apache.camel.quarkus.component.grpc.it.model.PongResponse;
+import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.apache.camel.util.StringHelper;
 import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.Config;
@@ -66,6 +70,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+@TestCertificates(certificates = {
+        @Certificate(name = "grpc", formats = { Format.PEM })
+}, baseDir = "target/certs")
 @QuarkusTest
 @QuarkusTestResource(GrpcServerTestResource.class)
 class GrpcTest {
@@ -256,15 +263,13 @@ class GrpcTest {
         Config config = ConfigProvider.getConfig();
         Integer port = config.getValue("camel.grpc.test.tls.server.port", Integer.class);
 
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-
         ManagedChannel channel = null;
         try {
             channel = NettyChannelBuilder.forAddress("localhost", port)
                     .sslContext(GrpcSslContexts.forClient()
-                            .keyManager(classLoader.getResourceAsStream("certs/client.pem"),
-                                    classLoader.getResourceAsStream("certs/client.key"))
-                            .trustManager(classLoader.getResourceAsStream("certs/ca.pem"))
+                            .keyManager(new FileInputStream("target/certs/grpc.crt"),
+                                    new FileInputStream("target/certs/grpc.key"))
+                            .trustManager(new FileInputStream("target/certs/grpc-ca.crt"))
                             .build())
                     .build();
 
