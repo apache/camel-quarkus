@@ -45,7 +45,7 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-elasticsearch-rest-client</artifactId>
+            <artifactId>quarkus-elasticsearch-rest-client-common</artifactId>
         </dependency>
     </dependencies>
 
