@@ -45,7 +45,7 @@ public class GrpcRoute extends RouteBuilder {
 
         // Verifies that the serviceAccountResource can be loaded on startup
         from("direct:googleAuthenticationType")
-                .toF("grpc://localhost:{{camel.grpc.test.async.server.port}}/%s?method=pingAsyncAsync&negotiationType=TLS&keyResource=certs/server.key&authenticationType=GOOGLE&serviceAccountResource=keys/app.json&KeyCertChainResource=certs/server.pem",
+                .toF("grpc://localhost:{{camel.grpc.test.async.server.port}}/%s?method=pingAsyncAsync&negotiationType=TLS&keyResource=certs/grpc.key&authenticationType=GOOGLE&serviceAccountResource=keys/app.json&KeyCertChainResource=certs/grpc.pem",
                         PING_PONG_SERVICE);
 
         // Streaming producer strategy
@@ -111,8 +111,9 @@ public class GrpcRoute extends RouteBuilder {
         // TLS secured consumer
         fromF("grpc://localhost:{{camel.grpc.test.tls.server.port}}"
                 + "/%s?consumerStrategy=PROPAGATION&"
-                + "negotiationType=TLS&keyCertChainResource=certs/server.pem&"
-                + "keyResource=certs/server.key&trustCertCollectionResource=certs/ca.pem", PING_PONG_SERVICE)
+                + "negotiationType=TLS&keyCertChainResource=file:target/certs/grpc.crt&"
+                + "keyResource=file:target/certs/grpc.key&trustCertCollectionResource=file:target/certs/grpc-ca.crt",
+                PING_PONG_SERVICE)
                 .process("messageOriginProcessor")
                 .choice()
                 .when(simple("${header.origin} == 'producer'"))
@@ -126,8 +127,9 @@ public class GrpcRoute extends RouteBuilder {
         from("direct:sendTls")
                 .toF("grpc://localhost:{{camel.grpc.test.tls.server.port}}"
                         + "/%s?method=pingSyncSync&synchronous=true&"
-                        + "negotiationType=TLS&keyCertChainResource=certs/client.pem&"
-                        + "keyResource=certs/client.key&trustCertCollectionResource=certs/ca.pem", PING_PONG_SERVICE);
+                        + "negotiationType=TLS&keyCertChainResource=file:target/certs/grpc.crt&"
+                        + "keyResource=file:target/certs/grpc.key&trustCertCollectionResource=file:target/certs/grpc-ca.crt",
+                        PING_PONG_SERVICE);
 
         // JWT secured consumer
         fromF("grpc://localhost:{{camel.grpc.test.jwt.server.port}}"
