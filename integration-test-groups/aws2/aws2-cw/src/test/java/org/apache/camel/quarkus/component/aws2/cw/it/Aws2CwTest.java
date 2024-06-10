@@ -228,15 +228,17 @@ class Aws2CwTest extends BaseAWs2TestSupport {
                     if (!(oddDp.sampleCount().intValue() == 2
                             && oddDp.minimum().intValue() == 2 * value + 1
                             && oddDp.maximum().intValue() == 2 * value + 3)) {
-                        throw new RuntimeException("Unexpected odd datapoint " + oddDp
+                        LOG.warn("Unexpected odd datapoint " + oddDp
                                 + "; expected sampleCount == 2 && minimum ~ " + (2 * value + 1)
                                 + " && maximum ~ " + (2 * value + 3));
+                        return false;
                     }
 
                     if (!(evenDp.average() == 2 * value + 2
                             && evenDp.sampleCount() == 3)) {
-                        throw new RuntimeException("Unexpected even datapoint " + evenDp
+                        LOG.warn("Unexpected even datapoint " + evenDp
                                 + "; expected sampleCount == 3 && average == " + (2 * value + 2));
+                        return false;
                     }
 
                     return true;
