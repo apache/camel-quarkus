@@ -73,6 +73,7 @@ group-04:
   - debezium
   - cassandraql
   - couchdb
+  - elasticsearch-rest-client
   - influxdb
   - jms-qpid-amqp-client
   - jpa
