@@ -50,8 +50,8 @@ class AzureStorageQueueTest {
                     .then()
                     .statusCode(201);
 
-            // create 2 messages
-            for (int i = 1; i < 2; i++) {
+            // create messages
+            for (int i = 1; i < 3; i++) {
                 addMessage(message + i);
             }
 
@@ -61,9 +61,9 @@ class AzureStorageQueueTest {
                     .statusCode(200)
                     .body(is(message + "1"));
 
-            // Read 2 messages
+            // Read messages
             List<LinkedHashMap<String, String>> response = null;
-            for (int i = 1; i < 2; i++) {
+            for (int i = 1; i < 3; i++) {
                 response = readMessage();
                 assertNotNull(response);
                 assertEquals(1, response.size());
