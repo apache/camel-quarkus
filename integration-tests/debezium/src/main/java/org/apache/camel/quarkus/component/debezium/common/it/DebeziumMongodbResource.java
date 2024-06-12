@@ -68,7 +68,7 @@ public class DebeziumMongodbResource extends AbstractDebeziumResource {
                 + "offsetStorageFileName=" + offsetStorageFileName
                 + "&mongodbUser=" + config.getValue(Type.mongodb.getPropertyUsername(), String.class)
                 + "&mongodbPassword=" + config.getValue(Type.mongodb.getPropertyPassword(), String.class)
-                + "&mongodbConnectionString=mongodb://" + hostname + ":" + port
+                + "&mongodbConnectionString=mongodb://" + hostname + ":" + port + "/?replicaSet=my-mongo-set"
                 + "&topicPrefix=cq-testing";
     }
 }
