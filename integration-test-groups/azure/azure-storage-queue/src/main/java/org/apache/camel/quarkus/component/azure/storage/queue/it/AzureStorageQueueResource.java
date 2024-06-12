@@ -157,7 +157,8 @@ public class AzureStorageQueueResource {
         return Response.noContent().build();
     }
 
-    @Path("/queue/delete/{id}/{popReceipt}")
+    // popReceipt may contain a slash, so override its regex to "everything"
+    @Path("/queue/delete/{id}/{popReceipt:.*}")
     @DELETE
     public Response deleteMessageById(@PathParam("id") String id, @PathParam("popReceipt") String popReceipt) throws Exception {
         var headers = new HashMap<String, Object>();
@@ -170,7 +171,8 @@ public class AzureStorageQueueResource {
         return Response.noContent().build();
     }
 
-    @Path("/queue/update/{id}/{popReceipt}")
+    // popReceipt may contain a slash, so override its regex to "everything"
+    @Path("/queue/update/{id}/{popReceipt:.*}")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     public Response addMessage(@PathParam("id") String id, @PathParam("popReceipt") String popReceipt, String message)
