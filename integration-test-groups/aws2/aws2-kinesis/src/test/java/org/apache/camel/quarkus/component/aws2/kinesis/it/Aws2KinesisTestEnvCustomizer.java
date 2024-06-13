@@ -122,8 +122,12 @@ public class Aws2KinesisTestEnvCustomizer implements Aws2TestEnvCustomizer {
             final String bucketArn = "arn:aws:s3:::" + bucketName;
             envContext.property("aws-kinesis.s3-bucket-name", bucketName);
             s3Client.createBucket(CreateBucketRequest.builder().bucket(bucketName).build());
-            envContext.closeable(() -> s3Client.deleteBucket(DeleteBucketRequest.builder().bucket(bucketName).build()));
             envContext.closeable(() -> {
+                LOG.info("Deleting bucket " + bucketName);
+                s3Client.deleteBucket(DeleteBucketRequest.builder().bucket(bucketName).build());
+            });
+            envContext.closeable(() -> {
+                LOG.info("Deleting objects from bucket bucket " + bucketName);
                 final ListObjectsResponse objects = s3Client.listObjects(
                         ListObjectsRequest.builder()
                                 .bucket(bucketName)
