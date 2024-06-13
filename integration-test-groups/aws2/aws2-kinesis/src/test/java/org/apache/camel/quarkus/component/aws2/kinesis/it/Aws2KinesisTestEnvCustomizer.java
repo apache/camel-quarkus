@@ -67,7 +67,7 @@ public class Aws2KinesisTestEnvCustomizer implements Aws2TestEnvCustomizer {
 
     @Override
     public Service[] localstackServices() {
-        return new Service[] { Service.KINESIS, Service.FIREHOSE, Service.S3, Service.IAM };
+        return new Service[] { Service.KINESIS, Service.FIREHOSE, Service.S3, Service.IAM, Service.STS };
     }
 
     @Override
