@@ -83,9 +83,10 @@ class Aws2KinesisFirehoseTest extends BaseAWs2TestSupport {
         final Config config = ConfigProvider.getConfig();
 
         final String bucketName = config.getValue("aws-kinesis.s3-bucket-name", String.class);
-
+        LOG.infof("Bucket '%s' should contain objects.", bucketName);
         Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(120, TimeUnit.SECONDS).until(
                 () -> {
+                    LOG.infof("Reading objects from bucket '%s'", bucketName);
                     final ListObjectsResponse objects = client
                             .listObjects(ListObjectsRequest.builder().bucket(bucketName).build());
                     final List<S3Object> objs = objects.contents();
