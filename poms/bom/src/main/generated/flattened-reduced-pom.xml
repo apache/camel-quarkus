@@ -6594,12 +6594,12 @@
       <dependency>
         <groupId>io.quarkiverse.jgit</groupId>
         <artifactId>quarkus-jgit</artifactId>
-        <version>3.1.0</version>
+        <version>3.1.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jgit</groupId>
         <artifactId>quarkus-jgit-deployment</artifactId>
-        <version>3.1.0</version>
+        <version>3.1.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jsch</groupId>
