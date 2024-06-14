@@ -22,7 +22,6 @@ import io.quarkus.deployment.builditem.AdditionalApplicationArchiveMarkerBuildIt
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
@@ -30,8 +29,6 @@ import org.jboss.jandex.IndexView;
 class HttpClientProcessor {
     private static final DotName HTTP_REQUEST_BASE_NAME = DotName.createSimple(
             "org.apache.http.client.methods.HttpRequestBase");
-    private static final String NTLM_ENGINE_5x_VERSION = "org.apache.hc.client5.http.impl.auth.NTLMEngineImpl";
-    private static final String NTLM_ENGINE_4x_VERSION = "org.apache.http.impl.auth.NTLMEngineImpl";
 
     @BuildStep
     AdditionalApplicationArchiveMarkerBuildItem markers() {
@@ -55,26 +52,5 @@ class HttpClientProcessor {
     NativeImageResourceBuildItem suffixListResource() {
         // Required by org.apache.http.conn.util.PublicSuffixMatcher
         return new NativeImageResourceBuildItem("mozilla/public-suffix-list.txt");
-    }
-
-    @BuildStep
-    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClasses) {
-
-        if (checkClasspath(NTLM_ENGINE_5x_VERSION)) {
-            runtimeInitializedClasses.produce(new RuntimeInitializedClassBuildItem(NTLM_ENGINE_5x_VERSION));
-        }
-
-        if (checkClasspath(NTLM_ENGINE_4x_VERSION)) {
-            runtimeInitializedClasses.produce(new RuntimeInitializedClassBuildItem(NTLM_ENGINE_4x_VERSION));
-        }
-    }
-
-    private boolean checkClasspath(String className) {
-        try {
-            Class.forName(className, true, Thread.currentThread().getContextClassLoader());
-            return true;
-        } catch (ClassNotFoundException e) {
-            return false;
-        }
     }
 }

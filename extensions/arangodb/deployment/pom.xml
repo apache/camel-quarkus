@@ -35,16 +35,12 @@
             <artifactId>camel-quarkus-core-deployment</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-httpclient-deployment</artifactId>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-vertx-deployment</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-arangodb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-netty-deployment</artifactId>
         </dependency>
     </dependencies>
 
