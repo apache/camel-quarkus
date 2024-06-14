@@ -49,7 +49,7 @@ public class JasyptUtilsDevUIProcessor {
 
         @Override
         public boolean getAsBoolean() {
-            return config.enabled;
+            return config.enabled();
         }
     }
 }

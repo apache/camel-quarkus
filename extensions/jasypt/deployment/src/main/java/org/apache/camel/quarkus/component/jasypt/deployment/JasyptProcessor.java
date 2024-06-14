@@ -81,7 +81,7 @@ class JasyptProcessor {
 
         @Override
         public boolean getAsBoolean() {
-            return config.enabled;
+            return config.enabled();
         }
     }
 }

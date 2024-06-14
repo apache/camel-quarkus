@@ -44,8 +44,4 @@ class CamelJasyptPropertiesParserHolder {
             ENCRYPTOR = encryptor;
         }
     }
-
-    static StandardPBEStringEncryptor getEncryptor() {
-        return ENCRYPTOR;
-    }
 }
