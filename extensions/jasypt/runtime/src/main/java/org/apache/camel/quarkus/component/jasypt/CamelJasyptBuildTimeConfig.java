@@ -16,21 +16,19 @@
  */
 package org.apache.camel.quarkus.component.jasypt;
 
-import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefault;
 
-/**
- * Note: This class exists mainly for documentation purposes. The actual configuration values
- * are read via the SmallRye config internals within the SecretKeysHandler.
- */
-@ConfigRoot(name = "camel.jasypt", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
-public class CamelJasyptBuildTimeConfig {
+@ConfigMapping(prefix = "quarkus.camel.jasypt")
+@ConfigRoot(phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+public interface CamelJasyptBuildTimeConfig {
     /**
      * Setting this option to false will disable Jasypt integration with Quarkus SmallRye configuration.
      * You can however, manually configure Jasypt with Camel in the 'classic' way of manually configuring
      * JasyptPropertiesParser and PropertiesComponent. Refer to the usage section for more details.
      */
-    @ConfigItem(defaultValue = "true")
-    public boolean enabled;
+    @WithDefault("true")
+    boolean enabled();
 }

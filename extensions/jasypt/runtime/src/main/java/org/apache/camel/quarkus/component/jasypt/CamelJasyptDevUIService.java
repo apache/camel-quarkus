@@ -21,19 +21,18 @@ import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 
 @ApplicationScoped
 public class CamelJasyptDevUIService {
+    private final StandardPBEStringEncryptor encryptor;
+
+    public CamelJasyptDevUIService(CamelJasyptConfig jasyptConfig) {
+        encryptor = new StandardPBEStringEncryptor();
+        encryptor.setConfig(jasyptConfig.pbeConfig());
+    }
+
     public String encryptText(String text) {
-        StandardPBEStringEncryptor encryptor = CamelJasyptPropertiesParserHolder.getEncryptor();
-        if (encryptor != null) {
-            return encryptor.encrypt(text);
-        }
-        return null;
+        return encryptor.encrypt(text);
     }
 
     public String decryptText(String text) {
-        StandardPBEStringEncryptor encryptor = CamelJasyptPropertiesParserHolder.getEncryptor();
-        if (encryptor != null) {
-            return encryptor.decrypt(text);
-        }
-        return null;
+        return encryptor.decrypt(text);
     }
 }

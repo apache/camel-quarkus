@@ -17,6 +17,9 @@
 package org.apache.camel.quarkus.component.jasypt;
 
 import io.quarkus.test.QuarkusUnitTest;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.jasypt.JasyptPropertiesParser;
+import org.apache.camel.component.properties.PropertiesComponent;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
@@ -25,11 +28,27 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 public class JasyptPasswordNotProvidedTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+            .overrideConfigKey("greeting.secret", "ENC(GKJfy64eBDzxUuQCfArd6OjnAaW/oM9e)")
             .setExpectedException(IllegalStateException.class)
-            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class));
+            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class).addClass(JasyptRoutes.class));
 
     @Test
     void passwordNotProvidedThrowsException() {
         // Nothing to test as we just verify the application fails to start
+    }
+
+    public static final class JasyptRoutes extends RouteBuilder {
+        @Override
+        public void configure() {
+            JasyptPropertiesParser jasypt = new JasyptPropertiesParser();
+            jasypt.setPassword("2s3cr3t");
+
+            PropertiesComponent component = (PropertiesComponent) getContext().getPropertiesComponent();
+            jasypt.setPropertiesComponent(component);
+            component.setPropertiesParser(jasypt);
+
+            from("direct:decryptManualConfiguration")
+                    .setBody().simple("{{greeting.secret}}");
+        }
     }
 }
