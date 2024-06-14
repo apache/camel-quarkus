@@ -36,33 +36,6 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-apache-httpclient</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-commons-logging</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!-- required for the native compilation.
-             Similar case as https://github.com/apache/camel-quarkus/issues/4512#issuecomment-1424006102
-             Might be not necessary when https://github.com/oracle/graal/issues/4652 is fixed -->
-        <dependency>
-            <groupId>org.brotli</groupId>
-            <artifactId>dec</artifactId>
         </dependency>
         <dependency>
             <groupId>org.graalvm.sdk</groupId>
