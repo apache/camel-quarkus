@@ -62,7 +62,7 @@ public class SlackResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public SlackMessageResponse getSlackMessages() throws Exception {
-        Message message = consumerTemplate.receiveBody("slack://test-channel?maxResults=1&" + getSlackAuthParams(),
+        Message message = consumerTemplate.receiveBody("slack://test-channel?maxResults=1&delay=1000&" + getSlackAuthParams(),
                 5000L, Message.class);
         return new SlackMessageResponse(message.getText(), message.getBlocks() != null ? message.getBlocks().size() : 0);
     }
