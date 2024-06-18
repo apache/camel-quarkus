@@ -1,0 +1,20 @@
+== Camel Quarkus Weather Integration Tests
+
+By default the Weather integration tests use WireMock to stub the API interactions.
+
+To run the `camel-quarkus-weather` integration tests against the real API, you must first create a OpenWeather account https://home.openweathermap.org/users/sign_up.
+
+Then find your API-key https://home.openweathermap.org/api_keys and set the following environment variables:
+
+[source,shell]
+----
+export WEATHER_API_ID=your-API-KEY
+----
+
+If the WireMock stub recordings need updating, then remove the existing files from `src/test/resources/mappings` and run tests with either:
+
+System property `-Dwiremock.record=true`
+
+Or
+
+Set environment variable `WIREMOCK_RECORD=true`

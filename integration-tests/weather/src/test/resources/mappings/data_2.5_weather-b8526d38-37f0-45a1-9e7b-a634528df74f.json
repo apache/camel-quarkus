@@ -1,0 +1,24 @@
+{
+  "id" : "b8526d38-37f0-45a1-9e7b-a634528df74f",
+  "name" : "data_2.5_weather",
+  "request" : {
+    "url" : "/data/2.5/weather?q=Paris,fr&lang=en&APPID=test_api_id",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"coord\":{\"lon\":2.3488,\"lat\":48.8534},\"weather\":[{\"id\":500,\"main\":\"Rain\",\"description\":\"light rain\",\"icon\":\"10d\"}],\"base\":\"stations\",\"main\":{\"temp\":290.43,\"feels_like\":290.72,\"temp_min\":289.47,\"temp_max\":291.03,\"pressure\":1011,\"humidity\":96},\"visibility\":10000,\"wind\":{\"speed\":2.57,\"deg\":30},\"rain\":{\"1h\":0.43},\"clouds\":{\"all\":100},\"dt\":1718695153,\"sys\":{\"type\":2,\"id\":2012208,\"country\":\"FR\",\"sunrise\":1718682396,\"sunset\":1718740622},\"timezone\":7200,\"id\":2988507,\"name\":\"Paris\",\"cod\":200}",
+    "headers" : {
+      "Server" : "openresty",
+      "Access-Control-Allow-Origin" : "*",
+      "Access-Control-Allow-Methods" : "GET, POST",
+      "Access-Control-Allow-Credentials" : "true",
+      "X-Cache-Key" : "/data/2.5/weather?APPID=test_api_id&lang=en&q=paris,fr",
+      "Date" : "Tue, 18 Jun 2024 07:28:35 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "b8526d38-37f0-45a1-9e7b-a634528df74f",
+  "persistent" : true,
+  "insertionIndex" : 5
+}
