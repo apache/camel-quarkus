@@ -1,0 +1,24 @@
+{
+  "id" : "68058236-e4c1-44d6-9487-7cbdd7846045",
+  "name" : "data_2.5_weather",
+  "request" : {
+    "url" : "/data/2.5/weather?q=London,uk&lang=en&APPID=test_api_id",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"coord\":{\"lon\":-0.1257,\"lat\":51.5085},\"weather\":[{\"id\":804,\"main\":\"Clouds\",\"description\":\"overcast clouds\",\"icon\":\"04d\"}],\"base\":\"stations\",\"main\":{\"temp\":288.03,\"feels_like\":287.64,\"temp_min\":286.64,\"temp_max\":288.87,\"pressure\":1015,\"humidity\":79},\"visibility\":10000,\"wind\":{\"speed\":2.06,\"deg\":340},\"clouds\":{\"all\":100},\"dt\":1718695043,\"sys\":{\"type\":2,\"id\":2091269,\"country\":\"GB\",\"sunrise\":1718682164,\"sunset\":1718742042},\"timezone\":3600,\"id\":2643743,\"name\":\"London\",\"cod\":200}",
+    "headers" : {
+      "Server" : "openresty",
+      "Access-Control-Allow-Origin" : "*",
+      "Access-Control-Allow-Methods" : "GET, POST",
+      "Access-Control-Allow-Credentials" : "true",
+      "X-Cache-Key" : "/data/2.5/weather?APPID=test_api_id&lang=en&q=london,uk",
+      "Date" : "Tue, 18 Jun 2024 07:28:40 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "68058236-e4c1-44d6-9487-7cbdd7846045",
+  "persistent" : true,
+  "insertionIndex" : 1
+}

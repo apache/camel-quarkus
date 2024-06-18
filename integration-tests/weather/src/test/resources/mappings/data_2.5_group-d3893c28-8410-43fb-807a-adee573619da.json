@@ -1,0 +1,24 @@
+{
+  "id" : "d3893c28-8410-43fb-807a-adee573619da",
+  "name" : "data_2.5_group",
+  "request" : {
+    "url" : "/data/2.5/group?id=2172797,3169070,2988507,2643743&lang=en&APPID=test_api_id",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"cnt\":4,\"list\":[{\"coord\":{\"lon\":145.7667,\"lat\":-16.9167},\"sys\":{\"country\":\"AU\",\"timezone\":36000,\"sunrise\":1718657071,\"sunset\":1718697097},\"weather\":[{\"id\":802,\"main\":\"Clouds\",\"description\":\"scattered clouds\",\"icon\":\"03d\"}],\"main\":{\"temp\":297.64,\"feels_like\":297.89,\"temp_min\":294.96,\"temp_max\":298.21,\"pressure\":1013,\"humidity\":67},\"visibility\":10000,\"wind\":{\"speed\":5.14,\"deg\":120},\"clouds\":{\"all\":40},\"dt\":1718694546,\"id\":2172797,\"name\":\"Cairns\"},{\"coord\":{\"lon\":12.4839,\"lat\":41.8947},\"sys\":{\"country\":\"IT\",\"timezone\":7200,\"sunrise\":1718681672,\"sunset\":1718736480},\"weather\":[{\"id\":800,\"main\":\"Clear\",\"description\":\"clear sky\",\"icon\":\"01d\"}],\"main\":{\"temp\":300.34,\"feels_like\":300.68,\"temp_min\":298.37,\"temp_max\":302.21,\"pressure\":1018,\"humidity\":49},\"visibility\":10000,\"wind\":{\"speed\":1.54,\"deg\":30},\"clouds\":{\"all\":0},\"dt\":1718695305,\"id\":3169070,\"name\":\"Rome\"},{\"coord\":{\"lon\":2.3488,\"lat\":48.8534},\"sys\":{\"country\":\"FR\",\"timezone\":7200,\"sunrise\":1718682396,\"sunset\":1718740622},\"weather\":[{\"id\":500,\"main\":\"Rain\",\"description\":\"light rain\",\"icon\":\"10d\"}],\"main\":{\"temp\":290.43,\"feels_like\":290.72,\"temp_min\":289.47,\"temp_max\":291.03,\"pressure\":1011,\"humidity\":96},\"visibility\":10000,\"wind\":{\"speed\":2.57,\"deg\":30},\"clouds\":{\"all\":100},\"dt\":1718695124,\"id\":2988507,\"name\":\"Paris\"},{\"coord\":{\"lon\":-0.1257,\"lat\":51.5085},\"sys\":{\"country\":\"GB\",\"timezone\":3600,\"sunrise\":1718682164,\"sunset\":1718742042},\"weather\":[{\"id\":804,\"main\":\"Clouds\",\"description\":\"overcast clouds\",\"icon\":\"04d\"}],\"main\":{\"temp\":287.96,\"feels_like\":287.56,\"temp_min\":286.64,\"temp_max\":288.87,\"pressure\":1015,\"humidity\":79},\"visibility\":10000,\"wind\":{\"speed\":2.06,\"deg\":340},\"clouds\":{\"all\":99},\"dt\":1718694888,\"id\":2643743,\"name\":\"London\"}]}",
+    "headers" : {
+      "Server" : "openresty",
+      "Access-Control-Allow-Origin" : "*",
+      "Access-Control-Allow-Methods" : "GET, POST",
+      "Access-Control-Allow-Credentials" : "true",
+      "X-Cache-Key" : "/data/2.5/group?APPID=test_api_id&id=2172797,3169070,2988507,2643743&lang=en",
+      "Date" : "Tue, 18 Jun 2024 07:28:37 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "d3893c28-8410-43fb-807a-adee573619da",
+  "persistent" : true,
+  "insertionIndex" : 4
+}

@@ -1,0 +1,24 @@
+{
+  "id" : "d2c3fa2e-74e1-49d2-b2fe-9a590fcc5400",
+  "name" : "data_2.5_forecast_daily",
+  "request" : {
+    "url" : "/data/2.5/forecast/daily?q=London,uk&lang=en&cnt=5&APPID=test_api_id",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"city\":{\"id\":2643743,\"name\":\"London\",\"coord\":{\"lon\":-0.1257,\"lat\":51.5085},\"country\":\"GB\",\"population\":1000000,\"timezone\":3600},\"cod\":\"200\",\"message\":0.1335811,\"cnt\":5,\"list\":[{\"dt\":1718712000,\"sunrise\":1718682164,\"sunset\":1718742042,\"temp\":{\"day\":293.17,\"min\":286.78,\"max\":293.59,\"night\":286.88,\"eve\":292.26,\"morn\":287.87},\"feels_like\":{\"day\":292.61,\"night\":286.66,\"eve\":291.69,\"morn\":287.43},\"pressure\":1014,\"humidity\":53,\"weather\":[{\"id\":804,\"main\":\"Clouds\",\"description\":\"overcast clouds\",\"icon\":\"04d\"}],\"speed\":4.12,\"deg\":357,\"gust\":8.75,\"clouds\":100,\"pop\":0.46},{\"dt\":1718798400,\"sunrise\":1718768569,\"sunset\":1718828461,\"temp\":{\"day\":291.92,\"min\":284.34,\"max\":292.86,\"night\":285.83,\"eve\":290.69,\"morn\":284.75},\"feels_like\":{\"day\":291.05,\"night\":285.24,\"eve\":289.88,\"morn\":284.19},\"pressure\":1022,\"humidity\":46,\"weather\":[{\"id\":804,\"main\":\"Clouds\",\"description\":\"overcast clouds\",\"icon\":\"04d\"}],\"speed\":5.14,\"deg\":22,\"gust\":10.78,\"clouds\":100,\"pop\":0},{\"dt\":1718884800,\"sunrise\":1718854978,\"sunset\":1718914877,\"temp\":{\"day\":294.11,\"min\":283.07,\"max\":294.86,\"night\":289.2,\"eve\":292.15,\"morn\":285.27},\"feels_like\":{\"day\":293.59,\"night\":288.58,\"eve\":291.57,\"morn\":284.57},\"pressure\":1018,\"humidity\":51,\"weather\":[{\"id\":803,\"main\":\"Clouds\",\"description\":\"broken clouds\",\"icon\":\"04d\"}],\"speed\":4.38,\"deg\":82,\"gust\":7.48,\"clouds\":77,\"pop\":0},{\"dt\":1718971200,\"sunrise\":1718941389,\"sunset\":1719001290,\"temp\":{\"day\":287.14,\"min\":284.47,\"max\":292.35,\"night\":288.13,\"eve\":292.35,\"morn\":284.47},\"feels_like\":{\"day\":286.81,\"night\":287.49,\"eve\":291.89,\"morn\":284.06},\"pressure\":1006,\"humidity\":85,\"weather\":[{\"id\":501,\"main\":\"Rain\",\"description\":\"moderate rain\",\"icon\":\"10d\"}],\"speed\":5.4,\"deg\":248,\"gust\":12.67,\"clouds\":100,\"pop\":0.9,\"rain\":11.17},{\"dt\":1719057600,\"sunrise\":1719027804,\"sunset\":1719087699,\"temp\":{\"day\":289.91,\"min\":285.26,\"max\":290.74,\"night\":286.35,\"eve\":290.22,\"morn\":285.26},\"feels_like\":{\"day\":289.31,\"night\":286.18,\"eve\":289.76,\"morn\":285.01},\"pressure\":1003,\"humidity\":64,\"weather\":[{\"id\":500,\"main\":\"Rain\",\"description\":\"light rain\",\"icon\":\"10d\"}],\"speed\":5.02,\"deg\":252,\"gust\":11.8,\"clouds\":74,\"pop\":1,\"rain\":7.8}]}",
+    "headers" : {
+      "Server" : "openresty",
+      "Access-Control-Allow-Origin" : "*",
+      "Access-Control-Allow-Methods" : "GET, POST",
+      "Access-Control-Allow-Credentials" : "true",
+      "X-Cache-Key" : "/data/2.5/forecast/daily?APPID=test_api_id&cnt=5&lang=en&q=london,uk",
+      "Date" : "Tue, 18 Jun 2024 07:28:31 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "d2c3fa2e-74e1-49d2-b2fe-9a590fcc5400",
+  "persistent" : true,
+  "insertionIndex" : 7
+}
