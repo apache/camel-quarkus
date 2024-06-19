@@ -237,6 +237,7 @@
 *** xref:reference/extensions/pdf.adoc[PDF]
 *** xref:reference/extensions/paho.adoc[Paho]
 *** xref:reference/extensions/paho-mqtt5.adoc[Paho MQTT5]
+*** xref:reference/extensions/pinecone.adoc[Pinecone]
 *** xref:reference/extensions/platform-http.adoc[Platform HTTP]
 *** xref:reference/extensions/pgevent.adoc[PostgresSQL Event]
 *** xref:reference/extensions/pg-replication-slot.adoc[PostgresSQL Replication Slot]

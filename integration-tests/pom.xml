@@ -192,6 +192,7 @@
         <module>pdf</module>
         <module>pg-replication-slot</module>
         <module>pgevent</module>
+        <module>pinecone</module>
         <module>platform-http</module>
         <module>platform-http-proxy</module>
         <module>platform-http-proxy-ssl</module>
