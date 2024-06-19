@@ -1,0 +1,22 @@
+== Camel Quarkus Pinecone Integration Tests
+
+By default, the Pinecone integration tests use WireMock to stub the API interactions.
+
+To run the `camel-quarkus-pinecone` integration tests against the real API, you must first create a Pinecone account at https://www.pinecone.io.
+
+Then find your API keys in the management console and set the following environment variables:
+
+[source,shell]
+----
+export PINECONE_API_KEY=your-api-key
+----
+
+If the WireMock stub recordings need updating, then remove the existing files from `src/test/resources/mappings` and run tests with either:
+
+System property `-Dwiremock.record=true`
+
+Or
+
+Set environment variable `WIREMOCK_RECORD=true`
+
+NOTE: At present, not all API interactions are recorded due to indexes using dynamic DNS and gRPC endpoints.

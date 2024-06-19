@@ -204,6 +204,7 @@
         <module>pdf</module>
         <module>pg-replication-slot</module>
         <module>pgevent</module>
+        <module>pinecone</module>
         <module>platform-http</module>
         <module>protobuf</module>
         <module>pubnub</module>

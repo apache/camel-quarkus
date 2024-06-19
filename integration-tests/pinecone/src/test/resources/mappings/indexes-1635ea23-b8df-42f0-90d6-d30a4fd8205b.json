@@ -1,0 +1,33 @@
+{
+  "id" : "1635ea23-b8df-42f0-90d6-d30a4fd8205b",
+  "name" : "indexes",
+  "request" : {
+    "url" : "/indexes",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"name\":\"test-index\",\"dimension\":3,\"metric\":\"cosine\",\"spec\":{\"serverless\":{\"cloud\":\"aws\",\"region\":\"us-east-1\"}}}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 201,
+    "body" : "{\"name\":\"test-index\",\"metric\":\"cosine\",\"dimension\":3,\"status\":{\"ready\":false,\"state\":\"Initializing\"},\"host\":\"test-index-3ncz9x1.svc.aped-4627-b74a.pinecone.io\",\"spec\":{\"serverless\":{\"region\":\"us-east-1\",\"cloud\":\"aws\"}}}",
+    "headers" : {
+      "X-Cloud-Trace-Context" : "f3437adefa70c626b8ec0df59af4542c",
+      "access-control-allow-origin" : "*",
+      "Alt-Svc" : "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+      "Server" : "Google Frontend",
+      "vary" : "origin,access-control-request-method,access-control-request-headers",
+      "content-type" : "application/json",
+      "x-pinecone-operation-id" : "0da16235-9603-4f43-ab57-c6bb1ef44b7b",
+      "Date" : "Tue, 18 Jun 2024 14:46:21 GMT",
+      "Via" : "1.1 google",
+      "access-control-expose-headers" : "*",
+      "x-pinecone-api-version" : "2024-04"
+    }
+  },
+  "uuid" : "1635ea23-b8df-42f0-90d6-d30a4fd8205b",
+  "persistent" : true,
+  "insertionIndex" : 4
+}
