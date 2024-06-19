@@ -70,6 +70,11 @@ config:
     labels: ["area/fips"]
     matchOn: "title"
 
+  - id: area-flaky-test
+    regex: "\\bflaky test\\b|\\bintermittent failure\\b"
+    labels: ["flaky-test"]
+    matchOn: "title"
+
   - id: area-housekeeping
     regex: "\\b(ban(ned)?|remove)\\b"
     labels: ["area/housekeeping", "housekeeping"]
