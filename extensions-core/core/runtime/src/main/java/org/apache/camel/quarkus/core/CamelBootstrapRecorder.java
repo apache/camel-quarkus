@@ -38,10 +38,10 @@ public class CamelBootstrapRecorder {
         });
     }
 
-    public void start(RuntimeValue<CamelRuntime> runtime, Supplier<String[]> arguments) {
+    public void start(RuntimeValue<CamelRuntime> runtime, Supplier<String[]> arguments, String camelQuarkusVersion) {
         try {
             Logger logger = Logger.getLogger(CamelBootstrapRecorder.class);
-            logger.infof("Bootstrap runtime: %s", runtime.getValue().getClass().getName());
+            logger.infof("Apache Camel Quarkus %s is starting", camelQuarkusVersion);
             runtime.getValue().start(arguments.get());
         } catch (Exception e) {
             throw new RuntimeException(e);

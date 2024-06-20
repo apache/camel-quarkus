@@ -28,6 +28,7 @@ import io.quarkus.runtime.ShutdownContext;
 import org.apache.camel.quarkus.core.CamelBootstrapRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBootstrapCompletedBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBuildItem;
+import org.apache.camel.quarkus.core.deployment.util.CamelQuarkusVersion;
 
 class CamelBootstrapProcessor {
     /**
@@ -51,7 +52,7 @@ class CamelBootstrapProcessor {
 
         recorder.addShutdownTask(shutdown, runtime.runtime());
         if (runtime.isAutoStartup()) {
-            recorder.start(runtime.runtime(), commandLineArguments);
+            recorder.start(runtime.runtime(), commandLineArguments, CamelQuarkusVersion.getVersion());
         }
         /* Make sure that Quarkus orders this method before starting to serve HTTP endpoints.
          * Otherwise first requests might reach Camel context in a non-yet-started state. */
