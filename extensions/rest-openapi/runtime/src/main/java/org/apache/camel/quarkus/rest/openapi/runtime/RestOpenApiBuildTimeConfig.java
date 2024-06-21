@@ -43,7 +43,7 @@ public class RestOpenApiBuildTimeConfig {
         /**
          * The package to use for generated model classes.
          */
-        @ConfigItem
+        @ConfigItem(defaultValue = "org.apache.camel.quarkus")
         public String modelPackage;
 
         /**

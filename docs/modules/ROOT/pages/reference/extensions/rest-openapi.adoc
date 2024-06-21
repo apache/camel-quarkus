@@ -146,7 +146,7 @@ If `true`, Camel Quarkus OpenAPI code generation is run for .json files discover
 
 The package to use for generated model classes.
 | `string`
-| required icon:exclamation-circle[title=Configuration property is required]
+| `org.apache.camel.quarkus`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.openapi.codegen.models]]`link:#quarkus.camel.openapi.codegen.models[quarkus.camel.openapi.codegen.models]`
 
