@@ -1,5 +1,61 @@
 # Changelog
 
+## 3.12.0
+
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6120
+* Bump net.revelc.code:impsort-maven-plugin from 1.9.0 to 1.10.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6122
+* Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 2.15.0 to 2.16.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6121
+* Upgrade azure-core-http-vertx to 1.0.0-beta.18 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6123
+* Remove hard coded version from langchain4j-ollama by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6129
+* Remove unused version properties by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6131
+* Bump net.revelc.code.formatter:formatter-maven-plugin from 2.23.0 to 2.24.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6135
+* Use more robust type check in test report action for test case names by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6134
+* MySql test does not work on FIPS enabled system - native by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6137
+* Next is 3.12.0-SNAPSHOT by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6138
+* Fix release guide command for regenerating files post SNAPSHOT version bump by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6139
+* Supporting GrapghQL by adding more tests by @spatnity in https://github.com/apache/camel-quarkus/pull/6132
+* Add langchain4j-chat native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6140
+* Fix #5824 to add camel trace config properties by @zhfeng in https://github.com/apache/camel-quarkus/pull/6130
+* Remove duplicated dependency from tests-support-kafka by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6141
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6144
+* Test support certicate by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6116
+* Add traceProcessors option to OpenTelemetry extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6146
+* Enable relocations profile when building Quarkus by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6149
+* Fix auto label workflow GraphQL query by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6150
+* Bump quarkiverse-minio.version from 3.7.1 to 3.7.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/6152
+* Update Maven wrapper distribution URL to Maven 3.9.7 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6153
+* Bump net.revelc.code.formatter:formatter-maven-plugin from 2.24.0 to 2.24.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/6161
+* Bump quarkiverse-cxf.version from 3.11.0 to 3.11.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/6160
+* Add missing HTTP client dependency to azure-key-vault extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6158
+* Remove redundant integration test READMEs relating to certificate generation by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6166
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6168
+* Increase elasticsearch-rest-client test coverage by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6165
+* Use certificate-generator for gRPC integration tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6167
+* Fixed flaky aws2 cw test with real service by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6170
+* Bump quarkiverse-langchain4j.version from 0.14.2 to 0.15.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/6175
+* Add elasticsearch-rest-client native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6176
+* Upgrade Debezium to 2.6.2.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6178
+* Upgrade Quarkus to 3.12.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6181
+* Added aws2-kinesis-firehose test service dependency STS by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6183
+* [Azure] Fix flaky storage queue crud test by @avano in https://github.com/apache/camel-quarkus/pull/6180
+* Bump quarkiverse-groovy.version from 3.10.0 to 3.11.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6187
+* Added more logging to Aws2KinesisFirehoseTest because of flaky tests by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6186
+* Add httpclient5 support extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6188
+* Bump quarkiverse-minio.version from 3.7.2 to 3.7.3 by @dependabot in https://github.com/apache/camel-quarkus/pull/6192
+* Bump quarkiverse-jgit.version from 3.1.0 to 3.1.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/6193
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6194
+* Use LazySecretKeysHandler for Jasypt Config by @radcortez in https://github.com/apache/camel-quarkus/pull/6191
+* Bump quarkiverse-jsch.version from 3.0.7 to 3.0.8 by @dependabot in https://github.com/apache/camel-quarkus/pull/6200
+* [Slack] Decrease delay when getting messages by @avano in https://github.com/apache/camel-quarkus/pull/6197
+* Using WireMock in weather extension integration tests #6047 by @spatnity in https://github.com/apache/camel-quarkus/pull/6202
+* Upgrade Quarkus Jgit version to 3.1.2 by @aldettinger in https://github.com/apache/camel-quarkus/pull/6203
+* Bump com.unboundid:unboundid-ldapsdk from 7.0.0 to 7.0.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/6205
+* Add Pinecone extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6206
+* Update Maven wrapper distribution URL to Maven 3.9.8 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6207
+* Auto label issues relating to flaky tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6208
+* Upgrade Quarkus to 3.12.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6210
+* Upgrade to Quarkus CxF 3.12.0 by @aldettinger in https://github.com/apache/camel-quarkus/pull/6211
+
 ## 3.11.0
 
 * Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 2.13.1 to 2.14.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6038
