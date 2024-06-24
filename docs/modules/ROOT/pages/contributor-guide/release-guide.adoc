@@ -74,6 +74,17 @@ $ mvn deploy -Papache-release -DskipTests -Denforcer.skip -Dquarkus.build.skip -
 
 Camel Quarkus provides some release scripts to push the required bits in development subversion repository.
 
+In a first step, make sure your public key is present in the `KEYS` file. Add it, if it is not there yet using `gpg` command:
+
+[source,shell]
+----
+$ export EMAIL= # the e-mail address in your key
+$ gpg -k $EMAIL >> KEYS
+$ gpg --armor --export $EMAIL >> KEYS
+----
+
+Then execute the `upload-source.sh` script, like below:
+
 [source,shell]
 ----
 $ cd release-utils/scripts/
@@ -190,9 +201,20 @@ For instance, one could search mail with subject:
 
 == Update the Apache Camel Quarkus distribution subversion repository
 
-Once the staging repository has been released, the Apache Camel Quarkus distribution subversion repository should be updated as sketched below.
+Once the staging repository has been released, the Apache Camel Quarkus distribution subversion repository should be updated.
 
+In a first step, one would simply need to promote the deliverables from the development to the distribution svn repository by invoking the `promote-release.sh`.
+
+[source,shell]
+----
+$ export VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's|-SNAPSHOT||') # the version you are releasing, e.g. 0.1.0
+$ cd release-utils/scripts/
+$ ./promote-release.sh $VERSION $VERSION
+----
+
+In a second step, it is needed to check that useless versions are deleted from the svn repository.
 If you are doing this for the first time you need to checkout the Apache Camel Quarkus distribution subversion repository:
+
 [source,shell]
 ----
 $ svn checkout 'https://dist.apache.org/repos/dist/release/camel' camel-releases-dist
@@ -204,65 +226,29 @@ In case you have performed the above step during some release in the past, you n
 ----
 $ cd camel-releases-dist
 $ svn update .
-----
-
-Make sure your public key is present in the `KEYS` file. Add it, if it is not there yet using `gpg` command:
-
-[source,shell]
-----
-$ export EMAIL= # the e-mail address in your key
-$ gpg -k $EMAIL >> KEYS
-$ gpg --armor --export $EMAIL >> KEYS
-----
-
-Assemble the Apache Camel Quarkus sources distribution and SBOM artifacts:
-[source,shell]
-----
-$ mkdir -p "camel-quarkus/$VERSION"
 $ cd "camel-quarkus/$VERSION"
-$ export URL='https://repository.apache.org/content/repositories/releases/org/apache/camel/quarkus/camel-quarkus'
-$ wget -O "apache-camel-quarkus-$VERSION-src.zip" "$URL/$VERSION/camel-quarkus-$VERSION-src.zip"
-$ wget -O "apache-camel-quarkus-$VERSION-src.zip.asc" "$URL/$VERSION/camel-quarkus-$VERSION-src.zip.asc"
-$ wget -O "apache-camel-quarkus-$VERSION-sbom.json" "$URL/$VERSION/camel-quarkus-$VERSION-cyclonedx.json"
-$ wget -O "apache-camel-quarkus-$VERSION-sbom.json.asc" "$URL/$VERSION/camel-quarkus-$VERSION-cyclonedx.json.asc"
-$ wget -O "apache-camel-quarkus-$VERSION-sbom.xml" "$URL/$VERSION/camel-quarkus-$VERSION-cyclonedx.xml"
-$ wget -O "apache-camel-quarkus-$VERSION-sbom.xml.asc" "$URL/$VERSION/camel-quarkus-$VERSION-cyclonedx.xml.asc"
-$ sha512sum "apache-camel-quarkus-$VERSION-src.zip" > "apache-camel-quarkus-$VERSION-src.zip.sha512"
-$ sha512sum "apache-camel-quarkus-$VERSION-sbom.json" > "apache-camel-quarkus-$VERSION-sbom.json.sha512"
-$ sha512sum "apache-camel-quarkus-$VERSION-sbom.xml" > "apache-camel-quarkus-$VERSION-sbom.xml.sha512"
 ----
-Ensure that only the latest release from each maintained branches is present (including active LTS versions).
-Typically, when releasing e.g. 1.4.0, you may need to delete e.g. 1.3.0:
+
+Then, ensure that only the latest release from each maintained branches is present (including active LTS versions).
+Typically, when releasing e.g. 3.12.0, you may need to delete e.g. 3.11.0:
 
 [source,shell]
 ----
 $ cd ..
 $ ls
-1.3.0 1.4.0
-$ svn remove 1.3.0
+3.11.0 3.12.0
+$ svn remove 3.11.0
 ----
-Review the changes:
+
+Review and commit the changes:
+
 [source,shell]
 ----
 $ cd ..
 $ svn diff
-----
-Commit the changes:
-[source,shell]
-----
 $ svn add --force .
-$ svn commit -m "Apache Camel Quarkus $VERSION released artifacts"
+$ svn commit -m "Cleaning inactive Camel Quarkus versions after $VERSION release"
 ----
-
-Altenatively you could also use the release-scripts promote-release.sh
-
-[source,shell]
-----
-$ cd release-utils/scripts/
-$ ./promote-release.sh $VERSION $VERSION
-----
-
-where `$VERSION` is the version just released.
 
 == Upgrade Camel Quarkus in Quarkus Platform
 
