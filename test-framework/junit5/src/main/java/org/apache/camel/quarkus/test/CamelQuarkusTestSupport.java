@@ -41,7 +41,10 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The {@link CamelTestSupport} class does not work on Quarkus. This class provides a replacement, which can be used in
- * JVM mode. There are several differences between {@link CamelTestSupport} and this class.
+ * JVM mode. Note that {@link CamelQuarkusTestSupport} <b>DOES NOT</b> work for native mode tests.
+ * <p>
+ * There are several differences between {@link CamelTestSupport} and this class.
+ * </p>
  * <ul>
  * <li>Starting and stopping {@link CamelContext} in Camel Quarkus is generally bound to starting and stopping the
  * application
@@ -80,11 +83,7 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
 
     @Inject
     protected CamelContext context;
-
-    /*
-     * Set of routes, which were created by routeBuilder. This set is used by some callbacks.
-     */
-    Set<String> createdRoutes;
+    private Set<String> createdRoutes;
 
     //------------------------ quarkus callbacks ---------------
 
@@ -92,6 +91,7 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
      * Replacement of {@link #afterAll(ExtensionContext)} called from {@link AfterAllCallback#afterAll(QuarkusTestContext)}
      */
     protected void doAfterAll(QuarkusTestContext context) throws Exception {
+        // Noop
     }
 
     /**
@@ -99,14 +99,17 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
      * {@link AfterEachCallback#afterEach(QuarkusTestMethodContext)}
      */
     protected void doAfterEach(QuarkusTestMethodContext context) throws Exception {
+        // Noop
     }
 
     /**
      * Replacement of {@link #beforeAll(ExtensionContext)} called from {@link AfterConstructCallback#afterConstruct(Object)}
-     * Execution differs in case of <i>@TestInstance(TestInstance.Lifecycle.PER_METHOD)</i> in which case callback is called
+     * Execution differs in case of <i>@TestInstance(TestInstance.Lifecycle.PER_METHOD)</i>. in which case a callback is
+     * invoked
      * before each test (instead of {@link #beforeAll(ExtensionContext)}).
      */
     protected void doAfterConstruct() throws Exception {
+        // Noop
     }
 
     /**
@@ -114,6 +117,7 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
      * {@link BeforeEachCallback#beforeEach(QuarkusTestMethodContext)}
      */
     protected void doBeforeEach(QuarkusTestMethodContext context) throws Exception {
+        // Noop
     }
 
     /**
@@ -134,8 +138,7 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
      */
     @Override
     protected void bindToRegistry(Registry registry) throws Exception {
-        //CamelTestSupport has to use the same context as CamelQuarkusTestSupport
-        Assertions.assertEquals(context, super.context, "Different context found!");
+        assertTestClassCamelContextMatchesAppCamelContext();
         super.bindToRegistry(registry);
     }
 
@@ -144,8 +147,7 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
      */
     @Override
     protected void postProcessTest() throws Exception {
-        //CamelTestSupport has to use the same context as CamelQuarkusTestSupport
-        Assertions.assertEquals(context, super.context, "Different context found!");
+        assertTestClassCamelContextMatchesAppCamelContext();
         super.postProcessTest();
     }
 
@@ -154,8 +156,7 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
      */
     @Override
     public CamelContext context() {
-        //CamelTestSupport has to use the same context as CamelQuarkusTestSupport
-        Assertions.assertEquals(context, super.context, "Different context found!");
+        assertTestClassCamelContextMatchesAppCamelContext();
         return super.context();
     }
 
@@ -174,11 +175,14 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
      * }
      * </pre>
      *
-     * @return Never returns any result. UnsupportedOperationException is thrown instead.
+     * Or you can produce named CDI beans, and they will be resolvable from the Camel registry.
+     *
+     * @throws UnsupportedOperationException since on Camel Quarkus the Camel registry is a facade on top of the Quarkus
+     *                                       CDI bean container.
      */
     @Override
     protected final Registry createCamelRegistry() {
-        throw new UnsupportedOperationException("won't be executed.");
+        throw new UnsupportedOperationException("Creating a registry is not supported for Camel Quarkus tests");
     }
 
     /**
@@ -188,7 +192,7 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
      */
     @Override
     public final void beforeAll(ExtensionContext context) {
-        //replaced by quarkus callback (beforeEach)
+        // In Camel Quarkus, junit5 uses a different classloader. The original CamelTestSupport logic is in org.apache.camel.quarkus.test.BeforeEachCallback
     }
 
     /**
@@ -197,7 +201,7 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
      */
     @Override
     public final void beforeEach(ExtensionContext context) throws Exception {
-        //replaced by quarkus callback (beforeEach)
+        // In Camel Quarkus, junit5 uses a different classloader. The original CamelTestSupport logic is in org.apache.camel.quarkus.test.BeforeEachCallback
     }
 
     /**
@@ -207,7 +211,7 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
      */
     @Override
     public final void afterAll(ExtensionContext context) {
-        //in camel-quarkus, junit5 uses different classloader, necessary code was moved into quarkus's callback
+        // In Camel Quarkus, junit5 uses a different classloader. The original CamelTestSupport logic is in org.apache.camel.quarkus.test.AfterAllCallback
     }
 
     /**
@@ -217,7 +221,7 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
      */
     @Override
     public final void afterEach(ExtensionContext context) throws Exception {
-        //in camel-quarkus, junit5 uses different classloader, necessary code was moved into quarkus's callback
+        // In Camel Quarkus, junit5 uses a different classloader. The original CamelTestSupport logic is in org.apache.camel.quarkus.test.AfterEachCallback
     }
 
     /**
@@ -227,7 +231,7 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
      */
     @Override
     public final void afterTestExecution(ExtensionContext context) throws Exception {
-        //in camel-quarkus, junit5 uses different classloader, necessary code was moved into quarkus's callback
+        // In Camel Quarkus, junit5 uses a different classloader. The original CamelTestSupport logic is in org.apache.camel.quarkus.test.AfterAllCallback
     }
 
     /**
@@ -252,14 +256,12 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
     }
 
     /**
-     * This method stops the Camel context. Be aware that on of the limitation that Quarkus brings is that context
-     * can not be started (lifecycle f the context is bound to the application) .
-     *
-     * @throws Exception
+     * The CamelContext lifecycle is managed by Quarkus and FastCamelContext cannot be restarted after stop.
+     * Therefore, this is a noop operation.
      */
     @Override
-    protected void stopCamelContext() throws Exception {
-        //context is started and stopped via quarkus lifecycle
+    protected void stopCamelContext() {
+        // Noop
     }
 
     /**
@@ -268,16 +270,16 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
      */
     @Override
     protected final void doQuarkusCheck() {
-        //can run on Quarkus
 
-        //log warning in case that at least one RouteBuilder in the registry, it might mean, that unintentionally
-        // RouteBuilders are shared across or that RouteBuilder is created with @Produces
+        // Log a warning in case that at least one RouteBuilder is present in the Camel registry.
+        // It might mean, that unintentionally routes are shared across tests, or that a RouteBuilder is
+        // created with @Produces
         if (isUseRouteBuilder() && !context.getRegistry().findByType(RouteBuilder.class).isEmpty()) {
-            LOG.warn(
-                    "Test with `true` in `isUserRouteBuilder' and `RouteBuilder` detected in the context registry. " +
-                            "All tests will share this routeBuilder from the registry. This is usually not intended. " +
-                            "If `@Produces` is used to create such a RouteBuilder, please refactor the code " +
-                            "by overriding the method `createRouteBuilder()` instead.");
+            LOG.warn("isUseRouteBuilder = true and RouteBuilder beans are present in the Camel registry.\n" +
+                    "All tests will share their routes. If this is not desired, define your test routes " +
+                    "by overriding CamelQuarkusTestSupport.createRouteBuilder().\nOr use configuration properties " +
+                    "quarkus.camel.routes-discovery.exclude-patterns or quarkus.camel.routes-discovery.include-patterns " +
+                    "to control which routes are started.");
         }
     }
 
@@ -304,10 +306,10 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
     }
 
     /**
-     * Strategy to perform any pre setup, before {@link CamelContext} is created
+     * Strategy to perform any pre setup, before the {@link CamelContext} is created.
      * <p>
-     * Be aware that difference in lifecycle with Quarkus may require a special behavior.
-     * If this method is overridden, <i>super.doPreSetup()</i> has to be called.
+     * Be aware that difference in lifecycle with Quarkus may require special behavior.
+     * If this method is overridden, <i>super.doPreSetup()</i> must be called.
      * </p>
      */
     @Override
@@ -317,18 +319,21 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
         }
 
         if (isUseRouteBuilder()) {
-            //save the routeIds of routes existing before setup
-            createdRoutes = context.getRoutes().stream().map(r -> r.getRouteId()).collect(Collectors.toSet());
+            // Save the routeIds of routes existing before setup
+            createdRoutes = context.getRoutes()
+                    .stream()
+                    .map(Route::getRouteId)
+                    .collect(Collectors.toSet());
         }
 
         super.doPreSetup();
     }
 
     /**
-     * Strategy to perform any post setup after {@link CamelContext} is created
+     * Strategy to perform any post setup after the {@link CamelContext} is created.
      * <p>
-     * Be aware that difference in lifecycle with Quarkus may require a special behavior.
-     * If this method is overridden, <i>super.doPostSetup()</i> has to be called.
+     * Be aware that difference in lifecycle with Quarkus may require special behavior.
+     * If this method is overridden, <i>super.doPostSetup()</i> must be called.
      * </p>
      */
     @Override
@@ -338,15 +343,18 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
             if (isUseDebugger()) {
                 ModelCamelContext mcc = (ModelCamelContext) context;
                 List<RouteDefinition> rdfs = mcc.getRouteDefinitions();
-                //if context was suspended routes was not added, because it would trigger start of the context
-                // routes have to be added now
+                // If the context was suspended, routes were not added because it would trigger start of the context
+                // therefore, add the routes here
                 mcc.addRouteDefinitions(rdfs);
             }
         }
 
         if (isUseRouteBuilder()) {
-            //remove from the routes all routes which existed before setup
-            var allRoutes = context.getRoutes().stream().map(r -> r.getRouteId()).collect(Collectors.toSet());
+            // Remove from the routes all routes which existed before setup
+            Set<String> allRoutes = context.getRoutes()
+                    .stream()
+                    .map(Route::getRouteId)
+                    .collect(Collectors.toSet());
             if (createdRoutes != null) {
                 allRoutes.removeAll(createdRoutes);
             }
@@ -356,29 +364,30 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
     }
 
     /**
-     * Internal disablement of the context stop functionality.
+     * The CamelContext lifecycle is managed by Quarkus and FastCamelContext cannot be restarted after stop.
+     * Therefore, this is a noop operation.
      */
     @Override
     protected final void doStopCamelContext(CamelContext context, Service camelContextService) {
-        //don't stop
+        // noop
     }
 
     /**
-     * This method does nothing. The context starts together with Quarkus engine.
+     * The CamelContext lifecycle is managed by Quarkus and FastCamelContext is started automatically.
+     * Therefore, this is a noop operation.
      */
     @Override
     protected final void startCamelContext() {
-        //context has already started
+        // noop
     }
 
     /**
-     * Override when using <a href="http://camel.apache.org/advicewith.html">advice with</a> and return <tt>true</tt>.
-     * This helps knowing advice with is to be used.
+     * Override when using <a href="http://camel.apache.org/advicewith.html">advice with</a> and return <code>true</code>.
      * <p/>
-     * <b>Important:</b> Its important to execute method {@link #startRouteDefinitions()}} manually from the unit test
+     * <b>Important:</b> You must execute method {@link #startRouteDefinitions()}} manually from the unit test
      * after you are done doing all the advice with.
      *
-     * @return <tt>true</tt> if you use advice with in your unit tests.
+     * @return <code>true</code> to apply advice to existing route(s). <code>false</code> to disable advice.
      */
     @Override
     public boolean isUseAdviceWith() {
@@ -398,4 +407,13 @@ public class CamelQuarkusTestSupport extends CamelTestSupport
         modelCamelContext.startRouteDefinitions(definitions);
     }
 
+    Set<String> getCreatedRoutes() {
+        return createdRoutes;
+    }
+
+    private void assertTestClassCamelContextMatchesAppCamelContext() {
+        // Test classes must use the same CamelContext as the application under test
+        Assertions.assertEquals(context, super.context,
+                "CamelQuarkusTestSupport uses a different CamelContext compared to the application under test");
+    }
 }

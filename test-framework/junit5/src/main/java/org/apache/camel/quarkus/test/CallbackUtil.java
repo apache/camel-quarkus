@@ -33,6 +33,9 @@ import org.junit.jupiter.engine.execution.NamespaceAwareStore;
 import org.junit.platform.engine.support.store.NamespacedHierarchicalStore;
 
 public class CallbackUtil {
+    private CallbackUtil() {
+        // Utility class
+    }
 
     static boolean isPerClass(CamelQuarkusTestSupport testSupport) {
         return getLifecycle(testSupport).filter(lc -> lc.equals(TestInstance.Lifecycle.PER_CLASS)).isPresent();
@@ -47,13 +50,13 @@ public class CallbackUtil {
     }
 
     static void resetContext(CamelQuarkusTestSupport testInstance) {
-
         //if routeBuilder (from the test) was used, all routes from that builder has to be stopped and removed
         //because routes will be created again (in case of TestInstance.Lifecycle.PER_CLASS, this method is not executed)
-        if (testInstance.isUseRouteBuilder() && testInstance.createdRoutes != null) {
+        Set<String> createdRoutes = testInstance.getCreatedRoutes();
+        if (testInstance.isUseRouteBuilder() && createdRoutes != null) {
 
             try {
-                for (String r : testInstance.createdRoutes) {
+                for (String r : createdRoutes) {
                     testInstance.context().getRouteController().stopRoute(r);
                     testInstance.context().removeRoute(r);
                 }
