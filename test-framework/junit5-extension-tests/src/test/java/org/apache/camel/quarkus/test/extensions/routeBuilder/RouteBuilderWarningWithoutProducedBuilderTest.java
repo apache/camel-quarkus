@@ -55,6 +55,6 @@ public class RouteBuilderWarningWithoutProducedBuilderTest {
         Assertions.assertEquals(0L, ts.getTestsSkipped());
 
         Assertions.assertFalse(TEST.getLogRecords().stream()
-                .anyMatch(logRecord -> logRecord.getMessage().contains("`RouteBuilder` detected")));
+                .anyMatch(logRecord -> logRecord.getMessage().contains("RouteBuilder beans are present")));
     }
 }
