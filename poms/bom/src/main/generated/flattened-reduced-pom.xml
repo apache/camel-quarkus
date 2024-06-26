@@ -2191,6 +2191,10 @@
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>animal-sniffer-annotations</artifactId>
           </exclusion>
+          <exclusion>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>*</artifactId>
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -2290,6 +2294,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-soap</artifactId>
         <version>4.4.3</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>*</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -2388,6 +2398,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-swift</artifactId>
         <version>4.4.3</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>*</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -6148,6 +6164,11 @@
         <version>2.2.13</version>
       </dependency>
       <dependency>
+        <groupId>com.github.luben</groupId>
+        <artifactId>zstd-jni</artifactId>
+        <version>1.5.5-1</version>
+      </dependency>
+      <dependency>
         <groupId>com.github.mwiede</groupId>
         <artifactId>jsch</artifactId>
         <version>0.2.16</version>
@@ -6679,6 +6700,21 @@
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-scripting-jvm-host</artifactId>
         <version>1.9.22</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jxmpp</groupId>
+        <artifactId>jxmpp-core</artifactId>
+        <version>1.0.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jxmpp</groupId>
+        <artifactId>jxmpp-jid</artifactId>
+        <version>1.0.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jxmpp</groupId>
+        <artifactId>jxmpp-util-cache</artifactId>
+        <version>1.0.3</version>
       </dependency>
       <dependency>
         <groupId>org.kiwiproject</groupId>
