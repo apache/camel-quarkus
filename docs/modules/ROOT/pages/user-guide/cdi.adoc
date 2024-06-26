@@ -65,6 +65,64 @@ public class MyBean {
 }
 ----
 
+== `ProducerTemplate` and `ConsumerTemplate`
+
+If you want to use `ProducerTemplate` or `ConsumerTemplate`, then they can be injected into beans.
+
+[source,java]
+----
+import jakarta.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import org.apache.camel.ConsumerTemplate;
+import org.apache.camel.FluentProducerTemplate;
+import org.apache.camel.ProducerTemplate;
+
+@ApplicationScoped
+public class MyBean {
+    @Inject
+    ProducerTemplate producerTemplate;
+
+    @Inject
+    FluentProducerTemplate fluentProducerTemplate;
+
+    @Inject
+    ConsumerTemplate consumerTemplate;
+
+    public String produceToDirectEndpoint() {
+        return producerTemplate.requestBody("direct:start", "Hello World", String.class);
+    }
+
+    public String produceToDirectEndpointFluently() {
+        return fluentProducerTemplate.to("direct:start").withBody("Hello World").request(String.class);
+    }
+
+    public String consumeFromJMSEndpoint() {
+        return consumerTemplate.receiveBody("jms:queue:camel", String.class);
+    }
+}
+----
+
+== Accessing the Camel Registry
+
+The Camel registry can be injected into beans.
+
+[source,java]
+----
+import jakarta.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import org.apache.camel.spi.Registry;
+
+@ApplicationScoped
+public class MyBean {
+    @Inject
+    Registry registry;
+
+    public CoolBean lookupBean() {
+        return registry.lookupByNameAndType("coolBean", CoolBean.class);
+    }
+}
+----
+
 == `@EndpointInject` and `@Produce`
 
 If you are used to `@org.apache.camel.EndpointInject` and `@org.apache.camel.Produce` from
