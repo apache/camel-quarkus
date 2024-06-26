@@ -195,7 +195,6 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
      */
     protected void bindToRegistry(Registry registry) throws Exception {
         assertTestClassCamelContextMatchesAppCamelContext();
-        super.bindToRegistry(registry);
     }
 
     /**
@@ -495,6 +494,7 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
             Exchange exchange, Processor processor, ProcessorDefinition<?> definition, String id, String label,
             long timeTaken) {
     }
+
     Set<String> getCreatedRoutes() {
         return createdRoutes;
     }
