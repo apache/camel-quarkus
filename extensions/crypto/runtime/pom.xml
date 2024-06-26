@@ -49,6 +49,10 @@
             <artifactId>camel-crypto</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-crypto-pgp</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcpg-jdk18on</artifactId>
         </dependency>
