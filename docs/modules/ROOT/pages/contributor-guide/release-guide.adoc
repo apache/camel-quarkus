@@ -382,7 +382,7 @@ $ git commit -m "Upgrade to Quarkus Platform $NEW_PLATFORM_VERSION"
 +
 [source,shell]
 ----
-$ ./mvnw-for-each.sh clean verify -Pnative
+$ ./mvnw-for-each.sh clean verify -Dnative
 ----
 +
 * If everything works for you locally, open a PR to merge `camel-quarkus-main` to `main`
