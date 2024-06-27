@@ -36,12 +36,18 @@ pipeline {
 
     stages {
         stage('Build & Install') {
+            environment {
+                MAVEN_OPTS = "-Xmx4600m"
+            }
             steps {
                 sh "./mvnw ${MAVEN_PARAMS} -Dquickly clean install"
             }
         }
 
         stage('Code Quality Review') {
+            environment {
+                MAVEN_OPTS = "-Xmx4600m"
+            }
             steps {
                 withCredentials([string(credentialsId: 'apache-camel-core', variable: 'SONAR_TOKEN')]) {
                     sh "./mvnw $MAVEN_PARAMS -Dsonar.host.url=https://sonarcloud.io -Dsonar.java.experimental.batchModeSizeInKB=2048 -Dsonar.organization=apache -Dsonar.projectKey=apache_camel_quarkus -Dsonar.branch.name=$BRANCH_NAME org.sonarsource.scanner.maven:sonar-maven-plugin:sonar"
