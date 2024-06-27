@@ -16,16 +16,33 @@
  */
 package org.apache.camel.quarkus.component.caffeine.deployment;
 
+import java.util.function.BooleanSupplier;
+
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import org.jboss.jandex.DotName;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageSystemPropertyBuildItem;
+import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
+
+import static io.quarkus.caffeine.runtime.graal.CacheConstructorsFeature.REGISTER_RECORD_STATS_IMPLEMENTATIONS;
 
 class CaffeineProcessor {
     private static final String FEATURE = "camel-caffeine";
-    private static final DotName CACHE_LOADER_NAME = DotName.createSimple("com.github.benmanes.caffeine.cache.CacheLoader");
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep(onlyIf = CamelCaffeineStatsEnabled.class)
+    NativeImageSystemPropertyBuildItem registerRecordStatsImplementations() {
+        return new NativeImageSystemPropertyBuildItem(REGISTER_RECORD_STATS_IMPLEMENTATIONS, "true");
+    }
+
+    static final class CamelCaffeineStatsEnabled implements BooleanSupplier {
+        @Override
+        public boolean getAsBoolean() {
+            return CamelSupport.getOptionalConfigValue("camel.component.caffeine-cache.stats-enabled", boolean.class, false) ||
+                    CamelSupport.getOptionalConfigValue("camel.component.caffeine-cache.statsEnabled", boolean.class, false);
+        }
     }
 }
