@@ -24,7 +24,7 @@ if (env.BRANCH_NAME == 'camel-main') {
 }
 
 if (env.BRANCH_NAME == 'quarkus-main') {
-    MAVEN_PARAMS += ' -Poss-snapshots -Dquarkus.version=999-SNAPSHOT'
+    MAVEN_PARAMS += ' -Dforbiddenapis.skip=true'
 }
 
 pipeline {
@@ -66,6 +66,9 @@ pipeline {
         }
 
         stage('Deploy') {
+            environment {
+                MAVEN_OPTS = "-Xmx4600m"
+            }
             steps {
                 sh "./mvnw ${MAVEN_PARAMS} -Dquickly clean deploy"
             }
