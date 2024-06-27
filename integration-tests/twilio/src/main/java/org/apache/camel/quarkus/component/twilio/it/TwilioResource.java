@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.twilio.constant.EnumConstants;
 import com.twilio.http.HttpClient;
 import com.twilio.http.NetworkHttpClient;
 import com.twilio.http.Request;
@@ -85,6 +86,8 @@ public class TwilioResource {
 
                     Request modified = new Request(originalRequest.getMethod(),
                             url.replace("https://api.twilio.com", wireMockUrl.get()));
+                    modified.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+                    modified.setBody("");
 
                     Map<String, List<String>> headerParams = originalRequest.getHeaderParams();
                     for (String key : headerParams.keySet()) {
