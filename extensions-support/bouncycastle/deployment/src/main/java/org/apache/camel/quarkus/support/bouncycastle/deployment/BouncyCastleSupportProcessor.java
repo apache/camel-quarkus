@@ -16,7 +16,9 @@
  */
 package org.apache.camel.quarkus.support.bouncycastle.deployment;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 import java.util.stream.Collectors;
 
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -24,22 +26,35 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
-import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
 import io.quarkus.security.deployment.BouncyCastleProviderBuildItem;
+import io.quarkus.security.deployment.SecurityConfig;
 import org.apache.camel.quarkus.support.bouncycastle.BouncyCastleRecorder;
 import org.jboss.jandex.IndexView;
 
 public class BouncyCastleSupportProcessor {
 
-    @BuildStep
+    SecurityConfig securityConfig;
+
+    @BuildStep(onlyIfNot = BcProviderConfigured.class)
     void produceBouncyCastleProvider(BuildProducer<BouncyCastleProviderBuildItem> bouncyCastleProvider) {
+        //register BC if there is no BC or BCFIPS provider in securityConfiguration
         bouncyCastleProvider.produce(new BouncyCastleProviderBuildItem());
     }
 
-    @BuildStep
+    @BuildStep()
+    @Record(ExecutionTime.STATIC_INIT)
+    public void registerBouncyCastleProvider(List<CipherTransformationBuildItem> cipherTransformations,
+            BouncyCastleRecorder recorder,
+            ShutdownContextBuildItem shutdownContextBuildItem) {
+        List<String> allCipherTransformations = cipherTransformations.stream()
+                .flatMap(c -> c.getCipherTransformations().stream()).collect(Collectors.toList());
+        recorder.registerBouncyCastleProvider(allCipherTransformations, shutdownContextBuildItem);
+    }
+
+    @BuildStep()
     ReflectiveClassBuildItem registerForReflection(CombinedIndexBuildItem combinedIndex) {
         IndexView index = combinedIndex.getIndex();
 
@@ -54,23 +69,36 @@ public class BouncyCastleSupportProcessor {
         return ReflectiveClassBuildItem.builder(dtos).build();
     }
 
-    @BuildStep
-    IndexDependencyBuildItem registerBCDependencyForIndex() {
-        return new IndexDependencyBuildItem("org.bouncycastle", "bcprov-jdk18on");
-    }
-
-    @BuildStep
+    @BuildStep(onlyIfNot = FipsProviderConfigured.class)
     void secureRandomConfiguration(BuildProducer<RuntimeReinitializedClassBuildItem> reinitialized) {
         reinitialized.produce(new RuntimeReinitializedClassBuildItem("java.security.SecureRandom"));
     }
 
-    @BuildStep
-    @Record(ExecutionTime.STATIC_INIT)
-    public void registerBouncyCastleProvider(List<CipherTransformationBuildItem> cipherTransformations,
-            BouncyCastleRecorder recorder,
-            ShutdownContextBuildItem shutdownContextBuildItem) {
-        List<String> allCipherTransformations = cipherTransformations.stream()
-                .flatMap(c -> c.getCipherTransformations().stream()).collect(Collectors.toList());
-        recorder.registerBouncyCastleProvider(allCipherTransformations, shutdownContextBuildItem);
+    /**
+     * Indicates whether FIPS provider is registered via quarkus.security.
+     */
+    static final class FipsProviderConfigured implements BooleanSupplier {
+        SecurityConfig securityConfig;
+
+        @Override
+        public boolean getAsBoolean() {
+            return securityConfig.securityProviders().orElse(Collections.emptySet()).stream()
+                    .anyMatch(p -> p.toLowerCase().contains("fips"));
+
+        }
     }
+
+    /**
+     * Indicates whether BC* provider is registered via quarkus.security.
+     */
+    static final class BcProviderConfigured implements BooleanSupplier {
+        SecurityConfig securityConfig;
+
+        @Override
+        public boolean getAsBoolean() {
+            return securityConfig.securityProviders().orElse(Collections.emptySet()).stream()
+                    .filter(p -> p.toLowerCase().startsWith("bc")).findAny().isPresent();
+        }
+    }
+
 }

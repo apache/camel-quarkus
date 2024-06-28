@@ -30,11 +30,28 @@
     <name>Camel Quarkus :: Integration Tests :: Crypto (JCE)</name>
     <description>Integration tests for Camel Quarkus Crypto (JCE) extension</description>
 
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <!-- Required to do not alter crypto.jks -->
+                <configuration>
+                    <nonFilteredFileExtensions>
+                        <nonFilteredFileExtension>jks</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-crypto</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-direct</artifactId>
@@ -42,6 +59,10 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-crypto</artifactId>
         </dependency>
 
         <!-- test dependencies -->
@@ -60,10 +81,35 @@
             <artifactId>camel-quarkus-integration-test-support</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit5-internal</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
-
     <profiles>
+        <profile>
+            <id>fips</id>
+            <activation>
+                <property>
+                    <name>fips</name>
+                </property>
+            </activation>
+            <properties>
+                <cq-security-provider>quarkus.security.security-providers=BCFIPS</cq-security-provider>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bc-fips</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-security</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
         <profile>
             <id>native</id>
             <activation>

@@ -20,7 +20,6 @@ import java.nio.charset.StandardCharsets;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.apache.camel.quarkus.test.DisabledIfFipsMode;
 import org.apache.commons.codec.binary.Base64;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -31,9 +30,8 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@DisabledIfFipsMode //https://github.com/apache/camel-quarkus/issues/6088
 @QuarkusTest
-class CryptoTest {
+public class CryptoTest {
 
     @ParameterizedTest
     @ValueSource(booleans = { false, true })
@@ -83,29 +81,6 @@ class CryptoTest {
         String decrypted = RestAssured.given()
                 .body(encrypted)
                 .post("/crypto/decrypt")
-                .then()
-                .statusCode(200)
-                .extract()
-                .body()
-                .asString();
-
-        assertEquals(MESSAGE, decrypted);
-    }
-
-    @Test
-    public void encryptDecryptPgpMessage() {
-        byte[] encrypted = RestAssured.given()
-                .body(MESSAGE)
-                .post("/crypto/encrypt/pgp")
-                .then()
-                .statusCode(200)
-                .extract()
-                .body()
-                .asByteArray();
-
-        String decrypted = RestAssured.given()
-                .body(encrypted)
-                .post("/crypto/decrypt/pgp")
                 .then()
                 .statusCode(200)
                 .extract()

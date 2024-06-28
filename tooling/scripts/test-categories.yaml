@@ -134,6 +134,7 @@ group-07:
 group-08:
   - azure-grouped
   - crypto
+  - crypto-pgp
   - jq
   - langchain4j-chat
   - master
