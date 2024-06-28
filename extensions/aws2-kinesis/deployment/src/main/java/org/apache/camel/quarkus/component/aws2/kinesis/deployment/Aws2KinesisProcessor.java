@@ -16,8 +16,13 @@
  */
 package org.apache.camel.quarkus.component.aws2.kinesis.deployment;
 
+import java.util.stream.Stream;
+
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.jboss.logging.Logger;
 
 class Aws2KinesisProcessor {
@@ -28,5 +33,18 @@ class Aws2KinesisProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
+        Stream.of("software.amazon.awssdk.services.dynamodb.DynamoDbRetryPolicy",
+                "software.amazon.kinesis.lifecycle.ShutdownTask")
+                .map(RuntimeInitializedClassBuildItem::new)
+                .forEach(runtimeInitializedClass::produce);
+    }
+
+    @BuildStep
+    void build(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder("javax.xml.bind.DatatypeConverter").build());
     }
 }
