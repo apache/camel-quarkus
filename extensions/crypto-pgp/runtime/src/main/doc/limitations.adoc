@@ -1,0 +1,4 @@
+=== FIPS
+
+It may not be possible to run `crypto` and `crypto-pgp` extensions together on FIPS enabled system.
+For example if `crypto` uses `BCFIPS` provider and `crypto-pgp` uses `BC` provider, it is not possible to have both providers on one classpath.

@@ -235,6 +235,7 @@
 *** xref:reference/extensions/opentelemetry.adoc[OpenTelemetry]
 *** xref:reference/extensions/optaplanner.adoc[OptaPlanner]
 *** xref:reference/extensions/pdf.adoc[PDF]
+*** xref:reference/extensions/crypto-pgp.adoc[PGP]
 *** xref:reference/extensions/paho.adoc[Paho]
 *** xref:reference/extensions/paho-mqtt5.adoc[Paho MQTT5]
 *** xref:reference/extensions/pinecone.adoc[Pinecone]
