@@ -61,10 +61,9 @@ public class MvnwCmdHelper {
                     .getBytes(StandardCharsets.UTF_8));
 
             teeOutputStream = new TeeOutputStream(stdoutAndStderrMemoryStream, stdoutFileStream);
-            DefaultExecutor executor = new DefaultExecutor();
+            DefaultExecutor executor = DefaultExecutor.builder().setWorkingDirectory(cqVersionUnderTestFolder.toFile()).get();
             PumpStreamHandler psh = new PumpStreamHandler(teeOutputStream);
             executor.setStreamHandler(psh);
-            executor.setWorkingDirectory(cqVersionUnderTestFolder.toFile());
 
             Map<String, String> environment = EnvironmentUtils.getProcEnvironment();
 
