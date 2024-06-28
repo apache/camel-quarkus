@@ -20,12 +20,11 @@ import java.util.stream.Stream;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceDirectoryBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
-import net.fortuna.ical4j.model.TimeZoneLoader;
 import net.fortuna.ical4j.model.TimeZoneRegistryImpl;
 import net.fortuna.ical4j.util.MapTimeZoneCache;
 
@@ -36,6 +35,12 @@ class IcalProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    ExtensionSslNativeSupportBuildItem enableSSLNativeSupport() {
+        // Required by TimeZoneUpdater$UrlBuilder.toUrl
+        return new ExtensionSslNativeSupportBuildItem(FEATURE);
     }
 
     @BuildStep
@@ -68,10 +73,5 @@ class IcalProcessor {
                 .produce(ReflectiveClassBuildItem.builder(
                         MapTimeZoneCache.class,
                         TimeZoneRegistryImpl.class).build());
-    }
-
-    @BuildStep
-    RuntimeReinitializedClassBuildItem runtimeReinitializedClasses() {
-        return new RuntimeReinitializedClassBuildItem(TimeZoneLoader.class.getName());
     }
 }
