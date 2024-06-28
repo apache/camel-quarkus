@@ -61,11 +61,21 @@ class IcalProcessor {
             timezoneData.values()
                     .stream()
                     .map(Objects::toString)
-                    .map(timeZone -> timeZone.split("/")[0])
+                    .map(timeZone -> {
+                        String[] zoneParts = timeZone.split("/");
+                        if (zoneParts.length == 2) {
+                            return zoneParts[0];
+                        } else if (zoneParts.length == 3) {
+                            return zoneParts[0] + "/" + zoneParts[1];
+                        }
+                        return null;
+                    })
                     .distinct()
                     .forEach(region -> {
-                        nativeResourceDirs.produce(new NativeImageResourceDirectoryBuildItem("zoneinfo/" + region));
-                        nativeResourceDirs.produce(new NativeImageResourceDirectoryBuildItem("zoneinfo-global/" + region));
+                        if (region != null) {
+                            nativeResourceDirs.produce(new NativeImageResourceDirectoryBuildItem("zoneinfo/" + region));
+                            nativeResourceDirs.produce(new NativeImageResourceDirectoryBuildItem("zoneinfo-global/" + region));
+                        }
                     });
 
         } catch (IOException e) {
