@@ -110,12 +110,13 @@ class XchangeProcessor {
                 .toArray(String[]::new);
         reflectiveClass.produce(ReflectiveClassBuildItem.builder(jaxrsAnnotations).methods().build());
 
-        //constructors for converters
+        // reflective instantiation of xchange converters
         String[] converterClasses = index.getAllKnownSubclasses("com.fasterxml.jackson.databind.util.StdConverter")
                 .stream()
                 .map(classInfo -> classInfo.name().toString())
+                .filter(className -> className.startsWith("org.knowm.xchange"))
                 .toArray(String[]::new);
-        reflectiveClass.produce(ReflectiveClassBuildItem.builder(converterClasses).methods().fields().build());
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(converterClasses).build());
     }
 
     @BuildStep
