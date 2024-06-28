@@ -6682,12 +6682,12 @@
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId>
         <artifactId>quarkus-mybatis</artifactId>
-        <version>2.2.2</version>
+        <version>2.2.3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId>
         <artifactId>quarkus-mybatis-deployment</artifactId>
-        <version>2.2.2</version>
+        <version>2.2.3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.tika</groupId>
@@ -7040,7 +7040,7 @@
       <dependency>
         <groupId>org.mybatis</groupId>
         <artifactId>mybatis</artifactId>
-        <version>3.5.15</version>
+        <version>3.5.16</version>
       </dependency>
       <dependency>
         <groupId>org.opensearch.client</groupId>
