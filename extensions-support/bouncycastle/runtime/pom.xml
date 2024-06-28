@@ -55,7 +55,7 @@
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcpkix-jdk18on</artifactId>
         </dependency>
-    </dependencies>
+   </dependencies>
 
     <build>
         <plugins>

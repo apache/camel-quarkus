@@ -1,0 +1,23 @@
+=== FIPS
+
+When running `crypto` extension on FIPS enabled system the BC-FIPS has to be utilized.
+
+* Exclude all `bc*` dependencies. Example:
+```
+                    <exclusions>
+                        <exclusion>
+                            <artifactId>*</artifactId>
+                            <groupId>org.bouncycastle</groupId>
+                        </exclusion>
+                    </exclusions>
+```
+
+* Add dependency wih BouncyCastle implementation for FIPS systems. For example
+```
+                <dependency>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bc-fips</artifactId>
+                </dependency>
+```
+
+

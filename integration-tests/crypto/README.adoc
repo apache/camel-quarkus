@@ -1,0 +1,8 @@
+== FIPS
+
+Please utilize the fips profile when executing tests within a FIPS-enabled environment. The tests must employ the BouncyCastle-FIPS dependency instead of the standard BouncyCastle library.
+
+Example of usage:
+```
+mvn clean test -Dfips
+```
