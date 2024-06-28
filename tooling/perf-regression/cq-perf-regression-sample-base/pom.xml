@@ -30,7 +30,7 @@
     </parent>
     <artifactId>cq-perf-regression-sample</artifactId>
     <properties>
-        <hyperfoil-maven-plugin.version>0.25.2</hyperfoil-maven-plugin.version>
+        <hyperfoil-maven-plugin.version>0.26</hyperfoil-maven-plugin.version>
         <maven.compiler.parameters>true</maven.compiler.parameters>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
