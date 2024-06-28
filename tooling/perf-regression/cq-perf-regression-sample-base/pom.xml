@@ -190,7 +190,6 @@
                 <!-- Bound to integration-test phase by default -->
                 <configuration>
                     <yaml>cq-perf-regression-scenario.hf.yaml</yaml>
-                    <percentiles>true</percentiles>
                 </configuration>
                 <executions>
                     <execution>
