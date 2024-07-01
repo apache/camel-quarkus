@@ -48,7 +48,7 @@ public class JpaRoute extends RouteBuilder {
                 .to(jpaEndpoint + "?namedQuery=findByName&parameters=#parameters");
         from("direct:nativeQuery")
                 .to(jpaEndpoint + "?resultClass=org.apache.camel.quarkus.component.jpa.it.model.Fruit" +
-                        "&nativeQuery=SELECT * FROM fruit WHERE id = :id");
+                        "&nativeQuery=SELECT * FROM Fruit WHERE id = :id");
         from("direct:store")
                 .to(jpaEndpoint);
         from("direct:remove")
