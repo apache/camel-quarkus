@@ -40,10 +40,6 @@
             <artifactId>quarkus-grpc-common</artifactId>
             <exclusions>
                 <exclusion>
-                    <groupId>io.quarkus</groupId>
-                    <artifactId>quarkus-vertx</artifactId>
-                </exclusion>
-                <exclusion>
                     <groupId>io.vertx</groupId>
                     <artifactId>vertx-grpc</artifactId>
                 </exclusion>
