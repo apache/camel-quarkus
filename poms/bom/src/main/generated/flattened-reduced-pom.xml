@@ -3549,7 +3549,29 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-crypto</artifactId>
+        <version>3.13.0-SNAPSHOT</version>
+        <classifier>bcfips</classifier>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-crypto-deployment</artifactId>
+        <version>3.13.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-crypto-deployment</artifactId>
+        <version>3.13.0-SNAPSHOT</version>
+        <classifier>bcfips</classifier>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-crypto-pgp</artifactId>
+        <version>3.13.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-crypto-pgp-deployment</artifactId>
         <version>3.13.0-SNAPSHOT</version>
       </dependency>
       <dependency>

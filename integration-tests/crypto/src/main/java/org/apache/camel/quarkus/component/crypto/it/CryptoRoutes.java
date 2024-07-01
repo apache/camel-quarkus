@@ -25,14 +25,16 @@ import javax.crypto.KeyGenerator;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.crypto.DigitalSignatureConstants;
 import org.apache.camel.converter.crypto.CryptoDataFormat;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 public class CryptoRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-
+        String provider = ConfigProvider.getConfig()
+                .getOptionalValue("quarkus.security.security-providers", String.class).orElse("SUN");
         // Crypto component using raw keys
-        final KeyPair keys = getKeyPair();
+        final KeyPair keys = KeyPairGenerator.getInstance("RSA").generateKeyPair();
         from("direct:sign-raw")
                 .setHeader(DigitalSignatureConstants.SIGNATURE_PRIVATE_KEY, constant(keys.getPrivate()))
                 .to("crypto:sign:raw");
@@ -43,10 +45,12 @@ public class CryptoRoutes extends RouteBuilder {
 
         // Crypto component using keys from a keystore
         from("direct:sign")
-                .to("crypto:sign:basic?privateKey=#myPrivateKey&algorithm=SHA1withDSA&provider=SUN&secureRandom=#customSecureRandom");
+                .toF("crypto:sign:basic?privateKey=#myPrivateKey&algorithm=SHA1withDSA&provider=%s&secureRandom=#customSecureRandom",
+                        provider);
 
         from("direct:verify")
-                .to("crypto:verify:basic?publicKey=#myPublicKey&algorithm=SHA1withDSA&provider=SUN&secureRandom=#customSecureRandom");
+                .toF("crypto:verify:basic?publicKey=#myPublicKey&algorithm=SHA1withDSA&provider=%s&secureRandom=#customSecureRandom",
+                        provider);
 
         // Crypto data format
         CryptoDataFormat cryptoDataFormat = getCryptoDataFormat();
@@ -55,22 +59,11 @@ public class CryptoRoutes extends RouteBuilder {
 
         from("direct:unmarshal")
                 .unmarshal(cryptoDataFormat);
-
-        // PGP data format
-        from("direct:marshalPgp")
-                .marshal().pgp("pubring.pgp", "sdude@nowhere.net", "sdude");
-
-        from("direct:unmarshalPgp")
-                .unmarshal().pgp("secring.pgp", "sdude@nowhere.net", "sdude");
     }
 
     private CryptoDataFormat getCryptoDataFormat() throws NoSuchAlgorithmException {
         KeyGenerator generator = KeyGenerator.getInstance("DES");
         return new CryptoDataFormat("DES", generator.generateKey());
-    }
-
-    private KeyPair getKeyPair() throws NoSuchAlgorithmException {
-        return KeyPairGenerator.getInstance("RSA").generateKeyPair();
     }
 
 }

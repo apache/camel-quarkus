@@ -119,6 +119,19 @@ class JoorProcessor {
         }
     }
 
+    /**
+     * Indicates whether the jOOR expressions should be compiled at build time.
+     */
+    public static final class CompileAtBuildTime implements BooleanSupplier {
+        JoorExpressionConfig config;
+        NativeConfig nativeConfig;
+
+        @Override
+        public boolean getAsBoolean() {
+            return config.compileAtBuildTime || nativeConfig.enabled();
+        }
+    }
+
     @BuildStep(onlyIf = CompileAtBuildTime.class)
     void compileExpressions(
             CurateOutcomeBuildItem curateOutcomeBuildItem,
@@ -189,18 +202,5 @@ class JoorProcessor {
             return new CamelBeanBuildItem("java", JavaLanguage.class.getName(), language);
         }
         return null;
-    }
-
-    /**
-     * Indicates whether the jOOR expressions should be compiled at build time.
-     */
-    public static final class CompileAtBuildTime implements BooleanSupplier {
-        JoorExpressionConfig config;
-        NativeConfig nativeConfig;
-
-        @Override
-        public boolean getAsBoolean() {
-            return config.compileAtBuildTime || nativeConfig.enabled();
-        }
     }
 }

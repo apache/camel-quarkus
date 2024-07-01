@@ -45,6 +45,51 @@ ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
 
+[id="extensions-crypto-usage"]
+== Usage
+[id="extensions-crypto-usage-fips"]
+=== FIPS
+
+When running `crypto` extension on FIPS enabled system the BC-FIPS has to be utilized.
+
+* Exclude all `bc*` dependencies. Example:
+```
+                    <exclusions>
+                        <exclusion>
+                            <artifactId>*</artifactId>
+                            <groupId>org.bouncycastle</groupId>
+                        </exclusion>
+                    </exclusions>
+```
+
+* Add dependency wih BouncyCastle implementation for FIPS systems. For example
+```
+                <dependency>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bc-fips</artifactId>
+                </dependency>
+```
+
+
+
+
+[id="extensions-crypto-camel-quarkus-limitations"]
+== Camel Quarkus limitations
+
+[id="extensions-crypto-limitations-security-provider"]
+=== Security Provider
+
+Extension requires BouncyCastle provider and also utilizes the quarkus security extension (see https://quarkus.io/guides/security-customization#registering-security-providers[security providers registration doc])
+If there is no `BC*` provider registered (by `quarkus.security.security-providers` property).
+The `BC` provider is registered.
+
+[id="extensions-crypto-limitations-fips"]
+=== FIPS
+
+It may not be possible to run `crypto` and `crypto-pgp` extensions together on FIPS enabled system.
+For example if `crypro` uses `BCFIPS` provider and `crypto-pgp` uses `BC` provider, it is no possible to have bot providers on one classpath.
+
+
 [id="extensions-crypto-ssl-in-native-mode"]
 == SSL in native mode
 

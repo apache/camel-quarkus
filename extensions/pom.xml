@@ -82,6 +82,7 @@
         <module>couchdb</module>
         <module>cron</module>
         <module>crypto</module>
+        <module>crypto-pgp</module>
         <module>csimple</module>
         <module>csv</module>
         <module>cxf-soap</module>

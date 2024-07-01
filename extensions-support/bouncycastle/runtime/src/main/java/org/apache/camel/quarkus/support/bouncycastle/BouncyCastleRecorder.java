@@ -25,7 +25,6 @@ import javax.crypto.Cipher;
 import io.quarkus.runtime.ShutdownContext;
 import io.quarkus.runtime.annotations.Recorder;
 import io.quarkus.security.runtime.SecurityProviderUtils;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.jboss.logging.Logger;
 
 @Recorder
@@ -36,10 +35,18 @@ public class BouncyCastleRecorder {
     public void registerBouncyCastleProvider(List<String> cipherTransformations, ShutdownContext shutdownContext) {
         Provider provider = Security.getProvider(SecurityProviderUtils.BOUNCYCASTLE_PROVIDER_NAME);
         if (provider == null) {
+            provider = Security.getProvider(SecurityProviderUtils.BOUNCYCASTLE_FIPS_PROVIDER_NAME);
+        }
+        if (provider == null) {
             // TODO: Fix BuildStep execution order so that this is not required
             // https://github.com/apache/camel-quarkus/issues/3472
-            provider = new BouncyCastleProvider();
-            Security.addProvider(provider);
+            try {
+                provider = (Provider) Thread.currentThread().getContextClassLoader()
+                        .loadClass("org.bouncycastle.jce.provider.BouncyCastleProvider").getConstructor().newInstance();
+                Security.addProvider(provider);
+            } catch (Exception e) {
+                // Might happen if bouncy castle in not present (in FIPS system)
+            }
         }
 
         // Make it explicit to the static analysis that below security services should be registered as they are reachable at runtime
