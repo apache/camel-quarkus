@@ -35,10 +35,6 @@
             <artifactId>quarkus-grpc-common</artifactId>
             <exclusions>
                 <exclusion>
-                    <groupId>io.quarkus</groupId>
-                    <artifactId>quarkus-vertx</artifactId>
-                </exclusion>
-                <exclusion>
                     <groupId>io.vertx</groupId>
                     <artifactId>vertx-grpc</artifactId>
                 </exclusion>
@@ -59,12 +55,6 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-grpc-common-deployment</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.quarkus</groupId>
-                    <artifactId>quarkus-vertx-deployment</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
