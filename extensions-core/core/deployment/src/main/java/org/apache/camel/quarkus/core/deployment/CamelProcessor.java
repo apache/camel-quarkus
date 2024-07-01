@@ -249,6 +249,7 @@ class CamelProcessor {
     @BuildStep
     CamelTypeConverterRegistryBuildItem typeConverterRegistry(
             CamelRecorder recorder,
+            CamelConfig camelConfig,
             ApplicationArchivesBuildItem applicationArchives,
             List<CamelTypeConverterLoaderBuildItem> additionalLoaders,
             CombinedIndexBuildItem combinedIndex,
@@ -256,7 +257,8 @@ class CamelProcessor {
 
         IndexView index = combinedIndex.getIndex();
 
-        RuntimeValue<TypeConverterRegistry> typeConverterRegistry = recorder.createTypeConverterRegistry();
+        RuntimeValue<TypeConverterRegistry> typeConverterRegistry = recorder
+                .createTypeConverterRegistry(camelConfig.typeConverter.statisticsEnabled);
 
         //
         // This should be simplified by searching for classes implementing TypeConverterLoader but that

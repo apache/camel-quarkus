@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.core.converter.it;
 
 import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.*;
@@ -48,28 +47,6 @@ public class ConverterTest extends ConverterTestBase {
     }
 
     @Test
-    void testConverterToNull() {
-        enableStatistics(true);
-
-        testConverterReturningNull("/converter/myNullablePair", "null");
-
-        RestAssured.when().get("/converter/getStatisticsHit").then().body("hit", is(1), "miss", is(0));
-
-        enableStatistics(false);
-    }
-
-    @Test
-    void testNotRegisteredConverter() {
-        enableStatistics(true);
-
-        testConverterReturningNull("/converter/myNotRegisteredPair", "a:b");
-
-        RestAssured.when().get("/converter/getStatisticsHit").then().body("hit", is(0), "miss", is(1));
-
-        enableStatistics(false);
-    }
-
-    @Test
     void testBulkConverters() {
         //converters generated with @Converter(generateBulkLoader = true)
         testConverter("/converter/myBulk1Pair", "a:b", "bulk1_a", "b");
@@ -80,17 +57,5 @@ public class ConverterTest extends ConverterTestBase {
     void testLoaderConverters() {
         //converters generated with @Converter(generateLoader = true)
         testConverter("/converter/myLoaderPair", "a:b", "loader_a", "b");
-    }
-
-    @Test
-    void testConverterGetStatistics() {
-        enableStatistics(true);
-
-        //cause 1 hit
-        testConverterFromAnnotationWithStaticMethods();
-
-        RestAssured.when().get("/converter/getStatisticsHit").then().body("hit", is(1), "miss", is(0));
-
-        enableStatistics(false);
     }
 }

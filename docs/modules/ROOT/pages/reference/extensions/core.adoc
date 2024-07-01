@@ -395,6 +395,12 @@ Filter for tracing messages.
 | `string`
 | 
 
+|icon:lock[title=Fixed at build time] [[quarkus.camel.type-converter.statistics-enabled]]`link:#quarkus.camel.type-converter.statistics-enabled[quarkus.camel.type-converter.statistics-enabled]`
+
+Build time configuration options for enable/disable type converter statistics.
+| `boolean`
+| `true`
+
 |icon:lock[title=Fixed at build time] [[quarkus.camel.main.shutdown.timeout]]`link:#quarkus.camel.main.shutdown.timeout[quarkus.camel.main.shutdown.timeout]`
 
 A timeout (with millisecond precision) to wait for `CamelMain++#++stop()` to finish

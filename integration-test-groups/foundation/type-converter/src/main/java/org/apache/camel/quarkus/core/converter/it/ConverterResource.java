@@ -103,14 +103,11 @@ public class ConverterResource {
         return context.getTypeConverter().convertTo(MyNullablePair.class, input);
     }
 
-    @Path("/setStatisticsEnabled")
-    @POST
+    @Path("/resetStatistics")
+    @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public void converterSetStatisticsEnabled(boolean value) {
-        context.getTypeConverterRegistry().getStatistics().setStatisticsEnabled(value);
-        if (value) {
-            context.getTypeConverterRegistry().getStatistics().reset();
-        }
+    public void resetStatistics() {
+        context.getTypeConverterRegistry().getStatistics().reset();
     }
 
     @Path("/getStatisticsHit")
