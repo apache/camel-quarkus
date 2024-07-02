@@ -4,10 +4,10 @@ cqArtifactId: camel-quarkus-kotlin-dsl
 cqArtifactIdBase: kotlin-dsl
 cqNativeSupported: true
 cqStatus: Stable
-cqDeprecated: false
+cqDeprecated: true
 cqJvmSince: 1.8.0
 cqNativeSince: 2.16.0
 cqCamelPartName: kotlin-dsl
 cqCamelPartTitle: Kotlin DSL
-cqCamelPartDescription: Camel DSL with Kotlin (Deprecated)
+cqCamelPartDescription: Camel DSL with Kotlin (deprecated)
 cqExtensionPageTitle: Kotlin DSL
