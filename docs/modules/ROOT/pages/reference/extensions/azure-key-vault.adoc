@@ -4,17 +4,17 @@
 = Azure Key Vault
 :linkattrs:
 :cq-artifact-id: camel-quarkus-azure-key-vault
-:cq-native-supported: false
-:cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-native-supported: true
+:cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Manage secrets and keys in Azure Key Vault Service
 :cq-deprecated: false
 :cq-jvm-since: 2.10.0
-:cq-native-since: n/a
+:cq-native-since: 3.13.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##2.10.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##2.10.0## [.badge-key]##Native since##[.badge-supported]##3.13.0##
 endif::[]
 
 Manage secrets and keys in Azure Key Vault Service
@@ -29,6 +29,10 @@ Please refer to the above link for usage and configuration details.
 [id="extensions-azure-key-vault-maven-coordinates"]
 == Maven coordinates
 
+https://{link-quarkus-code-generator}/?extension-search=camel-quarkus-azure-key-vault[Create a new project with this extension on {link-quarkus-code-generator}, window="_blank"]
+
+Or add the coordinates to your existing project:
+
 [source,xml]
 ----
 <dependency>
@@ -39,3 +43,10 @@ Please refer to the above link for usage and configuration details.
 ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
+
+[id="extensions-azure-key-vault-ssl-in-native-mode"]
+== SSL in native mode
+
+This extension auto-enables SSL support in native mode. Hence you do not need to add
+`quarkus.ssl.native=true` to your `application.properties` yourself. See also
+https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].

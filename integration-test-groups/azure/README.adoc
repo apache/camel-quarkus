@@ -19,6 +19,7 @@ https://docs.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-po
 * View the https://docs.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage?tabs=azure-portal#view-account-access-keys[account keys] and set the following environment variables:
 * An https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-create[Azure Event Hub]
 * An https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-get-connection-string[Event Hubs connection string]
+* A https://learn.microsoft.com/en-us/azure/key-vault/general/overview[Key Vault] configured in your Azure account
 
 To create all of the above, you can use `azure-resources.sh` script as follows. Ensure that you have installed the https://docs.microsoft.com/en-us/cli/azure/[Azure CLI] beforehand:
 
@@ -36,10 +37,12 @@ Here are the environment variables you need to set:
 export AZURE_STORAGE_ACCOUNT_NAME=<your-azure-storage-account-name>
 export AZURE_STORAGE_ACCOUNT_KEY=<your-azure-storage-account-key>
 
-# optional to test alternate authentication methods
 export AZURE_CLIENT_ID=<your-azure-app-client-id>
 export AZURE_CLIENT_SECRET=<your-azure-app-client-secret>
 export AZURE_TENANT_ID=<your-azure-app-tenant-id>
+export AZURE_VAULT_NAME=<your-azure-key-vault-name>
+
+# optional to test alternate authentication methods
 export AZURE_CLIENT_CERTIFICATE_PATH=<your-azure-app-certificate-pem-file>
 
 # the container has to exist before you run the test

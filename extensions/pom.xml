@@ -63,6 +63,7 @@
         <module>aws2-sts</module>
         <module>aws2-translate</module>
         <module>azure-eventhubs</module>
+        <module>azure-key-vault</module>
         <module>azure-storage-blob</module>
         <module>azure-storage-queue</module>
         <module>base64</module>
