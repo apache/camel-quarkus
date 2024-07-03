@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus</artifactId>
-        <version>3.8.3</version>
+        <version>3.8.4-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
