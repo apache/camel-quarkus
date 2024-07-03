@@ -36,6 +36,8 @@ export ZONE=westeurope
 export EH_NAMESPACE=cq-eh-namenspace-${suffix}
 export EH_NAME=cq-event-hub-${suffix}
 
+export AZURE_VAULT_NAME="cq-key-vault"
+
 function createResources() {
     set -e
     set -x
@@ -78,19 +80,23 @@ function createResources() {
 
     AZURE_STORAGE_ACCOUNT_KEY=$(az storage account keys list --account-name ${AZURE_STORAGE_ACCOUNT_NAME} --query '[0].value' -o tsv)
 
+    az keyvault create --name "${AZURE_VAULT_NAME}" --resource-group "${RESOURCE_GROUP}" --location "${ZONE}"
+    az role assignment create --role "Key Vault Administrator" --assignee "${az ad signed-in-user show --query 'id' --output tsv}" --scope "/subscriptions/$(az account show --query id --output tsv)/resourceGroups/${RESOURCE_GROUP}/providers/Microsoft.KeyVault/vaults/${AZURE_VAULT_NAME}"
+    az role assignment create --role "Key Vault Administrator" --assignee "${AZURE_CLIENT_ID}" --scope "/subscriptions/$(az account show --query id --output tsv)/resourceGroups/${RESOURCE_GROUP}/providers/Microsoft.KeyVault/vaults/${AZURE_VAULT_NAME}"
+
     set +x
     echo "Add the following to your environment:"
-
     echo 'export AZURE_STORAGE_ACCOUNT_NAME="'${AZURE_STORAGE_ACCOUNT_NAME}'"'
     echo 'export AZURE_STORAGE_ACCOUNT_KEY="'${AZURE_STORAGE_ACCOUNT_KEY}'"'
     echo 'export AZURE_EVENT_HUBS_BLOB_CONTAINER_NAME="'${AZURE_BLOB_CONTAINER_NAME}'"'
     echo 'export AZURE_EVENT_HUBS_CONNECTION_STRING="'$AZURE_EVENT_HUBS_CONNECTION_STRING';EntityPath='${EH_NAME}'"'
-    echo
-    echo
-    echo "Optionally set the following to test alternate authentication mechanisms:"
     echo 'export AZURE_CLIENT_ID="'${AZURE_CLIENT_ID}'"'
     echo 'export AZURE_CLIENT_SECRET="'${AZURE_CLIENT_SECRET}'"'
     echo 'export AZURE_TENANT_ID="'${AZURE_TENANT_ID}'"'
+    echo 'export AZURE_VAULT_NAME="'${AZURE_VAULT_NAME}'"'
+    echo
+    echo
+    echo "Optionally set the following to test alternate authentication mechanisms:"
     echo 'export AZURE_CLIENT_CERTIFICATE_PATH="'${AZURE_APP_CERT_PATH}'"'
 }
 
@@ -104,6 +110,7 @@ function deleteResources() {
     az storage account delete --name ${AZURE_STORAGE_ACCOUNT_NAME} --resource-group ${RESOURCE_GROUP} --yes
     az group delete --name ${RESOURCE_GROUP} --yes
     az ad app delete --id $(az ad app list --display-name ${AZURE_APP_NAME} --query '[0].appId' -o tsv)
+    az keyvault delete --name "${AZURE_VAULT_NAME}"
 }
 
 case "$1" in
