@@ -49,6 +49,18 @@
                 <artifactId>org.eclipse.transformer</artifactId>
                 <version>${eclipse-transformer.version}</version>
             </dependency>
+            <!-- Not added to camel-quarkus-bom as it's only required for shading in camel-quarkus-support-spring-web -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
