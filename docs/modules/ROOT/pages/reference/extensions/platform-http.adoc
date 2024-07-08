@@ -150,6 +150,48 @@ from("platform-http:proxy")
         + "${headers." + Exchange.HTTP_HOST + "}");
 ----
 
+[id="extensions-platform-http-usage-error-handling"]
+=== Error handling
+
+If you need to customize the reponse returned to the client when exceptions are thrown from your routes, then you can use Camel error handling constucts like `doTry`, `doCatch` and `onException`.
+
+For example, to configure a global exception handler in response to a specific Exception type being thrown.
+
+[source,java]
+----
+onException(InvalidOrderTotalException.class)
+    .handled(true)
+    .setHeader(Exchange.HTTP_RESPONSE_CODE).constant(500)
+    .setHeader(Exchange.CONTENT_TYPE).constant("text/plain")
+    .setBody().constant("The order total was not greater than 100");
+
+from("platform-http:/orders")
+    .choice().when().xpath("//order/total > 100")
+        .to("direct:processOrder")
+    .otherwise()
+        .throwException(new InvalidOrderTotalException());
+----
+
+You can implement more fine-grained error handling by hooking into the Vert.x Web router initialization with a CDI observer.
+
+[source,java]
+----
+void initRouter(@Observes Router router) {
+    // Custom 404 handler
+    router.errorHandler(404, new Handler<RoutingContext>() {
+        @Override
+        public void handle(RoutingContext event) {
+            event.response()
+                .setStatusCode(404)
+                .putHeader("Content-Type", "text/plain")
+                .end("Sorry - resource not found");
+        }
+    });
+}
+----
+
+Note that care should be taken when modifying the router configuration when extensions such as RestEASY are present, since they may register their own error handling logic.
+
 
 [id="extensions-platform-http-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
