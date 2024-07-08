@@ -49,6 +49,8 @@ but you still need to add the given component's extension as a dependency for th
 In case of the above example, it would be `camel-quarkus-timer`.
 ====
 
+It is also possible to include Java DSL routes from other JARs by adding them as dependencies to your application. When you doing this, you must ensure such JARs have a https://quarkus.io/guides/cdi-reference#how-to-generate-a-jandex-index[Jandex index], so that the routes are discoverable at build time.
+
 == XML DSL
 
 In order to configure Camel routes, rests or templates in XML, you must add a Camel XML parser dependency to the classpath.
