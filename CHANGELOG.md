@@ -1,5 +1,26 @@
 # Changelog
 
+## 3.8.3
+
+* [3.8.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6064
+* [3.8.x] Use more correct convention with configuring datasource by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6101
+* [3.8] Upgrade to Quarkus CXF 3.8.4 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6124
+* [3.8.x] Upgrade Quarkus to 3.8.5 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6156
+* [3.8.x] Upgrade upload & download GitHub actions to v4 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6162
+* [3.8.x] Fixed flaky aws2 cw test with real service by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6174
+* [3.8.x] Fix flaky storage queue crud test by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6184
+* [3.8.x] Added some small logs to Aws2KinesisFirehoseTest for better debugging by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6189
+* [3.8.x] [Slack] Decrease delay when getting messages (#6197) by @zhfeng in https://github.com/apache/camel-quarkus/pull/6201
+* [3.8.x] Missing fixes for fips testing by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6209
+* [3.8.x] Test support certificate by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6213
+* [3.8.x] Upgrade Camel to 4.4.3 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6232
+* [3.8.x] Upgrade to maven-enforcer-plugin 3.5.0 and cq-maven-plugin 4.9.0 and fix dependency convergence issues by @ppalaga in https://github.com/apache/camel-quarkus/pull/6234
+* [3.8.x] Fix Gradle dev mode execution for gRPC extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6244
+* [3.8.x] Use correct table naming pattern common for more db types by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6247
+* [3.8.x] Upgrade Quarkus CXF to 3.8.5 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6250
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.8.2...3.8.3
+
 ## 3.12.0
 
 * Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6120
@@ -55,6 +76,8 @@
 * Auto label issues relating to flaky tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6208
 * Upgrade Quarkus to 3.12.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6210
 * Upgrade to Quarkus CxF 3.12.0 by @aldettinger in https://github.com/apache/camel-quarkus/pull/6211
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.11.0...3.12.0
 
 ## 3.11.0
 
