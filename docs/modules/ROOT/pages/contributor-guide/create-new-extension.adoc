@@ -18,8 +18,8 @@
 +
 [source,shell]
 ----
-$ cd camel-quarkus
-$ mvn cq:create -N -Dcq.artifactIdBase=foo-abc
+cd camel-quarkus
+mvn cq:create -N -Dcq.artifactIdBase=foo-abc
 ----
 +
 where:
@@ -80,7 +80,7 @@ Check the xref:contributor-guide/extension-metadata.adoc[Extension metadata] pag
 +
 [source,shell]
 ----
-$ mvn process-resources -Pformat
+mvn process-resources -Pformat
 ----
 +
 The above command will perform the following tasks:

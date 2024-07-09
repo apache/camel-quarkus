@@ -18,8 +18,8 @@ Please find some guiding steps below to start this quest:
 +
 [source,shell]
 ----
-$ cd camel-quarkus
-$ mvn -N cq:promote -Dcq.artifactIdBase=...
+cd camel-quarkus
+mvn -N cq:promote -Dcq.artifactIdBase=...
 ----
 +
 where `cq.artifactIdBase` needs to be set to the unique part of the `artifactId` of the extension you are
@@ -42,8 +42,8 @@ The `promote` mojo does the following for you:
 +
 [source,shell]
 ----
-$ cd integration-tests/foo
-$ mvn clean verify -Pnative
+cd integration-tests/foo
+mvn clean verify -Pnative
 ----
 +
 Consider shifting some tasks from runtime to build time.
@@ -53,7 +53,7 @@ The https://quarkus.io/guides/extension-authors-guide[Quarkus extension author's
 +
 [source,shell]
 ----
-$ mvn clean install -DskipTests -Pformat
+mvn clean install -DskipTests -Pformat
 ----
 
 7. Squash your commits before sending a pull request.

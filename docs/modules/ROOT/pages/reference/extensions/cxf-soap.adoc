@@ -135,7 +135,7 @@ You can test this client application against the https://quay.io/repository/l2x6
 
 [source,shell]
 ----
-$ docker run -p 8082:8080 quay.io/l2x6/calculator-ws:1.2
+docker run -p 8082:8080 quay.io/l2x6/calculator-ws:1.2
 ----
 ====
 

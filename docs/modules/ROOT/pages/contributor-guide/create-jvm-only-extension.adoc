@@ -28,8 +28,8 @@ for the following:
 +
 [source,shell]
 ----
-$ cd camel-quarkus
-$ mvn cq:create -N -Dcq.artifactIdBase=foo-abc -Dcq.nativeSupported=false
+cd camel-quarkus
+mvn cq:create -N -Dcq.artifactIdBase=foo-abc -Dcq.nativeSupported=false
 ----
 +
 * A basic integration test is generated for you. It just checks that the newly added Camel component can be loaded.

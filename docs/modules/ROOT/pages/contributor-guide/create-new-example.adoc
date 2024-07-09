@@ -18,8 +18,8 @@ This guide outlines how to contribute a new example project to https://github.co
 +
 [source,shell]
 ----
-$ cd camel-quarkus-examples
-$ mvn org.l2x6.cq:cq-maven-plugin:create-example -Dcq.artifactIdBase="yaml-to-log" -Dcq.exampleName="YAML To Log" -Dcq.exampleDescription="Shows how to use a YAML route with the log EIP"
+cd camel-quarkus-examples
+mvn org.l2x6.cq:cq-maven-plugin:create-example -Dcq.artifactIdBase="yaml-to-log" -Dcq.exampleName="YAML To Log" -Dcq.exampleDescription="Shows how to use a YAML route with the log EIP"
 ----
 +
 Where:
