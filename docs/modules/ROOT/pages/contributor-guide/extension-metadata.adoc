@@ -23,7 +23,7 @@ the source tree:
 
 [source,shell]
 ----
-$ mvn -N cq:update-quarkus-metadata
+mvn -N cq:update-quarkus-metadata
 ----
 
 The data comes from the following

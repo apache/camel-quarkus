@@ -21,13 +21,13 @@ xref:manual::release-guide.adoc[Camel Release guide].
 
 [source,shell]
 ----
-$ export VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's|-SNAPSHOT||') # the version you are releasing, e.g. 0.1.0
-$ export NEXT_VERSION=$(echo ${VERSION} | awk -F. -v OFS=. '{$NF++;print}')-SNAPSHOT # the next development iteration, e.g. 0.1.1-SNAPSHOT
-$ export BRANCH=$(echo $VERSION | sed 's|.[0-9][0-9]*$|.x|') # the release branch, e.g. 0.1.x
-$ git fetch upstream # upstream is git@github.com:apache/camel-quarkus.git
-$ git checkout main # main is the branch from which you want to release
-$ git reset --hard upstream/main # make sure you are in sync with upstream
-$ git checkout -b $BRANCH
+export VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's|-SNAPSHOT||') # the version you are releasing, e.g. 0.1.0
+export NEXT_VERSION=$(echo ${VERSION} | awk -F. -v OFS=. '{$NF++;print}')-SNAPSHOT # the next development iteration, e.g. 0.1.1-SNAPSHOT
+export BRANCH=$(echo $VERSION | sed 's|.[0-9][0-9]*$|.x|') # the release branch, e.g. 0.1.x
+git fetch upstream # upstream is git@github.com:apache/camel-quarkus.git
+git checkout main # main is the branch from which you want to release
+git reset --hard upstream/main # make sure you are in sync with upstream
+git checkout -b $BRANCH
 ----
 
 == `release:prepare` and `release:perform`
@@ -39,7 +39,7 @@ The Maven command to release is as follows:
 
 [source,shell]
 ----
-$ mvn clean release:clean release:prepare -DreleaseVersion=$VERSION -DdevelopmentVersion=$NEXT_VERSION -B release:perform
+mvn clean release:clean release:prepare -DreleaseVersion=$VERSION -DdevelopmentVersion=$NEXT_VERSION -B release:perform
 ----
 
 In case `release:prepare` is successful but an issue occurs during `release:perform`, you can resume from the failing artifact to save some time:
@@ -58,7 +58,7 @@ $ cd target/checkout
 +
 [source,shell]
 ----
-$ mvn deploy -Papache-release -DskipTests -Denforcer.skip -Dquarkus.build.skip -Dformatter.skip -Dimpsort.skip -rf :camel-quarkus-openapi-java
+mvn deploy -Papache-release -DskipTests -Denforcer.skip -Dquarkus.build.skip -Dformatter.skip -Dimpsort.skip -rf :camel-quarkus-openapi-java
 ----
 
 == Close the Apache staging repository
@@ -78,17 +78,17 @@ In a first step, make sure your public key is present in the `KEYS` file. Add it
 
 [source,shell]
 ----
-$ export EMAIL= # the e-mail address in your key
-$ gpg -k $EMAIL >> KEYS
-$ gpg --armor --export $EMAIL >> KEYS
+export EMAIL= # the e-mail address in your key
+gpg -k $EMAIL >> KEYS
+gpg --armor --export $EMAIL >> KEYS
 ----
 
 Then execute the `upload-source.sh` script, like below:
 
 [source,shell]
 ----
-$ cd release-utils/scripts/
-$ ./upload-source.sh $VERSION $VERSION
+cd release-utils/scripts/
+./upload-source.sh $VERSION $VERSION
 ----
 
 This will take care of grabbing the source zip from github and getting the SBOMs from target directory. After signing the files, it will push the folder to `dist/dev/`
@@ -111,7 +111,7 @@ For instance, running the tool to compare the `2.10.0` staging release against t
 
 [source,shell]
 ----
-$ java -jar target/quarkus-app/quarkus-run.jar -an 2.9.0 2.10.0
+java -jar target/quarkus-app/quarkus-run.jar -an 2.9.0 2.10.0
 ----
 
 After approximately 1 hour, it should generate a report like below:
@@ -138,8 +138,8 @@ For more details about options, please run:
 
 [source,shell]
 ----
-$ cd tooling/perf-regression
-$ java -jar target/quarkus-app/quarkus-run.jar --help
+cd tooling/perf-regression
+java -jar target/quarkus-app/quarkus-run.jar --help
 ----
 
 == Start an upstream vote
@@ -166,16 +166,16 @@ SNAPSHOT (the next minor SNAPSHOT of `0.1.0` is `0.2.0-SNAPSHOT`).
 
 [source,shell]
 ----
-$ NEXT_RELEASE=... # e.g. 0.2.0
-$ NEXT_SNAPSHOT="${NEXT_RELEASE}-SNAPSHOT"
-$ git checkout "main"
-$ git reset upstream/main
-$ mvn release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=$NEXT_SNAPSHOT -B
-$ sed -i "s|<camel.quarkus.jvmSince>[^<]*</camel.quarkus.jvmSince>|<camel.quarkus.jvmSince>$NEXT_RELEASE</camel.quarkus.jvmSince>|" tooling/create-extension-templates/runtime-pom.xml
-$ sed -i "s|<camel.quarkus.nativeSince>[^<]*</camel.quarkus.nativeSince>|<camel.quarkus.nativeSince>$NEXT_RELEASE</camel.quarkus.nativeSince>|" tooling/create-extension-templates/runtime-pom.xml
-$ mvn cq:sync-versions -N
-$ mvn clean install -DskipTests -Dquarkus.build.skip # to regen the Qute Camel component metadata + flattened boms
-$ git commit -am "Next is $NEXT_SNAPSHOT"
+NEXT_RELEASE=... # e.g. 0.2.0
+NEXT_SNAPSHOT="${NEXT_RELEASE}-SNAPSHOT"
+git checkout "main"
+git reset upstream/main
+mvn release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=$NEXT_SNAPSHOT -B
+sed -i "s|<camel.quarkus.jvmSince>[^<]*</camel.quarkus.jvmSince>|<camel.quarkus.jvmSince>$NEXT_RELEASE</camel.quarkus.jvmSince>|" tooling/create-extension-templates/runtime-pom.xml
+sed -i "s|<camel.quarkus.nativeSince>[^<]*</camel.quarkus.nativeSince>|<camel.quarkus.nativeSince>$NEXT_RELEASE</camel.quarkus.nativeSince>|" tooling/create-extension-templates/runtime-pom.xml
+mvn cq:sync-versions -N
+mvn clean install -DskipTests -Dquarkus.build.skip # to regen the Qute Camel component metadata + flattened boms
+git commit -am "Next is $NEXT_SNAPSHOT"
 # Send a pull request
 ----
 
@@ -207,9 +207,9 @@ In a first step, one would simply need to promote the deliverables from the deve
 
 [source,shell]
 ----
-$ export VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's|-SNAPSHOT||') # the version you are releasing, e.g. 0.1.0
-$ cd release-utils/scripts/
-$ ./promote-release.sh $VERSION $VERSION
+export VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's|-SNAPSHOT||') # the version you are releasing, e.g. 0.1.0
+cd release-utils/scripts/
+./promote-release.sh $VERSION $VERSION
 ----
 
 In a second step, it is needed to check that useless versions are deleted from the svn repository.
@@ -217,16 +217,16 @@ If you are doing this for the first time you need to checkout the Apache Camel Q
 
 [source,shell]
 ----
-$ svn checkout 'https://dist.apache.org/repos/dist/release/camel' camel-releases-dist
+svn checkout 'https://dist.apache.org/repos/dist/release/camel' camel-releases-dist
 ----
 
 In case you have performed the above step during some release in the past, you need to update your working copy:
 
 [source,shell]
 ----
-$ cd camel-releases-dist
-$ svn update .
-$ cd "camel-quarkus/$VERSION"
+cd camel-releases-dist
+svn update .
+cd "camel-quarkus/$VERSION"
 ----
 
 Then, ensure that only the latest release from each maintained branches is present (including active LTS versions).
@@ -234,20 +234,19 @@ Typically, when releasing e.g. 3.12.0, you may need to delete e.g. 3.11.0:
 
 [source,shell]
 ----
-$ cd ..
-$ ls
-3.11.0 3.12.0
-$ svn remove 3.11.0
+cd ..
+ls
+svn remove 3.11.0
 ----
 
 Review and commit the changes:
 
 [source,shell]
 ----
-$ cd ..
-$ svn diff
-$ svn add --force .
-$ svn commit -m "Cleaning inactive Camel Quarkus versions after $VERSION release"
+cd ..
+svn diff
+svn add --force .
+svn commit -m "Cleaning inactive Camel Quarkus versions after $VERSION release"
 ----
 
 == Upgrade Camel Quarkus in Quarkus Platform
@@ -262,8 +261,8 @@ You may find the `await-release` mojo of `cq-maven-plugin` handy if you need to 
 
 [source,shell]
 ----
-$ cd camel-quarkus
-$ mvn cq:await-release -Dcq.version=$(git describe --tags `git rev-list --tags --max-count=1`)
+cd camel-quarkus
+mvn cq:await-release -Dcq.version=$(git describe --tags `git rev-list --tags --max-count=1`)
 ----
 
 The mojo first lists the artifacts having `groupId` `org.apache.camel.quarkus` and the given `$VERSION`
@@ -278,18 +277,18 @@ https://{link-quarkus-code-generator}/[{link-quarkus-code-generator}] as well as
 +
 [source,shell]
 ----
-$ git clone git@github.com:quarkusio/quarkus-platform.git
+git clone git@github.com:quarkusio/quarkus-platform.git
 ----
 +
 * Change `camel-quarkus.version` property in the Quarkus platform top level `https://github.com/quarkusio/quarkus-platform/blob/main/pom.xml#L54[pom.xml]` to the newly released version:
 +
 [source,shell]
 ----
-$ cd quarkus-platform
-$ export NEW_VERSION=... # the version you just released, e.g. 0.1.0
-$ sed -i "s|<camel-quarkus.version>[^<]*</camel-quarkus.version>|<camel-quarkus.version>$NEW_VERSION</camel-quarkus.version>|" pom.xml
+cd quarkus-platform
+export NEW_VERSION=... # the version you just released, e.g. 0.1.0
+sed -i "s|<camel-quarkus.version>[^<]*</camel-quarkus.version>|<camel-quarkus.version>$NEW_VERSION</camel-quarkus.version>|" pom.xml
 # Make sure that it worked
-$ git status
+git status
 ----
 +
 * Review the list of skipped tests configured on the Camel member in `pom.xml` (E.g ones that have `<skip>true</skip>`). If any are known to have been fixed in the latest release, remove the entries so that they can be enabled again.
@@ -298,18 +297,18 @@ $ git status
 +
 [source,shell]
 ----
-$ ./mvnw clean install -DskipTests
+./mvnw clean install -DskipTests
 # ^ This will take a couple of minutes because it resolves
 # every single dependency of every single extension included
 # in the platform
 #
 # double check files are well formatted
-$ ./mvnw -Dsync
+./mvnw -Dsync
 
 
 # Then commit the generated changes
-$ git add -A
-$ git commit -m "Upgrade to Camel Quarkus $NEW_VERSION"
+git add -A
+git commit -m "Upgrade to Camel Quarkus $NEW_VERSION"
 ----
 +
 * Run Camel Quarkus integration tests at least in JVM mode:
@@ -369,20 +368,20 @@ In this case, right after the newest Quarkus Platform becomes available on https
 +
 [source,shell]
 ----
-$ NEW_PLATFORM_VERSION=... # E.g. 2.2.0.Final
-$ git fetch upstream
-$ git checkout camel-quarkus-main
-$ git reset --hard upstream/camel-quarkus-main
-$ mvn org.l2x6.cq:cq-maven-plugin:2.10.0:examples-set-platform -Dcq.quarkus.platform.version=$NEW_PLATFORM_VERSION
-$ git add -A
-$ git commit -m "Upgrade to Quarkus Platform $NEW_PLATFORM_VERSION"
+NEW_PLATFORM_VERSION=... # E.g. 2.2.0.Final
+git fetch upstream
+git checkout camel-quarkus-main
+git reset --hard upstream/camel-quarkus-main
+mvn org.l2x6.cq:cq-maven-plugin:2.10.0:examples-set-platform -Dcq.quarkus.platform.version=$NEW_PLATFORM_VERSION
+git add -A
+git commit -m "Upgrade to Quarkus Platform $NEW_PLATFORM_VERSION"
 ----
 +
 * Make sure that the tests are still passing:
 +
 [source,shell]
 ----
-$ ./mvnw-for-each.sh clean verify -Dnative
+./mvnw-for-each.sh clean verify -Dnative
 ----
 +
 * If everything works for you locally, open a PR to merge `camel-quarkus-main` to `main`
@@ -390,37 +389,37 @@ $ ./mvnw-for-each.sh clean verify -Dnative
 +
 [source,shell]
 ----
-$ NEW_CQ_VERSION=... # the recent release of Camel Quarkus; e.g. 2.2.0
-$ git checkout main
-$ git fetch upstream
-$ git reset --hard upstream/main
-$ ./mvnw-for-each.sh versions:set -DnewVersion=$NEW_CQ_VERSION
+NEW_CQ_VERSION=... # the recent release of Camel Quarkus; e.g. 2.2.0
+git checkout main
+git fetch upstream
+git reset --hard upstream/main
+./mvnw-for-each.sh versions:set -DnewVersion=$NEW_CQ_VERSION
 # Update version labels in Kubernetes resources
-$ ./mvnw-for-each.sh process-sources
-$ git add -A
-$ git commit -m "Tag $NEW_CQ_VERSION"
-$ git tag $NEW_CQ_VERSION
-$ git push upstream main
-$ git push upstream $NEW_CQ_VERSION
+./mvnw-for-each.sh process-sources
+git add -A
+git commit -m "Tag $NEW_CQ_VERSION"
+git tag $NEW_CQ_VERSION
+git push upstream main
+git push upstream $NEW_CQ_VERSION
 # Create a maintenance branch for the release unless this is a micro release
-$ export BRANCH=$(echo $NEW_CQ_VERSION | sed 's|.[0-9][0-9]*$|.x|')
-$ git checkout -b $BRANCH $NEW_CQ_VERSION
-$ git push upstream $BRANCH
+export BRANCH=$(echo $NEW_CQ_VERSION | sed 's|.[0-9][0-9]*$|.x|')
+git checkout -b $BRANCH $NEW_CQ_VERSION
+git push upstream $BRANCH
 ----
 +
 * Prepare the `camel-quarkus-main` branch for the next development iteration:
 +
 [source,shell]
 ----
-$ NEXT_CQ_VERSION=... # The version used in the current Camel Quarkus main branch without the -SNAPSHOT suffix; e.g. 2.3.0
-$ git checkout camel-quarkus-main
-$ git reset --hard main
-$ ./mvnw org.l2x6.cq:cq-maven-plugin:2.10.0:examples-set-platform -Dcq.camel-quarkus.version=${NEXT_CQ_VERSION}-SNAPSHOT -Dcq.newVersion=${NEXT_CQ_VERSION}-SNAPSHOT
+NEXT_CQ_VERSION=... # The version used in the current Camel Quarkus main branch without the -SNAPSHOT suffix; e.g. 2.3.0
+git checkout camel-quarkus-main
+git reset --hard main
+./mvnw org.l2x6.cq:cq-maven-plugin:2.10.0:examples-set-platform -Dcq.camel-quarkus.version=${NEXT_CQ_VERSION}-SNAPSHOT -Dcq.newVersion=${NEXT_CQ_VERSION}-SNAPSHOT
 # Update version labels in Kubernetes resources
-$ ./mvnw-for-each.sh process-sources
-$ git add -A
-$ git commit -m "Next is $NEXT_CQ_VERSION"
-$ git push upstream camel-quarkus-main --force-with-lease
+./mvnw-for-each.sh process-sources
+git add -A
+git commit -m "Next is $NEXT_CQ_VERSION"
+git push upstream camel-quarkus-main --force-with-lease
 ----
 
 == Write the release announcement blog post
