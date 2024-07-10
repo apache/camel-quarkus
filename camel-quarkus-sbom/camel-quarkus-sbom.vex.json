@@ -1,0 +1,1252 @@
+{
+  "bomFormat" : "CycloneDX",
+  "specVersion" : "1.5",
+  "serialNumber" : "urn:uuid:d5459413-b97b-468a-99fe-914994f989ec",
+  "version" : 1,
+  "metadata" : {
+    "timestamp" : "2024-07-10T10:18:08Z",
+    "tools" : [
+      {
+        "vendor" : "OWASP",
+        "name" : "Dependency-Track",
+        "version" : "4.10.1"
+      }
+    ],
+    "component" : {
+      "name" : "Camel-Quarkus",
+      "version" : "3.0.0",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://camel.apache.org"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/apache/camel-quarkus/issues"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "dev-subscribe@camel.apache.org"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/apache/camel-quarkus"
+        }
+      ],
+      "type" : "library",
+      "bom-ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+    }
+  },
+  "vulnerabilities" : [
+    {
+      "bom-ref" : "533bb1ce-7b5a-4881-a3b0-309aead23e1f",
+      "id" : "SNYK-JAVA-ORGMOZILLA-1314295",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 8.2,
+          "severity" : "high",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:L/A:N/E:U/RL:O/RC:R"
+        }
+      ],
+      "description" : "## Overview [org.mozilla:rhino](https://github.com/mozilla/rhino) is a Rhino is an open-source implementation of JavaScript written entirely in Java. It is typically embedded into Java applications to provide scripting to end users. Affected versions of this package are vulnerable to XML External Entity (XXE) Injection. The function `toXml` allows usage of external entities when parsing an XML document. ## Details XXE Injection is a type of attack against an application that parses XML input. XML is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable. By default, many XML processors allow specification of an external entity, a URI that is dereferenced and evaluated during XML processing. When an XML document is being parsed, the parser can make a request and include the content at the specified URI inside of the XML document. Attacks can include disclosing local files, which may contain sensitive data such as passwords or private user data, using file: schemes or relative paths in the system identifier. For example, below is a sample XML document, containing an XML element- username. ``` <xml> <?xml version=\"1.0\" encoding=\"ISO-8859-1\"?> <username>John</username> </xml> ``` An external XML entity - `xxe`, is defined using a system identifier and present within a DOCTYPE header. These entities can access local or remote content. For example the below code contains an external XML entity that would fetch the content of `/etc/passwd` and display it to the user rendered by `username`. ``` <xml> <?xml version=\"1.0\" encoding=\"ISO-8859-1\"?> <!DOCTYPE foo [ <!ENTITY xxe SYSTEM \"file:///etc/passwd\" >]> <username>&xxe;</username> </xml> ``` Other XXE Injection attacks can access local resources that may not stop returning data, possibly impacting application availability and leading to Denial of Service. ## Remediation Upgrade `org.mozilla:rhino` to version 1.7.12 or higher. ## References - [GitHub Commit](https://github.com/mozilla/rhino/commit/afed3835b3ff6ab184e9e9382ad58fb248043f1c) - [GitHub Issue](https://github.com/mozilla/rhino/issues/479) - [GitHub Vulnerable Code](https://github.com/mozilla/rhino/blob/master/xmlimplsrc/org/mozilla/javascript/xmlimpl/XmlProcessor.java#L225)",
+      "recommendation" : "Upgrade the package version to 1.7.12 to fix this vulnerability",
+      "created" : "2021-06-24T10:42:20Z",
+      "published" : "2021-06-24T14:49:34Z",
+      "updated" : "2024-03-06T14:00:46Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "05b4242e-e1bd-424c-8ede-2568da828d30",
+      "id" : "SNYK-JAVA-IOAIRLIFT-7164637",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 8.2,
+          "severity" : "high",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:H"
+        }
+      ],
+      "description" : "## Overview Affected versions of this package are vulnerable to Out-of-bounds Read via the decompression process due to improper input length validation in the functions `SnappyRawDecompressor.readUncompressedLengt`, `SnappyRawDecompressor.uncompressAll`, `ZstdFrameDecompressor.decompress`, `Lz4RawDecompressor.decompress` and `LzoRawDecompressor.decompress`. By exploiting this vulnerability, an attacker can crash the JVM or leak sensitive information by decompressing specially crafted data from untrusted sources. ## Remediation Upgrade `io.airlift:aircompressor` to version 0.27 or higher. ## References - [GitHub Commit](https://github.com/airlift/aircompressor/commit/15e68df9eb0c2bfde7f796231ee7cd1982965071) - [GitHub Commit](https://github.com/airlift/aircompressor/commit/2cea90a45534f9aacbb77426fb64e975504dee6e) - [GitHub Commit](https://github.com/airlift/aircompressor/commit/cf66151541edb062ea88b6f3baab3f95e48b7b7f) - [GitHub Commit](https://github.com/airlift/aircompressor/commit/d01ecb779375a092d00e224abe7869cdf49ddc3e)",
+      "recommendation" : "Upgrade the package version to 0.27 to fix this vulnerability",
+      "created" : "2024-05-30T06:38:51Z",
+      "published" : "2024-05-30T10:47:25Z",
+      "updated" : "2024-06-06T12:41:41Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "9574845e-fc07-48e8-96ab-0bdd678c7ec1",
+      "id" : "SNYK-JAVA-AIDJL-7267990",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 8.6,
+          "severity" : "high",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:N/I:H/A:N"
+        }
+      ],
+      "description" : "## Overview Affected versions of this package are vulnerable to Arbitrary File Write via Archive Extraction (Zip Slip) that allows an attacker to overwrite arbitrary system files by providing a relative pathname to archive files. ## Details It is exploited using a specially crafted zip archive, that holds path traversal filenames. When exploited, a filename in a malicious archive is concatenated to the target extraction directory, which results in the final path ending up outside of the target folder. For instance, a zip may hold a file with a \"../../file.exe\" location and thus break out of the target folder. If an executable or a configuration file is overwritten with a file containing malicious code, the problem can turn into an arbitrary code execution issue quite easily. The following is an example of a zip archive with one benign file and one malicious file. Extracting the malicous file will result in traversing out of the target folder, ending up in `/root/.ssh/` overwriting the `authorized_keys` file: ``` +2018-04-15 22:04:29 ..... 19 19 good.txt +2018-04-15 22:04:42 ..... 20 20 ../../../../../../root/.ssh/authorized_keys ``` ## Remediation Upgrade `ai.djl:api` to version 0.28.0 or higher. ## References - [GitHub Commit](https://github.com/deepjavalibrary/djl/commit/34d12ad701188ce1d0d4416a57d7d6d5a8af8d5e) - [GitHub Commit](https://github.com/deepjavalibrary/djl/commit/f0e4e0cb01da614f7c3a9ba349536e7923fa8813) - [GitHub Release](https://github.com/aws/deep-learning-containers/releases/tag/v1.1-djl-0.27.0-inf-cpu-full) - [GitHub Release](https://github.com/aws/deep-learning-containers/releases/tag/v1.3-djl-0.27.0-inf-neuronx-sdk2.18.1) - [GitHub Release](https://github.com/aws/deep-learning-containers/releases/tag/v1.4-djl-0.27.0-inf-ds-0.12.6) - [GitHub Release](https://github.com/aws/deep-learning-containers/releases/tag/v1.4-djl-0.27.0-inf-trt-0.8.0) - [GitHub Release](https://github.com/deepjavalibrary/djl/releases/tag/v0.28.0)",
+      "recommendation" : "Upgrade the package version to 0.28.0 to fix this vulnerability",
+      "created" : "2024-06-18T11:17:25Z",
+      "published" : "2024-06-18T11:52:04Z",
+      "updated" : "2024-06-18T11:52:04Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "9d33265c-035a-4abe-93e7-dbe6b34148b6",
+      "id" : "SNYK-JAVA-ORGJETBRAINSKOTLIN-2393744",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 5.3,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+        }
+      ],
+      "description" : "## Overview [org.jetbrains.kotlin:kotlin-stdlib](https://search.maven.org/artifact/org.jetbrains.kotlin/kotlin-stdlib) is a Kotlin Standard Library for JVM. Affected versions of this package are vulnerable to Information Exposure. A Kotlin application using `createTempDir` or `createTempFile` and placing sensitive information within either of these locations would be leaking this information in a read-only way to other users also on this system. **Note:** As of version 1.4.21, the vulnerable functions have been marked as deprecated. Due to still being usable, this advisory is kept as \"unfixed\". ## PoC by JLLeitschuh ``` package org.jlleitschuh.sandbox import org.junit.jupiter.api.Test import java.io.BufferedReader import java.io.File import java.io.IOException import java.io.InputStreamReader import java.nio.file.Files class KotlinTempDirectoryPermissionCheck { @Test fun `kotlin check default directory permissions`() { val dir = createTempDir() runLS(dir.parentFile, dir) // Prints drwxr-xr-x } @Test fun `Files check default directory permissions`() { val dir = Files.createTempDirectory(\"random-directory\") runLS(dir.toFile().parentFile, dir.toFile()) // Prints drwx------ } @Test fun `kotlin check default file permissions`() { val file = createTempFile() runLS(file.parentFile, file) // Prints -rw-r--r-- } @Test fun `Files check default file permissions`() { val file = Files.createTempFile(\"random-file\", \".txt\") runLS(file.toFile().parentFile, file.toFile()) // Prints -rw------- } private fun runLS(file: File, lookingFor: File) { val processBuilder = ProcessBuilder() processBuilder.command(\"ls\", \"-l\", file.absolutePath) try { val process = processBuilder.start() val output = StringBuilder() val reader = BufferedReader( InputStreamReader(process.inputStream) ) reader.lines().forEach { line -> if (line.contains(\"total\")) { output.append(line).append('\\n') } if (line.contains(lookingFor.name)) { output.append(line).append('\\n') } } val exitVal = process.waitFor() if (exitVal == 0) { println(\"Success!\") println(output) } else { //abnormal... } } catch (e: IOException) { e.printStackTrace() } catch (e: InterruptedException) { e.printStackTrace() } } } ``` ## Remediation There is no fixed version for `org.jetbrains.kotlin:kotlin-stdlib`. ## References - [Documentation](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.io/create-temp-dir.html) - [Issue](https://youtrack.jetbrains.com/issue/KT-43306/Deprecate-createTempFile-and-createTempDir-functions-in-kotlin.io) - [Vulnerable Code #1](https://github.com/JetBrains/kotlin/blob/9b157fd291d581a30a3194940b0ebbb95a2fd247/libraries/stdlib/jvm/src/kotlin/io/files/Utils.kt#L14-L39) - [Vulnerable Code #2](https://github.com/JetBrains/kotlin/blob/9b157fd291d581a30a3194940b0ebbb95a2fd247/libraries/stdlib/jvm/src/kotlin/io/files/Utils.kt#L41-L60)",
+      "recommendation" : "Upgrade the package version to to fix this vulnerability",
+      "created" : "2022-02-04T09:36:58Z",
+      "published" : "2022-02-04T14:31:42Z",
+      "updated" : "2024-03-11T09:50:55Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "91b3a0f9-6e58-45f1-8484-505b87133fcf",
+      "id" : "SNYK-JAVA-COMMICROSOFTAZURE-7246766",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 5.5,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N"
+        }
+      ],
+      "description" : "## Overview Affected versions of this package are vulnerable to Concurrent Execution using Shared Resource with Improper Synchronization ('Race Condition') in the authentication process. An attacker can elevate privileges by exploiting race conditions during the token validation steps. This is only exploitable if the application is configured to use multiple threads or processes for handling authentication requests. **Notes:** 1) An attacker who successfully exploited the vulnerability could elevate privileges and read any file on the file system with SYSTEM access permissions; 2) An attacker who successfully exploits this vulnerability can only obtain read access to the system files by exploiting this vulnerability. The attacker cannot perform write or delete operations on the files; 3) The vulnerability exists in the following credential types: `DefaultAzureCredential` and `ManagedIdentityCredential`; 4) The vulnerability exists in the following credential types: `ManagedIdentityApplication` (.NET) `ManagedIdentityApplication` (Java) `ManagedIdentityApplication` (Node.js) ## Remediation Upgrade `com.microsoft.azure:msal4j` to version 1.15.1 or higher. ## References - [GitHub Commit](https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/commit/fddb2c4011c79a7efda2df053ca05b87b8a1303c) - [GitHub Commit](https://github.com/AzureAD/microsoft-authentication-library-for-java/commit/9a07472cedbde7a1013a6fc81da91f2a2c6d67a1) - [GitHub Commit](https://github.com/AzureAD/microsoft-authentication-library-for-js/commit/3ee9c68d1a80bf7652e41b58ae1bf87ff64a727e) - [GitHub Commit](https://github.com/Azure/azure-sdk-for-go/commit/50774cd9709905523136fb05e8c85a50e8984499) - [GitHub Commit](https://github.com/Azure/azure-sdk-for-js/commit/c6aa75d312ae463e744163cedfd8fc480cc8d492) - [GitHub Commit](https://github.com/Azure/azure-sdk-for-net/commit/2db9a0f33668ae9cf0331613e1cd612bee105e1c) - [GitHub Commit](https://github.com/Azure/azure-sdk-for-python/commit/cb065acd7d0f957327dc4f02d1646d4e51a94178) - [Microsoft Advisory](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-35255)",
+      "recommendation" : "Upgrade the package version to 1.15.1 to fix this vulnerability",
+      "created" : "2024-06-12T07:31:41Z",
+      "published" : "2024-06-12T08:05:15Z",
+      "updated" : "2024-06-12T08:05:15Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "e480ea97-1e64-4cb8-ba51-4604f8dd0395",
+      "id" : "SNYK-JAVA-COMAZURE-7246765",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 5.5,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N"
+        }
+      ],
+      "description" : "## Overview Affected versions of this package are vulnerable to Concurrent Execution using Shared Resource with Improper Synchronization ('Race Condition') in the authentication process. An attacker can elevate privileges by exploiting race conditions during the token validation steps. This is only exploitable if the application is configured to use multiple threads or processes for handling authentication requests. **Notes:** 1) An attacker who successfully exploited the vulnerability could elevate privileges and read any file on the file system with SYSTEM access permissions; 2) An attacker who successfully exploits this vulnerability can only obtain read access to the system files by exploiting this vulnerability. The attacker cannot perform write or delete operations on the files; 3) The vulnerability exists in the following credential types: `DefaultAzureCredential` and `ManagedIdentityCredential`; 4) The vulnerability exists in the following credential types: `ManagedIdentityApplication` (.NET) `ManagedIdentityApplication` (Java) `ManagedIdentityApplication` (Node.js) ## Remediation Upgrade `com.azure:azure-identity` to version 1.12.2 or higher. ## References - [GitHub Commit](https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/commit/fddb2c4011c79a7efda2df053ca05b87b8a1303c) - [GitHub Commit](https://github.com/AzureAD/microsoft-authentication-library-for-java/commit/9a07472cedbde7a1013a6fc81da91f2a2c6d67a1) - [GitHub Commit](https://github.com/AzureAD/microsoft-authentication-library-for-js/commit/3ee9c68d1a80bf7652e41b58ae1bf87ff64a727e) - [GitHub Commit](https://github.com/Azure/azure-sdk-for-go/commit/50774cd9709905523136fb05e8c85a50e8984499) - [GitHub Commit](https://github.com/Azure/azure-sdk-for-js/commit/c6aa75d312ae463e744163cedfd8fc480cc8d492) - [GitHub Commit](https://github.com/Azure/azure-sdk-for-net/commit/2db9a0f33668ae9cf0331613e1cd612bee105e1c) - [GitHub Commit](https://github.com/Azure/azure-sdk-for-python/commit/cb065acd7d0f957327dc4f02d1646d4e51a94178) - [Microsoft Advisory](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-35255)",
+      "recommendation" : "Upgrade the package version to 1.12.2 to fix this vulnerability",
+      "created" : "2024-06-12T07:31:40Z",
+      "published" : "2024-06-12T08:05:15Z",
+      "updated" : "2024-06-12T08:05:15Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "e0eedddb-beeb-4aca-b275-582f9fa1dc32",
+      "id" : "SNYK-JAVA-IOQUARKUS-6564967",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 7.0,
+          "severity" : "high",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H"
+        }
+      ],
+      "description" : "## Overview Affected versions of this package are vulnerable to Information Exposure Through Environmental Variables due to the capture of local environment variables from the Quarkus namespace during the application's build process. Running the resulting application inherits the values captured at build time, which may include environment variables or `.env` facility configurations set for testing purposes. This can lead to unintended behaviour, such as dropping the database during application startup or trusting all TLS certificates, if these values are not overridden. **Note:** This behaviour only happens for configuration properties from the `quarkus.*` namespace. So, application-specific properties are not captured. ## Remediation There is no fixed version for `io.quarkus:quarkus-core`. ## References - [RedHat Bugzilla Bug](https://bugzilla.redhat.com/show_bug.cgi?id=2273281)",
+      "recommendation" : "Upgrade the package version to to fix this vulnerability",
+      "created" : "2024-04-05T07:49:32Z",
+      "published" : "2024-04-05T09:03:21Z",
+      "updated" : "2024-04-05T09:03:21Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "ab440431-c676-41f6-9f82-4af27a9e7222",
+      "id" : "SNYK-JAVA-IOQUARKUSRESTEASYREACTIVE-3248762",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 3.3,
+          "severity" : "low",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
+        }
+      ],
+      "cwes" : [
+        378
+      ],
+      "description" : "## Overview [io.quarkus.resteasy.reactive:resteasy-reactive-common](https://search.maven.org/artifact/io.quarkus.resteasy.reactive/resteasy-reactive-common/3.0.0.Alpha3/jar) is a RESTEasy Reactive - Common Runtime Affected versions of this package are vulnerable to Creation of Temporary File With Insecure Permissions via the usage of `File.createTempFile()` class in the `FileBodyHandler` serializer that causes temp files to be created with `-rw-r--r--` permissions. ## Remediation There is no fixed version for `io.quarkus.resteasy.reactive:resteasy-reactive-common`. ## References - [RedHat Bugzilla Bug](https://bugzilla.redhat.com/show_bug.cgi?id=2163533)",
+      "created" : "2023-01-26T15:18:36Z",
+      "updated" : "2023-03-09T13:39:32Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "1dc5c8ad-179b-4875-b3a0-928b5f88f574",
+      "id" : "SNYK-JAVA-SOFTWAREAMAZONION-6153869",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 7.5,
+          "severity" : "high",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        }
+      ],
+      "description" : "## Overview Affected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling via the deserialization of Ion text encoded data or the `IonValue` model processing. An attacker can cause a `StackOverflowError` by crafting malicious Ion data that triggers excessive resource consumption when loaded or processed. This is only exploitable if the application deserializes Ion data from an untrusted source or data that could have been tampered with. **Notes:** According to the [README.md](https://github.com/amazon-ion/ion-java/blob/ebf8f4d933cc85438e1b309bada90ff0d5a76102/README.md?plain=1#L61) file of this package, its domain changed from `software.amazon.ion` to `com.amazon.ion`. Please be aware that this vulnerability affects versions of both domains of this package. For a fix, please check [the advisory on the maintained package](https://security.snyk.io/vuln/SNYK-JAVA-COMAMAZONION-6143590). ## Workaround This vulnerability can be mitigated by not loading data from untrusted sources or that could have been tampered with. ## Remediation A fix was pushed into the `master` branch but not yet published. ## References - [GitHub Release](https://github.com/amazon-ion/ion-java/releases/tag/v1.10.5)",
+      "recommendation" : "Upgrade the package version to to fix this vulnerability",
+      "created" : "2024-01-12T09:57:16Z",
+      "published" : "2024-01-12T09:57:16Z",
+      "updated" : "2024-03-11T09:49:04Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "f2bc40ca-8891-4e15-9d15-e6cc8a2e5e13",
+      "id" : "SNYK-JAVA-ORGBOUNCYCASTLE-5771339",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 5.3,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+        }
+      ],
+      "description" : "## Overview [org.bouncycastle:bcprov-jdk15on](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on) is a Java implementation of cryptographic algorithms. Affected versions of this package are vulnerable to Information Exposure due to missing validation for the X.500 name of any certificate, subject, or issuer. The presence of a wild card may lead to information disclosure. This could allow a malicious user to obtain unauthorized information via blind LDAP Injection, exploring the environment and enumerating data. **Note:** The exploit depends on the structure of the target LDAP directory as well as what kind of errors are exposed to the user. ## Remediation A fix was pushed into the `master` branch but not yet published. ## References - [GitHub Commit](https://github.com/bcgit/bc-java/commit/b00b58873643abc7e834f07e345e0165bb3a1786) - [GitHub Wiki](https://github.com/bcgit/bc-java/wiki/CVE-2023-33201) - [RedHat Bugzilla Bug](https://bugzilla.redhat.com/show_bug.cgi?id=2215465)",
+      "recommendation" : "Upgrade the package version to to fix this vulnerability",
+      "created" : "2023-07-11T15:15:48Z",
+      "published" : "2023-06-30T08:15:58Z",
+      "updated" : "2024-03-11T09:54:01Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "32b6cce0-75c2-493e-990b-f218191d9fb7",
+      "id" : "SNYK-JAVA-ORGBOUNCYCASTLE-6084022",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 5.5,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H"
+        }
+      ],
+      "description" : "## Overview [org.bouncycastle:bcprov-jdk15on](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on) is a Java implementation of cryptographic algorithms. Affected versions of this package are vulnerable to Uncontrolled Resource Consumption ('Resource Exhaustion') within the `org.bouncycastle.openssl.PEMParser` class. Parsing a file that has crafted `ASN.1` data through the `PEMParser` causes an `OutOfMemoryError`. ## Workaround The attack can be avoided by filtering `PEM` requests containing `EXTERNAL` tagged encodings. ## Remediation There is no fixed version for `org.bouncycastle:bcprov-jdk15on`. ## References - [GitHub Commit](https://github.com/bcgit/bc-java/commit/eff6adf03f426dc4d55e8305255eb38c811ddda7) - [GitHub Wiki](https://github.com/bcgit/bc-java/wiki/CVE-2023-33202)",
+      "recommendation" : "Upgrade the package version to to fix this vulnerability",
+      "created" : "2023-11-24T08:10:03Z",
+      "published" : "2023-11-24T08:21:18Z",
+      "updated" : "2024-06-19T13:32:28Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "69a1fb82-9ed0-4c6b-8366-4f39f47a9ef4",
+      "id" : "SNYK-JAVA-ORGBOUNCYCASTLE-6277380",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 5.9,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+        }
+      ],
+      "description" : "## Overview [org.bouncycastle:bcprov-jdk15on](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on) is a Java implementation of cryptographic algorithms. Affected versions of this package are vulnerable to Observable Timing Discrepancy via the PKCS#1 1.5 and OAEP decryption process. An attacker can recover ciphertexts via a side-channel attack by exploiting the Marvin security flaw. The PKCS#1 1.5 attack vector leaks data via `javax.crypto.Cipher` exceptions and the OAEP interface vector leaks via the bit size of the decrypted data. ## Remediation There is no fixed version for `org.bouncycastle:bcprov-jdk15on`. ## References - [GitHub Issue](https://github.com/bcgit/bc-java/issues/1528) - [Vulnerability Report](https://people.redhat.com/~hkario/marvin/)",
+      "recommendation" : "Upgrade the package version to to fix this vulnerability",
+      "created" : "2024-02-26T18:00:10Z",
+      "published" : "2024-03-03T21:08:12Z",
+      "updated" : "2024-04-21T07:48:52Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "baf76fde-dcec-43ed-bb1c-d7cec3a78a00",
+      "id" : "SNYK-JAVA-COMHAZELCAST-5781353",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 8.8,
+          "severity" : "high",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+        }
+      ],
+      "description" : "## Overview [com.hazelcast:hazelcast](https://github.com/hazelcast/hazelcast) is a clustering and highly scalable data distribution platform. Affected versions of this package are vulnerable to Incorrect Permission Assignment for Critical Resource in executor services, which don't check client permissions properly, allowing authenticated users to execute tasks on members without the required permissions. **NOTE:** Only users using executor services for distributed data structures are affected. ## Remediation Upgrade `com.hazelcast:hazelcast` to version 5.0.5, 5.1.7, 5.2.4 or higher. ## References - [GitHub Commit](https://github.com/hazelcast/hazelcast/commit/407f10bec603a1b1cb1b042b2732c656c533fe2c) - [GitHub Commit](https://github.com/hazelcast/hazelcast/commit/5a452df41dd8ebd2497992214976894165856796) - [GitHub Commit](https://github.com/hazelcast/hazelcast/commit/b00a04a3e8303fd6bafba72b3c0dbaf45bd7e56c) - [GitHub PR](https://github.com/hazelcast/hazelcast/pull/24271) - [Vulnerability Advisory](https://support.hazelcast.com/s/article/Security-Advisory-for-CVE-2023-33265)",
+      "recommendation" : "Upgrade the package version to 5.0.5,5.1.7,5.2.4 to fix this vulnerability",
+      "created" : "2023-07-19T08:02:03Z",
+      "published" : "2023-07-19T08:22:25Z",
+      "updated" : "2024-03-11T09:53:27Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "943cb13e-8465-4cbb-b1f9-7fb90cce6310",
+      "id" : "SNYK-JAVA-ORGGRAALVMSDK-6026508",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 3.7,
+          "severity" : "low",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N"
+        }
+      ],
+      "description" : "## Overview [org.graalvm.sdk:graal-sdk](https://search.maven.org/artifact/org.graalvm.sdk/graal-sdk) is a high-performance JDK distribution designed to accelerate the execution of applications written in Java and other JVM languages along with support for JavaScript, Ruby, Python, and a number of other popular languages. Affected versions of this package are vulnerable to Buffer Overflow in `LoadVectorMaskedNode::Ideal()` in the hotspot compiler, when running unstrusted code. **Note:** This vulnerability is only exploitable when AVX-512 is enabled (`-XX:UseAVX=3`). ## Remediation A fix was pushed into the `master` branch but not yet published. ## References - [GitHub Commit](https://github.com/openjdk/jdk17u/commit/c2bd1ee67db35fddedc6c30302ecbf241d0b788c) - [OpenJDK Mailing List](https://mail.openjdk.org/pipermail/hotspot-compiler-dev/2023-September/068447.html) - [Red Hat Bugzilla](https://bugzilla.redhat.com/show_bug.cgi?id=2243805) - [Vulnerability Advisory](https://openjdk.org/groups/vulnerability/advisories/2023-10-17)",
+      "recommendation" : "Upgrade the package version to to fix this vulnerability",
+      "created" : "2023-10-22T14:56:27Z",
+      "published" : "2023-10-22T14:56:41Z",
+      "updated" : "2024-03-11T09:54:02Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "63a18c7e-0dc2-46f6-b2e5-4c7856192736",
+      "id" : "SNYK-JAVA-ORGGRAALVMSDK-6026490",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 5.3,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+        }
+      ],
+      "description" : "## Overview [org.graalvm.sdk:graal-sdk](https://search.maven.org/artifact/org.graalvm.sdk/graal-sdk) is a high-performance JDK distribution designed to accelerate the execution of applications written in Java and other JVM languages along with support for JavaScript, Ruby, Python, and a number of other popular languages. Affected versions of this package are vulnerable to Denial of Service (DoS) in `security-libs/javax.net.ssl`, when running untrusted code. ## Remediation A fix was pushed into the `master` branch but not yet published. ## References - [Vulnerability Advisory](https://openjdk.org/groups/vulnerability/advisories/2023-10-17)",
+      "recommendation" : "Upgrade the package version to to fix this vulnerability",
+      "created" : "2023-10-22T14:35:46Z",
+      "published" : "2023-10-22T14:35:46Z",
+      "updated" : "2024-03-11T09:54:02Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "e16d6fae-6903-47d3-add5-97d1d9e2a7fc",
+      "id" : "SNYK-JAVA-XALAN-2953385",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 7.5,
+          "severity" : "high",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N"
+        }
+      ],
+      "description" : "## Overview [xalan:xalan](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22xalan%22) is a XSLT processor for transforming XML documents into HTML, text, or other XML document types. It implements XSL Transformations (XSLT) Version 1.0 and XML Path Language (XPath) Version 1.0 and can be used from the command line, in an applet or a servlet, or as a module in other program. Affected versions of this package are vulnerable to Arbitrary Code Execution when processing malicious XSLT stylesheets, due to an integer truncation issue. This allows attackers to corrupt Java class files generated by the internal XSLTC compiler and execute arbitrary Java bytecode. **NOTE:** Fixed releases are not expected for the Apache Xalan project, which is being retired. ## Remediation Upgrade `xalan:xalan` to version 2.7.3 or higher. ## References - [Apache Advisory](https://lists.apache.org/thread/12pxy4phsry6c34x2ol4fft6xlho4kyw) - [Apache Mailing List](https://lists.apache.org/thread/2qvl7r43wb4t8p9dd9om1bnkssk07sn8) - [OSS Security Advisory](https://www.openwall.com/lists/oss-security/2022/07/20/2) - [PoC](https://bugs.chromium.org/p/project-zero/issues/detail?id=2290)",
+      "recommendation" : "Upgrade the package version to 2.7.3 to fix this vulnerability",
+      "created" : "2022-07-20T10:09:21Z",
+      "published" : "2022-07-20T11:39:26Z",
+      "updated" : "2024-03-11T09:49:52Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "2bf053f1-5d6d-4a04-9756-4ab5599451e1",
+      "id" : "SNYK-JAVA-ORGBOUNCYCASTLE-2841508",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 4.8,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N/E:P"
+        }
+      ],
+      "description" : "## Overview [org.bouncycastle:bcprov-jdk15on](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on) is a Java implementation of cryptographic algorithms. Affected versions of this package are vulnerable to Cryptographic Issues via weak key-hash message authentication code (HMAC) that is only 16 bits long which can result in hash collisions, as a result of an error within the BKS version 1 keystore (BKS-V1) files and could lead to an attacker being able to affect the integrity of these files. This vulnerability was introduced following an incomplete fix for CVE-2018-5382. ## Remediation Upgrade `org.bouncycastle:bcprov-jdk15on` to version 1.69 or higher. ## References - [GitHub Commit](https://github.com/bcgit/bc-java/commit/7b66244e14488c5c981415b02ff71837ff3d2d50) - [GitHub Issue](https://github.com/bcgit/bc-java/issues/850) - [GitHub Issue](https://github.com/bcgit/bc-java/issues/925) - [PoC](https://insights.sei.cmu.edu/blog/the-curious-case-of-the-bouncy-castle-bks-passwords/)",
+      "recommendation" : "Upgrade the package version to 1.69 to fix this vulnerability",
+      "created" : "2022-05-23T09:25:43Z",
+      "published" : "2022-05-26T11:36:47Z",
+      "updated" : "2024-03-06T13:56:37Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "f2bc40ca-8891-4e15-9d15-e6cc8a2e5e13",
+      "id" : "SNYK-JAVA-ORGBOUNCYCASTLE-5771339",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 5.3,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+        }
+      ],
+      "description" : "## Overview [org.bouncycastle:bcprov-jdk15on](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on) is a Java implementation of cryptographic algorithms. Affected versions of this package are vulnerable to Information Exposure due to missing validation for the X.500 name of any certificate, subject, or issuer. The presence of a wild card may lead to information disclosure. This could allow a malicious user to obtain unauthorized information via blind LDAP Injection, exploring the environment and enumerating data. **Note:** The exploit depends on the structure of the target LDAP directory as well as what kind of errors are exposed to the user. ## Remediation A fix was pushed into the `master` branch but not yet published. ## References - [GitHub Commit](https://github.com/bcgit/bc-java/commit/b00b58873643abc7e834f07e345e0165bb3a1786) - [GitHub Wiki](https://github.com/bcgit/bc-java/wiki/CVE-2023-33201) - [RedHat Bugzilla Bug](https://bugzilla.redhat.com/show_bug.cgi?id=2215465)",
+      "recommendation" : "Upgrade the package version to to fix this vulnerability",
+      "created" : "2023-07-11T15:15:48Z",
+      "published" : "2023-06-30T08:15:58Z",
+      "updated" : "2024-03-11T09:54:01Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "32b6cce0-75c2-493e-990b-f218191d9fb7",
+      "id" : "SNYK-JAVA-ORGBOUNCYCASTLE-6084022",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 5.5,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H"
+        }
+      ],
+      "description" : "## Overview [org.bouncycastle:bcprov-jdk15on](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on) is a Java implementation of cryptographic algorithms. Affected versions of this package are vulnerable to Uncontrolled Resource Consumption ('Resource Exhaustion') within the `org.bouncycastle.openssl.PEMParser` class. Parsing a file that has crafted `ASN.1` data through the `PEMParser` causes an `OutOfMemoryError`. ## Workaround The attack can be avoided by filtering `PEM` requests containing `EXTERNAL` tagged encodings. ## Remediation There is no fixed version for `org.bouncycastle:bcprov-jdk15on`. ## References - [GitHub Commit](https://github.com/bcgit/bc-java/commit/eff6adf03f426dc4d55e8305255eb38c811ddda7) - [GitHub Wiki](https://github.com/bcgit/bc-java/wiki/CVE-2023-33202)",
+      "recommendation" : "Upgrade the package version to to fix this vulnerability",
+      "created" : "2023-11-24T08:10:03Z",
+      "published" : "2023-11-24T08:21:18Z",
+      "updated" : "2024-06-19T13:32:28Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "69a1fb82-9ed0-4c6b-8366-4f39f47a9ef4",
+      "id" : "SNYK-JAVA-ORGBOUNCYCASTLE-6277380",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 5.9,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+        }
+      ],
+      "description" : "## Overview [org.bouncycastle:bcprov-jdk15on](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on) is a Java implementation of cryptographic algorithms. Affected versions of this package are vulnerable to Observable Timing Discrepancy via the PKCS#1 1.5 and OAEP decryption process. An attacker can recover ciphertexts via a side-channel attack by exploiting the Marvin security flaw. The PKCS#1 1.5 attack vector leaks data via `javax.crypto.Cipher` exceptions and the OAEP interface vector leaks via the bit size of the decrypted data. ## Remediation There is no fixed version for `org.bouncycastle:bcprov-jdk15on`. ## References - [GitHub Issue](https://github.com/bcgit/bc-java/issues/1528) - [Vulnerability Report](https://people.redhat.com/~hkario/marvin/)",
+      "recommendation" : "Upgrade the package version to to fix this vulnerability",
+      "created" : "2024-02-26T18:00:10Z",
+      "published" : "2024-03-03T21:08:12Z",
+      "updated" : "2024-04-21T07:48:52Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "fab9a60e-1dce-4c53-9011-676898520e62",
+      "id" : "SNYK-JAVA-ORGBOUNCYCASTLE-1052448",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 8.1,
+          "severity" : "high",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+        }
+      ],
+      "description" : "## Overview [org.bouncycastle:bcprov-jdk15on](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on) is a Java implementation of cryptographic algorithms. Affected versions of this package are vulnerable to Comparison Using Wrong Factors. The `OpenBSDBCrypt.checkPassword` utility method compared incorrect data when checking the password, allowing incorrect passwords to indicate they were matching with previously hashed ones that were different. ## Remediation Upgrade `org.bouncycastle:bcprov-jdk15on` to version 1.67 or higher. ## References - [GitHub Additional Information](https://github.com/bcgit/bc-java/wiki/CVE-2020-28052) - [GitHub Commit](https://github.com/bcgit/bc-java/commit/97578f9b7ed277e6ecb58834e85e3d18385a4219) - [PoC](https://github.com/madstap/bouncy-castle-generative-test-poc) - [Redhat Bugzilla](https://bugzilla.redhat.com/show_bug.cgi?id=1912881) - [Synopsys Blog](https://www.synopsys.com/blogs/software-security/cve-2020-28052-bouncy-castle/)",
+      "recommendation" : "Upgrade the package version to 1.67 to fix this vulnerability",
+      "created" : "2020-12-18T11:32:45Z",
+      "published" : "2020-12-18T16:33:09Z",
+      "updated" : "2024-03-11T09:53:49Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "acf24eef-aca7-49bf-87e7-b1d93e813eea",
+      "id" : "SNYK-JAVA-IOSMALLRYE-2993220",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 6.1,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N"
+        }
+      ],
+      "description" : "## Overview Affected versions of this package are vulnerable to Cross-site Scripting (XSS) due to an improper sanitization of user inputs. ## Details A cross-site scripting attack occurs when the attacker tricks a legitimate web-based application or site to accept a request as originating from a trusted source. This is done by escaping the context of the web application; the web application then delivers that data to its users along with other trusted dynamic content, without validating it. The browser unknowingly executes malicious script on the client side (through client-side languages; usually JavaScript or HTML) in order to perform actions that are otherwise typically blocked by the browser’s Same Origin Policy. Injecting malicious code is the most prevalent manner by which XSS is exploited; for this reason, escaping characters in order to prevent this manipulation is the top method for securing code against this vulnerability. Escaping means that the application is coded to mark key characters, and particularly key characters included in user input, to prevent those characters from being interpreted in a dangerous context. For example, in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in order to be interpreted and displayed as themselves in text, while within the code itself, they are used for HTML tags. If malicious content is injected into an application that escapes special characters and that malicious content uses `<` and `>` as HTML tags, those characters are nonetheless not interpreted as HTML tags by the browser if they’ve been correctly escaped in the application code and in this way the attempted attack is diverted. The most prominent use of XSS is to steal cookies (source: OWASP HttpOnly) and hijack user sessions, but XSS exploits have been used to expose sensitive information, enable access to privileged services and functionality and deliver malware. ### Types of attacks There are a few methods by which XSS can be manipulated: |Type|Origin|Description| |--|--|--| |**Stored**|Server|The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link.| |**Reflected**|Server|The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser.| |**DOM-based**|Client|The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data.| |**Mutated**| |The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters.| ### Affected environments The following environments are susceptible to an XSS attack: * Web servers * Application servers * Web application environments ### How to prevent This section describes the top best practices designed to specifically protect your code: * Sanitize data input in an HTTP request before reflecting it back, ensuring all data is validated, filtered or escaped before echoing anything back to the user, such as the values of query parameters during searches. * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces to their respective HTML or URL encoded equivalents. * Give users the option to disable client-side scripts. * Redirect invalid requests. * Detect simultaneous logins, including those from two separate IP addresses, and invalidate those sessions. * Use and enforce a Content Security Policy (source: Wikipedia) to disable any features that might be manipulated for an XSS attack. * Read the documentation for any of the libraries referenced in your code to understand which elements allow for embedded HTML. ## Remediation There is no fixed version for `io.smallrye:smallrye-health-ui`. ## References - [RedHat Bugzilla Bug](https://bugzilla.redhat.com/show_bug.cgi?id=2018015) - [RedHat CVE Database](https://access.redhat.com/security/cve/CVE-2021-3914)",
+      "recommendation" : "Upgrade the package version to to fix this vulnerability",
+      "created" : "2022-08-26T08:28:37Z",
+      "published" : "2022-08-26T08:28:37Z",
+      "updated" : "2024-03-11T09:49:54Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "89bc87ff-9b5a-4c8e-be74-50df618564bb",
+      "id" : "SNYK-JAVA-COMH2DATABASE-31685",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 8.8,
+          "severity" : "high",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
+        }
+      ],
+      "description" : "## Overview [com.h2database:h2](http://www.h2database.com/html/main.html) is a database engine Affected versions of this package are vulnerable to Remote Code Execution (RCE). It provides a web console for managing the database, and by default it does not have a password set. The `CREATE ALIAS` function calls Java code, allowing an attacker to execute arbitrary Java code on projects running the h2 database. NOTE: To be remotely exploitable, the affected application must be configured with the non-default setting `webAllowOthers=true`, either in a config file or as a parameter passed in when the servlet is invoked. The vulnerability can be avoided by setting a password on the database and/or restricting access to localhost using the above setting. ## PoC ```sql CREATE ALIAS REVERSE AS $$ String reverse(String s) { return new StringBuilder(s).reverse().toString(); } $$; CALL REVERSE('Test'); ``` ## Remediation There is no fixed version for `com.h2database:h2`. ## References - [Datomic Blog](http://blog.datomic.com/2018/03/important-security-update.html) - [Datomic Security Advisory](https://forum.datomic.com/t/important-security-update-0-9-5697/379) - [Exploit DB](https://www.exploit-db.com/exploits/44422/) - [GitHub Issue](https://github.com/h2database/h2database/issues/1225) - [Matheus Bernardes' Blog](https://mthbernardes.github.io/rce/2018/03/14/abusing-h2-database-alias.html)",
+      "recommendation" : "Upgrade the package version to to fix this vulnerability",
+      "created" : "2018-06-06T09:42:14Z",
+      "published" : "2018-06-06T15:07:50Z",
+      "updated" : "2024-03-11T09:47:19Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "761fac87-46ca-4801-90cb-2a7f5a8d1491",
+      "id" : "SNYK-JAVA-ORGBOUNCYCASTLE-6277382",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 5.9,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+        }
+      ],
+      "description" : "## Overview [org.bouncycastle:bcprov-jdk15to18](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15to18) is a Java implementation of cryptographic algorithms. Affected versions of this package are vulnerable to Observable Timing Discrepancy via the PKCS#1 1.5 and OAEP decryption process. An attacker can recover ciphertexts via a side-channel attack by exploiting the Marvin security flaw. The PKCS#1 1.5 attack vector leaks data via `javax.crypto.Cipher` exceptions and the OAEP interface vector leaks via the bit size of the decrypted data. ## Remediation Upgrade `org.bouncycastle:bcprov-jdk15to18` to version 1.78 or higher. ## References - [GitHub Issue](https://github.com/bcgit/bc-java/issues/1528) - [Vulnerability Report](https://people.redhat.com/~hkario/marvin/)",
+      "recommendation" : "Upgrade the package version to 1.78 to fix this vulnerability",
+      "created" : "2024-02-26T18:00:10Z",
+      "published" : "2024-03-03T21:08:12Z",
+      "updated" : "2024-04-21T07:48:52Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "4ead0905-39e8-4b79-986c-a827289dadd4",
+      "id" : "SNYK-JAVA-ORGJSON-5962464",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 7.5,
+          "severity" : "high",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        }
+      ],
+      "description" : "## Overview Affected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling. An attacker can cause indefinite amounts of memory to be used by inputting a string of modest size. This can lead to a Denial of Service. ## PoC ```java package orgjsonbug; import org.json.JSONObject; /** * Illustrates a bug in JSON-Java. */ public class Bug { private static String makeNested(int depth) { if (depth == 0) { return \"{\\\"a\\\":1}\"; } return \"{\\\"a\\\":1;\\t\\0\" + makeNested(depth - 1) + \":1}\"; } public static void main(String[] args) { String input = makeNested(30); System.out.printf(\"Input string has length %d: %s\\n\", input.length(), input); JSONObject output = new JSONObject(input); System.out.printf(\"Output JSONObject has length %d: %s\\n\", output.toString().length(), output); } } ``` ## Remediation Upgrade `org.json:json` to version 20231013 or higher. ## References - [GitHub Commit](https://github.com/stleary/JSON-java/commit/60662e2f8384d3449822a3a1179bfe8de67b55bb) - [GitHub Issue](https://github.com/stleary/JSON-java/issues/758) - [GitHub Issue](https://github.com/stleary/JSON-java/issues/771)",
+      "recommendation" : "Upgrade the package version to 20231013 to fix this vulnerability",
+      "created" : "2023-10-13T06:42:49Z",
+      "published" : "2023-10-13T06:42:49Z",
+      "updated" : "2024-03-11T09:54:02Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "d4df2818-7fef-4ccd-bea2-6ca4f37d4888",
+      "id" : "SNYK-JAVA-ORGBOUNCYCASTLE-1296075",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 5.9,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+        }
+      ],
+      "description" : "## Overview [org.bouncycastle:bcprov-jdk15on](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on) is a Java implementation of cryptographic algorithms. Affected versions of this package are vulnerable to Timing Attack. A timing issue within the EC math library can expose information about the private key when an attacker is able to observe timing information for the generation of multiple deterministic ECDSA signatures. ## Remediation Upgrade `org.bouncycastle:bcprov-jdk15on` to version 1.66 or higher. ## References - [BouncyCastle C# Security Advisory](https://github.com/bcgit/bc-csharp/wiki/CVE-2020-15522) - [BouncyCastle Java Security Advisory](https://github.com/bcgit/bc-java/wiki/CVE-2020-15522) - [BouncyCastle Release Notes](https://www.bouncycastle.org/releasenotes.html)",
+      "recommendation" : "Upgrade the package version to 1.66 to fix this vulnerability",
+      "created" : "2021-05-20T17:21:17Z",
+      "published" : "2021-05-20T17:22:54Z",
+      "updated" : "2024-03-11T09:53:53Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "0210b57b-6269-404c-b131-0678b28b77b8",
+      "id" : "SNYK-JAVA-COMGITHUBJNR-1570422",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 8.1,
+          "severity" : "high",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+        }
+      ],
+      "description" : "## Overview Affected versions of this package are vulnerable to Use After Free due to CVE-2014-4043. ## Remediation Upgrade `com.github.jnr:jnr-posix` to version 3.1.8 or higher. ## References - [CVE](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-4043) - [GitHub PR](https://github.com/jnr/jnr-posix/pull/171) - [RedHat Bugzilla Bug](https://bugzilla.redhat.com/show_bug.cgi?id=1983750)",
+      "recommendation" : "Upgrade the package version to 3.1.8 to fix this vulnerability",
+      "created" : "2021-08-27T16:00:23Z",
+      "published" : "2021-09-06T15:30:41Z",
+      "updated" : "2024-03-06T14:01:33Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "0210b57b-6269-404c-b131-0678b28b77b8",
+      "id" : "SNYK-JAVA-COMGITHUBJNR-1570422",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 8.1,
+          "severity" : "high",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+        }
+      ],
+      "description" : "## Overview Affected versions of this package are vulnerable to Use After Free due to CVE-2014-4043. ## Remediation Upgrade `com.github.jnr:jnr-posix` to version 3.1.8 or higher. ## References - [CVE](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-4043) - [GitHub PR](https://github.com/jnr/jnr-posix/pull/171) - [RedHat Bugzilla Bug](https://bugzilla.redhat.com/show_bug.cgi?id=1983750)",
+      "recommendation" : "Upgrade the package version to 3.1.8 to fix this vulnerability",
+      "created" : "2021-08-27T16:00:23Z",
+      "published" : "2021-09-06T15:30:41Z",
+      "updated" : "2024-03-06T14:01:33Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "d4f986ad-1313-4d8a-b5e7-8da611c50b1d",
+      "id" : "SNYK-JAVA-COMHAZELCAST-6282853",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 7.6,
+          "severity" : "high",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:L/A:L"
+        }
+      ],
+      "description" : "## Overview [com.hazelcast:hazelcast](https://github.com/hazelcast/hazelcast) is a clustering and highly scalable data distribution platform. Affected versions of this package are vulnerable to Improper Authorization due to missing permission checks on the Hazelcast client protocol. Authenticated users can access data stored in the cluster by exploiting this oversight. ## Remediation Upgrade `com.hazelcast:hazelcast` to version 5.2.5, 5.3.5 or higher. ## References - [GitHub Commit](https://github.com/hazelcast/hazelcast/commit/1eec447afaff529381e8cf8af07b368b2665883c) - [GitHub Commit](https://github.com/hazelcast/hazelcast/commit/7f229f9a32914bc53a84344f3659aa8aeb36fe73)",
+      "recommendation" : "Upgrade the package version to 5.2.5,5.3.5 to fix this vulnerability",
+      "created" : "2024-02-28T08:11:04Z",
+      "published" : "2024-02-28T08:34:14Z",
+      "updated" : "2024-03-06T14:09:37Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "5d788c44-92b4-42c7-8793-4d41a6d13623",
+      "id" : "SNYK-JAVA-COMHAZELCAST-6249443",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 6.5,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N"
+        }
+      ],
+      "description" : "## Overview [com.hazelcast:hazelcast](https://github.com/hazelcast/hazelcast) is a clustering and highly scalable data distribution platform. Affected versions of this package are vulnerable to Improper Access Control due to inadequate permission checking, within the SQL mapping for the `CSV File Source` connector. This could enable unauthorized clients to access data from files stored on a member's filesystem. ## Workaround This vulnerability can be avoided by disabling the Hazelcast Jet processing engine in Hazelcast member configuration - which will result in SQL and Jet jobs not working. ## Remediation Upgrade `com.hazelcast:hazelcast` to version 5.2.5, 5.3.5 or higher. ## References - [GitHub Commit](https://github.com/hazelcast/hazelcast/commit/7f229f9a32914bc53a84344f3659aa8aeb36fe73) - [GitHub Commit](https://github.com/hazelcast/hazelcast/commit/98be233e79cf4bc1ff3c7126a9189988bd0e87bd) - [GitHub PR](https://github.com/hazelcast/hazelcast/pull/25348)",
+      "recommendation" : "Upgrade the package version to 5.2.5,5.3.5 to fix this vulnerability",
+      "created" : "2024-02-16T12:15:33Z",
+      "published" : "2024-02-16T12:27:52Z",
+      "updated" : "2024-05-15T07:26:44Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "ff93ea9b-79d6-4169-b8c5-90834218a1d8",
+      "id" : "SNYK-JAVA-COMHAZELCAST-5591146",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 4.3,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
+        }
+      ],
+      "description" : "## Overview [com.hazelcast:hazelcast](https://github.com/hazelcast/hazelcast) is a clustering and highly scalable data distribution platform. Affected versions of this package are vulnerable to Insufficiently Protected Credentials via the `ConfigXmlGenerator` component due to improper password masking in the member configurations. Exploiting this vulnerability allows Hazelcast Management Center users to view members' secrets. ## Remediation Upgrade `com.hazelcast:hazelcast` to version 5.1.6, 5.3.0 or higher. ## References - [GitHub Commit](https://github.com/hazelcast/hazelcast/commit/40d054fbdcbb7fda37afb7a19439d2820e723ec5) - [GitHub Commit](https://github.com/hazelcast/hazelcast/commit/74eed86c2b2b727148c442e98a01d0ca6941a49e) - [GitHub PR](https://github.com/hazelcast/hazelcast/pull/24266) - [GitHub PR](https://github.com/hazelcast/hazelcast/pull/24266#issuecomment-1634245120)",
+      "recommendation" : "Upgrade the package version to 5.1.6,5.3.0 to fix this vulnerability",
+      "created" : "2023-05-22T07:58:25Z",
+      "published" : "2023-05-22T10:08:18Z",
+      "updated" : "2024-03-11T09:53:16Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "3d1bdac3-3e2d-41c3-8f85-ca090bb93e4f",
+      "id" : "SNYK-JAVA-ORGBOUNCYCASTLE-5771489",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 5.3,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+        }
+      ],
+      "description" : "## Overview [org.bouncycastle:bcprov-jdk15to18](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15to18) is a Java implementation of cryptographic algorithms. Affected versions of this package are vulnerable to Information Exposure due to missing validation for the X.500 name of any certificate, subject, or issuer. The presence of a wild card may lead to information disclosure. This could allow a malicious user to obtain unauthorized information via blind LDAP Injection, exploring the environment and enumerating data. **Note:** The exploit depends on the structure of the target LDAP directory as well as what kind of errors are exposed to the user. ## Remediation Upgrade `org.bouncycastle:bcprov-jdk15to18` to version 1.74 or higher. ## References - [GitHub Commit](https://github.com/bcgit/bc-java/commit/b00b58873643abc7e834f07e345e0165bb3a1786) - [GitHub Wiki](https://github.com/bcgit/bc-java/wiki/CVE-2023-33201) - [RedHat Bugzilla Bug](https://bugzilla.redhat.com/show_bug.cgi?id=2215465)",
+      "recommendation" : "Upgrade the package version to 1.74 to fix this vulnerability",
+      "created" : "2023-07-11T15:30:00Z",
+      "published" : "2023-06-30T08:15:58Z",
+      "updated" : "2024-03-11T09:54:01Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "ba9b5b48-9e9d-4b46-b885-92767e95af9a",
+      "id" : "SNYK-JAVA-ORGAPACHECOMMONS-6475534",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 7.5,
+          "severity" : "high",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        }
+      ],
+      "description" : "## Overview [org.apache.commons:commons-configuration2](https://mvnrepository.com/artifact/org.apache.commons/commons-configuration2/2.0) is a group of tools to assist in the reading of configuration/preferences files in various formats. Affected versions of this package are vulnerable to Out-of-Bounds Write due to the improper handling of certain configurations in the `AbstractListDelimiterHandler.flattenIterator` method. An attacker can trigger a stack overflow by submitting a crafted configuration file or input, leading to a denial of service condition. ## Remediation Upgrade `org.apache.commons:commons-configuration2` to version 2.10.1 or higher. ## References - [Apache Jira Issues](https://issues.apache.org/jira/browse/CONFIGURATION-840) - [Apache Thread](https://lists.apache.org/thread/03nzzzjn4oknyw5y0871tw7ltj0t3r37) - [GitHub Commit](https://github.com/apache/commons-configuration/commit/56b5c4dcdffbde27870df5a3105d6a5f9b22f554)",
+      "recommendation" : "Upgrade the package version to 2.10.1 to fix this vulnerability",
+      "created" : "2024-03-21T15:04:18Z",
+      "published" : "2024-03-21T15:09:43Z",
+      "updated" : "2024-04-23T11:01:46Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "9b98e428-165c-4c49-84b3-0842e1c04dd8",
+      "id" : "SNYK-JAVA-ORGAPACHECOMMONS-6475528",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 7.5,
+          "severity" : "high",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        }
+      ],
+      "description" : "## Overview [org.apache.commons:commons-configuration2](https://mvnrepository.com/artifact/org.apache.commons/commons-configuration2/2.0) is a group of tools to assist in the reading of configuration/preferences files in various formats. Affected versions of this package are vulnerable to Out-of-Bounds Write due to the improper handling of a cyclical object tree when calling the `ListDelimiterHandler.flatten` method. An attacker can trigger a StackOverflowError and potentially cause a denial of service condition by submitting a specially crafted configuration object. ## Remediation Upgrade `org.apache.commons:commons-configuration2` to version 2.10.1 or higher. ## References - [Apache Jira Issues](https://issues.apache.org/jira/browse/CONFIGURATION-841) - [Apache Thread](https://lists.apache.org/thread/ccb9w15bscznh6tnp3wsvrrj9crbszh2) - [GitHub Commit](https://github.com/apache/commons-configuration/commit/43f4dab021e9acb8db390db2ae80aa0cee4f9ee4)",
+      "recommendation" : "Upgrade the package version to 2.10.1 to fix this vulnerability",
+      "created" : "2024-03-21T15:01:49Z",
+      "published" : "2024-03-21T15:07:58Z",
+      "updated" : "2024-04-23T11:01:46Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "b9ddb5ce-ece9-42e4-b836-38b61c4f8386",
+      "id" : "SNYK-JAVA-ORGTHREETEN-6592149",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 5.3,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+        }
+      ],
+      "description" : "## Overview Affected versions of this package are vulnerable to NULL Pointer Dereference via the `org.threeten.bp.LocalDate::compareTo(ChronoLocalDate)` method. An attacker can trigger a `NullPointerException` by supplying a null object as an argument to the `other` parameter. ## Remediation There is no fixed version for `org.threeten:threetenbp`. ## References - [GitHub Gist](https://gist.github.com/LLM4IG/3cc9183dcd887020368a0bafeafec5e3) - [Vulnerable Code](https://github.com/ThreeTen/threetenbp/blob/main/src/main/java/org/threeten/bp/LocalDate.java#L1671)",
+      "recommendation" : "Upgrade the package version to to fix this vulnerability",
+      "created" : "2024-04-09T06:33:27Z",
+      "published" : "2024-04-09T06:50:04Z",
+      "updated" : "2024-04-09T07:07:18Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "554bc189-75fa-429f-a2d4-727c886c157e",
+      "id" : "SNYK-JAVA-ORGTHREETEN-6591891",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 6.2,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        }
+      ],
+      "description" : "## Overview Affected versions of this package are vulnerable to Integer Overflow or Wraparound in the `org.threeten.bp.format.DateTimeFormatter::parse(CharSequence, ParsePosition)` method, when the string is empty, the parameter index is 10, and the `errorIndex` is 10. ## Remediation There is no fixed version for `org.threeten:threetenbp`. ## References - [GitHub Gist](https://gist.github.com/LLM4IG/d2618f5f4e5ac37eb75cff5617e58b90) - [Vulnerable Code](https://github.com/ThreeTen/threetenbp/blob/0cc27b92e1bffa5f0fca663ed0bbb89e06a9838d/src/main/java/org/threeten/bp/format/DateTimeFormatter.java#L1461)",
+      "recommendation" : "Upgrade the package version to to fix this vulnerability",
+      "created" : "2024-04-08T19:36:37Z",
+      "published" : "2024-04-09T06:16:54Z",
+      "updated" : "2024-04-09T06:16:54Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "273d894b-8c64-4b0b-ad86-6ce592d32b53",
+      "id" : "SNYK-JAVA-JODATIME-6595834",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 5.3,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+        }
+      ],
+      "description" : "## Overview Affected versions of this package are vulnerable to NULL Pointer Dereference via the component `org.joda.time.format.PeriodFormat::wordBased(Locale)`. An attacker can trigger a `NullPointerException` by supplying a null value to the `Locale` parameter. ## Remediation There is no fixed version for `joda-time:joda-time`. ## References - [GitHub Gist](https://gist.github.com/LLM4IG/6614bfa658295d7af07a6d37e06db27f) - [Vulnerable Code](https://github.com/JodaOrg/joda-time/blob/main/src/main/java/org/joda/time/format/PeriodFormat.java#L203-L204)",
+      "recommendation" : "Upgrade the package version to to fix this vulnerability",
+      "created" : "2024-04-11T06:34:09Z",
+      "published" : "2024-04-11T06:34:09Z",
+      "updated" : "2024-04-11T13:35:26Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "1b2dbc11-6ff1-4d62-8e76-42dc2ce6a74b",
+      "id" : "SNYK-JAVA-ORGBOUNCYCASTLE-6612985",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 7.5,
+          "severity" : "high",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H/E:P"
+        }
+      ],
+      "description" : "## Overview [org.bouncycastle:bcprov-jdk15to18](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15to18) is a Java implementation of cryptographic algorithms. Affected versions of this package are vulnerable to Infinite loop in ED25519 verification in the `ScalarUtil` class. An attacker can send a malicious signature and public key to trigger denial of service. ## Remediation Upgrade `org.bouncycastle:bcprov-jdk15to18` to version 1.78 or higher. ## References - [GitHub Commit](https://github.com/bcgit/bc-java/commit/9c165791b68a204678b48ec11e4e579754c2ea49) - [GitHub Issue](https://github.com/bcgit/bc-java/issues/1599)",
+      "recommendation" : "Upgrade the package version to 1.78 to fix this vulnerability",
+      "created" : "2024-04-14T09:52:23Z",
+      "published" : "2024-04-14T13:27:01Z",
+      "updated" : "2024-04-14T13:27:01Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "8e38c018-71df-4acf-a966-d97abcc7d886",
+      "id" : "SNYK-JAVA-ORGBOUNCYCASTLE-6613080",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 5.3,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+        }
+      ],
+      "description" : "## Overview [org.bouncycastle:bcprov-jdk15on](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on) is a Java implementation of cryptographic algorithms. Affected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling in the `solveQuadraticEquation()` function used for certificate verification in `ECCurve.java`. Passing a large f2m parameter can cause excessive CPU consumption. ## Remediation There is no fixed version for `org.bouncycastle:bcprov-jdk15on`. ## References - [GitHub Commit](https://github.com/bcgit/bc-java/commit/efc498ca4caa340ac2fe11f2efee06c1a294501f)",
+      "recommendation" : "Upgrade the package version to to fix this vulnerability",
+      "created" : "2024-04-14T15:09:02Z",
+      "published" : "2024-04-14T15:09:02Z",
+      "updated" : "2024-04-14T15:09:03Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "8e38c018-71df-4acf-a966-d97abcc7d886",
+      "id" : "SNYK-JAVA-ORGBOUNCYCASTLE-6613080",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 5.3,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+        }
+      ],
+      "description" : "## Overview [org.bouncycastle:bcprov-jdk15on](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on) is a Java implementation of cryptographic algorithms. Affected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling in the `solveQuadraticEquation()` function used for certificate verification in `ECCurve.java`. Passing a large f2m parameter can cause excessive CPU consumption. ## Remediation There is no fixed version for `org.bouncycastle:bcprov-jdk15on`. ## References - [GitHub Commit](https://github.com/bcgit/bc-java/commit/efc498ca4caa340ac2fe11f2efee06c1a294501f)",
+      "recommendation" : "Upgrade the package version to to fix this vulnerability",
+      "created" : "2024-04-14T15:09:02Z",
+      "published" : "2024-04-14T15:09:02Z",
+      "updated" : "2024-04-14T15:09:03Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "f829d88c-eedb-4694-b428-52b473cc731b",
+      "id" : "SNYK-JAVA-ORGBOUNCYCASTLE-6613078",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 5.3,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+        }
+      ],
+      "description" : "## Overview [org.bouncycastle:bcprov-jdk15to18](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15to18) is a Java implementation of cryptographic algorithms. Affected versions of this package are vulnerable to Allocation of Resources Without Limits or Throttling in the `solveQuadraticEquation()` function used for certificate verification in `ECCurve.java`. Passing a large f2m parameter can cause excessive CPU consumption. ## Remediation Upgrade `org.bouncycastle:bcprov-jdk15to18` to version 1.78 or higher. ## References - [GitHub Commit](https://github.com/bcgit/bc-java/commit/efc498ca4caa340ac2fe11f2efee06c1a294501f)",
+      "recommendation" : "Upgrade the package version to 1.78 to fix this vulnerability",
+      "created" : "2024-04-14T15:09:02Z",
+      "published" : "2024-04-14T15:09:02Z",
+      "updated" : "2024-04-14T15:09:03Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "0095c734-2ac9-455a-9a47-ffd1e82658e4",
+      "id" : "SNYK-JAVA-ORGBOUNCYCASTLE-6613077",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 5.9,
+          "severity" : "medium",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N/E:P"
+        }
+      ],
+      "description" : "## Overview [org.bouncycastle:bcprov-jdk15to18](https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15to18) is a Java implementation of cryptographic algorithms. Affected versions of this package are vulnerable to Observable Discrepancy due to the timing difference between exceptions thrown when processing RSA key exchange handshakes, AKA Marvin. **Note:** The implemented fix mitigates the leakage of data via the PKCS#1 interface, but does not fully alleviate the side-channel as it allows cases in which the padding check fails but the handshake succeeds. ## Remediation Upgrade `org.bouncycastle:bcprov-jdk15to18` to version 1.78 or higher. ## References - [GitHub Commit](https://github.com/bcgit/bc-java/commit/98b18399b112fd44b4de660b04ec9876d7117a25) - [GitHub Commit](https://github.com/bcgit/bc-java/commit/9c84c414fd9bed10bf2a171c29b95d221c77f74c) - [GitHub Commit](https://github.com/bcgit/bc-java/commit/e5b46eabbb6f818a291c145bd716c57ef11b2b6a) - [GitHub Issue](https://github.com/bcgit/bc-java/issues/1528) - [Vulnerability Report](https://people.redhat.com/~hkario/marvin/)",
+      "recommendation" : "Upgrade the package version to 1.78 to fix this vulnerability",
+      "created" : "2024-04-14T14:45:29Z",
+      "published" : "2024-04-14T14:45:29Z",
+      "updated" : "2024-05-29T14:05:06Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    },
+    {
+      "bom-ref" : "d8dd9c4f-d279-4c67-996c-10c28a29895f",
+      "id" : "SNYK-JAVA-IONETTY-1042268",
+      "source" : {
+        "name" : "SNYK"
+      },
+      "ratings" : [
+        {
+          "source" : {
+            "name" : "SNYK"
+          },
+          "score" : 7.4,
+          "severity" : "high",
+          "method" : "CVSSv31",
+          "vector" : "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N"
+        }
+      ],
+      "cwes" : [
+        295
+      ],
+      "description" : "## Overview [io.netty:netty-handler](https://github.com/netty/netty.git/netty-handler) is a library that provides an asynchronous event-driven network application framework and tools for rapid development of maintainable high performance and high scalability protocol servers and clients. In other words, Netty is a NIO client server framework which enables quick and easy development of network applications such as protocol servers and clients. It greatly simplifies and streamlines network programming such as TCP and UDP socket server. Affected versions of this package are vulnerable to Improper Certificate Validation. Certificate hostname validation is disabled by default in `Netty 4.1.x` which makes it potentially susceptible to Man-in-the-Middle attacks. ## Remediation There is no fixed version for `io.netty:netty-handler`. ## References - [GitHub Issue 1](https://github.com/netty/netty/issues/10806) - [GitHub Issue 2](https://github.com/netty/netty/issues/8537) - [GitHub Issue 3](https://github.com/netty/netty/issues/9930) - [GitHub Issue 4](https://github.com/netty/netty/issues/10362) - [RedHat Bugzilla Bug](https://bugzilla.redhat.com/show_bug.cgi?id=2235564)",
+      "created" : "2020-11-20T15:44:58Z",
+      "updated" : "2023-10-11T01:10:45Z",
+      "affects" : [
+        {
+          "ref" : "2c0e2d03-bde8-45fc-9fa0-bcc8c01a4959"
+        }
+      ]
+    }
+  ]
+}
