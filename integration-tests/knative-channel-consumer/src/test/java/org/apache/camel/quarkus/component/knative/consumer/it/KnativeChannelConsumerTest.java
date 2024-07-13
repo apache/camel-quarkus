@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.ws.rs.core.MediaType;
-import org.apache.camel.component.cloudevents.CloudEvents;
+import org.apache.camel.cloudevents.CloudEvents;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 

@@ -34,9 +34,9 @@ import org.apache.camel.ServiceStatus;
 import org.apache.camel.api.management.mbean.ManagedBacklogDebuggerMBean;
 import org.junit.jupiter.api.Test;
 
-import static org.apache.camel.component.debug.JmxConnectorService.DEFAULT_HOST;
-import static org.apache.camel.component.debug.JmxConnectorService.DEFAULT_REGISTRY_PORT;
-import static org.apache.camel.component.debug.JmxConnectorService.DEFAULT_SERVICE_URL_PATH;
+import static org.apache.camel.impl.debugger.DebuggerJmxConnectorService.DEFAULT_HOST;
+import static org.apache.camel.impl.debugger.DebuggerJmxConnectorService.DEFAULT_REGISTRY_PORT;
+import static org.apache.camel.impl.debugger.DebuggerJmxConnectorService.DEFAULT_SERVICE_URL_PATH;
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;

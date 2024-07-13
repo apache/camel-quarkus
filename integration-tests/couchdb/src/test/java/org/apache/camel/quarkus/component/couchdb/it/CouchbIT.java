@@ -17,9 +17,7 @@
 package org.apache.camel.quarkus.component.couchdb.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
-import org.junit.jupiter.api.Disabled;
 
-@Disabled("https://github.com/apache/camel-quarkus/issues/6148")
 @QuarkusIntegrationTest
 class CouchbIT extends CouchdbTest {
 

@@ -25,10 +25,9 @@ import static org.hamcrest.Matchers.is;
 
 public abstract class ConverterTestBase {
 
-    void enableStatistics(boolean b) {
+    void resetStatistics() {
         RestAssured.given()
-                .contentType(ContentType.TEXT).body(b)
-                .post("/converter/setStatisticsEnabled")
+                .post("/converter/resetStatistics")
                 .then()
                 .statusCode(204);
     }

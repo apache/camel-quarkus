@@ -22,7 +22,7 @@ public class SmbRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("smb:{{smb.host}}:{{smb.port}}/{{smb.share}}?username={{smb.username}}&password={{smb.password}}")
+        from("smb:{{smb.host}}:{{smb.port}}/{{smb.share}}?username={{smb.username}}&password={{smb.password}}&path=/&repeatCount=1")
                 .to("mock:result");
     }
 }

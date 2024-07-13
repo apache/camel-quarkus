@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.smb.it;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.component.mock.MockEndpoint;
 
@@ -32,11 +31,8 @@ public class SmbResource {
 
     @GET
     @Path("/validate")
-    @Produces("text/plain")
     public void validateSmbResults() throws Exception {
-
         mock.expectedMessageCount(100);
-
         mock.assertIsSatisfied();
     }
 }

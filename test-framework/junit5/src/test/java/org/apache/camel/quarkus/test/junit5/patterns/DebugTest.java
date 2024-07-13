@@ -23,6 +23,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.quarkus.test.CamelQuarkusTestSupport;
+import org.apache.camel.test.junit5.DebugBreakpoint;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
 
@@ -30,6 +31,21 @@ import org.junit.jupiter.api.Test;
 public class DebugTest extends CamelQuarkusTestSupport {
 
     private static final Logger LOG = Logger.getLogger(DebugTest.class);
+
+    private TestDebugBreakpoint testDebugBreakpoint;
+
+    @Override
+    public void doPreSetup() throws Exception {
+        super.doPreSetup();
+
+        camelContextConfiguration()
+                .withBreakpoint(createBreakpoint());
+    }
+
+    protected DebugBreakpoint createBreakpoint() {
+        testDebugBreakpoint = new TestDebugBreakpoint();
+        return testDebugBreakpoint;
+    }
 
     @Override
     public boolean isUseAdviceWith() {
@@ -95,4 +111,5 @@ public class DebugTest extends CamelQuarkusTestSupport {
         };
     }
     // END SNIPPET: e2
+
 }
