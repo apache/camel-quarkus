@@ -44,3 +44,10 @@ Or add the coordinates to your existing project:
 ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
+
+[id="extensions-ical-ssl-in-native-mode"]
+== SSL in native mode
+
+This extension auto-enables SSL support in native mode. Hence you do not need to add
+`quarkus.ssl.native=true` to your `application.properties` yourself. See also
+https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].

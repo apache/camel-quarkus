@@ -319,6 +319,14 @@
                         <groupId>commons-logging</groupId>
                         <artifactId>commons-logging</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>javax.validation</groupId>
+                        <artifactId>validation-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.checkerframework</groupId>
+                        <artifactId>checker-qual</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -754,6 +762,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-crypto-pgp</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-csv</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -870,6 +883,12 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-djl</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.checkerframework</groupId>
+                        <artifactId>checker-qual</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -881,6 +900,14 @@
                 <artifactId>camel-drill</artifactId>
                 <version>${camel.version}</version>
                 <exclusions>
+                    <exclusion>
+                        <groupId>ch.qos.logback</groupId>
+                        <artifactId>logback-classic</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>ch.qos.logback</groupId>
+                        <artifactId>logback-core</artifactId>
+                    </exclusion>
                     <exclusion>
                         <groupId>com.google.guava</groupId>
                         <artifactId>listenablefuture</artifactId>
@@ -1781,12 +1808,11 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-langchain4j-chat</artifactId>
                 <version>${camel.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>dev.langchain4j</groupId>
-                        <artifactId>*</artifactId>
-                    </exclusion>
-                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-langchain4j-core</artifactId>
+                <version>${camel.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -6620,6 +6646,11 @@
                 <version>${okio.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.squareup.okio</groupId>
+                <artifactId>okio-jvm</artifactId>
+                <version>${okio.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.squareup.retrofit2</groupId>
                 <artifactId>converter-jackson</artifactId>
                 <version>${retrofit.version}</version>
@@ -6649,6 +6680,16 @@
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
                 <version>${commons-lang.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>dev.langchain4j</groupId>
+                <artifactId>langchain4j</artifactId>
+                <version>${langchain4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>dev.langchain4j</groupId>
+                <artifactId>langchain4j-core</artifactId>
+                <version>${langchain4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.dropwizard.metrics</groupId>
@@ -7133,6 +7174,16 @@
             </dependency>
             <dependency>
                 <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-scripting-compiler-embeddable</artifactId>
+                <version>${kotlin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-scripting-compiler-impl-embeddable</artifactId>
+                <version>${kotlin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-scripting-jvm</artifactId>
                 <version>${kotlin.version}</version>
             </dependency>
@@ -7140,6 +7191,11 @@
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-scripting-jvm-host</artifactId>
                 <version>${kotlin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlinx</groupId>
+                <artifactId>kotlinx-serialization-core-jvm</artifactId>
+                <version>${kotlinx.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jolokia</groupId>

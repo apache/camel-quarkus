@@ -91,6 +91,12 @@ public class CamelConfig {
     @ConfigItem
     public TraceConfig trace;
 
+    /**
+     * Build time configuration options for Camel type converters.
+     */
+    @ConfigItem
+    public TypeConverterConfig typeConverter;
+
     @ConfigGroup
     public static class BootstrapConfig {
         /**
@@ -503,5 +509,15 @@ public class CamelConfig {
          */
         @ConfigItem
         public Optional<String> traceFilter;
+    }
+
+    @ConfigGroup
+    public static class TypeConverterConfig {
+        /**
+         * Whether type converter statistics are enabled. By default, type converter utilization statistics are disabled.
+         * Note that enabling statistics incurs a minor performance impact under very heavy load.
+         */
+        @ConfigItem(defaultValue = "false")
+        public boolean statisticsEnabled;
     }
 }

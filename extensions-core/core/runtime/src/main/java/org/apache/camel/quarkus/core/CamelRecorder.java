@@ -68,8 +68,8 @@ public class CamelRecorder {
         return new RuntimeValue<>(new RuntimeRegistry(beanQualifierResolvers));
     }
 
-    public RuntimeValue<TypeConverterRegistry> createTypeConverterRegistry() {
-        return new RuntimeValue<>(new FastTypeConverter());
+    public RuntimeValue<TypeConverterRegistry> createTypeConverterRegistry(boolean statisticsEnabled) {
+        return new RuntimeValue<>(new FastTypeConverter(statisticsEnabled));
     }
 
     public void addTypeConverterLoader(RuntimeValue<TypeConverterRegistry> registry, RuntimeValue<TypeConverterLoader> loader) {

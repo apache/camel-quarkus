@@ -68,7 +68,9 @@ class DataformatTest {
         final String icsTemplate = IOUtils.toString(getClass().getResourceAsStream("/test.ics"), StandardCharsets.UTF_8);
         final String icalString = String.format(
                 icsTemplate,
+                ZoneId.systemDefault().getId(),
                 toFormatedLocalDateTime(START),
+                ZoneId.systemDefault().getId(),
                 toFormatedLocalDateTime(END),
                 START.getZone().getId());
 
@@ -96,11 +98,7 @@ class DataformatTest {
     }
 
     static String toFormatedLocalDateTime(ZonedDateTime zonedDateTime) {
-        String result = zonedDateTime.format(DateTimeFormatter.ofPattern("yyyyMMdd'T'hhmmss"));
-        if (zonedDateTime.getZone().getId().equals("Etc/UTC")) {
-            result += "Z";
-        }
-        return result;
+        return zonedDateTime.format(DateTimeFormatter.ofPattern("yyyyMMdd'T'hhmmss"));
     }
 
 }

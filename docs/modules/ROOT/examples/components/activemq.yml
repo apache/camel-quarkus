@@ -8,6 +8,6 @@ cqDeprecated: false
 cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: activemq
-cqCamelPartTitle: ActiveMQ
-cqCamelPartDescription: Send messages to (or consume from) Apache ActiveMQ. This component extends the Camel JMS component.
+cqCamelPartTitle: ActiveMQ 5.x
+cqCamelPartDescription: Send messages to (or consume from) Apache ActiveMQ 5.x. This component extends the Camel JMS component.
 cqExtensionPageTitle: ActiveMQ

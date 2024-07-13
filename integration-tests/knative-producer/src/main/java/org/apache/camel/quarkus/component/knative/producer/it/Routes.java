@@ -17,7 +17,7 @@
 package org.apache.camel.quarkus.component.knative.producer.it;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.cloudevents.CloudEvent;
+import org.apache.camel.cloudevents.CloudEvent;
 
 public class Routes extends RouteBuilder {
 

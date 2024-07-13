@@ -33,6 +33,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
+import org.apache.camel.http.common.HttpMessage;
 import org.apache.camel.spi.MimeType;
 
 import static org.apache.camel.quarkus.servlet.runtime.CamelServletConfig.ServletConfig.DEFAULT_SERVLET_NAME;
@@ -51,7 +52,8 @@ public class ServletProducers {
         return exchange -> {
             JsonObject json = new JsonObject();
             Message message = exchange.getMessage();
-            HttpServletRequest request = message.getHeader(Exchange.HTTP_SERVLET_REQUEST, HttpServletRequest.class);
+            HttpMessage httpMessage = exchange.getIn(HttpMessage.class);
+            HttpServletRequest request = httpMessage.getRequest();
             String servletName = message.getHeader("servletName", DEFAULT_SERVLET_NAME, String.class);
             ServletContext servletContext = request.getServletContext();
             Deployment deployment = ((ServletContextImpl) servletContext).getDeployment();

@@ -16,14 +16,19 @@
  */
 package org.apache.camel.quarkus.component.management.it;
 
+import java.io.IOException;
+import java.net.Socket;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.apache.camel.impl.debugger.DebuggerJmxConnectorService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 class ManagementTest {
@@ -157,5 +162,14 @@ class ManagementTest {
                 .then()
                 .statusCode(200)
                 .body(is("2"));
+    }
+
+    @Test
+    public void jmxConnectorService() {
+        try (Socket socket = new Socket("localhost", DebuggerJmxConnectorService.DEFAULT_REGISTRY_PORT)) {
+            assertTrue(socket.isConnected());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

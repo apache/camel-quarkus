@@ -49,24 +49,24 @@ public class ConverterTest extends ConverterTestBase {
 
     @Test
     void testConverterToNull() {
-        enableStatistics(true);
+        resetStatistics();
 
         testConverterReturningNull("/converter/myNullablePair", "null");
 
         RestAssured.when().get("/converter/getStatisticsHit").then().body("hit", is(1), "miss", is(0));
 
-        enableStatistics(false);
+        resetStatistics();
     }
 
     @Test
     void testNotRegisteredConverter() {
-        enableStatistics(true);
+        resetStatistics();
 
         testConverterReturningNull("/converter/myNotRegisteredPair", "a:b");
 
         RestAssured.when().get("/converter/getStatisticsHit").then().body("hit", is(0), "miss", is(1));
 
-        enableStatistics(false);
+        resetStatistics();
     }
 
     @Test
@@ -84,13 +84,13 @@ public class ConverterTest extends ConverterTestBase {
 
     @Test
     void testConverterGetStatistics() {
-        enableStatistics(true);
+        resetStatistics();
 
         //cause 1 hit
         testConverterFromAnnotationWithStaticMethods();
 
         RestAssured.when().get("/converter/getStatisticsHit").then().body("hit", is(1), "miss", is(0));
 
-        enableStatistics(false);
+        resetStatistics();
     }
 }

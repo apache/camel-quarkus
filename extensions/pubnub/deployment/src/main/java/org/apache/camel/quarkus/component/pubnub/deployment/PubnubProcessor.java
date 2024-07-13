@@ -50,7 +50,8 @@ class PubnubProcessor {
         String[] reflectiveClasses = index.getKnownClasses()
                 .stream()
                 .map(classInfo -> classInfo.name().toString())
-                .filter(name -> name.startsWith("com.pubnub.api.models"))
+                .filter(name -> name.startsWith("com.pubnub.internal.models")
+                        || name.startsWith("com.pubnub.internal.services"))
                 .toArray(String[]::new);
 
         return ReflectiveClassBuildItem.builder(reflectiveClasses).fields().build();
@@ -63,8 +64,14 @@ class PubnubProcessor {
         index.getKnownClasses()
                 .stream()
                 .map(classInfo -> classInfo.name().toString())
-                .filter(name -> name.startsWith("com.pubnub.api.services"))
+                .filter(name -> name.startsWith("com.pubnub.internal.services"))
                 .map(NativeImageProxyDefinitionBuildItem::new)
                 .forEach(proxyDefinitions::produce);
     }
+
+    @BuildStep
+    void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
+        indexDependency.produce(new IndexDependencyBuildItem("com.pubnub", "pubnub-core-impl"));
+    }
+
 }

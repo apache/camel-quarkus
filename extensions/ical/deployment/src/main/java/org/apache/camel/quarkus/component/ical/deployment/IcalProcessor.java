@@ -16,25 +16,35 @@
  */
 package org.apache.camel.quarkus.component.ical.deployment;
 
-import java.util.stream.Stream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
+import java.util.Properties;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceDirectoryBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
-import net.fortuna.ical4j.model.TimeZoneLoader;
+import net.fortuna.ical4j.model.TimeZoneRegistryImpl;
 import net.fortuna.ical4j.util.MapTimeZoneCache;
+import org.jboss.logging.Logger;
 
 class IcalProcessor {
-
+    private static final Logger LOG = Logger.getLogger(IcalProcessor.class);
     private static final String FEATURE = "camel-ical";
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    ExtensionSslNativeSupportBuildItem enableSSLNativeSupport() {
+        // Required by TimeZoneUpdater$UrlBuilder.toUrl
+        return new ExtensionSslNativeSupportBuildItem(FEATURE);
     }
 
     @BuildStep
@@ -44,31 +54,40 @@ class IcalProcessor {
 
         nativeResources.produce(new NativeImageResourceBuildItem("net/fortuna/ical4j/model/tz.alias"));
 
-        Stream.of("zoneinfo/Africa",
-                "zoneinfo/America",
-                "zoneinfo/America/Argentina",
-                "zoneinfo/America/Indiana",
-                "zoneinfo/America/Kentucky",
-                "zoneinfo/America/North_Dakota",
-                "zoneinfo/Antarctica",
-                "zoneinfo/Arctic",
-                "zoneinfo/Asia",
-                "zoneinfo/Atlantic",
-                "zoneinfo/Australia",
-                "zoneinfo/Europe",
-                "zoneinfo/Indian",
-                "zoneinfo/Pacific")
-                .forEach(path -> nativeResourceDirs.produce(new NativeImageResourceDirectoryBuildItem(path)));
+        try (InputStream stream = Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream("net/fortuna/ical4j/model/tz.alias")) {
+            Properties timezoneData = new Properties();
+            timezoneData.load(stream);
+            timezoneData.values()
+                    .stream()
+                    .map(Objects::toString)
+                    .map(timeZone -> {
+                        String[] zoneParts = timeZone.split("/");
+                        if (zoneParts.length == 2) {
+                            return zoneParts[0];
+                        } else if (zoneParts.length == 3) {
+                            return zoneParts[0] + "/" + zoneParts[1];
+                        }
+                        return null;
+                    })
+                    .distinct()
+                    .forEach(region -> {
+                        if (region != null) {
+                            nativeResourceDirs.produce(new NativeImageResourceDirectoryBuildItem("zoneinfo/" + region));
+                            nativeResourceDirs.produce(new NativeImageResourceDirectoryBuildItem("zoneinfo-global/" + region));
+                        }
+                    });
+
+        } catch (IOException e) {
+            throw new RuntimeException("Failed reading ical tz.alias");
+        }
     }
 
     @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         reflectiveClass
-                .produce(ReflectiveClassBuildItem.builder(MapTimeZoneCache.class).build());
-    }
-
-    @BuildStep
-    RuntimeReinitializedClassBuildItem runtimeReinitializedClasses() {
-        return new RuntimeReinitializedClassBuildItem(TimeZoneLoader.class.getName());
+                .produce(ReflectiveClassBuildItem.builder(
+                        MapTimeZoneCache.class,
+                        TimeZoneRegistryImpl.class).build());
     }
 }

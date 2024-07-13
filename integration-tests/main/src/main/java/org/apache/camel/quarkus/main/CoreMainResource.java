@@ -16,6 +16,9 @@
  */
 package org.apache.camel.quarkus.main;
 
+import java.io.IOException;
+import java.net.ConnectException;
+import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -34,7 +37,9 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
+import org.apache.camel.ServiceStatus;
 import org.apache.camel.component.log.LogComponent;
+import org.apache.camel.impl.debugger.DebuggerJmxConnectorService;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.quarkus.core.FastFactoryFinderResolver;
 import org.apache.camel.quarkus.it.support.typeconverter.MyPair;
@@ -250,5 +255,31 @@ public class CoreMainResource {
     public String getStringValueFromRegistry(@PathParam("name") String name) {
         final DefaultRegistry registry = main.getCamelContext().getRegistry(DefaultRegistry.class);
         return registry.getFallbackRegistry().lookupByNameAndType(name, String.class);
+    }
+
+    @Path("/service/jmx-connector/status")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getJmxConnectorServiceStatus() {
+        DebuggerJmxConnectorService service = main.getCamelContext().hasService(DebuggerJmxConnectorService.class);
+        if (service == null) {
+            return ServiceStatus.Stopped.name().toUpperCase();
+        }
+        return service.getStatus().name().toUpperCase();
+    }
+
+    @Path("/service/jmx-connector/expected/connect/state")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean jmxConnectorServiceAvailabilityIsExpectedState() {
+        boolean isNativeMode = "executable".equals(System.getProperty("org.graalvm.nativeimage.kind"));
+        try (Socket socket = new Socket("localhost", DebuggerJmxConnectorService.DEFAULT_REGISTRY_PORT)) {
+            return true;
+        } catch (IOException e) {
+            // Since camel-quarkus-management is not on the classpath
+            // native mode will replace DebuggerJmxConnectorService methods with noop implementations
+            // hence the expected state is that we should not be able to connect
+            return isNativeMode && e instanceof ConnectException;
+        }
     }
 }

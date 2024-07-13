@@ -14,11 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.aws2.kinesis.it;
+package org.apache.camel.quarkus.test;
 
-import io.quarkus.test.junit.QuarkusIntegrationTest;
+import org.apache.camel.test.junit5.CamelContextConfiguration;
 
-@QuarkusIntegrationTest
-class Aws2KinesisFirehoseIT extends Aws2KinesisFirehoseTest {
+public final class CustomCamelContextConfiguration extends CamelContextConfiguration {
 
+    CustomCamelContextConfiguration withCustomCamelContextSupplier(CamelContextSupplier camelContextSupplier) {
+        return (CustomCamelContextConfiguration) super.withCamelContextSupplier(camelContextSupplier);
+    }
+
+    CustomCamelContextConfiguration withCustomPostProcessor(PostProcessor postProcessor) {
+        return (CustomCamelContextConfiguration) super.withPostProcessor(postProcessor);
+    }
+
+    CustomCamelContextConfiguration withCustomRoutesSupplier(RoutesSupplier routesSupplier) {
+        return (CustomCamelContextConfiguration) super.withRoutesSupplier(routesSupplier);
+    }
 }
