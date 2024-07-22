@@ -17,10 +17,10 @@
 
 package org.apache.camel.quarkus.component.openapi.java.deployment;
 
-import java.util.Arrays;
+import java.util.List;
 
-import io.quarkus.bootstrap.model.AppArtifact;
 import io.quarkus.builder.Version;
+import io.quarkus.maven.dependency.Dependency;
 import io.quarkus.test.QuarkusUnitTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -35,8 +35,8 @@ import static org.hamcrest.Matchers.is;
 public class RESTOpenAPITest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-            .setForcedDependencies(Arrays.asList(
-                    new AppArtifact("io.quarkus", "quarkus-smallrye-openapi", Version.getVersion())))
+            .setForcedDependencies(List.of(
+                    Dependency.of("io.quarkus", "quarkus-smallrye-openapi", Version.getVersion())))
             .withConfigurationResource("application.properties")
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addClasses(RestRoutes.class, QuarkusResource.class)

@@ -16,11 +16,11 @@
  */
 package org.apache.camel.quarkus.component.kafka.deployment;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
-import io.quarkus.bootstrap.model.AppArtifact;
 import io.quarkus.builder.Version;
+import io.quarkus.maven.dependency.Dependency;
 import io.quarkus.test.QuarkusUnitTest;
 import jakarta.inject.Inject;
 import org.apache.camel.component.kafka.KafkaClientFactory;
@@ -40,8 +40,8 @@ public class QuarkusKafkaClientFactoryTest {
 
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-            .setForcedDependencies(Arrays.asList(
-                    new AppArtifact("io.quarkus", "quarkus-kubernetes-service-binding", Version.getVersion())))
+            .setForcedDependencies(List.of(
+                    Dependency.of("io.quarkus", "quarkus-kubernetes-service-binding", Version.getVersion())))
             .withConfigurationResource("application-configuration-merging.properties")
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class));
 
