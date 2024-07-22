@@ -1,24 +1,24 @@
 {
-  "id" : "27d02f6b-e565-48b5-a64e-2e91590ff224",
+  "id" : "4b34d025-3895-4bd9-80f9-dce99fad4012",
   "name" : "api_chat",
   "request" : {
     "url" : "/api/chat",
     "method" : "POST",
     "bodyPatterns" : [ {
-      "equalToJson" : "{\"model\":\"orca-mini\",\"messages\":[{\"role\":\"USER\",\"content\":\"Hello my name is Darth Vader!\"}],\"options\":{\"temperature\":0.3},\"stream\":false}",
+      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Hello my name is Darth Vader!\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"top_k\" : 40,\n    \"top_p\" : 0.9\n  },\n  \"stream\" : false\n}",
       "ignoreArrayOrder" : true,
       "ignoreExtraElements" : true
     } ]
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2024-05-02T08:21:13.635823801Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Hello, I'm your friendly AI assistant. How may I assist you today?\"},\"done\":true,\"total_duration\":2371281081,\"load_duration\":577023282,\"prompt_eval_count\":49,\"prompt_eval_duration\":946565000,\"eval_count\":18,\"eval_duration\":847072000}",
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2024-07-22T09:15:12.778157441Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Hello, I am your loyal AI assistant. Is there anything I can assist you with today?\"},\"done\":true,\"total_duration\":1277036396,\"load_duration\":576934,\"prompt_eval_count\":16,\"prompt_eval_duration\":324714000,\"eval_count\":20,\"eval_duration\":950928000}",
     "headers" : {
-      "Date" : "Thu, 02 May 2024 08:21:13 GMT",
+      "Date" : "Mon, 22 Jul 2024 09:15:12 GMT",
       "Content-Type" : "application/json; charset=utf-8"
     }
   },
-  "uuid" : "27d02f6b-e565-48b5-a64e-2e91590ff224",
+  "uuid" : "4b34d025-3895-4bd9-80f9-dce99fad4012",
   "persistent" : true,
-  "insertionIndex" : 1
+  "insertionIndex" : 3
 }
