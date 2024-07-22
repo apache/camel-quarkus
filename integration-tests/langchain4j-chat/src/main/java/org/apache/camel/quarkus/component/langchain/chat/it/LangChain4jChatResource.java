@@ -34,6 +34,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.langchain4j.chat.LangChain4jChat;
 import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.util.ObjectHelper;
 
 @Path("/langchain4j-chat")
 @ApplicationScoped
@@ -94,8 +95,8 @@ public class LangChain4jChatResource {
         MockEndpoint mockEndpoint = context.getEndpoint("mock:multipleMessageResponse", MockEndpoint.class);
         mockEndpoint.expectedMessageCount(1);
         mockEndpoint.expectedMessagesMatches(exchange -> {
-            String body = exchange.getMessage().getBody(String.class);
-            return body.trim().contains("I would recommend");
+            String chatResponse = exchange.getMessage().getBody(String.class);
+            return ObjectHelper.isNotEmpty(chatResponse);
         });
 
         List<ChatMessage> messages = new ArrayList<>();

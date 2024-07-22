@@ -1,24 +1,24 @@
 {
-  "id" : "5720afb6-10d1-4038-8f8f-f08d89180b14",
+  "id" : "dd4c47e5-d189-437f-b4fb-cdb3007d6271",
   "name" : "api_chat",
   "request" : {
     "url" : "/api/chat",
     "method" : "POST",
     "bodyPatterns" : [ {
-      "equalToJson" : "{\"model\":\"orca-mini\",\"messages\":[{\"role\":\"SYSTEM\",\"content\":\"You are asked to provide recommendations for a restaurant based on user reviews.\"},{\"role\":\"USER\",\"content\":\"Hello, my name is Karen.\"},{\"role\":\"ASSISTANT\",\"content\":\"Hello Karen, how can I help you?\"},{\"role\":\"USER\",\"content\":\"I\\u0027d like you to recommend a restaurant for me.\"},{\"role\":\"ASSISTANT\",\"content\":\"Sure, what type of cuisine are you interested in?\"},{\"role\":\"USER\",\"content\":\"I\\u0027d like Moroccan food.\"},{\"role\":\"ASSISTANT\",\"content\":\"Sure, do you have a preference for the location?\"},{\"role\":\"USER\",\"content\":\"Paris, Rue Montorgueil.\"}],\"options\":{\"temperature\":0.3},\"stream\":false}",
+      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"system\",\n    \"content\" : \"You are asked to provide recommendations for a restaurant based on user reviews.\"\n  }, {\n    \"role\" : \"user\",\n    \"content\" : \"Hello, my name is Karen.\"\n  }, {\n    \"role\" : \"assistant\",\n    \"content\" : \"Hello Karen, how can I help you?\"\n  }, {\n    \"role\" : \"user\",\n    \"content\" : \"I'd like you to recommend a restaurant for me.\"\n  }, {\n    \"role\" : \"assistant\",\n    \"content\" : \"Sure, what type of cuisine are you interested in?\"\n  }, {\n    \"role\" : \"user\",\n    \"content\" : \"I'd like Moroccan food.\"\n  }, {\n    \"role\" : \"assistant\",\n    \"content\" : \"Sure, do you have a preference for the location?\"\n  }, {\n    \"role\" : \"user\",\n    \"content\" : \"Paris, Rue Montorgueil.\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3,\n    \"top_k\" : 40,\n    \"top_p\" : 0.9\n  },\n  \"stream\" : false\n}",
       "ignoreArrayOrder" : true,
       "ignoreExtraElements" : true
     } ]
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2024-05-02T08:23:51.41574263Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Based on user reviews, I would recommend La Renaissance de la cuisine marocaine. It has received positive ratings for its delicious Moroccan food and friendly service. The restaurant is located at 35 rue Montorgueil, Paris, France. You can check out their menu and reviews on their website or social media pages.\"},\"done\":true,\"total_duration\":6541034901,\"load_duration\":397036,\"prompt_eval_count\":153,\"prompt_eval_duration\":2982821000,\"eval_count\":68,\"eval_duration\":3556417000}",
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2024-07-22T09:22:54.577581434Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Based on user reviews, I would recommend La Petite Farine. It has received excellent ratings for Moroccan cuisine and has a great atmosphere. Customers rave about the delicious food and the friendly service. Check it out at https://www.restaurant-la-petite-farine.com/\"},\"done\":true,\"total_duration\":3301943840,\"load_duration\":356730,\"prompt_eval_duration\":51587000,\"eval_count\":64,\"eval_duration\":3248817000}",
     "headers" : {
-      "Date" : "Thu, 02 May 2024 08:23:51 GMT",
+      "Date" : "Mon, 22 Jul 2024 09:22:54 GMT",
       "Content-Type" : "application/json; charset=utf-8"
     }
   },
-  "uuid" : "5720afb6-10d1-4038-8f8f-f08d89180b14",
+  "uuid" : "dd4c47e5-d189-437f-b4fb-cdb3007d6271",
   "persistent" : true,
   "insertionIndex" : 3
 }
