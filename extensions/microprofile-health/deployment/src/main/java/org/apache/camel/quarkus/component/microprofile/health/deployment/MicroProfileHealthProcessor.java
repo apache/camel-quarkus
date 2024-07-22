@@ -27,7 +27,7 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.smallrye.health.deployment.HealthBuildTimeConfig;
+import io.quarkus.smallrye.health.deployment.SmallRyeHealthBuildTimeConfig;
 import org.apache.camel.health.HealthCheck;
 import org.apache.camel.health.HealthCheckRegistry;
 import org.apache.camel.health.HealthCheckRepository;
@@ -57,20 +57,20 @@ class MicroProfileHealthProcessor {
 
     static final class HealthEnabled implements BooleanSupplier {
         CamelMicroProfileHealthConfig camelHealthConfig;
-        HealthBuildTimeConfig quarkusHealthConfig;
+        SmallRyeHealthBuildTimeConfig quarkusHealthConfig;
 
         @Override
         public boolean getAsBoolean() {
-            Boolean mpHealthDisabled = ConfigProvider.getConfig()
+            boolean mpHealthDisabled = ConfigProvider.getConfig()
                     .getOptionalValue("mp.health.disable-default-procedures", boolean.class)
                     .orElse(false);
 
-            Boolean camelHealthEnabled = ConfigProvider.getConfig()
+            boolean camelHealthEnabled = ConfigProvider.getConfig()
                     .getOptionalValue("camel.health.enabled", boolean.class)
                     .orElse(true);
 
             return !mpHealthDisabled && camelHealthEnabled && camelHealthConfig.enabled
-                    && quarkusHealthConfig.extensionsEnabled;
+                    && quarkusHealthConfig.enabled;
         }
     }
 

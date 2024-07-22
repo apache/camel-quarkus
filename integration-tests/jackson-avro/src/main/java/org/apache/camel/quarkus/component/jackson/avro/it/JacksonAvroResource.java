@@ -128,7 +128,7 @@ public class JacksonAvroResource {
 
     private SchemaResolver createSchemaResolver(String schemaPath) throws IOException {
         try (InputStream resource = JacksonAvroResource.class.getResourceAsStream(schemaPath)) {
-            Schema raw = new Schema.Parser().setValidate(true).parse(resource);
+            Schema raw = new Schema.Parser().setValidateDefaults(true).parse(resource);
             AvroSchema schema = new AvroSchema(raw);
             return ex -> schema;
         }
