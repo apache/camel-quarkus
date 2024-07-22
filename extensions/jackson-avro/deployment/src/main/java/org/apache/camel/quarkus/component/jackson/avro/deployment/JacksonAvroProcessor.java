@@ -18,15 +18,19 @@ package org.apache.camel.quarkus.component.jackson.avro.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import org.jboss.logging.Logger;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import org.apache.avro.file.DataFileWriter;
 
 class JacksonAvroProcessor {
-
-    private static final Logger LOG = Logger.getLogger(JacksonAvroProcessor.class);
     private static final String FEATURE = "camel-jackson-avro";
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    RuntimeInitializedClassBuildItem runtimeInitializedClass() {
+        return new RuntimeInitializedClassBuildItem(DataFileWriter.class.getName());
     }
 }
