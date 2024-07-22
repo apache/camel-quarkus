@@ -17,49 +17,42 @@
 package org.apache.camel.quarkus.component.elasticsearch.rest.client.it;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.elasticsearch.rest.client.ElasticsearchRestClientOperation;
 
-import static org.apache.camel.component.elasticsearch.rest.client.ElasticsearchRestClientOperation.*;
+import static org.apache.camel.component.elasticsearch.rest.client.ElasticsearchRestClientOperation.CREATE_INDEX;
+import static org.apache.camel.component.elasticsearch.rest.client.ElasticsearchRestClientOperation.DELETE;
+import static org.apache.camel.component.elasticsearch.rest.client.ElasticsearchRestClientOperation.DELETE_INDEX;
+import static org.apache.camel.component.elasticsearch.rest.client.ElasticsearchRestClientOperation.GET_BY_ID;
+import static org.apache.camel.component.elasticsearch.rest.client.ElasticsearchRestClientOperation.INDEX_OR_UPDATE;
+import static org.apache.camel.component.elasticsearch.rest.client.ElasticsearchRestClientOperation.SEARCH;
 
 public class ElasticsearchRestClientRoutes extends RouteBuilder {
     @Override
     public void configure() {
         from("direct:createIndex")
-                .to(elasticsearchRestClient(CREATE_INDEX));
+                .toF("elasticsearch-rest-client:camel-quarkus?operation=%s", CREATE_INDEX);
 
         from("direct:createIndexSettings")
-                .to(elasticsearchRestClient(CREATE_INDEX));
+                .toF("elasticsearch-rest-client:camel-quarkus?operation=%s", CREATE_INDEX);
 
         from("direct:delete")
-                .to(elasticsearchRestClient(DELETE));
+                .toF("elasticsearch-rest-client:camel-quarkus?operation=%s", DELETE);
 
         from("direct:deleteIndex")
-                .to(elasticsearchRestClient(DELETE_INDEX));
+                .toF("elasticsearch-rest-client:camel-quarkus?operation=%s", DELETE_INDEX);
 
         from("direct:get")
-                .to(elasticsearchRestClient(GET_BY_ID))
+                .toF("elasticsearch-rest-client:camel-quarkus?operation=%s", GET_BY_ID)
                 .convertBodyTo(String.class)
                 .unmarshal().json(Document.class);
 
         from("direct:index")
                 .marshal().json()
-                .to(elasticsearchRestClient(INDEX_OR_UPDATE));
+                .toF("elasticsearch-rest-client:camel-quarkus?operation=%s", INDEX_OR_UPDATE);
 
         from("direct:search")
-                .to(elasticsearchRestClient(SEARCH));
+                .toF("elasticsearch-rest-client:camel-quarkus?operation=%s", SEARCH);
 
         from("direct:searchQuery")
-                .to(elasticsearchRestClient(SEARCH));
+                .toF("elasticsearch-rest-client:camel-quarkus?operation=%s", SEARCH);
     }
-
-    private String elasticsearchRestClient(ElasticsearchRestClientOperation operation) {
-        return "elasticsearch-rest-client:camel-quarkus" +
-                "?operation=" + operation +
-                "&hostAddressesList={{camel.elasticsearch-rest-client.host-addresses-list}}" +
-                "&user={{camel.elasticsearch-rest-client.user}}" +
-                "&password={{camel.elasticsearch-rest-client.password}}" +
-                "&certificatePath={{camel.elasticsearch-rest-client.cert}}" +
-                "&enableSniffer=true";
-    }
-
 }

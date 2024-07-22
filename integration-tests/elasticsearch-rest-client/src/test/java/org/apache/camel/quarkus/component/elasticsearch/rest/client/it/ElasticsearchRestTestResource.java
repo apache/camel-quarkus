@@ -99,13 +99,12 @@ public class ElasticsearchRestTestResource implements QuarkusTestResourceLifecyc
             container.start();
             String hostAddresses = String.format("%s:%s", container.getHost(), container.getMappedPort(ELASTICSEARCH_PORT));
 
-            // TODO: Replace this in future with component options
-            // https://issues.apache.org/jira/browse/CAMEL-20846
             return CollectionHelper.mapOf(
-                    "camel.elasticsearch-rest-client.host-addresses-list", hostAddresses,
-                    "camel.elasticsearch-rest-client.user", ELASTICSEARCH_USERNAME,
-                    "camel.elasticsearch-rest-client.password", ELASTICSEARCH_PASSWORD,
-                    "camel.elasticsearch-rest-client.cert", "file:target/certs/ca.crt");
+                    "camel.component.elasticsearch-rest-client.host-addresses-list", hostAddresses,
+                    "camel.component.elasticsearch-rest-client.user", ELASTICSEARCH_USERNAME,
+                    "camel.component.elasticsearch-rest-client.password", ELASTICSEARCH_PASSWORD,
+                    "camel.component.elasticsearch-rest-client.certificatePath", "file:target/certs/ca.crt",
+                    "camel.component.elasticsearch-rest-client.enableSniffer", "true");
 
         } catch (Exception e) {
             throw new RuntimeException(e);
