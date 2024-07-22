@@ -37,14 +37,14 @@ public class QuarkusRuntimeProvider implements RuntimeProvider {
 
     private static final String COMPONENT_DIR = "org/apache/camel/catalog/quarkus/components";
     private static final String DATAFORMAT_DIR = "org/apache/camel/catalog/quarkus/dataformats";
-    private static final String DEV_CONSOLE_DIR = "org/apache/camel/catalog/quarkus/consoles";
+    private static final String DEV_CONSOLE_DIR = "org/apache/camel/catalog/quarkus/dev-consoles";
     private static final String LANGUAGE_DIR = "org/apache/camel/catalog/quarkus/languages";
     private static final String TRANSFORMER_DIR = "org/apache/camel/catalog/quarkus/transformers";
     private static final String OTHER_DIR = "org/apache/camel/catalog/quarkus/others";
-    private static final String BEANS_DIR = "org/apache/camel/catalog/beans";
+    private static final String BEANS_DIR = "org/apache/camel/catalog/quarkus/beans";
     private static final String CAPABILITIES_CATALOG = "org/apache/camel/catalog/quarkus/capabilities.properties";
     private static final String COMPONENTS_CATALOG = "org/apache/camel/catalog/quarkus/components.properties";
-    private static final String DEV_CONSOLE_CATALOG = "org/apache/camel/catalog/quarkus/consoles.properties";
+    private static final String DEV_CONSOLE_CATALOG = "org/apache/camel/catalog/quarkus/dev-consoles.properties";
     private static final String DATA_FORMATS_CATALOG = "org/apache/camel/catalog/quarkus/dataformats.properties";
     private static final String LANGUAGE_CATALOG = "org/apache/camel/catalog/quarkus/languages.properties";
     private static final String TRANSFORMER_CATALOG = "org/apache/camel/catalog/quarkus/transformers.properties";

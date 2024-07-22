@@ -47,6 +47,7 @@ import org.apache.camel.tooling.model.JsonMapper;
 import org.apache.camel.tooling.model.Kind;
 import org.apache.camel.tooling.model.LanguageModel;
 import org.apache.camel.tooling.model.OtherModel;
+import org.apache.camel.tooling.model.PojoBeanModel;
 import org.apache.camel.tooling.model.TransformerModel;
 
 public class CqCatalog {
@@ -184,7 +185,8 @@ public class CqCatalog {
     }
 
     static void serialize(final Path catalogPath, ArtifactModel<?> model) {
-        final Path out = catalogPath.resolve(model.getKind() + "s")
+        String kind = model.getKind() == Kind.console ? "dev-consoles" : model.getKind().toString() + "s";
+        final Path out = catalogPath.resolve(kind)
                 .resolve(model.getName().replace(":", "-") + ".json");
         try {
             Files.createDirectories(out.getParent());
@@ -193,6 +195,9 @@ public class CqCatalog {
         }
         String rawJson;
         switch (model.getKind()) {
+        case bean:
+            rawJson = JsonMapper.createParameterJsonSchema((PojoBeanModel) model);
+            break;
         case component:
             rawJson = JsonMapper.createParameterJsonSchema((ComponentModel) model);
             break;
@@ -224,7 +229,7 @@ public class CqCatalog {
 
     public static Stream<Kind> kinds() {
         return Stream.of(Kind.values())
-                .filter(kind -> (kind != Kind.eip && kind != Kind.model && kind != Kind.bean));
+                .filter(kind -> (kind != Kind.eip && kind != Kind.model));
     }
 
     public static boolean isFirstScheme(ArtifactModel<?> model) {
@@ -330,14 +335,14 @@ public class CqCatalog {
 
         private static final String COMPONENT_DIR = CQ_CATALOG_DIR + "/components";
         private static final String DATAFORMAT_DIR = CQ_CATALOG_DIR + "/dataformats";
-        private static final String DEV_CONSOLE_DIR = CQ_CATALOG_DIR + "/consoles";
+        private static final String DEV_CONSOLE_DIR = CQ_CATALOG_DIR + "/dev-consoles";
         private static final String LANGUAGE_DIR = CQ_CATALOG_DIR + "/languages";
         private static final String TRANSFORMER_DIR = CQ_CATALOG_DIR + "/transformers";
         private static final String OTHER_DIR = CQ_CATALOG_DIR + "/others";
         private static final String BEANS_DIR = CQ_CATALOG_DIR + "/beans";
         private static final String COMPONENTS_CATALOG = CQ_CATALOG_DIR + "/components.properties";
         private static final String DATA_FORMATS_CATALOG = CQ_CATALOG_DIR + "/dataformats.properties";
-        private static final String DEV_CONSOLE_CATALOG = CQ_CATALOG_DIR + "/consoles.properties";
+        private static final String DEV_CONSOLE_CATALOG = CQ_CATALOG_DIR + "/dev-consoles.properties";
         private static final String LANGUAGE_CATALOG = CQ_CATALOG_DIR + "/languages.properties";
         private static final String TRANSFORMER_CATALOG = CQ_CATALOG_DIR + "/transformers.properties";
         private static final String OTHER_CATALOG = CQ_CATALOG_DIR + "/others.properties";

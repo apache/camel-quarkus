@@ -206,6 +206,16 @@ public class QuarkusRuntimeProviderTest {
     }
 
     @Test
+    public void testFindBeans() {
+        List<String> names = catalog.findBeansNames();
+
+        assertNotNull(names);
+        assertFalse(names.isEmpty());
+
+        assertTrue(names.contains("CronScheduledRoutePolicy"));
+    }
+
+    @Test
     public void testComponentArtifactId() throws Exception {
         String json = catalog.componentJSonSchema("salesforce");
 

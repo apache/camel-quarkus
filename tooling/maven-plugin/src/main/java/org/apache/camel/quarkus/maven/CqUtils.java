@@ -41,10 +41,12 @@ import freemarker.template.TemplateExceptionHandler;
 import org.apache.camel.tooling.model.ArtifactModel;
 import org.apache.camel.tooling.model.ComponentModel;
 import org.apache.camel.tooling.model.DataFormatModel;
+import org.apache.camel.tooling.model.DevConsoleModel;
 import org.apache.camel.tooling.model.JsonMapper;
 import org.apache.camel.tooling.model.Kind;
 import org.apache.camel.tooling.model.LanguageModel;
 import org.apache.camel.tooling.model.OtherModel;
+import org.apache.camel.tooling.model.PojoBeanModel;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.plugin.logging.Log;
@@ -173,6 +175,8 @@ public class CqUtils {
 
     public static String humanReadableKind(Kind kind) {
         switch (kind) {
+        case bean:
+            return "bean";
         case component:
             return "component";
         case console:
@@ -265,10 +269,12 @@ public class CqUtils {
     public static ArtifactModel<?> cloneArtifactModel(ArtifactModel<?> model) {
         final Kind kind = model.getKind();
         switch (kind) {
+        case bean:
+            return JsonMapper.generatePojoBeanModel(JsonMapper.asJsonObject((PojoBeanModel) model));
         case component:
             return JsonMapper.generateComponentModel(JsonMapper.asJsonObject((ComponentModel) model));
         case console:
-            return null;
+            return JsonMapper.generateDevConsoleModel(JsonMapper.asJsonObject((DevConsoleModel) model));
         case dataformat:
             return JsonMapper.generateDataFormatModel(JsonMapper.asJsonObject((DataFormatModel) model));
         case language:

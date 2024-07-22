@@ -35,6 +35,7 @@ import org.apache.camel.tooling.model.DevConsoleModel;
 import org.apache.camel.tooling.model.Kind;
 import org.apache.camel.tooling.model.LanguageModel;
 import org.apache.camel.tooling.model.OtherModel;
+import org.apache.camel.tooling.model.PojoBeanModel;
 import org.apache.camel.tooling.model.SupportLevel;
 import org.apache.camel.tooling.model.TransformerModel;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -139,6 +140,8 @@ public class PrepareCatalogQuarkusMojo extends AbstractExtensionListMojo {
                             model = new LanguageModel();
                         } else if (extKind == Kind.transformer) {
                             model = new TransformerModel();
+                        } else if (extKind == Kind.bean) {
+                            model = new PojoBeanModel();
                         } else {
                             model = new OtherModel();
                         }
@@ -164,7 +167,8 @@ public class PrepareCatalogQuarkusMojo extends AbstractExtensionListMojo {
                 });
 
         CqCatalog.kinds().forEach(kind -> {
-            final Path newCatalog = catalogPath.resolve(kind.name() + "s.properties");
+            String path = kind == Kind.console ? "dev-consoles" : kind + "s";
+            final Path newCatalog = catalogPath.resolve(path + ".properties");
             try {
                 Files.createDirectories(newCatalog.getParent());
                 Files.write(newCatalog,
