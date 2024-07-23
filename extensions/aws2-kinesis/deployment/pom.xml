@@ -42,10 +42,13 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws2-kinesis</artifactId>
         </dependency>
-        <!-- Required for the native build of the simple app with this extension only -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-netty-deployment</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.transformer</groupId>
+            <artifactId>org.eclipse.transformer</artifactId>
         </dependency>
     </dependencies>
 
