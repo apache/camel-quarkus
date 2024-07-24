@@ -167,6 +167,7 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                         ext.getQuarkusAwsClientBaseName(),
                         ext.getQuarkusAwsClientFqClassName(),
                         ext.getRuntimePomXmlPath()));
+        model.put("activatesQuarkusLangChain4jBom", ext.getRuntimeArtifactId().contains("langchain4j"));
         model.put("configOptions", listConfigOptions(basePath, multiModuleProjectDirectory.toPath()));
         model.put("humanReadableKind", new TemplateMethodModelEx() {
             @Override
