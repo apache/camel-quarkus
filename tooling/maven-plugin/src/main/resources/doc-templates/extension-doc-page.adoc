@@ -98,6 +98,31 @@ You will also need to enable serialization for the exception classes that you in
 @RegisterForReflection(targets = { IllegalStateException.class, MyCustomException.class }, serialization = true)
 ----
 [/#if]
+[#if activatesQuarkusLangChain4jBom ]
+
+[id="extensions-[=artifactIdBase]-quarkus-langchain4j-bom"]
+== Ensure Quarkus LangChain4j dependencies version alignment with the Bom
+
+In order to ensure alignment across all Quarkus and LangChain4j related dependencies, it is recommended to import the Quarkus LangChain4j bom as below:
+[source,xml]
+----
+<dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>io.quarkiverse.langchain4j</groupId>
+      <artifactId>quarkus-langchain4j-bom</artifactId>
+      <version>${insert your version here}</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+  </dependencies>
+  ...
+</dependencyManagement>
+----
+
+Note that the import order is paramount when using maven `dependencyManagement`.
+As such, one might need to import the `quarkus-langchain4j-bom` before other related Camel and Quarkus boms.
+[/#if]
 [#if configuration?? || quarkusAwsClient?? || configOptions?size != 0 ]
 
 [id="extensions-[=artifactIdBase]-additional-camel-quarkus-configuration"]
