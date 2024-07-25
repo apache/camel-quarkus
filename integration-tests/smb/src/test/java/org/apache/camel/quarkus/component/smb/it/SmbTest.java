@@ -16,13 +16,13 @@
  */
 package org.apache.camel.quarkus.component.smb.it;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
-@QuarkusTestResource(SmbTestResource.class)
+@WithTestResource(SmbTestResource.class)
 public class SmbTest {
 
     @Test

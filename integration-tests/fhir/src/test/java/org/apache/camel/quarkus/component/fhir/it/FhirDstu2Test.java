@@ -16,8 +16,8 @@
  */
 package org.apache.camel.quarkus.component.fhir.it;
 
-import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.ResourceArg;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -27,7 +27,7 @@ import org.apache.camel.quarkus.test.EnabledIf;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@QuarkusTestResource(value = FhirTestResource.class, initArgs = @ResourceArg(name = "fhirVersion", value = "DSTU2"))
+@WithTestResource(value = FhirTestResource.class, initArgs = @ResourceArg(name = "fhirVersion", value = "DSTU2"))
 @TestHTTPEndpoint(FhirDstu2Resource.class)
 @EnabledIf(Dstu2Enabled.class)
 class FhirDstu2Test extends AbstractFhirTest {

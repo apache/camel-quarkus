@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.infinispan;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.component.infinispan.common.InfinispanCommonTest;
@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@QuarkusTestResource(InfinispanServerTestResource.class)
+@WithTestResource(InfinispanServerTestResource.class)
 public class InfinispanTest extends InfinispanCommonTest {
     public void inspect() {
         String hosts = ConfigProvider.getConfig().getValue("camel.component.infinispan.hosts", String.class);

@@ -136,7 +136,7 @@ public final class AvailablePortFinder {
     private static void logWarningIfNativeApplication() {
         if (System.getProperty("org.graalvm.nativeimage.kind") != null) {
             LOGGER.warn("Usage of AvailablePortFinder in the native application is discouraged. "
-                    + "Pass the reserved port to the native application under test with QuarkusTestResource or via an HTTP request");
+                    + "Pass the reserved port to the native application under test with QuarkusTestResourceLifecycleManager or via an HTTP request");
         }
     }
 }

@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.jsch.it;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ import org.junit.jupiter.api.io.TempDir;
 import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
-@QuarkusTestResource(JschTestResource.class)
+@WithTestResource(JschTestResource.class)
 class JschTest {
 
     @Test

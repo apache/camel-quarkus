@@ -131,15 +131,15 @@ public class MyTestResource implements QuarkusTestResourceLifecycleManager {
 }
 ----
 
-The defined test resource needs to be referenced from the test classes with `@QuarkusTestResource` as shown below:
+The defined test resource needs to be referenced from the test classes with `@WithTestResource` as shown below:
 
 [source,java]
 ----
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
-@QuarkusTestResource(MyTestResource.class)
+@WithTestResource(MyTestResource.class)
 class MyTest {
    ...
 }
@@ -206,16 +206,16 @@ public class WireMockTestResource implements QuarkusTestResourceLifecycleManager
 }
 ----
 
-Finally, ensure your test class has the `@QuarkusTestResource` annotation with the appropriate test resource class specified as the value. The WireMock server will be started before all tests are
+Finally, ensure your test class has the `@WithTestResource` annotation with the appropriate test resource class specified as the value. The WireMock server will be started before all tests are
 executed and will be shut down when all tests are finished.
 
 [source,java]
 ----
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
-@QuarkusTestResource(WireMockTestResource.class)
+@WithTestResource(WireMockTestResource.class)
 class MyTest {
    ...
 }

@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.spring.rabbitmq.it;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -32,7 +32,7 @@ import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@QuarkusTestResource(SpringRabbitmqTestResource.class)
+@WithTestResource(SpringRabbitmqTestResource.class)
 class SpringRabbitmqTest {
 
     private final static String EXCHANGE_POLLING = "polling";

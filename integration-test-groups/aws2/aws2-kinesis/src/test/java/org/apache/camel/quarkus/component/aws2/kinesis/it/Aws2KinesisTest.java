@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.aws2.kinesis.it;
 
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -32,7 +32,7 @@ import org.testcontainers.containers.localstack.LocalStackContainer.Service;
 import software.amazon.awssdk.services.s3.S3Client;
 
 @QuarkusTest
-@QuarkusTestResource(Aws2TestResource.class)
+@WithTestResource(Aws2TestResource.class)
 class Aws2KinesisTest extends BaseAWs2TestSupport {
 
     private static final Logger LOG = Logger.getLogger(Aws2KinesisTest.class);

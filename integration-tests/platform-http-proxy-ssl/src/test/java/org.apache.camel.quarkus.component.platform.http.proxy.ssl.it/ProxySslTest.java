@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.platform.http.proxy.ssl.it;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -32,7 +32,7 @@ import static org.hamcrest.Matchers.equalTo;
         @Certificate(name = "proxy-ssl", formats = {
                 Format.PKCS12 }, password = "changeit") })
 @QuarkusTest
-@QuarkusTestResource(PlatformHttpSSLTestResource.class)
+@WithTestResource(PlatformHttpSSLTestResource.class)
 public class ProxySslTest {
     @Test
     void test() {

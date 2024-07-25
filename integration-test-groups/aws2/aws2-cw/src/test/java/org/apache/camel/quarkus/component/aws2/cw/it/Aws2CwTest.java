@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -44,7 +44,7 @@ import software.amazon.awssdk.services.cloudwatch.model.Statistic;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@QuarkusTestResource(Aws2TestResource.class)
+@WithTestResource(Aws2TestResource.class)
 class Aws2CwTest extends BaseAWs2TestSupport {
     private static final Logger LOG = Logger.getLogger(Aws2CwTest.class);
 

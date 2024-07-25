@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.paho.mqtt5.it;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -34,7 +34,7 @@ import static org.hamcrest.core.Is.is;
                 Format.PKCS12, Format.PEM }, password = PahoMqtt5Resource.KEYSTORE_PASSWORD)
 }, docker = true)
 @QuarkusTest
-@QuarkusTestResource(PahoMqtt5TestResource.class)
+@WithTestResource(PahoMqtt5TestResource.class)
 class PahoMqtt5Test {
 
     @ParameterizedTest

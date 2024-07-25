@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -39,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SuppressWarnings("unchecked")
 @QuarkusTest
-@QuarkusTestResource(DigitaloceanTestResource.class)
+@WithTestResource(DigitaloceanTestResource.class)
 class DigitaloceanTest {
     static String publicKey;
     @MockServer

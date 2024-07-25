@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.kafka.oauth.it;
 
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
-@QuarkusTestResource(KafkaKeycloakTestResource.class)
+@WithTestResource(KafkaKeycloakTestResource.class)
 public class KafkaTest {
 
     @Test

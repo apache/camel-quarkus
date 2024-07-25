@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -42,7 +42,7 @@ import static org.apache.camel.quarkus.component.aws2.ddb.it.Aws2DdbResource.Tab
 import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
-@QuarkusTestResource(Aws2TestResource.class)
+@WithTestResource(Aws2TestResource.class)
 class Aws2DdbTest extends BaseAWs2TestSupport {
 
     private static final Logger LOG = Logger.getLogger(Aws2DdbTest.class);

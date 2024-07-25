@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.aws2.sns.it;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -35,7 +35,7 @@ import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
-@QuarkusTestResource(Aws2TestResource.class)
+@WithTestResource(Aws2TestResource.class)
 class Aws2SqsSnsTest extends BaseAWs2TestSupport {
 
     public Aws2SqsSnsTest() {

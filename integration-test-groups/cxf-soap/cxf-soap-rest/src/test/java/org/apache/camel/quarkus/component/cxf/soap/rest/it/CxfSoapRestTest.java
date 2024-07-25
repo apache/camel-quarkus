@@ -17,7 +17,7 @@
 package org.apache.camel.quarkus.component.cxf.soap.rest.it;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
-@QuarkusTestResource(CxfRestTestResource.class)
+@WithTestResource(value = CxfRestTestResource.class, restrictToAnnotatedClass = false)
 class CxfSoapRestTest {
 
     @Test

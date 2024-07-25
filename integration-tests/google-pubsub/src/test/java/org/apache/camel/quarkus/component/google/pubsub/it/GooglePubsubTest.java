@@ -20,7 +20,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.component.google.pubsub.GooglePubsubConstants;
@@ -34,7 +34,7 @@ import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
-@QuarkusTestResource(GoogleCloudTestResource.class)
+@WithTestResource(GoogleCloudTestResource.class)
 class GooglePubsubTest {
     private static final Logger LOG = Logger.getLogger(GooglePubsubTest.class);
 

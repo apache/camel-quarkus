@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -38,7 +38,7 @@ import static org.hamcrest.Matchers.is;
                 Format.PKCS12 }, password = ElasticsearchRestTestResource.KEYSTORE_PASSWORD)
 }, baseDir = ElasticsearchRestTestResource.CERTS_BASEDIR, docker = true)
 @QuarkusTest
-@QuarkusTestResource(ElasticsearchRestTestResource.class)
+@WithTestResource(ElasticsearchRestTestResource.class)
 class ElasticsearchRestClientTest {
 
     @AfterEach

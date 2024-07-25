@@ -16,8 +16,8 @@
  */
 package org.apache.camel.quarkus.component.amqp.it;
 
-import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.ResourceArg;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.messaging.jms.AbstractJmsMessagingTest;
@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.Matchers.containsString;
 
 @QuarkusTest
-@QuarkusTestResource(initArgs = {
+@WithTestResource(initArgs = {
         @ResourceArg(name = "modules", value = "quarkus.qpid-jms")
 }, value = ActiveMQTestResource.class)
 class AmqpTest extends AbstractJmsMessagingTest {

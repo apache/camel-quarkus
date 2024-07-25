@@ -28,7 +28,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import com.azure.storage.blob.models.BlockListType;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -55,7 +55,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 @QuarkusTest
-@QuarkusTestResource(AzureStorageTestResource.class)
+@WithTestResource(AzureStorageTestResource.class)
 class AzureStorageBlobTest {
 
     private static final String BLOB_CONTENT = "Hello Camel Quarkus Azure Blob";

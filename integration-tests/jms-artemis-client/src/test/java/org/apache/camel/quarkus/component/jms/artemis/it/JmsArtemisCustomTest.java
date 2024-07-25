@@ -16,13 +16,13 @@
  */
 package org.apache.camel.quarkus.component.jms.artemis.it;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import org.apache.camel.quarkus.messaging.jms.AbstractJmsMessagingTest;
 
 @QuarkusTest
 @TestProfile(JmsArtemisDisable.class)
-@QuarkusTestResource(CustomArtemisTestResource.class)
+@WithTestResource(CustomArtemisTestResource.class)
 public class JmsArtemisCustomTest extends AbstractJmsMessagingTest {
 }

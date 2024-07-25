@@ -23,7 +23,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.UUID;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -37,7 +37,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@QuarkusTestResource(H2DatabaseTestResource.class)
+@WithTestResource(H2DatabaseTestResource.class)
 class JtaTest {
 
     @Test

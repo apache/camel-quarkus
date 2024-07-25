@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.http.netty.it;
 
 import java.util.List;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -35,8 +35,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@QuarkusTestResource(HttpTestResource.class)
-@QuarkusTestResource(NettyHttpTestResource.class)
+@WithTestResource(value = HttpTestResource.class, restrictToAnnotatedClass = false)
+@WithTestResource(value = NettyHttpTestResource.class, restrictToAnnotatedClass = false)
 public class NettyHttpTest extends AbstractHttpTest {
     @Override
     public String component() {

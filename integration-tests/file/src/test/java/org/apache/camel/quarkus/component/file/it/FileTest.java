@@ -25,7 +25,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -74,7 +74,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Linked to https://github.com/apache/camel-quarkus/issues/3584
  */
 @QuarkusTest
-@QuarkusTestResource(FileTestResource.class)
+@WithTestResource(value = FileTestResource.class, restrictToAnnotatedClass = false)
 class FileTest {
 
     @Test

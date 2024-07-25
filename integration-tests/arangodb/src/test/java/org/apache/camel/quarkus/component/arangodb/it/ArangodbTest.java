@@ -20,7 +20,7 @@ import com.arangodb.ArangoCollection;
 import com.arangodb.ArangoDB;
 import com.arangodb.ArangoDatabase;
 import com.arangodb.entity.BaseDocument;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -34,7 +34,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 @QuarkusTest
-@QuarkusTestResource(ArangodbTestResource.class)
+@WithTestResource(ArangodbTestResource.class)
 class ArangodbTest {
     protected static final String DATABASE_NAME = "test";
     protected static final String COLLECTION_NAME = "camel";

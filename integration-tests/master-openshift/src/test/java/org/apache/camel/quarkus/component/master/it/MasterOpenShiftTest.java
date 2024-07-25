@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 import io.fabric8.openshift.client.server.mock.OpenShiftServer;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.kubernetes.client.OpenShiftTestServer;
 import io.restassured.RestAssured;
@@ -45,7 +45,7 @@ import org.zeroturnaround.exec.StartedProcess;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.emptyString;
 
-@QuarkusTestResource(MasterOpenShiftTestResource.class)
+@WithTestResource(MasterOpenShiftTestResource.class)
 @QuarkusTest
 class MasterOpenShiftTest {
 

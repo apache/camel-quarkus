@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.nats.it;
 
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.Header;
 import me.escoffier.certs.Format;
@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestCertificates(certificates = {
         @Certificate(name = "nats", formats = {
                 Format.PKCS12, Format.PEM }, password = "password") })
-@QuarkusTestResource(NatsTestResource.class)
+@WithTestResource(NatsTestResource.class)
 @QuarkusTest
 class NatsTest {
 
