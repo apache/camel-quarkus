@@ -21,7 +21,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.component.as2.api.entity.AS2MessageDispositionNotificationEntity;
@@ -41,7 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@QuarkusTestResource(As2TestResource.class)
+@WithTestResource(As2TestResource.class)
 @QuarkusTest
 public class As2Test {
     private static final Logger LOG = LoggerFactory.getLogger(As2Test.class);

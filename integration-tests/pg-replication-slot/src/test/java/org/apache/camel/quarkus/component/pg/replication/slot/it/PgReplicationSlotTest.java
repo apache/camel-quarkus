@@ -23,7 +23,7 @@ import java.sql.Statement;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -39,7 +39,7 @@ import static org.apache.camel.quarkus.component.pg.replication.slot.it.PgReplic
 import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@QuarkusTestResource(PgReplicationSlotTestResource.class)
+@WithTestResource(PgReplicationSlotTestResource.class)
 @QuarkusTest
 class PgReplicationSlotTest {
 

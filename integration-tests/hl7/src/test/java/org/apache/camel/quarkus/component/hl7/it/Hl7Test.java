@@ -29,7 +29,7 @@ import ca.uhn.hl7v2.parser.ParserConfiguration;
 import ca.uhn.hl7v2.parser.UnexpectedSegmentBehaviourEnum;
 import ca.uhn.hl7v2.validation.ValidationContext;
 import ca.uhn.hl7v2.validation.impl.ValidationContextFactory;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -43,7 +43,7 @@ import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@QuarkusTestResource(Hl7TestResource.class)
+@WithTestResource(Hl7TestResource.class)
 class Hl7Test {
 
     private static final String PID_MESSAGE = readPidFile();

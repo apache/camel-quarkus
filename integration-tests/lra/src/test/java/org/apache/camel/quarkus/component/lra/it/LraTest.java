@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.lra.it;
 
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Assertions;
@@ -29,7 +29,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
-@QuarkusTestResource(LraTestResource.class)
+@WithTestResource(LraTestResource.class)
 class LraTest {
 
     @Test

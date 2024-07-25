@@ -27,8 +27,8 @@ import java.util.Comparator;
 import java.util.Map;
 import java.util.Objects;
 
-import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.path.json.JsonPath;
 import jakarta.ws.rs.core.MediaType;
@@ -41,7 +41,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@QuarkusTestResource(RuntimeTest.Resources.class)
+@WithTestResource(RuntimeTest.Resources.class)
 public class RuntimeTest {
     @Test
     public void inspect() {

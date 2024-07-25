@@ -21,7 +21,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Optional;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import org.apache.camel.quarkus.component.debezium.common.it.AbstractDebeziumTest;
 import org.apache.camel.quarkus.component.debezium.common.it.Type;
@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 @QuarkusTest
-@QuarkusTestResource(DebeziumMysqlTestResource.class)
+@WithTestResource(DebeziumMysqlTestResource.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class DebeziumMysqlTest extends AbstractDebeziumTest {
     private static Connection connection;

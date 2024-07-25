@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.kafka.sasl;
 
 import java.util.UUID;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -29,7 +29,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DisabledIfFipsMode
 @QuarkusTest
-@QuarkusTestResource(KafkaSaslTestResource.class)
+@WithTestResource(KafkaSaslTestResource.class)
 public class KafkaSaslBindingTest {
 
     @Test

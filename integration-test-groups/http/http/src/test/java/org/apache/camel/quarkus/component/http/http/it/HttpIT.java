@@ -16,11 +16,11 @@
  */
 package org.apache.camel.quarkus.component.http.http.it;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 import org.apache.camel.quarkus.component.http.common.HttpTestResource;
 
 @QuarkusIntegrationTest
-@QuarkusTestResource(HttpTestResource.class)
+@WithTestResource(HttpTestResource.class)
 public class HttpIT extends HttpTest {
 }

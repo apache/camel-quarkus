@@ -16,8 +16,8 @@
  */
 package org.apache.camel.quarkus.component.fhir.it;
 
-import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.ResourceArg;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Disabled;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@QuarkusTestResource(value = FhirTestResource.class, initArgs = @ResourceArg(name = "fhirVersion", value = "DSTU2_1"))
+@WithTestResource(value = FhirTestResource.class, initArgs = @ResourceArg(name = "fhirVersion", value = "DSTU2_1"))
 @TestHTTPEndpoint(FhirDstu2_1Resource.class)
 @EnabledIf(Dstu2_1Enabled.class)
 @Disabled("https://github.com/hapifhir/hapi-fhir-jpaserver-starter/issues/335")

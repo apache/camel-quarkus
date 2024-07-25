@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.jfr.it;
 
 import java.io.File;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
-@QuarkusTestResource(JfrTestResource.class)
+@WithTestResource(JfrTestResource.class)
 class JfrTest {
 
     @Test

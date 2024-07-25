@@ -18,8 +18,8 @@ package org.apache.camel.quarkus.k.it;
 
 import java.util.Map;
 
-import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.path.json.JsonPath;
 import jakarta.ws.rs.core.MediaType;
@@ -31,7 +31,7 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @QuarkusTest
-@QuarkusTestResource(WithRoutesOverridesTest.Resources.class)
+@WithTestResource(WithRoutesOverridesTest.Resources.class)
 public class WithRoutesOverridesTest {
 
     @ParameterizedTest

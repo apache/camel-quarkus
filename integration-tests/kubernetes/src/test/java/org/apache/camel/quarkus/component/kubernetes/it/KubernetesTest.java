@@ -20,7 +20,7 @@ import io.fabric8.kubernetes.api.model.Container;
 import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.api.model.PodBuilder;
 import io.fabric8.kubernetes.client.server.mock.KubernetesServer;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.kubernetes.client.KubernetesServerTestResource;
 import io.quarkus.test.kubernetes.client.KubernetesTestServer;
@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@QuarkusTestResource(KubernetesServerTestResource.class)
+@WithTestResource(KubernetesServerTestResource.class)
 public class KubernetesTest {
 
     @KubernetesTestServer

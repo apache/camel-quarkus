@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.kafka.ssl;
 import java.lang.reflect.AnnotatedElement;
 import java.util.UUID;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -36,7 +36,7 @@ import static org.hamcrest.Matchers.is;
                 Format.PKCS12 }, password = KafkaSslTestResource.KAFKA_KEYSTORE_PASSWORD)
 }, baseDir = KafkaSslTestResource.CERTS_BASEDIR, docker = true)
 @QuarkusTest
-@QuarkusTestResource(KafkaSslTestResource.class)
+@WithTestResource(KafkaSslTestResource.class)
 public class KafkaSslTest {
 
     @Test

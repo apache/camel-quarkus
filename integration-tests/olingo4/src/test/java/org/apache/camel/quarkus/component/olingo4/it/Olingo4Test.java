@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.olingo4.it;
 
 import java.io.IOException;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -37,7 +37,7 @@ import static org.apache.camel.quarkus.component.olingo4.it.Olingo4Resource.TEST
 import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
-@QuarkusTestResource(TrustStoreResource.class)
+@WithTestResource(TrustStoreResource.class)
 class Olingo4Test {
 
     private static String sessionId;

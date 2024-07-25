@@ -22,7 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -38,7 +38,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 
 @QuarkusTest
-@QuarkusTestResource(CxfClientTestResource.class)
+@WithTestResource(value = CxfClientTestResource.class, restrictToAnnotatedClass = false)
 class CxfSoapClientTest {
 
     @ParameterizedTest

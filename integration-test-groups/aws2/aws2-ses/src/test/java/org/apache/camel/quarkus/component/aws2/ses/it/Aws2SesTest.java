@@ -24,7 +24,7 @@ import java.util.concurrent.TimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -57,7 +57,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 @EnabledIfEnvironmentVariable(named = "AWS_ACCESS_KEY", matches = "[a-zA-Z0-9]+")
 @EnabledIfEnvironmentVariable(named = "MAILSLURP_API_KEY", matches = "[a-zA-Z0-9]+")
 @QuarkusTest
-@QuarkusTestResource(Aws2TestResource.class)
+@WithTestResource(Aws2TestResource.class)
 class Aws2SesTest extends BaseAWs2TestSupport {
     private static final Logger LOG = Logger.getLogger(Aws2SesTest.class);
 

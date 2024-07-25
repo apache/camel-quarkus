@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 import io.pinecone.clients.Pinecone;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -38,7 +38,7 @@ import static org.hamcrest.Matchers.startsWith;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.openapitools.client.model.IndexModelStatus.StateEnum.READY;
 
-@QuarkusTestResource(PineconeTestResource.class)
+@WithTestResource(PineconeTestResource.class)
 @QuarkusTest
 class PineconeTest {
     private static Pinecone pinecone;

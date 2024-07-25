@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.xml.it;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
-@QuarkusTestResource(XmlHttpTestResource.class)
+@WithTestResource(XmlHttpTestResource.class)
 class XsltHttpTest {
     private static final String BODY = "<mail><subject>Hey</subject><body>Hello world!</body></mail>";
 

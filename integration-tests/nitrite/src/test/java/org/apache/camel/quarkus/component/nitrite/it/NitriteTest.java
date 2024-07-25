@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.nitrite.it;
 
 import java.util.GregorianCalendar;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -31,7 +31,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
-@QuarkusTestResource(NitriteTestResource.class)
+@WithTestResource(NitriteTestResource.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class NitriteTest {
 

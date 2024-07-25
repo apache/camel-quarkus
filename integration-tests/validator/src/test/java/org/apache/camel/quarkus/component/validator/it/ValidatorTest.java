@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.validator.it;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -26,7 +26,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.hamcrest.Matchers.containsString;
 
 @QuarkusTest
-@QuarkusTestResource(ValidatorTestResource.class)
+@WithTestResource(ValidatorTestResource.class)
 class ValidatorTest {
 
     @ParameterizedTest

@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.URL;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.avro.ipc.HttpTransceiver;
@@ -42,7 +42,7 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@QuarkusTestResource(AvroRpcTestResource.class)
+@WithTestResource(AvroRpcTestResource.class)
 abstract class AvroRpcTestSupport {
 
     private final static String NAME = "Sheldon";

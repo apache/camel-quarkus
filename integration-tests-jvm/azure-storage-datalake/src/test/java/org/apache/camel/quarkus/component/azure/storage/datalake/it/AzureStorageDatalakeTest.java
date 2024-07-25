@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.azure.storage.datalake.it;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.test.support.azure.AzureStorageTestResource;
@@ -30,7 +30,7 @@ import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 @EnabledIfEnvironmentVariable(named = "AZURE_STORAGE_ACCOUNT_NAME", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "AZURE_STORAGE_ACCOUNT_KEY", matches = ".+")
 @QuarkusTest
-@QuarkusTestResource(AzureStorageTestResource.class)
+@WithTestResource(AzureStorageTestResource.class)
 class AzureStorageDatalakeTest {
 
     private static final Logger LOG = Logger.getLogger(AzureStorageDatalakeTest.class);

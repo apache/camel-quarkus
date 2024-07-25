@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.netty.udp;
 
 import java.io.IOException;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import me.escoffier.certs.Format;
@@ -32,7 +32,7 @@ import static org.hamcrest.Matchers.is;
         @Certificate(name = "netty", formats = {
                 Format.PKCS12 }, password = "changeit") })
 @QuarkusTest
-@QuarkusTestResource(NettyUdpTestResource.class)
+@WithTestResource(value = NettyUdpTestResource.class, restrictToAnnotatedClass = false)
 class NettyUdpTest {
 
     @Test

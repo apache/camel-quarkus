@@ -22,7 +22,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -48,8 +48,8 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.lessThan;
 
 @QuarkusTest
-@QuarkusTestResource(TrustStoreResource.class)
-@QuarkusTestResource(TelegramTestResource.class)
+@WithTestResource(TrustStoreResource.class)
+@WithTestResource(TelegramTestResource.class)
 public class TelegramTest {
 
     private static final Logger LOG = Logger.getLogger(TelegramTest.class);

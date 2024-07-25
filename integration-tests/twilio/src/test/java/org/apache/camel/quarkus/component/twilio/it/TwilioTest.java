@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.twilio.it;
 
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
  *
  * https://www.twilio.com/docs/iam/test-credentials
  */
-@QuarkusTestResource(TwilioTestResource.class)
+@WithTestResource(TwilioTestResource.class)
 @QuarkusTest
 class TwilioTest {
 

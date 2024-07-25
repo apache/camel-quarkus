@@ -30,7 +30,7 @@ import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import io.minio.errors.MinioException;
-import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -46,7 +46,7 @@ import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.startsWith;
 
 @QuarkusTest
-@QuarkusTestResource(MinioTestResource.class)
+@WithTestResource(MinioTestResource.class)
 class MinioTest {
     private static final long PART_SIZE = 50 * 1024 * 1024;
 
