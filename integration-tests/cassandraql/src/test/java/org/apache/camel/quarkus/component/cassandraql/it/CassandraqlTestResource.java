@@ -49,6 +49,7 @@ public class CassandraqlTestResource implements QuarkusTestResourceLifecycleMana
             container = new CassandraContainer<>(imageName)
                     .withExposedPorts(PORT)
                     .waitingFor(Wait.forLogMessage(".*Created default superuser role.*", 1))
+                    .withEnv("JVM_EXTRA_OPTS", "-Xss448k")
                     .withConfigurationOverride("/cassandra");
 
             container.start();
