@@ -44,7 +44,7 @@ public class OpenApiV3Test {
     public void invokeApiEndpoint() {
         RestAssured.given()
                 .queryParam("port", RestAssured.port)
-                .get("/api/fruits/list")
+                .get("/invoke/fruits/list")
                 .then()
                 .contentType(ContentType.JSON)
                 .statusCode(200)
@@ -267,7 +267,7 @@ public class OpenApiV3Test {
                 .then()
                 .contentType(ContentType.JSON)
                 .statusCode(200)
-                .body("servers[0].url", is("http://localhost:8080/api"));
+                .body("servers[0].url", is("http://localhost:8080/"));
     }
 
     @ParameterizedTest

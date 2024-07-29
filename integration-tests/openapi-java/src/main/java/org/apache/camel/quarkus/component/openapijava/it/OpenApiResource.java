@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.component.openapijava.it;
 
-import java.util.List;
-
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -26,7 +24,7 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.ProducerTemplate;
 
-@Path("/api")
+@Path("/invoke")
 public class OpenApiResource {
 
     @Inject
@@ -36,9 +34,10 @@ public class OpenApiResource {
     @Path("/fruits/list")
     @Produces(MediaType.APPLICATION_JSON)
     @SuppressWarnings("unchecked")
-    public List<String> invokeFruitsListApiFromOpenApiDoc(@QueryParam("port") int port) {
+    public String invokeFruitsListApiFromOpenApiDoc(@QueryParam("port") int port) {
         String apiHost = "localhost:" + port;
         String apiDocUrl = "http://" + apiHost + "/openapi";
-        return producerTemplate.requestBody("rest:get:fruits/list?host=" + apiHost + "&apiDoc=" + apiDocUrl, null, List.class);
+        return producerTemplate.requestBody("rest:get:/api/fruits/list?host=" + apiHost + "&apiDoc=" + apiDocUrl, null,
+                String.class);
     }
 }
