@@ -49,7 +49,7 @@ public class OpenApiRoutes extends RouteBuilder {
                 .apiProperty("cors", "true")
                 .apiProperty("schemes", "http,https")
                 .apiProperty("api.path", "/api-docs")
-                .apiProperty("base.path", "/api")
+                .apiProperty("base.path", "/")
                 .apiProperty("api.termsOfService", "https://camel.apache.org")
                 .apiProperty("api.contact.name", "Mr Camel Quarkus")
                 .apiProperty("api.contact.email", "mrcq@cq.org")
