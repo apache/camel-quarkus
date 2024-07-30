@@ -8,6 +8,6 @@ cqDeprecated: false
 cqJvmSince: 3.11.0
 cqNativeSince: 3.12.0
 cqCamelPartName: langchain4j-chat
-cqCamelPartTitle: langChain4j Chat
+cqCamelPartTitle: LangChain4j Chat
 cqCamelPartDescription: LangChain4j Chat component
 cqExtensionPageTitle: langChain4j Chat
