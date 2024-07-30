@@ -20,12 +20,10 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.QuarkusTestProfile;
 import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
 
-@Disabled("https://github.com/apache/camel-quarkus/issues/6294")
 @QuarkusTest
 @TestProfile(CxfSoapGlobalTrustedSslTest.class)
 public class CxfSoapGlobalTrustedSslTest implements QuarkusTestProfile {

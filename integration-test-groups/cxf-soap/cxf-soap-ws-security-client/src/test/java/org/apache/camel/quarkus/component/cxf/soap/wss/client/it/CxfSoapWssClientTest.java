@@ -32,7 +32,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import jakarta.xml.ws.BindingProvider;
 import jakarta.xml.ws.Service;
-import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.soap.SOAPFaultException;
 import org.apache.camel.quarkus.components.cxf.soap.wss.client.helloworld.SayHelloService;
 import org.apache.camel.quarkus.components.cxf.soap.wss.client.helloworld.SayHelloWrongWS;
 import org.apache.cxf.ws.security.SecurityConstants;
@@ -114,15 +114,8 @@ class CxfSoapWssClientTest {
             try {
                 //always fails because there is no server implementation
                 createSayHelloWrongClient().sayHelloWrong("Sheldon");
-            } catch (WebServiceException e) {
-                Throwable cause = e.getCause();
-                if (cause != null) {
-                    Throwable parentCause = cause.getCause();
-                    if (parentCause != null) {
-                        return parentCause.getMessage() != null
-                                && parentCause.getMessage().toLowerCase().contains("connection refused");
-                    }
-                }
+            } catch (SOAPFaultException e) {
+                return e.getMessage() != null && e.getMessage().toLowerCase().contains("connection refused");
             }
             //can not happen (client does not work)
             return false;
