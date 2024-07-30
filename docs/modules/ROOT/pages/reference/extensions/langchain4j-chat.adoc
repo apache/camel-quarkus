@@ -22,7 +22,7 @@ LangChain4j Chat component
 [id="extensions-langchain4j-chat-whats-inside"]
 == What's inside
 
-* xref:{cq-camel-components}::langchain4j-chat-component.adoc[langChain4j Chat component], URI syntax: `langchain4j-chat:chatId`
+* xref:{cq-camel-components}::langchain4j-chat-component.adoc[LangChain4j Chat component], URI syntax: `langchain4j-chat:chatId`
 
 Please refer to the above link for usage and configuration details.
 
