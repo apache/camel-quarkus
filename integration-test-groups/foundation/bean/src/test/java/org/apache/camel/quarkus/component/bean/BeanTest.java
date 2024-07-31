@@ -265,4 +265,13 @@ public class BeanTest {
                         containsString("alternatingBean")));
     }
 
+    @Test
+    public void testDataSourceBean() {
+        for (int i = 0; i < 10; i++) {
+            RestAssured.given()
+                    .get("/bean/dataSource")
+                    .then()
+                    .body(containsString("mem:quarkus"));
+        }
+    }
 }

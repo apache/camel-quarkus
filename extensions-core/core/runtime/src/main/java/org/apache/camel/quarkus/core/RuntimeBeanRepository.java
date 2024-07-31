@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.core;
 
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -27,9 +28,11 @@ import java.util.Set;
 
 import io.quarkus.arc.Arc;
 import io.quarkus.arc.ArcContainer;
+import io.quarkus.arc.InjectableBean;
 import io.quarkus.arc.InstanceHandle;
 import io.smallrye.common.annotation.Identifier;
 import jakarta.enterprise.inject.AmbiguousResolutionException;
+import jakarta.enterprise.inject.Default;
 import jakarta.enterprise.inject.literal.NamedLiteral;
 import jakarta.enterprise.inject.spi.Bean;
 import jakarta.enterprise.inject.spi.BeanManager;
@@ -163,8 +166,30 @@ public final class RuntimeBeanRepository implements BeanRepository {
             } else {
                 handles = container.listAll(type);
             }
-            if (handles.size() > 0) {
-                return handles.get(0).get();
+
+            List<InstanceHandle<T>> sortedHandles = new ArrayList<>(handles.size());
+            sortedHandles.addAll(handles);
+
+            if (sortedHandles.size() > 1) {
+                sortedHandles.sort((bean1, bean2) -> {
+                    Integer priority2 = bean2.getBean().getPriority();
+                    Integer priority1 = bean1.getBean().getPriority();
+
+                    int result = priority2.compareTo(priority1);
+                    // If the priority is same, the default bean wins
+                    if (result == 0) {
+                        if (isDefaultBean(bean1.getBean())) {
+                            result = -1;
+                        } else if (isDefaultBean(bean2.getBean())) {
+                            result = 1;
+                        }
+                    }
+                    return result;
+                });
+            }
+
+            if (sortedHandles.size() > 0) {
+                return sortedHandles.get(0).get();
             }
         }
         return null;
@@ -176,5 +201,9 @@ public final class RuntimeBeanRepository implements BeanRepository {
             return Optional.ofNullable(resolver.resolveQualifiers());
         }
         return Optional.empty();
+    }
+
+    private boolean isDefaultBean(InjectableBean<?> bean) {
+        return bean.isDefaultBean() || bean.getQualifiers().stream().anyMatch(q -> q.annotationType().equals(Default.class));
     }
 }
