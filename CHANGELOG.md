@@ -1,5 +1,60 @@
 # Changelog
 
+## 3.13.0
+
+* Next is 3.13.0-SNAPSHOT by @aldettinger in https://github.com/apache/camel-quarkus/pull/6215
+* Add default value of modePackage in camel-quarkus-rest-openapi by @zhfeng in https://github.com/apache/camel-quarkus/pull/6217
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6219
+* Update changelog for 3.12.0 release by @aldettinger in https://github.com/apache/camel-quarkus/pull/6220
+* Clean release procedure by @aldettinger in https://github.com/apache/camel-quarkus/pull/6221
+* Improve the testing guide by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6222
+* Miscellaneous test framework tidy ups by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6223
+* Bump me.escoffier.certs:certificate-generator-junit5 from 0.6.0 to 0.7.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/6225
+* Fix release procedure by @aldettinger in https://github.com/apache/camel-quarkus/pull/6226
+* Document that ConsumerTemplate, ProducerTemplate & Registry can be injected into CDI beans by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6227
+* Set -Xmx4600m for Jenkins build jobs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6231
+* Upgrade to maven-enforcer-plugin 3.5.0 and cq-maven-plugin 4.9.0 and fix dependency convergence issues by @ppalaga in https://github.com/apache/camel-quarkus/pull/6228
+* Ensure additional caffeine cache classes are registered for reflection if stats are enabled by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6233
+* Bump quarkiverse-groovy.version from 3.11.0 to 3.12.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6235
+* Bump net.revelc.code:impsort-maven-plugin from 1.10.0 to 1.11.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6236
+* Bump quarkus-mybatis to 2.2.3 by @zhfeng in https://github.com/apache/camel-quarkus/pull/6237
+* Perf tool updates by @aldettinger in https://github.com/apache/camel-quarkus/pull/6240
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6242
+* Fix Gradle dev mode execution for gRPC extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6243
+* Use correct table naming pattern common for more db types by @llowinge in https://github.com/apache/camel-quarkus/pull/6246
+* Add azure-key-vault native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6249
+* Bump quarkiverse-minio.version from 3.7.3 to 3.7.5 by @dependabot in https://github.com/apache/camel-quarkus/pull/6252
+* Bump cq-plugin.version from 4.9.0 to 4.9.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/6251
+* Remove OpenAPI V2 integration test from camel-k-maven-plugin by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6253
+* Use container host instead of localhost for ElasticSearch tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6257
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6258
+* Add changelog for 3.8.3 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6259
+* Document Jandex requirement when adding routes defined in external JARs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6261
+* Add error handling section to platform-http extension docs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6260
+* Log the Camel Quarkus version on startup by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6216
+* Remove prefix from shell code snippets by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6262
+* Mention JDK 17 as the minimum required version in first steps guide by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6263
+* [fips] Jdbc-grouped - added fips profile for mysql by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6266
+* Bump quarkiverse-langchain4j.version from 0.15.1 to 0.16.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/6269
+* Bump quarkiverse-groovy.version from 3.12.0 to 3.12.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/6274
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6275
+* Disabled jdbc/db2 test for native in FIPS by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6272
+* Bump quarkiverse-langchain4j.version from 0.16.2 to 0.16.4 by @dependabot in https://github.com/apache/camel-quarkus/pull/6276
+* Revert "Auto generated changes for dependabot commit 309e723fec9adfd9… by @aldettinger in https://github.com/apache/camel-quarkus/pull/6277
+* Upgrade camel to 4.7.0 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6264
+* Upgrade Quarkus to 3.13.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6280
+* Add beans to the catalog by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6281
+* Configure elasticsearch-rest-client using component options by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6282
+* Upgrade azure-core-http-vertx to 1.0.0-beta.19 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6283
+* Upgrade quarkus-langchain4j to 0.16.4 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6284
+* Replace aws2-kinesis native substitutions with bytecode transformation #6238 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6286
+* Remove redundant microprofile-fault-tolerance dependencies from foundation-grouped tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6287
+* Disable commons-pool2 JMX MBean registration in native mode by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6292
+* Upgrade Quarkus to 3.13.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6293
+* Improve Quarkus LangChain4j version alignment #6288 by @aldettinger in https://github.com/apache/camel-quarkus/pull/6289
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.12.0...3.13.0
+
 ## 3.8.3
 
 * [3.8.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6064
