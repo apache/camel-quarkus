@@ -21,6 +21,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.sql.DataSource;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -37,6 +39,7 @@ import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.quarkus.component.bean.cdi.Producers;
 import org.apache.camel.quarkus.component.bean.model.Employee;
+import org.apache.camel.support.CamelContextHelper;
 
 @Path("/bean")
 @ApplicationScoped
@@ -202,4 +205,11 @@ public class BeanResource {
                 .map(b -> b.getName()).collect(Collectors.toSet());
     }
 
+    @Path("/dataSource")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String dataSourceBean() throws Exception {
+        DataSource ds = CamelContextHelper.findSingleByType(camelContext, DataSource.class);
+        return ds.getConnection().getMetaData().getURL();
+    }
 }
