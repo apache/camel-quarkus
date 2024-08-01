@@ -32,9 +32,11 @@ import io.restassured.http.ContentType;
 import org.apache.camel.component.splunk.ProducerType;
 import org.apache.camel.quarkus.test.support.splunk.SplunkConstants;
 import org.apache.camel.quarkus.test.support.splunk.SplunkTestResource;
+import org.apache.http.NoHttpResponseException;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.shaded.org.apache.commons.lang3.RandomStringUtils;
 import org.testcontainers.shaded.org.awaitility.Awaitility;
@@ -43,21 +45,24 @@ import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@WithTestResource(SplunkTestResource.class)
-class SplunkTest {
+@WithTestResource(value = SplunkTestResource.class)
+public class SplunkTest {
+
+    private final static int TIMEOUT_IN_SECONDS = 60;
 
     @Test
-    public void testNormalSearchWithSubmitWithRawData() {
+    public void testNormalSearchWithSubmitWithRawData() throws InterruptedException {
         String suffix = "_normalSearchOfSubmit";
+        String restUrl = "/splunk/ssl/results/normalSearch";
 
         write(suffix, ProducerType.SUBMIT, 0, true);
 
-        Awaitility.await().pollInterval(1000, TimeUnit.MILLISECONDS).atMost(60, TimeUnit.SECONDS).until(
+        Awaitility.await().pollInterval(1000, TimeUnit.MILLISECONDS).atMost(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS).until(
                 () -> {
 
                     String result = RestAssured.given()
                             .contentType(ContentType.TEXT)
-                            .post("/splunk/results/normalSearch")
+                            .post(restUrl)
                             .then()
                             .statusCode(200)
                             .extract().asString();
@@ -70,44 +75,13 @@ class SplunkTest {
 
     @Test
     public void testSavedSearchWithTcp() throws InterruptedException {
-        String suffix = "_SavedSearchOfTcp";
-        //create saved search
-        Config config = ConfigProvider.getConfig();
-        RestAssured.given()
-                .baseUri("http://" + config.getValue(SplunkConstants.PARAM_REMOTE_HOST, String.class))
-                .port(config.getValue(SplunkConstants.PARAM_REMOTE_PORT, Integer.class))
-                .contentType(ContentType.JSON)
-                .param("name", SplunkResource.SAVED_SEARCH_NAME)
-                .param("disabled", "0")
-                .param("description", "descriptionText")
-                .param("search",
-                        "sourcetype=\"TCP\" | rex field=_raw \"Name: (?<name>.*) From: (?<from>.*)\"")
-                .post("/services/saved/searches")
-                .then()
-                .statusCode(anyOf(is(201), is(409)));
-
-        //write data via tcp
-        write(suffix, ProducerType.TCP, 0, false);
-
-        //there might by delay in receiving the data
-        Awaitility.await().pollInterval(1000, TimeUnit.MILLISECONDS).atMost(60, TimeUnit.SECONDS).until(
-                () -> {
-                    String result = RestAssured.given()
-                            .contentType(ContentType.TEXT)
-                            .post("/splunk/results/savedSearch")
-                            .then()
-                            .statusCode(200)
-                            .extract().asString();
-
-                    return result.contains("Name: Sheldon" + suffix)
-                            && result.contains("Name: Leonard" + suffix)
-                            && result.contains("Name: Irma" + suffix);
-                });
+        testSavedSearchWithTcp(true);
     }
 
     @Test
     public void testStreamForRealtime() throws InterruptedException, ExecutionException {
         String suffix = "_RealtimeSearchOfStream";
+        String restUrl = "/splunk/ssl/results/realtimeSearch";
         //there is a buffer for stream writing, therefore about 1MB of data has to be written into Splunk
 
         //data are written in separated thread
@@ -122,12 +96,12 @@ class SplunkTest {
                 });
 
         try {
-            Awaitility.await().pollInterval(1000, TimeUnit.MILLISECONDS).atMost(60, TimeUnit.SECONDS).until(
+            Awaitility.await().pollInterval(1000, TimeUnit.MILLISECONDS).atMost(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS).until(
                     () -> {
 
                         String result = RestAssured.given()
                                 .contentType(ContentType.TEXT)
-                                .post("/splunk/results/realtimeSearch")
+                                .post(restUrl)
                                 .then()
                                 .statusCode(200)
                                 .extract().asString();
@@ -141,12 +115,59 @@ class SplunkTest {
         }
     }
 
+    @Test
+    public void testSavedSearchWithTcpNoSSL() {
+        Assertions.assertThrowsExactly(NoHttpResponseException.class,
+                () -> testSavedSearchWithTcp(false));
+    }
+
+    void testSavedSearchWithTcp(boolean ssl) throws InterruptedException {
+        String suffix = "_SavedSearchOfTcp";
+        String urlPrefix = ssl ? "https://" : "http://";
+        String restUrl = ssl ? "/splunk/ssl/results/savedSearch" : "/splunk/results/savedSearch";
+        //create saved search
+        Config config = ConfigProvider.getConfig();
+        RestAssured.given()
+                .relaxedHTTPSValidation()
+                .baseUri(urlPrefix + config.getValue(SplunkConstants.PARAM_REMOTE_HOST, String.class))
+                .port(config.getValue(SplunkConstants.PARAM_REMOTE_PORT,
+                        Integer.class))
+                .contentType(ContentType.JSON)
+                .param("name", SplunkResource.SAVED_SEARCH_NAME)
+                .param("disabled", "0")
+                .param("description", "descriptionText")
+                .param("search",
+                        "sourcetype=\"TCP\" | rex field=_raw \"Name: (?<name>.*) From: (?<from>.*)\"")
+                .post("/services/saved/searches")
+                .then()
+                .statusCode(anyOf(is(201), is(409)));
+
+        //write data via tcp
+        write(suffix, ProducerType.TCP, 0, false);
+
+        //there might by delay in receiving the data
+        Awaitility.await().pollInterval(1000, TimeUnit.MILLISECONDS).atMost(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS).until(
+                () -> {
+                    String result = RestAssured.given()
+                            .contentType(ContentType.TEXT)
+                            .post(restUrl)
+                            .then()
+                            .statusCode(200)
+                            .extract().asString();
+
+                    return result.contains("Name: Sheldon" + suffix)
+                            && result.contains("Name: Leonard" + suffix)
+                            && result.contains("Name: Irma" + suffix);
+                });
+    }
+
     private void write(String suffix, ProducerType producerType, int lengthOfRandomString, boolean raw) {
+        String restUrl = "/splunk/ssl/write/";
         Consumer<Map<String, String>> write = data -> RestAssured.given()
                 .contentType(ContentType.JSON)
                 .queryParam("index", SplunkTestResource.TEST_INDEX)
                 .body(data)
-                .post("/splunk/write/" + producerType.name())
+                .post(restUrl + producerType.name())
                 .then()
                 .statusCode(201)
                 .body(Matchers.containsString(expectedResult(data)));
