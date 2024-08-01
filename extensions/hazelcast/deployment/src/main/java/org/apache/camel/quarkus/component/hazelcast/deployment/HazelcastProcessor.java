@@ -34,6 +34,7 @@ import com.hazelcast.config.Config;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.cp.IAtomicLong;
 import com.hazelcast.internal.util.ICMPHelper;
+import com.hazelcast.internal.util.OperatingSystemMXBeanSupport;
 import com.hazelcast.map.IMap;
 import com.hazelcast.multimap.MultiMap;
 import com.hazelcast.replicatedmap.ReplicatedMap;
@@ -104,6 +105,7 @@ class HazelcastProcessor {
         if (OS.determineOS() != OS.LINUX) {
             initializedClasses.produce(new RuntimeInitializedClassBuildItem(ICMPHelper.class.getName()));
         }
+        initializedClasses.produce(new RuntimeInitializedClassBuildItem(OperatingSystemMXBeanSupport.class.getName()));
     }
 
     private static void registerTypeHierarchy(
