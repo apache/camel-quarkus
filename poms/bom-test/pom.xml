@@ -398,6 +398,10 @@
                         <artifactId>jsr305</artifactId>
                     </exclusion>
                     <exclusion>
+                        <groupId>com.google.guava</groupId>
+                        <artifactId>listenablefuture</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>org.apache.httpcomponents</groupId>
                         <artifactId>httpmime</artifactId>
                     </exclusion>
