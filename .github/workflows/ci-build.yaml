@@ -33,6 +33,16 @@ on:
       - 'LICENSE.txt'
       - 'NOTICE.txt'
       - 'camel-quarkus-sbom/**'
+      - '.github/*.sh'
+      - '.github/*.yaml'
+      - '.github/workflows/assign-issue-milestone.yaml'
+      - '.github/workflows/assign-wontfix-issue-milestone.yaml'
+      - '.github/workflows/camel-master-cron.yaml'
+      - '.github/workflows/generate-sbom-main.yml'
+      - '.github/workflows/label-issue.yaml'
+      - '.github/workflows/pr-validate.yml'
+      - '.github/workflows/quarkus-master-cron.yaml'
+      - '.github/workflows/synchronize-dependabot-branch.yaml'
   pull_request:
     branches:
       - main
@@ -47,6 +57,16 @@ on:
       - 'KEYS'
       - 'LICENSE.txt'
       - 'NOTICE.txt'
+      - '.github/*.sh'
+      - '.github/*.yaml'
+      - '.github/workflows/assign-issue-milestone.yaml'
+      - '.github/workflows/assign-wontfix-issue-milestone.yaml'
+      - '.github/workflows/camel-master-cron.yaml'
+      - '.github/workflows/generate-sbom-main.yml'
+      - '.github/workflows/label-issue.yaml'
+      - '.github/workflows/pr-validate.yml'
+      - '.github/workflows/quarkus-master-cron.yaml'
+      - '.github/workflows/synchronize-dependabot-branch.yaml'
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
