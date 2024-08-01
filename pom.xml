@@ -173,7 +173,7 @@
         <certificate.generator.version>0.7.1</certificate.generator.version>
         <consul-client.version>${consul-client-version}</consul-client.version>
         <ftpserver.version>${ftpserver-version}</ftpserver.version>
-        <hamcrest.version>2.2</hamcrest.version><!-- Awaitility and Wiremock -->
+        <hamcrest.version>3.0</hamcrest.version><!-- Awaitility and Wiremock -->
         <htmlunit-driver.version>4.13.0</htmlunit-driver.version>
         <pdfbox.version>${pdfbox-version}</pdfbox.version>
         <sshd.version>2.12.1</sshd.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.sshd:sshd-common -->
