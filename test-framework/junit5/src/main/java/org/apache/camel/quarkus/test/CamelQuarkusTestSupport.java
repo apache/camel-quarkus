@@ -46,7 +46,6 @@ import org.apache.camel.test.junit5.TestSupport;
 import org.apache.camel.test.junit5.util.ExtensionHelper;
 import org.apache.camel.test.junit5.util.RouteCoverageDumperExtension;
 import org.apache.camel.util.StopWatch;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -268,7 +267,6 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
      * @throws     Exception if unable to setup the test
      */
     @Deprecated(since = "4.7.0")
-    @AfterEach
     public void tearDown() throws Exception {
         long time = watch.taken();
 
