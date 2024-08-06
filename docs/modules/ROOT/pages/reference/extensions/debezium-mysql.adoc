@@ -50,18 +50,18 @@ endif::[]
 We cannot add the MySQL JDBC driver as a compile scope dependency of this extension because it is GPL2 licensed and it
 would be against the policy of the Apache Software Foundation.
 
-Therefore you have to add the dependency to your project yourself, as long as you are able to comply with its license
+Therefore, you have to add the dependency to your project yourself, as long as you are able to comply with its license
 terms.
 
-`quarkus-bom` (transitively included by `camel-quarkus-bom` and `quarkus-universe-bom`) manages a version
-of `mysql:mysql-connector-java` compatible with Camel Quarkus. So you do not need specify the version of the
-driver if you import any of the mentioned BOMs. The following should be sufficient for Maven:
+`quarkus-bom` (transitively included by `camel-quarkus-bom` and `quarkus-camel-bom`) manages a version
+of `com.mysql:mysql-connector-j` compatible with Camel Quarkus. So you do not need specify the version of the
+driver when importing any of the aforementioned BOMs. The following should be sufficient for Maven:
 
 [source,xml]
 ----
 <dependency>
-    <groupId>mysql</groupId>
-    <artifactId>mysql-connector-java</artifactId>
+    <groupId>com.mysql</groupId>
+    <artifactId>mysql-connector-j</artifactId>
 </dependency>
 ----
 

@@ -59,7 +59,7 @@ public class DebeziumSqlserverTestResource extends AbstractDebeziumTestResource<
         URL eulaUrl = Thread.currentThread().getContextClassLoader().getResource("container-license-acceptance.txt");
         if (eulaUrl == null) {
             LOG.warn(
-                    "Ms SQL EAULA is not accepted. Container won't start. See https://camel.apache.org/camel-quarkus/latest/extensions/debezium-sqlserver.html#_usage for more details.");
+                    "MS SQL EULA is not accepted. Container won't start. See https://camel.apache.org/camel-quarkus/latest/extensions/debezium-sqlserver.html#_usage for more details.");
             return Collections.emptyMap();
         }
 

@@ -23,6 +23,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import org.apache.camel.util.ObjectHelper;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -58,7 +59,7 @@ public class DebeziumSqlserverResource extends AbstractDebeziumResource {
     public String receive() {
         Record record = super.receiveAsRecord();
         //mssql return empty String instead of nulls, which leads to different status code 200 vs 204
-        if (record == null || ("d".equals(record.getOperation()) && "".equals(record.getValue()))) {
+        if (record == null || ("d".equals(record.getOperation()) && ObjectHelper.isEmpty(record.getValue()))) {
             return null;
         }
         return record.getValue();
