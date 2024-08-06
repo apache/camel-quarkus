@@ -34,7 +34,7 @@
         <sqlserver.EULA.accepted>true</sqlserver.EULA.accepted>
         <!-- You need to download the driver yourself. We cannot add a compile scope dependency for legal reasons. -->
         <!-- See https://camel.apache.org/camel-quarkus/latest/extensions/debezium-mysql.html#_usage for more details -->
-        <mysql.driver.file>libs/mysql-connector-java-8.0.22.jar</mysql.driver.file>
+        <mysql.driver.file>${settings.localRepository}/com/mysql/mysql-connector-j/${debezium-mysql-connector-version}/mysql-connector-j-${debezium-mysql-connector-version}.jar</mysql.driver.file>
         <!-- You are required to accept an EULA for SQL container image. We cannot do it by default for legal reasons. -->
         <!-- See https://camel.apache.org/camel-quarkus/latest/extensions/debezium-sqlserver.html#_integration-testing for more details -->
         <sqlserver.EULA>src/test/resources/container-license-acceptance.txt</sqlserver.EULA>
@@ -168,10 +168,10 @@
                     <artifactId>camel-quarkus-debezium-mysql</artifactId>
                 </dependency>
                 <dependency>
-                    <groupId>mysql</groupId>
-                    <artifactId>mysql-connector-java</artifactId>
+                    <groupId>com.mysql</groupId>
+                    <artifactId>mysql-connector-j</artifactId>
                     <scope>system</scope>
-                    <systemPath>${project.basedir}/${mysql.driver.file}</systemPath>
+                    <systemPath>${mysql.driver.file}</systemPath>
                 </dependency>
             </dependencies>
         </profile>
