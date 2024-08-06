@@ -36,7 +36,6 @@
         <module>maven-plugin</module>
         <module>camel-k-catalog-model</module>
         <module>camel-k-maven-plugin</module>
-        <module>perf-regression</module>
         <module>test-list</module>
     </modules>
 
@@ -54,4 +53,18 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <profiles>
+        <profile>
+            <id>standard-build</id>
+            <activation>
+                <property>
+                    <name>!apache-release</name>
+                </property>
+            </activation>
+            <modules>
+                <module>perf-regression</module>
+            </modules>
+        </profile>
+    </profiles>
 </project>

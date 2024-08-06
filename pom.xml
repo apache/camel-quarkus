@@ -278,6 +278,8 @@
         <camel-quarkus.extension.finder.strict>true</camel-quarkus.extension.finder.strict>
     </properties>
 
+    <!-- Core modules -->
+    <!-- Any modules that do not need to be deployed during the Maven release, should be added to the 'standard-build' profile below -->
     <modules>
         <module>poms</module>
         <module>tooling</module>
@@ -288,9 +290,6 @@
         <module>catalog</module>
         <module>integration-tests-support</module>
         <module>integration-tests</module>
-        <module>integration-test-groups</module>
-        <module>docs</module>
-        <module>integration-tests-jvm</module>
         <module>test-framework</module>
     </modules>
 
@@ -408,14 +407,13 @@
                     <version>${maven-release-plugin.version}</version>
                     <configuration>
                         <!-- release:prepare config -->
-                        <preparationGoals>clean validate -Pcommit-release-changes "-Dcq.commit.message.prefix=[maven-release-plugin] Prepare release" -N</preparationGoals>
-                        <completionGoals>clean validate -Pcommit-release-changes "-Dcq.commit.message.prefix=[maven-release-plugin] Set next development version" -N</completionGoals>
+                        <preparationGoals>clean validate -Pstandard-build -Pcommit-release-changes "-Dcq.commit.message.prefix=[maven-release-plugin] Prepare release" -N</preparationGoals>
+                        <completionGoals>clean validate -Pstandard-build -Pcommit-release-changes "-Dcq.commit.message.prefix=[maven-release-plugin] Set next development version" -N</completionGoals>
                         <!-- release:perform config -->
-                        <useReleaseProfile>true</useReleaseProfile>
-                        <releaseProfiles>apache-release</releaseProfiles>
+                        <releaseProfiles combine.self="override"/>
                         <goals>deploy</goals>
                         <!-- Both release:prepare and release:perform config -->
-                        <arguments>-DskipTests -Denforcer.skip -Dquarkus.build.skip -Dformatter.skip -Dimpsort.skip</arguments>
+                        <arguments>-Dapache-release -DskipTests -Denforcer.skip -Dquarkus.build.skip -Dformatter.skip -Dimpsort.skip</arguments>
                     </configuration>
                 </plugin>
 
@@ -1055,6 +1053,19 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        <profile>
+            <id>standard-build</id>
+            <activation>
+                <property>
+                    <name>!apache-release</name>
+                </property>
+            </activation>
+            <modules>
+                <module>docs</module>
+                <module>integration-test-groups</module>
+                <module>integration-tests-jvm</module>
+            </modules>
         </profile>
         <profile>
             <id>apache-release</id>
