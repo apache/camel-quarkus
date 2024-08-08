@@ -18,36 +18,42 @@
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-hashicorp-vault-parent</artifactId>
-        <version>3.14.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
+        <artifactId>camel-quarkus-support-spring-web-parent</artifactId>
+        <version>3.13.0-SNAPSHOT</version>
     </parent>
+    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-quarkus-hashicorp-vault-deployment</artifactId>
-    <name>Camel Quarkus :: Hashicorp Vault :: Deployment</name>
+    <artifactId>camel-quarkus-support-spring-web-deployment</artifactId>
+    <name>Camel Quarkus :: Support :: Spring Web :: Deployment</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-core-deployment</artifactId>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-core-deployment</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-micrometer-deployment</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-spring-web-deployment</artifactId>
+            <artifactId>camel-quarkus-support-commons-logging-deployment</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-hashicorp-vault</artifactId>
+            <artifactId>camel-quarkus-support-spring-deployment</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-spring-web</artifactId>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <annotationProcessorPaths>
@@ -61,5 +67,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

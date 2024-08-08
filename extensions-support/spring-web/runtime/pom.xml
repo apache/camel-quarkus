@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-support-spring-web-parent</artifactId>
+        <version>3.13.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>camel-quarkus-support-spring-web</artifactId>
+    <name>Camel Quarkus :: Support :: Spring Web :: Runtime</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-micrometer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-commons-logging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-extension-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>io.quarkus</groupId>
+                            <artifactId>quarkus-extension-processor</artifactId>
+                            <version>${quarkus.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createSourcesJar>true</createSourcesJar>
+                            <artifactSet>
+                                <includes>
+                                    <include>org.springframework:spring-web</include>
+                                </includes>
+                            </artifactSet>
+                            <filters>
+                                <filter>
+                                    <artifact>org.springframework:spring-web</artifact>
+                                    <includes>
+                                        <include>org/springframework/http/Http*</include>
+                                        <include>org/springframework/http/InvalidMediaTypeException.class</include>
+                                        <include>org/springframework/http/MediaType*</include>
+                                        <include>org/springframework/http/ProblemDetail.class</include>
+                                        <include>org/springframework/http/ReadOnlyHttpHeaders*</include>
+                                        <include>org/springframework/http/ResponseEntity*</include>
+                                        <include>org/springframework/http/StreamingHttpOutputMessage*</include>
+                                        <include>org/springframework/http/client/Abstract*</include>
+                                        <include>org/springframework/http/client/ClientHttpRequest*.class</include>
+                                        <include>org/springframework/http/client/ClientHttpResponse.class</include>
+                                        <include>org/springframework/http/client/InterceptingClientHttp*</include>
+                                        <include>org/springframework/http/client/SimpleClientHttpRequest*</include>
+                                        <include>org/springframework/http/client/SimpleClientHttpResponse*</include>
+                                        <include>org/springframework/http/client/observation/ClientHttpObservationDocumentation*</include>
+                                        <include>org/springframework/http/client/observation/ClientRequestObservationContext*</include>
+                                        <include>org/springframework/http/client/observation/ClientRequestObservationConvention.class</include>
+                                        <include>org/springframework/http/client/observation/DefaultClientRequestObservationConvention.class</include>
+                                        <include>org/springframework/http/client/observation/ObservationConvention.class</include>
+                                        <include>org/springframework/http/client/support/HttpAccessor.class</include>
+                                        <include>org/springframework/http/client/support/InterceptingHttpAccessor.class</include>
+                                        <include>org/springframework/http/converter/AbstractHttpMessageConverter.class</include>
+                                        <include>org/springframework/http/converter/AbstractGenericHttpMessageConverter.class</include>
+                                        <include>org/springframework/http/converter/ByteArrayHttpMessageConverter.class</include>
+                                        <include>org/springframework/http/converter/ByteArrayHttpMessageConverter.class</include>
+                                        <include>org/springframework/http/converter/GenericHttpMessageConverter.class</include>
+                                        <include>org/springframework/http/converter/GenericHttpMessageConverter.class</include>
+                                        <include>org/springframework/http/converter/HttpMessageConverter.class</include>
+                                        <include>org/springframework/http/converter/*Exception.class</include>
+                                        <include>org/springframework/http/converter/StringHttpMessageConverter.class</include>
+                                        <include>org/springframework/http/converter/json/AbstractJackson2HttpMessageConverter.class</include>
+                                        <include>org/springframework/http/converter/json/Jackson2ObjectMapperBuilder.class</include>
+                                        <include>org/springframework/http/converter/json/MappingJackson2HttpMessageConverter.class</include>
+                                        <include>org/springframework/http/converter/json/ProblemDetailJacksonMixin.class</include>
+                                        <include>org/springframework/http/converter/json/SpringHandlerInstantiator.class</include>
+                                        <include>org/springframework/web/client/ClientHttpResponseDecorator.class</include>
+                                        <include>org/springframework/web/client/DefaultResponseErrorHandler.class</include>
+                                        <include>org/springframework/web/client/*Exception.class</include>
+                                        <include>org/springframework/web/client/HttpMessageConverterExtractor.class</include>
+                                        <include>org/springframework/web/client/IntrospectingClientHttpResponse.class</include>
+                                        <include>org/springframework/web/client/ResponseErrorHandler.class</include>
+                                        <include>org/springframework/web/client/RestTemplate*</include>
+                                        <include>org/springframework/web/client/DefaultUriBuilderFactory*</include>
+                                        <include>org/springframework/web/client/HierarchicalUriComponents*</include>
+                                        <include>org/springframework/web/client/RequestCallback.class</include>
+                                        <include>org/springframework/web/client/RestOperations.class</include>
+                                        <include>org/springframework/web/client/ResponseExtractor.class</include>
+                                        <include>org/springframework/web/util/DefaultUriBuilderFactory*</include>
+                                        <include>org/springframework/web/util/UriBuilder.class</include>
+                                        <include>org/springframework/web/util/UriBuilderFactory.class</include>
+                                        <include>org/springframework/web/util/UriComponents*</include>
+                                        <include>org/springframework/web/util/UriTemplateHandler.class</include>
+                                    </includes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
