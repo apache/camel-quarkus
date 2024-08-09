@@ -697,6 +697,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-crypto</artifactId>
         <version>4.7.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>*</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -3555,7 +3561,29 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-crypto</artifactId>
+        <version>3.14.0-SNAPSHOT</version>
+        <classifier>bcfips</classifier>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-crypto-deployment</artifactId>
+        <version>3.14.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-crypto-deployment</artifactId>
+        <version>3.14.0-SNAPSHOT</version>
+        <classifier>bcfips</classifier>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-crypto-pgp</artifactId>
+        <version>3.14.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-crypto-pgp-deployment</artifactId>
         <version>3.14.0-SNAPSHOT</version>
       </dependency>
       <dependency>

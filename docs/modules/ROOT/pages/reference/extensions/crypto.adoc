@@ -45,6 +45,48 @@ ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
 
+[id="extensions-crypto-usage"]
+== Usage
+[id="extensions-crypto-usage-security-provider"]
+=== Security Provider
+
+Extension requires BouncyCastle provider and also utilizes the quarkus security extension (see https://quarkus.io/guides/security-customization#registering-security-providers[security providers registration doc])
+If there is no `BC*` provider registered (by `quarkus.security.security-providers` property).
+The `BC` provider is registered.
+
+[id="extensions-crypto-usage-fips"]
+=== FIPS
+
+When running the `crypto` extension on FIPS enabled system any FIPS-compliant Java Security Provider (such as BCFIPS) has to be used.
+
+* In the case of BCFIPS, please add BCFIPS dependency and `quarkus-security` (see the https://quarkus.io/guides/security-customization#bouncy-castle-fips[guide] for more information)
+```
+<dependency>
+    <groupId>org.bouncycastle</groupId>
+    <artifactId>bc-fips</artifactId>
+</dependency>
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-security</artifactId>
+</dependency>
+```
+and register BCFIPS provider with following proprerty:
+```
+quarkus.security.security-providers=BCFIPS
+```
+* Alternatively, you can add different FIPS compliant provider. Make Sure that the provider is registered.
+
+
+
+
+
+[id="extensions-crypto-camel-quarkus-limitations"]
+== Camel Quarkus limitations
+
+
+
+
+
 [id="extensions-crypto-ssl-in-native-mode"]
 == SSL in native mode
 

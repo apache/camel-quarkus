@@ -98,19 +98,6 @@ public class CryptoResource {
         return producerTemplate.requestBody("direct:unmarshal", payload, String.class);
     }
 
-    @Path("/encrypt/pgp")
-    @POST
-    public byte[] encryptPgpPayload(String payload) {
-        return producerTemplate.requestBody("direct:marshalPgp", payload, byte[].class);
-    }
-
-    @Path("/decrypt/pgp")
-    @POST
-    @Produces(MediaType.TEXT_PLAIN)
-    public String decryptPayload(byte[] payload) {
-        return producerTemplate.requestBody("direct:unmarshalPgp", payload, String.class);
-    }
-
     @jakarta.enterprise.inject.Produces
     public KeyStore keyStore() throws Exception {
         KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());

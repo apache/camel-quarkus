@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.support.bouncycastle;
 
+import java.lang.reflect.InvocationTargetException;
 import java.security.Provider;
 import java.security.Security;
 import java.util.List;
@@ -25,7 +26,6 @@ import javax.crypto.Cipher;
 import io.quarkus.runtime.ShutdownContext;
 import io.quarkus.runtime.annotations.Recorder;
 import io.quarkus.security.runtime.SecurityProviderUtils;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.jboss.logging.Logger;
 
 @Recorder
@@ -36,10 +36,29 @@ public class BouncyCastleRecorder {
     public void registerBouncyCastleProvider(List<String> cipherTransformations, ShutdownContext shutdownContext) {
         Provider provider = Security.getProvider(SecurityProviderUtils.BOUNCYCASTLE_PROVIDER_NAME);
         if (provider == null) {
+            provider = Security.getProvider(SecurityProviderUtils.BOUNCYCASTLE_FIPS_PROVIDER_NAME);
+        }
+        if (provider == null) {
             // TODO: Fix BuildStep execution order so that this is not required
             // https://github.com/apache/camel-quarkus/issues/3472
-            provider = new BouncyCastleProvider();
-            Security.addProvider(provider);
+            try {
+                provider = (Provider) Thread.currentThread().getContextClassLoader()
+                        .loadClass(SecurityProviderUtils.BOUNCYCASTLE_PROVIDER_CLASS_NAME).getConstructor().newInstance();
+                Security.addProvider(provider);
+            } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException
+                    | NoSuchMethodException e) {
+                try {
+                    //try to load BCFIPS
+                    provider = (Provider) Thread.currentThread().getContextClassLoader()
+                            .loadClass(SecurityProviderUtils.BOUNCYCASTLE_FIPS_PROVIDER_CLASS_NAME).getConstructor()
+                            .newInstance();
+                    Security.addProvider(provider);
+                } catch (ClassNotFoundException | InvocationTargetException | InstantiationException | IllegalAccessException
+                        | NoSuchMethodException e2) {
+                    throw new RuntimeException("Neither BC nor BCFIPS provider can be registered. \nBC: " + e.getMessage()
+                            + "\nBCFIPS " + e2.getMessage());
+                }
+            }
         }
 
         // Make it explicit to the static analysis that below security services should be registered as they are reachable at runtime
