@@ -20,6 +20,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import io.quarkus.test.common.ResourceArg;
 import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -32,19 +33,23 @@ import org.testcontainers.shaded.org.awaitility.Awaitility;
 import org.testcontainers.shaded.org.hamcrest.core.StringContains;
 
 @QuarkusTest
-@WithTestResource(SplunkTestResource.class)
-class SplunkHecTest {
+@WithTestResource(value = SplunkTestResource.class, initArgs = {
+        @ResourceArg(name = "localhost_cert", value = "target/certs/localhost.pem"),
+        @ResourceArg(name = "ca_cert", value = "target/certs/splunkca.pem"),
+        @ResourceArg(name = "localhost_keystore", value = "target/certs/localhost.jks"),
+        @ResourceArg(name = "keystore_password", value = "password") })
+public class SplunkHecTest {
 
     @Test
     public void produce() {
 
-        String url = String.format("http://%s:%d",
+        String url = String.format("https://%s:%d",
                 getConfigValue(SplunkConstants.PARAM_REMOTE_HOST, String.class),
                 getConfigValue(SplunkConstants.PARAM_REMOTE_PORT, Integer.class));
 
         RestAssured.given()
                 .body("Hello Sheldon")
-                .post("/splunk-hec/send")
+                .post("/splunk-hec/send/sslContextParameters")
                 .then()
                 .statusCode(200);
 
@@ -60,12 +65,21 @@ class SplunkHecTest {
                         .then().statusCode(200)
                         .extract().asString(),
                 StringContains.containsString("Hello Sheldon"));
+    }
 
+    @Test
+    public void produceWithWrongCertificate() {
+        RestAssured.given()
+                .body("Hello Sheldon")
+                .post("/splunk-hec/send/wrongSslContextParameters")
+                .then()
+                .statusCode(500)
+                .body(org.hamcrest.core.StringContains.containsString("signature check failed"));
     }
 
     @Test
     public void testIndexTime() {
-        String url = String.format("http://%s:%d",
+        String url = String.format("https://%s:%d",
                 getConfigValue(SplunkConstants.PARAM_REMOTE_HOST, String.class),
                 getConfigValue(SplunkConstants.PARAM_REMOTE_PORT, Integer.class));
 
@@ -76,7 +90,7 @@ class SplunkHecTest {
         //send an event with text 'Hello Time 01'
         RestAssured.given()
                 .body("Hello time 01")
-                .post("/splunk-hec/send")
+                .post("/splunk-hec/send/sslContextParameters")
                 .then()
                 .statusCode(200);
 
@@ -84,7 +98,7 @@ class SplunkHecTest {
         RestAssured.given()
                 .body("Hello time 02")
                 .queryParam("indexTime", calendar.getTimeInMillis())
-                .post("/splunk-hec/send")
+                .post("/splunk-hec/send/sslContextParameters")
                 .then()
                 .statusCode(200);
 

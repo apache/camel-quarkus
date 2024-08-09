@@ -1,0 +1,16 @@
+=== Development information
+
+* `Security` If no custom certificate is provided, splunk server creates its own one and the `SplunkTestResource` copies it from the container into `test-classes`
+* `Security` Server certificate has to be signed (that is the reason of using keytool in the pom.xml)
+* `Security` SSL connection can be verified by openssl tool
+```
+openssl s_client -connect localhost:32825 -CAfile cacert.pem
+```
+* `Security` Server certificate has to contain a private key, which could not be done via keytool itself. Proper way of achieving such certificate is to use Openssl tool. The `TestResource` is concatening certificates and keys programmatically.
+```
+openssl pkcs12 -export -out combined.p12 -inkey localhost-key.pem -in localhost.pem -certfile splunkca.pem
+openssl pkcs12 -in combined.p12 -out combined.pem -nodes
+```
+* Set log level to debug for `org.apache.camel.quarkus.test.support.splunk` (by adding `quarkus.log.category.\"org.apache.camel.quarkus.test.support.splunk\".level=DEBUG` into application.properties) to see more important infirmation from runtime.
+* `TestResource` is exporting configuration files, log and certificates to the `test-classes` folder.
+* Splunk server takes a lot of time to start. It might be handy to start a test with a different process with some timeout (like several hours) and use FakeSplunkTestResource with hardcoded ports.
