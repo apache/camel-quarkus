@@ -134,31 +134,17 @@ jobs:
               }
             }
 
-            // Strip the / prefix as it seems to break GraphQL searches
-            const sanitizedLabels = Array.from(labels).map(label => {
-              const parts = label.split('/');
-              return parts.length > 1 ? parts[1] : parts[0];
-            });
-
             // Check to see if labels already exist, and if not, create them so we can set the color
-            const labelQuery = `{
-              repository(owner: "${context.repo.owner}", name: "${context.repo.repo}") {
-                labels(first: 50, query: "name: ${sanitizedLabels.join(' || ')}") {
-                  nodes {
-                    name
-                  }
-                }
-              }
-            }`;
+            const existingLabels = await github.paginate(
+              `GET /repos/${context.repo.owner}/${context.repo.repo}/labels`,
+              { owner: context.repo.owner, name: context.repo.repo },
+              (response) => response.data.map((label) => label.name)
+            );
 
-            labelQueryResults = await github.graphql(labelQuery);
-
-            if (labelQueryResults && labelQueryResults.repository.labels) {
-              const existingLabels = labelQueryResults.repository.labels.nodes.map(node => node.name);
-
+            if (existingLabels) {
               for (let label of labels) {
                 if (!existingLabels.includes(label)) {
-                  labelColor = 'ededed';
+                  let labelColor = 'ededed';
                   if (label.startsWith("area/")) {
                     labelColor = '283482';
                   }
