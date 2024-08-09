@@ -24,7 +24,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-python-parent</artifactId>
-        <version>3.13.0-SNAPSHOT</version>
+        <version>3.14.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -33,8 +33,8 @@
     <description>Evaluates a Python expression.</description>
 
     <properties>
-        <camel.quarkus.jvmSince>3.13.0</camel.quarkus.jvmSince>
-        <camel.quarkus.nativeSince>3.13.0</camel.quarkus.nativeSince>
+        <camel.quarkus.jvmSince>3.14.0</camel.quarkus.jvmSince>
+        <camel.quarkus.nativeSince>3.14.0</camel.quarkus.nativeSince>
         <quarkus.metadata.keywords>python</quarkus.metadata.keywords>
     </properties>
 
