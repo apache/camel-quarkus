@@ -24,7 +24,6 @@ import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
 import org.apache.camel.quarkus.test.support.aws2.Aws2Client;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.apache.camel.quarkus.test.support.aws2.BaseAWs2TestSupport;
@@ -33,8 +32,6 @@ import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
-import org.junit.jupiter.api.Assumptions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.localstack.LocalStackContainer.Service;
 import software.amazon.awssdk.core.ResponseInputStream;
@@ -56,12 +53,6 @@ class Aws2KinesisFirehoseTest extends BaseAWs2TestSupport {
 
     public Aws2KinesisFirehoseTest() {
         super("/aws2-kinesis-firehose");
-    }
-
-    @BeforeEach
-    void setUp() {
-        // TODO: https://github.com/apache/camel-quarkus/issues/6329
-        Assumptions.assumeFalse(MockBackendUtils.startMockBackend());
     }
 
     @Test
