@@ -1229,6 +1229,10 @@
             <artifactId>listenablefuture</artifactId>
           </exclusion>
           <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>org.checkerframework</groupId>
             <artifactId>checker-qual</artifactId>
           </exclusion>
@@ -6446,12 +6450,12 @@
       <dependency>
         <groupId>com.google.auth</groupId>
         <artifactId>google-auth-library-credentials</artifactId>
-        <version>1.23.0</version>
+        <version>1.24.0</version>
       </dependency>
       <dependency>
         <groupId>com.google.auth</groupId>
         <artifactId>google-auth-library-oauth2-http</artifactId>
-        <version>1.23.0</version>
+        <version>1.24.0</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
@@ -6462,7 +6466,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-pubsub</artifactId>
-        <version>1.131.0</version>
+        <version>1.132.0</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.android</groupId>
@@ -7151,7 +7155,7 @@
       <dependency>
         <groupId>org.opensearch.client</groupId>
         <artifactId>opensearch-rest-client</artifactId>
-        <version>2.15.0</version>
+        <version>2.16.0</version>
       </dependency>
       <dependency>
         <groupId>org.optaplanner</groupId>
