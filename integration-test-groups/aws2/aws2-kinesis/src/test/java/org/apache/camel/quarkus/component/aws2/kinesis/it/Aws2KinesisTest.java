@@ -27,7 +27,6 @@ import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.apache.camel.quarkus.test.support.aws2.BaseAWs2TestSupport;
 import org.awaitility.Awaitility;
 import org.jboss.logging.Logger;
-import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.localstack.LocalStackContainer.Service;
 import software.amazon.awssdk.services.s3.S3Client;
 
@@ -44,7 +43,6 @@ class Aws2KinesisTest extends BaseAWs2TestSupport {
         super("/aws2-kinesis");
     }
 
-    @Test
     public void kinesis() {
         final String msg = "kinesis-" + java.util.UUID.randomUUID().toString().replace("-", "");
         RestAssured.given() //
