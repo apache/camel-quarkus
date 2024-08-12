@@ -20,14 +20,10 @@ import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 
 public class MockBackendUtils {
-
-    private static boolean startMockBackend = ConfigProvider.getConfig()
-            .getOptionalValue("camel.quarkus.start-mock-backend", Boolean.class).orElse(Boolean.TRUE);
-
     private static final Logger LOG = Logger.getLogger(MockBackendUtils.class);
 
     public static void logBackendUsed() {
-        if (startMockBackend) {
+        if (mockBackendStarted()) {
             logMockBackendUsed();
         } else {
             logRealBackendUsed();
@@ -50,6 +46,12 @@ public class MockBackendUtils {
         if (printLogMessage) {
             logBackendUsed();
         }
-        return startMockBackend;
+        return mockBackendStarted();
+    }
+
+    static boolean mockBackendStarted() {
+        return ConfigProvider.getConfig()
+                .getOptionalValue("camel.quarkus.start-mock-backend", Boolean.class)
+                .orElse(Boolean.TRUE);
     }
 }
