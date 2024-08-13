@@ -65,6 +65,11 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
         if (usingMockBackend) {
             MockBackendUtils.logMockBackendUsed();
 
+            String localstackLogLevel = System.getProperty("localstack.log.level", System.getenv("LOCALSTACK_LOG_LEVEL"));
+            if (localstackLogLevel == null) {
+                localstackLogLevel = "info";
+            }
+
             final Service[] services = customizers.stream()
                     .map(Aws2TestEnvCustomizer::localstackServices)
                     .flatMap((Service[] ss) -> Stream.of(ss))
@@ -82,6 +87,7 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
                     .asCompatibleSubstituteFor("localstack/localstack");
             LocalStackContainer localstack = new LocalStackContainer(imageName)
                     .withServices(services);
+            localstack.withEnv("LS_LOG", localstackLogLevel);
             localstack.withEnv("LAMBDA_EXECUTOR", "local");
             localstack.withLogConsumer(new Slf4jLogConsumer(LOG));
             localstack.start();
