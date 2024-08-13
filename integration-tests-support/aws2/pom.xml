@@ -74,11 +74,6 @@
             <!-- Dependency should be excluded when this module us used a compile dependency and a test-jar dependency os also present.-->
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-integration-test-support-mock-backend</artifactId>
-            <!-- Dependency should be excluded when this module us used a compile dependency and a test-jar dependency os also present.-->
-        </dependency>
-        <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>localstack</artifactId>
             <!-- Dependency should be excluded when this module us used a compile dependency and a test-jar dependency os also present.-->

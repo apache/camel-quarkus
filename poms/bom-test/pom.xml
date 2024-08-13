@@ -110,10 +110,6 @@
                         <groupId>org.apache.camel.quarkus</groupId>
                     </exclusion>
                     <exclusion>
-                        <artifactId>camel-quarkus-integration-test-support-mock-backend</artifactId>
-                        <groupId>org.apache.camel.quarkus</groupId>
-                    </exclusion>
-                    <exclusion>
                         <artifactId>localstack</artifactId>
                         <groupId>org.testcontainers</groupId>
                     </exclusion>
@@ -212,11 +208,6 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-integration-test-support</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-integration-test-support-mock-backend</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
