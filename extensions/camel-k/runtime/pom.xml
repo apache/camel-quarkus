@@ -34,7 +34,6 @@
         <camel.quarkus.jvmSince>3.3.0</camel.quarkus.jvmSince>
         <camel.quarkus.nativeSince>3.3.0</camel.quarkus.nativeSince>
         <quarkus.metadata.unlisted>true</quarkus.metadata.unlisted>
-        <camel-quarkus.update-extension-doc-page.skip>true</camel-quarkus.update-extension-doc-page.skip>
     </properties>
 
     <dependencies>
@@ -177,32 +176,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>full</id>
-            <activation>
-                <property>
-                    <name>!quickly</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.camel.quarkus</groupId>
-                        <artifactId>camel-quarkus-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>update-extension-doc-page</id>
-                                <goals>
-                                    <goal>update-extension-doc-page</goal>
-                                </goals>
-                                <phase>process-classes</phase>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>

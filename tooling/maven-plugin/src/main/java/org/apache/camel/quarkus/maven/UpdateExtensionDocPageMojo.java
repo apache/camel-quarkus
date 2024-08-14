@@ -23,12 +23,14 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.Normalizer;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
@@ -36,18 +38,21 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateMethodModelEx;
 import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
 import freemarker.template.utility.DeepUnwrap;
-import io.quarkus.annotation.processor.Constants;
-import io.quarkus.annotation.processor.generate_doc.ConfigDocItem;
-import io.quarkus.annotation.processor.generate_doc.ConfigDocKey;
-import io.quarkus.annotation.processor.generate_doc.DocGeneratorUtil;
-import io.quarkus.annotation.processor.generate_doc.FsMap;
+import io.quarkus.annotation.processor.documentation.config.merger.JavadocMerger;
+import io.quarkus.annotation.processor.documentation.config.merger.JavadocRepository;
+import io.quarkus.annotation.processor.documentation.config.merger.MergedModel;
+import io.quarkus.annotation.processor.documentation.config.merger.ModelMerger;
+import io.quarkus.annotation.processor.documentation.config.model.AbstractConfigItem;
+import io.quarkus.annotation.processor.documentation.config.model.ConfigProperty;
+import io.quarkus.annotation.processor.documentation.config.model.ConfigRoot;
+import io.quarkus.annotation.processor.documentation.config.model.Extension;
+import io.quarkus.annotation.processor.documentation.config.model.JavadocElements.JavadocElement;
+import io.quarkus.annotation.processor.documentation.config.util.Types;
 import org.apache.camel.quarkus.maven.processor.AppendNewLinePostProcessor;
 import org.apache.camel.quarkus.maven.processor.AsciiDocFile;
 import org.apache.camel.quarkus.maven.processor.DocumentationPostProcessor;
@@ -56,11 +61,13 @@ import org.apache.camel.tooling.model.ArtifactModel;
 import org.apache.camel.tooling.model.BaseModel;
 import org.apache.camel.tooling.model.ComponentModel;
 import org.apache.camel.tooling.model.Kind;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 
 @Mojo(name = "update-extension-doc-page", threadSafe = true)
 public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
@@ -77,9 +84,17 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                 kind.equals(Kind.language) ||
                 kind.equals(Kind.other);
     };
+    private static final String TOOLTIP_MACRO = "tooltip:%s[%s]";
+    private static final String MORE_INFO_ABOUT_TYPE_FORMAT = "link:#%s[icon:question-circle[title=More information about the %s format]]";
 
     @Parameter(defaultValue = "false", property = "camel-quarkus.update-extension-doc-page.skip")
     boolean skip = false;
+
+    @Parameter(defaultValue = "${project}", readonly = true)
+    MavenProject project;
+
+    @Parameter(defaultValue = "${session}", readonly = true, required = true)
+    private MavenSession session;
 
     /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
@@ -90,32 +105,47 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
             return;
         }
         final Charset charset = Charset.forName(encoding);
-        final Path basePath = baseDir.toPath();
 
-        if (!"runtime".equals(basePath.getFileName().toString())) {
-            getLog().info("Skipping a module that is not a Quarkus extension runtime module");
+        final Path currentModuleDir = baseDir.toPath();
+        final Path runtimeModuleDir;
+        final Path deploymentModuleDir;
+        if ("runtime".equals(currentModuleDir.getFileName().toString())) {
+            deploymentModuleDir = currentModuleDir.getParent().resolve("deployment");
+            if (session.getAllProjects().stream()
+                    .anyMatch(p -> p.getBasedir().toPath().equals(deploymentModuleDir))) {
+                getLog().info("Skipping the execution in " + project.getArtifactId() + " and postponing it to "
+                        + project.getArtifactId() + "-deployment");
+                return;
+            }
+            runtimeModuleDir = currentModuleDir;
+        } else if ("deployment".equals(currentModuleDir.getFileName().toString())) {
+            runtimeModuleDir = currentModuleDir.getParent().resolve("runtime");
+            deploymentModuleDir = currentModuleDir;
+        } else {
+            getLog().info("Skipping a module that is nether Quarkus extension runtime nor deployment module");
             return;
         }
 
         final CqCatalog catalog = new CqCatalog();
 
         final Path multiModuleProjectDirectoryPath = multiModuleProjectDirectory.toPath();
-        final CamelQuarkusExtension ext = CamelQuarkusExtension.read(basePath.resolve("pom.xml"));
+        final CamelQuarkusExtension ext = CamelQuarkusExtension.read(runtimeModuleDir.resolve("pom.xml"));
         final Path quarkusAwsClientTestsDir = multiModuleProjectDirectoryPath
                 .resolve("integration-test-groups/aws2-quarkus-client");
 
-        final Path pomRelPath = multiModuleProjectDirectoryPath.relativize(basePath).resolve("pom.xml");
+        final Path pomRelPath = multiModuleProjectDirectoryPath.relativize(runtimeModuleDir).resolve("pom.xml");
         if (ext.getJvmSince().isEmpty()) {
             throw new IllegalStateException(
                     CamelQuarkusExtension.CAMEL_QUARKUS_JVM_SINCE + " property must defined in " + pomRelPath);
         }
-        final String extensionsDir = basePath.getParent().getParent().getFileName().toString();
+        final String extensionsDir = runtimeModuleDir.getParent().getParent().getFileName().toString();
         if (!"extensions-jvm".equals(extensionsDir) && ext.getNativeSince().isEmpty()) {
             throw new IllegalStateException(
                     CamelQuarkusExtension.CAMEL_QUARKUS_NATIVE_SINCE + " property must defined in " + pomRelPath);
         }
 
-        final Configuration cfg = CqUtils.getTemplateConfig(basePath, AbstractDocGeneratorMojo.DEFAULT_TEMPLATES_URI_BASE,
+        final Configuration cfg = CqUtils.getTemplateConfig(runtimeModuleDir,
+                AbstractDocGeneratorMojo.DEFAULT_TEMPLATES_URI_BASE,
                 templatesUriBase, encoding);
 
         final List<ArtifactModel<?>> models = catalog.filterModels(ext.getRuntimeArtifactIdBase())
@@ -145,14 +175,14 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         if (lowerEqual_1_0_0(jvmSince)) {
             model.put("pageAliases", "extensions/" + ext.getRuntimeArtifactIdBase() + ".adoc");
         }
-        model.put("intro", loadSection(basePath, "intro.adoc", charset, description, ext));
+        model.put("intro", loadSection(runtimeModuleDir, "intro.adoc", charset, description, ext));
         model.put("models", models);
-        model.put("usage", loadSection(basePath, "usage.adoc", charset, null, ext));
-        model.put("usageAdvanced", loadSection(basePath, "usage-advanced.adoc", charset, null, ext));
-        model.put("configuration", loadSection(basePath, "configuration.adoc", charset, null, ext));
-        model.put("limitations", loadSection(basePath, "limitations.adoc", charset, null, ext));
+        model.put("usage", loadSection(runtimeModuleDir, "usage.adoc", charset, null, ext));
+        model.put("usageAdvanced", loadSection(runtimeModuleDir, "usage-advanced.adoc", charset, null, ext));
+        model.put("configuration", loadSection(runtimeModuleDir, "configuration.adoc", charset, null, ext));
+        model.put("limitations", loadSection(runtimeModuleDir, "limitations.adoc", charset, null, ext));
         model.put("activatesNativeSsl", ext.isNativeSupported() && detectNativeSsl(multiModuleProjectDirectory.toPath(),
-                basePath, ext.getRuntimeArtifactId(), ext.getDependencies(), nativeSslActivators));
+                runtimeModuleDir, ext.getRuntimeArtifactId(), ext.getDependencies(), nativeSslActivators));
         model.put("activatesContextMapAll",
                 ext.isNativeSupported()
                         && detectComponentOrEndpointOption(catalog, ext.getRuntimeArtifactIdBase(), "allowContextMapAll"));
@@ -168,7 +198,8 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                         ext.getQuarkusAwsClientFqClassName(),
                         ext.getRuntimePomXmlPath()));
         model.put("activatesQuarkusLangChain4jBom", ext.getRuntimeArtifactId().contains("langchain4j"));
-        model.put("configOptions", listConfigOptions(basePath, multiModuleProjectDirectory.toPath()));
+        model.put("configOptions",
+                listConfigOptions(runtimeModuleDir, deploymentModuleDir, multiModuleProjectDirectory.toPath()));
         model.put("humanReadableKind", new TemplateMethodModelEx() {
             @Override
             public Object exec(List arguments) throws TemplateModelException {
@@ -432,36 +463,41 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         }
     }
 
-    static List<ConfigItem> listConfigOptions(Path basePath, Path multiModuleProjectDirectory) {
-        final List<String> configRootClasses = loadConfigRoots(basePath);
-        if (configRootClasses.isEmpty()) {
-            return Collections.emptyList();
-        }
-        final Path configRootsModelsDir = multiModuleProjectDirectory
-                .resolve("target/asciidoc/generated/config/all-configuration-roots-generated-doc");
-        if (!Files.exists(configRootsModelsDir)) {
-            throw new IllegalStateException("You should run " + UpdateExtensionDocPageMojo.class.getSimpleName()
-                    + " after compilation with io.quarkus.annotation.processor.ExtensionAnnotationProcessor");
-        }
-        final FsMap configRootsModels = new FsMap(configRootsModelsDir);
+    static List<ConfigItem> listConfigOptions(Path runtimeModuleDir, Path deploymentModuleDir,
+            Path multiModuleProjectDirectory) {
+        final List<ConfigProperty> result = new ArrayList<>();
 
-        final ObjectMapper mapper = new ObjectMapper();
-        final List<ConfigDocItem> configDocItems = new ArrayList<>();
-        for (String configRootClass : configRootClasses) {
-            final String rawModel = configRootsModels.get(configRootClass);
-            if (rawModel == null) {
-                throw new IllegalStateException("Could not find " + configRootClass + " in " + configRootsModelsDir);
-            }
-            try {
-                final List<ConfigDocItem> items = mapper.readValue(rawModel, Constants.LIST_OF_CONFIG_ITEMS_TYPE_REF);
-                configDocItems.addAll(items);
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException("Could not parse " + rawModel, e);
-            }
+        final List<Path> targetDirectories = Stream.of(runtimeModuleDir, deploymentModuleDir)
+                .map(p -> p.resolve("target"))
+                .filter(Files::isDirectory)
+                .collect(Collectors.toList());
 
+        final JavadocRepository javadocRepository = JavadocMerger.mergeJavadocElements(targetDirectories);
+        final MergedModel mergedModel = ModelMerger.mergeModel(targetDirectories);
+        for (Entry<Extension, Map<String, ConfigRoot>> extensionConfigRootsEntry : mergedModel.getConfigRoots().entrySet()) {
+            for (Entry<String, ConfigRoot> configRootEntry : extensionConfigRootsEntry.getValue().entrySet()) {
+                final ConfigRoot configRoot = configRootEntry.getValue();
+                for (AbstractConfigItem configItem : configRoot.getItems()) {
+                    if (configItem instanceof ConfigProperty) {
+                        result.add((ConfigProperty) configItem);
+                    }
+                }
+            }
         }
-        DocGeneratorUtil.sort(configDocItems);
-        return configDocItems.stream().map(ConfigItem::of).collect(Collectors.toList());
+        for (Entry<String, ConfigRoot> configRootEntry : mergedModel.getConfigRootsInSpecificFile().entrySet()) {
+            final ConfigRoot configRoot = configRootEntry.getValue();
+            for (AbstractConfigItem configItem : configRoot.getItems()) {
+                if (configItem instanceof ConfigProperty) {
+                    result.add((ConfigProperty) configItem);
+                }
+            }
+        }
+
+        Collections.sort(result);
+
+        return result.stream()
+                .map(cp -> ConfigItem.of(cp, javadocRepository))
+                .collect(Collectors.toList());
     }
 
     static List<String> loadConfigRoots(Path basePath) {
@@ -534,27 +570,86 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         private final String type;
         private final String defaultValue;
         private final boolean optional;
+        private final String since;
+        private final String environmentVariable;
 
-        public static ConfigItem of(ConfigDocItem configDocItem) {
-            final ConfigDocKey configDocKey = configDocItem.getConfigDocKey();
-            final String adocSource = LINK_PATTERN.matcher(configDocKey.getConfigDoc()).replaceAll("xref:$1.adoc");
+        public static ConfigItem of(ConfigProperty configDocItem, JavadocRepository javadocRepository) {
+            final Optional<JavadocElement> javadoc = javadocRepository
+                    .getElement(configDocItem.getSourceClass(), configDocItem.getSourceName());
+            if (javadoc.isEmpty()) {
+                throw new IllegalStateException("No JavaDoc for " + configDocItem.getPath() + " alias "
+                        + configDocItem.getSourceClass() + "#" + configDocItem.getSourceName());
+            }
+            final String adocSource = LINK_PATTERN.matcher(javadoc.get().description()).replaceAll("xref:$1.adoc");
+            final String illustration = configDocItem.getPhase().isFixedAtBuildTime() ? "icon:lock[title=Fixed at build time]"
+                    : "";
             return new ConfigItem(
-                    configDocKey.getKey(),
-                    configDocKey.getConfigPhase().getIllustration(),
+                    configDocItem.getPath(),
+                    illustration,
                     adocSource,
-                    configDocKey.getType(),
-                    configDocKey.getDefaultValue(),
-                    configDocKey.isOptional());
+                    typeContent(configDocItem, javadocRepository, true),
+                    configDocItem.getDefaultValue(),
+                    configDocItem.isOptional(),
+                    javadoc.get().since(),
+                    configDocItem.getEnvironmentVariable());
+        }
+
+        static String typeContent(ConfigProperty configProperty, JavadocRepository javadocRepository,
+                boolean enableEnumTooltips) {
+            String typeContent = "";
+
+            if (configProperty.isEnum() && enableEnumTooltips) {
+                typeContent = joinEnumValues(configProperty, javadocRepository);
+            } else {
+                typeContent = "`" + configProperty.getTypeDescription() + "`";
+                if (configProperty.getJavadocSiteLink() != null) {
+                    typeContent = String.format("link:%s[%s]", configProperty.getJavadocSiteLink(), typeContent);
+                }
+            }
+            if (configProperty.isList()) {
+                typeContent = "List of " + typeContent;
+            }
+
+            if (Duration.class.getName().equals(configProperty.getType())) {
+                typeContent += " " + String.format(MORE_INFO_ABOUT_TYPE_FORMAT,
+                        "duration-note-anchor-{summaryTableId}", Duration.class.getSimpleName());
+            } else if (Types.MEMORY_SIZE_TYPE.equals(configProperty.getType())) {
+                typeContent += " " + String.format(MORE_INFO_ABOUT_TYPE_FORMAT,
+                        "memory-size-note-anchor-{summaryTableId}", "MemorySize");
+            }
+
+            return typeContent;
+        }
+
+        static String joinEnumValues(ConfigProperty configProperty, JavadocRepository javadocRepository) {
+            return configProperty.getEnumAcceptedValues().values().entrySet().stream()
+                    .map(e -> {
+                        Optional<JavadocElement> javadocElement = javadocRepository.getElement(configProperty.getType(),
+                                e.getKey());
+                        if (javadocElement.isEmpty()) {
+                            return "`" + e.getValue().configValue() + "`";
+                        }
+                        return String.format(TOOLTIP_MACRO, e.getValue().configValue(),
+                                cleanTooltipContent(javadocElement.get().description()));
+                    })
+                    .collect(Collectors.joining(", "));
+        }
+
+        static String cleanTooltipContent(String tooltipContent) {
+            return tooltipContent.replace("<p>", "").replace("</p>", "").replace("\n+\n", " ").replace("\n", " ")
+                    .replace(":", "\\:").replace("[", "\\]").replace("]", "\\]");
         }
 
         public ConfigItem(String key, String illustration, String configDoc, String type, String defaultValue,
-                boolean optional) {
+                boolean optional, String since, String environmentVariable) {
             this.key = key;
             this.illustration = illustration;
             this.configDoc = configDoc;
             this.type = type;
             this.defaultValue = defaultValue;
             this.optional = optional;
+            this.since = since;
+            this.environmentVariable = environmentVariable;
         }
 
         public String getKey() {
@@ -579,6 +674,14 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
 
         public boolean isOptional() {
             return optional;
+        }
+
+        public String getSince() {
+            return since;
+        }
+
+        public String getEnvironmentVariable() {
+            return environmentVariable;
         }
     }
 

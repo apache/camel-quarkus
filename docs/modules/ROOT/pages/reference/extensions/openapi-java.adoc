@@ -66,3 +66,22 @@ It doesn't support the rest services used in `org.apache.camel.builder.LambdaRou
 Also, it can not use CDI injection in the RouteBuilder `configure()` since we get the rest definitions at build time while CDI is unavailable.
 ====
 
+
+[id="extensions-openapi-java-additional-camel-quarkus-configuration"]
+== Additional Camel Quarkus configuration
+
+[width="100%",cols="80,5,15",options="header"]
+|===
+| Configuration property | Type | Default
+
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.openapi.expose.enabled]]`link:#quarkus.camel.openapi.expose.enabled[quarkus.camel.openapi.expose.enabled]`
+
+Expose the Camel REST DSL services to quarkus openapi at build time if 'quarkus.smallrye-openapi' is available.
+| `boolean`
+| `false`
+|===
+
+[.configuration-legend]
+{doc-link-icon-lock}[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
+

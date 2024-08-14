@@ -30,6 +30,11 @@
     <name>Camel Quarkus :: Camel K</name>
     <packaging>pom</packaging>
 
+    <properties>
+        <!-- The camel-k extension has no reference page -->
+        <camel-quarkus.update-extension-doc-page.skip>true</camel-quarkus.update-extension-doc-page.skip>
+    </properties>
+
     <modules>
         <module>deployment</module>
         <module>runtime</module>

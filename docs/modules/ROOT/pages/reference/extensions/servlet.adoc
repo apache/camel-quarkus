@@ -178,7 +178,7 @@ You will also need to enable serialization for the exception classes that you in
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.url-patterns]]`link:#quarkus.camel.servlet.url-patterns[quarkus.camel.servlet.url-patterns]`
 
 A comma separated list of path patterns under which the CamelServlet should be accessible. Example path patterns: `/++*++`, `/services/++*++`
-| `string`
+| List of `string`
 | 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.servlet-class]]`link:#quarkus.camel.servlet.servlet-class[quarkus.camel.servlet.servlet-class]`
@@ -196,7 +196,7 @@ A servletName as it would be defined in a `web.xml` file or in the `jakarta.serv
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.load-on-startup]]`link:#quarkus.camel.servlet.load-on-startup[quarkus.camel.servlet.load-on-startup]`
 
 Sets the loadOnStartup priority on the Servlet. A loadOnStartup is a value greater than or equal to zero, indicates to the container the initialization priority of the Servlet. If loadOnStartup is a negative integer, the Servlet is initialized lazily.
-| `java.lang.Integer`
+| `int`
 | `-1`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.async]]`link:#quarkus.camel.servlet.async[quarkus.camel.servlet.async]`
@@ -244,7 +244,7 @@ The file size in bytes after which the file will be temporarily stored on disk.
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.-named-servlets-.url-patterns]]`link:#quarkus.camel.servlet.-named-servlets-.url-patterns[quarkus.camel.servlet."named-servlets".url-patterns]`
 
 A comma separated list of path patterns under which the CamelServlet should be accessible. Example path patterns: `/++*++`, `/services/++*++`
-| `string`
+| List of `string`
 | 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.-named-servlets-.servlet-class]]`link:#quarkus.camel.servlet.-named-servlets-.servlet-class[quarkus.camel.servlet."named-servlets".servlet-class]`
@@ -262,7 +262,7 @@ A servletName as it would be defined in a `web.xml` file or in the `jakarta.serv
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.-named-servlets-.load-on-startup]]`link:#quarkus.camel.servlet.-named-servlets-.load-on-startup[quarkus.camel.servlet."named-servlets".load-on-startup]`
 
 Sets the loadOnStartup priority on the Servlet. A loadOnStartup is a value greater than or equal to zero, indicates to the container the initialization priority of the Servlet. If loadOnStartup is a negative integer, the Servlet is initialized lazily.
-| `java.lang.Integer`
+| `int`
 | `-1`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.-named-servlets-.async]]`link:#quarkus.camel.servlet.-named-servlets-.async[quarkus.camel.servlet."named-servlets".async]`

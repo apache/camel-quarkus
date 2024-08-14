@@ -175,7 +175,7 @@ class Unremovable[=quarkusAwsClient.clientClassSimpleName] {
 |[=configDocItem.illustration] [[[=anchor]]]`link:#[=anchor][[=configDocItem.key]]`
 
 [=configDocItem.configDoc]
-| `[=configDocItem.type]`
+| [=configDocItem.type]
 | [#if configDocItem.defaultValue?has_content]`[=configDocItem.defaultValue]`[#elseif ! configDocItem.optional]required icon:exclamation-circle[title=Configuration property is required][/#if]
 [/#list]
 |===
