@@ -23,6 +23,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -35,11 +36,18 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateMethodModelEx;
 import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
 import freemarker.template.utility.DeepUnwrap;
+import io.quarkus.annotation.processor.Constants;
+import io.quarkus.annotation.processor.generate_doc.ConfigDocItem;
+import io.quarkus.annotation.processor.generate_doc.ConfigDocKey;
+import io.quarkus.annotation.processor.generate_doc.DocGeneratorUtil;
+import io.quarkus.annotation.processor.generate_doc.FsMap;
 import org.apache.camel.quarkus.maven.processor.AppendNewLinePostProcessor;
 import org.apache.camel.quarkus.maven.processor.AsciiDocFile;
 import org.apache.camel.quarkus.maven.processor.DocumentationPostProcessor;
@@ -70,9 +78,8 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                 kind.equals(Kind.other);
     };
 
-    @Parameter(defaultValue = "true", property = "camel-quarkus.update-extension-doc-page.skip")
-    // TODO: Restore this back to false. https://github.com/apache/camel-quarkus/issues/6334
-    boolean skip = true;
+    @Parameter(defaultValue = "false", property = "camel-quarkus.update-extension-doc-page.skip")
+    boolean skip = false;
 
     /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
@@ -436,28 +443,25 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
             throw new IllegalStateException("You should run " + UpdateExtensionDocPageMojo.class.getSimpleName()
                     + " after compilation with io.quarkus.annotation.processor.ExtensionAnnotationProcessor");
         }
-        // TODO: https://github.com/apache/camel-quarkus/issues/6334
-        //        final FsMap configRootsModels = new FsMap(configRootsModelsDir);
-        //
-        //        final ObjectMapper mapper = new ObjectMapper();
-        //        final List<ConfigDocItem> configDocItems = new ArrayList<>();
-        //        for (String configRootClass : configRootClasses) {
-        //            final String rawModel = configRootsModels.get(configRootClass);
-        //            if (rawModel == null) {
-        //                throw new IllegalStateException("Could not find " + configRootClass + " in " + configRootsModelsDir);
-        //            }
-        //            try {
-        //                final List<ConfigDocItem> items = mapper.readValue(rawModel, Constants.LIST_OF_CONFIG_ITEMS_TYPE_REF);
-        //                configDocItems.addAll(items);
-        //            } catch (JsonProcessingException e) {
-        //                throw new RuntimeException("Could not parse " + rawModel, e);
-        //            }
-        //
-        //        }
-        //        DocGeneratorUtil.sort(configDocItems);
-        //        return configDocItems.stream().map(ConfigItem::of).collect(Collectors.toList());
-        // TODO: https://github.com/apache/camel-quarkus/issues/6334
-        return Collections.emptyList();
+        final FsMap configRootsModels = new FsMap(configRootsModelsDir);
+
+        final ObjectMapper mapper = new ObjectMapper();
+        final List<ConfigDocItem> configDocItems = new ArrayList<>();
+        for (String configRootClass : configRootClasses) {
+            final String rawModel = configRootsModels.get(configRootClass);
+            if (rawModel == null) {
+                throw new IllegalStateException("Could not find " + configRootClass + " in " + configRootsModelsDir);
+            }
+            try {
+                final List<ConfigDocItem> items = mapper.readValue(rawModel, Constants.LIST_OF_CONFIG_ITEMS_TYPE_REF);
+                configDocItems.addAll(items);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException("Could not parse " + rawModel, e);
+            }
+
+        }
+        DocGeneratorUtil.sort(configDocItems);
+        return configDocItems.stream().map(ConfigItem::of).collect(Collectors.toList());
     }
 
     static List<String> loadConfigRoots(Path basePath) {
@@ -531,18 +535,17 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         private final String defaultValue;
         private final boolean optional;
 
-        // TODO: https://github.com/apache/camel-quarkus/issues/6334
-        //        public static ConfigItem of(ConfigDocItem configDocItem) {
-        //            final ConfigDocKey configDocKey = configDocItem.getConfigDocKey();
-        //            final String adocSource = LINK_PATTERN.matcher(configDocKey.getConfigDoc()).replaceAll("xref:$1.adoc");
-        //            return new ConfigItem(
-        //                    configDocKey.getKey(),
-        //                    configDocKey.getConfigPhase().getIllustration(),
-        //                    adocSource,
-        //                    configDocKey.getType(),
-        //                    configDocKey.getDefaultValue(),
-        //                    configDocKey.isOptional());
-        //        }
+        public static ConfigItem of(ConfigDocItem configDocItem) {
+            final ConfigDocKey configDocKey = configDocItem.getConfigDocKey();
+            final String adocSource = LINK_PATTERN.matcher(configDocKey.getConfigDoc()).replaceAll("xref:$1.adoc");
+            return new ConfigItem(
+                    configDocKey.getKey(),
+                    configDocKey.getConfigPhase().getIllustration(),
+                    adocSource,
+                    configDocKey.getType(),
+                    configDocKey.getDefaultValue(),
+                    configDocKey.isOptional());
+        }
 
         public ConfigItem(String key, String illustration, String configDoc, String type, String defaultValue,
                 boolean optional) {
