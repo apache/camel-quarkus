@@ -309,3 +309,24 @@ quarkus.cxf.codegen.wsdl2java.additional-params = -validate
 ----
 ====
 
+
+[id="extensions-cxf-soap-additional-camel-quarkus-configuration"]
+== Additional Camel Quarkus configuration
+
+[width="100%",cols="80,5,15",options="header"]
+|===
+| Configuration property | Type | Default
+
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.cxf.class-generation.exclude-patterns]]`link:#quarkus.camel.cxf.class-generation.exclude-patterns[quarkus.camel.cxf.class-generation.exclude-patterns]`
+
+For CXF service interfaces to work properly, some ancillary classes (such as request and response wrappers) need to be generated at build time. Camel Quarkus lets the `quarkus-cxf` extension to do this for all service interfaces found in the class path except the ones matching the patterns in this property.
+
+`org.apache.cxf.ws.security.sts.provider.SecurityTokenService` is excluded by default due to link:https://issues.apache.org/jira/browse/CXF-8834[https://issues.apache.org/jira/browse/CXF-8834]
+| List of `string`
+| `org.apache.cxf.ws.security.sts.provider.SecurityTokenService`
+|===
+
+[.configuration-legend]
+{doc-link-icon-lock}[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
+

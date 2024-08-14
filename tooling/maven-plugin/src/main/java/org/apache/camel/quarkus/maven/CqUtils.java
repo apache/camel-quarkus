@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -287,4 +288,11 @@ public class CqUtils {
 
     }
 
+    public static Model readPom(final Path path, Charset charset) {
+        try (Reader r = Files.newBufferedReader(path, charset)) {
+            return new MavenXpp3Reader().read(r);
+        } catch (XmlPullParserException | IOException e) {
+            throw new RuntimeException("Could not parse " + path, e);
+        }
+    }
 }

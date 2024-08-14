@@ -79,13 +79,13 @@ quarkus.camel.debug.enabled=true
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.debug.enabled]]`link:#quarkus.camel.debug.enabled[quarkus.camel.debug.enabled]`
 
-
+Set whether to enable Camel debugging support.
 | `boolean`
 | `false`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.debug.suspend]]`link:#quarkus.camel.debug.suspend[quarkus.camel.debug.suspend]`
 
-
+Indicates whether the _suspend mode_ is enabled or not. If `true` the message processing is immediately suspended until the method `attach()` is called.
 | `boolean`
 | `false`
 |===

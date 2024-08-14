@@ -71,32 +71,4 @@
         </plugins>
     </build>
 
-
-    <profiles>
-        <profile>
-            <id>full</id>
-            <activation>
-                <property>
-                    <name>!quickly</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.camel.quarkus</groupId>
-                        <artifactId>camel-quarkus-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>update-extension-doc-page</id>
-                                <goals>
-                                    <goal>update-extension-doc-page</goal>
-                                </goals>
-                                <phase>process-classes</phase>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>

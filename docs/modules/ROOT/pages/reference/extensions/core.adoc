@@ -143,7 +143,7 @@ A comma-separated list of Ant-path style patterns to match Camel service definit
 The excludes have higher precedence than includes. The excludes defined here can also be used to veto the discoverability of services included by Camel Quarkus extensions.
 
 Example values: `META-INF/services/org/apache/camel/foo/++*++,META-INF/services/org/apache/camel/foo/++**++/bar`
-| `string`
+| List of `string`
 | 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.service.discovery.include-patterns]]`link:#quarkus.camel.service.discovery.include-patterns[quarkus.camel.service.discovery.include-patterns]`
@@ -153,7 +153,7 @@ A comma-separated list of Ant-path style patterns to match Camel service definit
 Note that Camel Quarkus extensions may include some services by default. The services selected here added to those services and the exclusions defined in `exclude-patterns` are applied to the union set.
 
 Example values: `META-INF/services/org/apache/camel/foo/++*++,META-INF/services/org/apache/camel/foo/++**++/bar`
-| `string`
+| List of `string`
 | 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.service.registry.exclude-patterns]]`link:#quarkus.camel.service.registry.exclude-patterns[quarkus.camel.service.registry.exclude-patterns]`
@@ -163,7 +163,7 @@ A comma-separated list of Ant-path style patterns to match Camel service definit
 The excludes have higher precedence than includes. The excludes defined here can also be used to veto the registration of services included by Camel Quarkus extensions.
 
 Example values: `META-INF/services/org/apache/camel/foo/++*++,META-INF/services/org/apache/camel/foo/++**++/bar`**
-| `string`
+| List of `string`
 | 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.service.registry.include-patterns]]`link:#quarkus.camel.service.registry.include-patterns[quarkus.camel.service.registry.include-patterns]`
@@ -173,7 +173,7 @@ A comma-separated list of Ant-path style patterns to match Camel service definit
 Note that Camel Quarkus extensions may include some services by default. The services selected here added to those services and the exclusions defined in `exclude-patterns` are applied to the union set.
 
 Example values: `META-INF/services/org/apache/camel/foo/++*++,META-INF/services/org/apache/camel/foo/++**++/bar`
-| `string`
+| List of `string`
 | 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.runtime-catalog.components]]`link:#quarkus.camel.runtime-catalog.components[quarkus.camel.runtime-catalog.components]`
@@ -233,13 +233,13 @@ Enable automatic discovery of routes during static initialization.
 |icon:lock[title=Fixed at build time] [[quarkus.camel.routes-discovery.exclude-patterns]]`link:#quarkus.camel.routes-discovery.exclude-patterns[quarkus.camel.routes-discovery.exclude-patterns]`
 
 Used for exclusive filtering scanning of RouteBuilder classes. The exclusive filtering takes precedence over inclusive filtering. The pattern is using Ant-path style pattern. Multiple patterns can be specified separated by comma. For example to exclude all classes starting with Bar use: ++**++/Bar++*++ To exclude all routes form a specific package use: com/mycompany/bar/++*++ To exclude all routes form a specific package and its sub-packages use double wildcards: com/mycompany/bar/++**++ And to exclude all routes from two specific packages use: com/mycompany/bar/++*++,com/mycompany/stuff/++*++
-| `string`
+| List of `string`
 | 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.routes-discovery.include-patterns]]`link:#quarkus.camel.routes-discovery.include-patterns[quarkus.camel.routes-discovery.include-patterns]`
 
 Used for inclusive filtering scanning of RouteBuilder classes. The exclusive filtering takes precedence over inclusive filtering. The pattern is using Ant-path style pattern. Multiple patterns can be specified separated by comma. For example to include all classes starting with Foo use: ++**++/Foo++*++ To include all routes form a specific package use: com/mycompany/foo/++*++ To include all routes form a specific package and its sub-packages use double wildcards: com/mycompany/foo/++**++ And to include all routes from two specific packages use: com/mycompany/foo/++*++,com/mycompany/stuff/++*++
-| `string`
+| List of `string`
 | 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.native.reflection.exclude-patterns]]`link:#quarkus.camel.native.reflection.exclude-patterns[quarkus.camel.native.reflection.exclude-patterns]`
@@ -249,7 +249,7 @@ A comma separated list of Ant-path style patterns to match class names that shou
 This option narrows down the set selected by `include-patterns`. By default, no classes are excluded.
 
 This option cannot be used to unregister classes which have been registered internally by Quarkus extensions.
-| `string`
+| List of `string`
 | 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.native.reflection.include-patterns]]`link:#quarkus.camel.native.reflection.include-patterns[quarkus.camel.native.reflection.include-patterns]`
@@ -274,7 +274,7 @@ quarkus.index-dependency.my-dep.artifact-id = my-artifact
 ```
 
 where `my-dep` is a label of your choice to tell Quarkus that `org.my-group` and with `my-artifact` belong together.
-| `string`
+| List of `string`
 | 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.native.reflection.serialization-enabled]]`link:#quarkus.camel.native.reflection.serialization-enabled[quarkus.camel.native.reflection.serialization-enabled]`
@@ -283,10 +283,16 @@ If `true`, basic classes are registered for serialization; otherwise basic class
 | `boolean`
 | `false`
 
+|icon:lock[title=Fixed at build time] [[quarkus.camel.csimple.on-build-time-analysis-failure]]`link:#quarkus.camel.csimple.on-build-time-analysis-failure[quarkus.camel.csimple.on-build-time-analysis-failure]`
+
+What to do if it is not possible to extract CSimple expressions from a route definition at build time.
+| `fail`, `warn`, `ignore`
+| `warn`
+
 |icon:lock[title=Fixed at build time] [[quarkus.camel.expression.on-build-time-analysis-failure]]`link:#quarkus.camel.expression.on-build-time-analysis-failure[quarkus.camel.expression.on-build-time-analysis-failure]`
 
 What to do if it is not possible to extract expressions from a route definition at build time.
-| `org.apache.camel.quarkus.core.CamelConfig.FailureRemedy`
+| `fail`, `warn`, `ignore`
 | `warn`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.expression.extraction-enabled]]`link:#quarkus.camel.expression.extraction-enabled[quarkus.camel.expression.extraction-enabled]`
@@ -404,13 +410,13 @@ Whether type converter statistics are enabled. By default, type converter utiliz
 |icon:lock[title=Fixed at build time] [[quarkus.camel.main.shutdown.timeout]]`link:#quarkus.camel.main.shutdown.timeout[quarkus.camel.main.shutdown.timeout]`
 
 A timeout (with millisecond precision) to wait for `CamelMain++#++stop()` to finish
-| `java.time.Duration`
+| link:https://docs.oracle.com/en/java/javase/17/docs/api/java/time/Duration.html[`Duration`] link:#duration-note-anchor-{summaryTableId}[icon:question-circle[title=More information about the Duration format]]
 | `PT3S`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.main.arguments.on-unknown]]`link:#quarkus.camel.main.arguments.on-unknown[quarkus.camel.main.arguments.on-unknown]`
 
 The action to take when `CamelMain` encounters an unknown argument. fail - Prints the `CamelMain` usage statement and throws a `RuntimeException` ignore - Suppresses any warnings and the application startup proceeds as normal warn - Prints the `CamelMain` usage statement but allows the application startup to proceed as normal
-| `org.apache.camel.quarkus.core.CamelConfig.FailureRemedy`
+| `fail`, `warn`, `ignore`
 | `warn`
 |===
 
