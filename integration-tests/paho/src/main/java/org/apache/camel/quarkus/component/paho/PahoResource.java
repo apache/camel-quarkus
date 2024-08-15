@@ -16,9 +16,12 @@
  */
 package org.apache.camel.quarkus.component.paho;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 import javax.net.ssl.HostnameVerifier;
@@ -57,7 +60,7 @@ public class PahoResource {
     @Inject
     ConsumerTemplate consumerTemplate;
 
-    private static final String KEYSTORE_FILE = "certs/paho-keystore.p12";
+    private static final String KEYSTORE_FILE = "target/certs/paho-keystore.p12";
     public static final String KEYSTORE_PASSWORD = "quarkus";
 
     @Path("/{protocol}/{queueName}")
@@ -175,11 +178,11 @@ public class PahoResource {
 
     private java.nio.file.Path copyKeyStore() {
         java.nio.file.Path tmpKeystore = null;
-        try (InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(KEYSTORE_FILE);) {
+        try (InputStream in = new FileInputStream(Paths.get(KEYSTORE_FILE).toFile())) {
             tmpKeystore = Files.createTempFile("keystore-", ".p12");
             Files.copy(in, tmpKeystore, StandardCopyOption.REPLACE_EXISTING);
             return tmpKeystore;
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new RuntimeException("Could not copy " + KEYSTORE_FILE + " from the classpath to " + tmpKeystore, e);
         }
     }

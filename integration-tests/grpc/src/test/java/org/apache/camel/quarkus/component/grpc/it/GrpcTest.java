@@ -72,7 +72,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 @TestCertificates(certificates = {
         @Certificate(name = "grpc", formats = { Format.PEM })
-}, baseDir = "target/certs")
+})
 @QuarkusTest
 @WithTestResource(GrpcServerTestResource.class)
 class GrpcTest {

@@ -42,7 +42,7 @@ public class VertxWebsocketSslTest {
 
     @BeforeAll
     public static void beforeAll() {
-        RestAssured.trustStore("certs/vertx-websocket-truststore.p12", "changeit");
+        RestAssured.trustStore("target/certs/vertx-websocket-truststore.p12", "changeit");
     }
 
     @Test

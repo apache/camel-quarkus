@@ -20,6 +20,7 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
@@ -29,7 +30,7 @@ import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
 import org.apache.camel.util.CollectionHelper;
 import org.apache.sshd.common.file.virtualfs.VirtualFileSystemFactory;
-import org.apache.sshd.common.keyprovider.ClassLoadableResourceKeyPairProvider;
+import org.apache.sshd.common.keyprovider.FileKeyPairProvider;
 import org.apache.sshd.scp.server.ScpCommandFactory;
 import org.apache.sshd.server.SshServer;
 import org.apache.sshd.sftp.server.SftpSubsystemFactory;
@@ -64,7 +65,7 @@ public class SftpTestResource implements QuarkusTestResourceLifecycleManager {
 
             sshServer = SshServer.setUpDefaultServer();
             sshServer.setPort(port);
-            sshServer.setKeyPairProvider(new ClassLoadableResourceKeyPairProvider("certs/ftp.key"));
+            sshServer.setKeyPairProvider(new FileKeyPairProvider(Paths.get("target/certs/ftp.key")));
             sshServer.setSubsystemFactories(Collections.singletonList(new SftpSubsystemFactory()));
             sshServer.setCommandFactory(new ScpCommandFactory());
             sshServer.setPasswordAuthenticator((username, password, session) -> true);
