@@ -23,8 +23,11 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
+import me.escoffier.certs.Format;
+import me.escoffier.certs.junit5.Certificate;
 import org.apache.camel.quarkus.component.http.common.AbstractHttpTest;
 import org.apache.camel.quarkus.component.http.common.HttpTestResource;
+import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -34,6 +37,9 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
 
+@TestCertificates(certificates = {
+        @Certificate(name = HttpTestResource.KEYSTORE_NAME, formats = {
+                Format.PKCS12 }, password = HttpTestResource.KEYSTORE_PASSWORD) })
 @QuarkusTest
 @QuarkusTestResource(HttpTestResource.class)
 @QuarkusTestResource(NettyHttpTestResource.class)

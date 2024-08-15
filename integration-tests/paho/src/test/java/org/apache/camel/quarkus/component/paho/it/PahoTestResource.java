@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.apache.camel.quarkus.test.support.certificate.CertificatesUtil;
 import org.apache.camel.util.CollectionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,7 @@ import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.utility.MountableFile;
 import org.testcontainers.utility.TestcontainersConfiguration;
 
 public class PahoTestResource implements QuarkusTestResourceLifecycleManager {
@@ -51,9 +53,12 @@ public class PahoTestResource implements QuarkusTestResourceLifecycleManager {
             container = new GenericContainer<>(IMAGE).withExposedPorts(TCP_PORT, WS_PORT, SSL_PORT)
                     .withClasspathResourceMapping("mosquitto.conf", "/mosquitto/config/mosquitto.conf", BindMode.READ_ONLY)
                     .withClasspathResourceMapping("password.conf", "/etc/mosquitto/password", BindMode.READ_ONLY)
-                    .withClasspathResourceMapping("certs/paho-ca.crt", "/etc/mosquitto/certs/paho-ca.crt", BindMode.READ_ONLY)
-                    .withClasspathResourceMapping("certs/paho.crt", "/etc/mosquitto/certs/paho.crt", BindMode.READ_ONLY)
-                    .withClasspathResourceMapping("certs/paho.key", "/etc/mosquitto/certs/paho.key", BindMode.READ_ONLY);
+                    .withCopyToContainer(MountableFile.forHostPath(CertificatesUtil.caCrt("paho")),
+                            "/etc/mosquitto/certs/paho-ca.crt")
+                    .withCopyToContainer(MountableFile.forHostPath(CertificatesUtil.crt("paho")),
+                            "/etc/mosquitto/certs/paho.crt")
+                    .withCopyToContainer(MountableFile.forHostPath(CertificatesUtil.key("paho")),
+                            "/etc/mosquitto/certs/paho.key");
             container.withLogConsumer(new Slf4jLogConsumer(LOGGER))
                     .waitingFor(Wait.forLogMessage(".* mosquitto version .* running", 1)).waitingFor(Wait.forListeningPort());
 
