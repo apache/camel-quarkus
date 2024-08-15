@@ -22,6 +22,7 @@ import java.util.Map;
 import com.github.dockerjava.api.model.Ulimit;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
+import org.apache.camel.quarkus.test.support.certificate.CertificatesUtil;
 import org.apache.camel.util.CollectionHelper;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
@@ -31,6 +32,7 @@ import org.testcontainers.containers.FixedHostPortGenericContainer;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.utility.MountableFile;
 import org.testcontainers.utility.TestcontainersConfiguration;
 
 public class PahoMqtt5TestResource implements QuarkusTestResourceLifecycleManager {
@@ -84,12 +86,12 @@ public class PahoMqtt5TestResource implements QuarkusTestResourceLifecycleManage
                         .withExposedPorts(TCP_PORT, WS_PORT, SSL_PORT)
                         .withClasspathResourceMapping("mosquitto.conf", "/mosquitto/config/mosquitto.conf", BindMode.READ_ONLY)
                         .withClasspathResourceMapping("password.conf", "/etc/mosquitto/password", BindMode.READ_ONLY)
-                        .withClasspathResourceMapping("certs/paho-mqtt5-ca.crt", "/etc/mosquitto/certs/paho-mqtt5-ca.crt",
-                                BindMode.READ_ONLY)
-                        .withClasspathResourceMapping("certs/paho-mqtt5.crt", "/etc/mosquitto/certs/paho-mqtt5.crt",
-                                BindMode.READ_ONLY)
-                        .withClasspathResourceMapping("certs/paho-mqtt5.key", "/etc/mosquitto/certs/paho-mqtt5.key",
-                                BindMode.READ_ONLY);
+                        .withCopyToContainer(MountableFile.forHostPath(CertificatesUtil.caCrt("paho-mqtt5")),
+                                "/etc/mosquitto/certs/paho-mqtt5-ca.crt")
+                        .withCopyToContainer(MountableFile.forHostPath(CertificatesUtil.crt("paho-mqtt5")),
+                                "/etc/mosquitto/certs/paho-mqtt5.crt")
+                        .withCopyToContainer(MountableFile.forHostPath(CertificatesUtil.key("paho-mqtt5")),
+                                "/etc/mosquitto/certs/paho-mqtt5.key");
             }
 
             container.withLogConsumer(new Slf4jLogConsumer(LOGGER))

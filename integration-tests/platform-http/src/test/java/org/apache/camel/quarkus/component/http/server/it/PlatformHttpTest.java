@@ -46,7 +46,7 @@ class PlatformHttpTest {
 
     @BeforeAll
     public static void beforeAll() {
-        RestAssured.trustStore("certs/platform-http-truststore.p12", "changeit");
+        RestAssured.trustStore("target/certs/platform-http-truststore.p12", "changeit");
     }
 
     @Test

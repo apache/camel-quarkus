@@ -16,8 +16,10 @@
  */
 package org.apache.camel.quarkus.component.vertx.websocket.it;
 
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URI;
+import java.nio.file.Paths;
 import java.security.KeyStore;
 
 import javax.net.ssl.SSLContext;
@@ -32,11 +34,14 @@ import jakarta.websocket.Endpoint;
  * Enable the Quarkus WebSocket client to handle self-signed certificates.
  */
 public class VertxWebsocketClientSslProvider implements WebsocketClientSslProvider {
-    private static final SSLContext SSL_CONTEXT;
 
-    static {
-        try (InputStream stream = VertxWebsocketClientSslProvider.class
-                .getResourceAsStream("/certs/vertx-websocket-truststore.p12")) {
+    private static SSLContext SSL_CONTEXT;
+
+    static SSLContext getSslContext() {
+        if (SSL_CONTEXT != null) {
+            return SSL_CONTEXT;
+        }
+        try (InputStream stream = new FileInputStream(Paths.get("target/certs/vertx-websocket-truststore.p12").toFile())) {
             KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
             keystore.load(stream, "changeit".toCharArray());
 
@@ -46,23 +51,27 @@ public class VertxWebsocketClientSslProvider implements WebsocketClientSslProvid
 
             SSL_CONTEXT = SSLContext.getInstance("TLS");
             SSL_CONTEXT.init(null, trustManagerFactory.getTrustManagers(), null);
+        } catch (java.io.FileNotFoundException notFound) {
+            //ignore
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+        return SSL_CONTEXT;
     }
 
     @Override
     public SSLContext getSsl(EventLoopGroup worker, Class<?> annotatedEndpoint, URI uri) {
-        return SSL_CONTEXT;
+        return getSslContext();
     }
 
     @Override
     public SSLContext getSsl(EventLoopGroup worker, Object annotatedEndpointInstance, URI uri) {
-        return SSL_CONTEXT;
+        return getSslContext();
     }
 
     @Override
     public SSLContext getSsl(EventLoopGroup worker, Endpoint endpoint, ClientEndpointConfig cec, URI uri) {
-        return SSL_CONTEXT;
+        return getSslContext();
     }
 }

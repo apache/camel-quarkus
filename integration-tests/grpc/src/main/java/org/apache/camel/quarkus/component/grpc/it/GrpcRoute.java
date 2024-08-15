@@ -45,7 +45,7 @@ public class GrpcRoute extends RouteBuilder {
 
         // Verifies that the serviceAccountResource can be loaded on startup
         from("direct:googleAuthenticationType")
-                .toF("grpc://localhost:{{camel.grpc.test.async.server.port}}/%s?method=pingAsyncAsync&negotiationType=TLS&keyResource=certs/grpc.key&authenticationType=GOOGLE&serviceAccountResource=keys/app.json&KeyCertChainResource=certs/grpc.pem",
+                .toF("grpc://localhost:{{camel.grpc.test.async.server.port}}/%s?method=pingAsyncAsync&negotiationType=TLS&keyResource=file:target/certs/grpc.key&authenticationType=GOOGLE&serviceAccountResource=keys/app.json&KeyCertChainResource=target/certs/grpc.pem",
                         PING_PONG_SERVICE);
 
         // Streaming producer strategy
