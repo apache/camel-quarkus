@@ -17,12 +17,28 @@
 package org.apache.camel.quarkus.test.support.certificate;
 
 public class CertificatesUtil {
-    public static final String DEFAULT_CERTS_BASEDIR = "target/classes/certs";
+    public static final String DEFAULT_CERTS_BASEDIR = "target/certs";
 
     private CertificatesUtil() {
     }
 
     public static String keystoreFile(String name, String extension) {
-        return DEFAULT_CERTS_BASEDIR + "/" + name + "-keystore." + extension;
+        return file(name + "-keystore", extension);
+    }
+
+    public static String caCrt(String name) {
+        return file(name + "-ca", "crt");
+    }
+
+    public static String crt(String name) {
+        return file(name, "crt");
+    }
+
+    public static String key(String name) {
+        return file(name, "key");
+    }
+
+    private static String file(String name, String extension) {
+        return DEFAULT_CERTS_BASEDIR + "/" + name + "." + extension;
     }
 }

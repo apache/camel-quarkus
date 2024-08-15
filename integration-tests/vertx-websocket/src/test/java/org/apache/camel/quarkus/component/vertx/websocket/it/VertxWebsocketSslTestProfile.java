@@ -25,8 +25,8 @@ public class VertxWebsocketSslTestProfile implements QuarkusTestProfile {
     @Override
     public Map<String, String> getConfigOverrides() {
         return Map.of(
-                "quarkus.http.ssl.certificate.files", "certs/vertx-websocket.crt",
-                "quarkus.http.ssl.certificate.key-files", "certs/vertx-websocket.key",
+                "quarkus.http.ssl.certificate.files", "target/certs/vertx-websocket.crt",
+                "quarkus.http.ssl.certificate.key-files", "target/certs/vertx-websocket.key",
                 "quarkus.http.insecure-requests", "disabled");
     }
 }

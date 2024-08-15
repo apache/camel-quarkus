@@ -17,8 +17,10 @@
 package org.apache.camel.quarkus.component.lumberjack.it;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -145,8 +147,10 @@ public class LumberjackClientUtil {
         TrustManagersParameters trustManagersParameters = new TrustManagersParameters();
         KeyStoreParameters trustStore = new CustomKeyStoreParameters();
         trustStore.setPassword("changeit");
-        trustStore.setResource("certs/lumberjack-keystore.jks");
+        trustStore.setResource(
+                "target/certs/lumberjack-keystore.jks");
         trustManagersParameters.setKeyStore(trustStore);
+
         sslContextParameters.setTrustManagers(trustManagersParameters);
 
         return sslContextParameters;
@@ -156,7 +160,7 @@ public class LumberjackClientUtil {
 
         @Override
         protected InputStream resolveResource(String resource) throws IOException {
-            return this.getClass().getClassLoader().getResourceAsStream(resource);
+            return new FileInputStream(Paths.get(resource).toFile());
         }
     }
 }

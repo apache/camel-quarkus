@@ -34,7 +34,7 @@ import static org.hamcrest.Matchers.is;
 @TestCertificates(certificates = {
         @Certificate(name = KafkaSslTestResource.KAFKA_HOSTNAME, formats = {
                 Format.PKCS12 }, password = KafkaSslTestResource.KAFKA_KEYSTORE_PASSWORD)
-}, baseDir = KafkaSslTestResource.CERTS_BASEDIR, docker = true)
+}, docker = true)
 @QuarkusTest
 @WithTestResource(KafkaSslTestResource.class)
 public class KafkaSslTest {

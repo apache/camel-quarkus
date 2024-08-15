@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.paho.mqtt5.it;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URI;
 import java.nio.file.Files;
@@ -68,7 +69,7 @@ public class PahoMqtt5Resource {
     @Inject
     ConsumerTemplate consumerTemplate;
 
-    private final String keystore = "certs/paho-mqtt5-keystore.p12";
+    private final String keystore = "target/certs/paho-mqtt5-keystore.p12";
     public final static String KEYSTORE_PASSWORD = "quarkus";
 
     @Path("/{protocol}/{queueName}")
@@ -209,7 +210,7 @@ public class PahoMqtt5Resource {
     private String setKeyStore(String keystore) {
         String tmpKeystore = null;
 
-        try (InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(keystore);) {
+        try (InputStream in = new FileInputStream(Paths.get(keystore).toFile())) {
             tmpKeystore = File.createTempFile("keystore-", ".jks").getPath();
             Files.copy(in, Paths.get(tmpKeystore), StandardCopyOption.REPLACE_EXISTING);
         } catch (Exception e) {

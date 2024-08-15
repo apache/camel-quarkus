@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.apache.camel.quarkus.test.support.certificate.CertificatesUtil;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 import org.testcontainers.containers.GenericContainer;
@@ -41,7 +42,7 @@ public class MailTestResource implements QuarkusTestResourceLifecycleManager {
     @Override
     public Map<String, String> start() {
         container = new GenericContainer<>(GREENMAIL_IMAGE_NAME)
-                .withCopyToContainer(MountableFile.forClasspathResource("certs/greenmail-keystore.p12"),
+                .withCopyToContainer(MountableFile.forHostPath(CertificatesUtil.keystoreFile("greenmail", "p12")),
                         "/home/greenmail/greenmail.p12")
                 .withExposedPorts(MailProtocol.allPorts())
                 .waitingFor(new HttpWaitStrategy()

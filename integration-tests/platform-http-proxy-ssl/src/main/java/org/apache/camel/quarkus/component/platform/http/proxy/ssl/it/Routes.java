@@ -44,13 +44,13 @@ public class Routes extends RouteBuilder {
         KeyManagersParameters keyManagersParameters = new KeyManagersParameters();
         KeyStoreParameters keyStore = new KeyStoreParameters();
         keyStore.setPassword("changeit");
-        keyStore.setResource("certs/proxy-ssl-keystore.p12");
+        keyStore.setResource("file://target/certs/proxy-ssl-keystore.p12");
         keyManagersParameters.setKeyPassword("changeit");
         keyManagersParameters.setKeyStore(keyStore);
         sslContextParameters.setKeyManagers(keyManagersParameters);
 
         KeyStoreParameters truststoreParameters = new KeyStoreParameters();
-        truststoreParameters.setResource("certs/proxy-ssl-keystore.p12");
+        truststoreParameters.setResource("file://target/certs/proxy-ssl-keystore.p12");
         truststoreParameters.setPassword("changeit");
 
         TrustManagersParameters trustManagersParameters = new TrustManagersParameters();

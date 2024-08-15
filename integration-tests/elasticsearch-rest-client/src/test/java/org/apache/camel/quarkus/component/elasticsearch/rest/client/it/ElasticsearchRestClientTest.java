@@ -36,7 +36,7 @@ import static org.hamcrest.Matchers.is;
 @TestCertificates(certificates = {
         @Certificate(name = ElasticsearchRestTestResource.CERTIFICATE_NAME, formats = {
                 Format.PKCS12 }, password = ElasticsearchRestTestResource.KEYSTORE_PASSWORD)
-}, baseDir = ElasticsearchRestTestResource.CERTS_BASEDIR, docker = true)
+}, docker = true)
 @QuarkusTest
 @WithTestResource(ElasticsearchRestTestResource.class)
 class ElasticsearchRestClientTest {
