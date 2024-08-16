@@ -115,19 +115,19 @@ public class Request {
         if (getMessageStructure() != null) {
             retVal.put(getMessageStructureKey(), getMessageStructure());
         }
-        retVal.put("CamelAS2.ediMessageContentType",
+        retVal.put("CamelAs2.ediMessageContentType",
                 ContentType.create(AS2MediaType.APPLICATION_EDIFACT, StandardCharsets.US_ASCII.name()));
         if (getEncryptionAlgorithm() != null) {
-            retVal.put("CamelAS2.encryptingCertificateChain", As2CertificateHelper.getCertList());
-            retVal.put("CamelAS2.encryptingAlgorithm", getEncryptionAlgorithm());
+            retVal.put("CamelAs2.encryptingCertificateChain", As2CertificateHelper.getCertList());
+            retVal.put("CamelAs2.encryptingAlgorithm", getEncryptionAlgorithm());
         }
         if (getSigningAlgorithm() != null) {
             // parameter type is java.security.cert.Certificate[]
-            retVal.put("CamelAS2.signingCertificateChain", As2CertificateHelper.getCertList().toArray(new Certificate[0]));
+            retVal.put("CamelAs2.signingCertificateChain", As2CertificateHelper.getCertList().toArray(new Certificate[0]));
             // parameter type is java.security.PrivateKey
-            retVal.put("CamelAS2.signingPrivateKey", As2CertificateHelper.getSigningKP().getPrivate());
+            retVal.put("CamelAs2.signingPrivateKey", As2CertificateHelper.getSigningKP().getPrivate());
             // parameter type is org.apache.camel.component.as2.api.AS2SignatureAlgorithm
-            retVal.put("CamelAS2.signingAlgorithm", getSigningAlgorithm());
+            retVal.put("CamelAs2.signingAlgorithm", getSigningAlgorithm());
         }
         return retVal;
     }

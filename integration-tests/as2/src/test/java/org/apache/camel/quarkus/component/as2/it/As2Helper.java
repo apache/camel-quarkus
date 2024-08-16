@@ -88,7 +88,7 @@ public class As2Helper {
     public static Request createMultipartSignedRequest() {
         final Map<String, Object> headers = createBaseHeaders(AS2MessageStructure.SIGNED);
         // parameter type is String[]
-        headers.put("CamelAS2.signedReceiptMicAlgorithms", SIGNED_RECEIPT_MIC_ALGORITHMS);
+        headers.put("CamelAs2.signedReceiptMicAlgorithms", SIGNED_RECEIPT_MIC_ALGORITHMS);
 
         return new Request()
                 .withHeaders(headers)
@@ -99,24 +99,24 @@ public class As2Helper {
     private static Map<String, Object> createBaseHeaders(AS2MessageStructure plain) {
         final Map<String, Object> headers = new HashMap<>();
         // parameter type is String
-        headers.put("CamelAS2.requestUri", REQUEST_URI);
+        headers.put("CamelAs2.requestUri", REQUEST_URI);
         // parameter type is String
-        headers.put("CamelAS2.subject", SUBJECT);
+        headers.put("CamelAs2.subject", SUBJECT);
         // parameter type is String
-        headers.put("CamelAS2.from", FROM);
+        headers.put("CamelAs2.from", FROM);
         // parameter type is String
-        headers.put("CamelAS2.as2From", AS2_NAME);
+        headers.put("CamelAs2.as2From", AS2_NAME);
         // parameter type is String
-        headers.put("CamelAS2.as2To", AS2_NAME);
+        headers.put("CamelAs2.as2To", AS2_NAME);
         // parameter type is org.apache.camel.component.as2.api.AS2MessageStructure
-        headers.put("CamelAS2.as2MessageStructure", plain);
+        headers.put("CamelAs2.as2MessageStructure", plain);
         // parameter type is org.apache.http.entity.ContentType
-        headers.put("CamelAS2.ediMessageContentType",
+        headers.put("CamelAs2.ediMessageContentType",
                 ContentType.create(AS2MediaType.APPLICATION_EDIFACT, StandardCharsets.US_ASCII.name()));
         // parameter type is String
-        headers.put("CamelAS2.ediMessageTransferEncoding", EDI_MESSAGE_CONTENT_TRANSFER_ENCODING);
+        headers.put("CamelAs2.ediMessageTransferEncoding", EDI_MESSAGE_CONTENT_TRANSFER_ENCODING);
         // parameter type is String
-        headers.put("CamelAS2.dispositionNotificationTo", DISPOSITION_NOTIFICATION_TO);
+        headers.put("CamelAs2.dispositionNotificationTo", DISPOSITION_NOTIFICATION_TO);
         return headers;
     }
 
