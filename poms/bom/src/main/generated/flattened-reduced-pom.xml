@@ -6786,7 +6786,7 @@
       <dependency>
         <groupId>io.quarkiverse.tika</groupId>
         <artifactId>quarkus-tika</artifactId>
-        <version>2.0.2</version>
+        <version>2.0.4</version>
         <exclusions>
           <exclusion>
             <groupId>commons-logging</groupId>
@@ -6797,7 +6797,7 @@
       <dependency>
         <groupId>io.quarkiverse.tika</groupId>
         <artifactId>quarkus-tika-deployment</artifactId>
-        <version>2.0.2</version>
+        <version>2.0.4</version>
       </dependency>
       <dependency>
         <groupId>io.reactivex.rxjava3</groupId>
