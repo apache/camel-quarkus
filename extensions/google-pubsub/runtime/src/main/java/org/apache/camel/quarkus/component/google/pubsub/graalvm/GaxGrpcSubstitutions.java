@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.google.pubsub.graalvm;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.time.Duration;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
@@ -39,7 +40,6 @@ import io.grpc.Grpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.MethodDescriptor;
-import org.threeten.bp.Duration;
 
 /**
  * Cut out unsupported and optional features that are only present in grpc-alts.
