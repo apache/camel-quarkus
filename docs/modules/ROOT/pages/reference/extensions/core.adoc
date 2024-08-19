@@ -410,7 +410,7 @@ Whether type converter statistics are enabled. By default, type converter utiliz
 |icon:lock[title=Fixed at build time] [[quarkus.camel.main.shutdown.timeout]]`link:#quarkus.camel.main.shutdown.timeout[quarkus.camel.main.shutdown.timeout]`
 
 A timeout (with millisecond precision) to wait for `CamelMain++#++stop()` to finish
-| link:https://docs.oracle.com/en/java/javase/17/docs/api/java/time/Duration.html[`Duration`] link:#duration-note-anchor-{summaryTableId}[icon:question-circle[title=More information about the Duration format]]
+| link:https://docs.oracle.com/en/java/javase/17/docs/api/java/time/Duration.html[`Duration`]
 | `PT3S`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.main.arguments.on-unknown]]`link:#quarkus.camel.main.arguments.on-unknown[quarkus.camel.main.arguments.on-unknown]`
