@@ -23,6 +23,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.Normalizer;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -51,6 +52,7 @@ import io.quarkus.annotation.processor.documentation.config.model.ConfigProperty
 import io.quarkus.annotation.processor.documentation.config.model.ConfigRoot;
 import io.quarkus.annotation.processor.documentation.config.model.Extension;
 import io.quarkus.annotation.processor.documentation.config.model.JavadocElements.JavadocElement;
+import io.quarkus.annotation.processor.documentation.config.util.Types;
 import org.apache.camel.quarkus.maven.processor.AppendNewLinePostProcessor;
 import org.apache.camel.quarkus.maven.processor.AsciiDocFile;
 import org.apache.camel.quarkus.maven.processor.DocumentationPostProcessor;
@@ -606,6 +608,14 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
             }
             if (configProperty.isList()) {
                 typeContent = "List of " + typeContent;
+            }
+
+            if (Duration.class.getName().equals(configProperty.getType())) {
+                typeContent += " " + String.format(MORE_INFO_ABOUT_TYPE_FORMAT,
+                        "duration-note-anchor-{summaryTableId}", Duration.class.getSimpleName());
+            } else if (Types.MEMORY_SIZE_TYPE.equals(configProperty.getType())) {
+                typeContent += " " + String.format(MORE_INFO_ABOUT_TYPE_FORMAT,
+                        "memory-size-note-anchor-{summaryTableId}", "MemorySize");
             }
 
             return typeContent;
