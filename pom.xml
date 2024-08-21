@@ -111,7 +111,7 @@
         <hapi.version>${hapi-version}</hapi.version>
         <hapi-base.version>${hapi-base-version}</hapi-base.version>
         <hapi-fhir.version>${hapi-fhir-version}</hapi-fhir.version>
-        <hapi-fhir-core.version>6.1.2.2</hapi-fhir-core.version><!-- @sync ca.uhn.hapi.fhir:hapi-fhir:${hapi-fhir.version} prop:fhir_core_version -->
+        <hapi-fhir-core.version>6.3.11</hapi-fhir-core.version><!-- @sync ca.uhn.hapi.fhir:hapi-fhir:${hapi-fhir.version} prop:fhir_core_version -->
         <httpclient5.version>${httpclient-version}</httpclient5.version><!-- Saxon and Wiremock -->
         <ibm.mq.client.version>9.3.2.1</ibm.mq.client.version>
         <icu4j.version>${icu4j-version}</icu4j.version>

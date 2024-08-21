@@ -6348,7 +6348,7 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-fhir-base</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>7.2.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>7.4.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -6367,12 +6367,12 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-fhir-client</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>7.2.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>7.4.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-fhir-structures-dstu2.1</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>7.2.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>7.4.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>junit</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -6387,52 +6387,52 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-fhir-structures-dstu3</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>7.2.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>7.4.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-fhir-structures-hl7org-dstu2</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>7.2.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>7.4.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-fhir-structures-r4</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>7.2.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>7.4.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-fhir-structures-r5</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>7.2.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>7.4.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>org.hl7.fhir.dstu2</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>6.1.2.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>6.3.11</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>org.hl7.fhir.dstu2016may</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>6.1.2.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>6.3.11</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>org.hl7.fhir.dstu3</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>6.1.2.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>6.3.11</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>org.hl7.fhir.r4</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>6.1.2.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>6.3.11</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>org.hl7.fhir.r5</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>6.1.2.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>6.3.11</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>org.hl7.fhir.utilities</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>6.1.2.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>6.3.11</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>com.azure</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -8430,12 +8430,6 @@
         <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:2.7.0.Final -->
         <artifactId>metrics-core</artifactId><!-- io.debezium:debezium-bom:2.7.0.Final -->
         <version>4.0.1</version><!-- io.debezium:debezium-bom:2.7.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.assertj</groupId><!-- io.debezium:debezium-bom:2.7.0.Final -->
-        <artifactId>assertj-core</artifactId><!-- io.debezium:debezium-bom:2.7.0.Final -->
-        <version>3.11.1</version><!-- io.debezium:debezium-bom:2.7.0.Final -->
-        <scope>test</scope><!-- io.debezium:debezium-bom:2.7.0.Final -->
       </dependency>
       <dependency>
         <groupId>org.reflections</groupId><!-- io.debezium:debezium-bom:2.7.0.Final -->
