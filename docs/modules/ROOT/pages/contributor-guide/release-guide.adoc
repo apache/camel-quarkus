@@ -252,6 +252,26 @@ svn add --force .
 svn commit -m "Cleaning inactive Camel Quarkus versions after $VERSION release"
 ----
 
+
+[[release-announcement]]
+== Write the release announcement blog post
+
+Taking inspiration from previous release announcement blog posts, we need to write one for the release at hand.
+
+Ideally, the release announcement should be written before submitting the xref:contributor-guide/release-guide.adoc#quarkus-platform[Platform pull request]
+so that Quarkus team can mention our release in their announcement.
+In that way the information will reach the whole Quarkus audience.
+
+Please, keep in mind a few things when preparing the pull request for the camel-website:
+
+* A release marker file should be added in https://github.com/apache/camel-website/tree/main/content/releases/q
+* Marker files for LTS versions should include the end of life date, ala  'eol: date'
+* The end of life date is the minimum date between camel LTS eol date and quarkus LTS eol date
+* Documentation branches for LTS releases should be updated in https://github.com/apache/camel-website/blob/main/antora-playbook-snippets/antora-playbook.yml[antora-playbook.yml]
+* We maintain documentation branches only for LTS versions and main
+
+
+[[quarkus-platform]]
 == Upgrade Camel Quarkus in Quarkus Platform
 
 You can proceed with upgrading Camel Quarkus in Quarkus Platform
@@ -322,9 +342,13 @@ cd generated-platform-project/quarkus-camel/integration-tests
 mvn clean test
 ----
 +
-* If all tests are passing, send a pull request to the Platform.
-  If there are some new features, fixes, etc. in the release that would be worth to mention in the upcoming Quarkus announcement,
-  you can tag the pull request with `release/noteworthy-feature` label and provide a short text about those features in the PR description.
+* If all tests are passing, prepare a pull request to the Platform
+* Paste the URL of the xref:contributor-guide/release-guide.adoc#release-announcement[Camel Quarkus release announcement] to the description field of the pull request.
+  Quarkus team will then be able to refer to our release announcement from their release announcement.
+  The online availability of our release announcement should not block submitting the PR.
+  You can paste the link even before the content is online, but make sure that it is available at the latest by the time when Quarkus team will publish their announcement.
+* Optionally, if there are some extraordinary new features, fixes, etc.,
+  you can tag the pull request with `release/noteworthy-feature` label and provide a short text about those features in the PR description that Quarkus team will pick into their announcement.
 
 
 == Create a GitHub release
@@ -424,18 +448,6 @@ git add -A
 git commit -m "Next is $NEXT_CQ_VERSION"
 git push upstream camel-quarkus-main --force-with-lease
 ----
-
-== Write the release announcement blog post
-
-Taking inspiration from previous release announcement blog post, we need to write one for the release at hand.
-
-Please, keep in mind a few things when preparing the pull request for the camel-website:
-
-* A release marker file should be added in https://github.com/apache/camel-website/tree/main/content/releases/q
-* Marker files for LTS versions should include the end of life date, ala  'eol: date'
-* The end of life date is the minimum date between camel LTS eol date and quarkus LTS eol date
-* Documentation branches for LTS releases should be updated in https://github.com/apache/camel-website/blob/main/antora-playbook-snippets/antora-playbook.yml[antora-playbook.yml]
-* We maintain documentation branches only for LTS versions and main
 
 == Further steps
 
