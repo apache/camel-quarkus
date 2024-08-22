@@ -8435,80 +8435,80 @@
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-api</artifactId>
-        <version>2.7.0.Final</version>
+        <version>2.7.1.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-core</artifactId>
-        <version>2.7.0.Final</version>
+        <version>2.7.1.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-storage-kafka</artifactId>
-        <version>2.7.0.Final</version>
+        <version>2.7.1.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-storage-file</artifactId>
-        <version>2.7.0.Final</version>
+        <version>2.7.1.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-embedded</artifactId>
-        <version>2.7.0.Final</version>
+        <version>2.7.1.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-postgres</artifactId>
-        <version>2.7.0.Final</version>
+        <version>2.7.1.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-mysql</artifactId>
-        <version>2.7.0.Final</version>
+        <version>2.7.1.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-binlog</artifactId>
-        <version>2.7.0.Final</version>
+        <version>2.7.1.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-ddl-parser</artifactId>
-        <version>2.7.0.Final</version>
+        <version>2.7.1.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-mongodb</artifactId>
-        <version>2.7.0.Final</version>
+        <version>2.7.1.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-sqlserver</artifactId>
-        <version>2.7.0.Final</version>
+        <version>2.7.1.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-core</artifactId>
-        <version>2.7.0.Final</version>
+        <version>2.7.1.Final</version>
         <type>test-jar</type>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-embedded</artifactId>
-        <version>2.7.0.Final</version>
+        <version>2.7.1.Final</version>
         <type>test-jar</type>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-mysql</artifactId>
-        <version>2.7.0.Final</version>
+        <version>2.7.1.Final</version>
         <type>test-jar</type>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-binlog</artifactId>
-        <version>2.7.0.Final</version>
+        <version>2.7.1.Final</version>
         <type>test-jar</type>
       </dependency>
       <dependency>
