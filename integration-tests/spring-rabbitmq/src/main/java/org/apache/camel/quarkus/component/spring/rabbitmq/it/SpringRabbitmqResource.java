@@ -16,6 +16,9 @@
  */
 package org.apache.camel.quarkus.component.spring.rabbitmq.it;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.util.LinkedList;
 import java.util.concurrent.Executors;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -26,6 +29,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.jboss.logging.Logger;
@@ -40,51 +44,94 @@ public class SpringRabbitmqResource {
     public static final String PARAMETER_USERNAME = "camel.quarkus.spring-rabbitmq.test.username";
     public static final String PARAMETER_PASSWORD = "camel.quarkus.spring-rabbitmq.test.password";
 
-    public static final String ROUTING_KEY_IN_OUT = "foo.bar";
-    public static final String EXCHANGE_IN_OUT = "inOut";
-
-    public static final String POLLING_QUEUE_NAME = "pollingQueue";
-
-    public static final String DIRECT_IN_OUT = "direct:inOut";
-    public static final String DIRECT_POLLING = "direct:polling";
-
-    public static final String QUERY_ROUTING_KEY = "routingKey";
-    public static final String QUERY_DIRECT = "fromDirect";
-    public static final String QUERY_EXCHANGE = "exchange";
-    public static final String QUERY_TIMEOUT = "timeout";
-
     @Inject
     ProducerTemplate producerTemplate;
 
     @Inject
     ConsumerTemplate consumerTemplate;
 
-    @Path("/getFromDirect")
+    @Path("/consume")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public String getFromDirect(@QueryParam(QUERY_DIRECT) String directName) {
-        return consumerTemplate.receiveBody(directName, 5000, String.class);
+    public String consume(@QueryParam("queue") String queue,
+            @QueryParam("exchange") String exchange,
+            @QueryParam("routingKey") String routingKey) {
+        String url = "spring-rabbitmq:" + exchange + "?connectionFactory=#connectionFactory";
+        if (routingKey != null) {
+            url += "&routingKey=" + routingKey;
+        }
+        if (queue != null) {
+            url += "&queues=" + queue;
+        }
+        return consumerTemplate.receiveBody(url, 5000, String.class);
+    }
+
+    @Path("/getFromDirect")
+    @POST
+    public Response getFromDirect(String directName,
+            @QueryParam("timeout") Long timeout,
+            @QueryParam("duration") boolean duration,
+            @QueryParam("numberOfMessages") Integer numberOfMessages) {
+        long _timeout = timeout != null ? timeout : 5000;
+        if (numberOfMessages != null) {
+            Instant start = Instant.now();
+            LinkedList<String> results = new LinkedList<>();
+            for (int i = 0; i < numberOfMessages; i++) {
+                String msg = consumerTemplate.receiveBody(directName, _timeout, String.class);
+                if (msg == null || msg.isEmpty()) {
+                    break;
+                }
+                results.add(msg);
+            }
+
+            Duration timeElapsed = Duration.between(start, Instant.now());
+            if (duration) {
+                results.addFirst(timeElapsed.getSeconds() + "");
+            }
+
+            return Response.ok(SpringRabbitmqUtil.listToString(results)).build();
+        }
+
+        return Response.ok(consumerTemplate.receiveBody(directName, _timeout, String.class)).build();
     }
 
     @Path("/send")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
-    public void send(String message, @QueryParam(QUERY_EXCHANGE) String exchange,
-            @QueryParam(QUERY_ROUTING_KEY) String routingKey) {
-        String url = String.format("spring-rabbitmq:" + exchange + "?routingKey=%s&autoDeclare=true", routingKey);
-        producerTemplate.sendBody(url, message);
+    public void send(String message,
+            @QueryParam("headers") String headers,
+            @QueryParam("exchange") String exchange,
+            @QueryParam("routingKey") String routingKey,
+            @QueryParam("exchangeType") String exchangeType,
+            @QueryParam("componentName") String componentName) {
+        String url = String.format(
+                "%s:%s?connectionFactory=#connectionFactory",
+                componentName == null ? "spring-rabbitmq" : componentName, exchange);
+
+        if (routingKey != null) {
+            url += "&routingKey=" + routingKey;
+        }
+        if (exchangeType != null) {
+            url += "&exchangeType=" + exchangeType;
+        }
+
+        if (headers != null) {
+            producerTemplate.sendBodyAndHeaders(url, message, SpringRabbitmqUtil.stringToMap(headers));
+        } else {
+            producerTemplate.sendBody(url, message);
+        }
     }
 
     @Path("/startPolling")
     @POST
-    public void startPolling(@QueryParam(QUERY_EXCHANGE) String exchange,
-            @QueryParam(QUERY_ROUTING_KEY) String routingKey) {
+    public void startPolling(@QueryParam("exchange") String exchange,
+            @QueryParam("routingKey") String routingKey) {
         // use another thread for polling consumer to demonstrate that we can wait before
         // the message is sent to the queue
         Executors.newSingleThreadExecutor().execute(() -> {
-            String url = String.format("spring-rabbitmq:%s?queues=%s&routingKey=%s", exchange, POLLING_QUEUE_NAME, routingKey);
+            String url = String.format("spring-rabbitmq:%s?queues=%s&routingKey=%s", exchange, "queue-for-polling", routingKey);
             String body = consumerTemplate.receiveBody(url, String.class);
-            producerTemplate.sendBody(DIRECT_POLLING, "Polling Hello " + body);
+            producerTemplate.sendBody("direct:polling", "Polling Hello " + body);
         });
     }
 }
