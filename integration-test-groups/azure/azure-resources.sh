@@ -74,7 +74,7 @@ function createResources() {
     az storage container create --account-name ${AZURE_STORAGE_ACCOUNT_NAME} --name ${AZURE_BLOB_CONTAINER_NAME} --auth-mode login
 
     az eventhubs namespace create --name ${EH_NAMESPACE} --resource-group ${RESOURCE_GROUP} --location ${ZONE}
-    az eventhubs eventhub create --name ${EH_NAME} --resource-group ${RESOURCE_GROUP} --namespace-name ${EH_NAMESPACE} --partition-count 1
+    az eventhubs eventhub create --name ${EH_NAME} --resource-group ${RESOURCE_GROUP} --namespace-name ${EH_NAMESPACE} --partition-count 5
 
     AZURE_EVENT_HUBS_CONNECTION_STRING=$(az eventhubs namespace authorization-rule keys list --resource-group ${RESOURCE_GROUP} --namespace-name ${EH_NAMESPACE} --name RootManageSharedAccessKey  --query primaryConnectionString -o tsv)
 
