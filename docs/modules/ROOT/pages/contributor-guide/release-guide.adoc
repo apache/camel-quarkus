@@ -111,6 +111,10 @@ For instance, running the tool to compare the `2.10.0` staging release against t
 
 [source,shell]
 ----
+git checkout main
+cd ../..
+mvn clean install -Dquickly
+cd tooling/perf-regression
 java -jar target/quarkus-app/quarkus-run.jar -an 2.9.0 2.10.0
 ----
 
@@ -138,7 +142,6 @@ For more details about options, please run:
 
 [source,shell]
 ----
-cd tooling/perf-regression
 java -jar target/quarkus-app/quarkus-run.jar --help
 ----
 
