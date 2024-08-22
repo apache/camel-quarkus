@@ -82,6 +82,7 @@
                 <include>org.springframework.data:spring-data-redis</include><!-- required by camel-spring-redis -->
                 <include>org.springframework.retry:spring-retry</include>
                 <include>org.springframework.vault:spring-vault-core</include><!-- required by camel-hashicorp-vault -->
+                <include>org.springframework:spring-web</include><!-- required by camel-hashicorp-vault -->
                 <!-- Also note that the following Spring artifacts are available (shaded)
                      via camel-quarkus-support-spring so they should be kept banned
                      and camel-quarkus-support-spring should be used instead:
