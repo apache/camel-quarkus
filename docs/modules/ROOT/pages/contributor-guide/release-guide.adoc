@@ -65,7 +65,7 @@ mvn deploy -Dapache-release -DskipTests -Denforcer.skip -Dquarkus.build.skip -Df
 
 * Login to the https://repository.apache.org[Apache staging repository] using your Apache LDAP credentials.
 * Click on `Staging Repositories`
-* Then select `org.apache.camel-quarkus-xxx` in the list of repositories, where `xxx` represents your `username` and `ip`
+* Then select `orgapachecamel-xxxx` in the list of repositories, where `xxxx` represents the staging repository number
 * Click `Close` on the toolbar above
 * This will close the repository from future deployments and make it available for others to view
 * After that, a popup window is created, enter the name and version of the artifact being released in the `Description` field and finally click `Close`
@@ -197,7 +197,7 @@ For instance, one could search mail with subject:
 
 * Login to the https://repository.apache.org[Apache staging repository] using your Apache LDAP credentials.
 * Click on `Staging Repositories`
-* Then select `org.apache.camel-quarkus-xxx` in the list of repositories, where `xxx` represents your `username` and `ip`
+* Then select `orgapachecamel-xxxx` in the list of repositories, where `xxxx` represents the staging repository number
 * Click `Release` on the toolbar above
 * This will release the repository and make artifacts generally available
 * After that, a popup window is created, click `Close`
