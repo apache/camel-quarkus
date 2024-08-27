@@ -119,7 +119,6 @@
         <jakarta.jms-api.version>${jakarta-jms-api-version}</jakarta.jms-api.version>
         <java-json-tools.json-patch.version>${json-patch-version}</java-json-tools.json-patch.version><!-- A replacement for com.github.fge:json-patch -->
         <jodatime.version>${jodatime2-version}</jodatime.version><!-- Mess in transitive dependencies of Splunk -->
-        <jolokia.version>2.0.2</jolokia.version><!-- For camel-k -->
         <jaxen.version>1.2.0</jaxen.version>
         <javassist.version>${javassist-version}</javassist.version><!-- debezium -->
         <jetty.version>${jetty-version}</jetty.version>

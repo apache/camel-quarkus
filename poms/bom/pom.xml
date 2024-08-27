@@ -3463,16 +3463,6 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-camel-k</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-camel-k-deployment</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-cassandraql</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
@@ -7281,22 +7271,6 @@
                 <groupId>org.jetbrains.kotlinx</groupId>
                 <artifactId>kotlinx-serialization-core-jvm</artifactId>
                 <version>${kotlinx.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jolokia</groupId>
-                <artifactId>jolokia-agent-jvm</artifactId>
-                <version>${jolokia.version}</version>
-                <classifier>javaagent</classifier>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.jolokia</groupId>
-                        <artifactId>jolokia-server-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.googlecode.json-simple</groupId>
-                        <artifactId>json-simple</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.json</groupId>
