@@ -1,0 +1,39 @@
+== Camel Quarkus Knative integration tests
+
+These integration test exercise HTTP routes only.
+
+If you wish to test this application in real Knative environment, follow the next steps.
+
+== Knative Channel Consumer tests
+
+* Create an InMemory Knative Channel named `channel-test`
+* Deploy the app https://quarkus.io/guides/deploying-to-kubernetes#knative[as a Serverless deployment]. Ensure `quarkus.profile=knative-channel-consumer`
+* Send CloudEvents to the channel
+
+== Knative Endpoint Consumer tests
+
+* Deploy the app https://knative.dev/docs/getting-started/first-service/[as a Knative Service] named `endpoint-test`.  Ensure `quarkus.profile=knative-endpoint-consumer`
+* Send CloudEvents to the URL of the service.
+
+== Knative Event Consumer tests
+
+These integration tests the HTTP routes only.
+
+If you wish to test this application in real Knative environment, follow the next steps.
+
+* Create an InMemory Knative Broker named `broker-test`
+* Deploy the app https://quarkus.io/guides/deploying-to-kubernetes#knative[as a Serverless deployment] Ensure `quarkus.profile=knative-event-consumer`
+* Send CloudEvents to the broker.
+
+== Knative Producer tests
+
+The tests run against a Mocked Knative HTTP API.
+
+If you wish to test this application in knative environment, follow these steps:
+
+* Create an InMemory Knative Channel named `channel-test`
+* Create an InMemory Knative Broker named `broker-test`
+* Deploy a Knative Service named `endpoint-test`
+* Deploy this application within the Kubernetes cluster. Ensure `quarkus.profile=knative-producer`
+* Make sure the application can use secrets containing the URLs : KNATIVE_CHANNEL_URL, KNATIVE_CHANNEL_URL, KNATIVE_SERVICE_URL
+* On native mode, you may need to set `quarkus.ssl.native=true` in case one those URLs uses `https` instead of `http`

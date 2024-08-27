@@ -150,10 +150,6 @@
         <module>kafka-ssl</module>
         <module>kamelet</module>
         <module>knative</module>
-        <module>knative-channel-consumer</module>
-        <module>knative-endpoint-consumer</module>
-        <module>knative-event-consumer</module>
-        <module>knative-producer</module>
         <module>kotlin</module>
         <module>kotlin-dsl</module>
         <module>kubernetes</module>
