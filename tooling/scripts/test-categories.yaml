@@ -215,9 +215,6 @@ group-12:
   - rest-openapi
   - vertx-websocket
 group-13:
-  - camel-k-runtime
-  - camel-k-runtime-model-reifier
-  - camel-k-runtime-shutdown
   - fhir
   - groovy-dsl
   - jasypt

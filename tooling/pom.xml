@@ -34,8 +34,6 @@
 
     <modules>
         <module>maven-plugin</module>
-        <module>camel-k-catalog-model</module>
-        <module>camel-k-maven-plugin</module>
         <module>test-list</module>
     </modules>
 
