@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.snmp.it;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.hamcrest.Matchers;
@@ -38,7 +38,7 @@ import static org.awaitility.Awaitility.await;
  * - poll returns unending stream of responses
  */
 @QuarkusTest
-@WithTestResource(SnmpTestResource.class)
+@QuarkusTestResource(SnmpTestResource.class)
 class SnmpTest {
 
     public static final OID GET_NEXT_OID = new OID(new int[] { 1, 3, 6, 1, 2, 1, 25, 3, 2, 1, 5, 1 });

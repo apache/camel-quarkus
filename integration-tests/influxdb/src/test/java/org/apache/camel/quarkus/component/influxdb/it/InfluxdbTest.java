@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.influxdb.it;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @QuarkusTest
-@WithTestResource(InfluxdbTestResource.class)
+@QuarkusTestResource(InfluxdbTestResource.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class InfluxdbTest {
 

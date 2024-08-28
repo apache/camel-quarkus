@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.knative.producer.it;
 
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.QuarkusTestProfile;
@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestProfile(KnativeProducerTestProfile.class)
 @QuarkusTest
 @TestHTTPEndpoint(KnativeProducerResource.class)
-@WithTestResource(KnativeTestResource.class)
+@QuarkusTestResource(KnativeTestResource.class)
 public class KnativeProducerTest {
     @Test
     void inspect() {

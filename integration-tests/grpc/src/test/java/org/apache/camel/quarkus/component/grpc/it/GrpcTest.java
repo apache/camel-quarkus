@@ -29,7 +29,7 @@ import io.grpc.StatusRuntimeException;
 import io.grpc.netty.GrpcSslContexts;
 import io.grpc.netty.NettyChannelBuilder;
 import io.grpc.stub.StreamObserver;
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -74,7 +74,7 @@ import static org.junit.jupiter.api.Assertions.fail;
         @Certificate(name = "grpc", formats = { Format.PEM })
 })
 @QuarkusTest
-@WithTestResource(GrpcServerTestResource.class)
+@QuarkusTestResource(GrpcServerTestResource.class)
 class GrpcTest {
 
     private static final String GRPC_TEST_PING_VALUE = "PING";

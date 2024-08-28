@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.http.netty.it;
 
 import java.util.List;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -41,8 +41,8 @@ import static org.hamcrest.Matchers.is;
         @Certificate(name = HttpTestResource.KEYSTORE_NAME, formats = {
                 Format.PKCS12 }, password = HttpTestResource.KEYSTORE_PASSWORD) })
 @QuarkusTest
-@WithTestResource(value = HttpTestResource.class, restrictToAnnotatedClass = false)
-@WithTestResource(value = NettyHttpTestResource.class, restrictToAnnotatedClass = false)
+@QuarkusTestResource(value = HttpTestResource.class)
+@QuarkusTestResource(value = NettyHttpTestResource.class)
 public class NettyHttpTest extends AbstractHttpTest {
     @Override
     public String component() {

@@ -16,15 +16,15 @@
  */
 package org.apache.camel.quarkus.component.fhir.it;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.ResourceArg;
-import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import org.apache.camel.quarkus.component.fhir.it.util.R4Enabled;
 import org.apache.camel.quarkus.test.EnabledIf;
 
 @QuarkusTest
-@WithTestResource(value = FhirTestResource.class, initArgs = @ResourceArg(name = "fhirVersion", value = "R4"))
+@QuarkusTestResource(value = FhirTestResource.class, initArgs = @ResourceArg(name = "fhirVersion", value = "R4"))
 @TestHTTPEndpoint(FhirR4Resource.class)
 @EnabledIf(R4Enabled.class)
 class FhirR4Test extends AbstractFhirTest {

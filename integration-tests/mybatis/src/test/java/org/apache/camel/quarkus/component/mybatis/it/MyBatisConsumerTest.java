@@ -20,7 +20,7 @@ package org.apache.camel.quarkus.component.mybatis.it;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -33,7 +33,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@WithTestResource(H2DatabaseTestResource.class)
+@QuarkusTestResource(H2DatabaseTestResource.class)
 public class MyBatisConsumerTest {
 
     @Test

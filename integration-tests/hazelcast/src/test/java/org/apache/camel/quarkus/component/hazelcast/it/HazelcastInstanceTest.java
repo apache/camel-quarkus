@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.hazelcast.it;
 import java.util.concurrent.TimeUnit;
 
 import com.hazelcast.core.HazelcastInstance;
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -29,7 +29,7 @@ import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
 @TestHTTPEndpoint(HazelcastInstanceResource.class)
-@WithTestResource(HazelcastTestResource.class)
+@QuarkusTestResource(HazelcastTestResource.class)
 public class HazelcastInstanceTest {
 
     @Test

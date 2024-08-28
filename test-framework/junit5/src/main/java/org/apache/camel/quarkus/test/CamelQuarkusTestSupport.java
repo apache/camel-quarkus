@@ -72,7 +72,7 @@ import org.slf4j.LoggerFactory;
  * <a href="https://quarkus.io/guides/getting-started-testing#testing_different_profiles">Quarkus documentation</a> for
  * how you can do
  * that. (Note that
- * <a href="https://quarkus.io/guides/getting-started-testing#quarkus-test-resource">WithTestResource</a>
+ * <a href="https://quarkus.io/guides/getting-started-testing#quarkus-test-resource">QuarkusTestResource</a>
  * has a similar effect.)</li>
  * <li>Camel Quarkus executes the production of beans during the build phase. Because all the tests are
  * build together, exclusion behavior is implemented into {@link CamelQuarkusTestSupport}. If a producer of the specific

@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.elasticsearch.it;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -31,7 +31,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@WithTestResource(ElasticsearchTestResource.class)
+@QuarkusTestResource(ElasticsearchTestResource.class)
 class ElasticsearchTest {
 
     @AfterEach

@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -41,7 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SuppressWarnings("unchecked")
 @QuarkusTest
-@WithTestResource(DigitaloceanTestResource.class)
+@QuarkusTestResource(DigitaloceanTestResource.class)
 public class DigitaloceanDropletTest {
     static final long timeout = 5;
     static TimeUnit timeoutUnit = TimeUnit.SECONDS;

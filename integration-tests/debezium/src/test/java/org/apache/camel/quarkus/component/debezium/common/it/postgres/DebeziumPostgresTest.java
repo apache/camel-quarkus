@@ -20,7 +20,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.component.debezium.common.it.AbstractDebeziumTest;
@@ -38,7 +38,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@WithTestResource(DebeziumPostgresTestResource.class)
+@QuarkusTestResource(DebeziumPostgresTestResource.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class DebeziumPostgresTest extends AbstractDebeziumTest {
     private static final Logger LOG = Logger.getLogger(DebeziumPostgresTest.class);

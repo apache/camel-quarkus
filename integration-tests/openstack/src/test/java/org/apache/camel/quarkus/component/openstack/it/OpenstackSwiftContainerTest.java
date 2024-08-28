@@ -16,14 +16,14 @@
  */
 package org.apache.camel.quarkus.component.openstack.it;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.post;
 
 @QuarkusTest
-@WithTestResource(OpenStackTestResource.class)
+@QuarkusTestResource(OpenStackTestResource.class)
 class OpenstackSwiftContainerTest {
 
     @Test

@@ -16,8 +16,8 @@
  */
 package org.apache.camel.quarkus.component.jms.artemis.it;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.ResourceArg;
-import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
@@ -30,7 +30,7 @@ import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 @TestProfile(JmsArtemisDisable.class)
-@WithTestResource(initArgs = {
+@QuarkusTestResource(initArgs = {
         @ResourceArg(name = "modules", value = "quarkus.artemis"),
         @ResourceArg(name = "java-args", value = "-Dbrokerconfig.securityEnabled=false")
 }, value = ActiveMQTestResource.class)

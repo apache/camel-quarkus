@@ -17,7 +17,7 @@
 package org.apache.camel.quarkus.component.geocoder.it;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -33,7 +33,7 @@ import static org.hamcrest.Matchers.hasKey;
 
 @QuarkusTest
 @TestHTTPEndpoint(GeocoderGoogleResource.class)
-@WithTestResource(GeocoderTestResource.class)
+@QuarkusTestResource(GeocoderTestResource.class)
 class GeocoderGoogleTest {
 
     @MockServer

@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.http.vertx.it;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import me.escoffier.certs.Format;
@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
         @Certificate(name = HttpTestResource.KEYSTORE_NAME, formats = {
                 Format.PKCS12 }, password = HttpTestResource.KEYSTORE_PASSWORD) })
 @QuarkusTest
-@WithTestResource(HttpTestResource.class)
+@QuarkusTestResource(HttpTestResource.class)
 public class VertxHttpTest extends AbstractHttpTest {
     @Override
     public String component() {

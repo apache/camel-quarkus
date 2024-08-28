@@ -16,12 +16,12 @@
  */
 package org.apache.camel.quarkus.component.azure.storage.blob.it;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 import org.apache.camel.quarkus.test.support.azure.AzureStorageTestResource;
 
 @QuarkusIntegrationTest
-@WithTestResource(AzureStorageTestResource.class)
+@QuarkusTestResource(AzureStorageTestResource.class)
 class AzureStorageBlobIT extends AzureStorageBlobTest {
 
 }

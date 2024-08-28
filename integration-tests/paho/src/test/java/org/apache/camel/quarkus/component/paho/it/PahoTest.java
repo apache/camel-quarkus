@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.paho.it;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -36,7 +36,7 @@ import static org.hamcrest.core.StringRegularExpression.matchesRegex;
                 Format.PKCS12, Format.PEM }, password = PahoResource.KEYSTORE_PASSWORD)
 }, docker = true)
 @QuarkusTest
-@WithTestResource(PahoTestResource.class)
+@QuarkusTestResource(PahoTestResource.class)
 class PahoTest {
 
     @ParameterizedTest

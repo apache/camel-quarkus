@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.redis.it;
 
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
@@ -29,7 +29,7 @@ import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
-@WithTestResource(RedisTestResource.class)
+@QuarkusTestResource(RedisTestResource.class)
 class RedisTest {
 
     @Test
