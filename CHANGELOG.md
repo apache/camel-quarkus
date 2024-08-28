@@ -1,5 +1,58 @@
 # Changelog
 
+## 3.14.0
+
+* Migrate from deprecated QuarkusTestResource to WithTestResource by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6295
+* [Cassandra] Increase stack size for test container by @avano in https://github.com/apache/camel-quarkus/pull/6296
+* Next is 3.14.0-SNAPSHOT by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6297
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6298
+* Fix incorrect endpoint paths in REST producer test by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6299
+* Add changelog for 3.13.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6305
+* Strip label prefix in auto label workflow before performing GraphQL search query by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6306
+* Fix #6301 to re-sort the beans by @zhfeng in https://github.com/apache/camel-quarkus/pull/6304
+* cxf-soap SSL tests fail with Quarkus CXF 3.13.0  by @ppalaga in https://github.com/apache/camel-quarkus/pull/6303
+* Bump io.quarkiverse.artemis:quarkus-artemis-bom from 3.3.0 to 3.4.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6308
+* GithHub Workflow tidy ups by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6309
+* Bump hamcrest.version from 2.2 to 3.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6313
+* Bump io.quarkiverse.artemis:quarkus-artemis-bom from 3.4.0 to 3.4.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/6316
+* Bump com.azure:azure-core-http-vertx from 1.0.0-beta.19 to 1.0.0-beta.20 by @dependabot in https://github.com/apache/camel-quarkus/pull/6315
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6317
+* Upgrade CycloneDX Maven plugin to version 2.8.1 by @oscerd in https://github.com/apache/camel-quarkus/pull/6318
+* Move all enforcer invocations to the full profile by @ppalaga in https://github.com/apache/camel-quarkus/pull/6311
+* Fix #6300 to remove @AfterEach by @zhfeng in https://github.com/apache/camel-quarkus/pull/6319
+* Avoid deploying redundant modules during the release by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6320
+* Migrate to com.mysql:mysql-connector-j for debezium-mysql by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6321
+* Bump cq-plugin.version from 4.9.1 to 4.9.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/6323
+* Bump quarkiverse-pooled-jms.version from 2.4.0 to 2.5.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6322
+* Avoid dependency misconvergence when extensions are used together by @ppalaga in https://github.com/apache/camel-quarkus/pull/6324
+* Bump org.codehaus.mojo:exec-maven-plugin from 3.3.0 to 3.4.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6326
+* Restore Aws2KinesisFirehoseTest by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6330
+* Bump quarkiverse-langchain4j.version from 0.16.4 to 0.17.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6332
+* Mark modules using legacy @ConfigRoot as such by @gsmet in https://github.com/apache/camel-quarkus/pull/6331
+* Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 2.16.0 to 2.16.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/6333
+* Fix autolabel workflow label search by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6335
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6336
+* Extracion of crypto-pgp and making crypto work on FIPS by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6241
+* Reinstate Aws2KinesisFirehoseTest against localstack by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6337
+* Fix MockBackendUtils native mode config resolution of CAMEL_QUARKUS_START_MOCK_BACKEND by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6340
+* Bump org.codehaus.mojo:exec-maven-plugin from 3.4.0 to 3.4.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/6343
+* Move mock-backend support classes into camel-quarkus-integration-test-support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6345
+* Add capability to set the localstack log level by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6346
+* Upgrade Quarkus to 3.14.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6349
+* Adapt update-extension-doc-page mojo to Quarkus 3.14.0 by @ppalaga in https://github.com/apache/camel-quarkus/pull/6351
+* bump quarkiverse-jsch.version from 3.0.8 to 3.0.9 by @dependabot in https://github.com/apache/camel-quarkus/pull/6352
+* bump cq-plugin.version from 4.9.2 to 4.10.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6353
+* Bump quarkiverse-tika.version from 2.0.2 to 2.0.4 by @dependabot in https://github.com/apache/camel-quarkus/pull/6358
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6359
+* Temporarily remove duration & memory size summary links from generated docs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6361
+* Using filesystem instead of classpath for certificates from target/certs by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6356
+* Bump cq-plugin.version from 4.10.0 to 4.10.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/6366
+* Add missing Duration and MemSize type notes to the docs by @ppalaga in https://github.com/apache/camel-quarkus/pull/6365
+* Upgrade to Quarkus 3.14.0 by @aldettinger in https://github.com/apache/camel-quarkus/pull/6370
+* added camel-quarkus-javascript by @mweissdigchg in https://github.com/apache/camel-quarkus/pull/6369
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.13.0...3.14.0
+
 ## 3.13.0
 
 * Next is 3.13.0-SNAPSHOT by @aldettinger in https://github.com/apache/camel-quarkus/pull/6215
