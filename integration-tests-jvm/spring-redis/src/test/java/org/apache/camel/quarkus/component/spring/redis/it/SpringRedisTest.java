@@ -18,14 +18,14 @@ package org.apache.camel.quarkus.component.spring.redis.it;
 
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.shaded.org.awaitility.Awaitility;
 
 @QuarkusTest
-@WithTestResource(SpringRedisTestResource.class)
+@QuarkusTestResource(SpringRedisTestResource.class)
 class SpringRedisTest {
 
     @Test

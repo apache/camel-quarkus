@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -32,7 +32,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.startsWith;
 
 @QuarkusTest
-@WithTestResource(SyslogTestResource.class)
+@QuarkusTestResource(SyslogTestResource.class)
 class SyslogTest {
 
     private static final Map<String, String> SYSLOG_MESSAGES = new HashMap<>() {

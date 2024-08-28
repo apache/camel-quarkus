@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.http.http.it;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -35,7 +35,7 @@ import static org.hamcrest.Matchers.not;
         @Certificate(name = HttpTestResource.KEYSTORE_NAME, formats = {
                 Format.PKCS12 }, password = HttpTestResource.KEYSTORE_PASSWORD) })
 @QuarkusTest
-@WithTestResource(HttpTestResource.class)
+@QuarkusTestResource(HttpTestResource.class)
 public class HttpTest extends AbstractHttpTest {
     @Override
     public String component() {

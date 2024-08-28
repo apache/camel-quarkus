@@ -25,7 +25,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -53,7 +53,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Disabled("https://github.com/apache/camel-quarkus/issues/6341")
 @QuarkusTest
-@WithTestResource(MongoDbTestResource.class)
+@QuarkusTestResource(MongoDbTestResource.class)
 class MongoDbTest {
     private static final Logger LOG = Logger.getLogger(MongoDbTest.class);
 

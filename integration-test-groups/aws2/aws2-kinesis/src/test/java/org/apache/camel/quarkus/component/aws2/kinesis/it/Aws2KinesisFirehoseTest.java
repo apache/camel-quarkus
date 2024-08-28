@@ -20,7 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -43,7 +43,7 @@ import software.amazon.awssdk.services.s3.model.ListObjectsResponse;
 import software.amazon.awssdk.services.s3.model.S3Object;
 
 @QuarkusTest
-@WithTestResource(Aws2TestResource.class)
+@QuarkusTestResource(Aws2TestResource.class)
 class Aws2KinesisFirehoseTest extends BaseAWs2TestSupport {
 
     private static final Logger LOG = Logger.getLogger(Aws2KinesisFirehoseTest.class);

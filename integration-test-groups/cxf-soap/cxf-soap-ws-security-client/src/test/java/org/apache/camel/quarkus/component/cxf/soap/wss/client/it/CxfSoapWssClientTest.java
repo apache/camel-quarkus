@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -45,7 +45,7 @@ import org.testcontainers.shaded.org.awaitility.Awaitility;
 import static org.hamcrest.Matchers.equalTo;
 
 @QuarkusTest
-@WithTestResource(value = CxfWssClientTestResource.class, restrictToAnnotatedClass = false)
+@QuarkusTestResource(value = CxfWssClientTestResource.class, restrictToAnnotatedClass = false)
 class CxfSoapWssClientTest {
 
     @Test

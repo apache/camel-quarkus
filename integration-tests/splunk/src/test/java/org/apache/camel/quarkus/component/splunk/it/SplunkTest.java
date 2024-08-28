@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -43,7 +43,7 @@ import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@WithTestResource(SplunkTestResource.class)
+@QuarkusTestResource(SplunkTestResource.class)
 class SplunkTest {
 
     @Test

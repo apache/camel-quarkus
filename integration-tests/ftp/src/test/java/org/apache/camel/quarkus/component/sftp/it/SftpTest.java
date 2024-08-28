@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.sftp.it;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -33,7 +33,7 @@ import static org.hamcrest.CoreMatchers.is;
         @Certificate(name = "ftp", formats = {
                 Format.PKCS12 }, password = "password") })
 @QuarkusTest
-@WithTestResource(SftpTestResource.class)
+@QuarkusTestResource(SftpTestResource.class)
 class SftpTest {
 
     @Test

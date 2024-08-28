@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.sap.netweaver.it;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.Matchers.containsString;
 
 @QuarkusTest
-@WithTestResource(SapNetweaverTestResource.class)
+@QuarkusTestResource(SapNetweaverTestResource.class)
 class SapNetweaverTest {
 
     @Test

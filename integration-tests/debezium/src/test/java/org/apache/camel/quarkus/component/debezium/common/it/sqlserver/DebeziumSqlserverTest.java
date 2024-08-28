@@ -21,7 +21,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Optional;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.response.Response;
 import org.apache.camel.quarkus.component.debezium.common.it.AbstractDebeziumTest;
@@ -42,7 +42,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 @QuarkusTest
-@WithTestResource(DebeziumSqlserverTestResource.class)
+@QuarkusTestResource(DebeziumSqlserverTestResource.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class DebeziumSqlserverTest extends AbstractDebeziumTest {
     private static final Logger LOG = Logger.getLogger(DebeziumSqlserverTest.class);

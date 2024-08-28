@@ -20,7 +20,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import com.ibm.as400.access.QueuedMessage;
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.component.jt400.Jt400Constants;
@@ -34,7 +34,7 @@ import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 @QuarkusTest
 @EnabledIfEnvironmentVariable(named = "JT400_URL", matches = ".+")
-@WithTestResource(Jt400TestResource.class)
+@QuarkusTestResource(Jt400TestResource.class)
 public class Jt400Test {
     private static final Logger LOGGER = Logger.getLogger(Jt400Test.class);
 

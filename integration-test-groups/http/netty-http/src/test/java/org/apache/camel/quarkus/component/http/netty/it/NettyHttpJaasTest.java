@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.http.netty.it;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import me.escoffier.certs.Format;
@@ -31,7 +31,7 @@ import org.junit.jupiter.params.provider.CsvSource;
         @Certificate(name = HttpTestResource.KEYSTORE_NAME, formats = {
                 Format.PKCS12 }, password = HttpTestResource.KEYSTORE_PASSWORD) })
 @QuarkusTest
-@WithTestResource(value = NettyHttpJaasTestResource.class, restrictToAnnotatedClass = false)
+@QuarkusTestResource(value = NettyHttpJaasTestResource.class)
 public class NettyHttpJaasTest {
     @ParameterizedTest
     @CsvSource({

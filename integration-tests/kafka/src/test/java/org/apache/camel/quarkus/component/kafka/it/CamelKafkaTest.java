@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.kafka.it;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -35,7 +35,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
-@WithTestResource(KafkaTestResource.class)
+@QuarkusTestResource(KafkaTestResource.class)
 public class CamelKafkaTest {
 
     @Test

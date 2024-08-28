@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.kafka.it;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
@@ -31,7 +31,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
 @QuarkusTest
-@WithTestResource(KafkaTestResource.class)
+@QuarkusTestResource(KafkaTestResource.class)
 @TestProfile(KafkaHealthCheckProfile.class)
 public class CamelKafkaHealthCheckTest {
 

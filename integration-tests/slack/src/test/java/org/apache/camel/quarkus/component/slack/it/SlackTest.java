@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.slack.it;
 
 import java.util.UUID;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -37,7 +37,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
  * SLACK_TOKEN=your-slack-api-access-token
  */
 @QuarkusTest
-@WithTestResource(SlackTestResource.class)
+@QuarkusTestResource(SlackTestResource.class)
 class SlackTest {
 
     @Test

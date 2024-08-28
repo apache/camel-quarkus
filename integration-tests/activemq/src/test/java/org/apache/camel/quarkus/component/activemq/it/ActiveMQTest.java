@@ -16,12 +16,12 @@
  */
 package org.apache.camel.quarkus.component.activemq.it;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import org.apache.camel.quarkus.messaging.jms.AbstractJmsMessagingTest;
 
 @QuarkusTest
-@WithTestResource(ActiveMQTestResource.class)
+@QuarkusTestResource(ActiveMQTestResource.class)
 class ActiveMQTest extends AbstractJmsMessagingTest {
 
 }

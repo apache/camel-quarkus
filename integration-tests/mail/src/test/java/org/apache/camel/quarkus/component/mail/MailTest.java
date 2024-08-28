@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -62,7 +62,7 @@ import static org.hamcrest.Matchers.is;
                 Format.PKCS12 }, password = MailTestResource.KEYSTORE_PASSWORD)
 }, docker = true)
 @QuarkusTest
-@WithTestResource(MailTestResource.class)
+@QuarkusTestResource(MailTestResource.class)
 public class MailTest {
     static final String GREENMAIL_CERTIFICATE_STORE_FILE = CertificatesUtil.keystoreFile("greenmail", "p12");
     private static final Pattern DELIMITER_PATTERN = Pattern.compile("\r\n[^\r\n]+");

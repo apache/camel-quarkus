@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -35,7 +35,7 @@ import static org.hamcrest.Matchers.hasSize;
 
 @QuarkusTest
 @TestHTTPEndpoint(HazelcastQueueResource.class)
-@WithTestResource(HazelcastTestResource.class)
+@QuarkusTestResource(HazelcastTestResource.class)
 public class HazelcastQueueTest {
     @Test
     public void testQueue() {

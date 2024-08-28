@@ -16,8 +16,8 @@
  */
 package org.apache.camel.quarkus.component.jms.qpid.it;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.ResourceArg;
-import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
@@ -29,7 +29,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@WithTestResource(initArgs = {
+@QuarkusTestResource(initArgs = {
         @ResourceArg(name = "modules", value = "quarkus.qpid-jms") }, value = ActiveMQTestResource.class)
 @TestProfile(JmsPoolingEnabled.class)
 class JmsQpidPoolingTest extends AbstractJmsMessagingTest {

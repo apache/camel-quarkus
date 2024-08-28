@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.kudu.it;
 
 import java.util.Map;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -38,7 +38,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@WithTestResource(KuduTestResource.class)
+@QuarkusTestResource(KuduTestResource.class)
 @QuarkusTest
 class KuduTest {
     private static final Logger LOG = Logger.getLogger(KuduTest.class);

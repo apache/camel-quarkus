@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -47,7 +47,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.startsWith;
 
 @QuarkusTest
-@WithTestResource(GoogleStorageTestResource.class)
+@QuarkusTestResource(GoogleStorageTestResource.class)
 class GoogleStorageTest {
     private static final Logger log = LoggerFactory.getLogger(GoogleStorageTest.class);
 

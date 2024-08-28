@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.oaipmh.it;
 
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import me.escoffier.certs.Format;
 import me.escoffier.certs.junit5.Certificate;
@@ -34,7 +34,7 @@ import static org.hamcrest.Matchers.is;
         @Certificate(name = "oaipmh", formats = {
                 Format.PKCS12 }, password = MockOaipmhServer.PASSWORD) })
 @QuarkusTest
-@WithTestResource(OaipmhTestResource.class)
+@QuarkusTestResource(OaipmhTestResource.class)
 class OaipmhTest {
 
     @Test

@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.platform.http.proxy.it;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -26,7 +26,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 @QuarkusTest
-@WithTestResource(PlatformHttpTestResource.class)
+@QuarkusTestResource(PlatformHttpTestResource.class)
 public class ProxyTest {
     @Test
     void testProxy() {

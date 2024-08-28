@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.jms.ibmmq.it;
 
 import java.lang.reflect.Method;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.component.jms.ibmmq.support.IBMMQDestinations;
@@ -33,7 +33,7 @@ import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@WithTestResource(IBMMQTestResource.class)
+@QuarkusTestResource(IBMMQTestResource.class)
 @EnabledIfSystemProperty(named = "ibm.mq.container.license", matches = "accept")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class IBMMQTest extends AbstractJmsMessagingTest {

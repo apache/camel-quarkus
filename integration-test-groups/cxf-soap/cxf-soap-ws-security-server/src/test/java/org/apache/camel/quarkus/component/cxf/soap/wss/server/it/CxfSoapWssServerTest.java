@@ -25,7 +25,7 @@ import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.UnsupportedCallbackException;
 
 import io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil;
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.cxf.endpoint.Client;
@@ -42,7 +42,7 @@ import org.junit.jupiter.api.Test;
 import static io.quarkiverse.cxf.test.QuarkusCxfClientTestUtil.anyNs;
 
 @QuarkusTest
-@WithTestResource(value = CxfWssServerTestResource.class, restrictToAnnotatedClass = false)
+@QuarkusTestResource(value = CxfWssServerTestResource.class)
 class CxfSoapWssServerTest {
 
     @Test

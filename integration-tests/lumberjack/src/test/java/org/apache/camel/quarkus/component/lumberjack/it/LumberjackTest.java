@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.lumberjack.it;
 
 import java.util.List;
 
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
                 Format.JKS }, password = "changeit") })
 @QuarkusTest
 @TestHTTPEndpoint(LumberjackResource.class)
-@WithTestResource(LumberjackTestResource.class)
+@QuarkusTestResource(LumberjackTestResource.class)
 class LumberjackTest {
 
     static final int VERSION_V2 = '2';
