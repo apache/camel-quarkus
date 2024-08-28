@@ -48,6 +48,10 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit4-mock</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.quarkiverse.artemis</groupId>
+            <artifactId>quarkus-artemis-core</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

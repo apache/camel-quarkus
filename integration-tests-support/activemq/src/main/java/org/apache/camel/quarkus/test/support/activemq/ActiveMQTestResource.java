@@ -21,22 +21,21 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.github.dockerjava.api.model.Ulimit;
+import io.quarkus.artemis.core.runtime.ArtemisDevServicesBuildTimeConfig;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
-import org.eclipse.microprofile.config.ConfigProvider;
+import io.smallrye.config.SmallRyeConfigBuilder;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
 
 public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager {
-
-    private static final String ACTIVEMQ_IMAGE_NAME = ConfigProvider.getConfig().getValue("activemq-artemis.container.image",
-            String.class);
     private static final String ACTIVEMQ_USERNAME = "artemis";
     private static final String ACTIVEMQ_PASSWORD = "simetraehcapa";
     private static final int ACTIVEMQ_PORT = 61616;
 
     private GenericContainer<?> container;
     private String[] modules;
+    private String[] javaArgs = new String[] {};
 
     @Override
     public void init(Map<String, String> initArgs) {
@@ -44,17 +43,21 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
             if (name.equals("modules")) {
                 modules = value.split(",");
             }
+            if (name.equals("java-args")) {
+                javaArgs = value.split(",");
+            }
         });
     }
 
     @Override
     public Map<String, String> start() {
-        DockerImageName imageName = DockerImageName.parse(ACTIVEMQ_IMAGE_NAME);
+        DockerImageName imageName = DockerImageName.parse(getArtemisImageName());
         container = new GenericContainer<>(imageName)
                 .withExposedPorts(ACTIVEMQ_PORT)
                 .withLogConsumer(frame -> System.out.print(frame.getUtf8String()))
                 .withEnv("AMQ_USER", ACTIVEMQ_USERNAME)
                 .withEnv("AMQ_PASSWORD", ACTIVEMQ_PASSWORD)
+                .withEnv("JAVA_ARGS_APPEND", "-Dbrokerconfig.maxDiskUsage=-1 " + String.join(" ", javaArgs))
                 .waitingFor(Wait.forLogMessage(".*AMQ241001.*", 1))
                 .withCreateContainerCmdModifier(
                         cmd -> cmd.getHostConfig().withUlimits(new Ulimit[] { new Ulimit("nofile", 2048L, 2048L) }));
@@ -98,5 +101,14 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
         if (container != null) {
             container.stop();
         }
+    }
+
+    private String getArtemisImageName() {
+        // Align to the same image used by quarkus-artemis
+        return new SmallRyeConfigBuilder()
+                .withMapping(ArtemisDevServicesBuildTimeConfig.class)
+                .build()
+                .getConfigMapping(ArtemisDevServicesBuildTimeConfig.class)
+                .getImageName();
     }
 }

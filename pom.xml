@@ -221,7 +221,6 @@
 
         <!-- Test container image properties -->
         <activemq.container.image>docker.io/rmohr/activemq:5.15.9-alpine</activemq.container.image>
-        <activemq-artemis.container.image>quay.io/artemiscloud/activemq-artemis-broker:1.0.20</activemq-artemis.container.image>
         <arangodb.container.image>docker.io/arangodb:3.12.0</arangodb.container.image>
         <azurite.container.image>mcr.microsoft.com/azure-storage/azurite:3.30.0</azurite.container.image>
         <calculator-ws.container.image>quay.io/l2x6/calculator-ws:1.2</calculator-ws.container.image>
