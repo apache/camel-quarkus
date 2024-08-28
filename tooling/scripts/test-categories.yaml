@@ -35,13 +35,11 @@ group-01:
   - mllp
 group-02:
   - aws2
-  - google-bigquery
   - google-pubsub
   - grpc
   - jackson-avro
   - jackson-protobuf
   - jfr
-  - jdbc-grouped
   - kafka-oauth
   - oaipmh
   - pubnub
@@ -77,8 +75,10 @@ group-04:
   - influxdb
   - jms-qpid-amqp-client
   - jpa
+  - jta
   - kudu
   - leveldb
+  - micrometer
   - minio
   - mongodb-grouped
   - mybatis
@@ -103,11 +103,9 @@ group-06:
   - exec
   - file
   - headersmap
-  - jta
   - jsonpath
   - kamelet
   - lra
-  - micrometer
   - openstack
   - opentelemetry
   - quartz
@@ -216,10 +214,12 @@ group-12:
   - vertx-websocket
 group-13:
   - fhir
+  - google-bigquery
   - groovy-dsl
   - jasypt
   - jira
   - java-joor-dsl
+  - jdbc-grouped
   - js-dsl
   - kotlin-dsl
   - kubernetes
