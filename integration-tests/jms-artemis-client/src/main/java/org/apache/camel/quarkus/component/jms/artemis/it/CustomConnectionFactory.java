@@ -28,7 +28,7 @@ public class CustomConnectionFactory {
     @Produces
     @UnlessBuildProperty(name = "quarkus.artemis.enabled", stringValue = "true")
     ConnectionFactory createConnectionFactory() {
-        String url = ConfigProvider.getConfig().getValue("artemis.custom.url", String.class);
+        String url = ConfigProvider.getConfig().getValue("quarkus.artemis.url", String.class);
         ActiveMQConnectionFactory cf = new ActiveMQConnectionFactory(url);
         return cf;
     }

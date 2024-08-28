@@ -16,13 +16,30 @@
  */
 package org.apache.camel.quarkus.component.jms.artemis.it;
 
+import io.quarkus.test.common.ResourceArg;
 import io.quarkus.test.common.WithTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
+import io.restassured.RestAssured;
+import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 import org.apache.camel.quarkus.messaging.jms.AbstractJmsMessagingTest;
+import org.apache.camel.quarkus.test.support.activemq.ActiveMQTestResource;
+import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 @TestProfile(JmsArtemisDisable.class)
-@WithTestResource(CustomArtemisTestResource.class)
+@WithTestResource(initArgs = {
+        @ResourceArg(name = "modules", value = "quarkus.artemis"),
+        @ResourceArg(name = "java-args", value = "-Dbrokerconfig.securityEnabled=false")
+}, value = ActiveMQTestResource.class)
 public class JmsArtemisCustomTest extends AbstractJmsMessagingTest {
+    @Test
+    public void connectionFactoryImplementation() {
+        RestAssured.get("/messaging/jms/artemis/connection/factory")
+                .then()
+                .statusCode(200)
+                .body(is(ActiveMQConnectionFactory.class.getName()));
+    }
 }
