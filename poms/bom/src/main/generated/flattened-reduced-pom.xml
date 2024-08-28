@@ -6166,7 +6166,7 @@
       <dependency>
         <groupId>com.github.luben</groupId>
         <artifactId>zstd-jni</artifactId>
-        <version>1.5.5-1</version>
+        <version>1.5.5-6</version>
       </dependency>
       <dependency>
         <groupId>com.github.mwiede</groupId>
@@ -6494,7 +6494,7 @@
       <dependency>
         <groupId>io.smallrye.reactive</groupId>
         <artifactId>smallrye-reactive-messaging-camel</artifactId>
-        <version>4.18.0</version>
+        <version>4.18.1</version>
       </dependency>
       <dependency>
         <groupId>io.swagger.core.v3</groupId>
@@ -6574,7 +6574,7 @@
       <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>connect-runtime</artifactId>
-        <version>3.6.1</version>
+        <version>3.7.0</version>
         <exclusions>
           <exclusion>
             <groupId>javax.activation</groupId>
