@@ -420,7 +420,7 @@ NEW_CQ_VERSION=... # the recent release of Camel Quarkus; e.g. 2.2.0
 git checkout main
 git fetch upstream
 git reset --hard upstream/main
-./mvnw-for-each.sh versions:set -DnewVersion=$NEW_CQ_VERSION
+./mvnw-for-each.sh versions:set versions:update-child-modules -DnewVersion=$NEW_CQ_VERSION
 # Update version labels in Kubernetes resources
 ./mvnw-for-each.sh process-sources
 git add -A
@@ -442,6 +442,7 @@ NEXT_CQ_VERSION=... # The version used in the current Camel Quarkus main branch 
 git checkout camel-quarkus-main
 git reset --hard main
 ./mvnw org.l2x6.cq:cq-maven-plugin:2.10.0:examples-set-platform -Dcq.camel-quarkus.version=${NEXT_CQ_VERSION}-SNAPSHOT -Dcq.newVersion=${NEXT_CQ_VERSION}-SNAPSHOT
+./mvnw-for-each.sh versions:update-child-modules -N
 # Update version labels in Kubernetes resources
 ./mvnw-for-each.sh process-sources
 git add -A
