@@ -106,6 +106,7 @@
         <module>groovy</module>
         <module>groovy-dsl</module>
         <module>grpc</module>
+        <module>hashicorp-vault</module>
         <module>hazelcast</module>
         <module>headersmap</module>
         <module>hl7</module>
