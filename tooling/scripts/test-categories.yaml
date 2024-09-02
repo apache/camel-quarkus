@@ -102,6 +102,7 @@ group-05:
 group-06:
   - exec
   - file
+  - hashicorp-vault
   - headersmap
   - jsonpath
   - kamelet
