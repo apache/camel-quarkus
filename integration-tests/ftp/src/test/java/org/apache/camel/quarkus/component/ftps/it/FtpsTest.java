@@ -34,7 +34,7 @@ import static org.hamcrest.CoreMatchers.is;
                 Format.PKCS12 }, password = "password") })
 @Disabled //https://github.com/apache/camel-quarkus/issues/4089
 @QuarkusTest
-@QuarkusTestResource(FtpsTestResource.class)
+@QuarkusTestResource(value = FtpsTestResource.class, restrictToAnnotatedClass = true)
 class FtpsTest {
     static final String CERTIFICATE_KEYSTORE_FILE = CertificatesUtil.keystoreFile("ftp", "p12");
 
