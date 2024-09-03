@@ -189,8 +189,8 @@ public class PrepareCatalogQuarkusMojo extends AbstractExtensionListMojo {
         final Map<String, Object> metadata = model.getMetadata();
         metadata.put(QUARKUS_VERSION, quarkusVersion);
         if (model.getArtifactId() != null && model.getGroupId() != null) {
-            metadata.put(CAMEL_ARTIFACT, model.getGroupId() + ":" + model.getArtifactId());
-            metadata.put(CAMEL_VERSION, model.getVersion());
+            metadata.putIfAbsent(CAMEL_ARTIFACT, model.getGroupId() + ":" + model.getArtifactId());
+            metadata.putIfAbsent(CAMEL_VERSION, model.getVersion());
         }
         // lets use the camel-quarkus version as first version instead of Apache Camel
         // version
