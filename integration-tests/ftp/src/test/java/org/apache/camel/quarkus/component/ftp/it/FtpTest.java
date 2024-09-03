@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
-@QuarkusTestResource(FtpTestResource.class)
+@QuarkusTestResource(value = FtpTestResource.class, restrictToAnnotatedClass = true)
 class FtpTest {
     @Test
     public void testFtpComponent() {

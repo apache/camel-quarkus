@@ -30,12 +30,6 @@ public class FtpsTestResource extends FtpTestResource {
 
     @Override
     protected ListenerFactory createListenerFactory(int port) {
-        //do not create a factory if keystore file does not exists
-        //because the test is disabled, but the test resource is "activated", this condition prevents the failure
-        //for the FtpTest
-        if (!Path.of(FtpsTest.CERTIFICATE_KEYSTORE_FILE).toFile().exists()) {
-            return null;
-        }
 
         SslConfigurationFactory sslConfigFactory = new SslConfigurationFactory();
         sslConfigFactory.setKeystoreFile(Path.of(FtpsTest.CERTIFICATE_KEYSTORE_FILE).toFile());
