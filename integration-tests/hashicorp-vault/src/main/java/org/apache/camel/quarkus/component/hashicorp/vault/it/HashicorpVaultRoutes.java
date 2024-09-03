@@ -46,25 +46,25 @@ public class HashicorpVaultRoutes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("direct:createSecret")
-                .toF("hashicorp-vault:secret?operation=createSecret&scheme=http&host=%s&port=%d&token=%s&secretPath=%s", host,
+                .toF("hashicorp-vault:secret?operation=createSecret&scheme=https&host=%s&port=%d&token=%s&secretPath=%s", host,
                         port, token, TEST_SECRET_PATH);
 
         from("direct:createVersionedSecret")
-                .toF("hashicorp-vault:secret?operation=createSecret&scheme=http&host=%s&port=%d&token=%s&secretPath=%s", host,
+                .toF("hashicorp-vault:secret?operation=createSecret&scheme=https&host=%s&port=%d&token=%s&secretPath=%s", host,
                         port, token, TEST_VERSIONED_SECRET_PATH);
 
         from("direct:getSecret")
-                .toF("hashicorp-vault:secret?operation=getSecret&scheme=http&host=%s&port=%d&token=%s", host, port, token);
+                .toF("hashicorp-vault:secret?operation=getSecret&scheme=https&host=%s&port=%d&token=%s", host, port, token);
 
         from("direct:getSecretWithCustomVaultTemplate")
                 .to("hashicorp-vault:secret?operation=getSecret&vaultTemplate=#customVaultTemplate");
 
         from("direct:deleteSecret")
-                .toF("hashicorp-vault:secret?operation=deleteSecret&scheme=http&host=%s&port=%d&token=%s&secretPath=%s", host,
+                .toF("hashicorp-vault:secret?operation=deleteSecret&scheme=https&host=%s&port=%d&token=%s&secretPath=%s", host,
                         port, token, TEST_SECRET_PATH);
 
         from("direct:listSecrets")
-                .toF("hashicorp-vault:secret?operation=listSecrets&scheme=http&host=%s&port=%d&token=%s&secretPath=%s", host,
+                .toF("hashicorp-vault:secret?operation=listSecrets&scheme=https&host=%s&port=%d&token=%s&secretPath=%s", host,
                         port, token, TEST_SECRET_PATH);
 
         from("direct:propertyPlaceholder")

@@ -19,6 +19,9 @@ package org.apache.camel.quarkus.component.hashicorp.vault.it;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import me.escoffier.certs.Format;
+import me.escoffier.certs.junit5.Certificate;
+import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.quarkus.component.hashicorp.vault.it.HashicorpVaultRoutes.TEST_SECRET_NAME;
@@ -27,6 +30,9 @@ import static org.apache.camel.quarkus.component.hashicorp.vault.it.HashicorpVau
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 
+@TestCertificates(certificates = {
+        @Certificate(name = "hashicorp-vault", formats = { Format.PEM, Format.PKCS12 }, password = "v431t")
+}, docker = true)
 @QuarkusTest
 @QuarkusTestResource(HashicorpVaultTestResource.class)
 class HashicorpVaultTest {

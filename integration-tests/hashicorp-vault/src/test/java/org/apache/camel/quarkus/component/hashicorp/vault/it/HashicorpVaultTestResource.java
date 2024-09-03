@@ -21,23 +21,48 @@ import java.util.UUID;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
+import org.testcontainers.utility.MountableFile;
 
 public class HashicorpVaultTestResource implements QuarkusTestResourceLifecycleManager {
+    private static final Logger LOG = LoggerFactory.getLogger(HashicorpVaultTestResource.class);
     private static final String DOCKER_IMAGE_NAME = ConfigProvider.getConfig().getValue("hashicorp-vault.container.image",
             String.class);
     private static final String VAULT_TOKEN = UUID.randomUUID().toString();
-    private static final int VAULT_PORT = 8200;
+    private static final int VAULT_PORT = 8300;
+    private static final String VAULT_CONFIG = """
+            {
+              "listener": [
+                {
+                  "tcp": {
+                    "address": "0.0.0.0:8300",
+                    "tls_disable": "0",
+                    "tls_cert_file": "/ssl/hashicorp-vault.crt",
+                    "tls_key_file": "/ssl/hashicorp-vault.key"
+                  }
+                }
+              ]
+            }""";
     private GenericContainer<?> container;
 
     @Override
     public Map<String, String> start() {
+
         container = new GenericContainer<>(DockerImageName.parse(DOCKER_IMAGE_NAME));
         container.withEnv("VAULT_DEV_ROOT_TOKEN_ID", VAULT_TOKEN);
+        container.withEnv("VAULT_LOCAL_CONFIG", VAULT_CONFIG.trim());
         container.addExposedPort(VAULT_PORT);
+        container.withCopyFileToContainer(MountableFile.forHostPath("target/certs/hashicorp-vault.crt"),
+                "/ssl/hashicorp-vault.crt");
+        container.withCopyFileToContainer(MountableFile.forHostPath("target/certs/hashicorp-vault.key"),
+                "/ssl/hashicorp-vault.key");
         container.waitingFor(Wait.forListeningPort());
+        container.withLogConsumer(new Slf4jLogConsumer(LOG));
         container.waitingFor(Wait.forLogMessage(".*Development.*mode.*should.*", 1));
 
         container.start();
@@ -47,7 +72,7 @@ public class HashicorpVaultTestResource implements QuarkusTestResourceLifecycleM
                 "camel.vault.hashicorp.token", VAULT_TOKEN,
                 "camel.vault.hashicorp.host", container.getHost(),
                 "camel.vault.hashicorp.port", String.valueOf(container.getMappedPort(VAULT_PORT)),
-                "camel.vault.hashicorp.scheme", "http");
+                "camel.vault.hashicorp.scheme", "https");
     }
 
     @Override
