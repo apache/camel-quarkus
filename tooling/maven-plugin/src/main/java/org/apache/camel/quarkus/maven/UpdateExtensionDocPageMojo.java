@@ -87,8 +87,10 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
     private static final String TOOLTIP_MACRO = "tooltip:%s[%s]";
     private static final String MORE_INFO_ABOUT_TYPE_FORMAT = "link:#%s[icon:question-circle[title=More information about the %s format]]";
 
-    @Parameter(defaultValue = "false", property = "camel-quarkus.update-extension-doc-page.skip")
-    boolean skip = false;
+    // TODO: Revert the default back to false
+    // https://github.com/apache/camel-quarkus/issues/6418
+    @Parameter(defaultValue = "true", property = "camel-quarkus.update-extension-doc-page.skip")
+    boolean skip = true;
 
     @Parameter(defaultValue = "${project}", readonly = true)
     MavenProject project;
@@ -600,7 +602,9 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                     : "";
             final TypeInfo typeInfo = typeContent(configDocItem, javadocRepository, true, artifactIdBase);
             return new ConfigItem(
-                    configDocItem.getPath(),
+                    // TODO: Fix to use the correct value
+                    // https://github.com/apache/camel-quarkus/issues/6418
+                    configDocItem.getPath().toString(),
                     illustration,
                     adocSource,
                     typeInfo.description,
