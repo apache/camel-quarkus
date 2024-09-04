@@ -29,8 +29,11 @@ class SupportSwaggerProcessor {
     void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses, CombinedIndexBuildItem combinedIndex) {
         IndexView index = combinedIndex.getIndex();
 
-        index.getKnownClasses().stream().filter(ci -> ci.name().packagePrefix().startsWith("io.swagger.models") ||
-                ci.name().packagePrefix().startsWith("io.swagger.v3.oas.models"))
+        index.getKnownClasses().stream().filter(ci -> {
+            String packagePrefix = ci.name().packagePrefix();
+            return packagePrefix != null
+                    && (packagePrefix.startsWith("io.swagger.models") || packagePrefix.startsWith("io.swagger.v3.oas.models"));
+        })
                 .map(ClassInfo::toString)
                 .forEach(name -> reflectiveClasses.produce(ReflectiveClassBuildItem.builder(name).methods().build()));
     }
