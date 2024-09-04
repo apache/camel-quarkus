@@ -17,11 +17,15 @@
 package org.apache.camel.quarkus.component.vertx.websocket;
 
 import java.net.URI;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
+import io.quarkus.arc.Arc;
 import io.quarkus.runtime.LaunchMode;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
+import io.quarkus.tls.TlsConfiguration;
+import io.quarkus.tls.TlsConfigurationRegistry;
 import io.quarkus.vertx.http.runtime.CertificateConfig;
 import io.quarkus.vertx.http.runtime.HttpConfiguration;
 import io.quarkus.vertx.http.runtime.ServerSslConfig;
@@ -51,23 +55,9 @@ public class VertxWebsocketRecorder {
             LaunchMode launchMode,
             HttpConfiguration httpConfig) {
 
-        boolean sslEnabled = false;
+        boolean sslEnabled = isHttpSeverSecureTransportConfigured(httpConfig);
         int httpPort = httpConfig.determinePort(launchMode);
         int httpsPort = httpConfig.determineSslPort(launchMode);
-
-        ServerSslConfig ssl = httpConfig.ssl;
-        if (ssl != null) {
-            CertificateConfig certificate = ssl.certificate;
-            if (certificate != null) {
-                if (certificate.files.isPresent() && certificate.keyFiles.isPresent()) {
-                    sslEnabled = true;
-                }
-
-                if (certificate.keyStoreFile.isPresent() && certificate.keyStorePassword.isPresent()) {
-                    sslEnabled = true;
-                }
-            }
-        }
 
         HOST = httpConfig.host;
         PORT = sslEnabled ? httpsPort : httpPort;
@@ -78,6 +68,40 @@ public class VertxWebsocketRecorder {
         component.setDefaultHost(HOST);
         component.setDefaultPort(PORT);
         return new RuntimeValue<>(component);
+    }
+
+    private boolean isHttpSeverSecureTransportConfigured(HttpConfiguration httpConfig) {
+        return httpServerTlsRegistryConfigurationExists(httpConfig) || httpServerLegacySslConfigurationExists(httpConfig);
+    }
+
+    private boolean httpServerTlsRegistryConfigurationExists(HttpConfiguration httpConfig) {
+        if (Arc.container() != null) {
+            TlsConfigurationRegistry tlsConfigurationRegistry = Arc.container().select(TlsConfigurationRegistry.class).orNull();
+            if (tlsConfigurationRegistry != null) {
+                Optional<String> tlsConfigurationName = httpConfig.tlsConfigurationName;
+                Optional<TlsConfiguration> defaultTlsConfiguration = tlsConfigurationRegistry.getDefault();
+                if (tlsConfigurationName.isPresent() && tlsConfigurationRegistry.get(tlsConfigurationName.get()).isPresent()) {
+                    return true;
+                } else {
+                    return defaultTlsConfiguration.isPresent() && defaultTlsConfiguration.get().getKeyStoreOptions() != null;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean httpServerLegacySslConfigurationExists(HttpConfiguration httpConfig) {
+        ServerSslConfig ssl = httpConfig.ssl;
+        if (ssl != null) {
+            CertificateConfig certificate = ssl.certificate;
+            if (certificate != null) {
+                if (certificate.files.isPresent() && certificate.keyFiles.isPresent()) {
+                    return true;
+                }
+                return certificate.keyStoreFile.isPresent() && certificate.keyStorePassword.isPresent();
+            }
+        }
+        return false;
     }
 
     @Component("vertx-websocket")

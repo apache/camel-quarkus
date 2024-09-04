@@ -20,24 +20,15 @@ import java.net.URI;
 import java.util.List;
 
 import io.quarkus.test.common.http.TestHTTPResource;
-import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
-import me.escoffier.certs.Format;
-import me.escoffier.certs.junit5.Certificate;
-import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.matchesPattern;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@TestCertificates(certificates = {
-        @Certificate(name = "vertx-websocket", formats = {
-                Format.PKCS12, Format.PEM }, password = "changeit") })
-@TestProfile(VertxWebsocketSslTestProfile.class)
-@QuarkusTest
-public class VertxWebsocketSslTest {
-    @TestHTTPResource(value = "/", ssl = true)
+public abstract class VertxWebsocketSslTest {
+    @TestHTTPResource(value = "/", tls = true)
     URI root;
 
     @BeforeAll
@@ -49,6 +40,14 @@ public class VertxWebsocketSslTest {
     public void ssl() throws Exception {
         URI uri = URI.create(root.toString().replace("https", "wss"));
         String message = "SSL Vert.x WebSocket Route";
+
+        RestAssured.given()
+                .queryParam("hostPort", "localhost:8441")
+                .get("/vertx-websocket/invalid/consumer/uri")
+                .then()
+                .statusCode(500)
+                .body(matchesPattern(
+                        "Invalid host/port localhost:8441.*can only be configured as (localhost|0.0.0.0):" + uri.getPort()));
 
         try (VertxWebsocketTest.WebSocketConnection connection = new VertxWebsocketTest.WebSocketConnection(uri, null)) {
             connection.connect();

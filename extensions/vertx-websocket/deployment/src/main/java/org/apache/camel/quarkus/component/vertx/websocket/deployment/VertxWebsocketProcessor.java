@@ -16,7 +16,9 @@
  */
 package org.apache.camel.quarkus.component.vertx.websocket.deployment;
 
+import io.quarkus.arc.deployment.SyntheticBeansRuntimeInitBuildItem;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.Consume;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
@@ -38,6 +40,7 @@ class VertxWebsocketProcessor {
     }
 
     @BuildStep
+    @Consume(SyntheticBeansRuntimeInitBuildItem.class)
     @Record(ExecutionTime.RUNTIME_INIT)
     CamelRuntimeBeanBuildItem configureVertxWebsocketComponent(
             VertxBuildItem vertx,

@@ -19,6 +19,6 @@ package org.apache.camel.quarkus.component.vertx.websocket.it;
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
 @QuarkusIntegrationTest
-class VertxWebsocketSslIT extends VertxWebsocketSslTest {
+class VertxWebsocketTlsNamedConfigIT extends VertxWebsocketTlsNamedConfigTest {
 
 }
