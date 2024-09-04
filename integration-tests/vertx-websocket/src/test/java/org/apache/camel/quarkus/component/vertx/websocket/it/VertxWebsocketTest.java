@@ -42,6 +42,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.matchesPattern;
 import static org.hamcrest.Matchers.startsWith;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -88,7 +89,8 @@ class VertxWebsocketTest {
                 .get("/vertx-websocket/invalid/consumer/uri")
                 .then()
                 .statusCode(500)
-                .body(startsWith("Invalid host/port"));
+                .body(matchesPattern(
+                        "Invalid host/port " + hostPort + ".*can only be configured as (localhost|0.0.0.0):" + root.getPort()));
     }
 
     @Test

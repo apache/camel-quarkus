@@ -16,17 +16,9 @@
  */
 package org.apache.camel.quarkus.component.vertx.websocket.it;
 
-import java.util.Map;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-import io.quarkus.test.junit.QuarkusTestProfile;
+@QuarkusIntegrationTest
+class VertxWebsocketTlsIT extends VertxWebsocketTlsTest {
 
-public class VertxWebsocketSslTestProfile implements QuarkusTestProfile {
-
-    @Override
-    public Map<String, String> getConfigOverrides() {
-        return Map.of(
-                "quarkus.http.ssl.certificate.files", "target/certs/vertx-websocket.crt",
-                "quarkus.http.ssl.certificate.key-files", "target/certs/vertx-websocket.key",
-                "quarkus.http.insecure-requests", "disabled");
-    }
 }
