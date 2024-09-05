@@ -20,6 +20,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -28,6 +29,8 @@ import static org.hamcrest.Matchers.containsString;
 @QuarkusTest
 @QuarkusTestResource(ValidatorTestResource.class)
 class ValidatorTest {
+
+    private final String ERROR_RESPONSE = "Exception occurred during execution on the exchange";
 
     @ParameterizedTest
     @ValueSource(strings = { "classpath", "filesystem", "http" })
@@ -53,7 +56,6 @@ class ValidatorTest {
     public void inValidXML(String scheme) {
 
         String requestBody = "<message><firstName>MyFirstname</firstName></message>";
-        String errorResponse = "Exception occurred during execution on the exchange";
 
         RestAssured.given()
                 .contentType(ContentType.XML)
@@ -62,7 +64,71 @@ class ValidatorTest {
                 .then()
                 .statusCode(500)
                 .assertThat()
-                .body(containsString(errorResponse));
+                .body(containsString(ERROR_RESPONSE));
+
+    }
+
+    @Test
+    public void sourceFromHeader() {
+
+        String requestBody = "<message><firstName>MyFirstname</firstName><lastName>MyLastname</lastName></message>";
+
+        //header is empty
+        RestAssured.given()
+                .contentType(ContentType.XML)
+                .post("/validator/validate/headerSource")
+                .then()
+                .statusCode(500)
+                .assertThat()
+                .body(containsString("XML header \"source\" could not be found"));
+
+        //correct path
+        RestAssured.given()
+                .contentType(ContentType.XML)
+                .queryParam("sourceHeader", requestBody)
+                .post("/validator/validate/headerSource")
+                .then()
+                .statusCode(200);
+
+        requestBody = "<message><firstName>MyFirstname</firstName></message>";
+
+        //invalid xml
+        RestAssured.given()
+                .contentType(ContentType.XML)
+                .queryParam("sourceHeader", requestBody)
+                .post("/validator/validate/headerSource")
+                .then()
+                .statusCode(500)
+                .assertThat()
+                .body(containsString(ERROR_RESPONSE));
+    }
+
+    @Test
+    public void nullParameters() {
+        String errorResponse = "Exception occurred during execution on the exchange";
+
+        //failOnNullHeader == false (true is covered as default value by the above tests)
+        RestAssured.given()
+                .contentType(ContentType.XML)
+                .post("/validator/validate/headerSourceFailFalse")
+                .then()
+                .statusCode(200);
+
+        //failOnNullBody == true
+        RestAssured.given()
+                .contentType(ContentType.XML)
+                .post("/validator/validate/classpath")
+                .then()
+                .statusCode(500)
+                .assertThat()
+                .body(containsString(ERROR_RESPONSE));
+
+        //failOnNullBody == false
+        RestAssured.given()
+                .contentType(ContentType.XML)
+                .post("/validator/validate/classpathFailFalse")
+                .then()
+                .statusCode(200);
 
     }
 }
