@@ -239,7 +239,7 @@
         <hashicorp-vault.container.image>docker.io/hashicorp/vault:1.17</hashicorp-vault.container.image>
         <ibm-mq.container.image>icr.io/ibm-messaging/mq:9.3.2.1-r1</ibm-mq.container.image>
         <influxdb.container.image>docker.io/influxdb:1.8.10</influxdb.container.image>
-        <kafka.container.image>quay.io/strimzi-test-container/test-container:latest-kafka-3.2.1</kafka.container.image>
+        <kafka.container.image>quay.io/strimzi-test-container/test-container:latest-kafka-3.8.0</kafka.container.image>
         <kafka-oauth.container.image>quay.io/strimzi/kafka:latest-kafka-3.7.0</kafka-oauth.container.image>
         <keycloak.container.image>quay.io/keycloak/keycloak:23.0.7</keycloak.container.image>
         <kudu.container.image>docker.io/apache/kudu:1.17.0</kudu.container.image>
