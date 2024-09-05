@@ -40,39 +40,8 @@
 			<artifactId>camel-quarkus-core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.camel.quarkus</groupId>
-			<artifactId>camel-quarkus-flink-client</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-jackson</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-netty</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.dataformat</groupId>
-			<artifactId>jackson-dataformat-csv</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-flink</artifactId>
-			<exclusions>
-				<!-- replaced by camel-quarkus-flink-client -->
-				<exclusion>
-					<groupId>org.apache.flink</groupId>
-					<artifactId>flink-clients</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.flink</groupId>
-					<artifactId>flink-java</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.flink</groupId>
-					<artifactId>flink-streaming-java</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 	</dependencies>
 	<build>
