@@ -46,6 +46,15 @@ public class ValidatorRouteBuilder extends RouteBuilder {
         from("direct:http")
                 .toD("validator:" + serverURL + "/xsd");
 
+        from("direct:headerSource")
+                .to("validator:message.xsd?headerName=source");
+
+        from("direct:headerSourceFailFalse")
+                .to("validator:message.xsd?headerName=source&failOnNullHeader=false");
+
+        from("direct:classpathFailFalse")
+                .to("validator:message.xsd?failOnNullBody=false");
+
     }
 
     public String createTempXsd(String sourceXsd) {

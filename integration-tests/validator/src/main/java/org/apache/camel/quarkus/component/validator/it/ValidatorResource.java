@@ -23,9 +23,11 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.support.processor.validation.NoXmlHeaderValidationException;
 
 @Path("/validator")
 @ApplicationScoped
@@ -33,14 +35,30 @@ public class ValidatorResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/validate/{scheme}")
+    @Path("/validate/{directName}")
     @POST
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response processOrderInXml(String statement, @PathParam("scheme") String scheme) {
+    public Response processOrderInXml(String statement,
+            @QueryParam("sourceHeader") String headerSourceContent,
+            @PathParam("directName") String directName) {
+
+        //if statement == "", use null instead
+        String body = statement != null && !statement.isEmpty() ? statement : null;
+
         try {
-            return Response.ok().entity(producerTemplate.requestBody("direct:" + scheme, statement, String.class)).build();
+            if (headerSourceContent != null) {
+                return Response.ok().entity(producerTemplate.requestBodyAndHeader("direct:" + directName, null, "source",
+                        headerSourceContent, String.class)).build();
+            }
+
+            return Response.ok().entity(producerTemplate.requestBody("direct:" + directName, body, String.class)).build();
+
         } catch (Exception e) {
+            if (e.getCause() instanceof NoXmlHeaderValidationException) {
+                return Response.serverError().entity(e.getCause().getMessage()).build();
+            }
+
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
