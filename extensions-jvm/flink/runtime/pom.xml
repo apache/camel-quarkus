@@ -50,6 +50,16 @@
             <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-extension-maven-plugin</artifactId>
+                <configuration>
+                    <!--Flink
+                    uses Inverted Class Loading which causing issue for the Quarkus classloading
+                    mechanism -->
+                    <parentFirstArtifacts>
+                        <parentFirstArtifact>org.apache.flink:flink-core</parentFirstArtifact>
+                        <parentFirstArtifact>org.apache.flink:flink-rpc-core</parentFirstArtifact>
+                        <parentFirstArtifact>org.apache.flink:flink-runtime</parentFirstArtifact>
+                    </parentFirstArtifacts>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
