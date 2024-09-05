@@ -96,11 +96,7 @@ class FlinkTest {
                         return false;
                     });
         } finally {
-            if (Files.isDirectory(path)) {
-                FileUtils.deleteQuietly(path.toFile());
-            } else {
-                FileUtils.deleteQuietly(path.toFile());
-            }
+            FileUtils.deleteQuietly(path.toFile());
         }
     }
 }
