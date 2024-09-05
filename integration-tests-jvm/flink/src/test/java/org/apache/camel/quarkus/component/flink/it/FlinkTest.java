@@ -19,13 +19,15 @@ package org.apache.camel.quarkus.component.flink.it;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.apache.commons.io.FileUtils;
 import org.awaitility.Awaitility;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
@@ -65,25 +67,40 @@ class FlinkTest {
         Path path = Files.createTempFile("fileDataStream", ".txt");
         try {
             String text = "Hello!!Camel flink!";
-            Awaitility.await().atMost(10, TimeUnit.SECONDS)
-                    .until(
-                            () -> RestAssured.given()
-                                    .contentType(ContentType.TEXT)
-                                    .body(text)
-                                    .post("/flink/datastream/{filePath}", path.toAbsolutePath().toString())
-                                    .then()
-                                    .statusCode(200)
-                                    .extract()
-                                    .body().asString(),
-                            Matchers.is("384"));
+            RestAssured.given()
+                    .contentType(ContentType.TEXT)
+                    .body(text)
+                    .post("/flink/datastream/{filePath}", path.toAbsolutePath().toString())
+                    .then()
+                    .statusCode(200);
 
+            Awaitility.await()
+                    .pollInterval(Duration.ofMillis(250))
+                    .atMost(10, TimeUnit.SECONDS)
+                    .until(() -> {
+                        if (Files.isDirectory(path)) {
+                            try (Stream<Path> walk = Files.walk(path)) {
+                                return walk.filter(Files::isRegularFile).anyMatch(filePath -> {
+                                    try {
+                                        if (Files.size(filePath) > 0) {
+                                            String content = Files.readString(filePath);
+                                            return content.trim().equals(text);
+                                        }
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                    return false;
+                                });
+                            }
+                        }
+                        return false;
+                    });
         } finally {
-            try {
-                Files.deleteIfExists(path);
-            } catch (Exception e) {
-                // Do nothing
+            if (Files.isDirectory(path)) {
+                FileUtils.deleteQuietly(path.toFile());
+            } else {
+                FileUtils.deleteQuietly(path.toFile());
             }
-
         }
     }
 }
