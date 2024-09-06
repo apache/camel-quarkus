@@ -37,6 +37,7 @@ import org.apache.camel.component.flink.Flinks;
 import org.apache.camel.component.flink.VoidDataStreamCallback;
 import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
+import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.jboss.logging.Logger;
@@ -66,6 +67,7 @@ public class FlinkResource {
 
         if (Files.exists(Paths.get(filePath))) {
             ExecutionEnvironment env = Flinks.createExecutionEnvironment();
+            env.getConfiguration().setString("io.tmp.dirs", "target");
             DataSet<String> myDataSet = env.readTextFile(filePath);
             context.getRegistry().bind("myDataSet", myDataSet);
             context.getRegistry().bind("countTotal", addDataSetCallback());
@@ -84,7 +86,9 @@ public class FlinkResource {
     public Response loadStream(@PathParam("filePath") String filePath, String data) throws IOException {
         java.nio.file.Path path = Paths.get(filePath);
         if (path != null) {
-            StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+            Configuration configuration = new Configuration();
+            configuration.setString("io.tmp.dirs", "target");
+            StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment(configuration);
             DataStream<String> datastream = env.fromElements(data);
             context.getRegistry().bind("myDataStream", datastream);
             template.sendBodyAndHeader(flinkDataStreamUri, null,
