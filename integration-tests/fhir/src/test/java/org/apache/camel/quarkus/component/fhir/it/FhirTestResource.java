@@ -56,6 +56,12 @@ public class FhirTestResource implements QuarkusTestResourceLifecycleManager {
             return Collections.emptyMap();
         }
 
+        if (this.fhirVersion.equals(FhirVersion.DSTU2_1)) {
+            // TODO: https://github.com/hapifhir/hapi-fhir-jpaserver-starter/issues/335
+            // Return a fictional host to allow the application to start, which allows a minimal check that native mode can work
+            return Map.of(String.format("camel.fhir.%s.test-url", fhirVersion.simpleVersion()), "http://localhost:8080");
+        }
+
         try {
             LOGGER.info("FHIR version {} is enabled. Starting hapi test container for it.", fhirVersion.simpleVersion());
             String imageName = fhirVersion.getContainerImageName();
@@ -127,7 +133,7 @@ public class FhirTestResource implements QuarkusTestResourceLifecycleManager {
         public String getContainerImageName() {
             String imageProperty = "fhir.container.image";
             if (name().contains("DSTU")) {
-                imageProperty = "fhir-dstu.container-image";
+                imageProperty = "fhir-dstu.container.image";
             }
             return ConfigProvider.getConfig().getValue(imageProperty, String.class);
         }

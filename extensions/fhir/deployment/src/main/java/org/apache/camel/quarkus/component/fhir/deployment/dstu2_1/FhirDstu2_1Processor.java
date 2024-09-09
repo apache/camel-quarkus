@@ -43,7 +43,7 @@ import static org.apache.camel.quarkus.component.fhir.deployment.FhirUtil.getRes
 
 public class FhirDstu2_1Processor {
 
-    private static final String FHIR_VERSION_PROPERTIES = "org/hl7/fhir/dstu2016may/model/fhirversion.properties";
+    private static final String FHIR_VERSION_PROPERTIES = "org/hl7/fhir/dstu2016may/hapi/model/fhirversion.properties";
 
     @BuildStep(onlyIf = FhirFlags.Dstu2_1Enabled.class)
     Dstu2_1PropertiesBuildItem fhirProperties() {
