@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.debezium.common.it.mongodb;
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 import org.junit.jupiter.api.Disabled;
 
-@Disabled("https://github.com/apache/camel-quarkus/issues/4638, https://github.com/apache/camel-quarkus/issues/6341")
+@Disabled("https://github.com/apache/camel-quarkus/issues/4638")
 @QuarkusIntegrationTest
 class DebeziumMongodbIT extends DebeziumMongodbTest {
 
