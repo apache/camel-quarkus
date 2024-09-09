@@ -171,7 +171,7 @@ public class PlatformHttpRouteBuilder extends RouteBuilder {
                 .transform(body().prepend("Hello "));
 
         // Basic auth security tests
-        from("platform-http:/platform-http/secure/basic")
+        from("platform-http:/platform-http/secure/basic?returnHttpRequestHeaders=true")
                 .process(exchange -> {
                     Message message = exchange.getMessage();
                     QuarkusHttpUser user = message.getHeader(VertxPlatformHttpConstants.AUTHENTICATED_USER,
