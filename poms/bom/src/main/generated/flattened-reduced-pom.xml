@@ -1727,11 +1727,6 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
-        <artifactId>camel-kotlin-dsl</artifactId>
-        <version>4.8.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
         <artifactId>camel-kubernetes</artifactId>
         <version>4.8.0-SNAPSHOT</version>
         <exclusions>
@@ -4649,26 +4644,6 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-kotlin</artifactId>
-        <version>3.15.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-kotlin-deployment</artifactId>
-        <version>3.15.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-kotlin-dsl</artifactId>
-        <version>3.15.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-kotlin-dsl-deployment</artifactId>
-        <version>3.15.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-kubernetes</artifactId>
         <version>3.15.0-SNAPSHOT</version>
       </dependency>
@@ -7123,11 +7098,6 @@
         <version>2.0.10</version>
       </dependency>
       <dependency>
-        <groupId>org.jetbrains.kotlin</groupId>
-        <artifactId>kotlin-scripting-jvm-host</artifactId>
-        <version>2.0.10</version>
-      </dependency>
-      <dependency>
         <groupId>org.jetbrains.kotlinx</groupId>
         <artifactId>kotlinx-serialization-core-jvm</artifactId>
         <version>1.4.0</version>
@@ -8208,72 +8178,72 @@
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-alpn-client</artifactId>
-        <version>12.0.12</version>
+        <version>12.0.13</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-client</artifactId>
-        <version>12.0.12</version>
+        <version>12.0.13</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-http</artifactId>
-        <version>12.0.12</version>
+        <version>12.0.13</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-io</artifactId>
-        <version>12.0.12</version>
+        <version>12.0.13</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-security</artifactId>
-        <version>12.0.12</version>
+        <version>12.0.13</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-server</artifactId>
-        <version>12.0.12</version>
+        <version>12.0.13</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-session</artifactId>
-        <version>12.0.12</version>
+        <version>12.0.13</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-util</artifactId>
-        <version>12.0.12</version>
+        <version>12.0.13</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-util-ajax</artifactId>
-        <version>12.0.12</version>
+        <version>12.0.13</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.websocket</groupId>
         <artifactId>jetty-websocket-core-common</artifactId>
-        <version>12.0.12</version>
+        <version>12.0.13</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.websocket</groupId>
         <artifactId>jetty-websocket-core-server</artifactId>
-        <version>12.0.12</version>
+        <version>12.0.13</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.websocket</groupId>
         <artifactId>jetty-websocket-jetty-api</artifactId>
-        <version>12.0.12</version>
+        <version>12.0.13</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.websocket</groupId>
         <artifactId>jetty-websocket-jetty-common</artifactId>
-        <version>12.0.12</version>
+        <version>12.0.13</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.websocket</groupId>
         <artifactId>jetty-websocket-jetty-server</artifactId>
-        <version>12.0.12</version>
+        <version>12.0.13</version>
       </dependency>
       <dependency>
         <groupId>com.azure</groupId>

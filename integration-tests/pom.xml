@@ -148,8 +148,6 @@
         <module>kafka-ssl</module>
         <module>kamelet</module>
         <module>knative</module>
-        <module>kotlin</module>
-        <module>kotlin-dsl</module>
         <module>kubernetes</module>
         <module>kudu</module>
         <module>langchain4j-chat</module>
