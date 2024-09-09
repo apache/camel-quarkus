@@ -22,7 +22,6 @@ import java.util.Optional;
 
 import com.twilio.constant.EnumConstants;
 import com.twilio.http.HttpClient;
-import com.twilio.http.IRequest;
 import com.twilio.http.NetworkHttpClient;
 import com.twilio.http.Request;
 import com.twilio.http.TwilioRestClient;
@@ -83,7 +82,7 @@ public class TwilioResource {
             HttpClient client = new NetworkHttpClient() {
 
                 @Override
-                public <T extends IRequest> com.twilio.http.Response makeRequest(T r) {
+                public com.twilio.http.Response makeRequest(Request r) {
                     Request originalRequest = (Request) r;
                     String url = originalRequest.getUrl();
 

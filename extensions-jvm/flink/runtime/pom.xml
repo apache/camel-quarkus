@@ -51,13 +51,23 @@
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-extension-maven-plugin</artifactId>
                 <configuration>
-                    <!--Flink
-                    uses Inverted Class Loading which causing issue for the Quarkus classloading
-                    mechanism -->
+                    <!--Flink uses inverted Class Loading which causing issues for the Quarkus classloading -->
                     <parentFirstArtifacts>
+                        <parentFirstArtifact>org.apache.flink:flink-annotations</parentFirstArtifact>
+                        <parentFirstArtifact>org.apache.flink:flink-clients</parentFirstArtifact>
+                        <parentFirstArtifact>org.apache.flink:flink-connector-datagen</parentFirstArtifact>
                         <parentFirstArtifact>org.apache.flink:flink-core</parentFirstArtifact>
+                        <parentFirstArtifact>org.apache.flink:flink-datastream</parentFirstArtifact>
+                        <parentFirstArtifact>org.apache.flink:flink-datastream-api</parentFirstArtifact>
+                        <parentFirstArtifact>org.apache.flink:flink-file-sink-common</parentFirstArtifact>
+                        <parentFirstArtifact>org.apache.flink:flink-hadoop-fs</parentFirstArtifact>
+                        <parentFirstArtifact>org.apache.flink:flink-java</parentFirstArtifact>
+                        <parentFirstArtifact>org.apache.flink:flink-optimizer</parentFirstArtifact>
+                        <parentFirstArtifact>org.apache.flink:flink-queryable-state-client-java</parentFirstArtifact>
+                        <parentFirstArtifact>org.apache.flink:rpc-akka-loader</parentFirstArtifact>
                         <parentFirstArtifact>org.apache.flink:flink-rpc-core</parentFirstArtifact>
                         <parentFirstArtifact>org.apache.flink:flink-runtime</parentFirstArtifact>
+                        <parentFirstArtifact>org.apache.flink:flink-streaming-java</parentFirstArtifact>
                     </parentFirstArtifacts>
                 </configuration>
             </plugin>
