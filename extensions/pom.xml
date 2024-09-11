@@ -210,6 +210,7 @@
         <module>platform-http</module>
         <module>protobuf</module>
         <module>pubnub</module>
+        <module>python</module>
         <module>qdrant</module>
         <module>quartz</module>
         <module>qute</module>
