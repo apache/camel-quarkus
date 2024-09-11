@@ -189,13 +189,13 @@ Camel Quarkus gRPC code generation can scan dependencies for .proto files that c
 |icon:lock[title=Fixed at build time] [[quarkus.camel.grpc.codegen.scan-for-proto-includes.-scan-for-proto-includes]]`link:#quarkus.camel.grpc.codegen.scan-for-proto-includes.-scan-for-proto-includes[quarkus.camel.grpc.codegen.scan-for-proto-includes."scan-for-proto-includes"]`
 
 Package path or file glob pattern includes per dependency containing .proto files to be considered for inclusion.
-| List of `Map<String,List<String>>`
+| `Map<String,List<String>>`
 | 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.grpc.codegen.scan-for-proto-excludes.-scan-for-proto-excludes]]`link:#quarkus.camel.grpc.codegen.scan-for-proto-excludes.-scan-for-proto-excludes[quarkus.camel.grpc.codegen.scan-for-proto-excludes."scan-for-proto-excludes"]`
 
 Package path or file glob pattern includes per dependency containing .proto files to be considered for exclusion.
-| List of `Map<String,List<String>>`
+| `Map<String,List<String>>`
 | 
 |===
 
