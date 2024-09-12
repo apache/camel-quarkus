@@ -88,25 +88,27 @@ class CxfSoapServiceTest {
     @ParameterizedTest
     @ValueSource(strings = { "raw", "cxf-message" })
     public void testCodeFirstSoapServiceDataFormats(String dataFormat) {
-        final EchoService echo = QuarkusCxfClientTestUtil.getClient(EchoService.class,
-                String.format("/soapservice/echo-route-%s-data-format", dataFormat));
-        Assertions.assertEquals("Hello there! from Camel route", echo.echo("Hello there!"));
+        final TextService textService = QuarkusCxfClientTestUtil.getClient(TextService.class,
+                String.format("/soapservice/text-route-%s-data-format", dataFormat));
+        assertTextService(textService, "Hello there from text service and " + dataFormat);
     }
 
     @Test
     public void echoServiceResponseFromRoute() {
-        /* We setServiceClass(EchoServiceImpl.class) in org.apache.camel.quarkus.component.cxf.soap.server.it.CxfSoapRoutes.echoServiceResponseFromRoute()
-         * and at the same time we set the body in the associated Camel route definition. What we do in the route should have a higher prio */
-        final EchoService echo = QuarkusCxfClientTestUtil.getClient(EchoService.class, "/soapservice/echo-route");
-        Assertions.assertEquals("Hello there! from Camel route", echo.echo("Hello there!"));
+        final TextService textService = QuarkusCxfClientTestUtil.getClient(TextService.class,
+                "/soapservice/text-service-route");
+        assertTextService(textService, "Hello there from text service route!");
     }
 
     @Test
     public void echoServiceResponseFromImpl() {
-        /* We setServiceClass(EchoServiceImpl.class) in org.apache.camel.quarkus.component.cxf.soap.server.it.CxfSoapRoutes.echoServiceResponseFromImpl()
-         * but we do not set the body in the associated Camel route definition. Hence the response should come from EchoServiceImpl */
-        final EchoService echo = QuarkusCxfClientTestUtil.getClient(EchoService.class, "/soapservice/echo-impl");
-        Assertions.assertEquals("Hello there!", echo.echo("Hello there!"));
+        final TextService textService = QuarkusCxfClientTestUtil.getClient(TextService.class, "/soapservice/text-service-impl");
+        assertTextService(textService, "Hello there from text service impl!");
+    }
+
+    private void assertTextService(TextService textService, String input) {
+        Assertions.assertEquals(input.toUpperCase(), textService.upperCase(input));
+        Assertions.assertEquals(input.toLowerCase(), textService.lowerCase(input));
     }
 
 }
