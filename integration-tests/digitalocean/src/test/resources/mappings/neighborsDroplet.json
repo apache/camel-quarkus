@@ -1,5 +1,5 @@
 {
-  "id": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "id": "2d2218f8-75fe-4454-b801-75a132ff8744 ",
   "name": "digitalocean_api_json",
   "request": {
     "url": "/v2/droplets/3164494/neighbors?page=1&per_page=25",
@@ -22,7 +22,7 @@
       "Alt-Svc": "h3-Q050=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
     }
   },
-  "uuid": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "uuid": "2d2218f8-75fe-4454-b801-75a132ff8744 ",
   "persistent": true,
   "insertionIndex": 2
 }

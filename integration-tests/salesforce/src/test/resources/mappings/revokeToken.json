@@ -1,5 +1,5 @@
 {
-  "id": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "id": "added68a-4b14-4de4-8fca-c1e10e11bc98",
   "name": "salesforce_api_json",
   "request": {
     "url": "/services/oauth2/revoke?token=token",
@@ -11,7 +11,7 @@
       "Content-Type": "application/json; charset=UTF-8"
     }
   },
-  "uuid": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "uuid": "added68a-4b14-4de4-8fca-c1e10e11bc98",
   "persistent": true,
   "insertionIndex": 2
 }

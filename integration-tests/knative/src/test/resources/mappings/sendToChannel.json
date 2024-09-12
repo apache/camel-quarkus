@@ -1,5 +1,5 @@
 {
-  "id": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "id": "f4ce3185-e083-4806-9db7-68f04fb18b4b",
   "name": "knative-http_api",
   "request": {
     "url": "/channel-test",
@@ -11,7 +11,7 @@
       "Content-Type": "application/json; charset=UTF-8"
     }
   },
-  "uuid": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "uuid": "f4ce3185-e083-4806-9db7-68f04fb18b4b",
   "persistent": true,
   "insertionIndex": 2
 }

@@ -1,5 +1,5 @@
 {
-  "id": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "id": "2d2218f8-75fe-4454-b801-75a132ff8744",
   "name": "salesforce_api_json",
   "request": {
     "url": "/cometd/53.0/handshake",
@@ -13,7 +13,7 @@
       "Content-Type": "application/json; charset=UTF-8"
     }
   },
-  "uuid": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "uuid": "2d2218f8-75fe-4454-b801-75a132ff8744",
   "persistent": true,
   "insertionIndex": 2
 }

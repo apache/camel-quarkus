@@ -1,5 +1,5 @@
 {
-  "id": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "id": "bfb77c10-bc74-4716-b233-008513033808",
   "name": "knative-http_api",
   "request": {
     "url": "/broker-test",
@@ -11,7 +11,7 @@
       "Content-Type": "application/json; charset=UTF-8"
     }
   },
-  "uuid": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "uuid": "bfb77c10-bc74-4716-b233-008513033808",
   "persistent": true,
   "insertionIndex": 2
 }

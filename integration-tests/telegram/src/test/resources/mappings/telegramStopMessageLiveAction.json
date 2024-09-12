@@ -1,5 +1,5 @@
 {
-  "id" : "70c0a770-2a98-4f46-ba01-8ba3a71d8e3d",
+  "id" : "50d1c4e3-a204-4cec-8f4f-60bbe0d0ccd3",
   "name" : "botfake-token_stopmessagelivelocation",
   "request" : {
     "url" : "/botfake-token/stopMessageLiveLocation",
@@ -20,7 +20,7 @@
       "Strict-Transport-Security" : "max-age=31536000; includeSubDomains; preload"
     }
   },
-  "uuid" : "70c0a770-2a98-4f46-ba01-8ba3a71d8e3d",
+  "uuid" : "50d1c4e3-a204-4cec-8f4f-60bbe0d0ccd3",
   "persistent" : true,
   "insertionIndex" : 11
 }

@@ -1,5 +1,5 @@
 {
-  "id": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "id": "2c6f1e0c-75b3-4f3d-9dac-1690e210e0b2",
   "name": "knative-http_api",
   "request": {
     "url": "/service-test",
@@ -11,7 +11,7 @@
       "Content-Type": "application/json; charset=UTF-8"
     }
   },
-  "uuid": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "uuid": "2c6f1e0c-75b3-4f3d-9dac-1690e210e0b2",
   "persistent": true,
   "insertionIndex": 2
 }
