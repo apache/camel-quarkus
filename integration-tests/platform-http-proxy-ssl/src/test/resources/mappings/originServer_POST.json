@@ -1,5 +1,5 @@
 {
-  "id": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "id": "8a1bf17a-be22-41d2-8ee6-0a4632fda703",
   "name": "platform-http-proxy_api",
   "request": {
     "url": "/",
@@ -12,7 +12,7 @@
       "Content-Type": "application/json; charset=UTF-8"
     }
   },
-  "uuid": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "uuid": "8a1bf17a-be22-41d2-8ee6-0a4632fda703",
   "persistent": true,
   "insertionIndex": 2
 }

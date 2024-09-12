@@ -1,5 +1,5 @@
 {
-  "id" : "e4c0ada4-54e1-45fa-b15a-d186df310279",
+  "id" : "c056ac5e-06de-4a59-b855-a2076af42405",
   "name" : "conversationshistory",
   "request" : {
     "url" : "/api/conversations.history",
@@ -36,7 +36,7 @@
       "via" : "envoy-www-iad-ntq9"
     }
   },
-  "uuid" : "e4c0ada4-54e1-45fa-b15a-d186df310279",
+  "uuid" : "c056ac5e-06de-4a59-b855-a2076af42405",
   "persistent" : true,
   "insertionIndex" : 4
 }

@@ -1,5 +1,5 @@
 {
-  "id": "09aa79df-8a19-41df-8655-e414d390d6eb",
+  "id": "02c20957-a348-464d-b13c-86b142f5b6fe",
   "name": "digitalocean_api_json",
   "request": {
     "url": "/v2/droplets",
@@ -22,7 +22,7 @@
       "Alt-Svc": "h3-Q050=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
     }
   },
-  "uuid": "09aa79df-8a19-41df-8655-e414d390d6eb",
+  "uuid": "02c20957-a348-464d-b13c-86b142f5b6fe",
   "persistent": true,
   "insertionIndex": 2
 }

@@ -1,5 +1,5 @@
 {
-  "id" : "7dacd03f-aef6-43c6-8496-2e21b22eac15",
+  "id" : "50d1c4e3-a204-4cec-8f4f-60bbe0d0ccd3",
   "name" : "authtest",
   "request" : {
     "url" : "/api/auth.test",
@@ -31,7 +31,7 @@
       "via" : "envoy-www-iad-vpez"
     }
   },
-  "uuid" : "7dacd03f-aef6-43c6-8496-2e21b22eac15",
+  "uuid" : "50d1c4e3-a204-4cec-8f4f-60bbe0d0ccd3",
   "persistent" : true,
   "insertionIndex" : 1
 }
