@@ -18,12 +18,11 @@ package org.apache.camel.quarkus.component.cxf.soap.server.it;
 
 import jakarta.jws.WebService;
 
-@WebService(name = "EchoService", serviceName = "EchoService", targetNamespace = EchoService.TARGET_NS)
-public class EchoServiceImpl implements EchoService {
+@WebService(targetNamespace = TextService.TARGET_NS, name = "TextService", serviceName = "TextService")
+public interface TextService {
+    public static final String TARGET_NS = "http://it.server.soap.cxf.component.quarkus.camel.apache.org/";
 
-    @Override
-    public String echo(String text) {
-        return text;
-    }
+    String upperCase(String text);
 
+    String lowerCase(String text);
 }
