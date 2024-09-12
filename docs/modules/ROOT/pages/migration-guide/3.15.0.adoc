@@ -1,0 +1,26 @@
+= Camel Quarkus 3.15.0 Migration Guide
+
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 3.15.0.
+
+== Micrometer upgraded to 1.13.x
+
+Quarkus now aligns with Micrometer 1.13.x. Refer to the https://github.com/quarkusio/quarkus/wiki/Migration-Guide-3.14#micrometer[Quarkus migration guide] for more details.
+
+If you were previously using `io.micrometer:micrometer-registry-prometheus` in your application. This should be changed to `io.quarkus:quarkus-micrometer-registry-prometheus`.
+
+[source,xml]
+----
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-micrometer-registry-prometheus</artifactId>
+</dependency>
+----
+
+== Deprecation of Kotlin extensions
+
+The following extensions have been deprecated and will be removed in a future release.
+
+* camel-quarkus-kotlin
+* camel-quarkus-kotlin-dsl
+
+This is in line with the Camel core deprecation of `camel-kotlin-dsl`.
