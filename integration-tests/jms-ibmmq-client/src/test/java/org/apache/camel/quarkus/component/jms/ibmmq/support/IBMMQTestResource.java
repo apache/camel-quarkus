@@ -16,16 +16,13 @@
  */
 package org.apache.camel.quarkus.component.jms.ibmmq.support;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
-import org.apache.commons.io.FileUtils;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.images.builder.Transferable;
 import org.testcontainers.utility.DockerImageName;
 
 public class IBMMQTestResource implements QuarkusTestResourceLifecycleManager {
@@ -36,7 +33,6 @@ public class IBMMQTestResource implements QuarkusTestResourceLifecycleManager {
     private static final String PASSWORD = "passw0rd";
     private static final String MESSAGING_CHANNEL = "DEV.APP.SVRCONN";
     private static final String MQSC_COMMAND_FILE_NAME = "99-auth.mqsc";
-    private static final String MQSC_FILE = "target/" + MQSC_COMMAND_FILE_NAME;
     private static final String MQSC_FILE_CONTAINER_PATH = "/etc/mqm/" + MQSC_COMMAND_FILE_NAME;
 
     private GenericContainer<?> container;
@@ -48,9 +44,10 @@ public class IBMMQTestResource implements QuarkusTestResourceLifecycleManager {
                 .withExposedPorts(PORT)
                 .withEnv(Map.of(
                         "LICENSE", System.getProperty("ibm.mq.container.license"),
-                        "MQ_QMGR_NAME", QUEUE_MANAGER_NAME,
-                        "MQ_APP_PASSWORD", PASSWORD))
-                .withFileSystemBind(mqscConfig(), MQSC_FILE_CONTAINER_PATH)
+                        "MQ_QMGR_NAME", QUEUE_MANAGER_NAME))
+                .withCopyToContainer(Transferable.of(PASSWORD), "/run/secrets/mqAdminPassword")
+                .withCopyToContainer(Transferable.of(PASSWORD), "/run/secrets/mqAppPassword")
+                .withCopyToContainer(Transferable.of(mqscConfig()), MQSC_FILE_CONTAINER_PATH)
                 // AMQ5806I is a message code for queue manager start
                 .waitingFor(Wait.forLogMessage(".*AMQ5806I.*", 1));
         container.start();
@@ -85,15 +82,8 @@ public class IBMMQTestResource implements QuarkusTestResourceLifecycleManager {
      * @return mqsc config string
      */
     private String mqscConfig() {
-        final String content = "SET AUTHREC PROFILE('*') PRINCIPAL('" + USER + "') OBJTYPE(TOPIC) AUTHADD(ALL)\n"
+        return "SET AUTHREC PROFILE('*') PRINCIPAL('" + USER + "') OBJTYPE(TOPIC) AUTHADD(ALL)\n"
                 + "SET AUTHREC PROFILE('*') PRINCIPAL('" + USER + "') OBJTYPE(QUEUE) AUTHADD(ALL)\n"
                 + "SET AUTHREC PROFILE('SYSTEM.DEFAULT.MODEL.QUEUE') OBJTYPE(QUEUE) PRINCIPAL('" + USER + "') AUTHADD(ALL)";
-        File targetFile = new File(MQSC_FILE);
-        try {
-            FileUtils.writeStringToFile(targetFile, content, Charset.defaultCharset());
-        } catch (IOException e) {
-            throw new RuntimeException("Unable to write to file", e);
-        }
-        return targetFile.getAbsolutePath();
     }
 }
