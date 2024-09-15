@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.core;
 
+import java.util.Optional;
 import java.util.Set;
 
 import io.quarkus.arc.runtime.BeanContainer;
@@ -26,6 +27,8 @@ import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.catalog.RuntimeCamelCatalog;
 import org.apache.camel.impl.debugger.BacklogTracer;
 import org.apache.camel.impl.engine.DefaultVariableRepositoryFactory;
+import org.apache.camel.quarkus.core.devmode.NoOpModelineFactory;
+import org.apache.camel.quarkus.core.devmode.NoShutdownStrategy;
 import org.apache.camel.spi.CamelContextCustomizer;
 import org.apache.camel.spi.ComponentNameResolver;
 import org.apache.camel.spi.FactoryFinderResolver;
@@ -33,10 +36,12 @@ import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.ModelReifierFactory;
 import org.apache.camel.spi.ModelToXMLDumper;
 import org.apache.camel.spi.ModelToYAMLDumper;
+import org.apache.camel.spi.ModelineFactory;
 import org.apache.camel.spi.PackageScanClassResolver;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.TypeConverterRegistry;
 import org.apache.camel.spi.VariableRepositoryFactory;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 @Recorder
 public class CamelContextRecorder {
@@ -91,8 +96,20 @@ public class CamelContextRecorder {
         contextCustomizer.getValue().configure(context.getValue());
     }
 
-    public RuntimeValue<CamelContextCustomizer> createNoShutdownStrategyCustomizer() {
-        return new RuntimeValue<>(context -> context.setShutdownStrategy(new NoShutdownStrategy()));
+    public void customizeDevModeCamelContext(RuntimeValue<CamelContext> camelContextRuntimeValue, boolean isModeLineDslAbsent) {
+        CamelContext camelContext = camelContextRuntimeValue.getValue();
+
+        // If no graceful timeout is set in development mode, graceful shutdown is replaced with NoShutdownStrategy
+        Optional<String> shutdownTimeout = ConfigProvider.getConfig().getOptionalValue("camel.main.shutdownTimeout",
+                String.class);
+        if (shutdownTimeout.isEmpty()) {
+            camelContext.setShutdownStrategy(new NoShutdownStrategy());
+        }
+
+        if (isModeLineDslAbsent) {
+            // Camel dev profile attempts to enable modeline support, so we need to provide a NoOp impl if the modeline extension is not present
+            camelContext.getCamelContextExtension().addContextPlugin(ModelineFactory.class, new NoOpModelineFactory());
+        }
     }
 
     public RuntimeValue<CamelContextCustomizer> createSourceLocationEnabledCustomizer() {

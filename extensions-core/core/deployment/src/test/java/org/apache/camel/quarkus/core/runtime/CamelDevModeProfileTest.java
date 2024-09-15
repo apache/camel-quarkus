@@ -14,30 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.main;
+package org.apache.camel.quarkus.core.runtime;
 
-import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 
 import io.quarkus.test.QuarkusDevModeTest;
-import io.restassured.RestAssured;
-import org.apache.camel.quarkus.core.devmode.NoShutdownStrategy;
-import org.hamcrest.Matchers;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-public class CamelContextNoShutdownStrategyDevModeTest {
+public class CamelDevModeProfileTest {
     @RegisterExtension
     static final QuarkusDevModeTest TEST = new QuarkusDevModeTest()
-            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addClass(CamelSupportResource.class));
+            .setLogRecordPredicate(record -> record.getLevel().equals(Level.INFO))
+            .withEmptyApplication();
 
     @Test
-    public void test() throws IOException {
-        RestAssured.when().get("/test/getShutdownStrategy").then().assertThat()
-                .body(Matchers.is(NoShutdownStrategy.class.getSimpleName()));
+    void camelMainDevProfileConfigured() {
+        Awaitility.await().atMost(10, TimeUnit.SECONDS).until(() -> {
+            return TEST.getLogRecords().stream()
+                    .anyMatch(logRecord -> logRecord.getMessage().contains("The application is starting with profile: dev"));
+        });
     }
 }

@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.main;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import io.quarkus.arc.runtime.BeanContainer;
@@ -33,6 +34,7 @@ import org.apache.camel.quarkus.core.CamelProducers;
 import org.apache.camel.quarkus.core.CamelRuntime;
 import org.apache.camel.quarkus.core.RegistryRoutesLoader;
 import org.apache.camel.spi.CamelContextCustomizer;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 @Recorder
 public class CamelMainRecorder {
@@ -98,5 +100,10 @@ public class CamelMainRecorder {
 
     public void registerCamelMainEventBridge(RuntimeValue<CamelMain> main, Set<String> observedMainEvents) {
         main.getValue().addMainListener(new CamelMainEventBridge(observedMainEvents));
+    }
+
+    public void customizeDevModeCamelMain(RuntimeValue<CamelMain> main) {
+        Optional<String> profile = ConfigProvider.getConfig().getOptionalValue("camel.main.profile", String.class);
+        main.getValue().getMainConfigurationProperties().setProfile(profile.orElse("dev"));
     }
 }
