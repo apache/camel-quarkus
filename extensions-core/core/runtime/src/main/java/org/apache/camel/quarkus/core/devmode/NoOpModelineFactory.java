@@ -14,18 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core;
+package org.apache.camel.quarkus.core.devmode;
 
-public final class CamelCapabilities {
-    public static final String BEAN = "org.apache.camel.bean";
-    public static final String CLOUD_EVENTS = "org.apache.camel.cloudevents";
-    public static final String CORE = "org.apache.camel";
-    public static final String DSL_MODELINE = "org.apache.camel.dsl.modeline";
-    public static final String XML = "org.apache.camel.xml";
-    public static final String XML_IO_DSL = "org.apache.camel.xml.io.dsl";
-    public static final String XML_JAXB = "org.apache.camel.xml.jaxb";
-    public static final String XML_JAXP = "org.apache.camel.xml.jaxp";
+import org.apache.camel.spi.ModelineFactory;
+import org.apache.camel.spi.Resource;
 
-    private CamelCapabilities() {
+/**
+ * A NoOp ModelineFactory for use in dev mode when camel-quarkus-modeline-dsl is not on the classpath.
+ */
+public class NoOpModelineFactory implements ModelineFactory {
+    @Override
+    public void parseModeline(Resource resource) {
+        // Parsing is disabled
     }
 }

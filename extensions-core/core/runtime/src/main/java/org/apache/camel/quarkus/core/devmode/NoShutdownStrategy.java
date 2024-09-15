@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core;
+package org.apache.camel.quarkus.core.devmode;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
