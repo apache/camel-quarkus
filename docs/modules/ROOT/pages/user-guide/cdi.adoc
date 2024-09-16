@@ -127,7 +127,6 @@ public class MyBean {
 
 If you are used to `@org.apache.camel.EndpointInject` and `@org.apache.camel.Produce` from
 xref:manual::pojo-producing.adoc[plain Camel] or from Camel on SpringBoot, you can continue using them on Quarkus too.
-This is supported since Camel Quarkus 2.0.0.
 
 The following use cases are supported by `org.apache.camel.quarkus:camel-quarkus-core`:
 
@@ -274,7 +273,7 @@ Do not hesitate to https://github.com/apache/camel-quarkus/issues[file an issue]
 
 === `@Consume`
 
-Since Camel Quarkus 2.0.0, the `camel-quarkus-bean` artifact brings support for `@org.apache.camel.Consume`
+The `camel-quarkus-bean` artifact brings support for `@org.apache.camel.Consume`
 - see the xref:manual::pojo-consuming.adoc[Pojo consuming] section of Camel documentation.
 
 Declaring a class like the following
