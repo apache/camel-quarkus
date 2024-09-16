@@ -391,7 +391,7 @@ It should be the case most of the time.
 In this case, right after the newest Quarkus Platform becomes available on https://repo1.maven.org/maven2/io/quarkus/platform/quarkus-bom/[Maven Central]:
 
 * Make sure all https://github.com/apache/camel-quarkus-examples/pulls[PRs] against `camel-quarkus-main` branch are merged.
-* Since Camel Quarkus 2.3.0, the examples should use Quarkus Platform BOMs in the `main` branch. To set it do the following:
+* The examples should use Quarkus Platform BOMs in the `main` branch. To set it do the following:
 +
 [source,shell]
 ----

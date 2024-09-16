@@ -24,7 +24,7 @@ public class TimerRoute extends RouteBuilder {
 
 === Endpoint DSL
 
-Since Camel 3.0, you can use fluent builders also for defining Camel endpoints.
+You can use fluent builders for defining Camel endpoints.
 The following is equivalent with the previous example:
 
 [source,java]
@@ -53,10 +53,17 @@ It is also possible to include Java DSL routes from other JARs by adding them as
 
 == XML DSL
 
-In order to configure Camel routes, rests or templates in XML, you must add a Camel XML parser dependency to the classpath.
-Since Camel Quarkus 1.8.0, `xref:reference/extensions/xml-io-dsl.adoc[camel-quarkus-xml-io-dsl]` is the best choice.
+In order to configure Camel routes, rests or templates in XML, you must add the `camel-quarkus-xml-io-dsl` dependency to the classpath.
 
-With Camel Main, you can set a property that points to the location of resources XML files such as routes, xref:manual::rest-dsl.adoc[REST DSL] and xref:manual::route-template.adoc[Route templates]:
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-xml-io-dsl</artifactId>
+</dependency>
+----
+
+With Camel Main, you can set a property that points to the location of XML files such as routes, xref:manual::rest-dsl.adoc[REST DSL] and xref:manual::route-template.adoc[Route templates]:
 
 [source,properties]
 ----
@@ -132,6 +139,14 @@ The route XML should be in the simplified version like:
 == YAML DSL
 
 To configure routes with YAML, you must add the `camel-quarkus-yaml-dsl` dependency to the classpath.
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-yaml-dsl</artifactId>
+</dependency>
+----
 
 With Camel Main, you can set a property that points to the location of YAML files containing routes, xref:manual::rest-dsl.adoc[REST DSL] and xref:manual::route-template.adoc[Route templates] definitions:
 

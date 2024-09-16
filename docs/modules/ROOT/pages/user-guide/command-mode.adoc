@@ -138,7 +138,7 @@ Having the above in place, we can call the application with the `-Dgreeted.subje
 
 [source,shell]
 ----
-$ java -Dgreeted.subject=Joe -jar target/*-runner.jar
+$ java -Dgreeted.subject=Joe -jar target/quarkus-app/quarkus-run.jar
 2020-07-15 11:42:18,770 INFO  [org.apa.cam.qua.cor.CamelBootstrapRecorder] (main) bootstrap runtime: org.apache.camel.quarkus.main.CamelMainRuntime
 2020-07-15 11:42:18,816 INFO  [org.apa.cam.mai.BaseMainSupport] (main) Auto-configuration summary:
 2020-07-15 11:42:18,816 INFO  [org.apa.cam.mai.BaseMainSupport] (main)  camel.main.durationMaxMessages=1
