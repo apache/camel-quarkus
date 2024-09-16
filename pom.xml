@@ -231,6 +231,7 @@
         <couchdb.container.image>docker.io/couchdb:2.3.1</couchdb.container.image>
         <eclipse-mosquitto.container.image>docker.io/eclipse-mosquitto:2.0.18</eclipse-mosquitto.container.image>
         <elasticsearch.container.image>docker.io/elastic/elasticsearch:8.13.2</elasticsearch.container.image>
+        <eventhubs-emulator.container.image>mcr.microsoft.com/azure-messaging/eventhubs-emulator:latest</eventhubs-emulator.container.image>
         <fhir.container.image.base>docker.io/hapiproject/hapi</fhir.container.image.base>
         <fhir.container.image>${fhir.container.image.base}:v6.8.3</fhir.container.image>
         <fhir-dstu.container.image>${fhir.container.image.base}:v4.2.0</fhir-dstu.container.image>
