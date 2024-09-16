@@ -164,7 +164,7 @@
         <swagger-codegen-generators.version>1.0.46</swagger-codegen-generators.version>
         <swagger-parser.version>${swagger-openapi3-java-parser-version}</swagger-parser.version>
         <tablesaw.version>0.43.1</tablesaw.version>
-        <threetenbp.version>1.6.0</threetenbp.version>
+        <threetenbp.version>1.6.9</threetenbp.version><!-- @sync com.google.cloud:google-cloud-pubsub:${google-cloud-pubsub.version} dep:org.threeten:threetenbp -->
         <xalan.version>2.7.2</xalan.version><!-- Xalan should be removed as is in Camel, but it is not possible. https://github.com/apache/camel-quarkus/issues/4065-->
         <xchange.version>${xchange-version}</xchange.version>
         <xmlgraphics-commons.version>2.9</xmlgraphics-commons.version><!-- @sync org.apache.xmlgraphics:fop-parent:${fop-version} prop:xmlgraphics.commons.version -->
