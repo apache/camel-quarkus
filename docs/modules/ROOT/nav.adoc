@@ -202,6 +202,7 @@
 *** xref:reference/extensions/lzf.adoc[LZF Deflate Compression]
 *** xref:reference/extensions/langchain4j-embeddings.adoc[LangChain4j Embeddings]
 *** xref:reference/extensions/langchain4j-tokenizer.adoc[LangChain4j Tokenizer]
+*** xref:reference/extensions/langchain4j-tools.adoc[LangChain4j Tools]
 *** xref:reference/extensions/language.adoc[Language]
 *** xref:reference/extensions/leveldb.adoc[LevelDB]
 *** xref:reference/extensions/log.adoc[Log]
