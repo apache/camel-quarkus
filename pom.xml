@@ -114,7 +114,6 @@
         <httpclient5.version>${httpclient-version}</httpclient5.version><!-- Saxon and Wiremock -->
         <ibm.mq.client.version>9.4.0.5</ibm.mq.client.version>
         <icu4j.version>${icu4j-version}</icu4j.version>
-        <immutables.version>2.9.3</immutables.version>
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
         <jakarta.jms-api.version>${jakarta-jms-api-version}</jakarta.jms-api.version>
         <java-json-tools.json-patch.version>${json-patch-version}</java-json-tools.json-patch.version><!-- A replacement for com.github.fge:json-patch -->
