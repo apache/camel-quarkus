@@ -89,7 +89,6 @@
         <commons-cli.version>1.4</commons-cli.version><!-- keep in sync with Quarkus, via quarkus-bootstrap-core -->
         <commons-collections.version>${commons-collections-version}</commons-collections.version>
         <commons-exec.version>${commons-exec-version}</commons-exec.version>
-        <commons-lang.version>2.6</commons-lang.version><!-- used by hbase, should be pretty stable as commons-lang is not developed actively anymore -->
         <commons-validator.version>${commons-validator-version}</commons-validator.version>
         <dropwizard-metrics.version>${metrics-version}</dropwizard-metrics.version>
         <eddsa.version>${eddsa-version}</eddsa.version>
