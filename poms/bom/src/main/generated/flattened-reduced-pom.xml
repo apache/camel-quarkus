@@ -6878,7 +6878,7 @@
       <dependency>
         <groupId>io.swagger.codegen.v3</groupId>
         <artifactId>swagger-codegen</artifactId>
-        <version>3.0.52</version>
+        <version>3.0.61</version>
         <exclusions>
           <exclusion>
             <groupId>ch.qos.logback</groupId>
@@ -6891,6 +6891,10 @@
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-codegen</artifactId>
           </exclusion>
           <exclusion>
             <groupId>javax.validation</groupId>
@@ -6909,7 +6913,7 @@
       <dependency>
         <groupId>io.swagger.codegen.v3</groupId>
         <artifactId>swagger-codegen-generators</artifactId>
-        <version>1.0.46</version>
+        <version>1.0.51</version>
       </dependency>
       <dependency>
         <groupId>io.swagger.core.v3</groupId>
