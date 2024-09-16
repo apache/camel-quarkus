@@ -77,6 +77,7 @@
         <module>jsonapi</module>
         <module>langchain4j-embeddings</module>
         <module>langchain4j-tokenizer</module>
+        <module>langchain4j-tools</module>
         <module>ldif</module>
         <module>lucene</module>
         <module>mail-microsoft-oauth</module>
