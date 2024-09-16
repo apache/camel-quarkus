@@ -192,10 +192,6 @@ public class AzureEventhubsRoutes extends EndpointRouteBuilder {
                 // Consumes events from partition 4 using AZURE_IDENTITY credential type
                 from(azureEventhubs(eventHubsPath)
                         .credentialType(CredentialType.AZURE_IDENTITY)
-                        // TODO: Remove shared access config
-                        // https://github.com/apache/camel-quarkus/issues/6368
-                        .sharedAccessName("fake-name")
-                        .sharedAccessKey("fake-key")
                         .blobAccountName(azureStorageAccountName)
                         .blobAccessKey(azureStorageAccountKey)
                         .blobContainerName(azureBlobContainerName.get()))
@@ -210,10 +206,6 @@ public class AzureEventhubsRoutes extends EndpointRouteBuilder {
 
                 from("direct:sendEventUsingAzureIdentity")
                         .to(azureEventhubs(eventHubsPath)
-                                // TODO: Remove shared access config
-                                // https://github.com/apache/camel-quarkus/issues/6368
-                                .sharedAccessName("fake-name")
-                                .sharedAccessKey("fake-key")
                                 .credentialType(CredentialType.AZURE_IDENTITY));
             }
         }
