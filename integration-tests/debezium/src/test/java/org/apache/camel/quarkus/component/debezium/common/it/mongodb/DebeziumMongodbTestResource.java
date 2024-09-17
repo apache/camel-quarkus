@@ -79,7 +79,7 @@ public class DebeziumMongodbTestResource extends AbstractDebeziumTestResource<Ge
         String script = IOUtils.toString(resource, StandardCharsets.UTF_8);
         script = script.replace("%container-host%", getHostPort());
         for (String cmd : script.split("\\n\\n")) {
-            Container.ExecResult er = container.execInContainer("mongo", "--port", String.valueOf(DB_PORT), "--eval", cmd);
+            Container.ExecResult er = container.execInContainer("mongosh", "--port", String.valueOf(DB_PORT), "--eval", cmd);
             if (er.getExitCode() != 0) {
                 LOG.errorf("Error executing MongoDB command: %s", cmd);
                 LOG.error(er.getStdout());

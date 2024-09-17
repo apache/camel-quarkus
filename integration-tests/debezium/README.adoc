@@ -12,14 +12,14 @@ consent with its EULA by placing a specific file on a specific location. The Apa
 prevents us of doing it unconditionally for anybody who clones this repository.
 
 Therefore, to execute the MS SQL Server integration tests you need to accept the
-https://go.microsoft.com/fwlink/?linkid=857698[EULA] by creating file `integration-tests/debezium/src/test/resources/container-license-acceptance.txt` with content `mcr.microsoft.com/mssql/server:2017-CU12`
+https://go.microsoft.com/fwlink/?linkid=857698[EULA] by creating file `integration-tests/debezium/src/test/resources/container-license-acceptance.txt` with content `mcr.microsoft.com/mssql/server:2022-latest`
 in the current Maven module.
 
 On a Unix-like system, you can run.
 
 [source,shell]
 ----
-echo "mcr.microsoft.com/mssql/server:2017-CU12" > integration-tests/debezium/src/test/resources/container-license-acceptance.txt
+echo "mcr.microsoft.com/mssql/server:2022-latest" > integration-tests/debezium/src/test/resources/container-license-acceptance.txt
 ----
 
 For more details see https://www.testcontainers.org/modules/databases/mssqlserver/
