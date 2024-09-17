@@ -42,7 +42,7 @@ class InfluxdbTest {
     @Test
     @Order(1)
     public void pingTest() {
-        RestAssured.given().get("/influxdb/ping").then().body(is(InfluxdbTestResource.INFLUXDB_VERSION));
+        RestAssured.given().get("/influxdb/ping").then().body(is(InfluxdbTestResource.INFLUXDB_VERSION.replace("-alpine", "")));
     }
 
     @Test
