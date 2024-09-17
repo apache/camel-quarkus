@@ -29,11 +29,7 @@ import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.impl.DefaultModelReifierFactory;
 import org.apache.camel.impl.engine.DefaultReactiveExecutor;
-import org.apache.camel.model.ValidateDefinition;
-import org.apache.camel.model.validator.PredicateValidatorDefinition;
 import org.apache.camel.quarkus.core.FastFactoryFinderResolver.Builder;
-import org.apache.camel.reifier.ProcessorReifier;
-import org.apache.camel.reifier.validator.ValidatorReifier;
 import org.apache.camel.spi.BeanProxyFactory;
 import org.apache.camel.spi.ComponentNameResolver;
 import org.apache.camel.spi.FactoryFinderResolver;
@@ -117,11 +113,6 @@ public class CamelRecorder {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void disableXmlReifiers() {
-        ProcessorReifier.registerReifier(ValidateDefinition.class, DisabledValidateReifier::new);
-        ValidatorReifier.registerReifier(PredicateValidatorDefinition.class, DisabledPredicateValidatorReifier::new);
     }
 
     public RuntimeValue<ModelJAXBContextFactory> newDisabledModelJAXBContextFactory() {

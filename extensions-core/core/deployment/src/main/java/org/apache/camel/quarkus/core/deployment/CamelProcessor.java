@@ -47,7 +47,6 @@ import io.quarkus.maven.dependency.ArtifactKey;
 import io.quarkus.runtime.RuntimeValue;
 import io.smallrye.common.annotation.Identifier;
 import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
-import org.apache.camel.quarkus.core.CamelCapabilities;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelConfigFlags;
 import org.apache.camel.quarkus.core.CamelProducers;
@@ -345,15 +344,6 @@ class CamelProcessor {
     @Record(value = ExecutionTime.STATIC_INIT, optional = true)
     public CamelModelToYAMLDumperBuildItem createModelToYAMLDumper(CamelRecorder recorder) {
         return new CamelModelToYAMLDumperBuildItem(recorder.newDisabledModelToYAMLDumper());
-    }
-
-    @BuildStep
-    @Record(ExecutionTime.STATIC_INIT)
-    void disableXmlReifiers(CamelRecorder recorder, Capabilities capabilities) {
-        if (!capabilities.isCapabilityWithPrefixPresent(CamelCapabilities.XML)) {
-            LOGGER.debug("Camel XML capability not detected, disable XML reifiers");
-            recorder.disableXmlReifiers();
-        }
     }
 
     @Record(ExecutionTime.STATIC_INIT)
