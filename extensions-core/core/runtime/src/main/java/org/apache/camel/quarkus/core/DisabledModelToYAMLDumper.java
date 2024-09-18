@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.core;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.NamedNode;
@@ -38,6 +39,13 @@ public class DisabledModelToYAMLDumper implements ModelToYAMLDumper {
     @Override
     public String dumpModelAsYaml(CamelContext context, NamedNode definition, boolean resolvePlaceholders,
             boolean uriAsParameters, boolean generatedIds) throws Exception {
+        throw new UnsupportedOperationException(
+                "Please add a dependency to camel-quarkus-yaml-io");
+    }
+
+    @Override
+    public String dumpDataFormatsAsYaml(CamelContext context, Map<String, Object> dataFormats)
+            throws Exception {
         throw new UnsupportedOperationException(
                 "Please add a dependency to camel-quarkus-yaml-io");
     }

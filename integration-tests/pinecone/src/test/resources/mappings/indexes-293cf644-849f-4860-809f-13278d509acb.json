@@ -1,0 +1,30 @@
+{
+  "id" : "293cf644-849f-4860-809f-13278d509acb",
+  "name" : "indexes",
+  "request" : {
+    "url" : "/indexes",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"indexes\":[{\"name\":\"test-index\",\"metric\":\"cosine\",\"dimension\":3,\"status\":{\"ready\":true,\"state\":\"Ready\"},\"host\":\"test-index-3ncz9x1.svc.aped-4627-b74a.pinecone.io\",\"spec\":{\"serverless\":{\"region\":\"us-east-1\",\"cloud\":\"aws\"}},\"deletion_protection\":\"disabled\",\"tags\":null}]}",
+    "headers" : {
+      "X-Cloud-Trace-Context" : "5d76189a457047bf315cdd0913392ffe",
+      "access-control-allow-origin" : "*",
+      "Alt-Svc" : "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+      "Server" : "Google Frontend",
+      "vary" : "origin,access-control-request-method,access-control-request-headers",
+      "content-type" : "application/json",
+      "Date" : "Fri, 22 Nov 2024 09:23:37 GMT",
+      "Via" : "1.1 google",
+      "x-pinecone-api-version" : "2024-10",
+      "access-control-expose-headers" : "*"
+    }
+  },
+  "uuid" : "293cf644-849f-4860-809f-13278d509acb",
+  "persistent" : true,
+  "scenarioName" : "scenario-1-indexes",
+  "requiredScenarioState" : "Started",
+  "newScenarioState" : "scenario-1-indexes-2",
+  "insertionIndex" : 3
+}
