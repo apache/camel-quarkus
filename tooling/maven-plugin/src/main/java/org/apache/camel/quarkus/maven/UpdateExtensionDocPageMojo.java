@@ -247,10 +247,6 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                     xrefPrefix = "xref:manual::";
                     name = "camel-console";
                 }
-                // TODO: https://github.com/apache/camel-quarkus/issues/6448
-                if (name.equals("kotlin-dsl")) {
-                    return "";
-                }
                 return xrefPrefix + name + (!"other".equals(kind) ? "-" + kind : "") + ".adoc";
             }
         });
