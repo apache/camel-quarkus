@@ -22,7 +22,7 @@
 #
 ---
 name: "Camel JMS"
-description: "Sent and receive messages to/from a JMS Queue or Topic"
+description: "Send and receive messages to/from JMS message brokers"
 metadata:
   icon-url: "https://raw.githubusercontent.com/apache/camel-website/main/antora-ui-camel/src/img/logo-d.svg"
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/jms.html"
