@@ -21,6 +21,7 @@ import java.util.function.Supplier;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import io.vertx.core.Vertx;
+import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.component.knative.KnativeComponent;
 import org.apache.camel.component.knative.http.KnativeHttpProducerFactory;
@@ -28,9 +29,11 @@ import org.apache.camel.spi.ComponentCustomizer;
 
 @Recorder
 public class KnativeProducerRecorder {
-    public RuntimeValue<ComponentCustomizer> createKnativeProducerFactoryCustomizer(Supplier<Vertx> vertx) {
+    public RuntimeValue<ComponentCustomizer> createKnativeProducerFactoryCustomizer(RuntimeValue<CamelContext> context,
+            Supplier<Vertx> vertx) {
         KnativeHttpProducerFactory factory = new KnativeHttpProducerFactory();
         factory.setVertx(vertx.get());
+        factory.setCamelContext(context.getValue());
 
         ComponentCustomizer cf = new ComponentCustomizer() {
             @Override

@@ -44,7 +44,7 @@ import org.apache.camel.component.pinecone.PineconeVectorDbComponent;
 import org.apache.camel.component.pinecone.PineconeVectorDbConfiguration;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jetbrains.annotations.NotNull;
-import org.openapitools.client.model.IndexModel;
+import org.openapitools.db_control.client.model.IndexModel;
 
 @Path("/pinecone")
 @ApplicationScoped

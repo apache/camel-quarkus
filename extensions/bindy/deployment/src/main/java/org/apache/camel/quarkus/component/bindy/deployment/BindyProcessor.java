@@ -53,7 +53,7 @@ class BindyProcessor {
 
     @BuildStep
     NativeImageResourceDirectoryBuildItem resourceBundles() {
-        String resourcePath = String.format("com/ibm/icu/impl/data/icudt%db/brkitr", ICU_VERSION.getMajor());
+        String resourcePath = String.format("com/ibm/icu/impl/data/icudata/brkitr", ICU_VERSION.getMajor());
         return new NativeImageResourceDirectoryBuildItem(resourcePath);
     }
 

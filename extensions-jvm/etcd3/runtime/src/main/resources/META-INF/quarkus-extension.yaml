@@ -32,3 +32,4 @@ metadata:
   - "integration"
   status:
   - "preview"
+  - "deprecated"

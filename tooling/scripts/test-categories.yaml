@@ -56,7 +56,6 @@ group-03:
   - freemarker
   - github
   - google
-  - jsh-dsl
   - json-validator
   - main
   - main-collector
@@ -175,7 +174,6 @@ group-10:
   - fop
   - groovy
   - joor
-  - kotlin
   - mail
   - main-unknown-args-fail
   - main-unknown-args-ignore
@@ -217,13 +215,10 @@ group-12:
 group-13:
   - fhir
   - google-bigquery
-  - groovy-dsl
   - jasypt
   - jira
   - java-joor-dsl
   - jdbc-grouped
-  - js-dsl
-  - kotlin-dsl
   - kubernetes
   - salesforce
   - sap-netweaver

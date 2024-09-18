@@ -6,15 +6,15 @@
 :cq-artifact-id: camel-quarkus-etcd3
 :cq-native-supported: false
 :cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-status-deprecation: Preview Deprecated
 :cq-description: Aggregation repository using EtcD as datastore
-:cq-deprecated: false
+:cq-deprecated: true
 :cq-jvm-since: 2.0.0
 :cq-native-since: n/a
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##2.0.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##2.0.0## [.badge-key]##Native##[.badge-unsupported]##unsupported## [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##
 endif::[]
 
 Aggregation repository using EtcD as datastore

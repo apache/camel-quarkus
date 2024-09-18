@@ -39,9 +39,11 @@ import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.quarkus.core.FastCamelContext;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.test.junit5.AbstractTestSupport;
+import org.apache.camel.test.junit5.CamelContextConfiguration;
 import org.apache.camel.test.junit5.CamelContextManager;
 import org.apache.camel.test.junit5.CamelTestSupport;
 import org.apache.camel.test.junit5.ContextManagerFactory;
+import org.apache.camel.test.junit5.TestExecutionConfiguration;
 import org.apache.camel.test.junit5.TestSupport;
 import org.apache.camel.test.junit5.util.ExtensionHelper;
 import org.apache.camel.test.junit5.util.RouteCoverageDumperExtension;
@@ -503,7 +505,17 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
 
     private void assertTestClassCamelContextMatchesAppCamelContext() {
         // Test classes must use the same CamelContext as the application under test
-        Assertions.assertEquals(context, super.context,
+        Assertions.assertEquals(context, contextManager.context(),
                 "CamelQuarkusTestSupport uses a different CamelContext compared to the application under test");
+    }
+
+    @Override
+    public void configureContext(CamelContextConfiguration camelContextConfiguration) {
+        //to be overridden of child, if needed
+    }
+
+    @Override
+    public void configureTest(TestExecutionConfiguration testExecutionConfiguration) {
+        //to be overridden of child, if needed
     }
 }

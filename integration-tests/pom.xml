@@ -104,7 +104,6 @@
         <module>graphql</module>
         <module>grok</module>
         <module>groovy</module>
-        <module>groovy-dsl</module>
         <module>grpc</module>
         <module>hashicorp-vault</module>
         <module>hazelcast</module>
@@ -131,9 +130,7 @@
         <module>joor</module>
         <module>jpa</module>
         <module>jq</module>
-        <module>js-dsl</module>
         <module>jsch</module>
-        <module>jsh-dsl</module>
         <module>jslt</module>
         <module>json-validator</module>
         <module>jsonata</module>
@@ -148,8 +145,6 @@
         <module>kafka-ssl</module>
         <module>kamelet</module>
         <module>knative</module>
-        <module>kotlin</module>
-        <module>kotlin-dsl</module>
         <module>kubernetes</module>
         <module>kudu</module>
         <module>langchain4j</module>

@@ -8,7 +8,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Sent and receive messages to/from a JMS Queue or Topic.
+:cq-description: Send and receive messages to/from JMS message brokers.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
@@ -18,7 +18,7 @@ ifeval::[{doc-show-badges} == true]
 [.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.0.0##
 endif::[]
 
-Sent and receive messages to/from a JMS Queue or Topic.
+Send and receive messages to/from JMS message brokers.
 
 [id="extensions-jms-whats-inside"]
 == What's inside

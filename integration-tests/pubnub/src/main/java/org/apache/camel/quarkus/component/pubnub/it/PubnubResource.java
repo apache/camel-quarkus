@@ -22,16 +22,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.pubnub.api.PNConfiguration;
-import com.pubnub.api.PubNub;
 import com.pubnub.api.PubNubException;
 import com.pubnub.api.UserId;
-import com.pubnub.api.enums.PNReconnectionPolicy;
+import com.pubnub.api.java.PubNub;
+import com.pubnub.api.java.v2.PNConfiguration;
 import com.pubnub.api.models.consumer.history.PNHistoryItemResult;
 import com.pubnub.api.models.consumer.presence.PNGetStateResult;
 import com.pubnub.api.models.consumer.presence.PNHereNowResult;
 import com.pubnub.api.models.consumer.pubsub.PNMessageResult;
 import com.pubnub.api.models.consumer.pubsub.PNPresenceEventResult;
+import com.pubnub.api.retry.RetryConfiguration;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
@@ -161,18 +161,21 @@ public class PubnubResource {
     @Singleton
     @Named
     public PubNub pubNub() throws PubNubException {
-        PNConfiguration configuration = new PNConfiguration(new UserId("camel-quarkus-integration-tests"));
-        configuration.setPublishKey(publishKey);
-        configuration.setSubscribeKey(subscribeKey);
-        configuration.setSecretKey(secretKey);
+        PNConfiguration.Builder configuration = PNConfiguration
+                .builder(new UserId("camel-quarkus-integration-tests"), subscribeKey)
+                .publishKey(publishKey)
+                .subscribeKey(subscribeKey)
+                .secretKey(secretKey);
 
         Optional<String> url = ConfigProvider.getConfig().getOptionalValue("pubnub.url", String.class);
         if (url.isPresent()) {
-            configuration.setOrigin(url.get());
-            configuration.setSecure(false);
-            configuration.setReconnectionPolicy(PNReconnectionPolicy.LINEAR);
+            configuration.origin(url.get())
+                    .secure(false)
+                    .retryConfiguration(new RetryConfiguration.Linear(
+                            5,
+                            1000));
         }
 
-        return PubNub.create(configuration);
+        return PubNub.create(configuration.build());
     }
 }
