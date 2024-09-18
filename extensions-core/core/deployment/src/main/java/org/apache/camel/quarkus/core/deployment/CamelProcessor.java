@@ -178,7 +178,8 @@ class CamelProcessor {
                 "META-INF/services/org/apache/camel/properties-function/*",
                 "META-INF/services/org/apache/camel/health-check/*",
                 "META-INF/services/org/apache/camel/periodic-task/*",
-                "META-INF/services/org/apache/camel/transformer/*"));
+                "META-INF/services/org/apache/camel/transformer/*",
+                "META-INF/services/org/apache/camel/tokenizer/*"));
     }
 
     @BuildStep
