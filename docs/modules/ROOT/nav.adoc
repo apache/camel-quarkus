@@ -191,8 +191,6 @@
 *** xref:reference/extensions/knative.adoc[Knative]
 *** xref:reference/extensions/knative-consumer.adoc[Knative Consumer]
 *** xref:reference/extensions/knative-producer.adoc[Knative Producer]
-*** xref:reference/extensions/kotlin.adoc[Kotlin]
-*** xref:reference/extensions/kotlin-dsl.adoc[Kotlin DSL]
 *** xref:reference/extensions/kubernetes.adoc[Kubernetes]
 *** xref:reference/extensions/kubernetes-cluster-service.adoc[Kubernetes Cluster Service]
 *** xref:reference/extensions/kudu.adoc[Kudu]
