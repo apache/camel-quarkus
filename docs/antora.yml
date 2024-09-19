@@ -36,7 +36,7 @@ asciidoc:
     graalvm-docs-version: jdk21 # replace ${graalvm-docs.version}
     mapstruct-version: 1.6.0 # replace ${mapstruct.version}
     min-maven-version: 3.8.2 # replace ${min-maven-version}
-    target-maven-version: 3.9.8 # replace ${target-maven-version}
+    target-maven-version: 3.9.9 # replace ${target-maven-version}
 
     # Attributes used in xrefs to other Antora components
     cq-camel-components: next@components

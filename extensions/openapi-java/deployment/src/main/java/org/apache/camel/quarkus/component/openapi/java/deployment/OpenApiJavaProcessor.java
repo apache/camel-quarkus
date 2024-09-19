@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.openapi.java.deployment;
 
+import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,12 +27,7 @@ import java.util.function.BiConsumer;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import io.quarkus.bootstrap.classloading.QuarkusClassLoader;
 import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.Capability;
@@ -41,9 +38,10 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.smallrye.openapi.deployment.spi.AddToOpenAPIDefinitionBuildItem;
-import io.smallrye.openapi.api.models.OpenAPIImpl;
+import io.smallrye.openapi.api.OpenApiConfigImpl;
 import io.smallrye.openapi.api.util.MergeUtil;
-import io.smallrye.openapi.runtime.io.definition.DefinitionReader;
+import io.smallrye.openapi.runtime.io.Format;
+import io.smallrye.openapi.runtime.io.OpenApiParser;
 import io.swagger.v3.core.jackson.mixin.Components31Mixin;
 import io.swagger.v3.core.jackson.mixin.ComponentsMixin;
 import io.swagger.v3.core.jackson.mixin.DateSchemaMixin;
@@ -231,17 +229,12 @@ class CamelRestOASFilter implements OASFilter {
                 clearVendorExtensions(openApi);
             }
 
-            // dump to json
-            final ObjectMapper mapper = new ObjectMapper(new JsonFactory());
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-
             String jsonContent = RestOpenApiSupport.getJsonFromOpenAPIAsString(openApi, bc);
-            final JsonNode node = mapper.readTree(jsonContent);
-
-            OpenAPI oai = new OpenAPIImpl();
-            DefinitionReader.processDefinition(oai, node);
-            MergeUtil.merge(openAPI, oai);
+            try (ByteArrayInputStream stream = new ByteArrayInputStream(jsonContent.getBytes(StandardCharsets.UTF_8))) {
+                OpenAPI parsedOpenAPI = OpenApiParser.parse(stream, Format.JSON,
+                        new OpenApiConfigImpl(ConfigProvider.getConfig()));
+                MergeUtil.merge(openAPI, parsedOpenAPI);
+            }
         } catch (Exception e) {
             LOGGER.warn("Error generating OpenAPI from Camel Rest DSL due to: {}. This exception is ignored.", e.getMessage(),
                     e);

@@ -485,8 +485,10 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
 
         final JavadocRepository javadocRepository = JavadocMerger.mergeJavadocElements(targetDirectories);
         final MergedModel mergedModel = ModelMerger.mergeModel(targetDirectories);
-        for (Entry<Extension, Map<String, ConfigRoot>> extensionConfigRootsEntry : mergedModel.getConfigRoots().entrySet()) {
-            for (Entry<String, ConfigRoot> configRootEntry : extensionConfigRootsEntry.getValue().entrySet()) {
+        for (Entry<Extension, Map<MergedModel.ConfigRootKey, ConfigRoot>> extensionConfigRootsEntry : mergedModel
+                .getConfigRoots().entrySet()) {
+            for (Entry<MergedModel.ConfigRootKey, ConfigRoot> configRootEntry : extensionConfigRootsEntry.getValue()
+                    .entrySet()) {
                 final ConfigRoot configRoot = configRootEntry.getValue();
                 for (AbstractConfigItem configItem : configRoot.getItems()) {
                     if (configItem instanceof ConfigProperty) {
