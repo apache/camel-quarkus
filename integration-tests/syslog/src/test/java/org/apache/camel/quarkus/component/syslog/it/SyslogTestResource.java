@@ -21,12 +21,13 @@ import java.util.Objects;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
+import org.apache.camel.quarkus.test.AvailablePortFinder.Protocol;
 
 public class SyslogTestResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public Map<String, String> start() {
-        return AvailablePortFinder.reserveNetworkPorts(Objects::toString, "camel.netty.rfc5425.port",
+        return AvailablePortFinder.reserveNetworkPorts(Protocol.UDP, Objects::toString, "camel.netty.rfc5425.port",
                 "camel.netty.rfc3164.port");
     }
 
