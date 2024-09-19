@@ -503,7 +503,7 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
 
     private void assertTestClassCamelContextMatchesAppCamelContext() {
         // Test classes must use the same CamelContext as the application under test
-        Assertions.assertEquals(context, super.context,
+        Assertions.assertEquals(context, contextManager.context(),
                 "CamelQuarkusTestSupport uses a different CamelContext compared to the application under test");
     }
 }
