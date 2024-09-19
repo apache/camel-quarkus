@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.cxf.soap.it.metrics;
 
+import java.util.Optional;
+
 import io.quarkiverse.cxf.metrics.QuarkusCxfMetricsFeature;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.SessionScoped;
@@ -61,7 +63,7 @@ public class CxfSoapMetricsRoutes extends RouteBuilder {
         result.setServiceClass(HelloService.class);
         result.setAddress("http://localhost:" + port + "/soapservice/hello-metrics");
         result.setWsdlURL("wsdl/MetricsHelloService.wsdl");
-        result.getFeatures().add(new QuarkusCxfMetricsFeature());
+        result.getFeatures().add(new QuarkusCxfMetricsFeature(Optional.empty()));
         return result;
     }
 
@@ -73,7 +75,7 @@ public class CxfSoapMetricsRoutes extends RouteBuilder {
         result.setServiceClass(HelloService.class);
         result.setAddress("/hello-metrics");
         result.setWsdlURL("wsdl/MetricsHelloService.wsdl");
-        result.getFeatures().add(new QuarkusCxfMetricsFeature());
+        result.getFeatures().add(new QuarkusCxfMetricsFeature(Optional.empty()));
         return result;
     }
 
