@@ -16,15 +16,21 @@
  */
 package org.apache.camel.quarkus.support.swagger.runtime.graal;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.util.Calendar;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.BeanDescription;
+import com.fasterxml.jackson.databind.introspect.AnnotatedMember;
 import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.RecomputeFieldValue;
 import com.oracle.svm.core.annotate.RecomputeFieldValue.Kind;
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
 import io.swagger.parser.OpenAPIParser;
+import io.swagger.v3.core.jackson.ModelResolver;
 import io.swagger.v3.parser.OpenAPIV3Parser;
 import io.swagger.v3.parser.core.extensions.SwaggerParserExtension;
 import io.swagger.v3.parser.core.models.AuthorizationValue;
@@ -98,9 +104,28 @@ final class OpenAPIPV3ParserSubstitutions {
 }
 
 @TargetClass(Calendar.Builder.class)
-final class CalendarBuilderSubstitution {
+final class CalendarBuilderSubstitutions {
     @Substitute
     public Calendar build() {
         throw new UnsupportedOperationException("Calendar::build is not supported");
+    }
+}
+
+// Cuts out references to deprecated & removed Jackson methods
+// TODO: Remove this https://github.com/apache/camel-quarkus/issues/6593
+@TargetClass(ModelResolver.class)
+final class ModelResolverSubstitutions {
+    @Substitute
+    protected Type findJsonValueType(final BeanDescription beanDesc) {
+        try {
+            Method m = BeanDescription.class.getMethod("findJsonValueAccessor");
+            AnnotatedMember jsonValueMember = (AnnotatedMember) m.invoke(beanDesc);
+            if (jsonValueMember != null) {
+                return jsonValueMember.getType();
+            }
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            return null;
+        }
+        return null;
     }
 }

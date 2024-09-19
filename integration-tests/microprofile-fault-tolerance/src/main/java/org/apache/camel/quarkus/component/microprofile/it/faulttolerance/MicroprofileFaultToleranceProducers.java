@@ -54,7 +54,7 @@ public class MicroprofileFaultToleranceProducers {
     @ApplicationScoped
     @Named("threadTimer")
     ThreadTimer threadTimer(@Named("threadTimerExecutor") ExecutorService executorService) {
-        return ThreadTimer.create(executorService);
+        return new ThreadTimer(executorService);
     }
 
     @ApplicationScoped
