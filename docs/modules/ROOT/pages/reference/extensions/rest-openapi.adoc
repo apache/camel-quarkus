@@ -138,7 +138,8 @@ quarkus.native.resources.includes=contract.json
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.openapi.codegen.enabled]]`link:#quarkus.camel.openapi.codegen.enabled[quarkus.camel.openapi.codegen.enabled]`
 
-If `true`, Camel Quarkus OpenAPI code generation is run for .json files discovered from the `openapi` directory. When `false`, code generation for .json files is disabled.
+If {@code true}, Camel Quarkus OpenAPI code generation is run for .json files discovered from the {@code openapi}
+directory. When {@code false}, code generation for .json files is disabled.
 | `boolean`
 | `true`
 
@@ -156,13 +157,13 @@ A comma separated list of models to generate. All models is the default.
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.openapi.codegen.use-bean-validation]]`link:#quarkus.camel.openapi.codegen.use-bean-validation[quarkus.camel.openapi.codegen.use-bean-validation]`
 
-If `true`, use bean validation annotations in the generated model classes.
+If {@code true}, use bean validation annotations in the generated model classes.
 | `boolean`
 | `false`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.openapi.codegen.not-null-jackson]]`link:#quarkus.camel.openapi.codegen.not-null-jackson[quarkus.camel.openapi.codegen.not-null-jackson]`
 
-If `true`, use NON_NULL Jackson annotation in the generated model classes.
+If {@code true}, use NON_NULL Jackson annotation in the generated model classes.
 | `boolean`
 | `false`
 |===

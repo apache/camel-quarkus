@@ -41,9 +41,10 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.smallrye.openapi.deployment.spi.AddToOpenAPIDefinitionBuildItem;
-import io.smallrye.openapi.api.models.OpenAPIImpl;
 import io.smallrye.openapi.api.util.MergeUtil;
-import io.smallrye.openapi.runtime.io.definition.DefinitionReader;
+import io.smallrye.openapi.runtime.io.IOContext;
+import io.smallrye.openapi.runtime.io.JsonIO;
+import io.smallrye.openapi.runtime.io.OpenAPIDefinitionIO;
 import io.swagger.v3.core.jackson.mixin.Components31Mixin;
 import io.swagger.v3.core.jackson.mixin.ComponentsMixin;
 import io.swagger.v3.core.jackson.mixin.DateSchemaMixin;
@@ -239,8 +240,7 @@ class CamelRestOASFilter implements OASFilter {
             String jsonContent = RestOpenApiSupport.getJsonFromOpenAPIAsString(openApi, bc);
             final JsonNode node = mapper.readTree(jsonContent);
 
-            OpenAPI oai = new OpenAPIImpl();
-            DefinitionReader.processDefinition(oai, node);
+            OpenAPI oai = new OpenAPIDefinitionIO(IOContext.forJson(JsonIO.newInstance(null))).readObject(node);
             MergeUtil.merge(openAPI, oai);
         } catch (Exception e) {
             LOGGER.warn("Error generating OpenAPI from Camel Rest DSL due to: {}. This exception is ignored.", e.getMessage(),
