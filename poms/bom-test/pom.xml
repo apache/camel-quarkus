@@ -80,12 +80,6 @@
                 <artifactId>quarkus-micrometer-registry-jmx</artifactId>
                 <version>${quarkiverse-micrometer.version}</version>
             </dependency>
-            <!-- TODO: Remove for Quarkus 3.16.0 https://github.com/quarkusio/quarkus/pull/43393 -->
-            <dependency>
-                <groupId>io.smallrye.certs</groupId>
-                <artifactId>smallrye-certificate-generator-junit5</artifactId>
-                <version>${smallrye-certificate-generator-junit5.version}</version>
-            </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-integration-test-support-custom-dataformat</artifactId>
