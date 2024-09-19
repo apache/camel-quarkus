@@ -24,3 +24,14 @@ The following extensions have been deprecated and will be removed in a future re
 * camel-quarkus-kotlin-dsl
 
 This is in line with the Camel core deprecation of `camel-kotlin-dsl`.
+
+== `Changes in CamelTestSupport` style of testing
+
+The following methods were mistakenly not marked as deprecated in 3.15.0:
+
+* `isUseAdviceWith`
+* `doPreSetup`
+* `doPostSetup`
+* `postProcessTest`
+
+This will be corrected in the 3.15.1 release.
