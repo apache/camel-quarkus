@@ -21,11 +21,13 @@ import java.util.Objects;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
+import org.apache.camel.quarkus.test.AvailablePortFinder.Protocol;
 
 public class NettyUdpTestResource implements QuarkusTestResourceLifecycleManager {
     @Override
     public Map<String, String> start() {
         return AvailablePortFinder.reserveNetworkPorts(
+                Protocol.UDP,
                 Objects::toString,
                 "camel.netty.test-udp-port",
                 "camel.netty.test-codec-udp-port",
