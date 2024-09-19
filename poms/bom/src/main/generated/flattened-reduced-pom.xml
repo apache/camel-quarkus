@@ -8237,12 +8237,12 @@
       <dependency>
         <groupId>org.amqphub.quarkus</groupId>
         <artifactId>quarkus-qpid-jms</artifactId>
-        <version>2.6.1</version>
+        <version>2.7.0</version>
       </dependency>
       <dependency>
         <groupId>org.amqphub.quarkus</groupId>
         <artifactId>quarkus-qpid-jms-deployment</artifactId>
-        <version>2.6.1</version>
+        <version>2.7.0</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
