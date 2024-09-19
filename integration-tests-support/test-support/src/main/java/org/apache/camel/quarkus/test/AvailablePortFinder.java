@@ -17,8 +17,7 @@
 package org.apache.camel.quarkus.test;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
+import java.net.DatagramSocket;
 import java.net.ServerSocket;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,22 +50,30 @@ public final class AvailablePortFinder {
     }
 
     /**
-     * Gets the next available port.
+     * Gets the next available TCP port.
      *
      * @throws IllegalStateException if there are no ports available
      * @return                       the available port
      */
     public static int getNextAvailable() {
+        return getNextAvailable(Protocol.TCP);
+    }
+
+    /**
+     * Gets the next available port for the given protocol.
+     *
+     * @param  protocol              the network protocol to reserve the port for. Either TCP or UDP
+     * @throws IllegalStateException if there are no ports available
+     * @return                       the available port
+     */
+    public static int getNextAvailable(Protocol protocol) {
         // Using AvailablePortFinder in native applications can be problematic
         // E.g The reserved port may be allocated at build time and preserved indefinitely at runtime. I.e it never changes on each execution of the native application
         logWarningIfNativeApplication();
 
         while (true) {
-            try (ServerSocket ss = new ServerSocket()) {
-                ss.setReuseAddress(true);
-                ss.bind(new InetSocketAddress((InetAddress) null, 0), 1);
-
-                int port = ss.getLocalPort();
+            try {
+                int port = protocol.getPort();
                 if (!isQuarkusReservedPort(port)) {
                     String callerClassName = getCallerClassName();
                     String value = RESERVED_PORTS.putIfAbsent(port, callerClassName);
@@ -82,20 +89,34 @@ public final class AvailablePortFinder {
     }
 
     /**
-     * Reserve a list of random and not in use network ports and place them in Map.
+     * Reserve a list of random and not in use TCP network ports and places them in Map.
      */
     public static Map<String, Integer> reserveNetworkPorts(String... names) {
         return reserveNetworkPorts(Function.identity(), names);
     }
 
     /**
-     * Reserve a list of random and not in use network ports and place them in Map.
+     * Reserve a list of random and not in use network ports for the given protocol and places them in Map.
+     */
+    public static Map<String, Integer> reserveNetworkPorts(Protocol protocol, String... names) {
+        return reserveNetworkPorts(protocol, Function.identity(), names);
+    }
+
+    /**
+     * Reserve a list of random and not in use TCP network ports and places them in Map.
      */
     public static <T> Map<String, T> reserveNetworkPorts(Function<Integer, T> converter, String... names) {
+        return reserveNetworkPorts(Protocol.TCP, converter, names);
+    }
+
+    /**
+     * Reserve a list of random and not in use network ports for the given protocol and places them in Map.
+     */
+    public static <T> Map<String, T> reserveNetworkPorts(Protocol protocol, Function<Integer, T> converter, String... names) {
         Map<String, T> reservedPorts = new HashMap<>();
 
         for (String name : names) {
-            reservedPorts.put(name, converter.apply(getNextAvailable()));
+            reservedPorts.put(name, converter.apply(getNextAvailable(protocol)));
         }
 
         return reservedPorts;
@@ -137,6 +158,27 @@ public final class AvailablePortFinder {
         if (System.getProperty("org.graalvm.nativeimage.kind") != null) {
             LOGGER.warn("Usage of AvailablePortFinder in the native application is discouraged. "
                     + "Pass the reserved port to the native application under test with QuarkusTestResourceLifecycleManager or via an HTTP request");
+        }
+    }
+
+    public enum Protocol {
+        TCP,
+        UDP;
+
+        int getPort() throws IOException {
+            if (this.equals(TCP)) {
+                try (ServerSocket socket = new ServerSocket()) {
+                    socket.setReuseAddress(true);
+                    socket.bind(null);
+                    return socket.getLocalPort();
+                }
+            }
+
+            try (DatagramSocket socket = new DatagramSocket()) {
+                // NOTE: There's no need for socket.bind as it happens during DatagramSocket instantiation
+                socket.setReuseAddress(true);
+                return socket.getLocalPort();
+            }
         }
     }
 }
