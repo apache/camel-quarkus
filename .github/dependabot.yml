@@ -38,7 +38,7 @@ updates:
       # Test dependencies
       - dependency-name: "org.wiremock:wiremock-standalone"
       - dependency-name: "com.unboundid:unboundid-ldapsdk"
-      - dependency-name: "me.escoffier.certs:certificate-generator-junit5"
+      - dependency-name: "io.smallrye.certs:smallrye-certificate-generator-junit5"
       - dependency-name: "org.hamcrest:hamcrest"
       - dependency-name: "org.hamcrest:hamcrest-core"
       - dependency-name: "org.seleniumhq.selenium:htmlunit-driver"
