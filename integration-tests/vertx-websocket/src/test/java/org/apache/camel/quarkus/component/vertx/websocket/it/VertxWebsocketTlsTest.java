@@ -21,8 +21,8 @@ import java.util.Map;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.QuarkusTestProfile;
 import io.quarkus.test.junit.TestProfile;
-import me.escoffier.certs.Format;
-import me.escoffier.certs.junit5.Certificate;
+import io.smallrye.certs.Format;
+import io.smallrye.certs.junit5.Certificate;
 import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 
 @TestCertificates(certificates = {
