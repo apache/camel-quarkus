@@ -172,7 +172,7 @@
         <zstd-jni.version>1.5.6-3</zstd-jni.version><!-- @sync org.apache.kafka:kafka-clients:${kafka.version} dep:com.github.luben:zstd-jni -->
 
         <!-- Test dependency versions (keep sorted alphabetically) -->
-        <certificate.generator.version>0.7.1</certificate.generator.version>
+        <smallrye-certificate-generator-junit5.version>0.8.1</smallrye-certificate-generator-junit5.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.certs:smallrye-certificate-generator -->
         <consul-client.version>${consul-client-version}</consul-client.version>
         <ftpserver.version>${ftpserver-version}</ftpserver.version>
         <hamcrest.version>3.0</hamcrest.version><!-- Awaitility and Wiremock -->
