@@ -23,12 +23,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import me.escoffier.certs.AliasRequest;
-import me.escoffier.certs.CertificateFiles;
-import me.escoffier.certs.CertificateGenerator;
-import me.escoffier.certs.CertificateRequest;
-import me.escoffier.certs.junit5.Alias;
-import me.escoffier.certs.junit5.Certificate;
+import io.smallrye.certs.AliasRequest;
+import io.smallrye.certs.CertificateFiles;
+import io.smallrye.certs.CertificateGenerator;
+import io.smallrye.certs.CertificateRequest;
+import io.smallrye.certs.junit5.Alias;
+import io.smallrye.certs.junit5.Certificate;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.extension.*;
 import org.junit.platform.commons.util.AnnotationUtils;
@@ -36,7 +36,7 @@ import org.testcontainers.DockerClientFactory;
 
 /**
  * Extension is based on
- * https://github.com/cescoffier/certificate-generator/blob/main/certificate-generator-junit5/src/main/java/me/escoffier/certs/junit5/CertificateGenerationExtension.java
+ * https://github.com/smallrye/smallrye-certificate-generator/blob/main/certificate-generator-junit5/src/main/java/io/smallrye/certs/junit5/CertificateGenerationExtension.java
  *
  * Unfortunately there is no way of extending the original Extension with functionality of modifying CN and
  * SubjectAlternativeName

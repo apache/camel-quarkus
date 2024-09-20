@@ -22,14 +22,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import me.escoffier.certs.junit5.Certificate;
+import io.smallrye.certs.junit5.Certificate;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * Based on
- * https://github.com/cescoffier/certificate-generator/blob/main/certificate-generator-junit5/src/main/java/me/escoffier/certs/junit5/Certificates.java
+ * https://github.com/smallrye/smallrye-certificate-generator/blob/main/certificate-generator-junit5/src/main/java/io/smallrye/certs/junit5/Certificates.java
  * Generates certificates before the tests via 'TestCertificateGenerationExtension' so the new certificates
- * are customized to fullfill a remote docker host (if required).
+ * are customized to fulfill a remote docker host (if required).
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
