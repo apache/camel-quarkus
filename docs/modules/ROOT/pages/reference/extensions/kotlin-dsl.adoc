@@ -22,7 +22,7 @@ Support for parsing Kotlin route definitions at runtime
 [id="extensions-kotlin-dsl-whats-inside"]
 == What's inside
 
-* [Kotlin DSL]
+* xref:{cq-camel-components}:others:kotlin-dsl.adoc[Kotlin DSL]
 
 Please refer to the above link for usage and configuration details.
 
