@@ -17,6 +17,11 @@
 
 version: 2
 
+registries:
+  maven-central:
+    type: maven-repository
+    url: https://repo.maven.apache.org/maven2
+
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -26,6 +31,8 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    registries:
+      - maven-central
     allow:
       # Quarkiverse extensions
       - dependency-name: "io.quarkiverse.*:*"
