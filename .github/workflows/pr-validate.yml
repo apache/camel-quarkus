@@ -34,6 +34,7 @@ on:
       - 'NOTICE.txt'
       - '.github/*.sh'
       - '.github/*.yaml'
+      - '.github/*.yml'
       - '.github/workflows/assign-issue-milestone.yaml'
       - '.github/workflows/assign-wontfix-issue-milestone.yaml'
       - '.github/workflows/camel-master-cron.yaml'
