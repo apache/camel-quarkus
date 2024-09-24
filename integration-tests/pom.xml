@@ -152,6 +152,7 @@
         <module>kotlin-dsl</module>
         <module>kubernetes</module>
         <module>kudu</module>
+        <module>langchain4j</module>
         <module>langchain4j-chat</module>
         <module>ldap</module>
         <module>leveldb</module>
