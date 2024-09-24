@@ -41,6 +41,7 @@ group-02:
   - jackson-protobuf
   - jfr
   - kafka-oauth
+  - langchain4j
   - oaipmh
   - pubnub
   - protobuf
