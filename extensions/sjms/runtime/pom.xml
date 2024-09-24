@@ -43,6 +43,10 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-sjms</artifactId>
         </dependency>
+        <dependency>
+            <groupId>jakarta.jms</groupId>
+            <artifactId>jakarta.jms-api</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
