@@ -70,7 +70,7 @@ pipeline {
                 MAVEN_OPTS = "-Xmx4600m"
             }
             steps {
-                sh "./mvnw ${MAVEN_PARAMS} -Dquickly clean deploy"
+                sh "./mvnw ${MAVEN_PARAMS} -Dquickly -pl catalog -am clean deploy"
             }
         }
     }
