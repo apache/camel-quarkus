@@ -88,6 +88,7 @@
         <commons-beanutils.version>${commons-beanutils-version}</commons-beanutils.version>
         <commons-cli.version>1.8.0</commons-cli.version><!-- keep in sync with Quarkus, via quarkus-bootstrap-core -->
         <commons-collections.version>${commons-collections-version}</commons-collections.version>
+        <commons-collections4.version>${commons-collections4-version}</commons-collections4.version>
         <commons-exec.version>${commons-exec-version}</commons-exec.version>
         <commons-validator.version>${commons-validator-version}</commons-validator.version>
         <dropwizard-metrics.version>${metrics-version}</dropwizard-metrics.version>
