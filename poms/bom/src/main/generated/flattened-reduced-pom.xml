@@ -6842,12 +6842,12 @@
       <dependency>
         <groupId>io.quarkiverse.minio</groupId>
         <artifactId>quarkus-minio-native</artifactId>
-        <version>3.7.6</version>
+        <version>3.7.7</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.minio</groupId>
         <artifactId>quarkus-minio-native-deployment</artifactId>
-        <version>3.7.6</version>
+        <version>3.7.7</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId>
