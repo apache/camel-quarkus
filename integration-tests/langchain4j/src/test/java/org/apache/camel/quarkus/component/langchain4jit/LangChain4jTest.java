@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.langchain4jit;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
@@ -27,7 +26,6 @@ import static org.hamcrest.Matchers.is;
 class LangChain4jTest {
 
     @Test
-    @Disabled("https://github.com/apache/camel-quarkus/issues/6543")
     void camelAnnotationsShouldWorkAsExpected() {
         RestAssured.given()
                 .body("{\"included\": \"included-content\", \"ignored\": \"ignored-content\"}")
