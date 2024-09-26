@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.langchain.chat.deployment;
 
+import io.quarkiverse.langchain4j.deployment.items.MethodParameterAllowedAnnotationsBuildItem;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 
@@ -26,4 +27,9 @@ class LangChain4jProcessor {
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
     }
+
+    @BuildStep
+    MethodParameterAllowedAnnotationsBuildItem camelAnnotatedParametersCouldBeUsedAsTemplateVariable() {
+        return new MethodParameterAllowedAnnotationsBuildItem(anno -> anno.name().toString().startsWith("org.apache.camel"));
+    };
 }
