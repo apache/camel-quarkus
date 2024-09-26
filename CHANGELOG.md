@@ -1,5 +1,99 @@
 # Changelog
 
+## 3.15.0
+
+* Clarify the performance regression steps in the release procedure by @aldettinger in https://github.com/apache/camel-quarkus/pull/6373
+* Next is 3.15.0-SNAPSHOT by @aldettinger in https://github.com/apache/camel-quarkus/pull/6372
+* Increase azure-eventhubs test coverage by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6371
+* Recommend writing the release announcement before sending the platform PR by @ppalaga in https://github.com/apache/camel-quarkus/pull/6375
+* Extend Spring-rabbitmq coverage by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6377
+* Upgrade Debezium to 2.7.1.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6378
+* Upgrade Quarkus CXF to 3.14.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6379
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6385
+* Bump cq-plugin.version from 4.10.1 to 4.10.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/6384
+* Ban com.sun.xml.bind:jaxb-core and jaxb-impl to avoid clash with org.glassfish.jaxb:jaxb-core and jaxb-runtime by @ppalaga in https://github.com/apache/camel-quarkus/pull/6382
+* Bump quarkiverse-freemarker.version from 1.0.0 to 1.1.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6383
+* Fix the staging repository template name in the release procedure by @aldettinger in https://github.com/apache/camel-quarkus/pull/6386
+* Fix hashicorp-vault extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6255
+* Combine knative tests into a single module by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6387
+* Remove camel-k-runtime extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6388
+* Update the project changelog with 3.14.0 release by @aldettinger in https://github.com/apache/camel-quarkus/pull/6389
+* Replace quarkus-test-artemis with dev services container by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6390
+* Revert back to QuarkusTestResource by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6394
+* Rebalance some test categories after recent module removal by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6392
+* Bump quarkiverse-groovy.version from 3.12.1 to 3.13.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6397
+* Bump quarkiverse-langchain4j.version from 0.17.0 to 0.17.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/6398
+* Fix the camel-quarkus-examples release procedure to handle multi-modu… by @aldettinger in https://github.com/apache/camel-quarkus/pull/6395
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6400
+* Upgrade Quarkus to 3.14.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6401
+* Add hashicorp-vault native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6403
+* Bump io.quarkiverse.artemis:quarkus-artemis-bom from 3.4.1 to 3.4.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/6404
+* Bump quarkiverse-langchain4j.version from 0.17.1 to 0.17.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/6405
+* Github Actions Security Best practices: Pin Actions to Full lenght C… by @oscerd in https://github.com/apache/camel-quarkus/pull/6406
+* Github Actions Security Best practices: Pin Actions to Full lenght C… by @oscerd in https://github.com/apache/camel-quarkus/pull/6407
+* Github Actions Security Best practices: Pin Actions to Full lenght C… by @oscerd in https://github.com/apache/camel-quarkus/pull/6408
+* Github Actions Security Best practices: Pin Actions to Full lenght C… by @oscerd in https://github.com/apache/camel-quarkus/pull/6409
+* Github Actions Security Best practices: Pin Actions to Full lenght C… by @oscerd in https://github.com/apache/camel-quarkus/pull/6410
+* Github Actions Security Best practices: Pin Actions to Full lenght C… by @oscerd in https://github.com/apache/camel-quarkus/pull/6411
+* Github Actions Security Best practices: Pin Actions to Full lenght C… by @oscerd in https://github.com/apache/camel-quarkus/pull/6412
+* Github Actions Security Best practices: Pin Actions to Full lenght C… by @oscerd in https://github.com/apache/camel-quarkus/pull/6413
+* Test hashicorp-vault with HTTPS scheme by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6414
+* [Tests] FTP: Use restrictions to bypass cert setup issues by @avano in https://github.com/apache/camel-quarkus/pull/6415
+* Avoid overwriting existing Camel GAV catalog metadata by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6416
+* Bump peter-evans/create-pull-request from 6.1.0 to 7.0.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6417
+* Use quarkus-micrometer-registry-prometheus instead of the plain io.micrometer dependency by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6419
+* Upgrade Quarkus to 3.14.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6421
+* Enable vertx-websocket extension to handle Quarkus TLS Registry configuration by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6420
+* Fix NPE in SupportSwaggerProcessor when sources do not include a package statement by @apupier in https://github.com/apache/camel-quarkus/pull/6424
+* Fix and add tests camel flink extension on JVM mode  by @svkcemk in https://github.com/apache/camel-quarkus/pull/6422
+* Removed workaround for strimzi kafka container and JDK 17 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6426
+* Bump net.revelc.code:impsort-maven-plugin from 1.11.0 to 1.12.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6427
+* Bump quarkiverse-groovy.version from 3.13.0 to 3.14.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6428
+* Bump peter-evans/create-pull-request from 7.0.0 to 7.0.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/6429
+* Extend validator test coverage by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6431
+* Use target as the temporary directory location for the Flink mini cluster by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6432
+* Bump quarkiverse-mybatis.version from 2.2.3 to 2.2.4 by @dependabot in https://github.com/apache/camel-quarkus/pull/6434
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6436
+* Fix paths to FHIR DSTU_2_1 & DSTU3 properties files by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6442
+* Bump actions/setup-java from 4.2.2 to 4.3.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6443
+* Deprecate kotlin extension #6444 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6445
+* Suppress camel component doc xref for kotlin-dsl extension due to #6448 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6449
+* Upgrade Quarkus to 3.15.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6450
+* Upgrade Debezium to 2.7.2.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6451
+* Add migration guide to 3.15.0 release by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6452
+* Fix wiremock dependency name in Depandabot configuration by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6453
+* Bump peter-evans/create-pull-request from 7.0.1 to 7.0.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/6454
+* Upgrade WireMock to 3.9.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6456
+* Bump quarkiverse-jsch.version from 3.0.9 to 3.0.10 by @dependabot in https://github.com/apache/camel-quarkus/pull/6458
+* Upgrade IBM JMS Client to 9.4.0.5 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6460
+* Bump quarkiverse-jgit.version from 3.1.2 to 3.1.3 by @dependabot in https://github.com/apache/camel-quarkus/pull/6461
+* Bump cq-plugin.version from 4.10.2 to 4.11.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6462
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6463
+* Upgrade Camel to 4.8.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6439
+* Activate Camel dev profile when running in development mode by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6464
+* Discover Datasonnet libraries at build time by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6465
+* Enable testing with Azure Event Hubs Emulator by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6466
+* Use quarkus-bom managed bcprov-jdk18on instead of bcprov-ext-jdk18on by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6467
+* Reflect correct usage of CXF SOAP in routes in tests by @llowinge in https://github.com/apache/camel-quarkus/pull/6457
+* Remove azure-eventhubs shared access configuration for AZURE_IDENTITY credentials test by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6468
+* Add new langchain4j-(tokenizer|tools|web-search) extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6469
+* Miscellaneous documentation tidy-ups by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6474
+* Miscellaneous dependency upgrades & tidy-ups by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6473
+* Bump quarkiverse-groovy.version from 3.14.0 to 3.14.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/6475
+* Bump quarkiverse-minio.version from 3.7.5 to 3.7.6 by @dependabot in https://github.com/apache/camel-quarkus/pull/6476
+* Bump peter-evans/create-pull-request from 7.0.2 to 7.0.3 by @dependabot in https://github.com/apache/camel-quarkus/pull/6477
+* Bump io.swagger.codegen.v3:swagger-codegen-generators from 1.0.51 to 1.0.52 by @dependabot in https://github.com/apache/camel-quarkus/pull/6478
+* Remove redundant disableXmlReifiers build step by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6480
+* Align test container images with Camel & Quarkus by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6481
+* Bump com.azure:azure-core-http-vertx from 1.0.0-beta.20 to 1.0.0-beta.21 by @dependabot in https://github.com/apache/camel-quarkus/pull/6482
+* Remove kotlin-dsl reference from defining camel routes guide by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6483
+* Upgrade Quarkus to 3.15.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6484
+* Add Camel service inclusion pattern for tokenizer by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6485
+* Bump peter-evans/create-pull-request from 7.0.3 to 7.0.5 by @dependabot in https://github.com/apache/camel-quarkus/pull/6486
+* Upgrade Quarkus CXF to 3.15.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6487
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.14.0...3.15.0
+
 ## 3.14.0
 
 * Migrate from deprecated QuarkusTestResource to WithTestResource by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6295
