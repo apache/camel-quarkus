@@ -120,7 +120,8 @@ public class CqCatalog {
 
     public CqCatalog(Flavor flavor, Function<String, InputStream> resourceLocator) {
         this.flavor = flavor;
-        final DefaultCamelCatalog c = new DefaultCamelCatalog(true);
+        // workaround for catalog `beans/*.json`, see comment on BeansWorkaroundCustomCatalog for more information
+        final DefaultCamelCatalog c = new BeansWorkaroundCustomCatalog(true);
         c.setRuntimeProvider(flavor.createRuntimeProvider(c));
         c.setVersionManager(new CqVersionManager(c, resourceLocator));
         this.catalog = c;
@@ -197,6 +198,8 @@ public class CqCatalog {
         switch (model.getKind()) {
         case bean:
             rawJson = JsonMapper.createParameterJsonSchema((PojoBeanModel) model);
+            //workaround
+            rawJson = rawJson.replace("model", "bean");
             break;
         case component:
             rawJson = JsonMapper.createParameterJsonSchema((ComponentModel) model);
@@ -346,6 +349,7 @@ public class CqCatalog {
         private static final String LANGUAGE_CATALOG = CQ_CATALOG_DIR + "/languages.properties";
         private static final String TRANSFORMER_CATALOG = CQ_CATALOG_DIR + "/transformers.properties";
         private static final String OTHER_CATALOG = CQ_CATALOG_DIR + "/others.properties";
+        private static final String BEANS_CATALOG = CQ_CATALOG_DIR + "/beans.properties";
         private static final String CAPABILITIES_CATALOG = "org/apache/camel/catalog/capabilities.properties";
 
         private CamelCatalog camelCatalog;
@@ -436,6 +440,10 @@ public class CqCatalog {
 
         protected String getOtherCatalog() {
             return OTHER_CATALOG;
+        }
+
+        protected String getBeansCatalog() {
+            return BEANS_CATALOG;
         }
 
         protected String getCapabilitiesCatalog() {
@@ -529,7 +537,7 @@ public class CqCatalog {
         @Override
         public List<String> findBeansNames() {
             List<String> names = new ArrayList<>();
-            InputStream is = getCamelCatalog().getVersionManager().getResourceAsStream(getPojoBeanJSonSchemaDirectory());
+            InputStream is = getCamelCatalog().getVersionManager().getResourceAsStream(getBeansCatalog());
             if (is != null) {
                 try {
                     CatalogHelper.loadLines(is, names);
@@ -583,6 +591,22 @@ public class CqCatalog {
             } catch (IOException e) {
                 throw new RuntimeException("Could not close catalog " + jarFileSystem, e);
             }
+        }
+    }
+
+    /**
+     * Prior https://github.com/apache/camel/pull/15708, the catalog files from `beans/*json` might have contained
+     * attribute `model` instead of `bean`. This custom catalog is fixing the json, to be parsable by Camel
+     * tooling.
+     */
+    public static class BeansWorkaroundCustomCatalog extends DefaultCamelCatalog {
+        public BeansWorkaroundCustomCatalog(boolean caching) {
+            super(caching);
+        }
+
+        @Override
+        public String pojoBeanJSonSchema(String name) {
+            return getJSonSchemaResolver().getPojoBeanJSonSchema(name).replace("model", "bean");
         }
     }
 
