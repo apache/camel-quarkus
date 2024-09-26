@@ -6893,17 +6893,17 @@
       <dependency>
         <groupId>io.swagger.core.v3</groupId>
         <artifactId>swagger-annotations-jakarta</artifactId>
-        <version>2.2.23</version>
+        <version>2.2.24</version>
       </dependency>
       <dependency>
         <groupId>io.swagger.core.v3</groupId>
         <artifactId>swagger-core-jakarta</artifactId>
-        <version>2.2.23</version>
+        <version>2.2.24</version>
       </dependency>
       <dependency>
         <groupId>io.swagger.core.v3</groupId>
         <artifactId>swagger-models-jakarta</artifactId>
-        <version>2.2.23</version>
+        <version>2.2.24</version>
       </dependency>
       <dependency>
         <groupId>io.swagger.parser.v3</groupId>
