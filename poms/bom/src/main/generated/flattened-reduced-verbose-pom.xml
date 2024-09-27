@@ -4694,12 +4694,22 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-quarkus-langchain4j</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.16.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-quarkus-langchain4j-chat</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.16.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-quarkus-langchain4j-chat-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.16.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-quarkus-langchain4j-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.16.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
@@ -6787,12 +6797,12 @@
       <dependency>
         <groupId>io.quarkiverse.langchain4j</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-langchain4j-core</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>0.18.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>0.19.0.CR1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.langchain4j</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-langchain4j-core-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>0.18.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>0.19.0.CR1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.messaginghub</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -6807,12 +6817,12 @@
       <dependency>
         <groupId>io.quarkiverse.minio</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-minio-native</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.7.6</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.7.7</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.minio</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-minio-native-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.7.6</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.7.7</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -6893,17 +6903,17 @@
       <dependency>
         <groupId>io.swagger.core.v3</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>swagger-annotations-jakarta</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>2.2.24</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>2.2.23</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.swagger.core.v3</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>swagger-core-jakarta</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>2.2.24</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>2.2.23</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.swagger.core.v3</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>swagger-models-jakarta</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>2.2.24</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>2.2.23</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.swagger.parser.v3</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -6961,6 +6971,11 @@
         <groupId>org.antlr</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>antlr-runtime</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.5.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>commons-collections4</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>4.4</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>org.apache.httpcomponents.client5</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -8421,9 +8436,9 @@
         <version>25.1-jre-graal-sub-1</version><!-- com.datastax.oss:java-driver-bom:4.15.0 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <artifactId>connect-api</artifactId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <version>3.7.0</version><!-- io.debezium:debezium-bom:2.7.2.Final -->
+        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <artifactId>connect-api</artifactId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <version>3.7.0</version><!-- io.debezium:debezium-bom:2.7.3.Final -->
         <exclusions>
           <exclusion>
             <groupId>javax.ws.rs</groupId>
@@ -8432,113 +8447,113 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <artifactId>connect-json</artifactId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <version>3.7.0</version><!-- io.debezium:debezium-bom:2.7.2.Final -->
+        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <artifactId>connect-json</artifactId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <version>3.7.0</version><!-- io.debezium:debezium-bom:2.7.3.Final -->
       </dependency>
       <dependency>
-        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <artifactId>connect-file</artifactId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <version>3.7.0</version><!-- io.debezium:debezium-bom:2.7.2.Final -->
+        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <artifactId>connect-file</artifactId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <version>3.7.0</version><!-- io.debezium:debezium-bom:2.7.3.Final -->
       </dependency>
       <dependency>
-        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <artifactId>connect-transforms</artifactId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <version>3.7.0</version><!-- io.debezium:debezium-bom:2.7.2.Final -->
+        <groupId>org.apache.kafka</groupId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <artifactId>connect-transforms</artifactId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <version>3.7.0</version><!-- io.debezium:debezium-bom:2.7.3.Final -->
       </dependency>
       <dependency>
-        <groupId>com.zendesk</groupId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <artifactId>mysql-binlog-connector-java</artifactId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <version>0.29.2</version><!-- io.debezium:debezium-bom:2.7.2.Final -->
+        <groupId>com.zendesk</groupId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <artifactId>mysql-binlog-connector-java</artifactId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <version>0.29.2</version><!-- io.debezium:debezium-bom:2.7.3.Final -->
       </dependency>
       <dependency>
-        <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <artifactId>metrics-core</artifactId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <version>4.0.1</version><!-- io.debezium:debezium-bom:2.7.2.Final -->
+        <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <artifactId>metrics-core</artifactId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <version>4.0.1</version><!-- io.debezium:debezium-bom:2.7.3.Final -->
       </dependency>
       <dependency>
-        <groupId>org.reflections</groupId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <artifactId>reflections</artifactId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <version>0.9.12</version><!-- io.debezium:debezium-bom:2.7.2.Final -->
+        <groupId>org.reflections</groupId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <artifactId>reflections</artifactId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <version>0.9.12</version><!-- io.debezium:debezium-bom:2.7.3.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <artifactId>debezium-api</artifactId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <version>2.7.2.Final</version><!-- io.debezium:debezium-bom:2.7.2.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <artifactId>debezium-api</artifactId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <version>2.7.3.Final</version><!-- io.debezium:debezium-bom:2.7.3.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <artifactId>debezium-core</artifactId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <version>2.7.2.Final</version><!-- io.debezium:debezium-bom:2.7.2.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <artifactId>debezium-core</artifactId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <version>2.7.3.Final</version><!-- io.debezium:debezium-bom:2.7.3.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <artifactId>debezium-storage-kafka</artifactId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <version>2.7.2.Final</version><!-- io.debezium:debezium-bom:2.7.2.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <artifactId>debezium-storage-kafka</artifactId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <version>2.7.3.Final</version><!-- io.debezium:debezium-bom:2.7.3.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <artifactId>debezium-storage-file</artifactId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <version>2.7.2.Final</version><!-- io.debezium:debezium-bom:2.7.2.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <artifactId>debezium-storage-file</artifactId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <version>2.7.3.Final</version><!-- io.debezium:debezium-bom:2.7.3.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <artifactId>debezium-embedded</artifactId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <version>2.7.2.Final</version><!-- io.debezium:debezium-bom:2.7.2.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <artifactId>debezium-embedded</artifactId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <version>2.7.3.Final</version><!-- io.debezium:debezium-bom:2.7.3.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <artifactId>debezium-connector-postgres</artifactId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <version>2.7.2.Final</version><!-- io.debezium:debezium-bom:2.7.2.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <artifactId>debezium-connector-postgres</artifactId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <version>2.7.3.Final</version><!-- io.debezium:debezium-bom:2.7.3.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <artifactId>debezium-connector-mysql</artifactId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <version>2.7.2.Final</version><!-- io.debezium:debezium-bom:2.7.2.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <artifactId>debezium-connector-mysql</artifactId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <version>2.7.3.Final</version><!-- io.debezium:debezium-bom:2.7.3.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <artifactId>debezium-connector-binlog</artifactId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <version>2.7.2.Final</version><!-- io.debezium:debezium-bom:2.7.2.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <artifactId>debezium-connector-binlog</artifactId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <version>2.7.3.Final</version><!-- io.debezium:debezium-bom:2.7.3.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <artifactId>debezium-ddl-parser</artifactId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <version>2.7.2.Final</version><!-- io.debezium:debezium-bom:2.7.2.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <artifactId>debezium-ddl-parser</artifactId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <version>2.7.3.Final</version><!-- io.debezium:debezium-bom:2.7.3.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <artifactId>debezium-connector-mongodb</artifactId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <version>2.7.2.Final</version><!-- io.debezium:debezium-bom:2.7.2.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <artifactId>debezium-connector-mongodb</artifactId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <version>2.7.3.Final</version><!-- io.debezium:debezium-bom:2.7.3.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <artifactId>debezium-connector-sqlserver</artifactId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <version>2.7.2.Final</version><!-- io.debezium:debezium-bom:2.7.2.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <artifactId>debezium-connector-sqlserver</artifactId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <version>2.7.3.Final</version><!-- io.debezium:debezium-bom:2.7.3.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <artifactId>debezium-core</artifactId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <version>2.7.2.Final</version><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <type>test-jar</type><!-- io.debezium:debezium-bom:2.7.2.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <artifactId>debezium-core</artifactId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <version>2.7.3.Final</version><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <type>test-jar</type><!-- io.debezium:debezium-bom:2.7.3.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <artifactId>debezium-embedded</artifactId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <version>2.7.2.Final</version><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <type>test-jar</type><!-- io.debezium:debezium-bom:2.7.2.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <artifactId>debezium-embedded</artifactId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <version>2.7.3.Final</version><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <type>test-jar</type><!-- io.debezium:debezium-bom:2.7.3.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <artifactId>debezium-connector-mysql</artifactId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <version>2.7.2.Final</version><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <type>test-jar</type><!-- io.debezium:debezium-bom:2.7.2.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <artifactId>debezium-connector-mysql</artifactId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <version>2.7.3.Final</version><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <type>test-jar</type><!-- io.debezium:debezium-bom:2.7.3.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <artifactId>debezium-connector-binlog</artifactId><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <version>2.7.2.Final</version><!-- io.debezium:debezium-bom:2.7.2.Final -->
-        <type>test-jar</type><!-- io.debezium:debezium-bom:2.7.2.Final -->
+        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <artifactId>debezium-connector-binlog</artifactId><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <version>2.7.3.Final</version><!-- io.debezium:debezium-bom:2.7.3.Final -->
+        <type>test-jar</type><!-- io.debezium:debezium-bom:2.7.3.Final -->
       </dependency>
       <dependency>
         <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
