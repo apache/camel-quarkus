@@ -4694,12 +4694,22 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-langchain4j</artifactId>
+        <version>3.16.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-langchain4j-chat</artifactId>
         <version>3.16.0-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-langchain4j-chat-deployment</artifactId>
+        <version>3.16.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-langchain4j-deployment</artifactId>
         <version>3.16.0-SNAPSHOT</version>
       </dependency>
       <dependency>
@@ -6787,12 +6797,12 @@
       <dependency>
         <groupId>io.quarkiverse.langchain4j</groupId>
         <artifactId>quarkus-langchain4j-core</artifactId>
-        <version>0.18.0</version>
+        <version>0.19.0.CR1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.langchain4j</groupId>
         <artifactId>quarkus-langchain4j-core-deployment</artifactId>
-        <version>0.18.0</version>
+        <version>0.19.0.CR1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.messaginghub</groupId>
@@ -6807,12 +6817,12 @@
       <dependency>
         <groupId>io.quarkiverse.minio</groupId>
         <artifactId>quarkus-minio-native</artifactId>
-        <version>3.7.6</version>
+        <version>3.7.7</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.minio</groupId>
         <artifactId>quarkus-minio-native-deployment</artifactId>
-        <version>3.7.6</version>
+        <version>3.7.7</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId>
@@ -6893,17 +6903,17 @@
       <dependency>
         <groupId>io.swagger.core.v3</groupId>
         <artifactId>swagger-annotations-jakarta</artifactId>
-        <version>2.2.24</version>
+        <version>2.2.23</version>
       </dependency>
       <dependency>
         <groupId>io.swagger.core.v3</groupId>
         <artifactId>swagger-core-jakarta</artifactId>
-        <version>2.2.24</version>
+        <version>2.2.23</version>
       </dependency>
       <dependency>
         <groupId>io.swagger.core.v3</groupId>
         <artifactId>swagger-models-jakarta</artifactId>
-        <version>2.2.24</version>
+        <version>2.2.23</version>
       </dependency>
       <dependency>
         <groupId>io.swagger.parser.v3</groupId>
@@ -6961,6 +6971,11 @@
         <groupId>org.antlr</groupId>
         <artifactId>antlr-runtime</artifactId>
         <version>3.5.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-collections4</artifactId>
+        <version>4.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.httpcomponents.client5</groupId>
@@ -8464,80 +8479,80 @@
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-api</artifactId>
-        <version>2.7.2.Final</version>
+        <version>2.7.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-core</artifactId>
-        <version>2.7.2.Final</version>
+        <version>2.7.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-storage-kafka</artifactId>
-        <version>2.7.2.Final</version>
+        <version>2.7.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-storage-file</artifactId>
-        <version>2.7.2.Final</version>
+        <version>2.7.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-embedded</artifactId>
-        <version>2.7.2.Final</version>
+        <version>2.7.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-postgres</artifactId>
-        <version>2.7.2.Final</version>
+        <version>2.7.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-mysql</artifactId>
-        <version>2.7.2.Final</version>
+        <version>2.7.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-binlog</artifactId>
-        <version>2.7.2.Final</version>
+        <version>2.7.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-ddl-parser</artifactId>
-        <version>2.7.2.Final</version>
+        <version>2.7.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-mongodb</artifactId>
-        <version>2.7.2.Final</version>
+        <version>2.7.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-sqlserver</artifactId>
-        <version>2.7.2.Final</version>
+        <version>2.7.3.Final</version>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-core</artifactId>
-        <version>2.7.2.Final</version>
+        <version>2.7.3.Final</version>
         <type>test-jar</type>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-embedded</artifactId>
-        <version>2.7.2.Final</version>
+        <version>2.7.3.Final</version>
         <type>test-jar</type>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-mysql</artifactId>
-        <version>2.7.2.Final</version>
+        <version>2.7.3.Final</version>
         <type>test-jar</type>
       </dependency>
       <dependency>
         <groupId>io.debezium</groupId>
         <artifactId>debezium-connector-binlog</artifactId>
-        <version>2.7.2.Final</version>
+        <version>2.7.3.Final</version>
         <type>test-jar</type>
       </dependency>
       <dependency>
