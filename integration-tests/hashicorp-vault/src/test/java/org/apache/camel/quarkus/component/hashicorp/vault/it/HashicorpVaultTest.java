@@ -31,7 +31,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 
 @TestCertificates(certificates = {
-        @Certificate(name = "hashicorp-vault", formats = { Format.PEM, Format.PKCS12 }, password = "v431t")
+        @Certificate(name = "hashicorp-vault", formats = { Format.PEM }, password = "v431t")
 }, docker = true)
 @QuarkusTest
 @QuarkusTestResource(HashicorpVaultTestResource.class)
