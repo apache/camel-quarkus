@@ -21,10 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.quarkus.runtime.ShutdownEvent;
-import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -45,19 +42,6 @@ import static org.apache.camel.component.hashicorp.vault.HashicorpVaultConstants
 public class HashicorpVaultResource {
     @Inject
     ProducerTemplate producerTemplate;
-
-    void init(@Observes StartupEvent event) {
-        // spring-vault defaults to using HttpURLConnection as its 'client' so we have to configure SSL with system properties
-        System.setProperty("javax.net.ssl.trustStoreType", "PKCS12");
-        System.setProperty("javax.net.ssl.trustStore", "target/certs/hashicorp-vault-truststore.p12");
-        System.setProperty("javax.net.ssl.trustStorePassword", "v431t");
-    }
-
-    void destroy(@Observes ShutdownEvent event) {
-        System.clearProperty("javax.net.ssl.trustStoreType");
-        System.clearProperty("javax.net.ssl.trustStore");
-        System.clearProperty("javax.net.ssl.trustStorePassword");
-    }
 
     @Path("/secret")
     @POST
