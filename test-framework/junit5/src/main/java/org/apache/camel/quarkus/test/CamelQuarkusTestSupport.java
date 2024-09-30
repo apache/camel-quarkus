@@ -199,6 +199,7 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
     /**
      * The same functionality as {@link CamelTestSupport#postProcessTest()} .
      */
+    @Deprecated(since = "3.15.0")
     protected void postProcessTest() throws Exception {
         assertTestClassCamelContextMatchesAppCamelContext();
 
@@ -215,7 +216,7 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
         return this.context;
     }
 
-    @Deprecated(since = "4.7.0")
+    @Deprecated(since = "3.15.0")
     public long timeTaken() {
         return watch.taken();
     }
@@ -233,7 +234,7 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
      * @deprecated           Use {@link #setupResources()} instead
      * @throws     Exception if unable to setup the test
      */
-    @Deprecated(since = "4.7.0")
+    @Deprecated(since = "3.15.0")
     public void setUp() throws Exception {
         ExtensionHelper.testStartHeader(getClass(), currentTestName);
 
@@ -266,7 +267,7 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
      * @deprecated           Use {@link #cleanupResources()} instead
      * @throws     Exception if unable to setup the test
      */
-    @Deprecated(since = "4.7.0")
+    @Deprecated(since = "3.15.0")
     public void tearDown() throws Exception {
         long time = watch.taken();
 
@@ -297,7 +298,7 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
      *
      * @deprecated use {@link #cleanupResources()} instead.
      */
-    @Deprecated(since = "4.7.0")
+    @Deprecated(since = "3.15.0")
     protected void doPostTearDown() throws Exception {
         // noop
     }
@@ -321,7 +322,7 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
      * @see        #createRouteBuilder()
      * @deprecated This method will be made private. Do not use
      */
-    @Deprecated(since = "4.7.0")
+    @Deprecated(since = "3.15.0")
     protected RoutesBuilder[] createRouteBuilders() throws Exception {
         return new RoutesBuilder[] { createRouteBuilder() };
     }
@@ -374,6 +375,7 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
      * If this method is overridden, <i>super.doPreSetup()</i> must be called.
      * </p>
      */
+    @Deprecated(since = "3.15.0")
     protected void doPreSetup() throws Exception {
         if (isUseAdviceWith() || isUseDebugger()) {
             ((FastCamelContext) context).suspend();
@@ -395,6 +397,7 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
      * If this method is overridden, <i>super.doPostSetup()</i> must be called.
      * </p>
      */
+    @Deprecated(since = "3.15.0")
     protected void doPostSetup() throws Exception {
         if (isUseAdviceWith() || isUseDebugger()) {
             ((FastCamelContext) context).resume();
@@ -429,6 +432,7 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
      * @return <code>true</code> to apply advice to existing route(s). <code>false</code> to disable advice.
      */
     @Override
+    @Deprecated(since = "3.15.0")
     public boolean isUseAdviceWith() {
         return false;
     }
@@ -467,7 +471,7 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
      *                                 be resolved
      * @throws NoSuchEndpointException is the mock endpoint does not exist
      */
-    @Deprecated(since = "4.7.0")
+    @Deprecated(since = "3.15.0")
     protected final MockEndpoint getMockEndpoint(String uri, boolean create) throws NoSuchEndpointException {
         return TestSupport.getMockEndpoint(context, uri, create);
     }
@@ -477,7 +481,7 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
      *
      * @deprecated Use {@link #camelContextConfiguration()} to set an instance of {@link DebugBreakpoint}
      */
-    @Deprecated(since = "4.7.0")
+    @Deprecated(since = "3.15.0")
     protected void debugBefore(
             Exchange exchange, Processor processor, ProcessorDefinition<?> definition, String id, String label) {
     }
@@ -487,7 +491,7 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
      *
      * @deprecated Use {@link #camelContextConfiguration()} to set an instance of {@link DebugBreakpoint}
      */
-    @Deprecated(since = "4.7.0")
+    @Deprecated(since = "3.15.0")
     protected void debugAfter(
             Exchange exchange, Processor processor, ProcessorDefinition<?> definition, String id, String label,
             long timeTaken) {

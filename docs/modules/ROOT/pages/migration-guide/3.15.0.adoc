@@ -35,3 +35,5 @@ The following methods were mistakenly not marked as deprecated in 3.15.0:
 * `postProcessTest`
 
 This will be corrected in the 3.15.1 release.
+
+Using JUnit Lifecycle.PER_CLASS in conjunction with CamelQuarkusTestSupport is deprecated and will not be supported in future releases.
