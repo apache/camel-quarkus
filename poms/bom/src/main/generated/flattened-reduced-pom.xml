@@ -6690,12 +6690,12 @@
       <dependency>
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j</artifactId>
-        <version>0.34.0</version>
+        <version>0.35.0</version>
       </dependency>
       <dependency>
         <groupId>dev.langchain4j</groupId>
         <artifactId>langchain4j-core</artifactId>
-        <version>0.34.0</version>
+        <version>0.35.0</version>
       </dependency>
       <dependency>
         <groupId>io.minio</groupId>
@@ -6797,22 +6797,22 @@
       <dependency>
         <groupId>io.quarkiverse.langchain4j</groupId>
         <artifactId>quarkus-langchain4j-core</artifactId>
-        <version>0.19.0.CR3</version>
+        <version>0.20.0.CR1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.langchain4j</groupId>
         <artifactId>quarkus-langchain4j-core-deployment</artifactId>
-        <version>0.19.0.CR3</version>
+        <version>0.20.0.CR1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.messaginghub</groupId>
         <artifactId>quarkus-pooled-jms</artifactId>
-        <version>2.5.0</version>
+        <version>2.6.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.messaginghub</groupId>
         <artifactId>quarkus-pooled-jms-deployment</artifactId>
-        <version>2.5.0</version>
+        <version>2.6.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.minio</groupId>
