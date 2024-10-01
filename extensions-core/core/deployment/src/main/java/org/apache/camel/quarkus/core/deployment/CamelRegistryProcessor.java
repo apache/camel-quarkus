@@ -19,18 +19,24 @@ package org.apache.camel.quarkus.core.deployment;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
+import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
+import org.apache.camel.BindToRegistry;
 import org.apache.camel.quarkus.core.CamelBeanQualifierResolver;
+import org.apache.camel.quarkus.core.CamelCapabilities;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanQualifierResolverBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRegistryBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesBuilderClassBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeTaskBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
@@ -39,6 +45,10 @@ import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem
 import org.apache.camel.quarkus.core.deployment.spi.ContainerBeansBuildItem;
 import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.apache.camel.quarkus.core.deployment.util.PathFilter;
+import org.jboss.jandex.AnnotationTarget;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.ClassInfo.NestingType;
+import org.jboss.jandex.DotName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -167,5 +177,53 @@ public class CamelRegistryProcessor {
                 });
 
         return new CamelRuntimeTaskBuildItem("registry");
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    void processBindToRegistryAnnotations(
+            Capabilities capabilities,
+            CombinedIndexBuildItem combinedIndex,
+            ContainerBeansBuildItem containerBeans,
+            List<CamelRoutesBuilderClassBuildItem> camelRoutes,
+            CamelContextBuildItem camelContextBuildItem,
+            CamelRecorder recorder) {
+
+        // java-joor-dsl has its own discovery mechanism for @BindToRegistry annotations
+        if (!capabilities.isPresent(CamelCapabilities.JAVA_JOOR_DSL)) {
+            // Process all classes containing occurrences of BindToRegistry, excluding existing known beans
+            combinedIndex.getIndex()
+                    .getAnnotations(DotName.createSimple(BindToRegistry.class))
+                    .stream()
+                    .map(annotationInstance -> {
+                        AnnotationTarget target = annotationInstance.target();
+                        ClassInfo classInfo = null;
+                        if (target.kind().equals(AnnotationTarget.Kind.CLASS)) {
+                            classInfo = target.asClass();
+                        }
+
+                        if (target.kind().equals(AnnotationTarget.Kind.FIELD)) {
+                            classInfo = target.asField().declaringClass();
+                        }
+
+                        if (target.kind().equals(AnnotationTarget.Kind.METHOD)) {
+                            classInfo = target.asMethod().declaringClass();
+                        }
+                        return classInfo;
+                    })
+                    .filter(Objects::nonNull)
+                    .filter(classInfo -> camelRoutes.stream()
+                            .noneMatch(routeBuilder -> !classInfo.nestingType().equals(NestingType.TOP_LEVEL)
+                                    && routeBuilder.getDotName().equals(classInfo.enclosingClass())))
+                    .map(ClassInfo::name)
+                    .filter(name -> containerBeans.getClasses().stream()
+                            .noneMatch(containerBean -> containerBean.equals(name)))
+                    .map(DotName::toString)
+                    .distinct()
+                    .forEach(beanClassName -> {
+                        recorder.postProcessBeanAndBindToRegistry(camelContextBuildItem.getCamelContext(),
+                                CamelSupport.loadClass(beanClassName, Thread.currentThread().getContextClassLoader()));
+                    });
+        }
     }
 }
