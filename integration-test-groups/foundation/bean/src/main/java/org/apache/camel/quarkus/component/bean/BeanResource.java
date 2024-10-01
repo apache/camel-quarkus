@@ -83,6 +83,13 @@ public class BeanResource {
         return template.requestBody("direct:" + route, null, String.class);
     }
 
+    @Path("/route/{route}/{beanName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String invokeBindToRegistryBean(@PathParam("route") String route, @PathParam("beanName") String beanName) {
+        return template.requestBodyAndHeader("direct:" + route, beanName, "beanName", beanName, String.class);
+    }
+
     @Path("/beanMethodInHeader")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)

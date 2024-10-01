@@ -31,6 +31,7 @@ import org.apache.camel.impl.DefaultModelReifierFactory;
 import org.apache.camel.impl.engine.DefaultReactiveExecutor;
 import org.apache.camel.quarkus.core.FastFactoryFinderResolver.Builder;
 import org.apache.camel.spi.BeanProxyFactory;
+import org.apache.camel.spi.CamelBeanPostProcessor;
 import org.apache.camel.spi.ComponentNameResolver;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.ModelJAXBContextFactory;
@@ -210,5 +211,17 @@ public class CamelRecorder {
     public RuntimeValue<PackageScanClassResolver> createPackageScanClassResolver(
             Set<? extends Class<?>> packageScanClassCache) {
         return new RuntimeValue<>(new CamelQuarkusPackageScanClassResolver(packageScanClassCache));
+    }
+
+    public void postProcessBeanAndBindToRegistry(RuntimeValue<CamelContext> camelContextRuntimeValue, Class<?> beanType) {
+        try {
+            CamelContext camelContext = camelContextRuntimeValue.getValue();
+            Object bean = beanType.getDeclaredConstructor().newInstance();
+            CamelBeanPostProcessor beanPostProcessor = PluginHelper.getBeanPostProcessor(camelContext);
+            beanPostProcessor.postProcessBeforeInitialization(bean, bean.getClass().getName());
+            beanPostProcessor.postProcessAfterInitialization(bean, bean.getClass().getName());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
