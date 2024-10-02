@@ -17,11 +17,15 @@
 package org.apache.camel.quarkus.component.opentelemetry.deployment;
 
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
+import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.BuildSteps;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.opentelemetry.deployment.tracing.TracerEnabled;
 import org.apache.camel.quarkus.component.opentelemetry.OpenTelemetryTracerProducer;
+import org.apache.camel.tracing.Tracer;
 
+@BuildSteps(onlyIf = TracerEnabled.class)
 class OpenTelemetryProcessor {
 
     private static final String FEATURE = "camel-opentelemetry";
@@ -31,11 +35,16 @@ class OpenTelemetryProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
-    @BuildStep(onlyIf = TracerEnabled.class)
+    @BuildStep
     AdditionalBeanBuildItem openTelemetryTracerProducerBean() {
         return AdditionalBeanBuildItem.builder()
                 .setUnremovable()
                 .addBeanClass(OpenTelemetryTracerProducer.class)
                 .build();
+    }
+
+    @BuildStep
+    UnremovableBeanBuildItem camelTracerUnremovableBean() {
+        return UnremovableBeanBuildItem.beanTypes(Tracer.class);
     }
 }
