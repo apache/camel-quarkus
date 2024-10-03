@@ -111,7 +111,7 @@
         <hapi-base.version>${hapi-base-version}</hapi-base.version>
         <hapi-fhir.version>${hapi-fhir-version}</hapi-fhir.version>
         <hapi-fhir-core.version>6.3.11</hapi-fhir-core.version><!-- @sync ca.uhn.hapi.fhir:hapi-fhir:${hapi-fhir.version} prop:fhir_core_version -->
-        <httpclient5.version>${httpclient-version}</httpclient5.version><!-- Saxon and Wiremock -->
+        <httpclient5.version>5.2.3</httpclient5.version><!-- @sync io.quarkiverse.cxf:quarkus-cxf-parent:${quarkiverse-cxf.version} prop:httpclient5.version -->
         <ibm.mq.client.version>9.4.0.5</ibm.mq.client.version>
         <icu4j.version>${icu4j-version}</icu4j.version>
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
