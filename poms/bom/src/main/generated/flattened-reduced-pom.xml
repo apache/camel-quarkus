@@ -6998,11 +6998,6 @@
         <version>4.4</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.httpcomponents.client5</groupId>
-        <artifactId>httpclient5</artifactId>
-        <version>5.2.1</version>
-      </dependency>
-      <dependency>
         <groupId>org.apache.jackrabbit</groupId>
         <artifactId>oak-jackrabbit-api</artifactId>
         <version>1.64.0</version>
@@ -7733,6 +7728,11 @@
             <artifactId>jakarta.activation</artifactId>
           </exclusion>
         </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.httpcomponents.client5</groupId>
+        <artifactId>httpclient5</artifactId>
+        <version>5.2.3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.httpcomponents.core5</groupId>
