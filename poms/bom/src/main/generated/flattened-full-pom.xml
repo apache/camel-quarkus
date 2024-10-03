@@ -7048,11 +7048,6 @@
         <version>4.4</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
-        <groupId>org.apache.httpcomponents.client5</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>httpclient5</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>5.2.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
         <groupId>org.apache.jackrabbit</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>oak-jackrabbit-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>1.64.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -7813,6 +7808,11 @@
             <artifactId>jakarta.activation</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.15.2 -->
           </exclusion>
         </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.httpcomponents.client5</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.15.2 -->
+        <artifactId>httpclient5</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.15.2 -->
+        <version>5.2.3</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.15.2 -->
       </dependency>
       <dependency>
         <groupId>org.apache.httpcomponents.core5</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.15.2 -->
