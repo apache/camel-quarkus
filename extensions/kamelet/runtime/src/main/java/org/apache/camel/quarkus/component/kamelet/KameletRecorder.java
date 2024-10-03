@@ -63,6 +63,13 @@ public class KameletRecorder {
                         if (definition.getRoute() != null && definition.getRoute().getOutputs() != null) {
                             definition.getRoute().getOutputs().forEach(o -> o.setCamelContext(context));
                         }
+
+                        if (definition.getTemplateBeans() != null) {
+                            definition.getTemplateBeans()
+                                    .stream()
+                                    .filter(bean -> bean.getResource() instanceof EmptyKameletResource)
+                                    .forEach(bean -> bean.setResource(resourceLoader.resolveResource(location)));
+                        }
                     }
                     context.getCamelContextExtension().getContextPlugin(Model.class).addRouteTemplateDefinitions(definitions);
                 } catch (Exception e) {

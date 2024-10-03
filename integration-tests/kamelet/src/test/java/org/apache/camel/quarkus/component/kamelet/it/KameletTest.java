@@ -93,7 +93,8 @@ class KameletTest {
     public void testDiscovered() {
         Response resp = RestAssured.given()
                 .contentType(ContentType.JSON)
-                .when().get("/kamelet/list");
+                .when()
+                .get("/kamelet/list");
         resp.then().statusCode(200);
 
         ArrayList<String> jsonAsArrayList = resp.body()
@@ -102,6 +103,7 @@ class KameletTest {
         assertTrue(jsonAsArrayList.contains("injector"));
         assertTrue(jsonAsArrayList.contains("logger"));
         assertTrue(jsonAsArrayList.contains("custom-log"));
+        assertTrue(jsonAsArrayList.contains("greeting"));
     }
 
     @Test
@@ -111,5 +113,13 @@ class KameletTest {
                 .then()
                 .statusCode(200)
                 .body(is("HELLO"));
+    }
+
+    @Test
+    public void testKameletWithBean() {
+        RestAssured.get("/kamelet/greeting")
+                .then()
+                .statusCode(200)
+                .body(is("Hello World"));
     }
 }
