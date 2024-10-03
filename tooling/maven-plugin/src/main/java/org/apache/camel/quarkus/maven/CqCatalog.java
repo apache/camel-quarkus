@@ -25,9 +25,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -350,7 +347,6 @@ public class CqCatalog {
         private static final String TRANSFORMER_CATALOG = CQ_CATALOG_DIR + "/transformers.properties";
         private static final String OTHER_CATALOG = CQ_CATALOG_DIR + "/others.properties";
         private static final String BEANS_CATALOG = CQ_CATALOG_DIR + "/beans.properties";
-        private static final String CAPABILITIES_CATALOG = "org/apache/camel/catalog/capabilities.properties";
 
         private CamelCatalog camelCatalog;
 
@@ -444,10 +440,6 @@ public class CqCatalog {
 
         protected String getBeansCatalog() {
             return BEANS_CATALOG;
-        }
-
-        protected String getCapabilitiesCatalog() {
-            return CAPABILITIES_CATALOG;
         }
 
         @Override
@@ -548,21 +540,6 @@ public class CqCatalog {
             return names;
         }
 
-        @Override
-        public Map<String, String> findCapabilities() {
-            final Properties properties = new Properties();
-
-            InputStream is = getCamelCatalog().getVersionManager().getResourceAsStream(getCapabilitiesCatalog());
-            if (is != null) {
-                try {
-                    properties.load(is);
-                } catch (IOException e) {
-                    // ignore
-                }
-            }
-
-            return new TreeMap<>((Map<String, String>) (Map) properties);
-        }
     }
 
     public static class GavCqCatalog extends CqCatalog implements AutoCloseable {
