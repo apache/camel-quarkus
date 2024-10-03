@@ -20,14 +20,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.Ordered;
@@ -89,6 +92,7 @@ class KameletProcessor {
     @BuildStep
     CamelContextCustomizerBuildItem configureTemplates(
             List<KameletResourceBuildItem> resources,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
             KameletRecorder recorder) throws Exception {
 
         List<RouteTemplateDefinition> definitions = new ArrayList<>();
@@ -97,9 +101,13 @@ class KameletProcessor {
             ExtendedCamelContext ecc = context.getCamelContextExtension();
 
             for (KameletResourceBuildItem item : resources) {
-                LOGGER.debugf("Loading kamelet from: %s)", item.getResource());
+                Resource resource = item.getResource();
+                if (!resource.exists()) {
+                    throw new IllegalStateException("Unable to load kamelet from: " + resource.getLocation());
+                }
 
-                Collection<RoutesBuilder> rbs = PluginHelper.getRoutesLoader(ecc).findRoutesBuilders(item.getResource());
+                LOGGER.debugf("Loading kamelet from: %s", resource);
+                Collection<RoutesBuilder> rbs = PluginHelper.getRoutesLoader(ecc).findRoutesBuilders(resource);
                 for (RoutesBuilder rb : rbs) {
                     RouteBuilder routeBuilder = (RouteBuilder) rb;
                     routeBuilder.configure();
@@ -134,6 +142,24 @@ class KameletProcessor {
             definition.setCamelContext(null);
             if (definition.getRoute() != null && definition.getRoute().getOutputs() != null) {
                 definition.getRoute().getOutputs().forEach(o -> o.setCamelContext(null));
+            }
+
+            if (definition.getTemplateBeans() != null) {
+                Set<String> beanClassNames = new HashSet<>();
+                definition.getTemplateBeans().forEach(bean -> {
+                    bean.setResource(resource);
+
+                    String beanType = bean.getType();
+                    if (beanType != null && beanType.startsWith("#class:")) {
+                        String className = beanType.substring("#class:".length());
+                        beanClassNames.add(className);
+                    }
+                });
+
+                reflectiveClass.produce(ReflectiveClassBuildItem.builder(beanClassNames.toArray(new String[0]))
+                        .fields()
+                        .methods()
+                        .build());
             }
         });
 
