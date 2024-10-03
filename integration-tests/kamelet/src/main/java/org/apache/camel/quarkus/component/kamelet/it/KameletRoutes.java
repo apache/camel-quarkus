@@ -64,6 +64,9 @@ public class KameletRoutes extends RouteBuilder {
 
         from("direct:kamelet-location-at-runtime")
                 .kamelet("upper?location=classpath:kamelets-runtime/upper-kamelet.xml");
+
+        from("kamelet:greeting")
+                .to("seda:greeting");
     }
 
     @RegisterForReflection

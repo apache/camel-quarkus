@@ -103,4 +103,10 @@ public class KameletResource {
         return fluentProducerTemplate.to("direct:kamelet-location-at-runtime").withBody(name).request(String.class);
     }
 
+    @Path("/greeting")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String greeting() {
+        return consumerTemplate.receiveBody("seda:greeting", 10000, String.class);
+    }
 }
