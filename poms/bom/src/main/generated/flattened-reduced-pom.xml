@@ -6797,12 +6797,12 @@
       <dependency>
         <groupId>io.quarkiverse.langchain4j</groupId>
         <artifactId>quarkus-langchain4j-core</artifactId>
-        <version>0.20.0.CR1</version>
+        <version>0.20.3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.langchain4j</groupId>
         <artifactId>quarkus-langchain4j-core-deployment</artifactId>
-        <version>0.20.0.CR1</version>
+        <version>0.20.3</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.messaginghub</groupId>
@@ -8227,72 +8227,72 @@
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-alpn-client</artifactId>
-        <version>12.0.13</version>
+        <version>12.0.14</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-client</artifactId>
-        <version>12.0.13</version>
+        <version>12.0.14</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-http</artifactId>
-        <version>12.0.13</version>
+        <version>12.0.14</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-io</artifactId>
-        <version>12.0.13</version>
+        <version>12.0.14</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-security</artifactId>
-        <version>12.0.13</version>
+        <version>12.0.14</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-server</artifactId>
-        <version>12.0.13</version>
+        <version>12.0.14</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-session</artifactId>
-        <version>12.0.13</version>
+        <version>12.0.14</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-util</artifactId>
-        <version>12.0.13</version>
+        <version>12.0.14</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-util-ajax</artifactId>
-        <version>12.0.13</version>
+        <version>12.0.14</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.websocket</groupId>
         <artifactId>jetty-websocket-core-common</artifactId>
-        <version>12.0.13</version>
+        <version>12.0.14</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.websocket</groupId>
         <artifactId>jetty-websocket-core-server</artifactId>
-        <version>12.0.13</version>
+        <version>12.0.14</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.websocket</groupId>
         <artifactId>jetty-websocket-jetty-api</artifactId>
-        <version>12.0.13</version>
+        <version>12.0.14</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.websocket</groupId>
         <artifactId>jetty-websocket-jetty-common</artifactId>
-        <version>12.0.13</version>
+        <version>12.0.14</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.websocket</groupId>
         <artifactId>jetty-websocket-jetty-server</artifactId>
-        <version>12.0.13</version>
+        <version>12.0.14</version>
       </dependency>
       <dependency>
         <groupId>com.azure</groupId>
