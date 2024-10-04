@@ -46,6 +46,7 @@ import org.apache.camel.quarkus.it.support.typeconverter.MyPair;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
 import org.apache.camel.reactive.vertx.VertXThreadPoolFactory;
 import org.apache.camel.spi.BeanRepository;
+import org.apache.camel.spi.ContextReloadStrategy;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.Language;
@@ -280,6 +281,33 @@ public class CoreMainResource {
             // native mode will replace DebuggerJmxConnectorService methods with noop implementations
             // hence the expected state is that we should not be able to connect
             return isNativeMode && e instanceof ConnectException;
+        }
+    }
+
+    @Path("/context/reload/strategy")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String contextReloadStrategy() {
+        ContextReloadStrategy contextReloadStrategy = main.getCamelContext().hasService(ContextReloadStrategy.class);
+        if (contextReloadStrategy != null) {
+            return contextReloadStrategy.getClass().getName();
+        }
+        return null;
+    }
+
+    @Path("/context/reload")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean contextReloadStatus() {
+        return ContextReloadObserver.contextReloaded.get();
+    }
+
+    @Path("/context/reload")
+    @POST
+    public void contextReload() {
+        ContextReloadStrategy contextReloadStrategy = main.getCamelContext().hasService(ContextReloadStrategy.class);
+        if (contextReloadStrategy != null) {
+            contextReloadStrategy.onReload(this);
         }
     }
 }
