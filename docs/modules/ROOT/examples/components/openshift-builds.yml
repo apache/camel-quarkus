@@ -8,6 +8,6 @@ cqDeprecated: false
 cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: openshift-builds
-cqCamelPartTitle: Openshift Builds
+cqCamelPartTitle: OpenShift Builds
 cqCamelPartDescription: Perform operations on OpenShift Builds.
 cqExtensionPageTitle: Kubernetes

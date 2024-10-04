@@ -8,6 +8,6 @@ cqDeprecated: false
 cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: openshift-deploymentconfigs
-cqCamelPartTitle: Openshift Deployment Configs
-cqCamelPartDescription: Perform operations on Openshift Deployment Configs and get notified on Deployment Config changes.
+cqCamelPartTitle: OpenShift Deployment Configs
+cqCamelPartDescription: Perform operations on OpenShift Deployment Configs and get notified on Deployment Config changes.
 cqExtensionPageTitle: Kubernetes
