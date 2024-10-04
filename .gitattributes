@@ -4,4 +4,5 @@
 *.jks binary
 *.png binary
 *.ttf binary
+*.wasm binary
 *.zip binary
