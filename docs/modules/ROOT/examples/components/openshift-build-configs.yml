@@ -8,6 +8,6 @@ cqDeprecated: false
 cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: openshift-build-configs
-cqCamelPartTitle: Openshift Build Config
+cqCamelPartTitle: OpenShift Build Config
 cqCamelPartDescription: Perform operations on OpenShift Build Configs.
 cqExtensionPageTitle: Kubernetes

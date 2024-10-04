@@ -40,9 +40,9 @@ Perform operations against Kubernetes API
 * xref:{cq-camel-components}::kubernetes-secrets-component.adoc[Kubernetes Secrets component], URI syntax: `kubernetes-secrets:masterUrl`
 * xref:{cq-camel-components}::kubernetes-service-accounts-component.adoc[Kubernetes Service Account component], URI syntax: `kubernetes-service-accounts:masterUrl`
 * xref:{cq-camel-components}::kubernetes-services-component.adoc[Kubernetes Services component], URI syntax: `kubernetes-services:masterUrl`
-* xref:{cq-camel-components}::openshift-build-configs-component.adoc[Openshift Build Config component], URI syntax: `openshift-build-configs:masterUrl`
-* xref:{cq-camel-components}::openshift-builds-component.adoc[Openshift Builds component], URI syntax: `openshift-builds:masterUrl`
-* xref:{cq-camel-components}::openshift-deploymentconfigs-component.adoc[Openshift Deployment Configs component], URI syntax: `openshift-deploymentconfigs:masterUrl`
+* xref:{cq-camel-components}::openshift-build-configs-component.adoc[OpenShift Build Config component], URI syntax: `openshift-build-configs:masterUrl`
+* xref:{cq-camel-components}::openshift-builds-component.adoc[OpenShift Builds component], URI syntax: `openshift-builds:masterUrl`
+* xref:{cq-camel-components}::openshift-deploymentconfigs-component.adoc[OpenShift Deployment Configs component], URI syntax: `openshift-deploymentconfigs:masterUrl`
 
 Please refer to the above links for usage and configuration details.
 
