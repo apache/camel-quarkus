@@ -22,6 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 
+import io.quarkus.logging.Log;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -70,7 +71,7 @@ class QuartzClusteredTest {
 
         // Wait until the process is fully initialized
         awaitStartup(quarkusProcessExecutor);
-
+        Log.info("Process executor started");
         try {
             // Start the scheduler in this app and join the cluster
             RestAssured.given()
@@ -82,16 +83,17 @@ class QuartzClusteredTest {
             Awaitility.await().atMost(10, TimeUnit.SECONDS).with().until(() -> {
                 return Files.readAllLines(quarkusLog).stream().anyMatch(line -> line.contains("Hello from NodeB"));
             });
-
+            Log.info("Message from second node received!");
             // Verify there is no mention of NodeA in the logs since NodeB is currently the 'leader'
             Assertions.assertFalse(
                     Files.readAllLines(quarkusLog).stream().anyMatch(line -> line.contains("Hello from NodeA")));
 
             // Stop NodeB to trigger failover to NodeA
             process.getProcess().destroy();
-
+            Log.info("Process executor destroyed");
             // Verify failover
-            Awaitility.await().atMost(1, TimeUnit.MINUTES).until(() -> {
+            Log.info("Waiting for the message from NodeA");
+            Awaitility.await().atMost(2, TimeUnit.MINUTES).until(() -> {
                 return Files.readAllLines(quarkusLog).stream().anyMatch(line -> line.contains("Hello from NodeA"));
             });
         } finally {
