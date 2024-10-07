@@ -16,10 +16,18 @@
  */
 package org.apache.camel.quarkus.component.smb.it;
 
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.apache.camel.component.smb.SmbConstants;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import org.testcontainers.shaded.org.awaitility.Awaitility;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @QuarkusTest
 @QuarkusTestResource(SmbTestResource.class)
@@ -31,4 +39,97 @@ public class SmbTest {
                 .then()
                 .statusCode(204);
     }
+
+    @Test
+    public void testSendReceive() {
+
+        RestAssured.given()
+                .body("Hello")
+                .post("/smb/send/test.doc")
+                .then()
+                .statusCode(204);
+
+        RestAssured.given()
+                .body("test.doc")
+                .post("/smb/receive")
+                .then()
+                .statusCode(200)
+                .body(Matchers.equalTo("Hello"));
+    }
+
+    @Test
+    public void testFileExistsOverride() {
+
+        RestAssured.given()
+                .body("Hello1")
+                .post("/smb/send/testOverride.doc")
+                .then()
+                .statusCode(204);
+
+        RestAssured.given()
+                .body("Hello2")
+                .queryParam("fileExist", "Override")
+                .post("/smb/send/testOverride.doc")
+                .then()
+                .statusCode(204);
+
+        RestAssured.given()
+                .body("testOverride.doc")
+                .post("/smb/receive")
+                .then()
+                .statusCode(200)
+                .body(Matchers.equalTo("Hello2"));
+    }
+
+    @Test
+    public void testFileExistsAppend() {
+
+        RestAssured.given()
+                .body("Hello1")
+                .post("/smb/send/testAppend.doc")
+                .then()
+                .statusCode(204);
+
+        RestAssured.given()
+                .body("Hello2")
+                .queryParam("fileExist", "Append")
+                .post("/smb/send/testAppend.doc")
+                .then()
+                .statusCode(204);
+
+        RestAssured.given()
+                .body("testAppend.doc")
+                .post("/smb/receive")
+                .then()
+                .statusCode(200)
+                .body(Matchers.equalTo("Hello1Hello2"));
+    }
+
+    @Test
+    public void testHeadersAndAutoConvertToInputStream() {
+
+        RestAssured.given()
+                .body("Hello1")
+                .post("/smb/send/msg1.tx1")
+                .then()
+                .statusCode(204);
+
+        Awaitility.await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> {
+            String body = RestAssured.given()
+                    .post("/smb/receivedMsgs")
+                    .then()
+                    .statusCode(200)
+                    .extract().asString();
+
+            Set<String> set = Set.of(body.split(","));
+
+            assertThat(set)
+                    .contains("path=msg1.tx1")
+                    .contains("content=Hello1")
+                    .contains(SmbConstants.SMB_FILE_PATH + "=msg1.tx1")
+                    .contains(SmbConstants.SMB_UNC_PATH + "=\\\\localhost\\data-rw\\msg1.tx1");
+        });
+
+    }
+
 }
