@@ -17,7 +17,7 @@
 package org.apache.camel.quarkus.maven;
 
 public enum ExtensionStatus {
-    preview("Preview"), stable("Stable"), experimental("Experimental");
+    preview("Preview"), stable("Stable"), experimental("Experimental"), deprecated("Deprecated");
 
     private ExtensionStatus(String capitalized) {
         this.capitalized = capitalized;
