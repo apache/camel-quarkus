@@ -74,7 +74,7 @@ jobs:
             echo "pr-number=$(cat /home/runner/work/dependabot-pr/PR_NUMBER)" >> $GITHUB_OUTPUT
           fi
       - name: Checkout dependabot branch
-        uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v4.2.0
+        uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4.2.1
         if: steps.setup-dependabot-patches.outputs.branch-ref != ''
         with:
           ref: ${{ steps.setup-dependabot-patches.outputs.branch-ref }}
