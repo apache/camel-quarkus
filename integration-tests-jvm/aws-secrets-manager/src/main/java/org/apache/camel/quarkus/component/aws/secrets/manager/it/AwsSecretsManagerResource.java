@@ -19,9 +19,11 @@ package org.apache.camel.quarkus.component.aws.secrets.manager.it;
 import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -35,12 +37,15 @@ import jakarta.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.aws.secretsmanager.SecretsManagerConstants;
 import org.apache.camel.component.aws.secretsmanager.SecretsManagerOperations;
+import org.apache.camel.impl.event.CamelContextReloadedEvent;
 import org.apache.camel.spi.PeriodTaskResolver;
 import org.apache.camel.support.PluginHelper;
 import org.apache.camel.util.CollectionHelper;
 import org.jboss.logging.Logger;
 import software.amazon.awssdk.services.secretsmanager.model.CreateSecretResponse;
+import software.amazon.awssdk.services.secretsmanager.model.DeleteSecretRequest;
 import software.amazon.awssdk.services.secretsmanager.model.DeleteSecretResponse;
 import software.amazon.awssdk.services.secretsmanager.model.DescribeSecretResponse;
 import software.amazon.awssdk.services.secretsmanager.model.ListSecretsResponse;
@@ -64,6 +69,12 @@ public class AwsSecretsManagerResource {
     @Inject
     ProducerTemplate producerTemplate;
 
+    static final AtomicBoolean contextReloaded = new AtomicBoolean(false);
+
+    void onReload(@Observes CamelContextReloadedEvent event) {
+        contextReloaded.set(true);
+    }
+
     @Path("/operation/{operation}")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -71,10 +82,24 @@ public class AwsSecretsManagerResource {
     public Response post(@PathParam("operation") String operation, @QueryParam("body") String body, Map<String, Object> headers)
             throws Exception {
 
-        Exchange ex = producerTemplate.send("aws-secrets-manager://test?operation=" + operation, e -> {
-            e.getIn().setHeaders(headers);
-            e.getIn().setBody(body);
-        });
+        final Object resultBody;
+        if (operation.equals("forceDeleteSecret")) {
+            operation = SecretsManagerOperations.deleteSecret.toString();
+            DeleteSecretRequest.Builder builder = DeleteSecretRequest.builder();
+            builder.secretId((String) headers.get(SecretsManagerConstants.SECRET_ID));
+            builder.forceDeleteWithoutRecovery(true);
+            resultBody = builder.build();
+        } else {
+            resultBody = body;
+        }
+
+        String region = headers.containsKey("region") ? String.format("region=%s&", headers.get("region")) : "";
+
+        Exchange ex = producerTemplate.send(String.format("aws-secrets-manager://test?%soperation=%s", region, operation),
+                e -> {
+                    e.getIn().setHeaders(headers);
+                    e.getIn().setBody(resultBody);
+                });
 
         Object result;
         switch (SecretsManagerOperations.valueOf(operation)) {
@@ -82,7 +107,7 @@ public class AwsSecretsManagerResource {
             result = ex.getIn().getBody(CreateSecretResponse.class).arn();
             break;
         case listSecrets:
-            //returns map with ar as a key and a flag, whether is deleted or not
+            //returns map with arn as a key and a flag, whether is deleted or not
             result = ex.getIn().getBody(ListSecretsResponse.class).secretList().stream()
                     .collect(Collectors.toMap(SecretListEntry::arn, e -> e.deletedDate() == null ? false : true));
             break;
@@ -124,4 +149,22 @@ public class AwsSecretsManagerResource {
         Objects.requireNonNull(periodTaskResolver, "Expected a PeriodTaskResolver to be configured");
         return periodTaskResolver.newInstance("aws-secret-refresh", Runnable.class).isPresent();
     }
+
+    @Path("/context/reload")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean contextReloadStatus() {
+        return contextReloaded.get();
+    }
+
+    @Path("/propertyFunction/{secretName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response propertyFunction(@PathParam("secretName") String secretName)
+            throws Exception {
+        Exchange ex = producerTemplate.request(String.format("direct:{{aws:%s}}", secretName), null);
+
+        return Response.ok(new URI("https://camel.apache.org/")).entity(ex.getIn().getBody()).build();
+    }
+
 }
