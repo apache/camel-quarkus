@@ -4,7 +4,7 @@ cqArtifactId: camel-quarkus-groovy-dsl
 cqArtifactIdBase: groovy-dsl
 cqNativeSupported: true
 cqStatus: Stable
-cqDeprecated: false
+cqDeprecated: true
 cqJvmSince: 1.8.0
 cqNativeSince: 2.16.0
 cqCamelPartName: groovy-dsl
