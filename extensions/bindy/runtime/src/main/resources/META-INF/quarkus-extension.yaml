@@ -25,6 +25,7 @@ name: "Camel Bindy"
 description: "Marshal and unmarshal between POJOs on one side and Comma separated values (CSV), fixed field length or key-value pair (KVP) formats on the other side using Camel Bindy"
 metadata:
   icon-url: "https://raw.githubusercontent.com/apache/camel-website/main/antora-ui-camel/src/img/logo-d.svg"
+  sponsor: "Apache Software Foundation"
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/bindy.html"
   categories:
   - "integration"

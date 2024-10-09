@@ -25,6 +25,7 @@ name: "Camel CXF"
 description: "Expose SOAP WebServices using Apache CXF or connect to external WebServices using CXF WS client"
 metadata:
   icon-url: "https://raw.githubusercontent.com/apache/camel-website/main/antora-ui-camel/src/img/logo-d.svg"
+  sponsor: "Apache Software Foundation"
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/cxf-soap.html"
   categories:
   - "integration"
