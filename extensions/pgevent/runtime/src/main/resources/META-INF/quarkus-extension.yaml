@@ -25,6 +25,7 @@ name: "Camel PostgresSQL Event"
 description: "Send and receive PostgreSQL events via LISTEN and NOTIFY commands"
 metadata:
   icon-url: "https://raw.githubusercontent.com/apache/camel-website/main/antora-ui-camel/src/img/logo-d.svg"
+  sponsor: "Apache Software Foundation"
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/pgevent.html"
   categories:
   - "integration"

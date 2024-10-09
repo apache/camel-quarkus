@@ -25,6 +25,7 @@ name: "Camel Schematron"
 description: "Validate XML payload using the Schematron Library"
 metadata:
   icon-url: "https://raw.githubusercontent.com/apache/camel-website/main/antora-ui-camel/src/img/logo-d.svg"
+  sponsor: "Apache Software Foundation"
   unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/schematron.html"
   categories:
