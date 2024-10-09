@@ -134,7 +134,7 @@ jobs:
             echo "continue-build=true" >> $GITHUB_OUTPUT
           fi
       - name: Upload dependabot changeset
-        uses: actions/upload-artifact@604373da6381bf24206979c74d06a550515601b9 # v4.4.1
+        uses: actions/upload-artifact@84480863f228bb9747b473957fcc9e309aa96097 # v4.4.2
         if: steps.pre-build-checks.outputs.continue-build == 'false'
         with:
           name: dependabot-pr-changeset
@@ -201,7 +201,7 @@ jobs:
           ls -lh ${{ runner.temp }}/maven-repo.tgz
           df -h /
       - name: Persist Maven Repo
-        uses: actions/upload-artifact@604373da6381bf24206979c74d06a550515601b9 # v4.4.1
+        uses: actions/upload-artifact@84480863f228bb9747b473957fcc9e309aa96097 # v4.4.2
         with:
           name: maven-repo
           path: ${{ runner.temp }}/maven-repo.tgz
