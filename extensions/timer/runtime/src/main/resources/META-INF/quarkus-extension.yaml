@@ -25,6 +25,7 @@ name: "Camel Timer"
 description: "Generate messages in specified intervals using java.util.Timer"
 metadata:
   icon-url: "https://raw.githubusercontent.com/apache/camel-website/main/antora-ui-camel/src/img/logo-d.svg"
+  sponsor: "Apache Software Foundation"
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/timer.html"
   categories:
   - "integration"
