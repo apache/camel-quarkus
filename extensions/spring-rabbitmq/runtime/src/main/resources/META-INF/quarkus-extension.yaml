@@ -25,6 +25,7 @@ name: "Camel Spring RabbitMQ"
 description: "Send and receive messages from RabbitMQ using Spring RabbitMQ client"
 metadata:
   icon-url: "https://raw.githubusercontent.com/apache/camel-website/main/antora-ui-camel/src/img/logo-d.svg"
+  sponsor: "Apache Software Foundation"
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/spring-rabbitmq.html"
   categories:
   - "integration"

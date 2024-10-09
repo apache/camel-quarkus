@@ -25,6 +25,7 @@ name: "Camel Saga"
 description: "Execute custom actions within a route using the Saga EIP"
 metadata:
   icon-url: "https://raw.githubusercontent.com/apache/camel-website/main/antora-ui-camel/src/img/logo-d.svg"
+  sponsor: "Apache Software Foundation"
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/saga.html"
   categories:
   - "integration"
