@@ -35,6 +35,7 @@
         <camel.quarkus.nativeSince>1.8.0</camel.quarkus.nativeSince>
         <quarkus.metadata.unlisted>true</quarkus.metadata.unlisted>
         <quarkus.metadata.status>experimental</quarkus.metadata.status>
+        <quarkus.metadata.deprecated>true</quarkus.metadata.deprecated>
     </properties>
 
     <dependencies>
