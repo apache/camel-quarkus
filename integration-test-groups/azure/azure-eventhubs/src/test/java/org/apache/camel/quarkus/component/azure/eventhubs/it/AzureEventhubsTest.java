@@ -26,11 +26,13 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -63,7 +65,7 @@ class AzureEventhubsTest {
                     .statusCode(201);
 
             Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(1, TimeUnit.MINUTES).untilAsserted(() -> {
-                RestAssured.given()
+                ValidatableResponse response = RestAssured.given()
                         .queryParam("endpointUri", "mock:partition-0-results")
                         .body(messageBody)
                         .get("/azure-eventhubs/receive-event")
@@ -72,9 +74,10 @@ class AzureEventhubsTest {
                         .body(
                                 "body", is(messageBody),
                                 "headers.CamelAzureEventHubsEnqueuedTime", notNullValue(),
-                                "headers.CamelAzureEventHubsOffset", greaterThanOrEqualTo(0),
                                 "headers.CamelAzureEventHubsPartitionId", is("0"),
                                 "headers.CamelAzureEventHubsSequenceNumber", greaterThanOrEqualTo(0));
+                assertThat(((Number) (response.extract().path("headers.CamelAzureEventHubsOffset"))).longValue())
+                        .isGreaterThanOrEqualTo(0);
             });
         } finally {
             RestAssured.given()
@@ -105,7 +108,7 @@ class AzureEventhubsTest {
                     .statusCode(201);
 
             Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(1, TimeUnit.MINUTES).untilAsserted(() -> {
-                RestAssured.given()
+                ValidatableResponse response = RestAssured.given()
                         .contentType(ContentType.JSON)
                         .queryParam("endpointUri", "mock:partition-1-results")
                         .body(messages)
@@ -116,19 +119,23 @@ class AzureEventhubsTest {
                                 "size()", is(3),
                                 "[0].body", is(messages.get(0)),
                                 "[0].headers.CamelAzureEventHubsEnqueuedTime", notNullValue(),
-                                "[0].headers.CamelAzureEventHubsOffset", greaterThanOrEqualTo(0),
                                 "[0].headers.CamelAzureEventHubsPartitionId", is("1"),
                                 "[0].headers.CamelAzureEventHubsSequenceNumber", greaterThanOrEqualTo(0),
                                 "[1].body", is(messages.get(1)),
                                 "[1].headers.CamelAzureEventHubsEnqueuedTime", notNullValue(),
-                                "[1].headers.CamelAzureEventHubsOffset", greaterThanOrEqualTo(0),
                                 "[1].headers.CamelAzureEventHubsPartitionId", is("1"),
                                 "[1].headers.CamelAzureEventHubsSequenceNumber", greaterThanOrEqualTo(0),
                                 "[2].body", is(messages.get(2)),
                                 "[2].headers.CamelAzureEventHubsEnqueuedTime", notNullValue(),
-                                "[2].headers.CamelAzureEventHubsOffset", greaterThanOrEqualTo(0),
                                 "[2].headers.CamelAzureEventHubsPartitionId", is("1"),
                                 "[2].headers.CamelAzureEventHubsSequenceNumber", greaterThanOrEqualTo(0));
+
+                assertThat(((Number) (response.extract().path("[0].headers.CamelAzureEventHubsOffset"))).longValue())
+                        .isGreaterThanOrEqualTo(0);
+                assertThat(((Number) (response.extract().path("[1].headers.CamelAzureEventHubsOffset"))).longValue())
+                        .isGreaterThanOrEqualTo(0);
+                assertThat(((Number) (response.extract().path("[2].headers.CamelAzureEventHubsOffset"))).longValue())
+                        .isGreaterThanOrEqualTo(0);
             });
         } finally {
             RestAssured.given()
@@ -157,7 +164,7 @@ class AzureEventhubsTest {
                     .statusCode(201);
 
             Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(1, TimeUnit.MINUTES).untilAsserted(() -> {
-                RestAssured.given()
+                ValidatableResponse response = RestAssured.given()
                         .queryParam("endpointUri", "mock:partition-0-custom-client-results")
                         .body(messageBody)
                         .get("/azure-eventhubs/receive-event")
@@ -166,9 +173,10 @@ class AzureEventhubsTest {
                         .body(
                                 "body", is(messageBody),
                                 "headers.CamelAzureEventHubsEnqueuedTime", notNullValue(),
-                                "headers.CamelAzureEventHubsOffset", greaterThanOrEqualTo(0),
                                 "headers.CamelAzureEventHubsPartitionId", is("0"),
                                 "headers.CamelAzureEventHubsSequenceNumber", greaterThanOrEqualTo(0));
+                assertThat(((Number) (response.extract().path("headers.CamelAzureEventHubsOffset"))).longValue())
+                        .isGreaterThanOrEqualTo(0);
             });
         } finally {
             RestAssured.given()
@@ -200,7 +208,7 @@ class AzureEventhubsTest {
                     .statusCode(201);
 
             Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(1, TimeUnit.MINUTES).untilAsserted(() -> {
-                RestAssured.given()
+                ValidatableResponse response = RestAssured.given()
                         .queryParam("endpointUri", "mock:partition-2-initial-results")
                         .contentType(ContentType.JSON)
                         .body(messages)
@@ -211,19 +219,22 @@ class AzureEventhubsTest {
                                 "size()", is(3),
                                 "[0].body", is(messages.get(0)),
                                 "[0].headers.CamelAzureEventHubsEnqueuedTime", notNullValue(),
-                                "[0].headers.CamelAzureEventHubsOffset", greaterThanOrEqualTo(0),
                                 "[0].headers.CamelAzureEventHubsPartitionId", is("2"),
                                 "[0].headers.CamelAzureEventHubsSequenceNumber", greaterThanOrEqualTo(0),
                                 "[1].body", is(messages.get(1)),
                                 "[1].headers.CamelAzureEventHubsEnqueuedTime", notNullValue(),
-                                "[1].headers.CamelAzureEventHubsOffset", greaterThanOrEqualTo(0),
                                 "[1].headers.CamelAzureEventHubsPartitionId", is("2"),
                                 "[1].headers.CamelAzureEventHubsSequenceNumber", greaterThanOrEqualTo(0),
                                 "[2].body", is(messages.get(2)),
                                 "[2].headers.CamelAzureEventHubsEnqueuedTime", notNullValue(),
-                                "[2].headers.CamelAzureEventHubsOffset", greaterThanOrEqualTo(0),
                                 "[2].headers.CamelAzureEventHubsPartitionId", is("2"),
                                 "[2].headers.CamelAzureEventHubsSequenceNumber", greaterThanOrEqualTo(0));
+                assertThat(((Number) (response.extract().path("[0].headers.CamelAzureEventHubsOffset"))).longValue())
+                        .isGreaterThanOrEqualTo(0);
+                assertThat(((Number) (response.extract().path("[1].headers.CamelAzureEventHubsOffset"))).longValue())
+                        .isGreaterThanOrEqualTo(0);
+                assertThat(((Number) (response.extract().path("[2].headers.CamelAzureEventHubsOffset"))).longValue())
+                        .isGreaterThanOrEqualTo(0);
             });
 
             RestAssured.given()
@@ -284,7 +295,7 @@ class AzureEventhubsTest {
                     .statusCode(201);
 
             Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(1, TimeUnit.MINUTES).untilAsserted(() -> {
-                RestAssured.given()
+                ValidatableResponse response = RestAssured.given()
                         .queryParam("endpointUri", "mock:partition-3-results")
                         .body(messageBody)
                         .get("/azure-eventhubs/receive-event")
@@ -293,9 +304,10 @@ class AzureEventhubsTest {
                         .body(
                                 "body", is(messageBody),
                                 "headers.CamelAzureEventHubsEnqueuedTime", notNullValue(),
-                                "headers.CamelAzureEventHubsOffset", greaterThanOrEqualTo(0),
                                 "headers.CamelAzureEventHubsPartitionId", is("3"),
                                 "headers.CamelAzureEventHubsSequenceNumber", greaterThanOrEqualTo(0));
+                assertThat(((Number) (response.extract().path("headers.CamelAzureEventHubsOffset"))).longValue())
+                        .isGreaterThanOrEqualTo(0);
             });
         } finally {
             RestAssured.given()
@@ -326,7 +338,7 @@ class AzureEventhubsTest {
                     .statusCode(201);
 
             Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(1, TimeUnit.MINUTES).untilAsserted(() -> {
-                RestAssured.given()
+                ValidatableResponse response = RestAssured.given()
                         .queryParam("endpointUri", "mock:partition-4-results")
                         .body(messageBody)
                         .get("/azure-eventhubs/receive-event")
@@ -335,9 +347,10 @@ class AzureEventhubsTest {
                         .body(
                                 "body", is(messageBody),
                                 "headers.CamelAzureEventHubsEnqueuedTime", notNullValue(),
-                                "headers.CamelAzureEventHubsOffset", greaterThanOrEqualTo(0),
                                 "headers.CamelAzureEventHubsPartitionId", is("4"),
                                 "headers.CamelAzureEventHubsSequenceNumber", greaterThanOrEqualTo(0));
+                assertThat(((Number) (response.extract().path("headers.CamelAzureEventHubsOffset"))).longValue())
+                        .isGreaterThanOrEqualTo(0);
             });
         } finally {
             RestAssured.given()
@@ -366,7 +379,7 @@ class AzureEventhubsTest {
                     .statusCode(201);
 
             Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(1, TimeUnit.MINUTES).untilAsserted(() -> {
-                RestAssured.given()
+                ValidatableResponse response = RestAssured.given()
                         .queryParam("endpointUri", "mock:partition-4-ws-transport-results")
                         .body(messageBody)
                         .get("/azure-eventhubs/receive-event")
@@ -375,9 +388,10 @@ class AzureEventhubsTest {
                         .body(
                                 "body", is(messageBody),
                                 "headers.CamelAzureEventHubsEnqueuedTime", notNullValue(),
-                                "headers.CamelAzureEventHubsOffset", greaterThanOrEqualTo(0),
                                 "headers.CamelAzureEventHubsPartitionId", is("4"),
                                 "headers.CamelAzureEventHubsSequenceNumber", greaterThanOrEqualTo(0));
+                assertThat(((Number) (response.extract().path("headers.CamelAzureEventHubsOffset"))).longValue())
+                        .isGreaterThanOrEqualTo(0);
             });
         } finally {
             RestAssured.given()
@@ -406,7 +420,7 @@ class AzureEventhubsTest {
                     .statusCode(201);
 
             Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(1, TimeUnit.MINUTES).untilAsserted(() -> {
-                RestAssured.given()
+                ValidatableResponse response = RestAssured.given()
                         .queryParam("endpointUri", "mock:partition-0-generated-connection-string-results")
                         .body(messageBody)
                         .get("/azure-eventhubs/receive-event")
@@ -415,9 +429,10 @@ class AzureEventhubsTest {
                         .body(
                                 "body", is(messageBody),
                                 "headers.CamelAzureEventHubsEnqueuedTime", notNullValue(),
-                                "headers.CamelAzureEventHubsOffset", greaterThanOrEqualTo(0),
                                 "headers.CamelAzureEventHubsPartitionId", is("0"),
                                 "headers.CamelAzureEventHubsSequenceNumber", greaterThanOrEqualTo(0));
+                assertThat(((Number) (response.extract().path("headers.CamelAzureEventHubsOffset"))).longValue())
+                        .isGreaterThanOrEqualTo(0);
             });
         } finally {
             RestAssured.given()
