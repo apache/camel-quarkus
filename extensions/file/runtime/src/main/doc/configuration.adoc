@@ -1,0 +1,4 @@
+=== Having only a single consumer in a cluster consuming from a given endpoint
+
+This functionality is provided by the `camel-quarkus-file-cluster-service` extension.
+Refer to the xref:reference/extensions/file-cluster-service.adoc[extension documentation] for more information.
