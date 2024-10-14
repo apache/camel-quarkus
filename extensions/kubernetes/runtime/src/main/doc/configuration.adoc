@@ -18,3 +18,8 @@ quarkus.kubernetes-client.namespace=my-namespace
 ----
 
 The full set of configuration options are documented in the https://quarkus.io/guides/kubernetes-client#quarkus-kubernetes-client_configuration[Quarkus Kubernetes Client guide].
+
+=== Having only a single consumer in a cluster consuming from a given endpoint
+
+This functionality is provided by the `camel-quarkus-kubernetes-cluster-service` extension.
+Refer to the xref:reference/extensions/kubernetes-cluster-service.adoc[extension documentation] for more information.
