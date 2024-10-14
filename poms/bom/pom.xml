@@ -1335,7 +1335,7 @@
                 <artifactId>camel-groovy</artifactId>
                 <version>${camel.version}</version>
             </dependency>
-           <dependency>
+            <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-grpc</artifactId>
                 <version>${camel.version}</version>
