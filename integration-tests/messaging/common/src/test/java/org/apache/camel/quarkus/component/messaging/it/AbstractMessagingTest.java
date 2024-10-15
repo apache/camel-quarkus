@@ -32,7 +32,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -152,23 +151,19 @@ public abstract class AbstractMessagingTest {
                 .body(is("JMS Transaction Success"));
     }
 
-    @DisabledIfEnvironmentVariable(named = "CI", matches = "true", disabledReason = "https://github.com/apache/camel-quarkus/issues/2957")
     @Test
     public void testResequence() {
         final List<String> messages = Arrays.asList("a", "b", "c", "c", "d");
-        for (String msg : messages) {
-            RestAssured.given()
-                    .body(msg)
-                    .post("/messaging/{queueName}", queue)
-                    .then()
-                    .statusCode(201);
-        }
-        Collections.reverse(messages);
         final List<String> actual = RestAssured.given()
-                .get("/messaging/mock/resequence/5/10000")
+                .contentType(ContentType.TEXT)
+                .queryParam("queueName", queue)
+                .body(String.join(",", messages))
+                .post("/messaging/resequence")
                 .then()
                 .statusCode(200)
                 .extract().body().jsonPath().getList(".", String.class);
+
+        Collections.reverse(messages);
         Assertions.assertEquals(messages, actual);
     }
 

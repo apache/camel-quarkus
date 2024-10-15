@@ -40,6 +40,7 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
@@ -247,17 +248,28 @@ public class MessagingCommonResource {
         topicResultB.assertIsSatisfied(5000);
     }
 
-    @Path("/mock/{name}/{count}/{timeout}")
+    @Path("/resequence")
+    @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
-    @GET
-    public List<String> mock(@PathParam("name") String name, @PathParam("count") int count, @PathParam("timeout") int timeout) {
-        MockEndpoint mock = context.getEndpoint("mock:" + name, MockEndpoint.class);
-        mock.setExpectedMessageCount(count);
+    @POST
+    public List<String> resequence(@QueryParam("queueName") String queueName, String payload) {
+        String[] messages = payload.split(",");
+        MockEndpoint mock = context.getEndpoint("mock:resequence", MockEndpoint.class);
+        mock.setExpectedMessageCount(messages.length);
+        mock.setResultWaitTime(30000);
+
         try {
-            mock.assertIsSatisfied(timeout);
+            for (String message : messages) {
+                produceJmsQueueMessage(queueName, message);
+            }
+
+            mock.assertIsSatisfied(10000);
         } catch (InterruptedException e1) {
             Thread.currentThread().interrupt();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+
         return mock.getExchanges().stream().map(e -> e.getMessage().getBody(String.class)).collect(Collectors.toList());
     }
 
