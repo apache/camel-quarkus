@@ -59,3 +59,27 @@ In order to ensure alignment across all Quarkus and LangChain4j related dependen
 
 Note that the import order is paramount when using maven `dependencyManagement`.
 As such, one might need to import the `quarkus-langchain4j-bom` before other related Camel and Quarkus boms.
+
+[id="extensions-langchain4j-additional-camel-quarkus-configuration"]
+== Additional Camel Quarkus configuration
+
+[id="extensions-langchain4j-configuration-using-camel-annotations-from-langchain4j-ai-service-method-parameters"]
+=== Using camel annotations from LangChain4j AI service method parameters
+
+The `camel-quarkus-langchain4j` extension make it possible to use camel parameter binding annotations with LangChain4j AI services.
+
+Let's see an example below:
+
+```
+@RegisterAiService
+@ApplicationScoped
+public interface CustomAiService {
+
+    @UserMessage("An LLM prompt that can use the method parameter {myHeaderInjectedIntoPrompt}.")
+    @Handler
+    String invokeLlm(@Header("myHeaderName") String myHeaderInjectedIntoPrompt);
+}
+```
+
+More details could be found about camel parameter binding annotations at https://camel.apache.org/manual/parameter-binding-annotations.html.
+

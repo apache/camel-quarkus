@@ -1,0 +1,18 @@
+=== Using camel annotations from LangChain4j AI service method parameters
+
+The `camel-quarkus-langchain4j` extension make it possible to use camel parameter binding annotations with LangChain4j AI services.
+
+Let's see an example below:
+
+```
+@RegisterAiService
+@ApplicationScoped
+public interface CustomAiService {
+
+    @UserMessage("An LLM prompt that can use the method parameter {myHeaderInjectedIntoPrompt}.")
+    @Handler
+    String invokeLlm(@Header("myHeaderName") String myHeaderInjectedIntoPrompt);
+}
+```
+
+More details could be found about camel parameter binding annotations at https://camel.apache.org/manual/parameter-binding-annotations.html.
