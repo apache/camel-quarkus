@@ -55,7 +55,6 @@ group-03:
   - freemarker
   - github
   - google
-  - jsh-dsl
   - json-validator
   - main
   - main-collector
@@ -216,12 +215,10 @@ group-12:
 group-13:
   - fhir
   - google-bigquery
-  - groovy-dsl
   - jasypt
   - jira
   - java-joor-dsl
   - jdbc-grouped
-  - js-dsl
   - kubernetes
   - salesforce
   - sap-netweaver
