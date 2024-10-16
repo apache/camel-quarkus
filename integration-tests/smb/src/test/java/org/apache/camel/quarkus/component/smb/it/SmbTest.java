@@ -19,10 +19,12 @@ package org.apache.camel.quarkus.component.smb.it;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.apache.camel.quarkus.test.DisabledIfFipsMode;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 @QuarkusTestResource(SmbTestResource.class)
+@DisabledIfFipsMode // https://github.com/apache/camel-quarkus/issues/6399
 public class SmbTest {
 
     @Test

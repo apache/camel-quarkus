@@ -22,6 +22,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.apache.camel.quarkus.test.DisabledIfFipsMode;
 import org.apache.kudu.client.KuduClient;
 import org.apache.kudu.client.KuduException;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -40,6 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTestResource(KuduTestResource.class)
 @QuarkusTest
+@DisabledIfFipsMode // https://github.com/apache/camel-quarkus/issues/5700
 class KuduTest {
     private static final Logger LOG = Logger.getLogger(KuduTest.class);
     static KuduClient client;
