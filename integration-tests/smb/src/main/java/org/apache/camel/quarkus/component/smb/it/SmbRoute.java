@@ -16,12 +16,10 @@
  */
 package org.apache.camel.quarkus.component.smb.it;
 
-import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import com.hierynomus.smbj.share.File;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
@@ -29,6 +27,7 @@ import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.smb.SmbConstants;
+import org.apache.camel.component.smb.SmbFile;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
@@ -64,8 +63,8 @@ public class SmbRoute extends RouteBuilder {
         from("smb:{{smb.host}}:{{smb.port}}/{{smb.share}}?username={{smb.username}}&password={{smb.password}}&path=/&searchPattern=*.tx1")
                 .process(e -> {
                     receivedContents.add(Map.of(
-                            "path", e.getIn().getBody(File.class).getPath(),
-                            "content", new String(e.getIn().getBody(InputStream.class).readAllBytes(), "UTF-8"),
+                            "path", e.getIn().getBody(SmbFile.class).getPath(),
+                            "content", new String(e.getIn().getBody(SmbFile.class).getInputStream().readAllBytes(), "UTF-8"),
                             SmbConstants.SMB_FILE_PATH, e.getIn().getHeader(SmbConstants.SMB_FILE_PATH, String.class),
                             SmbConstants.SMB_UNC_PATH, e.getIn().getHeader(SmbConstants.SMB_UNC_PATH, String.class)));
                 });
