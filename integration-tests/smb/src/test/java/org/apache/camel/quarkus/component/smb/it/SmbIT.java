@@ -17,8 +17,10 @@
 package org.apache.camel.quarkus.component.smb.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
+import org.apache.camel.quarkus.test.DisabledIfFipsMode;
 
 @QuarkusIntegrationTest
+@DisabledIfFipsMode // https://github.com/apache/camel-quarkus/issues/6399
 class SmbIT extends SmbTest {
 
 }
