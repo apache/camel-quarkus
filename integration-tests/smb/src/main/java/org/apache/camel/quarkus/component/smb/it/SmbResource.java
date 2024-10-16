@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.hierynomus.smbj.share.File;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -35,6 +34,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.component.smb.SmbConstants;
+import org.apache.camel.component.smb.SmbFile;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @Path("/smb")
@@ -88,7 +88,7 @@ public class SmbResource {
 
         String uri = String.format("smb:%s:%s/%s?username=%s&password=%s&searchPattern=%s&path=/", host, port, share,
                 username, password, fileName);
-        var shareFile = consumer.receiveBody(uri, File.class);
+        var shareFile = consumer.receiveBody(uri, SmbFile.class);
         return new String(shareFile.getInputStream().readAllBytes(), "UTF-8");
     }
 
