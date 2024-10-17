@@ -25,6 +25,7 @@ import io.quarkus.test.common.ResourceArg;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.apache.camel.quarkus.test.DisabledOnArm;
 import org.apache.camel.quarkus.test.support.splunk.SplunkConstants;
 import org.apache.camel.quarkus.test.support.splunk.SplunkTestResource;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -39,6 +40,7 @@ import org.testcontainers.shaded.org.hamcrest.core.StringContains;
         @ResourceArg(name = "ca_cert", value = "target/certs/splunkca.pem"),
         @ResourceArg(name = "localhost_keystore", value = "target/certs/localhost.jks"),
         @ResourceArg(name = "keystore_password", value = "password") })
+@DisabledOnArm
 public class SplunkHecTest {
 
     @Test
