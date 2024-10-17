@@ -6796,12 +6796,12 @@
       <dependency>
         <groupId>io.smallrye.reactive</groupId>
         <artifactId>smallrye-reactive-messaging-camel</artifactId>
-        <version>4.24.0</version>
+        <version>4.25.0</version>
       </dependency>
       <dependency>
         <groupId>io.swagger.codegen.v3</groupId>
         <artifactId>swagger-codegen</artifactId>
-        <version>3.0.62</version>
+        <version>3.0.63</version>
         <exclusions>
           <exclusion>
             <groupId>ch.qos.logback</groupId>
@@ -6836,7 +6836,7 @@
       <dependency>
         <groupId>io.swagger.codegen.v3</groupId>
         <artifactId>swagger-codegen-generators</artifactId>
-        <version>1.0.52</version>
+        <version>1.0.53</version>
       </dependency>
       <dependency>
         <groupId>io.swagger.core.v3</groupId>
@@ -7067,12 +7067,12 @@
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-scripting-compiler-embeddable</artifactId>
-        <version>2.0.10</version>
+        <version>2.0.21</version>
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-scripting-compiler-impl-embeddable</artifactId>
-        <version>2.0.10</version>
+        <version>2.0.21</version>
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlinx</groupId>
