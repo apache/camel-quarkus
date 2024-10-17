@@ -16,10 +16,16 @@
  */
 package org.apache.camel.component.qute;
 
+import org.apache.camel.spi.Metadata;
+
 public final class QuteConstants {
+    @Metadata(description = "A URI for the template resource to use instead of the endpoint configured one.", javaType = "String")
     public static final String QUTE_RESOURCE_URI = "CamelQuteResourceUri";
+    @Metadata(description = "The template to use instead of the endpoint configured one.", javaType = "String")
     public static final String QUTE_TEMPLATE = "CamelQuteTemplate";
+    @Metadata(description = "The template instance to use instead of the endpoint configured one.", javaType = "TemplateInstance")
     public static final String QUTE_TEMPLATE_INSTANCE = "CamelQuteTemplateInstance";
+    @Metadata(description = "The template model data.", javaType = "Map")
     public static final String QUTE_TEMPLATE_DATA = "CamelQuteTemplateData";
 
     private QuteConstants() {
