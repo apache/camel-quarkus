@@ -42,7 +42,7 @@ import org.apache.camel.util.ObjectHelper;
 /**
  * Transforms the message using a Quarkus Qute template.
  */
-@UriEndpoint(firstVersion = "3.2.0", scheme = "qute", title = "Qute", syntax = "qute:resourceUri", producerOnly = true, category = Category.TRANSFORMATION)
+@UriEndpoint(firstVersion = "3.2.0", scheme = "qute", title = "Qute", syntax = "qute:resourceUri", producerOnly = true, category = Category.TRANSFORMATION, headersClass = QuteConstants.class)
 public class QuteEndpoint extends ResourceEndpoint {
     private Engine quteEngine;
 
