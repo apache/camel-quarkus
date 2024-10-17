@@ -30,6 +30,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.component.splunk.ProducerType;
+import org.apache.camel.quarkus.test.DisabledOnArm;
 import org.apache.camel.quarkus.test.support.splunk.SplunkConstants;
 import org.apache.camel.quarkus.test.support.splunk.SplunkTestResource;
 import org.apache.http.NoHttpResponseException;
@@ -46,6 +47,7 @@ import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 @QuarkusTestResource(value = SplunkTestResource.class)
+@DisabledOnArm
 public class SplunkTest {
 
     private final static int TIMEOUT_IN_SECONDS = 60;
