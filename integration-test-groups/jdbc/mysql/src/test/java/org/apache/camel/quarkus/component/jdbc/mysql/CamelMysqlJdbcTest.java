@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.jdbc.mysql;
 
 import java.util.List;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -34,7 +35,7 @@ import static org.wildfly.common.Assert.assertNotNull;
 
 @QuarkusTest
 @DisabledIfSystemProperty(named = "cq.jdbcKind", matches = "derby")
-//https://github.com/quarkusio/quarkus/issues/23083
+@QuarkusTestResource(value = MysqlTestResource.class)
 public class CamelMysqlJdbcTest {
     String dbKind = "mysql";
 
