@@ -22,6 +22,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.DisabledIfFipsMode;
+import org.apache.camel.quarkus.test.DisabledOnArm;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
@@ -35,6 +36,7 @@ import static org.wildfly.common.Assert.assertNotNull;
 
 @QuarkusTest
 @DisabledIfSystemProperty(named = "cq.jdbcKind", matches = "derby")
+@DisabledOnArm
 //https://github.com/quarkusio/quarkus/issues/23083
 @DisabledIfFipsMode //https://github.com/apache/camel-quarkus/issues/5993
 public class CamelDb2JdbcTest {

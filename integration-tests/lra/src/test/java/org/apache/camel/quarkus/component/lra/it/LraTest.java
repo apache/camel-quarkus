@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.apache.camel.quarkus.test.DisabledOnArm;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -30,6 +31,7 @@ import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
 @QuarkusTestResource(LraTestResource.class)
+@DisabledOnArm
 class LraTest {
 
     @Test
