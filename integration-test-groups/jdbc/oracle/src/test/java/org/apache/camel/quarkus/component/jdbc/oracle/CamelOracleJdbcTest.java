@@ -21,6 +21,7 @@ import java.util.List;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.apache.camel.quarkus.test.DisabledOnArm;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
@@ -34,6 +35,7 @@ import static org.wildfly.common.Assert.assertNotNull;
 
 @QuarkusTest
 @DisabledIfSystemProperty(named = "cq.jdbcKind", matches = "derby")
+@DisabledOnArm
 //https://github.com/quarkusio/quarkus/issues/23083
 public class CamelOracleJdbcTest {
     String dbKind = "oracle";
