@@ -32,6 +32,22 @@ class JqTest {
     }
 
     @Test
+    public void filterLength() {
+        RestAssured.given()
+                .get("/jq/filter/length")
+                .then()
+                .statusCode(204);
+    }
+
+    @Test
+    public void select() {
+        RestAssured.given()
+                .get("/jq/select")
+                .then()
+                .statusCode(204);
+    }
+
+    @Test
     public void expression() {
         RestAssured.given()
                 .get("/jq/expression")
