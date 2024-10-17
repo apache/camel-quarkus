@@ -1,4 +1,105 @@
 include::partial$component-configure-options.adoc[]
 include::partial$component-endpoint-options.adoc[]
+include::partial$component-endpoint-headers.adoc[]
+
+=== Qute template data
+
+Camel will populate the Qute `TemplateInstance` data model with exchange information. The following options are available within Qute templates as variables:
+
+[width="100%",cols="50%,50%",options="header",]
+|=======================================================================
+|key |value
+
+|`exchange` |The `Exchange` itself.
+
+|`exchange.properties` |The `Exchange` properties.
+
+|`variables` |The exchange variables
+
+|`headers` |The headers of the In message.
+
+|`camelContext` |The Camel Context.
+
+|`request` |The In message.
+
+|`body` |The In message body.
+
+|`response` |The Out message (only for InOut message exchange pattern).
+|=======================================================================
+
+You can configure your own template data with the message header `CamelQuteTemplateData` like this.
+
+[source,java]
+--------------------------------------------------------------------
+Map<String, Object> variableMap = new HashMap<String, Object>();
+variableMap.put("headers", headersMap);
+variableMap.put("body", "Monday");
+variableMap.put("exchange", exchange);
+exchange.getMessage().setHeader("CamelQuteTemplateData", variableMap);
+--------------------------------------------------------------------
+
+=== Dynamic templates
+
+Camel provides headers `CamelQuteResourceUri`, `CamelQuteTemplate` and `CamelQuteTemplateInstance` which can be used to define a different resource
+location for a template, or provide the template instance itself. If any of these headers is set, then Camel uses this over
+the endpoint configured resource. This allows you to provide a dynamic template at runtime.
+
+=== Examples
+
+Processing an exchange with a Qute template read from the classpath.
+
+[source,java]
+-------------------------------------------
+from("direct:start")
+    .to("qute:org/acme/myTemplate.txt");
+-------------------------------------------
+
+Processing an exchange with a Qute template read from a file-based resource.
+
+[source,java]
+-------------------------------------------
+from("direct:start")
+    .to("qute:file://path/to/myTemplate.txt");
+-------------------------------------------
+
+Dynamic template path URI.
+
+[source,java]
+---------------------------------------------------------------------------------------------
+from("direct:start")
+    .setHeader(QuteConstants.QUTE_RESOURCE_URI).constant("org/acme/template.txt")
+    .to("qute:dynamic?allowTemplateFromHeader=true");
+---------------------------------------------------------------------------------------------
+
+Dynamic template content.
+
+[source,java]
+---------------------------------------------------------------------------------------------
+from("direct:start")
+    .setHeader(QuteConstants.QUTE_TEMPLATE).constant("<hello>{headers.greeting}</hello>")
+    .to("qute:dynamic?allowTemplateFromHeader=true");
+---------------------------------------------------------------------------------------------
+
+Dynamic template instance.
+
+[source,java]
+---------------------------------------------------------------------------------------------
+from("direct:start")
+    .setHeader(QuteConstants.QUTE_TEMPLATE_INSTANCE).constant(myTemplateInstance)
+    .to("qute:dynamic?allowTemplateFromHeader=true");
+---------------------------------------------------------------------------------------------
+
+Qute template example.
+
+----------------------------------------------
+Dear {headers.lastName}, {headers.firstName}
+
+Thanks for the order of {headers.item}.
+
+Regards Camel Riders Bookstore
+{body}
+----------------------------------------------
+
+=== Quarkus Qute documentation
 
 For more information about Qute, please refer to the https://quarkus.io/guides/qute[Quarkus Qute] documentation.
