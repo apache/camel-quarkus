@@ -99,6 +99,22 @@
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit4-mock</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 
@@ -279,12 +295,7 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
-                                <quarkus.datasource.mysql.jdbc.additional-jdbc-properties.authenticationPlugins>org.apache.camel.quarkus.component.jdbc.mysql.Sha256FIPSPasswordPlugin</quarkus.datasource.mysql.jdbc.additional-jdbc-properties.authenticationPlugins>
-                                <quarkus.datasource.mysql.jdbc.additional-jdbc-properties.defaultAuthenticationPlugin>cq_fips_plugin</quarkus.datasource.mysql.jdbc.additional-jdbc-properties.defaultAuthenticationPlugin>
                                 <quarkus.datasource.mysql.devservices.enabled>false</quarkus.datasource.mysql.devservices.enabled>
-                                <quarkus.datasource.mysql.username>${env.MYSQL_JDBC_USERNAME}</quarkus.datasource.mysql.username>
-                                <quarkus.datasource.mysql.password>${env.MYSQL_JDBC_PASSWORD}</quarkus.datasource.mysql.password>
-                                <quarkus.datasource.mysql.jdbc.url>${env.MYSQL_JDBC_URL}</quarkus.datasource.mysql.jdbc.url>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>
@@ -293,12 +304,7 @@
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
-                                <quarkus.datasource.mysql.jdbc.additional-jdbc-properties.authenticationPlugins>org.apache.camel.quarkus.component.jdbc.mysql.Sha256FIPSPasswordPlugin</quarkus.datasource.mysql.jdbc.additional-jdbc-properties.authenticationPlugins>
-                                <quarkus.datasource.mysql.jdbc.additional-jdbc-properties.defaultAuthenticationPlugin>cq_fips_plugin</quarkus.datasource.mysql.jdbc.additional-jdbc-properties.defaultAuthenticationPlugin>
                                 <quarkus.datasource.mysql.devservices.enabled>false</quarkus.datasource.mysql.devservices.enabled>
-                                <quarkus.datasource.mysql.username>${env.MYSQL_JDBC_USERNAME}</quarkus.datasource.mysql.username>
-                                <quarkus.datasource.mysql.password>${env.MYSQL_JDBC_PASSWORD}</quarkus.datasource.mysql.password>
-                                <quarkus.datasource.mysql.jdbc.url>${env.MYSQL_JDBC_URL}</quarkus.datasource.mysql.jdbc.url>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>
