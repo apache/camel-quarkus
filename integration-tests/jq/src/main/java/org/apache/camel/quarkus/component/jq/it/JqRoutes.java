@@ -56,5 +56,13 @@ public class JqRoutes extends RouteBuilder {
                 .filter().jq(".value == \"valid\"")
                 .to("mock:filter");
 
+        from("direct:filterLength")
+                .filter().jq(".value | length > 5")
+                .to("mock:filterLength");
+
+        from("direct:select")
+                .transform().jq(".books[] | select(.price > 10) | .title")
+                .convertBodyTo(String.class)
+                .to("mock:select");
     }
 }
