@@ -24,6 +24,7 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 public class Book {
     private String author;
     private String title;
+    private Integer price;
 
     public Book() {
     }
@@ -49,6 +50,14 @@ public class Book {
         this.title = title;
     }
 
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -58,11 +67,12 @@ public class Book {
             return false;
         }
         Book book = (Book) o;
-        return Objects.equals(getAuthor(), book.getAuthor()) && Objects.equals(getTitle(), book.getTitle());
+        return Objects.equals(getAuthor(), book.getAuthor()) && Objects.equals(getTitle(), book.getTitle())
+                && Objects.equals(getPrice(), book.getPrice());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAuthor(), getTitle());
+        return Objects.hash(getAuthor(), getTitle(), getPrice());
     }
 }

@@ -16,7 +16,9 @@
  */
 package org.apache.camel.quarkus.component.jq.it;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -151,6 +153,41 @@ public class JqResource {
 
         producerTemplate.sendBody("direct:filter", mapper.createObjectNode().put("value", "valid"));
         producerTemplate.sendBody("direct:filter", mapper.createObjectNode().put("value", "invalid"));
+
+        endpoint.assertIsSatisfied(5000);
+    }
+
+    @Path("/filter/length")
+    @GET
+    public void filterLength() throws Exception {
+        MockEndpoint endpoint = context.getEndpoint("mock:filterLength", MockEndpoint.class);
+        ObjectNode expected = mapper.createObjectNode().put("value", "123456");
+        endpoint.expectedBodiesReceived(expected);
+
+        producerTemplate.sendBody("direct:filterLength", mapper.createObjectNode().put("value", "12345"));
+        producerTemplate.sendBody("direct:filterLength", mapper.createObjectNode().put("value", "123456"));
+
+        endpoint.assertIsSatisfied(5000);
+    }
+
+    @Path("/select")
+    @GET
+    public void select() throws Exception {
+        MockEndpoint endpoint = context.getEndpoint("mock:select", MockEndpoint.class);
+        endpoint.expectedBodiesReceived("[\"Title 2\",\"Title 3\"]");
+
+        ArrayNode arrayNode = mapper.createArrayNode();
+        for (int i = 1; i <= 3; i++) {
+            ObjectNode node = mapper.createObjectNode();
+            node.withObject("")
+                    .put("author", "Author " + i)
+                    .put("title", "Title " + i)
+                    .put("price", +i * 10);
+            arrayNode.add(node);
+        }
+
+        JsonNode books = mapper.createObjectNode().withObject("/books").set("books", arrayNode);
+        producerTemplate.sendBody("direct:select", books);
 
         endpoint.assertIsSatisfied(5000);
     }
