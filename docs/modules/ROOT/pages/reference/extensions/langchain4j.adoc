@@ -81,5 +81,5 @@ public interface CustomAiService {
 }
 ```
 
-More details could be found about camel parameter binding annotations at https://camel.apache.org/manual/parameter-binding-annotations.html.
+You can find more details about Camel Parameter Binding annotations in the xref:manual::parameter-binding-annotations.adoc[manual].
 
