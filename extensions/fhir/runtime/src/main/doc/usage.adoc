@@ -1,0 +1,73 @@
+=== Configuring the `FhirContext` in native mode
+
+To ensure `camel-quarkus-fhir` operates correctly in native mode, it is important that the FHIR component and data formats use a native mode optimized `FhirContext`.
+Examples of how to achieve this follow below.
+
+NOTE: To use a particular FHIR version in native mode, you must ensure that it is enabled via the configuration options mentioned below.
+
+Endpoint configuration when using the default `R4` FHIR version.
+
+[source,java]
+----
+public class FhirRoutes extends RouteBuilder {
+    @Override
+    public void configure() {
+        from("direct:start")
+            .to("fhir://create/resource?fhirContext=#R4&inBody=resourceAsString");
+    }
+}
+----
+
+Endpoint configuration when using a custom FHIR version (e.g `R5`).
+
+[source,java]
+----
+public class FhirRoutes extends RouteBuilder {
+    @Override
+    public void configure() {
+        from("direct:start")
+            .to("fhir://create/resource?fhirVersion=R5&fhirContext=#R5&inBody=resourceAsString");
+    }
+}
+----
+
+Instead of setting the `fhirContext` option on every endpoint URI, you can instead configure it directly on the FHIR component.
+
+[source,properties]
+----
+camel.component.fhir.fhir-context=#R4
+----
+
+FHIR data format configuration.
+
+[source,java]
+----
+public class FhirRoutes extends RouteBuilder {
+    // Each FHIR version has a corresponding injectable named bean
+    @Inject
+    @Named("R4")
+    FhirContext r4FhirContext;
+
+    @Inject
+    @Named("R5")
+    FhirContext r5FhirContext;
+
+    @Override
+    public void configure() {
+        // Configure FhirJsonDataFormat with the default R4 FhirContext
+        FhirJsonDataFormat fhirJsonDataFormat = new FhirJsonDataFormat();
+        fhirJsonDataFormat.setFhirContext(r4FhirContext);
+
+        // Configure FhirXmlDataFormat with a custom version and the corresponding FhirContext
+        FhirXmlDataFormat fhirXmlDataFormat = new FhirXmlDataFormat();
+        fhirXmlDataFormat.setVersion("R5");
+        fhirXmlDataFormat.setFhirContext(r5FhirContext);
+
+        from("direct:marshalFhirJson")
+            .marshal(fhirJsonDataFormat);
+
+        from("direct:marshalFhirXml")
+            .marshal(fhirXmlDataFormat);
+    }
+}
+----
