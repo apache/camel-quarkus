@@ -83,6 +83,13 @@ public abstract class AbstractFhirRouteBuilder extends RouteBuilder {
                     .toF("fhir-%s://create/resource?inBody=resource", sanitizedFhirVersion);
 
             fromF("direct:createResourceAsString-%s", sanitizedFhirVersion)
+                    .choice()
+                    .when(simple("${header.encodeAs} == 'encodeJson'"))
+                    .marshal(fhirJsonDataFormat)
+                    .otherwise()
+                    .marshal(fhirXmlDataFormat)
+                    .end()
+                    .convertBodyTo(String.class)
                     .toF("fhir-%s://create/resource?inBody=resourceAsString", sanitizedFhirVersion);
 
             // Dataformats

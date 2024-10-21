@@ -127,7 +127,7 @@ public class CamelLifecycleEventBridge implements LifecycleStrategy {
 
     @Override
     public void onServiceRemove(CamelContext context, Service service, org.apache.camel.Route route) {
-        if (observedLifecycleEvents.contains(ServiceAddEvent.class.getName())) {
+        if (observedLifecycleEvents.contains(ServiceRemoveEvent.class.getName())) {
             fireEvent(new ServiceRemoveEvent(context, service, route));
         }
     }

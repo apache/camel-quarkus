@@ -23,6 +23,7 @@ import java.util.stream.Stream;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
+import io.restassured.response.ValidatableResponse;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -45,10 +46,29 @@ abstract class AbstractFhirTest {
     @ParameterizedTest
     @ValueSource(strings = { "fhir2json", "fhir2xml" })
     public void marshalUnmarshal(String path) {
-        RestAssured.given()
+        ValidatableResponse response = RestAssured.given()
+                .queryParam("firstName", PATIENT_FIRST_NAME)
+                .queryParam("lastName", PATIENT_LAST_NAME)
+                .queryParam("address", PATIENT_ADDRESS)
                 .get("/" + path)
                 .then()
                 .statusCode(201);
+
+        String familyNameKey = "name[0].family";
+        if (getClass().getSimpleName().matches("FhirDstu2(Hl7Org)?(Test|IT)")) {
+            familyNameKey = "name[0].family[0]";
+        }
+
+        if (path.equals("fhir2json")) {
+            response.body("resourceType", is("Patient"),
+                    "name[0].given[0]", is(PATIENT_FIRST_NAME),
+                    familyNameKey, is(PATIENT_LAST_NAME),
+                    "address[0].line[0]", is(PATIENT_ADDRESS));
+        } else {
+            response.body("Patient.name.given.@value", is(PATIENT_FIRST_NAME),
+                    "Patient.name.family.@value", is(PATIENT_LAST_NAME),
+                    "Patient.address.line.@value", is(PATIENT_ADDRESS));
+        }
     }
 
     @ParameterizedTest
