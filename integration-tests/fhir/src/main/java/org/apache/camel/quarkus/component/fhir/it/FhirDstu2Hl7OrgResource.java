@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.fhir.it;
 
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -125,18 +124,10 @@ public class FhirDstu2Hl7OrgResource {
         patient.addAddress().addLine(address);
         patient.addName().addGiven(firstName).addFamily(lastName);
 
-        String patientString = null;
         Map<String, Object> headers = new HashMap<>();
-        headers.put(encodeAs, Boolean.TRUE);
+        headers.put("encodeAs", encodeAs);
 
-        if (encodeAs.equals("encodeJson")) {
-            patientString = fhirContextInstance.get().newJsonParser().encodeResourceToString(patient);
-        } else {
-            patientString = fhirContextInstance.get().newXmlParser().encodeResourceToString(patient);
-        }
-
-        MethodOutcome result = producerTemplate.requestBodyAndHeaders("direct:createResourceAsString-dstu2-hl7org",
-                patientString,
+        MethodOutcome result = producerTemplate.requestBodyAndHeaders("direct:createResourceAsString-dstu2-hl7org", patient,
                 headers,
                 MethodOutcome.class);
 
@@ -177,7 +168,7 @@ public class FhirDstu2Hl7OrgResource {
 
     @Path("/fhir2json")
     @GET
-    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response fhir2json(
             @QueryParam("firstName") String firstName,
             @QueryParam("lastName") String lastName,
@@ -188,19 +179,16 @@ public class FhirDstu2Hl7OrgResource {
         patient.addName().addGiven(firstName).addFamily(lastName);
 
         String patientString = fhirContextInstance.get().newJsonParser().encodeResourceToString(patient);
-
-        try (InputStream response = producerTemplate.requestBody("direct:json-to-dstu2-hl7org", patientString,
-                InputStream.class)) {
-            return Response
-                    .created(new URI("https:camel.apache.org/"))
-                    .entity(response)
-                    .build();
-        }
+        String response = producerTemplate.requestBody("direct:json-to-dstu2-hl7org", patientString, String.class);
+        return Response
+                .created(new URI("https:camel.apache.org/"))
+                .entity(response)
+                .build();
     }
 
     @Path("/fhir2xml")
     @GET
-    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    @Produces(MediaType.APPLICATION_XML)
     public Response fhir2xml(
             @QueryParam("firstName") String firstName,
             @QueryParam("lastName") String lastName,
@@ -211,14 +199,11 @@ public class FhirDstu2Hl7OrgResource {
         patient.addName().addGiven(firstName).addFamily(lastName);
 
         String patientString = fhirContextInstance.get().newXmlParser().encodeResourceToString(patient);
-
-        try (InputStream response = producerTemplate.requestBody("direct:xml-to-dstu2-hl7org", patientString,
-                InputStream.class)) {
-            return Response
-                    .created(new URI("https:camel.apache.org/"))
-                    .entity(response)
-                    .build();
-        }
+        String response = producerTemplate.requestBody("direct:xml-to-dstu2-hl7org", patientString, String.class);
+        return Response
+                .created(new URI("https:camel.apache.org/"))
+                .entity(response)
+                .build();
     }
 
     /////////////////////
