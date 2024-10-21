@@ -18,11 +18,11 @@ package org.apache.camel.quarkus.support.reactor.netty.deployment;
 
 import java.io.IOException;
 import java.util.Set;
+import java.util.function.BooleanSupplier;
 import java.util.stream.Stream;
 
 import com.azure.core.annotation.ServiceInterface;
 import com.azure.core.http.HttpClientProvider;
-import com.microsoft.aad.msal4j.AbstractClientApplicationBaseSubstitutions.Msal4jIsPresent;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
@@ -108,6 +108,18 @@ public class AzureCoreSupportProcessor {
         if (os.equals(OS.WINDOWS)) {
             runtimeReinitializedClass.produce(new RuntimeReinitializedClassBuildItem("com.sun.jna.platform.win32.Crypt32"));
             runtimeReinitializedClass.produce(new RuntimeReinitializedClassBuildItem("com.sun.jna.platform.win32.Kernel32"));
+        }
+    }
+
+    public static final class Msal4jIsPresent implements BooleanSupplier {
+        @Override
+        public boolean getAsBoolean() {
+            try {
+                Thread.currentThread().getContextClassLoader().loadClass("com.microsoft.aad.msal4j.Credential");
+                return true;
+            } catch (ClassNotFoundException e) {
+                return false;
+            }
         }
     }
 }
