@@ -46,9 +46,11 @@ import freemarker.template.utility.DeepUnwrap;
 import io.quarkus.annotation.processor.documentation.config.merger.JavadocMerger;
 import io.quarkus.annotation.processor.documentation.config.merger.JavadocRepository;
 import io.quarkus.annotation.processor.documentation.config.merger.MergedModel;
+import io.quarkus.annotation.processor.documentation.config.merger.MergedModel.ConfigRootKey;
 import io.quarkus.annotation.processor.documentation.config.merger.ModelMerger;
 import io.quarkus.annotation.processor.documentation.config.model.AbstractConfigItem;
 import io.quarkus.annotation.processor.documentation.config.model.ConfigProperty;
+import io.quarkus.annotation.processor.documentation.config.model.ConfigProperty.PropertyPath;
 import io.quarkus.annotation.processor.documentation.config.model.ConfigRoot;
 import io.quarkus.annotation.processor.documentation.config.model.Extension;
 import io.quarkus.annotation.processor.documentation.config.model.JavadocElements.JavadocElement;
@@ -87,10 +89,8 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
     private static final String TOOLTIP_MACRO = "tooltip:%s[%s]";
     private static final String MORE_INFO_ABOUT_TYPE_FORMAT = "link:#%s[icon:question-circle[title=More information about the %s format]]";
 
-    // TODO: Revert the default back to false
-    // https://github.com/apache/camel-quarkus/issues/6418
-    @Parameter(defaultValue = "true", property = "camel-quarkus.update-extension-doc-page.skip")
-    boolean skip = true;
+    @Parameter(defaultValue = "false", property = "camel-quarkus.update-extension-doc-page.skip")
+    boolean skip = false;
 
     @Parameter(defaultValue = "${project}", readonly = true)
     MavenProject project;
@@ -487,10 +487,9 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
 
         final JavadocRepository javadocRepository = JavadocMerger.mergeJavadocElements(targetDirectories);
         final MergedModel mergedModel = ModelMerger.mergeModel(targetDirectories);
-        for (Entry<Extension, Map<MergedModel.ConfigRootKey, ConfigRoot>> extensionConfigRootsEntry : mergedModel
-                .getConfigRoots().entrySet()) {
-            for (Entry<MergedModel.ConfigRootKey, ConfigRoot> configRootEntry : extensionConfigRootsEntry.getValue()
-                    .entrySet()) {
+        for (Entry<Extension, Map<ConfigRootKey, ConfigRoot>> extensionConfigRootsEntry : mergedModel.getConfigRoots()
+                .entrySet()) {
+            for (Entry<ConfigRootKey, ConfigRoot> configRootEntry : extensionConfigRootsEntry.getValue().entrySet()) {
                 final ConfigRoot configRoot = configRootEntry.getValue();
                 for (AbstractConfigItem configItem : configRoot.getItems()) {
                     if (configItem instanceof ConfigProperty) {
@@ -593,8 +592,9 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         public static ConfigItem of(ConfigProperty configDocItem, JavadocRepository javadocRepository, String artifactIdBase) {
             final Optional<JavadocElement> javadoc = javadocRepository
                     .getElement(configDocItem.getSourceClass(), configDocItem.getSourceName());
+            final PropertyPath itemPath = configDocItem.getPath();
             if (javadoc.isEmpty()) {
-                throw new IllegalStateException("No JavaDoc for " + configDocItem.getPath() + " alias "
+                throw new IllegalStateException("No JavaDoc for " + itemPath.property() + " alias "
                         + configDocItem.getSourceClass() + "#" + configDocItem.getSourceName());
             }
             final String adocSource = LINK_PATTERN.matcher(javadoc.get().description()).replaceAll("xref:$1.adoc");
@@ -602,9 +602,7 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                     : "";
             final TypeInfo typeInfo = typeContent(configDocItem, javadocRepository, true, artifactIdBase);
             return new ConfigItem(
-                    // TODO: Fix to use the correct value
-                    // https://github.com/apache/camel-quarkus/issues/6418
-                    configDocItem.getPath().toString(),
+                    itemPath.property(),
                     illustration,
                     adocSource,
                     typeInfo.description,
@@ -613,7 +611,7 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                     configDocItem.getDefaultValue(),
                     configDocItem.isOptional(),
                     javadoc.get().since(),
-                    configDocItem.getEnvironmentVariable());
+                    itemPath.environmentVariable());
         }
 
         static TypeInfo typeContent(ConfigProperty configProperty, JavadocRepository javadocRepository,
