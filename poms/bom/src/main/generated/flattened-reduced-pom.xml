@@ -6323,7 +6323,7 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-base</artifactId>
-        <version>7.4.3</version>
+        <version>7.4.4</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
@@ -6342,12 +6342,12 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-client</artifactId>
-        <version>7.4.3</version>
+        <version>7.4.4</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-dstu2.1</artifactId>
-        <version>7.4.3</version>
+        <version>7.4.4</version>
         <exclusions>
           <exclusion>
             <groupId>junit</groupId>
@@ -6362,22 +6362,22 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-dstu3</artifactId>
-        <version>7.4.3</version>
+        <version>7.4.4</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-hl7org-dstu2</artifactId>
-        <version>7.4.3</version>
+        <version>7.4.4</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-r4</artifactId>
-        <version>7.4.3</version>
+        <version>7.4.4</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-r5</artifactId>
-        <version>7.4.3</version>
+        <version>7.4.4</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
@@ -7162,7 +7162,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-aop</artifactId>
-        <version>6.1.13</version>
+        <version>6.1.14</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7177,7 +7177,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-expression</artifactId>
-        <version>6.1.13</version>
+        <version>6.1.14</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7188,7 +7188,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-jdbc</artifactId>
-        <version>6.1.13</version>
+        <version>6.1.14</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7203,7 +7203,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-jms</artifactId>
-        <version>6.1.13</version>
+        <version>6.1.14</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7218,7 +7218,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-messaging</artifactId>
-        <version>6.1.13</version>
+        <version>6.1.14</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7233,7 +7233,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-tx</artifactId>
-        <version>6.1.13</version>
+        <version>6.1.14</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7248,7 +7248,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-web</artifactId>
-        <version>6.1.13</version>
+        <version>6.1.14</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
