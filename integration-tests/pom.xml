@@ -64,6 +64,7 @@
         <module>azure-grouped</module>
         <module>base64</module>
         <module>bean-validator</module>
+        <module>beanio</module>
         <module>bindy</module>
         <module>box</module>
         <module>braintree</module>

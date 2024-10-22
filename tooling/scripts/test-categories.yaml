@@ -35,6 +35,7 @@ group-01:
   - mllp
 group-02:
   - aws2
+  - beanio
   - google-pubsub
   - grpc
   - jackson-avro
