@@ -36,3 +36,15 @@ Or add the coordinates to your existing project:
 ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
+
+[id="extensions-yaml-io-usage"]
+== Usage
+This an auxiliary extension that provides support for Camel route dumping in YAML.
+
+For example, when the application is configured to dump routes on startup with the following configuration in `application.properties`.
+
+[source,properties]
+----
+camel.main.dump-routes = yaml
+----
+
