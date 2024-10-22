@@ -3662,20 +3662,8 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-crypto</artifactId>
-                <version>${camel-quarkus.version}</version>
-                <classifier>bcfips</classifier>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-crypto-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-crypto-deployment</artifactId>
-                <version>${camel-quarkus.version}</version>
-                <classifier>bcfips</classifier>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
