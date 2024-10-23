@@ -190,7 +190,7 @@
         <cq-plugin.version>4.14.1</cq-plugin.version>
         <cyclonedx-maven-plugin-version>2.9.0</cyclonedx-maven-plugin-version>
         <build-helper-maven-plugin.version>3.6.0</build-helper-maven-plugin.version>
-        <exec-maven-plugin.version>3.4.1</exec-maven-plugin.version>
+        <exec-maven-plugin.version>3.5.0</exec-maven-plugin.version>
         <formatter-maven-plugin.version>2.24.1</formatter-maven-plugin.version>
         <gmavenplus-maven-plugin.version>3.0.0</gmavenplus-maven-plugin.version>
         <impsort-maven-plugin.version>1.12.0</impsort-maven-plugin.version>
