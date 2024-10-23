@@ -26,6 +26,8 @@ public final class CamelKafkaRuntimeConfig {
 
     /**
      * Kafka Kubernetes Service Binding configuration options
+     *
+     * @asciidoclet
      */
     @ConfigItem(defaultValue = "true")
     public KafkaServiceBindingConfig kubernetesServiceBinding;
@@ -34,11 +36,12 @@ public final class CamelKafkaRuntimeConfig {
     public static final class KafkaServiceBindingConfig {
 
         /**
-         * If {@code true} then any Kafka configuration properties discovered by the Quarkus Kubernetes Service Binding
-         * extension (if configured) will be merged with those set via Camel Kafka component or endpoint options.
+         * If `true` then any Kafka configuration properties discovered by the Quarkus Kubernetes Service Binding extension (if
+         * configured) will be merged with those set via Camel Kafka component or endpoint options. If `false` then any Kafka
+         * configuration properties discovered by the Quarkus Kubernetes Service Binding extension are ignored, and all of the
+         * Kafka component configuration is driven by Camel.
          *
-         * If {@code false} then any Kafka configuration properties discovered by the Quarkus Kubernetes Service Binding
-         * extension are ignored, and all of the Kafka component configuration is driven by Camel.
+         * @asciidoclet
          */
         @ConfigItem(defaultValue = "true")
         public boolean mergeConfiguration;

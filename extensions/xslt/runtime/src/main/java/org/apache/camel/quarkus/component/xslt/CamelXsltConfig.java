@@ -26,20 +26,27 @@ import io.quarkus.runtime.annotations.ConfigRoot;
 
 @ConfigRoot(name = "camel.xslt", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public class CamelXsltConfig {
+
     /**
      * A comma separated list of templates to compile.
+     *
+     * @asciidoclet
      */
     @ConfigItem
     public Optional<List<String>> sources;
 
     /**
      * The package name for the generated classes.
+     *
+     * @asciidoclet
      */
     @ConfigItem(defaultValue = "org.apache.camel.quarkus.component.xslt.generated")
     public String packageName;
 
     /**
      * TransformerFactory features.
+     *
+     * @asciidoclet
      */
     @ConfigItem
     public Map<String, Boolean> features;

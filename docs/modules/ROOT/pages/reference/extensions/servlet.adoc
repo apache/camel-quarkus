@@ -177,7 +177,8 @@ You will also need to enable serialization for the exception classes that you in
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.url-patterns]]`link:#quarkus.camel.servlet.url-patterns[quarkus.camel.servlet.url-patterns]`
 
-A comma separated list of path patterns under which the CamelServlet should be accessible. Example path patterns: `/++*++`, `/services/++*++`
+A comma separated list of path patterns under which the CamelServlet should be accessible. Example path patterns:
+`/++*++`, `/services/++*++`
 | List of `string`
 | 
 
@@ -189,13 +190,16 @@ A fully qualified name of a servlet class to serve paths that match `url-pattern
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.servlet-name]]`link:#quarkus.camel.servlet.servlet-name[quarkus.camel.servlet.servlet-name]`
 
-A servletName as it would be defined in a `web.xml` file or in the `jakarta.servlet.annotation.WebServlet++#++name()` annotation.
+A servletName as it would be defined in a `web.xml` file or in the `jakarta.servlet.annotation.WebServlet++#++name()`
+annotation.
 | `string`
 | `CamelServlet`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.load-on-startup]]`link:#quarkus.camel.servlet.load-on-startup[quarkus.camel.servlet.load-on-startup]`
 
-Sets the loadOnStartup priority on the Servlet. A loadOnStartup is a value greater than or equal to zero, indicates to the container the initialization priority of the Servlet. If loadOnStartup is a negative integer, the Servlet is initialized lazily.
+Sets the loadOnStartup priority on the Servlet. A loadOnStartup is a value greater than or equal to zero, indicates
+to the container the initialization priority of the Servlet. If loadOnStartup is a negative integer, the Servlet is
+initialized lazily.
 | `int`
 | `-1`
 
@@ -207,7 +211,8 @@ Enables Camel to benefit from asynchronous Servlet support.
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.force-await]]`link:#quarkus.camel.servlet.force-await[quarkus.camel.servlet.force-await]`
 
-When set to `true` used in conjunction with `quarkus.camel.servlet.async = true`, this will force route processing to run synchronously.
+When set to `true` used in conjunction with `quarkus.camel.servlet.async = true`, this will force route processing to
+run synchronously.
 | `boolean`
 | `false`
 
@@ -219,7 +224,8 @@ The name of a bean to configure an optional custom thread pool for handling Came
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.multipart.location]]`link:#quarkus.camel.servlet.multipart.location[quarkus.camel.servlet.multipart.location]`
 
-An absolute path to a directory on the file system to store files temporarily while the parts are processed or when the size of the file exceeds the specified file-size-threshold configuration value.
+An absolute path to a directory on the file system to store files temporarily while the parts are processed or
+when the size of the file exceeds the specified file-size-threshold configuration value.
 | `string`
 | `${java.io.tmpdir}`
 
@@ -231,7 +237,8 @@ The maximum size allowed in bytes for uploaded files. The default size (-1) allo
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.multipart.max-request-size]]`link:#quarkus.camel.servlet.multipart.max-request-size[quarkus.camel.servlet.multipart.max-request-size]`
 
-The maximum size allowed in bytes for a multipart/form-data request. The default size (-1) allows an unlimited size.
+The maximum size allowed in bytes for a multipart/form-data request. The default size (-1) allows an unlimited
+size.
 | `long`
 | `-1`
 
@@ -243,7 +250,8 @@ The file size in bytes after which the file will be temporarily stored on disk.
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.-named-servlets-.url-patterns]]`link:#quarkus.camel.servlet.-named-servlets-.url-patterns[quarkus.camel.servlet."named-servlets".url-patterns]`
 
-A comma separated list of path patterns under which the CamelServlet should be accessible. Example path patterns: `/++*++`, `/services/++*++`
+A comma separated list of path patterns under which the CamelServlet should be accessible. Example path patterns:
+`/++*++`, `/services/++*++`
 | List of `string`
 | 
 
@@ -255,13 +263,16 @@ A fully qualified name of a servlet class to serve paths that match `url-pattern
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.-named-servlets-.servlet-name]]`link:#quarkus.camel.servlet.-named-servlets-.servlet-name[quarkus.camel.servlet."named-servlets".servlet-name]`
 
-A servletName as it would be defined in a `web.xml` file or in the `jakarta.servlet.annotation.WebServlet++#++name()` annotation.
+A servletName as it would be defined in a `web.xml` file or in the `jakarta.servlet.annotation.WebServlet++#++name()`
+annotation.
 | `string`
 | `CamelServlet`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.-named-servlets-.load-on-startup]]`link:#quarkus.camel.servlet.-named-servlets-.load-on-startup[quarkus.camel.servlet."named-servlets".load-on-startup]`
 
-Sets the loadOnStartup priority on the Servlet. A loadOnStartup is a value greater than or equal to zero, indicates to the container the initialization priority of the Servlet. If loadOnStartup is a negative integer, the Servlet is initialized lazily.
+Sets the loadOnStartup priority on the Servlet. A loadOnStartup is a value greater than or equal to zero, indicates
+to the container the initialization priority of the Servlet. If loadOnStartup is a negative integer, the Servlet is
+initialized lazily.
 | `int`
 | `-1`
 
@@ -273,7 +284,8 @@ Enables Camel to benefit from asynchronous Servlet support.
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.-named-servlets-.force-await]]`link:#quarkus.camel.servlet.-named-servlets-.force-await[quarkus.camel.servlet."named-servlets".force-await]`
 
-When set to `true` used in conjunction with `quarkus.camel.servlet.async = true`, this will force route processing to run synchronously.
+When set to `true` used in conjunction with `quarkus.camel.servlet.async = true`, this will force route processing to
+run synchronously.
 | `boolean`
 | `false`
 
@@ -285,7 +297,8 @@ The name of a bean to configure an optional custom thread pool for handling Came
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.-named-servlets-.multipart.location]]`link:#quarkus.camel.servlet.-named-servlets-.multipart.location[quarkus.camel.servlet."named-servlets".multipart.location]`
 
-An absolute path to a directory on the file system to store files temporarily while the parts are processed or when the size of the file exceeds the specified file-size-threshold configuration value.
+An absolute path to a directory on the file system to store files temporarily while the parts are processed or
+when the size of the file exceeds the specified file-size-threshold configuration value.
 | `string`
 | `${java.io.tmpdir}`
 
@@ -297,7 +310,8 @@ The maximum size allowed in bytes for uploaded files. The default size (-1) allo
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.-named-servlets-.multipart.max-request-size]]`link:#quarkus.camel.servlet.-named-servlets-.multipart.max-request-size[quarkus.camel.servlet."named-servlets".multipart.max-request-size]`
 
-The maximum size allowed in bytes for a multipart/form-data request. The default size (-1) allows an unlimited size.
+The maximum size allowed in bytes for a multipart/form-data request. The default size (-1) allows an unlimited
+size.
 | `long`
 | `-1`
 

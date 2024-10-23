@@ -28,18 +28,19 @@ public class RuntimeCamelJfrConfig {
     /**
      * Directory to store the recording. By default the current directory will be used. Use false to turn off saving the
      * recording to disk.
+     *
+     * @asciidoclet
      */
     @ConfigItem
     Optional<String> startupRecorderDir;
 
     /**
-     *
      * How long time to run the startup recorder. Use 0 (default) to keep the recorder running until the JVM is exited. Use
      * -1 to stop the recorder right after Camel has been started (to only focus on potential Camel startup performance
-     * bottlenecks) Use a positive
-     * value to keep recording for N seconds. When the recorder is stopped then the recording is auto saved to disk (note:
-     * save to disk can be disabled by setting
-     * startupRecorderDir to false).
+     * bottlenecks) Use a positive value to keep recording for N seconds. When the recorder is stopped then the recording is
+     * auto saved to disk (note: save to disk can be disabled by setting startupRecorderDir to false).
+     *
+     * @asciidoclet
      */
     @ConfigItem
     Optional<Long> startupRecorderDuration;
@@ -47,12 +48,16 @@ public class RuntimeCamelJfrConfig {
     /**
      * To filter our sub steps at a maximum depth. Use -1 for no maximum. Use 0 for no sub steps. Use 1 for max 1 sub step,
      * and so forth. The default is -1.
+     *
+     * @asciidoclet
      */
     @ConfigItem
     Optional<Integer> startupRecorderMaxDepth;
 
     /**
      * To use a specific Java Flight Recorder profile configuration, such as default or profile. The default is default.
+     *
+     * @asciidoclet
      */
     @ConfigItem
     Optional<String> startupRecorderProfile;
@@ -60,6 +65,8 @@ public class RuntimeCamelJfrConfig {
     /**
      * To enable Java Flight Recorder to start a recording and automatic dump the recording to disk after startup is
      * complete. This requires that camel-jfr is on the classpath. The default is false.
+     *
+     * @asciidoclet
      */
     @ConfigItem
     Optional<Boolean> startupRecorderRecording;

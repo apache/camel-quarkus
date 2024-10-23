@@ -28,21 +28,28 @@ import org.apache.camel.quarkus.core.CamelConfig.FailureRemedy;
 public class CamelMainConfig {
 
     /**
-     * Build time configuration options for {@link CamelMain} shutdown.
+     * Build time configuration options for `CamelMain` shutdown.
+     *
+     * @asciidoclet
      */
     @ConfigItem
     public ShutdownConfig shutdown;
 
     /**
-     * Build time configuration options for {@link CamelMain} arguments
+     * Build time configuration options for `CamelMain` arguments
+     *
+     * @asciidoclet
      */
     @ConfigItem
     public ArgumentConfig arguments;
 
     @ConfigGroup
     public static class ShutdownConfig {
+
         /**
-         * A timeout (with millisecond precision) to wait for {@link CamelMain#stop()} to finish
+         * A timeout (with millisecond precision) to wait for `CamelMain++#++stop()` to finish
+         *
+         * @asciidoclet
          */
         @ConfigItem(defaultValue = "PT3S")
         public Duration timeout;
@@ -52,11 +59,11 @@ public class CamelMainConfig {
     public static class ArgumentConfig {
 
         /**
-         * The action to take when {@link CamelMain} encounters an unknown argument.
+         * The action to take when `CamelMain` encounters an unknown argument. fail - Prints the `CamelMain` usage statement and
+         * throws a `RuntimeException` ignore - Suppresses any warnings and the application startup proceeds as normal warn -
+         * Prints the `CamelMain` usage statement but allows the application startup to proceed as normal
          *
-         * fail - Prints the {@link CamelMain} usage statement and throws a {@link RuntimeException}
-         * ignore - Suppresses any warnings and the application startup proceeds as normal
-         * warn - Prints the {@link CamelMain} usage statement but allows the application startup to proceed as normal
+         * @asciidoclet
          */
         @ConfigItem(defaultValue = "warn")
         public FailureRemedy onUnknown;

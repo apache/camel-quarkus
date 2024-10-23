@@ -81,8 +81,8 @@ You can select which Kamelets from the catalog you want to use by referencing th
 |icon:lock[title=Fixed at build time] [[quarkus.camel.kamelet.identifiers]]`link:#quarkus.camel.kamelet.identifiers[quarkus.camel.kamelet.identifiers]`
 
 List of kamelets identifiers to pre-load at build time.
-
-Each individual identifier is used to set the related `org.apache.camel.model.RouteTemplateDefinition` id.
+<p>
+Each individual identifier is used to set the related {@link org.apache.camel.model.RouteTemplateDefinition} id.
 | List of `string`
 | 
 |===

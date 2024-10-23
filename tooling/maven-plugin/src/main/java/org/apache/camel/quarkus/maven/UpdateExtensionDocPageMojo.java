@@ -87,10 +87,8 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
     private static final String TOOLTIP_MACRO = "tooltip:%s[%s]";
     private static final String MORE_INFO_ABOUT_TYPE_FORMAT = "link:#%s[icon:question-circle[title=More information about the %s format]]";
 
-    // TODO: Revert the default back to false
-    // https://github.com/apache/camel-quarkus/issues/6418
-    @Parameter(defaultValue = "true", property = "camel-quarkus.update-extension-doc-page.skip")
-    boolean skip = true;
+    @Parameter(defaultValue = "false", property = "camel-quarkus.update-extension-doc-page.skip")
+    boolean skip;
 
     @Parameter(defaultValue = "${project}", readonly = true)
     MavenProject project;

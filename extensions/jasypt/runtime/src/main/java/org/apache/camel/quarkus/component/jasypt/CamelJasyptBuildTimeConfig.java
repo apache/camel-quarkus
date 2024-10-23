@@ -24,10 +24,13 @@ import io.smallrye.config.WithDefault;
 @ConfigMapping(prefix = "quarkus.camel.jasypt")
 @ConfigRoot(phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public interface CamelJasyptBuildTimeConfig {
+
     /**
-     * Setting this option to false will disable Jasypt integration with Quarkus SmallRye configuration.
-     * You can however, manually configure Jasypt with Camel in the 'classic' way of manually configuring
-     * JasyptPropertiesParser and PropertiesComponent. Refer to the usage section for more details.
+     * Setting this option to false will disable Jasypt integration with Quarkus SmallRye configuration. You can however,
+     * manually configure Jasypt with Camel in the 'classic' way of manually configuring JasyptPropertiesParser and
+     * PropertiesComponent. Refer to the usage section for more details.
+     *
+     * @asciidoclet
      */
     @WithDefault("true")
     boolean enabled();

@@ -73,7 +73,8 @@ The file cluster service could further be tuned by tweaking `quarkus.camel.clust
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.cluster.file.enabled]]`link:#quarkus.camel.cluster.file.enabled[quarkus.camel.cluster.file.enabled]`
 
-Whether a File Lock Cluster Service should be automatically configured according to 'quarkus.camel.cluster.file.++*++' configurations.
+Whether a File Lock Cluster Service should be automatically configured according to
+'quarkus.camel.cluster.file.++*++' configurations.
 | `boolean`
 | `true`
 

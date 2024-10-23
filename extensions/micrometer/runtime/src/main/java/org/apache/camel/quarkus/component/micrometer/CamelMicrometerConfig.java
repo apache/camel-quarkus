@@ -22,68 +22,76 @@ import io.quarkus.runtime.annotations.ConfigRoot;
 
 @ConfigRoot(name = "camel.metrics", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public class CamelMicrometerConfig {
+
     /**
-     * Set whether to enable the MicrometerRoutePolicyFactory for capturing metrics
-     * on route processing times.
+     * Set whether to enable the MicrometerRoutePolicyFactory for capturing metrics on route processing times.
+     *
+     * @asciidoclet
      */
     @ConfigItem(defaultValue = "true")
     public boolean enableRoutePolicy;
 
     /**
-     * Set whether to enable the MicrometerMessageHistoryFactory for capturing metrics
-     * on individual route node processing times.
+     * Set whether to enable the MicrometerMessageHistoryFactory for capturing metrics on individual route node processing
+     * times. Depending on the number of configured route nodes, there is the potential to create a large volume of metrics.
+     * Therefore, this option is disabled by default.
      *
-     * Depending on the number of configured route nodes, there is the potential to create a large
-     * volume of metrics. Therefore, this option is disabled by default.
+     * @asciidoclet
      */
     @ConfigItem(defaultValue = "false")
     public boolean enableMessageHistory;
 
     /**
-     * Set whether to enable the MicrometerExchangeEventNotifier for capturing metrics
-     * on exchange processing times.
+     * Set whether to enable the MicrometerExchangeEventNotifier for capturing metrics on exchange processing times.
+     *
+     * @asciidoclet
      */
     @ConfigItem(defaultValue = "true")
     public boolean enableExchangeEventNotifier;
 
     /**
-     * Set whether to enable the MicrometerRouteEventNotifier for capturing metrics
-     * on the total number of routes and total number of routes running.
+     * Set whether to enable the MicrometerRouteEventNotifier for capturing metrics on the total number of routes and total
+     * number of routes running.
+     *
+     * @asciidoclet
      */
     @ConfigItem(defaultValue = "true")
     public boolean enableRouteEventNotifier;
 
     /**
      * Set whether to gather performance information about Camel Thread Pools by injecting an InstrumentedThreadPoolFactory.
+     *
+     * @asciidoclet
      */
     @ConfigItem(defaultValue = "false")
     public boolean enableInstrumentedThreadPoolFactory;
 
     /**
-     * Controls the naming style to use for metrics. The available values are {@code default} and {@code legacy}.
-     * {@code default} uses the default Micrometer naming convention.
-     * {@code legacy} uses the legacy camel-case naming style.
+     * Controls the naming style to use for metrics. The available values are `default` and `legacy`. `default` uses the
+     * default Micrometer naming convention. `legacy` uses the legacy camel-case naming style.
+     *
+     * @asciidoclet
      */
     @ConfigItem(defaultValue = "default")
     public MetricsNamingStrategy namingStrategy;
 
     /**
-     * Sets the level of metrics to capture. The available values are {@code all} ,{@code context} and {@code route}.
-     * {@code all} captures metrics for both the camel context and routes.
-     * {@code route} captures metrics for routes only.
-     * {@code context} captures metrics for the camel context only.
+     * Sets the level of metrics to capture. The available values are `all` ,`context` and `route`. `all` captures metrics
+     * for both the camel context and routes. `route` captures metrics for routes only. `context` captures metrics for the
+     * camel context only.
+     *
+     * @asciidoclet
      */
     @ConfigItem(defaultValue = "all")
     public RoutePolicyLevel routePolicyLevel;
 
     public enum MetricsNamingStrategy {
-        DEFAULT,
-        LEGACY
+
+        DEFAULT, LEGACY
     }
 
     public enum RoutePolicyLevel {
-        ALL,
-        CONTEXT,
-        ROUTE
+
+        ALL, CONTEXT, ROUTE
     }
 }

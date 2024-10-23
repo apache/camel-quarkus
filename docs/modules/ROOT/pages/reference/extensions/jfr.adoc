@@ -93,19 +93,24 @@ quarkus.native.monitoring=jfr
 
 | [[quarkus.camel.jfr.startup-recorder-dir]]`link:#quarkus.camel.jfr.startup-recorder-dir[quarkus.camel.jfr.startup-recorder-dir]`
 
-Directory to store the recording. By default the current directory will be used. Use false to turn off saving the recording to disk.
+Directory to store the recording. By default the current directory will be used. Use false to turn off saving the
+recording to disk.
 | `string`
 | 
 
 | [[quarkus.camel.jfr.startup-recorder-duration]]`link:#quarkus.camel.jfr.startup-recorder-duration[quarkus.camel.jfr.startup-recorder-duration]`
 
-How long time to run the startup recorder. Use 0 (default) to keep the recorder running until the JVM is exited. Use -1 to stop the recorder right after Camel has been started (to only focus on potential Camel startup performance bottlenecks) Use a positive value to keep recording for N seconds. When the recorder is stopped then the recording is auto saved to disk (note: save to disk can be disabled by setting startupRecorderDir to false).
+How long time to run the startup recorder. Use 0 (default) to keep the recorder running until the JVM is exited. Use
+-1 to stop the recorder right after Camel has been started (to only focus on potential Camel startup performance
+bottlenecks) Use a positive value to keep recording for N seconds. When the recorder is stopped then the recording is
+auto saved to disk (note: save to disk can be disabled by setting startupRecorderDir to false).
 | `long`
 | 
 
 | [[quarkus.camel.jfr.startup-recorder-max-depth]]`link:#quarkus.camel.jfr.startup-recorder-max-depth[quarkus.camel.jfr.startup-recorder-max-depth]`
 
-To filter our sub steps at a maximum depth. Use -1 for no maximum. Use 0 for no sub steps. Use 1 for max 1 sub step, and so forth. The default is -1.
+To filter our sub steps at a maximum depth. Use -1 for no maximum. Use 0 for no sub steps. Use 1 for max 1 sub step,
+and so forth. The default is -1.
 | `int`
 | 
 
@@ -117,7 +122,8 @@ To use a specific Java Flight Recorder profile configuration, such as default or
 
 | [[quarkus.camel.jfr.startup-recorder-recording]]`link:#quarkus.camel.jfr.startup-recorder-recording[quarkus.camel.jfr.startup-recorder-recording]`
 
-To enable Java Flight Recorder to start a recording and automatic dump the recording to disk after startup is complete. This requires that camel-jfr is on the classpath. The default is false.
+To enable Java Flight Recorder to start a recording and automatic dump the recording to disk after startup is
+complete. This requires that camel-jfr is on the classpath. The default is false.
 | `boolean`
 | 
 |===

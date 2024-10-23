@@ -22,8 +22,11 @@ import io.quarkus.runtime.annotations.ConfigRoot;
 
 @ConfigRoot(name = "camel.cli", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public class CamelCliConnectorConfig {
+
     /**
      * Sets whether to enable Camel CLI Connector support.
+     *
+     * @asciidoclet
      */
     @ConfigItem(defaultValue = "true")
     public boolean enabled;
