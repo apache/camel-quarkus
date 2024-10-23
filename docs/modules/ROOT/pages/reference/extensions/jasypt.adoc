@@ -201,7 +201,9 @@ you must add the file to `quarkus.native.resources.includes` so that it can be l
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.jasypt.enabled]]`link:#quarkus.camel.jasypt.enabled[quarkus.camel.jasypt.enabled]`
 
-Setting this option to false will disable Jasypt integration with Quarkus SmallRye configuration. You can however, manually configure Jasypt with Camel in the 'classic' way of manually configuring JasyptPropertiesParser and PropertiesComponent. Refer to the usage section for more details.
+Setting this option to false will disable Jasypt integration with Quarkus SmallRye configuration.
+You can however, manually configure Jasypt with Camel in the 'classic' way of manually configuring
+JasyptPropertiesParser and PropertiesComponent. Refer to the usage section for more details.
 | `boolean`
 | `true`
 
@@ -213,9 +215,12 @@ The algorithm to be used for decryption.
 
 | [[quarkus.camel.jasypt.password]]`link:#quarkus.camel.jasypt.password[quarkus.camel.jasypt.password]`
 
-The master password used by Jasypt for decrypting configuration values. This option supports prefixes which influence the master password lookup behaviour.
-
-`sys:` will to look up the value from a JVM system property. `sysenv:` will look up the value from the OS system environment with the given key.
+The master password used by Jasypt for decrypting configuration values.
+This option supports prefixes which influence the master password lookup behaviour.
+<p>
+<code>sys:</code> will to look up the value from a JVM system property.
+<code>sysenv:</code> will look up the value from the OS system environment with the given key.
+<p>
 | `string`
 | 
 
@@ -233,7 +238,8 @@ Configures the Jasypt StandardPBEStringEncryptor with a RandomSaltGenerator usin
 
 | [[quarkus.camel.jasypt.configuration-customizer-class-name]]`link:#quarkus.camel.jasypt.configuration-customizer-class-name[quarkus.camel.jasypt.configuration-customizer-class-name]`
 
-The fully qualified class name of an org.apache.camel.quarkus.component.jasypt.JasyptConfigurationCustomizer implementation. This provides the optional capability of having full control over the Jasypt configuration.
+The fully qualified class name of an org.apache.camel.quarkus.component.jasypt.JasyptConfigurationCustomizer
+implementation. This provides the optional capability of having full control over the Jasypt configuration.
 | `string`
 | 
 |===

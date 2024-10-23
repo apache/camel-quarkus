@@ -93,25 +93,32 @@ get created for you.
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.metrics.enable-route-policy]]`link:#quarkus.camel.metrics.enable-route-policy[quarkus.camel.metrics.enable-route-policy]`
 
-Set whether to enable the MicrometerRoutePolicyFactory for capturing metrics on route processing times.
+Set whether to enable the MicrometerRoutePolicyFactory for capturing metrics
+on route processing times.
 | `boolean`
 | `true`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.metrics.enable-message-history]]`link:#quarkus.camel.metrics.enable-message-history[quarkus.camel.metrics.enable-message-history]`
 
-Set whether to enable the MicrometerMessageHistoryFactory for capturing metrics on individual route node processing times. Depending on the number of configured route nodes, there is the potential to create a large volume of metrics. Therefore, this option is disabled by default.
+Set whether to enable the MicrometerMessageHistoryFactory for capturing metrics
+on individual route node processing times.
+
+Depending on the number of configured route nodes, there is the potential to create a large
+volume of metrics. Therefore, this option is disabled by default.
 | `boolean`
 | `false`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.metrics.enable-exchange-event-notifier]]`link:#quarkus.camel.metrics.enable-exchange-event-notifier[quarkus.camel.metrics.enable-exchange-event-notifier]`
 
-Set whether to enable the MicrometerExchangeEventNotifier for capturing metrics on exchange processing times.
+Set whether to enable the MicrometerExchangeEventNotifier for capturing metrics
+on exchange processing times.
 | `boolean`
 | `true`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.metrics.enable-route-event-notifier]]`link:#quarkus.camel.metrics.enable-route-event-notifier[quarkus.camel.metrics.enable-route-event-notifier]`
 
-Set whether to enable the MicrometerRouteEventNotifier for capturing metrics on the total number of routes and total number of routes running.
+Set whether to enable the MicrometerRouteEventNotifier for capturing metrics
+on the total number of routes and total number of routes running.
 | `boolean`
 | `true`
 
@@ -123,13 +130,18 @@ Set whether to gather performance information about Camel Thread Pools by inject
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.metrics.naming-strategy]]`link:#quarkus.camel.metrics.naming-strategy[quarkus.camel.metrics.naming-strategy]`
 
-Controls the naming style to use for metrics. The available values are `default` and `legacy`. `default` uses the default Micrometer naming convention. `legacy` uses the legacy camel-case naming style.
+Controls the naming style to use for metrics. The available values are {@code default} and {@code legacy}.
+{@code default} uses the default Micrometer naming convention.
+{@code legacy} uses the legacy camel-case naming style.
 | `default`, `legacy`
 | `default`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.metrics.route-policy-level]]`link:#quarkus.camel.metrics.route-policy-level[quarkus.camel.metrics.route-policy-level]`
 
-Sets the level of metrics to capture. The available values are `all` ,`context` and `route`. `all` captures metrics for both the camel context and routes. `route` captures metrics for routes only. `context` captures metrics for the camel context only.
+Sets the level of metrics to capture. The available values are {@code all} ,{@code context} and {@code route}.
+{@code all} captures metrics for both the camel context and routes.
+{@code route} captures metrics for routes only.
+{@code context} captures metrics for the camel context only.
 | `all`, `context`, `route`
 | `all`
 |===
