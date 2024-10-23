@@ -122,4 +122,12 @@ class KameletTest {
                 .statusCode(200)
                 .body(is("Hello World"));
     }
+
+    @Test
+    public void pipe() {
+        RestAssured.get("/kamelet/pipe")
+                .then()
+                .statusCode(200)
+                .body(is("Hello Pipe"));
+    }
 }
