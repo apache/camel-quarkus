@@ -26,59 +26,66 @@ import io.quarkus.runtime.annotations.ConfigRoot;
 
 @ConfigRoot(name = "camel.grpc", phase = ConfigPhase.BUILD_TIME)
 public class GrpcBuildTimeConfig {
+
     /**
      * Build time configuration options for Camel Quarkus gRPC code generator.
+     *
+     * @asciidoclet
      */
     @ConfigItem
     public CodeGenConfig codegen;
 
     @ConfigGroup
     public static class CodeGenConfig {
+
         /**
-         * If {@code true}, Camel Quarkus gRPC code generation is run for .proto files discovered from the {@code proto}
-         * directory, or from dependencies specified in the {@code scan-for-proto} or {@code scan-for-imports} options. When
-         * {@code false}, code generation for .proto files is disabled.
+         * If `true`, Camel Quarkus gRPC code generation is run for .proto files discovered from the `proto` directory, or from
+         * dependencies specified in the `scan-for-proto` or `scan-for-imports` options. When `false`, code generation for
+         * .proto files is disabled.
+         *
+         * @asciidoclet
          */
         @ConfigItem(defaultValue = "true")
         public boolean enabled;
 
         /**
-         * Camel Quarkus gRPC code generation can scan application dependencies for .proto files to generate Java stubs
-         * from them.
-         * This property sets the scope of the dependencies to scan.
-         * Applicable values:
-         * <ul>
-         * <li><i>none</i> - default - don't scan dependencies</li>
-         * <li>a comma separated list of <i>groupId:artifactId</i> coordinates to scan</li>
-         * <li><i>all</i> - scan all dependencies</li>
-         * </ul>
+         * Camel Quarkus gRPC code generation can scan application dependencies for .proto files to generate Java stubs from
+         * them. This property sets the scope of the dependencies to scan. Applicable values:
+         *
+         * - _none_ - default - don't scan dependencies
+         * - a comma separated list of _groupId:artifactId_ coordinates to scan
+         * - _all_ - scan all dependencies
+         *
+         * @asciidoclet
          */
         @ConfigItem(defaultValue = "none")
         public String scanForProto;
 
         /**
          * Camel Quarkus gRPC code generation can scan dependencies for .proto files that can be imported by protos in this
-         * applications.
-         * Applicable values:
-         * <ul>
-         * <li><i>none</i> - default - don't scan dependencies</li>
-         * <li>a comma separated list of <i>groupId:artifactId</i> coordinates to scan</li>
-         * <li><i>all</i> - scan all dependencies</li>
-         * </ul>
+         * applications. Applicable values:
          *
-         * The default is <i>com.google.protobuf:protobuf-java</i>.
+         * - _none_ - default - don't scan dependencies
+         * - a comma separated list of _groupId:artifactId_ coordinates to scan
+         * - _all_ - scan all dependencies The default is _com.google.protobuf:protobuf-java_.
+         *
+         * @asciidoclet
          */
         @ConfigItem(defaultValue = "com.google.protobuf:protobuf-java")
         public String scanForImports;
 
         /**
          * Package path or file glob pattern includes per dependency containing .proto files to be considered for inclusion.
+         *
+         * @asciidoclet
          */
         @ConfigItem
         public Map<String, List<String>> scanForProtoIncludes;
 
         /**
          * Package path or file glob pattern includes per dependency containing .proto files to be considered for exclusion.
+         *
+         * @asciidoclet
          */
         @ConfigItem
         public Map<String, List<String>> scanForProtoExcludes;

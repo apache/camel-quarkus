@@ -70,7 +70,8 @@ The kubernetes cluster service could further be tuned by tweaking `quarkus.camel
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.cluster.kubernetes.enabled]]`link:#quarkus.camel.cluster.kubernetes.enabled[quarkus.camel.cluster.kubernetes.enabled]`
 
-Whether a Kubernetes Cluster Service should be automatically configured according to 'quarkus.camel.cluster.kubernetes.++*++' configurations.
+Whether a Kubernetes Cluster Service should be automatically configured according to
+'quarkus.camel.cluster.kubernetes.++*++' configurations.
 | `boolean`
 | `true`
 
@@ -112,7 +113,8 @@ The name of the current pod (autodetected from container host name by default).
 
 | [[quarkus.camel.cluster.kubernetes.jitter-factor]]`link:#quarkus.camel.cluster.kubernetes.jitter-factor[quarkus.camel.cluster.kubernetes.jitter-factor]`
 
-The jitter factor to apply in order to prevent all pods to call Kubernetes APIs in the same instant (defaults to 1.2).
+The jitter factor to apply in order to prevent all pods to call Kubernetes APIs in the same instant (defaults to
+1.2).
 | `double`
 | 
 
@@ -124,13 +126,15 @@ The default duration of the lease for the current leader (defaults to 15000).
 
 | [[quarkus.camel.cluster.kubernetes.renew-deadline-millis]]`link:#quarkus.camel.cluster.kubernetes.renew-deadline-millis[quarkus.camel.cluster.kubernetes.renew-deadline-millis]`
 
-The deadline after which the leader must stop its services because it may have lost the leadership (defaults to 10000).
+The deadline after which the leader must stop its services because it may have lost the leadership (defaults to
+10000).
 | `long`
 | 
 
 | [[quarkus.camel.cluster.kubernetes.retry-period-millis]]`link:#quarkus.camel.cluster.kubernetes.retry-period-millis[quarkus.camel.cluster.kubernetes.retry-period-millis]`
 
-The time between two subsequent attempts to check and acquire the leadership. It is randomized using the jitter factor (defaults to 2000).
+The time between two subsequent attempts to check and acquire the leadership. It is randomized using the jitter
+factor (defaults to 2000).
 | `long`
 | 
 
@@ -142,7 +146,8 @@ Service lookup order/priority (defaults to 2147482647).
 
 | [[quarkus.camel.cluster.kubernetes.resource-name]]`link:#quarkus.camel.cluster.kubernetes.resource-name[quarkus.camel.cluster.kubernetes.resource-name]`
 
-The name of the lease resource used to do optimistic locking (defaults to 'leaders'). The resource name is used as prefix when the underlying Kubernetes resource can manage a single lock.
+The name of the lease resource used to do optimistic locking (defaults to 'leaders'). The resource name is used as
+prefix when the underlying Kubernetes resource can manage a single lock.
 | `string`
 | 
 

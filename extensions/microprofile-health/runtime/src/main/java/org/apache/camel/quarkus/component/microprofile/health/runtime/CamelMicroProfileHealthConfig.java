@@ -25,6 +25,8 @@ public final class CamelMicroProfileHealthConfig {
 
     /**
      * Set whether to enable Camel health checks
+     *
+     * @asciidoclet
      */
     @ConfigItem(defaultValue = "true")
     public boolean enabled;

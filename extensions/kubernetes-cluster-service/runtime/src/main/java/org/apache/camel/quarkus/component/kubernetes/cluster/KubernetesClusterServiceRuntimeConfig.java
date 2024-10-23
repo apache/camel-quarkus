@@ -29,30 +29,40 @@ public class KubernetesClusterServiceRuntimeConfig {
 
     /**
      * The cluster service ID (defaults to null).
+     *
+     * @asciidoclet
      */
     @ConfigItem
     public Optional<String> id;
 
     /**
      * The URL of the Kubernetes master (read from Kubernetes client properties by default).
+     *
+     * @asciidoclet
      */
     @ConfigItem
     public Optional<String> masterUrl;
 
     /**
      * The connection timeout in milliseconds to use when making requests to the Kubernetes API server.
+     *
+     * @asciidoclet
      */
     @ConfigItem
     public Optional<Integer> connectionTimeoutMillis;
 
     /**
      * The name of the Kubernetes namespace containing the pods and the configmap (autodetected by default).
+     *
+     * @asciidoclet
      */
     @ConfigItem
     public Optional<String> namespace;
 
     /**
      * The name of the current pod (autodetected from container host name by default).
+     *
+     * @asciidoclet
      */
     @ConfigItem
     public Optional<String> podName;
@@ -60,12 +70,16 @@ public class KubernetesClusterServiceRuntimeConfig {
     /**
      * The jitter factor to apply in order to prevent all pods to call Kubernetes APIs in the same instant (defaults to
      * 1.2).
+     *
+     * @asciidoclet
      */
     @ConfigItem
     public Optional<Double> jitterFactor;
 
     /**
      * The default duration of the lease for the current leader (defaults to 15000).
+     *
+     * @asciidoclet
      */
     @ConfigItem
     public Optional<Long> leaseDurationMillis;
@@ -73,6 +87,8 @@ public class KubernetesClusterServiceRuntimeConfig {
     /**
      * The deadline after which the leader must stop its services because it may have lost the leadership (defaults to
      * 10000).
+     *
+     * @asciidoclet
      */
     @ConfigItem
     public Optional<Long> renewDeadlineMillis;
@@ -80,34 +96,41 @@ public class KubernetesClusterServiceRuntimeConfig {
     /**
      * The time between two subsequent attempts to check and acquire the leadership. It is randomized using the jitter
      * factor (defaults to 2000).
+     *
+     * @asciidoclet
      */
     @ConfigItem
     public Optional<Long> retryPeriodMillis;
 
     /**
      * Service lookup order/priority (defaults to 2147482647).
+     *
+     * @asciidoclet
      */
     @ConfigItem
     public Optional<Integer> order;
 
     /**
-     * The name of the lease resource used to do optimistic locking (defaults to
-     * 'leaders'). The resource name is used as prefix when the underlying
-     * Kubernetes resource can manage a single lock.
+     * The name of the lease resource used to do optimistic locking (defaults to 'leaders'). The resource name is used as
+     * prefix when the underlying Kubernetes resource can manage a single lock.
+     *
+     * @asciidoclet
      */
     @ConfigItem
     public Optional<String> resourceName;
 
     /**
-     * The lease resource type used in Kubernetes, either 'config-map' or
-     * 'lease' (defaults to 'lease').
+     * The lease resource type used in Kubernetes, either 'config-map' or 'lease' (defaults to 'lease').
+     *
+     * @asciidoclet
      */
     @ConfigItem
     public Optional<LeaseResourceType> leaseResourceType;
 
     /**
-     * The labels key/value used to identify the pods composing the cluster,
-     * defaults to empty map.
+     * The labels key/value used to identify the pods composing the cluster, defaults to empty map.
+     *
+     * @asciidoclet
      */
     @ConfigItem
     public Map<String, String> labels;

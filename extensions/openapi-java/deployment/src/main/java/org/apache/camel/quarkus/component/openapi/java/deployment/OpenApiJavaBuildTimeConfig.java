@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.camel.quarkus.component.openapi.java.deployment;
 
 import io.quarkus.runtime.annotations.ConfigItem;
@@ -26,6 +25,7 @@ public class OpenApiJavaBuildTimeConfig {
     /**
      * Expose the Camel REST DSL services to quarkus openapi at build time if 'quarkus.smallrye-openapi' is available.
      *
+     * @asciidoclet
      */
     @ConfigItem(name = "expose.enabled", defaultValue = "false")
     public boolean enabled = false;

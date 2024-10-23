@@ -36,33 +36,42 @@ import org.jasypt.salt.RandomSaltGenerator;
 @ConfigMapping(prefix = "quarkus.camel.jasypt")
 @ConfigRoot(phase = ConfigPhase.RUN_TIME)
 public interface CamelJasyptConfig {
+
     String NAME = "camel-jasypt";
+
     String DEFAULT_ALGORITHM = StandardPBEByteEncryptor.DEFAULT_ALGORITHM;
 
     /**
      * The algorithm to be used for decryption.
+     *
+     * @asciidoclet
      */
     @WithDefault(DEFAULT_ALGORITHM)
     String algorithm();
 
     /**
-     * The master password used by Jasypt for decrypting configuration values.
-     * This option supports prefixes which influence the master password lookup behaviour.
-     * <p>
-     * <code>sys:</code> will to look up the value from a JVM system property.
-     * <code>sysenv:</code> will look up the value from the OS system environment with the given key.
-     * <p>
+     * The master password used by Jasypt for decrypting configuration values. This option supports prefixes which influence
+     * the master password lookup behaviour.
+     *
+     * `sys:` will to look up the value from a JVM system property. `sysenv:` will look up the value from the OS system
+     * environment with the given key.
+     *
+     * @asciidoclet
      */
     Optional<String> password();
 
     /**
      * Configures the Jasypt StandardPBEStringEncryptor with a RandomIvGenerator using the given algorithm.
+     *
+     * @asciidoclet
      */
     @WithDefault(RandomIvGenerator.DEFAULT_SECURE_RANDOM_ALGORITHM)
     String randomIvGeneratorAlgorithm();
 
     /**
      * Configures the Jasypt StandardPBEStringEncryptor with a RandomSaltGenerator using the given algorithm.
+     *
+     * @asciidoclet
      */
     @WithDefault(RandomSaltGenerator.DEFAULT_SECURE_RANDOM_ALGORITHM)
     String randomSaltGeneratorAlgorithm();
@@ -70,26 +79,22 @@ public interface CamelJasyptConfig {
     /**
      * The fully qualified class name of an org.apache.camel.quarkus.component.jasypt.JasyptConfigurationCustomizer
      * implementation. This provides the optional capability of having full control over the Jasypt configuration.
+     *
+     * @asciidoclet
      */
     Optional<String> configurationCustomizerClassName();
 
     String SYS_CONFIG_PREFIX = "sys:";
+
     String SYS_ENV_CONFIG_PREFIX = "sysenv:";
-    Set<String> ALGORITHMS_THAT_REQUIRE_IV = Set.of(
-            "PBEWITHHMACSHA1ANDAES_128",
-            "PBEWITHHMACSHA1ANDAES_256",
-            "PBEWITHHMACSHA224ANDAES_128",
-            "PBEWITHHMACSHA224ANDAES_256",
-            "PBEWITHHMACSHA256ANDAES_128",
-            "PBEWITHHMACSHA256ANDAES_256",
-            "PBEWITHHMACSHA384ANDAES_128",
-            "PBEWITHHMACSHA384ANDAES_256",
-            "PBEWITHHMACSHA512ANDAES_128",
-            "PBEWITHHMACSHA512ANDAES_256");
+
+    Set<String> ALGORITHMS_THAT_REQUIRE_IV = Set.of("PBEWITHHMACSHA1ANDAES_128", "PBEWITHHMACSHA1ANDAES_256",
+            "PBEWITHHMACSHA224ANDAES_128", "PBEWITHHMACSHA224ANDAES_256", "PBEWITHHMACSHA256ANDAES_128",
+            "PBEWITHHMACSHA256ANDAES_256", "PBEWITHHMACSHA384ANDAES_128", "PBEWITHHMACSHA384ANDAES_256",
+            "PBEWITHHMACSHA512ANDAES_128", "PBEWITHHMACSHA512ANDAES_256");
 
     default PBEConfig pbeConfig() {
         EnvironmentStringPBEConfig config = new EnvironmentStringPBEConfig();
-
         String password = null;
         if (password().isPresent()) {
             password = password().get();
@@ -102,13 +107,11 @@ public interface CamelJasyptConfig {
                 }
             }
         }
-
         config.setPassword(password);
         config.setAlgorithm(algorithm());
         config.setIvGenerator(ALGORITHMS_THAT_REQUIRE_IV.contains(algorithm().toUpperCase())
                 ? new RandomIvGenerator(randomIvGeneratorAlgorithm()) : new NoIvGenerator());
         config.setSaltGenerator(new RandomSaltGenerator(randomSaltGeneratorAlgorithm()));
-
         if (configurationCustomizerClassName().isPresent()) {
             try {
                 Class<?> encryptorClass = Thread.currentThread().getContextClassLoader()
@@ -121,14 +124,12 @@ public interface CamelJasyptConfig {
                 throw new RuntimeException(e);
             }
         }
-
         // Avoid potentially confusing runtime NPEs and fail fast if no password has been configured
         try {
             config.getPassword();
         } catch (NullPointerException e) {
             throw new IllegalStateException("The jasypt password has not been configured.");
         }
-
         return config;
     }
 }

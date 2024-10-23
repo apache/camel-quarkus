@@ -26,23 +26,28 @@ import io.quarkus.runtime.annotations.ConfigRoot;
 @ConfigRoot(name = "camel.cxf", phase = ConfigPhase.BUILD_TIME)
 public class CxfBuildTimeConfig {
 
-    /** Configuration options related to build time class generation */
+    /**
+     * Configuration options related to build time class generation
+     *
+     * @asciidoclet
+     */
     @ConfigItem
     public ClassGeneration classGeneration;
 
     @ConfigGroup
     public static class ClassGeneration {
+
         /**
-         * For CXF service interfaces to work properly, some ancillary classes (such as request and response
-         * wrappers) need to be generated at build time. Camel Quarkus lets the {@code quarkus-cxf} extension to do this
-         * for all service interfaces found in the class path except the ones matching the patterns in this property.
-         * <p>
-         * {@code org.apache.cxf.ws.security.sts.provider.SecurityTokenService} is excluded by default due to
-         * <a href="https://issues.apache.org/jira/browse/CXF-8834">https://issues.apache.org/jira/browse/CXF-8834</a>
+         * For CXF service interfaces to work properly, some ancillary classes (such as request and response wrappers) need to
+         * be generated at build time. Camel Quarkus lets the `quarkus-cxf` extension to do this for all service interfaces
+         * found in the class path except the ones matching the patterns in this property.
+         *
+         * `org.apache.cxf.ws.security.sts.provider.SecurityTokenService` is excluded by default due to
+         * link:https://issues.apache.org/jira/browse/CXF-8834[https://issues.apache.org/jira/browse/CXF-8834]
+         *
+         * @asciidoclet
          */
         @ConfigItem(defaultValue = "org.apache.cxf.ws.security.sts.provider.SecurityTokenService")
         List<String> excludePatterns;
-
     }
-
 }

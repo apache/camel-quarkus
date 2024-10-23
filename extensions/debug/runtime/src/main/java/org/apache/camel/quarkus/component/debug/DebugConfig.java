@@ -21,14 +21,19 @@ import io.quarkus.runtime.annotations.ConfigRoot;
 
 @ConfigRoot(name = "camel.debug", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public class DebugConfig {
+
     /**
      * Set whether to enable Camel debugging support.
+     *
+     * @asciidoclet
      */
     public boolean enabled;
 
     /**
-     * Indicates whether the <i>suspend mode</i> is enabled or not. If {@code true} the message processing is
-     * immediately suspended until the method {@code attach()} is called.
+     * Indicates whether the _suspend mode_ is enabled or not. If `true` the message processing is immediately suspended
+     * until the method `attach()` is called.
+     *
+     * @asciidoclet
      */
     public boolean suspend;
 }
