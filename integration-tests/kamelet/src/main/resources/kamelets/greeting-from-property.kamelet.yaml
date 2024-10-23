@@ -1,0 +1,44 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+apiVersion: camel.apache.org/v1
+kind: Kamelet
+metadata:
+  name: greeting-from-property
+  labels:
+    camel.apache.org/kamelet.type: "source"
+    camel.apache.org/kamelet.name: "greeting"
+    camel.apache.org/kamelet.version: "v1"
+    camel.apache.org/kamelet.revision: "1"
+spec:
+  definition:
+    title: "Greeting"
+    description: "Send a greeting"
+    properties:
+      greeting:
+        title: Greeting
+        description: The greeting to send.
+        type: string
+        example: Hello World
+  dependencies:
+    - "camel:timer"
+  template:
+    from:
+      uri: timer:greetFromProperty?repeatCount=1&delay=-1
+      steps:
+        - setBody:
+            constant: "{{greeting}}"
