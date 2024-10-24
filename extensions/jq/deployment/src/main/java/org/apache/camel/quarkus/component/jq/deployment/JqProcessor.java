@@ -16,14 +16,8 @@
  */
 package org.apache.camel.quarkus.component.jq.deployment;
 
-import io.quarkus.arc.deployment.BeanContainerBuildItem;
-import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import net.thisptr.jackson.jq.Scope;
-import org.apache.camel.quarkus.component.jq.CamelJqRecorder;
 
 class JqProcessor {
 
@@ -32,16 +26,5 @@ class JqProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    UnremovableBeanBuildItem unremovableBeans() {
-        return UnremovableBeanBuildItem.beanTypes(Scope.class);
-    }
-
-    @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep
-    void addCamelFunctionsToScope(BeanContainerBuildItem beanContainer, CamelJqRecorder recorder) {
-        recorder.addCamelFunctionsToScope(beanContainer.getValue());
     }
 }
