@@ -511,11 +511,11 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
 
     @Override
     public void configureContext(CamelContextConfiguration camelContextConfiguration) {
-
+        //to be overridden of child, if needed
     }
 
     @Override
     public void configureTest(TestExecutionConfiguration testExecutionConfiguration) {
-
+        //to be overridden of child, if needed
     }
 }
