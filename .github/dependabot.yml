@@ -61,3 +61,5 @@ updates:
       - dependency-name: "org.apache.camel.maven:*"
       # To be kept manually in alignment with the enforcer API version used in quarkus-enforcer-rules
       - dependency-name: "org.apache.maven.plugins:maven-enforcer-plugin"
+      # Avoid upgrading due to https://github.com/apache/camel-quarkus/issues/6698
+      - dependency-name: "org.apache.maven.plugins:maven-release-plugin"
