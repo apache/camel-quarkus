@@ -25,7 +25,10 @@ import io.quarkus.test.common.ResourceArg;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.smallrye.certs.Format;
+import io.smallrye.certs.junit5.Certificate;
 import org.apache.camel.quarkus.test.DisabledOnArm;
+import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.apache.camel.quarkus.test.support.splunk.SplunkConstants;
 import org.apache.camel.quarkus.test.support.splunk.SplunkTestResource;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -34,12 +37,14 @@ import org.junit.jupiter.api.Test;
 import org.testcontainers.shaded.org.awaitility.Awaitility;
 import org.testcontainers.shaded.org.hamcrest.core.StringContains;
 
+@TestCertificates(docker = true, certificates = {
+        @Certificate(name = "splunk-hec", formats = { Format.PEM, Format.PKCS12 }, password = "password"),
+        @Certificate(name = "splunk-hec-invalid", formats = { Format.PKCS12 }, password = "password")
+})
 @QuarkusTest
 @QuarkusTestResource(value = SplunkTestResource.class, initArgs = {
-        @ResourceArg(name = "localhost_cert", value = "target/certs/localhost.pem"),
-        @ResourceArg(name = "ca_cert", value = "target/certs/splunkca.pem"),
-        @ResourceArg(name = "localhost_keystore", value = "target/certs/localhost.jks"),
-        @ResourceArg(name = "keystore_password", value = "password") })
+        @ResourceArg(name = "certName", value = "splunk-hec") })
+
 @DisabledOnArm
 public class SplunkHecTest {
 
