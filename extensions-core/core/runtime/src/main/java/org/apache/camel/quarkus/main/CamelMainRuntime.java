@@ -68,7 +68,10 @@ public class CamelMainRuntime implements CamelRuntime {
 
     @Override
     public void stop() {
-        main.stop();
+        if (!main.isStopped()) {
+            main.stop();
+        }
+
         /* Wait till the Camel shutdown is finished in camel-main thread started in start(String[]) above */
         final Thread worker = this.mainThread;
         if (worker != null) {

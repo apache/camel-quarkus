@@ -41,6 +41,7 @@ import org.apache.camel.ServiceStatus;
 import org.apache.camel.component.log.LogComponent;
 import org.apache.camel.impl.debugger.DebuggerJmxConnectorService;
 import org.apache.camel.model.ModelCamelContext;
+import org.apache.camel.quarkus.core.CamelRuntime;
 import org.apache.camel.quarkus.core.FastFactoryFinderResolver;
 import org.apache.camel.quarkus.it.support.typeconverter.MyPair;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
@@ -62,6 +63,9 @@ import org.apache.camel.support.processor.DefaultExchangeFormatter;
 public class CoreMainResource {
     @Inject
     CamelMain main;
+
+    @Inject
+    CamelRuntime camelRuntime;
 
     @Path("/property/{name}")
     @GET
@@ -309,5 +313,18 @@ public class CoreMainResource {
         if (contextReloadStrategy != null) {
             contextReloadStrategy.onReload(this);
         }
+    }
+
+    @Path("/runtime/status")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String runtimeStatus() {
+        return main.getStatus().name();
+    }
+
+    @Path("/runtime/start")
+    @POST
+    public void runtimeStart() {
+        camelRuntime.start();
     }
 }

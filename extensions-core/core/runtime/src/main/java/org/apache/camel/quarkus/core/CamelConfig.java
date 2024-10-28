@@ -33,14 +33,6 @@ public class CamelConfig {
     }
 
     /**
-     * Build time configuration options for `CamelRuntime` bootstrap.
-     *
-     * @asciidoclet
-     */
-    @ConfigItem
-    public BootstrapConfig bootstrap;
-
-    /**
      * Build time configuration options for Camel services.
      *
      * @asciidoclet
@@ -120,18 +112,6 @@ public class CamelConfig {
      */
     @ConfigItem
     public TypeConverterConfig typeConverter;
-
-    @ConfigGroup
-    public static class BootstrapConfig {
-
-        /**
-         * When set to true, the `CamelRuntime` will be started automatically.
-         *
-         * @asciidoclet
-         */
-        @ConfigItem(defaultValue = "true")
-        public boolean enabled;
-    }
 
     @ConfigGroup
     public static class RoutesDiscoveryConfig {

@@ -14,17 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core;
+package org.apache.camel.quarkus.main;
 
-import org.apache.camel.spi.HasCamelContext;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-/**
- * Represent a runnable Camel instance.
- */
-public interface CamelRuntime extends HasCamelContext {
-    void start(String... args);
-
-    void stop();
-
-    int waitForExit();
+@QuarkusIntegrationTest
+class BootstrapDisabledIT extends BootstrapDisabledTest {
 }

@@ -130,12 +130,6 @@ As such, the class `PropertiesCustomBeanWithSetterInjection` needs to be link:ht
 | Configuration property | Type | Default
 
 
-|icon:lock[title=Fixed at build time] [[quarkus.camel.bootstrap.enabled]]`link:#quarkus.camel.bootstrap.enabled[quarkus.camel.bootstrap.enabled]`
-
-When set to true, the `CamelRuntime` will be started automatically.
-| `boolean`
-| `true`
-
 |icon:lock[title=Fixed at build time] [[quarkus.camel.service.discovery.exclude-patterns]]`link:#quarkus.camel.service.discovery.exclude-patterns[quarkus.camel.service.discovery.exclude-patterns]`
 
 A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath. The
@@ -481,6 +475,12 @@ throws a `RuntimeException` ignore - Suppresses any warnings and the application
 Prints the `CamelMain` usage statement but allows the application startup to proceed as normal
 | `fail`, `warn`, `ignore`
 | `warn`
+
+| [[quarkus.camel.bootstrap.enabled]]`link:#quarkus.camel.bootstrap.enabled[quarkus.camel.bootstrap.enabled]`
+
+When set to true, the {@link CamelRuntime} will be started automatically.
+| `boolean`
+| `true`
 |===
 
 [.configuration-legend]
