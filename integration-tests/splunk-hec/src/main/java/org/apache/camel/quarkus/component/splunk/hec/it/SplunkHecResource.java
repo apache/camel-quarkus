@@ -87,17 +87,15 @@ public class SplunkHecResource {
 
     @Named("sslContextParameters")
     public SSLContextParameters createServerSSLContextParameters() {
-        return createServerSSLContextParameters("target/certs/splunkca.jks");
+        return createServerSSLContextParameters("target/certs/splunk-hec-keystore.p12");
     }
 
     /**
      * Creates SSL Context Parameters for the server
-     *
-     * @return
      */
     @Named("wrongSslContextParameters")
     public SSLContextParameters createWrongServerSSLContextParameters() {
-        return createServerSSLContextParameters("target/certs/wrong-splunkca.jks");
+        return createServerSSLContextParameters("target/certs/splunk-hec-invalid-keystore.p12");
     }
 
     private SSLContextParameters createServerSSLContextParameters(String keystore) {
