@@ -16,15 +16,29 @@
  */
 package org.apache.camel.quarkus.core;
 
-import org.apache.camel.spi.HasCamelContext;
+import io.quarkus.runtime.annotations.ConfigGroup;
+import io.quarkus.runtime.annotations.ConfigItem;
+import io.quarkus.runtime.annotations.ConfigPhase;
+import io.quarkus.runtime.annotations.ConfigRoot;
 
-/**
- * Represent a runnable Camel instance.
- */
-public interface CamelRuntime extends HasCamelContext {
-    void start(String... args);
+@ConfigRoot(name = "camel", phase = ConfigPhase.RUN_TIME)
+public class CamelRuntimeConfig {
+    /**
+     * Runtime configuration options for {@link CamelRuntime} bootstrap.
+     *
+     * @asciidoclet
+     */
+    @ConfigItem
+    public BootstrapConfig bootstrap;
 
-    void stop();
-
-    int waitForExit();
+    @ConfigGroup
+    public static class BootstrapConfig {
+        /**
+         * When set to true, the {@link CamelRuntime} will be started automatically.
+         *
+         * @asciidoclet
+         */
+        @ConfigItem(defaultValue = "true")
+        public boolean enabled;
+    }
 }
