@@ -48,7 +48,7 @@ public class CamelQuarkusSwaggerCodegenProvider implements CodeGenProvider {
 
     @Override
     public String[] inputExtensions() {
-        return new String[] { "json" };
+        return new String[] { "json", "yaml" };
     }
 
     @Override
@@ -65,16 +65,16 @@ public class CamelQuarkusSwaggerCodegenProvider implements CodeGenProvider {
         }
 
         try {
-            List<String> jsonFiles = new ArrayList<>();
+            List<String> specFiles = new ArrayList<>();
             if (Files.isDirectory(context.inputDir())) {
                 try (Stream<Path> protoFilesPaths = Files.walk(context.inputDir())) {
                     protoFilesPaths
                             .filter(Files::isRegularFile)
-                            .filter(s -> s.toString().endsWith("json"))
+                            .filter(s -> s.toString().endsWith("json") || s.toString().endsWith("yaml"))
                             .map(Path::normalize)
                             .map(Path::toAbsolutePath)
                             .map(Path::toString)
-                            .forEach(jsonFiles::add);
+                            .forEach(specFiles::add);
                 }
             }
 
@@ -82,12 +82,12 @@ public class CamelQuarkusSwaggerCodegenProvider implements CodeGenProvider {
             String models = config.getOptionalValue("quarkus.camel.openapi.codegen.models", String.class).orElse("");
             boolean useBeanValidation = config.getValue("quarkus.camel.openapi.codegen.use-bean-validation", Boolean.class);
             boolean notNullJackson = config.getValue("quarkus.camel.openapi.codegen.not-null-jackson", Boolean.class);
-            for (String jsonFile : jsonFiles) {
+            for (String specFile : specFiles) {
                 CodegenConfigurator configurator = new CodegenConfigurator();
                 configurator.setLang("quarkus");
                 configurator.setLibrary("quarkus3");
                 configurator.setModelPackage(packageName);
-                configurator.setInputSpecURL(jsonFile);
+                configurator.setInputSpecURL(specFile);
                 configurator.setOutputDir(context.outDir().toAbsolutePath().toString());
                 System.setProperty(CodegenConstants.MODELS, models);
                 configurator.getCodegenArguments()

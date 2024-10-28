@@ -121,4 +121,14 @@ class RestOpenapiTest {
                 .body("id", is(123), "name", is("Test"), "status", is("available"));
     }
 
+    @Test
+    public void testGetCamel() {
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+
+        RestAssured.given()
+                .get("/api/v1/camel")
+                .then()
+                .statusCode(200)
+                .body(is("\"smart camel\""));
+    }
 }

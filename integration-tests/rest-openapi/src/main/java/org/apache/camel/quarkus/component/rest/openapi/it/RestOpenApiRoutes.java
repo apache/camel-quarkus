@@ -25,6 +25,7 @@ public class RestOpenApiRoutes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         rest().openApi().specification("petstore.json").missingOperation("ignore");
+        rest().openApi().specification("example.yaml").missingOperation("ignore");
 
         from("direct:start-web-json")
                 .toD("rest-openapi:#list?specificationUri=RAW(http://localhost:${header.test-port}/q/openapi?format=JSON)");
@@ -58,6 +59,11 @@ public class RestOpenApiRoutes extends RouteBuilder {
                 .process(e -> {
                     Pet pet = e.getMessage().getBody(Pet.class);
                     pet.setStatus(StatusEnum.PENDING);
+                });
+
+        from("direct:findCamels")
+                .process(e -> {
+                    e.getMessage().setBody("smart camel");
                 });
     }
 }
