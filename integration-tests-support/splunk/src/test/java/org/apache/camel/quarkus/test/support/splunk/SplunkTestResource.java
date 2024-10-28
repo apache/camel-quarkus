@@ -16,20 +16,11 @@
  */
 package org.apache.camel.quarkus.test.support.splunk;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.Key;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
-import java.security.cert.CertificateException;
 import java.time.Duration;
-import java.util.Base64;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
@@ -60,17 +51,21 @@ public class SplunkTestResource implements QuarkusTestResourceLifecycleManager {
 
     private GenericContainer<?> container;
 
-    private String localhostCertPath;
-    private String localhostKeystorePath;
+    private String certName;
     private String caCertPath;
+    private String certPath;
+    private String certPrivateKey;
     private String keystorePassword;
 
     @Override
     public void init(Map<String, String> initArgs) {
-        localhostCertPath = initArgs.get("localhost_cert");
-        caCertPath = initArgs.get("ca_cert");
-        localhostKeystorePath = initArgs.get("localhost_keystore");
-        keystorePassword = initArgs.get("keystore_password");
+        certName = initArgs.get("certName");
+        if (StringUtils.isNotBlank(certName)) {
+            caCertPath = initArgs.getOrDefault("caCertPath", "target/certs/%s-ca.crt".formatted(certName));
+            certPath = initArgs.getOrDefault("caCertPath", "target/certs/%s.crt".formatted(certName));
+            certPrivateKey = initArgs.getOrDefault("certPrivateKey", "target/certs/%s.key".formatted(certName));
+            keystorePassword = initArgs.getOrDefault("keystorePassword", "password");
+        }
     }
 
     @Override
@@ -90,7 +85,7 @@ public class SplunkTestResource implements QuarkusTestResourceLifecycleManager {
                             Wait.forLogMessage(".*Ansible playbook complete.*\\n", 1)
                                     .withStartupTimeout(Duration.ofMinutes(5)));
 
-            if (localhostCertPath != null && localhostKeystorePath != null && caCertPath != null && keystorePassword != null) {
+            if (certPath != null && caCertPath != null && keystorePassword != null) {
                 //combine key + certificates into 1 pem - required for splunk
                 //extraction of private key can not be done by keytool (only openssl), but it can be done programmatically
                 byte[] concatenate = concatenateKeyAndCertificates(banner);
@@ -182,32 +177,20 @@ public class SplunkTestResource implements QuarkusTestResourceLifecycleManager {
         }
     }
 
-    private byte @NotNull [] concatenateKeyAndCertificates(String banner)
-            throws KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException, UnrecoverableKeyException {
-        // Load the KeyStore
-        KeyStore keystore = KeyStore.getInstance("JKS");
-        try (FileInputStream fis = new FileInputStream(
-                Paths.get(localhostKeystorePath).toFile())) {
-            keystore.load(fis, keystorePassword.toCharArray());
-        }
-        // Get the private key
-        Key key = keystore.getKey(keystore.aliases().asIterator().next(), keystorePassword.toCharArray());
-
+    private byte @NotNull [] concatenateKeyAndCertificates(String banner) throws IOException {
         // Encode the private key to PEM format
-        String encodedKey = Base64.getEncoder().encodeToString(key.getEncoded());
-        String pemKey = "-----BEGIN PRIVATE KEY-----\n" + encodedKey + "\n-----END PRIVATE KEY-----";
+        String pemKey = Files.readString(Paths.get(certPrivateKey));
 
-        //localhost.pem and cacert.pem has to be concatenated
-        String localhost = Files.readString(
-                Paths.get(localhostCertPath),
+        // The server cert and the CA cert has to be concatenated
+        String severCert = Files.readString(
+                Paths.get(certPath),
                 StandardCharsets.UTF_8);
-        String ca = Files.readString(Path.of(caCertPath),
+        String ca = Files.readString(Paths.get(caCertPath),
                 StandardCharsets.UTF_8);
         Log.debug("cacert content:");
         Log.debug(ca);
         Log.debug(banner);
-        byte[] concatenate = (localhost + ca + pemKey).getBytes(StandardCharsets.UTF_8);
-        return concatenate;
+        return (severCert + ca + pemKey).getBytes(StandardCharsets.UTF_8);
     }
 
     private static void assertExecResult(Container.ExecResult res, String cmd) {
