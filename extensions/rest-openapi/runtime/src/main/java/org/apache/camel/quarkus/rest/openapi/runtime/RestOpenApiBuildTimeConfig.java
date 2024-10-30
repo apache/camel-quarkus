@@ -63,6 +63,14 @@ public class RestOpenApiBuildTimeConfig {
          */
         @ConfigItem(defaultValue = "false")
         public boolean notNullJackson;
+
+        /**
+         * If `true`, use JsonIgnoreProperties(ignoreUnknown = true) annotation in the generated model classes.
+         *
+         * @asciidoclet
+         */
+        @ConfigItem(defaultValue = "false")
+        public boolean ignoreUnknownProperties;
     }
 
 }
