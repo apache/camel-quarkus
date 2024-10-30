@@ -84,6 +84,7 @@ public class CamelQuarkusSwaggerCodegenProvider implements CodeGenProvider {
             boolean notNullJackson = config.getValue("quarkus.camel.openapi.codegen.not-null-jackson", Boolean.class);
             boolean ignoreUnknownProperties = config.getValue("quarkus.camel.openapi.codegen.ignore-unknown-properties",
                     Boolean.class);
+
             for (String specFile : specFiles) {
                 CodegenConfigurator configurator = new CodegenConfigurator();
                 configurator.setLang("quarkus");
@@ -97,14 +98,28 @@ public class CamelQuarkusSwaggerCodegenProvider implements CodeGenProvider {
                 configurator.getCodegenArguments()
                         .add(new CodegenArgument().option(CodegenConstants.MODEL_DOCS_OPTION).type("boolean").value("false"));
                 if (useBeanValidation) {
-                    configurator.getAdditionalProperties().put(USE_BEANVALIDATION, "true");
+                    configurator.getAdditionalProperties().put(USE_BEANVALIDATION, true);
                 }
                 if (notNullJackson) {
-                    configurator.getAdditionalProperties().put(NOT_NULL_JACKSON_ANNOTATION, "true");
+                    configurator.getAdditionalProperties().put(NOT_NULL_JACKSON_ANNOTATION, true);
                 }
                 if (ignoreUnknownProperties) {
-                    configurator.getAdditionalProperties().put("ignoreUnknownProperties", "true");
+                    configurator.getAdditionalProperties().put("ignoreUnknownProperties", true);
                 }
+                config.getPropertyNames().forEach(name -> {
+                    if (name.startsWith("quarkus.camel.openapi.codegen.additional-properties")) {
+                        String key = name.substring("quarkus.camel.openapi.codegen.additional-properties.".length());
+                        String value = config.getValue(name, String.class);
+                        if (configurator.getAdditionalProperties().containsKey(key)) {
+                            LOG.warn("Overriding existing property: " + key + " with value: " + value);
+                        }
+                        if (value.equals("true") || value.equals("false")) {
+                            configurator.getAdditionalProperties().put(key, Boolean.parseBoolean(value));
+                        } else {
+                            configurator.getAdditionalProperties().put(key, value);
+                        }
+                    }
+                });
 
                 final ClientOptInput input = configurator.toClientOptInput();
                 new DefaultGenerator().opts(input).generate();

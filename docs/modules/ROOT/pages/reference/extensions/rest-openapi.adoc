@@ -171,6 +171,12 @@ If `true`, use NON_NULL Jackson annotation in the generated model classes.
 If `true`, use JsonIgnoreProperties(ignoreUnknown = true) annotation in the generated model classes.
 | `boolean`
 | `false`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.openapi.codegen.additional-properties.-additional-properties]]`link:#quarkus.camel.openapi.codegen.additional-properties.-additional-properties[quarkus.camel.openapi.codegen.additional-properties."additional-properties"]`
+
+Additional properties to be used in the mustache templates.
+| `Map<String,String>`
+| 
 |===
 
 [.configuration-legend]

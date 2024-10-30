@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.rest.openapi.runtime;
 
+import java.util.Map;
 import java.util.Optional;
 
 import io.quarkus.runtime.annotations.ConfigGroup;
@@ -71,6 +72,14 @@ public class RestOpenApiBuildTimeConfig {
          */
         @ConfigItem(defaultValue = "false")
         public boolean ignoreUnknownProperties;
+
+        /**
+         * Additional properties to be used in the mustache templates.
+         *
+         * @asciidoclet
+         */
+        @ConfigItem
+        public Map<String, String> additionalProperties;
     }
 
 }
