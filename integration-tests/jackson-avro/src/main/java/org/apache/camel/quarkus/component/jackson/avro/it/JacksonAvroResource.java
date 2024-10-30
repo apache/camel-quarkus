@@ -18,6 +18,9 @@ package org.apache.camel.quarkus.component.jackson.avro.it;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
@@ -30,14 +33,19 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.avro.Schema;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.jackson.SchemaResolver;
 import org.apache.camel.component.jackson.avro.JacksonAvroDataFormat;
+import org.apache.commons.io.IOUtils;
 
 @Path("/jackson-avro")
 @ApplicationScoped
@@ -91,6 +99,34 @@ public class JacksonAvroResource {
         }
 
         return builder.build();
+    }
+
+    @Path("/custom/mapper")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String customMapper(@QueryParam("schemaFrom") String schemaFrom) throws IOException {
+        AvroMapper avroMapper = new AvroMapper();
+        AvroSchema avroSchema;
+
+        if (schemaFrom.equals("classpath")) {
+            avroSchema = avroMapper.schemaFrom(JacksonAvroResource.class.getResourceAsStream("/pojo.avsc"));
+        } else if (schemaFrom.equals("string")) {
+            try (InputStream stream = JacksonAvroResource.class.getResourceAsStream("/pojo.avsc")) {
+                avroSchema = avroMapper.schemaFrom(IOUtils.toString(stream, StandardCharsets.UTF_8));
+            }
+        } else if (schemaFrom.equals("file")) {
+            java.nio.file.Path schemaFile = Paths.get("target/schema.avsc");
+            try (InputStream stream = JacksonAvroResource.class.getResourceAsStream("/pojo.avsc")) {
+                Files.write(schemaFile, stream.readAllBytes());
+                avroSchema = avroMapper.schemaFrom(schemaFile.toFile());
+            } finally {
+                Files.deleteIfExists(schemaFile);
+            }
+        } else {
+            throw new IllegalArgumentException("Unknown schema from option: " + schemaFrom);
+        }
+
+        return avroSchema.getAvroSchema().getName();
     }
 
     @Named
