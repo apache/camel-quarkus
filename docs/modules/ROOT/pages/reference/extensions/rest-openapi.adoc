@@ -165,6 +165,12 @@ If `true`, use bean validation annotations in the generated model classes.
 If `true`, use NON_NULL Jackson annotation in the generated model classes.
 | `boolean`
 | `false`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.openapi.codegen.ignore-unknown-properties]]`link:#quarkus.camel.openapi.codegen.ignore-unknown-properties[quarkus.camel.openapi.codegen.ignore-unknown-properties]`
+
+If `true`, use JsonIgnoreProperties(ignoreUnknown = true) annotation in the generated model classes.
+| `boolean`
+| `false`
 |===
 
 [.configuration-legend]
