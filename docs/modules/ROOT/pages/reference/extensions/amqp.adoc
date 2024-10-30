@@ -47,6 +47,10 @@ endif::[]
 
 [id="extensions-amqp-usage"]
 == Usage
+This extension leverages https://github.com/amqphub/quarkus-qpid-jms/[Quarkus Qpid JMS]. A `ConnectionFactory` bean is created automatically
+and wired into the AMQP component for you. The connection factory can be configured
+via the Quarkus Qpid JMS https://github.com/amqphub/quarkus-qpid-jms#configuration[configuration options].
+
 [id="extensions-amqp-usage-message-mapping-with-org-w3c-dom-node"]
 === Message mapping with `org.w3c.dom.Node`
 
@@ -91,11 +95,3 @@ You will also need to enable serialization for the exception classes that you in
 ----
 @RegisterForReflection(targets = { IllegalStateException.class, MyCustomException.class }, serialization = true)
 ----
-
-[id="extensions-amqp-additional-camel-quarkus-configuration"]
-== Additional Camel Quarkus configuration
-
-The extension leverages the https://github.com/amqphub/quarkus-qpid-jms/[Quarkus Qpid JMS] extension. A ConnectionFactory bean is automatically created
-and wired into the AMQP component for you. The connection factory can be configured
-via the Quarkus Qpid JMS https://github.com/amqphub/quarkus-qpid-jms#configuration[configuration options].
-
