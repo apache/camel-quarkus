@@ -19,6 +19,8 @@ package org.apache.camel.quarkus.component.jackson.avro.it;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.apache.camel.quarkus.component.jackson.avro.it.StringAppendingDeserializer.STRING_TO_APPEND;
 import static org.hamcrest.Matchers.equalTo;
@@ -86,5 +88,16 @@ class JacksonAvroTest {
                 .then()
                 .statusCode(200)
                 .body(equalTo(message));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "classpath", "file", "string" })
+    public void customAvroMapper(String schemaFrom) {
+        RestAssured.given()
+                .queryParam("schemaFrom", schemaFrom)
+                .get("/jackson-avro/custom/mapper")
+                .then()
+                .statusCode(200)
+                .body(equalTo("Pojo"));
     }
 }
