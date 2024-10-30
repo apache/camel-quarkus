@@ -82,6 +82,8 @@ public class CamelQuarkusSwaggerCodegenProvider implements CodeGenProvider {
             String models = config.getOptionalValue("quarkus.camel.openapi.codegen.models", String.class).orElse("");
             boolean useBeanValidation = config.getValue("quarkus.camel.openapi.codegen.use-bean-validation", Boolean.class);
             boolean notNullJackson = config.getValue("quarkus.camel.openapi.codegen.not-null-jackson", Boolean.class);
+            boolean ignoreUnknownProperties = config.getValue("quarkus.camel.openapi.codegen.ignore-unknown-properties",
+                    Boolean.class);
             for (String specFile : specFiles) {
                 CodegenConfigurator configurator = new CodegenConfigurator();
                 configurator.setLang("quarkus");
@@ -99,6 +101,9 @@ public class CamelQuarkusSwaggerCodegenProvider implements CodeGenProvider {
                 }
                 if (notNullJackson) {
                     configurator.getAdditionalProperties().put(NOT_NULL_JACKSON_ANNOTATION, "true");
+                }
+                if (ignoreUnknownProperties) {
+                    configurator.getAdditionalProperties().put("ignoreUnknownProperties", "true");
                 }
 
                 final ClientOptInput input = configurator.toClientOptInput();

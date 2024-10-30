@@ -38,6 +38,7 @@ public class QuarkusCodegen extends AbstractJavaCodegen implements BeanValidatio
     public QuarkusCodegen() {
         super();
         importMapping.put("QuarkusRegisterForReflection", "io.quarkus.runtime.annotations.RegisterForReflection");
+        importMapping.put("JsonIgnoreProperties", "com.fasterxml.jackson.annotation.JsonIgnoreProperties");
         supportedLibraries.put("quarkus3", "Quarkus 3 framework");
     }
 
@@ -100,6 +101,9 @@ public class QuarkusCodegen extends AbstractJavaCodegen implements BeanValidatio
             }
         }
         model.imports.add("QuarkusRegisterForReflection");
+        if (additionalProperties.containsKey("ignoreUnknownProperties")) {
+            model.imports.add("JsonIgnoreProperties");
+        }
     }
 
     @Override
