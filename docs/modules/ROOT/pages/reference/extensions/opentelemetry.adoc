@@ -56,7 +56,7 @@ In order to send the captured traces to a tracing system, you need to configure 
 quarkus.application.name=my-camel-application
 
 # OTLP exporter endpoint
-quarkus.opentelemetry.tracer.exporter.otlp.endpoint=http://localhost:4317
+quarkus.otel.exporter.otlp.traces.endpoint=http://localhost:4317
 ----
 
 Refer to the https://quarkus.io/guides/opentelemetry[Quarkus OpenTelemetry guide] for a full list of configuration options.
@@ -80,7 +80,7 @@ Additional exporters will be available in the Quarkiverse https://github.com/qua
 
 When instrumenting the execution of CDI bean methods from Camel routes, you should annotate such methods with `io.opentelemetry.extension.annotations.WithSpan`. Methods annotated with `@WithSpan` will create a new Span and establish any required relationships with the current Trace context.
 
-For example, to instrument a CDI bean from a Camel route, first ensure the appropriate methods are annotated with `@WithTrace`.
+For example, to instrument a CDI bean from a Camel route, first ensure the appropriate methods are annotated with `@WithSpan`.
 
 [source,java]
 ----
