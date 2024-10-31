@@ -27,7 +27,7 @@ public class OpenTelemetryTestResource implements QuarkusTestResourceLifecycleMa
 
     @Override
     public Map<String, String> start() {
-        return Map.of("quarkus.datasource.\"postgres\".devservices.image-name", POSTGRES_IMAGE_NAME);
+        return Map.of("quarkus.datasource.devservices.image-name", POSTGRES_IMAGE_NAME);
     }
 
     @Override
