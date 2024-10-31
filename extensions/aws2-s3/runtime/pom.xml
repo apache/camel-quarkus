@@ -45,6 +45,17 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-aws2-s3</artifactId>
+            <exclusions>
+                <!-- we exclude them here because we only support apache-client -->
+                <exclusion>
+                    <groupId>software.amazon.awssdk</groupId>
+                    <artifactId>netty-nio-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>software.amazon.awssdk</groupId>
+                    <artifactId>url-connection-client</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -58,6 +69,13 @@
             <!-- An optional dep of s3. If we do not have it here, GraalVM complains about missing classes from aws-crt -->
             <groupId>software.amazon.awssdk.crt</groupId>
             <artifactId>aws-crt</artifactId>
+        </dependency>
+
+        <!-- conditionaly added when quarkus-amazon-s3 is in the dependency tree-->
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-aws2-s3-quarkus-amazon-s3-integration</artifactId>
+             <optional>true</optional>
         </dependency>
     </dependencies>
 

@@ -26,37 +26,36 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-aws2-s3-deployment</artifactId>
-    <name>Camel Quarkus :: AWS 2 S3 Storage Service :: Deployment</name>
+    <artifactId>camel-quarkus-aws2-s3-quarkus-amazon-s3-integration</artifactId>
+    <name>Camel Quarkus :: AWS 2 S3 Storage Service :: Quarkus Amazon S3 Integration :: Runtime</name>
+    <description>Provide a seamless integration with Quarkus Amazon S3</description>
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-core-deployment</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-aws2-s3</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jaxp-deployment</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-aws2-deployment</artifactId>
-        </dependency>
-
-        <!-- conditionaly added when quarkus-amazon-s3 is in the dependency tree-->
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-aws2-s3-quarkus-amazon-s3-integration-deployment</artifactId>
-             <optional>true</optional>
+            <groupId>io.quarkiverse.amazonservices</groupId>
+            <artifactId>quarkus-amazon-common</artifactId>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-extension-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                        <goal>extension-descriptor</goal> 
+                        </goals>
+                        <configuration>
+                        <dependencyCondition> 
+                            <artifact>io.quarkiverse.amazonservices:quarkus-amazon-s3</artifact> 
+                        </dependencyCondition>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -72,5 +71,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
