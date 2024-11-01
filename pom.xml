@@ -54,7 +54,7 @@
         <quarkiverse-groovy.version>3.15.0</quarkiverse-groovy.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/groovy/quarkus-groovy-parent/ -->
         <quarkiverse-jackson-jq.version>2.1.0</quarkiverse-jackson-jq.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jackson-jq/quarkus-jackson-jq-parent/ -->
         <quarkiverse-jgit.version>3.3.2</quarkiverse-jgit.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jgit/quarkus-jgit-parent/ -->
-        <quarkiverse-jsch.version>3.0.11</quarkiverse-jsch.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jsch/quarkus-jsch-parent/ -->
+        <quarkiverse-jsch.version>3.0.12</quarkiverse-jsch.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jsch/quarkus-jsch-parent/ -->
         <quarkiverse-langchain4j.version>0.20.3</quarkiverse-langchain4j.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/langchain4j/quarkus-langchain4j-parent -->
         <quarkiverse-micrometer.version>3.2.4</quarkiverse-micrometer.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/micrometer/registry/quarkus-micrometer-registry-jmx/ -->
         <quarkiverse-minio.version>3.7.7</quarkiverse-minio.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/minio/quarkus-minio-parent/ -->
@@ -124,7 +124,7 @@
         <jna-platform.version>5.6.0</jna-platform.version><!-- @sync com.azure:azure-identity:${azure-identity.version} dep:net.java.dev.jna:jna-platform -->
         <jnr-constants.version>0.9.11</jnr-constants.version><!-- Mess in web3j transitive deps -->
         <jnr-ffi.version>2.2.13</jnr-ffi.version><!-- Mess in web3j transitive deps -->
-        <jsch.version>0.2.20</jsch.version><!-- @sync io.quarkiverse.jsch:quarkus-jsch-parent:${quarkiverse-jsch.version} prop:jsch.version -->
+        <jsch.version>0.2.21</jsch.version><!-- @sync io.quarkiverse.jsch:quarkus-jsch-parent:${quarkiverse-jsch.version} prop:jsch.version -->
         <json-path.version>${json-path-version}</json-path.version>
         <jedis-client.version>${jedis-client-version}</jedis-client.version>
         <json-smart.version>2.5.0</json-smart.version><!-- @sync com.jayway.jsonpath:json-path:${json-path.version} dep:net.minidev:json-smart -->
