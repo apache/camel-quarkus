@@ -22,7 +22,9 @@
 {{#notNullJacksonAnnotation}}
 @JsonInclude(JsonInclude.Include.NON_NULL)
 {{/notNullJacksonAnnotation}}
+{{#useQuarkusRegisterForReflection}}
 @RegisterForReflection{{#serializableModel}}(serialization = true){{/serializableModel}}
+{{/useQuarkusRegisterForReflection}}
 {{#ignoreUnknownProperties}}
 @JsonIgnoreProperties(ignoreUnknown = true)
 {{/ignoreUnknownProperties}}
