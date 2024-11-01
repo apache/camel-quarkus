@@ -6482,7 +6482,7 @@
       <dependency>
         <groupId>com.azure</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>azure-core-http-vertx</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.0.0-beta.21</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.0.0-beta.23</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>com.esotericsoftware.kryo</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
