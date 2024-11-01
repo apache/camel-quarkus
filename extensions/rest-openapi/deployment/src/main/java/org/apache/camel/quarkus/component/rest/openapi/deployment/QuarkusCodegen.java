@@ -18,6 +18,7 @@
 package org.apache.camel.quarkus.component.rest.openapi.deployment;
 
 import java.io.File;
+import java.util.Map;
 
 import io.swagger.codegen.v3.CodegenModel;
 import io.swagger.codegen.v3.CodegenProperty;
@@ -26,6 +27,7 @@ import io.swagger.codegen.v3.SupportingFile;
 import io.swagger.codegen.v3.generators.features.BeanValidationFeatures;
 import io.swagger.codegen.v3.generators.features.NotNullAnnotationFeatures;
 import io.swagger.codegen.v3.generators.java.AbstractJavaCodegen;
+import io.swagger.v3.oas.models.media.Schema;
 import org.apache.commons.lang3.BooleanUtils;
 
 import static io.swagger.codegen.v3.CodegenConstants.IS_ENUM_EXT_NAME;
@@ -63,6 +65,18 @@ public class QuarkusCodegen extends AbstractJavaCodegen implements BeanValidatio
     }
 
     @Override
+    public CodegenModel fromModel(String name, Schema schema, Map<String, Schema> allSchemas) {
+        CodegenModel model = super.fromModel(name, schema, allSchemas);
+        if (schema != null && "array".equals(schema.getType())) {
+            additionalProperties.put("useQuarkusRegisterForReflection", false);
+        }
+        if (additionalProperties.containsKey("ignoreUnknownProperties")) {
+            model.imports.add("JsonIgnoreProperties");
+        }
+        return model;
+    }
+
+    @Override
     public void processOpts() {
         if ("quarkus3".equals(library)) {
             dateLibrary = "java8";
@@ -81,6 +95,7 @@ public class QuarkusCodegen extends AbstractJavaCodegen implements BeanValidatio
         if (additionalProperties.containsKey("jackson")) {
             supportingFiles.add(new SupportingFile("RFC3339DateFormat.mustache", invokerFolder, "RFC3339DateFormat.java"));
         }
+
     }
 
     @Override
@@ -101,6 +116,7 @@ public class QuarkusCodegen extends AbstractJavaCodegen implements BeanValidatio
             }
         }
         model.imports.add("QuarkusRegisterForReflection");
+        additionalProperties.put("useQuarkusRegisterForReflection", true);
         if (additionalProperties.containsKey("ignoreUnknownProperties")) {
             model.imports.add("JsonIgnoreProperties");
         }
