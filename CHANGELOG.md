@@ -1,5 +1,37 @@
 # Changelog
 
+## 3.15.1
+
+* [3.15.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6505
+* [3.15.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6540
+* [3.15.x] Upgrade Quarkus to 3.15.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6551
+* [3.15.x] Workaround + fixed generator/resolver of bean catalog in maven-plugin by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6557
+* [3.15.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6568
+* [3.15.x] Upgrade to Quarkus CXF 3.15.2 by @ppalaga in https://github.com/apache/camel-quarkus/pull/6587
+* [3.15.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6592
+* [3.15.x] Remove incorrect assumptions about kamelets-catalog dependency scope from the extension documentation by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6595
+* [3.15.x] Mark .wasm files as binary in .gitattributes by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6597
+* [3.15.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6603
+* [3.15.x] Fix and extend aws secret manager vault integration tests for real instance by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6617
+* [3.15.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6622
+* [3.15.x] Upgrade hapi-fhir-core dependencies to 6.3.23 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6626
+* [3.15.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6634
+* [3.15.x] Link to new cluster service extensions from extensions where the functionality used to reside by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6638
+* [3.15.x] Increase MockEndpoint assertion wait timeout for JMS resequence test by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6644
+* [3.15.x] Disable SMB and Kudu on FIPS by @llowinge in https://github.com/apache/camel-quarkus/pull/6646
+* [3.15.x] Fix Azure tests by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6649
+* [3.15.x] Backport splunk by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6650
+* [3.15.x] backports  by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6656
+* [3.15.x] backports  by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6668
+* [3.15.x] Add a brief explanation of yaml-io usage to the extension documentation by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6675
+* [3.15.x] Removal of crypto bcfips 3.15.x by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6678
+* [3.15.x] Add a basic test for pipes by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6692
+* [3.15.x] Upgrade Camel to 4.8.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6700
+* [3.15] Fix #6701 to support OpenAPI spec with yaml format by @zhfeng in https://github.com/apache/camel-quarkus/pull/6712
+* [3.15.x] Simplify splunk-hec test SSL setup by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6713
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.15.0...3.15.1
+
 ## 3.16.0
 
 * Next is 3.16.0-SNAPSHOT by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6490
