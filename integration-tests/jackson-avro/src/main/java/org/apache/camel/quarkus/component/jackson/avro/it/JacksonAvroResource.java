@@ -18,6 +18,9 @@ package org.apache.camel.quarkus.component.jackson.avro.it;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -105,6 +108,38 @@ public class JacksonAvroResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String customMapper(@QueryParam("schemaFrom") String schemaFrom) throws IOException {
+        String className = "org.apache.avro.NameValidator";
+
+        Class<?> clazz = null;
+        try {
+            clazz = Class.forName(className);
+        } catch (ClassNotFoundException cnfe) {
+        }
+
+        if (clazz != null) {
+            try {
+                // Find the UTF_VALIDATOR, which validates names and get the Object
+                Field utfValidator = clazz.getField("UTF_VALIDATOR");
+                Object validatorObject = utfValidator.get(null);
+
+                // Need to pick up the constructor typed to NameValidator, then can call for a new instance
+                // with the UTF_VALIDATOR object
+                Constructor cons = new Schema.Parser().getClass().getConstructor(clazz);
+                Schema.Parser sp = (Schema.Parser) cons.newInstance(validatorObject);
+                System.out.println(sp);
+            } catch (NoSuchFieldException nsfe) {
+                throw new IOException(nsfe);
+            } catch (IllegalAccessException iae) {
+                throw new IOException(iae);
+            } catch (NoSuchMethodException nsme) {
+                throw new IOException(nsme);
+            } catch (InstantiationException ie) {
+                throw new IOException(ie);
+            } catch (InvocationTargetException ite) {
+                throw new IOException(ite);
+            }
+        }
+
         AvroMapper avroMapper = new AvroMapper();
         AvroSchema avroSchema;
 
