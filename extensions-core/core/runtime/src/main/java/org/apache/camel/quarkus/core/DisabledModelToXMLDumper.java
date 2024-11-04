@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.core;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.NamedNode;
@@ -40,4 +41,12 @@ public class DisabledModelToXMLDumper implements ModelToXMLDumper {
         throw new UnsupportedOperationException(
                 "Please add a dependency to camel-quarkus-xml-jaxb or camel-quarkus-xml-io-dsl");
     }
+
+    @Override
+    public String dumpDataFormatsAsXml(CamelContext context, Map<String, Object> dataFormats)
+            throws Exception {
+        throw new UnsupportedOperationException(
+                "Please add a dependency to camel-quarkus-xml-jaxb or camel-quarkus-xml-io-dsl");
+    }
+
 }
