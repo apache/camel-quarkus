@@ -57,6 +57,8 @@ ignored.
 * If custom fonts are used, font cache has to be disabled because of https://github.com/oracle/graal/issues/460[Graal VM issue #460].
 Please set the https://xmlgraphics.apache.org/fop/2.1/configuration.html[FOP configuration property] `use-cache` to `false`.
 
+NOTE: Native build for module *camel-quarkus-fop* is affected by the link:https://github.com/apache/camel-quarkus/issues/5244[Fop native failures due to pdfbox 3 upgrade #5244], native profile is not working and disabled until the issue is fixed.
+
 Please file an https://github.com/apache/camel-quarkus/issues/new[issue] if you are missing some specific output format
 in native mode.
 
