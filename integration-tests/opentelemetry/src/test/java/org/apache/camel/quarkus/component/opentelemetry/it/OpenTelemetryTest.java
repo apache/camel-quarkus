@@ -100,13 +100,14 @@ class OpenTelemetryTest {
                 .body(equalTo("Hello " + name));
 
         // Verify the span hierarchy is JAX-RS Service -> Direct Endpoint -> Bean Method
-        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 4);
+        await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 5);
         List<Map<String, String>> spans = getSpans();
-        assertEquals(4, spans.size());
-        assertEquals(spans.get(0).get("parentId"), spans.get(1).get("parentId"));
+        assertEquals(5, spans.size());
+        assertEquals(spans.get(0).get("parentId"), spans.get(1).get("spanId"));
         assertEquals(spans.get(1).get("parentId"), spans.get(2).get("spanId"));
-        assertEquals(SpanKind.CLIENT.name(), spans.get(2).get("kind"));
-        assertEquals(SpanKind.SERVER.name(), spans.get(3).get("kind"));
+        assertEquals(spans.get(2).get("parentId"), spans.get(3).get("spanId"));
+        assertEquals(SpanKind.CLIENT.name(), spans.get(3).get("kind"));
+        assertEquals(SpanKind.SERVER.name(), spans.get(4).get("kind"));
     }
 
     @Test
