@@ -30,5 +30,5 @@ final class SubstituteIntrospectionSupport {
     @Alias
     @TargetElement(name = "CACHE")
     @RecomputeFieldValue(kind = RecomputeFieldValue.Kind.FromAlias)
-    private static Map<Class<?>, BeanIntrospection.ClassInfo> cache = LRUCacheFactory.newLRUWeakCache(256);
+    private static Map<Class<?>, BeanIntrospection.ClassInfo> cache = LRUCacheFactory.newLRUSoftCache(1000);
 }
