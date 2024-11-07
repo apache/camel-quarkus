@@ -30,6 +30,10 @@
     <name>Camel Quarkus :: Integration Tests :: Pinecone</name>
     <description>Integration tests for Camel Quarkus Pinecone extension</description>
 
+    <properties>
+        <allow-findbugs>true</allow-findbugs>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>

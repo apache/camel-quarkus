@@ -32,28 +32,6 @@
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-grpc-common</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.vertx</groupId>
-                    <artifactId>vertx-grpc</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>io.vertx</groupId>
-                    <artifactId>vertx-grpc-client</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>io.vertx</groupId>
-                    <artifactId>vertx-grpc-server</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.checkerframework</groupId>
-                    <artifactId>checker-qual</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
             <artifactId>quarkus-grpc-common-deployment</artifactId>
         </dependency>
         <dependency>
