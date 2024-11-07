@@ -6441,12 +6441,12 @@
       <dependency>
         <groupId>com.google.auth</groupId>
         <artifactId>google-auth-library-credentials</artifactId>
-        <version>1.28.0</version>
+        <version>1.29.0</version>
       </dependency>
       <dependency>
         <groupId>com.google.auth</groupId>
         <artifactId>google-auth-library-oauth2-http</artifactId>
-        <version>1.28.0</version>
+        <version>1.29.0</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
@@ -6457,7 +6457,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-pubsub</artifactId>
-        <version>1.133.1</version>
+        <version>1.134.1</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.android</groupId>
@@ -7075,17 +7075,17 @@
       <dependency>
         <groupId>org.jxmpp</groupId>
         <artifactId>jxmpp-core</artifactId>
-        <version>1.0.3</version>
+        <version>1.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.jxmpp</groupId>
         <artifactId>jxmpp-jid</artifactId>
-        <version>1.0.3</version>
+        <version>1.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.jxmpp</groupId>
         <artifactId>jxmpp-util-cache</artifactId>
-        <version>1.0.3</version>
+        <version>1.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.kiwiproject</groupId>
@@ -8153,72 +8153,72 @@
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-alpn-client</artifactId>
-        <version>12.0.14</version>
+        <version>12.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-client</artifactId>
-        <version>12.0.14</version>
+        <version>12.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-http</artifactId>
-        <version>12.0.14</version>
+        <version>12.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-io</artifactId>
-        <version>12.0.14</version>
+        <version>12.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-security</artifactId>
-        <version>12.0.14</version>
+        <version>12.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-server</artifactId>
-        <version>12.0.14</version>
+        <version>12.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-session</artifactId>
-        <version>12.0.14</version>
+        <version>12.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-util</artifactId>
-        <version>12.0.14</version>
+        <version>12.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-util-ajax</artifactId>
-        <version>12.0.14</version>
+        <version>12.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.websocket</groupId>
         <artifactId>jetty-websocket-core-common</artifactId>
-        <version>12.0.14</version>
+        <version>12.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.websocket</groupId>
         <artifactId>jetty-websocket-core-server</artifactId>
-        <version>12.0.14</version>
+        <version>12.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.websocket</groupId>
         <artifactId>jetty-websocket-jetty-api</artifactId>
-        <version>12.0.14</version>
+        <version>12.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.websocket</groupId>
         <artifactId>jetty-websocket-jetty-common</artifactId>
-        <version>12.0.14</version>
+        <version>12.0.15</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.websocket</groupId>
         <artifactId>jetty-websocket-jetty-server</artifactId>
-        <version>12.0.14</version>
+        <version>12.0.15</version>
       </dependency>
       <dependency>
         <groupId>com.azure</groupId>

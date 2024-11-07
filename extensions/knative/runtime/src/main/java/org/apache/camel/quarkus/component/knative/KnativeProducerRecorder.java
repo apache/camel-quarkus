@@ -29,7 +29,8 @@ import org.apache.camel.spi.ComponentCustomizer;
 
 @Recorder
 public class KnativeProducerRecorder {
-    public RuntimeValue<ComponentCustomizer> createKnativeProducerFactoryCustomizer(RuntimeValue<CamelContext> context, Supplier<Vertx> vertx) {
+    public RuntimeValue<ComponentCustomizer> createKnativeProducerFactoryCustomizer(RuntimeValue<CamelContext> context,
+            Supplier<Vertx> vertx) {
         KnativeHttpProducerFactory factory = new KnativeHttpProducerFactory();
         factory.setVertx(vertx.get());
         factory.setCamelContext(context.getValue());
