@@ -30,6 +30,10 @@
     <name>Camel Quarkus :: Google Pubsub</name>
     <packaging>pom</packaging>
 
+    <properties>
+        <allow-findbugs>true</allow-findbugs>
+    </properties>
+
     <modules>
         <module>deployment</module>
         <module>runtime</module>

@@ -21,6 +21,8 @@
 
  <xsl:output omit-xml-declaration="yes"/>
 
+    <xsl:param name="findbugs" select="'${allow-findbugs}'"/>
+
     <xsl:template match="node()|@*">
       <xsl:copy>
          <xsl:apply-templates select="node()|@*"/>
@@ -29,5 +31,9 @@
 
     <!-- Allows findbugs usage in extensions that use quarkus-grpc-common -->
     <!-- https://github.com/apache/camel-quarkus/issues/5167 -->
-    <xsl:template match="//bannedDependencies/excludes/exclude[contains(text(), 'com.google.code.findbugs:jsr305')]"/>
+    <xsl:template match="//bannedDependencies/excludes/exclude[contains(text(), 'com.google.code.findbugs:jsr305')]">
+        <xsl:if test="$findbugs != 'true'">
+            <xsl:copy-of select="."/>
+        </xsl:if>
+    </xsl:template>
 </xsl:stylesheet>
