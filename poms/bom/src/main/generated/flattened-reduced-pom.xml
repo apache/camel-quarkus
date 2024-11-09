@@ -7097,17 +7097,17 @@
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcmail-jdk18on</artifactId>
-        <version>1.78.1</version>
+        <version>1.79</version>
       </dependency>
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcpg-jdk18on</artifactId>
-        <version>1.78.1</version>
+        <version>1.79</version>
       </dependency>
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcutil-jdk18on</artifactId>
-        <version>1.78.1</version>
+        <version>1.79</version>
       </dependency>
       <dependency>
         <groupId>org.brotli</groupId>
