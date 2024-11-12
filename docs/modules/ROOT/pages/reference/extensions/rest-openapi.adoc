@@ -182,7 +182,7 @@ Additional properties to be used in the mustache templates.
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.openapi.codegen.locations]]`link:#quarkus.camel.openapi.codegen.locations[quarkus.camel.openapi.codegen.locations]`
 
-A comma list of the spec locations.
+A comma separated list of OpenAPI spec locations.
 | `string`
 | 
 |===
