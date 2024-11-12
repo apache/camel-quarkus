@@ -18,10 +18,12 @@
 package org.apache.camel.quarkus.component.rest.openapi.deployment;
 
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import io.quarkus.bootstrap.prebuild.CodeGenException;
@@ -65,7 +67,7 @@ public class CamelQuarkusSwaggerCodegenProvider implements CodeGenProvider {
         }
 
         try {
-            List<String> specFiles = new ArrayList<>();
+            Set<String> specFiles = new HashSet<>();
             if (Files.isDirectory(context.inputDir())) {
                 try (Stream<Path> protoFilesPaths = Files.walk(context.inputDir())) {
                     protoFilesPaths
@@ -78,6 +80,24 @@ public class CamelQuarkusSwaggerCodegenProvider implements CodeGenProvider {
                 }
             }
 
+            Optional<String> locations = config.getOptionalValue("quarkus.camel.openapi.codegen.locations", String.class);
+            if (locations.isPresent()) {
+                for (String location : locations.get().split(",")) {
+                    try {
+                        URI uri;
+                        if (location.indexOf("://") == -1) {
+                            uri = Thread.currentThread().getContextClassLoader().getResource(location).toURI();
+                        } else {
+                            uri = new URI(location);
+                        }
+                        Path path = Path.of(uri);
+                        specFiles.add(path.toAbsolutePath().toString());
+                    } catch (Exception e) {
+                        LOG.warnf(e, "Can not find location %s", location);
+                    }
+                }
+            }
+
             String packageName = config.getValue("quarkus.camel.openapi.codegen.model-package", String.class);
             String models = config.getOptionalValue("quarkus.camel.openapi.codegen.models", String.class).orElse("");
             boolean useBeanValidation = config.getValue("quarkus.camel.openapi.codegen.use-bean-validation", Boolean.class);
@@ -86,6 +106,7 @@ public class CamelQuarkusSwaggerCodegenProvider implements CodeGenProvider {
                     Boolean.class);
 
             for (String specFile : specFiles) {
+                LOG.infof("Generating models for %s", specFile);
                 CodegenConfigurator configurator = new CodegenConfigurator();
                 configurator.setLang("quarkus");
                 configurator.setLibrary("quarkus3");

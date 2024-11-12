@@ -138,7 +138,9 @@ quarkus.native.resources.includes=contract.json
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.openapi.codegen.enabled]]`link:#quarkus.camel.openapi.codegen.enabled[quarkus.camel.openapi.codegen.enabled]`
 
-If `true`, Camel Quarkus OpenAPI code generation is run for .json files discovered from the `openapi` directory. When `false`, code generation for .json files is disabled.
+If `true`, Camel Quarkus OpenAPI code generation is run for .json and .yaml files discovered from the `openapi`
+directory. When
+`false`, code generation for .json and .yaml files is disabled.
 | `boolean`
 | `true`
 
@@ -150,7 +152,7 @@ The package to use for generated model classes.
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.openapi.codegen.models]]`link:#quarkus.camel.openapi.codegen.models[quarkus.camel.openapi.codegen.models]`
 
-A comma separated list of models to generate. All models is the default.
+A comma separated list of models to generate. The default is empty list for all models.
 | `string`
 | 
 
@@ -177,6 +179,12 @@ If `true`, use JsonIgnoreProperties(ignoreUnknown = true) annotation in the gene
 Additional properties to be used in the mustache templates.
 | `Map<String,String>`
 | 
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.openapi.codegen.locations]]`link:#quarkus.camel.openapi.codegen.locations[quarkus.camel.openapi.codegen.locations]`
+
+A comma separated list of OpenAPI spec locations.
+| `string`
+|
 |===
 
 [.configuration-legend]
