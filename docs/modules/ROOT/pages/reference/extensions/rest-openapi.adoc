@@ -184,7 +184,7 @@ Additional properties to be used in the mustache templates.
 
 A comma separated list of OpenAPI spec locations.
 | `string`
-|
+| 
 |===
 
 [.configuration-legend]
