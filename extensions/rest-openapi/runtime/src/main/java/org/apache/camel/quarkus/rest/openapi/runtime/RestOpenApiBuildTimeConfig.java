@@ -39,8 +39,9 @@ public class RestOpenApiBuildTimeConfig {
     public static class CodeGenConfig {
 
         /**
-         * If `true`, Camel Quarkus OpenAPI code generation is run for .json files discovered from the `openapi` directory. When
-         * `false`, code generation for .json files is disabled.
+         * If `true`, Camel Quarkus OpenAPI code generation is run for .json and .yaml files discovered from the `openapi`
+         * directory. When
+         * `false`, code generation for .json and .yaml files is disabled.
          *
          * @asciidoclet
          */
@@ -56,7 +57,7 @@ public class RestOpenApiBuildTimeConfig {
         public String modelPackage;
 
         /**
-         * A comma separated list of models to generate. All models is the default.
+         * A comma separated list of models to generate. The default is empty list for all models.
          *
          * @asciidoclet
          */
@@ -94,5 +95,13 @@ public class RestOpenApiBuildTimeConfig {
          */
         @ConfigItem
         public Map<String, String> additionalProperties;
+
+        /**
+         * A comma separated list of OpenAPI spec locations.
+         *
+         * @asciidoclet
+         */
+        @ConfigItem
+        public Optional<String> locations;
     }
 }
