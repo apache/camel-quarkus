@@ -97,7 +97,7 @@ public class RestOpenApiBuildTimeConfig {
         public Map<String, String> additionalProperties;
 
         /**
-         * A comma list of the spec locations.
+         * A comma separated list of OpenAPI spec locations.
          *
          * @asciidoclet
          */

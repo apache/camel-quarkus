@@ -93,7 +93,7 @@ public class CamelQuarkusSwaggerCodegenProvider implements CodeGenProvider {
                         Path path = Path.of(uri);
                         specFiles.add(path.toAbsolutePath().toString());
                     } catch (Exception e) {
-                        LOG.warn("Can not find location " + location + " failing with " + e);
+                        LOG.warnf(e, "Can not find location %s", location);
                     }
                 }
             }
@@ -106,7 +106,7 @@ public class CamelQuarkusSwaggerCodegenProvider implements CodeGenProvider {
                     Boolean.class);
 
             for (String specFile : specFiles) {
-                LOG.info("generate models for " + specFile);
+                LOG.infof("Generating models for %s", specFile);
                 CodegenConfigurator configurator = new CodegenConfigurator();
                 configurator.setLang("quarkus");
                 configurator.setLibrary("quarkus3");
