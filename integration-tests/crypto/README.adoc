@@ -1,8 +1,13 @@
 == FIPS
 
-Please utilize the fips profile when executing tests within a FIPS-enabled environment. The tests must employ the BouncyCastle-FIPS dependency instead of the standard BouncyCastle library.
+Please utilize the fips profile when executing tests within a FIPS-enabled environment.
+There are two profiles:
+
+* Use `bcfips` profile to employ the BouncyCastle-FIPS security provider.
+* Use `fips` profile to employ the SunPKCS11-NSS-FIPS security provider.
+
 
 Example of usage:
 ```
-mvn clean test -Dfips
+mvn clean test -Dfips or mvn clean test -Dbcfips
 ```
