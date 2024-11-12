@@ -63,7 +63,10 @@ public class CryptoRoutes extends RouteBuilder {
 
     private CryptoDataFormat getCryptoDataFormat() throws NoSuchAlgorithmException {
         KeyGenerator generator = KeyGenerator.getInstance("DES");
-        return new CryptoDataFormat("DES", generator.generateKey());
+        CryptoDataFormat cdf = new CryptoDataFormat("DES", generator.generateKey());
+        //workaround for SunPKCS11-NSS-FIPS
+        cdf.setShouldAppendHMAC(false);
+        return cdf;
     }
 
 }
