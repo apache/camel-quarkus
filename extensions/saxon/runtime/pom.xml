@@ -41,12 +41,12 @@
             <artifactId>camel-quarkus-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-saxon</artifactId>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-httpclient5</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.brotli</groupId>
-            <artifactId>dec</artifactId>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-saxon</artifactId>
         </dependency>
     </dependencies>
 
