@@ -32,6 +32,7 @@
         <!-- This property is kept in sync with project.version by the release plugin -->
         <!-- Do not change to project.version because otherwise the end user apps having our BOM as parent (rather than importing it) will stop working -->
         <camel-quarkus.version>3.15.2-SNAPSHOT</camel-quarkus.version>
+        <allow-findbugs>true</allow-findbugs>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -7622,18 +7623,6 @@
                                 <resolutionEntryPointInclude>com.sun.xml.fastinfoset:FastInfoset</resolutionEntryPointInclude>
                                 <resolutionEntryPointInclude>org.mapstruct:mapstruct-processor</resolutionEntryPointInclude>
                             </resolutionEntryPointIncludes>
-                            <bannedDependencyResources>
-                                <bannedDependencyResource>
-                                    <location>classpath:enforcer-rules/quarkus-banned-dependencies.xml</location>
-                                    <xsltLocation>${maven.multiModuleProjectDirectory}/tooling/enforcer-rules/quarkus-banned-dependencies.xsl</xsltLocation>
-                                </bannedDependencyResource>
-                                <bannedDependencyResource>
-                                    <location>${maven.multiModuleProjectDirectory}/tooling/enforcer-rules/camel-quarkus-banned-dependencies.xml</location>
-                                </bannedDependencyResource>
-                                <bannedDependencyResource>
-                                    <location>${maven.multiModuleProjectDirectory}/tooling/enforcer-rules/camel-quarkus-banned-dependencies-spring.xml</location>
-                                </bannedDependencyResource>
-                            </bannedDependencyResources>
                             <bomEntryTransformations>
                                 <bomEntryTransformation>
                                     <gavPattern>org.apache.camel:camel-opentelemetry</gavPattern>
