@@ -7238,11 +7238,6 @@
                 <version>${bouncycastle.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.brotli</groupId>
-                <artifactId>dec</artifactId>
-                <version>${brotli.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.eclipse.angus</groupId>
                 <artifactId>angus-mail</artifactId>
                 <version>${angus-mail.version}</version>
