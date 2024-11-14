@@ -19,7 +19,11 @@ package org.apache.camel.quarkus.component.grpc.it;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import io.quarkus.arc.Arc;
+import io.quarkus.arc.InstanceHandle;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -34,6 +38,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.quarkus.component.grpc.it.model.PingRequest;
 import org.apache.camel.quarkus.component.grpc.it.model.PongResponse;
+import org.apache.camel.quarkus.grpc.runtime.CamelQuarkusBindableService;
 
 import static org.apache.camel.component.grpc.GrpcConstants.GRPC_METHOD_NAME_HEADER;
 
@@ -183,5 +188,19 @@ public class GrpcResource {
                 "producer",
                 PongResponse.class);
         return response.getPongName();
+    }
+
+    @Path("/services")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Set<String> services() {
+        return Arc.container()
+                .listAll(CamelQuarkusBindableService.class)
+                .stream()
+                .map(InstanceHandle::get)
+                .map(Object::getClass)
+                .map(Class::getSuperclass)
+                .map(Class::getName)
+                .collect(Collectors.toSet());
     }
 }
