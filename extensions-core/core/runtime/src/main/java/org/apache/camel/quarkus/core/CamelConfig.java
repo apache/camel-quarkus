@@ -127,8 +127,8 @@ public class CamelConfig {
         /**
          * Used for exclusive filtering scanning of RouteBuilder classes. The exclusive filtering takes precedence over
          * inclusive filtering. The pattern is using Ant-path style pattern. Multiple patterns can be specified separated by
-         * comma. For example to exclude all classes starting with Bar use: ++**++/Bar++*++ To exclude all routes form a
-         * specific package use: com/mycompany/bar/++*++ To exclude all routes form a specific package and its sub-packages use
+         * comma. For example to exclude all classes starting with Bar use: ++**++/Bar++*++ To exclude all routes from a
+         * specific package use: com/mycompany/bar/++*++ To exclude all routes from a specific package and its sub-packages use
          * double wildcards: com/mycompany/bar/++**++ And to exclude all routes from two specific packages use:
          * com/mycompany/bar/++*++,com/mycompany/stuff/++*++
          *
@@ -140,8 +140,8 @@ public class CamelConfig {
         /**
          * Used for inclusive filtering scanning of RouteBuilder classes. The exclusive filtering takes precedence over
          * inclusive filtering. The pattern is using Ant-path style pattern. Multiple patterns can be specified separated by
-         * comma. For example to include all classes starting with Foo use: ++**++/Foo++*++ To include all routes form a
-         * specific package use: com/mycompany/foo/++*++ To include all routes form a specific package and its sub-packages use
+         * comma. For example to include all classes starting with Foo use: ++**++/Foo++*++ To include all routes from a
+         * specific package use: com/mycompany/foo/++*++ To include all routes from a specific package and its sub-packages use
          * double wildcards: com/mycompany/foo/++**++ And to include all routes from two specific packages use:
          * com/mycompany/foo/++*++,com/mycompany/stuff/++*++
          *
