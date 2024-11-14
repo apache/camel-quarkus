@@ -65,6 +65,7 @@ import static org.apache.camel.quarkus.component.grpc.it.PingPongImpl.GRPC_TEST_
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -599,6 +600,21 @@ class GrpcTest {
                 fail("Expected to be able to load generated class: " + generatedClassName);
             }
         }
+    }
+
+    @Test
+    public void serviceExcludes() {
+        JsonPath result = RestAssured.get("/grpc/services")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .jsonPath();
+
+        List<String> services = result.getList(".");
+        assertFalse(services.isEmpty());
+        assertTrue(services.stream().anyMatch(service -> service.startsWith("org.acme.proto")));
+        assertTrue(services.stream().noneMatch(service -> service.startsWith("org.acme.proto.f")));
     }
 
     static Stream<Arguments> producerMethodPorts() {
