@@ -121,8 +121,8 @@ public class CamelConfig {
          * Multiple patterns can be specified separated by comma.
          *
          * For example to exclude all classes starting with Bar use: &#42;&#42;/Bar&#42;
-         * To exclude all routes form a specific package use: com/mycompany/bar/&#42;
-         * To exclude all routes form a specific package and its sub-packages use double wildcards: com/mycompany/bar/&#42;&#42;
+         * To exclude all routes from a specific package use: com/mycompany/bar/&#42;
+         * To exclude all routes from a specific package and its sub-packages use double wildcards: com/mycompany/bar/&#42;&#42;
          * And to exclude all routes from two specific packages use: com/mycompany/bar/&#42;,com/mycompany/stuff/&#42;
          */
         @ConfigItem
@@ -135,8 +135,8 @@ public class CamelConfig {
          *
          * Multiple patterns can be specified separated by comma.
          * For example to include all classes starting with Foo use: &#42;&#42;/Foo*
-         * To include all routes form a specific package use: com/mycompany/foo/&#42;
-         * To include all routes form a specific package and its sub-packages use double wildcards: com/mycompany/foo/&#42;&#42;
+         * To include all routes from a specific package use: com/mycompany/foo/&#42;
+         * To include all routes from a specific package and its sub-packages use double wildcards: com/mycompany/foo/&#42;&#42;
          * And to include all routes from two specific packages use: com/mycompany/foo/&#42;,com/mycompany/stuff/&#42;
          */
         @ConfigItem
