@@ -18,6 +18,8 @@ package org.apache.camel.quarkus.grpc.runtime;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 import io.quarkus.runtime.annotations.ConfigGroup;
 import io.quarkus.runtime.annotations.ConfigItem;
@@ -26,6 +28,23 @@ import io.quarkus.runtime.annotations.ConfigRoot;
 
 @ConfigRoot(name = "camel.grpc", phase = ConfigPhase.BUILD_TIME)
 public class GrpcBuildTimeConfig {
+
+    /**
+     * Excludes classes from the build time scanning of gRPC service classes.
+     * This can be useful if there are gRPC services that you want to exclude from participating in Camel gRPC route
+     * operations. The value is a comma separated list of class name patterns.
+     * You can specify the fully qualified class name of individual classes or use path patterns to match multiple classes.
+     * For example to exclude all classes starting with `MyService` use: `++**++MyService++*++`.
+     * To exclude all services from a specific package use: `com.services.++*++`.
+     * To exclude all services from a specific package and its sub-packages, use
+     * double wildcards: `com.services.++**++`.
+     * And to exclude all services from two specific packages use:
+     * `com.services.++*++,com.other.services.++*++`.
+     *
+     * @asciidoclet
+     */
+    @ConfigItem
+    public Optional<Set<String>> serviceExcludes;
 
     /**
      * Build time configuration options for Camel Quarkus gRPC code generator.

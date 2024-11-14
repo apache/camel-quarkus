@@ -160,6 +160,21 @@ At present there is no support for integrating Camel Quarkus gRPC with Quarkus g
 | Configuration property | Type | Default
 
 
+|icon:lock[title=Fixed at build time] [[quarkus.camel.grpc.service-excludes]]`link:#quarkus.camel.grpc.service-excludes[quarkus.camel.grpc.service-excludes]`
+
+Excludes classes from the build time scanning of gRPC service classes.
+This can be useful if there are gRPC services that you want to exclude from participating in Camel gRPC route
+operations. The value is a comma separated list of class name patterns.
+You can specify the fully qualified class name of individual classes or use path patterns to match multiple classes.
+For example to exclude all classes starting with `MyService` use: `++**++MyService++*++`.
+To exclude all services from a specific package use: `com.services.++*++`.
+To exclude all services from a specific package and its sub-packages, use
+double wildcards: `com.services.++**++`.
+And to exclude all services from two specific packages use:
+`com.services.++*++,com.other.services.++*++`.
+| List of `string`
+| 
+
 |icon:lock[title=Fixed at build time] [[quarkus.camel.grpc.codegen.enabled]]`link:#quarkus.camel.grpc.codegen.enabled[quarkus.camel.grpc.codegen.enabled]`
 
 If `true`, Camel Quarkus gRPC code generation is run for .proto files discovered from the `proto` directory, or from

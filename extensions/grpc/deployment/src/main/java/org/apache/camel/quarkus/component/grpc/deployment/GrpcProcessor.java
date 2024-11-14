@@ -18,8 +18,10 @@ package org.apache.camel.quarkus.component.grpc.deployment;
 
 import java.lang.reflect.Modifier;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.google.api.client.json.GenericJson;
 import io.grpc.BindableService;
@@ -44,6 +46,7 @@ import io.quarkus.gizmo.ResultHandle;
 import jakarta.enterprise.context.Dependent;
 import org.apache.camel.component.grpc.server.GrpcMethodHandler;
 import org.apache.camel.quarkus.grpc.runtime.CamelQuarkusBindableService;
+import org.apache.camel.quarkus.grpc.runtime.GrpcBuildTimeConfig;
 import org.apache.camel.quarkus.grpc.runtime.QuarkusBindableServiceFactory;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
@@ -69,13 +72,22 @@ class GrpcProcessor {
     }
 
     @BuildStep
-    void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
-            CombinedIndexBuildItem combinedIndexBuildItem) {
+    CamelGrpcServiceExcludesBuildItem camelGrpcServiceExcludes(GrpcBuildTimeConfig config) {
+        return new CamelGrpcServiceExcludesBuildItem(config.serviceExcludes.orElse(Collections.emptySet()));
+    }
+
+    @BuildStep
+    void registerForReflection(
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+            CombinedIndexBuildItem combinedIndexBuildItem,
+            CamelGrpcServiceExcludesBuildItem camelGrpcServiceExcludes) {
 
         IndexView index = combinedIndexBuildItem.getIndex();
         for (DotName dotName : STUB_CLASS_DOT_NAMES) {
             index.getAllKnownSubclasses(dotName)
                     .stream()
+                    .filter(camelGrpcServiceExcludes.serviceExcludesFilter())
+                    .peek(classInfo -> logDebugMessage("Discovered gRPC stub class %s", classInfo.name().toString()))
                     .map(classInfo -> ReflectiveClassBuildItem.builder(classInfo.name().toString()).methods()
                             .build())
                     .forEach(reflectiveClass::produce);
@@ -94,10 +106,14 @@ class GrpcProcessor {
     void createBindableServiceBeans(
             BuildProducer<GeneratedBeanBuildItem> generatedBean,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
-            CombinedIndexBuildItem combinedIndexBuildItem) {
+            CombinedIndexBuildItem combinedIndexBuildItem,
+            CamelGrpcServiceExcludesBuildItem camelGrpcServiceExcludes) {
 
         IndexView index = combinedIndexBuildItem.getIndex();
-        Collection<ClassInfo> bindableServiceImpls = index.getAllKnownImplementors(BINDABLE_SERVICE_DOT_NAME);
+        Collection<ClassInfo> bindableServiceImpls = index.getAllKnownImplementors(BINDABLE_SERVICE_DOT_NAME)
+                .stream()
+                .filter(camelGrpcServiceExcludes.serviceExcludesFilter())
+                .collect(Collectors.toSet());
 
         // Generate implementation classes from any abstract gRPC BindableService implementations included in the application archive
         // Override the various sync and async methods so that requests can be intercepted and delegated to Camel routing
