@@ -28,7 +28,7 @@ import io.restassured.http.ContentType;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.openapitools.client.model.IndexModel;
+import org.openapitools.db_control.client.model.IndexModel;
 
 import static org.apache.camel.quarkus.component.pinecone.it.PineconeResource.createPineconeClient;
 import static org.apache.camel.quarkus.component.pinecone.it.PineconeRoutes.INDEX_NAME;
@@ -36,7 +36,7 @@ import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.startsWith;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.openapitools.client.model.IndexModelStatus.StateEnum.READY;
+import static org.openapitools.db_control.client.model.IndexModelStatus.StateEnum.READY;
 
 @QuarkusTestResource(PineconeTestResource.class)
 @QuarkusTest

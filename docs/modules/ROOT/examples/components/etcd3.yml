@@ -4,7 +4,7 @@ cqArtifactId: camel-quarkus-etcd3
 cqArtifactIdBase: etcd3
 cqNativeSupported: false
 cqStatus: Preview
-cqDeprecated: false
+cqDeprecated: true
 cqJvmSince: 2.0.0
 cqNativeSince: n/a
 cqCamelPartName: etcd3
