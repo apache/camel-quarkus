@@ -33,6 +33,8 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.Network;
 import org.testcontainers.containers.wait.strategy.Wait;
 
+import static org.apache.camel.quarkus.test.support.mongodb.MongoDbTestSupportUtils.getMongoScriptExecutable;
+
 public class DebeziumMongodbTestResource extends AbstractDebeziumTestResource<GenericContainer<?>> {
     private static final Logger LOG = Logger.getLogger(AbstractDebeziumTestResource.class);
     private static final String PRIVATE_HOST = "mongodb_private";
@@ -79,7 +81,8 @@ public class DebeziumMongodbTestResource extends AbstractDebeziumTestResource<Ge
         String script = IOUtils.toString(resource, StandardCharsets.UTF_8);
         script = script.replace("%container-host%", getHostPort());
         for (String cmd : script.split("\\n\\n")) {
-            Container.ExecResult er = container.execInContainer("mongosh", "--port", String.valueOf(DB_PORT), "--eval", cmd);
+            Container.ExecResult er = container.execInContainer(getMongoScriptExecutable(MONGO_IMAGE_NAME), "--port",
+                    String.valueOf(DB_PORT), "--eval", cmd);
             if (er.getExitCode() != 0) {
                 LOG.errorf("Error executing MongoDB command: %s", cmd);
                 LOG.error(er.getStdout());
