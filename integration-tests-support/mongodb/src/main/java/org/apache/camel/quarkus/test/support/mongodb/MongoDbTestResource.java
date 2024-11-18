@@ -36,6 +36,8 @@ import org.testcontainers.containers.Network;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.TestcontainersConfiguration;
 
+import static org.apache.camel.quarkus.test.support.mongodb.MongoDbTestSupportUtils.getMongoScriptExecutable;
+
 public class MongoDbTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(MongoDbTestResource.class);
 
@@ -104,7 +106,7 @@ public class MongoDbTestResource implements QuarkusTestResourceLifecycleManager 
         String[] cmds = cmd.split("\\n\\n");
 
         for (int i = 0; i < cmds.length; i++) {
-            Container.ExecResult er = container.execInContainer(new String[] { "mongosh", "--eval", cmds[i] });
+            Container.ExecResult er = container.execInContainer(getMongoScriptExecutable(MONGO_IMAGE), "--eval", cmds[i]);
             if (er.getExitCode() != 0) {
                 throw new IllegalStateException("Exec exit code " + er.getExitCode() + ". " + er.getStderr());
             }
