@@ -1,0 +1,14 @@
+The integration tests are executed only when valid service credentials are provided.
+These tests do not use a mocked backend.
+
+=== Real Google API
+
+Below are the environment variables that have to be configured:
+
+[source,shell]
+----
+export GOOGLE_SERVICE_ACCOUNT_KEY=<path-to-google-credentials-json-file>
+export GOOGLE_PROJECT=<name-of-your-project>
+----
+
+If any of the required variables is not defined, the tests are automatically skipped.
