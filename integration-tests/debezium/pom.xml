@@ -121,7 +121,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-integration-test-support</artifactId>
+            <artifactId>camel-quarkus-integration-tests-support-mongodb</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
