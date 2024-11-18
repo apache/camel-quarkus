@@ -1,5 +1,28 @@
 # Changelog
 
+## 3.8.4
+
+* [3.8.x] Update generated files after 3.8.3 release by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6270
+* [3.8.x][fips] Jdbc -grouped - added fips profile for mysql by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6267
+* [3.8.x] Fix #6301 to resort the beans if priority is same the default one win… by @zhfeng in https://github.com/apache/camel-quarkus/pull/6307
+* [3.8.x] Workaround with registering OperatingSystemMXBeanSupport at RuntimeIn… by @zhfeng in https://github.com/apache/camel-quarkus/pull/6310
+* [3.8.x] Move all enforcer invocations to the full profile by @ppalaga in https://github.com/apache/camel-quarkus/pull/6312
+* [3.8.x] Avoid dependency misconvergence when extensions are used together by @ppalaga in https://github.com/apache/camel-quarkus/pull/6325
+* [3.8.x] Fix MockBackendUtils native mode config resolution of CAMEL_QUARKUS_START_MOCK_BACKEND by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6347
+* [3.8.x] Changed default location of generated certificates to target/certs by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6363
+* Upgrade to cq-maven-plugin 4.6.11 by @ppalaga in https://github.com/apache/camel-quarkus/pull/6380
+* [3.8.x] Upgrade Quarkus to 3.8.6 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6391
+* Upgrade to Quarkus CXF 3.8.6 by @ppalaga in https://github.com/apache/camel-quarkus/pull/6396
+* [3.8.x] FTP: Use restrictions to bypass cert setup issues by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6437
+* [3.8.x] Fix paths to FHIR DSTU_2_1 & DSTU3 properties files by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6459
+* [3.8.x] Upgrade to Quarkus CXF 3.8.7 by @ppalaga in https://github.com/apache/camel-quarkus/pull/6588
+* [3.8.x] Upgrade Camel to 4.4.4 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6670
+* [3.8.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6730
+* [3.8.x] Backports + Upgrade FHIR core to 6.4.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6768
+* [3.8.x] Backport release improvements by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6770
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.8.3...3.8.4
+
 ## 3.15.1
 
 * [3.15.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6505
