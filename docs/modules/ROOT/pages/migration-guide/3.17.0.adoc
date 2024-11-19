@@ -1,0 +1,11 @@
+= Camel Quarkus 3.17.0 Migration Guide
+
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 3.17.0.
+
+== Reduced support when using Quarkus Amazon Services extensions with Camel Quarkus AWS2 extensions
+
+Historically, the Camel Quarkus project tested & verified that using https://docs.quarkiverse.io/quarkus-amazon-services/1.x/index.html[Quarkus Amazon Services] extensions in conjunction with Camel Quarkus AWS2 extensions worked successfully.
+
+From Camel Quarkus 3.17.0, this verification step ceases to exist and the Camel Quarkus AWS2 extension documentation no longer makes reference to Quarkus Amazon Services. 
+
+If you want to leverage AWS support on Camel Quarkus, the recommended approach is to use the https://quarkus.io/extensions/?search-regex=camel-quarkus-aws2[camel-quarkus-aws2] extensions without Quarkus Amazon Services.

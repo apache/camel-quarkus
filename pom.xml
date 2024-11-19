@@ -940,7 +940,6 @@
                                         <sortModulesPath>integration-tests-jvm/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/aws2/pom.xml</sortModulesPath>
-                                        <sortModulesPath>integration-test-groups/aws2-quarkus-client/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/azure/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/compression/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/foundation/pom.xml</sortModulesPath>
@@ -984,15 +983,6 @@
                                                 </includes>
                                             </sourcePoms>
                                             <destinationPom>${basedir}/integration-tests/aws2-grouped/pom.xml</destinationPom>
-                                        </mergePom>
-                                        <mergePom>
-                                            <sourcePoms>
-                                                <directory>${basedir}/integration-test-groups/aws2-quarkus-client</directory>
-                                                <includes>
-                                                    <include>*/pom.xml</include>
-                                                </includes>
-                                            </sourcePoms>
-                                            <destinationPom>${basedir}/integration-tests/aws2-quarkus-client-grouped/pom.xml</destinationPom>
                                         </mergePom>
                                         <mergePom>
                                             <sourcePoms>

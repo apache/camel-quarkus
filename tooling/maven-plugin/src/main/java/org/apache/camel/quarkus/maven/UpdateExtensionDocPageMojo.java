@@ -132,8 +132,6 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
 
         final Path multiModuleProjectDirectoryPath = multiModuleProjectDirectory.toPath();
         final CamelQuarkusExtension ext = CamelQuarkusExtension.read(runtimeModuleDir.resolve("pom.xml"));
-        final Path quarkusAwsClientTestsDir = multiModuleProjectDirectoryPath
-                .resolve("integration-test-groups/aws2-quarkus-client");
 
         final Path pomRelPath = multiModuleProjectDirectoryPath.relativize(runtimeModuleDir).resolve("pom.xml");
         if (ext.getJvmSince().isEmpty()) {
@@ -191,14 +189,6 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         model.put("activatesTransferException",
                 ext.isNativeSupported()
                         && detectComponentOrEndpointOption(catalog, ext.getRuntimeArtifactIdBase(), "transferException"));
-        model.put(
-                "quarkusAwsClient",
-                getQuarkusAwsClient(
-                        quarkusAwsClientTestsDir,
-                        ext.getRuntimeArtifactIdBase(),
-                        ext.getQuarkusAwsClientBaseName(),
-                        ext.getQuarkusAwsClientFqClassName(),
-                        ext.getRuntimePomXmlPath()));
         model.put("activatesQuarkusLangChain4jBom", ext.getRuntimeArtifactId().contains("langchain4j"));
         final List<ConfigItem> configOptions = listConfigOptions(
                 runtimeModuleDir,
