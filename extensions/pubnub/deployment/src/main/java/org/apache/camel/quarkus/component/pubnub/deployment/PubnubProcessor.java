@@ -72,6 +72,7 @@ class PubnubProcessor {
     @BuildStep
     void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
         indexDependency.produce(new IndexDependencyBuildItem("com.pubnub", "pubnub-core-impl"));
+        indexDependency.produce(new IndexDependencyBuildItem("com.pubnub", "pubnub-kotlin-impl"));
     }
 
 }
