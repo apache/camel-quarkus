@@ -16,20 +16,19 @@
  */
 package org.apache.camel.quarkus.component.aws.commons.deployment;
 
-import io.quarkus.arc.deployment.BeanRegistrationPhaseBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import jakarta.enterprise.inject.spi.DeploymentException;
+import org.apache.http.conn.HttpClientConnectionManager;
+import org.apache.http.pool.ConnPoolControl;
 import software.amazon.awssdk.http.SdkHttpService;
+import software.amazon.awssdk.http.apache.internal.conn.Wrapped;
 
 class AwsCommonsProcessor {
-
     private static final String FEATURE = "camel-aws2-commons";
-
     private static final String APACHE_HTTP_SERVICE = "software.amazon.awssdk.http.apache.ApacheSdkHttpService";
 
     @BuildStep
@@ -39,18 +38,14 @@ class AwsCommonsProcessor {
 
     @BuildStep
     NativeImageProxyDefinitionBuildItem httpProxies() {
-        return new NativeImageProxyDefinitionBuildItem("org.apache.http.conn.HttpClientConnectionManager",
-                "org.apache.http.pool.ConnPoolControl", "software.amazon.awssdk.http.apache.internal.conn.Wrapped");
+        return new NativeImageProxyDefinitionBuildItem(HttpClientConnectionManager.class.getName(),
+                ConnPoolControl.class.getName(), Wrapped.class.getName());
     }
 
     @BuildStep
-    void client(BeanRegistrationPhaseBuildItem beanRegistrationPhase,
-            BuildProducer<ServiceProviderBuildItem> serviceProvider,
-            BuildProducer<NativeImageProxyDefinitionBuildItem> proxyDefinition) {
+    void client(BuildProducer<ServiceProviderBuildItem> serviceProvider) {
         checkClasspath(APACHE_HTTP_SERVICE, "apache-client");
-
         serviceProvider.produce(new ServiceProviderBuildItem(SdkHttpService.class.getName(), APACHE_HTTP_SERVICE));
-
     }
 
     private void checkClasspath(String className, String dependencyName) {
@@ -61,13 +56,4 @@ class AwsCommonsProcessor {
                     "Missing 'software.amazon.awssdk:" + dependencyName + "' dependency on the classpath");
         }
     }
-
-    @BuildStep
-    void runtimeInitialize(BuildProducer<RuntimeInitializedClassBuildItem> producer) {
-        producer.produce(
-                new RuntimeInitializedClassBuildItem("software.amazon.awssdk.core.retry.backoff.FullJitterBackoffStrategy"));
-        producer.produce(
-                new RuntimeInitializedClassBuildItem("software.amazon.awssdk.utils.cache.CachedSupplier"));
-    }
-
 }
