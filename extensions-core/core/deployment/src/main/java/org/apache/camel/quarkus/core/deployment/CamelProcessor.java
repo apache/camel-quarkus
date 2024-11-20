@@ -90,8 +90,6 @@ class CamelProcessor {
 
     private static final DotName ROUTES_BUILDER_TYPE = DotName.createSimple(
             "org.apache.camel.RoutesBuilder");
-    private static final DotName ROUTE_BUILDER_TYPE = DotName.createSimple(
-            "org.apache.camel.builder.RouteBuilder");
     private static final DotName LAMBDA_ROUTE_BUILDER_TYPE = DotName.createSimple(
             "org.apache.camel.builder.LambdaRouteBuilder");
     private static final DotName LAMBDA_ENDPOINT_ROUTE_BUILDER_TYPE = DotName.createSimple(
@@ -386,10 +384,10 @@ class CamelProcessor {
 
         final IndexView index = combinedIndex.getIndex();
 
-        Set<ClassInfo> allKnownImplementors = new HashSet<>();
-        allKnownImplementors.addAll(index.getAllKnownImplementors(ROUTES_BUILDER_TYPE));
-        allKnownImplementors.addAll(index.getAllKnownSubclasses(ROUTE_BUILDER_TYPE));
-        allKnownImplementors.addAll(index.getAllKnownSubclasses(ADVICE_WITH_ROUTE_BUILDER_TYPE));
+        Set<ClassInfo> allKnownImplementors = index.getAllKnownImplementors(ROUTES_BUILDER_TYPE)
+                .stream()
+                .filter(classInfo -> !classInfo.superName().equals(ADVICE_WITH_ROUTE_BUILDER_TYPE))
+                .collect(Collectors.toSet());
 
         final Predicate<DotName> pathFilter = new PathFilter.Builder()
                 .exclude(
