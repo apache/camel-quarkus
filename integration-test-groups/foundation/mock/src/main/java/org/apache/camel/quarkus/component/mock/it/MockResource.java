@@ -29,7 +29,6 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.model.ModelCamelContext;
 import org.jboss.logging.Logger;
 import org.wildfly.common.Assert;
 
@@ -48,18 +47,11 @@ public class MockResource {
     @Path("/advice")
     @GET
     public void advice() throws Exception {
-
         // advice the first route using the inlined AdviceWith route builder
         // which has extended capabilities than the regular route builder
-        AdviceWith.adviceWith(((ModelCamelContext) context).getRouteDefinition("forMocking"), context,
-                new AdviceWithRouteBuilder() {
-                    @Override
-                    public void configure() throws Exception {
-                        mockEndpoints("direct:mock.*", "log:mock.*");
-                    }
-                });
+        AdviceWith.adviceWith("forMocking", context, new RouteAdvisor());
 
-        MockEndpoint mockEndpoint1 = context.getEndpoint("mock:direct:mockStart", MockEndpoint.class);
+        MockEndpoint mockEndpoint1 = context.getEndpoint("mock:direct:mockStartAdvised", MockEndpoint.class);
         mockEndpoint1.expectedBodiesReceived("Hello World");
         MockEndpoint mockEndpoint2 = context.getEndpoint("mock:direct:mockFoo", MockEndpoint.class);
         mockEndpoint2.expectedBodiesReceived("Hello World");
@@ -68,7 +60,7 @@ public class MockResource {
         MockEndpoint mockEndpoint4 = context.getEndpoint("mock:result", MockEndpoint.class);
         mockEndpoint4.expectedBodiesReceived("Bye World");
 
-        producerTemplate.sendBody("direct:mockStart", "Hello World");
+        producerTemplate.sendBody("direct:mockStartAdvised", "Hello World");
 
         mockEndpoint1.assertIsSatisfied();
         mockEndpoint2.assertIsSatisfied();
@@ -76,12 +68,12 @@ public class MockResource {
         mockEndpoint4.assertIsSatisfied();
 
         // test to ensure correct endpoints in registry
-        Assert.assertNotNull(context.hasEndpoint("direct:mockStart"));
+        Assert.assertNotNull(context.hasEndpoint("direct:mockStartAdvised"));
         Assert.assertNotNull(context.hasEndpoint("direct:mockFoo"));
         Assert.assertNotNull(context.hasEndpoint("log:mockFoo"));
         Assert.assertNotNull(context.hasEndpoint("mock:result"));
         // all the endpoints was mocked
-        Assert.assertNotNull(context.hasEndpoint("mock:direct:mockStart"));
+        Assert.assertNotNull(context.hasEndpoint("mock:direct:mockStartAdvised"));
         Assert.assertNotNull(context.hasEndpoint("mock:direct:mockFoo"));
         Assert.assertNotNull(context.hasEndpoint("mock:log:mockFoo"));
     }
@@ -107,4 +99,11 @@ public class MockResource {
         return producerTemplate.requestBody("direct:" + route, message, String.class);
     }
 
+    public static class RouteAdvisor extends AdviceWithRouteBuilder {
+        @Override
+        public void configure() throws Exception {
+            replaceFromWith("direct:mockStartAdvised");
+            mockEndpoints("direct:mock.*", "log:mock.*");
+        }
+    }
 }
