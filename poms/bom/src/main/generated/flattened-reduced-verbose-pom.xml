@@ -6315,7 +6315,7 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-fhir-base</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>7.4.5</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>7.6.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -6334,12 +6334,12 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-fhir-client</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>7.4.5</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>7.6.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-fhir-structures-dstu2.1</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>7.4.5</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>7.6.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>junit</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -6354,22 +6354,22 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-fhir-structures-dstu3</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>7.4.5</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>7.6.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-fhir-structures-hl7org-dstu2</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>7.4.5</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>7.6.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-fhir-structures-r4</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>7.4.5</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>7.6.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>hapi-fhir-structures-r5</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>7.4.5</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>7.6.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -6687,12 +6687,12 @@
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-groovy</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.16.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.17.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-groovy-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.16.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.17.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jackson-jq</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -6848,7 +6848,7 @@
       <dependency>
         <groupId>io.swagger.parser.v3</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>swagger-parser</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>2.1.23</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>2.1.24</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -8007,11 +8007,6 @@
       <dependency>
         <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.29.14 -->
         <artifactId>dynamodb</artifactId><!-- software.amazon.awssdk:bom:2.29.14 -->
-        <version>2.29.14</version><!-- software.amazon.awssdk:bom:2.29.14 -->
-      </dependency>
-      <dependency>
-        <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.29.14 -->
-        <artifactId>dynamodb-enhanced</artifactId><!-- software.amazon.awssdk:bom:2.29.14 -->
         <version>2.29.14</version><!-- software.amazon.awssdk:bom:2.29.14 -->
       </dependency>
       <dependency>

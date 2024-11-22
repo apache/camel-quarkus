@@ -6315,7 +6315,7 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-base</artifactId>
-        <version>7.4.5</version>
+        <version>7.6.0</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
@@ -6334,12 +6334,12 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-client</artifactId>
-        <version>7.4.5</version>
+        <version>7.6.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-dstu2.1</artifactId>
-        <version>7.4.5</version>
+        <version>7.6.0</version>
         <exclusions>
           <exclusion>
             <groupId>junit</groupId>
@@ -6354,22 +6354,22 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-dstu3</artifactId>
-        <version>7.4.5</version>
+        <version>7.6.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-hl7org-dstu2</artifactId>
-        <version>7.4.5</version>
+        <version>7.6.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-r4</artifactId>
-        <version>7.4.5</version>
+        <version>7.6.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-r5</artifactId>
-        <version>7.4.5</version>
+        <version>7.6.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
@@ -6687,12 +6687,12 @@
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId>
         <artifactId>quarkus-groovy</artifactId>
-        <version>3.16.1</version>
+        <version>3.17.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId>
         <artifactId>quarkus-groovy-deployment</artifactId>
-        <version>3.16.1</version>
+        <version>3.17.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jackson-jq</groupId>
@@ -6848,7 +6848,7 @@
       <dependency>
         <groupId>io.swagger.parser.v3</groupId>
         <artifactId>swagger-parser</artifactId>
-        <version>2.1.23</version>
+        <version>2.1.24</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
@@ -8007,11 +8007,6 @@
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
         <artifactId>dynamodb</artifactId>
-        <version>2.29.14</version>
-      </dependency>
-      <dependency>
-        <groupId>software.amazon.awssdk</groupId>
-        <artifactId>dynamodb-enhanced</artifactId>
         <version>2.29.14</version>
       </dependency>
       <dependency>
