@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.opentelemetry;
 
 import io.opentelemetry.api.trace.Tracer;
 import io.quarkus.arc.DefaultBean;
+import io.quarkus.opentelemetry.runtime.config.runtime.OTelRuntimeConfig;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
@@ -32,27 +33,33 @@ public class OpenTelemetryTracerProducer {
     CamelOpenTelemetryConfig config;
 
     @Inject
+    OTelRuntimeConfig oTelRuntimeConfig;
+
+    @Inject
     Tracer tracer;
 
     @Produces
     @Singleton
     @DefaultBean
     public OpenTelemetryTracer getOpenTelemetry() {
-        OpenTelemetryTracer openTelemetryTracer = new CamelQuarkusOpenTelemetryTracer();
-        if (tracer != null) {
-            openTelemetryTracer.setTracer(tracer);
-            if (config.excludePatterns.isPresent()) {
-                openTelemetryTracer.setExcludePatterns(config.excludePatterns.get());
-            }
+        if (!oTelRuntimeConfig.sdkDisabled()) {
+            OpenTelemetryTracer openTelemetryTracer = new CamelQuarkusOpenTelemetryTracer();
+            if (tracer != null) {
+                openTelemetryTracer.setTracer(tracer);
+                if (config.excludePatterns.isPresent()) {
+                    openTelemetryTracer.setExcludePatterns(config.excludePatterns.get());
+                }
 
-            if (config.traceProcessors) {
-                OpenTelemetryTracingStrategy tracingStrategy = new OpenTelemetryTracingStrategy(openTelemetryTracer);
-                tracingStrategy.setPropagateContext(true);
-                openTelemetryTracer.setTracingStrategy(tracingStrategy);
-            }
+                if (config.traceProcessors) {
+                    OpenTelemetryTracingStrategy tracingStrategy = new OpenTelemetryTracingStrategy(openTelemetryTracer);
+                    tracingStrategy.setPropagateContext(true);
+                    openTelemetryTracer.setTracingStrategy(tracingStrategy);
+                }
 
-            openTelemetryTracer.setEncoding(config.encoding);
+                openTelemetryTracer.setEncoding(config.encoding);
+            }
+            return openTelemetryTracer;
         }
-        return openTelemetryTracer;
+        return null;
     }
 }
