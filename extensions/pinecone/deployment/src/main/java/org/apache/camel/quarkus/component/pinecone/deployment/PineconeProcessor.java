@@ -47,7 +47,7 @@ class PineconeProcessor {
     void registerForReflection(CombinedIndexBuildItem combinedIndex,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
         Set<String> modelClasses = combinedIndex.getIndex()
-                .getClassesInPackage(DotName.createSimple("org.openapitools.client.model"))
+                .getClassesInPackage(DotName.createSimple("org.openapitools.db_control.client.model"))
                 .stream()
                 .map(ClassInfo::name)
                 .map(DotName::toString)

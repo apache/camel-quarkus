@@ -1,5 +1,5 @@
 {
-  "id" : "6e869a73-c72a-4ebf-be81-fa920caa99df",
+  "id" : "0cb5785f-987c-481d-b49a-51dac8cc4a5a",
   "name" : "indexes",
   "request" : {
     "url" : "/indexes",
@@ -9,19 +9,19 @@
     "status" : 200,
     "body" : "{\"indexes\":[]}",
     "headers" : {
-      "X-Cloud-Trace-Context" : "a4b91f07ef1a9299382ac69f1b2f8e60",
+      "X-Cloud-Trace-Context" : "bd4d9cb6698e7373332f57eaeeea6592",
       "access-control-allow-origin" : "*",
       "Alt-Svc" : "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
       "Server" : "Google Frontend",
       "vary" : "origin,access-control-request-method,access-control-request-headers",
       "content-type" : "application/json",
-      "Date" : "Tue, 18 Jun 2024 14:46:24 GMT",
+      "Date" : "Fri, 22 Nov 2024 09:23:39 GMT",
       "Via" : "1.1 google",
-      "access-control-expose-headers" : "*",
-      "x-pinecone-api-version" : "2024-04"
+      "x-pinecone-api-version" : "2024-10",
+      "access-control-expose-headers" : "*"
     }
   },
-  "uuid" : "6e869a73-c72a-4ebf-be81-fa920caa99df",
+  "uuid" : "0cb5785f-987c-481d-b49a-51dac8cc4a5a",
   "persistent" : true,
   "scenarioName" : "scenario-1-indexes",
   "requiredScenarioState" : "scenario-1-indexes-2",

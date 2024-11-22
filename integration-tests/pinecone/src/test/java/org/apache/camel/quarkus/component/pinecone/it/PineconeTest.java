@@ -27,7 +27,6 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openapitools.db_control.client.model.IndexModel;
 
@@ -41,7 +40,6 @@ import static org.openapitools.db_control.client.model.IndexModelStatus.StateEnu
 
 @QuarkusTestResource(PineconeTestResource.class)
 @QuarkusTest
-@Disabled //https://github.com/apache/camel-quarkus/issues/6808
 class PineconeTest {
     private static Pinecone pinecone;
 
