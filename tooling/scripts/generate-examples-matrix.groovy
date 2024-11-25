@@ -17,9 +17,24 @@
 import groovy.json.JsonOutput;
 import groovy.json.JsonSlurper
 
+import java.nio.file.Files
+import java.nio.file.Paths
+
 final int MAX_GROUPS = 2
 final List<Map<String, String>> GROUPS = new ArrayList<>()
 final String EXAMPLES_BRANCH = System.getProperty('EXAMPLES_BRANCH')
+final String EXAMPLES_IGNORE= System.getProperty('EXAMPLES_IGNORE')
+
+def ignoredExamples = []
+if (EXAMPLES_IGNORE != null) {
+    if (EXAMPLES_IGNORE.contains(",")) {
+        ignoredExamples = EXAMPLES_IGNORE.split(",")
+    } else if (Files.exists(Paths.get(EXAMPLES_IGNORE))) {
+        ignoredExamples = Files.readAllLines(Paths.get(EXAMPLES_IGNORE))
+    } else {
+        ignoredExamples.add(EXAMPLES_IGNORE)
+    }
+}
 
 int groupId = 0
 JsonSlurper jsonSlurper = new JsonSlurper()
@@ -30,6 +45,12 @@ try {
 
     // Distribute example projects across a bounded set of test groups and output as JSON
     examples.each { example ->
+        String projectName = example.link.substring(example.link.lastIndexOf('/') + 1)
+
+        if (ignoredExamples.contains(projectName)) {
+            return
+        }
+
         if (GROUPS[groupId] == null) {
             GROUPS[groupId] = [:]
             GROUPS[groupId].name = "group-${String.format("%02d", groupId + 1)}"
@@ -37,8 +58,6 @@ try {
         }
 
         String separator = GROUPS[groupId].examples == "" ? "" : ","
-        String projectName = example.link.substring(example.link.lastIndexOf('/') + 1)
-
         GROUPS[groupId].examples = "${GROUPS[groupId].examples}${separator}${projectName}"
 
         groupId += 1;
