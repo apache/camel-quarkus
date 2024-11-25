@@ -216,13 +216,6 @@ camel.main.routes-include-pattern = routes/routes.yaml, routes/rests.yaml, rests
         value: "5s"
 ----
 
-== Other route DSLs
-
-* xref:reference/extensions/java-joor-dsl.adoc[Java jOOR]
-* xref:reference/extensions/groovy-dsl.adoc[Groovy]
-* xref:reference/extensions/yaml-dsl.adoc[YAML]
-* xref:reference/extensions/js-dsl.adoc[JavaScript]
-
 == What's next?
 
 We recommend to continue with xref:user-guide/configuration.adoc[Configuration].
