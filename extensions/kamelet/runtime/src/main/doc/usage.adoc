@@ -4,16 +4,16 @@ This extension can preload a set of Kamelets at build time. You must include the
 
 === Using the Kamelet Catalog
 
-A set of pre-made Kamelets can be found on the /camel-kamelets/latest[Kamelet Catalog].
+A set of pre-made Kamelets can be found in the Kamelet Catalog.
 To use a Kamelet from the catalog, you need to copy its YAML definition (that you can find https://github.com/apache/camel-kamelets/[in the camel-kamelets repository]) to your project.
 
-Alternatively, you can add a `camel-kamelets-catalog` dependency to your application.
+Alternatively, you can add the `camel-kamelets` dependency to your application.
 
 [source,xml]
 ----
 <dependency>
     <groupId>org.apache.camel.kamelets</groupId>
-    <artifactId>camel-kamelets-catalog</artifactId>
+    <artifactId>camel-kamelets</artifactId>
 </dependency>
 ----
 
