@@ -1,11 +1,11 @@
-# Common Messaging Extension Tests
+= Common Messaging Extension Tests
 
 This module contains a set of common integration tests that can be reused to test different messaging component extensions and JMS clients.
 
-## Module structure
+== Module structure
 The module contains sub-modules which are described as follows.
 
-### common
+=== `common`
 The place to add routes, JAX-RS resources & test cases common to *all* messaging component extensions.
 
 For the routes to be configured in a generic way, the component scheme to use is dynamically determined and exposed as an injectable CDI bean like:
@@ -18,15 +18,15 @@ ComponentScheme scheme;
 
 Which can then be used in a route to prefix the component scheme (either with String concatenation or `fromF` / `toF`).
 
-### jms
+=== `jms`
 
 The place to add routes, JAX-RS resources & test cases common to messaging component extensions that extend the `camel-jms` component.
 
-### sjms
+=== `sjms`
 
 The place to add routes, JAX-RS resources & test cases common to messaging component extensions that extend the `camel-sjms` component (currently only `camel-sjms2`).
 
-## Usage
+== Usage
 
 To use the common tests in a integration test module, first add the required dependencies.
 
