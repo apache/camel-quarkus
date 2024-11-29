@@ -59,6 +59,7 @@
         <module>custom-kamelet-resource</module>
         <module>google</module>
         <module>grpc</module>
+        <module>http</module>
         <module>jdbc</module>
         <module>kafka</module>
         <module>messaging</module>

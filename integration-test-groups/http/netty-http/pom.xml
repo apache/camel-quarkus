@@ -32,7 +32,7 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-integration-tests-http-common</artifactId>
+            <artifactId>camel-quarkus-integration-tests-support-http</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -77,7 +77,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-integration-tests-http-common</artifactId>
+            <artifactId>camel-quarkus-integration-tests-support-http</artifactId>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>

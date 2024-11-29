@@ -22,13 +22,13 @@
 
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-build-parent-it</artifactId>
+        <artifactId>camel-quarkus-integration-tests-support</artifactId>
         <version>3.17.0-SNAPSHOT</version>
-        <relativePath>../../../poms/build-parent-it/pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-integration-tests-http-common</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: HTTP :: Common</name>
+    <artifactId>camel-quarkus-integration-tests-support-http</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: Support :: HTTP</name>
 
     <dependencies>
         <dependency>
@@ -77,15 +77,39 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>${quarkus.platform.group-id}</groupId>
+                <artifactId>quarkus-maven-plugin</artifactId>
+                <version>${quarkus.platform.version}</version>
+                <executions>
+                    <execution>
+                        <id>build</id>
+                        <phase />
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
+                <executions>
+                    <execution>
+                        <id>default-test</id>
+                        <phase />
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
-
     <profiles>
         <profile>
             <id>virtualDependencies</id>
