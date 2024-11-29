@@ -61,6 +61,7 @@
         <module>grpc</module>
         <module>jdbc</module>
         <module>kafka</module>
+        <module>messaging</module>
         <module>mongodb</module>
         <module>process-executor-support</module>
         <module>splunk</module>

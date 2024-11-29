@@ -21,13 +21,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-build-parent-it</artifactId>
+        <artifactId>camel-quarkus-integration-tests-support</artifactId>
         <version>3.17.0-SNAPSHOT</version>
-        <relativePath>../../poms/build-parent-it/pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-integration-test-messaging</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Messaging</name>
+    <artifactId>camel-quarkus-integration-tests-support-messaging</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: Support :: Messaging</name>
     <description>Integration tests for Camel Quarkus Messaging extensions</description>
     <packaging>pom</packaging>
 
@@ -39,6 +39,18 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.jboss.jandex</groupId>
+                <artifactId>jandex-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>make-index</id>
+                        <goals>
+                            <goal>jandex</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>${quarkus.platform.group-id}</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
@@ -57,6 +69,17 @@
                     <execution>
                         <id>default-test</id>
                         <phase />
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>

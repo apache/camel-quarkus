@@ -21,12 +21,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-integration-test-messaging</artifactId>
+        <artifactId>camel-quarkus-integration-tests-support-messaging</artifactId>
         <version>3.17.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-integration-test-messaging-sjms</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Messaging SJMS</name>
+    <artifactId>camel-quarkus-integration-tests-support-messaging-sjms</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: Support :: Messaging :: SJMS</name>
     <description>Integration tests for Camel Quarkus Messaging SJMS</description>
 
     <dependencies>
@@ -44,7 +45,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-integration-test-messaging-common</artifactId>
+            <artifactId>camel-quarkus-integration-tests-support-messaging-common</artifactId>
         </dependency>
 
         <!-- test dependencies -->
@@ -60,28 +61,11 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-integration-test-messaging-common</artifactId>
+            <artifactId>camel-quarkus-integration-tests-support-messaging-common</artifactId>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.jboss.jandex</groupId>
-                <artifactId>jandex-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>make-index</id>
-                        <goals>
-                            <goal>jandex</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 
     <profiles>
         <profile>

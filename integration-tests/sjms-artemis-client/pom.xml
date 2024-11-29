@@ -40,7 +40,7 @@
         <!-- Inherit base messaging routes -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-integration-test-messaging-sjms</artifactId>
+            <artifactId>camel-quarkus-integration-tests-support-messaging-sjms</artifactId>
         </dependency>
 
         <!-- The JMS client library to test with -->
@@ -64,13 +64,13 @@
         <!-- Inherit base messaging tests -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-integration-test-messaging-common</artifactId>
+            <artifactId>camel-quarkus-integration-tests-support-messaging-common</artifactId>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-integration-test-messaging-sjms</artifactId>
+            <artifactId>camel-quarkus-integration-tests-support-messaging-sjms</artifactId>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
