@@ -39,7 +39,7 @@
         <!-- Inherit base messaging routes -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-integration-test-messaging-jms</artifactId>
+            <artifactId>camel-quarkus-integration-tests-support-messaging-jms</artifactId>
         </dependency>
 
         <!-- Messaging Pooled JMS -->
@@ -68,13 +68,13 @@
         <!-- Inherit base messaging tests -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-integration-test-messaging-common</artifactId>
+            <artifactId>camel-quarkus-integration-tests-support-messaging-common</artifactId>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-integration-test-messaging-jms</artifactId>
+            <artifactId>camel-quarkus-integration-tests-support-messaging-jms</artifactId>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>

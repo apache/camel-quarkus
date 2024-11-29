@@ -164,7 +164,6 @@
         <module>master</module>
         <module>master-file</module>
         <module>master-openshift</module>
-        <module>messaging</module>
         <module>micrometer</module>
         <module>microprofile-fault-tolerance</module>
         <module>microprofile-health</module>
