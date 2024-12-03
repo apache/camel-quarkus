@@ -7065,17 +7065,6 @@
         <version>3.9.3</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
-        <groupId>org.asynchttpclient</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>async-http-client</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>2.12.3</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <exclusions>
-          <exclusion>
-            <groupId>com.sun.activation</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>jakarta.activation</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
         <groupId>org.bouncycastle</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>bcmail-jdk18on</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>1.79</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -20882,6 +20871,17 @@
         <groupId>org.apache.sshd</groupId><!-- io.quarkus:quarkus-bom:3.15.0 -->
         <artifactId>sshd-core</artifactId><!-- io.quarkus:quarkus-bom:3.15.0 -->
         <version>2.12.1</version><!-- io.quarkus:quarkus-bom:3.15.0 -->
+      </dependency>
+      <dependency>
+        <groupId>org.asynchttpclient</groupId><!-- io.quarkus:quarkus-bom:3.15.0 -->
+        <artifactId>async-http-client</artifactId><!-- io.quarkus:quarkus-bom:3.15.0 -->
+        <version>2.12.3</version><!-- io.quarkus:quarkus-bom:3.15.0 -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId><!-- io.quarkus:quarkus-bom:3.15.0 -->
+            <artifactId>jakarta.activation</artifactId><!-- io.quarkus:quarkus-bom:3.15.0 -->
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.awaitility</groupId><!-- io.quarkus:quarkus-bom:3.15.0 -->
