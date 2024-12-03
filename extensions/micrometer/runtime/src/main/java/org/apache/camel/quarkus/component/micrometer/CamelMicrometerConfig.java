@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.micrometer;
 
+import java.util.Optional;
+
 import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
@@ -84,6 +86,14 @@ public class CamelMicrometerConfig {
      */
     @ConfigItem(defaultValue = "all")
     public RoutePolicyLevel routePolicyLevel;
+
+    /**
+     * Comma separated list of route IDs to exclude from metrics collection.
+     *
+     * @asciidoclet
+     */
+    @ConfigItem
+    public Optional<String> routePolicyExcludePattern;
 
     public enum MetricsNamingStrategy {
 

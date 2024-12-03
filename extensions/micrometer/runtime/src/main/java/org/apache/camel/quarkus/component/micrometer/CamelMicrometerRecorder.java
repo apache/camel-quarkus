@@ -85,6 +85,8 @@ public class CamelMicrometerRecorder {
                     policyConfiguration.setContextEnabled(false);
                     policyConfiguration.setRouteEnabled(true);
                 }
+
+                config.routePolicyExcludePattern.ifPresent(policyConfiguration::setExcludePattern);
             }
 
             ManagementStrategy managementStrategy = camelContext.getManagementStrategy();
