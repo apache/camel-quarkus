@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.main.cmd.it;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -90,5 +91,26 @@ public class CommandModeTest {
         } catch (TimeoutException e) {
             Assertions.fail("The process should not take so long as camel.main.duration-max-seconds is set");
         }
+    }
+
+    @Test
+    void startupCondition() throws Exception {
+        String[] jvmArgs = new String[] {
+                "-Dcamel.startupcondition.enabled=true",
+                "-Dcamel.startupcondition.environment-variable-exists=CAMEL_SPECIES",
+                "-Dcamel.startupcondition.timeout=100",
+                "-Dcamel.main.duration-max-seconds=1"
+        };
+
+        // Launch the process without the expected environment variable
+        ProcessResult startupConditionNotMetResult = new QuarkusProcessExecutor(jvmArgs).execute();
+        assertThat(startupConditionNotMetResult.getExitValue()).isEqualTo(1);
+
+        // Try again with the environment variable set
+        Map<String, String> environment = Map.of("CAMEL_SPECIES", "Dromedary");
+        QuarkusProcessExecutor executor = new QuarkusProcessExecutor(customizer -> customizer.environment(environment),
+                jvmArgs);
+        ProcessResult startupConditionMetResult = executor.execute();
+        assertThat(startupConditionMetResult.getExitValue()).isEqualTo(0);
     }
 }
