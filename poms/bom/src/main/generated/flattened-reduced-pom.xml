@@ -7074,17 +7074,6 @@
         <version>3.9.2</version>
       </dependency>
       <dependency>
-        <groupId>org.asynchttpclient</groupId>
-        <artifactId>async-http-client</artifactId>
-        <version>2.12.3</version>
-        <exclusions>
-          <exclusion>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcmail-jdk18on</artifactId>
         <version>1.78.1</version>
