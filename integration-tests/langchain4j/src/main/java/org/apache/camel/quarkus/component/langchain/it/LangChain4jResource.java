@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.langchain.it;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
@@ -36,6 +37,13 @@ public class LangChain4jResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String camelAnnotationsShouldWorkAsExpected(String json) {
         return producerTemplate.requestBody("direct:camel-annotations-should-work-as-expected", json, String.class);
+    }
+
+    @Path("/ai-service-should-be-resolvable-by-interface")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String aiServiceShouldBeResolvableByInterface() {
+        return producerTemplate.requestBody("direct:ai-service-should-be-resolvable-by-interface", "dummy-body", String.class);
     }
 
 }

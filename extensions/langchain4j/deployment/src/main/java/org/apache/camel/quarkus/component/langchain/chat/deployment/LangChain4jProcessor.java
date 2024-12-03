@@ -16,9 +16,16 @@
  */
 package org.apache.camel.quarkus.component.langchain.chat.deployment;
 
+import java.util.List;
+
+import io.quarkiverse.langchain4j.deployment.DeclarativeAiServiceBuildItem;
 import io.quarkiverse.langchain4j.deployment.items.MethodParameterAllowedAnnotationsBuildItem;
+import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+
+import static io.quarkus.arc.deployment.UnremovableBeanBuildItem.beanClassNames;
 
 class LangChain4jProcessor {
     private static final String FEATURE = "camel-quarkus-langchain4j";
@@ -31,5 +38,14 @@ class LangChain4jProcessor {
     @BuildStep
     MethodParameterAllowedAnnotationsBuildItem camelAnnotatedParametersCouldBeUsedAsTemplateVariable() {
         return new MethodParameterAllowedAnnotationsBuildItem(anno -> anno.name().toString().startsWith("org.apache.camel"));
+    };
+
+    @BuildStep
+    void markAiServicesAsUnremovable(
+            List<DeclarativeAiServiceBuildItem> aiServices, BuildProducer<UnremovableBeanBuildItem> unremovableBeans) {
+        aiServices.stream().forEach(ai -> {
+            unremovableBeans.produce(
+                    beanClassNames(ai.getServiceClassInfo().name().toString() + "$$QuarkusImpl"));
+        });
     };
 }

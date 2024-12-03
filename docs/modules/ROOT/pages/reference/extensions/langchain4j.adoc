@@ -83,3 +83,31 @@ public interface CustomAiService {
 
 You can find more details about Camel Parameter Binding annotations in the xref:manual::parameter-binding-annotations.adoc[manual].
 
+[id="extensions-langchain4j-configuration-resolving-ai-services-by-interface-name"]
+=== Resolving AI services by interface name
+
+With the `camel-quarkus-langchain4j` extension, the AI services are resolvable by interface name when called from a `bean` statement.
+
+For instance, let's define an AI service below:
+
+```
+@RegisterAiService
+@ApplicationScoped
+public interface MyAiService {
+
+    @UserMessage("My Prompt")
+    @Handler
+    String chat(String question);
+}
+```
+
+The AI service could then be invoked from a Camel route like this:
+
+```
+@Override
+public void configure() {
+  from("...")
+    .bean(MyAiService.class);
+}
+```
+
