@@ -138,6 +138,12 @@ for both the camel context and routes. `route` captures metrics for routes only.
 camel context only.
 | `all`, `context`, `route`
 | `all`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.metrics.route-policy-exclude-pattern]]`link:#quarkus.camel.metrics.route-policy-exclude-pattern[quarkus.camel.metrics.route-policy-exclude-pattern]`
+
+Comma separated list of route IDs to exclude from metrics collection.
+| `string`
+| 
 |===
 
 [.configuration-legend]
