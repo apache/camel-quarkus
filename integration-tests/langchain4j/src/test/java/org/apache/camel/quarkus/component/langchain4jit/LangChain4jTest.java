@@ -36,4 +36,12 @@ class LangChain4jTest {
                 .body("fromHeader", is("headerValue"));
     }
 
+    @Test
+    void aiServiceShouldBeResolvedByInterface() {
+        RestAssured.given()
+                .get("/langchain4j/ai-service-should-be-resolvable-by-interface")
+                .then()
+                .statusCode(200)
+                .body(is("AiServiceResolvedByInterface has been resolved"));
+    }
 }
