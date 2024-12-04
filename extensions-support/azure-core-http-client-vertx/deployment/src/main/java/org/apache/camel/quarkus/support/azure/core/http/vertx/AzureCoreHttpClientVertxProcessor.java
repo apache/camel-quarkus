@@ -27,9 +27,9 @@ public class AzureCoreHttpClientVertxProcessor {
     @BuildStep
     void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClasses) {
         runtimeInitializedClasses.produce(new RuntimeInitializedClassBuildItem(
-                "com.azure.core.http.vertx.VertxAsyncHttpClientProvider$GlobalVertxHttpClient"));
+                "com.azure.core.http.vertx.VertxHttpClientProvider$GlobalVertxHttpClient"));
         runtimeInitializedClasses.produce(
-                new RuntimeInitializedClassBuildItem("com.azure.core.http.vertx.VertxAsyncHttpClientBuilder$DefaultVertx"));
+                new RuntimeInitializedClassBuildItem("com.azure.core.http.vertx.VertxHttpClientBuilder$DefaultVertx"));
     }
 
     @BuildStep
