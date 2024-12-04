@@ -45,8 +45,8 @@ public class HttpProducers {
         authCache.put(new HttpHost("localhost", port), basicAuth);
 
         HttpClientContext context = HttpClientContext.create();
-        context.setAuthCache(authCache);
-        context.setCredentialsProvider(provider);
+        context.setAttribute(HttpClientContext.AUTH_CACHE, authCache);
+        context.setAttribute(HttpClientContext.CREDS_PROVIDER, provider);
 
         return context;
     }
