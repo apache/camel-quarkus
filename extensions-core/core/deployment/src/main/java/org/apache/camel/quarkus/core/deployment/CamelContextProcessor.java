@@ -29,10 +29,12 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelContextRecorder;
+import org.apache.camel.quarkus.core.deployment.spi.CamelBootClockBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelComponentNameResolverBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
@@ -81,6 +83,7 @@ public class CamelContextProcessor {
             CamelComponentNameResolverBuildItem componentNameResolver,
             CamelPackageScanClassResolverBuildItem packageScanClassResolver,
             CamelModelReifierFactoryBuildItem modelReifierFactory,
+            CamelBootClockBuildItem camelBootClock,
             CamelConfig config) {
 
         RuntimeValue<CamelContext> context = recorder.createContext(
@@ -93,6 +96,7 @@ public class CamelContextProcessor {
                 componentNameResolver.getComponentNameResolver(),
                 packageScanClassResolver.getPackageScanClassResolver(),
                 modelReifierFactory.getModelReifierFactory(),
+                camelBootClock.getClock(),
                 beanContainer.getValue(),
                 CamelSupport.getCamelVersion(),
                 config);
@@ -173,6 +177,18 @@ public class CamelContextProcessor {
             CamelContextRecorder recorder,
             BuildProducer<CamelContextCustomizerBuildItem> producer) {
         producer.produce(new CamelContextCustomizerBuildItem(recorder.createBacklogTracerCustomizer(config)));
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
+    CamelBootClockBuildItem createCamelBootClock(CamelContextRecorder recorder) {
+        return new CamelBootClockBuildItem(recorder.createBootClock(true));
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep(onlyIfNot = NativeOrNativeSourcesBuild.class)
+    CamelBootClockBuildItem createCamelNativeModeBootClock(CamelContextRecorder recorder) {
+        return new CamelBootClockBuildItem(recorder.createBootClock(false));
     }
 
     public static final class EventBridgeEnabled implements BooleanSupplier {

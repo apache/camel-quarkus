@@ -23,8 +23,10 @@ import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
+import org.apache.camel.ContextEvents;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.catalog.RuntimeCamelCatalog;
+import org.apache.camel.clock.Clock;
 import org.apache.camel.impl.debugger.BacklogTracer;
 import org.apache.camel.impl.engine.DefaultVariableRepositoryFactory;
 import org.apache.camel.quarkus.core.devmode.NoOpModelineFactory;
@@ -41,6 +43,7 @@ import org.apache.camel.spi.PackageScanClassResolver;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.TypeConverterRegistry;
 import org.apache.camel.spi.VariableRepositoryFactory;
+import org.apache.camel.support.ResetableClock;
 import org.eclipse.microprofile.config.ConfigProvider;
 
 @Recorder
@@ -55,6 +58,7 @@ public class CamelContextRecorder {
             RuntimeValue<ComponentNameResolver> componentNameResolver,
             RuntimeValue<PackageScanClassResolver> packageScanClassResolver,
             RuntimeValue<ModelReifierFactory> modelReifierFactory,
+            RuntimeValue<Clock> bootClock,
             BeanContainer beanContainer,
             String version,
             CamelConfig config) {
@@ -63,6 +67,8 @@ public class CamelContextRecorder {
                 version,
                 xmlModelDumper.getValue(),
                 yamlModelDumper.getValue());
+
+        context.getClock().add(ContextEvents.BOOT, bootClock.getValue());
 
         final ClassLoader tccl = Thread.currentThread().getContextClassLoader();
         // Set ClassLoader first as some actions depend on it being available
@@ -154,5 +160,26 @@ public class CamelContextRecorder {
 
             context.getCamelContextExtension().addContextPlugin(BacklogTracer.class, tracer);
         });
+    }
+
+    public RuntimeValue<Clock> createBootClock(boolean isNativeImage) {
+        Clock clock;
+        if (isNativeImage) {
+            // Avoid recording boot times since 'boot' is done during the native image build
+            clock = new Clock() {
+                @Override
+                public long elapsed() {
+                    return 0;
+                }
+
+                @Override
+                public long getCreated() {
+                    return 0;
+                }
+            };
+        } else {
+            clock = new ResetableClock();
+        }
+        return new RuntimeValue<>(clock);
     }
 }
