@@ -117,8 +117,7 @@ public class CqCatalog {
 
     public CqCatalog(Flavor flavor, Function<String, InputStream> resourceLocator) {
         this.flavor = flavor;
-        // workaround for catalog `beans/*.json`, see comment on BeansWorkaroundCustomCatalog for more information
-        final DefaultCamelCatalog c = new BeansWorkaroundCustomCatalog(true);
+        final DefaultCamelCatalog c = new DefaultCamelCatalog(true);
         c.setRuntimeProvider(flavor.createRuntimeProvider(c));
         c.setVersionManager(new CqVersionManager(c, resourceLocator));
         this.catalog = c;
@@ -195,8 +194,6 @@ public class CqCatalog {
         switch (model.getKind()) {
         case bean:
             rawJson = JsonMapper.createParameterJsonSchema((PojoBeanModel) model);
-            //workaround
-            rawJson = rawJson.replace("model", "bean");
             break;
         case component:
             rawJson = JsonMapper.createParameterJsonSchema((ComponentModel) model);
@@ -529,7 +526,7 @@ public class CqCatalog {
         @Override
         public List<String> findBeansNames() {
             List<String> names = new ArrayList<>();
-            InputStream is = getCamelCatalog().getVersionManager().getResourceAsStream(getBeansCatalog());
+            InputStream is = getCamelCatalog().getVersionManager().getResourceAsStream(getPojoBeanJSonSchemaDirectory());
             if (is != null) {
                 try {
                     CatalogHelper.loadLines(is, names);
@@ -568,22 +565,6 @@ public class CqCatalog {
             } catch (IOException e) {
                 throw new RuntimeException("Could not close catalog " + jarFileSystem, e);
             }
-        }
-    }
-
-    /**
-     * Prior https://github.com/apache/camel/pull/15708, the catalog files from `beans/*json` might have contained
-     * attribute `model` instead of `bean`. This custom catalog is fixing the json, to be parsable by Camel
-     * tooling.
-     */
-    public static class BeansWorkaroundCustomCatalog extends DefaultCamelCatalog {
-        public BeansWorkaroundCustomCatalog(boolean caching) {
-            super(caching);
-        }
-
-        @Override
-        public String pojoBeanJSonSchema(String name) {
-            return getJSonSchemaResolver().getPojoBeanJSonSchema(name).replace("model", "bean");
         }
     }
 
