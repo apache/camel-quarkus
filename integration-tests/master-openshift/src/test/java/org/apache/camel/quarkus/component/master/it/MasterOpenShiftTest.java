@@ -25,10 +25,10 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
-import io.fabric8.openshift.client.server.mock.OpenShiftServer;
+import io.fabric8.kubernetes.client.server.mock.KubernetesServer;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.kubernetes.client.OpenShiftTestServer;
+import io.quarkus.test.kubernetes.client.KubernetesTestServer;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.test.support.process.QuarkusProcessExecutor;
 import org.apache.commons.io.FileUtils;
@@ -49,8 +49,8 @@ import static org.hamcrest.Matchers.emptyString;
 @QuarkusTest
 class MasterOpenShiftTest {
 
-    @OpenShiftTestServer
-    private OpenShiftServer mockOpenShiftServer;
+    @KubernetesTestServer
+    private KubernetesServer mockOpenShiftServer;
 
     @BeforeAll
     public static void deleteClusterFiles() throws IOException {
@@ -94,7 +94,7 @@ class MasterOpenShiftTest {
 
             // Stop camel and delete the lease mock to trigger fail-over
             RestAssured.given().get("/master/camel/stop/leader").then().statusCode(204);
-            mockOpenShiftServer.getKubernetesClient().leases().delete();
+            mockOpenShiftServer.getClient().leases().delete();
 
             // Verify that the secondary application has been elected as the
             // cluster leader
