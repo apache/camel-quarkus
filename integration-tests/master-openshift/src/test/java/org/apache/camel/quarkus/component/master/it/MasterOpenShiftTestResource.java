@@ -20,9 +20,9 @@ import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.api.model.PodBuilder;
 import io.fabric8.kubernetes.api.model.PodList;
 import io.fabric8.kubernetes.api.model.PodListBuilder;
-import io.quarkus.test.kubernetes.client.OpenShiftServerTestResource;
+import io.quarkus.test.kubernetes.client.KubernetesServerTestResource;
 
-public class MasterOpenShiftTestResource extends OpenShiftServerTestResource {
+public class MasterOpenShiftTestResource extends KubernetesServerTestResource {
     @Override
     protected void configureServer() {
         super.configureServer();
