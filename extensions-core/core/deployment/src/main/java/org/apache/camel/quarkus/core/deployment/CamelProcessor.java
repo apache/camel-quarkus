@@ -404,6 +404,7 @@ class CamelProcessor {
                 .filter(ci -> ((ci.flags() & (Modifier.ABSTRACT | Modifier.PUBLIC)) == Modifier.PUBLIC))
                 .map(ClassInfo::name)
                 .filter(pathFilter)
+                .sorted()
                 .map(CamelRoutesBuilderClassBuildItem::new)
                 .collect(Collectors.toList());
     }
