@@ -17,21 +17,23 @@
 
 package org.apache.camel.quarkus.component.cassandraql.it;
 
+import java.net.InetSocketAddress;
+import java.time.Duration;
 import java.util.Map;
 
-import com.datastax.driver.core.Cluster;
-import com.datastax.driver.core.Session;
+import com.datastax.oss.driver.api.core.CqlSession;
+import com.datastax.oss.driver.api.core.CqlSessionBuilder;
+import com.datastax.oss.driver.api.core.config.DefaultDriverOption;
+import com.datastax.oss.driver.api.core.config.DriverConfigLoader;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testcontainers.containers.CassandraContainer;
+import org.testcontainers.cassandra.CassandraContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
 import org.testcontainers.utility.TestcontainersConfiguration;
-
-import static org.testcontainers.containers.CassandraContainer.CQL_PORT;
 
 public class CassandraqlTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(CassandraqlTestResource.class);
@@ -39,14 +41,14 @@ public class CassandraqlTestResource implements QuarkusTestResourceLifecycleMana
     private static final String DOCKER_IMAGE_NAME = ConfigProvider.getConfig().getValue("cassandra.container.image",
             String.class);
 
-    protected CassandraContainer<?> container;
+    protected CassandraContainer container;
 
     @Override
     public Map<String, String> start() {
         LOGGER.info(TestcontainersConfiguration.getInstance().toString());
         try {
             DockerImageName imageName = DockerImageName.parse(DOCKER_IMAGE_NAME).asCompatibleSubstituteFor("cassandra");
-            container = new CassandraContainer<>(imageName)
+            container = new CassandraContainer(imageName)
                     .withExposedPorts(PORT)
                     .waitingFor(Wait.forLogMessage(".*Created default superuser role.*", 1))
                     .withEnv("JVM_EXTRA_OPTS", "-Xss448k")
@@ -73,15 +75,16 @@ public class CassandraqlTestResource implements QuarkusTestResourceLifecycleMana
         }
     }
 
-    private void initDB(CassandraContainer<?> container) {
-        Cluster cluster = Cluster.builder()
-                .addContactPoint(container.getHost())
-                .withPort(container.getMappedPort(CQL_PORT))
-                .withCredentials(container.getUsername(), container.getPassword())
-                .withoutJMXReporting()
-                .build();
+    private void initDB(CassandraContainer container) {
+        InetSocketAddress endpoint = new InetSocketAddress(container.getHost(), container.getMappedPort(PORT));
+        CqlSessionBuilder builder = CqlSession.builder()
+                .withLocalDatacenter(container.getLocalDatacenter())
+                .withAuthCredentials(container.getUsername(), container.getPassword())
+                .withConfigLoader(DriverConfigLoader.programmaticBuilder()
+                        .withDuration(DefaultDriverOption.REQUEST_TIMEOUT, Duration.ofSeconds(5)).build())
+                .addContactPoint(endpoint);
 
-        try (Session session = cluster.connect()) {
+        try (CqlSession session = builder.build()) {
             session.execute("CREATE KEYSPACE IF NOT EXISTS " + CassandraqlRoutes.KEYSPACE + " WITH replication = \n" +
                     "{'class':'SimpleStrategy','replication_factor':'1'};");
 
