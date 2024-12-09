@@ -264,6 +264,8 @@
         <module>zendesk</module>
         <module>zip-deflater</module>
         <module>zipfile</module>
+        <!-- depends on the presence of other modules -->
+        <module>observability-services</module>
     </modules>
 
     <dependencyManagement>
