@@ -1,0 +1,57 @@
+This extension is used to provide a set of opinionated components and configuration which simplify operations such as observability on cloud environments. Although the component is mainly targeted for cloud, it can be used in any other environment, giving to the Camel application the capability to expose a set of observability features by default.
+
+== Usage
+
+All you need to do is to add the dependency to the classpath. There's no need to add any further configuration. Each individual component will be configured using each own default settings except the endpoint which will be exposed in */observe/<service>* by default.
+
+If you need to customize each of the different components provided within this service, then, you can specify in the *application.properties* each of the configuration as it would be done normally when you provide the individual component.
+
+== Components
+
+The presence of this dependency will provide the following extensions:
+
+* Camel Microprofile Health Quarkus extension
+* Camel Management Quarkus extension
+* Camel Micrometer Prometheus Quarkus extension
+* Camel Opentelemetry Quarkus extension
+
+=== List of known endpoints
+
+The presence of this dependency will expose the following endpoints:
+
+|====
+|Endpoint | Description
+
+| `/observe/health` | startup probe endpoint
+| `/observe/health/live` | liveness probe endpoint
+| `/observe/health/ready` | readiness probe endpoint
+| `/observe/metrics` | metrics exposed as in Micrometer Prometheus Registry
+
+|====
+
+NOTE: you can configure the endpoints as you'd do normally within each extension configuration.
+
+== OpenTelemetry configuration
+
+The presence of this component will provide the required instrumentation to easily enable the collection of Opentelemetry metrics. The Camel Quarkus Opentelemetry extension instrument your application with a service which periodically pushes OTEL traces to the collector. This is disabled by default in order to prevent the application to push traces when no telemetry server is available.
+
+In order to turn it on, you need to specify the following configuration explicitly:
+
+```
+quarkus.otel.sdk.disabled=false
+```
+
+Beside that, you can change any further parameter, like, for instance, the server where to push the traces (default, `http://localhost:4317`)
+
+```
+quarkus.otel.exporter.otlp.traces.endpoint=http://my-otel-collector.svc:4317
+```
+
+NOTE: Quarkus runtime defaults to gRPC protocol (port 4317).
+
+== JMX configuration
+
+The presence of this component implies the presence of `camel-management` component. This is in charge to include information about Camel application status in JMX format.
+
+NOTE: the presence of this components automatically enable the collection of the JMX metrics. This should be negligible from performance point of view, however, you may want to disable that running the application with `-Dorg.apache.camel.jmx.disabled=true` JVM option.
+

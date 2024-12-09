@@ -227,6 +227,7 @@
 *** xref:reference/extensions/nitrite.adoc[Nitrite]
 *** xref:reference/extensions/oaipmh.adoc[OAI-PMH]
 *** xref:reference/extensions/ognl.adoc[OGNL]
+*** xref:reference/extensions/observability-services.adoc[Observability Services]
 *** xref:reference/extensions/olingo4.adoc[Olingo4]
 *** xref:reference/extensions/openapi-java.adoc[OpenAPI Java]
 *** xref:reference/extensions/opensearch.adoc[OpenSearch]
