@@ -1,7 +1,5 @@
 This extension is used to provide a set of opinionated components and configuration which simplify operations such as observability on cloud environments. Although the component is mainly targeted for cloud, it can be used in any other environment, giving to the Camel application the capability to expose a set of observability features by default.
 
-== Usage
-
 All you need to do is to add the dependency to the classpath. There's no need to add any further configuration. Each individual component will be configured using each own default settings except the endpoint which will be exposed in */observe/<service>* by default.
 
 If you need to customize each of the different components provided within this service, then, you can specify in the *application.properties* each of the configuration as it would be done normally when you provide the individual component.
@@ -10,10 +8,11 @@ If you need to customize each of the different components provided within this s
 
 The presence of this dependency will provide the following extensions:
 
-* Camel Microprofile Health Quarkus extension
-* Camel Management Quarkus extension
-* Camel Micrometer Prometheus Quarkus extension
-* Camel Opentelemetry Quarkus extension
+* Camel Quarkus Microprofile
+* Camel Quarkus Management
+* Camel Quarkus Micrometer
+* Camel Quarkus OpenTelemetry
+* Quarkus Micrometer Registry Prometheus
 
 === List of known endpoints
 

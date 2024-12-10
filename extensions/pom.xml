@@ -192,6 +192,7 @@
         <module>netty-http</module>
         <module>nitrite</module>
         <module>oaipmh</module>
+        <module>observability-services</module>
         <module>ognl</module>
         <module>olingo4</module>
         <module>openapi-java</module>
@@ -264,8 +265,6 @@
         <module>zendesk</module>
         <module>zip-deflater</module>
         <module>zipfile</module>
-        <!-- depends on the presence of other modules -->
-        <module>observability-services</module>
     </modules>
 
     <dependencyManagement>
