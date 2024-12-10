@@ -84,6 +84,7 @@ group-04:
   - mongodb-grouped
   - mybatis
   - sjms-artemis-client
+  - observability-services
 group-05:
   - avro
   - base64
