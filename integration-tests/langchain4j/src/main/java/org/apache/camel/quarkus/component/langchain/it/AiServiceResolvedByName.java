@@ -16,26 +16,32 @@
  */
 package org.apache.camel.quarkus.component.langchain.it;
 
+import java.util.function.Supplier;
+
+import dev.langchain4j.data.message.AiMessage;
+import dev.langchain4j.model.chat.ChatLanguageModel;
+import dev.langchain4j.model.output.Response;
+import dev.langchain4j.service.UserMessage;
+import io.quarkiverse.langchain4j.RegisterAiService;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import org.apache.camel.builder.RouteBuilder;
+import jakarta.inject.Named;
+import org.apache.camel.Handler;
 
 @ApplicationScoped
-public class LangChain4jRoute extends RouteBuilder {
+@Named("aiServiceResolvedByName")
+@RegisterAiService(chatLanguageModelSupplier = AiServiceResolvedByName.AiServiceResolvedByNameModelSupplier.class)
+public interface AiServiceResolvedByName {
 
-    @Inject
-    MirrorAiService mirrorAiService;
-
-    @Override
-    public void configure() {
-        from("direct:camel-annotations-should-work-as-expected")
-                .setHeader("headerName", constant("headerValue"))
-                .bean(mirrorAiService);
-
-        from("direct:ai-service-should-be-resolvable-by-interface")
-                .bean(AiServiceResolvedByInterface.class);
-
-        from("direct:ai-service-should-be-resolvable-by-name")
-                .bean("aiServiceResolvedByName");
+    public static class AiServiceResolvedByNameModelSupplier implements Supplier<ChatLanguageModel> {
+        @Override
+        public ChatLanguageModel get() {
+            return (messages) -> {
+                return new Response<>(new AiMessage("AiServiceResolvedByName has been resolved"));
+            };
+        }
     }
+
+    @UserMessage("Any prompt")
+    @Handler
+    String chatByName(String input);
 }

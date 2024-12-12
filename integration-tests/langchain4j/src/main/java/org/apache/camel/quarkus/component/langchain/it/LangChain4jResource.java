@@ -46,4 +46,11 @@ public class LangChain4jResource {
         return producerTemplate.requestBody("direct:ai-service-should-be-resolvable-by-interface", "dummy-body", String.class);
     }
 
+    @Path("/ai-service-should-be-resolvable-by-name")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String aiServiceShouldBeResolvableByName() {
+        return producerTemplate.requestBody("direct:ai-service-should-be-resolvable-by-name", "dummy-body", String.class);
+    }
+
 }
