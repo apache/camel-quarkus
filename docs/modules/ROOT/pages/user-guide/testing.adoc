@@ -292,7 +292,7 @@ class SimpleTest extends CamelQuarkusTestSupport {
 
         template.sendBody("direct:start", "World");
 
-        mockEndpoint.assertIsSatisified();
+        mockEndpoint.assertIsSatisfied();
     }
 
     @Override
@@ -374,7 +374,7 @@ class SimpleTest extends CamelQuarkusTestSupport {
 
         template.sendBody("direct:start", "World");
 
-        mockEndpoint.assertIsSatisified();
+        mockEndpoint.assertIsSatisfied();
     }
 }
 ----
