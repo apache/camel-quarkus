@@ -83,10 +83,10 @@ public interface CustomAiService {
 
 You can find more details about Camel Parameter Binding annotations in the xref:manual::parameter-binding-annotations.adoc[manual].
 
-[id="extensions-langchain4j-configuration-resolving-ai-services-by-interface-name"]
-=== Resolving AI services by interface name
+[id="extensions-langchain4j-configuration-resolving-ai-services-by-interface"]
+=== Resolving AI services by interface
 
-With the `camel-quarkus-langchain4j` extension, the AI services are resolvable by interface name when called from a `bean` statement.
+With the `camel-quarkus-langchain4j` extension, the AI services are resolvable by interface when called from a `bean` statement.
 
 For instance, let's define an AI service below:
 
