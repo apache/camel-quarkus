@@ -128,6 +128,7 @@
 *** xref:reference/extensions/flatpack.adoc[Flatpack]
 *** xref:reference/extensions/flink.adoc[Flink]
 *** xref:reference/extensions/freemarker.adoc[Freemarker]
+*** xref:reference/extensions/fury.adoc[Fury]
 *** xref:reference/extensions/geocoder.adoc[Geocoder]
 *** xref:reference/extensions/git.adoc[Git]
 *** xref:reference/extensions/github.adoc[GitHub]

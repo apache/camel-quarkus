@@ -1104,6 +1104,17 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-fury</artifactId>
+                <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.checkerframework</groupId>
+                        <artifactId>checker-qual</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-geocoder</artifactId>
                 <version>${camel.version}</version>
                 <exclusions>
@@ -3998,6 +4009,16 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-fury</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-fury-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-geocoder</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
@@ -6795,6 +6816,22 @@
                 <groupId>io.quarkiverse.freemarker</groupId>
                 <artifactId>quarkus-freemarker-deployment</artifactId>
                 <version>${quarkiverse-freemarker.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.fury</groupId>
+                <artifactId>quarkus-fury</artifactId>
+                <version>${quarkiverse-fury.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.checkerframework</groupId>
+                        <artifactId>checker-qual</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.fury</groupId>
+                <artifactId>quarkus-fury-deployment</artifactId>
+                <version>${quarkiverse-fury.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.quarkiverse.groovy</groupId>
