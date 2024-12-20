@@ -94,6 +94,7 @@
         <module>fop</module>
         <module>freemarker</module>
         <module>ftp</module>
+        <module>fury</module>
         <module>geocoder</module>
         <module>git</module>
         <module>github</module>
