@@ -6381,7 +6381,7 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-base</artifactId>
-        <version>7.6.0</version>
+        <version>7.6.1</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
@@ -6400,12 +6400,12 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-client</artifactId>
-        <version>7.6.0</version>
+        <version>7.6.1</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-dstu2.1</artifactId>
-        <version>7.6.0</version>
+        <version>7.6.1</version>
         <exclusions>
           <exclusion>
             <groupId>junit</groupId>
@@ -6420,22 +6420,22 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-dstu3</artifactId>
-        <version>7.6.0</version>
+        <version>7.6.1</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-hl7org-dstu2</artifactId>
-        <version>7.6.0</version>
+        <version>7.6.1</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-r4</artifactId>
-        <version>7.6.0</version>
+        <version>7.6.1</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-r5</artifactId>
-        <version>7.6.0</version>
+        <version>7.6.1</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
@@ -6530,12 +6530,12 @@
       <dependency>
         <groupId>com.google.auth</groupId>
         <artifactId>google-auth-library-credentials</artifactId>
-        <version>1.30.0</version>
+        <version>1.30.1</version>
       </dependency>
       <dependency>
         <groupId>com.google.auth</groupId>
         <artifactId>google-auth-library-oauth2-http</artifactId>
-        <version>1.30.0</version>
+        <version>1.30.1</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
@@ -6546,7 +6546,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-pubsub</artifactId>
-        <version>1.134.2</version>
+        <version>1.135.0</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.android</groupId>
@@ -6577,7 +6577,7 @@
       <dependency>
         <groupId>com.google.oauth-client</groupId>
         <artifactId>google-oauth-client</artifactId>
-        <version>1.36.0</version>
+        <version>1.37.0</version>
         <exclusions>
           <exclusion>
             <groupId>commons-logging</groupId>
@@ -6757,7 +6757,7 @@
       <dependency>
         <groupId>io.projectreactor.netty</groupId>
         <artifactId>reactor-netty</artifactId>
-        <version>1.2.0</version>
+        <version>1.2.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.freemarker</groupId>
@@ -7047,7 +7047,7 @@
       <dependency>
         <groupId>org.apache.kudu</groupId>
         <artifactId>kudu-client</artifactId>
-        <version>1.17.0</version>
+        <version>1.17.1</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
@@ -7239,7 +7239,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-aop</artifactId>
-        <version>6.2.0</version>
+        <version>6.2.1</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7254,7 +7254,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-expression</artifactId>
-        <version>6.2.0</version>
+        <version>6.2.1</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7265,7 +7265,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-jdbc</artifactId>
-        <version>6.2.0</version>
+        <version>6.2.1</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7280,7 +7280,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-jms</artifactId>
-        <version>6.2.0</version>
+        <version>6.2.1</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7295,7 +7295,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-messaging</artifactId>
-        <version>6.2.0</version>
+        <version>6.2.1</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7310,7 +7310,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-tx</artifactId>
-        <version>6.2.0</version>
+        <version>6.2.1</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7325,7 +7325,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-web</artifactId>
-        <version>6.2.0</version>
+        <version>6.2.1</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7344,7 +7344,7 @@
       <dependency>
         <groupId>org.springframework.data</groupId>
         <artifactId>spring-data-redis</artifactId>
-        <version>3.4.0</version>
+        <version>3.4.1</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -8235,72 +8235,72 @@
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-alpn-client</artifactId>
-        <version>12.0.15</version>
+        <version>12.0.16</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-client</artifactId>
-        <version>12.0.15</version>
+        <version>12.0.16</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-http</artifactId>
-        <version>12.0.15</version>
+        <version>12.0.16</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-io</artifactId>
-        <version>12.0.15</version>
+        <version>12.0.16</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-security</artifactId>
-        <version>12.0.15</version>
+        <version>12.0.16</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-server</artifactId>
-        <version>12.0.15</version>
+        <version>12.0.16</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-session</artifactId>
-        <version>12.0.15</version>
+        <version>12.0.16</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-util</artifactId>
-        <version>12.0.15</version>
+        <version>12.0.16</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-util-ajax</artifactId>
-        <version>12.0.15</version>
+        <version>12.0.16</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.websocket</groupId>
         <artifactId>jetty-websocket-core-common</artifactId>
-        <version>12.0.15</version>
+        <version>12.0.16</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.websocket</groupId>
         <artifactId>jetty-websocket-core-server</artifactId>
-        <version>12.0.15</version>
+        <version>12.0.16</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.websocket</groupId>
         <artifactId>jetty-websocket-jetty-api</artifactId>
-        <version>12.0.15</version>
+        <version>12.0.16</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.websocket</groupId>
         <artifactId>jetty-websocket-jetty-common</artifactId>
-        <version>12.0.15</version>
+        <version>12.0.16</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jetty.websocket</groupId>
         <artifactId>jetty-websocket-jetty-server</artifactId>
-        <version>12.0.15</version>
+        <version>12.0.16</version>
       </dependency>
       <dependency>
         <groupId>com.azure</groupId>
