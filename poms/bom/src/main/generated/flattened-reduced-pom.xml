@@ -1034,7 +1034,7 @@
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-fury</artifactId>
-        <version>4.9.0</version>
+        <version>4.10.0-SNAPSHOT</version>
         <exclusions>
           <exclusion>
             <groupId>org.checkerframework</groupId>
