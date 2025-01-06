@@ -32,7 +32,6 @@ import com.sun.istack.ByteArrayDataSource;
 import io.quarkus.runtime.LaunchMode;
 import jakarta.activation.DataHandler;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.SessionScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -111,6 +110,11 @@ public class CxfSoapMtomRoutes extends RouteBuilder {
                     Map<String, Object> headers = exchange.getIn().getHeaders();
                     String endpointDataFormat = headers.get("endpointDataFormat").toString();
                     boolean mtomEnabled = Boolean.parseBoolean(headers.get("mtomEnabled").toString());
+                    if (mtomEnabled) {
+                        headers.put("endpointName", "soapClientMtomEnabledEndpoint" + endpointDataFormat);
+                    } else {
+                        headers.put("endpointName", "soapClientMtomDisabledEndpoint" + endpointDataFormat);
+                    }
                     headers.put("address", getServerUrl() + "/soapservice/mtom-" +
                             (mtomEnabled ? "enabled" : "disabled") + "-" + endpointDataFormat.toLowerCase() +
                             "-mode-image-service");
@@ -142,10 +146,7 @@ public class CxfSoapMtomRoutes extends RouteBuilder {
                         }
                     }
                 })
-                .choice().when(simple("${header.mtomEnabled} == 'true'"))
-                .toD("cxf:bean:soapClientMtomEnabledEndpoint?address=${header.address}&mtomEnabled=${header.mtomEnabled}&dataFormat=${header.endpointDataFormat}")
-                .otherwise()
-                .toD("cxf:bean:soapClientMtomDisabledEndpoint?address=${header.address}&mtomEnabled=${header.mtomEnabled}&dataFormat=${header.endpointDataFormat}");
+                .toD("cxf:bean:${header.endpointName}?address=${header.address}&mtomEnabled=${header.mtomEnabled}&dataFormat=${header.endpointDataFormat}");
 
         from("cxf:bean:soapMtomEnabledServerPojoModeEndpoint?dataFormat=POJO")
                 .to("direct:pojoModeProcessor");
@@ -258,42 +259,56 @@ public class CxfSoapMtomRoutes extends RouteBuilder {
     }
 
     @Produces
-    @SessionScoped
-    @Named
-    CxfEndpoint soapClientMtomEnabledEndpoint() {
+    @ApplicationScoped
+    @Named("soapClientMtomEnabledEndpointPOJO")
+    CxfEndpoint soapClientMtomEnabledEndpointPojo() {
         return commonCxfEndpoint(true, "");
     }
 
     @Produces
-    @SessionScoped
-    @Named
-    CxfEndpoint soapClientMtomDisabledEndpoint() {
+    @ApplicationScoped
+    @Named("soapClientMtomEnabledEndpointPAYLOAD")
+    CxfEndpoint soapClientMtomEnabledEndpointPayload() {
+        return commonCxfEndpoint(true, "");
+    }
+
+    @Produces
+    @ApplicationScoped
+    @Named("soapClientMtomDisabledEndpointPOJO")
+    CxfEndpoint soapClientMtomDisabledEndpointPojo() {
         return commonCxfEndpoint(false, "");
     }
 
     @Produces
-    @SessionScoped
+    @ApplicationScoped
+    @Named("soapClientMtomDisabledEndpointPAYLOAD")
+    CxfEndpoint soapClientMtomDisabledEndpointPayload() {
+        return commonCxfEndpoint(false, "");
+    }
+
+    @Produces
+    @ApplicationScoped
     @Named
     CxfEndpoint soapMtomDisabledServerPayloadModeEndpoint() {
         return commonCxfEndpoint(false, "/mtom-disabled-payload-mode-image-service");
     }
 
     @Produces
-    @SessionScoped
+    @ApplicationScoped
     @Named
     CxfEndpoint soapMtomEnabledServerPayloadModeEndpoint() {
         return commonCxfEndpoint(true, "/mtom-enabled-payload-mode-image-service");
     }
 
     @Produces
-    @SessionScoped
+    @ApplicationScoped
     @Named
     CxfEndpoint soapMtomEnabledServerPojoModeEndpoint() {
         return commonCxfEndpoint(true, "/mtom-enabled-pojo-mode-image-service");
     }
 
     @Produces
-    @SessionScoped
+    @ApplicationScoped
     @Named
     CxfEndpoint soapMtomDisabledServerPojoModeEndpoint() {
         return commonCxfEndpoint(false, "/mtom-disabled-pojo-mode-image-service");
