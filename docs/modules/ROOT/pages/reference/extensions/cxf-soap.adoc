@@ -68,7 +68,6 @@ With `camel-quarkus-cxf-soap` (no additional dependencies required), you can use
 ----
 import org.apache.camel.builder.RouteBuilder;
 import {javaxOrJakartaPackagePrefix}.enterprise.context.ApplicationScoped;
-import {javaxOrJakartaPackagePrefix}.enterprise.context.SessionScoped;
 import {javaxOrJakartaPackagePrefix}.enterprise.inject.Produces;
 import {javaxOrJakartaPackagePrefix}.inject.Named;
 
@@ -89,7 +88,7 @@ public class CxfSoapClientRoutes extends RouteBuilder {
     }
 
     @Produces
-    @SessionScoped
+    @ApplicationScoped
     @Named
     CxfEndpoint beanClient() {
         final CxfEndpoint result = new CxfEndpoint();
@@ -219,7 +218,6 @@ You can enable verbose logging of SOAP messages for both clients and servers wit
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.cxf.ext.logging.LoggingFeature;
 import {javaxOrJakartaPackagePrefix}.enterprise.context.ApplicationScoped;
-import {javaxOrJakartaPackagePrefix}.enterprise.context.SessionScoped;
 import {javaxOrJakartaPackagePrefix}.enterprise.inject.Produces;
 import {javaxOrJakartaPackagePrefix}.inject.Named;
 
@@ -240,7 +238,7 @@ public class MyBeans {
     LoggingFeature prettyLoggingFeature;
 
     @Produces
-    @SessionScoped
+    @ApplicationScoped
     @Named
     CxfEndpoint cxfBeanClient() {
         final CxfEndpoint result = new CxfEndpoint();

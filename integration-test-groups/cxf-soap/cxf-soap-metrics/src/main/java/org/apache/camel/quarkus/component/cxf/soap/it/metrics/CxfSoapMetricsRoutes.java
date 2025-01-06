@@ -20,11 +20,11 @@ import java.util.Optional;
 
 import io.quarkiverse.cxf.metrics.QuarkusCxfMetricsFeature;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.SessionScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Named;
 import org.apache.camel.Message;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.cxf.common.DataFormat;
 import org.apache.camel.component.cxf.jaxws.CxfEndpoint;
 import org.apache.camel.quarkus.component.cxf.soap.it.metrics.service.HelloService;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -39,7 +39,7 @@ public class CxfSoapMetricsRoutes extends RouteBuilder {
     public void configure() {
 
         from("direct:clientMetrics")
-                .to("cxf:bean:clientMetricsEndpoint?dataFormat=POJO");
+                .to("cxf:bean:clientMetricsEndpoint");
 
         from("cxf:bean:metricsServiceEndpoint")
                 .process(e -> {
@@ -56,10 +56,11 @@ public class CxfSoapMetricsRoutes extends RouteBuilder {
     }
 
     @Produces
-    @SessionScoped
+    @ApplicationScoped
     @Named
     CxfEndpoint clientMetricsEndpoint() {
         final CxfEndpoint result = new CxfEndpoint();
+        result.setDataFormat(DataFormat.POJO);
         result.setServiceClass(HelloService.class);
         result.setAddress("http://localhost:" + port + "/soapservice/hello-metrics");
         result.setWsdlURL("wsdl/MetricsHelloService.wsdl");

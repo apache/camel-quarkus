@@ -20,7 +20,6 @@ import java.util.Map;
 
 import io.quarkus.runtime.LaunchMode;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.SessionScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -82,13 +81,13 @@ public class CxfSoapSslRoutes extends RouteBuilder {
                 })
                 .toD("cxf:bean:${header.endpoint}?address=${header.address}");
 
-        from("cxf:bean:soapSslRouter")
+        from("cxf:bean:soapSslRouterConsumer")
                 .process("responseProcessor");
 
     }
 
     @Produces
-    @SessionScoped
+    @ApplicationScoped
     @Named("soapSslLocalCorrect")
     CxfEndpoint soapSslLocalCorrect(DefaultHostnameVerifier defaultHostnameVerifier) {
         final CxfEndpoint result = new CxfEndpoint();
@@ -101,7 +100,7 @@ public class CxfSoapSslRoutes extends RouteBuilder {
     }
 
     @Produces
-    @SessionScoped
+    @ApplicationScoped
     @Named("soapSslLocalWrong")
     CxfEndpoint soapSslLocalWrong(DefaultHostnameVerifier defaultHostnameVerifier) {
         final CxfEndpoint result = new CxfEndpoint();
@@ -114,7 +113,7 @@ public class CxfSoapSslRoutes extends RouteBuilder {
     }
 
     @Produces
-    @SessionScoped
+    @ApplicationScoped
     @Named("soapSslGlobal")
     CxfEndpoint soapSslGlobal() {
         final CxfEndpoint result = new CxfEndpoint();
@@ -125,7 +124,7 @@ public class CxfSoapSslRoutes extends RouteBuilder {
     }
 
     @Produces
-    @SessionScoped
+    @ApplicationScoped
     @Named("soapSslRouter")
     CxfEndpoint soapSslRouter() {
         final CxfEndpoint result = new CxfEndpoint();
@@ -136,7 +135,14 @@ public class CxfSoapSslRoutes extends RouteBuilder {
     }
 
     @Produces
-    @SessionScoped
+    @ApplicationScoped
+    @Named("soapSslRouterConsumer")
+    CxfEndpoint soapSslRouterConsumer() {
+        return soapSslRouter();
+    }
+
+    @Produces
+    @ApplicationScoped
     @Named
     GreeterService greeterService() {
         return new GreeterImpl();
