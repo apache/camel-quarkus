@@ -30,12 +30,12 @@ import org.w3c.dom.Element;
 
 import io.quarkus.runtime.LaunchMode;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.SessionScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.cxf.common.CxfPayload;
+import org.apache.camel.component.cxf.common.DataFormat;
 import org.apache.camel.component.cxf.jaxws.CxfEndpoint;
 import org.apache.camel.converter.jaxp.XmlConverter;
 import org.apache.camel.wsdl_first.types.GetPerson;
@@ -86,9 +86,9 @@ public class CxfSoapConverterRoutes extends RouteBuilder {
                             new ArrayList<SoapHeader>(), elements, null);
                     exchange.getIn().setBody(payload);
                 })
-                .toD("cxf:bean:soapConverterEndpoint?address=${header.address}&dataFormat=PAYLOAD");
+                .toD("cxf:bean:soapConverterEndpoint?address=${header.address}");
 
-        from("cxf:bean:soapConverterEndpoint?dataFormat=PAYLOAD")
+        from("cxf:bean:soapConverterEndpointConsumer")
                 .process(exchange -> {
                     String operation = exchange.getIn().getHeader("operation", String.class);
                     if ("pojo".equals(operation)) {
@@ -130,14 +130,22 @@ public class CxfSoapConverterRoutes extends RouteBuilder {
     }
 
     @Produces
-    @SessionScoped
+    @ApplicationScoped
     @Named
     CxfEndpoint soapConverterEndpoint() {
         final CxfEndpoint result = new CxfEndpoint();
+        result.setDataFormat(DataFormat.PAYLOAD);
         result.getFeatures().add(loggingFeature);
         result.setServiceClass(org.apache.camel.wsdl_first.Person.class);
         result.setAddress("/PayLoadConvert/RouterPort");
         return result;
+    }
+
+    @Produces
+    @ApplicationScoped
+    @Named
+    CxfEndpoint soapConverterEndpointConsumer() {
+        return soapConverterEndpoint();
     }
 
     @Produces

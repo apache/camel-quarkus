@@ -23,7 +23,6 @@ import java.util.Map;
 
 import com.sun.xml.messaging.saaj.soap.ver1_1.Message1_1Impl;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.SessionScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -63,7 +62,7 @@ public class CxfSoapClientRoutes extends RouteBuilder {
     public void configure() {
 
         from("direct:simpleUriBean")
-                .to("cxf:bean:soapClientEndpoint?dataFormat=POJO");
+                .to("cxf:bean:soapClientEndpointPojo");
 
         from("direct:simpleUriAddress")
                 .to(String.format("cxf://%s?wsdlURL=%s&dataFormat=POJO&serviceClass=%s", calculatorServiceAddress(),
@@ -85,17 +84,17 @@ public class CxfSoapClientRoutes extends RouteBuilder {
                         }
                     }
                 })
-                .toD("cxf:bean:soapClientEndpoint?dataFormat=${header.endpointDataFormat}");
+                .toD("cxf:bean:soapClientEndpoint${header.endpointDataFormat}");
 
         from("direct:operandsAdd")
                 .setHeader(CxfConstants.OPERATION_NAME).constant("addOperands")
-                .to("cxf:bean:soapClientEndpoint?dataFormat=POJO");
+                .to("cxf:bean:soapClientEndpointPojo");
 
         from("direct:basicAuthAdd")
-                .to("cxf:bean:basicAuthClientEndpoint?dataFormat=POJO&username={{cq.cxf.it.calculator.auth.basic.user}}&password={{cq.cxf.it.calculator.auth.basic.password}}");
+                .to("cxf:bean:basicAuthAddClientEndpoint?username={{cq.cxf.it.calculator.auth.basic.user}}&password={{cq.cxf.it.calculator.auth.basic.password}}");
 
         from("direct:basicAuthAddAnonymous")
-                .to("cxf:bean:basicAuthClientEndpoint?dataFormat=POJO");
+                .to("cxf:bean:basicAuthAddAnonymousClientEndpoint");
 
     }
 
@@ -109,10 +108,29 @@ public class CxfSoapClientRoutes extends RouteBuilder {
     }
 
     @Produces
-    @SessionScoped
+    @ApplicationScoped
     @Named
-    CxfEndpoint soapClientEndpoint() {
+    CxfEndpoint soapClientEndpointPojo() {
+        return soapClientCxfEndpoint(DataFormat.POJO);
+    }
+
+    @Produces
+    @ApplicationScoped
+    @Named("soapClientEndpointRAW")
+    CxfEndpoint soapClientEndpointRaw() {
+        return soapClientCxfEndpoint(DataFormat.RAW);
+    }
+
+    @Produces
+    @ApplicationScoped
+    @Named("soapClientEndpointCXF_MESSAGE")
+    CxfEndpoint soapClientEndpointCxfMessage() {
+        return soapClientCxfEndpoint(DataFormat.CXF_MESSAGE);
+    }
+
+    private CxfEndpoint soapClientCxfEndpoint(DataFormat dataFormat) {
         final CxfEndpoint result = new CxfEndpoint();
+        result.setDataFormat(dataFormat);
         result.setServiceClass(CalculatorService.class);
         result.setAddress(calculatorServiceAddress());
         result.setWsdlURL(calculatorServiceWsdlUrl());
@@ -121,10 +139,22 @@ public class CxfSoapClientRoutes extends RouteBuilder {
     }
 
     @Produces
-    @SessionScoped
+    @ApplicationScoped
     @Named
-    CxfEndpoint basicAuthClientEndpoint() {
+    CxfEndpoint basicAuthAddClientEndpoint() {
+        return basicAuthCxfEndpoint();
+    }
+
+    @Produces
+    @ApplicationScoped
+    @Named
+    CxfEndpoint basicAuthAddAnonymousClientEndpoint() {
+        return basicAuthCxfEndpoint();
+    }
+
+    private CxfEndpoint basicAuthCxfEndpoint() {
         final CxfEndpoint result = new CxfEndpoint();
+        result.setDataFormat(DataFormat.POJO);
         result.setServiceClass(BasicAuthCalculatorService.class);
         result.setAddress(serviceBaseUri + "/calculator-ws/BasicAuthCalculatorService");
         result.setWsdlURL("wsdl/BasicAuthCalculatorService.wsdl");
