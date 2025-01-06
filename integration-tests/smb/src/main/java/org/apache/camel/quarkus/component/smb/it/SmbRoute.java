@@ -28,6 +28,8 @@ import jakarta.inject.Singleton;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.smb.SmbConstants;
 import org.apache.camel.component.smb.SmbFile;
+import org.apache.camel.spi.IdempotentRepository;
+import org.apache.camel.support.processor.idempotent.MemoryIdempotentRepository;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
@@ -54,19 +56,18 @@ public class SmbRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("smb:{{smb.host}}:{{smb.port}}/{{smb.share}}?username={{smb.username}}&password={{smb.password}}&path=/&repeatCount=1&searchPattern=*.txt")
+        from("smb:{{smb.host}}:{{smb.port}}/{{smb.share}}?username={{smb.username}}&password={{smb.password}}&path=/&repeatCount=1&searchPattern=*.txt&idempotent=true&idempotentRepository=#myRepo")
                 .to("mock:result");
 
         from("direct:send")
                 .toF("smb:%s:%s/%s?username=%s&password=%s&path=/", host, port, share, username, password);
 
-        from("smb:{{smb.host}}:{{smb.port}}/{{smb.share}}?username={{smb.username}}&password={{smb.password}}&path=/&searchPattern=*.tx1")
+        from("smb:{{smb.host}}:{{smb.port}}/{{smb.share}}?username={{smb.username}}&password={{smb.password}}&path=/&searchPattern=*.tx1&idempotent=true&idempotentRepository=#myRepo")
                 .process(e -> {
                     receivedContents.add(Map.of(
-                            "path", e.getIn().getBody(SmbFile.class).getPath(),
-                            "content", new String(e.getIn().getBody(SmbFile.class).getInputStream().readAllBytes(), "UTF-8"),
-                            SmbConstants.SMB_FILE_PATH, e.getIn().getHeader(SmbConstants.SMB_FILE_PATH, String.class),
-                            SmbConstants.SMB_UNC_PATH, e.getIn().getHeader(SmbConstants.SMB_UNC_PATH, String.class)));
+                            "path", e.getIn().getBody(SmbFile.class).getAbsoluteFilePath(),
+                            "content", new String((byte[]) e.getIn().getBody(SmbFile.class).getBody(), "UTF-8"),
+                            SmbConstants.FILE_PATH, e.getIn().getHeader(SmbConstants.FILE_PATH, String.class)));
                 });
     }
 
@@ -78,6 +79,12 @@ public class SmbRoute extends RouteBuilder {
         List<Map<String, String>> smbReceivedMsgs() {
             return new CopyOnWriteArrayList<>();
         }
+    }
+
+    @Produces
+    @Named("myRepo")
+    public IdempotentRepository myRepo() {
+        return MemoryIdempotentRepository.memoryIdempotentRepository(2000);
     }
 
 }
