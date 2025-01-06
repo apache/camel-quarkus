@@ -7144,7 +7144,7 @@
       <dependency>
         <groupId>org.kiwiproject</groupId>
         <artifactId>consul-client</artifactId>
-        <version>1.4.2</version>
+        <version>1.4.5</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
