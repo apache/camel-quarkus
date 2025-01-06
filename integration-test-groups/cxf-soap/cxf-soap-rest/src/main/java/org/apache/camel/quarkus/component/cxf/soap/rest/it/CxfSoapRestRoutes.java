@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.component.cxf.soap.rest.it;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.SessionScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -66,7 +65,7 @@ public class CxfSoapRestRoutes extends RouteBuilder {
     }
 
     @Produces
-    @SessionScoped
+    @ApplicationScoped
     @Named
     CxfEndpoint soapClientRestEndpoint() {
         final CxfEndpoint result = new CxfEndpoint();
