@@ -39,12 +39,6 @@ final class SubstituteAS400 {
         //skip verification, because it cen end with GUi dialog
         return false;
     }
-
-    @Substitute
-    //workaround because of https://github.com/apache/camel-quarkus/issues/6889
-    synchronized void signon(boolean keepConnection) throws AS400SecurityException, IOException {
-        throw new RuntimeException("Signon is not supported in the native mode.");
-    }
 }
 
 //even if gui is turned off, the presence of code in Dialogs, which references awt object, causes the java.lang.Thread
