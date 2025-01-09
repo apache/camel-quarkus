@@ -73,19 +73,17 @@ class HttpClient5Processor {
 
             try (MethodCreator defaultConstructor = classCreator.getMethodCreator("<init>", void.class)) {
                 defaultConstructor.setModifiers(Modifier.PUBLIC);
-                defaultConstructor.invokeSpecialMethod(
-                        MethodDescriptor.ofMethod(BROTLI_INPUT_STREAM_CLASS_NAME, "<init>", void.class),
+                defaultConstructor.invokeSpecialMethod(MethodDescriptor.ofConstructor(InputStream.class),
                         defaultConstructor.getThis());
-                defaultConstructor.returnValue(null);
+                defaultConstructor.returnNull();
             }
 
             try (MethodCreator constructorWithInputStreamArg = classCreator.getMethodCreator("<init>", void.class,
                     InputStream.class)) {
                 constructorWithInputStreamArg.setModifiers(Modifier.PUBLIC);
-                constructorWithInputStreamArg.invokeSpecialMethod(
-                        MethodDescriptor.ofMethod(BROTLI_INPUT_STREAM_CLASS_NAME, "<init>", void.class),
+                constructorWithInputStreamArg.invokeSpecialMethod(MethodDescriptor.ofConstructor(InputStream.class),
                         constructorWithInputStreamArg.getThis());
-                constructorWithInputStreamArg.returnValue(null);
+                constructorWithInputStreamArg.returnNull();
             }
 
             try (MethodCreator readMethod = classCreator.getMethodCreator("read", int.class)) {
