@@ -91,8 +91,8 @@ With the `camel-quarkus-langchain4j` extension, the AI services are resolvable b
 For instance, let's define an AI service below:
 
 ```
-@RegisterAiService
 @ApplicationScoped
+@RegisterAiService
 public interface MyAiService {
 
     @UserMessage("My Prompt")
@@ -108,6 +108,35 @@ The AI service could then be invoked from a Camel route like this:
 public void configure() {
   from("...")
     .bean(MyAiService.class);
+}
+```
+
+[id="extensions-langchain4j-configuration-resolving-ai-services-by-bean-name"]
+=== Resolving AI services by bean name
+
+The AI services are also resolvable by bean name when called from a `bean` statement.
+
+For instance, let's define an AI service below:
+
+```
+@ApplicationScoped
+@Named("aiServiceResolvedByName")
+@RegisterAiService
+public interface AiServiceResolvedByName {
+
+    @UserMessage("My prompt")
+    @Handler
+    String chatByName(String input);
+}
+```
+
+The AI service could then be invoked from a Camel route as below:
+
+```
+@Override
+public void configure() {
+  from("...")
+    .bean("aiServiceResolvedByName");
 }
 ```
 
