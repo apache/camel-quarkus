@@ -1,7 +1,3 @@
-=== Preloading Kamelets at build-time
-
-This extension can preload a set of Kamelets at build time. You must include the names of each Kamelet, in the `quarkus.camel.kamelet.identifiers` configuration property.
-
 === Using the Kamelet Catalog
 
 A set of pre-made Kamelets can be found in the Kamelet Catalog.
@@ -17,4 +13,6 @@ Alternatively, you can add the `camel-kamelets` dependency to your application.
 </dependency>
 ----
 
-You can select which Kamelets from the catalog you want to use by referencing their name in the `quarkus.camel.kamelet.identifiers` property.
+=== Custom Kamelets
+
+It's advised to name files containing your custom Kamelet definitions with the extension `.kamelet.yaml`.

@@ -17,9 +17,6 @@
 package org.apache.camel.quarkus.component.kamelet.it;
 
 import jakarta.inject.Inject;
-import jakarta.json.Json;
-import jakarta.json.JsonArray;
-import jakarta.json.JsonArrayBuilder;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -30,8 +27,6 @@ import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.FluentProducerTemplate;
-import org.apache.camel.model.Model;
-import org.apache.camel.model.OptionalIdentifiedDefinition;
 
 @Path("/kamelet")
 public class KameletResource {
@@ -81,21 +76,6 @@ public class KameletResource {
         return fluentProducerTemplate.toF("kamelet:%s", name).withBody(message).request(String.class);
     }
 
-    @Path("/list")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public JsonArray list() {
-        JsonArrayBuilder builder = Json.createArrayBuilder();
-
-        camelContext.getCamelContextExtension().getContextPlugin(Model.class)
-                .getRouteTemplateDefinitions()
-                .stream()
-                .map(OptionalIdentifiedDefinition::getId)
-                .forEach(builder::add);
-
-        return builder.build();
-    }
-
     @Path("/locationAtRuntime/{name}")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
@@ -115,5 +95,19 @@ public class KameletResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String pipe() {
         return consumerTemplate.receiveBody("seda:greetingFromProperty", 10000, String.class);
+    }
+
+    @Path("/injector")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String injector() {
+        return consumerTemplate.receiveBody("seda:injector", 10000, String.class);
+    }
+
+    @Path("/custom")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String custom() {
+        return fluentProducerTemplate.to("direct:custom").request(String.class);
     }
 }

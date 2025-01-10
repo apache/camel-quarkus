@@ -46,11 +46,6 @@ endif::[]
 
 [id="extensions-kamelet-usage"]
 == Usage
-[id="extensions-kamelet-usage-preloading-kamelets-at-build-time"]
-=== Preloading Kamelets at build-time
-
-This extension can preload a set of Kamelets at build time. You must include the names of each Kamelet, in the `quarkus.camel.kamelet.identifiers` configuration property.
-
 [id="extensions-kamelet-usage-using-the-kamelet-catalog"]
 === Using the Kamelet Catalog
 
@@ -67,7 +62,10 @@ Alternatively, you can add the `camel-kamelets` dependency to your application.
 </dependency>
 ----
 
-You can select which Kamelets from the catalog you want to use by referencing their name in the `quarkus.camel.kamelet.identifiers` property.
+[id="extensions-kamelet-usage-custom-kamelets"]
+=== Custom Kamelets
+
+It's advised to name files containing your custom Kamelet definitions with the extension `.kamelet.yaml`.
 
 
 [id="extensions-kamelet-additional-camel-quarkus-configuration"]
@@ -80,11 +78,14 @@ You can select which Kamelets from the catalog you want to use by referencing th
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.kamelet.identifiers]]`link:#quarkus.camel.kamelet.identifiers[quarkus.camel.kamelet.identifiers]`
 
-List of kamelets identifiers to pre-load at build time.
+Optional comma separated list of kamelet identifiers to configure for native mode support.
+A kamelet identifier is the Kamelet file name without the .kamelet.yaml suffix.
 <p>
-Each individual identifier is used to set the related {@link org.apache.camel.model.RouteTemplateDefinition} id.
+The default value '*' will result in all discovered Kamelet definition files being included into the native image.
+Note that this configuration option is only relevant when producing a native application.
+</p>
 | List of `string`
-| 
+| `*`
 |===
 
 [.configuration-legend]

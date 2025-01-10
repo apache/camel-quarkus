@@ -26,14 +26,8 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-integration-tests-support-custom-kamelet-resource-parent</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>camel-quarkus-integration-tests-support-custom-kamelet-resource</artifactId>
 
     <name>Camel Quarkus :: Integration Tests :: Support :: Custom Kamelet Resource</name>
-
-    <modules>
-        <module>runtime</module>
-        <module>deployment</module>
-    </modules>
 
 </project>

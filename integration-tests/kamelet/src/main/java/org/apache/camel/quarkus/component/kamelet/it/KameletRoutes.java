@@ -67,6 +67,12 @@ public class KameletRoutes extends RouteBuilder {
 
         from("kamelet:greeting")
                 .to("seda:greeting");
+
+        from("kamelet:injector?delay=-1")
+                .to("seda:injector");
+
+        from("direct:custom")
+                .to("kamelet:custom?numberA=5&numberB=10");
     }
 
     @RegisterForReflection
@@ -75,9 +81,5 @@ public class KameletRoutes extends RouteBuilder {
         public void process(Exchange exchange) {
             exchange.getMessage().setBody(exchange.getMessage().getBody(String.class) + "-suffix");
         }
-    }
-
-    @RegisterForReflection(fields = false, targets = { String.class })
-    public static class StringUpperCaseReflectionForUpperKamelet {
     }
 }
