@@ -16,16 +16,12 @@
  */
 package org.apache.camel.quarkus.component.kamelet.it;
 
-import java.util.ArrayList;
-
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 class KameletTest {
@@ -90,23 +86,6 @@ class KameletTest {
     }
 
     @Test
-    public void testDiscovered() {
-        Response resp = RestAssured.given()
-                .contentType(ContentType.JSON)
-                .when()
-                .get("/kamelet/list");
-        resp.then().statusCode(200);
-
-        ArrayList<String> jsonAsArrayList = resp.body()
-                .jsonPath().get("");
-
-        assertTrue(jsonAsArrayList.contains("injector"));
-        assertTrue(jsonAsArrayList.contains("logger"));
-        assertTrue(jsonAsArrayList.contains("custom-log"));
-        assertTrue(jsonAsArrayList.contains("greeting"));
-    }
-
-    @Test
     public void testKameletLocationAtRuntime() {
         RestAssured.given()
                 .post("/kamelet/locationAtRuntime/Hello")
@@ -129,5 +108,21 @@ class KameletTest {
                 .then()
                 .statusCode(200)
                 .body(is("Hello Pipe"));
+    }
+
+    @Test
+    public void testInjectorKamelet() {
+        RestAssured.get("/kamelet/injector")
+                .then()
+                .statusCode(200)
+                .body(is("Hello World!"));
+    }
+
+    @Test
+    public void testKameletFromDependency() {
+        RestAssured.get("/kamelet/custom")
+                .then()
+                .statusCode(200)
+                .body(is("15"));
     }
 }

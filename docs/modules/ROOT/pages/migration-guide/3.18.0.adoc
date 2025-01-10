@@ -1,0 +1,24 @@
+= Camel Quarkus 3.18.0 Migration Guide
+
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 3.18.0.
+
+== `camel-quarkus-yaml-dsl` is now required when using Kamelets with the Java DSL
+
+When using Kamelets in conjunction with Java DSL routes, you must ensure `camel-quarkus-yaml-dsl` is added to the project dependencies.
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-yaml-dsl</artifactId>
+</dependency>
+----
+
+Failing to do this will result in a runtime exception like the following.
+
+[source,shell]
+----
+java.lang.IllegalArgumentException: Cannot find RoutesBuilderLoader in classpath supporting file extension: kamelet.yaml
+----
+
+TIP: You can create Kamelets using Camel JBang, export them to a Camel Quarkus application and `camel-quarkus-yaml-dsl` will be added automatically.

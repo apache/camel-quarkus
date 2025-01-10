@@ -15,14 +15,14 @@
 # limitations under the License.
 #
 
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: Kamelet
 metadata:
   name: injector
   labels:
     camel.apache.org/kamelet.type: "source"
     camel.apache.org/kamelet.name: "injector"
-    camel.apache.org/kamelet.version: "v1alpha1"
+    camel.apache.org/kamelet.version: "v1"
     camel.apache.org/kamelet.revision: "1"
 spec:
   definition:
@@ -34,6 +34,11 @@ spec:
         description: Delay
         type: string
         default: "1s"
+      repeatCount:
+        title: Repeat Count
+        description: Repeat Count
+        type: string
+        default: "1"
   types:
     out:
       mediaType: application/json
@@ -44,8 +49,8 @@ spec:
       uri: timer
       parameters:
         timerName: "{{routeId}}"
-        period: "{{delay}}"
+        delay: "{{delay}}"
+        repeatCount: "{{repeatCount}}"
       steps:
         - setBody:
-            exchangeProperty: "CamelTimerCounter"
-        - to: "kamelet:sink"
+            constant: "Hello World!"

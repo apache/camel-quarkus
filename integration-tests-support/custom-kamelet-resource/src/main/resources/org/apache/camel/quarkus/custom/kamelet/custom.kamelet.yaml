@@ -15,43 +15,36 @@
 # limitations under the License.
 #
 
-apiVersion: camel.apache.org/v1alpha1
+apiVersion: camel.apache.org/v1
 kind: Kamelet
 metadata:
-  name: logger
+  name: custom
   labels:
     camel.apache.org/kamelet.type: "sink"
-    camel.apache.org/kamelet.name: "log"
-    camel.apache.org/kamelet.version: "v1alpha1"
+    camel.apache.org/kamelet.name: "custom-kamelet-resource"
+    camel.apache.org/kamelet.version: "v1"
 spec:
   definition:
-    title: "Logger"
-    description: "Logger"
+    title: "Number Adder"
+    description: "Adds two numbers together"
     properties:
-      loggerName:
-        title: Name of the logging category
-        description:  Name of the logging category
-        type: string
-        default: "logger"
-      showAll:
-        title: Show All
-        description: Show All
-        type: boolean
-        default: false
-      multiLine:
-        title: Multi Line
-        description: Multi Line
-        type: boolean
-        default: false
+      numberA:
+        title: The first number
+        description: The first number
+        type: int
+        default: 1
+      numberB:
+        title: The second number
+        description: The second number
+        type: int
+        default: 1
   dependencies:
-    - "camel:log"
+    - "camel:bean"
   template:
+    beans:
+      - name: additionBean
+        type: "#class:org.apache.camel.quarkus.test.support.kamelet.AdditionBean({{numberA}}, {{numberB}})"
     from:
       uri: "kamelet:source"
       steps:
-        - to:
-            uri: "log"
-            parameters:
-              loggerName: "{{loggerName}}"
-              showAll: "{{showAll}}"
-              multiline: "{{multiLine}}"
+        - to: "bean:{{additionBean}}?method=getResult"

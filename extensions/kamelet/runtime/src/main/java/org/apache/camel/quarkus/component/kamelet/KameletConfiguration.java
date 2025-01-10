@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.component.kamelet;
 
 import java.util.List;
-import java.util.Optional;
 
 import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
@@ -26,10 +25,13 @@ import io.quarkus.runtime.annotations.ConfigRoot;
 @ConfigRoot(name = "camel.kamelet", phase = ConfigPhase.BUILD_TIME)
 public class KameletConfiguration {
     /**
-     * List of kamelets identifiers to pre-load at build time.
+     * Optional comma separated list of kamelet identifiers to configure for native mode support.
+     * A kamelet identifier is the Kamelet file name without the .kamelet.yaml suffix.
      * <p>
-     * Each individual identifier is used to set the related {@link org.apache.camel.model.RouteTemplateDefinition} id.
+     * The default value '*' will result in all discovered Kamelet definition files being included into the native image.
+     * Note that this configuration option is only relevant when producing a native application.
+     * </p>
      */
-    @ConfigItem
-    public Optional<List<String>> identifiers;
+    @ConfigItem(defaultValue = "*")
+    public List<String> identifiers;
 }

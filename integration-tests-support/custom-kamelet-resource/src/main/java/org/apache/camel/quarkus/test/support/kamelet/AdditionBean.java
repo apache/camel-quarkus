@@ -14,29 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.kamelet.deployment;
+package org.apache.camel.quarkus.test.support.kamelet;
 
-import io.quarkus.builder.item.MultiBuildItem;
-import org.apache.camel.spi.Resource;
+public class AdditionBean {
+    private final int a;
+    private final int b;
 
-/**
- * Build item used by application developer to provide their own kamelets resources. This could be leveraged by
- * application that have a custom mechanism to load and discovery kamelets.
- */
-public final class KameletResourceBuildItem extends MultiBuildItem {
-    private final String id;
-    private final Resource resource;
-
-    public KameletResourceBuildItem(String id, Resource resource) {
-        this.id = id;
-        this.resource = resource;
+    public AdditionBean(int a, int b) {
+        this.a = a;
+        this.b = b;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public Resource getResource() {
-        return resource;
+    public int getResult() {
+        return a + b;
     }
 }
