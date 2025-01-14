@@ -27,6 +27,7 @@ group-01:
   - infinispan-quarkus-client
   - jcache
   - jms-artemis-client
+  - jms-artemis-ra
   - jms-ibmmq-client
   - jsch
   - microprofile-fault-tolerance
