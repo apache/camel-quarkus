@@ -41,7 +41,12 @@ public class MessagingCommonRoutes extends RouteBuilder {
         // The routes are later started in AbstractMessagingTest#beforeAll method
         camelContext.setAutoStartup(false);
 
-        fromF("%s:queue:testJmsMessageType?concurrentConsumers=5", componentScheme)
+        String cacheLevel = "";
+        if (isCacheLevelNone()) {
+            cacheLevel = "&cacheLevelName=CACHE_NONE";
+        }
+
+        fromF("%s:queue:testJmsMessageType?concurrentConsumers=5%s", componentScheme, cacheLevel)
                 .toF("%s:queue:testJmsMessageType2", componentScheme);
 
         String disableStreaming = "";
@@ -110,6 +115,15 @@ public class MessagingCommonRoutes extends RouteBuilder {
     private boolean isDisableStreaming() {
         try {
             Class.forName("org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory");
+            return !componentScheme.getScheme().startsWith("sjms");
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+    }
+
+    private boolean isCacheLevelNone() {
+        try {
+            Class.forName("org.apache.activemq.artemis.ra.ActiveMQRAConnectionFactoryImpl");
             return !componentScheme.getScheme().startsWith("sjms");
         } catch (ClassNotFoundException e) {
             return false;

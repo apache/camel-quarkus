@@ -1,0 +1,46 @@
+<configuration xmlns="urn:activemq" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:activemq /schema/artemis-configuration.xsd">
+    <core xmlns="urn:activemq:core">
+        <paging-directory>./target/artemis/default/paging</paging-directory>
+        <bindings-directory>./target/artemis/default/bindings</bindings-directory>
+        <journal-directory>./target/artemis/default/journal</journal-directory>
+        <large-messages-directory>./target/artemis/default/large-messages</large-messages-directory>
+        <suppress-session-notifications>true</suppress-session-notifications>
+        <persistence-enabled>false</persistence-enabled>
+        <connectors>
+            <connector name="activemq">tcp://localhost:61616</connector>
+        </connectors>
+        <acceptors>
+            <acceptor name="activemq">tcp://localhost:61616</acceptor>
+        </acceptors>
+        <journal-pool-files>10</journal-pool-files>
+        <max-disk-usage>-1</max-disk-usage>
+        <security-enabled>false</security-enabled>
+        <addresses>
+            <address name="MyQueue">
+                <anycast>
+                    <queue name="MyQueue"/>
+                </anycast>
+            </address>
+            <address name="sales">
+                <anycast>
+                    <queue name="sales"/>
+                </anycast>
+            </address>
+            <address name="inventory">
+                <anycast>
+                    <queue name="inventory"/>
+                </anycast>
+            </address>
+        </addresses>
+        <address-settings>
+            <address-setting match="#">
+                <dead-letter-address>DLA</dead-letter-address>
+                <max-delivery-attempts>3</max-delivery-attempts>
+                <auto-create-dead-letter-resources>true</auto-create-dead-letter-resources>
+                <dead-letter-queue-prefix></dead-letter-queue-prefix> <!-- override the default -->
+                <dead-letter-queue-suffix>.DLQ</dead-letter-queue-suffix>
+                <expiry-address>expired</expiry-address>
+            </address-setting>
+        </address-settings>
+    </core>
+</configuration>
