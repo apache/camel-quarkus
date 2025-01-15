@@ -606,6 +606,7 @@
                                     <exclude>**/my-property</exclude>
                                     <exclude>release-utils/*.sh</exclude>
                                     <exclude>**/*.wasm</exclude>
+                                    <exclude>**/known_hosts</exclude>
                                 </excludes>
                             </licenseSet>
                         </licenseSets>

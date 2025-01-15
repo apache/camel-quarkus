@@ -16,10 +16,15 @@
  */
 package org.apache.camel.quarkus.component.ssh.it;
 
+import java.nio.file.Paths;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
-import org.apache.camel.util.CollectionHelper;
+import org.apache.camel.quarkus.test.AvailablePortFinder;
+import org.apache.sshd.common.keyprovider.FileKeyPairProvider;
+import org.apache.sshd.server.SshServer;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,8 +38,12 @@ public class SshTestResource implements QuarkusTestResourceLifecycleManager {
     private static final int SSH_PORT = 2222;
     private static final String SSH_IMAGE = ConfigProvider.getConfig().getValue("openssh-server.container.image",
             String.class);
+    static final String USERNAME = "user01";
+    static final String PASSWORD = "changeit";
 
     private GenericContainer container;
+    protected List<SshServer> sshds = new LinkedList<>();
+    protected int securedPort, edPort;
 
     @Override
     public Map<String, String> start() {
@@ -45,8 +54,8 @@ public class SshTestResource implements QuarkusTestResourceLifecycleManager {
             container = new GenericContainer(SSH_IMAGE)
                     .withExposedPorts(SSH_PORT)
                     .withEnv("PASSWORD_ACCESS", "true")
-                    .withEnv("USER_NAME", "test")
-                    .withEnv("USER_PASSWORD", "password")
+                    .withEnv("USER_NAME", USERNAME)
+                    .withEnv("USER_PASSWORD", PASSWORD)
                     .waitingFor(Wait.forListeningPort());
 
             container.start();
@@ -54,11 +63,41 @@ public class SshTestResource implements QuarkusTestResourceLifecycleManager {
             LOGGER.info("Started SSH container to {}:{}", container.getHost(),
                     container.getMappedPort(SSH_PORT).toString());
 
-            return CollectionHelper.mapOf(
-                    "quarkus.ssh.host",
-                    container.getHost(),
-                    "quarkus.ssh.port",
-                    container.getMappedPort(SSH_PORT).toString());
+            securedPort = AvailablePortFinder.getNextAvailable();
+
+            var sshd = SshServer.setUpDefaultServer();
+            sshd.setPort(securedPort);
+            sshd.setKeyPairProvider(new FileKeyPairProvider(Paths.get("target/certs/user01.key")));
+            sshd.setCommandFactory(new TestEchoCommandFactory());
+            sshd.setPasswordAuthenticator((username, password, session) -> true);
+            sshd.setPublickeyAuthenticator((username, key, session) -> true);
+            sshd.start();
+
+            sshds.add(sshd);
+
+            edPort = AvailablePortFinder.getNextAvailable();
+
+            sshd = SshServer.setUpDefaultServer();
+            sshd.setPort(edPort);
+            sshd.setKeyPairProvider(new FileKeyPairProvider(
+                    Paths.get(Thread.currentThread().getContextClassLoader().getResource("edDSA/key_ed25519.pem").toURI())));
+            sshd.setCommandFactory(new TestEchoCommandFactory());
+            sshd.setPasswordAuthenticator((username, password, session) -> true);
+            sshd.setPublickeyAuthenticator((username, key, session) -> true);
+            sshd.start();
+
+            sshds.add(sshd);
+
+            LOGGER.info("Started SSHD server to {}:{}", container.getHost(),
+                    securedPort);
+
+            return Map.of(
+                    "quarkus.ssh.host", "localhost",
+                    "quarkus.ssh.port", container.getMappedPort(SSH_PORT).toString(),
+                    "quarkus.ssh.secured-port", securedPort + "",
+                    "quarkus.ssh.ed-port", edPort + "",
+                    "ssh.username", USERNAME,
+                    "ssh.password", PASSWORD);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -66,12 +105,19 @@ public class SshTestResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public void stop() {
-        LOGGER.info("Stopping SSH container");
+        LOGGER.info("Stopping SSH container and servers");
 
         try {
             if (container != null) {
                 container.stop();
             }
+            sshds.forEach(s -> {
+                try {
+                    s.stop(true);
+                } catch (Exception e) {
+                    // ignored
+                }
+            });
         } catch (Exception e) {
             // ignored
         }
