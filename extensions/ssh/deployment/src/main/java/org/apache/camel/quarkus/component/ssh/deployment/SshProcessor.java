@@ -26,14 +26,18 @@ import javax.crypto.Mac;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import net.i2p.crypto.eddsa.EdDSAEngine;
 import org.apache.sshd.common.channel.ChannelListener;
 import org.apache.sshd.common.forward.PortForwardingEventListener;
 import org.apache.sshd.common.io.nio2.Nio2ServiceFactoryFactory;
 import org.apache.sshd.common.session.SessionListener;
+import org.jboss.jandex.IndexView;
 
 class SshProcessor {
 
@@ -51,9 +55,10 @@ class SshProcessor {
                         KeyAgreement.class,
                         KeyFactory.class,
                         Signature.class,
-                        Mac.class).methods().build());
-        reflectiveClasses.produce(
-                ReflectiveClassBuildItem.builder(Nio2ServiceFactoryFactory.class).build());
+                        Mac.class,
+                        Nio2ServiceFactoryFactory.class,
+                        EdDSAEngine.class,
+                        net.i2p.crypto.eddsa.KeyFactory.class).methods().build());
     }
 
     @BuildStep
@@ -69,6 +74,24 @@ class SshProcessor {
                 PortForwardingEventListener.class.getName())) {
             proxiesProducer.produce(new NativeImageProxyDefinitionBuildItem(s));
         }
+    }
+
+    @BuildStep
+    ReflectiveClassBuildItem registerForReflection(CombinedIndexBuildItem combinedIndex) {
+        IndexView index = combinedIndex.getIndex();
+
+        String[] dtos = index.getKnownClasses().stream()
+                .map(ci -> ci.name().toString())
+                .filter(n -> n.startsWith("org.bouncycastle.crypto.signers.Ed25519"))
+                .sorted()
+                .toArray(String[]::new);
+
+        return ReflectiveClassBuildItem.builder(dtos).methods().fields().build();
+    }
+
+    @BuildStep
+    IndexDependencyBuildItem registerDependencyForIndex2() {
+        return new IndexDependencyBuildItem("org.bouncycastle", "bcprov-jdk18on");
     }
 
 }
