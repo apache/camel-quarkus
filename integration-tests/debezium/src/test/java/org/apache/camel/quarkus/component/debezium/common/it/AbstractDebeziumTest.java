@@ -24,6 +24,7 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.hamcrest.Matcher;
 import org.jboss.logging.Logger;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
@@ -99,6 +100,7 @@ public abstract class AbstractDebeziumTest {
                 name, city));
     }
 
+    @Disabled("https://github.com/apache/camel-quarkus/issues/6911")
     @Test
     @Order(2)
     public void testUpdate() throws SQLException {
@@ -119,6 +121,7 @@ public abstract class AbstractDebeziumTest {
         receiveResponse(200, containsString(COMPANY_2 + "_changed"));
     }
 
+    @Disabled("https://github.com/apache/camel-quarkus/issues/6911")
     @Test
     @Order(3)
     public void testDelete() throws SQLException {
