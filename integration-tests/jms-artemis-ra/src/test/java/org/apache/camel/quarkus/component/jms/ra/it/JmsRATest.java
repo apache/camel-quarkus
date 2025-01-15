@@ -16,17 +16,19 @@
  */
 package org.apache.camel.quarkus.component.jms.ra.it;
 
-import io.quarkus.artemis.test.ArtemisTestResource;
-import io.quarkus.test.common.WithTestResource;
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.ResourceArg;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.messaging.jms.AbstractJmsMessagingTest;
+import org.apache.camel.quarkus.test.support.activemq.ActiveMQTestResource;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@WithTestResource(ArtemisTestResource.class)
+@QuarkusTestResource(initArgs = {
+        @ResourceArg(name = "modules", value = "quarkus.ironjacamar.ra") }, value = ActiveMQTestResource.class)
 class JmsRATest extends AbstractJmsMessagingTest {
 
     @Test
