@@ -6722,7 +6722,7 @@
       <dependency>
         <groupId>io.projectreactor.netty</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>reactor-netty</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.2.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.2.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.freemarker</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
