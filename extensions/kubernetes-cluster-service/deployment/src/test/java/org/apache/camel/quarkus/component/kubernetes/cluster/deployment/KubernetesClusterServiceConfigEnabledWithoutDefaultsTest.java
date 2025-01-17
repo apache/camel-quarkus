@@ -47,6 +47,7 @@ public class KubernetesClusterServiceConfigEnabledWithoutDefaultsTest {
         Writer writer = new StringWriter();
 
         Properties props = new Properties();
+        props.setProperty("quarkus.kubernetes-client.devservices.enabled", "false");
         props.setProperty("quarkus.camel.cluster.kubernetes.id", "kcs-id");
         props.setProperty("quarkus.camel.cluster.kubernetes.master-url", "kcs-master-url");
         props.setProperty("quarkus.camel.cluster.kubernetes.connection-timeout-millis", "5033");
