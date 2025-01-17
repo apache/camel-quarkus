@@ -125,6 +125,7 @@
         <module>jfr</module>
         <module>jira</module>
         <module>jms-artemis-client</module>
+        <module>jms-artemis-ra</module>
         <module>jms-ibmmq-client</module>
         <module>jms-qpid-amqp-client</module>
         <module>jolt</module>

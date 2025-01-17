@@ -39,6 +39,7 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
     private GenericContainer<?> container;
     private String[] modules;
     private String[] javaArgs = new String[] {};
+    private String protocol = "AMQP";
 
     @Override
     public void init(Map<String, String> initArgs) {
@@ -48,6 +49,9 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
             }
             if (name.equals("java-args")) {
                 javaArgs = value.split(",");
+            }
+            if (name.equals("protocol")) {
+                protocol = value;
             }
         });
     }
@@ -73,6 +77,7 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
         String brokerUrlTcp = String.format("tcp://%s:%d", containerHost, containerPort);
         String brokerUrlWs = String.format("ws://%s:%d", containerHost, containerPort);
         String brokerUrlAmqp = String.format("amqp://%s:%d", containerHost, containerPort);
+        String connectionParameters = String.format("host=%s;port=%d;protocols=%s", containerHost, containerPort, protocol);
 
         Map<String, String> result = new LinkedHashMap<>();
 
@@ -86,6 +91,10 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
                     result.put("quarkus.qpid-jms.url", brokerUrlAmqp);
                     result.put("quarkus.qpid-jms.username", ACTIVEMQ_USERNAME);
                     result.put("quarkus.qpid-jms.password", ACTIVEMQ_PASSWORD);
+                } else if (module.equals("quarkus.ironjacamar.ra")) {
+                    result.put("quarkus.ironjacamar.ra.config.connection-parameters", connectionParameters);
+                    result.put("quarkus.ironjacamar.ra.config.user", ACTIVEMQ_USERNAME);
+                    result.put("quarkus.ironjacamar.ra.config.password", ACTIVEMQ_PASSWORD);
                 } else if (module.startsWith("camel.component")) {
                     result.put(module + ".brokerUrl", brokerUrlTcp);
                     result.put(module + ".username", ACTIVEMQ_USERNAME);
