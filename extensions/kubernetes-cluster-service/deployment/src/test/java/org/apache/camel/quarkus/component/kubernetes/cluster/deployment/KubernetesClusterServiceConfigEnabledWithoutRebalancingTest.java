@@ -49,6 +49,7 @@ public class KubernetesClusterServiceConfigEnabledWithoutRebalancingTest {
         Writer writer = new StringWriter();
 
         Properties props = new Properties();
+        props.setProperty("quarkus.kubernetes-client.devservices.enabled", "false");
         props.setProperty("quarkus.camel.cluster.kubernetes.rebalancing", "false");
 
         try {

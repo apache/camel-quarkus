@@ -44,6 +44,7 @@ public class KubernetesClusterServiceConfigDefaultTest {
         Writer writer = new StringWriter();
 
         Properties props = new Properties();
+        props.setProperty("quarkus.kubernetes-client.devservices.enabled", "false");
 
         try {
             props.store(writer, "");
