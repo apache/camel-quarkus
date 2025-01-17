@@ -26,13 +26,17 @@ Quarkus provides a way to set the locale via `application.properties`, so that y
 
 [source,properties]
 ----
-quarkus.native.user-country=US
-quarkus.native.user-language=en
+quarkus.default-locale=en-US
 ----
 
-There is also support for embedding multiple locales into the native image
-and for selecting the default locale via GraalVM command line options `-H:IncludeLocales=fr,en`, `H:+IncludeAllLocales` and `-H:DefaultLocale=de`.
-You can set those via the Quarkus `quarkus.native.additional-build-args` property.
+There is also support for embedding multiple locales into the native image.
+
+[source,properties]
+----
+quarkus.locales=en-US,es-ES,fr-FR
+----
+
+Using a value of `all` will include all available locales into the native image.
 
 [[embedding-resource-in-native-executable]]
 == Embedding resources in the native executable
