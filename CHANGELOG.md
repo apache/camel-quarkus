@@ -1,6 +1,35 @@
 # Changelog
 
+## 3.15.2
+
+* [3.15.x] Update generated files after release by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6715
+* [3.15.x] Backport the fixes for camel-quarkus-rest-openapi codegen by @zhfeng in https://github.com/apache/camel-quarkus/pull/6728
+* [3.15.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6729
+* [3.15.x] Fix #6736 no need to add RegisterForReflection annotation on array type Class by @zhfeng in https://github.com/apache/camel-quarkus/pull/6738
+* [3.15.x] backports by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6742
+* [3.15.x] Fixes #6747 - opentelemetry - ensure that the sequence of recorded spans by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6749
+* [3.15.x] Upgrade FHIR core to 6.4.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6756
+* [3.15.x] Fix #6754 to remove exclusion of findbugs when depends on quarkus-grpc-common by @zhfeng in https://github.com/apache/camel-quarkus/pull/6757
+* [3.15.x] backports by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6758
+* [3.15.x] override artemis image name by @zhfeng in https://github.com/apache/camel-quarkus/pull/6767
+* [3.15.x] backports by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6776
+* [3.15.x] Upgrade to Quarkus CXF 3.15.3 by @ppalaga in https://github.com/apache/camel-quarkus/pull/6782
+* [3.15.x] Add to copy allow-findbugs.xsl since flatten-bom needs it even quickly build by @zhfeng in https://github.com/apache/camel-quarkus/pull/6784
+* [3.15.x] backports by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6795
+* [3.15.x] Enable Mongo tests to run with container image versions < 7.x by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6798
+* [3.15.x] Upgrade Quarkus to 3.15.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6800
+* [3.15.x] fixes #6688: google-secret-manager: extend test coverage by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6817
+* [3.15.x] Replace camel-kamelets-catalog dependency with camel-kamelets in Kamelet extension docs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6826
+* [3.15.x] Upgrade Camel to 4.8.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6837
+* [3.15.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6855
+* [3.15.x] Upgrade Camel to 4.8.3 + Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6898
+* [3.15.x] Upgrade quarkus-artemis to 3.5.1 by @zhfeng in https://github.com/apache/camel-quarkus/pull/6904
+* [3.15.x] Upgrade Quarkus to 3.15.3 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6907
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.15.1...3.15.2
+
 ## 3.17.0
+
 * Downgrade maven-release-plugin to 3.0.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6699
 * Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6704
 * Bump org.apache.maven.plugins:maven-plugin-plugin from 3.15.0 to 3.15.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/6703
