@@ -206,13 +206,13 @@ For instance, one could search mail with subject:
 
 Once the staging repository has been released, the Apache Camel Quarkus distribution subversion repository should be updated.
 
-In a first step, one would simply need to promote the deliverables from the development to the distribution svn repository by invoking the `promote-release.sh`.
+In a first step, one would simply need to promote the deliverables from the development to the distribution svn repository by invoking the `promote-release.sh` script and passing the release version as an argument.
 
 [source,shell]
 ----
-export VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's|-SNAPSHOT||') # the version you are releasing, e.g. 0.1.0
+export VERSION=... # The release version to promote e.g 3.18.0
 cd release-utils/scripts/
-./promote-release.sh $VERSION $VERSION
+./promote-release.sh $VERSION
 ----
 
 In a second step, it is needed to check that useless versions are deleted from the svn repository.
@@ -248,7 +248,6 @@ Review and commit the changes:
 ----
 cd ..
 svn diff
-svn add --force .
 svn commit -m "Cleaning inactive Camel Quarkus versions after $VERSION release"
 ----
 
