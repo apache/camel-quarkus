@@ -7239,7 +7239,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-aop</artifactId>
-        <version>6.2.1</version>
+        <version>6.2.2</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7254,7 +7254,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-expression</artifactId>
-        <version>6.2.1</version>
+        <version>6.2.2</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7265,7 +7265,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-jdbc</artifactId>
-        <version>6.2.1</version>
+        <version>6.2.2</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7280,7 +7280,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-jms</artifactId>
-        <version>6.2.1</version>
+        <version>6.2.2</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7295,7 +7295,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-messaging</artifactId>
-        <version>6.2.1</version>
+        <version>6.2.2</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7310,7 +7310,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-tx</artifactId>
-        <version>6.2.1</version>
+        <version>6.2.2</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
@@ -7325,7 +7325,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-web</artifactId>
-        <version>6.2.1</version>
+        <version>6.2.2</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
