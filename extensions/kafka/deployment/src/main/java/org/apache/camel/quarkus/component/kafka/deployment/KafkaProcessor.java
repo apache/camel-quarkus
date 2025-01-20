@@ -31,7 +31,7 @@ import io.quarkus.deployment.builditem.DevServicesLauncherConfigResultBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.RunTimeConfigurationDefaultBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.dev.devservices.GlobalDevServicesConfig;
+import io.quarkus.deployment.dev.devservices.DevServicesConfig;
 import io.quarkus.kafka.client.deployment.KafkaBuildTimeConfig;
 import org.apache.camel.quarkus.component.kafka.KafkaClientFactoryProducer;
 import org.eclipse.microprofile.config.Config;
@@ -63,7 +63,7 @@ class KafkaProcessor {
         }
     }
 
-    @BuildStep(onlyIfNot = IsNormal.class, onlyIf = GlobalDevServicesConfig.Enabled.class)
+    @BuildStep(onlyIfNot = IsNormal.class, onlyIf = DevServicesConfig.Enabled.class)
     public void configureKafkaComponentForDevServices(
             DevServicesLauncherConfigResultBuildItem devServiceResult,
             KafkaBuildTimeConfig kafkaBuildTimeConfig,
@@ -72,7 +72,7 @@ class KafkaProcessor {
         Config config = ConfigProvider.getConfig();
         Optional<String> brokers = config.getOptionalValue(CAMEL_KAFKA_BROKERS, String.class);
 
-        if (brokers.isEmpty() && kafkaBuildTimeConfig.devservices.enabled.orElse(true)) {
+        if (brokers.isEmpty() && kafkaBuildTimeConfig.devservices().enabled().orElse(true)) {
             String kafkaBootstrapServers = devServiceResult.getConfig().get(KAFKA_BOOTSTRAP_SERVERS);
             if (kafkaBootstrapServers != null) {
                 runTimeConfig.produce(new RunTimeConfigurationDefaultBuildItem(CAMEL_KAFKA_BROKERS, kafkaBootstrapServers));

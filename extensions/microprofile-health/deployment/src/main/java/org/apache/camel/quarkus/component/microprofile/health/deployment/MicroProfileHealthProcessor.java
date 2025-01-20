@@ -70,7 +70,7 @@ class MicroProfileHealthProcessor {
                     .orElse(true);
 
             return !mpHealthDisabled && camelHealthEnabled && camelHealthConfig.enabled()
-                    && quarkusHealthConfig.enabled;
+                    && quarkusHealthConfig.enabled();
         }
     }
 

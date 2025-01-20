@@ -25,7 +25,7 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.LaunchModeBuildItem;
 import io.quarkus.vertx.deployment.VertxBuildItem;
 import io.quarkus.vertx.http.deployment.VertxWebRouterBuildItem;
-import io.quarkus.vertx.http.runtime.HttpConfiguration;
+import io.quarkus.vertx.http.runtime.VertxHttpConfig;
 import org.apache.camel.component.vertx.websocket.VertxWebsocketComponent;
 import org.apache.camel.quarkus.component.vertx.websocket.VertxWebsocketRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
@@ -46,7 +46,7 @@ class VertxWebsocketProcessor {
             VertxBuildItem vertx,
             VertxWebRouterBuildItem router,
             LaunchModeBuildItem launchMode,
-            HttpConfiguration httpConfig,
+            VertxHttpConfig httpConfig,
             VertxWebsocketRecorder recorder) {
         return new CamelRuntimeBeanBuildItem("vertx-websocket", VertxWebsocketComponent.class.getName(),
                 recorder.createVertxWebsocketComponent(vertx.getVertx(), router.getHttpRouter(), launchMode.getLaunchMode(),
