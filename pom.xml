@@ -61,7 +61,7 @@
         <quarkiverse-minio.version>3.7.7</quarkiverse-minio.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/minio/quarkus-minio-parent/ -->
         <quarkiverse-mybatis.version>2.2.4</quarkiverse-mybatis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/mybatis/quarkus-mybatis-parent/ -->
         <quarkiverse-pooled-jms.version>2.6.0</quarkiverse-pooled-jms.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/messaginghub/quarkus-pooled-jms-parent/ -->
-        <quarkus.version>3.18.0</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
+        <quarkus.version>3.19.0.CR1</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
         <quarkus-hazelcast-client.version>4.0.0</quarkus-hazelcast-client.version><!-- https://repo1.maven.org/maven2/com/hazelcast/quarkus-hazelcast-client-bom/ -->
         <quarkus-qpid-jms.version>2.7.1</quarkus-qpid-jms.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/org/amqphub/quarkus/quarkus-qpid-jms-bom/ -->
 
@@ -73,14 +73,14 @@
         <avro.version>1.12.0</avro.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.avro:avro -->
         <awssdk.version>2.29.14</awssdk.version><!-- @sync io.quarkiverse.amazonservices:quarkus-amazon-services-parent:${quarkiverse-amazonservices.version} prop:awssdk.version -->
         <awscrt.version>0.31.3</awscrt.version><!-- @sync software.amazon.awssdk:aws-sdk-java-pom:${awssdk.version} prop:awscrt.version -->
-        <assertj.version>3.27.2</assertj.version><!-- @sync io.quarkus:quarkus-build-parent:${quarkus.version} prop:assertj.version -->
+        <assertj.version>3.27.3</assertj.version><!-- @sync io.quarkus:quarkus-build-parent:${quarkus.version} prop:assertj.version -->
         <aws-java-sdk.version>1.11.714</aws-java-sdk.version>
         <azure-sdk-bom.version>${azure-sdk-bom-version}</azure-sdk-bom.version>
         <azure-core.version>1.54.1</azure-core.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-core -->
         <azure-identity.version>1.15.0</azure-identity.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-identity -->
         <azure-core-http-vertx.version>1.0.0</azure-core-http-vertx.version> <!-- TODO: https://github.com/apache/camel-quarkus/issues/4181 -->
-        <bouncycastle.version>1.79</bouncycastle.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.bouncycastle:bcprov-jdk18on -->
-        <caffeine.version>3.1.8</caffeine.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.github.ben-manes.caffeine:caffeine -->
+        <bouncycastle.version>1.80</bouncycastle.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.bouncycastle:bcprov-jdk18on -->
+        <caffeine.version>3.2.0</caffeine.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.github.ben-manes.caffeine:caffeine -->
         <commons-beanutils.version>${commons-beanutils-version}</commons-beanutils.version>
         <commons-cli.version>1.8.0</commons-cli.version><!-- keep in sync with Quarkus, via quarkus-bootstrap-core -->
         <commons-collections.version>${commons-collections-version}</commons-collections.version>
@@ -126,7 +126,7 @@
         <jedis-client.version>${jedis-client-version}</jedis-client.version>
         <json-smart.version>2.5.0</json-smart.version><!-- @sync com.jayway.jsonpath:json-path:${json-path.version} dep:net.minidev:json-smart -->
         <jxmpp.version>1.1.0</jxmpp.version><!-- @sync org.apache.camel:camel-xmpp:${camel.version} dep:org.jxmpp:jxmpp-jid -->
-        <kafka.version>3.7.2</kafka.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.kafka:kafka-clients -->
+        <kafka.version>3.9.0</kafka.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.kafka:kafka-clients -->
         <keycloak.version>26.0.7</keycloak.version><!-- @sync io.quarkus:quarkus-build-parent:${quarkus.version} prop:keycloak.server.version -->
         <kudu.version>${kudu-version}</kudu.version>
         <kotlin.version>2.0.21</kotlin.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.jetbrains.kotlin:kotlin-stdlib -->
@@ -150,7 +150,7 @@
         <reactor-netty.version>${reactor-netty-version}</reactor-netty.version>
         <retrofit.version>2.9.0</retrofit.version><!-- @sync org.influxdb:influxdb-java:${influxdb.version} dep:com.squareup.retrofit2:retrofit -->
         <rxjava3.version>3.1.8</rxjava3.version><!-- Used by amazon-kinesis-client and infinispan-client-hotrod-jakarta -->
-        <smallrye.reactive.messaging.camel.version>4.26.0</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
+        <smallrye.reactive.messaging.camel.version>4.27.0</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
         <snakeyaml.version>2.3</snakeyaml.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.yaml:snakeyaml -->
         <snakeyaml-engine.version>${snakeyaml-engine-version}</snakeyaml-engine.version><!-- Resolve conflict between camel-snakeyaml & kubernetes-client -->
         <spring.version>${spring-version}</spring.version>
@@ -235,8 +235,7 @@
         <hashicorp-vault.container.image>mirror.gcr.io/hashicorp/vault:1.17</hashicorp-vault.container.image>
         <ibm-mq.container.image>icr.io/ibm-messaging/mq:9.4.0.5-r1</ibm-mq.container.image>
         <influxdb.container.image>mirror.gcr.io/influxdb:1.8.10-alpine</influxdb.container.image>
-        <kafka.container.image>quay.io/strimzi-test-container/test-container:latest-kafka-3.8.0</kafka.container.image>
-        <kafka-oauth.container.image>quay.io/strimzi/kafka:latest-kafka-3.7.0</kafka-oauth.container.image>
+        <kafka.container.image>quay.io/strimzi-test-container/test-container:latest-kafka-3.9.0</kafka.container.image>
         <keycloak.container.image>quay.io/keycloak/keycloak:${keycloak.version}</keycloak.container.image>
         <kudu.container.image>mirror.gcr.io/apache/kudu:1.17.0</kudu.container.image>
         <localstack.container.image>mirror.gcr.io/localstack/localstack:3.7.2</localstack.container.image>

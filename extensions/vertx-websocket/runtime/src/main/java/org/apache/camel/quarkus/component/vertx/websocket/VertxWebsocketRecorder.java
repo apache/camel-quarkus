@@ -27,8 +27,8 @@ import io.quarkus.runtime.annotations.Recorder;
 import io.quarkus.tls.TlsConfiguration;
 import io.quarkus.tls.TlsConfigurationRegistry;
 import io.quarkus.vertx.http.runtime.CertificateConfig;
-import io.quarkus.vertx.http.runtime.HttpConfiguration;
 import io.quarkus.vertx.http.runtime.ServerSslConfig;
+import io.quarkus.vertx.http.runtime.VertxHttpConfig;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpClientOptions;
 import io.vertx.core.http.WebSocketConnectOptions;
@@ -53,13 +53,13 @@ public class VertxWebsocketRecorder {
             RuntimeValue<Vertx> vertx,
             RuntimeValue<Router> router,
             LaunchMode launchMode,
-            HttpConfiguration httpConfig) {
+            VertxHttpConfig httpConfig) {
 
         boolean sslEnabled = isHttpSeverSecureTransportConfigured(httpConfig);
         int httpPort = httpConfig.determinePort(launchMode);
         int httpsPort = httpConfig.determineSslPort(launchMode);
 
-        HOST = httpConfig.host;
+        HOST = httpConfig.host();
         PORT = sslEnabled ? httpsPort : httpPort;
 
         QuarkusVertxWebsocketComponent component = new QuarkusVertxWebsocketComponent();
@@ -70,15 +70,15 @@ public class VertxWebsocketRecorder {
         return new RuntimeValue<>(component);
     }
 
-    private boolean isHttpSeverSecureTransportConfigured(HttpConfiguration httpConfig) {
+    private boolean isHttpSeverSecureTransportConfigured(VertxHttpConfig httpConfig) {
         return httpServerTlsRegistryConfigurationExists(httpConfig) || httpServerLegacySslConfigurationExists(httpConfig);
     }
 
-    private boolean httpServerTlsRegistryConfigurationExists(HttpConfiguration httpConfig) {
+    private boolean httpServerTlsRegistryConfigurationExists(VertxHttpConfig httpConfig) {
         if (Arc.container() != null) {
             TlsConfigurationRegistry tlsConfigurationRegistry = Arc.container().select(TlsConfigurationRegistry.class).orNull();
             if (tlsConfigurationRegistry != null) {
-                Optional<String> tlsConfigurationName = httpConfig.tlsConfigurationName;
+                Optional<String> tlsConfigurationName = httpConfig.tlsConfigurationName();
                 Optional<TlsConfiguration> defaultTlsConfiguration = tlsConfigurationRegistry.getDefault();
                 if (tlsConfigurationName.isPresent() && tlsConfigurationRegistry.get(tlsConfigurationName.get()).isPresent()) {
                     return true;
@@ -90,15 +90,15 @@ public class VertxWebsocketRecorder {
         return false;
     }
 
-    private boolean httpServerLegacySslConfigurationExists(HttpConfiguration httpConfig) {
-        ServerSslConfig ssl = httpConfig.ssl;
+    private boolean httpServerLegacySslConfigurationExists(VertxHttpConfig httpConfig) {
+        ServerSslConfig ssl = httpConfig.ssl();
         if (ssl != null) {
-            CertificateConfig certificate = ssl.certificate;
+            CertificateConfig certificate = ssl.certificate();
             if (certificate != null) {
-                if (certificate.files.isPresent() && certificate.keyFiles.isPresent()) {
+                if (certificate.files().isPresent() && certificate.keyFiles().isPresent()) {
                     return true;
                 }
-                return certificate.keyStoreFile.isPresent() && certificate.keyStorePassword.isPresent();
+                return certificate.keyStoreFile().isPresent() && certificate.keyStorePassword().isPresent();
             }
         }
         return false;
