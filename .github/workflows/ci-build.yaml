@@ -125,6 +125,7 @@ jobs:
             else
               mkdir ./dependabot-pr
               echo ${{ github.head_ref }} > ./dependabot-pr/BRANCH_REF
+              echo ${{ github.event.pull_request.head.sha }} > ./dependabot-pr/PR_HEAD_SHA
               echo "$GITHUB_REF" | awk -F / '{print $3}' >  ./dependabot-pr/PR_NUMBER
               git diff -p --binary > ./dependabot-pr/changes.patch
 
