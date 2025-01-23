@@ -118,6 +118,7 @@
         <module>google-drive</module>
         <module>google-mail</module>
         <module>google-pubsub</module>
+        <module>google-secret-manager</module>
         <module>google-sheets</module>
         <module>google-storage</module>
         <module>graphql</module>

@@ -62,7 +62,6 @@
         <module>fastjson</module>
         <module>flink</module>
         <module>google-functions</module>
-        <module>google-secret-manager</module>
         <module>guava-eventbus</module>
         <module>huaweicloud-smn</module>
         <module>iec60870</module>

@@ -175,6 +175,7 @@ group-10:
   - consul
   - digitalocean
   - fop
+  - google-secret-manager
   - groovy
   - joor
   - mail

@@ -39,6 +39,8 @@ public class GoogleCloudTestResource implements QuarkusTestResourceLifecycleMana
 
     private final GoogleCloudContext envContext = new GoogleCloudContext();
 
+    protected List<GoogleTestEnvCustomizer> customizers;
+
     /**
      * Method usable by dependant modules.
      *
@@ -70,7 +72,7 @@ public class GoogleCloudTestResource implements QuarkusTestResourceLifecycleMana
         envContext.setUsingMockBackend(usingMockBackend);
 
         ServiceLoader<GoogleTestEnvCustomizer> loader = ServiceLoader.load(GoogleTestEnvCustomizer.class);
-        List<GoogleTestEnvCustomizer> customizers = new ArrayList<>();
+        customizers = new ArrayList<>();
         for (GoogleTestEnvCustomizer customizer : loader) {
             LOGGER.info("Loaded GoogleTestEnvCustomizer " + customizer.getClass().getName());
             customizers.add(customizer);
@@ -113,6 +115,7 @@ public class GoogleCloudTestResource implements QuarkusTestResourceLifecycleMana
         }
     }
 
+    @Override
     public void stop() {
         if (envContext != null) {
             envContext.close();
