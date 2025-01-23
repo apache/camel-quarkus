@@ -8,11 +8,11 @@ If you need to customize each of the different components provided within this s
 
 The presence of this dependency will provide the following extensions:
 
-* Camel Quarkus Microprofile
-* Camel Quarkus Management
-* Camel Quarkus Micrometer
-* Camel Quarkus OpenTelemetry
-* Quarkus Micrometer Registry Prometheus
+* Camel Quarkus MicroProfile Health - for health checks
+* Camel Quarkus Management - for JMX
+* Camel Quarkus Micrometer - for Camel Micrometer metrics
+* Camel Quarkus OpenTelemetry - for tracing Camel messages (events/spans)
+* Quarkus Micrometer Registry Prometheus - for exporting metrics in Prometheus format
 
 === List of known endpoints
 
@@ -28,7 +28,7 @@ The presence of this dependency will expose the following endpoints:
 
 |====
 
-NOTE: you can configure the endpoints as you'd do normally within each extension configuration.
+NOTE: You can configure the endpoints as you'd do normally within each extension configuration.
 
 == OpenTelemetry configuration
 
@@ -52,5 +52,5 @@ NOTE: Quarkus runtime defaults to gRPC protocol (port 4317).
 
 The presence of this component implies the presence of `camel-management` component. This is in charge to include information about Camel application status in JMX format.
 
-NOTE: the presence of this components automatically enable the collection of the JMX metrics. This should be negligible from performance point of view, however, you may want to disable that running the application with `-Dorg.apache.camel.jmx.disabled=true` JVM option.
+NOTE: The presence of this components automatically enable the collection of the JMX metrics. This should be negligible from performance point of view, however, you may want to disable that running the application with `-Dorg.apache.camel.jmx.disabled=true` JVM option.
 
