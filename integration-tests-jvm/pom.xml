@@ -90,6 +90,7 @@
         <module>redis</module>
         <module>robotframework</module>
         <module>schematron</module>
+        <module>smooks</module>
         <module>smpp</module>
         <module>snmp</module>
         <module>spring-redis</module>
