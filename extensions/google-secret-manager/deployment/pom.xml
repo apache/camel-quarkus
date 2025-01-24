@@ -39,8 +39,8 @@
             <artifactId>camel-quarkus-google-secret-manager</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-grpc-common-deployment</artifactId>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-google-pubsub-deployment</artifactId>
         </dependency>
     </dependencies>
 

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.google.secret.manager.graalvm;
+package org.apache.camel.quarkus.support.google.pubsub.graal;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -31,7 +31,15 @@ import com.google.api.gax.rpc.HeaderProvider;
 import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
-import io.grpc.*;
+import io.grpc.CallOptions;
+import io.grpc.Channel;
+import io.grpc.ChannelCredentials;
+import io.grpc.ClientCall;
+import io.grpc.ClientInterceptor;
+import io.grpc.Grpc;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
+import io.grpc.MethodDescriptor;
 
 @TargetClass(InstantiatingGrpcChannelProvider.class)
 final class InstantiatingGrpcChannelProviderSubstitutions {

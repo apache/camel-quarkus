@@ -39,8 +39,6 @@ public class GoogleCloudTestResource implements QuarkusTestResourceLifecycleMana
 
     private final GoogleCloudContext envContext = new GoogleCloudContext();
 
-    protected List<GoogleTestEnvCustomizer> customizers;
-
     /**
      * Method usable by dependant modules.
      *
@@ -72,7 +70,7 @@ public class GoogleCloudTestResource implements QuarkusTestResourceLifecycleMana
         envContext.setUsingMockBackend(usingMockBackend);
 
         ServiceLoader<GoogleTestEnvCustomizer> loader = ServiceLoader.load(GoogleTestEnvCustomizer.class);
-        customizers = new ArrayList<>();
+        List<GoogleTestEnvCustomizer> customizers = new ArrayList<>();
         for (GoogleTestEnvCustomizer customizer : loader) {
             LOGGER.info("Loaded GoogleTestEnvCustomizer " + customizer.getClass().getName());
             customizers.add(customizer);
@@ -83,12 +81,12 @@ public class GoogleCloudTestResource implements QuarkusTestResourceLifecycleMana
                 throw new IllegalStateException(
                         "Set GOOGLE_APPLICATION_CREDENTIALS and GOOGLE_PROJECT_ID env vars if you set CAMEL_QUARKUS_START_MOCK_BACKEND=false");
             }
-
+            MockBackendUtils.logRealBackendUsed();
             envContext.property(PARAM_PROJECT_ID, realProjectId);
             envContext.property(PARAM_CREDENTIALS_PATH, realCredentials);
 
         } else {
-
+            MockBackendUtils.logMockBackendUsed();
             for (GoogleTestEnvCustomizer customizer : customizers) {
                 GenericContainer container = customizer.createContainer();
                 if (container != null) {
