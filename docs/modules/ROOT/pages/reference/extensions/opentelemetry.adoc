@@ -69,6 +69,10 @@ Route endpoints can be excluded from tracing by configuring a property named `qu
 quarkus.camel.opentelemetry.exclude-patterns=direct:*,netty-http:*
 ----
 
+NOTE: The use of the https://opentelemetry.io/docs/zero-code/java/agent/[OpenTelemetry Agent] *is not needed nor recommended*.
+Quarkus Extensions and the libraries they provide, are directly instrumented.
+Also, the agent does not work in native mode.
+
 [id="extensions-opentelemetry-usage-exporters"]
 === Exporters
 
