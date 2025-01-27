@@ -16,6 +16,10 @@
  */
 package org.apache.camel.quarkus.component.ssh.it;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
@@ -79,8 +83,16 @@ public class SshTestResource implements QuarkusTestResourceLifecycleManager {
 
             sshd = SshServer.setUpDefaultServer();
             sshd.setPort(edPort);
-            sshd.setKeyPairProvider(new FileKeyPairProvider(
-                    Paths.get(Thread.currentThread().getContextClassLoader().getResource("edDSA/key_ed25519.pem").toURI())));
+
+            File tmpFile = File.createTempFile("key_ed25519-", ".pem");
+            try (InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("edDSA/key_ed25519.pem")) {
+                Files.write(tmpFile.toPath(), in.readAllBytes());
+                sshd.setKeyPairProvider(new FileKeyPairProvider(tmpFile.toPath()));
+            } catch (NullPointerException | IOException e) {
+                String message = "An issue occurred while loading key: edDSA/key_ed25519.pem";
+                throw new RuntimeException(message, e);
+            }
+
             sshd.setCommandFactory(new TestEchoCommandFactory());
             sshd.setPasswordAuthenticator((username, password, session) -> true);
             sshd.setPublickeyAuthenticator((username, key, session) -> true);
