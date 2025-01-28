@@ -1,5 +1,65 @@
 # Changelog
 
+## 3.18.0
+
+* Bump com.unboundid:unboundid-ldapsdk from 7.0.1 to 7.0.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/6848
+* Next is 3.18.0-SNAPSHOT by @ppalaga in https://github.com/apache/camel-quarkus/pull/6850
+* Bump actions/cache from 4.1.2 to 4.2.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6852
+* Bump quarkiverse-groovy.version from 3.17.0 to 3.17.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/6853
+* Load Java DSL routes in a predicatable order by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6854
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6859
+* Bump cq-plugin.version from 4.15.0 to 4.15.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/6858
+* Bump quarkiverse-cxf.version from 3.17.2 to 3.17.3 by @dependabot in https://github.com/apache/camel-quarkus/pull/6857
+* Remove redundant dependency overrides for org.testcontainers:cassandra by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6861
+* Bump cq-plugin.version from 4.15.2 to 4.16.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6863
+* Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.11.1 to 3.11.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/6862
+* [camel-main] fixes #6492 - removed DoubleRoutesPerClassTest by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6582
+* Upgrade Debezium to 3.0.4.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6864
+* Bump quarkiverse-groovy.version from 3.17.1 to 3.17.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/6865
+* Camel Quarkus 3.17.0 - changelog by @zbendhiba in https://github.com/apache/camel-quarkus/pull/6868
+* Add test for AI service resolution by name #6866 by @aldettinger in https://github.com/apache/camel-quarkus/pull/6867
+* Upgrade to quarkus 3.17.4 by @zbendhiba in https://github.com/apache/camel-quarkus/pull/6869
+* Bump cq-plugin.version from 4.16.0 to 4.16.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/6870
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6872
+* fixed typos in testing.adoc by @Ainges in https://github.com/apache/camel-quarkus/pull/6873
+* Bump io.swagger.codegen.v3:swagger-codegen-generators from 1.0.54 to 1.0.55 by @dependabot in https://github.com/apache/camel-quarkus/pull/6874
+* Bump actions/upload-artifact from 4.4.3 to 4.5.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6875
+* Bump actions/setup-java from 4.5.0 to 4.6.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6876
+* langchain4j: fix documentation by @aldettinger in https://github.com/apache/camel-quarkus/pull/6877
+* Fix #6720 to add camel-quarkus-fury by @zhfeng in https://github.com/apache/camel-quarkus/pull/6878
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6879
+* Bump peter-evans/create-pull-request from 7.0.5 to 7.0.6 by @dependabot in https://github.com/apache/camel-quarkus/pull/6883
+* Upgrade Debezium to 3.0.5.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6885
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6887
+* Bump org.apache.maven.plugins:maven-remote-resources-plugin from 3.2.0 to 3.3.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6886
+* [#6888] Use @ApplicationScoped instead of @SessionScoped by @llowinge in https://github.com/apache/camel-quarkus/pull/6893
+* Switch from docker.io to gcr.io for container images by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6895
+* Fix generated BrotliInputStream constructor by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6897
+* Bump quarkiverse-langchain4j.version from 0.22.0 to 0.23.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6894
+* langchain4j: add support for AI service resolution by bean name #6866 by @aldettinger in https://github.com/apache/camel-quarkus/pull/6899
+* Bump actions/upload-artifact from 4.5.0 to 4.6.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6901
+* Rework Kamelet build time code to avoid bytecode serialization issues by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6902
+* Bump quarkiverse-langchain4j.version from 0.23.0 to 0.23.3 by @dependabot in https://github.com/apache/camel-quarkus/pull/6900
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6903
+* Upgrade Quarkus to 3.18.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6910
+* Upgrade Debezium to 3.0.7.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6913
+* Langchain4j: remove useless dependency by @aldettinger in https://github.com/apache/camel-quarkus/pull/6915
+* Fix usage of deprecated locale configuration by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6914
+* Disable kubernetes-client dev services by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6916
+* Fix #6905 to add a test for using artemis jca connector by @zhfeng in https://github.com/apache/camel-quarkus/pull/6906
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6918
+* fixes #6909 ssh: extend test coverage by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6912
+* Minor updates to release guide sources dist promotion by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6919
+* Add changelog for 3.15.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6920
+* Fix #6922 to add a JMS Component customizer if Artemis JMS RA is avai… by @zhfeng in https://github.com/apache/camel-quarkus/pull/6923
+* Bump io.quarkiverse.artemis:quarkus-artemis-bom from 3.6.0 to 3.6.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/6924
+* Validate pull request number from downloaded archive in synchronize-dependabot-branch workflow before attempting to use it by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6921
+* Add workaround for microprofile-fault-tolerance incompatibilities by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6925
+* Upgrade Quarkus to 3.18.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6928
+* Add Smooks JVM only extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6929
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.17.0...3.18.0
+
 ## 3.15.2
 
 * [3.15.x] Update generated files after release by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6715
