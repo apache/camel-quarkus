@@ -156,7 +156,7 @@
         <spring.data.redis.version>${spring-data-redis-version}</spring.data.redis.version>
         <swagger.version>${swagger-openapi3-version}</swagger.version>
         <swagger-codegen.version>3.0.65</swagger-codegen.version><!-- @sync io.swagger.codegen.v3:swagger-codegen-generators:${swagger-codegen-generators.version} prop:swagger-codegen-version -->
-        <swagger-codegen-generators.version>1.0.55</swagger-codegen-generators.version>
+        <swagger-codegen-generators.version>1.0.56</swagger-codegen-generators.version>
         <swagger-parser.version>${swagger-openapi3-java-parser-version}</swagger-parser.version>
         <tablesaw.version>0.43.1</tablesaw.version>
         <threetenbp.version>1.7.0</threetenbp.version><!-- @sync com.google.cloud:google-cloud-pubsub:${google-cloud-pubsub.version} dep:org.threeten:threetenbp -->
