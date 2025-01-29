@@ -35,7 +35,6 @@
     <modules>
         <module>asn1</module>
         <module>asterisk</module>
-        <module>aws-secrets-manager</module>
         <module>aws-xray</module>
         <module>azure-cosmosdb</module>
         <module>azure-storage-datalake</module>

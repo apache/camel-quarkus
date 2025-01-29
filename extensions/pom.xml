@@ -43,6 +43,7 @@
         <module>avro</module>
         <!--<module>avro-rpc</module> https://github.com/apache/camel-quarkus/issues/4462 -->
         <module>aws-bedrock</module>
+        <module>aws-secrets-manager</module>
         <module>aws2-athena</module>
         <module>aws2-cw</module>
         <module>aws2-ddb</module>

@@ -40,12 +40,18 @@ public class BaseAws2Resource {
 
     private boolean useDefaultCredentials;
 
-    private final String serviceName;
+    private final String serviceName, componentName;
 
     private boolean clearAwsredentials;
 
     public BaseAws2Resource(String serviceName) {
         this.serviceName = serviceName;
+        this.componentName = null;
+    }
+
+    public BaseAws2Resource(String serviceName, String componentName) {
+        this.serviceName = serviceName;
+        this.componentName = componentName;
     }
 
     @Path("/setUseDefaultCredentialsProvider")
@@ -69,9 +75,10 @@ public class BaseAws2Resource {
                     "Setting both System.properties `aws.secretAccessKey` and `aws.accessKeyId` to cover defaultCredentialsProviderTest.");
             //defaultCredentials provider gets the credentials from fixed location. One of them is system.properties,
             //therefore to succeed the test, system.properties has to be initialized with the values from the configuration
+            String component = componentName != null ? componentName : "camel.component.aws2-" + serviceName;
             Aws2Helper.setAwsSystemCredentials(
-                    ConfigProvider.getConfig().getValue("camel.component.aws2-" + serviceName + ".access-key", String.class),
-                    ConfigProvider.getConfig().getValue("camel.component.aws2-" + serviceName + ".secret-key", String.class));
+                    ConfigProvider.getConfig().getValue(component + ".access-key", String.class),
+                    ConfigProvider.getConfig().getValue(component + ".secret-key", String.class));
 
         } else {
             LOG.debug("Clearing both System.properties `aws.secretAccessKey` and `aws.accessKeyId`.");
