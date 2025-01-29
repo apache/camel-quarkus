@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.kamelet.it;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
@@ -85,6 +86,7 @@ class KameletTest {
                 .body(is("Kamelet2-suffix"));
     }
 
+    @Disabled //https://github.com/apache/camel-quarkus/issues/6951
     @Test
     public void testKameletLocationAtRuntime() {
         RestAssured.given()
