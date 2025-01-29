@@ -70,16 +70,16 @@ public class Aws2TestEnvContext {
 
         localstack.ifPresent(ls -> {
             for (Service service : exportCredentialsServices) {
-                String s = camelServiceAcronym(service);
+                String s = camelServiceComponentName(service);
                 if (s != null) {
                     if (credentialsProvider == CredentialsProvider.staticProvider) {
-                        properties.put("camel.component.aws2-" + s + ".access-key", accessKey);
-                        properties.put("camel.component.aws2-" + s + ".secret-key", secretKey);
+                        properties.put(s + ".access-key", accessKey);
+                        properties.put(s + ".secret-key", secretKey);
                     }
-                    properties.put("camel.component.aws2-" + s + ".region", region);
+                    properties.put(s + ".region", region);
 
-                    properties.put("camel.component.aws2-" + s + ".override-endpoint", "true");
-                    properties.put("camel.component.aws2-" + s + ".uri-endpoint-override",
+                    properties.put(s + ".override-endpoint", "true");
+                    properties.put(s + ".uri-endpoint-override",
                             ls.getEndpointOverride(service).toString());
                 }
             }
@@ -105,19 +105,19 @@ public class Aws2TestEnvContext {
      */
     public void removeClient(Service[] services) {
         for (Service service : services) {
-            String s = camelServiceAcronym(service);
-            properties.remove("camel.component.aws2-" + s + ".access-key");
-            properties.remove("camel.component.aws2-" + s + ".secret-key");
-            properties.remove("camel.component.aws2-" + s + ".region");
-            properties.remove("camel.component.aws2-" + s + ".defaultCredentialsProvider");
+            String s = camelServiceComponentName(service);
+            properties.remove(s + ".access-key");
+            properties.remove(s + ".secret-key");
+            properties.remove(s + ".region");
+            properties.remove(s + ".defaultCredentialsProvider");
         }
     }
 
     public void removeOverrideEndpoint(Service[] services) {
         for (Service service : services) {
-            String s = camelServiceAcronym(service);
-            properties.remove("camel.component.aws2-" + s + ".override-endpoint");
-            properties.remove("camel.component.aws2-" + s + ".uri-endpoint-override");
+            String s = camelServiceComponentName(service);
+            properties.remove(s + ".override-endpoint");
+            properties.remove(s + ".uri-endpoint-override");
         }
     }
 
@@ -211,20 +211,20 @@ public class Aws2TestEnvContext {
         });
     }
 
-    private static String camelServiceAcronym(Service service) {
+    private static String camelServiceComponentName(Service service) {
         switch (service) {
         case DYNAMODB:
-            return "ddb";
+            return "camel.component.aws2-ddb";
         case DYNAMODB_STREAMS:
-            return "ddbstream";
+            return "camel.component.aws2-ddbstream";
         case FIREHOSE:
-            return "kinesis-firehose";
+            return "camel.component.aws2-kinesis-firehose";
         case CLOUDWATCH:
-            return "cw";
+            return "camel.component.aws2-cw";
         case SECRETSMANAGER:
-            return "secrets-manager";
+            return "camel.component.aws-secrets-manager";
         default:
-            return service.name().toLowerCase(Locale.ROOT);
+            return "camel.component.aws2-" + service.name().toLowerCase(Locale.ROOT);
         }
     }
 

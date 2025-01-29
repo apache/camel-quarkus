@@ -37,7 +37,6 @@
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>asn1</module>
         <module>asterisk</module>
-        <module>aws-secrets-manager</module>
         <module>aws-xray</module>
         <module>azure-cosmosdb</module>
         <module>azure-servicebus</module>
