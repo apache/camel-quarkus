@@ -4,20 +4,20 @@
 = Azure ServiceBus
 :linkattrs:
 :cq-artifact-id: camel-quarkus-azure-servicebus
-:cq-native-supported: false
-:cq-status: Preview
-:cq-status-deprecation: Preview
-:cq-description: Send and receive messages to/from Azure Event Bus.
+:cq-native-supported: true
+:cq-status: Stable
+:cq-status-deprecation: Stable
+:cq-description: Send and receive messages to/from Azure Service Bus.
 :cq-deprecated: false
 :cq-jvm-since: 2.8.0
-:cq-native-since: n/a
+:cq-native-since: 3.19.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##2.8.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##2.8.0## [.badge-key]##Native since##[.badge-supported]##3.19.0##
 endif::[]
 
-Send and receive messages to/from Azure Event Bus.
+Send and receive messages to/from Azure Service Bus.
 
 [id="extensions-azure-servicebus-whats-inside"]
 == What's inside
@@ -29,6 +29,10 @@ Please refer to the above link for usage and configuration details.
 [id="extensions-azure-servicebus-maven-coordinates"]
 == Maven coordinates
 
+https://{link-quarkus-code-generator}/?extension-search=camel-quarkus-azure-servicebus[Create a new project with this extension on {link-quarkus-code-generator}, window="_blank"]
+
+Or add the coordinates to your existing project:
+
 [source,xml]
 ----
 <dependency>
@@ -39,3 +43,10 @@ Please refer to the above link for usage and configuration details.
 ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
+
+[id="extensions-azure-servicebus-ssl-in-native-mode"]
+== SSL in native mode
+
+This extension auto-enables SSL support in native mode. Hence you do not need to add
+`quarkus.ssl.native=true` to your `application.properties` yourself. See also
+https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].

@@ -48,6 +48,12 @@ export AZURE_CLIENT_CERTIFICATE_PATH=<your-azure-app-certificate-pem-file>
 # the container has to exist before you run the test
 export AZURE_EVENT_HUBS_BLOB_CONTAINER_NAME=<your-container-name>
 export AZURE_EVENT_HUBS_CONNECTION_STRING="Endpoint=sb://<your-namespace>.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=<your-key>;EntityPath=<your-hub-name>"
+
+AZURE_SERVICEBUS_CONNECTION_STRING=Endpoint=sb://<your-namespace>.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=<your-key>
+AZURE_SERVICEBUS_QUEUE_NAME=<your-queue-name>
+# Optional topic name
+AZURE_SERVICEBUS_TOPIC_NAME<your-topic-name>
+AZURE_SERVICEBUS_TOPIC_SUBSCRIPTION_NAME<your-topic-subscription-name>
 ----
 
 To clean up, run

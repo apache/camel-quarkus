@@ -24,6 +24,7 @@ import com.azure.core.credential.TokenCredential;
 import com.azure.messaging.eventhubs.models.EventPosition;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 import org.apache.camel.component.azure.eventhubs.CredentialType;
 import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
@@ -45,6 +46,7 @@ public class AzureEventhubsRoutes extends EndpointRouteBuilder {
     Optional<String> azureBlobContainerName;
 
     @Inject
+    @Named("eventHubsTokenCredential")
     TokenCredential tokenCredential;
 
     @Override
