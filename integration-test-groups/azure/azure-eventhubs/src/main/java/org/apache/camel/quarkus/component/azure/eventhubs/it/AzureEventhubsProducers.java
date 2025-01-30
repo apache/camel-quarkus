@@ -31,7 +31,7 @@ public class AzureEventhubsProducers {
     @ConfigProperty(name = "azure.event.hubs.connection.string")
     Optional<String> connectionString;
 
-    @Named("connectionStringTokenCredential")
+    @Named("eventHubsTokenCredential")
     TokenCredential tokenCredential() {
         if (connectionString.isPresent()) {
             ConnectionStringProperties properties = new ConnectionStringProperties(connectionString.get());

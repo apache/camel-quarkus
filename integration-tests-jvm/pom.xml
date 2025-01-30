@@ -38,7 +38,6 @@
         <module>aws-secrets-manager</module>
         <module>aws-xray</module>
         <module>azure-cosmosdb</module>
-        <module>azure-servicebus</module>
         <module>azure-storage-datalake</module>
         <module>barcode</module>
         <module>bonita</module>

@@ -35,6 +35,8 @@ export RESOURCE_GROUP=cq-res-group-${suffix}
 export ZONE=westeurope
 export EH_NAMESPACE=cq-eh-namenspace-${suffix}
 export EH_NAME=cq-event-hub-${suffix}
+export SERVICEBUS_NAMESPACE=cq-servicebus-namespace-${suffix}
+export SERVICEBUS_QUEUE=cq-servicebus-queue-${suffix}
 
 export AZURE_VAULT_NAME="cq-key-vault"
 
@@ -78,6 +80,11 @@ function createResources() {
 
     AZURE_EVENT_HUBS_CONNECTION_STRING=$(az eventhubs namespace authorization-rule keys list --resource-group ${RESOURCE_GROUP} --namespace-name ${EH_NAMESPACE} --name RootManageSharedAccessKey  --query primaryConnectionString -o tsv)
 
+    az servicebus namespace create --name ${SERVICEBUS_NAMESPACE} --resource-group ${RESOURCE_GROUP} --location ${ZONE}
+    az servicebus queue create --name ${SERVICEBUS_QUEUE} --resource-group ${RESOURCE_GROUP} --namespace-name ${SERVICEBUS_NAMESPACE}
+
+    AZURE_SERVICEBUS_CONNECTION_STRING=$(az servicebus namespace authorization-rule keys list --resource-group ${RESOURCE_GROUP} --namespace-name ${SERVICEBUS_NAMESPACE} --name RootManageSharedAccessKey  --query primaryConnectionString -o tsv)
+
     AZURE_STORAGE_ACCOUNT_KEY=$(az storage account keys list --account-name ${AZURE_STORAGE_ACCOUNT_NAME} --query '[0].value' -o tsv)
 
     az keyvault create --name "${AZURE_VAULT_NAME}" --resource-group "${RESOURCE_GROUP}" --location "${ZONE}"
@@ -90,6 +97,8 @@ function createResources() {
     echo 'export AZURE_STORAGE_ACCOUNT_KEY="'${AZURE_STORAGE_ACCOUNT_KEY}'"'
     echo 'export AZURE_EVENT_HUBS_BLOB_CONTAINER_NAME="'${AZURE_BLOB_CONTAINER_NAME}'"'
     echo 'export AZURE_EVENT_HUBS_CONNECTION_STRING="'$AZURE_EVENT_HUBS_CONNECTION_STRING';EntityPath='${EH_NAME}'"'
+    echo 'export AZURE_SERVICEBUS_CONNECTION_STRING="'${AZURE_SERVICEBUS_CONNECTION_STRING}'"'
+    echo 'export AZURE_SERVICEBUS_QUEUE_NAME="'${AZURE_SERVICEBUS_QUEUE_NAME}'"'
     echo 'export AZURE_CLIENT_ID="'${AZURE_CLIENT_ID}'"'
     echo 'export AZURE_CLIENT_SECRET="'${AZURE_CLIENT_SECRET}'"'
     echo 'export AZURE_TENANT_ID="'${AZURE_TENANT_ID}'"'
