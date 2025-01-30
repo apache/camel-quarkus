@@ -67,10 +67,6 @@ endif::[]
 [id="extensions-kubernetes-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 
-ifeval::[{doc-show-extra-content} == true]
-include::extra-content.adoc[]
-endif::[]
-
 [id="extensions-kubernetes-configuration-automatic-registration-of-a-kubernetes-client-instance"]
 === Automatic registration of a Kubernetes Client instance
 
