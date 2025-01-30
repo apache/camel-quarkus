@@ -62,9 +62,8 @@ public class KameletRoutes extends RouteBuilder {
                 .to("kamelet:echo/1?prefix=Camel Quarkus&suffix=Chained")
                 .to("kamelet:echo/2?prefix=Hello&suffix=Route");
 
-        //  https://github.com/apache/camel-quarkus/issues/6951
-        //        from("direct:kamelet-location-at-runtime")
-        //                .kamelet("upper?location=classpath:kamelets-runtime/upper-kamelet.xml");
+        from("direct:kamelet-location-at-runtime")
+                .kamelet("upper?location=classpath:kamelets-runtime/upper-kamelet.xml");
 
         from("kamelet:greeting")
                 .to("seda:greeting");
