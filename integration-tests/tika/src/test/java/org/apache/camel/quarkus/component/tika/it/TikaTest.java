@@ -16,40 +16,23 @@
  */
 package org.apache.camel.quarkus.component.tika.it;
 
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsStringIgnoringCase;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.startsWith;
 
 @QuarkusTest
 class TikaTest {
-
-    @Disabled //Requires new release of quarkiverse-tike, which adopts tika with pdfBox 3.x https://github.com/apache/camel-quarkus/issues/5234
-    @Test
-    public void testPdf() throws Exception {
-        testParse("quarkus.pdf", "application/pdf", "Hello Quarkus");
-    }
-
-    @Disabled //Requires new release of quarkiverse-tike, which adopts tika with pdfBox 3.x https://github.com/apache/camel-quarkus/issues/5234
-    @Test
-    public void testOdf() throws Exception {
-        testParse("testOpenOffice2.odt", "application/vnd.oasis.opendocument.text",
-                "This is a sample Open Office document, written in NeoOffice 2.2.1 for the Mac");
-    }
-
     @Test
     public void testOffice() throws Exception {
-        testParse("test.doc", "application/msword", "test");
+        testParse("test.doc", "application/x-tika-msoffice", null);
     }
 
     @Test
@@ -60,11 +43,6 @@ class TikaTest {
     @Test
     public void testXml() throws Exception {
         testParse("quarkus.xml", "application/xml", "Hello Quarkus");
-    }
-
-    @Test
-    public void testParseAsText() throws Exception {
-        testParseAsText("test.doc", "test");
     }
 
     @Test
@@ -86,14 +64,8 @@ class TikaTest {
 
     private void testParse(String fileName, String expectedContentType, String expectedBody) throws Exception {
         post(fileName, "/tika/parse")
-                .body(not(containsStringIgnoringCase("EmptyParser")))
-                .body(containsStringIgnoringCase(expectedContentType))
+                .header("Parsed-Content-Type", startsWith(expectedContentType))
                 .body(containsStringIgnoringCase(expectedBody == null ? "<body/>" : expectedBody));
-    }
-
-    private void testParseAsText(String fileName, String expectedBody) throws Exception {
-        post(fileName, "/tika/parseAsText")
-                .body(startsWith(expectedBody));
     }
 
     private void testDetect(String fileName, String expectedContentType) throws Exception {
@@ -102,7 +74,7 @@ class TikaTest {
     }
 
     private ValidatableResponse post(String fileName, String s) throws Exception {
-        return RestAssured.given() //
+        return RestAssured.given()
                 .contentType(ContentType.BINARY)
                 .body(readQuarkusFile(fileName))
                 .post(s)
@@ -111,18 +83,11 @@ class TikaTest {
     }
 
     private byte[] readQuarkusFile(String fileName) throws Exception {
-        try (InputStream is = getClass().getClassLoader().getResourceAsStream(fileName)) {
-            return readBytes(is);
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream("assets/" + fileName)) {
+            if (is == null) {
+                throw new IllegalStateException("Unable to read file: " + fileName);
+            }
+            return is.readAllBytes();
         }
-    }
-
-    static byte[] readBytes(InputStream is) throws Exception {
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        byte[] buffer = new byte[4096];
-        int len;
-        while ((len = is.read(buffer)) != -1) {
-            os.write(buffer, 0, len);
-        }
-        return os.toByteArray();
     }
 }

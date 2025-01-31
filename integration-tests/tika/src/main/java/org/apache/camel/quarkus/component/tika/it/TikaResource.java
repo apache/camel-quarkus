@@ -26,15 +26,12 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
-import org.jboss.logging.Logger;
 
 @Path("/tika")
 @ApplicationScoped
 public class TikaResource {
-
-    private static final Logger LOG = Logger.getLogger(TikaResource.class);
-
     @Inject
     ProducerTemplate producerTemplate;
 
@@ -43,23 +40,11 @@ public class TikaResource {
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     @Produces(MediaType.TEXT_PLAIN)
     public Response parse(byte[] message) throws Exception {
-        final String response = producerTemplate.requestBody("tika:parse", message, String.class);
+        final Exchange response = producerTemplate.request("tika:parse", exchange -> exchange.getMessage().setBody(message));
         return Response
                 .created(new URI("https://camel.apache.org/"))
-                .entity(response)
-                .build();
-    }
-
-    @Path("/parseAsText")
-    @POST
-    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response parseAsTxt(byte[] message) throws Exception {
-        final String response = producerTemplate.requestBody("tika:parse?tikaParseOutputFormat=text", message,
-                String.class);
-        return Response
-                .created(new URI("https://camel.apache.org/"))
-                .entity(response)
+                .header("Parsed-Content-Type", response.getMessage().getHeader(Exchange.CONTENT_TYPE))
+                .entity(response.getMessage().getBody(String.class))
                 .build();
     }
 

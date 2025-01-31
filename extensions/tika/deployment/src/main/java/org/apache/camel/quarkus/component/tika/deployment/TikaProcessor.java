@@ -16,22 +16,18 @@
  */
 package org.apache.camel.quarkus.component.tika.deployment;
 
-import io.quarkus.arc.deployment.BeanContainerBuildItem;
+import java.util.Set;
+
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
-import org.apache.camel.component.tika.TikaComponent;
-import org.apache.camel.quarkus.component.tika.TikaRecorder;
-import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
-import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilterBuildItem;
-import org.jboss.logging.Logger;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
+import io.quarkus.deployment.util.ServiceUtil;
+import org.apache.tika.detect.EncodingDetector;
+import org.apache.tika.parser.Parser;
 
 class TikaProcessor {
-
-    private static final Logger LOG = Logger.getLogger(TikaProcessor.class);
     private static final String FEATURE = "camel-tika";
 
     @BuildStep
@@ -39,26 +35,21 @@ class TikaProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
-    /*
-     * The tika component is programmatically configured by the extension thus
-     * we can safely prevent camel to instantiate a default instance.
-     */
     @BuildStep
-    CamelServiceFilterBuildItem serviceFilter() {
-        return new CamelServiceFilterBuildItem(CamelServiceFilter.forComponent("tika"));
-    }
-
-    @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep
-    CamelRuntimeBeanBuildItem tikaComponent(BeanContainerBuildItem beanContainer, TikaRecorder recorder) {
-        return new CamelRuntimeBeanBuildItem(
-                "tika",
-                TikaComponent.class.getName(),
-                recorder.createTikaComponent(beanContainer.getValue()));
+    void registerTikaCoreResources(BuildProducer<NativeImageResourceBuildItem> resource) {
+        resource.produce(new NativeImageResourceBuildItem("org/apache/tika/mime/tika-mimetypes.xml"));
+        resource.produce(new NativeImageResourceBuildItem("org/apache/tika/parser/external/tika-external-parsers.xml"));
     }
 
     @BuildStep
-    RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
-        return new RuntimeInitializedClassBuildItem("org.apache.pdfbox.text.LegacyPDFStreamEngine");
+    void registerTikaServices(BuildProducer<ServiceProviderBuildItem> serviceProvider) throws Exception {
+        serviceProvider.produce(new ServiceProviderBuildItem(EncodingDetector.class.getName(),
+                getProviderNames(EncodingDetector.class.getName())));
+        serviceProvider.produce(new ServiceProviderBuildItem(Parser.class.getName(), getProviderNames(Parser.class.getName())));
+    }
+
+    private Set<String> getProviderNames(String serviceProviderName) throws Exception {
+        return ServiceUtil.classNamesNamedIn(Thread.currentThread().getContextClassLoader(),
+                "META-INF/services/" + serviceProviderName);
     }
 }

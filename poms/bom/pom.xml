@@ -2702,12 +2702,6 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-tika</artifactId>
                 <version>${camel.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.apache.tika</groupId>
-                        <artifactId>*</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -6972,22 +6966,6 @@
                 <groupId>io.quarkiverse.mybatis</groupId>
                 <artifactId>quarkus-mybatis-deployment</artifactId>
                 <version>${quarkiverse-mybatis.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.tika</groupId>
-                <artifactId>quarkus-tika</artifactId>
-                <version>${quarkiverse-tika.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>commons-logging</groupId>
-                        <artifactId>commons-logging</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.tika</groupId>
-                <artifactId>quarkus-tika-deployment</artifactId>
-                <version>${quarkiverse-tika.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.reactivex.rxjava3</groupId>

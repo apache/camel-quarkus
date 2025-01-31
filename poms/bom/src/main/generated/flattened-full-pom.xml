@@ -2639,12 +2639,6 @@
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-tika</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>4.9.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <exclusions>
-          <exclusion>
-            <groupId>org.apache.tika</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>*</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
-        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -6894,22 +6888,6 @@
         <groupId>io.quarkiverse.mybatis</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-mybatis-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>2.2.4</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.tika</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>quarkus-tika</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>2.0.4</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <exclusions>
-          <exclusion>
-            <groupId>commons-logging</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>commons-logging</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.tika</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>quarkus-tika-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>2.0.4</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.reactivex.rxjava3</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
