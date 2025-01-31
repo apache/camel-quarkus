@@ -23,7 +23,8 @@ import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.micrometer.MicrometerUtils;
 import org.apache.camel.component.micrometer.eventnotifier.MicrometerExchangeEventNotifier;
-import org.apache.camel.component.micrometer.eventnotifier.MicrometerExchangeEventNotifierNamingStrategy;
+import org.apache.camel.component.micrometer.eventnotifier.MicrometerExchangeEventNotifierNamingStrategyDefault;
+import org.apache.camel.component.micrometer.eventnotifier.MicrometerExchangeEventNotifierNamingStrategyLegacy;
 import org.apache.camel.component.micrometer.eventnotifier.MicrometerRouteEventNotifier;
 import org.apache.camel.component.micrometer.eventnotifier.MicrometerRouteEventNotifierNamingStrategy;
 import org.apache.camel.component.micrometer.messagehistory.MicrometerMessageHistoryFactory;
@@ -93,7 +94,13 @@ public class CamelMicrometerRecorder {
             if (config.enableExchangeEventNotifier) {
                 MicrometerExchangeEventNotifier eventNotifier = new MicrometerExchangeEventNotifier();
                 if (config.namingStrategy.equals(MetricsNamingStrategy.LEGACY)) {
-                    eventNotifier.setNamingStrategy(MicrometerExchangeEventNotifierNamingStrategy.LEGACY);
+                    eventNotifier.setNamingStrategy(
+                            new MicrometerExchangeEventNotifierNamingStrategyLegacy(
+                                    config.baseEndpointURIExchangeEventNotifier));
+                } else {
+                    eventNotifier.setNamingStrategy(
+                            new MicrometerExchangeEventNotifierNamingStrategyDefault(
+                                    config.baseEndpointURIExchangeEventNotifier));
                 }
                 managementStrategy.addEventNotifier(eventNotifier);
             }
