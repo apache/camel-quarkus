@@ -52,6 +52,16 @@ public class CamelMicrometerConfig {
     public boolean enableExchangeEventNotifier;
 
     /**
+     * Whether to use static or dynamic values for Endpoint Name tags in captured metrics. By default, static values are
+     * used. When using dynamic tags, then a dynamic to (toD) can compute many different endpoint URIs that,
+     * can lead to many tags as the URI is dynamic, so use this with care if setting this option to false.
+     *
+     * @asciidoclet
+     */
+    @ConfigItem(defaultValue = "true")
+    public boolean baseEndpointURIExchangeEventNotifier;
+
+    /**
      * Set whether to enable the MicrometerRouteEventNotifier for capturing metrics on the total number of routes and total
      * number of routes running.
      *

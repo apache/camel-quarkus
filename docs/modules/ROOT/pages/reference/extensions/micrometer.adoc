@@ -111,6 +111,14 @@ Set whether to enable the MicrometerExchangeEventNotifier for capturing metrics 
 | `boolean`
 | `true`
 
+|icon:lock[title=Fixed at build time] [[quarkus.camel.metrics.base-endpoint-uri-exchange-event-notifier]]`link:#quarkus.camel.metrics.base-endpoint-uri-exchange-event-notifier[quarkus.camel.metrics.base-endpoint-uri-exchange-event-notifier]`
+
+Whether to use static or dynamic values for Endpoint Name tags in captured metrics. By default, static values are
+used. When using dynamic tags, then a dynamic to (toD) can compute many different endpoint URIs that,
+can lead to many tags as the URI is dynamic, so use this with care if setting this option to false.
+| `boolean`
+| `true`
+
 |icon:lock[title=Fixed at build time] [[quarkus.camel.metrics.enable-route-event-notifier]]`link:#quarkus.camel.metrics.enable-route-event-notifier[quarkus.camel.metrics.enable-route-event-notifier]`
 
 Set whether to enable the MicrometerRouteEventNotifier for capturing metrics on the total number of routes and total
