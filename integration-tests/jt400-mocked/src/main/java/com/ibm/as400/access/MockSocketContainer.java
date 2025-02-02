@@ -74,4 +74,9 @@ public class MockSocketContainer extends SocketContainer {
     int getSoTimeout() throws SocketException {
         return 0;
     }
+
+    @Override
+    String getLocalAddress() {
+        return "";
+    }
 }

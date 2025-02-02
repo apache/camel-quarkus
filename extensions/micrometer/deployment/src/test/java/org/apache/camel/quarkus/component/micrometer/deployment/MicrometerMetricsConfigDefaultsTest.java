@@ -23,7 +23,6 @@ import io.quarkus.test.QuarkusUnitTest;
 import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.micrometer.eventnotifier.MicrometerExchangeEventNotifier;
-import org.apache.camel.component.micrometer.eventnotifier.MicrometerExchangeEventNotifierNamingStrategy;
 import org.apache.camel.component.micrometer.eventnotifier.MicrometerRouteEventNotifier;
 import org.apache.camel.component.micrometer.eventnotifier.MicrometerRouteEventNotifierNamingStrategy;
 import org.apache.camel.component.micrometer.routepolicy.MicrometerRoutePolicyConfiguration;
@@ -90,8 +89,7 @@ public class MicrometerMetricsConfigDefaultsTest {
 
         MicrometerExchangeEventNotifier micrometerExchangeEventNotifier = (MicrometerExchangeEventNotifier) optionalExchangeEventNotifier
                 .get();
-        assertEquals(MicrometerExchangeEventNotifierNamingStrategy.DEFAULT,
-                micrometerExchangeEventNotifier.getNamingStrategy());
+        assertTrue(micrometerExchangeEventNotifier.getNamingStrategy().isBaseEndpointURI());
 
         Optional<EventNotifier> optionalRouteEventNotifier = context.getManagementStrategy()
                 .getEventNotifiers()

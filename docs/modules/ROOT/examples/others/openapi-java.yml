@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: openapi-java
 cqCamelPartTitle: Openapi Java
-cqCamelPartDescription: Rest-dsl support for using openapi doc
+cqCamelPartDescription: Rest DSL support for using OpenApi doc
 cqExtensionPageTitle: OpenAPI Java

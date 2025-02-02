@@ -89,7 +89,7 @@ public class SmbResource {
         String uri = String.format("smb:%s:%s/%s?username=%s&password=%s&searchPattern=%s&path=/", host, port, share,
                 username, password, fileName);
         var shareFile = consumer.receiveBody(uri, SmbFile.class);
-        return new String(shareFile.getInputStream().readAllBytes(), "UTF-8");
+        return new String((byte[]) shareFile.getBody(), "UTF-8");
     }
 
     @POST

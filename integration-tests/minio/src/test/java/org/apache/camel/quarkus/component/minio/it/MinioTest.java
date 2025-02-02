@@ -72,7 +72,7 @@ class MinioTest {
                 .queryParam("params", params(
                         MinioConstants.MINIO_OPERATION, MinioOperations.getObject,
                         MinioConstants.OBJECT_NAME, "consumerObjectMAR",
-                        MinioConstants.BUCKET_NAME, "movedafterread"))
+                        MinioConstants.OVERRIDE_BUCKET_NAME, "movedafterread"))
                 .post("minio/operation")
                 .then()
                 .statusCode(200)
@@ -95,7 +95,7 @@ class MinioTest {
                 .queryParam("params", params(
                         MinioConstants.MINIO_OPERATION, MinioOperations.getObject,
                         MinioConstants.OBJECT_NAME, "consumerObject",
-                        MinioConstants.BUCKET_NAME, "movedafterread"))
+                        MinioConstants.OVERRIDE_BUCKET_NAME, "movedafterread"))
                 .post("minio/operation")
                 .then()
                 .statusCode(200)
@@ -265,7 +265,7 @@ class MinioTest {
                 .queryParam("params", params(
                         MinioConstants.MINIO_OPERATION, MinioOperations.getObject,
                         MinioConstants.OBJECT_NAME, "object1",
-                        MinioConstants.BUCKET_NAME, "movingtobucket"))
+                        MinioConstants.OVERRIDE_BUCKET_NAME, "movingtobucket"))
                 .post("minio/operation")
                 .then()
                 .statusCode(200)
@@ -284,7 +284,7 @@ class MinioTest {
                 .queryParam("params", params(
                         MinioConstants.MINIO_OPERATION, MinioOperations.getObject,
                         MinioConstants.OBJECT_NAME, "object2",
-                        MinioConstants.BUCKET_NAME, "movingtobucket"))
+                        MinioConstants.OVERRIDE_BUCKET_NAME, "movingtobucket"))
                 .post("minio/operation")
                 .then()
                 .statusCode(500)

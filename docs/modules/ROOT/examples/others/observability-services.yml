@@ -5,8 +5,8 @@ cqArtifactIdBase: observability-services
 cqNativeSupported: true
 cqStatus: Stable
 cqDeprecated: false
-cqJvmSince: 3.18.0
-cqNativeSince: 3.18.0
+cqJvmSince: 3.19.0
+cqNativeSince: 3.19.0
 cqCamelPartName: observability-services
 cqCamelPartTitle: Observability Services
 cqCamelPartDescription: Camel Observability Services

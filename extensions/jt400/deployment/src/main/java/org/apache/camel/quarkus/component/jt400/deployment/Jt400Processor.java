@@ -26,17 +26,18 @@ import com.ibm.as400.access.ConvTable;
 import com.ibm.as400.access.NLSImplNative;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
-import io.quarkus.deployment.builditem.NativeImageEnableAllCharsetsBuildItem;
+import io.quarkus.deployment.builditem.*;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
+import io.quarkus.gizmo.Gizmo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 import org.jboss.logging.Logger;
+import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 
 class Jt400Processor {
 
@@ -103,6 +104,64 @@ class Jt400Processor {
     @BuildStep
     IndexDependencyBuildItem registerDependencyForIndex() {
         return new IndexDependencyBuildItem("net.sf.jt400", "jt400", "java11");
+    }
+
+    @BuildStep
+    BytecodeTransformerBuildItem patchToolboxSignonHandler() {
+        return new BytecodeTransformerBuildItem.Builder()
+                .setClassToTransform("com.ibm.as400.access.ToolboxSignonHandler")
+                .setCacheable(true)
+                .setVisitorFunction((className, classVisitor) -> new ToolboxSignonHandlerClassVisitor(classVisitor)).build();
+    }
+
+    /**
+     * ToolboxSignonHandler starts GUI dialogues from several methods. This is not supported in the native.
+     * Unfortunately the method AS400.isGuiAvailable does not disable every call to dialogue.
+     * Two methods `handleSignon` and `handlePasswordChange` has to be removed (they does not contain any logic,
+     * just the GUI interaction)
+     *
+     * ToolboxSignonHandler is a final class, therefore no substitutions can be added to this class
+     * and bytecode manipulation had to be used instead.
+     */
+    static class ToolboxSignonHandlerClassVisitor extends ClassVisitor {
+
+        private final Logger logger;
+
+        protected ToolboxSignonHandlerClassVisitor(ClassVisitor classVisitor) {
+            super(Gizmo.ASM_API_VERSION, classVisitor);
+
+            logger = Logger.getLogger("ToolboxSignonHandlerClassVisitor");
+        }
+
+        @Override
+        public MethodVisitor visitMethod(int access, String name, String descriptor, String signature,
+                String[] exceptions) {
+            MethodVisitor original = super.visitMethod(access, name, descriptor, signature, exceptions);
+            if ("handleSignon".equals(name) || "handlePasswordChange".equals(name)) {
+                logger.debug("GUI interaction enhancer for Quarkus: transforming " + name + " to avoid spawning dialogues");
+                // Replace the method body
+                return new MethodVisitor(Gizmo.ASM_API_VERSION, original) {
+                    @Override
+                    public void visitCode() {
+                        super.visitCode();
+                        // Load 'true' or `false` onto the stack and return
+                        if ("handlePasswordChange".equals(name)) {
+                            visitInsn(Opcodes.ICONST_0); // push false
+                        } else {
+                            visitInsn(Opcodes.ICONST_1); // push true
+                        }
+                        visitInsn(Opcodes.IRETURN); // return boolean from the method
+                    }
+
+                    @Override
+                    public void visitMaxs(int maxStack, int maxLocals) {
+                        // Max stack is 1 (for the boolean), locals can remain unchanged
+                        super.visitMaxs(1, 0);
+                    }
+                };
+            }
+            return original;
+        }
     }
 
 }

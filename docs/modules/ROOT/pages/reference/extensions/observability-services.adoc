@@ -19,6 +19,13 @@ endif::[]
 
 Camel Observability Services
 
+[id="extensions-observability-services-whats-inside"]
+== What's inside
+
+* xref:{cq-camel-components}:others:observability-services.adoc[Observability Services]
+
+Please refer to the above link for usage and configuration details.
+
 [id="extensions-observability-services-maven-coordinates"]
 == Maven coordinates
 
