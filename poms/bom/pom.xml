@@ -615,13 +615,10 @@
                 <artifactId>camel-cassandraql</artifactId>
                 <version>${camel.version}</version>
                 <exclusions>
+                    <!-- TODO: Remove when cassandra driver is aligned. https://github.com/datastax/cassandra-quarkus/issues/245 -->
                     <exclusion>
-                        <groupId>com.github.spotbugs</groupId>
-                        <artifactId>spotbugs-annotations</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.github.stephenc.jcip</groupId>
-                        <artifactId>jcip-annotations</artifactId>
+                        <groupId>org.apache.cassandra</groupId>
+                        <artifactId>*</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -6557,6 +6554,26 @@
                 <groupId>com.azure</groupId>
                 <artifactId>azure-core-http-vertx</artifactId>
                 <version>${azure-core-http-vertx.version}</version>
+            </dependency>
+            <!-- TODO: https://github.com/datastax/cassandra-quarkus/issues/245 -->
+            <dependency>
+                <groupId>com.datastax.oss</groupId>
+                <artifactId>java-driver-query-builder</artifactId>
+                <version>${java-driver-query-builder.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs-annotations</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.github.stephenc.jcip</groupId>
+                        <artifactId>jcip-annotations</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.esotericsoftware.kryo</groupId>
