@@ -4,7 +4,7 @@ cqArtifactId: camel-quarkus-dsl-modeline
 cqArtifactIdBase: dsl-modeline
 cqNativeSupported: false
 cqStatus: Preview
-cqDeprecated: false
+cqDeprecated: true
 cqJvmSince: 2.14.0
 cqNativeSince: n/a
 cqCamelPartName: dsl-modeline

@@ -23,12 +23,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.apptasticsoftware.rssreader.AbstractRssReader;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 
 class RssProcessor {
 
@@ -79,5 +81,10 @@ class RssProcessor {
                 "java.util.Date",
         };
         reflectiveClass.produce(ReflectiveClassBuildItem.builder(clonableClasses).methods().build());
+    }
+
+    @BuildStep
+    RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
+        return new RuntimeInitializedClassBuildItem(AbstractRssReader.class.getName());
     }
 }

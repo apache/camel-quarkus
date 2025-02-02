@@ -9,5 +9,5 @@ cqJvmSince: 3.7.0
 cqNativeSince: 3.7.0
 cqCamelPartName: smb
 cqCamelPartTitle: SMB
-cqCamelPartDescription: Receive files from SMB (Server Message Block) shares.
+cqCamelPartDescription: Read and write files to Server Message Block (SMB) file shares.
 cqExtensionPageTitle: SMB

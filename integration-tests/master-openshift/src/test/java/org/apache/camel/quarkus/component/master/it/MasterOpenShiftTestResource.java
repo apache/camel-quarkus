@@ -20,6 +20,8 @@ import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.api.model.PodBuilder;
 import io.fabric8.kubernetes.api.model.PodList;
 import io.fabric8.kubernetes.api.model.PodListBuilder;
+import io.fabric8.kubernetes.api.model.PodStatus;
+import io.fabric8.kubernetes.api.model.PodStatusBuilder;
 import io.quarkus.test.kubernetes.client.KubernetesServerTestResource;
 
 public class MasterOpenShiftTestResource extends KubernetesServerTestResource {
@@ -27,24 +29,48 @@ public class MasterOpenShiftTestResource extends KubernetesServerTestResource {
     protected void configureServer() {
         super.configureServer();
 
+        PodStatus ready = new PodStatusBuilder().withPhase("Running").addNewCondition().withType("Ready").withStatus("true")
+                .endCondition().build();
+        PodStatus failed = new PodStatusBuilder().withPhase("Failed").build();
+        PodStatus notReady = new PodStatusBuilder().withPhase("Running").addNewCondition().withType("Ready").withStatus("false")
+                .endCondition().build();
+
         final Pod leader = new PodBuilder()
                 .withNewMetadata()
                 .withName("leader")
                 .withNamespace("test")
-                .and()
+                .endMetadata()
+                .withStatus(ready)
                 .build();
         final Pod follower = new PodBuilder()
                 .withNewMetadata()
                 .withName("follower")
                 .withNamespace("test")
-                .and()
+                .endMetadata()
+                .withStatus(ready)
+                .build();
+
+        final Pod badPod1 = new PodBuilder()
+                .withNewMetadata()
+                .withName("badpod1")
+                .withNamespace("test")
+                .endMetadata()
+                .withStatus(failed)
+                .build();
+
+        final Pod badPod2 = new PodBuilder()
+                .withNewMetadata()
+                .withName("badpod2")
+                .withNamespace("test")
+                .endMetadata()
+                .withStatus(notReady)
                 .build();
 
         PodList podList = new PodListBuilder()
                 .withNewMetadata()
                 .withResourceVersion("1")
                 .endMetadata()
-                .withItems(leader, follower)
+                .withItems(leader, follower, badPod1, badPod2)
                 .build();
 
         server.expect()
