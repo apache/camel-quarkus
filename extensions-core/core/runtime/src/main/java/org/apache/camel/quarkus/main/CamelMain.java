@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.main;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -118,8 +117,8 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
         throw new IllegalStateException("Should not be invoked");
     }
 
-    public Collection<MainListener> getMainListeners() {
-        return Collections.unmodifiableCollection(listeners);
+    public List<MainListener> getMainListeners() {
+        return Collections.unmodifiableList(listeners);
     }
 
     public MainConfigurationProperties getMainConfigurationProperties() {
