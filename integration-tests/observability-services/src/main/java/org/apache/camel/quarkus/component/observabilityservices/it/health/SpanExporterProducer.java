@@ -14,11 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.observabilityservices.it;
+package org.apache.camel.quarkus.component.observabilityservices.it.health;
 
-import io.quarkus.test.junit.QuarkusIntegrationTest;
+import io.opentelemetry.sdk.testing.exporter.InMemorySpanExporter;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Singleton;
 
-@QuarkusIntegrationTest
-class ObservabilityServicesIT extends ObservabilityServicesTest {
-
+@ApplicationScoped
+public class SpanExporterProducer {
+    @Produces
+    @Singleton
+    public InMemorySpanExporter createInMemoryExporter() {
+        return InMemorySpanExporter.create();
+    }
 }
