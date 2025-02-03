@@ -17,24 +17,15 @@
 package org.apache.camel.quarkus.component.observabilityservices.it.health;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.spi.SupervisingRouteController;
 
-public class ObservabilityServicesHealthRouteBuilder extends RouteBuilder {
+public class ObservabilityServicesRoutes extends RouteBuilder {
     @Override
-    public void configure() {
-        from("direct:start").routeId("healthyRoute")
-                .setBody(constant("Hello Camel Quarkus"));
+    public void configure() throws Exception {
+        from("direct:start")
+                .to("seda:next");
 
-        from("direct:disabled").routeId("disabledHealthRoute")
-                .log("This route will not show up in health checks as it is disabled in application.properties");
-
-        if (getContext().getRouteController() instanceof SupervisingRouteController) {
-            from("direct:supervising").routeId("supervisingRoute")
-                    .to("log:end");
-
-            // Force a failure for SupervisingRouteController to try and recover (duplicate consumer on the same endpoint)
-            from("direct:supervising?timeout=100").routeId("brokenRoute")
-                    .to("log:end");
-        }
+        from("seda:next")
+                .transform().simple("modified ${body}")
+                .log("${body}");
     }
 }
