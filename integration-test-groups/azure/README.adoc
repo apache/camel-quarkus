@@ -8,6 +8,7 @@ or skipped, if the given service is not supported by Azurite.
 Unsupported by Azurite:
 
 * `azure-eventhubs`
+* `azure-key-vault`
 
 === Real Azure API
 
