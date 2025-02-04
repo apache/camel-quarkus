@@ -40,6 +40,9 @@ export SERVICEBUS_QUEUE=cq-servicebus-queue-${suffix}
 
 export AZURE_VAULT_NAME="cq-key-vault"
 
+export AZURE_VAULT_REFRESH_EH_NAME=camel-quarkus-secret-refresh-hub-${suffix}
+export AZURE_VAULT_BLOB_CONTAINER_NAME=cq-keyvault-container-${suffix}
+
 function createResources() {
     set -e
     set -x
@@ -91,6 +94,10 @@ function createResources() {
     az role assignment create --role "Key Vault Administrator" --assignee "${az ad signed-in-user show --query 'id' --output tsv}" --scope "/subscriptions/$(az account show --query id --output tsv)/resourceGroups/${RESOURCE_GROUP}/providers/Microsoft.KeyVault/vaults/${AZURE_VAULT_NAME}"
     az role assignment create --role "Key Vault Administrator" --assignee "${AZURE_CLIENT_ID}" --scope "/subscriptions/$(az account show --query id --output tsv)/resourceGroups/${RESOURCE_GROUP}/providers/Microsoft.KeyVault/vaults/${AZURE_VAULT_NAME}"
 
+    #key vault
+    az storage container create --account-name ${AZURE_STORAGE_ACCOUNT_NAME} --name ${AZURE_VAULT_BLOB_CONTAINER_NAME} --auth-mode login
+    az eventhubs eventhub create --name ${AZURE_VAULT_REFRESH_EH_NAME} --resource-group ${RESOURCE_GROUP} --namespace-name ${EH_NAMESPACE}  --cleanup-policy Delete --partition-count 1  --retention-time 1
+
     set +x
     echo "Add the following to your environment:"
     echo 'export AZURE_STORAGE_ACCOUNT_NAME="'${AZURE_STORAGE_ACCOUNT_NAME}'"'
@@ -103,7 +110,8 @@ function createResources() {
     echo 'export AZURE_CLIENT_SECRET="'${AZURE_CLIENT_SECRET}'"'
     echo 'export AZURE_TENANT_ID="'${AZURE_TENANT_ID}'"'
     echo 'export AZURE_VAULT_NAME="'${AZURE_VAULT_NAME}'"'
-    echo
+    echo 'export AZURE_VAULT_EVENT_HUBS_BLOB_CONTAINER_NAME="'${AZURE_VAULT_BLOB_CONTAINER_NAME}'"'
+    echo 'export AZURE_VAULT_EVENT_HUBS_CONNECTION_STRING="'$AZURE_EVENT_HUBS_CONNECTION_STRING';EntityPath='${AZURE_VAULT_REFRESH_EH_NAME}'"'
     echo
     echo "Optionally set the following to test alternate authentication mechanisms:"
     echo 'export AZURE_CLIENT_CERTIFICATE_PATH="'${AZURE_APP_CERT_PATH}'"'
@@ -120,6 +128,10 @@ function deleteResources() {
     az group delete --name ${RESOURCE_GROUP} --yes
     az ad app delete --id $(az ad app list --display-name ${AZURE_APP_NAME} --query '[0].appId' -o tsv)
     az keyvault delete --name "${AZURE_VAULT_NAME}"
+
+    #key vault
+    az storage container delete --account-name ${AZURE_STORAGE_ACCOUNT_NAME} --name ${AZURE_VAULT_BLOB_CONTAINER_NAME} --auth-mode login
+    az eventhubs eventhub delete --name ${AZURE_VAULT_REFRESH_EH_NAME} --resource-group ${RESOURCE_GROUP} --namespace-name ${EH_NAMESPACE}
 }
 
 case "$1" in
