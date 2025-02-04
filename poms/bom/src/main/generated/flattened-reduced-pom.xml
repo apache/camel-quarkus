@@ -6524,12 +6524,12 @@
       <dependency>
         <groupId>com.google.auth</groupId>
         <artifactId>google-auth-library-credentials</artifactId>
-        <version>1.30.1</version>
+        <version>1.31.0</version>
       </dependency>
       <dependency>
         <groupId>com.google.auth</groupId>
         <artifactId>google-auth-library-oauth2-http</artifactId>
-        <version>1.30.1</version>
+        <version>1.31.0</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
@@ -6540,7 +6540,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-pubsub</artifactId>
-        <version>1.136.0</version>
+        <version>1.136.1</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.android</groupId>
@@ -6959,7 +6959,7 @@
       <dependency>
         <groupId>joda-time</groupId>
         <artifactId>joda-time</artifactId>
-        <version>2.13.0</version>
+        <version>2.13.1</version>
       </dependency>
       <dependency>
         <groupId>net.i2p.crypto</groupId>
