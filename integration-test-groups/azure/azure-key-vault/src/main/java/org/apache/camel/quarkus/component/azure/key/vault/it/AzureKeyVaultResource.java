@@ -16,8 +16,11 @@
  */
 package org.apache.camel.quarkus.component.azure.key.vault.it;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import com.azure.security.keyvault.secrets.models.KeyVaultSecret;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -30,12 +33,19 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.azure.key.vault.KeyVaultConstants;
+import org.apache.camel.impl.event.CamelContextReloadedEvent;
 
 @Path("/azure-key-vault")
 @ApplicationScoped
 public class AzureKeyVaultResource {
     @Inject
     ProducerTemplate producerTemplate;
+
+    static final AtomicBoolean contextReloaded = new AtomicBoolean(false);
+
+    void onReload(@Observes CamelContextReloadedEvent event) {
+        contextReloaded.set(true);
+    }
 
     @Path("/secret/{secretName}")
     @POST
@@ -75,5 +85,12 @@ public class AzureKeyVaultResource {
     @GET
     public String getSecretFromPropertyPlaceholder() {
         return producerTemplate.requestBody("direct:propertyPlaceholder", null, String.class);
+    }
+
+    @Path("/context/reload")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean contextReloadStatus() {
+        return contextReloaded.get();
     }
 }
