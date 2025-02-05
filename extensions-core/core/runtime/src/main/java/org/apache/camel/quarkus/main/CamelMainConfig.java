@@ -18,46 +18,40 @@ package org.apache.camel.quarkus.main;
 
 import java.time.Duration;
 
-import io.quarkus.runtime.annotations.ConfigGroup;
-import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefault;
 import org.apache.camel.quarkus.core.CamelConfig.FailureRemedy;
 
-@ConfigRoot(name = "camel.main", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
-public class CamelMainConfig {
-
+@ConfigRoot(phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+@ConfigMapping(prefix = "quarkus.camel.main")
+public interface CamelMainConfig {
     /**
      * Build time configuration options for `CamelMain` shutdown.
      *
      * @asciidoclet
      */
-    @ConfigItem
-    public ShutdownConfig shutdown;
+    ShutdownConfig shutdown();
 
     /**
      * Build time configuration options for `CamelMain` arguments
      *
      * @asciidoclet
      */
-    @ConfigItem
-    public ArgumentConfig arguments;
+    ArgumentConfig arguments();
 
-    @ConfigGroup
-    public static class ShutdownConfig {
-
+    interface ShutdownConfig {
         /**
          * A timeout (with millisecond precision) to wait for `CamelMain++#++stop()` to finish
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "PT3S")
-        public Duration timeout;
+        @WithDefault("PT3S")
+        Duration timeout();
     }
 
-    @ConfigGroup
-    public static class ArgumentConfig {
-
+    interface ArgumentConfig {
         /**
          * The action to take when `CamelMain` encounters an unknown argument. fail - Prints the `CamelMain` usage statement and
          * throws a `RuntimeException` ignore - Suppresses any warnings and the application startup proceeds as normal warn -
@@ -65,7 +59,7 @@ public class CamelMainConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "warn")
-        public FailureRemedy onUnknown;
+        @WithDefault("warn")
+        FailureRemedy onUnknown();
     }
 }

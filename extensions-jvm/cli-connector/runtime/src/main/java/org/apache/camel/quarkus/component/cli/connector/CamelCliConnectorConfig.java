@@ -16,18 +16,19 @@
  */
 package org.apache.camel.quarkus.component.cli.connector;
 
-import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefault;
 
-@ConfigRoot(name = "camel.cli", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
-public class CamelCliConnectorConfig {
-
+@ConfigRoot(phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+@ConfigMapping(prefix = "quarkus.camel.cli")
+public interface CamelCliConnectorConfig {
     /**
      * Sets whether to enable Camel CLI Connector support.
      *
      * @asciidoclet
      */
-    @ConfigItem(defaultValue = "true")
-    public boolean enabled;
+    @WithDefault("true")
+    boolean enabled();
 }

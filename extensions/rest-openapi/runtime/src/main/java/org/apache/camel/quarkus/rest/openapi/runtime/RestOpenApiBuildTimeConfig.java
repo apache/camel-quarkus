@@ -20,24 +20,23 @@ import java.util.Map;
 import java.util.Optional;
 
 import io.quarkus.runtime.annotations.ConfigGroup;
-import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefault;
 
-@ConfigRoot(name = "camel.openapi", phase = ConfigPhase.BUILD_TIME)
-public class RestOpenApiBuildTimeConfig {
-
+@ConfigRoot(phase = ConfigPhase.BUILD_TIME)
+@ConfigMapping(prefix = "quarkus.camel.openapi")
+public interface RestOpenApiBuildTimeConfig {
     /**
      * Build time configuration options for Camel Quarkus REST OpenAPI code generator.
      *
      * @asciidoclet
      */
-    @ConfigItem
-    public CodeGenConfig codegen;
+    CodeGenConfig codegen();
 
     @ConfigGroup
-    public static class CodeGenConfig {
-
+    interface CodeGenConfig {
         /**
          * If `true`, Camel Quarkus OpenAPI code generation is run for .json and .yaml files discovered from the `openapi`
          * directory. When
@@ -45,63 +44,60 @@ public class RestOpenApiBuildTimeConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "true")
-        public boolean enabled;
+        @WithDefault("true")
+        boolean enabled();
 
         /**
          * The package to use for generated model classes.
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "org.apache.camel.quarkus")
-        public String modelPackage;
+        @WithDefault("org.apache.camel.quarkus")
+        String modelPackage();
 
         /**
          * A comma separated list of models to generate. The default is empty list for all models.
          *
          * @asciidoclet
          */
-        @ConfigItem
-        public Optional<String> models;
+        Optional<String> models();
 
         /**
          * If `true`, use bean validation annotations in the generated model classes.
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "false")
-        public boolean useBeanValidation;
+        @WithDefault("false")
+        boolean useBeanValidation();
 
         /**
          * If `true`, use NON_NULL Jackson annotation in the generated model classes.
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "false")
-        public boolean notNullJackson;
+        @WithDefault("false")
+        boolean notNullJackson();
 
         /**
          * If `true`, use JsonIgnoreProperties(ignoreUnknown = true) annotation in the generated model classes.
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "false")
-        public boolean ignoreUnknownProperties;
+        @WithDefault("false")
+        boolean ignoreUnknownProperties();
 
         /**
          * Additional properties to be used in the mustache templates.
          *
          * @asciidoclet
          */
-        @ConfigItem
-        public Map<String, String> additionalProperties;
+        Map<String, String> additionalProperties();
 
         /**
          * A comma separated list of OpenAPI spec locations.
          *
          * @asciidoclet
          */
-        @ConfigItem
-        public Optional<String> locations;
+        Optional<String> locations();
     }
 }

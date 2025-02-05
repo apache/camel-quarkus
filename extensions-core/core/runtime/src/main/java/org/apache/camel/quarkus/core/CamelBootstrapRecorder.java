@@ -40,7 +40,7 @@ public class CamelBootstrapRecorder {
 
     public void start(CamelRuntimeConfig camelRuntimeConfig, RuntimeValue<CamelRuntime> runtime, Supplier<String[]> arguments,
             String camelQuarkusVersion) {
-        if (camelRuntimeConfig.bootstrap.enabled) {
+        if (camelRuntimeConfig.bootstrap().enabled()) {
             try {
                 Logger logger = Logger.getLogger(CamelBootstrapRecorder.class);
                 logger.infof("Apache Camel Quarkus %s is starting", camelQuarkusVersion);

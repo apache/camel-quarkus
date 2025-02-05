@@ -196,7 +196,7 @@ class OpenApiJavaProcessor {
 
         @Override
         public boolean getAsBoolean() {
-            return config.enabled;
+            return config.expose().enabled();
         }
     }
 }

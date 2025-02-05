@@ -69,7 +69,7 @@ public class CamelMainProcessor {
     @BuildStep
     @Record(value = ExecutionTime.STATIC_INIT, optional = true)
     public CamelRoutesLoaderBuildItems.Registry routesLoader(CamelConfig config, CamelRecorder recorder) {
-        return config.routesDiscovery.enabled
+        return config.routesDiscovery().enabled()
                 ? new CamelRoutesLoaderBuildItems.Registry(recorder.newDefaultRegistryRoutesLoader())
                 : new CamelRoutesLoaderBuildItems.Registry(recorder.newDisabledRegistryRoutesLoader());
     }
@@ -113,7 +113,7 @@ public class CamelMainProcessor {
                 context.getCamelContext(),
                 routesCollector.getValue(),
                 beanContainer.getValue(),
-                config.arguments.onUnknown);
+                config.arguments().onUnknown());
 
         for (CamelRoutesBuilderClassBuildItem item : routesBuilderClasses) {
             // don't add routes builders that are known by the container
@@ -189,7 +189,7 @@ public class CamelMainProcessor {
                 recorder.createRuntime(
                         beanContainer.getValue(),
                         main.getInstance(),
-                        camelMainConfig.shutdown.timeout.toMillis()),
+                        camelMainConfig.shutdown().timeout().toMillis()),
                 index.getIndex().getAnnotations(DotName.createSimple(QuarkusMain.class.getName())).isEmpty());
     }
 

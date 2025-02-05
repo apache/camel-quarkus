@@ -19,16 +19,16 @@ package org.apache.camel.quarkus.core;
 import java.util.List;
 import java.util.Optional;
 
-import io.quarkus.runtime.annotations.ConfigGroup;
-import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefault;
+import io.smallrye.config.WithName;
 
-@ConfigRoot(name = "camel", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
-public class CamelConfig {
-
-    public enum FailureRemedy {
-
+@ConfigRoot(phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+@ConfigMapping(prefix = "quarkus.camel")
+public interface CamelConfig {
+    enum FailureRemedy {
         fail, warn, ignore
     }
 
@@ -37,32 +37,29 @@ public class CamelConfig {
      *
      * @asciidoclet
      */
-    @ConfigItem
-    public ServiceConfig service;
+    ServiceConfig service();
 
     /**
      * Build time configuration options for `org.apache.camel.catalog.RuntimeCamelCatalog`.
      *
      * @asciidoclet
      */
-    @ConfigItem
-    public RuntimeCatalogConfig runtimeCatalog;
+    RuntimeCatalogConfig runtimeCatalog();
 
     /**
      * Build time configuration options for routes discovery.
      *
      * @asciidoclet
      */
-    @ConfigItem
-    public RoutesDiscoveryConfig routesDiscovery;
+    RoutesDiscoveryConfig routesDiscovery();
 
     /**
      * Build time configuration options related to the building of native executable.
      *
      * @asciidoclet
      */
-    @ConfigItem(name = "native")
-    public NativeConfig native_;
+    @WithName("native")
+    NativeConfig native_();
 
     /**
      * Build time configuration options for the Camel CSimple language.
@@ -70,59 +67,52 @@ public class CamelConfig {
      * @asciidoclet
      */
     @Deprecated(forRemoval = true)
-    @ConfigItem
-    public CSimpleConfig csimple;
+    CSimpleConfig csimple();
 
     /**
      * Build time configuration options for the extraction of Camel expressions.
      *
      * @asciidoclet
      */
-    @ConfigItem
-    public ExpressionConfig expression;
+    ExpressionConfig expression();
 
     /**
      * Build time configuration options for the Camel CDI event bridge.
      *
      * @asciidoclet
      */
-    @ConfigItem
-    public EventBridgeConfig eventBridge;
+    EventBridgeConfig eventBridge();
 
     /**
      * Build time configuration options for enable/disable camel source location.
      *
      * @asciidoclet
      */
-    @ConfigItem(defaultValue = "false")
-    public boolean sourceLocationEnabled;
+    @WithDefault("false")
+    boolean sourceLocationEnabled();
 
     /**
      * Build time configuration options for the Camel tracing.
      *
      * @asciidoclet
      */
-    @ConfigItem
-    public TraceConfig trace;
+    TraceConfig trace();
 
     /**
      * Build time configuration options for Camel type converters.
      *
      * @asciidoclet
      */
-    @ConfigItem
-    public TypeConverterConfig typeConverter;
+    TypeConverterConfig typeConverter();
 
-    @ConfigGroup
-    public static class RoutesDiscoveryConfig {
-
+    interface RoutesDiscoveryConfig {
         /**
          * Enable automatic discovery of routes during static initialization.
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "true")
-        public boolean enabled;
+        @WithDefault("true")
+        boolean enabled();
 
         /**
          * Used for exclusive filtering scanning of RouteBuilder classes. The exclusive filtering takes precedence over
@@ -134,8 +124,7 @@ public class CamelConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem
-        public Optional<List<String>> excludePatterns;
+        Optional<List<String>> excludePatterns();
 
         /**
          * Used for inclusive filtering scanning of RouteBuilder classes. The exclusive filtering takes precedence over
@@ -147,34 +136,27 @@ public class CamelConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem
-        public Optional<List<String>> includePatterns;
+        Optional<List<String>> includePatterns();
     }
 
-    @ConfigGroup
-    public static class ServiceConfig {
-
+    interface ServiceConfig {
         /**
          * Build time configuration related to discoverability of Camel services via the `org.apache.camel.spi.FactoryFinder`
          * mechanism
          *
          * @asciidoclet
          */
-        @ConfigItem
-        public ServiceDiscoveryConfig discovery;
+        ServiceDiscoveryConfig discovery();
 
         /**
          * Build time configuration related to registering of Camel services to the Camel registry
          *
          * @asciidoclet
          */
-        @ConfigItem
-        public ServiceRegistryConfig registry;
+        ServiceRegistryConfig registry();
     }
 
-    @ConfigGroup
-    public static class ServiceDiscoveryConfig {
-
+    interface ServiceDiscoveryConfig {
         /**
          * A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath. The
          * services defined in the matching files will *not* be discoverable via the **`org.apache.camel.spi.FactoryFinder`
@@ -187,8 +169,7 @@ public class CamelConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem
-        public Optional<List<String>> excludePatterns;
+        Optional<List<String>> excludePatterns();
 
         /**
          * A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath. The
@@ -202,13 +183,10 @@ public class CamelConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem
-        public Optional<List<String>> includePatterns;
+        Optional<List<String>> includePatterns();
     }
 
-    @ConfigGroup
-    public static class ServiceRegistryConfig {
-
+    interface ServiceRegistryConfig {
         /**
          * A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath. The
          * services defined in the matching files will *not* be added to Camel registry during application's static
@@ -221,8 +199,7 @@ public class CamelConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem
-        public Optional<List<String>> excludePatterns;
+        Optional<List<String>> excludePatterns();
 
         /**
          * A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath. The
@@ -236,25 +213,19 @@ public class CamelConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem
-        public Optional<List<String>> includePatterns;
+        Optional<List<String>> includePatterns();
     }
 
-    @ConfigGroup
-    public static class NativeConfig {
-
+    interface NativeConfig {
         /**
          * Register classes for reflection.
          *
          * @asciidoclet
          */
-        @ConfigItem
-        public ReflectionConfig reflection;
+        ReflectionConfig reflection();
     }
 
-    @ConfigGroup
-    public static class ReflectionConfig {
-
+    interface ReflectionConfig {
         /**
          * A comma separated list of Ant-path style patterns to match class names that should be *excluded* from registering for
          * reflection. Use the class name format as returned by the `java.lang.Class.getName()` method: package segments
@@ -266,8 +237,7 @@ public class CamelConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem
-        public Optional<List<String>> excludePatterns;
+        Optional<List<String>> excludePatterns();
 
         /**
          * A comma separated list of Ant-path style patterns to match class names that should be registered for reflection. Use
@@ -299,8 +269,7 @@ public class CamelConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem
-        public Optional<List<String>> includePatterns;
+        public Optional<List<String>> includePatterns();
 
         /**
          * If `true`, basic classes are registered for serialization; otherwise basic classes won't be registered automatically
@@ -311,13 +280,11 @@ public class CamelConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "false")
-        public boolean serializationEnabled;
+        @WithDefault("false")
+        boolean serializationEnabled();
     }
 
-    @ConfigGroup
-    public static class RuntimeCatalogConfig {
-
+    interface RuntimeCatalogConfig {
         /**
          * If `true` the Runtime Camel Catalog embedded in the application will contain JSON schemas of Camel components
          * available in the application; otherwise component JSON schemas will not be available in the Runtime Camel Catalog and
@@ -328,8 +295,8 @@ public class CamelConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "true")
-        public boolean components;
+        @WithDefault("true")
+        boolean components();
 
         /**
          * If `true` the Runtime Camel Catalog embedded in the application will contain JSON schemas of Camel languages
@@ -341,8 +308,8 @@ public class CamelConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "true")
-        public boolean languages;
+        @WithDefault("true")
+        boolean languages();
 
         /**
          * If `true` the Runtime Camel Catalog embedded in the application will contain JSON schemas of Camel data formats
@@ -354,8 +321,8 @@ public class CamelConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "true")
-        public boolean dataformats;
+        @WithDefault("true")
+        boolean dataformats();
 
         /**
          * If `true` the Runtime Camel Catalog embedded in the application will contain JSON schemas of Camel dev consoles
@@ -367,8 +334,8 @@ public class CamelConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "true")
-        public boolean devconsoles;
+        @WithDefault("true")
+        boolean devconsoles();
 
         /**
          * If `true` the Runtime Camel Catalog embedded in the application will contain JSON schemas of Camel EIP models
@@ -380,8 +347,8 @@ public class CamelConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "true")
-        public boolean models;
+        @WithDefault("true")
+        boolean models();
 
         /**
          * If `true` the Runtime Camel Catalog embedded in the application will contain JSON schemas of Camel transformers
@@ -393,36 +360,32 @@ public class CamelConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "true")
-        public boolean transformers;
+        @WithDefault("true")
+        boolean transformers();
     }
 
     /**
      * @deprecated use {@link ExpressionConfig} instead
      */
     @Deprecated(forRemoval = true)
-    @ConfigGroup
-    public static class CSimpleConfig {
-
+    interface CSimpleConfig {
         /**
          * What to do if it is not possible to extract CSimple expressions from a route definition at build time.
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "warn")
-        public FailureRemedy onBuildTimeAnalysisFailure;
+        @WithDefault("warn")
+        FailureRemedy onBuildTimeAnalysisFailure();
     }
 
-    @ConfigGroup
-    public static class ExpressionConfig {
-
+    interface ExpressionConfig {
         /**
          * What to do if it is not possible to extract expressions from a route definition at build time.
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "warn")
-        public FailureRemedy onBuildTimeAnalysisFailure;
+        @WithDefault("warn")
+        FailureRemedy onBuildTimeAnalysisFailure();
 
         /**
          * Indicates whether the expression extraction from the route definitions at build time must be done. If disabled, the
@@ -430,13 +393,11 @@ public class CamelConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "true")
-        public boolean extractionEnabled;
+        @WithDefault("true")
+        boolean extractionEnabled();
     }
 
-    @ConfigGroup
-    public static class EventBridgeConfig {
-
+    interface EventBridgeConfig {
         /**
          * Whether to enable the bridging of Camel events to CDI events.
          *
@@ -449,20 +410,18 @@ public class CamelConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "true")
-        public boolean enabled;
+        @WithDefault("true")
+        boolean enabled();
     }
 
-    @ConfigGroup
-    public static class TraceConfig {
-
+    interface TraceConfig {
         /**
          * Enables tracer in your Camel application.
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "false")
-        public boolean enabled;
+        @WithDefault("false")
+        boolean enabled();
 
         /**
          * To set the tracer in standby mode, where the tracer will be installed, but not automatically enabled. The tracer can
@@ -470,16 +429,16 @@ public class CamelConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "false")
-        public boolean standby;
+        @WithDefault("false")
+        boolean standby();
 
         /**
          * Defines how many of the last messages to keep in the tracer.
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "1000")
-        public int backlogSize;
+        @WithDefault("1000")
+        int backlogSize();
 
         /**
          * Whether all traced messages should be removed when the tracer is dumping. By default, the messages are removed, which
@@ -487,16 +446,16 @@ public class CamelConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "true")
-        public boolean removeOnDump;
+        @WithDefault("true")
+        boolean removeOnDump();
 
         /**
          * To limit the message body to a maximum size in the traced message. Use 0 or negative value to use unlimited size.
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "131072")
-        public int bodyMaxChars;
+        @WithDefault("131072")
+        int bodyMaxChars();
 
         /**
          * Whether to include the message body of stream based messages. If enabled then beware the stream may not be
@@ -504,8 +463,8 @@ public class CamelConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "false")
-        public boolean bodyIncludeStreams;
+        @WithDefault("false")
+        boolean bodyIncludeStreams();
 
         /**
          * Whether to include the message body of file based messages. The overhead is that the file content has to be read from
@@ -513,76 +472,72 @@ public class CamelConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "true")
-        public boolean bodyIncludeFiles;
+        @WithDefault("true")
+        boolean bodyIncludeFiles();
 
         /**
          * Whether to include the exchange properties in the traced message.
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "true")
-        public boolean includeExchangeProperties;
+        @WithDefault("true")
+        boolean includeExchangeProperties();
 
         /**
          * Whether to include the exchange variables in the traced message.
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "true")
-        public boolean includeExchangeVariables;
+        @WithDefault("true")
+        boolean includeExchangeVariables();
 
         /**
          * Whether to include the exception in the traced message in case of failed exchange.
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "true")
-        public boolean includeException;
+        @WithDefault("true")
+        boolean includeException();
 
         /**
          * Whether to trace routes that is created from Rest DSL.
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "false")
-        public boolean traceRests;
+        @WithDefault("false")
+        boolean traceRests();
 
         /**
          * Whether to trace routes that is created from route templates or kamelets.
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "false")
-        public boolean traceTemplates;
+        @WithDefault("false")
+        boolean traceTemplates();
 
         /**
          * Filter for tracing by route or node id.
          *
          * @asciidoclet
          */
-        @ConfigItem
-        public Optional<String> tracePattern;
+        Optional<String> tracePattern();
 
         /**
          * Filter for tracing messages.
          *
          * @asciidoclet
          */
-        @ConfigItem
-        public Optional<String> traceFilter;
+        Optional<String> traceFilter();
     }
 
-    @ConfigGroup
-    public static class TypeConverterConfig {
-
+    interface TypeConverterConfig {
         /**
          * Whether type converter statistics are enabled. By default, type converter utilization statistics are disabled. Note
          * that enabling statistics incurs a minor performance impact under very heavy load.
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "false")
-        public boolean statisticsEnabled;
+        @WithDefault("false")
+        boolean statisticsEnabled();
     }
 }

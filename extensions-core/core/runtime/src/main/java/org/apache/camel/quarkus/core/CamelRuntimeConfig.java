@@ -16,29 +16,28 @@
  */
 package org.apache.camel.quarkus.core;
 
-import io.quarkus.runtime.annotations.ConfigGroup;
-import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefault;
 
-@ConfigRoot(name = "camel", phase = ConfigPhase.RUN_TIME)
-public class CamelRuntimeConfig {
+@ConfigRoot(phase = ConfigPhase.RUN_TIME)
+@ConfigMapping(prefix = "quarkus.camel")
+public interface CamelRuntimeConfig {
     /**
      * Runtime configuration options for {@link CamelRuntime} bootstrap.
      *
      * @asciidoclet
      */
-    @ConfigItem
-    public BootstrapConfig bootstrap;
+    BootstrapConfig bootstrap();
 
-    @ConfigGroup
-    public static class BootstrapConfig {
+    interface BootstrapConfig {
         /**
          * When set to true, the {@link CamelRuntime} will be started automatically.
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "true")
-        public boolean enabled;
+        @WithDefault("true")
+        boolean enabled();
     }
 }

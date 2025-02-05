@@ -76,7 +76,7 @@ class KameletProcessor {
                 .getOptionalValues("camel.component.kamelet.location", String.class)
                 .orElse(List.of("classpath:kamelets"));
 
-        Set<String> identifiers = kameletConfig.identifiers
+        Set<String> identifiers = kameletConfig.identifiers()
                 .stream()
                 .map(String::trim)
                 .map(identifier -> identifier.replace(KAMELET_FILE_EXTENSION, ""))

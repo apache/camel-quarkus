@@ -16,18 +16,19 @@
  */
 package org.apache.camel.quarkus.component.microprofile.health.runtime;
 
-import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefault;
 
-@ConfigRoot(name = "camel.health", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
-public final class CamelMicroProfileHealthConfig {
-
+@ConfigRoot(phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+@ConfigMapping(prefix = "quarkus.camel.health")
+public interface CamelMicroProfileHealthConfig {
     /**
      * Set whether to enable Camel health checks
      *
      * @asciidoclet
      */
-    @ConfigItem(defaultValue = "true")
-    public boolean enabled;
+    @WithDefault("true")
+    boolean enabled();
 }

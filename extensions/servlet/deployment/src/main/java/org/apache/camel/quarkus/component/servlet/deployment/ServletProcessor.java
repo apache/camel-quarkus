@@ -55,13 +55,13 @@ class ServletProcessor {
                     .anyMatch(meta -> meta.getServletClass().equals(DEFAULT_SERVLET_CLASS));
         }
 
-        if (camelServletConfig.defaultServlet.isValid()) {
+        if (camelServletConfig.defaultServlet().isValid()) {
             servlet.produce(
-                    newServlet(ServletConfig.DEFAULT_SERVLET_NAME, camelServletConfig.defaultServlet));
+                    newServlet(ServletConfig.DEFAULT_SERVLET_NAME, camelServletConfig.defaultServlet()));
             servletCreated = true;
         }
 
-        for (Entry<String, ServletConfig> e : camelServletConfig.namedServlets.entrySet()) {
+        for (Entry<String, ServletConfig> e : camelServletConfig.namedServlets().entrySet()) {
             if (ServletConfig.DEFAULT_SERVLET_NAME.equals(e.getKey())) {
                 throw new IllegalStateException(
                         String.format("Use quarkus.camel.servlet.url-patterns instead of quarkus.camel.servlet.%s.url-patterns",
@@ -79,43 +79,43 @@ class ServletProcessor {
 
     static ServletBuildItem newServlet(String key, ServletConfig servletConfig) {
         final String servletName = servletConfig.getEffectiveServletName(key);
-        final Optional<List<String>> urlPatterns = servletConfig.urlPatterns;
+        final Optional<List<String>> urlPatterns = servletConfig.urlPatterns();
         if (!urlPatterns.isPresent() || urlPatterns.get().isEmpty()) {
             throw new IllegalStateException(
                     String.format("Missing quarkus.camel.servlet%s.url-patterns",
                             ServletConfig.DEFAULT_SERVLET_NAME.equals(servletName) ? "" : "." + servletName));
         }
 
-        final Builder builder = ServletBuildItem.builder(servletName, servletConfig.servletClass);
+        final Builder builder = ServletBuildItem.builder(servletName, servletConfig.servletClass());
         for (String pattern : urlPatterns.get()) {
             builder.addMapping(pattern);
         }
 
         // NOTE: We only configure loadOnStartup, async & forceAwait if the default values were overridden
-        if (servletConfig.loadOnStartup > -1) {
-            builder.setLoadOnStartup(servletConfig.loadOnStartup);
+        if (servletConfig.loadOnStartup() > -1) {
+            builder.setLoadOnStartup(servletConfig.loadOnStartup());
         }
 
-        if (servletConfig.async) {
-            builder.setAsyncSupported(servletConfig.async);
+        if (servletConfig.async()) {
+            builder.setAsyncSupported(servletConfig.async());
             builder.addInitParam("async", "true");
         }
 
-        if (servletConfig.forceAwait) {
+        if (servletConfig.forceAwait()) {
             builder.addInitParam("forceAwait", "true");
         }
 
-        servletConfig.executorRef.ifPresent(executorRef -> {
+        servletConfig.executorRef().ifPresent(executorRef -> {
             builder.addInitParam("executorRef", executorRef);
         });
 
-        MultipartConfig multipartConfig = servletConfig.multipart;
+        MultipartConfig multipartConfig = servletConfig.multipart();
         if (multipartConfig != null) {
             builder.setMultipartConfig(new MultipartConfigElement(
-                    multipartConfig.location,
-                    multipartConfig.maxFileSize,
-                    multipartConfig.maxRequestSize,
-                    multipartConfig.fileSizeThreshold));
+                    multipartConfig.location(),
+                    multipartConfig.maxFileSize(),
+                    multipartConfig.maxRequestSize(),
+                    multipartConfig.fileSizeThreshold()));
         }
 
         return builder.build();

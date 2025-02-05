@@ -18,12 +18,14 @@ package org.apache.camel.quarkus.component.kamelet;
 
 import java.util.List;
 
-import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefault;
 
-@ConfigRoot(name = "camel.kamelet", phase = ConfigPhase.BUILD_TIME)
-public class KameletConfiguration {
+@ConfigRoot(phase = ConfigPhase.BUILD_TIME)
+@ConfigMapping(prefix = "quarkus.camel.kamelet")
+public interface KameletConfiguration {
     /**
      * Optional comma separated list of kamelet identifiers to configure for native mode support.
      * A kamelet identifier is the Kamelet file name without the .kamelet.yaml suffix.
@@ -32,6 +34,6 @@ public class KameletConfiguration {
      * Note that this configuration option is only relevant when producing a native application.
      * </p>
      */
-    @ConfigItem(defaultValue = "*")
-    public List<String> identifiers;
+    @WithDefault("*")
+    List<String> identifiers();
 }

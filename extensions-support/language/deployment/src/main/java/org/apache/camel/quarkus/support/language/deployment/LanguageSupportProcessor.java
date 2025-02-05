@@ -40,7 +40,8 @@ class LanguageSupportProcessor {
             List<CamelRoutesBuilderClassBuildItem> routesBuilderClasses,
             BuildProducer<ExpressionBuildItem> expressions,
             BuildProducer<ScriptBuildItem> scripts) throws Exception {
-        if (config.expression.extractionEnabled) {
+        CamelConfig.ExpressionConfig expression = config.expression();
+        if (expression.extractionEnabled()) {
             final ClassLoader loader = Thread.currentThread().getContextClassLoader();
             if (!(loader instanceof QuarkusClassLoader)) {
                 throw new IllegalStateException(
@@ -79,7 +80,7 @@ class LanguageSupportProcessor {
                 }
                 return new ExpressionExtractionResultBuildItem(true);
             } catch (Exception e) {
-                switch (config.expression.onBuildTimeAnalysisFailure) {
+                switch (expression.onBuildTimeAnalysisFailure()) {
                 case fail:
                     throw new RuntimeException(
                             "Could not extract language expressions."
@@ -93,7 +94,7 @@ class LanguageSupportProcessor {
                     break;
                 default:
                     throw new IllegalStateException("Unexpected " + CamelConfig.FailureRemedy.class.getSimpleName() + ": "
-                            + config.expression.onBuildTimeAnalysisFailure);
+                            + expression.onBuildTimeAnalysisFailure());
                 }
             }
         }

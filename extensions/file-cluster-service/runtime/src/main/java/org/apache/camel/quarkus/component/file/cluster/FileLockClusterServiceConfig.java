@@ -20,12 +20,14 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
-import io.quarkus.runtime.annotations.ConfigItem;
+import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefault;
 
-@ConfigRoot(name = "camel.cluster.file")
-public class FileLockClusterServiceConfig {
-
+@ConfigRoot(phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+@ConfigMapping(prefix = "quarkus.camel.cluster.file")
+public interface FileLockClusterServiceConfig {
     /**
      * Whether a File Lock Cluster Service should be automatically configured according to
      * 'quarkus.camel.cluster.file.++*++' configurations.
@@ -35,64 +37,57 @@ public class FileLockClusterServiceConfig {
      * @asciidoclet
      */
     @Deprecated(since = "3.10.0", forRemoval = true)
-    @ConfigItem(defaultValue = "true")
-    public boolean enabled;
+    @WithDefault("true")
+    boolean enabled();
 
     /**
      * The cluster service ID (defaults to null).
      *
      * @asciidoclet
      */
-    @ConfigItem
-    public Optional<String> id;
+    Optional<String> id();
 
     /**
      * The root path (defaults to null).
      *
      * @asciidoclet
      */
-    @ConfigItem
-    public Optional<String> root;
+    Optional<String> root();
 
     /**
      * The service lookup order/priority (defaults to 2147482647).
      *
      * @asciidoclet
      */
-    @ConfigItem
-    public Optional<Integer> order;
+    Optional<Integer> order();
 
     /**
      * The custom attributes associated to the service (defaults to empty map).
      *
      * @asciidoclet
      */
-    @ConfigItem
-    public Map<String, String> attributes;
+    Map<String, String> attributes();
 
     /**
      * The time to wait before starting to try to acquire lock (defaults to 1000ms).
      *
      * @asciidoclet
      */
-    @ConfigItem
-    public Optional<String> acquireLockDelay;
+    Optional<String> acquireLockDelay();
 
     /**
      * The time to wait between attempts to try to acquire lock (defaults to 10000ms).
      *
      * @asciidoclet
      */
-    @ConfigItem
-    public Optional<String> acquireLockInterval;
+    Optional<String> acquireLockInterval();
 
-    public static final class Enabled implements BooleanSupplier {
-
+    final class Enabled implements BooleanSupplier {
         FileLockClusterServiceConfig config;
 
         @Override
         public boolean getAsBoolean() {
-            return config.enabled;
+            return config.enabled();
         }
     }
 }

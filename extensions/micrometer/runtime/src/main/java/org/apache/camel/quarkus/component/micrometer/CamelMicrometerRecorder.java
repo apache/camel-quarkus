@@ -65,20 +65,20 @@ public class CamelMicrometerRecorder {
 
         @Override
         public void configure(CamelContext camelContext) {
-            if (config.enableRoutePolicy) {
+            if (config.enableRoutePolicy()) {
                 MicrometerRoutePolicyFactory factory = new MicrometerRoutePolicyFactory();
                 factory.setCamelContext(camelContext);
                 camelContext.addRoutePolicyFactory(factory);
 
-                if (config.namingStrategy.equals(MetricsNamingStrategy.LEGACY)) {
+                if (config.namingStrategy().equals(MetricsNamingStrategy.LEGACY)) {
                     factory.setNamingStrategy(MicrometerRoutePolicyNamingStrategy.LEGACY);
                 }
 
                 MicrometerRoutePolicyConfiguration policyConfiguration = factory.getPolicyConfiguration();
-                if (config.routePolicyLevel.equals(RoutePolicyLevel.ALL)) {
+                if (config.routePolicyLevel().equals(RoutePolicyLevel.ALL)) {
                     factory.getPolicyConfiguration().setContextEnabled(true);
                     factory.getPolicyConfiguration().setRouteEnabled(true);
-                } else if (config.routePolicyLevel.equals(RoutePolicyLevel.CONTEXT)) {
+                } else if (config.routePolicyLevel().equals(RoutePolicyLevel.CONTEXT)) {
                     factory.getPolicyConfiguration().setContextEnabled(true);
                     factory.getPolicyConfiguration().setRouteEnabled(false);
                 } else {
@@ -86,21 +86,21 @@ public class CamelMicrometerRecorder {
                     policyConfiguration.setRouteEnabled(true);
                 }
 
-                config.routePolicyExcludePattern.ifPresent(policyConfiguration::setExcludePattern);
+                config.routePolicyExcludePattern().ifPresent(policyConfiguration::setExcludePattern);
             }
 
             ManagementStrategy managementStrategy = camelContext.getManagementStrategy();
-            if (config.enableExchangeEventNotifier) {
+            if (config.enableExchangeEventNotifier()) {
                 MicrometerExchangeEventNotifier eventNotifier = new MicrometerExchangeEventNotifier();
-                if (config.namingStrategy.equals(MetricsNamingStrategy.LEGACY)) {
+                if (config.namingStrategy().equals(MetricsNamingStrategy.LEGACY)) {
                     eventNotifier.setNamingStrategy(MicrometerExchangeEventNotifierNamingStrategy.LEGACY);
                 }
                 managementStrategy.addEventNotifier(eventNotifier);
             }
 
-            if (config.enableRouteEventNotifier) {
+            if (config.enableRouteEventNotifier()) {
                 MicrometerRouteEventNotifier eventNotifier = new MicrometerRouteEventNotifier();
-                if (config.namingStrategy.equals(MetricsNamingStrategy.LEGACY)) {
+                if (config.namingStrategy().equals(MetricsNamingStrategy.LEGACY)) {
                     eventNotifier.setNamingStrategy(MicrometerRouteEventNotifierNamingStrategy.LEGACY);
                 }
                 managementStrategy.addEventNotifier(eventNotifier);
@@ -119,13 +119,13 @@ public class CamelMicrometerRecorder {
 
         @Override
         public void configure(CamelContext camelContext) {
-            if (config.enableInstrumentedThreadPoolFactory) {
+            if (config.enableInstrumentedThreadPoolFactory()) {
                 InstrumentedThreadPoolFactory instrumentedThreadPoolFactory = new InstrumentedThreadPoolFactory(meterRegistry,
                         camelContext.getExecutorServiceManager().getThreadPoolFactory());
                 camelContext.getExecutorServiceManager().setThreadPoolFactory(instrumentedThreadPoolFactory);
             }
 
-            if (!config.enableMessageHistory) {
+            if (!config.enableMessageHistory()) {
                 return;
             }
 
@@ -134,7 +134,7 @@ public class CamelMicrometerRecorder {
             }
 
             MicrometerMessageHistoryFactory messageHistoryFactory = new MicrometerMessageHistoryFactory();
-            if (config.namingStrategy.equals(MetricsNamingStrategy.LEGACY)) {
+            if (config.namingStrategy().equals(MetricsNamingStrategy.LEGACY)) {
                 messageHistoryFactory.setNamingStrategy(MicrometerMessageHistoryNamingStrategy.LEGACY);
             }
             camelContext.setMessageHistoryFactory(messageHistoryFactory);

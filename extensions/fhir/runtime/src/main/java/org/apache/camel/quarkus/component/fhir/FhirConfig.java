@@ -16,58 +16,67 @@
  */
 package org.apache.camel.quarkus.component.fhir;
 
-import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefault;
+import io.smallrye.config.WithName;
 
-@ConfigRoot(name = "camel.fhir", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
-public final class FhirConfig {
+@ConfigRoot(phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+@ConfigMapping(prefix = "quarkus.camel.fhir")
+public interface FhirConfig {
 
     /**
      * Enable FHIR DSTU2 Specs in native mode.
      *
      * @asciidoclet
      */
-    @ConfigItem(name = "enable-dstu2", defaultValue = "false")
-    public boolean enableDstu2;
+    @WithName("enable-dstu2")
+    @WithDefault("false")
+    boolean enableDstu2();
 
     /**
      * Enable FHIR DSTU2_HL7ORG Specs in native mode.
      *
      * @asciidoclet
      */
-    @ConfigItem(name = "enable-dstu2_hl7org", defaultValue = "false")
-    public boolean enableDstu2Hl7Org;
+    @WithName("enable-dstu2_hl7org")
+    @WithDefault("false")
+    boolean enableDstu2Hl7Org();
 
     /**
      * Enable FHIR DSTU2_1 Specs in native mode.
      *
      * @asciidoclet
      */
-    @ConfigItem(name = "enable-dstu2_1", defaultValue = "false")
-    public boolean enableDstu2_1;
+    @WithName("enable-dstu2_1")
+    @WithDefault("false")
+    boolean enableDstu2_1();
 
     /**
      * Enable FHIR DSTU3 Specs in native mode.
      *
      * @asciidoclet
      */
-    @ConfigItem(name = "enable-dstu3", defaultValue = "false")
-    public boolean enableDstu3;
+    @WithName("enable-dstu3")
+    @WithDefault("false")
+    boolean enableDstu3();
 
     /**
      * Enable FHIR R4 Specs in native mode.
      *
      * @asciidoclet
      */
-    @ConfigItem(name = "enable-r4", defaultValue = "true")
-    public boolean enableR4;
+    @WithName("enable-r4")
+    @WithDefault("true")
+    boolean enableR4();
 
     /**
      * Enable FHIR R5 Specs in native mode.
      *
      * @asciidoclet
      */
-    @ConfigItem(name = "enable-r5", defaultValue = "false")
-    public boolean enableR5;
+    @WithName("enable-r5")
+    @WithDefault("false")
+    boolean enableR5();
 }

@@ -88,8 +88,8 @@ class JoorProcessor {
             CamelContext ctx = new DefaultCamelContext();
             try (JavaLanguage language = new JavaLanguage()) {
                 language.setCamelContext(ctx);
-                language.setSingleQuotes(config.singleQuotes);
-                config.configResource.ifPresent(language::setConfigResource);
+                language.setSingleQuotes(config.singleQuotes());
+                config.configResource().ifPresent(language::setConfigResource);
                 language.setPreCompile(false);
                 language.init();
                 JoorCompiler compiler = language.getCompiler();
@@ -200,7 +200,7 @@ class JoorProcessor {
 
         @Override
         public boolean getAsBoolean() {
-            return config.compileAtBuildTime || nativeConfig.enabled();
+            return config.compileAtBuildTime() || nativeConfig.enabled();
         }
     }
 }

@@ -91,7 +91,7 @@ class XsltProcessor {
         final Set<String> translets = new LinkedHashSet<>();
         try {
             final BuildTimeUriResolver resolver = new BuildTimeUriResolver();
-            for (String uri : config.sources.orElse(Collections.emptyList())) {
+            for (String uri : config.sources().orElse(Collections.emptyList())) {
                 ResolutionResult resolvedUri = resolver.resolve(uri);
                 uriResolverEntries.produce(resolvedUri.toBuildItem());
 
@@ -105,13 +105,13 @@ class XsltProcessor {
                 try {
                     TransformerFactory tf = new XalanTransformerFactory();
 
-                    for (Map.Entry<String, Boolean> entry : config.features.entrySet()) {
+                    for (Map.Entry<String, Boolean> entry : config.features().entrySet()) {
                         tf.setFeature(entry.getKey(), entry.getValue());
                     }
 
                     tf.setAttribute("generate-translet", true);
                     tf.setAttribute("translet-name", resolvedUri.transletClassName);
-                    tf.setAttribute("package-name", config.packageName);
+                    tf.setAttribute("package-name", config.packageName());
                     tf.setAttribute("destination-directory", destination.toString());
                     tf.setErrorListener(new CamelXsltErrorListener());
                     tf.newTemplates(resolvedUri.source);

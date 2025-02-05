@@ -185,22 +185,24 @@ class CamelProcessor {
             CamelConfig camelConfig,
             BuildProducer<CamelServicePatternBuildItem> services) {
 
-        camelConfig.service.discovery.includePatterns.ifPresent(list -> services.produce(new CamelServicePatternBuildItem(
+        CamelConfig.ServiceDiscoveryConfig discovery = camelConfig.service().discovery();
+        discovery.includePatterns().ifPresent(list -> services.produce(new CamelServicePatternBuildItem(
                 CamelServiceDestination.DISCOVERY,
                 true,
                 list)));
 
-        camelConfig.service.discovery.excludePatterns.ifPresent(list -> services.produce(new CamelServicePatternBuildItem(
+        discovery.excludePatterns().ifPresent(list -> services.produce(new CamelServicePatternBuildItem(
                 CamelServiceDestination.DISCOVERY,
                 false,
                 list)));
 
-        camelConfig.service.registry.includePatterns.ifPresent(list -> services.produce(new CamelServicePatternBuildItem(
+        CamelConfig.ServiceRegistryConfig registry = camelConfig.service().registry();
+        registry.includePatterns().ifPresent(list -> services.produce(new CamelServicePatternBuildItem(
                 CamelServiceDestination.REGISTRY,
                 true,
                 list)));
 
-        camelConfig.service.registry.excludePatterns.ifPresent(list -> services.produce(new CamelServicePatternBuildItem(
+        registry.excludePatterns().ifPresent(list -> services.produce(new CamelServicePatternBuildItem(
                 CamelServiceDestination.REGISTRY,
                 false,
                 list)));
@@ -256,7 +258,7 @@ class CamelProcessor {
         IndexView index = combinedIndex.getIndex();
 
         RuntimeValue<TypeConverterRegistry> typeConverterRegistry = recorder
-                .createTypeConverterRegistry(config.typeConverter.statisticsEnabled);
+                .createTypeConverterRegistry(config.typeConverter().statisticsEnabled());
 
         //
         // This should be simplified by searching for classes implementing TypeConverterLoader but that
@@ -394,8 +396,8 @@ class CamelProcessor {
                         routesBuilderClassExcludes.stream()
                                 .map(RoutesBuilderClassExcludeBuildItem::getPattern)
                                 .collect(Collectors.toList()))
-                .exclude(camelConfig.routesDiscovery.excludePatterns)
-                .include(camelConfig.routesDiscovery.includePatterns)
+                .exclude(camelConfig.routesDiscovery().excludePatterns())
+                .include(camelConfig.routesDiscovery().includePatterns())
                 .build().asDotNamePredicate();
 
         return allKnownImplementors
@@ -418,7 +420,7 @@ class CamelProcessor {
 
         PathFilter pathFilter = new PathFilter.Builder()
                 .include("META-INF/services/org/apache/camel/component/*")
-                .exclude(camelConfig.service.registry.excludePatterns)
+                .exclude(camelConfig.service().registry().excludePatterns())
                 .build();
 
         Set<String> componentNames = CamelSupport.services(applicationArchives, pathFilter)

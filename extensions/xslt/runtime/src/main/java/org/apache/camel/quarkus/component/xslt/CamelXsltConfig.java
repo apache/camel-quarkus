@@ -20,34 +20,33 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefault;
 
-@ConfigRoot(name = "camel.xslt", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
-public class CamelXsltConfig {
-
+@ConfigRoot(phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+@ConfigMapping(prefix = "quarkus.camel.xslt")
+public interface CamelXsltConfig {
     /**
      * A comma separated list of templates to compile.
      *
      * @asciidoclet
      */
-    @ConfigItem
-    public Optional<List<String>> sources;
+    Optional<List<String>> sources();
 
     /**
      * The package name for the generated classes.
      *
      * @asciidoclet
      */
-    @ConfigItem(defaultValue = "org.apache.camel.quarkus.component.xslt.generated")
-    public String packageName;
+    @WithDefault("org.apache.camel.quarkus.component.xslt.generated")
+    String packageName();
 
     /**
      * TransformerFactory features.
      *
      * @asciidoclet
      */
-    @ConfigItem
-    public Map<String, Boolean> features;
+    Map<String, Boolean> features();
 }

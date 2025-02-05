@@ -56,7 +56,7 @@ public class KafkaClientFactoryProducer {
                 Boolean.class);
         return kafkaConfig != null
                 && !kafkaConfig.isEmpty()
-                && camelKafkaRuntimeConfig.kubernetesServiceBinding.mergeConfiguration
+                && camelKafkaRuntimeConfig.kubernetesServiceBinding().mergeConfiguration()
                 && serviceBindingEnabled.isPresent()
                 && serviceBindingEnabled.get();
     }

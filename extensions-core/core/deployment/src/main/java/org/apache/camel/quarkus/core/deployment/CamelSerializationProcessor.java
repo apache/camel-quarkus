@@ -72,8 +72,8 @@ public class CamelSerializationProcessor {
 
     @BuildStep
     void produceSerializationBuildItem(CamelConfig config, BuildProducer<CamelSerializationBuildItem> serializationBuildItems) {
-        final CamelConfig.ReflectionConfig reflectionConfig = config.native_.reflection;
-        if (reflectionConfig.serializationEnabled) {
+        final CamelConfig.ReflectionConfig reflectionConfig = config.native_().reflection();
+        if (reflectionConfig.serializationEnabled()) {
             LOGGER.debug(
                     "Registration of basic types for serialization is enabled via quarkus.camel.native.reflection.serialization-enabled");
             serializationBuildItems.produce(new CamelSerializationBuildItem());

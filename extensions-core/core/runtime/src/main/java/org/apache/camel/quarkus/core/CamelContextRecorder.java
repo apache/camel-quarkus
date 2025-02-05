@@ -75,7 +75,7 @@ public class CamelContextRecorder {
         ExtendedCamelContext extendedCamelContext = context.getCamelContextExtension();
         context.setApplicationContextClassLoader(tccl);
         extendedCamelContext.addContextPlugin(FactoryFinderResolver.class, factoryFinderResolver.getValue());
-        extendedCamelContext.addContextPlugin(RuntimeCamelCatalog.class, new CamelRuntimeCatalog(config.runtimeCatalog));
+        extendedCamelContext.addContextPlugin(RuntimeCamelCatalog.class, new CamelRuntimeCatalog(config.runtimeCatalog()));
         //variable repository factory depends on factoryFinder and classLoader, therefore has to be initialized afterwards
         extendedCamelContext.addContextPlugin(VariableRepositoryFactory.class, new DefaultVariableRepositoryFactory(context));
         extendedCamelContext.setRegistry(registry.getValue());
@@ -138,25 +138,26 @@ public class CamelContextRecorder {
             context.setSourceLocationEnabled(true);
 
             // enable tracer on camel
-            context.setBacklogTracing(config.trace.enabled);
-            context.setBacklogTracingStandby(config.trace.standby);
-            context.setBacklogTracingTemplates(config.trace.traceTemplates);
+            CamelConfig.TraceConfig trace = config.trace();
+            context.setBacklogTracing(trace.enabled());
+            context.setBacklogTracingStandby(trace.standby());
+            context.setBacklogTracingTemplates(trace.traceTemplates());
 
             BacklogTracer tracer = BacklogTracer.createTracer(context);
-            tracer.setEnabled(config.trace.enabled);
-            tracer.setStandby(config.trace.standby);
-            tracer.setBacklogSize(config.trace.backlogSize);
-            tracer.setRemoveOnDump(config.trace.removeOnDump);
-            tracer.setBodyMaxChars(config.trace.bodyMaxChars);
-            tracer.setBodyIncludeStreams(config.trace.bodyIncludeStreams);
-            tracer.setBodyIncludeFiles(config.trace.bodyIncludeFiles);
-            tracer.setIncludeExchangeProperties(config.trace.includeExchangeProperties);
-            tracer.setIncludeExchangeVariables(config.trace.includeExchangeVariables);
-            tracer.setIncludeException(config.trace.includeException);
-            tracer.setTraceRests(config.trace.traceRests);
-            tracer.setTraceTemplates(config.trace.traceTemplates);
-            tracer.setTracePattern(config.trace.tracePattern.orElse(null));
-            tracer.setTraceFilter(config.trace.traceFilter.orElse(null));
+            tracer.setEnabled(trace.enabled());
+            tracer.setStandby(trace.standby());
+            tracer.setBacklogSize(trace.backlogSize());
+            tracer.setRemoveOnDump(trace.removeOnDump());
+            tracer.setBodyMaxChars(trace.bodyMaxChars());
+            tracer.setBodyIncludeStreams(trace.bodyIncludeStreams());
+            tracer.setBodyIncludeFiles(trace.bodyIncludeFiles());
+            tracer.setIncludeExchangeProperties(trace.includeExchangeProperties());
+            tracer.setIncludeExchangeVariables(trace.includeExchangeVariables());
+            tracer.setIncludeException(trace.includeException());
+            tracer.setTraceRests(trace.traceRests());
+            tracer.setTraceTemplates(trace.traceTemplates());
+            tracer.setTracePattern(trace.tracePattern().orElse(null));
+            tracer.setTraceFilter(trace.traceFilter().orElse(null));
 
             context.getCamelContextExtension().addContextPlugin(BacklogTracer.class, tracer);
         });
