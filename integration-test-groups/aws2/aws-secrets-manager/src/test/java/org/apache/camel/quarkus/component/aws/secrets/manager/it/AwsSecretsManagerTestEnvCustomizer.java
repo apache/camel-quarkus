@@ -16,18 +16,23 @@
  */
 package org.apache.camel.quarkus.component.aws.secrets.manager.it;
 
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvContext;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvCustomizer;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.testcontainers.containers.localstack.LocalStackContainer.Service;
+import software.amazon.awssdk.services.sqs.SqsClient;
+import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
+import software.amazon.awssdk.services.sqs.model.DeleteQueueRequest;
 
 public class AwsSecretsManagerTestEnvCustomizer implements Aws2TestEnvCustomizer {
 
     @Override
     public Service[] localstackServices() {
-        return new Service[] { Service.SECRETSMANAGER };
+        return new Service[] { Service.SECRETSMANAGER, Service.SQS };
     }
 
     @Override
@@ -50,6 +55,33 @@ public class AwsSecretsManagerTestEnvCustomizer implements Aws2TestEnvCustomizer
             envContext.property("camel.vault.aws.accessKey", System.getenv("AWS_ACCESS_KEY"));
             envContext.property("camel.vault.aws.secretKey", System.getenv("AWS_SECRET_KEY"));
             envContext.property("camel.vault.aws.region", System.getenv("AWS_REGION"));
+        }
+
+        /* SQS */
+        final String queueName = "cq-secret-manager-sqs-reload-"
+                + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+
+        //configure endpoint override for properties function
+        if (envContext.isLocalStack()) {
+            envContext.property("camel.vault.aws.override-endpoint",
+                    envContext.getProperties().get("camel.component.aws-secrets-manager.override-endpoint"));
+            envContext.property("camel.vault.aws.uri-endpoint-override",
+                    envContext.getProperties().get("camel.component.aws-secrets-manager.uri-endpoint-override"));
+        }
+
+        final SqsClient sqsClient = envContext.client(Service.SQS, SqsClient::builder);
+        {
+            final String queueUrl = sqsClient.createQueue(
+                    CreateQueueRequest.builder()
+                            .queueName(queueName)
+                            .build())
+                    .queueUrl();
+            //queue url for the vault configuration
+            envContext.property("camel.vault.aws.sqsQueueUrl", queueUrl);
+
+            envContext.closeable(() -> {
+                sqsClient.deleteQueue(DeleteQueueRequest.builder().queueUrl(queueUrl).build());
+            });
         }
     }
 }
