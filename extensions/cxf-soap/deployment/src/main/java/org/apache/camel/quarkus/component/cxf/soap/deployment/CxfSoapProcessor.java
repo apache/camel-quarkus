@@ -80,9 +80,10 @@ class CxfSoapProcessor {
      * to pass a {@link ServiceSeiBuildItem} holding a service interface to {@code quarkus-cxf} ourselves. That's enough
      * for {@code quarkus-cxf} to generate the necessary ancillary classes for us.
      *
-     * @param combinedIndex
-     * @param endpointImplementations
-     * @param serviceSeis
+     * @param cxfBuildTimeConfig      The {@link CxfBuildTimeConfig} instance
+     * @param combinedIndex           The combined Jandex index
+     * @param endpointImplementations List of {@link CxfEndpointImplementationBuildItem}
+     * @param serviceSeis             {@link BuildProducer} for {@link ServiceSeiBuildItem}
      */
     @BuildStep
     void serviceSeis(
@@ -92,7 +93,7 @@ class CxfSoapProcessor {
             BuildProducer<ServiceSeiBuildItem> serviceSeis) {
 
         final Builder b = new PathFilter.Builder();
-        cxfBuildTimeConfig.classGeneration.excludePatterns
+        cxfBuildTimeConfig.classGeneration().excludePatterns()
                 .stream()
                 .map(pattern -> pattern.replace('.', '/'))
                 .forEach(b::include);
@@ -109,7 +110,7 @@ class CxfSoapProcessor {
         CxfDeploymentUtils.webServiceAnnotations(index)
                 .map(annotation -> annotation.target().asClass())
                 .filter(wsClassInfo -> Modifier.isInterface(wsClassInfo.flags()))
-                .map(wsClassInfo -> wsClassInfo.name())
+                .map(ClassInfo::name)
                 .filter(seiFilter)
                 .map(DotName::toString)
                 .filter(intf -> !alreadyRegisteredInterfaces.contains(intf))
@@ -133,7 +134,7 @@ class CxfSoapProcessor {
         if (cl.superName() != null) {
             walkParents(index, cl.superName(), alreadyRegisteredInterfaces);
         }
-        cl.interfaceNames().stream().forEach(intf -> walkParents(index, intf, alreadyRegisteredInterfaces));
+        cl.interfaceNames().forEach(intf -> walkParents(index, intf, alreadyRegisteredInterfaces));
     }
 
     @BuildStep

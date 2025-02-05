@@ -38,7 +38,7 @@ public class CamelXsltRecorder {
             RuntimeValue<RuntimeUriResolver.Builder> uriResolverBuilder) {
         final RuntimeUriResolver uriResolver = uriResolverBuilder.getValue().build();
         final QuarkusTransformerFactoryConfigurationStrategy strategy = new QuarkusTransformerFactoryConfigurationStrategy(
-                config.packageName, config.features, uriResolver);
+                config.packageName(), config.features(), uriResolver);
         final XsltComponent component = new XsltComponent();
         component.setUriResolverFactory(new QuarkusXsltUriResolverFactory(uriResolver));
         component.setTransformerFactoryConfigurationStrategy(strategy);

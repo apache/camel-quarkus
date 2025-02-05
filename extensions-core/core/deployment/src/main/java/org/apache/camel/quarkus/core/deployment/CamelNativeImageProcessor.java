@@ -176,6 +176,7 @@ public class CamelNativeImageProcessor {
                         PathFilter.Builder::combine)
                 .build();
 
+        CamelConfig.RuntimeCatalogConfig runtimeCatalog = config.runtimeCatalog();
         CamelSupport.services(archives, pathFilter)
                 .filter(service -> service.name != null && service.type != null && service.path != null)
                 .forEach(service -> {
@@ -183,29 +184,29 @@ public class CamelNativeImageProcessor {
                     String packageName = getPackageName(service.type);
                     String jsonPath = String.format("META-INF/%s/%s.json", packageName.replace('.', '/'), service.name);
 
-                    if (config.runtimeCatalog.components
+                    if (runtimeCatalog.components()
                             && service.path.startsWith(DefaultComponentResolver.RESOURCE_PATH)) {
                         resources.add(new NativeImageResourceBuildItem(jsonPath));
                     }
-                    if (config.runtimeCatalog.dataformats
+                    if (runtimeCatalog.dataformats()
                             && service.path.startsWith(DefaultDataFormatResolver.DATAFORMAT_RESOURCE_PATH)) {
                         resources.add(new NativeImageResourceBuildItem(jsonPath));
                     }
-                    if (config.runtimeCatalog.devconsoles
+                    if (runtimeCatalog.devconsoles()
                             && service.path.startsWith(DefaultDevConsoleResolver.DEV_CONSOLE_RESOURCE_PATH)) {
                         resources.add(new NativeImageResourceBuildItem(jsonPath));
                     }
-                    if (config.runtimeCatalog.languages
+                    if (runtimeCatalog.languages()
                             && service.path.startsWith(DefaultLanguageResolver.LANGUAGE_RESOURCE_PATH)) {
                         resources.add(new NativeImageResourceBuildItem(jsonPath));
                     }
-                    if (config.runtimeCatalog.transformers
+                    if (runtimeCatalog.transformers()
                             && service.path.startsWith(DefaultTransformerResolver.DATA_TYPE_TRANSFORMER_RESOURCE_PATH)) {
                         resources.add(new NativeImageResourceBuildItem(jsonPath));
                     }
                 });
 
-        if (config.runtimeCatalog.models) {
+        if (runtimeCatalog.models()) {
             for (ApplicationArchive archive : archives.getAllApplicationArchives()) {
                 for (Path root : archive.getRootDirectories()) {
                     final Path resourcePath = root.resolve(CamelContextHelper.MODEL_DOCUMENTATION_PREFIX);
@@ -237,20 +238,20 @@ public class CamelNativeImageProcessor {
     void reflection(CamelConfig config, ApplicationArchivesBuildItem archives,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
 
-        final ReflectionConfig reflectionConfig = config.native_.reflection;
-        if (!reflectionConfig.includePatterns.isPresent()) {
+        final ReflectionConfig reflectionConfig = config.native_().reflection();
+        if (reflectionConfig.includePatterns().isEmpty()) {
             LOGGER.debug("No classes registered for reflection via quarkus.camel.native.reflection.include-patterns");
             return;
         }
 
         LOGGER.debug("Scanning resources for native inclusion from include-patterns {}",
-                reflectionConfig.includePatterns.get());
+                reflectionConfig.includePatterns().get());
 
         final PathFilter.Builder builder = new PathFilter.Builder();
-        reflectionConfig.includePatterns.map(Collection::stream).orElseGet(Stream::empty)
+        reflectionConfig.includePatterns().map(Collection::stream).orElseGet(Stream::empty)
                 .map(className -> className.replace('.', '/'))
                 .forEach(builder::include);
-        reflectionConfig.excludePatterns.map(Collection::stream).orElseGet(Stream::empty)
+        reflectionConfig.excludePatterns().map(Collection::stream).orElseGet(Stream::empty)
                 .map(className -> className.replace('.', '/'))
                 .forEach(builder::exclude);
         final PathFilter pathFilter = builder.build();

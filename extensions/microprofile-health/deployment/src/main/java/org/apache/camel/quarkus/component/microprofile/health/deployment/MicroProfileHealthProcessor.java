@@ -69,7 +69,7 @@ class MicroProfileHealthProcessor {
                     .getOptionalValue("camel.health.enabled", boolean.class)
                     .orElse(true);
 
-            return !mpHealthDisabled && camelHealthEnabled && camelHealthConfig.enabled
+            return !mpHealthDisabled && camelHealthEnabled && camelHealthConfig.enabled()
                     && quarkusHealthConfig.enabled;
         }
     }

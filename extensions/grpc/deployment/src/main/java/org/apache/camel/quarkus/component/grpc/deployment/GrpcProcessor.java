@@ -73,7 +73,7 @@ class GrpcProcessor {
 
     @BuildStep
     CamelGrpcServiceExcludesBuildItem camelGrpcServiceExcludes(GrpcBuildTimeConfig config) {
-        return new CamelGrpcServiceExcludesBuildItem(config.serviceExcludes.orElse(Collections.emptySet()));
+        return new CamelGrpcServiceExcludesBuildItem(config.serviceExcludes().orElse(Collections.emptySet()));
     }
 
     @BuildStep

@@ -17,24 +17,25 @@
 package org.apache.camel.quarkus.component.kafka;
 
 import io.quarkus.runtime.annotations.ConfigGroup;
-import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefault;
 
-@ConfigRoot(name = "camel.kafka", phase = ConfigPhase.RUN_TIME)
-public final class CamelKafkaRuntimeConfig {
+@ConfigRoot(phase = ConfigPhase.RUN_TIME)
+@ConfigMapping(prefix = "quarkus.camel.kafka")
+public interface CamelKafkaRuntimeConfig {
 
     /**
      * Kafka Kubernetes Service Binding configuration options
      *
      * @asciidoclet
      */
-    @ConfigItem(defaultValue = "true")
-    public KafkaServiceBindingConfig kubernetesServiceBinding;
+    @WithDefault("true")
+    KafkaServiceBindingConfig kubernetesServiceBinding();
 
     @ConfigGroup
-    public static final class KafkaServiceBindingConfig {
-
+    interface KafkaServiceBindingConfig {
         /**
          * If `true` then any Kafka configuration properties discovered by the Quarkus Kubernetes Service Binding extension (if
          * configured) will be merged with those set via Camel Kafka component or endpoint options. If `false` then any Kafka
@@ -43,7 +44,7 @@ public final class CamelKafkaRuntimeConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "true")
-        public boolean mergeConfiguration;
+        @WithDefault("true")
+        boolean mergeConfiguration();
     }
 }

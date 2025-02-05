@@ -39,11 +39,11 @@ class GraphQLProcessor {
 
     @BuildStep
     void nativeImageResources(BuildProducer<NativeImageResourceBuildItem> nativeImage, CamelGraphQLConfig config) {
-        if (!config.queryFiles.isPresent()) {
+        if (config.queryFiles().isEmpty()) {
             return;
         }
 
-        config.queryFiles.get()
+        config.queryFiles().get()
                 .stream()
                 .map(scriptFile -> new NativeImageResourceBuildItem(scriptFile.replace("classpath:", "")))
                 .forEach(nativeImage::produce);

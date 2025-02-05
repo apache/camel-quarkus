@@ -55,7 +55,7 @@ class DebugProcessor {
     @BuildStep(onlyIf = DebugEnabled.class)
     void configureSystemProperties(BuildProducer<SystemPropertyBuildItem> producer, DebugConfig config) {
         producer.produce(
-                new SystemPropertyBuildItem(BacklogDebugger.SUSPEND_MODE_SYSTEM_PROP_NAME, Boolean.toString(config.suspend)));
+                new SystemPropertyBuildItem(BacklogDebugger.SUSPEND_MODE_SYSTEM_PROP_NAME, Boolean.toString(config.suspend())));
         producer.produce(new SystemPropertyBuildItem(JmxSystemPropertyKeys.DISABLED, "false"));
     }
 
@@ -65,7 +65,7 @@ class DebugProcessor {
 
         @Override
         public boolean getAsBoolean() {
-            return (launchMode.equals(LaunchMode.DEVELOPMENT)) || (config.enabled
+            return (launchMode.equals(LaunchMode.DEVELOPMENT)) || (config.enabled()
                     || ConfigProvider.getConfig().getOptionalValue("camel.debug.enabled", boolean.class).orElse(false));
         }
     }

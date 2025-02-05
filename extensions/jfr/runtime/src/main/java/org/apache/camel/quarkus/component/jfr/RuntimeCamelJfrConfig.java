@@ -18,12 +18,13 @@ package org.apache.camel.quarkus.component.jfr;
 
 import java.util.Optional;
 
-import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import io.smallrye.config.ConfigMapping;
 
-@ConfigRoot(name = "camel.jfr", phase = ConfigPhase.RUN_TIME)
-public class RuntimeCamelJfrConfig {
+@ConfigRoot(phase = ConfigPhase.RUN_TIME)
+@ConfigMapping(prefix = "quarkus.camel.jfr")
+public interface RuntimeCamelJfrConfig {
 
     /**
      * Directory to store the recording. By default the current directory will be used. Use false to turn off saving the
@@ -31,8 +32,7 @@ public class RuntimeCamelJfrConfig {
      *
      * @asciidoclet
      */
-    @ConfigItem
-    Optional<String> startupRecorderDir;
+    Optional<String> startupRecorderDir();
 
     /**
      * How long time to run the startup recorder. Use 0 (default) to keep the recorder running until the JVM is exited. Use
@@ -42,8 +42,7 @@ public class RuntimeCamelJfrConfig {
      *
      * @asciidoclet
      */
-    @ConfigItem
-    Optional<Long> startupRecorderDuration;
+    Optional<Long> startupRecorderDuration();
 
     /**
      * To filter our sub steps at a maximum depth. Use -1 for no maximum. Use 0 for no sub steps. Use 1 for max 1 sub step,
@@ -51,16 +50,14 @@ public class RuntimeCamelJfrConfig {
      *
      * @asciidoclet
      */
-    @ConfigItem
-    Optional<Integer> startupRecorderMaxDepth;
+    Optional<Integer> startupRecorderMaxDepth();
 
     /**
      * To use a specific Java Flight Recorder profile configuration, such as default or profile. The default is default.
      *
      * @asciidoclet
      */
-    @ConfigItem
-    Optional<String> startupRecorderProfile;
+    Optional<String> startupRecorderProfile();
 
     /**
      * To enable Java Flight Recorder to start a recording and automatic dump the recording to disk after startup is
@@ -68,6 +65,5 @@ public class RuntimeCamelJfrConfig {
      *
      * @asciidoclet
      */
-    @ConfigItem
-    Optional<Boolean> startupRecorderRecording;
+    Optional<Boolean> startupRecorderRecording();
 }

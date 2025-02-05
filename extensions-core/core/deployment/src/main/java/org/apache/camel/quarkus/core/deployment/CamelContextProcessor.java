@@ -196,7 +196,7 @@ public class CamelContextProcessor {
 
         @Override
         public boolean getAsBoolean() {
-            return config.eventBridge.enabled;
+            return config.eventBridge().enabled();
         }
     }
 
@@ -205,7 +205,7 @@ public class CamelContextProcessor {
 
         @Override
         public boolean getAsBoolean() {
-            return config.sourceLocationEnabled;
+            return config.sourceLocationEnabled();
         }
     }
 
@@ -214,7 +214,7 @@ public class CamelContextProcessor {
 
         @Override
         public boolean getAsBoolean() {
-            return config.trace.enabled || config.trace.standby;
+            return config.trace().enabled() || config.trace().standby();
         }
     }
 }

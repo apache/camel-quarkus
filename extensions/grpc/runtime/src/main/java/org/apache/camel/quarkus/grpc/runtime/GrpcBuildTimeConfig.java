@@ -21,14 +21,14 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import io.quarkus.runtime.annotations.ConfigGroup;
-import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefault;
 
-@ConfigRoot(name = "camel.grpc", phase = ConfigPhase.BUILD_TIME)
-public class GrpcBuildTimeConfig {
-
+@ConfigRoot(phase = ConfigPhase.BUILD_TIME)
+@ConfigMapping(prefix = "quarkus.camel.grpc")
+public interface GrpcBuildTimeConfig {
     /**
      * Excludes classes from the build time scanning of gRPC service classes.
      * This can be useful if there are gRPC services that you want to exclude from participating in Camel gRPC route
@@ -43,20 +43,16 @@ public class GrpcBuildTimeConfig {
      *
      * @asciidoclet
      */
-    @ConfigItem
-    public Optional<Set<String>> serviceExcludes;
+    Optional<Set<String>> serviceExcludes();
 
     /**
      * Build time configuration options for Camel Quarkus gRPC code generator.
      *
      * @asciidoclet
      */
-    @ConfigItem
-    public CodeGenConfig codegen;
+    CodeGenConfig codegen();
 
-    @ConfigGroup
-    public static class CodeGenConfig {
-
+    interface CodeGenConfig {
         /**
          * If `true`, Camel Quarkus gRPC code generation is run for .proto files discovered from the `proto` directory, or from
          * dependencies specified in the `scan-for-proto` or `scan-for-imports` options. When `false`, code generation for
@@ -64,8 +60,8 @@ public class GrpcBuildTimeConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "true")
-        public boolean enabled;
+        @WithDefault("true")
+        boolean enabled();
 
         /**
          * Camel Quarkus gRPC code generation can scan application dependencies for .proto files to generate Java stubs from
@@ -77,8 +73,8 @@ public class GrpcBuildTimeConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "none")
-        public String scanForProto;
+        @WithDefault("none")
+        String scanForProto();
 
         /**
          * Camel Quarkus gRPC code generation can scan dependencies for .proto files that can be imported by protos in this
@@ -90,23 +86,21 @@ public class GrpcBuildTimeConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "com.google.protobuf:protobuf-java")
-        public String scanForImports;
+        @WithDefault("com.google.protobuf:protobuf-java")
+        String scanForImports();
 
         /**
          * Package path or file glob pattern includes per dependency containing .proto files to be considered for inclusion.
          *
          * @asciidoclet
          */
-        @ConfigItem
-        public Map<String, List<String>> scanForProtoIncludes;
+        Map<String, List<String>> scanForProtoIncludes();
 
         /**
          * Package path or file glob pattern includes per dependency containing .proto files to be considered for exclusion.
          *
          * @asciidoclet
          */
-        @ConfigItem
-        public Map<String, List<String>> scanForProtoExcludes;
+        Map<String, List<String>> scanForProtoExcludes();
     }
 }

@@ -31,8 +31,8 @@ public class JoorExpressionRecorder {
             RuntimeValue<JoorExpressionScriptingCompiler.Builder> scriptingCompilerBuilder) {
         RuntimeValue<JavaLanguage> language = new RuntimeValue<>(
                 new JavaLanguage(compilerBuilder.getValue().build(), scriptingCompilerBuilder.getValue().build()));
-        language.getValue().setSingleQuotes(config.singleQuotes);
-        config.configResource.ifPresent(language.getValue()::setConfigResource);
+        language.getValue().setSingleQuotes(config.singleQuotes());
+        config.configResource().ifPresent(language.getValue()::setConfigResource);
         return language;
     }
 

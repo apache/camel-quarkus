@@ -92,8 +92,8 @@ public class CamelRegistryProcessor {
                         PathFilter.Builder::new,
                         (builder, patterns) -> builder.patterns(patterns.isInclude(), patterns.getPatterns()),
                         PathFilter.Builder::combine)
-                .include(camelConfig.service.registry.includePatterns)
-                .exclude(camelConfig.service.registry.excludePatterns)
+                .include(camelConfig.service().registry().includePatterns())
+                .exclude(camelConfig.service().registry().excludePatterns())
                 .build();
 
         CamelSupport.services(applicationArchives, pathFilter)

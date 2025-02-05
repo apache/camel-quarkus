@@ -16,17 +16,27 @@
  */
 package org.apache.camel.quarkus.component.openapi.java.deployment;
 
-import io.quarkus.runtime.annotations.ConfigItem;
+import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefault;
 
-@ConfigRoot(name = "camel.openapi")
-public class OpenApiJavaBuildTimeConfig {
-
+@ConfigRoot(phase = ConfigPhase.BUILD_TIME)
+@ConfigMapping(prefix = "quarkus.camel.openapi")
+interface OpenApiJavaBuildTimeConfig {
     /**
-     * Expose the Camel REST DSL services to quarkus openapi at build time if 'quarkus.smallrye-openapi' is available.
+     * Build time configuration options for Camel REST DSL OpenAPI specifications.
      *
      * @asciidoclet
      */
-    @ConfigItem(name = "expose.enabled", defaultValue = "false")
-    public boolean enabled = false;
+    Exposure expose();
+
+    interface Exposure {
+        /**
+         * When set to true, Camel REST DSL OpenAPI specifications are exposed under the Quarkus OpenAPI HTTP endpoint
+         * (/q/openapi). This requires quarkus-smallrye-openapi to be added to your application.
+         */
+        @WithDefault("false")
+        boolean enabled();
+    }
 }

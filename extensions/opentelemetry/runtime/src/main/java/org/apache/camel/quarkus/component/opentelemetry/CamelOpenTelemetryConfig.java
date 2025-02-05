@@ -18,12 +18,14 @@ package org.apache.camel.quarkus.component.opentelemetry;
 
 import java.util.Optional;
 
-import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefault;
 
-@ConfigRoot(name = "camel.opentelemetry", phase = ConfigPhase.RUN_TIME)
-public final class CamelOpenTelemetryConfig {
+@ConfigRoot(phase = ConfigPhase.RUN_TIME)
+@ConfigMapping(prefix = "quarkus.camel.opentelemetry")
+public interface CamelOpenTelemetryConfig {
 
     /**
      * Sets whether header names need to be encoded. Can be useful in situations where OpenTelemetry propagators potentially
@@ -32,8 +34,8 @@ public final class CamelOpenTelemetryConfig {
      *
      * @asciidoclet
      */
-    @ConfigItem(defaultValue = "false")
-    public boolean encoding;
+    @WithDefault("false")
+    boolean encoding();
 
     /**
      * Sets whether to disable tracing for endpoint URIs or Processor ids that match the given comma separated patterns. The
@@ -47,8 +49,7 @@ public final class CamelOpenTelemetryConfig {
      *
      * @asciidoclet
      */
-    @ConfigItem
-    public Optional<String> excludePatterns;
+    Optional<String> excludePatterns();
 
     /**
      * Sets whether to create new OpenTelemetry spans for each Camel Processor. Use the excludePatterns property to filter
@@ -56,6 +57,6 @@ public final class CamelOpenTelemetryConfig {
      *
      * @asciidoclet
      */
-    @ConfigItem(defaultValue = "false")
-    public boolean traceProcessors;
+    @WithDefault("false")
+    boolean traceProcessors();
 }

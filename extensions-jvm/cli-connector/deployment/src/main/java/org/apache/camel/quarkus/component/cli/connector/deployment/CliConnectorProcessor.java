@@ -65,7 +65,7 @@ class CliConnectorProcessor {
         CamelCliConnectorConfig config;
 
         public boolean getAsBoolean() {
-            return config.enabled;
+            return config.enabled();
         }
     }
 }

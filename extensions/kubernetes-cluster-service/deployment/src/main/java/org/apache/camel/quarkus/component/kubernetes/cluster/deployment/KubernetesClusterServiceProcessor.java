@@ -39,7 +39,7 @@ class KubernetesClusterServiceProcessor {
             KubernetesClusterServiceRuntimeConfig runtimeConfig,
             KubernetesClusterServiceRecorder recorder) {
 
-        if (buildTimeConfig.rebalancing) {
+        if (buildTimeConfig.rebalancing()) {
             final RuntimeValue<RebalancingCamelClusterService> krcs = recorder
                     .createKubernetesRebalancingClusterService(runtimeConfig);
             return new CamelRuntimeBeanBuildItem("kubernetesRebalancingClusterService",

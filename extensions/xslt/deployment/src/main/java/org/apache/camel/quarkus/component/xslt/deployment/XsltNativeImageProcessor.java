@@ -51,11 +51,11 @@ class XsltNativeImageProcessor {
             CamelXsltConfig config,
             BuildProducer<NativeImageResourceBuildItem> nativeResources,
             BuildProducer<NativeImageResourceBundleBuildItem> nativeResourceBundles) {
-        if (!config.sources.isPresent()) {
+        if (config.sources().isEmpty()) {
             return;
         }
 
-        final List<String> sources = config.sources.get();
+        final List<String> sources = config.sources().get();
         List<String> paths = new ArrayList<>(sources.size() + 5);
         for (String source : sources) {
             String scheme = ResourceHelper.getScheme(source);

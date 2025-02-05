@@ -18,25 +18,22 @@ package org.apache.camel.quarkus.component.cxf.soap.deployment;
 
 import java.util.List;
 
-import io.quarkus.runtime.annotations.ConfigGroup;
-import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefault;
 
-@ConfigRoot(name = "camel.cxf", phase = ConfigPhase.BUILD_TIME)
-public class CxfBuildTimeConfig {
-
+@ConfigRoot(phase = ConfigPhase.BUILD_TIME)
+@ConfigMapping(prefix = "quarkus.camel.cxf")
+public interface CxfBuildTimeConfig {
     /**
      * Configuration options related to build time class generation
      *
      * @asciidoclet
      */
-    @ConfigItem
-    public ClassGeneration classGeneration;
+    ClassGeneration classGeneration();
 
-    @ConfigGroup
-    public static class ClassGeneration {
-
+    interface ClassGeneration {
         /**
          * For CXF service interfaces to work properly, some ancillary classes (such as request and response wrappers) need to
          * be generated at build time. Camel Quarkus lets the `quarkus-cxf` extension to do this for all service interfaces
@@ -47,7 +44,7 @@ public class CxfBuildTimeConfig {
          *
          * @asciidoclet
          */
-        @ConfigItem(defaultValue = "org.apache.cxf.ws.security.sts.provider.SecurityTokenService")
-        List<String> excludePatterns;
+        @WithDefault("org.apache.cxf.ws.security.sts.provider.SecurityTokenService")
+        List<String> excludePatterns();
     }
 }

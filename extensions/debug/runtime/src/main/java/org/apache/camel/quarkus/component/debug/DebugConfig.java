@@ -18,16 +18,19 @@ package org.apache.camel.quarkus.component.debug;
 
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefault;
 
-@ConfigRoot(name = "camel.debug", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
-public class DebugConfig {
-
+@ConfigRoot(phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+@ConfigMapping(prefix = "quarkus.camel.debug")
+public interface DebugConfig {
     /**
      * Set whether to enable Camel debugging support.
      *
      * @asciidoclet
      */
-    public boolean enabled;
+    @WithDefault("false")
+    boolean enabled();
 
     /**
      * Indicates whether the _suspend mode_ is enabled or not. If `true` the message processing is immediately suspended
@@ -35,5 +38,6 @@ public class DebugConfig {
      *
      * @asciidoclet
      */
-    public boolean suspend;
+    @WithDefault("false")
+    boolean suspend();
 }

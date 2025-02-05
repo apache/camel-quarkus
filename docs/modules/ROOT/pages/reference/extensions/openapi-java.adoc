@@ -77,7 +77,8 @@ Also, it can not use CDI injection in the RouteBuilder `configure()` since we ge
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.openapi.expose.enabled]]`link:#quarkus.camel.openapi.expose.enabled[quarkus.camel.openapi.expose.enabled]`
 
-Expose the Camel REST DSL services to quarkus openapi at build time if 'quarkus.smallrye-openapi' is available.
+When set to true, Camel REST DSL OpenAPI specifications are exposed under the Quarkus OpenAPI HTTP endpoint
+(/q/openapi). This requires quarkus-smallrye-openapi to be added to your application.
 | `boolean`
 | `false`
 |===
