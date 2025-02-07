@@ -24,16 +24,36 @@ public class AzureKeyVaultRoutes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("direct:createSecret")
-                .to(azureKeyVault("createSecret", true));
+                .autoStartup(false)
+                .id("createSecret")
+                .to(azureKeyVault("createSecret", false));
 
         from("direct:getSecret")
+                .autoStartup(false)
+                .id("getSecret")
                 .to(azureKeyVault("getSecret", false));
 
         from("direct:deleteSecret")
-                .to(azureKeyVault("deleteSecret", true));
+                .autoStartup(false)
+                .id("deleteSecret")
+                .to(azureKeyVault("deleteSecret", false));
 
         from("direct:purgeDeletedSecret")
+                .autoStartup(false)
+                .id("purgeDeletedSecret")
                 .to(azureKeyVault("purgeDeletedSecret", false));
+
+        from("direct:createSecretIdentity")
+                .to(azureKeyVault("createSecret", true));
+
+        from("direct:getSecretIdentity")
+                .to(azureKeyVault("getSecret", true));
+
+        from("direct:deleteSecretIdentity")
+                .to(azureKeyVault("deleteSecret", true));
+
+        from("direct:purgeDeletedSecretIdentity")
+                .to(azureKeyVault("purgeDeletedSecret", true));
 
         from("direct:propertyPlaceholder")
                 .process(exchange -> {
@@ -45,13 +65,15 @@ public class AzureKeyVaultRoutes extends RouteBuilder {
 
     private String azureKeyVault(String operation, boolean useIdentity) {
         StringBuilder sb = new StringBuilder("azure-key-vault://{{camel.vault.azure.vaultName}}" +
-                "?clientId=RAW({{camel.vault.azure.clientId}})" +
-                "&clientSecret=RAW({{camel.vault.azure.clientSecret}})" +
-                "&tenantId=RAW({{camel.vault.azure.tenantId}})" +
-                "&operation=" + operation);
+                "?operation=" + operation);
 
         if (useIdentity) {
             sb.append("&credentialType=AZURE_IDENTITY");
+        } else {
+            //can not use i.e. RAW({{camel.vault.azure.clientSecret}}) as the value is not set in identity profiles
+            sb.append("&clientId=").append(System.getenv("AZURE_CLIENT_ID"))
+                    .append("&clientSecret=").append(System.getenv("AZURE_CLIENT_SECRET"))
+                    .append("&tenantId=").append(System.getenv("AZURE_TENANT_ID"));
         }
         return sb.toString();
     }
