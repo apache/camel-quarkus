@@ -18,31 +18,26 @@ package org.apache.camel.quarkus.component.micrometer.it;
 
 import java.util.List;
 
-import io.micrometer.core.instrument.Clock;
 import io.micrometer.core.instrument.Meter;
-import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.config.MeterFilter;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
-import io.micrometer.core.instrument.util.HierarchicalNameMapper;
-import io.micrometer.jmx.JmxMeterRegistry;
 import io.micrometer.prometheus.PrometheusMeterRegistry;
-import io.quarkus.arc.profile.IfBuildProfile;
 import io.quarkus.micrometer.runtime.MeterFilterConstraint;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
-import org.apache.camel.component.micrometer.CamelJmxConfig;
 import org.apache.camel.component.micrometer.MicrometerComponent;
 
 public class MicrometerProducers {
 
-    @Produces
-    @Singleton
-    @IfBuildProfile("test")
-    public MeterRegistry registry() {
-        return new JmxMeterRegistry(CamelJmxConfig.DEFAULT, Clock.SYSTEM, HierarchicalNameMapper.DEFAULT);
-    }
+    // TODO: https://github.com/apache/camel-quarkus/issues/6984
+    // @Produces
+    // @Singleton
+    // @IfBuildProfile("test")
+    // public MeterRegistry registry() {
+    //    return new JmxMeterRegistry(CamelJmxConfig.DEFAULT, Clock.SYSTEM, HierarchicalNameMapper.DEFAULT);
+    // }
 
     @Produces
     @Singleton
