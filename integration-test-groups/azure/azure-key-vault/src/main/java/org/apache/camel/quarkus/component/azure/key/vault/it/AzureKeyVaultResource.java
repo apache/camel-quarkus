@@ -31,7 +31,9 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.ResolveEndpointFailedException;
 import org.apache.camel.component.azure.key.vault.KeyVaultConstants;
 import org.apache.camel.impl.event.CamelContextReloadedEvent;
 
@@ -41,47 +43,86 @@ public class AzureKeyVaultResource {
     @Inject
     ProducerTemplate producerTemplate;
 
+    @Inject
+    CamelContext camelContext;
+
     static final AtomicBoolean contextReloaded = new AtomicBoolean(false);
 
     void onReload(@Observes CamelContextReloadedEvent event) {
         contextReloaded.set(true);
     }
 
-    @Path("/secret/{secretName}")
+    @Path("/secret/routes/{command}")
+    @POST
+    public void startRoutes(@PathParam("command") String cmd) throws Exception {
+        if ("start".equals(cmd)) {
+            camelContext.getRouteController().startRoute("createSecret");
+            camelContext.getRouteController().startRoute("getSecret");
+            camelContext.getRouteController().startRoute("deleteSecret");
+            camelContext.getRouteController().startRoute("purgeDeletedSecret");
+        }
+        if ("stop".equals(cmd)) {
+            camelContext.getRouteController().stopRoute("createSecret");
+            camelContext.getRouteController().stopRoute("getSecret");
+            camelContext.getRouteController().stopRoute("deleteSecret");
+            camelContext.getRouteController().stopRoute("purgeDeletedSecret");
+        }
+    }
+
+    @Path("/secret/{identity}/{secretName}")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response createSecret(@PathParam("secretName") String secretName, String secret) {
-        KeyVaultSecret result = producerTemplate.requestBodyAndHeader("direct:createSecret", secret,
+    public Response createSecret(@PathParam("secretName") String secretName, @PathParam("identity") boolean identity,
+            String secret) {
+        KeyVaultSecret result = producerTemplate.requestBodyAndHeader("direct:createSecret" + (identity ? "Identity" : ""),
+                secret,
                 KeyVaultConstants.SECRET_NAME, secretName, KeyVaultSecret.class);
         return Response.ok(result.getName()).build();
     }
 
-    @Path("/secret/{secretName}")
+    @Path("/secret/wrongClient/{secretName}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response createSecretWithWrongClient(@PathParam("secretName") String secretName,
+            String secret) {
+        try {
+            KeyVaultSecret result = producerTemplate.requestBodyAndHeader("azure-key-vault://{{camel.vault.azure.vaultName}}" +
+                    "?operation=createSecret",
+                    secret,
+                    KeyVaultConstants.SECRET_NAME, secretName, KeyVaultSecret.class);
+            return Response.ok(result.getName()).build();
+        } catch (ResolveEndpointFailedException e) {
+            return Response.status(500).entity("ResolveEndpointFailedException").build();
+        }
+    }
+
+    @Path("/secret/{identity}/{secretName}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String getSecret(@PathParam("secretName") String secretName) {
-        return producerTemplate.requestBodyAndHeader("direct:getSecret", null,
+    public String getSecret(@PathParam("secretName") String secretName, @PathParam("identity") boolean identity) {
+        return producerTemplate.requestBodyAndHeader("direct:getSecret" + (identity ? "Identity" : ""), null,
                 KeyVaultConstants.SECRET_NAME, secretName, String.class);
     }
 
-    @Path("/secret/{secretName}")
+    @Path("/secret/{identity}/{secretName}")
     @DELETE
-    public Response deleteSecret(@PathParam("secretName") String secretName) {
-        producerTemplate.requestBodyAndHeader("direct:deleteSecret", null,
+    public Response deleteSecret(@PathParam("secretName") String secretName, @PathParam("identity") boolean identity) {
+        producerTemplate.requestBodyAndHeader("direct:deleteSecret" + (identity ? "Identity" : ""), null,
                 KeyVaultConstants.SECRET_NAME, secretName, Void.class);
         return Response.ok().build();
     }
 
-    @Path("/secret/{secretName}/purge")
+    @Path("/secret/{identity}/{secretName}/purge")
     @DELETE
-    public Response purgeSecret(@PathParam("secretName") String secretName) {
-        producerTemplate.requestBodyAndHeader("direct:purgeDeletedSecret", null,
+    public Response purgeSecret(@PathParam("secretName") String secretName, @PathParam("identity") boolean identity) {
+        producerTemplate.requestBodyAndHeader("direct:purgeDeletedSecret" + (identity ? "Identity" : ""), null,
                 KeyVaultConstants.SECRET_NAME, secretName, Void.class);
         return Response.ok().build();
     }
 
-    @Path("/secret/from/placeholder")
+    @Path("/secret/fromPlaceholder")
     @GET
     public String getSecretFromPropertyPlaceholder() {
         return producerTemplate.requestBody("direct:propertyPlaceholder", null, String.class);

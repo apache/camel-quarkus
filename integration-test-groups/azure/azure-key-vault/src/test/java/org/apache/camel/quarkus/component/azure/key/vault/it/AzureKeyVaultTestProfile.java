@@ -20,18 +20,13 @@ import java.util.Map;
 
 import io.quarkus.test.junit.QuarkusTestProfile;
 
-public class ContextReloadTestProfile implements QuarkusTestProfile {
+public class AzureKeyVaultTestProfile implements QuarkusTestProfile {
     @Override
     public Map<String, String> getConfigOverrides() {
         //properties have to be set via profile to not be used by different azure-* test in grouped module
         return Map.of(
-                "camel.vault.azure.refreshEnabled", "true",
-                "camel.vault.azure.refreshPeriod", "1000",
-                "camel.vault.azure.secrets", "cq-secret-context-refresh.*",
-                "camel.vault.azure.eventhubConnectionString", System.getenv("AZURE_VAULT_EVENT_HUBS_CONNECTION_STRING"),
-                "camel.vault.azure.blobAccountName", System.getenv("AZURE_STORAGE_ACCOUNT_NAME"),
-                "camel.vault.azure.blobContainerName", System.getenv("AZURE_VAULT_EVENT_HUBS_BLOB_CONTAINER_NAME"),
-                "camel.vault.azure.blobAccessKey", System.getenv("AZURE_STORAGE_ACCOUNT_KEY"),
-                "camel.main.context-reload-enabled", "true");
+                "camel.vault.azure.tenantId", System.getenv("AZURE_TENANT_ID"),
+                "camel.vault.azure.clientId", System.getenv("AZURE_CLIENT_ID"),
+                "camel.vault.azure.clientSecret", System.getenv("AZURE_CLIENT_SECRET"));
     }
 }

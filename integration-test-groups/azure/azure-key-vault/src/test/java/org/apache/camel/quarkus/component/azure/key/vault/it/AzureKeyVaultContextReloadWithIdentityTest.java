@@ -16,59 +16,27 @@
  */
 package org.apache.camel.quarkus.component.azure.key.vault.it;
 
-import java.util.UUID;
-
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
-import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
-import static org.hamcrest.Matchers.is;
-
 /**
- * Test for key vault create/delete/purge with the `credentialType=CLIENT_SECRET`
+ * Test for Automatic Camel context reloading on Secret Refresh when credentialType=AZURE_IDENTITY is used.
  * </br>
- * Requires own test profile, which sets credentials to the vault configuration.
+ * Requires own test profile, which does not contain any credentials for key vault.
  */
 // Azure Key Vault is not supported by Azurite https://github.com/Azure/Azurite/issues/619
 @EnabledIfEnvironmentVariable(named = "AZURE_TENANT_ID", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "AZURE_CLIENT_ID", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "AZURE_CLIENT_SECRET", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "AZURE_VAULT_NAME", matches = ".+")
-@TestProfile(AzureKeyVaultTestProfile.class)
+@EnabledIfEnvironmentVariable(named = "AZURE_STORAGE_ACCOUNT_KEY", matches = ".+")
+@EnabledIfEnvironmentVariable(named = "AZURE_VAULT_EVENT_HUBS_CONNECTION_STRING", matches = ".+")
+@EnabledIfEnvironmentVariable(named = "AZURE_VAULT_EVENT_HUBS_BLOB_CONTAINER_NAME", matches = ".+")
+@TestProfile(AzureKeyVaultContextReloadWithIdentityTestProfile.class)
 @QuarkusTest
-class AzureKeyVaultTest extends AbstractAzureKeyVaultTest {
-
-    public AzureKeyVaultTest() {
-        super(false);
+class AzureKeyVaultContextReloadWithIdentityTest extends AbstractAzureKeyVaultContextReloadTest {
+    public AzureKeyVaultContextReloadWithIdentityTest() {
+        super(true);
     }
-
-    /**
-     * Creation of the secret with the client without identity or clientSecret should fail.
-     */
-    @Test
-    void wrongClientTest() {
-        String secretName = "cq-create-with-identity" + UUID.randomUUID().toString();
-        String secret = "Hello Camel Quarkus Azure Key Vault";
-        boolean tryToDeleteSecret = true;
-        try {
-            // Create secret
-            RestAssured.given()
-                    .body(secret)
-                    .queryParam("suffix", "Wrong")
-                    .post("/azure-key-vault/secret/wrongClient/{secretName}", secretName)
-                    .then()
-                    .statusCode(500)
-                    .body(is("ResolveEndpointFailedException"));
-
-            //don't delete secret as it was not created
-            tryToDeleteSecret = false;
-        } finally {
-            if (tryToDeleteSecret) {
-                AzureKeyVaultUtil.deleteSecretImmediately(secretName);
-            }
-        }
-    }
-
 }
