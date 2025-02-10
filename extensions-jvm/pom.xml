@@ -69,6 +69,7 @@
         <module>jcr</module>
         <module>jgroups</module>
         <module>jgroups-raft</module>
+        <module>jolokia</module>
         <module>jooq</module>
         <module>json-patch</module>
         <module>jsonapi</module>

@@ -4508,6 +4508,16 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-jolokia</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-jolokia-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-jolt</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
@@ -7256,6 +7266,11 @@
                 <groupId>org.jetbrains.kotlinx</groupId>
                 <artifactId>kotlinx-serialization-core-jvm</artifactId>
                 <version>${kotlinx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jolokia</groupId>
+                <artifactId>jolokia-agent-jvm</artifactId>
+                <version>${jolokia.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.json</groupId>
