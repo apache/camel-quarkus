@@ -4433,6 +4433,16 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-quarkus-jolokia</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.19.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-quarkus-jolokia-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.19.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-quarkus-jolt</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.19.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
@@ -7178,6 +7188,11 @@
         <groupId>org.jetbrains.kotlinx</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>kotlinx-serialization-core-jvm</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>1.4.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.jolokia</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>jolokia-agent-jvm</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>2.2.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>org.json</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->

@@ -1,0 +1,106 @@
+This extension adds https://jolokia.org/[Jolokia] support to your application.
+
+=== Jolokia HTTP endpoints
+
+In prod mode, Jolokia is accessible at the following URLs.
+
+* http://0.0.0.0:8778/jolokia/
+* http://0.0.0.0:8080/q/jolokia
+
+In dev and test modes Jolokia is bound only to `localhost`.
+
+To disable exposing Jolokia via the Quarkus management interface at `/q/jolokia`, add the following configuration to `application.properties`.
+
+[source]
+----
+quarkus.camel.jolokia.register-management-endpoint=false
+----
+
+If you want to disable Jolokia entirely, then add the following configuration to `application.properties`.
+
+[source]
+----
+quarkus.camel.jolokia.enabled=false
+----
+
+=== Jolokia configuration
+
+Any of the https://jolokia.org/reference/html/manual/agents.html[Jolokia configuration options] can be configured via the `quarkus.camel.jolokia.additional-properties.<jolokia-property-name>` option.
+Where `<jolokia-property-name>` is the name of the Jolokia configuration option you want to set.
+
+For example, the following configuration added to `application.properties` enables Jolokia debugging and sets the max depth for traversing bean properties.
+
+[source]
+----
+quarkus.camel.jolokia.additional-properties.debug=true
+quarkus.camel.jolokia.additional-properties.maxDepth=10
+----
+
+=== Jolokia restrictor
+
+By default, a Jolokia restrictor is automatically registered that exposes access to only a specific set of MBean domains.
+
+* `org.apache.camel`
+* `java.lang`
+* `java.nio`
+
+If this is too restrictive, then you can either disable the default restrictor, or create your own custom restrictor.
+
+==== Disable the default restrictor
+
+The following configuration added to `application.properties` disables the default restrictor.
+
+[source]
+----
+quarkus.camel.jolokia.register-camel-restrictor=false
+----
+
+==== Create a custom restrictor
+
+You can create your own restrictor class and register it with Jolokia.
+
+[source,java]
+----
+public class CustomRestrictor extends AllowAllRestrictor {
+    // Override methods to apply custom restrictions
+}
+----
+
+Register the restrictor with Jolokia by adding the following configuration to `application.properties`.
+
+[source]
+----
+quarkus.camel.jolokia.additional-properties.restrictorClass=org.acme.CustomRestrictor
+----
+
+=== Kubernetes & OpenShift support
+
+==== Generated Kubernetes manifests
+
+If the `quarkus-kubernetes` or `quarkus-openshift` extensions are present, a container port named `jolokia` will be added automatically to the pod configuration within the generated Kubernetes manifest resources.
+
+This can be disabled by adding the following configuration to `application.properties`.
+
+[source]
+----
+quarkus.camel.jolokia.kubernetes.expose-container-port=false
+----
+
+==== Automatic enablement of SSL client authentication
+
+If the application detects that it is running on Kubernetes or OpenShift, then Jolokia is automatically configured for SSL client authentication.
+This is useful if you use tools like https://hawt.io/[Hawtio] to discover and connect to your running application pod.
+
+This functionality can be disabled by adding the following configuration to `application.properties`.
+
+[source]
+----
+quarkus.camel.jolokia.kubernetes.client-authentication-enabled=false
+----
+
+Note that if you choose to use https://github.com/hawtio/hawtio-online[hawtio-online] to connect to your running application, then you must configure the Jolokia client principal.
+
+[source]
+----
+quarkus.camel.jolokia.kubernetes.client-principal="cn=hawtio-online.hawtio.svc"
+----
