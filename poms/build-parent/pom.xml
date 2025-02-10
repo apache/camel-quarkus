@@ -137,10 +137,16 @@
                 <executions>
                     <execution>
                         <id>legal-resources</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
                         <configuration>
+                            <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${maven.multiModuleProjectDirectory}/tooling/legal</directory>
+                                    <filtering>true</filtering>
                                 </resource>
                             </resources>
                         </configuration>
