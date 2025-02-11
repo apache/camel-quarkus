@@ -36,7 +36,6 @@ import org.awaitility.Awaitility;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -177,7 +176,6 @@ class AzureServiceBusTest {
         }
     }
 
-    @Disabled("https://github.com/apache/camel-quarkus/issues/6950")
     @Test
     void produceConsumeWithCustomClients() {
         final String messageBody = UUID.randomUUID().toString();
