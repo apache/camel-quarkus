@@ -1,0 +1,21 @@
+= Camel Quarkus Kubernetes Integration Tests
+
+By default, tests are executed against a mock Kubernetes server configured to run in CRUD mode.
+Meaning that any resources created by tests are modifiable, listable and deletable.
+
+To test against a real cluster, some environment variables are required.
+
+Disable the mock server.
+
+[source,shell]
+----
+export CAMEL_QUARKUS_START_MOCK_BACKEND=false
+----
+
+Then provide the URL of your cluster.
+
+[source,shell]
+----
+export QUARKUS_KUBERNETES_CLIENT_API_SERVER_URL=https://127.0.0.1:50239
+----
+
