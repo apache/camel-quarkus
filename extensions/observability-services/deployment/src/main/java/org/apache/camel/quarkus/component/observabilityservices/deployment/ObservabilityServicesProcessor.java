@@ -18,9 +18,6 @@ package org.apache.camel.quarkus.component.observabilityservices.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.RunTimeConfigBuilderBuildItem;
-import io.quarkus.opentelemetry.deployment.tracing.TracerEnabled;
-import org.apache.camel.quarkus.component.observabilityservices.ObservabilityServicesRuntimeConfigBuilder;
 
 class ObservabilityServicesProcessor {
     private static final String FEATURE = "camel-observability-services";
@@ -28,11 +25,5 @@ class ObservabilityServicesProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    // TODO: Remove this https://github.com/apache/camel-quarkus/issues/6967
-    @BuildStep(onlyIf = TracerEnabled.class)
-    RunTimeConfigBuilderBuildItem observabilityServicesRuntimeConfiguration() {
-        return new RunTimeConfigBuilderBuildItem(ObservabilityServicesRuntimeConfigBuilder.class);
     }
 }
