@@ -73,8 +73,6 @@ public class AzureServiceBusRoutes extends EndpointRouteBuilder {
 
             // Queue consumer with a custom client
             from(azureServicebus(queueName.get())
-                    // TODO: https://github.com/apache/camel-quarkus/issues/6950
-                    .connectionString("not-needed-to-be-removed")
                     .processorClient("#customProcessorClient"))
                     .autoStartup(false)
                     .routeId("servicebus-queue-consumer-custom-processor")
@@ -127,8 +125,6 @@ public class AzureServiceBusRoutes extends EndpointRouteBuilder {
             // Produces messages to a queue using a custom sender client
             from(direct("send-message-custom-client"))
                     .to(azureServicebus(queueName.get())
-                            // TODO: https://github.com/apache/camel-quarkus/issues/6950
-                            .connectionString("not-needed-to-be-removed")
                             .senderClient("#customSenderClient"));
 
             // Produces messages using TOKEN_CREDENTIAL authentication
