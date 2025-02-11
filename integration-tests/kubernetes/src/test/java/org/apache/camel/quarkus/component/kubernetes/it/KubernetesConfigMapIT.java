@@ -19,6 +19,6 @@ package org.apache.camel.quarkus.component.kubernetes.it;
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
 @QuarkusIntegrationTest
-class KubernetesIT extends KubernetesTest {
+class KubernetesConfigMapIT extends KubernetesConfigMapTest {
 
 }
