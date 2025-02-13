@@ -39,3 +39,83 @@ Please refer to the above link for usage and configuration details.
 ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
+
+[id="extensions-console-usage"]
+== Usage
+[id="extensions-console-usage-developer-console-endpoint"]
+=== Developer console endpoint
+
+To access the developer console, you must first enable it by adding configuration to `application.properties`.
+
+[source,properties]
+----
+quarkus.camel.console.enabled=true
+----
+
+Alternatively you can use a `camel-main` configuration option.
+
+[source,properties]
+----
+camel.main.dev-console-enabled=true
+----
+
+The console is then available at the following URL.
+
+[source,text]
+----
+http://localhost:8080/q/camel/dev-console
+----
+
+You can then call a console by its id, such as `routes`:
+
+[source,text]
+----
+http://localhost:8080/q/camel/dev-console/routes
+----
+
+[id="extensions-console-usage-exposing-the-developer-console-in-prod-mode"]
+=== Exposing the developer console in prod mode
+
+By default, the console is only exposed in dev and test modes. To expose the console in prod mode, add the following configuration to `application.properties`.
+
+[source,properties]
+----
+quarkus.camel.console.exposure-mode=ALL
+----
+
+See the configuration overview below for further details about `exposure-mode`.
+
+
+[id="extensions-console-additional-camel-quarkus-configuration"]
+== Additional Camel Quarkus configuration
+
+[width="100%",cols="80,5,15",options="header"]
+|===
+| Configuration property | Type | Default
+
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.console.enabled]]`link:#quarkus.camel.console.enabled[quarkus.camel.console.enabled]`
+
+Whether the Camel developer console is enabled.
+| `boolean`
+| `false`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.console.path]]`link:#quarkus.camel.console.path[quarkus.camel.console.path]`
+
+The context path under which the Camel developer console is deployed (default /q/camel/dev-console).
+| `string`
+| `camel/dev-console`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.console.exposure-mode]]`link:#quarkus.camel.console.exposure-mode[quarkus.camel.console.exposure-mode]`
+
+The modes in which the Camel developer console is available. The default {@code dev-test} enables the developer
+console only in dev mode and test modes.
+A value of {@code all} enables agent discovery in dev, test and prod modes. Setting the value to {@code none} will
+not expose the developer console HTTP endpoint.
+| `all`, `dev-test`, `none`
+| `dev-test`
+|===
+
+[.configuration-legend]
+{doc-link-icon-lock}[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
+
