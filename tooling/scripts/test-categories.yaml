@@ -184,6 +184,7 @@ group-10:
   - microprofile-health
   - platform-http-proxy
   - platform-http-proxy-ssl
+  - solr
   - swift
 group-11:
   - compression-grouped

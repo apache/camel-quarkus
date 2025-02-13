@@ -251,6 +251,7 @@
         <rabbitmq.container.image>mirror.gcr.io/rabbitmq:3.13.7-management-alpine</rabbitmq.container.image>
         <redis.container.image>mirror.gcr.io/redis:6.2.14-alpine</redis.container.image>
         <smb.container.image>quay.io/jamesnetherton/camel-smb-test-server:1.0.0</smb.container.image>
+        <solr.container.image>mirror.gcr.io/solr:9.8.0-slim</solr.container.image>
         <splunk.container.image>mirror.gcr.io/splunk/splunk:9.3.1</splunk.container.image>
         <sql-server.container.image>mcr.microsoft.com/mssql/server:2022-latest</sql-server.container.image>
 
