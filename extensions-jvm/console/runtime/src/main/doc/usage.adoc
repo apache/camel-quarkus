@@ -1,0 +1,40 @@
+=== Developer console endpoint
+
+To access the developer console, you must first enable it by adding configuration to `application.properties`.
+
+[source,properties]
+----
+quarkus.camel.console.enabled=true
+----
+
+Alternatively you can use a `camel-main` configuration option.
+
+[source,properties]
+----
+camel.main.dev-console-enabled=true
+----
+
+The console is then available at the following URL.
+
+[source,text]
+----
+http://localhost:8080/q/camel/dev-console
+----
+
+You can then call a console by its id, such as `routes`:
+
+[source,text]
+----
+http://localhost:8080/q/camel/dev-console/routes
+----
+
+=== Exposing the developer console in prod mode
+
+By default, the console is only exposed in dev and test modes. To expose the console in prod mode, add the following configuration to `application.properties`.
+
+[source,properties]
+----
+quarkus.camel.console.exposure-mode=ALL
+----
+
+See the configuration overview below for further details about `exposure-mode`.

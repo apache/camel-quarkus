@@ -16,11 +16,18 @@
  */
 package org.apache.camel.quarkus.component.console.it;
 
+import java.util.Map;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
+import org.apache.camel.ServiceStatus;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.anEmptyMap;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 class ConsoleTest {
@@ -30,5 +37,39 @@ class ConsoleTest {
                 .then()
                 .statusCode(200)
                 .body(is("context"));
+    }
+
+    @Test
+    void listConsoles() {
+        JsonPath response = RestAssured.get("/q/camel/dev-console")
+                .then()
+                .statusCode(200)
+                .extract()
+                .response()
+                .jsonPath();
+
+        Map<Object, Object> consoles = response.getMap("$");
+        assertFalse(consoles.isEmpty());
+        assertTrue(consoles.containsKey("bean"));
+        assertTrue(consoles.containsKey("blocked"));
+        assertTrue(consoles.containsKey("browse"));
+        assertTrue(consoles.containsKey("context"));
+    }
+
+    @Test
+    void invokeConsole() {
+        RestAssured.get("/q/camel/dev-console/context")
+                .then()
+                .statusCode(200)
+                .body("context.name", is("camel-1"),
+                        "context.state", is(ServiceStatus.Started.name()));
+    }
+
+    @Test
+    void invokeInvalidConsole() {
+        RestAssured.get("/q/camel/dev-console/foo")
+                .then()
+                .statusCode(200)
+                .body("", anEmptyMap());
     }
 }

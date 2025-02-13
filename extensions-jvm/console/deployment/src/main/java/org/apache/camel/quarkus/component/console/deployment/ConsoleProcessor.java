@@ -16,18 +16,33 @@
  */
 package org.apache.camel.quarkus.component.console.deployment;
 
+import java.util.function.BooleanSupplier;
+import java.util.function.Consumer;
+
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.BuildSteps;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
+import io.quarkus.runtime.LaunchMode;
+import io.quarkus.vertx.http.deployment.NonApplicationRootPathBuildItem;
+import io.quarkus.vertx.http.deployment.RouteBuildItem;
+import io.vertx.core.Handler;
+import io.vertx.ext.web.Route;
+import io.vertx.ext.web.RoutingContext;
+import org.apache.camel.quarkus.component.console.CamelConsoleConfig;
+import org.apache.camel.quarkus.component.console.CamelConsoleRecorder;
 import org.apache.camel.quarkus.core.JvmOnlyRecorder;
+import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 
+@BuildSteps(onlyIf = ConsoleProcessor.CamelConsoleEnabled.class)
 class ConsoleProcessor {
-
     private static final Logger LOG = Logger.getLogger(ConsoleProcessor.class);
     private static final String FEATURE = "camel-console";
 
@@ -42,6 +57,41 @@ class ConsoleProcessor {
                 "META-INF/services/org/apache/camel/dev-console/*");
     }
 
+    @BuildStep
+    @Record(ExecutionTime.STATIC_INIT)
+    void initDevConsoleRegistry(
+            CamelContextBuildItem camelContext,
+            CamelConsoleRecorder recorder) {
+        recorder.initDevConsoleRegistry(camelContext.getCamelContext());
+    }
+
+    @BuildStep
+    @Record(ExecutionTime.RUNTIME_INIT)
+    void createManagementRoute(
+            CamelContextBuildItem camelContext,
+            NonApplicationRootPathBuildItem nonApplicationRootPathBuildItem,
+            BuildProducer<RouteBuildItem> routes,
+            CamelConsoleConfig config,
+            CamelConsoleRecorder recorder) {
+
+        if (canExposeManagementEndpoint(config)) {
+            Consumer<Route> route = recorder.route();
+            Handler<RoutingContext> handler = recorder.getHandler(camelContext.getCamelContext());
+
+            routes.produce(nonApplicationRootPathBuildItem.routeBuilder()
+                    .management()
+                    .routeFunction(config.path(), route)
+                    .handler(handler)
+                    .build());
+
+            routes.produce(nonApplicationRootPathBuildItem.routeBuilder()
+                    .management()
+                    .routeFunction(config.path() + "/:id", route)
+                    .handler(handler)
+                    .build());
+        }
+    }
+
     /**
      * Remove this once this extension starts supporting the native mode.
      */
@@ -50,5 +100,22 @@ class ConsoleProcessor {
     void warnJvmInNative(JvmOnlyRecorder recorder) {
         JvmOnlyRecorder.warnJvmInNative(LOG, FEATURE); // warn at build time
         recorder.warnJvmInNative(FEATURE); // warn at runtime
+    }
+
+    private static boolean canExposeManagementEndpoint(CamelConsoleConfig config) {
+        return (LaunchMode.current().isDevOrTest()
+                && config.exposureMode() == CamelConsoleConfig.ExposureMode.DEV_TEST)
+                || config.exposureMode().equals(CamelConsoleConfig.ExposureMode.ALL);
+    }
+
+    static final class CamelConsoleEnabled implements BooleanSupplier {
+        CamelConsoleConfig config;
+
+        @Override
+        public boolean getAsBoolean() {
+            return config.enabled() || ConfigProvider.getConfig()
+                    .getOptionalValue("camel.main.dev-console-enabled", Boolean.class)
+                    .orElse(false);
+        }
     }
 }
