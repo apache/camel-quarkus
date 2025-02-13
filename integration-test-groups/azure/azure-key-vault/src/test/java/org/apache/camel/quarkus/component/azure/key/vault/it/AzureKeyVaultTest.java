@@ -66,7 +66,7 @@ class AzureKeyVaultTest extends AbstractAzureKeyVaultTest {
             tryToDeleteSecret = false;
         } finally {
             if (tryToDeleteSecret) {
-                AzureKeyVaultUtil.deleteSecretImmediately(secretName);
+                AzureKeyVaultUtil.deleteSecretImmediately(secretName, true);
             }
         }
     }

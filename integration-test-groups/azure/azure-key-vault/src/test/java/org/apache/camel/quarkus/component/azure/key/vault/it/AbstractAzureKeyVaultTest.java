@@ -76,6 +76,7 @@ abstract class AbstractAzureKeyVaultTest {
                     .then()
                     .statusCode(200)
                     .body(is(secret));
+
         } finally {
             AzureKeyVaultUtil.deleteSecretImmediately(secretName, useIdentity);
         }

@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.azure.key.vault.it;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import io.quarkus.test.junit.QuarkusTestProfile;
 
@@ -29,12 +30,11 @@ public class AzureKeyVaultContextReloadWithIdentityTestProfile implements Quarku
         Map<String, String> props = new HashMap<>();
         props.put("camel.vault.azure.refreshEnabled", "true");
         props.put("camel.vault.azure.refreshPeriod", "1000");
-        props.put("camel.vault.azure.secrets", "cq-secret-context-refresh.*");
+        props.put("camel.vault.azure.secrets", String.format("cq-secret-context-refresh-identity-%s.*", UUID.randomUUID()));
         props.put("camel.vault.azure.eventhubConnectionString", System.getenv("AZURE_VAULT_EVENT_HUBS_CONNECTION_STRING"));
         props.put("camel.vault.azure.blobAccountName", System.getenv("AZURE_STORAGE_ACCOUNT_NAME"));
         props.put("camel.vault.azure.blobContainerName", System.getenv("AZURE_VAULT_EVENT_HUBS_BLOB_CONTAINER_NAME"));
         props.put("camel.vault.azure.blobAccessKey", System.getenv("AZURE_STORAGE_ACCOUNT_KEY"));
-        props.put("camel.main.context-reload-enabled", "true");
         props.put("camel.vault.azure.azureIdentityEnabled", "true");
 
         return props;
