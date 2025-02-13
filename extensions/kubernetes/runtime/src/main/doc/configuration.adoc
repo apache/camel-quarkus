@@ -2,10 +2,21 @@
 
 The extension automatically registers a Kubernetes Client bean named `kubernetesClient`. You can reference the bean in your routes like this:
 
-    from("direct:pods")
-        .to("kubernetes-pods:///?kubernetesClient=#kubernetesClient&operation=listPods")
+[source,java]
+----
+from("direct:pods")
+    .to("kubernetes-pods:///?kubernetesClient=#kubernetesClient&operation=listPods")
+----
 
-By default the client is configured from the local kubeconfig file. You can customize the client configuration via properties within `application.properties`:
+Or you can omit referring to the client bean entirely and the Kubernetes component will automatically use the Kubernetes client that was autowired.
+
+[source,java]
+----
+from("direct:pods")
+    .to("kubernetes-pods:local?operation=listPods")
+----
+
+By default, the client is configured from the local kubeconfig file. You can customize the client configuration via properties within `application.properties`:
 
 [source,properties]
 ----
@@ -14,6 +25,41 @@ quarkus.kubernetes-client.namespace=my-namespace
 ----
 
 The full set of configuration options are documented in the https://quarkus.io/guides/kubernetes-client#quarkus-kubernetes-client_configuration[Quarkus Kubernetes Client guide].
+
+If you want to suppress this behavior, you can disable autowiring and all configuration will be driven from the documented component and endpoint options.
+
+To disable autowiring at the component level, add the following configuration to `application.properties`.
+
+[source,properties]
+----
+camel.component.kubernetes-pods.autowired-enabled=false
+----
+
+To disable autowiring at the endpoint level.
+
+[source,java]
+----
+from("direct:pods")
+    .to("kubernetes-pods:https://my.cluster.host?autowiredEnabled=false&operation=listPods")
+----
+
+=== OpenShift specific components
+
+When using any of the OpenShift specific components:
+
+* `openenshift-build-configs`
+* `openenshift-builds`
+* `openshift-deploymentconfigs`
+
+You must add the following dependency to your application.
+
+[source,xml]
+----
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-openshift-client</artifactId>
+</dependency>
+----
 
 === Having only a single consumer in a cluster consuming from a given endpoint
 
