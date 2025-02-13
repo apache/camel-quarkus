@@ -214,6 +214,7 @@
         <module>smallrye-reactive-messaging</module>
         <module>smb</module>
         <module>soap</module>
+        <module>solr</module>
         <module>splunk</module>
         <module>splunk-hec</module>
         <module>spring-rabbitmq</module>

@@ -285,6 +285,7 @@
 *** xref:reference/extensions/smallrye-reactive-messaging.adoc[SmallRye Reactive Messaging]
 *** xref:reference/extensions/smooks.adoc[Smooks]
 *** xref:reference/extensions/snakeyaml.adoc[SnakeYAML]
+*** xref:reference/extensions/solr.adoc[Solr]
 *** xref:reference/extensions/splunk.adoc[Splunk]
 *** xref:reference/extensions/splunk-hec.adoc[Splunk HEC]
 *** xref:reference/extensions/spring-rabbitmq.adoc[Spring RabbitMQ]
