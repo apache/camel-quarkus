@@ -36,10 +36,13 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.ResolveEndpointFailedException;
 import org.apache.camel.component.azure.key.vault.KeyVaultConstants;
 import org.apache.camel.impl.event.CamelContextReloadedEvent;
+import org.jboss.logging.Logger;
 
 @Path("/azure-key-vault")
 @ApplicationScoped
 public class AzureKeyVaultResource {
+    private static final Logger LOG = Logger.getLogger(AzureKeyVaultResource.class);
+
     @Inject
     ProducerTemplate producerTemplate;
 
@@ -49,6 +52,7 @@ public class AzureKeyVaultResource {
     static final AtomicBoolean contextReloaded = new AtomicBoolean(false);
 
     void onReload(@Observes CamelContextReloadedEvent event) {
+        LOG.info("AzureKeyVaultResource onReload");
         contextReloaded.set(true);
     }
 

@@ -36,7 +36,4 @@ import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 @TestProfile(AzureKeyVaultContextReloadTestProfile.class)
 @QuarkusTest
 class AzureKeyVaultContextReloadTest extends AbstractAzureKeyVaultContextReloadTest {
-    public AzureKeyVaultContextReloadTest() {
-        super(false);
-    }
 }
