@@ -16,12 +16,43 @@
  */
 package org.apache.camel.quarkus.component.kubernetes.it;
 
+import java.util.concurrent.atomic.AtomicReference;
+
+import io.quarkus.runtime.annotations.RegisterForReflection;
+import org.apache.camel.BindToRegistry;
 import org.apache.camel.builder.RouteBuilder;
 
+@RegisterForReflection(targets = AtomicReference.class)
 public class KubernetesRoutes extends RouteBuilder {
+    @BindToRegistry
+    private final AtomicReference<String> namespace = new AtomicReference<>();
+
     @Override
     public void configure() {
         from("direct:start")
                 .toD("${header.componentName}:local");
+
+        from("kubernetes-config-maps:local?resourceName=camel-configmap-watched")
+                .id("configmap-listener")
+                .autoStartup(false)
+                .filter().simple("${body.metadata.namespace} == ${bean:namespace.get}")
+                .to("seda:configMapEvents");
+
+        from("kubernetes-custom-resources:local?crdName=camel-cr=watched&crdGroup=test.com&crdScope=Namespaced&crdVersion=v1&crdPlural=testcrs")
+                .id("custom-resource-listener")
+                .autoStartup(false)
+                .to("seda:customResourceEvents");
+
+        from("kubernetes-deployments:local?resourceName=camel-deployment-watched")
+                .id("deployment-listener")
+                .autoStartup(false)
+                .filter().simple("${body.metadata.namespace} == ${bean:namespace.get}")
+                .to("seda:deploymentEvents");
+
+        from("kubernetes-pods:local?resourceName=camel-pod-watched")
+                .id("pod-listener")
+                .autoStartup(false)
+                .filter().simple("${body.metadata.namespace} == ${bean:namespace.get}")
+                .to("seda:podEvents");
     }
 }

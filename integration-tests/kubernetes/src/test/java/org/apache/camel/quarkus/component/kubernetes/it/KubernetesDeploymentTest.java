@@ -20,10 +20,12 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
+import io.fabric8.kubernetes.api.model.WatchEventBuilder;
 import io.fabric8.kubernetes.api.model.apps.Deployment;
 import io.fabric8.kubernetes.api.model.apps.DeploymentBuilder;
 import io.fabric8.kubernetes.api.model.apps.DeploymentListBuilder;
 import io.fabric8.kubernetes.client.server.mock.KubernetesServer;
+import io.fabric8.kubernetes.client.utils.Serialization;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.kubernetes.client.KubernetesTestServer;
@@ -65,7 +67,6 @@ class KubernetesDeploymentTest {
                     .addNewContainer()
                     .withName(name)
                     .withImage("busybox:latest")
-                    .withRestartPolicy("Never")
                     .endContainer()
                     .endSpec()
                     .endTemplate()
@@ -196,6 +197,86 @@ class KubernetesDeploymentTest {
                         .statusCode(200)
                         .body("size()", is(0));
             });
+        }
+    }
+
+    @Test
+    void deploymentEvents() throws Exception {
+        try (CamelKubernetesNamespace namespace = new CamelKubernetesNamespace()) {
+            namespace.awaitCreation();
+
+            String name = "camel-deployment-watched";
+            Deployment deployment = new DeploymentBuilder()
+                    .withNewMetadata()
+                    .withName(name)
+                    .withNamespace(namespace.getNamespace())
+                    .endMetadata()
+                    .withNewSpec()
+                    .withReplicas(0)
+                    .withNewSelector()
+                    .addToMatchLabels("app", name)
+                    .endSelector()
+                    .withNewTemplate()
+                    .withNewMetadata()
+                    .addToLabels("app", name)
+                    .endMetadata()
+                    .withNewSpec()
+                    .addNewContainer()
+                    .withName(name)
+                    .withImage("busybox:latest")
+                    .endContainer()
+                    .endSpec()
+                    .endTemplate()
+                    .endSpec()
+                    .build();
+
+            if (mockServer != null) {
+                String deploymentEvent = Serialization
+                        .asJson(new WatchEventBuilder().withType("ADDED").withObject(deployment).build()) + "\n";
+                String clientNamespace = mockServer.getClient().getNamespace();
+                mockServer.expect()
+                        .get()
+                        .withPath("/apis/apps/v1/namespaces/" + clientNamespace
+                                + "/deployments?allowWatchBookmarks=true&watch=true")
+                        .andReturn(200, deploymentEvent)
+                        .always();
+            }
+
+            RestAssured.given()
+                    .queryParam("namespace", namespace.getNamespace())
+                    .when()
+                    .post("/kubernetes/route/deployment-listener/start")
+                    .then()
+                    .statusCode(204);
+
+            RestAssured.given()
+                    .contentType(ContentType.JSON)
+                    .body(deployment)
+                    .when()
+                    .post("/kubernetes/deployment/" + namespace.getNamespace())
+                    .then()
+                    .statusCode(201)
+                    .body("metadata.name", is(name),
+                            "metadata.namespace", is(namespace.getNamespace()));
+
+            RestAssured.given()
+                    .when()
+                    .delete("/kubernetes/deployment/" + namespace.getNamespace() + "/" + name)
+                    .then()
+                    .statusCode(204);
+
+            RestAssured.given()
+                    .get("/kubernetes/deployment/events")
+                    .then()
+                    .statusCode(200)
+                    .body("metadata.name", is(name),
+                            "metadata.namespace", is(namespace.getNamespace()));
+        } finally {
+            RestAssured.given()
+                    .when()
+                    .post("/kubernetes/route/deployment-listener/stop")
+                    .then()
+                    .statusCode(204);
         }
     }
 }

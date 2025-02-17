@@ -34,6 +34,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.kubernetes.KubernetesConstants;
 import org.apache.camel.component.kubernetes.KubernetesOperations;
@@ -50,6 +51,9 @@ public class KubernetesCRResource {
 
     @Inject
     ProducerTemplate producerTemplate;
+
+    @Inject
+    ConsumerTemplate consumerTemplate;
 
     private final Map<String, String> common = Map.of(
             "componentName", "kubernetes-custom-resources",
@@ -150,5 +154,13 @@ public class KubernetesCRResource {
         return Response
                 .status(Response.Status.NO_CONTENT)
                 .build();
+    }
+
+    @Path("/events")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getEvents() {
+        String crd = consumerTemplate.receiveBody("seda:customResourceEvents", 10000, String.class);
+        return Response.ok().entity(crd).build();
     }
 }

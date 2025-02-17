@@ -34,6 +34,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.kubernetes.KubernetesConstants;
 import org.apache.camel.component.kubernetes.KubernetesOperations;
@@ -44,6 +45,9 @@ public class KubernetesPodsResource {
 
     @Inject
     ProducerTemplate producerTemplate;
+
+    @Inject
+    ConsumerTemplate consumerTemplate;
 
     @Path("/{namespace}/{podName}")
     @GET
@@ -144,5 +148,13 @@ public class KubernetesPodsResource {
         headers.put(KubernetesConstants.KUBERNETES_OPERATION, KubernetesOperations.LIST_PODS_BY_LABELS_OPERATION);
         List<Pod> podList = producerTemplate.requestBodyAndHeaders("direct:start", null, headers, List.class);
         return Response.ok().entity(podList).build();
+    }
+
+    @Path("/events")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getEvents() {
+        Pod pod = consumerTemplate.receiveBody("seda:podEvents", 10000, Pod.class);
+        return Response.ok().entity(pod).build();
     }
 }

@@ -34,6 +34,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.kubernetes.KubernetesConstants;
 import org.apache.camel.component.kubernetes.KubernetesOperations;
@@ -44,6 +45,9 @@ public class KubernetesConfigMapResource {
 
     @Inject
     ProducerTemplate producerTemplate;
+
+    @Inject
+    ConsumerTemplate consumerTemplate;
 
     @Path("/{namespace}/{configMapName}")
     @GET
@@ -148,5 +152,13 @@ public class KubernetesConfigMapResource {
         headers.put(KubernetesConstants.KUBERNETES_OPERATION, KubernetesOperations.LIST_CONFIGMAPS_BY_LABELS_OPERATION);
         List<ConfigMap> configMapList = producerTemplate.requestBodyAndHeaders("direct:start", null, headers, List.class);
         return Response.ok().entity(configMapList).build();
+    }
+
+    @Path("/events")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getEvents() {
+        ConfigMap configMap = consumerTemplate.receiveBody("seda:configMapEvents", 10000, ConfigMap.class);
+        return Response.ok().entity(configMap).build();
     }
 }
