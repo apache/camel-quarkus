@@ -33,6 +33,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.kubernetes.KubernetesConstants;
 import org.apache.camel.component.kubernetes.KubernetesOperations;
@@ -43,6 +44,9 @@ public class KubernetesDeploymentResource {
 
     @Inject
     ProducerTemplate producerTemplate;
+
+    @Inject
+    ConsumerTemplate consumerTemplate;
 
     @Path("/{namespace}/{name}")
     @GET
@@ -163,5 +167,13 @@ public class KubernetesDeploymentResource {
                 .created(new URI("https://camel.apache.org/"))
                 .entity(updatedReplicas)
                 .build();
+    }
+
+    @Path("/events")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getEvents() {
+        Deployment deployment = consumerTemplate.receiveBody("seda:deploymentEvents", 10000, Deployment.class);
+        return Response.ok().entity(deployment).build();
     }
 }

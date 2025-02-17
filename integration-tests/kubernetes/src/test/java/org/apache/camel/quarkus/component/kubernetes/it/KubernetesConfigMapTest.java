@@ -19,7 +19,10 @@ package org.apache.camel.quarkus.component.kubernetes.it;
 import java.time.Duration;
 import java.util.Map;
 
+import io.fabric8.kubernetes.api.model.ConfigMapBuilder;
+import io.fabric8.kubernetes.api.model.WatchEventBuilder;
 import io.fabric8.kubernetes.client.server.mock.KubernetesServer;
+import io.fabric8.kubernetes.client.utils.Serialization;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.kubernetes.client.KubernetesTestServer;
@@ -128,6 +131,73 @@ class KubernetesConfigMapTest {
                         .statusCode(200)
                         .body("size()", is(0));
             });
+        }
+    }
+
+    @Test
+    void configMapEvents() throws Exception {
+        try (CamelKubernetesNamespace namespace = new CamelKubernetesNamespace()) {
+            namespace.awaitCreation();
+
+            Map<String, String> data = Map.of("some", "data");
+
+            if (mockServer != null) {
+                String configMapEvent = Serialization.asJson(new WatchEventBuilder().withType("ADDED")
+                        .withObject(new ConfigMapBuilder()
+                                .withNewMetadata()
+                                .withName("camel-configmap-watched")
+                                .withNamespace(namespace.getNamespace())
+                                .endMetadata()
+                                .withData(data)
+                                .build())
+                        .build()) + "\n";
+
+                String clientNamespace = mockServer.getClient().getNamespace();
+                mockServer.expect()
+                        .get()
+                        .withPath("/api/v1/namespaces/" + clientNamespace
+                                + "/configmaps?allowWatchBookmarks=true&fieldSelector=metadata.name%3Dcamel-configmap-watched&watch=true")
+                        .andReturn(200, configMapEvent)
+                        .always();
+            }
+
+            RestAssured.given()
+                    .queryParam("namespace", namespace.getNamespace())
+                    .when()
+                    .post("/kubernetes/route/configmap-listener/start")
+                    .then()
+                    .statusCode(204);
+
+            RestAssured.given()
+                    .contentType(ContentType.JSON)
+                    .body(data)
+                    .when()
+                    .post("/kubernetes/configmap/" + namespace.getNamespace() + "/camel-configmap-watched")
+                    .then()
+                    .statusCode(201)
+                    .body("metadata.name", is("camel-configmap-watched"),
+                            "metadata.namespace", is(namespace.getNamespace()),
+                            "data.some", is("data"));
+
+            RestAssured.given()
+                    .when()
+                    .delete("/kubernetes/configmap/" + namespace.getNamespace() + "/camel-configmap-watched")
+                    .then()
+                    .statusCode(204);
+
+            RestAssured.given()
+                    .get("/kubernetes/configmap/events")
+                    .then()
+                    .statusCode(200)
+                    .body("metadata.name", is("camel-configmap-watched"),
+                            "metadata.namespace", is(namespace.getNamespace()),
+                            "data.some", is("data"));
+        } finally {
+            RestAssured.given()
+                    .when()
+                    .post("/kubernetes/route/configmap-listener/stop")
+                    .then()
+                    .statusCode(204);
         }
     }
 }

@@ -23,7 +23,9 @@ import java.util.Map;
 import io.fabric8.kubernetes.api.model.Container;
 import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.api.model.PodBuilder;
+import io.fabric8.kubernetes.api.model.WatchEventBuilder;
 import io.fabric8.kubernetes.client.server.mock.KubernetesServer;
+import io.fabric8.kubernetes.client.utils.Serialization;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.kubernetes.client.KubernetesTestServer;
@@ -150,6 +152,77 @@ class KubernetesPodsTest {
                         .statusCode(200)
                         .body("size()", is(0));
             });
+        }
+    }
+
+    @Test
+    void podEvents() throws Exception {
+        try (CamelKubernetesNamespace namespace = new CamelKubernetesNamespace()) {
+            namespace.awaitCreation();
+
+            Container container = new Container();
+            container.setImage("busybox:latest");
+            container.setName("camel-pod-watched");
+            container.setCommand(List.of("/bin/sh", "-c", "while true; do echo 'Hello, World!'; sleep 5; done"));
+
+            Map<String, String> labels = Map.of("app", "camel-pod");
+            Pod pod = new PodBuilder()
+                    .withNewMetadata()
+                    .withName("camel-pod-watched")
+                    .withNamespace(namespace.getNamespace())
+                    .withLabels(labels)
+                    .endMetadata()
+                    .withNewSpec()
+                    .withContainers(container)
+                    .endSpec()
+                    .build();
+
+            if (mockServer != null) {
+                String podEvent = Serialization.asJson(new WatchEventBuilder().withType("ADDED").withObject(pod).build())
+                        + "\n";
+                String clientNamespace = mockServer.getClient().getNamespace();
+                mockServer.expect()
+                        .get()
+                        .withPath("/api/v1/namespaces/" + clientNamespace + "/pods?allowWatchBookmarks=true&watch=true")
+                        .andReturn(200, podEvent)
+                        .always();
+            }
+
+            RestAssured.given()
+                    .queryParam("namespace", namespace.getNamespace())
+                    .when()
+                    .post("/kubernetes/route/pod-listener/start")
+                    .then()
+                    .statusCode(204);
+
+            RestAssured.given()
+                    .contentType(ContentType.JSON)
+                    .body(pod)
+                    .when()
+                    .post("/kubernetes/pods/" + namespace.getNamespace() + "/camel-pod-watched")
+                    .then()
+                    .statusCode(201)
+                    .body("metadata.name", is("camel-pod-watched"),
+                            "metadata.namespace", is(namespace.getNamespace()));
+
+            RestAssured.given()
+                    .when()
+                    .delete("/kubernetes/pods/" + namespace.getNamespace() + "/camel-pod-watched")
+                    .then()
+                    .statusCode(204);
+
+            RestAssured.given()
+                    .get("/kubernetes/pods/events")
+                    .then()
+                    .statusCode(200)
+                    .body("metadata.name", is("camel-pod-watched"),
+                            "metadata.namespace", is(namespace.getNamespace()));
+        } finally {
+            RestAssured.given()
+                    .when()
+                    .post("/kubernetes/route/pod-listener/stop")
+                    .then()
+                    .statusCode(204);
         }
     }
 }

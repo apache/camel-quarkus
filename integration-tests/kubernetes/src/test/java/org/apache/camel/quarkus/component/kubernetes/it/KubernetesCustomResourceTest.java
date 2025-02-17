@@ -18,9 +18,11 @@ package org.apache.camel.quarkus.component.kubernetes.it;
 
 import java.time.Duration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.fabric8.kubernetes.api.model.WatchEventBuilder;
 import io.fabric8.kubernetes.api.model.apiextensions.v1.CustomResourceDefinition;
 import io.fabric8.kubernetes.api.model.apiextensions.v1.CustomResourceDefinitionBuilder;
 import io.fabric8.kubernetes.api.model.apiextensions.v1.CustomResourceDefinitionVersionBuilder;
@@ -28,6 +30,7 @@ import io.fabric8.kubernetes.api.model.apiextensions.v1.JSONSchemaPropsBuilder;
 import io.fabric8.kubernetes.client.KubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClientBuilder;
 import io.fabric8.kubernetes.client.server.mock.KubernetesServer;
+import io.fabric8.kubernetes.client.utils.Serialization;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.kubernetes.client.KubernetesTestServer;
@@ -89,7 +92,6 @@ class KubernetesCustomResourceTest {
         if (mockServer == null) {
             try (KubernetesClient client = new KubernetesClientBuilder().build()) {
                 client.apiextensions().v1().customResourceDefinitions().resource(crd).delete();
-
             }
         }
     }
@@ -193,6 +195,80 @@ class KubernetesCustomResourceTest {
                         .statusCode(200)
                         .body("size()", is(0));
             });
+        }
+    }
+
+    @Test
+    void crdEvents() throws Exception {
+        try (CamelKubernetesNamespace namespace = new CamelKubernetesNamespace()) {
+            namespace.awaitCreation();
+
+            ObjectMapper mapper = new ObjectMapper();
+            String name = "camel-cr-watched";
+            Map<String, Object> instance = Map.of(
+                    "apiVersion", KubernetesCRResource.CRD_GROUP + "/" + KubernetesCRResource.CRD_VERSION,
+                    "kind", KubernetesCRResource.CRD_NAME,
+                    "metadata", Map.of(
+                            "name", name,
+                            "labels", Map.of(
+                                    "app", name)),
+                    "spec", new HashMap<>(Map.of(
+                            "foo", "bar",
+                            "group", "test.com",
+                            "scope", "Namespaced",
+                            "versions", List.of(Map.of("name", "v1")),
+                            "names", Map.of("plural", KubernetesCRResource.CRD_NAME + "s"))));
+
+            String json = mapper.writeValueAsString(instance);
+            if (mockServer != null) {
+                String crdEvent = Serialization.asJson(new WatchEventBuilder().withType("ADDED").withObject(instance).build())
+                        + "\n";
+                String clientNamespace = mockServer.getClient().getNamespace();
+                mockServer.expect()
+                        .get()
+                        .withPath("/apis/test.com/v1/namespaces/" + clientNamespace
+                                + "/" + name + "?allowWatchBookmarks=true&watch=true")
+                        .andReturn(200, crdEvent)
+                        .always();
+            }
+
+            RestAssured.given()
+                    .queryParam("namespace", namespace.getNamespace())
+                    .when()
+                    .post("/kubernetes/route/custom-resource-listener/start")
+                    .then()
+                    .statusCode(204);
+
+            RestAssured.given()
+                    .contentType(ContentType.JSON)
+                    .body(json)
+                    .when()
+                    .post("/kubernetes/customresource/" + namespace.getNamespace())
+                    .then()
+                    .statusCode(200)
+                    .body("metadata.name", is(name),
+                            "metadata.namespace", is(namespace.getNamespace()),
+                            "spec.foo", is(((Map) instance.get("spec")).get("foo")));
+
+            RestAssured.given()
+                    .when()
+                    .delete("/kubernetes/customresource/" + namespace.getNamespace() + "/" + name)
+                    .then()
+                    .statusCode(204);
+
+            RestAssured.given()
+                    .get("/kubernetes/customresource/events")
+                    .then()
+                    .statusCode(200)
+                    .body("metadata.name", is(name),
+                            "metadata.namespace", is(namespace.getNamespace()),
+                            "spec.foo", is(((Map) instance.get("spec")).get("foo")));
+        } finally {
+            RestAssured.given()
+                    .when()
+                    .post("/kubernetes/route/custom-resource-listener/stop")
+                    .then()
+                    .statusCode(204);
         }
     }
 }
