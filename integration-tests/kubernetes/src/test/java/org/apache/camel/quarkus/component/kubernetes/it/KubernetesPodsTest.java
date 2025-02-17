@@ -156,6 +156,60 @@ class KubernetesPodsTest {
     }
 
     @Test
+    void createPodWithKubernetesClientAutowiringDisabled() throws Exception {
+        try (CamelKubernetesNamespace namespace = new CamelKubernetesNamespace()) {
+            namespace.awaitCreation();
+
+            Container container = new Container();
+            container.setImage("busybox:latest");
+            container.setName("camel-pod-no-autowire");
+            container.setCommand(List.of("/bin/sh", "-c", "while true; do echo 'Hello, World!'; sleep 5; done"));
+
+            Map<String, String> labels = Map.of("app", "camel-pod-no-autowire");
+            Pod pod = new PodBuilder()
+                    .withNewMetadata()
+                    .withName("camel-pod-no-autowire")
+                    .withNamespace(namespace.getNamespace())
+                    .withLabels(labels)
+                    .endMetadata()
+                    .withNewSpec()
+                    .withContainers(container)
+                    .endSpec()
+                    .build();
+
+            // Create with the non-autowired k8s client component
+            RestAssured.given()
+                    .queryParam("isAutowiredClient", "false")
+                    .contentType(ContentType.JSON)
+                    .body(pod)
+                    .when()
+                    .post("/kubernetes/pods/" + namespace.getNamespace() + "/camel-pod-no-autowire")
+                    .then()
+                    .statusCode(201)
+                    .body("metadata.name", is("camel-pod-no-autowire"),
+                            "metadata.namespace", is(namespace.getNamespace()),
+                            "metadata.resourceVersion", notNullValue());
+
+            // Read
+            RestAssured.given()
+                    .when()
+                    .get("/kubernetes/pods/" + namespace.getNamespace() + "/camel-pod-no-autowire")
+                    .then()
+                    .statusCode(200)
+                    .body("metadata.name", is("camel-pod-no-autowire"),
+                            "metadata.namespace", is(namespace.getNamespace()),
+                            "metadata.resourceVersion", notNullValue());
+
+            // Delete
+            RestAssured.given()
+                    .when()
+                    .delete("/kubernetes/pods/" + namespace.getNamespace() + "/camel-pod-no-autowire")
+                    .then()
+                    .statusCode(204);
+        }
+    }
+
+    @Test
     void podEvents() throws Exception {
         try (CamelKubernetesNamespace namespace = new CamelKubernetesNamespace()) {
             namespace.awaitCreation();

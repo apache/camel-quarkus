@@ -32,6 +32,9 @@ public class KubernetesRoutes extends RouteBuilder {
         from("direct:start")
                 .toD("${header.componentName}:local");
 
+        from("direct:startNoAutoWired")
+                .toD("kubernetes-pods-no-autowire:${header.masterUrl}");
+
         from("kubernetes-config-maps:local?resourceName=camel-configmap-watched")
                 .id("configmap-listener")
                 .autoStartup(false)
