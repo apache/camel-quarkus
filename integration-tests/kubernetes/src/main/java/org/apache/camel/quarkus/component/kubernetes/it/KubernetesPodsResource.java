@@ -24,6 +24,7 @@ import java.util.Map;
 import io.fabric8.kubernetes.api.model.Pod;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -32,12 +33,15 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.kubernetes.KubernetesConstants;
 import org.apache.camel.component.kubernetes.KubernetesOperations;
+import org.apache.camel.component.kubernetes.pods.KubernetesPodsComponent;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 @Path("/kubernetes/pods")
 @ApplicationScoped
@@ -70,17 +74,32 @@ public class KubernetesPodsResource {
     public Response createPod(
             @PathParam("namespace") String namespace,
             @PathParam("podName") String podName,
+            @QueryParam("isAutowiredClient") boolean isAutowiredClient,
             Pod pod) throws Exception {
 
+        String directEndpointUri = "direct:start";
         Map<String, Object> headers = new HashMap<>();
-        headers.put("componentName", "kubernetes-pods");
+        if (isAutowiredClient) {
+            headers.put("componentName", "kubernetes-pods");
+        } else {
+            directEndpointUri += "NoAutoWired";
+            String masterUrl = ConfigProvider.getConfig()
+                    .getOptionalValue("kubernetes.master", String.class)
+                    .orElseGet(() -> ConfigProvider.getConfig()
+                            .getOptionalValue("quarkus.kubernetes-client.api-server-url", String.class)
+                            .orElse(null));
+
+            headers.put("componentName", "kubernetes-pods-no-autowire");
+            headers.put("masterUrl", masterUrl);
+        }
+
         headers.put(KubernetesConstants.KUBERNETES_NAMESPACE_NAME, namespace);
         headers.put(KubernetesConstants.KUBERNETES_POD_NAME, podName);
         headers.put(KubernetesConstants.KUBERNETES_POD_SPEC, pod.getSpec());
         headers.put(KubernetesConstants.KUBERNETES_PODS_LABELS, Map.of("app", podName));
         headers.put(KubernetesConstants.KUBERNETES_OPERATION, KubernetesOperations.CREATE_POD_OPERATION);
 
-        Pod createdPod = producerTemplate.requestBodyAndHeaders("direct:start", null, headers, Pod.class);
+        Pod createdPod = producerTemplate.requestBodyAndHeaders(directEndpointUri, null, headers, Pod.class);
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .entity(createdPod)
@@ -156,5 +175,12 @@ public class KubernetesPodsResource {
     public Response getEvents() {
         Pod pod = consumerTemplate.receiveBody("seda:podEvents", 10000, Pod.class);
         return Response.ok().entity(pod).build();
+    }
+
+    @Named("kubernetes-pods-no-autowire")
+    KubernetesPodsComponent kubernetesPodsComponent() {
+        KubernetesPodsComponent component = new KubernetesPodsComponent();
+        component.setAutowiredEnabled(false);
+        return component;
     }
 }
