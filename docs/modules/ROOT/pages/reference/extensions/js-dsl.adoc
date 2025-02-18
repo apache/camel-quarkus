@@ -22,7 +22,9 @@ An JavaScript stack for parsing JavaScript route definitions
 [id="extensions-js-dsl-whats-inside"]
 == What's inside
 
-* JavaScript DSL
+* xref:{cq-camel-components}:others:js-dsl.adoc[JavaScript DSL]
+
+Please refer to the above link for usage and configuration details.
 
 [id="extensions-js-dsl-maven-coordinates"]
 == Maven coordinates

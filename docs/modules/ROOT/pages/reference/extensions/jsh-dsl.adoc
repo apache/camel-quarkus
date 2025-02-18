@@ -22,7 +22,9 @@ Camel DSL with JavaShell
 [id="extensions-jsh-dsl-whats-inside"]
 == What's inside
 
-* JavaShell DSL
+* xref:{cq-camel-components}:others:jsh-dsl.adoc[JavaShell DSL]
+
+Please refer to the above link for usage and configuration details.
 
 [id="extensions-jsh-dsl-maven-coordinates"]
 == Maven coordinates
