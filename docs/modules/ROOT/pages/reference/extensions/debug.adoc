@@ -44,22 +44,6 @@ ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
 
-[id="extensions-debug-usage"]
-== Usage
-[id="extensions-debug-usage-native-mode"]
-=== Native mode
-
-**Experimental** JMX support was added for native executables in GraalVM for JDK 17/20 / Mandrel 23.0. You can enable this feature by
-adding the following configuration property to `application.properties`.
-
-[source,properties]
-----
-quarkus.native.monitoring=jmxserver,jmxclient
-----
-
-For more information, refer to the https://quarkus.io/guides/building-native-image#using-monitoring-options[Quarkus native guide].
-
-
 [id="extensions-debug-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 

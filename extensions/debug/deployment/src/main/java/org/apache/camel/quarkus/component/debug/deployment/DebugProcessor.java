@@ -22,7 +22,9 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.AllowJNDIBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.NativeMonitoringBuildItem;
 import io.quarkus.deployment.builditem.SystemPropertyBuildItem;
+import io.quarkus.deployment.pkg.NativeConfig;
 import io.quarkus.runtime.LaunchMode;
 import org.apache.camel.api.management.JmxSystemPropertyKeys;
 import org.apache.camel.quarkus.component.debug.DebugConfig;
@@ -57,6 +59,12 @@ class DebugProcessor {
         producer.produce(
                 new SystemPropertyBuildItem(BacklogDebugger.SUSPEND_MODE_SYSTEM_PROP_NAME, Boolean.toString(config.suspend())));
         producer.produce(new SystemPropertyBuildItem(JmxSystemPropertyKeys.DISABLED, "false"));
+    }
+
+    @BuildStep(onlyIf = DebugEnabled.class)
+    void enableNativeMonitoring(BuildProducer<NativeMonitoringBuildItem> nativeMonitoring) {
+        nativeMonitoring.produce(new NativeMonitoringBuildItem(NativeConfig.MonitoringOption.JMXSERVER));
+        nativeMonitoring.produce(new NativeMonitoringBuildItem(NativeConfig.MonitoringOption.JMXCLIENT));
     }
 
     static class DebugEnabled implements BooleanSupplier {
