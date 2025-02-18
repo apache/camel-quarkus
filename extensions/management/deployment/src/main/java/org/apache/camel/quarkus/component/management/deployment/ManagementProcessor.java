@@ -39,8 +39,10 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.NativeMonitoringBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.pkg.NativeConfig;
 import org.apache.camel.api.management.ManagedAttribute;
 import org.apache.camel.api.management.ManagedNotification;
 import org.apache.camel.api.management.ManagedNotifications;
@@ -123,6 +125,11 @@ class ManagementProcessor {
     @BuildStep
     RuntimeCamelContextCustomizerBuildItem configureCamelContext(CamelManagementRecorder recorder) {
         return new RuntimeCamelContextCustomizerBuildItem(recorder.createContextCustomizer());
+    }
+
+    @BuildStep
+    NativeMonitoringBuildItem enableNativeMonitoring() {
+        return new NativeMonitoringBuildItem(NativeConfig.MonitoringOption.JMXSERVER);
     }
 
     private Set<String> getManagedTypes(IndexView index, Predicate<ClassInfo> typeFilter) {

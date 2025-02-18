@@ -10,14 +10,11 @@ JMX can be enabled or disabled in Camel-Quarkus by any of the following methods:
 
 === Native mode
 
-**Experimental** JMX support was added for native executables in GraalVM for JDK 17/20 / Mandrel 23.0. You can enable this feature by
-adding the following configuration property to `application.properties`.
+If you want the native application to be discoverable by tools such as JConsole and VisualVM, add the following configuration to `application.properties`.
 
 [source,properties]
 ----
-quarkus.native.monitoring=jmxserver
+quarkus.native.monitoring=jvmstat
 ----
-
-If you want the native application to be discoverable by tools such as JConsole and VisualVM, append the `jvmstat` option to the above mentioned configuration.
 
 For more information, refer to the https://quarkus.io/guides/building-native-image#using-monitoring-options[Quarkus native guide].

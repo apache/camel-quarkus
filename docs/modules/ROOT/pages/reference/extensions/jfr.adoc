@@ -72,16 +72,6 @@ In native mode, the native executable can be executed as follows.
 ./my-application-runner -XX:+FlightRecorder -XX:StartFlightRecording=filename=recording.jfr
 ----
 
-[id="extensions-jfr-usage-flight-recording-in-native-mode"]
-=== Flight recording in native mode
-
-To build a native image with Java Flight Recorder support, you must enable it via the following configuration property in `application.properties`.
-
-[source,properties]
-----
-quarkus.native.monitoring=jfr
-----
-
 
 [id="extensions-jfr-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration

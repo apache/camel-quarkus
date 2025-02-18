@@ -20,6 +20,8 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.NativeMonitoringBuildItem;
+import io.quarkus.deployment.pkg.NativeConfig;
 import org.apache.camel.quarkus.component.jfr.CamelJfrRecorder;
 import org.apache.camel.quarkus.component.jfr.RuntimeCamelJfrConfig;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
@@ -46,5 +48,10 @@ class JfrProcessor {
     @BuildStep
     RuntimeCamelContextCustomizerBuildItem customizeCamelContext(RuntimeCamelJfrConfig config, CamelJfrRecorder recorder) {
         return new RuntimeCamelContextCustomizerBuildItem(recorder.createStartupStepRecorder(config));
+    }
+
+    @BuildStep
+    NativeMonitoringBuildItem enableNativeMonitoring() {
+        return new NativeMonitoringBuildItem(NativeConfig.MonitoringOption.JFR);
     }
 }
