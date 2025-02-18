@@ -22,7 +22,9 @@ Support for parsing Groovy route definitions at runtime
 [id="extensions-groovy-dsl-whats-inside"]
 == What's inside
 
-* Groovy DSL
+* xref:{cq-camel-components}:others:groovy-dsl.adoc[Groovy DSL]
+
+Please refer to the above link for usage and configuration details.
 
 [id="extensions-groovy-dsl-maven-coordinates"]
 == Maven coordinates
