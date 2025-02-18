@@ -16,26 +16,49 @@
  */
 package org.apache.camel.quarkus.support.swagger.deployment;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
+import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.swagger.v3.oas.models.media.Schema;
 import org.jboss.jandex.ClassInfo;
-import org.jboss.jandex.IndexView;
 
 class SupportSwaggerProcessor {
-
     @BuildStep
-    void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses, CombinedIndexBuildItem combinedIndex) {
-        IndexView index = combinedIndex.getIndex();
-
-        index.getKnownClasses().stream().filter(ci -> {
-            String packagePrefix = ci.name().packagePrefix();
-            return packagePrefix != null
-                    && (packagePrefix.startsWith("io.swagger.models") || packagePrefix.startsWith("io.swagger.v3.oas.models"));
-        })
-                .map(ClassInfo::toString)
-                .forEach(name -> reflectiveClasses.produce(ReflectiveClassBuildItem.builder(name).methods().build()));
+    void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
+        indexDependency.produce(new IndexDependencyBuildItem("io.swagger.core.v3", "swagger-models-jakarta"));
+        indexDependency.produce(new IndexDependencyBuildItem("io.swagger.core.v3", "swagger-core-jakarta"));
     }
 
+    @BuildStep
+    void reflectiveClasses(
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+            CombinedIndexBuildItem combinedIndex) {
+
+        Set<String> swaggerReflectiveClasses = combinedIndex.getIndex()
+                .getKnownClasses()
+                .stream()
+                .filter(classInfo -> classInfo.name().packagePrefix() != null)
+                .filter(classInfo -> {
+                    String packagePrefix = classInfo.name().packagePrefix();
+                    return packagePrefix.startsWith("io.swagger.models") ||
+                            packagePrefix.startsWith("io.swagger.v3.oas.models") ||
+                            packagePrefix.startsWith("io.swagger.v3.core.jackson");
+                })
+                .map(ClassInfo::toString)
+                .collect(Collectors.toUnmodifiableSet());
+
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(swaggerReflectiveClasses.toArray(new String[0]))
+                .methods()
+                .build());
+
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(Schema.class)
+                .fields()
+                .methods()
+                .build());
+    }
 }
