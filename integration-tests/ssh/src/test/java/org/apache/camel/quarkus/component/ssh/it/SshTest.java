@@ -30,8 +30,6 @@ import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 @TestCertificates(certificates = {
         @Certificate(name = "user01", formats = {
                 Format.PEM }, password = "changeit"),
@@ -53,14 +51,11 @@ class SshTest {
                 .statusCode(201);
 
         // Retrieve a file from SSH session
-        String sshFileContent = RestAssured.get("/ssh/file/camelTest")
+        RestAssured.get("/ssh/file/camelTest")
                 .then()
                 .contentType(ContentType.TEXT)
                 .statusCode(200)
-                .extract()
-                .body().asString();
-
-        assertEquals(fileContent, sshFileContent);
+                .body(Matchers.equalTo("cat camelTest"));
     }
 
     @Test
@@ -73,7 +68,7 @@ class SshTest {
                 .post("/ssh/send/")
                 .then()
                 .statusCode(200)
-                .body("", Matchers.hasEntry(SshConstants.EXIT_VALUE, "127"))
+                .body("", Matchers.hasEntry(SshConstants.EXIT_VALUE, "1"))
                 .body("", Matchers.hasEntry(Matchers.matchesRegex(SshConstants.STDERR),
                         Matchers.containsString("command not found")));
     }
@@ -85,7 +80,7 @@ class SshTest {
                 .post("/ssh/sendToDirect/exampleProducer")
                 .then()
                 .statusCode(200)
-                .body(Matchers.equalTo("Hello World"));
+                .body(Matchers.equalTo("echo Hello World"));
     }
 
     @Test

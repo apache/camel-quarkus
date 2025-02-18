@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.ssh.it;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CountDownLatch;
 
 import org.apache.sshd.server.Environment;
@@ -96,11 +97,15 @@ public class TestEchoCommandFactory implements CommandFactory {
             boolean succeeded = true;
             String message = null;
             try {
-                // we set the error with the same command message
-                err.write("Expected Error:".getBytes());
-                err.write(command.getBytes());
+                if (command.equals("wrong")) {
+                    err.write(("command not found: " + command).getBytes(StandardCharsets.UTF_8));
+                    succeeded = false;
+                } else {
+                    err.write("Expected Error:".getBytes(StandardCharsets.UTF_8));
+                    err.write(command.getBytes(StandardCharsets.UTF_8));
+                }
                 err.flush();
-                out.write(command.getBytes());
+                out.write(command.getBytes(StandardCharsets.UTF_8));
                 out.flush();
             } catch (Exception e) {
                 succeeded = false;

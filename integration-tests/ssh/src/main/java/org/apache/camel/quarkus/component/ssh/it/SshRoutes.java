@@ -32,9 +32,9 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @ApplicationScoped
 public class SshRoutes extends RouteBuilder {
 
-    @ConfigProperty(name = "quarkus.ssh.host")
+    @ConfigProperty(name = "ssh.host")
     String host;
-    @ConfigProperty(name = "quarkus.ssh.port")
+    @ConfigProperty(name = "ssh.port")
     String port;
     @ConfigProperty(name = "ssh.username")
     String username;
@@ -61,7 +61,7 @@ public class SshRoutes extends RouteBuilder {
      * @return a configured {@link SshComponent}
      */
     @Named("ssh-with-key-provider")
-    SshComponent sshWithKeyProvider() throws IllegalAccessException, NoSuchFieldException, InstantiationException {
+    SshComponent sshWithKeyProvider() {
         final SshComponent sshComponent = new SshComponent();
         sshComponent.setCamelContext(getContext());
         sshComponent.getConfiguration()
@@ -71,7 +71,7 @@ public class SshRoutes extends RouteBuilder {
     }
 
     @Named("ssh-cert")
-    SshComponent sshCert() throws IllegalAccessException, NoSuchFieldException, InstantiationException {
+    SshComponent sshCert() {
         final SshComponent sshComponent = new SshComponent();
         sshComponent.setCamelContext(getContext());
         sshComponent.getConfiguration().setKeyType(null);
