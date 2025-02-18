@@ -43,13 +43,13 @@ public class SshResource {
         userPassword, user01Key, edKey
     };
 
-    @ConfigProperty(name = "quarkus.ssh.host")
+    @ConfigProperty(name = "ssh.host")
     String host;
-    @ConfigProperty(name = "quarkus.ssh.port")
+    @ConfigProperty(name = "ssh.port")
     String port;
-    @ConfigProperty(name = "quarkus.ssh.secured-port")
+    @ConfigProperty(name = "ssh.secured-port")
     String securedPort;
-    @ConfigProperty(name = "quarkus.ssh.ed-port")
+    @ConfigProperty(name = "ssh.ed-port")
     String edPort;
     @ConfigProperty(name = "ssh.username")
     String username;
