@@ -8596,30 +8596,6 @@
         <version>3.0.7.Final</version><!-- io.debezium:debezium-bom:3.0.7.Final -->
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:3.0.7.Final -->
-        <artifactId>debezium-core</artifactId><!-- io.debezium:debezium-bom:3.0.7.Final -->
-        <version>3.0.7.Final</version><!-- io.debezium:debezium-bom:3.0.7.Final -->
-        <type>test-jar</type><!-- io.debezium:debezium-bom:3.0.7.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:3.0.7.Final -->
-        <artifactId>debezium-embedded</artifactId><!-- io.debezium:debezium-bom:3.0.7.Final -->
-        <version>3.0.7.Final</version><!-- io.debezium:debezium-bom:3.0.7.Final -->
-        <type>test-jar</type><!-- io.debezium:debezium-bom:3.0.7.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:3.0.7.Final -->
-        <artifactId>debezium-connector-mysql</artifactId><!-- io.debezium:debezium-bom:3.0.7.Final -->
-        <version>3.0.7.Final</version><!-- io.debezium:debezium-bom:3.0.7.Final -->
-        <type>test-jar</type><!-- io.debezium:debezium-bom:3.0.7.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.debezium</groupId><!-- io.debezium:debezium-bom:3.0.7.Final -->
-        <artifactId>debezium-connector-binlog</artifactId><!-- io.debezium:debezium-bom:3.0.7.Final -->
-        <version>3.0.7.Final</version><!-- io.debezium:debezium-bom:3.0.7.Final -->
-        <type>test-jar</type><!-- io.debezium:debezium-bom:3.0.7.Final -->
-      </dependency>
-      <dependency>
         <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
         <artifactId>hazelcast</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
         <version>5.2.3</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
