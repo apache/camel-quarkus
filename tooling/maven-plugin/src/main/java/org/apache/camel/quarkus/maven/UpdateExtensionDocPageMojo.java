@@ -245,6 +245,18 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                     xrefPrefix = "xref:manual::";
                     name = "camel-console";
                 }
+                if (name.equals("groovy-dsl")) {
+                    return "Groovy DSL";
+                }
+                if (name.equals("js-dsl")) {
+                    return "JavaScript DSL";
+                }
+                if (name.equals("jsh-dsl")) {
+                    return "JavaShell DSL";
+                }
+                if (name.equals("kotlin-dsl")) {
+                    return "Kotlin DSL";
+                }
                 return xrefPrefix + name + (!"other".equals(kind) ? "-" + kind : "") + ".adoc";
             }
         });
