@@ -8596,30 +8596,6 @@
         <version>3.0.7.Final</version>
       </dependency>
       <dependency>
-        <groupId>io.debezium</groupId>
-        <artifactId>debezium-core</artifactId>
-        <version>3.0.7.Final</version>
-        <type>test-jar</type>
-      </dependency>
-      <dependency>
-        <groupId>io.debezium</groupId>
-        <artifactId>debezium-embedded</artifactId>
-        <version>3.0.7.Final</version>
-        <type>test-jar</type>
-      </dependency>
-      <dependency>
-        <groupId>io.debezium</groupId>
-        <artifactId>debezium-connector-mysql</artifactId>
-        <version>3.0.7.Final</version>
-        <type>test-jar</type>
-      </dependency>
-      <dependency>
-        <groupId>io.debezium</groupId>
-        <artifactId>debezium-connector-binlog</artifactId>
-        <version>3.0.7.Final</version>
-        <type>test-jar</type>
-      </dependency>
-      <dependency>
         <groupId>com.hazelcast</groupId>
         <artifactId>hazelcast</artifactId>
         <version>5.2.3</version>
