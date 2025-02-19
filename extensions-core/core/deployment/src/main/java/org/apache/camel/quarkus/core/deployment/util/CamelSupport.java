@@ -31,6 +31,8 @@ import java.util.stream.Stream;
 
 import io.quarkus.deployment.ApplicationArchive;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
+import org.apache.camel.CamelContext;
+import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.engine.AbstractCamelContext;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceBuildItem;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -128,5 +130,13 @@ public final class CamelSupport {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static CamelContext newBuildTimeCamelContext(boolean init) {
+        CamelContext context = new DefaultCamelContext(false);
+        if (init) {
+            context.init();
+        }
+        return context;
     }
 }
