@@ -36,12 +36,12 @@ import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.Ordered;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.model.RouteTemplateDefinition;
 import org.apache.camel.quarkus.component.kamelet.EmptyKameletResource;
 import org.apache.camel.quarkus.component.kamelet.KameletConfiguration;
 import org.apache.camel.quarkus.component.kamelet.KameletRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
+import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.apache.camel.spi.Resource;
 import org.apache.camel.support.PluginHelper;
 import org.jboss.logging.Logger;
@@ -77,7 +77,7 @@ class KameletProcessor {
                 .sorted(Comparator.comparingInt(Ordered::getOrder))
                 .toList();
 
-        CamelContext context = new DefaultCamelContext();
+        CamelContext context = CamelSupport.newBuildTimeCamelContext(true);
 
         for (String id : configuration.identifiers.orElse(Collections.emptyList())) {
             for (KameletResolver resolver : kameletResolvers) {
@@ -97,7 +97,7 @@ class KameletProcessor {
 
         List<RouteTemplateDefinition> definitions = new ArrayList<>();
 
-        try (CamelContext context = new DefaultCamelContext()) {
+        try (CamelContext context = CamelSupport.newBuildTimeCamelContext(true)) {
             ExtendedCamelContext ecc = context.getCamelContextExtension();
 
             for (KameletResourceBuildItem item : resources) {
