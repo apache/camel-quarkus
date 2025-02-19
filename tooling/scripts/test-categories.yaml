@@ -49,6 +49,7 @@ group-02:
   - protobuf
   - smallrye-reactive-messaging
   - sql
+  - telemetry-dev
 group-03:
   - bean-validator
   - box
@@ -84,8 +85,8 @@ group-04:
   - minio
   - mongodb-grouped
   - mybatis
-  - sjms-artemis-client
   - observability-services
+  - sjms-artemis-client
 group-05:
   - avro
   - base64
