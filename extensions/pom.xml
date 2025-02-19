@@ -250,6 +250,7 @@
         <module>syslog</module>
         <module>tarfile</module>
         <module>telegram</module>
+        <module>telemetry-dev</module>
         <module>tika</module>
         <module>timer</module>
         <module>twilio</module>
