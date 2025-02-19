@@ -20,7 +20,6 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.engine.DefaultPackageScanResourceResolver;
 import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.apache.camel.spi.Resource;
@@ -61,7 +60,7 @@ public final class CamelMainHelper {
      */
     public static void forEachMatchingResource(Consumer<Resource> resourceConsumer) throws Exception {
         try (DefaultPackageScanResourceResolver resolver = new DefaultPackageScanResourceResolver()) {
-            resolver.setCamelContext(new DefaultCamelContext());
+            resolver.setCamelContext(CamelSupport.newBuildTimeCamelContext(true));
             String[] excludes = routesExcludePattern().toArray(String[]::new);
             for (String include : routesIncludePattern().collect(Collectors.toList())) {
                 for (Resource resource : resolver.findResources(include)) {
