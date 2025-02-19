@@ -6559,12 +6559,12 @@
       <dependency>
         <groupId>com.google.auth</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>google-auth-library-credentials</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.31.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.29.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>com.google.auth</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>google-auth-library-oauth2-http</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.31.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.29.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -6574,8 +6574,70 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>google-cloud-bigquery</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>2.43.3</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.google.android</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>com.google.code.findbugs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>jsr305</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>com.google.guava</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>listenablefuture</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>commons-logging</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>commons-logging</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.checkerframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>checker-qual</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.codehaus.mojo</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>animal-sniffer-annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>google-cloud-pubsub</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.136.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.134.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.google.android</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>com.google.code.findbugs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>jsr305</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>com.google.guava</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>listenablefuture</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>commons-logging</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>commons-logging</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.checkerframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>checker-qual</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.codehaus.mojo</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>animal-sniffer-annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>google-cloud-storage</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>2.44.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>com.google.android</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -6606,7 +6668,7 @@
       <dependency>
         <groupId>com.google.oauth-client</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>google-oauth-client</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.37.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.36.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>commons-logging</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
