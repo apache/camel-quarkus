@@ -36,7 +36,6 @@ import io.quarkus.maven.dependency.ResolvedDependency;
 import io.quarkus.paths.PathCollection;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
-import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.language.joor.CompilationUnit;
 import org.apache.camel.language.joor.JavaLanguage;
 import org.apache.camel.language.joor.JoorCompiler;
@@ -49,6 +48,7 @@ import org.apache.camel.quarkus.component.joor.runtime.JoorExpressionRecorder;
 import org.apache.camel.quarkus.component.joor.runtime.JoorExpressionScriptingCompiler;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
+import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.apache.camel.quarkus.support.language.deployment.ExpressionBuildItem;
 import org.apache.camel.quarkus.support.language.deployment.ExpressionExtractionResultBuildItem;
 import org.apache.camel.quarkus.support.language.deployment.ScriptBuildItem;
@@ -85,7 +85,7 @@ class JoorProcessor {
                 return;
             }
             // Don't close it as it won't be started and some log entries are added on close/stop
-            CamelContext ctx = new DefaultCamelContext();
+            CamelContext ctx = CamelSupport.newBuildTimeCamelContext(true);
             try (JavaLanguage language = new JavaLanguage()) {
                 language.setCamelContext(ctx);
                 language.setSingleQuotes(config.singleQuotes);

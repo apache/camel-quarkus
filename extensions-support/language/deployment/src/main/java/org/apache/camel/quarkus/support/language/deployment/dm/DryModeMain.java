@@ -21,8 +21,8 @@ import java.util.Collection;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.main.MainSupport;
+import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.apache.camel.spi.ComponentResolver;
 import org.apache.camel.spi.LanguageResolver;
 
@@ -50,7 +50,7 @@ public class DryModeMain extends MainSupport {
 
     @Override
     protected CamelContext createCamelContext() {
-        DefaultCamelContext ctx = new DefaultCamelContext(false);
+        CamelContext ctx = CamelSupport.newBuildTimeCamelContext(false);
         ctx.getCamelContextExtension().setName(getAppName());
         ctx.setInjector(new DryModeInjector(ctx.getInjector()));
 
