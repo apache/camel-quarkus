@@ -68,7 +68,6 @@ import io.swagger.v3.oas.models.media.Schema;
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.main.DefaultRoutesCollector;
 import org.apache.camel.main.RoutesConfigurer;
 import org.apache.camel.model.rest.RestDefinition;
@@ -158,7 +157,7 @@ class OpenApiJavaProcessor {
             configurer.setRoutesExcludePattern(
                     CamelSupport.getOptionalConfigValue("camel.main.routes-exclude-pattern", String.class, null));
 
-            final CamelContext ctx = new DefaultCamelContext();
+            final CamelContext ctx = CamelSupport.newBuildTimeCamelContext(true);
             if (!routesBuilderClasses.isEmpty()) {
                 final ClassLoader loader = Thread.currentThread().getContextClassLoader();
                 if (!(loader instanceof QuarkusClassLoader)) {
