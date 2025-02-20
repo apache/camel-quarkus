@@ -97,25 +97,22 @@ class ObservabilityServicesTest {
 
             await().atMost(30, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> getSpans().size() == 5);
             List<Map<String, String>> spans = getSpans();
+
             assertEquals(spans.get(0).get("parentId"), spans.get(1).get("spanId"));
-            assertEquals(spans.get(0).get("camel.uri"), "seda://next");
-            assertEquals(spans.get(0).get("kind"), "INTERNAL");
+            assertEquals("seda://next", spans.get(0).get("camel.uri"));
+            assertEquals("INTERNAL", spans.get(0).get("kind"));
 
             assertEquals(spans.get(1).get("parentId"), spans.get(2).get("spanId"));
-            assertEquals(spans.get(1).get("camel.uri"), "seda://next");
-            assertEquals(spans.get(1).get("kind"), "CLIENT");
+            assertEquals("seda://next", spans.get(1).get("camel.uri"));
+            assertEquals("INTERNAL", spans.get(1).get("kind"));
 
             assertEquals(spans.get(2).get("parentId"), spans.get(3).get("spanId"));
-            assertEquals(spans.get(2).get("camel.uri"), "direct://start");
-            assertEquals(spans.get(2).get("kind"), "INTERNAL");
+            assertEquals("direct://start", spans.get(2).get("camel.uri"));
+            assertEquals("INTERNAL", spans.get(2).get("kind"));
 
-            assertEquals(spans.get(3).get("parentId"), spans.get(4).get("spanId"));
-            assertEquals(spans.get(3).get("camel.uri"), "direct://start");
-            assertEquals(spans.get(3).get("kind"), "CLIENT");
-
-            assertEquals(spans.get(4).get("parentId"), "0000000000000000");
-            assertEquals(spans.get(4).get("code.function"), "trace");
-            assertEquals(spans.get(4).get("url.path"), "/observability-services/trace");
+            assertEquals("0000000000000000", spans.get(3).get("parentId"));
+            assertEquals("direct://start", spans.get(3).get("camel.uri"));
+            assertEquals("INTERNAL", spans.get(3).get("kind"));
         } finally {
             RestAssured.given()
                     .post("/spans/reset")

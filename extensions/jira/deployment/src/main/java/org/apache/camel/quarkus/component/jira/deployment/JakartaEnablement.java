@@ -65,7 +65,8 @@ public class JakartaEnablement {
             "com.atlassian.jira.rest.client.internal.async.AsynchronousSearchRestClient",
             "com.atlassian.jira.rest.client.internal.async.AsynchronousSessionRestClient",
             "com.atlassian.jira.rest.client.internal.async.AsynchronousComponentRestClient",
-            "com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClient");
+            "com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClient",
+            "com.atlassian.jira.rest.client.internal.async.AsynchronousCloudSearchRestClient");
 
     @BuildStep
     void transformToJakarta(BuildProducer<BytecodeTransformerBuildItem> transformers) {

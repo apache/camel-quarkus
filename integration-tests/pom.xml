@@ -181,6 +181,7 @@
         <module>openapi-java</module>
         <module>openstack</module>
         <module>opentelemetry</module>
+        <module>opentelemetry2</module>
         <module>optaplanner</module>
         <module>paho</module>
         <module>paho-mqtt5</module>
@@ -228,6 +229,7 @@
         <module>syslog</module>
         <module>tarfile</module>
         <module>telegram</module>
+        <module>telemetry-dev</module>
         <module>tika</module>
         <module>twilio</module>
         <module>twitter</module>
