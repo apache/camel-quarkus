@@ -27,7 +27,6 @@ import java.util.function.BooleanSupplier;
 import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
-import net.i2p.crypto.eddsa.EdDSAEngine;
 import net.i2p.crypto.eddsa.EdDSAKey;
 import net.i2p.crypto.eddsa.EdDSAPublicKey;
 
@@ -36,7 +35,7 @@ import net.i2p.crypto.eddsa.EdDSAPublicKey;
  *
  * Remove this when net.i2p.crypto:eddsa >= 0.3.1 is released.
  */
-@TargetClass(value = EdDSAEngine.class, onlyWith = IsEddsaCryptoAvailable.class)
+@TargetClass(className = "net.i2p.crypto.eddsa.EdDSAEngine", onlyWith = IsEddsaCryptoAvailable.class)
 public final class EdDSAEngineSubstitutions {
     @Alias
     private EdDSAKey key;
