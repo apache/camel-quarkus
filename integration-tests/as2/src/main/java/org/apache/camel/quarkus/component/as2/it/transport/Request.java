@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.as2.it.transport;
 
-import java.nio.charset.StandardCharsets;
 import java.security.cert.Certificate;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,13 +25,12 @@ import org.apache.camel.component.as2.api.AS2MediaType;
 import org.apache.camel.component.as2.api.AS2MessageStructure;
 import org.apache.camel.component.as2.api.AS2SignatureAlgorithm;
 import org.apache.camel.quarkus.component.as2.it.As2CertificateHelper;
-import org.apache.hc.core5.http.ContentType;
 
 public class Request {
 
     private AS2MessageStructure messageStructure;
     private String messageStructureKey;
-    private ContentType contentType;
+    private String contentType;
     private String contentTypeKey;
     private Map<String, Object> headers = new HashMap<>();
     private String ediMessage;
@@ -74,11 +72,11 @@ public class Request {
         this.messageStructureKey = messageStructureKey;
     }
 
-    public ContentType getContentType() {
+    public String getContentType() {
         return contentType;
     }
 
-    public void setContentType(ContentType contentType) {
+    public void setContentType(String contentType) {
         this.contentType = contentType;
     }
 
@@ -115,8 +113,7 @@ public class Request {
         if (getMessageStructure() != null) {
             retVal.put(getMessageStructureKey(), getMessageStructure());
         }
-        retVal.put("CamelAs2.ediMessageContentType",
-                ContentType.create(AS2MediaType.APPLICATION_EDIFACT, StandardCharsets.US_ASCII.name()));
+        retVal.put("CamelAs2.ediMessageContentType", AS2MediaType.APPLICATION_EDIFACT);
         if (getEncryptionAlgorithm() != null) {
             retVal.put("CamelAs2.encryptingCertificateChain", As2CertificateHelper.getCertList());
             retVal.put("CamelAs2.encryptingAlgorithm", getEncryptionAlgorithm());

@@ -54,7 +54,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-opentelemetry</artifactId>
+            <artifactId>camel-quarkus-opentelemetry2</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
