@@ -28,7 +28,7 @@
 
     <groupId>org.apache.camel.quarkus</groupId>
     <artifactId>camel-quarkus</artifactId>
-    <version>3.19.0-SNAPSHOT</version>
+    <version>3.19.0</version>
     <packaging>pom</packaging>
 
     <name>Camel Quarkus</name>
@@ -338,7 +338,7 @@
         <connection>scm:git:http://gitbox.apache.org/repos/asf/camel-quarkus.git</connection>
         <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/camel-quarkus.git</developerConnection>
         <url>https://github.com/apache/camel-quarkus</url>
-        <tag>HEAD</tag>
+        <tag>3.19.0</tag>
     </scm>
 
     <issueManagement>
@@ -420,7 +420,7 @@
                         <preparationGoals>clean validate -Pstandard-build -Pcommit-release-changes "-Dcq.commit.message.prefix=[maven-release-plugin] Prepare release" -N</preparationGoals>
                         <completionGoals>clean validate -Pstandard-build -Pcommit-release-changes "-Dcq.commit.message.prefix=[maven-release-plugin] Set next development version" -N</completionGoals>
                         <!-- release:perform config -->
-                        <releaseProfiles combine.self="override"/>
+                        <releaseProfiles combine.self="override" />
                         <goals>deploy</goals>
                         <!-- Both release:prepare and release:perform config -->
                         <arguments>-Dapache-release -DskipTests -Denforcer.skip -Dquarkus.build.skip -Dformatter.skip -Dimpsort.skip</arguments>
@@ -444,7 +444,7 @@
                     <version>${maven-shade-plugin.version}</version>
                     <configuration>
                         <transformers>
-                            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"/>
+                            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer" />
                         </transformers>
                     </configuration>
                 </plugin>
