@@ -299,6 +299,7 @@
 *** xref:reference/extensions/syslog.adoc[Syslog]
 *** xref:reference/extensions/tarfile.adoc[Tar File]
 *** xref:reference/extensions/telegram.adoc[Telegram]
+*** xref:reference/extensions/telemetry-dev.adoc[Temetry Dev]
 *** xref:reference/extensions/threadpoolfactory-vertx.adoc[ThreadPoolFactory Vert.x]
 *** xref:reference/extensions/thrift.adoc[Thrift]
 *** xref:reference/extensions/tika.adoc[Tika]
