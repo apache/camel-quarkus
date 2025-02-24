@@ -912,6 +912,10 @@
             <groupId>xml-apis</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>xml-apis</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
+          <exclusion>
+            <groupId>org.apache.drill.exec</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>drill-jdbc</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -6859,11 +6863,6 @@
         <version>1.0.0-alpha1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
-        <groupId>io.dropwizard.metrics</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>metrics-jmx</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>4.2.30</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
         <groupId>io.minio</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>minio</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>8.5.12</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -7134,14 +7133,40 @@
         <version>3.5.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
-        <groupId>org.apache.avro</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>avro-ipc-jetty</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.12.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
         <groupId>org.apache.commons</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>commons-collections4</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>4.4</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.drill.exec</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>drill-jdbc-all</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.21.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <exclusions>
+          <exclusion>
+            <groupId>ch.qos.logback</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>logback-classic</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>ch.qos.logback</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>logback-core</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>com.google.code.findbugs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>jsr305</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>com.google.guava</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>listenablefuture</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.checkerframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>checker-qual</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>org.slf4j</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>jcl-over-slf4j</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.jackrabbit</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -8428,11 +8453,6 @@
         <version>12.0.16</version><!-- org.eclipse.jetty:jetty-bom:12.0.16 -->
       </dependency>
       <dependency>
-        <groupId>org.eclipse.jetty</groupId><!-- org.eclipse.jetty:jetty-bom:12.0.16 -->
-        <artifactId>jetty-xml</artifactId><!-- org.eclipse.jetty:jetty-bom:12.0.16 -->
-        <version>12.0.16</version><!-- org.eclipse.jetty:jetty-bom:12.0.16 -->
-      </dependency>
-      <dependency>
         <groupId>org.eclipse.jetty.websocket</groupId><!-- org.eclipse.jetty:jetty-bom:12.0.16 -->
         <artifactId>jetty-websocket-core-common</artifactId><!-- org.eclipse.jetty:jetty-bom:12.0.16 -->
         <version>12.0.16</version><!-- org.eclipse.jetty:jetty-bom:12.0.16 -->
@@ -8614,21 +8634,6 @@
         <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:3.0.7.Final -->
         <artifactId>metrics-core</artifactId><!-- io.debezium:debezium-bom:3.0.7.Final -->
         <version>4.0.1</version><!-- io.debezium:debezium-bom:3.0.7.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:3.0.7.Final -->
-        <artifactId>metrics-healthchecks</artifactId><!-- io.debezium:debezium-bom:3.0.7.Final -->
-        <version>4.0.1</version><!-- io.debezium:debezium-bom:3.0.7.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.dropwizard.metrics</groupId><!-- io.debezium:debezium-bom:3.0.7.Final -->
-        <artifactId>metrics-servlets</artifactId><!-- io.debezium:debezium-bom:3.0.7.Final -->
-        <version>4.0.1</version><!-- io.debezium:debezium-bom:3.0.7.Final -->
-      </dependency>
-      <dependency>
-        <groupId>org.eclipse.jetty</groupId><!-- io.debezium:debezium-bom:3.0.7.Final -->
-        <artifactId>jetty-servlet</artifactId><!-- io.debezium:debezium-bom:3.0.7.Final -->
-        <version>9.4.12.v20180830</version><!-- io.debezium:debezium-bom:3.0.7.Final -->
       </dependency>
       <dependency>
         <groupId>org.reflections</groupId><!-- io.debezium:debezium-bom:3.0.7.Final -->

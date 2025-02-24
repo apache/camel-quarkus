@@ -912,6 +912,10 @@
             <groupId>xml-apis</groupId>
             <artifactId>xml-apis</artifactId>
           </exclusion>
+          <exclusion>
+            <groupId>org.apache.drill.exec</groupId>
+            <artifactId>drill-jdbc</artifactId>
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -6859,11 +6863,6 @@
         <version>1.0.0-alpha1</version>
       </dependency>
       <dependency>
-        <groupId>io.dropwizard.metrics</groupId>
-        <artifactId>metrics-jmx</artifactId>
-        <version>4.2.30</version>
-      </dependency>
-      <dependency>
         <groupId>io.minio</groupId>
         <artifactId>minio</artifactId>
         <version>8.5.12</version>
@@ -7134,14 +7133,40 @@
         <version>3.5.2</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.avro</groupId>
-        <artifactId>avro-ipc-jetty</artifactId>
-        <version>1.12.0</version>
-      </dependency>
-      <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-collections4</artifactId>
         <version>4.4</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.drill.exec</groupId>
+        <artifactId>drill-jdbc-all</artifactId>
+        <version>1.21.2</version>
+        <exclusions>
+          <exclusion>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.google.guava</groupId>
+            <artifactId>listenablefuture</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>checker-qual</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.jackrabbit</groupId>
@@ -8428,11 +8453,6 @@
         <version>12.0.16</version>
       </dependency>
       <dependency>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-xml</artifactId>
-        <version>12.0.16</version>
-      </dependency>
-      <dependency>
         <groupId>org.eclipse.jetty.websocket</groupId>
         <artifactId>jetty-websocket-core-common</artifactId>
         <version>12.0.16</version>
@@ -8614,21 +8634,6 @@
         <groupId>io.dropwizard.metrics</groupId>
         <artifactId>metrics-core</artifactId>
         <version>4.0.1</version>
-      </dependency>
-      <dependency>
-        <groupId>io.dropwizard.metrics</groupId>
-        <artifactId>metrics-healthchecks</artifactId>
-        <version>4.0.1</version>
-      </dependency>
-      <dependency>
-        <groupId>io.dropwizard.metrics</groupId>
-        <artifactId>metrics-servlets</artifactId>
-        <version>4.0.1</version>
-      </dependency>
-      <dependency>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-servlet</artifactId>
-        <version>9.4.12.v20180830</version>
       </dependency>
       <dependency>
         <groupId>org.reflections</groupId>
