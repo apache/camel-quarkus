@@ -137,6 +137,7 @@ class KubernetesConfigMapTest {
         }
     }
 
+    @EnabledIf(MockBackendEnabled.class)
     @Test
     void configMapEvents() throws Exception {
         try (CamelKubernetesNamespace namespace = new CamelKubernetesNamespace()) {
