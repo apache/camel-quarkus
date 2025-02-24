@@ -28,10 +28,13 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.kubernetes.client.KubernetesTestServer;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.apache.camel.quarkus.test.EnabledIf;
+import org.apache.camel.quarkus.test.mock.backend.MockBackendEnabled;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.oneOf;
 
 @QuarkusTest
 @QuarkusTestResource(CamelQuarkusKubernetesServerTestResource.class)
@@ -198,6 +201,44 @@ class KubernetesConfigMapTest {
                     .post("/kubernetes/route/configmap-listener/stop")
                     .then()
                     .statusCode(204);
+        }
+    }
+
+    @Test
+    void configMapPropertyResolution() throws Exception {
+        Map<String, String> data = Map.of("greeting", "Camel Quarkus");
+
+        String namespace = RestAssured.get("/kubernetes/default/namespace")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+
+        try {
+            // Create
+            RestAssured.given()
+                    .contentType(ContentType.JSON)
+                    .body(data)
+                    .when()
+                    .post("/kubernetes/configmap/" + namespace + "/greeting-config")
+                    .then()
+                    .statusCode(201)
+                    .body("metadata.name", is("greeting-config"),
+                            "data.greeting", is(data.get("greeting")));
+
+            // Resolve property from ConfigMap
+            RestAssured.get("/kubernetes/configmap/property/resolve")
+                    .then()
+                    .statusCode(200)
+                    .body(is("Hello Camel Quarkus"));
+        } finally {
+            // Clean up
+            RestAssured.given()
+                    .when()
+                    .delete("/kubernetes/configmap/" + namespace + "/greeting-config")
+                    .then()
+                    .statusCode(oneOf(404, 204));
         }
     }
 }

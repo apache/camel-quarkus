@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.kubernetes.it;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.fabric8.kubernetes.api.model.Secret;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -40,6 +41,7 @@ import org.apache.camel.component.kubernetes.KubernetesOperations;
 @Path("/kubernetes/secret")
 @ApplicationScoped
 public class KubernetesSecretResource {
+    static final AtomicBoolean CONTEXT_RELOADED = new AtomicBoolean(false);
 
     @Inject
     ProducerTemplate producerTemplate;
@@ -149,5 +151,21 @@ public class KubernetesSecretResource {
                 KubernetesConstants.KUBERNETES_OPERATION, KubernetesOperations.LIST_SECRETS_BY_LABELS_OPERATION);
         List<Secret> list = producerTemplate.requestBodyAndHeaders("direct:start", null, headers, List.class);
         return Response.ok().entity(list).build();
+    }
+
+    @Path("/property/resolve")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response resolvePropertyFromSecret() {
+        String result = producerTemplate.requestBody("direct:secretProperty", null, String.class);
+        return Response.ok().entity(result).build();
+    }
+
+    @Path("/context/reload/state")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response contextReloadState() {
+        String result = CONTEXT_RELOADED.get() ? "reloaded" : "not-reloaded";
+        return Response.ok().entity(result).build();
     }
 }

@@ -52,7 +52,8 @@ class KubernetesSecretTest {
                     .withNewMetadata()
                     .withLabels(Map.of("app", name))
                     .withName(name)
-                    .endMetadata().withData(data)
+                    .endMetadata()
+                    .withData(data)
                     .build();
 
             // Create
@@ -139,6 +140,56 @@ class KubernetesSecretTest {
                             .then()
                             .statusCode(200)
                             .body("size()", is(0)));
+        }
+    }
+
+    @Test
+    void secretPropertyResolution() throws Exception {
+        // base64 encoded string for: Camel Quarkus
+        Map<String, String> data = Map.of("greeting", "Q2FtZWwgUXVhcmt1cw==");
+
+        String name = "secret-config";
+        Secret secret = new SecretBuilder()
+                .withNewMetadata()
+                .withLabels(Map.of("app", name))
+                .withName(name)
+                .endMetadata()
+                .withData(data)
+                .build();
+
+        String namespace = RestAssured.get("/kubernetes/default/namespace")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+
+        try {
+            // Create
+            RestAssured.given()
+                    .contentType(ContentType.JSON)
+                    .body(secret)
+                    .when()
+                    .post("/kubernetes/secret/" + namespace)
+                    .then()
+                    .statusCode(201)
+                    .body("metadata.name", is(name),
+                            "metadata.namespace", is(namespace),
+                            "metadata.annotations.app", is(name),
+                            "data.greeting", is(data.get("greeting")));
+
+            // Resolve property from Secret
+            RestAssured.get("/kubernetes/secret/property/resolve")
+                    .then()
+                    .statusCode(200)
+                    .body(is("Hello Camel Quarkus"));
+        } finally {
+            // Clean up
+            RestAssured.given()
+                    .when()
+                    .delete("/kubernetes/secret/" + namespace + "/" + name)
+                    .then()
+                    .statusCode(204);
         }
     }
 }
