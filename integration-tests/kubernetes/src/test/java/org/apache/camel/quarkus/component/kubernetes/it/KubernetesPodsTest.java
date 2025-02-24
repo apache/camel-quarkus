@@ -31,6 +31,8 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.kubernetes.client.KubernetesTestServer;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.apache.camel.quarkus.test.EnabledIf;
+import org.apache.camel.quarkus.test.mock.backend.MockBackendEnabled;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 
@@ -209,6 +211,7 @@ class KubernetesPodsTest {
         }
     }
 
+    @EnabledIf(MockBackendEnabled.class)
     @Test
     void podEvents() throws Exception {
         try (CamelKubernetesNamespace namespace = new CamelKubernetesNamespace()) {
