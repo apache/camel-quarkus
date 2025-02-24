@@ -128,27 +128,27 @@ class KubernetesJobTest {
                         .withPath("/apis/batch/v1/namespaces/" + listNamespace + "/jobs?labelSelector=app%3Dcamel-job")
                         .andReturn(200, new JobListBuilder().addAllToItems(List.of(updatedJob)).build())
                         .once();
+
+                // List
+                RestAssured.given()
+                        .when()
+                        .get("/kubernetes/job/" + listNamespace)
+                        .then()
+                        .statusCode(200)
+                        .body("[0].metadata.name", is("camel-job"),
+                                "[0].metadata.namespace", is(namespace.getNamespace()));
+
+                // List by labels
+                RestAssured.given()
+                        .contentType(ContentType.JSON)
+                        .body(Map.of("app", "camel-job"))
+                        .when()
+                        .get("/kubernetes/job/labels/" + listNamespace)
+                        .then()
+                        .statusCode(200)
+                        .body("[0].metadata.name", is("camel-job"),
+                                "[0].metadata.namespace", is(namespace.getNamespace()));
             }
-
-            // List
-            RestAssured.given()
-                    .when()
-                    .get("/kubernetes/job/" + listNamespace)
-                    .then()
-                    .statusCode(200)
-                    .body("[0].metadata.name", is("camel-job"),
-                            "[0].metadata.namespace", is(namespace.getNamespace()));
-
-            // List by labels
-            RestAssured.given()
-                    .contentType(ContentType.JSON)
-                    .body(Map.of("app", "camel-job"))
-                    .when()
-                    .get("/kubernetes/job/labels/" + listNamespace)
-                    .then()
-                    .statusCode(200)
-                    .body("[0].metadata.name", is("camel-job"),
-                            "[0].metadata.namespace", is(namespace.getNamespace()));
 
             // Delete
             RestAssured.given()

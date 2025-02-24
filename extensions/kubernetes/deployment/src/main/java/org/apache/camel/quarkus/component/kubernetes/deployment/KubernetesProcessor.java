@@ -18,12 +18,16 @@ package org.apache.camel.quarkus.component.kubernetes.deployment;
 
 import io.fabric8.kubernetes.client.KubernetesClient;
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.quarkus.component.kubernetes.CamelKubernetesRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
+import org.apache.camel.vault.KubernetesConfigMapVaultConfiguration;
+import org.apache.camel.vault.KubernetesVaultConfiguration;
 
 class KubernetesProcessor {
     private static final String FEATURE = "camel-kubernetes";
@@ -42,5 +46,16 @@ class KubernetesProcessor {
                 "kubernetesClient",
                 KubernetesClient.class.getName(),
                 recorder.getKubernetesClient(beanContainer.getValue()));
+    }
+
+    /**
+     * TODO: Remove this https://github.com/apache/camel-quarkus/issues/7045
+     */
+    @BuildStep
+    void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+        reflectiveClass.produce(ReflectiveClassBuildItem
+                .builder(KubernetesVaultConfiguration.class, KubernetesConfigMapVaultConfiguration.class)
+                .methods()
+                .build());
     }
 }

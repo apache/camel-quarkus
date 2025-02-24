@@ -20,7 +20,10 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.BindToRegistry;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.spi.PropertiesComponent;
 
 @RegisterForReflection(targets = AtomicReference.class)
 public class KubernetesRoutes extends RouteBuilder {
@@ -34,6 +37,28 @@ public class KubernetesRoutes extends RouteBuilder {
 
         from("direct:startNoAutoWired")
                 .toD("kubernetes-pods-no-autowire:${header.masterUrl}");
+
+        from("direct:configMapProperty")
+                .process(new Processor() {
+                    @Override
+                    public void process(Exchange exchange) {
+                        PropertiesComponent component = exchange.getContext().getPropertiesComponent();
+                        component.resolveProperty("configmap:greeting-config/greeting").ifPresent(value -> {
+                            exchange.getMessage().setBody("Hello " + value);
+                        });
+                    }
+                });
+
+        from("direct:secretProperty")
+                .process(new Processor() {
+                    @Override
+                    public void process(Exchange exchange) {
+                        PropertiesComponent component = exchange.getContext().getPropertiesComponent();
+                        component.resolveProperty("secret:secret-config/greeting").ifPresent(value -> {
+                            exchange.getMessage().setBody("Hello " + value);
+                        });
+                    }
+                });
 
         from("kubernetes-config-maps:local?resourceName=camel-configmap-watched")
                 .id("configmap-listener")

@@ -20,6 +20,7 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.fabric8.kubernetes.api.model.ConfigMap;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -42,6 +43,7 @@ import org.apache.camel.component.kubernetes.KubernetesOperations;
 @Path("/kubernetes/configmap")
 @ApplicationScoped
 public class KubernetesConfigMapResource {
+    static final AtomicBoolean CONTEXT_RELOADED = new AtomicBoolean(false);
 
     @Inject
     ProducerTemplate producerTemplate;
@@ -135,7 +137,10 @@ public class KubernetesConfigMapResource {
         headers.put(KubernetesConstants.KUBERNETES_NAMESPACE_NAME, namespace);
         headers.put(KubernetesConstants.KUBERNETES_OPERATION, KubernetesOperations.LIST_CONFIGMAPS);
         List<ConfigMap> configMapList = producerTemplate.requestBodyAndHeaders("direct:start", null, headers, List.class);
-        return Response.ok().entity(configMapList).build();
+        return Response.ok()
+                .entity(configMapList.stream()
+                        .filter(configMap -> !configMap.getMetadata().getName().equals("kube-root-ca.crt")))
+                .build();
     }
 
     @Path("/labels/{namespace}")
@@ -160,5 +165,21 @@ public class KubernetesConfigMapResource {
     public Response getEvents() {
         ConfigMap configMap = consumerTemplate.receiveBody("seda:configMapEvents", 10000, ConfigMap.class);
         return Response.ok().entity(configMap).build();
+    }
+
+    @Path("/property/resolve")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response resolvePropertyFromConfigMap() {
+        String result = producerTemplate.requestBody("direct:configMapProperty", null, String.class);
+        return Response.ok().entity(result).build();
+    }
+
+    @Path("/context/reload/state")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response contextReloadState() {
+        String result = CONTEXT_RELOADED.get() ? "reloaded" : "not-reloaded";
+        return Response.ok().entity(result).build();
     }
 }

@@ -18,18 +18,42 @@ package org.apache.camel.quarkus.component.kubernetes.it;
 
 import java.util.concurrent.atomic.AtomicReference;
 
+import io.fabric8.kubernetes.client.KubernetesClient;
+import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
+import org.apache.camel.component.kubernetes.config_maps.vault.ConfigmapsReloadTriggerTask;
 import org.apache.camel.component.kubernetes.customresources.KubernetesCustomResourcesConsumer;
+import org.apache.camel.component.kubernetes.secrets.vault.SecretsReloadTriggerTask;
+import org.apache.camel.impl.event.CamelContextReloadedEvent;
+import org.apache.camel.util.ObjectHelper;
 
 @Path("/kubernetes")
 public class KubernetesResource {
     @Inject
     CamelContext context;
+
+    @Inject
+    KubernetesClient client;
+
+    void onReload(@Observes CamelContextReloadedEvent event) {
+        String eventSource = event.getAction().getClass().getName();
+        if (eventSource.startsWith(ConfigmapsReloadTriggerTask.class.getName())) {
+            KubernetesConfigMapResource.CONTEXT_RELOADED.set(true);
+        }
+
+        if (eventSource.startsWith(SecretsReloadTriggerTask.class.getName())) {
+            KubernetesSecretResource.CONTEXT_RELOADED.set(true);
+        }
+    }
 
     @Path("/route/{routeId}/start")
     @POST
@@ -56,5 +80,13 @@ public class KubernetesResource {
         AtomicReference<String> reference = context.getRegistry().lookupByNameAndType("namespace", AtomicReference.class);
         reference.set(null);
         context.getRouteController().stopRoute(routeId);
+    }
+
+    @Path("/default/namespace")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getDefaultNamespace() {
+        String namespace = ObjectHelper.isEmpty(client.getNamespace()) ? "default" : client.getNamespace();
+        return Response.ok().entity(namespace).build();
     }
 }

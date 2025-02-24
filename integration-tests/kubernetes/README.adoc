@@ -19,3 +19,11 @@ Then provide the URL of your cluster.
 export QUARKUS_KUBERNETES_CLIENT_API_SERVER_URL=https://127.0.0.1:50239
 ----
 
+It's also good practice to set the default namespace when working with a real cluster.
+
+[source,shell]
+----
+export QUARKUS_KUBERNETES_CLIENT_NAMESPACE=my-namespace
+----
+
+Note that if you don't provide a default namespace then `default` is assumed to be the name of the default namespace.
