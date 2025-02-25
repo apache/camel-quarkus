@@ -25,6 +25,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 
 @QuarkusTest
 class JolokiaTest {
@@ -63,5 +64,34 @@ class JolokiaTest {
                 .then()
                 .statusCode(200)
                 .body(equalTo("Hello World"));
+    }
+
+    @Test
+    void additionalAllowedDefaultMBeanDomains() {
+        // Verify java.lang domain
+        RestAssured.given()
+                .get("/jolokia/read/java.lang:type=ClassLoading/LoadedClassCount")
+                .then()
+                .statusCode(200)
+                .body(
+                        "status", equalTo(200),
+                        "value", greaterThanOrEqualTo(0));
+
+        // Verify java.nio domain
+        RestAssured.given()
+                .get("/jolokia/read/java.nio:type=BufferPool,name=direct/MemoryUsed")
+                .then()
+                .statusCode(200)
+                .body(
+                        "status", equalTo(200),
+                        "value", greaterThanOrEqualTo(0));
+
+        // Disallowed domain
+        RestAssured.given()
+                .get("/jolokia/read/java.util.logging:type=Logging/LoggerNames")
+                .then()
+                .statusCode(200)
+                .body(
+                        "status", equalTo(403));
     }
 }

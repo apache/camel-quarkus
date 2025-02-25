@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.jolokia.config;
 
+import java.util.Set;
+
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
 import io.smallrye.config.ConfigMapping;
@@ -46,6 +48,12 @@ public interface JolokiaBuildTimeConfig {
      */
     @WithDefault("true")
     boolean registerManagementEndpoint();
+
+    /**
+     * Comma separated list of allowed MBean domains used by CamelJolokiaRestrictor.
+     */
+    @WithDefault("org.apache.camel,java.lang,java.nio")
+    Set<String> camelRestrictorAllowedMbeanDomains();
 
     /**
      * Jolokia Kubernetes build time configuration.
