@@ -44,9 +44,18 @@ By default, a Jolokia restrictor is automatically registered that exposes access
 * `java.lang`
 * `java.nio`
 
-If this is too restrictive, then you can either disable the default restrictor, or create your own custom restrictor.
+If this is too restrictive, then you can either specify your own MBean domains, disable the default restrictor, or create a custom restrictor.
 
-==== Disable the default restrictor
+==== Default restrictor MBean domains
+
+You can modify the set of MBean domains referenced by the default restrictor by adding configuration like the following to `application.properties`.
+
+[source]
+----
+quarkus.camel.jolokia.camel-restrictor-allowed-mbean-domains=org.apache.camel
+----
+
+==== Disabling the default restrictor
 
 The following configuration added to `application.properties` disables the default restrictor.
 

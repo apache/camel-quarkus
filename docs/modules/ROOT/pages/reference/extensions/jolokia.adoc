@@ -84,10 +84,20 @@ By default, a Jolokia restrictor is automatically registered that exposes access
 * `java.lang`
 * `java.nio`
 
-If this is too restrictive, then you can either disable the default restrictor, or create your own custom restrictor.
+If this is too restrictive, then you can either specify your own MBean domains, disable the default restrictor, or create a custom restrictor.
 
-[id="extensions-jolokia-usage-disable-the-default-restrictor"]
-==== Disable the default restrictor
+[id="extensions-jolokia-usage-default-restrictor-mbean-domains"]
+==== Default restrictor MBean domains
+
+You can modify the set of MBean domains referenced by the default restrictor by adding configuration like the following to `application.properties`.
+
+[source]
+----
+quarkus.camel.jolokia.camel-restrictor-allowed-mbean-domains=org.apache.camel
+----
+
+[id="extensions-jolokia-usage-disabling-the-default-restrictor"]
+==== Disabling the default restrictor
 
 The following configuration added to `application.properties` disables the default restrictor.
 
@@ -181,6 +191,12 @@ ${quarkus.management.root-path}/${quarkus.camel.jolokia.server.path}. Note that 
 have quarkus-vertx-http on the application classpath.
 | `boolean`
 | `true`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.jolokia.camel-restrictor-allowed-mbean-domains]]`link:#quarkus.camel.jolokia.camel-restrictor-allowed-mbean-domains[quarkus.camel.jolokia.camel-restrictor-allowed-mbean-domains]`
+
+Comma separated list of allowed MBean domains used by CamelJolokiaRestrictor.
+| List of `string`
+| `org.apache.camel,java.lang,java.nio`
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.jolokia.kubernetes.expose-container-port]]`link:#quarkus.camel.jolokia.kubernetes.expose-container-port[quarkus.camel.jolokia.kubernetes.expose-container-port]`
 
