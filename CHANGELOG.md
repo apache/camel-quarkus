@@ -18,6 +18,67 @@
 -->
 # Changelog
 
+## 3.19.0
+
+* Next is 3.19.0-SNAPSHOT by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6932
+* Add observability-services extension to main branch by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6936
+* Fixes #6690, #6933 - google-secret-manager extend coverage and native  by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6935
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6937
+* Add note to OpenTelemetry extension docs stating that the otel agent is not required by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6944
+* fixes #6941: fixed load of ssh keyProvider from test resources by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6943
+* Add changelog for 3.18.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6945
+* Bump io.swagger.codegen.v3:swagger-codegen-generators from 1.0.55 to 1.0.56 by @dependabot in https://github.com/apache/camel-quarkus/pull/6948
+* Bump actions/setup-java from 4.6.0 to 4.7.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6956
+* Add azure-servicebus native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6959
+* fixes #6934: google-pubsub support by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6939
+* Bump quarkiverse-cxf.version from 3.18.0 to 3.18.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/6961
+* Make tika extension work as per the vanilla Camel component by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6963
+* Bump org.wiremock:wiremock-standalone from 3.9.2 to 3.11.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6964
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6965
+* Full support of aws-secret-manager by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6953
+* Update kubernetes.adoc by @rhaetor in https://github.com/apache/camel-quarkus/pull/6957
+* Test observability-services otel tracing and JMX metrics by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6969
+* Bump io.quarkiverse.artemis:quarkus-artemis-bom from 3.6.1 to 3.6.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/6971
+* Bump quarkiverse-groovy.version from 3.17.2 to 3.18.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6970
+* Migrate extension configuration to @ConfigMapping by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6975
+* Bump com.azure:azure-core-http-vertx from 1.0.0-beta.24 to 1.0.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6981
+* Bump quarkiverse-groovy.version from 3.18.0 to 3.18.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/6982
+* Bump io.quarkiverse.artemis:quarkus-artemis-bom from 3.6.2 to 3.6.3 by @dependabot in https://github.com/apache/camel-quarkus/pull/6983
+* Bump cq-plugin.version from 4.16.1 to 4.16.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/6980
+* fixes #6660: azure-key-vault refresh context coverage by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6972
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6987
+* Add Jolokia JVM only extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6988
+* Fix missing and incorrect copyright notices by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6990
+* Bump io.quarkiverse.artemis:quarkus-artemis-bom from 3.6.3 to 3.6.4 by @dependabot in https://github.com/apache/camel-quarkus/pull/6991
+* Upgrade Camel to 4.10.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6986
+* fixes #6992 make azure-key-vault readme clearer by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6993
+* Enable azure-servicebus produceConsumeWithCustomClients test by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6994
+* Azure-key-vault better coverage for identity credentials by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/6985
+* Upgrade Quarkus to 3.19.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6998
+* Add Kubernetes integration tests for Pod, ConfigMap and Job resources by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6999
+* Bump org.wiremock:wiremock-standalone from 3.11.0 to 3.12.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/7002
+* Add more detail to Kubernetes extension configuration documentation by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7003
+* Add camel-console management endpoint by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7005
+* Restore solr extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7006
+* Bump com.azure:azure-core-http-vertx from 1.0.0 to 1.0.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/7008
+* Bump quarkiverse-groovy.version from 3.18.1 to 3.18.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/7007
+* Add camel-kubernetes deployment, secret, customresource tests by @avano in https://github.com/apache/camel-quarkus/pull/7010
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/7013
+* Add tests for Kubernetes component consumers by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7014
+* Add test for Kubernetes component with autowiring disabled by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7015
+* Fixes apache#7004: making azure-key-valt refresh test stable. by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7009
+* Bump net.revelc.code.formatter:formatter-maven-plugin from 2.24.1 to 2.25.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/7017
+* Use NativeMonitoringBuildItem to automatically enable native monitoring features by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7018
+* Move common Swagger native configuration to support-swagger extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7020
+* Use only an embedded server for SSH testing by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7021
+* Add a helper method for extension build time DefaultCamelContext creation by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7024
+* Align dependencies shared with Quarkus Google Cloud Services for libraries-bom 26.50.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7028
+* Remove GitHub pull request template by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6995
+* Upgrade Quarkus to 3.19.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7030
+* Link to Camel 4.10.x documentation by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7032
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.18.0...3.19.0
+
 ## 3.18.0
 
 * Bump com.unboundid:unboundid-ldapsdk from 7.0.1 to 7.0.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/6848
