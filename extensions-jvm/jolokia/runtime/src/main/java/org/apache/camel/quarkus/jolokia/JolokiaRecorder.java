@@ -65,7 +65,8 @@ public class JolokiaRecorder {
 
     public RuntimeValue<JolokiaServerConfig> createJolokiaServerConfig(
             JolokiaRuntimeConfig runtimeConfig,
-            String endpointPath) {
+            String endpointPath,
+            String applicationName) {
 
         Server server = runtimeConfig.server();
         Kubernetes kubernetes = runtimeConfig.kubernetes();
@@ -125,6 +126,9 @@ public class JolokiaRecorder {
                 combinedOptions.putIfAbsent(ConfigKey.DISCOVERY_ENABLED.getKeyValue(), "true");
             }
         }
+
+        // Set a default agent description so that it shows up during agent discovery
+        combinedOptions.putIfAbsent(ConfigKey.AGENT_DESCRIPTION.getKeyValue(), applicationName);
 
         return new RuntimeValue<>(new JolokiaServerConfig(combinedOptions));
     }

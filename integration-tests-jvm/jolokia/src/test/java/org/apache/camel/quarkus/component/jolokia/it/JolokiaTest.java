@@ -43,6 +43,7 @@ class JolokiaTest {
                         "status", equalTo(200),
                         "value.config.discoveryEnabled", equalTo("true"),
                         "value.config.restrictorClass", equalTo(CamelJolokiaRestrictor.class.getName()),
+                        "value.config.agentDescription", equalTo("camel-quarkus-integration-test-jolokia"),
                         "value.details.url", equalTo("http://127.0.0.1:8778/jolokia/"));
     }
 

@@ -28,6 +28,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.BuildSteps;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.ApplicationInfoBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
@@ -56,10 +57,12 @@ public class JolokiaProcessor {
     @BuildStep
     @Record(ExecutionTime.RUNTIME_INIT)
     JolokiaServerConfigBuildItem createJolokiaServerConfig(
+            ApplicationInfoBuildItem applicationInfo,
             JolokiaBuildTimeConfig buildTimeConfig,
             JolokiaRuntimeConfig config,
             JolokiaRecorder recorder) {
-        return new JolokiaServerConfigBuildItem(recorder.createJolokiaServerConfig(config, buildTimeConfig.path()));
+        return new JolokiaServerConfigBuildItem(
+                recorder.createJolokiaServerConfig(config, buildTimeConfig.path(), applicationInfo.getName()));
     }
 
     @BuildStep
