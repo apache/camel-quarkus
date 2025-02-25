@@ -160,12 +160,11 @@ public class CamelRoute extends RouteBuilder {
                 .to("smtp://bad.host.org?to=foo@bar.com");
     }
 
-    private Map<String, Object> handleMail(Exchange exchange) throws MessagingException {
+    private Map<String, Object> handleMail(Exchange exchange) throws MessagingException, IOException {
         Map<String, Object> result = new HashMap<>();
-        AttachmentMessage attachmentMessage = exchange.getMessage(AttachmentMessage.class);
-        MailMessage mailMessage = (MailMessage) attachmentMessage.getDelegateMessage();
-        Map<String, DataHandler> attachments = attachmentMessage.getAttachments();
-        if (attachments != null) {
+        MailMessage mailMessage = exchange.getIn(MailMessage.class);
+        if (exchange.getIn(AttachmentMessage.class).hasAttachments()) {
+            Map<String, DataHandler> attachments = exchange.getIn(AttachmentMessage.class).getAttachments();
             JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
             attachments.forEach((id, dataHandler) -> {
                 JsonObjectBuilder attachmentObject = Json.createObjectBuilder();
