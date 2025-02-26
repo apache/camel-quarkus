@@ -66,6 +66,8 @@ $ ./azure-resources.sh delete
 
 You may want to `export CAMEL_QUARKUS_START_MOCK_BACKEND=false` to avoid starting the local Azurite container and make sure that you test against the real remote Azure API.
 
+You may want to disable identity tests except key-vault (which is mandatory)  `export CAMEL_QUARKUS_DISABLE_IDENTITY_EXCEPT_KEY_VAULT=true` to avoid starting test using identity with other extension then key-vault. This option might be helpful in case of testing with client without permissions for eventhubs.
+
 ==== Regenerating client certificates
 
 For convenience, a certificate is stored in this project to be used for client certificate authentication. It can be regenerated as follows.
