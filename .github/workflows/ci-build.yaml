@@ -257,7 +257,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Download Maven Repo
-        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
         with:
           name: maven-repo
           path: ..
@@ -333,7 +333,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Download Maven Repo
-        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
         with:
           name: maven-repo
           path: ..
@@ -425,7 +425,7 @@ jobs:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
       - name: Download Maven Repo
-        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
         with:
           name: maven-repo
           path: ..
@@ -473,7 +473,7 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
       - name: Download Maven Repo
-        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
         with:
           name: maven-repo
           path: ..
@@ -523,7 +523,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Download Maven Repo
-        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
         with:
           name: maven-repo
           path: ..
@@ -569,7 +569,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Download Maven Repo
-        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
         with:
           name: maven-repo
           path: ..
