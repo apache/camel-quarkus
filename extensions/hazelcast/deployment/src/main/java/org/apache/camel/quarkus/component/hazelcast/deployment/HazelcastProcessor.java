@@ -117,7 +117,7 @@ class HazelcastProcessor {
             DotName simpleName = DotName.createSimple(klass.getName());
 
             reflectiveHierarchyClass.produce(
-                    new ReflectiveHierarchyBuildItem.Builder().type(Type.create(simpleName, Type.Kind.CLASS)).build());
+                    ReflectiveHierarchyBuildItem.builder(Type.create(simpleName, Type.Kind.CLASS)).build());
 
             ignoreWarnings.produce(
                     new ReflectiveHierarchyIgnoreWarningBuildItem(simpleName));

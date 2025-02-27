@@ -24,8 +24,10 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.smallrye.reactive.messaging.camel.CamelConnector;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
+import org.jboss.jandex.AnnotationTransformation;
 import org.jboss.jandex.AnnotationValue;
 import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.Declaration;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.FieldInfo;
 import org.jboss.jandex.MethodInfo;
@@ -43,29 +45,32 @@ class SmallRyeReactiveMessagingProcessor {
     @BuildStep
     void overrideSmallRyeReactiveMessagingConfiguration(BuildProducer<AnnotationsTransformerBuildItem> transformers) {
         // Veto setup & configuration logic that is already handled by the camel-quarkus-reactive-streams extension
-        transformers.produce(new AnnotationsTransformerBuildItem(context -> {
-            if (context.isField()) {
-                FieldInfo fieldInfo = context.getTarget().asField();
-                ClassInfo classInfo = fieldInfo.declaringClass();
+        transformers.produce(new AnnotationsTransformerBuildItem(new AnnotationTransformation() {
+            @Override
+            public void apply(TransformationContext context) {
+                Declaration declaration = context.declaration();
+                if (declaration.kind().equals(AnnotationTarget.Kind.FIELD)) {
+                    FieldInfo fieldInfo = declaration.asField();
+                    ClassInfo classInfo = fieldInfo.declaringClass();
 
-                // Make CamelReactiveStreamsService injectable from producers configured in the reactive-streams extension
-                if (classInfo.name().equals(CAMEL_CONNECTOR_DOTNAME) && fieldInfo.name().equals("reactive")) {
-                    AnnotationInstance injectAnnotation = getAnnotationInstance(DotNames.INJECT, fieldInfo);
-                    context.transform().add(injectAnnotation).done();
+                    // Make CamelReactiveStreamsService injectable from producers configured in the reactive-streams extension
+                    if (classInfo.name().equals(CAMEL_CONNECTOR_DOTNAME) && fieldInfo.name().equals("reactive")) {
+                        AnnotationInstance injectAnnotation = getAnnotationInstance(DotNames.INJECT, fieldInfo);
+                        context.add(injectAnnotation);
+                    }
                 }
-            }
 
-            if (context.isMethod()) {
-                MethodInfo methodInfo = context.getTarget().asMethod();
-                ClassInfo classInfo = methodInfo.declaringClass();
+                if (context.declaration().kind().equals(AnnotationTarget.Kind.METHOD)) {
+                    MethodInfo methodInfo = declaration.asMethod();
+                    ClassInfo classInfo = methodInfo.declaringClass();
 
-                if (classInfo.name().equals(CAMEL_CONNECTOR_DOTNAME)) {
-                    // Disable CamelReactiveStreamsService producer since the reactive-streams extension handles this
-                    if (methodInfo.name().equals("getCamelReactive")) {
-                        AnnotationInstance producesAnnotation = getAnnotationInstance(DotNames.PRODUCES, methodInfo);
-                        context.transform()
-                                .remove(annotationInstance -> annotationInstance.target().equals(producesAnnotation.target()))
-                                .done();
+                    if (classInfo.name().equals(CAMEL_CONNECTOR_DOTNAME)) {
+                        // Disable CamelReactiveStreamsService producer since the reactive-streams extension handles this
+                        if (methodInfo.name().equals("getCamelReactive")) {
+                            AnnotationInstance producesAnnotation = getAnnotationInstance(DotNames.PRODUCES, methodInfo);
+                            context.remove(
+                                    annotationInstance -> annotationInstance.target().equals(producesAnnotation.target()));
+                        }
                     }
                 }
             }

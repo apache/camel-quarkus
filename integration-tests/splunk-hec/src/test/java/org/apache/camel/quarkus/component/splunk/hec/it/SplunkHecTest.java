@@ -31,11 +31,13 @@ import org.apache.camel.quarkus.test.DisabledOnArm;
 import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.apache.camel.quarkus.test.support.splunk.SplunkConstants;
 import org.apache.camel.quarkus.test.support.splunk.SplunkTestResource;
+import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.shaded.org.awaitility.Awaitility;
 import org.testcontainers.shaded.org.hamcrest.core.StringContains;
+
+import static org.hamcrest.Matchers.containsString;
 
 @TestCertificates(docker = true, certificates = {
         @Certificate(name = "splunk-hec", formats = { Format.PEM, Format.PKCS12 }, password = "password"),
@@ -62,17 +64,16 @@ public class SplunkHecTest {
                 .statusCode(200);
 
         //there might a delay between the data written and received by the search, therefore await()
-        Awaitility.await().atMost(30, TimeUnit.SECONDS).until(
-                () -> RestAssured.given()
-                        .request()
-                        .formParam("search", "search index=\"testindex\"")
-                        .formParam("exec_mode", "oneshot")
-                        .relaxedHTTPSValidation()
-                        .auth().basic("admin", "password")
-                        .post(url + "/services/search/jobs")
-                        .then().statusCode(200)
-                        .extract().asString(),
-                StringContains.containsString("Hello Sheldon"));
+        Awaitility.await().atMost(30, TimeUnit.SECONDS).untilAsserted(() -> RestAssured.given()
+                .request()
+                .formParam("search", "search index=\"testindex\"")
+                .formParam("exec_mode", "oneshot")
+                .relaxedHTTPSValidation()
+                .auth().basic("admin", "password")
+                .post(url + "/services/search/jobs")
+                .then()
+                .statusCode(200)
+                .body(containsString("Hello Sheldon")));
     }
 
     @Test

@@ -39,8 +39,8 @@ class TarfileTest {
 
         byte[] body;
 
-        ExtractableResponse response = RestAssured.given() //
-                .contentType(ContentType.TEXT + "; charset=" + encoding).body("Hello World").post("/tarfile/post") //
+        ExtractableResponse<?> response = RestAssured.given()
+                .contentType(ContentType.TEXT + "; charset=" + encoding).body("Hello World").post("/tarfile/post")
                 .then().extract();
 
         body = response.body().asByteArray();
@@ -48,10 +48,10 @@ class TarfileTest {
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ByteArrayInputStream bis = new ByteArrayInputStream(body);
-        TarArchiveInputStream tis = (TarArchiveInputStream) new ArchiveStreamFactory()
+        TarArchiveInputStream tis = new ArchiveStreamFactory()
                 .createArchiveInputStream(ArchiveStreamFactory.TAR, bis);
 
-        TarArchiveEntry entry = tis.getNextTarEntry();
+        TarArchiveEntry entry = tis.getNextEntry();
         if (entry != null) {
             IOHelper.copy(tis, bos);
         }
@@ -59,5 +59,4 @@ class TarfileTest {
         String str = bos.toString(encoding);
         Assertions.assertEquals("Hello World", str);
     }
-
 }

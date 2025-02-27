@@ -31,7 +31,6 @@ import io.quarkus.arc.deployment.AnnotationsTransformerBuildItem;
 import io.quarkus.arc.deployment.BeanRegistrationPhaseBuildItem;
 import io.quarkus.arc.deployment.QualifierRegistrarBuildItem;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
-import io.quarkus.arc.processor.AnnotationsTransformer;
 import io.quarkus.arc.processor.BuildExtension;
 import io.quarkus.arc.processor.InjectionPointInfo;
 import io.quarkus.arc.processor.QualifierRegistrar;
@@ -58,6 +57,7 @@ import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeTaskBuildItem;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.AnnotationTarget.Kind;
+import org.jboss.jandex.AnnotationTransformation;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.FieldInfo;
@@ -103,8 +103,8 @@ public class InjectionPointsProcessor {
         final Set<String> created = new HashSet<>();
 
         for (InjectionPointInfo injectionPoint : beanRegistrationPhase.getContext().get(BuildExtension.Key.INJECTION_POINTS)) {
-            if (injectionPoint.getTarget().kind() == AnnotationTarget.Kind.FIELD) {
-                FieldInfo target = injectionPoint.getTarget().asField();
+            if (injectionPoint.getAnnotationTarget().kind() == AnnotationTarget.Kind.FIELD) {
+                FieldInfo target = injectionPoint.getAnnotationTarget().asField();
 
                 if (!created.add(target.type().name().toString())) {
                     continue;
@@ -121,8 +121,8 @@ public class InjectionPointsProcessor {
                 }
             }
 
-            if (injectionPoint.getTarget().kind() == AnnotationTarget.Kind.METHOD) {
-                final MethodInfo target = injectionPoint.getTarget().asMethod();
+            if (injectionPoint.getAnnotationTarget().kind() == AnnotationTarget.Kind.METHOD) {
+                final MethodInfo target = injectionPoint.getAnnotationTarget().asMethod();
                 final List<Type> types = target.parameterTypes();
 
                 for (int i = 0; i < types.size(); i++) {
@@ -159,22 +159,17 @@ public class InjectionPointsProcessor {
     void annotationsTransformers(
             BuildProducer<AnnotationsTransformerBuildItem> annotationsTransformers) {
 
-        annotationsTransformers.produce(new AnnotationsTransformerBuildItem(new AnnotationsTransformer() {
-
-            public boolean appliesTo(org.jboss.jandex.AnnotationTarget.Kind kind) {
-                return kind == Kind.FIELD || kind == Kind.METHOD;
-            }
+        annotationsTransformers.produce(new AnnotationsTransformerBuildItem(new AnnotationTransformation() {
 
             @Override
-            public void transform(TransformationContext ctx) {
-
-                final AnnotationTarget target = ctx.getTarget();
+            public void apply(TransformationContext ctx) {
+                final AnnotationTarget target = ctx.declaration();
                 switch (target.kind()) {
                 case FIELD: {
                     final FieldInfo fieldInfo = target.asField();
                     if (fieldInfo.annotation(ENDPOINT_INJECT_ANNOTATION) != null
                             || fieldInfo.annotation(PRODUCE_ANNOTATION) != null) {
-                        ctx.transform().add(Inject.class).done();
+                        ctx.add(Inject.class);
                     }
                     break;
                 }
@@ -187,9 +182,12 @@ public class InjectionPointsProcessor {
                 default:
                     throw new IllegalStateException("Expected only field or method, got " + target.kind());
                 }
-
             }
 
+            @Override
+            public boolean supports(org.jboss.jandex.AnnotationTarget.Kind kind) {
+                return kind == Kind.FIELD || kind == Kind.METHOD;
+            }
         }));
 
     }
@@ -351,8 +349,9 @@ public class InjectionPointsProcessor {
                 /* Requires camel-quarkus-bean */
 
                 if (beanCapabilityAvailable.get() == null) {
-                    beanCapabilityAvailable.set(capabilities.stream().map(CapabilityBuildItem::getName)
-                            .anyMatch(feature -> CamelCapabilities.BEAN.equals(feature)));
+                    beanCapabilityAvailable.set(capabilities.stream()
+                            .map(CapabilityBuildItem::getName)
+                            .anyMatch(CamelCapabilities.BEAN::equals));
                 }
                 if (!beanCapabilityAvailable.get()) {
                     throw new IllegalStateException(

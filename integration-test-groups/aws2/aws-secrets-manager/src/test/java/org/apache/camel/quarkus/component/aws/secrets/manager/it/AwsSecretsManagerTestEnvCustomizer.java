@@ -59,7 +59,7 @@ public class AwsSecretsManagerTestEnvCustomizer implements Aws2TestEnvCustomizer
 
         /* SQS */
         final String queueName = "cq-secret-manager-sqs-reload-"
-                + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+                + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT);
 
         //configure endpoint override for properties function
         if (envContext.isLocalStack()) {

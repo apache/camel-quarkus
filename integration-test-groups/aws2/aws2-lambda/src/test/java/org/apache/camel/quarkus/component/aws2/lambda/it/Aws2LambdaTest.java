@@ -19,6 +19,8 @@ package org.apache.camel.quarkus.component.aws2.lambda.it;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
@@ -32,7 +34,11 @@ import io.restassured.response.ExtractableResponse;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.apache.camel.quarkus.test.support.aws2.BaseAWs2TestSupport;
 import org.jboss.logging.Logger;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.emptyOrNullString;
@@ -41,6 +47,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@DisabledOnOs(value = OS.MAC, disabledReason = "Requires /var/run/docker.sock mount")
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
 class Aws2LambdaTest extends BaseAWs2TestSupport {
@@ -48,6 +55,11 @@ class Aws2LambdaTest extends BaseAWs2TestSupport {
 
     public Aws2LambdaTest() {
         super("/aws2-lambda");
+    }
+
+    @BeforeEach
+    public void beforeEach() {
+        Assumptions.assumeTrue(Files.exists(Paths.get("/var/run/docker.sock")));
     }
 
     @Test

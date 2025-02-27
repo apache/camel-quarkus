@@ -117,7 +117,7 @@ class ActiveMQProcessor {
         };
 
         for (String path : servicePaths) {
-            reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, getServiceClass(path)));
+            reflectiveClass.produce(ReflectiveClassBuildItem.builder(getServiceClass(path)).methods().build());
         }
 
         nativeImage.produce(new NativeImageResourceBuildItem(servicePaths));

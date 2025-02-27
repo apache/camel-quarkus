@@ -33,8 +33,8 @@ import software.amazon.awssdk.services.firehose.model.DeleteDeliveryStreamReques
 import software.amazon.awssdk.services.firehose.model.DeliveryStreamStatus;
 import software.amazon.awssdk.services.firehose.model.DeliveryStreamType;
 import software.amazon.awssdk.services.firehose.model.DescribeDeliveryStreamRequest;
+import software.amazon.awssdk.services.firehose.model.ExtendedS3DestinationConfiguration;
 import software.amazon.awssdk.services.firehose.model.InvalidArgumentException;
-import software.amazon.awssdk.services.firehose.model.S3DestinationConfiguration;
 import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.AttachRolePolicyRequest;
 import software.amazon.awssdk.services.iam.model.CreatePolicyRequest;
@@ -78,9 +78,9 @@ public class Aws2KinesisTestEnvCustomizer implements Aws2TestEnvCustomizer {
     @Override
     public void customize(Aws2TestEnvContext envContext) {
 
-        final String streamName = "camel-quarkus-" + RandomStringUtils.randomAlphanumeric(16).toLowerCase(Locale.ROOT);
+        final String streamName = "camel-quarkus-" + RandomStringUtils.secure().nextAlphanumeric(16).toLowerCase(Locale.ROOT);
         final String streamNameForDefaultCredentials = "camel-quarkus-"
-                + RandomStringUtils.randomAlphanumeric(16).toLowerCase(Locale.ROOT);
+                + RandomStringUtils.secure().nextAlphanumeric(16).toLowerCase(Locale.ROOT);
         final String streamArn;
         {
             envContext.property("aws-kinesis.stream-name", streamName);
@@ -118,7 +118,7 @@ public class Aws2KinesisTestEnvCustomizer implements Aws2TestEnvCustomizer {
             final S3Client s3Client = envContext.client(Service.S3, S3Client::builder);
 
             final String bucketName = "camel-quarkus-firehose-"
-                    + RandomStringUtils.randomAlphanumeric(32).toLowerCase(Locale.ROOT);
+                    + RandomStringUtils.secure().nextAlphanumeric(32).toLowerCase(Locale.ROOT);
             final String bucketArn = "arn:aws:s3:::" + bucketName;
             envContext.property("aws-kinesis.s3-bucket-name", bucketName);
             s3Client.createBucket(CreateBucketRequest.builder().bucket(bucketName).build());
@@ -145,7 +145,7 @@ public class Aws2KinesisTestEnvCustomizer implements Aws2TestEnvCustomizer {
             }
 
             final String deliveryStreamName = "camel-quarkus-firehose-delstr-"
-                    + RandomStringUtils.randomAlphanumeric(16).toLowerCase(Locale.ROOT);
+                    + RandomStringUtils.secure().nextAlphanumeric(16).toLowerCase(Locale.ROOT);
             envContext.property("aws-kinesis-firehose.delivery-stream-name", deliveryStreamName);
 
             final String roleName = "s3-" + deliveryStreamName;
@@ -159,7 +159,7 @@ public class Aws2KinesisTestEnvCustomizer implements Aws2TestEnvCustomizer {
                                     + "  \"Version\": \"2012-10-17\",\n"
                                     + "  \"Statement\": [\n"
                                     + "    {\n"
-                                    + "      \"Sid\": \"sid" + RandomStringUtils.randomAlphanumeric(16) + "\",\n"
+                                    + "      \"Sid\": \"sid" + RandomStringUtils.secure().nextAlphanumeric(16) + "\",\n"
                                     + "      \"Effect\": \"Allow\",\n"
                                     + "      \"Principal\": {\n"
                                     + "        \"Service\": \"firehose.amazonaws.com\"\n"
@@ -183,7 +183,7 @@ public class Aws2KinesisTestEnvCustomizer implements Aws2TestEnvCustomizer {
                     + "    \"Statement\":\n"
                     + "    [\n"
                     + "        {\n"
-                    + "            \"Sid\": \"sid" + RandomStringUtils.randomAlphanumeric(16) + "\",\n"
+                    + "            \"Sid\": \"sid" + RandomStringUtils.secure().nextAlphanumeric(16) + "\",\n"
                     + "            \"Effect\": \"Allow\",\n"
                     + "            \"Action\": [\n"
                     + "                \"s3:AbortMultipartUpload\",\n"
@@ -199,7 +199,7 @@ public class Aws2KinesisTestEnvCustomizer implements Aws2TestEnvCustomizer {
                     + "            ]\n"
                     + "        },\n"
                     + "        {\n"
-                    + "            \"Sid\": \"sid" + RandomStringUtils.randomAlphanumeric(16) + "\",\n"
+                    + "            \"Sid\": \"sid" + RandomStringUtils.secure().nextAlphanumeric(16) + "\",\n"
                     + "            \"Effect\": \"Allow\",\n"
                     + "            \"Action\": [\n"
                     + "                \"kinesis:DescribeStream\",\n"
@@ -246,8 +246,8 @@ public class Aws2KinesisTestEnvCustomizer implements Aws2TestEnvCustomizer {
                             fhClient.createDeliveryStream(
                                     CreateDeliveryStreamRequest.builder()
                                             .deliveryStreamName(deliveryStreamName)
-                                            .s3DestinationConfiguration(
-                                                    S3DestinationConfiguration.builder()
+                                            .extendedS3DestinationConfiguration(
+                                                    ExtendedS3DestinationConfiguration.builder()
                                                             .bucketARN(bucketArn)
                                                             .roleARN(roleArn)
                                                             .bufferingHints(

@@ -77,7 +77,7 @@ public class Jt400Test {
     public void testDataQueue() {
         LOGGER.debug("**** testDataQueue() ** has started ");
 
-        String msg = RandomStringUtils.randomAlphanumeric(MSG_LENGTH).toLowerCase(Locale.ROOT);
+        String msg = RandomStringUtils.secure().nextAlphanumeric(MSG_LENGTH).toLowerCase(Locale.ROOT);
         String answer = "Hello From DQ: " + msg;
 
         RestAssured.given()
@@ -100,7 +100,7 @@ public class Jt400Test {
     @Test
     public void testDataQueueBinary() throws Exception {
         LOGGER.debug("**** testDataQueueBinary() ** has started ");
-        String msg = RandomStringUtils.randomAlphanumeric(MSG_LENGTH).toLowerCase(Locale.ROOT);
+        String msg = RandomStringUtils.secure().nextAlphanumeric(MSG_LENGTH).toLowerCase(Locale.ROOT);
         String answer = "Hello (bin) " + msg;
 
         RestAssured.given()
@@ -127,12 +127,12 @@ public class Jt400Test {
     @Test
     public void testKeyedDataQueue() {
         LOGGER.debug("**** testKeyedDataQueue() ** has started ");
-        String msg1 = RandomStringUtils.randomAlphanumeric(MSG_LENGTH).toLowerCase(Locale.ROOT);
-        String msg2 = RandomStringUtils.randomAlphanumeric(MSG_LENGTH).toLowerCase(Locale.ROOT);
+        String msg1 = RandomStringUtils.secure().nextAlphanumeric(MSG_LENGTH).toLowerCase(Locale.ROOT);
+        String msg2 = RandomStringUtils.secure().nextAlphanumeric(MSG_LENGTH).toLowerCase(Locale.ROOT);
         String answer1 = "Hello From KDQ: " + msg1;
         String answer2 = "Hello From KDQ: " + msg2;
 
-        String key1 = RandomStringUtils.randomAlphanumeric(MSG_LENGTH - 1).toLowerCase(Locale.ROOT);
+        String key1 = RandomStringUtils.secure().nextAlphanumeric(MSG_LENGTH - 1).toLowerCase(Locale.ROOT);
         //key2 is right after key1
         String key2 = key1 + "a";
 
@@ -180,7 +180,7 @@ public class Jt400Test {
     public void testMessageQueue() throws Exception {
         LOGGER.debug("**** testMessageQueue() ** has started ");
         //write
-        String msg = RandomStringUtils.randomAlphanumeric(MSG_LENGTH).toLowerCase(Locale.ROOT);
+        String msg = RandomStringUtils.secure().nextAlphanumeric(MSG_LENGTH).toLowerCase(Locale.ROOT);
         String answer = "Hello from MQ: " + msg;
 
         RestAssured.given()
@@ -215,7 +215,7 @@ public class Jt400Test {
     public void testInquiryMessageQueue() throws Exception {
         LOGGER.debug("**** testInquiryMessageQueue() **: has started ");
 
-        String msg = RandomStringUtils.randomAlphanumeric(10).toLowerCase(Locale.ROOT);
+        String msg = RandomStringUtils.secure().nextAlphanumeric(10).toLowerCase(Locale.ROOT);
         String replyMsg = "reply to: " + msg;
         getClientHelper().registerForRemoval(Jt400TestResource.RESOURCE_TYPE.replyToQueueu, msg);
         getClientHelper().registerForRemoval(Jt400TestResource.RESOURCE_TYPE.replyToQueueu, replyMsg);

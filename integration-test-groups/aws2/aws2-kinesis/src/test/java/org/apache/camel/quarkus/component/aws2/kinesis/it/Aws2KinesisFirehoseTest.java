@@ -57,7 +57,7 @@ class Aws2KinesisFirehoseTest extends BaseAWs2TestSupport {
 
     @Test
     public void firehose() {
-        final String msg = RandomStringUtils.randomAlphanumeric(32 * 1024);
+        final String msg = RandomStringUtils.secure().nextAlphanumeric(32 * 1024);
         final String msgPrefix = msg.substring(0, 32);
         final long maxDataBytes = Aws2KinesisTestEnvCustomizer.BUFFERING_SIZE_MB * 1024 * 1024;
         long bytesSent = 0;

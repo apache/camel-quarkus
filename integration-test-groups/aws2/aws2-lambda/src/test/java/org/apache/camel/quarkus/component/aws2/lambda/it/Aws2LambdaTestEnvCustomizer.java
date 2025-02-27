@@ -52,7 +52,7 @@ public class Aws2LambdaTestEnvCustomizer implements Aws2TestEnvCustomizer {
     public void customize(Aws2TestEnvContext envContext) {
 
         // Customize a role needed to execute AWS Lambda functions that can moreover be triggered by an SQS queue event source
-        final String id = RandomStringUtils.randomAlphanumeric(16).toLowerCase(Locale.ROOT);
+        final String id = RandomStringUtils.secure().nextAlphanumeric(16).toLowerCase(Locale.ROOT);
         final String roleName = "cq-lambda-" + id;
 
         final IamClient iamClient = envContext.client(Service.IAM, IamClient::builder);
@@ -92,7 +92,7 @@ public class Aws2LambdaTestEnvCustomizer implements Aws2TestEnvCustomizer {
         envContext.property("aws-lambda.role-arn", roleArn);
 
         // Create an SQS queue that will serve as event source in order  to test event source mappings
-        final String queueName = "camel-quarkus-" + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+        final String queueName = "camel-quarkus-" + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT);
         final SqsClient sqsClient = envContext.client(Service.SQS, SqsClient::builder);
 
         final CreateQueueRequest createQueueRequest = CreateQueueRequest.builder().queueName(queueName).build();

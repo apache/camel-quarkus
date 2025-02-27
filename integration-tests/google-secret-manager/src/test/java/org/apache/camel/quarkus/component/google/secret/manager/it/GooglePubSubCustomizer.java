@@ -65,11 +65,11 @@ public class GooglePubSubCustomizer implements GoogleTestEnvCustomizer {
             }
 
             final String refreshTopicName = "camel-quarkus-refresh-topic-"
-                    + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+                    + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT);
             envContext.property("google-pubsub.refresh-topic-name", refreshTopicName);
 
             final String refreshSubscriptionName = "camel-quarkus-refresh-subscription-"
-                    + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+                    + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT);
             envContext.property("google-pubsub.refresh-subscription-name", refreshSubscriptionName);
 
             Topic topic = createTopic(topicClient, refreshTopicName, projectId);

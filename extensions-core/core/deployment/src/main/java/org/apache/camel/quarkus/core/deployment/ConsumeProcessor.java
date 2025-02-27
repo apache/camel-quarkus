@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -29,8 +30,6 @@ import java.util.stream.Stream;
 
 import io.quarkus.arc.deployment.AnnotationsTransformerBuildItem;
 import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
-import io.quarkus.arc.processor.AnnotationsTransformer;
-import io.quarkus.arc.processor.Transformation;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
@@ -57,7 +56,7 @@ import org.apache.camel.util.StringHelper;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.AnnotationTarget.Kind;
-import org.jboss.jandex.AnnotationValue;
+import org.jboss.jandex.AnnotationTransformation;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.MethodInfo;
@@ -87,30 +86,30 @@ public class ConsumeProcessor {
     void annotationsTransformers(
             BuildProducer<AnnotationsTransformerBuildItem> annotationsTransformers) {
 
-        annotationsTransformers.produce(new AnnotationsTransformerBuildItem(new AnnotationsTransformer() {
-
-            public boolean appliesTo(org.jboss.jandex.AnnotationTarget.Kind kind) {
+        annotationsTransformers.produce(new AnnotationsTransformerBuildItem(new AnnotationTransformation() {
+            @Override
+            public boolean supports(org.jboss.jandex.AnnotationTarget.Kind kind) {
                 return kind == Kind.CLASS;
             }
 
             @Override
-            public void transform(TransformationContext ctx) {
-                final ClassInfo classInfo = ctx.getTarget().asClass();
+            public void apply(TransformationContext ctx) {
+                final ClassInfo classInfo = ctx.declaration().asClass();
                 if (hasConsumeMethod(classInfo)) {
                     /* If there is @Consume on a method, make the declaring class a named injectable bean */
                     String beanName = namedValue(classInfo);
-                    final Transformation transform = ctx.transform();
-                    if (!classInfo.annotationsMap().keySet().stream().anyMatch(BEAN_DEFINING_ANNOTATIONS::contains)) {
+                    if (classInfo.annotationsMap().keySet().stream().noneMatch(BEAN_DEFINING_ANNOTATIONS::contains)) {
                         /* Only add @Singleton if there is no other bean defining annotation yet */
-                        transform.add(Singleton.class);
+                        ctx.add(Singleton.class);
                     }
 
                     if (beanName == null) {
                         beanName = ConsumeProcessor.uniqueBeanName(classInfo);
-                        transform.add(Named.class, AnnotationValue.createStringValue("value", beanName));
+                        AnnotationInstance namedAnnotation = AnnotationInstance.builder(Named.class)
+                                .add("value", beanName)
+                                .build();
+                        ctx.add(namedAnnotation);
                     }
-
-                    transform.done();
                 }
             }
         }));
@@ -153,8 +152,9 @@ public class ConsumeProcessor {
         if (!consumeAnnotations.isEmpty()) {
             final RuntimeValue<RoutesDefinition> routesDefinition = recorder.createRoutesDefinition();
 
-            final boolean beanCapabilityAvailable = capabilities.stream().map(CapabilityBuildItem::getName)
-                    .anyMatch(feature -> CamelCapabilities.BEAN.equals(feature));
+            final boolean beanCapabilityAvailable = capabilities.stream()
+                    .map(CapabilityBuildItem::getName)
+                    .anyMatch(CamelCapabilities.BEAN::equals);
 
             for (AnnotationInstance annot : consumeAnnotations) {
                 final AnnotationTarget target = annot.target();
@@ -217,7 +217,7 @@ public class ConsumeProcessor {
         Optional<MethodInfo> method = Stream.of(isGetter, getGetter, isGetter + "Endpoint", getGetter + "Endpoint")
                 .peek(triedMethods::add)
                 .map(declaringClass::method)
-                .filter(m -> m != null)
+                .filter(Objects::nonNull)
                 .findFirst();
         if (method.isEmpty()) {
             if (propertyName.startsWith("on")) {
@@ -239,7 +239,7 @@ public class ConsumeProcessor {
 
         final Collection<AnnotationInstance> consumeAnnotations = index.getIndex().getAnnotations(CONSUME_ANNOTATION);
         if (!consumeAnnotations.isEmpty()) {
-            final Set<DotName> declaringClasses = new LinkedHashSet<DotName>();
+            final Set<DotName> declaringClasses = new LinkedHashSet<>();
             for (AnnotationInstance annot : consumeAnnotations) {
                 final AnnotationTarget target = annot.target();
                 switch (target.kind()) {
@@ -266,7 +266,7 @@ public class ConsumeProcessor {
     }
 
     static String firstLower(String str) {
-        char c[] = str.toCharArray();
+        char[] c = str.toCharArray();
         c[0] = Character.toLowerCase(c[0]);
         return new String(c);
     }

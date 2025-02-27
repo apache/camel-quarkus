@@ -36,7 +36,8 @@ public interface MirrorAiService {
     public static class MirrorModelSupplier implements Supplier<ChatLanguageModel> {
         @Override
         public ChatLanguageModel get() {
-            return (messages) -> new Response<>(new AiMessage(messages.get(0).text()));
+            return (messages) -> new Response<>(
+                    new AiMessage(((dev.langchain4j.data.message.UserMessage) messages.get(0)).singleText()));
         }
     }
 

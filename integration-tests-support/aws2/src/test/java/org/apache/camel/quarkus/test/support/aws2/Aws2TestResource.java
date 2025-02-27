@@ -88,7 +88,6 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
             LocalStackContainer localstack = new LocalStackContainer(imageName)
                     .withServices(services);
             localstack.withEnv("LS_LOG", localstackLogLevel);
-            localstack.withEnv("LAMBDA_EXECUTOR", "local");
             localstack.withEnv("PROVIDER_OVERRIDE_CLOUDWATCH", "v1");
             localstack.withLogConsumer(new Slf4jLogConsumer(LOG));
             localstack.start();

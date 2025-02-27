@@ -41,7 +41,7 @@ public class Aws2S3TestEnvCustomizer implements Aws2TestEnvCustomizer {
         final S3Client s3Client = envContext.client(Service.S3, S3Client::builder);
         final KmsClient kmsClient = envContext.client(Service.KMS, KmsClient::builder);
 
-        final String bucketName = "camel-quarkus-" + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+        final String bucketName = "camel-quarkus-" + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT);
         s3Client.createBucket(CreateBucketRequest.builder().bucket(bucketName).build());
         envContext.property("aws-s3.bucket-name", bucketName);
         envContext.closeable(() -> s3Client.deleteBucket(DeleteBucketRequest.builder().bucket(bucketName).build()));
