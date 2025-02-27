@@ -148,6 +148,7 @@
         <module>jfr</module>
         <module>jira</module>
         <module>jms</module>
+        <module>jolokia</module>
         <module>jolt</module>
         <module>joor</module>
         <module>jpa</module>

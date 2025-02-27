@@ -129,6 +129,7 @@
         <module>jms-artemis-ra</module>
         <module>jms-ibmmq-client</module>
         <module>jms-qpid-amqp-client</module>
+        <module>jolokia</module>
         <module>jolt</module>
         <module>joor</module>
         <module>jpa</module>
