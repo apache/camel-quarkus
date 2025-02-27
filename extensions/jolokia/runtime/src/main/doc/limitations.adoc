@@ -1,0 +1,5 @@
+=== Native mode limitations
+
+JMX in GraalVM is still *experimental*. Therefore, some features are not available in native mode.
+
+Refer to the Camel Quarkus Management extension xref:reference/extensions/management.adoc#extensions-management-limitations-native-mode[limitations] section for more details.

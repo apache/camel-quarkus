@@ -1,0 +1,6 @@
+=== Native mode
+
+JMX in GraalVM is still *experimental*. Therefore, some features are not available in native mode.
+
+* Operations for MBean `java.lang:type=Threading` are not fully implemented. Therefore, it is not possible to obtain details about application threads.
+* Various MBean attributes do not have their values implemented. For example, the `ClassCount` attribute values for MBean `java.lang:type=ClassLoading` are fixed at `0`

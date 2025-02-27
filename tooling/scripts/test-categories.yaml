@@ -177,6 +177,7 @@ group-10:
   - fop
   - google-secret-manager
   - groovy
+  - jolokia
   - joor
   - mail
   - main-unknown-args-fail

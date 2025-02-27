@@ -16,10 +16,17 @@
  */
 package org.apache.camel.quarkus.component.management.deployment;
 
+import java.io.NotSerializableException;
+import java.io.ObjectStreamException;
 import java.lang.reflect.Modifier;
 import java.rmi.NotBoundException;
+import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.AbstractOwnableSynchronizer;
+import java.util.concurrent.locks.AbstractQueuedSynchronizer;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -40,9 +47,15 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.NativeMonitoringBuildItem;
+import io.quarkus.deployment.builditem.RemovedResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.pkg.NativeConfig;
+import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
+import io.quarkus.maven.dependency.ArtifactKey;
+import jakarta.transaction.NotSupportedException;
+import org.apache.camel.RuntimeCamelException;
+import org.apache.camel.RuntimeExchangeException;
 import org.apache.camel.api.management.ManagedAttribute;
 import org.apache.camel.api.management.ManagedNotification;
 import org.apache.camel.api.management.ManagedNotifications;
@@ -67,15 +80,31 @@ class ManagementProcessor {
             ManagedResource.class
     };
     private static final String[] SERIALIZATION_CLASSES = {
+            AbstractOwnableSynchronizer.class.getName(),
+            AbstractQueuedSynchronizer.class.getName(),
+            "java.util.concurrent.ConcurrentHashMap$CollectionView",
+            ConcurrentHashMap.class.getName(),
+            "java.util.concurrent.ConcurrentHashMap$KeySetView",
+            "java.util.concurrent.ConcurrentHashMap$Segment",
             DescriptorSupport.class.getName(),
             ModelMBeanAttributeInfo.class.getName(),
             ModelMBeanInfoSupport.class.getName(),
             ModelMBeanOperationInfo.class.getName(),
             MBeanException.class.getName(),
             MBeanServerNotification.class.getName(),
+            NoSuchMethodException.class.getName(),
             NotBoundException.class.getName(),
+            NotSerializableException.class.getName(),
+            NotSupportedException.class.getName(),
             Object.class.getName(),
             ObjectInstance.class.getName(),
+            ObjectStreamException.class.getName(),
+            ReentrantLock.class.getName(),
+            "java.util.concurrent.locks.ReentrantLock$NonfairSync",
+            "java.util.concurrent.locks.ReentrantLock$Sync",
+            RuntimeCamelException.class.getName(),
+            RuntimeExchangeException.class.getName(),
+            "java.util.Collections$UnmodifiableSet",
     };
 
     @BuildStep
@@ -130,6 +159,13 @@ class ManagementProcessor {
     @BuildStep
     NativeMonitoringBuildItem enableNativeMonitoring() {
         return new NativeMonitoringBuildItem(NativeConfig.MonitoringOption.JMXSERVER);
+    }
+
+    // TODO: Remove this https://github.com/apache/camel-quarkus/issues/7054
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
+    RemovedResourceBuildItem removedResources() {
+        return new RemovedResourceBuildItem(ArtifactKey.fromString("io.quarkus:quarkus-core"),
+                Collections.singleton("io/quarkus/runtime/graal/Target_javax_management_JMX.class"));
     }
 
     private Set<String> getManagedTypes(IndexView index, Predicate<ClassInfo> typeFilter) {
