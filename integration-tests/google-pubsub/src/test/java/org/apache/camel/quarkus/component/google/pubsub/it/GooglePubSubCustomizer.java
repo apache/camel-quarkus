@@ -72,34 +72,34 @@ public class GooglePubSubCustomizer implements GoogleTestEnvCustomizer {
             }
 
             final String topicName = "camel-quarkus-topic-"
-                    + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+                    + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT);
             envContext.property("google-pubsub.topic-name", topicName);
 
             final String subscriptionName = "camel-quarkus-subscription-"
-                    + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+                    + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT);
             envContext.property("google-pubsub.subscription-name", subscriptionName);
 
             final String groupedTopicName = "camel-quarkus-grouped-topic-"
-                    + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+                    + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT);
             envContext.property("google-pubsub.grouped-topic-name", groupedTopicName);
 
             final String groupedSubscriptionName = "camel-quarkus-grouped-subscription-"
-                    + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+                    + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT);
             envContext.property("google-pubsub.grouped-subscription-name", groupedSubscriptionName);
 
             final String orderingTopicName = "camel-quarkus-ordering-topic-"
-                    + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+                    + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT);
             envContext.property("google-pubsub.ordering-topic-name", orderingTopicName);
 
             final String orderingSubscriptionName = "camel-quarkus-ordering-subscription-"
-                    + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+                    + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT);
             envContext.property("google-pubsub.ordering-subscription-name", orderingSubscriptionName);
 
             final String ackTopicName = "camel-quarkus-ack-topic-"
-                    + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+                    + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT);
             envContext.property("google-pubsub.ack-topic-name", ackTopicName);
             final String ackSubscriptionName = "camel-quarkus-ack-subscription-"
-                    + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+                    + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT);
             envContext.property("google-pubsub.ack-subscription-name", ackSubscriptionName);
 
             Topic topic = createTopic(topicClient, topicName, projectId);

@@ -48,19 +48,19 @@ public class SchedulerRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("scheduler:withInitialDelay?initialDelay=1").routeId("withInitialDelay").noAutoStartup()
+        from("scheduler:withInitialDelay?initialDelay=1").routeId("withInitialDelay").autoStartup(false)
                 .process(e -> schedulerCounter.incrementAndGet());
 
-        from("scheduler:withDelay?delay=100").routeId("withDelay").noAutoStartup()
+        from("scheduler:withDelay?delay=100").routeId("withDelay").autoStartup(false)
                 .process(e -> withDelayCounter.incrementAndGet());
 
-        from("scheduler:useFixedDelay?initialDelay=200&useFixedDelay=true").routeId("useFixedDelay").noAutoStartup()
+        from("scheduler:useFixedDelay?initialDelay=200&useFixedDelay=true").routeId("useFixedDelay").autoStartup(false)
                 .process(e -> useFixedDelayCounter.incrementAndGet());
 
-        from("scheduler:withDelayRepeat?delay=1&repeatCount=5").routeId("withDelayRepeat").noAutoStartup()
+        from("scheduler:withDelayRepeat?delay=1&repeatCount=5").routeId("withDelayRepeat").autoStartup(false)
                 .process(e -> withDelayRepeatCounter.incrementAndGet());
 
-        from("scheduler:greedy?delay=100&greedy=true").routeId("greedy").noAutoStartup()
+        from("scheduler:greedy?delay=100&greedy=true").routeId("greedy").autoStartup(false)
                 .process(e -> greedyCounter.incrementAndGet());
     }
 }

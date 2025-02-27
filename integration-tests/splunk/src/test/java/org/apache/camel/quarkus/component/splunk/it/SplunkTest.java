@@ -33,14 +33,14 @@ import org.apache.camel.component.splunk.ProducerType;
 import org.apache.camel.quarkus.test.DisabledOnArm;
 import org.apache.camel.quarkus.test.support.splunk.SplunkConstants;
 import org.apache.camel.quarkus.test.support.splunk.SplunkTestResource;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.http.NoHttpResponseException;
+import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.shaded.org.apache.commons.lang3.RandomStringUtils;
-import org.testcontainers.shaded.org.awaitility.Awaitility;
 
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
@@ -179,18 +179,18 @@ public class SplunkTest {
         Map<String, String> data3;
         if (raw) {
             data1 = Map.of("_rawData", "Name: Sheldon" + suffix + " From: Alpha Centauri", "data",
-                    RandomStringUtils.randomAlphanumeric(lengthOfRandomString));
+                    RandomStringUtils.secure().nextAlphanumeric(lengthOfRandomString));
             data2 = Map.of("_rawData", "Name: Leonard" + suffix + " From: Earth 2.0", "data",
-                    RandomStringUtils.randomAlphanumeric(lengthOfRandomString));
+                    RandomStringUtils.secure().nextAlphanumeric(lengthOfRandomString));
             data3 = Map.of("_rawData", "Name: Irma" + suffix + " From: Earth", "data",
-                    RandomStringUtils.randomAlphanumeric(lengthOfRandomString));
+                    RandomStringUtils.secure().nextAlphanumeric(lengthOfRandomString));
         } else {
             data1 = Map.of("entity", "Name: Sheldon" + suffix + " From: Alpha Centauri", "data",
-                    RandomStringUtils.randomAlphanumeric(lengthOfRandomString));
+                    RandomStringUtils.secure().nextAlphanumeric(lengthOfRandomString));
             data2 = Map.of("entity", "Name: Leonard" + suffix + " From: Earth 2.0", "data",
-                    RandomStringUtils.randomAlphanumeric(lengthOfRandomString));
+                    RandomStringUtils.secure().nextAlphanumeric(lengthOfRandomString));
             data3 = Map.of("entity", "Name: Irma" + suffix + " From: Earth", "data",
-                    RandomStringUtils.randomAlphanumeric(lengthOfRandomString));
+                    RandomStringUtils.secure().nextAlphanumeric(lengthOfRandomString));
         }
 
         write.accept(data1);

@@ -152,7 +152,7 @@ class Aws2SesTest extends BaseAWs2TestSupport {
             assertThat(verified).isTrue();
 
             /* All prerequisites should be set up now, so we can send the message via SES */
-            final String randomId = RandomStringUtils.randomAlphanumeric(16).toLowerCase(Locale.ROOT);
+            final String randomId = RandomStringUtils.secure().nextAlphanumeric(16).toLowerCase(Locale.ROOT);
             final String subject = "Test " + randomId;
             final String body = "Hello " + randomId;
             LOG.infof("About to send message to %s with subject %s", mailSlurpAddress, subject);

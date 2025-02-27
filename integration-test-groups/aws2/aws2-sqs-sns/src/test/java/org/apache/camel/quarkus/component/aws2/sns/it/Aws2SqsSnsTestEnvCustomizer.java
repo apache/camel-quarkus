@@ -50,7 +50,7 @@ public class Aws2SqsSnsTestEnvCustomizer implements Aws2TestEnvCustomizer {
     public void customize(Aws2TestEnvContext envContext) {
 
         /* SQS */
-        final String queueName = "camel-quarkus-" + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+        final String queueName = "camel-quarkus-" + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT);
         envContext.property("aws-sqs.queue-name", queueName);
 
         final SqsClient sqsClient = envContext.client(Service.SQS, SqsClient::builder);
@@ -70,7 +70,7 @@ public class Aws2SqsSnsTestEnvCustomizer implements Aws2TestEnvCustomizer {
     }
 
     private void customizeSns(Aws2TestEnvContext envContext, SqsClient sqsClient, boolean fifo) {
-        final String topicName = "camel-quarkus-" + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT)
+        final String topicName = "camel-quarkus-" + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT)
                 + (fifo ? ".fifo" : "");
         envContext.property(fifo ? "aws-sns-fifo.topic-name" : "aws-sns.topic-name", topicName);
 
@@ -94,7 +94,7 @@ public class Aws2SqsSnsTestEnvCustomizer implements Aws2TestEnvCustomizer {
         });
 
         final String snsReceiverQueueName = "camel-quarkus-sns-receiver-"
-                + RandomStringUtils.randomAlphanumeric(30).toLowerCase(Locale.ROOT) + (fifo ? ".fifo" : "");
+                + RandomStringUtils.secure().nextAlphanumeric(30).toLowerCase(Locale.ROOT) + (fifo ? ".fifo" : "");
         ;
         envContext.property(fifo ? "aws-sqs.sns-fifo-receiver-queue-name" : "aws-sqs.sns-receiver-queue-name",
                 snsReceiverQueueName);

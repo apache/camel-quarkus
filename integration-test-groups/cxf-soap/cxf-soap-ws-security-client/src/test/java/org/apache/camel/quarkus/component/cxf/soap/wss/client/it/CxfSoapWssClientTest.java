@@ -37,11 +37,11 @@ import jakarta.xml.ws.WebServiceException;
 import org.apache.camel.quarkus.components.cxf.soap.wss.client.helloworld.SayHelloService;
 import org.apache.camel.quarkus.components.cxf.soap.wss.client.helloworld.SayHelloWrongWS;
 import org.apache.cxf.ws.security.SecurityConstants;
+import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.shaded.org.awaitility.Awaitility;
 
 import static org.hamcrest.Matchers.equalTo;
 

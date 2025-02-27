@@ -137,7 +137,7 @@ public class GoogleBigqueryCustomizer implements GoogleTestEnvCustomizer {
     private String generateName(String name, GoogleCloudContext envContext, boolean generateSuffixes) {
         String retVal = "google_bigquery_" + name;
         if (generateSuffixes) {
-            retVal = retVal + "_" + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+            retVal = retVal + "_" + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT);
         }
         envContext.property("google-bigquery." + name, retVal);
         return retVal;

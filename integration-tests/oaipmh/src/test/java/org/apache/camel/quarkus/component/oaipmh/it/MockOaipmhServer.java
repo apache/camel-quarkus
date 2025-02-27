@@ -26,12 +26,10 @@ import java.util.zip.ZipInputStream;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
-import com.github.tomakehurst.wiremock.common.FileSource;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import com.github.tomakehurst.wiremock.extension.Parameters;
-import com.github.tomakehurst.wiremock.extension.ResponseDefinitionTransformer;
-import com.github.tomakehurst.wiremock.http.Request;
+import com.github.tomakehurst.wiremock.extension.ResponseDefinitionTransformerV2;
 import com.github.tomakehurst.wiremock.http.ResponseDefinition;
+import com.github.tomakehurst.wiremock.stubbing.ServeEvent;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
 import org.apache.camel.quarkus.test.support.certificate.CertificatesUtil;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -82,7 +80,7 @@ public final class MockOaipmhServer {
                 responseCache = Collections.unmodifiableMap(cache);
             }
         } catch (IOException ioex) {
-            throw new RuntimeException("An issue occured while initializing the OAI-PMH mock server reponse cache", ioex);
+            throw new RuntimeException("An issue occurred while initializing the OAI-PMH mock server response cache", ioex);
         }
         return responseCache;
     }
@@ -115,12 +113,10 @@ public final class MockOaipmhServer {
         return this.httpsPort;
     }
 
-    public static final class OaipmhMockTransformer extends ResponseDefinitionTransformer {
-
+    public static final class OaipmhMockTransformer implements ResponseDefinitionTransformerV2 {
         @Override
-        public ResponseDefinition transform(Request request, ResponseDefinition responseDefinition, FileSource files,
-                Parameters parameters) {
-            String sha256Hex = DigestUtils.sha256Hex(request.getUrl());
+        public ResponseDefinition transform(ServeEvent event) {
+            String sha256Hex = DigestUtils.sha256Hex(event.getRequest().getUrl());
             return new ResponseDefinitionBuilder().withStatus(200).withBody(getResponseCache().get(sha256Hex + ".xml")).build();
         }
 
@@ -129,5 +125,4 @@ public final class MockOaipmhServer {
             return "oaipmh-mock-transformer";
         }
     }
-
 }

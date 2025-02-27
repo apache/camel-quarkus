@@ -18,11 +18,11 @@ package org.apache.camel.quarkus.component.platform.http.it;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
-import org.apache.camel.component.platform.http.PlatformHttpHeaderFilterStrategy;
+import org.apache.camel.http.base.HttpHeaderFilterStrategy;
 
 @ApplicationScoped
 @Named("TestHeaderFilterStrategy")
-public class TestHeaderFilterStrategy extends PlatformHttpHeaderFilterStrategy {
+public class TestHeaderFilterStrategy extends HttpHeaderFilterStrategy {
 
     @Override
     protected void initialize() {

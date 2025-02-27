@@ -17,8 +17,8 @@
 package org.apache.camel.quarkus.component.infinispan.common.model;
 
 import org.infinispan.protostream.GeneratedSchema;
-import org.infinispan.protostream.annotations.AutoProtoSchemaBuilder;
+import org.infinispan.protostream.annotations.ProtoSchema;
 
-@AutoProtoSchemaBuilder(includeClasses = { Person.class }, schemaPackageName = "person")
+@ProtoSchema(includeClasses = { Person.class }, schemaPackageName = "person")
 interface PersonSchema extends GeneratedSchema {
 }

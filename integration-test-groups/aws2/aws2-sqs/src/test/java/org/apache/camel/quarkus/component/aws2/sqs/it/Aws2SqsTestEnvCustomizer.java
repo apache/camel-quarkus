@@ -38,16 +38,16 @@ public class Aws2SqsTestEnvCustomizer implements Aws2TestEnvCustomizer {
     @Override
     public void customize(Aws2TestEnvContext envContext) {
         /* SQS */
-        final String queueName = "camel-quarkus-" + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+        final String queueName = "camel-quarkus-" + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT);
         envContext.property("aws-sqs.queue-name", queueName);
         final String failingQueueName = "camel-quarkus-failing-"
-                + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+                + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT);
         envContext.property("aws-sqs.failing-name", failingQueueName);
         final String deadletterQueueName = "camel-quarkus-dead-letter-"
-                + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+                + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT);
         envContext.property("aws-sqs.deadletter-name", deadletterQueueName);
         final String delayedQueueName = "camel-quarkus-delayed-"
-                + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+                + RandomStringUtils.secure().nextAlphanumeric(49).toLowerCase(Locale.ROOT);
         envContext.property("aws-sqs.delayed-name", delayedQueueName);
 
         final SqsClient sqsClient = envContext.client(Service.SQS, SqsClient::builder);

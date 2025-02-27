@@ -29,9 +29,9 @@ import org.apache.camel.component.aws.secretsmanager.SecretsManagerOperations;
 import org.apache.camel.quarkus.test.EnabledIf;
 import org.apache.camel.quarkus.test.mock.backend.MockBackendDisabled;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
+import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.shaded.org.awaitility.Awaitility;
 
 import static org.hamcrest.CoreMatchers.is;
 

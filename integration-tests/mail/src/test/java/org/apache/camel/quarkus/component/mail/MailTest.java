@@ -41,6 +41,7 @@ import org.apache.camel.ExchangePropertyKey;
 import org.apache.camel.ServiceStatus;
 import org.apache.camel.quarkus.test.support.certificate.CertificatesUtil;
 import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
+import org.awaitility.Awaitility;
 import org.eclipse.angus.mail.util.MailConnectException;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -50,7 +51,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.testcontainers.shaded.org.awaitility.Awaitility;
 
 import static org.apache.camel.quarkus.component.mail.CamelRoute.EMAIL_ADDRESS;
 import static org.apache.camel.quarkus.component.mail.CamelRoute.PASSWORD;

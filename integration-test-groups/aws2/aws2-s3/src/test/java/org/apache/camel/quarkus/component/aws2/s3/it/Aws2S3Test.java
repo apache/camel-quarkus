@@ -225,7 +225,7 @@ class Aws2S3Test extends BaseAWs2TestSupport {
         final String oid2 = UUID.randomUUID().toString();
         final String blobContent = "Hello " + oid1;
         final String destinationBucket = "camel-quarkus-copy-object-"
-                + RandomStringUtils.randomAlphanumeric(32).toLowerCase(Locale.ROOT);
+                + RandomStringUtils.secure().nextAlphanumeric(32).toLowerCase(Locale.ROOT);
 
         // Create an object to copy
         RestAssured.given()

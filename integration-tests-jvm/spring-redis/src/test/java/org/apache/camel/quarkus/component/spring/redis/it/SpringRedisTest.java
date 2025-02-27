@@ -21,8 +21,8 @@ import java.util.concurrent.TimeUnit;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.shaded.org.awaitility.Awaitility;
 
 @QuarkusTest
 @QuarkusTestResource(SpringRedisTestResource.class)

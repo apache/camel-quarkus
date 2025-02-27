@@ -25,8 +25,8 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.support.azure.AzureStorageTestResource;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.shaded.org.awaitility.Awaitility;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsString;

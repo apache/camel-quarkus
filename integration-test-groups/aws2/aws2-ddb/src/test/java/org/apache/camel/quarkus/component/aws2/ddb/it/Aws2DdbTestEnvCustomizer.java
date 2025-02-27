@@ -48,15 +48,15 @@ public class Aws2DdbTestEnvCustomizer implements Aws2TestEnvCustomizer {
     @Override
     public void customize(Aws2TestEnvContext envContext) {
 
-        final String tableName = "camel-quarkus-" + RandomStringUtils.randomAlphanumeric(16).toLowerCase(Locale.ROOT);
+        final String tableName = "camel-quarkus-" + RandomStringUtils.secure().nextAlphanumeric(16).toLowerCase(Locale.ROOT);
         envContext.property("aws-ddb.table-name", tableName);
 
         final String tableNameOperations = "camel-quarkus-operations-"
-                + RandomStringUtils.randomAlphanumeric(16).toLowerCase(Locale.ROOT);
+                + RandomStringUtils.secure().nextAlphanumeric(16).toLowerCase(Locale.ROOT);
         envContext.property("aws-ddb.operations-table-name", tableNameOperations);
 
         final String tableNameStreams = "camel-quarkus-streams-"
-                + RandomStringUtils.randomAlphanumeric(16).toLowerCase(Locale.ROOT);
+                + RandomStringUtils.secure().nextAlphanumeric(16).toLowerCase(Locale.ROOT);
         envContext.property("aws-ddb.stream-table-name", tableNameStreams);
 
         List<String> tableNames = Stream.of(tableName, tableNameStreams, tableNameOperations).collect(Collectors.toList());
