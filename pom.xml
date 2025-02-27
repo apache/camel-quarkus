@@ -950,6 +950,7 @@
                                         <sortModulesPath>integration-test-groups/aws2/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/azure/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/compression/pom.xml</sortModulesPath>
+                                        <sortModulesPath>integration-test-groups/cxf-soap/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/foundation/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/mongodb/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/xml/pom.xml</sortModulesPath>
@@ -1000,6 +1001,15 @@
                                                 </includes>
                                             </sourcePoms>
                                             <destinationPom>${basedir}/integration-tests/azure-grouped/pom.xml</destinationPom>
+                                        </mergePom>
+                                        <mergePom>
+                                            <sourcePoms>
+                                                <directory>${basedir}/integration-test-groups/cxf-soap</directory>
+                                                <includes>
+                                                    <include>*/pom.xml</include>
+                                                </includes>
+                                            </sourcePoms>
+                                            <destinationPom>${basedir}/integration-tests/cxf-soap-grouped/pom.xml</destinationPom>
                                         </mergePom>
                                         <mergePom>
                                             <sourcePoms>
