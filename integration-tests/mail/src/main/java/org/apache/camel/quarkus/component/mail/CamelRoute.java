@@ -162,10 +162,9 @@ public class CamelRoute extends RouteBuilder {
 
     private Map<String, Object> handleMail(Exchange exchange) throws MessagingException {
         Map<String, Object> result = new HashMap<>();
-        AttachmentMessage attachmentMessage = exchange.getMessage(AttachmentMessage.class);
-        MailMessage mailMessage = (MailMessage) attachmentMessage.getDelegateMessage();
-        Map<String, DataHandler> attachments = attachmentMessage.getAttachments();
-        if (attachments != null) {
+        MailMessage mailMessage = exchange.getMessage(MailMessage.class);
+        if (exchange.getMessage(AttachmentMessage.class).hasAttachments()) {
+            Map<String, DataHandler> attachments = exchange.getMessage(AttachmentMessage.class).getAttachments();
             JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
             attachments.forEach((id, dataHandler) -> {
                 JsonObjectBuilder attachmentObject = Json.createObjectBuilder();
