@@ -139,7 +139,7 @@ As such, one might need to import the `quarkus-langchain4j-bom` before other rel
 
 [#list configOptions as configDocItem][#assign anchor = toAnchor(configDocItem.key)]
 
-|[=configDocItem.illustration] [[[=anchor]]]`link:#[=anchor][[=configDocItem.key]]`
+a|[=configDocItem.illustration] [[[=anchor]]]`link:#[=anchor][[=configDocItem.key]]`
 
 [=configDocItem.configDoc]
 | [=configDocItem.type]

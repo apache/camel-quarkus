@@ -94,19 +94,19 @@ See the configuration overview below for further details about `exposure-mode`.
 | Configuration property | Type | Default
 
 
-|icon:lock[title=Fixed at build time] [[quarkus.camel.console.enabled]]`link:#quarkus.camel.console.enabled[quarkus.camel.console.enabled]`
+a|icon:lock[title=Fixed at build time] [[quarkus.camel.console.enabled]]`link:#quarkus.camel.console.enabled[quarkus.camel.console.enabled]`
 
 Whether the Camel developer console is enabled.
 | `boolean`
 | `false`
 
-|icon:lock[title=Fixed at build time] [[quarkus.camel.console.path]]`link:#quarkus.camel.console.path[quarkus.camel.console.path]`
+a|icon:lock[title=Fixed at build time] [[quarkus.camel.console.path]]`link:#quarkus.camel.console.path[quarkus.camel.console.path]`
 
 The context path under which the Camel developer console is deployed (default /q/camel/dev-console).
 | `string`
 | `camel/dev-console`
 
-|icon:lock[title=Fixed at build time] [[quarkus.camel.console.exposure-mode]]`link:#quarkus.camel.console.exposure-mode[quarkus.camel.console.exposure-mode]`
+a|icon:lock[title=Fixed at build time] [[quarkus.camel.console.exposure-mode]]`link:#quarkus.camel.console.exposure-mode[quarkus.camel.console.exposure-mode]`
 
 The modes in which the Camel developer console is available. The default {@code dev-test} enables the developer
 console only in dev mode and test modes.
