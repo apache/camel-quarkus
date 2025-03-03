@@ -1,15 +1,17 @@
 === Security Provider
 
-Extension requires BouncyCastle provider and also utilizes the quarkus security extension (see https://quarkus.io/guides/security-customization#registering-security-providers[security providers registration doc])
-If there is no `BC*` provider registered (by `quarkus.security.security-providers` property).
-The `BC` provider is registered.
+This extension requires a BouncyCastle security provider to be https://quarkus.io/guides/security-customization#registering-security-providers[registered] and also utilizes the quarkus security extension.
+
+NOTE: If no BouncyCastle provider is registered via the  `quarkus.security.security-providers` configuration property, then a default `BC` provider is registered automatically.
 
 === FIPS
 
-When running the `crypto` extension on FIPS enabled system any FIPS-compliant Java Security Provider (such as BCFIPS) has to be used.
+When running the `crypto` extension on a FIPS enabled system, a FIPS-compliant Java Security Provider (such as `BCFIPS`) has to be used.
 
-* In the case of BCFIPS, please add BCFIPS dependency and `quarkus-security` (see the https://quarkus.io/guides/security-customization#bouncy-castle-fips[guide] for more information)
-```
+In the case of `BCFIPS`, add dependencies `bc-fips` and `quarkus-security` to your application.
+
+[source,xml]
+----
 <dependency>
     <groupId>org.bouncycastle</groupId>
     <artifactId>bc-fips</artifactId>
@@ -18,12 +20,15 @@ When running the `crypto` extension on FIPS enabled system any FIPS-compliant Ja
     <groupId>io.quarkus</groupId>
     <artifactId>quarkus-security</artifactId>
 </dependency>
-```
-and register BCFIPS provider with following proprerty:
-```
+----
+
+Then register the `BCFIPS` security provider by adding the following configuration to `application.properties`.
+
+[source,properties]
+----
 quarkus.security.security-providers=BCFIPS
-```
-* Alternatively, you can add different FIPS compliant provider. Make Sure that the provider is registered.
+----
 
+Alternatively, you can add a different FIPS compliant provider and register it via the `quarkus.security.security-providers` configuration property.
 
-
+Refer to the https://quarkus.io/guides/security-customization#bouncy-castle-fips[Quarkus Security guide] for more information.

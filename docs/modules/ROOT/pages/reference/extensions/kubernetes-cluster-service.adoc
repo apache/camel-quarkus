@@ -52,9 +52,11 @@ In such a setup, a single consumer will be active at a time across the whole cam
 
 For instance, having the route below deployed on multiple pods:
 
-```
-from("master:ns:timer:test?period=100").log("Timer invoked on a single pod at a time");
-```
+[source,java]
+----
+from("master:ns:timer:test?period=100")
+    .log("Timer invoked on a single pod at a time");
+----
 
 As a result, a single consumer will be active across the `ns` camel master namespace.
 It means that, at a given time, only a single timer will generate exchanges across the whole cluster.

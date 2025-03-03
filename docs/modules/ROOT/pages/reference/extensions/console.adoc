@@ -102,15 +102,15 @@ Whether the Camel developer console is enabled.
 
 a|icon:lock[title=Fixed at build time] [[quarkus.camel.console.path]]`link:#quarkus.camel.console.path[quarkus.camel.console.path]`
 
-The context path under which the Camel developer console is deployed (default /q/camel/dev-console).
+The context path under which the Camel developer console is deployed (default `/q/camel/dev-console`).
 | `string`
 | `camel/dev-console`
 
 a|icon:lock[title=Fixed at build time] [[quarkus.camel.console.exposure-mode]]`link:#quarkus.camel.console.exposure-mode[quarkus.camel.console.exposure-mode]`
 
-The modes in which the Camel developer console is available. The default {@code dev-test} enables the developer
+The modes in which the Camel developer console is available. The default `dev-test` enables the developer
 console only in dev mode and test modes.
-A value of {@code all} enables agent discovery in dev, test and prod modes. Setting the value to {@code none} will
+A value of `all` enables agent discovery in dev, test and prod modes. Setting the value to `none` will
 not expose the developer console HTTP endpoint.
 | `all`, `dev-test`, `none`
 | `dev-test`

@@ -28,11 +28,10 @@ import io.smallrye.config.WithDefault;
 public interface KameletConfiguration {
     /**
      * Optional comma separated list of kamelet identifiers to configure for native mode support.
-     * A kamelet identifier is the Kamelet file name without the .kamelet.yaml suffix.
-     * <p>
-     * The default value '*' will result in all discovered Kamelet definition files being included into the native image.
+     * A kamelet identifier is the Kamelet file name without the `.kamelet.yaml` suffix.
+     *
+     * The default value `*` will result in all discovered Kamelet definition files being included into the native image.
      * Note that this configuration option is only relevant when producing a native application.
-     * </p>
      */
     @WithDefault("*")
     List<String> identifiers();

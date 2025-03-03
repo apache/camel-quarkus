@@ -54,34 +54,37 @@ via the Quarkus MongoDB Client https://quarkus.io/guides/mongodb#configuration-r
 The Camel Quarkus MongoDB extension automatically registers a MongoDB client bean named `camelMongoClient`. This can be referenced in the mongodb endpoint URI
 `connectionBean` path parameter. For example:
 
-    from("direct:start")
+[source,java]
+----
+from("direct:start")
     .to("mongodb:camelMongoClient?database=myDb&collection=myCollection&operation=findAll")
+----
 
 If your application needs to work with multiple MongoDB servers, you can create a "named" client and reference in your route by injecting a client and the related configuration as explained in the https://quarkus.io/guides/mongodb#named-mongo-client-injection[Quarkus MongoDB extension client injection]. For example:
 
-....
-//application.properties
+[source,properties]
+----
 quarkus.mongodb.mongoClient1.connection-string = mongodb://root:example@localhost:27017/
-....
-....
-//Routes.java
+----
 
-    @ApplicationScoped
-    public class Routes extends RouteBuilder {
-        @Inject
-        @MongoClientName("mongoClient1")
-        MongoClient mongoClient1;
+[source,java]
+----
+@ApplicationScoped
+public class Routes extends RouteBuilder {
+    @Inject
+    @MongoClientName("mongoClient1")
+    MongoClient mongoClient1;
 
-        @Override
-        public void configure() throws Exception {
-            from("direct:defaultServer")
-                .to("mongodb:camelMongoClient?database=myDb&collection=myCollection&operation=findAll")
+    @Override
+    public void configure() throws Exception {
+        from("direct:defaultServer")
+            .to("mongodb:camelMongoClient?database=myDb&collection=myCollection&operation=findAll");
 
-            from("direct:otherServer")
-                .to("mongodb:mongoClient1?database=myOtherDb&collection=myOtherCollection&operation=findAll");
-        }
+        from("direct:otherServer")
+            .to("mongodb:mongoClient1?database=myOtherDb&collection=myOtherCollection&operation=findAll");
     }
-....
+}
+----
 
 Note that when using named clients, the "default" `camelMongoClient` bean will still be produced. Refer to the Quarkus documentation on https://quarkus.io/guides/mongodb#multiple-mongodb-clients[Multiple MongoDB Clients] for more information.
 

@@ -39,18 +39,18 @@ public interface JolokiaBuildTimeConfig {
     String path();
 
     /**
-     * Whether to register a Quarkus management endpoint for Jolokia (default /q/jolokia).
+     * Whether to register a Quarkus management endpoint for Jolokia (default `/q/jolokia`).
      * When enabled this activates a management endpoint which will be accessible on a path relative to
-     * ${quarkus.http.non-application-root-path}/${quarkus.camel.jolokia.server.path}.
+     * `${quarkus.http.non-application-root-path}/${quarkus.camel.jolokia.server.path}`.
      * If the management interface is enabled, the value will be resolved as a path relative to
-     * ${quarkus.management.root-path}/${quarkus.camel.jolokia.server.path}. Note that for this feature to work you must
-     * have quarkus-vertx-http on the application classpath.
+     * `${quarkus.management.root-path}/${quarkus.camel.jolokia.server.path}`. Note that for this feature to work you must
+     * have `quarkus-vertx-http` on the application classpath.
      */
     @WithDefault("true")
     boolean registerManagementEndpoint();
 
     /**
-     * Comma separated list of allowed MBean domains used by CamelJolokiaRestrictor.
+     * Comma separated list of allowed MBean domains used by `CamelJolokiaRestrictor`.
      */
     @WithDefault("org.apache.camel,java.lang,java.nio")
     Set<String> camelRestrictorAllowedMbeanDomains();

@@ -40,7 +40,6 @@ endif::[]
 [id="extensions-file-cluster-service-additional-camel-quarkus-configuration"]
 == Additional Camel Quarkus configuration
 
-
 [id="extensions-file-cluster-service-configuration-having-only-a-single-consumer-in-a-cluster-consuming-from-a-given-endpoint"]
 === Having only a single consumer in a cluster consuming from a given endpoint
 
@@ -49,15 +48,18 @@ In such a setup, a single consumer will be active at a time across the whole cam
 
 For instance, having the route below deployed on multiple JVMs:
 
-```
-from("master:ns:timer:test?period=100").log("Timer invoked on a single JVM at a time");
-```
+[source,java]
+----
+from("master:ns:timer:test?period=100")
+    .log("Timer invoked on a single JVM at a time");
+----
 
-It's possible to configure the file cluster service with a property like below:
+It's possible to configure the file cluster service with a property like below in `application.properties`:
 
-```
+[source,properties]
+----
 quarkus.camel.cluster.file.root = target/cluster-folder-where-lock-file-will-be-held
-```
+----
 
 As a result, a single consumer will be active across the `ns` camel master namespace.
 It means that, at a given time, only a single timer will generate exchanges across all JVMs.

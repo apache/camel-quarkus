@@ -16,7 +16,7 @@ To use any other language, you must add the corresponding dependency. Consult th
 
 When loading scripts from the classpath in native mode, the path to the script file must be specified in the `quarkus.native.resources.includes` property of the `application.properties` file. For example:
 
-[source]
+[source,properties]
 ----
 quarkus.native.resources.includes=script.txt
 ----

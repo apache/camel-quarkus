@@ -1,19 +1,19 @@
 === Using camel annotations from LangChain4j AI service method parameters
 
-The `camel-quarkus-langchain4j` extension make it possible to use camel parameter binding annotations with LangChain4j AI services.
+The `camel-quarkus-langchain4j` extension makes it possible to use camel parameter binding annotations with LangChain4j AI services.
 
-Let's see an example below:
+For example:
 
-```
+[source,java]
+----
 @RegisterAiService
 @ApplicationScoped
 public interface CustomAiService {
-
     @UserMessage("An LLM prompt that can use the method parameter {myHeaderInjectedIntoPrompt}.")
     @Handler
     String invokeLlm(@Header("myHeaderName") String myHeaderInjectedIntoPrompt);
 }
-```
+----
 
 You can find more details about Camel Parameter Binding annotations in the xref:manual::parameter-binding-annotations.adoc[manual].
 
@@ -23,26 +23,27 @@ With the `camel-quarkus-langchain4j` extension, the AI services are resolvable b
 
 For instance, let's define an AI service below:
 
-```
+[source,java]
+----
 @ApplicationScoped
 @RegisterAiService
 public interface MyAiService {
-
     @UserMessage("My Prompt")
     @Handler
     String chat(String question);
 }
-```
+----
 
 The AI service could then be invoked from a Camel route like this:
 
-```
+[source,java]
+----
 @Override
 public void configure() {
   from("...")
     .bean(MyAiService.class);
 }
-```
+----
 
 === Resolving AI services by bean name
 
@@ -50,24 +51,25 @@ The AI services are also resolvable by bean name when called from a `bean` state
 
 For instance, let's define an AI service below:
 
-```
+[source,java]
+----
 @ApplicationScoped
 @Named("aiServiceResolvedByName")
 @RegisterAiService
 public interface AiServiceResolvedByName {
-
     @UserMessage("My prompt")
     @Handler
     String chatByName(String input);
 }
-```
+----
 
 The AI service could then be invoked from a Camel route as below:
 
-```
+[source,java]
+----
 @Override
 public void configure() {
   from("...")
     .bean("aiServiceResolvedByName");
 }
-```
+----

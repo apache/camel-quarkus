@@ -4,5 +4,8 @@ via the Quarkus MongoDB Client https://quarkus.io/guides/mongodb#configuration-r
 The Camel Quarkus MongoDB extension automatically registers a MongoDB client bean named `camelMongoClient`. This can be referenced in the mongodb endpoint URI
 `connectionBean` path parameter. For example:
 
-    from("direct:start")
-        .to("mongodb-gridfs:camelMongoClient?database=test&operation=listAll")
+[source,java]
+----
+from("direct:start")
+    .to("mongodb-gridfs:camelMongoClient?database=test&operation=listAll");
+----

@@ -78,7 +78,8 @@ quarkus.native.resources.includes=openapi.json
 
 [id="extensions-rest-openapi-usage-contract-first-development"]
 === Contract First Development
-The model classes generation has been integrated with the `quarkus-maven-plugin`. So there's no need to use the `swagger-codegen-maven-plugin`, instead put your contract files in `src/main/openapi` with a `.json` suffix. And add the `generate-code` goal to the `quarkus-maven-plugin` like:
+
+Model class generation has been integrated into the `quarkus-maven-plugin`. So there's no need to use the `swagger-codegen-maven-plugin`. Instead, put your contract files in `src/main/openapi` with a `.json` or `.yaml` suffix then ensure the `generate-code` goal is configured on the `quarkus-maven-plugin`:
 
 [source,xml]
 ----
@@ -95,15 +96,16 @@ The model classes generation has been integrated with the `quarkus-maven-plugin`
 </plugin>
 ----
 
-It requires a specific package name for the model classes by using the `quarkus.camel.openapi.codegen.model-package` property of the `application.properties` file. For example:
+You can customize the package name of the generated classes by adding configuration property `quarkus.camel.openapi.codegen.model-package` to `application.properties` file.
 
 [source,properties]
 ----
 quarkus.camel.openapi.codegen.model-package=org.acme
 ----
-This package name should be added in `camel.rest.bindingPackageScan` as well.
 
-The contract files in `src/main/openapi` needs to be added in the classpath since they could be used in Camel Rest DSL. So you can add `src/main/openapi` in `pom.xml`
+In addition, you should also add this package to configuration property `camel.rest.bindingPackageScan`.
+
+The contract files in `src/main/openapi` need to be added in the classpath, since they could be used in the Camel Rest DSL. For example, to do this with Maven:
 
 [source,xml]
 ----
@@ -119,13 +121,12 @@ The contract files in `src/main/openapi` needs to be added in the classpath sinc
 </build>
 ----
 
-When running in the native mode, the contract files must be specified the `quarkus.native.resources.include` like
+When running in the native mode, the contract files must be added to the native image via the `quarkus.native.resources.include` configuration property.
 
 [source,properties]
 ----
 quarkus.native.resources.includes=contract.json
 ----
-
 
 
 [id="extensions-rest-openapi-additional-camel-quarkus-configuration"]
