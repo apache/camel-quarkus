@@ -36,10 +36,11 @@ Currently, it can work with `quarkus-artemis-jms`, `quarkus-qpid-jms` and `ibmmq
 Pooling is enabled by default.
 [NOTE]
 ====
-`clientID` and `durableSubscriptionName` are not supported in pooling connections. If `setClientID` is called on a `reused` connection from the pool, an `IllegalStateException` will be thrown. You will get some error messages such like `Cause: setClientID can only be called directly after the connection is created`
+`clientID` and `durableSubscriptionName` are not supported in pooled connections. If `setClientID` is called on a reused connection from the pool, an `IllegalStateException` will be thrown. You will get error messages like `Cause: setClientID can only be called directly after the connection is created`.
 ====
 
 To enable XA, you need to add `quarkus-narayana-jta` extension:
+
 [source,xml]
 ----
 <dependency>
@@ -47,16 +48,19 @@ To enable XA, you need to add `quarkus-narayana-jta` extension:
     <artifactId>quarkus-narayana-jta</artifactId>
 </dependency>
 ----
-and add the following configuration to your `application.properties`:
+
+Also add the following configuration to your `application.properties`:
+
 [source,properties]
 ----
 quarkus.pooled-jms.transaction=xa
 quarkus.transaction-manager.enable-recovery=true
 ----
 
-XA support is only available with `quarkus-artemis-jms` and `ibmmq-client`. Also We highly recommend to enable transaction recovery.
+XA support is only available with `quarkus-artemis-jms` and `ibmmq-client`. We highly recommend to enable transaction recovery.
 
-Since there is no quarkus extension for `ibmmq-client` currently, you need to create a custom `ConnectionFactory` and wrap it by yourself. Here is an example:
+Since there is no quarkus extension for `ibmmq-client`, you need to create a custom `ConnectionFactory` and wrap it by yourself. Here is an example:
+
 [source,java]
 ----
 @Produces
@@ -81,7 +85,8 @@ public ConnectionFactory createXAConnectionFactory(PooledJmsWrapper wrapper) {
 
 [NOTE]
 ====
-If you use `ibmmq-client` to consume messages and enable XA, you need to configure `TransactionManager` in the camel route like this:
+If you use `ibmmq-client` to consume messages and enable XA, you need to configure a `TransactionManager` in the camel route like this:
+
 [source,java]
 ----
 @Inject

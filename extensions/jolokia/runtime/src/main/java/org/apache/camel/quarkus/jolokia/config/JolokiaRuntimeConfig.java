@@ -40,20 +40,20 @@ public interface JolokiaRuntimeConfig {
 
     /**
      * Arbitrary Jolokia configuration options. These are described at the
-     * <a href="https://jolokia.org/reference/html/manual/agents.html">Jolokia documentation</a>.
-     * Options can be configured like {@code quarkus.camel.jolokia.additional-properties."debug"=true}.
+     * https://jolokia.org/reference/html/manual/agents.html[Jolokia documentation].
+     * Options can be configured like `quarkus.camel.jolokia.additional-properties."debug"=true`.
      */
     Map<String, String> additionalProperties();
 
     /**
      * When {@code true}, a Jolokia restrictor is registered that limits MBean read, write and operation execution to the
      * following MBean domains.
-     * <ul>
-     * <li>org.apache.camel</li>
-     * <li>java.lang</li>
-     * <li>java.nio</li>
-     * </ul>
-     * Note that this option has no effect if quarkus.camel.jolokia.additional-properties."restrictorClass" is set.
+     *
+     * * org.apache.camel
+     * * java.lang
+     * * java.nio
+     *
+     * Note that this option has no effect if `quarkus.camel.jolokia.additional-properties."restrictorClass"` is set.
      */
     @WithDefault("true")
     boolean registerCamelRestrictor();
@@ -61,8 +61,8 @@ public interface JolokiaRuntimeConfig {
     interface Server {
         /**
          * Whether the Jolokia agent HTTP server should be started automatically.
-         * When set to {@code false}, it is the user responsibility to start the server.
-         * This can be done via {@code @Inject CamelQuarkusJolokiaServer} and then invoking the start() method.
+         * When set to `false`, it is the user responsibility to start the server.
+         * This can be done via `@Inject CamelQuarkusJolokiaServer` and then invoking the `start()` method.
          */
         @WithDefault("true")
         boolean autoStart();
@@ -81,9 +81,9 @@ public interface JolokiaRuntimeConfig {
         int port();
 
         /**
-         * The mode in which Jolokia agent discovery is enabled. The default {@code dev-test}, enables discovery only in dev and
+         * The mode in which Jolokia agent discovery is enabled. The default `dev-test`, enables discovery only in dev and
          * test modes.
-         * A value of {@code all} enables agent discovery in dev, test and prod modes. Setting the value to {@code none} will
+         * A value of `all` enables agent discovery in dev, test and prod modes. Setting the value to `none` will
          * disable agent discovery in all modes.
          */
         @WithDefault("DEV_TEST")

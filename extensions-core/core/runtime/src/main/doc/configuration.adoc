@@ -5,9 +5,9 @@ When using the OGNL notation from the simple language, the `camel-quarkus-bean` 
 
 For instance, the simple expression below is accessing the `getAddress()` method on the message body of type `Client`.
 [source,java]
----
+----
 simple("${body.address}")
----
+----
 
 In such a situation, one should take an additional dependency on the camel-quarkus-bean extension xref:{cq-camel-components}::bean-component.adoc[as described here].
 Note that in native mode, some classes may need to be registered for reflection. In the example above, the `Client` class
@@ -25,9 +25,9 @@ It may be needed to register some classes for reflection manually.
 
 For instance, the simple expression below is dynamically resolving the type `java.nio.ByteBuffer` at runtime:
 [source,java]
----
+----
 simple("${body} is 'java.nio.ByteBuffer'")
----
+----
 
 As such, the class `java.nio.ByteBuffer` needs to be link:https://quarkus.io/guides/writing-native-applications-tips#registering-for-reflection[registered for reflection].
 

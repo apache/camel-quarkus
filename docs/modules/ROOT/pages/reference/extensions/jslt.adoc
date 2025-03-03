@@ -80,6 +80,8 @@ More information about selecting resources for inclusion in the native executabl
 === Using JSLT functions in native mode
 
 When using JSLT functions from camel-quarkus in native mode, the classes hosting the functions would need to be link:https://quarkus.io/guides/writing-native-applications-tips#registering-for-reflection[registered for reflection]. When registering the target function is not possible, one may end up writing a stub as below.
+
+[source,java]
 ----
 @RegisterForReflection
 public class MathFunctionStub {
@@ -90,6 +92,8 @@ public class MathFunctionStub {
 ----
 
 The target function `Math.pow(...)` is now accessible through the `MathFunctionStub` class that could be registered in the component as below:
+
+[source,java]
 ----
 @Named
 JsltComponent jsltWithFunction() throws ClassNotFoundException {

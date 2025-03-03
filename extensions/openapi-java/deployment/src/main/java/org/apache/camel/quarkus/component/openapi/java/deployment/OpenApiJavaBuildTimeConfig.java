@@ -34,7 +34,7 @@ interface OpenApiJavaBuildTimeConfig {
     interface Exposure {
         /**
          * When set to true, Camel REST DSL OpenAPI specifications are exposed under the Quarkus OpenAPI HTTP endpoint
-         * (/q/openapi). This requires quarkus-smallrye-openapi to be added to your application.
+         * (`/q/openapi`). This requires `quarkus-smallrye-openapi` to be added to your application.
          */
         @WithDefault("false")
         boolean enabled();

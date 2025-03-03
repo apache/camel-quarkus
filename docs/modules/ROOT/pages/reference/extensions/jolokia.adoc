@@ -198,18 +198,18 @@ The context path that the Jolokia agent is deployed under.
 
 a|icon:lock[title=Fixed at build time] [[quarkus.camel.jolokia.register-management-endpoint]]`link:#quarkus.camel.jolokia.register-management-endpoint[quarkus.camel.jolokia.register-management-endpoint]`
 
-Whether to register a Quarkus management endpoint for Jolokia (default /q/jolokia).
+Whether to register a Quarkus management endpoint for Jolokia (default `/q/jolokia`).
 When enabled this activates a management endpoint which will be accessible on a path relative to
-${quarkus.http.non-application-root-path}/${quarkus.camel.jolokia.server.path}.
+`${quarkus.http.non-application-root-path}/${quarkus.camel.jolokia.server.path}`.
 If the management interface is enabled, the value will be resolved as a path relative to
-${quarkus.management.root-path}/${quarkus.camel.jolokia.server.path}. Note that for this feature to work you must
-have quarkus-vertx-http on the application classpath.
+`${quarkus.management.root-path}/${quarkus.camel.jolokia.server.path}`. Note that for this feature to work you must
+have `quarkus-vertx-http` on the application classpath.
 | `boolean`
 | `true`
 
 a|icon:lock[title=Fixed at build time] [[quarkus.camel.jolokia.camel-restrictor-allowed-mbean-domains]]`link:#quarkus.camel.jolokia.camel-restrictor-allowed-mbean-domains[quarkus.camel.jolokia.camel-restrictor-allowed-mbean-domains]`
 
-Comma separated list of allowed MBean domains used by CamelJolokiaRestrictor.
+Comma separated list of allowed MBean domains used by `CamelJolokiaRestrictor`.
 | List of `string`
 | `org.apache.camel,java.lang,java.nio`
 
@@ -223,8 +223,8 @@ be added to the generated Kubernetes manifests within the container spec ports d
 a| [[quarkus.camel.jolokia.server.auto-start]]`link:#quarkus.camel.jolokia.server.auto-start[quarkus.camel.jolokia.server.auto-start]`
 
 Whether the Jolokia agent HTTP server should be started automatically.
-When set to {@code false}, it is the user responsibility to start the server.
-This can be done via {@code @Inject CamelQuarkusJolokiaServer} and then invoking the start() method.
+When set to `false`, it is the user responsibility to start the server.
+This can be done via `@Inject CamelQuarkusJolokiaServer` and then invoking the `start()` method.
 | `boolean`
 | `true`
 
@@ -244,9 +244,9 @@ The port on which the Jolokia agent HTTP server should listen on.
 
 a| [[quarkus.camel.jolokia.server.discovery-enabled-mode]]`link:#quarkus.camel.jolokia.server.discovery-enabled-mode[quarkus.camel.jolokia.server.discovery-enabled-mode]`
 
-The mode in which Jolokia agent discovery is enabled. The default {@code dev-test}, enables discovery only in dev and
+The mode in which Jolokia agent discovery is enabled. The default `dev-test`, enables discovery only in dev and
 test modes.
-A value of {@code all} enables agent discovery in dev, test and prod modes. Setting the value to {@code none} will
+A value of `all` enables agent discovery in dev, test and prod modes. Setting the value to `none` will
 disable agent discovery in all modes.
 | `all`, `dev-test`, `none`
 | `dev-test`
@@ -273,8 +273,8 @@ The principal which must be given in a client certificate to allow access to Jol
 a| [[quarkus.camel.jolokia.additional-properties.-additional-properties]]`link:#quarkus.camel.jolokia.additional-properties.-additional-properties[quarkus.camel.jolokia.additional-properties."additional-properties"]`
 
 Arbitrary Jolokia configuration options. These are described at the
-<a href="https://jolokia.org/reference/html/manual/agents.html">Jolokia documentation</a>.
-Options can be configured like {@code quarkus.camel.jolokia.additional-properties."debug"=true}.
+https://jolokia.org/reference/html/manual/agents.html[Jolokia documentation].
+Options can be configured like `quarkus.camel.jolokia.additional-properties."debug"=true`.
 | `Map<String,String>`
 | 
 
@@ -282,12 +282,12 @@ a| [[quarkus.camel.jolokia.register-camel-restrictor]]`link:#quarkus.camel.jolok
 
 When {@code true}, a Jolokia restrictor is registered that limits MBean read, write and operation execution to the
 following MBean domains.
-<ul>
-<li>org.apache.camel</li>
-<li>java.lang</li>
-<li>java.nio</li>
-</ul>
-Note that this option has no effect if quarkus.camel.jolokia.additional-properties."restrictorClass" is set.
+
+* org.apache.camel
+* java.lang
+* java.nio
+
+Note that this option has no effect if `quarkus.camel.jolokia.additional-properties."restrictorClass"` is set.
 | `boolean`
 | `true`
 |===

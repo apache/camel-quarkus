@@ -31,15 +31,15 @@ public interface CamelConsoleConfig {
     boolean enabled();
 
     /**
-     * The context path under which the Camel developer console is deployed (default /q/camel/dev-console).
+     * The context path under which the Camel developer console is deployed (default `/q/camel/dev-console`).
      */
     @WithDefault("camel/dev-console")
     String path();
 
     /**
-     * The modes in which the Camel developer console is available. The default {@code dev-test} enables the developer
+     * The modes in which the Camel developer console is available. The default `dev-test` enables the developer
      * console only in dev mode and test modes.
-     * A value of {@code all} enables agent discovery in dev, test and prod modes. Setting the value to {@code none} will
+     * A value of `all` enables agent discovery in dev, test and prod modes. Setting the value to `none` will
      * not expose the developer console HTTP endpoint.
      */
     @WithDefault("DEV_TEST")
