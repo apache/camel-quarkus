@@ -60,6 +60,40 @@ public class SmbTest {
     }
 
     @Test
+    public void testSendReceiveWithPath() {
+
+        RestAssured.given()
+                .body("Hello from directory 1")
+                .queryParam("path", "dir1")
+                .post("/smb/send/hello.doc")
+                .then()
+                .statusCode(204);
+
+        RestAssured.given()
+                .body("Hello from directory 2")
+                .queryParam("path", "dir2")
+                .post("/smb/send/hello.doc")
+                .then()
+                .statusCode(204);
+
+        RestAssured.given()
+                .body("hello.doc")
+                .queryParam("path", "dir1")
+                .post("/smb/receive")
+                .then()
+                .statusCode(200)
+                .body(Matchers.equalTo("Hello from directory 1"));
+
+        RestAssured.given()
+                .body("hello.doc")
+                .queryParam("path", "dir2")
+                .post("/smb/receive")
+                .then()
+                .statusCode(200)
+                .body(Matchers.equalTo("Hello from directory 2"));
+    }
+
+    @Test
     public void testFileExistsOverride() {
 
         RestAssured.given()

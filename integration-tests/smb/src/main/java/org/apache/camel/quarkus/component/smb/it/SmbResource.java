@@ -73,8 +73,13 @@ public class SmbResource {
     @Path("/send/{fileName}")
     public void send(String content,
             @PathParam("fileName") String fileName,
-            @QueryParam("fileExist") String fileExist) throws Exception {
-        if (fileExist == null || fileExist.isEmpty()) {
+            @QueryParam("fileExist") String fileExist,
+            @QueryParam("path") String path) throws Exception {
+        if (path != null && !path.isEmpty()) {
+            producer.sendBodyAndHeader(
+                    "smb:%s:%s/%s?username=%s&password=%s&path=%s".formatted(host, port, share, username, password, path),
+                    content, Exchange.FILE_NAME, fileName);
+        } else if (fileExist == null || fileExist.isEmpty()) {
             producer.sendBodyAndHeader("direct:send", content, Exchange.FILE_NAME, fileName);
         } else {
             producer.sendBodyAndHeaders("direct:send", content, Map.of(SmbConstants.SMB_FILE_EXISTS, fileExist,
@@ -84,10 +89,16 @@ public class SmbResource {
 
     @POST
     @Path("/receive")
-    public String receive(String fileName) throws Exception {
+    public String receive(String fileName,
+            @QueryParam("path") String path) throws Exception {
 
-        String uri = String.format("smb:%s:%s/%s?username=%s&password=%s&searchPattern=%s&path=/", host, port, share,
+        String uri = String.format("smb:%s:%s/%s?username=%s&password=%s&searchPattern=%s&path=", host, port, share,
                 username, password, fileName);
+        if (path != null && !path.isEmpty()) {
+            uri = uri + path;
+        } else {
+            uri = uri + "/";
+        }
         var shareFile = consumer.receiveBody(uri, SmbFile.class);
         return new String((byte[]) shareFile.getBody(), "UTF-8");
     }
