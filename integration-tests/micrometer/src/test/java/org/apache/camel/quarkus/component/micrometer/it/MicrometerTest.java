@@ -34,7 +34,6 @@ import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import org.awaitility.Awaitility;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -211,7 +210,6 @@ class MicrometerTest extends AbstractMicrometerTest {
                 Matchers.is("1"));
     }
 
-    @Disabled("https://github.com/apache/camel-quarkus/issues/6984")
     @ParameterizedTest
     @ValueSource(strings = { "metrics", "org.apache.camel.micrometer" }) //test uses domains from both default and custom JMX registries
     @DisabledOnIntegrationTest("https://github.com/apache/camel-quarkus/issues/5209")
