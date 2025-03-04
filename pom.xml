@@ -221,6 +221,7 @@
         <!-- Test container image properties -->
         <activemq.container.image>mirror.gcr.io/rmohr/activemq:5.15.9-alpine</activemq.container.image>
         <arangodb.container.image>mirror.gcr.io/arangodb:3.12.0</arangodb.container.image>
+        <azure-sql-edge.container.image>mcr.microsoft.com/azure-sql-edge:latest</azure-sql-edge.container.image>
         <azurite.container.image>mcr.microsoft.com/azure-storage/azurite:3.33.0</azurite.container.image>
         <calculator-ws.container.image>quay.io/l2x6/calculator-ws:1.2</calculator-ws.container.image>
         <cassandra.container.image>mirror.gcr.io/cassandra:5.0.2</cassandra.container.image>
@@ -254,6 +255,7 @@
         <qdrant.container.image>mirror.gcr.io/qdrant/qdrant:v1.9.7-unprivileged</qdrant.container.image>
         <rabbitmq.container.image>mirror.gcr.io/rabbitmq:3.13.7-management-alpine</rabbitmq.container.image>
         <redis.container.image>mirror.gcr.io/redis:6.2.14-alpine</redis.container.image>
+        <servicebus-emulator.container.image>mcr.microsoft.com/azure-messaging/servicebus-emulator:latest</servicebus-emulator.container.image>
         <smb.container.image>quay.io/jamesnetherton/camel-smb-test-server:1.0.0</smb.container.image>
         <solr.container.image>mirror.gcr.io/solr:9.8.0-slim</solr.container.image>
         <splunk.container.image>mirror.gcr.io/splunk/splunk:9.3.1</splunk.container.image>

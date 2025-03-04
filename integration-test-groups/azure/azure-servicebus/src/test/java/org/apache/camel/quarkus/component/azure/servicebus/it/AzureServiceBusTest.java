@@ -29,15 +29,18 @@ import com.azure.core.amqp.AmqpTransportType;
 import com.azure.core.util.BinaryData;
 import com.azure.messaging.servicebus.ServiceBusClientBuilder;
 import com.azure.messaging.servicebus.ServiceBusProcessorClient;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.apache.camel.quarkus.test.EnabledIf;
+import org.apache.camel.quarkus.test.mock.backend.MockBackendDisabled;
+import org.apache.camel.quarkus.test.support.azure.AzureServiceBusTestResource;
 import org.awaitility.Awaitility;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -45,9 +48,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.is;
 
-@EnabledIfEnvironmentVariable(named = "AZURE_SERVICEBUS_CONNECTION_STRING", matches = ".+")
-@EnabledIfEnvironmentVariable(named = "AZURE_SERVICEBUS_QUEUE_NAME", matches = ".+")
 @QuarkusTest
+@QuarkusTestResource(AzureServiceBusTestResource.class)
 class AzureServiceBusTest {
     // NOTE: Consumer endpoints are started / stopped manually to prevent them from inferring with each other
 
@@ -55,6 +57,11 @@ class AzureServiceBusTest {
 
     @BeforeAll
     public static void beforeAll() {
+        //this is not necessary for mocked testing
+        if (AzureServiceBusHelper.isMockBackEnd()) {
+            return;
+        }
+
         // Drain the test queue in case there are messages lingering from previous failed runs
         ServiceBusProcessorClient client = new ServiceBusClientBuilder()
                 .connectionString(AzureServiceBusHelper.getConnectionString())
@@ -135,9 +142,8 @@ class AzureServiceBusTest {
         final List<String> messages = new ArrayList<>();
 
         for (int i = 0; i < 3; i++) {
-            messages.add(UUID.randomUUID().toString());
+            messages.add("cq-azure-servicebus-test-" + UUID.randomUUID().toString());
         }
-
         try {
             RestAssured.given()
                     .post("/azure-servicebus/route/" + consumerRouteId + "/start")
@@ -213,6 +219,7 @@ class AzureServiceBusTest {
     }
 
     @Test
+    @EnabledIf({ MockBackendDisabled.class }) //only connection string is enabled on emulator, see https://github.com/Azure/azure-service-bus-emulator-installer/issues/30#issuecomment-2500163047
     void tokenCredentialAuthentication() {
         final String messageBody = UUID.randomUUID().toString();
         try {
@@ -306,6 +313,7 @@ class AzureServiceBusTest {
         }
     }
 
+    @EnabledIf({ MockBackendDisabled.class }) //only connection string is enabled on emulator, see https://github.com/Azure/azure-service-bus-emulator-installer/issues/30#issuecomment-2500163047
     @Test
     void azureIdentityCredentials() {
         Assumptions.assumeTrue(AzureServiceBusHelper.isAzureIdentityCredentialsAvailable());
@@ -357,7 +365,13 @@ class AzureServiceBusTest {
 
         String[] payloadTypes = { String.class.getSimpleName(), byte[].class.getSimpleName(),
                 BinaryData.class.getSimpleName() };
-        AmqpTransportType[] transportTypes = AmqpTransportType.values();
+        //in mocked backend, the  AMQP_WEB_SOCKET is not supported, see https://github.com/Azure/azure-service-bus-emulator-installer/issues/51
+        AmqpTransportType[] transportTypes;
+        if (AzureServiceBusHelper.isMockBackEnd()) {
+            transportTypes = new AmqpTransportType[] { AmqpTransportType.AMQP };
+        } else {
+            transportTypes = AmqpTransportType.values();
+        }
         return Stream.of(destinationTypes.split(","))
                 .flatMap(s1 -> Stream.of(transportTypes)
                         .flatMap(s2 -> Stream.of(payloadTypes)
