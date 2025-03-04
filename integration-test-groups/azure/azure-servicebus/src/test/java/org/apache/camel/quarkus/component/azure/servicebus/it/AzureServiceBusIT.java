@@ -17,10 +17,7 @@
 package org.apache.camel.quarkus.component.azure.servicebus.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
-@EnabledIfEnvironmentVariable(named = "AZURE_SERVICEBUS_CONNECTION_STRING", matches = ".+")
-@EnabledIfEnvironmentVariable(named = "AZURE_SERVICEBUS_QUEUE_NAME", matches = ".+")
 @QuarkusIntegrationTest
 class AzureServiceBusIT extends AzureServiceBusTest {
 }
