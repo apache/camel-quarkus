@@ -52,7 +52,7 @@ endif::[]
 | Configuration property | Type | Default
 
 
-| [[quarkus.camel.telemetrydev.exclude-patterns]]`link:#quarkus.camel.telemetrydev.exclude-patterns[quarkus.camel.telemetryDev.exclude-patterns]`
+a| [[quarkus.camel.telemetrydev.exclude-patterns]]`link:#quarkus.camel.telemetrydev.exclude-patterns[quarkus.camel.telemetryDev.exclude-patterns]`
 
 Sets whether to disable tracing for endpoint URIs or Processor ids that match the given comma separated patterns. The
 pattern can take the following forms:
@@ -65,14 +65,14 @@ pattern can take the following forms:
 | `string`
 | 
 
-| [[quarkus.camel.telemetrydev.trace-processors]]`link:#quarkus.camel.telemetrydev.trace-processors[quarkus.camel.telemetryDev.trace-processors]`
+a| [[quarkus.camel.telemetrydev.trace-processors]]`link:#quarkus.camel.telemetrydev.trace-processors[quarkus.camel.telemetryDev.trace-processors]`
 
 Sets whether to create new OpenTelemetry spans for each Camel Processor. Use the excludePatterns property to filter
 out Processors.
 | `boolean`
 | `false`
 
-| [[quarkus.camel.telemetrydev.trace-format]]`link:#quarkus.camel.telemetrydev.trace-format[quarkus.camel.telemetryDev.trace-format]`
+a| [[quarkus.camel.telemetrydev.trace-format]]`link:#quarkus.camel.telemetrydev.trace-format[quarkus.camel.telemetryDev.trace-format]`
 
 The output format for traces
 | `string`
