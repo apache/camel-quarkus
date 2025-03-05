@@ -16,7 +16,9 @@
  */
 package org.apache.camel.quarkus.component.kubernetes.it;
 
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.Base64;
 import java.util.Map;
 
 import io.fabric8.kubernetes.api.model.Secret;
@@ -28,18 +30,17 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 
-@Disabled("https://github.com/apache/camel-quarkus/issues/7042")
 @TestProfile(KubernetesSecretContextReloadTest.KubernetesSecretContextReloadTestProfile.class)
 @QuarkusTest
 class KubernetesSecretContextReloadTest {
     @Test
     void secretTriggersCamelContextReload() throws Exception {
-        Map<String, String> data = Map.of("project-name", "Camel");
+        Map<String, String> data = Map.of("project-name",
+                Base64.getEncoder().encodeToString("Camel".getBytes(StandardCharsets.UTF_8)));
 
         String name = ConfigProvider.getConfig().getValue("camel.vault.kubernetes.secrets", String.class);
         Secret secret = new SecretBuilder()
@@ -72,10 +73,19 @@ class KubernetesSecretContextReloadTest {
                             "data.project-name", is(data.get("project-name")));
 
             // Need to delay before updating the secret so that the reload trigger task can capture the event
-            Thread.sleep(500);
+            Awaitility.await().pollDelay(Duration.ofSeconds(1)).pollInterval(Duration.ofMillis(250))
+                    .atMost(Duration.ofMinutes(1)).untilAsserted(() -> {
+                        RestAssured.given()
+                                .when()
+                                .get("/kubernetes/secret/" + namespace + "/" + name)
+                                .then()
+                                .statusCode(200)
+                                .body("metadata.name", is(name));
+                    });
 
             // Update to trigger context reload
-            Map<String, String> newData = Map.of("project-name", "Apache Camel Quarkus");
+            Map<String, String> newData = Map.of("project-name",
+                    Base64.getEncoder().encodeToString("Apache Camel Quarkus".getBytes(StandardCharsets.UTF_8)));
             secret.setData(newData);
             RestAssured.given()
                     .contentType(ContentType.JSON)

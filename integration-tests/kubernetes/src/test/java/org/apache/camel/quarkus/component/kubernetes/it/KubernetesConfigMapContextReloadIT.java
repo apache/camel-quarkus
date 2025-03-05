@@ -16,10 +16,8 @@
  */
 package org.apache.camel.quarkus.component.kubernetes.it;
 
-import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Disabled;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@Disabled("https://github.com/apache/camel-quarkus/issues/7042")
-@QuarkusTest
+@QuarkusIntegrationTest
 class KubernetesConfigMapContextReloadIT extends KubernetesConfigMapContextReloadTest {
 }

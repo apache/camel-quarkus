@@ -31,8 +31,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.kubernetes.client.KubernetesTestServer;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.apache.camel.quarkus.test.EnabledIf;
-import org.apache.camel.quarkus.test.mock.backend.MockBackendEnabled;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 
@@ -86,36 +84,88 @@ class KubernetesDeploymentTest {
                     .body("metadata.name", is(name),
                             "metadata.namespace", is(namespace.getNamespace()));
 
-            // TODO: Remove the if block when 23b7f03878faf906e81932e2c92fd3dceef666a6 is present in camel
-            // https://github.com/apache/camel-quarkus/issues/7011
-            if (false) {
-                // Read
-                Deployment currentDeployment = RestAssured.given()
+            // Read
+            Deployment currentDeployment = RestAssured.given()
+                    .when()
+                    .get("/kubernetes/deployment/" + namespace.getNamespace() + "/" + name)
+                    .then()
+                    .statusCode(200)
+                    .body("metadata.name", is(name),
+                            "metadata.namespace", is(namespace.getNamespace()))
+                    .extract()
+                    .as(Deployment.class);
+
+            // Update
+            int value = 120;
+            Deployment updatedDeployment = new DeploymentBuilder(currentDeployment)
+                    .editSpec()
+                    .withMinReadySeconds(value)
+                    .endSpec()
+                    .build();
+
+            RestAssured.given()
+                    .contentType(ContentType.JSON)
+                    .body(updatedDeployment)
+                    .when()
+                    .put("/kubernetes/deployment/" + namespace.getNamespace())
+                    .then()
+                    .statusCode(200)
+                    .body("spec.minReadySeconds", is(value));
+
+            Awaitility.await().pollInterval(Duration.ofMillis(250)).atMost(Duration.ofMinutes(1)).untilAsserted(() -> {
+                RestAssured.given()
                         .when()
                         .get("/kubernetes/deployment/" + namespace.getNamespace() + "/" + name)
                         .then()
                         .statusCode(200)
-                        .body("metadata.name", is(name),
-                                "metadata.namespace", is(namespace.getNamespace()))
-                        .extract()
-                        .as(Deployment.class);
-
-                // Update
-                int value = 120;
-                Deployment updatedDeployment = new DeploymentBuilder(currentDeployment)
-                        .editSpec()
-                        .withMinReadySeconds(value)
-                        .endSpec()
-                        .build();
-
-                RestAssured.given()
-                        .contentType(ContentType.JSON)
-                        .body(updatedDeployment)
-                        .when()
-                        .put("/kubernetes/deployment/" + namespace.getNamespace())
-                        .then()
-                        .statusCode(200)
                         .body("spec.minReadySeconds", is(value));
+            });
+
+            if (mockServer != null) {
+                mockServer.expect()
+                        .get()
+                        .withPath("/apis/apps/v1/namespaces/" + namespace.getNamespace() + "/deployments")
+                        .andReturn(200, new DeploymentListBuilder().addAllToItems(List.of(updatedDeployment)).build())
+                        .once();
+
+                mockServer.expect()
+                        .get()
+                        .withPath(
+                                "/apis/apps/v1/namespaces/" + namespace.getNamespace() + "/deployments?labelSelector=app%3D"
+                                        + name)
+                        .andReturn(200, new DeploymentListBuilder().addAllToItems(List.of(updatedDeployment)).build())
+                        .once();
+            }
+
+            // List
+            RestAssured.given()
+                    .when()
+                    .get("/kubernetes/deployment/" + namespace.getNamespace())
+                    .then()
+                    .statusCode(200)
+                    .body("[0].metadata.name", is(name),
+                            "[0].metadata.namespace", is(namespace.getNamespace()));
+
+            // List by labels
+            RestAssured.given()
+                    .contentType(ContentType.JSON)
+                    .body(Map.of("app", name))
+                    .when()
+                    .get("/kubernetes/deployment/labels/" + namespace.getNamespace())
+                    .then()
+                    .statusCode(200)
+                    .body("[0].metadata.name", is(name),
+                            "[0].metadata.namespace", is(namespace.getNamespace()));
+
+            // Scale
+            // Requires a real k8s server, as the scale operation returns deployment.getStatus().getReplicas() that is not available in the mock server
+            if (mockServer == null) {
+                int scaleReplicas = 1;
+                RestAssured.given()
+                        .when()
+                        .post("/kubernetes/deployment/" + namespace.getNamespace() + "/" + name + "/" + scaleReplicas)
+                        .then()
+                        .statusCode(201);
 
                 Awaitility.await().pollInterval(Duration.ofMillis(250)).atMost(Duration.ofMinutes(1)).untilAsserted(() -> {
                     RestAssured.given()
@@ -123,63 +173,8 @@ class KubernetesDeploymentTest {
                             .get("/kubernetes/deployment/" + namespace.getNamespace() + "/" + name)
                             .then()
                             .statusCode(200)
-                            .body("spec.minReadySeconds", is(value));
+                            .body("spec.replicas", is(scaleReplicas));
                 });
-
-                String listNamespace = mockServer == null ? namespace.getNamespace() : "test";
-                if (mockServer != null) {
-                    mockServer.expect()
-                            .get()
-                            .withPath("/apis/apps/v1/namespaces/" + listNamespace + "/deployments")
-                            .andReturn(200, new DeploymentListBuilder().addAllToItems(List.of(updatedDeployment)).build())
-                            .once();
-
-                    mockServer.expect()
-                            .get()
-                            .withPath("/apis/apps/v1/namespaces/" + listNamespace + "/deployments?labelSelector=app%3D" + name)
-                            .andReturn(200, new DeploymentListBuilder().addAllToItems(List.of(updatedDeployment)).build())
-                            .once();
-                }
-
-                // List
-                RestAssured.given()
-                        .when()
-                        .get("/kubernetes/deployment/" + listNamespace)
-                        .then()
-                        .statusCode(200)
-                        .body("[0].metadata.name", is(name),
-                                "[0].metadata.namespace", is(namespace.getNamespace()));
-
-                // List by labels
-                RestAssured.given()
-                        .contentType(ContentType.JSON)
-                        .body(Map.of("app", name))
-                        .when()
-                        .get("/kubernetes/deployment/labels/" + listNamespace)
-                        .then()
-                        .statusCode(200)
-                        .body("[0].metadata.name", is(name),
-                                "[0].metadata.namespace", is(namespace.getNamespace()));
-
-                // Scale
-                // Requires a real k8s server, as the scale operation returns deployment.getStatus().getReplicas() that is not available in the mock server
-                if (mockServer == null) {
-                    int scaleReplicas = 1;
-                    RestAssured.given()
-                            .when()
-                            .post("/kubernetes/deployment/" + namespace.getNamespace() + "/" + name + "/" + scaleReplicas)
-                            .then()
-                            .statusCode(201);
-
-                    Awaitility.await().pollInterval(Duration.ofMillis(250)).atMost(Duration.ofMinutes(1)).untilAsserted(() -> {
-                        RestAssured.given()
-                                .when()
-                                .get("/kubernetes/deployment/" + namespace.getNamespace() + "/" + name)
-                                .then()
-                                .statusCode(200)
-                                .body("spec.replicas", is(scaleReplicas));
-                    });
-                }
             }
 
             // Delete
@@ -202,7 +197,6 @@ class KubernetesDeploymentTest {
         }
     }
 
-    @EnabledIf(MockBackendEnabled.class)
     @Test
     void deploymentEvents() throws Exception {
         try (CamelKubernetesNamespace namespace = new CamelKubernetesNamespace()) {

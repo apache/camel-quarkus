@@ -28,8 +28,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.kubernetes.client.KubernetesTestServer;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.apache.camel.quarkus.test.EnabledIf;
-import org.apache.camel.quarkus.test.mock.backend.MockBackendEnabled;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 
@@ -137,7 +135,6 @@ class KubernetesConfigMapTest {
         }
     }
 
-    @EnabledIf(MockBackendEnabled.class)
     @Test
     void configMapEvents() throws Exception {
         try (CamelKubernetesNamespace namespace = new CamelKubernetesNamespace()) {
@@ -172,16 +169,18 @@ class KubernetesConfigMapTest {
                     .then()
                     .statusCode(204);
 
-            RestAssured.given()
-                    .contentType(ContentType.JSON)
-                    .body(data)
-                    .when()
-                    .post("/kubernetes/configmap/" + namespace.getNamespace() + "/camel-configmap-watched")
-                    .then()
-                    .statusCode(201)
-                    .body("metadata.name", is("camel-configmap-watched"),
-                            "metadata.namespace", is(namespace.getNamespace()),
-                            "data.some", is("data"));
+            Awaitility.await().pollInterval(Duration.ofMillis(250)).atMost(Duration.ofMinutes(1)).untilAsserted(() -> {
+                RestAssured.given()
+                        .contentType(ContentType.JSON)
+                        .body(data)
+                        .when()
+                        .post("/kubernetes/configmap/" + namespace.getNamespace() + "/camel-configmap-watched")
+                        .then()
+                        .statusCode(201)
+                        .body("metadata.name", is("camel-configmap-watched"),
+                                "metadata.namespace", is(namespace.getNamespace()),
+                                "data.some", is("data"));
+            });
 
             RestAssured.given()
                     .when()
@@ -189,13 +188,16 @@ class KubernetesConfigMapTest {
                     .then()
                     .statusCode(204);
 
-            RestAssured.given()
-                    .get("/kubernetes/configmap/events")
-                    .then()
-                    .statusCode(200)
-                    .body("metadata.name", is("camel-configmap-watched"),
-                            "metadata.namespace", is(namespace.getNamespace()),
-                            "data.some", is("data"));
+            Awaitility.await().pollInterval(Duration.ofMillis(250)).atMost(Duration.ofMinutes(1)).untilAsserted(() -> {
+                RestAssured.given()
+                        .get("/kubernetes/configmap/events")
+                        .then()
+                        .statusCode(200)
+                        .body("metadata.name", is("camel-configmap-watched"),
+                                "metadata.namespace", is(namespace.getNamespace()),
+                                "data.some", is("data"));
+
+            });
         } finally {
             RestAssured.given()
                     .when()
