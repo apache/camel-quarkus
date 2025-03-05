@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.pdf.it;
 import java.io.IOException;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.utilities.OS;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.pdfbox.Loader;
@@ -26,6 +27,8 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
@@ -35,6 +38,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 class PdfTest {
+
+    @BeforeEach
+    public void beforeEach() {
+        // Disable tests on GitHub Actions Windows runners. Font cache building is too slow and restoring saved caches is too unreliable
+        Assumptions.assumeFalse(OS.determineOS().equals(OS.WINDOWS) && "true".equals(System.getenv("CI")));
+    }
 
     @Order(1)
     @Test

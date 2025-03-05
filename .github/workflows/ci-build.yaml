@@ -532,12 +532,6 @@ jobs:
         run: |
           tar -xzf ../maven-repo.tgz -C ~
           rm -f ../maven-repo.tgz
-      - name: PDFBox font cache
-        uses: actions/cache@d4323d4df104b026a6aa633fdb11d772146be0bf # v4.2.2
-        if: runner.os == 'Windows'
-        with:
-          path: ~/.pdfbox.cache
-          key: ${{ runner.os }}-pdfbox-cache
       - name: cd integration-tests && mvn clean verify
         shell: bash
         run: |
