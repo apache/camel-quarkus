@@ -280,7 +280,7 @@ Options can be configured like `quarkus.camel.jolokia.additional-properties."deb
 
 a| [[quarkus.camel.jolokia.register-camel-restrictor]]`link:#quarkus.camel.jolokia.register-camel-restrictor[quarkus.camel.jolokia.register-camel-restrictor]`
 
-When {@code true}, a Jolokia restrictor is registered that limits MBean read, write and operation execution to the
+When `true`, a Jolokia restrictor is registered that limits MBean read, write and operation execution to the
 following MBean domains.
 
 * org.apache.camel
