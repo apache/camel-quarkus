@@ -46,7 +46,7 @@ public interface JolokiaRuntimeConfig {
     Map<String, String> additionalProperties();
 
     /**
-     * When {@code true}, a Jolokia restrictor is registered that limits MBean read, write and operation execution to the
+     * When `true`, a Jolokia restrictor is registered that limits MBean read, write and operation execution to the
      * following MBean domains.
      *
      * * org.apache.camel
