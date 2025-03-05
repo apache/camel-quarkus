@@ -164,6 +164,19 @@ class PlatformHttpTest {
     }
 
     @Test
+    public void attachmentSimpleExpressions() {
+        final byte[] bytes = new byte[] { 0xc, 0x0, 0xf, 0xe, 0xb, 0xa, 0xb, 0xe };
+        final byte[] returnedBytes = RestAssured.given().contentType("multipart/form-data")
+                .multiPart("file", "bytes.bin", bytes)
+                .formParam("description", "cofe babe")
+                .post("/platform-http/multipart/simple")
+                .then()
+                .statusCode(200)
+                .extract().body().asByteArray();
+        Assertions.assertArrayEquals(bytes, returnedBytes);
+    }
+
+    @Test
     public void formUrlEncoded() {
         RestAssured.given().contentType("application/x-www-form-urlencoded")
                 .formParam("k1", "v1")
