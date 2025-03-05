@@ -10,11 +10,11 @@
 :cq-description: Expose runtime metrics and management operations via JMX with Jolokia
 :cq-deprecated: false
 :cq-jvm-since: 3.19.0
-:cq-native-since: 3.19.0
+:cq-native-since: 3.20.0
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##3.19.0## [.badge-key]##Native since##[.badge-supported]##3.19.0##
+[.badge-key]##JVM since##[.badge-supported]##3.19.0## [.badge-key]##Native since##[.badge-supported]##3.20.0##
 endif::[]
 
 Expose runtime metrics and management operations via JMX with Jolokia
