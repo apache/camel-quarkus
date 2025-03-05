@@ -97,6 +97,9 @@ public class PlatformHttpRouteBuilder extends RouteBuilder {
                     }
                 });
 
+        from("platform-http:/platform-http/multipart/simple?httpMethodRestrict=POST")
+                .setBody().simple("${attachmentContentAsText(file)}");
+
         from("platform-http:/platform-http/form-urlencoded?httpMethodRestrict=POST")
                 .to("log:form-urlencoded")
                 .setBody(e -> ((Map<String, Object>) e.getMessage().getBody(Map.class)).entrySet().stream()
