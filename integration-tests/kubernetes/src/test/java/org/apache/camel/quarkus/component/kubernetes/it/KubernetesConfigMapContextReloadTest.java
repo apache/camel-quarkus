@@ -26,12 +26,10 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 
-@Disabled("https://github.com/apache/camel-quarkus/issues/7042")
 @TestProfile(KubernetesConfigMapContextReloadTest.KubernetesConfigMapContextReloadTestProfile.class)
 @QuarkusTest
 class KubernetesConfigMapContextReloadTest {
@@ -60,8 +58,16 @@ class KubernetesConfigMapContextReloadTest {
                             "metadata.namespace", is(namespace),
                             "data.foo", is("bar"));
 
-            // Need to delay before updating the secret so that the reload trigger task can capture the event
-            Thread.sleep(500);
+            // Need to delay before updating the ConfigMap so that the reload trigger task can capture the event
+            Awaitility.await().pollDelay(Duration.ofSeconds(1)).pollInterval(Duration.ofMillis(250))
+                    .atMost(Duration.ofMinutes(1)).untilAsserted(() -> {
+                        RestAssured.given()
+                                .when()
+                                .get("/kubernetes/configmap/" + namespace + "/" + name)
+                                .then()
+                                .statusCode(200)
+                                .body("metadata.name", is(name));
+                    });
 
             // Update to trigger context reload
             Map<String, String> updatedData = Map.of("bin", "baz");
