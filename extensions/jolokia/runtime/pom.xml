@@ -32,7 +32,7 @@
 
     <properties>
         <camel.quarkus.jvmSince>3.19.0</camel.quarkus.jvmSince>
-        <camel.quarkus.nativeSince>3.19.0</camel.quarkus.nativeSince>
+        <camel.quarkus.nativeSince>3.20.0</camel.quarkus.nativeSince>
     </properties>
 
     <dependencies>
