@@ -18,7 +18,9 @@ package org.apache.camel.quarkus.component.json.validator.it;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
+import com.networknt.schema.ValidationMessage;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -26,7 +28,9 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.jsonvalidator.JsonValidationException;
 import org.jboss.logging.Logger;
 
 @Path("/json-validator")
@@ -41,29 +45,65 @@ public class JsonValidatorResource {
     @Path("/validate")
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String validate(String json) {
-        LOG.infof("Calling validate with: %s", json);
-        return producerTemplate.requestBody("direct:validate-json", json, String.class);
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<String> validate(String json) {
+        try {
+            LOG.infof("Calling validate with: %s", json);
+            String result = producerTemplate.requestBody("direct:validate-json", json, String.class);
+            return List.of(result);
+        } catch (CamelExecutionException e) {
+            if (e.getCause() instanceof JsonValidationException jve) {
+                return jve.getErrors()
+                        .stream()
+                        .map(ValidationMessage::getError)
+                        .toList();
+            } else {
+                throw e;
+            }
+        }
     }
 
     @Path("/validate-as-stream")
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String validateAsStream(String json) {
-        LOG.infof("Calling validateAsStream with: %s", json);
-        ByteArrayInputStream bais = new ByteArrayInputStream(json.getBytes(StandardCharsets.UTF_8));
-        return producerTemplate.requestBody("direct:validate-json", bais, String.class) + "-as-stream";
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<String> validateAsStream(String json) {
+        try {
+            LOG.infof("Calling validateAsStream with: %s", json);
+            ByteArrayInputStream bais = new ByteArrayInputStream(json.getBytes(StandardCharsets.UTF_8));
+            String result = producerTemplate.requestBody("direct:validate-json", bais, String.class) + "-as-stream";
+            return List.of(result);
+        } catch (CamelExecutionException e) {
+            if (e.getCause() instanceof JsonValidationException jve) {
+                return jve.getErrors()
+                        .stream()
+                        .map(ValidationMessage::getError)
+                        .toList();
+            } else {
+                throw e;
+            }
+        }
     }
 
     @Path("/validate-from-header")
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String validateFromHeader(String json) {
-        LOG.infof("Calling validateFromHeader with: %s", json);
-        return producerTemplate.requestBodyAndHeader("direct:validate-json-from-header", null, "headerToValidate",
-                json, String.class);
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<String> validateFromHeader(String json) {
+        try {
+            LOG.infof("Calling validateFromHeader with: %s", json);
+            String result = producerTemplate.requestBodyAndHeader("direct:validate-json-from-header", null, "headerToValidate",
+                    json, String.class);
+            return List.of(result);
+        } catch (CamelExecutionException e) {
+            if (e.getCause() instanceof JsonValidationException jve) {
+                return jve.getErrors()
+                        .stream()
+                        .map(ValidationMessage::getError)
+                        .toList();
+            } else {
+                throw e;
+            }
+        }
     }
 }
