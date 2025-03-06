@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.jira.deployment;
 
+import java.io.FileOutputStream;
 import java.nio.ByteBuffer;
 import java.util.Collections;
 import java.util.List;
@@ -65,7 +66,8 @@ public class JakartaEnablement {
             "com.atlassian.jira.rest.client.internal.async.AsynchronousSearchRestClient",
             "com.atlassian.jira.rest.client.internal.async.AsynchronousSessionRestClient",
             "com.atlassian.jira.rest.client.internal.async.AsynchronousComponentRestClient",
-            "com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClient");
+            "com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClient",
+            "com.atlassian.jira.rest.client.internal.async.AsynchronousCloudSearchRestClient");
 
     @BuildStep
     void transformToJakarta(BuildProducer<BytecodeTransformerBuildItem> transformers) {
@@ -102,11 +104,19 @@ public class JakartaEnablement {
         }
 
         byte[] transform(final String name, final byte[] bytes) {
-            logger.debug("Jakarta EE compatibility enhancer for Quarkus: transforming " + name);
+            logger.info("Jakarta EE compatibility enhancer for Quarkus: transforming " + name);
             final ClassActionImpl classTransformer = new ClassActionImpl(ctx);
             final ByteBuffer input = ByteBuffer.wrap(bytes);
             final ByteData inputData = new ByteDataImpl(name, input, FileUtils.DEFAULT_CHARSET);
             final ByteData outputData = classTransformer.apply(inputData);
+
+            // Dump transformed bytecode to a file
+            try (FileOutputStream fos = new FileOutputStream("transformed-class-" + name + ".class")) {
+                fos.write(outputData.buffer().array());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             return outputData.buffer().array();
         }
     }
