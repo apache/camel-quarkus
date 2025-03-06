@@ -76,3 +76,16 @@ When running in the native mode, the contract files must be added to the native 
 ----
 quarkus.native.resources.includes=contract.json
 ----
+
+[IMPORTANT]
+====
+It's recommended to configure a base path under which your REST service endpoints will be accessible.
+
+Using the default path `/` can result in other HTTP endpoints already hosted under that path being inaccessible.
+
+To set a base path, do any one of the following.
+
+* Add https://swagger.io/docs/specification/v3_0/api-host-and-base-path/[servers configuration] into your OpenAPI spec file.
+* Add configuration to `application.properties` like `camel.component.rest-openapi.basePath=/api/v1`.
+* Set a context path on the REST DSL configuration like `restConfiguration().contextPath("/api/v1")`.
+====
