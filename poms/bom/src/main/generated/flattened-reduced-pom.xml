@@ -6869,12 +6869,12 @@
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId>
         <artifactId>quarkus-groovy</artifactId>
-        <version>3.19.1</version>
+        <version>3.19.2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId>
         <artifactId>quarkus-groovy-deployment</artifactId>
-        <version>3.19.1</version>
+        <version>3.19.2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jackson-jq</groupId>
@@ -8014,7 +8014,7 @@
       <dependency>
         <groupId>org.apache.groovy</groupId>
         <artifactId>groovy</artifactId>
-        <version>4.0.25</version>
+        <version>4.0.26</version>
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId>
