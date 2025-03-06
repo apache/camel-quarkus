@@ -22,6 +22,7 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 
 class JsonValidatorProcessor {
@@ -44,10 +45,14 @@ class JsonValidatorProcessor {
      * So, let's register all the known JsonValidator implementations for reflective access in native mode.
      */
     @BuildStep
-    void registerReflectiveClasses(CombinedIndexBuildItem combinedIndex,
+    void registerReflectiveClasses(
+            CombinedIndexBuildItem combinedIndex,
             BuildProducer<ReflectiveClassBuildItem> reflectiveProducer) {
-        combinedIndex.getIndex().getAllKnownImplementors(VALIDATOR_INTERFACE).stream()
-                .forEach(c -> reflectiveProducer
-                        .produce(ReflectiveClassBuildItem.builder(c.name().toString()).build()));
+        combinedIndex.getIndex()
+                .getAllKnownImplementors(VALIDATOR_INTERFACE)
+                .stream()
+                .map(ClassInfo::name)
+                .map(DotName::toString)
+                .forEach(c -> reflectiveProducer.produce(ReflectiveClassBuildItem.builder(c).build()));
     }
 }

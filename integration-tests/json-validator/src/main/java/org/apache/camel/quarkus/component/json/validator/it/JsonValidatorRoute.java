@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.component.json.validator.it;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import org.apache.camel.ValidationException;
 import org.apache.camel.builder.RouteBuilder;
 
 @ApplicationScoped
@@ -25,11 +24,10 @@ public class JsonValidatorRoute extends RouteBuilder {
 
     @Override
     public void configure() {
-        from("direct:validate-json").doTry().to("json-validator:schema.json").setBody(constant("valid"))
-                .doCatch(ValidationException.class).setBody(constant("invalid")).end();
+        from("direct:validate-json")
+                .to("json-validator:schema.json").setBody(constant("valid"));
 
-        from("direct:validate-json-from-header").doTry().to("json-validator:schema.json?headerName=headerToValidate")
-                .setBody(constant("valid-header"))
-                .doCatch(ValidationException.class).setBody(constant("invalid-header")).end();
+        from("direct:validate-json-from-header")
+                .to("json-validator:schema.json?headerName=headerToValidate").setBody(constant("valid-header"));
     }
 }
