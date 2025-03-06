@@ -161,7 +161,7 @@ Note that if you choose to use https://github.com/hawtio/hawtio-online[hawtio-on
 
 [source]
 ----
-quarkus.camel.jolokia.kubernetes.client-principal="cn=hawtio-online.hawtio.svc"
+quarkus.camel.jolokia.kubernetes.client-principal=cn=hawtio-online.hawtio.svc
 ----
 
 
