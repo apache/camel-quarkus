@@ -229,7 +229,7 @@ group-13:
   - kubernetes
   - salesforce
   - sap-netweaver
-  - servicenow
+# - servicenow
   - slack
   - nitrite
   - twilio
