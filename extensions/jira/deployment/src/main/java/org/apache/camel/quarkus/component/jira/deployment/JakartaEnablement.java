@@ -104,19 +104,11 @@ public class JakartaEnablement {
         }
 
         byte[] transform(final String name, final byte[] bytes) {
-            logger.info("Jakarta EE compatibility enhancer for Quarkus: transforming " + name);
+            logger.debug("Jakarta EE compatibility enhancer for Quarkus: transforming " + name);
             final ClassActionImpl classTransformer = new ClassActionImpl(ctx);
             final ByteBuffer input = ByteBuffer.wrap(bytes);
             final ByteData inputData = new ByteDataImpl(name, input, FileUtils.DEFAULT_CHARSET);
             final ByteData outputData = classTransformer.apply(inputData);
-
-            // Dump transformed bytecode to a file
-            try (FileOutputStream fos = new FileOutputStream("transformed-class-" + name + ".class")) {
-                fos.write(outputData.buffer().array());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
             return outputData.buffer().array();
         }
     }
