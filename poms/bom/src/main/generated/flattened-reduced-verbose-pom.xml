@@ -6869,12 +6869,12 @@
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-groovy</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.19.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.19.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-groovy-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.19.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.19.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jackson-jq</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -8012,9 +8012,9 @@
         <version>4.1.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.19.0 -->
       </dependency>
       <dependency>
-        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.25 -->
-        <artifactId>groovy</artifactId><!-- org.apache.groovy:groovy-bom:4.0.25 -->
-        <version>4.0.25</version><!-- org.apache.groovy:groovy-bom:4.0.25 -->
+        <groupId>org.apache.groovy</groupId><!-- org.apache.groovy:groovy-bom:4.0.26 -->
+        <artifactId>groovy</artifactId><!-- org.apache.groovy:groovy-bom:4.0.26 -->
+        <version>4.0.26</version><!-- org.apache.groovy:groovy-bom:4.0.26 -->
       </dependency>
       <dependency>
         <groupId>software.amazon.awssdk</groupId><!-- software.amazon.awssdk:bom:2.29.14 -->
