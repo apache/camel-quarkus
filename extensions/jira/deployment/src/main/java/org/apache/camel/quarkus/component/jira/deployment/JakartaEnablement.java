@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.jira.deployment;
 
-import java.io.FileOutputStream;
 import java.nio.ByteBuffer;
 import java.util.Collections;
 import java.util.List;
