@@ -24,6 +24,8 @@ import org.apache.camel.quarkus.jolokia.restrictor.CamelJolokiaRestrictor;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
@@ -37,10 +39,15 @@ class JolokiaTest {
         RestAssured.port = 8778;
     }
 
-    @Test
-    void defaultConfiguration() {
+    @ParameterizedTest
+    @ValueSource(strings = { "/jolokia/", "/q/jolokia" })
+    void defaultConfiguration(String path) {
+        if (path.startsWith("/q")) {
+            RestAssured.port = ConfigProvider.getConfig().getValue("quarkus.http.test-port", Integer.class);
+        }
+
         RestAssured.given()
-                .get("/jolokia/")
+                .get(path)
                 .then()
                 .statusCode(200)
                 .body(

@@ -182,13 +182,22 @@ public class JolokiaRecorder {
     }
 
     static String resolveHost(InetAddress address) {
+        String host;
         if (address == null) {
             try {
-                return HostUtils.getLocalHostName();
+                host = HostUtils.getLocalHostName();
             } catch (UnknownHostException e) {
                 throw new IllegalStateException("Unable to determine the Jolokia host", e);
             }
+        } else {
+            host = address.getHostName();
         }
-        return address.getHostName();
+
+        // ipv6 address
+        if (host.contains(":")) {
+            host = "[%s]".formatted(host);
+        }
+
+        return host;
     }
 }
