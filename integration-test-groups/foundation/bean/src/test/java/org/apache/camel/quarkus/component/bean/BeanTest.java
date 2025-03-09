@@ -61,16 +61,6 @@ public class BeanTest {
     }
 
     @Test
-    public void beanMethodInHeader() {
-        RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .body("Kermit")
-                .post("/bean/beanMethodInHeader")
-                .then()
-                .body(equalTo("Hi Kermit from the NamedBean"));
-    }
-
-    @Test
     public void method() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)

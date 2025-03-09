@@ -35,7 +35,6 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
-import org.apache.camel.Exchange;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.quarkus.component.bean.cdi.Producers;
@@ -88,19 +87,6 @@ public class BeanResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String invokeBindToRegistryBean(@PathParam("route") String route, @PathParam("beanName") String beanName) {
         return template.requestBodyAndHeader("direct:" + route, beanName, "beanName", beanName, String.class);
-    }
-
-    @Path("/beanMethodInHeader")
-    @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String beanMethodInHeader(String statement) {
-        return template.requestBodyAndHeader(
-                "direct:named",
-                statement,
-                Exchange.BEAN_METHOD_NAME,
-                "hi",
-                String.class);
     }
 
     @Path("/counter")
