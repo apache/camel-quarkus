@@ -34,7 +34,6 @@ import jakarta.inject.Named;
 import jakarta.xml.soap.MessageFactory;
 import jakarta.xml.soap.SOAPMessage;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.bean.BeanConstants;
 import org.apache.camel.component.cxf.common.DataFormat;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
 import org.apache.camel.component.cxf.jaxws.CxfEndpoint;
@@ -121,9 +120,7 @@ public class CxfSoapRoutes extends RouteBuilder {
 
         from(String.format("cxf:textServiceResponseFromImpl?serviceClass=%s&address=/text-service-impl",
                 TextService.class.getName()))
-                .process(exchange -> exchange.getIn().setHeader(BeanConstants.BEAN_METHOD_NAME,
-                        exchange.getIn().getHeader(CxfConstants.OPERATION_NAME)))
-                .to(String.format("bean:%s", TextServiceImpl.class.getName()));
+                .toD("bean:" + TextServiceImpl.class.getName() + "?method=${header.operationName}");
     }
 
     private String alterTextByTextOperation(String operation, String text) {
