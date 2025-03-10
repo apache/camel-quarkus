@@ -18,6 +18,16 @@
 -->
 # Changelog
 
+## 3.15.3
+
+* [3.15.x] Update generated files after release by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6908
+* [3.15.x] Extend ssh coverage + native by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7019
+* [3.15.x] Fix build time DefaultCamelContext creation when camel-quarkus-opentelemetry is present by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7025
+* [3.15.x] Upgrade Camel to 4.8.4 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7061
+* [3.15.x] Upgrade Camel to 4.8.5 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7108
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.15.2...3.15.3
+
 ## 3.19.0
 
 * Next is 3.19.0-SNAPSHOT by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6932
