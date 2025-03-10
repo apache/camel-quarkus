@@ -204,7 +204,7 @@
         <module>salesforce</module>
         <module>sap-netweaver</module>
         <module>saxon</module>
-        <!-- <module>servicenow</module> disabled until a quarkus-cxf containing cxf 4.1.1 is used, https://github.com/apache/cxf/commit/650a19442a78b2bb330212bb680ed94c486c3e95 is required, see https://github.com/apache/camel-quarkus/issues/7106 -->
+        <module>servicenow</module>
         <module>servlet</module>
         <module>shiro</module>
         <module>sjms-artemis-client</module>

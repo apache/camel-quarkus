@@ -39,7 +39,7 @@
         <module>azure-cosmosdb</module>
         <module>azure-storage-datalake</module>
         <module>barcode</module>
-        <!-- <module>bonita</module> disabled until a quarkus-cxf containing cxf 4.1.1 is used, https://github.com/apache/cxf/commit/650a19442a78b2bb330212bb680ed94c486c3e95 is required, see https://github.com/apache/camel-quarkus/issues/7106 -->
+        <module>bonita</module>
         <module>chatscript</module>
         <module>chunk</module>
         <module>cli-connector</module>
@@ -96,7 +96,7 @@
         <module>stub</module>
         <module>thrift</module>
         <module>web3j</module>
-        <!-- <module>wordpress</module> disabled until a quarkus-cxf containing cxf 4.1.1 is used, https://github.com/apache/cxf/commit/650a19442a78b2bb330212bb680ed94c486c3e95 is required, see https://github.com/apache/camel-quarkus/issues/7106 -->
+        <module>wordpress</module>
         <module>workday</module>
         <module>xml-grouped</module>
         <module>xmpp</module>
