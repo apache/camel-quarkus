@@ -17,10 +17,6 @@
 
 package org.apache.camel.quarkus.test.support.azure;
 
-import java.io.File;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -29,22 +25,25 @@ import io.quarkus.runtime.configuration.ConfigUtils;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import io.smallrye.config.SmallRyeConfig;
 import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testcontainers.containers.ComposeContainer;
+import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.Network;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.utility.MountableFile;
 
 public class AzureServiceBusTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(AzureServiceBusTestResource.class);
-    private static final int SERVICEBUS_INNER_PORT = 5672;
-    private Map<String, String> initArgs = new LinkedHashMap<>();
-    private ComposeContainer container;
+    private static final String SQLEDGE_IMAGE = ConfigProvider.getConfig().getValue("azure-sql-edge.container.image",
+            String.class);
+    private static final String EMULATOR_IMAGE = ConfigProvider.getConfig().getValue("servicebus-emulator.container.image",
+            String.class);
 
-    @Override
-    public void init(Map<String, String> initArgs) {
-        this.initArgs = initArgs;
-    }
+    private static final int SERVICEBUS_INNER_PORT = 5672;
+    private static final String MSSQL_PASSWORD = "12345678923456y!43";
+    private GenericContainer<?> emulatorContainer, edgeContainer;
 
     @Override
     public Map<String, String> start() {
@@ -59,33 +58,31 @@ public class AzureServiceBusTestResource implements QuarkusTestResourceLifecycle
             MockBackendUtils.logMockBackendUsed();
 
             try {
-                //copy docker-compose to tmp location
-                File dockerComposeFile, configFile;
-                try (InputStream inYaml = getClass().getClassLoader().getResourceAsStream("servicebus-docker-compose.yaml");
-                        InputStream inJson = getClass().getClassLoader().getResourceAsStream("servicebus-config.json")) {
-                    dockerComposeFile = File.createTempFile("servicebus-docker-compose-", ".yaml");
-                    configFile = File.createTempFile("servicebus-config-", ".json");
-                    Files.copy(inYaml, dockerComposeFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                    Files.copy(inJson, configFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                }
+                Network azureNetwork = Network.newNetwork();
 
-                container = new ComposeContainer(dockerComposeFile)
+                edgeContainer = new GenericContainer<>(SQLEDGE_IMAGE)
+                        .withNetwork(azureNetwork)
+                        .withLogConsumer(new Slf4jLogConsumer(LOGGER))
                         .withEnv("ACCEPT_EULA", "Y")
-                        .withEnv("SERVICEBUS_EMULATOR_IMAGE",
-                                config.getValue("servicebus-emulator.container.image", String.class))
-                        .withEnv("SQL_EDGE_IMAGE", config.getValue("azure-sql-edge.container.image", String.class))
-                        .withEnv("CONFIG_FILE", configFile.getAbsolutePath())
-                        .withEnv("MSSQL_SA_PASSWORD", "12345678923456y!43")
-                        .withExposedService("emulator", SERVICEBUS_INNER_PORT)
-                        .withLocalCompose(true)
-                        .withLogConsumer("emulator", new Slf4jLogConsumer(LOGGER))
-                        .waitingFor("emulator", Wait.forLogMessage(".*Emulator Service is Successfully Up!.*", 1));
+                        .withEnv("MSSQL_SA_PASSWORD", MSSQL_PASSWORD)
+                        .withNetworkAliases("sql-edge")
+                        .waitingFor(Wait.forLogMessage(".*EdgeTelemetry starting.*", 1));
+                edgeContainer.start();
 
-                container.start();
+                emulatorContainer = new GenericContainer<>(EMULATOR_IMAGE)
+                        .withNetwork(azureNetwork)
+                        .withExposedPorts(SERVICEBUS_INNER_PORT)
+                        .withLogConsumer(new Slf4jLogConsumer(LOGGER))
+                        .withEnv("ACCEPT_EULA", "Y")
+                        .withEnv("MSSQL_SA_PASSWORD", MSSQL_PASSWORD)
+                        .withEnv("SQL_SERVER", "sql-edge")
+                        .withCopyFileToContainer(MountableFile.forClasspathResource("servicebus-config.json"),
+                                "/ServiceBus_Emulator/ConfigFiles/Config.json")
+                        .waitingFor(Wait.forLogMessage(".*Emulator Service is Successfully Up!.*", 1));
+                emulatorContainer.start();
 
                 String connectionString = "Endpoint=sb://%s:%d;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=SAS_KEY_VALUE;UseDevelopmentEmulator=true;"
-                        .formatted(container.getServiceHost("emulator", SERVICEBUS_INNER_PORT),
-                                container.getServicePort("emulator", SERVICEBUS_INNER_PORT));
+                        .formatted("localhost", emulatorContainer.getMappedPort(SERVICEBUS_INNER_PORT));
                 result.put("azure.servicebus.connection.string", connectionString);
                 result.put("azure.servicebus.queue.name", "queue.1");
                 result.put("azure.servicebus.topic.name", "topic.1");
@@ -108,8 +105,11 @@ public class AzureServiceBusTestResource implements QuarkusTestResourceLifecycle
     public void stop() {
         try {
 
-            if (container != null) {
-                container.stop();
+            if (emulatorContainer != null) {
+                emulatorContainer.stop();
+            }
+            if (edgeContainer != null) {
+                edgeContainer.stop();
             }
 
         } catch (Exception e) {
