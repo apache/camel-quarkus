@@ -7273,6 +7273,26 @@
                 <version>${commons-collections4.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-rs-client</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-rs-extension-providers</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-rs-security-oauth2</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.drill.exec</groupId>
                 <artifactId>drill-jdbc-all</artifactId>
                 <version>${drill-jdbc-all.version}</version>
@@ -7302,26 +7322,6 @@
                         <artifactId>jcl-over-slf4j</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-                <version>${cxf.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-rs-client</artifactId>
-                <version>${cxf.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-rs-extension-providers</artifactId>
-                <version>${cxf.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-rs-security-oauth2</artifactId>
-                <version>${cxf.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.jackrabbit</groupId>
