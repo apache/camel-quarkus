@@ -235,6 +235,7 @@
 *** xref:reference/extensions/opensearch.adoc[OpenSearch]
 *** xref:reference/extensions/openstack.adoc[OpenStack]
 *** xref:reference/extensions/opentelemetry.adoc[OpenTelemetry]
+*** xref:reference/extensions/opentelemetry2.adoc[Opentelemetry2]
 *** xref:reference/extensions/optaplanner.adoc[OptaPlanner]
 *** xref:reference/extensions/pdf.adoc[PDF]
 *** xref:reference/extensions/crypto-pgp.adoc[PGP]

@@ -219,6 +219,7 @@ group-12:
   - rest
   - rest-openapi
   - vertx-websocket
+  - opentelemetry2
 group-13:
   - fhir
   - google-bigquery
