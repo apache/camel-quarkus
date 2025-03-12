@@ -78,7 +78,7 @@
         <azure-sdk-bom.version>${azure-sdk-bom-version}</azure-sdk-bom.version>
         <azure-core.version>1.54.1</azure-core.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-core -->
         <azure-identity.version>1.15.0</azure-identity.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-identity -->
-        <azure-core-http-vertx.version>1.0.2</azure-core-http-vertx.version> <!-- TODO: https://github.com/apache/camel-quarkus/issues/4181 -->
+        <azure-core-http-vertx.version>1.0.3</azure-core-http-vertx.version> <!-- TODO: https://github.com/apache/camel-quarkus/issues/4181 -->
         <bouncycastle.version>1.80</bouncycastle.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.bouncycastle:bcprov-jdk18on -->
         <caffeine.version>3.2.0</caffeine.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.github.ben-manes.caffeine:caffeine -->
         <commons-beanutils.version>${commons-beanutils-version}</commons-beanutils.version>
