@@ -526,7 +526,7 @@ public class CqCatalog {
         @Override
         public List<String> findBeansNames() {
             List<String> names = new ArrayList<>();
-            InputStream is = getCamelCatalog().getVersionManager().getResourceAsStream(getPojoBeanJSonSchemaDirectory());
+            InputStream is = getCamelCatalog().getVersionManager().getResourceAsStream(getBeansCatalog());
             if (is != null) {
                 try {
                     CatalogHelper.loadLines(is, names);
