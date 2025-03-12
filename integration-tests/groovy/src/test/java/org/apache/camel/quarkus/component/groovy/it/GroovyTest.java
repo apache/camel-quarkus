@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.groovy.it;
 
+import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -30,7 +31,7 @@ class GroovyTest {
     void groovyHello() {
         RestAssured.given()
                 .body("Will Smith")
-                .post("/groovy/hello")
+                .post("/groovy/direct/groovyHello")
                 .then()
                 .statusCode(200)
                 .body(CoreMatchers.is("Hello Will Smith from Groovy!"));
@@ -40,7 +41,7 @@ class GroovyTest {
     void groovyHi() {
         RestAssured.given()
                 .body("Jack")
-                .post("/groovy/hi")
+                .post("/groovy/direct/groovyHi")
                 .then()
                 .statusCode(200)
                 .body(CoreMatchers.is("Hi Jack we are going to Shamrock"));
@@ -77,4 +78,85 @@ class GroovyTest {
                 .body(Matchers.is("Hello world from Groovy!"));
     }
 
+    @Test
+    void groovyFilter() {
+        //hi is not changed
+        RestAssured.given()
+                .body("Hi")
+                .post("/groovy/direct/filter")
+                .then()
+                .statusCode(200)
+                .body(CoreMatchers.is("Hi"));
+        //hello is changed
+        RestAssured.given()
+                .body("Hello")
+                .post("/groovy/direct/filter")
+                .then()
+                .statusCode(200)
+                .body(CoreMatchers.is("Received unknown request: Hello"));
+    }
+
+    @Test
+    void groovyMultiStatement() {
+        //hi is not changed
+        RestAssured.given()
+                .body("Hi")
+                .post("/groovy/direct/multiStatement")
+                .then()
+                .statusCode(200)
+                .body(CoreMatchers.is("Hello C"));
+    }
+
+    @Test
+    void groovyScriptFromResource() {
+        RestAssured.given()
+                .body("Sheldon")
+                .post("/groovy/direct/scriptFromResource")
+                .then()
+                .statusCode(200)
+                .body(CoreMatchers.is("Hello Sheldon from resources!"));
+    }
+
+    @Test
+    void contextValidation() {
+        RestAssured.given()
+                .body("")
+                .post("/groovy/direct/validateContext")
+                .then()
+                .statusCode(200)
+                .body(Matchers.containsString("camelContext: CamelContext("))
+                .body(Matchers.containsString("request: Message"))
+                .body(Matchers.containsString("headers: [myHeader:myHeaderValue"));
+    }
+
+    //following tests don't work in the native mode (see extension doc)
+
+    @DisabledOnIntegrationTest
+    @Test
+    void contextValidationInJVMMode() {
+        //JVM mode allows to use more variables
+        RestAssured.given()
+                .body("")
+                .post("/groovy/direct/validateContextInJvm")
+                .then()
+                .statusCode(200)
+                .body(Matchers.containsString("exchangeProperties: [myProperty:myPropertyValue"))
+                .body(Matchers.containsString("exchangeProperty: [myProperty:myPropertyValue"))
+                .body(Matchers.containsString("variable: [myVariable:myVariableValue]"))
+                .body(Matchers.containsString("variable: [myVariable:myVariableValue]"))
+                .body(Matchers.containsString("header: [myHeader:myHeaderValue]"))
+                .body(Matchers.containsString("attachments: [mygroovy.groovy"))
+                .body(Matchers.containsString("log: org.slf4j.impl"));
+    }
+
+    @DisabledOnIntegrationTest
+    @Test
+    void groovyCustomizedShellHi() {
+        RestAssured.given()
+                .body("Jack")
+                .post("/groovy/direct/customizedHi")
+                .then()
+                .statusCode(200)
+                .body(CoreMatchers.is("Ahoj Jack from Groovy!"));
+    }
 }

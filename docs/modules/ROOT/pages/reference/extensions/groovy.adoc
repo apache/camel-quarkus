@@ -52,3 +52,9 @@ Due to some limitations in GraalVM that prevent to execute even basic scripts in
 Groovy expressions is made with the static compilation enabled which means that the types used in your expression must
 be known at compile time. Please refer to the https://docs.groovy-lang.org/latest/html/documentation/core-semantics.html#static-type-checking[Groovy documentation for more details].
 
+This primarily impacts the customization of the Groovy Shell and the handling of exchange information.
+In native mode, customizing the Groovy Shell and accessing the following exchange variables will not function as expected.
+```
+header, variable, variables, exchangeProperty, exchangeProperties, log, attachment
+```
+

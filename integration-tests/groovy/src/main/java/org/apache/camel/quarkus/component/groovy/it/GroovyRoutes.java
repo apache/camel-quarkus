@@ -16,12 +16,20 @@
  */
 package org.apache.camel.quarkus.component.groovy.it;
 
+import java.util.Optional;
+
+import jakarta.activation.DataHandler;
+import jakarta.activation.FileDataSource;
+import org.apache.camel.attachment.AttachmentMessage;
 import org.apache.camel.builder.RouteBuilder;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 public class GroovyRoutes extends RouteBuilder {
 
     @Override
     public void configure() {
+
+        Optional<Boolean> inNative = ConfigProvider.getConfig().getOptionalValue("quarkus.native.enabled", Boolean.class);
 
         routeTemplate("whereTo")
                 .templateParameter("bar")
@@ -34,6 +42,11 @@ public class GroovyRoutes extends RouteBuilder {
 
         from("direct:groovyHello")
                 .transform().groovy("\"Hello \" + body + \" from Groovy!\"");
+
+        from("direct:filter")
+                .filter().groovy("!(request.body as String).contains('Hi')")
+                .transform().groovy("\"Received unknown request: \" + body");
+
         from("direct:predicate")
                 .choice()
                 .when().groovy("((int) body) / 2 > 10")
@@ -45,5 +58,63 @@ public class GroovyRoutes extends RouteBuilder {
                 .script()
                 .groovy("exchange.getMessage().setBody('Hello ' + exchange.getMessage().getBody(String.class) + ' from Groovy!')");
 
+        from("direct:multiStatement")
+                .transform().groovy("""
+                        def a = "Hello A"
+                        def b = "Hello B"
+                        //other statements
+                        def result = "Hello C"
+                        """);
+
+        from("direct:scriptFromResource")
+                .setHeader("myHeader").groovy("resource:classpath:mygroovy.groovy")
+                .setBody(simple("${header.myHeader}"));
+
+        from("direct:validateContext")
+                .setHeader("myHeader", constant("myHeaderValue"))
+                .setVariable("myVariable", constant("myVariableValue"))
+                .setProperty("myProperty", constant("myPropertyValue"))
+                .process(exchange -> {
+                    AttachmentMessage attMsg = exchange.getIn(AttachmentMessage.class);
+                    attMsg.addAttachment("mygroovy.groovy", new DataHandler(new FileDataSource("mygroovy.groovy")));
+                })
+                .transform().groovy("return " + getContextVariables(false))
+                .log("${body}");
+
+        //routes only for jvm
+        if (inNative.isEmpty() || !inNative.get()) {
+            from("direct:customizedHi")
+                    .transform().groovy("hello + \" \" + body + \" from Groovy!\"");
+
+            from("direct:validateContextInJvm")
+                    .setHeader("myHeader", constant("myHeaderValue"))
+                    .setVariable("myVariable", constant("myVariableValue"))
+                    .setProperty("myProperty", constant("myPropertyValue"))
+                    .process(exchange -> {
+                        AttachmentMessage attMsg = exchange.getIn(AttachmentMessage.class);
+                        attMsg.addAttachment("mygroovy.groovy", new DataHandler(new FileDataSource("mygroovy.groovy")));
+                    })
+                    .transform().groovy("return " + getContextVariables(true))
+                    .log("${body}");
+        }
+    }
+
+    private static String getContextVariables(boolean jvm) {
+        String contextVariables = "\"headers: \" + headers + " +
+                "\", exchange: \" + exchange + " +
+                "\", camelContext: \" + camelContext + " +
+                "\", request: \" + request";
+
+        if (jvm) {
+            // following properties are not working in the native mode
+            contextVariables += " + \", exchangeProperties: \" + exchangeProperties + " +
+                    "\", exchangeProperty: \" + exchangeProperty + " +
+                    "\", variable: \" + variable + " +
+                    "\", variables: \" + variables + " +
+                    "\", header: \" + header + " +
+                    "\", attachments: \" + attachments + " +
+                    "\", log: \" + log";
+        }
+        return contextVariables;
     }
 }
