@@ -41,22 +41,6 @@ public class GroovyResource {
     ProducerTemplate producerTemplate;
 
     @POST
-    @Path("/hello")
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello(String message) {
-        return producerTemplate.requestBody("direct:groovyHello", message, String.class);
-    }
-
-    @POST
-    @Path("/hi")
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hi(String message) {
-        return producerTemplate.requestBody("direct:groovyHi", message, String.class);
-    }
-
-    @POST
     @Path("/predicate")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
@@ -75,4 +59,27 @@ public class GroovyResource {
         return producerTemplate.requestBodyAndHeaders("direct:" + route, statement, headers, String.class);
     }
 
+    @POST
+    @Path("/direct/{id}")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String direct(@PathParam("id") String id, String message) {
+        return producerTemplate.requestBody("direct:" + id, message, String.class);
+    }
+
+    @Path("/contextValidation")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String route() {
+        final Map<String, Object> headers = Map.of("header1", (Object) "value_of_header1");
+        return producerTemplate.requestBodyAndHeaders("direct:contextValidation", "body", headers, String.class);
+    }
+
+    @Path("results/validateExchangeProperties")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public Object getMessagesOfWithoutSsl() throws InterruptedException {
+        return producerTemplate.requestBody("direct:validateExchangeProperty", "body", String.class);
+    }
 }
