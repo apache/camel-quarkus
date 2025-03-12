@@ -34,6 +34,11 @@ if (skip) {
 
 if (pomXml.exists()) {
     def pomXmlProject = new XmlParser().parseText(pomXml.getText('UTF-8'))
+    if (pomXmlProject.properties.'sanity-checks.skip'.text() == "true") {
+        println "Sanity checks are disabled in ${project.basedir}/pom.xml"
+        return
+    }
+
     pomXmlProject.dependencies.dependency
         .findAll {
             !it.version.text().isEmpty() &&
