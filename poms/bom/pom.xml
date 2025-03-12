@@ -6637,6 +6637,11 @@
                 <version>${jsch.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.google.api</groupId>
+                <artifactId>gax-httpjson</artifactId>
+                <version>${google-gax-httpjson.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.google.auth</groupId>
                 <artifactId>google-auth-library-credentials</artifactId>
                 <version>${google-auth-library.version}</version>
