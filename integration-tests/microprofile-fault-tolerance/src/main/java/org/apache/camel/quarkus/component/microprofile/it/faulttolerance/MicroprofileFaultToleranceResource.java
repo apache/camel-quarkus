@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.microprofile.it.faulttolerance;
 
 import java.util.concurrent.ExecutorService;
 
+import io.quarkus.arc.ClientProxy;
 import io.smallrye.faulttolerance.core.circuit.breaker.CircuitBreaker;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -93,7 +94,7 @@ public class MicroprofileFaultToleranceResource {
     public JsonObject faultToleranceConfigurations() {
         FaultToleranceProcessor processor = context.getProcessor("ftp", FaultToleranceProcessor.class);
         JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-        objectBuilder.add("isCustomCircuitBreakerRef", processor.getCircuitBreaker() == customCircuitBreaker);
+        objectBuilder.add("isCustomCircuitBreakerRef", processor.getCircuitBreaker().equals(customCircuitBreaker));
         objectBuilder.add("delay", processor.getDelay());
         objectBuilder.add("successThreshold", processor.getSuccessThreshold());
         objectBuilder.add("requestVolumeThreshold", processor.getRequestVolumeThreshold());
@@ -105,7 +106,7 @@ public class MicroprofileFaultToleranceResource {
         objectBuilder.add("bulkheadMaxConcurrentCalls", processor.getBulkheadMaxConcurrentCalls());
         objectBuilder.add("bulkheadWaitingTaskQueue", processor.getBulkheadWaitingTaskQueue());
         objectBuilder.add("isCustomBulkheadExecutorServiceRef",
-                processor.getExecutorService() == customBulkheadExecutorService);
+                processor.getExecutorService().equals(ClientProxy.unwrap(customBulkheadExecutorService)));
 
         return objectBuilder.build();
     }
