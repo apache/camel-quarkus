@@ -19,13 +19,16 @@ package org.apache.camel.quarkus.component.microprofile.it.faulttolerance;
 import java.util.Map;
 
 import io.quarkus.test.junit.QuarkusTestProfile;
+import org.apache.camel.util.CollectionHelper;
 
 public class MicroProfileFaultToleranceConfigurationTestProfile implements QuarkusTestProfile {
     @Override
     public Map<String, String> getConfigOverrides() {
-        return Map.of(
+        return CollectionHelper.mapOf(
                 "load.config.test.route", "true",
                 "camel.faulttolerance.circuitBreaker", "customCircuitBreaker",
+                "camel.faulttolerance.bulkheadEnabled", "true",
+                "camel.faulttolerance.bulkheadExecutorService", "customBulkheadExecutorService",
                 "camel.faulttolerance.delay", "15",
                 "camel.faulttolerance.successThreshold", "4",
                 "camel.faulttolerance.requestVolumeThreshold", "60",
