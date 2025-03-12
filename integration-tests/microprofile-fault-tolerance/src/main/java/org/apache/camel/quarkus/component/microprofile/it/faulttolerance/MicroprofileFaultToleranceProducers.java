@@ -28,11 +28,12 @@ import io.smallrye.faulttolerance.core.util.ExceptionDecision;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Disposes;
 import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 
 @ApplicationScoped
 public class MicroprofileFaultToleranceProducers {
 
-    @ApplicationScoped
+    @Singleton
     @Named("customCircuitBreaker")
     CircuitBreaker<Integer> produceCustomCircuitBreaker(ThreadTimer threadTimer) {
         FaultToleranceStrategy<Integer> delegate = ctx -> null;
@@ -51,7 +52,7 @@ public class MicroprofileFaultToleranceProducers {
         return Executors.newFixedThreadPool(2);
     }
 
-    @ApplicationScoped
+    @Singleton
     @Named("threadTimer")
     ThreadTimer threadTimer(@Named("threadTimerExecutor") ExecutorService executorService) {
         return ThreadTimer.create(executorService);
