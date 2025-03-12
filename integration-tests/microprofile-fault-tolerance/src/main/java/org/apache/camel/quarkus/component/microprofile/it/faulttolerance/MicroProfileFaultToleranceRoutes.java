@@ -138,6 +138,7 @@ public class MicroProfileFaultToleranceRoutes extends RouteBuilder {
         }
     }
 
+    @ApplicationScoped
     @Named("myThreadPool")
     public ScheduledExecutorService myThreadPool() {
         return getCamelContext().getExecutorServiceManager()
