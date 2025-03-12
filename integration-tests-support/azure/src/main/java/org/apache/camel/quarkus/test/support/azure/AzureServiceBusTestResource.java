@@ -17,6 +17,7 @@
 
 package org.apache.camel.quarkus.test.support.azure;
 
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -36,14 +37,14 @@ import org.testcontainers.utility.MountableFile;
 
 public class AzureServiceBusTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(AzureServiceBusTestResource.class);
-    private static final String SQLEDGE_IMAGE = ConfigProvider.getConfig().getValue("azure-sql-edge.container.image",
+    private static final String SQL_IMAGE = ConfigProvider.getConfig().getValue("sql-server.container.image",
             String.class);
     private static final String EMULATOR_IMAGE = ConfigProvider.getConfig().getValue("servicebus-emulator.container.image",
             String.class);
 
     private static final int SERVICEBUS_INNER_PORT = 5672;
     private static final String MSSQL_PASSWORD = "12345678923456y!43";
-    private GenericContainer<?> emulatorContainer, edgeContainer;
+    private GenericContainer<?> emulatorContainer, sqlContainer;
 
     @Override
     public Map<String, String> start() {
@@ -60,14 +61,16 @@ public class AzureServiceBusTestResource implements QuarkusTestResourceLifecycle
             try {
                 Network azureNetwork = Network.newNetwork();
 
-                edgeContainer = new GenericContainer<>(SQLEDGE_IMAGE)
+                sqlContainer = new GenericContainer<>(SQL_IMAGE)
+                        .withEnv(Collections.singletonMap("MSSQL_AGENT_ENABLED", "True"))
                         .withNetwork(azureNetwork)
                         .withLogConsumer(new Slf4jLogConsumer(LOGGER))
                         .withEnv("ACCEPT_EULA", "Y")
                         .withEnv("MSSQL_SA_PASSWORD", MSSQL_PASSWORD)
                         .withNetworkAliases("sql-edge")
-                        .waitingFor(Wait.forLogMessage(".*EdgeTelemetry starting.*", 1));
-                edgeContainer.start();
+                        .waitingFor(
+                                Wait.forLogMessage(".*xp_sqlagent_notify.*", 1));
+                sqlContainer.start();
 
                 emulatorContainer = new GenericContainer<>(EMULATOR_IMAGE)
                         .withNetwork(azureNetwork)
@@ -108,8 +111,8 @@ public class AzureServiceBusTestResource implements QuarkusTestResourceLifecycle
             if (emulatorContainer != null) {
                 emulatorContainer.stop();
             }
-            if (edgeContainer != null) {
-                edgeContainer.stop();
+            if (sqlContainer != null) {
+                sqlContainer.stop();
             }
 
         } catch (Exception e) {
