@@ -210,8 +210,6 @@ class Aws2S3Test extends BaseAWs2TestSupport {
                     .statusCode(200)
                     .extract().asString();
 
-            // strip the chuck-signature
-            result = result.replaceAll("\\s*[0-9]+;chunk-signature=\\w{64}\\s*", "");
             assertEquals(content, result);
         } finally {
             // Delete

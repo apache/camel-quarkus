@@ -175,13 +175,11 @@ public class Aws2S3Resource extends BaseAws2Resource {
     public String upload(@PathParam("key") String key, String content) throws Exception {
         File file = File.createTempFile("aws2-", ".tmp");
         Files.writeString(file.toPath(), content, StandardOpenOption.WRITE);
-        int partSize = 5 * 1024 * 1024;
 
-        producerTemplate.sendBodyAndHeader(
-                componentUri() + "&multiPartUpload=true&partSize=" + partSize + "&autoCreateBucket=true",
-                file,
-                AWS2S3Constants.KEY,
-                key);
+        producerTemplate.sendBody(componentUri() + "&multiPartUpload=true" +
+                "&streamingUploadMode=true" +
+                "&autoCreateBucket=true" +
+                "&keyName=" + key, file);
 
         return key;
     }
