@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.core.deployment.main;
 
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.camel.impl.engine.DefaultPackageScanResourceResolver;
@@ -26,6 +25,8 @@ import org.apache.camel.spi.Resource;
 import org.apache.camel.util.AntPathMatcher;
 
 public final class CamelMainHelper {
+    private static final String[] DEFAULT_ROUTES_INCLUDE_PATTERN = { "classpath:camel/*",
+            "classpath:camel-template/*", "classpath:camel-rest/*" };
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
     private CamelMainHelper() {
@@ -36,9 +37,8 @@ public final class CamelMainHelper {
                 "camel.main.routes-include-pattern", String[].class, EMPTY_STRING_ARRAY);
         final String[] i2 = CamelSupport.getOptionalConfigValue(
                 "camel.main.routesIncludePattern", String[].class, EMPTY_STRING_ARRAY);
-
         return i1.length == 0 && i2.length == 0
-                ? Stream.empty()
+                ? Stream.of(DEFAULT_ROUTES_INCLUDE_PATTERN)
                 : Stream.concat(Stream.of(i1), Stream.of(i2)).filter(location -> !"false".equals(location));
     }
 
@@ -62,7 +62,7 @@ public final class CamelMainHelper {
         try (DefaultPackageScanResourceResolver resolver = new DefaultPackageScanResourceResolver()) {
             resolver.setCamelContext(CamelSupport.newBuildTimeCamelContext(true));
             String[] excludes = routesExcludePattern().toArray(String[]::new);
-            for (String include : routesIncludePattern().collect(Collectors.toList())) {
+            for (String include : routesIncludePattern().toList()) {
                 for (Resource resource : resolver.findResources(include)) {
                     if (AntPathMatcher.INSTANCE.anyMatch(excludes, resource.getLocation())) {
                         return;

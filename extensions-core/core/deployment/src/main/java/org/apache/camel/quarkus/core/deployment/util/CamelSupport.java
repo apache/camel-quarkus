@@ -30,10 +30,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import io.quarkus.deployment.ApplicationArchive;
+import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.engine.AbstractCamelContext;
+import org.apache.camel.quarkus.core.CamelCapabilities;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceBuildItem;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.jandex.ClassInfo;
@@ -41,6 +43,7 @@ import org.jboss.jandex.ClassInfo;
 public final class CamelSupport {
     public static final String CAMEL_SERVICE_BASE_PATH = "META-INF/services/org/apache/camel";
     public static final String CAMEL_ROOT_PACKAGE_DIRECTORY = "org/apache/camel";
+    public static final String CLASSPATH_PREFIX = "classpath:";
     public static final String COMPILATION_JVM_TARGET = "17";
 
     private CamelSupport() {
@@ -138,5 +141,38 @@ public final class CamelSupport {
             context.init();
         }
         return context;
+    }
+
+    public static String stripClasspathScheme(String path) {
+        Objects.requireNonNull(path, "path must not be null");
+        if (path.startsWith(CLASSPATH_PREFIX)) {
+            return path.substring(CLASSPATH_PREFIX.length());
+        }
+        return path;
+    }
+
+    public static boolean isRouteResourceDslCapabilitiesPresent(Capabilities capabilities) {
+        return capabilities.isPresent(CamelCapabilities.XML_JAXB)
+                || capabilities.isPresent(CamelCapabilities.XML_IO_DSL)
+                || capabilities.isPresent(CamelCapabilities.YAML_DSL)
+                || capabilities.isPresent(CamelCapabilities.JAVA_JOOR_DSL);
+    }
+
+    public static Set<String> getRouteResourceFileExtensions(Capabilities capabilities) {
+        Set<String> extensions = new HashSet<>();
+        if (capabilities.isPresent(CamelCapabilities.XML_JAXB) || capabilities.isPresent(CamelCapabilities.XML_IO_DSL)) {
+            extensions.add("xml");
+        }
+
+        if (capabilities.isPresent(CamelCapabilities.YAML_DSL)) {
+            extensions.add("yaml");
+            extensions.add("yml");
+        }
+
+        if (capabilities.isPresent(CamelCapabilities.JAVA_JOOR_DSL)) {
+            extensions.add("java");
+        }
+
+        return extensions;
     }
 }
