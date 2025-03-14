@@ -30,6 +30,7 @@ public class AzureStorageHelper {
         @Override
         public boolean getAsBoolean() {
             return !MockBackendUtils.startMockBackend() &&
+                    !isAzureConfigValueEquals("CAMEL_QUARKUS_DISABLE_IDENTITY_EXCEPT_KEY_VAULT", Boolean.class, true) &&
                     isAzureConfigValuePresent("azure.client.id") &&
                     isAzureConfigValuePresent("azure.tenant.id") &&
                     isAzureConfigValuePresent("azure.client.secret");
@@ -62,5 +63,13 @@ public class AzureStorageHelper {
         return ConfigProvider.getConfig()
                 .getOptionalValue(name, String.class)
                 .isPresent();
+    }
+
+    private static <T> boolean isAzureConfigValueEquals(String name, Class<T> type, T expectedValue) {
+        return ConfigProvider.getConfig()
+                .getOptionalValue(name, type)
+                .isPresent()
+                && expectedValue.equals(
+                        ConfigProvider.getConfig().getValue(name, type));
     }
 }
