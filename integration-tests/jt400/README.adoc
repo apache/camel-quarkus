@@ -1,4 +1,4 @@
-=== External IBM i
+=== External IBM i server
 
 
 To execute the tests against an external IBM i server, provide the connection information by setting environment variables
@@ -19,13 +19,9 @@ $Env:JT400_PASSWORD="#password"
 
 Tests using an external server are disabled until environmental property `JT400_URL` is present.
 
-=== Mocked test
+=== Mocked tests
 
-Mocked tests are enabled by default.
-Unfortunately in case that mocked tests are enabled, the flat class path is forced for the Quarkus, which may influence
-the tests.
-
-Execution of mocked tests can be skipped by setting property `skip-mock-tests` to true (by adding parameter `-Dskip-mock-tests=true`).
+Mocked tests that do not require a real iSeries server can be found in the `jt400-mocked` integration tests module.
 
 === How to configure an external server
 
