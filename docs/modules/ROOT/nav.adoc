@@ -117,7 +117,6 @@
 *** xref:reference/extensions/ehcache.adoc[Ehcache]
 *** xref:reference/extensions/elasticsearch.adoc[Elasticsearch]
 *** xref:reference/extensions/elasticsearch-rest-client.adoc[Elasticsearch Low level Rest Client]
-*** xref:reference/extensions/etcd3.adoc[Etcd3]
 *** xref:reference/extensions/exec.adoc[Exec]
 *** xref:reference/extensions/fhir.adoc[FHIR]
 *** xref:reference/extensions/fop.adoc[FOP]
