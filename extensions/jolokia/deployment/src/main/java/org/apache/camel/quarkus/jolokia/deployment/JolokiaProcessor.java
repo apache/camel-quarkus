@@ -38,8 +38,10 @@ import io.quarkus.deployment.builditem.ApplicationInfoBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
+import io.quarkus.deployment.builditem.LaunchModeBuildItem;
 import io.quarkus.deployment.builditem.NativeMonitoringBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
+import io.quarkus.deployment.builditem.ShutdownListenerBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
@@ -51,6 +53,7 @@ import io.quarkus.maven.dependency.ResolvedDependency;
 import io.quarkus.paths.PathFilter;
 import io.quarkus.paths.PathVisit;
 import io.quarkus.paths.PathVisitor;
+import io.quarkus.runtime.LaunchMode;
 import io.quarkus.vertx.http.deployment.BodyHandlerBuildItem;
 import io.quarkus.vertx.http.deployment.NonApplicationRootPathBuildItem;
 import io.quarkus.vertx.http.deployment.RouteBuildItem;
@@ -59,6 +62,7 @@ import org.apache.camel.quarkus.jolokia.CamelQuarkusJolokiaServer;
 import org.apache.camel.quarkus.jolokia.JolokiaRecorder;
 import org.apache.camel.quarkus.jolokia.config.JolokiaBuildTimeConfig;
 import org.apache.camel.quarkus.jolokia.config.JolokiaRuntimeConfig;
+import org.apache.camel.quarkus.jolokia.devmode.DevModeJolokiaServerShutdownListener;
 import org.apache.camel.quarkus.jolokia.restrictor.CamelJolokiaRestrictor;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.StringHelper;
@@ -102,16 +106,25 @@ public class JolokiaProcessor {
     @BuildStep
     @Record(ExecutionTime.RUNTIME_INIT)
     void startJolokiaServer(
+            LaunchModeBuildItem launchMode,
             JolokiaServerBuildItem jolokiaServer,
             JolokiaRuntimeConfig runtimeConfig,
             BuildProducer<SyntheticBeanBuildItem> syntheticBean,
             JolokiaRecorder recorder) {
         recorder.startJolokiaServer(jolokiaServer.getRuntimeValue(), runtimeConfig);
-        syntheticBean.produce(SyntheticBeanBuildItem.configure(CamelQuarkusJolokiaServer.class)
+
+        SyntheticBeanBuildItem.ExtendedBeanConfigurator beanConfigurator = SyntheticBeanBuildItem
+                .configure(CamelQuarkusJolokiaServer.class)
                 .scope(ApplicationScoped.class)
                 .runtimeValue(recorder.createJolokiaServerBean(jolokiaServer.getRuntimeValue()))
-                .setRuntimeInit()
-                .done());
+                .setRuntimeInit();
+
+        if (launchMode.getLaunchMode().equals(LaunchMode.DEVELOPMENT)) {
+            // Unremovable in dev mode so it can be used in DevModeJolokiaServerShutdownListener
+            beanConfigurator.unremovable();
+        }
+
+        syntheticBean.produce(beanConfigurator.done());
     }
 
     @BuildStep(onlyIfNot = { IsNormal.class, IsDevelopment.class })
@@ -121,6 +134,11 @@ public class JolokiaProcessor {
             ShutdownContextBuildItem shutdownContextBuildItem,
             JolokiaRecorder recorder) {
         recorder.registerJolokiaServerShutdownHook(jolokiaServer.getRuntimeValue(), shutdownContextBuildItem);
+    }
+
+    @BuildStep(onlyIf = IsDevelopment.class)
+    ShutdownListenerBuildItem devModeJolokiaServerShutdownListener() {
+        return new ShutdownListenerBuildItem(new DevModeJolokiaServerShutdownListener());
     }
 
     @BuildStep(onlyIf = JolokiaManagementEndpointEnabled.class)
