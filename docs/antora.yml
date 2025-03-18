@@ -39,7 +39,7 @@ asciidoc:
     target-maven-version: 3.9.9 # replace ${target-maven-version}
 
     # Attributes used in xrefs to other Antora components
-    cq-camel-components: next@components
+    cq-camel-components: components
     doc-link-icon-lock: "icon:lock"
     quarkus-examples-version: latest
 
