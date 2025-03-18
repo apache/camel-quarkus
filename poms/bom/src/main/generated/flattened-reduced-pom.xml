@@ -7590,7 +7590,7 @@
       <dependency>
         <groupId>org.springframework.data</groupId>
         <artifactId>spring-data-redis</artifactId>
-        <version>3.4.3</version>
+        <version>3.4.4</version>
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId>
