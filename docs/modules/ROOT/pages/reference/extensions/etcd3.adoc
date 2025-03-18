@@ -6,25 +6,18 @@
 :cq-artifact-id: camel-quarkus-etcd3
 :cq-native-supported: false
 :cq-status: Preview
-:cq-status-deprecation: Preview Deprecated
+:cq-status-deprecation: Preview
 :cq-description: Aggregation repository using EtcD as datastore
-:cq-deprecated: true
+:cq-deprecated: false
 :cq-jvm-since: 2.0.0
 :cq-native-since: n/a
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##2.0.0## [.badge-key]##Native##[.badge-unsupported]##unsupported## [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##
+[.badge-key]##JVM since##[.badge-supported]##2.0.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
 endif::[]
 
 Aggregation repository using EtcD as datastore
-
-[id="extensions-etcd3-whats-inside"]
-== What's inside
-
-* xref:{cq-camel-components}::etcd3-component.adoc[Etcd v3 component], URI syntax: `etcd3:path`
-
-Please refer to the above link for usage and configuration details.
 
 [id="extensions-etcd3-maven-coordinates"]
 == Maven coordinates
