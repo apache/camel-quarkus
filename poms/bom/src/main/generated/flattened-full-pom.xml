@@ -10,9 +10,9 @@
   <url>http://camel.apache.org/camel-quarkus-poms/camel-quarkus-bom</url>
   <licenses>
     <license>
-      <name>Apache-2.0</name><!-- org.apache:apache:33 -->
-      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url><!-- org.apache:apache:33 -->
-      <distribution>repo</distribution><!-- org.apache:apache:33 -->
+      <name>Apache-2.0</name><!-- org.apache:apache:34 -->
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url><!-- org.apache:apache:34 -->
+      <distribution>repo</distribution><!-- org.apache:apache:34 -->
     </license>
   </licenses>
   <developers>
@@ -38,14 +38,14 @@
   </issueManagement>
   <distributionManagement>
     <repository>
-      <id>apache.releases.https</id><!-- org.apache:apache:33 -->
-      <name>Apache Release Distribution Repository</name><!-- org.apache:apache:33 -->
-      <url>https://repository.apache.org/service/local/staging/deploy/maven2</url><!-- org.apache:apache:33 -->
+      <id>apache.releases.https</id><!-- org.apache:apache:34 -->
+      <name>Apache Release Distribution Repository</name><!-- org.apache:apache:34 -->
+      <url>https://repository.apache.org/service/local/staging/deploy/maven2</url><!-- org.apache:apache:34 -->
     </repository>
     <snapshotRepository>
-      <id>apache.snapshots.https</id><!-- org.apache:apache:33 -->
-      <name>Apache Development Snapshot Repository</name><!-- org.apache:apache:33 -->
-      <url>https://repository.apache.org/content/repositories/snapshots</url><!-- org.apache:apache:33 -->
+      <id>apache.snapshots.https</id><!-- org.apache:apache:34 -->
+      <name>Apache Development Snapshot Repository</name><!-- org.apache:apache:34 -->
+      <url>https://repository.apache.org/content/repositories/snapshots</url><!-- org.apache:apache:34 -->
     </snapshotRepository>
   </distributionManagement>
   <dependencyManagement>
@@ -7675,11 +7675,6 @@
             <artifactId>xml-apis</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
         </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.maven.plugin-tools</groupId><!-- org.apache:apache:33 -->
-        <artifactId>maven-plugin-annotations</artifactId><!-- org.apache:apache:33 -->
-        <version>3.13.1</version><!-- org.apache:apache:33 -->
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.20.0.CR1 -->
@@ -20921,6 +20916,17 @@
         <groupId>org.apache.logging.log4j</groupId><!-- io.quarkus:quarkus-bom:3.15.0 -->
         <artifactId>log4j-api</artifactId><!-- io.quarkus:quarkus-bom:3.15.0 -->
         <version>2.23.1</version><!-- io.quarkus:quarkus-bom:3.15.0 -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.maven.plugin-tools</groupId><!-- io.quarkus:quarkus-bom:3.15.0 -->
+        <artifactId>maven-plugin-annotations</artifactId><!-- io.quarkus:quarkus-bom:3.15.0 -->
+        <version>3.13.0</version><!-- io.quarkus:quarkus-bom:3.15.0 -->
+        <exclusions>
+          <exclusion>
+            <groupId>org.apache.maven</groupId><!-- io.quarkus:quarkus-bom:3.15.0 -->
+            <artifactId>maven-artifact</artifactId><!-- io.quarkus:quarkus-bom:3.15.0 -->
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.maven.resolver</groupId><!-- io.quarkus:quarkus-bom:3.15.0 -->
