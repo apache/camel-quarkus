@@ -10,9 +10,9 @@
   <url>http://camel.apache.org/camel-quarkus-poms/camel-quarkus-bom</url>
   <licenses>
     <license>
-      <name>Apache-2.0</name><!-- org.apache:apache:33 -->
-      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url><!-- org.apache:apache:33 -->
-      <distribution>repo</distribution><!-- org.apache:apache:33 -->
+      <name>Apache-2.0</name><!-- org.apache:apache:34 -->
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url><!-- org.apache:apache:34 -->
+      <distribution>repo</distribution><!-- org.apache:apache:34 -->
     </license>
   </licenses>
   <developers>
@@ -38,14 +38,14 @@
   </issueManagement>
   <distributionManagement>
     <repository>
-      <id>apache.releases.https</id><!-- org.apache:apache:33 -->
-      <name>Apache Release Distribution Repository</name><!-- org.apache:apache:33 -->
-      <url>https://repository.apache.org/service/local/staging/deploy/maven2</url><!-- org.apache:apache:33 -->
+      <id>apache.releases.https</id><!-- org.apache:apache:34 -->
+      <name>Apache Release Distribution Repository</name><!-- org.apache:apache:34 -->
+      <url>https://repository.apache.org/service/local/staging/deploy/maven2</url><!-- org.apache:apache:34 -->
     </repository>
     <snapshotRepository>
-      <id>apache.snapshots.https</id><!-- org.apache:apache:33 -->
-      <name>Apache Development Snapshot Repository</name><!-- org.apache:apache:33 -->
-      <url>https://repository.apache.org/content/repositories/snapshots</url><!-- org.apache:apache:33 -->
+      <id>apache.snapshots.https</id><!-- org.apache:apache:34 -->
+      <name>Apache Development Snapshot Repository</name><!-- org.apache:apache:34 -->
+      <url>https://repository.apache.org/content/repositories/snapshots</url><!-- org.apache:apache:34 -->
     </snapshotRepository>
   </distributionManagement>
   <dependencyManagement>
