@@ -16,53 +16,35 @@
  */
 package org.apache.camel.quarkus.core.deployment.main;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import io.quarkus.deployment.IsDevelopment;
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.BuildSteps;
 import io.quarkus.deployment.builditem.HotDeploymentWatchedFileBuildItem;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.camel.quarkus.core.deployment.spi.CamelRouteResourceBuildItem;
+import org.jboss.logging.Logger;
 
+@BuildSteps(onlyIf = { IsDevelopment.class })
 class CamelMainHotDeploymentProcessor {
-    private static final Logger LOGGER = LoggerFactory.getLogger(CamelMainHotDeploymentProcessor.class);
-    private static final String FILE_PREFIX = "file:";
-    private static final String CLASSPATH_PREFIX = "classpath:";
+    private static final Logger LOGGER = Logger.getLogger(CamelMainHotDeploymentProcessor.class);
 
     @BuildStep
-    List<HotDeploymentWatchedFileBuildItem> locations() {
-        List<HotDeploymentWatchedFileBuildItem> items = CamelMainHelper.routesIncludePattern()
-                .map(CamelMainHotDeploymentProcessor::routesIncludePatternToLocation)
-                .filter(location -> location != null)
+    void locations(
+            List<CamelRouteResourceBuildItem> camelRouteResources,
+            BuildProducer<HotDeploymentWatchedFileBuildItem> hotDeploymentWatchedFile) {
+
+        camelRouteResources.stream()
+                .filter(CamelRouteResourceBuildItem::isHotReloadable)
+                .map(CamelRouteResourceBuildItem::getSourcePath)
+                .peek(location -> LOGGER.debugf("Configuring watched file %s", location))
                 .distinct()
                 .map(HotDeploymentWatchedFileBuildItem::new)
-                .collect(Collectors.toList());
+                .forEach(hotDeploymentWatchedFile::produce);
 
-        if (!items.isEmpty()) {
-            LOGGER.info("HotDeployment files:");
-            for (HotDeploymentWatchedFileBuildItem item : items) {
-                LOGGER.info("- {}", item.getLocation());
-            }
+        if (!camelRouteResources.isEmpty()) {
+            LOGGER.info("Camel routes live reload enabled");
         }
-
-        return items;
-    }
-
-    private static String routesIncludePatternToLocation(String pattern) {
-        if (pattern.startsWith(CLASSPATH_PREFIX)) {
-            return pattern.substring(CLASSPATH_PREFIX.length());
-        } else if (pattern.startsWith(FILE_PREFIX)) {
-            String filePattern = pattern.substring(FILE_PREFIX.length());
-            Path filePatternPath = Paths.get(filePattern);
-            if (Files.exists(filePatternPath)) {
-                return filePatternPath.toAbsolutePath().toString();
-            }
-        } else if (pattern.length() > 0) {
-            return pattern;
-        }
-        return null;
     }
 }

@@ -26,6 +26,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
+import org.apache.camel.model.Model;
 
 @Path("/test")
 @ApplicationScoped
@@ -38,10 +39,18 @@ public class CamelSupportResource {
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject describeMain() {
         JsonArrayBuilder routes = Json.createArrayBuilder();
+        JsonArrayBuilder rests = Json.createArrayBuilder();
+        JsonArrayBuilder templates = Json.createArrayBuilder();
         context.getRoutes().forEach(route -> routes.add(route.getId()));
+
+        Model model = context.getCamelContextExtension().getContextPlugin(Model.class);
+        model.getRestDefinitions().forEach(rest -> rests.add(rest.getId()));
+        model.getRouteTemplateDefinitions().forEach(template -> templates.add(template.getId()));
 
         return Json.createObjectBuilder()
                 .add("routes", routes)
+                .add("rests", rests)
+                .add("templates", templates)
                 .build();
     }
 
