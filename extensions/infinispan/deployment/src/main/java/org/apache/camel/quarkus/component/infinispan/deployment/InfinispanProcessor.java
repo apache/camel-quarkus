@@ -16,10 +16,13 @@
  */
 package org.apache.camel.quarkus.component.infinispan.deployment;
 
+import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
+import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
 import org.infinispan.commons.marshall.ProtoStreamMarshaller;
 
 class InfinispanProcessor {
@@ -41,5 +44,15 @@ class InfinispanProcessor {
     ReflectiveClassBuildItem reflectiveClasses() {
         // Only required when Camel instantiates and manages its own internal CacheContainer
         return ReflectiveClassBuildItem.builder(ProtoStreamMarshaller.class).build();
+    }
+
+    @BuildStep
+    CamelServicePatternBuildItem camelServicePattern(Capabilities capabilities) {
+        // Disable infinispan-embeddings transformer if the required extension is missing
+        if (capabilities.isMissing("org.apache.camel.langchain4j.embeddings")) {
+            return new CamelServicePatternBuildItem(CamelServiceDestination.DISCOVERY, false,
+                    "META-INF/services/org/apache/camel/transformer/infinispan-embeddings");
+        }
+        return null;
     }
 }
