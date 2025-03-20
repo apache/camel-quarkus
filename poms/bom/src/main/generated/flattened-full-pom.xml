@@ -6841,7 +6841,7 @@
       <dependency>
         <groupId>io.minio</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>minio</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>8.5.12</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>8.5.17</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>org.checkerframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -6969,22 +6969,22 @@
       <dependency>
         <groupId>io.quarkiverse.minio</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-minio</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.7.7</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.8.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.minio</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-minio-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.7.7</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.8.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.minio</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-minio-native</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.7.7</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.8.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.minio</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-minio-native-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.7.7</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.8.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
