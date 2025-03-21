@@ -6944,12 +6944,12 @@
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId>
         <artifactId>quarkus-mybatis</artifactId>
-        <version>2.2.4</version>
+        <version>2.3.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId>
         <artifactId>quarkus-mybatis-deployment</artifactId>
-        <version>2.2.4</version>
+        <version>2.3.0</version>
       </dependency>
       <dependency>
         <groupId>io.reactivex.rxjava3</groupId>
@@ -7299,7 +7299,7 @@
       <dependency>
         <groupId>org.mybatis</groupId>
         <artifactId>mybatis</artifactId>
-        <version>3.5.16</version>
+        <version>3.5.19</version>
       </dependency>
       <dependency>
         <groupId>org.opensearch.client</groupId>
