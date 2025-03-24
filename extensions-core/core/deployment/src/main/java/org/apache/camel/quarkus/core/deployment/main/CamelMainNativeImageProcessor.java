@@ -16,21 +16,16 @@
  */
 package org.apache.camel.quarkus.core.deployment.main;
 
-import java.util.stream.Collectors;
+import java.util.List;
 import java.util.stream.Stream;
 
-import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.support.ResourceHelper;
-import org.apache.camel.util.AntPathMatcher;
-import org.jboss.logging.Logger;
+import org.apache.camel.quarkus.core.deployment.spi.CamelRouteResourceBuildItem;
 
 public class CamelMainNativeImageProcessor {
-    private static final Logger LOG = Logger.getLogger(CamelMainNativeImageProcessor.class);
-
     @BuildStep
     void reflectiveCLasses(BuildProducer<ReflectiveClassBuildItem> producer) {
         // TODO: The classes below are needed to fix https://github.com/apache/camel-quarkus/issues/1005
@@ -43,26 +38,15 @@ public class CamelMainNativeImageProcessor {
     }
 
     @BuildStep
-    private void camelNativeImageResources(
-            Capabilities capabilities,
+    void camelNativeImageResources(
+            List<CamelRouteResourceBuildItem> camelRouteResources,
             BuildProducer<NativeImageResourceBuildItem> nativeResource) {
 
-        for (String path : CamelMainHelper.routesIncludePattern().collect(Collectors.toList())) {
-            String scheme = ResourceHelper.getScheme(path);
-
-            // Null scheme is equivalent to classpath scheme
-            if (scheme == null || scheme.equals("classpath:")) {
-                if (AntPathMatcher.INSTANCE.isPattern(path)) {
-                    // Classpath directory traversal via wildcard paths does not work on GraalVM.
-                    // The exact path to the resource has to be looked up
-                    // https://github.com/oracle/graal/issues/1108
-                    LOG.warnf("Classpath wildcards does not work in native mode. Resources matching %s will not be loaded.",
-                            path);
-                } else {
-                    nativeResource.produce(new NativeImageResourceBuildItem(path.replace("classpath:", "")));
-                }
-            }
-        }
+        camelRouteResources.stream()
+                .filter(CamelRouteResourceBuildItem::isClasspathResource)
+                .map(CamelRouteResourceBuildItem::getSourcePath)
+                .map(NativeImageResourceBuildItem::new)
+                .forEach(nativeResource::produce);
 
         String[] resources = Stream.of("components", "dataformats", "languages")
                 .map(k -> "org/apache/camel/main/" + k + ".properties")
