@@ -132,5 +132,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: ${{ needs.update.outputs.pr-number }},
-              body: "> [!WARNING]\n> Branch auto synchronized due to changes in generated files. New workflow run triggered:\n>\n> https://github.com/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}\n>\n> Please check the workflow result before merging."
+              body: "> [!WARNING]\n> Branch auto synchronized due to changes in generated files. New workflow run triggered:\n>\n> https://github.com/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}\n>\n> Please check the workflow result before merging.\n>\n>If there are multiple commits, please use the **Squash and merge** option."
             });
