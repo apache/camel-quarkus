@@ -50,8 +50,14 @@ public class MockBackendUtils {
     }
 
     static boolean mockBackendStarted() {
-        return ConfigProvider.getConfig()
-                .getOptionalValue("camel.quarkus.start-mock-backend", Boolean.class)
-                .orElse(Boolean.TRUE);
+        ClassLoader origTCCL = Thread.currentThread().getContextClassLoader();
+        try {
+            Thread.currentThread().setContextClassLoader(MockBackendUtils.class.getClassLoader());
+            return ConfigProvider.getConfig()
+                    .getOptionalValue("camel.quarkus.start-mock-backend", Boolean.class)
+                    .orElse(Boolean.TRUE);
+        } finally {
+            Thread.currentThread().setContextClassLoader(origTCCL);
+        }
     }
 }
