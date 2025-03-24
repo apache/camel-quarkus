@@ -68,8 +68,8 @@ public class TestCertificateGenerationExtension implements BeforeAllCallback {
         Optional<String> cn = Optional.empty();
         Optional<String> altSubName = Optional.empty();
         if (annotation.docker()) {
-            cn = resolveDockerHost();
-            altSubName = cn.stream().map(h -> "IP:%s".formatted(h)).findAny();
+            cn = resolveDockerHost(extensionContext);
+            altSubName = cn.stream().map("IP:%s"::formatted).findAny();
         }
 
         for (Certificate certificate : annotation.certificates()) {
@@ -86,9 +86,7 @@ public class TestCertificateGenerationExtension implements BeforeAllCallback {
                     .withPassword(certificate.password().isEmpty() ? null : certificate.password())
                     .withDuration(Duration.ofDays(certificate.duration()));
 
-            if (altSubName.isPresent()) {
-                request.withSubjectAlternativeName(altSubName.get());
-            }
+            altSubName.ifPresent(request::withSubjectAlternativeName);
 
             for (String san : certificate.subjectAlternativeNames()) {
                 request.withSubjectAlternativeName(san);
@@ -109,12 +107,17 @@ public class TestCertificateGenerationExtension implements BeforeAllCallback {
         }
     }
 
-    private Optional<String> resolveDockerHost() {
-        String dockerHost = DockerClientFactory.instance().dockerHostIpAddress();
-        if (!dockerHost.equals("localhost") && !dockerHost.equals("127.0.0.1")) {
-            return Optional.of(dockerHost);
+    private Optional<String> resolveDockerHost(ExtensionContext extensionContext) {
+        ClassLoader origTCCL = Thread.currentThread().getContextClassLoader();
+        try {
+            Thread.currentThread().setContextClassLoader(extensionContext.getTestClass().get().getClassLoader());
+            String dockerHost = DockerClientFactory.instance().dockerHostIpAddress();
+            if (!dockerHost.equals("localhost") && !dockerHost.equals("127.0.0.1")) {
+                return Optional.of(dockerHost);
+            }
+            return Optional.empty();
+        } finally {
+            Thread.currentThread().setContextClassLoader(origTCCL);
         }
-        return Optional.empty();
     }
-
 }
