@@ -26,6 +26,7 @@ public final class CamelCapabilities {
     public static final String XML_IO_DSL = "org.apache.camel.xml.io.dsl";
     public static final String XML_JAXB = "org.apache.camel.xml.jaxb";
     public static final String XML_JAXP = "org.apache.camel.xml.jaxp";
+    public static final String YAML_DSL = "org.apache.camel.yaml.dsl";
 
     private CamelCapabilities() {
     }

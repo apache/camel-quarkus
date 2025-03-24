@@ -24,6 +24,7 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonFactory;
@@ -55,6 +56,7 @@ import org.apache.camel.openapi.DefaultRestDefinitionsResolver;
 import org.apache.camel.openapi.RestDefinitionsResolver;
 import org.apache.camel.openapi.RestOpenApiReader;
 import org.apache.camel.openapi.RestOpenApiSupport;
+import org.apache.camel.quarkus.core.deployment.main.CamelMainHelper;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesBuilderClassBuildItem;
 import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.apache.camel.spi.RestConfiguration;
@@ -97,9 +99,9 @@ class OpenApiJavaProcessor {
             configurer.setRoutesBuilders(routes);
             configurer.setRoutesCollector(new DefaultRoutesCollector());
             configurer.setRoutesIncludePattern(
-                    CamelSupport.getOptionalConfigValue("camel.main.routes-include-pattern", String.class, null));
+                    CamelMainHelper.routesIncludePattern().collect(Collectors.joining(",")));
             configurer.setRoutesExcludePattern(
-                    CamelSupport.getOptionalConfigValue("camel.main.routes-exclude-pattern", String.class, null));
+                    CamelMainHelper.routesExcludePattern().collect(Collectors.joining(",")));
 
             final CamelContext ctx = CamelSupport.newBuildTimeCamelContext(true);
             if (!routesBuilderClasses.isEmpty()) {

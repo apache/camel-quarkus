@@ -35,6 +35,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
@@ -43,8 +44,11 @@ import org.apache.camel.NoSuchLanguageException;
 import org.apache.camel.catalog.RuntimeCamelCatalog;
 import org.apache.camel.impl.engine.DefaultHeadersMapFactory;
 import org.apache.camel.model.ModelCamelContext;
+import org.apache.camel.quarkus.core.util.FileUtils;
 import org.apache.camel.spi.Registry;
+import org.apache.camel.spi.Resource;
 import org.apache.camel.support.LRUCacheFactory;
+import org.apache.camel.support.PluginHelper;
 import org.apache.camel.support.startup.DefaultStartupStepRecorder;
 import org.jboss.logging.Logger;
 
@@ -284,4 +288,16 @@ public class CoreResource {
         return ((MySerializationObject) is.readObject()).isCorrect();
     }
 
+    @Path("/resource/resolve")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String resolveResource(@QueryParam("path") String path) throws Exception {
+        return PluginHelper.getPackageScanResourceResolver(context)
+                .findResources(path)
+                .stream()
+                .filter(Resource::exists)
+                .map(Resource::getLocation)
+                .map(FileUtils::nixifyPath)
+                .collect(Collectors.joining(","));
+    }
 }

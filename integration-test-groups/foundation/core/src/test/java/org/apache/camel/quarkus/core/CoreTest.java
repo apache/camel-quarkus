@@ -137,4 +137,61 @@ public class CoreTest {
     void testSerialization() {
         RestAssured.when().get("/core/serialization").then().body(is("true"));
     }
+
+    @Test
+    void classpathPackageScan() {
+        // Path without scheme
+        RestAssured.given()
+                .queryParam("path", "include-pattern-folder/included.txt")
+                .get("/core/resource/resolve")
+                .then()
+                .body(endsWith("include-pattern-folder/included.txt"));
+
+        // Classpath scheme
+        RestAssured.given()
+                .queryParam("path", "classpath:include-pattern-folder/included.txt")
+                .get("/core/resource/resolve")
+                .then()
+                .body(endsWith("include-pattern-folder/included.txt"));
+
+        // Classpath globbing
+        RestAssured.given()
+                .queryParam("path", "sub-resources-folder/**")
+                .get("/core/resource/resolve")
+                .then()
+                .body(
+                        containsString("sub-resources-folder/foo/bar/test-1.txt"),
+                        containsString("sub-resources-folder/foo/bar/test-2.txt"));
+
+        RestAssured.given()
+                .queryParam("path", "sub-resources-folder/foo/**")
+                .get("/core/resource/resolve")
+                .then()
+                .body(
+                        containsString("sub-resources-folder/foo/bar/test-1.txt"),
+                        containsString("sub-resources-folder/foo/bar/test-2.txt"));
+
+        RestAssured.given()
+                .queryParam("path", "**/*.txt")
+                .get("/core/resource/resolve")
+                .then()
+                .body(
+                        containsString("sub-resources-folder/foo/bar/test-1.txt"),
+                        containsString("sub-resources-folder/foo/bar/test-2.txt"));
+
+        RestAssured.given()
+                .queryParam("path", "sub-resources-folder/foo/bar/*.txt")
+                .get("/core/resource/resolve")
+                .then()
+                .body(
+                        containsString("sub-resources-folder/foo/bar/test-1.txt"),
+                        containsString("sub-resources-folder/foo/bar/test-2.txt"));
+
+        // Resource that does not exist
+        RestAssured.given()
+                .queryParam("path", "sub-resources-folder/invalid")
+                .get("/core/resource/resolve")
+                .then()
+                .body(emptyOrNullString());
+    }
 }
