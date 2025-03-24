@@ -15,7 +15,7 @@ This extension automatically provides the following Camel Quarkus component exte
 * xref:reference/extensions/microprofile-health.adoc[Camel Quarkus MicroProfile Health] - for health checks
 * xref:reference/extensions/management.adoc[Camel Quarkus Management] - for JMX
 * xref:reference/extensions/micrometer.adoc[Camel Quarkus Micrometer] - for Camel Micrometer metrics
-* xref:reference/extensions/opentelemetry.adoc[Camel Quarkus OpenTelemetry] - for tracing Camel messages (events/spans)
+* xref:reference/extensions/opentelemetry2.adoc[Camel Quarkus OpenTelemetry2] - for tracing Camel messages (events/spans)
 * https://quarkus.io/guides/telemetry-micrometer#micrometer-and-monitoring-system-extensions[Quarkus Micrometer Registry Prometheus] - for exporting metrics in Prometheus format
 
 === List of known endpoints
