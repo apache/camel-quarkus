@@ -21,6 +21,7 @@
         <!-- Camel Quarkus specific dependency bans -->
         <bannedDependencies>
             <excludes>
+                <exclude>com.azure:azure-core-http-netty</exclude><!-- Azure extensions should use org.apache.camel.quarkus:camel-quarkus-support-azure-core-http-client-vertx -->
                 <exclude>com.github.fge:*</exclude><!-- Use com.github.java-json-tools:* instead -->
                 <exclude>com.github.spotbugs:spotbugs-annotations</exclude><!-- Similar to findbugs. Not needed for compilation or at runtime -->
                 <exclude>com.github.stephenc.jcip:jcip-annotations</exclude><!-- Should not be needed for compilation nor at runtime -->
