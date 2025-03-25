@@ -76,7 +76,7 @@ It's advised to name files containing your custom Kamelet definitions with the e
 | Configuration property | Type | Default
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus.camel.kamelet.identifiers]]`link:#quarkus.camel.kamelet.identifiers[quarkus.camel.kamelet.identifiers]`
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-kamelet-identifiers]]`link:#quarkus-camel-kamelet-identifiers[quarkus.camel.kamelet.identifiers]`
 
 Optional comma separated list of kamelet identifiers to configure for native mode support.
 A kamelet identifier is the Kamelet file name without the `.kamelet.yaml` suffix.

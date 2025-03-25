@@ -70,96 +70,96 @@ The kubernetes cluster service could further be tuned by tweaking `quarkus.camel
 | Configuration property | Type | Default
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus.camel.cluster.kubernetes.enabled]]`link:#quarkus.camel.cluster.kubernetes.enabled[quarkus.camel.cluster.kubernetes.enabled]`
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-kubernetes-enabled]]`link:#quarkus-camel-cluster-kubernetes-enabled[quarkus.camel.cluster.kubernetes.enabled]`
 
 Whether a Kubernetes Cluster Service should be automatically configured according to
 'quarkus.camel.cluster.kubernetes.++*++' configurations.
 | `boolean`
 | `true`
 
-a|icon:lock[title=Fixed at build time] [[quarkus.camel.cluster.kubernetes.rebalancing]]`link:#quarkus.camel.cluster.kubernetes.rebalancing[quarkus.camel.cluster.kubernetes.rebalancing]`
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-kubernetes-rebalancing]]`link:#quarkus-camel-cluster-kubernetes-rebalancing[quarkus.camel.cluster.kubernetes.rebalancing]`
 
 Whether the camel master namespace leaders should be distributed evenly across all the camel contexts in the cluster.
 | `boolean`
 | `true`
 
-a| [[quarkus.camel.cluster.kubernetes.id]]`link:#quarkus.camel.cluster.kubernetes.id[quarkus.camel.cluster.kubernetes.id]`
+a| [[quarkus-camel-cluster-kubernetes-id]]`link:#quarkus-camel-cluster-kubernetes-id[quarkus.camel.cluster.kubernetes.id]`
 
 The cluster service ID (defaults to null).
 | `string`
 | 
 
-a| [[quarkus.camel.cluster.kubernetes.master-url]]`link:#quarkus.camel.cluster.kubernetes.master-url[quarkus.camel.cluster.kubernetes.master-url]`
+a| [[quarkus-camel-cluster-kubernetes-master-url]]`link:#quarkus-camel-cluster-kubernetes-master-url[quarkus.camel.cluster.kubernetes.master-url]`
 
 The URL of the Kubernetes master (read from Kubernetes client properties by default).
 | `string`
 | 
 
-a| [[quarkus.camel.cluster.kubernetes.connection-timeout-millis]]`link:#quarkus.camel.cluster.kubernetes.connection-timeout-millis[quarkus.camel.cluster.kubernetes.connection-timeout-millis]`
+a| [[quarkus-camel-cluster-kubernetes-connection-timeout-millis]]`link:#quarkus-camel-cluster-kubernetes-connection-timeout-millis[quarkus.camel.cluster.kubernetes.connection-timeout-millis]`
 
 The connection timeout in milliseconds to use when making requests to the Kubernetes API server.
 | `int`
 | 
 
-a| [[quarkus.camel.cluster.kubernetes.namespace]]`link:#quarkus.camel.cluster.kubernetes.namespace[quarkus.camel.cluster.kubernetes.namespace]`
+a| [[quarkus-camel-cluster-kubernetes-namespace]]`link:#quarkus-camel-cluster-kubernetes-namespace[quarkus.camel.cluster.kubernetes.namespace]`
 
 The name of the Kubernetes namespace containing the pods and the configmap (autodetected by default).
 | `string`
 | 
 
-a| [[quarkus.camel.cluster.kubernetes.pod-name]]`link:#quarkus.camel.cluster.kubernetes.pod-name[quarkus.camel.cluster.kubernetes.pod-name]`
+a| [[quarkus-camel-cluster-kubernetes-pod-name]]`link:#quarkus-camel-cluster-kubernetes-pod-name[quarkus.camel.cluster.kubernetes.pod-name]`
 
 The name of the current pod (autodetected from container host name by default).
 | `string`
 | 
 
-a| [[quarkus.camel.cluster.kubernetes.jitter-factor]]`link:#quarkus.camel.cluster.kubernetes.jitter-factor[quarkus.camel.cluster.kubernetes.jitter-factor]`
+a| [[quarkus-camel-cluster-kubernetes-jitter-factor]]`link:#quarkus-camel-cluster-kubernetes-jitter-factor[quarkus.camel.cluster.kubernetes.jitter-factor]`
 
 The jitter factor to apply in order to prevent all pods to call Kubernetes APIs in the same instant (defaults to
 1.2).
 | `double`
 | 
 
-a| [[quarkus.camel.cluster.kubernetes.lease-duration-millis]]`link:#quarkus.camel.cluster.kubernetes.lease-duration-millis[quarkus.camel.cluster.kubernetes.lease-duration-millis]`
+a| [[quarkus-camel-cluster-kubernetes-lease-duration-millis]]`link:#quarkus-camel-cluster-kubernetes-lease-duration-millis[quarkus.camel.cluster.kubernetes.lease-duration-millis]`
 
 The default duration of the lease for the current leader (defaults to 15000).
 | `long`
 | 
 
-a| [[quarkus.camel.cluster.kubernetes.renew-deadline-millis]]`link:#quarkus.camel.cluster.kubernetes.renew-deadline-millis[quarkus.camel.cluster.kubernetes.renew-deadline-millis]`
+a| [[quarkus-camel-cluster-kubernetes-renew-deadline-millis]]`link:#quarkus-camel-cluster-kubernetes-renew-deadline-millis[quarkus.camel.cluster.kubernetes.renew-deadline-millis]`
 
 The deadline after which the leader must stop its services because it may have lost the leadership (defaults to
 10000).
 | `long`
 | 
 
-a| [[quarkus.camel.cluster.kubernetes.retry-period-millis]]`link:#quarkus.camel.cluster.kubernetes.retry-period-millis[quarkus.camel.cluster.kubernetes.retry-period-millis]`
+a| [[quarkus-camel-cluster-kubernetes-retry-period-millis]]`link:#quarkus-camel-cluster-kubernetes-retry-period-millis[quarkus.camel.cluster.kubernetes.retry-period-millis]`
 
 The time between two subsequent attempts to check and acquire the leadership. It is randomized using the jitter
 factor (defaults to 2000).
 | `long`
 | 
 
-a| [[quarkus.camel.cluster.kubernetes.order]]`link:#quarkus.camel.cluster.kubernetes.order[quarkus.camel.cluster.kubernetes.order]`
+a| [[quarkus-camel-cluster-kubernetes-order]]`link:#quarkus-camel-cluster-kubernetes-order[quarkus.camel.cluster.kubernetes.order]`
 
 Service lookup order/priority (defaults to 2147482647).
 | `int`
 | 
 
-a| [[quarkus.camel.cluster.kubernetes.resource-name]]`link:#quarkus.camel.cluster.kubernetes.resource-name[quarkus.camel.cluster.kubernetes.resource-name]`
+a| [[quarkus-camel-cluster-kubernetes-resource-name]]`link:#quarkus-camel-cluster-kubernetes-resource-name[quarkus.camel.cluster.kubernetes.resource-name]`
 
 The name of the lease resource used to do optimistic locking (defaults to 'leaders'). The resource name is used as
 prefix when the underlying Kubernetes resource can manage a single lock.
 | `string`
 | 
 
-a| [[quarkus.camel.cluster.kubernetes.lease-resource-type]]`link:#quarkus.camel.cluster.kubernetes.lease-resource-type[quarkus.camel.cluster.kubernetes.lease-resource-type]`
+a| [[quarkus-camel-cluster-kubernetes-lease-resource-type]]`link:#quarkus-camel-cluster-kubernetes-lease-resource-type[quarkus.camel.cluster.kubernetes.lease-resource-type]`
 
 The lease resource type used in Kubernetes, either 'config-map' or 'lease' (defaults to 'lease').
 | `config-map`, `lease`
 | 
 
-a| [[quarkus.camel.cluster.kubernetes.labels.-labels]]`link:#quarkus.camel.cluster.kubernetes.labels.-labels[quarkus.camel.cluster.kubernetes.labels."labels"]`
+a| [[quarkus-camel-cluster-kubernetes-labels-labels]]`link:#quarkus-camel-cluster-kubernetes-labels-labels[quarkus.camel.cluster.kubernetes.labels."labels"]`
 
 The labels key/value used to identify the pods composing the cluster, defaults to empty map.
 | `Map<String,String>`
