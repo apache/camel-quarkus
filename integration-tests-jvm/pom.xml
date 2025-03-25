@@ -37,6 +37,7 @@
         <module>asterisk</module>
         <module>aws-xray</module>
         <module>azure-cosmosdb</module>
+        <module>azure-files</module>
         <module>azure-storage-datalake</module>
         <module>barcode</module>
         <module>bonita</module>
