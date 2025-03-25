@@ -110,19 +110,19 @@ only source of XSLT information at runtime. The XSLT source files may not be inc
 | Configuration property | Type | Default
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus.camel.xslt.sources]]`link:#quarkus.camel.xslt.sources[quarkus.camel.xslt.sources]`
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-xslt-sources]]`link:#quarkus-camel-xslt-sources[quarkus.camel.xslt.sources]`
 
 A comma separated list of templates to compile.
 | List of `string`
 | 
 
-a|icon:lock[title=Fixed at build time] [[quarkus.camel.xslt.package-name]]`link:#quarkus.camel.xslt.package-name[quarkus.camel.xslt.package-name]`
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-xslt-package-name]]`link:#quarkus-camel-xslt-package-name[quarkus.camel.xslt.package-name]`
 
 The package name for the generated classes.
 | `string`
 | `org.apache.camel.quarkus.component.xslt.generated`
 
-a|icon:lock[title=Fixed at build time] [[quarkus.camel.xslt.features.-features]]`link:#quarkus.camel.xslt.features.-features[quarkus.camel.xslt.features."features"]`
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-xslt-features-features]]`link:#quarkus-camel-xslt-features-features[quarkus.camel.xslt.features."features"]`
 
 TransformerFactory features.
 | `Map<String,Boolean>`

@@ -48,7 +48,7 @@ endif::[]
 | Configuration property | Type | Default
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus.camel.cli.enabled]]`link:#quarkus.camel.cli.enabled[quarkus.camel.cli.enabled]`
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-cli-enabled]]`link:#quarkus-camel-cli-enabled[quarkus.camel.cli.enabled]`
 
 Sets whether to enable Camel CLI Connector support.
 | `boolean`
