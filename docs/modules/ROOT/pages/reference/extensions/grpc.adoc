@@ -160,7 +160,7 @@ At present there is no support for integrating Camel Quarkus gRPC with Quarkus g
 | Configuration property | Type | Default
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-grpc-service-excludes]]`link:#quarkus-camel-grpc-service-excludes[quarkus.camel.grpc.service-excludes]`
+a|icon:lock[title=Fixed at build time] [[quarkus.camel.grpc.service-excludes]]`link:#quarkus.camel.grpc.service-excludes[quarkus.camel.grpc.service-excludes]`
 
 Excludes classes from the build time scanning of gRPC service classes.
 This can be useful if there are gRPC services that you want to exclude from participating in Camel gRPC route
@@ -175,7 +175,7 @@ And to exclude all services from two specific packages use:
 | List of `string`
 | 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-grpc-codegen-enabled]]`link:#quarkus-camel-grpc-codegen-enabled[quarkus.camel.grpc.codegen.enabled]`
+a|icon:lock[title=Fixed at build time] [[quarkus.camel.grpc.codegen.enabled]]`link:#quarkus.camel.grpc.codegen.enabled[quarkus.camel.grpc.codegen.enabled]`
 
 If `true`, Camel Quarkus gRPC code generation is run for .proto files discovered from the `proto` directory, or from
 dependencies specified in the `scan-for-proto` or `scan-for-imports` options. When `false`, code generation for
@@ -183,7 +183,7 @@ dependencies specified in the `scan-for-proto` or `scan-for-imports` options. Wh
 | `boolean`
 | `true`
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-grpc-codegen-scan-for-proto]]`link:#quarkus-camel-grpc-codegen-scan-for-proto[quarkus.camel.grpc.codegen.scan-for-proto]`
+a|icon:lock[title=Fixed at build time] [[quarkus.camel.grpc.codegen.scan-for-proto]]`link:#quarkus.camel.grpc.codegen.scan-for-proto[quarkus.camel.grpc.codegen.scan-for-proto]`
 
 Camel Quarkus gRPC code generation can scan application dependencies for .proto files to generate Java stubs from
 them. This property sets the scope of the dependencies to scan. Applicable values:
@@ -194,7 +194,7 @@ them. This property sets the scope of the dependencies to scan. Applicable value
 | `string`
 | `none`
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-grpc-codegen-scan-for-imports]]`link:#quarkus-camel-grpc-codegen-scan-for-imports[quarkus.camel.grpc.codegen.scan-for-imports]`
+a|icon:lock[title=Fixed at build time] [[quarkus.camel.grpc.codegen.scan-for-imports]]`link:#quarkus.camel.grpc.codegen.scan-for-imports[quarkus.camel.grpc.codegen.scan-for-imports]`
 
 Camel Quarkus gRPC code generation can scan dependencies for .proto files that can be imported by protos in this
 applications. Applicable values:
@@ -205,13 +205,13 @@ applications. Applicable values:
 | `string`
 | `com.google.protobuf:protobuf-java`
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-grpc-codegen-scan-for-proto-includes-scan-for-proto-includes]]`link:#quarkus-camel-grpc-codegen-scan-for-proto-includes-scan-for-proto-includes[quarkus.camel.grpc.codegen.scan-for-proto-includes."scan-for-proto-includes"]`
+a|icon:lock[title=Fixed at build time] [[quarkus.camel.grpc.codegen.scan-for-proto-includes.-scan-for-proto-includes]]`link:#quarkus.camel.grpc.codegen.scan-for-proto-includes.-scan-for-proto-includes[quarkus.camel.grpc.codegen.scan-for-proto-includes."scan-for-proto-includes"]`
 
 Package path or file glob pattern includes per dependency containing .proto files to be considered for inclusion.
 | `Map<String,List<String>>`
 | 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-grpc-codegen-scan-for-proto-excludes-scan-for-proto-excludes]]`link:#quarkus-camel-grpc-codegen-scan-for-proto-excludes-scan-for-proto-excludes[quarkus.camel.grpc.codegen.scan-for-proto-excludes."scan-for-proto-excludes"]`
+a|icon:lock[title=Fixed at build time] [[quarkus.camel.grpc.codegen.scan-for-proto-excludes.-scan-for-proto-excludes]]`link:#quarkus.camel.grpc.codegen.scan-for-proto-excludes.-scan-for-proto-excludes[quarkus.camel.grpc.codegen.scan-for-proto-excludes."scan-for-proto-excludes"]`
 
 Package path or file glob pattern includes per dependency containing .proto files to be considered for exclusion.
 | `Map<String,List<String>>`
