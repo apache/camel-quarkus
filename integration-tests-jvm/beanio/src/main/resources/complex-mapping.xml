@@ -35,6 +35,9 @@
     </template>
 
     <stream name="securityData" format="fixedlength" strict="true">
+        <parser>
+            <property name="recordTerminator" value="\n"/>
+        </parser>
         <group name="headerGroup" minOccurs="1" maxOccurs="1" order="1">
             <record name="headerA1" class="org.apache.camel.quarkus.component.beanio.it.model.Header" order="1" minLength="32"
                     maxLength="32"
