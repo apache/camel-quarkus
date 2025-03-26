@@ -1116,6 +1116,10 @@
             <artifactId>annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
           <exclusion>
+            <groupId>com.google.auto.value</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>auto-value-annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
             <groupId>com.google.guava</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>listenablefuture</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
@@ -1183,6 +1187,10 @@
           <exclusion>
             <groupId>com.google.android</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>com.google.auto.value</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>auto-value-annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -6521,6 +6529,10 @@
         <version>1.24.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
+            <groupId>com.google.auto.value</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>auto-value-annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
             <groupId>com.google.code.findbugs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>jsr305</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
@@ -6567,6 +6579,10 @@
             <artifactId>annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
           <exclusion>
+            <groupId>com.google.auto.value</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>auto-value-annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
             <groupId>com.google.code.findbugs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>jsr305</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
@@ -6596,6 +6612,10 @@
           <exclusion>
             <groupId>com.google.android</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+          <exclusion>
+            <groupId>com.google.auto.value</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>auto-value-annotations</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
