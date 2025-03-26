@@ -25,6 +25,7 @@
                 <exclude>com.github.spotbugs:spotbugs-annotations</exclude><!-- Similar to findbugs. Not needed for compilation or at runtime -->
                 <exclude>com.github.stephenc.jcip:jcip-annotations</exclude><!-- Should not be needed for compilation nor at runtime -->
                 <exclude>com.google.code.findbugs:jsr305</exclude>
+                <exclude>com.google.auto.value:auto-value-annotations</exclude>
                 <exclude>com.sun.activation:javax.activation</exclude><!-- use jakarta.activation:jakarta.activation-api and angus-activation instead -->
                 <exclude>com.sun.activation:jakarta.activation</exclude><!-- use jakarta.activation:jakarta.activation-api and angus-activation instead -->
                 <exclude>com.sun.xml.bind:jaxb-core</exclude><!-- use org.glassfish.jaxb:jaxb-core instead -->

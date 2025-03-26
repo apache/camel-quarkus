@@ -1130,6 +1130,10 @@
             <artifactId>annotations</artifactId>
           </exclusion>
           <exclusion>
+            <groupId>com.google.auto.value</groupId>
+            <artifactId>auto-value-annotations</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>com.google.guava</groupId>
             <artifactId>listenablefuture</artifactId>
           </exclusion>
@@ -1197,6 +1201,10 @@
           <exclusion>
             <groupId>com.google.android</groupId>
             <artifactId>annotations</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.google.auto.value</groupId>
+            <artifactId>auto-value-annotations</artifactId>
           </exclusion>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
@@ -6562,6 +6570,10 @@
         <version>1.29.0</version>
         <exclusions>
           <exclusion>
+            <groupId>com.google.auto.value</groupId>
+            <artifactId>auto-value-annotations</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
           </exclusion>
@@ -6608,6 +6620,10 @@
             <artifactId>annotations</artifactId>
           </exclusion>
           <exclusion>
+            <groupId>com.google.auto.value</groupId>
+            <artifactId>auto-value-annotations</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
           </exclusion>
@@ -6637,6 +6653,10 @@
           <exclusion>
             <groupId>com.google.android</groupId>
             <artifactId>annotations</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.google.auto.value</groupId>
+            <artifactId>auto-value-annotations</artifactId>
           </exclusion>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
