@@ -1,0 +1,22 @@
+While `camel-dfdl` component requires Scala version 2.12, Quarkus BOM enforces Scala version 2.13, which causes `camel-dfdl` to fail. In order to make it work, the application POM needs to override the scala version. You can do that by adding `<dependencyManagement>` in your application POM:
+[source,xml]
+----
+<properties>
+    <scala.version>2.12.20</scala.version>
+</properties>
+...
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-reflect</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+----

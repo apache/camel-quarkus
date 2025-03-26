@@ -50,6 +50,7 @@
         <module>console</module>
         <module>controlbus-statistics</module>
         <module>couchbase</module>
+        <module>dfdl</module>
         <module>djl</module>
         <module>dns</module>
         <module>drill</module>

@@ -50,6 +50,7 @@ updates:
       - dependency-name: "org.hamcrest:hamcrest"
       - dependency-name: "org.hamcrest:hamcrest-core"
       - dependency-name: "org.seleniumhq.selenium:htmlunit-driver"
+      - dependency-name: "org.xmlunit:xmlunit-core"
       - dependency-name: "org.zeroturnaround:zt-exec"
       # Maven plugins
       - dependency-name: "*:*-maven-plugin"
