@@ -51,6 +51,7 @@
         <module>cometd</module>
         <module>console</module>
         <module>couchbase</module>
+        <module>dfdl</module>
         <module>djl</module>
         <module>dns</module>
         <module>drill</module>
