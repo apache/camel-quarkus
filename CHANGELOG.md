@@ -18,6 +18,96 @@
 -->
 # Changelog
 
+## 3.20.0
+
+* Next is 3.20.0-SNAPSHOT by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7036
+* Bump org.apache.maven.plugins:maven-clean-plugin from 3.4.0 to 3.4.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/7033
+* Bump actions/cache from 4.2.0 to 4.2.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/7035
+* Bump quarkiverse-freemarker.version from 1.1.0 to 1.2.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/7037
+* Bump quarkiverse-groovy.version from 3.18.2 to 3.19.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/7038
+* Bump com.azure:azure-core-http-vertx from 1.0.1 to 1.0.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/7039
+* Bump actions/upload-artifact from 4.6.0 to 4.6.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/7040
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/7041
+* Add tests for Kubernetes property resolution and context reloading by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7046
+* Bump quarkiverse-cxf.version from 3.18.1 to 3.19.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/7048
+* Bump peter-evans/create-pull-request from 7.0.6 to 7.0.7 by @dependabot in https://github.com/apache/camel-quarkus/pull/7047
+* Add changelog for 3.19.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7049
+* Set a default Jolokia agent description by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7052
+* Enable Jolokia Camel restrictor allowed MBean domains to be configurable by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7053
+* Option for disabling identity tests except key-vault by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7057
+* Upgrade Quarkus to 3.19.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7058
+* Bump actions/download-artifact from 4.1.8 to 4.1.9 by @dependabot in https://github.com/apache/camel-quarkus/pull/7059
+* Clean up usage of deprecated APIs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7060
+* Bump actions/cache from 4.2.1 to 4.2.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/7065
+* Bump quarkiverse-pooled-jms.version from 2.6.0 to 2.7.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/7063
+* Bump quarkiverse-groovy.version from 3.19.0 to 3.19.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/7064
+* Bump io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-jmx from 3.2.4 to 3.3.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/7066
+* Bump org.apache.maven.plugins:maven-deploy-plugin from 3.1.3 to 3.1.4 by @dependabot in https://github.com/apache/camel-quarkus/pull/7067
+* Add Jolokia native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7062
+* Bump io.quarkiverse.artemis:quarkus-artemis-bom from 3.6.4 to 3.7.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/7070
+* Bump org.apache.maven.plugins:maven-install-plugin from 3.1.3 to 3.1.4 by @dependabot in https://github.com/apache/camel-quarkus/pull/7071
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/7072
+* Ensure AsciiDoc in config table description column is rendered properly by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7073
+* Miscellaneous documentation tidy-ups by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7075
+* Bump io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-jmx from 3.3.0 to 3.3.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/7079
+* Bump org.jolokia:jolokia-agent-jvm from 2.2.2 to 2.2.3 by @dependabot in https://github.com/apache/camel-quarkus/pull/7081
+* Replace codegen usage of deprecated Swagger Schema.required attribute with Schema.requiredMode by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7083
+* Restore Micrometer JMX tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7084
+* Bump org.wiremock:wiremock-standalone from 3.12.0 to 3.12.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/7080
+* Upgrade Camel to 4.10.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7069
+* Bump peter-evans/create-pull-request from 7.0.7 to 7.0.8 by @dependabot in https://github.com/apache/camel-quarkus/pull/7089
+* Smb: extend coverage with test using path parameter by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7087
+* Fix formatting for Jolokia expose-container-port config docs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7090
+* Upgrade Quarkus to 3.19.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7091
+* Kubernetes extension and test fixes for Camel 4.10.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7092
+* Add support for SimpleLanguageFunctionFactory by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7094
+* Bump org.apache.maven.plugins:maven-compiler-plugin from 3.11.0 to 3.14.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/7096
+* Bump org.jolokia:jolokia-agent-jvm from 2.2.3 to 2.2.4 by @dependabot in https://github.com/apache/camel-quarkus/pull/7097
+* Add note about HTTP endpoint paths when using rest-openapi contract first by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7098
+* Disable FopTest on GitHub CI for Windows by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7095
+* Verify expected json-validator error messages by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7099
+* Added azure-servicebus mock testing by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7082
+* Fix Jolokia client-principal config code snippet by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7100
+* Handle ipv6 addresses for JolokiaRequestRedirectHandler by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7103
+* Bump quarkiverse-groovy.version from 3.19.1 to 3.19.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/7101
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/7109
+* Upgrade Camel to 4.10.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7110
+* Add changelog for 3.15.3 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7113
+* Use quarkus-rest-client instead of quarkus-rest in Jira extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7115
+* cxf-soap-grouped native build occasionally runs out of memory by @ppalaga in https://github.com/apache/camel-quarkus/pull/7116
+* Refactored azure-servicebus emulator to not use docker compose by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7117
+* Bump org.jolokia:jolokia-agent-jvm from 2.2.4 to 2.2.6 by @dependabot in https://github.com/apache/camel-quarkus/pull/7118
+* Fix population of catalog models when extendClassPathCatalog is in use by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7122
+* Bump cq-plugin.version from 4.17.0 to 4.17.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/7126
+* Bump quarkiverse-jsch.version from 3.0.13 to 3.0.14 by @dependabot in https://github.com/apache/camel-quarkus/pull/7124
+* Bump com.azure:azure-core-http-vertx from 1.0.2 to 1.0.3 by @dependabot in https://github.com/apache/camel-quarkus/pull/7123
+* Fix get beans name from the camel quarkus runtime catalog by @zhfeng in https://github.com/apache/camel-quarkus/pull/7127
+* Add option to disable sanity checks in individual modules by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7129
+* Avoid comparing CDI client proxies in Fault Tolerance configuration testing by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7130
+* Fix dependency convergence failures with camel-quarkus-google-secret-manager by @zhfeng in https://github.com/apache/camel-quarkus/pull/7128
+* Azure-servicebus: fixed intermittent failures by switching to another img by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7131
+* Upgrade Quarkus to 3.20.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7133
+* Upgrade Quarkus Amazon Services to 3.3.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7135
+* Upgrade to Quarkus CXF 3.20.0.CR1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/7136
+* Bump io.quarkiverse.artemis:quarkus-artemis-bom from 3.7.0 to 3.7.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/7137
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/7139
+* Add basic Smooks component and DataFormat tests by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7141
+* perf-regression: Upgrade hyperfoil-maven-plugin to 0.27.1 by @aldettinger in https://github.com/apache/camel-quarkus/pull/7143
+* Update jt400 README notes for mocked testing by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7144
+* Groovy: extend test coverage by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7145
+* Align json-smart with Camel by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7146
+* Ensure docs component xref point to Camel 4.10.x by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7149
+* Fix potential Jolokia java.net.BindException in dev mode by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7150
+* Bump actions/download-artifact from 4.1.9 to 4.2.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/7151
+* Upgrade Quarkus to 3.20.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7152
+* delete unecessary banned guava : listenablefuture dependency by @zbendhiba in https://github.com/apache/camel-quarkus/pull/7153
+* Bump actions/upload-artifact from 4.6.1 to 4.6.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/7155
+* Bump actions/download-artifact from 4.2.0 to 4.2.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/7156
+* Bump quarkiverse-minio.version from 3.7.7 to 3.8.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/7154
+* Sync gax-httpjson version from google-cloud-pubsub by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7157
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.19.0...3.20.0
+
 ## 3.15.3
 
 * [3.15.x] Update generated files after release by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6908
