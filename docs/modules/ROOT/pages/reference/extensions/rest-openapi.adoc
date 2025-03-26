@@ -150,7 +150,7 @@ To set a base path, do any one of the following.
 | Configuration property | Type | Default
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-openapi-codegen-enabled]]`link:#quarkus-camel-openapi-codegen-enabled[quarkus.camel.openapi.codegen.enabled]`
+a|icon:lock[title=Fixed at build time] [[quarkus.camel.openapi.codegen.enabled]]`link:#quarkus.camel.openapi.codegen.enabled[quarkus.camel.openapi.codegen.enabled]`
 
 If `true`, Camel Quarkus OpenAPI code generation is run for .json and .yaml files discovered from the `openapi`
 directory. When
@@ -158,43 +158,43 @@ directory. When
 | `boolean`
 | `true`
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-openapi-codegen-model-package]]`link:#quarkus-camel-openapi-codegen-model-package[quarkus.camel.openapi.codegen.model-package]`
+a|icon:lock[title=Fixed at build time] [[quarkus.camel.openapi.codegen.model-package]]`link:#quarkus.camel.openapi.codegen.model-package[quarkus.camel.openapi.codegen.model-package]`
 
 The package to use for generated model classes.
 | `string`
 | `org.apache.camel.quarkus`
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-openapi-codegen-models]]`link:#quarkus-camel-openapi-codegen-models[quarkus.camel.openapi.codegen.models]`
+a|icon:lock[title=Fixed at build time] [[quarkus.camel.openapi.codegen.models]]`link:#quarkus.camel.openapi.codegen.models[quarkus.camel.openapi.codegen.models]`
 
 A comma separated list of models to generate. The default is empty list for all models.
 | `string`
 | 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-openapi-codegen-use-bean-validation]]`link:#quarkus-camel-openapi-codegen-use-bean-validation[quarkus.camel.openapi.codegen.use-bean-validation]`
+a|icon:lock[title=Fixed at build time] [[quarkus.camel.openapi.codegen.use-bean-validation]]`link:#quarkus.camel.openapi.codegen.use-bean-validation[quarkus.camel.openapi.codegen.use-bean-validation]`
 
 If `true`, use bean validation annotations in the generated model classes.
 | `boolean`
 | `false`
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-openapi-codegen-not-null-jackson]]`link:#quarkus-camel-openapi-codegen-not-null-jackson[quarkus.camel.openapi.codegen.not-null-jackson]`
+a|icon:lock[title=Fixed at build time] [[quarkus.camel.openapi.codegen.not-null-jackson]]`link:#quarkus.camel.openapi.codegen.not-null-jackson[quarkus.camel.openapi.codegen.not-null-jackson]`
 
 If `true`, use NON_NULL Jackson annotation in the generated model classes.
 | `boolean`
 | `false`
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-openapi-codegen-ignore-unknown-properties]]`link:#quarkus-camel-openapi-codegen-ignore-unknown-properties[quarkus.camel.openapi.codegen.ignore-unknown-properties]`
+a|icon:lock[title=Fixed at build time] [[quarkus.camel.openapi.codegen.ignore-unknown-properties]]`link:#quarkus.camel.openapi.codegen.ignore-unknown-properties[quarkus.camel.openapi.codegen.ignore-unknown-properties]`
 
 If `true`, use JsonIgnoreProperties(ignoreUnknown = true) annotation in the generated model classes.
 | `boolean`
 | `false`
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-openapi-codegen-additional-properties-additional-properties]]`link:#quarkus-camel-openapi-codegen-additional-properties-additional-properties[quarkus.camel.openapi.codegen.additional-properties."additional-properties"]`
+a|icon:lock[title=Fixed at build time] [[quarkus.camel.openapi.codegen.additional-properties.-additional-properties]]`link:#quarkus.camel.openapi.codegen.additional-properties.-additional-properties[quarkus.camel.openapi.codegen.additional-properties."additional-properties"]`
 
 Additional properties to be used in the mustache templates.
 | `Map<String,String>`
 | 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-openapi-codegen-locations]]`link:#quarkus-camel-openapi-codegen-locations[quarkus.camel.openapi.codegen.locations]`
+a|icon:lock[title=Fixed at build time] [[quarkus.camel.openapi.codegen.locations]]`link:#quarkus.camel.openapi.codegen.locations[quarkus.camel.openapi.codegen.locations]`
 
 A comma separated list of OpenAPI spec locations.
 | `string`
