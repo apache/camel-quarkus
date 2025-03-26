@@ -60,7 +60,7 @@ https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].
 | Configuration property | Type | Default
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-graphql-query-files]]`link:#quarkus-camel-graphql-query-files[quarkus.camel.graphql.query-files]`
+a|icon:lock[title=Fixed at build time] [[quarkus.camel.graphql.query-files]]`link:#quarkus.camel.graphql.query-files[quarkus.camel.graphql.query-files]`
 
 A comma separated list of paths to files containing GraphQL queries for use by GraphQL endpoints. Query files that
 only need to be accessible from the classpath should be specified on this property. Paths can either be schemeless
