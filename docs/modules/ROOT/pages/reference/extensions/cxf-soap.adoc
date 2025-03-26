@@ -316,7 +316,7 @@ quarkus.cxf.codegen.wsdl2java.additional-params = -validate
 | Configuration property | Type | Default
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-cxf-class-generation-exclude-patterns]]`link:#quarkus-camel-cxf-class-generation-exclude-patterns[quarkus.camel.cxf.class-generation.exclude-patterns]`
+a|icon:lock[title=Fixed at build time] [[quarkus.camel.cxf.class-generation.exclude-patterns]]`link:#quarkus.camel.cxf.class-generation.exclude-patterns[quarkus.camel.cxf.class-generation.exclude-patterns]`
 
 For CXF service interfaces to work properly, some ancillary classes (such as request and response wrappers) need to
 be generated at build time. Camel Quarkus lets the `quarkus-cxf` extension to do this for all service interfaces

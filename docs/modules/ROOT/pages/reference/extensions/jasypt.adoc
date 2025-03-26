@@ -199,7 +199,7 @@ you must add the file to `quarkus.native.resources.includes` so that it can be l
 | Configuration property | Type | Default
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-jasypt-enabled]]`link:#quarkus-camel-jasypt-enabled[quarkus.camel.jasypt.enabled]`
+a|icon:lock[title=Fixed at build time] [[quarkus.camel.jasypt.enabled]]`link:#quarkus.camel.jasypt.enabled[quarkus.camel.jasypt.enabled]`
 
 Setting this option to false will disable Jasypt integration with Quarkus SmallRye configuration. You can however,
 manually configure Jasypt with Camel in the 'classic' way of manually configuring JasyptPropertiesParser and
@@ -207,13 +207,13 @@ PropertiesComponent. Refer to the usage section for more details.
 | `boolean`
 | `true`
 
-a| [[quarkus-camel-jasypt-algorithm]]`link:#quarkus-camel-jasypt-algorithm[quarkus.camel.jasypt.algorithm]`
+a| [[quarkus.camel.jasypt.algorithm]]`link:#quarkus.camel.jasypt.algorithm[quarkus.camel.jasypt.algorithm]`
 
 The algorithm to be used for decryption.
 | `string`
 | `PBEWithMD5AndDES`
 
-a| [[quarkus-camel-jasypt-password]]`link:#quarkus-camel-jasypt-password[quarkus.camel.jasypt.password]`
+a| [[quarkus.camel.jasypt.password]]`link:#quarkus.camel.jasypt.password[quarkus.camel.jasypt.password]`
 
 The master password used by Jasypt for decrypting configuration values. This option supports prefixes which influence
 the master password lookup behaviour.
@@ -223,19 +223,19 @@ environment with the given key.
 | `string`
 | 
 
-a| [[quarkus-camel-jasypt-random-iv-generator-algorithm]]`link:#quarkus-camel-jasypt-random-iv-generator-algorithm[quarkus.camel.jasypt.random-iv-generator-algorithm]`
+a| [[quarkus.camel.jasypt.random-iv-generator-algorithm]]`link:#quarkus.camel.jasypt.random-iv-generator-algorithm[quarkus.camel.jasypt.random-iv-generator-algorithm]`
 
 Configures the Jasypt StandardPBEStringEncryptor with a RandomIvGenerator using the given algorithm.
 | `string`
 | `SHA1PRNG`
 
-a| [[quarkus-camel-jasypt-random-salt-generator-algorithm]]`link:#quarkus-camel-jasypt-random-salt-generator-algorithm[quarkus.camel.jasypt.random-salt-generator-algorithm]`
+a| [[quarkus.camel.jasypt.random-salt-generator-algorithm]]`link:#quarkus.camel.jasypt.random-salt-generator-algorithm[quarkus.camel.jasypt.random-salt-generator-algorithm]`
 
 Configures the Jasypt StandardPBEStringEncryptor with a RandomSaltGenerator using the given algorithm.
 | `string`
 | `SHA1PRNG`
 
-a| [[quarkus-camel-jasypt-configuration-customizer-class-name]]`link:#quarkus-camel-jasypt-configuration-customizer-class-name[quarkus.camel.jasypt.configuration-customizer-class-name]`
+a| [[quarkus.camel.jasypt.configuration-customizer-class-name]]`link:#quarkus.camel.jasypt.configuration-customizer-class-name[quarkus.camel.jasypt.configuration-customizer-class-name]`
 
 The fully qualified class name of an org.apache.camel.quarkus.component.jasypt.JasyptConfigurationCustomizer
 implementation. This provides the optional capability of having full control over the Jasypt configuration.
