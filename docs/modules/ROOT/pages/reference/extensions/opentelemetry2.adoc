@@ -123,7 +123,7 @@ There is more information about CDI instrumentation in the https://quarkus.io/gu
 | Configuration property | Type | Default
 
 
-a| [[quarkus.camel.opentelemetry2.exclude-patterns]]`link:#quarkus.camel.opentelemetry2.exclude-patterns[quarkus.camel.opentelemetry2.exclude-patterns]`
+a| [[quarkus-camel-opentelemetry2-exclude-patterns]]`link:#quarkus-camel-opentelemetry2-exclude-patterns[quarkus.camel.opentelemetry2.exclude-patterns]`
 
 Sets whether to disable tracing for endpoint URIs or Processor ids that match the given comma separated patterns. The
 pattern can take the following forms:
@@ -136,7 +136,7 @@ pattern can take the following forms:
 | `string`
 | 
 
-a| [[quarkus.camel.opentelemetry2.trace-processors]]`link:#quarkus.camel.opentelemetry2.trace-processors[quarkus.camel.opentelemetry2.trace-processors]`
+a| [[quarkus-camel-opentelemetry2-trace-processors]]`link:#quarkus-camel-opentelemetry2-trace-processors[quarkus.camel.opentelemetry2.trace-processors]`
 
 Sets whether to create new OpenTelemetry spans for each Camel Processor. Use the excludePatterns property to filter
 out Processors.

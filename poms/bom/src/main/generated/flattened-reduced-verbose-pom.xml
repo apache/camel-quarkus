@@ -409,6 +409,17 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-azure-files</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>4.11.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.azure</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>azure-core-http-netty</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-azure-key-vault</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>4.11.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
@@ -3284,6 +3295,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-quarkus-azure-eventhubs-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.22.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-quarkus-azure-files</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.22.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>camel-quarkus-azure-files-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.22.0-SNAPSHOT</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
@@ -8567,6 +8588,11 @@
         <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.32 -->
         <artifactId>azure-storage-file-datalake</artifactId><!-- com.azure:azure-sdk-bom:1.2.32 -->
         <version>12.22.1</version><!-- com.azure:azure-sdk-bom:1.2.32 -->
+      </dependency>
+      <dependency>
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.32 -->
+        <artifactId>azure-storage-file-share</artifactId><!-- com.azure:azure-sdk-bom:1.2.32 -->
+        <version>12.25.2</version><!-- com.azure:azure-sdk-bom:1.2.32 -->
       </dependency>
       <dependency>
         <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.32 -->
