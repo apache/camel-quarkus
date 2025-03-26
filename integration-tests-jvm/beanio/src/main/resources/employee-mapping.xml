@@ -19,6 +19,9 @@
 -->
 <beanio xmlns="http://www.beanio.org/2012/03" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.beanio.org/2012/03 http://www.beanio.org/2012/03/mapping.xsd">
     <stream name="employeeCSV" format="csv">
+        <parser>
+            <property name="recordTerminator" value="\n"/>
+        </parser>
         <record name="employee" class="org.apache.camel.quarkus.component.beanio.it.model.Employee">
             <field name="firstName"/>
             <field name="lastName"/>
@@ -39,6 +42,7 @@
     <stream name="employeeDelimited" format="delimited">
         <parser>
             <property name="delimiter" value="|" />
+            <property name="recordTerminator" value="\n"/>
         </parser>
         <record name="employee" class="org.apache.camel.quarkus.component.beanio.it.model.Employee">
             <field name="firstName"/>
@@ -49,6 +53,9 @@
         </record>
     </stream>
     <stream name="employeeFixedLength" format="fixedlength">
+        <parser>
+            <property name="recordTerminator" value="\n"/>
+        </parser>
         <record name="employee" class="org.apache.camel.quarkus.component.beanio.it.model.Employee">
             <field name="firstName" length="10"/>
             <field name="lastName" length="15"/>
@@ -58,6 +65,9 @@
         </record>
     </stream>
     <stream name="employeeAnnotated" format="csv">
+        <parser>
+            <property name="recordTerminator" value="\n"/>
+        </parser>
         <record name="employeeAnnotated" class="org.apache.camel.quarkus.component.beanio.it.model.EmployeeAnnotated"/>
     </stream>
 </beanio>

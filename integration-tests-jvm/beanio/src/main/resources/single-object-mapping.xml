@@ -19,6 +19,9 @@
 -->
 <beanio xmlns="http://www.beanio.org/2012/03" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.beanio.org/2012/03 http://www.beanio.org/2012/03/mapping.xsd">
   <stream name="keyValueStream" format="fixedlength">
+    <parser>
+      <property name="recordTerminator" value="\n"/>
+    </parser>
     <record name="entry" class="map" minOccurs="1">
       <field name="key" length="4" required="true" justify="left" />
       <field name="separator" length="1" required="true" justify="left" />
