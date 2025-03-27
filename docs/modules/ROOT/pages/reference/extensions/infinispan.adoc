@@ -121,5 +121,5 @@ public class Routes extends RouteBuilder {
 [id="extensions-infinispan-configuration-camel-infinispan-infinispanremoteaggregationrepository-in-native-mode"]
 === Camel Infinispan `InfinispanRemoteAggregationRepository` in native mode
 
-If you chose to use the `InfinispanRemoteAggregationRepository` in native mode, then you must xref:extensions/core.adoc#quarkus.camel.native.reflection.serialization-enabled[enable native serialization support].
+If you chose to use the `InfinispanRemoteAggregationRepository` in native mode, then you must xref:extensions/core.adoc#quarkus-camel-native-reflection-serialization-enabled[enable native serialization support].
 

@@ -75,7 +75,7 @@ Also, it can not use CDI injection in the RouteBuilder `configure()` since we ge
 | Configuration property | Type | Default
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus.camel.openapi.expose.enabled]]`link:#quarkus.camel.openapi.expose.enabled[quarkus.camel.openapi.expose.enabled]`
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-openapi-expose-enabled]]`link:#quarkus-camel-openapi-expose-enabled[quarkus.camel.openapi.expose.enabled]`
 
 When set to true, Camel REST DSL OpenAPI specifications are exposed under the Quarkus OpenAPI HTTP endpoint
 (`/q/openapi`). This requires `quarkus-smallrye-openapi` to be added to your application.
