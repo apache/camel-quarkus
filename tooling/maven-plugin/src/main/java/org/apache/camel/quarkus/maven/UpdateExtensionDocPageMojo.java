@@ -293,7 +293,7 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                 // Apostrophes.
                 string = string.replaceAll("([a-z])'s([^a-z])", "$1s$2");
                 // Allow only letters, -, _, .
-                string = string.replaceAll("[^\\w-_.]", "-").replaceAll("-{2,}", "-");
+                string = string.replaceAll("[^\\w-_]", "-").replaceAll("-{2,}", "-");
                 // Get rid of any - at the start and end.
                 string = string.replaceAll("-+$", "").replaceAll("^-+", "");
 

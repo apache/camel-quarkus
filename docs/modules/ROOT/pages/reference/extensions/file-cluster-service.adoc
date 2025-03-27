@@ -73,44 +73,44 @@ The file cluster service could further be tuned by tweaking `quarkus.camel.clust
 | Configuration property | Type | Default
 
 
-a|icon:lock[title=Fixed at build time] [[quarkus.camel.cluster.file.enabled]]`link:#quarkus.camel.cluster.file.enabled[quarkus.camel.cluster.file.enabled]`
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-file-enabled]]`link:#quarkus-camel-cluster-file-enabled[quarkus.camel.cluster.file.enabled]`
 
 Whether a File Lock Cluster Service should be automatically configured according to
 'quarkus.camel.cluster.file.++*++' configurations.
 | `boolean`
 | `true`
 
-a|icon:lock[title=Fixed at build time] [[quarkus.camel.cluster.file.id]]`link:#quarkus.camel.cluster.file.id[quarkus.camel.cluster.file.id]`
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-file-id]]`link:#quarkus-camel-cluster-file-id[quarkus.camel.cluster.file.id]`
 
 The cluster service ID (defaults to null).
 | `string`
 | 
 
-a|icon:lock[title=Fixed at build time] [[quarkus.camel.cluster.file.root]]`link:#quarkus.camel.cluster.file.root[quarkus.camel.cluster.file.root]`
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-file-root]]`link:#quarkus-camel-cluster-file-root[quarkus.camel.cluster.file.root]`
 
 The root path (defaults to null).
 | `string`
 | 
 
-a|icon:lock[title=Fixed at build time] [[quarkus.camel.cluster.file.order]]`link:#quarkus.camel.cluster.file.order[quarkus.camel.cluster.file.order]`
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-file-order]]`link:#quarkus-camel-cluster-file-order[quarkus.camel.cluster.file.order]`
 
 The service lookup order/priority (defaults to 2147482647).
 | `int`
 | 
 
-a|icon:lock[title=Fixed at build time] [[quarkus.camel.cluster.file.attributes.-attributes]]`link:#quarkus.camel.cluster.file.attributes.-attributes[quarkus.camel.cluster.file.attributes."attributes"]`
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-file-attributes-attributes]]`link:#quarkus-camel-cluster-file-attributes-attributes[quarkus.camel.cluster.file.attributes."attributes"]`
 
 The custom attributes associated to the service (defaults to empty map).
 | `Map<String,String>`
 | 
 
-a|icon:lock[title=Fixed at build time] [[quarkus.camel.cluster.file.acquire-lock-delay]]`link:#quarkus.camel.cluster.file.acquire-lock-delay[quarkus.camel.cluster.file.acquire-lock-delay]`
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-file-acquire-lock-delay]]`link:#quarkus-camel-cluster-file-acquire-lock-delay[quarkus.camel.cluster.file.acquire-lock-delay]`
 
 The time to wait before starting to try to acquire lock (defaults to 1000ms).
 | `string`
 | 
 
-a|icon:lock[title=Fixed at build time] [[quarkus.camel.cluster.file.acquire-lock-interval]]`link:#quarkus.camel.cluster.file.acquire-lock-interval[quarkus.camel.cluster.file.acquire-lock-interval]`
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-cluster-file-acquire-lock-interval]]`link:#quarkus-camel-cluster-file-acquire-lock-interval[quarkus.camel.cluster.file.acquire-lock-interval]`
 
 The time to wait between attempts to try to acquire lock (defaults to 10000ms).
 | `string`
