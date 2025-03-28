@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.knative;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import io.vertx.ext.web.Router;
+import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.component.knative.KnativeComponent;
 import org.apache.camel.component.knative.http.KnativeHttpConsumerFactory;
@@ -26,8 +27,9 @@ import org.apache.camel.spi.ComponentCustomizer;
 
 @Recorder
 public class KnativeConsumerRecorder {
-    public RuntimeValue<ComponentCustomizer> createKnativeConsumerFactoryCustomizer(RuntimeValue<Router> router) {
-        KnativeHttpConsumerFactory factory = new KnativeHttpConsumerFactory();
+    public RuntimeValue<ComponentCustomizer> createKnativeConsumerFactoryCustomizer(RuntimeValue<CamelContext> camelContext,
+            RuntimeValue<Router> router) {
+        KnativeHttpConsumerFactory factory = new KnativeHttpConsumerFactory(camelContext.getValue());
         factory.setRouter(router.getValue());
 
         ComponentCustomizer cf = new ComponentCustomizer() {

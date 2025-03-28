@@ -29,11 +29,11 @@ import org.apache.camel.spi.ComponentCustomizer;
 
 @Recorder
 public class KnativeProducerRecorder {
-    public RuntimeValue<ComponentCustomizer> createKnativeProducerFactoryCustomizer(RuntimeValue<CamelContext> context,
+    public RuntimeValue<ComponentCustomizer> createKnativeProducerFactoryCustomizer(RuntimeValue<CamelContext> camelContext,
             Supplier<Vertx> vertx) {
-        KnativeHttpProducerFactory factory = new KnativeHttpProducerFactory();
+        KnativeHttpProducerFactory factory = new KnativeHttpProducerFactory(camelContext.getValue());
         factory.setVertx(vertx.get());
-        factory.setCamelContext(context.getValue());
+        factory.setCamelContext(camelContext.getValue());
 
         ComponentCustomizer cf = new ComponentCustomizer() {
             @Override
