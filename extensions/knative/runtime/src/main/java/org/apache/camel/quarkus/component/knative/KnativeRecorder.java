@@ -18,11 +18,12 @@ package org.apache.camel.quarkus.component.knative;
 
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
+import org.apache.camel.CamelContext;
 import org.apache.camel.component.knative.KnativeComponent;
 
 @Recorder
 public class KnativeRecorder {
-    public RuntimeValue<KnativeComponent> createKnativeComponent() {
-        return new RuntimeValue<>(new KnativeComponent());
+    public RuntimeValue<KnativeComponent> createKnativeComponent(RuntimeValue<CamelContext> camelContext) {
+        return new RuntimeValue<>(new KnativeComponent(camelContext.getValue()));
     }
 }
