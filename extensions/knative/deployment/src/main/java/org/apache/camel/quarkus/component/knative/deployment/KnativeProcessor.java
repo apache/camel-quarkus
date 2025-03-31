@@ -73,23 +73,24 @@ class KnativeProcessor {
 
     @Record(ExecutionTime.RUNTIME_INIT)
     @BuildStep
-    CamelRuntimeBeanBuildItem knativeComponent(KnativeRecorder recorder) {
+    CamelRuntimeBeanBuildItem knativeComponent(CamelContextBuildItem context, KnativeRecorder recorder) {
         return new CamelRuntimeBeanBuildItem(
                 KnativeConstants.SCHEME,
                 KnativeComponent.class.getName(),
-                recorder.createKnativeComponent());
+                recorder.createKnativeComponent(context.getCamelContext()));
     }
 
     @Record(ExecutionTime.RUNTIME_INIT)
     @BuildStep
     CamelRuntimeBeanBuildItem knativeConsumerCustomizer(
             KnativeConsumerRecorder recorder,
+            CamelContextBuildItem context,
             VertxWebRouterBuildItem router) {
 
         return new CamelRuntimeBeanBuildItem(
                 FEATURE + "-consumer-customizer",
                 ComponentCustomizer.class.getName(),
-                recorder.createKnativeConsumerFactoryCustomizer(router.getHttpRouter()));
+                recorder.createKnativeConsumerFactoryCustomizer(context.getCamelContext(), router.getHttpRouter()));
     }
 
     @Record(ExecutionTime.RUNTIME_INIT)
