@@ -224,7 +224,7 @@
         <!-- Test container image properties -->
         <activemq.container.image>mirror.gcr.io/rmohr/activemq:5.15.9-alpine</activemq.container.image>
         <arangodb.container.image>mirror.gcr.io/arangodb:3.12.0</arangodb.container.image>
-        <azurite.container.image>mcr.microsoft.com/azure-storage/azurite:3.33.0</azurite.container.image>
+        <azurite.container.image>mcr.microsoft.com/azure-storage/azurite:3.34.0</azurite.container.image>
         <calculator-ws.container.image>quay.io/l2x6/calculator-ws:1.2</calculator-ws.container.image>
         <cassandra.container.image>mirror.gcr.io/cassandra:5.0.2</cassandra.container.image>
         <consul.container.image>mirror.gcr.io/hashicorp/consul:1.19</consul.container.image>
