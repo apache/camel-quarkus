@@ -22,21 +22,23 @@ import java.util.UUID;
 
 import io.quarkus.test.junit.QuarkusTestProfile;
 
+import static org.apache.camel.quarkus.component.azure.key.vault.it.AzureKeyVaultUtil.setPropertyIfEnvVarPresent;
+
 public class AzureKeyVaultContextReloadWithIdentityTestProfile implements QuarkusTestProfile {
 
     @Override
     public Map<String, String> getConfigOverrides() {
         //properties have to be set via profile to not be used by different azure-* test in grouped module
         Map<String, String> props = new HashMap<>();
+        setPropertyIfEnvVarPresent(props, "camel.vault.azure.eventhubConnectionString",
+                "AZURE_VAULT_EVENT_HUBS_CONNECTION_STRING");
+        setPropertyIfEnvVarPresent(props, "camel.vault.azure.blobAccountName", "AZURE_STORAGE_ACCOUNT_NAME");
+        setPropertyIfEnvVarPresent(props, "camel.vault.azure.blobContainerName", "AZURE_VAULT_EVENT_HUBS_BLOB_CONTAINER_NAME");
+        setPropertyIfEnvVarPresent(props, "camel.vault.azure.blobAccessKey", "AZURE_STORAGE_ACCOUNT_KEY");
         props.put("camel.vault.azure.refreshEnabled", "true");
         props.put("camel.vault.azure.refreshPeriod", "1000");
         props.put("camel.vault.azure.secrets", String.format("cq-secret-context-refresh-identity-%s.*", UUID.randomUUID()));
-        props.put("camel.vault.azure.eventhubConnectionString", System.getenv("AZURE_VAULT_EVENT_HUBS_CONNECTION_STRING"));
-        props.put("camel.vault.azure.blobAccountName", System.getenv("AZURE_STORAGE_ACCOUNT_NAME"));
-        props.put("camel.vault.azure.blobContainerName", System.getenv("AZURE_VAULT_EVENT_HUBS_BLOB_CONTAINER_NAME"));
-        props.put("camel.vault.azure.blobAccessKey", System.getenv("AZURE_STORAGE_ACCOUNT_KEY"));
         props.put("camel.vault.azure.azureIdentityEnabled", "true");
-
         return props;
     }
 }

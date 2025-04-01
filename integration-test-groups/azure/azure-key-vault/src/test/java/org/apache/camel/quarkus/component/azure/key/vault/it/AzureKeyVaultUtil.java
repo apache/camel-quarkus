@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.azure.key.vault.it;
 
+import java.util.Map;
+
 import com.azure.core.credential.TokenCredential;
 import com.azure.core.exception.HttpResponseException;
 import com.azure.core.exception.ResourceNotFoundException;
@@ -111,6 +113,12 @@ public class AzureKeyVaultUtil {
                     }
                 }
             }
+        }
+    }
+
+    public static void setPropertyIfEnvVarPresent(Map<String, String> properties, String key, String envVarName) {
+        if (System.getenv(envVarName) != null) {
+            properties.put(key, System.getenv(envVarName));
         }
     }
 }

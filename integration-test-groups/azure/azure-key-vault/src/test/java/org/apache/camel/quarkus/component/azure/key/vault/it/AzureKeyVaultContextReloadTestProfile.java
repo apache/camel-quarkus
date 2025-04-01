@@ -22,22 +22,25 @@ import java.util.UUID;
 
 import io.quarkus.test.junit.QuarkusTestProfile;
 
+import static org.apache.camel.quarkus.component.azure.key.vault.it.AzureKeyVaultUtil.setPropertyIfEnvVarPresent;
+
 public class AzureKeyVaultContextReloadTestProfile implements QuarkusTestProfile {
 
     @Override
     public Map<String, String> getConfigOverrides() {
         //properties have to be set via profile to not be used by different azure-* test in grouped module
         Map<String, String> props = new HashMap<>();
-        props.put("camel.vault.azure.tenantId", System.getenv("AZURE_TENANT_ID"));
-        props.put("camel.vault.azure.clientId", System.getenv("AZURE_CLIENT_ID"));
-        props.put("camel.vault.azure.clientSecret", System.getenv("AZURE_CLIENT_SECRET"));
+        setPropertyIfEnvVarPresent(props, "camel.vault.azure.tenantId", "AZURE_TENANT_ID");
+        setPropertyIfEnvVarPresent(props, "camel.vault.azure.clientId", "AZURE_CLIENT_ID");
+        setPropertyIfEnvVarPresent(props, "camel.vault.azure.clientSecret", "AZURE_CLIENT_SECRET");
+        setPropertyIfEnvVarPresent(props, "camel.vault.azure.eventhubConnectionString",
+                "AZURE_VAULT_EVENT_HUBS_CONNECTION_STRING");
+        setPropertyIfEnvVarPresent(props, "camel.vault.azure.blobAccountName", "AZURE_STORAGE_ACCOUNT_NAME");
+        setPropertyIfEnvVarPresent(props, "camel.vault.azure.blobContainerName", "AZURE_VAULT_EVENT_HUBS_BLOB_CONTAINER_NAME");
+        setPropertyIfEnvVarPresent(props, "camel.vault.azure.blobAccessKey", "AZURE_STORAGE_ACCOUNT_KEY");
         props.put("camel.vault.azure.refreshEnabled", "true");
         props.put("camel.vault.azure.refreshPeriod", "1000");
         props.put("camel.vault.azure.secrets", String.format("cq-secret-context-refresh-%s.*", UUID.randomUUID()));
-        props.put("camel.vault.azure.eventhubConnectionString", System.getenv("AZURE_VAULT_EVENT_HUBS_CONNECTION_STRING"));
-        props.put("camel.vault.azure.blobAccountName", System.getenv("AZURE_STORAGE_ACCOUNT_NAME"));
-        props.put("camel.vault.azure.blobContainerName", System.getenv("AZURE_VAULT_EVENT_HUBS_BLOB_CONTAINER_NAME"));
-        props.put("camel.vault.azure.blobAccessKey", System.getenv("AZURE_STORAGE_ACCOUNT_KEY"));
 
         return props;
     }
