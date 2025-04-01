@@ -135,7 +135,8 @@ public class As2Receiver {
                 SERVER_FQDN, port, AS2SignatureAlgorithm.SHA256WITHRSA,
                 serverCertList.toArray(new Certificate[0]), serverSigningKP.getPrivate(), serverSigningKP.getPrivate(),
                 MDN_MESSAGE_TEMPLATE,
-                new Certificate[] { clientCert }, null);
+                new Certificate[] { clientCert }, null,
+                null, null, null);
 
         RequestHandler handler = new RequestHandler();
         serverConnection.listen("/", handler);
