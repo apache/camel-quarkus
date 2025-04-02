@@ -26,6 +26,7 @@ import io.smallrye.certs.Format;
 import io.smallrye.certs.junit5.Certificate;
 import org.apache.camel.component.ssh.SshConstants;
 import org.apache.camel.quarkus.test.DisabledIfFipsMode;
+import org.apache.camel.quarkus.test.DisabledOnRhel;
 import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -115,6 +116,7 @@ class SshTest {
     }
 
     @DisabledIfFipsMode //ED25519 keys are not allowed in FIPS mode
+    @DisabledOnRhel(since = 8) //DSA is deprecated on RHEL8+, see https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/8.4_release_notes/deprecated_functionality#deprecated-functionality_security
     @Test
     public void testProducerWithEdDSAKeyType() {
         RestAssured.given()
