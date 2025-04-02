@@ -65,92 +65,14 @@
             <artifactId>unboundid-ldapsdk</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-integration-tests-support-certificate-generator</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <profiles>
-        <profile>
-            <id>full</id>
-            <activation>
-                <property>
-                    <name>!quickly</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>keytool-maven-plugin</artifactId>
-                        <configuration>
-                            <validity>18250</validity>
-                            <keyalg>RSA</keyalg>
-                            <storepass>ldapPass</storepass>
-                            <noprompt>true</noprompt>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>generate-keypair</id>
-                                <phase>generate-test-resources</phase>
-                                <goals>
-                                    <goal>clean</goal>
-                                    <goal>generateKeyPair</goal>
-                                </goals>
-                                <configuration>
-                                    <alias>ldap</alias>
-                                    <keysize>2048</keysize>
-                                    <dname>CN=127.0.0.1, OU=Camel Quarkus, O=Apache</dname>
-                                    <exts>
-                                        <ext>SAN=IP:127.0.0.1</ext>
-                                    </exts>
-                                    <keystore>${project.basedir}/target/test-classes/keystore.jks</keystore>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>export-certificate</id>
-                                <phase>generate-test-resources</phase>
-                                <goals>
-                                    <goal>exportCertificate</goal>
-                                </goals>
-                                <configuration>
-                                    <alias>ldap</alias>
-                                    <keystore>${project.basedir}/target/test-classes/keystore.jks</keystore>
-                                    <file>${basedir}/target/test-classes/ldap-cert</file>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>create-trusstore</id>
-                                <phase>generate-test-resources</phase>
-                                <goals>
-                                    <goal>importCertificate</goal>
-                                </goals>
-                                <configuration>
-                                    <alias>localhost</alias>
-                                    <trustcacerts>true</trustcacerts>
-                                    <keystore>${basedir}/target/test-classes/truststore.jks</keystore>
-                                    <file>${basedir}/target/test-classes/ldap-cert</file>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>generate-wrong-trusstore</id>
-                                <phase>generate-sources</phase>
-                                <goals>
-                                    <goal>clean</goal>
-                                    <goal>generateKeyPair</goal>
-                                </goals>
-                                <configuration>
-                                    <alias>localhost</alias>
-                                    <dname>CN=localhost, OU=eng, O=apache.org</dname>
-                                    <exts>
-                                        <ext>bc:c=ca:true,pathlen:2147483647</ext>
-                                        <ext>IssuerAlternativeName=DNS:NOT-FOR-PRODUCTION-USE</ext>
-                                    </exts>
-                                    <keystore>${project.build.outputDirectory}/truststore-wrong.jks</keystore>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
         <profile>
             <id>virtualDependencies</id>
             <activation>
