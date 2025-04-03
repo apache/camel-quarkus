@@ -1,0 +1,2 @@
+=== EDI
+EDI is not supported in Camel Quarkus Smooks.

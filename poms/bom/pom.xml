@@ -2579,6 +2579,10 @@
                         <groupId>xml-apis</groupId>
                         <artifactId>xml-apis</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>org.smooks.cartridges.edi</groupId>
+                        <artifactId>smooks-edi-cartridge</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
