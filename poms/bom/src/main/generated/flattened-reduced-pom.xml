@@ -7001,12 +7001,12 @@
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId>
         <artifactId>quarkus-groovy</artifactId>
-        <version>3.21.0</version>
+        <version>3.21.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId>
         <artifactId>quarkus-groovy-deployment</artifactId>
-        <version>3.21.0</version>
+        <version>3.21.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jackson-jq</groupId>
