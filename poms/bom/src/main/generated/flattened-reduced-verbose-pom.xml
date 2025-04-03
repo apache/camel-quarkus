@@ -2474,6 +2474,10 @@
             <groupId>xml-apis</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
             <artifactId>xml-apis</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
+          <exclusion>
+            <groupId>org.smooks.cartridges.edi</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+            <artifactId>smooks-edi-cartridge</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
