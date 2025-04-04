@@ -19,6 +19,8 @@ package org.apache.camel.quarkus.component.debezium.common.it;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.Duration;
+import java.util.UUID;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -27,6 +29,7 @@ import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.testcontainers.shaded.org.awaitility.Awaitility;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.emptyOrNullString;
@@ -67,28 +70,15 @@ public abstract class AbstractDebeziumTest {
     public void testInsert() throws SQLException {
         isInitialized("Test 'testInsert' is skipped, because container is not running.");
 
-        int i = 0;
+        String suffix = UUID.randomUUID().toString();
+        insertCompany(COMPANY_1 + "_" + suffix, CITY_1);
 
-        while (i++ < REPEAT_COUNT) {
-            insertCompany(COMPANY_1 + "_" + i, CITY_1);
-
-            Response response = receiveResponse();
-
-            //if status code is 204 (no response), try again
-            if (response.getStatusCode() == 204) {
-                LOG.debug("Response code 204. Debezium is not running yet, repeating (" + i + "/" + REPEAT_COUNT + ")");
-                continue;
-            }
-
-            response
+        Awaitility.await().pollDelay(Duration.ofMillis(250)).atMost(Duration.ofMinutes(1)).untilAsserted(() -> {
+            receiveResponse()
                     .then()
                     .statusCode(200)
-                    .body(containsString((COMPANY_1 + "_" + i)));
-            //if response is valid, no need for another inserts
-            break;
-        }
-
-        assertTrue(i < REPEAT_COUNT, "Debezium does not respond (consider changing timeout in AbstractDebeziumResource).");
+                    .body(containsString((COMPANY_1 + "_" + suffix)));
+        });
     }
 
     protected void isInitialized(String s) {
