@@ -18,25 +18,18 @@ package org.apache.camel.quarkus.component.ldap.it;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import javax.naming.Context;
 import javax.naming.NamingEnumeration;
 import javax.naming.directory.Attribute;
-import javax.naming.directory.DirContext;
-import javax.naming.directory.InitialDirContext;
 import javax.naming.directory.SearchResult;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
-import jakarta.inject.Named;
-import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
@@ -52,70 +45,27 @@ public class LdapResource {
     @Inject
     CamelContext camelContext;
 
-    private String ldapHost;
-    private String ldapPort;
-    private boolean useSSL;
-    private String trustStoreFilename;
-    private String trustStorePassword;
-
-    /**
-     * Extracts the LDAP connection parameters passed from the test and creates a
-     * {@link javax.naming.directory.DirContext} from them.
-     * The DirContext is then bound into the CamelContext for use in the LDAP route.
-     *
-     * @param  options
-     * @throws Exception
-     */
-    @Path("/configure")
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void configure(Map<String, String> options) throws Exception {
-        ldapHost = options.get("host");
-        ldapPort = options.get("port");
-        useSSL = Boolean.valueOf(options.get("ssl"));
-        trustStoreFilename = options.get("trustStore");
-        trustStorePassword = options.get("trustStorePassword");
-    }
-
-    @Path("/search")
+    @Path("/search/{direct}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response search(@QueryParam("ldapQuery") String ldapQuery) throws Exception {
-        return Response.ok(searchByUid(ldapQuery)).build();
+    public Response search(@PathParam("direct") String directName,
+            @QueryParam("ldapQuery") String ldapQuery) throws Exception {
+        return Response.ok(searchByUid(directName, ldapQuery)).build();
     }
 
     @Path("/safeSearch")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response safeSearch(@QueryParam("ldapQuery") String ldapQuery) throws Exception {
-        return Response.ok(searchByUid(LdapHelper.escapeFilter(ldapQuery))).build();
+        return Response.ok(searchByUid("http", LdapHelper.escapeFilter(ldapQuery))).build();
     }
 
     @SuppressWarnings("unchecked")
-    private List<Map<String, String>> searchByUid(String uid) throws Exception {
+    private List<Map<String, String>> searchByUid(String directName, String uid) throws Exception {
         String filter = String.format("(uid=%s)", uid);
         ProducerTemplate producer = camelContext.createProducerTemplate();
-        List<SearchResult> results = producer.requestBody("direct:start", filter, List.class);
+        List<SearchResult> results = producer.requestBody("direct:" + directName, filter, List.class);
         return convertSearchResults(results);
-    }
-
-    @Produces
-    @Dependent
-    @Named("ldapserver")
-    public DirContext createLdapContext() throws Exception {
-        String scheme = useSSL ? "ldaps" : "ldap";
-        Hashtable<String, Object> env = new Hashtable<>();
-        env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-        env.put(Context.PROVIDER_URL, String.format("%s://%s:%s", scheme, ldapHost, ldapPort));
-        env.put(Context.SECURITY_AUTHENTICATION, "none");
-
-        if (useSSL) {
-            CustomSSLSocketFactory.setTrustStore(trustStoreFilename, trustStorePassword);
-            env.put("java.naming.ldap.factory.socket", CustomSSLSocketFactory.class.getName());
-            env.put(Context.SECURITY_PROTOCOL, "ssl");
-        }
-
-        return new InitialDirContext(env);
     }
 
     /**
@@ -128,10 +78,10 @@ public class LdapResource {
      * @throws Exception
      */
     private List<Map<String, String>> convertSearchResults(List<SearchResult> searchResults) throws Exception {
-        List<Map<String, String>> results = new ArrayList<>();
+        List<Map<String, String>> results = new ArrayList<Map<String, String>>();
 
         for (SearchResult searchResult : searchResults) {
-            Map<String, String> resultMap = new HashMap<>();
+            Map<String, String> resultMap = new HashMap<String, String>();
             NamingEnumeration<? extends Attribute> attrs = searchResult.getAttributes().getAll();
             while (attrs.hasMore()) {
                 Attribute attr = attrs.next();

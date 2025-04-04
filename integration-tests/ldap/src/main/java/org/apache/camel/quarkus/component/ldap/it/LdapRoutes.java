@@ -22,8 +22,18 @@ public class LdapRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("direct:start")
-                .to("ldap://ldapserver?base=ou=system");
+
+        from("direct:http")
+                .to("ldap://httpserver?base=ou=system");
+
+        from("direct:ssl")
+                .to("ldap://sslserver?base=ou=system");
+
+        from("direct:additionalOptions")
+                .to("ldap://additional?base=ou=system");
+
+        from("direct:originalConfig")
+                .to("ldap://additional?base=ou=system");
     }
 
 }
