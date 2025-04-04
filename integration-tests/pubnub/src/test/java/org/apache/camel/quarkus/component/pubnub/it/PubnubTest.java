@@ -49,7 +49,7 @@ class PubnubTest {
                     .willReturn(aResponse()
                             .withBody(
                                     "{\"t\":{\"t\":\"14607577960932487\",\"r\":1},\"m\":[{\"a\":\"4\",\"f\":0,\"i\":\"Publisher-A\",\"p\":{\"t\":\"14607577960925503\",\"r\":1},\"o\":"
-                                            + "{\"t\":\"14737141991877032\",\"r\":2},\"k\":\"sub-c-4cec9f8e-01fa-11e6-8180-0619f8945a4f\","
+                                            + "{\"t\":\"14737141991877032\",\"r\":2},\"k\":\"sub-c-testing\","
                                             + "\"c\":\"test\",\"d\":\"" + message + "\",\"b\":\"test\"}]}")));
 
             server.stubFor(get(urlPathMatching("/v2/presence/sub-key/(.*)/channel/test/heartbeat"))
@@ -97,7 +97,7 @@ class PubnubTest {
                     .willReturn(aResponse()
                             .withBody(
                                     "{\"t\":{\"t\":\"16127893527303416\",\"r\":12},\"m\":[{\"a\":\"4\",\"f\":0,\"p\":{\"t\":\"16127893527306385\","
-                                            + "\"r\":12},\"k\":\"sub-c-b14e2458-66d0-11eb-b373-323c3659f3c9\",\"c\":\"test-pnpres\","
+                                            + "\"r\":12},\"k\":\"sub-c-testing\",\"c\":\"test-pnpres\","
                                             + "\"u\":{\"pn_action\":\"join\",\"pn_uuid\":\"pn-cd0e849f-71ec-4006-a989-c0cc7d1b37a5\","
                                             + "\"pn_timestamp\":1612789352,\"pn_occupancy\":1,\"pn_ispresence\":1,\"pn_channel\":\"test\"},"
                                             + "\"d\":{\"action\":\"join\",\"uuid\":\"pn-cd0e849f-71ec-4006-a989-c0cc7d1b37a5\",\"timestamp\":1612789352,\"occupancy\":1},"
