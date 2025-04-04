@@ -50,7 +50,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 @Disabled("https://github.com/apache/camel-quarkus/issues/6357")
 @QuarkusTest
-@QuarkusTestResource(DebeziumMongodbTestResource.class)
+@QuarkusTestResource(value = DebeziumMongodbTestResource.class, restrictToAnnotatedClass = true)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class DebeziumMongodbTest extends AbstractDebeziumTest {
     private static MongoClient mongoClient;

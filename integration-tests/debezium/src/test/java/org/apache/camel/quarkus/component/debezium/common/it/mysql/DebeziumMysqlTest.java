@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 @QuarkusTest
-@QuarkusTestResource(DebeziumMysqlTestResource.class)
+@QuarkusTestResource(value = DebeziumMysqlTestResource.class, restrictToAnnotatedClass = true)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class DebeziumMysqlTest extends AbstractDebeziumTest {
     private static Connection connection;

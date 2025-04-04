@@ -42,7 +42,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 @QuarkusTest
-@QuarkusTestResource(DebeziumSqlserverTestResource.class)
+@QuarkusTestResource(value = DebeziumSqlserverTestResource.class, restrictToAnnotatedClass = true)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class DebeziumSqlserverTest extends AbstractDebeziumTest {
     private static final Logger LOG = Logger.getLogger(DebeziumSqlserverTest.class);

@@ -38,7 +38,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@QuarkusTestResource(DebeziumPostgresTestResource.class)
+@QuarkusTestResource(value = DebeziumPostgresTestResource.class, restrictToAnnotatedClass = true)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class DebeziumPostgresTest extends AbstractDebeziumTest {
     private static final Logger LOG = Logger.getLogger(DebeziumPostgresTest.class);
