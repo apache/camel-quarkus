@@ -89,6 +89,7 @@
         <commons-exec.version>${commons-exec-version}</commons-exec.version>
         <commons-validator.version>${commons-validator-version}</commons-validator.version>
         <cxf.version>4.1.1</cxf.version><!-- @sync io.quarkiverse.cxf:quarkus-cxf-parent:${quarkiverse-cxf.version} prop:cxf.version -->
+        <dfdl-scala.version>2.12.20</dfdl-scala.version>
         <drill-jdbc-all.version>${apache-drill-version}</drill-jdbc-all.version>
         <dropwizard-metrics.version>${metrics-version}</dropwizard-metrics.version>
         <eddsa.version>${eddsa-version}</eddsa.version>
@@ -179,7 +180,6 @@
 
         <!-- Test dependency versions (keep sorted alphabetically) -->
         <consul-client.version>${consul-client-version}</consul-client.version>
-        <dfdl-scala.version>2.12.20</dfdl-scala.version>
         <ftpserver.version>${ftpserver-version}</ftpserver.version>
         <hamcrest.version>3.0</hamcrest.version><!-- Awaitility and Wiremock -->
         <htmlunit-driver.version>4.13.0</htmlunit-driver.version>
