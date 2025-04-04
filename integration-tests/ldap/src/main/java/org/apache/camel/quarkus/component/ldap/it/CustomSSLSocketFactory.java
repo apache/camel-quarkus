@@ -36,13 +36,10 @@ public class CustomSSLSocketFactory extends SSLSocketFactory {
 
     private final SSLSocketFactory delegate;
 
-    private static String trustStoreFilename;
-    private static String trustStorePassword;
-
     public CustomSSLSocketFactory() throws Exception {
         KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
-        try (InputStream in = new FileInputStream(trustStoreFilename)) {
-            trustStore.load(in, trustStorePassword.toCharArray());
+        try (InputStream in = new FileInputStream("target/certs/ldap-truststore.p12")) {
+            trustStore.load(in, "changeit".toCharArray());
         }
 
         TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
@@ -98,10 +95,5 @@ public class CustomSSLSocketFactory extends SSLSocketFactory {
     public Socket createSocket(InetAddress address, int port, InetAddress localAddress, int localPort)
             throws IOException {
         return delegate.createSocket(address, port, localAddress, localPort);
-    }
-
-    public static void setTrustStore(String fileName, String password) {
-        trustStoreFilename = fileName;
-        trustStorePassword = password;
     }
 }

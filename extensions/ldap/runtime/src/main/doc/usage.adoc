@@ -1,3 +1,39 @@
+=== Configuration via properties
+
+The LDAP component supports property-based configuration in addition to plain Camel configuration.
+Configuration property should follow the pattern:
+
+[source,properties]
+----
+quarkus.camel.ldap.dir-contexts.<dirContextName>.<property>
+----
+
+For more details, refer to the dirContext https://docs.oracle.com/en/java/javase/17/docs/api/java.naming/javax/naming/directory/DirContext.html[Javadoc].
+The following options are available:
+
+* initial-context-factory
+* provider-url
+* security-authentication
+* security-protocol
+* socket-factory
+
+If you need to specify an option that is not listed above, use the following property format:
+
+[source,properties]
+----
+quarkus.camel.ldap.dr-contexts."your_name".additional-options."not-listed_option_name"
+----
+
+Here is an example of configuration of a dirContext named `your_context` using SSL.
+
+[source,properties]
+----
+quarkus.camel.ldap.dir-contexts."your_context".initial-context-factory=com.sun.jndi.ldap.LdapCtxFactory
+quarkus.camel.ldap.dir-contexts."your_context".provider-url=ldaps://${ldap.host}:${ldap.sslPort}
+quarkus.camel.ldap.dir-contexts."your_context".security-protocol=ssl
+quarkus.camel.ldap.dir-contexts."your_context".socket-factory=org.apache.camel.quarkus.component.ldap.it.CustomSSLSocketFactory
+----
+
 === Using SSL in Native Mode
 
 When using a custom `SSLSocketFactory` in native mode, such as the one in the xref:{cq-camel-components}::ldap-component.adoc#_configuring_ssl[Configuring SSL] section, you need to register the class for reflection otherwise the class will not be made available on the classpath. Add the `@RegisterForReflection` annotation above the class definition, as follows:
