@@ -20,61 +20,31 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import io.smallrye.faulttolerance.core.FaultToleranceStrategy;
-import io.smallrye.faulttolerance.core.circuit.breaker.CircuitBreaker;
-import io.smallrye.faulttolerance.core.stopwatch.SystemStopwatch;
-import io.smallrye.faulttolerance.core.timer.ThreadTimer;
-import io.smallrye.faulttolerance.core.util.ExceptionDecision;
+import io.smallrye.faulttolerance.api.TypedGuard;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Disposes;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
+import org.apache.camel.Exchange;
 
 @ApplicationScoped
 public class MicroprofileFaultToleranceProducers {
-
     @Singleton
-    @Named("customCircuitBreaker")
-    CircuitBreaker<Integer> produceCustomCircuitBreaker(ThreadTimer threadTimer) {
-        FaultToleranceStrategy<Integer> delegate = ctx -> null;
-        return new CircuitBreaker<>(delegate, "description", ExceptionDecision.ALWAYS_FAILURE, 10, 40, 0.1,
-                2, SystemStopwatch.INSTANCE, threadTimer) {
-            @Override
-            public String toString() {
-                return "customCircuitBreaker";
-            }
-        };
+    @Named("customTypedGuard")
+    TypedGuard<Exchange> produceCustomTypedGuard() {
+        return TypedGuard.create(Exchange.class).build();
     }
 
     @ApplicationScoped
-    @Named("customBulkheadExecutorService")
-    ExecutorService produceCustomBulkheadExecutorService() {
+    @Named("customExecutorService")
+    ExecutorService produceCustomExecutorService() {
         return Executors.newFixedThreadPool(2);
     }
 
-    @Singleton
-    @Named("threadTimer")
-    ThreadTimer threadTimer(@Named("threadTimerExecutor") ExecutorService executorService) {
-        return new ThreadTimer(executorService);
-    }
-
-    @ApplicationScoped
-    @Named("threadTimerExecutor")
-    ExecutorService threadTimerExecutor() {
-        return Executors.newSingleThreadExecutor();
-    }
-
-    void disposeThreadTimerExecutor(
-            @Disposes @Named("threadTimerExecutor") ExecutorService threadTimerExecutor,
-            ThreadTimer timer) {
+    void disposeCustomExecutorService(
+            @Disposes @Named("customExecutorService") ExecutorService executorService) {
         try {
-            timer.shutdown();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        try {
-            threadTimerExecutor.awaitTermination(10, TimeUnit.SECONDS);
+            executorService.awaitTermination(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }

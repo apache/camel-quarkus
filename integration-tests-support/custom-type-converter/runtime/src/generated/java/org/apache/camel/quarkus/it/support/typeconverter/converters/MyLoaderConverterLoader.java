@@ -45,7 +45,13 @@ public final class MyLoaderConverterLoader implements TypeConverterLoader, Camel
 
     private void registerConverters(TypeConverterRegistry registry) {
         addTypeConverter(registry, org.apache.camel.quarkus.it.support.typeconverter.pairs.MyLoaderPair.class, java.lang.String.class, false,
-            (type, exchange, value) -> org.apache.camel.quarkus.it.support.typeconverter.converters.MyLoaderConverter.toMyPair((java.lang.String) value));
+            (type, exchange, value) -> {
+                Object answer = org.apache.camel.quarkus.it.support.typeconverter.converters.MyLoaderConverter.toMyPair((java.lang.String) value);
+                if (false && answer == null) {
+                    answer = Void.class;
+                }
+                return answer;
+            });
     }
 
     private static void addTypeConverter(TypeConverterRegistry registry, Class<?> toType, Class<?> fromType, boolean allowNull, SimpleTypeConverter.ConversionMethod method) {
