@@ -17,14 +17,8 @@
 package org.apache.camel.quarkus.component.dsl.modeline.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
-import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.CamelContext;
-import org.apache.camel.quarkus.component.dsl.modeline.runtime.PropertyTraitRecorder;
-import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 
 public class DslModelineProcessor {
     private static final String FEATURE = "camel-dsl-modeline";
@@ -38,13 +32,6 @@ public class DslModelineProcessor {
     void nativeUnsupported() {
         throw new RuntimeException("The " + FEATURE + " extension is not supported in native mode "
                 + "as JMX is not supported on GraalVM");
-    }
-
-    @Record(value = ExecutionTime.STATIC_INIT)
-    @BuildStep
-    void addPropertyTrait(CamelContextBuildItem camelContextBuildItem, PropertyTraitRecorder propertyTraitRecorder) {
-        RuntimeValue<CamelContext> context = camelContextBuildItem.getCamelContext();
-        propertyTraitRecorder.addPropertyTrait(context);
     }
 
 }

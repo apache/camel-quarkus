@@ -20,6 +20,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.azure.storage.blob.BlobConstants;
 import org.apache.camel.component.azure.storage.blob.BlobOperationsDefinition;
+import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
@@ -49,9 +50,12 @@ public class AzureStorageBlobRoutes extends RouteBuilder {
         from("direct:read")
                 .to(componentUri(BlobOperationsDefinition.getBlob));
 
-        from("direct:readWithManagedClient")
-                .to(componentUri("azure-storage-blob-managed-client", BlobOperationsDefinition.getBlob)
-                        + "&autowiredEnabled=false");
+        //used only for real backend
+        if (!MockBackendUtils.startMockBackend(false)) {
+            from("direct:readWithManagedClient")
+                    .to(componentUri("azure-storage-blob-managed-client", BlobOperationsDefinition.getBlob)
+                            + "&autowiredEnabled=false");
+        }
 
         if (AzureStorageHelper.isClientSecretAuthEnabled()) {
             from("direct:readWithClientSecret")

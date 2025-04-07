@@ -25,7 +25,6 @@ import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -66,15 +65,6 @@ public class DslModelineResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<String> getDependencies() {
         return deps;
-    }
-
-    @Path("props/{property}")
-    @GET
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getDependencies(@PathParam("property") String property) {
-        String uri = String.format("{{%s}}", property);
-        return context.getPropertiesComponent().parseUri(uri);
     }
 
     @DELETE

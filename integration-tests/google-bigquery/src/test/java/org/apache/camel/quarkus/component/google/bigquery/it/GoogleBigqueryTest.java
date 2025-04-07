@@ -48,7 +48,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.util.CollectionHelper.mapOf;
 import static org.apache.camel.util.CollectionHelper.mergeMaps;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 @QuarkusTest
 @TestHTTPEndpoint(GoogleBigqueryResource.class)
@@ -317,7 +317,10 @@ class GoogleBigqueryTest {
                 .post("executeSql")
                 .then()
                 .statusCode(200)
-                .body(is("2"));
+                .body("", hasItems(
+                        allOf(hasEntry("id", "1"), hasEntry("col1", "2"), hasEntry("col2", "3")),
+                        allOf(hasEntry("id", "2"), hasEntry("col1", "3"), hasEntry("col2", "4"))));
+        //                .body(conis("2"));
 
         //update
         RestAssured.given()

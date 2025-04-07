@@ -31,12 +31,12 @@ import java.util.Collections;
 import java.util.stream.Stream;
 
 import io.quarkus.runtime.ImageMode;
-import org.apache.camel.impl.engine.DefaultPackageScanResourceResolver;
 import org.apache.camel.spi.PackageScanResourceResolver;
 import org.apache.camel.spi.Resource;
 import org.apache.camel.spi.ResourceLoader;
 import org.apache.camel.support.PluginHelper;
 import org.apache.camel.support.ResourceHelper;
+import org.apache.camel.support.scan.DefaultPackageScanResourceResolver;
 import org.apache.camel.util.AntPathMatcher;
 import org.apache.camel.util.ObjectHelper;
 import org.jboss.logging.Logger;
