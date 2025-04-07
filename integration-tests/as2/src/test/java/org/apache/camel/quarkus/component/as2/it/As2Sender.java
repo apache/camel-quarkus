@@ -55,6 +55,9 @@ public class As2Sender {
                         null,
                         null,
                         null,
+                        null,
+                        null,
+                        null,
                         null);
             } catch (org.apache.hc.core5.http.HttpException e) {
                 throw new RuntimeException(e);

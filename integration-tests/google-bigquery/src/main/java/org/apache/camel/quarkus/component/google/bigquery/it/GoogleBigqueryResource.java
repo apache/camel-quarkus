@@ -101,7 +101,8 @@ public class GoogleBigqueryResource {
     @Path("/executeSql")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Long executeSql(Map<String, String> headers, @QueryParam("sql") String sql, @QueryParam("file") boolean file,
+    @Produces(MediaType.APPLICATION_JSON)
+    public Object executeSql(Map<String, String> headers, @QueryParam("sql") String sql, @QueryParam("file") boolean file,
             @QueryParam("body") String body)
             throws IOException {
         String uri = "google-bigquery-sql://" + projectId + ":";
@@ -138,7 +139,7 @@ public class GoogleBigqueryResource {
         }
 
         return producerTemplate.requestBodyAndHeaders(uri, bodyMap, typedHeaders,
-                Long.class);
+                Object.class);
     }
 
     @Produces
