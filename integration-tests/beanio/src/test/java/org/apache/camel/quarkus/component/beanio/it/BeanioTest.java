@@ -17,6 +17,8 @@
 package org.apache.camel.quarkus.component.beanio.it;
 
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -32,12 +34,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.apache.camel.quarkus.component.beanio.it.BeanioResource.FORMATTER;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
 class BeanioTest {
+    private final SimpleDateFormat formatter = new SimpleDateFormat(BeanioResource.DATA_FORMAT);
+
     @ParameterizedTest
     @ValueSource(strings = { "CSV", "DELIMITED", "FIXEDLENGTH", "XML", })
     void marshal(String type) throws Exception {
@@ -47,7 +50,7 @@ class BeanioTest {
         one.setLastName("Smith");
         one.setTitle("Developer");
         one.setSalary(75000);
-        one.setHireDate(FORMATTER.parse("2009-10-01"));
+        one.setHireDate(formatter.parse("2009-11-01"));
         employees.add(one);
 
         Employee two = new Employee();
@@ -55,7 +58,7 @@ class BeanioTest {
         two.setLastName("Doe");
         two.setTitle("Architect");
         two.setSalary(80000);
-        two.setHireDate(FORMATTER.parse("2008-01-15"));
+        two.setHireDate(formatter.parse("2008-01-15"));
         employees.add(two);
 
         Employee three = new Employee();
@@ -63,7 +66,7 @@ class BeanioTest {
         three.setLastName("Anderson");
         three.setTitle("Manager");
         three.setSalary(85000);
-        three.setHireDate(FORMATTER.parse("2007-03-18"));
+        three.setHireDate(formatter.parse("2007-03-18"));
         employees.add(three);
 
         String expected = IOUtils.toString(
@@ -103,7 +106,7 @@ class BeanioTest {
                         "[0].lastName", is("Smith"),
                         "[0].title", is("Developer"),
                         "[0].salary", is(75000),
-                        "[0].hireDate", is("2009-10-01"),
+                        "[0].hireDate", is("2009-11-01"),
                         "[1].firstName", is("Jane"),
                         "[1].lastName", is("Doe"),
                         "[1].title", is("Architect"),
@@ -124,7 +127,7 @@ class BeanioTest {
         one.setLastName("Smith");
         one.setTitle("Developer");
         one.setSalary(75000);
-        one.setHireDate(FORMATTER.parse("2009-10-01"));
+        one.setHireDate(formatter.parse("2009-11-01"));
         employees.add(one);
 
         EmployeeAnnotated two = new EmployeeAnnotated();
@@ -132,7 +135,7 @@ class BeanioTest {
         two.setLastName("Doe");
         two.setTitle("Architect");
         two.setSalary(80000);
-        two.setHireDate(FORMATTER.parse("2008-01-15"));
+        two.setHireDate(formatter.parse("2008-01-15"));
         employees.add(two);
 
         EmployeeAnnotated three = new EmployeeAnnotated();
@@ -140,7 +143,7 @@ class BeanioTest {
         three.setLastName("Anderson");
         three.setTitle("Manager");
         three.setSalary(85000);
-        three.setHireDate(FORMATTER.parse("2007-03-18"));
+        three.setHireDate(formatter.parse("2007-03-18"));
         employees.add(three);
 
         String expected = IOUtils.toString(BeanioTest.class.getResourceAsStream("/employees-csv.txt"),
@@ -172,7 +175,7 @@ class BeanioTest {
                         "[0].lastName", is("Smith"),
                         "[0].title", is("Developer"),
                         "[0].salary", is(75000),
-                        "[0].hireDate", is("2009-10-01"),
+                        "[0].hireDate", is("2009-11-01"),
                         "[1].firstName", is("Jane"),
                         "[1].lastName", is("Doe"),
                         "[1].title", is("Architect"),
@@ -235,7 +238,7 @@ class BeanioTest {
                         "[0].lastName", is("Smith"),
                         "[0].title", is("Developer"),
                         "[0].salary", is(75000),
-                        "[0].hireDate", is("2009-10-01"),
+                        "[0].hireDate", is("2009-11-01"),
                         "[1].firstName", is("Jane"),
                         "[1].lastName", is("Doe"),
                         "[1].title", is("Architect"),
@@ -312,7 +315,34 @@ class BeanioTest {
                         "[0].lastName", is("Smith"),
                         "[0].title", is("Developer"),
                         "[0].salary", is(75000),
-                        "[0].hireDate", is("2009-10-01"),
+                        "[0].hireDate", is("2009-11-01"),
+                        "[1].firstName", is("Jane"),
+                        "[1].lastName", is("Doe"),
+                        "[1].title", is("Architect"),
+                        "[1].salary", is(80000),
+                        "[1].hireDate", is("2008-01-15"),
+                        "[2].firstName", is("Jon"),
+                        "[2].lastName", is("Anderson"),
+                        "[2].title", is("Manager"),
+                        "[2].salary", is(85000),
+                        "[2].hireDate", is("2007-03-18"));
+    }
+
+    @Test
+    void marshalEmployees() {
+        ZonedDateTime expectedTime = ZonedDateTime.parse("2009-09-30T22:00:00Z[UTC]");
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(BeanioTest.class.getResourceAsStream("/employees-csv.txt"))
+                .post("/beanio/unmarshal/global")
+                .then()
+                .statusCode(200)
+                .body(
+                        "[0].firstName", is("Joe"),
+                        "[0].lastName", is("Smith"),
+                        "[0].title", is("Developer"),
+                        "[0].salary", is(75000),
+                        "[0].hireDate", is("2009-11-01"),
                         "[1].firstName", is("Jane"),
                         "[1].lastName", is("Doe"),
                         "[1].title", is("Architect"),

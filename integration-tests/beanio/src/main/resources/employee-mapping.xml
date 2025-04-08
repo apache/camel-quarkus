@@ -70,4 +70,16 @@
         </parser>
         <record name="employeeAnnotated" class="org.apache.camel.quarkus.component.beanio.it.model.EmployeeAnnotated"/>
     </stream>
+    <stream name="employee-stream" format="csv">
+        <parser>
+            <property name="recordTerminator" value="\n"/>
+        </parser>
+        <record name="employee" class="org.apache.camel.quarkus.component.beanio.it.model.Employee">
+            <field name="firstName"/>
+            <field name="lastName"/>
+            <field name="title"/>
+            <field name="salary"/>
+            <field name="hireDate" format="MMddyyyy"/>
+        </record>
+    </stream>
 </beanio>

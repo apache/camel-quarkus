@@ -91,5 +91,9 @@ public class BeanioRoutes extends RouteBuilder {
         from("direct:unmarshalWithSplitter")
                 .split(splitter).streaming()
                 .to("mock:splitEmployees");
+
+        from("direct:unmarshalGlobal")
+                .to("dataformat:beanio:unmarshal");
+
     }
 }

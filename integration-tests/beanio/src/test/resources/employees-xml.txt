@@ -23,7 +23,7 @@
         <lastName>Smith</lastName>
         <title>Developer</title>
         <salary>75000</salary>
-        <hireDate>10012009</hireDate>
+        <hireDate>11012009</hireDate>
     </employee>
     <employee>
         <firstName>Jane</firstName>

@@ -45,3 +45,27 @@ Or add the coordinates to your existing project:
 ifeval::[{doc-show-user-guide-link} == true]
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 endif::[]
+
+[id="extensions-dataformat-additional-camel-quarkus-configuration"]
+== Additional Camel Quarkus configuration
+
+[width="100%",cols="80,5,15",options="header"]
+|===
+| Configuration property | Type | Default
+
+
+a| [[camel-dataformat-dataformats]]`link:#camel-dataformat-dataformats[camel.dataformat."dataformats"]`
+
+Configuration of properties for any dataformat.
+(In the format camel.dataformat."dataformat_name"."property"=value
+
+i.e.
+camel.dataformat.beanio.stream-name = test-stream
+camel.dataformat.beanio.mapping = test-mapping.xml
+| `Map<String,Map<String,String>>`
+| 
+|===
+
+[.configuration-legend]
+{doc-link-icon-lock}[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
+
