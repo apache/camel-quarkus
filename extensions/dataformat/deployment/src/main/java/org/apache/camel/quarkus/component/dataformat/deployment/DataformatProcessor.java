@@ -17,7 +17,14 @@
 package org.apache.camel.quarkus.component.dataformat.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.runtime.RuntimeValue;
+import org.apache.camel.CamelContext;
+import org.apache.camel.quarkus.component.dataformat.CamelDataformatConfig;
+import org.apache.camel.quarkus.component.dataformat.DataformatRecorder;
+import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 
 class DataformatProcessor {
 
@@ -28,4 +35,14 @@ class DataformatProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
+    @Record(ExecutionTime.RUNTIME_INIT)
+    @BuildStep
+    void dataformatCustomizer(
+            CamelContextBuildItem context,
+            CamelDataformatConfig config,
+            DataformatRecorder recorder) {
+
+        RuntimeValue<CamelContext> camelContext = context.getCamelContext();
+        recorder.createDataformatCustomizer(camelContext, config);
+    }
 }

@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import jakarta.inject.Inject;
 import jakarta.json.Json;
@@ -50,13 +51,16 @@ import org.apache.camel.quarkus.component.beanio.it.model.Trailer;
 
 @Path("/beanio")
 public class BeanioResource {
-    public static final SimpleDateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd");
+    public static String DATA_FORMAT = "yyyy-MM-dd";
+    private final SimpleDateFormat formatter = new SimpleDateFormat(DATA_FORMAT);
 
     @Inject
     CamelContext context;
 
     @Inject
     ProducerTemplate producerTemplate;
+    @Inject
+    org.jboss.logging.Logger logger;
 
     @Path("/marshal")
     @POST
@@ -81,17 +85,7 @@ public class BeanioResource {
     @SuppressWarnings("unchecked")
     public Response unmarshal(String data, @QueryParam("type") String type) {
         List<Employee> employees = producerTemplate.requestBodyAndHeader("direct:unmarshal", data, "type", type, List.class);
-        JsonArrayBuilder array = Json.createArrayBuilder();
-        for (Employee employee : employees) {
-            JsonObjectBuilder builder = Json.createObjectBuilder();
-            builder.add("firstName", employee.getFirstName());
-            builder.add("lastName", employee.getLastName());
-            builder.add("title", employee.getTitle());
-            builder.add("hireDate", FORMATTER.format(employee.getHireDate()));
-            builder.add("salary", employee.getSalary());
-            array.add(builder.build());
-        }
-        return Response.ok(array.build()).build();
+        return getResponse(employees);
     }
 
     @Path("/unmarshal/annotated")
@@ -108,7 +102,7 @@ public class BeanioResource {
             builder.add("firstName", employee.getFirstName());
             builder.add("lastName", employee.getLastName());
             builder.add("title", employee.getTitle());
-            builder.add("hireDate", FORMATTER.format(employee.getHireDate()));
+            builder.add("hireDate", formatter.format(employee.getHireDate()));
             builder.add("salary", employee.getSalary());
             array.add(builder.build());
         }
@@ -146,7 +140,7 @@ public class BeanioResource {
                 builder.add("firstName", employee.getFirstName());
                 builder.add("lastName", employee.getLastName());
                 builder.add("title", employee.getTitle());
-                builder.add("hireDate", FORMATTER.format(employee.getHireDate()));
+                builder.add("hireDate", formatter.format(employee.getHireDate()));
                 builder.add("salary", employee.getSalary());
             } else if (object instanceof Error) {
                 Error error = (Error) object;
@@ -182,7 +176,7 @@ public class BeanioResource {
                 Header header = (Header) object;
                 builder.add("identifier", header.getIdentifier());
                 builder.add("recordType", header.getRecordType());
-                builder.add("date", FORMATTER.format(header.getHeaderDate()));
+                builder.add("date", formatter.format(header.getHeaderDate()));
             } else if (object instanceof Separator) {
                 Separator separator = (Separator) object;
                 builder.add("value", separator.getValue());
@@ -213,7 +207,7 @@ public class BeanioResource {
     private List<Object> createComplexObject() throws Exception {
         String source = "camel-beanio";
         List<Object> complexObject = new ArrayList<>();
-        Date date = FORMATTER.parse("2008-08-03");
+        Date date = formatter.parse("2008-08-03");
         Header hFirst = new Header("A1", date, "PRICE");
         Header hSecond = new Header("B1", date, "SECURITY");
         Separator headerEnd = new Separator("HEADER END");
@@ -258,14 +252,29 @@ public class BeanioResource {
         mockEndpoint.assertIsSatisfied(5000);
         List<Exchange> exchanges = mockEndpoint.getExchanges();
 
+        List<Employee> employees = exchanges.stream().map(e -> e.getMessage().getBody(Employee.class))
+                .collect(Collectors.toList());
+        return getResponse(employees);
+    }
+
+    @Path("/unmarshal/global")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    @SuppressWarnings("unchecked")
+    public Response marshalEmployees(String csv) {
+        List<Employee> employees = producerTemplate.requestBody("direct:unmarshalGlobal", csv, List.class);
+        return getResponse(employees);
+    }
+
+    private Response getResponse(List<Employee> employees) {
         JsonArrayBuilder array = Json.createArrayBuilder();
-        for (Exchange exchange : exchanges) {
-            Employee employee = exchange.getMessage().getBody(Employee.class);
+        for (Employee employee : employees) {
             JsonObjectBuilder builder = Json.createObjectBuilder();
             builder.add("firstName", employee.getFirstName());
             builder.add("lastName", employee.getLastName());
             builder.add("title", employee.getTitle());
-            builder.add("hireDate", FORMATTER.format(employee.getHireDate()));
+            builder.add("hireDate", formatter.format(employee.getHireDate()));
             builder.add("salary", employee.getSalary());
             array.add(builder.build());
         }
