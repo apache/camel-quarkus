@@ -33,4 +33,21 @@ public class AS400ImplNative {
     static void swapBackNative(byte[] swapToPH, byte[] swapFromPH) throws NativeException {
         throw new UnsupportedOperationException();
     }
+
+    static void swapToProfileHandleNative(byte[] swapToPH, byte[] swapFromPH_temp) {
+        throw new UnsupportedOperationException();
+    }
+
+    static void swapBackAndReleaseNative(byte[] bytes) {
+        throw new UnsupportedOperationException();
+    }
+
+    static void createProfileHandle2Native(byte[] bytes1, String s1, byte[] bytes2, char[] bytes3, String s2, String s3, int i1,
+            String s4, int i2) {
+        throw new UnsupportedOperationException();
+    }
+
+    static void releaseProfileHandleNative(byte[] bytes) {
+        throw new UnsupportedOperationException();
+    }
 }
