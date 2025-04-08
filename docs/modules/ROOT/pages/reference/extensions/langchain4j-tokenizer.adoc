@@ -22,7 +22,7 @@ LangChain4j Tokenizer
 [id="extensions-langchain4j-tokenizer-whats-inside"]
 == What's inside
 
-* xref:{cq-camel-components}:others:langchain4j-tokenizer-component.adoc[LangChain4j Tokenizer]
+* xref:{cq-camel-components}:langchain4j-tokenizer-component.adoc[LangChain4j Tokenizer]
 
 Please refer to the above link for usage and configuration details.
 
