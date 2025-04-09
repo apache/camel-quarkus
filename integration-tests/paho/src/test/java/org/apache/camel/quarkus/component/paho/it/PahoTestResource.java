@@ -30,7 +30,6 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.MountableFile;
-import org.testcontainers.utility.TestcontainersConfiguration;
 
 public class PahoTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(PahoTestResource.class);
@@ -45,8 +44,6 @@ public class PahoTestResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public Map<String, String> start() {
-        LOGGER.info(TestcontainersConfiguration.getInstance().toString());
-
         try {
             Map<String, String> result = new HashMap<>();
 

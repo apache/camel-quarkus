@@ -26,7 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
-import org.testcontainers.utility.TestcontainersConfiguration;
 
 public class InfluxdbTestResource implements QuarkusTestResourceLifecycleManager {
     public static final Logger LOGGER = LoggerFactory.getLogger(InfluxdbTestResource.class);
@@ -38,8 +37,6 @@ public class InfluxdbTestResource implements QuarkusTestResourceLifecycleManager
 
     @Override
     public Map<String, String> start() {
-        LOGGER.info(TestcontainersConfiguration.getInstance().toString());
-
         try {
             container = new GenericContainer<>(INFLUXDB_IMAGE)
                     .withExposedPorts(INFLUXDB_PORT)

@@ -26,7 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
-import org.testcontainers.utility.TestcontainersConfiguration;
 
 public class ArangodbTestResource implements QuarkusTestResourceLifecycleManager {
 
@@ -39,8 +38,6 @@ public class ArangodbTestResource implements QuarkusTestResourceLifecycleManager
 
     @Override
     public Map<String, String> start() {
-        LOGGER.info(TestcontainersConfiguration.getInstance().toString());
-
         try {
             container = new GenericContainer<>(ARANGO_IMAGE)
                     .withExposedPorts(PORT_DEFAULT)
