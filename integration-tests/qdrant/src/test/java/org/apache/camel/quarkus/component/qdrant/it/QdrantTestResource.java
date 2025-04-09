@@ -27,7 +27,6 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.qdrant.QdrantContainer;
 import org.testcontainers.utility.DockerImageName;
-import org.testcontainers.utility.TestcontainersConfiguration;
 
 public class QdrantTestResource implements QuarkusTestResourceLifecycleManager {
 
@@ -39,8 +38,6 @@ public class QdrantTestResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public Map<String, String> start() {
-        LOG.info(TestcontainersConfiguration.getInstance().toString());
-
         Map<String, String> properties = new HashMap<>();
 
         DockerImageName qdrantImageName = DockerImageName.parse(QDRANT_IMAGE).asCompatibleSubstituteFor("qdrant/qdrant");

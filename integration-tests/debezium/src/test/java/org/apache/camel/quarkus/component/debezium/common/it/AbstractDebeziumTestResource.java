@@ -26,7 +26,6 @@ import org.apache.camel.util.CollectionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.utility.TestcontainersConfiguration;
 
 /**
  * Abstract parent for debezium test resources.
@@ -56,7 +55,6 @@ public abstract class AbstractDebeziumTestResource<T extends GenericContainer<?>
 
     @Override
     public Map<String, String> start() {
-        LOGGER.info(TestcontainersConfiguration.getInstance().toString());
         try {
             storeFile = Files.createTempFile(getClass().getSimpleName() + "-store-", "");
 

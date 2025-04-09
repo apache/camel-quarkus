@@ -26,7 +26,6 @@ import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
-import org.testcontainers.utility.TestcontainersConfiguration;
 
 import static org.apache.camel.quarkus.component.pg.replication.slot.it.PgReplicationSlotRoute.PG_AUTHORITY_CFG_KEY;
 import static org.apache.camel.quarkus.component.pg.replication.slot.it.PgReplicationSlotRoute.PG_DBNAME_CFG_KEY;
@@ -46,8 +45,6 @@ public class PgReplicationSlotTestResource implements QuarkusTestResourceLifecyc
 
     @Override
     public Map<String, String> start() {
-        LOG.info(TestcontainersConfiguration.getInstance().toString());
-
         // Setup the Postgres container with replication enabled
         pgContainer = new GenericContainer<>(POSTGRES_IMAGE).withCommand("postgres -c wal_level=logical")
                 .withExposedPorts(POSTGRES_PORT).withEnv("POSTGRES_USER", POSTGRES_USER)
