@@ -7070,12 +7070,12 @@
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId>
         <artifactId>quarkus-mybatis</artifactId>
-        <version>2.3.1</version>
+        <version>2.3.2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId>
         <artifactId>quarkus-mybatis-deployment</artifactId>
-        <version>2.3.1</version>
+        <version>2.3.2</version>
       </dependency>
       <dependency>
         <groupId>io.reactivex.rxjava3</groupId>
