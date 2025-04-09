@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.support.xalan.deployment;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 import java.util.stream.Stream;
 
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -26,10 +27,12 @@ import io.quarkus.deployment.builditem.nativeimage.ExcludeConfigBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import org.apache.camel.quarkus.support.xalan.XalanTransformerFactory;
 
 class XalanNativeImageProcessor {
+    private static final String BCEL_CLASS_PATH = "org.apache.bcel.util.ClassPath";
     private static final String TRANSFORMER_FACTORY_SERVICE_FILE_PATH = "META-INF/services/javax.xml.transform.TransformerFactory";
 
     @BuildStep
@@ -85,4 +88,20 @@ class XalanNativeImageProcessor {
 
     }
 
+    @BuildStep(onlyIf = BcelIsPresent.class)
+    void bcelRuntimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(BCEL_CLASS_PATH));
+    }
+
+    static final class BcelIsPresent implements BooleanSupplier {
+        @Override
+        public boolean getAsBoolean() {
+            try {
+                Thread.currentThread().getContextClassLoader().loadClass(BCEL_CLASS_PATH);
+                return true;
+            } catch (ClassNotFoundException e) {
+                return false;
+            }
+        }
+    }
 }
