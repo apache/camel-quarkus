@@ -67,6 +67,7 @@
 
         <!-- Compile dependency versions (keep sorted alphabetically) -->
         <!-- Items annotated with @sync can be updated by running mvn cq:sync-versions -N -e -->
+        <aalto-xml.version>1.3.3</aalto-xml.version><!-- @sync org.smooks:smooks-core:${smooks-version} dep:com.fasterxml:aalto-xml -->
         <angus-mail.version>${angus-mail-version}</angus-mail.version>
         <antlr3.version>3.5.2</antlr3.version><!-- Spark, Stringtemplate and probably others -->
         <audience-annotations.version>${yetus-audience-annotations-version}</audience-annotations.version>
