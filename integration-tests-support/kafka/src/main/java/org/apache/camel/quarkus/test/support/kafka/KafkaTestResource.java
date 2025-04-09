@@ -25,7 +25,6 @@ import io.strimzi.test.container.StrimziKafkaContainer;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testcontainers.utility.TestcontainersConfiguration;
 
 public class KafkaTestResource implements QuarkusTestResourceLifecycleManager {
     protected static final String KAFKA_IMAGE_NAME = ConfigProvider.getConfig().getValue("kafka.container.image", String.class);
@@ -35,8 +34,6 @@ public class KafkaTestResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public Map<String, String> start() {
-        LOGGER.info(TestcontainersConfiguration.getInstance().toString());
-
         try {
             start(name -> new StrimziKafkaContainer(name));
 
@@ -47,7 +44,6 @@ public class KafkaTestResource implements QuarkusTestResourceLifecycleManager {
     }
 
     public String start(Function<String, StrimziKafkaContainer> containerSupplier) {
-        LOGGER.info(TestcontainersConfiguration.getInstance().toString());
         container = containerSupplier.apply(KAFKA_IMAGE_NAME);
 
         /* Added container startup logging because of https://github.com/apache/camel-quarkus/issues/2461 */

@@ -34,7 +34,6 @@ import org.testcontainers.containers.Container;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.Network;
 import org.testcontainers.containers.wait.strategy.Wait;
-import org.testcontainers.utility.TestcontainersConfiguration;
 
 import static org.apache.camel.quarkus.test.support.mongodb.MongoDbTestSupportUtils.getMongoScriptExecutable;
 
@@ -49,8 +48,6 @@ public class MongoDbTestResource implements QuarkusTestResourceLifecycleManager 
 
     @Override
     public Map<String, String> start() {
-        LOGGER.info(TestcontainersConfiguration.getInstance().toString());
-
         try {
             container = new GenericContainer(MONGO_IMAGE)
                     .withExposedPorts(MONGODB_PORT)

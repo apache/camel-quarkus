@@ -26,7 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
-import org.testcontainers.utility.TestcontainersConfiguration;
 
 public class RedisTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOG = LoggerFactory.getLogger(RedisTestResource.class);
@@ -37,8 +36,6 @@ public class RedisTestResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public Map<String, String> start() {
-        LOG.info(TestcontainersConfiguration.getInstance().toString());
-
         try {
             container = new GenericContainer(REDIS_IMAGE).withExposedPorts(REDIS_PORT).waitingFor(Wait.forListeningPort());
             container.start();

@@ -26,7 +26,6 @@ import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
-import org.testcontainers.utility.TestcontainersConfiguration;
 
 public class ElasticsearchTestResource implements QuarkusTestResourceLifecycleManager {
 
@@ -41,8 +40,6 @@ public class ElasticsearchTestResource implements QuarkusTestResourceLifecycleMa
 
     @Override
     public Map<String, String> start() {
-        LOGGER.info(TestcontainersConfiguration.getInstance().toString());
-
         try {
             container = new GenericContainer<>(ELASTICSEARCH_IMAGE)
                     .withExposedPorts(ELASTICSEARCH_PORT)

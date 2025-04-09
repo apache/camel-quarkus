@@ -27,7 +27,6 @@ import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
-import org.testcontainers.utility.TestcontainersConfiguration;
 
 public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(ActiveMQTestResource.class);
@@ -39,8 +38,6 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
 
     @Override
     public Map<String, String> start() {
-        LOGGER.info(TestcontainersConfiguration.getInstance().toString());
-
         try {
             container = new GenericContainer<>(ACTIVEMQ_IMAGE)
                     .withExposedPorts(TCP_PORT)

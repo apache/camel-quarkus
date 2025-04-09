@@ -30,7 +30,6 @@ import org.testcontainers.containers.SelinuxContext;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.MountableFile;
-import org.testcontainers.utility.TestcontainersConfiguration;
 
 import static org.apache.camel.quarkus.component.nats.it.NatsConfiguration.NATS_BROKER_URL_BASIC_AUTH_CONFIG_KEY;
 import static org.apache.camel.quarkus.component.nats.it.NatsConfiguration.NATS_BROKER_URL_NO_AUTH_CONFIG_KEY;
@@ -50,8 +49,6 @@ public class NatsTestResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public Map<String, String> start() {
-        LOG.info(TestcontainersConfiguration.getInstance().toString());
-
         Map<String, String> properties = new HashMap<>();
 
         basicAuthContainer = basicAuthContainer(properties);
