@@ -33,7 +33,6 @@ import org.slf4j.LoggerFactory;
 import org.testcontainers.cassandra.CassandraContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
-import org.testcontainers.utility.TestcontainersConfiguration;
 
 public class CassandraqlTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(CassandraqlTestResource.class);
@@ -45,7 +44,6 @@ public class CassandraqlTestResource implements QuarkusTestResourceLifecycleMana
 
     @Override
     public Map<String, String> start() {
-        LOGGER.info(TestcontainersConfiguration.getInstance().toString());
         try {
             DockerImageName imageName = DockerImageName.parse(DOCKER_IMAGE_NAME).asCompatibleSubstituteFor("cassandra");
             container = new CassandraContainer(imageName)
