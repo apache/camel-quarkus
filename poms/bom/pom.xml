@@ -6618,6 +6618,11 @@
                 <version>${kryo.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.fasterxml</groupId>
+                <artifactId>aalto-xml</artifactId>
+                <version>${aalto-xml.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.github.java-json-tools</groupId>
                 <artifactId>json-patch</artifactId>
                 <version>${java-json-tools.json-patch.version}</version>
