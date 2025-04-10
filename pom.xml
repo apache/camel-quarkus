@@ -117,7 +117,7 @@
         <hapi-base.version>${hapi-base-version}</hapi-base.version>
         <hapi-fhir.version>${hapi-fhir-version}</hapi-fhir.version>
         <hapi-fhir-core.version>6.4.0</hapi-fhir-core.version><!-- @sync ca.uhn.hapi.fhir:hapi-fhir:${hapi-fhir.version} prop:fhir_core_version -->
-        <ibm.mq.client.version>9.4.0.5</ibm.mq.client.version>
+        <ibm.mq.client.version>9.4.2.0</ibm.mq.client.version>
         <icu4j.version>${icu4j-version}</icu4j.version>
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
         <jakarta.jms-api.version>${jakarta-jms-api-version}</jakarta.jms-api.version>
@@ -244,7 +244,7 @@
         <google-storage.container.image>mirror.gcr.io/fsouza/fake-gcs-server:1.49.3</google-storage.container.image>
         <greenmail.container.image>mirror.gcr.io/greenmail/standalone:2.0.0</greenmail.container.image>
         <hashicorp-vault.container.image>mirror.gcr.io/hashicorp/vault:1.17</hashicorp-vault.container.image>
-        <ibm-mq.container.image>icr.io/ibm-messaging/mq:9.4.0.5-r1</ibm-mq.container.image>
+        <ibm-mq.container.image>icr.io/ibm-messaging/mq:9.4.2.0-r2</ibm-mq.container.image>
         <influxdb.container.image>mirror.gcr.io/influxdb:1.8.10-alpine</influxdb.container.image>
         <kafka.container.image>quay.io/strimzi-test-container/test-container:latest-kafka-3.9.0</kafka.container.image>
         <keycloak.container.image>quay.io/keycloak/keycloak:${keycloak.version}</keycloak.container.image>
