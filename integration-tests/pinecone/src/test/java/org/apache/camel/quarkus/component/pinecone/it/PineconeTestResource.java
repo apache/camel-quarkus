@@ -16,28 +16,52 @@
  */
 package org.apache.camel.quarkus.component.pinecone.it;
 
+import java.util.List;
 import java.util.Map;
 
-import org.apache.camel.quarkus.test.wiremock.WireMockTestResourceLifecycleManager;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
+import org.eclipse.microprofile.config.ConfigProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testcontainers.containers.output.Slf4jLogConsumer;
+import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.pinecone.PineconeLocalContainer;
 
-public class PineconeTestResource extends WireMockTestResourceLifecycleManager {
-    public static final String PINECONE_API_BASE_URL = "https://api.pinecone.io";
-    private static final String PINECONE_API_KEY_ENV = "PINECONE_API_KEY";
+public class PineconeTestResource implements QuarkusTestResourceLifecycleManager {
+
+    private static final Logger log = LoggerFactory.getLogger(PineconeTestResource.class);
+    private static final String PINECONE_IMAGE = ConfigProvider.getConfig().getValue("pinecone.container.image", String.class);
+
+    private PineconeLocalContainer container;
 
     @Override
     public Map<String, String> start() {
-        return CollectionHelper.mergeMaps(super.start(), CollectionHelper.mapOf(
-                "camel.component.pinecone.token", envOrDefault(PINECONE_API_KEY_ENV, "test-pinecone-api-key")));
+        try {
+            container = new PineconeLocalContainer(PINECONE_IMAGE)
+                    .withLogConsumer(new Slf4jLogConsumer(log))
+                    .waitingFor(Wait.forListeningPort());
+
+            // port 5081 for the index
+            container.setPortBindings(List.of("5080:5080", "5081:5081"));
+
+            container.start();
+
+            return CollectionHelper.mapOf("pinecone.emulator.endpoint", container.getEndpoint());
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    protected String getRecordTargetBaseUrl() {
-        return PINECONE_API_BASE_URL;
-    }
-
-    @Override
-    protected boolean isMockingEnabled() {
-        return !envVarsPresent("PINECONE_API_KEY");
+    public void stop() {
+        try {
+            if (container != null) {
+                container.stop();
+            }
+        } catch (Exception e) {
+            // ignored
+        }
     }
 }

@@ -18,14 +18,12 @@ package org.apache.camel.quarkus.component.pinecone.it;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.Optional;
 
 import io.pinecone.clients.Pinecone;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openapitools.db_control.client.model.IndexModel;
@@ -70,32 +68,26 @@ class PineconeTest {
                         .anyMatch(status -> status.getState().equals(READY));
             });
 
-            // Some index endpoints are not mocked:
-            // - They use a dynamic host, separate from the core pinecone API endpoints
-            // - They are gRPC endpoints
-            Optional<String> wireMockUrl = ConfigProvider.getConfig().getOptionalValue("wiremock.url", String.class);
-            if (!wireMockUrl.isPresent()) {
-                // Upsert
-                List<Float> vectors = List.of(1.0f, 2.0f, 3.0f);
+            // Upsert
+            List<Float> vectors = List.of(1.0f, 2.0f, 3.0f);
+            RestAssured.given()
+                    .contentType(ContentType.JSON)
+                    .body(vectors)
+                    .put("/pinecone/index")
+                    .then()
+                    .statusCode(200)
+                    .body(is("1"));
+
+            // Query upserted data by vector
+            await().pollInterval(Duration.ofSeconds(1)).atMost(Duration.ofSeconds(30)).untilAsserted(() -> {
                 RestAssured.given()
                         .contentType(ContentType.JSON)
                         .body(vectors)
-                        .put("/pinecone/index")
+                        .get("/pinecone/index")
                         .then()
                         .statusCode(200)
-                        .body(is("1"));
-
-                // Query upserted data by vector
-                await().pollInterval(Duration.ofSeconds(1)).atMost(Duration.ofSeconds(30)).untilAsserted(() -> {
-                    RestAssured.given()
-                            .contentType(ContentType.JSON)
-                            .body(vectors)
-                            .get("/pinecone/index")
-                            .then()
-                            .statusCode(200)
-                            .body(startsWith("0.9"));
-                });
-            }
+                        .body(startsWith("0.9"));
+            });
         } finally {
             RestAssured.given()
                     .delete("/pinecone/index")

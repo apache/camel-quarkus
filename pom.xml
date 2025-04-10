@@ -255,6 +255,7 @@
         <mongodb.container.image>mirror.gcr.io/mongo:7.0</mongodb.container.image>
         <nats.container.image>mirror.gcr.io/nats:2.10.18</nats.container.image>
         <openssh-server.container.image>mirror.gcr.io/linuxserver/openssh-server:version-9.7_p1-r4</openssh-server.container.image>
+        <pinecone.container.image>ghcr.io/pinecone-io/pinecone-local:v0.7.0</pinecone.container.image>
         <postgres.container.image>mirror.gcr.io/postgres:15.0</postgres.container.image>
         <postgres-debezium.container.image>mirror.gcr.io/debezium/postgres:15-alpine</postgres-debezium.container.image>
         <qdrant.container.image>mirror.gcr.io/qdrant/qdrant:v1.9.7-unprivileged</qdrant.container.image>

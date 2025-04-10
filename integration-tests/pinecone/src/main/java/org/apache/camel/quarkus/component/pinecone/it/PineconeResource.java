@@ -16,9 +16,7 @@
  */
 package org.apache.camel.quarkus.component.pinecone.it;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 import io.pinecone.clients.Pinecone;
 import io.pinecone.proto.UpsertResponse;
@@ -35,15 +33,10 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.pinecone.PineconeVectorDbComponent;
 import org.apache.camel.component.pinecone.PineconeVectorDbConfiguration;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.jetbrains.annotations.NotNull;
 import org.openapitools.db_control.client.model.IndexModel;
 
 @Path("/pinecone")
@@ -100,26 +93,10 @@ public class PineconeResource {
     }
 
     static Pinecone createPineconeClient() {
-        Optional<String> wireMockUrl = ConfigProvider.getConfig().getOptionalValue("wiremock.url", String.class);
-        String apiKey = ConfigProvider.getConfig().getValue("camel.component.pinecone.token", String.class);
-        Pinecone.Builder builder = new Pinecone.Builder(apiKey);
-        if (wireMockUrl.isPresent()) {
-            String baseUri = wireMockUrl.get();
-            OkHttpClient client = new OkHttpClient.Builder()
-                    .addInterceptor(new Interceptor() {
-                        @NotNull
-                        @Override
-                        public Response intercept(@NotNull Interceptor.Chain chain) throws IOException {
-                            Request originalRequest = chain.request();
-                            Request wireMockedRequest = originalRequest.newBuilder()
-                                    .url(baseUri + originalRequest.url().encodedPath())
-                                    .build();
-                            return chain.proceed(wireMockedRequest);
-                        }
-                    })
-                    .build();
-            return builder.withOkHttpClient(client).build();
-        }
+        String endpoint = ConfigProvider.getConfig().getValue("pinecone.emulator.endpoint", String.class);
+        Pinecone.Builder builder = new Pinecone.Builder("pclocal")
+                .withHost(endpoint)
+                .withTlsEnabled(false);
         return builder.build();
     }
 }
