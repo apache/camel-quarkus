@@ -1,9 +1,26 @@
-Due to some limitations in GraalVM that prevent to execute even basic scripts in native mode, the compilation of the
-Groovy expressions is made with the static compilation enabled which means that the types used in your expression must
+=== Native mode limitations
+
+Compilation of Groovy expressions is made with static compilation enabled. Which means that the types used in your expressions must
 be known at compile time. Please refer to the https://docs.groovy-lang.org/latest/html/documentation/core-semantics.html#static-type-checking[Groovy documentation for more details].
 
 This primarily impacts the customization of the Groovy Shell and the handling of exchange information.
 In native mode, customizing the Groovy Shell and accessing the following exchange variables will not function as expected.
-```
-header, variable, variables, exchangeProperty, exchangeProperties, log, attachment
-```
+
+* `attachment`
+* `exchangeProperty`
+* `exchangeProperties`
+* `header`
+* `log`
+* `variable`
+* `variables`
+
+If you use property placeholders within your expressions like.
+
+[source,java]
+----
+from("direct:start")
+    .transform().groovy("println '{{greeting.message}}'");
+----
+
+`greeting.message` will be evaluated once at build time and its value will be permanently stored in the native image.
+It is not possible to override the value of the property at runtime. Attempting to do so will result in an exception being thrown.
