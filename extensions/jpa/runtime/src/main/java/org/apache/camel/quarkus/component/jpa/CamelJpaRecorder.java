@@ -16,9 +16,13 @@
  */
 package org.apache.camel.quarkus.component.jpa;
 
+import java.lang.annotation.Annotation;
+
+import io.quarkus.hibernate.orm.PersistenceUnit;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.component.jpa.JpaComponent;
+import org.apache.camel.quarkus.core.CamelBeanQualifierResolver;
 
 @Recorder
 public class CamelJpaRecorder {
@@ -27,5 +31,17 @@ public class CamelJpaRecorder {
         JpaComponent component = new JpaComponent();
         component.setTransactionStrategy(new QuarkusTransactionStrategy());
         return new RuntimeValue<>(component);
+    }
+
+    public RuntimeValue<CamelBeanQualifierResolver> createPersistenceUnitQualifierResolver(String persistenceUnitName) {
+        return new RuntimeValue<>(new CamelBeanQualifierResolver() {
+            final PersistenceUnit.PersistenceUnitLiteral persistenceUnitLiteral = new PersistenceUnit.PersistenceUnitLiteral(
+                    persistenceUnitName);
+
+            @Override
+            public Annotation[] resolveQualifiers() {
+                return new Annotation[] { persistenceUnitLiteral };
+            }
+        });
     }
 }
