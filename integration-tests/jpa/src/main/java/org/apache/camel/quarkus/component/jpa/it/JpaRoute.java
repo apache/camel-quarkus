@@ -20,6 +20,7 @@ import java.util.Collections;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.persistence.EntityManagerFactory;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jpa.TransactionStrategy;
@@ -30,6 +31,7 @@ import org.apache.camel.quarkus.component.jpa.it.model.Fruit;
 public class JpaRoute extends RouteBuilder {
 
     @Inject
+    @Named("test")
     EntityManagerFactory entityManagerFactory;
 
     @Inject
