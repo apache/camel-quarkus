@@ -17,7 +17,9 @@
 package org.apache.camel.quarkus.component.jpa.it;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.junit.TestProfile;
 
 @QuarkusTest
-public class JpaTest extends JpaTestBase {
+@TestProfile(NamedJpaTestProfile.class)
+public class NamedJpaTest extends JpaTestBase {
 }

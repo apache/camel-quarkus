@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import io.quarkus.arc.Arc;
 import io.quarkus.arc.ArcContainer;
@@ -79,6 +80,17 @@ public final class RuntimeBeanRepository implements BeanRepository {
 
     private static <T> Optional<T> getReferenceByName(BeanManager manager, String name, Class<T> type) {
         Set<Bean<?>> beans = manager.getBeans(name);
+
+        // If it is a Synthetic bean, it should match with type
+        beans = beans.stream()
+                .filter(bean -> {
+                    if (bean instanceof InjectableBean injectableBean) {
+                        return !injectableBean.getKind().equals(InjectableBean.Kind.SYNTHETIC)
+                                || bean.getTypes().contains(type);
+                    } else {
+                        return true;
+                    }
+                }).collect(Collectors.toSet());
 
         if (beans.isEmpty()) {
             // Fallback to searching explicitly with NamedLiteral

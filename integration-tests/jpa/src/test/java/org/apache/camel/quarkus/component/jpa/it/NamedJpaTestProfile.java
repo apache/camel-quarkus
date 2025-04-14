@@ -14,10 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.camel.quarkus.component.jpa.it;
 
-import io.quarkus.test.junit.QuarkusTest;
+import java.util.Map;
 
-@QuarkusTest
-public class JpaTest extends JpaTestBase {
+import io.quarkus.test.junit.QuarkusTestProfile;
+
+public class NamedJpaTestProfile implements QuarkusTestProfile {
+    @Override
+    public Map<String, String> getConfigOverrides() {
+        return Map.of("camel.component.jpa.entity-managerFactory", "#test");
+    }
 }
