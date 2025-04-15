@@ -24646,6 +24646,116 @@
         <artifactId>plexus-cipher</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
         <version>1.7</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
       </dependency>
+      <dependency>
+        <groupId>org.smooks</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <artifactId>smooks-core</artifactId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <version>2.2.1</version><!-- org.smooks:smooks-bom:2.2.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.smooks</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <artifactId>smooks-test-kit</artifactId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <version>2.2.1</version><!-- org.smooks:smooks-bom:2.2.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.smooks</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <artifactId>smooks-commons</artifactId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <version>2.2.1</version><!-- org.smooks:smooks-bom:2.2.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.smooks.cartridges.persistence</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <artifactId>smooks-persistence-cartridge</artifactId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <version>2.0.3</version><!-- org.smooks:smooks-bom:2.2.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.smooks.cartridges.persistence</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <artifactId>smooks-scribe-hibernate</artifactId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <version>2.0.3</version><!-- org.smooks:smooks-bom:2.2.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.smooks.cartridges.persistence</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <artifactId>smooks-scribe-jpa</artifactId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <version>2.0.3</version><!-- org.smooks:smooks-bom:2.2.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.smooks.cartridges.persistence</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <artifactId>smooks-scribe-mybatis</artifactId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <version>2.0.3</version><!-- org.smooks:smooks-bom:2.2.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.smooks.cartridges</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <artifactId>smooks-javabean-cartridge</artifactId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <version>2.0.3</version><!-- org.smooks:smooks-bom:2.2.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.smooks.cartridges</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <artifactId>smooks-json-cartridge</artifactId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <version>2.0.3</version><!-- org.smooks:smooks-bom:2.2.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.smooks.cartridges</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <artifactId>smooks-flatfile-cartridge</artifactId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <version>2.0.3</version><!-- org.smooks:smooks-bom:2.2.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.smooks.cartridges</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <artifactId>smooks-calc-cartridge</artifactId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <version>2.0.3</version><!-- org.smooks:smooks-bom:2.2.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.smooks.cartridges</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <artifactId>smooks-csv-cartridge</artifactId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <version>2.0.3</version><!-- org.smooks:smooks-bom:2.2.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.smooks.cartridges</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <artifactId>smooks-dfdl-cartridge</artifactId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <version>1.0.3</version><!-- org.smooks:smooks-bom:2.2.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.smooks.cartridges.edi</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <artifactId>smooks-edi-cartridge</artifactId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <version>2.1.0</version><!-- org.smooks:smooks-bom:2.2.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.smooks.cartridges.edi</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <artifactId>smooks-edifact-cartridge</artifactId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <version>2.1.0</version><!-- org.smooks:smooks-bom:2.2.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.smooks.cartridges</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <artifactId>smooks-routing-cartridge</artifactId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <version>2.0.3</version><!-- org.smooks:smooks-bom:2.2.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.smooks.cartridges</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <artifactId>smooks-rules-cartridge</artifactId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <version>2.0.3</version><!-- org.smooks:smooks-bom:2.2.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.smooks.cartridges</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <artifactId>smooks-templating-cartridge</artifactId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <version>2.1.2</version><!-- org.smooks:smooks-bom:2.2.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.smooks.cartridges</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <artifactId>smooks-scripting-cartridge</artifactId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <version>2.0.3</version><!-- org.smooks:smooks-bom:2.2.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.smooks.cartridges</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <artifactId>smooks-validation-cartridge</artifactId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <version>2.0.3</version><!-- org.smooks:smooks-bom:2.2.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.smooks.cartridges</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <artifactId>smooks-yaml-cartridge</artifactId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <version>2.0.3</version><!-- org.smooks:smooks-bom:2.2.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.smooks.cartridges</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <artifactId>smooks-fixed-length-cartridge</artifactId><!-- org.smooks:smooks-bom:2.2.1 -->
+        <version>2.0.3</version><!-- org.smooks:smooks-bom:2.2.1 -->
+      </dependency>
     </dependencies>
   </dependencyManagement>
 </project>
