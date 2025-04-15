@@ -8672,6 +8672,21 @@
         <artifactId>quarkus-hazelcast-client-deployment</artifactId>
         <version>4.0.0</version>
       </dependency>
+      <dependency>
+        <groupId>org.smooks</groupId>
+        <artifactId>smooks-core</artifactId>
+        <version>2.2.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.smooks</groupId>
+        <artifactId>smooks-commons</artifactId>
+        <version>2.2.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.smooks.cartridges</groupId>
+        <artifactId>smooks-javabean-cartridge</artifactId>
+        <version>2.0.3</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 </project>
