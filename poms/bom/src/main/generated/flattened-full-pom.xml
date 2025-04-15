@@ -7058,16 +7058,6 @@
         <version>2.2.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
-        <groupId>io.quarkiverse.jgit</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>quarkus-jgit</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.4.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.jgit</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>quarkus-jgit-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.4.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
         <groupId>io.quarkiverse.jsch</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>quarkus-jsch</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>3.0.15</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -7760,6 +7750,26 @@
             <artifactId>xml-apis</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
           </exclusion>
         </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.jgit</groupId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.1 -->
+        <artifactId>quarkus-jgit</artifactId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.1 -->
+        <version>3.5.1</version><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.1 -->
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.jgit</groupId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.1 -->
+        <artifactId>quarkus-jgit-deployment</artifactId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.1 -->
+        <version>3.5.1</version><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jgit</groupId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.1 -->
+        <artifactId>org.eclipse.jgit</artifactId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.1 -->
+        <version>7.2.0.202503040940-r</version><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.1 -->
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jgit</groupId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.1 -->
+        <artifactId>org.eclipse.jgit.ssh.jsch</artifactId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.1 -->
+        <version>7.2.0.202503040940-r</version><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.1 -->
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.21.1 -->
@@ -19604,11 +19614,6 @@
         <groupId>org.eclipse.angus</groupId><!-- io.quarkus:quarkus-bom:3.20.0 -->
         <artifactId>angus-activation</artifactId><!-- io.quarkus:quarkus-bom:3.20.0 -->
         <version>2.0.2</version><!-- io.quarkus:quarkus-bom:3.20.0 -->
-      </dependency>
-      <dependency>
-        <groupId>org.eclipse.jgit</groupId><!-- io.quarkus:quarkus-bom:3.20.0 -->
-        <artifactId>org.eclipse.jgit</artifactId><!-- io.quarkus:quarkus-bom:3.20.0 -->
-        <version>7.1.0.202411261347-r</version><!-- io.quarkus:quarkus-bom:3.20.0 -->
       </dependency>
       <dependency>
         <groupId>org.eclipse.microprofile.config</groupId><!-- io.quarkus:quarkus-bom:3.20.0 -->
