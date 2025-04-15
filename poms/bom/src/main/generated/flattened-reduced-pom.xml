@@ -7023,16 +7023,6 @@
         <version>2.2.0</version>
       </dependency>
       <dependency>
-        <groupId>io.quarkiverse.jgit</groupId>
-        <artifactId>quarkus-jgit</artifactId>
-        <version>3.4.2</version>
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.jgit</groupId>
-        <artifactId>quarkus-jgit-deployment</artifactId>
-        <version>3.4.2</version>
-      </dependency>
-      <dependency>
         <groupId>io.quarkiverse.jsch</groupId>
         <artifactId>quarkus-jsch</artifactId>
         <version>3.0.15</version>
@@ -7685,6 +7675,26 @@
             <artifactId>xml-apis</artifactId>
           </exclusion>
         </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.jgit</groupId>
+        <artifactId>quarkus-jgit</artifactId>
+        <version>3.5.1</version>
+      </dependency>
+      <dependency>
+        <groupId>io.quarkiverse.jgit</groupId>
+        <artifactId>quarkus-jgit-deployment</artifactId>
+        <version>3.5.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jgit</groupId>
+        <artifactId>org.eclipse.jgit</artifactId>
+        <version>7.2.0.202503040940-r</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jgit</groupId>
+        <artifactId>org.eclipse.jgit.ssh.jsch</artifactId>
+        <version>7.2.0.202503040940-r</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId>
