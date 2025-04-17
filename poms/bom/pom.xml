@@ -37,6 +37,13 @@
         <dependencies>
             <!-- External BOMs -->
             <dependency>
+                <groupId>io.quarkiverse.jgit</groupId>
+                <artifactId>quarkus-jgit-bom</artifactId>
+                <version>${quarkiverse-jgit.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>io.quarkiverse.cxf</groupId>
                 <artifactId>quarkus-cxf-bom</artifactId>
                 <version>${quarkiverse-cxf.version}</version>
@@ -7148,16 +7155,6 @@
                 <groupId>io.quarkiverse.jackson-jq</groupId>
                 <artifactId>quarkus-jackson-jq-deployment</artifactId>
                 <version>${quarkiverse-jackson-jq.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.jgit</groupId>
-                <artifactId>quarkus-jgit</artifactId>
-                <version>${quarkiverse-jgit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.jgit</groupId>
-                <artifactId>quarkus-jgit-deployment</artifactId>
-                <version>${quarkiverse-jgit.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.quarkiverse.jsch</groupId>
