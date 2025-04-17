@@ -11,7 +11,6 @@ The Camel Quarkus extensions whose consumers support Knative deployment are:
 
 - xref:reference/extensions/cxf-soap.adoc[`camel-quarkus-cxf-soap`]
 - xref:reference/extensions/grpc.adoc[`camel-quarkus-grpc`]
-- xref:reference/extensions/http.adoc[`camel-quarkus-http`]
 - xref:reference/extensions/knative.adoc[`camel-quarkus-knative`]
 - xref:reference/extensions/netty-http.adoc[`camel-quarkus-netty-http`]
 - xref:reference/extensions/platform-http.adoc[`camel-quarkus-platform-http`]
