@@ -18,6 +18,8 @@ package org.apache.camel.quarkus.test;
 
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
+import java.nio.file.Path;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -27,7 +29,9 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExecutableInvoker;
 import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.MediaType;
 import org.junit.jupiter.api.extension.TestInstances;
+import org.junit.jupiter.api.function.ThrowingConsumer;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.junit.jupiter.engine.execution.NamespaceAwareStore;
 import org.junit.platform.engine.support.store.NamespacedHierarchicalStore;
@@ -118,6 +122,11 @@ public class CallbackUtil {
         }
 
         @Override
+        public List<Class<?>> getEnclosingTestClasses() {
+            return List.of();
+        }
+
+        @Override
         public Optional<TestInstance.Lifecycle> getTestInstanceLifecycle() {
             return lifecycle;
         }
@@ -154,7 +163,14 @@ public class CallbackUtil {
 
         @Override
         public void publishReportEntry(Map<String, String> map) {
+        }
 
+        @Override
+        public void publishFile(String name, MediaType mediaType, ThrowingConsumer<Path> action) {
+        }
+
+        @Override
+        public void publishDirectory(String name, ThrowingConsumer<Path> action) {
         }
 
         @Override
