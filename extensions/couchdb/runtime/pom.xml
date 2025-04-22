@@ -46,6 +46,16 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-couchdb</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>sdk-core</artifactId>
+                    <groupId>com.ibm.cloud</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <artifactId>sdk-core</artifactId>
+            <groupId>com.ibm.cloud</groupId>
         </dependency>
     </dependencies>
 
