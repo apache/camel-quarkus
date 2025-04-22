@@ -32,11 +32,19 @@ public class Aws2DefaultCredentialsProviderAvailabilityCondition implements Exec
             return ConditionEvaluationResult.disabled("Test can be executed only with mock backend.");
         }
 
-        //test can not be used with quarkus-client (it is not possible to change configuration of quarkus client)
-        if (StreamSupport.stream(
-                ConfigProvider.getConfig().getPropertyNames().spliterator(), false)
-                .anyMatch(n -> n.matches("quarkus.(dynamodb|s3|ses|sqs|sns).sync-client.type"))) {
-            return ConditionEvaluationResult.disabled("Test can not be executed quarkus aws client configuration detected.");
+        ClassLoader origTCCL = Thread.currentThread().getContextClassLoader();
+        try {
+            Thread.currentThread()
+                    .setContextClassLoader(Aws2DefaultCredentialsProviderAvailabilityCondition.class.getClassLoader());
+            //test can not be used with quarkus-client (it is not possible to change configuration of quarkus client)
+            if (StreamSupport.stream(
+                    ConfigProvider.getConfig().getPropertyNames().spliterator(), false)
+                    .anyMatch(n -> n.matches("quarkus.(dynamodb|s3|ses|sqs|sns).sync-client.type"))) {
+                return ConditionEvaluationResult
+                        .disabled("Test can not be executed quarkus aws client configuration detected.");
+            }
+        } finally {
+            Thread.currentThread().setContextClassLoader(origTCCL);
         }
 
         if (Aws2Helper.isDefaultCredentialsProviderDefinedOnSystem()) {

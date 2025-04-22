@@ -49,9 +49,16 @@ public final class AzureServiceBusHelper {
     }
 
     public static boolean isAzureServiceBusTopicConfigPresent() {
-        Config config = ConfigProvider.getConfig();
-        return config.getOptionalValue("azure.servicebus.topic.name", String.class).isPresent()
-                && config.getOptionalValues("azure.servicebus.topic.subscription.name", String.class).isPresent();
+
+        ClassLoader origTCCL = Thread.currentThread().getContextClassLoader();
+        try {
+            Thread.currentThread().setContextClassLoader(AzureServiceBusHelper.class.getClassLoader());
+            Config config = ConfigProvider.getConfig();
+            return config.getOptionalValue("azure.servicebus.topic.name", String.class).isPresent()
+                    && config.getOptionalValues("azure.servicebus.topic.subscription.name", String.class).isPresent();
+        } finally {
+            Thread.currentThread().setContextClassLoader(origTCCL);
+        }
     }
 
     public static String getDestination(String type) {
