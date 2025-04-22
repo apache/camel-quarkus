@@ -20,6 +20,7 @@ import java.net.URI;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
+import java.util.Random;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -195,8 +196,8 @@ class Aws2S3Test extends BaseAWs2TestSupport {
     @Test
     public void upload() throws Exception {
         final String oid = UUID.randomUUID().toString();
-        final String content = RandomStringUtils.randomAlphabetic(8 * 1024 * 1024);
-
+        //pseudo random data are fine -> if secureRandom is used in FIPS -> sun.security.pkcs11.wrapper.PKCS11Exception: CKR_DEVICE_ERROR
+        final String content = RandomStringUtils.random(8 * 1024 * 1024, 0, 0, true, true, null, new Random());
         try {
             RestAssured.given()
                     .contentType(ContentType.TEXT)

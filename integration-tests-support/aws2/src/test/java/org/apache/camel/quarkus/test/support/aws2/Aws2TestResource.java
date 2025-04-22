@@ -89,6 +89,8 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
                     .withServices(services);
             localstack.withEnv("LS_LOG", localstackLogLevel);
             localstack.withEnv("PROVIDER_OVERRIDE_CLOUDWATCH", "v1");
+            localstack.withEnv("AWS_ACCESS_KEY_ID", "testAccessKeyId"); //has to be longer then `test`, to work on FIPS systems
+            localstack.withEnv("AWS_SECRET_ACCESS_KEY", "testSecretKeyId");
             localstack.withLogConsumer(new Slf4jLogConsumer(LOG));
             localstack.start();
 
