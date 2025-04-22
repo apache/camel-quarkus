@@ -19,9 +19,9 @@ package org.apache.camel.quarkus.core.deployment.main;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-import org.apache.camel.impl.engine.DefaultPackageScanResourceResolver;
 import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.apache.camel.spi.Resource;
+import org.apache.camel.support.scan.DefaultPackageScanResourceResolver;
 import org.apache.camel.util.AntPathMatcher;
 
 public final class CamelMainHelper {
