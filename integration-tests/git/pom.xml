@@ -30,11 +30,6 @@
     <name>Camel Quarkus :: Integration Tests :: Git</name>
     <description>Integration tests for Camel Quarkus Git extension</description>
 
-    <!-- TODO: https://github.com/apache/camel-quarkus/issues/7257 -->
-    <properties>
-        <quarkus.build.skip>true</quarkus.build.skip>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -65,7 +60,6 @@
 
 
     <profiles>
-        <!-- TODO: https://github.com/apache/camel-quarkus/issues/7257
         <profile>
             <id>native</id>
             <activation>
@@ -93,7 +87,6 @@
                 </plugins>
             </build>
         </profile>
-        -->
         <profile>
             <id>virtualDependencies</id>
             <activation>
