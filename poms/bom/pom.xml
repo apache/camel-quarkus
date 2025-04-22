@@ -6925,6 +6925,11 @@
                 <version>${re2j.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.ibm.cloud</groupId>
+                <artifactId>sdk-core</artifactId>
+                <version>${ibm.java-sdk-core.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.ibm.icu</groupId>
                 <artifactId>icu4j</artifactId>
                 <version>${icu4j.version}</version>
