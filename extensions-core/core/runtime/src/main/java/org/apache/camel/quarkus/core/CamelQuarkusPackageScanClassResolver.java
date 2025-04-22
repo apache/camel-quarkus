@@ -19,9 +19,9 @@ package org.apache.camel.quarkus.core;
 import java.util.Objects;
 import java.util.Set;
 
-import org.apache.camel.impl.engine.DefaultPackageScanClassResolver;
 import org.apache.camel.spi.PackageScanClassResolver;
 import org.apache.camel.spi.PackageScanFilter;
+import org.apache.camel.support.scan.DefaultPackageScanClassResolver;
 
 /**
  * Custom {@link PackageScanClassResolver} where classes / packages known to be scanned can be computed at build time
