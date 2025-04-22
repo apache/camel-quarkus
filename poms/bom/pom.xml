@@ -7426,6 +7426,11 @@
                 </exclusions>
             </dependency>
             <dependency>
+                <groupId>org.apache.fury</groupId>
+                <artifactId>fury-core</artifactId>
+                <version>${fury.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.jackrabbit</groupId>
                 <artifactId>oak-jackrabbit-api</artifactId>
                 <version>${oak-jackrabbit-api.version}</version>
