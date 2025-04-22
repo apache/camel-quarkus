@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.kubernetes.it;
 import java.time.Duration;
 import java.util.Map;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.QuarkusTestProfile;
 import io.quarkus.test.junit.TestProfile;
@@ -30,6 +31,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 
+@QuarkusTestResource(CamelQuarkusKubernetesServerTestResource.class)
 @TestProfile(KubernetesConfigMapContextReloadTest.KubernetesConfigMapContextReloadTestProfile.class)
 @QuarkusTest
 class KubernetesConfigMapContextReloadTest {
