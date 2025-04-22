@@ -23,6 +23,7 @@ import java.util.Map;
 
 import io.fabric8.kubernetes.api.model.Secret;
 import io.fabric8.kubernetes.api.model.SecretBuilder;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.QuarkusTestProfile;
 import io.quarkus.test.junit.TestProfile;
@@ -34,6 +35,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 
+@QuarkusTestResource(CamelQuarkusKubernetesServerTestResource.class)
 @TestProfile(KubernetesSecretContextReloadTest.KubernetesSecretContextReloadTestProfile.class)
 @QuarkusTest
 class KubernetesSecretContextReloadTest {
