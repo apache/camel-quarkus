@@ -7010,7 +7010,7 @@
       <dependency>
         <groupId>io.quarkiverse.fury</groupId>
         <artifactId>quarkus-fury</artifactId>
-        <version>0.3.0</version>
+        <version>0.3.1</version>
         <exclusions>
           <exclusion>
             <groupId>org.checkerframework</groupId>
@@ -7021,7 +7021,7 @@
       <dependency>
         <groupId>io.quarkiverse.fury</groupId>
         <artifactId>quarkus-fury-deployment</artifactId>
-        <version>0.3.0</version>
+        <version>0.3.1</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId>
