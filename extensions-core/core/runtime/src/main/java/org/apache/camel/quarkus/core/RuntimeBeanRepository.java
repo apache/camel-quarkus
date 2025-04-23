@@ -216,6 +216,6 @@ public final class RuntimeBeanRepository implements BeanRepository {
     }
 
     private boolean isDefaultBean(InjectableBean<?> bean) {
-        return bean.isDefaultBean() || bean.getQualifiers().stream().anyMatch(q -> q.annotationType().equals(Default.class));
+        return bean.getQualifiers().stream().anyMatch(q -> q.annotationType().equals(Default.class));
     }
 }
