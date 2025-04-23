@@ -319,9 +319,8 @@ class GoogleBigqueryTest {
                 .statusCode(200)
                 .body("", hasItems(
                         allOf(hasEntry("id", "1"), hasEntry("col1", "2"), hasEntry("col2", "3")),
-                        allOf(hasEntry("id", "2"), hasEntry("col1", "3"), hasEntry("col2", "4"))
-                ));
-//                .body(conis("2"));
+                        allOf(hasEntry("id", "2"), hasEntry("col1", "3"), hasEntry("col2", "4"))));
+        //                .body(conis("2"));
 
         //update
         RestAssured.given()
