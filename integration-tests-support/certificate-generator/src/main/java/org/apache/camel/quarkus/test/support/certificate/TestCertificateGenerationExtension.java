@@ -108,16 +108,10 @@ public class TestCertificateGenerationExtension implements BeforeAllCallback {
     }
 
     private Optional<String> resolveDockerHost(ExtensionContext extensionContext) {
-        ClassLoader origTCCL = Thread.currentThread().getContextClassLoader();
-        try {
-            Thread.currentThread().setContextClassLoader(extensionContext.getTestClass().get().getClassLoader());
-            String dockerHost = DockerClientFactory.instance().dockerHostIpAddress();
-            if (!dockerHost.equals("localhost") && !dockerHost.equals("127.0.0.1")) {
-                return Optional.of(dockerHost);
-            }
-            return Optional.empty();
-        } finally {
-            Thread.currentThread().setContextClassLoader(origTCCL);
+        String dockerHost = DockerClientFactory.instance().dockerHostIpAddress();
+        if (!dockerHost.equals("localhost") && !dockerHost.equals("127.0.0.1")) {
+            return Optional.of(dockerHost);
         }
+        return Optional.empty();
     }
 }

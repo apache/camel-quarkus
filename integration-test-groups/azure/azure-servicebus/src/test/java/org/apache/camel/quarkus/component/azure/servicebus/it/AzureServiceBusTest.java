@@ -41,7 +41,9 @@ import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.is;
@@ -84,19 +86,8 @@ class AzureServiceBusTest {
         }
     }
 
-    @Test
-    //quick workaround because of https://github.com/apache/camel-quarkus/issues/7274
-    void produceConsumeMessage() {
-        //do not use @MethodSource and run the tests directly
-        produceConsumeOptions().forEach(args -> {
-            LOG.infof("Starting configuration", args);
-            produceConsumeMessage((String) args.get()[0], (AmqpTransportType) args.get()[1], (String) args.get()[2]);
-        });
-    }
-
-    // te be returned once workaround is not necessary https://github.com/apache/camel-quarkus/issues/7274
-    //    @ParameterizedTest
-    //    @MethodSource("produceConsumeOptions")
+    @ParameterizedTest
+    @MethodSource("produceConsumeOptions")
     void produceConsumeMessage(
             String destinationType,
             AmqpTransportType transportType,
