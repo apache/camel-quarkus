@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.test.support.aws2;
 
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -87,7 +86,6 @@ public abstract class BaseAWs2TestSupport {
     }
 
     //test can be executed only if mock backend is used and no defaultCredentialsprovider is defined in the system
-    @Disabled("https://github.com/apache/camel-quarkus/issues/7274")
     @ExtendWith(Aws2DefaultCredentialsProviderAvailabilityCondition.class)
     @Test
     public void failingDefaultCredentialsProviderTest() {
