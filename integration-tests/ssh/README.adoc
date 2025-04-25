@@ -1,0 +1,12 @@
+== Ssh integration tests
+
+=== Testing on RHEL8
+
+Native image (based on UBI9 by default) requires `GLIBC 2.33`, which is not present on RHEL8.
+Please use native image based on `ubi8` for the native build in RHEL8. (For example `ubi-quarkus-mandrel-builder-image:jdk-21`)
+
+Example (via property in cmd):
+[source,shell]
+----
+mvn clean verify -Pntive -Ddocker  -f integration-tests/ssh  -Dquarkus.native.builder-image=quay.io/quarkus/ubi-quarkus-mandrel-builder-image:jdk-21
+----
