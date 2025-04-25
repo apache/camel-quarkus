@@ -28,6 +28,7 @@ import org.apache.camel.component.platform.http.PlatformHttpComponent;
 import org.apache.camel.component.platform.http.PlatformHttpConstants;
 import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpEngine;
 import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpRouter;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpServerConfiguration;
 import org.apache.camel.quarkus.component.platform.http.runtime.PlatformHttpRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
@@ -73,13 +74,15 @@ class PlatformHttpProcessor {
             VertxWebRouterBuildItem router,
             BodyHandlerBuildItem bodyHandler,
             PlatformHttpRecorder recorder) {
-        Config config = ConfigProvider.getConfig();
-        var port = config.getOptionalValue("quarkus.http.port", Integer.class).orElse(8080);
+        // at build time we're safe using the default, as it's the value used to register the router
+        // regardless if the port changes at runtime
+        String routerName = VertxPlatformHttpRouter.getRouterNameFromPort(
+                VertxPlatformHttpServerConfiguration.DEFAULT_BIND_PORT);
         return new CamelRuntimeBeanBuildItem(
-                VertxPlatformHttpRouter.getRouterNameFromPort(port),
+                routerName,
                 Router.class.getName(),
-                recorder.createVertxPlatformHttpRouter(vertx.getVertx(), router.getHttpRouter(), bodyHandler.getHandler(),
-                        String.valueOf(port)));
+                recorder.createVertxPlatformHttpRouter(
+                        vertx.getVertx(), router.getHttpRouter(), bodyHandler.getHandler(), routerName));
     }
 
     @Record(ExecutionTime.RUNTIME_INIT)
