@@ -40,7 +40,8 @@ class ObservabilityServicesTest {
 
     @Test
     void testHealthUpStatus() {
-        RestAssured.when().get("/observe/health").then()
+        // Use testing management port
+        RestAssured.when().get("http://localhost:9001/observe/health").then()
                 .contentType(ContentType.JSON)
                 .header("Content-Type", containsString("charset=UTF-8"))
                 .body("status", is("UP"),
@@ -53,7 +54,8 @@ class ObservabilityServicesTest {
 
     @Test
     void testLivenessUpStatus() {
-        RestAssured.when().get("/observe/health/live").then()
+        // Use testing management port
+        RestAssured.when().get("http://localhost:9001/observe/health/live").then()
                 .contentType(ContentType.JSON)
                 .header("Content-Type", containsString("charset=UTF-8"))
                 .body("status", is("UP"),
@@ -62,7 +64,8 @@ class ObservabilityServicesTest {
 
     @Test
     void testReadinessUpStatus() {
-        RestAssured.when().get("/observe/health/ready").then()
+        // Use testing management port
+        RestAssured.when().get("http://localhost:9001/observe/health/ready").then()
                 .contentType(ContentType.JSON)
                 .header("Content-Type", containsString("charset=UTF-8"))
                 .body("status", is("UP"),
@@ -71,7 +74,8 @@ class ObservabilityServicesTest {
 
     @Test
     void testMetricsStatus() {
-        RestAssured.when().get("/observe/metrics").then()
+        // Use testing management port
+        RestAssured.when().get("http://localhost:9001/observe/metrics").then()
                 .header("Content-Type", containsString("application/openmetrics-text"))
                 .statusCode(HttpStatus.SC_OK);
     }
