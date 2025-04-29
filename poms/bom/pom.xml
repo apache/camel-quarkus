@@ -2019,6 +2019,12 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-microprofile-fault-tolerance</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>io.smallrye</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -7241,6 +7247,11 @@
                 <groupId>io.reactivex.rxjava3</groupId>
                 <artifactId>rxjava</artifactId>
                 <version>${rxjava3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.smallrye</groupId>
+                <artifactId>smallrye-fault-tolerance-standalone</artifactId>
+                <version>${smallrye-fault-tolerance-standalone.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.smallrye.reactive</groupId>
