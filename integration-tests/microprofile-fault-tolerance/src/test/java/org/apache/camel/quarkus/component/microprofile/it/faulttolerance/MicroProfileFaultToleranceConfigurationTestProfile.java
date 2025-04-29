@@ -26,9 +26,9 @@ public class MicroProfileFaultToleranceConfigurationTestProfile implements Quark
     public Map<String, String> getConfigOverrides() {
         return CollectionHelper.mapOf(
                 "load.config.test.route", "true",
-                "camel.faulttolerance.circuitBreaker", "customCircuitBreaker",
+                "camel.faulttolerance.typedGuard", "customTypedGuard",
                 "camel.faulttolerance.bulkheadEnabled", "true",
-                "camel.faulttolerance.bulkheadExecutorService", "customBulkheadExecutorService",
+                "camel.faulttolerance.threadOffloadExecutorService", "customExecutorService",
                 "camel.faulttolerance.delay", "15",
                 "camel.faulttolerance.successThreshold", "4",
                 "camel.faulttolerance.requestVolumeThreshold", "60",
