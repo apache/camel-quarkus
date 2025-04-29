@@ -23,6 +23,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.azure.core.exception.HttpResponseException;
+import com.azure.core.implementation.ReflectiveInvoker;
+import com.azure.core.implementation.http.UnexpectedExceptionInformation;
+import com.azure.core.implementation.http.rest.ResponseExceptionConstructorCache;
+import com.azure.storage.blob.implementation.models.BlobStorageExceptionInternal;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -145,5 +150,17 @@ public class AzureEventhubsResource {
     @POST
     public void stopRoute(@PathParam("routeId") String routeId) throws Exception {
         context.getRouteController().stopRoute(routeId);
+    }
+
+    @GET
+    @Path("exception/cache")
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean cachedHttpResponseException() {
+        UnexpectedExceptionInformation exceptionInformation = new UnexpectedExceptionInformation(
+                BlobStorageExceptionInternal.class);
+        Class<? extends HttpResponseException> exceptionType = exceptionInformation.getExceptionType();
+        ReflectiveInvoker reflectiveInvoker = new ResponseExceptionConstructorCache().get(exceptionType,
+                exceptionInformation.getExceptionBodyType());
+        return reflectiveInvoker != null;
     }
 }

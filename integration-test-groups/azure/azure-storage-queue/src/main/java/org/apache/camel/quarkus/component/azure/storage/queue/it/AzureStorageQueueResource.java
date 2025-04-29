@@ -23,12 +23,17 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import com.azure.core.exception.HttpResponseException;
 import com.azure.core.http.policy.HttpLogDetailLevel;
 import com.azure.core.http.policy.HttpLogOptions;
+import com.azure.core.implementation.ReflectiveInvoker;
+import com.azure.core.implementation.http.UnexpectedExceptionInformation;
+import com.azure.core.implementation.http.rest.ResponseExceptionConstructorCache;
 import com.azure.core.util.BinaryData;
 import com.azure.storage.common.StorageSharedKeyCredential;
 import com.azure.storage.queue.QueueServiceClient;
 import com.azure.storage.queue.QueueServiceClientBuilder;
+import com.azure.storage.queue.implementation.models.QueueStorageExceptionInternal;
 import com.azure.storage.queue.models.PeekedMessageItem;
 import com.azure.storage.queue.models.QueueItem;
 import com.azure.storage.queue.models.QueueMessageItem;
@@ -221,6 +226,18 @@ public class AzureStorageQueueResource {
                 .map(Exchange::getMessage)
                 .map(m -> m.getBody(String.class))
                 .collect(Collectors.joining("\n"));
+    }
+
+    @GET
+    @Path("exception/cache")
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean cachedHttpResponseException() {
+        UnexpectedExceptionInformation exceptionInformation = new UnexpectedExceptionInformation(
+                QueueStorageExceptionInternal.class);
+        Class<? extends HttpResponseException> exceptionType = exceptionInformation.getExceptionType();
+        ReflectiveInvoker reflectiveInvoker = new ResponseExceptionConstructorCache().get(exceptionType,
+                exceptionInformation.getExceptionBodyType());
+        return reflectiveInvoker != null;
     }
 
     private String componentUri(final QueueOperationDefinition operation) {
