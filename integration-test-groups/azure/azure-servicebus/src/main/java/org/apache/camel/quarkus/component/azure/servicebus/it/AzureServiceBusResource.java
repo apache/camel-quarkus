@@ -26,7 +26,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.azure.core.exception.HttpResponseException;
+import com.azure.core.implementation.ReflectiveInvoker;
+import com.azure.core.implementation.http.UnexpectedExceptionInformation;
+import com.azure.core.implementation.http.rest.ResponseExceptionConstructorCache;
 import com.azure.core.util.BinaryData;
+import com.azure.messaging.servicebus.administration.implementation.models.ServiceBusManagementErrorException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -169,5 +174,17 @@ public class AzureServiceBusResource {
     public void stopRoute(@PathParam("routeId") String routeId) throws Exception {
         LOG.infof("Stopping route: %s", routeId);
         context.getRouteController().stopRoute(routeId);
+    }
+
+    @GET
+    @Path("exception/cache")
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean cachedHttpResponseException() {
+        UnexpectedExceptionInformation exceptionInformation = new UnexpectedExceptionInformation(
+                ServiceBusManagementErrorException.class);
+        Class<? extends HttpResponseException> exceptionType = exceptionInformation.getExceptionType();
+        ReflectiveInvoker reflectiveInvoker = new ResponseExceptionConstructorCache().get(exceptionType,
+                exceptionInformation.getExceptionBodyType());
+        return reflectiveInvoker != null;
     }
 }

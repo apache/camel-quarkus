@@ -177,4 +177,11 @@ class AzureStorageQueueTest {
                 .as(List.class);
     }
 
+    @Test
+    public void dynamicExceptionInstantiation() {
+        RestAssured.get("/azure-storage-queue/exception/cache")
+                .then()
+                .statusCode(200)
+                .body(is("true"));
+    }
 }

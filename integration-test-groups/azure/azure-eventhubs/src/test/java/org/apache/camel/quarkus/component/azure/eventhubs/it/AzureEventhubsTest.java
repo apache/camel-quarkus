@@ -441,4 +441,12 @@ class AzureEventhubsTest {
                     .statusCode(204);
         }
     }
+
+    @Test
+    void dynamicExceptionInstantiation() {
+        RestAssured.get("/azure-eventhubs/exception/cache")
+                .then()
+                .statusCode(200)
+                .body(is("true"));
+    }
 }
