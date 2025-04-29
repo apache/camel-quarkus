@@ -74,7 +74,8 @@ class PlatformHttpProcessor {
         return new CamelRuntimeBeanBuildItem(
                 VertxPlatformHttpRouter.PLATFORM_HTTP_ROUTER_NAME,
                 Router.class.getName(),
-                recorder.createVertxPlatformHttpRouter(vertx.getVertx(), router.getHttpRouter(), bodyHandler.getHandler()));
+                recorder.createVertxPlatformHttpRouter(vertx.getVertx(), router.getHttpRouter(), bodyHandler.getHandler(),
+                        VertxPlatformHttpRouter.PLATFORM_HTTP_ROUTER_NAME));
     }
 
     @Record(ExecutionTime.RUNTIME_INIT)
