@@ -32,6 +32,8 @@ import org.apache.camel.quarkus.component.platform.http.runtime.PlatformHttpReco
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilterBuildItem;
+import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 class PlatformHttpProcessor {
     private static final String FEATURE = "camel-platform-http";
@@ -71,11 +73,13 @@ class PlatformHttpProcessor {
             VertxWebRouterBuildItem router,
             BodyHandlerBuildItem bodyHandler,
             PlatformHttpRecorder recorder) {
+        Config config = ConfigProvider.getConfig();
+        var port = config.getOptionalValue("quarkus.http.port", Integer.class).orElse(8080);
         return new CamelRuntimeBeanBuildItem(
-                VertxPlatformHttpRouter.PLATFORM_HTTP_ROUTER_NAME,
+                VertxPlatformHttpRouter.getRouterNameFromPort(port),
                 Router.class.getName(),
                 recorder.createVertxPlatformHttpRouter(vertx.getVertx(), router.getHttpRouter(), bodyHandler.getHandler(),
-                        VertxPlatformHttpRouter.PLATFORM_HTTP_ROUTER_NAME));
+                        String.valueOf(port)));
     }
 
     @Record(ExecutionTime.RUNTIME_INIT)
