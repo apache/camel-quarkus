@@ -8639,12 +8639,12 @@
       <dependency>
         <groupId>com.azure</groupId>
         <artifactId>azure-messaging-eventhubs-checkpointstore-blob</artifactId>
-        <version>1.20.6</version>
+        <version>1.20.5</version>
       </dependency>
       <dependency>
         <groupId>com.azure</groupId>
         <artifactId>azure-messaging-servicebus</artifactId>
-        <version>7.17.10</version>
+        <version>7.17.11</version>
       </dependency>
       <dependency>
         <groupId>com.azure</groupId>
