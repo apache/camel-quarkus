@@ -8607,84 +8607,84 @@
         <version>12.0.19</version><!-- org.eclipse.jetty:jetty-bom:12.0.19 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <artifactId>azure-core</artifactId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <version>1.55.3</version><!-- com.azure:azure-sdk-bom:1.2.33 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <artifactId>azure-core</artifactId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <version>1.55.3</version><!-- com.azure:azure-sdk-bom:1.2.34 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <artifactId>azure-core-amqp</artifactId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <version>2.9.16</version><!-- com.azure:azure-sdk-bom:1.2.33 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <artifactId>azure-core-amqp</artifactId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <version>2.9.16</version><!-- com.azure:azure-sdk-bom:1.2.34 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <artifactId>azure-cosmos</artifactId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <version>4.68.0</version><!-- com.azure:azure-sdk-bom:1.2.33 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <artifactId>azure-cosmos</artifactId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <version>4.68.0</version><!-- com.azure:azure-sdk-bom:1.2.34 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <artifactId>azure-identity</artifactId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <version>1.15.4</version><!-- com.azure:azure-sdk-bom:1.2.33 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <artifactId>azure-identity</artifactId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <version>1.15.4</version><!-- com.azure:azure-sdk-bom:1.2.34 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <artifactId>azure-json</artifactId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <version>1.5.0</version><!-- com.azure:azure-sdk-bom:1.2.33 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <artifactId>azure-json</artifactId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <version>1.5.0</version><!-- com.azure:azure-sdk-bom:1.2.34 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <artifactId>azure-messaging-eventhubs</artifactId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <version>5.20.2</version><!-- com.azure:azure-sdk-bom:1.2.33 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <artifactId>azure-messaging-eventhubs</artifactId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <version>5.20.2</version><!-- com.azure:azure-sdk-bom:1.2.34 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <artifactId>azure-messaging-eventhubs-checkpointstore-blob</artifactId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <version>1.20.6</version><!-- com.azure:azure-sdk-bom:1.2.33 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <artifactId>azure-messaging-eventhubs-checkpointstore-blob</artifactId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <version>1.20.5</version><!-- com.azure:azure-sdk-bom:1.2.34 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <artifactId>azure-messaging-servicebus</artifactId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <version>7.17.10</version><!-- com.azure:azure-sdk-bom:1.2.33 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <artifactId>azure-messaging-servicebus</artifactId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <version>7.17.11</version><!-- com.azure:azure-sdk-bom:1.2.34 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <artifactId>azure-security-keyvault-secrets</artifactId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <version>4.9.4</version><!-- com.azure:azure-sdk-bom:1.2.33 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <artifactId>azure-security-keyvault-secrets</artifactId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <version>4.9.4</version><!-- com.azure:azure-sdk-bom:1.2.34 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <artifactId>azure-storage-blob</artifactId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <version>12.30.0</version><!-- com.azure:azure-sdk-bom:1.2.33 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <artifactId>azure-storage-blob</artifactId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <version>12.30.0</version><!-- com.azure:azure-sdk-bom:1.2.34 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <artifactId>azure-storage-common</artifactId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <version>12.29.0</version><!-- com.azure:azure-sdk-bom:1.2.33 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <artifactId>azure-storage-common</artifactId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <version>12.29.0</version><!-- com.azure:azure-sdk-bom:1.2.34 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <artifactId>azure-storage-file-datalake</artifactId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <version>12.23.0</version><!-- com.azure:azure-sdk-bom:1.2.33 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <artifactId>azure-storage-file-datalake</artifactId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <version>12.23.0</version><!-- com.azure:azure-sdk-bom:1.2.34 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <artifactId>azure-storage-file-share</artifactId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <version>12.26.0</version><!-- com.azure:azure-sdk-bom:1.2.33 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <artifactId>azure-storage-file-share</artifactId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <version>12.26.0</version><!-- com.azure:azure-sdk-bom:1.2.34 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <artifactId>azure-storage-internal-avro</artifactId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <version>12.15.0</version><!-- com.azure:azure-sdk-bom:1.2.33 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <artifactId>azure-storage-internal-avro</artifactId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <version>12.15.0</version><!-- com.azure:azure-sdk-bom:1.2.34 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <artifactId>azure-storage-queue</artifactId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <version>12.25.0</version><!-- com.azure:azure-sdk-bom:1.2.33 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <artifactId>azure-storage-queue</artifactId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <version>12.25.0</version><!-- com.azure:azure-sdk-bom:1.2.34 -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <artifactId>azure-xml</artifactId><!-- com.azure:azure-sdk-bom:1.2.33 -->
-        <version>1.2.0</version><!-- com.azure:azure-sdk-bom:1.2.33 -->
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <artifactId>azure-xml</artifactId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <version>1.2.0</version><!-- com.azure:azure-sdk-bom:1.2.34 -->
       </dependency>
       <dependency>
         <groupId>com.datastax.oss</groupId><!-- com.datastax.oss.quarkus:cassandra-quarkus-bom:1.2.0 -->
