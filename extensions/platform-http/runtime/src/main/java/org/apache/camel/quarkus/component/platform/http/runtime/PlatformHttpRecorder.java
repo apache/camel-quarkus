@@ -40,9 +40,9 @@ public class PlatformHttpRecorder {
     }
 
     public RuntimeValue<VertxPlatformHttpRouter> createVertxPlatformHttpRouter(RuntimeValue<Vertx> vertx,
-            RuntimeValue<Router> router, Handler<RoutingContext> handler) {
+            RuntimeValue<Router> router, Handler<RoutingContext> handler, String name) {
         VertxPlatformHttpRouter vertxPlatformHttpRouter = new VertxPlatformHttpRouter(null, vertx.getValue(),
-                router.getValue()) {
+                router.getValue(), name) {
             @Override
             public Handler<RoutingContext> bodyHandler() {
                 return handler;
