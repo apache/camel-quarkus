@@ -355,6 +355,14 @@ class AzureServiceBusTest {
         }
     }
 
+    @Test
+    void dynamicExceptionInstantiation() {
+        RestAssured.get("/azure-servicebus/exception/cache")
+                .then()
+                .statusCode(200)
+                .body(is("true"));
+    }
+
     static Stream<Arguments> produceConsumeOptions() {
         String destinationTypes = "queue";
 

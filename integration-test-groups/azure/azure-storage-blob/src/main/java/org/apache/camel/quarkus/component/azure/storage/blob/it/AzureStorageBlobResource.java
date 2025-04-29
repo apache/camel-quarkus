@@ -30,9 +30,14 @@ import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import com.azure.core.exception.HttpResponseException;
 import com.azure.core.http.rest.PagedIterable;
+import com.azure.core.implementation.ReflectiveInvoker;
+import com.azure.core.implementation.http.UnexpectedExceptionInformation;
+import com.azure.core.implementation.http.rest.ResponseExceptionConstructorCache;
 import com.azure.storage.blob.changefeed.models.BlobChangefeedEvent;
 import com.azure.storage.blob.changefeed.models.BlobChangefeedEventType;
+import com.azure.storage.blob.implementation.models.BlobStorageExceptionInternal;
 import com.azure.storage.blob.models.BlobContainerItem;
 import com.azure.storage.blob.models.BlobItem;
 import com.azure.storage.blob.models.BlobStorageException;
@@ -428,6 +433,18 @@ public class AzureStorageBlobResource {
         } else {
             context.getRouteController().stopRoute("blob-consumer");
         }
+    }
+
+    @GET
+    @Path("exception/cache")
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean cachedHttpResponseException() {
+        UnexpectedExceptionInformation exceptionInformation = new UnexpectedExceptionInformation(
+                BlobStorageExceptionInternal.class);
+        Class<? extends HttpResponseException> exceptionType = exceptionInformation.getExceptionType();
+        ReflectiveInvoker reflectiveInvoker = new ResponseExceptionConstructorCache().get(exceptionType,
+                exceptionInformation.getExceptionBodyType());
+        return reflectiveInvoker != null;
     }
 
     private void extractBlockNames(JsonObjectBuilder builder, List<Block> blocks, BlockListType listType) {

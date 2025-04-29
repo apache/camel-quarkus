@@ -602,4 +602,12 @@ class AzureStorageBlobTest {
                     .statusCode(anyOf(is(204), is(404)));
         }
     }
+
+    @Test
+    public void dynamicExceptionInstantiation() {
+        RestAssured.get("/azure-storage-blob/exception/cache")
+                .then()
+                .statusCode(200)
+                .body(is("true"));
+    }
 }

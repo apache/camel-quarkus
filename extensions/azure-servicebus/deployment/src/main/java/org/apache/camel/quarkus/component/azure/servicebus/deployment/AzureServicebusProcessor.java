@@ -21,6 +21,7 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 
 class AzureServicebusProcessor {
@@ -42,5 +43,10 @@ class AzureServicebusProcessor {
                 .produce(new RuntimeInitializedClassBuildItem("com.microsoft.azure.proton.transport.ws.impl.Utils"));
         runtimeInitializedClass
                 .produce(new RuntimeInitializedClassBuildItem(DigestProxyChallengeProcessorImpl.class.getName()));
+    }
+
+    @BuildStep
+    IndexDependencyBuildItem indexDependency() {
+        return new IndexDependencyBuildItem("com.azure", "azure-messaging-servicebus");
     }
 }

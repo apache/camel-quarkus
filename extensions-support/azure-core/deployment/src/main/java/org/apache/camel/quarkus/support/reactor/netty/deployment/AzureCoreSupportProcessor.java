@@ -19,9 +19,11 @@ package org.apache.camel.quarkus.support.reactor.netty.deployment;
 import java.io.IOException;
 import java.util.Set;
 import java.util.function.BooleanSupplier;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.azure.core.annotation.ServiceInterface;
+import com.azure.core.exception.HttpResponseException;
 import com.azure.core.http.HttpClientProvider;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -34,18 +36,22 @@ import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuil
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import io.quarkus.deployment.util.ServiceUtil;
 import io.quarkus.utilities.OS;
+import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 
 public class AzureCoreSupportProcessor {
     private static final DotName SERVICE_INTERFACE_DOT_NAME = DotName.createSimple(ServiceInterface.class.getName());
 
     @BuildStep
-    IndexDependencyBuildItem indexDependency() {
-        return new IndexDependencyBuildItem("com.azure", "azure-core");
+    void indexDependency(BuildProducer<IndexDependencyBuildItem> indexedDependencies) {
+        indexedDependencies.produce(new IndexDependencyBuildItem("com.azure", "azure-core"));
+        indexedDependencies.produce(new IndexDependencyBuildItem("com.azure", "azure-identity"));
     }
 
     @BuildStep
-    void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+    void reflectiveClasses(
+            CombinedIndexBuildItem combinedIndex,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
         reflectiveClasses.produce(ReflectiveClassBuildItem.builder(com.azure.core.util.DateTimeRfc1123.class,
                 com.azure.core.http.HttpHeaderName.class,
                 com.azure.core.http.rest.StreamResponse.class,
@@ -54,6 +60,17 @@ public class AzureCoreSupportProcessor {
         reflectiveClasses.produce(ReflectiveClassBuildItem.builder("com.microsoft.aad.msal4j.AadInstanceDiscoveryResponse",
                 "com.microsoft.aad.msal4j.InstanceDiscoveryMetadataEntry").fields().build());
 
+        // HttpResponseException instances may be dynamically instantiated and have methods invoked reflectively
+        Set<String> httpResponseExceptionClasses = combinedIndex.getIndex()
+                .getAllKnownSubclasses(HttpResponseException.class)
+                .stream()
+                .map(ClassInfo::name)
+                .map(DotName::toString)
+                .collect(Collectors.toUnmodifiableSet());
+
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(httpResponseExceptionClasses.toArray(new String[0]))
+                .methods()
+                .build());
     }
 
     @BuildStep
