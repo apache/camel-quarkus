@@ -31,7 +31,7 @@ class MicroProfileFaultToleranceConfigurationTest {
         RestAssured.get("/microprofile-fault-tolerance/configuration")
                 .then()
                 .body(
-                        "isCustomCircuitBreakerRef", is(true),
+                        "isCustomTypedGuardRef", is(true),
                         "delay", is(15),
                         "successThreshold", is(4),
                         "requestVolumeThreshold", is(60),
