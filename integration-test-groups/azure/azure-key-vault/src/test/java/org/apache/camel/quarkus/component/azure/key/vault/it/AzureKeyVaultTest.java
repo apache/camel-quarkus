@@ -71,4 +71,11 @@ class AzureKeyVaultTest extends AbstractAzureKeyVaultTest {
         }
     }
 
+    @Test
+    void dynamicExceptionInstantiation() {
+        RestAssured.get("/azure-key-vault/exception/cache")
+                .then()
+                .statusCode(200)
+                .body(is("true"));
+    }
 }
