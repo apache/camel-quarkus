@@ -33,8 +33,6 @@ import org.apache.camel.quarkus.component.platform.http.runtime.PlatformHttpReco
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilterBuildItem;
-import org.eclipse.microprofile.config.Config;
-import org.eclipse.microprofile.config.ConfigProvider;
 
 class PlatformHttpProcessor {
     private static final String FEATURE = "camel-platform-http";
