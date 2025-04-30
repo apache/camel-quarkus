@@ -17,8 +17,12 @@
 package org.apache.camel.quarkus.component.observabilityservices.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 @QuarkusIntegrationTest
 class ObservabilityServicesIT extends ObservabilityServicesTest {
-
+    @Override
+    Integer getManagementPort() {
+        return ConfigProvider.getConfig().getValue("quarkus.management.port", Integer.class);
+    }
 }
