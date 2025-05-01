@@ -17,10 +17,13 @@
 package org.apache.camel.quarkus.core;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.support.DefaultLRUCacheFactory;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.*;
@@ -172,14 +175,6 @@ public class CoreTest {
                         containsString("sub-resources-folder/foo/bar/test-2.txt"));
 
         RestAssured.given()
-                .queryParam("path", "**/*.txt")
-                .get("/core/resource/resolve")
-                .then()
-                .body(
-                        containsString("sub-resources-folder/foo/bar/test-1.txt"),
-                        containsString("sub-resources-folder/foo/bar/test-2.txt"));
-
-        RestAssured.given()
                 .queryParam("path", "sub-resources-folder/foo/bar/*.txt")
                 .get("/core/resource/resolve")
                 .then()
@@ -193,5 +188,21 @@ public class CoreTest {
                 .get("/core/resource/resolve")
                 .then()
                 .body(emptyOrNullString());
+    }
+
+    @Test
+    void classpathPackageScanDirectoryStartGlob() {
+        // TODO: Remove this suppression of test execution in the Quarkus Platform
+        // https://github.com/apache/camel-quarkus/issues/7312
+        Path moduleDir = Paths.get("").toAbsolutePath().getFileName();
+        Assumptions.assumeFalse(moduleDir.toString().equals("camel-quarkus-integration-test-foundation-grouped"));
+
+        RestAssured.given()
+                .queryParam("path", "**/*.txt")
+                .get("/core/resource/resolve")
+                .then()
+                .body(
+                        containsString("sub-resources-folder/foo/bar/test-1.txt"),
+                        containsString("sub-resources-folder/foo/bar/test-2.txt"));
     }
 }
