@@ -42,7 +42,6 @@ import org.apache.camel.component.splunk.SplunkConfiguration;
 import org.apache.camel.component.splunk.event.SplunkEvent;
 import org.apache.camel.quarkus.test.support.splunk.SplunkConstants;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.jetbrains.annotations.NotNull;
 
 @Path("/splunk")
 @ApplicationScoped
@@ -91,18 +90,18 @@ public class SplunkResource {
 
         if ("savedSearch".equals(mapName)) {
             url = String.format(
-                    "%s://savedsearch?username=admin&password=changeit&scheme=%s&host=%s&port=%d&delay=500&initEarliestTime=-10m&savedsearch=%s",
-                    getComponent(ssl), ssl ? "https&validateCertificates=false" : "http", host, port, SAVED_SEARCH_NAME);
+                    "splunk://savedsearch?username=admin&password=changeit&scheme=%s&host=%s&port=%d&delay=500&initEarliestTime=-10m&savedsearch=%s",
+                    ssl ? "https&validateCertificates=false" : "http", host, port, SAVED_SEARCH_NAME);
         } else if ("normalSearch".equals(mapName)) {
             url = String.format(
-                    "%s://normal?username=admin&password=changeit&scheme=%s&host=%s&port=%d&delay=5000&initEarliestTime=-10s&search="
+                    "splunk://normal?username=admin&password=changeit&scheme=%s&host=%s&port=%d&delay=5000&initEarliestTime=-10s&search="
                             + "search sourcetype=\"SUBMIT\" | rex field=_raw \"Name: (?<name>.*) From: (?<from>.*)\"",
-                    getComponent(ssl), ssl ? "https&validateCertificates=false" : "http", host, port);
+                    ssl ? "https&validateCertificates=false" : "http", host, port);
         } else {
             url = String.format(
-                    "%s://realtime?username=admin&password=changeit&scheme=%s&host=%s&port=%d&delay=3000&initEarliestTime=rt-10s&latestTime=RAW(rt+40s)&search="
+                    "splunk://realtime?username=admin&password=changeit&scheme=%s&host=%s&port=%d&delay=3000&initEarliestTime=rt-10s&latestTime=RAW(rt+40s)&search="
                             + "search sourcetype=\"STREAM\" | rex field=_raw \"Name: (?<name>.*) From: (?<from>.*)\"",
-                    getComponent(ssl), ssl ? "https&validateCertificates=false" : "http", host, port,
+                    ssl ? "https&validateCertificates=false" : "http", host, port,
                     ProducerType.STREAM.name());
         }
 
@@ -123,11 +122,6 @@ public class SplunkResource {
                 })
                 .collect(Collectors.toList());
         return result.toString();
-    }
-
-    private static @NotNull String getComponent(boolean ssl) {
-        String component = ssl ? "splunk" : "splunk";
-        return component;
     }
 
     @Path("/ssl/write/{producerType}")
@@ -173,8 +167,8 @@ public class SplunkResource {
         String url;
         if (ProducerType.TCP == ProducerType.valueOf(producerType)) {
             url = String.format(
-                    "%s:%s?raw=%b&username=admin&password=changeit&scheme=%s&host=%s&port=%d&index=%s&sourceType=%s&source=%s&tcpReceiverLocalPort=%d&tcpReceiverPort=%d",
-                    getComponent(ssl), producerType.toLowerCase(), !(message instanceof SplunkEvent),
+                    "splunk:%s?raw=%b&username=admin&password=changeit&scheme=%s&host=%s&port=%d&index=%s&sourceType=%s&source=%s&tcpReceiverLocalPort=%d&tcpReceiverPort=%d",
+                    producerType.toLowerCase(), !(message instanceof SplunkEvent),
                     ssl ? "https&validateCertificates=false" : "http",
                     host, port, index,
                     producerType,
@@ -183,8 +177,8 @@ public class SplunkResource {
 
         } else {
             url = String.format(
-                    "%s:%s?raw=%b&username=admin&password=changeit&scheme=%s&host=%s&port=%d&index=%s&sourceType=%s&source=%s",
-                    getComponent(ssl), producerType.toLowerCase(), !(message instanceof SplunkEvent),
+                    "splunk:%s?raw=%b&username=admin&password=changeit&scheme=%s&host=%s&port=%d&index=%s&sourceType=%s&source=%s",
+                    producerType.toLowerCase(), !(message instanceof SplunkEvent),
                     ssl ? "https&validateCertificates=false" : "http",
                     host,
                     port, index,
