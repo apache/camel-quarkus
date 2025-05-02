@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 
 import io.quarkus.arc.deployment.AnnotationsTransformerBuildItem;
@@ -34,11 +33,11 @@ import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
 import io.quarkus.arc.processor.BuildExtension;
 import io.quarkus.arc.processor.InjectionPointInfo;
 import io.quarkus.arc.processor.QualifierRegistrar;
+import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
-import io.quarkus.deployment.builditem.CapabilityBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import jakarta.inject.Inject;
@@ -205,10 +204,9 @@ public class InjectionPointsProcessor {
     void qualifierRegistrars(
             BuildProducer<QualifierRegistrarBuildItem> qualifierRegistrars) {
         qualifierRegistrars.produce(new QualifierRegistrarBuildItem(new QualifierRegistrar() {
-
             @Override
             public Map<DotName, Set<String>> getAdditionalQualifiers() {
-                Map<DotName, Set<String>> result = new LinkedHashMap<DotName, Set<String>>();
+                Map<DotName, Set<String>> result = new LinkedHashMap<>();
                 result.put(ENDPOINT_INJECT_ANNOTATION, Collections.emptySet());
                 result.put(PRODUCE_ANNOTATION, Collections.emptySet());
                 return Collections.unmodifiableMap(result);
@@ -221,19 +219,20 @@ public class InjectionPointsProcessor {
     void syntheticBeans(
             CamelRecorder recorder,
             CombinedIndexBuildItem index,
-            List<CapabilityBuildItem> capabilities,
+            Capabilities capabilities,
             BuildProducer<SyntheticBeanBuildItem> syntheticBeans,
             BuildProducer<NativeImageProxyDefinitionBuildItem> proxyDefinitions) {
 
-        Set<String> alreadyCreated = new HashSet<>();
+        Set<String> injectionPointIdentifiers = new HashSet<>();
 
-        for (AnnotationInstance annot : index.getIndex().getAnnotations(ENDPOINT_INJECT_ANNOTATION)) {
-            final AnnotationTarget target = annot.target();
+        for (AnnotationInstance annotationInstance : index.getIndex().getAnnotations(ENDPOINT_INJECT_ANNOTATION)) {
+            final AnnotationTarget target = annotationInstance.target();
             switch (target.kind()) {
             case FIELD: {
-                final FieldInfo field = target.asField();
-                if (!excludeTestSyntheticBeanDuplicities(annot, alreadyCreated, field.declaringClass(), index.getIndex())) {
-                    endpointInjectBeans(recorder, syntheticBeans, index.getIndex(), annot, field.type().name());
+                // Avoid producing multiple beans for the same @EndpointInject URI
+                String identifier = annotationIdentifier(annotationInstance);
+                if (injectionPointIdentifiers.add(identifier)) {
+                    endpointInjectBeans(recorder, syntheticBeans, index.getIndex(), annotationInstance, target.asField());
                 }
                 break;
             }
@@ -247,16 +246,15 @@ public class InjectionPointsProcessor {
             }
         }
 
-        AtomicReference<Boolean> beanCapabilityAvailable = new AtomicReference<>();
+        for (AnnotationInstance annotation : index.getIndex().getAnnotations(PRODUCE_ANNOTATION)) {
+            final AnnotationTarget target = annotation.target();
+            String identifier = annotationIdentifier(annotation);
 
-        for (AnnotationInstance annot : index.getIndex().getAnnotations(PRODUCE_ANNOTATION)) {
-            final AnnotationTarget target = annot.target();
             switch (target.kind()) {
             case FIELD: {
-                final FieldInfo field = target.asField();
-                if (!excludeTestSyntheticBeanDuplicities(annot, alreadyCreated, field.declaringClass(), index.getIndex())) {
-                    produceBeans(recorder, capabilities, syntheticBeans, proxyDefinitions, beanCapabilityAvailable,
-                            index.getIndex(), annot, field.type().name(), field.name(), field.declaringClass().name());
+                if (injectionPointIdentifiers.add(identifier)) {
+                    produceBeans(recorder, capabilities, syntheticBeans, proxyDefinitions, index.getIndex(), annotation,
+                            target.asField());
                 }
                 break;
             }
@@ -271,58 +269,22 @@ public class InjectionPointsProcessor {
         }
     }
 
-    private boolean excludeTestSyntheticBeanDuplicities(AnnotationInstance annot, Set<String> alreadyCreated,
-            ClassInfo declaringClass, IndexView index) {
-        String identifier = annot.toString(false) + ":" + getTargetClass(annot).toString();
-
-        if (extendsCamelQuarkusTest(declaringClass, index)) {
-            if (alreadyCreated.contains(identifier)) {
-                return true;
-            } else {
-                alreadyCreated.add(identifier);
-            }
-        }
-        return false;
-    }
-
-    private DotName getTargetClass(AnnotationInstance annot) {
-        switch (annot.target().kind()) {
-        case FIELD:
-            return annot.target().asField().type().name();
-        case METHOD:
-            return annot.target().asMethod().returnType().name();
-        default:
-            return null;
-        }
-    }
-
-    private boolean extendsCamelQuarkusTest(ClassInfo declaringClass, IndexView indexView) {
-        if (declaringClass == null) {
-            return false;
-        }
-
-        if (TEST_SUPPORT_CLASS_NAME.equals(declaringClass.name())) {
-            return true;
-        }
-
-        //iterate over parent until found CamelQuarkusTest or null
-        return (declaringClass.superName() != null &&
-                extendsCamelQuarkusTest(indexView.getClassByName(declaringClass.superName()), indexView));
-    }
-
-    void produceBeans(CamelRecorder recorder, List<CapabilityBuildItem> capabilities,
+    void produceBeans(
+            CamelRecorder recorder,
+            Capabilities capabilities,
             BuildProducer<SyntheticBeanBuildItem> syntheticBeans,
             BuildProducer<NativeImageProxyDefinitionBuildItem> proxyDefinitions,
-            AtomicReference<Boolean> beanCapabilityAvailable,
             IndexView index,
-            AnnotationInstance annot, final DotName fieldType, String annotationTarget, DotName declaringClass) {
+            AnnotationInstance annot,
+            FieldInfo field) {
         try {
+            Type fieldType = field.type();
             Class<?> clazz = Class.forName(fieldType.toString(), false,
                     Thread.currentThread().getContextClassLoader());
             if (ProducerTemplate.class.isAssignableFrom(clazz)) {
                 syntheticBeans.produce(
                         SyntheticBeanBuildItem
-                                .configure(fieldType)
+                                .configure(fieldType.name())
                                 .setRuntimeInit().scope(Singleton.class)
                                 .supplier(
                                         recorder.createProducerTemplate(resolveAnnotValue(index, annot)))
@@ -335,7 +297,7 @@ public class InjectionPointsProcessor {
             } else if (FluentProducerTemplate.class.isAssignableFrom(clazz)) {
                 syntheticBeans.produce(
                         SyntheticBeanBuildItem
-                                .configure(fieldType)
+                                .configure(fieldType.name())
                                 .setRuntimeInit().scope(Singleton.class)
                                 .supplier(
                                         recorder.createFluentProducerTemplate(resolveAnnotValue(index, annot)))
@@ -347,24 +309,18 @@ public class InjectionPointsProcessor {
                  */
             } else if (clazz.isInterface()) {
                 /* Requires camel-quarkus-bean */
-
-                if (beanCapabilityAvailable.get() == null) {
-                    beanCapabilityAvailable.set(capabilities.stream()
-                            .map(CapabilityBuildItem::getName)
-                            .anyMatch(CamelCapabilities.BEAN::equals));
-                }
-                if (!beanCapabilityAvailable.get()) {
+                if (capabilities.isMissing(CamelCapabilities.BEAN)) {
                     throw new IllegalStateException(
                             "Add camel-quarkus-bean dependency to be able to use @org.apache.camel.Produce on fields with interface type: "
-                                    + fieldType.toString()
-                                    + " " + annotationTarget + " in "
-                                    + declaringClass.toString());
+                                    + fieldType.name()
+                                    + " " + field.name() + " in "
+                                    + field.declaringClass().name());
                 }
 
-                proxyDefinitions.produce(new NativeImageProxyDefinitionBuildItem(fieldType.toString()));
+                proxyDefinitions.produce(new NativeImageProxyDefinitionBuildItem(fieldType.name().toString()));
                 syntheticBeans.produce(
                         SyntheticBeanBuildItem
-                                .configure(fieldType)
+                                .configure(fieldType.name())
                                 .setRuntimeInit().scope(Singleton.class)
                                 .supplier(
                                         recorder.produceProxy(clazz, resolveAnnotValue(index, annot)))
@@ -377,14 +333,19 @@ public class InjectionPointsProcessor {
     }
 
     @SuppressWarnings("unchecked")
-    private void endpointInjectBeans(CamelRecorder recorder, BuildProducer<SyntheticBeanBuildItem> syntheticBeans,
-            IndexView index, AnnotationInstance annot, final DotName fieldType) {
+    private void endpointInjectBeans(
+            CamelRecorder recorder,
+            BuildProducer<SyntheticBeanBuildItem> syntheticBeans,
+            IndexView index,
+            AnnotationInstance annot,
+            FieldInfo field) {
         try {
+            Type fieldType = field.type();
             Class<?> clazz = Class.forName(fieldType.toString());
             if (Endpoint.class.isAssignableFrom(clazz)) {
                 syntheticBeans.produce(
                         SyntheticBeanBuildItem
-                                .configure(fieldType)
+                                .configure(fieldType.name())
                                 .setRuntimeInit().scope(Singleton.class)
                                 .supplier(
                                         recorder.createEndpoint(resolveAnnotValue(index, annot),
@@ -394,7 +355,7 @@ public class InjectionPointsProcessor {
             } else if (ProducerTemplate.class.isAssignableFrom(clazz)) {
                 syntheticBeans.produce(
                         SyntheticBeanBuildItem
-                                .configure(fieldType)
+                                .configure(fieldType.name())
                                 .setRuntimeInit().scope(Singleton.class)
                                 .supplier(
                                         recorder.createProducerTemplate(resolveAnnotValue(index, annot)))
@@ -407,7 +368,7 @@ public class InjectionPointsProcessor {
             } else if (FluentProducerTemplate.class.isAssignableFrom(clazz)) {
                 syntheticBeans.produce(
                         SyntheticBeanBuildItem
-                                .configure(fieldType)
+                                .configure(fieldType.name())
                                 .setRuntimeInit().scope(Singleton.class)
                                 .supplier(
                                         recorder.createFluentProducerTemplate(resolveAnnotValue(index, annot)))
@@ -425,5 +386,21 @@ public class InjectionPointsProcessor {
 
     private String resolveAnnotValue(IndexView index, AnnotationInstance annot) {
         return annot.valueWithDefault(index).asString();
+    }
+
+    private String annotationIdentifier(AnnotationInstance annotationInstance) {
+        return annotationInstance.toString(false) + ":" + getTargetClass(annotationInstance);
+    }
+
+    private DotName getTargetClass(AnnotationInstance annotationInstance) {
+        AnnotationTarget target = annotationInstance.target();
+        switch (target.kind()) {
+        case FIELD:
+            return target.asField().type().name();
+        case METHOD:
+            return target.asMethod().returnType().name();
+        default:
+            return null;
+        }
     }
 }

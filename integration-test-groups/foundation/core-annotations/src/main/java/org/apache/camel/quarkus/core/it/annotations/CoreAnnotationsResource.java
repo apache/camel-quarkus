@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import io.quarkus.arc.ClientProxy;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -62,6 +63,12 @@ public class CoreAnnotationsResource {
     @Inject
     @Named("results")
     Map<String, List<String>> results;
+
+    @Inject
+    BeanA beanA;
+
+    @Inject
+    BeanB beanB;
 
     @Path("/routes/lookup-routes")
     @GET
@@ -118,6 +125,26 @@ public class CoreAnnotationsResource {
                 .withBody("Sent to an @Produce fluent: " + payload)
                 .send();
         return awaitFirst("produceProducerFluent");
+    }
+
+    @GET
+    @Path("/endpointInject/sameInstance")
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean isEndpointInjectSameInstance() {
+        BeanA unwrapedBeanA = ClientProxy.unwrap(beanA);
+        BeanB unwrapedBeanB = ClientProxy.unwrap(beanB);
+        return unwrapedBeanA.getEndpointInjectDirect1() == unwrapedBeanB.getEndpointInjectDirect1() &&
+                unwrapedBeanA.getEndpointInjectDirect2() == unwrapedBeanB.getEndpointInjectDirect2();
+    }
+
+    @GET
+    @Path("/produceInject/sameInstance")
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean isProduceInjectSameInstance() {
+        BeanA unwrapedBeanA = ClientProxy.unwrap(beanA);
+        BeanB unwrapedBeanB = ClientProxy.unwrap(beanB);
+        return unwrapedBeanA.getProduceProducer() == unwrapedBeanB.getProduceProducer() &&
+                unwrapedBeanA.getProduceProducerFluent() == unwrapedBeanB.getProduceProducerFluent();
     }
 
     String awaitFirst(String key) {

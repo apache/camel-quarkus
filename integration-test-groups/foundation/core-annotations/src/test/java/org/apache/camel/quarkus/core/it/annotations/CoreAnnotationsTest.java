@@ -91,4 +91,19 @@ public class CoreAnnotationsTest {
                 .body(equalTo("Sent to an @Produce: abc"));
     }
 
+    @Test
+    public void endpointInjectSameInstance() {
+        RestAssured.given()
+                .get("/core/annotations/endpointInject/sameInstance")
+                .then()
+                .body(equalTo("true"));
+    }
+
+    @Test
+    public void produceInjectSameInstance() {
+        RestAssured.given()
+                .get("/core/annotations/produceInject/sameInstance")
+                .then()
+                .body(equalTo("true"));
+    }
 }
