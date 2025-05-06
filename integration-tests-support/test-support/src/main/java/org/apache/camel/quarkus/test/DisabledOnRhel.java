@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
- * Skip test on RHEL linux.
+ * Skip test on RHEL linux, if integrationTests == true, test is disabled only in the native mode
  */
 @Target({ ElementType.TYPE, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
@@ -33,5 +33,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(DisabledOnRhelCondition.class)
 public @interface DisabledOnRhel {
 
-    int since() default 0;
+    int version() default 0;
+
+    boolean integrationTests() default false;
 }
