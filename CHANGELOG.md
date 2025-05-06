@@ -18,6 +18,30 @@
 -->
 # Changelog
 
+## 3.20.1
+
+* [3.20.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7168
+* [3.20.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7178
+* Update documentation for missing camel extensions that are knative co… by @zbendhiba in https://github.com/apache/camel-quarkus/pull/7184
+* [3.20.x] Use hyphenated anchor links for config properties by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7183
+* [3.20.x] Ban auto value annotations 3.20.x by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7191
+* Revert "Use hyphenated anchor links for config properties" by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7194
+* [3.20.x] Upgrade Camel to 4.10.3 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7182
+* [3.20.x] Use hyphenated anchor links for config properties by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7204
+* [3.20.x] Upgrade Quarkus Amazon Services to 3.3.2 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7210
+* Backports from main by @zbendhiba in https://github.com/apache/camel-quarkus/pull/7221
+* [3.20.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7244
+* Upgrade to Quarkus CXF 3.20.1 by @ppalaga in https://github.com/apache/camel-quarkus/pull/7245
+* [3.20.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7258
+* [3.20] Backports by @ppalaga in https://github.com/apache/camel-quarkus/pull/7268
+* [3.20.x] Backports by @ppalaga in https://github.com/apache/camel-quarkus/pull/7277
+* [3.20.x] Backports by @ppalaga in https://github.com/apache/camel-quarkus/pull/7290
+* [3.20.x] Upgrade to Quarkus CXF 3.20.2 by @ppalaga in https://github.com/apache/camel-quarkus/pull/7306
+* [3.20.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7322
+* [3.20.x] Upgrade Camel to 4.10.4 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7309
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.20.0...3.20.1
+
 ## 3.22.0
 
 * Configure extension capabilities for langchain4j-embeddings by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7158
