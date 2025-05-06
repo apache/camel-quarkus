@@ -2,69 +2,54 @@
 
 === Default database type
 
-When the tests are executed without any special configuration, dev-service `H2` database is used (more details will follow).
+When the tests are executed without any special configuration, dev service `H2` database is used (more details will follow).
 
-=== Dev-service databases
+=== Quarkus Dev Service databases
 
-As is described  in the https://quarkus.io/guides/datasource#dev-services[documentation], several database types could be started in dev-service mode.
-Running the tests against a database in dev-service mode could be achieved by addition of build property `cq.sqlJdbcKind`. Example of usage:
+As described in the https://quarkus.io/guides/datasource#dev-services[documentation], several database types can be started in dev service mode.
+Running the tests against a database in dev service mode can be achieved by addition of build property `cq.sqlJdbcKind`. For example.
 
-`mvn clean test -f integration-tests/sql/ -Dcq.sqlJdbcKind=postgresql`
+[source]
+----
+mvn clean test -f integration-tests/sql/ -Dcq.sqlJdbcKind=postgresql
+----
 
-Following databases could be started in the dev-service mode:
+The following databases can be started in dev service mode:
 
 - Postgresql (container) - add `-Dcq.sqlJdbcKind=postgresql`
 - MySQL (container) - add `-Dcq.sqlJdbcKind=mysql`
 - MariaDB (container) - add `-Dcq.sqlJdbcKind=mariadb`
 - H2 (in-process) used by default
-- Apache Derby (in-process) - add `-Dcq.sqlJdbcKind=derby`
+- Apache Derby (container) - add `-Dcq.sqlJdbcKind=derby`
 - DB2 (container) (requires license acceptance) - add `-Dcq.sqlJdbcKind=db2`
 - MSSQL (container) (requires license acceptance) - add `-Dcq.sqlJdbcKind=mssql`
+- Oracle (container) - add `-Dcq.sqlJdbcKind=oracle`
 
-For more information about dev-service mode, see https://quarkus.io/guides/datasource#dev-services[documentation].
+For more information about dev service mode, see https://quarkus.io/guides/datasource#dev-services[documentation].
 
 === External databases
 
-To execute the tests against external database, configure database type by providing a build property in the same way as with dev-service mode (see previous chapter).
-Provide the rest of database's connection information by setting environment variables
+To execute the tests against external database, configure database type by providing a build property in the same way as with dev service mode (see previous chapter).
 
-```
-export SQL_JDBC_URL=#jdbc_url
-export SQL_JDBC_USERNAME=#username
-export SQL_JDBC_PASSWORD=#password
-```
+The database JDBC connection URL and username / password credentials can be provided via environment variables.
+
+[source]
+----
+export QUARKUS_DATASOURCE_JDBC_URL=#jdbc_url
+export QUARKUS_DATASOURCE_USERNAME=#username
+export QUARKUS_DATASOURCE_PASSWORD=#password
+----
 
 or for windows:
 
-```
-$Env:SQL_JDBC_URL = "#jdbc_url"
-$Env:SQL_JDBC_USERNAME="#username"
-$Env:SQL_JDBC_PASSWORD="#password"
-```
-
-Oracle database could be used as external db. In that case use parameter `-Dcq.sqlJdbcKind=oracle`.
+[source]
+----
+$Env:QUARKUS_DATASOURCE_JDBC_URL="#jdbc_url"
+$Env:QUARKUS_DATASOURCE_USERNAME="#username"
+$Env:QUARKUS_DATASOURCE_PASSWORD="#password"
+----
 
 === External Derby database
 
-To execute tests against external Derby database, stored procedure has to be uploaded into the database classpath.
-Jar with stored procedure for the derby database is creaed by module `sql-derby`.
-Jar could be uploaded via following commands through `ij`:
-```
-CALL sqlj.install_jar('/PATH_TO_JAR/camel-quarkus-integration-test-sql-derby-stored-procedure-*.jar', 'AddNumsProcedure' , 0)
-
-CALL syscs_util.syscs_set_database_property('derby.database.classpath', 'APP.ADDNUMSPROCEDURE')
-```
-
-=== External Derby database via Docker
-
-To avoid manual upload of the jar, test can automatically use external derby database created via docker.
-To execute the tests against external derby database, set the environment variable `SQL_USE_DERBY_DOCKER` to value `true`:
-
-```
-export SQL_USE_DERBY_DOCKER=true
-```
-
-or for windows:
-
-```
-$Env:SQL_USE_DERBY_DOCKER = "true"
+To avoid complexities around having to upload stored procedure JARs to the DB server, Apache Derby is always tested within a container.
+Therefore, you should avoid setting `QUARKUS_DATASOURCE` environment variables for Derby.
