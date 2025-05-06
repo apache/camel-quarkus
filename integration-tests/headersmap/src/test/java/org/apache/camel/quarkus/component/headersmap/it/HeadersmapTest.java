@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.headersmap.it;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.quarkus.test.junit.DisabledOnIntegrationTest;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.component.headersmap.FastHeadersMapFactory;
@@ -32,7 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
-@DisabledOnIntegrationTest //see https://github.com/apache/camel-quarkus/issues/7330
 class HeadersmapTest {
 
     @Test
