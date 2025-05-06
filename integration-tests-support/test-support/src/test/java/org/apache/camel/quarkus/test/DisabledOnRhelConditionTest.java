@@ -26,21 +26,27 @@ public class DisabledOnRhelConditionTest {
         DisabledOnRhelCondition condition = new DisabledOnRhelCondition();
 
         //rhel 8
-        Assertions.assertEquals(true, condition.evaluate("linux", "4.18.0-553.el8_10", 0).isDisabled());
-        Assertions.assertEquals(true, condition.evaluate("linux", "4.18.0-553.el8_10", 8).isDisabled());
-        Assertions.assertEquals(true, condition.evaluate("linux", "4.18.0-553.el8_10", 9).isDisabled());
-        Assertions.assertEquals(true, condition.evaluate("linux", "4.18.0-553.el8_10", 10).isDisabled());
+        Assertions.assertEquals(true, condition.evaluate("linux", "4.18.0-553.el8_10", 0, false, false).isDisabled());
+        Assertions.assertEquals(true, condition.evaluate("linux", "4.18.0-553.el8_10", 8, false, false).isDisabled());
+        Assertions.assertEquals(false, condition.evaluate("linux", "4.18.0-553.el8_10", 9, false, false).isDisabled());
+        Assertions.assertEquals(false, condition.evaluate("linux", "4.18.0-553.el8_10", 10, false, false).isDisabled());
 
         //rhel 9
-        Assertions.assertEquals(true, condition.evaluate("linux", "5.14.0-503.11.1.el9_5", 0).isDisabled());
-        Assertions.assertEquals(false, condition.evaluate("linux", "5.14.0-503.11.1.el9_5", 8).isDisabled());
-        Assertions.assertEquals(true, condition.evaluate("linux", "5.14.0-503.11.1.el9_5", 9).isDisabled());
-        Assertions.assertEquals(true, condition.evaluate("linux", "5.14.0-503.11.1.el9_5", 10).isDisabled());
+        Assertions.assertEquals(true, condition.evaluate("linux", "5.14.0-503.11.1.el9_5", 0, false, false).isDisabled());
+        Assertions.assertEquals(false, condition.evaluate("linux", "5.14.0-503.11.1.el9_5", 8, false, false).isDisabled());
+        Assertions.assertEquals(true, condition.evaluate("linux", "5.14.0-503.11.1.el9_5", 9, false, false).isDisabled());
+        Assertions.assertEquals(false, condition.evaluate("linux", "5.14.0-503.11.1.el9_5", 10, false, false).isDisabled());
 
         //rhel 10
-        Assertions.assertEquals(true, condition.evaluate("linux", "5.14.0-503.11.1.el10_5", 0).isDisabled());
-        Assertions.assertEquals(false, condition.evaluate("linux", "5.14.0-503.11.1.el10_5", 8).isDisabled());
-        Assertions.assertEquals(false, condition.evaluate("linux", "5.14.0-503.11.1.el10_5", 9).isDisabled());
-        Assertions.assertEquals(true, condition.evaluate("linux", "5.14.0-503.11.1.el9_5", 10).isDisabled());
+        Assertions.assertEquals(true, condition.evaluate("linux", "5.14.0-503.11.1.el10_5", 0, false, false).isDisabled());
+        Assertions.assertEquals(false, condition.evaluate("linux", "5.14.0-503.11.1.el10_5", 8, false, false).isDisabled());
+        Assertions.assertEquals(false, condition.evaluate("linux", "5.14.0-503.11.1.el10_5", 9, false, false).isDisabled());
+        Assertions.assertEquals(true, condition.evaluate("linux", "5.14.0-503.11.1.el10_5", 10, false, false).isDisabled());
+
+        //rhel8 with native
+        Assertions.assertEquals(true, condition.evaluate("linux", "4.18.0-553.el8_10", 8, true, true).isDisabled());
+        Assertions.assertEquals(false, condition.evaluate("linux", "4.18.0-553.el8_10", 8, true, false).isDisabled());
+        Assertions.assertEquals(true, condition.evaluate("linux", "4.18.0-553.el8_10", 8, false, true).isDisabled());
+        Assertions.assertEquals(true, condition.evaluate("linux", "4.18.0-553.el8_10", 8, false, false).isDisabled());
     }
 }
