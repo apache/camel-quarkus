@@ -36,6 +36,13 @@ public final class AzureServiceBusHelper {
 
     public static boolean isAzureIdentityCredentialsAvailable() {
         Config config = ConfigProvider.getConfig();
+
+        Optional<Boolean> disableIdentity = config.getOptionalValue("CAMEL_QUARKUS_DISABLE_IDENTITY_EXCEPT_KEY_VAULT",
+                Boolean.class);
+        if (disableIdentity.isPresent() && disableIdentity.get()) {
+            return false;
+        }
+
         Optional<String> clientId = config.getOptionalValue("azure.client.id", String.class);
         Optional<String> tenantId = config.getOptionalValue("azure.tenant.id", String.class);
         Optional<String> username = config.getOptionalValue("azure.username", String.class);
