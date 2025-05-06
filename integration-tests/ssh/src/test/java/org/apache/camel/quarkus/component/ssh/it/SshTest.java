@@ -26,6 +26,7 @@ import io.smallrye.certs.Format;
 import io.smallrye.certs.junit5.Certificate;
 import org.apache.camel.component.ssh.SshConstants;
 import org.apache.camel.quarkus.test.DisabledIfFipsMode;
+import org.apache.camel.quarkus.test.DisabledOnRhel;
 import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -115,6 +116,7 @@ class SshTest {
     }
 
     @DisabledIfFipsMode //ED25519 keys are not allowed in FIPS mode
+    @DisabledOnRhel(version = 8, integrationTests = true) //Native image (based on UBI9 by default) requires `GLIBC 2.33`, which is not present on RHEL8.
     @Test
     public void testProducerWithEdDSAKeyType() {
         RestAssured.given()

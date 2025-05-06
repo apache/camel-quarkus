@@ -20,9 +20,12 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.quarkus.test.junit.QuarkusIntegrationTest;
+import io.quarkus.test.junit.main.QuarkusMainIntegrationTest;
 import org.junit.jupiter.api.extension.ConditionEvaluationResult;
 import org.junit.jupiter.api.extension.ExecutionCondition;
 import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.platform.commons.util.AnnotationUtils;
 
 import static org.junit.jupiter.api.extension.ConditionEvaluationResult.disabled;
 import static org.junit.jupiter.api.extension.ConditionEvaluationResult.enabled;
@@ -34,28 +37,39 @@ public class DisabledOnRhelCondition implements ExecutionCondition {
 
     @Override
     public ConditionEvaluationResult evaluateExecutionCondition(ExtensionContext context) {
+        boolean it = AnnotationUtils.findAnnotation(context.getTestClass(), QuarkusIntegrationTest.class).isPresent()
+                || AnnotationUtils.findAnnotation(context.getTestClass(), QuarkusMainIntegrationTest.class).isPresent();
         Optional<DisabledOnRhel> annotation = findAnnotation(context.getElement(), DisabledOnRhel.class);
-        return annotation.isPresent() ? evaluate(annotation.get().since()) : ENABLED_BY_DEFAULT;
+        return annotation.isPresent() ? evaluate(annotation.get().version(), annotation.get().integrationTests(), it)
+                : ENABLED_BY_DEFAULT;
     }
 
-    private ConditionEvaluationResult evaluate(int since) {
-        return evaluate(System.getProperty("os.name").toLowerCase(), System.getProperty("os.version").toLowerCase(), since);
+    private ConditionEvaluationResult evaluate(int version, boolean shouldDisableOnIt, boolean it) {
+        return evaluate(System.getProperty("os.name").toLowerCase(), System.getProperty("os.version").toLowerCase(), version,
+                shouldDisableOnIt, it);
     }
 
-    ConditionEvaluationResult evaluate(String osName, String osVersion, int since) {
+    ConditionEvaluationResult evaluate(String osName, String osVersion, int version, boolean shouldDisableOnIt, boolean it) {
         Pattern r = Pattern.compile(".+el(\\d+).+");
         Matcher m = r.matcher(osVersion.toLowerCase());
         if (osName.toLowerCase().contains("linux") && m.matches()) {
-            if (since == 0) {
+            if (version == 0) {
                 return disabled("@DisabledOnRhel: disable - RHEL");
             } else {
-                Integer version = Integer.parseInt(m.group(1));
-                if (version.compareTo(since) <= 0) {
-                    return disabled("@DisabledOnRhel(since " + since + ") : disable - RHEL");
+                Integer rhelVersion = Integer.parseInt(m.group(1));
+                if (version == rhelVersion) {
+
+                    //check second condition - integrationTests
+                    if (shouldDisableOnIt && it) {
+                        return disabled("@DisabledOnRhel(" + version + ", native = true) : disable - RHEL");
+                    }
+                    if (!shouldDisableOnIt) {
+                        return disabled("@DisabledOnRhel(" + version + ") : disable - RHEL");
+                    }
                 }
             }
         }
 
-        return enabled("@DisabledOnRhel: enabled - not a RHEL");
+        return enabled("@DisabledOnRhel: enabled - not a RHEL / or native");
     }
 }
