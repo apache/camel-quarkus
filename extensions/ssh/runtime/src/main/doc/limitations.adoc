@@ -1,0 +1,6 @@
+=== Native mode limitations
+
+==== EdDSA cipher on RHEL8 requires native image based on UBI8
+
+Native image (based on UBI9 by default) requires `GLIBC 2.33`, which is not present on RHEL8.
+Please use native image based on `ubi8` for the native build for RHEL8 to make EdDSA work in the native mode (for example `ubi-quarkus-mandrel-builder-image:jdk-21`).
