@@ -1174,6 +1174,10 @@
                         <groupId>org.checkerframework</groupId>
                         <artifactId>checker-qual</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.fury</groupId>
+                        <artifactId>fury-core</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -7440,11 +7444,6 @@
                         <artifactId>jcl-over-slf4j</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.fury</groupId>
-                <artifactId>fury-core</artifactId>
-                <version>${fury.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.jackrabbit</groupId>
