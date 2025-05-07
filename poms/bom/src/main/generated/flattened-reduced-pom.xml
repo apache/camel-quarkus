@@ -6849,6 +6849,11 @@
         </exclusions>
       </dependency>
       <dependency>
+        <groupId>io.opentelemetry</groupId>
+        <artifactId>opentelemetry-semconv</artifactId>
+        <version>1.29.0-alpha</version>
+      </dependency>
+      <dependency>
         <groupId>io.perfmark</groupId>
         <artifactId>perfmark-api</artifactId>
         <version>0.27.0</version>

@@ -6884,6 +6884,11 @@
         </exclusions>
       </dependency>
       <dependency>
+        <groupId>io.opentelemetry</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>opentelemetry-semconv</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.29.0-alpha</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
         <groupId>io.perfmark</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>perfmark-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>0.27.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -23547,11 +23552,6 @@
       <dependency>
         <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
         <artifactId>opentelemetry-sdk-logs-testing</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-      </dependency>
-      <dependency>
-        <groupId>io.opentelemetry</groupId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
-        <artifactId>opentelemetry-semconv</artifactId><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
         <version>1.23.0-alpha</version><!-- io.quarkus:quarkus-bom:3.0.0.Final -->
       </dependency>
       <dependency>
