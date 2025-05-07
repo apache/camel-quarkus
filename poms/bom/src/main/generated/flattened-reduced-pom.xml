@@ -1087,6 +1087,10 @@
             <groupId>org.checkerframework</groupId>
             <artifactId>checker-qual</artifactId>
           </exclusion>
+          <exclusion>
+            <groupId>org.apache.fury</groupId>
+            <artifactId>fury-core</artifactId>
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -7021,7 +7025,7 @@
       <dependency>
         <groupId>io.quarkiverse.fury</groupId>
         <artifactId>quarkus-fury</artifactId>
-        <version>0.3.0</version>
+        <version>0.3.2</version>
         <exclusions>
           <exclusion>
             <groupId>org.checkerframework</groupId>
@@ -7032,7 +7036,7 @@
       <dependency>
         <groupId>io.quarkiverse.fury</groupId>
         <artifactId>quarkus-fury-deployment</artifactId>
-        <version>0.3.0</version>
+        <version>0.3.2</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId>
@@ -7286,11 +7290,6 @@
             <artifactId>jcl-over-slf4j</artifactId>
           </exclusion>
         </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.fury</groupId>
-        <artifactId>fury-core</artifactId>
-        <version>0.10.1</version>
       </dependency>
       <dependency>
         <groupId>org.apache.jackrabbit</groupId>
