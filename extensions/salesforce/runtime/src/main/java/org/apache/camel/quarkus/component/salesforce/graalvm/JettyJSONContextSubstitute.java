@@ -16,9 +16,11 @@
  */
 package org.apache.camel.quarkus.component.salesforce.graalvm;
 
+import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.util.List;
 
+import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
 import org.cometd.common.JettyJSONContext;
@@ -27,12 +29,21 @@ import org.eclipse.jetty.util.ajax.JSON;
 @TargetClass(JettyJSONContext.class)
 final class JettyJSONContextSubstitute {
 
+    @Alias
+    private List adapt(Object object) {
+        return null;
+    }
+
     @Substitute
     public List parse(String json) throws ParseException {
         try {
-            Object o = new JSON.StringSource(json);
-            //method adapt is private, therefore it can not be used
-            return List.of(o);
+            //the type of the field `_messagesParser` is  `FieldJSON`, which is a private class.
+            // Therefore, I can not alias the field and it has to be gained reflectively
+            Field messagesParserField = JettyJSONContext.class.getDeclaredField("_messagesParser");
+            messagesParserField.setAccessible(true);
+            JSON messagesParser = (JSON) messagesParserField.get(this);
+            Object object = messagesParser.parse(new JSON.StringSource(json));
+            return adapt(object);
         } catch (Exception x) {
             throw (ParseException) new ParseException(json, -1).initCause(x);
         }
