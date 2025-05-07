@@ -22,7 +22,7 @@ SMB component which consumes natively from file shares using the Server Message 
 [id="extensions-smb-whats-inside"]
 == What's inside
 
-* xref:{cq-camel-components}::smb-component.adoc[SMB component], URI syntax: `smb:hostname:port/shareName`
+* xref:{cq-camel-components}::smb-component.adoc[SMB component], URI syntax: `smb:hostname:port/shareName/path`
 
 Please refer to the above link for usage and configuration details.
 
