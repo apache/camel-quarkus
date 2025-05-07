@@ -7117,6 +7117,11 @@
                 </exclusions>
             </dependency>
             <dependency>
+                <groupId>io.opentelemetry</groupId>
+                <artifactId>opentelemetry-semconv</artifactId>
+                <version>${opentelemetry-semconv-legacy.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.perfmark</groupId>
                 <artifactId>perfmark-api</artifactId>
                 <version>${perfmark-api.version}</version>
