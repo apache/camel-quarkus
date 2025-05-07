@@ -6849,6 +6849,11 @@
         </exclusions>
       </dependency>
       <dependency>
+        <groupId>io.opentelemetry</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>opentelemetry-semconv</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>1.29.0-alpha</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+      </dependency>
+      <dependency>
         <groupId>io.perfmark</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>perfmark-api</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>0.27.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
