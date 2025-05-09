@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 import io.quarkus.test.junit.callback.QuarkusTestBeforeEachCallback;
 import io.quarkus.test.junit.callback.QuarkusTestMethodContext;
-import org.junit.jupiter.api.extension.ExtensionContext;
+import org.apache.camel.quarkus.test.CallbackUtil.MockExtensionContext;
 
 public class BeforeEachCallback implements QuarkusTestBeforeEachCallback {
 
@@ -30,7 +30,7 @@ public class BeforeEachCallback implements QuarkusTestBeforeEachCallback {
     public void beforeEach(QuarkusTestMethodContext context) {
         if (context.getTestInstance() instanceof CamelQuarkusTestSupport) {
             CamelQuarkusTestSupport testInstance = (CamelQuarkusTestSupport) context.getTestInstance();
-            ExtensionContext mockContext = new CallbackUtil.MockExtensionContext(CallbackUtil.getLifecycle(testInstance),
+            MockExtensionContext mockContext = new MockExtensionContext(CallbackUtil.getLifecycle(testInstance),
                     getDisplayName(context.getTestMethod()));
 
             try {
