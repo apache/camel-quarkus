@@ -37,6 +37,7 @@ import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.quarkus.core.FastCamelContext;
+import org.apache.camel.quarkus.test.CallbackUtil.MockExtensionContext;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.test.junit5.AbstractTestSupport;
 import org.apache.camel.test.junit5.CamelContextConfiguration;
@@ -329,7 +330,7 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
         return new RoutesBuilder[] { createRouteBuilder() };
     }
 
-    void internalAfterAll(QuarkusTestContext context, ExtensionContext extensionContext) {
+    void internalAfterAll() {
         try {
             if (testConfiguration().isCreateCamelContextPerClass()) {
                 //call all clear and release methods, stop is not called as it is disabled on the camelContextManagers
@@ -344,7 +345,7 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
         }
     }
 
-    void internalBeforeAll(ExtensionContext context) {
+    void internalBeforeAll(MockExtensionContext context) {
         final boolean perClassPresent = context.getTestInstanceLifecycle()
                 .filter(lc -> lc.equals(TestInstance.Lifecycle.PER_CLASS)).isPresent();
         if (perClassPresent) {
@@ -358,7 +359,7 @@ public class CamelQuarkusTestSupport extends AbstractTestSupport
         contextManager.setGlobalStore(globalStore);
     }
 
-    void internalBeforeEach(ExtensionContext context) throws Exception {
+    void internalBeforeEach(MockExtensionContext context) throws Exception {
         if (contextManager == null) {
             LOG.trace("Creating a transient context manager for {}", context.getDisplayName());
             contextManager = contextManagerFactory.createContextManager(ContextManagerFactory.Type.BEFORE_EACH,
