@@ -16,19 +16,12 @@
  */
 package org.apache.camel.quarkus.test;
 
-import java.lang.reflect.AnnotatedElement;
-import java.lang.reflect.Method;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Function;
 
 import org.apache.camel.component.mock.MockEndpoint;
 import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.extension.ExecutableInvoker;
 import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.api.extension.TestInstances;
-import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.junit.jupiter.engine.execution.NamespaceAwareStore;
 import org.junit.platform.engine.support.store.NamespacedHierarchicalStore;
 
@@ -69,8 +62,7 @@ public class CallbackUtil {
         MockEndpoint.resetMocks(testInstance.context());
     }
 
-    static class MockExtensionContext implements ExtensionContext {
-
+    static class MockExtensionContext {
         private final Optional<TestInstance.Lifecycle> lifecycle;
         private final String currentTestName;
         private final ExtensionContext.Store globalStore;
@@ -82,96 +74,18 @@ public class CallbackUtil {
                     ExtensionContext.Namespace.GLOBAL);
         }
 
-        @Override
-        public Optional<ExtensionContext> getParent() {
-            return Optional.empty();
-        }
-
-        @Override
-        public ExtensionContext getRoot() {
-            return null;
-        }
-
-        @Override
-        public String getUniqueId() {
-            return null;
-        }
-
-        @Override
         public String getDisplayName() {
             return currentTestName;
         }
 
-        @Override
-        public Set<String> getTags() {
-            return null;
-        }
-
-        @Override
-        public Optional<AnnotatedElement> getElement() {
-            return Optional.empty();
-        }
-
-        @Override
-        public Optional<Class<?>> getTestClass() {
-            return Optional.empty();
-        }
-
-        @Override
         public Optional<TestInstance.Lifecycle> getTestInstanceLifecycle() {
             return lifecycle;
         }
 
-        @Override
-        public Optional<Object> getTestInstance() {
-            return Optional.empty();
-        }
-
-        @Override
-        public Optional<TestInstances> getTestInstances() {
-            return Optional.empty();
-        }
-
-        @Override
-        public Optional<Method> getTestMethod() {
-            return Optional.empty();
-        }
-
-        @Override
-        public Optional<Throwable> getExecutionException() {
-            return Optional.empty();
-        }
-
-        @Override
-        public Optional<String> getConfigurationParameter(String key) {
-            return Optional.empty();
-        }
-
-        @Override
-        public <T> Optional<T> getConfigurationParameter(String key, Function<String, T> transformer) {
-            return Optional.empty();
-        }
-
-        @Override
-        public void publishReportEntry(Map<String, String> map) {
-
-        }
-
-        @Override
-        public Store getStore(Namespace namespace) {
-            if (namespace == Namespace.GLOBAL) {
+        public ExtensionContext.Store getStore(ExtensionContext.Namespace namespace) {
+            if (namespace == ExtensionContext.Namespace.GLOBAL) {
                 return globalStore;
             }
-            return null;
-        }
-
-        @Override
-        public ExecutionMode getExecutionMode() {
-            return null;
-        }
-
-        @Override
-        public ExecutableInvoker getExecutableInvoker() {
             return null;
         }
     }
