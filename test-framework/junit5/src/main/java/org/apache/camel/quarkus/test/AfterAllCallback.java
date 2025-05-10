@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.test;
 
 import io.quarkus.test.junit.callback.QuarkusTestAfterAllCallback;
 import io.quarkus.test.junit.callback.QuarkusTestContext;
-import org.junit.jupiter.api.extension.ExtensionContext;
 
 public class AfterAllCallback implements QuarkusTestAfterAllCallback {
 
@@ -28,10 +27,7 @@ public class AfterAllCallback implements QuarkusTestAfterAllCallback {
             CamelQuarkusTestSupport testInstance = (CamelQuarkusTestSupport) context.getTestInstance();
 
             if (CallbackUtil.isPerClass(testInstance)) {
-                ExtensionContext mockContext = new CallbackUtil.MockExtensionContext(CallbackUtil.getLifecycle(testInstance),
-                        null);
-
-                testInstance.internalAfterAll(context, mockContext);
+                testInstance.internalAfterAll();
                 CallbackUtil.resetContext(testInstance);
             }
 

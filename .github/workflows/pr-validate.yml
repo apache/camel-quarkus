@@ -38,6 +38,7 @@ on:
       - '.github/workflows/assign-issue-milestone.yaml'
       - '.github/workflows/assign-wontfix-issue-milestone.yaml'
       - '.github/workflows/camel-master-cron.yaml'
+      - '.github/workflows/check-dependency-convergence.yml'
       - '.github/workflows/generate-sbom-main.yml'
       - '.github/workflows/label-issue.yaml'
       - '.github/workflows/pr-validate.yml'
