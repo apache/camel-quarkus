@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: kafka
 cqCamelPartTitle: Kafka
-cqCamelPartDescription: Sent and receive messages to/from an Apache Kafka broker.
+cqCamelPartDescription: Send and receive messages to/from an Apache Kafka broker.
 cqExtensionPageTitle: Kafka
