@@ -906,11 +906,6 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-dfdl</artifactId>
                 <version>${camel.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-dfdl</artifactId>
-                <version>${camel.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>xml-apis</groupId>
