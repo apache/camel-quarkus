@@ -67,6 +67,12 @@
                                 <exclude>quartz-clustered/pom.xml</exclude>
                             </excludes>
                         </fileSet>
+                       <fileSet>
+                            <directory>${basedir}/../../test-framework/junit5</directory>
+                            <includes>
+                                <include>pom.xml</include>
+                            </includes>
+                        </fileSet>
                         <fileSet>
                             <directory>${basedir}/../../test-framework/junit5-extension-tests</directory>
                             <includes>
