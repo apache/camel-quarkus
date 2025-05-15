@@ -7010,7 +7010,7 @@
       <dependency>
         <groupId>io.projectreactor.netty</groupId>
         <artifactId>reactor-netty</artifactId>
-        <version>1.2.5</version>
+        <version>1.2.6</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.freemarker</groupId>
