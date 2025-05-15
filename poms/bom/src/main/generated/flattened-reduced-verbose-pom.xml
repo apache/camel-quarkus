@@ -8022,10 +8022,6 @@
         <version>4.0.0</version><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.22.0 -->
         <exclusions>
           <exclusion>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-          </exclusion>
-          <exclusion>
             <groupId>io.dropwizard.metrics</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.22.0 -->
             <artifactId>metrics-core</artifactId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.22.0 -->
           </exclusion>
