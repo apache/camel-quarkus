@@ -20,6 +20,7 @@ import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import io.quarkus.arc.profile.UnlessBuildProfile;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -42,6 +43,7 @@ import org.springframework.util.LinkedCaseInsensitiveMap;
 
 @Path("/sql")
 @ApplicationScoped
+@UnlessBuildProfile(anyOf = { "multi-ds-no-default", "multi-ds-with-default" })
 public class SqlResource {
 
     @ConfigProperty(name = "quarkus.datasource.db-kind")
