@@ -24,7 +24,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import io.quarkus.arc.ClientProxy;
+import io.quarkus.arc.InjectableBean;
+import jakarta.enterprise.inject.Default;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -39,6 +44,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.jpa.JpaConstants;
+import org.apache.camel.component.jpa.JpaEndpoint;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.quarkus.component.jpa.it.model.Fruit;
 
@@ -133,5 +139,34 @@ public class JpaResource {
         MockEndpoint mock = context.getEndpoint("mock:" + name, MockEndpoint.class);
         mock.reset();
         return Response.ok().build();
+    }
+
+    @Path("/entityManagerFactory")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createJpaEndpoint() {
+        try {
+            String uri = "jpa:" + Fruit.class.getName() + "?nativeQuery=SELECT * FROM fruits";
+
+            JpaEndpoint endpoint = context.getEndpoint(uri, JpaEndpoint.class);
+            EntityManagerFactory entityManagerFactory = endpoint.getEntityManagerFactory();
+
+            InjectableBean<?> bean = ((ClientProxy) entityManagerFactory).arc_bean();
+            Named namedQualifier = (Named) bean.getQualifiers()
+                    .stream()
+                    .filter(qualifier -> qualifier.annotationType().equals(Named.class))
+                    .findFirst()
+                    .orElse(null);
+
+            String beanName = namedQualifier != null ? namedQualifier.value() : "";
+
+            Map<String, Object> response = Map.of(
+                    "name", beanName,
+                    "default", bean.getQualifiers().contains(Default.Literal.INSTANCE));
+
+            return Response.ok(response).build();
+        } catch (Exception e) {
+            return Response.serverError().entity(e.getMessage()).build();
+        }
     }
 }

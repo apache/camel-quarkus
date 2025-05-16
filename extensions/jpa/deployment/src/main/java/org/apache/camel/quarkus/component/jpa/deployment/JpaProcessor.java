@@ -23,14 +23,20 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.BytecodeTransformerBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.gizmo.Gizmo;
 import io.quarkus.hibernate.orm.deployment.PersistenceUnitDescriptorBuildItem;
 import jakarta.persistence.EntityManagerFactory;
 import org.apache.camel.component.jpa.JpaComponent;
+import org.apache.camel.component.jpa.JpaEndpoint;
 import org.apache.camel.quarkus.component.jpa.CamelJpaProducer;
 import org.apache.camel.quarkus.component.jpa.CamelJpaRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanQualifierResolverBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
+import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 
 class JpaProcessor {
 
@@ -74,5 +80,51 @@ class JpaProcessor {
                 camelBeanQualifierResolver.produce(beanQualifierResolver);
             }
         }
+    }
+
+    // TODO: Remove this and make it possible to override methods in JpaEndpoint
+    // https://github.com/apache/camel-quarkus/issues/7369
+    @BuildStep
+    BytecodeTransformerBuildItem transformMethodJpaEndpointCreateEntityManagerFactory() {
+        // Since spring-orm is not on the classpath, transform JpaEndpoint.createEntityManagerFactory
+        // to avoid trying to create a local LocalEntityManagerFactoryBean and
+        // suppress ClassNotFoundException when the component could not find a EntityManagerFactory to use.
+        //
+        // For example:
+        //
+        // protected EntityManagerFactory createEntityManagerFactory() {
+        //     throw new IllegalStateException();
+        // }
+        return new BytecodeTransformerBuildItem.Builder()
+                .setClassToTransform(JpaEndpoint.class.getName())
+                .setCacheable(true)
+                .setVisitorFunction((className, classVisitor) -> {
+                    return new ClassVisitor(Gizmo.ASM_API_VERSION, classVisitor) {
+                        @Override
+                        public MethodVisitor visitMethod(int access, String name, String descriptor, String signature,
+                                String[] exceptions) {
+                            MethodVisitor visitor = super.visitMethod(access, name, descriptor, signature, exceptions);
+
+                            if (name.equals("createEntityManagerFactory")
+                                    && descriptor.equals("()Ljakarta/persistence/EntityManagerFactory;")) {
+                                return new MethodVisitor(Gizmo.ASM_API_VERSION, visitor) {
+                                    @Override
+                                    public void visitCode() {
+                                        super.visitCode();
+                                        visitor.visitTypeInsn(Opcodes.NEW, "java/lang/IllegalStateException");
+                                        visitor.visitInsn(Opcodes.DUP);
+                                        visitor.visitLdcInsn(
+                                                "Cannot create EntityManagerFactory. Check quarkus.hibernate-orm configuration.");
+                                        visitor.visitMethodInsn(Opcodes.INVOKESPECIAL, "java/lang/IllegalStateException",
+                                                "<init>", "(Ljava/lang/String;)V", false);
+                                        visitor.visitInsn(Opcodes.ATHROW);
+                                    }
+                                };
+                            }
+                            return visitor;
+                        }
+                    };
+                })
+                .build();
     }
 }

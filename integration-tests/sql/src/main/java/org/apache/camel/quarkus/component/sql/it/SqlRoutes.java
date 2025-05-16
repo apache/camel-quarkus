@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import io.agroal.api.AgroalDataSource;
+import io.quarkus.arc.profile.UnlessBuildProfile;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
@@ -40,6 +41,7 @@ import org.apache.camel.processor.idempotent.jdbc.JdbcMessageIdRepository;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.springframework.transaction.jta.JtaTransactionManager;
 
+@UnlessBuildProfile(anyOf = { "multi-ds-no-default", "multi-ds-with-default" })
 @ApplicationScoped
 public class SqlRoutes extends RouteBuilder {
 
