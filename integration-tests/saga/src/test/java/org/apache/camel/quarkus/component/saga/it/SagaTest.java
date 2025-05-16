@@ -16,8 +16,13 @@
  */
 package org.apache.camel.quarkus.component.saga.it;
 
+import java.util.concurrent.TimeUnit;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.apache.camel.quarkus.component.saga.it.lra.LraTicketServiceStatus;
+import org.awaitility.Awaitility;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
@@ -36,6 +41,133 @@ class SagaTest {
         RestAssured.get("/saga/test")
                 .then()
                 .statusCode(200);
+    }
+
+    //long-run-actions using jms.
+    // Scenario - buying train and flight ticket.
+    //            If credit is not sufficient, the purchase fails.
+    //            All payments are refunded, the reason of refundment is saved in ticket service
+    //
+    // rest endpoint  saga/lraSaga/1/100/50/50 has following attributes: #orderId/#initialCredit/#trabCost/#flightCost
+
+    @Test
+    public void testLRACompletedScenario() {
+        //successful transaction
+        RestAssured.get("/saga/lraSaga/1/100/50/50")
+                .then()
+                .statusCode(200)
+                .body("creditBalance", Matchers.is(0))
+                .body("train", Matchers.is(LraTicketServiceStatus.reserved.name()))
+                .body("flight", Matchers.is(LraTicketServiceStatus.reserved.name()));
+    }
+
+    @Test
+    public void testLRAInsufficientCredit01() {
+        //successful transaction
+        RestAssured.get("/saga/lraSaga/2/50/50/100")
+                .then()
+                .statusCode(500)
+                .body("creditBalance", Matchers.is(50))
+                .body("train", Matchers.is(LraTicketServiceStatus.refunded.name()))
+                .body("flight", Matchers.is(LraTicketServiceStatus.error.name()));
+    }
+
+    @Test
+    public void testLRAInsufficientCredit02() {
+        //successful transaction
+        RestAssured.get("/saga/lraSaga/3/50/100/50")
+                .then()
+                .statusCode(500)
+                .body("creditBalance", Matchers.is(50))
+                .body("train", Matchers.is(LraTicketServiceStatus.error.name()))
+                .body("flight", Matchers.is(LraTicketServiceStatus.refunded.name()));
+    }
+
+    @Test
+    public void testLRAInsufficientCredit03() {
+        //successful transaction
+        RestAssured.get("/saga/lraSaga/4/50/100/100")
+                .then()
+                .statusCode(500)
+                .body("creditBalance", Matchers.is(50))
+                .body("train", Matchers.is(LraTicketServiceStatus.error.name()))
+                .body("flight", Matchers.is(LraTicketServiceStatus.refunded.name())); //bought of flight ticket is not attempted
+    }
+
+    @Test
+    public void testLRAInsufficientCredit04() {
+        //successful transaction
+        RestAssured.get("/saga/lraSaga/5/50/50/50")
+                .then()
+                .statusCode(500)
+                .body("creditBalance", Matchers.is(50))
+                .body("train", Matchers.is(LraTicketServiceStatus.refunded.name()))
+                .body("flight", Matchers.is(LraTicketServiceStatus.error.name())); //the second buy action fails
+    }
+
+    @Test
+    public void testTimeoutSuccessful() {
+        //successful transaction
+        RestAssured.get("/saga/timeout/2000")
+                .then()
+                .body(Matchers.is("success"))
+                .statusCode(200);
+    }
+
+    @Test
+    public void testTimeoutFailure() {
+        //successful transaction
+        RestAssured.get("/saga/timeout/10000")
+                .then()
+                .statusCode(500);
+    }
+
+    @Test
+    public void testManualSuccess() {
+
+        //start saga action, which won't complete
+        RestAssured.given().get("/saga/manualSaga/true").then()
+                .statusCode(200);
+
+        Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(10, TimeUnit.MINUTES).untilAsserted(
+                () -> RestAssured.get("/saga/manualCompleted")
+                        .then()
+                        .statusCode(200)
+                        .body(Matchers.is("true")));
+
+    }
+
+    @Test
+    public void testManualFailure() throws InterruptedException {
+
+        //start saga action, which won't complete
+        RestAssured.given().get("/saga/manualSaga/false").then()
+                .statusCode(200);
+
+        //wait some time and the saga should not be completed
+        Thread.sleep(10000);
+
+        RestAssured.get("/saga/manualCompleted")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("false"));
+    }
+
+    @Test
+    public void testXmlDslSuccess() throws InterruptedException {
+
+        RestAssured.get("/saga/xmlSaga/true")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("true"));
+    }
+
+    @Test
+    public void testXmlDslFailure() throws InterruptedException {
+        RestAssured.get("/saga/xmlSaga/false")
+                .then()
+                .statusCode(500)
+                .body(Matchers.is("Intended xml exception"));
     }
 
 }
