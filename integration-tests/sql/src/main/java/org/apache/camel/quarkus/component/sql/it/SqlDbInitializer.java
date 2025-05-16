@@ -25,6 +25,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import io.agroal.api.AgroalDataSource;
+import io.quarkus.arc.profile.UnlessBuildProfile;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -32,6 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @ApplicationScoped
+@UnlessBuildProfile(anyOf = { "multi-ds-no-default", "multi-ds-with-default" })
 public class SqlDbInitializer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SqlDbInitializer.class);

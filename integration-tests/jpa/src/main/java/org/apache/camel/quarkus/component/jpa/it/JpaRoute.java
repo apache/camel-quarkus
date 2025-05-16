@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.jpa.it;
 
 import java.util.Collections;
 
+import io.quarkus.arc.profile.UnlessBuildProfile;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -27,6 +28,7 @@ import org.apache.camel.component.jpa.TransactionStrategy;
 import org.apache.camel.processor.idempotent.jpa.JpaMessageIdRepository;
 import org.apache.camel.quarkus.component.jpa.it.model.Fruit;
 
+@UnlessBuildProfile(anyOf = { "single-resource-no-default", "multi-resource-no-default" })
 @ApplicationScoped
 public class JpaRoute extends RouteBuilder {
 
