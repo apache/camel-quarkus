@@ -16,14 +16,20 @@
  */
 package org.apache.camel.quarkus.component.saga.it;
 
+import java.util.Map;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
+import org.apache.camel.quarkus.component.saga.it.lra.LraCreditService;
+import org.apache.camel.quarkus.component.saga.it.lra.LraService;
+import org.apache.camel.quarkus.component.saga.it.lra.LraTicketService;
 import org.jboss.logging.Logger;
 
 @Path("/saga")
@@ -42,6 +48,15 @@ public class SagaResource {
 
     @Inject
     CreditService creditService;
+
+    @Inject
+    LraCreditService lraCreditService;
+
+    @Inject
+    LraTicketService lraTicketService;
+
+    @Inject
+    LraService lraService;
 
     @Path("/load/component/saga")
     @GET
@@ -93,5 +108,89 @@ public class SagaResource {
                 throw new RuntimeException("Unexpected exception");
             }
         }
+    }
+
+    @Path("/lraSaga/{id}/{credit}/{trainCost}/{flightCost}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response lraSaga(@PathParam("id") int id,
+            @PathParam("credit") int credit,
+            @PathParam("trainCost") int trainCost,
+            @PathParam("flightCost") int flightCost) throws InterruptedException {
+
+        //initialize total credit
+        lraCreditService.setTotalCredit(credit);
+        lraTicketService.reset();
+
+        try {
+            context.createFluentProducerTemplate().to("direct:lraSaga")
+                    .withHeader("id", id)
+                    .withHeader("trainCost", trainCost)
+                    .withHeader("flightCost", flightCost)
+                    .request();
+        } catch (Exception e) {
+            return getResponse(500);
+        }
+
+        return getResponse(200);
+    }
+
+    private Response getResponse(int status) throws InterruptedException {
+        // wait for the orders being cancelled
+        Thread.sleep(500);
+        Map result = Map.of("creditBalance", lraCreditService.getCredit(), "train",
+                lraTicketService.getTrain(),
+                "flight", lraTicketService.getFlight());
+
+        return Response.status(status).entity(result).build();
+    }
+
+    @Path("/timeout/{timeout}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response timeout(@PathParam("timeout") int timeout) throws InterruptedException {
+        Object o = context.createFluentProducerTemplate().to("direct:newOrderTimeout5sec")
+                .withHeader("timeout", timeout)
+                .request();
+        return Response.ok().entity(o).build();
+    }
+
+    @Path("/manualSaga/{complete}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response manualSaga(@PathParam("complete") boolean complete) throws InterruptedException {
+
+        lraService.setCompleted(false);
+
+        context.createFluentProducerTemplate().to("direct:manualSaga")
+                .withHeader("shouldComplete", complete)
+                .request();
+
+        return Response.ok().build();
+    }
+
+    @Path("/manualCompleted")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response manualCompensated() throws InterruptedException {
+
+        return Response.ok().entity(lraService.isCompleted()).build();
+    }
+
+    @Path("/xmlSaga/{complete}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response xmlSaga(@PathParam("complete") boolean complete) throws InterruptedException {
+        lraService.setXmlCompleted(false);
+        try {
+            context.createFluentProducerTemplate().to("direct:xmlSaga")
+                    .withHeader("complete", complete)
+                    .request();
+        } catch (Exception e) {
+            return Response.status(500).entity(e.getCause().getMessage()).build();
+        }
+        //time to complete
+        Thread.sleep(500);
+        return Response.ok().entity(lraService.isXmlCompleted()).build();
     }
 }
