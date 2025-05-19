@@ -4,10 +4,10 @@ cqArtifactId: camel-quarkus-dsl-modeline
 cqArtifactIdBase: dsl-modeline
 cqNativeSupported: false
 cqStatus: Preview
-cqDeprecated: true
+cqDeprecated: false
 cqJvmSince: 2.14.0
 cqNativeSince: n/a
 cqCamelPartName: dsl-modeline
 cqCamelPartTitle: DSL Modeline
-cqCamelPartDescription: Camel DSL Camel K modeline
+cqCamelPartDescription: Camel DSL modeline
 cqExtensionPageTitle: DSL Modeline
