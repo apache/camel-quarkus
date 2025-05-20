@@ -45,8 +45,11 @@ public interface JolokiaBuildTimeConfig {
      * If the management interface is enabled, the value will be resolved as a path relative to
      * `${quarkus.management.root-path}/${quarkus.camel.jolokia.server.path}`. Note that for this feature to work you must
      * have `quarkus-vertx-http` on the application classpath.
+     *
+     * **This option is deprecated and will be removed in a future release**.
      */
-    @WithDefault("true")
+    @Deprecated(forRemoval = true)
+    @WithDefault("false")
     boolean registerManagementEndpoint();
 
     /**
