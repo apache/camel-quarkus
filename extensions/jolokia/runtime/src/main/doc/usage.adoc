@@ -5,16 +5,8 @@ This extension adds https://jolokia.org/[Jolokia] support to your application.
 In prod mode, Jolokia is accessible at the following URLs.
 
 * http://0.0.0.0:8778/jolokia/
-* http://0.0.0.0:8080/q/jolokia
 
 In dev and test modes Jolokia is bound only to `localhost`.
-
-To disable exposing Jolokia via the Quarkus management interface at `/q/jolokia`, add the following configuration to `application.properties`.
-
-[source]
-----
-quarkus.camel.jolokia.register-management-endpoint=false
-----
 
 If you want to disable Jolokia entirely, then add the following configuration to `application.properties`.
 

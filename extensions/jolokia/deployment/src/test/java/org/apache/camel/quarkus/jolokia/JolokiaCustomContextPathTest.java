@@ -25,6 +25,7 @@ class JolokiaCustomContextPathTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .withEmptyApplication()
+            .overrideConfigKey("quarkus.camel.jolokia.register-management-endpoint", "true")
             .overrideConfigKey("quarkus.camel.jolokia.path", "test");
 
     @Test

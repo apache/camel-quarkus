@@ -37,6 +37,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 class JolokiaEnabledTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+            .overrideConfigKey("quarkus.camel.jolokia.register-management-endpoint", "true")
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addClass(Routes.class));
 

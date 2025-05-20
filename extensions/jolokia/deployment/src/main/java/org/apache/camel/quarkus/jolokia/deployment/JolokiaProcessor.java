@@ -153,6 +153,8 @@ public class JolokiaProcessor {
             JolokiaRecorder recorder) {
 
         if (capabilities.isPresent(Capability.VERTX_HTTP)) {
+            recorder.warnOnDeprecatedRegisterManagementEndpoint();
+
             String jolokiaEndpointPath = nonApplicationRootPathBuildItem.resolvePath(buildTimeConfig.path());
             routes.produce(nonApplicationRootPathBuildItem.routeBuilder()
                     .management()

@@ -1,0 +1,16 @@
+= Camel Quarkus 3.20.2 Migration Guide
+
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 3.20.2.
+
+== `camel-quarkus-jolokia` `register-management-endpoint` default changed to `false`
+
+When using `camel-quarkus-jolokia`, the `/q/jolokia` Quarkus management endpoint is no longer registered by default. It has been deprecated for removal in a future release.
+
+If you need to restore the previous behavior and expose `/q/jolokia`, then you can add the following to `application.properties`.
+
+[source]
+----
+quarkus.camel.jolokia.register-management-endpoint=true
+----
+
+However, as mentioned above, this option will eventually be removed.
