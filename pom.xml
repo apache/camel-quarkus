@@ -156,7 +156,6 @@
         <opencensus.version>0.31.0</opencensus.version><!-- Mess in Google cloud. Keep in sync with version used in com.google.http-client:google-http-client -->
         <opentelemetry-semconv-legacy.version>1.29.0-alpha</opentelemetry-semconv-legacy.version><!-- Alignment for camel-opentelemetry and google-pubsub -->
         <org.json.version>20240303</org.json.version><!-- Used by amazon-kinesis-client, google-cloud-bigquery and com.ibm.mq.jakarta.client -->
-        <perfmark-api.version>0.27.0</perfmark-api.version><!-- @sync io.grpc:grpc-netty-shaded:${grpc.version} dep:io.perfmark:perfmark-api -->
         <re2j.version>1.7</re2j.version><!-- Used by google-cloud-pubsub and amazon-kinesis-client -->
         <reactor-core.version>3.4.41</reactor-core.version><!-- @sync com.azure:azure-core:${azure-core.version} dep:io.projectreactor:reactor-core -->
         <reactor-netty.version>${reactor-netty-version}</reactor-netty.version>

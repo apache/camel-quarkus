@@ -6988,11 +6988,6 @@
         <version>1.29.0-alpha</version>
       </dependency>
       <dependency>
-        <groupId>io.perfmark</groupId>
-        <artifactId>perfmark-api</artifactId>
-        <version>0.27.0</version>
-      </dependency>
-      <dependency>
         <groupId>io.projectreactor</groupId>
         <artifactId>reactor-core</artifactId>
         <version>3.4.41</version>
