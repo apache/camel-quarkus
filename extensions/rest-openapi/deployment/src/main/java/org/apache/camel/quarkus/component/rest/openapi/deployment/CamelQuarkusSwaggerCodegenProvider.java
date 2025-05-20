@@ -59,6 +59,12 @@ public class CamelQuarkusSwaggerCodegenProvider implements CodeGenProvider {
     }
 
     @Override
+    public boolean shouldRun(Path sourceDir, Config config) {
+        return Files.isDirectory(sourceDir)
+                || config.getOptionalValue("quarkus.camel.openapi.codegen.locations", String.class).isPresent();
+    }
+
+    @Override
     public boolean trigger(CodeGenContext context) throws CodeGenException {
         final Config config = context.config();
         if (!config.getValue("quarkus.camel.openapi.codegen.enabled", Boolean.class)) {
