@@ -53,7 +53,7 @@ import static io.smallrye.common.os.Linux.isWSL;
 public class JolokiaRecorder {
     private static final String ALL_INTERFACES = "0.0.0.0";
     private static final String LOCALHOST = "localhost";
-    private static final Logger LOG = Logger.getLogger(JolokiaRequestRedirectHandler.class);
+    private static final Logger LOG = Logger.getLogger(JolokiaRecorder.class);
 
     public Consumer<Route> route(Handler<RoutingContext> bodyHandler) {
         return new Consumer<Route>() {
@@ -179,6 +179,10 @@ public class JolokiaRecorder {
         URI uri = URI.create("%s://%s:%d%s".formatted(serverConfig.getProtocol(), host, serverConfig.getPort(),
                 serverConfig.getContextPath()));
         return new JolokiaRequestRedirectHandler(uri.normalize(), jolokiaEndpointPath);
+    }
+
+    public void warnOnDeprecatedRegisterManagementEndpoint() {
+        LOG.warn("quarkus.camel.jolokia.register-management-endpoint is deprecated and will be removed in a future release");
     }
 
     static String resolveHost(InetAddress address) {
