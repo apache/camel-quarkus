@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.component.dsl.modeline.it;
 
-import java.lang.constant.DynamicCallSiteDesc;
-import java.rmi.server.UID;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
