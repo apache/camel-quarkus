@@ -7118,11 +7118,6 @@
                 <version>${opentelemetry-semconv-legacy.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.perfmark</groupId>
-                <artifactId>perfmark-api</artifactId>
-                <version>${perfmark-api.version}</version>
-            </dependency>
-            <dependency>
                 <artifactId>reactor-core</artifactId>
                 <groupId>io.projectreactor</groupId>
                 <version>${reactor-core.version}</version>
