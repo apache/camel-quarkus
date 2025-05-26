@@ -7076,12 +7076,12 @@
       <dependency>
         <groupId>io.quarkiverse.minio</groupId>
         <artifactId>quarkus-minio-native</artifactId>
-        <version>3.8.3</version>
+        <version>3.8.4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.minio</groupId>
         <artifactId>quarkus-minio-native-deployment</artifactId>
-        <version>3.8.3</version>
+        <version>3.8.4</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.mybatis</groupId>
