@@ -57,6 +57,7 @@
         <module>custom-type-converter</module>
         <module>custom-main-listener</module>
         <module>custom-kamelet-resource</module>
+        <module>debezium</module>
         <module>google</module>
         <module>grpc</module>
         <module>http</module>

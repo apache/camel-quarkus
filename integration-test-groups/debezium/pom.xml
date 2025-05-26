@@ -18,37 +18,23 @@
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus</artifactId>
+        <artifactId>camel-quarkus-integration-test-groups</artifactId>
         <version>3.23.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-integration-test-groups</artifactId>
+    <artifactId>camel-quarkus-integration-tests-debezium</artifactId>
     <packaging>pom</packaging>
 
-    <name>Camel Quarkus :: Integration Test Groups</name>
-
-    <properties>
-        <quarkus.banner.enabled>false</quarkus.banner.enabled>
-    </properties>
+    <name>Camel Quarkus :: Debezium Tests</name>
 
     <modules>
-        <!-- test groups a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
-        <module>aws2</module>
-        <module>azure</module>
-        <module>compression</module>
-        <module>cxf-soap</module>
-        <module>dataformats-json</module>
-        <module>debezium</module>
-        <module>foundation</module>
-        <module>http</module>
-        <module>jdbc</module>
+        <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
+        <module>postgresql</module>
         <module>mongodb</module>
-        <module>xml</module>
+        <module>mssql</module>
+        <module>mysql</module>
     </modules>
-
 </project>

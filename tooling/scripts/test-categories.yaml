@@ -71,7 +71,7 @@ group-03:
   - validator
 group-04:
   - arangodb
-  - debezium
+  - debezium-grouped
   - cassandraql
   - couchdb
   - elasticsearch-rest-client
