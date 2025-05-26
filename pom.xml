@@ -89,7 +89,7 @@
         <commons-collections4.version>${commons-collections4-version}</commons-collections4.version>
         <commons-exec.version>${commons-exec-version}</commons-exec.version>
         <commons-validator.version>${commons-validator-version}</commons-validator.version>
-        <cxf.version>4.1.1</cxf.version><!-- @sync io.quarkiverse.cxf:quarkus-cxf-parent:${quarkiverse-cxf.version} prop:cxf.version -->
+        <cxf.version>4.1.2</cxf.version><!-- @sync io.quarkiverse.cxf:quarkus-cxf-parent:${quarkiverse-cxf.version} prop:cxf.version -->
         <dfdl-scala.version>2.12.20</dfdl-scala.version>
         <drill-jdbc-all.version>${apache-drill-version}</drill-jdbc-all.version>
         <dropwizard-metrics.version>${metrics-version}</dropwizard-metrics.version>
