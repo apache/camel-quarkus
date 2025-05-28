@@ -23,7 +23,7 @@ package org.apache.camel.quarkus.test.support.debezium;
  */
 public enum Type {
 
-    postgres, mysql, sqlserver, mongodb;
+    postgres, mysql, sqlserver, mongodb, oracle;
 
     /** name of the camel component */
     public String getComponent() {
