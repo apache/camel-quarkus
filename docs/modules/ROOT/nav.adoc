@@ -107,6 +107,7 @@
 *** xref:reference/extensions/dataset.adoc[Dataset]
 *** xref:reference/extensions/debezium-mongodb.adoc[Debezium MongoDB Connector]
 *** xref:reference/extensions/debezium-mysql.adoc[Debezium MySQL Connector]
+*** xref:reference/extensions/debezium-oracle.adoc[Debezium Oracle Connector]
 *** xref:reference/extensions/debezium-postgres.adoc[Debezium PostgresSQL Connector]
 *** xref:reference/extensions/debezium-sqlserver.adoc[Debezium SQL Server Connector]
 *** xref:reference/extensions/debug.adoc[Debug]
