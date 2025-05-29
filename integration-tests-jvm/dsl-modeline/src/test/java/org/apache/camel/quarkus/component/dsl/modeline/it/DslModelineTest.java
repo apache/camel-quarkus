@@ -17,6 +17,8 @@
 package org.apache.camel.quarkus.component.dsl.modeline.it;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -25,7 +27,6 @@ import io.restassured.http.ContentType;
 import jakarta.ws.rs.core.Response;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -35,7 +36,16 @@ public class DslModelineTest {
 
     @Test
     void testModelineSingleDependency() {
-        String line = "// camel-k: dependency=mvn:org.my:application:1.0";
+        String line = "//DEPS mvn:org.my:application:1.0";
+        List<Response> response = parseAndGetDependencies(line);
+        assertNotNull(response);
+        assertEquals(1, response.size());
+        assertTrue(response.contains("mvn:org.my:application:1.0"));
+    }
+
+    @Test
+    void testModelineSingleDependenncyIgnoresPom() {
+        String line = "//DEPS mvn:org.my:application:1.0 mvn:foo:foo:1.0@pom";
         List<Response> response = parseAndGetDependencies(line);
         assertNotNull(response);
         assertEquals(1, response.size());
@@ -44,7 +54,7 @@ public class DslModelineTest {
 
     @Test
     void testModelineSingleDependencyCommentHash() {
-        String line = "### camel-k: dependency=mvn:org.my:application:1.0";
+        String line = "### //DEPS mvn:org.my:application:1.0";
         List<Response> response = parseAndGetDependencies(line);
         assertNotNull(response);
         assertEquals(1, response.size());
@@ -53,107 +63,29 @@ public class DslModelineTest {
 
     @Test
     void testModelineMultiDependency() {
-        String line = "// camel-k: dependency=mvn:org.my:application:1.0 dependency=mvn:com.foo:myapp:2.1";
+        String line = "//DEPS mvn:org.my:application:1.0 mvn:com.foo:myapp:2.1";
 
         List<Response> response = parseAndGetDependencies(line);
         assertNotNull(response);
         assertEquals(2, response.size());
         assertTrue(response.contains("mvn:org.my:application:1.0"));
         assertTrue(response.contains("mvn:com.foo:myapp:2.1"));
-
     }
 
     @Test
-    void testModelineSingleProperty() throws Exception {
-        String line = "// camel-k: property=hi=Hello";
-        clear();
-        parseModeline(line);
-
-        RestAssured
-                .get("/dsl-modeline/props/" + "hi")
-                .then()
-                .body(equalTo("Hello"));
-    }
-
-    @Test
-    void testModelineMultiProperty() throws Exception {
-        String line = "// camel-k: property=hi=Hello property=bye=Farvel";
-        parseModeline(line);
-
-        RestAssured
-                .get("/dsl-modeline/props/" + "hi")
-                .then()
-                .body(equalTo("Hello"));
-
-        RestAssured
-                .get("/dsl-modeline/props/" + "bye")
-                .then()
-                .body(equalTo("Farvel"));
-
-    }
-
-    @Test
-    void testModelineQuoteProperty() throws Exception {
-        String line = "// camel-k: property=hi='Hello World' property=bye='Farvel Verden'";
-        parseModeline(line);
-
-        RestAssured
-                .get("/dsl-modeline/props/" + "hi")
-                .then()
-                .body(equalTo("Hello World"));
-
-        RestAssured
-                .get("/dsl-modeline/props/" + "bye")
-                .then()
-                .body(equalTo("Farvel Verden"));
-    }
-
-    @Test
-    void testModelineMixed() throws Exception {
-        String line = "// camel-k: dependency=mvn:org.my:application:1.0 property=hi=Hello dependency=mvn:com.foo:myapp:2.1";
-        List<Response> response = parseAndGetDependencies(line);
-        assertNotNull(response);
-        assertEquals(2, response.size());
-        assertTrue(response.contains("mvn:org.my:application:1.0"));
-        assertTrue(response.contains("mvn:com.foo:myapp:2.1"));
-
-        RestAssured
-                .get("/dsl-modeline/props/" + "hi")
-                .then()
-                .body(equalTo("Hello"));
-    }
-
-    @Test
-    void testModelineMixedWithSpaces() throws Exception {
-        String line = "//    camel-k:   dependency=mvn:org.my:application:1.0    property=hi=Hello   dependency=mvn:com.foo:myapp:2.1";
-        List<Response> response = parseAndGetDependencies(line);
-        assertNotNull(response);
-        assertEquals(2, response.size());
-        assertTrue(response.contains("mvn:org.my:application:1.0"));
-        assertTrue(response.contains("mvn:com.foo:myapp:2.1"));
-
-        RestAssured
-                .get("/dsl-modeline/props/" + "hi")
-                .then()
-                .body(equalTo("Hello"));
-
-    }
-
-    @Test
-    void testModelinePropertiesFile() throws Exception {
-        String line = "// camel-k: property=classpath:myapp.properties";
-        parseModeline(line);
-
-        RestAssured
-                .get("/dsl-modeline/props/" + "hi")
-                .then()
-                .body(equalTo("Hej"));
-
-        RestAssured
-                .get("/dsl-modeline/props/" + "foo")
-                .then()
-                .body(equalTo("bar"));
-
+    void testModelineSingleDependencyIWithSystemProperty() {
+        String randomKey = UUID.randomUUID().toString() + ".version";
+        Optional<String> systemValue = Optional.ofNullable(System.getProperty(randomKey));
+        try {
+            System.setProperty(randomKey, "1.0");
+            String line = "//DEPS mvn:org.my:application:${%s}".formatted(randomKey);
+            List<Response> response = parseAndGetDependencies(line);
+            assertNotNull(response);
+            assertEquals(1, response.size());
+            assertTrue(response.contains("mvn:org.my:application:1.0"));
+        } finally {
+            systemValue.ifPresent(s -> System.setProperty(randomKey, s));
+        }
     }
 
     private <T> List<T> parseAndGetDependencies(String line) {

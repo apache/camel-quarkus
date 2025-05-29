@@ -41,6 +41,10 @@
             <artifactId>quarkus-smallrye-fault-tolerance</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.smallrye</groupId>
+            <artifactId>smallrye-fault-tolerance-standalone</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-core</artifactId>
         </dependency>

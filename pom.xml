@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>4.11.0</version>
+        <version>4.12.0</version>
     </parent>
 
     <groupId>org.apache.camel.quarkus</groupId>
@@ -39,7 +39,7 @@
     <properties>
 
         <!-- Primary dependencies - maintained manually -->
-        <camel.major.minor>4.11</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
+        <camel.major.minor>4.12</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
         <camel.version>${camel.major.minor}.0</camel.version>
         <camel.docs.components.version>${camel.major.minor}.x</camel.docs.components.version><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.components.xref>${camel.docs.components.version}@components</camel.docs.components.xref><!-- the version in Camel's docs/components/antora.yml -->
@@ -51,7 +51,7 @@
         <quarkiverse-artemis.version>3.8.0</quarkiverse-artemis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/artemis/quarkus-artemis-parent/ -->
         <quarkiverse-cxf.version>3.23.1</quarkiverse-cxf.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/io/quarkiverse/cxf/quarkus-cxf-parent/ -->
         <quarkiverse-freemarker.version>1.2.0</quarkiverse-freemarker.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/freemarker/quarkus-freemarker-parent/ -->
-        <quarkiverse-fury.version>0.3.0</quarkiverse-fury.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/fury/quarkus-fury-parent/ -->
+        <quarkiverse-fury.version>0.3.2</quarkiverse-fury.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/fury/quarkus-fury-parent/ -->
         <quarkiverse-groovy.version>3.22.2</quarkiverse-groovy.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/groovy/quarkus-groovy-parent/ -->
         <quarkiverse-jackson-jq.version>2.2.0</quarkiverse-jackson-jq.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jackson-jq/quarkus-jackson-jq-parent/ -->
         <quarkiverse-jgit.version>3.5.1</quarkiverse-jgit.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/jgit/quarkus-jgit/ -->
@@ -77,8 +77,8 @@
         <assertj.version>3.27.3</assertj.version><!-- @sync io.quarkus:quarkus-build-parent:${quarkus.version} prop:assertj.version -->
         <aws-java-sdk.version>1.11.714</aws-java-sdk.version>
         <azure-sdk-bom.version>${azure-sdk-bom-version}</azure-sdk-bom.version>
-        <azure-core.version>1.55.2</azure-core.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-core -->
-        <azure-identity.version>1.15.3</azure-identity.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-identity -->
+        <azure-core.version>1.55.3</azure-core.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-core -->
+        <azure-identity.version>1.15.4</azure-identity.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-identity -->
         <azure-core-http-vertx.version>1.0.3</azure-core-http-vertx.version> <!-- TODO: https://github.com/apache/camel-quarkus/issues/4181 -->
         <bouncycastle.version>1.80</bouncycastle.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.bouncycastle:bcprov-jdk18on -->
         <caffeine.version>3.2.0</caffeine.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.github.ben-manes.caffeine:caffeine -->
@@ -116,7 +116,7 @@
         <hapi.version>${hapi-version}</hapi.version>
         <hapi-base.version>${hapi-base-version}</hapi-base.version>
         <hapi-fhir.version>${hapi-fhir-version}</hapi-fhir.version>
-        <hapi-fhir-core.version>6.4.0</hapi-fhir-core.version><!-- @sync ca.uhn.hapi.fhir:hapi-fhir:${hapi-fhir.version} prop:fhir_core_version -->
+        <hapi-fhir-core.version>6.5.18</hapi-fhir-core.version><!-- @sync ca.uhn.hapi.fhir:hapi-fhir:${hapi-fhir.version} prop:fhir_core_version -->
         <ibm.java-sdk-core.version>9.23.1</ibm.java-sdk-core.version><!-- Required because of https://github.com/apache/camel-quarkus/issues/7269 -->
         <ibm.mq.client.version>9.4.2.0</ibm.mq.client.version>
         <icu4j.version>${icu4j-version}</icu4j.version>
@@ -146,7 +146,7 @@
         <langchain4j.version>1.0.0-alpha1</langchain4j.version><!-- @sync io.quarkiverse.langchain4j:quarkus-langchain4j-parent:${quarkiverse-langchain4j.version} prop:langchain4j.version -->
         <mapstruct.version>${mapstruct-version}</mapstruct.version>
         <minio.version>8.5.17</minio.version><!-- @sync io.quarkiverse.minio:quarkus-minio-parent:${quarkiverse-minio.version} prop:minio.version -->
-        <msal4j.version>1.19.0</msal4j.version><!-- @sync com.azure:azure-identity:${azure-identity.version} dep:com.microsoft.azure:msal4j -->
+        <msal4j.version>1.19.1</msal4j.version><!-- @sync com.azure:azure-identity:${azure-identity.version} dep:com.microsoft.azure:msal4j -->
         <murmur.version>1.0.0</murmur.version>
         <mvel2.version>2.5.2.Final</mvel2.version><!-- @sync org.apache.camel:camel-dependencies:${camel.version} prop:mvel-version -->
         <mybatis.version>3.5.19</mybatis.version><!-- @sync io.quarkiverse.mybatis:quarkus-parent:${quarkiverse-mybatis.version} prop:mybatis.version -->
@@ -161,6 +161,7 @@
         <reactor-netty.version>${reactor-netty-version}</reactor-netty.version>
         <retrofit.version>2.9.0</retrofit.version><!-- @sync org.influxdb:influxdb-java:${influxdb.version} dep:com.squareup.retrofit2:retrofit -->
         <rxjava3.version>3.1.8</rxjava3.version><!-- Used by amazon-kinesis-client and infinispan-client-hotrod-jakarta -->
+        <smallrye-fault-tolerance-standalone.version>6.9.1</smallrye-fault-tolerance-standalone.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye:smallrye-fault-tolerance -->
         <smallrye.reactive.messaging.camel.version>4.27.0</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
         <smooks.version>${smooks-version}</smooks.version>
         <snakeyaml.version>2.4</snakeyaml.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.yaml:snakeyaml -->
@@ -175,7 +176,7 @@
         <threetenbp.version>1.7.0</threetenbp.version><!-- @sync com.google.cloud:google-cloud-pubsub:${google-cloud-pubsub.version} dep:org.threeten:threetenbp -->
         <xalan.version>2.7.2</xalan.version><!-- Xalan should be removed as is in Camel, but it is not possible. https://github.com/apache/camel-quarkus/issues/4065-->
         <xchange.version>${xchange-version}</xchange.version>
-        <xmlgraphics-commons.version>2.10</xmlgraphics-commons.version><!-- @sync org.apache.xmlgraphics:fop-parent:${fop-version} prop:xmlgraphics.commons.version -->
+        <xmlgraphics-commons.version>2.11</xmlgraphics-commons.version><!-- @sync org.apache.xmlgraphics:fop-parent:${fop-version} prop:xmlgraphics.commons.version -->
         <web3j.version>${web3j-version}</web3j.version>
         <web3j.quorum.version>${web3j-quorum-version}</web3j.quorum.version>
         <zookeeper.version>${zookeeper-version}</zookeeper.version>
@@ -230,7 +231,7 @@
         <!-- Test container image properties -->
         <activemq.container.image>mirror.gcr.io/rmohr/activemq:5.15.9-alpine</activemq.container.image>
         <arangodb.container.image>mirror.gcr.io/arangodb:3.12.0</arangodb.container.image>
-        <azurite.container.image>mcr.microsoft.com/azure-storage/azurite:3.33.0</azurite.container.image>
+        <azurite.container.image>mcr.microsoft.com/azure-storage/azurite:3.34.0</azurite.container.image>
         <calculator-ws.container.image>quay.io/l2x6/calculator-ws:1.2</calculator-ws.container.image>
         <cassandra.container.image>mirror.gcr.io/cassandra:5.0.2</cassandra.container.image>
         <consul.container.image>mirror.gcr.io/hashicorp/consul:1.19</consul.container.image>

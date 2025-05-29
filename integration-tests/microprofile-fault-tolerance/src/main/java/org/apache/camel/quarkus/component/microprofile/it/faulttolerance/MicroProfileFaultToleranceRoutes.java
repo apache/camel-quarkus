@@ -97,7 +97,7 @@ public class MicroProfileFaultToleranceRoutes extends RouteBuilder {
 
         from("direct:faultToleranceWithTimeoutCustomExecutor")
                 .circuitBreaker()
-                .faultToleranceConfiguration().timeoutEnabled(true).timeoutScheduledExecutorService("myThreadPool")
+                .faultToleranceConfiguration().timeoutEnabled(true).threadOffloadExecutorService("customExecutorService")
                 .timeoutDuration(500).end()
                 .process(exchange -> {
                     AtomicInteger counter = MicroProfileFaultToleranceHelper.getCounter("timeoutCustomExecutor");

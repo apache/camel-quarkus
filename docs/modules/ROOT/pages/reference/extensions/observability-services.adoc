@@ -83,6 +83,8 @@ The presence of this extension will expose the following endpoints:
 
 |====
 
+By default, these endpoints are exposed on the management port (`9876`). This value can be changed as any other configuration (in this case, via `quarkus.management.port` application property). You can also disable it (`quarkus.management.enabled=false`) if you want to expose those endpoints in the regular service port (default, `8080`).
+
 NOTE: You can configure the endpoints as you'd do normally within each extension configuration.
 
 [id="extensions-observability-services-usage-opentelemetry-configuration"]
