@@ -443,7 +443,7 @@
 * Bump actions/upload-artifact from 4.4.3 to 4.5.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6875
 * Bump actions/setup-java from 4.5.0 to 4.6.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/6876
 * langchain4j: fix documentation by @aldettinger in https://github.com/apache/camel-quarkus/pull/6877
-* Fix #6720 to add camel-quarkus-fury by @zhfeng in https://github.com/apache/camel-quarkus/pull/6878
+* Fix #6720 to add camel-quarkus-fory by @zhfeng in https://github.com/apache/camel-quarkus/pull/6878
 * Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/6879
 * Bump peter-evans/create-pull-request from 7.0.5 to 7.0.6 by @dependabot in https://github.com/apache/camel-quarkus/pull/6883
 * Upgrade Debezium to 3.0.5.Final by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/6885
