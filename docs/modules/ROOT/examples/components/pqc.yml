@@ -9,5 +9,5 @@ cqJvmSince: 3.24.0
 cqNativeSince: n/a
 cqCamelPartName: pqc
 cqCamelPartTitle: PQC Algorithms
-cqCamelPartDescription: Post Quantum Computing Signature and Verification component.
+cqCamelPartDescription: Post Quantum Cryptography Signature and Verification component.
 cqExtensionPageTitle: PQC Algorithms

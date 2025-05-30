@@ -18,11 +18,6 @@ package org.apache.camel.quarkus.component.azure.key.vault.it;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.azure.core.exception.HttpResponseException;
-import com.azure.core.implementation.ReflectiveInvoker;
-import com.azure.core.implementation.http.UnexpectedExceptionInformation;
-import com.azure.core.implementation.http.rest.ResponseExceptionConstructorCache;
-import com.azure.security.keyvault.secrets.implementation.models.KeyVaultErrorException;
 import com.azure.security.keyvault.secrets.models.KeyVaultSecret;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
@@ -142,17 +137,5 @@ public class AzureKeyVaultResource {
     @Produces(MediaType.TEXT_PLAIN)
     public boolean contextReloadStatus() {
         return contextReloaded.get();
-    }
-
-    @GET
-    @Path("exception/cache")
-    @Produces(MediaType.TEXT_PLAIN)
-    public boolean cachedHttpResponseException() {
-        UnexpectedExceptionInformation exceptionInformation = new UnexpectedExceptionInformation(
-                KeyVaultErrorException.class);
-        Class<? extends HttpResponseException> exceptionType = exceptionInformation.getExceptionType();
-        ReflectiveInvoker reflectiveInvoker = new ResponseExceptionConstructorCache().get(exceptionType,
-                exceptionInformation.getExceptionBodyType());
-        return reflectiveInvoker != null;
     }
 }
