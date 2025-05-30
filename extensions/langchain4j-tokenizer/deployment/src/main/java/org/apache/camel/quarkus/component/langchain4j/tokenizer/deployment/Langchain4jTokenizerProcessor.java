@@ -32,9 +32,9 @@ class Langchain4jTokenizerProcessor {
     private static final String FEATURE = "camel-langchain4j-tokenizer";
     private static final String TOKENIZER_NOT_FOUND_MESSAGE = "Failed creating tokenizer. Add the required langchain4j LLM model dependencies to your project";
     private static final String[] TOKENIZER_CLASSES = new String[] {
-            "dev.langchain4j.model.azure.AzureOpenAiTokenizer",
-            "dev.langchain4j.model.openai.OpenAiTokenizer",
-            "dev.langchain4j.model.dashscope.QwenTokenizer"
+            "dev.langchain4j.model.azure.AzureOpenAiTokenCountEstimator",
+            "dev.langchain4j.model.openai.OpenAiTokenCountEstimator",
+            "dev.langchain4j.community.model.dashscope.QwenTokenCountEstimator"
     };
 
     @BuildStep
@@ -58,17 +58,17 @@ class Langchain4jTokenizerProcessor {
             BuildProducer<GeneratedClassBuildItem> generatedClass,
             String className) {
 
-        Class<?>[] initParamTypes = new Class<?>[] {};
+        Class<?>[] initParamTypes = new Class<?>[] { String.class };
         String simpleName = className.substring(className.lastIndexOf('.') + 1);
         if (simpleName.startsWith("Qwen")) {
             initParamTypes = new Class<?>[] { String.class, String.class };
         }
 
         /*
-         * Generates a NoOp tokenizer class to fulfil native compiler requirements.
+         * Generates a NoOp TokenCountEstimator class to fulfil native compiler requirements.
          *
-         * public class OpenAiTokenizer {
-         *     public OpenAiTokenizer() {
+         * public class OpenAiTokenCountEstimator {
+         *     public OpenAiTokenCountEstimator() {
          *         throw new UnsupportedOperationException("Failed creating tokenizer")
          *     }
          * }

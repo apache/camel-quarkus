@@ -2,7 +2,7 @@
   "id" : "a8497662-b947-4b46-9815-9e04995588c8",
   "name" : "rest_api_latest_search",
   "request" : {
-    "url" : "/rest/api/latest/search?jql=id+%3E+10304+AND+project%3DTEST+ORDER+BY+key+desc&expand=schema%2Cnames&maxResults=1&startAt=0",
+    "url" : "/rest/api/latest/search?jql=id+%3E+10304+AND+project%3DTEST+ORDER+BY+key+desc&expand=schema%2Cnames&fields=*navigable&maxResults=1&startAt=0",
     "method" : "GET"
   },
   "response" : {
