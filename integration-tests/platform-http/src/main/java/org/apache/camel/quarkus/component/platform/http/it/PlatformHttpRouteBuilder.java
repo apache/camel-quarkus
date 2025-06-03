@@ -183,5 +183,9 @@ public class PlatformHttpRouteBuilder extends RouteBuilder {
                     Principal principal = securityIdentity.getPrincipal();
                     message.setBody(principal.getName() + ":" + securityIdentity.getRoles().iterator().next());
                 });
+
+        from("platform-http:/platform-http/timeout?requestTimeout=500")
+                .delay(1000)
+                .setBody().constant("Client won't see this due to request timeout");
     }
 }
