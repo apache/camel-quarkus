@@ -36,6 +36,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.emptyOrNullString;
 import static org.hamcrest.Matchers.notNullValue;
 
 @TestCertificates(certificates = {
@@ -396,6 +397,15 @@ class PlatformHttpTest {
                 .then()
                 .statusCode(200)
                 .body(equalTo("Header was not present"));
+    }
+
+    @Test
+    public void requestTimeout() {
+        RestAssured.given()
+                .get("/platform-http/timeout")
+                .then()
+                .statusCode(503)
+                .body(emptyOrNullString());
     }
 
     private static Method[] httpMethods() {
