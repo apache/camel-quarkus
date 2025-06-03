@@ -18,6 +18,57 @@
 -->
 # Changelog
 
+## 3.23.0
+
+* Next is 3.23.0-SNAPSHOT by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7300
+* Bump org.wiremock:wiremock-standalone from 3.12.1 to 3.13.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/7301
+* Bump quarkiverse-groovy.version from 3.21.3 to 3.22.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/7302
+* Bump actions/download-artifact from 4.2.1 to 4.3.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/7303
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/7308
+* Bump org.jolokia:jolokia-agent-jvm from 2.2.8 to 2.2.9 by @dependabot in https://github.com/apache/camel-quarkus/pull/7314
+* Fixes #7211 Enable ssh eddsa test for RHEL by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7311
+* fixes #7317 Longer interval for azureServiceBus.scheduled by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7318
+* Fix dynamic instantiation of Azure HttpResponseException types in native mode by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7320
+* Bump quarkiverse-mybatis.version from 2.3.2 to 2.4.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/7321
+* Add changelog for 3.22.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7323
+* Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 3.4.0 to 3.5.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/7313
+* Temporarily disable wildcard package scan test in the Quarkus Platform #7312 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7324
+* Bump quarkiverse-groovy.version from 3.22.0 to 3.22.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/7326
+* Avoid producing duplicate synthetic beans for @EndpointInject and @Produce by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7327
+* Remove redundant Splunk component name ternary expression by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7328
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/7329
+* Add changelog for 3.20.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7332
+* Simplify running SQL test against external database servers by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7333
+* fixes #7337: add ignore option also for service bus test by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7338
+* fixes #7335 EdDSA test should be disabled on RHEL8 in native by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7336
+* Fix dependency convergence error io.opentelemetry:opentelemetry-semconv by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7339
+* Bump quarkiverse-minio.version from 3.8.1 to 3.8.3 by @dependabot in https://github.com/apache/camel-quarkus/pull/7344
+* Test CamelQuarkusTestSupport in the Quarkus Platform by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7347
+* Add GitHub workflow to perform dependency convergence checks by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7246
+* Rework CallbackUtil.MockExtensionContext to not implement JUnit ExtensionContext by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7350
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/7352
+* Remove duplicate camel-dfdl dependency declaration by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7355
+* Bump quarkiverse-groovy.version from 3.22.1 to 3.22.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/7357
+* Use more correct convention with configuring datasource by @llowinge in https://github.com/apache/camel-quarkus/pull/7358
+* Run camel-quarkus-junit5 tests in the Quarkus Platform by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7360
+* Remove redundant BaseMainSupport method overrides by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7365
+* Upgrade Quarkus to 3.23.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7366
+* Do not exclude findbugs from wss4j-ws-security-common in the BOM because it transitively depends on quarkus-grpc-common that requires it at runtime by @ppalaga in https://github.com/apache/camel-quarkus/pull/7367
+* Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 3.5.0 to 3.6.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/7356
+* Improve handling of findSingleByType where multiple beans exist without any @Default qualifier by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7370
+* Upgrade to cq-maven-plugin 4.17.9 by @ppalaga in https://github.com/apache/camel-quarkus/pull/7375
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/7379
+* Remove rest-assured groovy exclusions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7378
+* Fixes #7373 extend saga coverage by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7374
+* Bump org.xmlunit:xmlunit-core from 2.10.0 to 2.10.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/7381
+* Fix #7383 to override shouldRun of CodeGenProvider by @zhfeng in https://github.com/apache/camel-quarkus/pull/7384
+* Deprecate Jolokia /q/jolokia management endpoint by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7389
+* Let Quarkus BOM 3.23.0+ manage io.perfmark:perfmark-api by @ppalaga in https://github.com/apache/camel-quarkus/pull/7388
+* Upgrade Quarkus to 3.23.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7392
+* Upgrade to Quarkus CXF 3.23.0 by @ppalaga in https://github.com/apache/camel-quarkus/pull/7393
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.22.0...3.23.0
+
 ## 3.20.1
 
 * [3.20.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7168
