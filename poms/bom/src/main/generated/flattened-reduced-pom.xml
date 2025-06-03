@@ -7528,22 +7528,22 @@
       <dependency>
         <groupId>org.optaplanner</groupId>
         <artifactId>optaplanner-quarkus</artifactId>
-        <version>9.37.0.Final</version>
+        <version>10.0.0</version>
       </dependency>
       <dependency>
         <groupId>org.optaplanner</groupId>
         <artifactId>optaplanner-quarkus-deployment</artifactId>
-        <version>9.37.0.Final</version>
+        <version>10.0.0</version>
       </dependency>
       <dependency>
         <groupId>org.optaplanner</groupId>
         <artifactId>optaplanner-quarkus-jackson</artifactId>
-        <version>9.37.0.Final</version>
+        <version>10.0.0</version>
       </dependency>
       <dependency>
         <groupId>org.optaplanner</groupId>
         <artifactId>optaplanner-quarkus-jackson-deployment</artifactId>
-        <version>9.37.0.Final</version>
+        <version>10.0.0</version>
       </dependency>
       <dependency>
         <groupId>org.snakeyaml</groupId>
