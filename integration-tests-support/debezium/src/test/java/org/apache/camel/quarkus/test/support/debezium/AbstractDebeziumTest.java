@@ -25,7 +25,6 @@ import java.util.UUID;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.hamcrest.Matcher;
-import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.shaded.org.awaitility.Awaitility;
@@ -41,8 +40,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Contains tests for insert, update and delete.
  */
 public abstract class AbstractDebeziumTest {
-    private static final Logger LOG = Logger.getLogger(AbstractDebeziumTest.class);
-
     protected static String COMPANY_1 = "Best Company";
     protected static String COMPANY_2 = "Even Better Company";
     protected static String CITY_1 = "Prague";

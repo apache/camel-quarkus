@@ -35,7 +35,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 /**
  * Parent for debezium based resources.
  * Provides methods receive and receiveEmptyMessages.
- * To change parameters in endpoint url, please override getEndpoinUrl method and change parameters there.
+ * To change parameters in endpoint url, please override getEndpointUrl method and change parameters there.
  */
 public abstract class AbstractDebeziumResource {
     private final Type type;
@@ -120,13 +120,12 @@ public abstract class AbstractDebeziumResource {
     }
 
     protected String getEndpointUrl() {
-        String endpoint = getEndpointUrl(
+        return getEndpointUrl(
                 config.getValue(type.getPropertyHostname(), String.class),
                 config.getValue(type.getPropertyPort(), String.class),
                 config.getValue(type.getPropertyUsername(), String.class),
                 config.getValue(type.getPropertyPassword(), String.class),
                 "qa",
                 config.getValue(type.getPropertyOffsetFileName(), String.class));
-        return endpoint;
     }
 }

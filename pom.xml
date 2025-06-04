@@ -964,6 +964,7 @@
                                         <sortModulesPath>integration-test-groups/azure/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/compression/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/cxf-soap/pom.xml</sortModulesPath>
+                                        <sortModulesPath>integration-test-groups/debezium/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/foundation/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/mongodb/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/xml/pom.xml</sortModulesPath>
