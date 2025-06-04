@@ -27,7 +27,6 @@ import org.apache.camel.quarkus.test.support.debezium.AbstractDebeziumTest;
 import org.apache.camel.quarkus.test.support.debezium.Type;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.jboss.logging.Logger;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
@@ -42,8 +41,6 @@ import static org.hamcrest.Matchers.*;
 @QuarkusTestResource(value = DebeziumPostgresTestResource.class, restrictToAnnotatedClass = true)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class DebeziumPostgresTest extends AbstractDebeziumTest {
-    private static final Logger LOG = Logger.getLogger(DebeziumPostgresTest.class);
-
     private static Connection connection;
 
     public DebeziumPostgresTest() {
