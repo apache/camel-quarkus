@@ -188,6 +188,7 @@ group-10:
   - platform-http-proxy-ssl
   - solr
   - swift
+  - weaviate
 group-11:
   - compression-grouped
   - disruptor
