@@ -5,7 +5,7 @@ cqArtifactIdBase: pqc
 cqNativeSupported: false
 cqStatus: Preview
 cqDeprecated: false
-cqJvmSince: 3.23.0
+cqJvmSince: 3.24.0
 cqNativeSince: n/a
 cqCamelPartName: pqc
 cqCamelPartTitle: PQC Algorithms

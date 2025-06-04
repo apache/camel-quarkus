@@ -31,7 +31,7 @@
     <description>Post Quantum Computing Signature and Verification component.</description>
 
     <properties>
-        <camel.quarkus.jvmSince>3.23.0</camel.quarkus.jvmSince>
+        <camel.quarkus.jvmSince>3.24.0</camel.quarkus.jvmSince>
     </properties>
 
     <dependencies>
