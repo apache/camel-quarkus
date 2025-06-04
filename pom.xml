@@ -270,6 +270,7 @@
         <solr.container.image>mirror.gcr.io/solr:9.8.0-slim</solr.container.image>
         <splunk.container.image>mirror.gcr.io/splunk/splunk:9.3.1</splunk.container.image>
         <sql-server.container.image>mcr.microsoft.com/mssql/server:2022-latest</sql-server.container.image>
+        <weaviate.container.image>cr.weaviate.io/semitechnologies/weaviate:1.25.5</weaviate.container.image>
 
         <!-- Plugin configuration through properties  -->
 
