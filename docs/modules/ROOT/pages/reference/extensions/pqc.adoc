@@ -9,12 +9,12 @@
 :cq-status-deprecation: Preview
 :cq-description: Post Quantum Computing Signature and Verification component.
 :cq-deprecated: false
-:cq-jvm-since: 3.23.0
+:cq-jvm-since: 3.24.0
 :cq-native-since: n/a
 
 ifeval::[{doc-show-badges} == true]
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##3.23.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##3.24.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
 endif::[]
 
 Post Quantum Computing Signature and Verification component.
