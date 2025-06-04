@@ -6666,11 +6666,6 @@
         <version>6.5.18</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>azure-core-http-vertx</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>1.0.3</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
         <groupId>com.datastax.oss</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>java-driver-query-builder</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>4.15.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -8685,6 +8680,11 @@
         <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.34 -->
         <artifactId>azure-core-amqp</artifactId><!-- com.azure:azure-sdk-bom:1.2.34 -->
         <version>2.9.16</version><!-- com.azure:azure-sdk-bom:1.2.34 -->
+      </dependency>
+      <dependency>
+        <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <artifactId>azure-core-http-vertx</artifactId><!-- com.azure:azure-sdk-bom:1.2.34 -->
+        <version>1.0.3</version><!-- com.azure:azure-sdk-bom:1.2.34 -->
       </dependency>
       <dependency>
         <groupId>com.azure</groupId><!-- com.azure:azure-sdk-bom:1.2.34 -->
