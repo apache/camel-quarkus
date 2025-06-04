@@ -6666,11 +6666,6 @@
         <version>6.5.18</version>
       </dependency>
       <dependency>
-        <groupId>com.azure</groupId>
-        <artifactId>azure-core-http-vertx</artifactId>
-        <version>1.0.3</version>
-      </dependency>
-      <dependency>
         <groupId>com.datastax.oss</groupId>
         <artifactId>java-driver-query-builder</artifactId>
         <version>4.15.0</version>
@@ -8685,6 +8680,11 @@
         <groupId>com.azure</groupId>
         <artifactId>azure-core-amqp</artifactId>
         <version>2.9.16</version>
+      </dependency>
+      <dependency>
+        <groupId>com.azure</groupId>
+        <artifactId>azure-core-http-vertx</artifactId>
+        <version>1.0.3</version>
       </dependency>
       <dependency>
         <groupId>com.azure</groupId>

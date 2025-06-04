@@ -6768,12 +6768,6 @@
                 <artifactId>org.hl7.fhir.utilities</artifactId>
                 <version>${hapi-fhir-core.version}</version>
             </dependency>
-            <!-- TODO: Remove this when azure-core-http-vertx is part of azure-sdk-bom https://github.com/apache/camel-quarkus/issues/4181 -->
-            <dependency>
-                <groupId>com.azure</groupId>
-                <artifactId>azure-core-http-vertx</artifactId>
-                <version>${azure-core-http-vertx.version}</version>
-            </dependency>
             <!-- TODO: https://github.com/datastax/cassandra-quarkus/issues/245 -->
             <dependency>
                 <groupId>com.datastax.oss</groupId>
