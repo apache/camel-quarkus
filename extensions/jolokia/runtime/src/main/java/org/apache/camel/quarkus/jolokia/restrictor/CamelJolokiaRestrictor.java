@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.jolokia.restrictor;
 
+import java.util.Collections;
 import java.util.Set;
 
 import javax.management.ObjectName;
@@ -26,10 +27,11 @@ import org.eclipse.microprofile.config.ConfigProvider;
 import org.jolokia.server.core.restrictor.AllowAllRestrictor;
 
 public final class CamelJolokiaRestrictor extends AllowAllRestrictor {
-    private static final Set<String> ALLOWED_DOMAINS = ConfigProvider.getConfig()
-            .unwrap(SmallRyeConfig.class)
-            .getConfigMapping(JolokiaBuildTimeConfig.class)
-            .camelRestrictorAllowedMbeanDomains();
+    private final Set<String> ALLOWED_DOMAINS = Collections.unmodifiableSet(
+            ConfigProvider.getConfig()
+                    .unwrap(SmallRyeConfig.class)
+                    .getConfigMapping(JolokiaBuildTimeConfig.class)
+                    .camelRestrictorAllowedMbeanDomains());
 
     @Override
     public boolean isAttributeReadAllowed(ObjectName objectName, String attribute) {
