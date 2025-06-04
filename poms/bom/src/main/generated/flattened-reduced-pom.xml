@@ -813,7 +813,7 @@
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-debezium-oracle</artifactId>
-        <version>4.12.0</version>
+        <version>4.13.0-SNAPSHOT</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
