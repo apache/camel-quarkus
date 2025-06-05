@@ -9,5 +9,5 @@ cqJvmSince: 3.22.0
 cqNativeSince: n/a
 cqCamelPartName: dfdl
 cqCamelPartTitle: DFDL
-cqCamelPartDescription: Handle DFDL (Data Format Description Language) transformation.
+cqCamelPartDescription: Transforms fixed format data such as EDI message from/to XML using a Data Format Description Language (DFDL).
 cqExtensionPageTitle: DFDL
