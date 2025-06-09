@@ -94,6 +94,7 @@
 
 
     <profiles>
+        <!-- https://issues.apache.org/jira/browse/CAMEL-22155
         <profile>
             <id>native</id>
             <activation>
@@ -121,6 +122,7 @@
                 </plugins>
             </build>
         </profile>
+        -->
         <profile>
             <id>virtualDependencies</id>
             <activation>
