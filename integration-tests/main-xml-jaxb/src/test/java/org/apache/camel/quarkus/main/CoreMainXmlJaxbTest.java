@@ -27,12 +27,14 @@ import io.restassured.path.json.JsonPath;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.xml.jaxb.DefaultModelJAXBContextFactory;
 import org.apache.camel.xml.jaxb.JaxbModelToXMLDumper;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
+@Disabled //https://issues.apache.org/jira/browse/CAMEL-22155
 public class CoreMainXmlJaxbTest {
 
     @Test
