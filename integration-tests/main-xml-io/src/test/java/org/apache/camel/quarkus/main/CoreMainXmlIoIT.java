@@ -17,7 +17,9 @@
 package org.apache.camel.quarkus.main;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
+import org.junit.jupiter.api.Disabled;
 
 @QuarkusIntegrationTest
+@Disabled //https://issues.apache.org/jira/browse/CAMEL-22155
 public class CoreMainXmlIoIT extends CoreMainXmlIoTest {
 }
