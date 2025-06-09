@@ -101,20 +101,28 @@ jobs:
             "com.ibm.cloud:sdk-core"
             # Mismatch between camel-quarkus-cassandraql & camel-quarkus-dfdl
             "com.typesafe:config"
+            # Mismatch between camel-quarkus-xslt-saxon & camel-quarkus-dfdl
+            "net.sf.saxon:Saxon-HE"
             # Mismatch between camel-quarkus-aws-datasonnet, camel-quarkus-djl & camel-quarkus-aws2-kinesis
             "io.github.classgraph:classgraph"
             # Mismatch between camel-quarkus-csv, camel-quarkus-djl & camel-quarkus-tika
             "org.apache.commons:commons-csv"
             # Mismatch between camel-quarkus-ldif, camel-quarkus-milvus, camel-quarkus-netty & camel-quarkus-spring-redis
             "org.apache.commons:commons-pool2"
+            # Mismatch between camel-quarkus-jcr & camel-quarkus-lucene
+            "org.apache.lucene:lucene-core"
             # Mismatch between camel-quarkus-jsch, camel-quarkus-ldif & camel-quarkus-quickfix
             "org.apache.mina:mina-core"
-            # Mismatch between camel-quarkus-as2, camel-quarkus-avro-deployment & camel-quarkus-cxf-soap-deployment
-            "org.apache.velocity:velocity-engine-core"
             # Mismatch between camel-quarkus-jcr & camel-quarkus-tika
             "org.apache.tika:tika-core"
+            # Mismatch between camel-quarkus-as2, camel-quarkus-avro-deployment & camel-quarkus-cxf-soap-deployment
+            "org.apache.velocity:velocity-engine-core"
+            # Mismatch between camel-quarkus-flink, camel-quarkus-junit5, camel-quarkus-nitrite & camel-quarkus-redis
+            "org.objenesis:objenesis"
             # Mismatch between camel-quarkus-rest-openapi-deployment & camel-quarkus-smallrye-reactive-messaging-deployment
             "org.commonmark:commonmark"
+            # Mismatch between camel-quarkus-debezium-oracle & camel-quarkus-ehcache
+            "org.ehcache:ehcache"
             # Mismatch between camel-quarkus-activemq & camel-quarkus-stomp
             "org.fusesource.hawtbuf:hawtbuf"
             # Mismatch between camel-quarkus-aws2-kinesis & camel-quarkus-pubnub
@@ -123,10 +131,8 @@ jobs:
             "org.jgroups:jgroups"
             # Mismatch between camel-quarkus-box, camel-quarkus-oaipmh & camel-quarkus-shiro
             "org.jsoup:jsoup"
-            # Mismatch between camel-quarkus-jcr & camel-quarkus-lucene
-            "org.apache.lucene:lucene-core"
-            # Mismatch between camel-quarkus-flink, camel-quarkus-junit5, camel-quarkus-nitrite & camel-quarkus-redis
-            "org.objenesis:objenesis"
+            # Mismatch between camel-quarkus-djl & camel-quarkus-fhir
+            "org.roaringbitmap:RoaringBitmap"
           )
 
           BLOCK=""
