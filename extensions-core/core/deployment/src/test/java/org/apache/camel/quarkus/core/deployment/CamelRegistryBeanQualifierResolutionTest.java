@@ -48,7 +48,8 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class CamelRegistryBeanQualifierResolutionTest {
 
@@ -68,13 +69,25 @@ public class CamelRegistryBeanQualifierResolutionTest {
                                     Integer.toString(methodName.hashCode()),
                                     true, s -> null);
 
-                            RuntimeValue<CamelBeanQualifierResolver> runtimeValue = recorder
-                                    .newInstance(TestBeanQualifierResolver.class.getName());
+                            RuntimeValue<CamelBeanQualifierResolver> runtimeValueFoo = recorder
+                                    .newInstance(FooNamedBeanQualifierResolver.class.getName());
                             context.produce(new StaticBytecodeRecorderBuildItem(recorder));
 
-                            CamelBeanQualifierResolverBuildItem buildItem = new CamelBeanQualifierResolverBuildItem(Foo.class,
-                                    runtimeValue);
-                            context.produce(buildItem);
+                            CamelBeanQualifierResolverBuildItem buildItemFoo = new CamelBeanQualifierResolverBuildItem(
+                                    Foo.class,
+                                    "foo",
+                                    runtimeValueFoo);
+                            context.produce(buildItemFoo);
+
+                            RuntimeValue<CamelBeanQualifierResolver> runtimeValueBar = recorder
+                                    .newInstance(BarNamedBeanQualifierResolver.class.getName());
+                            context.produce(new StaticBytecodeRecorderBuildItem(recorder));
+
+                            CamelBeanQualifierResolverBuildItem buildItemBar = new CamelBeanQualifierResolverBuildItem(
+                                    Bar.class,
+                                    "bar",
+                                    runtimeValueBar);
+                            context.produce(buildItemBar);
                         }
                     }).produces(StaticBytecodeRecorderBuildItem.class).produces(CamelBeanQualifierResolverBuildItem.class)
                             .build();
@@ -87,27 +100,63 @@ public class CamelRegistryBeanQualifierResolutionTest {
 
     @Test
     public void testBeanLookupWithQualifiers() {
-        // Foo should be resolvable since we have a CamelBeanQualifierResolver for that type
+        // Foo & Bar should be resolvable since we have a CamelBeanQualifierResolver for those types
         Set<Foo> fooBeans = context.getRegistry().findByType(Foo.class);
         assertEquals(1, fooBeans.size());
 
-        // Bar should not be resolvable as there is no CamelBeanQualifierResolver for that type
+        Foo foo = context.getRegistry().lookupByNameAndType("foo", Foo.class);
+        assertNotNull(foo);
+
+        foo = context.getRegistry().findSingleByType(Foo.class);
+        assertNotNull(foo);
+
+        Bar bar = context.getRegistry().lookupByNameAndType("bar", Bar.class);
+        assertNotNull(bar);
+
+        // We don't care about qualifiers when doing findByType so we should find all Bar beans
         Set<Bar> barBeans = context.getRegistry().findByType(Bar.class);
-        assertTrue(barBeans.isEmpty());
+        assertEquals(2, barBeans.size());
+
+        // There are 2 beans so we can't find using findSingleByType
+        bar = context.getRegistry().findSingleByType(Bar.class);
+        assertNull(bar);
+
+        // Bar2 should not be resolvable as there is no CamelBeanQualifierResolver to help with its bean resolution
+        Bar bar2 = context.getRegistry().lookupByNameAndType("bar2", Bar.class);
+        assertNull(bar2);
     }
 
     @Qualifier
     @Retention(RUNTIME)
     @Target({ TYPE, METHOD })
     public @interface CamelQuarkusQualifier {
+        String value() default "";
+
         class CamelQuarkusLiteral extends AnnotationLiteral<CamelQuarkusQualifier> implements CamelQuarkusQualifier {
+            private final String value;
+
+            public CamelQuarkusLiteral(String value) {
+                this.value = value;
+            }
+
+            @Override
+            public String value() {
+                return this.value;
+            }
         }
     }
 
-    public static class TestBeanQualifierResolver implements CamelBeanQualifierResolver {
+    public static class FooNamedBeanQualifierResolver implements CamelBeanQualifierResolver {
         @Override
         public Annotation[] resolveQualifiers() {
-            return new Annotation[] { new CamelQuarkusQualifier.CamelQuarkusLiteral() };
+            return new Annotation[] { new CamelQuarkusQualifier.CamelQuarkusLiteral("foo") };
+        }
+    }
+
+    public static class BarNamedBeanQualifierResolver implements CamelBeanQualifierResolver {
+        @Override
+        public Annotation[] resolveQualifiers() {
+            return new Annotation[] { new CamelQuarkusQualifier.CamelQuarkusLiteral("bar") };
         }
     }
 
@@ -121,15 +170,22 @@ public class CamelRegistryBeanQualifierResolutionTest {
     public static class Service {
         @Unremovable
         @Produces
-        @CamelQuarkusQualifier
+        @CamelQuarkusQualifier("foo")
         public Foo foo() {
             return new Foo();
         }
 
         @Unremovable
         @Produces
-        @CamelQuarkusQualifier
+        @CamelQuarkusQualifier("bar")
         public Bar bar() {
+            return new Bar();
+        }
+
+        @Unremovable
+        @Produces
+        @CamelQuarkusQualifier("bar2")
+        public Bar bar2() {
             return new Bar();
         }
     }

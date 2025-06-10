@@ -18,9 +18,7 @@ package org.apache.camel.quarkus.core;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -32,105 +30,17 @@ import io.quarkus.arc.ArcContainer;
 import io.quarkus.arc.InjectableBean;
 import io.quarkus.arc.InstanceHandle;
 import io.smallrye.common.annotation.Identifier;
-import jakarta.enterprise.inject.AmbiguousResolutionException;
 import jakarta.enterprise.inject.Default;
 import jakarta.enterprise.inject.literal.NamedLiteral;
-import jakarta.enterprise.inject.spi.Bean;
 import jakarta.enterprise.inject.spi.BeanManager;
 import org.apache.camel.spi.BeanRepository;
 
 public final class RuntimeBeanRepository implements BeanRepository {
+    private static final Annotation[] EMPTY_ANNOTATIONS = new Annotation[0];
+    private final Map<BeanQualifierResolverIdentifier, CamelBeanQualifierResolver> beanQualifierResolvers;
 
-    private final Map<String, CamelBeanQualifierResolver> beanQualifierResolvers;
-
-    public RuntimeBeanRepository(Map<String, CamelBeanQualifierResolver> beanQualifierResolvers) {
+    public RuntimeBeanRepository(Map<BeanQualifierResolverIdentifier, CamelBeanQualifierResolver> beanQualifierResolvers) {
         this.beanQualifierResolvers = beanQualifierResolvers;
-    }
-
-    private static <T> Set<Bean<? extends T>> resolveAmbiguity(BeanManager manager, Set<Bean<? extends T>> beans) {
-        if (beans.size() > 1) {
-            try {
-                return Collections.singleton(manager.resolve(beans));
-            } catch (AmbiguousResolutionException are) {
-                //in case of AmbiguousResolutionException, original collection is returned
-            }
-        }
-
-        return beans;
-    }
-
-    private static <T> Map<String, T> getReferencesByTypeWithName(Class<T> type, Annotation... qualifiers) {
-        return getBeanManager()
-                .map(manager -> getReferencesByTypeWithName(manager, type, qualifiers))
-                .orElseGet(Collections::emptyMap);
-    }
-
-    private static <T> Set<T> getReferencesByType(BeanManager manager, Class<T> type, Annotation... qualifiers) {
-        Set<T> answer = new HashSet<>();
-
-        for (Bean<?> bean : resolveAmbiguity(manager, manager.getBeans(type, qualifiers))) {
-            T ref = getReference(manager, type, bean);
-            if (ref != null) {
-                answer.add(ref);
-            }
-        }
-
-        return answer;
-    }
-
-    private static <T> Optional<T> getReferenceByName(BeanManager manager, String name, Class<T> type) {
-        Set<Bean<?>> beans = manager.getBeans(name);
-
-        // If it is a Synthetic bean, it should match with type
-        beans = beans.stream()
-                .filter(bean -> {
-                    if (bean instanceof InjectableBean injectableBean) {
-                        return !injectableBean.getKind().equals(InjectableBean.Kind.SYNTHETIC)
-                                || bean.getTypes().contains(type);
-                    } else {
-                        return true;
-                    }
-                }).collect(Collectors.toSet());
-
-        if (beans.isEmpty()) {
-            // Fallback to searching explicitly with NamedLiteral
-            beans = manager.getBeans(type, NamedLiteral.of(name));
-        }
-
-        if (beans.isEmpty()) {
-            // Fallback to SmallRye @Identifier
-            beans = manager.getBeans(type, Identifier.Literal.of(name));
-        }
-
-        return Optional.ofNullable(manager.resolve(beans)).map(bean -> getReference(manager, type, bean));
-    }
-
-    private static <T> T getReference(BeanManager manager, Class<T> type, Bean<?> bean) {
-        return type.cast(manager.getReference(bean, Object.class, manager.createCreationalContext(bean)));
-    }
-
-    private static <T> Map<String, T> getReferencesByTypeWithName(BeanManager manager, Class<T> type,
-            Annotation... qualifiers) {
-        Map<String, T> answer = new HashMap<>();
-
-        for (Bean<?> bean : manager.getBeans(type, qualifiers)) {
-
-            T ref = getReference(manager, type, bean);
-            if (ref != null) {
-                answer.put(bean.getName(), ref);
-            }
-        }
-
-        return answer;
-    }
-
-    private static Optional<BeanManager> getBeanManager() {
-        ArcContainer container = Arc.container();
-        if (container == null) {
-            return Optional.empty();
-        }
-
-        return Optional.ofNullable(container.beanManager());
     }
 
     @Override
@@ -141,43 +51,28 @@ public final class RuntimeBeanRepository implements BeanRepository {
     @Override
     public <T> T lookupByNameAndType(String name, Class<T> type) {
         return getBeanManager()
-                .flatMap(manager -> getReferenceByName(manager, name, type))
+                .flatMap(manager -> getReferenceByName(name, type, resolveQualifiersForTypeAndName(type, name)))
                 .orElse(null);
     }
 
     @Override
     public <T> Map<String, T> findByTypeWithName(Class<T> type) {
-        Optional<Annotation[]> qualifiers = resolveQualifiersForType(type);
-        if (qualifiers.isPresent()) {
-            return getReferencesByTypeWithName(type, qualifiers.get());
-        }
-        return getReferencesByTypeWithName(type);
+        return getReferencesByTypeWithName(type, resolveQualifiersForType(type));
     }
 
     @Override
     public <T> Set<T> findByType(Class<T> type) {
-        Optional<Annotation[]> qualifiers = resolveQualifiersForType(type);
-        if (qualifiers.isPresent()) {
-            return getBeanManager()
-                    .map(manager -> getReferencesByType(manager, type, qualifiers.get()))
-                    .orElseGet(Collections::emptySet);
-        }
-        return getBeanManager()
-                .map(manager -> getReferencesByType(manager, type))
-                .orElseGet(Collections::emptySet);
+        return Arc.container()
+                .listAll(type)
+                .stream()
+                .filter(InstanceHandle::isAvailable)
+                .map(InstanceHandle::get)
+                .collect(Collectors.toSet());
     }
 
     @Override
     public <T> T findSingleByType(Class<T> type) {
-        ArcContainer container = Arc.container();
-        Optional<Annotation[]> qualifiers = resolveQualifiersForType(type);
-        List<InstanceHandle<T>> handles;
-        if (qualifiers.isPresent()) {
-            handles = container.listAll(type, qualifiers.get());
-        } else {
-            handles = container.listAll(type);
-        }
-
+        List<InstanceHandle<T>> handles = Arc.container().listAll(type, resolveQualifiersForType(type));
         if (handles.isEmpty()) {
             // No matches for the given bean type
             return null;
@@ -226,12 +121,81 @@ public final class RuntimeBeanRepository implements BeanRepository {
         return null;
     }
 
-    private Optional<Annotation[]> resolveQualifiersForType(Class<?> type) {
-        CamelBeanQualifierResolver resolver = beanQualifierResolvers.get(type.getName());
-        if (resolver != null) {
-            return Optional.ofNullable(resolver.resolveQualifiers());
+    private static <T> Map<String, T> getReferencesByTypeWithName(Class<T> type, Annotation... qualifiers) {
+        Map<String, T> beans = new HashMap<>();
+        Arc.container()
+                .listAll(type, qualifiers)
+                .stream()
+                .filter(InstanceHandle::isAvailable)
+                .forEach(instanceHandle -> {
+                    beans.put(instanceHandle.getBean().getName(), instanceHandle.get());
+                });
+        return beans;
+    }
+
+    private static <T> Optional<T> getReferenceByName(String name, Class<T> type, Annotation... qualifiers) {
+        InstanceHandle<T> instance;
+        T result = null;
+
+        if (qualifiers.length == 0) {
+            // Try to resolve directly by name
+            instance = Arc.container().instance(name);
+        } else {
+            // If there are qualifiers then one of their attributes may represent the name we want to resolve
+            instance = Arc.container().instance(type, qualifiers);
         }
-        return Optional.empty();
+
+        if (instance.isAvailable()) {
+            // If it is a Synthetic bean, it must match with the desired type
+            InjectableBean<T> bean = instance.getBean();
+            if (bean.getKind().equals(InjectableBean.Kind.SYNTHETIC)) {
+                if (bean.getTypes().contains(type)) {
+                    result = instance.get();
+                }
+            } else {
+                result = instance.get();
+            }
+        }
+
+        if (result == null) {
+            // Fallback to searching explicitly with NamedLiteral
+            instance = Arc.container().instance(type, NamedLiteral.of(name));
+            if (instance.isAvailable()) {
+                result = instance.get();
+            }
+        }
+
+        if (result == null) {
+            // Fallback to SmallRye @Identifier
+            instance = Arc.container().instance(type, Identifier.Literal.of(name));
+            if (instance.isAvailable()) {
+                result = instance.get();
+            }
+        }
+
+        return Optional.ofNullable(result);
+    }
+
+    private static Optional<BeanManager> getBeanManager() {
+        ArcContainer container = Arc.container();
+        if (container == null) {
+            return Optional.empty();
+        }
+
+        return Optional.ofNullable(container.beanManager());
+    }
+
+    private Annotation[] resolveQualifiersForType(Class<?> type) {
+        return resolveQualifiersForTypeAndName(type, null);
+    }
+
+    private Annotation[] resolveQualifiersForTypeAndName(Class<?> type, String beanName) {
+        BeanQualifierResolverIdentifier identifier = BeanQualifierResolverIdentifier.of(type.getName(), beanName);
+        CamelBeanQualifierResolver resolver = beanQualifierResolvers.get(identifier);
+        if (resolver != null) {
+            return resolver.resolveQualifiers();
+        }
+        return EMPTY_ANNOTATIONS;
     }
 
     private boolean isDefaultBean(InjectableBean<?> bean) {
