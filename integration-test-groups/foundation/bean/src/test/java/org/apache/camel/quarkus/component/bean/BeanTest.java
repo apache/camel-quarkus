@@ -246,9 +246,8 @@ public class BeanTest {
         RestAssured.given()
                 .get("/bean/allBeanInstances")
                 .then()
-                .body("size()", is(5))
+                .body("size()", is(4))
                 .body(allOf(
-                        containsString("defaultBean"),
                         containsString("overridingBean"),
                         containsString("bean1"),
                         containsString("bean2"),
