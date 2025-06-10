@@ -34,5 +34,13 @@ public class OllamaRoute extends RouteBuilder {
         from("direct:send-multiple?timeout=30000")
                 .to("langchain4j-chat:test3?chatOperation=CHAT_MULTIPLE_MESSAGES")
                 .to("mock:multipleMessageResponse");
+
+        from("direct:send-simple-message-m1")
+                .to("langchain4j-chat:test4?chatOperation=CHAT_SINGLE_MESSAGE&chatModel=#m1")
+                .to("mock:simpleMessageResponseM1");
+
+        from("direct:send-simple-message-m2")
+                .to("langchain4j-chat:test5?chatOperation=CHAT_SINGLE_MESSAGE&chatModel=#m2")
+                .to("mock:simpleMessageResponseM2");
     }
 }

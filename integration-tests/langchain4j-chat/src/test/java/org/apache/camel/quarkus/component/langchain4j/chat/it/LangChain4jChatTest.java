@@ -16,18 +16,27 @@
  */
 package org.apache.camel.quarkus.component.langchain4j.chat.it;
 
+import java.util.stream.Stream;
+
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 @QuarkusTest
 @QuarkusTestResource(OllamaTestResource.class)
 class LangChain4jChatTest {
 
-    @Test
-    void simpleMessage() {
-        RestAssured.get("/langchain4j-chat/simple-message")
+    @ParameterizedTest
+    @MethodSource("simpleMessageEndpoints")
+    void simpleMessage(String directEndpointUri, String mockEndpointUri) {
+        RestAssured.given()
+                .queryParam("directEndpointUri", directEndpointUri)
+                .queryParam("mockEndpointUri", mockEndpointUri)
+                .get("/langchain4j-chat/simple-message")
                 .then()
                 .statusCode(200);
     }
@@ -44,5 +53,12 @@ class LangChain4jChatTest {
         RestAssured.get("/langchain4j-chat/multiple-messages")
                 .then()
                 .statusCode(200);
+    }
+
+    private static Stream<Arguments> simpleMessageEndpoints() {
+        return Stream.of(
+                Arguments.of("direct:send-simple-message", "mock:simpleMessageResponse"),
+                Arguments.of("direct:send-simple-message-m1", "mock:simpleMessageResponseM1"),
+                Arguments.of("direct:send-simple-message-m2", "mock:simpleMessageResponseM2"));
     }
 }

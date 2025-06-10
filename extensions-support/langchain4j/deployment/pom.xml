@@ -21,13 +21,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-langchain4j-tools-parent</artifactId>
+        <artifactId>camel-quarkus-support-langchain4j-parent</artifactId>
         <version>3.24.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-langchain4j-tools-deployment</artifactId>
-    <name>Camel Quarkus :: LangChain4j Tools :: Deployment</name>
+    <artifactId>camel-quarkus-support-langchain4j-deployment</artifactId>
+    <name>Camel Quarkus :: Support :: Langchain4j :: Deployment</name>
 
     <dependencies>
         <dependency>
@@ -35,12 +35,12 @@
             <artifactId>camel-quarkus-core-deployment</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-langchain4j-deployment</artifactId>
+            <groupId>io.quarkiverse.langchain4j</groupId>
+            <artifactId>quarkus-langchain4j-core-deployment</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-langchain4j-tools</artifactId>
+            <artifactId>camel-quarkus-support-langchain4j</artifactId>
         </dependency>
     </dependencies>
 

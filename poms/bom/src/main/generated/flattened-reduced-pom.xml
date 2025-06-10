@@ -6028,6 +6028,16 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-support-langchain4j</artifactId>
+        <version>3.24.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-support-langchain4j-deployment</artifactId>
+        <version>3.24.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-support-language</artifactId>
         <version>3.24.0-SNAPSHOT</version>
       </dependency>
