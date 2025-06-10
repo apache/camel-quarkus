@@ -26,9 +26,16 @@ import org.apache.camel.quarkus.core.CamelBeanQualifierResolver;
 public final class CamelBeanQualifierResolverBuildItem extends MultiBuildItem {
     private final RuntimeValue<CamelBeanQualifierResolver> runtimeValue;
     private final Class<?> beanType;
+    private final String beanName;
 
     public CamelBeanQualifierResolverBuildItem(Class<?> beanType, RuntimeValue<CamelBeanQualifierResolver> runtimeValue) {
+        this(beanType, null, runtimeValue);
+    }
+
+    public CamelBeanQualifierResolverBuildItem(Class<?> beanType, String beanName,
+            RuntimeValue<CamelBeanQualifierResolver> runtimeValue) {
         this.beanType = beanType;
+        this.beanName = beanName;
         this.runtimeValue = runtimeValue;
     }
 
@@ -38,6 +45,10 @@ public final class CamelBeanQualifierResolverBuildItem extends MultiBuildItem {
 
     public String getBeanTypeName() {
         return beanType.getName();
+    }
+
+    public String getBeanName() {
+        return beanName;
     }
 
     public RuntimeValue<CamelBeanQualifierResolver> getRuntimeValue() {

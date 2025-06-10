@@ -22,7 +22,7 @@ import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.support.DefaultRegistry;
 
 public class RuntimeRegistry extends DefaultRegistry {
-    public RuntimeRegistry(Map<String, CamelBeanQualifierResolver> beanQualifierResolvers) {
+    public RuntimeRegistry(Map<BeanQualifierResolverIdentifier, CamelBeanQualifierResolver> beanQualifierResolvers) {
         super(new RuntimeBeanRepository(beanQualifierResolvers));
     }
 

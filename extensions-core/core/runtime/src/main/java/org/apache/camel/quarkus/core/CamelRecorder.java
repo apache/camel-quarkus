@@ -51,17 +51,22 @@ import org.apache.camel.support.startup.DefaultStartupStepRecorder;
 public class CamelRecorder {
     public void registerCamelBeanQualifierResolver(
             String className,
+            String beanName,
             RuntimeValue<CamelBeanQualifierResolver> runtimeValue,
-            Map<String, CamelBeanQualifierResolver> beanQualifiers) {
+            Map<BeanQualifierResolverIdentifier, CamelBeanQualifierResolver> beanQualifiers) {
 
-        if (beanQualifiers.containsKey(className)) {
-            throw new RuntimeException("Duplicate CamelBeanQualifierResolver detected for class: " + className);
+        CamelBeanQualifierResolver resolver = runtimeValue.getValue();
+        BeanQualifierResolverIdentifier identifier = resolver.getIdentifier(className, beanName);
+
+        if (beanQualifiers.containsKey(identifier)) {
+            throw new RuntimeException("Duplicate CamelBeanQualifierResolver detected for: " + identifier);
         }
 
-        beanQualifiers.put(className, runtimeValue.getValue());
+        beanQualifiers.put(identifier, resolver);
     }
 
-    public RuntimeValue<Registry> createRegistry(Map<String, CamelBeanQualifierResolver> beanQualifierResolvers) {
+    public RuntimeValue<Registry> createRegistry(
+            Map<BeanQualifierResolverIdentifier, CamelBeanQualifierResolver> beanQualifierResolvers) {
         return new RuntimeValue<>(new RuntimeRegistry(beanQualifierResolvers));
     }
 
