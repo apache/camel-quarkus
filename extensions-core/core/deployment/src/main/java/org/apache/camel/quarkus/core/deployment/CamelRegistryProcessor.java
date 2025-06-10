@@ -28,6 +28,7 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import org.apache.camel.BindToRegistry;
+import org.apache.camel.quarkus.core.BeanQualifierResolverIdentifier;
 import org.apache.camel.quarkus.core.CamelBeanQualifierResolver;
 import org.apache.camel.quarkus.core.CamelCapabilities;
 import org.apache.camel.quarkus.core.CamelConfig;
@@ -61,9 +62,12 @@ public class CamelRegistryProcessor {
             List<CamelBeanQualifierResolverBuildItem> camelBeanQualifierResolvers,
             CamelRecorder recorder) {
 
-        Map<String, CamelBeanQualifierResolver> beanQualifierResolvers = new HashMap<>();
+        Map<BeanQualifierResolverIdentifier, CamelBeanQualifierResolver> beanQualifierResolvers = new HashMap<>();
         for (CamelBeanQualifierResolverBuildItem resolver : camelBeanQualifierResolvers) {
-            recorder.registerCamelBeanQualifierResolver(resolver.getBeanTypeName(), resolver.getRuntimeValue(),
+            recorder.registerCamelBeanQualifierResolver(
+                    resolver.getBeanTypeName(),
+                    resolver.getBeanName(),
+                    resolver.getRuntimeValue(),
                     beanQualifierResolvers);
         }
 
