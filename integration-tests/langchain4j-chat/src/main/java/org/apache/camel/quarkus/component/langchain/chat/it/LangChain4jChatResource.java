@@ -29,6 +29,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
@@ -47,15 +48,17 @@ public class LangChain4jChatResource {
 
     @Path("/simple-message")
     @GET
-    public Response sendSimpleMessage() throws Exception {
-        MockEndpoint mockEndpoint = context.getEndpoint("mock:simpleMessageResponse", MockEndpoint.class);
+    public Response sendSimpleMessage(
+            @QueryParam("directEndpointUri") String directEndpointUri,
+            @QueryParam("mockEndpointUri") String mockEndpointUri) throws Exception {
+        MockEndpoint mockEndpoint = context.getEndpoint(mockEndpointUri, MockEndpoint.class);
         mockEndpoint.expectedMessageCount(1);
         mockEndpoint.expectedMessagesMatches(exchange -> {
             String body = exchange.getMessage().getBody(String.class);
             return body.trim().startsWith("Hello");
         });
 
-        producerTemplate.sendBody("direct:send-simple-message", "Hello my name is Darth Vader!");
+        producerTemplate.sendBody(directEndpointUri, "Hello my name is Darth Vader!");
         mockEndpoint.assertIsSatisfied(10000);
 
         return Response.ok().build();
@@ -115,5 +118,4 @@ public class LangChain4jChatResource {
 
         return Response.ok().build();
     }
-
 }
