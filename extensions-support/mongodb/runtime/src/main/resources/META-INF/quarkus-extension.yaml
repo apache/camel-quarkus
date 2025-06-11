@@ -19,7 +19,9 @@
 name: "Camel Quarkus Support MongoDB"
 description: "Camel Quarkus Support MongoDB"
 metadata:
+  icon-url: "https://raw.githubusercontent.com/apache/camel-website/main/antora-ui-camel/src/img/logo-d.svg"
+  sponsor: "Apache Software Foundation"
   unlisted: true
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/camel-quarkus/latest"
   categories:
   - "integration"

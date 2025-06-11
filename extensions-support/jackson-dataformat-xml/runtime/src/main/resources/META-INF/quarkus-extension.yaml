@@ -19,12 +19,9 @@
 name: "Camel Quarkus Support Jackson Dataformat XML"
 description: "Camel Quarkus Support Jackson Dataformat XML"
 metadata:
+  icon-url: "https://raw.githubusercontent.com/apache/camel-website/main/antora-ui-camel/src/img/logo-d.svg"
+  sponsor: "Apache Software Foundation"
   unlisted: true
-  keywords:
-  - "camel"
-  - "jackson"
-  - "dataformat"
-  - "xml"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/camel-quarkus/latest"
   categories:
   - "integration"
