@@ -20,7 +20,6 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
-import co.elastic.clients.elasticsearch._types.query_dsl.MatchPhraseQuery;
 import co.elastic.clients.elasticsearch.core.BulkRequest;
 import co.elastic.clients.elasticsearch.core.GetResponse;
 import co.elastic.clients.elasticsearch.core.MsearchRequest;
@@ -28,7 +27,6 @@ import co.elastic.clients.elasticsearch.core.bulk.BulkOperation;
 import co.elastic.clients.elasticsearch.core.bulk.BulkResponseItem;
 import co.elastic.clients.elasticsearch.core.bulk.IndexOperation;
 import co.elastic.clients.elasticsearch.core.msearch.MultiSearchResponseItem;
-import co.elastic.clients.elasticsearch.core.msearch.MultisearchBody;
 import co.elastic.clients.elasticsearch.core.msearch.MultisearchHeader;
 import co.elastic.clients.elasticsearch.core.msearch.RequestItem;
 import co.elastic.clients.elasticsearch.core.search.HitsMetadata;
@@ -269,9 +267,7 @@ public class ElasticsearchResource {
         MsearchRequest.Builder builder = new MsearchRequest.Builder().index(indexName);
         for (String searchTerm : searchTerms) {
             builder.searches(new RequestItem.Builder().header(new MultisearchHeader.Builder().build())
-                    .body(new MultisearchBody.Builder().query(q -> q
-                            .matchPhrase(new MatchPhraseQuery.Builder().field(indexKey).query(searchTerm).build()))
-                            .build())
+                    .body(b -> b.query(q -> q.match(m -> m.field(indexKey).query(searchTerm))))
                     .build());
         }
 
