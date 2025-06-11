@@ -30,7 +30,6 @@ import org.apache.camel.dsl.xml.io.XmlRoutesBuilderLoader;
 import org.apache.camel.quarkus.core.DisabledModelJAXBContextFactory;
 import org.apache.camel.xml.LwModelToXMLDumper;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,7 +37,6 @@ import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@Disabled //https://issues.apache.org/jira/browse/CAMEL-22155
 public class CoreMainXmlIoTest {
     @Test
     public void testMainInstanceWithXmlRoutes() {
