@@ -29,7 +29,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -103,7 +102,6 @@ public class CamelMainRoutesIncludePatternWithDefaultLocationsDevModeTest {
     }
 
     @Test
-    @Disabled //https://issues.apache.org/jira/browse/CAMEL-22155
     public void testRoutesDiscoveryFromDefaultLocation() {
         await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> {
             Response res = RestAssured.when().get("/test/describe").thenReturn();
