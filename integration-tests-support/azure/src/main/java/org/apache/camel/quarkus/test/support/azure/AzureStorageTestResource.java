@@ -52,8 +52,8 @@ public class AzureStorageTestResource implements QuarkusTestResourceLifecycleMan
 
     public enum AzuriteService {
         blob(10000),
-        queue(10001),
-        datalake(-1, "dfs"); // Datalake not supported by Azurite https://github.com/Azure/Azurite/issues/553
+        queue(10001);
+        //        datalake(-1, "dfs"); // Datalake not supported by Azurite https://github.com/Azure/Azurite/issues/553
 
         private final int azuritePort;
         private final String azureServiceCode;
