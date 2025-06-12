@@ -153,6 +153,7 @@
         <module>kudu</module>
         <module>langchain4j</module>
         <module>langchain4j-chat</module>
+        <module>langchain4j-tools</module>
         <module>ldap</module>
         <module>leveldb</module>
         <module>lra</module>

@@ -76,7 +76,6 @@
         <module>jsonapi</module>
         <module>langchain4j-embeddings</module>
         <module>langchain4j-tokenizer</module>
-        <module>langchain4j-tools</module>
         <module>langchain4j-web-search</module>
         <module>ldif</module>
         <module>lucene</module>
