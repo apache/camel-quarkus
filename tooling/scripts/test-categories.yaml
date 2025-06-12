@@ -212,6 +212,7 @@ group-12:
   - csimple
   - quartz-clustered
   - knative
+  - langchain4j-tools
   - openapi-java
   - paho-mqtt5
   - platform-http
