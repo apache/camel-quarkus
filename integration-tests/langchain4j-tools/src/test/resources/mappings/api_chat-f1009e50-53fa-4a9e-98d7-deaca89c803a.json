@@ -1,4 +1,5 @@
 {
+  "priority": 2,
   "id" : "f1009e50-53fa-4a9e-98d7-deaca89c803a",
   "name" : "api_chat",
   "request" : {
