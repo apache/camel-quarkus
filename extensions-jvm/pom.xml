@@ -86,6 +86,7 @@
         <module>pqc</module>
         <module>printer</module>
         <module>pulsar</module>
+        <module>python</module>
         <module>quickfix</module>
         <module>redis</module>
         <module>robotframework</module>

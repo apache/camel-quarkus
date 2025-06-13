@@ -2328,6 +2328,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-python</artifactId>
+        <version>4.12.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-qdrant</artifactId>
         <version>4.12.0</version>
         <exclusions>
@@ -5389,6 +5394,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-pulsar-deployment</artifactId>
+        <version>3.24.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-python</artifactId>
+        <version>3.24.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-python-deployment</artifactId>
         <version>3.24.0-SNAPSHOT</version>
       </dependency>
       <dependency>
