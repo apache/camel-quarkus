@@ -26,7 +26,7 @@ import io.micrometer.core.instrument.config.MeterFilter;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import io.micrometer.core.instrument.util.HierarchicalNameMapper;
 import io.micrometer.jmx.JmxMeterRegistry;
-import io.micrometer.prometheus.PrometheusMeterRegistry;
+import io.micrometer.prometheusmetrics.PrometheusMeterRegistry;
 import io.quarkus.arc.profile.IfBuildProfile;
 import io.quarkus.micrometer.runtime.MeterFilterConstraint;
 import jakarta.enterprise.inject.Produces;
