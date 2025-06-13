@@ -1908,6 +1908,16 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-langchain4j-chat</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>dev.langchain4j</groupId>
+                        <artifactId>langchain4j-open-ai</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>dev.langchain4j</groupId>
+                        <artifactId>langchain4j-hugging-face</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -7190,6 +7200,17 @@
                 <groupId>dev.langchain4j</groupId>
                 <artifactId>langchain4j-core</artifactId>
                 <version>${langchain4j.version}</version>
+            </dependency>
+            <!-- The following dev.langchain4j dependencies are managed here to prevent debezium-bom overriding them  -->
+            <dependency>
+                <groupId>dev.langchain4j</groupId>
+                <artifactId>langchain4j-embeddings-all-minilm-l6-v2</artifactId>
+                <version>${langchain4j-beta.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>dev.langchain4j</groupId>
+                <artifactId>langchain4j-ollama</artifactId>
+                <version>${langchain4j-beta.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.dropwizard.metrics</groupId>
