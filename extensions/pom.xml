@@ -67,6 +67,7 @@
         <module>azure-key-vault</module>
         <module>azure-servicebus</module>
         <module>azure-storage-blob</module>
+        <module>azure-storage-datalake</module>
         <module>azure-storage-queue</module>
         <module>base64</module>
         <module>bean</module>
