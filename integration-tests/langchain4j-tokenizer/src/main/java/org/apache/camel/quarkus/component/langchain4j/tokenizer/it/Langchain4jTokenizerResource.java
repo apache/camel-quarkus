@@ -89,7 +89,7 @@ public class Langchain4jTokenizerResource {
                         from("direct:resolve" + tokenizerType)
                                 .tokenize(tokenizer()
                                         .byLine()
-                                        .maxTokens(1024)
+                                        .maxTokens(1024, "gpt-4o-mini")
                                         .maxOverlap(10)
                                         .using(type)
                                         .end())
