@@ -10,9 +10,9 @@
   <url>http://camel.apache.org/camel-quarkus-poms/camel-quarkus-bom</url>
   <licenses>
     <license>
-      <name>Apache-2.0</name><!-- org.apache:apache:34 -->
-      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url><!-- org.apache:apache:34 -->
-      <distribution>repo</distribution><!-- org.apache:apache:34 -->
+      <name>Apache-2.0</name><!-- org.apache:apache:35 -->
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url><!-- org.apache:apache:35 -->
+      <distribution>repo</distribution><!-- org.apache:apache:35 -->
     </license>
   </licenses>
   <developers>
@@ -38,14 +38,14 @@
   </issueManagement>
   <distributionManagement>
     <repository>
-      <id>apache.releases.https</id><!-- org.apache:apache:34 -->
-      <name>Apache Release Distribution Repository</name><!-- org.apache:apache:34 -->
-      <url>https://repository.apache.org/service/local/staging/deploy/maven2</url><!-- org.apache:apache:34 -->
+      <id>apache.releases.https</id><!-- org.apache:apache:35 -->
+      <name>Apache Release Distribution Repository</name><!-- org.apache:apache:35 -->
+      <url>https://repository.apache.org/service/local/staging/deploy/maven2</url><!-- org.apache:apache:35 -->
     </repository>
     <snapshotRepository>
-      <id>apache.snapshots.https</id><!-- org.apache:apache:34 -->
-      <name>Apache Development Snapshot Repository</name><!-- org.apache:apache:34 -->
-      <url>https://repository.apache.org/content/repositories/snapshots</url><!-- org.apache:apache:34 -->
+      <id>apache.snapshots.https</id><!-- org.apache:apache:35 -->
+      <name>Apache Development Snapshot Repository</name><!-- org.apache:apache:35 -->
+      <url>https://repository.apache.org/content/repositories/snapshots</url><!-- org.apache:apache:35 -->
     </snapshotRepository>
   </distributionManagement>
   <dependencyManagement>
@@ -7840,7 +7840,7 @@
       <dependency>
         <groupId>org.springframework.data</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>spring-data-redis</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>3.5.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>3.5.1</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>org.springframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
