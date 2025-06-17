@@ -172,6 +172,7 @@
         <module>kudu</module>
         <module>langchain4j</module>
         <module>langchain4j-chat</module>
+        <module>langchain4j-tokenizer</module>
         <module>langchain4j-tools</module>
         <module>language</module>
         <module>ldap</module>
