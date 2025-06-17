@@ -180,6 +180,7 @@ group-10:
   - groovy
   - jolokia
   - joor
+  - langchain4j-tokenizer
   - mail
   - main-unknown-args-fail
   - main-unknown-args-ignore

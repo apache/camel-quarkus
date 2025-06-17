@@ -76,6 +76,11 @@
                 <version>${quarkiverse-langchain4j.version}</version>
             </dependency>
             <dependency>
+                <groupId>io.quarkiverse.langchain4j</groupId>
+                <artifactId>quarkus-langchain4j-openai</artifactId>
+                <version>${quarkiverse-langchain4j.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.quarkiverse.micrometer.registry</groupId>
                 <artifactId>quarkus-micrometer-registry-jmx</artifactId>
                 <version>${quarkiverse-micrometer.version}</version>
