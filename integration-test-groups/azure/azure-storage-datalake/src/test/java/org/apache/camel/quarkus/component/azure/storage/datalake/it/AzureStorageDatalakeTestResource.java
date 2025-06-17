@@ -17,15 +17,23 @@
 
 package org.apache.camel.quarkus.component.azure.storage.datalake.it;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AzureStorageDatalakeTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(AzureStorageDatalakeTestResource.class);
+
+    private Path tmpFolder;
 
     @Override
     public Map<String, String> start() {
@@ -41,13 +49,34 @@ public class AzureStorageDatalakeTestResource implements QuarkusTestResourceLife
             MockBackendUtils.logRealBackendUsed();
         }
 
+        //create tmp folder (for routes)
+        String tmpFolderPath = null;
+        try {
+            tmpFolder = Files.createTempDirectory("CqAzureDatalakeTestTmpFolder");
+            tmpFolderPath = tmpFolder.toFile().getAbsolutePath();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         return Map.of(
                 "azure.datalake.service.url",
-                "https://" + realAzureStorageAccountName + ".dfs.core.windows.net");
+                "https://" + realAzureStorageAccountName + ".dfs.core.windows.net",
+                "cqDatalakeTmpFolder", tmpFolderPath,
+                "cqCDatalakeConsumerFilesystem", "cqfsconsumer" + RandomStringUtils.randomNumeric(16));
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Override
     public void stop() {
-        //nothing
+        if (tmpFolder != null && tmpFolder.toFile().exists()) {
+            try (var dirStream = Files.walk(tmpFolder)) {
+                dirStream
+                        .map(Path::toFile)
+                        .sorted(Comparator.reverseOrder())
+                        .forEach(File::delete);
+            } catch (IOException e) {
+                //nothing
+            }
+        }
     }
 }
