@@ -80,7 +80,6 @@ public class Langchain4jTokenizerResource {
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     public Response resolveAbsentTokenizer(String tokenizerType) {
-        System.out.println(tokenizerType);
         TokenizerType type = TokenizerType.valueOf(tokenizerType);
         try {
             context.addRoutes(new RouteBuilder() {
