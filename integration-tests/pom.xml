@@ -155,6 +155,7 @@
         <module>langchain4j-chat</module>
         <module>langchain4j-tokenizer</module>
         <module>langchain4j-tools</module>
+        <module>langchain4j-web-search</module>
         <module>ldap</module>
         <module>leveldb</module>
         <module>lra</module>
