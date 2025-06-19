@@ -33,6 +33,16 @@ Sometimes these jobs fail and it is necessary to fix any issues and manually reb
 
 8. Follow the GitHub CI build to verify that the project builds successfully.
 
+=== Quarkus LTS Branch SNAPSHOT Testing
+
+As Quarkus has a regular https://github.com/quarkusio/quarkus/wiki#lts-releases[LTS patch release cycle], it's desirable to test the latest Camel Quarkus LTS branch `SNAPSHOT` with its related Quarkus LTS branch `SNAPSHOT`.
+For convenience, a GitHub workflow exists to perform this testing. 
+
+From the list of https://github.com/apache/camel-quarkus/actions[GitHub workflows], find `Camel Quarkus LTS CI` in the list of pinned workflows on the left side.
+Next, click the `Run workflow` dropdown and select the Quarkus maintenance branch to test. The `Use workflow from` option can be left as the default. Click `Run workflow` to initiate the build.
+
+Review the build results after the workflow finishes. Investigate any failures and if necessary escalate issues to the Quarkus team.
+
 == Builds
 
 https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22
