@@ -1209,6 +1209,7 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <!--
                     <plugin>
                         <groupId>org.cyclonedx</groupId>
                         <artifactId>cyclonedx-maven-plugin</artifactId>
@@ -1226,6 +1227,7 @@
                             <outputName>${project.artifactId}-${project.version}-sbom</outputName>
                         </configuration>
                     </plugin>
+                    -->
                 </plugins>
             </build>
         </profile>
