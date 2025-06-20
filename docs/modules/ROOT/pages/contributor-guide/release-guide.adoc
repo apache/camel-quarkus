@@ -69,6 +69,7 @@ mvn deploy -Dapache-release -DskipTests -Denforcer.skip -Dquarkus.build.skip -Df
 * Click `Close` on the toolbar above
 * This will close the repository from future deployments and make it available for others to view
 * After that, a popup window is created, enter the name and version of the artifact being released in the `Description` field and finally click `Close`
+* Make a note of the staging repository id as it'll be needed to upload sources to ASF dist/dev
 
 == Update the Apache Camel Quarkus development subversion repository
 
@@ -83,15 +84,15 @@ gpg -k $EMAIL >> KEYS
 gpg --armor --export $EMAIL >> KEYS
 ----
 
-Then execute the `upload-source.sh` script, like below:
+Then execute the `upload-source.sh` script, like below. `$NEXUS_STAGING_REPO_ID` is the Nexus staging repository id that you noted down from the previous step.
 
 [source,shell]
 ----
 cd release-utils/scripts/
-./upload-source.sh $VERSION $VERSION
+./upload-source.sh $VERSION $NEXUS_STAGING_REPO_ID
 ----
 
-This will take care of grabbing the source zip from github and getting the SBOMs from target directory. After signing the files, it will push the folder to `dist/dev/`
+This will take care of fetching the release source zip and SBOMs from https://repository.apache.org, creating SHA512 checksums and pushing the content to ASF `dist/dev/`
 
 After the changes have been committed. You can check them by browsing to https://dist.apache.org/repos/dist/dev/camel/camel-quarkus/.
 

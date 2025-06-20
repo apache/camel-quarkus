@@ -46,6 +46,7 @@ on:
       - '.github/workflows/quarkus-master-cron.yaml'
       - '.github/workflows/synchronize-dependabot-branch.yaml'
       - 'docs/antora.yml'
+      - 'release-utils/**'
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
