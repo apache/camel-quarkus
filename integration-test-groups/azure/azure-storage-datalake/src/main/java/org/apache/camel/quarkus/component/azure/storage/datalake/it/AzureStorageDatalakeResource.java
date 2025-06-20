@@ -16,8 +16,11 @@
  */
 package org.apache.camel.quarkus.component.azure.storage.datalake.it;
 
+import java.io.ByteArrayOutputStream;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -38,9 +41,12 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
+import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.azure.storage.datalake.DataLakeConstants;
 import org.apache.camel.component.azure.storage.datalake.DataLakeOperationsDefinition;
@@ -55,6 +61,9 @@ public class AzureStorageDatalakeResource {
 
     @Inject
     ConsumerTemplate consumerTemplate;
+
+    @Inject
+    CamelContext camelContext;
 
     @ConfigProperty(name = "azure.storage.account-name")
     Optional<String> azureStorageAccountName;
@@ -169,6 +178,53 @@ public class AzureStorageDatalakeResource {
                 10000, String.class);
     }
 
+    @Path("/route/{route}/filesystem/{filesystem}")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Object consumer(@PathParam("route") String routeName,
+            @PathParam("filesystem") String filesystem,
+            @QueryParam("useOutputStream") boolean useOutputStream,
+            Map<String, Object> headers) throws Exception {
+
+        ByteArrayOutputStream inMemoryStream = new ByteArrayOutputStream();
+
+        Map<String, Object> _headers = new HashMap();
+        if (headers != null) {
+            _headers.putAll(headers);
+
+        }
+        _headers.put("filesystemName", filesystem);
+        _headers.put("accountName", azureStorageAccountName.get());
+
+        Exchange exchange = producerTemplate.request(
+                "direct:" + routeName,
+                e -> {
+                    e.getIn().setHeaders(_headers);
+                    if (useOutputStream && "datalakeGetFile".equals(routeName)) {
+                        e.getIn().setBody(inMemoryStream);
+                    }
+                });
+
+        Object o = exchange.getIn().getBody();
+        switch (routeName) {
+        case "datalakeListFileSystem":
+            return ((List<FileSystemItem>) o).stream()
+                    .map(FileSystemItem::getName)
+                    .collect(Collectors.toList());
+        case "datalakeListPaths":
+            return ((List<PathItem>) o).stream()
+                    .map(PathItem::getName)
+                    .collect(Collectors.toList());
+        case "datalakeGetFile":
+            if (useOutputStream) {
+                return inMemoryStream.toString();
+            }
+            break;
+        }
+
+        return exchange.getIn().getBody(String.class);
+    }
+
     private String componentUri(final String filesystem, final DataLakeOperationsDefinition operation) {
         return String.format("azure-storage-datalake://%s%s?serviceClient=#azureDatalakeServiceClient&operation=%s",
                 azureStorageAccountName,
@@ -176,4 +232,10 @@ public class AzureStorageDatalakeResource {
                 operation.name());
     }
 
+    @Path("/start/{routeId}")
+    @GET
+    public Response startRoute(@PathParam("routeId") String routeId) throws Exception {
+        camelContext.getRouteController().startRoute(routeId);
+        return Response.ok().build();
+    }
 }

@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.support.reactor.netty.deployment;
 
 import java.io.IOException;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.function.BooleanSupplier;
 import java.util.stream.Collectors;
@@ -25,6 +26,8 @@ import java.util.stream.Stream;
 import com.azure.core.annotation.ServiceInterface;
 import com.azure.core.exception.HttpResponseException;
 import com.azure.core.http.HttpClientProvider;
+import com.azure.json.JsonSerializable;
+import com.azure.xml.XmlSerializable;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
@@ -70,6 +73,20 @@ public class AzureCoreSupportProcessor {
 
         reflectiveClasses.produce(ReflectiveClassBuildItem.builder(httpResponseExceptionClasses.toArray(new String[0]))
                 .methods()
+                .build());
+
+        // implementations of serializers are used during errors reporting
+        LinkedHashSet<String> serializers = new LinkedHashSet<>(
+                combinedIndex.getIndex().getAllKnownImplementations(JsonSerializable.class).stream()
+                        .map(ci -> ci.name().toString())
+                        .toList());
+        serializers.addAll(combinedIndex.getIndex().getAllKnownImplementations(XmlSerializable.class).stream()
+                .map(ci -> ci.name().toString())
+                .toList());
+
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(serializers.toArray(new String[0]))
+                .methods()
+                .fields()
                 .build());
     }
 

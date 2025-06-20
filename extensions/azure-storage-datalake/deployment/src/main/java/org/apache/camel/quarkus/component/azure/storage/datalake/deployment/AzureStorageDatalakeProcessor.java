@@ -16,9 +16,7 @@
  */
 package org.apache.camel.quarkus.component.azure.storage.datalake.deployment;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.LinkedHashSet;
 
 import com.azure.core.annotation.ServiceInterface;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -54,10 +52,10 @@ class AzureStorageDatalakeProcessor {
     ReflectiveClassBuildItem registerForReflection(CombinedIndexBuildItem combinedIndex) {
         IndexView index = combinedIndex.getIndex();
 
-        List<String> dtos = new LinkedList<>(index.getKnownClasses().stream()
+        LinkedHashSet<String> dtos = new LinkedHashSet<>(index.getKnownClasses().stream()
                 .map(ci -> ci.name().toString())
                 .filter(n -> n.startsWith("com.azure.storage.file.datalake.implementation.models"))
-                .collect(Collectors.toList()));
+                .toList());
 
         dtos.add("com.azure.storage.file.datalake.implementation.ServicesImpl$ServicesService");
 
