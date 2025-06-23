@@ -1178,7 +1178,7 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
-                <artifactId>camel-fury</artifactId>
+                <artifactId>camel-fory</artifactId>
                 <version>${camel.version}</version>
                 <exclusions>
                     <exclusion>
@@ -1186,8 +1186,8 @@
                         <artifactId>checker-qual</artifactId>
                     </exclusion>
                     <exclusion>
-                        <groupId>org.apache.fury</groupId>
-                        <artifactId>fury-core</artifactId>
+                        <groupId>org.apache.fory</groupId>
+                        <artifactId>fory-core</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -4211,12 +4211,12 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-fury</artifactId>
+                <artifactId>camel-quarkus-fory</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-fury-deployment</artifactId>
+                <artifactId>camel-quarkus-fory-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
@@ -7277,7 +7277,7 @@
             <dependency>
                 <groupId>io.quarkiverse.fury</groupId>
                 <artifactId>quarkus-fury</artifactId>
-                <version>${quarkiverse-fury.version}</version>
+                <version>${quarkiverse-fory.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.checkerframework</groupId>
@@ -7288,7 +7288,7 @@
             <dependency>
                 <groupId>io.quarkiverse.fury</groupId>
                 <artifactId>quarkus-fury-deployment</artifactId>
-                <version>${quarkiverse-fury.version}</version>
+                <version>${quarkiverse-fory.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.quarkiverse.groovy</groupId>
