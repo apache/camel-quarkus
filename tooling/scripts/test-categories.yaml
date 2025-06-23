@@ -96,7 +96,7 @@ group-05:
   - cxf-soap-grouped
   - dataformat
   - datasonnet
-  - fury
+  - fory
   - hl7
   - jaxb
   - mapstruct
