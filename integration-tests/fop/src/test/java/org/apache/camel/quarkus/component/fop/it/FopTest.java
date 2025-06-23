@@ -27,11 +27,11 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.utilities.OS;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.specification.RequestSpecification;
+import io.smallrye.common.os.OS;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -76,7 +76,7 @@ class FopTest {
     @BeforeEach
     public void beforeEach() {
         // Disable tests on GitHub Actions Windows runners. Font cache building is too slow and restoring saved caches is too unreliable
-        Assumptions.assumeFalse(OS.determineOS().equals(OS.WINDOWS) && "true".equals(System.getenv("CI")));
+        Assumptions.assumeFalse(OS.current().equals(OS.WINDOWS) && "true".equals(System.getenv("CI")));
     }
 
     @Test

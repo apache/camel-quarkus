@@ -38,7 +38,7 @@ import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import io.quarkus.deployment.util.ServiceUtil;
-import io.quarkus.utilities.OS;
+import io.smallrye.common.os.OS;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 
@@ -132,7 +132,7 @@ public class AzureCoreSupportProcessor {
 
     @BuildStep(onlyIf = Msal4jAndIdentityIsPresent.class)
     void enableLoadingOfNativeLibraries(BuildProducer<RuntimeReinitializedClassBuildItem> runtimeReinitializedClass) {
-        OS os = OS.determineOS();
+        OS os = OS.current();
         if (os.equals(OS.LINUX) || os.equals(OS.MAC)) {
             String iSecurityLibraryClassName = "com.microsoft.aad.msal4jextensions.persistence.%s.ISecurityLibrary"
                     .formatted(os.name().toLowerCase());
