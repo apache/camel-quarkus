@@ -319,6 +319,13 @@
                                     <goal>update-extension-doc-page</goal>
                                 </goals>
                                 <phase>process-classes</phase>
+                                <configuration>
+                                    <componentLinkOverrides>
+                                        <fury>
+                                            <name>fory</name>
+                                        </fury>
+                                    </componentLinkOverrides>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

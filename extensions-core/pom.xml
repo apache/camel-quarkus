@@ -84,6 +84,13 @@
                                     <goal>update-extension-doc-page</goal>
                                 </goals>
                                 <phase>process-classes</phase>
+                                <configuration>
+                                    <componentLinkOverrides>
+                                        <xml-io-dsl>
+                                            <name>java-xml-io-dsl</name>
+                                        </xml-io-dsl>
+                                    </componentLinkOverrides>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
