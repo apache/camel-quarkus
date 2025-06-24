@@ -26,3 +26,43 @@ The `update-extension-doc-page` mojo merges the https://raw.githubusercontent.co
 * `usage`: Camel Quarkus specific usage (optional); the content of `src/main/doc/usage.adoc` in the runtime module of the given extension.
 * `configuration`: Camel Quarkus specific configuration options (optional); the content of `src/main/doc/configuration.adoc` in the runtime module of the given extension.
 * `limitations`: Camel Quarkus specific limitations (optional); the content of `src/main/doc/limitations.adoc` in the runtime module of the given extension.
+
+== Overriding generated component links
+
+Sometimes the generated component link xref within each extension doc page needs to be overridden.
+Usually due to the Camel component `.adoc` file not conforming to the usual naming conventions or if a component is moved, renamed etc.
+
+To override parts of the xref link, the following `update-extension-doc-page` configuration can be used.
+
+[source,xml]
+----
+<plugin>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-maven-plugin</artifactId>
+    <executions>
+        <execution>
+            <id>update-extension-doc-page</id>
+            <goals>
+                <goal>update-extension-doc-page</goal>
+            </goals>
+            <phase>process-classes</phase>
+            <configuration>
+                <componentLinkOverrides>
+                    <console> <!--1-->
+                        <name>camel-console</name> <!--2-->
+                        <kind>other</kind> <!--3-->
+                        <xrefPrefix>xref:manual::</xrefPrefix> <!--4-->
+                    </console>
+                </componentLinkOverrides>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+----
+
+<1> The original name of the Camel component.
+<2> The overridden name of the component in the generated xref link.
+<3> The overridden component kind in the generated xref link (`component`, `dataformat`, `language`, `other`).
+<4> The overridden component generated xref link prefix. Useful for rare circumstances where the component requires you to link to an unconventional part of the Camel documentation (E.g. link `manual`).
++
+The component link can be removed entirely by setting `xrefPrefix` to an empty value. This is useful when a component is removed from the Camel core and the Camel Quarkus main branch references the `latest` Camel website docs version.

@@ -143,6 +143,14 @@
                                     <goal>update-extension-doc-page</goal>
                                 </goals>
                                 <phase>process-classes</phase>
+                                <configuration>
+                                    <componentLinkOverrides>
+                                        <console>
+                                            <name>camel-console</name>
+                                            <xrefPrefix>xref:manual::</xrefPrefix>
+                                        </console>
+                                    </componentLinkOverrides>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

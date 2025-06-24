@@ -98,6 +98,9 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
     @Parameter(defaultValue = "${session}", readonly = true, required = true)
     private MavenSession session;
 
+    @Parameter
+    Map<String, Map<String, String>> componentLinkOverrides = new HashMap<>();
+
     /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     @Override
@@ -227,19 +230,25 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
 
             private String camelBitLink(ArtifactModel<?> model) {
                 model = CqCatalog.toCamelDocsModel(model);
-                final String kind = model.getKind().name();
+                String kind = model.getKind().name();
                 String name = model.getName();
                 String xrefPrefix = "xref:{cq-camel-components}:" + (!"component".equals(kind) ? kind + "s:" : ":");
-                if (name.equals("xml-io-dsl")) {
-                    name = "java-xml-io-dsl";
+
+                if (componentLinkOverrides.containsKey(name)) {
+                    Map<String, String> linkOverridesOptions = componentLinkOverrides.get(name);
+                    if (linkOverridesOptions.containsKey("name")) {
+                        name = linkOverridesOptions.get("name");
+                    }
+
+                    if (linkOverridesOptions.containsKey("xrefPrefix")) {
+                        xrefPrefix = linkOverridesOptions.get("xrefPrefix");
+                    }
+
+                    if (linkOverridesOptions.containsKey("kind")) {
+                        kind = linkOverridesOptions.get("kind");
+                    }
                 }
-                if (name.equals("console")) {
-                    xrefPrefix = "xref:manual::";
-                    name = "camel-console";
-                }
-                if (name.equals("fury")) {
-                    name = "fory";
-                }
+
                 return xrefPrefix + name + (!"other".equals(kind) ? "-" + kind : "") + ".adoc";
             }
         });
