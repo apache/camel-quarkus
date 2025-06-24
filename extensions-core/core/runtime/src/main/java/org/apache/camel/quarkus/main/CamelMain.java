@@ -51,7 +51,7 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
     @Override
     protected void configureRoutes(CamelContext camelContext) throws Exception {
         // then configure and add the routes
-        RoutesConfigurer configurer = new RoutesConfigurer();
+        RoutesConfigurer configurer = new RoutesConfigurer(camelContext);
 
         if (mainConfigurationProperties.isRoutesCollectorEnabled()) {
             configurer.setRoutesCollector(routesCollector);

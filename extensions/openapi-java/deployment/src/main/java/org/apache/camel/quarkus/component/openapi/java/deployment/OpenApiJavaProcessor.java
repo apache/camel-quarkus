@@ -92,8 +92,10 @@ class OpenApiJavaProcessor {
             Capabilities capabilities) throws Exception {
 
         if (capabilities.isPresent(Capability.SMALLRYE_OPENAPI)) {
-            RoutesConfigurer configurer = new RoutesConfigurer();
             List<RoutesBuilder> routes = new ArrayList<>();
+            final CamelContext ctx = CamelSupport.newBuildTimeCamelContext(true);
+
+            RoutesConfigurer configurer = new RoutesConfigurer(ctx);
             configurer.setRoutesBuilders(routes);
             configurer.setRoutesCollector(new DefaultRoutesCollector());
             configurer.setRoutesIncludePattern(
@@ -101,7 +103,6 @@ class OpenApiJavaProcessor {
             configurer.setRoutesExcludePattern(
                     CamelSupport.getOptionalConfigValue("camel.main.routes-exclude-pattern", String.class, null));
 
-            final CamelContext ctx = CamelSupport.newBuildTimeCamelContext(true);
             if (!routesBuilderClasses.isEmpty()) {
                 final ClassLoader loader = Thread.currentThread().getContextClassLoader();
                 if (!(loader instanceof QuarkusClassLoader)) {
