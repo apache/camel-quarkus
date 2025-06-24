@@ -237,6 +237,9 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                     xrefPrefix = "xref:manual::";
                     name = "camel-console";
                 }
+                if (name.equals("fury")) {
+                    name = "fory";
+                }
                 return xrefPrefix + name + (!"other".equals(kind) ? "-" + kind : "") + ".adoc";
             }
         });
