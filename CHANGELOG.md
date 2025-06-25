@@ -18,6 +18,49 @@
 -->
 # Changelog
 
+## 3.24.0
+
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/7395
+* Bump org.xmlunit:xmlunit-core from 2.10.1 to 2.10.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/7394
+* Bump quarkiverse-cxf.version from 3.23.0 to 3.23.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/7399
+* Bump quarkiverse-minio.version from 3.8.3 to 3.8.4 by @dependabot in https://github.com/apache/camel-quarkus/pull/7400
+* Bump org.codehaus.mojo:exec-maven-plugin from 3.5.0 to 3.5.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/7401
+* fixes #7397 Debezium tests -  refactor to use grouped approach by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7398
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/7406
+* Upgrade camel to 4.12.0 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7403
+* Bump org.apache.maven.plugins:maven-clean-plugin from 3.4.1 to 3.5.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/7409
+* Add changelog for 3.23.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7412
+* Next is 3.24.0-SNAPSHOT by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7411
+* Debezium oracle connector by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7402
+* Upgrade OptaPlanner Quarkus to 10.0.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7413
+* Update PQC extension jvmSince version to 3.24.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7415
+* Remove azure-core-http-vertx from camel-quarkus-bom by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7416
+* Tidy debezium-grouped test modules by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7417
+* Remove static modifier from CamelJolokiaRestrictor.ALLOWED_DOMAINS field by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7419
+* Bump quarkiverse-groovy.version from 3.22.2 to 3.23.0 by @dependabot in https://github.com/apache/camel-quarkus/pull/7421
+* Bump io.quarkiverse.artemis:quarkus-artemis-bom from 3.8.0 to 3.8.2 by @dependabot in https://github.com/apache/camel-quarkus/pull/7422
+* Bump org.codehaus.mojo:build-helper-maven-plugin from 3.6.0 to 3.6.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/7424
+* Bump quarkiverse-groovy.version from 3.23.0 to 3.23.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/7425
+* Dependency convergence check workflow fixes and additional GAV exclusions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7429
+* Support resolving beans by name and qualifiers by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7431
+* Add support to langchain4j extensions for multiple chat model configuration by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7433
+* Add documentation for autowiring behaviour with default beans by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7434
+* Make extension-support metadata consistent with other extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7435
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/7428
+* Upgrade Quarkus to 3.24.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7436
+* Bump org.wiremock:wiremock-standalone from 3.13.0 to 3.13.1 by @dependabot in https://github.com/apache/camel-quarkus/pull/7437
+* Add Langchain4j Tools native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7438
+* Add Python JVM Only extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7439
+* Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/7444
+* Bump com.unboundid:unboundid-ldapsdk from 7.0.2 to 7.0.3 by @dependabot in https://github.com/apache/camel-quarkus/pull/7443
+* azure-storage-datalake native support by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7442
+* Bump quarkiverse-groovy.version from 3.23.1 to 3.23.3 by @dependabot in https://github.com/apache/camel-quarkus/pull/7447
+* Add langchain4j-tokenizer native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7449
+* Add langchain4j-web-search native support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7451
+* Upgrade Quarkus to 3.24.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7453
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.23.0...3.24.0
+
 ## 3.23.0
 
 * Next is 3.23.0-SNAPSHOT by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7300
