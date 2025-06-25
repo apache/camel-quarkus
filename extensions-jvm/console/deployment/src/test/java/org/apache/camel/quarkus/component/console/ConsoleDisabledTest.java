@@ -18,17 +18,31 @@ package org.apache.camel.quarkus.component.console;
 
 import io.quarkus.test.QuarkusUnitTest;
 import io.restassured.RestAssured;
+import jakarta.inject.Inject;
+import org.apache.camel.CamelContext;
+import org.apache.camel.console.DevConsoleRegistry;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class ConsoleDisabledTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest().withEmptyApplication();
+
+    @Inject
+    CamelContext context;
 
     @Test
     void managementEndpointDisabled() {
         RestAssured.get("/q/camel/dev-console")
                 .then()
                 .statusCode(404);
+    }
+
+    @Test
+    void devConsoleRegistryDiscoverable() {
+        DevConsoleRegistry devConsoleRegistry = context.getCamelContextExtension().getContextPlugin(DevConsoleRegistry.class);
+        assertNotNull(devConsoleRegistry);
     }
 }
