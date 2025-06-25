@@ -16,8 +16,8 @@
  */
 package org.apache.camel.quarkus.component.fory.it;
 
-import io.quarkiverse.fury.FurySerialization;
+import io.quarkiverse.fory.ForySerialization;
 
-@FurySerialization
+@ForySerialization
 public record Pojo(int f1, String f2) {
 }

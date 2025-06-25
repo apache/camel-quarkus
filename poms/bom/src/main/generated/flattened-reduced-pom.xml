@@ -7135,9 +7135,9 @@
         <version>1.2.0</version>
       </dependency>
       <dependency>
-        <groupId>io.quarkiverse.fury</groupId>
-        <artifactId>quarkus-fury</artifactId>
-        <version>0.3.2</version>
+        <groupId>io.quarkiverse.fory</groupId>
+        <artifactId>quarkus-fory</artifactId>
+        <version>0.4.0</version>
         <exclusions>
           <exclusion>
             <groupId>org.checkerframework</groupId>
@@ -7146,9 +7146,9 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>io.quarkiverse.fury</groupId>
-        <artifactId>quarkus-fury-deployment</artifactId>
-        <version>0.3.2</version>
+        <groupId>io.quarkiverse.fory</groupId>
+        <artifactId>quarkus-fory-deployment</artifactId>
+        <version>0.4.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId>

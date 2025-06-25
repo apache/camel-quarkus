@@ -7180,9 +7180,9 @@
         <version>1.2.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
-        <groupId>io.quarkiverse.fury</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>quarkus-fury</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>0.3.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <groupId>io.quarkiverse.fory</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>quarkus-fory</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>0.4.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <exclusions>
           <exclusion>
             <groupId>org.checkerframework</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -7191,9 +7191,9 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>io.quarkiverse.fury</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>quarkus-fury-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>0.3.2</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <groupId>io.quarkiverse.fory</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <artifactId>quarkus-fory-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
+        <version>0.4.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.groovy</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
