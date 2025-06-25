@@ -31,8 +31,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.quarkiverse.fury</groupId>
-            <artifactId>quarkus-fury-deployment</artifactId>
+            <groupId>io.quarkiverse.fory</groupId>
+            <artifactId>quarkus-fory-deployment</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>

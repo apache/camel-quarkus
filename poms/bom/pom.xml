@@ -7275,8 +7275,8 @@
                 <version>${quarkiverse-freemarker.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.quarkiverse.fury</groupId>
-                <artifactId>quarkus-fury</artifactId>
+                <groupId>io.quarkiverse.fory</groupId>
+                <artifactId>quarkus-fory</artifactId>
                 <version>${quarkiverse-fory.version}</version>
                 <exclusions>
                     <exclusion>
@@ -7286,8 +7286,8 @@
                 </exclusions>
             </dependency>
             <dependency>
-                <groupId>io.quarkiverse.fury</groupId>
-                <artifactId>quarkus-fury-deployment</artifactId>
+                <groupId>io.quarkiverse.fory</groupId>
+                <artifactId>quarkus-fory-deployment</artifactId>
                 <version>${quarkiverse-fory.version}</version>
             </dependency>
             <dependency>

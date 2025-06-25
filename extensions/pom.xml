@@ -322,9 +322,9 @@
                                 <phase>process-classes</phase>
                                 <configuration>
                                     <componentLinkOverrides>
-                                        <fury>
+                                        <fory>
                                             <name>fory</name>
-                                        </fury>
+                                        </fory>
                                     </componentLinkOverrides>
                                 </configuration>
                             </execution>
