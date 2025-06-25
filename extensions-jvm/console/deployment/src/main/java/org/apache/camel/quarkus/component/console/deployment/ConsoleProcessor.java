@@ -36,8 +36,6 @@ import org.apache.camel.quarkus.component.console.CamelConsoleConfig;
 import org.apache.camel.quarkus.component.console.CamelConsoleRecorder;
 import org.apache.camel.quarkus.core.JvmOnlyRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
-import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 
@@ -49,12 +47,6 @@ class ConsoleProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    CamelServicePatternBuildItem devConsoleServicePattern() {
-        return new CamelServicePatternBuildItem(CamelServiceDestination.DISCOVERY, true,
-                "META-INF/services/org/apache/camel/dev-console/*");
     }
 
     @BuildStep
