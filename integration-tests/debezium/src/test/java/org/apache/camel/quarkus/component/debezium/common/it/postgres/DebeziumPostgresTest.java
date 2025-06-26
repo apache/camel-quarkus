@@ -30,6 +30,7 @@ import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -37,6 +38,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import static org.hamcrest.Matchers.is;
 
+@Disabled //https://github.com/apache/camel-quarkus/issues/7476
 @QuarkusTest
 @QuarkusTestResource(DebeziumPostgresTestResource.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
