@@ -24,6 +24,8 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
@@ -419,6 +421,108 @@ class AzureStorageDatalakeTest {
                     .statusCode(200)
                     .body("", Matchers.hasItem("test"))
                     .body("", Matchers.not(Matchers.hasItem("emptyTest")));
+
+        } finally {
+            /* Clean up */
+            RestAssured.given()
+                    .delete("/azure-storage-datalake/filesystem/" + filesystem)
+                    .then()
+                    .statusCode(204);
+        }
+
+    }
+
+    @Test
+    public void testAuthenticationWithSharedKeyCredentials() {
+        testAuthentications(
+                //if the test class is enabled, this test is enabled
+                () -> true,
+                (filesystem, filename) -> RestAssured.given()
+                        .contentType(ContentType.JSON)
+                        .body(Collections.emptyMap())
+                        .post("/azure-storage-datalake/route/datalakeSharedKeyCredentialsListPaths/filesystem/" + filesystem)
+                        .then()
+                        .statusCode(200)
+                        .body("", Matchers.hasItem(filename)));
+    }
+
+    @Test
+    public void testAuthenticationWithSas() {
+        testAuthentications(
+                AzureStorageDatalakeUtil::isSasTokenProvided,
+                (filesystem, filename) -> RestAssured.given()
+                        .contentType(ContentType.JSON)
+                        .body(Collections.emptyMap())
+                        .post("/azure-storage-datalake/route/datalakeSasListPaths/filesystem/" + filesystem)
+                        .then()
+                        .statusCode(200)
+                        .body("", Matchers.hasItem(filename)));
+    }
+
+    @Test
+    public void testAuthenticationWithClientInstance() {
+        testAuthentications(
+                //if the test class is enabled, this test is enabled
+                () -> true,
+                (filesystem, filename) -> RestAssured.given()
+                        .contentType(ContentType.JSON)
+                        .body(Collections.emptyMap())
+                        .post("/azure-storage-datalake/route/datalakeClientInstanceListPaths/filesystem/" + filesystem)
+                        .then()
+                        .statusCode(200)
+                        .body("", Matchers.hasItem(filename)));
+    }
+
+    @Test
+    public void testAuthenticationWithClientSecret() {
+        testAuthentications(
+                AzureStorageDatalakeUtil::isRealClientSecretProvided,
+                (filesystem, filename) -> RestAssured.given()
+                        .contentType(ContentType.JSON)
+                        .body(Collections.emptyMap())
+                        .post("/azure-storage-datalake/route/datalakeClientSecretListPaths/filesystem/" + filesystem)
+                        .then()
+                        .statusCode(200)
+                        .body("", Matchers.hasItem(filename)));
+    }
+
+    private void testAuthentications(Supplier<Boolean> enabled, BiConsumer<String, String> test) {
+        Assumptions.assumeTrue(enabled.get(), "Azure security configuration was not provided");
+
+        final String filesystem = "cqfsauth" + RandomStringUtils.randomNumeric(16);
+        final String filename = AzureStorageDatalakeRoutes.FILE_NAME;
+
+        /* The filesystem does not exist initially */
+        RestAssured.get("/azure-storage-datalake/filesystem/" + filesystem)
+                .then()
+                .statusCode(200)
+                .body("", Matchers.not(Matchers.hasItem(filesystem)));
+
+        try {
+            LOG.info("step - createFileSystem");
+            RestAssured.given()
+                    .contentType(ContentType.JSON)
+                    .body(Map.of(DataLakeConstants.FILESYSTEM_NAME, filesystem))
+                    .post("/azure-storage-datalake/route/datalakeCreateFilesystem/filesystem/" + filesystem)
+                    .then()
+                    .statusCode(200);
+
+            /* Now it should exist */
+            RestAssured.get("/azure-storage-datalake/filesystem/" + filesystem)
+                    .then()
+                    .statusCode(200)
+                    .body("", Matchers.hasItem(filesystem));
+
+            LOG.info("step - upload");
+            RestAssured.given()
+                    .contentType(ContentType.JSON)
+                    .body(Map.of("fileContent", "Hello World from Camel!"))
+                    .post("/azure-storage-datalake/route/datalakeUpload/filesystem/" + filesystem)
+                    .then()
+                    .statusCode(200);
+
+            LOG.info("step - listPaths");
+            test.accept(filesystem, filename);
 
         } finally {
             /* Clean up */
