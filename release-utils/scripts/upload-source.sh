@@ -48,6 +48,8 @@ wget ${sourcesUrl}/camel-quarkus-${version}-cyclonedx.xml -O apache-camel-quarku
 wget ${sourcesUrl}/camel-quarkus-${version}-cyclonedx.xml.asc -O apache-camel-quarkus-${version}-sbom.xml.asc
 sha512sum -b apache-camel-quarkus-${version}-sbom.xml > apache-camel-quarkus-${version}-sbom.xml.sha512
 
+cd ../
+
 svn import ${version}/ https://dist.apache.org/repos/dist/dev/camel/camel-quarkus/${version}/ -m "Import camel-quarkus ${version} release"
 
 rm -rf ${version}/
