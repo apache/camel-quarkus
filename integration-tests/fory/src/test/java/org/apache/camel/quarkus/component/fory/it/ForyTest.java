@@ -18,13 +18,11 @@ package org.apache.camel.quarkus.component.fory.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
 
 @QuarkusTest
-@Disabled //https://github.com/apache/camel-quarkus/issues/7466
 class ForyTest {
 
     @Test
