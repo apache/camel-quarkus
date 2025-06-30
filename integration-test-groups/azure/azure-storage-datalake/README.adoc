@@ -22,3 +22,27 @@ Export Your credentials for *datalake* via specific variables
 export AZURE_STORAGE_DATALAKE_ACCOUNT_KEY=<your-account-key>
 export AZURE_STORAGE_DATALAKE_ACCOUNT_NAME=<your-acount-name>
 ----
+
+Samo authentications tests require more parameters.
+Such test is enabled only if all the required parameters are present.
+
+For the test covering *SAS*, parameter is:
+
+[source,shell]
+----
+export AZURE_STORAGE_DATALAKE_SAS="<your sas token>"
+----
+
+For the test covering *client secret*, parameters are:
+
+[source,shell]
+----
+export AZURE_TENANT_ID=<your tenant id>
+export AZURE_CLIENT_ID=<your client id>
+export AZURE_CLIENT_SECRET=<your client secret>
+#or use datalake specific properties in case you've already exported the same properties for other storage tests and you need different credentials for the datalake.
+#export AZURE_DATALAKE_TENANT_ID=<your tenant id>
+#export AZURE_DATALAKE_CLIENT_ID=<your client id>
+#export AZURE_DATALAKE_CLIENT_SECRET=<your client secret>
+# Datalake specified properties ignore value in CAMEL_QUARKUS_DISABLE_IDENTITY_EXCEPT_KEY_VAULT!
+----

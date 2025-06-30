@@ -18,6 +18,8 @@ package org.apache.camel.quarkus.component.azure.storage.datalake.it;
 
 import java.util.Optional;
 
+import org.eclipse.microprofile.config.ConfigProvider;
+
 public class AzureStorageDatalakeUtil {
 
     public static String getRealAccountNameFromEnv() {
@@ -30,10 +32,57 @@ public class AzureStorageDatalakeUtil {
                 .orElseGet(() -> System.getenv("AZURE_STORAGE_ACCOUNT_KEY"));
     }
 
+    public static Optional<String> getSasToken() {
+        return getDatalakePrioritizedConfigValue("azure.storage.datalake.sas", "azure.storage.sas", String.class);
+    }
+
+    public static Optional<String> getClientId() {
+        return getDatalakePrioritizedConfigValue("azure.datalake.client.id", "azure.client.id", String.class,
+                disableIdentityExceptKeyVault());
+    }
+
+    public static Optional<String> getClientSecret() {
+        return getDatalakePrioritizedConfigValue("azure.datalake.client.secret", "azure.client.secret", String.class,
+                disableIdentityExceptKeyVault());
+    }
+
+    public static Optional<String> getTenantId() {
+        return getDatalakePrioritizedConfigValue("azure.datalake.tenant.id", "azure.tenant.id", String.class,
+                disableIdentityExceptKeyVault());
+    }
+
+    public static boolean disableIdentityExceptKeyVault() {
+        return ConfigProvider.getConfig().getOptionalValue("CAMEL_QUARKUS_DISABLE_IDENTITY_EXCEPT_KEY_VAULT", Boolean.class)
+                .orElse(false);
+    }
+
     public static boolean isRalAccountProvided() {
         String realAzureStorageAccountName = AzureStorageDatalakeUtil.getRealAccountNameFromEnv();
         String realAzureStorageAccountKey = AzureStorageDatalakeUtil.getRealAccountKeyFromEnv();
 
         return realAzureStorageAccountName != null && realAzureStorageAccountKey != null;
+    }
+
+    public static boolean isRealClientSecretProvided() {
+        return getClientId().isPresent()
+                && getClientSecret().isPresent()
+                && getTenantId().isPresent();
+    }
+
+    public static boolean isSasTokenProvided() {
+        return getSasToken().isPresent();
+    }
+
+    private static <T> Optional<T> getDatalakePrioritizedConfigValue(String primaryName, String secondaryNajme, Class<T> type) {
+        return getDatalakePrioritizedConfigValue(primaryName, secondaryNajme, type, false);
+    }
+
+    private static <T> Optional<T> getDatalakePrioritizedConfigValue(String primaryName, String secondaryNajme, Class<T> type,
+            boolean ignoreSecondary) {
+        Optional<T> value = ConfigProvider.getConfig().getOptionalValue(primaryName, type);
+        if (value.isEmpty() && !ignoreSecondary) {
+            value = ConfigProvider.getConfig().getOptionalValue(secondaryNajme, type);
+        }
+        return value;
     }
 }

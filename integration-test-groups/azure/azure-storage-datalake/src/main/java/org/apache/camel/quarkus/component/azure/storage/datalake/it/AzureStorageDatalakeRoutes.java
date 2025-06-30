@@ -39,124 +39,138 @@ public class AzureStorageDatalakeRoutes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
 
-        String tmpFolder = ConfigProvider.getConfig().getValue("cqDatalakeTmpFolder", String.class);
-        String consumerFilesystem = ConfigProvider.getConfig().getValue("cqCDatalakeConsumerFilesystem", String.class);
+        if (AzureStorageDatalakeUtil.isRalAccountProvided()) {
 
-        /* Consumer examples */
+            String tmpFolder = ConfigProvider.getConfig().getValue("cqDatalakeTmpFolder", String.class);
+            String consumerFilesystem = ConfigProvider.getConfig().getValue("cqCDatalakeConsumerFilesystem", String.class);
 
-        //Consume a file from the storage datalake into a file using the file component
-        from("azure-storage-datalake://" + AzureStorageDatalakeUtil.getRealAccountKeyFromEnv() + "/" + consumerFilesystem
-                + "?fileName=" + CONSUMER_FILE_NAME
-                + CLIENT_SUFFIX)
-                .routeId("consumeWithFileComponent")
-                .autoStartup(false)
-                .to("file:" + tmpFolder + "/consumer-files?fileName=" + CONSUMER_FILE_NAME);
+            /* Consumer examples */
 
-        //write to a file without using the file component
-        from("azure-storage-datalake://" + AzureStorageDatalakeUtil.getRealAccountKeyFromEnv() + "/" + consumerFilesystem
-                + "?fileName=" + CONSUMER_FILE_NAME2 + "&fileDir=" + tmpFolder + "/consumer-files&delay=3000000"
-                + CLIENT_SUFFIX)
-                .routeId("consumeWithoutFileComponent")
-                .autoStartup(false)
-                .log("File downloaded");
+            //Consume a file from the storage datalake into a file using the file component
+            from("azure-storage-datalake://" + AzureStorageDatalakeUtil.getRealAccountKeyFromEnv() + "/" + consumerFilesystem
+                    + "?fileName=" + CONSUMER_FILE_NAME)
+                    .routeId("consumeWithFileComponent")
+                    .autoStartup(false)
+                    .to("file:" + tmpFolder + "/consumer-files?fileName=" + CONSUMER_FILE_NAME);
 
-        //batch consumer
-        from("azure-storage-datalake://" + AzureStorageDatalakeUtil.getRealAccountKeyFromEnv() + "/" + consumerFilesystem
-                + "?fileDir=" + tmpFolder + "/consumer-files/batch&path=/&delay=3000000" + CLIENT_SUFFIX)
-                .routeId("consumeBatch")
-                .autoStartup(false)
-                .log("File downloaded");
+            //write to a file without using the file component
+            from("azure-storage-datalake://" + AzureStorageDatalakeUtil.getRealAccountKeyFromEnv() + "/" + consumerFilesystem
+                    + "?fileName=" + CONSUMER_FILE_NAME2 + "&fileDir=" + tmpFolder + "/consumer-files&delay=3000000")
+                    .routeId("consumeWithoutFileComponent")
+                    .autoStartup(false)
+                    .log("File downloaded");
 
-        /* Producer examples */
+            //batch consumer
+            from("azure-storage-datalake://" + AzureStorageDatalakeUtil.getRealAccountKeyFromEnv() + "/" + consumerFilesystem
+                    + "?fileDir=" + tmpFolder + "/consumer-files/batch&path=/&delay=3000000")
+                    .routeId("consumeBatch")
+                    .autoStartup(false)
+                    .log("File downloaded");
 
-        //listFileSystem
-        from("direct:datalakeListFileSystem")
-                .process(exchange -> {
-                    exchange.getIn().setHeader(DataLakeConstants.LIST_FILESYSTEMS_OPTIONS,
-                            new ListFileSystemsOptions().setMaxResultsPerPage(10));
-                })
-                .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=listFileSystem"
-                        + CLIENT_SUFFIX);
+            /* Producer examples */
 
-        //createFileSystem
-        from("direct:datalakeCreateFilesystem")
-                .toD("azure-storage-datalake://${header.accountName}?operation=createFileSystem" + CLIENT_SUFFIX);
+            //listFileSystem
+            from("direct:datalakeListFileSystem")
+                    .process(exchange -> {
+                        exchange.getIn().setHeader(DataLakeConstants.LIST_FILESYSTEMS_OPTIONS,
+                                new ListFileSystemsOptions().setMaxResultsPerPage(10));
+                    })
+                    .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=listFileSystem");
 
-        //listPaths
-        from("direct:datalakeListPaths")
-                .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=listPaths"
-                        + CLIENT_SUFFIX);
+            //createFileSystem
+            from("direct:datalakeCreateFilesystem")
+                    .toD("azure-storage-datalake://${header.accountName}?operation=createFileSystem");
 
-        //getFile
-        from("direct:datalakeGetFile")
-                .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=getFile&fileName=${header.fileName}"
-                        + CLIENT_SUFFIX);
+            //listPaths
+            from("direct:datalakeListPaths")
+                    .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=listPaths");
 
-        //deleteFile
-        from("direct:datalakeDeleteFile")
-                .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=deleteFile&fileName="
-                        + FILE_NAME + CLIENT_SUFFIX);
+            //getFile
+            from("direct:datalakeGetFile")
+                    .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=getFile&fileName=${header.fileName}");
 
-        //downloadToFile
-        from("direct:datalakeDownloadToFile")
-                .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=downloadToFile&fileName="
-                        + FILE_NAME + "&fileDir=${header.tmpFolder}" + CLIENT_SUFFIX);
+            //deleteFile
+            from("direct:datalakeDeleteFile")
+                    .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=deleteFile&fileName="
+                            + FILE_NAME);
 
-        //downloadLink
-        from("direct:datalakeDownloadLink")
-                .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=downloadLink&fileName="
-                        + FILE_NAME + CLIENT_SUFFIX);
+            //downloadToFile
+            from("direct:datalakeDownloadToFile")
+                    .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=downloadToFile&fileName="
+                            + FILE_NAME + "&fileDir=${header.tmpFolder}");
 
-        //appendToFile
-        from("direct:datalakeAppendToFile")
-                .process(exchange -> {
-                    final String data = exchange.getIn().getHeader("append", String.class);
-                    final InputStream inputStream = new ByteArrayInputStream(data.getBytes(StandardCharsets.UTF_8));
-                    exchange.getIn().setBody(inputStream);
-                })
-                .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=appendToFile&fileName="
-                        + FILE_NAME + CLIENT_SUFFIX);
+            //downloadLink
+            from("direct:datalakeDownloadLink")
+                    .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=downloadLink&fileName="
+                            + FILE_NAME);
 
-        //flushToFile
-        from("direct:datalakeFlushToFile")
-                .process(exchange -> {
-                    exchange.getIn().setHeader(DataLakeConstants.POSITION, 8);
-                })
-                .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=flushToFile&fileName="
-                        + FILE_NAME + CLIENT_SUFFIX);
+            //appendToFile
+            from("direct:datalakeAppendToFile")
+                    .process(exchange -> {
+                        final String data = exchange.getIn().getHeader("append", String.class);
+                        final InputStream inputStream = new ByteArrayInputStream(data.getBytes(StandardCharsets.UTF_8));
+                        exchange.getIn().setBody(inputStream);
+                    })
+                    .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=appendToFile&fileName="
+                            + FILE_NAME);
 
-        //openQueryInputStream
-        from("direct:openQueryInputStream")
-                .process(exchange -> {
-                    exchange.getIn().setHeader(DataLakeConstants.QUERY_OPTIONS,
-                            new FileQueryOptions("SELECT * from BlobStorage"));
-                })
-                .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=openQueryInputStream&fileName="
-                        + FILE_NAME + CLIENT_SUFFIX);
+            //flushToFile
+            from("direct:datalakeFlushToFile")
+                    .process(exchange -> {
+                        exchange.getIn().setHeader(DataLakeConstants.POSITION, 8);
+                    })
+                    .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=flushToFile&fileName="
+                            + FILE_NAME);
 
-        //upload
-        from("direct:datalakeUpload")
-                .process(exchange -> {
-                    String fileContent = exchange.getIn().getHeader("fileContent", String.class);
-                    final InputStream inputStream = new ByteArrayInputStream(fileContent.getBytes(StandardCharsets.UTF_8));
-                    exchange.getIn().setBody(inputStream);
-                })
-                .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=upload&fileName="
-                        + FILE_NAME + CLIENT_SUFFIX);
+            //openQueryInputStream
+            from("direct:openQueryInputStream")
+                    .process(exchange -> {
+                        exchange.getIn().setHeader(DataLakeConstants.QUERY_OPTIONS,
+                                new FileQueryOptions("SELECT * from BlobStorage"));
+                    })
+                    .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=openQueryInputStream&fileName="
+                            + FILE_NAME);
 
-        // uploadFromFile
-        from("direct:datalakeUploadFromFile")
-                .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=uploadFromFile&fileName="
-                        + FILE_NAME2 + CLIENT_SUFFIX);
+            //upload
+            from("direct:datalakeUpload")
+                    .process(exchange -> {
+                        String fileContent = exchange.getIn().getHeader("fileContent", String.class);
+                        final InputStream inputStream = new ByteArrayInputStream(fileContent.getBytes(StandardCharsets.UTF_8));
+                        exchange.getIn().setBody(inputStream);
+                    })
+                    .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=upload&fileName="
+                            + FILE_NAME);
 
-        // createFile
-        from("direct:datalakeCreateFile")
-                .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=createFile&fileName=${header.fileName}"
-                        + CLIENT_SUFFIX);
+            // uploadFromFile
+            from("direct:datalakeUploadFromFile")
+                    .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=uploadFromFile&fileName="
+                            + FILE_NAME2);
 
-        //deleteDirectory
-        from("direct:datalakeDeleteDirectory")
-                .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=deleteDirectory"
-                        + CLIENT_SUFFIX);
+            // createFile
+            from("direct:datalakeCreateFile")
+                    .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=createFile&fileName=${header.fileName}");
+
+            //deleteDirectory
+            from("direct:datalakeDeleteDirectory")
+                    .toD("azure-storage-datalake://${header.accountName}/${header.filesystemName}?operation=deleteDirectory");
+
+            //listFileSystem
+
+            /* Authentications */
+
+            //SAS list paths
+            from("direct:datalakeSasListPaths")
+                    .toD("azureDatalakeSasComponent://${header.accountName}/${header.filesystemName}?operation=listPaths");
+            //client instance list paths
+            from("direct:datalakeClientInstanceListPaths")
+                    .toD("azureDatalakeClientInstanceComponent://${header.accountName}/${header.filesystemName}?operation=listPaths"
+                            + CLIENT_SUFFIX);
+            //SHARED_KEY_CREDENTIAL
+            from("direct:datalakeSharedKeyCredentialsListPaths")
+                    .toD("azureDatalakeSharedkeyCredentialComponent://${header.accountName}/${header.filesystemName}?operation=listPaths");
+            //client secret
+            from("direct:datalakeClientSecretListPaths")
+                    .toD("azureDatalakeClientSecretComponent://${header.accountName}/${header.filesystemName}?operation=listPaths");
+        }
     }
 }
