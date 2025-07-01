@@ -18,6 +18,25 @@
 -->
 # Changelog
 
+## 3.15.4
+
+* Upgrade Quarkus to 3.15.4 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7121
+* [3.15.x] fixes #7056 Option for disabling identity tests except key-vault (Azure) by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7138
+* [3.15.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7147
+* Update documentation for missing camel extensions that are knative co… by @zbendhiba in https://github.com/apache/camel-quarkus/pull/7173
+* [3.15.x] Fix Beanio tests for Windows by @llowinge in https://github.com/apache/camel-quarkus/pull/7187
+* [3.15.x] Ban auto value annotations 3.15.x by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7192
+* [3.15.x] Upgrade Camel to 4.8.6 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7207
+* Fix printing sensitive ENVs information from SSH test by @llowinge in https://github.com/apache/camel-quarkus/pull/7231
+* [3.15.x] Upgrade Camel to 4.8.7 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7354
+* [3.15.x] Upgrade Quarkus to 3.15.5 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7363
+* [3.15.x] Add note about HTTP endpoint paths when using rest-openapi contract first by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7364
+* [3.15.x] Remove SmallRye Fault Tolerance dependency overrides in microprofile-fault-tolerance test module by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7372
+* [3.15.x] Upgrade Camel to 4.8.8 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7469
+
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.15.3...3.15.4
+
 ## 3.24.0
 
 * Generated sources regen for SBOM by @github-actions in https://github.com/apache/camel-quarkus/pull/7395
