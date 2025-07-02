@@ -457,6 +457,18 @@
                 <version>${unboundid-ldapsdk.version}</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>com.microsoft.graph</groupId>
+                <artifactId>microsoft-graph</artifactId>
+                <version>${microsoft.graph.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.microsoft.graph</groupId>
+                <artifactId>microsoft-graph-auth</artifactId>
+                <version>${microsoft.graph.auth.version}</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

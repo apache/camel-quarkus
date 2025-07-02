@@ -16,23 +16,34 @@
  */
 package org.apache.camel.quarkus.component.mail.microsoft.oauth.it;
 
+import java.util.List;
+import java.util.Map;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
-import org.jboss.logging.Logger;
 
 @Path("/mail-microsoft-oauth")
 @ApplicationScoped
 public class MailMicrosoftOauthResource {
 
-    private static final Logger LOG = Logger.getLogger(MailMicrosoftOauthResource.class);
+    public static final String USERNAME_PROPERTY = "cq.mail.microsoft.oauth.username";
+    public static final String CLIENT_ID_PROPERTY = "cq.mail.microsoft.oauth.client.id";
+    public static final String CLIENT_SECRET_PROPERTY = "cq.mail.microsoft.oauth.client.secret";
+    public static final String TENANT_ID_PROPERTY = "cq.mail.microsoft.oauth.tenant.id";
+    public static final String TEST_SUBJECT_PROPERTY = "cq.mail.microsoft.oauth.test.subject";
 
-    private static final String OTHER_MAIL_MICROSOFT_OAUTH = "mail-microsoft-oauth";
+    @Inject
+    @Named("mailReceivedMessages")
+    List<Map<String, Object>> mailReceivedMessages;
+
     @Inject
     CamelContext context;
 
@@ -44,4 +55,30 @@ public class MailMicrosoftOauthResource {
         /* No way to test a Camel artifact of kind "other" */
         return Response.ok().build();
     }
+
+    @Path("/getReceived")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Map<String, Object>> getReceived() {
+        return mailReceivedMessages;
+    }
+
+    @GET
+    @Path("/route/{routeId}/{operation}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String controlRoute(@PathParam("routeId") String routeId, @PathParam("operation") String operation)
+            throws Exception {
+        switch (operation) {
+        case "stop":
+            context.getRouteController().stopRoute(routeId);
+            break;
+        case "start":
+            context.getRouteController().startRoute(routeId);
+            break;
+        case "status":
+            return context.getRouteController().getRouteStatus(routeId).name();
+        }
+        return null;
+    }
+
 }

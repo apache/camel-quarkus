@@ -1,0 +1,15 @@
+=== Real Microsoft Exchange server API
+
+To run the tests against the real Microsoft Exchange server, you need to
+
+* Export Your credentials (service for sending/receiving emails)
+
+[source,shell]
+----
+export CQ_MAIL_MICROSOFT_OAUTH_USERNAME=<your-username>
+export CQ_MAIL_MICROSOFT_OAUTH_CLIENT_ID=<client-id>>
+export CQ_MAIL_MICROSOFT_OAUTH_CLIENT_SECRET=<client-secret>>
+export CQ_MAIL_MICROSOFT_OAUTH_TENANT_ID=<tenant-id>
+----
+
+An email addressed to the <your-username> with subject "CamelQuarkus"+timestamp will be sent, received and deleted afterward by the test.
