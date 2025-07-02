@@ -40,6 +40,11 @@ metadata:
   - "[=category]"
 [/#list]
 [/#if]
+[#if configPrefixes?size > 0 ]  config:
+[#list configPrefixes as configPrefix]
+  - "[=configPrefix]"
+[/#list]
+[/#if]
   status:
   - "[=status]"
 [#if deprecated ]  - "deprecated"[/#if]

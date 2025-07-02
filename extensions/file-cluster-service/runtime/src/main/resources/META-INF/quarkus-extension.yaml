@@ -29,5 +29,7 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/file-cluster-service.html"
   categories:
   - "integration"
+  config:
+  - "quarkus.camel.cluster.file"
   status:
   - "stable"

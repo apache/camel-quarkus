@@ -30,5 +30,7 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/console.html"
   categories:
   - "integration"
+  config:
+  - "quarkus.camel.console"
   status:
   - "preview"
