@@ -29,5 +29,7 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/telemetry-dev.html"
   categories:
   - "integration"
+  config:
+  - "quarkus.camel.telemetryDev"
   status:
   - "stable"

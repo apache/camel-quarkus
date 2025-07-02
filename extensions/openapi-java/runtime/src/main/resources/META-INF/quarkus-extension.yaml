@@ -29,5 +29,7 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/openapi-java.html"
   categories:
   - "integration"
+  config:
+  - "quarkus.camel.openapi"
   status:
   - "stable"

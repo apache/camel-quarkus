@@ -29,5 +29,7 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/debug.html"
   categories:
   - "integration"
+  config:
+  - "quarkus.camel.debug"
   status:
   - "stable"

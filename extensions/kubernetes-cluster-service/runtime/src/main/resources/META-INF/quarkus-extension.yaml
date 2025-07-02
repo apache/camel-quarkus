@@ -29,5 +29,7 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/kubernetes-cluster-service.html"
   categories:
   - "integration"
+  config:
+  - "quarkus.camel.cluster.kubernetes"
   status:
   - "stable"

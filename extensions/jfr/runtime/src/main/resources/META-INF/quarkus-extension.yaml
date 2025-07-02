@@ -29,5 +29,7 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/jfr.html"
   categories:
   - "integration"
+  config:
+  - "quarkus.camel.jfr"
   status:
   - "stable"

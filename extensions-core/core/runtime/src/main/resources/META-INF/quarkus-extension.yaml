@@ -29,5 +29,8 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/core.html"
   categories:
   - "integration"
+  config:
+  - "quarkus.camel"
+  - "quarkus.camel.main"
   status:
   - "stable"
