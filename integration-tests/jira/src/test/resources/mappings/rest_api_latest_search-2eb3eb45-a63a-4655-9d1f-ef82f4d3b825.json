@@ -2,7 +2,7 @@
   "id" : "2eb3eb45-a63a-4655-9d1f-ef82f4d3b825",
   "name" : "rest_api_latest_search",
   "request" : {
-    "url" : "/rest/api/latest/search?jql=project%3DTEST&expand=schema%2Cnames&maxResults=1&startAt=0",
+    "url" : "/rest/api/latest/search?jql=project%3DTEST&expand=schema%2Cnames&fields=*navigable&maxResults=1&startAt=0",
     "method" : "GET"
   },
   "response" : {
