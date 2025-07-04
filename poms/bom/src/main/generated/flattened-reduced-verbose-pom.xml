@@ -7794,24 +7794,24 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>io.quarkiverse.jgit</groupId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.2 -->
-        <artifactId>quarkus-jgit</artifactId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.2 -->
-        <version>3.5.2</version><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.2 -->
+        <groupId>io.quarkiverse.jgit</groupId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.6.0 -->
+        <artifactId>quarkus-jgit</artifactId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.6.0 -->
+        <version>3.6.0</version><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.6.0 -->
       </dependency>
       <dependency>
-        <groupId>io.quarkiverse.jgit</groupId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.2 -->
-        <artifactId>quarkus-jgit-deployment</artifactId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.2 -->
-        <version>3.5.2</version><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.2 -->
+        <groupId>io.quarkiverse.jgit</groupId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.6.0 -->
+        <artifactId>quarkus-jgit-deployment</artifactId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.6.0 -->
+        <version>3.6.0</version><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.6.0 -->
       </dependency>
       <dependency>
-        <groupId>org.eclipse.jgit</groupId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.2 -->
-        <artifactId>org.eclipse.jgit</artifactId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.2 -->
-        <version>7.3.0.202506031305-r</version><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.2 -->
+        <groupId>org.eclipse.jgit</groupId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.6.0 -->
+        <artifactId>org.eclipse.jgit</artifactId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.6.0 -->
+        <version>7.3.0.202506031305-r</version><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.6.0 -->
       </dependency>
       <dependency>
-        <groupId>org.eclipse.jgit</groupId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.2 -->
-        <artifactId>org.eclipse.jgit.ssh.jsch</artifactId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.2 -->
-        <version>7.3.0.202506031305-r</version><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.5.2 -->
+        <groupId>org.eclipse.jgit</groupId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.6.0 -->
+        <artifactId>org.eclipse.jgit.ssh.jsch</artifactId><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.6.0 -->
+        <version>7.3.0.202506031305-r</version><!-- io.quarkiverse.jgit:quarkus-jgit-bom:3.6.0 -->
       </dependency>
       <dependency>
         <groupId>org.apache.cxf</groupId><!-- io.quarkiverse.cxf:quarkus-cxf-bom:3.23.1 -->
