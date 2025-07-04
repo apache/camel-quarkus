@@ -7796,12 +7796,12 @@
       <dependency>
         <groupId>io.quarkiverse.jgit</groupId>
         <artifactId>quarkus-jgit</artifactId>
-        <version>3.5.2</version>
+        <version>3.6.0</version>
       </dependency>
       <dependency>
         <groupId>io.quarkiverse.jgit</groupId>
         <artifactId>quarkus-jgit-deployment</artifactId>
-        <version>3.5.2</version>
+        <version>3.6.0</version>
       </dependency>
       <dependency>
         <groupId>org.eclipse.jgit</groupId>
