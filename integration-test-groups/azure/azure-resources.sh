@@ -63,7 +63,11 @@ function createResources() {
     export AZURE_TENANT_ID=$(grep tenant  ${AZURE_APP_CREDENTIALS} | cut -f4 -d\" )
     rm -f ${AZURE_APP_CREDENTIALS}
 
-    az ad app credential reset --id ${AZURE_CLIENT_ID} --cert "@${AZURE_APP_CERT_PATH}" --append
+    if [[ -f ${AZURE_APP_CERT_PATH} ]]; then
+      az ad app credential reset --id ${AZURE_CLIENT_ID} --cert "@${AZURE_APP_CERT_PATH}" --append
+    else
+      echo "Not setting app credentials as ${AZURE_APP_CERT_PATH} does not exist"
+    fi
 
     SUBSCRIPTION_ID="$(az account list --query '[0].id' -o tsv)"
     USER_ID="$(az ad signed-in-user show --query objectId -o tsv)"
