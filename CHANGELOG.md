@@ -18,6 +18,22 @@
 -->
 # Changelog
 
+## 3.20.2
+
+* [3.20.x] Upgrade Quarkus Amazon Services to 3.3.3 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7325
+* [3.20.x] Add ignore option also for service bus test by @tveskrna in https://github.com/apache/camel-quarkus/pull/7334
+* [3.20.x] Backports by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7341
+* [3.20.x] Rework CallbackUtil.MockExtensionContext to not implement JUnit ExtensionContext by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7351
+* [3.20.x] Use more correct convention with configuring datasource by @llowinge in https://github.com/apache/camel-quarkus/pull/7359
+* [3.20.x] Upgrade Quarkus to 3.20.1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7362
+* [3.20.x] Do not exclude findbugs from wss4j-ws-security-common in the BOM because it transitively depends on quarkus-grpc-common that requires it at runtime by @ppalaga in https://github.com/apache/camel-quarkus/pull/7368
+* [3.20.x] Upgrade to cq-maven-plugin 4.17.9 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7377
+* [3.20.x] Improve handling of findSingleByType where multiple beans exist witho… by @zhfeng in https://github.com/apache/camel-quarkus/pull/7385
+* [3.20.x] Deprecate Jolokia /q/jolokia management endpoint by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7390
+* [3.20.x] Upgrade Camel to 4.10.5 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7407
+* [3.20.x] Remove static modifier from CamelJolokiaRestrictor.ALLOWED_DOMAINS field by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7423
+* [3.20.x] Upgrade Camel to 4.10.6 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7468
+
 ## 3.15.4
 
 * Upgrade Quarkus to 3.15.4 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7121
