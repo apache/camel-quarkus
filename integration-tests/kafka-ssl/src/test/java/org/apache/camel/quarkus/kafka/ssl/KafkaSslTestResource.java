@@ -29,7 +29,7 @@ import org.testcontainers.utility.MountableFile;
 
 public class KafkaSslTestResource extends KafkaTestResource {
 
-    static final String KAFKA_KEYSTORE_PASSWORD = "PAG4i8511xp1lzVu585foRLjD4v62yBS";
+    static final String KAFKA_KEYSTORE_PASSWORD = "changeit";
     static final String KAFKA_HOSTNAME = "localhost";
     static final String CERTS_BASEDIR = "target/certs";
 
