@@ -52,6 +52,8 @@ updates:
       - dependency-name: "org.seleniumhq.selenium:htmlunit-driver"
       - dependency-name: "org.xmlunit:xmlunit-core"
       - dependency-name: "org.zeroturnaround:zt-exec"
+      - dependency-name: "com.microsoft.graph:microsoft-graph"
+      - dependency-name: "com.microsoft.graph:microsoft-graph-auth"
       # Maven plugins
       - dependency-name: "*:*-maven-plugin"
       - dependency-name: "org.apache.maven.plugins:*"
