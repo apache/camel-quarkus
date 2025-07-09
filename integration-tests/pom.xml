@@ -161,6 +161,7 @@
         <module>lra</module>
         <module>lumberjack</module>
         <module>mail</module>
+        <module>mail-microsoft-oauth</module>
         <module>management</module>
         <module>mapstruct</module>
         <module>master</module>
