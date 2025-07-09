@@ -130,7 +130,7 @@ public class AzureCoreSupportProcessor {
                 .forEach(proxyDefinitions::produce);
     }
 
-    @BuildStep(onlyIf = Msal4jIsPresent.class)
+    @BuildStep(onlyIf = Msal4jAndIdentityIsPresent.class)
     void enableLoadingOfNativeLibraries(BuildProducer<RuntimeReinitializedClassBuildItem> runtimeReinitializedClass) {
         OS os = OS.determineOS();
         if (os.equals(OS.LINUX) || os.equals(OS.MAC)) {
@@ -145,11 +145,12 @@ public class AzureCoreSupportProcessor {
         }
     }
 
-    public static final class Msal4jIsPresent implements BooleanSupplier {
+    public static final class Msal4jAndIdentityIsPresent implements BooleanSupplier {
         @Override
         public boolean getAsBoolean() {
             try {
                 Thread.currentThread().getContextClassLoader().loadClass("com.microsoft.aad.msal4j.Credential");
+                Thread.currentThread().getContextClassLoader().loadClass("com.azure.identity.implementation.IdentityClient");
                 return true;
             } catch (ClassNotFoundException e) {
                 return false;

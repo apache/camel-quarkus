@@ -59,6 +59,7 @@ group-03:
   - github
   - google
   - json-validator
+  - mail-microsoft-oauth
   - main
   - main-collector
   - main-command-mode
