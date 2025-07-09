@@ -37,6 +37,10 @@
             <groupId>org.apache.kudu</groupId>
             <artifactId>kudu-client</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.stumbleupon</groupId>
+            <artifactId>async</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -54,7 +58,6 @@
                         <configuration>
                             <artifactSet>
                                 <excludes>
-                                    <exclude>com.stumbleupon:async</exclude>
                                     <exclude>org.slf4j:slf4j-api</exclude>
                                 </excludes>
                             </artifactSet>

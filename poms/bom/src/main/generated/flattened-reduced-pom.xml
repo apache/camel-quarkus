@@ -7047,6 +7047,11 @@
         <version>2.9.0</version>
       </dependency>
       <dependency>
+        <groupId>com.stumbleupon</groupId>
+        <artifactId>async</artifactId>
+        <version>1.4.1</version>
+      </dependency>
+      <dependency>
         <groupId>commons-beanutils</groupId>
         <artifactId>commons-beanutils</artifactId>
         <version>1.11.0</version>
