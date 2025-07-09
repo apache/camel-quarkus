@@ -35,8 +35,10 @@ import io.quarkus.paths.PathCollection;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.language.groovy.GroovyLanguage;
 import org.apache.camel.quarkus.component.groovy.runtime.GroovyExpressionRecorder;
+import org.apache.camel.quarkus.component.groovy.runtime.GroovyRecorder;
 import org.apache.camel.quarkus.component.groovy.runtime.GroovyStaticScript;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 import org.apache.camel.quarkus.support.language.deployment.ExpressionBuildItem;
 import org.apache.camel.quarkus.support.language.deployment.ExpressionExtractionResultBuildItem;
 import org.apache.camel.quarkus.support.language.deployment.ScriptBuildItem;
@@ -67,6 +69,12 @@ class GroovyProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    void configureGroovyScriptClassLoaderContextPlugin(CamelContextBuildItem camelContext, GroovyRecorder recorder) {
+        recorder.setGroovyClassLoader(camelContext.getCamelContext());
     }
 
     @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
