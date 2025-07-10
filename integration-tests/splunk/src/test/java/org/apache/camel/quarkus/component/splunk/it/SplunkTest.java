@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.splunk.it;
 
+import java.io.IOException;
+import java.net.SocketException;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -26,11 +28,15 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.ResourceArg;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.smallrye.certs.Format;
+import io.smallrye.certs.junit5.Certificate;
 import org.apache.camel.component.splunk.ProducerType;
 import org.apache.camel.quarkus.test.DisabledOnArm;
+import org.apache.camel.quarkus.test.support.certificate.TestCertificates;
 import org.apache.camel.quarkus.test.support.splunk.SplunkConstants;
 import org.apache.camel.quarkus.test.support.splunk.SplunkTestResource;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -45,12 +51,16 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
 
+@TestCertificates(docker = true, certificates = {
+        @Certificate(name = "splunk", formats = { Format.PEM, Format.PKCS12 }, password = "password"),
+})
 @QuarkusTest
-@QuarkusTestResource(value = SplunkTestResource.class)
+@QuarkusTestResource(value = SplunkTestResource.class, initArgs = {
+        @ResourceArg(name = "certName", value = "splunk") })
 @DisabledOnArm
 public class SplunkTest {
 
-    private final static int TIMEOUT_IN_SECONDS = 60;
+    private final static int TIMEOUT_IN_SECONDS = 180;
 
     @Test
     public void testNormalSearchWithSubmitWithRawData() throws InterruptedException {
@@ -119,8 +129,10 @@ public class SplunkTest {
 
     @Test
     public void testSavedSearchWithTcpNoSSL() {
-        Assertions.assertThrowsExactly(NoHttpResponseException.class,
+        Exception exception = Assertions.assertThrows(IOException.class,
                 () -> testSavedSearchWithTcp(false));
+        // in case of Splunk connected remotely, it can behaves differently from localhost loopback (ie. it throws `java.net.SocketException: Connection reset`)
+        Assertions.assertTrue(exception instanceof NoHttpResponseException || exception instanceof SocketException);
     }
 
     void testSavedSearchWithTcp(boolean ssl) throws InterruptedException {
