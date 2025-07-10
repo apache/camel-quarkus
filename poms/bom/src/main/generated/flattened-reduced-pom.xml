@@ -7073,16 +7073,6 @@
         <version>1.9.0</version>
       </dependency>
       <dependency>
-        <groupId>dev.langchain4j</groupId>
-        <artifactId>langchain4j</artifactId>
-        <version>1.1.0</version>
-      </dependency>
-      <dependency>
-        <groupId>dev.langchain4j</groupId>
-        <artifactId>langchain4j-core</artifactId>
-        <version>1.1.0</version>
-      </dependency>
-      <dependency>
         <groupId>io.minio</groupId>
         <artifactId>minio</artifactId>
         <version>8.5.17</version>
@@ -8879,6 +8869,36 @@
         <groupId>com.datastax.oss</groupId>
         <artifactId>java-driver-shaded-guava</artifactId>
         <version>25.1-jre-graal-sub-1</version>
+      </dependency>
+      <dependency>
+        <groupId>dev.langchain4j</groupId>
+        <artifactId>langchain4j-core</artifactId>
+        <version>1.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>dev.langchain4j</groupId>
+        <artifactId>langchain4j</artifactId>
+        <version>1.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>dev.langchain4j</groupId>
+        <artifactId>langchain4j-http-client</artifactId>
+        <version>1.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>dev.langchain4j</groupId>
+        <artifactId>langchain4j-http-client-jdk</artifactId>
+        <version>1.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>dev.langchain4j</groupId>
+        <artifactId>langchain4j-hugging-face</artifactId>
+        <version>1.1.0-beta7</version>
+      </dependency>
+      <dependency>
+        <groupId>dev.langchain4j</groupId>
+        <artifactId>langchain4j-open-ai</artifactId>
+        <version>1.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.apache.kafka</groupId>
