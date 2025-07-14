@@ -99,6 +99,8 @@ jobs:
             "com.google.api.grpc:proto-google-iam-v1"
             # Mismatch between camel-quarkus-couchdb & camel-quarkus-ibm-secrets-manager
             "com.ibm.cloud:sdk-core"
+            # Mismatch between camel-quarkus-mail-microsoft-oauth & camel-quarkus-weaviate
+            "com.nimbusds:oauth2-oidc-sdk"
             # Mismatch between camel-quarkus-cassandraql & camel-quarkus-dfdl
             "com.typesafe:config"
             # Mismatch between camel-quarkus-xslt-saxon & camel-quarkus-dfdl
@@ -109,6 +111,8 @@ jobs:
             "org.apache.commons:commons-csv"
             # Mismatch between camel-quarkus-ldif, camel-quarkus-milvus, camel-quarkus-netty & camel-quarkus-spring-redis
             "org.apache.commons:commons-pool2"
+            # Mismatch between camel-quarkus-fhir & camel-quarkus-thrift
+            "org.apache.thrift:libthrift"
             # Mismatch between camel-quarkus-jcr & camel-quarkus-lucene
             "org.apache.lucene:lucene-core"
             # Mismatch between camel-quarkus-jsch, camel-quarkus-ldif & camel-quarkus-quickfix
