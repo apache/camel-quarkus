@@ -1056,6 +1056,12 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-flatpack</artifactId>
         <version>4.13.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -2884,6 +2890,10 @@
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
