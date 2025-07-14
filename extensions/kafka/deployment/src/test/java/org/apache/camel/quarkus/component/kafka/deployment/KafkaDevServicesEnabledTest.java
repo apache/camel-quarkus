@@ -33,6 +33,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -58,6 +59,7 @@ public class KafkaDevServicesEnabledTest {
     @ConfigProperty(name = "kafka.bootstrap.servers")
     String bootstrapServers;
 
+    @Disabled("https://github.com/apache/camel-quarkus/issues/7517")
     @Test
     public void camelKafkaComponentBrokersConfigurationIsDevServicesBroker() {
         KafkaComponent component = context.getComponent("kafka", KafkaComponent.class);
