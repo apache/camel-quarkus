@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.management;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
+import org.apache.camel.impl.engine.DefaultManagementNameStrategy;
 import org.apache.camel.spi.CamelContextCustomizer;
 
 @Recorder
@@ -32,6 +33,7 @@ public class CamelManagementRecorder {
 
         @Override
         public void configure(CamelContext context) {
+            context.setManagementNameStrategy(new DefaultManagementNameStrategy(context));
             context.setManagementName(context.getName());
         }
     }
