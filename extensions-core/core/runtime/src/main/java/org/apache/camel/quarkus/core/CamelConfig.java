@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.core;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 
@@ -104,6 +105,13 @@ public interface CamelConfig {
      * @asciidoclet
      */
     TypeConverterConfig typeConverter();
+
+    /**
+     * Build time configuration options for the Camel Quarkus Dev UI.
+     *
+     * @asciidoclet
+     */
+    DevUIConfig devUI();
 
     interface RoutesDiscoveryConfig {
         /**
@@ -539,5 +547,15 @@ public interface CamelConfig {
          */
         @WithDefault("false")
         boolean statisticsEnabled();
+    }
+
+    interface DevUIConfig {
+        /**
+         * The interval at which data is updated in Camel Quarkus Dev UI pages.
+         *
+         * @asciidoclet
+         */
+        @WithDefault("5S")
+        Duration updateInternal();
     }
 }

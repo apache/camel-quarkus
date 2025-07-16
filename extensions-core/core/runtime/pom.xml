@@ -105,6 +105,10 @@
                     <capabilities>
                         <provides>org.apache.camel</provides>
                     </capabilities>
+                    <conditionalDevDependencies>
+                        <artifact>org.apache.camel.quarkus:camel-quarkus-console:${project.version}</artifact>
+                        <artifact>org.apache.camel.quarkus:camel-quarkus-debug:${project.version}</artifact>
+                    </conditionalDevDependencies>
                 </configuration>
             </plugin>
             <plugin>

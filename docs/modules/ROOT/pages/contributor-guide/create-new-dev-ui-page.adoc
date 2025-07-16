@@ -1,0 +1,79 @@
+[[create-a-new-dev-ui-page]]
+= Create a new Dev UI page
+:page-aliases: create-new-dev-ui.adoc
+
+This guide outlines how to create new Quarkus Dev UI pages for Camel Quarkus extensions.
+
+== Creating general Dev UI pages
+
+To create general Quarkus Dev UI pages for any extension, follow the https://quarkus.io/guides/dev-ui#guide-for-extension-developers[extension developers guide].
+
+== Creating Dev UI pages for Camel consoles
+
+Camel can expose various xref:manual::camel-console.adoc[consoles] from which JSON responses can be harnessed in the Quarkus Dev UI to display useful data.
+
+Creating new pages to interact with consoles is made simple by a reusable component that takes care of handling the data exchanges between the UI and the backend console service.
+
+For example, if you wanted to add a page for the Camel console `foo`, you would do the following.
+
+1. Create a new `.js` file within the extension deployment module at `src/main/resources/dev-ui/qwc-camel-foo.js`.
+2. Extend the `QwcCamelCore` component and provide a `render()` function to return your HTML content
++
+For example, to create a simple table view:
++
+[source,javascript]
+----
+import {html} from 'qwc-hot-reload-element';
+// NOTE: if your Dev UI page lives outside of camel-quarkus-core then use the following instead of ./qwc-camel-core.js:
+// import ../org.apache.camel.quarkus.camel-quarkus-core/qwc-camel-core.js
+import {QwcCamelCore} from "./qwc-camel-core.js";
+import {columnBodyRenderer} from '@vaadin/grid/lit.js';
+import '@vaadin/grid';
+import '@vaadin/grid/vaadin-grid-sort-column.js';
+
+export class QwcCamelFoo extends QwcCamelCore { <1>
+    constructor() {
+        super('route', {}); <2>
+    }
+
+    render() {
+        return html`
+            <3>
+            <vaadin-grid .items="${super.consoleData()}" class="consoleData" theme="no-border row-stripes">
+                <4>
+                <vaadin-grid-column
+                        header="Column A"
+                        ${columnBodyRenderer((item) => super.codeStyleRenderer(item.dataA), [])}
+                        resizable>
+                </vaadin-grid-column>
+                <vaadin-grid-column
+                        header="Column B"
+                        ${columnBodyRenderer((item) => super.codeStyleRenderer(item.dataB), [])}
+                        resizable>
+                </vaadin-grid-column>
+            </vaadin-grid>
+        `;
+    }
+}
+<5>
+customElements.define('qwc-camel-foo', QwcCamelFoo);
+----
++
+<1> Extending `QwcCamelCore` will automatically configure hot reloading of data and provides some useful data formatting helper methods.
+<2> Call `super`, passing the id of the Camel console (see more information below) and an optional map of options that the console can use for data filtering and other functions.
+<3> Render your UI. You can use Vaadin components or plain HTML. The console data can be obtained via `super.consoleData()`.
+<4> When iterating over the console data you can access the returned JSON fields by referring to their name. E.g. if the console returns JSON `[{"dataA": "valueA", "dataB": "valueB"}]` you can refer to the data like `item.dataA` etc.
+<5> You must register the component at the end of the file.
++
+3. Finally, you must create a `BuildStep` to add a UI link to the extension Dev UI card as described in the https://quarkus.io/guides/dev-ui#adding-pages-to-the-dev-ui[guide].
+
+=== Finding the Camel console ID
+
+To find all available console IDs.
+
+[source,shell]
+----
+curl -s localhost:8080/q/camel/dev-console | jq 'to_entries[].value.id'
+----
+
+Or you can https://github.com/search?q=repo%3Aapache%2Fcamel+%22%40DevConsole%22+language%3AJava&type=code&l=Java[search] the Apache Camel core codebase and look for the `name` attribute value on the `@DevConsole` annotation.
