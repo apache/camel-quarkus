@@ -48,7 +48,7 @@ import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveHierarchyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveHierarchyIgnoreWarningBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
-import io.quarkus.utilities.OS;
+import io.smallrye.common.os.OS;
 import org.apache.camel.tooling.model.MainModel;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.Type;
@@ -102,7 +102,7 @@ class HazelcastProcessor {
 
     @BuildStep
     void registerICMPHelper(BuildProducer<RuntimeInitializedClassBuildItem> initializedClasses) {
-        if (OS.determineOS() != OS.LINUX) {
+        if (OS.current() != OS.LINUX) {
             initializedClasses.produce(new RuntimeInitializedClassBuildItem(ICMPHelper.class.getName()));
         }
         initializedClasses.produce(new RuntimeInitializedClassBuildItem(OperatingSystemMXBeanSupport.class.getName()));

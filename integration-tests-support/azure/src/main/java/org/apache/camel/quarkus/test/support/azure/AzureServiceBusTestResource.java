@@ -21,10 +21,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import io.quarkus.runtime.LaunchMode;
-import io.quarkus.runtime.configuration.ConfigUtils;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
-import io.smallrye.config.SmallRyeConfig;
 import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
@@ -48,8 +45,6 @@ public class AzureServiceBusTestResource implements QuarkusTestResourceLifecycle
 
     @Override
     public Map<String, String> start() {
-        final SmallRyeConfig config = ConfigUtils.configBuilder(true, LaunchMode.NORMAL).build();
-
         final boolean realCredentialsProvided = System.getenv("AZURE_SERVICEBUS_CONNECTION_STRING") != null
                 && System.getenv("AZURE_SERVICEBUS_QUEUE_NAME") != null;
 

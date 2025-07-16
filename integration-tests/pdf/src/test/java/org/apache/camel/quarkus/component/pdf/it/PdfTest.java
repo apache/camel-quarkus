@@ -19,9 +19,9 @@ package org.apache.camel.quarkus.component.pdf.it;
 import java.io.IOException;
 
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.utilities.OS;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.smallrye.common.os.OS;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
@@ -42,7 +42,7 @@ class PdfTest {
     @BeforeEach
     public void beforeEach() {
         // Disable tests on GitHub Actions Windows runners. Font cache building is too slow and restoring saved caches is too unreliable
-        Assumptions.assumeFalse(OS.determineOS().equals(OS.WINDOWS) && "true".equals(System.getenv("CI")));
+        Assumptions.assumeFalse(OS.current().equals(OS.WINDOWS) && "true".equals(System.getenv("CI")));
     }
 
     @Order(1)
