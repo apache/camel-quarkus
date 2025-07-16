@@ -30,6 +30,7 @@ metadata:
   categories:
   - "integration"
   config:
+  - "camel.dataformat"
   - "quarkus.camel"
   - "quarkus.camel.main"
   status:

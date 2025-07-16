@@ -34,6 +34,7 @@ import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelContextRecorder;
+import org.apache.camel.quarkus.core.dataformat.CamelDataFormatRuntimeConfig;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBootClockBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelComponentNameResolverBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
@@ -189,6 +190,15 @@ public class CamelContextProcessor {
     @BuildStep(onlyIfNot = NativeOrNativeSourcesBuild.class)
     CamelBootClockBuildItem createCamelNativeModeBootClock(CamelContextRecorder recorder) {
         return new CamelBootClockBuildItem(recorder.createBootClock(false));
+    }
+
+    @Record(ExecutionTime.RUNTIME_INIT)
+    @BuildStep
+    void registerDataFormatLifecycleStrategy(
+            CamelContextBuildItem camelContext,
+            CamelDataFormatRuntimeConfig dataFormatConfig,
+            CamelContextRecorder recorder) {
+        recorder.registerDataFormatLifecycleStrategy(camelContext.getCamelContext(), dataFormatConfig);
     }
 
     public static final class EventBridgeEnabled implements BooleanSupplier {

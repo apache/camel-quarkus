@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.dataformat;
+package org.apache.camel.quarkus.core.dataformat;
 
 import java.util.Map;
 
@@ -25,17 +25,24 @@ import io.smallrye.config.WithParentName;
 
 @ConfigRoot(phase = ConfigPhase.RUN_TIME)
 @ConfigMapping(prefix = "camel.dataformat")
-public interface CamelDataformatConfig {
-
+public interface CamelDataFormatRuntimeConfig {
     /**
-     * Configuration of properties for any dataformat.
-     * (In the format camel.dataformat."dataformat_name"."property"=value
+     * Camel data format configuration.
      *
-     * i.e.
+     * The format of the configuration is as follows.
+     *
+     * [source,properties]
+     * ----
+     * camel.dataformat.<name>.<property> = value
+     * ----
+     *
+     * For example.
+     * [source,properties]
+     * ----
      * camel.dataformat.beanio.stream-name = test-stream
      * camel.dataformat.beanio.mapping = test-mapping.xml
+     * ----
      */
     @WithParentName
-    Map<String, Map<String, String>> dataformats();
-
+    Map<String, Map<String, String>> dataFormatConfigs();
 }
