@@ -29,6 +29,8 @@ import org.apache.camel.catalog.RuntimeCamelCatalog;
 import org.apache.camel.clock.Clock;
 import org.apache.camel.impl.debugger.BacklogTracer;
 import org.apache.camel.impl.engine.DefaultVariableRepositoryFactory;
+import org.apache.camel.quarkus.core.dataformat.CamelDataFormatRuntimeConfig;
+import org.apache.camel.quarkus.core.dataformat.CamelQuarkusDataFormatConfigLifecycleStrategy;
 import org.apache.camel.quarkus.core.devmode.NoOpModelineFactory;
 import org.apache.camel.quarkus.core.devmode.NoShutdownStrategy;
 import org.apache.camel.spi.CamelContextCustomizer;
@@ -182,5 +184,11 @@ public class CamelContextRecorder {
             clock = new ResetableClock();
         }
         return new RuntimeValue<>(clock);
+    }
+
+    public void registerDataFormatLifecycleStrategy(RuntimeValue<CamelContext> context,
+            CamelDataFormatRuntimeConfig dataFormatConfig) {
+        CamelContext camelContext = context.getValue();
+        camelContext.addLifecycleStrategy(new CamelQuarkusDataFormatConfigLifecycleStrategy(camelContext, dataFormatConfig));
     }
 }

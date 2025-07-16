@@ -29,7 +29,5 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/dataformat.html"
   categories:
   - "integration"
-  config:
-  - "camel.dataformat"
   status:
   - "stable"

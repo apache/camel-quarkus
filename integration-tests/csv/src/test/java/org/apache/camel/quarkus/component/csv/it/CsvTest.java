@@ -26,7 +26,6 @@ import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 class CsvTest {
-
     @Test
     public void json2csv() {
         RestAssured.given() //
@@ -52,4 +51,15 @@ class CsvTest {
                 .body(is("[[\"Melwah\",\"Camelus Dromedarius\"],[\"Al Hamra\",\"Camelus Dromedarius\"]]"));
     }
 
+    @Test
+    public void csvWithAdditionalWhitespace2json() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .accept(ContentType.JSON)
+                .body("One   \r\nTwo   \r\nThree   \r\n")
+                .post("/csv/csv-to-json")
+                .then()
+                .statusCode(200)
+                .body(is("[[\"One\"],[\"Two\"],[\"Three\"]]"));
+    }
 }
