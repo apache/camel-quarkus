@@ -24,31 +24,36 @@ import org.apache.camel.startup.jfr.FlightRecorderStartupStepRecorder;
 
 @Recorder
 public class CamelJfrRecorder {
+    private final RuntimeValue<RuntimeCamelJfrConfig> runtimeConfig;
 
-    public RuntimeValue<CamelContextCustomizer> createStartupStepRecorder(RuntimeCamelJfrConfig config) {
+    public CamelJfrRecorder(RuntimeValue<RuntimeCamelJfrConfig> runtimeConfig) {
+        this.runtimeConfig = runtimeConfig;
+    }
+
+    public RuntimeValue<CamelContextCustomizer> createStartupStepRecorder() {
         CamelContextCustomizer flightRecorderCustomizer = new CamelContextCustomizer() {
             @Override
             public void configure(CamelContext camelContext) {
                 FlightRecorderStartupStepRecorder flightRecorder = new FlightRecorderStartupStepRecorder();
 
-                if (config.startupRecorderRecording().isPresent()) {
-                    flightRecorder.setRecording(config.startupRecorderRecording().get());
+                if (runtimeConfig.getValue().startupRecorderRecording().isPresent()) {
+                    flightRecorder.setRecording(runtimeConfig.getValue().startupRecorderRecording().get());
                 }
 
-                if (config.startupRecorderProfile().isPresent()) {
-                    flightRecorder.setRecordingProfile(config.startupRecorderProfile().get());
+                if (runtimeConfig.getValue().startupRecorderProfile().isPresent()) {
+                    flightRecorder.setRecordingProfile(runtimeConfig.getValue().startupRecorderProfile().get());
                 }
 
-                if (config.startupRecorderMaxDepth().isPresent()) {
-                    flightRecorder.setMaxDepth(config.startupRecorderMaxDepth().get());
+                if (runtimeConfig.getValue().startupRecorderMaxDepth().isPresent()) {
+                    flightRecorder.setMaxDepth(runtimeConfig.getValue().startupRecorderMaxDepth().get());
                 }
 
-                if (config.startupRecorderDuration().isPresent()) {
-                    flightRecorder.setStartupRecorderDuration(config.startupRecorderDuration().get());
+                if (runtimeConfig.getValue().startupRecorderDuration().isPresent()) {
+                    flightRecorder.setStartupRecorderDuration(runtimeConfig.getValue().startupRecorderDuration().get());
                 }
 
-                if (config.startupRecorderDir().isPresent()) {
-                    flightRecorder.setRecordingDir(config.startupRecorderDir().get());
+                if (runtimeConfig.getValue().startupRecorderDir().isPresent()) {
+                    flightRecorder.setRecordingDir(runtimeConfig.getValue().startupRecorderDir().get());
                 }
 
                 camelContext.getCamelContextExtension().setStartupStepRecorder(flightRecorder);

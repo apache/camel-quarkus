@@ -50,6 +50,12 @@ import org.eclipse.microprofile.config.ConfigProvider;
 
 @Recorder
 public class CamelContextRecorder {
+    private final RuntimeValue<CamelDataFormatRuntimeConfig> dataFormatConfig;
+
+    public CamelContextRecorder(RuntimeValue<CamelDataFormatRuntimeConfig> dataFormatConfig) {
+        this.dataFormatConfig = dataFormatConfig;
+    }
+
     public RuntimeValue<CamelContext> createContext(
             RuntimeValue<Registry> registry,
             RuntimeValue<TypeConverterRegistry> typeConverterRegistry,
@@ -186,9 +192,9 @@ public class CamelContextRecorder {
         return new RuntimeValue<>(clock);
     }
 
-    public void registerDataFormatLifecycleStrategy(RuntimeValue<CamelContext> context,
-            CamelDataFormatRuntimeConfig dataFormatConfig) {
+    public void registerDataFormatLifecycleStrategy(RuntimeValue<CamelContext> context) {
         CamelContext camelContext = context.getValue();
-        camelContext.addLifecycleStrategy(new CamelQuarkusDataFormatConfigLifecycleStrategy(camelContext, dataFormatConfig));
+        camelContext.addLifecycleStrategy(
+                new CamelQuarkusDataFormatConfigLifecycleStrategy(camelContext, dataFormatConfig.getValue()));
     }
 }
