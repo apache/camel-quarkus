@@ -25,6 +25,12 @@ import org.jboss.logging.Logger;
 
 @Recorder
 public class CamelBootstrapRecorder {
+    private final RuntimeValue<CamelRuntimeConfig> camelRuntimeConfig;
+
+    public CamelBootstrapRecorder(RuntimeValue<CamelRuntimeConfig> camelRuntimeConfig) {
+        this.camelRuntimeConfig = camelRuntimeConfig;
+    }
+
     public void addShutdownTask(ShutdownContext shutdown, RuntimeValue<CamelRuntime> runtime) {
         shutdown.addShutdownTask(new Runnable() {
             @Override
@@ -38,9 +44,9 @@ public class CamelBootstrapRecorder {
         });
     }
 
-    public void start(CamelRuntimeConfig camelRuntimeConfig, RuntimeValue<CamelRuntime> runtime, Supplier<String[]> arguments,
+    public void start(RuntimeValue<CamelRuntime> runtime, Supplier<String[]> arguments,
             String camelQuarkusVersion) {
-        if (camelRuntimeConfig.bootstrap().enabled()) {
+        if (camelRuntimeConfig.getValue().bootstrap().enabled()) {
             try {
                 Logger logger = Logger.getLogger(CamelBootstrapRecorder.class);
                 logger.infof("Apache Camel Quarkus %s is starting", camelQuarkusVersion);

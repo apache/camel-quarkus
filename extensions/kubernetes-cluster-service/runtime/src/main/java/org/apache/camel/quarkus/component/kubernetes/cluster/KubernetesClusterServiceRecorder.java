@@ -23,15 +23,19 @@ import org.apache.camel.support.cluster.RebalancingCamelClusterService;
 
 @Recorder
 public class KubernetesClusterServiceRecorder {
+    private final RuntimeValue<KubernetesClusterServiceRuntimeConfig> runtimeConfig;
 
-    public RuntimeValue<KubernetesClusterService> createKubernetesClusterService(KubernetesClusterServiceRuntimeConfig config) {
-        KubernetesClusterService kcs = setupKubernetesClusterServiceFromConfig(config);
+    public KubernetesClusterServiceRecorder(RuntimeValue<KubernetesClusterServiceRuntimeConfig> runtimeConfig) {
+        this.runtimeConfig = runtimeConfig;
+    }
+
+    public RuntimeValue<KubernetesClusterService> createKubernetesClusterService() {
+        KubernetesClusterService kcs = setupKubernetesClusterServiceFromConfig(runtimeConfig.getValue());
         return new RuntimeValue<>(kcs);
     }
 
-    public RuntimeValue<RebalancingCamelClusterService> createKubernetesRebalancingClusterService(
-            KubernetesClusterServiceRuntimeConfig config) {
-        KubernetesClusterService kcs = setupKubernetesClusterServiceFromConfig(config);
+    public RuntimeValue<RebalancingCamelClusterService> createKubernetesRebalancingClusterService() {
+        KubernetesClusterService kcs = setupKubernetesClusterServiceFromConfig(runtimeConfig.getValue());
         RebalancingCamelClusterService rebalancingService = new RebalancingCamelClusterService(kcs,
                 kcs.getRenewDeadlineMillis());
         return new RuntimeValue<>(rebalancingService);

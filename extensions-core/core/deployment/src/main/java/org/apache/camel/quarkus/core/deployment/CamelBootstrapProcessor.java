@@ -26,7 +26,6 @@ import io.quarkus.deployment.builditem.ServiceStartBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
 import io.quarkus.runtime.ShutdownContext;
 import org.apache.camel.quarkus.core.CamelBootstrapRecorder;
-import org.apache.camel.quarkus.core.CamelRuntimeConfig;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBootstrapCompletedBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBuildItem;
 import org.apache.camel.quarkus.core.deployment.util.CamelQuarkusVersion;
@@ -40,7 +39,6 @@ class CamelBootstrapProcessor {
      * @param commandLineArguments a reference to the raw command line arguments as they were passed to the application.
      * @param shutdown             a reference to a {@link ShutdownContext} used tor register the Camel's related shutdown
      *                             tasks.
-     * @param camelRuntimeConfig   The {@link CamelRuntimeConfig} instance.
      */
     @BuildStep
     @Record(value = ExecutionTime.RUNTIME_INIT)
@@ -50,12 +48,11 @@ class CamelBootstrapProcessor {
             CamelRuntimeBuildItem runtime,
             RawCommandLineArgumentsBuildItem commandLineArguments,
             ShutdownContextBuildItem shutdown,
-            BuildProducer<ServiceStartBuildItem> serviceStartBuildItems,
-            CamelRuntimeConfig camelRuntimeConfig) {
+            BuildProducer<ServiceStartBuildItem> serviceStartBuildItems) {
 
         recorder.addShutdownTask(shutdown, runtime.runtime());
         if (runtime.isAutoStartup()) {
-            recorder.start(camelRuntimeConfig, runtime.runtime(), commandLineArguments, CamelQuarkusVersion.getVersion());
+            recorder.start(runtime.runtime(), commandLineArguments, CamelQuarkusVersion.getVersion());
         }
         /* Make sure that Quarkus orders this method before starting to serve HTTP endpoints.
          * Otherwise first requests might reach Camel context in a non-yet-started state. */

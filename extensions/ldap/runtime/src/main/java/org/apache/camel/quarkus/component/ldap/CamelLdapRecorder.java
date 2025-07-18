@@ -26,13 +26,18 @@ import org.apache.camel.CamelContext;
 
 @Recorder
 public class CamelLdapRecorder {
+    private final RuntimeValue<CamelLdapConfig> config;
 
-    public void createDirContexts(RuntimeValue<CamelContext> contextRuntimeValue, final CamelLdapConfig config) {
+    public CamelLdapRecorder(RuntimeValue<CamelLdapConfig> config) {
+        this.config = config;
+    }
+
+    public void createDirContexts(RuntimeValue<CamelContext> contextRuntimeValue) {
         CamelContext context = contextRuntimeValue.getValue();
 
-        config.dirContexts().keySet().forEach(contextName -> {
+        config.getValue().dirContexts().keySet().forEach(contextName -> {
 
-            CamelLdapConfig.LdapDirContextConfig dirConfig = config.dirContexts().get(contextName);
+            CamelLdapConfig.LdapDirContextConfig dirConfig = config.getValue().dirContexts().get(contextName);
 
             Hashtable<String, Object> env = new Hashtable<String, Object>();
             dirConfig.initialContextFactory().ifPresent(v -> env.put(Context.INITIAL_CONTEXT_FACTORY, v));

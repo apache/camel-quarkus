@@ -23,7 +23,6 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.AllowJNDIBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.quarkus.component.ldap.CamelLdapConfig;
 import org.apache.camel.quarkus.component.ldap.CamelLdapRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 
@@ -53,10 +52,9 @@ class LdapProcessor {
     @Record(ExecutionTime.RUNTIME_INIT)
     void createDirContexts(
             CamelContextBuildItem context,
-            CamelLdapRecorder camelLdapRecorder,
-            CamelLdapConfig ldapConfig) {
+            CamelLdapRecorder camelLdapRecorder) {
 
-        camelLdapRecorder.createDirContexts(context.getCamelContext(), ldapConfig);
+        camelLdapRecorder.createDirContexts(context.getCamelContext());
     }
 
 }

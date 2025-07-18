@@ -24,7 +24,6 @@ import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.component.kubernetes.cluster.KubernetesClusterService;
 import org.apache.camel.quarkus.component.kubernetes.cluster.KubernetesClusterServiceBuildTimeConfig;
 import org.apache.camel.quarkus.component.kubernetes.cluster.KubernetesClusterServiceRecorder;
-import org.apache.camel.quarkus.component.kubernetes.cluster.KubernetesClusterServiceRuntimeConfig;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 import org.apache.camel.support.cluster.RebalancingCamelClusterService;
@@ -36,16 +35,15 @@ class KubernetesClusterServiceProcessor {
     @Consume(CamelContextBuildItem.class)
     CamelRuntimeBeanBuildItem setupKubernetesClusterService(
             KubernetesClusterServiceBuildTimeConfig buildTimeConfig,
-            KubernetesClusterServiceRuntimeConfig runtimeConfig,
             KubernetesClusterServiceRecorder recorder) {
 
         if (buildTimeConfig.rebalancing()) {
             final RuntimeValue<RebalancingCamelClusterService> krcs = recorder
-                    .createKubernetesRebalancingClusterService(runtimeConfig);
+                    .createKubernetesRebalancingClusterService();
             return new CamelRuntimeBeanBuildItem("kubernetesRebalancingClusterService",
                     RebalancingCamelClusterService.class.getName(), krcs);
         } else {
-            final RuntimeValue<KubernetesClusterService> kcs = recorder.createKubernetesClusterService(runtimeConfig);
+            final RuntimeValue<KubernetesClusterService> kcs = recorder.createKubernetesClusterService();
             return new CamelRuntimeBeanBuildItem("kubernetesClusterService", KubernetesClusterService.class.getName(), kcs);
         }
     }

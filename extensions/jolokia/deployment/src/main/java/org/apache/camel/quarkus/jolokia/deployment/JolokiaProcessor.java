@@ -61,7 +61,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.camel.quarkus.jolokia.CamelQuarkusJolokiaServer;
 import org.apache.camel.quarkus.jolokia.JolokiaRecorder;
 import org.apache.camel.quarkus.jolokia.config.JolokiaBuildTimeConfig;
-import org.apache.camel.quarkus.jolokia.config.JolokiaRuntimeConfig;
 import org.apache.camel.quarkus.jolokia.devmode.DevModeJolokiaServerShutdownListener;
 import org.apache.camel.quarkus.jolokia.restrictor.CamelJolokiaRestrictor;
 import org.apache.camel.util.ObjectHelper;
@@ -88,11 +87,8 @@ public class JolokiaProcessor {
     @Record(ExecutionTime.RUNTIME_INIT)
     JolokiaServerConfigBuildItem createJolokiaServerConfig(
             ApplicationInfoBuildItem applicationInfo,
-            JolokiaBuildTimeConfig buildTimeConfig,
-            JolokiaRuntimeConfig config,
             JolokiaRecorder recorder) {
-        return new JolokiaServerConfigBuildItem(
-                recorder.createJolokiaServerConfig(config, buildTimeConfig.path(), applicationInfo.getName()));
+        return new JolokiaServerConfigBuildItem(recorder.createJolokiaServerConfig(applicationInfo.getName()));
     }
 
     @BuildStep
@@ -108,10 +104,9 @@ public class JolokiaProcessor {
     void startJolokiaServer(
             LaunchModeBuildItem launchMode,
             JolokiaServerBuildItem jolokiaServer,
-            JolokiaRuntimeConfig runtimeConfig,
             BuildProducer<SyntheticBeanBuildItem> syntheticBean,
             JolokiaRecorder recorder) {
-        recorder.startJolokiaServer(jolokiaServer.getRuntimeValue(), runtimeConfig);
+        recorder.startJolokiaServer(jolokiaServer.getRuntimeValue());
 
         SyntheticBeanBuildItem.ExtendedBeanConfigurator beanConfigurator = SyntheticBeanBuildItem
                 .configure(CamelQuarkusJolokiaServer.class)

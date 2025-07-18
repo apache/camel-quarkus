@@ -32,6 +32,7 @@ import io.quarkus.runtime.annotations.Recorder;
 import io.vertx.core.Handler;
 import io.vertx.ext.web.Route;
 import io.vertx.ext.web.RoutingContext;
+import org.apache.camel.quarkus.jolokia.config.JolokiaBuildTimeConfig;
 import org.apache.camel.quarkus.jolokia.config.JolokiaRuntimeConfig;
 import org.apache.camel.quarkus.jolokia.config.JolokiaRuntimeConfig.DiscoveryEnabledMode;
 import org.apache.camel.quarkus.jolokia.config.JolokiaRuntimeConfig.Kubernetes;
@@ -55,6 +56,14 @@ public class JolokiaRecorder {
     private static final String LOCALHOST = "localhost";
     private static final Logger LOG = Logger.getLogger(JolokiaRecorder.class);
 
+    private final JolokiaBuildTimeConfig buildTimeConfig;
+    private final RuntimeValue<JolokiaRuntimeConfig> runtimeConfig;
+
+    public JolokiaRecorder(JolokiaBuildTimeConfig buildTimeConfig, RuntimeValue<JolokiaRuntimeConfig> runtimeConfig) {
+        this.buildTimeConfig = buildTimeConfig;
+        this.runtimeConfig = runtimeConfig;
+    }
+
     public Consumer<Route> route(Handler<RoutingContext> bodyHandler) {
         return new Consumer<Route>() {
             @Override
@@ -64,16 +73,13 @@ public class JolokiaRecorder {
         };
     }
 
-    public RuntimeValue<JolokiaServerConfig> createJolokiaServerConfig(
-            JolokiaRuntimeConfig runtimeConfig,
-            String endpointPath,
-            String applicationName) {
+    public RuntimeValue<JolokiaServerConfig> createJolokiaServerConfig(String applicationName) {
 
-        Server server = runtimeConfig.server();
-        Kubernetes kubernetes = runtimeConfig.kubernetes();
+        Server server = runtimeConfig.getValue().server();
+        Kubernetes kubernetes = runtimeConfig.getValue().kubernetes();
 
         // Configure Jolokia HTTP server host, port & context path
-        String host = runtimeConfig.server().host().orElse(null);
+        String host = runtimeConfig.getValue().server().host().orElse(null);
         if (ObjectHelper.isEmpty(host)) {
             if (LaunchMode.isRemoteDev()) {
                 host = ALL_INTERFACES;
@@ -91,7 +97,7 @@ public class JolokiaRecorder {
         Map<String, String> serverOptions = new HashMap<>();
         serverOptions.put("host", host);
         serverOptions.put("port", String.valueOf(server.port()));
-        serverOptions.put(ConfigKey.AGENT_CONTEXT.getKeyValue(), "/" + endpointPath);
+        serverOptions.put(ConfigKey.AGENT_CONTEXT.getKeyValue(), "/" + buildTimeConfig.path());
 
         // Attempt Kubernetes configuration
         Optional<String> kubernetesServiceHost = ConfigProvider.getConfig().getOptionalValue("kubernetes.service.host",
@@ -112,10 +118,10 @@ public class JolokiaRecorder {
 
         // Merge configuration with any arbitrary values provided via quarkus.camel.jolokia.additional-properties
         Map<String, String> combinedOptions = CollectionHelper.mergeMaps(serverOptions,
-                runtimeConfig.additionalProperties());
+                runtimeConfig.getValue().additionalProperties());
 
         // Configure CamelJolokiaRestrictor if an existing restrictor is not already provided
-        if (runtimeConfig.registerCamelRestrictor()) {
+        if (runtimeConfig.getValue().registerCamelRestrictor()) {
             combinedOptions.putIfAbsent(ConfigKey.RESTRICTOR_CLASS.getKeyValue(), CamelJolokiaRestrictor.class.getName());
         }
 
@@ -149,8 +155,8 @@ public class JolokiaRecorder {
         }
     }
 
-    public void startJolokiaServer(RuntimeValue<JolokiaServer> jolokiaServer, JolokiaRuntimeConfig config) {
-        if (config.server().autoStart()) {
+    public void startJolokiaServer(RuntimeValue<JolokiaServer> jolokiaServer) {
+        if (runtimeConfig.getValue().server().autoStart()) {
             jolokiaServer.getValue().start();
         }
     }
