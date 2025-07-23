@@ -1,0 +1,12 @@
+=== Custom ISO-8583 parser configurations in native mode
+
+If you choose to use a configuration file named differently to the default `j8583-config.xml`, then you must register this file as a native image resource.
+
+For example.
+
+[source,properties]
+----
+quarkus.native.resources.includes = my-custom-config.xml
+----
+
+More information about selecting resources for inclusion in the native executable can be found at xref:user-guide/native-mode.adoc#embedding-resource-in-native-executable[Embedding resource in native executable].

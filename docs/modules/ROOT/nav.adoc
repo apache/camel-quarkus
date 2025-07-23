@@ -157,6 +157,7 @@
 *** xref:reference/extensions/ibm-secrets-manager.adoc[IBM Secrets Manager]
 *** xref:reference/extensions/iec60870.adoc[IEC 60870 Client]
 *** xref:reference/extensions/irc.adoc[IRC]
+*** xref:reference/extensions/iso8583.adoc[ISO-8583]
 *** xref:reference/extensions/ignite.adoc[Ignite Cache]
 *** xref:reference/extensions/infinispan.adoc[Infinispan]
 *** xref:reference/extensions/influxdb.adoc[InfluxDB]
