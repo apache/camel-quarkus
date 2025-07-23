@@ -112,6 +112,7 @@
         <module>infinispan-common</module>
         <module>infinispan-quarkus-client</module>
         <module>influxdb</module>
+        <module>iso8583</module>
         <module>jackson-avro</module>
         <module>jackson-protobuf</module>
         <module>jasypt</module>
