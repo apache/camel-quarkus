@@ -138,6 +138,7 @@
         <module>ical</module>
         <module>infinispan</module>
         <module>influxdb</module>
+        <module>iso8583</module>
         <module>jackson</module>
         <module>jackson-avro</module>
         <module>jackson-protobuf</module>
