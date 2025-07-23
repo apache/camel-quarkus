@@ -39,6 +39,7 @@ group-02:
   - beanio
   - google-pubsub
   - grpc
+  - iso8583
   - jackson-avro
   - jackson-protobuf
   - jfr
