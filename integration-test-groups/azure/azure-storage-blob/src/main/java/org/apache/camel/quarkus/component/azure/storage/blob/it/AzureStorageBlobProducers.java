@@ -56,6 +56,7 @@ public class AzureStorageBlobProducers {
     public BlobComponent azureBlobComponentWithManagedClient() {
         BlobConfiguration configuration = new BlobConfiguration();
         configuration.setCredentialType(CredentialType.SHARED_KEY_CREDENTIAL);
+        configuration.setCredentials(azureStorageSharedKeyCredential());
 
         BlobComponent component = new BlobComponent();
         component.setAutowiredEnabled(false);
