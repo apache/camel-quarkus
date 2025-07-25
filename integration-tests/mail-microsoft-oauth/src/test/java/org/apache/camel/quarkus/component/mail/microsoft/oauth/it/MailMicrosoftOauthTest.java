@@ -21,11 +21,13 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import jakarta.json.bind.JsonbBuilder;
 import org.apache.camel.ServiceStatus;
 import org.awaitility.Awaitility;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
@@ -33,6 +35,7 @@ import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 @EnabledIfEnvironmentVariable(named = "CQ_MAIL_MICROSOFT_OAUTH_CLIENT_ID", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "CQ_MAIL_MICROSOFT_OAUTH_CLIENT_SECRET", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "CQ_MAIL_MICROSOFT_OAUTH_TENANT_ID", matches = ".+")
+@QuarkusTestResource(MailMicrosoftOauthTestResource.class)
 @QuarkusTest
 class MailMicrosoftOauthTest {
 
@@ -41,9 +44,10 @@ class MailMicrosoftOauthTest {
     public void sendAndReceive() {
 
         final String content = "Test email!" + UUID.randomUUID();
+        final String subject = ConfigProvider.getConfig().getValue("test.mail.subject", String.class);
 
         //send an email
-        MailMicrosoftOauthUtil.sendMessage(MailMicrosoftOauthRoute.TEST_SUBJECT, content);
+        MailMicrosoftOauthUtil.sendMessage(subject, content);
 
         //start route
         startRoute("receiverRoute");
