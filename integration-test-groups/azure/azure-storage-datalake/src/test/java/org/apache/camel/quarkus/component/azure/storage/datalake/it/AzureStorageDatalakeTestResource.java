@@ -62,7 +62,7 @@ public class AzureStorageDatalakeTestResource implements QuarkusTestResourceLife
                 "azure.datalake.service.url",
                 "https://" + realAzureStorageAccountName + ".dfs.core.windows.net",
                 "cqDatalakeTmpFolder", tmpFolderPath,
-                "cqCDatalakeConsumerFilesystem", "cqfsconsumer" + RandomStringUtils.randomNumeric(16));
+                "cqCDatalakeConsumerFilesystem", "cqfsconsumer" + RandomStringUtils.secure().nextNumeric(16));
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
