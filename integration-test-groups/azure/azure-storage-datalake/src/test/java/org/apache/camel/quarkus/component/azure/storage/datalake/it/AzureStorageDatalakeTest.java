@@ -64,7 +64,7 @@ class AzureStorageDatalakeTest {
 
     @Test
     public void crud() {
-        final String filesystem = "cqfscrud" + RandomStringUtils.randomNumeric(16);
+        final String filesystem = "cqfscrud" + RandomStringUtils.secure().nextNumeric(16);
         final String filename = "file.txt";
 
         /* The filesystem does not exist initially */
@@ -92,7 +92,7 @@ class AzureStorageDatalakeTest {
                     .statusCode(200)
                     .body("", Matchers.hasSize(0));
 
-            String content = "Hello " + RandomStringUtils.randomNumeric(16);
+            String content = "Hello " + RandomStringUtils.secure().nextNumeric(16);
             /* Upload */
             RestAssured.given()
                     .body(content)
@@ -145,7 +145,7 @@ class AzureStorageDatalakeTest {
         final String filename = AzureStorageDatalakeRoutes.CONSUMER_FILE_NAME;
         final String filename2 = AzureStorageDatalakeRoutes.CONSUMER_FILE_NAME2;
         String filesystem = ConfigProvider.getConfig().getValue("cqCDatalakeConsumerFilesystem", String.class);
-        final String content = "Hello from download test! " + RandomStringUtils.randomNumeric(16);
+        final String content = "Hello from download test! " + RandomStringUtils.secure().nextNumeric(16);
         final String tmpFolder = ConfigProvider.getConfig().getValue("cqDatalakeTmpFolder", String.class);
 
         /* The filesystem does not exist initially */
@@ -227,7 +227,7 @@ class AzureStorageDatalakeTest {
 
     @Test
     public void producerRoutes() throws IOException {
-        final String filesystem = "cqfsops" + RandomStringUtils.randomNumeric(16);
+        final String filesystem = "cqfsops" + RandomStringUtils.secure().nextNumeric(16);
         final String filename = AzureStorageDatalakeRoutes.FILE_NAME;
         final String tmpFolder = ConfigProvider.getConfig().getValue("cqDatalakeTmpFolder", String.class);
 
@@ -489,7 +489,7 @@ class AzureStorageDatalakeTest {
     private void testAuthentications(Supplier<Boolean> enabled, BiConsumer<String, String> test) {
         Assumptions.assumeTrue(enabled.get(), "Azure security configuration was not provided");
 
-        final String filesystem = "cqfsauth" + RandomStringUtils.randomNumeric(16);
+        final String filesystem = "cqfsauth" + RandomStringUtils.secure().nextNumeric(16);
         final String filename = AzureStorageDatalakeRoutes.FILE_NAME;
 
         /* The filesystem does not exist initially */
