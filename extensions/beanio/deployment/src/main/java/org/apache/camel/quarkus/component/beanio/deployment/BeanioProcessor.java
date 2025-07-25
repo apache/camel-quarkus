@@ -86,7 +86,7 @@ class BeanioProcessor {
         reflectiveClass.produce(ReflectiveClassBuildItem.builder(handlersAndFactories.toArray(new String[0])).build());
 
         IndexView index = combinedIndex.getIndex();
-        Set<String> recordParsers = index.getAllKnownImplementors(RecordParserFactory.class)
+        Set<String> recordParsers = index.getAllKnownImplementations(RecordParserFactory.class)
                 .stream()
                 .map(ClassInfo::name)
                 .map(DotName::toString)
@@ -102,7 +102,7 @@ class BeanioProcessor {
         reflectiveClass
                 .produce(ReflectiveClassBuildItem.builder(parserConfiguration.toArray(new String[0])).methods(true).build());
 
-        Set<String> errorHandlers = index.getAllKnownImplementors(BeanReaderErrorHandler.class)
+        Set<String> errorHandlers = index.getAllKnownImplementations(BeanReaderErrorHandler.class)
                 .stream()
                 .map(ClassInfo::name)
                 .map(DotName::toString)

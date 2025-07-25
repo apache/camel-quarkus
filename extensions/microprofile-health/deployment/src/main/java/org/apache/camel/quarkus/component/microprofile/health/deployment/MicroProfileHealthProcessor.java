@@ -105,9 +105,9 @@ class MicroProfileHealthProcessor {
     List<CamelBeanBuildItem> camelHealthDiscovery(CombinedIndexBuildItem combinedIndex) {
         IndexView index = combinedIndex.getIndex();
         List<CamelBeanBuildItem> buildItems = new ArrayList<>();
-        Collection<ClassInfo> healthChecks = index.getAllKnownImplementors(CAMEL_HEALTH_CHECK_DOTNAME);
+        Collection<ClassInfo> healthChecks = index.getAllKnownImplementations(CAMEL_HEALTH_CHECK_DOTNAME);
         Collection<ClassInfo> healthCheckRepositories = index
-                .getAllKnownImplementors(CAMEL_HEALTH_CHECK_REPOSITORY_DOTNAME);
+                .getAllKnownImplementations(CAMEL_HEALTH_CHECK_REPOSITORY_DOTNAME);
 
         Config config = ConfigProvider.getConfig();
         Predicate<ClassInfo> healthCheckFilter = classInfo -> {

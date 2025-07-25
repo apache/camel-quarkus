@@ -46,7 +46,7 @@ class StaxProcessor {
     ReflectiveClassBuildItem registerForReflection(CombinedIndexBuildItem combinedIndex) {
         // Register any ContentHandler impls for reflection so they can be used by the sax component
         IndexView index = combinedIndex.getIndex();
-        String[] contentHandlers = index.getAllKnownImplementors(DotName.createSimple(ContentHandler.class.getName()))
+        String[] contentHandlers = index.getAllKnownImplementations(DotName.createSimple(ContentHandler.class.getName()))
                 .stream()
                 .map(ClassInfo::name)
                 .map(DotName::toString)

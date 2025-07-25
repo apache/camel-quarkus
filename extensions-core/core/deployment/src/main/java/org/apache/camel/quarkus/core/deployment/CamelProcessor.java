@@ -387,7 +387,7 @@ class CamelProcessor {
 
         final IndexView index = combinedIndex.getIndex();
 
-        Set<ClassInfo> allKnownImplementors = index.getAllKnownImplementors(ROUTES_BUILDER_TYPE)
+        Set<ClassInfo> allKnownImplementors = index.getAllKnownImplementations(ROUTES_BUILDER_TYPE)
                 .stream()
                 .filter(classInfo -> !classInfo.superName().equals(ADVICE_WITH_ROUTE_BUILDER_TYPE))
                 .collect(Collectors.toSet());

@@ -192,7 +192,7 @@ public class JolokiaProcessor {
 
         // Register custom (non-OSGi) Jolokia Restrictor impls for reflection
         Set<String> jolokiaRestrictorClasses = combinedIndex.getIndex()
-                .getAllKnownImplementors(Restrictor.class)
+                .getAllKnownImplementations(Restrictor.class)
                 .stream()
                 .map(ClassInfo::name)
                 .map(DotName::toString)
@@ -204,7 +204,7 @@ public class JolokiaProcessor {
 
         // Register custom LogHandler classes for reflection
         Set<String> jolokiaLogHandlerClasses = combinedIndex.getIndex()
-                .getAllKnownImplementors(LogHandler.class)
+                .getAllKnownImplementations(LogHandler.class)
                 .stream()
                 .map(ClassInfo::name)
                 .map(DotName::toString)

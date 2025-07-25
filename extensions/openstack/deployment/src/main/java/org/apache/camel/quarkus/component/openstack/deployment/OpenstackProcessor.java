@@ -67,7 +67,7 @@ class OpenstackProcessor {
         IndexView index = combinedIndex.getIndex();
 
         // Register ModelEntity implementations for reflection
-        index.getAllKnownImplementors(DotName.createSimple(ModelEntity.class.getName())).stream()
+        index.getAllKnownImplementations(DotName.createSimple(ModelEntity.class.getName())).stream()
                 .filter(CamelSupport::isConcrete).forEach(ci -> {
                     String className = ci.asClass().name().toString();
                     LOG.debugf("Registered openstack4j model class %s as reflective", className);

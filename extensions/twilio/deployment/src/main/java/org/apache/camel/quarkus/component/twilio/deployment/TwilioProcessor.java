@@ -68,7 +68,7 @@ class TwilioProcessor {
         reflectiveClass.produce(ReflectiveClassBuildItem.builder(reflectiveClasses).methods().build());
 
         // Register Twilio Endpoint implementors for reflection
-        String[] endpointImplementors = index.getAllKnownImplementors(DotName.createSimple(Endpoint.class.getName()))
+        String[] endpointImplementors = index.getAllKnownImplementations(DotName.createSimple(Endpoint.class.getName()))
                 .stream()
                 .map(classInfo -> classInfo.name().toString())
                 .toArray(String[]::new);

@@ -130,7 +130,7 @@ class ManagementProcessor {
         // Find the implementations of the managed bean interfaces and register them for reflection
         Set<String> managedBeanClasses = managedBeanInterfaces.stream()
                 .map(DotName::createSimple)
-                .flatMap((dotName) -> index.getAllKnownImplementors(dotName).stream())
+                .flatMap((dotName) -> index.getAllKnownImplementations(dotName).stream())
                 .map(classInfo -> classInfo.name().toString())
                 .collect(Collectors.toSet());
 

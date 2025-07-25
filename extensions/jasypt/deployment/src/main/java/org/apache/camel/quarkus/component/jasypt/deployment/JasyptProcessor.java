@@ -47,7 +47,7 @@ class JasyptProcessor {
             CombinedIndexBuildItem combinedIndex,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         combinedIndex.getIndex()
-                .getAllKnownImplementors(JasyptConfigurationCustomizer.class)
+                .getAllKnownImplementations(JasyptConfigurationCustomizer.class)
                 .stream()
                 .map(ClassInfo::name)
                 .forEach(className -> {

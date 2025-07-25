@@ -50,7 +50,7 @@ class GithubProcessor {
     @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass, CombinedIndexBuildItem combinedIndex) {
         IndexView index = combinedIndex.getIndex();
-        index.getKnownDirectImplementors(DotName.createSimple(Serializable.class.getName()))
+        index.getKnownDirectImplementations(DotName.createSimple(Serializable.class.getName()))
                 .stream()
                 .filter(classInfo -> classInfo.name().prefix().toString().equals("org.eclipse.egit.github.core"))
                 .map(className -> ReflectiveClassBuildItem.builder(className.name().toString()).fields()
