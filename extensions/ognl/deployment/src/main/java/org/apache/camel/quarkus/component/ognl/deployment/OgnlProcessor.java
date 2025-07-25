@@ -51,7 +51,7 @@ class OgnlProcessor {
                 if (types.add(returnType) && returnType.getPackageName().equals("org.apache.camel")) {
                     reflectiveClass.produce(
                             ReflectiveClassBuildItem
-                                    .builder(view.getAllKnownImplementors(returnType).stream().map(ClassInfo::name)
+                                    .builder(view.getAllKnownImplementations(returnType).stream().map(ClassInfo::name)
                                             .map(DotName::toString).toArray(String[]::new))
                                     .constructors(false).methods().build());
                 }

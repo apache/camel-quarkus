@@ -60,7 +60,7 @@ class AzureStorageQueueProcessor {
         reflectiveClasses.produce(ReflectiveClassBuildItem.builder(modelClasses).fields().build());
 
         final String[] knownSerializableImpls = combinedIndex.getIndex()
-                .getAllKnownImplementors(XML_SERIALIZABLE_NAME)
+                .getAllKnownImplementations(XML_SERIALIZABLE_NAME)
                 .stream()
                 .map(ClassInfo::name)
                 .map(DotName::toString)

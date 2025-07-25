@@ -103,7 +103,7 @@ public class CamelUnremovableBeansProcessor {
         IndexView index = combinedIndex.getIndex();
 
         Set<DotName> unremovableClasses = Stream.of(OPTIONAL_SERVICE_TYPES)
-                .map(index::getAllKnownImplementors)
+                .map(index::getAllKnownImplementations)
                 .flatMap(Collection::stream)
                 .map(ClassInfo::name)
                 .collect(Collectors.toSet());

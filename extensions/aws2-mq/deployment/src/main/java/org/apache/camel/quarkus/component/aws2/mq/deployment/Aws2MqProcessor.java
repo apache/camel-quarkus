@@ -53,7 +53,7 @@ class Aws2MqProcessor {
         INTERCEPTOR_PATHS.forEach(path -> resource.produce(new NativeImageResourceBuildItem(path)));
 
         List<String> knownInterceptorImpls = combinedIndexBuildItem.getIndex()
-                .getAllKnownImplementors(EXECUTION_INTERCEPTOR_NAME)
+                .getAllKnownImplementations(EXECUTION_INTERCEPTOR_NAME)
                 .stream()
                 .map(c -> c.name().toString()).collect(Collectors.toList());
 

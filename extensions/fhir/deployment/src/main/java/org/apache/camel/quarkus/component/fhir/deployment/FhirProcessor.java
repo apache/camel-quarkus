@@ -86,7 +86,7 @@ final class FhirProcessor {
                         .build())
                 .forEach(reflectiveClass::produce);
 
-        String[] clientInterceptors = index.getAllKnownImplementors(DotName.createSimple(IClientInterceptor.class.getName()))
+        String[] clientInterceptors = index.getAllKnownImplementations(DotName.createSimple(IClientInterceptor.class.getName()))
                 .stream()
                 .map(classInfo -> classInfo.name().toString())
                 .toArray(String[]::new);

@@ -54,7 +54,7 @@ class AzureKeyVaultProcessor {
     @BuildStep
     void registerForReflection(CombinedIndexBuildItem combinedIndex, BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         Set<String> keyVaultModelClasses = combinedIndex.getIndex()
-                .getAllKnownImplementors(JsonSerializable.class)
+                .getAllKnownImplementations(JsonSerializable.class)
                 .stream()
                 .map(ClassInfo::toString)
                 .filter(className -> className.startsWith("com.azure.security.keyvault"))

@@ -62,12 +62,12 @@ class Hl7Processor {
         IndexView index = combinedIndex.getIndex();
 
         // Register hapi model types for reflection
-        String[] hapiStructureClasses = index.getAllKnownImplementors(DotName.createSimple(Structure.class.getName()))
+        String[] hapiStructureClasses = index.getAllKnownImplementations(DotName.createSimple(Structure.class.getName()))
                 .stream()
                 .map(classInfo -> classInfo.name().toString())
                 .toArray(String[]::new);
 
-        String[] hapiTypeClasses = index.getAllKnownImplementors(DotName.createSimple(Type.class.getName()))
+        String[] hapiTypeClasses = index.getAllKnownImplementations(DotName.createSimple(Type.class.getName()))
                 .stream()
                 .map(classInfo -> classInfo.name().toString())
                 .toArray(String[]::new);

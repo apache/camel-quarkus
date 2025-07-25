@@ -98,7 +98,7 @@ public class InjectionPointsProcessor {
             BuildProducer<CamelRuntimeTaskBuildItem> runtimeTasks,
             BuildProducer<BeanRegistrationPhaseBuildItem.BeanConfiguratorBuildItem> beanConfigurator) {
 
-        final Collection<ClassInfo> components = index.getIndex().getAllKnownImplementors(INTERFACE_NAME_COMPONENT);
+        final Collection<ClassInfo> components = index.getIndex().getAllKnownImplementations(INTERFACE_NAME_COMPONENT);
         final Set<String> created = new HashSet<>();
 
         for (InjectionPointInfo injectionPoint : beanRegistrationPhase.getContext().get(BuildExtension.Key.INJECTION_POINTS)) {

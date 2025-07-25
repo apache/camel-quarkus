@@ -145,7 +145,7 @@ class MapStructProcessor {
                 .map(AnnotationTarget::asClass)
                 .filter(classInfo -> packages.contains(classInfo.name().packagePrefix()))
                 .filter(classInfo -> classInfo.isInterface() || Modifier.isAbstract(classInfo.flags()))
-                .flatMap(classInfo -> Stream.concat(index.getAllKnownImplementors(classInfo.name()).stream(),
+                .flatMap(classInfo -> Stream.concat(index.getAllKnownImplementations(classInfo.name()).stream(),
                         index.getAllKnownSubclasses(classInfo.name()).stream()))
                 .forEach(classInfo -> {
                     AtomicReference<RuntimeValue<?>> mapperRuntimeValue = new AtomicReference<>();

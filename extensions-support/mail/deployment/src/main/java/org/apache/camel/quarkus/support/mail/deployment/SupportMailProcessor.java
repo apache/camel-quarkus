@@ -122,7 +122,7 @@ class SupportMailProcessor {
                 .stream()
                 .map(classInfo -> classInfo.name().toString())
                 .filter(name -> name.startsWith("jakarta.activation.spi."))
-                .forEach(name -> combinedIndex.getIndex().getKnownDirectImplementors(DotName.createSimple(name))
+                .forEach(name -> combinedIndex.getIndex().getKnownDirectImplementations(DotName.createSimple(name))
                         .stream()
                         .forEach(service -> services.produce(
                                 new ServiceProviderBuildItem(name, service.name().toString()))));

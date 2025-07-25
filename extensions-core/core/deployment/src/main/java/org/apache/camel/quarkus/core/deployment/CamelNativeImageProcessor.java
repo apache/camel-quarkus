@@ -98,7 +98,7 @@ public class CamelNativeImageProcessor {
         CAMEL_REFLECTIVE_CLASSES.stream()
                 .map(Class::getName)
                 .map(DotName::createSimple)
-                .map(view::getAllKnownImplementors)
+                .map(view::getAllKnownImplementations)
                 .flatMap(Collection::stream)
                 .filter(CamelSupport::isPublic)
                 .forEach(v -> reflectiveClass

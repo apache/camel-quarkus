@@ -49,7 +49,7 @@ class JsonValidatorProcessor {
             CombinedIndexBuildItem combinedIndex,
             BuildProducer<ReflectiveClassBuildItem> reflectiveProducer) {
         combinedIndex.getIndex()
-                .getAllKnownImplementors(VALIDATOR_INTERFACE)
+                .getAllKnownImplementations(VALIDATOR_INTERFACE)
                 .stream()
                 .map(ClassInfo::name)
                 .map(DotName::toString)

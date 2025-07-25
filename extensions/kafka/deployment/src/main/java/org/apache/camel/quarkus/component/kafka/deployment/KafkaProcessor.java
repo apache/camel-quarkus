@@ -72,7 +72,7 @@ class KafkaProcessor {
         IndexView index = combinedIndex.getIndex();
 
         Stream.of(KAFKA_CLIENTS_TYPES)
-                .map(index::getAllKnownImplementors)
+                .map(index::getAllKnownImplementations)
                 .flatMap(Collection::stream)
                 .map(ClassInfo::toString)
                 .forEach(name -> reflectiveClass

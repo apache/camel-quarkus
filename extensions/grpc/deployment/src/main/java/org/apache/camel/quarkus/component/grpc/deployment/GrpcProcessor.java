@@ -110,7 +110,7 @@ class GrpcProcessor {
             CamelGrpcServiceExcludesBuildItem camelGrpcServiceExcludes) {
 
         IndexView index = combinedIndexBuildItem.getIndex();
-        Collection<ClassInfo> bindableServiceImpls = index.getAllKnownImplementors(BINDABLE_SERVICE_DOT_NAME)
+        Collection<ClassInfo> bindableServiceImpls = index.getAllKnownImplementations(BINDABLE_SERVICE_DOT_NAME)
                 .stream()
                 .filter(camelGrpcServiceExcludes.serviceExcludesFilter())
                 .collect(Collectors.toSet());

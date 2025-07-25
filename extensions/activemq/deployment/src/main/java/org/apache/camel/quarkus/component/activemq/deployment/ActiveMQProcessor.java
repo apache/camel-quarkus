@@ -81,7 +81,7 @@ class ActiveMQProcessor {
                 ReflectiveClassBuildItem.builder(
                         Stream.of(Transport.class, WireFormatFactory.class, DiscoveryAgent.class)
                                 .map(DotName::createSimple)
-                                .map(index::getAllKnownImplementors)
+                                .map(index::getAllKnownImplementations)
                                 .flatMap(Collection::stream)
                                 .map(ClassInfo::name)
                                 .map(DotName::toString)
