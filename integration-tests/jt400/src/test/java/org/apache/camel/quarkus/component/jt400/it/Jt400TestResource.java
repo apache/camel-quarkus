@@ -256,7 +256,7 @@ public class Jt400TestResource implements QuarkusTestResourceLifecycleManager {
     };
 
     private static AS400 createAs400() {
-        return new AS400(JT400_URL, JT400_USERNAME, JT400_PASSWORD);
+        return new AS400(JT400_URL, JT400_USERNAME, JT400_PASSWORD.toCharArray());
     }
 
 }
