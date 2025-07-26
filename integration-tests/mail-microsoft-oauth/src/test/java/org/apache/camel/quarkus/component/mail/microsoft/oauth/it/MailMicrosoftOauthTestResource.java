@@ -14,25 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.mail.deployment;
+package org.apache.camel.quarkus.component.mail.microsoft.oauth.it;
 
-import io.quarkus.deployment.annotations.BuildProducer;
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.component.mail.SimpleSearchTerm;
+import java.util.Map;
 
-class MailProcessor {
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
-    private static final String FEATURE = "camel-mail";
+public class MailMicrosoftOauthTestResource implements QuarkusTestResourceLifecycleManager {
 
-    @BuildStep
-    FeatureBuildItem feature() {
-        return new FeatureBuildItem(FEATURE);
+    @Override
+    public Map<String, String> start() {
+        // we must provide test subject as property, because having only static field means that in Native tests, we would use different unique value (as app runs natively and tests in JVM, thus double invocation)
+        return Map.of("test.mail.subject", "CamelQuarkus" + System.currentTimeMillis());
     }
 
-    @BuildStep
-    void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-        reflectiveClass.produce(ReflectiveClassBuildItem.builder(SimpleSearchTerm.class).methods().build());
+    @Override
+    public void stop() {
+        // Noop
     }
 }

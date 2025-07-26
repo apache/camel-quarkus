@@ -25,7 +25,7 @@ import org.eclipse.microprofile.config.ConfigProvider;
 @ApplicationScoped
 public class MailMicrosoftOauthRoute extends RouteBuilder {
 
-    public static final String TEST_SUBJECT = "CamelQuarkus" + System.currentTimeMillis();
+    private final String TEST_SUBJECT = ConfigProvider.getConfig().getValue("test.mail.subject", String.class);
     @Inject
     CamelContext camelContext;
 
@@ -33,7 +33,7 @@ public class MailMicrosoftOauthRoute extends RouteBuilder {
     public void configure() {
 
         if (isRealAccountConfigured()) {
-            fromF("imaps://outlook.office365.com:993"
+            from("imaps://outlook.office365.com:993"
                     + "?authenticator=#auth"
                     + "&mail.imaps.auth.mechanisms=XOAUTH2"
                     + "&debugMode=true"
