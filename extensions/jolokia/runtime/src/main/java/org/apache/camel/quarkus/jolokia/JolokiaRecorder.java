@@ -81,7 +81,7 @@ public class JolokiaRecorder {
         // Configure Jolokia HTTP server host, port & context path
         String host = runtimeConfig.getValue().server().host().orElse(null);
         if (ObjectHelper.isEmpty(host)) {
-            if (LaunchMode.isRemoteDev()) {
+            if (LaunchMode.current().isRemoteDev()) {
                 host = ALL_INTERFACES;
             } else if (LaunchMode.current().isDevOrTest()) {
                 if (!isWSL()) {
