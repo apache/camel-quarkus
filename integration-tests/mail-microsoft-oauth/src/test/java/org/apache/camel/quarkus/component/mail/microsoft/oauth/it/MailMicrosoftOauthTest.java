@@ -49,19 +49,25 @@ class MailMicrosoftOauthTest {
         //send an email
         MailMicrosoftOauthUtil.sendMessage(subject, content);
 
-        //start route
-        startRoute("receiverRoute");
+        try {
+            //start route
+            startRoute("receiverRoute");
 
-        //receive
-        Awaitility.await().pollInterval(2, TimeUnit.SECONDS).atMost(2, TimeUnit.MINUTES).until(() -> {
             //receive
-            return (List<Map<String, String>>) JsonbBuilder.create()
-                    .fromJson(RestAssured.get("/mail-microsoft-oauth/getReceived/")
-                            .then()
-                            .statusCode(200)
-                            .extract().body().asString(), List.class);
-        }, list -> list.size() == 1
-                && list.get(0).get("content").contains(content));
+            Awaitility.await().pollInterval(2, TimeUnit.SECONDS).atMost(2, TimeUnit.MINUTES).until(() -> {
+                //receive
+                return (List<Map<String, String>>) JsonbBuilder.create()
+                        .fromJson(RestAssured.get("/mail-microsoft-oauth/getReceived/")
+                                .then()
+                                .statusCode(200)
+                                .extract().body().asString(), List.class);
+            }, list -> list.size() == 1
+                    && list.get(0).get("content").contains(content));
+
+        } finally {
+            //delete email in case that the route failed
+            MailMicrosoftOauthUtil.deleteMessage(subject);
+        }
     }
 
     private void startRoute(String name) {
