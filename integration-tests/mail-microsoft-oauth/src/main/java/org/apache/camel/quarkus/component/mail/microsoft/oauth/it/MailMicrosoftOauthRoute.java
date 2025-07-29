@@ -38,8 +38,7 @@ public class MailMicrosoftOauthRoute extends RouteBuilder {
                     + "&mail.imaps.auth.mechanisms=XOAUTH2"
                     + "&debugMode=true"
                     + "&delete=true"
-                    //search pattern works on contains and not  start with
-                    + "&searchTerm.subject=" + TEST_SUBJECT.substring(1))
+                    + "&searchTerm.subject=" + TEST_SUBJECT)
                     .id("receiverRoute")
                     .autoStartup(false)
                     .to("mock:receivedMessages");
