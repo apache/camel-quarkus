@@ -117,4 +117,12 @@ public class EipResource {
         }
     }
 
+    @Path("/mock/{name}/body")
+    @Produces(MediaType.TEXT_PLAIN)
+    @GET
+    public String mockBody(@PathParam("name") String name) {
+        MockEndpoint mock = context.getEndpoint("mock:" + name, MockEndpoint.class);
+        return mock.getExchanges().stream().map(e -> e.getMessage().getBody(String.class)).collect(Collectors.joining(","));
+    }
+
 }

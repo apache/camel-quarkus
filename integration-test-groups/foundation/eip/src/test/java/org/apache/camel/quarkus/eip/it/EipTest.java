@@ -484,31 +484,69 @@ class EipTest {
                     .extract().statusCode();
         }
 
-        await().atMost(EipRoutes.THROTTLE_TIMEOUT + 5000, TimeUnit.MILLISECONDS)
-                .pollDelay(EipRoutes.THROTTLE_TIMEOUT, TimeUnit.MILLISECONDS).until(() -> {
-                    String samples = RestAssured.get("/eip/mock/throttle/2/5000/body")
+        //wait for two first throttled messages
+        await().atMost(EipRoutes.THROTTLE_TIMEOUT, TimeUnit.MILLISECONDS)
+                .pollInterval(500, TimeUnit.MILLISECONDS).until(() -> {
+                    String throttleBodies = RestAssured.get("/eip/mock/throttle/body")
                             .then()
                             .statusCode(200)
                             .extract()
                             .body().asString();
-
-                    return samples.split(",").length == EipRoutes.THROTTLE_MAXIMUM_REQUEST_COUNT;
+                    LOG.infof("Mock throttle received: %s", throttleBodies);
+                    return throttleBodies.split(",").length == EipRoutes.THROTTLE_MAXIMUM_REQUEST_COUNT;
                 });
-        //wait for another 2 messages
+        //wait for remaining messages
+        //THROTTLE_TIMEOUT-time taken after read 1/2 messages + THROTTLE_TIMEOUT for 3/4 messages + time for camel to throttle the last 5/6 messages
         long startTime = System.currentTimeMillis();
-        await().atMost(EipRoutes.THROTTLE_TIMEOUT + 5000, TimeUnit.MILLISECONDS)
-                .pollDelay(EipRoutes.THROTTLE_TIMEOUT, TimeUnit.MILLISECONDS).until(() -> {
-                    String samples = RestAssured.get("/eip/mock/throttle/2/5000/body")
+        await().atMost(3 * EipRoutes.THROTTLE_TIMEOUT, TimeUnit.MILLISECONDS)
+                .pollInterval(1, TimeUnit.SECONDS).until(() -> {
+                    String throttleBodies = RestAssured.get("/eip/mock/throttle/body")
                             .then()
                             .statusCode(200)
                             .extract()
                             .body().asString();
-
-                    return samples.split(",").length == EipRoutes.THROTTLE_MAXIMUM_REQUEST_COUNT;
+                    LOG.infof("Mock throttle received: %s", throttleBodies);
+                    return throttleBodies.split(",").length == 3 * EipRoutes.THROTTLE_MAXIMUM_REQUEST_COUNT;
                 });
         long endTime = System.currentTimeMillis();
-        //the time of waiting has to be similar to throttle_Period (assert that it is > throttle_period/2)
-        Assertions.assertThat(endTime - startTime).isGreaterThan(EipRoutes.THROTTLE_TIMEOUT / 2);
+        //the time of waiting has to be bigger then throttle_Period (assert that it is > throttle_period + 500)
+        Assertions.assertThat(endTime - startTime).isGreaterThan(EipRoutes.THROTTLE_TIMEOUT + 500);
+    }
+
+    @Test
+    public void throttleRejectExecution() throws InterruptedException {
+        LOG.infof("About to sent 6 messages");
+        for (int i = 0; i < 6; i++) {
+            RestAssured.given()
+                    .contentType(ContentType.TEXT)
+                    .body("message-" + i)
+                    .post("/eip/routeAsync/throttleRejection")
+                    .then()
+                    .extract().statusCode();
+        }
+
+        await().atMost(EipRoutes.THROTTLE_TIMEOUT + 5000, TimeUnit.MILLISECONDS)
+                .pollInterval(1, TimeUnit.SECONDS).until(() -> {
+                    String throttleBodies = RestAssured.get("/eip/mock/throttleRejection/body")
+                            .then()
+                            .statusCode(200)
+                            .extract()
+                            .body().asString();
+                    LOG.infof("Mock throttleRejection received: %s", throttleBodies);
+                    return throttleBodies.split(",").length == EipRoutes.THROTTLE_MAXIMUM_REQUEST_COUNT;
+                });
+
+        //wait for another 4 messages in error mock
+        await().atMost(EipRoutes.THROTTLE_TIMEOUT + 5000, TimeUnit.MILLISECONDS)
+                .pollInterval(1, TimeUnit.SECONDS).until(() -> {
+                    String throttleBodies = RestAssured.get("/eip/mock/throttleRejectionError/body")
+                            .then()
+                            .statusCode(200)
+                            .extract()
+                            .body().asString();
+                    LOG.infof("Mock throttleRejectionError received: %s", throttleBodies);
+                    return throttleBodies.split(",").length == 4;
+                });
     }
 
     @Test
