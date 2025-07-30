@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.core.deployment;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Map;
 import java.util.Properties;
 
 import io.quarkus.test.QuarkusUnitTest;
@@ -73,6 +74,14 @@ public class CamelBeanLookupWithIdentifierTest {
         MyIdentifiedBean bean = CamelContextHelper.lookup(context, "my-identifier", MyIdentifiedBean.class);
         assertNotNull(bean);
         assertEquals("Hello World", template.request(String.class));
+    }
+
+    @Test
+    void resolveIdentifierWithName() {
+        Map<String, MyIdentifiedBean> typeWithName = context.getRegistry().findByTypeWithName(MyIdentifiedBean.class);
+        assertNotNull(typeWithName);
+        assertEquals(1, typeWithName.size());
+        assertNotNull(typeWithName.get("my-identifier"));
     }
 
     @Produces

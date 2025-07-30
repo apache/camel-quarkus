@@ -34,6 +34,7 @@ import jakarta.enterprise.inject.Default;
 import jakarta.enterprise.inject.literal.NamedLiteral;
 import jakarta.enterprise.inject.spi.BeanManager;
 import org.apache.camel.spi.BeanRepository;
+import org.apache.camel.util.ObjectHelper;
 
 public final class RuntimeBeanRepository implements BeanRepository {
     private static final Annotation[] EMPTY_ANNOTATIONS = new Annotation[0];
@@ -128,7 +129,10 @@ public final class RuntimeBeanRepository implements BeanRepository {
                 .stream()
                 .filter(InstanceHandle::isAvailable)
                 .forEach(instanceHandle -> {
-                    beans.put(instanceHandle.getBean().getName(), instanceHandle.get());
+                    String name = resolveBeanName(instanceHandle.getBean());
+                    if (ObjectHelper.isNotEmpty(name)) {
+                        beans.put(name, instanceHandle.get());
+                    }
                 });
         return beans;
     }
@@ -200,5 +204,18 @@ public final class RuntimeBeanRepository implements BeanRepository {
 
     private boolean isDefaultBean(InjectableBean<?> bean) {
         return bean.getQualifiers().stream().anyMatch(q -> q.annotationType().equals(Default.class));
+    }
+
+    private static String resolveBeanName(InjectableBean<?> bean) {
+        String name = bean.getName();
+        if (name == null) {
+            for (Annotation qualifier : bean.getQualifiers()) {
+                if (qualifier instanceof Identifier) {
+                    name = ((Identifier) qualifier).value();
+                    break;
+                }
+            }
+        }
+        return name;
     }
 }
