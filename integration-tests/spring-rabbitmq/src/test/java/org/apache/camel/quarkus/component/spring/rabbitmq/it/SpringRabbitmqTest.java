@@ -92,21 +92,24 @@ class SpringRabbitmqTest {
                 .post("/spring-rabbitmq/send").then().statusCode(204);
 
         AmqpTemplate template = new RabbitTemplate(connectionFactory);
-        Message out = template.receive("queue-for-headersToProperties");
 
-        final MessageProperties messageProperties = out.getMessageProperties();
-        Assertions.assertNotNull(messageProperties, "The message properties should not be null");
-        String encoding = messageProperties.getContentEncoding();
-        assertThat(Charset.defaultCharset().name()).isEqualTo(encoding);
-        assertThat(new String(out.getBody(), encoding)).isEqualTo("<price>123</price>");
-        assertThat(messageProperties.getReceivedDeliveryMode()).isEqualTo(MessageDeliveryMode.PERSISTENT);
-        assertThat(messageProperties.getType()).isEqualTo("price");
-        assertThat(messageProperties.getContentType()).isEqualTo("application/xml");
-        assertThat(messageProperties.getMessageId()).isEqualTo("0fe9c142-f9c1-426f-9237-f5a4c988a8ae");
-        assertThat(messageProperties.getPriority()).isEqualTo(1);
-        //the only headers preserved by customHeadersFilterStrategy is "CamelSpringRabbitmqMessageId
-        assertThat(messageProperties.getHeaders().size()).isEqualTo(1);
-        assertThat(messageProperties.getHeaders()).containsKey("CamelSpringRabbitmqMessageId");
+        Awaitility.await().pollDelay(1, TimeUnit.SECONDS).atMost(30, TimeUnit.SECONDS).untilAsserted(() -> {
+            Message out = template.receive("queue-for-headersToProperties");
+
+            final MessageProperties messageProperties = out.getMessageProperties();
+            Assertions.assertNotNull(messageProperties, "The message properties should not be null");
+            String encoding = messageProperties.getContentEncoding();
+            assertThat(Charset.defaultCharset().name()).isEqualTo(encoding);
+            assertThat(new String(out.getBody(), encoding)).isEqualTo("<price>123</price>");
+            assertThat(messageProperties.getReceivedDeliveryMode()).isEqualTo(MessageDeliveryMode.PERSISTENT);
+            assertThat(messageProperties.getType()).isEqualTo("price");
+            assertThat(messageProperties.getContentType()).isEqualTo("application/xml");
+            assertThat(messageProperties.getMessageId()).isEqualTo("0fe9c142-f9c1-426f-9237-f5a4c988a8ae");
+            assertThat(messageProperties.getPriority()).isEqualTo(1);
+            //the only headers preserved by customHeadersFilterStrategy is "CamelSpringRabbitmqMessageId
+            assertThat(messageProperties.getHeaders().size()).isEqualTo(1);
+            assertThat(messageProperties.getHeaders()).containsKey("CamelSpringRabbitmqMessageId");
+        });
     }
 
     @Test
