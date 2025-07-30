@@ -18,6 +18,71 @@
 -->
 # Changelog
 
+## 3.25.0
+
+* Add workflow to test LTS branches with Quarkus LTS SNAPSHOTs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7454
+* Better  test coverage - usage, examples, operations by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7452
+* Bump org.xmlunit:xmlunit-core from 2.10.2 to 2.10.3 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7456
+* Next is 3.25.0-SNAPSHOT by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7457
+* Generated sources regen for SBOM by @github-actions[bot] in https://github.com/apache/camel-quarkus/pull/7464
+* Rework upload-source.sh to fetch sources and signatures from repository.apache.org by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7458
+* Remove SNAPSHOT builds for camel-main & quarkus-main branches by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7459
+* Bump quarkiverse-groovy.version from 3.23.3 to 3.24.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7462
+* Bump io.swagger.codegen.v3:swagger-codegen-generators from 1.0.56 to 1.0.57 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7463
+* Make it clear which steps within the release guide are not applicable to patch releases by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7465
+* Bump io.quarkiverse.jgit:quarkus-jgit-bom from 3.5.1 to 3.5.2 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7467
+* Rename fury component link to fory by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7470
+* Add PGP key for Jiri Ondrusek by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7471
+* Make component doc xref links overridable via Maven configuration by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7472
+* Add changelog for 3.24.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7475
+* Always enable dev console service discovery by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7474
+* Bump quarkiverse-groovy.version from 3.24.0 to 3.24.1 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7478
+* Bump net.revelc.code.formatter:formatter-maven-plugin from 2.26.0 to 2.27.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7479
+* Change back to parent directory before svn import by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7480
+* Generated sources regen for SBOM by @github-actions[bot] in https://github.com/apache/camel-quarkus/pull/7482
+* fixes #7460 Azure-storage-datalake: cover methods of authentication by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7481
+* Add changelog for 3.15.4 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7484
+* Support Quarkus Dev UI extension config editing by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7486
+* Bump quarkiverse-groovy.version from 3.24.1 to 3.24.2 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7488
+* Bump org.apache.maven.plugins:maven-gpg-plugin from 3.2.7 to 3.2.8 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7487
+* Bump quarkiverse-jsch.version from 3.0.15 to 3.1.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7492
+* Bump io.quarkiverse.jgit:quarkus-jgit-bom from 3.5.2 to 3.6.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7493
+* Generated sources regen for SBOM by @github-actions[bot] in https://github.com/apache/camel-quarkus/pull/7494
+* Add changelog for 3.20.2 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7495
+* Remove Azure test certificate by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7498
+* Avoid false positive alerts from gitleaks by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7499
+* Extend mail-microsoft-oauth test coverage by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7490
+* Bump com.microsoft.graph:microsoft-graph from 6.43.0 to 6.44.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7502
+* Upgrade camel to 4.13.0 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7497
+* Bump com.microsoft.graph:microsoft-graph from 6.44.0 to 6.45.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7503
+* Bump quarkiverse-fory.version from 0.4.0 to 0.4.1 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7504
+* mail-microsoft-oauth native support by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7506
+* Bump quarkiverse-mybatis.version from 2.4.0 to 2.4.1 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7508
+* Import langchain4j-bom to align all dev.langchain4j dependencies by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7509
+* Fix SplunkTest for running with remote docker test container by @llowinge in https://github.com/apache/camel-quarkus/pull/7511
+* Generated sources regen for SBOM by @github-actions[bot] in https://github.com/apache/camel-quarkus/pull/7514
+* Move all classpath resource glob tests to a dedicated test method by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7512
+* Dependency convergence check fixes after Camel 4.13.0 upgrade by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7516
+* Bump io.quarkiverse.artemis:quarkus-artemis-bom from 3.8.2 to 3.8.3 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7518
+* Add initial Dev UI pages for Camel consoles by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7519
+* Move dataformat runtime configuration logic into Camel Quarkus core by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7520
+* Upgrade Quarkus to 3.25.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7521
+* Do not use Runtime configuration during deployment by @radcortez in https://github.com/apache/camel-quarkus/pull/7524
+* Generated sources regen for SBOM by @github-actions[bot] in https://github.com/apache/camel-quarkus/pull/7526
+* Fix Dev UI nav link by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7527
+* Bump quarkiverse-langchain4j.version from 1.1.0.CR1 to 1.1.0.CR2 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7513
+* Bump com.microsoft.graph:microsoft-graph from 6.45.0 to 6.46.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7523
+* Bump quarkiverse-groovy.version from 3.24.2 to 3.24.4 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7525
+* Fix Kafka component Quarkus dev services discovery in dev & test mode by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7531
+* Bump io.quarkiverse.amazonservices:quarkus-amazon-services-bom from 3.6.1 to 3.9.1 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7538
+* Bump com.microsoft.graph:microsoft-graph from 6.46.0 to 6.47.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7537
+* Bump quarkiverse-langchain4j.version from 1.1.0.CR2 to 1.1.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7536
+* Upgrade Quarkus to 3.25.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7540
+* Bump io.quarkiverse.artemis:quarkus-artemis-bom from 3.8.3 to 3.8.4 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7542
+
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.24.0...3.25.0
+
 ## 3.20.2
 
 * [3.20.x] Upgrade Quarkus Amazon Services to 3.3.3 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7325
@@ -33,6 +98,8 @@
 * [3.20.x] Upgrade Camel to 4.10.5 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7407
 * [3.20.x] Remove static modifier from CamelJolokiaRestrictor.ALLOWED_DOMAINS field by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7423
 * [3.20.x] Upgrade Camel to 4.10.6 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7468
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.20.1...3.20.2
 
 ## 3.15.4
 
