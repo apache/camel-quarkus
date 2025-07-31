@@ -14,35 +14,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.it.support.mainlistener;
+package org.apache.camel.quarkus.core.deployment.main;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.main.BaseMainSupport;
 import org.apache.camel.main.MainListener;
 
-public class CustomMainListener implements MainListener {
-    @Override
-    public void beforeInitialize(BaseMainSupport main) {
-        try {
-            main.configure().addRoutesBuilder(new RouteBuilder() {
-                @Override
-                public void configure() throws Exception {
-                    from("timer:configure")
-                            .id("configure")
-                            .to("log:configure");
-                }
-            });
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+public final class CustomMainListener implements MainListener {
 
     @Override
-    public void afterConfigure(BaseMainSupport main) {
+    public void beforeInitialize(BaseMainSupport main) {
+        main.configure().addRoutesBuilder(new RouteBuilder() {
+            @Override
+            public void configure() {
+                from("timer:configure")
+                        .id("configure")
+                        .to("log:configure");
+            }
+        });
     }
 
     @Override
     public void beforeConfigure(BaseMainSupport main) {
+    }
+
+    @Override
+    public void afterConfigure(BaseMainSupport main) {
     }
 
     @Override

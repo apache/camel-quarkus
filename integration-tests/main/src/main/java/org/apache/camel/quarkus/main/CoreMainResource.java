@@ -109,8 +109,6 @@ public class CoreMainResource {
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject describeMain() {
         CamelContext camelContext = main.getCamelContext();
-        JsonArrayBuilder listeners = Json.createArrayBuilder();
-        main.getMainListeners().forEach(listener -> listeners.add(listener.getClass().getName()));
 
         JsonArrayBuilder routeBuilders = Json.createArrayBuilder();
         main.configure().getRoutesBuilders().forEach(builder -> routeBuilders.add(builder.getClass().getName()));
@@ -148,7 +146,6 @@ public class CoreMainResource {
         return Json.createObjectBuilder()
                 .add("xml-model-dumper", PluginHelper.getModelToXMLDumper(camelContext).getClass().getName())
                 .add("routes-collector", collector)
-                .add("listeners", listeners)
                 .add("routeBuilders", routeBuilders)
                 .add("routes", routes)
                 .add("lru-cache-factory", LRUCacheFactory.getInstance().getClass().getName())

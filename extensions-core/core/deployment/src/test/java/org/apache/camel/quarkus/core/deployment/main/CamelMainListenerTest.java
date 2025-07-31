@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
+package org.apache.camel.quarkus.core.deployment.main;
 
 import java.util.function.Consumer;
 
@@ -26,28 +26,32 @@ import io.quarkus.deployment.recording.BytecodeRecorderImpl;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.test.QuarkusUnitTest;
 import jakarta.inject.Inject;
-import org.apache.camel.main.RoutesCollector;
-import org.apache.camel.quarkus.core.deployment.main.spi.CamelRoutesCollectorBuildItem;
+import org.apache.camel.main.MainListener;
+import org.apache.camel.quarkus.core.deployment.main.spi.CamelMainListenerBuildItem;
 import org.apache.camel.quarkus.main.CamelMain;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-class CamelRoutesCollectorTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+class CamelMainListenerTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .addBuildChainCustomizer(buildCustomizer())
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addClasses(CustomRoutesCollector.class));
+                    .addClasses(CustomMainListener.class));
 
     @Inject
     CamelMain main;
 
     @Test
-    void customRoutesCollector() {
-        Assertions.assertInstanceOf(CustomRoutesCollector.class, main.getRoutesCollector());
+    void customMainListener() {
+        assertEquals(2, main.getCamelContext().getRoutes().size());
+        assertEquals(2, main.getMainListeners().size());
+        assertTrue(main.getMainListeners().stream().anyMatch(listener -> listener instanceof CustomMainListener));
     }
 
     static Consumer<BuildChainBuilder> buildCustomizer() {
@@ -60,13 +64,12 @@ class CamelRoutesCollectorTest {
                         String methodName = "execute";
                         BytecodeRecorderImpl bri = new BytecodeRecorderImpl(true, getClass().getSimpleName(), methodName,
                                 Integer.toString(methodName.hashCode()), true, s -> null);
-                        RuntimeValue<RoutesCollector> value = bri.newInstance(CustomRoutesCollector.class.getName());
-                        context.produce(new CamelRoutesCollectorBuildItem(value));
+                        RuntimeValue<MainListener> value = bri.newInstance(CustomMainListener.class.getName());
+                        context.produce(new CamelMainListenerBuildItem(value));
                         context.produce(new StaticBytecodeRecorderBuildItem(bri));
                     }
-                }).produces(CamelRoutesCollectorBuildItem.class).produces(StaticBytecodeRecorderBuildItem.class).build();
+                }).produces(CamelMainListenerBuildItem.class).produces(StaticBytecodeRecorderBuildItem.class).build();
             }
         };
     }
-
 }
