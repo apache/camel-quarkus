@@ -61,7 +61,6 @@ group-03:
   - mail-microsoft-oauth
   - main
   - main-command-mode
-  - main-devmode
   - main-xml-io
   - main-xml-jaxb
   - main-yaml
