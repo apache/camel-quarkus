@@ -54,7 +54,6 @@ group-03:
   - bean-validator
   - box
   - foundation-grouped
-  - core-discovery-disabled
   - freemarker
   - github
   - google
@@ -64,7 +63,6 @@ group-03:
   - main-collector
   - main-command-mode
   - main-devmode
-  - main-discovery-disabled
   - main-xml-io
   - main-xml-jaxb
   - main-yaml

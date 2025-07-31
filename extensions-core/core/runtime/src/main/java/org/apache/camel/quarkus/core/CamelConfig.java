@@ -52,6 +52,7 @@ public interface CamelConfig {
      *
      * @asciidoclet
      */
+    @Deprecated(since = "3.26.0", forRemoval = true)
     RoutesDiscoveryConfig routesDiscovery();
 
     /**
