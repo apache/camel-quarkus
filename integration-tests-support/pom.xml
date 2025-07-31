@@ -52,7 +52,6 @@
         <module>azure</module>
         <module>certificate-generator</module>
         <module>custom-dataformat</module>
-        <module>custom-log-component</module>
         <module>custom-type-converter</module>
         <module>custom-main-listener</module>
         <module>custom-kamelet-resource</module>
