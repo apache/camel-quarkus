@@ -40,7 +40,6 @@
         <!-- build those first -->
         <module>foundation-grouped</module>
         <module>main</module>
-        <module>main-devmode</module>
         <module>main-xml-jaxb</module>
         <module>main-xml-io</module>
         <module>main-command-mode</module>
