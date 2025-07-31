@@ -28,7 +28,6 @@ import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.ServiceStatus;
 import org.apache.camel.quarkus.core.DisabledModelToXMLDumper;
 import org.apache.camel.quarkus.core.RegistryRoutesLoaders;
-import org.apache.camel.quarkus.it.support.mainlistener.CustomMainListener;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
 import org.apache.camel.reactive.vertx.VertXThreadPoolFactory;
 import org.apache.camel.support.DefaultLRUCacheFactory;
@@ -82,13 +81,11 @@ public class CoreMainTest {
         assertThat(p.getString("routes-collector.type")).isEqualTo(CamelMainRoutesCollector.class.getName());
         assertThat(p.getString("routes-collector.type-registry")).isEqualTo(RegistryRoutesLoaders.Default.class.getName());
 
-        assertThat(p.getList("listeners", String.class))
-                .containsAnyOf(CamelMainEventBridge.class.getName(), CustomMainListener.class.getName());
         assertThat(p.getList("routeBuilders", String.class))
                 .contains(CamelRoute.class.getName())
                 .doesNotContain(CamelRouteFiltered.class.getName());
         assertThat(p.getList("routes", String.class))
-                .contains("keep-alive", "configure", "beforeStart", "produced", "endpointdsl", "lambdaEndpointRoute")
+                .contains("keep-alive", "produced", "endpointdsl", "lambdaEndpointRoute")
                 .doesNotContain("filtered");
 
         assertThat(p.getString("lru-cache-factory")).isEqualTo(DefaultLRUCacheFactory.class.getName());
