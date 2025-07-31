@@ -20,6 +20,7 @@ import io.quarkus.builder.item.SimpleBuildItem;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.quarkus.core.RegistryRoutesLoader;
 
+@Deprecated(since = "3.26.0", forRemoval = true)
 public final class CamelRoutesLoaderBuildItems {
     private CamelRoutesLoaderBuildItems() {
     }
