@@ -60,7 +60,6 @@ group-03:
   - json-validator
   - mail-microsoft-oauth
   - main
-  - main-collector
   - main-command-mode
   - main-devmode
   - main-xml-io

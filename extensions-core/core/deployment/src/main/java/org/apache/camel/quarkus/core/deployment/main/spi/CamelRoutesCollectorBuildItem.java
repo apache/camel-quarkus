@@ -23,6 +23,7 @@ import org.apache.camel.main.RoutesCollector;
 /**
  * Holds the {@link RoutesCollector} {@link RuntimeValue}.
  */
+@Deprecated(since = "3.26.0", forRemoval = true)
 public final class CamelRoutesCollectorBuildItem extends SimpleBuildItem {
     private final RuntimeValue<RoutesCollector> value;
 
