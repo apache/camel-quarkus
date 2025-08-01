@@ -99,7 +99,7 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
     private MavenSession session;
 
     @Parameter
-    Map<String, Map<String, String>> componentLinkOverrides = new HashMap<>();
+    Map<String, ComponentLinkOverride> componentLinkOverrides = new HashMap<>();
 
     /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
@@ -235,17 +235,21 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                 String xrefPrefix = "xref:{cq-camel-components}:" + (!"component".equals(kind) ? kind + "s:" : ":");
 
                 if (componentLinkOverrides.containsKey(name)) {
-                    Map<String, String> linkOverridesOptions = componentLinkOverrides.get(name);
-                    if (linkOverridesOptions.containsKey("name")) {
-                        name = linkOverridesOptions.get("name");
-                    }
+                    ComponentLinkOverride override = componentLinkOverrides.get(name);
+                    if (override != null) {
+                        if (override.getName() != null) {
+                            name = override.getName();
+                        }
 
-                    if (linkOverridesOptions.containsKey("xrefPrefix")) {
-                        xrefPrefix = linkOverridesOptions.get("xrefPrefix");
-                    }
+                        if (override.getXrefPrefix() != null) {
+                            xrefPrefix = override.getXrefPrefix();
+                        }
 
-                    if (linkOverridesOptions.containsKey("kind")) {
-                        kind = linkOverridesOptions.get("kind");
+                        if (override.getKind() != null) {
+                            kind = override.getKind();
+                        }
+                    } else {
+                        getLog().warn("Failed to determine component link overrides for " + name);
                     }
                 }
 
