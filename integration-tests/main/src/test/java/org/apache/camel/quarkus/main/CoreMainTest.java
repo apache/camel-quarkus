@@ -31,7 +31,6 @@ import org.apache.camel.quarkus.core.RegistryRoutesLoaders;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
 import org.apache.camel.reactive.vertx.VertXThreadPoolFactory;
 import org.apache.camel.support.DefaultLRUCacheFactory;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.quarkus.test.Conditions.doesNotStartWith;
@@ -45,7 +44,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @QuarkusTest
 public class CoreMainTest {
-    @Disabled
+
     @Test
     public void testProperties() {
         RestAssured.when().get("/test/property/camel.context.name").then().body(is("quarkus-camel-example"));
