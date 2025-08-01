@@ -38,7 +38,7 @@ public class InfinispanTest extends InfinispanCommonTest {
                         "cache-manager", is("none"));
     }
 
-    @Disabled
+    @Disabled("https://github.com/apache/camel-quarkus/issues/7572")
     @Test
     @Override
     public void query() {
