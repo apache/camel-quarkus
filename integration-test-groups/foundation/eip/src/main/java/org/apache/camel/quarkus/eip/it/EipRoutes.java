@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.eip.it;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Named;
@@ -23,9 +24,11 @@ import jakarta.inject.Singleton;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.ClaimCheckOperation;
+import org.apache.camel.processor.ThrottlerRejectedExecutionException;
 import org.apache.camel.processor.loadbalancer.RoundRobinLoadBalancer;
 
 @ApplicationScoped
+@RegisterForReflection(targets = ThrottlerRejectedExecutionException.class)
 public class EipRoutes extends RouteBuilder {
 
     public static final int THROTTLE_TIMEOUT = 5000;
@@ -35,6 +38,8 @@ public class EipRoutes extends RouteBuilder {
 
     @Override
     public void configure() {
+        onException(ThrottlerRejectedExecutionException.class).handled(true).to("mock:throttleRejectionError");
+
         from("direct:claimCheckByHeader")
                 .claimCheck(ClaimCheckOperation.Set, "${header.claimCheckId}")
                 .transform().constant("Bye World")
@@ -125,9 +130,15 @@ public class EipRoutes extends RouteBuilder {
 
         from("direct:throttle")
                 .log("Receiving '${body}' before throttle.")
-                .throttle(THROTTLE_MAXIMUM_REQUEST_COUNT).rejectExecution(true).delay(THROTTLE_TIMEOUT)
+                .throttle(THROTTLE_MAXIMUM_REQUEST_COUNT).timePeriodMillis(THROTTLE_TIMEOUT)
                 .log("Sending '${body}' to mock throttle.")
                 .to("mock:throttle");
+
+        from("direct:throttleRejection")
+                .log("Receiving '${body}' before throttleRejection.")
+                .throttle(THROTTLE_MAXIMUM_REQUEST_COUNT).rejectExecution(true).timePeriodMillis(THROTTLE_TIMEOUT)
+                .log("Sending '${body}' to mock throttleRejection.")
+                .to("mock:throttleRejection");
 
         from("direct:tryCatchFinally")
                 .doTry()
