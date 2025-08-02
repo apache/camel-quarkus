@@ -48,9 +48,11 @@ import org.apache.camel.util.StringHelper;
 import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -80,6 +82,13 @@ class GrpcTest {
 
     private static final String GRPC_TEST_PING_VALUE = "PING";
     private static final int GRPC_TEST_PING_ID = 1234;
+    private static final Logger LOG = Logger.getLogger(GrpcTest.class);
+
+    @BeforeEach
+    void setup(TestInfo testInfo) {
+        String methodName = testInfo.getDisplayName();
+        LOG.infof("Running test method: %s", methodName);
+    }
 
     @ParameterizedTest
     @MethodSource("producerMethodPorts")
@@ -184,7 +193,6 @@ class GrpcTest {
         }
     }
 
-    @Disabled("https://github.com/apache/camel-quarkus/issues/3037")
     @Test
     public void forwardOnError() throws InterruptedException {
         Config config = ConfigProvider.getConfig();
@@ -194,12 +202,17 @@ class GrpcTest {
         ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", port).usePlaintext().build();
         try {
             PingPongStub pingPongStub = PingPongGrpc.newStub(channel);
+            LOG.info("forwardOnError: preparing observers");
             PongResponseStreamObserver responseObserver = new PongResponseStreamObserver(latch, true);
             StreamObserver<PingRequest> requestObserver = pingPongStub.pingAsyncAsync(responseObserver);
+            LOG.info("forwardOnError: calling onNext(null)");
             requestObserver.onNext(null);
 
+            LOG.info("forwardOnError: waiting latch.await(5s)");
             assertTrue(latch.await(5, TimeUnit.SECONDS));
+            LOG.info("forwardOnError: asserting non null responseObserver.getErrorResponse");
             assertNotNull(responseObserver.getErrorResponse());
+            LOG.info("forwardOnError: asserting returned exception");
             assertEquals(StatusRuntimeException.class.getName(), responseObserver.getErrorResponse().getClass().getName());
 
             Awaitility.await().atMost(5, TimeUnit.SECONDS).until(() -> {
@@ -222,6 +235,7 @@ class GrpcTest {
                         && methodName.equals("pingAsyncAsync");
             });
         } finally {
+            LOG.info("Finished test forwardOnError");
             channel.shutdownNow();
         }
     }
@@ -645,7 +659,7 @@ class GrpcTest {
         private final CountDownLatch latch;
         private final boolean simulateError;
         private PongResponse pongResponse;
-        private Throwable errorResponse;
+        private volatile Throwable errorResponse;
 
         public PongResponseStreamObserver(CountDownLatch latch) {
             this(latch, false);
@@ -666,6 +680,7 @@ class GrpcTest {
 
         @Override
         public void onNext(PongResponse value) {
+            LOG.infof("PongResponseStreamObserver#onNext:%s", value);
             pongResponse = value;
             if (simulateError) {
                 throw new IllegalStateException("Forced exception");
@@ -674,12 +689,15 @@ class GrpcTest {
 
         @Override
         public void onError(Throwable t) {
-            latch.countDown();
+            LOG.infof("PongResponseStreamObserver#onError:%s, cause:%s, errorResponse:%s", t, t.getCause(), errorResponse);
+            // note we are calling `latch.countDown` after we store the exception, otherwise it can happen that we assert the errorResponse existence sooner then it is stored
             errorResponse = t;
+            latch.countDown();
         }
 
         @Override
         public void onCompleted() {
+            LOG.info("PongResponseStreamObserver#onCompleted");
             latch.countDown();
         }
     }
