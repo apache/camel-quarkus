@@ -49,7 +49,6 @@ import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -184,7 +183,6 @@ class GrpcTest {
         }
     }
 
-    @Disabled("https://github.com/apache/camel-quarkus/issues/3037")
     @Test
     public void forwardOnError() throws InterruptedException {
         Config config = ConfigProvider.getConfig();
@@ -198,11 +196,11 @@ class GrpcTest {
             StreamObserver<PingRequest> requestObserver = pingPongStub.pingAsyncAsync(responseObserver);
             requestObserver.onNext(null);
 
-            assertTrue(latch.await(5, TimeUnit.SECONDS));
+            assertTrue(latch.await(10, TimeUnit.SECONDS));
             assertNotNull(responseObserver.getErrorResponse());
             assertEquals(StatusRuntimeException.class.getName(), responseObserver.getErrorResponse().getClass().getName());
 
-            Awaitility.await().atMost(5, TimeUnit.SECONDS).until(() -> {
+            Awaitility.await().atMost(10, TimeUnit.SECONDS).until(() -> {
                 JsonPath json = RestAssured.get("/grpc/forwardOnError")
                         .then()
                         .statusCode(200)
