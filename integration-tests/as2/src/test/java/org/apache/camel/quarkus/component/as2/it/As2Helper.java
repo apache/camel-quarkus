@@ -32,7 +32,7 @@ public class As2Helper {
     public static final String SUBJECT = "Test Case";
     public static final String AS2_NAME = "878051556";
     public static final String FROM = "mrAS@example.org";
-    public static final String[] SIGNED_RECEIPT_MIC_ALGORITHMS = new String[] { "sha1", "md5" };
+    public static final String SIGNED_RECEIPT_MIC_ALGORITHMS = "sha1,md5";
     public static final String DISPOSITION_NOTIFICATION_TO = FROM;
     public static final String EDI_MESSAGE = "UNB+UNOA:1+005435656:1+006415160:1+060515:1434+00000000000778'\n"
             + "UNH+00000000000117+INVOIC:D:97B:UN'\n"
@@ -85,7 +85,7 @@ public class As2Helper {
 
     public static Request createMultipartSignedRequest() {
         final Map<String, Object> headers = createBaseHeaders(AS2MessageStructure.SIGNED);
-        // parameter type is String[]
+        // parameter type is String
         headers.put("CamelAs2.signedReceiptMicAlgorithms", SIGNED_RECEIPT_MIC_ALGORITHMS);
 
         return new Request()

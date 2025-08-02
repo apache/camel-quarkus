@@ -31,7 +31,6 @@ import org.apache.camel.quarkus.component.as2.it.transport.ServerResult;
 import org.apache.hc.core5.http.message.BasicClassicHttpRequest;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -92,7 +91,6 @@ public class As2Test {
         clientTest(As2Helper.createEncryptedRequest());
     }
 
-    @Disabled("https://github.com/apache/camel-quarkus/issues/4492")
     @Test
     public void clientMultipartSignedTest() throws Exception {
         ClientResult clientResult = clientTest(As2Helper.createMultipartSignedRequest());
