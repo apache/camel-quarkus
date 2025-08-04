@@ -131,11 +131,12 @@ public class As2Receiver {
     }
 
     private static RequestHandler receiveTestMessages(int port) throws IOException {
+        // based on https://github.com/apache/camel/blob/camel-4.13.0/components/camel-as2/camel-as2-component/src/test/java/org/apache/camel/component/as2/AS2ClientManagerIT.java#L992C25-L992C44
         serverConnection = new AS2ServerConnection(As2Helper.AS2_VERSION, ORIGIN_SERVER_NAME,
                 SERVER_FQDN, port, AS2SignatureAlgorithm.SHA256WITHRSA,
-                serverCertList.toArray(new Certificate[0]), serverSigningKP.getPrivate(), serverSigningKP.getPrivate(),
+                serverCertList.toArray(new Certificate[0]), serverSigningKP.getPrivate(), null,
                 MDN_MESSAGE_TEMPLATE,
-                new Certificate[] { clientCert }, null,
+                null, null,
                 null, null, null);
 
         RequestHandler handler = new RequestHandler();
