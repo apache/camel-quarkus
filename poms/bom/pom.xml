@@ -2408,6 +2408,10 @@
                         <artifactId>javax.activation</artifactId>
                     </exclusion>
                     <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>javax.validation</groupId>
                         <artifactId>validation-api</artifactId>
                     </exclusion>
