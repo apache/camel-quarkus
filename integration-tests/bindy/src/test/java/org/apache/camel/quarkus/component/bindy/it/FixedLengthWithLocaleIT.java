@@ -17,9 +17,7 @@
 package org.apache.camel.quarkus.component.bindy.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
-import org.junit.jupiter.api.Disabled;
 
-@Disabled("https://github.com/apache/camel-quarkus/issues/2407")
 @QuarkusIntegrationTest
 class FixedLengthWithLocaleIT extends FixedLengthWithLocaleTest {
 
