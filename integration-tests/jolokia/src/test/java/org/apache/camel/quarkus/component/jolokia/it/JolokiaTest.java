@@ -55,7 +55,7 @@ class JolokiaTest {
                         "value.config.discoveryEnabled", equalTo("true"),
                         "value.config.restrictorClass", equalTo(CamelJolokiaRestrictor.class.getName()),
                         "value.config.agentDescription", equalTo("camel-quarkus-integration-test-jolokia"),
-                        "value.details.url", matchesPattern("http://.*:8778/jolokia/"));
+                        "value.details.url", matchesPattern("http://.*:8778/jolokia"));
     }
 
     @Test
