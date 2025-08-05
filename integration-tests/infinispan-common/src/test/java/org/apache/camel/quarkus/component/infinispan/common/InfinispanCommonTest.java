@@ -284,6 +284,8 @@ public abstract class InfinispanCommonTest {
     @Test
     public void query() {
         RestAssured.with()
+                .queryParam("infinispanEndpoint", "infinispan")
+                .queryParam("directEndpoint", "query")
                 .get("/infinispan/query")
                 .then()
                 .statusCode(200);
