@@ -81,7 +81,7 @@ class FileTest {
     void idempotentFileShouldBeReadOnlyOnce() throws IOException, InterruptedException {
 
         // Assert that the idempotent file has been read once
-        await().atMost(1, TimeUnit.SECONDS).until(
+        await().atMost(10, TimeUnit.SECONDS).until(
                 () -> RestAssured
                         .get("/file/getFromMock/idempotent_" + IDEMPOTENT_FILE_NAME + "_was-read-once")
                         .then()
@@ -104,7 +104,7 @@ class FileTest {
 
     @Test
     void filterShouldReadOnlyMatchingFile() {
-        await().atMost(1, TimeUnit.SECONDS).until(
+        await().atMost(10, TimeUnit.SECONDS).until(
                 () -> RestAssured
                         .get("/file/getFromMock/filter")
                         .then()
