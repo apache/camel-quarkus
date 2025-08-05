@@ -51,6 +51,7 @@ group-02:
   - sql
   - telemetry-dev
 group-03:
+  - azure-grouped
   - bean-validator
   - box
   - foundation-grouped
@@ -64,6 +65,7 @@ group-03:
   - main-xml-io
   - main-xml-jaxb
   - main-yaml
+  - master-openshift
   - shiro
   - validator
 group-04:
@@ -133,14 +135,12 @@ group-07:
   - stax
   - weather
 group-08:
-  - azure-grouped
   - crypto
   - crypto-pgp
   - jq
   - langchain4j-chat
   - master
   - master-file
-  - master-openshift
   - pdf
   - pinecone
   - saxon
