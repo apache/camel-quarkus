@@ -1,0 +1,24 @@
+{
+  "id" : "a2a5aabd-ef52-4fc3-84a3-6e6f1bd7ce93",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Create a recipe for a oven dish with the following ingredients: potato, tomato, feta, olive oil\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3\n  },\n  \"stream\" : false\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2025-07-03T12:23:52.914650649Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Sure! Here's a simple recipe for a oven dish with potato, tomato, feta, and olive oil:\\n\\nIngredients:\\n- 1 medium-sized potato, peeled and chopped into small pieces\\n- 1 medium-sized tomato, chopped\\n- 1/2 cup crumbled feta cheese\\n- 2 tablespoons olive oil\\n\\nInstructions:\\n1. Preheat the oven to 375°F (190°C).\\n2. In a baking dish, arrange the potato and tomato pieces in a single layer.\\n3. Sprinkle the crumbled feta cheese over the top of the potato and tomato mixture.\\n4. Drizzle the olive oil over the top of the dish.\\n5. Bake the dish for 20-25 minutes, or until the cheese is melted and bubbly.\\n6. Serve hot as a side dish or alongside your favorite main course.\\n\\nEnjoy your delicious oven dish made with potato, tomato, feta, and olive oil!\"},\"done_reason\":\"stop\",\"done\":true,\"total_duration\":11596944516,\"load_duration\":5331783,\"prompt_eval_count\":61,\"prompt_eval_duration\":310997934,\"eval_count\":225,\"eval_duration\":11279682545}",
+    "headers" : {
+      "Date" : "Thu, 03 Jul 2025 12:23:52 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "a2a5aabd-ef52-4fc3-84a3-6e6f1bd7ce93",
+  "persistent" : true,
+  "insertionIndex" : 2
+}

@@ -1,0 +1,27 @@
+{
+  "id" : "209afadc-b5a5-4421-a5ed-12df7022ee83",
+  "name" : "api_chat",
+  "request" : {
+    "url" : "/api/chat",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"model\" : \"orca-mini\",\n  \"messages\" : [ {\n    \"role\" : \"user\",\n    \"content\" : \"Hello my name is Darth Vader!\"\n  } ],\n  \"options\" : {\n    \"temperature\" : 0.3\n  },\n  \"stream\" : false\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"model\":\"orca-mini\",\"created_at\":\"2025-07-03T12:23:40.200733369Z\",\"message\":{\"role\":\"assistant\",\"content\":\" Hello, I am your loyal AI assistant. Is there anything I can assist you with today?\"},\"done_reason\":\"stop\",\"done\":true,\"total_duration\":974483342,\"load_duration\":5203531,\"prompt_eval_count\":49,\"prompt_eval_duration\":48645877,\"eval_count\":20,\"eval_duration\":919787081}",
+    "headers" : {
+      "Date" : "Thu, 03 Jul 2025 12:23:40 GMT",
+      "Content-Type" : "application/json; charset=utf-8"
+    }
+  },
+  "uuid" : "209afadc-b5a5-4421-a5ed-12df7022ee83",
+  "persistent" : true,
+  "scenarioName" : "scenario-1-api-chat",
+  "requiredScenarioState" : "scenario-1-api-chat-2",
+  "newScenarioState" : "scenario-1-api-chat-3",
+  "insertionIndex" : 4
+}

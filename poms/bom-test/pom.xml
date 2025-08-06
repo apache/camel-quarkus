@@ -71,19 +71,19 @@
             </dependency>
 
             <dependency>
-                <groupId>io.quarkiverse.langchain4j</groupId>
-                <artifactId>quarkus-langchain4j-ollama</artifactId>
-                <version>${quarkiverse-langchain4j.version}</version>
+                <groupId>dev.langchain4j</groupId>
+                <artifactId>langchain4j-ollama</artifactId>
+                <version>${langchain4j-rc.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.quarkiverse.langchain4j</groupId>
-                <artifactId>quarkus-langchain4j-openai</artifactId>
-                <version>${quarkiverse-langchain4j.version}</version>
+                <groupId>dev.langchain4j</groupId>
+                <artifactId>langchain4j-openai</artifactId>
+                <version>${langchain4j-rc.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.quarkiverse.langchain4j</groupId>
-                <artifactId>quarkus-langchain4j-tavily</artifactId>
-                <version>${quarkiverse-langchain4j.version}</version>
+                <groupId>dev.langchain4j</groupId>
+                <artifactId>langchain4j-web-search-engine-tavily</artifactId>
+                <version>${langchain4j-beta.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.quarkiverse.micrometer.registry</groupId>

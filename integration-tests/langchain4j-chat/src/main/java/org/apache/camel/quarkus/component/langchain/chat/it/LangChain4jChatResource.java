@@ -25,8 +25,12 @@ import dev.langchain4j.data.message.AiMessage;
 import dev.langchain4j.data.message.ChatMessage;
 import dev.langchain4j.data.message.SystemMessage;
 import dev.langchain4j.data.message.UserMessage;
+import dev.langchain4j.model.chat.ChatModel;
+import dev.langchain4j.model.ollama.OllamaChatModel;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.QueryParam;
@@ -36,6 +40,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.langchain4j.chat.LangChain4jChat;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.util.ObjectHelper;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 @Path("/langchain4j-chat")
 @ApplicationScoped
@@ -117,5 +122,25 @@ public class LangChain4jChatResource {
         mockEndpoint.assertIsSatisfied(10000);
 
         return Response.ok().build();
+    }
+
+    @Produces
+    @Named("m1")
+    ChatModel model() {
+        return OllamaChatModel.builder()
+                .baseUrl(ConfigProvider.getConfig().getValue("quarkus.langchain4j.ollama.base-url", String.class))
+                .modelName("orca-mini")
+                .temperature(0.3)
+                .build();
+    }
+
+    @Produces
+    @Named("m2")
+    ChatModel model2() {
+        return OllamaChatModel.builder()
+                .baseUrl(ConfigProvider.getConfig().getValue("quarkus.langchain4j.ollama.base-url", String.class))
+                .modelName("orca-mini")
+                .temperature(0.3)
+                .build();
     }
 }

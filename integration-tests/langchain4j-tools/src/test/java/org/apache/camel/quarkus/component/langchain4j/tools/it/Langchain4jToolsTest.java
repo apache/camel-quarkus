@@ -24,8 +24,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 
-@QuarkusTestResource(OllamaTestResource.class)
 @QuarkusTestResource(H2DatabaseTestResource.class)
+@QuarkusTestResource(OllamaTestResource.class)
 @QuarkusTest
 class Langchain4jToolsTest {
 
