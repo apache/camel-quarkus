@@ -246,20 +246,21 @@ public class InfinispanCommonResources {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @SuppressWarnings("unchecked")
-    public Response query() {
+    public Response query(@QueryParam("infinispanEndpoint") String infinispanEndpoint,
+            @QueryParam("directEndpoint") String directEndpoint) {
         Map<String, Object> putOperationHeaders = Map.of(
                 InfinispanConstants.OPERATION, InfinispanOperation.PUT,
                 InfinispanConstants.KEY, "person",
                 InfinispanConstants.VALUE, new Person("Test", "Person"));
 
-        template.sendBodyAndHeaders("infinispan:" + CACHE_NAME, null, putOperationHeaders);
+        template.sendBodyAndHeaders("%s:".formatted(infinispanEndpoint) + CACHE_NAME, null, putOperationHeaders);
 
         String query = "FROM person.Person WHERE firstName = 'Test'";
         InfinispanQueryBuilder builder = InfinispanQueryBuilder.create(query);
 
         Map<String, Object> headers = Map.of(InfinispanConstants.QUERY_BUILDER, builder);
 
-        List<String> result = template.requestBodyAndHeaders("direct:query", null, headers, List.class);
+        List<String> result = template.requestBodyAndHeaders("direct:%s".formatted(directEndpoint), null, headers, List.class);
         if (result.isEmpty()) {
             return Response.status(404).build();
         }

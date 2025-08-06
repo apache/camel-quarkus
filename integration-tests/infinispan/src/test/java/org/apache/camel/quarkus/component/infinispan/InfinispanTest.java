@@ -21,7 +21,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.component.infinispan.common.InfinispanCommonTest;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
@@ -29,6 +28,8 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 @QuarkusTestResource(InfinispanServerTestResource.class)
 public class InfinispanTest extends InfinispanCommonTest {
+
+    @Test
     public void inspect() {
         String hosts = ConfigProvider.getConfig().getValue("camel.component.infinispan.hosts", String.class);
         RestAssured.when()
@@ -38,9 +39,14 @@ public class InfinispanTest extends InfinispanCommonTest {
                         "cache-manager", is("none"));
     }
 
-    @Disabled("https://github.com/apache/camel-quarkus/issues/7572")
     @Test
     @Override
     public void query() {
+        RestAssured.with()
+                .queryParam("infinispanEndpoint", "infinispan-query")
+                .queryParam("directEndpoint", "infinispan-query")
+                .get("/infinispan/query")
+                .then()
+                .statusCode(200);
     }
 }
