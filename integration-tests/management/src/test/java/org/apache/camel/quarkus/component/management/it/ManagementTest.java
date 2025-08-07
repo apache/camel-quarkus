@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.management.it;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.List;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -27,6 +28,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -66,6 +68,47 @@ class ManagementTest {
                 .then()
                 .statusCode(200)
                 .body(containsString("uri=\"direct:start\""));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "stopstep", "trystep" })
+    public void testProcessorAsXml(String processorId) {
+        RestAssured.given()
+                .queryParam("name",
+                        "org.apache.camel:*,type=processors,name=\"%s\"".formatted(processorId))
+                .queryParam("operation", "dumpProcessorAsXml")
+                .post("/management/invoke")
+                .then()
+                .statusCode(200)
+                .body(containsString("id=\"%s\"".formatted(processorId)));
+    }
+
+    @Test
+    public void testDumpStepStatsAsXml() {
+        RestAssured.given()
+                .queryParam("name", "org.apache.camel:*,type=routes,name=\"hellostep\"")
+                .queryParam("operation", "dumpStepStatsAsXml")
+                .queryParam("paramTypes", List.of("boolean"))
+                .queryParam("paramValues", List.of("true"))
+                .post("/management/invokeXml")
+                .then()
+                .statusCode(200)
+                .body("routeStat.stepStats.stepStat.find { it.@id == 'hellostep' }.@state", equalTo("Started"));
+    }
+
+    @Test
+    public void testDumpRoutesStatsAsXml() {
+        RestAssured.given()
+                .queryParam("name", "org.apache.camel:type=context,*")
+                .queryParam("operation", "dumpRoutesStatsAsXml")
+                .queryParam("paramTypes", List.of("boolean", "boolean"))
+                .queryParam("paramValues", List.of("false", "true"))
+                .post("/management/invokeXml")
+                .then()
+                .statusCode(200)
+                .body("camelContextStat.routeStats.routeStat.find { it.@id == 'hello' }.@state", equalTo("Started"))
+                .body("camelContextStat.routeStats.routeStat.find { it.@id == 'dataformat' }.processorStats.processorStat[1].@id",
+                        containsString("marshal"));
     }
 
     @Test
