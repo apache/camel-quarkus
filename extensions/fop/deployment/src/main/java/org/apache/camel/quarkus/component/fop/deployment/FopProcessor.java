@@ -20,16 +20,21 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.xml.namespace.QName;
+
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
+import io.quarkus.deployment.builditem.NativeImageFeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import org.apache.camel.quarkus.component.fop.FopRuntimeProxyFeature;
+import org.apache.fop.fo.expr.PropertyException;
 import org.apache.fop.fonts.Base14Font;
+import org.apache.fop.pdf.PDFSignature;
 import org.apache.fop.render.RendererEventProducer;
 import org.apache.fop.render.pdf.PDFDocumentHandlerMaker;
 import org.apache.fop.render.pdf.extensions.PDFExtensionHandlerFactory;
@@ -40,12 +45,16 @@ import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 
 class FopProcessor {
-
     private static final String FEATURE = "camel-fop";
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    NativeImageFeatureBuildItem registerRuntimeProxies() {
+        return new NativeImageFeatureBuildItem(FopRuntimeProxyFeature.class);
     }
 
     @BuildStep
@@ -63,13 +72,15 @@ class FopProcessor {
         dtos.add(RendererEventProducer.class.getName());
         dtos.add(IOException.class.getName());
         dtos.add(Integer.class.getName());
+        dtos.add(QName.class.getName());
+        dtos.add(PropertyException.class.getName());
 
-        return ReflectiveClassBuildItem.builder(dtos.toArray(new String[dtos.size()])).build();
+        return ReflectiveClassBuildItem.builder(dtos.toArray(new String[0])).build();
     }
 
     @BuildStep
     void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
-        indexDependency.produce(new IndexDependencyBuildItem("org.apache.xmlgraphics", "fop"));
+        indexDependency.produce(new IndexDependencyBuildItem("org.apache.xmlgraphics", "fop-core"));
     }
 
     @BuildStep
@@ -77,13 +88,23 @@ class FopProcessor {
         return new NativeImageResourceBuildItem(
                 "META-INF/services/org.apache.fop.fo.ElementMapping",
                 "META-INF/services/org.apache.fop.render.intermediate.IFDocumentHandler",
-                "org/apache/fop/render/event-model.xml");
-    }
-
-    @BuildStep
-    NativeImageProxyDefinitionBuildItem initProxies() {
-        return new NativeImageProxyDefinitionBuildItem(
-                "org.apache.fop.render.RendererEventProducer");
+                "org/apache/fop/svg/event-model.xml",
+                "org/apache/fop/area/event-model.xml",
+                "org/apache/fop/afp/event-model.xml",
+                "org/apache/fop/render/rtf/event-model.xml",
+                "org/apache/fop/render/bitmap/event-model.xml",
+                "org/apache/fop/render/pdf/extensions/event-model.xml",
+                "org/apache/fop/render/pdf/event-model.xml",
+                "org/apache/fop/render/pcl/event-model.xml",
+                "org/apache/fop/render/ps/event-model.xml",
+                "org/apache/fop/render/event-model.xml",
+                "org/apache/fop/event-model.xml",
+                "org/apache/fop/layoutmgr/inline/event-model.xml",
+                "org/apache/fop/layoutmgr/event-model.xml",
+                "org/apache/fop/fo/event-model.xml",
+                "org/apache/fop/fo/flow/table/event-model.xml",
+                "org/apache/fop/fonts/event-model.xml",
+                "org/apache/fop/accessibility/event-model.xml");
     }
 
     @BuildStep
@@ -100,5 +121,6 @@ class FopProcessor {
         runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(ImageImplRegistry.class.getName()));
         runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(ColorUtil.class.getName()));
         runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(ICCColorSpaceWithIntent.class.getName()));
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(PDFSignature.class.getName()));
     }
 }
