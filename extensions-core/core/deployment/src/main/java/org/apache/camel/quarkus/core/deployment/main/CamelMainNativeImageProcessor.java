@@ -22,20 +22,9 @@ import java.util.stream.Stream;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRouteResourceBuildItem;
 
 public class CamelMainNativeImageProcessor {
-    @BuildStep
-    void reflectiveCLasses(BuildProducer<ReflectiveClassBuildItem> producer) {
-        // TODO: The classes below are needed to fix https://github.com/apache/camel-quarkus/issues/1005
-        //       but we need to investigate why it does not fail with Java 1.8
-        producer.produce(ReflectiveClassBuildItem.builder(org.apache.camel.main.Resilience4jConfigurationProperties.class,
-                org.apache.camel.model.Resilience4jConfigurationDefinition.class,
-                org.apache.camel.model.Resilience4jConfigurationCommon.class,
-                org.apache.camel.spi.RestConfiguration.class,
-                org.apache.camel.quarkus.main.CamelMainApplication.class).methods().build());
-    }
 
     @BuildStep
     void camelNativeImageResources(
