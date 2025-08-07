@@ -258,6 +258,7 @@
         <lra-coordinator.container.image>quay.io/jbosstm/lra-coordinator:7.0.1.Final-3.8.3</lra-coordinator.container.image>
         <minio.container.image>mirror.gcr.io/minio/minio:RELEASE.2024-09-13T20-26-02Z</minio.container.image>
         <mysql.container.image>mirror.gcr.io/mysql:8.4</mysql.container.image>
+        <mariadb.container.image>mirror.gcr.io/mariadb:10.11</mariadb.container.image>
         <mongodb.container.image>mirror.gcr.io/mongo:7.0</mongodb.container.image>
         <nats.container.image>mirror.gcr.io/nats:2.10.18</nats.container.image>
         <openssh-server.container.image>mirror.gcr.io/linuxserver/openssh-server:version-9.7_p1-r4</openssh-server.container.image>
