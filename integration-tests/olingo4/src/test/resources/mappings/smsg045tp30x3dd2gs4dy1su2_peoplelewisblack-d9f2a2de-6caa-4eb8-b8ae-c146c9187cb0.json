@@ -1,0 +1,23 @@
+{
+  "id" : "d9f2a2de-6caa-4eb8-b8ae-c146c9187cb0",
+  "name" : "smsg045tp30x3dd2gs4dy1su2_peoplelewisblack",
+  "request" : {
+    "url" : "/(S(msg045tp30x3dd2gs4dy1su2))/People('lewisblack')",
+    "method" : "DELETE"
+  },
+  "response" : {
+    "status" : 204,
+    "headers" : {
+      "Cache-Control" : "no-cache",
+      "Server" : "Microsoft-IIS/10.0",
+      "X-AspNet-Version" : "4.0.30319",
+      "Pragma" : "no-cache",
+      "Expires" : "-1",
+      "Date" : "Thu, 07 Aug 2025 08:16:05 GMT",
+      "X-Powered-By" : "ASP.NET"
+    }
+  },
+  "uuid" : "d9f2a2de-6caa-4eb8-b8ae-c146c9187cb0",
+  "persistent" : true,
+  "insertionIndex" : 2
+}

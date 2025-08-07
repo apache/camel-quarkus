@@ -1,0 +1,22 @@
+{
+  "id" : "8ae41609-c49a-4b6d-b335-ee727631a048",
+  "name" : "",
+  "request" : {
+    "url" : "/",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 302,
+    "body" : "<html><head><title>Object moved</title></head><body>\r\n<h2>Object moved to <a href=\"/TripPinRESTierService/(S(msg045tp30x3dd2gs4dy1su2))/\">here</a>.</h2>\r\n</body></html>\r\n",
+    "headers" : {
+      "Server" : "Microsoft-IIS/10.0",
+      "Date" : "Thu, 07 Aug 2025 08:15:38 GMT",
+      "X-Powered-By" : "ASP.NET",
+      "Location" : "/TripPinRESTierService/(S(msg045tp30x3dd2gs4dy1su2))/",
+      "Content-Type" : "text/html; charset=utf-8"
+    }
+  },
+  "uuid" : "8ae41609-c49a-4b6d-b335-ee727631a048",
+  "persistent" : true,
+  "insertionIndex" : 15
+}

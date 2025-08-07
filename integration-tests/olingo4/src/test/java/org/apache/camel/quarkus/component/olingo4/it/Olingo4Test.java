@@ -22,7 +22,6 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.apache.camel.quarkus.test.TrustStoreResource;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -30,15 +29,17 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.protocol.HttpCoreContext;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.apache.camel.quarkus.component.olingo4.it.Olingo4Resource.TEST_SERVICE_BASE_URL;
 import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
-@QuarkusTestResource(TrustStoreResource.class)
+@QuarkusTestResource(OdataTestResource.class)
 class Olingo4Test {
+
+    public static final String TEST_SERVICE_BASE_URL = ConfigProvider.getConfig().getValue("olingo4.test.url", String.class);
 
     private static String sessionId;
 
