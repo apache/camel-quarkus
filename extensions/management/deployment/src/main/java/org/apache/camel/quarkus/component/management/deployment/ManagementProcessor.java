@@ -20,7 +20,6 @@ import java.io.NotSerializableException;
 import java.io.ObjectStreamException;
 import java.lang.reflect.Modifier;
 import java.rmi.NotBoundException;
-import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -47,12 +46,9 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.NativeMonitoringBuildItem;
-import io.quarkus.deployment.builditem.RemovedResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.pkg.NativeConfig;
-import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
-import io.quarkus.maven.dependency.ArtifactKey;
 import jakarta.transaction.NotSupportedException;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.RuntimeExchangeException;
@@ -61,6 +57,7 @@ import org.apache.camel.api.management.ManagedNotification;
 import org.apache.camel.api.management.ManagedNotifications;
 import org.apache.camel.api.management.ManagedOperation;
 import org.apache.camel.api.management.ManagedResource;
+import org.apache.camel.api.management.mbean.ManagedStepMBean;
 import org.apache.camel.quarkus.component.management.CamelManagementRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelSerializationBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.RuntimeCamelContextCustomizerBuildItem;
@@ -123,6 +120,8 @@ class ManagementProcessor {
 
         // Find Camel management interfaces and configure native proxy definitions for them
         Set<String> managedBeanInterfaces = getManagedTypes(index, classInfo -> Modifier.isInterface(classInfo.flags()));
+        // ManagedStepMBean doesn't have any annotation
+        managedBeanInterfaces.add(ManagedStepMBean.class.getName());
         managedBeanInterfaces.stream()
                 .map(NativeImageProxyDefinitionBuildItem::new)
                 .forEach(nativeImageProxy::produce);
@@ -159,13 +158,6 @@ class ManagementProcessor {
     @BuildStep
     NativeMonitoringBuildItem enableNativeMonitoring() {
         return new NativeMonitoringBuildItem(NativeConfig.MonitoringOption.JMXSERVER);
-    }
-
-    // TODO: Remove this https://github.com/apache/camel-quarkus/issues/7054
-    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
-    RemovedResourceBuildItem removedResources() {
-        return new RemovedResourceBuildItem(ArtifactKey.fromString("io.quarkus:quarkus-core"),
-                Collections.singleton("io/quarkus/runtime/graal/Target_javax_management_JMX.class"));
     }
 
     private Set<String> getManagedTypes(IndexView index, Predicate<ClassInfo> typeFilter) {

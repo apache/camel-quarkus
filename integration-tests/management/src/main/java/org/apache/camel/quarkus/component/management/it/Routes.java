@@ -25,6 +25,8 @@ public class Routes extends RouteBuilder {
 
         from("direct:start").routeId("hello").setBody().constant("Hello World");
 
+        from("direct:step").routeId("hellostep").step("hellostep").setBody().constant("Hello Step");
+
         from("direct:count").routeId("count")
                 .bean(ManagedCounter.class, "increment").id("counter");
 
