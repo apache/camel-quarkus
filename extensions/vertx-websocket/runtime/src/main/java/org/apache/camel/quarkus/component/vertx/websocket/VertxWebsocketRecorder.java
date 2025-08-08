@@ -49,17 +49,23 @@ public class VertxWebsocketRecorder {
     private static volatile int PORT;
     private static volatile String HOST;
 
+    private final RuntimeValue<VertxHttpConfig> httpConfigRuntimeValue;
+
+    public VertxWebsocketRecorder(RuntimeValue<VertxHttpConfig> httpConfigRuntimeValue) {
+        this.httpConfigRuntimeValue = httpConfigRuntimeValue;
+    }
+
     public RuntimeValue<VertxWebsocketComponent> createVertxWebsocketComponent(
             RuntimeValue<Vertx> vertx,
             RuntimeValue<Router> router,
-            LaunchMode launchMode,
-            VertxHttpConfig httpConfig) {
+            LaunchMode launchMode) {
 
-        boolean sslEnabled = isHttpSeverSecureTransportConfigured(httpConfig);
-        int httpPort = httpConfig.determinePort(launchMode);
-        int httpsPort = httpConfig.determineSslPort(launchMode);
+        VertxHttpConfig vertxHttpConfig = httpConfigRuntimeValue.getValue();
+        boolean sslEnabled = isHttpSeverSecureTransportConfigured(vertxHttpConfig);
+        int httpPort = vertxHttpConfig.determinePort(launchMode);
+        int httpsPort = vertxHttpConfig.determineSslPort(launchMode);
 
-        HOST = httpConfig.host();
+        HOST = vertxHttpConfig.host();
         PORT = sslEnabled ? httpsPort : httpPort;
 
         QuarkusVertxWebsocketComponent component = new QuarkusVertxWebsocketComponent();
