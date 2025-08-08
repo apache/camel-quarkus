@@ -34,6 +34,7 @@
         <camel.quarkus.jvmSince>3.16.0</camel.quarkus.jvmSince>
         <camel.quarkus.nativeSince>3.16.0</camel.quarkus.nativeSince>
         <quarkus.metadata.status>experimental</quarkus.metadata.status>
+        <quarkus.metadata.deprecated>true</quarkus.metadata.deprecated>
     </properties>
 
     <dependencies>
