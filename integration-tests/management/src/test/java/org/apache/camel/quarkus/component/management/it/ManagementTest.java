@@ -70,17 +70,23 @@ class ManagementTest {
                 .body(containsString("uri=\"direct:start\""));
     }
 
-    @Test
-    public void testDumpStepStatsAsXml() {
-        String contextName = RestAssured.get("/management/context/name")
+    @ParameterizedTest
+    @ValueSource(strings = { "stopstep", "trystep" })
+    public void testProcessorAsXml(String processorId) {
+        RestAssured.given()
+                .queryParam("name",
+                        "org.apache.camel:*,type=processors,name=\"%s\"".formatted(processorId))
+                .queryParam("operation", "dumpProcessorAsXml")
+                .post("/management/invoke")
                 .then()
                 .statusCode(200)
-                .extract()
-                .body()
-                .asString();
+                .body(containsString("id=\"%s\"".formatted(processorId)));
+    }
 
+    @Test
+    public void testDumpStepStatsAsXml() {
         RestAssured.given()
-                .queryParam("name", "org.apache.camel:context=%s,type=routes,name=\"hellostep\"".formatted(contextName))
+                .queryParam("name", "org.apache.camel:*,type=routes,name=\"hellostep\"")
                 .queryParam("operation", "dumpStepStatsAsXml")
                 .queryParam("paramTypes", List.of("boolean"))
                 .queryParam("paramValues", List.of("true"))
