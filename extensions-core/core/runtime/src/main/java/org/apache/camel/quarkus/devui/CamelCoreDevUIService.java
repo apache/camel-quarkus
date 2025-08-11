@@ -121,7 +121,7 @@ public class CamelCoreDevUIService {
             this.broadcaster = BroadcastProcessor.create();
             this.cancellable = Multi.createFrom()
                     .ticks()
-                    .every(ConfigProvider.getConfig().getValue("quarkus.camel.dev-ui.update-internal", Duration.class))
+                    .every(ConfigProvider.getConfig().getValue("quarkus.camel.dev-ui.update-interval", Duration.class))
                     .subscribe()
                     .with(this::broadcast);
         }
