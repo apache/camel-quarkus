@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.management.it;
 
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 
 public class Routes extends RouteBuilder {
@@ -24,6 +26,21 @@ public class Routes extends RouteBuilder {
         getContext().setDebugging(false);
 
         from("direct:start").routeId("hello").setBody().constant("Hello World");
+
+        from("direct:step").routeId("hellostep").step("hellostep")
+                .doTry()
+                .setBody().constant("Hello Step")
+                .process(new Processor() {
+                    @Override
+                    public void process(Exchange exchange) throws Exception {
+                        // not used processor, just to be able to call `doFinally`
+                    }
+                })
+                .doFinally()
+                .id("trystep")
+                .end()
+                .stop()
+                .id("stopstep");
 
         from("direct:count").routeId("count")
                 .bean(ManagedCounter.class, "increment").id("counter");

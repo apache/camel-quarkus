@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.management.it;
 
 import java.lang.management.ManagementFactory;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import javax.management.MBeanServer;
@@ -73,6 +74,33 @@ public class ManagementResource {
         ObjectInstance mbean = getMBean(name);
         if (mbean != null) {
             return String.valueOf(getMBeanServer().invoke(mbean.getObjectName(), operation, new Object[] {}, new String[] {}));
+        }
+        return null;
+    }
+
+    @POST
+    @Path("/invokeXml")
+    @Produces(MediaType.APPLICATION_XML)
+    public String invokeMBeanXmlOperation(@QueryParam("name") String name, @QueryParam("operation") String operation,
+            @QueryParam("paramValues") List<String> paramValues, @QueryParam("paramTypes") List<String> paramTypes)
+            throws Exception {
+        Object[] values = new Object[paramValues.size()];
+        String[] types = new String[paramTypes.size()];
+
+        for (int i = 0; i < paramValues.size(); i++) {
+            String valueStr = paramValues.get(i);
+            String typeStr = paramTypes.get(i);
+
+            switch (typeStr) {
+            case "boolean":
+                values[i] = Boolean.parseBoolean(valueStr);
+                break;
+            }
+            types[i] = typeStr;
+        }
+        ObjectInstance mbean = getMBean(name);
+        if (mbean != null) {
+            return String.valueOf(getMBeanServer().invoke(mbean.getObjectName(), operation, values, types));
         }
         return null;
     }
