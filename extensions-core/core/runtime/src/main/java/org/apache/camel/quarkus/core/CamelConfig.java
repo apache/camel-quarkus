@@ -557,6 +557,6 @@ public interface CamelConfig {
          * @asciidoclet
          */
         @WithDefault("5S")
-        Duration updateInternal();
+        Duration updateInterval();
     }
 }

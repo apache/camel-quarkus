@@ -1,0 +1,11 @@
+= Camel Quarkus 3.26.0 Migration Guide
+
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 3.26.0.
+
+== `quarkus.camel.dev-ui.update-internal` renamed to `quarkus.camel.dev-ui.update-interval`
+
+Camel Quarkus 3.25.0 introduced new Quarkus Dev UI pages for various Camel Quarkus extensions.
+This also came with a configuration property to determine how frequently the pages had their data refreshed.
+Unfortunately, there was a typo in the configuration property name.
+
+Any usage of configuration option `quarkus.camel.dev-ui.update-internal`, should be updated to `quarkus.camel.dev-ui.update-interval`.

@@ -462,7 +462,7 @@ that enabling statistics incurs a minor performance impact under very heavy load
 | `boolean`
 | `false`
 
-a|icon:lock[title=Fixed at build time] [[quarkus-camel-dev-ui-update-internal]]`link:#quarkus-camel-dev-ui-update-internal[quarkus.camel.dev-ui.update-internal]`
+a|icon:lock[title=Fixed at build time] [[quarkus-camel-dev-ui-update-interval]]`link:#quarkus-camel-dev-ui-update-interval[quarkus.camel.dev-ui.update-interval]`
 
 The interval at which data is updated in Camel Quarkus Dev UI pages.
 | link:https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Duration.html[`Duration`] link:#duration-note-anchor-core[icon:question-circle[title=More information about the Duration format]]
