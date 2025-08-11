@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.debug.deployment;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.net.Socket;
 import java.util.Properties;
 
 import io.quarkus.test.QuarkusUnitTest;
@@ -27,6 +28,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -47,11 +49,9 @@ public class DebugEnabledFromCamelMainTest {
                 .body(is("true"))
                 .statusCode(200);
 
-        // TODO: This needs Camel 4.7 where camel-main has the capability to configure the JMX Connector
-        // https://github.com/apache/camel-quarkus/issues/6083
-        //try (Socket socket = new Socket("localhost", 1099)) {
-        //    Assertions.assertTrue(socket.isConnected());
-        //}
+        try (Socket socket = new Socket("localhost", 1099)) {
+            Assertions.assertTrue(socket.isConnected());
+        }
     }
 
     public static final Asset applicationProperties() {
