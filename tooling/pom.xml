@@ -61,6 +61,7 @@
                 </property>
             </activation>
             <modules>
+                <module>internal-dependency-management</module>
                 <module>perf-regression</module>
             </modules>
         </profile>
