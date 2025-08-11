@@ -61,6 +61,7 @@ import org.apache.camel.api.management.mbean.ManagedStepMBean;
 import org.apache.camel.quarkus.component.management.CamelManagementRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelSerializationBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.RuntimeCamelContextCustomizerBuildItem;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget.Kind;
 import org.jboss.jandex.ClassInfo;
@@ -156,8 +157,12 @@ class ManagementProcessor {
     }
 
     @BuildStep
-    NativeMonitoringBuildItem enableNativeMonitoring() {
-        return new NativeMonitoringBuildItem(NativeConfig.MonitoringOption.JMXSERVER);
+    void enableNativeMonitoring(BuildProducer<NativeMonitoringBuildItem> nativeMonitoring) {
+        nativeMonitoring.produce(new NativeMonitoringBuildItem(NativeConfig.MonitoringOption.JMXSERVER));
+        boolean debugEnabled = ConfigProvider.getConfig().getOptionalValue("camel.debug.enabled", boolean.class).orElse(false);
+        if (debugEnabled) {
+            nativeMonitoring.produce(new NativeMonitoringBuildItem(NativeConfig.MonitoringOption.JMXCLIENT));
+        }
     }
 
     private Set<String> getManagedTypes(IndexView index, Predicate<ClassInfo> typeFilter) {
