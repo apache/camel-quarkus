@@ -65,7 +65,9 @@ group-03:
   - main-xml-jaxb
   - main-yaml
   - shiro
+  - twitter
   - validator
+  - vertx
 group-04:
   - arangodb
   - debezium-grouped
@@ -109,6 +111,7 @@ group-06:
   - jsonpath
   - kamelet
   - lra
+  - master-openshift
   - openstack
   - opentelemetry
   - quartz
@@ -140,15 +143,12 @@ group-08:
   - langchain4j-chat
   - master
   - master-file
-  - master-openshift
   - pdf
   - pinecone
   - saxon
   - syndication
   - telegram
   - tika
-  - twitter
-  - vertx
   - xml-jaxp
   - zendesk
 group-09:
