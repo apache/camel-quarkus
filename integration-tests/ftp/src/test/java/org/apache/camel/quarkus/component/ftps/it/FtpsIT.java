@@ -17,11 +17,8 @@
 package org.apache.camel.quarkus.component.ftps.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 @QuarkusIntegrationTest
-// https://github.com/apache/camel-quarkus/issues/2317
-@DisabledIfEnvironmentVariable(named = "CI", matches = "true")
 class FtpsIT extends FtpsTest {
 
 }
