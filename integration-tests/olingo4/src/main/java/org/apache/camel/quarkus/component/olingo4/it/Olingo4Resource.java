@@ -38,12 +38,13 @@ import org.apache.olingo.client.api.communication.ODataClientErrorException;
 import org.apache.olingo.client.api.domain.ClientEntity;
 import org.apache.olingo.client.api.domain.ClientProperty;
 import org.apache.olingo.commons.api.http.HttpStatusCode;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 @Path("/olingo4")
 @ApplicationScoped
 public class Olingo4Resource {
 
-    public static final String TEST_SERVICE_BASE_URL = "https://services.odata.org/TripPinRESTierService";
+    public final String TEST_SERVICE_BASE_URL = ConfigProvider.getConfig().getValue("olingo4.test.url", String.class);
 
     @Inject
     ProducerTemplate producerTemplate;
