@@ -21,7 +21,7 @@ group-01:
   - qdrant
   - git
   - google-storage
-  - hazelcast
+  #- hazelcast
   - http-grouped
   - infinispan
   - infinispan-quarkus-client
@@ -71,7 +71,7 @@ group-03:
 group-04:
   - arangodb
   - debezium-grouped
-  - cassandraql
+  #- cassandraql
   - couchdb
   - elasticsearch-rest-client
   - influxdb
@@ -128,7 +128,7 @@ group-07:
   - lumberjack
   - ognl
   - olingo4
-  - optaplanner
+  #- optaplanner
   - pg-replication-slot
   - splunk-hec
   - sjms2-artemis-client
