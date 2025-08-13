@@ -17,17 +17,13 @@
 package org.apache.camel.quarkus.component.as2.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
-import io.quarkus.deployment.builditem.LogConsoleFormatBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.apache.camel.component.as2.api.util.AS2Utils;
-import org.apache.camel.quarkus.component.as2.As2Recorder;
 import org.jboss.jandex.IndexView;
 
 class As2Processor {
@@ -73,11 +69,4 @@ class As2Processor {
         return new NativeImageResourceBuildItem("org/apache/velocity/runtime/defaults/velocity.properties",
                 "org/apache/velocity/runtime/defaults/directive.properties");
     }
-
-    @BuildStep
-    @Record(ExecutionTime.RUNTIME_INIT)
-    public LogConsoleFormatBuildItem setUpFormatter(As2Recorder as2Recorder) {
-        return new LogConsoleFormatBuildItem(as2Recorder.createFormatter());
-    }
-
 }
