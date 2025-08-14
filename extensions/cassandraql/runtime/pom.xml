@@ -62,9 +62,8 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- TODO: https://github.com/datastax/cassandra-quarkus/issues/245 -->
         <dependency>
-            <groupId>com.datastax.oss</groupId>
+            <groupId>org.apache.cassandra</groupId>
             <artifactId>java-driver-query-builder</artifactId>
         </dependency>
     </dependencies>
