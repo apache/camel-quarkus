@@ -14,11 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.debezium.common.it.mysql;
+package org.apache.camel.quarkus.support.debezium.graal;
 
-import io.quarkus.test.junit.QuarkusIntegrationTest;
+import com.oracle.svm.core.annotate.Substitute;
+import com.oracle.svm.core.annotate.TargetClass;
+import io.debezium.metrics.Metrics;
 
-@QuarkusIntegrationTest
-class DebeziumMysqlIT extends DebeziumMysqlTest {
+class MBeansSubstitutions {
+}
 
+@TargetClass(value = Metrics.class)
+final class MetricsConfigSubstitutions {
+    @Substitute
+    public synchronized void register() {
+        //do nothing
+    }
+
+    @Substitute
+    public synchronized void unregister() {
+        //do nothing
+    }
 }
