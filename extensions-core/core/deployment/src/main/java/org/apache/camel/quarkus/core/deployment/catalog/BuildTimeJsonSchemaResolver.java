@@ -75,6 +75,11 @@ public class BuildTimeJsonSchemaResolver implements JSonSchemaResolver {
     }
 
     @Override
+    public String getJBangJsonSchema() {
+        throw new UnsupportedOperationException("JBang JSON schema resolution is not supported");
+    }
+
+    @Override
     public String getPojoBeanJSonSchema(String name) {
         throw new UnsupportedOperationException("Pojo bean JSON schema resolution is not supported");
     }
