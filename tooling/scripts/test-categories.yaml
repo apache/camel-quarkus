@@ -71,7 +71,7 @@ group-03:
 group-04:
   - arangodb
   - debezium-grouped
-  #- cassandraql
+  - cassandraql
   - couchdb
   - elasticsearch-rest-client
   - influxdb
