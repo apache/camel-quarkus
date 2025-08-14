@@ -38,8 +38,13 @@ import org.jasypt.salt.RandomSaltGenerator;
 public interface CamelJasyptConfig {
 
     String NAME = "camel-jasypt";
-
     String DEFAULT_ALGORITHM = StandardPBEByteEncryptor.DEFAULT_ALGORITHM;
+    String SYS_CONFIG_PREFIX = "sys:";
+    String SYS_ENV_CONFIG_PREFIX = "sysenv:";
+    Set<String> ALGORITHMS_THAT_REQUIRE_IV = Set.of("PBEWITHHMACSHA1ANDAES_128", "PBEWITHHMACSHA1ANDAES_256",
+            "PBEWITHHMACSHA224ANDAES_128", "PBEWITHHMACSHA224ANDAES_256", "PBEWITHHMACSHA256ANDAES_128",
+            "PBEWITHHMACSHA256ANDAES_256", "PBEWITHHMACSHA384ANDAES_128", "PBEWITHHMACSHA384ANDAES_256",
+            "PBEWITHHMACSHA512ANDAES_128", "PBEWITHHMACSHA512ANDAES_256");
 
     /**
      * The algorithm to be used for decryption.
@@ -84,15 +89,6 @@ public interface CamelJasyptConfig {
      */
     Optional<String> configurationCustomizerClassName();
 
-    String SYS_CONFIG_PREFIX = "sys:";
-
-    String SYS_ENV_CONFIG_PREFIX = "sysenv:";
-
-    Set<String> ALGORITHMS_THAT_REQUIRE_IV = Set.of("PBEWITHHMACSHA1ANDAES_128", "PBEWITHHMACSHA1ANDAES_256",
-            "PBEWITHHMACSHA224ANDAES_128", "PBEWITHHMACSHA224ANDAES_256", "PBEWITHHMACSHA256ANDAES_128",
-            "PBEWITHHMACSHA256ANDAES_256", "PBEWITHHMACSHA384ANDAES_128", "PBEWITHHMACSHA384ANDAES_256",
-            "PBEWITHHMACSHA512ANDAES_128", "PBEWITHHMACSHA512ANDAES_256");
-
     default PBEConfig pbeConfig() {
         EnvironmentStringPBEConfig config = new EnvironmentStringPBEConfig();
         String password = null;
@@ -124,12 +120,14 @@ public interface CamelJasyptConfig {
                 throw new RuntimeException(e);
             }
         }
+
         // Avoid potentially confusing runtime NPEs and fail fast if no password has been configured
         try {
             config.getPassword();
         } catch (NullPointerException e) {
             throw new IllegalStateException("The jasypt password has not been configured.");
         }
+
         return config;
     }
 }
