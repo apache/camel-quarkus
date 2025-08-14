@@ -38,6 +38,12 @@ import org.jasypt.salt.RandomSaltGenerator;
 public interface CamelJasyptConfig {
     String NAME = "camel-jasypt";
     String DEFAULT_ALGORITHM = StandardPBEByteEncryptor.DEFAULT_ALGORITHM;
+    String SYS_CONFIG_PREFIX = "sys:";
+    String SYS_ENV_CONFIG_PREFIX = "sysenv:";
+    Set<String> ALGORITHMS_THAT_REQUIRE_IV = Set.of("PBEWITHHMACSHA1ANDAES_128", "PBEWITHHMACSHA1ANDAES_256",
+            "PBEWITHHMACSHA224ANDAES_128", "PBEWITHHMACSHA224ANDAES_256", "PBEWITHHMACSHA256ANDAES_128",
+            "PBEWITHHMACSHA256ANDAES_256", "PBEWITHHMACSHA384ANDAES_128", "PBEWITHHMACSHA384ANDAES_256",
+            "PBEWITHHMACSHA512ANDAES_128", "PBEWITHHMACSHA512ANDAES_256");
 
     /**
      * The algorithm to be used for decryption.
@@ -72,20 +78,6 @@ public interface CamelJasyptConfig {
      * implementation. This provides the optional capability of having full control over the Jasypt configuration.
      */
     Optional<String> configurationCustomizerClassName();
-
-    String SYS_CONFIG_PREFIX = "sys:";
-    String SYS_ENV_CONFIG_PREFIX = "sysenv:";
-    Set<String> ALGORITHMS_THAT_REQUIRE_IV = Set.of(
-            "PBEWITHHMACSHA1ANDAES_128",
-            "PBEWITHHMACSHA1ANDAES_256",
-            "PBEWITHHMACSHA224ANDAES_128",
-            "PBEWITHHMACSHA224ANDAES_256",
-            "PBEWITHHMACSHA256ANDAES_128",
-            "PBEWITHHMACSHA256ANDAES_256",
-            "PBEWITHHMACSHA384ANDAES_128",
-            "PBEWITHHMACSHA384ANDAES_256",
-            "PBEWITHHMACSHA512ANDAES_128",
-            "PBEWITHHMACSHA512ANDAES_256");
 
     default PBEConfig pbeConfig() {
         EnvironmentStringPBEConfig config = new EnvironmentStringPBEConfig();
