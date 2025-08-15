@@ -18,8 +18,13 @@ package org.apache.camel.quarkus.component.debezium.mongodb.deployment;
 
 import io.debezium.connector.mongodb.MongoDbConnector;
 import io.debezium.connector.mongodb.MongoDbConnectorTask;
+import io.debezium.connector.mongodb.MongoDbSourceInfoStructMaker;
+import io.debezium.connector.mongodb.connection.DefaultMongoDbAuthProvider;
+import io.debezium.connector.mongodb.snapshot.query.SelectAllSnapshotQuery;
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 
 class DebeziumMongodbProcessor {
@@ -32,8 +37,18 @@ class DebeziumMongodbProcessor {
     }
 
     @BuildStep
-    ReflectiveClassBuildItem reflectiveClasses() {
-        return ReflectiveClassBuildItem.builder(new String[] { MongoDbConnector.class.getName(),
-                MongoDbConnectorTask.class.getName() }).build();
+    void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(
+                MongoDbConnector.class,
+                MongoDbConnectorTask.class,
+                MongoDbSourceInfoStructMaker.class,
+                DefaultMongoDbAuthProvider.class,
+                SelectAllSnapshotQuery.class).build());
+    }
+
+    @BuildStep
+    void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
+        indexDependency.produce(new IndexDependencyBuildItem("io.debezium", "debezium-connector-mongodb"));
     }
 }

@@ -29,7 +29,6 @@ import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -54,13 +53,11 @@ class DebeziumPostgresTest extends AbstractDebeziumTest {
         connection = DriverManager.getConnection(jdbcUrl);
     }
 
-    @Disabled("https://github.com/apache/camel-quarkus/issues/6911")
     @Test
     @Override
     public void testUpdate() throws SQLException {
     }
 
-    @Disabled("https://github.com/apache/camel-quarkus/issues/6911")
     @Test
     @Override
     public void testDelete() throws SQLException {
