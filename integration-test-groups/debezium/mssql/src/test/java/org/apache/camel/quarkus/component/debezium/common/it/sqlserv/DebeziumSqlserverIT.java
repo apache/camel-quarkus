@@ -17,9 +17,7 @@
 package org.apache.camel.quarkus.component.debezium.common.it.sqlserv;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
-import org.junit.jupiter.api.Disabled;
 
-@Disabled("https://github.com/apache/camel-quarkus/issues/4638")
 @QuarkusIntegrationTest
 class DebeziumSqlserverIT extends DebeziumSqlserverTest {
 

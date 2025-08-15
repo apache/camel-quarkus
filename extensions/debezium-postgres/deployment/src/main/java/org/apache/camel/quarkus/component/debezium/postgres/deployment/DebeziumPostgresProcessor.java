@@ -32,12 +32,16 @@ class DebeziumPostgresProcessor {
     }
 
     @BuildStep
-    ReflectiveClassBuildItem reflectiveClasses() {
-        return ReflectiveClassBuildItem.builder(new String[] { "io.debezium.connector.postgresql.PostgresConnector",
+    void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(
+                "io.debezium.connector.postgresql.PostgresConnector",
                 "io.debezium.connector.postgresql.PostgresConnectorTask",
                 "io.debezium.connector.postgresql.PostgresSourceInfoStructMaker",
-                "io.debezium.pipeline.txmetadata.DefaultTransactionMetadataFactory",
-                "io.debezium.schema.SchemaTopicNamingStrategy" }).build();
+                "io.debezium.connector.postgresql.snapshot.lock.NoSnapshotLock",
+                "io.debezium.connector.postgresql.snapshot.lock.SharedSnapshotLock",
+                "io.debezium.connector.postgresql.snapshot.query.SelectAllSnapshotQuery")
+                .build());
     }
 
     @BuildStep
