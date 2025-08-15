@@ -16,51 +16,51 @@
  */
 package org.apache.camel.quarkus.component.support.langchain4j.deployment;
 
-import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-import dev.langchain4j.model.chat.ChatModel;
-import io.quarkiverse.langchain4j.deployment.items.SelectedChatModelProviderBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
+import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.quarkus.component.support.langchain4j.Langchain4jRecorder;
-import org.apache.camel.quarkus.core.deployment.spi.CamelBeanQualifierResolverBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.DotName;
 
 class SupportLangchain4jProcessor {
-    @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep
-    void chatModelBeanQualifiers(
-            List<SelectedChatModelProviderBuildItem> chatModels,
-            BuildProducer<CamelBeanQualifierResolverBuildItem> beanQualifierResolver,
-            Langchain4jRecorder recorder) {
 
-        // Enable ChatLanguageModel instances to be resolved by name from the Camel registry
-        for (SelectedChatModelProviderBuildItem chatModel : chatModels) {
-            beanQualifierResolver.produce(
-                    new CamelBeanQualifierResolverBuildItem(ChatModel.class,
-                            chatModel.getConfigName(),
-                            recorder.chatModelBeanQualifierResolver(chatModel.getConfigName())));
-        }
+    @BuildStep
+    void indexDependencies(BuildProducer<IndexDependencyBuildItem> indexedDependencies) {
+        indexedDependencies.produce(new IndexDependencyBuildItem("dev.langchain4j", "langchain4j-http-client-jdk"));
+        indexedDependencies.produce(new IndexDependencyBuildItem("dev.langchain4j", "langchain4j-ollama"));
     }
 
-    // TODO: Remove this: https://github.com/apache/camel-quarkus/issues/7440
     @BuildStep
-    ReflectiveClassBuildItem registerForReflection() {
-        return ReflectiveClassBuildItem.builder(
-                "dev.langchain4j.model.ollama.FormatSerializer",
-                "dev.langchain4j.model.ollama.Function",
-                "dev.langchain4j.model.ollama.FunctionCall",
-                "dev.langchain4j.model.ollama.Message",
-                "dev.langchain4j.model.ollama.OllamaChatRequest",
-                "dev.langchain4j.model.ollama.OllamaChatResponse",
-                "dev.langchain4j.model.ollama.Options",
-                "dev.langchain4j.model.ollama.Parameters",
-                "dev.langchain4j.model.ollama.Role",
-                "dev.langchain4j.model.ollama.Tool",
-                "dev.langchain4j.model.ollama.ToolCall")
+    ServiceProviderBuildItem registerServiceProviders() {
+        return ServiceProviderBuildItem.allProvidersFromClassPath("dev.langchain4j.http.client.HttpClientBuilderFactory");
+    }
+
+    @BuildStep
+    void registerForReflection(CombinedIndexBuildItem combinedIndex, BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+        Set<String> ollamaModelClasses = combinedIndex.getIndex()
+                .getClassesInPackage("dev.langchain4j.model.ollama")
+                .stream()
+                .filter(classInfo -> classInfo.annotations().stream()
+                        .anyMatch(annotationInstance -> annotationInstance.name().toString()
+                                .startsWith("com.fasterxml.jackson.annotation")))
+                .map(ClassInfo::name)
+                .map(DotName::toString)
+                .collect(Collectors.toSet());
+
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(ollamaModelClasses.toArray(new String[0]))
                 .methods(true)
-                .build();
+                .build());
+    }
+
+    @BuildStep
+    RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
+        return new RuntimeInitializedClassBuildItem("dev.langchain4j.internal.RetryUtils");
     }
 }

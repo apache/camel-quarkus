@@ -17,16 +17,25 @@
 package org.apache.camel.quarkus.component.langchain4j.tokenizer.deployment;
 
 import java.lang.reflect.Modifier;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import io.quarkus.deployment.GeneratedClassGizmoAdaptor;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
+import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeOrNativeSourcesBuild;
 import io.quarkus.gizmo.ClassCreator;
 import io.quarkus.gizmo.MethodCreator;
 import io.quarkus.gizmo.MethodDescriptor;
+import opennlp.tools.util.BaseToolFactory;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.DotName;
 
 class Langchain4jTokenizerProcessor {
     private static final String FEATURE = "camel-langchain4j-tokenizer";
@@ -40,6 +49,30 @@ class Langchain4jTokenizerProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep(onlyIf = NativeOrNativeSourcesBuild.class)
+    IndexDependencyBuildItem indexDependencies() {
+        return new IndexDependencyBuildItem("org.apache.opennlp", "opennlp-tools");
+    }
+
+    @BuildStep
+    NativeImageResourceBuildItem nativeImageResources() {
+        return new NativeImageResourceBuildItem("opennlp/opennlp-en-ud-ewt-sentence-1.2-2.5.0.bin");
+    }
+
+    @BuildStep
+    void registerForReflection(CombinedIndexBuildItem combinedIndex, BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+        Set<String> opennlpToolFactories = combinedIndex.getIndex()
+                .getAllKnownSubclasses(BaseToolFactory.class)
+                .stream()
+                .map(ClassInfo::name)
+                .map(DotName::toString)
+                .collect(Collectors.toSet());
+        System.out.println(opennlpToolFactories);
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(opennlpToolFactories.toArray(new String[0]))
+                .methods()
+                .build());
     }
 
     @BuildStep(onlyIf = { NativeOrNativeSourcesBuild.class })
