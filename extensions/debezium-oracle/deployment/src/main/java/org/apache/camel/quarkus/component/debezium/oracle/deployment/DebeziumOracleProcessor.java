@@ -17,8 +17,15 @@
 package org.apache.camel.quarkus.component.debezium.oracle.deployment;
 
 import io.debezium.connector.oracle.OracleConnector;
+import io.debezium.connector.oracle.OracleConnectorTask;
+import io.debezium.connector.oracle.OracleSourceInfoStructMaker;
+import io.debezium.connector.oracle.logminer.buffered.BufferedLogMinerAdapter;
+import io.debezium.connector.oracle.snapshot.query.SelectAllSnapshotQuery;
+import io.debezium.storage.kafka.history.KafkaSchemaHistory;
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 
 class DebeziumOracleProcessor {
@@ -31,9 +38,19 @@ class DebeziumOracleProcessor {
     }
 
     @BuildStep
-    ReflectiveClassBuildItem registerForReflection() {
-        return ReflectiveClassBuildItem.builder(OracleConnector.class.getName())
-                .build();
+    void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(
+                OracleConnector.class,
+                OracleConnectorTask.class,
+                OracleSourceInfoStructMaker.class,
+                SelectAllSnapshotQuery.class,
+                BufferedLogMinerAdapter.class,
+                KafkaSchemaHistory.class).build());
     }
 
+    @BuildStep
+    void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
+        indexDependency.produce(new IndexDependencyBuildItem("io.debezium", "debezium-connector-oracle"));
+    }
 }

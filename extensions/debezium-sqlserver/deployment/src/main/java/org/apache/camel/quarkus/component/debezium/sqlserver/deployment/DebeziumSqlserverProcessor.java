@@ -38,6 +38,19 @@ class DebeziumSqlserverProcessor {
     }
 
     @BuildStep
+    void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+
+        reflectiveClasses.produce(ReflectiveClassBuildItem.builder(
+                "io.debezium.connector.sqlserver.SqlServerConnector",
+                "io.debezium.connector.sqlserver.SqlServerConnectorTask",
+                "io.debezium.connector.sqlserver.SqlServerSourceInfoStructMaker",
+                "io.debezium.connector.sqlserver.snapshot.lock.NoSnapshotLock",
+                "io.debezium.connector.sqlserver.snapshot.lock.ExclusiveSnapshotLock",
+                "io.debezium.connector.sqlserver.snapshot.query.SelectAllSnapshotQuery")
+                .methods().fields().build());
+    }
+
+    @BuildStep
     void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
         indexDependency.produce(new IndexDependencyBuildItem("io.debezium", "debezium-connector-sqlserver"));
     }
