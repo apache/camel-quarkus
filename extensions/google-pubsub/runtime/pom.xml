@@ -34,22 +34,6 @@
         <camel.quarkus.nativeSince>1.5.0</camel.quarkus.nativeSince>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <!-- https://github.com/micrometer-metrics/micrometer/issues/2249 -->
-            <dependency>
-                <groupId>io.quarkus</groupId>
-                <artifactId>quarkus-micrometer</artifactId>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.google.cloud</groupId>
-                        <artifactId>google-cloud-monitoring</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
