@@ -46,6 +46,7 @@ import org.apache.camel.quarkus.core.deployment.spi.CamelModelToYAMLDumperBuildI
 import org.apache.camel.quarkus.core.deployment.spi.CamelPackageScanClassResolverBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRegistryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelTypeConverterRegistryBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.RuntimeCamelContextCustomizerBuildItem;
 import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.TypeConverterRegistry;
@@ -193,10 +194,8 @@ public class CamelContextProcessor {
 
     @Record(ExecutionTime.RUNTIME_INIT)
     @BuildStep
-    void registerDataFormatLifecycleStrategy(
-            CamelContextBuildItem camelContext,
-            CamelContextRecorder recorder) {
-        recorder.registerDataFormatLifecycleStrategy(camelContext.getCamelContext());
+    RuntimeCamelContextCustomizerBuildItem registerDataFormatLifecycleStrategy(CamelContextRecorder recorder) {
+        return new RuntimeCamelContextCustomizerBuildItem(recorder.registerDataFormatLifecycleStrategy());
     }
 
     public static final class EventBridgeEnabled implements BooleanSupplier {

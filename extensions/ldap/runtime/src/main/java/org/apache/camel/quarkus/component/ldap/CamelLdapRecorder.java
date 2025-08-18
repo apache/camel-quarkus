@@ -23,6 +23,7 @@ import javax.naming.Context;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
+import org.apache.camel.spi.CamelContextCustomizer;
 
 @Recorder
 public class CamelLdapRecorder {
@@ -32,24 +33,25 @@ public class CamelLdapRecorder {
         this.config = config;
     }
 
-    public void createDirContexts(RuntimeValue<CamelContext> contextRuntimeValue) {
-        CamelContext context = contextRuntimeValue.getValue();
+    public RuntimeValue<CamelContextCustomizer> createDirContexts() {
+        return new RuntimeValue<CamelContextCustomizer>(new CamelContextCustomizer() {
+            public void configure(CamelContext camelContext) {
+                config.getValue().dirContexts().keySet().forEach(contextName -> {
+                    CamelLdapConfig.LdapDirContextConfig dirConfig = config.getValue().dirContexts().get(contextName);
 
-        config.getValue().dirContexts().keySet().forEach(contextName -> {
+                    Hashtable<String, Object> env = new Hashtable<>();
+                    dirConfig.initialContextFactory().ifPresent(v -> env.put(Context.INITIAL_CONTEXT_FACTORY, v));
+                    dirConfig.providerUrl().ifPresent(v -> env.put(Context.PROVIDER_URL, v));
+                    env.put(Context.SECURITY_AUTHENTICATION, dirConfig.securityAuthentication());
+                    dirConfig.securityProtocol().ifPresent(v -> env.put(Context.SECURITY_PROTOCOL, v));
+                    dirConfig.socketFactory().ifPresent(v -> env.put("java.naming.ldap.factory.socket", v));
 
-            CamelLdapConfig.LdapDirContextConfig dirConfig = config.getValue().dirContexts().get(contextName);
+                    //additional options
+                    env.putAll(dirConfig.additionalOptions());
 
-            Hashtable<String, Object> env = new Hashtable<String, Object>();
-            dirConfig.initialContextFactory().ifPresent(v -> env.put(Context.INITIAL_CONTEXT_FACTORY, v));
-            dirConfig.providerUrl().ifPresent(v -> env.put(Context.PROVIDER_URL, v));
-            env.put(Context.SECURITY_AUTHENTICATION, dirConfig.securityAuthentication());
-            dirConfig.securityProtocol().ifPresent(v -> env.put(Context.SECURITY_PROTOCOL, v));
-            dirConfig.socketFactory().ifPresent(v -> env.put("java.naming.ldap.factory.socket", v));
-
-            //additional options
-            dirConfig.additionalOptions().entrySet().forEach(e -> env.put(e.getKey(), e.getValue()));
-
-            context.getRegistry().bind(contextName, env);
+                    camelContext.getRegistry().bind(contextName, env);
+                });
+            }
         });
     }
 }
