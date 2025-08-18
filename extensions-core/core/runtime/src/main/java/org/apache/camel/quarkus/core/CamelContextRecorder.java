@@ -192,9 +192,13 @@ public class CamelContextRecorder {
         return new RuntimeValue<>(clock);
     }
 
-    public void registerDataFormatLifecycleStrategy(RuntimeValue<CamelContext> context) {
-        CamelContext camelContext = context.getValue();
-        camelContext.addLifecycleStrategy(
-                new CamelQuarkusDataFormatConfigLifecycleStrategy(camelContext, dataFormatConfig.getValue()));
+    public RuntimeValue<CamelContextCustomizer> registerDataFormatLifecycleStrategy() {
+        return new RuntimeValue<>(new CamelContextCustomizer() {
+            @Override
+            public void configure(CamelContext camelContext) {
+                camelContext.addLifecycleStrategy(
+                        new CamelQuarkusDataFormatConfigLifecycleStrategy(camelContext, dataFormatConfig.getValue()));
+            }
+        });
     }
 }
