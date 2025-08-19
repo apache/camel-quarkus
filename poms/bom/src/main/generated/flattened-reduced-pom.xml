@@ -1829,6 +1829,16 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
+        <artifactId>camel-langchain4j-agent</artifactId>
+        <version>4.14.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-langchain4j-agent-api</artifactId>
+        <version>4.14.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
         <artifactId>camel-langchain4j-chat</artifactId>
         <version>4.14.0</version>
         <exclusions>
@@ -4881,6 +4891,16 @@
       <dependency>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-langchain4j</artifactId>
+        <version>3.26.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-langchain4j-agent</artifactId>
+        <version>3.26.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-langchain4j-agent-deployment</artifactId>
         <version>3.26.0-SNAPSHOT</version>
       </dependency>
       <dependency>
