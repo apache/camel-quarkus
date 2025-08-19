@@ -37,6 +37,7 @@ updates:
       # Quarkiverse extensions
       - dependency-name: "io.quarkiverse.*:*"
       # Other third party extensions
+      - dependency-name: "com.datastax.oss.quarkus:cassandra-quarkus-bom"
       - dependency-name: "com.hazelcast:quarkus-hazelcast-client-bom"
       - dependency-name: "com.squareup.okhttp3:okhttp"
       - dependency-name: "io.swagger.codegen.v3:swagger-codegen-generators"
