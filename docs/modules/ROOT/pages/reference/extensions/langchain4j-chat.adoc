@@ -5,8 +5,8 @@
 :linkattrs:
 :cq-artifact-id: camel-quarkus-langchain4j-chat
 :cq-native-supported: true
-:cq-status: Experimental
-:cq-status-deprecation: Experimental
+:cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: LangChain4j Chat component
 :cq-deprecated: false
 :cq-jvm-since: 3.11.0

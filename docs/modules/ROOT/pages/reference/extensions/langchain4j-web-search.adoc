@@ -5,8 +5,8 @@
 :linkattrs:
 :cq-artifact-id: camel-quarkus-langchain4j-web-search
 :cq-native-supported: true
-:cq-status: Stable
-:cq-status-deprecation: Stable
+:cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: LangChain4j Web Search Engine
 :cq-deprecated: false
 :cq-jvm-since: 3.15.0
