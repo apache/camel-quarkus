@@ -32,6 +32,7 @@
 
     <properties>
         <camel.quarkus.jvmSince>3.10.0</camel.quarkus.jvmSince>
+        <quarkus.metadata.status>preview</quarkus.metadata.status>
     </properties>
 
     <dependencies>
