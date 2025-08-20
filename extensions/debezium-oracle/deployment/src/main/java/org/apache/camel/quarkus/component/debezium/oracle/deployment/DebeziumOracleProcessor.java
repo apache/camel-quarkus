@@ -27,6 +27,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import oracle.jdbc.driver.OracleDriver;
 
 class DebeziumOracleProcessor {
 
@@ -41,6 +42,7 @@ class DebeziumOracleProcessor {
     void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
 
         reflectiveClasses.produce(ReflectiveClassBuildItem.builder(
+                OracleDriver.class,
                 OracleConnector.class,
                 OracleConnectorTask.class,
                 OracleSourceInfoStructMaker.class,
