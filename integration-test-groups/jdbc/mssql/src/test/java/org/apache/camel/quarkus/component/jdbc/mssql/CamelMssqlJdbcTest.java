@@ -23,7 +23,6 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.DisabledOnArm;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import static org.hamcrest.Matchers.containsStringIgnoringCase;
 import static org.hamcrest.Matchers.equalTo;
@@ -34,9 +33,7 @@ import static org.wildfly.common.Assert.assertFalse;
 import static org.wildfly.common.Assert.assertNotNull;
 
 @QuarkusTest
-@DisabledIfSystemProperty(named = "cq.jdbcKind", matches = "derby")
 @DisabledOnArm
-//https://github.com/quarkusio/quarkus/issues/23083
 public class CamelMssqlJdbcTest {
     String dbKind = "mssql";
 
