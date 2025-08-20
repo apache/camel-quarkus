@@ -24,8 +24,9 @@ import io.smallrye.config.SmallRyeConfig;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.jasypt.JasyptPropertiesParser;
 import org.apache.camel.component.properties.PropertiesComponent;
+import org.apache.camel.main.BaseMainSupport;
 import org.apache.camel.main.MainConfigurationProperties;
-import org.apache.camel.quarkus.main.CamelMain;
+import org.apache.camel.main.MainListener;
 import org.apache.camel.spi.CamelContextCustomizer;
 import org.apache.camel.util.ObjectHelper;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -35,11 +36,45 @@ import org.eclipse.microprofile.config.spi.ConfigSource;
 public class CamelJasyptRecorder {
     private static final Pattern JASYPT_ENC = Pattern.compile("ENC\\(\\s*\\S.*\\)");
 
-    public void disableCamelMainAutoConfigFromSysEnv(RuntimeValue<CamelMain> camelMainRuntimeValue) {
-        CamelMain main = camelMainRuntimeValue.getValue();
-        MainConfigurationProperties configurationProperties = main.getMainConfigurationProperties();
-        configurationProperties.setAutoConfigurationSystemPropertiesEnabled(false);
-        configurationProperties.setAutoConfigurationEnvironmentVariablesEnabled(false);
+    public RuntimeValue<MainListener> createDisabledCamelMainAutoConfigFromSysEnvMainListener() {
+        return new RuntimeValue<>(new MainListener() {
+            @Override
+            public void beforeInitialize(BaseMainSupport main) {
+
+            }
+
+            @Override
+            public void beforeConfigure(BaseMainSupport main) {
+                MainConfigurationProperties configurationProperties = main.configure();
+                configurationProperties.setAutoConfigurationSystemPropertiesEnabled(false);
+                configurationProperties.setAutoConfigurationEnvironmentVariablesEnabled(false);
+            }
+
+            @Override
+            public void afterConfigure(BaseMainSupport main) {
+
+            }
+
+            @Override
+            public void beforeStart(BaseMainSupport main) {
+
+            }
+
+            @Override
+            public void afterStart(BaseMainSupport main) {
+
+            }
+
+            @Override
+            public void beforeStop(BaseMainSupport main) {
+
+            }
+
+            @Override
+            public void afterStop(BaseMainSupport main) {
+
+            }
+        });
     }
 
     public RuntimeValue<CamelContextCustomizer> createPropertiesComponentCamelContextCustomizer() {

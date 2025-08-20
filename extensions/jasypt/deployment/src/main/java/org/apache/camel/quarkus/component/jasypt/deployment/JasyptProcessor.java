@@ -30,7 +30,7 @@ import org.apache.camel.quarkus.component.jasypt.CamelJasyptBuildTimeConfig;
 import org.apache.camel.quarkus.component.jasypt.CamelJasyptRecorder;
 import org.apache.camel.quarkus.component.jasypt.CamelJasyptRuntimeConfigBuilder;
 import org.apache.camel.quarkus.component.jasypt.JasyptConfigurationCustomizer;
-import org.apache.camel.quarkus.core.deployment.main.spi.CamelMainBuildItem;
+import org.apache.camel.quarkus.core.deployment.main.spi.CamelMainListenerBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.RuntimeCamelContextCustomizerBuildItem;
 import org.jboss.jandex.ClassInfo;
 
@@ -55,14 +55,13 @@ class JasyptProcessor {
                 });
     }
 
-    @Record(ExecutionTime.RUNTIME_INIT)
+    @Record(ExecutionTime.STATIC_INIT)
     @BuildStep(onlyIf = CamelJasyptEnabled.class)
-    void disableCamelMainAutoConfigFromSysEnv(
-            CamelMainBuildItem camelMain,
-            CamelJasyptRecorder recorder) {
+    CamelMainListenerBuildItem disableCamelMainAutoConfigFromSysEnv(CamelJasyptRecorder recorder) {
         // Avoid camel-main overriding system / environment config values that were already resolved by SmallRye config.
         // Else there's the potential for encrypted property values to be overridden with their raw ENC(..) form
-        recorder.disableCamelMainAutoConfigFromSysEnv(camelMain.getInstance());
+        // Using CamelMainListener for disabling the autoconfig so we rely on Camel Main listeners to guarantee the order
+        return new CamelMainListenerBuildItem(recorder.createDisabledCamelMainAutoConfigFromSysEnvMainListener());
     }
 
     @Record(ExecutionTime.RUNTIME_INIT)
