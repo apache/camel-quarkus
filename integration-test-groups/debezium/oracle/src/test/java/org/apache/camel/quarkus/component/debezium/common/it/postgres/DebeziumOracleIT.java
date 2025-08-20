@@ -17,9 +17,7 @@
 package org.apache.camel.quarkus.component.debezium.common.it.postgres;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
-import org.junit.jupiter.api.Disabled;
 
-@Disabled //todo
 @QuarkusIntegrationTest
 class DebeziumOracleIT extends DebeziumOracleTest {
 }
