@@ -20,14 +20,12 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.TestProfile;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 @TestProfile(JasyptSecureExtensionConfigTestProfile.class)
 class JasyptSecureExtensionConfigTest {
-    @DisabledIfEnvironmentVariable(named = "CI", matches = "true", disabledReason = "https://github.com/apache/camel-quarkus/issues/5675")
     @Test
     void secureDirectComponentTimeout() throws InterruptedException {
         RestAssured.given()
