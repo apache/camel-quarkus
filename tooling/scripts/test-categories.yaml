@@ -54,6 +54,7 @@ group-02:
 group-03:
   - bean-validator
   - box
+  - elasticsearch-rest-client
   - foundation-grouped
   - freemarker
   - github
@@ -72,9 +73,7 @@ group-03:
 group-04:
   - arangodb
   - debezium-grouped
-  - cassandraql
   - couchdb
-  - elasticsearch-rest-client
   - influxdb
   - jms-qpid-amqp-client
   - jpa
@@ -121,6 +120,7 @@ group-06:
   - splunk
   - wasm
 group-07:
+  - cassandraql
   - dataformats-json-grouped
   - dropbox
   - geocoder
