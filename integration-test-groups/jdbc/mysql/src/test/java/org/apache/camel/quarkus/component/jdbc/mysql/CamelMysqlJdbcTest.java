@@ -23,7 +23,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import static org.hamcrest.Matchers.containsStringIgnoringCase;
 import static org.hamcrest.Matchers.equalTo;
@@ -34,7 +33,6 @@ import static org.wildfly.common.Assert.assertFalse;
 import static org.wildfly.common.Assert.assertNotNull;
 
 @QuarkusTest
-@DisabledIfSystemProperty(named = "cq.jdbcKind", matches = "derby")
 @QuarkusTestResource(value = MysqlTestResource.class)
 public class CamelMysqlJdbcTest {
     String dbKind = "mysql";
