@@ -32,7 +32,10 @@
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>
+        <!-- TODO: Restore / remove when optaplanner-quarkus > 10.0.0 is available - https://github.com/apache/camel-quarkus/issues/7533
         <camel.quarkus.nativeSince>1.5.0</camel.quarkus.nativeSince>
+        -->
+        <quarkus.metadata.nativeSupported>false</quarkus.metadata.nativeSupported>
     </properties>
 
     <dependencies>
@@ -44,6 +47,7 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-optaplanner</artifactId>
         </dependency>
+        <!-- TODO: Restore when optaplanner-quarkus > 10.0.0 is available - https://github.com/apache/camel-quarkus/issues/7533
         <dependency>
             <groupId>org.optaplanner</groupId>
             <artifactId>optaplanner-quarkus</artifactId>
@@ -52,6 +56,7 @@
             <groupId>org.optaplanner</groupId>
             <artifactId>optaplanner-quarkus-jackson</artifactId>
         </dependency>
+        -->
     </dependencies>
 
     <build>

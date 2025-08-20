@@ -2302,6 +2302,7 @@
                 <artifactId>camel-optaplanner</artifactId>
                 <version>${camel.version}</version>
                 <exclusions>
+                    <!-- TODO: Restore when optaplanner-quarkus > 10.0.0 is available - https://github.com/apache/camel-quarkus/issues/7533
                     <exclusion>
                         <groupId>org.optaplanner</groupId>
                         <artifactId>optaplanner-core</artifactId>
@@ -2314,6 +2315,7 @@
                         <groupId>org.optaplanner</groupId>
                         <artifactId>optaplanner-persistence-common</artifactId>
                     </exclusion>
+                    -->
                 </exclusions>
             </dependency>
             <dependency>

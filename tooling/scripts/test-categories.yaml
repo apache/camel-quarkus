@@ -129,7 +129,7 @@ group-07:
   - lumberjack
   - ognl
   - olingo4
-  #- optaplanner
+  - optaplanner
   - pg-replication-slot
   - splunk-hec
   - sjms2-artemis-client

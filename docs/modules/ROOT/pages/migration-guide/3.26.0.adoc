@@ -17,3 +17,9 @@ Due to `quarkus-hazelcast` 4.0.0 not being compatible with Quarkus >= 3.26.0, it
 This means that any native support and any `quarkus-hazelcast` specific features are temporarily not supported with `camel-quarkus-hazelcast`.
 You can continue to use the extension in JVM mode using the standard `camel-hazelcast` component functionality.
 
+== `optaplanner-quarkus` removed from `camel-quarkus-optaplanner`
+
+Due to `optaplanner-quarkus` 10.0.0 not being compatible with Quarkus >= 3.26.0, it has been temporarily removed from the `camel-quarkus-optaplanner` extension.
+
+This means that any native support and any `optaplanner-quarkus` specific features are temporarily not supported with `camel-quarkus-optaplanner`.
+You can continue to use the extension in JVM mode using the standard `camel-optaplanner` component functionality.
