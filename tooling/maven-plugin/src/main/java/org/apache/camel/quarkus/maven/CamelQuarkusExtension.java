@@ -68,8 +68,10 @@ public class CamelQuarkusExtension {
             }
 
             final String version = CqUtils.getVersion(runtimePom);
-            final boolean nativeSupported = !runtimePomXmlPath.getParent().getParent().getParent().getFileName().toString()
+            final boolean isJvmOnly = runtimePomXmlPath.getParent().getParent().getParent().getFileName().toString()
                     .endsWith("-jvm");
+            final boolean nativeSupported = Boolean
+                    .parseBoolean(props.getProperty("quarkus.metadata.nativeSupported", Boolean.toString(!isJvmOnly)));
             final String extensionStatus = props.getProperty("quarkus.metadata.status");
             final ExtensionStatus status = extensionStatus == null ? ExtensionStatus.of(nativeSupported)
                     : ExtensionStatus.valueOf(extensionStatus);

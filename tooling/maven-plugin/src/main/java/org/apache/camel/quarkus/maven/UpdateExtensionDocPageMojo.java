@@ -142,7 +142,7 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                     CamelQuarkusExtension.CAMEL_QUARKUS_JVM_SINCE + " property must defined in " + pomRelPath);
         }
         final String extensionsDir = runtimeModuleDir.getParent().getParent().getFileName().toString();
-        if (!"extensions-jvm".equals(extensionsDir) && ext.getNativeSince().isEmpty()) {
+        if (ext.isNativeSupported() && !"extensions-jvm".equals(extensionsDir) && ext.getNativeSince().isEmpty()) {
             throw new IllegalStateException(
                     CamelQuarkusExtension.CAMEL_QUARKUS_NATIVE_SINCE + " property must defined in " + pomRelPath);
         }
