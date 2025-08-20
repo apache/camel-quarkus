@@ -38,10 +38,12 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-hazelcast</artifactId>
         </dependency>
+        <!-- TODO: Restore when quarkus-hazelcast > 4.0.0 is available - https://github.com/apache/camel-quarkus/issues/7535
         <dependency>
             <groupId>com.hazelcast</groupId>
             <artifactId>quarkus-hazelcast-client-deployment</artifactId>
         </dependency>
+        -->
     </dependencies>
 
     <build>
