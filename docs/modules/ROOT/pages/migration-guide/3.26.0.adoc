@@ -9,3 +9,11 @@ This also came with a configuration property to determine how frequently the pag
 Unfortunately, there was a typo in the configuration property name.
 
 Any usage of configuration option `quarkus.camel.dev-ui.update-internal`, should be updated to `quarkus.camel.dev-ui.update-interval`.
+
+== `quarkus-hazelcast` removed from `camel-quarkus-hazelcast`
+
+Due to `quarkus-hazelcast` 4.0.0 not being compatible with Quarkus >= 3.26.0, it has been temporarily removed from the `camel-quarkus-hazelcast` extension.
+
+This means that any native support and any `quarkus-hazelcast` specific features are temporarily not supported with `camel-quarkus-hazelcast`.
+You can continue to use the extension in JVM mode using the standard `camel-hazelcast` component functionality.
+

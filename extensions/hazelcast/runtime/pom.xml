@@ -32,7 +32,10 @@
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>
+        <!-- TODO: Restore / remove when quarkus-hazelcast > 4.0.0 is available - https://github.com/apache/camel-quarkus/issues/7535
         <camel.quarkus.nativeSince>1.6.0</camel.quarkus.nativeSince>
+        -->
+        <quarkus.metadata.nativeSupported>false</quarkus.metadata.nativeSupported>
     </properties>
 
     <dependencies>
@@ -44,10 +47,12 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-hazelcast</artifactId>
         </dependency>
+        <!-- TODO: Restore when quarkus-hazelcast > 4.0.0 is available - https://github.com/apache/camel-quarkus/issues/7535
         <dependency>
             <groupId>com.hazelcast</groupId>
             <artifactId>quarkus-hazelcast-client</artifactId>
         </dependency>
+        -->
         <dependency>
             <groupId>com.hazelcast</groupId>
             <artifactId>hazelcast</artifactId>
