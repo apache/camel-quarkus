@@ -21,7 +21,7 @@ group-01:
   - qdrant
   - git
   - google-storage
-  #- hazelcast
+  - hazelcast
   - http-grouped
   - infinispan
   - infinispan-quarkus-client
