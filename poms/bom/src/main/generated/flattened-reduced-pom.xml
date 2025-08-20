@@ -2207,20 +2207,6 @@
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-optaplanner</artifactId>
         <version>4.14.0</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.optaplanner</groupId>
-            <artifactId>optaplanner-core</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.optaplanner</groupId>
-            <artifactId>optaplanner-core-impl</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.optaplanner</groupId>
-            <artifactId>optaplanner-persistence-common</artifactId>
-          </exclusion>
-        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId>
@@ -7658,26 +7644,6 @@
         <version>3.1.0</version>
       </dependency>
       <dependency>
-        <groupId>org.optaplanner</groupId>
-        <artifactId>optaplanner-quarkus</artifactId>
-        <version>10.0.0</version>
-      </dependency>
-      <dependency>
-        <groupId>org.optaplanner</groupId>
-        <artifactId>optaplanner-quarkus-deployment</artifactId>
-        <version>10.0.0</version>
-      </dependency>
-      <dependency>
-        <groupId>org.optaplanner</groupId>
-        <artifactId>optaplanner-quarkus-jackson</artifactId>
-        <version>10.0.0</version>
-      </dependency>
-      <dependency>
-        <groupId>org.optaplanner</groupId>
-        <artifactId>optaplanner-quarkus-jackson-deployment</artifactId>
-        <version>10.0.0</version>
-      </dependency>
-      <dependency>
         <groupId>org.snakeyaml</groupId>
         <artifactId>snakeyaml-engine</artifactId>
         <version>2.10</version>
@@ -9063,16 +9029,6 @@
         <groupId>net.openhft</groupId>
         <artifactId>affinity</artifactId>
         <version>3.23.3</version>
-      </dependency>
-      <dependency>
-        <groupId>com.hazelcast</groupId>
-        <artifactId>quarkus-hazelcast-client</artifactId>
-        <version>4.0.0</version>
-      </dependency>
-      <dependency>
-        <groupId>com.hazelcast</groupId>
-        <artifactId>quarkus-hazelcast-client-deployment</artifactId>
-        <version>4.0.0</version>
       </dependency>
       <dependency>
         <groupId>org.smooks</groupId>

@@ -183,7 +183,7 @@
         <module>openstack</module>
         <module>opentelemetry</module>
         <module>opentelemetry2</module>
-        <!-- <module>optaplanner</module> -->
+        <module>optaplanner</module>
         <module>paho</module>
         <module>paho-mqtt5</module>
         <module>pdf</module>

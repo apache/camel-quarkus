@@ -38,6 +38,7 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-optaplanner</artifactId>
         </dependency>
+        <!-- TODO: Restore when optaplanner-quarkus > 10.0.0 is available - https://github.com/apache/camel-quarkus/issues/7533
         <dependency>
             <groupId>org.optaplanner</groupId>
             <artifactId>optaplanner-quarkus-deployment</artifactId>
@@ -46,6 +47,7 @@
             <groupId>org.optaplanner</groupId>
             <artifactId>optaplanner-quarkus-jackson-deployment</artifactId>
         </dependency>
+        -->
     </dependencies>
 
     <build>

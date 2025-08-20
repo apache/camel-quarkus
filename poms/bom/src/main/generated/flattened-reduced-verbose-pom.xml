@@ -2207,20 +2207,6 @@
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>camel-optaplanner</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>4.14.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <exclusions>
-          <exclusion>
-            <groupId>org.optaplanner</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>optaplanner-core</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.optaplanner</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>optaplanner-core-impl</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
-          <exclusion>
-            <groupId>org.optaplanner</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-            <artifactId>optaplanner-persistence-common</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-          </exclusion>
-        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.apache.camel</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -7658,26 +7644,6 @@
         <version>3.1.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
       </dependency>
       <dependency>
-        <groupId>org.optaplanner</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>optaplanner-quarkus</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>10.0.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
-        <groupId>org.optaplanner</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>optaplanner-quarkus-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>10.0.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
-        <groupId>org.optaplanner</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>optaplanner-quarkus-jackson</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>10.0.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
-        <groupId>org.optaplanner</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <artifactId>optaplanner-quarkus-jackson-deployment</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-        <version>10.0.0</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
-      </dependency>
-      <dependency>
         <groupId>org.snakeyaml</groupId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <artifactId>snakeyaml-engine</artifactId><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
         <version>2.10</version><!-- org.apache.camel.quarkus:camel-quarkus-bom:${project.version} -->
@@ -9063,16 +9029,6 @@
         <groupId>net.openhft</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
         <artifactId>affinity</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
         <version>3.23.3</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
-      </dependency>
-      <dependency>
-        <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
-        <artifactId>quarkus-hazelcast-client</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
-        <version>4.0.0</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
-      </dependency>
-      <dependency>
-        <groupId>com.hazelcast</groupId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
-        <artifactId>quarkus-hazelcast-client-deployment</artifactId><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
-        <version>4.0.0</version><!-- com.hazelcast:quarkus-hazelcast-client-bom:4.0.0 -->
       </dependency>
       <dependency>
         <groupId>org.smooks</groupId><!-- org.smooks:smooks-bom:2.2.1 -->
