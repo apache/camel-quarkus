@@ -16,12 +16,14 @@
  */
 package org.apache.camel.quarkus.component.kubernetes.deployment;
 
+import io.fabric8.kubernetes.client.ConfigBuilder;
 import io.fabric8.kubernetes.client.KubernetesClient;
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.quarkus.component.kubernetes.CamelKubernetesRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 
@@ -42,5 +44,11 @@ class KubernetesProcessor {
                 "kubernetesClient",
                 KubernetesClient.class.getName(),
                 recorder.getKubernetesClient(beanContainer.getValue()));
+    }
+
+    @BuildStep
+    ReflectiveClassBuildItem reflectiveClasses() {
+        return ReflectiveClassBuildItem.builder(
+                ConfigBuilder.class).constructors().methods().build();
     }
 }
