@@ -5,8 +5,8 @@ cqArtifactIdBase: groovy-xml
 cqNativeSupported: true
 cqStatus: Stable
 cqDeprecated: false
-cqJvmSince: 3.27.0
-cqNativeSince: 3.27.0
+cqJvmSince: 3.29.0
+cqNativeSince: 3.29.0
 cqCamelPartName: groovyXml
 cqCamelPartTitle: Groovy XML
 cqCamelPartDescription: Transform between XML and Groovy Node (Map structure) objects.

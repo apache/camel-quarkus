@@ -86,7 +86,7 @@ class ManagementTest {
     @Test
     public void testDumpStepStatsAsXml() {
         RestAssured.given()
-                .queryParam("name", "org.apache.camel:*,type=routes,name=\"hellostep\"")
+                .queryParam("name", "org.apache.camel:*,type=routes,name=\"hellosteps\"")
                 .queryParam("operation", "dumpStepStatsAsXml")
                 .queryParam("paramTypes", List.of("boolean"))
                 .queryParam("paramValues", List.of("true"))
