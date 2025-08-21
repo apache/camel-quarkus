@@ -30,33 +30,38 @@ public class UniVocityFixedWidthDataFormatUnmarshalRoute extends RouteBuilder {
         final Map<String, DataFormat> testsDataformat = new HashMap<>();
 
         // Default reading of fixed-width
-        testsDataformat.put("default", new UniVocityFixedDataFormat()
-                .setFieldLengths(new int[] { 3, 3, 5 }));
+        UniVocityFixedDataFormat def = new UniVocityFixedDataFormat();
+        def.setFieldLengths("3,3,5");
+        testsDataformat.put("default", def);
 
         // Reading fixed-width as Map
-        testsDataformat.put("map", new UniVocityFixedDataFormat()
-                .setFieldLengths(new int[] { 3, 3, 5 })
-                .setAsMap(true)
-                .setHeaderExtractionEnabled(true));
+        UniVocityFixedDataFormat map = new UniVocityFixedDataFormat();
+        map.setFieldLengths("3,3,5");
+        map.setAsMap(true);
+        map.setHeaderExtractionEnabled(true);
+        testsDataformat.put("map", map);
 
         // Reading fixed-width as Map with specific headers
-        testsDataformat.put("mapWithHeaders", new UniVocityFixedDataFormat()
-                .setFieldLengths(new int[] { 3, 3, 5 })
-                .setAsMap(true)
-                .setHeaders(new String[] { "A", "B", "C" }));
+        UniVocityFixedDataFormat mapWithHeaders = new UniVocityFixedDataFormat();
+        mapWithHeaders.setFieldLengths("3,3,5");
+        mapWithHeaders.setAsMap(true);
+        mapWithHeaders.setHeaders("A,B,C");
+        testsDataformat.put("mapWithHeaders", mapWithHeaders);
 
         // Reading fixed-width using an iterator
-        testsDataformat.put("lazy", new UniVocityFixedDataFormat()
-                .setFieldLengths(new int[] { 3, 3, 5 })
-                .setLazyLoad(true));
+        UniVocityFixedDataFormat lazy = new UniVocityFixedDataFormat();
+        lazy.setFieldLengths("3,3,5");
+        lazy.setLazyLoad(true);
+        testsDataformat.put("lazy", lazy);
 
         // Reading fixed-width using advanced configuration
-        testsDataformat.put("advanced", new UniVocityFixedDataFormat()
-                .setFieldLengths(new int[] { 3, 3 })
-                .setNullValue("N/A")
-                .setPadding('_')
-                .setComment('!')
-                .setSkipEmptyLines(true));
+        UniVocityFixedDataFormat advanced = new UniVocityFixedDataFormat();
+        advanced.setFieldLengths("3,3");
+        advanced.setNullValue("N/A");
+        advanced.setPadding('_');
+        advanced.setComment('!');
+        advanced.setSkipEmptyLines(true);
+        testsDataformat.put("advanced", advanced);
 
         for (Map.Entry<String, DataFormat> testDataformat : testsDataformat.entrySet()) {
             from("direct:fixed-width-unmarshal-" + testDataformat.getKey()).unmarshal(testDataformat.getValue());

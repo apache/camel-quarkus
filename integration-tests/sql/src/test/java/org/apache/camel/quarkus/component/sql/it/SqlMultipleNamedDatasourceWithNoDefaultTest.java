@@ -36,7 +36,7 @@ public class SqlMultipleNamedDatasourceWithNoDefaultTest implements QuarkusTestP
                 .get("/sql/datasource")
                 .then()
                 .statusCode(500)
-                .body(endsWith("DataSource must be configured"));
+                .body(endsWith("Property 'dataSource' is required"));
     }
 
     @Test

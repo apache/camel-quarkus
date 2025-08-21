@@ -36,6 +36,7 @@ import org.apache.camel.spi.CamelBeanPostProcessor;
 import org.apache.camel.spi.ClassResolver;
 import org.apache.camel.spi.ComponentNameResolver;
 import org.apache.camel.spi.ComponentResolver;
+import org.apache.camel.spi.ContextServiceLoaderPluginResolver;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.Language;
@@ -154,6 +155,11 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
     protected FactoryFinderResolver createFactoryFinderResolver() {
         // FactoryFinderResolver is initialized at build time
         return null;
+    }
+
+    @Override
+    protected ContextServiceLoaderPluginResolver createContextServiceLoaderPlugin() {
+        return new QuarkusContextServiceLoaderPlugin();
     }
 
     @Override

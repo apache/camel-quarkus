@@ -27,7 +27,7 @@ public class Routes extends RouteBuilder {
 
         from("direct:start").routeId("hello").setBody().constant("Hello World");
 
-        from("direct:step").routeId("hellostep").step("hellostep")
+        from("direct:step").routeId("hellosteps").step("hellostep")
                 .doTry()
                 .setBody().constant("Hello Step")
                 .process(new Processor() {

@@ -30,20 +30,23 @@ public class UniVocityFixedWidthDataFormatMarshalRoute extends RouteBuilder {
         final Map<String, DataFormat> testsDataformat = new HashMap<>();
 
         // Default writing of fixed-width
-        testsDataformat.put("default", new UniVocityFixedDataFormat()
-                .setFieldLengths(new int[] { 3, 3, 5 }));
+        UniVocityFixedDataFormat def = new UniVocityFixedDataFormat();
+        def.setFieldLengths("3,3,5");
+        testsDataformat.put("default", def);
 
         // Write a fixed-width with specific headers
-        testsDataformat.put("header", new UniVocityFixedDataFormat()
-                .setFieldLengths(new int[] { 3, 5 })
-                .setHeaders(new String[] { "A", "C" }));
+        UniVocityFixedDataFormat header = new UniVocityFixedDataFormat();
+        header.setFieldLengths("3,5");
+        header.setHeaders("A,C");
+        testsDataformat.put("header", header);
 
         // Write a fixed-width with an advanced configuration
-        testsDataformat.put("advanced", new UniVocityFixedDataFormat()
-                .setFieldLengths(new int[] { 5, 5 })
-                .setNullValue("N/A")
-                .setEmptyValue("empty")
-                .setPadding('_'));
+        UniVocityFixedDataFormat advanced = new UniVocityFixedDataFormat();
+        advanced.setFieldLengths("5,5");
+        advanced.setNullValue("N/A");
+        advanced.setEmptyValue("empty");
+        advanced.setPadding('_');
+        testsDataformat.put("advanced", advanced);
 
         for (Map.Entry<String, DataFormat> testDataformat : testsDataformat.entrySet()) {
             from("direct:fixed-width-marshal-" + testDataformat.getKey()).marshal(testDataformat.getValue());
