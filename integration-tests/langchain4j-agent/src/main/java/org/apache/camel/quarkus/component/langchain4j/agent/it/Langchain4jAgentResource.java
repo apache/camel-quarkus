@@ -34,8 +34,8 @@ import org.apache.camel.component.langchain4j.agent.api.AiAgentBody;
 import org.apache.camel.quarkus.component.langchain4j.agent.it.guardrail.ValidationSuccessInputGuardrail;
 import org.apache.camel.quarkus.component.langchain4j.agent.it.guardrail.ValidationSuccessOutputGuardrail;
 
-import static org.apache.camel.component.langchain4j.agent.Headers.MEMORY_ID;
-import static org.apache.camel.component.langchain4j.agent.Headers.SYSTEM_MESSAGE;
+import static org.apache.camel.component.langchain4j.agent.api.Headers.MEMORY_ID;
+import static org.apache.camel.component.langchain4j.agent.api.Headers.SYSTEM_MESSAGE;
 
 @Path("/langchain4j-agent")
 @ApplicationScoped
