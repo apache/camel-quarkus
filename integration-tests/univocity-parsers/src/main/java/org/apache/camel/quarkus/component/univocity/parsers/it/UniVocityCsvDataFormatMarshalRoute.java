@@ -33,17 +33,20 @@ public class UniVocityCsvDataFormatMarshalRoute extends RouteBuilder {
         testsDataformat.put("default", new UniVocityCsvDataFormat());
 
         // Write a CSV with specific headers
-        testsDataformat.put("header", new UniVocityCsvDataFormat()
-                .setHeaders(new String[] { "A", "C" }));
+        UniVocityCsvDataFormat header = new UniVocityCsvDataFormat();
+        header.setHeaders("A,C");
+        testsDataformat.put("header", header);
+
+        UniVocityCsvDataFormat advanced = new UniVocityCsvDataFormat();
+        advanced.setNullValue("N/A");
+        advanced.setEmptyValue("empty");
+        advanced.setQuote('_');
+        advanced.setQuoteAllFields(true);
+        advanced.setQuoteEscape('-');
+        advanced.setDelimiter(';');
 
         // Write a CSV with an advanced configuration
-        testsDataformat.put("advanced", new UniVocityCsvDataFormat()
-                .setNullValue("N/A")
-                .setEmptyValue("empty")
-                .setQuote('_')
-                .setQuoteAllFields(true)
-                .setQuoteEscape('-')
-                .setDelimiter(';'));
+        testsDataformat.put("advanced", advanced);
 
         for (Map.Entry<String, DataFormat> testDataformat : testsDataformat.entrySet()) {
             from("direct:csv-marshal-" + testDataformat.getKey()).marshal(testDataformat.getValue());

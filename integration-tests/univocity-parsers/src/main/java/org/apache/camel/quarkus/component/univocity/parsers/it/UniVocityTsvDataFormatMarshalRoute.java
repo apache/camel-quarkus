@@ -33,13 +33,15 @@ public class UniVocityTsvDataFormatMarshalRoute extends RouteBuilder {
         testsDataformat.put("default", new UniVocityTsvDataFormat());
 
         // Write a TSV with specific headers
-        testsDataformat.put("header", new UniVocityTsvDataFormat()
-                .setHeaders(new String[] { "A", "C" }));
+        UniVocityTsvDataFormat header = new UniVocityTsvDataFormat();
+        header.setHeaders("A,C");
+        testsDataformat.put("header", header);
 
         // Write a TSV with an advanced configuration
-        testsDataformat.put("advanced", new UniVocityTsvDataFormat()
-                .setNullValue("N/A")
-                .setEmptyValue("empty"));
+        UniVocityTsvDataFormat advanced = new UniVocityTsvDataFormat();
+        advanced.setNullValue("N/A");
+        advanced.setEmptyValue("empty");
+        testsDataformat.put("advanced", advanced);
 
         for (Map.Entry<String, DataFormat> testDataformat : testsDataformat.entrySet()) {
             from("direct:tsv-marshal-" + testDataformat.getKey()).marshal(testDataformat.getValue());
