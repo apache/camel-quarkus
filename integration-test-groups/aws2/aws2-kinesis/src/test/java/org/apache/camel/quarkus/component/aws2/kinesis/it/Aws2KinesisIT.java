@@ -17,9 +17,7 @@
 package org.apache.camel.quarkus.component.aws2.kinesis.it;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
-@DisabledIfEnvironmentVariable(named = "CI", matches = "true", disabledReason = "https://github.com/apache/camel-quarkus/issues/6342")
 @QuarkusIntegrationTest
 class Aws2KinesisIT extends Aws2KinesisTest {
 
