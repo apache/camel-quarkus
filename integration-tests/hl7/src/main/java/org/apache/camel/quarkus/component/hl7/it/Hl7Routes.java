@@ -18,9 +18,7 @@ package org.apache.camel.quarkus.component.hl7.it;
 
 import ca.uhn.hl7v2.AcknowledgmentCode;
 import ca.uhn.hl7v2.model.v22.message.ADT_A01;
-import ca.uhn.hl7v2.parser.Parser;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 import org.apache.camel.builder.RouteBuilder;
 
 import static org.apache.camel.component.hl7.HL7.ack;
@@ -28,9 +26,6 @@ import static org.apache.camel.component.hl7.HL7.hl7terser;
 
 @ApplicationScoped
 public class Hl7Routes extends RouteBuilder {
-
-    @Inject
-    Parser parser;
 
     @Override
     public void configure() throws Exception {
@@ -43,7 +38,7 @@ public class Hl7Routes extends RouteBuilder {
 
         from("direct:validateCustom")
                 .unmarshal().hl7(false)
-                .marshal().hl7(parser);
+                .marshal().hl7("parser");
 
         from("direct:marshalUnmarshal")
                 .unmarshal("hl7DataFormat")
