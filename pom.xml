@@ -61,7 +61,7 @@
         <quarkiverse-minio.version>3.8.5</quarkiverse-minio.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/minio/quarkus-minio-parent/ -->
         <quarkiverse-mybatis.version>2.4.1</quarkiverse-mybatis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/mybatis/quarkus-mybatis-parent/ -->
         <quarkiverse-pooled-jms.version>2.8.0</quarkiverse-pooled-jms.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/messaginghub/quarkus-pooled-jms-parent/ -->
-        <quarkus.version>3.27.0.CR1</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
+        <quarkus.version>999-SNAPSHOT</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
         <quarkus-hazelcast-client.version>4.1.0</quarkus-hazelcast-client.version><!-- https://repo1.maven.org/maven2/com/hazelcast/quarkus-hazelcast-client-bom/ -->
         <quarkus-qpid-jms.version>2.9.0</quarkus-qpid-jms.version><!-- This should be in sync with quarkus-platform https://repo1.maven.org/maven2/org/amqphub/quarkus/quarkus-qpid-jms-bom/ -->
 
@@ -162,7 +162,7 @@
         <rxjava3.version>3.1.8</rxjava3.version><!-- Used by amazon-kinesis-client and infinispan-client-hotrod-jakarta -->
         <smallrye.reactive.messaging.camel.version>4.28.0</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
         <smooks.version>${smooks-version}</smooks.version>
-        <snakeyaml.version>2.4</snakeyaml.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.yaml:snakeyaml -->
+        <snakeyaml.version>2.5</snakeyaml.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.yaml:snakeyaml -->
         <snakeyaml-engine.version>${snakeyaml-engine-version}</snakeyaml-engine.version><!-- Resolve conflict between camel-snakeyaml & kubernetes-client -->
         <spring.version>${spring-version}</spring.version>
         <spring.data.redis.version>${spring-data-redis-version}</spring.data.redis.version>
@@ -289,7 +289,7 @@
 
         <!-- maven-enforcer-plugin -->
         <min-maven-version>3.8.2</min-maven-version>
-        <target-maven-version>3.9.9</target-maven-version><!-- @sync io.quarkus:quarkus-build-parent:${quarkus.version} prop:proposed-maven-version -->
+        <target-maven-version>3.9.11</target-maven-version><!-- @sync io.quarkus:quarkus-build-parent:${quarkus.version} prop:proposed-maven-version -->
         <supported-maven-versions>[${min-maven-version},)</supported-maven-versions>
 
         <!-- maven-release-plugin -->
