@@ -33,26 +33,30 @@ public class UniVocityTsvDataFormatUnmarshalRoute extends RouteBuilder {
         testsDataformat.put("default", new UniVocityTsvDataFormat());
 
         // Reading TSV as Map
-        testsDataformat.put("map", new UniVocityTsvDataFormat()
-                .setAsMap(true)
-                .setHeaderExtractionEnabled(true));
+        UniVocityTsvDataFormat map = new UniVocityTsvDataFormat();
+        map.setAsMap(true);
+        map.setHeaderExtractionEnabled(true);
+        testsDataformat.put("map", map);
 
         // Reading TSV as Map with specific headers
-        testsDataformat.put("mapWithHeaders", new UniVocityTsvDataFormat()
-                .setAsMap(true)
-                .setHeaders(new String[] { "A", "B", "C" }));
+        UniVocityTsvDataFormat mapWithHeaders = new UniVocityTsvDataFormat();
+        mapWithHeaders.setAsMap(true);
+        mapWithHeaders.setHeaders("A,B,C");
+        testsDataformat.put("mapWithHeaders", mapWithHeaders);
 
         // Reading TSV using an iterator
-        testsDataformat.put("lazy", new UniVocityTsvDataFormat()
-                .setLazyLoad(true));
+        UniVocityTsvDataFormat lazy = new UniVocityTsvDataFormat();
+        lazy.setLazyLoad(true);
+        testsDataformat.put("lazy", lazy);
 
         // Reading TSV using advanced configuration
-        testsDataformat.put("advanced", new UniVocityTsvDataFormat()
-                .setNullValue("N/A")
-                .setIgnoreLeadingWhitespaces(true)
-                .setIgnoreTrailingWhitespaces(false)
-                .setComment('!')
-                .setSkipEmptyLines(true));
+        UniVocityTsvDataFormat advanced = new UniVocityTsvDataFormat();
+        advanced.setNullValue("N/A");
+        advanced.setIgnoreLeadingWhitespaces(true);
+        advanced.setIgnoreTrailingWhitespaces(false);
+        advanced.setComment('!');
+        advanced.setSkipEmptyLines(true);
+        testsDataformat.put("advanced", advanced);
 
         for (Map.Entry<String, DataFormat> testDataformat : testsDataformat.entrySet()) {
             from("direct:tsv-unmarshal-" + testDataformat.getKey()).unmarshal(testDataformat.getValue());

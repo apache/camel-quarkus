@@ -48,7 +48,7 @@
             <artifactId>quarkus-resteasy</artifactId>
         </dependency>
         <dependency>
-            <groupId>dev.langchain4j</groupId>
+            <groupId>dev.langchain4j</groupId><!-- dev.langchain4j:langchain4j-bom:1.1.0 -->
             <artifactId>langchain4j-ollama</artifactId>
         </dependency>
 
