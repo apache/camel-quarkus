@@ -33,27 +33,31 @@ public class UniVocityCsvDataFormatUnmarshalRoute extends RouteBuilder {
         testsDataformat.put("default", new UniVocityCsvDataFormat());
 
         // Reading CSV as Map
-        testsDataformat.put("map", new UniVocityCsvDataFormat()
-                .setAsMap(true)
-                .setHeaderExtractionEnabled(true));
+        UniVocityCsvDataFormat map = new UniVocityCsvDataFormat();
+        map.setAsMap(true);
+        map.setHeaderExtractionEnabled(true);
+        testsDataformat.put("map", map);
 
         // Reading CSV as Map with specific headers
-        testsDataformat.put("mapWithHeaders", new UniVocityCsvDataFormat()
-                .setAsMap(true)
-                .setHeaders(new String[] { "A", "B", "C" }));
+        UniVocityCsvDataFormat mapWithHeaders = new UniVocityCsvDataFormat();
+        mapWithHeaders.setAsMap(true);
+        mapWithHeaders.setHeaders("A,B,C");
+        testsDataformat.put("mapWithHeaders", mapWithHeaders);
 
         // Reading CSV using an iterator
-        testsDataformat.put("lazy", new UniVocityCsvDataFormat()
-                .setLazyLoad(true));
+        UniVocityCsvDataFormat lazy = new UniVocityCsvDataFormat();
+        lazy.setLazyLoad(true);
+        testsDataformat.put("lazy", lazy);
 
         // Reading CSV using advanced configuration
-        testsDataformat.put("advanced", new UniVocityCsvDataFormat()
-                .setNullValue("N/A")
-                .setDelimiter(';')
-                .setIgnoreLeadingWhitespaces(true)
-                .setIgnoreTrailingWhitespaces(false)
-                .setComment('!')
-                .setSkipEmptyLines(true));
+        UniVocityCsvDataFormat advanced = new UniVocityCsvDataFormat();
+        advanced.setNullValue("N/A");
+        advanced.setDelimiter(';');
+        advanced.setIgnoreLeadingWhitespaces(true);
+        advanced.setIgnoreTrailingWhitespaces(false);
+        advanced.setComment('!');
+        advanced.setSkipEmptyLines(true);
+        testsDataformat.put("advanced", advanced);
 
         for (Map.Entry<String, DataFormat> testDataformat : testsDataformat.entrySet()) {
             from("direct:csv-unmarshal-" + testDataformat.getKey()).unmarshal(testDataformat.getValue());
