@@ -18,6 +18,102 @@
 -->
 # Changelog
 
+## 3.26.0
+
+## What's Changed
+* fix(azure-storage): Shared key credentials type requires credentials … by @avano in https://github.com/apache/camel-quarkus/pull/7544
+* [fixes #7547] Register SimpleSearchTerm for reflection, as Camel conf… by @llowinge in https://github.com/apache/camel-quarkus/pull/7549
+* Generated sources regen for SBOM by @github-actions[bot] in https://github.com/apache/camel-quarkus/pull/7550
+* Fix some deprecated API usage by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7548
+* Next is 3.26.0-SNAPSHOT by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7551
+* Avoid using LaunchMode static method by @gsmet in https://github.com/apache/camel-quarkus/pull/7553
+* Document and apply workaround for Groovy native compilation issues #7361 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7554
+* Mail-microsoft-oauth: clear messages after the test by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7556
+* Bump ibm.mq.client.version from 9.4.2.0 to 9.4.3.0 by @vkasala in https://github.com/apache/camel-quarkus/pull/7557
+* Add changelog for 3.25.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7560
+* Fallback to resolving bean names from @Identifier for RuntimeBeanRepository.findByTypeWithName by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7559
+* Bump com.microsoft.graph:microsoft-graph from 6.47.0 to 6.48.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7564
+* Deprecate / remove some redundant config and test modules by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7566
+* Move main-devmode test module to integration-tests-jvm by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7570
+* Stabilize throttle test by @llowinge in https://github.com/apache/camel-quarkus/pull/7563
+* Fix disabled test in CoreMainTest by @llowinge in https://github.com/apache/camel-quarkus/pull/7571
+* Add note to @Disabled query test in InfinispanTest by @llowinge in https://github.com/apache/camel-quarkus/pull/7573
+* Generated sources regen for SBOM by @github-actions[bot] in https://github.com/apache/camel-quarkus/pull/7577
+* Enable disabled As2Test#clientMultipartSignedTest by @llowinge in https://github.com/apache/camel-quarkus/pull/7576
+* Upgrade Jolokia to 2.3.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7578
+* Upgrade Quarkus Jackson JQ to 2.3.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7579
+* [fix #2407] Enable Bindy native test FixedLengthWithLocaleIT by @llowinge in https://github.com/apache/camel-quarkus/pull/7580
+* Enlarge timeouts for FileTest by @llowinge in https://github.com/apache/camel-quarkus/pull/7581
+* Bump quarkiverse-cxf.version from 3.23.1 to 3.25.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7582
+* Bump quarkiverse-groovy.version from 3.24.4 to 3.25.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7583
+* Apply RoutesDiscoveryConfig deprecation only to enabled() method by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7584
+* Avoid using nested Map for UpdateExtensionDocPageMojo.componentLinkOverrides parameter by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7591
+* Enable InfinispanTest#query test by @llowinge in https://github.com/apache/camel-quarkus/pull/7590
+* Fix DB2 test for Podman by @llowinge in https://github.com/apache/camel-quarkus/pull/7594
+* Enable GrpcTest#forwardOnError test by @llowinge in https://github.com/apache/camel-quarkus/pull/7575
+* Bump actions/download-artifact from 4.3.0 to 5.0.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7595
+* Remove workaround for Camel Quarkus main by @llowinge in https://github.com/apache/camel-quarkus/pull/7596
+* [fixes #7585] Wiremock Olingo4 test by @llowinge in https://github.com/apache/camel-quarkus/pull/7597
+* Enable Infinispan client native tests by @llowinge in https://github.com/apache/camel-quarkus/pull/7598
+* Enable Tika tests by @llowinge in https://github.com/apache/camel-quarkus/pull/7599
+* Remove workaround for Google BigQuery test by @llowinge in https://github.com/apache/camel-quarkus/pull/7600
+* Bump com.microsoft.graph:microsoft-graph from 6.48.0 to 6.49.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7604
+* Restore FOP native mode support by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7602
+* Remove redundant debezium-sqlserver & debezium-mysql test profiles by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7603
+* Avoid usage of VertxHttpConfig runtime configuration for vertx-websocket build time by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7606
+* Generated sources regen for SBOM by @github-actions[bot] in https://github.com/apache/camel-quarkus/pull/7611
+* Fix typo in config property quarkus.camel.dev-ui.update-internal -> quarkus.camel.dev-ui.update-interval by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7612
+* Bump quarkiverse-groovy.version from 3.25.0 to 3.25.1 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7609
+* Remove workaround management dump by @llowinge in https://github.com/apache/camel-quarkus/pull/7610
+* [relates #6083] Enable test for JMX in Camel Debug by @llowinge in https://github.com/apache/camel-quarkus/pull/7613
+* [relates #4084] Remove not needed Spring deps from SQL by @llowinge in https://github.com/apache/camel-quarkus/pull/7614
+* Deprecate camel-quarkus-langchain4j extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7605
+* [resolves #6593] Remove workaround from Swagger by @llowinge in https://github.com/apache/camel-quarkus/pull/7615
+* Fix warning about missing 'java.naming.factory.initial' when camel de… by @llowinge in https://github.com/apache/camel-quarkus/pull/7616
+* Remove not needed explicit versions by @llowinge in https://github.com/apache/camel-quarkus/pull/7617
+* Remove workaround for CAMEL-18143 by @llowinge in https://github.com/apache/camel-quarkus/pull/7618
+* Remove not needed Infinispan exclusions which was needed for differen… by @llowinge in https://github.com/apache/camel-quarkus/pull/7619
+* Bump actions/checkout from 4.2.2 to 5.0.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7621
+* [relates #4089] Enable FTPS tests by @llowinge in https://github.com/apache/camel-quarkus/pull/7623
+* Move CamelGraphQLConfig phase to BUILD_TIME by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7624
+* Use maven container image properties when referencing image names by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7625
+* Bump com.microsoft.graph:microsoft-graph from 6.49.0 to 6.50.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7627
+* Rebalance native CI tests group 8 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7569
+* Remove native mode workarounds for Google Cloud extensions by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7628
+* Evenly distribute modules across alternate JDK test groups by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7629
+* Remove redundant log format override in AS2 extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7630
+* Upgrade Quarkus to 3.26.0.CR1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7631
+* Upgrade Cassandra Quarkus to 1.3.0-rc1 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7633
+* Avoid configuring JasyptPropertiesParser unless encrypted properties are detected by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7635
+* Bump quarkiverse-langchain4j.version from 1.1.0 to 1.1.1 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7622
+* Bump cq-plugin.version from 4.17.10 to 4.18.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7641
+* Update Dev UI dependencies to relocated GAVs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7639
+* Generated sources regen for SBOM by @github-actions[bot] in https://github.com/apache/camel-quarkus/pull/7642
+* Add section for observability-services extension to observability documentation by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7643
+* Remove spring-rabbitmq limitations by @llowinge in https://github.com/apache/camel-quarkus/pull/7648
+* Enable ContinuousDevTest by @llowinge in https://github.com/apache/camel-quarkus/pull/7646
+* Remove workaround for FOP extension by @llowinge in https://github.com/apache/camel-quarkus/pull/7647
+* Remove Google Pubsub Micrometer BOM workaround by @llowinge in https://github.com/apache/camel-quarkus/pull/7649
+* Move RUNTIME_INIT CamelContext customizations to CamelContextCustomizers by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7650
+* Sync LangChain4j extension status with their Camel component metadata by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7652
+* Upgrade Cassandra Quarkus to 1.3.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7653
+* Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.11.2 to 3.11.3 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7654
+* Fix AsciiDoc attribute substitution in MapStruct and Jasypt documentation by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7655
+* Upgrade camel to 4.14.0 by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7644
+* Remove LevelDB workaround by @llowinge in https://github.com/apache/camel-quarkus/pull/7656
+* Add langchain4j-agent JVM only extension by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7657
+* Bump quarkiverse-groovy.version from 3.25.1 to 3.25.3 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7658
+* Rebalance native CI tests group 4 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7659
+* Fix order of applying system properties to camel main by @llowinge in https://github.com/apache/camel-quarkus/pull/7660
+* Upgrade Quarkus to 3.26.0 by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7662
+* Fixed Oracle native failure in grouped tests by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7665
+* Remove unnecessary comments and disabled annotations in jdbc tests by @JiriOndrusek in https://github.com/apache/camel-quarkus/pull/7666
+* Bump quarkiverse-cxf.version from 3.25.0 to 3.26.0 by @dependabot[bot] in https://github.com/apache/camel-quarkus/pull/7668
+* Demote Hazelcast & OptaPlanner extensions to JVM only by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7661
+
+
+**Full Changelog**: https://github.com/apache/camel-quarkus/compare/3.25.0...3.26.0
+
 ## 3.25.0
 
 * Add workflow to test LTS branches with Quarkus LTS SNAPSHOTs by @jamesnetherton in https://github.com/apache/camel-quarkus/pull/7454
