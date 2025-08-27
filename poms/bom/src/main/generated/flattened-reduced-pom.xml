@@ -6662,7 +6662,7 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-base</artifactId>
-        <version>8.2.1</version>
+        <version>8.4.0</version>
         <exclusions>
           <exclusion>
             <groupId>com.google.code.findbugs</groupId>
@@ -6681,12 +6681,12 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-client</artifactId>
-        <version>8.2.1</version>
+        <version>8.4.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-dstu2.1</artifactId>
-        <version>8.2.1</version>
+        <version>8.4.0</version>
         <exclusions>
           <exclusion>
             <groupId>junit</groupId>
@@ -6701,17 +6701,17 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-dstu3</artifactId>
-        <version>8.2.1</version>
+        <version>8.4.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-hl7org-dstu2</artifactId>
-        <version>8.2.1</version>
+        <version>8.4.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-r4</artifactId>
-        <version>8.2.1</version>
+        <version>8.4.0</version>
         <exclusions>
           <exclusion>
             <groupId>org.glassfish</groupId>
@@ -6726,37 +6726,37 @@
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>hapi-fhir-structures-r5</artifactId>
-        <version>8.2.1</version>
+        <version>8.4.0</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.dstu2</artifactId>
-        <version>6.5.18</version>
+        <version>6.5.27</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.dstu2016may</artifactId>
-        <version>6.5.18</version>
+        <version>6.5.27</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.dstu3</artifactId>
-        <version>6.5.18</version>
+        <version>6.5.27</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.r4</artifactId>
-        <version>6.5.18</version>
+        <version>6.5.27</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.r5</artifactId>
-        <version>6.5.18</version>
+        <version>6.5.27</version>
       </dependency>
       <dependency>
         <groupId>ca.uhn.hapi.fhir</groupId>
         <artifactId>org.hl7.fhir.utilities</artifactId>
-        <version>6.5.18</version>
+        <version>6.5.27</version>
       </dependency>
       <dependency>
         <groupId>com.dylibso.chicory</groupId>
@@ -7260,17 +7260,17 @@
       <dependency>
         <groupId>io.swagger.core.v3</groupId>
         <artifactId>swagger-annotations-jakarta</artifactId>
-        <version>2.2.32</version>
+        <version>2.2.36</version>
       </dependency>
       <dependency>
         <groupId>io.swagger.core.v3</groupId>
         <artifactId>swagger-core-jakarta</artifactId>
-        <version>2.2.32</version>
+        <version>2.2.36</version>
       </dependency>
       <dependency>
         <groupId>io.swagger.core.v3</groupId>
         <artifactId>swagger-models-jakarta</artifactId>
-        <version>2.2.32</version>
+        <version>2.2.36</version>
       </dependency>
       <dependency>
         <groupId>io.swagger.parser.v3</groupId>
