@@ -31,10 +31,10 @@ public class TavilyTestResource extends WireMockTestResourceLifecycleManager {
 
         String wiremockUrl = configuration.get("wiremock.url");
         if (ObjectHelper.isNotEmpty(wiremockUrl)) {
-            configuration.put("quarkus.langchain4j.tavily.base-url", wiremockUrl);
+            configuration.put("langchain4j.tavily.base-url", wiremockUrl);
         }
 
-        configuration.put("quarkus.langchain4j.tavily.api-key", envOrDefault(TAVILY_API_KEY, "test-key"));
+        configuration.put("langchain4j.tavily.api-key", envOrDefault(TAVILY_API_KEY, "test-key"));
         return configuration;
     }
 

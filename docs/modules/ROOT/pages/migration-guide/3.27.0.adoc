@@ -1,0 +1,13 @@
+= Camel Quarkus 3.27.0 Migration Guide
+
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 3.27.0.
+
+== Deprecated extension `camel-quarkus-langchain4j` removed
+
+Extension `camel-quarkus-langchain4j` was deprecated in Camel Quarkus 3.26.0. It has been removed in 3.27.0.
+
+== Quarkus LangChain4j removed from Camel Quarkus LangChain4j extensions
+
+To better align with the core functionality provided by the Camel LangChain4j components, Quarkus LangChain4j functionality has been removed from all Camel Quarkus LangChain4j extensions.
+
+The components provided by these extensions are now configured as per the instructions in their respective Camel component documentation.

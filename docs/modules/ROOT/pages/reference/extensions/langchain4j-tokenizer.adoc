@@ -45,17 +45,17 @@ Check the xref:user-guide/index.adoc[User guide] for more information about writ
 endif::[]
 
 [id="extensions-langchain4j-tokenizer-quarkus-langchain4j-bom"]
-== Ensure Quarkus LangChain4j dependencies version alignment with the Bom
+== LangChain4j dependency management
 
-In order to ensure alignment across all Quarkus and LangChain4j related dependencies, it is recommended to import the Quarkus LangChain4j bom as below:
+In order to ensure alignment across all Quarkus and LangChain4j related dependencies, it is recommended to import the LangChain4j BOM as below:
 [source,xml]
 ----
 <dependencyManagement>
   <dependencies>
     <dependency>
-      <groupId>io.quarkiverse.langchain4j</groupId>
-      <artifactId>quarkus-langchain4j-bom</artifactId>
-      <version>${insert your version here}</version>
+      <groupId>dev.langchain4j</groupId>
+      <artifactId>langchain4j-bom</artifactId>
+      <version>1.1.0</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>
@@ -65,4 +65,4 @@ In order to ensure alignment across all Quarkus and LangChain4j related dependen
 ----
 
 Note that the import order is paramount when using maven `dependencyManagement`.
-As such, one might need to import the `quarkus-langchain4j-bom` before other related Camel and Quarkus boms.
+As such, one might need to import the `langchain4j-bom` before other related Camel and Quarkus BOMs.

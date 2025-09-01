@@ -4998,11 +4998,6 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-langchain4j</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-langchain4j-agent</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
@@ -5019,11 +5014,6 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-langchain4j-chat-deployment</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-langchain4j-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
@@ -7330,16 +7320,6 @@
                 <groupId>io.quarkiverse.jsch</groupId>
                 <artifactId>quarkus-jsch-deployment</artifactId>
                 <version>${quarkiverse-jsch.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.langchain4j</groupId>
-                <artifactId>quarkus-langchain4j-core</artifactId>
-                <version>${quarkiverse-langchain4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.langchain4j</groupId>
-                <artifactId>quarkus-langchain4j-core-deployment</artifactId>
-                <version>${quarkiverse-langchain4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.quarkiverse.messaginghub</groupId>

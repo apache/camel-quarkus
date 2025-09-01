@@ -202,6 +202,7 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         model.put("hasDurationOption", configOptions.stream().anyMatch(ConfigItem::isTypeDuration));
         model.put("hasMemSizeOption", configOptions.stream().anyMatch(ConfigItem::isTypeMemSize));
         model.put("configOptions", configOptions);
+        model.put("langchain4jVersion", project.getProperties().get("langchain4j.version"));
         model.put("humanReadableKind", new TemplateMethodModelEx() {
             @Override
             public Object exec(List arguments) throws TemplateModelException {

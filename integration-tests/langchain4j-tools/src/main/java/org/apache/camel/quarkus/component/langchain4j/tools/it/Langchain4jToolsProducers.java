@@ -14,24 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.support.langchain4j;
+package org.apache.camel.quarkus.component.langchain4j.tools.it;
 
-import java.lang.annotation.Annotation;
+import java.time.Duration;
 
-import io.quarkiverse.langchain4j.ModelName;
-import io.quarkus.runtime.RuntimeValue;
-import io.quarkus.runtime.annotations.Recorder;
-import org.apache.camel.quarkus.core.CamelBeanQualifierResolver;
+import dev.langchain4j.model.chat.ChatModel;
+import dev.langchain4j.model.ollama.OllamaChatModel;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-@Recorder
-public class Langchain4jRecorder {
-    public RuntimeValue<CamelBeanQualifierResolver> chatModelBeanQualifierResolver(String modelName) {
-        final ModelName.Literal modelNameLiteral = ModelName.Literal.of(modelName);
-        return new RuntimeValue<>(new CamelBeanQualifierResolver() {
-            @Override
-            public Annotation[] resolveQualifiers() {
-                return new Annotation[] { modelNameLiteral };
-            }
-        });
+@ApplicationScoped
+public class Langchain4jToolsProducers {
+    @ConfigProperty(name = "langchain4j.ollama.base-url")
+    String ollamaBaseUrl;
+
+    @Produces
+    ChatModel chatModel() {
+        return new OllamaChatModel.OllamaChatModelBuilder()
+                .baseUrl(ollamaBaseUrl)
+                .modelName("llama3.1")
+                .temperature(0.0)
+                .timeout(Duration.ofSeconds(30))
+                .build();
     }
 }
