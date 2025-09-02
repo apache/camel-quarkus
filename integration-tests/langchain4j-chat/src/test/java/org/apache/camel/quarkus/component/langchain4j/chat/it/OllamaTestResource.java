@@ -21,14 +21,14 @@ import java.util.Map;
 import org.apache.camel.quarkus.test.wiremock.WireMockTestResourceLifecycleManager;
 
 public class OllamaTestResource extends WireMockTestResourceLifecycleManager {
-    private static final String OLLAMA_ENV_URL = "QUARKUS_LANGCHAIN4J_OLLAMA_BASE_URL";
+    private static final String OLLAMA_ENV_URL = "LANGCHAIN4J_OLLAMA_BASE_URL";
 
     @Override
     public Map<String, String> start() {
         Map<String, String> properties = super.start();
         String wiremockUrl = properties.get("wiremock.url");
         String url = wiremockUrl != null ? wiremockUrl : getRecordTargetBaseUrl();
-        properties.put("quarkus.langchain4j.ollama.base-url", url);
+        properties.put("langchain4j.ollama.base-url", url);
         return properties;
     }
 
