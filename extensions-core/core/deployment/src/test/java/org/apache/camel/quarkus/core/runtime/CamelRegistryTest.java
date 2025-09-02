@@ -82,6 +82,9 @@ public class CamelRegistryTest {
         assertThat(registry.findByTypeWithName(String.class))
                 .containsEntry("bean-1", "a")
                 .containsEntry("bean-2", "b");
+
+        // Incorrect type lookup should return null
+        assertThat(registry.lookupByNameAndType("bean-1", Integer.class)).isNull();
     }
 
     @ApplicationScoped

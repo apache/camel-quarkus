@@ -157,7 +157,9 @@ public final class RuntimeBeanRepository implements BeanRepository {
                     result = instance.get();
                 }
             } else {
-                result = instance.get();
+                if (type.isInstance(instance.get())) {
+                    result = instance.get();
+                }
             }
         }
 
