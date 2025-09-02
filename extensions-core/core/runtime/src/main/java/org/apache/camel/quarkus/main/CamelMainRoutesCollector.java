@@ -22,6 +22,9 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.main.DefaultRoutesCollector;
 import org.apache.camel.quarkus.core.RegistryRoutesLoader;
+import org.apache.camel.spi.Resource;
+import org.apache.camel.spi.ResourceAware;
+import org.apache.camel.support.ResourceHelper;
 
 public class CamelMainRoutesCollector extends DefaultRoutesCollector {
     private final RegistryRoutesLoader registryRoutesLoader;
@@ -40,6 +43,23 @@ public class CamelMainRoutesCollector extends DefaultRoutesCollector {
             String excludePattern,
             String includePattern) {
 
-        return registryRoutesLoader.collectRoutesFromRegistry(camelContext, excludePattern, includePattern);
+        List<RoutesBuilder> routes = registryRoutesLoader.collectRoutesFromRegistry(camelContext, excludePattern,
+                includePattern);
+        for (RoutesBuilder route : routes) {
+            if (route instanceof ResourceAware ra) {
+                configureSourceResource(camelContext, route, ra);
+            }
+        }
+        return routes;
+    }
+
+    private static void configureSourceResource(CamelContext camelContext, RoutesBuilder route, ResourceAware ra) {
+        if (ra.getResource() == null) {
+            String uri = "source:" + route.getClass().getName().replace("_ClientProxy", "");
+            Resource r = ResourceHelper.resolveResource(camelContext, uri);
+            if (r != null && r.exists()) {
+                ra.setResource(r);
+            }
+        }
     }
 }

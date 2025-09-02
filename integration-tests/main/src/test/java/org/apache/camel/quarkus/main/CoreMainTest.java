@@ -17,7 +17,10 @@
 package org.apache.camel.quarkus.main;
 
 import java.net.HttpURLConnection;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Map;
+import java.util.function.BooleanSupplier;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -28,6 +31,7 @@ import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.ServiceStatus;
 import org.apache.camel.quarkus.core.DisabledModelToXMLDumper;
 import org.apache.camel.quarkus.core.RegistryRoutesLoaders;
+import org.apache.camel.quarkus.test.EnabledIf;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
 import org.apache.camel.reactive.vertx.VertXThreadPoolFactory;
 import org.apache.camel.support.DefaultLRUCacheFactory;
@@ -38,6 +42,7 @@ import static org.apache.camel.quarkus.test.Conditions.entry;
 import static org.apache.camel.quarkus.test.Conditions.startsWith;
 import static org.apache.camel.util.CollectionHelper.mapOf;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -220,5 +225,23 @@ public class CoreMainTest {
                 .then()
                 .statusCode(200)
                 .body(is("true"));
+    }
+
+    // Avoid running in the Quarkus Platform where there are no .java source files
+    @EnabledIf(SrcDirectoryExists.class)
+    @Test
+    public void routeSourceResource() {
+        RestAssured.given()
+                .get("/test/context/route/source/resource")
+                .then()
+                .statusCode(200)
+                .body(containsString("public class " + CamelCdiBeanRoute.class.getSimpleName()));
+    }
+
+    public static class SrcDirectoryExists implements BooleanSupplier {
+        @Override
+        public boolean getAsBoolean() {
+            return Files.exists(Paths.get("src/main/java"));
+        }
     }
 }
