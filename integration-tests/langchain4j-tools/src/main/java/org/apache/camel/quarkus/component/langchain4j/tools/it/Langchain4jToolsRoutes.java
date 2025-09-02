@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.langchain4j.tools.it;
 
-import com.fasterxml.jackson.databind.node.TextNode;
+import com.fasterxml.jackson.databind.node.IntNode;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.builder.RouteBuilder;
@@ -37,8 +37,8 @@ public class Langchain4jToolsRoutes extends RouteBuilder {
         // TODO: Investigate removing this with Camel >= 4.13
         Message message = exchange.getMessage();
         Object header = message.getHeader("user_id");
-        if (header instanceof TextNode) {
-            message.setHeader("user_id", ((TextNode) header).asInt());
+        if (header instanceof IntNode) {
+            message.setHeader("user_id", ((IntNode) header).asInt());
         }
     }
 }

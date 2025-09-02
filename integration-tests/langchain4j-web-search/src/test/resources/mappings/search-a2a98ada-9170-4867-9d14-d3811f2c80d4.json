@@ -1,0 +1,26 @@
+{
+  "id" : "a2a98ada-9170-4867-9d14-d3811f2c80d4",
+  "name" : "search",
+  "request" : {
+    "url" : "/search",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"api_key\" : \"test-key\",\n  \"query\" : \"In what year was Apache Camel 1.0 released?\",\n  \"include_answer\" : false,\n  \"include_raw_content\" : false,\n  \"max_results\" : 1\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"query\":\"In what year was Apache Camel 1.0 released?\",\"follow_up_questions\":null,\"answer\":null,\"images\":[],\"results\":[{\"url\":\"https://raymondmeester.medium.com/apache-camel-xml-vs-json-314bb71073e7\",\"title\":\"Apache Camel: XML vs. JSON - Raymond Meester - Medium\",\"content\":\"Apache Camel, released in 2007 , supported most of these standards. But things were about to shift towards JSON. Does Camel support this format today just as well?\",\"score\":0.98554,\"raw_content\":null}],\"response_time\":1.02}",
+    "headers" : {
+      "server" : "uvicorn",
+      "content-security-policy" : "default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self';base-uri 'self';form-action 'self'; require-trusted-types-for 'script'; upgrade-insecure-requests;",
+      "Date" : "Tue, 05 Aug 2025 14:46:08 GMT",
+      "Content-Type" : "application/json"
+    }
+  },
+  "uuid" : "a2a98ada-9170-4867-9d14-d3811f2c80d4",
+  "persistent" : true,
+  "insertionIndex" : 1
+}

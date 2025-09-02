@@ -14,28 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.langchain.it;
+package org.apache.camel.quarkus.component.langchain4j.web.search.it;
 
+import java.util.Optional;
+
+import dev.langchain4j.web.search.WebSearchEngine;
+import dev.langchain4j.web.search.tavily.TavilyWebSearchEngine;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import org.apache.camel.builder.RouteBuilder;
+import jakarta.enterprise.inject.Produces;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
-public class LangChain4jRoute extends RouteBuilder {
+public class Langchain4jWebSearchProducers {
+    @ConfigProperty(name = "langchain4j.tavily.api-key")
+    String tavilyApiKey;
 
-    @Inject
-    MirrorAiService mirrorAiService;
+    @ConfigProperty(name = "langchain4j.tavily.base-url")
+    Optional<String> tavilyBaseUrl;
 
-    @Override
-    public void configure() {
-        from("direct:camel-annotations-should-work-as-expected")
-                .setHeader("headerName", constant("headerValue"))
-                .bean(mirrorAiService);
-
-        from("direct:ai-service-should-be-resolvable-by-interface")
-                .bean(AiServiceResolvedByInterface.class);
-
-        from("direct:ai-service-should-be-resolvable-by-name")
-                .bean("aiServiceResolvedByName");
+    @Produces
+    WebSearchEngine webSearchEngine() {
+        return TavilyWebSearchEngine.builder()
+                .apiKey(tavilyApiKey)
+                .baseUrl(tavilyBaseUrl.orElse(null))
+                .includeAnswer(false)
+                .includeRawContent(false)
+                .build();
     }
 }
