@@ -128,7 +128,7 @@ public class LangChain4jChatResource {
     @Named("m1")
     ChatModel model() {
         return OllamaChatModel.builder()
-                .baseUrl(ConfigProvider.getConfig().getValue("quarkus.langchain4j.ollama.base-url", String.class))
+                .baseUrl(ConfigProvider.getConfig().getValue("langchain4j.ollama.base-url", String.class))
                 .modelName("orca-mini")
                 .temperature(0.3)
                 .build();
@@ -138,7 +138,7 @@ public class LangChain4jChatResource {
     @Named("m2")
     ChatModel model2() {
         return OllamaChatModel.builder()
-                .baseUrl(ConfigProvider.getConfig().getValue("quarkus.langchain4j.ollama.base-url", String.class))
+                .baseUrl(ConfigProvider.getConfig().getValue("langchain4j.ollama.base-url", String.class))
                 .modelName("orca-mini")
                 .temperature(0.3)
                 .build();

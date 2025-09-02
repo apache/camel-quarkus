@@ -8,7 +8,7 @@ When Ollama is running, set the following environment variables:
 
 [source,shell]
 ----
-export QUARKUS_LANGCHAIN4J_OLLAMA_BASE_URL=your-ollama-api-url
+export LANGCHAIN4J_OLLAMA_BASE_URL=your-ollama-api-url
 ----
 
 If the WireMock stub recordings need updating, then remove the existing files from `src/test/resources/mappings` and run tests with either:
