@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.main;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -37,6 +38,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
+import org.apache.camel.Route;
 import org.apache.camel.ServiceStatus;
 import org.apache.camel.component.log.LogComponent;
 import org.apache.camel.impl.debugger.DebuggerJmxConnectorService;
@@ -52,6 +54,7 @@ import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.Language;
 import org.apache.camel.spi.ReactiveExecutor;
+import org.apache.camel.spi.Resource;
 import org.apache.camel.spi.ThreadPoolFactory;
 import org.apache.camel.support.DefaultRegistry;
 import org.apache.camel.support.LRUCacheFactory;
@@ -323,5 +326,17 @@ public class CoreMainResource {
     @POST
     public void runtimeStart() {
         camelRuntime.start();
+    }
+
+    @Path("/context/route/source/resource")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String contextRouteSourceResource() throws IOException {
+        Route route = main.getCamelContext().getRoute("camel-cdi-bean-route");
+        Resource sourceResource = route.getSourceResource();
+        if (sourceResource != null && sourceResource.exists()) {
+            return new String(sourceResource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+        }
+        return null;
     }
 }
