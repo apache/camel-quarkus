@@ -20,7 +20,6 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -28,7 +27,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 @QuarkusTest
 @TestHTTPEndpoint(CouchbaseResource.class)
 @QuarkusTestResource(CouchbaseTestResource.class)
-@DisabledIfEnvironmentVariable(named = "CI", matches = "true")
 public class CouchbasePollTest {
 
     @Test
