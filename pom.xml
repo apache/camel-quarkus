@@ -160,7 +160,6 @@
         <reactor-netty.version>${reactor-netty-version}</reactor-netty.version>
         <retrofit.version>2.9.0</retrofit.version><!-- @sync org.influxdb:influxdb-java:${influxdb.version} dep:com.squareup.retrofit2:retrofit -->
         <rxjava3.version>3.1.8</rxjava3.version><!-- Used by amazon-kinesis-client and infinispan-client-hotrod-jakarta -->
-        <smallrye-fault-tolerance-standalone.version>6.9.2</smallrye-fault-tolerance-standalone.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye:smallrye-fault-tolerance -->
         <smallrye.reactive.messaging.camel.version>4.28.0</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
         <smooks.version>${smooks-version}</smooks.version>
         <snakeyaml.version>2.4</snakeyaml.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.yaml:snakeyaml -->
