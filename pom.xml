@@ -567,7 +567,6 @@
                                     <exclude>**/*.conf</exclude>
                                     <exclude>**/*.csv</exclude>
                                     <exclude>**/*.der</exclude>
-                                    <exclude>**/*.disabled</exclude>
                                     <exclude>**/*.ext</exclude>
                                     <exclude>**/*.ftl</exclude>
                                     <exclude>**/*.graphql</exclude>
