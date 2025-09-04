@@ -7208,11 +7208,6 @@
         <version>3.1.8</version>
       </dependency>
       <dependency>
-        <groupId>io.smallrye</groupId>
-        <artifactId>smallrye-fault-tolerance-standalone</artifactId>
-        <version>6.9.2</version>
-      </dependency>
-      <dependency>
         <groupId>io.smallrye.reactive</groupId>
         <artifactId>smallrye-reactive-messaging-camel</artifactId>
         <version>4.28.0</version>

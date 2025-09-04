@@ -7367,11 +7367,6 @@
                 <version>${rxjava3.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.smallrye</groupId>
-                <artifactId>smallrye-fault-tolerance-standalone</artifactId>
-                <version>${smallrye-fault-tolerance-standalone.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>io.smallrye.reactive</groupId>
                 <artifactId>smallrye-reactive-messaging-camel</artifactId>
                 <version>${smallrye.reactive.messaging.camel.version}</version>
